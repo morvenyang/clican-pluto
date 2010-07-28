@@ -1,0 +1,26 @@
+<rich:tabPanel id="leftPanel" switchType="client"
+	style="overflow:auto;width:280px;height:650px"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:c="http://java.sun.com/jstl/core">
+	<ui:include src="tree.xhtml" />
+	<ui:include src="datastructure.xhtml" />
+	<rich:tab id="templatesTab" label="Templates">
+		<h:form>
+			<rich:contextMenu attachTo="templatesTab" submitMode="none">
+				<rich:menuItem value="New Template" submitMode="ajax"
+					action="#{templateAction.newTemplate()}" reRender="workspace">
+				</rich:menuItem>
+			</rich:contextMenu>
+			<rich:dataList id="templateList" var="template"
+				value="#{templateList}">
+				<h:outputText value="#{template.name}" />
+			</rich:dataList>
+		</h:form>
+	</rich:tab>
+</rich:tabPanel>
