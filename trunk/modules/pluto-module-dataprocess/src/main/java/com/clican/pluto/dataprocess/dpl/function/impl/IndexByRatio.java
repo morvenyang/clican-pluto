@@ -1,0 +1,76 @@
+/**
+ * The Clican-Pluto software suit is Copyright 2009, Clican Company and individual contributors, and is licensed under the GNU LGPL.
+ *
+ * @author wei.zhang
+ *
+ */
+package com.clican.pluto.dataprocess.dpl.function.impl;
+
+import java.util.List;
+import java.util.Map;
+
+import com.clican.pluto.dataprocess.dpl.parser.bean.PrefixAndSuffix;
+import com.clican.pluto.dataprocess.dpl.parser.object.From;
+import com.clican.pluto.dataprocess.engine.ProcessorContext;
+import com.clican.pluto.dataprocess.exception.CalculationException;
+import com.clican.pluto.dataprocess.exception.DplParseException;
+import com.clican.pluto.dataprocess.exception.PrefixAndSuffixException;
+
+/**
+ * 根据单个收益率计算指数,根据对应的是否结转来计算指数
+ * <p>
+ * indexByRatio(double ratio,boolean convert)
+ * 
+ * @author wei.zhang
+ * 
+ */
+public class IndexByRatio extends BaseSingleRowFunction {
+
+	public final static Double DEFAULT_INDEX = 10000d;
+	
+	private Double index = DEFAULT_INDEX;
+
+	private PrefixAndSuffix ratio;
+
+	private Double previousIndex;
+
+	private Double previousConvertIndex;
+
+	private PrefixAndSuffix convert;
+
+	@Override
+	public Object calculate(Map<String, Object> row) throws CalculationException, PrefixAndSuffixException {
+		boolean con = Boolean.parseBoolean(convert.getValue(row).toString());
+		Number ratioValue = ratio.getValue(row);
+		if (ratioValue == null) {
+			ratioValue = 0;
+		}
+		if (previousIndex == null || previousConvertIndex == null) {
+			previousIndex = index;
+			previousConvertIndex = index;
+		}
+		previousIndex = previousIndex + ratioValue.doubleValue() * previousConvertIndex;
+		if (con) {
+			previousConvertIndex = previousIndex;
+		}
+		return previousIndex;
+	}
+
+	@Override
+	public boolean isSupportWhere() throws DplParseException {
+		return false;
+	}
+
+	@Override
+	public void setParams(List<Object> params, From from, ProcessorContext context) throws DplParseException {
+		super.setParams(params, from, context);
+		this.ratio = this.pasList.get(0);
+		this.convert = this.pasList.get(1);
+		if (this.pasList.size() == 3) {
+			index = this.pasList.get(2).getConstantsValue(Double.class);
+		}
+	}
+
+}
+
+// $Id: IndexByRatio.java 14954 2010-06-17 08:43:16Z wei.zhang $
