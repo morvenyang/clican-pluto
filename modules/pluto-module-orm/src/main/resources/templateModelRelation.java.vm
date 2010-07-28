@@ -1,0 +1,94 @@
+/**
+ * The Clican-Pluto software suit is Copyright 2009, Clican Company
+ * and individual contributors, and is licensed under the GNU LGPL.
+ *
+ * @author wezhang
+ *
+ */
+package com.clican.pluto.orm.model.dynamic;
+
+import javax.persistence.*;
+
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.apache.commons.lang.builder.ToStringBuilder;
+
+import com.clican.pluto.orm.annotation.DynamicModel;
+
+import com.clican.pluto.orm.dynamic.inter.IDataModel;
+import com.clican.pluto.orm.dynamic.inter.ITemplateModelRelation;
+import com.clican.pluto.orm.dynamic.inter.ITemplate;
+
+
+@Entity(name="Template${modelDescription.firstCharUpperName}Relation")
+@Table(name = "TEMPLATE_${modelDescription.name.toUpperCase()}_RELATION")
+public class Template${modelDescription.firstCharUpperName}Relation implements ITemplateModelRelation {
+
+	private static final long serialVersionUID = 1L;
+	
+	private Long id;
+
+	private ITemplate template;
+
+	private IDataModel dataModel;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "ID")
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	@ManyToOne(fetch = FetchType.EAGER, targetEntity = Template.class)
+	@JoinColumn(name = "TEMPLATE_ID", nullable = false)
+	public ITemplate getTemplate() {
+		return template;
+	}
+
+	public void setTemplate(ITemplate template) {
+		this.template = template;
+	}
+
+	@ManyToOne(fetch = FetchType.EAGER,targetEntity=${modelDescription.firstCharUpperName}.class)
+	@JoinColumn(name = "${modelDescription.name.toUpperCase()}_ID", nullable = false)
+	@DynamicModel
+	public IDataModel getDataModel() {
+		return dataModel;
+	}
+
+	public void setDataModel(IDataModel dataModel) {
+		this.dataModel = dataModel;
+	}
+
+	/**
+	 * @see java.lang.Object#toString()
+	 */
+	public String toString() {
+		return new ToStringBuilder(this).append("id", this.id).append(
+				"template", this.template).append("dataModel", this.dataModel)
+				.toString();
+	}
+
+	/**
+	 * @see java.lang.Object#hashCode()
+	 */
+	public int hashCode() {
+		return new HashCodeBuilder(1180669685, 1761359893).append(this.id).append(this.template).append(this.dataModel)
+				.toHashCode();
+	}
+
+	/**
+	 * @see java.lang.Object#equals(Object)
+	 */
+	public boolean equals(Object object) {
+		if (!(object instanceof Template${modelDescription.firstCharUpperName}Relation)) {
+			return false;
+		}
+		Template${modelDescription.firstCharUpperName}Relation rhs = (Template${modelDescription.firstCharUpperName}Relation) object;
+		return new EqualsBuilder().append(this.id, rhs.getId()).append(this.template, rhs.getTemplate()).append(this.dataModel,rhs.getDataModel()).isEquals();
+	}
+}
