@@ -1,0 +1,93 @@
+/**
+ * The Clican-Pluto software suit is Copyright 2009, Clican Company
+ * and individual contributors, and is licensed under the GNU LGPL.
+ *
+ * @author wezhang
+ *
+ */
+package com.clican.pluto.orm.model.dynamic;
+
+import javax.persistence.*;
+
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.apache.commons.lang.builder.ToStringBuilder;
+
+import com.clican.pluto.orm.dynamic.inter.IDirectory;
+import com.clican.pluto.orm.dynamic.inter.ITemplateDirectoryRelation;
+import com.clican.pluto.orm.dynamic.inter.ITemplate;
+import com.clican.pluto.orm.model.dynamic.Template;
+import com.clican.pluto.orm.model.dynamic.Directory;
+
+@Entity(name="TemplateDirectoryRelation")
+@Table(name = "TEMPLATE_DIRECTORY_RELATION")
+public class TemplateDirectoryRelation implements ITemplateDirectoryRelation {
+
+	private static final long serialVersionUID = 1L;
+
+	private Long id;
+
+	private ITemplate template;
+
+	private IDirectory directory;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "ID")
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	@ManyToOne(fetch = FetchType.EAGER, targetEntity = Template.class)
+	@JoinColumn(name = "TEMPLATE_ID", nullable = false)
+	public ITemplate getTemplate() {
+		return template;
+	}
+
+	public void setTemplate(ITemplate template) {
+		this.template = template;
+	}
+
+	@ManyToOne(fetch = FetchType.EAGER, targetEntity = Directory.class)
+	@JoinColumn(name = "DIRECTORY_ID", nullable = false)
+	public IDirectory getDirectory() {
+		return directory;
+	}
+
+	public void setDirectory(IDirectory directory) {
+		this.directory = directory;
+	}
+
+	/**
+	 * @see java.lang.Object#equals(Object)
+	 */
+	public boolean equals(Object object) {
+		if (!(object instanceof TemplateDirectoryRelation)) {
+			return false;
+		}
+		TemplateDirectoryRelation rhs = (TemplateDirectoryRelation) object;
+		return new EqualsBuilder().append(this.id, rhs.getId()).append(this.directory,rhs.getDirectory()).append(this.template, rhs.getTemplate()).isEquals();
+	}
+
+	/**
+	 * @see java.lang.Object#toString()
+	 */
+	public String toString() {
+		return new ToStringBuilder(this).append("id", this.id).append(
+				"template", this.template).append("directory", this.directory)
+				.toString();
+	}
+
+	/**
+	 * @see java.lang.Object#hashCode()
+	 */
+	public int hashCode() {
+		return new HashCodeBuilder(-1103200835, 221421551).append(this.id).append(this.directory).append(this.template)
+				.toHashCode();
+	}
+
+}
