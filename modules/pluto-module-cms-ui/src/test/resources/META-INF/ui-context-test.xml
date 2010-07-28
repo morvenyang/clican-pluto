@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+http://www.springframework.org/schema/aop 
+http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+http://www.springframework.org/schema/tx 
+http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+">
+
+	<bean id="dynamicClassLoader" class="com.clican.pluto.orm.dynamic.impl.DynamicClassLoader"
+		init-method="init">
+		<property name="tempORMCfgPojoFolder" value="${tempORMCfgPojoFolder}" />
+	</bean>
+
+	<bean id="lobHandler" class="org.springframework.jdbc.support.lob.DefaultLobHandler"
+		lazy-init="true">
+	</bean>
+
+	<bean id="sessionFactory"
+		class="com.clican.pluto.orm.dynamic.impl.LocalWrapSessionFactoryBean">
+		<property name="dataSource" ref="xaDataSource" />
+		<property name="lobHandler" ref="lobHandler" />
+		<property name="dynamicClassLoader" ref="dynamicClassLoader" />
+		<property name="packagesToScan"
+			value="com.clican.pluto.orm.model,com.clican.pluto.orm.model.dynamic" />
+		<property name="jtaTransactionManager" ref="transactionManager"/>
+		<property name="hibernateProperties">
+			<value>
+				hibernate.dialect=${db.dialect}
+				hibernate.jndi.class=com.clican.pluto.common.util.MockContextFactory
+				jta.UserTransaction=userTransaction
+				hibernate.hbm2ddl.auto=update
+			</value>
+		</property>
+	</bean>
+
+	<!-- Resource Part -->
+	<bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:META-INF/ui-test.properties
+				</value>
+			</list>
+		</property>
+	</bean>
+
+</beans>

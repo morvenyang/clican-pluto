@@ -1,0 +1,34 @@
+<rich:modalPanel id="templateConfigurationPanel"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:c="http://java.sun.com/jstl/core" height="350" width="500">
+	<f:facet name="header">
+		<h:panelGroup>
+			<h:outputText value="Template Configuration"></h:outputText>
+		</h:panelGroup>
+	</f:facet>
+	<a4j:form id="templateConfigurationForm">
+		<rich:listShuttle sourceValue="#{dataModelAction.remainedTemplates}"
+			targetValue="#{dataModelAction.selectedTemplates}" var="template"
+			listHeight="300" listWidth="300"
+			sourceCaptionLabel="Available Templates"
+			targetCaptionLabel="Selected Templates" converter="templateConverter">
+			<rich:column>
+				<h:outputText value="#{template.name}"></h:outputText>
+			</rich:column>
+		</rich:listShuttle>
+		<h:panelGrid columns="2">
+			<a4j:commandButton action="#{dataModelAction.saveConfiguration}"
+				value="Save"
+				onclick="Richfaces.hideModalPanel('templateConfigurationPanel');" />
+			<a4j:commandButton action="#{dataModelAction.cancel}" value="Cancel"
+				ajaxSingle="true"
+				onclick="Richfaces.hideModalPanel('templateConfigurationPanel');" />
+		</h:panelGrid>
+	</a4j:form>
+</rich:modalPanel>
