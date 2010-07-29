@@ -50,9 +50,9 @@ public class TravelWorkFlowTestCase extends BaseFsmEngineTestCase {
 	public void testTimeoutWorkFlow() throws Exception {
 		Session session = engineContext.newSession("travel", "4");
 		Calendar startDate = Calendar.getInstance();
-		startDate.add(Calendar.SECOND, 1);
+		startDate.add(Calendar.MINUTE, 1);
 		Calendar endDate = Calendar.getInstance();
-		endDate.add(Calendar.SECOND, 4);
+		endDate.add(Calendar.MINUTE, 4);
 		Map<String, Serializable> parameters = new HashMap<String, Serializable>();
 		parameters.put("leaders", "1,2,3");
 		parameters.put("startDate", startDate.getTime());
@@ -64,9 +64,9 @@ public class TravelWorkFlowTestCase extends BaseFsmEngineTestCase {
 		this.simulateCompleteTask(session, "1", "auditing_application",
 				VoteResult.AGREE);
 		validateState(session, "application_pass");
-		Thread.sleep(5 * 1000);
+		Thread.sleep(60*2 * 1000);
 		validateState(session, "on_travel");
-		Thread.sleep(2 * 1000);
+		Thread.sleep(60*2 * 1000);
 		this.simulateCompleteTask(session, "4", "submit_report", null,
 				parameters);
 		this.simulateCompleteTask(session, "1", "auditing_report",
