@@ -23,7 +23,7 @@ public class Min extends BaseMultiRowFunction {
 	 */
 	private PrefixAndSuffix prefixAndSuffix;
 
-	@Override
+	
 	public void setParams(List<Object> params, From from,ProcessorContext context) throws DplParseException {
 		super.setParams(params, from,context);
 		if (params == null || params.size() != 1) {
@@ -33,7 +33,7 @@ public class Min extends BaseMultiRowFunction {
 	}
 
 	@SuppressWarnings("unchecked")
-	@Override
+	
 	public Object calculate(List<Map<String, Object>> rowSet) throws CalculationException,PrefixAndSuffixException {
 		Comparable result = null;
 		for (Map<String, Object> row : rowSet) {

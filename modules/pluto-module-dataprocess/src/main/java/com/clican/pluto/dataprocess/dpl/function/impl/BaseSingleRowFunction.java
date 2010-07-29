@@ -41,7 +41,7 @@ public abstract class BaseSingleRowFunction extends BaseFunction implements Sing
 
 								private Object value;
 
-								@Override
+								
 								public Object getValue() throws CalculationException, PrefixAndSuffixException {
 									if (value == null) {
 										value = ((SingleRowFunction) pas.getFunction()).recurseCalculate(rowSet, rowCopy);
@@ -59,7 +59,7 @@ public abstract class BaseSingleRowFunction extends BaseFunction implements Sing
 							rowCopy.put(pas.getFunction().getId(), new FunctionCallback() {
 								private Object value;
 
-								@Override
+								
 								public Object getValue() throws CalculationException, PrefixAndSuffixException {
 									if (value == null) {
 										value = ((MultiRowFunction) pas.getFunction()).recurseCalculate(rowSet);
@@ -85,7 +85,7 @@ public abstract class BaseSingleRowFunction extends BaseFunction implements Sing
 
 	}
 
-	@Override
+	
 	public boolean containMultiRowCalculation() {
 		for (PrefixAndSuffix pas : this.pasList) {
 			if (pas.getFunction() instanceof MultiRowFunction) {

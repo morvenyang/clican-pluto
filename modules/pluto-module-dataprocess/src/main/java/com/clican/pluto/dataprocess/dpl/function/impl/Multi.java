@@ -30,7 +30,7 @@ public class Multi extends BaseSingleRowFunction {
 
 	private PrefixAndSuffix pas1;
 	private PrefixAndSuffix pas2;
-	@Override
+	
 	public Object calculate(Map<String, Object> row) throws CalculationException,PrefixAndSuffixException {
 		Number value1 = pas1.getValue(row);
 		Number value2 = pas2.getValue(row);
@@ -38,12 +38,12 @@ public class Multi extends BaseSingleRowFunction {
 		return result;
 	}
 
-	@Override
+	
 	public boolean isSupportWhere() throws DplParseException {
 		return true;
 	}
 
-	@Override
+	
 	public void setParams(List<Object> params, From from, ProcessorContext context) throws DplParseException {
 		super.setParams(params, from, context);
 		pas1 = this.pasList.get(0);

@@ -26,7 +26,7 @@ import com.clican.pluto.dataprocess.engine.processes.DplExecProcessor;
  */
 public class DplExecProcessorParser extends AbstractProcessorParser {
 	@SuppressWarnings("unchecked")
-	@Override
+	
 	public void customiseBeanDefinition(BeanDefinition beanDef, Element element, ParserContext parserContext) {
 		this.setBeanDefinitionStringProperty("resultName", beanDef, element);
 
@@ -59,7 +59,7 @@ public class DplExecProcessorParser extends AbstractProcessorParser {
 		beanDef.getPropertyValues().addPropertyValue("dpl", element.getTextContent().trim());
 	}
 
-	@Override
+	
 	public Class<? extends DataProcessor> getDataProcessorClass() {
 		return DplExecProcessor.class;
 	}

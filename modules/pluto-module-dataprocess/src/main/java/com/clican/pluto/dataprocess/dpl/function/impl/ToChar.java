@@ -53,7 +53,7 @@ public class ToChar extends BaseSingleRowFunction {
 
 	private int mmwindex = -1;
 
-	@Override
+	
 	public Object calculate(Map<String, Object> row) throws CalculationException, PrefixAndSuffixException {
 		Object obj = valuePas.getValue(row);
 		if (obj == null) {
@@ -139,7 +139,7 @@ public class ToChar extends BaseSingleRowFunction {
 		return result;
 	}
 
-	@Override
+	
 	public void setParams(List<Object> params, From from, ProcessorContext context) throws DplParseException {
 		super.setParams(params, from, context);
 		if (params == null || !(params.size() == 2 || params.size() == 1)) {
@@ -167,7 +167,7 @@ public class ToChar extends BaseSingleRowFunction {
 		}
 	}
 
-	@Override
+	
 	public boolean isSupportWhere() {
 		return true;
 	}

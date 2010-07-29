@@ -60,7 +60,7 @@ public class YieldByWeight extends BaseMultiRowFunction {
 
 	private int index = 0;
 
-	@Override
+	
 	public Object calculate(List<Map<String, Object>> rowSet) throws CalculationException,PrefixAndSuffixException {
 		if (index == 0) {
 			for (Map<String, Object> row : rowSet) {
@@ -121,7 +121,7 @@ public class YieldByWeight extends BaseMultiRowFunction {
 		return (currentMoney - previousMoney) / previousMoney;
 	}
 
-	@Override
+	
 	public void setParams(List<Object> params, From from,ProcessorContext context) throws DplParseException {
 		super.setParams(params, from,context);
 		this.pricePas = this.pasList.get(0);

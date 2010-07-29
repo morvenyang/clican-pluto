@@ -23,7 +23,7 @@ public abstract class BaseParamSingleRowFunction extends BaseSingleRowFunction {
 
 	public final static String CALCULATE_METHOD_NAME = "calculate";
 
-	@Override
+	
 	public Object calculate(Map<String, Object> row) throws CalculationException, PrefixAndSuffixException {
 		Object[] arg = new Object[this.pasList.size()];
 		Class<?>[] classType = new Class<?>[this.pasList.size()];

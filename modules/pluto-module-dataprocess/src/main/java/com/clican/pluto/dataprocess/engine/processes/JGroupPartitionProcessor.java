@@ -123,7 +123,7 @@ public class JGroupPartitionProcessor extends BaseDataProcessor {
 	}
 
 	@SuppressWarnings("unchecked")
-	@Override
+	
 	public synchronized void process(final ProcessorContext context) throws DataProcessException {
 		if (partition == null) {
 			partitionProcess(context);
@@ -155,7 +155,7 @@ public class JGroupPartitionProcessor extends BaseDataProcessor {
 					subContext.setAttribute(partitionListName, new ArrayList<Object>(partitionList.subList(i * length, (i + 1) * length)));
 				}
 				Thread t = new Thread() {
-					@Override
+					
 					public void run() {
 						try {
 							ProcessorContext returnContext = (ProcessorContext) partition.callMethodOnNode(serviceName, "partitionProcess",

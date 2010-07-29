@@ -54,7 +54,7 @@ public class SemiStandardDeviation extends BaseMultiRowFunction {
 		return result;
 	}
 
-	@Override
+	
 	public void setParams(List<Object> params, From from, ProcessorContext context) throws DplParseException {
 		super.setParams(params, from, context);
 		this.estimateVectorPas = pasList.get(0);

@@ -32,7 +32,7 @@ public class ReturnRate extends BaseSingleRowFunction {
 
 	private Double previousValue;
 
-	@Override
+	
 	public Object calculate(Map<String, Object> row) throws CalculationException, PrefixAndSuffixException {
 		Double obj = ((Number)valuePas.getValue(row)).doubleValue();
 		if (previousValue == null) {
@@ -44,7 +44,7 @@ public class ReturnRate extends BaseSingleRowFunction {
 		return result;
 	}
 
-	@Override
+	
 	public void setParams(List<Object> params, From from, ProcessorContext context) throws DplParseException {
 		super.setParams(params, from, context);
 		valuePas = this.pasList.get(0);
@@ -53,7 +53,7 @@ public class ReturnRate extends BaseSingleRowFunction {
 		}
 	}
 
-	@Override
+	
 	public boolean isSupportWhere() {
 		return false;
 	}

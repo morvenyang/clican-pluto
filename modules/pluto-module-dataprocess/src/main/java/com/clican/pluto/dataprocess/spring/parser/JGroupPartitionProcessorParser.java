@@ -22,7 +22,7 @@ import com.clican.pluto.dataprocess.engine.processes.JGroupPartitionProcessor;
 public class JGroupPartitionProcessorParser extends AbstractProcessorParser {
 
 	@SuppressWarnings("unchecked")
-	@Override
+	
 	public void customiseBeanDefinition(BeanDefinition beanDef, Element element, ParserContext parserContext) {
 		((RootBeanDefinition) beanDef).setInitMethodName("init");
 		String partition = element.getAttribute("partition");
@@ -54,7 +54,7 @@ public class JGroupPartitionProcessorParser extends AbstractProcessorParser {
 		beanDef.getPropertyValues().addPropertyValue("partitionProcessors", partitionProcessorList);
 	}
 
-	@Override
+	
 	public Class<? extends DataProcessor> getDataProcessorClass() {
 		return JGroupPartitionProcessor.class;
 	}

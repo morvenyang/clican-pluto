@@ -92,7 +92,7 @@ public class TimerProcessor extends BaseDataProcessor {
 		}
 	}
 
-	@Override
+	
 	public void process(final ProcessorContext context) throws DataProcessException {
 		String id = UUID.randomUUID().toString();
 		Date start = DateUtils.truncate(new Date(), Calendar.DAY_OF_MONTH);
@@ -105,7 +105,7 @@ public class TimerProcessor extends BaseDataProcessor {
 			start = sdf2.parse(sdf1.format(start) + " " + startTime.trim());
 			end = sdf2.parse(sdf1.format(end) + " " + endTime.trim());
 			ScheduledTask task = new ScheduledTask(new Runnable() {
-				@Override
+				
 				public void run() {
 					log.debug("调用timerProcessor前,当前时间是：" + sdf2.format(new Date()));
 					try {

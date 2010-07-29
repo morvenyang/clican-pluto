@@ -27,7 +27,7 @@ import com.clican.pluto.dataprocess.engine.processes.ConditionProcessor;
 public class ConditionProcessorParser extends AbstractProcessorParser {
 
 	@SuppressWarnings("unchecked")
-	@Override
+	
 	public void customiseBeanDefinition(BeanDefinition beanDef, Element element, ParserContext parserContext) {
 		NodeList nodeList = element.getChildNodes();
 		ManagedMap processorMap = new ManagedMap();
@@ -55,7 +55,7 @@ public class ConditionProcessorParser extends AbstractProcessorParser {
 		beanDef.getPropertyValues().addPropertyValue("dataProcessorMap", processorMap);
 	}
 
-	@Override
+	
 	public Class<? extends DataProcessor> getDataProcessorClass() {
 		return ConditionProcessor.class;
 	}

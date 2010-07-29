@@ -21,14 +21,14 @@ import com.clican.pluto.dataprocess.exception.DataProcessException;
  */
 public class DataProcessTransactionImpl implements DataProcessTransaction {
 
-	@Override
+	
 	public DataProcessor doInCommit(DataProcessor processor, ProcessorContext context) throws DataProcessException {
 		processor.beforeProcess(context);
 		processor.process(context);
 		return processor.afterProcess(context);
 	}
 
-	@Override
+	
 	public void doOneProcessInCommit(DataProcessor processor, ProcessorContext context) throws DataProcessException {
 		processor.process(context);
 	}

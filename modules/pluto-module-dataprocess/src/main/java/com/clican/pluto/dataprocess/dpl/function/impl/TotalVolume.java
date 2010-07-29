@@ -31,12 +31,12 @@ public class TotalVolume extends BaseFunction implements SingleRowFunction {
 
 	private double sumAmount = 0;
 
-	@Override
+	
 	public Object calculate(Map<String, Object> row) throws CalculationException, PrefixAndSuffixException {
 		throw new CalculationException("This method shall never be invoked");
 	}
 
-	@Override
+	
 	public boolean containMultiRowCalculation() {
 		for (PrefixAndSuffix pas : this.pasList) {
 			if (pas.getFunction() instanceof MultiRowFunction) {
@@ -46,7 +46,7 @@ public class TotalVolume extends BaseFunction implements SingleRowFunction {
 		return false;
 	}
 
-	@Override
+	
 	public Object recurseCalculate(List<Map<String, Object>> rowSet, Map<String, Object> row) throws CalculationException, PrefixAndSuffixException {
 		if (previousTotalVolume == null) {
 			previousTotalVolume = ((Number) ptv.getValue(row)).doubleValue();
@@ -72,12 +72,12 @@ public class TotalVolume extends BaseFunction implements SingleRowFunction {
 		return totalVolume;
 	}
 
-	@Override
+	
 	public boolean isSupportWhere() throws DplParseException {
 		return false;
 	}
 
-	@Override
+	
 	public void setParams(List<Object> params, From from, ProcessorContext context) throws DplParseException {
 		super.setParams(params, from, context);
 		this.amount = this.pasList.get(0);

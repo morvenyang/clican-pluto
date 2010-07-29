@@ -34,7 +34,7 @@ public class Decode extends BaseSingleRowFunction {
 
 	private PrefixAndSuffix pas3;
 
-	@Override
+	
 	public Object calculate(Map<String, Object> row) throws CalculationException, PrefixAndSuffixException {
 		Boolean result = pas1.getValue(row);
 		if (result) {
@@ -44,12 +44,12 @@ public class Decode extends BaseSingleRowFunction {
 		}
 	}
 
-	@Override
+	
 	public boolean isSupportWhere() throws DplParseException {
 		return true;
 	}
 
-	@Override
+	
 	public void setParams(List<Object> params, From from, ProcessorContext context) throws DplParseException {
 		super.setParams(params, from, context);
 		pas1 = this.pasList.get(0);

@@ -21,7 +21,7 @@ public class YieldByExchange extends MoneyByExchange {
 
 	private Double previousMoney;
 
-	@Override
+	
 	public Object calculate(List<Map<String, Object>> rowSet) throws CalculationException,PrefixAndSuffixException {
 		if (previousMoney == null) {
 			return 0d;

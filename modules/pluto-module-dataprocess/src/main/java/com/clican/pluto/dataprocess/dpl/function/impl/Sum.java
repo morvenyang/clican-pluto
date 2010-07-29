@@ -30,13 +30,13 @@ public class Sum extends BaseMultiRowFunction {
 	 */
 	private PrefixAndSuffix prefixAndSuffix;
 
-	@Override
+	
 	public void setParams(List<Object> params, From from, ProcessorContext context) throws DplParseException {
 		super.setParams(params, from, context);
 		prefixAndSuffix = this.getPrefixeAndSuffix(params).get(0);
 	}
 
-	@Override
+	
 	public Object calculate(List<Map<String, Object>> rowSet) throws CalculationException,PrefixAndSuffixException {
 		Number result = null;
 		for (Map<String, Object> row : rowSet) {

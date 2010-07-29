@@ -30,22 +30,22 @@ public class ForProcessorTestCase extends TestCase {
 
 	private List<DataProcessor> getIteratorProcessors() {
 		DataProcessor p = new DataProcessor() {
-			@Override
+			
 			public DataProcessor afterProcess(ProcessorContext context) throws DataProcessException {
 				return null;
 			}
 
-			@Override
+			
 			public void beforeProcess(ProcessorContext context) throws DataProcessException {
 
 			}
 
-			@Override
+			
 			public String getTransaction() {
 				return null;
 			}
 
-			@Override
+			
 			public void process(ProcessorContext context) throws DataProcessException {
 
 			}

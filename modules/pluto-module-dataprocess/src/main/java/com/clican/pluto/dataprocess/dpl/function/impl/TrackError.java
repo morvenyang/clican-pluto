@@ -36,7 +36,7 @@ public class TrackError extends BaseMultiRowFunction {
 	 *            基金和指数日回报率之差的List
 	 * @see com.clican.pluto.dataprocess.dpl.function.MultiRowFunction#calculate(java.util.List)
 	 */
-	@Override
+	
 	public Object calculate(List<Map<String, Object>> rowSet) throws CalculationException, PrefixAndSuffixException {
 		if (rowSet == null || rowSet.size() == 0) {
 			throw new CalculationException("计算指数跟踪误差的数据不完整");
@@ -60,7 +60,7 @@ public class TrackError extends BaseMultiRowFunction {
 		return result;
 	}
 
-	@Override
+	
 	public void setParams(List<Object> params, From from, ProcessorContext context) throws DplParseException {
 		super.setParams(params, from, context);
 		fundNavList = this.pasList.get(0);

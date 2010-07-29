@@ -30,7 +30,6 @@ public class Atr extends BaseMultiRowFunction {
 	 */
 	private PrefixAndSuffix exchangePas;
 
-	@Override
 	public Object calculate(List<Map<String, Object>> rowSet) throws CalculationException,PrefixAndSuffixException {
 		List<Double> exchangeList = new ArrayList<Double>();
 		Double buy = 0d;

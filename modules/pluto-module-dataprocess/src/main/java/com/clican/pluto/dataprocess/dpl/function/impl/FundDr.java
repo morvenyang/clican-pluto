@@ -30,7 +30,7 @@ public class FundDr extends BaseSingleRowFunction {
 	
 	private Double previousSplit;
 
-	@Override
+	
 	public Object calculate(Map<String, Object> row) throws CalculationException,PrefixAndSuffixException {
 		if (previousNav == null) {
 			previousNav = prevNav.getValue(row);
@@ -60,12 +60,12 @@ public class FundDr extends BaseSingleRowFunction {
 		return result;
 	}
 
-	@Override
+	
 	public boolean isSupportWhere() throws DplParseException {
 		return false;
 	}
 
-	@Override
+	
 	public void setParams(List<Object> params, From from, ProcessorContext context) throws DplParseException {
 		super.setParams(params, from, context);
 		navPas = this.pasList.get(0);

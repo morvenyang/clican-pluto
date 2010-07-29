@@ -60,7 +60,7 @@ public class MoneyByExchange extends BaseMultiRowFunction {
 
 	protected Map<Object, Double> previousNumberMap = new HashMap<Object, Double>();
 
-	@Override
+	
 	public Object calculate(List<Map<String, Object>> rowSet) throws CalculationException,PrefixAndSuffixException {
 		double money = 0;
 		for (Map<String, Object> row : rowSet) {
@@ -84,7 +84,7 @@ public class MoneyByExchange extends BaseMultiRowFunction {
 		return money;
 	}
 
-	@Override
+	
 	public void setParams(List<Object> params, From from, ProcessorContext context) throws DplParseException {
 		super.setParams(params, from, context);
 		if (params == null || params.size() != 4) {

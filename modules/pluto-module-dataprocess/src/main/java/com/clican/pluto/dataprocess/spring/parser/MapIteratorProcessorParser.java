@@ -26,7 +26,7 @@ import com.clican.pluto.dataprocess.engine.processes.MapIteratorProcessor;
 public class MapIteratorProcessorParser extends AbstractProcessorParser {
 
 	@SuppressWarnings("unchecked")
-	@Override
+	
 	public void customiseBeanDefinition(BeanDefinition beanDef, Element element, ParserContext parserContext) {
 		this.setBeanDefinitionStringProperty("elementName", beanDef, element);
 		this.setBeanDefinitionStringProperty("mapName", beanDef, element);
@@ -39,7 +39,7 @@ public class MapIteratorProcessorParser extends AbstractProcessorParser {
 		beanDef.getPropertyValues().addPropertyValue("iteratorProcessors", iteratorProcessorList);
 	}
 
-	@Override
+	
 	public Class<? extends DataProcessor> getDataProcessorClass() {
 		return MapIteratorProcessor.class;
 	}

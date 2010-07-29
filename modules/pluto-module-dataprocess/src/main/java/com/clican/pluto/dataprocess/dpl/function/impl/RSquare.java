@@ -35,7 +35,7 @@ public class RSquare extends BaseMultiRowFunction {
 	 */
 	private PrefixAndSuffix referVectorPas;
 
-	@Override
+	
 	public Object calculate(List<Map<String, Object>> rowSet) throws CalculationException,PrefixAndSuffixException {
 		List<Double> estimateValueList = new ArrayList<Double>();
 		List<Double> referValueList = new ArrayList<Double>();
@@ -64,7 +64,7 @@ public class RSquare extends BaseMultiRowFunction {
 		return result;
 	}
 
-	@Override
+	
 	public void setParams(List<Object> params, From from, ProcessorContext context) throws DplParseException {
 		super.setParams(params, from, context);
 		if (params == null || params.size() != 2) {

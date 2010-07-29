@@ -20,7 +20,7 @@ public class Count extends BaseMultiRowFunction {
 
 	private PrefixAndSuffix valuePas;
 
-	@Override
+	
 	public Object calculate(List<Map<String, Object>> rowSet) throws CalculationException, PrefixAndSuffixException {
 		int size = 0;
 		for (Map<String, Object> row : rowSet) {
@@ -32,7 +32,7 @@ public class Count extends BaseMultiRowFunction {
 		return size;
 	}
 
-	@Override
+	
 	public void setParams(List<Object> params, From from, ProcessorContext context) throws DplParseException {
 		super.setParams(params, from, context);
 		this.valuePas = this.pasList.get(0);

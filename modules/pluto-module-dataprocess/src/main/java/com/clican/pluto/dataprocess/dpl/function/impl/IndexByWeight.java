@@ -23,7 +23,7 @@ import com.clican.pluto.dataprocess.exception.DplParseException;
  */
 public class IndexByWeight extends YieldByWeight {
 
-	@Override
+	
 	protected double getResult(double currentMoney) {
 		return currentMoney;
 	}

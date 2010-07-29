@@ -45,12 +45,12 @@ public class ProcessorContextImpl implements ProcessorContext {
 	}
 
 	@SuppressWarnings("unchecked")
-	@Override
+	
 	public <T> T getAttribute(String name) {
 		return (T) context.get(name);
 	}
 
-	@Override
+	
 	public String[] getAttributeNames() {
 		List<String> arrtibuteNames = new ArrayList<String>();
 		synchronized (context) {
@@ -61,13 +61,13 @@ public class ProcessorContextImpl implements ProcessorContext {
 		return arrtibuteNames.toArray(new String[] {});
 	}
 
-	@Override
+	
 	public void setAttribute(String name, Object value) {
 		context.put(name, value);
 	}
 
 	@SuppressWarnings("unchecked")
-	@Override
+	
 	public ProcessorContext getCloneContext() {
 		ProcessorContext processorContext = new ProcessorContextImpl();
 		processorContext.setProcessorGroupName(this.processorGroupName);
@@ -85,7 +85,7 @@ public class ProcessorContextImpl implements ProcessorContext {
 		return processorContext;
 	}
 
-	@Override
+	
 	public Map<String, Object> getMap() {
 		Map<String, Object> map = new HashMap<String, Object>();
 		synchronized (context) {
@@ -94,17 +94,17 @@ public class ProcessorContextImpl implements ProcessorContext {
 		return map;
 	}
 
-	@Override
+	
 	public boolean contains(String name) {
 		return context.containsKey(name);
 	}
 
-	@Override
+	
 	public String getProcessorGroupName() {
 		return processorGroupName;
 	}
 
-	@Override
+	
 	public void setProcessorGroupName(String processorGroupName) {
 		this.processorGroupName = processorGroupName;
 	}

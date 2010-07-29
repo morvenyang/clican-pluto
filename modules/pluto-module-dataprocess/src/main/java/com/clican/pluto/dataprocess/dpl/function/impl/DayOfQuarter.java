@@ -30,7 +30,7 @@ public class DayOfQuarter extends BaseSingleRowFunction {
 
 	private PrefixAndSuffix date;
 
-	@Override
+	
 	public Object calculate(Map<String, Object> row) throws CalculationException, PrefixAndSuffixException {
 		Date d = date.getValue(row);
 		SimpleDateFormat sdf = new SimpleDateFormat("MMdd");
@@ -61,12 +61,12 @@ public class DayOfQuarter extends BaseSingleRowFunction {
 		}
 	}
 
-	@Override
+	
 	public boolean isSupportWhere() throws DplParseException {
 		return true;
 	}
 
-	@Override
+	
 	public void setParams(List<Object> params, From from, ProcessorContext context) throws DplParseException {
 		super.setParams(params, from, context);
 		this.date = pasList.get(0);

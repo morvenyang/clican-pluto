@@ -51,7 +51,7 @@ public class AndFilter extends Filter {
 		}
 	}
 
-	@Override
+	
 	public String getExpr() {
 		return filter1.getExpr() + " and " + filter2.getExpr();
 	}
@@ -73,7 +73,7 @@ public class AndFilter extends Filter {
 		}
 	}
 
-	@Override
+	
 	public void filter(ProcessorContext context) throws DplParseException {
 		ProcessorContext context1 = context.getCloneContext();
 		ProcessorContext context2;
@@ -180,7 +180,7 @@ public class AndFilter extends Filter {
 					}
 					//对结果集合根据联合order来排序，维护好Join前后的数据顺序
 					Collections.sort(filterList, new Comparator<Map<String, Object>>() {
-						@Override
+						
 						public int compare(Map<String, Object> map1, Map<String, Object> map2) {
 							Integer[] o1 = order.get(map1);
 							Integer[] o2 = order.get(map2);
@@ -229,7 +229,7 @@ public class AndFilter extends Filter {
 
 			List<Object> list = new ArrayList<Object>(set);
 			Collections.sort(list, new Comparator<Object>() {
-				@Override
+				
 				public int compare(Object o1, Object o2) {
 					int order1 = map.get(o1);
 					int order2 = map.get(o2);
@@ -243,7 +243,7 @@ public class AndFilter extends Filter {
 		}
 	}
 
-	@Override
+	
 	public int priority() {
 		return filter1.priority() + filter2.priority();
 	}

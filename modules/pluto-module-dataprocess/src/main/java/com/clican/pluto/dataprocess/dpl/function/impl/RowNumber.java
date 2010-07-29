@@ -36,12 +36,12 @@ public class RowNumber extends BaseFunction implements SingleRowFunction {
 	 */
 	private PrefixAndSuffix value;
 
-	@Override
+	
 	public Object calculate(Map<String, Object> row) throws CalculationException, PrefixAndSuffixException {
 		throw new CalculationException("This method shall never be invoked");
 	}
 
-	@Override
+	
 	public boolean containMultiRowCalculation() {
 		for (PrefixAndSuffix pas : this.pasList) {
 			if (pas.getFunction() instanceof MultiRowFunction) {
@@ -51,19 +51,19 @@ public class RowNumber extends BaseFunction implements SingleRowFunction {
 		return false;
 	}
 
-	@Override
+	
 	public Object recurseCalculate(List<Map<String, Object>> rowSet, Map<String, Object> row) throws CalculationException, PrefixAndSuffixException {
 		List<Object> list = listValue.getValue(row);
 		Object v = value.getValue(row);
 		return new Integer(list.indexOf(v)).doubleValue();
 	}
 
-	@Override
+	
 	public boolean isSupportWhere() throws DplParseException {
 		return true;
 	}
 
-	@Override
+	
 	public void setParams(List<Object> params, From from, ProcessorContext context) throws DplParseException {
 		super.setParams(params, from, context);
 		this.listValue = this.pasList.get(0);

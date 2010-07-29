@@ -21,7 +21,7 @@ public class GroupList extends BaseMultiRowFunction {
 
 	private PrefixAndSuffix listName;
 
-	@Override
+	
 	public Object calculate(List<Map<String, Object>> rowSet) throws CalculationException,PrefixAndSuffixException {
 		if (listName == null) {
 			return rowSet;
@@ -34,7 +34,7 @@ public class GroupList extends BaseMultiRowFunction {
 		}
 	}
 
-	@Override
+	
 	public void setParams(List<Object> params, From from, ProcessorContext context) throws DplParseException {
 		// TODO Auto-generated method stub
 		super.setParams(params, from, context);

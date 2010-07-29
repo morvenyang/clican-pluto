@@ -29,7 +29,7 @@ import com.clican.pluto.dataprocess.exception.PrefixAndSuffixException;
  */
 public abstract class BaseMultiRowFunction extends BaseFunction implements MultiRowFunction {
 
-	@Override
+	
 	public final Object recurseCalculate(final List<Map<String, Object>> rowSet) throws CalculationException, PrefixAndSuffixException {
 		try {
 			final List<Map<String, Object>> rowSetCopy = new ArrayList<Map<String, Object>>();
@@ -47,7 +47,7 @@ public abstract class BaseMultiRowFunction extends BaseFunction implements Multi
 								rowCopy.put(pas.getFunction().getId(), new FunctionCallback() {
 									private Object value;
 
-									@Override
+									
 									public Object getValue() throws CalculationException, PrefixAndSuffixException {
 										if (value == null) {
 											value = ((SingleRowFunction) pas.getFunction()).recurseCalculate(rowSetCopy, rowCopy);
@@ -75,7 +75,7 @@ public abstract class BaseMultiRowFunction extends BaseFunction implements Multi
 
 	}
 
-	@Override
+	
 	public boolean isSupportWhere() throws DplParseException {
 		return false;
 	}

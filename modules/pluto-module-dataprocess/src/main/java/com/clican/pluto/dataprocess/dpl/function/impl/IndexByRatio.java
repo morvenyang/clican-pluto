@@ -38,7 +38,7 @@ public class IndexByRatio extends BaseSingleRowFunction {
 
 	private PrefixAndSuffix convert;
 
-	@Override
+	
 	public Object calculate(Map<String, Object> row) throws CalculationException, PrefixAndSuffixException {
 		boolean con = Boolean.parseBoolean(convert.getValue(row).toString());
 		Number ratioValue = ratio.getValue(row);
@@ -56,12 +56,12 @@ public class IndexByRatio extends BaseSingleRowFunction {
 		return previousIndex;
 	}
 
-	@Override
+	
 	public boolean isSupportWhere() throws DplParseException {
 		return false;
 	}
 
-	@Override
+	
 	public void setParams(List<Object> params, From from, ProcessorContext context) throws DplParseException {
 		super.setParams(params, from, context);
 		this.ratio = this.pasList.get(0);

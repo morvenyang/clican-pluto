@@ -138,7 +138,7 @@ public abstract class BaseDataProcessor implements DataProcessor {
 	/**
 	 * 调用下一个DataProcessor去处理数据，子类可以根据需要覆盖该实现。
 	 */
-	@Override
+	
 	public DataProcessor afterProcess(ProcessorContext context) throws DataProcessException {
 		if (log.isTraceEnabled()) {
 			log.trace("after [" + id + "] processes data");
@@ -240,7 +240,7 @@ public abstract class BaseDataProcessor implements DataProcessor {
 	/**
 	 * 简单输出该DataProcessor被调用的日志，子类可以根据需要覆盖该实现。
 	 */
-	@Override
+	
 	public void beforeProcess(ProcessorContext context) throws DataProcessException {
 		if (log.isTraceEnabled()) {
 			log.trace("before [" + id + "] processes data");

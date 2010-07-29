@@ -34,7 +34,7 @@ import com.clican.pluto.dataprocess.engine.processes.JdbcProcessor;
 public class JdbcExecProcessorParser extends AbstractProcessorParser {
 
 	@SuppressWarnings("unchecked")
-	@Override
+	
 	public void customiseBeanDefinition(BeanDefinition beanDef, Element element, ParserContext parserContext) {
 		String jdbcTemplate = element.getAttribute("jdbcTemplate");
 		beanDef.getPropertyValues().addPropertyValue("jdbcTemplate", new RuntimeBeanReference(jdbcTemplate));
@@ -91,7 +91,7 @@ public class JdbcExecProcessorParser extends AbstractProcessorParser {
 		beanDef.getPropertyValues().addPropertyValue("jdbcExecBeanList", jdbcExecBeanList);
 	}
 
-	@Override
+	
 	public Class<? extends DataProcessor> getDataProcessorClass() {
 		return JdbcProcessor.class;
 	}

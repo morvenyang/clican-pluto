@@ -39,7 +39,7 @@ public class ResetWeight extends BaseSingleRowFunction {
 	 */
 	private String previousDate;
 
-	@Override
+	
 	public Object calculate(Map<String, Object> row) throws CalculationException, PrefixAndSuffixException {
 		Double w = weight.getValue(row);
 		String d = date.getValue(row);
@@ -56,12 +56,12 @@ public class ResetWeight extends BaseSingleRowFunction {
 		}
 	}
 
-	@Override
+	
 	public boolean isSupportWhere() throws DplParseException {
 		return false;
 	}
 
-	@Override
+	
 	public void setParams(List<Object> params, From from, ProcessorContext context) throws DplParseException {
 		super.setParams(params, from, context);
 		this.weight = this.pasList.get(0);
@@ -71,7 +71,7 @@ public class ResetWeight extends BaseSingleRowFunction {
 		}
 	}
 
-	@Override
+	
 	public boolean isLazyCalc() {
 		return false;
 	}

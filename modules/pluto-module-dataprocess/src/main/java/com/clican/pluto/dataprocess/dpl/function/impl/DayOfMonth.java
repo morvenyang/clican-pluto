@@ -34,7 +34,7 @@ public class DayOfMonth extends BaseSingleRowFunction {
 
 	private PrefixAndSuffix date;
 
-	@Override
+	
 	public Object calculate(Map<String, Object> row) throws CalculationException, PrefixAndSuffixException {
 		Date d = date.getValue(row);
 		d = DateUtils.truncate(d, Calendar.MONTH);
@@ -44,12 +44,12 @@ public class DayOfMonth extends BaseSingleRowFunction {
 		return Integer.parseInt(sdf.format(d));
 	}
 
-	@Override
+	
 	public boolean isSupportWhere() throws DplParseException {
 		return true;
 	}
 
-	@Override
+	
 	public void setParams(List<Object> params, From from, ProcessorContext context) throws DplParseException {
 		super.setParams(params, from, context);
 		this.date = pasList.get(0);

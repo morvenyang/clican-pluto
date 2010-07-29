@@ -24,17 +24,17 @@ public class MinDateMock extends BaseSingleRowFunction {
 
 	private PrefixAndSuffix date;
 
-	@Override
+	
 	public Object calculate(Map<String, Object> row) throws CalculationException ,PrefixAndSuffixException{
 		return minDateMock((Date) date.getValue(row));
 	}
 
-	@Override
+	
 	public boolean isSupportWhere() throws DplParseException {
 		return true;
 	}
 
-	@Override
+	
 	public void setParams(List<Object> params, From from, ProcessorContext context) throws DplParseException {
 		super.setParams(params, from, context);
 		date = this.pasList.get(0);

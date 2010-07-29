@@ -40,7 +40,7 @@ public class Beta extends BaseMultiRowFunction {
 	 */
 	private PrefixAndSuffix referVectorPas;
 
-	@Override
+	
 	public Object calculate(List<Map<String, Object>> rowSet) throws CalculationException, PrefixAndSuffixException {
 		if (rowSet.size() == 0) {
 			throw new CalculationException("计算Beta的数据不完整");
@@ -70,7 +70,7 @@ public class Beta extends BaseMultiRowFunction {
 		return beta;
 	}
 
-	@Override
+	
 	public void setParams(List<Object> params, From from, ProcessorContext context) throws DplParseException {
 		super.setParams(params, from, context);
 		this.estimateVectorPas = pasList.get(0);

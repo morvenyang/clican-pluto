@@ -46,7 +46,7 @@ public class ConditionProcessorTestCase extends TestCase {
 			{
 				one(p2).getTransaction();
 				will(new CustomAction("") {
-					@Override
+					
 					public Object invoke(Invocation invocation) throws Throwable {
 						return null;
 					}
@@ -63,14 +63,14 @@ public class ConditionProcessorTestCase extends TestCase {
 			{
 				one(p1).getTransaction();
 				will(new CustomAction("") {
-					@Override
+					
 					public Object invoke(Invocation invocation) throws Throwable {
 						return "begin";
 					}
 				});
 				one(t).doInCommit(p1, ctx);
 				will(new CustomAction("") {
-					@Override
+					
 					public Object invoke(Invocation invocation) throws Throwable {
 						return p1;
 					}

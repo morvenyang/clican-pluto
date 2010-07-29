@@ -22,7 +22,7 @@ public class MaxOne extends BaseSingleRowFunction {
 	private PrefixAndSuffix pas2;
 
 	@SuppressWarnings("unchecked")
-	@Override
+	
 	public Object calculate(Map<String, Object> row) throws CalculationException,PrefixAndSuffixException {
 		Comparable value1 = pas1.getValue(row);
 		Comparable value2 = pas2.getValue(row);
@@ -39,12 +39,12 @@ public class MaxOne extends BaseSingleRowFunction {
 		}
 	}
 
-	@Override
+	
 	public boolean isSupportWhere() throws DplParseException {
 		return true;
 	}
 
-	@Override
+	
 	public void setParams(List<Object> params, From from, ProcessorContext context) throws DplParseException {
 		super.setParams(params, from, context);
 		pas1 = this.pasList.get(0);

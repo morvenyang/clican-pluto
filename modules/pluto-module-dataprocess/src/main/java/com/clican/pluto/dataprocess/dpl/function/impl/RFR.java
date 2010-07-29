@@ -30,7 +30,7 @@ public class RFR extends BaseSingleRowFunction {
 
 	private int powerNumber = 240;
 
-	@Override
+	
 	public Object calculate(Map<String, Object> row) throws CalculationException, PrefixAndSuffixException {
 		Double value = valuePas.getValue(row);
 		if (value == null) {
@@ -40,12 +40,12 @@ public class RFR extends BaseSingleRowFunction {
 		return result;
 	}
 
-	@Override
+	
 	public boolean isSupportWhere() throws DplParseException {
 		return true;
 	}
 
-	@Override
+	
 	public void setParams(List<Object> params, From from, ProcessorContext context) throws DplParseException {
 		super.setParams(params, from, context);
 		this.valuePas = this.pasList.get(0);

@@ -31,7 +31,7 @@ import com.clican.pluto.dataprocess.spring.parser.TimerProcessorParser;
  */
 public class DataProcessNamespaceHandler extends NamespaceHandlerSupport {
 
-	@Override
+	
 	public void init() {
 		registerBeanDefinitionParser("ibatis", new IBatisExecProcessorParser());
 		registerBeanDefinitionParser("mvel", new MvelExecProcessorParser());

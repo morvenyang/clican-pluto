@@ -31,7 +31,6 @@ public class OrderByComparator implements Comparator<Map<String, Object>> {
 	}
 
 	@SuppressWarnings("unchecked")
-	@Override
 	public int compare(Map<String, Object> o1, Map<String, Object> o2) {
 		for (Order order : orderBy.getOrders()) {
 			String expr = order.getExpr();

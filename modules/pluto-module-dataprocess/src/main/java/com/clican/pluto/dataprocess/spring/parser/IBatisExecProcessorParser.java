@@ -32,7 +32,7 @@ import com.clican.pluto.dataprocess.enumeration.IBatisExecType;
  */
 public class IBatisExecProcessorParser extends AbstractProcessorParser {
 
-	@Override
+	
 	public void customiseBeanDefinition(BeanDefinition beanDef, Element element, ParserContext parserContext) {
 		String sqlMapClient = element.getAttribute("sqlMapClient");
 		beanDef.getPropertyValues().addPropertyValue("sqlMapClient", new RuntimeBeanReference(sqlMapClient));
@@ -84,7 +84,7 @@ public class IBatisExecProcessorParser extends AbstractProcessorParser {
 		beanDef.getPropertyValues().addPropertyValue("ibatisExecBeanList", ibatisExecBeanList);
 	}
 
-	@Override
+	
 	public Class<? extends DataProcessor> getDataProcessorClass() {
 		return IBatisExecProcessor.class;
 	}
