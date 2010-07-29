@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+	<bean id="start" class="com.clican.pluto.fsm.engine.state.StartStateImpl"
+		autowire="byName">
+		<property name="name" value="start"></property>
+		<property name="nextState" ref="auditing_application" />
+		<property name="propagation" value="session" />
+	</bean>
+
+	<bean id="auditing_application" class="com.clican.pluto.fsm.engine.vote.HighPriorityVoteTask"
+		autowire="byName" lazy-init="true">
+		<property name="name" value="auditing_application"></property>
+		<property name="nextState" ref="audit_application" />
+		<property name="assignees" value="leaders" />
+		<property name="timeOutListenerMap">
+			<map>
+				<entry>
+					<key><value>timeout</value></key>
+					<bean class="com.clican.pluto.fsm.listener.impl.FireEventWhenTimeOutListener" autowire="byName">
+						<property name="dueTime" value="'9 business hours'" />
+					</bean>
+				</entry>
+			</map>
+		</property>
+	</bean>
+
+	<bean id="audit_application" class="com.clican.pluto.fsm.engine.state.DecisionStateImpl"
+		autowire="byName" lazy-init="true">
+		<property name="name" value="audit_application"></property>
+		<property name="conditionNextStateMap">
+			<map>
+				<entry>
+					<key>
+						<value>voteResult=='disagree'||voteResult=='disclaim'
+						</value>
+					</key>
+					<ref bean="revise_application" />
+				</entry>
+				<entry>
+					<key>
+						<value>voteResult=='agree'</value>
+					</key>
+					<ref bean="application_pass" />
+				</entry>
+			</map>
+		</property>
+	</bean>
+
+	<bean id="revise_application" class="com.clican.pluto.fsm.engine.state.TaskStateImpl"
+		autowire="byName" lazy-init="true">
+		<property name="name" value="revise_application"></property>
+		<property name="nextState" ref="auditing_application" />
+		<property name="assignees" value="sponsor" />
+	</bean>
+
+	<bean id="application_pass" class="com.clican.pluto.fsm.engine.state.DefaultStateImpl"
+		autowire="byName">
+		<property name="name" value="application_pass"></property>
+		<property name="nextState" ref="on_travel"></property>
+		<property name="timeOutListenerMap">
+			<map>
+				<entry>
+					<key><value>timeout</value></key>
+					<bean class="com.clican.pluto.fsm.listener.impl.FireEventWhenTimeOutListener" autowire="byName">
+						<property name="dueTime" value="startDate" />
+					</bean>
+				</entry>
+			</map>
+		</property>
+	</bean>
+
+	<bean id="on_travel" class="com.clican.pluto.fsm.engine.state.DefaultStateImpl"
+		autowire="byName">
+		<property name="name" value="on_travel"></property>
+		<property name="nextState" ref="submit_report"></property>
+		<property name="timeOutListenerMap">
+			<map>
+				<entry>
+					<key><value>timeout</value></key>
+					<bean class="com.clican.pluto.fsm.listener.impl.FireEventWhenTimeOutListener" autowire="byName">
+						<property name="dueTime" value="endDate" />
+					</bean>
+				</entry>
+			</map>
+		</property>
+	</bean>
+
+	<bean id="submit_report" class="com.clican.pluto.fsm.engine.state.TaskStateImpl"
+		autowire="byName" lazy-init="true">
+		<property name="name" value="submit_report"></property>
+		<property name="nextState" ref="auditing_report" />
+		<property name="assignees" value="sponsor" />
+	</bean>
+
+	<bean id="auditing_report" class="com.clican.pluto.fsm.engine.vote.HighPriorityVoteTask"
+		autowire="byName" lazy-init="true">
+		<property name="name" value="auditing_report"></property>
+		<property name="nextState" ref="audit_report" />
+		<property name="assignees" value="leaders" />
+		<property name="timeOutListenerMap">
+			<map>
+				<entry>
+					<key><value>timeout</value></key>
+					<bean class="com.clican.pluto.fsm.listener.impl.FireEventWhenTimeOutListener" autowire="byName">
+						<property name="dueTime" value="'9 business hours'" />
+					</bean>
+				</entry>
+			</map>
+		</property>
+	</bean>
+
+	<bean id="audit_report" class="com.clican.pluto.fsm.engine.state.DecisionStateImpl"
+		autowire="byName" lazy-init="true">
+		<property name="name" value="audit_report"></property>
+		<property name="conditionNextStateMap">
+			<map>
+				<entry>
+					<key>
+						<value>voteResult=='disagree'||voteResult=='disclaim'
+						</value>
+					</key>
+					<ref bean="revise_report" />
+				</entry>
+				<entry>
+					<key>
+						<value>voteResult=='agree'&amp;&amp;tripType!='survey'</value>
+					</key>
+					<ref bean="print_expense" />
+				</entry>
+				<entry>
+					<key>
+						<value>voteResult=='agree'&amp;&amp;tripType=='survey'</value>
+					</key>
+					<ref bean="auditing_expense" />
+				</entry>
+			</map>
+		</property>
+	</bean>
+	
+	<bean id="revise_report" class="com.clican.pluto.fsm.engine.state.TaskStateImpl"
+		autowire="byName" lazy-init="true">
+		<property name="name" value="revise_report"></property>
+		<property name="nextState" ref="auditing_report" />
+		<property name="assignees" value="sponsor" />
+	</bean>
+	
+	<bean id="print_expense" class="com.clican.pluto.fsm.engine.state.DefaultStateImpl"
+		autowire="byName">
+		<property name="name" value="print_expense"></property>
+		<property name="nextState" ref="end_travel"></property>
+	</bean>
+	
+	
+	<bean id="auditing_expense" class="com.clican.pluto.fsm.engine.vote.HighPriorityVoteTask"
+		autowire="byName" lazy-init="true">
+		<property name="name" value="auditing_expense"></property>
+		<property name="nextState" ref="audit_expense" />
+		<property name="assignees" value="leaders" />
+		<property name="timeOutListenerMap">
+			<map>
+				<entry>
+					<key><value>timeout</value></key>
+					<bean class="com.clican.pluto.fsm.listener.impl.FireEventWhenTimeOutListener" autowire="byName">
+					<property name="dueTime" value="'9 business hours'"/>
+				</bean>
+				</entry>
+			</map>
+		</property>
+	</bean>
+	
+	<bean id="audit_expense" class="com.clican.pluto.fsm.engine.state.DecisionStateImpl"
+		autowire="byName" lazy-init="true">
+		<property name="name" value="audit_expense"></property>
+		<property name="conditionNextStateMap">
+			<map>
+				<entry>
+					<key>
+						<value>voteResult=='agree'</value>
+					</key>
+					<ref bean="print_expense" />
+				</entry>
+			</map>
+		</property>
+	</bean>
+
+	<bean id="end_travel" class="com.clican.pluto.fsm.engine.state.EndStateImpl"
+		autowire="byName">
+		<property name="name" value="end_travel"></property>
+	</bean>
+</beans>
