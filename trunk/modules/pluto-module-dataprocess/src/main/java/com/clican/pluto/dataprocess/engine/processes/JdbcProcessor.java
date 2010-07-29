@@ -51,7 +51,7 @@ public class JdbcProcessor extends BaseDataProcessor {
 	}
 
 	@SuppressWarnings("unchecked")
-	@Override
+	
 	public void process(ProcessorContext context) throws DataProcessException {
 		// 遍历处理每个jdbcExecBean
 		for (JdbcExecBean jdbcExecBean : jdbcExecBeanList) {
@@ -84,7 +84,7 @@ public class JdbcProcessor extends BaseDataProcessor {
 							|| clazz.equals(Double.class) || clazz.equals(String.class)) {
 						list = jdbcTemplate.query(sql, new MapAndNestedPropertySqlParameterSource(param), new SingleColumnRowMapper(clazz) {
 
-							@Override
+							
 							protected Object getColumnValue(ResultSet rs, int index, Class requiredType) throws SQLException {
 								Object obj = super.getColumnValue(rs, index, requiredType);
 								if (obj instanceof Date) {
@@ -94,7 +94,7 @@ public class JdbcProcessor extends BaseDataProcessor {
 								}
 							}
 
-							@Override
+							
 							protected Object getColumnValue(ResultSet rs, int index) throws SQLException {
 								Object obj = super.getColumnValue(rs, index);
 								if (obj instanceof Date) {

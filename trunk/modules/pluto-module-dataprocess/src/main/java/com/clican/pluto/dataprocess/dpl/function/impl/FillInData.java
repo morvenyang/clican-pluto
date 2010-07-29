@@ -44,7 +44,7 @@ public class FillInData extends BaseMultiRowFunction {
 
 	private List<Comparable<?>> compList;
 
-	@Override
+	
 	public Object calculate(List<Map<String, Object>> rowSet) throws CalculationException, PrefixAndSuffixException {
 		List<Object> result = new ArrayList<Object>();
 		int pos = -1;
@@ -88,7 +88,7 @@ public class FillInData extends BaseMultiRowFunction {
 	}
 
 	@SuppressWarnings("unchecked")
-	@Override
+	
 	public void setParams(List<Object> params, From from, ProcessorContext context) throws DplParseException {
 		super.setParams(params, from, context);
 		if (params == null || !(params.size() == 2 || params.size() == 3)) {

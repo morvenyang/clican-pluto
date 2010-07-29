@@ -70,7 +70,7 @@ public class CollectionIteratorProcessor extends BaseDataProcessor {
 	}
 
 	@SuppressWarnings("unchecked")
-	@Override
+	
 	public void process(ProcessorContext context) throws DataProcessException {
 
 		Collection collection = (Collection) context.getAttribute(collectionName);

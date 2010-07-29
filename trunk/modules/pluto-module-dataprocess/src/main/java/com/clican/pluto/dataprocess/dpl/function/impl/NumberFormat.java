@@ -28,7 +28,7 @@ public class NumberFormat extends BaseSingleRowFunction {
 	 */
 	private DecimalFormat patten;
 
-	@Override
+	
 	public Object calculate(Map<String, Object> row) throws CalculationException, PrefixAndSuffixException {
 		Number value = valuePas.getValue(row);
 		if (patten != null) {
@@ -38,12 +38,12 @@ public class NumberFormat extends BaseSingleRowFunction {
 		}
 	}
 
-	@Override
+	
 	public boolean isSupportWhere() throws DplParseException {
 		return true;
 	}
 
-	@Override
+	
 	public void setParams(List<Object> params, From from, ProcessorContext context) throws DplParseException {
 		super.setParams(params, from, context);
 		if (params == null || !(params.size() == 2 || params.size() == 1)) {

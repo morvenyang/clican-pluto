@@ -31,7 +31,7 @@ import com.clican.pluto.dataprocess.engine.processes.ParamProcessor;
 public class ParamProcessorParser extends AbstractProcessorParser {
 
 	@SuppressWarnings("unchecked")
-	@Override
+	
 	public void customiseBeanDefinition(BeanDefinition beanDef, Element element, ParserContext parserContext) {
 		List paramBeanList = new ManagedList();
 		NodeList nodeList = element.getChildNodes();
@@ -70,7 +70,7 @@ public class ParamProcessorParser extends AbstractProcessorParser {
 		beanDef.getPropertyValues().addPropertyValue("paramBeanList", paramBeanList);
 	}
 
-	@Override
+	
 	public Class<? extends DataProcessor> getDataProcessorClass() {
 		return ParamProcessor.class;
 	}

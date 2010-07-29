@@ -25,7 +25,7 @@ public class MinRow extends BaseMultiRowFunction {
 	
 	private PrefixAndSuffix minRow;
 	
-	@Override
+	
 	public void setParams(List<Object> params, From from,ProcessorContext context) throws DplParseException {
 		super.setParams(params, from,context);
 		if (params == null || params.size() != 2) {
@@ -35,7 +35,7 @@ public class MinRow extends BaseMultiRowFunction {
 		minRow = this.getPrefixeAndSuffix(params).get(1);
 	}
 	@SuppressWarnings("unchecked")
-	@Override
+	
 	public Object calculate(List<Map<String, Object>> rowSet) throws CalculationException,PrefixAndSuffixException {
 		Object rowObj = null;
 		Comparable result = null;

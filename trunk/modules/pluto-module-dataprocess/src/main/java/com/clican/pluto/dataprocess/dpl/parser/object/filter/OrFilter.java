@@ -64,7 +64,7 @@ public class OrFilter extends Filter {
 		}
 	}
 
-	@Override
+	
 	public void filter(ProcessorContext context) throws DplParseException {
 		ProcessorContext context1 = context.getCloneContext();
 		DplResultSet dplResultSet1 = context1.getAttribute(CompareFilter.DPL_RESULT_SET);
@@ -148,12 +148,12 @@ public class OrFilter extends Filter {
 		}
 	}
 
-	@Override
+	
 	public String getExpr() {
 		return filter1.getExpr() + " or " + filter2.getExpr();
 	}
 
-	@Override
+	
 	public int priority() {
 		return -(filter1.priority() + filter2.priority());
 	}

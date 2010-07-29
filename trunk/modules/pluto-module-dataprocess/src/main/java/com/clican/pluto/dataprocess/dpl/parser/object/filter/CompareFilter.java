@@ -101,7 +101,7 @@ public class CompareFilter extends Filter {
 	 */
 	private CompareType compareType;
 
-	@Override
+	
 	public String getExpr() {
 		return expr;
 	}
@@ -218,7 +218,7 @@ public class CompareFilter extends Filter {
 		List<Map<String, Object>> resultSet = getResultSet(context, leftMap, rightMap, leftVarName, rightVarName);
 		// 把结果集根据与原有的顺序还原
 		Collections.sort(resultSet, new Comparator<Map<String, Object>>() {
-			@Override
+			
 			public int compare(Map<String, Object> o1, Map<String, Object> o2) {
 				Object left1 = o1.get(LEFT_POS);
 				Object left2 = o2.get(LEFT_POS);
@@ -571,7 +571,7 @@ public class CompareFilter extends Filter {
 		return resultSet;
 	}
 
-	@Override
+	
 	public int priority() {
 		// 左外链接最先执行然后是普通字段过滤最后才是内链接
 		if (StringUtils.isNotEmpty(leftVarName) && StringUtils.isNotEmpty(rightVarName)) {

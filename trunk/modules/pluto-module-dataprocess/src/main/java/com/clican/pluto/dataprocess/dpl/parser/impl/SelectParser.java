@@ -45,7 +45,7 @@ public class SelectParser implements DplParser {
 		END_KEYWORD.add(FromParser.START_KEYWORD);
 	}
 
-	@Override
+	
 	public Select parse(String dpl, ProcessorContext context, Map<String, Object> parseContext) throws DplParseException {
 		From from = (From) parseContext.get(FromParser.START_KEYWORD);
 		int index = dpl.indexOf(START_KEYWORD);

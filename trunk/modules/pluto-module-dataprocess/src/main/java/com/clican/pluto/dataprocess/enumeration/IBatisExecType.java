@@ -35,7 +35,7 @@ public enum IBatisExecType {
 	INSERT {
 
 		@SuppressWarnings("unchecked")
-		@Override
+		
 		public void execute(SqlMapClient sqlMapClient, IBatisExecBean execBean, ProcessorContext context) throws DataProcessSqlException {
 			Object param = execBean.getParam(context);
 			try {
@@ -58,7 +58,7 @@ public enum IBatisExecType {
 	 */
 	UPDATE {
 		@SuppressWarnings("unchecked")
-		@Override
+		
 		public void execute(SqlMapClient sqlMapClient, IBatisExecBean execBean, ProcessorContext context) throws DataProcessSqlException {
 			Object param = execBean.getParam(context);
 			try {
@@ -78,7 +78,7 @@ public enum IBatisExecType {
 
 	INSERT_OR_UPDATE {
 		@SuppressWarnings("unchecked")
-		@Override
+		
 		public void execute(SqlMapClient sqlMapClient, IBatisExecBean execBean, ProcessorContext context) throws DataProcessSqlException {
 			Object param = execBean.getParam(context);
 			try {
@@ -107,7 +107,7 @@ public enum IBatisExecType {
 	 */
 	DELETE {
 		@SuppressWarnings("unchecked")
-		@Override
+		
 		public void execute(SqlMapClient sqlMapClient, IBatisExecBean execBean, ProcessorContext context) throws DataProcessSqlException {
 			Object param = execBean.getParam(context);
 			try {
@@ -132,7 +132,7 @@ public enum IBatisExecType {
 	 */
 	SELECT_LIST {
 		@SuppressWarnings("unchecked")
-		@Override
+		
 		public void execute(SqlMapClient sqlMapClient, IBatisExecBean execBean, ProcessorContext context) throws DataProcessSqlException {
 			Object param = execBean.getParam(context);
 			try {
@@ -157,7 +157,7 @@ public enum IBatisExecType {
 		};
 
 		@SuppressWarnings("unchecked")
-		@Override
+		
 		public void execute(SqlMapClient sqlMapClient, IBatisExecBean execBean, ProcessorContext context) throws DataProcessSqlException {
 			Object param = execBean.getParam(context);
 			try {
@@ -179,7 +179,7 @@ public enum IBatisExecType {
 	 * 查询单个数据
 	 */
 	SELECT_OBJECT {
-		@Override
+		
 		public void execute(SqlMapClient sqlMapClient, IBatisExecBean execBean, ProcessorContext context) throws DataProcessSqlException {
 			Object param = execBean.getParam(context);
 			try {
@@ -196,7 +196,7 @@ public enum IBatisExecType {
 	 */
 	SELECT_MAP {
 		@SuppressWarnings("unchecked")
-		@Override
+		
 		public void execute(SqlMapClient sqlMapClient, IBatisExecBean execBean, ProcessorContext context) throws DataProcessSqlException {
 			Object param = execBean.getParam(context);
 			try {

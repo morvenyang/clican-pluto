@@ -27,7 +27,7 @@ public class YearPeriod extends BaseSingleRowFunction {
 	private Calendar c1 = Calendar.getInstance();
 	private Calendar c2 = Calendar.getInstance();
 
-	@Override
+	
 	public Object calculate(Map<String, Object> row)
 			throws CalculationException, PrefixAndSuffixException {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
@@ -51,12 +51,12 @@ public class YearPeriod extends BaseSingleRowFunction {
 
 	}
 
-	@Override
+	
 	public boolean isSupportWhere() throws DplParseException {
 		return false;
 	}
 
-	@Override
+	
 	public void setParams(List<Object> params, From from,
 			ProcessorContext context) throws DplParseException {
 		super.setParams(params, from, context);

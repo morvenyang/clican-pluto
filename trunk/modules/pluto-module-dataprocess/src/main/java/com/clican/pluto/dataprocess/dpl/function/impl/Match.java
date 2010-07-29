@@ -32,7 +32,7 @@ public class Match extends BaseSingleRowFunction {
 	private PrefixAndSuffix pas1;
 	private PrefixAndSuffix pas2;
 
-	@Override
+	
 	public Object calculate(Map<String, Object> row) throws CalculationException, PrefixAndSuffixException {
 		String value1 = pas1.getValue(row);
 		String value2 = pas2.getValue(row);
@@ -42,12 +42,12 @@ public class Match extends BaseSingleRowFunction {
 		return value1.matches(value2);
 	}
 
-	@Override
+	
 	public boolean isSupportWhere() throws DplParseException {
 		return true;
 	}
 
-	@Override
+	
 	public void setParams(List<Object> params, From from, ProcessorContext context) throws DplParseException {
 		super.setParams(params, from, context);
 		pas1 = this.pasList.get(0);

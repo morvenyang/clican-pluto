@@ -8,7 +8,7 @@ package com.clican.pluto.dataprocess.dpl.function.impl;
 
 public class IndexByMapWeight extends YieldByMapWeight {
 
-	@Override
+	
 	protected double getResult(double currentMoney) {
 		return currentMoney;
 	}

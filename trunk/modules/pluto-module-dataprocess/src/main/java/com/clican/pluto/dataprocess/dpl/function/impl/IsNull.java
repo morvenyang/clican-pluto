@@ -28,18 +28,18 @@ public class IsNull extends BaseSingleRowFunction {
 
 	private PrefixAndSuffix value;
 
-	@Override
+	
 	public Object calculate(Map<String, Object> row) throws CalculationException, PrefixAndSuffixException {
 		Boolean result = value.getValue(row) == null;
 		return result;
 	}
 
-	@Override
+	
 	public boolean isSupportWhere() throws DplParseException {
 		return true;
 	}
 
-	@Override
+	
 	public void setParams(List<Object> params, From from, ProcessorContext context) throws DplParseException {
 		super.setParams(params, from, context);
 		this.value = this.pasList.get(0);

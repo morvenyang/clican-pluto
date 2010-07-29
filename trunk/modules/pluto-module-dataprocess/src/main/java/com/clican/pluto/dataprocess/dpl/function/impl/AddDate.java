@@ -37,18 +37,16 @@ public class AddDate extends BaseSingleRowFunction {
 
 	private int field;
 
-	@Override
 	public Object calculate(Map<String, Object> row) throws CalculationException, PrefixAndSuffixException {
 		Date d = date.getValue(row);
 		return DateUtils.add(d, field, add);
 	}
 
-	@Override
 	public boolean isSupportWhere() throws DplParseException {
 		return true;
 	}
 
-	@Override
+	
 	public void setParams(List<Object> params, From from, ProcessorContext context) throws DplParseException {
 		super.setParams(params, from, context);
 		this.date = this.pasList.get(0);

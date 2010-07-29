@@ -23,7 +23,7 @@ import com.clican.pluto.dataprocess.exception.DplParseException;
  */
 public class IndexByEnumWeight extends YieldByEnumWeight {
 
-	@Override
+	
 	protected double getResult(double currentMoney) {
 		return currentMoney;
 	}

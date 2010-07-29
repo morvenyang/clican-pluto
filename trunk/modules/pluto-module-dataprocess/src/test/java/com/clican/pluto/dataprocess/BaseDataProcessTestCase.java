@@ -31,7 +31,7 @@ public abstract class BaseDataProcessTestCase extends AbstractDependencyInjectio
 		return new String[] { "classpath*:META-INF/spring-dp*.xml" };
 	}
 
-	@Override
+	
 	protected void onSetUp() throws Exception {
 		super.onSetUp();
 		Connection conn = null;
@@ -74,7 +74,7 @@ public abstract class BaseDataProcessTestCase extends AbstractDependencyInjectio
 		}
 	}
 
-	@Override
+	
 	protected void onTearDown() throws Exception {
 		super.onTearDown();
 		try {

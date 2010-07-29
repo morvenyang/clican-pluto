@@ -39,7 +39,7 @@ public class HalfWeekCheck extends BaseSingleRowFunction {
 
 	private PrefixAndSuffix value;
 
-	@Override
+	
 	public Object calculate(Map<String, Object> row) throws CalculationException, PrefixAndSuffixException {
 		Date d = value.getValue(row);
 		Calendar c1 = Calendar.getInstance();
@@ -78,13 +78,13 @@ public class HalfWeekCheck extends BaseSingleRowFunction {
 		}
 	}
 
-	@Override
+	
 	public boolean isSupportWhere() throws DplParseException {
 		return false;
 	}
 
 	@SuppressWarnings("unchecked")
-	@Override
+	
 	public void setParams(List<Object> params, From from, ProcessorContext context) throws DplParseException {
 		super.setParams(params, from, context);
 		value = this.pasList.get(0);

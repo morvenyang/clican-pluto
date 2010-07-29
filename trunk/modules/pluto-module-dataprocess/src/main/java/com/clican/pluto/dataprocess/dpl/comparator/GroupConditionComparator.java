@@ -19,7 +19,6 @@ import com.clican.pluto.dataprocess.dpl.parser.bean.GroupCondition;
  */
 public class GroupConditionComparator implements Comparator<List<GroupCondition>> {
 
-	@Override
 	public int compare(List<GroupCondition> o1, List<GroupCondition> o2) {
 		int size = o1.size();
 		for (int i = 0; i < size; i++) {

@@ -33,11 +33,11 @@ public class Ecr extends BaseMultiRowFunction {
 
 	private int number = 10;
 
-	@Override
+	
 	public Object calculate(List<Map<String, Object>> rowSet) throws CalculationException,PrefixAndSuffixException {
 		List<Map<String, Object>> rowSetCopy = new ArrayList<Map<String, Object>>(rowSet);
 		Collections.sort(rowSetCopy, new Comparator<Map<String, Object>>() {
-			@Override
+			
 			public int compare(Map<String, Object> o1, Map<String, Object> o2) {
 				try {
 					return -((Double) pcTofNav.getValue(o1)).compareTo((Double) pcTofNav.getValue(o2));
@@ -57,7 +57,7 @@ public class Ecr extends BaseMultiRowFunction {
 		return sum;
 	}
 
-	@Override
+	
 	public void setParams(List<Object> params, From from, ProcessorContext context) throws DplParseException {
 		super.setParams(params, from, context);
 		this.pcTofNav = this.pasList.get(0);

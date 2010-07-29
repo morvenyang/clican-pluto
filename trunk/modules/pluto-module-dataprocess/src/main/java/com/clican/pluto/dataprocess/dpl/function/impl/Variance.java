@@ -30,7 +30,7 @@ public class Variance extends BaseMultiRowFunction {
 
 	private PrefixAndSuffix valuePas;
 
-	@Override
+	
 	public Object calculate(List<Map<String, Object>> rowSet) throws CalculationException,PrefixAndSuffixException {
 		double[] values = new double[rowSet.size()];
 		double sum = 0;
@@ -45,7 +45,7 @@ public class Variance extends BaseMultiRowFunction {
 		return var.evaluate(values, avg);
 	}
 
-	@Override
+	
 	public void setParams(List<Object> params, From from, ProcessorContext context) throws DplParseException {
 		super.setParams(params, from, context);
 		if (params == null || params.size() != 1) {

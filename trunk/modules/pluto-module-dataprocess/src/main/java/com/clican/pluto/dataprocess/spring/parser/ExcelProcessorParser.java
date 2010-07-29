@@ -33,7 +33,7 @@ import com.clican.pluto.dataprocess.engine.processes.ExcelProcessor;
 public class ExcelProcessorParser extends AbstractProcessorParser {
 
 	@SuppressWarnings("unchecked")
-	@Override
+	
 	public void customiseBeanDefinition(BeanDefinition beanDef, Element element, ParserContext parserContext) {
 		List excelBeanList = new ManagedList();
 		NodeList nodeList = element.getChildNodes();
@@ -85,7 +85,7 @@ public class ExcelProcessorParser extends AbstractProcessorParser {
 
 	}
 
-	@Override
+	
 	public Class<? extends DataProcessor> getDataProcessorClass() {
 		return ExcelProcessor.class;
 	}

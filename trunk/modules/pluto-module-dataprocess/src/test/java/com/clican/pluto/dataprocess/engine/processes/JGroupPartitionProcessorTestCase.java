@@ -48,7 +48,7 @@ public class JGroupPartitionProcessorTestCase extends TestCase {
 			{
 				one(partition).getClusterNodes();
 				will(new CustomAction(""){
-					@Override
+					
 					public Object invoke(Invocation invocation) throws Throwable {
 						return cns;
 					}

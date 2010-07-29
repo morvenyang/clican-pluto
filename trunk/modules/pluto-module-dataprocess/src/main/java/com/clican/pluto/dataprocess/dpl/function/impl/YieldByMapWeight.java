@@ -35,7 +35,7 @@ public class YieldByMapWeight extends BaseSingleRowFunction {
 
 	protected double previousMoney = DEFAULT_MONEY;
 
-	@Override
+	
 	public Object calculate(Map<String, Object> row) throws CalculationException, PrefixAndSuffixException {
 		Map<String, Double> priceMap = priceMapPas.getValue(row);
 		Map<String, Double> weightMap = weightMapPas.getValue(row);
@@ -98,7 +98,7 @@ public class YieldByMapWeight extends BaseSingleRowFunction {
 		}
 	}
 
-	@Override
+	
 	public boolean isSupportWhere() throws DplParseException {
 		return false;
 	}
@@ -107,7 +107,7 @@ public class YieldByMapWeight extends BaseSingleRowFunction {
 		return (currentMoney - previousMoney) / previousMoney;
 	}
 
-	@Override
+	
 	public void setParams(List<Object> params, From from, ProcessorContext context) throws DplParseException {
 		super.setParams(params, from, context);
 		this.priceMapPas = this.pasList.get(0);

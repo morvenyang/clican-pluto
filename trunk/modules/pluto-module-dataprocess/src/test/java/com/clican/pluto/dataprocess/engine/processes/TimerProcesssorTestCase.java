@@ -65,7 +65,7 @@ public class TimerProcesssorTestCase extends BaseDplTestCase {
 		taskScheduler.shutdown();
 	}
 
-	@Override
+	
 	protected void onTearDown() throws Exception {
 		this.applicationContext.close();
 	}

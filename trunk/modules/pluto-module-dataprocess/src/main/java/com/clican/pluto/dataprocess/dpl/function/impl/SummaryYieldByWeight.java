@@ -32,7 +32,7 @@ package com.clican.pluto.dataprocess.dpl.function.impl;
  */
 public class SummaryYieldByWeight extends YieldByWeight {
 
-	@Override
+	
 	protected double getResult(double currentMoney) {
 		return (currentMoney - DEFAULT_MONEY) / DEFAULT_MONEY;
 	}

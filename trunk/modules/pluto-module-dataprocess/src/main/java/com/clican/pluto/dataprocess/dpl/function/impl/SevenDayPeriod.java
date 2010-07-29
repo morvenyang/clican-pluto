@@ -29,7 +29,7 @@ public class SevenDayPeriod extends BaseSingleRowFunction {
 	private PrefixAndSuffix pas2;
 	private long period = 24 * 3600 * 1000;
 
-	@Override
+	
 	public Object calculate(Map<String, Object> row)
 			throws CalculationException, PrefixAndSuffixException {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
@@ -46,12 +46,12 @@ public class SevenDayPeriod extends BaseSingleRowFunction {
 
 	}
 
-	@Override
+	
 	public boolean isSupportWhere() throws DplParseException {
 		return false;
 	}
 
-	@Override
+	
 	public void setParams(List<Object> params, From from,
 			ProcessorContext context) throws DplParseException {
 		super.setParams(params, from, context);

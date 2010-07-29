@@ -43,7 +43,7 @@ public class InformationRatio extends BaseMultiRowFunction {
 	 */
 	private PrefixAndSuffix referVectorPas;
 
-	@Override
+	
 	public Object calculate(List<Map<String, Object>> rowSet) throws CalculationException,PrefixAndSuffixException {
 		if (rowSet.size() == 0) {
 			throw new CalculationException("计算InformationRatio的数据不完整");
@@ -78,7 +78,7 @@ public class InformationRatio extends BaseMultiRowFunction {
 		return result;
 	}
 
-	@Override
+	
 	public void setParams(List<Object> params, From from, ProcessorContext context) throws DplParseException {
 		super.setParams(params, from, context);
 		this.estimateVectorPas = pasList.get(0);

@@ -31,7 +31,7 @@ public class SharpeRatio extends BaseMultiRowFunction {
 	 */
 	private PrefixAndSuffix valuePas;
 
-	@Override
+	
 	public Object calculate(List<Map<String, Object>> rowSet) throws CalculationException, PrefixAndSuffixException {
 		if (rowSet.size() == 0) {
 			throw new CalculationException("计算SharpeRatio的数据不完整");
@@ -54,7 +54,7 @@ public class SharpeRatio extends BaseMultiRowFunction {
 		return avg / result;
 	}
 
-	@Override
+	
 	public void setParams(List<Object> params, From from, ProcessorContext context) throws DplParseException {
 		super.setParams(params, from, context);
 		valuePas = this.pasList.get(0);

@@ -43,7 +43,7 @@ public class ToDate extends BaseSingleRowFunction {
 	 */
 	private SimpleDateFormat patten;
 
-	@Override
+	
 	public Object calculate(Map<String, Object> row) throws CalculationException,PrefixAndSuffixException {
 		Object obj = valuePas.getValue(row);
 		if (obj instanceof String) {
@@ -67,7 +67,7 @@ public class ToDate extends BaseSingleRowFunction {
 		}
 	}
 
-	@Override
+	
 	public void setParams(List<Object> params, From from, ProcessorContext context) throws DplParseException {
 		super.setParams(params, from, context);
 		valuePas = this.pasList.get(0);
@@ -78,7 +78,7 @@ public class ToDate extends BaseSingleRowFunction {
 		}
 	}
 
-	@Override
+	
 	public boolean isSupportWhere() {
 		return true;
 	}

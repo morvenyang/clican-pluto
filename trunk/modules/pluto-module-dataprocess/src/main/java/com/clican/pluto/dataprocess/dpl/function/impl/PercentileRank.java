@@ -35,14 +35,14 @@ public class PercentileRank extends BaseSingleRowFunction {
 	private PrefixAndSuffix orderBy;
 	private PrefixAndSuffix ascOrder;
 
-	@Override
+	
 	public Object calculate(Map<String, Object> row) throws CalculationException, PrefixAndSuffixException {
 		throw new CalculationException("This method shall never be invoked");
 	}
 
 	class MapValueComparator implements Comparator<Map<String, Object>> {
 
-		@Override
+		
 		public int compare(Map<String, Object> o1, Map<String, Object> o2) {
 			try {
 				Double c1 = (Double) orderBy.getValue(o1);
@@ -55,7 +55,7 @@ public class PercentileRank extends BaseSingleRowFunction {
 
 	}
 
-	@Override
+	
 	public Object calculate(List<Map<String, Object>> rowSet, Map<String, Object> row) throws CalculationException, PrefixAndSuffixException {
 		Map<Object, Integer> rowTileMap = new HashMap<Object, Integer>();
 
@@ -110,12 +110,12 @@ public class PercentileRank extends BaseSingleRowFunction {
 		return rowTileMap.get(row);
 	}
 
-	@Override
+	
 	public boolean isSupportWhere() throws DplParseException {
 		return false;
 	}
 
-	@Override
+	
 	public void setParams(List<Object> params, From from, ProcessorContext context) throws DplParseException {
 		super.setParams(params, from, context);
 

@@ -55,7 +55,7 @@ public class YieldByEnumWeight extends BaseSingleRowFunction {
 
 	private int enumNum = 0;
 
-	@Override
+	
 	public Object calculate(Map<String, Object> row) throws CalculationException, PrefixAndSuffixException {
 		if (index == 0) {
 			for (int i = 0; i < enumNum; i++) {
@@ -124,7 +124,7 @@ public class YieldByEnumWeight extends BaseSingleRowFunction {
 		}
 	}
 
-	@Override
+	
 	public boolean isSupportWhere() throws DplParseException {
 		return false;
 	}
@@ -133,7 +133,7 @@ public class YieldByEnumWeight extends BaseSingleRowFunction {
 		return (currentMoney - previousMoney) / previousMoney;
 	}
 
-	@Override
+	
 	public void setParams(List<Object> params, From from, ProcessorContext context) throws DplParseException {
 		super.setParams(params, from, context);
 		for (int i = 0; i < pasList.size() / 3 * 3; i = i + 3) {

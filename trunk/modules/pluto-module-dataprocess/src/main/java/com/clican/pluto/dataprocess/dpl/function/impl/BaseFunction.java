@@ -78,7 +78,7 @@ public abstract class BaseFunction implements Function {
 		this.trace = trace;
 	}
 
-	@Override
+	
 	public void setParams(List<Object> params, From from, ProcessorContext context) throws DplParseException {
 		this.params = params;
 		this.from = from;
@@ -125,7 +125,7 @@ public abstract class BaseFunction implements Function {
 		return list;
 	}
 
-	@Override
+	
 	public boolean isLazyCalc() {
 		return true;
 	}

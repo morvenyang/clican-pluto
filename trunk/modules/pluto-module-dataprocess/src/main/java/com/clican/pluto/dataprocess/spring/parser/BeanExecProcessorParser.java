@@ -22,13 +22,13 @@ import com.clican.pluto.dataprocess.engine.processes.BeanExecProcessor;
  */
 public class BeanExecProcessorParser extends AbstractProcessorParser {
 	
-	@Override
+	
 	public void customiseBeanDefinition(BeanDefinition beanDef, Element element, ParserContext parserContext) {
 		beanDef.getPropertyValues().addPropertyValue("bean", new RuntimeBeanReference( element.getAttribute("bean")));
 		this.setBeanDefinitionStringProperty("resultName", beanDef, element);
 	}
 
-	@Override
+	
 	public Class<? extends DataProcessor> getDataProcessorClass() {
 		return BeanExecProcessor.class;
 	}

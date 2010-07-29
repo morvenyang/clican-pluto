@@ -40,7 +40,7 @@ public class HedgeIndexRatio extends BaseMultiRowFunction {
 
 	private boolean beginCalc = false;
 
-	@Override
+	
 	public Object calculate(List<Map<String, Object>> rowSet) throws CalculationException, PrefixAndSuffixException {
 		if (rowSet.size() == 0) {
 			if (beginCalc) {
@@ -125,7 +125,7 @@ public class HedgeIndexRatio extends BaseMultiRowFunction {
 		return ratio;
 	}
 
-	@Override
+	
 	public void setParams(List<Object> params, From from, ProcessorContext context) throws DplParseException {
 		super.setParams(params, from, context);
 		this.ratioPas = this.pasList.get(0);

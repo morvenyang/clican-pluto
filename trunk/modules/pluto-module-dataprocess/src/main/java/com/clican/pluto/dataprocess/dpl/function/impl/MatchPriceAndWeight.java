@@ -48,7 +48,7 @@ public class MatchPriceAndWeight extends BaseMultiRowFunction {
 	private Map<String, Double> weightMap = new HashMap<String, Double>();
 
 	@SuppressWarnings("unchecked")
-	@Override
+	
 	public Object calculate(List<Map<String, Object>> rowSet) throws CalculationException, PrefixAndSuffixException {
 		Map<String, Object> mapRow = new HashMap<String, Object>();
 		boolean clear = true;
@@ -141,7 +141,7 @@ public class MatchPriceAndWeight extends BaseMultiRowFunction {
 	}
 
 	@SuppressWarnings("unchecked")
-	@Override
+	
 	public void setParams(List<Object> params, From from, ProcessorContext context) throws DplParseException {
 		super.setParams(params, from, context);
 		this.datePas = this.pasList.get(0);

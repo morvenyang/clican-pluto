@@ -43,7 +43,7 @@ public class JensenAlpha extends BaseMultiRowFunction {
 	 */
 	private PrefixAndSuffix referVectorPas;
 
-	@Override
+	
 	public Object calculate(List<Map<String, Object>> rowSet) throws CalculationException,PrefixAndSuffixException {
 		List<Double> estimateValueList = new ArrayList<Double>();
 		List<List<Double>> referValueListSet = new ArrayList<List<Double>>();
@@ -81,7 +81,7 @@ public class JensenAlpha extends BaseMultiRowFunction {
 		return beta;
 	}
 
-	@Override
+	
 	public void setParams(List<Object> params, From from, ProcessorContext context) throws DplParseException {
 		super.setParams(params, from, context);
 		if (params == null || params.size() < 2) {

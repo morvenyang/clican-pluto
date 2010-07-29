@@ -30,7 +30,7 @@ public class MaxDrawdown extends BaseMultiRowFunction {
 
 	private PrefixAndSuffix datePas;
 
-	@Override
+	
 	public Object calculate(List<Map<String, Object>> rowSet) throws CalculationException, PrefixAndSuffixException {
 		List<Double> ratioList = new ArrayList<Double>();
 		List<Date> dateList = new ArrayList<Date>();
@@ -64,12 +64,12 @@ public class MaxDrawdown extends BaseMultiRowFunction {
 		return maxSumRatio;
 	}
 
-	@Override
+	
 	public boolean isSupportWhere() throws DplParseException {
 		return false;
 	}
 
-	@Override
+	
 	public void setParams(List<Object> params, From from, ProcessorContext context) throws DplParseException {
 		super.setParams(params, from, context);
 		this.ratioPas = this.pasList.get(0);

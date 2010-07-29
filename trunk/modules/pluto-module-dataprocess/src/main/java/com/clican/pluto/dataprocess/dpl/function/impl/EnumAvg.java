@@ -26,7 +26,7 @@ import com.clican.pluto.dataprocess.exception.PrefixAndSuffixException;
  */
 public class EnumAvg extends BaseSingleRowFunction {
 
-	@Override
+	
 	public Object calculate(Map<String, Object> row) throws CalculationException,PrefixAndSuffixException{
 		Double sum = 0d;
 		int size = 0;
@@ -38,12 +38,12 @@ public class EnumAvg extends BaseSingleRowFunction {
 		return sum / size;
 	}
 
-	@Override
+	
 	public boolean isSupportWhere() throws DplParseException {
 		return true;
 	}
 
-	@Override
+	
 	public void setParams(List<Object> params, From from, ProcessorContext context) throws DplParseException {
 		super.setParams(params, from, context);
 		if (this.pasList.size() == 0) {

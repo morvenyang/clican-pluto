@@ -44,7 +44,7 @@ public class FromParser implements DplParser {
 		END_KEYWORD.add(PagingParser.START_KEYWORD3);
 	}
 
-	@Override
+	
 	public From parse(String dpl, ProcessorContext context, Map<String, Object> parseContext) throws DplParseException {
 		int index = dpl.indexOf(START_KEYWORD);
 		if (index < 0) {

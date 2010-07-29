@@ -26,7 +26,7 @@ import com.clican.pluto.dataprocess.bean.Deploy;
 public class DeployParser implements BeanDefinitionParser {
 
 
-	@Override
+	
 	public BeanDefinition parse(Element element, ParserContext parserContext) {
 		BeanDefinitionRegistry bdr = parserContext.getRegistry();
 		RootBeanDefinition beanDef = new RootBeanDefinition();

@@ -37,12 +37,12 @@ public class ConditionProcessor extends BaseDataProcessor {
 		this.exceptionMap = exceptionMap;
 	}
 
-	@Override
+	
 	public void process(ProcessorContext context) throws DataProcessException {
 		// do nothing
 	}
 
-	@Override
+	
 	public DataProcessor afterProcess(ProcessorContext context) throws DataProcessException {
 		if (log.isTraceEnabled()) {
 			log.trace("after" + getClass().getSimpleName() + " processes data");

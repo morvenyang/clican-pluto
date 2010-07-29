@@ -32,7 +32,7 @@ public class EqualRow extends BaseMultiRowFunction {
 
 	private PrefixAndSuffix equalRow;
 
-	@Override
+	
 	public void setParams(List<Object> params, From from, ProcessorContext context) throws DplParseException {
 		super.setParams(params, from, context);
 		if (params == null || params.size() != 2) {
@@ -42,7 +42,7 @@ public class EqualRow extends BaseMultiRowFunction {
 		equalRow = this.getPrefixeAndSuffix(params).get(1);
 	}
 
-	@Override
+	
 	public Object calculate(List<Map<String, Object>> rowSet) throws CalculationException,PrefixAndSuffixException {
 		for (Map<String, Object> row : rowSet) {
 			Boolean result = equalCondition.getValue(row);

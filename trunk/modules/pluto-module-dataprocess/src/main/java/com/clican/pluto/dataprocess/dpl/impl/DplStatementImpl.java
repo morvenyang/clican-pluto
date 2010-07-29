@@ -138,7 +138,7 @@ public class DplStatementImpl implements DplStatement {
 	/**
 	 * @see DplStatement#execute(String, ProcessorContext)
 	 */
-	@Override
+	
 	public List<Map<String, Object>> execute(String dpl, ProcessorContext context) throws DplException {
 		dpl = trimDpl(dpl);
 		if (dpl.trim().length() == 0) {
@@ -448,7 +448,7 @@ public class DplStatementImpl implements DplStatement {
 	 * @see DplStatement#execute(String, ProcessorContext, Class)
 	 */
 	@SuppressWarnings("unchecked")
-	@Override
+	
 	public <T> List<T> execute(String dpl, ProcessorContext context, Class<T> clazz) throws DplException {
 		List<Map<String, Object>> list = this.execute(dpl, context);
 		if (clazz == null) {
@@ -511,7 +511,7 @@ public class DplStatementImpl implements DplStatement {
 		return result;
 	}
 
-	@Override
+	
 	public <T> List<T> execute(String dpl, Map<String, Object> context, Class<T> clazz) throws DplException {
 		ProcessorContext ctx = new ProcessorContextImpl();
 		for (String key : context.keySet()) {
@@ -520,7 +520,7 @@ public class DplStatementImpl implements DplStatement {
 		return this.execute(dpl, ctx, clazz);
 	}
 
-	@Override
+	
 	public List<Map<String, Object>> execute(String dpl, Map<String, Object> context) throws DplException {
 		ProcessorContext ctx = new ProcessorContextImpl();
 		for (String key : context.keySet()) {

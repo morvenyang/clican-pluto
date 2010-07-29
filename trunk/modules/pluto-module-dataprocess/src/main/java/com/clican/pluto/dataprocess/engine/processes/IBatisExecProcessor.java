@@ -39,7 +39,7 @@ public class IBatisExecProcessor extends BaseDataProcessor {
 		this.ibatisExecBeanList = ibatisExecBeanList;
 	}
 
-	@Override
+	
 	public void process(ProcessorContext context) throws DataProcessException {
 		long nanoSeconds = System.nanoTime();
 		logger.trace("start processing sql expression ...");

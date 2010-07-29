@@ -21,7 +21,7 @@ import com.clican.pluto.dataprocess.engine.processes.TimerProcessor;
 public class TimerProcessorParser extends AbstractProcessorParser {
 
 	@SuppressWarnings("unchecked")
-	@Override
+	
 	public void customiseBeanDefinition(BeanDefinition beanDef, Element element, ParserContext parserContext) {
 		String cronExpression = element.getAttribute("cronExpression");
 		String startTime = element.getAttribute("startTime");
@@ -51,7 +51,7 @@ public class TimerProcessorParser extends AbstractProcessorParser {
 
 	}
 
-	@Override
+	
 	public Class<? extends DataProcessor> getDataProcessorClass() {
 		return TimerProcessor.class;
 	}

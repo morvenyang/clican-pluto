@@ -28,7 +28,7 @@ public class TotalReturnRatio extends BaseMultiRowFunction {
 	 */
 	private PrefixAndSuffix ratioPas;
 
-	@Override
+	
 	public Object calculate(List<Map<String, Object>> rowSet) throws CalculationException, PrefixAndSuffixException {
 		if (rowSet == null || rowSet.size() == 0) {
 			throw new CalculationException("计算总收益率数据不够");
@@ -42,7 +42,7 @@ public class TotalReturnRatio extends BaseMultiRowFunction {
 
 	}
 
-	@Override
+	
 	public void setParams(List<Object> params, From from, ProcessorContext context) throws DplParseException {
 		super.setParams(params, from, context);
 		ratioPas = this.getPrefixeAndSuffix(params).get(0);

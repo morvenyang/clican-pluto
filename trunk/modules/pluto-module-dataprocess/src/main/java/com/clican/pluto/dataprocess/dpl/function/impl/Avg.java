@@ -35,7 +35,7 @@ public class Avg extends BaseMultiRowFunction {
 
 	private int end = 0;
 
-	@Override
+	
 	public void setParams(List<Object> params, From from, ProcessorContext context) throws DplParseException {
 		super.setParams(params, from, context);
 		prefixAndSuffix = this.pasList.get(0);
@@ -47,7 +47,6 @@ public class Avg extends BaseMultiRowFunction {
 		}
 	}
 
-	@Override
 	public Object calculate(List<Map<String, Object>> rowSet) throws CalculationException, PrefixAndSuffixException {
 		Double result = null;
 		int tempEnd = rowSet.size();
