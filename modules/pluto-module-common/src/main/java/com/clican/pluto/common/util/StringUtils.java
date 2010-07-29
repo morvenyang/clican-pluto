@@ -88,6 +88,38 @@ public class StringUtils {
 
 	}
 
+	/**
+	 * 用分隔符把字符串分隔成一个字符串对象列表
+	 * @param text
+	 * 		　字符串
+	 * @param delimiter
+	 * 　　　　分隔符
+	 * @return
+	 */
+	public static List<String> tokenize(String text, String delimiter) {
+		if (delimiter == null) {
+			throw new RuntimeException("delimiter is null");
+		}
+		if (text == null) {
+			return new ArrayList<String>();
+		}
+
+		List<String> pieces = new ArrayList<String>();
+
+		int start = 0;
+		int end = text.indexOf(delimiter);
+		while (end != -1) {
+			pieces.add(text.substring(start, end));
+			start = end + delimiter.length();
+			end = text.indexOf(delimiter, start);
+		}
+
+		if (start < text.length()) {
+			pieces.add(text.substring(start));
+		}
+
+		return pieces;
+	}
 }
 
 // $Id: StringUtils.java 538 2009-06-15 09:33:07Z clican $
