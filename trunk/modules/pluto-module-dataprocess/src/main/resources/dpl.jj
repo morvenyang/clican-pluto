@@ -399,7 +399,7 @@ Filter filter = null;}
      {
     	Filter previousFilter = filterList.get(0);
     	for(int i=1;i<filterList.size();i++){
-    		previousFilter = new OrFilter(previousFilter,filterList.get(i),from);
+    		previousFilter = new OrFilter(previousFilter,filterList.get(i));
     	}
     	return previousFilter;
     }
@@ -413,7 +413,7 @@ Filter filter = null;}
     {
     	Filter previousFilter = filterList.get(0);
     	for(int i=1;i<filterList.size();i++){
-    		previousFilter = new AndFilter(previousFilter,filterList.get(i),from);
+    		previousFilter = new AndFilter(previousFilter,filterList.get(i));
     	}
     	return previousFilter;
     }
