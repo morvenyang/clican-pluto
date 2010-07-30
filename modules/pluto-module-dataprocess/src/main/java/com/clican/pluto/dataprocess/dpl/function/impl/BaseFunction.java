@@ -91,18 +91,8 @@ public abstract class BaseFunction implements Function {
 
 	public List<String> getFromParams() {
 		Set<String> fromParams = new HashSet<String>();
-		for (String var : from.getVariableNames()) {
-			for (Object param : params) {
-				if (param instanceof String) {
-					if (((String) param).startsWith(var + ".")) {
-						fromParams.add(var);
-					} else if (((String) param).equals(var)) {
-						fromParams.add(var);
-					}
-				} else if (param instanceof Function) {
-					fromParams.addAll(((Function) param).getFromParams());
-				}
-			}
+		for (PrefixAndSuffix pas : this.pasList) {
+			fromParams.addAll(pas.getFromParams());
 		}
 		return new ArrayList<String>(fromParams);
 	}
