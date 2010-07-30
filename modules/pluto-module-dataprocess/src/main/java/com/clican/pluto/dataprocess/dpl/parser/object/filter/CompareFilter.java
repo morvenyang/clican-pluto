@@ -52,7 +52,6 @@ public class CompareFilter extends Filter {
 	 * 左面表达式描述对象
 	 */
 	private PrefixAndSuffix leftPas;
-
 	/**
 	 * 右面表达式描述对象
 	 */
@@ -76,20 +75,25 @@ public class CompareFilter extends Filter {
 	public CompareFilter(PrefixAndSuffix leftPas, PrefixAndSuffix rightPas, CompareType compareType) throws PrefixAndSuffixException {
 		this.leftPas = leftPas;
 		this.rightPas = rightPas;
-		List<String> fromParams = leftPas.getFromParams();
-		if (fromParams.size() == 1) {
-			this.leftVarName = fromParams.get(0);
-		} else if (fromParams.size() > 1) {
-			throw new PrefixAndSuffixException("在where条件中的函数中使用到的参数当且仅当包含一个from条件才可以");
+		List<String> fromParams;
+		if (leftPas != null) {
+			fromParams = leftPas.getFromParams();
+			if (fromParams.size() == 1) {
+				this.leftVarName = fromParams.get(0);
+			} else if (fromParams.size() > 1) {
+				throw new PrefixAndSuffixException("在where条件中的函数中使用到的参数当且仅当包含一个from条件才可以");
+			}
 		}
-		fromParams = rightPas.getFromParams();
-		if (fromParams.size() == 1) {
-			this.rightVarName = fromParams.get(0);
-		} else if (fromParams.size() > 1) {
-			throw new PrefixAndSuffixException("在where条件中的函数中使用到的参数当且仅当包含一个from条件才可以");
+		if (rightPas != null) {
+			fromParams = rightPas.getFromParams();
+			if (fromParams.size() == 1) {
+				this.rightVarName = fromParams.get(0);
+			} else if (fromParams.size() > 1) {
+				throw new PrefixAndSuffixException("在where条件中的函数中使用到的参数当且仅当包含一个from条件才可以");
+			}
 		}
 		this.compareType = compareType;
-		this.expr = leftPas.toString() + compareType.getOperation() + rightPas.toString();
+		this.expr = (leftPas != null ? leftPas.toString() : "") + " " + compareType.getOperation() + " " + (rightPas != null ? rightPas.toString() : "");
 	}
 
 	/**
@@ -307,9 +311,15 @@ public class CompareFilter extends Filter {
 				row.put(varName, varObj);
 			}
 			// 获取比较对象1和比较对象2
-			Object comp1 = pas1.getValue(row);
+			Object comp1 = null;
+			if (pas1 != null) {
+				comp1 = pas1.getValue(row);
+			}
 			// 比较对象2可以是Collection所以使用Object
-			Object comp2 = pas2.getValue(row);
+			Object comp2 = null;
+			if (pas2 != null) {
+				comp2 = pas2.getValue(row);
+			}
 
 			if (comp2 instanceof Comparable || comp2 == null) {
 				// 2个Comparable对象的比较

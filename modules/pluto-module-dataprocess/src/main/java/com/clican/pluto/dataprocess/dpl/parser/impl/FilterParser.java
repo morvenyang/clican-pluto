@@ -262,17 +262,21 @@ public class FilterParser implements DplParser {
 						}
 					}
 
-					PrefixAndSuffix leftPas;
+					PrefixAndSuffix leftPas = null;
 					if (leftFunction != null) {
 						leftPas = new PrefixAndSuffix(leftFunction);
 					} else {
-						leftPas = new PrefixAndSuffix(leftExpr, from, context);
+						if(StringUtils.isNotEmpty(leftExpr)){
+							leftPas = new PrefixAndSuffix(leftExpr, from, context);
+						}
 					}
-					PrefixAndSuffix rightPas;
+					PrefixAndSuffix rightPas=null;
 					if (rightFunction != null) {
 						rightPas = new PrefixAndSuffix(rightFunction);
 					} else {
-						rightPas = new PrefixAndSuffix(rightExpr, from, context);
+						if(StringUtils.isNotEmpty(rightExpr)){
+							rightPas = new PrefixAndSuffix(rightExpr, from, context);
+						}
 					}
 					return new CompareFilter(leftPas, rightPas, compareType);
 				}
