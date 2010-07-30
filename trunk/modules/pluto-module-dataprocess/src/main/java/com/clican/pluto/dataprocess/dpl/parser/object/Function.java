@@ -31,11 +31,10 @@ public interface Function extends ParserObject {
 	 * 设置函数参数
 	 * 
 	 * @param params
-	 * @param from
 	 * @param context
 	 * @throws DplParseException
 	 */
-	public void setParams(List<Object> params, From from, ProcessorContext context) throws DplParseException;
+	public void setParams(List<Object> params, ProcessorContext context) throws DplParseException;
 
 	/**
 	 * 返回在From关键字中出现过的函数参数

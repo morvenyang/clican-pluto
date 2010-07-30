@@ -12,7 +12,6 @@ import java.util.Map;
 import com.clican.pluto.dataprocess.dpl.function.MultiRowFunction;
 import com.clican.pluto.dataprocess.dpl.function.SingleRowFunction;
 import com.clican.pluto.dataprocess.dpl.parser.bean.PrefixAndSuffix;
-import com.clican.pluto.dataprocess.dpl.parser.object.From;
 import com.clican.pluto.dataprocess.engine.ProcessorContext;
 import com.clican.pluto.dataprocess.exception.CalculationException;
 import com.clican.pluto.dataprocess.exception.DplParseException;
@@ -64,8 +63,8 @@ public class RowNumber extends BaseFunction implements SingleRowFunction {
 	}
 
 	
-	public void setParams(List<Object> params, From from, ProcessorContext context) throws DplParseException {
-		super.setParams(params, from, context);
+	public void setParams(List<Object> params, ProcessorContext context) throws DplParseException {
+		super.setParams(params, context);
 		this.listValue = this.pasList.get(0);
 		this.value = this.pasList.get(1);
 	}
