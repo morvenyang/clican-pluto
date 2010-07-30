@@ -36,7 +36,7 @@ http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
 	</bean>	
 	
 	<bean id="subDplParser" class="com.clican.pluto.dataprocess.dpl.parser.impl.SubDplParser"
-		autowire="byName">
+		autowire="byName" lazy-init="true">
 	</bean>	
 
 </beans>

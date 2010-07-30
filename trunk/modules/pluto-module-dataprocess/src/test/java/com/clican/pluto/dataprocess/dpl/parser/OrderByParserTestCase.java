@@ -7,7 +7,6 @@
 package com.clican.pluto.dataprocess.dpl.parser;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import com.clican.pluto.dataprocess.dpl.BaseDplTestCase;
@@ -34,13 +33,13 @@ public class OrderByParserTestCase extends BaseDplTestCase {
 
 	public void testOrderBy1() throws Exception {
 		String dpl = "select sum(list.id) as sumId,list.name as name from list order by name";
-		OrderBy orderBy = orderByParser.parse(dpl, new ProcessorContextImpl(), new HashMap<String, Object>());
+		OrderBy orderBy = orderByParser.parse(dpl, new ProcessorContextImpl());
 		assertTrue(orderBy.getOrders().size() == 1);
 	}
 
 	public void testOrderBy2() throws Exception {
 		String dpl = "select sum(list.id) as sumId,list.name as name from list order by name asc,password desc";
-		OrderBy orderBy = orderByParser.parse(dpl, new ProcessorContextImpl(), new HashMap<String, Object>());
+		OrderBy orderBy = orderByParser.parse(dpl, new ProcessorContextImpl());
 		assertTrue(orderBy.getOrders().size() == 2);
 	}
 

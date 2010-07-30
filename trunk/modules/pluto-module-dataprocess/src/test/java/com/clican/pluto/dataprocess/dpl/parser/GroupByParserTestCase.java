@@ -38,13 +38,13 @@ public class GroupByParserTestCase extends BaseDplTestCase {
 
 	public void testGroupBy1() throws Exception {
 		String dpl = "select sum(list.id) as sumId,list.name as name from list group by list.name";
-		GroupBy groupBy = groupByParser.parse(dpl, new ProcessorContextImpl(), new HashMap<String, Object>());
+		GroupBy groupBy = groupByParser.parse(dpl, new ProcessorContextImpl());
 		assertTrue(groupBy.getGroups().size() == 1);
 	}
 
 	public void testGroupBy2() throws Exception {
 		String dpl = "select sum(list.id) as sumId,list.name as name from list group by list.name,list.password";
-		GroupBy groupBy = groupByParser.parse(dpl, new ProcessorContextImpl(), new HashMap<String, Object>());
+		GroupBy groupBy = groupByParser.parse(dpl, new ProcessorContextImpl());
 		assertTrue(groupBy.getGroups().size() == 2);
 	}
 
@@ -55,7 +55,7 @@ public class GroupByParserTestCase extends BaseDplTestCase {
 		froms.add("list");
 		From from = new From(froms);
 		parseContext.put(FromParser.START_KEYWORD, from);
-		GroupBy groupBy = groupByParser.parse(dpl, new ProcessorContextImpl(), parseContext);
+		GroupBy groupBy = groupByParser.parse(dpl, new ProcessorContextImpl());
 		assertTrue(groupBy.getGroups().size() == 2);
 	}
 

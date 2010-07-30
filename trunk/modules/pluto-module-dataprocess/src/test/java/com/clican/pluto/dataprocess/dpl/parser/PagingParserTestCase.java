@@ -34,7 +34,7 @@ public class PagingParserTestCase extends BaseDplTestCase {
 
 	public void test1() throws Exception {
 		String dpl = "select list.name from list offset 0 limit 1 reverse";
-		Pagination pagination = pagingParser.parse(dpl, new ProcessorContextImpl(), new HashMap<String, Object>());
+		Pagination pagination = pagingParser.parse(dpl, new ProcessorContextImpl());
 		assertEquals(new Integer(0), pagination.getOffset());
 		assertEquals(new Integer(1), pagination.getLimit());
 		assertTrue(pagination.isReverse());

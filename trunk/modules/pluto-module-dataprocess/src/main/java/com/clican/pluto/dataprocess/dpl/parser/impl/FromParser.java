@@ -9,7 +9,6 @@ package com.clican.pluto.dataprocess.dpl.parser.impl;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import com.clican.pluto.dataprocess.dpl.parser.DplParser;
@@ -45,7 +44,7 @@ public class FromParser implements DplParser {
 	}
 
 	
-	public From parse(String dpl, ProcessorContext context, Map<String, Object> parseContext) throws DplParseException {
+	public From parse(String dpl, ProcessorContext context) throws DplParseException {
 		int index = dpl.indexOf(START_KEYWORD);
 		if (index < 0) {
 			return null;
@@ -65,7 +64,6 @@ public class FromParser implements DplParser {
 			froms.add(t.trim());
 		}
 		From f = new From(froms);
-		parseContext.put(START_KEYWORD, f);
 		return f;
 	}
 }

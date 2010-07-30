@@ -39,10 +39,10 @@ public class FunctionParseTestCase extends BaseDataProcessTestCase {
 		
 		functionParser.parse(
 				"sharpeRatio((weeklyReturnRatioList.returnRate-rFR(riskFreeList.rfrValue,50)))",
-				context, parseContext);
+				context);
 		functionParser.parse(
 				"test.a+(test.b*test.c-(test.d*(test.e+test.f*test.r/test.c*equal(test.e,test.f))))+dual.factor/0.34+equal(test.a%test.b-test.p,test.c)",
-				context, parseContext);
+				context);
 	}
 }
 
