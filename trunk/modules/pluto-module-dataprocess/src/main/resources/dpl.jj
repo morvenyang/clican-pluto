@@ -39,7 +39,6 @@ class PlSql {
         String dpl = "select aList.id,toChar(aList.date) as date from aList where (aList.id=1 and aList.name='aaa') or (aList.id=2 and aList.name='bbb')";
 		InputStream is = new ByteArrayInputStream(dpl.getBytes());
 		final PlSql parser = new PlSql(is);
-		parser.from.getVariableNames().add("aList");
 		parser.parse();
     }
 
