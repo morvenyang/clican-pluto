@@ -12,8 +12,8 @@ import java.util.List;
 import java.util.Map;
 
 import com.clican.pluto.dataprocess.BaseDataProcessTestCase;
-import com.clican.pluto.dataprocess.dpl.parser.impl.FromParser;
-import com.clican.pluto.dataprocess.dpl.parser.impl.FunctionParser;
+import com.clican.pluto.dataprocess.dpl.parser.FunctionParser;
+import com.clican.pluto.dataprocess.dpl.parser.impl.FromParserImpl;
 import com.clican.pluto.dataprocess.dpl.parser.object.From;
 import com.clican.pluto.dataprocess.engine.ProcessorContext;
 import com.clican.pluto.dataprocess.engine.impl.ProcessorContextImpl;
@@ -35,7 +35,7 @@ public class FunctionParseTestCase extends BaseDataProcessTestCase {
 		vars.add("riskFreeList");
 		vars.add("test");
 		From from = new From(vars);
-		parseContext.put(FromParser.START_KEYWORD, from);
+		parseContext.put(FromParserImpl.START_KEYWORD, from);
 		
 		functionParser.parse(
 				"sharpeRatio((weeklyReturnRatioList.returnRate-rFR(riskFreeList.rfrValue,50)))",

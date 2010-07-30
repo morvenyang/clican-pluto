@@ -14,8 +14,6 @@ import java.util.Map;
 
 import com.clican.pluto.dataprocess.dpl.BaseDplTestCase;
 import com.clican.pluto.dataprocess.dpl.DplStatement;
-import com.clican.pluto.dataprocess.dpl.parser.impl.FilterParser;
-import com.clican.pluto.dataprocess.dpl.parser.impl.FromParser;
 import com.clican.pluto.dataprocess.engine.ProcessorContext;
 import com.clican.pluto.dataprocess.engine.impl.ProcessorContextImpl;
 import com.clican.pluto.dataprocess.testbean.BeanA;

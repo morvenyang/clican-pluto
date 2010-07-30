@@ -22,7 +22,7 @@ import com.clican.pluto.dataprocess.dpl.function.impl.Mod;
 import com.clican.pluto.dataprocess.dpl.function.impl.Multi;
 import com.clican.pluto.dataprocess.dpl.function.impl.Plus;
 import com.clican.pluto.dataprocess.dpl.function.impl.Pow;
-import com.clican.pluto.dataprocess.dpl.parser.DplParser;
+import com.clican.pluto.dataprocess.dpl.parser.FunctionParser;
 import com.clican.pluto.dataprocess.dpl.parser.eunmeration.FunctionOperation;
 import com.clican.pluto.dataprocess.dpl.parser.object.Function;
 import com.clican.pluto.dataprocess.engine.ProcessorContext;
@@ -34,13 +34,14 @@ import com.clican.pluto.dataprocess.exception.DplParseException;
  * @author clican
  * 
  */
-public class FunctionParser implements DplParser {
+public class FunctionParserImpl implements FunctionParser {
 
-	public final static String FUNCTION_PACKAGE = BaseFunction.class.getPackage().getName();
+	public final static String FUNCTION_PACKAGE = BaseFunction.class
+			.getPackage().getName();
 
 	public final static String PARAM_SPLIT_EXPR = ",";
 
-	public final static Log log = LogFactory.getLog(FunctionParser.class);
+	public final static Log log = LogFactory.getLog(FunctionParserImpl.class);
 
 	public static final String START_KEYWORD = "(";
 
@@ -52,12 +53,13 @@ public class FunctionParser implements DplParser {
 		this.extFunctionPackage = extFunctionPackage;
 	}
 
-	public boolean containFunction(String dpl) {
+	private boolean containFunction(String dpl) {
 		dpl = dpl.trim();
 		if (dpl.startsWith("'") && dpl.startsWith("'")) {
 			return false;
 		}
-		if (dpl.contains(FunctionParser.START_KEYWORD) && dpl.contains(FunctionParser.END_KEYWORD)) {
+		if (dpl.contains(FunctionParserImpl.START_KEYWORD)
+				&& dpl.contains(FunctionParserImpl.END_KEYWORD)) {
 			return true;
 		} else if (FunctionOperation.containOperation(dpl)) {
 			return true;
@@ -75,7 +77,8 @@ public class FunctionParser implements DplParser {
 		String dplCopy = dpl;
 		for (int i = 0; i < parts.length; i++) {
 			int index = dplCopy.indexOf(parts[i]);
-			dplCopy = dplCopy.substring(0, index) + " " + dplCopy.substring(index + parts[i].length());
+			dplCopy = dplCopy.substring(0, index) + " "
+					+ dplCopy.substring(index + parts[i].length());
 		}
 		String[] operations = dplCopy.split(" ");
 		List<String> partList = new ArrayList<String>();
@@ -89,7 +92,9 @@ public class FunctionParser implements DplParser {
 
 			right += StringUtils.countMatches(parts[i].trim(), ")");
 
-			if (left == right && StringUtils.countMatches(parts[i].trim(), "(") == StringUtils.countMatches(parts[i].trim(), ")")) {
+			if (left == right
+					&& StringUtils.countMatches(parts[i].trim(), "(") == StringUtils
+							.countMatches(parts[i].trim(), ")")) {
 				partList.add(part);
 				left = 0;
 				right = 0;
@@ -120,7 +125,8 @@ public class FunctionParser implements DplParser {
 		String previousOne = null;
 		if (partList.size() == 1) {
 			result = partList.get(0);
-			if (StringUtils.countMatches(result, "(") > 0 && StringUtils.countMatches(result, "(") > 0) {
+			if (StringUtils.countMatches(result, "(") > 0
+					&& StringUtils.countMatches(result, "(") > 0) {
 				return result;
 			} else {
 				return "(" + result + ")";
@@ -129,12 +135,15 @@ public class FunctionParser implements DplParser {
 		for (int i = 0; i < partList.size(); i++) {
 			String part = partList.get(i);
 
-			if (part.startsWith("*") || part.startsWith("%") || part.startsWith("/") || part.startsWith("^")) {
+			if (part.startsWith("*") || part.startsWith("%")
+					|| part.startsWith("/") || part.startsWith("^")) {
 				if (previousOne == null) {
 					throw new DplParseException("函数解析错误[" + dpl + "]");
 				}
-				if (FunctionOperation.containOperation(previousOne.substring(0, 1))) {
-					previousOne = previousOne.substring(0, 1) + "(" + previousOne.substring(1) + part + ")";
+				if (FunctionOperation.containOperation(previousOne.substring(0,
+						1))) {
+					previousOne = previousOne.substring(0, 1) + "("
+							+ previousOne.substring(1) + part + ")";
 				} else {
 					previousOne = "(" + previousOne + part + ")";
 				}
@@ -193,7 +202,11 @@ public class FunctionParser implements DplParser {
 
 	}
 
-	public Function parse(String dpl, ProcessorContext context) throws DplParseException {
+	public Function parse(String dpl, ProcessorContext context)
+			throws DplParseException {
+		if (!containFunction(dpl)) {
+			return null;
+		}
 		String copy = dpl;
 		if (StringUtils.isEmpty(dpl)) {
 			throw new DplParseException("解析函数出错，被解析内容为空");
@@ -201,13 +214,15 @@ public class FunctionParser implements DplParser {
 		dpl = removeUnused(dpl);
 		dpl = processPriority(dpl);
 		if (!dpl.contains(START_KEYWORD) && !dpl.contains(END_KEYWORD)) {
-			throw new DplParseException("解析函数出错，函数提必须包括函数名和'" + START_KEYWORD + "'" + PARAM_SPLIT_EXPR + "'" + END_KEYWORD + "'");
+			throw new DplParseException("解析函数出错，函数提必须包括函数名和'" + START_KEYWORD
+					+ "'" + PARAM_SPLIT_EXPR + "'" + END_KEYWORD + "'");
 		}
 		// if (log.isDebugEnabled()) {
 		// log.debug("parse function[" + dpl.replaceAll("\n", "") + "]");
 		// }
 		try {
-			String functionName = dpl.substring(0, dpl.indexOf(START_KEYWORD)).trim();
+			String functionName = dpl.substring(0, dpl.indexOf(START_KEYWORD))
+					.trim();
 			if (StringUtils.isEmpty(functionName)) {
 				int index = 0;
 				int leftKey = 0;
@@ -243,7 +258,12 @@ public class FunctionParser implements DplParser {
 							index++;
 							continue;
 						}
-						String paramExpr = dpl.substring(dpl.indexOf(FunctionParser.START_KEYWORD) + 1, dpl.lastIndexOf(FunctionParser.END_KEYWORD));
+						String paramExpr = dpl
+								.substring(
+										dpl
+												.indexOf(FunctionParserImpl.START_KEYWORD) + 1,
+										dpl
+												.lastIndexOf(FunctionParserImpl.END_KEYWORD));
 						params[0] = paramExpr.substring(0, index - 1).trim();
 						params[1] = paramExpr.substring(index).trim();
 						String param = "";
@@ -254,9 +274,12 @@ public class FunctionParser implements DplParser {
 							} else {
 								param += "," + params[i];
 							}
-							int left = StringUtils.countMatches(param, START_KEYWORD);
-							int right = StringUtils.countMatches(param, END_KEYWORD);
-							boolean containOperation = FunctionOperation.containOperation(param);
+							int left = StringUtils.countMatches(param,
+									START_KEYWORD);
+							int right = StringUtils.countMatches(param,
+									END_KEYWORD);
+							boolean containOperation = FunctionOperation
+									.containOperation(param);
 							if (left == 0 && right == 0 && !containOperation) {
 								paramList.add(param);
 								param = "";
@@ -275,7 +298,8 @@ public class FunctionParser implements DplParser {
 				}
 				throw new DplParseException("函数解析错误()不对称");
 			} else {
-				functionName = functionName.substring(0, 1).toUpperCase() + functionName.substring(1);
+				functionName = functionName.substring(0, 1).toUpperCase()
+						+ functionName.substring(1);
 				String functionTrace = null;
 				if (functionName.contains("=>")) {
 					functionTrace = functionName.split("=>")[1];
@@ -284,11 +308,13 @@ public class FunctionParser implements DplParser {
 				Class<?> clazz = null;
 
 				try {
-					clazz = Class.forName(FUNCTION_PACKAGE + "." + functionName);
+					clazz = Class
+							.forName(FUNCTION_PACKAGE + "." + functionName);
 				} catch (ClassNotFoundException e) {
 					for (String extPackage : extFunctionPackage) {
 						try {
-							clazz = Class.forName(extPackage + "." + functionName);
+							clazz = Class.forName(extPackage + "."
+									+ functionName);
 						} catch (ClassNotFoundException ex) {
 
 						}
@@ -300,7 +326,9 @@ public class FunctionParser implements DplParser {
 
 				Function function = (Function) clazz.newInstance();
 				function.setTrace(functionTrace);
-				String paramExpr = dpl.substring(dpl.indexOf(FunctionParser.START_KEYWORD) + 1, dpl.lastIndexOf(FunctionParser.END_KEYWORD));
+				String paramExpr = dpl.substring(dpl
+						.indexOf(FunctionParserImpl.START_KEYWORD) + 1, dpl
+						.lastIndexOf(FunctionParserImpl.END_KEYWORD));
 				String[] params = paramExpr.split(PARAM_SPLIT_EXPR);
 				String param = "";
 				List<Object> paramList = new ArrayList<Object>();
@@ -312,7 +340,8 @@ public class FunctionParser implements DplParser {
 					}
 					int left = StringUtils.countMatches(param, START_KEYWORD);
 					int right = StringUtils.countMatches(param, END_KEYWORD);
-					boolean containOperation = FunctionOperation.containOperation(param);
+					boolean containOperation = FunctionOperation
+							.containOperation(param);
 					if (left == 0 && right == 0 && !containOperation) {
 						paramList.add(param);
 						param = "";

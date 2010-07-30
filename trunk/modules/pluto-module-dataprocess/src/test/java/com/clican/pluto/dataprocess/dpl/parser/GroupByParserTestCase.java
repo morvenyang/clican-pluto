@@ -14,8 +14,7 @@ import java.util.Map;
 
 import com.clican.pluto.dataprocess.dpl.BaseDplTestCase;
 import com.clican.pluto.dataprocess.dpl.DplStatement;
-import com.clican.pluto.dataprocess.dpl.parser.impl.FromParser;
-import com.clican.pluto.dataprocess.dpl.parser.impl.GroupByParser;
+import com.clican.pluto.dataprocess.dpl.parser.impl.FromParserImpl;
 import com.clican.pluto.dataprocess.dpl.parser.object.From;
 import com.clican.pluto.dataprocess.dpl.parser.object.GroupBy;
 import com.clican.pluto.dataprocess.engine.ProcessorContext;
@@ -54,14 +53,15 @@ public class GroupByParserTestCase extends BaseDplTestCase {
 		List<String> froms = new ArrayList<String>();
 		froms.add("list");
 		From from = new From(froms);
-		parseContext.put(FromParser.START_KEYWORD, from);
+		parseContext.put(FromParserImpl.START_KEYWORD, from);
 		GroupBy groupBy = groupByParser.parse(dpl, new ProcessorContextImpl());
 		assertTrue(groupBy.getGroups().size() == 2);
 	}
 
 	public void testGroupBy4() throws Exception {
 		String dpl = "select sum(list.id) as sumId,toChar(list.date,'yyyyMMdd') as date from list group by toChar(list.date,'yyyyMMdd')";
-		List<Map<String, Object>> result = dplStatement.execute(dpl, getContext());
+		List<Map<String, Object>> result = dplStatement.execute(dpl,
+				getContext());
 		assertEquals(1, result.size());
 	}
 

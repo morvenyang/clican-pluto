@@ -13,7 +13,6 @@ import java.util.Map;
 
 import com.clican.pluto.dataprocess.dpl.BaseDplTestCase;
 import com.clican.pluto.dataprocess.dpl.DplStatement;
-import com.clican.pluto.dataprocess.dpl.parser.impl.PagingParser;
 import com.clican.pluto.dataprocess.dpl.parser.object.Pagination;
 import com.clican.pluto.dataprocess.engine.impl.ProcessorContextImpl;
 import com.clican.pluto.dataprocess.testbean.BeanA;
@@ -34,7 +33,8 @@ public class PagingParserTestCase extends BaseDplTestCase {
 
 	public void test1() throws Exception {
 		String dpl = "select list.name from list offset 0 limit 1 reverse";
-		Pagination pagination = pagingParser.parse(dpl, new ProcessorContextImpl());
+		Pagination pagination = pagingParser.parse(dpl,
+				new ProcessorContextImpl());
 		assertEquals(new Integer(0), pagination.getOffset());
 		assertEquals(new Integer(1), pagination.getLimit());
 		assertTrue(pagination.isReverse());

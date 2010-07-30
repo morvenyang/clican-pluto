@@ -13,21 +13,22 @@ import java.util.Set;
 
 import com.clican.pluto.dataprocess.dpl.function.MultiRowFunction;
 import com.clican.pluto.dataprocess.dpl.function.SingleRowFunction;
-import com.clican.pluto.dataprocess.dpl.parser.DplParser;
+import com.clican.pluto.dataprocess.dpl.parser.FunctionParser;
+import com.clican.pluto.dataprocess.dpl.parser.GroupByParser;
 import com.clican.pluto.dataprocess.dpl.parser.bean.Group;
 import com.clican.pluto.dataprocess.dpl.parser.object.Function;
 import com.clican.pluto.dataprocess.dpl.parser.object.GroupBy;
 import com.clican.pluto.dataprocess.engine.ProcessorContext;
 import com.clican.pluto.dataprocess.exception.DplParseException;
 
-public class GroupByParser implements DplParser {
+public class GroupByParserImpl implements GroupByParser {
 
 	public final static String START_KEYWORD = "group by";
 
 	private final static Set<String> END_KEYWORD = new HashSet<String>();
 
 	static {
-		END_KEYWORD.add(OrderByParser.START_KEYWORD);
+		END_KEYWORD.add(OrderByParserImpl.START_KEYWORD);
 	}
 
 	private FunctionParser functionParser;
@@ -36,8 +37,8 @@ public class GroupByParser implements DplParser {
 		this.functionParser = functionParser;
 	}
 
-	
-	public GroupBy parse(String dpl, ProcessorContext context) throws DplParseException {
+	public GroupBy parse(String dpl, ProcessorContext context)
+			throws DplParseException {
 		int index = dpl.indexOf(START_KEYWORD);
 		if (index < 0) {
 			return null;
@@ -67,23 +68,22 @@ public class GroupByParser implements DplParser {
 				} else {
 					g = group.substring(lastI, i).trim();
 				}
-				if (functionParser.containFunction(g)) {
-					Function function = functionParser.parse(g, context);
+
+				Function function = functionParser.parse(g, context);
+				if (function != null) {
 					function.setExpr(g);
 					if (function instanceof MultiRowFunction) {
 						throw new DplParseException("在where条件中不支持多行处理函数");
 					}
 					gro.setFunction((SingleRowFunction) function);
-					gro.setExpr(g);
-				} else {
-					gro.setExpr(g);
 				}
+				gro.setExpr(g);
 				groups.add(gro);
 				lastI = i + 1;
 			}
-			if (p.equals(FunctionParser.START_KEYWORD)) {
+			if (p.equals(FunctionParserImpl.START_KEYWORD)) {
 				left++;
-			} else if (p.equals(FunctionParser.END_KEYWORD)) {
+			} else if (p.equals(FunctionParserImpl.END_KEYWORD)) {
 				right++;
 			}
 
