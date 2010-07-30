@@ -1,7 +1,7 @@
 /**
  * The Clican-Pluto software suit is Copyright 2009, Clican Company and individual contributors, and is licensed under the GNU LGPL.
  *
- * @author wei.zhang
+ * @author clican
  *
  */
 package com.clican.pluto.dataprocess.dpl.function.impl;
@@ -33,7 +33,7 @@ import com.clican.pluto.dataprocess.exception.PrefixAndSuffixException;
  * <p>
  * code - 股票或基金对应的代码，主要在内部计算的时候用来做标识
  * 
- * @author wei.zhang
+ * @author clican
  * 
  */
 public class MoneyByExchange extends BaseMultiRowFunction {

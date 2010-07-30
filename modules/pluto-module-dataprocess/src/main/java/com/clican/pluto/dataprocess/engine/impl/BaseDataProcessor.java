@@ -1,7 +1,7 @@
 /**
  * The Clican-Pluto software suit is Copyright 2009, Clican Company and individual contributors, and is licensed under the GNU LGPL.
  *
- * @author wei.zhang
+ * @author clican
  *
  */
 package com.clican.pluto.dataprocess.engine.impl;
@@ -22,7 +22,7 @@ import com.clican.pluto.dataprocess.exception.InterruptedException;
 /**
  * 数据处理的一个通用基类实现，提供了默认的beforeProcess和afterProcess实现
  * 
- * @author wei.zhang
+ * @author clican
  * 
  */
 public abstract class BaseDataProcessor implements DataProcessor {

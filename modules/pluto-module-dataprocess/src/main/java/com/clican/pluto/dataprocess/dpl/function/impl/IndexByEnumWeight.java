@@ -1,7 +1,7 @@
 /**
  * The Clican-Pluto software suit is Copyright 2009, Clican Company and individual contributors, and is licensed under the GNU LGPL.
  *
- * @author wei.zhang
+ * @author clican
  *
  */
 package com.clican.pluto.dataprocess.dpl.function.impl;
@@ -17,7 +17,7 @@ import com.clican.pluto.dataprocess.exception.DplParseException;
  * <p>
  * indexByEnumWeight(List<Double> prices1,List<Double> weights1,String key1,List<Double> prices2,List<Double> weights2,String key2,...)
  *
- * @author wei.zhang
+ * @author clican
  *
  */
 public class IndexByEnumWeight extends YieldByEnumWeight {

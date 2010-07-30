@@ -1,7 +1,7 @@
 /**
  * The Clican-Pluto software suit is Copyright 2009, Clican Company and individual contributors, and is licensed under the GNU LGPL.
  *
- * @author wei.zhang
+ * @author clican
  *
  */
 package com.clican.pluto.dataprocess.dpl.function.impl;
@@ -22,7 +22,7 @@ import com.clican.pluto.dataprocess.exception.PrefixAndSuffixException;
  * 
  * values - 要计算方差的数据
  * 
- * @author wei.zhang
+ * @author clican
  *
  */
 public class Variance extends BaseMultiRowFunction {

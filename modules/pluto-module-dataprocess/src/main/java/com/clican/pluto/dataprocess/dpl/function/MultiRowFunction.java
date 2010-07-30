@@ -1,7 +1,7 @@
 /**
  * The Clican-Pluto software suit is Copyright 2009, Clican Company and individual contributors, and is licensed under the GNU LGPL.
  *
- * @author wei.zhang
+ * @author clican
  *
  */
 package com.clican.pluto.dataprocess.dpl.function;
@@ -16,7 +16,7 @@ import com.clican.pluto.dataprocess.exception.PrefixAndSuffixException;
 /**
  * 处理多行数据的函数接口
  * 
- * @author wei.zhang
+ * @author clican
  * 
  */
 public interface MultiRowFunction extends Function {

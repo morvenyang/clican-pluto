@@ -1,7 +1,7 @@
 /**
  * The Clican-Pluto software suit is Copyright 2009, Clican Company and individual contributors, and is licensed under the GNU LGPL.
  *
- * @author wei.zhang
+ * @author clican
  *
  */
 package com.clican.pluto.dataprocess.dpl.impl;
@@ -73,7 +73,7 @@ import com.clican.pluto.dataprocess.exception.DplParseException;
  * <code>DplStatementImpl</code>就会把Map对象转换为对应的Class然后再返回给外部系统。
  * <p/>
  * 
- * @author wei.zhang
+ * @author clican
  * 
  */
 public class DplStatementImpl implements DplStatement {

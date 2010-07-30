@@ -1,7 +1,7 @@
 /**
  * The Clican-Pluto software suit is Copyright 2009, Clican Company and individual contributors, and is licensed under the GNU LGPL.
  *
- * @author wei.zhang
+ * @author clican
  *
  */
 package com.clican.pluto.dataprocess.dpl;
@@ -17,7 +17,7 @@ import com.clican.pluto.dataprocess.exception.DplException;
  * <code>ProcessorContext</code>的上下文中把希望获得的数据各类where条件、group by条件order
  * by条件再经过各个calculation计算获得结果。
  * 
- * @author wei.zhang
+ * @author clican
  * 
  */
 public interface DplStatement {

@@ -1,7 +1,7 @@
 /**
  * The Clican-Pluto software suit is Copyright 2009, Clican Company and individual contributors, and is licensed under the GNU LGPL.
  *
- * @author wei.zhang
+ * @author clican
  *
  */
 package com.clican.pluto.dataprocess.dpl.function.impl;
@@ -20,7 +20,7 @@ import com.clican.pluto.dataprocess.exception.PrefixAndSuffixException;
 /**
  * 计算当前记录在整个list中处于第几行,从0开始计
  * 
- * @author wei.zhang
+ * @author clican
  * 
  */
 public class RowNumber extends BaseFunction implements SingleRowFunction {

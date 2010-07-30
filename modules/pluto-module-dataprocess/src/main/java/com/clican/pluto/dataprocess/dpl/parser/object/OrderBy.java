@@ -1,7 +1,7 @@
 /**
  * The Clican-Pluto software suit is Copyright 2009, Clican Company and individual contributors, and is licensed under the GNU LGPL.
  *
- * @author wei.zhang
+ * @author clican
  *
  */
 package com.clican.pluto.dataprocess.dpl.parser.object;
@@ -14,7 +14,7 @@ import com.clican.pluto.dataprocess.dpl.parser.bean.Order;
 /**
  * 保存解析后的Order By的内容
  *
- * @author wei.zhang
+ * @author clican
  *
  */
 public class OrderBy implements ParserObject {

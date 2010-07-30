@@ -1,7 +1,7 @@
 /**
  * The Clican-Pluto software suit is Copyright 2009, Clican Company and individual contributors, and is licensed under the GNU LGPL.
  *
- * @author wei.zhang
+ * @author clican
  *
  */
 package com.clican.pluto.dataprocess.engine.processes;
@@ -24,7 +24,7 @@ import com.clican.pluto.dataprocess.exception.DataProcessException;
 /**
  * For循环遍历执行的Processor
  * 
- * @author wei.zhang
+ * @author clican
  * 
  */
 public class ForProcessor extends BaseDataProcessor {

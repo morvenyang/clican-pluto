@@ -1,7 +1,7 @@
 /**
  * The Clican-Pluto software suit is Copyright 2009, Clican Company and individual contributors, and is licensed under the GNU LGPL.
  *
- * @author wei.zhang
+ * @author clican
  *
  */
 package com.clican.pluto.dataprocess.dpl.integrated;
@@ -25,7 +25,7 @@ import com.clican.pluto.dataprocess.testbean.BeanPrice;
  * <p>
  * 然后用这3个股票和标杆指数做比较来填平数据。
  * 
- * @author wei.zhang
+ * @author clican
  * 
  */
 public class FillInDataTestCase extends BaseDplTestCase {

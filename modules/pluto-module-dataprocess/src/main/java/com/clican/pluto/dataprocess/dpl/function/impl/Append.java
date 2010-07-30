@@ -1,7 +1,7 @@
 /**
  * The Clican-Pluto software suit is Copyright 2009, Clican Company and individual contributors, and is licensed under the GNU LGPL.
  *
- * @author wei.zhang
+ * @author clican
  *
  */
 package com.clican.pluto.dataprocess.dpl.function.impl;
@@ -18,7 +18,7 @@ import com.clican.pluto.dataprocess.exception.PrefixAndSuffixException;
  * 字符串拼接函数
  * <p>
  * append(String s1,String s2,String s3...)
- * @author wei.zhang
+ * @author clican
  *
  */
 public class Append extends BaseSingleRowFunction {

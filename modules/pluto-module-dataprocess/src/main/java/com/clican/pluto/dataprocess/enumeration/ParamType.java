@@ -1,7 +1,7 @@
 /**
  * The Clican-Pluto software suit is Copyright 2009, Clican Company and individual contributors, and is licensed under the GNU LGPL.
  *
- * @author wei.zhang
+ * @author clican
  *
  */
 package com.clican.pluto.dataprocess.enumeration;
@@ -9,7 +9,7 @@ package com.clican.pluto.dataprocess.enumeration;
 /**
  * 定义了<dataprocess:param>标签中可以使用的type属性的枚举值
  * 
- * @author wei.zhang
+ * @author clican
  * 
  */
 public enum ParamType {

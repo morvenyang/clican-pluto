@@ -1,7 +1,7 @@
 /**
  * The Clican-Pluto software suit is Copyright 2009, Clican Company and individual contributors, and is licensed under the GNU LGPL.
  *
- * @author wei.zhang
+ * @author clican
  *
  */
 package com.clican.pluto.dataprocess.bean;
@@ -11,7 +11,7 @@ import java.io.Serializable;
 /**
  * 配置部署的数据处理组的描述
  * 
- * @author wei.zhang
+ * @author clican
  * 
  */
 public class Deploy implements Serializable {

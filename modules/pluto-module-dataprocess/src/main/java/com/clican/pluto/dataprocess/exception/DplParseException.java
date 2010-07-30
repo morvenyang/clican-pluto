@@ -1,7 +1,7 @@
 /**
  * The Clican-Pluto software suit is Copyright 2009, Clican Company and individual contributors, and is licensed under the GNU LGPL.
  *
- * @author wei.zhang
+ * @author clican
  *
  */
 package com.clican.pluto.dataprocess.exception;
@@ -9,7 +9,7 @@ package com.clican.pluto.dataprocess.exception;
 /**
  * 在进行Dpl解析的时候发送错误该错误被抛出
  * 
- * @author wei.zhang
+ * @author clican
  * 
  */
 public class DplParseException extends DplException {

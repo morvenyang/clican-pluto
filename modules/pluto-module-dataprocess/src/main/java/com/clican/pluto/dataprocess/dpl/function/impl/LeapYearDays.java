@@ -21,7 +21,7 @@ import com.clican.pluto.dataprocess.exception.PrefixAndSuffixException;
  * <p>
  * leapYearDays(Date date)
  * 
- * @author wei.zhang
+ * @author clican
  * 
  */
 public class LeapYearDays extends BaseSingleRowFunction {

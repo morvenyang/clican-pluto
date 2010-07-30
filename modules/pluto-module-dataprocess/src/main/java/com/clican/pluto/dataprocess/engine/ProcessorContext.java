@@ -1,7 +1,7 @@
 /**
  * The Clican-Pluto software suit is Copyright 2009, Clican Company and individual contributors, and is licensed under the GNU LGPL.
  *
- * @author wei.zhang
+ * @author clican
  *
  */
 package com.clican.pluto.dataprocess.engine;
@@ -12,7 +12,7 @@ import java.util.Map;
 /**
  * 数据处理流程中的上下文环境，主要用于各个处理环节的数据交换。
  * 
- * @author wei.zhang
+ * @author clican
  * 
  */
 public interface ProcessorContext extends Serializable {

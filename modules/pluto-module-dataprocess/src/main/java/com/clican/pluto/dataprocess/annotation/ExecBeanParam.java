@@ -1,7 +1,7 @@
 /**
  * The Clican-Pluto software suit is Copyright 2009, Clican Company and individual contributors, and is licensed under the GNU LGPL.
  *
- * @author wei.zhang
+ * @author clican
  *
  */
 package com.clican.pluto.dataprocess.annotation;
@@ -19,7 +19,7 @@ import java.lang.annotation.Target;
  * <p>
  * 所有的参数名就是对应参数在<code>com.jsw.dataprocess.engine.ProcessorContext</code>中的属性名
  * 
- * @author wei.zhang
+ * @author clican
  * 
  */
 @Target(PARAMETER)

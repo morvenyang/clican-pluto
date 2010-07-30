@@ -1,7 +1,7 @@
 /**
  * The Clican-Pluto software suit is Copyright 2009, Clican Company and individual contributors, and is licensed under the GNU LGPL.
  *
- * @author wei.zhang
+ * @author clican
  *
  */
 package com.clican.pluto.dataprocess.enumeration;
@@ -24,7 +24,7 @@ import com.ibatis.sqlmap.client.SqlMapClient;
 /**
  * IBatis处理操作的枚举类型
  * 
- * @author wei.zhang, jing.tian
+ * @author clican, jing.tian
  * 
  */
 public enum IBatisExecType {

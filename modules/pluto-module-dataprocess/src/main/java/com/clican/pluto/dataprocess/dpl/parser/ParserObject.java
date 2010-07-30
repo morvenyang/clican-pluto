@@ -1,7 +1,7 @@
 /**
  * The Clican-Pluto software suit is Copyright 2009, Clican Company and individual contributors, and is licensed under the GNU LGPL.
  *
- * @author wei.zhang
+ * @author clican
  *
  */
 package com.clican.pluto.dataprocess.dpl.parser;
@@ -9,7 +9,7 @@ package com.clican.pluto.dataprocess.dpl.parser;
 /**
  * 被解析后的对象的抽象接口。目前没有任何实际的接口函数定义。
  * 
- * @author wei.zhang
+ * @author clican
  * 
  */
 public interface ParserObject {

@@ -1,7 +1,7 @@
 /**
  * The Clican-Pluto software suit is Copyright 2009, Clican Company and individual contributors, and is licensed under the GNU LGPL.
  *
- * @author wei.zhang
+ * @author clican
  *
  */
 package com.clican.pluto.dataprocess.dpl.function.impl;
@@ -28,7 +28,7 @@ import com.clican.pluto.dataprocess.exception.PrefixAndSuffixException;
  * div - 分红
  * split - 拆分
  * 
- * @author wei.zhang
+ * @author clican
  *
  */
 public class MultiCompNav extends BaseMultiRowFunction {
