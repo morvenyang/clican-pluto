@@ -80,7 +80,6 @@ public class DplStatementImpl implements DplStatement {
 
 	private final static Log log = LogFactory.getLog(DplStatementImpl.class);
 
-	public final static String CONTEXT_NAME = "dplStatement";
 
 	/**
 	 * <code>FilterParser</code>实例
@@ -147,8 +146,6 @@ public class DplStatementImpl implements DplStatement {
 		}
 		ProcessorContext clone = context.getCloneContext();
 		// 解析dpl的各个组成部分
-		Map<String, Object> parseContext = new HashMap<String, Object>();
-		parseContext.put(CONTEXT_NAME, this);
 		SubDpl subDpl = subDplParser.parse(dpl, clone);
 		for (String subDplStr : subDpl.getSubDplStrAliasMap().keySet()) {
 			String alias = subDpl.getSubDplStrAliasMap().get(subDplStr);
