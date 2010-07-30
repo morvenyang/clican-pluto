@@ -18,7 +18,6 @@ import com.clican.pluto.dataprocess.dpl.function.SingleRowFunction;
 import com.clican.pluto.dataprocess.dpl.parser.DplParser;
 import com.clican.pluto.dataprocess.dpl.parser.bean.PrefixAndSuffix;
 import com.clican.pluto.dataprocess.dpl.parser.eunmeration.CompareType;
-import com.clican.pluto.dataprocess.dpl.parser.object.From;
 import com.clican.pluto.dataprocess.dpl.parser.object.Function;
 import com.clican.pluto.dataprocess.dpl.parser.object.filter.AndFilter;
 import com.clican.pluto.dataprocess.dpl.parser.object.filter.CompareFilter;
@@ -233,13 +232,9 @@ public class FilterParser implements DplParser {
 
 	private Filter getCommonFilter(String expr, ProcessorContext context, Map<String, Object> parseContext) throws DplParseException {
 		try {
-			From from = (From) parseContext.get(FromParser.START_KEYWORD);
 			for (CompareType compareType : CompareType.values()) {
 				if (expr.contains(compareType.getOperation())) {
 					expr = expr.trim();
-					// if (log.isDebugEnabled()) {
-					// log.debug("解析比较条件[" + expr + "]");
-					// }
 					String leftExpr = expr.substring(0, expr.indexOf(compareType.getOperation())).trim();
 					String rightExpr = expr.substring(expr.indexOf(compareType.getOperation()) + compareType.getOperation().length(), expr.length()).trim();
 					SingleRowFunction leftFunction = null;
@@ -266,16 +261,16 @@ public class FilterParser implements DplParser {
 					if (leftFunction != null) {
 						leftPas = new PrefixAndSuffix(leftFunction);
 					} else {
-						if(StringUtils.isNotEmpty(leftExpr)){
-							leftPas = new PrefixAndSuffix(leftExpr, from, context);
+						if (StringUtils.isNotEmpty(leftExpr)) {
+							leftPas = new PrefixAndSuffix(leftExpr, context);
 						}
 					}
-					PrefixAndSuffix rightPas=null;
+					PrefixAndSuffix rightPas = null;
 					if (rightFunction != null) {
 						rightPas = new PrefixAndSuffix(rightFunction);
 					} else {
-						if(StringUtils.isNotEmpty(rightExpr)){
-							rightPas = new PrefixAndSuffix(rightExpr, from, context);
+						if (StringUtils.isNotEmpty(rightExpr)) {
+							rightPas = new PrefixAndSuffix(rightExpr, context);
 						}
 					}
 					return new CompareFilter(leftPas, rightPas, compareType);

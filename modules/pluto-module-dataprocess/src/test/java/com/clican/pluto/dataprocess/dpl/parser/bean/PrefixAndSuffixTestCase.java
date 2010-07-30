@@ -13,8 +13,6 @@ import java.util.Map;
 
 import junit.framework.TestCase;
 
-import com.clican.pluto.dataprocess.dpl.parser.bean.PrefixAndSuffix;
-import com.clican.pluto.dataprocess.dpl.parser.object.From;
 import com.clican.pluto.dataprocess.engine.ProcessorContext;
 import com.clican.pluto.dataprocess.engine.impl.ProcessorContextImpl;
 import com.clican.pluto.dataprocess.exception.PrefixAndSuffixException;
@@ -27,16 +25,16 @@ public class PrefixAndSuffixTestCase extends TestCase {
 		varNames.add("list");
 		ProcessorContext context = getContext();
 		List<BeanA> list = context.getAttribute("list");
-		PrefixAndSuffix pas1 = new PrefixAndSuffix("list.id", new From(varNames), getContext());
+		PrefixAndSuffix pas1 = new PrefixAndSuffix("list.id", getContext());
 		Map<String, Object> row = new HashMap<String, Object>();
 		row.put("list", list.get(0));
 		assertEquals(new Integer(0), (Integer) pas1.getValue(row));
-		PrefixAndSuffix pas2 = new PrefixAndSuffix("dual.id", new From(varNames), getContext());
+		PrefixAndSuffix pas2 = new PrefixAndSuffix("dual.id", getContext());
 		assertEquals(new Integer(1), pas2.getConstantsValue(Integer.class));
-		PrefixAndSuffix pas3 = new PrefixAndSuffix("dual.beanA.id", new From(varNames), getContext());
+		PrefixAndSuffix pas3 = new PrefixAndSuffix("dual.beanA.id", getContext());
 		assertEquals(new Double(1), pas3.getConstantsValue(Double.class));
 		assertEquals("1", pas3.getConstantsValue(String.class));
-		PrefixAndSuffix pas4 = new PrefixAndSuffix("dual.beanA.name", new From(varNames), getContext());
+		PrefixAndSuffix pas4 = new PrefixAndSuffix("dual.beanA.name", getContext());
 		assertEquals(new Double(1), pas4.getConstantsValue(Double.class));
 		List<Map<String, Object>> rowSet = new ArrayList<Map<String, Object>>();
 		Map<String, Object> row1 = new HashMap<String, Object>();
@@ -52,7 +50,7 @@ public class PrefixAndSuffixTestCase extends TestCase {
 		varNames.add("list");
 		ProcessorContext context = getContext();
 		List<BeanA> list = context.getAttribute("list");
-		PrefixAndSuffix pas1 = new PrefixAndSuffix("list.id", new From(varNames), getContext());
+		PrefixAndSuffix pas1 = new PrefixAndSuffix("list.id", getContext());
 		Map<String, Object> row = new HashMap<String, Object>();
 		row.put("list", list.get(0));
 		try {

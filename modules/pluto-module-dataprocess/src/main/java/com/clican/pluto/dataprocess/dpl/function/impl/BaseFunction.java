@@ -24,7 +24,7 @@ import com.clican.pluto.dataprocess.exception.DplParseException;
 public abstract class BaseFunction implements Function {
 
 	protected final Log log = LogFactory.getLog(getClass());
-	
+
 	protected final Log tracesLog = LogFactory.getLog("com.jsw.dataprocess.engine.processes.DplExecProcessor.tracesLog");
 
 	protected List<Object> params;
@@ -38,7 +38,7 @@ public abstract class BaseFunction implements Function {
 	protected ProcessorContext context;
 
 	protected String expr;
-	
+
 	protected String trace;
 
 	/**
@@ -78,7 +78,6 @@ public abstract class BaseFunction implements Function {
 		this.trace = trace;
 	}
 
-	
 	public void setParams(List<Object> params, From from, ProcessorContext context) throws DplParseException {
 		this.params = params;
 		this.from = from;
@@ -97,11 +96,11 @@ public abstract class BaseFunction implements Function {
 				if (param instanceof String) {
 					if (((String) param).startsWith(var + ".")) {
 						fromParams.add(var);
-					}else if(((String) param).equals(var)){
+					} else if (((String) param).equals(var)) {
 						fromParams.add(var);
 					}
-				}else if(param instanceof Function){
-					fromParams.addAll(((Function)param).getFromParams());
+				} else if (param instanceof Function) {
+					fromParams.addAll(((Function) param).getFromParams());
 				}
 			}
 		}
@@ -115,7 +114,7 @@ public abstract class BaseFunction implements Function {
 			if (param instanceof Function) {
 				pas = new PrefixAndSuffix((Function) param);
 			} else if (param instanceof String) {
-				pas = new PrefixAndSuffix(param.toString(), from, context);
+				pas = new PrefixAndSuffix(param.toString(), context);
 			} else {
 				// 这种情况绝对不可能发生,如果产生这个情况请检查FunctionParser的代码是否有问题
 				throw new DplParseException("函数参数解析错误");
@@ -125,12 +124,10 @@ public abstract class BaseFunction implements Function {
 		return list;
 	}
 
-	
 	public boolean isLazyCalc() {
 		return true;
 	}
-	
-	
+
 }
 
 // $Id: BaseFunction.java 13254 2010-05-26 09:50:41Z wei.zhang $

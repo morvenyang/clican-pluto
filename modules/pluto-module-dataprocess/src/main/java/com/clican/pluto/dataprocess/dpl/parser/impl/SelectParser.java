@@ -17,7 +17,6 @@ import org.apache.commons.lang.StringUtils;
 import com.clican.pluto.dataprocess.dpl.parser.DplParser;
 import com.clican.pluto.dataprocess.dpl.parser.bean.Column;
 import com.clican.pluto.dataprocess.dpl.parser.bean.PrefixAndSuffix;
-import com.clican.pluto.dataprocess.dpl.parser.object.From;
 import com.clican.pluto.dataprocess.dpl.parser.object.Function;
 import com.clican.pluto.dataprocess.dpl.parser.object.Select;
 import com.clican.pluto.dataprocess.engine.ProcessorContext;
@@ -45,9 +44,7 @@ public class SelectParser implements DplParser {
 		END_KEYWORD.add(FromParser.START_KEYWORD);
 	}
 
-	
 	public Select parse(String dpl, ProcessorContext context, Map<String, Object> parseContext) throws DplParseException {
-		From from = (From) parseContext.get(FromParser.START_KEYWORD);
 		int index = dpl.indexOf(START_KEYWORD);
 		if (index < 0) {
 			return null;
@@ -106,7 +103,7 @@ public class SelectParser implements DplParser {
 					Column col = new Column();
 					if (StringUtils.isNotEmpty(columnName)) {
 						col.setColumnName(columnName);
-						PrefixAndSuffix prefixAndSuffix = new PrefixAndSuffix(column.substring(0, column.indexOf(AS_TOKEN) + 1).trim(), from, context);
+						PrefixAndSuffix prefixAndSuffix = new PrefixAndSuffix(column.substring(0, column.indexOf(AS_TOKEN) + 1).trim(), context);
 						col.setPrefixAndSuffix(prefixAndSuffix);
 					} else {
 						if (column.contains(".")) {
@@ -114,7 +111,7 @@ public class SelectParser implements DplParser {
 						} else {
 							col.setColumnName(column);
 						}
-						PrefixAndSuffix prefixAndSuffix = new PrefixAndSuffix(column, from, context);
+						PrefixAndSuffix prefixAndSuffix = new PrefixAndSuffix(column, context);
 						col.setPrefixAndSuffix(prefixAndSuffix);
 					}
 					columnList.add(col);
