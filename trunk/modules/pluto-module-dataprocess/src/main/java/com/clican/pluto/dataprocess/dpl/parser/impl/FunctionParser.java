@@ -25,7 +25,6 @@ import com.clican.pluto.dataprocess.dpl.function.impl.Plus;
 import com.clican.pluto.dataprocess.dpl.function.impl.Pow;
 import com.clican.pluto.dataprocess.dpl.parser.DplParser;
 import com.clican.pluto.dataprocess.dpl.parser.eunmeration.FunctionOperation;
-import com.clican.pluto.dataprocess.dpl.parser.object.From;
 import com.clican.pluto.dataprocess.dpl.parser.object.Function;
 import com.clican.pluto.dataprocess.engine.ProcessorContext;
 import com.clican.pluto.dataprocess.exception.DplParseException;
@@ -195,7 +194,6 @@ public class FunctionParser implements DplParser {
 
 	}
 
-	
 	public Function parse(String dpl, ProcessorContext context, Map<String, Object> parseContext) throws DplParseException {
 		String copy = dpl;
 		if (StringUtils.isEmpty(dpl)) {
@@ -209,7 +207,6 @@ public class FunctionParser implements DplParser {
 		// if (log.isDebugEnabled()) {
 		// log.debug("parse function[" + dpl.replaceAll("\n", "") + "]");
 		// }
-		From from = (From) parseContext.get(FromParser.START_KEYWORD);
 		try {
 			String functionName = dpl.substring(0, dpl.indexOf(START_KEYWORD)).trim();
 			if (StringUtils.isEmpty(functionName)) {
@@ -281,7 +278,7 @@ public class FunctionParser implements DplParser {
 			} else {
 				functionName = functionName.substring(0, 1).toUpperCase() + functionName.substring(1);
 				String functionTrace = null;
-				if(functionName.contains("=>")){
+				if (functionName.contains("=>")) {
 					functionTrace = functionName.split("=>")[1];
 					functionName = functionName.split("=>")[0];
 				}
