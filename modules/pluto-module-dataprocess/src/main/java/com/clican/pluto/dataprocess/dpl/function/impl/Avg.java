@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.clican.pluto.dataprocess.dpl.parser.bean.PrefixAndSuffix;
-import com.clican.pluto.dataprocess.dpl.parser.object.From;
 import com.clican.pluto.dataprocess.engine.ProcessorContext;
 import com.clican.pluto.dataprocess.exception.CalculationException;
 import com.clican.pluto.dataprocess.exception.DplParseException;
@@ -36,8 +35,8 @@ public class Avg extends BaseMultiRowFunction {
 	private int end = 0;
 
 	
-	public void setParams(List<Object> params, From from, ProcessorContext context) throws DplParseException {
-		super.setParams(params, from, context);
+	public void setParams(List<Object> params, ProcessorContext context) throws DplParseException {
+		super.setParams(params, context);
 		prefixAndSuffix = this.pasList.get(0);
 		if (params.size() > 1) {
 			start = ((Number) this.pasList.get(1).getConstantsValue()).intValue();

@@ -17,7 +17,6 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
 
 import com.clican.pluto.dataprocess.dpl.parser.bean.PrefixAndSuffix;
-import com.clican.pluto.dataprocess.dpl.parser.object.From;
 import com.clican.pluto.dataprocess.engine.ProcessorContext;
 import com.clican.pluto.dataprocess.exception.CalculationException;
 import com.clican.pluto.dataprocess.exception.DplParseException;
@@ -142,8 +141,8 @@ public class MatchPriceAndWeight extends BaseMultiRowFunction {
 
 	@SuppressWarnings("unchecked")
 	
-	public void setParams(List<Object> params, From from, ProcessorContext context) throws DplParseException {
-		super.setParams(params, from, context);
+	public void setParams(List<Object> params, ProcessorContext context) throws DplParseException {
+		super.setParams(params, context);
 		this.datePas = this.pasList.get(0);
 		this.priceCodePas = this.pasList.get(1);
 		this.pricePas = this.pasList.get(2);
