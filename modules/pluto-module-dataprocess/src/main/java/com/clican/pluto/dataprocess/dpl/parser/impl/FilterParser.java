@@ -123,9 +123,9 @@ public class FilterParser implements DplParser {
 						filter = getCommonFilter(expr, context, parseContext);
 					}
 					if (lastAnd) {
-						previousFilter = new AndFilter(previousFilter, filter, (From) parseContext.get(FromParser.START_KEYWORD));
+						previousFilter = new AndFilter(previousFilter, filter);
 					} else {
-						previousFilter = new OrFilter(previousFilter, filter, (From) parseContext.get(FromParser.START_KEYWORD));
+						previousFilter = new OrFilter(previousFilter, filter);
 					}
 				}
 				lastAnd = true;
@@ -146,9 +146,9 @@ public class FilterParser implements DplParser {
 						filter = getCommonFilter(expr, context, parseContext);
 					}
 					if (lastAnd) {
-						previousFilter = new AndFilter(previousFilter, filter, (From) parseContext.get(FromParser.START_KEYWORD));
+						previousFilter = new AndFilter(previousFilter, filter);
 					} else {
-						previousFilter = new OrFilter(previousFilter, filter, (From) parseContext.get(FromParser.START_KEYWORD));
+						previousFilter = new OrFilter(previousFilter, filter);
 					}
 				}
 				lastAnd = false;
@@ -177,9 +177,9 @@ public class FilterParser implements DplParser {
 							filter = getCommonFilter(expr, context, parseContext);
 						}
 						if (lastAnd) {
-							previousFilter = new AndFilter(previousFilter, filter, (From) parseContext.get(FromParser.START_KEYWORD));
+							previousFilter = new AndFilter(previousFilter, filter);
 						} else {
-							previousFilter = new OrFilter(previousFilter, filter, (From) parseContext.get(FromParser.START_KEYWORD));
+							previousFilter = new OrFilter(previousFilter, filter);
 						}
 					}
 				}
@@ -317,7 +317,6 @@ public class FilterParser implements DplParser {
 		throw new DplParseException("Cannt find compare type");
 	}
 
-	
 	public Filter parse(String dpl, ProcessorContext context, Map<String, Object> parseContext) throws DplParseException {
 		int index = dpl.indexOf(START_KEYWORD);
 		if (index < 0) {
