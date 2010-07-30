@@ -63,7 +63,7 @@ public class PrefixAndSuffix {
 		this.function = function;
 	}
 
-	public List<String> getFromParams() throws PrefixAndSuffixException {
+	public List<String> getFromParams()  {
 		if (function != null) {
 			return function.getFromParams();
 		} else {
