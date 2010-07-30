@@ -22,7 +22,6 @@ import com.clican.pluto.common.util.TypeUtils;
 import com.clican.pluto.dataprocess.dpl.function.FunctionCallback;
 import com.clican.pluto.dataprocess.dpl.function.SingleRowFunction;
 import com.clican.pluto.dataprocess.dpl.parser.impl.FromParser;
-import com.clican.pluto.dataprocess.dpl.parser.object.From;
 import com.clican.pluto.dataprocess.dpl.parser.object.Function;
 import com.clican.pluto.dataprocess.engine.ProcessorContext;
 import com.clican.pluto.dataprocess.exception.CalculationException;
@@ -76,7 +75,7 @@ public class PrefixAndSuffix {
 		}
 	}
 
-	public PrefixAndSuffix(String expr, From from, ProcessorContext context) throws PrefixAndSuffixException {
+	public PrefixAndSuffix(String expr, ProcessorContext context) throws PrefixAndSuffixException {
 		this.expr = expr;
 		if (expr.startsWith("'") && expr.endsWith("'")) {
 			suffix = expr;
