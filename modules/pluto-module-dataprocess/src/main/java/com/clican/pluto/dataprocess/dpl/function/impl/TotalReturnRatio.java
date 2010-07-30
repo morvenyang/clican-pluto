@@ -44,7 +44,7 @@ public class TotalReturnRatio extends BaseMultiRowFunction {
 	
 	public void setParams(List<Object> params, ProcessorContext context) throws DplParseException {
 		super.setParams(params, context);
-		ratioPas = this.getPrefixeAndSuffix(params).get(0);
+		ratioPas = this.pasList.get(0);
 	}
 }
 

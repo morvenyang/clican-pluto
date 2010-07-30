@@ -30,8 +30,8 @@ public class MinRow extends BaseMultiRowFunction {
 		if (params == null || params.size() != 2) {
 			throw new DplParseException();
 		}
-		minCondition = this.getPrefixeAndSuffix(params).get(0);
-		minRow = this.getPrefixeAndSuffix(params).get(1);
+		minCondition = this.pasList.get(0);
+		minRow = this.pasList.get(1);
 	}
 	@SuppressWarnings("unchecked")
 	

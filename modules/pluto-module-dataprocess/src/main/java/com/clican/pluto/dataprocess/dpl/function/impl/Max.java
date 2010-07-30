@@ -27,7 +27,7 @@ public class Max extends BaseMultiRowFunction {
 		if (params == null || params.size() != 1) {
 			throw new DplParseException();
 		}
-		prefixAndSuffix = this.getPrefixeAndSuffix(params).get(0);
+		prefixAndSuffix = this.pasList.get(0);
 	}
 
 	@SuppressWarnings("unchecked")

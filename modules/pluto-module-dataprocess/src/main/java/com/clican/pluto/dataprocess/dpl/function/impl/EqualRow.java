@@ -37,8 +37,8 @@ public class EqualRow extends BaseMultiRowFunction {
 		if (params == null || params.size() != 2) {
 			throw new DplParseException();
 		}
-		equalCondition = this.getPrefixeAndSuffix(params).get(0);
-		equalRow = this.getPrefixeAndSuffix(params).get(1);
+		equalCondition = this.pasList.get(0);
+		equalRow = this.pasList.get(1);
 	}
 
 	

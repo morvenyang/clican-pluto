@@ -89,10 +89,10 @@ public class MoneyByExchange extends BaseMultiRowFunction {
 		if (params == null || params.size() != 4) {
 			throw new DplParseException();
 		}
-		this.pricePas = this.getPrefixeAndSuffix(params).get(0);
-		this.numberPas = this.getPrefixeAndSuffix(params).get(1);
-		this.keyPas = this.getPrefixeAndSuffix(params).get(2);
-		this.remainMoneyPas = this.getPrefixeAndSuffix(params).get(3);
+		this.pricePas = this.pasList.get(0);
+		this.numberPas = this.pasList.get(1);
+		this.keyPas = this.pasList.get(2);
+		this.remainMoneyPas = this.pasList.get(3);
 	}
 
 }

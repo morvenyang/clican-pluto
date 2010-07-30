@@ -93,7 +93,7 @@ public abstract class BaseFunction implements Function {
 		return new ArrayList<String>(fromParams);
 	}
 
-	public List<PrefixAndSuffix> getPrefixeAndSuffix(List<Object> params) throws DplParseException {
+	private List<PrefixAndSuffix> getPrefixeAndSuffix(List<Object> params) throws DplParseException {
 		List<PrefixAndSuffix> list = new ArrayList<PrefixAndSuffix>();
 		for (Object param : params) {
 			PrefixAndSuffix pas;
