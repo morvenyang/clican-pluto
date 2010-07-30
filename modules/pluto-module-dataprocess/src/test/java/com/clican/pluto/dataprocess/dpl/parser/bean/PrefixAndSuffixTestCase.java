@@ -24,25 +24,27 @@ public class PrefixAndSuffixTestCase extends TestCase {
 		List<String> varNames = new ArrayList<String>();
 		varNames.add("list");
 		ProcessorContext context = getContext();
+		PrefixAndSuffix.setLocalContext(context);
 		List<BeanA> list = context.getAttribute("list");
-		PrefixAndSuffix pas1 = new PrefixAndSuffix("list.id", getContext());
+		PrefixAndSuffix pas1 = new PrefixAndSuffix("list.id");
 		Map<String, Object> row = new HashMap<String, Object>();
 		row.put("list", list.get(0));
 		assertEquals(new Integer(0), (Integer) pas1.getValue(row));
-		PrefixAndSuffix pas2 = new PrefixAndSuffix("dual.id", getContext());
+		PrefixAndSuffix pas2 = new PrefixAndSuffix("dual.id");
 		assertEquals(new Integer(1), pas2.getConstantsValue(Integer.class));
-		PrefixAndSuffix pas3 = new PrefixAndSuffix("dual.beanA.id", getContext());
+		PrefixAndSuffix pas3 = new PrefixAndSuffix("dual.beanA.id");
 		assertEquals(new Double(1), pas3.getConstantsValue(Double.class));
 		assertEquals("1", pas3.getConstantsValue(String.class));
-		PrefixAndSuffix pas4 = new PrefixAndSuffix("dual.beanA.name", getContext());
+		PrefixAndSuffix pas4 = new PrefixAndSuffix("dual.beanA.name");
 		assertEquals(new Double(1), pas4.getConstantsValue(Double.class));
 		List<Map<String, Object>> rowSet = new ArrayList<Map<String, Object>>();
 		Map<String, Object> row1 = new HashMap<String, Object>();
 		row1.put("list", list.get(1));
 		rowSet.add(row);
 		rowSet.add(row1);
-		List<Integer> result = pas1.getValues(rowSet);
+		List<Integer> result = pas1.getValues(rowSet, context);
 		assertEquals(2, result.size());
+		PrefixAndSuffix.releaseLocalContext();
 	}
 
 	public void test2() throws Exception {
@@ -50,7 +52,7 @@ public class PrefixAndSuffixTestCase extends TestCase {
 		varNames.add("list");
 		ProcessorContext context = getContext();
 		List<BeanA> list = context.getAttribute("list");
-		PrefixAndSuffix pas1 = new PrefixAndSuffix("list.id", getContext());
+		PrefixAndSuffix pas1 = new PrefixAndSuffix("list.id");
 		Map<String, Object> row = new HashMap<String, Object>();
 		row.put("list", list.get(0));
 		try {

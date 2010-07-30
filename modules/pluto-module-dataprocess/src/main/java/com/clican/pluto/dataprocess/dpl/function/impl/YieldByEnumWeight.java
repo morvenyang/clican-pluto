@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.clican.pluto.dataprocess.dpl.parser.bean.PrefixAndSuffix;
-import com.clican.pluto.dataprocess.engine.ProcessorContext;
 import com.clican.pluto.dataprocess.exception.CalculationException;
 import com.clican.pluto.dataprocess.exception.DplParseException;
 import com.clican.pluto.dataprocess.exception.PrefixAndSuffixException;
@@ -133,8 +132,8 @@ public class YieldByEnumWeight extends BaseSingleRowFunction {
 	}
 
 	
-	public void setParams(List<Object> params, ProcessorContext context) throws DplParseException {
-		super.setParams(params, context);
+	public void setParams(List<Object> params) throws DplParseException {
+		super.setParams(params);
 		for (int i = 0; i < pasList.size() / 3 * 3; i = i + 3) {
 			this.pricePasList.add(pasList.get(i));
 			this.weightPasList.add(pasList.get(i + 1));

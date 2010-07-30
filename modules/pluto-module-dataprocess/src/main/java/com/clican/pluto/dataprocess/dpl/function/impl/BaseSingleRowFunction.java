@@ -104,7 +104,6 @@ public abstract class BaseSingleRowFunction extends BaseFunction implements Sing
 
 	/**
 	 * 调用本身函数
-	 * 
 	 * @param row
 	 * @return
 	 * @throws CalculationException

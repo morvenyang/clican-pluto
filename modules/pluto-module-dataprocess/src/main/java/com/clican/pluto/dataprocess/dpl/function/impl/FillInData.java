@@ -14,7 +14,6 @@ import java.util.Map;
 import org.apache.commons.beanutils.BeanUtils;
 
 import com.clican.pluto.dataprocess.dpl.parser.bean.PrefixAndSuffix;
-import com.clican.pluto.dataprocess.engine.ProcessorContext;
 import com.clican.pluto.dataprocess.exception.CalculationException;
 import com.clican.pluto.dataprocess.exception.DplParseException;
 import com.clican.pluto.dataprocess.exception.PrefixAndSuffixException;
@@ -43,8 +42,9 @@ public class FillInData extends BaseMultiRowFunction {
 
 	private List<Comparable<?>> compList;
 
-	
-	public Object calculate(List<Map<String, Object>> rowSet) throws CalculationException, PrefixAndSuffixException {
+	public Object calculate(List<Map<String, Object>> rowSet) throws CalculationException,
+			PrefixAndSuffixException {
+		
 		List<Object> result = new ArrayList<Object>();
 		int pos = -1;
 		Object previousObject = null;
@@ -72,7 +72,8 @@ public class FillInData extends BaseMultiRowFunction {
 					if (previousObject == null) {
 						for (int j = 0; j <= pos; j++) {
 							Object temp = BeanUtils.cloneBean(object);
-							BeanUtils.setProperty(temp, "date", compList.get(j));
+							BeanUtils
+									.setProperty(temp, "date", compList.get(j));
 							result.set(j, temp);
 						}
 					}
@@ -86,10 +87,8 @@ public class FillInData extends BaseMultiRowFunction {
 		return result;
 	}
 
-	@SuppressWarnings("unchecked")
-	
-	public void setParams(List<Object> params, ProcessorContext context) throws DplParseException {
-		super.setParams(params, context);
+	public void setParams(List<Object> params) throws DplParseException {
+		super.setParams(params);
 		if (params == null || !(params.size() == 2 || params.size() == 3)) {
 			throw new DplParseException();
 		}
@@ -97,9 +96,9 @@ public class FillInData extends BaseMultiRowFunction {
 		this.compPas = this.pasList.get(1);
 		if (params.size() > 2) {
 			try {
-				this.compList = (List<Comparable<?>>) this.pasList.get(2).getConstantsValue();
+				this.compList = this.pasList.get(2).getConstantsValue();
 			} catch (Exception e) {
-				throw new DplParseException(e);
+				throw new PrefixAndSuffixException(e);
 			}
 		}
 	}

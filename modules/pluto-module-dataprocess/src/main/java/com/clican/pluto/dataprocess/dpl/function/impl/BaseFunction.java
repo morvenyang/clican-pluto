@@ -17,7 +17,6 @@ import org.apache.commons.logging.LogFactory;
 
 import com.clican.pluto.dataprocess.dpl.parser.bean.PrefixAndSuffix;
 import com.clican.pluto.dataprocess.dpl.parser.object.Function;
-import com.clican.pluto.dataprocess.engine.ProcessorContext;
 import com.clican.pluto.dataprocess.exception.DplParseException;
 
 public abstract class BaseFunction implements Function {
@@ -31,8 +30,6 @@ public abstract class BaseFunction implements Function {
 	protected List<PrefixAndSuffix> pasList;
 
 	protected String id;
-
-	protected ProcessorContext context;
 
 	protected String expr;
 
@@ -75,9 +72,8 @@ public abstract class BaseFunction implements Function {
 		this.trace = trace;
 	}
 
-	public void setParams(List<Object> params, ProcessorContext context) throws DplParseException {
+	public void setParams(List<Object> params) throws DplParseException {
 		this.params = params;
-		this.context = context;
 		this.pasList = getPrefixeAndSuffix(params);
 	}
 
@@ -100,7 +96,7 @@ public abstract class BaseFunction implements Function {
 			if (param instanceof Function) {
 				pas = new PrefixAndSuffix((Function) param);
 			} else if (param instanceof String) {
-				pas = new PrefixAndSuffix(param.toString(), context);
+				pas = new PrefixAndSuffix(param.toString());
 			} else if (param instanceof PrefixAndSuffix) {
 				pas = (PrefixAndSuffix) param;
 			} else {

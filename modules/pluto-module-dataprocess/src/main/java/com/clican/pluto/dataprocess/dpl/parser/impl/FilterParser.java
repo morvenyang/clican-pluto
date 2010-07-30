@@ -261,7 +261,7 @@ public class FilterParser implements DplParser {
 						leftPas = new PrefixAndSuffix(leftFunction);
 					} else {
 						if (StringUtils.isNotEmpty(leftExpr)) {
-							leftPas = new PrefixAndSuffix(leftExpr, context);
+							leftPas = new PrefixAndSuffix(leftExpr);
 						}
 					}
 					PrefixAndSuffix rightPas = null;
@@ -269,7 +269,7 @@ public class FilterParser implements DplParser {
 						rightPas = new PrefixAndSuffix(rightFunction);
 					} else {
 						if (StringUtils.isNotEmpty(rightExpr)) {
-							rightPas = new PrefixAndSuffix(rightExpr, context);
+							rightPas = new PrefixAndSuffix(rightExpr);
 						}
 					}
 					return new CompareFilter(leftPas, rightPas, compareType);

@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.clican.pluto.dataprocess.dpl.parser.bean.PrefixAndSuffix;
-import com.clican.pluto.dataprocess.engine.ProcessorContext;
 import com.clican.pluto.dataprocess.exception.CalculationException;
 import com.clican.pluto.dataprocess.exception.DplParseException;
 import com.clican.pluto.dataprocess.exception.PrefixAndSuffixException;
@@ -34,9 +33,9 @@ public class GroupList extends BaseMultiRowFunction {
 	}
 
 	
-	public void setParams(List<Object> params, ProcessorContext context) throws DplParseException {
+	public void setParams(List<Object> params) throws DplParseException {
 		// TODO Auto-generated method stub
-		super.setParams(params, context);
+		super.setParams(params);
 		if (this.pasList.size() > 0) {
 			listName = pasList.get(0);
 		}

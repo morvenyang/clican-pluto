@@ -102,7 +102,7 @@ public class SelectParser implements DplParser {
 					Column col = new Column();
 					if (StringUtils.isNotEmpty(columnName)) {
 						col.setColumnName(columnName);
-						PrefixAndSuffix prefixAndSuffix = new PrefixAndSuffix(column.substring(0, column.indexOf(AS_TOKEN) + 1).trim(), context);
+						PrefixAndSuffix prefixAndSuffix = new PrefixAndSuffix(column.substring(0, column.indexOf(AS_TOKEN) + 1).trim());
 						col.setPrefixAndSuffix(prefixAndSuffix);
 					} else {
 						if (column.contains(".")) {
@@ -110,7 +110,7 @@ public class SelectParser implements DplParser {
 						} else {
 							col.setColumnName(column);
 						}
-						PrefixAndSuffix prefixAndSuffix = new PrefixAndSuffix(column, context);
+						PrefixAndSuffix prefixAndSuffix = new PrefixAndSuffix(column);
 						col.setPrefixAndSuffix(prefixAndSuffix);
 					}
 					columnList.add(col);

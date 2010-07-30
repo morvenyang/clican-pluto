@@ -29,6 +29,7 @@ import com.clican.pluto.dataprocess.dpl.parser.bean.Column;
 import com.clican.pluto.dataprocess.dpl.parser.bean.DplResultSet;
 import com.clican.pluto.dataprocess.dpl.parser.bean.Group;
 import com.clican.pluto.dataprocess.dpl.parser.bean.GroupCondition;
+import com.clican.pluto.dataprocess.dpl.parser.bean.PrefixAndSuffix;
 import com.clican.pluto.dataprocess.dpl.parser.impl.FilterParser;
 import com.clican.pluto.dataprocess.dpl.parser.impl.FromParser;
 import com.clican.pluto.dataprocess.dpl.parser.impl.GroupByParser;
@@ -79,7 +80,6 @@ import com.clican.pluto.dataprocess.exception.DplParseException;
 public class DplStatementImpl implements DplStatement {
 
 	private final static Log log = LogFactory.getLog(DplStatementImpl.class);
-
 
 	/**
 	 * <code>FilterParser</code>实例
@@ -137,211 +137,198 @@ public class DplStatementImpl implements DplStatement {
 	/**
 	 * @see DplStatement#execute(String, ProcessorContext)
 	 */
-	
-	public List<Map<String, Object>> execute(String dpl, ProcessorContext context) throws DplException {
+
+	public List<Map<String, Object>> execute(String dpl,
+			ProcessorContext context) throws DplException {
 		dpl = trimDpl(dpl);
 		if (dpl.trim().length() == 0) {
 			log.warn("dpl statement empty, simple return null");
 			return null;
 		}
 		ProcessorContext clone = context.getCloneContext();
-		// 解析dpl的各个组成部分
-		SubDpl subDpl = subDplParser.parse(dpl, clone);
-		for (String subDplStr : subDpl.getSubDplStrAliasMap().keySet()) {
-			String alias = subDpl.getSubDplStrAliasMap().get(subDplStr);
-			Object result = subDpl.getAliasResultMap().get(alias);
-			dpl = StringUtils.replaceOnce(dpl, subDplStr, alias);
-			if (alias.startsWith("dual")) {
-				clone.setAttribute(alias.substring(5), result);
-			} else {
-				clone.setAttribute(alias, result);
-			}
-		}
-		From from = fromParser.parse(dpl, clone);
-		if (from.getVariableNames().size() == 0) {
-			throw new DplParseException("From关键字解析错误");
-		}
-		Filter filter = filterParser.parse(dpl, clone);
-		GroupBy groupBy = groupByParser.parse(dpl, clone);
-		OrderBy orderBy = orderByParser.parse(dpl, clone);
-		Select select = selectParser.parse(dpl, clone);
-		Pagination pagination = pagingParser.parse(dpl, clone);
-
-		// 过滤数据集合并且返回结果的数据集合
-		DplResultSet dplResultSet = null;
-		if (filter != null) {
-			filter.filter(clone);
-			dplResultSet = clone.getAttribute(CompareFilter.DPL_RESULT_SET);
-		}
-		if (dplResultSet == null) {
-			dplResultSet = new DplResultSet();
-			for (String name : from.getVariableNames()) {
-				dplResultSet.getResultNames().add(name);
-				List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
-				List<Object> list = clone.getAttribute(name);
-				if (list.size() == 0) {
-					dplResultSet = new DplResultSet();
-					break;
-				}
-				if (dplResultSet.getResultSet().size() == 0) {
-					for (Object obj : list) {
-						Map<String, Object> map = new HashMap<String, Object>();
-						map.put(name, obj);
-						result.add(map);
-					}
-					dplResultSet.setResultSet(result);
+		PrefixAndSuffix.setLocalContext(clone);
+		try {
+			// 解析dpl的各个组成部分
+			SubDpl subDpl = subDplParser.parse(dpl, clone);
+			for (String subDplStr : subDpl.getSubDplStrAliasMap().keySet()) {
+				String alias = subDpl.getSubDplStrAliasMap().get(subDplStr);
+				Object result = subDpl.getAliasResultMap().get(alias);
+				dpl = StringUtils.replaceOnce(dpl, subDplStr, alias);
+				if (alias.startsWith("dual")) {
+					clone.setAttribute(alias.substring(5), result);
 				} else {
-					for (Object obj : list) {
-						for (Map<String, Object> row : new ArrayList<Map<String, Object>>(dplResultSet.getResultSet())) {
-							Map<String, Object> map = new HashMap<String, Object>(row);
+					clone.setAttribute(alias, result);
+				}
+			}
+			From from = fromParser.parse(dpl, clone);
+			if (from.getVariableNames().size() == 0) {
+				throw new DplParseException("From关键字解析错误");
+			}
+			Filter filter = filterParser.parse(dpl, clone);
+			GroupBy groupBy = groupByParser.parse(dpl, clone);
+			OrderBy orderBy = orderByParser.parse(dpl, clone);
+			Select select = selectParser.parse(dpl, clone);
+			Pagination pagination = pagingParser.parse(dpl, clone);
+
+			// 过滤数据集合并且返回结果的数据集合
+			DplResultSet dplResultSet = null;
+			if (filter != null) {
+				filter.filter(clone);
+				dplResultSet = clone.getAttribute(CompareFilter.DPL_RESULT_SET);
+			}
+			if (dplResultSet == null) {
+				dplResultSet = new DplResultSet();
+				for (String name : from.getVariableNames()) {
+					dplResultSet.getResultNames().add(name);
+					List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
+					List<Object> list = clone.getAttribute(name);
+					if (list.size() == 0) {
+						dplResultSet = new DplResultSet();
+						break;
+					}
+					if (dplResultSet.getResultSet().size() == 0) {
+						for (Object obj : list) {
+							Map<String, Object> map = new HashMap<String, Object>();
 							map.put(name, obj);
 							result.add(map);
 						}
+						dplResultSet.setResultSet(result);
+					} else {
+						for (Object obj : list) {
+							for (Map<String, Object> row : new ArrayList<Map<String, Object>>(
+									dplResultSet.getResultSet())) {
+								Map<String, Object> map = new HashMap<String, Object>(
+										row);
+								map.put(name, obj);
+								result.add(map);
+							}
+						}
+						dplResultSet.setResultSet(result);
 					}
-					dplResultSet.setResultSet(result);
 				}
 			}
-		}
-		// 获得Join后的数据集合
+			// 获得Join后的数据集合
 
-		// 获得被过滤过的原始数据集合
-		Map<String, Set<Object>> data = new HashMap<String, Set<Object>>();
-		for (String name : from.getVariableNames()) {
-			if (!name.equals(CompareFilter.DPL_RESULT_SET)) {
-				List<Object> list = clone.getAttribute(name);
-				data.put(name, new HashSet<Object>(list));
-			}
-		}
-		// 准备结果数据集合
-		List<Map<String, Object>> rs = new ArrayList<Map<String, Object>>();
-
-		// 通过被过滤过的原始数据集合再过滤Join后的数据集合
-		for (Map<String, Object> result : dplResultSet.getResultSet()) {
-			boolean valid = true;
-			for (String key : result.keySet()) {
-				if (result.get(key) != null && !data.get(key).contains(result.get(key))) {
-					valid = false;
+			// 获得被过滤过的原始数据集合
+			Map<String, Set<Object>> data = new HashMap<String, Set<Object>>();
+			for (String name : from.getVariableNames()) {
+				if (!name.equals(CompareFilter.DPL_RESULT_SET)) {
+					List<Object> list = clone.getAttribute(name);
+					data.put(name, new HashSet<Object>(list));
 				}
 			}
-			if (valid) {
-				rs.add(result);
-			}
-		}
-		// 准备根据分组条件得到的数据集合
-		Map<List<GroupCondition>, List<Map<String, Object>>> groupByRs = new HashMap<List<GroupCondition>, List<Map<String, Object>>>();
+			// 准备结果数据集合
+			List<Map<String, Object>> rs = new ArrayList<Map<String, Object>>();
 
-		// 处理分组，把各个数据集合根据分组条件来分组
-		if (groupBy != null) {
-			try {
-				for (Map<String, Object> result : rs) {
-					List<GroupCondition> gcSet = new ArrayList<GroupCondition>();
-					for (int i = 0; i < groupBy.getGroups().size(); i++) {
-						Group group = groupBy.getGroups().get(i);
-						Object groupValue = group.getValue(result);
-						GroupCondition gc = new GroupCondition();
-						gc.setPosition(i);
-						gc.setGroupName(group.getExpr());
-						gc.setGroupValue(groupValue);
-						gcSet.add(gc);
+			// 通过被过滤过的原始数据集合再过滤Join后的数据集合
+			for (Map<String, Object> result : dplResultSet.getResultSet()) {
+				boolean valid = true;
+				for (String key : result.keySet()) {
+					if (result.get(key) != null
+							&& !data.get(key).contains(result.get(key))) {
+						valid = false;
 					}
-					if (!groupByRs.containsKey(gcSet)) {
-						groupByRs.put(gcSet, new ArrayList<Map<String, Object>>());
-					}
-					groupByRs.get(gcSet).add(result);
 				}
-			} catch (Exception e) {
-				throw new DplParseException(e);
+				if (valid) {
+					rs.add(result);
+				}
 			}
-		}
-		// 准备新的一个Select和Function计算后的数据集合
-		List<Map<String, Object>> newRs = new ArrayList<Map<String, Object>>();
+			// 准备根据分组条件得到的数据集合
+			Map<List<GroupCondition>, List<Map<String, Object>>> groupByRs = new HashMap<List<GroupCondition>, List<Map<String, Object>>>();
 
-		try {
+			// 处理分组，把各个数据集合根据分组条件来分组
 			if (groupBy != null) {
-				List<List<GroupCondition>> temp = new ArrayList<List<GroupCondition>>(groupByRs.keySet());
-				// 首先把各个分组条件做排序
-				Collections.sort(temp, new GroupConditionComparator());
-				// 在分组条件下根据分组后的数据集合来获得Select后的数据集合
-				for (List<GroupCondition> gcSet : temp) {
-					Map<String, Object> groupMap = new HashMap<String, Object>();
-					for (GroupCondition gc : gcSet) {
-						groupMap.put(gc.getGroupName(), gc.getGroupValue());
-					}
-					Map<String, Object> row = new HashMap<String, Object>();
-
-					for (Object tempColumn : select.getColumns()) {
-						if (tempColumn instanceof Column) {
-							Column column = (Column) tempColumn;
-							String key = column.getColumnName();
-							Object value = column.getPrefixAndSuffix().getValue(groupMap);
-							row.put(key, value);
-							groupMap.put(key, value);
-						} else if (tempColumn instanceof SingleRowFunction) {
-							SingleRowFunction cal = (SingleRowFunction) tempColumn;
-							String key = cal.getColumnName();
-							if (groupMap.containsKey(cal.getExpr())) {
-								Object value = cal.getExpr();
-								row.put(key, value);
-								groupMap.put(key, value);
-							} else {
-								Object value = cal.recurseCalculate(groupByRs.get(gcSet), groupMap);
-								row.put(key, value);
-								groupMap.put(key, value);
-							}
-						} else if (tempColumn instanceof MultiRowFunction) {
-							MultiRowFunction cal = (MultiRowFunction) tempColumn;
-							String key = cal.getColumnName();
-							Object value = cal.recurseCalculate(groupByRs.get(gcSet));
-							row.put(key, value);
-							groupMap.put(key, value);
-						} else {
-							throw new DplException("Select对象不能被识别");
+				try {
+					for (Map<String, Object> result : rs) {
+						List<GroupCondition> gcSet = new ArrayList<GroupCondition>();
+						for (int i = 0; i < groupBy.getGroups().size(); i++) {
+							Group group = groupBy.getGroups().get(i);
+							Object groupValue = group.getValue(result);
+							GroupCondition gc = new GroupCondition();
+							gc.setPosition(i);
+							gc.setGroupName(group.getExpr());
+							gc.setGroupValue(groupValue);
+							gcSet.add(gc);
 						}
+						if (!groupByRs.containsKey(gcSet)) {
+							groupByRs.put(gcSet,
+									new ArrayList<Map<String, Object>>());
+						}
+						groupByRs.get(gcSet).add(result);
 					}
-					newRs.add(row);
+				} catch (Exception e) {
+					throw new DplParseException(e);
 				}
-			} else {
-				// 不在分组条件下根据Join后和过滤后的集合来获得Select后的数据集合
-				if (select.containMultiRowCalculation()) {
-					// 在有多行处理函数并且没有分组的情况下
-					Map<String, Object> map = new HashMap<String, Object>();
-					Map<String, Object> row = new HashMap<String, Object>();
-					map.putAll(context.getMap());
-					for (Object tempColumn : select.getColumns()) {
-						if (tempColumn instanceof Column) {
-							Column column = (Column) tempColumn;
-							String key = column.getColumnName();
-							Object value = column.getPrefixAndSuffix().getValue(map);
-							if (value == null) {
-								column.getPrefixAndSuffix().isSupportInMultiFunctionWithoutGroupBy();
-							}
-							map.put(key, value);
-							row.put(key, value);
-						} else if (tempColumn instanceof SingleRowFunction) {
-							SingleRowFunction cal = (SingleRowFunction) tempColumn;
-							String key = cal.getColumnName();
-							Object value = cal.recurseCalculate(rs, map);
-							map.put(key, value);
-							row.put(key, value);
-						} else if (tempColumn instanceof MultiRowFunction) {
-							MultiRowFunction cal = (MultiRowFunction) tempColumn;
-							String key = cal.getColumnName();
-							Object value = cal.recurseCalculate(rs);
-							map.put(key, value);
-							row.put(key, value);
-						} else {
-							throw new DplException("Select对象不能被识别");
+			}
+			// 准备新的一个Select和Function计算后的数据集合
+			List<Map<String, Object>> newRs = new ArrayList<Map<String, Object>>();
+
+			try {
+				if (groupBy != null) {
+					List<List<GroupCondition>> temp = new ArrayList<List<GroupCondition>>(
+							groupByRs.keySet());
+					// 首先把各个分组条件做排序
+					Collections.sort(temp, new GroupConditionComparator());
+					// 在分组条件下根据分组后的数据集合来获得Select后的数据集合
+					for (List<GroupCondition> gcSet : temp) {
+						Map<String, Object> groupMap = new HashMap<String, Object>();
+						for (GroupCondition gc : gcSet) {
+							groupMap.put(gc.getGroupName(), gc.getGroupValue());
 						}
-					}
-					newRs.add(row);
-				} else {
-					for (Map<String, Object> map : rs) {
 						Map<String, Object> row = new HashMap<String, Object>();
+
 						for (Object tempColumn : select.getColumns()) {
 							if (tempColumn instanceof Column) {
 								Column column = (Column) tempColumn;
 								String key = column.getColumnName();
-								Object value = column.getPrefixAndSuffix().getValue(map);
+								Object value = column.getPrefixAndSuffix()
+										.getValue(groupMap);
+								row.put(key, value);
+								groupMap.put(key, value);
+							} else if (tempColumn instanceof SingleRowFunction) {
+								SingleRowFunction cal = (SingleRowFunction) tempColumn;
+								String key = cal.getColumnName();
+								if (groupMap.containsKey(cal.getExpr())) {
+									Object value = cal.getExpr();
+									row.put(key, value);
+									groupMap.put(key, value);
+								} else {
+									Object value = cal.recurseCalculate(
+											groupByRs.get(gcSet), groupMap);
+									row.put(key, value);
+									groupMap.put(key, value);
+								}
+							} else if (tempColumn instanceof MultiRowFunction) {
+								MultiRowFunction cal = (MultiRowFunction) tempColumn;
+								String key = cal.getColumnName();
+								Object value = cal.recurseCalculate(groupByRs
+										.get(gcSet));
+								row.put(key, value);
+								groupMap.put(key, value);
+							} else {
+								throw new DplException("Select对象不能被识别");
+							}
+						}
+						newRs.add(row);
+					}
+				} else {
+					// 不在分组条件下根据Join后和过滤后的集合来获得Select后的数据集合
+					if (select.containMultiRowCalculation()) {
+						// 在有多行处理函数并且没有分组的情况下
+						Map<String, Object> map = new HashMap<String, Object>();
+						Map<String, Object> row = new HashMap<String, Object>();
+						map.putAll(context.getMap());
+						for (Object tempColumn : select.getColumns()) {
+							if (tempColumn instanceof Column) {
+								Column column = (Column) tempColumn;
+								String key = column.getColumnName();
+								Object value = column.getPrefixAndSuffix()
+										.getValue(map);
+								if (value == null) {
+									column
+											.getPrefixAndSuffix()
+											.isSupportInMultiFunctionWithoutGroupBy();
+								}
 								map.put(key, value);
 								row.put(key, value);
 							} else if (tempColumn instanceof SingleRowFunction) {
@@ -351,68 +338,111 @@ public class DplStatementImpl implements DplStatement {
 								map.put(key, value);
 								row.put(key, value);
 							} else if (tempColumn instanceof MultiRowFunction) {
-								throw new DplException("不包括多行处理函数，不需要被执行");
+								MultiRowFunction cal = (MultiRowFunction) tempColumn;
+								String key = cal.getColumnName();
+								Object value = cal.recurseCalculate(rs);
+								map.put(key, value);
+								row.put(key, value);
 							} else {
 								throw new DplException("Select对象不能被识别");
 							}
 						}
 						newRs.add(row);
+					} else {
+						for (Map<String, Object> map : rs) {
+							Map<String, Object> row = new HashMap<String, Object>();
+							for (Object tempColumn : select.getColumns()) {
+								if (tempColumn instanceof Column) {
+									Column column = (Column) tempColumn;
+									String key = column.getColumnName();
+									Object value = column.getPrefixAndSuffix()
+											.getValue(map);
+									map.put(key, value);
+									row.put(key, value);
+								} else if (tempColumn instanceof SingleRowFunction) {
+									SingleRowFunction cal = (SingleRowFunction) tempColumn;
+									String key = cal.getColumnName();
+									Object value = cal
+											.recurseCalculate(rs, map);
+									map.put(key, value);
+									row.put(key, value);
+								} else if (tempColumn instanceof MultiRowFunction) {
+									throw new DplException("不包括多行处理函数，不需要被执行");
+								} else {
+									throw new DplException("Select对象不能被识别");
+								}
+							}
+							newRs.add(row);
+						}
 					}
 				}
-			}
 
-		} catch (Exception e) {
-			throw new DplException(e);
-		}
-		// 准备排序后的数据集合
-		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>(newRs);
-		if (orderBy != null) {
-			Collections.sort(list, new OrderByComparator(orderBy));
-		}
-		// 返回最终的数据集合
-		if (pagination != null) {
-			if (pagination.isReverse()) {
-				if (pagination.getLimit() == null) {
-					if (list.size() - pagination.getOffset() > 0) {
-						return list.subList(0, list.size() - pagination.getOffset());
-					} else {
-						return new ArrayList<Map<String, Object>>();
-					}
-				} else {
-					if (list.size() - pagination.getOffset() > 0) {
-						if (list.size() - pagination.getOffset() - pagination.getLimit() >= 0) {
-							return list.subList(list.size() - pagination.getOffset() - pagination.getLimit(), list.size() - pagination.getOffset());
+			} catch (Exception e) {
+				throw new DplException(e);
+			}
+			// 准备排序后的数据集合
+			List<Map<String, Object>> list = new ArrayList<Map<String, Object>>(
+					newRs);
+			if (orderBy != null) {
+				Collections.sort(list, new OrderByComparator(orderBy));
+			}
+			// 返回最终的数据集合
+			if (pagination != null) {
+				if (pagination.isReverse()) {
+					if (pagination.getLimit() == null) {
+						if (list.size() - pagination.getOffset() > 0) {
+							return list.subList(0, list.size()
+									- pagination.getOffset());
 						} else {
-							return list.subList(0, list.size() - pagination.getOffset());
+							return new ArrayList<Map<String, Object>>();
 						}
 					} else {
-						return new ArrayList<Map<String, Object>>();
+						if (list.size() - pagination.getOffset() > 0) {
+							if (list.size() - pagination.getOffset()
+									- pagination.getLimit() >= 0) {
+								return list.subList(list.size()
+										- pagination.getOffset()
+										- pagination.getLimit(), list.size()
+										- pagination.getOffset());
+							} else {
+								return list.subList(0, list.size()
+										- pagination.getOffset());
+							}
+						} else {
+							return new ArrayList<Map<String, Object>>();
+						}
 					}
+				} else {
+					if (pagination.getLimit() == null) {
+						if (list.size() - pagination.getOffset() > 0) {
+							return list.subList(pagination.getOffset(), list
+									.size());
+						} else {
+							return new ArrayList<Map<String, Object>>();
+						}
+					} else {
+						if (list.size() - pagination.getOffset() > 0) {
+							if (list.size() - pagination.getOffset()
+									- pagination.getLimit() >= 0) {
+								return list.subList(pagination.getOffset(),
+										pagination.getOffset()
+												+ pagination.getLimit());
+							} else {
+								return list.subList(pagination.getOffset(),
+										list.size());
+							}
+						} else {
+							return new ArrayList<Map<String, Object>>();
+						}
+					}
+
 				}
 			} else {
-				if (pagination.getLimit() == null) {
-					if (list.size() - pagination.getOffset() > 0) {
-						return list.subList(pagination.getOffset(), list.size());
-					} else {
-						return new ArrayList<Map<String, Object>>();
-					}
-				} else {
-					if (list.size() - pagination.getOffset() > 0) {
-						if (list.size() - pagination.getOffset() - pagination.getLimit() >= 0) {
-							return list.subList(pagination.getOffset(), pagination.getOffset() + pagination.getLimit());
-						} else {
-							return list.subList(pagination.getOffset(), list.size());
-						}
-					} else {
-						return new ArrayList<Map<String, Object>>();
-					}
-				}
-
+				return list;
 			}
-		} else {
-			return list;
+		} finally {
+			PrefixAndSuffix.releaseLocalContext();
 		}
-
 	}
 
 	/**
@@ -445,8 +475,8 @@ public class DplStatementImpl implements DplStatement {
 	 * @see DplStatement#execute(String, ProcessorContext, Class)
 	 */
 	@SuppressWarnings("unchecked")
-	
-	public <T> List<T> execute(String dpl, ProcessorContext context, Class<T> clazz) throws DplException {
+	public <T> List<T> execute(String dpl, ProcessorContext context,
+			Class<T> clazz) throws DplException {
 		List<Map<String, Object>> list = this.execute(dpl, context);
 		if (clazz == null) {
 			return (List<T>) list;
@@ -473,31 +503,42 @@ public class DplStatementImpl implements DplStatement {
 				for (String name : row.keySet()) {
 					try {
 						if (row.get(name) != null) {
-							String setMethodName = com.clican.pluto.common.util.StringUtils.getSetMethodName(name);
+							String setMethodName = com.clican.pluto.common.util.StringUtils
+									.getSetMethodName(name);
 							Object value = row.get(name);
-							if (methodMap.containsKey(setMethodName) || methodMap.containsKey(setMethodName.toLowerCase())) {
-								Class type = methodMap.get(setMethodName.toLowerCase()).getParameterTypes()[0];
+							if (methodMap.containsKey(setMethodName)
+									|| methodMap.containsKey(setMethodName
+											.toLowerCase())) {
+								Class type = methodMap.get(
+										setMethodName.toLowerCase())
+										.getParameterTypes()[0];
 								if (!value.getClass().equals(type)) {
 									if (value instanceof Number) {
-										value = TypeUtils.numberToNumber((Number) value, type);
+										value = TypeUtils.numberToNumber(
+												(Number) value, type);
 									} else if (value instanceof String) {
-										value = TypeUtils.stringToNumber((String) value, type);
+										value = TypeUtils.stringToNumber(
+												(String) value, type);
 									}
 								}
 								if (methodMap.containsKey(setMethodName)) {
-									methodMap.get(setMethodName).invoke(t, new Object[] { value });
+									methodMap.get(setMethodName).invoke(t,
+											new Object[] { value });
 								} else {
-									methodMap.get(setMethodName.toLowerCase()).invoke(t, new Object[] { value });
+									methodMap.get(setMethodName.toLowerCase())
+											.invoke(t, new Object[] { value });
 								}
 							} else {
 								if (log.isTraceEnabled()) {
-									log.trace("There is no this property [" + name + "]");
+									log.trace("There is no this property ["
+											+ name + "]");
 								}
 							}
 						}
 					} catch (Exception e) {
 						if (log.isTraceEnabled()) {
-							log.trace("There is no this property [" + name + "]");
+							log.trace("There is no this property [" + name
+									+ "]");
 						}
 					}
 				}
@@ -508,8 +549,8 @@ public class DplStatementImpl implements DplStatement {
 		return result;
 	}
 
-	
-	public <T> List<T> execute(String dpl, Map<String, Object> context, Class<T> clazz) throws DplException {
+	public <T> List<T> execute(String dpl, Map<String, Object> context,
+			Class<T> clazz) throws DplException {
 		ProcessorContext ctx = new ProcessorContextImpl();
 		for (String key : context.keySet()) {
 			ctx.setAttribute(key, context.get(key));
@@ -517,8 +558,8 @@ public class DplStatementImpl implements DplStatement {
 		return this.execute(dpl, ctx, clazz);
 	}
 
-	
-	public List<Map<String, Object>> execute(String dpl, Map<String, Object> context) throws DplException {
+	public List<Map<String, Object>> execute(String dpl,
+			Map<String, Object> context) throws DplException {
 		ProcessorContext ctx = new ProcessorContextImpl();
 		for (String key : context.keySet()) {
 			ctx.setAttribute(key, context.get(key));

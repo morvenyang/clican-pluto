@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.clican.pluto.dataprocess.dpl.parser.bean.PrefixAndSuffix;
-import com.clican.pluto.dataprocess.engine.ProcessorContext;
 import com.clican.pluto.dataprocess.exception.CalculationException;
 import com.clican.pluto.dataprocess.exception.DplParseException;
 import com.clican.pluto.dataprocess.exception.PrefixAndSuffixException;
@@ -25,8 +24,8 @@ public class MaxRow extends BaseMultiRowFunction {
 	private PrefixAndSuffix maxRow;
 	
 	
-	public void setParams(List<Object> params, ProcessorContext context) throws DplParseException {
-		super.setParams(params, context);
+	public void setParams(List<Object> params) throws DplParseException {
+		super.setParams(params);
 		if (params == null || params.size() != 2) {
 			throw new DplParseException();
 		}
