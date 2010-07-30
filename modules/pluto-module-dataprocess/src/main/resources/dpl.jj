@@ -248,7 +248,7 @@ Object param;
      			pas = new PrefixAndSuffix((Function)param);
      		}else{
      			try{
-     				pas = new PrefixAndSuffix((String)param,from,null);
+     				pas = new PrefixAndSuffix((String)param,null);
      			}catch(Exception e){
      				throw new ParseException(e.getMessage());
      			}
@@ -358,7 +358,7 @@ List<Object> params = new ArrayList<Object>();
     )
     {
     try{
-    				function.setParams(params,from,null);
+    				function.setParams(params,null);
     			}catch(Exception e){
     				throw new ParseException(e.getMessage());
     			}
