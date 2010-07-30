@@ -16,7 +16,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.clican.pluto.dataprocess.dpl.parser.bean.DplResultSet;
-import com.clican.pluto.dataprocess.dpl.parser.object.From;
 import com.clican.pluto.dataprocess.engine.ProcessorContext;
 import com.clican.pluto.dataprocess.exception.DplParseException;
 
@@ -34,10 +33,7 @@ public class OrFilter extends Filter {
 
 	private Filter filter2;
 
-	private From from;
-
-	public OrFilter(Filter filter1, Filter filter2, From from) {
-		this.from = from;
+	public OrFilter(Filter filter1, Filter filter2) {
 		if (filter1.priority() > filter2.priority()) {
 			this.filter1 = filter1;
 			this.filter2 = filter2;
@@ -64,7 +60,6 @@ public class OrFilter extends Filter {
 		}
 	}
 
-	
 	public void filter(ProcessorContext context) throws DplParseException {
 		ProcessorContext context1 = context.getCloneContext();
 		DplResultSet dplResultSet1 = context1.getAttribute(CompareFilter.DPL_RESULT_SET);
@@ -108,7 +103,7 @@ public class OrFilter extends Filter {
 					}
 				}
 			}
-			
+
 			for (Map<String, Object> rs2 : dplResultSet2.getResultSet()) {
 				if (dplResultSet1.getResultSet().size() == 0) {
 					Map<String, Object> result = new HashMap<String, Object>(rs2);
@@ -132,8 +127,11 @@ public class OrFilter extends Filter {
 			context.setAttribute(CompareFilter.DPL_RESULT_SET, dplResultSet2);
 		}
 
-		for (String name : from.getVariableNames()) {
+		for (String name : context.getAttributeNames()) {
 			if (name.equals(CompareFilter.DPL_RESULT_SET)) {
+				continue;
+			}
+			if (!(context1.getAttribute(name) instanceof List)) {
 				continue;
 			}
 			List<Object> list1 = context1.getAttribute(name);
@@ -148,12 +146,10 @@ public class OrFilter extends Filter {
 		}
 	}
 
-	
 	public String getExpr() {
 		return filter1.getExpr() + " or " + filter2.getExpr();
 	}
 
-	
 	public int priority() {
 		return -(filter1.priority() + filter2.priority());
 	}
