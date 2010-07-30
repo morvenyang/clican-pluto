@@ -30,8 +30,8 @@ public class MaxRow extends BaseMultiRowFunction {
 		if (params == null || params.size() != 2) {
 			throw new DplParseException();
 		}
-		maxCondition = this.getPrefixeAndSuffix(params).get(0);
-		maxRow = this.getPrefixeAndSuffix(params).get(1);
+		maxCondition = this.pasList.get(0);
+		maxRow = this.pasList.get(1);
 	}
 	@SuppressWarnings("unchecked")
 	

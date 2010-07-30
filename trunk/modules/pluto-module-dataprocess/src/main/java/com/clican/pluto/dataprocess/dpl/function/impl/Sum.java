@@ -32,7 +32,7 @@ public class Sum extends BaseMultiRowFunction {
 	
 	public void setParams(List<Object> params, ProcessorContext context) throws DplParseException {
 		super.setParams(params, context);
-		prefixAndSuffix = this.getPrefixeAndSuffix(params).get(0);
+		prefixAndSuffix = this.pasList.get(0);
 	}
 
 	

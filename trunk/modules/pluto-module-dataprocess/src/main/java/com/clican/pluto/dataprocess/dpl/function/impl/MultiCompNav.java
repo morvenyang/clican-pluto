@@ -75,9 +75,9 @@ public class MultiCompNav extends BaseMultiRowFunction {
 		if (params == null || !(params.size() == 2 || params.size() == 3)) {
 			throw new DplParseException();
 		}
-		this.navPas = this.getPrefixeAndSuffix(params).get(0);
-		this.divPas = this.getPrefixeAndSuffix(params).get(1);
-		this.splitPas = this.getPrefixeAndSuffix(params).get(2);
+		this.navPas = this.pasList.get(0);
+		this.divPas = this.pasList.get(1);
+		this.splitPas = this.pasList.get(2);
 	}
 
 }
