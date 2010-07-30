@@ -8,7 +8,6 @@ package com.clican.pluto.dataprocess.dpl.parser.impl;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -194,7 +193,7 @@ public class FunctionParser implements DplParser {
 
 	}
 
-	public Function parse(String dpl, ProcessorContext context, Map<String, Object> parseContext) throws DplParseException {
+	public Function parse(String dpl, ProcessorContext context) throws DplParseException {
 		String copy = dpl;
 		if (StringUtils.isEmpty(dpl)) {
 			throw new DplParseException("解析函数出错，被解析内容为空");
@@ -262,7 +261,7 @@ public class FunctionParser implements DplParser {
 								paramList.add(param);
 								param = "";
 							} else if (left == right) {
-								paramList.add(this.parse(param, context, parseContext));
+								paramList.add(this.parse(param, context));
 								param = "";
 							} else if (i == params.length - 1) {
 								throw new DplParseException("函数解析错误()不对称");
@@ -318,7 +317,7 @@ public class FunctionParser implements DplParser {
 						paramList.add(param);
 						param = "";
 					} else if (left == right) {
-						paramList.add(this.parse(param, context, parseContext));
+						paramList.add(this.parse(param, context));
 						param = "";
 					} else if (i == params.length - 1) {
 						throw new DplParseException("函数解析错误()不对称");

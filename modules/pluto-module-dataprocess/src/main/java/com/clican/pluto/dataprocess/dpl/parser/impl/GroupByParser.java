@@ -9,7 +9,6 @@ package com.clican.pluto.dataprocess.dpl.parser.impl;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import com.clican.pluto.dataprocess.dpl.function.MultiRowFunction;
@@ -38,7 +37,7 @@ public class GroupByParser implements DplParser {
 	}
 
 	
-	public GroupBy parse(String dpl, ProcessorContext context, Map<String, Object> parseContext) throws DplParseException {
+	public GroupBy parse(String dpl, ProcessorContext context) throws DplParseException {
 		int index = dpl.indexOf(START_KEYWORD);
 		if (index < 0) {
 			return null;
@@ -69,7 +68,7 @@ public class GroupByParser implements DplParser {
 					g = group.substring(lastI, i).trim();
 				}
 				if (functionParser.containFunction(g)) {
-					Function function = functionParser.parse(g, context, parseContext);
+					Function function = functionParser.parse(g, context);
 					function.setExpr(g);
 					if (function instanceof MultiRowFunction) {
 						throw new DplParseException("在where条件中不支持多行处理函数");
@@ -92,7 +91,6 @@ public class GroupByParser implements DplParser {
 		}
 
 		GroupBy groupBy = new GroupBy(groups);
-		parseContext.put(START_KEYWORD, groupBy);
 		return groupBy;
 	}
 

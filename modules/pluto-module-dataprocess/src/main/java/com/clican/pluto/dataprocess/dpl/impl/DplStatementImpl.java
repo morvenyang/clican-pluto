@@ -149,7 +149,7 @@ public class DplStatementImpl implements DplStatement {
 		// 解析dpl的各个组成部分
 		Map<String, Object> parseContext = new HashMap<String, Object>();
 		parseContext.put(CONTEXT_NAME, this);
-		SubDpl subDpl = subDplParser.parse(dpl, clone, parseContext);
+		SubDpl subDpl = subDplParser.parse(dpl, clone);
 		for (String subDplStr : subDpl.getSubDplStrAliasMap().keySet()) {
 			String alias = subDpl.getSubDplStrAliasMap().get(subDplStr);
 			Object result = subDpl.getAliasResultMap().get(alias);
@@ -160,15 +160,15 @@ public class DplStatementImpl implements DplStatement {
 				clone.setAttribute(alias, result);
 			}
 		}
-		From from = fromParser.parse(dpl, clone, parseContext);
+		From from = fromParser.parse(dpl, clone);
 		if (from.getVariableNames().size() == 0) {
 			throw new DplParseException("From关键字解析错误");
 		}
-		Filter filter = filterParser.parse(dpl, clone, parseContext);
-		GroupBy groupBy = groupByParser.parse(dpl, clone, parseContext);
-		OrderBy orderBy = orderByParser.parse(dpl, clone, parseContext);
-		Select select = selectParser.parse(dpl, clone, parseContext);
-		Pagination pagination = pagingParser.parse(dpl, clone, parseContext);
+		Filter filter = filterParser.parse(dpl, clone);
+		GroupBy groupBy = groupByParser.parse(dpl, clone);
+		OrderBy orderBy = orderByParser.parse(dpl, clone);
+		Select select = selectParser.parse(dpl, clone);
+		Pagination pagination = pagingParser.parse(dpl, clone);
 
 		// 过滤数据集合并且返回结果的数据集合
 		DplResultSet dplResultSet = null;

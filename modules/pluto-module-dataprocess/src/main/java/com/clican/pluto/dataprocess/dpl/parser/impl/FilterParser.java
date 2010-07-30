@@ -7,7 +7,6 @@
 package com.clican.pluto.dataprocess.dpl.parser.impl;
 
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
@@ -69,7 +68,7 @@ public class FilterParser implements DplParser {
 	 *            From对象
 	 * @return
 	 */
-	private Filter parseFilter(String condition, ProcessorContext context, Map<String, Object> parseContext) throws DplParseException {
+	private Filter parseFilter(String condition, ProcessorContext context) throws DplParseException {
 		// 如果最外层带有括号则直接去掉这对括号
 		condition = condition.trim();
 		if (condition.startsWith("(") && condition.endsWith(")")) {
@@ -109,16 +108,16 @@ public class FilterParser implements DplParser {
 				begin = end + AND_TOKEN.length();
 				if (previousFilter == null) {
 					if (expr.contains(AND_TOKEN) || expr.contains(OR_TOKEN)) {
-						previousFilter = parseFilter(expr, context, parseContext);
+						previousFilter = parseFilter(expr, context);
 					} else {
-						previousFilter = getCommonFilter(expr, context, parseContext);
+						previousFilter = getCommonFilter(expr, context);
 					}
 				} else {
 					Filter filter;
 					if (expr.contains(AND_TOKEN) || expr.contains(OR_TOKEN)) {
-						filter = parseFilter(expr, context, parseContext);
+						filter = parseFilter(expr, context);
 					} else {
-						filter = getCommonFilter(expr, context, parseContext);
+						filter = getCommonFilter(expr, context);
 					}
 					if (lastAnd) {
 						previousFilter = new AndFilter(previousFilter, filter);
@@ -132,16 +131,16 @@ public class FilterParser implements DplParser {
 				begin = end + OR_TOKEN.length();
 				if (previousFilter == null) {
 					if (expr.contains(AND_TOKEN) || expr.contains(OR_TOKEN)) {
-						previousFilter = parseFilter(expr, context, parseContext);
+						previousFilter = parseFilter(expr, context);
 					} else {
-						previousFilter = getCommonFilter(expr, context, parseContext);
+						previousFilter = getCommonFilter(expr, context);
 					}
 				} else {
 					Filter filter;
 					if (expr.contains(AND_TOKEN) || expr.contains(OR_TOKEN)) {
-						filter = parseFilter(expr, context, parseContext);
+						filter = parseFilter(expr, context);
 					} else {
-						filter = getCommonFilter(expr, context, parseContext);
+						filter = getCommonFilter(expr, context);
 					}
 					if (lastAnd) {
 						previousFilter = new AndFilter(previousFilter, filter);
@@ -166,13 +165,13 @@ public class FilterParser implements DplParser {
 				String expr = condition.substring(begin, condition.length()).trim();
 				if (StringUtils.isNotEmpty(expr)) {
 					if (previousFilter == null) {
-						previousFilter = getCommonFilter(condition, context, parseContext);
+						previousFilter = getCommonFilter(condition, context);
 					} else {
 						Filter filter;
 						if (expr.contains(AND_TOKEN) || expr.contains(OR_TOKEN)) {
-							filter = parseFilter(expr, context, parseContext);
+							filter = parseFilter(expr, context);
 						} else {
-							filter = getCommonFilter(expr, context, parseContext);
+							filter = getCommonFilter(expr, context);
 						}
 						if (lastAnd) {
 							previousFilter = new AndFilter(previousFilter, filter);
@@ -230,7 +229,7 @@ public class FilterParser implements DplParser {
 		}
 	}
 
-	private Filter getCommonFilter(String expr, ProcessorContext context, Map<String, Object> parseContext) throws DplParseException {
+	private Filter getCommonFilter(String expr, ProcessorContext context) throws DplParseException {
 		try {
 			for (CompareType compareType : CompareType.values()) {
 				if (expr.contains(compareType.getOperation())) {
@@ -240,7 +239,7 @@ public class FilterParser implements DplParser {
 					SingleRowFunction leftFunction = null;
 					SingleRowFunction rightFunction = null;
 					if (functionParser.containFunction(leftExpr)) {
-						Function function = functionParser.parse(leftExpr, context, parseContext);
+						Function function = functionParser.parse(leftExpr, context);
 						if (function instanceof SingleRowFunction) {
 							leftFunction = (SingleRowFunction) function;
 						} else {
@@ -249,7 +248,7 @@ public class FilterParser implements DplParser {
 					}
 
 					if (functionParser.containFunction(rightExpr)) {
-						Function function = functionParser.parse(rightExpr, context, parseContext);
+						Function function = functionParser.parse(rightExpr, context);
 						if (function instanceof SingleRowFunction) {
 							rightFunction = (SingleRowFunction) function;
 						} else {
@@ -282,7 +281,7 @@ public class FilterParser implements DplParser {
 		throw new DplParseException("Cannt find compare type");
 	}
 
-	public Filter parse(String dpl, ProcessorContext context, Map<String, Object> parseContext) throws DplParseException {
+	public Filter parse(String dpl, ProcessorContext context) throws DplParseException {
 		int index = dpl.indexOf(START_KEYWORD);
 		if (index < 0) {
 			return null;
@@ -296,7 +295,7 @@ public class FilterParser implements DplParser {
 		}
 		index = index + START_KEYWORD.length();
 		String whereDpl = dpl.substring(index, length).trim();
-		Filter filter = parseFilter(whereDpl, context, parseContext);
+		Filter filter = parseFilter(whereDpl, context);
 		return filter;
 	}
 

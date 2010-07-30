@@ -9,7 +9,6 @@ package com.clican.pluto.dataprocess.dpl.parser.impl;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
@@ -44,7 +43,7 @@ public class SelectParser implements DplParser {
 		END_KEYWORD.add(FromParser.START_KEYWORD);
 	}
 
-	public Select parse(String dpl, ProcessorContext context, Map<String, Object> parseContext) throws DplParseException {
+	public Select parse(String dpl, ProcessorContext context) throws DplParseException {
 		int index = dpl.indexOf(START_KEYWORD);
 		if (index < 0) {
 			return null;
@@ -91,7 +90,7 @@ public class SelectParser implements DplParser {
 					functionDpl = column;
 				}
 				if (functionParser.containFunction(functionDpl)) {
-					Function function = functionParser.parse(functionDpl, context, parseContext);
+					Function function = functionParser.parse(functionDpl, context);
 					function.setExpr(functionDpl.trim());
 					if (StringUtils.isNotEmpty(columnName)) {
 						function.setColumnName(columnName);
@@ -120,7 +119,6 @@ public class SelectParser implements DplParser {
 		} catch (Exception e) {
 			throw new DplParseException(e);
 		}
-		parseContext.put(START_KEYWORD, sel);
 		return sel;
 	}
 }

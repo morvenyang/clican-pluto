@@ -9,7 +9,6 @@ package com.clican.pluto.dataprocess.dpl.parser;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -51,11 +50,10 @@ public class FilterParserTestCase extends BaseDplTestCase {
 	}
 
 	public void testParseFilter2() throws Exception {
-		Map<String, Object> parseContext = new HashMap<String, Object>();
 		ProcessorContext context = new ProcessorContextImpl();
 		String dpl = "select avg(expenseRatioList.expenseRatio) as avgExpenseRatio from expenseRatioList where (toChar(expenseRatioList.beginDate,'MMdd') = '0101' and toChar(expenseRatioList.endDate,'MMdd') = '0630') or (toChar(expenseRatioList.beginDate,'MMdd') = '0701' and toChar(expenseRatioList.endDate,'MMdd') = '1231')";
-		fromParser.parse(dpl, context, parseContext);
-		filterParser.parse(dpl, context, parseContext);
+		fromParser.parse(dpl, context);
+		filterParser.parse(dpl, context);
 	}
 
 	public void testParseFilter3() throws Exception {
@@ -141,19 +139,19 @@ public class FilterParserTestCase extends BaseDplTestCase {
 		List<Map<String, Object>> result = dplStatement.execute(dpl, getContext2());
 		assertEquals(10, result.size());
 	}
-	
+
 	public void testParseFilter17() throws Exception {
 		String dpl = "select list1.id as id from list1 where list1.id is null";
 		List<Map<String, Object>> result = dplStatement.execute(dpl, getContext2());
 		assertEquals(0, result.size());
 	}
-	
+
 	public void testParseFilter18() throws Exception {
 		String dpl = "select list1.id as id from list1 where list1.id is not empty";
 		List<Map<String, Object>> result = dplStatement.execute(dpl, getContext2());
 		assertEquals(10, result.size());
 	}
-	
+
 	public void testParseFilter19() throws Exception {
 		String dpl = "select list1.id as id from list1 where list1.id is empty";
 		List<Map<String, Object>> result = dplStatement.execute(dpl, getContext2());

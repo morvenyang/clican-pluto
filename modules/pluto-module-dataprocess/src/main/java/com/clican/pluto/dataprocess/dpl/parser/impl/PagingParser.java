@@ -6,7 +6,6 @@
  */
 package com.clican.pluto.dataprocess.dpl.parser.impl;
 
-import java.util.Map;
 
 import com.clican.pluto.dataprocess.dpl.parser.DplParser;
 import com.clican.pluto.dataprocess.dpl.parser.object.Pagination;
@@ -22,7 +21,7 @@ public class PagingParser implements DplParser {
 	public final static String START_KEYWORD3 = "reverse";
 
 	
-	public Pagination parse(String dpl, ProcessorContext context, Map<String, Object> parseContext) throws DplParseException {
+	public Pagination parse(String dpl, ProcessorContext context) throws DplParseException {
 		int index1 = dpl.indexOf(START_KEYWORD1);
 		int index2 = dpl.indexOf(START_KEYWORD2);
 		int index3 = dpl.indexOf(START_KEYWORD3);

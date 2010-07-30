@@ -9,7 +9,6 @@ package com.clican.pluto.dataprocess.dpl.parser.impl;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import com.clican.pluto.dataprocess.dpl.parser.DplParser;
@@ -32,7 +31,7 @@ public class OrderByParser implements DplParser {
 	}
 
 	
-	public OrderBy parse(String dpl, ProcessorContext context, Map<String,Object> parseContext) throws DplParseException {
+	public OrderBy parse(String dpl, ProcessorContext context) throws DplParseException {
 		int index = dpl.indexOf(START_KEYWORD);
 		if (index < 0) {
 			return null;
@@ -67,7 +66,6 @@ public class OrderByParser implements DplParser {
 			orders.add(ord);
 		}
 		OrderBy orderBy = new OrderBy(orders);
-		parseContext.put(START_KEYWORD, orderBy);
 		return orderBy;
 	}
 
