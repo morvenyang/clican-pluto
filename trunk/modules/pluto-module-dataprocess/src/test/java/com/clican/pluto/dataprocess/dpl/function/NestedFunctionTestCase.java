@@ -63,7 +63,7 @@ public class NestedFunctionTestCase extends BaseDplTestCase {
 
 	public void testSingleAndMultiNestedFunctionInGroup() throws Exception {
 		List<Map<String, Object>> result = dplStatement.execute(
-				"select toChar(max(price.date2),yyyyMMdd HH:mm:ss) as date,price.date as t from price group by price.date", getContext());
+				"select toChar(max(price.date2),'yyyyMMdd HH:mm:ss') as date,price.date as t from price group by price.date", getContext());
 		assertEquals(5, result.size());
 		assertEquals("20100201 00:00:00", result.get(0).get("date"));
 		assertEquals("20100501 00:00:00", result.get(1).get("date"));
@@ -74,7 +74,7 @@ public class NestedFunctionTestCase extends BaseDplTestCase {
 
 	public void testMultiAndSingleNestedFunctionInGroup() throws Exception {
 		List<Map<String, Object>> result = dplStatement.execute(
-				"select max(toChar(price.date,yyyyMMdd HH:mm:ss)) as date,price.date as t from price group by price.date", getContext());
+				"select max(toChar(price.date,'yyyyMMdd HH:mm:ss')) as date,price.date as t from price group by price.date", getContext());
 		assertEquals(5, result.size());
 	}
 

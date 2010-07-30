@@ -69,7 +69,7 @@ public class PrefixAndSuffix {
 			return function.getFromParams();
 		} else {
 			List<String> fromParams = new ArrayList<String>();
-			if (prefix != null && !prefix.equals(FromParser.CONSTANTS_KEY)) {
+			if (StringUtils.isNotEmpty(prefix) && !prefix.equals(FromParser.CONSTANTS_KEY)) {
 				fromParams.add(prefix);
 			}
 			return fromParams;
@@ -78,23 +78,20 @@ public class PrefixAndSuffix {
 
 	public PrefixAndSuffix(String expr, From from, ProcessorContext context) throws PrefixAndSuffixException {
 		this.expr = expr;
-		if (from.containPrefix(expr)) {
+		if (expr.startsWith("'") && expr.endsWith("'")) {
+			suffix = expr;
+		} else if (NumberUtils.isNumber(expr)) {
+			suffix = expr;
+		} else if (expr.startsWith(FromParser.CONSTANTS_KEY + ".")) {
+			prefix = FromParser.CONSTANTS_KEY;
+			suffix = expr.substring(expr.indexOf(".") + 1);
+		} else {
 			supportInMultiFunctionWithoutGroupBy = false;
 			if (expr.contains(".")) {
 				prefix = expr.substring(0, expr.indexOf("."));
 				suffix = expr.substring(expr.indexOf(".") + 1);
 			} else {
 				prefix = expr;
-			}
-		} else {
-			if (expr.startsWith("'") && expr.endsWith("'")) {
-				suffix = expr;
-			} else {
-				if (expr.contains(".") && !NumberUtils.isNumber(expr)) {
-					throw new PrefixAndSuffixException("该变量[" + expr + "]无法被识别,请检查该变量在from关键字中是否存在");
-				} else {
-					suffix = expr;
-				}
 			}
 		}
 		this.context = context;
@@ -211,7 +208,7 @@ public class PrefixAndSuffix {
 					return (T) suffix;
 				}
 			} else {
-				if (prefix.equals("dual")) {
+				if (prefix.equals(FromParser.CONSTANTS_KEY)) {
 					if (StringUtils.isNotEmpty(suffix)) {
 						T result = (T) context.getAttribute(suffix);
 						if (result == null) {

@@ -31,7 +31,7 @@ public class ToCharTestCase extends BaseDplTestCase {
 	}
 
 	public void testToCharInWhere() throws Exception {
-		List<String> result = dplStatement.execute("select toChar(price.date) as date from price where toChar(price.date,yyyyMMdd)=20090104", getContext(),
+		List<String> result = dplStatement.execute("select toChar(price.date) as date from price where toChar(price.date,'yyyyMMdd')=20090104", getContext(),
 				String.class);
 		assertEquals(2, result.size());
 	}

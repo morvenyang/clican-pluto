@@ -28,7 +28,7 @@ public class MoneyByExchangeTestCase extends BaseDplTestCase {
 	}
 
 	public void testCalculateMoney() throws Exception {
-		String dpl = "select moneyByExchange(price.price,exchange.number,price.code,exchange.remainMoney) as money from price,exchange where price.code+=exchange.code and toChar(price.date,yyyyMMdd)+=toChar(exchange.date,yyyyMMdd) group by price.date";
+		String dpl = "select moneyByExchange(price.price,exchange.number,price.code,exchange.remainMoney) as money from price,exchange where price.code+=exchange.code and toChar(price.date,'yyyyMMdd')+=toChar(exchange.date,'yyyyMMdd') group by price.date";
 		List<Map<String, Object>> result = dplStatement.execute(dpl, getContext());
 		assertEquals(5, result.size());
 	}

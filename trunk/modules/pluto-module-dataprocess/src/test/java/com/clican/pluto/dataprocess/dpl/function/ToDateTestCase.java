@@ -24,7 +24,7 @@ public class ToDateTestCase extends BaseDplTestCase {
 	}
 	
 	public void testToChar() throws Exception {
-		List<String> result = dplStatement.execute("select toDate(price.code,yyyyMMdd) as date from price", getContext(),String.class);
+		List<String> result = dplStatement.execute("select toDate(price.code,'yyyyMMdd') as date from price", getContext(),String.class);
 		assertEquals(10,result.size());
 	}
 	
