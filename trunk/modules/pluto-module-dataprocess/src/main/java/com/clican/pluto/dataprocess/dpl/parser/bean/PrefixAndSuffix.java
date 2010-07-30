@@ -21,6 +21,7 @@ import com.clican.pluto.common.util.PropertyUtilS;
 import com.clican.pluto.common.util.TypeUtils;
 import com.clican.pluto.dataprocess.dpl.function.FunctionCallback;
 import com.clican.pluto.dataprocess.dpl.function.SingleRowFunction;
+import com.clican.pluto.dataprocess.dpl.parser.impl.FromParser;
 import com.clican.pluto.dataprocess.dpl.parser.object.From;
 import com.clican.pluto.dataprocess.dpl.parser.object.Function;
 import com.clican.pluto.dataprocess.engine.ProcessorContext;
@@ -51,6 +52,8 @@ public class PrefixAndSuffix {
 	 */
 	private String suffix;
 
+	private String expr;
+
 	private Function function;
 
 	private ProcessorContext context;
@@ -61,7 +64,20 @@ public class PrefixAndSuffix {
 		this.function = function;
 	}
 
+	public List<String> getFromParams() throws PrefixAndSuffixException {
+		if (function != null) {
+			return function.getFromParams();
+		} else {
+			List<String> fromParams = new ArrayList<String>();
+			if (prefix != null && !prefix.equals(FromParser.CONSTANTS_KEY)) {
+				fromParams.add(prefix);
+			}
+			return fromParams;
+		}
+	}
+
 	public PrefixAndSuffix(String expr, From from, ProcessorContext context) throws PrefixAndSuffixException {
+		this.expr = expr;
 		if (from.containPrefix(expr)) {
 			supportInMultiFunctionWithoutGroupBy = false;
 			if (expr.contains(".")) {
@@ -89,7 +105,6 @@ public class PrefixAndSuffix {
 			throw new PrefixAndSuffixException("在有多行处理函数并且没有分组的情况下,不支持普通列的查询");
 		}
 	}
-
 
 	@SuppressWarnings("unchecked")
 	public <T> T getConstantsValue() throws CalculationException, PrefixAndSuffixException {
@@ -143,7 +158,6 @@ public class PrefixAndSuffix {
 	public Function getFunction() {
 		return function;
 	}
-
 
 	/**
 	 * 根据单行的row获得该PrefixAndSuffix描述的对象的值
@@ -273,6 +287,11 @@ public class PrefixAndSuffix {
 			}
 		}
 		return values;
+	}
+
+	@Override
+	public String toString() {
+		return expr;
 	}
 
 }

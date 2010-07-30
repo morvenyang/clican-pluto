@@ -25,6 +25,7 @@ import com.clican.pluto.dataprocess.dpl.parser.eunmeration.CompareType;
 import com.clican.pluto.dataprocess.engine.ProcessorContext;
 import com.clican.pluto.dataprocess.exception.CalculationException;
 import com.clican.pluto.dataprocess.exception.DplParseException;
+import com.clican.pluto.dataprocess.exception.PrefixAndSuffixException;
 
 /**
  * 比较2个对象通过各类<code>CompareType</code>来操作比较结果
@@ -72,13 +73,23 @@ public class CompareFilter extends Filter {
 	 * @param expr
 	 *            表达式
 	 */
-	public CompareFilter(PrefixAndSuffix leftPas, PrefixAndSuffix rightPas, String leftVarName, String rightVarName, CompareType compareType, String expr) {
+	public CompareFilter(PrefixAndSuffix leftPas, PrefixAndSuffix rightPas, CompareType compareType) throws PrefixAndSuffixException {
 		this.leftPas = leftPas;
 		this.rightPas = rightPas;
-		this.leftVarName = leftVarName;
-		this.rightVarName = rightVarName;
+		List<String> fromParams = leftPas.getFromParams();
+		if (fromParams.size() == 1) {
+			this.leftVarName = fromParams.get(0);
+		} else if (fromParams.size() > 1) {
+			throw new PrefixAndSuffixException("在where条件中的函数中使用到的参数当且仅当包含一个from条件才可以");
+		}
+		fromParams = rightPas.getFromParams();
+		if (fromParams.size() == 1) {
+			this.rightVarName = fromParams.get(0);
+		} else if (fromParams.size() > 1) {
+			throw new PrefixAndSuffixException("在where条件中的函数中使用到的参数当且仅当包含一个from条件才可以");
+		}
 		this.compareType = compareType;
-		this.expr = expr;
+		this.expr = leftPas.toString() + compareType.getOperation() + rightPas.toString();
 	}
 
 	/**
@@ -101,7 +112,6 @@ public class CompareFilter extends Filter {
 	 */
 	private CompareType compareType;
 
-	
 	public String getExpr() {
 		return expr;
 	}
@@ -218,7 +228,7 @@ public class CompareFilter extends Filter {
 		List<Map<String, Object>> resultSet = getResultSet(context, leftMap, rightMap, leftVarName, rightVarName);
 		// 把结果集根据与原有的顺序还原
 		Collections.sort(resultSet, new Comparator<Map<String, Object>>() {
-			
+
 			public int compare(Map<String, Object> o1, Map<String, Object> o2) {
 				Object left1 = o1.get(LEFT_POS);
 				Object left2 = o2.get(LEFT_POS);
@@ -451,32 +461,32 @@ public class CompareFilter extends Filter {
 		if (original != null) {
 			if (StringUtils.isNotEmpty(leftVarName) && StringUtils.isNotEmpty(rightVarName)) {
 				if (original.getResultNames().contains(leftVarName) && original.getResultNames().contains(rightVarName)) {
-					//EF2D2
+					// EF2D2
 					existDplResultAndExist2FromAndContain2From(context);
 				} else if (original.getResultNames().contains(leftVarName)) {
-					//EF2D1
+					// EF2D1
 					existDplResultAndExist2FromAndContain1From(context);
 				} else if (original.getResultNames().contains(rightVarName)) {
-					//EF2D1
+					// EF2D1
 					existDplResultAndExist2FromAndContain1From(context);
 				} else {
-					//EF2D0
+					// EF2D0
 					existDplResultAndExist2FromAndContain0From(context);
 				}
 			} else if (StringUtils.isNotEmpty(leftVarName)) {
 				if (original.getResultNames().contains(leftVarName)) {
-					//EF1D1
+					// EF1D1
 					existDplResultAndExist1FromAndContain1From(context);
 				} else {
-					//EF1D0
+					// EF1D0
 					existDplResultAndExist1FromAndContain0From(context);
 				}
 			} else if (StringUtils.isNotEmpty(rightVarName)) {
 				if (original.getResultNames().contains(rightVarName)) {
-					//EF1D1
+					// EF1D1
 					existDplResultAndExist1FromAndContain1From(context);
 				} else {
-					//EF1D0
+					// EF1D0
 					existDplResultAndExist1FromAndContain0From(context);
 				}
 			} else {
@@ -484,13 +494,13 @@ public class CompareFilter extends Filter {
 			}
 		} else {
 			if (StringUtils.isNotEmpty(leftVarName) && StringUtils.isNotEmpty(rightVarName)) {
-				//!EF2D0
+				// !EF2D0
 				notExistDplResultAndExist2From(context);
 			} else if (StringUtils.isNotEmpty(leftVarName)) {
-				//!EF1D0
+				// !EF1D0
 				notExistDplResultAndExist1From(context);
 			} else if (StringUtils.isNotEmpty(rightVarName)) {
-				//!EF1D0
+				// !EF1D0
 				notExistDplResultAndExist1From(context);
 			} else {
 				throw new DplParseException("比较的两端不能都是常量这样的比较没有意义[" + this.getExpr() + "]");
@@ -571,7 +581,6 @@ public class CompareFilter extends Filter {
 		return resultSet;
 	}
 
-	
 	public int priority() {
 		// 左外链接最先执行然后是普通字段过滤最后才是内链接
 		if (StringUtils.isNotEmpty(leftVarName) && StringUtils.isNotEmpty(rightVarName)) {
