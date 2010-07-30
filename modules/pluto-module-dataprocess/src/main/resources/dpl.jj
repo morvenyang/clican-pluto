@@ -217,7 +217,7 @@ Object param;
     			}
     			function = new Plus();
     			try{
-    				function.setParams(params,from,null);
+    				function.setParams(params,null);
     			}catch(Exception e){
     				throw new ParseException(e.getMessage());
     			}
@@ -230,7 +230,7 @@ Object param;
     			}
     			function = new Minus();
     			try{
-    				function.setParams(params,from,null);
+    				function.setParams(params,null);
     			}catch(Exception e){
     				throw new ParseException(e.getMessage());
     			}
@@ -274,7 +274,7 @@ Object param;
     			}
     			function = new Multi();
     			try{
-    				function.setParams(params,from,null);
+    				function.setParams(params,null);
     			}catch(Exception e){
     				throw new ParseException(e.getMessage());
     			}
@@ -286,7 +286,7 @@ Object param;
     			}
     			function = new Divide();
     			try{
-    				function.setParams(params,from,null);
+    				function.setParams(params,null);
     			}catch(Exception e){
     				throw new ParseException(e.getMessage());
     			}
