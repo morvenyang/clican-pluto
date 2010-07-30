@@ -317,7 +317,6 @@ Object SQLPrimaryExpression():
 (
   	<S_NUMBER>
   | <S_CHAR_LITERAL>
-  | "NULL"
   | "(" (LOOKAHEAD(3) SelectStatement() | expr=SQLSimpleExpression()) ")"
   | BindVariable()
   | LOOKAHEAD(FunctionReference() "(") expr=FunctionCall()
