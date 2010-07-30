@@ -4,7 +4,7 @@ options{
 }
 
 PARSER_BEGIN(PlSql)
-package com.jsw.dataprocess.dpl.parser.javacc;
+package com.clican.pluto.dataprocess.dpl.parser.javacc;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
