@@ -22,7 +22,7 @@ import com.clican.pluto.common.util.PropertyUtilS;
 import com.clican.pluto.common.util.TypeUtils;
 import com.clican.pluto.dataprocess.dpl.function.FunctionCallback;
 import com.clican.pluto.dataprocess.dpl.function.SingleRowFunction;
-import com.clican.pluto.dataprocess.dpl.parser.impl.FromParser;
+import com.clican.pluto.dataprocess.dpl.parser.impl.FromParserImpl;
 import com.clican.pluto.dataprocess.dpl.parser.object.Function;
 import com.clican.pluto.dataprocess.engine.ProcessorContext;
 import com.clican.pluto.dataprocess.exception.CalculationException;
@@ -70,7 +70,7 @@ public class PrefixAndSuffix {
 		} else {
 			List<String> fromParams = new ArrayList<String>();
 			if (StringUtils.isNotEmpty(prefix)
-					&& !prefix.equals(FromParser.CONSTANTS_KEY)) {
+					&& !prefix.equals(FromParserImpl.CONSTANTS_KEY)) {
 				fromParams.add(prefix);
 			}
 			return fromParams;
@@ -83,8 +83,8 @@ public class PrefixAndSuffix {
 			suffix = expr;
 		} else if (NumberUtils.isNumber(expr)) {
 			suffix = expr;
-		} else if (expr.startsWith(FromParser.CONSTANTS_KEY + ".")) {
-			prefix = FromParser.CONSTANTS_KEY;
+		} else if (expr.startsWith(FromParserImpl.CONSTANTS_KEY + ".")) {
+			prefix = FromParserImpl.CONSTANTS_KEY;
 			suffix = expr.substring(expr.indexOf(".") + 1);
 		} else {
 			supportInMultiFunctionWithoutGroupBy = false;
@@ -238,7 +238,7 @@ public class PrefixAndSuffix {
 					return (T) suffix;
 				}
 			} else {
-				if (prefix.equals(FromParser.CONSTANTS_KEY)) {
+				if (prefix.equals(FromParserImpl.CONSTANTS_KEY)) {
 					if (StringUtils.isNotEmpty(suffix)) {
 						T result = (T) getProcessorContext().getAttribute(
 								suffix);

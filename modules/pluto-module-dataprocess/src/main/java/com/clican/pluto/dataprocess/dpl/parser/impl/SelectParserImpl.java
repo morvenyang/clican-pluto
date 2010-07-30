@@ -13,7 +13,8 @@ import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
 
-import com.clican.pluto.dataprocess.dpl.parser.DplParser;
+import com.clican.pluto.dataprocess.dpl.parser.FunctionParser;
+import com.clican.pluto.dataprocess.dpl.parser.SelectParser;
 import com.clican.pluto.dataprocess.dpl.parser.bean.Column;
 import com.clican.pluto.dataprocess.dpl.parser.bean.PrefixAndSuffix;
 import com.clican.pluto.dataprocess.dpl.parser.object.Function;
@@ -21,7 +22,7 @@ import com.clican.pluto.dataprocess.dpl.parser.object.Select;
 import com.clican.pluto.dataprocess.engine.ProcessorContext;
 import com.clican.pluto.dataprocess.exception.DplParseException;
 
-public class SelectParser implements DplParser {
+public class SelectParserImpl implements SelectParser {
 
 	public final static String START_KEYWORD = "select";
 
@@ -40,10 +41,11 @@ public class SelectParser implements DplParser {
 	}
 
 	static {
-		END_KEYWORD.add(FromParser.START_KEYWORD);
+		END_KEYWORD.add(FromParserImpl.START_KEYWORD);
 	}
 
-	public Select parse(String dpl, ProcessorContext context) throws DplParseException {
+	public Select parse(String dpl, ProcessorContext context)
+			throws DplParseException {
 		int index = dpl.indexOf(START_KEYWORD);
 		if (index < 0) {
 			return null;
@@ -64,11 +66,12 @@ public class SelectParser implements DplParser {
 		List<String> selectList = new ArrayList<String>();
 		while (end < select.length()) {
 			String token = select.substring(end, end + 1);
-			if (token.equals(FunctionParser.START_KEYWORD)) {
+			if (token.equals(FunctionParserImpl.START_KEYWORD)) {
 				left++;
-			} else if (token.equals(FunctionParser.END_KEYWORD)) {
+			} else if (token.equals(FunctionParserImpl.END_KEYWORD)) {
 				right++;
-			} else if (token.equals(FunctionParser.PARAM_SPLIT_EXPR) && left == right) {
+			} else if (token.equals(FunctionParserImpl.PARAM_SPLIT_EXPR)
+					&& left == right) {
 				selectList.add(select.substring(start, end).trim());
 				start = end + 1;
 			} else if (end == select.length() - 1) {
@@ -84,33 +87,40 @@ public class SelectParser implements DplParser {
 				String columnName = null;
 				String functionDpl = null;
 				if (column.contains(AS_TOKEN)) {
-					columnName = column.substring(column.indexOf(AS_TOKEN) + AS_TOKEN.length(), column.length()).trim();
+					columnName = column.substring(
+							column.indexOf(AS_TOKEN) + AS_TOKEN.length(),
+							column.length()).trim();
 					functionDpl = column.substring(0, column.indexOf(AS_TOKEN));
 				} else {
 					functionDpl = column;
 				}
-				if (functionParser.containFunction(functionDpl)) {
-					Function function = functionParser.parse(functionDpl, context);
+				Function function = functionParser.parse(functionDpl, context);
+				if (function != null) {
 					function.setExpr(functionDpl.trim());
 					if (StringUtils.isNotEmpty(columnName)) {
 						function.setColumnName(columnName);
 					} else {
-						function.setColumnName(function.getClass().getSimpleName());
+						function.setColumnName(function.getClass()
+								.getSimpleName());
 					}
 					columnList.add(function);
 				} else {
 					Column col = new Column();
 					if (StringUtils.isNotEmpty(columnName)) {
 						col.setColumnName(columnName);
-						PrefixAndSuffix prefixAndSuffix = new PrefixAndSuffix(column.substring(0, column.indexOf(AS_TOKEN) + 1).trim());
+						PrefixAndSuffix prefixAndSuffix = new PrefixAndSuffix(
+								column.substring(0,
+										column.indexOf(AS_TOKEN) + 1).trim());
 						col.setPrefixAndSuffix(prefixAndSuffix);
 					} else {
 						if (column.contains(".")) {
-							col.setColumnName(column.substring(column.lastIndexOf(".") + 1));
+							col.setColumnName(column.substring(column
+									.lastIndexOf(".") + 1));
 						} else {
 							col.setColumnName(column);
 						}
-						PrefixAndSuffix prefixAndSuffix = new PrefixAndSuffix(column);
+						PrefixAndSuffix prefixAndSuffix = new PrefixAndSuffix(
+								column);
 						col.setPrefixAndSuffix(prefixAndSuffix);
 					}
 					columnList.add(col);

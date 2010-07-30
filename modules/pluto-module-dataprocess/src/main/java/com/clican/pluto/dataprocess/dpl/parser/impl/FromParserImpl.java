@@ -11,7 +11,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import com.clican.pluto.dataprocess.dpl.parser.DplParser;
+import com.clican.pluto.dataprocess.dpl.parser.FromParser;
 import com.clican.pluto.dataprocess.dpl.parser.object.From;
 import com.clican.pluto.dataprocess.engine.ProcessorContext;
 import com.clican.pluto.dataprocess.exception.DplParseException;
@@ -22,7 +22,7 @@ import com.clican.pluto.dataprocess.exception.DplParseException;
  * @author clican
  *
  */
-public class FromParser implements DplParser {
+public class FromParserImpl implements FromParser {
 	/**
 	 * 解析的开始位置
 	 */
@@ -35,12 +35,12 @@ public class FromParser implements DplParser {
 	private final static Set<String> END_KEYWORD = new HashSet<String>();
 
 	static {
-		END_KEYWORD.add(FilterParser.START_KEYWORD);
-		END_KEYWORD.add(GroupByParser.START_KEYWORD);
-		END_KEYWORD.add(OrderByParser.START_KEYWORD);
-		END_KEYWORD.add(PagingParser.START_KEYWORD1);
-		END_KEYWORD.add(PagingParser.START_KEYWORD2);
-		END_KEYWORD.add(PagingParser.START_KEYWORD3);
+		END_KEYWORD.add(FilterParserImpl.START_KEYWORD);
+		END_KEYWORD.add(GroupByParserImpl.START_KEYWORD);
+		END_KEYWORD.add(OrderByParserImpl.START_KEYWORD);
+		END_KEYWORD.add(PagingParserImpl.START_KEYWORD1);
+		END_KEYWORD.add(PagingParserImpl.START_KEYWORD2);
+		END_KEYWORD.add(PagingParserImpl.START_KEYWORD3);
 	}
 
 	

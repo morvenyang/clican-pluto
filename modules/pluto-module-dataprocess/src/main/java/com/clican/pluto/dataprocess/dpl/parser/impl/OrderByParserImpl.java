@@ -11,27 +11,27 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import com.clican.pluto.dataprocess.dpl.parser.DplParser;
+import com.clican.pluto.dataprocess.dpl.parser.OrderByParser;
 import com.clican.pluto.dataprocess.dpl.parser.bean.Order;
 import com.clican.pluto.dataprocess.dpl.parser.eunmeration.OrderDir;
 import com.clican.pluto.dataprocess.dpl.parser.object.OrderBy;
 import com.clican.pluto.dataprocess.engine.ProcessorContext;
 import com.clican.pluto.dataprocess.exception.DplParseException;
 
-public class OrderByParser implements DplParser {
+public class OrderByParserImpl implements OrderByParser {
 
 	public static final String START_KEYWORD = "order by";
 
 	private final static Set<String> END_KEYWORD = new HashSet<String>();
 
 	static {
-		END_KEYWORD.add(GroupByParser.START_KEYWORD);
-		END_KEYWORD.add(PagingParser.START_KEYWORD1);
-		END_KEYWORD.add(PagingParser.START_KEYWORD2);
+		END_KEYWORD.add(GroupByParserImpl.START_KEYWORD);
+		END_KEYWORD.add(PagingParserImpl.START_KEYWORD1);
+		END_KEYWORD.add(PagingParserImpl.START_KEYWORD2);
 	}
 
-	
-	public OrderBy parse(String dpl, ProcessorContext context) throws DplParseException {
+	public OrderBy parse(String dpl, ProcessorContext context)
+			throws DplParseException {
 		int index = dpl.indexOf(START_KEYWORD);
 		if (index < 0) {
 			return null;

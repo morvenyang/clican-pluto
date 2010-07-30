@@ -9,7 +9,7 @@ package com.clican.pluto.dataprocess.dpl.parser.object;
 import java.util.List;
 
 import com.clican.pluto.dataprocess.dpl.parser.ParserObject;
-import com.clican.pluto.dataprocess.dpl.parser.impl.FromParser;
+import com.clican.pluto.dataprocess.dpl.parser.impl.FromParserImpl;
 
 /**
  * 保存解析后的From对象的内容
@@ -42,7 +42,7 @@ public class From implements ParserObject {
 				return true;
 			}
 		}
-		if (var.startsWith(FromParser.CONSTANTS_KEY + ".")) {
+		if (var.startsWith(FromParserImpl.CONSTANTS_KEY + ".")) {
 			return true;
 		}
 		return false;

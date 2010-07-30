@@ -13,29 +13,29 @@ http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
 	<bean id="dplStatement" class="com.clican.pluto.dataprocess.dpl.impl.DplStatementImpl" autowire="byName">
 	</bean>
 	
-	<bean id="filterParser" class="com.clican.pluto.dataprocess.dpl.parser.impl.FilterParser" autowire="byName">
+	<bean id="filterParser" class="com.clican.pluto.dataprocess.dpl.parser.impl.FilterParserImpl" autowire="byName">
 	</bean>
 	
-	<bean id="fromParser" class="com.clican.pluto.dataprocess.dpl.parser.impl.FromParser" autowire="byName">
+	<bean id="fromParser" class="com.clican.pluto.dataprocess.dpl.parser.impl.FromParserImpl" autowire="byName">
 	</bean>
 	
-	<bean id="groupByParser" class="com.clican.pluto.dataprocess.dpl.parser.impl.GroupByParser" autowire="byName">
+	<bean id="groupByParser" class="com.clican.pluto.dataprocess.dpl.parser.impl.GroupByParserImpl" autowire="byName">
 	</bean>
 	
-	<bean id="orderByParser" class="com.clican.pluto.dataprocess.dpl.parser.impl.OrderByParser" autowire="byName">
+	<bean id="orderByParser" class="com.clican.pluto.dataprocess.dpl.parser.impl.OrderByParserImpl" autowire="byName">
 	</bean>
 	
-	<bean id="selectParser" class="com.clican.pluto.dataprocess.dpl.parser.impl.SelectParser" autowire="byName">
+	<bean id="selectParser" class="com.clican.pluto.dataprocess.dpl.parser.impl.SelectParserImpl" autowire="byName">
 	</bean>
 	
-	<bean id="functionParser" class="com.clican.pluto.dataprocess.dpl.parser.impl.FunctionParser" autowire="byName">
+	<bean id="functionParser" class="com.clican.pluto.dataprocess.dpl.parser.impl.FunctionParserImpl" autowire="byName">
 	</bean>
 	
-	<bean id="pagingParser" class="com.clican.pluto.dataprocess.dpl.parser.impl.PagingParser"
+	<bean id="pagingParser" class="com.clican.pluto.dataprocess.dpl.parser.impl.PagingParserImpl"
 		autowire="byName">
 	</bean>	
 	
-	<bean id="subDplParser" class="com.clican.pluto.dataprocess.dpl.parser.impl.SubDplParser"
+	<bean id="subDplParser" class="com.clican.pluto.dataprocess.dpl.parser.impl.SubDplParserImpl"
 		autowire="byName" lazy-init="true">
 	</bean>	
 

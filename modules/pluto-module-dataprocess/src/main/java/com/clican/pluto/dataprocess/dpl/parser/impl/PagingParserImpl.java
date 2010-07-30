@@ -7,12 +7,12 @@
 package com.clican.pluto.dataprocess.dpl.parser.impl;
 
 
-import com.clican.pluto.dataprocess.dpl.parser.DplParser;
+import com.clican.pluto.dataprocess.dpl.parser.PagingParser;
 import com.clican.pluto.dataprocess.dpl.parser.object.Pagination;
 import com.clican.pluto.dataprocess.engine.ProcessorContext;
 import com.clican.pluto.dataprocess.exception.DplParseException;
 
-public class PagingParser implements DplParser {
+public class PagingParserImpl implements PagingParser {
 
 	public final static String START_KEYWORD1 = "limit";
 
