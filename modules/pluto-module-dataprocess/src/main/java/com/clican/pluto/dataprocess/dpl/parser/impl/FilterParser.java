@@ -7,7 +7,6 @@
 package com.clican.pluto.dataprocess.dpl.parser.impl;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -245,8 +244,6 @@ public class FilterParser implements DplParser {
 					String rightExpr = expr.substring(expr.indexOf(compareType.getOperation()) + compareType.getOperation().length(), expr.length()).trim();
 					SingleRowFunction leftFunction = null;
 					SingleRowFunction rightFunction = null;
-					String leftVarName = null;
-					String rightVarName = null;
 					if (functionParser.containFunction(leftExpr)) {
 						Function function = functionParser.parse(leftExpr, context, parseContext);
 						if (function instanceof SingleRowFunction) {
@@ -265,37 +262,6 @@ public class FilterParser implements DplParser {
 						}
 					}
 
-					for (String name : from.getVariableNames()) {
-						if (leftFunction != null) {
-							List<String> fromParams = leftFunction.getFromParams();
-							if (fromParams.size() > 1) {
-								throw new DplParseException("在where条件中的函数中使用到的参数当且仅当包含一个from条件才可以");
-							} else {
-								if (fromParams.size() == 1) {
-									leftVarName = fromParams.get(0);
-								}
-							}
-						} else {
-							if (leftExpr.startsWith(name + ".") || leftExpr.equals(name)) {
-								leftVarName = name;
-							}
-						}
-						if (rightFunction != null) {
-							List<String> fromParams = rightFunction.getFromParams();
-							if (fromParams.size() > 1) {
-								throw new DplParseException("在where条件中的函数中使用到的参数当且仅当包含一个from条件才可以");
-							} else {
-								if (fromParams.size() == 1) {
-									rightVarName = fromParams.get(0);
-								}
-							}
-						} else {
-							if (rightExpr.startsWith(name + ".") || rightExpr.equals(name)) {
-								rightVarName = name;
-							}
-						}
-
-					}
 					PrefixAndSuffix leftPas;
 					if (leftFunction != null) {
 						leftPas = new PrefixAndSuffix(leftFunction);
@@ -308,7 +274,7 @@ public class FilterParser implements DplParser {
 					} else {
 						rightPas = new PrefixAndSuffix(rightExpr, from, context);
 					}
-					return new CompareFilter(leftPas, rightPas, leftVarName, rightVarName, compareType, expr);
+					return new CompareFilter(leftPas, rightPas, compareType);
 				}
 			}
 		} catch (Exception e) {
