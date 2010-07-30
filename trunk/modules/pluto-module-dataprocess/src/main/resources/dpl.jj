@@ -445,7 +445,7 @@ CompareFilter filter = null;
 	compareType=OperatorExpression()
 	
    (right=SQLSimpleExpression())?
-   {filter=new CompareFilter(left,right,null,null,compareType,null);
+   {filter=new CompareFilter(left,right,compareType);
     return filter;
    }
 }
