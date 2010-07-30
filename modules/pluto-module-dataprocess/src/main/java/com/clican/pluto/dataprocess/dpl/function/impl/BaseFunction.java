@@ -101,6 +101,8 @@ public abstract class BaseFunction implements Function {
 				pas = new PrefixAndSuffix((Function) param);
 			} else if (param instanceof String) {
 				pas = new PrefixAndSuffix(param.toString(), context);
+			} else if (param instanceof PrefixAndSuffix) {
+				pas = (PrefixAndSuffix) param;
 			} else {
 				// 这种情况绝对不可能发生,如果产生这个情况请检查FunctionParser的代码是否有问题
 				throw new DplParseException("函数参数解析错误");
