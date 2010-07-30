@@ -445,8 +445,13 @@ CompareFilter filter = null;
 	compareType=OperatorExpression()
 	
    (right=SQLSimpleExpression())?
-   {filter=new CompareFilter(left,right,compareType);
+   {
+   try{
+   	filter=new CompareFilter(left,right,compareType);
     return filter;
+   }catch(Exception e){
+   		throw new ParseException(e.getMessage());
+   }
    }
 }
 
