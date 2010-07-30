@@ -1,7 +1,7 @@
 /**
  * The Clican-Pluto software suit is Copyright 2009, Clican Company and individual contributors, and is licensed under the GNU LGPL.
  *
- * @author wei.zhang
+ * @author clican
  *
  */
 package com.clican.pluto.dataprocess.dpl.function.impl;
@@ -30,7 +30,7 @@ import com.clican.pluto.dataprocess.exception.PrefixAndSuffixException;
  * 
  * 该函数返回数值是一个长度等于compList的List，List中的内容就是obj
  * 
- * @author wei.zhang
+ * @author clican
  * 
  */
 public class FillInData extends BaseMultiRowFunction {

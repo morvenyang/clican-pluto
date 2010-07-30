@@ -1,7 +1,7 @@
 /**
  * The Clican-Pluto software suit is Copyright 2009, Clican Company and individual contributors, and is licensed under the GNU LGPL.
  *
- * @author wei.zhang, jing.tian
+ * @author clican, jing.tian
  *
  */
 package com.clican.pluto.dataprocess.engine.processes;

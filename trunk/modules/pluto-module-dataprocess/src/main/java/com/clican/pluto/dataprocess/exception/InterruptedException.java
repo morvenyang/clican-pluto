@@ -1,7 +1,7 @@
 /**
  * The Clican-Pluto software suit is Copyright 2009, Clican Company and individual contributors, and is licensed under the GNU LGPL.
  *
- * @author wei.zhang
+ * @author clican
  *
  */
 package com.clican.pluto.dataprocess.exception;
@@ -9,7 +9,7 @@ package com.clican.pluto.dataprocess.exception;
 /**
  * 当cluster节点停止导致Spring Context停止的时候Processor会抛出该错误强行终止流程
  * 
- * @author wei.zhang
+ * @author clican
  * 
  */
 public class InterruptedException extends DataProcessException {

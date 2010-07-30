@@ -1,7 +1,7 @@
 /**
  * The Clican-Pluto software suit is Copyright 2009, Clican Company and individual contributors, and is licensed under the GNU LGPL.
  *
- * @author wei.zhang
+ * @author clican
  *
  */
 package com.clican.pluto.dataprocess.dpl.comparator;
@@ -14,7 +14,7 @@ import com.clican.pluto.dataprocess.dpl.parser.bean.GroupCondition;
 /**
  * 根据Group By的条件来做比较
  *
- * @author wei.zhang
+ * @author clican
  *
  */
 public class GroupConditionComparator implements Comparator<List<GroupCondition>> {

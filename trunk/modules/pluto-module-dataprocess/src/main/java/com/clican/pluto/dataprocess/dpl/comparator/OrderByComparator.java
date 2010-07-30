@@ -1,7 +1,7 @@
 /**
  * The Clican-Pluto software suit is Copyright 2009, Clican Company and individual contributors, and is licensed under the GNU LGPL.
  *
- * @author wei.zhang
+ * @author clican
  *
  */
 package com.clican.pluto.dataprocess.dpl.comparator;
@@ -19,7 +19,7 @@ import com.clican.pluto.dataprocess.dpl.parser.object.OrderBy;
 /**
  * 用于Order By关键字的数据排序比较
  *
- * @author wei.zhang
+ * @author clican
  *
  */
 public class OrderByComparator implements Comparator<Map<String, Object>> {

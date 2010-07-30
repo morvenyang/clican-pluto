@@ -1,7 +1,7 @@
 /**
  * The Clican-Pluto software suit is Copyright 2009, Clican Company and individual contributors, and is licensed under the GNU LGPL.
  *
- * @author wei.zhang
+ * @author clican
  *
  */
 package com.clican.pluto.dataprocess.dpl.parser.eunmeration;
@@ -9,7 +9,7 @@ package com.clican.pluto.dataprocess.dpl.parser.eunmeration;
 /**
  * 排序的方向的枚举
  *
- * @author wei.zhang
+ * @author clican
  *
  */
 public enum OrderDir {

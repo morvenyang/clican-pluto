@@ -1,7 +1,7 @@
 /**
  * The Clican-Pluto software suit is Copyright 2009, Clican Company and individual contributors, and is licensed under the GNU LGPL.
  *
- * @author wei.zhang
+ * @author clican
  *
  */
 package com.clican.pluto.dataprocess.exception;
@@ -9,7 +9,7 @@ package com.clican.pluto.dataprocess.exception;
 /**
  * 当数据处理操作SQL的时候如果产生错误，该Exception会被抛出。
  * 
- * @author wei.zhang
+ * @author clican
  * 
  */
 public class DataProcessSqlException extends DataProcessException {

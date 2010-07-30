@@ -1,7 +1,7 @@
 /**
  * The Clican-Pluto software suit is Copyright 2009, Clican Company and individual contributors, and is licensed under the GNU LGPL.
  *
- * @author wei.zhang
+ * @author clican
  *
  */
 package com.clican.pluto.dataprocess.enumeration;
@@ -11,7 +11,7 @@ package com.clican.pluto.dataprocess.enumeration;
  * <p>
  * 默认还有一个TransactionMode就是没有Transaction
  * 
- * @author wei.zhang
+ * @author clican
  * 
  */
 public enum TransactionMode {

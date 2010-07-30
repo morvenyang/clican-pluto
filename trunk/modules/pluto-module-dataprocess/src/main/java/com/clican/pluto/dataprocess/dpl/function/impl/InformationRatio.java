@@ -1,7 +1,7 @@
 /**
  * The Clican-Pluto software suit is Copyright 2009, Clican Company and individual contributors, and is licensed under the GNU LGPL.
  *
- * @author wei.zhang
+ * @author clican
  *
  */
 package com.clican.pluto.dataprocess.dpl.function.impl;
@@ -27,7 +27,7 @@ import com.clican.pluto.dataprocess.exception.PrefixAndSuffixException;
  * <p>
  * informationRatio(List<Double> estimateList,List<Double> referList)
  * 
- * @author wei.zhang
+ * @author clican
  * 
  */
 public class InformationRatio extends BaseMultiRowFunction {

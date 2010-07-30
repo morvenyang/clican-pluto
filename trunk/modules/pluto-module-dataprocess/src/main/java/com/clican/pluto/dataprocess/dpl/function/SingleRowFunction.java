@@ -1,7 +1,7 @@
 /**
  * The Clican-Pluto software suit is Copyright 2009, Clican Company and individual contributors, and is licensed under the GNU LGPL.
  *
- * @author wei.zhang
+ * @author clican
  *
  */
 package com.clican.pluto.dataprocess.dpl.function;
@@ -16,7 +16,7 @@ import com.clican.pluto.dataprocess.exception.PrefixAndSuffixException;
 /**
  * 单行处理函数接口定义，定义了单行处理函数的通用处理方式。
  * 
- * @author wei.zhang
+ * @author clican
  * 
  */
 public interface SingleRowFunction extends Function {

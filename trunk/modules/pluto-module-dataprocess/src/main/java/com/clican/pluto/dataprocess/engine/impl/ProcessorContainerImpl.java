@@ -1,7 +1,7 @@
 /**
  * The Clican-Pluto software suit is Copyright 2009, Clican Company and individual contributors, and is licensed under the GNU LGPL.
  *
- * @author wei.zhang
+ * @author clican
  *
  */
 package com.clican.pluto.dataprocess.engine.impl;
@@ -42,7 +42,7 @@ import com.clican.pluto.dataprocess.exception.DataProcessException;
  * <p>
  * 每组Processors都定义在一个Spring Application Context中来作为一组独立的数据处理单元.
  * 
- * @author wei.zhang
+ * @author clican
  * 
  */
 public class ProcessorContainerImpl implements ProcessorContainer, ApplicationContextAware {

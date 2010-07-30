@@ -1,7 +1,7 @@
 /**
  * The Clican-Pluto software suit is Copyright 2009, Clican Company and individual contributors, and is licensed under the GNU LGPL.
  *
- * @author wei.zhang
+ * @author clican
  *
  */
 package com.clican.pluto.dataprocess.engine.impl;
@@ -20,7 +20,7 @@ import com.clican.pluto.dataprocess.engine.ProcessorContext;
  * <p>
  * 该实现主要简单的用一个同步Map来保存数据。并且使用简单的浅Copy来实现Clone方法。
  * 
- * @author wei.zhang
+ * @author clican
  * 
  */
 public class ProcessorContextImpl implements ProcessorContext {

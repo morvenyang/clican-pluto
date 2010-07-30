@@ -1,7 +1,7 @@
 /**
  * The Clican-Pluto software suit is Copyright 2009, Clican Company and individual contributors, and is licensed under the GNU LGPL.
  *
- * @author wei.zhang
+ * @author clican
  *
  */
 package com.clican.pluto.dataprocess.dpl.function.impl;
@@ -16,7 +16,7 @@ import com.clican.pluto.dataprocess.exception.PrefixAndSuffixException;
 /**
  * 自动映射参数的单行处理函数的基类,子类必须自己提供一个calculate方法,参数可以自定义.
  * 
- * @author wei.zhang
+ * @author clican
  * 
  */
 public abstract class BaseParamSingleRowFunction extends BaseSingleRowFunction {

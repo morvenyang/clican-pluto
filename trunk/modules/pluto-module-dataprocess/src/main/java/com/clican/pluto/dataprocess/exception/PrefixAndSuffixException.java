@@ -1,7 +1,7 @@
 /**
  * The Clican-Pluto software suit is Copyright 2009, Clican Company and individual contributors, and is licensed under the GNU LGPL.
  *
- * @author wei.zhang
+ * @author clican
  *
  */
 package com.clican.pluto.dataprocess.exception;
@@ -9,7 +9,7 @@ package com.clican.pluto.dataprocess.exception;
 /**
  * 包装或通过<code>PrefixAndSuffix</code>调用的时候发送错误该错误被抛出
  * 
- * @author wei.zhang
+ * @author clican
  * 
  */
 public class PrefixAndSuffixException extends DplParseException {

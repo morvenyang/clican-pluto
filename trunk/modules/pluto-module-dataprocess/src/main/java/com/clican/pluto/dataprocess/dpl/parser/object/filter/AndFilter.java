@@ -1,7 +1,7 @@
 /**
  * The Clican-Pluto software suit is Copyright 2009, Clican Company and individual contributors, and is licensed under the GNU LGPL.
  *
- * @author wei.zhang
+ * @author clican
  *
  */
 package com.clican.pluto.dataprocess.dpl.parser.object.filter;
@@ -26,7 +26,7 @@ import com.clican.pluto.dataprocess.exception.DplParseException;
 /**
  * 与的条件，把2部分的数据求交集
  * 
- * @author wei.zhang
+ * @author clican
  * 
  */
 public class AndFilter extends Filter {

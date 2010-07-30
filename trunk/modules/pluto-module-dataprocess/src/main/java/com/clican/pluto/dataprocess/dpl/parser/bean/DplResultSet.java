@@ -1,7 +1,7 @@
 /**
  * The Clican-Pluto software suit is Copyright 2009, Clican Company and individual contributors, and is licensed under the GNU LGPL.
  *
- * @author wei.zhang
+ * @author clican
  *
  */
 package com.clican.pluto.dataprocess.dpl.parser.bean;
@@ -15,7 +15,7 @@ import java.util.Set;
 /**
  * 在多个数据集合Join的过程中产生的临时Join结果集合
  * 
- * @author wei.zhang
+ * @author clican
  * 
  */
 public class DplResultSet {
