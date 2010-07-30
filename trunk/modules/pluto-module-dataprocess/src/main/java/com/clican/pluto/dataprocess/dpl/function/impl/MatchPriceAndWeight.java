@@ -17,7 +17,6 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
 
 import com.clican.pluto.dataprocess.dpl.parser.bean.PrefixAndSuffix;
-import com.clican.pluto.dataprocess.engine.ProcessorContext;
 import com.clican.pluto.dataprocess.exception.CalculationException;
 import com.clican.pluto.dataprocess.exception.DplParseException;
 import com.clican.pluto.dataprocess.exception.PrefixAndSuffixException;
@@ -47,7 +46,6 @@ public class MatchPriceAndWeight extends BaseMultiRowFunction {
 	private Map<String, Double> weightMap = new HashMap<String, Double>();
 
 	@SuppressWarnings("unchecked")
-	
 	public Object calculate(List<Map<String, Object>> rowSet) throws CalculationException, PrefixAndSuffixException {
 		Map<String, Object> mapRow = new HashMap<String, Object>();
 		boolean clear = true;
@@ -140,9 +138,8 @@ public class MatchPriceAndWeight extends BaseMultiRowFunction {
 	}
 
 	@SuppressWarnings("unchecked")
-	
-	public void setParams(List<Object> params, ProcessorContext context) throws DplParseException {
-		super.setParams(params, context);
+	public void setParams(List<Object> params) throws DplParseException {
+		super.setParams(params);
 		this.datePas = this.pasList.get(0);
 		this.priceCodePas = this.pasList.get(1);
 		this.pricePas = this.pasList.get(2);

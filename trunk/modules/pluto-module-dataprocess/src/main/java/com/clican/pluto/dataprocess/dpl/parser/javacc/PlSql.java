@@ -268,7 +268,7 @@ class PlSql implements PlSqlConstants {
 				}
 				function = new Plus();
 				try {
-					function.setParams(params, null);
+					function.setParams(params);
 				} catch (Exception e) {
 					{
 						if (true)
@@ -284,7 +284,7 @@ class PlSql implements PlSqlConstants {
 				}
 				function = new Minus();
 				try {
-					function.setParams(params, null);
+					function.setParams(params);
 				} catch (Exception e) {
 					{
 						if (true)
@@ -311,7 +311,7 @@ class PlSql implements PlSqlConstants {
 				pas = new PrefixAndSuffix((Function) param);
 			} else {
 				try {
-					pas = new PrefixAndSuffix((String) param, null);
+					pas = new PrefixAndSuffix((String) param);
 				} catch (Exception e) {
 					{
 						if (true)
@@ -353,7 +353,7 @@ class PlSql implements PlSqlConstants {
 				}
 				function = new Multi();
 				try {
-					function.setParams(params, null);
+					function.setParams(params);
 				} catch (Exception e) {
 					{
 						if (true)
@@ -369,7 +369,7 @@ class PlSql implements PlSqlConstants {
 				}
 				function = new Divide();
 				try {
-					function.setParams(params, null);
+					function.setParams(params);
 				} catch (Exception e) {
 					{
 						if (true)
@@ -516,7 +516,7 @@ class PlSql implements PlSqlConstants {
 		}
 		jj_consume_token(K_RIGHT_BRACE);
 		try {
-			function.setParams(params, null);
+			function.setParams(params);
 		} catch (Exception e) {
 			{
 				if (true)

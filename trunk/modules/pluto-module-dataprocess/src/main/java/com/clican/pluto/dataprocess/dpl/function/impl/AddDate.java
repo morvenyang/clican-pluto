@@ -14,7 +14,6 @@ import java.util.Map;
 import org.apache.commons.lang.time.DateUtils;
 
 import com.clican.pluto.dataprocess.dpl.parser.bean.PrefixAndSuffix;
-import com.clican.pluto.dataprocess.engine.ProcessorContext;
 import com.clican.pluto.dataprocess.exception.CalculationException;
 import com.clican.pluto.dataprocess.exception.DplParseException;
 import com.clican.pluto.dataprocess.exception.PrefixAndSuffixException;
@@ -46,8 +45,8 @@ public class AddDate extends BaseSingleRowFunction {
 	}
 
 	
-	public void setParams(List<Object> params, ProcessorContext context) throws DplParseException {
-		super.setParams(params, context);
+	public void setParams(List<Object> params) throws DplParseException {
+		super.setParams(params);
 		this.date = this.pasList.get(0);
 		String addField = this.pasList.get(1).getConstantsValue();
 		if (addField.endsWith("day")) {
@@ -60,9 +59,8 @@ public class AddDate extends BaseSingleRowFunction {
 			field = Calendar.YEAR;
 			add = Integer.parseInt(addField.replaceAll("year", ""));
 		} else {
-			throw new DplParseException("不支持的日期步长类型");
+			throw new PrefixAndSuffixException("不支持的日期步长类型");
 		}
-
 	}
 
 }

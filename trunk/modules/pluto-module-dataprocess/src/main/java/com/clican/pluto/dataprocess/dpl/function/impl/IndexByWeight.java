@@ -8,7 +8,6 @@ package com.clican.pluto.dataprocess.dpl.function.impl;
 
 import java.util.List;
 
-import com.clican.pluto.dataprocess.engine.ProcessorContext;
 import com.clican.pluto.dataprocess.exception.DplParseException;
 
 /**
@@ -22,18 +21,16 @@ import com.clican.pluto.dataprocess.exception.DplParseException;
  */
 public class IndexByWeight extends YieldByWeight {
 
-	
 	protected double getResult(double currentMoney) {
 		return currentMoney;
 	}
 
-	public void setParams(List<Object> params, ProcessorContext context) throws DplParseException {
-		super.setParams(params, context);
+	public void setParams(List<Object> params) throws DplParseException {
+		super.setParams(params);
 		Number temp = (Number) this.pasList.get(3).getConstantsValue();
 		if (temp != null) {
 			this.previousMoney = temp.doubleValue();
 		}
-
 	}
 }
 

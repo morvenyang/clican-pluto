@@ -9,6 +9,7 @@ package com.clican.pluto.dataprocess.dpl.parser.bean;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -41,6 +42,8 @@ public class PrefixAndSuffix {
 
 	private final static Log log = LogFactory.getLog(PrefixAndSuffix.class);
 
+	private final static ThreadLocal<List<ProcessorContext>> localContext = new ThreadLocal<List<ProcessorContext>>();
+
 	/**
 	 * 前缀只可能是dual和from中枚举的列表
 	 */
@@ -55,27 +58,26 @@ public class PrefixAndSuffix {
 
 	private Function function;
 
-	private ProcessorContext context;
-
 	private boolean supportInMultiFunctionWithoutGroupBy;
 
 	public PrefixAndSuffix(Function function) {
 		this.function = function;
 	}
 
-	public List<String> getFromParams()  {
+	public List<String> getFromParams() {
 		if (function != null) {
 			return function.getFromParams();
 		} else {
 			List<String> fromParams = new ArrayList<String>();
-			if (StringUtils.isNotEmpty(prefix) && !prefix.equals(FromParser.CONSTANTS_KEY)) {
+			if (StringUtils.isNotEmpty(prefix)
+					&& !prefix.equals(FromParser.CONSTANTS_KEY)) {
 				fromParams.add(prefix);
 			}
 			return fromParams;
 		}
 	}
 
-	public PrefixAndSuffix(String expr, ProcessorContext context) throws PrefixAndSuffixException {
+	public PrefixAndSuffix(String expr) throws PrefixAndSuffixException {
 		this.expr = expr;
 		if (expr.startsWith("'") && expr.endsWith("'")) {
 			suffix = expr;
@@ -93,17 +95,41 @@ public class PrefixAndSuffix {
 				prefix = expr;
 			}
 		}
-		this.context = context;
 	}
 
-	public void isSupportInMultiFunctionWithoutGroupBy() throws PrefixAndSuffixException {
+	public static void setLocalContext(ProcessorContext context) {
+		List<ProcessorContext> contextList = localContext.get();
+		if (contextList == null) {
+			contextList = new LinkedList<ProcessorContext>();
+			localContext.set(contextList);
+
+		}
+		contextList.add(context);
+	}
+
+	public static void releaseLocalContext() {
+		List<ProcessorContext> contextList = localContext.get();
+		contextList.remove(contextList.size() - 1);
+		if (contextList.size() == 0) {
+			localContext.remove();
+		}
+	}
+
+	private ProcessorContext getProcessorContext() {
+		List<ProcessorContext> contextList = localContext.get();
+		return contextList.get(contextList.size() - 1);
+	}
+
+	public void isSupportInMultiFunctionWithoutGroupBy()
+			throws PrefixAndSuffixException {
 		if (!supportInMultiFunctionWithoutGroupBy) {
 			throw new PrefixAndSuffixException("在有多行处理函数并且没有分组的情况下,不支持普通列的查询");
 		}
 	}
 
 	@SuppressWarnings("unchecked")
-	public <T> T getConstantsValue() throws CalculationException, PrefixAndSuffixException {
+	public <T> T getConstantsValue() throws CalculationException,
+			PrefixAndSuffixException {
 		return (T) getValue(new HashMap<String, Object>());
 	}
 
@@ -119,7 +145,8 @@ public class PrefixAndSuffix {
 	 * @throws PrefixAndSuffixException
 	 */
 	@SuppressWarnings("unchecked")
-	public <T> T getConstantsValue(Class<?> clazz) throws CalculationException, PrefixAndSuffixException {
+	public <T> T getConstantsValue(Class<?> clazz) throws CalculationException,
+			PrefixAndSuffixException {
 		Object obj = getConstantsValue();
 		if (obj == null) {
 			return null;
@@ -134,7 +161,8 @@ public class PrefixAndSuffix {
 					if (StringUtils.isEmpty(obj.toString())) {
 						return null;
 					} else {
-						return (T) TypeUtils.stringToNumber(obj.toString(), clazz);
+						return (T) TypeUtils.stringToNumber(obj.toString(),
+								clazz);
 					}
 				}
 			} else if (clazz.equals(String.class)) {
@@ -166,7 +194,8 @@ public class PrefixAndSuffix {
 	 * @throws PrefixAndSuffixException
 	 */
 	@SuppressWarnings( { "unchecked" })
-	public <T> T getValue(Map<String, Object> row) throws CalculationException, PrefixAndSuffixException {
+	public <T> T getValue(Map<String, Object> row) throws CalculationException,
+			PrefixAndSuffixException {
 		if (row == null) {
 			return null;
 		}
@@ -180,9 +209,11 @@ public class PrefixAndSuffix {
 				}
 			} else {
 				if (function instanceof SingleRowFunction) {
-					return (T) ((SingleRowFunction) function).recurseCalculate(null, row);
+					return (T) ((SingleRowFunction) function).recurseCalculate(
+							null, row);
 				} else {
-					throw new PrefixAndSuffixException(function.getExpr() + "还未被运算无法返回运算结果");
+					throw new PrefixAndSuffixException(function.getExpr()
+							+ "还未被运算无法返回运算结果");
 				}
 			}
 		} else {
@@ -209,19 +240,29 @@ public class PrefixAndSuffix {
 			} else {
 				if (prefix.equals(FromParser.CONSTANTS_KEY)) {
 					if (StringUtils.isNotEmpty(suffix)) {
-						T result = (T) context.getAttribute(suffix);
+						T result = (T) getProcessorContext().getAttribute(
+								suffix);
 						if (result == null) {
 							if (suffix.contains(".")) {
-								String name = suffix.substring(0, suffix.indexOf("."));
-								if (context.contains(name)) {
-									Object obj = context.getAttribute(name);
+								String name = suffix.substring(0, suffix
+										.indexOf("."));
+								if (getProcessorContext().contains(name)) {
+									Object obj = getProcessorContext()
+											.getAttribute(name);
 									if (obj == null) {
-										log.trace("该常量在ProcessorContext中为空,因此获取其属性也为空");
+										log
+												.trace("该常量在ProcessorContext中为空,因此获取其属性也为空");
 									} else {
 										try {
-											obj = PropertyUtilS.getNestedProperty(obj, suffix.substring(suffix.indexOf(".") + 1));
+											obj = PropertyUtilS
+													.getNestedProperty(
+															obj,
+															suffix
+																	.substring(suffix
+																			.indexOf(".") + 1));
 										} catch (Exception e) {
-											throw new PrefixAndSuffixException("获得内联属性出错", e);
+											throw new PrefixAndSuffixException(
+													"获得内联属性出错", e);
 										}
 									}
 									return (T) obj;
@@ -229,7 +270,7 @@ public class PrefixAndSuffix {
 									return null;
 								}
 							} else {
-								if (context.contains(suffix)) {
+								if (getProcessorContext().contains(suffix)) {
 									return null;
 								} else {
 									return null;
@@ -240,7 +281,8 @@ public class PrefixAndSuffix {
 							return result;
 						}
 					} else {
-						throw new PrefixAndSuffixException("对于从dual常量中取得数据的情况下必须要有suffix,如果没有suffix的话可能存在解析错误");
+						throw new PrefixAndSuffixException(
+								"对于从dual常量中取得数据的情况下必须要有suffix,如果没有suffix的话可能存在解析错误");
 					}
 				} else {
 					Object obj = row.get(prefix);
@@ -260,9 +302,11 @@ public class PrefixAndSuffix {
 								return (T) obj;
 							} else {
 								try {
-									obj = PropertyUtilS.getNestedProperty(obj, suffix);
+									obj = PropertyUtilS.getNestedProperty(obj,
+											suffix);
 								} catch (Exception e) {
-									throw new PrefixAndSuffixException("获得内联属性出错", e);
+									throw new PrefixAndSuffixException(
+											"获得内联属性出错", e);
 								}
 								return (T) obj;
 							}
@@ -274,7 +318,9 @@ public class PrefixAndSuffix {
 
 	}
 
-	public <T> List<T> getValues(List<Map<String, Object>> rowSet) throws CalculationException, PrefixAndSuffixException {
+	public <T> List<T> getValues(List<Map<String, Object>> rowSet,
+			ProcessorContext context) throws CalculationException,
+			PrefixAndSuffixException {
 		List<T> values = new ArrayList<T>(rowSet.size());
 		for (Map<String, Object> row : rowSet) {
 			T o = this.<T> getValue(row);

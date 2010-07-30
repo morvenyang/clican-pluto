@@ -268,7 +268,7 @@ public class FunctionParser implements DplParser {
 							}
 						}
 						function.setExpr(copy);
-						function.setParams(paramList, context);
+						function.setParams(paramList);
 						return function;
 					}
 					index++;
@@ -323,7 +323,7 @@ public class FunctionParser implements DplParser {
 						throw new DplParseException("函数解析错误()不对称");
 					}
 				}
-				function.setParams(paramList, context);
+				function.setParams(paramList);
 				function.setExpr(copy);
 				return function;
 			}

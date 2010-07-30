@@ -9,7 +9,6 @@ package com.clican.pluto.dataprocess.dpl.parser.object;
 import java.util.List;
 
 import com.clican.pluto.dataprocess.dpl.parser.ParserObject;
-import com.clican.pluto.dataprocess.engine.ProcessorContext;
 import com.clican.pluto.dataprocess.exception.DplParseException;
 
 /**
@@ -31,10 +30,9 @@ public interface Function extends ParserObject {
 	 * 设置函数参数
 	 * 
 	 * @param params
-	 * @param context
 	 * @throws DplParseException
 	 */
-	public void setParams(List<Object> params, ProcessorContext context) throws DplParseException;
+	public void setParams(List<Object> params) throws DplParseException;
 
 	/**
 	 * 返回在From关键字中出现过的函数参数
