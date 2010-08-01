@@ -16,12 +16,12 @@
 		<dependency>
 			<groupId>com.clican.pluto</groupId>
 			<artifactId>pluto-cms-core</artifactId>
-			<version>${pom.version}</version>
+			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.clican.pluto</groupId>
 			<artifactId>pluto-orm</artifactId>
-			<version>${pom.version}</version>
+			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.jboss.seam</groupId>
