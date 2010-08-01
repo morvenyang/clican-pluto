@@ -39,7 +39,7 @@ public class NTileTestCase extends BaseDplTestCase {
 		}
 		ProcessorContext context = new ProcessorContextImpl();
 		context.setAttribute("list", list);
-		List<Map<String,Object>> result = dplStatement.execute("select list.value as v,nTile(6,list.value,asc) as t from list order by v,t", context);
+		List<Map<String,Object>> result = dplStatement.execute("select list.value as v,nTile(6,list.value,'asc') as t from list order by v,t", context);
 		assertEquals(183,result.size());
 	}
 }

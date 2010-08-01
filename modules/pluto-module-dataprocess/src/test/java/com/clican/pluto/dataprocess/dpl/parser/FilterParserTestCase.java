@@ -50,8 +50,8 @@ public class FilterParserTestCase extends BaseDplTestCase {
 	public void testParseFilter2() throws Exception {
 		ProcessorContext context = new ProcessorContextImpl();
 		String dpl = "select avg(expenseRatioList.expenseRatio) as avgExpenseRatio from expenseRatioList where (toChar(expenseRatioList.beginDate,'MMdd') = '0101' and toChar(expenseRatioList.endDate,'MMdd') = '0630') or (toChar(expenseRatioList.beginDate,'MMdd') = '0701' and toChar(expenseRatioList.endDate,'MMdd') = '1231')";
-		fromParser.parse(dpl, context);
-		filterParser.parse(dpl, context);
+		fromParser.parseFrom(dpl, context);
+		filterParser.parseFilter(dpl, context);
 	}
 
 	public void testParseFilter3() throws Exception {

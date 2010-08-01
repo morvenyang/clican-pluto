@@ -30,7 +30,7 @@ public class OrderByParserImpl implements OrderByParser {
 		END_KEYWORD.add(PagingParserImpl.START_KEYWORD2);
 	}
 
-	public OrderBy parse(String dpl, ProcessorContext context)
+	public OrderBy parseOrderBy(String dpl, ProcessorContext context)
 			throws DplParseException {
 		int index = dpl.indexOf(START_KEYWORD);
 		if (index < 0) {

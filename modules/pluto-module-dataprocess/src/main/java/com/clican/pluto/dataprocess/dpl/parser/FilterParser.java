@@ -11,9 +11,9 @@ import com.clican.pluto.dataprocess.dpl.parser.object.filter.Filter;
 import com.clican.pluto.dataprocess.engine.ProcessorContext;
 import com.clican.pluto.dataprocess.exception.DplParseException;
 
-public interface FilterParser extends DplParser {
+public interface FilterParser  {
 	
-	public Filter parse(String dpl, ProcessorContext context)
+	public Filter parseFilter(String dpl, ProcessorContext context)
 			throws DplParseException;
 	
 }

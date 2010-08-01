@@ -10,9 +10,9 @@ import com.clican.pluto.dataprocess.dpl.parser.object.GroupBy;
 import com.clican.pluto.dataprocess.engine.ProcessorContext;
 import com.clican.pluto.dataprocess.exception.DplParseException;
 
-public interface GroupByParser extends DplParser {
+public interface GroupByParser  {
 
-	public GroupBy parse(String dpl, ProcessorContext context)
+	public GroupBy parseGroupBy(String dpl, ProcessorContext context)
 			throws DplParseException;
 
 }

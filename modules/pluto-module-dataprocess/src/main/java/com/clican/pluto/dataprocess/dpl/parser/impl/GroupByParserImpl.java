@@ -37,7 +37,7 @@ public class GroupByParserImpl implements GroupByParser {
 		this.functionParser = functionParser;
 	}
 
-	public GroupBy parse(String dpl, ProcessorContext context)
+	public GroupBy parseGroupBy(String dpl, ProcessorContext context)
 			throws DplParseException {
 		int index = dpl.indexOf(START_KEYWORD);
 		if (index < 0) {
@@ -69,7 +69,7 @@ public class GroupByParserImpl implements GroupByParser {
 					g = group.substring(lastI, i).trim();
 				}
 
-				Function function = functionParser.parse(g, context);
+				Function function = functionParser.parseFunction(g, context);
 				if (function != null) {
 					function.setExpr(g);
 					if (function instanceof MultiRowFunction) {

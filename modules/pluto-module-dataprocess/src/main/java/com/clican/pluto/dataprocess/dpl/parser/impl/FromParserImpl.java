@@ -23,6 +23,7 @@ import com.clican.pluto.dataprocess.exception.DplParseException;
  *
  */
 public class FromParserImpl implements FromParser {
+	
 	/**
 	 * 解析的开始位置
 	 */
@@ -42,9 +43,9 @@ public class FromParserImpl implements FromParser {
 		END_KEYWORD.add(PagingParserImpl.START_KEYWORD2);
 		END_KEYWORD.add(PagingParserImpl.START_KEYWORD3);
 	}
-
 	
-	public From parse(String dpl, ProcessorContext context) throws DplParseException {
+	
+	public From parseFrom(String dpl, ProcessorContext context) throws DplParseException {
 		int index = dpl.indexOf(START_KEYWORD);
 		if (index < 0) {
 			return null;

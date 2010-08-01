@@ -10,9 +10,9 @@ import com.clican.pluto.dataprocess.dpl.parser.object.OrderBy;
 import com.clican.pluto.dataprocess.engine.ProcessorContext;
 import com.clican.pluto.dataprocess.exception.DplParseException;
 
-public interface OrderByParser extends DplParser {
+public interface OrderByParser  {
 
-	public OrderBy parse(String dpl, ProcessorContext context)
+	public OrderBy parseOrderBy(String dpl, ProcessorContext context)
 			throws DplParseException;
 
 }

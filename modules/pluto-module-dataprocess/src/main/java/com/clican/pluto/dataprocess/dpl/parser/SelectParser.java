@@ -10,9 +10,9 @@ import com.clican.pluto.dataprocess.dpl.parser.object.Select;
 import com.clican.pluto.dataprocess.engine.ProcessorContext;
 import com.clican.pluto.dataprocess.exception.DplParseException;
 
-public interface SelectParser extends DplParser {
+public interface SelectParser {
 
-	public Select parse(String dpl, ProcessorContext context)
+	public Select parseSelect(String dpl, ProcessorContext context)
 			throws DplParseException;
 }
 

@@ -94,14 +94,14 @@ http://www.clican.com/spring/dataprocess.xsd">
 	<dataprocess:dpl id="testDplExec2" resultName="temp2"
 		nextDataProcessors="testDplExec3" traces="name,doubleValue,tileRank">
 		<![CDATA[
-			select testAList.name as name, testAList.doubleValue as doubleValue, NTile(5, testAList.name, asc) as tileRank from testAList
+			select testAList.name as name, testAList.doubleValue as doubleValue, NTile(5, testAList.name, 'asc') as tileRank from testAList
 		]]>
 	</dataprocess:dpl>
 
 	<dataprocess:dpl id="testDplExec3" resultName="temp3"
 		traces="name,doubleValue,percentileRank">
 		<![CDATA[
-			select testAList.name as name, testAList.doubleValue as doubleValue, PercentileRank(5, testAList.doubleValue, desc) as percentileRank from testAList
+			select testAList.name as name, testAList.doubleValue as doubleValue, PercentileRank(5, testAList.doubleValue, 'desc') as percentileRank from testAList
 		]]>
 	</dataprocess:dpl>
 

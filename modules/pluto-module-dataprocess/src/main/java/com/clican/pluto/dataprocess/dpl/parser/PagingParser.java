@@ -10,8 +10,8 @@ import com.clican.pluto.dataprocess.dpl.parser.object.Pagination;
 import com.clican.pluto.dataprocess.engine.ProcessorContext;
 import com.clican.pluto.dataprocess.exception.DplParseException;
 
-public interface PagingParser extends DplParser {
-	public Pagination parse(String dpl, ProcessorContext context)
+public interface PagingParser {
+	public Pagination parsePagination(String dpl, ProcessorContext context)
 			throws DplParseException;
 
 }
