@@ -37,10 +37,10 @@ public class FunctionParseTestCase extends BaseDataProcessTestCase {
 		From from = new From(vars);
 		parseContext.put(FromParserImpl.START_KEYWORD, from);
 		
-		functionParser.parse(
+		functionParser.parseFunction(
 				"sharpeRatio((weeklyReturnRatioList.returnRate-rFR(riskFreeList.rfrValue,50)))",
 				context);
-		functionParser.parse(
+		functionParser.parseFunction(
 				"test.a+(test.b*test.c-(test.d*(test.e+test.f*test.r/test.c*equal(test.e,test.f))))+dual.factor/0.34+equal(test.a%test.b-test.p,test.c)",
 				context);
 	}

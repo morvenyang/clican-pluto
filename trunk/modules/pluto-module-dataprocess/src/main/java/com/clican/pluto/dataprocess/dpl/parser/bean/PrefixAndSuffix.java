@@ -64,6 +64,14 @@ public class PrefixAndSuffix {
 		this.function = function;
 	}
 
+	public String getPrefix() {
+		return prefix;
+	}
+
+	public String getSuffix() {
+		return suffix;
+	}
+
 	public List<String> getFromParams() {
 		if (function != null) {
 			return function.getFromParams();

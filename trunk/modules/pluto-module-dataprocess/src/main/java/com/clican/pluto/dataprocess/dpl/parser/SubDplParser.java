@@ -16,9 +16,9 @@ import com.clican.pluto.dataprocess.exception.DplParseException;
  * @author clican
  * 
  */
-public interface SubDplParser extends DplParser {
+public interface SubDplParser {
 
-	public SubDpl parse(String dpl, ProcessorContext context)
+	public SubDpl parseSubDpl(String dpl, ProcessorContext context)
 			throws DplParseException;
 }
 

@@ -202,7 +202,7 @@ public class FunctionParserImpl implements FunctionParser {
 
 	}
 
-	public Function parse(String dpl, ProcessorContext context)
+	public Function parseFunction(String dpl, ProcessorContext context)
 			throws DplParseException {
 		if (!containFunction(dpl)) {
 			return null;
@@ -284,7 +284,7 @@ public class FunctionParserImpl implements FunctionParser {
 								paramList.add(param);
 								param = "";
 							} else if (left == right) {
-								paramList.add(this.parse(param, context));
+								paramList.add(this.parseFunction(param, context));
 								param = "";
 							} else if (i == params.length - 1) {
 								throw new DplParseException("函数解析错误()不对称");
@@ -346,7 +346,7 @@ public class FunctionParserImpl implements FunctionParser {
 						paramList.add(param);
 						param = "";
 					} else if (left == right) {
-						paramList.add(this.parse(param, context));
+						paramList.add(this.parseFunction(param, context));
 						param = "";
 					} else if (i == params.length - 1) {
 						throw new DplParseException("函数解析错误()不对称");

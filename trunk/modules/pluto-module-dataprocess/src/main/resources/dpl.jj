@@ -1,9 +1,10 @@
 options{
     STATIC=false ;
     IGNORE_CASE=true ;
+    UNICODE_INPUT=true ;
 }
 
-PARSER_BEGIN(PlSql)
+PARSER_BEGIN(DplParserJavacc)
 package com.clican.pluto.dataprocess.dpl.parser.javacc;
 
 import java.io.ByteArrayInputStream;
@@ -28,29 +29,14 @@ import com.clican.pluto.dataprocess.dpl.parser.object.filter.CompareFilter;
 import com.clican.pluto.dataprocess.exception.DplParseException;
 import com.clican.pluto.dataprocess.dpl.parser.bean.PrefixAndSuffix;
 import com.clican.pluto.dataprocess.dpl.parser.eunmeration.CompareType;
+import com.clican.pluto.dataprocess.dpl.parser.*;
+import com.clican.pluto.dataprocess.dpl.parser.object.*;
+import com.clican.pluto.dataprocess.engine.ProcessorContext;
 
-
-class PlSql {
-
-    /** Parse PL/SQL from files.  Each arg is expected to be the name of a file,
-        or "-" to indicate System.in.
-     */
-    public static void main( String args[] ) throws Throwable {
-        String dpl = "select aList.id,toChar(aList.date) as date from aList where (aList.id=1 and aList.name='aaa') or (aList.id=2 and aList.name='bbb')";
-		InputStream is = new ByteArrayInputStream(dpl.getBytes());
-		final PlSql parser = new PlSql(is);
-		parser.parse();
-    }
-
-    public Set<String> functions = new HashSet<String>();
-    public Set<String> procedures = new HashSet<String>();
-    public Set<String> tables = new HashSet<String>();
-    public List<Object> columns = new ArrayList<Object>();
-    public From from = new From(new ArrayList<String>());
-    public Filter filter;
+public class DplParserJavacc {
 
 }
-PARSER_END(PlSql)
+PARSER_END(DplParserJavacc)
 
 
 SKIP:
@@ -78,6 +64,8 @@ TOKEN: /* SQL and PLSQL Keywords. prefixed with K_ to avoid name clashes */
 |   <K_IS:"IS">
 |   <K_IS_NULL:"IS NULL">
 |   <K_IS_NOT_NULL:"IS NOT NULL">
+|   <K_IS_EMPTY:"IS EMPTY">
+|   <K_IS_NOT_EMPTY:"IS NOT EMPTY">
 |   <K_LIKE:"LIKE">
 |   <K_NOT_LIKE:"NOT LIKE">
 |   <K_OR:"OR">
@@ -128,6 +116,7 @@ TOKEN:
   | < S_QUOTED_IDENTIFIER: "\"" (~["\n","\r","\""])* "\"" >
 }
 
+
 void BindVariable():
 {}
 {
@@ -149,13 +138,21 @@ void parse():
 	[ WhereClause() ]
 }
 
-void SelectStatement():
-{}
-{"SELECT" SelectList()}
-void SelectList():
-{}
+Select SelectStatement():
+{Select select;}
+{"SELECT" select=SelectList()
+  {return select;}
+}
+
+Select SelectList():
 {
-    "*" | SelectItem() ("," SelectItem())*
+List<Object> columns = new ArrayList<Object>();
+Select select = new Select(columns);
+Object column =null;
+}
+{
+   column= SelectItem(){columns.add(column);} ("," column=SelectItem(){columns.add(column);})*
+   {return select;}
 }
 
 String OracleObjectName():
@@ -166,37 +163,61 @@ String OracleObjectName():
 }
 
 
-void SelectItem():
+Object SelectItem():
 {String columnName=null;
-Object column;}
+PrefixAndSuffix pas;}
 {
-    column=SQLSimpleExpression()
+    pas=SQLSimpleExpression()
     [ [ "AS" ] columnName=OracleObjectName()]
     {
-    	if(column instanceof Function)
+    	if(pas.getFunction()!=null)
     	{
-    		((Function)column).setColumnName(columnName);
-    		columns.add(column);
+    		Function fun = pas.getFunction();
+    		if(columnName==null||columnName.length()==0){
+    			fun.setColumnName(fun.getClass().getName());
+    		}else{
+    			fun.setColumnName(columnName);
+    		}
+    		return fun;
     	}else{
     		Column col = new Column();
-    		col.setPrefixAndSuffix((PrefixAndSuffix)column);
+    		col.setPrefixAndSuffix(pas);
+    		if(columnName==null||columnName.length()==0){
+    			String suffix = pas.getSuffix();
+    			String prefix = pas.getPrefix();
+    			if(suffix==null||suffix.length()==0){
+    				columnName=prefix;
+    			}else{
+    				if (suffix.contains(".")) {
+    					columnName = suffix.substring(suffix.lastIndexOf(".") + 1);
+    				}else{
+    					columnName = suffix;
+    				}
+    			}
+    		}
     		col.setColumnName(columnName);
-    		columns.add(col);
+    		return col;
     	}
     }
 }
 
-void FromClause():
-{}
+From FromClause():
 {
-    "FROM" TableReference() ( "," TableReference())*
+List<String> variableNames = new ArrayList<String>();
+From from = new From(variableNames);
+String tableName = null;
+}
+{
+   "FROM" tableName=TableReference(){variableNames.add(tableName);} ( "," tableName=TableReference(){variableNames.add(tableName);})*
+    {return from;}
 }
 
-void TableReference():
+String TableReference():
 {String tableName=null;}
 {
-  tableName=TableName(){from.getVariableNames().add(tableName);}
-  | "(" SubQuery() ")" ["AS" tableName=OracleObjectName(){from.getVariableNames().add(tableName);}]
+  tableName=TableName()
+  | "(" SubQuery() ")" ["AS" tableName=OracleObjectName()]
+  {return tableName;}
 }
 
 
@@ -216,7 +237,7 @@ Object param;
     			}
     			function = new Plus();
     			try{
-    				function.setParams(params,null);
+    				function.setParams(params);
     			}catch(Exception e){
     				throw new ParseException(e.getMessage());
     			}
@@ -229,7 +250,7 @@ Object param;
     			}
     			function = new Minus();
     			try{
-    				function.setParams(params,null);
+    				function.setParams(params);
     			}catch(Exception e){
     				throw new ParseException(e.getMessage());
     			}
@@ -247,7 +268,7 @@ Object param;
      			pas = new PrefixAndSuffix((Function)param);
      		}else{
      			try{
-     				pas = new PrefixAndSuffix((String)param,null);
+     				pas = new PrefixAndSuffix((String)param);
      			}catch(Exception e){
      				throw new ParseException(e.getMessage());
      			}
@@ -273,7 +294,7 @@ Object param;
     			}
     			function = new Multi();
     			try{
-    				function.setParams(params,null);
+    				function.setParams(params);
     			}catch(Exception e){
     				throw new ParseException(e.getMessage());
     			}
@@ -285,7 +306,7 @@ Object param;
     			}
     			function = new Divide();
     			try{
-    				function.setParams(params,null);
+    				function.setParams(params);
     			}catch(Exception e){
     				throw new ParseException(e.getMessage());
     			}
@@ -331,7 +352,6 @@ String FunctionReference():
 }
 {
     name = ObjectReference()
-    {functions.add(name.toUpperCase());}
     {return name;}
 }
 
@@ -356,7 +376,7 @@ List<Object> params = new ArrayList<Object>();
     )
     {
     try{
-    				function.setParams(params,null);
+    				function.setParams(params);
     			}catch(Exception e){
     				throw new ParseException(e.getMessage());
     			}
@@ -382,10 +402,11 @@ Object FunctionArgument():
    {return param;}
 }
 
-void WhereClause():
-{}
+Filter WhereClause():
+{Filter filter;}
 {
     <K_WHERE> filter=FilterExpression()
+    {return filter;}
 }
 
 
@@ -471,6 +492,8 @@ CompareType OperatorExpression():
   | <K_IN>
   | <K_IS_NOT_NULL>
   | <K_IS_NULL>
+  | <K_IS_NOT_EMPTY>
+  | <K_IS_EMPTY>
   | <K_NOT_LIKE>
   | <K_LIKE>
   | <K_EQUAL>

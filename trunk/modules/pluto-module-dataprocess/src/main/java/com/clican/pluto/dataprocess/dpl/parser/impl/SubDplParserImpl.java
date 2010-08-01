@@ -37,7 +37,7 @@ public class SubDplParserImpl implements SubDplParser {
 		this.dplStatement = dplStatement;
 	}
 
-	public SubDpl parse(String dpl, ProcessorContext context)
+	public SubDpl parseSubDpl(String dpl, ProcessorContext context)
 			throws DplParseException {
 		log.debug("parse sub dpl[" + dpl + "]");
 		SubDpl subDpl = new SubDpl();
@@ -58,7 +58,7 @@ public class SubDplParserImpl implements SubDplParser {
 				String subStr = dpl.substring(index);
 				if (!findSelect) {
 					for (CompareType ct : CompareType.values()) {
-						if (subStr.startsWith(ct.getOperation())) {
+						if (subStr.startsWith(ct.getOperationWithEmpty())) {
 							lastCompareType = ct;
 						}
 					}
@@ -119,7 +119,7 @@ public class SubDplParserImpl implements SubDplParser {
 								} else {
 									throw new DplException("子查询[" + subDplStr
 											+ "]返回的结果集合不是一条无法和该操作"
-											+ lastCompareType.getOperation()
+											+ lastCompareType.getOperationWithEmpty()
 											+ "做比较");
 								}
 							} else {

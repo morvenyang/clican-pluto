@@ -32,13 +32,13 @@ public class OrderByParserTestCase extends BaseDplTestCase {
 
 	public void testOrderBy1() throws Exception {
 		String dpl = "select sum(list.id) as sumId,list.name as name from list order by name";
-		OrderBy orderBy = orderByParser.parse(dpl, new ProcessorContextImpl());
+		OrderBy orderBy = orderByParser.parseOrderBy(dpl, new ProcessorContextImpl());
 		assertTrue(orderBy.getOrders().size() == 1);
 	}
 
 	public void testOrderBy2() throws Exception {
 		String dpl = "select sum(list.id) as sumId,list.name as name from list order by name asc,password desc";
-		OrderBy orderBy = orderByParser.parse(dpl, new ProcessorContextImpl());
+		OrderBy orderBy = orderByParser.parseOrderBy(dpl, new ProcessorContextImpl());
 		assertTrue(orderBy.getOrders().size() == 2);
 	}
 

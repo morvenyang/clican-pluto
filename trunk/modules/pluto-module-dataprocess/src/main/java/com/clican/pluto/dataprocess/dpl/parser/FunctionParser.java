@@ -16,9 +16,9 @@ import com.clican.pluto.dataprocess.exception.DplParseException;
  * @author clican
  * 
  */
-public interface FunctionParser extends DplParser {
+public interface FunctionParser  {
 
-	public Function parse(String dpl, ProcessorContext context)
+	public Function parseFunction(String dpl, ProcessorContext context)
 			throws DplParseException;
 
 }

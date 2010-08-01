@@ -21,7 +21,7 @@ public class PagingParserImpl implements PagingParser {
 	public final static String START_KEYWORD3 = "reverse";
 
 	
-	public Pagination parse(String dpl, ProcessorContext context) throws DplParseException {
+	public Pagination parsePagination(String dpl, ProcessorContext context) throws DplParseException {
 		int index1 = dpl.indexOf(START_KEYWORD1);
 		int index2 = dpl.indexOf(START_KEYWORD2);
 		int index3 = dpl.indexOf(START_KEYWORD3);

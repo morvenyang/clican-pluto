@@ -30,7 +30,7 @@ public enum CompareType {
 
 	NOT_IN(" not in "),
 
-	IN(" in "),
+	IN("in"),
 
 	NOT_LIKE("not like"),
 
@@ -56,6 +56,14 @@ public enum CompareType {
 
 	private CompareType(String operation) {
 		this.operation = operation;
+	}
+
+	public String getOperationWithEmpty() {
+		if (this == CompareType.IN || this == CompareType.LIKE) {
+			return " " + operation + " ";
+		} else {
+			return operation;
+		}
 	}
 
 	public String getOperation() {

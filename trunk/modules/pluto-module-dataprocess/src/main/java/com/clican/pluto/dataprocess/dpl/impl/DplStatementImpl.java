@@ -149,26 +149,28 @@ public class DplStatementImpl implements DplStatement {
 		PrefixAndSuffix.setLocalContext(clone);
 		try {
 			// 解析dpl的各个组成部分
-			SubDpl subDpl = subDplParser.parse(dpl, clone);
-			for (String subDplStr : subDpl.getSubDplStrAliasMap().keySet()) {
-				String alias = subDpl.getSubDplStrAliasMap().get(subDplStr);
-				Object result = subDpl.getAliasResultMap().get(alias);
-				dpl = StringUtils.replaceOnce(dpl, subDplStr, alias);
-				if (alias.startsWith("dual")) {
-					clone.setAttribute(alias.substring(5), result);
-				} else {
-					clone.setAttribute(alias, result);
+			SubDpl subDpl = subDplParser.parseSubDpl(dpl, clone);
+			if(subDpl!=null){
+				for (String subDplStr : subDpl.getSubDplStrAliasMap().keySet()) {
+					String alias = subDpl.getSubDplStrAliasMap().get(subDplStr);
+					Object result = subDpl.getAliasResultMap().get(alias);
+					dpl = StringUtils.replaceOnce(dpl, subDplStr, alias);
+					if (alias.startsWith("dual")) {
+						clone.setAttribute(alias.substring(5), result);
+					} else {
+						clone.setAttribute(alias, result);
+					}
 				}
 			}
-			From from = fromParser.parse(dpl, clone);
+			From from = fromParser.parseFrom(dpl, clone);
 			if (from.getVariableNames().size() == 0) {
 				throw new DplParseException("From关键字解析错误");
 			}
-			Filter filter = filterParser.parse(dpl, clone);
-			GroupBy groupBy = groupByParser.parse(dpl, clone);
-			OrderBy orderBy = orderByParser.parse(dpl, clone);
-			Select select = selectParser.parse(dpl, clone);
-			Pagination pagination = pagingParser.parse(dpl, clone);
+			Filter filter = filterParser.parseFilter(dpl, clone);
+			GroupBy groupBy = groupByParser.parseGroupBy(dpl, clone);
+			OrderBy orderBy = orderByParser.parseOrderBy(dpl, clone);
+			Select select = selectParser.parseSelect(dpl, clone);
+			Pagination pagination = pagingParser.parsePagination(dpl, clone);
 
 			// 过滤数据集合并且返回结果的数据集合
 			DplResultSet dplResultSet = null;
