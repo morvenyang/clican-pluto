@@ -112,11 +112,13 @@ public abstract class AbstractStateParser implements BeanDefinitionParser {
 								String startTime = e.getAttribute("startTime");
 								String dueTime = e.getAttribute("dueTime");
 								String repeatTime = e.getAttribute("repeatTime");
+								String repeatDuration = e.getAttribute("repeatDuration");
 								String businessCalendarName = e.getAttribute("businessCalendarName");
 								bean.getPropertyValues().addPropertyValue("name", timeoutName);
 								bean.getPropertyValues().addPropertyValue("startTime", startTime);
 								bean.getPropertyValues().addPropertyValue("dueTime", dueTime);
 								bean.getPropertyValues().addPropertyValue("repeatTime", repeatTime);
+								bean.getPropertyValues().addPropertyValue("repeatDuration", repeatDuration);
 								bean.getPropertyValues().addPropertyValue("businessCalendarName", businessCalendarName);
 							}
 							NodeList nodeList2 = element.getChildNodes();
