@@ -12,10 +12,10 @@ import java.util.List;
 import java.util.Set;
 
 import com.clican.pluto.dataprocess.dpl.function.MultiRowFunction;
-import com.clican.pluto.dataprocess.dpl.function.SingleRowFunction;
 import com.clican.pluto.dataprocess.dpl.parser.FunctionParser;
 import com.clican.pluto.dataprocess.dpl.parser.GroupByParser;
 import com.clican.pluto.dataprocess.dpl.parser.bean.Group;
+import com.clican.pluto.dataprocess.dpl.parser.bean.PrefixAndSuffix;
 import com.clican.pluto.dataprocess.dpl.parser.object.Function;
 import com.clican.pluto.dataprocess.dpl.parser.object.GroupBy;
 import com.clican.pluto.dataprocess.engine.ProcessorContext;
@@ -37,8 +37,7 @@ public class GroupByParserImpl implements GroupByParser {
 		this.functionParser = functionParser;
 	}
 
-	public GroupBy parseGroupBy(String dpl, ProcessorContext context)
-			throws DplParseException {
+	public GroupBy parseGroupBy(String dpl, ProcessorContext context) throws DplParseException {
 		int index = dpl.indexOf(START_KEYWORD);
 		if (index < 0) {
 			return null;
@@ -70,13 +69,17 @@ public class GroupByParserImpl implements GroupByParser {
 				}
 
 				Function function = functionParser.parseFunction(g, context);
+				PrefixAndSuffix pas;
 				if (function != null) {
 					function.setExpr(g);
 					if (function instanceof MultiRowFunction) {
 						throw new DplParseException("在where条件中不支持多行处理函数");
 					}
-					gro.setFunction((SingleRowFunction) function);
+					pas = new PrefixAndSuffix(function);
+				} else {
+					pas = new PrefixAndSuffix(g);
 				}
+				gro.setPrefixAndSuffix(pas);
 				gro.setExpr(g);
 				groups.add(gro);
 				lastI = i + 1;

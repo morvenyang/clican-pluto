@@ -8,27 +8,27 @@ package com.clican.pluto.dataprocess.dpl.parser.bean;
 
 import java.util.Map;
 
-import com.clican.pluto.common.util.PropertyUtilS;
+import com.clican.pluto.dataprocess.dpl.function.MultiRowFunction;
 import com.clican.pluto.dataprocess.dpl.function.SingleRowFunction;
+import com.clican.pluto.dataprocess.dpl.parser.impl.FromParserImpl;
 import com.clican.pluto.dataprocess.exception.DplException;
 import com.clican.pluto.dataprocess.exception.DplParseException;
 
 public class Group {
 
-	/**
-	 * 如果Group的内容是一个function则该属性不为空
-	 */
-	private SingleRowFunction function;
-
-	/**
-	 * 如果Group的内容是一个普通字段则该属性不为空
-	 */
 	private String expr;
+	
+	private PrefixAndSuffix prefixAndSuffix;
 
-	public void setFunction(SingleRowFunction function) {
-		this.function = function;
+	public PrefixAndSuffix getPrefixAndSuffix() {
+		return prefixAndSuffix;
 	}
 
+	public void setPrefixAndSuffix(PrefixAndSuffix prefixAndSuffix) {
+		this.prefixAndSuffix = prefixAndSuffix;
+	}
+
+	
 	public String getExpr() {
 		return expr;
 	}
@@ -49,13 +49,15 @@ public class Group {
 			return null;
 		}
 		try {
-			if (function != null) {
-				return function.recurseCalculate(null, row);
+			if (prefixAndSuffix.getFunction() instanceof SingleRowFunction) {
+				return ((SingleRowFunction) prefixAndSuffix.getFunction()).recurseCalculate(null, row);
+			} else if (prefixAndSuffix.getFunction() instanceof MultiRowFunction) {
+				throw new DplException("The function in group by can't be MultiRowFunction");
 			} else {
-				if (expr.startsWith("dual.")) {
-					throw new DplParseException("无法使用常量[" + expr + "]作为GroupBy的对象");
+				if (prefixAndSuffix.getPrefix().equals(FromParserImpl.CONSTANTS_KEY)) {
+					throw new DplParseException("无法使用常量[" + prefixAndSuffix.getExpr() + "]作为GroupBy的对象");
 				}
-				return PropertyUtilS.getNestedProperty(row, expr);
+				return prefixAndSuffix.getValue(row);
 			}
 		} catch (DplException e) {
 			throw e;

@@ -72,6 +72,10 @@ public class PrefixAndSuffix {
 		return suffix;
 	}
 
+	public String getExpr() {
+		return expr;
+	}
+
 	public List<String> getFromParams() {
 		if (function != null) {
 			return function.getFromParams();
