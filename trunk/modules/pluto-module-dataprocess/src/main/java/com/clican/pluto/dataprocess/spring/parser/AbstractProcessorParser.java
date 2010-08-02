@@ -26,7 +26,7 @@ import com.clican.pluto.dataprocess.enumeration.TransactionMode;
 /**
  * bean定义解析器，spring使用。
  * 
- * @author jerry.tian
+ * @author clican
  * 
  */
 public abstract class AbstractProcessorParser implements BeanDefinitionParser {
