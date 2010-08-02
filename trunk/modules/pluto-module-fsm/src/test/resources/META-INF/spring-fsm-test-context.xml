@@ -17,9 +17,6 @@ http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
 		<property name="username" value="${spring.db.username}" />
 		<property name="password" value="${spring.db.password}" />
 	</bean>
-	<bean id="eventDispatcher" class="com.clican.pluto.fsm.engine.impl.EventDispatcherImpl"
-		autowire="byName">
-	</bean>
 
 	<bean id="sessionFactory"
 		class="com.clican.pluto.common.support.spring.AnnotationSessionFactoryBean">
