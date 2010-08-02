@@ -315,12 +315,12 @@ public class DplStatementImpl implements DplStatement {
 								Object value = fun.recurseCalculate(rs, map);
 								map.put(key, value);
 								row.put(key, value);
-							}else if (pas.getFunction() instanceof MultiRowFunction) {
+							} else if (pas.getFunction() instanceof MultiRowFunction) {
 								MultiRowFunction cal = (MultiRowFunction) pas.getFunction();
 								Object value = cal.recurseCalculate(rs);
 								map.put(key, value);
 								row.put(key, value);
-							}else {
+							} else {
 								Object value = pas.getValue(map);
 								if (value == null) {
 									pas.isSupportInMultiFunctionWithoutGroupBy();
@@ -336,14 +336,14 @@ public class DplStatementImpl implements DplStatement {
 							for (Column column : select.getColumns()) {
 								String key = column.getColumnName();
 								PrefixAndSuffix pas = column.getPrefixAndSuffix();
-								if(pas.getFunction() instanceof SingleRowFunction){
+								if (pas.getFunction() instanceof SingleRowFunction) {
 									SingleRowFunction fun = (SingleRowFunction) pas.getFunction();
 									Object value = fun.recurseCalculate(rs, map);
 									map.put(key, value);
 									row.put(key, value);
-								}else if(pas.getFunction() instanceof MultiRowFunction){
+								} else if (pas.getFunction() instanceof MultiRowFunction) {
 									throw new DplException("不包括多行处理函数，不需要被执行");
-								}else{
+								} else {
 									Object value = pas.getValue(map);
 									map.put(key, value);
 									row.put(key, value);
