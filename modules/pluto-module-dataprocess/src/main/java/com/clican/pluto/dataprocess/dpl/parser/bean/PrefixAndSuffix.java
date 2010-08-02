@@ -326,8 +326,7 @@ public class PrefixAndSuffix {
 
 	}
 
-	public <T> List<T> getValues(List<Map<String, Object>> rowSet,
-			ProcessorContext context) throws CalculationException,
+	public <T> List<T> getValues(List<Map<String, Object>> rowSet) throws CalculationException,
 			PrefixAndSuffixException {
 		List<T> values = new ArrayList<T>(rowSet.size());
 		for (Map<String, Object> row : rowSet) {

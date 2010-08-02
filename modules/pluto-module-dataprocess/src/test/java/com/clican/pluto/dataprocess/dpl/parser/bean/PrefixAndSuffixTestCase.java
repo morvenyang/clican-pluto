@@ -42,7 +42,7 @@ public class PrefixAndSuffixTestCase extends TestCase {
 		row1.put("list", list.get(1));
 		rowSet.add(row);
 		rowSet.add(row1);
-		List<Integer> result = pas1.getValues(rowSet, context);
+		List<Integer> result = pas1.getValues(rowSet);
 		assertEquals(2, result.size());
 		PrefixAndSuffix.releaseLocalContext();
 	}

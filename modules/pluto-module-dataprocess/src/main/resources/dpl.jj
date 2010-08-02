@@ -146,9 +146,9 @@ Select SelectStatement():
 
 Select SelectList():
 {
-List<Object> columns = new ArrayList<Object>();
+List<Column> columns = new ArrayList<Column>();
 Select select = new Select(columns);
-Object column =null;
+Column column =null;
 }
 {
    column= SelectItem(){columns.add(column);} ("," column=SelectItem(){columns.add(column);})*
@@ -163,26 +163,17 @@ String OracleObjectName():
 }
 
 
-Object SelectItem():
+Column SelectItem():
 {String columnName=null;
 PrefixAndSuffix pas;}
 {
     pas=SQLSimpleExpression()
     [ [ "AS" ] columnName=OracleObjectName()]
     {
-    	if(pas.getFunction()!=null)
-    	{
-    		Function fun = pas.getFunction();
-    		if(columnName==null||columnName.length()==0){
-    			fun.setColumnName(fun.getClass().getName());
+    	
+    	if(columnName==null||columnName.length()==0){
+    		if(pas.getFunction()!=null){
     		}else{
-    			fun.setColumnName(columnName);
-    		}
-    		return fun;
-    	}else{
-    		Column col = new Column();
-    		col.setPrefixAndSuffix(pas);
-    		if(columnName==null||columnName.length()==0){
     			String suffix = pas.getSuffix();
     			String prefix = pas.getPrefix();
     			if(suffix==null||suffix.length()==0){
@@ -195,9 +186,9 @@ PrefixAndSuffix pas;}
     				}
     			}
     		}
-    		col.setColumnName(columnName);
-    		return col;
     	}
+    	Column col = new Column(pas,columnName);
+    	return col;
     }
 }
 

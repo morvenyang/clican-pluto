@@ -11,6 +11,7 @@ import java.util.List;
 import com.clican.pluto.dataprocess.dpl.function.impl.BaseMultiRowFunction;
 import com.clican.pluto.dataprocess.dpl.function.impl.BaseSingleRowFunction;
 import com.clican.pluto.dataprocess.dpl.parser.ParserObject;
+import com.clican.pluto.dataprocess.dpl.parser.bean.Column;
 
 /**
  * 保存解析后的Select的内容
@@ -20,26 +21,26 @@ import com.clican.pluto.dataprocess.dpl.parser.ParserObject;
  */
 public class Select implements ParserObject {
 
-	private List<Object> columns;
+	private List<Column> columns;
 
-	public Select(List<Object> columns) {
+	public Select(List<Column> columns) {
 		this.columns = columns;
 	}
 
-	public List<Object> getColumns() {
+	public List<Column> getColumns() {
 		return columns;
 	}
 
-	public void setColumns(List<Object> columns) {
+	public void setColumns(List<Column> columns) {
 		this.columns = columns;
 	}
 
 	public boolean containMultiRowCalculation() {
-		for (Object column : columns) {
-			if (column instanceof BaseMultiRowFunction) {
+		for (Column column : columns) {
+			if (column.getPrefixAndSuffix().getFunction() instanceof BaseMultiRowFunction) {
 				return true;
-			} else if (column instanceof BaseSingleRowFunction) {
-				if (((BaseSingleRowFunction) column).containMultiRowCalculation()) {
+			} else if (column.getPrefixAndSuffix().getFunction() instanceof BaseSingleRowFunction) {
+				if (((BaseSingleRowFunction) column.getPrefixAndSuffix().getFunction()).containMultiRowCalculation()) {
 					return true;
 				}
 			}

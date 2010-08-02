@@ -138,8 +138,7 @@ public class DplStatementImpl implements DplStatement {
 	 * @see DplStatement#execute(String, ProcessorContext)
 	 */
 
-	public List<Map<String, Object>> execute(String dpl,
-			ProcessorContext context) throws DplException {
+	public List<Map<String, Object>> execute(String dpl, ProcessorContext context) throws DplException {
 		dpl = trimDpl(dpl);
 		if (dpl.trim().length() == 0) {
 			log.warn("dpl statement empty, simple return null");
@@ -150,7 +149,7 @@ public class DplStatementImpl implements DplStatement {
 		try {
 			// 解析dpl的各个组成部分
 			SubDpl subDpl = subDplParser.parseSubDpl(dpl, clone);
-			if(subDpl!=null){
+			if (subDpl != null) {
 				for (String subDplStr : subDpl.getSubDplStrAliasMap().keySet()) {
 					String alias = subDpl.getSubDplStrAliasMap().get(subDplStr);
 					Object result = subDpl.getAliasResultMap().get(alias);
@@ -197,10 +196,8 @@ public class DplStatementImpl implements DplStatement {
 						dplResultSet.setResultSet(result);
 					} else {
 						for (Object obj : list) {
-							for (Map<String, Object> row : new ArrayList<Map<String, Object>>(
-									dplResultSet.getResultSet())) {
-								Map<String, Object> map = new HashMap<String, Object>(
-										row);
+							for (Map<String, Object> row : new ArrayList<Map<String, Object>>(dplResultSet.getResultSet())) {
+								Map<String, Object> map = new HashMap<String, Object>(row);
 								map.put(name, obj);
 								result.add(map);
 							}
@@ -226,8 +223,7 @@ public class DplStatementImpl implements DplStatement {
 			for (Map<String, Object> result : dplResultSet.getResultSet()) {
 				boolean valid = true;
 				for (String key : result.keySet()) {
-					if (result.get(key) != null
-							&& !data.get(key).contains(result.get(key))) {
+					if (result.get(key) != null && !data.get(key).contains(result.get(key))) {
 						valid = false;
 					}
 				}
@@ -253,8 +249,7 @@ public class DplStatementImpl implements DplStatement {
 							gcSet.add(gc);
 						}
 						if (!groupByRs.containsKey(gcSet)) {
-							groupByRs.put(gcSet,
-									new ArrayList<Map<String, Object>>());
+							groupByRs.put(gcSet, new ArrayList<Map<String, Object>>());
 						}
 						groupByRs.get(gcSet).add(result);
 					}
@@ -267,8 +262,7 @@ public class DplStatementImpl implements DplStatement {
 
 			try {
 				if (groupBy != null) {
-					List<List<GroupCondition>> temp = new ArrayList<List<GroupCondition>>(
-							groupByRs.keySet());
+					List<List<GroupCondition>> temp = new ArrayList<List<GroupCondition>>(groupByRs.keySet());
 					// 首先把各个分组条件做排序
 					Collections.sort(temp, new GroupConditionComparator());
 					// 在分组条件下根据分组后的数据集合来获得Select后的数据集合
@@ -279,36 +273,29 @@ public class DplStatementImpl implements DplStatement {
 						}
 						Map<String, Object> row = new HashMap<String, Object>();
 
-						for (Object tempColumn : select.getColumns()) {
-							if (tempColumn instanceof Column) {
-								Column column = (Column) tempColumn;
-								String key = column.getColumnName();
-								Object value = column.getPrefixAndSuffix()
-										.getValue(groupMap);
-								row.put(key, value);
-								groupMap.put(key, value);
-							} else if (tempColumn instanceof SingleRowFunction) {
-								SingleRowFunction cal = (SingleRowFunction) tempColumn;
-								String key = cal.getColumnName();
-								if (groupMap.containsKey(cal.getExpr())) {
-									Object value = cal.getExpr();
+						for (Column column : select.getColumns()) {
+							String key = column.getColumnName();
+							PrefixAndSuffix pas = column.getPrefixAndSuffix();
+							if (pas.getFunction() instanceof SingleRowFunction) {
+								SingleRowFunction fun = (SingleRowFunction) pas.getFunction();
+								if (groupMap.containsKey(fun.getExpr())) {
+									Object value = groupMap.get(fun.getExpr());
 									row.put(key, value);
 									groupMap.put(key, value);
 								} else {
-									Object value = cal.recurseCalculate(
-											groupByRs.get(gcSet), groupMap);
+									Object value = fun.recurseCalculate(groupByRs.get(gcSet), groupMap);
 									row.put(key, value);
 									groupMap.put(key, value);
 								}
-							} else if (tempColumn instanceof MultiRowFunction) {
-								MultiRowFunction cal = (MultiRowFunction) tempColumn;
-								String key = cal.getColumnName();
-								Object value = cal.recurseCalculate(groupByRs
-										.get(gcSet));
+							} else if (pas.getFunction() instanceof MultiRowFunction) {
+								MultiRowFunction fun = (MultiRowFunction) pas.getFunction();
+								Object value = fun.recurseCalculate(groupByRs.get(gcSet));
 								row.put(key, value);
 								groupMap.put(key, value);
 							} else {
-								throw new DplException("Select对象不能被识别");
+								Object value = pas.getValue(groupMap);
+								row.put(key, value);
+								groupMap.put(key, value);
 							}
 						}
 						newRs.add(row);
@@ -320,58 +307,46 @@ public class DplStatementImpl implements DplStatement {
 						Map<String, Object> map = new HashMap<String, Object>();
 						Map<String, Object> row = new HashMap<String, Object>();
 						map.putAll(context.getMap());
-						for (Object tempColumn : select.getColumns()) {
-							if (tempColumn instanceof Column) {
-								Column column = (Column) tempColumn;
-								String key = column.getColumnName();
-								Object value = column.getPrefixAndSuffix()
-										.getValue(map);
-								if (value == null) {
-									column
-											.getPrefixAndSuffix()
-											.isSupportInMultiFunctionWithoutGroupBy();
-								}
+						for (Column column : select.getColumns()) {
+							String key = column.getColumnName();
+							PrefixAndSuffix pas = column.getPrefixAndSuffix();
+							if (pas.getFunction() instanceof SingleRowFunction) {
+								SingleRowFunction fun = (SingleRowFunction) pas.getFunction();
+								Object value = fun.recurseCalculate(rs, map);
 								map.put(key, value);
 								row.put(key, value);
-							} else if (tempColumn instanceof SingleRowFunction) {
-								SingleRowFunction cal = (SingleRowFunction) tempColumn;
-								String key = cal.getColumnName();
-								Object value = cal.recurseCalculate(rs, map);
-								map.put(key, value);
-								row.put(key, value);
-							} else if (tempColumn instanceof MultiRowFunction) {
-								MultiRowFunction cal = (MultiRowFunction) tempColumn;
-								String key = cal.getColumnName();
+							}else if (pas.getFunction() instanceof MultiRowFunction) {
+								MultiRowFunction cal = (MultiRowFunction) pas.getFunction();
 								Object value = cal.recurseCalculate(rs);
 								map.put(key, value);
 								row.put(key, value);
-							} else {
-								throw new DplException("Select对象不能被识别");
+							}else {
+								Object value = pas.getValue(map);
+								if (value == null) {
+									pas.isSupportInMultiFunctionWithoutGroupBy();
+								}
+								map.put(key, value);
+								row.put(key, value);
 							}
 						}
 						newRs.add(row);
 					} else {
 						for (Map<String, Object> map : rs) {
 							Map<String, Object> row = new HashMap<String, Object>();
-							for (Object tempColumn : select.getColumns()) {
-								if (tempColumn instanceof Column) {
-									Column column = (Column) tempColumn;
-									String key = column.getColumnName();
-									Object value = column.getPrefixAndSuffix()
-											.getValue(map);
+							for (Column column : select.getColumns()) {
+								String key = column.getColumnName();
+								PrefixAndSuffix pas = column.getPrefixAndSuffix();
+								if(pas.getFunction() instanceof SingleRowFunction){
+									SingleRowFunction fun = (SingleRowFunction) pas.getFunction();
+									Object value = fun.recurseCalculate(rs, map);
 									map.put(key, value);
 									row.put(key, value);
-								} else if (tempColumn instanceof SingleRowFunction) {
-									SingleRowFunction cal = (SingleRowFunction) tempColumn;
-									String key = cal.getColumnName();
-									Object value = cal
-											.recurseCalculate(rs, map);
-									map.put(key, value);
-									row.put(key, value);
-								} else if (tempColumn instanceof MultiRowFunction) {
+								}else if(pas.getFunction() instanceof MultiRowFunction){
 									throw new DplException("不包括多行处理函数，不需要被执行");
-								} else {
-									throw new DplException("Select对象不能被识别");
+								}else{
+									Object value = pas.getValue(map);
+									map.put(key, value);
+									row.put(key, value);
 								}
 							}
 							newRs.add(row);
@@ -383,8 +358,7 @@ public class DplStatementImpl implements DplStatement {
 				throw new DplException(e);
 			}
 			// 准备排序后的数据集合
-			List<Map<String, Object>> list = new ArrayList<Map<String, Object>>(
-					newRs);
+			List<Map<String, Object>> list = new ArrayList<Map<String, Object>>(newRs);
 			if (orderBy != null) {
 				Collections.sort(list, new OrderByComparator(orderBy));
 			}
@@ -393,22 +367,16 @@ public class DplStatementImpl implements DplStatement {
 				if (pagination.isReverse()) {
 					if (pagination.getLimit() == null) {
 						if (list.size() - pagination.getOffset() > 0) {
-							return list.subList(0, list.size()
-									- pagination.getOffset());
+							return list.subList(0, list.size() - pagination.getOffset());
 						} else {
 							return new ArrayList<Map<String, Object>>();
 						}
 					} else {
 						if (list.size() - pagination.getOffset() > 0) {
-							if (list.size() - pagination.getOffset()
-									- pagination.getLimit() >= 0) {
-								return list.subList(list.size()
-										- pagination.getOffset()
-										- pagination.getLimit(), list.size()
-										- pagination.getOffset());
+							if (list.size() - pagination.getOffset() - pagination.getLimit() >= 0) {
+								return list.subList(list.size() - pagination.getOffset() - pagination.getLimit(), list.size() - pagination.getOffset());
 							} else {
-								return list.subList(0, list.size()
-										- pagination.getOffset());
+								return list.subList(0, list.size() - pagination.getOffset());
 							}
 						} else {
 							return new ArrayList<Map<String, Object>>();
@@ -417,21 +385,16 @@ public class DplStatementImpl implements DplStatement {
 				} else {
 					if (pagination.getLimit() == null) {
 						if (list.size() - pagination.getOffset() > 0) {
-							return list.subList(pagination.getOffset(), list
-									.size());
+							return list.subList(pagination.getOffset(), list.size());
 						} else {
 							return new ArrayList<Map<String, Object>>();
 						}
 					} else {
 						if (list.size() - pagination.getOffset() > 0) {
-							if (list.size() - pagination.getOffset()
-									- pagination.getLimit() >= 0) {
-								return list.subList(pagination.getOffset(),
-										pagination.getOffset()
-												+ pagination.getLimit());
+							if (list.size() - pagination.getOffset() - pagination.getLimit() >= 0) {
+								return list.subList(pagination.getOffset(), pagination.getOffset() + pagination.getLimit());
 							} else {
-								return list.subList(pagination.getOffset(),
-										list.size());
+								return list.subList(pagination.getOffset(), list.size());
 							}
 						} else {
 							return new ArrayList<Map<String, Object>>();
@@ -477,8 +440,7 @@ public class DplStatementImpl implements DplStatement {
 	 * @see DplStatement#execute(String, ProcessorContext, Class)
 	 */
 	@SuppressWarnings("unchecked")
-	public <T> List<T> execute(String dpl, ProcessorContext context,
-			Class<T> clazz) throws DplException {
+	public <T> List<T> execute(String dpl, ProcessorContext context, Class<T> clazz) throws DplException {
 		List<Map<String, Object>> list = this.execute(dpl, context);
 		if (clazz == null) {
 			return (List<T>) list;
@@ -505,42 +467,31 @@ public class DplStatementImpl implements DplStatement {
 				for (String name : row.keySet()) {
 					try {
 						if (row.get(name) != null) {
-							String setMethodName = com.clican.pluto.common.util.StringUtils
-									.getSetMethodName(name);
+							String setMethodName = com.clican.pluto.common.util.StringUtils.getSetMethodName(name);
 							Object value = row.get(name);
-							if (methodMap.containsKey(setMethodName)
-									|| methodMap.containsKey(setMethodName
-											.toLowerCase())) {
-								Class type = methodMap.get(
-										setMethodName.toLowerCase())
-										.getParameterTypes()[0];
+							if (methodMap.containsKey(setMethodName) || methodMap.containsKey(setMethodName.toLowerCase())) {
+								Class type = methodMap.get(setMethodName.toLowerCase()).getParameterTypes()[0];
 								if (!value.getClass().equals(type)) {
 									if (value instanceof Number) {
-										value = TypeUtils.numberToNumber(
-												(Number) value, type);
+										value = TypeUtils.numberToNumber((Number) value, type);
 									} else if (value instanceof String) {
-										value = TypeUtils.stringToNumber(
-												(String) value, type);
+										value = TypeUtils.stringToNumber((String) value, type);
 									}
 								}
 								if (methodMap.containsKey(setMethodName)) {
-									methodMap.get(setMethodName).invoke(t,
-											new Object[] { value });
+									methodMap.get(setMethodName).invoke(t, new Object[] { value });
 								} else {
-									methodMap.get(setMethodName.toLowerCase())
-											.invoke(t, new Object[] { value });
+									methodMap.get(setMethodName.toLowerCase()).invoke(t, new Object[] { value });
 								}
 							} else {
 								if (log.isTraceEnabled()) {
-									log.trace("There is no this property ["
-											+ name + "]");
+									log.trace("There is no this property [" + name + "]");
 								}
 							}
 						}
 					} catch (Exception e) {
 						if (log.isTraceEnabled()) {
-							log.trace("There is no this property [" + name
-									+ "]");
+							log.trace("There is no this property [" + name + "]");
 						}
 					}
 				}
@@ -551,8 +502,7 @@ public class DplStatementImpl implements DplStatement {
 		return result;
 	}
 
-	public <T> List<T> execute(String dpl, Map<String, Object> context,
-			Class<T> clazz) throws DplException {
+	public <T> List<T> execute(String dpl, Map<String, Object> context, Class<T> clazz) throws DplException {
 		ProcessorContext ctx = new ProcessorContextImpl();
 		for (String key : context.keySet()) {
 			ctx.setAttribute(key, context.get(key));
@@ -560,8 +510,7 @@ public class DplStatementImpl implements DplStatement {
 		return this.execute(dpl, ctx, clazz);
 	}
 
-	public List<Map<String, Object>> execute(String dpl,
-			Map<String, Object> context) throws DplException {
+	public List<Map<String, Object>> execute(String dpl, Map<String, Object> context) throws DplException {
 		ProcessorContext ctx = new ProcessorContextImpl();
 		for (String key : context.keySet()) {
 			ctx.setAttribute(key, context.get(key));
