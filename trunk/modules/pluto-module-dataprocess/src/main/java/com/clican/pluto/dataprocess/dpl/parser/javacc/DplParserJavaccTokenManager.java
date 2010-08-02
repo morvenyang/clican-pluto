@@ -673,10 +673,8 @@ public class DplParserJavaccTokenManager implements DplParserJavaccConstants {
 		return jjMoveNfa_0(state, pos + 1);
 	}
 
-	static final long[] jjbitVec0 = { 0xfffffffffffffffeL, 0xffffffffffffffffL,
-			0xffffffffffffffffL, 0xffffffffffffffffL };
-	static final long[] jjbitVec2 = { 0x0L, 0x0L, 0xffffffffffffffffL,
-			0xffffffffffffffffL };
+	static final long[] jjbitVec0 = { 0xfffffffffffffffeL, 0xffffffffffffffffL, 0xffffffffffffffffL, 0xffffffffffffffffL };
+	static final long[] jjbitVec2 = { 0x0L, 0x0L, 0xffffffffffffffffL, 0xffffffffffffffffL };
 
 	private int jjMoveNfa_0(int startState, int curPos) {
 		int startsAt = 0;
@@ -1181,13 +1179,10 @@ public class DplParserJavaccTokenManager implements DplParserJavaccConstants {
 		}
 	}
 
-	static final int[] jjnextStates = { 12, 13, 14, 16, 26, 27, 17, 53, 54, 55,
-			42, 57, 58, 60, 6, 11, 29, 7, 8, 19, 21, 22, 23, 24, 26, 27, 17,
-			44, 46, 47, 48, 49, 54, 55, 42, 6, 7, 8, 18, 19, 21, 38, 39, 43,
-			44, 46, };
+	static final int[] jjnextStates = { 12, 13, 14, 16, 26, 27, 17, 53, 54, 55, 42, 57, 58, 60, 6, 11, 29, 7, 8, 19, 21, 22, 23, 24, 26, 27, 17, 44, 46, 47,
+			48, 49, 54, 55, 42, 6, 7, 8, 18, 19, 21, 38, 39, 43, 44, 46, };
 
-	private static final boolean jjCanMove_0(int hiByte, int i1, int i2,
-			long l1, long l2) {
+	private static final boolean jjCanMove_0(int hiByte, int i1, int i2, long l1, long l2) {
 		switch (hiByte) {
 		case 0:
 			return ((jjbitVec2[i2] & l2) != 0L);
@@ -1199,13 +1194,10 @@ public class DplParserJavaccTokenManager implements DplParserJavaccConstants {
 	}
 
 	/** Token literal values. */
-	public static final String[] jjstrLiteralImages = { "", null, null, null,
-			null, null, null, null, null, null, null, null, null, null, null,
-			null, null, null, null, null, null, null, null, null, null, null,
-			null, null, "\75", "\41\75", "\74", "\74\75", "\76", "\76\75",
-			"\53\75", "\76\176", "\74\176", "\50", "\51", null, null, null,
-			null, null, null, null, null, null, null, null, "\72", "\56",
-			"\54", "\53", "\55", "\52", "\57", "\56\52", };
+	public static final String[] jjstrLiteralImages = { "", null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+			null, null, null, null, null, null, null, null, null, null, null, "\75", "\41\75", "\74", "\74\75", "\76", "\76\75", "\53\75", "\76\176",
+			"\74\176", "\50", "\51", null, null, null, null, null, null, null, null, null, null, null, "\72", "\56", "\54", "\53", "\55", "\52", "\57",
+			"\56\52", };
 
 	/** Lexer state names. */
 	public static final String[] lexStateNames = { "DEFAULT", };
@@ -1220,8 +1212,7 @@ public class DplParserJavaccTokenManager implements DplParserJavaccConstants {
 	/** Constructor. */
 	public DplParserJavaccTokenManager(SimpleCharStream stream) {
 		if (SimpleCharStream.staticFlag)
-			throw new Error(
-					"ERROR: Cannot use a static CharStream class with a non-static lexical analyzer.");
+			throw new Error("ERROR: Cannot use a static CharStream class with a non-static lexical analyzer.");
 		input_stream = stream;
 	}
 
@@ -1255,9 +1246,7 @@ public class DplParserJavaccTokenManager implements DplParserJavaccConstants {
 	/** Switch to specified lex state. */
 	public void SwitchTo(int lexState) {
 		if (lexState >= 1 || lexState < 0)
-			throw new TokenMgrError("Error: Ignoring invalid lexical state : "
-					+ lexState + ". State unchanged.",
-					TokenMgrError.INVALID_LEXICAL_STATE);
+			throw new TokenMgrError("Error: Ignoring invalid lexical state : " + lexState + ". State unchanged.", TokenMgrError.INVALID_LEXICAL_STATE);
 		else
 			curLexState = lexState;
 	}
@@ -1358,9 +1347,7 @@ public class DplParserJavaccTokenManager implements DplParserJavaccConstants {
 				input_stream.backup(1);
 				error_after = curPos <= 1 ? "" : input_stream.GetImage();
 			}
-			throw new TokenMgrError(EOFSeen, curLexState, error_line,
-					error_column, error_after, curChar,
-					TokenMgrError.LEXICAL_ERROR);
+			throw new TokenMgrError(EOFSeen, curLexState, error_line, error_column, error_after, curChar, TokenMgrError.LEXICAL_ERROR);
 		}
 	}
 

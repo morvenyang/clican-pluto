@@ -39,7 +39,7 @@ public class SelectParserImpl implements SelectParser {
 	private FunctionParser functionParser;
 
 	// 由于javacc的解析器比较难于实现parserSelect接口因此我们作为内置的处理
-	//通过修改spring配置可以简单的切换实现方式
+	// 通过修改spring配置可以简单的切换实现方式
 	private boolean parseByJavacc = true;
 
 	public void setFunctionParser(FunctionParser functionParser) {
@@ -54,8 +54,7 @@ public class SelectParserImpl implements SelectParser {
 		END_KEYWORD.add(FromParserImpl.START_KEYWORD);
 	}
 
-	public Select parseSelect(String dpl, ProcessorContext context)
-			throws DplParseException {
+	public Select parseSelect(String dpl, ProcessorContext context) throws DplParseException {
 		int index = dpl.indexOf(START_KEYWORD);
 		if (index < 0) {
 			return null;
@@ -70,8 +69,7 @@ public class SelectParserImpl implements SelectParser {
 		index = index + START_KEYWORD.length();
 		String select = dpl.substring(index, length);
 		if (parseByJavacc) {
-			DplParserJavacc javacc = new DplParserJavacc(
-					new ByteArrayInputStream((START_KEYWORD+" "+select).getBytes()));
+			DplParserJavacc javacc = new DplParserJavacc(new ByteArrayInputStream((START_KEYWORD + " " + select).getBytes()));
 			try {
 				return javacc.SelectStatement();
 			} catch (Exception e) {
@@ -89,17 +87,15 @@ public class SelectParserImpl implements SelectParser {
 					left++;
 				} else if (token.equals(FunctionParserImpl.END_KEYWORD)) {
 					right++;
-				} else if (token.equals(FunctionParserImpl.PARAM_SPLIT_EXPR)
-						&& left == right) {
+				} else if (token.equals(FunctionParserImpl.PARAM_SPLIT_EXPR) && left == right) {
 					selectList.add(select.substring(start, end).trim());
 					start = end + 1;
 				} else if (end == select.length() - 1) {
-					selectList.add(select.substring(start, select.length())
-							.trim());
+					selectList.add(select.substring(start, select.length()).trim());
 				}
 				end++;
 			}
-			List<Object> columnList = new ArrayList<Object>();
+			List<Column> columnList = new ArrayList<Column>();
 			Select sel = new Select(columnList);
 			try {
 				for (int i = 0; i < selectList.size(); i++) {
@@ -107,47 +103,37 @@ public class SelectParserImpl implements SelectParser {
 					String columnName = null;
 					String functionDpl = null;
 					if (column.contains(AS_TOKEN)) {
-						columnName = column.substring(
-								column.indexOf(AS_TOKEN) + AS_TOKEN.length(),
-								column.length()).trim();
-						functionDpl = column.substring(0, column
-								.indexOf(AS_TOKEN));
+						columnName = column.substring(column.indexOf(AS_TOKEN) + AS_TOKEN.length(), column.length()).trim();
+						functionDpl = column.substring(0, column.indexOf(AS_TOKEN));
 					} else {
 						functionDpl = column;
 					}
-					Function function = functionParser.parseFunction(
-							functionDpl, context);
+					Column col;
+					PrefixAndSuffix pas;
+					Function function = functionParser.parseFunction(functionDpl, context);
 					if (function != null) {
 						function.setExpr(functionDpl.trim());
 						if (StringUtils.isNotEmpty(columnName)) {
 							function.setColumnName(columnName);
 						} else {
-							function.setColumnName(function.getClass()
-									.getSimpleName());
+							function.setColumnName(function.getClass().getSimpleName());
 						}
-						columnList.add(function);
+						pas = new PrefixAndSuffix(function);
 					} else {
-						Column col = new Column();
 						if (StringUtils.isNotEmpty(columnName)) {
-							col.setColumnName(columnName);
-							PrefixAndSuffix prefixAndSuffix = new PrefixAndSuffix(
-									column.substring(0,
-											column.indexOf(AS_TOKEN) + 1)
-											.trim());
-							col.setPrefixAndSuffix(prefixAndSuffix);
+							pas = new PrefixAndSuffix(column.substring(0, column.indexOf(AS_TOKEN) + 1).trim());
 						} else {
+							pas = new PrefixAndSuffix(column);
 							if (column.contains(".")) {
-								col.setColumnName(column.substring(column
-										.lastIndexOf(".") + 1));
+								columnName = column.substring(column.lastIndexOf(".") + 1);
 							} else {
-								col.setColumnName(column);
+								columnName = column;
 							}
-							PrefixAndSuffix prefixAndSuffix = new PrefixAndSuffix(
-									column);
-							col.setPrefixAndSuffix(prefixAndSuffix);
+							col = new Column(pas, columnName);
 						}
-						columnList.add(col);
 					}
+					col = new Column(pas, columnName);
+					columnList.add(col);
 				}
 			} catch (Exception e) {
 				throw new DplParseException(e);

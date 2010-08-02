@@ -91,9 +91,9 @@ public class DplParserJavacc implements DplParserJavaccConstants {
 	}
 
 	final public Select SelectList() throws ParseException {
-		List<Object> columns = new ArrayList<Object>();
+		List<Column> columns = new ArrayList<Column>();
 		Select select = new Select(columns);
-		Object column = null;
+		Column column = null;
 		column = SelectItem();
 		columns.add(column);
 		label_1: while (true) {
@@ -141,7 +141,7 @@ public class DplParserJavacc implements DplParserJavaccConstants {
 		throw new Error("Missing return statement in function");
 	}
 
-	final public Object SelectItem() throws ParseException {
+	final public Column SelectItem() throws ParseException {
 		String columnName = null;
 		PrefixAndSuffix pas;
 		pas = SQLSimpleExpression();
@@ -163,39 +163,26 @@ public class DplParserJavacc implements DplParserJavaccConstants {
 			jj_la1[7] = jj_gen;
 			;
 		}
-		if (pas.getFunction() != null) {
-			Function fun = pas.getFunction();
-			if (columnName == null || columnName.length() == 0) {
-				fun.setColumnName(fun.getClass().getName());
+		if (columnName == null || columnName.length() == 0) {
+			if (pas.getFunction() != null) {
 			} else {
-				fun.setColumnName(columnName);
-			}
-			{
-				if (true)
-					return fun;
-			}
-		} else {
-			Column col = new Column();
-			col.setPrefixAndSuffix(pas);
-			if (columnName == null || columnName.length() == 0) {
 				String suffix = pas.getSuffix();
 				String prefix = pas.getPrefix();
 				if (suffix == null || suffix.length() == 0) {
 					columnName = prefix;
 				} else {
 					if (suffix.contains(".")) {
-						columnName = suffix
-								.substring(suffix.lastIndexOf(".") + 1);
+						columnName = suffix.substring(suffix.lastIndexOf(".") + 1);
 					} else {
 						columnName = suffix;
 					}
 				}
 			}
-			col.setColumnName(columnName);
-			{
-				if (true)
-					return col;
-			}
+		}
+		Column col = new Column(pas, columnName);
+		{
+			if (true)
+				return col;
 		}
 		throw new Error("Missing return statement in function");
 	}
@@ -510,10 +497,7 @@ public class DplParserJavacc implements DplParserJavaccConstants {
 		functionName = FunctionReference();
 		Class<?> clazz = null;
 		try {
-			clazz = Class
-					.forName("com.clican.pluto.dataprocess.dpl.function.impl."
-							+ functionName.substring(0, 1).toUpperCase()
-							+ functionName.substring(1));
+			clazz = Class.forName("com.clican.pluto.dataprocess.dpl.function.impl." + functionName.substring(0, 1).toUpperCase() + functionName.substring(1));
 			function = (Function) clazz.newInstance();
 		} catch (Exception e) {
 
@@ -936,6 +920,46 @@ public class DplParserJavacc implements DplParserJavaccConstants {
 		}
 	}
 
+	private boolean jj_3R_21() {
+		if (jj_3R_23())
+			return true;
+		Token xsp;
+		while (true) {
+			xsp = jj_scanpos;
+			if (jj_3R_24()) {
+				jj_scanpos = xsp;
+				break;
+			}
+		}
+		return false;
+	}
+
+	private boolean jj_3R_34() {
+		if (jj_3R_18())
+			return true;
+		return false;
+	}
+
+	private boolean jj_3R_19() {
+		Token xsp;
+		xsp = jj_scanpos;
+		if (jj_scan_token(6))
+			jj_scanpos = xsp;
+		if (jj_3R_10())
+			return true;
+		return false;
+	}
+
+	private boolean jj_3R_15() {
+		if (jj_3R_18())
+			return true;
+		Token xsp;
+		xsp = jj_scanpos;
+		if (jj_3R_19())
+			jj_scanpos = xsp;
+		return false;
+	}
+
 	private boolean jj_3R_36() {
 		if (jj_3R_9())
 			return true;
@@ -961,48 +985,8 @@ public class DplParserJavacc implements DplParserJavaccConstants {
 		return false;
 	}
 
-	private boolean jj_3R_19() {
-		Token xsp;
-		xsp = jj_scanpos;
-		if (jj_scan_token(6))
-			jj_scanpos = xsp;
-		if (jj_3R_10())
-			return true;
-		return false;
-	}
-
-	private boolean jj_3R_15() {
-		if (jj_3R_18())
-			return true;
-		Token xsp;
-		xsp = jj_scanpos;
-		if (jj_3R_19())
-			jj_scanpos = xsp;
-		return false;
-	}
-
-	private boolean jj_3R_9() {
-		if (jj_3R_12())
-			return true;
-		return false;
-	}
-
-	private boolean jj_3R_26() {
-		if (jj_scan_token(54))
-			return true;
-		return false;
-	}
-
 	private boolean jj_3R_14() {
 		if (jj_scan_token(S_QUOTED_IDENTIFIER))
-			return true;
-		return false;
-	}
-
-	private boolean jj_3_2() {
-		if (jj_3R_9())
-			return true;
-		if (jj_scan_token(K_LEFT_BRACE))
 			return true;
 		return false;
 	}
@@ -1021,6 +1005,40 @@ public class DplParserJavacc implements DplParserJavaccConstants {
 			if (jj_3R_14())
 				return true;
 		}
+		return false;
+	}
+
+	private boolean jj_3R_9() {
+		if (jj_3R_12())
+			return true;
+		return false;
+	}
+
+	private boolean jj_3R_26() {
+		if (jj_scan_token(54))
+			return true;
+		return false;
+	}
+
+	private boolean jj_3R_11() {
+		if (jj_3R_15())
+			return true;
+		Token xsp;
+		while (true) {
+			xsp = jj_scanpos;
+			if (jj_3R_16()) {
+				jj_scanpos = xsp;
+				break;
+			}
+		}
+		return false;
+	}
+
+	private boolean jj_3_2() {
+		if (jj_3R_9())
+			return true;
+		if (jj_scan_token(K_LEFT_BRACE))
+			return true;
 		return false;
 	}
 
@@ -1060,20 +1078,6 @@ public class DplParserJavacc implements DplParserJavaccConstants {
 		return false;
 	}
 
-	private boolean jj_3R_11() {
-		if (jj_3R_15())
-			return true;
-		Token xsp;
-		while (true) {
-			xsp = jj_scanpos;
-			if (jj_3R_16()) {
-				jj_scanpos = xsp;
-				break;
-			}
-		}
-		return false;
-	}
-
 	private boolean jj_3R_33() {
 		if (jj_3R_37())
 			return true;
@@ -1082,6 +1086,12 @@ public class DplParserJavacc implements DplParserJavaccConstants {
 
 	private boolean jj_3R_32() {
 		if (jj_3R_36())
+			return true;
+		return false;
+	}
+
+	private boolean jj_3R_39() {
+		if (jj_scan_token(S_IDENTIFIER))
 			return true;
 		return false;
 	}
@@ -1111,6 +1121,14 @@ public class DplParserJavacc implements DplParserJavaccConstants {
 		return false;
 	}
 
+	private boolean jj_3R_8() {
+		if (jj_scan_token(K_SELECT))
+			return true;
+		if (jj_3R_11())
+			return true;
+		return false;
+	}
+
 	private boolean jj_3R_27() {
 		Token xsp;
 		xsp = jj_scanpos;
@@ -1134,12 +1152,6 @@ public class DplParserJavacc implements DplParserJavaccConstants {
 		return false;
 	}
 
-	private boolean jj_3R_39() {
-		if (jj_scan_token(S_IDENTIFIER))
-			return true;
-		return false;
-	}
-
 	private boolean jj_3R_22() {
 		Token xsp;
 		xsp = jj_scanpos;
@@ -1148,14 +1160,6 @@ public class DplParserJavacc implements DplParserJavaccConstants {
 			if (jj_3R_26())
 				return true;
 		}
-		return false;
-	}
-
-	private boolean jj_3R_8() {
-		if (jj_scan_token(K_SELECT))
-			return true;
-		if (jj_3R_11())
-			return true;
 		return false;
 	}
 
@@ -1198,12 +1202,6 @@ public class DplParserJavacc implements DplParserJavaccConstants {
 		return false;
 	}
 
-	private boolean jj_3R_29() {
-		if (jj_scan_token(56))
-			return true;
-		return false;
-	}
-
 	private boolean jj_3R_35() {
 		Token xsp;
 		xsp = jj_scanpos;
@@ -1212,6 +1210,12 @@ public class DplParserJavacc implements DplParserJavaccConstants {
 			if (jj_3R_38())
 				return true;
 		}
+		return false;
+	}
+
+	private boolean jj_3R_29() {
+		if (jj_scan_token(56))
+			return true;
 		return false;
 	}
 
@@ -1258,26 +1262,6 @@ public class DplParserJavacc implements DplParserJavaccConstants {
 		return false;
 	}
 
-	private boolean jj_3R_21() {
-		if (jj_3R_23())
-			return true;
-		Token xsp;
-		while (true) {
-			xsp = jj_scanpos;
-			if (jj_3R_24()) {
-				jj_scanpos = xsp;
-				break;
-			}
-		}
-		return false;
-	}
-
-	private boolean jj_3R_34() {
-		if (jj_3R_18())
-			return true;
-		return false;
-	}
-
 	/** Generated Token Manager. */
 	public DplParserJavaccTokenManager token_source;
 	SimpleCharStream jj_input_stream;
@@ -1298,17 +1282,13 @@ public class DplParserJavacc implements DplParserJavaccConstants {
 	}
 
 	private static void jj_la1_init_0() {
-		jj_la1_0 = new int[] { 0x0, 0x0, 0x0, 0x8000000, 0x0, 0x0, 0x40, 0x40,
-				0x0, 0x40, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,
-				0x0, 0x800000, 0x20, 0x0, 0x0, 0xf07ec000, 0x0, 0x0, };
+		jj_la1_0 = new int[] { 0x0, 0x0, 0x0, 0x8000000, 0x0, 0x0, 0x40, 0x40, 0x0, 0x40, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x800000,
+				0x20, 0x0, 0x0, 0xf07ec000, 0x0, 0x0, };
 	}
 
 	private static void jj_la1_init_1() {
-		jj_la1_1 = new int[] { 0x80000, 0x1080, 0x48000, 0x0, 0x100000,
-				0x21000, 0x0, 0x21000, 0x100000, 0x0, 0x21020, 0x600000,
-				0x600000, 0x1800000, 0x1800000, 0x790a0, 0x580a0, 0x21000,
-				0x790a0, 0x100000, 0x790a0, 0x0, 0x0, 0x790a0, 0x790a0, 0x1f,
-				0x80000, 0x80000, };
+		jj_la1_1 = new int[] { 0x80000, 0x1080, 0x48000, 0x0, 0x100000, 0x21000, 0x0, 0x21000, 0x100000, 0x0, 0x21020, 0x600000, 0x600000, 0x1800000,
+				0x1800000, 0x790a0, 0x580a0, 0x21000, 0x790a0, 0x100000, 0x790a0, 0x0, 0x0, 0x790a0, 0x790a0, 0x1f, 0x80000, 0x80000, };
 	}
 
 	final private JJCalls[] jj_2_rtns = new JJCalls[5];
@@ -1450,8 +1430,7 @@ public class DplParserJavacc implements DplParserJavaccConstants {
 		if (jj_scanpos == jj_lastpos) {
 			jj_la--;
 			if (jj_scanpos.next == null) {
-				jj_lastpos = jj_scanpos = jj_scanpos.next = token_source
-						.getNextToken();
+				jj_lastpos = jj_scanpos = jj_scanpos.next = token_source.getNextToken();
 			} else {
 				jj_lastpos = jj_scanpos = jj_scanpos.next;
 			}
@@ -1521,8 +1500,7 @@ public class DplParserJavacc implements DplParserJavaccConstants {
 			for (int i = 0; i < jj_endpos; i++) {
 				jj_expentry[i] = jj_lasttokens[i];
 			}
-			jj_entries_loop: for (java.util.Iterator<?> it = jj_expentries
-					.iterator(); it.hasNext();) {
+			jj_entries_loop: for (java.util.Iterator<?> it = jj_expentries.iterator(); it.hasNext();) {
 				int[] oldentry = (int[]) (it.next());
 				if (oldentry.length == jj_expentry.length) {
 					for (int i = 0; i < jj_expentry.length; i++) {

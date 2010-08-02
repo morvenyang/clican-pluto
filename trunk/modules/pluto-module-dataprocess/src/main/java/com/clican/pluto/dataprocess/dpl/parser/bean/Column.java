@@ -21,6 +21,12 @@ public class Column {
 	 */
 	private String columnName;
 	
+	public Column(PrefixAndSuffix prefixAndSuffix, String columnName) {
+		this.prefixAndSuffix = prefixAndSuffix;
+		this.columnName = columnName;
+	}
+
+	
 	public PrefixAndSuffix getPrefixAndSuffix() {
 		return prefixAndSuffix;
 	}
@@ -37,6 +43,7 @@ public class Column {
 		this.columnName = columnName;
 	}
 
+	
 }
 
 // $Id: Column.java 12410 2010-05-13 06:55:57Z wei.zhang $
