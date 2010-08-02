@@ -1,0 +1,132 @@
+<?xml version="1.0"  encoding="UTF-8"  standalone="no"?>
+<xsd:schema xmlns="http://www.clican.com/spring/fsm"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.clican.com/spring/fsm"
+	elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:annotation>
+		<xsd:documentation>  
+             <![CDATA[This schema is used for Fininate State Model spring bean parser.]]>
+		</xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:element name="deploy">
+		<xsd:annotation>
+			<xsd:documentation>  
+                 <![CDATA[]]>
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType mixed="true">
+			<xsd:attribute name="name" type="xsd:string" use="required"></xsd:attribute>
+			<xsd:attribute name="url" type="xsd:string" use="required"></xsd:attribute>
+			<xsd:attribute name="version" type="xsd:string"></xsd:attribute>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:element name=state>
+		<xsd:annotation>
+			<xsd:documentation>  
+                 <![CDATA[]]>
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:attribute name="name" type="xsd:string" use="required"></xsd:attribute>
+			<xsd:attribute name="value" type="xsd:string"></xsd:attribute>
+			<xsd:attribute name="propagation" type="xsd:string"></xsd:attribute>
+			<xsd:attribute name="nextStates" type="xsd:string"></xsd:attribute>
+			<xsd:attribute name="previousStates" type="xsd:string"></xsd:attribute>
+			<xsd:sequence>
+				<xsd:element name="startListener" type="startOrEndListener"
+					minOccurs="0" maxOccurs="unbounded">
+					<xsd:annotation>
+						<xsd:documentation>  
+                             <![CDATA[]]>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="endListener" type="startOrEndListener"
+					minOccurs="0" maxOccurs="unbounded">
+					<xsd:annotation>
+						<xsd:documentation>  
+                             <![CDATA[]]>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="timeoutListener" type="timeoutListener"
+					minOccurs="0" maxOccurs="unbounded">
+					<xsd:annotation>
+						<xsd:documentation>  
+                             <![CDATA[]]>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="param" type="param" minOccurs="0"
+					maxOccurs="unbounded">
+					<xsd:annotation>
+						<xsd:documentation>  
+                             <![CDATA[]]>
+						</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="startOrEndListener">
+		<xsd:attribute name="clazz" type="xsd:string" use="optional">
+		</xsd:attribute>
+		<xsd:attribute name="listener" type="xsd:string" use="optional">
+		</xsd:attribute>
+		<xsd:sequence>
+			<xsd:element name="param" type="param" minOccurs="0"
+				maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>  
+                             <![CDATA[]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="timeoutListener">
+		<xsd:attribute name="clazz" type="xsd:string" use="optional">
+		</xsd:attribute>
+		<xsd:attribute name="listener" type="xsd:string" use="optional">
+		</xsd:attribute>
+		<xsd:attribute name=name type="xsd:string" use="required">
+		</xsd:attribute>
+		<xsd:attribute name="startTime" type="xsd:string" use="optional">
+		</xsd:attribute>
+		<xsd:attribute name="dueTime" type="xsd:string" use="required">
+		</xsd:attribute>
+		<xsd:attribute name="repeatTime" type="xsd:string" use="optional">
+		</xsd:attribute>
+		<xsd:attribute name="repeatDuration" type="xsd:string"
+			use="optional">
+		</xsd:attribute>
+		<xsd:attribute name="businessCalendarName" type="xsd:string"
+			use="optional">
+		</xsd:attribute>
+		<xsd:sequence>
+			<xsd:element name="param" type="param" minOccurs="0"
+				maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>  
+                             <![CDATA[]]>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="param">
+		<xsd:attribute name="paramName" type="xsd:string" use="required">
+		</xsd:attribute>
+		<xsd:attribute name="paramValue" type="xsd:string" use="optional">
+		</xsd:attribute>
+	</xsd:complexType>
+
+	
+	
+
+
+</xsd:schema>
