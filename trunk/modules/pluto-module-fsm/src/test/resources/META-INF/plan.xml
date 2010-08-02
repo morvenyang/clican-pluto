@@ -1,15 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:fsm="http://www.clican.com/spring/fsm"
 	xsi:schemaLocation="
 http://www.springframework.org/schema/beans
-http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+http://www.clican.com/spring/fsm
+http://www.clican.com/spring/fsm.xsd">
 
-	<bean id="start" class="com.clican.pluto.fsm.engine.state.StartStateImpl"
-		autowire="byName">
-		<property name="name" value="start"></property>
-		<property name="nextState" ref="auditing" />
-	</bean>
+<!--	<fsm:start name="start" nextStates="auditing">-->
+<!--	</fsm:start>-->
+	
+	<fsm:start name="start" nextStates="auditing">
+	</fsm:start>
+
+	
+<!--		<bean id="start"-->
+<!--		class="com.clican.pluto.fsm.engine.state.StartStateImpl"-->
+<!--			autowire="byName">-->
+<!--			<property name="name" value="start"></property>-->
+<!--			<property name="nextState" ref="auditing" />-->
+<!--		</bean>-->
 
 	<bean id="auditing" class="com.clican.pluto.fsm.engine.vote.HighPriorityVoteTask"
 		autowire="byName" lazy-init="true">
@@ -25,7 +35,8 @@ http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 			<map>
 				<entry>
 					<key>
-						<value>voteResult=='disagree'||voteResult=='disclaim'</value>
+						<value>voteResult=='disagree'||voteResult=='disclaim'
+						</value>
 					</key>
 					<ref bean="revise" />
 				</entry>
