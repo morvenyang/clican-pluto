@@ -4,7 +4,7 @@
  * @author wei.zhang
  *
  */
-package com.jsw.fsm.engine;
+package com.clican.pluto.fsm.engine;
 
 public class InitTestCase extends BaseFsmEngineTestCase {
 
