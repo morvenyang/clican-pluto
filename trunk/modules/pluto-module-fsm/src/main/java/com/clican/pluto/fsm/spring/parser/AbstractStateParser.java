@@ -63,7 +63,7 @@ public abstract class AbstractStateParser implements BeanDefinitionParser {
 		}
 
 		String previousStates = element.getAttribute("previousStates");
-		if (StringUtils.isNotEmpty(nextStates)) {
+		if (StringUtils.isNotEmpty(previousStates)) {
 			List previousStateList = new ManagedList();
 			for (String previousState : previousStates.split(",")) {
 				previousStateList.add(new RuntimeBeanReference(previousState.trim()));
