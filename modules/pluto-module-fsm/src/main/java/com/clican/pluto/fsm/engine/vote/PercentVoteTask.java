@@ -25,17 +25,11 @@ import com.clican.pluto.fsm.model.Task;
  */
 public class PercentVoteTask extends TaskStateImpl {
 
-	/**
-	 * 默认的百分比是50%，可以通过外部设置来修改
-	 */
-	private float percent = 0.5f;
-
-	public void setPercent(float percent) {
-		this.percent = percent;
-	}
-
-	
 	protected void handleTask(Task task, Event event) {
+		double percent = 0.5d;
+		if (params.get("percent") != null) {
+			percent = Double.parseDouble(params.get("percent"));
+		}
 		Calendar current = Calendar.getInstance();
 		EventType eventType = EventType.convert(event.getEventType());
 		float totalTasks = event.getState().getTaskSet().size();
