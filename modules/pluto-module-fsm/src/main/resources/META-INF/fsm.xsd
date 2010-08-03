@@ -146,7 +146,7 @@
 							</xsd:documentation>
 						</xsd:annotation>
 					</xsd:element>
-					<xsd:group ref="beans:beanElements" />
+					<xsd:element ref="beans:property" minOccurs="0" maxOccurs="unbounded"/>
 				</xsd:sequence>
 				<xsd:attribute name="name" type="xsd:string" use="required"></xsd:attribute>
 				<xsd:attribute name="value" type="xsd:string"></xsd:attribute>
