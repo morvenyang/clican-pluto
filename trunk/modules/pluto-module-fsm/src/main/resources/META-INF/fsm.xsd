@@ -138,6 +138,14 @@
 							</xsd:documentation>
 						</xsd:annotation>
 					</xsd:element>
+					<xsd:element name="nextCondStates" type="nextCondStatesType"
+						minOccurs="0" maxOccurs="unbounded">
+						<xsd:annotation>
+							<xsd:documentation>  
+                             <![CDATA[]]>
+							</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
 					<xsd:group ref="beans:beanElements" />
 				</xsd:sequence>
 				<xsd:attribute name="name" type="xsd:string" use="required"></xsd:attribute>
@@ -201,6 +209,13 @@
 		<xsd:attribute name="paramName" type="xsd:string" use="required">
 		</xsd:attribute>
 		<xsd:attribute name="paramValue" type="xsd:string" use="optional">
+		</xsd:attribute>
+	</xsd:complexType>
+
+	<xsd:complexType name="nextCondStatesType" mixed="true">
+		<xsd:attribute name="expr" type="xsd:string" use="required">
+		</xsd:attribute>
+		<xsd:attribute name="nextStates" type="xsd:string" use="optional">
 		</xsd:attribute>
 	</xsd:complexType>
 

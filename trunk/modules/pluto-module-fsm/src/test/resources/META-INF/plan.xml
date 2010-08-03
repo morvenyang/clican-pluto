@@ -7,59 +7,22 @@ http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
 http://www.clican.com/spring/fsm
 http://www.clican.com/spring/fsm.xsd">
 
-<!--	<fsm:start name="start" nextStates="auditing">-->
-<!--	</fsm:start>-->
-	
 	<fsm:start name="start" nextStates="auditing">
 	</fsm:start>
 
-	
-<!--		<bean id="start"-->
-<!--		class="com.clican.pluto.fsm.engine.state.StartStateImpl"-->
-<!--			autowire="byName">-->
-<!--			<property name="name" value="start"></property>-->
-<!--			<property name="nextState" ref="auditing" />-->
-<!--		</bean>-->
 
-	<bean id="auditing" class="com.clican.pluto.fsm.engine.vote.HighPriorityVoteTask"
-		autowire="byName" lazy-init="true">
-		<property name="name" value="auditing"></property>
-		<property name="nextStates" ref="audit" />
-		<property name="assignees" value="leaders" />
-	</bean>
+	<fsm:task name="auditing"
+		clazz="com.clican.pluto.fsm.engine.vote.HighPriorityVoteTask"
+		assignees="leaders">
+		<fsm:nextCondStates expr="voteResult=='disagree'||voteResult=='disclaim'"
+			nextStates="revise" />
+		<fsm:nextCondStates expr="voteResult=='agree'"
+			nextStates="pass" />
+	</fsm:task>
 
-	<bean id="audit" class="com.clican.pluto.fsm.engine.state.DecisionStateImpl"
-		autowire="byName" lazy-init="true">
-		<property name="name" value="audit"></property>
-		<property name="nextCondStates">
-			<map>
-				<entry>
-					<key>
-						<value>voteResult=='disagree'||voteResult=='disclaim'
-						</value>
-					</key>
-					<ref bean="revise" />
-				</entry>
-				<entry>
-					<key>
-						<value>voteResult=='agree'</value>
-					</key>
-					<ref bean="pass" />
-				</entry>
-			</map>
-		</property>
-	</bean>
+	<fsm:task name="revise" nextStates="auditing" assignees="sponsor" />
 
-	<bean id="revise" class="com.clican.pluto.fsm.engine.state.TaskStateImpl"
-		autowire="byName" lazy-init="true">
-		<property name="name" value="revise"></property>
-		<property name="nextStates" ref="auditing" />
-		<property name="assignees" value="sponsor" />
-	</bean>
+	<fsm:end name="pass" />
 
-	<bean id="pass" class="com.clican.pluto.fsm.engine.state.EndStateImpl"
-		autowire="byName">
-		<property name="name" value="pass"></property>
-	</bean>
 
 </beans>
