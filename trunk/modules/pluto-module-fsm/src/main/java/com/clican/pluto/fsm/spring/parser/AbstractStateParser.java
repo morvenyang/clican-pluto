@@ -107,7 +107,7 @@ public abstract class AbstractStateParser implements BeanDefinitionParser {
 							bean.setBeanClass(Class.forName(clazz));
 							bean.setLazyInit(false);
 							bean.setAutowireMode(Autowire.BY_NAME.value());
-							if ("timeoutListner".equals(localName)) {
+							if ("timeoutListener".equals(localName)) {
 								String timeoutName = e.getAttribute("name");
 								String startTime = e.getAttribute("startTime");
 								String dueTime = e.getAttribute("dueTime");
