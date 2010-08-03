@@ -4,7 +4,7 @@
  * @author wei.zhang
  *
  */
-package com.jsw.fsm.dao;
+package com.clican.pluto.fsm.dao;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
