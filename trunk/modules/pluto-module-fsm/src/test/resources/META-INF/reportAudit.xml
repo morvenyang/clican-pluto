@@ -1,230 +1,65 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:fsm="http://www.clican.com/spring/fsm"
 	xsi:schemaLocation="
 http://www.springframework.org/schema/beans
-http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+http://www.clican.com/spring/fsm
+http://www.clican.com/spring/fsm.xsd">
 
-	<bean id="start" class="com.clican.pluto.fsm.engine.state.StartStateImpl"
-		autowire="byName">
-		<property name="name" value="start"></property>
-		<property name="nextState" ref="auditingDispatch" />
-		<property name="propagation" value="session" />
-	</bean>
-
-	<!-- 按报告提交人的不同级别走到不同的分支：级别越低，需要审批的步骤越多；依次是：
-		导师审批（teacher_audit）->组长审批（chief_audit）->合规审批（risk_audit）
-	 -->
-	<bean id="auditingDispatch" class="com.clican.pluto.fsm.engine.state.DecisionStateImpl"
-		autowire="byName" lazy-init="true">
-		<property name="name" value="auditingDispatch"></property>
-		<property name="conditionNextStateMap">
-			<map>
-				<entry>
-					<key>
-						<value>auditLevel=='low'</value>
-					</key>
-					<ref bean="teacherAuditing" />
-				</entry>
-				<entry>
-					<key>
-						<value>auditLevel=='normal'</value>
-					</key>
-					<ref bean="chiefAuditing" />
-				</entry>
-				<entry>
-					<key>
-						<value>auditLevel=='high'</value>
-					</key>
-					<ref bean="riskAuditing" />
-				</entry>
-			</map>
-		</property>
-	</bean>
-
-	<bean id="teacherAuditing" class="com.clican.pluto.fsm.engine.vote.AllPassVoteTask"
-		autowire="byName" lazy-init="true">
-		<property name="name" value="teacherAuditing"></property>
-		<property name="nextState" ref="teacherAuditResult" />
-		<property name="assignees" value="teacherAuditor" />
-		<property name="startListenerList">
-			<list>
-				
-			</list>
-		</property>
-	</bean>
-
-	<bean id="teacherAuditResult" class="com.clican.pluto.fsm.engine.state.DecisionStateImpl"
-		autowire="byName" lazy-init="true">
-		<property name="name" value="teacherAuditResult"></property>
-		<property name="conditionNextStateMap">
-			<map>
-				<entry>
-					<key>
-						<value>voteResult=='agree'</value>
-					</key>
-					<ref bean="chiefAuditing" />
-				</entry>
-				<entry>
-					<key>
-						<value>voteResult=='disagree'</value>
-					</key>
-					<ref bean="teacherModify" />
-				</entry>
-			</map>
-		</property>
-	</bean>
-
-	<bean id="teacherModify" class="com.clican.pluto.fsm.engine.state.TaskStateImpl"
-		autowire="byName" lazy-init="true">
-		<property name="name" value="teacherModify"></property>
-		<property name="nextState" ref="teacherAuditing" />
-		<property name="assignees" value="sponsor" />
-		<property name="startListenerList">
-			<list>
-				
-			</list>
-		</property>
-	</bean>
-
-	<bean id="chiefAuditing" class="com.clican.pluto.fsm.engine.vote.AllPassVoteTask"
-		autowire="byName" lazy-init="true">
-		<property name="name" value="chiefAuditing"></property>
-		<property name="nextState" ref="chiefAuditResult" />
-		<property name="assignees" value="chiefAuditor" />
-		<property name="startListenerList">
-			<list>
-				
-			</list>
-		</property>
-	</bean>
-
-	<bean id="chiefAuditResult" class="com.clican.pluto.fsm.engine.state.DecisionStateImpl"
-		autowire="byName" lazy-init="true">
-		<property name="name" value="chiefAuditResult"></property>
-		<property name="conditionNextStateMap">
-			<map>
-				<entry>
-					<key>
-						<value>voteResult=='agree'</value>
-					</key>
-					<ref bean="riskAuditing" />
-				</entry>
-				<entry>
-					<key>
-						<value>voteResult=='disagree'</value>
-					</key>
-					<ref bean="chiefModify" />
-				</entry>
-				<entry>
-					<key>
-						<value>voteResult=='disclaim'</value>
-					</key>
-					<ref bean="groupAuditing" />
-				</entry>
-			</map>
-		</property>
-	</bean>
-
-	<bean id="chiefModify" class="com.clican.pluto.fsm.engine.state.TaskStateImpl"
-		autowire="byName" lazy-init="true">
-		<property name="name" value="chiefModify"></property>
-		<property name="nextState" ref="chiefAuditing" />
-		<property name="assignees" value="sponsor" />
-		<property name="startListenerList">
-			<list>
-				
-			</list>
-		</property>
-	</bean>
-
-	<bean id="riskAuditing" class="com.clican.pluto.fsm.engine.vote.AllPassVoteTask"
-		autowire="byName" lazy-init="true">
-		<property name="name" value="riskAuditing"></property>
-		<property name="nextState" ref="riskAuditResult" />
-		<property name="assignees" value="riskAuditor" />
-		<property name="startListenerList">
-			<list>
-				
-			</list>
-		</property>
-	</bean>
-
-	<bean id="riskAuditResult" class="com.clican.pluto.fsm.engine.state.DecisionStateImpl"
-		autowire="byName" lazy-init="true">
-		<property name="name" value="riskAuditResult"></property>
-		<property name="conditionNextStateMap">
-			<map>
-				<entry>
-					<key>
-						<value>voteResult=='agree'</value>
-					</key>
-					<ref bean="endReportAudit" />
-				</entry>
-				<entry>
-					<key>
-						<value>voteResult=='disagree'</value>
-					</key>
-					<ref bean="riskModify" />
-				</entry>
-			</map>
-		</property>
-	</bean>
-
-	<bean id="riskModify" class="com.clican.pluto.fsm.engine.state.TaskStateImpl"
-		autowire="byName" lazy-init="true">
-		<property name="name" value="riskModify"></property>
-		<property name="nextState" ref="riskAuditing" />
-		<property name="assignees" value="sponsor" />
-		<property name="startListenerList">
-			<list>
-				
-			</list>
-		</property>
-	</bean>
-
-	<bean id="groupAuditing" class="com.clican.pluto.fsm.engine.vote.PercentVoteTask"
-		autowire="byName" lazy-init="true">
-		<property name="percent" value="0.5"></property>
-		<property name="name" value="groupAuditing"></property>
-		<property name="nextState" ref="groupAuditResult" />
-		<property name="assignees" value="leaders" />
-		<property name="startListenerList">
-			<list>
-				
-			</list>
-		</property>
-	</bean>
-
-	<bean id="groupAuditResult" class="com.clican.pluto.fsm.engine.state.DecisionStateImpl"
-		autowire="byName" lazy-init="true">
-		<property name="name" value="groupAuditResult"></property>
-		<property name="conditionNextStateMap">
-			<map>
-				<entry>
-					<key>
-						<value>voteResult=='agree'</value>
-					</key>
-					<ref bean="riskAuditing" />
-				</entry>
-				<entry>
-					<key>
-						<value>voteResult=='disagree'</value>
-					</key>
-					<ref bean="chiefModify" />
-				</entry>
-			</map>
-		</property>
-	</bean>
+	<fsm:start name="start" propagation="session">
+		<fsm:nextCondStates expr="auditLevel=='low'"
+			nextStates="teacherAuditing" />
+		<fsm:nextCondStates expr="auditLevel=='normal'"
+			nextStates="chiefAuditing" />
+		<fsm:nextCondStates expr="auditLevel=='high'"
+			nextStates="riskAuditing" />
+	</fsm:start>
 	
-	<bean id="endReportAudit" class="com.clican.pluto.fsm.engine.state.EndStateImpl"
-		autowire="byName">
-		<property name="name" value="endReportAudit"></property>
-		<property name="startListenerList">
-			<list>
-				
-			</list>
-		</property>
-	</bean>
+	<fsm:task name="teacherAuditing"
+		clazz="com.clican.pluto.fsm.engine.vote.AllPassVoteTask" assignees="teacherAuditor">
+		<fsm:nextCondStates expr="voteResult=='agree'"
+			nextStates="chiefAuditing" />
+		<fsm:nextCondStates expr="voteResult=='disagree'"
+			nextStates="teacherModify" />
+	</fsm:task>
+
+	<fsm:task name="teacherModify" nextStates="teacherAuditing"
+		assignees="sponsor" />
+
+	<fsm:task name="chiefAuditing"
+		clazz="com.clican.pluto.fsm.engine.vote.AllPassVoteTask" assignees="chiefAuditor">
+		<fsm:nextCondStates expr="voteResult=='agree'"
+			nextStates="riskAuditing" />
+		<fsm:nextCondStates expr="voteResult=='disagree'"
+			nextStates="chiefModify" />
+		<fsm:nextCondStates expr="voteResult=='disclaim'"
+			nextStates="groupAuditing" />
+	</fsm:task>
+
+	<fsm:task name="chiefModify" nextStates="chiefAuditing"
+		assignees="sponsor" />
+
+	<fsm:task name="riskAuditing"
+		clazz="com.clican.pluto.fsm.engine.vote.AllPassVoteTask" assignees="riskAuditor">
+		<fsm:nextCondStates expr="voteResult=='agree'"
+			nextStates="endReportAudit" />
+		<fsm:nextCondStates expr="voteResult=='disagree'"
+			nextStates="riskModify" />
+	</fsm:task>
+
+	<fsm:task name="riskModify" nextStates="riskAuditing"
+		assignees="sponsor" />
+
+	<fsm:task name="groupAuditing"
+		clazz="com.clican.pluto.fsm.engine.vote.PercentVoteTask" assignees="leaders">
+		<fsm:nextCondStates expr="voteResult=='agree'"
+			nextStates="riskAuditing" />
+		<fsm:nextCondStates expr="voteResult=='disagree'"
+			nextStates="chiefModify" />
+	</fsm:task>
+
+	<fsm:end name="endReportAudit" />
 
 </beans>
