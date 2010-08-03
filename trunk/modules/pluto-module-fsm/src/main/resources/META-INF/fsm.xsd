@@ -32,7 +32,7 @@
 			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexType>
-			<xsd:complexContent>
+			<xsd:complexContent mixed="true">
 				<xsd:extension base="stateType">
 					<xsd:attribute name="clazz" type="xsd:string" use="optional"></xsd:attribute>
 				</xsd:extension>
@@ -61,7 +61,7 @@
 	                 <![CDATA[]]>
 			</xsd:documentation>
 		</xsd:annotation>
-		<xsd:complexType>
+		<xsd:complexType mixed="true">
 			<xsd:complexContent>
 				<xsd:extension base="stateType">
 				</xsd:extension>
@@ -75,7 +75,7 @@
 	                 <![CDATA[]]>
 			</xsd:documentation>
 		</xsd:annotation>
-		<xsd:complexType>
+		<xsd:complexType mixed="true">
 			<xsd:complexContent>
 				<xsd:extension base="stateType">
 				</xsd:extension>
@@ -89,7 +89,7 @@
 	                 <![CDATA[]]>
 			</xsd:documentation>
 		</xsd:annotation>
-		<xsd:complexType>
+		<xsd:complexType mixed="true">
 			<xsd:complexContent>
 				<xsd:extension base="stateType">
 					<xsd:attribute name="assignees" type="xsd:string"

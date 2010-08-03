@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:fsm="http://www.clican.com/spring/fsm"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:fsm="http://www.clican.com/spring/fsm"
 	xsi:schemaLocation="
 http://www.springframework.org/schema/beans
 http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
@@ -16,7 +15,7 @@ http://www.clican.com/spring/fsm.xsd">
 		<fsm:nextCondStates expr="auditLevel=='high'"
 			nextStates="riskAuditing" />
 	</fsm:start>
-	
+
 	<fsm:task name="teacherAuditing"
 		clazz="com.clican.pluto.fsm.engine.vote.AllPassVoteTask" assignees="teacherAuditor">
 		<fsm:nextCondStates expr="voteResult=='agree'"
@@ -58,7 +57,7 @@ http://www.clican.com/spring/fsm.xsd">
 			nextStates="riskAuditing" />
 		<fsm:nextCondStates expr="voteResult=='disagree'"
 			nextStates="chiefModify" />
-		<property name="percent" value="0.5"/>
+		<fsm:param paramName="percent" paramValue="0.5" />
 	</fsm:task>
 
 	<fsm:end name="endReportAudit" />
