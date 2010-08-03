@@ -20,21 +20,21 @@ http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
 					<property name="version" value="1" />
 					<property name="url" value="classpath*:META-INF/plan.xml" />
 				</bean>
-				<bean class="com.clican.pluto.fsm.bean.Deploy">
-					<property name="name" value="reportAudit" />
-					<property name="version" value="1" />
-					<property name="url" value="classpath*:META-INF/reportAudit.xml" />
-				</bean>
-				<bean class="com.clican.pluto.fsm.bean.Deploy">
-					<property name="name" value="travel" />
-					<property name="version" value="1" />
-					<property name="url" value="classpath*:META-INF/travel.xml" />
-				</bean>
-				<bean class="com.clican.pluto.fsm.bean.Deploy">
-					<property name="name" value="workflow" />
-					<property name="version" value="1" />
-					<property name="url" value="classpath*:META-INF/workflow.xml" />
-				</bean>
+<!--				<bean class="com.clican.pluto.fsm.bean.Deploy">-->
+<!--					<property name="name" value="reportAudit" />-->
+<!--					<property name="version" value="1" />-->
+<!--					<property name="url" value="classpath*:META-INF/reportAudit.xml" />-->
+<!--				</bean>-->
+<!--				<bean class="com.clican.pluto.fsm.bean.Deploy">-->
+<!--					<property name="name" value="travel" />-->
+<!--					<property name="version" value="1" />-->
+<!--					<property name="url" value="classpath*:META-INF/travel.xml" />-->
+<!--				</bean>-->
+<!--				<bean class="com.clican.pluto.fsm.bean.Deploy">-->
+<!--					<property name="name" value="workflow" />-->
+<!--					<property name="version" value="1" />-->
+<!--					<property name="url" value="classpath*:META-INF/workflow.xml" />-->
+<!--				</bean>-->
 			</list>
 		</property>
 	</bean>

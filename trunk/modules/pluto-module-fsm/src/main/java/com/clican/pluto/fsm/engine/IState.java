@@ -13,6 +13,7 @@ import com.clican.pluto.fsm.listener.EndListener;
 import com.clican.pluto.fsm.listener.StartListener;
 import com.clican.pluto.fsm.listener.TimeOutListener;
 import com.clican.pluto.fsm.model.Event;
+import com.clican.pluto.fsm.model.Session;
 
 /**
  * 状态处理节点的接口定义类。 主要定义了进/出该状态时候应该触发的Listener， 超时相关的Job以及处理具体的Event的接口
@@ -24,14 +25,14 @@ public interface IState extends EventHandler {
 
 	/**
 	 * 当状态切换到该状态基的时候该方法被调用
+	 * @param session TODO
 	 * @param previousState
 	 *            上一个状态基对象
 	 * @param event
 	 *            当前触发状态基变化的<code>Event</code>对象
-	 * 
 	 * @return
 	 */
-	public void onStart(IState previousState, Event event);
+	public void onStart(Session session, IState previousState, Event event);
 
 	/**
 	 * 当状态从当前状态基离开的时候该方法被调用

@@ -157,15 +157,14 @@ public class DefaultStateImpl implements IState {
 		sessionDao.save(session);
 		if (nextStateList != null) {
 			for (IState istate : nextStateList) {
-				istate.onStart(this, event);
+				istate.onStart(session, this, event);
 			}
 		}
 	}
 
 	@Transactional
-	public void onStart(IState previousState, Event event) {
+	public void onStart(Session session, IState previousState, Event event) {
 		State state;
-		Session session = event.getState().getSession();
 		if (previousStateNumber != 1) {
 			state = stateDao.getPendingState(session.getId(), this.getName());
 			if (state == null) {
