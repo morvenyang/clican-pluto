@@ -9,6 +9,8 @@ package com.clican.pluto.fsm.engine.vote;
 import java.util.Calendar;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
+
 import com.clican.pluto.fsm.engine.state.TaskStateImpl;
 import com.clican.pluto.fsm.enumeration.EventType;
 import com.clican.pluto.fsm.enumeration.Parameters;
@@ -27,7 +29,7 @@ public class PercentVoteTask extends TaskStateImpl {
 
 	protected void handleTask(Task task, Event event) {
 		double percent = 0.5d;
-		if (params.get("percent") != null) {
+		if (StringUtils.isNotEmpty(params.get("percent"))) {
 			percent = Double.parseDouble(params.get("percent"));
 		}
 		Calendar current = Calendar.getInstance();
