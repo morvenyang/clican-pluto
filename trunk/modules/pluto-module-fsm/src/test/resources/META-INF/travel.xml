@@ -47,7 +47,7 @@ http://www.clican.com/spring/fsm.xsd">
 		<fsm:nextCondStates expr="voteResult=='disagree'||voteResult=='disclaim'"
 			nextStates="revise_report" />
 		<fsm:nextCondStates
-			expr="voteResult=='voteResult=='agree'&amp;&amp;tripType!='survey'"
+			expr="voteResult=='agree'&amp;&amp;tripType!='survey'"
 			nextStates="print_expense" />
 		<fsm:nextCondStates expr="voteResult=='agree'&amp;&amp;tripType=='survey'"
 			nextStates="auditing_expense" />
