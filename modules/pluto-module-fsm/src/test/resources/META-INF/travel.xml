@@ -41,7 +41,7 @@ http://www.clican.com/spring/fsm.xsd">
 	<fsm:task name="submit_report" nextStates="auditing_report"
 		assignees="sponsor" />
 
-	<fsm:task name="auditing_application"
+	<fsm:task name="auditing_report"
 		clazz="com.clican.pluto.fsm.engine.vote.HighPriorityVoteTask"
 		assignees="leaders">
 		<fsm:nextCondStates expr="voteResult=='disagree'||voteResult=='disclaim'"
