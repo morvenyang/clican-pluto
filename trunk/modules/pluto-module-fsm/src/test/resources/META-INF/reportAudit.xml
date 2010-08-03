@@ -58,6 +58,7 @@ http://www.clican.com/spring/fsm.xsd">
 			nextStates="riskAuditing" />
 		<fsm:nextCondStates expr="voteResult=='disagree'"
 			nextStates="chiefModify" />
+		<property name="percent" value="0.5"/>
 	</fsm:task>
 
 	<fsm:end name="endReportAudit" />
