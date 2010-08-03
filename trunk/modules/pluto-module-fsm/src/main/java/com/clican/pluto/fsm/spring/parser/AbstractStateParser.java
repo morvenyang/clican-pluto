@@ -96,7 +96,7 @@ public abstract class AbstractStateParser implements BeanDefinitionParser {
 					String paramName = e.getAttribute("name");
 					String paramValue = e.getAttribute("value");
 					params.put(paramName, paramValue);
-				} else if ("startListener".equals(localName) || "endListener".equals(localName) || "timeoutListner".equals(localName)) {
+				} else if ("startListener".equals(localName) || "endListener".equals(localName) || "timeoutListener".equals(localName)) {
 					String clazz = e.getAttribute("clazz");
 					String listener = e.getAttribute("listener");
 					Object obj;

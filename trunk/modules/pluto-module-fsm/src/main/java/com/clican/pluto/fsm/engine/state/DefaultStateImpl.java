@@ -7,7 +7,6 @@
 package com.clican.pluto.fsm.engine.state;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -15,7 +14,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.Map.Entry;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -76,17 +74,15 @@ public class DefaultStateImpl implements IState {
 
 	protected Integer value;
 
-	protected IState nextState;
-
 	protected List<IState> nextStates;
 
-	protected List<StartListener> startListenerList;
+	protected List<StartListener> startListeners;
 
-	protected List<EndListener> endListenerList;
+	protected List<EndListener> endListeners;
 
-	protected Map<String, TimeOutListener> timeOutListenerMap;
+	protected Map<String, TimeOutListener> timeoutListeners;
 
-	protected Map<String, String> constantsMap;
+	protected Map<String, String> params;
 
 	protected BusinessCalendar businessCalendar;
 
@@ -95,6 +91,8 @@ public class DefaultStateImpl implements IState {
 	protected int previousStateNumber = 1;
 
 	protected EngineContext engineContext;
+
+	protected Map<String, List<IState>> nextCondStates;
 
 	public void setPropagation(String propagation) {
 		this.propagation = Propagation.convert(propagation);
@@ -120,32 +118,54 @@ public class DefaultStateImpl implements IState {
 		this.jobDao = jobDao;
 	}
 
+	public void setNextCondStates(Map<String, List<IState>> nextCondStates) {
+		this.nextCondStates = nextCondStates;
+	}
+
 	@Transactional
-	public void onEnd(State state, List<IState> nextStateList, Event event) {
-		if (endListenerList != null) {
-			for (EndListener listener : endListenerList) {
+	public void onEnd(Event event) {
+		State state = event.getState();
+		List<IState> nextStateList = null;
+		if (this.nextStates != null && this.nextStates.size() != 0) {
+			nextStateList = nextStates;
+		} else if (this.nextCondStates != null && this.nextCondStates.size() != 0) {
+			for (String expr : this.nextCondStates.keySet()) {
+				Boolean result = (Boolean) this.getVariableValueByEL(expr, event, true);
+				if (result) {
+					nextStateList = this.nextCondStates.get(expr);
+				}
+			}
+			if (nextStateList == null) {
+				throw new RuntimeException("There is no match condition");
+			}
+		}
+		if (endListeners != null) {
+			for (EndListener listener : endListeners) {
 				if (log.isDebugEnabled()) {
-					log.debug("execute state listener["
-							+ listener.getClass().getName() + "]");
+					log.debug("execute state listener[" + listener.getClass().getName() + "]");
 				}
 				listener.onEnd(state, nextStateList, event);
 			}
 		}
+		Session session = state.getSession();
 		state.setStatus(Status.INACTIVE.getStatus());
 		state.setEndTime(new Date());
+		session.setLastUpdateTime(new Date());
 		jobDao.deleteJobsByStateId(state.getId());
 		taskDao.completeTasksByStateId(state.getId());
 		stateDao.save(state);
-		sessionDao.save(state.getSession());
-		for (IState istate : nextStateList) {
-			istate.onStart(state.getSession(), this, event);
+		sessionDao.save(session);
+		if (nextStateList != null) {
+			for (IState istate : nextStateList) {
+				istate.onStart(this, event);
+			}
 		}
 	}
 
 	@Transactional
-	public void onStart(Session session, IState previousState, Event event) {
-
+	public void onStart(IState previousState, Event event) {
 		State state;
+		Session session = event.getState().getSession();
 		if (previousStateNumber != 1) {
 			state = stateDao.getPendingState(session.getId(), this.getName());
 			if (state == null) {
@@ -160,8 +180,7 @@ public class DefaultStateImpl implements IState {
 				session.getStateSet().add(state);
 				sessionDao.save(session);
 			} else {
-				state
-						.setPreviousStateNumber(state.getPreviousStateNumber() + 1);
+				state.setPreviousStateNumber(state.getPreviousStateNumber() + 1);
 				if (state.getPreviousStateNumber() == previousStateNumber) {
 					state.setStatus(Status.ACTIVE.getStatus());
 					state.setStartTime(new Date());
@@ -183,21 +202,17 @@ public class DefaultStateImpl implements IState {
 		}
 		if (Status.convert(state.getStatus()) != Status.ACTIVE) {
 			if (log.isDebugEnabled()) {
-				log
-						.debug("state=["
-								+ this.getName()
-								+ "] is pending and wait for other substate to be end.");
+				log.debug("state=[" + this.getName() + "] is pending and wait for other substate to be end.");
 			}
 			return;
 		}
 		if (log.isDebugEnabled()) {
 			log.debug("state=[" + this.getName() + "] is started");
 		}
-		if (startListenerList != null) {
-			for (StartListener listener : startListenerList) {
+		if (startListeners != null) {
+			for (StartListener listener : startListeners) {
 				if (log.isDebugEnabled()) {
-					log.debug("execute state listener["
-							+ listener.getClass().getName() + "]");
+					log.debug("execute state listener[" + listener.getClass().getName() + "]");
 				}
 				listener.onStart(state, previousState, event);
 			}
@@ -212,8 +227,7 @@ public class DefaultStateImpl implements IState {
 	 * @param state
 	 */
 	private void prepareStateConstants(State state) {
-		Map<String, String> constantsMap = getConstantsMap();
-		if (constantsMap == null || constantsMap.isEmpty()) {
+		if (params == null || params.isEmpty()) {
 			return;
 		}
 		Set<Variable> variableSet = state.getVariableSet();
@@ -221,18 +235,14 @@ public class DefaultStateImpl implements IState {
 			variableSet = new HashSet<Variable>();
 			state.setVariableSet(variableSet);
 		}
-
-		Set<Entry<String, String>> constantsEntries = constantsMap.entrySet();
-		for (Entry<String, String> entry : constantsEntries) {
+		for(String key:params.keySet()){
 			Variable var = new Variable();
 			var.setState(state);
-			var.setName(entry.getKey());
-			var.setValue(entry.getValue());
+			var.setName(key);
+			var.setValue(params.get(key));
 			var.setChangeDate(new Date());
-
 			variableSet.add(var);
 		}
-
 	}
 
 	/**
@@ -244,41 +254,34 @@ public class DefaultStateImpl implements IState {
 	 *            重新安排的job执行时间
 	 */
 	protected void prepareJobs(State state, Event event, Date startTime) {
-		if (timeOutListenerMap != null && !timeOutListenerMap.isEmpty()) {
-			for (String name : timeOutListenerMap.keySet()) {
+		if (timeoutListeners != null && !timeoutListeners.isEmpty()) {
+			for (String name : timeoutListeners.keySet()) {
 				if (log.isDebugEnabled()) {
-					log.debug("prepare timeout listener[" + name
-							+ "] of state[" + state.getName() + "].");
+					log.debug("prepare timeout listener[" + name + "] of state[" + state.getName() + "].");
 				}
-				TimeOutListener listener = timeOutListenerMap.get(name);
-				BusinessCalendar businessCalendar = listener
-						.getBusinessCalendar() != null ? listener
-						.getBusinessCalendar() : this.businessCalendar;
+				TimeOutListener listener = timeoutListeners.get(name);
+				BusinessCalendar businessCalendar = listener.getBusinessCalendar() != null ? listener.getBusinessCalendar() : this.businessCalendar;
 				Calendar temp = Calendar.getInstance();
 				if (StringUtils.isNotEmpty(listener.getStartTime())) {
-					Serializable startTimeSer = getVariableValueByEL(listener
-							.getStartTime(), event, true);
+					Serializable startTimeSer = getVariableValueByEL(listener.getStartTime(), event, true);
 					if (startTimeSer instanceof Date) {
 						temp.setTime((Date) startTimeSer);
 					} else if (startTimeSer instanceof Calendar) {
 						temp.setTime(((Calendar) startTimeSer).getTime());
 					} else {
 						if (StringUtils.isNumeric(startTimeSer.toString())) {
-							temp.setTimeInMillis(Long.parseLong(startTimeSer
-									.toString()));
+							temp.setTimeInMillis(Long.parseLong(startTimeSer.toString()));
 						}
 					}
 				}
 				Job job = new Job();
 				job.setName(name);
 				job.setBusinessCalendarName(listener.getBusinessCalendarName());
-				Serializable dueTime = this.getVariableValueByEL(listener
-						.getDueTime(), event, true);
+				Serializable dueTime = this.getVariableValueByEL(listener.getDueTime(), event, true);
 				if (dueTime == null) {
 					// 如果此Job没有设置开始时间,且没有开始时间 就不创建这个Job
 					if (startTime == null) {
-						log.warn("Job: " + name
-								+ " have no dueTime, create fail!");
+						log.warn("Job: " + name + " have no dueTime, create fail!");
 						continue;
 					} else {
 						job.setExecuteTime(startTime);
@@ -287,33 +290,28 @@ public class DefaultStateImpl implements IState {
 					if (dueTime instanceof Date) {
 						temp.setTimeInMillis(((Date) dueTime).getTime());
 					} else if (dueTime instanceof Calendar) {
-						temp.setTimeInMillis(((Calendar) dueTime)
-								.getTimeInMillis());
+						temp.setTimeInMillis(((Calendar) dueTime).getTimeInMillis());
 					} else if (dueTime instanceof Long) {
 						temp.setTimeInMillis((Long) dueTime);
 					} else if (dueTime instanceof String) {
-						temp.setTimeInMillis(businessCalendar.add(
-								temp.getTime(), (String) dueTime).getTime());
+						temp.setTimeInMillis(businessCalendar.add(temp.getTime(), (String) dueTime).getTime());
 					} else {
 						throw new RuntimeException("Unsupported DueTime format");
 					}
 					job.setExecuteTime(temp.getTime());
 				}
 				if (StringUtils.isNotEmpty(listener.getRepeatDuration())) {
-					job.setRepeatDuration((String) getVariableValueByEL(
-							listener.getRepeatDuration(), event, true));
+					job.setRepeatDuration((String) getVariableValueByEL(listener.getRepeatDuration(), event, true));
 				}
 				if (StringUtils.isNotEmpty(listener.getRepeatTime())) {
-					job.setRepeatTime(Integer.valueOf(getVariableValueByEL(
-							listener.getRepeatTime(), event, true).toString()));
+					job.setRepeatTime(Integer.valueOf(getVariableValueByEL(listener.getRepeatTime(), event, true).toString()));
 				}
 				job.setState(state);
 				jobContext.addJob(job);
 			}
 		} else {
 			if (log.isDebugEnabled()) {
-				log.debug("there is no timeout listener in state["
-						+ state.getName() + "].");
+				log.debug("there is no timeout listener in state[" + state.getName() + "].");
 			}
 		}
 	}
@@ -328,8 +326,7 @@ public class DefaultStateImpl implements IState {
 	 */
 	protected void propagateVariables(Event event) {
 		State state = event.getState();
-		if (this.propagation == Propagation.STATE
-				|| this.propagation == Propagation.SESSION) {
+		if (this.propagation == Propagation.STATE || this.propagation == Propagation.SESSION) {
 			for (Variable var : event.getVariableSet()) {
 				stateDao.setVariable(state, var.getName(), var.getValue());
 			}
@@ -353,47 +350,45 @@ public class DefaultStateImpl implements IState {
 				log.debug("receive event[" + event + "]");
 			}
 			propagateVariables(event);
-			State state = event.getState();
-			List<IState> nextStateList = new ArrayList<IState>();
-			if (nextStates != null) {
-				nextStateList.addAll(nextStates);
-			} else {
-				nextStateList.add(nextState);
-			}
-			onEnd(state, nextStateList, event);
+			onEnd(event);
 		} catch (Exception e) {
 			log.error("", e);
 			throw new RuntimeException(e);
 		}
 	}
 
-	public void setEndListenerList(List<EndListener> endListenerList) {
-		this.endListenerList = endListenerList;
+	
+
+	public List<StartListener> getStartListeners() {
+		return startListeners;
 	}
 
-	public void setStartListenerList(List<StartListener> startListenerList) {
-		this.startListenerList = startListenerList;
+	public void setStartListeners(List<StartListener> startListeners) {
+		this.startListeners = startListeners;
 	}
 
-	public void setTimeOutListenerMap(
-			Map<String, TimeOutListener> timeOutListenerMap) {
-		this.timeOutListenerMap = timeOutListenerMap;
+	public List<EndListener> getEndListeners() {
+		return endListeners;
 	}
 
-	public Map<String, TimeOutListener> getTimeOutListenerMap() {
-		return timeOutListenerMap;
+	public void setEndListeners(List<EndListener> endListeners) {
+		this.endListeners = endListeners;
 	}
 
-	public Map<String, String> getConstantsMap() {
-		return constantsMap;
+	public Map<String, TimeOutListener> getTimeoutListeners() {
+		return timeoutListeners;
 	}
 
-	public void setConstantsMap(Map<String, String> constantsMap) {
-		this.constantsMap = constantsMap;
+	public void setTimeoutListeners(Map<String, TimeOutListener> timeoutListeners) {
+		this.timeoutListeners = timeoutListeners;
 	}
 
-	public void setNextState(IState nextState) {
-		this.nextState = nextState;
+	public Map<String, String> getParams() {
+		return params;
+	}
+
+	public void setParams(Map<String, String> params) {
+		this.params = params;
 	}
 
 	public void setTaskDao(TaskDao taskDao) {
@@ -428,51 +423,41 @@ public class DefaultStateImpl implements IState {
 		this.eventDao = eventDao;
 	}
 
-	protected Serializable getVariableValue(String variableName, Task task,
-			boolean nested) {
-		Serializable variableValue = this.getVariableValue(variableName, task
-				.getVariableSet());
+	protected Serializable getVariableValue(String variableName, Task task, boolean nested) {
+		Serializable variableValue = this.getVariableValue(variableName, task.getVariableSet());
 		if (variableValue != null) {
 			return variableValue;
 		}
 		if (nested) {
-			variableValue = this.getVariableValue(variableName,
-					task.getState(), nested);
+			variableValue = this.getVariableValue(variableName, task.getState(), nested);
 		}
 		return variableValue;
 	}
 
-	protected Serializable getVariableValue(String variableName, Event event,
-			boolean nested) {
-		Serializable variableValue = this.getVariableValue(variableName, event
-				.getVariableSet());
+	protected Serializable getVariableValue(String variableName, Event event, boolean nested) {
+		Serializable variableValue = this.getVariableValue(variableName, event.getVariableSet());
 		if (variableValue != null) {
 			return variableValue;
 		}
 		if (nested) {
-			variableValue = this.getVariableValue(variableName, event
-					.getState(), nested);
+			variableValue = this.getVariableValue(variableName, event.getState(), nested);
 		}
 		return variableValue;
 	}
 
-	protected Serializable getVariableValue(String variableName, State state,
-			boolean nested) {
-		Serializable variableValue = this.getVariableValue(variableName, state
-				.getVariableSet());
+	protected Serializable getVariableValue(String variableName, State state, boolean nested) {
+		Serializable variableValue = this.getVariableValue(variableName, state.getVariableSet());
 		if (variableValue != null) {
 			return variableValue;
 		}
 		if (nested) {
-			variableValue = this.getVariableValue(variableName, state
-					.getSession());
+			variableValue = this.getVariableValue(variableName, state.getSession());
 		}
 		return variableValue;
 	}
 
 	protected Serializable getVariableValue(String variableName, Session session) {
-		Serializable variableValue = this.getVariableValue(variableName,
-				session.getVariableSet());
+		Serializable variableValue = this.getVariableValue(variableName, session.getVariableSet());
 		if (variableValue != null) {
 			return variableValue;
 		}
@@ -480,8 +465,7 @@ public class DefaultStateImpl implements IState {
 		return variableValue;
 	}
 
-	protected Serializable getVariableValue(String variableName,
-			Set<Variable> variableSet) {
+	protected Serializable getVariableValue(String variableName, Set<Variable> variableSet) {
 		if (variableSet == null || variableName == null) {
 			return null;
 		}
@@ -493,52 +477,41 @@ public class DefaultStateImpl implements IState {
 		return null;
 	}
 
-	protected Serializable getVariableValueByEL(String variableName, Task task,
-			boolean nested) {
-		Serializable variableValue = this.getVariableValueByEL(variableName,
-				task.getVariableSet());
+	protected Serializable getVariableValueByEL(String variableName, Task task, boolean nested) {
+		Serializable variableValue = this.getVariableValueByEL(variableName, task.getVariableSet());
 		if (variableValue != null) {
 			return variableValue;
 		}
 		if (nested) {
-			variableValue = this.getVariableValueByEL(variableName, task
-					.getState(), nested);
+			variableValue = this.getVariableValueByEL(variableName, task.getState(), nested);
 		}
 		return variableValue;
 	}
 
-	protected Serializable getVariableValueByEL(String variableName,
-			Event event, boolean nested) {
-		Serializable variableValue = this.getVariableValueByEL(variableName,
-				event.getVariableSet());
+	protected Serializable getVariableValueByEL(String variableName, Event event, boolean nested) {
+		Serializable variableValue = this.getVariableValueByEL(variableName, event.getVariableSet());
 		if (variableValue != null) {
 			return variableValue;
 		}
 		if (nested) {
-			variableValue = this.getVariableValueByEL(variableName, event
-					.getState(), nested);
+			variableValue = this.getVariableValueByEL(variableName, event.getState(), nested);
 		}
 		return variableValue;
 	}
 
-	protected Serializable getVariableValueByEL(String variableName,
-			State state, boolean nested) {
-		Serializable variableValue = this.getVariableValueByEL(variableName,
-				state.getVariableSet());
+	protected Serializable getVariableValueByEL(String variableName, State state, boolean nested) {
+		Serializable variableValue = this.getVariableValueByEL(variableName, state.getVariableSet());
 		if (variableValue != null) {
 			return variableValue;
 		}
 		if (nested) {
-			variableValue = this.getVariableValueByEL(variableName, state
-					.getSession());
+			variableValue = this.getVariableValueByEL(variableName, state.getSession());
 		}
 		return variableValue;
 	}
 
-	protected Serializable getVariableValueByEL(String variableName,
-			Session session) {
-		Serializable variableValue = this.getVariableValueByEL(variableName,
-				session.getVariableSet());
+	protected Serializable getVariableValueByEL(String variableName, Session session) {
+		Serializable variableValue = this.getVariableValueByEL(variableName, session.getVariableSet());
 		if (variableValue != null) {
 			return variableValue;
 		}
@@ -546,8 +519,7 @@ public class DefaultStateImpl implements IState {
 		return variableValue;
 	}
 
-	protected Serializable getVariableValueByEL(String variableName,
-			Set<Variable> variableSet) {
+	protected Serializable getVariableValueByEL(String variableName, Set<Variable> variableSet) {
 		if (variableSet == null || variableName == null) {
 			return null;
 		}

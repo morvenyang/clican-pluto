@@ -7,13 +7,11 @@
 package com.clican.pluto.fsm.engine.state;
 
 import java.util.Date;
-import java.util.List;
 
 import org.springframework.transaction.annotation.Transactional;
 
 import com.clican.pluto.fsm.engine.IState;
 import com.clican.pluto.fsm.enumeration.Status;
-import com.clican.pluto.fsm.listener.EndListener;
 import com.clican.pluto.fsm.model.Event;
 import com.clican.pluto.fsm.model.Session;
 import com.clican.pluto.fsm.model.State;
@@ -27,17 +25,10 @@ import com.clican.pluto.fsm.model.State;
 public class EndStateImpl extends DefaultStateImpl {
 
 	@Transactional
-	
-	public void onEnd(State state, List<IState> nextStateList, Event event) {
-		if (endListenerList != null) {
-			for (EndListener listener : endListenerList) {
-				listener.onEnd(state, nextStateList, event);
-			}
-		}
-		state.setStatus(Status.INACTIVE.getStatus());
-		state.setEndTime(new Date());
-		stateDao.save(state);
-		Session session  = state.getSession();
+	public void onEnd(Event event) {
+		super.onEnd(event);
+		State state = event.getState();
+		Session session = state.getSession();
 		session.setStatus(Status.INACTIVE.getStatus());
 		session.setEndTime(new Date());
 		sessionDao.save(session);
@@ -46,14 +37,14 @@ public class EndStateImpl extends DefaultStateImpl {
 		taskDao.completeTasksBySessionId(session.getId());
 	}
 
-	
-	public void onStart(Session session, IState previousState, Event event) {
-		super.onStart(session, previousState, event);
+	public void onStart(IState previousState, Event event) {
+		super.onStart(previousState, event);
+		Session session = event.getState().getSession();
 		State state = getLatestState(session);
 		if (Status.convert(state.getStatus()) != Status.ACTIVE) {
 			return;
 		}
-		onEnd(state, null, event);
+		onEnd(event);
 	}
 
 }

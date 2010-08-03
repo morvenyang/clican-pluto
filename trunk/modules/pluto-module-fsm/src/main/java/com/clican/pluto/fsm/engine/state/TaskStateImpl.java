@@ -66,10 +66,9 @@ public class TaskStateImpl extends DefaultStateImpl {
 	}
 
 	@Transactional
-	
-	public void onStart(Session session, IState previousState, Event event) {
-		super.onStart(session, previousState, event);
-		State state = this.getLatestState(session);
+	public void onStart(IState previousState, Event event) {
+		super.onStart(previousState, event);
+		State state = this.getLatestState(event.getState().getSession());
 		if (Status.convert(state.getStatus()) != Status.ACTIVE) {
 			return;
 		}
@@ -175,7 +174,6 @@ public class TaskStateImpl extends DefaultStateImpl {
 	}
 
 	@Transactional
-	
 	public void handle(Event event) {
 		propagateVariables(event);
 		EventType eventType = EventType.convert(event.getEventType());
@@ -199,14 +197,7 @@ public class TaskStateImpl extends DefaultStateImpl {
 		}
 		List<Task> notCompletedTask = taskDao.findActiveTasksByState(event.getState());
 		if (notCompletedTask.size() == 0) {
-			State state = event.getState();
-			List<IState> nextStateList = new ArrayList<IState>();
-			if (nextStates != null) {
-				nextStateList.addAll(nextStates);
-			} else {
-				nextStateList.add(nextState);
-			}
-			onEnd(state, nextStateList, event);
+			onEnd(event);
 		}
 	}
 

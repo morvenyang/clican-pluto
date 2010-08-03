@@ -167,7 +167,7 @@ public class JobContextImpl implements JobContext, ApplicationContextAware {
 		IState istate = engineContext.getState(job.getState().getSession()
 				.getName(), job.getState().getSession().getVersion(), job
 				.getState().getName());
-		TimeOutListener listener = istate.getTimeOutListenerMap().get(
+		TimeOutListener listener = istate.getTimeoutListeners().get(
 				job.getName());
 		listener.onTimeOut(job);
 	}
@@ -259,7 +259,7 @@ public class JobContextImpl implements JobContext, ApplicationContextAware {
 						.getSession().getName(), job.getState().getSession()
 						.getVersion(), job.getState().getName());
 
-				TimeOutListener listener = istate.getTimeOutListenerMap().get(
+				TimeOutListener listener = istate.getTimeoutListeners().get(
 						job.getName());
 				if (log.isDebugEnabled()) {
 					log.debug("execute this job [" + job + "] jobId = ["
