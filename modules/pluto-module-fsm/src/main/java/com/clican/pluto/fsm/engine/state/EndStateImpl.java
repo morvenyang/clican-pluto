@@ -37,9 +37,8 @@ public class EndStateImpl extends DefaultStateImpl {
 		taskDao.completeTasksBySessionId(session.getId());
 	}
 
-	public void onStart(IState previousState, Event event) {
-		super.onStart(previousState, event);
-		Session session = event.getState().getSession();
+	public void onStart(Session session, IState previousState, Event event) {
+		super.onStart(session, previousState, event);
 		State state = getLatestState(session);
 		if (Status.convert(state.getStatus()) != Status.ACTIVE) {
 			return;

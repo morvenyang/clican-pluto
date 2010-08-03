@@ -66,8 +66,8 @@ public class TaskStateImpl extends DefaultStateImpl {
 	}
 
 	@Transactional
-	public void onStart(IState previousState, Event event) {
-		super.onStart(previousState, event);
+	public void onStart(Session session, IState previousState, Event event) {
+		super.onStart(session, previousState, event);
 		State state = this.getLatestState(event.getState().getSession());
 		if (Status.convert(state.getStatus()) != Status.ACTIVE) {
 			return;
