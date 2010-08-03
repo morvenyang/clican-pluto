@@ -60,6 +60,7 @@ http://www.clican.com/spring/fsm.xsd">
 		<fsm:param paramName="percent" paramValue="0.5" />
 	</fsm:task>
 
-	<fsm:end name="endReportAudit" />
+	<fsm:end name="endReportAudit">
+	</fsm:end>
 
 </beans>
