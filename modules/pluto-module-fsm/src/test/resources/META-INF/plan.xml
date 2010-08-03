@@ -24,14 +24,14 @@ http://www.clican.com/spring/fsm.xsd">
 	<bean id="auditing" class="com.clican.pluto.fsm.engine.vote.HighPriorityVoteTask"
 		autowire="byName" lazy-init="true">
 		<property name="name" value="auditing"></property>
-		<property name="nextState" ref="audit" />
+		<property name="nextStates" ref="audit" />
 		<property name="assignees" value="leaders" />
 	</bean>
 
 	<bean id="audit" class="com.clican.pluto.fsm.engine.state.DecisionStateImpl"
 		autowire="byName" lazy-init="true">
 		<property name="name" value="audit"></property>
-		<property name="conditionNextStateMap">
+		<property name="nextCondStates">
 			<map>
 				<entry>
 					<key>
@@ -53,7 +53,7 @@ http://www.clican.com/spring/fsm.xsd">
 	<bean id="revise" class="com.clican.pluto.fsm.engine.state.TaskStateImpl"
 		autowire="byName" lazy-init="true">
 		<property name="name" value="revise"></property>
-		<property name="nextState" ref="auditing" />
+		<property name="nextStates" ref="auditing" />
 		<property name="assignees" value="sponsor" />
 	</bean>
 

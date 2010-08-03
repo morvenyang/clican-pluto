@@ -144,7 +144,7 @@ public class EngineContextImpl implements EngineContext, ApplicationContextAware
 		session.setVariableSet(new HashSet<Variable>());
 		sessionDao.save(session);
 		sessionDao.setVariable(session, Parameters.SPONSOR.getParameter(), userId);
-		istate.onStart(session, null, null);
+		istate.onStart(null, null);
 		return session;
 	}
 
@@ -167,7 +167,7 @@ public class EngineContextImpl implements EngineContext, ApplicationContextAware
 		session.setVariableSet(new HashSet<Variable>());
 		sessionDao.save(session);
 		sessionDao.setVariable(session, Parameters.SPONSOR.getParameter(), parent.getSponsor());
-		istate.onStart(session, null, null);
+		istate.onStart(null, null);
 		return session;
 	}
 
