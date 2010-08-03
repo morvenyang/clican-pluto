@@ -13,7 +13,7 @@ import org.springframework.beans.factory.xml.ParserContext;
 import org.w3c.dom.Element;
 
 import com.clican.pluto.fsm.engine.IState;
-import com.clican.pluto.fsm.engine.state.TaskStateImpl;
+import com.clican.pluto.fsm.engine.state.DefaultStateImpl;
 
 public class DefaultStateParser extends AbstractStateParser {
 
@@ -33,11 +33,10 @@ public class DefaultStateParser extends AbstractStateParser {
 				throw new RuntimeException(e);
 			}
 		} else {
-			return TaskStateImpl.class;
+			return DefaultStateImpl.class;
 		}
 	}
 
 }
 
-
-//$Id$
+// $Id$
