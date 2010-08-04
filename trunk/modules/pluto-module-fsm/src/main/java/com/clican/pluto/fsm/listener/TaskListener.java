@@ -6,25 +6,41 @@
  */
 package com.clican.pluto.fsm.listener;
 
+import com.clican.pluto.fsm.model.Event;
 import com.clican.pluto.fsm.model.Task;
 
 /**
  * 创建任务的监听器
  * 
- * @author xiaoming.lu
+ * @author clican
  * 
  */
 public interface TaskListener {
 
 	/**
-	 * 在保存task之前调用
+	 * 在分配task之前调用
 	 */
-	void beforeTask(Task task);
+	public boolean beforeAssignTask(Task task);
 
 	/**
-	 * 在保存task之后调用
+	 * 在分配task之后调用
 	 */
-	void afterTask(Task task);
+	public void afterAssignTask(Task task);
+
+	/**
+	 * 在处理任务前被调用
+	 * 
+	 * @param task
+	 */
+	public void beforeHandleTask(Task task, Event event);
+
+	/**
+	 * 在处理任务后被调用
+	 * 
+	 * @param task
+	 */
+	public void afterHandleTask(Task task, Event event);
+
 }
 
 // $Id$

@@ -1,23 +1,18 @@
 /**
- * The Clican-Pluto software suit is Copyright 2009, Clican Company and individual contributors, and is licensed under the GNU LGPL.
+ * The Clican-Pluto software suit is Copyright 2009, Clican Company
+ * and individual contributors, and is licensed under the GNU LGPL.
  *
- * @author dapeng.zhang
+ * @author clican
  *
  */
-package com.clican.pluto.fsm.interceptor;
+package com.clican.pluto.fsm.listener;
 
 import java.io.Serializable;
 import java.util.Map;
 
 import com.clican.pluto.fsm.enumeration.EventType;
 
-/**
- * 给一个状态发送事件时候的拦截器
- * 
- * @author dapeng.zhang
- * 
- */
-public interface EventDispatchInterceptor {
+public interface EventListener {
 	/**
 	 * 在发送一个事件之前，对特定类型的流程状态进行parameters的替换。
 	 * <p>
@@ -32,7 +27,8 @@ public interface EventDispatchInterceptor {
 	 * @param parameters
 	 *            事件参数
 	 */
-	public void beforeDispatch(Long sessionId, Long stateId, EventType eventType, Map<String, Serializable> parameters);
+	public void beforeDispatch(Long sessionId, Long stateId,
+			EventType eventType, Map<String, Serializable> parameters);
 
 	/**
 	 * 完成发送事件后，需要执行的代码
@@ -42,7 +38,8 @@ public interface EventDispatchInterceptor {
 	 * @param eventType
 	 * @param parameters
 	 */
-	public void afterDispatch(Long sessionId, Long stateId, EventType eventType, Map<String, Serializable> parameters);
+	public void afterDispatch(Long sessionId, Long stateId,
+			EventType eventType, Map<String, Serializable> parameters);
 
 }
 

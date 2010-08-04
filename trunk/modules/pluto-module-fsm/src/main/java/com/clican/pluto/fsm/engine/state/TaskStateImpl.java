@@ -47,7 +47,7 @@ public class TaskStateImpl extends DefaultStateImpl {
 
 	protected String taskType;
 
-	private TaskListener taskListener;
+	private List<TaskListener> taskListeners;
 
 	public void setAssignees(String assignees) {
 		this.assignees = assignees;
@@ -61,8 +61,8 @@ public class TaskStateImpl extends DefaultStateImpl {
 		this.taskType = taskType;
 	}
 
-	public void setTaskListener(TaskListener taskListener) {
-		this.taskListener = taskListener;
+	public void setTaskListeners(List<TaskListener> taskListeners) {
+		this.taskListeners = taskListeners;
 	}
 
 	@Transactional
@@ -110,10 +110,12 @@ public class TaskStateImpl extends DefaultStateImpl {
 			taskTypeValue = (String) MVEL.eval(taskType, vars);
 		}
 		for (String assignee : assignees) {
-			tasks.add(newTask(state, assignee.toString(), current.getTime(), taskNameValue, taskTypeValue));
+			Task task = newTask(state, assignee.toString(), current.getTime(),
+					taskNameValue, taskTypeValue);
+			tasks.add(task);
 		}
 		if (tasks.size() == 0) {
-			throw new RuntimeException("There is no task created");
+			throw new RuntimeException("There is no task assigned");
 		}
 		return tasks;
 	}
@@ -133,7 +135,9 @@ public class TaskStateImpl extends DefaultStateImpl {
 	 *            任务类型
 	 * @return
 	 */
-	protected Task newTask(State state, String assignee, Date assignTime, String taskNameValue, String taskTypeValue) {
+	protected Task newTask(State state, String assignee, Date assignTime,
+			String taskNameValue, String taskTypeValue) {
+
 		Task task = new Task();
 		task.setAssignee(assignee);
 		task.setAssignTime(assignTime);
@@ -141,24 +145,27 @@ public class TaskStateImpl extends DefaultStateImpl {
 		task.setType(taskTypeValue);
 		task.setState(state);
 		task.setEndTime(new Date());
-
-		if (taskListener != null) {
-			taskListener.beforeTask(task);
+		try {
+			if (taskListeners != null) {
+				for(TaskListener taskListener:taskListeners){
+					taskListener.beforeAssignTask(task);
+				}
+			}
+			taskDao.save(task);
+			if (state.getTaskSet() == null) {
+				state.setTaskSet(new HashSet<Task>());
+			}
+			state.getTaskSet().add(task);
+			stateDao.save(state);
+			return task;
+		} finally {
+			if (taskListeners != null) {
+				for(TaskListener taskListener:taskListeners){
+					taskListener.afterAssignTask(task);
+				}
+			}
 		}
 
-		taskDao.save(task);
-
-		if (taskListener != null) {
-			taskListener.afterTask(task);
-		}
-
-		if (state.getTaskSet() == null) {
-			state.setTaskSet(new HashSet<Task>());
-		}
-		state.getTaskSet().add(task);
-		stateDao.save(state);
-
-		return task;
 	}
 
 	/**
@@ -183,19 +190,47 @@ public class TaskStateImpl extends DefaultStateImpl {
 				if (task.getCompleteTime() == null) {
 					// 把事件中的变量放入Task中
 					setTaskVariable(task, event.getVariableSet());
-					handleTask(task, event);
+					try {
+						if (taskListeners != null) {
+							for(TaskListener taskListener:taskListeners){
+								taskListener.beforeHandleTask(task, event);
+							}
+						}
+						handleTask(task, event);
+					} finally {
+						if (taskListeners != null) {
+							for(TaskListener taskListener:taskListeners){
+								taskListener.afterHandleTask(task, event);
+							}
+						}
+					}
 				}
 			}
 		} else if (eventType == EventType.TASK) {
-			Long taskId = (Long) this.getVariableValue(Parameters.TASK_ID.getParameter(), event, false);
+			Long taskId = (Long) this.getVariableValue(Parameters.TASK_ID
+					.getParameter(), event, false);
 			Task task = taskDao.findTaskById(taskId);
 			// 把事件中的变量放入Task中
 			setTaskVariable(task, event.getVariableSet());
-			handleTask(task, event);
+			try {
+				if (taskListeners != null) {
+					for(TaskListener taskListener:taskListeners){
+						taskListener.beforeHandleTask(task, event);
+					}
+				}
+				handleTask(task, event);
+			} finally {
+				if (taskListeners != null) {
+					for(TaskListener taskListener:taskListeners){
+						taskListener.afterHandleTask(task, event);
+					}
+				}
+			}
 		} else {
 			throw new RuntimeException("Unsupported Event [" + event + "]");
 		}
-		List<Task> notCompletedTask = taskDao.findActiveTasksByState(event.getState());
+		List<Task> notCompletedTask = taskDao.findActiveTasksByState(event
+				.getState());
 		if (notCompletedTask.size() == 0) {
 			onEnd(event);
 		}
@@ -207,10 +242,13 @@ public class TaskStateImpl extends DefaultStateImpl {
 		}
 	}
 
-	protected void recordLastVoteResultAndSuggestion(Long sessionId, String voteResult, String suggestion, String lastAuditor) {
+	protected void recordLastVoteResultAndSuggestion(Long sessionId,
+			String voteResult, String suggestion, String lastAuditor) {
 		Session session = sessionDao.findSessionById(sessionId);
-		sessionDao.setVariable(session, Parameters.VOTE_RESULT.getParameter(), voteResult);
-		sessionDao.setVariable(session, Parameters.AUDIT_SUGGESTION.getParameter(), suggestion);
+		sessionDao.setVariable(session, Parameters.VOTE_RESULT.getParameter(),
+				voteResult);
+		sessionDao.setVariable(session, Parameters.AUDIT_SUGGESTION
+				.getParameter(), suggestion);
 		sessionDao.setVariable(session, "lastAuditor", lastAuditor);
 	}
 
