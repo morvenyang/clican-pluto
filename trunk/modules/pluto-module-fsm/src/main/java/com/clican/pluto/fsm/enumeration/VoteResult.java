@@ -13,12 +13,7 @@ public enum VoteResult {
 	// 不同意
 	DISAGREE("disagree", "不同意"),
 	// 弃权
-	DISCLAIM("disclaim", "弃权"),
-
-	// 其它：1，报告审批中的会签
-	OTHER("other", "其它"),
-	// 文字编辑
-	EDIT("edit", "完成");
+	DISCLAIM("disclaim", "弃权");
 
 	private String voteResult;
 
