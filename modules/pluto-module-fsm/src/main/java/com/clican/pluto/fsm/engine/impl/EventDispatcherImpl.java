@@ -9,6 +9,7 @@ package com.clican.pluto.fsm.engine.impl;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -23,6 +24,7 @@ import com.clican.pluto.fsm.engine.EventDispatcher;
 import com.clican.pluto.fsm.engine.IState;
 import com.clican.pluto.fsm.enumeration.EventType;
 import com.clican.pluto.fsm.enumeration.Parameters;
+import com.clican.pluto.fsm.listener.EventListener;
 import com.clican.pluto.fsm.model.Event;
 import com.clican.pluto.fsm.model.Session;
 import com.clican.pluto.fsm.model.State;
@@ -46,6 +48,8 @@ public class EventDispatcherImpl implements EventDispatcher {
 
 	private SessionDao sessionDao;
 
+	private List<EventListener> eventListeners;
+
 	public void setEventDao(EventDao eventDao) {
 		this.eventDao = eventDao;
 	}
@@ -58,22 +62,36 @@ public class EventDispatcherImpl implements EventDispatcher {
 		this.sessionDao = sessionDao;
 	}
 
+	public void setEventListeners(List<EventListener> eventListeners) {
+		this.eventListeners = eventListeners;
+	}
+
 	@Transactional
-	
-	public void dispatch(Long sessionId, Long stateId, EventType eventType, Map<String, Serializable> parameters) {
+	public void dispatch(Long sessionId, Long stateId, EventType eventType,
+			Map<String, Serializable> parameters) {
 		try {
+			if (eventListeners != null) {
+				for (EventListener eventListener : eventListeners) {
+					eventListener.beforeDispatch(sessionId, stateId, eventType,
+							parameters);
+				}
+			}
 			Session session = engineContext.querySession(sessionId);
 
 			// 是否即时提醒的标志，需要放在session中
-			Serializable noticeImmediately = parameters.remove(Parameters.NOTICE_IMMEDIATELY.getParameter());
+			Serializable noticeImmediately = parameters
+					.remove(Parameters.NOTICE_IMMEDIATELY.getParameter());
 			if (noticeImmediately == null) {
 				noticeImmediately = 0;
 			}
-			sessionDao.setVariable(session, Parameters.NOTICE_IMMEDIATELY.getParameter(), noticeImmediately);
+			sessionDao.setVariable(session, Parameters.NOTICE_IMMEDIATELY
+					.getParameter(), noticeImmediately);
 
 			if (log.isDebugEnabled()) {
 				StringBuffer debug = new StringBuffer();
-				debug.append("dispatch event sessionId=[" + sessionId + "],stateId=[" + stateId + "],eventType=" + eventType.getType() + "\n");
+				debug.append("dispatch event sessionId=[" + sessionId
+						+ "],stateId=[" + stateId + "],eventType="
+						+ eventType.getType() + "\n");
 				for (String param : parameters.keySet()) {
 					debug.append(param + "=" + parameters.get(param) + "\n");
 				}
@@ -86,7 +104,9 @@ public class EventDispatcherImpl implements EventDispatcher {
 			event.setCompleteTime(new Date());
 			State activeState = engineContext.findStateById(stateId);
 			if (activeState == null) {
-				throw new RuntimeException("There is no active state for this session [" + sessionId + "]");
+				throw new RuntimeException(
+						"There is no active state for this session ["
+								+ sessionId + "]");
 			}
 			event.setState(activeState);
 			event.setEventType(eventType.getType());
@@ -100,12 +120,20 @@ public class EventDispatcherImpl implements EventDispatcher {
 				vars.add(var);
 			}
 			event.setVariableSet(vars);
-			IState istate = engineContext.getState(session.getName(), session.getVersion(), activeState.getName());
+			IState istate = engineContext.getState(session.getName(), session
+					.getVersion(), activeState.getName());
 			eventDao.save(event);
 			istate.handle(event);
 		} catch (Exception e) {
 			log.error("", e);
 			throw new RuntimeException(e);
+		}finally{
+			if (eventListeners != null) {
+				for (EventListener eventListener : eventListeners) {
+					eventListener.afterDispatch(sessionId, stateId, eventType,
+							parameters);
+				}
+			}
 		}
 	}
 

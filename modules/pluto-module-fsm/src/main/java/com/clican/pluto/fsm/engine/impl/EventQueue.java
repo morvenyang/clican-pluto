@@ -6,9 +6,7 @@
  */
 package com.clican.pluto.fsm.engine.impl;
 
-import java.io.Serializable;
 import java.util.List;
-import java.util.Map;
 
 import org.aopalliance.intercept.MethodInvocation;
 import org.apache.commons.logging.Log;
@@ -16,8 +14,6 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.aop.IntroductionInterceptor;
 
 import com.clican.pluto.fsm.engine.EngineContext;
-import com.clican.pluto.fsm.enumeration.EventType;
-import com.clican.pluto.fsm.interceptor.EventDispatchInterceptor;
 import com.clican.pluto.fsm.model.Session;
 import com.clican.pluto.fsm.model.State;
 
@@ -43,16 +39,7 @@ public class EventQueue implements IntroductionInterceptor {
 
 	private EngineContext engineContext;
 
-	private List<EventDispatchInterceptor> interceptors;
-
-	/**
-	 * 用来拦截消息的传播
-	 * 
-	 * @param interceptors
-	 */
-	public void setInterceptors(List<EventDispatchInterceptor> interceptors) {
-		this.interceptors = interceptors;
-	}
+	
 
 	@SuppressWarnings("unchecked")
 	public boolean implementsInterface(Class clazz) {
@@ -63,7 +50,6 @@ public class EventQueue implements IntroductionInterceptor {
 		this.engineContext = engineContext;
 	}
 
-	@SuppressWarnings("unchecked")
 	public Object invoke(final MethodInvocation invocation) throws Throwable {
 		if (log.isDebugEnabled()) {
 			log.debug("Using the IntroductionInterceptor to interrupt the event [" + invocation.getMethod().getName() + "]");
@@ -87,12 +73,6 @@ public class EventQueue implements IntroductionInterceptor {
 			}
 			synchronized (lock) {
 				try {
-					// 首先判断是否有消息拦截器
-					if (interceptors != null) {
-						for (EventDispatchInterceptor edi : interceptors) {
-							edi.beforeDispatch(sessionId, stateId, (EventType) args[2], (Map<String, Serializable>) args[3]);
-						}
-					}
 					boolean executed = false;
 					List<State> activeStates = engineContext.getActiveAndPendingState(sessionId);
 					for (State activeState : activeStates) {
@@ -111,12 +91,6 @@ public class EventQueue implements IntroductionInterceptor {
 				} finally {
 					if (log.isDebugEnabled()) {
 						log.debug("Release lock for session[" + sessionId + "]");
-					}
-					if (interceptors != null) {
-						// 倒序执行
-						for (int i = interceptors.size(); i > 0; i--) {
-							interceptors.get(i - 1).afterDispatch(sessionId, stateId, (EventType) args[2], (Map<String, Serializable>) args[3]);
-						}
 					}
 				}
 			}
