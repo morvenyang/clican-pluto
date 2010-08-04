@@ -15,63 +15,9 @@ PorcessorContext：用于dpl数据处理的一个Map对象，其中包含了user
 Map<String,Object>：功用和ProcessorContext一样，只是一个简单的函数复载
 Clazz<T>	用于dpl返回List内保存的对象的类型转换，通过这个参数可以把Map对象转换为T对象。前提就是Map中的key需要和T对象的属性能够名称上对应上。
 
+public <T> List<T> execute(String dpl, ProcessorContext context, Class<T> clazz) throws DplException;
 
-
-/**
-	 *
-	 * @param <T>
-	 * @param dpl
-	 *            dpl data process language
-	 * @param context
-	 *            数据来源的上下文
-	 * @param clazz
-	 *            把查询得到的结果转换为该数据类型，要求必须查询结果的as名称和他的property
-	 *            name完全一致。该clazz必须有一个没有参数的构造函数。
-	 * @return
-	 * @throws DplException
-	 *             如果在解析dpl或执行dpl的过程中出现错误则抛出该异常
-	 */
-	public <T> List<T> execute(String dpl, ProcessorContext context, Class<T> clazz) throws DplException;
-
-	/**
-	 *
-	 * @param dpl
-	 *            data process language
-	 * @param context
-	 *            数据来源的上下文
-	 * @return
-	 * @throws DplException
-	 *             如果在解析dpl或执行dpl的过程中出现错误则抛出该异常
-	 */
-	public List<Map<String, Object>> execute(String dpl, ProcessorContext context) throws DplException;
-
-	/**
-	 *
-	 * @param <T>
-	 * @param dpl
-	 *            data process language
-	 * @param context
-	 *            数据来源的上下文
-	 * @param clazz
-	 *            把查询得到的结果转换为该数据类型，要求必须查询结果的as名称和他的property
-	 *            name完全一致。该clazz必须有一个没有参数的构造函数。
-	 * @return
-	 * @throws DplException
-	 */
-	public <T> List<T> execute(String dpl, Map<String, Object> context, Class<T> clazz) throws DplException;
-
-	/**
-	 *
-	 * @param dpl
-	 *            data process language
-	 * @param context
-	 *            数据来源的上下文
-	 * @return
-	 * @throws DplException
-	 */
-	public List<Map<String, Object>> execute(String dpl, Map<String, Object> context) throws DplException;
-
-
+public <T> List<T> execute(String dpl, Map<String, Object> context, Class<T> clazz) throws DplException;
 
 = Details =
 
