@@ -15,7 +15,7 @@ PorcessorContext：用于dpl数据处理的一个Map对象，其中包含了user
 Map<String,Object>：功用和ProcessorContext一样，只是一个简单的函数复载
 Clazz<T>用于dpl返回List内保存的对象的类型转换，通过这个参数可以把Map对象转换为T对象。前提就是Map中的key需要和T对象的属性能够名称上对应上。
 
-`
+{{{
 /**
  * The Clican-Pluto software suit is Copyright 2009, Clican Company and individual contributors, and is licensed under the GNU LGPL.
  *
@@ -97,7 +97,7 @@ public interface DplStatement {
 }
 
 // $Id: DplStatement.java 13278 2010-05-26 11:29:38Z wei.zhang $
-`
+}}}
 = Details =
 
 Add your content here.  Format your content with:
