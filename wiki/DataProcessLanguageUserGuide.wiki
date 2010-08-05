@@ -1,6 +1,6 @@
 = DPL使用手册 =
 
-=+第一章 DPL交互接口==
+==第一章 DPL交互接口==
 
 所有的和DPL模块的交互方式的唯一接口就是通过一个`DplStatement`接口,String的dpl参数和一个Map(List和常量的存放的Map)来进行数据运算和关联。
 
