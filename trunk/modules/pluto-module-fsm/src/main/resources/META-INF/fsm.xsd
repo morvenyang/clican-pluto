@@ -92,6 +92,16 @@
 		<xsd:complexType mixed="true">
 			<xsd:complexContent>
 				<xsd:extension base="stateType">
+					<xsd:sequence>
+						<xsd:element name="taskListener" type="listenerType"
+							minOccurs="0" maxOccurs="unbounded">
+							<xsd:annotation>
+								<xsd:documentation>  
+                             <![CDATA[]]>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
 					<xsd:attribute name="assignees" type="xsd:string"
 						use="required"></xsd:attribute>
 					<xsd:attribute name="taskName" type="xsd:string" use="optional"></xsd:attribute>
@@ -107,15 +117,7 @@
 			<xsd:extension base="beans:identifiedType">
 				<xsd:sequence>
 					<xsd:choice minOccurs="0" maxOccurs="unbounded">
-						<xsd:element name="startListener" type="startOrEndListenerType"
-							minOccurs="0" maxOccurs="unbounded">
-							<xsd:annotation>
-								<xsd:documentation>  
-                             <![CDATA[]]>
-								</xsd:documentation>
-							</xsd:annotation>
-						</xsd:element>
-						<xsd:element name="endListener" type="startOrEndListenerType"
+						<xsd:element name="stateListener" type="listenerType"
 							minOccurs="0" maxOccurs="unbounded">
 							<xsd:annotation>
 								<xsd:documentation>  
@@ -158,7 +160,7 @@
 		</xsd:complexContent>
 	</xsd:complexType>
 
-	<xsd:complexType name="startOrEndListenerType" mixed="true">
+	<xsd:complexType name="listenerType" mixed="true">
 		<xsd:sequence>
 			<xsd:element name="param" type="paramType" minOccurs="0"
 				maxOccurs="unbounded">
