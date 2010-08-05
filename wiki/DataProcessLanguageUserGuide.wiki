@@ -2,7 +2,7 @@ DPL使用手册
 
 = DPL使用手册 =
 
-===DPL交互接口===
+===第一章 DPL交互接口===
 
 所有的和DPL模块的交互方式的唯一接口就是通过一个`DplStatement`接口,String的dpl参数和一个Map(List和常量的存放的Map)来进行数据运算和关联。
 
@@ -96,9 +96,48 @@ public interface DplStatement {
 
 // $Id: DplStatement.java 13278 2010-05-26 11:29:38Z wei.zhang $
 }}}
-= Details =
 
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+
+===第二章 常用操作===
+以下所有的数据操作都基于如下数据
+list1
+||name||value||date
+||000001||1.1||2008-2-1||
+||000001||1.0||2008-2-2||
+||000001||1.1||2008-2-3||
+||000001||0.9||2008-2-5||
+||000002||2.1||2008-2-1||
+||000002||2.2||2008-2-3||
+||000002||1.8||2008-2-4||
+||000002||1.9||2008-2-6||
+
+list2
+||name||value||date
+||000001||0.1||2008-2-2||
+||000001||0.2||2008-2-4||
+||000002||0.1||2008-2-2||
+||000002||0.4||2008-2-4||
+
+list3
+||name||value||date
+||000001||0.01||2008-2-2||
+
+====简单数据过滤====
+过滤出所有的name=000001的list1的数据
+{{{
+select list1.* from list1 where list1.name='000001'
+}}}
+
+这里值得注意的是对于000001这么一个字符串常量需要用单引号括起来，单对于数字的话则不需要但引号。目前支持的常量类型只有字符串和数字。同时也需要注意的是如果在ProcessorContext和Map中有key=name value=000001的一条记录的话该条dpl也能转换为
+select list1.* from list1where list1.name= dual.name
+其中的dual就代表从ProcessorContext和Map中取得一个常量。
+
+得到的结果集合
+
+||name||value||date
+||000001||1.1||2008-2-1||
+||000001||1.0||2008-2-2||
+||000001||1.1||2008-2-3||
+||000001||0.9||2008-2-5||
+
+
