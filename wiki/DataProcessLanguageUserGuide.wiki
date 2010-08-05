@@ -126,9 +126,11 @@ list3
 select list1.* from list1 where list1.name='000001'
 }}}
 
-这里值得注意的是对于000001这么一个字符串常量需要用单引号括起来，单对于数字的话则不需要但引号。目前支持的常量类型只有字符串和数字。同时也需要注意的是如果在ProcessorContext和Map中有key=name value=000001的一条记录的话该条dpl也能转换为
+这里值得注意的是对于000001这么一个字符串常量需要用单引号括起来，单对于数字的话则不需要但引号。目前支持的常量类型只有字符串和数字。同时也需要注意的是如果在`ProcessorContext`和Map中有key=name value=000001的一条记录的话该条dpl也能转换为
+{{{
 select list1.* from list1where list1.name= dual.name
-其中的dual就代表从ProcessorContext和Map中取得一个常量。
+}}}
+其中的dual就代表从`ProcessorContext`和Map中取得一个常量。
 
 得到的结果集合
 
