@@ -4,13 +4,12 @@ DPL使用手册
 
 ===DPL交互接口===
 
-所有的和DPL模块的交互方式的唯一接口就是DplStatement，通过一个String的dpl参数和一个Map(List和常量的存放的Map)来进行数据运算和关联。
+所有的和DPL模块的交互方式的唯一接口就是DplStatement,通过一个String的dpl参数和一个Map(List和常量的存放的Map)来进行数据运算和关联。
 
 
 一共有4个重构接口。主要的参数请参见下表:
 ||参数名||参数名描述||
-||dpl||类似于sql的一个字符串，用于数据处理的一个描述字符串类似于
-select userList.name,userList.password from userList where userList.id=1 or userList.id = dual.id||
+||dpl||类似于sql的一个字符串，用于数据处理的一个描述字符串类似于select userList.name,userList.password from userList where userList.id=1 or userList.id = dual.id||
 ||PorcessorContext||用于dpl数据处理的一个Map对象，其中包含了userList之类的集合变量用于from，还包含了dual.id这类的常量用于常量替换。||
 ||Map<String,Object>||功用和ProcessorContext一样，只是一个简单的函数复载
 Clazz<T>用于dpl返回List内保存的对象的类型转换，通过这个参数可以把Map对象转换为T对象。前提就是Map中的key需要和T对象的属性能够名称上对应上。||
