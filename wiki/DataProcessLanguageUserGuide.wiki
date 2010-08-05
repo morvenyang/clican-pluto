@@ -1,8 +1,6 @@
-DPL使用手册
-
 = DPL使用手册 =
 
-===第一章 DPL交互接口===
+=+第一章 DPL交互接口==
 
 所有的和DPL模块的交互方式的唯一接口就是通过一个`DplStatement`接口,String的dpl参数和一个Map(List和常量的存放的Map)来进行数据运算和关联。
 
@@ -98,7 +96,7 @@ public interface DplStatement {
 }}}
 
 
-===第二章 常用操作===
+==第二章 常用操作==
 以下所有的数据操作都基于如下数据
 list1
 ||name||value||date||
@@ -122,7 +120,7 @@ list3
 ||name||value||date||
 ||000001||0.01||2008-2-2||
 
-====简单数据过滤====
+===简单数据过滤===
 过滤出所有的name=000001的list1的数据
 {{{
 select list1.* from list1 where list1.name='000001'
