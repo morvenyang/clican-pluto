@@ -32,8 +32,7 @@ import com.clican.pluto.fsm.engine.IState;
 import com.clican.pluto.fsm.engine.JobContext;
 import com.clican.pluto.fsm.enumeration.Propagation;
 import com.clican.pluto.fsm.enumeration.Status;
-import com.clican.pluto.fsm.listener.EndListener;
-import com.clican.pluto.fsm.listener.StartListener;
+import com.clican.pluto.fsm.listener.StateListener;
 import com.clican.pluto.fsm.listener.TimeOutListener;
 import com.clican.pluto.fsm.model.Event;
 import com.clican.pluto.fsm.model.Job;
@@ -76,9 +75,7 @@ public class DefaultStateImpl implements IState {
 
 	protected List<IState> nextStates;
 
-	protected List<StartListener> startListeners;
-
-	protected List<EndListener> endListeners;
+	protected List<StateListener> stateListeners;
 
 	protected Map<String, TimeOutListener> timeoutListeners;
 
@@ -139,8 +136,8 @@ public class DefaultStateImpl implements IState {
 				throw new RuntimeException("There is no match condition");
 			}
 		}
-		if (endListeners != null) {
-			for (EndListener listener : endListeners) {
+		if (stateListeners != null) {
+			for (StateListener listener : stateListeners) {
 				if (log.isDebugEnabled()) {
 					log.debug("execute state listener[" + listener.getClass().getName() + "]");
 				}
@@ -208,8 +205,8 @@ public class DefaultStateImpl implements IState {
 		if (log.isDebugEnabled()) {
 			log.debug("state=[" + this.getName() + "] is started");
 		}
-		if (startListeners != null) {
-			for (StartListener listener : startListeners) {
+		if (stateListeners != null) {
+			for (StateListener listener : stateListeners) {
 				if (log.isDebugEnabled()) {
 					log.debug("execute state listener[" + listener.getClass().getName() + "]");
 				}
@@ -356,22 +353,13 @@ public class DefaultStateImpl implements IState {
 		}
 	}
 
-	
 
-	public List<StartListener> getStartListeners() {
-		return startListeners;
+	public List<StateListener> getStateListeners() {
+		return stateListeners;
 	}
 
-	public void setStartListeners(List<StartListener> startListeners) {
-		this.startListeners = startListeners;
-	}
-
-	public List<EndListener> getEndListeners() {
-		return endListeners;
-	}
-
-	public void setEndListeners(List<EndListener> endListeners) {
-		this.endListeners = endListeners;
+	public void setStateListeners(List<StateListener> stateListeners) {
+		this.stateListeners = stateListeners;
 	}
 
 	public Map<String, TimeOutListener> getTimeoutListeners() {
