@@ -92,16 +92,6 @@
 		<xsd:complexType mixed="true">
 			<xsd:complexContent>
 				<xsd:extension base="stateType">
-					<xsd:sequence>
-						<xsd:element name="taskListener" type="listenerType"
-							minOccurs="0" maxOccurs="unbounded">
-							<xsd:annotation>
-								<xsd:documentation>  
-                             <![CDATA[]]>
-								</xsd:documentation>
-							</xsd:annotation>
-						</xsd:element>
-					</xsd:sequence>
 					<xsd:attribute name="assignees" type="xsd:string"
 						use="required"></xsd:attribute>
 					<xsd:attribute name="taskName" type="xsd:string" use="optional"></xsd:attribute>
@@ -118,6 +108,14 @@
 				<xsd:sequence>
 					<xsd:choice minOccurs="0" maxOccurs="unbounded">
 						<xsd:element name="stateListener" type="listenerType"
+							minOccurs="0" maxOccurs="unbounded">
+							<xsd:annotation>
+								<xsd:documentation>  
+                             <![CDATA[]]>
+								</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="taskListener" type="listenerType"
 							minOccurs="0" maxOccurs="unbounded">
 							<xsd:annotation>
 								<xsd:documentation>  
