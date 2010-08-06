@@ -9,8 +9,7 @@ package com.clican.pluto.fsm.engine;
 import java.util.List;
 import java.util.Map;
 
-import com.clican.pluto.fsm.listener.EndListener;
-import com.clican.pluto.fsm.listener.StartListener;
+import com.clican.pluto.fsm.listener.StateListener;
 import com.clican.pluto.fsm.listener.TimeOutListener;
 import com.clican.pluto.fsm.model.Event;
 import com.clican.pluto.fsm.model.Session;
@@ -45,15 +44,9 @@ public interface IState extends EventHandler {
 	 */
 	public void onEnd(Event event);
 
+	public List<StateListener> getStateListeners();
 
-
-	public List<StartListener> getStartListeners();
-
-	public void setStartListeners(List<StartListener> startListeners);
-
-	public List<EndListener> getEndListeners();
-
-	public void setEndListeners(List<EndListener> endListeners) ;
+	public void setStateListeners(List<StateListener> startListeners);
 
 	public Map<String, TimeOutListener> getTimeoutListeners() ;
 

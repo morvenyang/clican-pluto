@@ -19,8 +19,7 @@ import com.clican.pluto.fsm.engine.EngineContext;
 import com.clican.pluto.fsm.engine.IState;
 import com.clican.pluto.fsm.enumeration.Parameters;
 import com.clican.pluto.fsm.enumeration.Status;
-import com.clican.pluto.fsm.listener.EndListener;
-import com.clican.pluto.fsm.listener.StartListener;
+import com.clican.pluto.fsm.listener.StateListener;
 import com.clican.pluto.fsm.model.Event;
 import com.clican.pluto.fsm.model.State;
 
@@ -30,7 +29,7 @@ import com.clican.pluto.fsm.model.State;
  * @author wei.zhang
  * 
  */
-public class CancelSubStateListener implements StartListener, EndListener {
+public class CancelSubStateListener implements StateListener {
 
 	private final static Log log = LogFactory
 			.getLog(CancelSubStateListener.class);

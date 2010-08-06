@@ -18,7 +18,8 @@ import com.clican.pluto.fsm.engine.state.TaskStateImpl;
 public class TaskStateParser extends AbstractStateParser {
 
 	@Override
-	public void customiseBeanDefinition(BeanDefinition beanDef, Element element, ParserContext parserContext) {
+	public void customiseBeanDefinition(BeanDefinition beanDef,
+			Element element, ParserContext parserContext) {
 		String taskName = element.getAttribute("taskName");
 		beanDef.getPropertyValues().addPropertyValue("taskName", taskName);
 		String taskType = element.getAttribute("taskType");
