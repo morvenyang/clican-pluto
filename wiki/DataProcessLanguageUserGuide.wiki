@@ -27,7 +27,7 @@ import com.clican.pluto.dataprocess.engine.ProcessorContext;
 import com.clican.pluto.dataprocess.exception.DplException;
 
 /**
- * Date Process Language的处理类，该类的实现接口可以用来根据dpl描述的查询语句
+ * Data Process Language的处理类，该类的实现接口可以用来根据dpl描述的查询语句
  * <code>ProcessorContext</code>的上下文中把希望获得的数据各类where条件、group by条件order
  * by条件再经过各个calculation计算获得结果。
  * 
