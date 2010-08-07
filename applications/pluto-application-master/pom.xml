@@ -5,31 +5,37 @@
 	<groupId>com.clican.pluto</groupId>
 	<artifactId>master</artifactId>
 	<packaging>pom</packaging>
-	<name>pluto</name>
+	<name>pluto-master</name>
 	<version>0.0.1</version>
 	<description>The pluto system</description>
 	<inceptionYear>2009</inceptionYear>
 	<organization>
 		<name>Clican Software</name>
-		<url>http://www.clican.com</url>
+		<url>http://code.google.com/p/clican-pluto</url>
 	</organization>
 	<url>
-		http://clican-pluto.sourceforge.net/
+		http://code.google.com/p/clican-pluto/
 	</url>
+	<licenses>
+		<license>
+			<name>LGPL</name>
+			<url>http://www.gnu.org/licenses/lgpl.html</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
 	<issueManagement>
-		<system>Mantis</system>
-		<url>http://apps.sourceforge.net/mantisbt/clican-pluto/main_page.php
-		</url>
+		<system>Google Issues</system>
+		<url>http://code.google.com/p/clican-pluto/issues/list</url>
 	</issueManagement>
 	<scm>
 		<connection>
-			scm:svn:https://clican-pluto.svn.sourceforge.net/svnroot/clican-pluto
+			http://clican-pluto.googlecode.com/svn/trunk/applications/pluto-application-master
 		</connection>
 		<developerConnection>
-			scm:svn:https://clican-pluto.svn.sourceforge.net/svnroot/clican-pluto
+			https://clican-pluto.googlecode.com/svn/trunk/applications/pluto-application-master
 		</developerConnection>
 		<url>
-			scm:svn:https://clican-pluto.svn.sourceforge.net/svnroot/clican-pluto
+			http://code.google.com/p/clican-pluto/source/checkout
 		</url>
 	</scm>
 	<modules>
