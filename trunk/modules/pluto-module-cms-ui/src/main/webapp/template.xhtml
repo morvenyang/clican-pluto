@@ -1,15 +1,18 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
                       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:s="http://jboss.com/products/seam/taglib" xmlns:rich="http://richfaces.org/rich"
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:rich="http://richfaces.org/rich"
 	xmlns:a4j="http://richfaces.org/a4j">
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<title>Pluto</title>
-		<link href="stylesheet/theme.css" rel="stylesheet" type="text/css" />
-		<ui:insert name="javascript" />
-		<script type="text/javascript">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Pluto</title>
+<link href="stylesheet/theme.css" rel="stylesheet" type="text/css" />
+<ui:insert name="javascript" />
+<script type="text/javascript">
 			<!--
 				var mouseX=0; var p = 0; var move = false; function
 				ondivmousemove(event){ if (move) { if(event.clientX<p){
@@ -24,25 +27,20 @@
 				ondivmouseup(event){ move=false; } //
 			-->
 		</script>
-	</head>
-	<body>
-		<ui:include src="menu.xhtml">
-			<ui:param name="projectName" value="Pluto" />
-		</ui:include>
-		<h:panelGrid columns="3">
-			<ui:include src="leftpanel.xhtml">
-				<ui:param name="projectName" value="Pluto" />
-			</ui:include>
-			<rich:panel id="centerPanel" style="width:0px;height:650px;border-width:5px"
-				onmouseover="ondivmouseover(event);" onmouseout="ondivmouseout(event);"
-				onmousedown="ondivmousedown(event);" onmouseup="ondivmouseup(event);"
-				onmousemove="ondivmousemove(event);">
-			</rich:panel>
-			<ui:insert name="body" />
-		</h:panelGrid>
-		<div class="footer">
-			© Copyright 2008 Hewlett-Packard Development Company,
-			L.P.
-		</div>
-	</body>
+</head>
+<body>
+<ui:include src="menu.xhtml">
+	<ui:param name="projectName" value="Pluto" />
+</ui:include>
+<h:panelGrid columns="3">
+	<ui:include src="leftpanel.xhtml">
+		<ui:param name="projectName" value="Pluto" />
+	</ui:include>
+	<rich:panel>
+		<ui:insert name="body" />
+	</rich:panel>
+</h:panelGrid>
+<div class="footer">© Copyright 2008 Hewlett-Packard Development
+Company, L.P.</div>
+</body>
 </html>
