@@ -39,9 +39,10 @@
 								<cms:dataModelConverter modelClass="${pd.type.className}" />
 								<c:forEach var="selection"
 									items="#{dataStructureAction.dataModelService.getDataModels(pd.type.name,null)}">
-									<f:selectItem itemLabel="#{selection.name}"
-										itemValue="#{selection}" />
+									<f:selectItem itemValue="#{selection}"
+										itemLabel="#{selection.name}" />
 								</c:forEach>
+								<s:convertEntity />
 							</c:if>
 							<c:if test="#{!pd.control.dynamic}">
 								<c:forEach var="selection"
@@ -56,11 +57,11 @@
 							value="#{dataModelAction.dataModelMap[pd.firstCharLowerName]}">
 							<c:if test="#{pd.control.dynamic}">
 								<cms:dataModelConverter
-									modelClass="${pd.type.className.replaceAll('\[\]','')}" />
+									modelClass="${pd.type.className.replaceAll('\\[\\]','')}" />
 								<c:forEach var="selection"
-									items="#{dataStructureAction.dataModelService.getDataModels(pd.type.name.replaceAll('\[\]',''),null)}">
-									<f:selectItem itemLabel="#{selection.name}"
-										itemValue="#{selection}" />
+									items="#{dataStructureAction.dataModelService.getDataModels(pd.type.name,null)}">
+									<f:selectItem itemValue="#{selection}"
+										itemLabel="#{selection.name}" />
 								</c:forEach>
 							</c:if>
 							<c:if test="#{!pd.control.dynamic}">
@@ -78,8 +79,8 @@
 								<cms:dataModelConverter modelClass="${pd.type.className}" />
 								<c:forEach var="selection"
 									items="#{dataStructureAction.dataModelService.getDataModels(pd.type.name,null)}">
-									<f:selectItem itemLabel="#{selection.name}"
-										itemValue="#{selection}" />
+									<f:selectItem itemValue="#{selection}"
+										itemLabel="#{selection.name}" />
 								</c:forEach>
 							</c:if>
 							<c:if test="#{!pd.control.dynamic}">
@@ -95,11 +96,11 @@
 							value="#{dataModelAction.dataModelMap[pd.firstCharLowerName]}">
 							<c:if test="#{pd.control.dynamic}">
 								<cms:dataModelConverter
-									modelClass="${pd.type.className.replaceAll('\[\]','')}" />
+									modelClass="${pd.type.className.replaceAll('\\[\\]','')}" />
 								<c:forEach var="selection"
-									items="#{dataStructureAction.dataModelService.getDataModels(pd.type.name.replaceAll('\[\]',''),null)}">
-									<f:selectItem itemLabel="#{selection.name}"
-										itemValue="#{selection}" />
+									items="#{dataStructureAction.dataModelService.getDataModels(pd.type.name.replaceAll('\\[\\]',''),null)}">
+									<f:selectItem itemValue="#{selection}"
+										itemLabel="#{selection.name}" />
 								</c:forEach>
 							</c:if>
 							<c:if test="#{!pd.control.dynamic}">
