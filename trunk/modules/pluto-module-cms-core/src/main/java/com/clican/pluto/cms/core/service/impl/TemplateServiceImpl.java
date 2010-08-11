@@ -38,7 +38,11 @@ public class TemplateServiceImpl extends BaseService implements TemplateService 
 
 	@Transactional
 	public void save(ITemplate template) {
-		templateDao.save(template);
+		if (template.getId() != null) {
+			templateDao.update(template);
+		} else {
+			templateDao.save(template);
+		}
 	}
 
 	public ITemplate newTemplate() {

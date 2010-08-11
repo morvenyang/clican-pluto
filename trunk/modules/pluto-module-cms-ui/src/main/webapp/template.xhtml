@@ -7,7 +7,7 @@
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:c="http://java.sun.com/jstl/core">
-	<h:form>
+	<h:form id="templateForm">
 		<rich:contextMenu attachTo="templatesTab" submitMode="none">
 			<rich:menuItem value="New Template" submitMode="ajax"
 				action="#{templateAction.newTemplate()}" reRender="workspace">
@@ -18,11 +18,11 @@
 				value="#{template.name}" submitMode="none"
 				direction="bottom-right" jointPoint="tr">
 				<rich:menuItem value="Delete" submitMode="ajax"
-					action="#{templateAction.delete(dataModelDesc)}"
-					reRender="templatesTab"></rich:menuItem>
+					action="#{templateAction.delete(template)}"
+					reRender="templateForm"></rich:menuItem>
 				<rich:menuItem value="Edit" submitMode="ajax"
-					action="#{templateAction.edit(dataModelDesc)}"
-					reRender="templatesTab"></rich:menuItem>
+					action="#{templateAction.edit(template)}"
+					reRender="workspace"></rich:menuItem>
 			</rich:dropDownMenu>
 		</c:forEach>
 	</h:form>

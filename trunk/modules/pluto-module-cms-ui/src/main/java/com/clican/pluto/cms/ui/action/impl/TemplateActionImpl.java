@@ -50,8 +50,6 @@ public class TemplateActionImpl extends BaseAction implements TemplateAction {
 
 	public void save() {
 		templateService.save(template);
-		templateList.add(template);
-
 		templateList.clear();
 		templateList.addAll(templateService.getTemplates());
 		Collections.sort(templateList, new PropertyComparator<ITemplate>("name"));
@@ -71,6 +69,7 @@ public class TemplateActionImpl extends BaseAction implements TemplateAction {
 
 	public void delete(ITemplate template) {
 		templateList.remove(template);
+		templateService.delete(template);
 	}
 
 	private void clear() {
