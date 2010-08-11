@@ -8,6 +8,7 @@
 package com.clican.pluto.cms.core.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.clican.pluto.orm.desc.ModelDescription;
 import com.clican.pluto.orm.dynamic.inter.IDataModel;
@@ -24,7 +25,9 @@ public interface DataModelService {
 	public List<IDataModel> getDataModels(IDirectory parent,
 			ModelDescription modelDescription, List<String> orderBy);
 
-	public void save(IDataModel dataModel);
+	
+	public void save(Map<String,Object> dataModelMap,IDirectory parent,
+			ModelDescription modelDescription);
 
 	public void delete(List<IDataModel> dataModels,
 			ModelDescription modelDescription);
