@@ -12,12 +12,6 @@ http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
 ">
 	<tx:annotation-driven transaction-manager="springTransactionManager" />
 	
-	<bean id="dataStructureXHTMLTemplate" class="org.apache.velocity.app.Velocity"
-		factory-method="getTemplate">
-		<constructor-arg value="${dataStructureXHTMLTemplateFile}">
-		</constructor-arg>
-	</bean>
-	
 	<bean id="directoryService"
 		class="com.clican.pluto.cms.core.service.impl.DirectoryServiceImpl"
 		autowire="byName" />

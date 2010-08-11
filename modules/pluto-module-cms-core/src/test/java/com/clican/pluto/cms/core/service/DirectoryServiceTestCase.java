@@ -14,7 +14,6 @@ import java.util.Set;
 import org.jmock.Expectations;
 
 import com.clican.pluto.cms.core.BaseTestCase;
-import com.clican.pluto.cms.core.service.impl.DirectoryServiceImpl;
 import com.clican.pluto.cms.dao.DirectoryDao;
 import com.clican.pluto.orm.dynamic.inter.ClassLoaderUtil;
 import com.clican.pluto.orm.dynamic.inter.IDirectory;
@@ -22,14 +21,14 @@ import com.clican.pluto.orm.dynamic.inter.ITemplateDirectoryRelation;
 
 public class DirectoryServiceTestCase extends BaseTestCase {
 
-	private DirectoryServiceImpl directoryService;
+	private DirectoryService directoryService;
 
 	private ClassLoaderUtil classLoaderUtil;
 
 	private DirectoryDao directoryDao;
 
 	public void setDirectoryService(DirectoryService directoryService) {
-		this.directoryService = (DirectoryServiceImpl) directoryService;
+		this.directoryService = directoryService;
 		classLoaderUtil = this.context.mock(ClassLoaderUtil.class);
 		directoryDao = this.context.mock(DirectoryDao.class);
 		this.directoryService.setClassLoaderUtil(classLoaderUtil);
@@ -92,50 +91,49 @@ public class DirectoryServiceTestCase extends BaseTestCase {
 
 			public void setChildren(Set<IDirectory> children) {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			public void setCreateTime(Calendar createTime) {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			public void setId(Long id) {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			public void setName(String name) {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			public void setParent(IDirectory parent) {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			public void setPath(String path) {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			public void setReference(IDirectory reference) {
 				// TODO Auto-generated method stub
-				
+
 			}
 
-			public void setTemplateDirectoryRelationSet(
-					Set<ITemplateDirectoryRelation> templateDirectoryRelationSet) {
+			public void setTemplateDirectoryRelationSet(Set<ITemplateDirectoryRelation> templateDirectoryRelationSet) {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			public void setUpdateTime(Calendar updateTime) {
 				// TODO Auto-generated method stub
-				
+
 			}
-			
+
 		};
 		context.checking(new Expectations() {
 			{

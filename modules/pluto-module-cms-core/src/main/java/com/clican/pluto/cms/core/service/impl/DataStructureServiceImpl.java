@@ -7,24 +7,17 @@
  */
 package com.clican.pluto.cms.core.service.impl;
 
-import java.io.File;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.velocity.Template;
-import org.apache.velocity.VelocityContext;
 import org.hibernate.cfg.Configuration;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.clican.pluto.cms.core.service.DataStructureService;
-import com.clican.pluto.common.constant.Constants;
 import com.clican.pluto.common.control.Control;
 import com.clican.pluto.common.control.MutilValueControl;
-import com.clican.pluto.common.exception.ORMManageException;
 import com.clican.pluto.common.type.CustomListType;
 import com.clican.pluto.common.type.CustomType;
 import com.clican.pluto.common.type.Type;
@@ -35,10 +28,8 @@ import com.clican.pluto.orm.dynamic.inter.DynamicORMManage;
 import com.clican.pluto.orm.dynamic.inter.IDataBaseOperation;
 import com.clican.pluto.orm.dynamic.inter.ModelContainer;
 import com.clican.pluto.orm.dynamic.inter.SessionFactoryUpdate;
-import com.clican.pluto.transaction.connections.XAFileSetConnection;
 
-public class DataStructureServiceImpl extends BaseService implements
-		DataStructureService {
+public class DataStructureServiceImpl extends BaseService implements DataStructureService {
 
 	private List<Control> controlList;
 
@@ -52,16 +43,11 @@ public class DataStructureServiceImpl extends BaseService implements
 
 	private SessionFactoryUpdate sessionFactoryUpdate;
 
-	private Template dataStructureXHTMLTemplate;
-
 	private ModelContainer modelContainer;
 
 	private IDataBaseOperation dataBaseOperation;
 
-	private XAFileSetConnection dataStructureXHTMLConnection;
-
-	public void setSessionFactoryUpdate(
-			SessionFactoryUpdate sessionFactoryUpdate) {
+	public void setSessionFactoryUpdate(SessionFactoryUpdate sessionFactoryUpdate) {
 		this.sessionFactoryUpdate = sessionFactoryUpdate;
 	}
 
@@ -73,11 +59,6 @@ public class DataStructureServiceImpl extends BaseService implements
 		this.dynamicORMManage = dynamicORMManage;
 	}
 
-	public void setDataStructureXHTMLTemplate(
-			Template dataStructureXHTMLTemplate) {
-		this.dataStructureXHTMLTemplate = dataStructureXHTMLTemplate;
-	}
-
 	public void setModelContainer(ModelContainer modelContainer) {
 		this.modelContainer = modelContainer;
 	}
@@ -86,26 +67,17 @@ public class DataStructureServiceImpl extends BaseService implements
 		this.dataBaseOperation = dataBaseOperation;
 	}
 
-	public void setDataStructureXHTMLConnection(
-			XAFileSetConnection dataStructureXHTMLConnection) {
-		this.dataStructureXHTMLConnection = dataStructureXHTMLConnection;
-	}
-
 	@Transactional
 	public void save(ModelDescription modelDescription) {
-		dataStructureXHTMLConnection.connect();
-		generateDataStrucutreXHTMLPage(modelDescription);
 		dynamicORMManage.generateORM(modelDescription);
 		Configuration cfg = sessionFactoryUpdate.update();
 		dataBaseOperation.createTable(cfg);
 	}
 
 	@Transactional
-	public void update(String oldModelDescName,
-			ModelDescription modelDescription) {
+	public void update(String oldModelDescName, ModelDescription modelDescription) {
 		ModelDescription oldOne = modelContainer.getModelDesc(oldModelDescName);
 		ModelDescription newOne = modelDescription;
-		generateDataStrucutreXHTMLPage(newOne);
 		dynamicORMManage.updateORM(oldOne, newOne);
 		Configuration cfg = sessionFactoryUpdate.update();
 		dataBaseOperation.alterTable(cfg, oldOne, newOne);
@@ -119,14 +91,11 @@ public class DataStructureServiceImpl extends BaseService implements
 			for (PropertyDescription pd : md.getPropertyDescriptionList()) {
 				Type type = pd.getType();
 				if (type instanceof CustomType) {
-					if (type.getDeclareString().equals(
-							modelDescription.getFirstCharUpperName())) {
+					if (type.getDeclareString().equals(modelDescription.getFirstCharUpperName())) {
 						removeProp.add(pd);
 					}
 				} else if (type instanceof CustomListType) {
-					if (((CustomListType) type).getCustomType()
-							.getDeclareString().equals(
-									modelDescription.getFirstCharUpperName())) {
+					if (((CustomListType) type).getCustomType().getDeclareString().equals(modelDescription.getFirstCharUpperName())) {
 						removeProp.add(pd);
 					}
 				}
@@ -135,7 +104,6 @@ public class DataStructureServiceImpl extends BaseService implements
 				ModelDescription oldOne = md;
 				ModelDescription newOne = oldOne.getCloneBean();
 				newOne.getPropertyDescriptionList().removeAll(removeProp);
-				generateDataStrucutreXHTMLPage(newOne);
 				dynamicORMManage.updateORM(oldOne, newOne);
 				updateModelMap.put(oldOne, newOne);
 			}
@@ -154,12 +122,10 @@ public class DataStructureServiceImpl extends BaseService implements
 		if (control == null) {
 			return result;
 		}
-		if (control instanceof MutilValueControl
-				&& ((MutilValueControl) control).isDynamic()) {
+		if (control instanceof MutilValueControl && ((MutilValueControl) control).isDynamic()) {
 			for (Class<?> clazz : classLoaderUtil.getAllDataModelClass()) {
 				if (control.isSupportMutil()) {
-					result.add(new CustomListType(new CustomType(clazz
-							.getName())));
+					result.add(new CustomListType(new CustomType(clazz.getName())));
 				} else {
 					result.add(new CustomType(clazz.getName()));
 				}
@@ -205,44 +171,6 @@ public class DataStructureServiceImpl extends BaseService implements
 		this.controlList = controlList;
 		for (Control control : controlList) {
 			controlMap.put(control.getName(), control);
-		}
-	}
-
-	@Transactional
-	public void init() {
-		if (!Constants.DATA_STRUCTURE_XHTML_FOLDER.exists()) {
-			Constants.DATA_STRUCTURE_XHTML_FOLDER.mkdirs();
-		}
-		dataStructureXHTMLConnection.connect();
-		for (ModelDescription modelDescription : modelContainer.getModelDescs()) {
-			generateDataStrucutreXHTMLPage(modelDescription);
-		}
-	}
-
-	private void generateDataStrucutreXHTMLPage(
-			ModelDescription modelDescription) {
-		Writer w = null;
-		VelocityContext velocityContext = new VelocityContext();
-		velocityContext.put("propertyDescriptionList", modelDescription
-				.getPropertyDescriptionList());
-		try {
-			w = new OutputStreamWriter(dataStructureXHTMLConnection
-					.getXAResource().getOutputStream(
-							new File(Constants.DATA_STRUCTURE_XHTML_FOLDER
-									+ "/" + modelDescription.getName()
-									+ ".xhtml")), "utf-8");
-			dataStructureXHTMLTemplate.merge(velocityContext, w);
-			w.flush();
-		} catch (Exception e) {
-			throw new ORMManageException(e);
-		} finally {
-			try {
-				if (w != null) {
-					w.close();
-				}
-			} catch (Exception e) {
-				log.error("", e);
-			}
 		}
 	}
 

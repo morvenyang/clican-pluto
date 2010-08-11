@@ -31,8 +31,6 @@ public interface DataStructureService {
 
 	public List<Control> getControlList();
 
-	public void init();
-	
 	public void setModelContainer(ModelContainer modelContainer);
 
 }
