@@ -7,13 +7,11 @@
  */
 package com.clican.pluto.cms.ui.listener;
 
-import java.io.File;
 import java.util.Hashtable;
 
 import javax.naming.Context;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
-import javax.transaction.UserTransaction;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -39,7 +37,6 @@ public class StartupListener extends ContextLoaderListener implements ServletCon
 
 	public void contextInitialized(ServletContextEvent event) {
 		super.contextInitialized(event);
-		Constants.DATA_STRUCTURE_XHTML_FOLDER = new File(event.getServletContext().getRealPath("datastructure"));
 		try {
 			Velocity.init(Thread.currentThread().getContextClassLoader().getResource("velocity.properties").getPath());
 		} catch (Exception e) {
@@ -65,8 +62,6 @@ public class StartupListener extends ContextLoaderListener implements ServletCon
 		wac.refresh();
 		event.getServletContext().setAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE, wac);
 		Constants.ctx = wac;
-		UserTransaction userTransaction = (UserTransaction) wac.getBean("userTransaction");
-		JndiUtils.bind("userTransaction", userTransaction);
 	}
 }
 

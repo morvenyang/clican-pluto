@@ -13,11 +13,16 @@ http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 		<property name="sessionFactoryUpdate" ref="sessionFactory" />
 	</bean>
 
+	<bean id="dynamicClassLoader" class="com.clican.pluto.orm.dynamic.impl.DynamicClassLoader"
+		init-method="init">
+		<property name="tempORMCfgPojoFolder" value="${tempORMCfgPojoFolder}" />
+	</bean>
+
 	<bean id="dialect" class="${db.dialect}" />
 
 	<bean id="dataBaseOperation" class="com.clican.pluto.orm.dynamic.impl.DataBaseOperationImpl"
 		autowire="byName">
-		<property name="dataSource" ref="xaDataSource"></property>
+		<property name="dataSource" ref="dataSource"></property>
 	</bean>
 
 	<bean id="modelTemplate" class="org.apache.velocity.app.Velocity"
@@ -49,7 +54,6 @@ http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 		<constructor-arg value="${templateDirectoryRelationTemplateFile}">
 		</constructor-arg>
 	</bean>
-
 
 	<bean id="modelContainer" class="com.clican.pluto.orm.dynamic.impl.ModelContainerImpl"
 		init-method="init" autowire="byName">
