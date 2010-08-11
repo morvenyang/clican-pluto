@@ -10,17 +10,5 @@
 	xmlns:c="http://java.sun.com/jstl/core">
 	<ui:include src="tree.xhtml" />
 	<ui:include src="datastructure.xhtml" />
-	<rich:tab id="templatesTab" label="Templates">
-		<h:form>
-			<rich:contextMenu attachTo="templatesTab" submitMode="none">
-				<rich:menuItem value="New Template" submitMode="ajax"
-					action="#{templateAction.newTemplate()}" reRender="workspace">
-				</rich:menuItem>
-			</rich:contextMenu>
-			<rich:dataList id="templateList" var="template"
-				value="#{templateList}">
-				<h:outputText value="#{template.name}" />
-			</rich:dataList>
-		</h:form>
-	</rich:tab>
+	<ui:include src="template.xhtml" />
 </rich:tabPanel>
