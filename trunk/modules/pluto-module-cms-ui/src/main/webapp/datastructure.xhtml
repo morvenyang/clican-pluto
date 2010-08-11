@@ -14,18 +14,17 @@
 				reRender="workspace">
 			</rich:menuItem>
 		</rich:contextMenu>
-		<rich:dataList id="dataStructureList" var="dataModelDesc"
-			value="#{dataModelDescList}">
-			<h:outputText value="#{dataModelDesc.name}" styleClass="label"/>
-			<rich:contextMenu submitMode="none">
+		<c:forEach var="dataModelDesc" items="#{dataModelDescList}">
+			<rich:dropDownMenu style="font-size:25px;"
+				value="#{dataModelDesc.name}" submitMode="none"
+				direction="bottom-right" jointPoint="tr">
 				<rich:menuItem value="Delete" submitMode="ajax"
 					action="#{dataStructureAction.delete(dataModelDesc)}"
 					reRender="dataStructureList"></rich:menuItem>
 				<rich:menuItem value="Edit" submitMode="ajax"
 					action="#{dataStructureAction.edit(dataModelDesc)}"
 					reRender="workspace"></rich:menuItem>
-			</rich:contextMenu>
-			<br/>
-		</rich:dataList>
+			</rich:dropDownMenu>
+		</c:forEach>
 	</h:form>
 </rich:tab>
