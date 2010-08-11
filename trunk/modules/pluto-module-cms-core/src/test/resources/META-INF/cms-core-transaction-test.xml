@@ -34,14 +34,6 @@ http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
 		</constructor-arg>
 	</bean>
 	
-	<bean id="dataStructureXHTMLConnection" class="com.clican.pluto.transaction.connections.XAFileSetConnection">
-		<property name="transactionManager"><ref bean="transactionManager" /></property>
-		<property name="fileSetResource"><ref bean="dataStructureXHTMLResource" /></property>
-	</bean>
-	
-	<bean id="dataStructureXHTMLResource" class="com.clican.pluto.transaction.resources.memory.XAFileSetResourceMemoryImpl">
-	</bean>
-	
 	<bean id="springTransactionManager"
 		class="org.springframework.transaction.jta.JtaTransactionManager">
 		<property name="userTransaction">
