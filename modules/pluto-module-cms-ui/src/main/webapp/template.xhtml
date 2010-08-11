@@ -1,4 +1,4 @@
-<rich:tab id="dataStructuresTab" label="Data Structures"
+<rich:tab id="templatesTab" label="Templates"
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -8,22 +8,21 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:c="http://java.sun.com/jstl/core">
 	<h:form>
-		<rich:contextMenu attachTo="dataStructuresTab" submitMode="none">
-			<rich:menuItem value="New Data Structure" submitMode="ajax"
-				action="#{dataStructureAction.newDataStructure()}"
-				reRender="workspace">
+		<rich:contextMenu attachTo="templatesTab" submitMode="none">
+			<rich:menuItem value="New Template" submitMode="ajax"
+				action="#{templateAction.newTemplate()}" reRender="workspace">
 			</rich:menuItem>
 		</rich:contextMenu>
-		<c:forEach var="dataModelDesc" items="#{dataModelDescList}">
+		<c:forEach var="template" items="#{templateList}">
 			<rich:dropDownMenu style="font-size:25px;"
-				value="#{dataModelDesc.name}" submitMode="none"
+				value="#{template.name}" submitMode="none"
 				direction="bottom-right" jointPoint="tr">
 				<rich:menuItem value="Delete" submitMode="ajax"
-					action="#{dataStructureAction.delete(dataModelDesc)}"
-					reRender="dataStructuresTab"></rich:menuItem>
+					action="#{templateAction.delete(dataModelDesc)}"
+					reRender="templatesTab"></rich:menuItem>
 				<rich:menuItem value="Edit" submitMode="ajax"
-					action="#{dataStructureAction.edit(dataModelDesc)}"
-					reRender="dataStructuresTab"></rich:menuItem>
+					action="#{templateAction.edit(dataModelDesc)}"
+					reRender="templatesTab"></rich:menuItem>
 			</rich:dropDownMenu>
 		</c:forEach>
 	</h:form>
