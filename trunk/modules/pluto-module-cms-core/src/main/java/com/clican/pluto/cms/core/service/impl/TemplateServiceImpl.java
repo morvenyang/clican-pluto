@@ -60,6 +60,11 @@ public class TemplateServiceImpl extends BaseService implements TemplateService 
 		return templateDao.getSelectedTemplates(dataModel);
 	}
 
+	@Transactional
+	public void delete(ITemplate template) {
+		templateDao.delete(template);
+	}
+
 	@Transactional(readOnly = true)
 	public void init() {
 		for (ITemplate template : templateDao.getTemplates()) {

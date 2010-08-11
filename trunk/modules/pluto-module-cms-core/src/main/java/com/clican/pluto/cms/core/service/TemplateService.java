@@ -21,7 +21,9 @@ public interface TemplateService {
 	public ITemplate newTemplate();
 
 	public List<ITemplate> getSelectedTemplates(IDataModel dataModel);
-	
+
+	public void delete(ITemplate template);
+
 }
 
 // $Id$
