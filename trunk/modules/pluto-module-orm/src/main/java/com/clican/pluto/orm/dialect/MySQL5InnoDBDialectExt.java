@@ -32,7 +32,10 @@ public class MySQL5InnoDBDialectExt extends MySQL5InnoDBDialect implements
 	public String getDropFKString() {
 		return "drop foreign key";
 	}
-
+	
+	public String getTableTypeString() {
+		return " ENGINE=InnoDB DEFAULT CHARSET=utf8";
+	}
 	
 }
 
