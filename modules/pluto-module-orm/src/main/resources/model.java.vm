@@ -108,7 +108,7 @@ public class $modelDescription.firstCharUpperName implements IDataModel {
 	@JoinTable(name = "${modelDescription.name.toUpperCase()}_${field.name.toUpperCase()}_RELATION", inverseJoinColumns= @JoinColumn(name = "${field.type.customType.name.toUpperCase()}_ID", referencedColumnName = "ID"),joinColumns = @JoinColumn(name = "${modelDescription.name.toUpperCase()}_ID", referencedColumnName = "ID"))
 	#end
 	#if ( !$field.control.dynamic )
-	@Type(type="com.clican.pluto.orm.dynamic.StringSplitType")
+	@Type(type="com.clican.pluto.orm.usertype.StringSplitType")
 	@Column(name= "$field.name.toUpperCase()")
 	#end
 	#end
