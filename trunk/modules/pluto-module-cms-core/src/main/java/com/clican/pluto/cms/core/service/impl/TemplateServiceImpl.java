@@ -7,9 +7,6 @@
  */
 package com.clican.pluto.cms.core.service.impl;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.OutputStream;
 import java.util.List;
 
 import org.springframework.transaction.annotation.Transactional;
@@ -26,18 +23,12 @@ public class TemplateServiceImpl extends BaseService implements TemplateService 
 
 	private ClassLoaderUtil classLoaderUtil;
 
-	private File templateStoragePath = new File("c:/templates");
-
 	public void setTemplateDao(TemplateDao templateDao) {
 		this.templateDao = templateDao;
 	}
 
 	public void setClassLoaderUtil(ClassLoaderUtil classLoaderUtil) {
 		this.classLoaderUtil = classLoaderUtil;
-	}
-
-	public void setTemplateStoragePath(File templateStoragePath) {
-		this.templateStoragePath = templateStoragePath;
 	}
 
 	@Transactional(readOnly = true)
@@ -48,7 +39,6 @@ public class TemplateServiceImpl extends BaseService implements TemplateService 
 	@Transactional
 	public void save(ITemplate template) {
 		templateDao.save(template);
-		createTemplateFile(template);
 	}
 
 	public ITemplate newTemplate() {
@@ -65,29 +55,6 @@ public class TemplateServiceImpl extends BaseService implements TemplateService 
 		templateDao.delete(template);
 	}
 
-	@Transactional(readOnly = true)
-	public void init() {
-		for (ITemplate template : templateDao.getTemplates()) {
-			createTemplateFile(template);
-		}
-	}
-
-	private void createTemplateFile(ITemplate template) {
-		OutputStream os = null;
-		try {
-			os = new FileOutputStream(templateStoragePath.getAbsolutePath()
-					+ "/" + template.getName() + ".vm");
-			os.write(template.getContent().getBytes("utf-8"));
-		} catch (Exception e) {
-			log.error("", e);
-		} finally {
-			try {
-				os.close();
-			} catch (Exception e) {
-				log.error("", e);
-			}
-		}
-	}
 }
 
 // $Id$

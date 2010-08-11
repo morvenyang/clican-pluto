@@ -31,7 +31,7 @@ http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
 
 	<bean id="templateService"
 		class="com.clican.pluto.cms.core.service.impl.TemplateServiceImpl"
-		autowire="byName" init-method="init" depends-on="dynamicORMManage" />
+		autowire="byName" />
 
 	<bean id="issueService" class="com.clican.pluto.cms.core.service.impl.IssueServiceImpl"
 		autowire="byName" />

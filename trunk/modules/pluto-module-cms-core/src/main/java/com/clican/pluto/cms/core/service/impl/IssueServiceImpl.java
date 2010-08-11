@@ -17,7 +17,8 @@ import java.util.Map;
 
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
-import org.apache.velocity.app.Velocity;
+import org.apache.velocity.runtime.RuntimeSingleton;
+import org.apache.velocity.runtime.parser.node.SimpleNode;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.clican.pluto.cms.core.service.IssueService;
@@ -63,9 +64,7 @@ public class IssueServiceImpl extends BaseService implements IssueService {
 	public void issue(List<IDataModel> dataModels) {
 		Map<ModelDescription, List<IDataModel>> dataModelMap = new HashMap<ModelDescription, List<IDataModel>>();
 		for (IDataModel dataModel : dataModels) {
-			ModelDescription md = modelContainer.getModelDesc(classLoaderUtil
-					.getClass(dataModel).getAnnotation(DynamicModel.class)
-					.name());
+			ModelDescription md = modelContainer.getModelDesc(classLoaderUtil.getClass(dataModel).getAnnotation(DynamicModel.class).name());
 			if (!dataModelMap.containsKey(md)) {
 				dataModelMap.put(md, new ArrayList<IDataModel>());
 			}
@@ -75,11 +74,8 @@ public class IssueServiceImpl extends BaseService implements IssueService {
 			List<IDataModel> dataModelList = dataModelMap.get(md);
 			for (int i = 0; i < dataModelList.size(); i = i + 1000) {
 				int start = i;
-				int end = i + 1000 > dataModelList.size() ? dataModelList
-						.size() : i + 1000;
-				List<ITemplateModelRelation> tmrList = templateDao
-						.getTemplateModelRelations(dataModelList.subList(start,
-								end), md);
+				int end = i + 1000 > dataModelList.size() ? dataModelList.size() : i + 1000;
+				List<ITemplateModelRelation> tmrList = templateDao.getTemplateModelRelations(dataModelList.subList(start, end), md);
 				for (ITemplateModelRelation tmr : tmrList) {
 					issue(tmr.getTemplate(), tmr.getDataModel());
 				}
@@ -94,14 +90,11 @@ public class IssueServiceImpl extends BaseService implements IssueService {
 			pathExpression = pathExpression + "%";
 		}
 		for (ModelDescription md : modelContainer.getModelDescs()) {
-			int count = templateDao.getTemplateModelRelationCount(md,
-					pathExpression);
+			int count = templateDao.getTemplateModelRelationCount(md, pathExpression);
 			for (int i = 0; i < count; i = i + 1000) {
 				int start = i;
 				int end = i + 1000 > count ? count : i + 1000;
-				List<ITemplateModelRelation> tmrList = templateDao
-						.getTemplateModelRelations(md, pathExpression, start,
-								end);
+				List<ITemplateModelRelation> tmrList = templateDao.getTemplateModelRelations(md, pathExpression, start, end);
 				for (ITemplateModelRelation tmr : tmrList) {
 					issue(tmr.getTemplate(), tmr.getDataModel());
 				}
@@ -116,10 +109,13 @@ public class IssueServiceImpl extends BaseService implements IssueService {
 		VelocityContext velocityContext = new VelocityContext();
 		velocityContext.put("this", dataModel);
 		try {
-			t = Velocity.getTemplate(template.getName() + ".vm");
-			w = new OutputStreamWriter(
-					new FileOutputStream("c:/aa/" + dataModel.getName() + "-"
-							+ template.getName() + ".html"), "utf-8");
+			SimpleNode node = RuntimeSingleton.getRuntimeServices().parse(template.getContent(), template.getName());
+			t = new Template();
+			t.setName(template.getName());
+			t.setRuntimeServices(RuntimeSingleton.getRuntimeServices());
+			t.setData(node);
+			t.initDocument();
+			w = new OutputStreamWriter(new FileOutputStream("c:/aa/" + dataModel.getName() + "-" + template.getName() + ".html"), "utf-8");
 			t.merge(velocityContext, w);
 			w.flush();
 		} catch (Exception e) {
