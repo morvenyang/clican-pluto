@@ -7,6 +7,7 @@
  */
 package com.clican.pluto.cms.ui.action.impl;
 
+import java.util.Collections;
 import java.util.List;
 
 import javax.faces.context.FacesContext;
@@ -19,6 +20,7 @@ import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Out;
 import org.jboss.seam.annotations.Scope;
 
+import com.clican.pluto.cms.core.comparator.PropertyComparator;
 import com.clican.pluto.cms.core.service.TemplateService;
 import com.clican.pluto.cms.ui.action.TemplateAction;
 import com.clican.pluto.orm.dynamic.inter.ITemplate;
@@ -41,8 +43,7 @@ public class TemplateActionImpl extends BaseAction implements TemplateAction {
 	}
 
 	public void newTemplate() {
-		Include include = (Include) FacesContext.getCurrentInstance()
-				.getViewRoot().findComponent("workspace");
+		Include include = (Include) FacesContext.getCurrentInstance().getViewRoot().findComponent("workspace");
 		include.setViewId("newtemplate.xhtml");
 		template = templateService.newTemplate();
 	}
@@ -50,8 +51,11 @@ public class TemplateActionImpl extends BaseAction implements TemplateAction {
 	public void save() {
 		templateService.save(template);
 		templateList.add(template);
-		backToNonePage();
-		clear();
+
+		templateList.clear();
+		templateList.addAll(templateService.getTemplates());
+		Collections.sort(templateList, new PropertyComparator<ITemplate>("name"));
+		cancel();
 	}
 
 	public void cancel() {
@@ -59,12 +63,19 @@ public class TemplateActionImpl extends BaseAction implements TemplateAction {
 		clear();
 	}
 
-	
+	public void edit(ITemplate template) {
+		this.template = template;
+		Include include = (Include) FacesContext.getCurrentInstance().getViewRoot().findComponent("workspace");
+		include.setViewId("newtemplate.xhtml");
+	}
+
+	public void delete(ITemplate template) {
+		templateList.remove(template);
+	}
 
 	private void clear() {
 		template = null;
 	}
-
 
 	public ITemplate getTemplate() {
 		return template;
@@ -73,8 +84,6 @@ public class TemplateActionImpl extends BaseAction implements TemplateAction {
 	public void setTemplate(ITemplate template) {
 		this.template = template;
 	}
-
-	
 
 }
 

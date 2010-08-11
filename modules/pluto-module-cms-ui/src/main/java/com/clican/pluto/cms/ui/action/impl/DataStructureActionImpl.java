@@ -30,8 +30,7 @@ import com.clican.pluto.orm.desc.PropertyDescription;
 
 @Scope(ScopeType.PAGE)
 @Name("dataStructureAction")
-public class DataStructureActionImpl extends BaseAction implements
-		DataStructureAction {
+public class DataStructureActionImpl extends BaseAction implements DataStructureAction {
 
 	@In("#{dataStructureService}")
 	private DataStructureService dataStructureService;
@@ -49,15 +48,13 @@ public class DataStructureActionImpl extends BaseAction implements
 	private List<ModelDescription> dataModelDescList;
 
 	public void newDataStructure() {
-		Include include = (Include) FacesContext.getCurrentInstance()
-				.getViewRoot().findComponent("workspace");
+		Include include = (Include) FacesContext.getCurrentInstance().getViewRoot().findComponent("workspace");
 		include.setViewId("newdatastructure.xhtml");
 		this.modelDescription = new ModelDescription();
 	}
 
 	public void addNewProperty() {
-		modelDescription.getPropertyDescriptionList().add(
-				new PropertyDescription());
+		modelDescription.getPropertyDescriptionList().add(new PropertyDescription());
 	}
 
 	public void save() {
@@ -69,8 +66,7 @@ public class DataStructureActionImpl extends BaseAction implements
 
 		dataModelDescList.clear();
 		dataModelDescList.addAll(dataModelService.findAllDataModelDesc());
-		Collections.sort(dataModelDescList,
-				new PropertyComparator<ModelDescription>("name"));
+		Collections.sort(dataModelDescList, new PropertyComparator<ModelDescription>("name"));
 		cancel();
 	}
 
@@ -78,8 +74,7 @@ public class DataStructureActionImpl extends BaseAction implements
 		try {
 			this.modelDescription = modelDescription.getCloneBean();
 			this.oldModelDescName = modelDescription.getName();
-			Include include = (Include) FacesContext.getCurrentInstance()
-					.getViewRoot().findComponent("workspace");
+			Include include = (Include) FacesContext.getCurrentInstance().getViewRoot().findComponent("workspace");
 			include.setViewId("newdatastructure.xhtml");
 		} catch (Exception e) {
 			throw new PlutoException(e);
@@ -92,10 +87,12 @@ public class DataStructureActionImpl extends BaseAction implements
 	}
 
 	public void cancel() {
+		backToNonePage();
+		clear();
+	}
+
+	public void clear() {
 		modelDescription = null;
-		Include include = (Include) FacesContext.getCurrentInstance()
-				.getViewRoot().findComponent("workspace");
-		include.setViewId("none.xhtml");
 	}
 
 	public DataStructureService getDataStructureService() {
