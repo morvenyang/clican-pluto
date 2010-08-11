@@ -6,7 +6,8 @@
 	xmlns:s="http://jboss.com/products/seam/taglib"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:a4j="http://richfaces.org/a4j"
-	xmlns:c="http://java.sun.com/jstl/core">
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:cms="http://www.clican.com/pluto/cms/taglib">
 	<rich:panel>
 		<f:facet name="header">
 			<h:panelGroup>
@@ -15,8 +16,105 @@
 		</f:facet>
 		<a4j:form id="dataModelForm">
 			<h:panelGrid id="dataModelPanelGrid" columns="2">
-				<ui:include
-					src="datastructure/#{dataModelAction.modelDescription.name}.xhtml" />
+				<c:forEach
+					items="#{dataModelAction.modelDescription.propertyDescriptionList}"
+					var="pd">
+					<h:outputLabel value="#{pd.name}" styleClass="name" />
+					<c:if test="#{pd.control.name.equals('input text')}">
+						<h:inputText
+							value="#{dataModelAction.dataModelMap[pd.firstCharLowerName]}" />
+					</c:if>
+					<c:if test="#{pd.control.name.equals('input text area')}">
+						<h:inputTextarea
+							value="#{dataModelAction.dataModelMap[pd.firstCharLowerName]}" />
+					</c:if>
+					<c:if test="#{pd.control.name.equals('calendar')}">
+						<rich:calendar
+							value="#{dataModelAction.dataModelMap[pd.firstCharLowerName]}" />
+					</c:if>
+					<c:if test="#{pd.control.name.equals('select one')}">
+						<h:selectOneMenu
+							value="#{dataModelAction.dataModelMap[pd.firstCharLowerName]}">
+							<c:if test="#{pd.control.dynamic}">
+								<cms:dataModelConverter modelClass="${pd.type.className}" />
+								<c:forEach var="selection"
+									items="#{dataStructureAction.dataModelService.getDataModels(pd.type.name,null)}">
+									<f:selectItem itemLabel="#{selection.name}"
+										itemValue="#{selection}" />
+								</c:forEach>
+							</c:if>
+							<c:if test="#{!pd.control.dynamic}">
+								<c:forEach var="selection"
+									items="#{pd.control.providedSelection}">
+									<f:selectItem itemLabel="#{selection}" itemValue="#{selection}" />
+								</c:forEach>
+							</c:if>
+						</h:selectOneMenu>
+					</c:if>
+					<c:if test="#{pd.control.name.equals('select mutil')}">
+						<h:selectManyListbox
+							value="#{dataModelAction.dataModelMap[pd.firstCharLowerName]}">
+							<c:if test="#{pd.control.dynamic}">
+								<cms:dataModelConverter
+									modelClass="${pd.type.className.replaceAll('\[\]','')}" />
+								<c:forEach var="selection"
+									items="#{dataStructureAction.dataModelService.getDataModels(pd.type.name.replaceAll('\[\]',''),null)}">
+									<f:selectItem itemLabel="#{selection.name}"
+										itemValue="#{selection}" />
+								</c:forEach>
+							</c:if>
+							<c:if test="#{!pd.control.dynamic}">
+								<c:forEach var="selection"
+									items="#{pd.control.providedSelection}">
+									<f:selectItem itemLabel="#{selection}" itemValue="#{selection}" />
+								</c:forEach>
+							</c:if>
+						</h:selectManyListbox>
+					</c:if>
+					<c:if test="#{pd.control.name.equals('radio button')}">
+						<h:selectOneRadio
+							value="#{dataModelAction.dataModelMap[pd.firstCharLowerName]}">
+							<c:if test="#{pd.control.dynamic}">
+								<cms:dataModelConverter modelClass="${pd.type.className}" />
+								<c:forEach var="selection"
+									items="#{dataStructureAction.dataModelService.getDataModels(pd.type.name,null)}">
+									<f:selectItem itemLabel="#{selection.name}"
+										itemValue="#{selection}" />
+								</c:forEach>
+							</c:if>
+							<c:if test="#{!pd.control.dynamic}">
+								<c:forEach var="selection"
+									items="#{pd.control.providedSelection}">
+									<f:selectItem itemLabel="#{selection}" itemValue="#{selection}" />
+								</c:forEach>
+							</c:if>
+						</h:selectOneRadio>
+					</c:if>
+					<c:if test="#{pd.control.name.equals('mutil check box')}">
+						<h:selectManyCheckbox
+							value="#{dataModelAction.dataModelMap[pd.firstCharLowerName]}">
+							<c:if test="#{pd.control.dynamic}">
+								<cms:dataModelConverter
+									modelClass="${pd.type.className.replaceAll('\[\]','')}" />
+								<c:forEach var="selection"
+									items="#{dataStructureAction.dataModelService.getDataModels(pd.type.name.replaceAll('\[\]',''),null)}">
+									<f:selectItem itemLabel="#{selection.name}"
+										itemValue="#{selection}" />
+								</c:forEach>
+							</c:if>
+							<c:if test="#{!pd.control.dynamic}">
+								<c:forEach var="selection"
+									items="#{pd.control.providedSelection}">
+									<f:selectItem itemLabel="#{selection}" itemValue="#{selection}" />
+								</c:forEach>
+							</c:if>
+						</h:selectManyCheckbox>
+					</c:if>
+					<c:if test="#{pd.control.name.equals('singal check box')}">
+						<h:selectBooleanCheckbox
+							value="#{dataModelAction.dataModelMap[pd.firstCharLowerName]}" />
+					</c:if>
+				</c:forEach>
 				<a4j:commandButton id="submitButton" value="Submit"
 					action="#{dataModelAction.save()}" reRender="workspace" />
 				<h:commandButton id="cancelButton" value="Cancel"
