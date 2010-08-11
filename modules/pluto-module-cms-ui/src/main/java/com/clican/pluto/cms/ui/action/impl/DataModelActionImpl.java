@@ -58,6 +58,8 @@ public class DataModelActionImpl extends BaseAction implements DataModelAction {
 
 	private IDataModel dataModel;
 
+	private Map<String, Object> dataModelMap;
+
 	private List<ITemplate> selectedTemplates;
 
 	private List<ITemplate> remainedTemplates;
@@ -73,24 +75,19 @@ public class DataModelActionImpl extends BaseAction implements DataModelAction {
 		dataModelDescList = dataModelService.findAllDataModelDesc();
 		dataModelSelection.put("all", new HashMap<IDataModel, Boolean>());
 		for (ModelDescription md : dataModelDescList) {
-			dataModelSelection.put(md.getName(),
-					new HashMap<IDataModel, Boolean>());
+			dataModelSelection.put(md.getName(), new HashMap<IDataModel, Boolean>());
 		}
-		Collections.sort(dataModelDescList,
-				new PropertyComparator<ModelDescription>("name"));
+		Collections.sort(dataModelDescList, new PropertyComparator<ModelDescription>("name"));
 	}
 
-	public void newDataModel(IDirectory parentDirectory,
-			ModelDescription modelDescription) {
-		dataModel = dataModelService.newDataModel(parentDirectory,
-				modelDescription);
+	public void newDataModel(IDirectory parentDirectory, ModelDescription modelDescription) {
+		this.dataModelMap = new HashMap<String, Object>();
 		this.modelDescription = modelDescription;
+		this.parentDirectory = parentDirectory;
 		if (!dataModelSelection.containsKey(modelDescription.getName())) {
-			dataModelSelection.put(modelDescription.getName(),
-					new HashMap<IDataModel, Boolean>());
+			dataModelSelection.put(modelDescription.getName(), new HashMap<IDataModel, Boolean>());
 		}
-		Include include = (Include) FacesContext.getCurrentInstance()
-				.getViewRoot().findComponent("workspace");
+		Include include = (Include) FacesContext.getCurrentInstance().getViewRoot().findComponent("workspace");
 		include.setViewId("newdatamodel.xhtml");
 	}
 
@@ -112,14 +109,13 @@ public class DataModelActionImpl extends BaseAction implements DataModelAction {
 	}
 
 	public void save() {
-		dataModelService.save(dataModel);
+		dataModelService.save(dataModelMap, parentDirectory, modelDescription);
 		backToNonePage();
 		clear();
 	}
 
 	public void delete(ModelDescription modelDescription) {
-		String modelName = modelDescription == null ? "all" : modelDescription
-				.getName();
+		String modelName = modelDescription == null ? "all" : modelDescription.getName();
 		List<IDataModel> dataModels = new ArrayList<IDataModel>();
 		for (IDataModel dataModel : dataModelSelection.get(modelName).keySet()) {
 			if (dataModelSelection.get(modelName).get(dataModel)) {
@@ -132,19 +128,15 @@ public class DataModelActionImpl extends BaseAction implements DataModelAction {
 	public void showDataModels(IDirectory directory) {
 		this.parentDirectory = directory;
 		modelDescriptionList = dataModelService.getModelDescriptions(directory);
-		Include include = (Include) FacesContext.getCurrentInstance()
-				.getViewRoot().findComponent("workspace");
+		Include include = (Include) FacesContext.getCurrentInstance().getViewRoot().findComponent("workspace");
 		include.setViewId("datamodel.xhtml");
 	}
 
 	public List<IDataModel> getDataModels(ModelDescription modelDescription) {
-		String modelName = modelDescription == null ? "all" : modelDescription
-				.getName();
-		List<IDataModel> dataModels = dataModelService.getDataModels(
-				parentDirectory, modelDescription, null);
+		String modelName = modelDescription == null ? "all" : modelDescription.getName();
+		List<IDataModel> dataModels = dataModelService.getDataModels(parentDirectory, modelDescription, null);
 		if (!dataModelSelection.containsKey(modelName)) {
-			dataModelSelection.put(modelName,
-					new HashMap<IDataModel, Boolean>());
+			dataModelSelection.put(modelName, new HashMap<IDataModel, Boolean>());
 		}
 		dataModelSelection.get(modelName).clear();
 		for (IDataModel dataModel : dataModels) {
@@ -237,8 +229,7 @@ public class DataModelActionImpl extends BaseAction implements DataModelAction {
 		return modelDescriptionList;
 	}
 
-	public void setModelDescriptionList(
-			List<ModelDescription> modelDescriptionList) {
+	public void setModelDescriptionList(List<ModelDescription> modelDescriptionList) {
 		this.modelDescriptionList = modelDescriptionList;
 	}
 
@@ -246,9 +237,16 @@ public class DataModelActionImpl extends BaseAction implements DataModelAction {
 		return dataModelSelection;
 	}
 
-	public void setDataModelSelection(
-			Map<String, Map<IDataModel, Boolean>> dataModelSelection) {
+	public void setDataModelSelection(Map<String, Map<IDataModel, Boolean>> dataModelSelection) {
 		this.dataModelSelection = dataModelSelection;
+	}
+
+	public Map<String, Object> getDataModelMap() {
+		return dataModelMap;
+	}
+
+	public void setDataModelMap(Map<String, Object> dataModelMap) {
+		this.dataModelMap = dataModelMap;
 	}
 
 }
