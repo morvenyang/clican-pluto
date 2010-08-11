@@ -46,7 +46,7 @@
         <webClassPathEntry>C:/m2/log4j/log4j/1.2.14/log4j-1.2.14.jar</webClassPathEntry>
         <webClassPathEntry>C:/m2/mysql/mysql-connector-java/5.1.6/mysql-connector-java-5.1.6.jar</webClassPathEntry>
         <webClassPathEntry>C:/m2/org/apache/geronimo/specs/geronimo-jms_1.1_spec/1.1/geronimo-jms_1.1_spec-1.1.jar</webClassPathEntry>
-        <webClassPathEntry>C:/m2/org/apache/velocity/velocity/1.6.2/velocity-1.6.2.jar</webClassPathEntry>
+        <webClassPathEntry>C:/m2/org/apache/velocity/velocity/1.6.3/velocity-1.6.3.jar</webClassPathEntry>
         <webClassPathEntry>C:/m2/org/aspectj/aspectjweaver/1.5.4/aspectjweaver-1.5.4.jar</webClassPathEntry>
         <webClassPathEntry>C:/m2/org/hamcrest/hamcrest-core/1.1/hamcrest-core-1.1.jar</webClassPathEntry>
         <webClassPathEntry>C:/m2/org/hamcrest/hamcrest-library/1.1/hamcrest-library-1.1.jar</webClassPathEntry>
