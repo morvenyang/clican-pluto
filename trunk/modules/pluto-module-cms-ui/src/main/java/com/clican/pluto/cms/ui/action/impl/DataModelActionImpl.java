@@ -135,6 +135,7 @@ public class DataModelActionImpl extends BaseAction implements DataModelAction {
 		this.parentDirectory = directory;
 		modelDescriptionList = dataModelService.getModelDescriptions(directory);
 		Include include = (Include) FacesContext.getCurrentInstance().getViewRoot().findComponent("workspace");
+		include.getChildren().clear();
 		include.setViewId("datamodel.xhtml");
 	}
 
@@ -191,10 +192,10 @@ public class DataModelActionImpl extends BaseAction implements DataModelAction {
 			} else if (result instanceof Collection<?>) {
 				StringBuffer buf = new StringBuffer();
 				for (IDataModel dm : (Collection<IDataModel>) result) {
-					buf.append(dm.getName()+",");
+					buf.append(dm.getName() + ",");
 				}
-				if(buf.length()>0){
-					buf.substring(0, buf.length()-1);
+				if (buf.length() > 0) {
+					buf.substring(0, buf.length() - 1);
 				}
 				result = buf.toString();
 			}
