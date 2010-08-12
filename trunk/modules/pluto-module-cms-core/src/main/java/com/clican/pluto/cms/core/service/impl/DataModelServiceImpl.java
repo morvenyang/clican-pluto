@@ -59,6 +59,11 @@ public class DataModelServiceImpl extends BaseService implements DataModelServic
 	public IDataModel newDataModel(IDirectory parent, ModelDescription modelDescription) {
 		return classLoaderUtil.newDataModel(parent, modelDescription);
 	}
+	
+	@Transactional
+	public void save(IDataModel dataModel) {
+		dataModelDao.save(dataModel);
+	}
 
 	@Transactional
 	public void save(Map<String, Object> dataModelMap, IDirectory parent, ModelDescription modelDescription) {
