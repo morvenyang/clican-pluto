@@ -9,7 +9,7 @@ package com.clican.pluto.cms.tag.tags;
 
 import org.apache.velocity.VelocityContext;
 
-import com.clican.pluto.cms.tag.inter.Tag;
+import com.clican.pluto.cms.tag.api.Tag;
 
 public abstract class BaseTag implements Tag {
 

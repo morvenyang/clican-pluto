@@ -5,7 +5,7 @@
  * @author clican
  *
  */
-package com.clican.pluto.cms.tag.inter;
+package com.clican.pluto.cms.tag.api;
 
 
 /**
