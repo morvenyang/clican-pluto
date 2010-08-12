@@ -32,6 +32,7 @@ import com.clican.pluto.cms.ui.action.DataModelAction;
 import com.clican.pluto.common.exception.PlutoException;
 import com.clican.pluto.common.util.BeanUtils;
 import com.clican.pluto.orm.desc.ModelDescription;
+import com.clican.pluto.orm.dynamic.inter.ClassLoaderUtil;
 import com.clican.pluto.orm.dynamic.inter.IDataModel;
 import com.clican.pluto.orm.dynamic.inter.IDirectory;
 import com.clican.pluto.orm.dynamic.inter.ITemplate;
@@ -49,6 +50,9 @@ public class DataModelActionImpl extends BaseAction implements DataModelAction {
 	@In("#{templateService}")
 	private TemplateService templateService;
 
+	@In("#{classLoaderUtil}")
+	private ClassLoaderUtil classLoaderUtil;
+
 	@In(required = false)
 	private List<ITemplate> templateList;
 
@@ -58,8 +62,6 @@ public class DataModelActionImpl extends BaseAction implements DataModelAction {
 	private ModelDescription modelDescription;
 
 	private IDataModel dataModel;
-
-	private Map<String, Object> dataModelMap;
 
 	private List<ITemplate> selectedTemplates;
 
@@ -82,7 +84,7 @@ public class DataModelActionImpl extends BaseAction implements DataModelAction {
 	}
 
 	public void newDataModel(IDirectory parentDirectory, ModelDescription modelDescription) {
-		this.dataModelMap = new HashMap<String, Object>();
+		this.dataModel = classLoaderUtil.newDataModel(parentDirectory, modelDescription);
 		this.modelDescription = modelDescription;
 		this.parentDirectory = parentDirectory;
 		if (!dataModelSelection.containsKey(modelDescription.getName())) {
@@ -112,7 +114,7 @@ public class DataModelActionImpl extends BaseAction implements DataModelAction {
 	}
 
 	public void save() {
-		dataModelService.save(dataModelMap, parentDirectory, modelDescription);
+		dataModelService.save(dataModel);
 		backToNonePage();
 		clear();
 	}
@@ -242,14 +244,6 @@ public class DataModelActionImpl extends BaseAction implements DataModelAction {
 
 	public void setDataModelSelection(Map<String, Map<IDataModel, Boolean>> dataModelSelection) {
 		this.dataModelSelection = dataModelSelection;
-	}
-
-	public Map<String, Object> getDataModelMap() {
-		return dataModelMap;
-	}
-
-	public void setDataModelMap(Map<String, Object> dataModelMap) {
-		this.dataModelMap = dataModelMap;
 	}
 
 }
