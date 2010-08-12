@@ -21,8 +21,8 @@ public enum TemplateVariable {
 	private TemplateVariable(String variable) {
 		this.variable = variable;
 	}
-	
-	public String variable(){
+
+	public String variable() {
 		return variable;
 	}
 
