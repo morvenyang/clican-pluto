@@ -10,7 +10,7 @@ package com.clican.pluto.cms.tag.inter;
 
 /**
  * All of CMS tag shall implement this interface, otherwise it will not
- * processed ad a Tag. All of defined and well configured Tag can be accessed in
+ * processed as a Tag. All of defined and well configured Tag can be accessed in
  * template file.
  * 
  * @author clican
