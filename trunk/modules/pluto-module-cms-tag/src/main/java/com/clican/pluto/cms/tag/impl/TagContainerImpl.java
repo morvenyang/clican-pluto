@@ -10,8 +10,8 @@ package com.clican.pluto.cms.tag.impl;
 import java.io.File;
 import java.util.Map;
 
-import com.clican.pluto.cms.tag.inter.Tag;
-import com.clican.pluto.cms.tag.inter.TagContainer;
+import com.clican.pluto.cms.tag.api.Tag;
+import com.clican.pluto.cms.tag.api.TagContainer;
 
 public class TagContainerImpl implements TagContainer {
 
