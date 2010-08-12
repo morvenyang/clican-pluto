@@ -8,6 +8,14 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:c="http://java.sun.com/jstl/core"
 	xmlns:cms="http://www.clican.com/pluto/cms/taglib">
+	<rich:panel>
+		<f:facet name="header">
+			<h:panelGroup>
+				<h:outputText value="New Data"></h:outputText>
+			</h:panelGroup>
+		</f:facet>
+		<a4j:form id="dataModelForm">
+			<h:panelGrid id="dataModelPanelGrid" columns="2">
 	#foreach( $pd in $propertyDescriptionList )
 		<h:outputLabel value="${pd.name}" styleClass="name"/>
 		#if ( $pd.control.name.equals('input text') )
@@ -83,4 +91,12 @@
 			 <h:selectBooleanCheckbox value="#{dataModelAction.dataModel.${pd.firstCharLowerName}}" />
 		#end
 	#end
+					<a4j:commandButton id="submitButton" value="Submit"
+					action="#{dataModelAction.save()}" reRender="workspace" />
+				<h:commandButton id="cancelButton" value="Cancel"
+					action="#{dataModelAction.cancel()}" reRender="workspace"
+					ajaxSingle="true" />
+			</h:panelGrid>
+		</a4j:form>
+	</rich:panel>
 </ui:composition>
