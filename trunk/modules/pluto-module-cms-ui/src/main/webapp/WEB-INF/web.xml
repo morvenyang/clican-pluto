@@ -65,7 +65,15 @@
 		<url-pattern>/seam/resource/*</url-pattern>
 	</servlet-mapping>
 
+	<servlet>
+		<servlet-name>Velocity Resource Servlet</servlet-name>
+		<servlet-class>com.clican.pluto.cms.ui.servlet.VelocityResourceServlet</servlet-class>
+	</servlet>
 
+	<servlet-mapping>
+		<servlet-name>Velocity Resource Servlet</servlet-name>
+		<url-pattern>/velocity/resource/*</url-pattern>
+	</servlet-mapping>
 
 	<servlet>
 		<servlet-name>Faces Servlet</servlet-name>
@@ -77,7 +85,7 @@
 		<servlet-name>Faces Servlet</servlet-name>
 		<url-pattern>*.seam</url-pattern>
 	</servlet-mapping>
-
+	
 	<security-constraint>
 		<display-name>Restrict raw XHTML Documents</display-name>
 		<web-resource-collection>

@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 
 import org.ajax4jsf.component.html.Include;
 import org.jboss.seam.ScopeType;
@@ -88,7 +89,9 @@ public class DataModelActionImpl extends BaseAction implements DataModelAction {
 			dataModelSelection.put(modelDescription.getName(), new HashMap<IDataModel, Boolean>());
 		}
 		Include include = (Include) FacesContext.getCurrentInstance().getViewRoot().findComponent("workspace");
-		include.setViewId("newdatamodel.xhtml");
+		HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+		include.setViewId("http://localhost:8080/pluto/velocity/resource/newdatamodel.xhtml.vm;jsessionid=" + session.getId());
+		session.setAttribute("propertyDescriptionList", modelDescription.getPropertyDescriptionList());
 	}
 
 	public void issue() {
