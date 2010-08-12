@@ -8,6 +8,7 @@
 package com.clican.pluto.cms.ui.action.impl;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -180,10 +181,23 @@ public class DataModelActionImpl extends BaseAction implements DataModelAction {
 		modelDescriptionList = null;
 	}
 
+	@SuppressWarnings("unchecked")
 	public Object getProperty(IDataModel dataModel, String propertyName) {
 		Object result = null;
 		try {
 			result = BeanUtils.getProperty(dataModel, propertyName);
+			if (result instanceof IDataModel) {
+				result = ((IDataModel) result).getName();
+			} else if (result instanceof Collection<?>) {
+				StringBuffer buf = new StringBuffer();
+				for (IDataModel dm : (Collection<IDataModel>) result) {
+					buf.append(dm.getName()+",");
+				}
+				if(buf.length()>0){
+					buf.substring(0, buf.length()-1);
+				}
+				result = buf.toString();
+			}
 		} catch (Exception e) {
 			throw new PlutoException(e);
 		}
