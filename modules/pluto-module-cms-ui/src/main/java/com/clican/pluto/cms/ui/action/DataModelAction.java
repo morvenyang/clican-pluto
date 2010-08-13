@@ -13,8 +13,7 @@ import com.clican.pluto.orm.dynamic.inter.IDirectory;
 
 public interface DataModelAction {
 
-	public void newDataModel(IDirectory parentDirectory,
-			ModelDescription modelDescription);
+	public void newDataModel(IDirectory parentDirectory, ModelDescription modelDescription);
 
 	public void save();
 
@@ -25,6 +24,8 @@ public interface DataModelAction {
 	public void issue();
 
 	public void issue(IDataModel dataModel);
+
+	public void editDataModel(IDataModel dataModel, ModelDescription modelDescription);
 
 }
 

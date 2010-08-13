@@ -75,10 +75,18 @@ public class DataModelActionImpl extends BaseAction implements DataModelAction {
 	public void newDataModel(IDirectory parentDirectory, ModelDescription modelDescription) {
 		this.dataModel = classLoaderUtil.newDataModel(parentDirectory, modelDescription);
 		this.modelDescription = modelDescription;
-		this.parentDirectory = parentDirectory;
 		if (!dataModelSelection.containsKey(modelDescription.getName())) {
 			dataModelSelection.put(modelDescription.getName(), new HashMap<IDataModel, Boolean>());
 		}
+		Include include = (Include) FacesContext.getCurrentInstance().getViewRoot().findComponent("workspace");
+		HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+		include.setViewId("http://localhost:8080/pluto/velocity/resource/newdatamodel.xhtml.vm;jsessionid=" + session.getId());
+		session.setAttribute("propertyDescriptionList", modelDescription.getPropertyDescriptionList());
+	}
+
+	public void editDataModel(IDataModel dataModel, ModelDescription modelDescription) {
+		this.dataModel = dataModel;
+		this.modelDescription = modelDescription;
 		Include include = (Include) FacesContext.getCurrentInstance().getViewRoot().findComponent("workspace");
 		HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
 		include.setViewId("http://localhost:8080/pluto/velocity/resource/newdatamodel.xhtml.vm;jsessionid=" + session.getId());
@@ -165,9 +173,10 @@ public class DataModelActionImpl extends BaseAction implements DataModelAction {
 					buf.append(dm.getName() + ",");
 				}
 				if (buf.length() > 0) {
-					buf.substring(0, buf.length() - 1);
+					result = buf.substring(0, buf.length() - 1);
+				} else {
+					result = buf.toString();
 				}
-				result = buf.toString();
 			}
 		} catch (Exception e) {
 			throw new PlutoException(e);
