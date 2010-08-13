@@ -66,6 +66,15 @@
 							<h:selectBooleanCheckbox
 								value="#{dataModelAction.dataModelSelection.get(modelDescription.name)[dataModel]}" />
 						</rich:column>
+						<rich:column>
+							<f:facet name="header">
+								<h:outputText value="Edit" />
+							</f:facet>
+							<a4j:commandLink
+								action="#{dataModelAction.editDataModel(dataModel,modelDescription)}" reRender="workspace">
+								<h:outputText value="Edit" />
+							</a4j:commandLink>
+						</rich:column>
 						<rich:columns value="#{modelDescription.propertyDescriptionList}"
 							var="property">
 							<f:facet name="header">
@@ -94,7 +103,8 @@
 							action="#{dataModelAction.delete(modelDescription)}"
 							reRender="table#{modelDescription.name},tableall" />
 						<a4j:commandButton value="Issue"
-							action="#{dataModelAction.issue()}" reRender="table#{modelDescription.name},tableall" />
+							action="#{dataModelAction.issue()}"
+							reRender="table#{modelDescription.name},tableall" />
 					</h:panelGrid>
 				</rich:tab>
 			</c:forEach>

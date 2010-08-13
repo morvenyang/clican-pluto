@@ -8,6 +8,7 @@
 package com.clican.pluto.cms.core.service.impl;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -61,6 +62,10 @@ public class DataModelServiceImpl extends BaseService implements DataModelServic
 
 	@Transactional
 	public void save(IDataModel dataModel) {
+		if(dataModel.getCreateTime()==null){
+			dataModel.setCreateTime(Calendar.getInstance());
+		}
+		dataModel.setUpdateTime(Calendar.getInstance());
 		dataModelDao.save(dataModel);
 	}
 
