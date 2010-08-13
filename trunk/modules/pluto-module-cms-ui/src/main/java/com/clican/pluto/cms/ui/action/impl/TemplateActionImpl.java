@@ -7,6 +7,7 @@
  */
 package com.clican.pluto.cms.ui.action.impl;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -23,6 +24,7 @@ import org.jboss.seam.annotations.Scope;
 import com.clican.pluto.cms.core.comparator.PropertyComparator;
 import com.clican.pluto.cms.core.service.TemplateService;
 import com.clican.pluto.cms.ui.action.TemplateAction;
+import com.clican.pluto.orm.dynamic.inter.IDataModel;
 import com.clican.pluto.orm.dynamic.inter.ITemplate;
 
 @Scope(ScopeType.PAGE)
@@ -33,9 +35,16 @@ public class TemplateActionImpl extends BaseAction implements TemplateAction {
 	private TemplateService templateService;
 
 	@Out(required = false)
+	@In(required = false)
 	private List<ITemplate> templateList;
 
 	private ITemplate template;
+
+	private IDataModel dataModel;
+
+	private List<ITemplate> selectedTemplates;
+
+	private List<ITemplate> remainedTemplates;
 
 	@Factory("templateList")
 	public void loadTemplateList() {
@@ -74,6 +83,24 @@ public class TemplateActionImpl extends BaseAction implements TemplateAction {
 
 	private void clear() {
 		template = null;
+		remainedTemplates = null;
+		selectedTemplates = null;
+	}
+
+	public void configureTemplate(IDataModel dataModel) {
+		this.dataModel = dataModel;
+		selectedTemplates = templateService.getSelectedTemplates(dataModel);
+		remainedTemplates = new ArrayList<ITemplate>();
+		for (ITemplate template : templateList) {
+			if (!selectedTemplates.contains(template)) {
+				remainedTemplates.add(template);
+			}
+		}
+	}
+
+	public void saveConfiguration() {
+		templateService.configureTemplates(dataModel, selectedTemplates);
+		clear();
 	}
 
 	public ITemplate getTemplate() {
@@ -84,6 +111,21 @@ public class TemplateActionImpl extends BaseAction implements TemplateAction {
 		this.template = template;
 	}
 
+	public List<ITemplate> getSelectedTemplates() {
+		return selectedTemplates;
+	}
+
+	public void setSelectedTemplates(List<ITemplate> selectedTemplates) {
+		this.selectedTemplates = selectedTemplates;
+	}
+
+	public List<ITemplate> getRemainedTemplates() {
+		return remainedTemplates;
+	}
+
+	public void setRemainedTemplates(List<ITemplate> remainedTemplates) {
+		this.remainedTemplates = remainedTemplates;
+	}
 }
 
 // $Id$

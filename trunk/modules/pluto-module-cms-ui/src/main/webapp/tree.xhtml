@@ -10,6 +10,9 @@
 	<ui:include src="newdirectorypanel.xhtml">
 		<ui:param name="projectName" value="Pluto" />
 	</ui:include>
+	<ui:include src="templateconfigure.xhtml">
+		<ui:param name="projectName" value="Pluto" />
+	</ui:include>
 	<h:form>
 		<rich:contextMenu attachTo="directoryTreeTab" submitMode="none">
 			<rich:menuItem value="Refresh" submitMode="ajax"
@@ -47,6 +50,12 @@
 							</rich:menuGroup>
 						</rich:menuGroup>
 						<rich:menuItem value="Delete"></rich:menuItem>
+						<rich:menuItem value="Configure Template" id="configureTemplate"
+							submitMode="ajax" action="#{templateAction.configureTemplate(directory)}" reRender="templateConfigurationForm">
+							<rich:componentControl for="templateConfigurationPanel"
+								attachTo="configureTemplate" operation="show" event="onclick">
+							</rich:componentControl>
+						</rich:menuItem>
 						<rich:menuItem value="Copy"></rich:menuItem>
 						<rich:menuItem value="Cut"></rich:menuItem>
 					</rich:contextMenu>

@@ -21,7 +21,7 @@ public interface ClassLoaderUtil {
 	public IDataModel newDataModel(IDirectory parent,
 			ModelDescription modelDescription);
 
-	public void configureTemplates(IDataModel dataModel,
+	public void configureTemplates(IDataModel dataModel,String entityName,
 			List<ITemplate> selectedTemplates);
 
 	public ITemplate newTemplate();
