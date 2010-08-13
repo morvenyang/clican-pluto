@@ -28,7 +28,6 @@ import org.jboss.seam.annotations.Scope;
 import com.clican.pluto.cms.core.comparator.PropertyComparator;
 import com.clican.pluto.cms.core.service.DataModelService;
 import com.clican.pluto.cms.core.service.IssueService;
-import com.clican.pluto.cms.core.service.TemplateService;
 import com.clican.pluto.cms.ui.action.DataModelAction;
 import com.clican.pluto.common.exception.PlutoException;
 import com.clican.pluto.common.util.BeanUtils;
@@ -36,7 +35,6 @@ import com.clican.pluto.orm.desc.ModelDescription;
 import com.clican.pluto.orm.dynamic.inter.ClassLoaderUtil;
 import com.clican.pluto.orm.dynamic.inter.IDataModel;
 import com.clican.pluto.orm.dynamic.inter.IDirectory;
-import com.clican.pluto.orm.dynamic.inter.ITemplate;
 
 @Scope(ScopeType.PAGE)
 @Name("dataModelAction")
@@ -48,14 +46,8 @@ public class DataModelActionImpl extends BaseAction implements DataModelAction {
 	@In("#{dataModelService}")
 	private DataModelService dataModelService;
 
-	@In("#{templateService}")
-	private TemplateService templateService;
-
 	@In("#{classLoaderUtil}")
 	private ClassLoaderUtil classLoaderUtil;
-
-	@In(required = false)
-	private List<ITemplate> templateList;
 
 	@Out(required = false)
 	private List<ModelDescription> dataModelDescList;
@@ -63,10 +55,6 @@ public class DataModelActionImpl extends BaseAction implements DataModelAction {
 	private ModelDescription modelDescription;
 
 	private IDataModel dataModel;
-
-	private List<ITemplate> selectedTemplates;
-
-	private List<ITemplate> remainedTemplates;
 
 	private IDirectory parentDirectory;
 
@@ -152,22 +140,6 @@ public class DataModelActionImpl extends BaseAction implements DataModelAction {
 		return dataModels;
 	}
 
-	public void configureTemplate(IDataModel dataModel) {
-		this.dataModel = dataModel;
-		selectedTemplates = templateService.getSelectedTemplates(dataModel);
-		remainedTemplates = new ArrayList<ITemplate>();
-		for (ITemplate template : templateList) {
-			if (!selectedTemplates.contains(template)) {
-				remainedTemplates.add(template);
-			}
-		}
-	}
-
-	public void saveConfiguration() {
-		dataModelService.configureTemplates(dataModel, selectedTemplates);
-		clear();
-	}
-
 	public void cancel() {
 		backToNonePage();
 		clear();
@@ -176,8 +148,6 @@ public class DataModelActionImpl extends BaseAction implements DataModelAction {
 	private void clear() {
 		this.dataModel = null;
 		this.modelDescription = null;
-		remainedTemplates = null;
-		selectedTemplates = null;
 		parentDirectory = null;
 		modelDescriptionList = null;
 	}
@@ -219,22 +189,6 @@ public class DataModelActionImpl extends BaseAction implements DataModelAction {
 
 	public void setDataModel(IDataModel dataModel) {
 		this.dataModel = dataModel;
-	}
-
-	public List<ITemplate> getSelectedTemplates() {
-		return selectedTemplates;
-	}
-
-	public void setSelectedTemplates(List<ITemplate> selectedTemplates) {
-		this.selectedTemplates = selectedTemplates;
-	}
-
-	public List<ITemplate> getRemainedTemplates() {
-		return remainedTemplates;
-	}
-
-	public void setRemainedTemplates(List<ITemplate> remainedTemplates) {
-		this.remainedTemplates = remainedTemplates;
 	}
 
 	public IDirectory getParentDirectory() {
