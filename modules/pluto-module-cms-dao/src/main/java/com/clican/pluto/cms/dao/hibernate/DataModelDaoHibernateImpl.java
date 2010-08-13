@@ -59,7 +59,7 @@ public class DataModelDaoHibernateImpl extends BaseDao implements DataModelDao {
 				hql.toString(), "name", "%" + name + "%");
 	}
 
-	public IDataModel loadDataModels(Class<?> clazz, Long id) {
+	public IDataModel loadDataModel(Class<?> clazz, Long id) {
 		return (IDataModel)this.getHibernateTemplate().load(clazz, id);
 	}
 

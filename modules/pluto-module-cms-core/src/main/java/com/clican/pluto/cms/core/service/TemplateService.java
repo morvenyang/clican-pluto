@@ -23,6 +23,8 @@ public interface TemplateService {
 	public List<ITemplate> getSelectedTemplates(IDataModel dataModel);
 
 	public void delete(ITemplate template);
+	
+	public void configureTemplates(IDataModel dataModel, List<ITemplate> selectedTemplates);
 
 }
 

@@ -9,9 +9,12 @@ package com.clican.pluto.cms.core.service.impl;
 
 import java.util.List;
 
+import javax.persistence.Entity;
+
 import org.springframework.transaction.annotation.Transactional;
 
 import com.clican.pluto.cms.core.service.TemplateService;
+import com.clican.pluto.cms.dao.DataModelDao;
 import com.clican.pluto.cms.dao.TemplateDao;
 import com.clican.pluto.orm.dynamic.inter.ClassLoaderUtil;
 import com.clican.pluto.orm.dynamic.inter.IDataModel;
@@ -21,6 +24,8 @@ public class TemplateServiceImpl extends BaseService implements TemplateService 
 
 	private TemplateDao templateDao;
 
+	private DataModelDao dataModelDao;
+
 	private ClassLoaderUtil classLoaderUtil;
 
 	public void setTemplateDao(TemplateDao templateDao) {
@@ -29,6 +34,10 @@ public class TemplateServiceImpl extends BaseService implements TemplateService 
 
 	public void setClassLoaderUtil(ClassLoaderUtil classLoaderUtil) {
 		this.classLoaderUtil = classLoaderUtil;
+	}
+
+	public void setDataModelDao(DataModelDao dataModelDao) {
+		this.dataModelDao = dataModelDao;
 	}
 
 	@Transactional(readOnly = true)
@@ -57,6 +66,14 @@ public class TemplateServiceImpl extends BaseService implements TemplateService 
 	@Transactional
 	public void delete(ITemplate template) {
 		templateDao.delete(template);
+	}
+
+	@Transactional
+	public void configureTemplates(IDataModel dataModel, List<ITemplate> selectedTemplates) {
+		String entityName = dataModel.getClass().getAnnotation(Entity.class).name();
+		dataModel = dataModelDao.loadDataModel(dataModel.getClass(), dataModel.getId());
+		classLoaderUtil.configureTemplates(dataModel, entityName, selectedTemplates);
+		dataModelDao.save(dataModel);
 	}
 
 }

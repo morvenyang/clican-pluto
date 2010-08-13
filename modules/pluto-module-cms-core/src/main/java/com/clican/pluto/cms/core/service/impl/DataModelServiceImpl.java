@@ -98,7 +98,7 @@ public class DataModelServiceImpl extends BaseService implements DataModelServic
 
 	@Transactional
 	public void configureTemplates(IDataModel dataModel, List<ITemplate> selectedTemplates) {
-		classLoaderUtil.configureTemplates(dataModel, selectedTemplates);
+		classLoaderUtil.configureTemplates(dataModel,null, selectedTemplates);
 		dataModelDao.update(dataModel);
 	}
 
@@ -135,7 +135,7 @@ public class DataModelServiceImpl extends BaseService implements DataModelServic
 	}
 
 	public IDataModel loadDataModel(String modelClass, Long id) {
-		return this.dataModelDao.loadDataModels(classLoaderUtil.getClass(modelClass), id);
+		return this.dataModelDao.loadDataModel(classLoaderUtil.getClass(modelClass), id);
 	}
 
 }

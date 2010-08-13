@@ -21,6 +21,7 @@ import java.util.Set;
 import javax.persistence.Entity;
 
 import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -34,6 +35,7 @@ import com.clican.pluto.orm.dynamic.inter.IDataModel;
 import com.clican.pluto.orm.dynamic.inter.IDirectory;
 import com.clican.pluto.orm.dynamic.inter.IPojo;
 import com.clican.pluto.orm.dynamic.inter.ITemplate;
+import com.clican.pluto.orm.dynamic.inter.ITemplateDirectoryRelation;
 import com.clican.pluto.orm.dynamic.inter.ITemplateModelRelation;
 import com.clican.pluto.orm.dynamic.inter.ModelContainer;
 
@@ -76,19 +78,14 @@ public class ClassLoaderUtilImpl implements ClassLoaderUtil {
 			while (e.hasMoreElements()) {
 				URL url = e.nextElement();
 				if (url.getPath().contains(SURE_FIRE_BOOTER_JAR)) {
-					reader = new BufferedReader(new InputStreamReader(url
-							.openStream()));
+					reader = new BufferedReader(new InputStreamReader(url.openStream()));
 					String line = null;
 					StringBuffer content = new StringBuffer();
 					while ((line = reader.readLine()) != null) {
 						content.append(line.trim());
 					}
-					String cont = content
-							.toString()
-							.replaceAll("Manifest-Version: 1.0Class-Path: ", "")
-							.replaceAll(
-									"Main-Class: org.apache.maven.surefire.booter.SurefireBooter",
-									"");
+					String cont = content.toString().replaceAll("Manifest-Version: 1.0Class-Path: ", "").replaceAll(
+							"Main-Class: org.apache.maven.surefire.booter.SurefireBooter", "");
 					for (String file : cont.split(" ")) {
 						if (file.contains("file")) {
 							jars.add(file.replaceAll("file:", ""));
@@ -114,8 +111,7 @@ public class ClassLoaderUtilImpl implements ClassLoaderUtil {
 	private void populateJars(Set<String> jars, ClassLoader loader) {
 		if (!(loader instanceof URLClassLoader)) {
 			if (log.isDebugEnabled()) {
-				log.debug("The ClassLoader[" + loader.getClass().getName()
-						+ "] is ignored");
+				log.debug("The ClassLoader[" + loader.getClass().getName() + "] is ignored");
 			}
 		} else {
 			URLClassLoader urlClassLoader = (URLClassLoader) loader;
@@ -135,9 +131,7 @@ public class ClassLoaderUtilImpl implements ClassLoaderUtil {
 	public IDirectory newDirectory(IDirectory parent, String name) {
 		IDirectory directory = null;
 		try {
-			directory = (IDirectory) (dynamicClassLoader
-					.loadClass(Constants.DYNAMIC_MODEL_PACKAGE + "."
-							+ Constants.DEFAULT_DIRECTORY_CLASS_NAME)
+			directory = (IDirectory) (dynamicClassLoader.loadClass(Constants.DYNAMIC_MODEL_PACKAGE + "." + Constants.DEFAULT_DIRECTORY_CLASS_NAME)
 					.newInstance());
 			String path = "/" + name;
 			directory.setParent(parent);
@@ -145,51 +139,47 @@ public class ClassLoaderUtilImpl implements ClassLoaderUtil {
 			directory.setName(name);
 			directory.setChildren(new HashSet<IDirectory>());
 		} catch (Exception e) {
-			throw new PlutoException("The " + Constants.DYNAMIC_MODEL_PACKAGE
-					+ "." + Constants.DEFAULT_DIRECTORY_CLASS_NAME
+			throw new PlutoException("The " + Constants.DYNAMIC_MODEL_PACKAGE + "." + Constants.DEFAULT_DIRECTORY_CLASS_NAME
 					+ " can't be found in the classloader.", e);
 		}
 		return directory;
 	}
 
-	public void configureTemplates(IDataModel dataModel,
-			List<ITemplate> selectedTemplates) {
-		ITemplateModelRelation relation = null;
-		String name = Constants.DYNAMIC_MODEL_PACKAGE + "."
-				+ Constants.DEFAULT_TEMPLATE_CLASS_NAME
-				+ dataModel.getClass().getAnnotation(Entity.class).name()
-				+ "Relation";
-		Set<ITemplateModelRelation> set = new HashSet<ITemplateModelRelation>();
+	@SuppressWarnings("unchecked")
+	public void configureTemplates(IDataModel dataModel, String entityName, List<ITemplate> selectedTemplates) {
+		String name = Constants.DYNAMIC_MODEL_PACKAGE + "." + Constants.DEFAULT_TEMPLATE_CLASS_NAME + entityName + "Relation";
 		try {
-			for (ITemplate template : selectedTemplates) {
-				relation = (ITemplateModelRelation) (dynamicClassLoader
-						.loadClass(name).newInstance());
-				relation.setDataModel(dataModel);
-				relation.setTemplate(template);
-				set.add(relation);
+			Set<IPojo> set = (Set) PropertyUtils.getProperty(dataModel, Constants.DEFAULT_TEMPLATE_CLASS_NAME.toLowerCase() + entityName + "RelationSet");
+			set.clear();
+			if (dataModel instanceof IDirectory) {
+				for (ITemplate template : selectedTemplates) {
+					ITemplateDirectoryRelation relation = (ITemplateDirectoryRelation) (dynamicClassLoader.loadClass(name).newInstance());
+					relation.setDirectory((IDirectory) dataModel);
+					relation.setTemplate(template);
+					set.add(relation);
+				}
+			} else {
+				for (ITemplate template : selectedTemplates) {
+					ITemplateModelRelation relation = (ITemplateModelRelation) (dynamicClassLoader.loadClass(name).newInstance());
+					relation.setDataModel(dataModel);
+					relation.setTemplate(template);
+					set.add(relation);
+				}
 			}
-			BeanUtils.setProperty(dataModel,
-					Constants.DEFAULT_TEMPLATE_CLASS_NAME.toLowerCase()
-							+ dataModel.getClass().getAnnotation(Entity.class)
-									.name() + "RelationSet", set);
+			BeanUtils.setProperty(dataModel, Constants.DEFAULT_TEMPLATE_CLASS_NAME.toLowerCase() + entityName + "RelationSet", set);
 		} catch (Exception e) {
-			throw new PlutoException("The " + name
-					+ " can't be found in the classloader.", e);
+			throw new PlutoException("The " + name + " can't be found in the classloader.", e);
 		}
 	}
 
-	public IDataModel newDataModel(IDirectory parent,
-			ModelDescription modelDescription) {
+	public IDataModel newDataModel(IDirectory parent, ModelDescription modelDescription) {
 		IDataModel dataModel = null;
 		try {
-			dataModel = (IDataModel) (dynamicClassLoader
-					.loadClass(Constants.DYNAMIC_MODEL_PACKAGE + "."
-							+ modelDescription.getFirstCharUpperName())
+			dataModel = (IDataModel) (dynamicClassLoader.loadClass(Constants.DYNAMIC_MODEL_PACKAGE + "." + modelDescription.getFirstCharUpperName())
 					.newInstance());
 			dataModel.setParent(parent);
 		} catch (Exception e) {
-			throw new PlutoException("The " + Constants.DYNAMIC_MODEL_PACKAGE
-					+ "." + modelDescription.getFirstCharUpperName()
+			throw new PlutoException("The " + Constants.DYNAMIC_MODEL_PACKAGE + "." + modelDescription.getFirstCharUpperName()
 					+ " can't be found in the classloader.", e);
 		}
 		return dataModel;
@@ -198,12 +188,9 @@ public class ClassLoaderUtilImpl implements ClassLoaderUtil {
 	public ITemplate newTemplate() {
 		ITemplate template = null;
 		try {
-			template = (ITemplate) (dynamicClassLoader
-					.loadClass(Constants.DYNAMIC_MODEL_PACKAGE + ".Template")
-					.newInstance());
+			template = (ITemplate) (dynamicClassLoader.loadClass(Constants.DYNAMIC_MODEL_PACKAGE + ".Template").newInstance());
 		} catch (Exception e) {
-			throw new PlutoException("The " + Constants.DYNAMIC_MODEL_PACKAGE
-					+ ".Template" + " can't be found in the classloader.", e);
+			throw new PlutoException("The " + Constants.DYNAMIC_MODEL_PACKAGE + ".Template" + " can't be found in the classloader.", e);
 		}
 		return template;
 	}
@@ -212,13 +199,9 @@ public class ClassLoaderUtilImpl implements ClassLoaderUtil {
 		List<Class<?>> result = new ArrayList<Class<?>>();
 		for (ModelDescription modelDescription : modelContainer.getModelDescs()) {
 			try {
-				result.add(dynamicClassLoader
-						.loadClass(Constants.DYNAMIC_MODEL_PACKAGE + "."
-								+ modelDescription.getFirstCharUpperName()));
+				result.add(dynamicClassLoader.loadClass(Constants.DYNAMIC_MODEL_PACKAGE + "." + modelDescription.getFirstCharUpperName()));
 			} catch (Exception e) {
-				throw new PlutoException("The "
-						+ Constants.DYNAMIC_MODEL_PACKAGE + "."
-						+ modelDescription.getFirstCharUpperName()
+				throw new PlutoException("The " + Constants.DYNAMIC_MODEL_PACKAGE + "." + modelDescription.getFirstCharUpperName()
 						+ " can't be found in the classloader.", e);
 			}
 		}
@@ -226,8 +209,7 @@ public class ClassLoaderUtilImpl implements ClassLoaderUtil {
 	}
 
 	public Class<?> getClass(IPojo pojo) {
-		String modelClass = Constants.DYNAMIC_MODEL_PACKAGE + "."
-				+ pojo.getClass().getAnnotation(Entity.class).name();
+		String modelClass = Constants.DYNAMIC_MODEL_PACKAGE + "." + pojo.getClass().getAnnotation(Entity.class).name();
 		return this.getClass(modelClass);
 	}
 
@@ -236,15 +218,13 @@ public class ClassLoaderUtilImpl implements ClassLoaderUtil {
 		try {
 			clazz = dynamicClassLoader.loadClass(modelClass);
 		} catch (Exception e) {
-			throw new PlutoException("The " + modelClass
-					+ " can't be found in the classloader.", e);
+			throw new PlutoException("The " + modelClass + " can't be found in the classloader.", e);
 		}
 		return clazz;
 	}
 
 	public Class<?> getClass(ModelDescription modelDescription) {
-		return this.getClass(Constants.DYNAMIC_MODEL_PACKAGE + "."
-				+ modelDescription.getFirstCharUpperName());
+		return this.getClass(Constants.DYNAMIC_MODEL_PACKAGE + "." + modelDescription.getFirstCharUpperName());
 	}
 
 }

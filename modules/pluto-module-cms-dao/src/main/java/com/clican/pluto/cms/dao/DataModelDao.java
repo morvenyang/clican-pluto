@@ -55,7 +55,7 @@ public interface DataModelDao extends Dao {
 	public List<IDataModel> getDataModels(ModelDescription modelDescription,
 			String name);
 
-	public IDataModel loadDataModels(Class<?> clazz, Long id);
+	public IDataModel loadDataModel(Class<?> clazz, Long id);
 
 }
 // $Id: DataModelDao.java 556 2009-06-16 04:30:01Z clican $

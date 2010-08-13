@@ -6,9 +6,6 @@
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:c="http://java.sun.com/jstl/core">
-	<ui:include src="templateconfigure.xhtml">
-		<ui:param name="projectName" value="Pluto" />
-	</ui:include>
 	<a4j:form>
 		<rich:tabPanel id="dataModelPanel" switchType="client"
 			style="overflow:auto;width:800px;height:650px">
@@ -39,7 +36,7 @@
 							<h:outputText value="Configure Templates" />
 						</f:facet>
 						<a4j:commandButton value="Configure"
-							action="#{dataModelAction.configureTemplate(dataModel)}"
+							action="#{templateAction.configureTemplate(dataModel)}"
 							reRender="templateConfigurationForm">
 							<rich:componentControl for="templateConfigurationPanel"
 								operation="show" event="onclick">
