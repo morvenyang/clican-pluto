@@ -23,7 +23,6 @@ import com.clican.pluto.orm.desc.ModelDescription;
 import com.clican.pluto.orm.dynamic.inter.ClassLoaderUtil;
 import com.clican.pluto.orm.dynamic.inter.IDataModel;
 import com.clican.pluto.orm.dynamic.inter.IDirectory;
-import com.clican.pluto.orm.dynamic.inter.ITemplate;
 import com.clican.pluto.orm.dynamic.inter.ModelContainer;
 
 public class DataModelServiceImpl extends BaseService implements DataModelService {
@@ -94,12 +93,6 @@ public class DataModelServiceImpl extends BaseService implements DataModelServic
 		} else {
 			dataModelDao.delete(dataModels, modelDescription);
 		}
-	}
-
-	@Transactional
-	public void configureTemplates(IDataModel dataModel, List<ITemplate> selectedTemplates) {
-		classLoaderUtil.configureTemplates(dataModel, selectedTemplates);
-		dataModelDao.update(dataModel);
 	}
 
 	public List<IDataModel> getDataModels(IDirectory parent, ModelDescription modelDescription, List<String> orderBy) {
