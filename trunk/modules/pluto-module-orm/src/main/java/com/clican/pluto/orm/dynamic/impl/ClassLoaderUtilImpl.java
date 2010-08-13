@@ -21,7 +21,6 @@ import java.util.Set;
 import javax.persistence.Entity;
 
 import org.apache.commons.beanutils.BeanUtils;
-import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -145,12 +144,11 @@ public class ClassLoaderUtilImpl implements ClassLoaderUtil {
 		return directory;
 	}
 
-	@SuppressWarnings("unchecked")
-	public void configureTemplates(IDataModel dataModel, String entityName, List<ITemplate> selectedTemplates) {
+	public void configureTemplates(IDataModel dataModel, List<ITemplate> selectedTemplates) {
+		String entityName = dataModel.getClass().getAnnotation(Entity.class).name();
 		String name = Constants.DYNAMIC_MODEL_PACKAGE + "." + Constants.DEFAULT_TEMPLATE_CLASS_NAME + entityName + "Relation";
 		try {
-			Set<IPojo> set = (Set) PropertyUtils.getProperty(dataModel, Constants.DEFAULT_TEMPLATE_CLASS_NAME.toLowerCase() + entityName + "RelationSet");
-			set.clear();
+			Set<IPojo> set = new HashSet<IPojo>();
 			if (dataModel instanceof IDirectory) {
 				for (ITemplate template : selectedTemplates) {
 					ITemplateDirectoryRelation relation = (ITemplateDirectoryRelation) (dynamicClassLoader.loadClass(name).newInstance());

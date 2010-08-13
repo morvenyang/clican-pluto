@@ -9,8 +9,6 @@ package com.clican.pluto.cms.core.service.impl;
 
 import java.util.List;
 
-import javax.persistence.Entity;
-
 import org.springframework.transaction.annotation.Transactional;
 
 import com.clican.pluto.cms.core.service.TemplateService;
@@ -70,10 +68,9 @@ public class TemplateServiceImpl extends BaseService implements TemplateService 
 
 	@Transactional
 	public void configureTemplates(IDataModel dataModel, List<ITemplate> selectedTemplates) {
-		String entityName = dataModel.getClass().getAnnotation(Entity.class).name();
-		dataModel = dataModelDao.loadDataModel(dataModel.getClass(), dataModel.getId());
-		classLoaderUtil.configureTemplates(dataModel, entityName, selectedTemplates);
-		dataModelDao.save(dataModel);
+		templateDao.deleteTemplateRelation(dataModel);
+		classLoaderUtil.configureTemplates(dataModel, selectedTemplates);
+		dataModelDao.update(dataModel);
 	}
 
 }

@@ -59,7 +59,7 @@ public class DataModelServiceImpl extends BaseService implements DataModelServic
 	public IDataModel newDataModel(IDirectory parent, ModelDescription modelDescription) {
 		return classLoaderUtil.newDataModel(parent, modelDescription);
 	}
-	
+
 	@Transactional
 	public void save(IDataModel dataModel) {
 		dataModelDao.save(dataModel);
@@ -98,7 +98,7 @@ public class DataModelServiceImpl extends BaseService implements DataModelServic
 
 	@Transactional
 	public void configureTemplates(IDataModel dataModel, List<ITemplate> selectedTemplates) {
-		classLoaderUtil.configureTemplates(dataModel,null, selectedTemplates);
+		classLoaderUtil.configureTemplates(dataModel, selectedTemplates);
 		dataModelDao.update(dataModel);
 	}
 
