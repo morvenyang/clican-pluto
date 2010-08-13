@@ -33,6 +33,7 @@ http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
 			<value>
 				hibernate.dialect=${db.dialect}
 				hibernate.jndi.class=com.clican.pluto.common.util.MockContextFactory
+				hibernate.show_sql=true
 			</value>
 		</property>
 	</bean>

@@ -51,6 +51,30 @@ public class TemplateDaoHibernateImpl extends BaseDao implements TemplateDao {
 		return getHibernateTemplate().findByNamedParam(hsql, "id", dataModel.getId());
 	}
 
+	public void deleteTemplateRelation(final IDataModel dataModel) {
+		final String hsql;
+		if (!(dataModel instanceof IDirectory)) {
+			String modelName = dataModel.getClass().getAnnotation(Entity.class).name();
+			StringBuffer sql = new StringBuffer();
+			sql.append("delete from ");
+			sql.append("Template");
+			sql.append(modelName);
+			sql.append("Relation r where r.dataModel.id = :id");
+			hsql = sql.toString();
+		} else {
+			hsql = "delete from TemplateDirectoryRelation r where r.directory.id= :id";
+		}
+		getHibernateTemplate().execute(new HibernateCallback() {
+			public Object doInHibernate(Session session) throws HibernateException, SQLException {
+				Query query = session.createQuery(hsql);
+				query.setParameter("id", dataModel.getId());
+				int row = query.executeUpdate();
+				return row;
+			}
+
+		});
+	}
+
 	@SuppressWarnings("unchecked")
 	public List<ITemplateModelRelation> getTemplateModelRelations(List<IDataModel> dataModels, ModelDescription modelDescription) {
 		String modelName = modelDescription.getFirstCharUpperName();
