@@ -62,11 +62,15 @@ public class DataModelServiceImpl extends BaseService implements DataModelServic
 
 	@Transactional
 	public void save(IDataModel dataModel) {
-		if(dataModel.getCreateTime()==null){
+		if (dataModel.getCreateTime() == null) {
 			dataModel.setCreateTime(Calendar.getInstance());
 		}
 		dataModel.setUpdateTime(Calendar.getInstance());
-		dataModelDao.save(dataModel);
+		if (dataModel.getId() == null) {
+			dataModelDao.save(dataModel);
+		} else {
+			dataModelDao.update(dataModel);
+		}
 	}
 
 	@Transactional
