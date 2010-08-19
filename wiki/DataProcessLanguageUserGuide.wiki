@@ -1,4 +1,5 @@
-= DPL使用手册 =
+= Data Process Language User Guide =
+= DPL用户手册=
 
 ==第一章 DPL交互接口==
 
