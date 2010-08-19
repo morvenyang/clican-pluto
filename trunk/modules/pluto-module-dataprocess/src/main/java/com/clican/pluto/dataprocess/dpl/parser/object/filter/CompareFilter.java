@@ -72,7 +72,8 @@ public class CompareFilter extends Filter {
 	 * @param expr
 	 *            表达式
 	 */
-	public CompareFilter(PrefixAndSuffix leftPas, PrefixAndSuffix rightPas, CompareType compareType) throws PrefixAndSuffixException {
+	public CompareFilter(PrefixAndSuffix leftPas, PrefixAndSuffix rightPas,
+			CompareType compareType) throws PrefixAndSuffixException {
 		this.leftPas = leftPas;
 		this.rightPas = rightPas;
 		List<String> fromParams;
@@ -81,7 +82,8 @@ public class CompareFilter extends Filter {
 			if (fromParams.size() == 1) {
 				this.leftVarName = fromParams.get(0);
 			} else if (fromParams.size() > 1) {
-				throw new PrefixAndSuffixException("在where条件中的函数中使用到的参数当且仅当包含一个from条件才可以");
+				throw new PrefixAndSuffixException(
+						"在where条件中的函数中使用到的参数当且仅当包含一个from条件才可以");
 			}
 		}
 		if (rightPas != null) {
@@ -89,11 +91,14 @@ public class CompareFilter extends Filter {
 			if (fromParams.size() == 1) {
 				this.rightVarName = fromParams.get(0);
 			} else if (fromParams.size() > 1) {
-				throw new PrefixAndSuffixException("在where条件中的函数中使用到的参数当且仅当包含一个from条件才可以");
+				throw new PrefixAndSuffixException(
+						"在where条件中的函数中使用到的参数当且仅当包含一个from条件才可以");
 			}
 		}
 		this.compareType = compareType;
-		this.expr = (leftPas != null ? leftPas.toString() : "") + " " + compareType.getOperation() + " " + (rightPas != null ? rightPas.toString() : "");
+		this.expr = (leftPas != null ? leftPas.toString() : "") + " "
+				+ compareType.getOperation() + " "
+				+ (rightPas != null ? rightPas.toString() : "");
 	}
 
 	/**
@@ -125,7 +130,8 @@ public class CompareFilter extends Filter {
 	 * 
 	 * @param context
 	 */
-	private void existDplResultAndExist2FromAndContain2From(ProcessorContext context) throws DplParseException {
+	private void existDplResultAndExist2FromAndContain2From(
+			ProcessorContext context) throws DplParseException {
 		DplResultSet original = context.getAttribute(DPL_RESULT_SET);
 		List<Map<String, Object>> resultSet = original.getResultSet();
 		List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
@@ -137,12 +143,14 @@ public class CompareFilter extends Filter {
 			Comparable<?> rightComp = rightPas.getValue(rs);
 
 			// 对于外链的情况下任意一个为空则不需要再进行比较了直接算比较通过
-			if (compareType.isLeftOuterJoin() && (leftComp == null || rightComp == null)) {
+			if (compareType.isLeftOuterJoin()
+					&& (leftComp == null || rightComp == null)) {
 				result.add(rs);
 				continue;
 			}
 			// 对于外链接记录下对应的对象的记录行
-			if (compareType.isLeftOuterJoin() && !leftCompCount.containsKey(rs.get(leftVarName))) {
+			if (compareType.isLeftOuterJoin()
+					&& !leftCompCount.containsKey(rs.get(leftVarName))) {
 				leftCompCount.put(rs.get(leftVarName), rs);
 			}
 			if (compareType.compare(leftComp, rightComp, null, null)) {
@@ -181,11 +189,15 @@ public class CompareFilter extends Filter {
 	 * @throws Exception
 	 */
 	@SuppressWarnings("unchecked")
-	private List<Map<String, Object>> compareLeftAndRight(ProcessorContext context, List<?> leftVarList, List<?> rightVarList) throws DplParseException {
+	private List<Map<String, Object>> compareLeftAndRight(
+			ProcessorContext context, List<?> leftVarList, List<?> rightVarList)
+			throws DplParseException {
 		DplResultSet original = context.getAttribute(DPL_RESULT_SET);
 		// 如果变量名已经存在于现有的结果集合中则flag=true
-		boolean leftFlag = original != null && original.getResultNames().contains(leftVarName);
-		boolean rightFlag = original != null && original.getResultNames().contains(rightVarName);
+		boolean leftFlag = original != null
+				&& original.getResultNames().contains(leftVarName);
+		boolean rightFlag = original != null
+				&& original.getResultNames().contains(rightVarName);
 
 		// 用来存放同样的key的list列表
 		Map<Comparable<?>, List<Object>> leftMap = new HashMap<Comparable<?>, List<Object>>();
@@ -229,8 +241,10 @@ public class CompareFilter extends Filter {
 		}
 
 		// 求交集
-		List<Map<String, Object>> resultSet = getResultSet(context, leftMap, rightMap, leftVarName, rightVarName);
+		List<Map<String, Object>> resultSet = getResultSet(context, leftMap,
+				rightMap, leftVarName, rightVarName);
 		// 把结果集根据与原有的顺序还原
+		// TODO Using the counting sort to sort.
 		Collections.sort(resultSet, new Comparator<Map<String, Object>>() {
 
 			public int compare(Map<String, Object> o1, Map<String, Object> o2) {
@@ -292,7 +306,8 @@ public class CompareFilter extends Filter {
 	 * @throws Exception
 	 */
 	@SuppressWarnings("unchecked")
-	private void compareLeftOrRight(ProcessorContext context, String varName, PrefixAndSuffix pas1, PrefixAndSuffix pas2, List<?> varList)
+	private void compareLeftOrRight(ProcessorContext context, String varName,
+			PrefixAndSuffix pas1, PrefixAndSuffix pas2, List<?> varList)
 			throws DplParseException {
 		// 行记录集合
 		List<Map<String, Object>> newVarList = new ArrayList<Map<String, Object>>();
@@ -300,7 +315,8 @@ public class CompareFilter extends Filter {
 		List<Object> newSimpleVarList = new ArrayList<Object>();
 		DplResultSet original = context.getAttribute(DPL_RESULT_SET);
 		// 如果varName存在于已有的结果集合中则flag=true
-		boolean flag = original != null && original.getResultNames().contains(varName);
+		boolean flag = original != null
+				&& original.getResultNames().contains(varName);
 		// 逐条处理数据集合
 		for (Object varObj : varList) {
 			// 统计把记录集合用Map来包装
@@ -332,17 +348,20 @@ public class CompareFilter extends Filter {
 			} else if (comp2 instanceof Collection) {
 				// 如果比较方法支持对象和集合的比较的话则进行比较
 				if (compareType.isSupportCompareCollection()) {
-					if (compareType.compare(comp1, null, null, new HashSet((Collection) comp2))) {
+					if (compareType.compare(comp1, null, null, new HashSet(
+							(Collection) comp2))) {
 						if (flag) {
 							newVarList.add(row);
 						}
 						newSimpleVarList.add(row.get(varName));
 					}
 				} else {
-					throw new DplParseException("该" + this.expr + "[" + compareType.name() + "]操作不支持对象和Collection的比较");
+					throw new DplParseException("该" + this.expr + "["
+							+ compareType.name() + "]操作不支持对象和Collection的比较");
 				}
 			} else {
-				throw new DplParseException("该" + this.expr + "操作左右两端的比较对象类型无法比较");
+				throw new DplParseException("该" + this.expr
+						+ "操作左右两端的比较对象类型无法比较");
 			}
 		}
 		if (flag) {
@@ -358,7 +377,8 @@ public class CompareFilter extends Filter {
 	 * 
 	 * @param context
 	 */
-	private void existDplResultAndExist2FromAndContain1From(ProcessorContext context) throws DplParseException {
+	private void existDplResultAndExist2FromAndContain1From(
+			ProcessorContext context) throws DplParseException {
 		DplResultSet original = context.getAttribute(DPL_RESULT_SET);
 		List<?> leftVarList = null;
 		List<?> rightVarList = null;
@@ -372,7 +392,8 @@ public class CompareFilter extends Filter {
 		} else {
 			rightVarList = context.getAttribute(rightVarName);
 		}
-		List<Map<String, Object>> resultSet = this.compareLeftAndRight(context, leftVarList, rightVarList);
+		List<Map<String, Object>> resultSet = this.compareLeftAndRight(context,
+				leftVarList, rightVarList);
 		original.getResultNames().add(leftVarName);
 		original.getResultNames().add(rightVarName);
 		original.setResultSet(resultSet);
@@ -383,10 +404,12 @@ public class CompareFilter extends Filter {
 	 * 
 	 * @param context
 	 */
-	private void existDplResultAndExist2FromAndContain0From(ProcessorContext context) throws DplParseException {
+	private void existDplResultAndExist2FromAndContain0From(
+			ProcessorContext context) throws DplParseException {
 		List<?> leftVarList = context.getAttribute(leftVarName);
 		List<?> rightVarList = context.getAttribute(rightVarName);
-		List<Map<String, Object>> resultSet = this.compareLeftAndRight(context, leftVarList, rightVarList);
+		List<Map<String, Object>> resultSet = this.compareLeftAndRight(context,
+				leftVarList, rightVarList);
 		DplResultSet dplResultSet = new DplResultSet();
 		dplResultSet.getResultNames().add(leftVarName);
 		dplResultSet.getResultNames().add(rightVarName);
@@ -399,14 +422,17 @@ public class CompareFilter extends Filter {
 	 * 
 	 * @param context
 	 */
-	private void existDplResultAndExist1FromAndContain1From(ProcessorContext context) throws DplParseException {
+	private void existDplResultAndExist1FromAndContain1From(
+			ProcessorContext context) throws DplParseException {
 		DplResultSet original = context.getAttribute(DPL_RESULT_SET);
 		if (StringUtils.isNotEmpty(leftVarName)) {
 			List<?> leftVarList = original.getResultSet();
-			this.compareLeftOrRight(context, leftVarName, leftPas, rightPas, leftVarList);
+			this.compareLeftOrRight(context, leftVarName, leftPas, rightPas,
+					leftVarList);
 		} else if (StringUtils.isNotEmpty(rightVarName)) {
 			List<?> rightVarList = original.getResultSet();
-			this.compareLeftOrRight(context, rightVarName, rightPas, leftPas, rightVarList);
+			this.compareLeftOrRight(context, rightVarName, rightPas, leftPas,
+					rightVarList);
 		} else {
 			throw new DplParseException("表达式不正确，可能缺少list前缀");
 		}
@@ -418,13 +444,16 @@ public class CompareFilter extends Filter {
 	 * 
 	 * @param context
 	 */
-	private void existDplResultAndExist1FromAndContain0From(ProcessorContext context) throws DplParseException {
+	private void existDplResultAndExist1FromAndContain0From(
+			ProcessorContext context) throws DplParseException {
 		if (StringUtils.isNotEmpty(leftVarName)) {
 			List<?> leftVarList = context.getAttribute(leftVarName);
-			this.compareLeftOrRight(context, leftVarName, leftPas, rightPas, leftVarList);
+			this.compareLeftOrRight(context, leftVarName, leftPas, rightPas,
+					leftVarList);
 		} else if (StringUtils.isNotEmpty(rightVarName)) {
 			List<?> rightVarList = context.getAttribute(rightVarName);
-			this.compareLeftOrRight(context, rightVarName, rightPas, leftPas, rightVarList);
+			this.compareLeftOrRight(context, rightVarName, rightPas, leftPas,
+					rightVarList);
 		} else {
 			throw new DplParseException("表达式不正确，可能缺少list前缀");
 		}
@@ -435,10 +464,12 @@ public class CompareFilter extends Filter {
 	 * 
 	 * @param context
 	 */
-	private void notExistDplResultAndExist2From(ProcessorContext context) throws DplParseException {
+	private void notExistDplResultAndExist2From(ProcessorContext context)
+			throws DplParseException {
 		List<?> leftVarList = context.getAttribute(leftVarName);
 		List<?> rightVarList = context.getAttribute(rightVarName);
-		List<Map<String, Object>> resultSet = this.compareLeftAndRight(context, leftVarList, rightVarList);
+		List<Map<String, Object>> resultSet = this.compareLeftAndRight(context,
+				leftVarList, rightVarList);
 		DplResultSet dplResultSet = new DplResultSet();
 		dplResultSet.getResultNames().add(leftVarName);
 		dplResultSet.getResultNames().add(rightVarName);
@@ -451,13 +482,16 @@ public class CompareFilter extends Filter {
 	 * 
 	 * @param context
 	 */
-	private void notExistDplResultAndExist1From(ProcessorContext context) throws DplParseException {
+	private void notExistDplResultAndExist1From(ProcessorContext context)
+			throws DplParseException {
 		if (StringUtils.isNotEmpty(leftVarName)) {
 			List<?> leftVarList = context.getAttribute(leftVarName);
-			this.compareLeftOrRight(context, leftVarName, leftPas, rightPas, leftVarList);
+			this.compareLeftOrRight(context, leftVarName, leftPas, rightPas,
+					leftVarList);
 		} else if (StringUtils.isNotEmpty(rightVarName)) {
 			List<?> rightVarList = context.getAttribute(rightVarName);
-			this.compareLeftOrRight(context, rightVarName, rightPas, leftPas, rightVarList);
+			this.compareLeftOrRight(context, rightVarName, rightPas, leftPas,
+					rightVarList);
 		} else {
 			throw new DplParseException("表达式不正确，可能缺少list前缀");
 		}
@@ -469,8 +503,10 @@ public class CompareFilter extends Filter {
 	public void filter(ProcessorContext context) throws DplParseException {
 		DplResultSet original = context.getAttribute(DPL_RESULT_SET);
 		if (original != null) {
-			if (StringUtils.isNotEmpty(leftVarName) && StringUtils.isNotEmpty(rightVarName)) {
-				if (original.getResultNames().contains(leftVarName) && original.getResultNames().contains(rightVarName)) {
+			if (StringUtils.isNotEmpty(leftVarName)
+					&& StringUtils.isNotEmpty(rightVarName)) {
+				if (original.getResultNames().contains(leftVarName)
+						&& original.getResultNames().contains(rightVarName)) {
 					// EF2D2
 					existDplResultAndExist2FromAndContain2From(context);
 				} else if (original.getResultNames().contains(leftVarName)) {
@@ -500,10 +536,12 @@ public class CompareFilter extends Filter {
 					existDplResultAndExist1FromAndContain0From(context);
 				}
 			} else {
-				throw new DplParseException("比较的两端不能都是常量这样的比较没有意义[" + this.getExpr() + "]");
+				throw new DplParseException("比较的两端不能都是常量这样的比较没有意义["
+						+ this.getExpr() + "]");
 			}
 		} else {
-			if (StringUtils.isNotEmpty(leftVarName) && StringUtils.isNotEmpty(rightVarName)) {
+			if (StringUtils.isNotEmpty(leftVarName)
+					&& StringUtils.isNotEmpty(rightVarName)) {
 				// !EF2D0
 				notExistDplResultAndExist2From(context);
 			} else if (StringUtils.isNotEmpty(leftVarName)) {
@@ -513,7 +551,8 @@ public class CompareFilter extends Filter {
 				// !EF1D0
 				notExistDplResultAndExist1From(context);
 			} else {
-				throw new DplParseException("比较的两端不能都是常量这样的比较没有意义[" + this.getExpr() + "]");
+				throw new DplParseException("比较的两端不能都是常量这样的比较没有意义["
+						+ this.getExpr() + "]");
 			}
 		}
 	}
@@ -534,8 +573,10 @@ public class CompareFilter extends Filter {
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	private List<Map<String, Object>> getResultSet(ProcessorContext context, Map<Comparable<?>, List<Object>> leftMap,
-			Map<Comparable<?>, List<Object>> rightMap, String leftVarName, String rightVarName) throws CalculationException {
+	private List<Map<String, Object>> getResultSet(ProcessorContext context,
+			Map<Comparable<?>, List<Object>> leftMap,
+			Map<Comparable<?>, List<Object>> rightMap, String leftVarName,
+			String rightVarName) throws CalculationException {
 		DplResultSet original = context.getAttribute(DPL_RESULT_SET);
 		List<Map<String, Object>> resultSet = new ArrayList<Map<String, Object>>();
 		for (Comparable<?> leftKey : leftMap.keySet()) {
@@ -543,22 +584,27 @@ public class CompareFilter extends Filter {
 			List<Object> rightVarObjList = new ArrayList<Object>();
 			if (compareType.isLeftOuterJoin()) {
 				for (Comparable<?> rightKey : rightMap.keySet()) {
-					if (compareType.compare(leftKey, rightKey, leftMap.keySet(), rightMap.keySet())) {
+					if (compareType.compare(leftKey, rightKey,
+							leftMap.keySet(), rightMap.keySet())) {
 						rightVarObjList.addAll(rightMap.get(rightKey));
 					}
 				}
 			} else {
 				for (Comparable<?> rightKey : rightMap.keySet()) {
-					if (compareType.compare(leftKey, rightKey, leftMap.keySet(), rightMap.keySet())) {
+					if (compareType.compare(leftKey, rightKey,
+							leftMap.keySet(), rightMap.keySet())) {
 						rightVarObjList.addAll(rightMap.get(rightKey));
 					}
 				}
 			}
 			if (leftVarObjList != null && rightVarObjList != null) {
 				for (Object leftVarObj : leftVarObjList) {
-					if (rightVarObjList.size() == 0 && compareType.isLeftOuterJoin()) {
+					if (rightVarObjList.size() == 0
+							&& compareType.isLeftOuterJoin()) {
 						Map<String, Object> result = new HashMap<String, Object>();
-						if (original != null && original.getResultNames().contains(leftVarName)) {
+						if (original != null
+								&& original.getResultNames().contains(
+										leftVarName)) {
 							result.putAll((Map<String, Object>) leftVarObj);
 						} else {
 							result.put(leftVarName, leftVarObj);
@@ -570,13 +616,18 @@ public class CompareFilter extends Filter {
 					} else {
 						for (Object rightVarObj : rightVarObjList) {
 							Map<String, Object> result = new HashMap<String, Object>();
-							if (original != null && original.getResultNames().contains(leftVarName)) {
+							if (original != null
+									&& original.getResultNames().contains(
+											leftVarName)) {
 								result.putAll((Map<String, Object>) leftVarObj);
 							} else {
 								result.put(leftVarName, leftVarObj);
 							}
-							if (original != null && original.getResultNames().contains(rightVarName)) {
-								result.putAll((Map<String, Object>) rightVarObj);
+							if (original != null
+									&& original.getResultNames().contains(
+											rightVarName)) {
+								result
+										.putAll((Map<String, Object>) rightVarObj);
 							} else {
 								result.put(rightVarName, rightVarObj);
 							}
@@ -593,7 +644,8 @@ public class CompareFilter extends Filter {
 
 	public int priority() {
 		// 左外链接最先执行然后是普通字段过滤最后才是内链接
-		if (StringUtils.isNotEmpty(leftVarName) && StringUtils.isNotEmpty(rightVarName)) {
+		if (StringUtils.isNotEmpty(leftVarName)
+				&& StringUtils.isNotEmpty(rightVarName)) {
 			if (compareType.isLeftOuterJoin()) {
 				return 3;
 			} else {
