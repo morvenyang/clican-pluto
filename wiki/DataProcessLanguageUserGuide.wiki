@@ -148,7 +148,7 @@ select list1.* from list1where list1.name= dual.name
 select navList.* from navList where (navList.fundTicker='000001' and navList.publishDate<toDate('2008-02-03','yyyy-MM-dd')) or (navList.fundTicker='000002' and navList.publishDate>toDate('2008-02-03','yyyy-MM-dd'))
 }}}
 
-在这条dpl中我们看到了and/or的搭配使用。通过括号来划定and/or之间的优先级。在这里需要特别注意的是DplStatement总认为and/or之间的优先级是不可预测的是未定义的。因此一定需要通过括号的形式来保证执行的优先级。
+在这条dpl中我们看到了and/or的搭配使用。通过括号来划定and/or之间的优先级。在这里需要特别注意的是`DplStatement`总认为and/or之间的优先级是不可预测的是未定义的。因此一定需要通过括号的形式来保证执行的优先级。
 在这里我们也第一次的看到了函数的使用，关于函数的具体使用请参见函数的介绍章节。这里只是简单的介绍下通过toDate函数把一个字符串常量转换为一个java.util.Date的对象。然后才能够和publishDate对象做比较。
 如果在`ProcessorContext`或Map中有key=publishDate value=2008-2-3(java.util.Date)的一条记录的话该条dpl也能写成
 {{{
