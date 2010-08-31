@@ -8,6 +8,14 @@
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:a4j="http://richfaces.org/a4j" template="site.xhtml">
 	<ui:define name="body">
+		<h:panelGrid columns="2">
+			<rich:tabPanel id="leftPanel" switchType="client"
+				style="overflow:auto;width:280px;height:650px">
+				<ui:include src="tree.xhtml" />
+				<ui:include src="datastructure.xhtml" />
+				<ui:include src="template.xhtml" />
+			</rich:tabPanel>
 			<a4j:include id="workspace" viewId="none.xhtml" />
+		</h:panelGrid>
 	</ui:define>
 </ui:composition>
