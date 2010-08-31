@@ -86,7 +86,7 @@ public class Site implements ISite {
         this.password = password;
     }
 
-    @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL, fetch = FetchType.LAZY,targetEntity=SiteDirectoryRelation.class)
     public Set<ISiteDirectoryRelation> getSiteDirectoryRelationSet() {
         return siteDirectoryRelationSet;
     }
