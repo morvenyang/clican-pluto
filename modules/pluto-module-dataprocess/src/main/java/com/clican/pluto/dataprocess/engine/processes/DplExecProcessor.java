@@ -14,7 +14,7 @@ import java.util.Map;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.clican.pluto.common.util.PropertyUtilS;
+import com.clican.pluto.common.util.PropertyUtils;
 import com.clican.pluto.dataprocess.dpl.DplStatement;
 import com.clican.pluto.dataprocess.engine.ProcessorContext;
 import com.clican.pluto.dataprocess.engine.impl.BaseDataProcessor;
@@ -99,7 +99,7 @@ public class DplExecProcessor<T> extends BaseDataProcessor {
 						String debug = "\n";
 						for (Map<String, Object> row : result) {
 							for (String trace : traces) {
-								Object obj = PropertyUtilS.getNestedProperty(row, trace);
+								Object obj = PropertyUtils.getNestedProperty(row, trace);
 								if (obj instanceof Date) {
 									obj = sdf.format((Date) obj);
 								}
@@ -143,7 +143,7 @@ public class DplExecProcessor<T> extends BaseDataProcessor {
 										|| row.getClass().equals(Date.class)) {
 									obj = row;
 								} else {
-									obj = PropertyUtilS.getNestedProperty(row, trace);
+									obj = PropertyUtils.getNestedProperty(row, trace);
 								}
 								if (obj instanceof Date) {
 									obj = sdf.format((Date) obj);

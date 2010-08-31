@@ -15,7 +15,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.math.NumberUtils;
 import org.apache.commons.lang.time.DateUtils;
 
-import com.clican.pluto.common.util.PropertyUtilS;
+import com.clican.pluto.common.util.PropertyUtils;
 import com.clican.pluto.dataprocess.engine.DataProcessor;
 import com.clican.pluto.dataprocess.engine.ProcessorContext;
 import com.clican.pluto.dataprocess.engine.impl.BaseDataProcessor;
@@ -104,13 +104,13 @@ public class ForProcessor extends BaseDataProcessor {
 			String endChange = null;
 			if (StringUtils.isNotEmpty(start)) {
 				if (start.contains("+")) {
-					startObj = PropertyUtilS.getNestedProperty(context.getMap(), start.split("\\+")[0].trim());
+					startObj = PropertyUtils.getNestedProperty(context.getMap(), start.split("\\+")[0].trim());
 					startChange = start.split("\\+")[1].trim();
 				} else if (start.contains("-")) {
-					startObj = PropertyUtilS.getNestedProperty(context.getMap(), start.split("\\-")[0].trim());
+					startObj = PropertyUtils.getNestedProperty(context.getMap(), start.split("\\-")[0].trim());
 					startChange = "-" + start.split("\\-")[1].trim();
 				} else {
-					startObj = PropertyUtilS.getNestedProperty(context.getMap(), start);
+					startObj = PropertyUtils.getNestedProperty(context.getMap(), start);
 					if (startObj == null) {
 						startObj = start;
 					}
@@ -119,13 +119,13 @@ public class ForProcessor extends BaseDataProcessor {
 			}
 			if (StringUtils.isNotEmpty(end)) {
 				if (end.contains("+")) {
-					endObj = PropertyUtilS.getNestedProperty(context.getMap(), end.split("\\+")[0].trim());
+					endObj = PropertyUtils.getNestedProperty(context.getMap(), end.split("\\+")[0].trim());
 					endChange = end.split("\\+")[1].trim();
 				} else if (end.contains("-")) {
-					endObj = PropertyUtilS.getNestedProperty(context.getMap(), end.split("\\-")[0].trim());
+					endObj = PropertyUtils.getNestedProperty(context.getMap(), end.split("\\-")[0].trim());
 					endChange = "-" + end.split("\\-")[1].trim();
 				} else {
-					endObj = PropertyUtilS.getNestedProperty(context.getMap(), end);
+					endObj = PropertyUtils.getNestedProperty(context.getMap(), end);
 					if (endObj == null) {
 						endObj = end;
 					}

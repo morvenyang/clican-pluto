@@ -11,7 +11,7 @@ import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 
-import com.clican.pluto.common.util.PropertyUtilS;
+import com.clican.pluto.common.util.PropertyUtils;
 import com.clican.pluto.dataprocess.engine.ProcessorContext;
 
 public class ExecBean {
@@ -79,7 +79,7 @@ public class ExecBean {
 					param = new HashMap<String, Object>((Map) param);
 					if (getParamNameMap() != null && getParamNameMap().size() != 0) {
 						for (String contextName : getParamNameMap().keySet()) {
-							Object obj = PropertyUtilS.getNestedProperty(param, contextName);
+							Object obj = PropertyUtils.getNestedProperty(param, contextName);
 							((Map) param).remove(contextName);
 							if (obj != null) {
 								((Map) param).put(getParamNameMap().get(contextName), obj);
@@ -92,7 +92,7 @@ public class ExecBean {
 				if (getParamNameMap() != null && getParamNameMap().size() != 0) {
 					map = context.getMap();
 					for (String contextName : getParamNameMap().keySet()) {
-						Object obj = PropertyUtilS.getNestedProperty(map, contextName);
+						Object obj = PropertyUtils.getNestedProperty(map, contextName);
 						map.remove(contextName);
 						if (obj != null) {
 							map.put(getParamNameMap().get(contextName), obj);

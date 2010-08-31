@@ -26,8 +26,7 @@ import com.clican.pluto.dataprocess.engine.processes.CollectionIteratorProcessor
  */
 public class CollectionIteratorProcessorParser extends AbstractProcessorParser {
 	
-	@SuppressWarnings("unchecked")
-	
+	@SuppressWarnings({"unchecked","rawtypes"})
 	public void customiseBeanDefinition(BeanDefinition beanDef, Element element, ParserContext parserContext) {
 		this.setBeanDefinitionStringProperty("elementName", beanDef, element);
 		this.setBeanDefinitionStringProperty("collectionName", beanDef, element);

@@ -50,8 +50,7 @@ public class JdbcProcessor extends BaseDataProcessor {
 		this.jdbcExecBeanList = jdbcExecBeanList;
 	}
 
-	@SuppressWarnings("unchecked")
-	
+	@SuppressWarnings({"rawtypes","unchecked"}) 
 	public void process(ProcessorContext context) throws DataProcessException {
 		// 遍历处理每个jdbcExecBean
 		for (JdbcExecBean jdbcExecBean : jdbcExecBeanList) {
@@ -76,7 +75,7 @@ public class JdbcProcessor extends BaseDataProcessor {
 				throw new DataProcessException("参数错误");
 			}
 			if (command.equals("select")) {
-				List list;
+				List<?> list;
 				if (clazz == null) {
 					list = jdbcTemplate.queryForList(sql, new MapAndNestedPropertySqlParameterSource(param));
 				} else {

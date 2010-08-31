@@ -26,7 +26,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 
 import com.clican.pluto.common.resource.AutoDecisionResource;
-import com.clican.pluto.common.util.PropertyUtilS;
+import com.clican.pluto.common.util.PropertyUtils;
 import com.clican.pluto.dataprocess.bean.ExcelExecBean;
 import com.clican.pluto.dataprocess.engine.ProcessorContext;
 import com.clican.pluto.dataprocess.engine.impl.BaseDataProcessor;
@@ -105,7 +105,7 @@ public class ExcelProcessor extends BaseDataProcessor {
 			Row dataRow = sheet.createRow(rowNum++);
 
 			for (int j = 0; j < columns.length; j++) {
-				Object obj = PropertyUtilS.getNestedProperty(row, columns[j]);
+				Object obj = PropertyUtils.getNestedProperty(row, columns[j]);
 				Cell cell = dataRow.createCell(j);
 				if (obj == null) {
 					cell.setCellType(Cell.CELL_TYPE_BLANK);
@@ -214,7 +214,7 @@ public class ExcelProcessor extends BaseDataProcessor {
 			for (ExcelExecBean execBean : excelExecBeanList) {
 				try {
 					if (StringUtils.isNotEmpty(execBean.getResourceVarName())) {
-						execBean.setResource((String) PropertyUtilS
+						execBean.setResource((String) PropertyUtils
 								.getNestedProperty(context.getMap(), execBean
 										.getResourceVarName()));
 					} else {

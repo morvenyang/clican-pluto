@@ -18,7 +18,7 @@ import org.apache.commons.lang.math.NumberUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.clican.pluto.common.util.PropertyUtilS;
+import com.clican.pluto.common.util.PropertyUtils;
 import com.clican.pluto.common.util.TypeUtils;
 import com.clican.pluto.dataprocess.dpl.function.FunctionCallback;
 import com.clican.pluto.dataprocess.dpl.function.SingleRowFunction;
@@ -266,7 +266,7 @@ public class PrefixAndSuffix {
 												.trace("该常量在ProcessorContext中为空,因此获取其属性也为空");
 									} else {
 										try {
-											obj = PropertyUtilS
+											obj = PropertyUtils
 													.getNestedProperty(
 															obj,
 															suffix
@@ -314,7 +314,7 @@ public class PrefixAndSuffix {
 								return (T) obj;
 							} else {
 								try {
-									obj = PropertyUtilS.getNestedProperty(obj,
+									obj = PropertyUtils.getNestedProperty(obj,
 											suffix);
 								} catch (Exception e) {
 									throw new PrefixAndSuffixException(

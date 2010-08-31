@@ -69,13 +69,10 @@ public class CollectionIteratorProcessor extends BaseDataProcessor {
 		processor.afterProcess(context);
 	}
 
-	@SuppressWarnings("unchecked")
-	
 	public void process(ProcessorContext context) throws DataProcessException {
-
-		Collection collection = (Collection) context.getAttribute(collectionName);
+		Collection<?> collection = (Collection<?>) context.getAttribute(collectionName);
 		int size = collection.size();
-		Iterator it = collection.iterator();
+		Iterator<?> it = collection.iterator();
 		int count = 0;
 		while (it.hasNext()) {
 			count++;
