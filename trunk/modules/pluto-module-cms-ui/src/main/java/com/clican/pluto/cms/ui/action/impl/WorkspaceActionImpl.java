@@ -14,17 +14,14 @@ import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
 
-import com.clican.pluto.cms.ui.action.WorkspaceAction;
-
 @Scope(ScopeType.PAGE)
 @Name("workspaceAction")
-public class WorkspaceActionImpl extends BaseAction implements WorkspaceAction {
+public class WorkspaceActionImpl extends BaseAction {
 
-	public void changeCurrentViewId(String viewId) {
-		Include include = (Include) FacesContext.getCurrentInstance()
-				.getViewRoot().findComponent("workspace");
-		include.setViewId(viewId);
-	}
+    public void changeCurrentViewId(String viewId) {
+        Include include = (Include) FacesContext.getCurrentInstance().getViewRoot().findComponent("workspace");
+        include.setViewId(viewId);
+    }
 
 }
 

@@ -17,12 +17,11 @@ import org.jboss.seam.annotations.Out;
 import org.jboss.seam.annotations.Scope;
 
 import com.clican.pluto.cms.core.service.DirectoryService;
-import com.clican.pluto.cms.ui.action.DirectoryAction;
 import com.clican.pluto.orm.dynamic.inter.IDirectory;
 
 @Scope(ScopeType.PAGE)
 @Name("directoryAction")
-public class DirectoryActionImpl extends BaseAction implements DirectoryAction {
+public class DirectoryActionImpl extends BaseAction {
 
 	@In("#{directoryService}")
 	private DirectoryService directoryService;

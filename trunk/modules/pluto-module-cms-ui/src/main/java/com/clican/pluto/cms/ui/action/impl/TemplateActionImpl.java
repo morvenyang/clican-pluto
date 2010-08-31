@@ -23,13 +23,12 @@ import org.jboss.seam.annotations.Scope;
 
 import com.clican.pluto.cms.core.comparator.PropertyComparator;
 import com.clican.pluto.cms.core.service.TemplateService;
-import com.clican.pluto.cms.ui.action.TemplateAction;
 import com.clican.pluto.orm.dynamic.inter.IDataModel;
 import com.clican.pluto.orm.dynamic.inter.ITemplate;
 
 @Scope(ScopeType.PAGE)
 @Name("templateAction")
-public class TemplateActionImpl extends BaseAction implements TemplateAction {
+public class TemplateActionImpl extends BaseAction {
 
 	@In("#{templateService}")
 	private TemplateService templateService;
