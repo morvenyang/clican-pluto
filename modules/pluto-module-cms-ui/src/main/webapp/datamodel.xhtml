@@ -88,7 +88,7 @@
 								<h:outputText value="Configure Templates" />
 							</f:facet>
 							<a4j:commandButton value="Configure"
-								action="#{dataModelAction.configureTemplate(dataModel)}"
+								action="#{templateAction.configureTemplate(dataModel)}"
 								reRender="templateConfigurationForm">
 								<rich:componentControl for="templateConfigurationPanel"
 									operation="show" event="onclick">
