@@ -7,10 +7,17 @@
  */
 package com.clican.pluto.cms.core.service;
 
+import java.util.List;
+
+import com.clican.pluto.orm.dynamic.inter.ISite;
+
 public interface SiteService {
 
-    
+    public List<ISite> getAllSites();
+
+    public void save(ISite site);
+
+    public void delete(ISite site);
 }
 
-
-//$Id$
+// $Id$
