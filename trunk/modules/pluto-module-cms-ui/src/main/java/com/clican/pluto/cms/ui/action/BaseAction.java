@@ -5,7 +5,7 @@
  * @author wezhang
  *
  */
-package com.clican.pluto.cms.ui.action.impl;
+package com.clican.pluto.cms.ui.action;
 
 import javax.faces.context.FacesContext;
 
