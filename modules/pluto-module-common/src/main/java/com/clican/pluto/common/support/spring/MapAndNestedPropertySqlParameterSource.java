@@ -14,31 +14,31 @@ import com.clican.pluto.common.util.PropertyUtilS;
 
 public class MapAndNestedPropertySqlParameterSource extends MapSqlParameterSource {
 
-	@SuppressWarnings("unchecked")
-	public MapAndNestedPropertySqlParameterSource(Map values) {
-		addValues(values);
-	}
+    @SuppressWarnings({ "rawtypes" })
+    public MapAndNestedPropertySqlParameterSource(Map values) {
+        addValues(values);
+    }
 
-	@Override
-	public boolean hasValue(String paramName) {
-		try {
-			Object obj = PropertyUtilS.getNestedProperty(this.getValues(), paramName);
-			return obj != null;
-		} catch (Exception e) {
-			return false;
-		}
+    @Override
+    public boolean hasValue(String paramName) {
+        try {
+            Object obj = PropertyUtilS.getNestedProperty(this.getValues(), paramName);
+            return obj != null;
+        } catch (Exception e) {
+            return false;
+        }
 
-	}
+    }
 
-	@Override
-	public Object getValue(String paramName) {
-		try {
-			Object obj = PropertyUtilS.getNestedProperty(this.getValues(), paramName);
-			return obj;
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
+    @Override
+    public Object getValue(String paramName) {
+        try {
+            Object obj = PropertyUtilS.getNestedProperty(this.getValues(), paramName);
+            return obj;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 }
 

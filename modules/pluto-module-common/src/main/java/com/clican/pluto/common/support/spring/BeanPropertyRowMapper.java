@@ -29,7 +29,6 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.JdbcUtils;
 import org.springframework.util.Assert;
 
-@SuppressWarnings("unchecked")
 public class BeanPropertyRowMapper implements RowMapper {
 
 	/** Logger available to subclasses */
@@ -37,16 +36,16 @@ public class BeanPropertyRowMapper implements RowMapper {
 
 	/** The class we are mapping to */
 
-	private Class mappedClass;
+	private Class<?> mappedClass;
 
 	/** Whether we're strictly validating */
 	private boolean checkFullyPopulated = false;
 
 	/** Map of the fields we provide mapping for */
-	private Map mappedFields;
+	private Map<String,PropertyDescriptor> mappedFields;
 
 	/** Set of bean properties we provide mapping for */
-	private Set mappedProperties;
+	private Set<String> mappedProperties;
 
 	/**
 	 * Create a new BeanPropertyRowMapper for bean-style configuration.
@@ -64,7 +63,7 @@ public class BeanPropertyRowMapper implements RowMapper {
 	 * @param mappedClass
 	 *            the class that each row should be mapped to
 	 */
-	public BeanPropertyRowMapper(Class mappedClass) {
+	public BeanPropertyRowMapper(Class<?> mappedClass) {
 		initialize(mappedClass);
 	}
 
@@ -77,7 +76,7 @@ public class BeanPropertyRowMapper implements RowMapper {
 	 *            whether we're strictly validating that all bean properties
 	 *            have been mapped from corresponding database fields
 	 */
-	public BeanPropertyRowMapper(Class mappedClass, boolean checkFullyPopulated) {
+	public BeanPropertyRowMapper(Class<?> mappedClass, boolean checkFullyPopulated) {
 		initialize(mappedClass);
 		this.checkFullyPopulated = checkFullyPopulated;
 	}
@@ -85,7 +84,7 @@ public class BeanPropertyRowMapper implements RowMapper {
 	/**
 	 * Set the class that each row should be mapped to.
 	 */
-	public void setMappedClass(Class mappedClass) {
+	public void setMappedClass(Class<?> mappedClass) {
 		if (this.mappedClass == null) {
 			initialize(mappedClass);
 		} else {
@@ -102,10 +101,10 @@ public class BeanPropertyRowMapper implements RowMapper {
 	 * @param mappedClass
 	 *            the mapped class.
 	 */
-	protected void initialize(Class mappedClass) {
+	protected void initialize(Class<?> mappedClass) {
 		this.mappedClass = mappedClass;
-		this.mappedFields = new HashMap();
-		this.mappedProperties = new HashSet();
+		this.mappedFields = new HashMap<String,PropertyDescriptor>();
+		this.mappedProperties = new HashSet<String>();
 		PropertyDescriptor[] pds = BeanUtils.getPropertyDescriptors(mappedClass);
 		for (int i = 0; i < pds.length; i++) {
 			PropertyDescriptor pd = pds[i];
@@ -156,7 +155,7 @@ public class BeanPropertyRowMapper implements RowMapper {
 	/**
 	 * Get the class that we are mapping to.
 	 */
-	public final Class getMappedClass() {
+	public final Class<?> getMappedClass() {
 		return this.mappedClass;
 	}
 
@@ -194,7 +193,7 @@ public class BeanPropertyRowMapper implements RowMapper {
 
 		ResultSetMetaData rsmd = rs.getMetaData();
 		int columnCount = rsmd.getColumnCount();
-		Set populatedProperties = (isCheckFullyPopulated() ? new HashSet() : null);
+		Set<String> populatedProperties = (isCheckFullyPopulated() ? new HashSet<String>() : null);
 
 		for (int index = 1; index <= columnCount; index++) {
 			String column = JdbcUtils.lookupColumnName(rsmd, index).toLowerCase();
