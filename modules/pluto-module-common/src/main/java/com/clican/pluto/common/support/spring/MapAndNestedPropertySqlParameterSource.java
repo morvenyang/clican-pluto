@@ -10,7 +10,7 @@ import java.util.Map;
 
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 
-import com.clican.pluto.common.util.PropertyUtilS;
+import com.clican.pluto.common.util.PropertyUtils;
 
 public class MapAndNestedPropertySqlParameterSource extends MapSqlParameterSource {
 
@@ -22,7 +22,7 @@ public class MapAndNestedPropertySqlParameterSource extends MapSqlParameterSourc
     @Override
     public boolean hasValue(String paramName) {
         try {
-            Object obj = PropertyUtilS.getNestedProperty(this.getValues(), paramName);
+            Object obj = PropertyUtils.getNestedProperty(this.getValues(), paramName);
             return obj != null;
         } catch (Exception e) {
             return false;
@@ -33,7 +33,7 @@ public class MapAndNestedPropertySqlParameterSource extends MapSqlParameterSourc
     @Override
     public Object getValue(String paramName) {
         try {
-            Object obj = PropertyUtilS.getNestedProperty(this.getValues(), paramName);
+            Object obj = PropertyUtils.getNestedProperty(this.getValues(), paramName);
             return obj;
         } catch (Exception e) {
             throw new RuntimeException(e);

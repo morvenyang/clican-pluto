@@ -99,8 +99,7 @@ public class SearchUtils {
 	 *        if there is not a the same object, get the previous or next object
 	 * @return
 	 */
-	@SuppressWarnings("unchecked")
-	public static <V extends Comparable> V binarySearch(List<V> list, V key, boolean before) {
+	public static <V extends Comparable<V>> V binarySearch(List<V> list, V key, boolean before) {
 		if (list == null || list.size() == 0) {
 			return null;
 		}
@@ -109,7 +108,7 @@ public class SearchUtils {
 
 		while (low <= high) {
 			int mid = (low + high) >>> 1;
-			Comparable midVal = list.get(mid);
+			Comparable<V> midVal = list.get(mid);
 			midVal.compareTo(key);
 			int cmp = midVal.compareTo(key);
 
