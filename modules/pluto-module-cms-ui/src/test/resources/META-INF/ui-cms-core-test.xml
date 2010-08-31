@@ -35,6 +35,9 @@ http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
 
 	<bean id="issueService" class="com.clican.pluto.cms.core.service.impl.IssueServiceImpl"
 		autowire="byName" />
+		
+	<bean id="siteService" class="com.clican.pluto.cms.core.service.impl.SiteServiceImpl"
+		autowire="byName" />
 
 	<bean id="dataStructureService"
 		class="com.clican.pluto.cms.core.service.impl.DataStructureServiceImpl"
