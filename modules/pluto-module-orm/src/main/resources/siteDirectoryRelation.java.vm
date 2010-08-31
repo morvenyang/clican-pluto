@@ -1,0 +1,68 @@
+/**
+ * The Clican-Pluto software suit is Copyright 2009, Clican Company
+ * and individual contributors, and is licensed under the GNU LGPL.
+ *
+ * @author zhangwei
+ *
+ */
+package com.clican.pluto.orm.model.dynamic;
+
+import javax.persistence.Column;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+import com.clican.pluto.orm.dynamic.inter.IDirectory;
+import com.clican.pluto.orm.dynamic.inter.ISite;
+import com.clican.pluto.orm.dynamic.inter.ISiteDirectoryRelation;
+
+public class SiteDirectoryRelation implements ISiteDirectoryRelation {
+
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 3569272894662526779L;
+
+    private Long id;
+
+    private ISite site;
+
+    private IDirectory directory;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "ID")
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Site.class)
+    @JoinColumn(name = "SITE_ID", nullable = false)
+    public ISite getSite() {
+        return site;
+    }
+
+    public void setSite(ISite site) {
+        this.site = site;
+    }
+
+    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Directory.class)
+    @JoinColumn(name = "DIRECTORY_ID", nullable = false)
+    public IDirectory getDirectory() {
+        return directory;
+    }
+
+    public void setDirectory(IDirectory directory) {
+        this.directory = directory;
+    }
+
+}
+
+// $Id$

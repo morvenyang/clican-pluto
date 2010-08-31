@@ -18,6 +18,7 @@ import com.clican.pluto.orm.annotation.DynamicModelSet;
 
 import com.clican.pluto.orm.dynamic.inter.IDirectory;
 import com.clican.pluto.orm.dynamic.inter.ITemplateDirectoryRelation;
+import com.clican.pluto.orm.model.*;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
@@ -48,6 +49,8 @@ public class Directory implements IDirectory {
 	private Calendar createTime;
 	
 	private Calendar updateTime;
+	
+	private Set<SiteDirectoryRelation> siteDirectoryRelationSet;
 	
 	#foreach( $modelDescription in $modelDescriptionList )
 	
@@ -139,6 +142,14 @@ public class Directory implements IDirectory {
 		this.updateTime = updateTime;
 	}
 	
+	@OneToMany(mappedBy = "parent", cascade = CascadeType.ALL, fetch = FetchType.LAZY,,targetEntity=SiteDirectoryRelation.class)
+	public Set<ISiteDirectoryRelation> getSiteDirectoryRelationSet() {
+        return siteDirectoryRelationSet;
+    }
+
+    public void setSiteDirectoryRelationSet(Set<ISiteDirectoryRelation> siteDirectoryRelationSet) {
+        this.siteDirectoryRelationSet = siteDirectoryRelationSet;
+    }
 	
 	#foreach( $modelDescription in $modelDescriptionList )
 	
