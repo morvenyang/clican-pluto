@@ -34,6 +34,7 @@ http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
 				hibernate.dialect=${db.dialect}
 				hibernate.jndi.class=com.clican.pluto.common.util.MockContextFactory
 				hibernate.show_sql=true
+				hibernate.hbm2ddl.auto=update
 			</value>
 		</property>
 	</bean>
