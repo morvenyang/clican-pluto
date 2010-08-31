@@ -5,7 +5,7 @@
  * @author wezhang
  *
  */
-package com.clican.pluto.cms.ui.action.impl;
+package com.clican.pluto.cms.ui.action;
 
 import java.util.Collections;
 import java.util.List;
