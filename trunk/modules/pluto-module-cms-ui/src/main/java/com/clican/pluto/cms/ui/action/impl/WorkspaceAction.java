@@ -16,7 +16,7 @@ import org.jboss.seam.annotations.Scope;
 
 @Scope(ScopeType.PAGE)
 @Name("workspaceAction")
-public class WorkspaceActionImpl extends BaseAction {
+public class WorkspaceAction extends BaseAction {
 
     public void changeCurrentViewId(String viewId) {
         Include include = (Include) FacesContext.getCurrentInstance().getViewRoot().findComponent("workspace");

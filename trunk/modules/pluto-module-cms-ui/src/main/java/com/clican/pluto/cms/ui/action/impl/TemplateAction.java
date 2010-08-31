@@ -28,7 +28,7 @@ import com.clican.pluto.orm.dynamic.inter.ITemplate;
 
 @Scope(ScopeType.PAGE)
 @Name("templateAction")
-public class TemplateActionImpl extends BaseAction {
+public class TemplateAction extends BaseAction {
 
 	@In("#{templateService}")
 	private TemplateService templateService;

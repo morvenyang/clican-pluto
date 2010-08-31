@@ -29,7 +29,7 @@ import com.clican.pluto.orm.desc.PropertyDescription;
 
 @Scope(ScopeType.PAGE)
 @Name("dataStructureAction")
-public class DataStructureActionImpl extends BaseAction  {
+public class DataStructureAction extends BaseAction  {
 
 	@In("#{dataStructureService}")
 	private DataStructureService dataStructureService;
