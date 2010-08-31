@@ -33,6 +33,7 @@ import com.clican.pluto.orm.dynamic.inter.ClassLoaderUtil;
 import com.clican.pluto.orm.dynamic.inter.IDataModel;
 import com.clican.pluto.orm.dynamic.inter.IDirectory;
 import com.clican.pluto.orm.dynamic.inter.IPojo;
+import com.clican.pluto.orm.dynamic.inter.ISite;
 import com.clican.pluto.orm.dynamic.inter.ITemplate;
 import com.clican.pluto.orm.dynamic.inter.ITemplateDirectoryRelation;
 import com.clican.pluto.orm.dynamic.inter.ITemplateModelRelation;
@@ -40,190 +41,208 @@ import com.clican.pluto.orm.dynamic.inter.ModelContainer;
 
 public class ClassLoaderUtilImpl implements ClassLoaderUtil {
 
-	private final static Log log = LogFactory.getLog(ClassLoaderUtilImpl.class);
+    private final static Log log = LogFactory.getLog(ClassLoaderUtilImpl.class);
 
-	private final static String SURE_FIRE_BOOTER_JAR = "surefirebooter";
+    private final static String SURE_FIRE_BOOTER_JAR = "surefirebooter";
 
-	private DynamicClassLoader dynamicClassLoader;
+    private DynamicClassLoader dynamicClassLoader;
 
-	private ModelContainer modelContainer;
+    private ModelContainer modelContainer;
 
-	public void setDynamicClassLoader(DynamicClassLoader dynamicClassLoader) {
-		this.dynamicClassLoader = dynamicClassLoader;
-	}
+    public void setDynamicClassLoader(DynamicClassLoader dynamicClassLoader) {
+        this.dynamicClassLoader = dynamicClassLoader;
+    }
 
-	public void setModelContainer(ModelContainer modelContainer) {
-		this.modelContainer = modelContainer;
-	}
+    public void setModelContainer(ModelContainer modelContainer) {
+        this.modelContainer = modelContainer;
+    }
 
-	public Set<String> getRuntimeJars() {
-		Set<String> jars = new HashSet<String>();
-		ClassLoader loader = Thread.currentThread().getContextClassLoader();
-		if (log.isDebugEnabled()) {
-			log.debug("The ContextClassLoader[" + loader + "]");
-		}
-		populateJarsFromManifest(jars, loader);
-		for (URL url : Launcher.getBootstrapClassPath().getURLs()) {
-			jars.add(url.getPath());
-		}
-		populateJars(jars, loader);
-		return jars;
-	}
+    public Set<String> getRuntimeJars() {
+        Set<String> jars = new HashSet<String>();
+        ClassLoader loader = Thread.currentThread().getContextClassLoader();
+        if (log.isDebugEnabled()) {
+            log.debug("The ContextClassLoader[" + loader + "]");
+        }
+        populateJarsFromManifest(jars, loader);
+        for (URL url : Launcher.getBootstrapClassPath().getURLs()) {
+            jars.add(url.getPath());
+        }
+        populateJars(jars, loader);
+        return jars;
+    }
 
-	private void populateJarsFromManifest(Set<String> jars, ClassLoader loader) {
-		BufferedReader reader = null;
-		try {
-			Enumeration<URL> e = loader.getResources("META-INF/MANIFEST.MF");
-			while (e.hasMoreElements()) {
-				URL url = e.nextElement();
-				if (url.getPath().contains(SURE_FIRE_BOOTER_JAR)) {
-					reader = new BufferedReader(new InputStreamReader(url.openStream()));
-					String line = null;
-					StringBuffer content = new StringBuffer();
-					while ((line = reader.readLine()) != null) {
-						content.append(line.trim());
-					}
-					String cont = content.toString().replaceAll("Manifest-Version: 1.0Class-Path: ", "").replaceAll(
-							"Main-Class: org.apache.maven.surefire.booter.SurefireBooter", "");
-					for (String file : cont.split(" ")) {
-						if (file.contains("file")) {
-							jars.add(file.replaceAll("file:", ""));
-						}
-					}
-					break;
-				}
-			}
-		} catch (IOException e) {
-			log.error("", e);
-		} finally {
-			try {
-				if (reader != null) {
-					reader.close();
-				}
-			} catch (Exception e) {
-				log.error("", e);
-			}
+    private void populateJarsFromManifest(Set<String> jars, ClassLoader loader) {
+        BufferedReader reader = null;
+        try {
+            Enumeration<URL> e = loader.getResources("META-INF/MANIFEST.MF");
+            while (e.hasMoreElements()) {
+                URL url = e.nextElement();
+                if (url.getPath().contains(SURE_FIRE_BOOTER_JAR)) {
+                    reader = new BufferedReader(new InputStreamReader(url.openStream()));
+                    String line = null;
+                    StringBuffer content = new StringBuffer();
+                    while ((line = reader.readLine()) != null) {
+                        content.append(line.trim());
+                    }
+                    String cont = content.toString().replaceAll("Manifest-Version: 1.0Class-Path: ", "")
+                            .replaceAll("Main-Class: org.apache.maven.surefire.booter.SurefireBooter", "");
+                    for (String file : cont.split(" ")) {
+                        if (file.contains("file")) {
+                            jars.add(file.replaceAll("file:", ""));
+                        }
+                    }
+                    break;
+                }
+            }
+        } catch (IOException e) {
+            log.error("", e);
+        } finally {
+            try {
+                if (reader != null) {
+                    reader.close();
+                }
+            } catch (Exception e) {
+                log.error("", e);
+            }
 
-		}
-	}
+        }
+    }
 
-	private void populateJars(Set<String> jars, ClassLoader loader) {
-		if (!(loader instanceof URLClassLoader)) {
-			if (log.isDebugEnabled()) {
-				log.debug("The ClassLoader[" + loader.getClass().getName() + "] is ignored");
-			}
-		} else {
-			URLClassLoader urlClassLoader = (URLClassLoader) loader;
+    private void populateJars(Set<String> jars, ClassLoader loader) {
+        if (!(loader instanceof URLClassLoader)) {
+            if (log.isDebugEnabled()) {
+                log.debug("The ClassLoader[" + loader.getClass().getName() + "] is ignored");
+            }
+        } else {
+            URLClassLoader urlClassLoader = (URLClassLoader) loader;
 
-			for (URL url : urlClassLoader.getURLs()) {
-				jars.add(url.getPath());
-			}
+            for (URL url : urlClassLoader.getURLs()) {
+                jars.add(url.getPath());
+            }
 
-		}
-		if (loader == ClassLoader.getSystemClassLoader()) {
-			return;
-		} else {
-			populateJars(jars, loader.getParent());
-		}
-	}
+        }
+        if (loader == ClassLoader.getSystemClassLoader()) {
+            return;
+        } else {
+            populateJars(jars, loader.getParent());
+        }
+    }
 
-	public IDirectory newDirectory(IDirectory parent, String name) {
-		IDirectory directory = null;
-		try {
-			directory = (IDirectory) (dynamicClassLoader.loadClass(Constants.DYNAMIC_MODEL_PACKAGE + "." + Constants.DEFAULT_DIRECTORY_CLASS_NAME)
-					.newInstance());
-			String path = "/" + name;
-			directory.setParent(parent);
-			directory.setPath(path);
-			directory.setName(name);
-			directory.setChildren(new HashSet<IDirectory>());
-		} catch (Exception e) {
-			throw new PlutoException("The " + Constants.DYNAMIC_MODEL_PACKAGE + "." + Constants.DEFAULT_DIRECTORY_CLASS_NAME
-					+ " can't be found in the classloader.", e);
-		}
-		return directory;
-	}
+    public IDirectory newDirectory(IDirectory parent, String name) {
+        IDirectory directory = null;
+        try {
+            directory = (IDirectory) (dynamicClassLoader.loadClass(Constants.DYNAMIC_MODEL_PACKAGE + "."
+                    + Constants.DEFAULT_DIRECTORY_CLASS_NAME).newInstance());
+            String path = "/" + name;
+            directory.setParent(parent);
+            directory.setPath(path);
+            directory.setName(name);
+            directory.setChildren(new HashSet<IDirectory>());
+        } catch (Exception e) {
+            throw new PlutoException("The " + Constants.DYNAMIC_MODEL_PACKAGE + "."
+                    + Constants.DEFAULT_DIRECTORY_CLASS_NAME + " can't be found in the classloader.", e);
+        }
+        return directory;
+    }
 
-	public void configureTemplates(IDataModel dataModel, List<ITemplate> selectedTemplates) {
-		String entityName = dataModel.getClass().getAnnotation(Entity.class).name();
-		String name = Constants.DYNAMIC_MODEL_PACKAGE + "." + Constants.DEFAULT_TEMPLATE_CLASS_NAME + entityName + "Relation";
-		try {
-			Set<IPojo> set = new HashSet<IPojo>();
-			if (dataModel instanceof IDirectory) {
-				for (ITemplate template : selectedTemplates) {
-					ITemplateDirectoryRelation relation = (ITemplateDirectoryRelation) (dynamicClassLoader.loadClass(name).newInstance());
-					relation.setDirectory((IDirectory) dataModel);
-					relation.setTemplate(template);
-					set.add(relation);
-				}
-			} else {
-				for (ITemplate template : selectedTemplates) {
-					ITemplateModelRelation relation = (ITemplateModelRelation) (dynamicClassLoader.loadClass(name).newInstance());
-					relation.setDataModel(dataModel);
-					relation.setTemplate(template);
-					set.add(relation);
-				}
-			}
-			BeanUtils.setProperty(dataModel, Constants.DEFAULT_TEMPLATE_CLASS_NAME.toLowerCase() + entityName + "RelationSet", set);
-		} catch (Exception e) {
-			throw new PlutoException("The " + name + " can't be found in the classloader.", e);
-		}
-	}
+    public void configureTemplates(IDataModel dataModel, List<ITemplate> selectedTemplates) {
+        String entityName = dataModel.getClass().getAnnotation(Entity.class).name();
+        String name = Constants.DYNAMIC_MODEL_PACKAGE + "." + Constants.DEFAULT_TEMPLATE_CLASS_NAME + entityName
+                + "Relation";
+        try {
+            Set<IPojo> set = new HashSet<IPojo>();
+            if (dataModel instanceof IDirectory) {
+                for (ITemplate template : selectedTemplates) {
+                    ITemplateDirectoryRelation relation = (ITemplateDirectoryRelation) (dynamicClassLoader
+                            .loadClass(name).newInstance());
+                    relation.setDirectory((IDirectory) dataModel);
+                    relation.setTemplate(template);
+                    set.add(relation);
+                }
+            } else {
+                for (ITemplate template : selectedTemplates) {
+                    ITemplateModelRelation relation = (ITemplateModelRelation) (dynamicClassLoader.loadClass(name)
+                            .newInstance());
+                    relation.setDataModel(dataModel);
+                    relation.setTemplate(template);
+                    set.add(relation);
+                }
+            }
+            BeanUtils.setProperty(dataModel, Constants.DEFAULT_TEMPLATE_CLASS_NAME.toLowerCase() + entityName
+                    + "RelationSet", set);
+        } catch (Exception e) {
+            throw new PlutoException("The " + name + " can't be found in the classloader.", e);
+        }
+    }
 
-	public IDataModel newDataModel(IDirectory parent, ModelDescription modelDescription) {
-		IDataModel dataModel = null;
-		try {
-			dataModel = (IDataModel) (dynamicClassLoader.loadClass(Constants.DYNAMIC_MODEL_PACKAGE + "." + modelDescription.getFirstCharUpperName())
-					.newInstance());
-			dataModel.setParent(parent);
-		} catch (Exception e) {
-			throw new PlutoException("The " + Constants.DYNAMIC_MODEL_PACKAGE + "." + modelDescription.getFirstCharUpperName()
-					+ " can't be found in the classloader.", e);
-		}
-		return dataModel;
-	}
+    public IDataModel newDataModel(IDirectory parent, ModelDescription modelDescription) {
+        IDataModel dataModel = null;
+        try {
+            dataModel = (IDataModel) (dynamicClassLoader.loadClass(Constants.DYNAMIC_MODEL_PACKAGE + "."
+                    + modelDescription.getFirstCharUpperName()).newInstance());
+            dataModel.setParent(parent);
+        } catch (Exception e) {
+            throw new PlutoException("The " + Constants.DYNAMIC_MODEL_PACKAGE + "."
+                    + modelDescription.getFirstCharUpperName() + " can't be found in the classloader.", e);
+        }
+        return dataModel;
+    }
 
-	public ITemplate newTemplate() {
-		ITemplate template = null;
-		try {
-			template = (ITemplate) (dynamicClassLoader.loadClass(Constants.DYNAMIC_MODEL_PACKAGE + ".Template").newInstance());
-		} catch (Exception e) {
-			throw new PlutoException("The " + Constants.DYNAMIC_MODEL_PACKAGE + ".Template" + " can't be found in the classloader.", e);
-		}
-		return template;
-	}
+    public ITemplate newTemplate() {
+        ITemplate template = null;
+        try {
+            template = (ITemplate) (dynamicClassLoader.loadClass(Constants.DYNAMIC_MODEL_PACKAGE + ".Template")
+                    .newInstance());
+        } catch (Exception e) {
+            throw new PlutoException("The " + Constants.DYNAMIC_MODEL_PACKAGE + ".Template"
+                    + " can't be found in the classloader.", e);
+        }
+        return template;
+    }
 
-	public List<Class<?>> getAllDataModelClass() {
-		List<Class<?>> result = new ArrayList<Class<?>>();
-		for (ModelDescription modelDescription : modelContainer.getModelDescs()) {
-			try {
-				result.add(dynamicClassLoader.loadClass(Constants.DYNAMIC_MODEL_PACKAGE + "." + modelDescription.getFirstCharUpperName()));
-			} catch (Exception e) {
-				throw new PlutoException("The " + Constants.DYNAMIC_MODEL_PACKAGE + "." + modelDescription.getFirstCharUpperName()
-						+ " can't be found in the classloader.", e);
-			}
-		}
-		return result;
-	}
+    public ISite newSite() {
+        ISite site = null;
+        try {
+            site = (ISite) (dynamicClassLoader.loadClass(Constants.DYNAMIC_MODEL_PACKAGE + ".Site").newInstance());
+        } catch (Exception e) {
+            throw new PlutoException("The " + Constants.DYNAMIC_MODEL_PACKAGE + ".Site"
+                    + " can't be found in the classloader.", e);
+        }
+        return site;
+    }
 
-	public Class<?> getClass(IPojo pojo) {
-		String modelClass = Constants.DYNAMIC_MODEL_PACKAGE + "." + pojo.getClass().getAnnotation(Entity.class).name();
-		return this.getClass(modelClass);
-	}
+    public List<Class<?>> getAllDataModelClass() {
+        List<Class<?>> result = new ArrayList<Class<?>>();
+        for (ModelDescription modelDescription : modelContainer.getModelDescs()) {
+            try {
+                result.add(dynamicClassLoader.loadClass(Constants.DYNAMIC_MODEL_PACKAGE + "."
+                        + modelDescription.getFirstCharUpperName()));
+            } catch (Exception e) {
+                throw new PlutoException("The " + Constants.DYNAMIC_MODEL_PACKAGE + "."
+                        + modelDescription.getFirstCharUpperName() + " can't be found in the classloader.", e);
+            }
+        }
+        return result;
+    }
 
-	public Class<?> getClass(String modelClass) {
-		Class<?> clazz = null;
-		try {
-			clazz = dynamicClassLoader.loadClass(modelClass);
-		} catch (Exception e) {
-			throw new PlutoException("The " + modelClass + " can't be found in the classloader.", e);
-		}
-		return clazz;
-	}
+    public Class<?> getClass(IPojo pojo) {
+        String modelClass = Constants.DYNAMIC_MODEL_PACKAGE + "." + pojo.getClass().getAnnotation(Entity.class).name();
+        return this.getClass(modelClass);
+    }
 
-	public Class<?> getClass(ModelDescription modelDescription) {
-		return this.getClass(Constants.DYNAMIC_MODEL_PACKAGE + "." + modelDescription.getFirstCharUpperName());
-	}
+    public Class<?> getClass(String modelClass) {
+        Class<?> clazz = null;
+        try {
+            clazz = dynamicClassLoader.loadClass(modelClass);
+        } catch (Exception e) {
+            throw new PlutoException("The " + modelClass + " can't be found in the classloader.", e);
+        }
+        return clazz;
+    }
+
+    public Class<?> getClass(ModelDescription modelDescription) {
+        return this.getClass(Constants.DYNAMIC_MODEL_PACKAGE + "." + modelDescription.getFirstCharUpperName());
+    }
 
 }
 
