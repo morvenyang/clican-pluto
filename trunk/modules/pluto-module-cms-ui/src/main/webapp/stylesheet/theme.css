@@ -44,6 +44,8 @@ body {
 	margin: 0px;
 	font-family: Arial, sans-serif;
 	color: #616161;
+	margin-left: 2%;
+	width: 96%;	
 }
 
 .body {
@@ -52,8 +54,6 @@ body {
 
 .bar{
 	margin-top: 5px;
-	margin-left: 2%;
-	width: 96%;	
 }
 
 .columnHeader:hover {
