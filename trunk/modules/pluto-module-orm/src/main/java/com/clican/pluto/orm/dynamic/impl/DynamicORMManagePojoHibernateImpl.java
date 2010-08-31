@@ -33,104 +33,95 @@ import com.clican.pluto.orm.dynamic.inter.ModelContainer;
 import com.clican.pluto.orm.dynamic.inter.SessionFactoryUpdate;
 
 /**
- * This class implement the object-relationship mapping via the POJO and JPA
- * annotation.
- * 
- * It will generate the dynamic runtime JAVA codes and compile these codes and
- * load into ClassLoader.
- * 
- * After restarting the <code>SessionFactory</code> to take effect.
+ * This class implement the object-relationship mapping via the POJO and JPA annotation. It will generate the dynamic
+ * runtime JAVA codes and compile these codes and load into ClassLoader. After restarting the
+ * <code>SessionFactory</code> to take effect.
  * 
  * @author clican
- * 
  */
 public class DynamicORMManagePojoHibernateImpl implements DynamicORMManage {
 
-	private final static Log log = LogFactory
-			.getLog(DynamicORMManagePojoHibernateImpl.class);
+    private final static Log log = LogFactory.getLog(DynamicORMManagePojoHibernateImpl.class);
 
-	private SessionFactoryUpdate sessionFactoryUpdate;
+    private SessionFactoryUpdate sessionFactoryUpdate;
 
-	private ModelContainer modelContainer;
+    private ModelContainer modelContainer;
 
-	private Template siteTemplate;
-	
-	private Template siteDirectoryRelationTemplate;
-	
-	private Template directoryTemplate;
+    private Template siteTemplate;
 
-	private Template modelTemplate;
+    private Template siteDirectoryRelationTemplate;
 
-	private Template templateTemplate;
+    private Template directoryTemplate;
 
-	private Template templateDirectoryRelationTemplate;
+    private Template modelTemplate;
 
-	private Template templateModelRelationTemplate;
+    private Template templateTemplate;
 
-	private String modelDescTempName = "modelDescription";
+    private Template templateDirectoryRelationTemplate;
 
-	private String modelDescListTempName = "modelDescriptionList";
+    private Template templateModelRelationTemplate;
 
-	private String tempORMCfgPojoFolder;
+    private String modelDescTempName = "modelDescription";
 
-	private DynamicClassLoader dynamicClassLoader;
+    private String modelDescListTempName = "modelDescriptionList";
 
-	private ClassLoaderUtil classLoaderUtil;
+    private String tempORMCfgPojoFolder;
 
-	private IDataBaseOperation dataBaseOperation;
+    private DynamicClassLoader dynamicClassLoader;
 
-	public void setSessionFactoryUpdate(
-			SessionFactoryUpdate sessionFactoryUpdate) {
-		this.sessionFactoryUpdate = sessionFactoryUpdate;
-	}
+    private ClassLoaderUtil classLoaderUtil;
 
-	public void setModelContainer(ModelContainer modelContainer) {
-		this.modelContainer = modelContainer;
-	}
+    private IDataBaseOperation dataBaseOperation;
 
-	public void setDirectoryTemplate(Template directoryTemplate) {
-		this.directoryTemplate = directoryTemplate;
-	}
+    public void setSessionFactoryUpdate(SessionFactoryUpdate sessionFactoryUpdate) {
+        this.sessionFactoryUpdate = sessionFactoryUpdate;
+    }
 
-	public void setModelTemplate(Template modelTemplate) {
-		this.modelTemplate = modelTemplate;
-	}
+    public void setModelContainer(ModelContainer modelContainer) {
+        this.modelContainer = modelContainer;
+    }
 
-	public void setTemplateTemplate(Template templateTemplate) {
-		this.templateTemplate = templateTemplate;
-	}
+    public void setDirectoryTemplate(Template directoryTemplate) {
+        this.directoryTemplate = directoryTemplate;
+    }
 
-	public void setTemplateDirectoryRelationTemplate(
-			Template templateDirectoryRelationTemplate) {
-		this.templateDirectoryRelationTemplate = templateDirectoryRelationTemplate;
-	}
+    public void setModelTemplate(Template modelTemplate) {
+        this.modelTemplate = modelTemplate;
+    }
 
-	public void setTemplateModelRelationTemplate(
-			Template templateModelRelationTemplate) {
-		this.templateModelRelationTemplate = templateModelRelationTemplate;
-	}
+    public void setTemplateTemplate(Template templateTemplate) {
+        this.templateTemplate = templateTemplate;
+    }
 
-	public void setModelDescTempName(String modelDescTempName) {
-		this.modelDescTempName = modelDescTempName;
-	}
+    public void setTemplateDirectoryRelationTemplate(Template templateDirectoryRelationTemplate) {
+        this.templateDirectoryRelationTemplate = templateDirectoryRelationTemplate;
+    }
 
-	public void setTempORMCfgPojoFolder(String tempORMCfgPojoFolder) {
-		this.tempORMCfgPojoFolder = tempORMCfgPojoFolder;
-	}
+    public void setTemplateModelRelationTemplate(Template templateModelRelationTemplate) {
+        this.templateModelRelationTemplate = templateModelRelationTemplate;
+    }
 
-	public void setDynamicClassLoader(DynamicClassLoader dynamicClassLoader) {
-		this.dynamicClassLoader = dynamicClassLoader;
-	}
+    public void setModelDescTempName(String modelDescTempName) {
+        this.modelDescTempName = modelDescTempName;
+    }
 
-	public void setClassLoaderUtil(ClassLoaderUtil classLoaderUtil) {
-		this.classLoaderUtil = classLoaderUtil;
-	}
+    public void setTempORMCfgPojoFolder(String tempORMCfgPojoFolder) {
+        this.tempORMCfgPojoFolder = tempORMCfgPojoFolder;
+    }
 
-	public void setDataBaseOperation(IDataBaseOperation dataBaseOperation) {
-		this.dataBaseOperation = dataBaseOperation;
-	}
+    public void setDynamicClassLoader(DynamicClassLoader dynamicClassLoader) {
+        this.dynamicClassLoader = dynamicClassLoader;
+    }
 
-	public void setSiteTemplate(Template siteTemplate) {
+    public void setClassLoaderUtil(ClassLoaderUtil classLoaderUtil) {
+        this.classLoaderUtil = classLoaderUtil;
+    }
+
+    public void setDataBaseOperation(IDataBaseOperation dataBaseOperation) {
+        this.dataBaseOperation = dataBaseOperation;
+    }
+
+    public void setSiteTemplate(Template siteTemplate) {
         this.siteTemplate = siteTemplate;
     }
 
@@ -139,203 +130,179 @@ public class DynamicORMManagePojoHibernateImpl implements DynamicORMManage {
     }
 
     public void init() throws ORMManageException {
-		try {
-			dynamicClassLoader.loadClass(Constants.DYNAMIC_MODEL_PACKAGE + "."
-					+ Constants.DEFAULT_DIRECTORY_CLASS_NAME);
-		} catch (ClassNotFoundException e) {
-			VelocityContext velocityContext = new VelocityContext();
-			velocityContext.put(modelDescListTempName, modelContainer
-					.getModelDescs());
-			File filePath = new File(tempORMCfgPojoFolder + "/"
-					+ Constants.DYNAMIC_MODEL_PACKAGE_PATH);
-			if (!filePath.exists()) {
-				filePath.mkdirs();
-			}
-			generate(filePath.getAbsolutePath() + "/Directory.java",
-					directoryTemplate, velocityContext);
-			generate(filePath.getAbsolutePath() + "/Template.java",
-					templateTemplate, velocityContext);
-			generate(filePath.getAbsolutePath()
-					+ "/TemplateDirectoryRelation.java",
-					templateDirectoryRelationTemplate, velocityContext);
-			compile(filePath.getAbsolutePath());
-			try {
-				dynamicClassLoader.refreshClasses();
-			} catch (ClassNotFoundException ex) {
-				throw new ORMManageException(ex);
-			}
-			Configuration cfg = sessionFactoryUpdate.update();
-			dataBaseOperation.createTable(cfg);
-		}
-	}
+        try {
+            dynamicClassLoader
+                    .loadClass(Constants.DYNAMIC_MODEL_PACKAGE + "." + Constants.DEFAULT_DIRECTORY_CLASS_NAME);
+        } catch (ClassNotFoundException e) {
+            VelocityContext velocityContext = new VelocityContext();
+            velocityContext.put(modelDescListTempName, modelContainer.getModelDescs());
+            File filePath = new File(tempORMCfgPojoFolder + "/" + Constants.DYNAMIC_MODEL_PACKAGE_PATH);
+            if (!filePath.exists()) {
+                filePath.mkdirs();
+            }
+            generate(filePath.getAbsolutePath() + "/Directory.java", directoryTemplate, velocityContext);
+            generate(filePath.getAbsolutePath() + "/Template.java", templateTemplate, velocityContext);
+            generate(filePath.getAbsolutePath() + "/TemplateDirectoryRelation.java", templateDirectoryRelationTemplate,
+                    velocityContext);
+            generate(filePath.getAbsolutePath() + "/Site.java", siteTemplate, velocityContext);
+            generate(filePath.getAbsolutePath() + "/SiteDirectoryRelation.java", siteDirectoryRelationTemplate,
+                    velocityContext);
+            compile(filePath.getAbsolutePath());
+            try {
+                dynamicClassLoader.refreshClasses();
+            } catch (ClassNotFoundException ex) {
+                throw new ORMManageException(ex);
+            }
+            Configuration cfg = sessionFactoryUpdate.update();
+            dataBaseOperation.createTable(cfg);
+        }
+    }
 
-	public void generateORM(ModelDescription modelDescription)
-			throws ORMManageException {
-		modelContainer.add(modelDescription);
-		VelocityContext velocityContext = new VelocityContext();
-		velocityContext.put(modelDescTempName, modelDescription);
-		velocityContext.put(modelDescListTempName, modelContainer
-				.getModelDescs());
-		File filePath = new File(tempORMCfgPojoFolder + "/"
-				+ Constants.DYNAMIC_MODEL_PACKAGE_PATH);
-		if (!filePath.exists()) {
-			filePath.mkdirs();
-		}
-		generate(filePath.getAbsolutePath() + "/"
-				+ modelDescription.getFirstCharUpperName() + ".java",
-				modelTemplate, velocityContext);
-		generate(filePath.getAbsolutePath() + "/Directory.java",
-				directoryTemplate, velocityContext);
-		generate(filePath.getAbsolutePath() + "/Template.java",
-				templateTemplate, velocityContext);
-		generate(
-				filePath.getAbsolutePath() + "/TemplateDirectoryRelation.java",
-				templateDirectoryRelationTemplate, velocityContext);
-		generate(filePath.getAbsolutePath() + "/Template"
-				+ modelDescription.getFirstCharUpperName() + "Relation.java",
-				templateModelRelationTemplate, velocityContext);
-		compile(filePath.getAbsolutePath());
-		try {
-			dynamicClassLoader.refreshClasses();
-		} catch (ClassNotFoundException e) {
-			throw new ORMManageException(e);
-		}
-	}
+    public void generateORM(ModelDescription modelDescription) throws ORMManageException {
+        modelContainer.add(modelDescription);
+        VelocityContext velocityContext = new VelocityContext();
+        velocityContext.put(modelDescTempName, modelDescription);
+        velocityContext.put(modelDescListTempName, modelContainer.getModelDescs());
+        File filePath = new File(tempORMCfgPojoFolder + "/" + Constants.DYNAMIC_MODEL_PACKAGE_PATH);
+        if (!filePath.exists()) {
+            filePath.mkdirs();
+        }
+        generate(filePath.getAbsolutePath() + "/" + modelDescription.getFirstCharUpperName() + ".java", modelTemplate,
+                velocityContext);
+        generate(filePath.getAbsolutePath() + "/Directory.java", directoryTemplate, velocityContext);
+        generate(filePath.getAbsolutePath() + "/Template.java", templateTemplate, velocityContext);
+        generate(filePath.getAbsolutePath() + "/TemplateDirectoryRelation.java", templateDirectoryRelationTemplate,
+                velocityContext);
+        generate(filePath.getAbsolutePath() + "/Template" + modelDescription.getFirstCharUpperName() + "Relation.java",
+                templateModelRelationTemplate, velocityContext);
+        compile(filePath.getAbsolutePath());
+        try {
+            dynamicClassLoader.refreshClasses();
+        } catch (ClassNotFoundException e) {
+            throw new ORMManageException(e);
+        }
+    }
 
-	private void compile(String file) throws ORMManageException {
-		Process proc = null;
-		try {
-			Set<String> jars = classLoaderUtil.getRuntimeJars();
-			StringBuffer command = new StringBuffer();
-			command.append("javac ");
-			command.append(file);
-			command.append("/*.java -encoding utf-8 -classpath \"");
-			command.append(StringUtils.getSymbolSplitString(jars, ";"));
-			command.append("\"");
-			if (log.isDebugEnabled()) {
-				log.debug("command=" + command);
-			}
-			proc = Runtime.getRuntime().exec(command.toString());
-			int exitValue = -1;
-			while (true) {
-				try {
-					exitValue = proc.exitValue();
-				} catch (IllegalThreadStateException e) {
-					Thread.sleep(10);
-					continue;
-				}
-				break;
-			}
-			if (exitValue != 0) {
-				log.error("Compile failure command=[" + command + "]");
-			} else {
-				if (log.isDebugEnabled()) {
-					log.debug("Compile successfully.");
-				}
-			}
-		} catch (Exception e) {
-			throw new ORMManageException(e);
-		} finally {
-			proc.destroy();
-		}
-	}
+    private void compile(String file) throws ORMManageException {
+        Process proc = null;
+        try {
+            Set<String> jars = classLoaderUtil.getRuntimeJars();
+            StringBuffer command = new StringBuffer();
+            command.append("javac ");
+            command.append(file);
+            command.append("/*.java -encoding utf-8 -classpath \"");
+            command.append(StringUtils.getSymbolSplitString(jars, ";"));
+            command.append("\"");
+            if (log.isDebugEnabled()) {
+                log.debug("command=" + command);
+            }
+            proc = Runtime.getRuntime().exec(command.toString());
+            int exitValue = -1;
+            while (true) {
+                try {
+                    exitValue = proc.exitValue();
+                } catch (IllegalThreadStateException e) {
+                    Thread.sleep(10);
+                    continue;
+                }
+                break;
+            }
+            if (exitValue != 0) {
+                log.error("Compile failure command=[" + command + "]");
+            } else {
+                if (log.isDebugEnabled()) {
+                    log.debug("Compile successfully.");
+                }
+            }
+        } catch (Exception e) {
+            throw new ORMManageException(e);
+        } finally {
+            proc.destroy();
+        }
+    }
 
-	private void generate(String file, Template template,
-			VelocityContext velocityContext) throws ORMManageException {
-		Writer w = null;
-		try {
-			w = new OutputStreamWriter(new FileOutputStream(file), "utf-8");
-			template.merge(velocityContext, w);
-			w.flush();
-		} catch (Exception e) {
-			throw new ORMManageException(e);
-		} finally {
-			try {
-				if (w != null) {
-					w.close();
-				}
-			} catch (Exception e) {
-				log.error("", e);
-			}
-		}
-	}
+    private void generate(String file, Template template, VelocityContext velocityContext) throws ORMManageException {
+        Writer w = null;
+        try {
+            w = new OutputStreamWriter(new FileOutputStream(file), "utf-8");
+            template.merge(velocityContext, w);
+            w.flush();
+        } catch (Exception e) {
+            throw new ORMManageException(e);
+        } finally {
+            try {
+                if (w != null) {
+                    w.close();
+                }
+            } catch (Exception e) {
+                log.error("", e);
+            }
+        }
+    }
 
-	public void updateORM(ModelDescription oldOne, ModelDescription newOne)
-			throws ORMManageException {
-		modelContainer.update(oldOne, newOne);
-		VelocityContext velocityContext = new VelocityContext();
-		if (!oldOne.getName().equals(newOne.getName())) {
-			final ModelDescription md = oldOne;
-			File filePath = new File(tempORMCfgPojoFolder + "/"
-					+ Constants.DYNAMIC_MODEL_PACKAGE_PATH);
-			File[] files = filePath.listFiles(new FilenameFilter() {
-				public boolean accept(File dir, String name) {
-					return name.contains(md.getFirstCharUpperName());
-				}
-			});
-			for (File f : files) {
-				f.delete();
-			}
-			List<ModelDescription> modelDescriptionList = new ArrayList<ModelDescription>(
-					modelContainer.getModelDescs());
-			velocityContext.put(modelDescListTempName, modelDescriptionList);
-			generate(filePath.getAbsolutePath() + "/Directory.java",
-					directoryTemplate, velocityContext);
-			generate(filePath.getAbsolutePath() + "/Template.java",
-					templateTemplate, velocityContext);
-		}
-		velocityContext.put(modelDescTempName, newOne);
-		File filePath = new File(tempORMCfgPojoFolder + "/"
-				+ Constants.DYNAMIC_MODEL_PACKAGE_PATH);
-		generate(filePath.getAbsolutePath() + "/"
-				+ newOne.getFirstCharUpperName() + ".java", modelTemplate,
-				velocityContext);
-		compile(filePath.getAbsolutePath());
-		try {
-			dynamicClassLoader.refreshClasses();
-		} catch (ClassNotFoundException e) {
-			throw new ORMManageException(e);
-		}
-	}
+    public void updateORM(ModelDescription oldOne, ModelDescription newOne) throws ORMManageException {
+        modelContainer.update(oldOne, newOne);
+        VelocityContext velocityContext = new VelocityContext();
+        if (!oldOne.getName().equals(newOne.getName())) {
+            final ModelDescription md = oldOne;
+            File filePath = new File(tempORMCfgPojoFolder + "/" + Constants.DYNAMIC_MODEL_PACKAGE_PATH);
+            File[] files = filePath.listFiles(new FilenameFilter() {
+                public boolean accept(File dir, String name) {
+                    return name.contains(md.getFirstCharUpperName());
+                }
+            });
+            for (File f : files) {
+                f.delete();
+            }
+            List<ModelDescription> modelDescriptionList = new ArrayList<ModelDescription>(
+                    modelContainer.getModelDescs());
+            velocityContext.put(modelDescListTempName, modelDescriptionList);
+            generate(filePath.getAbsolutePath() + "/Directory.java", directoryTemplate, velocityContext);
+            generate(filePath.getAbsolutePath() + "/Template.java", templateTemplate, velocityContext);
+        }
+        velocityContext.put(modelDescTempName, newOne);
+        File filePath = new File(tempORMCfgPojoFolder + "/" + Constants.DYNAMIC_MODEL_PACKAGE_PATH);
+        generate(filePath.getAbsolutePath() + "/" + newOne.getFirstCharUpperName() + ".java", modelTemplate,
+                velocityContext);
+        compile(filePath.getAbsolutePath());
+        try {
+            dynamicClassLoader.refreshClasses();
+        } catch (ClassNotFoundException e) {
+            throw new ORMManageException(e);
+        }
+    }
 
-	public void deleteORM(ModelDescription modelDescription)
-			throws ORMManageException {
-		modelContainer.remove(modelDescription);
-		final ModelDescription md = modelDescription;
-		File filePath = new File(tempORMCfgPojoFolder + "/"
-				+ Constants.DYNAMIC_MODEL_PACKAGE_PATH);
-		File[] files = filePath.listFiles(new FilenameFilter() {
-			public boolean accept(File dir, String name) {
-				if (name.equals(md.getFirstCharUpperName() + ".java")
-						|| name.equals(md.getFirstCharUpperName() + ".class")
-						|| name.equals("Template" + md.getFirstCharUpperName()
-								+ "Relation.java")
-						|| name.equals("Template" + md.getFirstCharUpperName()
-								+ "Relation.class")) {
-					return true;
-				} else {
-					return false;
-				}
-			}
-		});
-		for (File f : files) {
-			f.delete();
-		}
-		VelocityContext velocityContext = new VelocityContext();
-		List<ModelDescription> modelDescriptionList = new ArrayList<ModelDescription>(
-				modelContainer.getModelDescs());
-		velocityContext.put(modelDescListTempName, modelDescriptionList);
-		generate(filePath.getAbsolutePath() + "/Directory.java",
-				directoryTemplate, velocityContext);
-		generate(filePath.getAbsolutePath() + "/Template.java",
-				templateTemplate, velocityContext);
-		compile(filePath.getAbsolutePath());
-		try {
-			dynamicClassLoader.refreshClasses();
-		} catch (ClassNotFoundException e) {
-			throw new ORMManageException(e);
-		}
-	}
+    public void deleteORM(ModelDescription modelDescription) throws ORMManageException {
+        modelContainer.remove(modelDescription);
+        final ModelDescription md = modelDescription;
+        File filePath = new File(tempORMCfgPojoFolder + "/" + Constants.DYNAMIC_MODEL_PACKAGE_PATH);
+        File[] files = filePath.listFiles(new FilenameFilter() {
+            public boolean accept(File dir, String name) {
+                if (name.equals(md.getFirstCharUpperName() + ".java")
+                        || name.equals(md.getFirstCharUpperName() + ".class")
+                        || name.equals("Template" + md.getFirstCharUpperName() + "Relation.java")
+                        || name.equals("Template" + md.getFirstCharUpperName() + "Relation.class")) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        });
+        for (File f : files) {
+            f.delete();
+        }
+        VelocityContext velocityContext = new VelocityContext();
+        List<ModelDescription> modelDescriptionList = new ArrayList<ModelDescription>(modelContainer.getModelDescs());
+        velocityContext.put(modelDescListTempName, modelDescriptionList);
+        generate(filePath.getAbsolutePath() + "/Directory.java", directoryTemplate, velocityContext);
+        generate(filePath.getAbsolutePath() + "/Template.java", templateTemplate, velocityContext);
+        compile(filePath.getAbsolutePath());
+        try {
+            dynamicClassLoader.refreshClasses();
+        } catch (ClassNotFoundException e) {
+            throw new ORMManageException(e);
+        }
+    }
 }
 
 // $Id: DynamicORMManagePojoHibernateImpl.java 708 2010-02-10 04:48:18Z clican $
