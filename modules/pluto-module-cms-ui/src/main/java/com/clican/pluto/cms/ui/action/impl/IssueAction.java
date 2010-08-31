@@ -17,7 +17,7 @@ import com.clican.pluto.orm.dynamic.inter.IDataModel;
 
 @Scope(ScopeType.EVENT)
 @Name("issueAction")
-public class IssueActionImpl extends BaseAction  {
+public class IssueAction extends BaseAction  {
 
 	@In("#{issueService}")
 	private IssueService issueService;

@@ -37,7 +37,7 @@ import com.clican.pluto.orm.dynamic.inter.IDirectory;
 
 @Scope(ScopeType.PAGE)
 @Name("dataModelAction")
-public class DataModelActionImpl extends BaseAction  {
+public class DataModelAction extends BaseAction  {
 
 	@In("#{issueService}")
 	private IssueService issueService;

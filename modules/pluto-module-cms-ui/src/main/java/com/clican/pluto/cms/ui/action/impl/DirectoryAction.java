@@ -21,7 +21,7 @@ import com.clican.pluto.orm.dynamic.inter.IDirectory;
 
 @Scope(ScopeType.PAGE)
 @Name("directoryAction")
-public class DirectoryActionImpl extends BaseAction {
+public class DirectoryAction extends BaseAction {
 
 	@In("#{directoryService}")
 	private DirectoryService directoryService;
