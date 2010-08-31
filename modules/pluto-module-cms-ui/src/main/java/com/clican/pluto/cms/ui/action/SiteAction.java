@@ -13,6 +13,7 @@ import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Factory;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
+import org.jboss.seam.annotations.Out;
 import org.jboss.seam.annotations.Scope;
 
 import com.clican.pluto.cms.core.service.SiteService;
@@ -31,6 +32,7 @@ public class SiteAction extends BaseAction {
 
     private ISite site;
 
+    @Out(required = false)
     private List<ISite> siteList;
 
     @Factory("siteList")
