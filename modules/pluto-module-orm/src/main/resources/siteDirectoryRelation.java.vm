@@ -7,6 +7,9 @@
  */
 package com.clican.pluto.orm.model.dynamic;
 
+import javax.persistence.*;
+import com.clican.pluto.orm.annotation.DynamicClass;
+
 import javax.persistence.Column;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
