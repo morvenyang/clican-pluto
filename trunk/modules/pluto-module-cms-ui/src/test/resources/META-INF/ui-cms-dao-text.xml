@@ -23,5 +23,9 @@ http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
 	<bean id="commonDao"
 		class="com.clican.pluto.cms.dao.hibernate.CommonDaoHibernateImpl"
 		autowire="byName" />
+		
+	<bean id="siteDao"
+		class="com.clican.pluto.cms.dao.hibernate.SiteDaoHibernateImpl"
+		autowire="byName" />
 
 </beans>
