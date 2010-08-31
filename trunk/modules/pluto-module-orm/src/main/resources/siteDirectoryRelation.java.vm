@@ -19,6 +19,9 @@ import com.clican.pluto.orm.dynamic.inter.IDirectory;
 import com.clican.pluto.orm.dynamic.inter.ISite;
 import com.clican.pluto.orm.dynamic.inter.ISiteDirectoryRelation;
 
+@DynamicClass
+@Entity(name="SiteDirectoryRelation")
+@Table(name = "SITE_DIRECTORY_RELATION")
 public class SiteDirectoryRelation implements ISiteDirectoryRelation {
 
     /**
