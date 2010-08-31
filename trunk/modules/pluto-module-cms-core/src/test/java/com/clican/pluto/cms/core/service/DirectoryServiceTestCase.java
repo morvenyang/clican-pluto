@@ -17,6 +17,7 @@ import com.clican.pluto.cms.core.BaseTestCase;
 import com.clican.pluto.cms.dao.DirectoryDao;
 import com.clican.pluto.orm.dynamic.inter.ClassLoaderUtil;
 import com.clican.pluto.orm.dynamic.inter.IDirectory;
+import com.clican.pluto.orm.dynamic.inter.ISiteDirectoryRelation;
 import com.clican.pluto.orm.dynamic.inter.ITemplateDirectoryRelation;
 
 public class DirectoryServiceTestCase extends BaseTestCase {
@@ -133,6 +134,16 @@ public class DirectoryServiceTestCase extends BaseTestCase {
 				// TODO Auto-generated method stub
 
 			}
+
+            public Set<ISiteDirectoryRelation> getSiteDirectoryRelationSet() {
+                // TODO Auto-generated method stub
+                return null;
+            }
+
+            public void setSiteDirectoryRelationSet(Set<ISiteDirectoryRelation> siteDirectoryRelationSet) {
+                // TODO Auto-generated method stub
+                
+            }
 
 		};
 		context.checking(new Expectations() {
