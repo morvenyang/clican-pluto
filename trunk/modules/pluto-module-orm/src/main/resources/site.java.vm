@@ -9,6 +9,9 @@ package com.clican.pluto.orm.model.dynamic;
 
 import java.util.Set;
 
+import javax.persistence.*;
+import com.clican.pluto.orm.annotation.DynamicClass;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.FetchType;
