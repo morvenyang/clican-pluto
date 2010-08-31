@@ -53,6 +53,10 @@ public class DynamicORMManagePojoHibernateImpl implements DynamicORMManage {
 
 	private ModelContainer modelContainer;
 
+	private Template siteTemplate;
+	
+	private Template siteDirectoryRelationTemplate;
+	
 	private Template directoryTemplate;
 
 	private Template modelTemplate;
@@ -126,7 +130,15 @@ public class DynamicORMManagePojoHibernateImpl implements DynamicORMManage {
 		this.dataBaseOperation = dataBaseOperation;
 	}
 
-	public void init() throws ORMManageException {
+	public void setSiteTemplate(Template siteTemplate) {
+        this.siteTemplate = siteTemplate;
+    }
+
+    public void setSiteDirectoryRelationTemplate(Template siteDirectoryRelationTemplate) {
+        this.siteDirectoryRelationTemplate = siteDirectoryRelationTemplate;
+    }
+
+    public void init() throws ORMManageException {
 		try {
 			dynamicClassLoader.loadClass(Constants.DYNAMIC_MODEL_PACKAGE + "."
 					+ Constants.DEFAULT_DIRECTORY_CLASS_NAME);
