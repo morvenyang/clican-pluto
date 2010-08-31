@@ -21,7 +21,6 @@ import org.jboss.seam.annotations.Scope;
 import com.clican.pluto.cms.core.comparator.PropertyComparator;
 import com.clican.pluto.cms.core.service.DataModelService;
 import com.clican.pluto.cms.core.service.DataStructureService;
-import com.clican.pluto.cms.ui.action.DataStructureAction;
 import com.clican.pluto.common.control.Control;
 import com.clican.pluto.common.control.MutilValueControl;
 import com.clican.pluto.common.exception.PlutoException;
@@ -30,7 +29,7 @@ import com.clican.pluto.orm.desc.PropertyDescription;
 
 @Scope(ScopeType.PAGE)
 @Name("dataStructureAction")
-public class DataStructureActionImpl extends BaseAction implements DataStructureAction {
+public class DataStructureActionImpl extends BaseAction  {
 
 	@In("#{dataStructureService}")
 	private DataStructureService dataStructureService;

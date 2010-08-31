@@ -28,7 +28,6 @@ import org.jboss.seam.annotations.Scope;
 import com.clican.pluto.cms.core.comparator.PropertyComparator;
 import com.clican.pluto.cms.core.service.DataModelService;
 import com.clican.pluto.cms.core.service.IssueService;
-import com.clican.pluto.cms.ui.action.DataModelAction;
 import com.clican.pluto.common.exception.PlutoException;
 import com.clican.pluto.common.util.BeanUtils;
 import com.clican.pluto.orm.desc.ModelDescription;
@@ -38,7 +37,7 @@ import com.clican.pluto.orm.dynamic.inter.IDirectory;
 
 @Scope(ScopeType.PAGE)
 @Name("dataModelAction")
-public class DataModelActionImpl extends BaseAction implements DataModelAction {
+public class DataModelActionImpl extends BaseAction  {
 
 	@In("#{issueService}")
 	private IssueService issueService;
