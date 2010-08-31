@@ -12,27 +12,27 @@
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>pluto-dataprocess</artifactId>
 	<name>pluto-dataprocess</name>
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>emma-maven-plugin</artifactId>
-				<version>1.0-alpha-3</version>
-				<inherited>true</inherited>
-				<configuration>
-					<outputEncoding>utf-8</outputEncoding>
-				</configuration>
-				<executions>
-					<execution>
-						<phase>process-classes</phase>
-						<goals>
-							<goal>emma</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-		</plugins>
-	</build>
+<!--	<build>-->
+<!--		<plugins>-->
+<!--			<plugin>-->
+<!--				<groupId>org.codehaus.mojo</groupId>-->
+<!--				<artifactId>emma-maven-plugin</artifactId>-->
+<!--				<version>1.0-alpha-3</version>-->
+<!--				<inherited>true</inherited>-->
+<!--				<configuration>-->
+<!--					<outputEncoding>utf-8</outputEncoding>-->
+<!--				</configuration>-->
+<!--				<executions>-->
+<!--					<execution>-->
+<!--						<phase>process-classes</phase>-->
+<!--						<goals>-->
+<!--							<goal>emma</goal>-->
+<!--						</goals>-->
+<!--					</execution>-->
+<!--				</executions>-->
+<!--			</plugin>-->
+<!--		</plugins>-->
+<!--	</build>-->
 	<reporting>
 		<plugins>
 			<plugin>

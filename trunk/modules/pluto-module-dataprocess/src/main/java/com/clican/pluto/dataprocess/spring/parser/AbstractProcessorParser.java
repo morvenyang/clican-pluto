@@ -31,7 +31,7 @@ import com.clican.pluto.dataprocess.enumeration.TransactionMode;
  */
 public abstract class AbstractProcessorParser implements BeanDefinitionParser {
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({"unchecked","rawtypes"})
 	public BeanDefinition parse(Element element, ParserContext parserContext) {
 		BeanDefinitionRegistry bdr = parserContext.getRegistry();
 		RootBeanDefinition beanDef = new RootBeanDefinition();

@@ -27,6 +27,7 @@ import com.ibatis.sqlmap.client.SqlMapClient;
  * @author clican, jing.tian
  * 
  */
+@SuppressWarnings({"unchecked","rawtypes"})
 public enum IBatisExecType {
 
 	/**
@@ -34,8 +35,6 @@ public enum IBatisExecType {
 	 */
 	INSERT {
 
-		@SuppressWarnings("unchecked")
-		
 		public void execute(SqlMapClient sqlMapClient, IBatisExecBean execBean, ProcessorContext context) throws DataProcessSqlException {
 			Object param = execBean.getParam(context);
 			try {
@@ -57,8 +56,6 @@ public enum IBatisExecType {
 	 * 更新数据
 	 */
 	UPDATE {
-		@SuppressWarnings("unchecked")
-		
 		public void execute(SqlMapClient sqlMapClient, IBatisExecBean execBean, ProcessorContext context) throws DataProcessSqlException {
 			Object param = execBean.getParam(context);
 			try {
@@ -77,7 +74,6 @@ public enum IBatisExecType {
 	},
 
 	INSERT_OR_UPDATE {
-		@SuppressWarnings("unchecked")
 		
 		public void execute(SqlMapClient sqlMapClient, IBatisExecBean execBean, ProcessorContext context) throws DataProcessSqlException {
 			Object param = execBean.getParam(context);
@@ -106,7 +102,6 @@ public enum IBatisExecType {
 	 * 删除数据
 	 */
 	DELETE {
-		@SuppressWarnings("unchecked")
 		
 		public void execute(SqlMapClient sqlMapClient, IBatisExecBean execBean, ProcessorContext context) throws DataProcessSqlException {
 			Object param = execBean.getParam(context);
@@ -131,7 +126,6 @@ public enum IBatisExecType {
 	 * 查询一组数据
 	 */
 	SELECT_LIST {
-		@SuppressWarnings("unchecked")
 		
 		public void execute(SqlMapClient sqlMapClient, IBatisExecBean execBean, ProcessorContext context) throws DataProcessSqlException {
 			Object param = execBean.getParam(context);
@@ -148,7 +142,6 @@ public enum IBatisExecType {
 	 * 查询一组数据，转换到MAP返回。
 	 */
 	SELECT_LIST_AS_MAP {
-		@SuppressWarnings("unchecked")
 		private Map convertBeanAsMap(Object bean) {
 			BeanMap beanMap = new BeanMap(bean);
 			Map ret = new HashMap();
@@ -156,7 +149,6 @@ public enum IBatisExecType {
 			return ret;
 		};
 
-		@SuppressWarnings("unchecked")
 		
 		public void execute(SqlMapClient sqlMapClient, IBatisExecBean execBean, ProcessorContext context) throws DataProcessSqlException {
 			Object param = execBean.getParam(context);
@@ -195,7 +187,6 @@ public enum IBatisExecType {
 	 * 把查询得到的单个数据转换成一个Map
 	 */
 	SELECT_MAP {
-		@SuppressWarnings("unchecked")
 		
 		public void execute(SqlMapClient sqlMapClient, IBatisExecBean execBean, ProcessorContext context) throws DataProcessSqlException {
 			Object param = execBean.getParam(context);
