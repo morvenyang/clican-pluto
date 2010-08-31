@@ -96,5 +96,3 @@ public class Site implements ISite {
     }
 
 }
-
-// $Id$
