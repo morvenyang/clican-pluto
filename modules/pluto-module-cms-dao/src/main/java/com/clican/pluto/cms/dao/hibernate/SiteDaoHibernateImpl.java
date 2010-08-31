@@ -7,9 +7,17 @@
  */
 package com.clican.pluto.cms.dao.hibernate;
 
+import java.util.List;
+
 import com.clican.pluto.cms.dao.SiteDao;
+import com.clican.pluto.orm.dynamic.inter.ISite;
 
 public class SiteDaoHibernateImpl extends BaseDao implements SiteDao {
+
+    @SuppressWarnings("unchecked")
+    public List<ISite> getAllSites() {
+        return this.getHibernateTemplate().find("from Site");
+    }
 
 }
 

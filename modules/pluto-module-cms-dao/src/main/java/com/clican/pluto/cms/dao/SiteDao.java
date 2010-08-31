@@ -7,8 +7,13 @@
  */
 package com.clican.pluto.cms.dao;
 
+import java.util.List;
+
+import com.clican.pluto.orm.dynamic.inter.ISite;
+
 public interface SiteDao extends Dao {
 
+    public List<ISite> getAllSites();
 }
 
 
