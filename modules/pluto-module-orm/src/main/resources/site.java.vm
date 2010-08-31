@@ -20,6 +20,9 @@ import javax.persistence.OneToMany;
 import com.clican.pluto.orm.dynamic.inter.ISite;
 import com.clican.pluto.orm.dynamic.inter.ISiteDirectoryRelation;
 
+@DynamicClass
+@Entity(name="Site")
+@Table(name = "SITE")
 public class Site implements ISite {
 
     /**
