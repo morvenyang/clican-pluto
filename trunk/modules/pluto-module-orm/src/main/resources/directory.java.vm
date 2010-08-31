@@ -143,7 +143,7 @@ public class Directory implements IDirectory {
 		this.updateTime = updateTime;
 	}
 	
-	@OneToMany(mappedBy = "parent", cascade = CascadeType.ALL, fetch = FetchType.LAZY,targetEntity=SiteDirectoryRelation.class)
+	@OneToMany(mappedBy = "directory", cascade = CascadeType.ALL, fetch = FetchType.LAZY,targetEntity=SiteDirectoryRelation.class)
 	public Set<ISiteDirectoryRelation> getSiteDirectoryRelationSet() {
         return siteDirectoryRelationSet;
     }
