@@ -25,6 +25,8 @@ public interface ClassLoaderUtil {
 			List<ITemplate> selectedTemplates);
 
 	public ITemplate newTemplate();
+	
+	public ISite newSite();
 
 	public List<Class<?>> getAllDataModelClass();
 
