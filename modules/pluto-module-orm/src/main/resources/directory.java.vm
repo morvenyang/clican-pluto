@@ -18,6 +18,7 @@ import com.clican.pluto.orm.annotation.DynamicModelSet;
 
 import com.clican.pluto.orm.dynamic.inter.IDirectory;
 import com.clican.pluto.orm.dynamic.inter.ITemplateDirectoryRelation;
+import com.clican.pluto.orm.dynamic.inter.ISiteDirectoryRelation;
 import com.clican.pluto.orm.model.*;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -50,7 +51,7 @@ public class Directory implements IDirectory {
 	
 	private Calendar updateTime;
 	
-	private Set<SiteDirectoryRelation> siteDirectoryRelationSet;
+	private Set<ISiteDirectoryRelation> siteDirectoryRelationSet;
 	
 	#foreach( $modelDescription in $modelDescriptionList )
 	
