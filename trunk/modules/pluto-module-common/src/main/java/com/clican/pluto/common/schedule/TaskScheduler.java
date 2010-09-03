@@ -10,38 +10,38 @@ import java.util.Date;
 import java.util.TimerTask;
 
 public interface TaskScheduler {
-	/**
-	 * Schedule a set of task associated with a identified id.
-	 * 
-	 * @param id
-	 *            a string id used to identify this set of tasks
-	 * @param task
-	 * 
-	 * 
-	 */
-	public void schedule(String id, ScheduledTask task);
-	
-	public void schedule(TimerTask task,Date time);
+    /**
+     * Schedule a task associated with a identified id.
+     * 
+     * @param id a string id used to identify this set of tasks
+     * @param task
+     */
+    public void schedule(String id, ScheduledTask task);
 
-	/**
-	 * Cancel the tasks associated with identified id
-	 * 
-	 * @param id
-	 *            a string id used to identify this set of tasks
-	 */
-	public void cancel(String id);
+    /**
+     * Schedule a one time execution task
+     * 
+     * @param task
+     * @param time
+     */
+    public void schedule(TimerTask task, Date time);
 
-	/**
-	 * Start the scheduler
-	 * 
-	 */
-	public void start();
+    /**
+     * Cancel the tasks associated with identified id
+     * 
+     * @param id a string id used to identify this set of tasks
+     */
+    public void cancel(String id);
 
-	/**
-	 * Shutdown the scheduler
-	 * 
-	 */
-	public void shutdown();
+    /**
+     * Start the scheduler
+     */
+    public void start();
+
+    /**
+     * Shutdown the scheduler
+     */
+    public void shutdown();
 }
 
 // $Id$
