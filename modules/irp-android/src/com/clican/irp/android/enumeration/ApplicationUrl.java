@@ -2,7 +2,7 @@ package com.clican.irp.android.enumeration;
 
 public enum ApplicationUrl {
 
-	LOGIN_SERVER_LIST("http:/irpcenter.gildata.com/investerminal/apple/customer.json"),
+	LOGIN_SERVER_LIST("http://irpcenter.gildata.com/investerminal/apple/customer.json"),
 	
 	QUERY_REPORT("apple/report/query.do");
 
