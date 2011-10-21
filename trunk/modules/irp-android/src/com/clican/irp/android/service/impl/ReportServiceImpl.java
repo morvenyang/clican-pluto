@@ -11,22 +11,20 @@ import org.json.JSONObject;
 
 import com.clican.irp.android.enumeration.ReportScope;
 import com.clican.irp.android.http.HttpGateway;
-import com.clican.irp.android.http.impl.HttpGatewayImpl;
 import com.clican.irp.android.service.ReportService;
 import com.clican.irp.android.util.JSONUtil;
+import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
 @Singleton
 public class ReportServiceImpl implements ReportService {
-	private HttpGateway httpGateway;
 
-	public ReportServiceImpl() {
-		httpGateway = new HttpGatewayImpl();
-	}
+	@Inject
+	private HttpGateway httpGateway;
 
 	public List<Map<String, Object>> queryReport(String query,
 			ReportScope scope, Date start, Date end) {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String url = "/apple/report/query.do?";
 		if (query != null && query.trim().length() > 0) {
 			url += "query=" + query + "&";
@@ -38,7 +36,7 @@ public class ReportServiceImpl implements ReportService {
 			url += "startDate=" + sdf.format(start) + "&";
 		}
 		if (end != null) {
-			url += "startDate=" + sdf.format(end) + "&";
+			url += "endDate=" + sdf.format(end) + "&";
 		}
 		try {
 			JSONObject result = httpGateway.invokeBySession(url);
