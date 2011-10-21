@@ -6,7 +6,7 @@
     <string name="inner_report">内部报告</string>
     <string name="outer_report">外部报告</string>
     <string name="no_reports">没有报告</string>
-    <string name="mock_reports">"{reports:[{date:'2011-12-31 10:00:00',title:'aaaaa',investRanking:'买入',author:[{'张三','李四'}],broker:'招商证券',id:12345,stockName:'深发展',stockCode:'000001',industryCode:'111010',industryName:'种子行业',rankChange:'上调',score:5,summary:'摘要内容',favorite:true,read:true}]}"</string>
+    <string name="mock_reports">"{reports:[{date:'2011-12-31 10:00:00',title:'aaaaa',investRanking:'买入',author:['张三','李四'],broker:'招商证券',id:12345,stockName:'深发展',stockCode:'000001',industryCode:'111010',industryName:'种子行业',rankChange:'上调',score:5,summary:'摘要内容',favorite:true,read:true}]}"</string>
     <string name="user_name">用户名</string>
     <string name="password">密码</string>
     <string name="product_customer">产品客户</string>
