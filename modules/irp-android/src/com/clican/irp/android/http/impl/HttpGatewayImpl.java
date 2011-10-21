@@ -61,8 +61,8 @@ public class HttpGatewayImpl implements HttpGateway {
 	@Override
 	public JSONObject invoke(String url) throws SocketTimeoutException,
 			JSONException, HttpException {
-		Log.d("read url : ", "" + URL_PREFIX + url);
-		HttpGet get = new HttpGet(URL_PREFIX + url);
+		Log.d("read url : ", "" + url);
+		HttpGet get = new HttpGet(url);
 		try {
 			JSONObject result = convertStreamToJSONObject(connect(get,
 					CONN_TIME_OUT, SOCKET_TIME_OUT));
