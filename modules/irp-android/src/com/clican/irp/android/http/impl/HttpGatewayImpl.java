@@ -112,11 +112,12 @@ public class HttpGatewayImpl implements HttpGateway {
 				timeoutConnection);
 
 		HttpConnectionParams.setSoTimeout(httpParameters, timeoutSocket);
-
+		
+		HttpHost proxy = new HttpHost("web-proxy.corp.hp.com", 8080); 
+		httpParameters.setParameter(ConnRoutePNames.DEFAULT_PROXY, proxy); 
 		DefaultHttpClient httpClient = new DefaultHttpClient(httpParameters);
+		
 		try {
-			HttpHost proxy = new HttpHost("web-proxy.corp.hp.com", 8080);
-			httpClient.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY, proxy);
 			HttpResponse response = httpClient.execute(request);
 			if (response.getStatusLine().getStatusCode() == 401) {
 				throw new NotLoginException();
@@ -134,6 +135,7 @@ public class HttpGatewayImpl implements HttpGateway {
 		} catch (SocketTimeoutException e) {
 			throw e;
 		} catch (IOException e) {
+			e.printStackTrace();
 			throw new SocketTimeoutException("IOException.");
 		}
 
