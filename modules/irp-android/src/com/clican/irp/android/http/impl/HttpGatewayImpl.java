@@ -81,7 +81,7 @@ public class HttpGatewayImpl implements HttpGateway {
 	public void login(String userName, String password, String token)
 			throws SocketTimeoutException, HttpException {
 		try {
-			JSONObject loginResult = invoke(LOGIN_URL + "?username=" + userName
+			JSONObject loginResult = invoke(URL_PREFIX+LOGIN_URL + "?username=" + userName
 					+ "&password=" + password + "&token=" + token);
 			if (loginResult != null) {
 				if (loginResult.has("code") && loginResult.has("message")) {
