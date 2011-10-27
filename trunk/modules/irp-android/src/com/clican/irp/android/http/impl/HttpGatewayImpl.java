@@ -84,10 +84,11 @@ public class HttpGatewayImpl implements HttpGateway {
 			JSONObject loginResult = invoke(URL_PREFIX+LOGIN_URL + "?username=" + userName
 					+ "&password=" + password + "&token=" + token);
 			if (loginResult != null) {
-				if (loginResult.has("code") && loginResult.has("message")) {
-					throw new HttpException(loginResult.getString("message"));
+				if (loginResult.has("error")) {
+					String message = loginResult.getJSONObject("error").getString("message");
+					throw new HttpException(message);
 				} else {
-					jsessionid = loginResult.getString("jsessionid");
+					jsessionid = loginResult.getJSONObject("user").getString("jsessionid");
 				}
 			} else {
 				throw new HttpException("Login Failure");
