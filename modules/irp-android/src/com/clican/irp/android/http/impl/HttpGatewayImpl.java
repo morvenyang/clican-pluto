@@ -7,10 +7,12 @@ import java.io.InputStreamReader;
 import java.net.SocketTimeoutException;
 
 import org.apache.http.HttpEntity;
+import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpUriRequest;
+import org.apache.http.conn.params.ConnRoutePNames;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpConnectionParams;
@@ -113,6 +115,8 @@ public class HttpGatewayImpl implements HttpGateway {
 
 		DefaultHttpClient httpClient = new DefaultHttpClient(httpParameters);
 		try {
+			HttpHost proxy = new HttpHost("web-proxy.corp.hp.com", 8080);
+			httpClient.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY, proxy);
 			HttpResponse response = httpClient.execute(request);
 			if (response.getStatusLine().getStatusCode() == 401) {
 				throw new NotLoginException();
