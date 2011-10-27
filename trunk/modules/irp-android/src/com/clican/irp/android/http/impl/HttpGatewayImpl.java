@@ -87,7 +87,7 @@ public class HttpGatewayImpl implements HttpGateway {
 				if (loginResult.has("code") && loginResult.has("message")) {
 					throw new HttpException(loginResult.getString("message"));
 				} else {
-					jsessionid = loginResult.getString("jessionid");
+					jsessionid = loginResult.getString("jsessionid");
 				}
 			} else {
 				throw new HttpException("Login Failure");
