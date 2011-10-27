@@ -81,8 +81,8 @@ public class HttpGatewayImpl implements HttpGateway {
 	public void login(String userName, String password, String token)
 			throws SocketTimeoutException, HttpException {
 		try {
-			JSONObject loginResult = invokeBySession(LOGIN_URL + "?username="
-					+ userName + "&password=" + password + "&token=" + token);
+			JSONObject loginResult = invoke(LOGIN_URL + "?username=" + userName
+					+ "&password=" + password + "&token=" + token);
 			if (loginResult != null) {
 				if (loginResult.has("code") && loginResult.has("message")) {
 					throw new HttpException(loginResult.getString("message"));
@@ -93,8 +93,6 @@ public class HttpGatewayImpl implements HttpGateway {
 				throw new HttpException("Login Failure");
 			}
 		} catch (JSONException e) {
-			e.printStackTrace();
-		} catch (NotLoginException e) {
 			e.printStackTrace();
 		}
 
@@ -112,11 +110,11 @@ public class HttpGatewayImpl implements HttpGateway {
 				timeoutConnection);
 
 		HttpConnectionParams.setSoTimeout(httpParameters, timeoutSocket);
-		
-		HttpHost proxy = new HttpHost("web-proxy.corp.hp.com", 8080); 
-		httpParameters.setParameter(ConnRoutePNames.DEFAULT_PROXY, proxy); 
+
+		HttpHost proxy = new HttpHost("web-proxy.corp.hp.com", 8080);
+		httpParameters.setParameter(ConnRoutePNames.DEFAULT_PROXY, proxy);
 		DefaultHttpClient httpClient = new DefaultHttpClient(httpParameters);
-		
+
 		try {
 			HttpResponse response = httpClient.execute(request);
 			if (response.getStatusLine().getStatusCode() == 401) {
