@@ -1,6 +1,8 @@
 package com.clican.irp.android.enumeration;
 
-public enum ReportScope {
+import java.io.Serializable;
+
+public enum ReportScope implements Serializable {
 
 	ALL(0),
 
@@ -23,5 +25,5 @@ public enum ReportScope {
 	public int getScope() {
 		return scope;
 	}
-	
+
 }
