@@ -39,7 +39,7 @@ public class PropertyDbAdapter {
 				+ name + "'", null, null, null, null, null);
 		if (mCursor != null) {
 			if( mCursor.moveToFirst()){
-				return mCursor.getString(1);
+				return mCursor.getString(0);
 			}
 		}
 		return null;

@@ -31,6 +31,12 @@ public class LoginActivity extends RoboActivity {
 
 	private Map<String, String> loginServers;
 
+	private String savedUserName;
+
+	private String savedPassword;
+
+	private String savedProductCustomer;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -46,11 +52,11 @@ public class LoginActivity extends RoboActivity {
 					android.R.layout.simple_spinner_item, serverList);
 			adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 			productCustomerSpinner.setAdapter(adapter);
-			String savedUserName = propertyService
-					.getProperty(PropertyName.USER_NAME.name());
-			String savedPassword = propertyService
-					.getProperty(PropertyName.PASSWORD.name());
-			String savedProductCustomer = propertyService
+			savedUserName = propertyService.getProperty(PropertyName.USER_NAME
+					.name());
+			savedPassword = propertyService.getProperty(PropertyName.PASSWORD
+					.name());
+			savedProductCustomer = propertyService
 					.getProperty(PropertyName.PRODUCT_CUSTOMER.name());
 			if (savedUserName != null) {
 				userNameEdit.getText().clear();
@@ -82,6 +88,33 @@ public class LoginActivity extends RoboActivity {
 				try {
 					loginService.login(userNameEdit.getText().toString(),
 							passwordEdit.getText().toString(), null);
+					if (savedUserName == null) {
+						propertyService.createProperty(PropertyName.USER_NAME
+								.name(), userNameEdit.getText().toString());
+					} else {
+						propertyService.updateProperty(PropertyName.USER_NAME
+								.name(), userNameEdit.getText().toString());
+					}
+
+					if (savedPassword == null) {
+						propertyService.createProperty(PropertyName.PASSWORD
+								.name(), passwordEdit.getText().toString());
+					} else {
+						propertyService.updateProperty(PropertyName.PASSWORD
+								.name(), passwordEdit.getText().toString());
+					}
+
+					if (savedProductCustomer == null) {
+						propertyService.createProperty(
+								PropertyName.PRODUCT_CUSTOMER.name(),
+								productCustomerSpinner.getSelectedItem()
+										.toString());
+					} else {
+						propertyService.updateProperty(
+								PropertyName.PRODUCT_CUSTOMER.name(),
+								productCustomerSpinner.getSelectedItem()
+										.toString());
+					}
 					Intent i = new Intent(LoginActivity.this,
 							IrpAndroidActivity.class);
 					startActivity(i);

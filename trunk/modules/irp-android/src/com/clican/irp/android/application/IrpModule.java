@@ -8,8 +8,10 @@ import com.clican.irp.android.db.PropertyDbAdapter;
 import com.clican.irp.android.http.HttpGateway;
 import com.clican.irp.android.http.impl.HttpGatewayImpl;
 import com.clican.irp.android.service.LoginService;
+import com.clican.irp.android.service.PropertyService;
 import com.clican.irp.android.service.ReportService;
 import com.clican.irp.android.service.impl.LoginServiceImpl;
+import com.clican.irp.android.service.impl.PropertyServiceImpl;
 import com.clican.irp.android.service.impl.ReportServiceImpl;
 
 public class IrpModule extends AbstractAndroidModule {
@@ -28,6 +30,7 @@ public class IrpModule extends AbstractAndroidModule {
 		bind(DatabaseHelper.class).toInstance(
 				new DatabaseHelper(application.getBaseContext()));
 		bind(PropertyDbAdapter.class);
+		bind(PropertyService.class).to(PropertyServiceImpl.class);
 	}
 
 }
