@@ -16,8 +16,9 @@ import com.google.inject.Inject;
 
 public class ReportListActivity extends RoboListActivity {
 
-	private static final String[] REPORT_ATTRS = new String[] { "title",
-			"author" };
+	private static final String[] REPORT_ATTRS = new String[] {
+			"reportTypeName", "title", "broker", "author", "investRanking",
+			"stockName", "industryName" };
 
 	private static final int[] REPORT_IDS = new int[] { R.id.title, R.id.author };
 
