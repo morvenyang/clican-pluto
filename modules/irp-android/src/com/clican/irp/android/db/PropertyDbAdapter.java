@@ -30,8 +30,8 @@ public class PropertyDbAdapter {
 		return mDb.insert("irp_property", null, initialValues);
 	}
 
-	public boolean deleteProperty(long rowId) {
-		return mDb.delete("irp_property", "id=" + rowId, null) > 0;
+	public boolean deleteProperty(String name) {
+		return mDb.delete("irp_property", "name='" + name+"'", null) > 0;
 	}
 
 	public String getProperty(String name) {
