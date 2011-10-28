@@ -23,7 +23,7 @@ public class ReportServiceImpl implements ReportService {
 	private HttpGateway httpGateway;
 
 	public List<Map<String, Object>> queryReport(String query,
-			ReportScope scope, Date start, Date end) {
+			ReportScope scope, Date start, Date end, int page, int pageSize) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String url = "/apple/report/query.do?";
 		if (query != null && query.trim().length() > 0) {
@@ -38,6 +38,8 @@ public class ReportServiceImpl implements ReportService {
 		if (end != null) {
 			url += "endDate=" + sdf.format(end) + "&";
 		}
+		url += "page=" + page + "&";
+		url += "pageSize=" + pageSize;
 		try {
 			JSONObject result = httpGateway.invokeBySession(url);
 			List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
