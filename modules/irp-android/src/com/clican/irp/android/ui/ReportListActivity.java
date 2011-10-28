@@ -26,6 +26,10 @@ public class ReportListActivity extends RoboListActivity {
 
 	private ReportScope reportScope;
 
+	private int page = 0;
+
+	private int pageSize = 30;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -35,7 +39,7 @@ public class ReportListActivity extends RoboListActivity {
 		setContentView(R.layout.report_list);
 
 		List<Map<String, Object>> list = reportService.queryReport(null,
-				reportScope, null, null);
+				reportScope, null, null, page, pageSize);
 		setListAdapter(new SimpleAdapter(this, list, R.layout.report_row,
 				REPORT_ATTRS, REPORT_IDS));
 
