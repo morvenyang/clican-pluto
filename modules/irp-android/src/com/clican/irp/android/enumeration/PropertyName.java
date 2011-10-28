@@ -1,0 +1,10 @@
+package com.clican.irp.android.enumeration;
+
+public enum PropertyName {
+
+	USER_NAME,
+	
+	PASSWORD,
+	
+	PRODUCT_CUSTOMER;
+}

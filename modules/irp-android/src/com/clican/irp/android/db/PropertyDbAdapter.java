@@ -35,14 +35,14 @@ public class PropertyDbAdapter {
 	}
 
 	public String getProperty(String name) {
-		Cursor mCursor =
-
-		mDb.query(true, "irp_property", new String[] { "value" }, "name='"
+		Cursor mCursor =mDb.query(true, "irp_property", new String[] { "value" }, "name='"
 				+ name + "'", null, null, null, null, null);
 		if (mCursor != null) {
-			mCursor.moveToFirst();
+			if( mCursor.moveToFirst()){
+				return mCursor.getString(1);
+			}
 		}
-		return mCursor.getString(1);
+		return null;
 	}
 
 	public boolean updateProperty(String name, String value) {
