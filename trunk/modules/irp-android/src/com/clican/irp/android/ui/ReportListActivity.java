@@ -1,5 +1,7 @@
 package com.clican.irp.android.ui;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -20,10 +22,6 @@ public class ReportListActivity extends RoboListActivity {
 			"reportTypeName", "title", "broker", "author", "investRanking",
 			"stockName", "industryName" };
 
-	private static final int[] REPORT_IDS = new int[] { R.id.reportTypeName,
-			R.id.title, R.id.broker, R.id.author, R.id.investRanking,
-			R.id.stockName, R.id.industryName };
-
 	@Inject
 	private ReportService reportService;
 
@@ -43,8 +41,23 @@ public class ReportListActivity extends RoboListActivity {
 
 		List<Map<String, Object>> list = reportService.queryReport(null,
 				reportScope, null, null, page, pageSize);
-		setListAdapter(new SimpleAdapter(this, list, R.layout.report_row,
-				REPORT_ATTRS, REPORT_IDS));
+		List<Map<String, Object>> contentList = new ArrayList<Map<String, Object>>();
+
+		for (Map<String, Object> l : list) {
+			StringBuffer r = new StringBuffer();
+			for (String key : REPORT_ATTRS) {
+				Object value = l.get(key);
+				if (value != null) {
+					r.append(value).append(" ");
+				}
+			}
+			Map<String, Object> content = new HashMap<String, Object>();
+			content.put("title", r.toString());
+			contentList.add(content);
+		}
+		setListAdapter(new SimpleAdapter(this, contentList,
+				R.layout.report_row, new String[] { "title" },
+				new int[] { R.id.title }));
 
 	}
 }
