@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.widget.TabHost;
 
 import com.clican.irp.android.R;
+import com.clican.irp.android.enumeration.IntentName;
+import com.clican.irp.android.enumeration.ReportScope;
 
 public class IrpAndroidActivity extends RoboTabActivity {
 
@@ -23,25 +25,29 @@ public class IrpAndroidActivity extends RoboTabActivity {
 		setupTabs();
 	}
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-    }
-    
+	@Override
+	protected void onStart() {
+		super.onStart();
+	}
+
 	private void setupTabs() {
 		tabHost = getTabHost();
 
-		final String innerReport = getResources().getText(R.string.inner_report)
-				.toString();
-		final String outerReport = getResources().getText(R.string.outer_report)
-				.toString();
+		final String innerReport = getResources()
+				.getText(R.string.inner_report).toString();
+		final String outerReport = getResources()
+				.getText(R.string.outer_report).toString();
 
+		Intent innerReportIntent = new Intent(this, ReportListActivity.class);
+		innerReportIntent.putExtra(IntentName.REPORT_SCOPE.name(),
+				ReportScope.INNER);
+		Intent outerReportIntent = new Intent(this, ReportListActivity.class);
+		outerReportIntent.putExtra(IntentName.REPORT_SCOPE.name(),
+				ReportScope.OUTER);
 		tabHost.addTab(tabHost.newTabSpec(innerReport)
-				.setIndicator(innerReport)
-				.setContent(new Intent(this, ReportListActivity.class)));
+				.setIndicator(innerReport).setContent(innerReportIntent));
 		tabHost.addTab(tabHost.newTabSpec(outerReport)
-				.setIndicator(outerReport)
-				.setContent(new Intent(this, ReportListActivity.class)));
-		
+				.setIndicator(outerReport).setContent(outerReportIntent));
+
 	}
 }
