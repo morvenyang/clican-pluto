@@ -26,7 +26,7 @@ public class ReportListActivity extends RoboListActivity {
 
 	private ReportScope reportScope;
 
-	private int page = 0;
+	private int page = 1;
 
 	private int pageSize = 30;
 
