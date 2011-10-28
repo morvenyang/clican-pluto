@@ -20,7 +20,9 @@ public class ReportListActivity extends RoboListActivity {
 			"reportTypeName", "title", "broker", "author", "investRanking",
 			"stockName", "industryName" };
 
-	private static final int[] REPORT_IDS = new int[] { R.id.title, R.id.author };
+	private static final int[] REPORT_IDS = new int[] { R.id.reportTypeName,
+			R.id.title, R.id.broker, R.id.author, R.id.investRanking,
+			R.id.stockName, R.id.industryName };
 
 	@Inject
 	private ReportService reportService;
