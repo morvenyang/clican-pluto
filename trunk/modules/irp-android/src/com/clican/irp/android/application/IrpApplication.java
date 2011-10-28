@@ -9,6 +9,6 @@ import com.google.inject.Module;
 public class IrpApplication extends RoboApplication {
 
 	protected void addApplicationModules(List<Module> modules) {
-		modules.add(new IrpModule());
+		modules.add(new IrpModule(this));
 	}
 }
