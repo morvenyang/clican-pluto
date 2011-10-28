@@ -32,18 +32,25 @@ public class IrpAndroidActivity extends RoboTabActivity {
 
 	private void setupTabs() {
 		tabHost = getTabHost();
-
+		
+		final String careReport = getResources().getText(R.string.care_report)
+				.toString();
 		final String innerReport = getResources()
 				.getText(R.string.inner_report).toString();
 		final String outerReport = getResources()
 				.getText(R.string.outer_report).toString();
 
+		Intent careReportIntent = new Intent(this, ReportListActivity.class);
+		careReportIntent.putExtra(IntentName.REPORT_SCOPE.name(),
+				ReportScope.CARE);
 		Intent innerReportIntent = new Intent(this, ReportListActivity.class);
 		innerReportIntent.putExtra(IntentName.REPORT_SCOPE.name(),
 				ReportScope.INNER);
 		Intent outerReportIntent = new Intent(this, ReportListActivity.class);
 		outerReportIntent.putExtra(IntentName.REPORT_SCOPE.name(),
 				ReportScope.OUTER);
+		tabHost.addTab(tabHost.newTabSpec(innerReport).setIndicator(careReport)
+				.setContent(careReportIntent));
 		tabHost.addTab(tabHost.newTabSpec(innerReport)
 				.setIndicator(innerReport).setContent(innerReportIntent));
 		tabHost.addTab(tabHost.newTabSpec(outerReport)
