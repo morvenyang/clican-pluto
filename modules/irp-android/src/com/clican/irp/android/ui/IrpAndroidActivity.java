@@ -49,7 +49,7 @@ public class IrpAndroidActivity extends RoboTabActivity {
 		Intent outerReportIntent = new Intent(this, ReportListActivity.class);
 		outerReportIntent.putExtra(IntentName.REPORT_SCOPE.name(),
 				ReportScope.OUTER);
-		tabHost.addTab(tabHost.newTabSpec(innerReport).setIndicator(careReport)
+		tabHost.addTab(tabHost.newTabSpec(careReport).setIndicator(careReport)
 				.setContent(careReportIntent));
 		tabHost.addTab(tabHost.newTabSpec(innerReport)
 				.setIndicator(innerReport).setContent(innerReportIntent));
