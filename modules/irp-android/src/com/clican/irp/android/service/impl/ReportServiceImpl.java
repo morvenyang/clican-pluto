@@ -57,7 +57,7 @@ public class ReportServiceImpl implements ReportService {
 
 	@Override
 	public Map<String, Object> readReport(Long reportId) {
-		String url = ApplicationUrl.QUERY_REPORT.getUrl() + "?reportId="
+		String url = ApplicationUrl.READ_REPORT.getUrl() + "?reportId="
 				+ reportId;
 		try {
 			JSONObject jsonObject = httpGateway.invokeBySession(url);
