@@ -9,6 +9,7 @@ import java.util.Map;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import com.clican.irp.android.enumeration.ApplicationUrl;
 import com.clican.irp.android.enumeration.ReportScope;
 import com.clican.irp.android.http.HttpGateway;
 import com.clican.irp.android.service.ReportService;
@@ -25,7 +26,7 @@ public class ReportServiceImpl implements ReportService {
 	public List<Map<String, Object>> queryReport(String query,
 			ReportScope scope, Date start, Date end, int page, int pageSize) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		String url = "/apple/report/query.do?";
+		String url = ApplicationUrl.QUERY_REPORT.getUrl() + "?";
 		if (query != null && query.trim().length() > 0) {
 			url += "query=" + query + "&";
 		}
@@ -48,6 +49,23 @@ public class ReportServiceImpl implements ReportService {
 				list.add(JSONUtil.convertJSON2Map(array.getJSONObject(i)));
 			}
 			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@Override
+	public Map<String, Object> readReport(Long reportId) {
+		String url = ApplicationUrl.QUERY_REPORT.getUrl() + "?reportId="
+				+ reportId;
+		try {
+			JSONObject jsonObject = httpGateway.invokeBySession(url);
+			if (jsonObject == null) {
+				return null;
+			}
+			Map<String, Object> report = JSONUtil.convertJSON2Map(jsonObject);
+			return report;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
