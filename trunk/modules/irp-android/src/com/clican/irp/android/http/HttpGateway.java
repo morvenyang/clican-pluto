@@ -18,5 +18,6 @@ public interface HttpGateway {
 
 	public void login(String userName, String password, String token)
 			throws SocketTimeoutException, HttpException;
+	
 
 }

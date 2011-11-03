@@ -6,5 +6,13 @@ public enum PropertyName {
 	
 	PASSWORD,
 	
-	PRODUCT_CUSTOMER;
+	PRODUCT_CUSTOMER,
+	
+	PROXY_HOST,
+	
+	PROXY_PORT,
+	
+	PROXY_USER_NAME,
+	
+	PROXY_PASSWORD;
 }
