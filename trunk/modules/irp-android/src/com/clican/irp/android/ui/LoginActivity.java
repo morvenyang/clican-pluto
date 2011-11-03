@@ -124,5 +124,15 @@ public class LoginActivity extends RoboActivity {
 
 			}
 		});
+
+		Button configurationButton = (Button) findViewById(R.id.configuration_button);
+		configurationButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent i = new Intent(LoginActivity.this,
+						ConfigurationActivity.class);
+				startActivity(i);
+			}
+		});
 	}
 }
