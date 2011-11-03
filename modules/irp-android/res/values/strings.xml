@@ -20,5 +20,7 @@
     <string name="year">年</string>
     <string name="month">月</string>
     <string name="day">日</string>
+    <string name="attachment_download_button">附件</string>
+    <string name="return_button">返回</string>
 
 </resources>
