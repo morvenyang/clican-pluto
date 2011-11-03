@@ -17,5 +17,8 @@
     <string name="proxy_user_name">用户</string>
     <string name="proxy_password">密码</string>
     <string name="configuration_button">选项</string>
+    <string name="year">年</string>
+    <string name="month">月</string>
+    <string name="day">日</string>
 
 </resources>
