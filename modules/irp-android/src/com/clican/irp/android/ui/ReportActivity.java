@@ -4,6 +4,7 @@ import java.util.Map;
 
 import roboguice.activity.RoboActivity;
 import android.os.Bundle;
+import android.text.Html;
 import android.widget.TextView;
 
 import com.clican.irp.android.R;
@@ -29,7 +30,7 @@ public class ReportActivity extends RoboActivity {
 		TextView reportSecondTitleView = (TextView) findViewById(R.id.report_second_title_view);
 		reportSecondTitleView.setText((String) report.get("author"));
 		TextView reportSummaryView = (TextView) findViewById(R.id.report_summary_view);
-		reportSummaryView.setText((String) report.get("summary"),
+		reportSummaryView.setText(Html.fromHtml((String) report.get("summary")),
 				TextView.BufferType.SPANNABLE);
 	}
 }
