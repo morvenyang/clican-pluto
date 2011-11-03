@@ -24,11 +24,12 @@ public class ReportActivity extends RoboActivity {
 		Long reportId = IntentUtil.get(savedInstanceState, this.getIntent()
 				.getExtras(), IntentName.REPORT_ID);
 		Map<String, Object> report = reportService.readReport(reportId);
-		TextView reportTitleView = (TextView)findViewById(R.id.report_title_view);
-		reportTitleView.setText((String)report.get("title"));
-		TextView reportSecondTitleView = (TextView)findViewById(R.id.report_second_title_view);
-		reportSecondTitleView.setText((String)report.get("author"));
-		TextView reportSummaryView = (TextView)findViewById(R.id.report_summary_view);
-		reportSummaryView.setText((String)report.get("summary"));
+		TextView reportTitleView = (TextView) findViewById(R.id.report_title_view);
+		reportTitleView.setText((String) report.get("title"));
+		TextView reportSecondTitleView = (TextView) findViewById(R.id.report_second_title_view);
+		reportSecondTitleView.setText((String) report.get("author"));
+		TextView reportSummaryView = (TextView) findViewById(R.id.report_summary_view);
+		reportSummaryView.setText((String) report.get("summary"),
+				TextView.BufferType.SPANNABLE);
 	}
 }
