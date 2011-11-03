@@ -41,7 +41,7 @@ public class ConfigurationActivity extends RoboActivity {
 		EditText proxyUserNameEdit = (EditText) findViewById(R.id.proxy_user_name_edit);
 		EditText proxyPasswordEdit = (EditText) findViewById(R.id.proxy_password_edit);
 		Integer proxyPort = null;
-		if (proxyPortEdit.getText().toString() != null) {
+		if (proxyPortEdit.getText().toString() != null&&proxyPortEdit.getText().toString().trim().length()>0) {
 			proxyPort = new Integer(proxyPortEdit.getText().toString());
 		}
 		configurationService.configureHttpProxy(proxyHostEdit.getText()
