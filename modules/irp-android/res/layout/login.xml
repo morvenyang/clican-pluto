@@ -117,16 +117,18 @@
 
         <Button
             android:id="@+id/login_button"
-            android:layout_width="fill_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:layout_marginLeft="20dip"
             android:layout_marginTop="10dip"
             android:text="@string/login_button" />
         
         <Button
             android:id="@+id/configuration_button"
-            android:layout_width="fill_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:layout_marginRight="20dip"
             android:layout_marginTop="10dip"
             android:text="@string/configuration_button" />
