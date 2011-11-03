@@ -53,7 +53,7 @@ public class ConfigurationServiceImpl implements ConfigurationService {
 	@Override
 	public synchronized HttpProxy getHttpProxy() {
 		try {
-			if (this.cachedHttpProxy == null) {
+			if (this.cachedHttpProxy == null||this.cachedHttpProxy.getProxyHost()==null) {
 				cachedHttpProxy = new HttpProxy();
 				cachedHttpProxy.setProxyHost(propertyService
 						.getProperty(PropertyName.PROXY_HOST.name()));
