@@ -9,5 +9,8 @@ import com.clican.irp.android.enumeration.ReportScope;
 public interface ReportService {
 
 	public List<Map<String, Object>> queryReport(String query,
-			ReportScope scope, Date start, Date end, int page,int pageSize);
+			ReportScope scope, Date start, Date end, int page, int pageSize);
+
+	public Map<String, Object> readReport(Long reportId);
+	
 }
