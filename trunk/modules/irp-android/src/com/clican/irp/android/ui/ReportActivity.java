@@ -15,6 +15,10 @@ import com.google.inject.Inject;
 
 public class ReportActivity extends RoboActivity {
 
+	private static final String[] REPORT_ATTRS = new String[] {
+			"investRanking", "stockName", "industryName", "author",
+			"submitTime" };
+
 	@Inject
 	private ReportService reportService;
 
@@ -28,9 +32,17 @@ public class ReportActivity extends RoboActivity {
 		TextView reportTitleView = (TextView) findViewById(R.id.report_title_view);
 		reportTitleView.setText((String) report.get("title"));
 		TextView reportSecondTitleView = (TextView) findViewById(R.id.report_second_title_view);
-		reportSecondTitleView.setText((String) report.get("author"));
+		StringBuffer r = new StringBuffer();
+		for (String key : REPORT_ATTRS) {
+			Object value = report.get(key);
+			if (value != null) {
+				r.append(value).append(" ");
+			}
+		}
+		reportSecondTitleView.setText(r.toString());
 		TextView reportSummaryView = (TextView) findViewById(R.id.report_summary_view);
-		reportSummaryView.setText(Html.fromHtml((String) report.get("summary")),
+		reportSummaryView.setText(
+				Html.fromHtml((String) report.get("summary")),
 				TextView.BufferType.SPANNABLE);
 	}
 }
