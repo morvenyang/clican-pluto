@@ -7,7 +7,12 @@ import java.util.Map;
 
 import roboguice.activity.RoboListActivity;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.Spanned;
+import android.view.View;
 import android.widget.SimpleAdapter;
+import android.widget.SimpleAdapter.ViewBinder;
+import android.widget.TextView;
 
 import com.clican.irp.android.R;
 import com.clican.irp.android.enumeration.IntentName;
@@ -48,16 +53,34 @@ public class ReportListActivity extends RoboListActivity {
 			for (String key : REPORT_ATTRS) {
 				Object value = l.get(key);
 				if (value != null) {
-					r.append(value).append(" ");
+					if (key.equals("reportTypeName")) {
+						r.append("<font color='blue'>").append(value)
+								.append("</font>").append(" ");
+					} else {
+						r.append(value).append(" ");
+					}
+
 				}
 			}
 			Map<String, Object> content = new HashMap<String, Object>();
 			content.put("title", r.toString());
 			contentList.add(content);
 		}
-		setListAdapter(new SimpleAdapter(this, contentList,
+		SimpleAdapter adapter = new SimpleAdapter(this, contentList,
 				R.layout.report_row, new String[] { "title" },
-				new int[] { R.id.title }));
+				new int[] { R.id.title });
+		adapter.setViewBinder(new ViewBinder() {
+			@Override
+			public boolean setViewValue(View view, Object data,
+					String textRepresentation) {
+				Spanned html = Html.fromHtml(data.toString());
+				((TextView) view).setText(html,
+						TextView.BufferType.SPANNABLE);
+				return true;
+			}
+
+		});
+		setListAdapter(adapter);
 
 	}
 }
