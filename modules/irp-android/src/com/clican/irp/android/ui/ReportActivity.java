@@ -34,7 +34,9 @@ public class ReportActivity extends RoboActivity {
 		TextView reportSecondTitleView = (TextView) findViewById(R.id.report_second_title_view);
 		StringBuffer r = new StringBuffer();
 		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		SimpleDateFormat sdf2 = new SimpleDateFormat("MM/dd");
+		SimpleDateFormat sdf2 = new SimpleDateFormat("MM"
+				+ this.getResources().getString(R.string.month) + "dd"
+				+ this.getResources().getString(R.string.day));
 		for (String key : REPORT_ATTRS) {
 			Object value = report.get(key);
 			if (value != null) {
