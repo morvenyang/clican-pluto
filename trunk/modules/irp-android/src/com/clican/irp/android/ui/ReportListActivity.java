@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import roboguice.activity.RoboListActivity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.Spanned;
@@ -58,6 +59,7 @@ public class ReportListActivity extends RoboListActivity {
 				R.layout.report_row, new String[] { "title" },
 				new int[] { R.id.title });
 		adapter.setViewBinder(new ViewBinder() {
+			@SuppressWarnings("unchecked")
 			@Override
 			public boolean setViewValue(View view, Object data,
 					String textRepresentation) {
@@ -79,6 +81,11 @@ public class ReportListActivity extends RoboListActivity {
 					@Override
 					public void onClick(View v) {
 						Long reportId = (Long) l.get("id");
+						Intent reportIntent = new Intent(
+								ReportListActivity.this, ReportActivity.class);
+						reportIntent.putExtra(IntentName.REPORT_ID.name(),
+								reportId);
+						startActivity(reportIntent);
 					}
 
 				});
