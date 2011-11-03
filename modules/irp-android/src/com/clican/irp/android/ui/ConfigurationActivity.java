@@ -2,6 +2,7 @@ package com.clican.irp.android.ui;
 
 import roboguice.activity.RoboActivity;
 import android.os.Bundle;
+import android.text.InputType;
 import android.widget.EditText;
 
 import com.clican.irp.android.R;
@@ -20,6 +21,7 @@ public class ConfigurationActivity extends RoboActivity {
 		this.setContentView(R.layout.configuration);
 		EditText proxyHostEdit = (EditText) findViewById(R.id.proxy_host_edit);
 		EditText proxyPortEdit = (EditText) findViewById(R.id.proxy_port_edit);
+		proxyPortEdit.setInputType(InputType.TYPE_NUMBER_FLAG_SIGNED);
 		EditText proxyUserNameEdit = (EditText) findViewById(R.id.proxy_user_name_edit);
 		EditText proxyPasswordEdit = (EditText) findViewById(R.id.proxy_password_edit);
 		HttpProxy httpProxy = configurationService.getHttpProxy();
