@@ -2,6 +2,8 @@ package com.clican.irp.android.enumeration;
 
 public enum IntentName {
 
-	REPORT_SCOPE;
+	REPORT_SCOPE,
+	
+	REPORT_ID;
 	
 }
