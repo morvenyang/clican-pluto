@@ -64,7 +64,8 @@ public class ReportServiceImpl implements ReportService {
 			if (jsonObject == null) {
 				return null;
 			}
-			Map<String, Object> report = JSONUtil.convertJSON2Map(jsonObject);
+			Map<String, Object> report = JSONUtil.convertJSON2Map(jsonObject
+					.getJSONObject("report"));
 			return report;
 		} catch (Exception e) {
 			e.printStackTrace();
