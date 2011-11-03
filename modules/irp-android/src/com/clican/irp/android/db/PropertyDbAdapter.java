@@ -1,11 +1,11 @@
 package com.clican.irp.android.db;
 
-import com.google.inject.Inject;
-
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+
+import com.google.inject.Inject;
 
 public class PropertyDbAdapter {
 
@@ -31,18 +31,26 @@ public class PropertyDbAdapter {
 	}
 
 	public boolean deleteProperty(String name) {
-		return mDb.delete("irp_property", "name='" + name+"'", null) > 0;
+		return mDb.delete("irp_property", "name='" + name + "'", null) > 0;
 	}
 
 	public String getProperty(String name) {
-		Cursor mCursor =mDb.query(true, "irp_property", new String[] { "value" }, "name='"
-				+ name + "'", null, null, null, null, null);
-		if (mCursor != null) {
-			if( mCursor.moveToFirst()){
-				return mCursor.getString(0);
+		Cursor mCursor=null;
+		try {
+			mCursor = mDb.query(true, "irp_property", new String[] { "value" },
+					"name='" + name + "'", null, null, null, null, null);
+			if (mCursor != null) {
+				if (mCursor.moveToFirst()) {
+					return mCursor.getString(0);
+				}
+			}
+			return null;
+		} finally {
+			if (mCursor != null) {
+				mCursor.close();
 			}
 		}
-		return null;
+
 	}
 
 	public boolean updateProperty(String name, String value) {
