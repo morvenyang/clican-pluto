@@ -29,6 +29,8 @@ public class ReportActivity extends RoboActivity {
 		Long reportId = IntentUtil.get(savedInstanceState, this.getIntent()
 				.getExtras(), IntentName.REPORT_ID);
 		Map<String, Object> report = reportService.readReport(reportId);
+		TextView reportTitleBar = (TextView) findViewById(R.id.report_title_bar);
+		reportTitleBar.setText((String) report.get("title"));
 		TextView reportTitleView = (TextView) findViewById(R.id.report_title_view);
 		reportTitleView.setText((String) report.get("title"));
 		TextView reportSecondTitleView = (TextView) findViewById(R.id.report_second_title_view);
