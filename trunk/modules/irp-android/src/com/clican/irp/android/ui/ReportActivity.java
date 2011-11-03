@@ -1,5 +1,6 @@
 package com.clican.irp.android.ui;
 
+import java.text.SimpleDateFormat;
 import java.util.Map;
 
 import roboguice.activity.RoboActivity;
@@ -16,8 +17,7 @@ import com.google.inject.Inject;
 public class ReportActivity extends RoboActivity {
 
 	private static final String[] REPORT_ATTRS = new String[] {
-			"investRanking", "stockName", "industryName", "author",
-			"submitTime" };
+			"investRanking", "stockName", "industryName", "author", "date" };
 
 	@Inject
 	private ReportService reportService;
@@ -33,10 +33,21 @@ public class ReportActivity extends RoboActivity {
 		reportTitleView.setText((String) report.get("title"));
 		TextView reportSecondTitleView = (TextView) findViewById(R.id.report_second_title_view);
 		StringBuffer r = new StringBuffer();
+		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		SimpleDateFormat sdf2 = new SimpleDateFormat("MM/dd");
 		for (String key : REPORT_ATTRS) {
 			Object value = report.get(key);
 			if (value != null) {
-				r.append(value).append(" ");
+				if (key.equals("date")) {
+					try {
+						r.append(sdf2.format(sdf1.parse((String) value)));
+					} catch (Exception e) {
+
+					}
+				} else {
+					r.append(value).append(" ");
+				}
+
 			}
 		}
 		reportSecondTitleView.setText(r.toString());
