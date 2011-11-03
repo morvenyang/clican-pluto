@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.text.Html;
 import android.text.Spanned;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.SimpleAdapter;
 import android.widget.SimpleAdapter.ViewBinder;
 import android.widget.TextView;
@@ -49,21 +50,8 @@ public class ReportListActivity extends RoboListActivity {
 		List<Map<String, Object>> contentList = new ArrayList<Map<String, Object>>();
 
 		for (Map<String, Object> l : list) {
-			StringBuffer r = new StringBuffer();
-			for (String key : REPORT_ATTRS) {
-				Object value = l.get(key);
-				if (value != null) {
-					if (key.equals("reportTypeName")) {
-						r.append("<font color='blue'>").append(value)
-								.append("</font>").append(" ");
-					} else {
-						r.append(value).append(" ");
-					}
-
-				}
-			}
 			Map<String, Object> content = new HashMap<String, Object>();
-			content.put("title", r.toString());
+			content.put("title", l);
 			contentList.add(content);
 		}
 		SimpleAdapter adapter = new SimpleAdapter(this, contentList,
@@ -73,9 +61,29 @@ public class ReportListActivity extends RoboListActivity {
 			@Override
 			public boolean setViewValue(View view, Object data,
 					String textRepresentation) {
-				Spanned html = Html.fromHtml(data.toString());
-				((TextView) view).setText(html,
-						TextView.BufferType.SPANNABLE);
+				final Map<String, Object> l = (Map<String, Object>) data;
+				StringBuffer r = new StringBuffer();
+				for (String key : REPORT_ATTRS) {
+					Object value = l.get(key);
+					if (value != null) {
+						if (key.equals("reportTypeName")) {
+							r.append("<font color='blue'>").append(value)
+									.append("</font>").append(" ");
+						} else {
+							r.append(value).append(" ");
+						}
+
+					}
+				}
+				view.setOnClickListener(new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						Long reportId = (Long) l.get("id");
+					}
+
+				});
+				Spanned html = Html.fromHtml(r.toString());
+				((TextView) view).setText(html, TextView.BufferType.SPANNABLE);
 				return true;
 			}
 
