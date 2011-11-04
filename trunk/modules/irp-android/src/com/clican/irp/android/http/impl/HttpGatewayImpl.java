@@ -33,8 +33,8 @@ import com.google.inject.Singleton;
 @Singleton
 public class HttpGatewayImpl implements HttpGateway {
 
-	private static final int SOCKET_TIME_OUT = 4000;
-	private static final int CONN_TIME_OUT = 4000;
+	private static final int SOCKET_TIME_OUT = 10000;
+	private static final int CONN_TIME_OUT = 10000;
 	public static final int DOWNLOAD_CONN_TIME_OUT = 8000;
 	private static final String LOGIN_URL = "/apple/login.do";
 	public static String URL_PREFIX = null;
