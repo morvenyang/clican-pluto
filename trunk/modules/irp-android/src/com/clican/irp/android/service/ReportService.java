@@ -13,6 +13,6 @@ public interface ReportService {
 
 	public Map<String, Object> readReport(Long reportId);
 
-	public byte[] downloadAttachement(Long reportId);
+	public String downloadAttachement(Long reportId);
 
 }

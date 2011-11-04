@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Map;
 
 import roboguice.activity.RoboActivity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
@@ -29,8 +30,8 @@ public class ReportActivity extends RoboActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		this.setContentView(R.layout.report);
-		Long reportId = IntentUtil.get(savedInstanceState, this.getIntent()
-				.getExtras(), IntentName.REPORT_ID);
+		final Long reportId = IntentUtil.get(savedInstanceState, this
+				.getIntent().getExtras(), IntentName.REPORT_ID);
 		Map<String, Object> report = reportService.readReport(reportId);
 		TextView reportTitleBar = (TextView) findViewById(R.id.report_title_bar);
 		reportTitleBar.setText((String) report.get("title"));
@@ -64,11 +65,22 @@ public class ReportActivity extends RoboActivity {
 				TextView.BufferType.SPANNABLE);
 
 		Button attachmentDownloadButton = (Button) findViewById(R.id.attachment_download_button);
-		attachmentDownloadButton.setOnClickListener(new OnClickListener(){
-			@Override
-			public void onClick(View v) {
-				
-			}
-		});
+		Boolean attachment = (Boolean) report.get("attachment");
+		if (attachment) {
+			attachmentDownloadButton.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					String fileName = reportService
+							.downloadAttachement(reportId);
+					if (fileName != null && fileName.length() > 0) {
+						Intent intent = IntentUtil.getPdfFileIntent(fileName);
+						startActivity(intent);
+					}
+				}
+			});
+		} else {
+			attachmentDownloadButton.setVisibility(View.GONE);
+		}
+
 	}
 }

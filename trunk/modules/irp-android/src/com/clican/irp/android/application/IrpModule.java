@@ -2,6 +2,7 @@ package com.clican.irp.android.application;
 
 import roboguice.application.RoboApplication;
 import roboguice.config.AbstractAndroidModule;
+import android.content.Context;
 
 import com.clican.irp.android.db.DatabaseHelper;
 import com.clican.irp.android.db.PropertyDbAdapter;
