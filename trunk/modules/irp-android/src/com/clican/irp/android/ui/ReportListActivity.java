@@ -12,6 +12,7 @@ import android.text.Html;
 import android.text.Spanned;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AbsListView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.SimpleAdapter.ViewBinder;
@@ -48,12 +49,41 @@ public class ReportListActivity extends RoboListActivity {
 				.getExtras(), IntentName.REPORT_SCOPE);
 		setContentView(R.layout.report_list);
 		ListView reportListView = this.getListView();
-		reportListView.setOnScrollListener(new BottomUpdateScrollListener());
+		reportListView.setOnScrollListener(new BottomUpdateScrollListener() {
+			@Override
+			public void triggerBottomUpdate(AbsListView view) {
+				int count = view.getAdapter().getCount();
+				int page = (count + 1) / pageSize;
+				SimpleAdapter adapter = getSimpleAdapter(
+						(SimpleAdapter) view.getAdapter(), page, pageSize);
+				((ListView) view).setAdapter(adapter);
+				if (adapter.getCount() < count) {
+					((ListView) view).setSelection(count);
+				} else {
+					((ListView) view).setSelection(count + 1);
+				}
+			}
+
+		});
+		SimpleAdapter adapter = getSimpleAdapter(null, page, pageSize);
+		setListAdapter(adapter);
+	}
+
+	@SuppressWarnings("unchecked")
+	private SimpleAdapter getSimpleAdapter(SimpleAdapter orig, int page,
+			int pageSize) {
 		List<Map<String, Object>> list = reportService.queryReport(null,
 				reportScope, null, null, page, pageSize);
+		List<Map<String, Object>> all = new ArrayList<Map<String, Object>>();
+		if (orig != null) {
+			for (int i = 0; i < orig.getCount(); i++) {
+				all.add((Map<String, Object>) orig.getItem(i));
+			}
+		}
+		all.addAll(list);
 		List<Map<String, Object>> contentList = new ArrayList<Map<String, Object>>();
 
-		for (Map<String, Object> l : list) {
+		for (Map<String, Object> l : all) {
 			Map<String, Object> content = new HashMap<String, Object>();
 			content.put("title", l);
 			contentList.add(content);
@@ -62,7 +92,6 @@ public class ReportListActivity extends RoboListActivity {
 				R.layout.report_row, new String[] { "title" },
 				new int[] { R.id.title });
 		adapter.setViewBinder(new ViewBinder() {
-			@SuppressWarnings("unchecked")
 			@Override
 			public boolean setViewValue(View view, Object data,
 					String textRepresentation) {
@@ -98,7 +127,6 @@ public class ReportListActivity extends RoboListActivity {
 			}
 
 		});
-		setListAdapter(adapter);
-
+		return adapter;
 	}
 }

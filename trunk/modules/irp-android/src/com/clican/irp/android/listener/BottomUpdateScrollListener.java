@@ -3,14 +3,16 @@ package com.clican.irp.android.listener;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 
-public class BottomUpdateScrollListener implements OnScrollListener {
+public abstract class BottomUpdateScrollListener implements OnScrollListener {
 
 	private boolean mTopFreeDisplayFoot = false;
+
+	public abstract void triggerBottomUpdate(AbsListView view);
 
 	public void onScrollStateChanged(AbsListView view, int scrollState) {
 		if (scrollState == OnScrollListener.SCROLL_STATE_IDLE
 				&& mTopFreeDisplayFoot) {
-			
+			triggerBottomUpdate(view);
 		}
 	}
 
