@@ -14,6 +14,5 @@ public interface ReportService {
 
 	public Map<String, Object> readReport(Long reportId);
 
-	public File downloadAttachement(Long reportId);
 
 }
