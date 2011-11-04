@@ -73,4 +73,10 @@ public class ReportServiceImpl implements ReportService {
 		return null;
 	}
 
+	@Override
+	public byte[] downloadAttachement(Long reportId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

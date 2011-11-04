@@ -10,14 +10,17 @@ import com.clican.irp.android.exception.NotLoginException;
 
 public interface HttpGateway {
 
-	public JSONObject invokeBySession(String url) throws SocketTimeoutException,
-			JSONException, NotLoginException, HttpException;
-	
+	public JSONObject invokeBySession(String url)
+			throws SocketTimeoutException, JSONException, NotLoginException,
+			HttpException;
+
+	public byte[] downloadConentBySession(String url)
+			throws SocketTimeoutException, NotLoginException, HttpException;
+
 	public JSONObject invoke(String url) throws SocketTimeoutException,
-	JSONException, HttpException;
+			JSONException, HttpException;
 
 	public void login(String userName, String password, String token)
 			throws SocketTimeoutException, HttpException;
-	
 
 }

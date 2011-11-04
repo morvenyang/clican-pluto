@@ -12,5 +12,7 @@ public interface ReportService {
 			ReportScope scope, Date start, Date end, int page, int pageSize);
 
 	public Map<String, Object> readReport(Long reportId);
-	
+
+	public byte[] downloadAttachement(Long reportId);
+
 }

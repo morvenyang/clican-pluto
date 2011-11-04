@@ -46,4 +46,10 @@ public class HttpGatewayMockImpl implements HttpGateway {
 		Log.d("Mock Login Success", "Mock Login Success");
 	}
 
+	@Override
+	public byte[] downloadConentBySession(String url)
+			throws SocketTimeoutException, NotLoginException, HttpException {
+		return null;
+	}
+
 }
