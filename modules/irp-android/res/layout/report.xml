@@ -22,7 +22,7 @@
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="fill_parent"
         android:background="@color/orange_red"
         android:gravity="center_vertical"
         android:orientation="horizontal" >
@@ -43,8 +43,9 @@
             android:id="@+id/attachment_download_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
+            android:layout_gravity="center"
             android:layout_marginRight="5dip"
+            android:layout_marginTop="2dip"
             android:gravity="center_vertical"
             android:singleLine="true"
             android:text="@string/attachment_download_button" />
