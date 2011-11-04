@@ -74,16 +74,15 @@ public class ReportListActivity extends RoboListActivity {
 			int pageSize) {
 		List<Map<String, Object>> list = reportService.queryReport(null,
 				reportScope, null, null, page, pageSize);
-		List<Map<String, Object>> all = new ArrayList<Map<String, Object>>();
+		List<Map<String, Object>> contentList = new ArrayList<Map<String, Object>>();
 		if (orig != null) {
 			for (int i = 0; i < orig.getCount(); i++) {
-				all.add((Map<String, Object>) orig.getItem(i));
+				contentList.add((Map<String, Object>) orig.getItem(i));
 			}
 		}
-		all.addAll(list);
-		List<Map<String, Object>> contentList = new ArrayList<Map<String, Object>>();
+		
 
-		for (Map<String, Object> l : all) {
+		for (Map<String, Object> l : list) {
 			Map<String, Object> content = new HashMap<String, Object>();
 			content.put("title", l);
 			contentList.add(content);
