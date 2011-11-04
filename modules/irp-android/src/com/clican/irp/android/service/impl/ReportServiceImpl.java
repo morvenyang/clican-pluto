@@ -1,5 +1,6 @@
 package com.clican.irp.android.service.impl;
 
+import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -8,6 +9,8 @@ import java.util.Map;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import android.content.Context;
 
 import com.clican.irp.android.enumeration.ApplicationUrl;
 import com.clican.irp.android.enumeration.ReportScope;
@@ -22,6 +25,9 @@ public class ReportServiceImpl implements ReportService {
 
 	@Inject
 	private HttpGateway httpGateway;
+
+	@Inject
+	private Context context;
 
 	public List<Map<String, Object>> queryReport(String query,
 			ReportScope scope, Date start, Date end, int page, int pageSize) {
@@ -74,8 +80,30 @@ public class ReportServiceImpl implements ReportService {
 	}
 
 	@Override
-	public byte[] downloadAttachement(Long reportId) {
-		// TODO Auto-generated method stub
+	public String downloadAttachement(Long reportId) {
+		String url = ApplicationUrl.DOWNLOAD_REPORT.getUrl() + "?reportId="
+				+ reportId;
+		FileOutputStream fos = null;
+		try {
+			byte[] data = httpGateway.downloadConentBySession(url);
+			if (data == null || data.length == 0) {
+				return null;
+			}
+			fos = context.openFileOutput(reportId.toString(),
+					Context.MODE_PRIVATE);
+			fos.write(data);
+			return reportId.toString();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (fos != null) {
+				try {
+					fos.close();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
 		return null;
 	}
 
