@@ -21,11 +21,11 @@ public class IntentUtil {
 		return t;
 	}
 
-	public static Intent getPdfFileIntent(String fileName) {
+	public static Intent getPdfFileIntent(File file) {
 		Intent intent = new Intent("android.intent.action.VIEW");
 		intent.addCategory("android.intent.category.DEFAULT");
 		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-		Uri localUri = Uri.fromFile(new File(fileName));
+		Uri localUri = Uri.fromFile(file);
 		intent.setDataAndType(localUri, "application/pdf");
 		return intent;
 	}
