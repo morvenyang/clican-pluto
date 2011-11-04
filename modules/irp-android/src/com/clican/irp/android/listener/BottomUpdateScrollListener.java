@@ -10,7 +10,7 @@ public class BottomUpdateScrollListener implements OnScrollListener {
 	public void onScrollStateChanged(AbsListView view, int scrollState) {
 		if (scrollState == OnScrollListener.SCROLL_STATE_IDLE
 				&& mTopFreeDisplayFoot) {
-
+			
 		}
 	}
 
