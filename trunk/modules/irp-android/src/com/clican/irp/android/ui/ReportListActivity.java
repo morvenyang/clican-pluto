@@ -12,6 +12,7 @@ import android.text.Html;
 import android.text.Spanned;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.SimpleAdapter.ViewBinder;
 import android.widget.TextView;
@@ -19,6 +20,7 @@ import android.widget.TextView;
 import com.clican.irp.android.R;
 import com.clican.irp.android.enumeration.IntentName;
 import com.clican.irp.android.enumeration.ReportScope;
+import com.clican.irp.android.listener.BottomUpdateScrollListener;
 import com.clican.irp.android.service.ReportService;
 import com.clican.irp.android.util.IntentUtil;
 import com.google.inject.Inject;
@@ -45,7 +47,8 @@ public class ReportListActivity extends RoboListActivity {
 		reportScope = IntentUtil.get(savedInstanceState, this.getIntent()
 				.getExtras(), IntentName.REPORT_SCOPE);
 		setContentView(R.layout.report_list);
-
+		ListView reportListView = this.getListView();
+		reportListView.setOnScrollListener(new BottomUpdateScrollListener());
 		List<Map<String, Object>> list = reportService.queryReport(null,
 				reportScope, null, null, page, pageSize);
 		List<Map<String, Object>> contentList = new ArrayList<Map<String, Object>>();
