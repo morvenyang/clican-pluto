@@ -6,6 +6,9 @@ import java.util.Map;
 import roboguice.activity.RoboActivity;
 import android.os.Bundle;
 import android.text.Html;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.clican.irp.android.R;
@@ -59,5 +62,13 @@ public class ReportActivity extends RoboActivity {
 		reportSummaryView.setText(
 				Html.fromHtml((String) report.get("summary")),
 				TextView.BufferType.SPANNABLE);
+
+		Button attachmentDownloadButton = (Button) findViewById(R.id.attachment_download_button);
+		attachmentDownloadButton.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				
+			}
+		});
 	}
 }

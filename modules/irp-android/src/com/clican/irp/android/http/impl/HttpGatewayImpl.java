@@ -1,6 +1,7 @@
 package com.clican.irp.android.http.impl;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -67,6 +68,56 @@ public class HttpGatewayImpl implements HttpGateway {
 	}
 
 	@Override
+	public byte[] downloadConentBySession(String url)
+			throws SocketTimeoutException, NotLoginException, HttpException {
+		if (jsessionid == null) {
+			throw new NotLoginException();
+		}
+		if (!url.contains("?")) {
+			url = url + ";jsessionid=" + jsessionid;
+		} else {
+			url = url.substring(0, url.indexOf("?")) + ";jsessionid="
+					+ jsessionid + url.substring(url.indexOf("?"));
+		}
+		Log.d("read url : ", "" + URL_PREFIX + url);
+		HttpGet get = new HttpGet(URL_PREFIX + url);
+		InputStream is = null;
+		ByteArrayOutputStream os = null;
+		byte[] data;
+		try {
+			is = connect(get, CONN_TIME_OUT, SOCKET_TIME_OUT);
+			os = new ByteArrayOutputStream();
+			data = new byte[is.available()];
+			byte[] buffer = new byte[2048];
+			int r = -1;
+			while ((r = is.read(buffer)) != -1) {
+				os.write(buffer, 0, r);
+			}
+			data = os.toByteArray();
+			return data;
+		} catch (IOException e) {
+			throw new HttpException(e);
+		} finally {
+			if (is != null) {
+				try {
+					is.close();
+				} catch (Exception e) {
+					throw new HttpException(e);
+				}
+			}
+
+			if (os != null) {
+				try {
+					os.close();
+				} catch (Exception e) {
+					throw new HttpException(e);
+				}
+			}
+		}
+
+	}
+
+	@Override
 	public JSONObject invoke(String url) throws SocketTimeoutException,
 			JSONException, HttpException {
 		Log.d("read url : ", "" + url);
@@ -122,10 +173,11 @@ public class HttpGatewayImpl implements HttpGateway {
 		HttpConnectionParams.setSoTimeout(httpParameters, timeoutSocket);
 		HttpProxy httpProxy = configurationService.getHttpProxy();
 		if (httpProxy != null) {
-			HttpHost proxy = new HttpHost(httpProxy.getProxyHost(), httpProxy.getProxyPort());
+			HttpHost proxy = new HttpHost(httpProxy.getProxyHost(),
+					httpProxy.getProxyPort());
 			httpParameters.setParameter(ConnRoutePNames.DEFAULT_PROXY, proxy);
 		}
-		
+
 		DefaultHttpClient httpClient = new DefaultHttpClient(httpParameters);
 
 		try {
