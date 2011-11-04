@@ -25,7 +25,7 @@ public class FileCacheServiceImpl implements FileCacheService {
 
 	@Override
 	public File getFile(Long reportId) {
-		File file = context.getFileStreamPath(reportId.toString());
+		File file = context.getFileStreamPath(reportId.toString()+".pdf");
 		if (file.exists()) {
 			return file;
 		}
@@ -39,11 +39,11 @@ public class FileCacheServiceImpl implements FileCacheService {
 				return null;
 			}
 			clearHistoryCache();
-			fos = context.openFileOutput(reportId.toString(),
+			fos = context.openFileOutput(reportId.toString()+".pdf",
 					Context.MODE_WORLD_READABLE);
 			fos.write(data);
 			fos.flush();
-			return context.getFileStreamPath(reportId.toString());
+			return context.getFileStreamPath(reportId.toString()+".pdf");
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
