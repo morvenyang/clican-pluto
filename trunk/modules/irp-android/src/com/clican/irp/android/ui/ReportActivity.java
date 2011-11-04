@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.clican.irp.android.R;
 import com.clican.irp.android.enumeration.IntentName;
+import com.clican.irp.android.service.FileCacheService;
 import com.clican.irp.android.service.ReportService;
 import com.clican.irp.android.util.IntentUtil;
 import com.google.inject.Inject;
@@ -27,6 +28,9 @@ public class ReportActivity extends RoboActivity {
 
 	@Inject
 	private ReportService reportService;
+
+	@Inject
+	private FileCacheService fileCacheService;
 
 	@Inject
 	private Context context;
@@ -75,11 +79,7 @@ public class ReportActivity extends RoboActivity {
 			attachmentDownloadButton.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					File file = context.getFileStreamPath(reportId.toString()
-							+ ".pdf");
-					if (!file.exists()) {
-						file = reportService.downloadAttachement(reportId);
-					}
+					File file = fileCacheService.getFile(reportId);
 					if (file != null && file.exists()) {
 						Intent intent = IntentUtil.getPdfFileIntent(file);
 						startActivity(intent);
