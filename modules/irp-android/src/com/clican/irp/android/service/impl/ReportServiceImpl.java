@@ -1,5 +1,6 @@
 package com.clican.irp.android.service.impl;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -80,7 +81,7 @@ public class ReportServiceImpl implements ReportService {
 	}
 
 	@Override
-	public String downloadAttachement(Long reportId) {
+	public File downloadAttachement(Long reportId) {
 		String url = ApplicationUrl.DOWNLOAD_REPORT.getUrl() + "?reportId="
 				+ reportId;
 		FileOutputStream fos = null;
@@ -89,10 +90,12 @@ public class ReportServiceImpl implements ReportService {
 			if (data == null || data.length == 0) {
 				return null;
 			}
-			fos = context.openFileOutput(reportId.toString(),
-					Context.MODE_PRIVATE);
+			
+			fos = context.openFileOutput(reportId.toString()+".pdf",
+					Context.MODE_WORLD_READABLE);
 			fos.write(data);
-			return reportId.toString();
+			fos.flush();
+			return  context.getFileStreamPath(reportId.toString()+".pdf");
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

@@ -1,9 +1,11 @@
 package com.clican.irp.android.ui;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Map;
 
 import roboguice.activity.RoboActivity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
@@ -25,6 +27,9 @@ public class ReportActivity extends RoboActivity {
 
 	@Inject
 	private ReportService reportService;
+
+	@Inject
+	private Context context;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -70,10 +75,13 @@ public class ReportActivity extends RoboActivity {
 			attachmentDownloadButton.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					String fileName = reportService
-							.downloadAttachement(reportId);
-					if (fileName != null && fileName.length() > 0) {
-						Intent intent = IntentUtil.getPdfFileIntent(fileName);
+					File file = context.getFileStreamPath(reportId.toString()
+							+ ".pdf");
+					if (!file.exists()) {
+						file = reportService.downloadAttachement(reportId);
+					}
+					if (file != null && file.exists()) {
+						Intent intent = IntentUtil.getPdfFileIntent(file);
 						startActivity(intent);
 					}
 				}

@@ -1,5 +1,6 @@
 package com.clican.irp.android.service;
 
+import java.io.File;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -13,6 +14,6 @@ public interface ReportService {
 
 	public Map<String, Object> readReport(Long reportId);
 
-	public String downloadAttachement(Long reportId);
+	public File downloadAttachement(Long reportId);
 
 }
