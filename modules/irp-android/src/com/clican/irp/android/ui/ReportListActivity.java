@@ -53,7 +53,7 @@ public class ReportListActivity extends RoboListActivity {
 			@Override
 			public void triggerBottomUpdate(AbsListView view) {
 				int count = view.getAdapter().getCount();
-				int page = (count + 1) / pageSize;
+				int page = count / pageSize+1;
 				SimpleAdapter adapter = getSimpleAdapter(
 						(SimpleAdapter) view.getAdapter(), page, pageSize);
 				((ListView) view).setAdapter(adapter);
