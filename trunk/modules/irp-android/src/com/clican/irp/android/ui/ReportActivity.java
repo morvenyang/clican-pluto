@@ -5,7 +5,6 @@ import java.text.SimpleDateFormat;
 import java.util.Map;
 
 import roboguice.activity.RoboActivity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
@@ -31,9 +30,6 @@ public class ReportActivity extends RoboActivity {
 
 	@Inject
 	private FileCacheService fileCacheService;
-
-	@Inject
-	private Context context;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
