@@ -15,8 +15,8 @@
 			<h:form id="dataStructureForm">
 				<a4j:commandButton value="新建"
 					action="#{dataStructureAction.newDataStructure()}"
-					ajaxSingle="true" submitMode="ajax" reRender="siteForm">
-					<rich:componentControl for="sitePanel" operation="show"
+					ajaxSingle="true" submitMode="ajax" reRender="newDataStructureForm">
+					<rich:componentControl for="newDataStructurePanel" operation="show"
 						event="onclick">
 					</rich:componentControl>
 				</a4j:commandButton>
@@ -59,7 +59,7 @@
 					<h:outputText value="新建"></h:outputText>
 				</h:panelGroup>
 			</f:facet>
-			<a4j:form>
+			<a4j:form id="newDataStructureForm">
 				<h:panelGrid columns="3">
 					<h:outputLabel value="Structure Name:" styleClass="name" />
 					<h:inputText id="structureName"
