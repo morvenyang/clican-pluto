@@ -10,6 +10,7 @@
 	xmlns:c="http://java.sun.com/jstl/core" template="../site.xhtml">
 	<ui:define name="body">
 		<h:form id="templateForm">
+		<h:panelGrid columns="1">
 			<a4j:commandButton value="新建"
 				action="#{templateAction.newTemplate()}" ajaxSingle="true"
 				submitMode="ajax" reRender="newTemplateForm">
@@ -17,6 +18,7 @@
 					event="onclick">
 				</rich:componentControl>
 			</a4j:commandButton>
+			</h:panelGrid>
 			<rich:dataTable id="templateTable"
 				onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
 				onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
