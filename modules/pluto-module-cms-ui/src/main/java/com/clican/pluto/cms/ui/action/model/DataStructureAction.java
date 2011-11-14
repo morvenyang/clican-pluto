@@ -10,9 +10,6 @@ package com.clican.pluto.cms.ui.action.model;
 import java.util.Collections;
 import java.util.List;
 
-import javax.faces.context.FacesContext;
-
-import org.ajax4jsf.component.html.Include;
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
@@ -24,13 +21,12 @@ import com.clican.pluto.cms.core.service.DataStructureService;
 import com.clican.pluto.cms.ui.action.BaseAction;
 import com.clican.pluto.common.control.Control;
 import com.clican.pluto.common.control.MutilValueControl;
-import com.clican.pluto.common.exception.PlutoException;
 import com.clican.pluto.orm.desc.ModelDescription;
 import com.clican.pluto.orm.desc.PropertyDescription;
 
 @Scope(ScopeType.PAGE)
 @Name("dataStructureAction")
-public class DataStructureAction extends BaseAction  {
+public class DataStructureAction extends BaseAction {
 
 	/**
 	 * 
@@ -57,7 +53,8 @@ public class DataStructureAction extends BaseAction  {
 	}
 
 	public void addNewProperty() {
-		modelDescription.getPropertyDescriptionList().add(new PropertyDescription());
+		modelDescription.getPropertyDescriptionList().add(
+				new PropertyDescription());
 	}
 
 	public void save() {
@@ -69,19 +66,14 @@ public class DataStructureAction extends BaseAction  {
 
 		dataModelDescList.clear();
 		dataModelDescList.addAll(dataModelService.findAllDataModelDesc());
-		Collections.sort(dataModelDescList, new PropertyComparator<ModelDescription>("name"));
+		Collections.sort(dataModelDescList,
+				new PropertyComparator<ModelDescription>("name"));
 		cancel();
 	}
 
 	public void edit(ModelDescription modelDescription) {
-		try {
-			this.modelDescription = modelDescription.getCloneBean();
-			this.oldModelDescName = modelDescription.getName();
-			Include include = (Include) FacesContext.getCurrentInstance().getViewRoot().findComponent("workspace");
-			include.setViewId("newdatastructure.xhtml");
-		} catch (Exception e) {
-			throw new PlutoException(e);
-		}
+		this.modelDescription = modelDescription.getCloneBean();
+		this.oldModelDescName = modelDescription.getName();
 	}
 
 	public void delete(ModelDescription modelDescription) {

@@ -37,7 +37,11 @@
 					</f:facet>
 					<a4j:commandButton value="修改"
 						action="#{dataStructureAction.edit(dataModelDesc)}"
-						ajaxSingle="true" />
+						ajaxSingle="true" reRender="newDataStructureForm">
+						<rich:componentControl for="newDataStructurePanel"
+							operation="show" event="onclick">
+						</rich:componentControl>
+					</a4j:commandButton>
 				</rich:column>
 				<rich:column>
 					<f:facet name="header">
@@ -53,7 +57,8 @@
 		<rich:modalPanel id="newDataStructurePanel" autosized="true">
 			<f:facet name="controls">
 				<h:panelGroup>
-					<h:graphicImage value="/img/close.png" styleClass="hidelink" style="CURSOR: hand">
+					<h:graphicImage value="/img/close.png" styleClass="hidelink"
+						style="CURSOR: hand">
 						<rich:componentControl for="newDataStructurePanel"
 							operation="hide" event="onclick" />
 					</h:graphicImage>
@@ -183,7 +188,8 @@
 		<rich:modalPanel id="controlPropertyEditModelPanel">
 			<f:facet name="controls">
 				<h:panelGroup>
-					<h:graphicImage value="/img/close.png" styleClass="hidelink" style="CURSOR: hand">
+					<h:graphicImage value="/img/close.png" styleClass="hidelink"
+						style="CURSOR: hand">
 						<rich:componentControl for="newDataStructurePanel"
 							operation="hide" event="onclick" />
 					</h:graphicImage>
