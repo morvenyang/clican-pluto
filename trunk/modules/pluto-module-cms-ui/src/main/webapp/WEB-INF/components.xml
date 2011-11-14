@@ -21,5 +21,8 @@
 		conversation-timeout="120000" conversation-id-parameter="cid" />
 
 	<transaction:no-transaction />
+	
+	<security:identity authenticate-method="#{authenticator.authenticate}">
+	</security:identity>
 
 </components>
