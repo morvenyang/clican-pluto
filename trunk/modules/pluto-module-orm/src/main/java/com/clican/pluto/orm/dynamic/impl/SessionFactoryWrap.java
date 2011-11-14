@@ -29,7 +29,7 @@ import org.hibernate.stat.Statistics;
 import com.clican.pluto.common.exception.PlutoException;
 import com.clican.pluto.orm.dynamic.inter.SessionFactoryUpdate;
 
-@SuppressWarnings("unchecked")
+@SuppressWarnings("rawtypes") 
 public class SessionFactoryWrap implements SessionFactory, SessionFactoryUpdate {
 
 	/**
