@@ -22,6 +22,6 @@
 			<h:outputText value="New Data"></h:outputText>
 		</h:panelGroup>
 	</f:facet>
-	<ui:include
-		src="#{springProperty.getApplicationUrlPrefix()}/velocity/resource/newdatamodel.xhtml.vm;jsessionid=#{identity.jsessionid}" />
+	<a4j:include
+		viewId="#{springProperty.getApplicationUrlPrefix()}/velocity/resource/newdatamodel.xhtml.vm;jsessionid=#{identity.jsessionid}" />
 </rich:modalPanel>

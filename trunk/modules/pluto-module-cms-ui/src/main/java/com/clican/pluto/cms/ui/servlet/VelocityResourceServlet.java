@@ -46,7 +46,7 @@ public class VelocityResourceServlet extends HttpServlet {
 		if (request.getRequestURI().startsWith(prefix)) {
 			String path = request.getRequestURI().replaceFirst(prefix, "");
 			if (path.startsWith("/")) {
-				path = path.substring(1);
+				path = path.substring(1,path.indexOf(";"));
 			}
 			// request.getSession().setAttribute("propertyDescriptionList", new
 			// ArrayList<PropertyDescription>());
