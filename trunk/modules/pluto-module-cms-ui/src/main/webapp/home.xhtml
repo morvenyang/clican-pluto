@@ -8,6 +8,12 @@
 	xmlns:t="http://myfaces.apache.org/tomahawk"
 	xmlns:a4j="http://richfaces.org/a4j" template="site.xhtml">
 	<ui:define name="body">
-		<ui:include src="model/tree.xhtml" />
+		<rich:panel>
+			<f:facet name="header">
+				<h:panelGroup>
+					<h:outputText value="首页"></h:outputText>
+				</h:panelGroup>
+			</f:facet>
+		</rich:panel>
 	</ui:define>
 </ui:composition>
