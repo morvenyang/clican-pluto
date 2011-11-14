@@ -292,7 +292,7 @@ public class DataBaseOperationImpl implements IDataBaseOperation {
 			tableIter = cfg.getTableMappings();
 			while (tableIter.hasNext()) {
 				Table table = tableIter.next();
-				Iterator subIter = table.getForeignKeyIterator();
+				Iterator<ForeignKey> subIter = table.getForeignKeyIterator();
 				while (subIter.hasNext()) {
 					ForeignKey fk = (ForeignKey) subIter.next();
 					if (fk.isPhysicalConstraint()) {
@@ -308,7 +308,7 @@ public class DataBaseOperationImpl implements IDataBaseOperation {
 							String[] cols = new String[fk.getColumnSpan()];
 							String[] refcols = new String[fk.getColumnSpan()];
 							int i = 0;
-							Iterator refiter = null;
+							Iterator<Column> refiter = null;
 							if (fk.isReferenceToPrimaryKey()) {
 								refiter = fk.getReferencedTable()
 										.getPrimaryKey().getColumnIterator();
@@ -316,7 +316,7 @@ public class DataBaseOperationImpl implements IDataBaseOperation {
 								refiter = fk.getReferencedColumns().iterator();
 							}
 
-							Iterator columnIter = fk.getColumnIterator();
+							Iterator<Column> columnIter = fk.getColumnIterator();
 							while (columnIter.hasNext()) {
 								cols[i] = ((Column) columnIter.next())
 										.getQuotedName(dialect);
@@ -373,7 +373,7 @@ public class DataBaseOperationImpl implements IDataBaseOperation {
 		try {
 			conn = dataSource.getConnection();
 			meta = new DatabaseMetadata(conn, dialect);
-			Iterator tableIter = cfg.getTableMappings();
+			Iterator<Table> tableIter = cfg.getTableMappings();
 			Mapping mapping = cfg.buildMapping();
 			while (tableIter.hasNext()) {
 				Table table = (Table) tableIter.next();
@@ -393,7 +393,7 @@ public class DataBaseOperationImpl implements IDataBaseOperation {
 			tableIter = cfg.getTableMappings();
 			while (tableIter.hasNext()) {
 				Table table = (Table) tableIter.next();
-				Iterator subIter = table.getForeignKeyIterator();
+				Iterator<ForeignKey> subIter = table.getForeignKeyIterator();
 				while (subIter.hasNext()) {
 					ForeignKey fk = (ForeignKey) subIter.next();
 					if (fk.isPhysicalConstraint()) {
@@ -409,7 +409,7 @@ public class DataBaseOperationImpl implements IDataBaseOperation {
 							String[] cols = new String[fk.getColumnSpan()];
 							String[] refcols = new String[fk.getColumnSpan()];
 							int i = 0;
-							Iterator refiter = null;
+							Iterator<Column> refiter = null;
 							if (fk.isReferenceToPrimaryKey()) {
 								refiter = fk.getReferencedTable()
 										.getPrimaryKey().getColumnIterator();
@@ -417,7 +417,7 @@ public class DataBaseOperationImpl implements IDataBaseOperation {
 								refiter = fk.getReferencedColumns().iterator();
 							}
 
-							Iterator columnIter = fk.getColumnIterator();
+							Iterator<Column> columnIter = fk.getColumnIterator();
 							while (columnIter.hasNext()) {
 								cols[i] = ((Column) columnIter.next())
 										.getQuotedName(dialect);
