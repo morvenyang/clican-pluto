@@ -5,7 +5,7 @@
  * @author zhangwei
  *
  */
-package com.clican.pluto.cms.ui.action;
+package com.clican.pluto.cms.ui.action.issue;
 
 import java.util.List;
 
@@ -17,6 +17,7 @@ import org.jboss.seam.annotations.Out;
 import org.jboss.seam.annotations.Scope;
 
 import com.clican.pluto.cms.core.service.SiteService;
+import com.clican.pluto.cms.ui.action.BaseAction;
 import com.clican.pluto.orm.dynamic.inter.ClassLoaderUtil;
 import com.clican.pluto.orm.dynamic.inter.ISite;
 

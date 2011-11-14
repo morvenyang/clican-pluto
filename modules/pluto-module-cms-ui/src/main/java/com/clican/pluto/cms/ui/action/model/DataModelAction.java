@@ -5,7 +5,7 @@
  * @author wezhang
  *
  */
-package com.clican.pluto.cms.ui.action;
+package com.clican.pluto.cms.ui.action.model;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -28,6 +28,7 @@ import org.jboss.seam.annotations.Scope;
 import com.clican.pluto.cms.core.comparator.PropertyComparator;
 import com.clican.pluto.cms.core.service.DataModelService;
 import com.clican.pluto.cms.core.service.IssueService;
+import com.clican.pluto.cms.ui.action.BaseAction;
 import com.clican.pluto.common.exception.PlutoException;
 import com.clican.pluto.common.util.BeanUtils;
 import com.clican.pluto.orm.desc.ModelDescription;
