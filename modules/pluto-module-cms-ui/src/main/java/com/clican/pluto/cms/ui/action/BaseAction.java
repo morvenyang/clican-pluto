@@ -7,9 +7,6 @@
  */
 package com.clican.pluto.cms.ui.action;
 
-import javax.faces.context.FacesContext;
-
-import org.ajax4jsf.component.html.Include;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
