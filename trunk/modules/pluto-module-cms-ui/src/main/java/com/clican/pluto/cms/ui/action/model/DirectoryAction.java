@@ -24,6 +24,11 @@ import com.clican.pluto.orm.dynamic.inter.IDirectory;
 @Name("directoryAction")
 public class DirectoryAction extends BaseAction {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7128336761720831486L;
+
 	@In("#{directoryService}")
 	private DirectoryService directoryService;
 

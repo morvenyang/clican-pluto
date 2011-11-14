@@ -25,7 +25,12 @@ import com.clican.pluto.orm.dynamic.inter.ISite;
 @Name("siteAction")
 public class SiteAction extends BaseAction {
 
-    @In("#{siteService}")
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -4504152145990994563L;
+
+	@In("#{siteService}")
     private SiteService siteService;
 
     @In("#{classLoaderUtil}")

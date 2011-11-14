@@ -26,12 +26,10 @@ function adjustLayout() {
     // /////////////////////////// 计算高度 ///////////////////////////
     // 窗体高度
     var windowHeight = jQuery(window).height();
-
+    alert(windowHeight);
     // 头部高度
     var headerHeight = 0;
-    if (jQuery('#headbox').is(':visible')) {
-        headerHeight = jQuery('#headbox').height();
-    }
+   
 
     // 顶层菜单高度（含快捷菜单栏）
     var menuHeight = jQuery('#menu').height();
@@ -48,6 +46,7 @@ function adjustLayout() {
     }
 
     jQuery('#content').height(contentHeight);
+    alert(windowHeight);
     if (leftMenuStyle) {
         jQuery('#leftmenu').height(contentHeight);
         jQuery('#leftmenu-toggle').height(contentHeight);
@@ -191,6 +190,7 @@ function hiddenLeftMenuTemp() {
 
 window.onresize = adjustLayout;
 window.onload = function() {
+	alert('adjustLayout');
     adjustLayout();
 
     setTimeout(adjustLayout, 500);

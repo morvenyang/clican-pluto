@@ -20,6 +20,10 @@ import com.clican.pluto.orm.dynamic.inter.IDataModel;
 @Name("issueAction")
 public class IssueAction extends BaseAction  {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1389268355193826608L;
 	@In("#{issueService}")
 	private IssueService issueService;
 

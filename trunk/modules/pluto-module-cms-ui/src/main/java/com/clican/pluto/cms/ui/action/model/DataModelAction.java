@@ -40,6 +40,11 @@ import com.clican.pluto.orm.dynamic.inter.IDirectory;
 @Name("dataModelAction")
 public class DataModelAction extends BaseAction  {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7880421024554819065L;
+
 	@In("#{issueService}")
 	private IssueService issueService;
 
