@@ -1,66 +1,71 @@
-<rich:panel id="directoryTreeTab" label="Directory Tree"
-	xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:c="http://java.sun.com/jstl/core" template="../site.xhtml">
-	<ui:include src="newdirectorypanel.xhtml">
-		<ui:param name="projectName" value="Pluto" />
-	</ui:include>
-	<ui:include src="templateconfigure.xhtml">
-		<ui:param name="projectName" value="Pluto" />
-	</ui:include>
-	<h:form>
-		<rich:contextMenu attachTo="directoryTreeTab" submitMode="none">
-			<rich:menuItem value="Refresh" submitMode="ajax"
-				action="#{directoryAction.refresh()}" reRender="directoryTree">
-			</rich:menuItem>
-		</rich:contextMenu>
-		<rich:tree id="directoryTree" switchType="client">
-			<rich:recursiveTreeNodesAdaptor roots="#{rootDirectory}"
-				var="directory" nodes="#{directory.children}">
-				<rich:treeNode icon="img/iconFolder.gif"
-					iconLeaf="img/iconFolder.gif">
-					<h:outputLabel value="#{directory.name}"
-						onmouseover="this.style.cursor='hand'"
-						onmouseout="this.style.cursor='default'">
-						<a4j:support event="ondblclick"
-							action="#{dataModelAction.showDataModels(directory)}"
-							reRender="workspace" />
-					</h:outputLabel>
-					<rich:contextMenu submitMode="none">
-						<rich:menuGroup value="New">
-							<rich:menuItem value="Directory" id="newDirectory"
+	<rich:panel id="directoryTreeTab" label="Directory Tree">
+		<ui:include src="newdirectorypanel.xhtml">
+			<ui:param name="projectName" value="Pluto" />
+		</ui:include>
+		<ui:include src="templateconfigure.xhtml">
+			<ui:param name="projectName" value="Pluto" />
+		</ui:include>
+		<h:form>
+			<rich:contextMenu attachTo="directoryTreeTab" submitMode="none">
+				<rich:menuItem value="Refresh" submitMode="ajax"
+					action="#{directoryAction.refresh()}" reRender="directoryTree">
+				</rich:menuItem>
+			</rich:contextMenu>
+			<rich:tree id="directoryTree" switchType="client">
+				<rich:recursiveTreeNodesAdaptor roots="#{rootDirectory}"
+					var="directory" nodes="#{directory.children}">
+					<rich:treeNode icon="img/iconFolder.gif"
+						iconLeaf="img/iconFolder.gif">
+						<h:outputLabel value="#{directory.name}"
+							onmouseover="this.style.cursor='hand'"
+							onmouseout="this.style.cursor='default'">
+							<a4j:support event="ondblclick"
+								action="#{dataModelAction.showDataModels(directory)}"
+								reRender="workspace" />
+						</h:outputLabel>
+						<rich:contextMenu submitMode="none">
+							<rich:menuGroup value="New">
+								<rich:menuItem value="Directory" id="newDirectory"
+									submitMode="ajax"
+									action="#{directoryAction.setParentDirectory(directory)}">
+									<rich:componentControl for="newDirectoryPanel"
+										attachTo="newDirectory" operation="show" event="onclick">
+									</rich:componentControl>
+								</rich:menuItem>
+								<rich:menuGroup value="New Data">
+									<c:forEach var="dataModelDesc" items="#{dataModelDescList}">
+										<rich:menuItem value="#{dataModelDesc.name}" submitMode="ajax"
+											action="#{dataModelAction.newDataModel(directory, dataModelDesc)}"
+											reRender="workspace">
+										</rich:menuItem>
+									</c:forEach>
+								</rich:menuGroup>
+							</rich:menuGroup>
+							<rich:menuItem value="Delete"></rich:menuItem>
+							<rich:menuItem value="Configure Template" id="configureTemplate"
 								submitMode="ajax"
-								action="#{directoryAction.setParentDirectory(directory)}">
-								<rich:componentControl for="newDirectoryPanel"
-									attachTo="newDirectory" operation="show" event="onclick">
+								action="#{templateAction.configureTemplate(directory)}"
+								reRender="templateConfigurationForm">
+								<rich:componentControl for="templateConfigurationPanel"
+									attachTo="configureTemplate" operation="show" event="onclick">
 								</rich:componentControl>
 							</rich:menuItem>
-							<rich:menuGroup value="New Data">
-								<c:forEach var="dataModelDesc" items="#{dataModelDescList}">
-									<rich:menuItem value="#{dataModelDesc.name}" submitMode="ajax"
-										action="#{dataModelAction.newDataModel(directory, dataModelDesc)}"
-										reRender="workspace">
-									</rich:menuItem>
-								</c:forEach>
-							</rich:menuGroup>
-						</rich:menuGroup>
-						<rich:menuItem value="Delete"></rich:menuItem>
-						<rich:menuItem value="Configure Template" id="configureTemplate"
-							submitMode="ajax" action="#{templateAction.configureTemplate(directory)}" reRender="templateConfigurationForm">
-							<rich:componentControl for="templateConfigurationPanel"
-								attachTo="configureTemplate" operation="show" event="onclick">
-							</rich:componentControl>
-						</rich:menuItem>
-						<rich:menuItem value="Copy"></rich:menuItem>
-						<rich:menuItem value="Cut"></rich:menuItem>
-					</rich:contextMenu>
-				</rich:treeNode>
-			</rich:recursiveTreeNodesAdaptor>
-		</rich:tree>
-	</h:form>
-</rich:panel>
+							<rich:menuItem value="Copy"></rich:menuItem>
+							<rich:menuItem value="Cut"></rich:menuItem>
+						</rich:contextMenu>
+					</rich:treeNode>
+				</rich:recursiveTreeNodesAdaptor>
+			</rich:tree>
+		</h:form>
+	</rich:panel>
+</ui:composition>
