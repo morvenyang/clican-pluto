@@ -53,8 +53,6 @@ public class DataStructureAction extends BaseAction  {
 	private List<ModelDescription> dataModelDescList;
 
 	public void newDataStructure() {
-		Include include = (Include) FacesContext.getCurrentInstance().getViewRoot().findComponent("workspace");
-		include.setViewId("newdatastructure.xhtml");
 		this.modelDescription = new ModelDescription();
 	}
 
