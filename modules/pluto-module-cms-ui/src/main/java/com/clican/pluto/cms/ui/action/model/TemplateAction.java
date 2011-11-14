@@ -71,7 +71,6 @@ public class TemplateAction extends BaseAction {
 	}
 
 	public void cancel() {
-		backToNonePage();
 		clear();
 	}
 

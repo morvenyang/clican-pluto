@@ -117,7 +117,6 @@ public class DataModelAction extends BaseAction  {
 
 	public void save() {
 		dataModelService.save(dataModel);
-		backToNonePage();
 		clear();
 	}
 
@@ -154,7 +153,6 @@ public class DataModelAction extends BaseAction  {
 	}
 
 	public void cancel() {
-		backToNonePage();
 		clear();
 	}
 

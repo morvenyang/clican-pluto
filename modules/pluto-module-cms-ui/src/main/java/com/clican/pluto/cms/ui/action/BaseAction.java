@@ -22,12 +22,6 @@ public abstract class BaseAction implements java.io.Serializable {
 	
 	protected Log log = LogFactory.getLog(getClass());
 
-	protected void backToNonePage() {
-		Include include = (Include) FacesContext.getCurrentInstance()
-				.getViewRoot().findComponent("workspace");
-		include.setViewId("none.xhtml");
-	}
-
 }
 
 // $Id$
