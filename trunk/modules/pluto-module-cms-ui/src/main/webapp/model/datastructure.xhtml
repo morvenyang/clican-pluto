@@ -172,7 +172,7 @@
 						value="Add New Property" reRender="newDataStructureTable" />
 					<a4j:commandButton ajaxSingle="true"
 						action="#{dataStructureAction.save}" value="Save"
-						reRender="newDataStructureTable" process="structureName"
+						reRender="dataStructureTable" process="structureName"
 						oncomplete="Richfaces.hideModalPanel('newDataStructurePanel');" />
 					<h:commandButton value="Cancel"
 						oncomplete="Richfaces.hideModalPanel('newDataStructurePanel');" />
