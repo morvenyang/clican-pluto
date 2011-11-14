@@ -5,7 +5,7 @@
  * @author wezhang
  *
  */
-package com.clican.pluto.cms.ui.action;
+package com.clican.pluto.cms.ui.action.issue;
 
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.In;
@@ -13,6 +13,7 @@ import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
 
 import com.clican.pluto.cms.core.service.IssueService;
+import com.clican.pluto.cms.ui.action.BaseAction;
 import com.clican.pluto.orm.dynamic.inter.IDataModel;
 
 @Scope(ScopeType.EVENT)

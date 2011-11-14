@@ -1,40 +1,22 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:s="http://jboss.com/products/seam/taglib"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j">
+	xmlns:ui="http://java.sun.com/jsf/facelets">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
 <title>Pluto</title>
 <link href="stylesheet/theme.css" rel="stylesheet" type="text/css" />
 <ui:insert name="javascript" />
-<script type="text/javascript">
-			<!--
-				var mouseX=0; var p = 0; var move = false; function
-				ondivmousemove(event){ if (move) { if(event.clientX<p){
-				document.getElementById('leftPanel').style.width=event.clientX-16+'px';
-				} else {
-				document.getElementById('leftPanel').style.width=event.clientX-16+'px';
-				} p = event.clientX; } } function ondivmouseout(event){
-				document.getElementById('centerPanel').style.cursor=''; move=false;
-				} function ondivmouseover(event){
-				document.getElementById('centerPanel').style.cursor='e-resize'; }
-				function ondivmousedown(event){ move=true; } function
-				ondivmouseup(event){ move=false; } //
-			-->
-		</script>
 </head>
 <body>
-<ui:include src="menu.xhtml">
-	<ui:param name="projectName" value="Pluto" />
-</ui:include>
-<ui:insert name="body" />
-<div class="footer">
-© Copyright 2008 Pluto DevelopmentCompany,L.P.
-</div>
+	<table width="100%" border="0" cellpadding="1">
+		<tr>
+			<td>
+				<div class="workspace">
+					<ui:insert name="body" />
+				</div></td>
+		</tr>
+	</table>
 </body>
 </html>
