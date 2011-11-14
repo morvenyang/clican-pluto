@@ -21,7 +21,7 @@
         <webClassPathEntry>/pluto-module-transaction/target/classes</webClassPathEntry>
         <webClassPathEntry>C:/m2/antlr/antlr/2.7.6/antlr-2.7.6.jar</webClassPathEntry>
         <webClassPathEntry>C:/m2/com/experlog/xapool/1.5.0/xapool-1.5.0.jar</webClassPathEntry>
-        <webClassPathEntry>C:/m2/com/sun/facelets/jsf-facelets/1.1.14/jsf-facelets-1.1.14.jar</webClassPathEntry>
+        <webClassPathEntry>C:/m2/com/sun/facelets/jsf-facelets/1.1.15/jsf-facelets-1.1.15.jar</webClassPathEntry>
         <webClassPathEntry>C:/m2/commons-beanutils/commons-beanutils/1.8.0/commons-beanutils-1.8.0.jar</webClassPathEntry>
         <webClassPathEntry>C:/m2/commons-collections/commons-collections/3.2/commons-collections-3.2.jar</webClassPathEntry>
         <webClassPathEntry>C:/m2/commons-dbcp/commons-dbcp/1.2.2/commons-dbcp-1.2.2.jar</webClassPathEntry>
@@ -45,6 +45,7 @@
         <webClassPathEntry>C:/m2/jotm/jotm_jrmp_stubs/2.0.10/jotm_jrmp_stubs-2.0.10.jar</webClassPathEntry>
         <webClassPathEntry>C:/m2/log4j/log4j/1.2.14/log4j-1.2.14.jar</webClassPathEntry>
         <webClassPathEntry>C:/m2/mysql/mysql-connector-java/5.1.6/mysql-connector-java-5.1.6.jar</webClassPathEntry>
+        <webClassPathEntry>C:/m2/opensymphony/quartz/1.6.3/quartz-1.6.3.jar</webClassPathEntry>
         <webClassPathEntry>C:/m2/org/apache/geronimo/specs/geronimo-jms_1.1_spec/1.1/geronimo-jms_1.1_spec-1.1.jar</webClassPathEntry>
         <webClassPathEntry>C:/m2/org/apache/velocity/velocity/1.6.3/velocity-1.6.3.jar</webClassPathEntry>
         <webClassPathEntry>C:/m2/org/aspectj/aspectjweaver/1.5.4/aspectjweaver-1.5.4.jar</webClassPathEntry>
@@ -55,20 +56,20 @@
         <webClassPathEntry>C:/m2/org/hibernate/hibernate-commons-annotations/3.1.0.GA/hibernate-commons-annotations-3.1.0.GA.jar</webClassPathEntry>
         <webClassPathEntry>C:/m2/org/hibernate/hibernate-core/3.3.1.GA/hibernate-core-3.3.1.GA.jar</webClassPathEntry>
         <webClassPathEntry>C:/m2/org/hibernate/hibernate-validator/3.1.0.GA/hibernate-validator-3.1.0.GA.jar</webClassPathEntry>
-        <webClassPathEntry>C:/m2/org/jboss/el/jboss-el/1.0_02.CR3/jboss-el-1.0_02.CR3.jar</webClassPathEntry>
-        <webClassPathEntry>C:/m2/org/jboss/seam/jboss-seam-ioc/2.1.2.CR1/jboss-seam-ioc-2.1.2.CR1.jar</webClassPathEntry>
-        <webClassPathEntry>C:/m2/org/jboss/seam/jboss-seam-jul/2.1.2.CR1/jboss-seam-jul-2.1.2.CR1.jar</webClassPathEntry>
-        <webClassPathEntry>C:/m2/org/jboss/seam/jboss-seam-ui/2.1.2.CR1/jboss-seam-ui-2.1.2.CR1.jar</webClassPathEntry>
-        <webClassPathEntry>C:/m2/org/jboss/seam/jboss-seam/2.1.2.CR1/jboss-seam-2.1.2.CR1.jar</webClassPathEntry>
+        <webClassPathEntry>C:/m2/org/jboss/el/jboss-el/1.0_02.CR4/jboss-el-1.0_02.CR4.jar</webClassPathEntry>
+        <webClassPathEntry>C:/m2/org/jboss/seam/jboss-seam-ioc/2.2.0.GA/jboss-seam-ioc-2.2.0.GA.jar</webClassPathEntry>
+        <webClassPathEntry>C:/m2/org/jboss/seam/jboss-seam-jul/2.2.0.GA/jboss-seam-jul-2.2.0.GA.jar</webClassPathEntry>
+        <webClassPathEntry>C:/m2/org/jboss/seam/jboss-seam-ui/2.2.0.GA/jboss-seam-ui-2.2.0.GA.jar</webClassPathEntry>
+        <webClassPathEntry>C:/m2/org/jboss/seam/jboss-seam/2.2.0.GA/jboss-seam-2.2.0.GA.jar</webClassPathEntry>
         <webClassPathEntry>C:/m2/org/objectweb/carol/carol/2.0.5/carol-2.0.5.jar</webClassPathEntry>
         <webClassPathEntry>C:/m2/org/objectweb/joram/joram-client/5.0.9/joram-client-5.0.9.jar</webClassPathEntry>
         <webClassPathEntry>C:/m2/org/objectweb/joram/joram-mom/5.0.9/joram-mom-5.0.9.jar</webClassPathEntry>
         <webClassPathEntry>C:/m2/org/objectweb/joram/joram-shared/5.0.9/joram-shared-5.0.9.jar</webClassPathEntry>
         <webClassPathEntry>C:/m2/org/objectweb/monolog/monolog/2.1.8/monolog-2.1.8.jar</webClassPathEntry>
         <webClassPathEntry>C:/m2/org/ow2/jotm/jotm-jms/2.1.4/jotm-jms-2.1.4.jar</webClassPathEntry>
-        <webClassPathEntry>C:/m2/org/richfaces/framework/richfaces-api/3.3.1.CR1/richfaces-api-3.3.1.CR1.jar</webClassPathEntry>
-        <webClassPathEntry>C:/m2/org/richfaces/framework/richfaces-impl/3.3.1.CR1/richfaces-impl-3.3.1.CR1.jar</webClassPathEntry>
-        <webClassPathEntry>C:/m2/org/richfaces/ui/richfaces-ui/3.3.1.CR1/richfaces-ui-3.3.1.CR1.jar</webClassPathEntry>
+        <webClassPathEntry>C:/m2/org/richfaces/framework/richfaces-api/3.3.3.Final/richfaces-api-3.3.3.Final.jar</webClassPathEntry>
+        <webClassPathEntry>C:/m2/org/richfaces/framework/richfaces-impl/3.3.3.Final/richfaces-impl-3.3.3.Final.jar</webClassPathEntry>
+        <webClassPathEntry>C:/m2/org/richfaces/ui/richfaces-ui/3.3.3.Final/richfaces-ui-3.3.3.Final.jar</webClassPathEntry>
         <webClassPathEntry>C:/m2/org/slf4j/slf4j-api/1.5.0/slf4j-api-1.5.0.jar</webClassPathEntry>
         <webClassPathEntry>C:/m2/org/slf4j/slf4j-log4j12/1.5.0/slf4j-log4j12-1.5.0.jar</webClassPathEntry>
         <webClassPathEntry>C:/m2/org/springframework/spring/2.5.6/spring-2.5.6.jar</webClassPathEntry>
