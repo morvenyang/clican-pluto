@@ -10,14 +10,14 @@
 	xmlns:c="http://java.sun.com/jstl/core" template="../site.xhtml">
 	<ui:define name="body">
 		<h:form id="templateForm">
-		<h:panelGrid columns="1">
-			<a4j:commandButton value="新建"
-				action="#{templateAction.newTemplate()}" ajaxSingle="true"
-				submitMode="ajax" reRender="newTemplateForm">
-				<rich:componentControl for="newTemplatePanel" operation="show"
-					event="onclick">
-				</rich:componentControl>
-			</a4j:commandButton>
+			<h:panelGrid columns="1">
+				<a4j:commandButton value="新建"
+					action="#{templateAction.newTemplate()}" ajaxSingle="true"
+					submitMode="ajax" reRender="newTemplateForm">
+					<rich:componentControl for="newTemplatePanel" operation="show"
+						event="onclick">
+					</rich:componentControl>
+				</a4j:commandButton>
 			</h:panelGrid>
 			<rich:dataTable id="templateTable"
 				onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
@@ -34,12 +34,17 @@
 					<f:facet name="header">
 						<h:outputText value="修改 " />
 					</f:facet>
-					<a4j:commandButton value="删除"
-						action="#{templateAction.edit(dataModelDesc)}" ajaxSingle="true" />
+					<a4j:commandButton value="修改"
+						action="#{templateAction.edit(dataModelDesc)}" ajaxSingle="true"
+						reRender="newTemplateForm">
+						<rich:componentControl for="newTemplatePanel" operation="show"
+							event="onclick">
+						</rich:componentControl>
+					</a4j:commandButton>
 				</rich:column>
 				<rich:column>
 					<f:facet name="header">
-						<h:outputText value="操作" />
+						<h:outputText value="删除" />
 					</f:facet>
 					<a4j:commandButton value="删除" reRender="templateTable"
 						action="#{templateAction.delete(dataModelDesc)}" ajaxSingle="true" />
@@ -57,7 +62,7 @@
 						requiredMessage="The template name is required." />
 					<rich:message for="name" showDetail="false" showSummary="true">
 						<f:facet name="errorMarker">
-							<h:graphicImage url="img/error.gif" />
+							<h:graphicImage url="/img/error.gif" />
 						</f:facet>
 					</rich:message>
 					<h:outputLabel value="Content:" styleClass="name" />
@@ -67,7 +72,7 @@
 						requiredMessage="The template name is required." />
 					<rich:message for="content" showDetail="false" showSummary="true">
 						<f:facet name="errorMarker">
-							<h:graphicImage url="img/error.gif" />
+							<h:graphicImage url="/img/error.gif" />
 						</f:facet>
 					</rich:message>
 				</h:panelGrid>
