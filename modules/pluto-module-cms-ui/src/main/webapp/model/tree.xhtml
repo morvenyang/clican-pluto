@@ -1,4 +1,4 @@
-<rich:tab id="directoryTreeTab" label="Directory Tree"
+<rich:panel id="directoryTreeTab" label="Directory Tree"
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -6,7 +6,7 @@
 	xmlns:s="http://jboss.com/products/seam/taglib"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:a4j="http://richfaces.org/a4j"
-	xmlns:c="http://java.sun.com/jstl/core">
+	xmlns:c="http://java.sun.com/jstl/core" template="../site.xhtml">
 	<ui:include src="newdirectorypanel.xhtml">
 		<ui:param name="projectName" value="Pluto" />
 	</ui:include>
@@ -63,4 +63,4 @@
 			</rich:recursiveTreeNodesAdaptor>
 		</rich:tree>
 	</h:form>
-</rich:tab>
+</rich:panel>
