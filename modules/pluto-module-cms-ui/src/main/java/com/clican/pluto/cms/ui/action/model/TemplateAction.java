@@ -11,9 +11,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import javax.faces.context.FacesContext;
-
-import org.ajax4jsf.component.html.Include;
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Factory;
 import org.jboss.seam.annotations.In;
@@ -57,8 +54,6 @@ public class TemplateAction extends BaseAction {
 	}
 
 	public void newTemplate() {
-		Include include = (Include) FacesContext.getCurrentInstance().getViewRoot().findComponent("workspace");
-		include.setViewId("newtemplate.xhtml");
 		template = templateService.newTemplate();
 	}
 
@@ -76,8 +71,6 @@ public class TemplateAction extends BaseAction {
 
 	public void edit(ITemplate template) {
 		this.template = template;
-		Include include = (Include) FacesContext.getCurrentInstance().getViewRoot().findComponent("workspace");
-		include.setViewId("newtemplate.xhtml");
 	}
 
 	public void delete(ITemplate template) {
