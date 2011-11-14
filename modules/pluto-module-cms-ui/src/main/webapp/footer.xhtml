@@ -71,7 +71,7 @@
 	function fetchPrompt() {
 		jQuery
 				.ajax( {
-					url : "/irp/prompt.do?userId=#{identity.user.id}",
+					url : "/irp/prompt.do",
 					dataType : "json",
 					cache : false,
 					success : function(data) {
