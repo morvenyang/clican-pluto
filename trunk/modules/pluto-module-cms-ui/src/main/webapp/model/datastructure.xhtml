@@ -10,17 +10,18 @@
 	xmlns:c="http://java.sun.com/jstl/core" template="../site.xhtml">
 
 	<ui:define name="body">
-		<rich:panel id="dataStructuresTab" label="Data Structures"
-			template="../site.xhtml">
+		<rich:panel id="dataStructuresTab" template="../site.xhtml">
 			<h:form id="dataStructureForm">
-				<a4j:commandButton value="新建"
-					action="#{dataStructureAction.newDataStructure()}"
-					ajaxSingle="true" submitMode="ajax" reRender="newDataStructureForm">
-					<rich:componentControl for="newDataStructurePanel" operation="show"
-						event="onclick">
-					</rich:componentControl>
-				</a4j:commandButton>
-
+				<h:panelGrid columns="1">
+					<a4j:commandButton value="新建"
+						action="#{dataStructureAction.newDataStructure()}"
+						ajaxSingle="true" submitMode="ajax"
+						reRender="newDataStructureForm">
+						<rich:componentControl for="newDataStructurePanel"
+							operation="show" event="onclick">
+						</rich:componentControl>
+					</a4j:commandButton>
+				</h:panelGrid>
 				<rich:dataTable id="dataStructureTable"
 					onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
 					onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
@@ -52,8 +53,7 @@
 			</h:form>
 		</rich:panel>
 
-		<rich:modalPanel id="newDataStructurePanel"
-			style="overflow:auto;height:650px">
+		<rich:modalPanel id="newDataStructurePanel" autosized="true">
 			<f:facet name="header">
 				<h:panelGroup>
 					<h:outputText value="新建"></h:outputText>
@@ -167,8 +167,10 @@
 						value="Add New Property" reRender="newDataStructureTable" />
 					<a4j:commandButton ajaxSingle="true"
 						action="#{dataStructureAction.save}" value="Save"
-						reRender="newDataStructureTable" process="structureName" oncomplete="Richfaces.hideModalPanel('newDataStructurePanel');"/>
-					<h:commandButton value="Cancel" oncomplete="Richfaces.hideModalPanel('newDataStructurePanel');"/>
+						reRender="newDataStructureTable" process="structureName"
+						oncomplete="Richfaces.hideModalPanel('newDataStructurePanel');" />
+					<h:commandButton value="Cancel"
+						oncomplete="Richfaces.hideModalPanel('newDataStructurePanel');" />
 				</h:panelGrid>
 
 			</a4j:form>
