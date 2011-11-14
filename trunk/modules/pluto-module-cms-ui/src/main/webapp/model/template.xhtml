@@ -1,4 +1,4 @@
-<rich:tab id="templatesTab" label="Templates"
+<rich:panel id="templatesTab" label="Templates"
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -6,7 +6,7 @@
 	xmlns:s="http://jboss.com/products/seam/taglib"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:a4j="http://richfaces.org/a4j"
-	xmlns:c="http://java.sun.com/jstl/core">
+	xmlns:c="http://java.sun.com/jstl/core" template="../site.xhtml">
 	<h:form id="templateForm">
 		<rich:contextMenu attachTo="templatesTab" submitMode="none">
 			<rich:menuItem value="New Template" submitMode="ajax"
@@ -26,4 +26,4 @@
 			</rich:dropDownMenu>
 		</c:forEach>
 	</h:form>
-</rich:tab>
+</rich:panel>
