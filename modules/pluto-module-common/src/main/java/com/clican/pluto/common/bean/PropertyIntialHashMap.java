@@ -73,26 +73,26 @@ public class PropertyIntialHashMap<K, V> extends HashMap<K, V> implements
 				}
 				Object value = null;
 				if (str[1].indexOf("{") != -1 && str[1].indexOf("}") != -1) {
-					value = new ArrayList();
+					value = new ArrayList<Object>();
 					String[] values = str[1].replaceAll("\\{", "").replaceAll(
 							"\\}", "").split(",");
 					for (String v : values) {
 						v = v.trim();
 						if (v.indexOf("'") == -1) {
 							if (StringUtils.isNumeric(v)) {
-								((List) value).add(new Long(v));
+								((List<Object>) value).add(new Long(v));
 							}
-							((List) value).add(context.getBean(v));
+							((List<Object>) value).add(context.getBean(v));
 						} else {
 							v = v.replaceAll("\\'", "").trim();
-							((List) value).add(v);
+							((List<Object>) value).add(v);
 						}
 					}
 				} else {
 					value = str[1].trim();
 					if (((String) value).indexOf("'") == -1) {
 						if (StringUtils.isNumeric(value.toString())) {
-							((List) value).add(new Long(value.toString()));
+							((List<Object>) value).add(new Long(value.toString()));
 						}
 						value = context.getBean((String) value);
 					} else {
