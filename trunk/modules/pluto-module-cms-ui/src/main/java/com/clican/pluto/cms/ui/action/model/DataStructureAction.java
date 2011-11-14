@@ -92,7 +92,6 @@ public class DataStructureAction extends BaseAction  {
 	}
 
 	public void cancel() {
-		backToNonePage();
 		clear();
 	}
 
