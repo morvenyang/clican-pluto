@@ -9,7 +9,12 @@ import org.jboss.seam.annotations.intercept.BypassInterceptors;
 @Name("ui")
 public class UIAction extends BaseAction{
 
-    private String selectedPanel = "";      // 当前选中的菜单
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -8468732338956258803L;
+
+	private String selectedPanel = "";      // 当前选中的菜单
 
     private String showLeftMenu = "";       // 是否显示左菜单
 

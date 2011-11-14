@@ -31,6 +31,11 @@ import com.clican.pluto.orm.dynamic.inter.ITemplate;
 @Name("templateAction")
 public class TemplateAction extends BaseAction {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7209304814414586544L;
+
 	@In("#{templateService}")
 	private TemplateService templateService;
 

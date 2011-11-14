@@ -32,6 +32,11 @@ import com.clican.pluto.orm.desc.PropertyDescription;
 @Name("dataStructureAction")
 public class DataStructureAction extends BaseAction  {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2354096405739934075L;
+
 	@In("#{dataStructureService}")
 	private DataStructureService dataStructureService;
 

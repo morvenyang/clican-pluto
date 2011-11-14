@@ -13,8 +13,13 @@ import org.ajax4jsf.component.html.Include;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-public abstract class BaseAction {
+public abstract class BaseAction implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2619483835745954820L;
+	
 	protected Log log = LogFactory.getLog(getClass());
 
 	protected void backToNonePage() {
