@@ -41,8 +41,7 @@ public class EventQueue implements IntroductionInterceptor {
 
 	
 
-	@SuppressWarnings("unchecked")
-	public boolean implementsInterface(Class clazz) {
+	public boolean implementsInterface(@SuppressWarnings("rawtypes") Class clazz) {
 		return true;
 	}
 

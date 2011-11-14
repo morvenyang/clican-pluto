@@ -33,7 +33,7 @@ import com.clican.pluto.fsm.engine.IState;
  */
 public abstract class AbstractStateParser implements BeanDefinitionParser {
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public BeanDefinition parse(Element element, ParserContext parserContext) {
 		BeanDefinitionRegistry bdr = parserContext.getRegistry();
 		RootBeanDefinition beanDef = new RootBeanDefinition();
