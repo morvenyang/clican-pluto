@@ -46,6 +46,11 @@ http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
 
 	<tx:annotation-driven transaction-manager="txManager" />
 
+	<bean id="springProperty"
+		class="com.clican.pluto.common.bean.SpringProperty">
+		<property name="version" ref="${version}" />
+	</bean>
+	
 	<!-- Resource Part -->
 	<bean id="propertyConfigurer"
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
