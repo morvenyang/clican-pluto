@@ -49,6 +49,8 @@ http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
 	<bean id="springProperty"
 		class="com.clican.pluto.common.bean.SpringProperty">
 		<property name="version" value="${version}" />
+		<property name="contextPath" value="${contextPath}" />
+		<property name="applicationUrlPrefix" value="${applicationUrlPrefix}" />
 	</bean>
 	
 	<!-- Resource Part -->
