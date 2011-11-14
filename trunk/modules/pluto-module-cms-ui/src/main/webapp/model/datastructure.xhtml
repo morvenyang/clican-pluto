@@ -10,48 +10,45 @@
 	xmlns:c="http://java.sun.com/jstl/core" template="../site.xhtml">
 
 	<ui:define name="body">
-		<rich:panel id="dataStructuresTab">
-			<h:form id="dataStructureForm">
-				<h:panelGrid columns="1">
-					<a4j:commandButton value="新建"
-						action="#{dataStructureAction.newDataStructure()}"
-						ajaxSingle="true" submitMode="ajax"
-						reRender="newDataStructureForm">
-						<rich:componentControl for="newDataStructurePanel"
-							operation="show" event="onclick">
-						</rich:componentControl>
-					</a4j:commandButton>
-				</h:panelGrid>
-				<rich:dataTable id="dataStructureTable"
-					onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
-					onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
-					cellpadding="0" cellspacing="0" width="700" border="0" align="left"
-					var="dataModelDesc" value="#{dataModelDescList}">
-					<rich:column>
-						<f:facet name="header">
-							<h:outputText value="发布站点" />
-						</f:facet>
-						<h:outputText value="#{dataModelDesc.name}" />
-					</rich:column>
-					<rich:column>
-						<f:facet name="header">
-							<h:outputText value="修改 " />
-						</f:facet>
-						<a4j:commandButton value="删除"
-							action="#{dataStructureAction.edit(dataModelDesc)}"
-							ajaxSingle="true" />
-					</rich:column>
-					<rich:column>
-						<f:facet name="header">
-							<h:outputText value="操作" />
-						</f:facet>
-						<a4j:commandButton value="删除" reRender="dataStructureTable"
-							action="#{dataStructureAction.delete(dataModelDesc)}"
-							ajaxSingle="true" />
-					</rich:column>
-				</rich:dataTable>
-			</h:form>
-		</rich:panel>
+		<h:form id="dataStructureForm">
+			<h:panelGrid columns="1">
+				<a4j:commandButton value="新建"
+					action="#{dataStructureAction.newDataStructure()}"
+					ajaxSingle="true" submitMode="ajax" reRender="newDataStructureForm">
+					<rich:componentControl for="newDataStructurePanel" operation="show"
+						event="onclick">
+					</rich:componentControl>
+				</a4j:commandButton>
+			</h:panelGrid>
+			<rich:dataTable id="dataStructureTable"
+				onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+				onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+				cellpadding="0" cellspacing="0" width="700" border="0" align="left"
+				var="dataModelDesc" value="#{dataModelDescList}">
+				<rich:column>
+					<f:facet name="header">
+						<h:outputText value="发布站点" />
+					</f:facet>
+					<h:outputText value="#{dataModelDesc.name}" />
+				</rich:column>
+				<rich:column>
+					<f:facet name="header">
+						<h:outputText value="修改 " />
+					</f:facet>
+					<a4j:commandButton value="删除"
+						action="#{dataStructureAction.edit(dataModelDesc)}"
+						ajaxSingle="true" />
+				</rich:column>
+				<rich:column>
+					<f:facet name="header">
+						<h:outputText value="操作" />
+					</f:facet>
+					<a4j:commandButton value="删除" reRender="dataStructureTable"
+						action="#{dataStructureAction.delete(dataModelDesc)}"
+						ajaxSingle="true" />
+				</rich:column>
+			</rich:dataTable>
+		</h:form>
 
 		<rich:modalPanel id="newDataStructurePanel" autosized="true">
 			<f:facet name="header">
