@@ -35,13 +35,13 @@
 					<f:facet name="header">
 						<h:outputText value="修改 " />
 					</f:facet>
-					<a4j:commandButton value="删除"
+					<a4j:commandButton value="修改"
 						action="#{dataStructureAction.edit(dataModelDesc)}"
 						ajaxSingle="true" />
 				</rich:column>
 				<rich:column>
 					<f:facet name="header">
-						<h:outputText value="操作" />
+						<h:outputText value="删除" />
 					</f:facet>
 					<a4j:commandButton value="删除" reRender="dataStructureTable"
 						action="#{dataStructureAction.delete(dataModelDesc)}"
