@@ -51,6 +51,14 @@
 		</h:form>
 
 		<rich:modalPanel id="newDataStructurePanel" autosized="true">
+			<f:facet name="controls">
+				<h:panelGroup>
+					<h:graphicImage value="/img/close.png" styleClass="hidelink" style="CURSOR: hand">
+						<rich:componentControl for="newDataStructurePanel"
+							operation="hide" event="onclick" />
+					</h:graphicImage>
+				</h:panelGroup>
+			</f:facet>
 			<f:facet name="header">
 				<h:panelGroup>
 					<h:outputText value="新建"></h:outputText>
@@ -173,6 +181,14 @@
 			</a4j:form>
 		</rich:modalPanel>
 		<rich:modalPanel id="controlPropertyEditModelPanel">
+			<f:facet name="controls">
+				<h:panelGroup>
+					<h:graphicImage value="/img/close.png" styleClass="hidelink" style="CURSOR: hand">
+						<rich:componentControl for="newDataStructurePanel"
+							operation="hide" event="onclick" />
+					</h:graphicImage>
+				</h:panelGroup>
+			</f:facet>
 			<f:facet name="header">
 				<h:panelGroup>
 					<h:outputText value="Control Property Edit"></h:outputText>
