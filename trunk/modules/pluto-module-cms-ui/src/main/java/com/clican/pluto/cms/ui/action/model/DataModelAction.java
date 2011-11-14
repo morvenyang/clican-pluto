@@ -29,6 +29,7 @@ import com.clican.pluto.cms.core.comparator.PropertyComparator;
 import com.clican.pluto.cms.core.service.DataModelService;
 import com.clican.pluto.cms.core.service.IssueService;
 import com.clican.pluto.cms.ui.action.BaseAction;
+import com.clican.pluto.common.bean.SpringProperty;
 import com.clican.pluto.common.exception.PlutoException;
 import com.clican.pluto.common.util.BeanUtils;
 import com.clican.pluto.orm.desc.ModelDescription;
@@ -38,7 +39,7 @@ import com.clican.pluto.orm.dynamic.inter.IDirectory;
 
 @Scope(ScopeType.PAGE)
 @Name("dataModelAction")
-public class DataModelAction extends BaseAction  {
+public class DataModelAction extends BaseAction {
 
 	/**
 	 * 
@@ -57,6 +58,9 @@ public class DataModelAction extends BaseAction  {
 	@Out(required = false)
 	private List<ModelDescription> dataModelDescList;
 
+	@In("#{springProperty}")
+	private SpringProperty springProperty;
+
 	private ModelDescription modelDescription;
 
 	private IDataModel dataModel;
@@ -72,30 +76,44 @@ public class DataModelAction extends BaseAction  {
 		dataModelDescList = dataModelService.findAllDataModelDesc();
 		dataModelSelection.put("all", new HashMap<IDataModel, Boolean>());
 		for (ModelDescription md : dataModelDescList) {
-			dataModelSelection.put(md.getName(), new HashMap<IDataModel, Boolean>());
+			dataModelSelection.put(md.getName(),
+					new HashMap<IDataModel, Boolean>());
 		}
-		Collections.sort(dataModelDescList, new PropertyComparator<ModelDescription>("name"));
+		Collections.sort(dataModelDescList,
+				new PropertyComparator<ModelDescription>("name"));
 	}
 
-	public void newDataModel(IDirectory parentDirectory, ModelDescription modelDescription) {
-		this.dataModel = classLoaderUtil.newDataModel(parentDirectory, modelDescription);
+	public void newDataModel(IDirectory parentDirectory,
+			ModelDescription modelDescription) {
+		this.dataModel = classLoaderUtil.newDataModel(parentDirectory,
+				modelDescription);
 		this.modelDescription = modelDescription;
 		if (!dataModelSelection.containsKey(modelDescription.getName())) {
-			dataModelSelection.put(modelDescription.getName(), new HashMap<IDataModel, Boolean>());
+			dataModelSelection.put(modelDescription.getName(),
+					new HashMap<IDataModel, Boolean>());
 		}
-		Include include = (Include) FacesContext.getCurrentInstance().getViewRoot().findComponent("workspace");
-		HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
-		include.setViewId("http://localhost:8080/pluto/velocity/resource/newdatamodel.xhtml.vm;jsessionid=" + session.getId());
-		session.setAttribute("propertyDescriptionList", modelDescription.getPropertyDescriptionList());
+		Include include = (Include) FacesContext.getCurrentInstance()
+				.getViewRoot().findComponent("workspace");
+		HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
+				.getExternalContext().getSession(true);
+		include.setViewId(springProperty.getApplicationUrlPrefix()+"/velocity/resource/newdatamodel.xhtml.vm;jsessionid="
+				+ session.getId());
+		session.setAttribute("propertyDescriptionList",
+				modelDescription.getPropertyDescriptionList());
 	}
 
-	public void editDataModel(IDataModel dataModel, ModelDescription modelDescription) {
+	public void editDataModel(IDataModel dataModel,
+			ModelDescription modelDescription) {
 		this.dataModel = dataModel;
 		this.modelDescription = modelDescription;
-		Include include = (Include) FacesContext.getCurrentInstance().getViewRoot().findComponent("workspace");
-		HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
-		include.setViewId("http://localhost:8080/pluto/velocity/resource/newdatamodel.xhtml.vm;jsessionid=" + session.getId());
-		session.setAttribute("propertyDescriptionList", modelDescription.getPropertyDescriptionList());
+		Include include = (Include) FacesContext.getCurrentInstance()
+				.getViewRoot().findComponent("workspace");
+		HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
+				.getExternalContext().getSession(true);
+		include.setViewId(springProperty.getApplicationUrlPrefix()+"/velocity/resource/newdatamodel.xhtml.vm;jsessionid="
+				+ session.getId());
+		session.setAttribute("propertyDescriptionList",
+				modelDescription.getPropertyDescriptionList());
 	}
 
 	public void issue() {
@@ -121,7 +139,8 @@ public class DataModelAction extends BaseAction  {
 	}
 
 	public void delete(ModelDescription modelDescription) {
-		String modelName = modelDescription == null ? "all" : modelDescription.getName();
+		String modelName = modelDescription == null ? "all" : modelDescription
+				.getName();
 		List<IDataModel> dataModels = new ArrayList<IDataModel>();
 		for (IDataModel dataModel : dataModelSelection.get(modelName).keySet()) {
 			if (dataModelSelection.get(modelName).get(dataModel)) {
@@ -134,16 +153,16 @@ public class DataModelAction extends BaseAction  {
 	public void showDataModels(IDirectory directory) {
 		this.parentDirectory = directory;
 		modelDescriptionList = dataModelService.getModelDescriptions(directory);
-		Include include = (Include) FacesContext.getCurrentInstance().getViewRoot().findComponent("workspace");
-		include.getChildren().clear();
-		include.setViewId("datamodel.xhtml");
 	}
 
 	public List<IDataModel> getDataModels(ModelDescription modelDescription) {
-		String modelName = modelDescription == null ? "all" : modelDescription.getName();
-		List<IDataModel> dataModels = dataModelService.getDataModels(parentDirectory, modelDescription, null);
+		String modelName = modelDescription == null ? "all" : modelDescription
+				.getName();
+		List<IDataModel> dataModels = dataModelService.getDataModels(
+				parentDirectory, modelDescription, null);
 		if (!dataModelSelection.containsKey(modelName)) {
-			dataModelSelection.put(modelName, new HashMap<IDataModel, Boolean>());
+			dataModelSelection.put(modelName,
+					new HashMap<IDataModel, Boolean>());
 		}
 		dataModelSelection.get(modelName).clear();
 		for (IDataModel dataModel : dataModels) {
@@ -215,7 +234,8 @@ public class DataModelAction extends BaseAction  {
 		return modelDescriptionList;
 	}
 
-	public void setModelDescriptionList(List<ModelDescription> modelDescriptionList) {
+	public void setModelDescriptionList(
+			List<ModelDescription> modelDescriptionList) {
 		this.modelDescriptionList = modelDescriptionList;
 	}
 
@@ -223,7 +243,8 @@ public class DataModelAction extends BaseAction  {
 		return dataModelSelection;
 	}
 
-	public void setDataModelSelection(Map<String, Map<IDataModel, Boolean>> dataModelSelection) {
+	public void setDataModelSelection(
+			Map<String, Map<IDataModel, Boolean>> dataModelSelection) {
 		this.dataModelSelection = dataModelSelection;
 	}
 
