@@ -8,23 +8,25 @@
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:c="http://java.sun.com/jstl/core" template="../site.xhtml">
-	<rich:panel id="templatesTab" label="Templates">
-		<h:form id="templateForm">
-			<rich:contextMenu attachTo="templatesTab" submitMode="none">
-				<rich:menuItem value="New Template" submitMode="ajax"
-					action="#{templateAction.newTemplate()}" reRender="workspace">
-				</rich:menuItem>
-			</rich:contextMenu>
-			<c:forEach var="template" items="#{templateList}">
-				<rich:dropDownMenu style="font-size:25px;" value="#{template.name}"
-					submitMode="none" direction="bottom-right" jointPoint="tr">
-					<rich:menuItem value="Delete" submitMode="ajax"
-						action="#{templateAction.delete(template)}"
-						reRender="templateForm"></rich:menuItem>
-					<rich:menuItem value="Edit" submitMode="ajax"
-						action="#{templateAction.edit(template)}" reRender="workspace"></rich:menuItem>
-				</rich:dropDownMenu>
-			</c:forEach>
-		</h:form>
-	</rich:panel>
+	<ui:define name="body">
+		<rich:panel id="templatesTab" label="Templates">
+			<h:form id="templateForm">
+				<rich:contextMenu attachTo="templatesTab" submitMode="none">
+					<rich:menuItem value="New Template" submitMode="ajax"
+						action="#{templateAction.newTemplate()}" reRender="workspace">
+					</rich:menuItem>
+				</rich:contextMenu>
+				<c:forEach var="template" items="#{templateList}">
+					<rich:dropDownMenu style="font-size:25px;" value="#{template.name}"
+						submitMode="none" direction="bottom-right" jointPoint="tr">
+						<rich:menuItem value="Delete" submitMode="ajax"
+							action="#{templateAction.delete(template)}"
+							reRender="templateForm"></rich:menuItem>
+						<rich:menuItem value="Edit" submitMode="ajax"
+							action="#{templateAction.edit(template)}" reRender="workspace"></rich:menuItem>
+					</rich:dropDownMenu>
+				</c:forEach>
+			</h:form>
+		</rich:panel>
+	</ui:define>
 </ui:composition>
