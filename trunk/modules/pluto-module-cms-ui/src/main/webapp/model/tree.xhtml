@@ -25,8 +25,8 @@
 				<rich:tree id="directoryTree" switchType="client">
 					<rich:recursiveTreeNodesAdaptor roots="#{rootDirectory}"
 						var="directory" nodes="#{directory.children}">
-						<rich:treeNode icon="img/iconFolder.gif"
-							iconLeaf="img/iconFolder.gif">
+						<rich:treeNode icon="/img/iconFolder.gif"
+							iconLeaf="/img/iconFolder.gif">
 							<h:outputLabel value="#{directory.name}"
 								onmouseover="this.style.cursor='hand'"
 								onmouseout="this.style.cursor='default'">
