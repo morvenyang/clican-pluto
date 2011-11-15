@@ -29,6 +29,10 @@ public interface ITemplate extends IPojo {
 	public String getContent();
 
 	public void setContent(String content);
+	
+	public String getSuffix();
+	
+	public void setSuffix(String suffix);
 }
 
 // $Id$

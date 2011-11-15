@@ -41,6 +41,8 @@ public class Template implements ITemplate {
 	
 	private Calendar updateTime;
 	
+	private String suffix;
+	
 	#foreach( $modelDescription in $modelDescriptionList )
 	
 	private Set<Template${modelDescription.firstCharUpperName}Relation> template${modelDescription.firstCharUpperName}RelationSet; 
@@ -96,6 +98,15 @@ public class Template implements ITemplate {
 		this.updateTime = updateTime;
 	}
 	
+	
+	@Column(name = "SUFFIX")
+	public Calendar getSuffix(){
+		return suffix;
+	}
+	
+	public void setSuffix(String suffix){
+		this.suffix = suffix;
+	}
 	
 	#foreach( $modelDescription in $modelDescriptionList )
 	
