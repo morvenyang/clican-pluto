@@ -10,4 +10,10 @@
 			<converter-id>dataModelConverter</converter-id>
 		</converter>
 	</tag>
+	<tag>
+		<tag-name>numberConverter</tag-name>
+		<converter>
+			<converter-id>numberConverter</converter-id>
+		</converter>
+	</tag>
 </facelet-taglib>

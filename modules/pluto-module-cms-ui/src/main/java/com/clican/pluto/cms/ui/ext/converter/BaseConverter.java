@@ -5,7 +5,7 @@
  * @author wezhang
  *
  */
-package com.clican.pluto.cms.ui.converter;
+package com.clican.pluto.cms.ui.ext.converter;
 
 import javax.faces.convert.Converter;
 

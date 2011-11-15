@@ -2,10 +2,10 @@
  * The Clican-Pluto software suit is Copyright 2009, Clican Company
  * and individual contributors, and is licensed under the GNU LGPL.
  *
- * @author wezhang
+ * @author weizha
  *
  */
-package com.clican.pluto.cms.ui.converter;
+package com.clican.pluto.cms.ui.ext.converter;
 
 import javax.faces.component.StateHolder;
 import javax.faces.component.UIComponent;
@@ -19,15 +19,13 @@ import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.annotations.faces.Converter;
 import org.jboss.seam.annotations.intercept.BypassInterceptors;
 
-import com.clican.pluto.cms.core.service.DataModelService;
-import com.clican.pluto.common.constant.Constants;
-import com.clican.pluto.orm.dynamic.inter.IDataModel;
+import com.clican.pluto.common.util.TypeUtils;
 
-@Name("dataModelConverter")
+@Name("numberConverter")
 @Scope(ScopeType.STATELESS)
 @BypassInterceptors
 @Converter
-public class DataModelConverter extends BaseConverter implements StateHolder {
+public class NumberConverter extends BaseConverter implements StateHolder {
 
 	private String modelClass;
 
@@ -44,9 +42,13 @@ public class DataModelConverter extends BaseConverter implements StateHolder {
 		if (StringUtils.isEmpty(value)) {
 			return null;
 		} else {
-			DataModelService dataModelService = (DataModelService) Constants.ctx
-					.getBean("dataModelService");
-			return dataModelService.loadDataModel(modelClass, new Long(value));
+			try {
+				return TypeUtils.stringToNumber(value,
+						Class.forName(modelClass));
+			} catch (Exception e) {
+				log.error("", e);
+			}
+			return null;
 		}
 	}
 
@@ -54,8 +56,8 @@ public class DataModelConverter extends BaseConverter implements StateHolder {
 			Object value) {
 		if (value == null) {
 			return null;
-		} else if (value instanceof IDataModel) {
-			return ((IDataModel) value).getId().toString();
+		} else if (value instanceof Number) {
+			return value + "";
 		} else {
 			throw new ConverterException();
 		}
@@ -81,7 +83,6 @@ public class DataModelConverter extends BaseConverter implements StateHolder {
 	public void setTransient(boolean newTransientValue) {
 		this.transientFlag = newTransientValue;
 	}
-
 }
 
 // $Id$
