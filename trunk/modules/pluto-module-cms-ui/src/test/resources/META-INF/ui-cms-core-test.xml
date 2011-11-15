@@ -47,7 +47,7 @@ http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
 			<list>
 				<bean class="com.clican.pluto.common.control.InputTextAreaControl" />
 				<bean class="com.clican.pluto.common.control.InputTextControl" />
-				<bean class="com.clican.pluto.common.control.InputNumberSpinner" />
+				<bean class="com.clican.pluto.common.control.InputNumber" />
 				<bean class="com.clican.pluto.common.control.MutilCheckBoxControl" />
 				<bean class="com.clican.pluto.common.control.RadioButtonControl" />
 				<bean class="com.clican.pluto.common.control.SelectOneControl" />

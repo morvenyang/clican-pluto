@@ -16,7 +16,7 @@ import com.clican.pluto.common.type.IntegerType;
 import com.clican.pluto.common.type.LongType;
 import com.clican.pluto.common.type.Type;
 
-public class InputNumberSpinner extends Control {
+public class InputNumber extends Control {
 
 	/**
 	 * 
@@ -25,12 +25,12 @@ public class InputNumberSpinner extends Control {
 
 	@Override
 	public String getName() {
-		return "input number spinner";
+		return "input number";
 	}
 
 	@Override
 	public Control newControl() {
-		return new InputNumberSpinner();
+		return new InputNumber();
 	}
 
 	@Override
