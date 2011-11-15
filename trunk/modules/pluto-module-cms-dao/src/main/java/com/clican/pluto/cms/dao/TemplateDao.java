@@ -12,7 +12,7 @@ import java.util.List;
 import com.clican.pluto.orm.desc.ModelDescription;
 import com.clican.pluto.orm.dynamic.inter.IDataModel;
 import com.clican.pluto.orm.dynamic.inter.ITemplate;
-import com.clican.pluto.orm.dynamic.inter.ITemplateModelRelation;
+import com.clican.pluto.orm.dynamic.inter.ITemplateModelSiteRelation;
 
 public interface TemplateDao extends Dao {
 
@@ -20,14 +20,14 @@ public interface TemplateDao extends Dao {
 
 	public List<ITemplate> getSelectedTemplates(IDataModel dataModel);
 
-	public List<ITemplateModelRelation> getTemplateModelRelations(List<IDataModel> dataModels, ModelDescription modelDescription);
+	public List<ITemplateModelSiteRelation> getTemplateModelRelations(List<IDataModel> dataModels, ModelDescription modelDescription);
 
-	public List<ITemplateModelRelation> getTemplateModelRelations(ModelDescription modelDescription, final String pathExpression, final int firstResult,
+	public List<ITemplateModelSiteRelation> getTemplateModelRelations(ModelDescription modelDescription, final String pathExpression, final int firstResult,
 			final int maxResults);
 
-	public int getTemplateModelRelationCount(ModelDescription modelDescription, String pathExpression);
+	public int getTemplateModelSiteRelationCount(ModelDescription modelDescription, String pathExpression);
 
-	public void deleteTemplateRelation(IDataModel dataModel);
+	public void deleteTemplateSiteRelation(IDataModel dataModel);
 }
 
 // $Id$

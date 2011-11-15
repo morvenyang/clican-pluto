@@ -22,7 +22,7 @@ import com.clican.pluto.orm.desc.ModelDescription;
 import com.clican.pluto.orm.dynamic.inter.IDataModel;
 import com.clican.pluto.orm.dynamic.inter.IDirectory;
 import com.clican.pluto.orm.dynamic.inter.ITemplate;
-import com.clican.pluto.orm.dynamic.inter.ITemplateModelRelation;
+import com.clican.pluto.orm.dynamic.inter.ITemplateModelSiteRelation;
 
 public class TemplateDaoHibernateImpl extends BaseDao implements TemplateDao {
 
@@ -51,7 +51,7 @@ public class TemplateDaoHibernateImpl extends BaseDao implements TemplateDao {
 		return getHibernateTemplate().findByNamedParam(hsql, "id", dataModel.getId());
 	}
 
-	public void deleteTemplateRelation(final IDataModel dataModel) {
+	public void deleteTemplateSiteRelation(final IDataModel dataModel) {
 		final String hsql;
 		if (!(dataModel instanceof IDirectory)) {
 			String modelName = dataModel.getClass().getAnnotation(Entity.class).name();
@@ -59,10 +59,10 @@ public class TemplateDaoHibernateImpl extends BaseDao implements TemplateDao {
 			sql.append("delete from ");
 			sql.append("Template");
 			sql.append(modelName);
-			sql.append("Relation r where r.dataModel.id = :id");
+			sql.append("SiteRelation r where r.dataModel.id = :id");
 			hsql = sql.toString();
 		} else {
-			hsql = "delete from TemplateDirectoryRelation r where r.directory.id= :id";
+			hsql = "delete from TemplateDirectorySiteRelation r where r.directory.id= :id";
 		}
 		getHibernateTemplate().execute(new HibernateCallback() {
 			public Object doInHibernate(Session session) throws HibernateException, SQLException {
@@ -76,7 +76,7 @@ public class TemplateDaoHibernateImpl extends BaseDao implements TemplateDao {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<ITemplateModelRelation> getTemplateModelRelations(List<IDataModel> dataModels, ModelDescription modelDescription) {
+	public List<ITemplateModelSiteRelation> getTemplateModelRelations(List<IDataModel> dataModels, ModelDescription modelDescription) {
 		String modelName = modelDescription.getFirstCharUpperName();
 		StringBuffer sql = new StringBuffer();
 		sql.append("select r from ");
@@ -85,13 +85,13 @@ public class TemplateDaoHibernateImpl extends BaseDao implements TemplateDao {
 		sql.append("Template t,");
 		sql.append("Template");
 		sql.append(modelName);
-		sql.append("Relation r where r.template=t and r.dataModel=m and m.id in ");
+		sql.append("SiteRelation r where r.template=t and r.dataModel=m and m.id in ");
 		sql.append(getInString(dataModels));
 		return getHibernateTemplate().find(sql.toString());
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<ITemplateModelRelation> getTemplateModelRelations(ModelDescription modelDescription, final String pathExpression, final int firstResult,
+	public List<ITemplateModelSiteRelation> getTemplateModelRelations(ModelDescription modelDescription, final String pathExpression, final int firstResult,
 			final int maxResults) {
 		String modelName = modelDescription.getFirstCharUpperName();
 		final StringBuffer sql = new StringBuffer();
@@ -101,7 +101,7 @@ public class TemplateDaoHibernateImpl extends BaseDao implements TemplateDao {
 		sql.append("Template t,");
 		sql.append("Template");
 		sql.append(modelName);
-		sql.append("Relation r where r.template=t and r.dataModel=m and m.parent.path like :pathExpression");
+		sql.append("SiteRelation r where r.template=t and r.dataModel=m and m.parent.path like :pathExpression");
 		return getHibernateTemplate().executeFind(new HibernateCallback() {
 			public Object doInHibernate(Session session) throws HibernateException, SQLException {
 				Query query = session.createQuery(sql.toString());
@@ -113,7 +113,7 @@ public class TemplateDaoHibernateImpl extends BaseDao implements TemplateDao {
 		});
 	}
 
-	public int getTemplateModelRelationCount(ModelDescription modelDescription, String pathExpression) {
+	public int getTemplateModelSiteRelationCount(ModelDescription modelDescription, String pathExpression) {
 		String modelName = modelDescription.getFirstCharUpperName();
 		StringBuffer sql = new StringBuffer();
 		sql.append("select count(r.*) from ");
@@ -122,7 +122,7 @@ public class TemplateDaoHibernateImpl extends BaseDao implements TemplateDao {
 		sql.append("Template t,");
 		sql.append("Template");
 		sql.append(modelName);
-		sql.append("Relation r where r.template=t and r.dataModel=m and m.parent.path like :pathExpression");
+		sql.append("SiteRelation r where r.template=t and r.dataModel=m and m.parent.path like :pathExpression");
 		return (Integer) getHibernateTemplate().findByNamedParam(sql.toString(), "pathExpression", "pathExpression").get(0);
 	}
 
