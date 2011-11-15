@@ -29,9 +29,9 @@ http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 		</constructor-arg>
 	</bean>
 
-	<bean id="templateModelRelationTemplate" class="org.apache.velocity.app.Velocity"
+	<bean id="templateModelSiteRelationTemplate" class="org.apache.velocity.app.Velocity"
 		factory-method="getTemplate">
-		<constructor-arg value="${templateModelRelationTemplateFile}">
+		<constructor-arg value="${templateModelSiteRelationTemplateFile}">
 		</constructor-arg>
 	</bean>
 
@@ -41,21 +41,15 @@ http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 		</constructor-arg>
 	</bean>
 
-	<bean id="templateDirectoryRelationTemplate" class="org.apache.velocity.app.Velocity"
+	<bean id="templateDirectorySiteRelationTemplate" class="org.apache.velocity.app.Velocity"
 		factory-method="getTemplate">
-		<constructor-arg value="${templateDirectoryRelationTemplateFile}">
+		<constructor-arg value="${templateDirectorySiteRelationTemplateFile}">
 		</constructor-arg>
 	</bean>
 	
 	<bean id="siteTemplate" class="org.apache.velocity.app.Velocity"
 		factory-method="getTemplate">
 		<constructor-arg value="${siteTemplateFile}">
-		</constructor-arg>
-	</bean>
-
-	<bean id="siteDirectoryRelationTemplate" class="org.apache.velocity.app.Velocity"
-		factory-method="getTemplate">
-		<constructor-arg value="${siteDirectoryRelationTemplateFile}">
 		</constructor-arg>
 	</bean>
 
