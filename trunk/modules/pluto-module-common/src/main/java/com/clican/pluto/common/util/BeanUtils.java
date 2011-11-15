@@ -60,6 +60,7 @@ public class BeanUtils {
 		method.invoke(obj, new Object[] { coll });
 	}
 
+
 }
 
 // $Id$
