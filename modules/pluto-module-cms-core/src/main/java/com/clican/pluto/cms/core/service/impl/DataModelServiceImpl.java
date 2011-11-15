@@ -15,13 +15,11 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.beanutils.BeanUtils;
-import org.apache.commons.beanutils.PropertyUtilsBean;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.clican.pluto.cms.core.service.DataModelService;
 import com.clican.pluto.cms.dao.DataModelDao;
 import com.clican.pluto.cms.dao.DirectoryDao;
-import com.clican.pluto.common.util.PropertyUtils;
 import com.clican.pluto.orm.annotation.DynamicModel;
 import com.clican.pluto.orm.annotation.DynamicProperty;
 import com.clican.pluto.orm.desc.ModelDescription;
