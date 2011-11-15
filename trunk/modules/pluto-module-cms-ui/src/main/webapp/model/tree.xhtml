@@ -129,16 +129,16 @@
 						</rich:tab>
 						<c:forEach var="modelDescription"
 							items="#{dataModelAction.modelDescriptionList}">
-							<rich:tab label="#{modelDescription.firstCharUpperName}">
-								<rich:dataTable id="table#{modelDescription.firstCharUpperName}" width="100%"
+							<rich:tab label="#{modelDescription.name}">
+								<rich:dataTable id="table#{modelDescription.name}" width="100%"
 									var="dataModel"
-									value="#{dataModelAction.dataModelListMap[modelDescription.firstCharUpperName]}">
+									value="#{dataModelAction.dataModelListMap[modelDescription.name]}">
 									<rich:column>
 										<f:facet name="header">
 											<h:outputText value="Select" />
 										</f:facet>
 										<h:selectBooleanCheckbox
-											value="#{dataModelAction.dataModelSelection.get(modelDescription.firstCharUpperName)[dataModel]}" />
+											value="#{dataModelAction.dataModelSelection.get(modelDescription.name)[dataModel]}" />
 									</rich:column>
 									<rich:column>
 										<f:facet name="header">
@@ -173,15 +173,15 @@
 									</rich:column>
 								</rich:dataTable>
 								<rich:datascroller align="left"
-									for="table#{modelDescription.firstCharUpperName}" fastControls="show"
+									for="table#{modelDescription.name}" fastControls="show"
 									renderIfSinglePage="false" />
 								<h:panelGrid columns="2">
 									<a4j:commandButton value="Delete"
 										action="#{dataModelAction.delete(modelDescription)}"
-										reRender="table#{modelDescription.firstCharUpperName},tableall" />
+										reRender="table#{modelDescription.name},tableall" />
 									<a4j:commandButton value="Issue"
 										action="#{dataModelAction.issue()}"
-										reRender="table#{modelDescription.firstCharUpperName},tableall" />
+										reRender="table#{modelDescription.name},tableall" />
 								</h:panelGrid>
 							</rich:tab>
 						</c:forEach>

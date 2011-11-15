@@ -28,6 +28,7 @@ import com.clican.pluto.cms.core.service.IssueService;
 import com.clican.pluto.cms.ui.action.BaseAction;
 import com.clican.pluto.common.exception.PlutoException;
 import com.clican.pluto.common.util.BeanUtils;
+import com.clican.pluto.orm.annotation.DynamicModel;
 import com.clican.pluto.orm.desc.ModelDescription;
 import com.clican.pluto.orm.dynamic.inter.ClassLoaderUtil;
 import com.clican.pluto.orm.dynamic.inter.IDataModel;
@@ -145,39 +146,24 @@ public class DataModelAction extends BaseAction {
 		dataModelSelection.clear();
 		dataModelSelection.put("all", new HashMap<IDataModel, Boolean>());
 		for (IDataModel dataModel : allDataModelList) {
-			if (!dataModelSelection.containsKey(dataModel.getClass()
-					.getSimpleName())) {
-				dataModelSelection.put(dataModel.getClass().getSimpleName(),
+			String name = dataModel.getClass().getAnnotation(DynamicModel.class).name();
+			if (!dataModelSelection.containsKey(name)) {
+				dataModelSelection.put(name,
 						new HashMap<IDataModel, Boolean>());
 			}
-			if (!dataModelListMap.containsKey(dataModel.getClass()
-					.getSimpleName())) {
-				dataModelListMap.put(dataModel.getClass().getSimpleName(),
+			if (!dataModelListMap.containsKey(name)) {
+				dataModelListMap.put(name,
 						new ArrayList<IDataModel>());
 			}
 			dataModelSelection.get("all").put(dataModel, false);
-			dataModelSelection.get(dataModel.getClass().getSimpleName()).put(
+			dataModelSelection.get(name).put(
 					dataModel, false);
-			dataModelListMap.get(dataModel.getClass().getSimpleName()).add(
+			dataModelListMap.get(name).add(
 					dataModel);
 		}
 	}
 
-	private List<IDataModel> getDataModels(ModelDescription modelDescription) {
-		String modelName = modelDescription == null ? "all" : modelDescription
-				.getName();
-		List<IDataModel> dataModels = dataModelService.getDataModels(
-				parentDirectory, modelDescription, null);
-		if (!dataModelSelection.containsKey(modelName)) {
-			dataModelSelection.put(modelName,
-					new HashMap<IDataModel, Boolean>());
-		}
-		dataModelSelection.get(modelName).clear();
-		for (IDataModel dataModel : dataModels) {
-			dataModelSelection.get(modelName).put(dataModel, false);
-		}
-		return dataModels;
-	}
+	
 
 	public void cancel() {
 		clear();
