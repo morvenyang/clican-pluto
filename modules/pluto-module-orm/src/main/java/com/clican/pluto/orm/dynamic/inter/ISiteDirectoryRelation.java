@@ -20,6 +20,10 @@ public interface ISiteDirectoryRelation extends IPojo {
     public IDirectory getDirectory();
 
     public void setDirectory(IDirectory directory);
+    
+    public String getRelativePath();
+    
+    public void setRelativePath(String relativePath);
 }
 
 // $Id$
