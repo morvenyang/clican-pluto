@@ -2,23 +2,23 @@
  * The Clican-Pluto software suit is Copyright 2009, Clican Company
  * and individual contributors, and is licensed under the GNU LGPL.
  *
- * @author wezhang
+ * @author weizha
  *
  */
 package com.clican.pluto.common.type;
 
-public class NumberType extends CommonType {
+public class DoubleType extends NumberType {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 7598922541308531281L;
+	private static final long serialVersionUID = -3161838836040349228L;
 
 	@Override
 	public Class<?> getClazz() {
-		return java.lang.Number.class;
+		return java.lang.Double.class;
 	}
-
 }
 
-// $Id$
+
+//$Id$
