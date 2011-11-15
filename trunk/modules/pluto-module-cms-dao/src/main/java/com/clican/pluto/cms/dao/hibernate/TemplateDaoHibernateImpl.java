@@ -18,6 +18,7 @@ import org.hibernate.Session;
 import org.springframework.orm.hibernate3.HibernateCallback;
 
 import com.clican.pluto.cms.dao.TemplateDao;
+import com.clican.pluto.orm.annotation.DynamicModel;
 import com.clican.pluto.orm.desc.ModelDescription;
 import com.clican.pluto.orm.dynamic.inter.IDataModel;
 import com.clican.pluto.orm.dynamic.inter.IDirectory;
@@ -76,7 +77,23 @@ public class TemplateDaoHibernateImpl extends BaseDao implements TemplateDao {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<ITemplateModelSiteRelation> getTemplateModelRelations(List<IDataModel> dataModels, ModelDescription modelDescription) {
+	public List<ITemplateModelSiteRelation> getTemplateModelSiteRelations(
+			IDataModel dataModel) {
+		String modelName = dataModel.getClass().getAnnotation(DynamicModel.class).name();
+		StringBuffer sql = new StringBuffer();
+		sql.append("select r from ");
+		sql.append(modelName);
+		sql.append(" m,");
+		sql.append("Template t,");
+		sql.append("Template");
+		sql.append(modelName);
+		sql.append("SiteRelation r where r.template=t and r.dataModel=m and m.id = ");
+		sql.append(dataModel.getId());
+		return getHibernateTemplate().find(sql.toString());
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<ITemplateModelSiteRelation> getTemplateModelSiteRelations(List<IDataModel> dataModels, ModelDescription modelDescription) {
 		String modelName = modelDescription.getFirstCharUpperName();
 		StringBuffer sql = new StringBuffer();
 		sql.append("select r from ");
@@ -91,7 +108,7 @@ public class TemplateDaoHibernateImpl extends BaseDao implements TemplateDao {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<ITemplateModelSiteRelation> getTemplateModelRelations(ModelDescription modelDescription, final String pathExpression, final int firstResult,
+	public List<ITemplateModelSiteRelation> getTemplateModelSiteRelations(ModelDescription modelDescription, final String pathExpression, final int firstResult,
 			final int maxResults) {
 		String modelName = modelDescription.getFirstCharUpperName();
 		final StringBuffer sql = new StringBuffer();

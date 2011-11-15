@@ -20,9 +20,11 @@ public interface TemplateDao extends Dao {
 
 	public List<ITemplate> getSelectedTemplates(IDataModel dataModel);
 
-	public List<ITemplateModelSiteRelation> getTemplateModelRelations(List<IDataModel> dataModels, ModelDescription modelDescription);
+	public List<ITemplateModelSiteRelation> getTemplateModelSiteRelations(IDataModel dataModel);
+	
+	public List<ITemplateModelSiteRelation> getTemplateModelSiteRelations(List<IDataModel> dataModels, ModelDescription modelDescription);
 
-	public List<ITemplateModelSiteRelation> getTemplateModelRelations(ModelDescription modelDescription, final String pathExpression, final int firstResult,
+	public List<ITemplateModelSiteRelation> getTemplateModelSiteRelations(ModelDescription modelDescription, final String pathExpression, final int firstResult,
 			final int maxResults);
 
 	public int getTemplateModelSiteRelationCount(ModelDescription modelDescription, String pathExpression);
