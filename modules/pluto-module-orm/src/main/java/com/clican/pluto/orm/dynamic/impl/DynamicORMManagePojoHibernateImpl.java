@@ -49,17 +49,15 @@ public class DynamicORMManagePojoHibernateImpl implements DynamicORMManage {
 
     private Template siteTemplate;
 
-    private Template siteDirectoryRelationTemplate;
-
     private Template directoryTemplate;
 
     private Template modelTemplate;
 
     private Template templateTemplate;
 
-    private Template templateDirectoryRelationTemplate;
+    private Template templateDirectorySiteRelationTemplate;
 
-    private Template templateModelRelationTemplate;
+    private Template templateModelSiteRelationTemplate;
 
     private String modelDescTempName = "modelDescription";
 
@@ -93,14 +91,7 @@ public class DynamicORMManagePojoHibernateImpl implements DynamicORMManage {
         this.templateTemplate = templateTemplate;
     }
 
-    public void setTemplateDirectoryRelationTemplate(Template templateDirectoryRelationTemplate) {
-        this.templateDirectoryRelationTemplate = templateDirectoryRelationTemplate;
-    }
-
-    public void setTemplateModelRelationTemplate(Template templateModelRelationTemplate) {
-        this.templateModelRelationTemplate = templateModelRelationTemplate;
-    }
-
+   
     public void setModelDescTempName(String modelDescTempName) {
         this.modelDescTempName = modelDescTempName;
     }
@@ -125,11 +116,17 @@ public class DynamicORMManagePojoHibernateImpl implements DynamicORMManage {
         this.siteTemplate = siteTemplate;
     }
 
-    public void setSiteDirectoryRelationTemplate(Template siteDirectoryRelationTemplate) {
-        this.siteDirectoryRelationTemplate = siteDirectoryRelationTemplate;
-    }
+    public void setTemplateDirectorySiteRelationTemplate(
+			Template templateDirectorySiteRelationTemplate) {
+		this.templateDirectorySiteRelationTemplate = templateDirectorySiteRelationTemplate;
+	}
 
-    public void init() throws ORMManageException {
+	public void setTemplateModelSiteRelationTemplate(
+			Template templateModelSiteRelationTemplate) {
+		this.templateModelSiteRelationTemplate = templateModelSiteRelationTemplate;
+	}
+
+	public void init() throws ORMManageException {
         try {
             dynamicClassLoader
                     .loadClass(Constants.DYNAMIC_MODEL_PACKAGE + "." + Constants.DEFAULT_DIRECTORY_CLASS_NAME);
@@ -142,11 +139,9 @@ public class DynamicORMManagePojoHibernateImpl implements DynamicORMManage {
             }
             generate(filePath.getAbsolutePath() + "/Directory.java", directoryTemplate, velocityContext);
             generate(filePath.getAbsolutePath() + "/Template.java", templateTemplate, velocityContext);
-            generate(filePath.getAbsolutePath() + "/TemplateDirectoryRelation.java", templateDirectoryRelationTemplate,
+            generate(filePath.getAbsolutePath() + "/TemplateDirectorySiteRelation.java", templateDirectorySiteRelationTemplate,
                     velocityContext);
             generate(filePath.getAbsolutePath() + "/Site.java", siteTemplate, velocityContext);
-            generate(filePath.getAbsolutePath() + "/SiteDirectoryRelation.java", siteDirectoryRelationTemplate,
-                    velocityContext);
             compile(filePath.getAbsolutePath());
             try {
                 dynamicClassLoader.refreshClasses();
@@ -171,10 +166,10 @@ public class DynamicORMManagePojoHibernateImpl implements DynamicORMManage {
                 velocityContext);
         generate(filePath.getAbsolutePath() + "/Directory.java", directoryTemplate, velocityContext);
         generate(filePath.getAbsolutePath() + "/Template.java", templateTemplate, velocityContext);
-        generate(filePath.getAbsolutePath() + "/TemplateDirectoryRelation.java", templateDirectoryRelationTemplate,
+        generate(filePath.getAbsolutePath() + "/TemplateDirectorySiteRelation.java", templateDirectorySiteRelationTemplate,
                 velocityContext);
-        generate(filePath.getAbsolutePath() + "/Template" + modelDescription.getFirstCharUpperName() + "Relation.java",
-                templateModelRelationTemplate, velocityContext);
+        generate(filePath.getAbsolutePath() + "/Template" + modelDescription.getFirstCharUpperName() + "SiteRelation.java",
+                templateModelSiteRelationTemplate, velocityContext);
         compile(filePath.getAbsolutePath());
         try {
             dynamicClassLoader.refreshClasses();
@@ -280,8 +275,8 @@ public class DynamicORMManagePojoHibernateImpl implements DynamicORMManage {
             public boolean accept(File dir, String name) {
                 if (name.equals(md.getFirstCharUpperName() + ".java")
                         || name.equals(md.getFirstCharUpperName() + ".class")
-                        || name.equals("Template" + md.getFirstCharUpperName() + "Relation.java")
-                        || name.equals("Template" + md.getFirstCharUpperName() + "Relation.class")) {
+                        || name.equals("Template" + md.getFirstCharUpperName() + "SiteRelation.java")
+                        || name.equals("Template" + md.getFirstCharUpperName() + "SiteRelation.class")) {
                     return true;
                 } else {
                     return false;
