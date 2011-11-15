@@ -88,6 +88,7 @@ public class DataModelAction extends BaseAction {
 		this.dataModel = classLoaderUtil.newDataModel(parentDirectory,
 				modelDescription);
 		this.modelDescription = modelDescription;
+		this.parentDirectory = parentDirectory;
 		if (!dataModelSelection.containsKey(modelDescription.getName())) {
 			dataModelSelection.put(modelDescription.getName(),
 					new HashMap<IDataModel, Boolean>());
