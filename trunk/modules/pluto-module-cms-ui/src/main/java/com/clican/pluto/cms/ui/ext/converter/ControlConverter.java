@@ -5,7 +5,7 @@
  * @author wezhang
  *
  */
-package com.clican.pluto.cms.ui.converter;
+package com.clican.pluto.cms.ui.ext.converter;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -19,36 +19,35 @@ import org.jboss.seam.annotations.intercept.BypassInterceptors;
 
 import com.clican.pluto.cms.core.service.DataStructureService;
 import com.clican.pluto.common.constant.Constants;
-import com.clican.pluto.common.type.Type;
+import com.clican.pluto.common.control.Control;
 
-@Name("typeConverter")
+@Name("controlConverter")
 @Scope(ScopeType.APPLICATION)
 @BypassInterceptors
 @Converter
-public class TypeConverter extends BaseConverter {
+public class ControlConverter extends BaseConverter {
 
 	public Object getAsObject(FacesContext context, UIComponent component,
 			String value) {
 		DataStructureService dataStructureService = (DataStructureService) Constants.ctx
 				.getBean("dataStructureService");
-		Type type = dataStructureService.getType(value);
-		if (type == null) {
+		Control control = dataStructureService.getControl(value).newControl();
+		if (control == null) {
 			throw new ConverterException();
 		} else {
-			return type;
+			return control;
 		}
 	}
 
 	public String getAsString(FacesContext context, UIComponent component,
 			Object value) {
-		if (value instanceof Type) {
-			Type type = (Type) value;
-			return type.getName();
+		if (value instanceof Control) {
+			Control control = (Control) value;
+			return control.getName();
 		} else if (value == null) {
 			return null;
 		} else {
-			return "";
-			//throw new ConverterException();
+			throw new ConverterException();
 		}
 	}
 

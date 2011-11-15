@@ -5,45 +5,50 @@
  * @author wezhang
  *
  */
-package com.clican.pluto.cms.ui.converter;
+package com.clican.pluto.cms.ui.ext.converter;
+
+import java.util.List;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import javax.faces.convert.ConverterException;
 
-import org.apache.commons.lang.StringUtils;
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.annotations.faces.Converter;
 import org.jboss.seam.annotations.intercept.BypassInterceptors;
+import org.jboss.seam.contexts.Contexts;
+import org.jboss.seam.contexts.PageContext;
 
-@Name("assConverter")
+import com.clican.pluto.orm.dynamic.inter.ITemplate;
+
+@Name("templateConverter")
 @Scope(ScopeType.APPLICATION)
 @BypassInterceptors
 @Converter
-public class ArraySplitStringConverter extends BaseConverter {
+public class TemplateConverter extends BaseConverter {
 
+	@SuppressWarnings("unchecked")
 	public Object getAsObject(FacesContext context, UIComponent component,
 			String value) {
-		if (StringUtils.isEmpty(value)) {
-			return null;
-		} else {
-			return value.split(",");
+		PageContext pageContext = (PageContext) Contexts.getPageContext();
+		List<ITemplate> list = (List<ITemplate>) pageContext
+				.get("templateList");
+		List<ITemplate> templateList = list;
+		for (ITemplate template : templateList) {
+			if (template.getName().equals(value)) {
+				return template;
+			}
 		}
-
+		return null;
 	}
 
 	public String getAsString(FacesContext context, UIComponent component,
 			Object value) {
-		if (value == null) {
-			return null;
-		}
-		if (value.getClass().isArray()) {
-			return com.clican.pluto.common.util.StringUtils
-					.getSymbolSplitString((Object[]) value, ",");
+		if (value instanceof ITemplate) {
+			return ((ITemplate) value).getName();
 		} else {
-			throw new ConverterException();
+			return null;
 		}
 	}
 

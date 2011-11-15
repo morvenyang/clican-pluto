@@ -5,50 +5,50 @@
  * @author wezhang
  *
  */
-package com.clican.pluto.cms.ui.converter;
-
-import java.util.List;
+package com.clican.pluto.cms.ui.ext.converter;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.faces.convert.ConverterException;
 
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.annotations.faces.Converter;
 import org.jboss.seam.annotations.intercept.BypassInterceptors;
-import org.jboss.seam.contexts.Contexts;
-import org.jboss.seam.contexts.PageContext;
 
-import com.clican.pluto.orm.dynamic.inter.ITemplate;
+import com.clican.pluto.cms.core.service.DataStructureService;
+import com.clican.pluto.common.constant.Constants;
+import com.clican.pluto.common.type.Type;
 
-@Name("templateConverter")
+@Name("typeConverter")
 @Scope(ScopeType.APPLICATION)
 @BypassInterceptors
 @Converter
-public class TemplateConverter extends BaseConverter {
+public class TypeConverter extends BaseConverter {
 
-	@SuppressWarnings("unchecked")
 	public Object getAsObject(FacesContext context, UIComponent component,
 			String value) {
-		PageContext pageContext = (PageContext) Contexts.getPageContext();
-		List<ITemplate> list = (List<ITemplate>) pageContext
-				.get("templateList");
-		List<ITemplate> templateList = list;
-		for (ITemplate template : templateList) {
-			if (template.getName().equals(value)) {
-				return template;
-			}
+		DataStructureService dataStructureService = (DataStructureService) Constants.ctx
+				.getBean("dataStructureService");
+		Type type = dataStructureService.getType(value);
+		if (type == null) {
+			throw new ConverterException();
+		} else {
+			return type;
 		}
-		return null;
 	}
 
 	public String getAsString(FacesContext context, UIComponent component,
 			Object value) {
-		if (value instanceof ITemplate) {
-			return ((ITemplate) value).getName();
-		} else {
+		if (value instanceof Type) {
+			Type type = (Type) value;
+			return type.getName();
+		} else if (value == null) {
 			return null;
+		} else {
+			return "";
+			//throw new ConverterException();
 		}
 	}
 

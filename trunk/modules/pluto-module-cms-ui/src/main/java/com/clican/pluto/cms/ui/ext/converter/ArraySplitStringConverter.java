@@ -5,47 +5,43 @@
  * @author wezhang
  *
  */
-package com.clican.pluto.cms.ui.converter;
+package com.clican.pluto.cms.ui.ext.converter;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.ConverterException;
 
+import org.apache.commons.lang.StringUtils;
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.annotations.faces.Converter;
 import org.jboss.seam.annotations.intercept.BypassInterceptors;
 
-import com.clican.pluto.cms.core.service.DataStructureService;
-import com.clican.pluto.common.constant.Constants;
-import com.clican.pluto.common.control.Control;
-
-@Name("controlConverter")
+@Name("assConverter")
 @Scope(ScopeType.APPLICATION)
 @BypassInterceptors
 @Converter
-public class ControlConverter extends BaseConverter {
+public class ArraySplitStringConverter extends BaseConverter {
 
 	public Object getAsObject(FacesContext context, UIComponent component,
 			String value) {
-		DataStructureService dataStructureService = (DataStructureService) Constants.ctx
-				.getBean("dataStructureService");
-		Control control = dataStructureService.getControl(value).newControl();
-		if (control == null) {
-			throw new ConverterException();
+		if (StringUtils.isEmpty(value)) {
+			return null;
 		} else {
-			return control;
+			return value.split(",");
 		}
+
 	}
 
 	public String getAsString(FacesContext context, UIComponent component,
 			Object value) {
-		if (value instanceof Control) {
-			Control control = (Control) value;
-			return control.getName();
-		} else if (value == null) {
+		if (value == null) {
 			return null;
+		}
+		if (value.getClass().isArray()) {
+			return com.clican.pluto.common.util.StringUtils
+					.getSymbolSplitString((Object[]) value, ",");
 		} else {
 			throw new ConverterException();
 		}
