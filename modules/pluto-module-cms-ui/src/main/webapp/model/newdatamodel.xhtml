@@ -30,9 +30,11 @@
 				<h:inputText
 					value="#{dataModelAction.dataModelMap[pd.firstCharLowerName]}"
 					rendered="#{pd.control.name.equals('input text')}" />
-				<rich:inputNumberSpinner
+				<h:inputText
 					value="#{dataModelAction.dataModelMap[pd.firstCharLowerName]}"
-					rendered="#{pd.control.name.equals('input number spinner')}" />
+					rendered="#{pd.control.name.equals('input number')}">
+					<f:convertNumber />
+				</h:inputText>
 				<h:inputTextarea
 					value="#{dataModelAction.dataModelMap[pd.firstCharLowerName]}"
 					rendered="#{pd.control.name.equals('input text area')}" />
