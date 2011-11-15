@@ -7,12 +7,21 @@
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:c="http://java.sun.com/jstl/core">
+	<f:facet name="controls">
+		<h:panelGroup>
+			<h:graphicImage value="/img/close.png" styleClass="hidelink"
+				style="CURSOR: hand">
+				<rich:componentControl for="newDirectoryPanel" operation="hide"
+					event="onclick" />
+			</h:graphicImage>
+		</h:panelGroup>
+	</f:facet>
 	<f:facet name="header">
 		<h:panelGroup>
 			<h:outputText value="New Directory"></h:outputText>
 		</h:panelGroup>
 	</f:facet>
-	<a4j:form>
+	<a4j:form id="newDirectoryForm">
 		<h:panelGrid columns="2">
 			<h:outputLabel value="Directory Name" />
 			<h:inputText value="#{directoryAction.newDirectoryName}" />
