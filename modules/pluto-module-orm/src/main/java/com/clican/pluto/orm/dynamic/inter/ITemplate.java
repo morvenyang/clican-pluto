@@ -10,6 +10,7 @@ package com.clican.pluto.orm.dynamic.inter;
 import java.util.Calendar;
 
 public interface ITemplate extends IPojo {
+	
 	public Long getId();
 
 	public void setId(Long id);

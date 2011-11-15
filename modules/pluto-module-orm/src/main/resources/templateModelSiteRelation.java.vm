@@ -20,9 +20,9 @@ import com.clican.pluto.orm.dynamic.inter.ITemplateModelRelation;
 import com.clican.pluto.orm.dynamic.inter.ITemplate;
 
 
-@Entity(name="Template${modelDescription.firstCharUpperName}Relation")
-@Table(name = "TEMPLATE_${modelDescription.name.toUpperCase()}_RELATION")
-public class Template${modelDescription.firstCharUpperName}Relation implements ITemplateModelRelation {
+@Entity(name="Template${modelDescription.firstCharUpperName}SiteRelation")
+@Table(name = "TEMPLATE_${modelDescription.name.toUpperCase()}_SITE_RELATION")
+public class Template${modelDescription.firstCharUpperName}SiteRelation implements ITemplateModelSiteRelation {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -31,6 +31,8 @@ public class Template${modelDescription.firstCharUpperName}Relation implements I
 	private ITemplate template;
 
 	private IDataModel dataModel;
+	
+	private ISite site;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -64,6 +66,16 @@ public class Template${modelDescription.firstCharUpperName}Relation implements I
 		this.dataModel = dataModel;
 	}
 	
+	@ManyToOne(fetch = FetchType.EAGER, targetEntity = Site.class)
+	@JoinColumn(name = "SITE_ID", nullable = false)
+	public ISite getSite() {
+		return site;
+	}
+
+	public void setSite(ISite site) {
+		site = site;
+	}
+	
 	/**
 	 * @see java.lang.Object#toString()
 	 */
@@ -85,10 +97,10 @@ public class Template${modelDescription.firstCharUpperName}Relation implements I
 	 * @see java.lang.Object#equals(Object)
 	 */
 	public boolean equals(Object object) {
-		if (!(object instanceof Template${modelDescription.firstCharUpperName}Relation)) {
+		if (!(object instanceof Template${modelDescription.firstCharUpperName}SiteRelation)) {
 			return false;
 		}
-		Template${modelDescription.firstCharUpperName}Relation rhs = (Template${modelDescription.firstCharUpperName}Relation) object;
+		Template${modelDescription.firstCharUpperName}SiteRelation rhs = (Template${modelDescription.firstCharUpperName}SiteRelation) object;
 		return new EqualsBuilder().append(this.id, rhs.getId()).append(this.template, rhs.getTemplate()).append(this.dataModel,rhs.getDataModel()).isEquals();
 	}
 }

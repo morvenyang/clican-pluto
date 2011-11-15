@@ -31,9 +31,9 @@ public interface ISite extends IPojo {
 
     public void setPassword(String password);
 
-    public Set<ISiteDirectoryRelation> getSiteDirectoryRelationSet();
+    public Set<ITemplateDirectorySiteRelation> getTemplateDirectorySiteRelationSet();
 
-    public void setSiteDirectoryRelationSet(Set<ISiteDirectoryRelation> siteDirectoryRelationSet);
+    public void setTemplateDirectorySiteRelationSet(Set<ITemplateDirectorySiteRelation> templateDirectorySiteRelationSet);
 }
 
 // $Id$

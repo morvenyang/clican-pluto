@@ -14,14 +14,16 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 import com.clican.pluto.orm.dynamic.inter.IDirectory;
-import com.clican.pluto.orm.dynamic.inter.ITemplateDirectoryRelation;
+import com.clican.pluto.orm.dynamic.inter.ISite;
+import com.clican.pluto.orm.dynamic.inter.ITemplateDirectorySiteRelation;
 import com.clican.pluto.orm.dynamic.inter.ITemplate;
 import com.clican.pluto.orm.model.dynamic.Template;
 import com.clican.pluto.orm.model.dynamic.Directory;
+import com.clican.pluto.orm.model.dynamic.Site;
 
-@Entity(name="TemplateDirectoryRelation")
-@Table(name = "TEMPLATE_DIRECTORY_RELATION")
-public class TemplateDirectoryRelation implements ITemplateDirectoryRelation {
+@Entity(name="TemplateDirectorySiteRelation")
+@Table(name = "TEMPLATE_DIRECTORY_SITE_RELATION")
+public class TemplateDirectorySiteRelation implements ITemplateDirectorySiteRelation {
 
 	private static final long serialVersionUID = 1L;
 
@@ -30,6 +32,8 @@ public class TemplateDirectoryRelation implements ITemplateDirectoryRelation {
 	private ITemplate template;
 
 	private IDirectory directory;
+	
+	private ISite site;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -61,15 +65,25 @@ public class TemplateDirectoryRelation implements ITemplateDirectoryRelation {
 	public void setDirectory(IDirectory directory) {
 		this.directory = directory;
 	}
+	
+	@ManyToOne(fetch = FetchType.EAGER, targetEntity = Site.class)
+	@JoinColumn(name = "SITE_ID", nullable = false)
+	public ISite getSite() {
+		return site;
+	}
+
+	public void setSite(ISite site) {
+		site = site;
+	}
 
 	/**
 	 * @see java.lang.Object#equals(Object)
 	 */
 	public boolean equals(Object object) {
-		if (!(object instanceof TemplateDirectoryRelation)) {
+		if (!(object instanceof TemplateDirectorySiteRelation)) {
 			return false;
 		}
-		TemplateDirectoryRelation rhs = (TemplateDirectoryRelation) object;
+		TemplateDirectorySiteRelation rhs = (TemplateDirectorySiteRelation) object;
 		return new EqualsBuilder().append(this.id, rhs.getId()).append(this.directory,rhs.getDirectory()).append(this.template, rhs.getTemplate()).isEquals();
 	}
 
@@ -78,7 +92,7 @@ public class TemplateDirectoryRelation implements ITemplateDirectoryRelation {
 	 */
 	public String toString() {
 		return new ToStringBuilder(this).append("id", this.id).append(
-				"template", this.template).append("directory", this.directory)
+				"template", this.template).append("directory", this.directory).append("site", this.site)
 				.toString();
 	}
 

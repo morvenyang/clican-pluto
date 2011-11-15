@@ -17,7 +17,7 @@ import java.lang.annotation.Target;
 @Target(METHOD)
 @Retention(RUNTIME)
 @Inherited
-public @interface DynamicTemplateModelRelationSet {
+public @interface DynamicTemplateModelSiteRelationSet {
 
 }
 

@@ -51,7 +51,7 @@ public class Directory implements IDirectory {
 	
 	private Calendar updateTime;
 	
-	private Set<ISiteDirectoryRelation> siteDirectoryRelationSet;
+	private Set<ITemplateDirectorySiteRelation> templateDirectorySiteRelationSet;
 	
 	#foreach( $modelDescription in $modelDescriptionList )
 	
@@ -88,14 +88,14 @@ public class Directory implements IDirectory {
 		this.children = children;
 	}
 	
-	@OneToMany(mappedBy = "directory", cascade = CascadeType.ALL, fetch = FetchType.LAZY,targetEntity=TemplateDirectoryRelation.class)
-	public Set<ITemplateDirectoryRelation> getTemplateDirectoryRelationSet(){
-		return templateDirectoryRelationSet;
-	}
-	
-	public void setTemplateDirectoryRelationSet(Set<ITemplateDirectoryRelation> templateDirectoryRelationSet){
-		this.templateDirectoryRelationSet = templateDirectoryRelationSet;
-	}
+	@OneToMany(mappedBy = "directory", cascade = CascadeType.ALL, fetch = FetchType.LAZY,targetEntity=TemplateDirectorySiteRelation.class)
+    public Set<ITemplateDirectorySiteRelation> getTemplateDirectorySiteRelationSet() {
+        return siteDirectoryRelationSet;
+    }
+
+    public void setTemplateDirectorySiteRelationSet(Set<ITemplateDirectorySiteRelation> templateDirectorySiteRelationSet) {
+        this.templateDirectorySiteRelationSet = templateDirectorySiteRelationSet;
+    }
 	
 	@Column(name = "PATH")
 	public String getPath(){
