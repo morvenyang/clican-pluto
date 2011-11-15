@@ -123,6 +123,7 @@ public class DataModelAction extends BaseAction {
 	public void save() {
 		dataModelService.convertToDataModel(dataModelMap, dataModel);
 		dataModelService.save(dataModel);
+		showDataModels(this.parentDirectory);
 	}
 
 	public void delete(ModelDescription modelDescription) {
@@ -137,9 +138,9 @@ public class DataModelAction extends BaseAction {
 		dataModelService.delete(dataModels, modelDescription);
 	}
 
-	public void showDataModels(IDirectory directory) {
-		this.parentDirectory = directory;
-		modelDescriptionList = dataModelService.getModelDescriptions(directory);
+	public void showDataModels(IDirectory parentDirectory) {
+		this.parentDirectory = parentDirectory;
+		modelDescriptionList = dataModelService.getModelDescriptions(parentDirectory);
 		allDataModelList = dataModelService.getDataModels(parentDirectory,
 				modelDescription, null);
 		dataModelListMap = new HashMap<String, List<IDataModel>>();
