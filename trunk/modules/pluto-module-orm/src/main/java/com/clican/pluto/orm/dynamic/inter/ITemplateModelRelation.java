@@ -21,6 +21,10 @@ public interface ITemplateModelRelation extends IPojo {
 
 	public void setTemplate(ITemplate template);
 
+	public String getFileName();
+
+	public void setFileName(String fileName);
+
 }
 
 // $Id$
