@@ -7,6 +7,7 @@
  */
 package com.clican.pluto.cms.ui.servlet;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStreamWriter;
@@ -32,28 +33,34 @@ public class VelocityResourceServlet extends HttpServlet {
 	 */
 	private static final long serialVersionUID = -4259309490836963415L;
 
-	private final static Log log = org.apache.commons.logging.LogFactory.getLog(VelocityResourceServlet.class);
+	private final static Log log = org.apache.commons.logging.LogFactory
+			.getLog(VelocityResourceServlet.class);
 
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
 		doPost(req, resp);
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		String prefix = request.getContextPath() + request.getServletPath();
 		if (request.getRequestURI().startsWith(prefix)) {
 			String path = request.getRequestURI().replaceFirst(prefix, "");
 			if (path.startsWith("/")) {
-				path = path.substring(1,path.indexOf(";"));
+				path = path.substring(1, path.indexOf(";"));
 			}
 			// request.getSession().setAttribute("propertyDescriptionList", new
 			// ArrayList<PropertyDescription>());
-			Writer w = new OutputStreamWriter(response.getOutputStream(), "utf-8");
+			Writer w = new OutputStreamWriter(response.getOutputStream(),
+					"utf-8");
+			ByteArrayOutputStream os = new ByteArrayOutputStream();
 			InputStream is = null;
 			try {
-				is = Thread.currentThread().getContextClassLoader().getResourceAsStream(path);
+				is = Thread.currentThread().getContextClassLoader()
+						.getResourceAsStream(path);
 				byte[] data = new byte[is.available()];
 				is.read(data);
 				String content = new String(data, "utf-8");
@@ -65,14 +72,19 @@ public class VelocityResourceServlet extends HttpServlet {
 					String name = en.nextElement();
 					velocityContext.put(name, session.getAttribute(name));
 				}
-				SimpleNode node = RuntimeSingleton.getRuntimeServices().parse(content, path);
+				SimpleNode node = RuntimeSingleton.getRuntimeServices().parse(
+						content, path);
 				t = new Template();
 				t.setName(path);
 				t.setRuntimeServices(RuntimeSingleton.getRuntimeServices());
 				t.setData(node);
 				t.initDocument();
-				t.merge(velocityContext, w);
-				w.flush();
+				Writer wr = new OutputStreamWriter(os);
+				t.merge(velocityContext,wr);
+				wr.flush();
+				byte[] datas = os.toByteArray();
+				String s= new String(datas);
+				log.info(s);
 			} catch (Exception e) {
 				log.error("", e);
 				response.sendError(HttpServletResponse.SC_NOT_FOUND);

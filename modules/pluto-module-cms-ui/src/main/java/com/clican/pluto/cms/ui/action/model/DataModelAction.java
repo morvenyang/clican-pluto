@@ -14,15 +14,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpSession;
-
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Factory;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Out;
 import org.jboss.seam.annotations.Scope;
+import org.jboss.seam.annotations.intercept.BypassInterceptors;
 
 import com.clican.pluto.cms.core.comparator.PropertyComparator;
 import com.clican.pluto.cms.core.service.DataModelService;
@@ -60,6 +58,8 @@ public class DataModelAction extends BaseAction {
 
 	private IDataModel dataModel;
 
+	private Map<String, Object> dataModelMap;
+
 	private IDirectory parentDirectory;
 
 	private List<ModelDescription> modelDescriptionList;
@@ -87,20 +87,15 @@ public class DataModelAction extends BaseAction {
 			dataModelSelection.put(modelDescription.getName(),
 					new HashMap<IDataModel, Boolean>());
 		}
-		HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
-				.getExternalContext().getSession(true);
-		session.setAttribute("propertyDescriptionList",
-				modelDescription.getPropertyDescriptionList());
+		dataModelMap = new HashMap<String, Object>();
+		
 	}
 
 	public void editDataModel(IDataModel dataModel,
 			ModelDescription modelDescription) {
 		this.dataModel = dataModel;
+		this.dataModelMap = dataModelService.convertToMap(dataModel);
 		this.modelDescription = modelDescription;
-		HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
-				.getExternalContext().getSession(true);
-		session.setAttribute("propertyDescriptionList",
-				modelDescription.getPropertyDescriptionList());
 	}
 
 	public void issue() {
@@ -121,6 +116,7 @@ public class DataModelAction extends BaseAction {
 	}
 
 	public void save() {
+		dataModelService.convertToDataModel(dataModelMap, dataModel);
 		dataModelService.save(dataModel);
 		clear();
 	}
@@ -193,6 +189,7 @@ public class DataModelAction extends BaseAction {
 		return result;
 	}
 
+	@BypassInterceptors
 	public ModelDescription getModelDescription() {
 		return modelDescription;
 	}
@@ -201,6 +198,7 @@ public class DataModelAction extends BaseAction {
 		this.modelDescription = modelDescription;
 	}
 
+	@BypassInterceptors
 	public IDataModel getDataModel() {
 		return dataModel;
 	}
@@ -209,6 +207,7 @@ public class DataModelAction extends BaseAction {
 		this.dataModel = dataModel;
 	}
 
+	@BypassInterceptors
 	public IDirectory getParentDirectory() {
 		return parentDirectory;
 	}
@@ -217,6 +216,7 @@ public class DataModelAction extends BaseAction {
 		this.parentDirectory = parentDirectory;
 	}
 
+	@BypassInterceptors
 	public List<ModelDescription> getModelDescriptionList() {
 		return modelDescriptionList;
 	}
@@ -226,6 +226,7 @@ public class DataModelAction extends BaseAction {
 		this.modelDescriptionList = modelDescriptionList;
 	}
 
+	@BypassInterceptors
 	public Map<String, Map<IDataModel, Boolean>> getDataModelSelection() {
 		return dataModelSelection;
 	}
@@ -233,6 +234,15 @@ public class DataModelAction extends BaseAction {
 	public void setDataModelSelection(
 			Map<String, Map<IDataModel, Boolean>> dataModelSelection) {
 		this.dataModelSelection = dataModelSelection;
+	}
+
+	@BypassInterceptors
+	public Map<String, Object> getDataModelMap() {
+		return dataModelMap;
+	}
+
+	public void setDataModelMap(Map<String, Object> dataModelMap) {
+		this.dataModelMap = dataModelMap;
 	}
 
 }
