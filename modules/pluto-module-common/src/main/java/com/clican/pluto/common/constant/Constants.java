@@ -21,6 +21,8 @@ public class Constants {
 	
 	public final static String DEFAULT_TEMPLATE_CLASS_NAME = "Template";
 	
+	public final static String DEFAULT_SITE_CLASS_NAME = "Site";
+	
 	public static ApplicationContext ctx = null;
 	
 	public static File DATA_STRUCTURE_XHTML_FOLDER = null;
