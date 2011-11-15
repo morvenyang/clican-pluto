@@ -31,6 +31,8 @@ public class Template${modelDescription.firstCharUpperName}Relation implements I
 	private ITemplate template;
 
 	private IDataModel dataModel;
+	
+	private String fileName;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -63,6 +65,15 @@ public class Template${modelDescription.firstCharUpperName}Relation implements I
 	public void setDataModel(IDataModel dataModel) {
 		this.dataModel = dataModel;
 	}
+	
+	@Column(name = "FILE_NAME")
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
 
 	/**
 	 * @see java.lang.Object#toString()
