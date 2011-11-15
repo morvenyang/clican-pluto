@@ -45,10 +45,10 @@ public class Template implements ITemplate {
 	
 	#foreach( $modelDescription in $modelDescriptionList )
 	
-	private Set<Template${modelDescription.firstCharUpperName}Relation> template${modelDescription.firstCharUpperName}RelationSet; 
+	private Set<Template${modelDescription.firstCharUpperName}SiteRelation> template${modelDescription.firstCharUpperName}SiteRelationSet; 
 	#end
 	
-	private Set<TemplateDirectoryRelation> templateDirectoryRelationSet;
+	private Set<TemplateDirectorySiteRelation> templateDirectorySiteRelationSet;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -111,22 +111,22 @@ public class Template implements ITemplate {
 	#foreach( $modelDescription in $modelDescriptionList )
 	
 	@OneToMany(mappedBy = "template", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	public Set<Template${modelDescription.firstCharUpperName}Relation> getTemplate${modelDescription.firstCharUpperName}RelationSet(){
-		return template${modelDescription.firstCharUpperName}RelationSet;
+	public Set<Template${modelDescription.firstCharUpperName}SiteRelation> getTemplate${modelDescription.firstCharUpperName}SiteRelationSet(){
+		return template${modelDescription.firstCharUpperName}RelationSiteSet;
 	}
 	
-	public void setTemplate${modelDescription.firstCharUpperName}RelationSet(Set<Template${modelDescription.firstCharUpperName}Relation> template${modelDescription.firstCharUpperName}RelationSet){
-		this.template${modelDescription.firstCharUpperName}RelationSet = template${modelDescription.firstCharUpperName}RelationSet;
+	public void setTemplate${modelDescription.firstCharUpperName}RelationSiteSet(Set<Template${modelDescription.firstCharUpperName}SiteRelation> template${modelDescription.firstCharUpperName}SiteRelationSet){
+		this.template${modelDescription.firstCharUpperName}SiteRelationSet = template${modelDescription.firstCharUpperName}SiteRelationSet;
 	}
 	#end
 	
 	@OneToMany(mappedBy = "template", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	public Set<TemplateDirectoryRelation> getTemplateDirectoryRelationSet(){
-		return templateDirectoryRelationSet;
+	public Set<TemplateDirectorySiteRelation> getTemplateDirectorySiteRelationSet(){
+		return templateDirectorySiteRelationSet;
 	}
 	
-	public void setTemplateDirectoryRelationSet(Set<TemplateDirectoryRelation> templateDirectoryRelationSet){
-		this.templateDirectoryRelationSet = templateDirectoryRelationSet;
+	public void setTemplateDirectorySiteRelationSet(Set<TemplateDirectoryRelation> templateDirectorySiteRelationSet){
+		this.templateDirectorySiteRelationSet = templateDirectorySiteRelationSet;
 	}
 	
 	public String toString() {

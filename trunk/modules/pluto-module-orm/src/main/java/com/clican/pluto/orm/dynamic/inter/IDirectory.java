@@ -24,13 +24,9 @@ public interface IDirectory extends IDataModel {
 
 	public void setChildren(Set<IDirectory> children);
 	
-	public Set<ITemplateDirectoryRelation> getTemplateDirectoryRelationSet();
-	
-	public void setTemplateDirectoryRelationSet(Set<ITemplateDirectoryRelation> templateDirectoryRelationSet);
-	
-	public Set<ISiteDirectoryRelation> getSiteDirectoryRelationSet();
+	public Set<ITemplateDirectorySiteRelation> getTemplateDirectorySiteRelationSet();
 
-    public void setSiteDirectoryRelationSet(Set<ISiteDirectoryRelation> siteDirectoryRelationSet);
+    public void setTemplateDirectorySiteRelationSet(Set<ITemplateDirectorySiteRelation> templateDirectorySiteRelationSet);
 
 	public String getPath();
 

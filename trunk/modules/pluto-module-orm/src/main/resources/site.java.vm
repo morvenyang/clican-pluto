@@ -43,7 +43,7 @@ public class Site implements ISite {
 
     private String password;
 
-    private Set<ISiteDirectoryRelation> siteDirectoryRelationSet;
+    private Set<ITemplateDirectorySiteRelation> templateDirectorySiteRelationSet;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -92,13 +92,13 @@ public class Site implements ISite {
         this.password = password;
     }
 
-    @OneToMany(mappedBy = "site", cascade = CascadeType.ALL, fetch = FetchType.LAZY,targetEntity=SiteDirectoryRelation.class)
-    public Set<ISiteDirectoryRelation> getSiteDirectoryRelationSet() {
+    @OneToMany(mappedBy = "site", cascade = CascadeType.ALL, fetch = FetchType.LAZY,targetEntity=TemplateDirectorySiteRelation.class)
+    public Set<ITemplateDirectorySiteRelation> getTemplateDirectorySiteRelationSet() {
         return siteDirectoryRelationSet;
     }
 
-    public void setSiteDirectoryRelationSet(Set<ISiteDirectoryRelation> siteDirectoryRelationSet) {
-        this.siteDirectoryRelationSet = siteDirectoryRelationSet;
+    public void setTemplateDirectorySiteRelationSet(Set<ITemplateDirectorySiteRelation> templateDirectorySiteRelationSet) {
+        this.templateDirectorySiteRelationSet = templateDirectorySiteRelationSet;
     }
 
 }
