@@ -66,6 +66,10 @@ public class DataModelAction extends BaseAction {
 
 	private Map<String, Map<IDataModel, Boolean>> dataModelSelection = new HashMap<String, Map<IDataModel, Boolean>>();
 
+	private List<IDataModel> allDataModelList;
+
+	private Map<String, List<IDataModel>> dataModelListMap;
+
 	@Factory("dataModelDescList")
 	public void loadDataModelDescList() {
 		dataModelDescList = dataModelService.findAllDataModelDesc();
@@ -88,7 +92,7 @@ public class DataModelAction extends BaseAction {
 					new HashMap<IDataModel, Boolean>());
 		}
 		dataModelMap = new HashMap<String, Object>();
-		
+
 	}
 
 	public void editDataModel(IDataModel dataModel,
@@ -118,7 +122,6 @@ public class DataModelAction extends BaseAction {
 	public void save() {
 		dataModelService.convertToDataModel(dataModelMap, dataModel);
 		dataModelService.save(dataModel);
-		clear();
 	}
 
 	public void delete(ModelDescription modelDescription) {
@@ -136,9 +139,31 @@ public class DataModelAction extends BaseAction {
 	public void showDataModels(IDirectory directory) {
 		this.parentDirectory = directory;
 		modelDescriptionList = dataModelService.getModelDescriptions(directory);
+		allDataModelList = dataModelService.getDataModels(parentDirectory,
+				modelDescription, null);
+		dataModelListMap = new HashMap<String, List<IDataModel>>();
+		dataModelSelection.clear();
+		dataModelSelection.put("all", new HashMap<IDataModel, Boolean>());
+		for (IDataModel dataModel : allDataModelList) {
+			if (!dataModelSelection.containsKey(dataModel.getClass()
+					.getSimpleName())) {
+				dataModelSelection.put(dataModel.getClass().getSimpleName(),
+						new HashMap<IDataModel, Boolean>());
+			}
+			if (!dataModelListMap.containsKey(dataModel.getClass()
+					.getSimpleName())) {
+				dataModelListMap.put(dataModel.getClass().getSimpleName(),
+						new ArrayList<IDataModel>());
+			}
+			dataModelSelection.get("all").put(dataModel, false);
+			dataModelSelection.get(dataModel.getClass().getSimpleName()).put(
+					dataModel, false);
+			dataModelListMap.get(dataModel.getClass().getSimpleName()).add(
+					dataModel);
+		}
 	}
 
-	public List<IDataModel> getDataModels(ModelDescription modelDescription) {
+	private List<IDataModel> getDataModels(ModelDescription modelDescription) {
 		String modelName = modelDescription == null ? "all" : modelDescription
 				.getName();
 		List<IDataModel> dataModels = dataModelService.getDataModels(
@@ -243,6 +268,25 @@ public class DataModelAction extends BaseAction {
 
 	public void setDataModelMap(Map<String, Object> dataModelMap) {
 		this.dataModelMap = dataModelMap;
+	}
+
+	@BypassInterceptors
+	public List<IDataModel> getAllDataModelList() {
+		return allDataModelList;
+	}
+
+	public void setAllDataModelList(List<IDataModel> allDataModelList) {
+		this.allDataModelList = allDataModelList;
+	}
+
+	@BypassInterceptors
+	public Map<String, List<IDataModel>> getDataModelListMap() {
+		return dataModelListMap;
+	}
+
+	public void setDataModelListMap(
+			Map<String, List<IDataModel>> dataModelListMap) {
+		this.dataModelListMap = dataModelListMap;
 	}
 
 }

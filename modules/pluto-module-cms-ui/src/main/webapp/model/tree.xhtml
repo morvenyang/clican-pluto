@@ -43,9 +43,9 @@
 										<rich:menuGroup value="New">
 											<rich:menuItem value="Directory" id="newDirectory"
 												submitMode="ajax"
-												action="#{directoryAction.setParentDirectory(directory)}" reRender="newDirectoryForm">
+												action="#{directoryAction.setParentDirectory(directory)}" ajaxSigle="true" reRender="newDirectoryForm">
 												<rich:componentControl for="newDirectoryPanel"
-													attachTo="newDirectory" operation="show" event="onclick">
+													attachTo="newDirectory" operation="show" event="onclick" ajaxSigle="true">
 												</rich:componentControl>
 											</rich:menuItem>
 											<rich:menuGroup value="New Data">
@@ -53,9 +53,9 @@
 													<rich:menuItem id="newDataModel"
 														value="#{dataModelDesc.name}" submitMode="ajax"
 														action="#{dataModelAction.newDataModel(directory, dataModelDesc)}"
-														reRender="dataModelForm">
+														reRender="dataModelForm" ajaxSigle="true">
 														<rich:componentControl for="newDataModelPanel"
-															attachTo="newDataModel" operation="show" event="onclick">
+															attachTo="newDataModel" operation="show" event="onclick" ajaxSigle="true">
 														</rich:componentControl>
 													</rich:menuItem>
 												</c:forEach>
@@ -84,7 +84,7 @@
 						style="overflow:auto;width:800px;height:100%">
 						<rich:tab label="All">
 							<rich:dataTable id="tableall" width="100%" var="dataModel"
-								value="#{dataModelAction.getDataModels(null)}">
+								value="#{dataModelAction.allDataModelList}">
 								<rich:column>
 									<f:facet name="header">
 										<h:outputText value="Select" />
@@ -129,16 +129,16 @@
 						</rich:tab>
 						<c:forEach var="modelDescription"
 							items="#{dataModelAction.modelDescriptionList}">
-							<rich:tab label="#{modelDescription.name}">
-								<rich:dataTable id="table#{modelDescription.name}" width="100%"
+							<rich:tab label="#{modelDescription.firstCharUpperName}">
+								<rich:dataTable id="table#{modelDescription.firstCharUpperName}" width="100%"
 									var="dataModel"
-									value="#{dataModelAction.getDataModels(modelDescription)}">
+									value="#{dataModelAction.dataModelListMap[modelDescription.firstCharUpperName]}">
 									<rich:column>
 										<f:facet name="header">
 											<h:outputText value="Select" />
 										</f:facet>
 										<h:selectBooleanCheckbox
-											value="#{dataModelAction.dataModelSelection.get(modelDescription.name)[dataModel]}" />
+											value="#{dataModelAction.dataModelSelection.get(modelDescription.firstCharUpperName)[dataModel]}" />
 									</rich:column>
 									<rich:column>
 										<f:facet name="header">
@@ -173,15 +173,15 @@
 									</rich:column>
 								</rich:dataTable>
 								<rich:datascroller align="left"
-									for="table#{modelDescription.name}" fastControls="show"
+									for="table#{modelDescription.firstCharUpperName}" fastControls="show"
 									renderIfSinglePage="false" />
 								<h:panelGrid columns="2">
 									<a4j:commandButton value="Delete"
 										action="#{dataModelAction.delete(modelDescription)}"
-										reRender="table#{modelDescription.name},tableall" />
+										reRender="table#{modelDescription.firstCharUpperName},tableall" />
 									<a4j:commandButton value="Issue"
 										action="#{dataModelAction.issue()}"
-										reRender="table#{modelDescription.name},tableall" />
+										reRender="table#{modelDescription.firstCharUpperName},tableall" />
 								</h:panelGrid>
 							</rich:tab>
 						</c:forEach>
