@@ -18,7 +18,6 @@ import org.hibernate.Session;
 import org.springframework.orm.hibernate3.HibernateCallback;
 
 import com.clican.pluto.cms.dao.TemplateDao;
-import com.clican.pluto.orm.annotation.DynamicModel;
 import com.clican.pluto.orm.desc.ModelDescription;
 import com.clican.pluto.orm.dynamic.inter.IDataModel;
 import com.clican.pluto.orm.dynamic.inter.IDirectory;
@@ -44,7 +43,7 @@ public class TemplateDaoHibernateImpl extends BaseDao implements TemplateDao {
 			sql.append("Template t,");
 			sql.append("Template");
 			sql.append(modelName);
-			sql.append("Relation r where r.template=t and r.dataModel=m and m.id = :id");
+			sql.append("SiteRelation r where r.template=t and r.dataModel=m and m.id = :id");
 			hsql = sql.toString();
 		} else {
 			hsql = "select t from Directory d,Template t, TemplateDirectoryRelation r where r.template=t and r.directory=d and d.id = :id";
@@ -79,7 +78,7 @@ public class TemplateDaoHibernateImpl extends BaseDao implements TemplateDao {
 	@SuppressWarnings("unchecked")
 	public List<ITemplateModelSiteRelation> getTemplateModelSiteRelations(
 			IDataModel dataModel) {
-		String modelName = dataModel.getClass().getAnnotation(DynamicModel.class).name();
+		String modelName = dataModel.getClass().getAnnotation(Entity.class).name();
 		StringBuffer sql = new StringBuffer();
 		sql.append("select r from ");
 		sql.append(modelName);
