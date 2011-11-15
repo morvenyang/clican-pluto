@@ -100,7 +100,7 @@ public class Template implements ITemplate {
 	
 	
 	@Column(name = "SUFFIX")
-	public Calendar getSuffix(){
+	public String getSuffix(){
 		return suffix;
 	}
 	
