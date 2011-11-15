@@ -9,7 +9,7 @@
 	xmlns:c="http://java.sun.com/jstl/core"
 	xmlns:cms="http://www.clican.com/pluto/cms/taglib">
 	
-		<a4j:form id="dataModelForm">
+		
 			<h:panelGrid id="dataModelPanelGrid" columns="2">
 	#foreach( $pd in $propertyDescriptionList )
 		<h:outputLabel value="${pd.name}" styleClass="name"/>
@@ -92,5 +92,5 @@
 					action="#{dataModelAction.cancel()}" reRender="workspace"
 					ajaxSingle="true" />
 			</h:panelGrid>
-		</a4j:form>
+
 </ui:composition>
