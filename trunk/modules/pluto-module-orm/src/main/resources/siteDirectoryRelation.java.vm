@@ -37,6 +37,8 @@ public class SiteDirectoryRelation implements ISiteDirectoryRelation {
     private ISite site;
 
     private IDirectory directory;
+    
+    private String relativePath = "/";
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -67,6 +69,15 @@ public class SiteDirectoryRelation implements ISiteDirectoryRelation {
 
     public void setDirectory(IDirectory directory) {
         this.directory = directory;
+    }
+    
+    @Column(name = "RELATIVE_PATH")
+    public String getRelativePath() {
+        return relativePath;
+    }
+
+    public void setRelativePath(String relativePath) {
+        this.relativePath = relativePath;
     }
 
 }
