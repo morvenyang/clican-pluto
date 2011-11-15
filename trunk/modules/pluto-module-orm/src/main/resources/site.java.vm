@@ -21,7 +21,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import com.clican.pluto.orm.dynamic.inter.ISite;
-import com.clican.pluto.orm.dynamic.inter.ISiteDirectoryRelation;
+import com.clican.pluto.orm.dynamic.inter.ITemplateDirectorySiteRelation;
 
 @DynamicClass
 @Entity(name="Site")

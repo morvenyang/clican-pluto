@@ -18,6 +18,7 @@ import com.clican.pluto.orm.annotation.DynamicModel;
 import com.clican.pluto.orm.dynamic.inter.IDataModel;
 import com.clican.pluto.orm.dynamic.inter.ITemplateModelRelation;
 import com.clican.pluto.orm.dynamic.inter.ITemplate;
+import com.clican.pluto.orm.dynamic.inter.ISite;
 
 
 @Entity(name="Template${modelDescription.firstCharUpperName}SiteRelation")

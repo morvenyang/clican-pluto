@@ -17,8 +17,7 @@ import com.clican.pluto.orm.annotation.DynamicClass;
 import com.clican.pluto.orm.annotation.DynamicModelSet;
 
 import com.clican.pluto.orm.dynamic.inter.IDirectory;
-import com.clican.pluto.orm.dynamic.inter.ITemplateDirectoryRelation;
-import com.clican.pluto.orm.dynamic.inter.ISiteDirectoryRelation;
+import com.clican.pluto.orm.dynamic.inter.ITemplateDirectorySiteRelation;
 import com.clican.pluto.orm.model.*;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -38,8 +37,6 @@ public class Directory implements IDirectory {
 	private IDirectory parent;
 	
 	private Set<IDirectory> children;
-	
-	private Set<ITemplateDirectoryRelation> templateDirectoryRelationSet;
 	
 	private String path;
 	

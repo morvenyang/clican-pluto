@@ -19,10 +19,11 @@ import org.hibernate.annotations.Type;
 import com.clican.pluto.orm.annotation.DynamicModel;
 import com.clican.pluto.orm.annotation.DynamicProperty;
 import com.clican.pluto.orm.annotation.DynamicClass;
-import com.clican.pluto.orm.annotation.DynamicTemplateModelRelationSet;
+import com.clican.pluto.orm.annotation.DynamicTemplateModelSiteRelationSet;
 
 import com.clican.pluto.orm.dynamic.inter.IDataModel;
 import com.clican.pluto.orm.dynamic.inter.IDirectory;
+import com.clican.pluto.orm.dynamic.inter.ISite;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
