@@ -7,9 +7,10 @@ http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 
 	<bean id="dynamicORMManage"
 		class="com.clican.pluto.orm.dynamic.impl.DynamicORMManagePojoHibernateImpl"
-		autowire="byName">
+		autowire="byName" init-method="init" depends-on="modelContainer">
 		<property name="tempORMCfgPojoFolder" value="${tempORMCfgPojoFolder}" />
 		<property name="modelDescTempName" value="${modelDescTempName}" />
+		<property name="sessionFactoryUpdate" ref="sessionFactory" />
 	</bean>
 	
 	<bean id="dialect" class="${db.dialect}" />

@@ -112,10 +112,10 @@ public class Template implements ITemplate {
 	
 	@OneToMany(mappedBy = "template", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	public Set<Template${modelDescription.firstCharUpperName}SiteRelation> getTemplate${modelDescription.firstCharUpperName}SiteRelationSet(){
-		return template${modelDescription.firstCharUpperName}RelationSiteSet;
+		return template${modelDescription.firstCharUpperName}SiteRelationSet;
 	}
 	
-	public void setTemplate${modelDescription.firstCharUpperName}RelationSiteSet(Set<Template${modelDescription.firstCharUpperName}SiteRelation> template${modelDescription.firstCharUpperName}SiteRelationSet){
+	public void setTemplate${modelDescription.firstCharUpperName}SiteRelationSet(Set<Template${modelDescription.firstCharUpperName}SiteRelation> template${modelDescription.firstCharUpperName}SiteRelationSet){
 		this.template${modelDescription.firstCharUpperName}SiteRelationSet = template${modelDescription.firstCharUpperName}SiteRelationSet;
 	}
 	#end
@@ -125,7 +125,7 @@ public class Template implements ITemplate {
 		return templateDirectorySiteRelationSet;
 	}
 	
-	public void setTemplateDirectorySiteRelationSet(Set<TemplateDirectoryRelation> templateDirectorySiteRelationSet){
+	public void setTemplateDirectorySiteRelationSet(Set<TemplateDirectorySiteRelation> templateDirectorySiteRelationSet){
 		this.templateDirectorySiteRelationSet = templateDirectorySiteRelationSet;
 	}
 	

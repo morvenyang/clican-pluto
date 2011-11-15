@@ -473,7 +473,7 @@ public class DataBaseOperationImpl implements IDataBaseOperation {
 			List<String> dropSqls = new ArrayList<String>();
 			String dropTemplateModelRelationTable = "drop table "
 					+ dialect.openQuote() + "TEMPLATE_"
-					+ modelDescription.getName().toUpperCase() + "_RELATION"
+					+ modelDescription.getName().toUpperCase() + "_SITE_RELATION"
 					+ dialect.closeQuote();
 			dropSqls.add(dropTemplateModelRelationTable);
 			for (PropertyDescription pd : modelDescription

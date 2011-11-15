@@ -94,7 +94,7 @@ public class Site implements ISite {
 
     @OneToMany(mappedBy = "site", cascade = CascadeType.ALL, fetch = FetchType.LAZY,targetEntity=TemplateDirectorySiteRelation.class)
     public Set<ITemplateDirectorySiteRelation> getTemplateDirectorySiteRelationSet() {
-        return siteDirectoryRelationSet;
+        return templateDirectorySiteRelationSet;
     }
 
     public void setTemplateDirectorySiteRelationSet(Set<ITemplateDirectorySiteRelation> templateDirectorySiteRelationSet) {
