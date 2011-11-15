@@ -43,7 +43,7 @@
 										<rich:menuGroup value="New">
 											<rich:menuItem value="Directory" id="newDirectory"
 												submitMode="ajax"
-												action="#{directoryAction.setParentDirectory(directory)}">
+												action="#{directoryAction.setParentDirectory(directory)}" reRender="newDirectoryForm">
 												<rich:componentControl for="newDirectoryPanel"
 													attachTo="newDirectory" operation="show" event="onclick">
 												</rich:componentControl>
