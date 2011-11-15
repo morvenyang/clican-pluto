@@ -34,6 +34,8 @@ public class TemplateDirectorySiteRelation implements ITemplateDirectorySiteRela
 	private IDirectory directory;
 	
 	private ISite site;
+	
+	private String relativePath;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -73,7 +75,16 @@ public class TemplateDirectorySiteRelation implements ITemplateDirectorySiteRela
 	}
 
 	public void setSite(ISite site) {
-		site = site;
+		this.site = site;
+	}
+	
+	@Column(name = "RELATIVE_PATH", nullable = false)
+	public String getRelativePath() {
+		return relativePath;
+	}
+
+	public void setRelativePath(String relativePath) {
+		this.relativePath = relativePath;
 	}
 
 	/**

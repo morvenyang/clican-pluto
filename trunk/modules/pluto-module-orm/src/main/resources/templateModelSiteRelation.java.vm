@@ -16,7 +16,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 import com.clican.pluto.orm.annotation.DynamicModel;
 
 import com.clican.pluto.orm.dynamic.inter.IDataModel;
-import com.clican.pluto.orm.dynamic.inter.ITemplateModelRelation;
+import com.clican.pluto.orm.dynamic.inter.ITemplateModelSiteRelation;
 import com.clican.pluto.orm.dynamic.inter.ITemplate;
 import com.clican.pluto.orm.dynamic.inter.ISite;
 
@@ -34,6 +34,8 @@ public class Template${modelDescription.firstCharUpperName}SiteRelation implemen
 	private IDataModel dataModel;
 	
 	private ISite site;
+	
+	private String relativePath;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -74,9 +76,17 @@ public class Template${modelDescription.firstCharUpperName}SiteRelation implemen
 	}
 
 	public void setSite(ISite site) {
-		site = site;
+		this.site = site;
 	}
 	
+	@Column(name = "RELATIVE_PATH", nullable = false)
+	public String getRelativePath() {
+		return relativePath;
+	}
+
+	public void setRelativePath(String relativePath) {
+		this.relativePath = relativePath;
+	}
 	/**
 	 * @see java.lang.Object#toString()
 	 */
