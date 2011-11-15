@@ -33,7 +33,7 @@
 				<h:inputText
 					value="#{dataModelAction.dataModelMap[pd.firstCharLowerName]}"
 					rendered="#{pd.control.name.equals('input number')}">
-					<f:convertNumber />
+					<cms:numberConverter modelClass="${pd.type.className}" />
 				</h:inputText>
 				<h:inputTextarea
 					value="#{dataModelAction.dataModelMap[pd.firstCharLowerName]}"
