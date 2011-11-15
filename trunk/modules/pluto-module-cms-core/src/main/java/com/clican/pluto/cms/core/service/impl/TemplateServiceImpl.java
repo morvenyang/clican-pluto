@@ -68,7 +68,7 @@ public class TemplateServiceImpl extends BaseService implements TemplateService 
 
 	@Transactional
 	public void configureTemplates(IDataModel dataModel, List<ITemplate> selectedTemplates) {
-		templateDao.deleteTemplateRelation(dataModel);
+		templateDao.deleteTemplateSiteRelation(dataModel);
 		classLoaderUtil.configureTemplates(dataModel, selectedTemplates);
 		dataModelDao.update(dataModel);
 	}

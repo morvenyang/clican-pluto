@@ -28,8 +28,9 @@ import com.clican.pluto.orm.desc.ModelDescription;
 import com.clican.pluto.orm.dynamic.inter.ClassLoaderUtil;
 import com.clican.pluto.orm.dynamic.inter.IDataModel;
 import com.clican.pluto.orm.dynamic.inter.IDirectory;
+import com.clican.pluto.orm.dynamic.inter.ISite;
 import com.clican.pluto.orm.dynamic.inter.ITemplate;
-import com.clican.pluto.orm.dynamic.inter.ITemplateModelRelation;
+import com.clican.pluto.orm.dynamic.inter.ITemplateModelSiteRelation;
 import com.clican.pluto.orm.dynamic.inter.ModelContainer;
 
 public class IssueServiceImpl extends BaseService implements IssueService {
@@ -54,9 +55,10 @@ public class IssueServiceImpl extends BaseService implements IssueService {
 
 	@Transactional(readOnly = true)
 	public void issue(IDataModel dataModel) {
-		List<ITemplate> templates = templateDao.getSelectedTemplates(dataModel);
-		for (ITemplate template : templates) {
-			issue(template, dataModel);
+		List<ITemplateModelSiteRelation> tmrList = templateDao
+				.getTemplateModelSiteRelations(dataModel);
+		for (ITemplateModelSiteRelation tmr : tmrList) {
+			issue(tmr.getSite(), tmr.getTemplate(), tmr.getDataModel());
 		}
 	}
 
@@ -78,11 +80,11 @@ public class IssueServiceImpl extends BaseService implements IssueService {
 				int start = i;
 				int end = i + 1000 > dataModelList.size() ? dataModelList
 						.size() : i + 1000;
-				List<ITemplateModelRelation> tmrList = templateDao
-						.getTemplateModelRelations(
+				List<ITemplateModelSiteRelation> tmrList = templateDao
+						.getTemplateModelSiteRelations(
 								dataModelList.subList(start, end), md);
-				for (ITemplateModelRelation tmr : tmrList) {
-					issue(tmr.getTemplate(), tmr.getDataModel());
+				for (ITemplateModelSiteRelation tmr : tmrList) {
+					issue(tmr.getSite(), tmr.getTemplate(), tmr.getDataModel());
 				}
 			}
 		}
@@ -95,23 +97,23 @@ public class IssueServiceImpl extends BaseService implements IssueService {
 			pathExpression = pathExpression + "%";
 		}
 		for (ModelDescription md : modelContainer.getModelDescs()) {
-			int count = templateDao.getTemplateModelRelationCount(md,
+			int count = templateDao.getTemplateModelSiteRelationCount(md,
 					pathExpression);
 			for (int i = 0; i < count; i = i + 1000) {
 				int start = i;
 				int end = i + 1000 > count ? count : i + 1000;
-				List<ITemplateModelRelation> tmrList = templateDao
-						.getTemplateModelRelations(md, pathExpression, start,
-								end);
-				for (ITemplateModelRelation tmr : tmrList) {
-					issue(tmr.getTemplate(), tmr.getDataModel());
+				List<ITemplateModelSiteRelation> tmrList = templateDao
+						.getTemplateModelSiteRelations(md, pathExpression,
+								start, end);
+				for (ITemplateModelSiteRelation tmr : tmrList) {
+					issue(tmr.getSite(), tmr.getTemplate(), tmr.getDataModel());
 				}
 			}
 
 		}
 	}
 
-	private void issue(ITemplate template, IDataModel dataModel) {
+	private void issue(ISite site, ITemplate template, IDataModel dataModel) {
 		Template t = null;
 		Writer w = null;
 		VelocityContext velocityContext = new VelocityContext();

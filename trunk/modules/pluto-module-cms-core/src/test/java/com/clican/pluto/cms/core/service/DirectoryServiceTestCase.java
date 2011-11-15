@@ -17,8 +17,7 @@ import com.clican.pluto.cms.core.BaseTestCase;
 import com.clican.pluto.cms.dao.DirectoryDao;
 import com.clican.pluto.orm.dynamic.inter.ClassLoaderUtil;
 import com.clican.pluto.orm.dynamic.inter.IDirectory;
-import com.clican.pluto.orm.dynamic.inter.ISiteDirectoryRelation;
-import com.clican.pluto.orm.dynamic.inter.ITemplateDirectoryRelation;
+import com.clican.pluto.orm.dynamic.inter.ITemplateDirectorySiteRelation;
 
 public class DirectoryServiceTestCase extends BaseTestCase {
 
@@ -80,10 +79,7 @@ public class DirectoryServiceTestCase extends BaseTestCase {
 				return null;
 			}
 
-			public Set<ITemplateDirectoryRelation> getTemplateDirectoryRelationSet() {
-				// TODO Auto-generated method stub
-				return null;
-			}
+			
 
 			public Calendar getUpdateTime() {
 				// TODO Auto-generated method stub
@@ -125,25 +121,22 @@ public class DirectoryServiceTestCase extends BaseTestCase {
 
 			}
 
-			public void setTemplateDirectoryRelationSet(Set<ITemplateDirectoryRelation> templateDirectoryRelationSet) {
-				// TODO Auto-generated method stub
-
-			}
 
 			public void setUpdateTime(Calendar updateTime) {
 				// TODO Auto-generated method stub
 
 			}
 
-            public Set<ISiteDirectoryRelation> getSiteDirectoryRelationSet() {
-                // TODO Auto-generated method stub
-                return null;
-            }
+			public Set<ITemplateDirectorySiteRelation> getTemplateDirectorySiteRelationSet() {
+				return null;
+			}
 
-            public void setSiteDirectoryRelationSet(Set<ISiteDirectoryRelation> siteDirectoryRelationSet) {
-                // TODO Auto-generated method stub
-                
-            }
+			public void setTemplateDirectorySiteRelationSet(
+					Set<ITemplateDirectorySiteRelation> templateDirectorySiteRelationSet) {
+				
+			}
+
+           
 
 		};
 		context.checking(new Expectations() {
