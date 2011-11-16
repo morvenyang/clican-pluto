@@ -25,7 +25,7 @@ import com.clican.pluto.cms.core.service.SiteService;
 import com.clican.pluto.cms.core.service.TemplateService;
 import com.clican.pluto.cms.ui.action.BaseAction;
 import com.clican.pluto.cms.ui.ext.transfer.SelectItem2StringTransfer;
-import com.clican.pluto.orm.desc.TemplateSitePair;
+import com.clican.pluto.orm.desc.TemplateSiteIdPair;
 import com.clican.pluto.orm.dynamic.inter.IDataModel;
 import com.clican.pluto.orm.dynamic.inter.ITemplate;
 
@@ -52,7 +52,7 @@ public class TemplateAction extends BaseAction {
 
 	private IDataModel dataModel;
 
-	private List<TemplateSitePair> selectedPairs;
+	private List<TemplateSiteIdPair> selectedPairs;
 
 	private List<String> allTemplateList;
 
@@ -104,7 +104,16 @@ public class TemplateAction extends BaseAction {
 				new SelectItem2StringTransfer(), allSiteList);
 	}
 
-	public void saveConfiguration() {
+	public void addPair() {
+		TemplateSiteIdPair pair = new TemplateSiteIdPair();
+		selectedPairs.add(pair);
+	}
+	
+	public void deletePair(TemplateSiteIdPair pair){
+		selectedPairs.remove(pair);
+	}
+
+	public void saveTemplateAndSiteConfiguration() {
 		templateService.configureTemplateDirectorySiteRelations(dataModel,
 				selectedPairs);
 		clear();
@@ -120,11 +129,11 @@ public class TemplateAction extends BaseAction {
 	}
 
 	@BypassInterceptors
-	public List<TemplateSitePair> getSelectedPairs() {
+	public List<TemplateSiteIdPair> getSelectedPairs() {
 		return selectedPairs;
 	}
 
-	public void setSelectedPairs(List<TemplateSitePair> selectedPairs) {
+	public void setSelectedPairs(List<TemplateSiteIdPair> selectedPairs) {
 		this.selectedPairs = selectedPairs;
 	}
 

@@ -1,4 +1,4 @@
-<rich:modalPanel id="templateConfigurationPanel"
+<rich:modalPanel id="templateAndSiteConfigurationPanel"
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -13,41 +13,40 @@
 		</h:panelGroup>
 	</f:facet>
 	<a4j:form id="templateAndSiteConfigurationForm">
-		<rich:dataTable id="templateAndSiteConfigurationTable" width="100%" var="pair"
-			value="#{templateAction.selectedPairs}">
+		<a4j:commandButton action="#{templateAction.addPair}"
+				value="Add"
+				ajaxSingle="true" />
+		<rich:dataTable id="templateAndSiteConfigurationTable" width="100%"
+			var="pair" value="#{templateAction.selectedPairs}">
 			<rich:column>
 				<f:facet name="header">
 					<h:outputText value="Template" />
 				</f:facet>
-				<h:selectOneMenu
-						value="#{templateAction.allTemplateList}">
-						
+				<h:selectOneMenu value="#{pair.templateId}">
+					<c:forEach var="template" items="#{templateAction.allTemplateList}">
+						<f:selectItem itemLabel="#{template.split(',')[1]}"
+							itemValue="#{template.split(',')[0]" />
+					</c:forEach>
 				</h:selectOneMenu>
-				<h:outputText value="pair.template.name" />
 			</rich:column>
 			<rich:column>
 				<f:facet name="header">
 					<h:outputText value="Site" />
 				</f:facet>
-				<h:outputText value="pair.site.name" />
+				<h:selectOneMenu value="#{pair.siteId}">
+					<c:forEach var="site" items="#{templateAction.allSiteList}">
+						<f:selectItem itemLabel="#{site.split(',')[1]}"
+							itemValue="#{site.split(',')[0]" />
+					</c:forEach>
+				</h:selectOneMenu>
 			</rich:column>
 		</rich:dataTable>
-		<rich:listShuttle sourceValue="#{templateAction.remainedTemplates}"
-			targetValue="#{templateAction.selectedTemplates}" var="template"
-			listHeight="300" listWidth="300"
-			sourceCaptionLabel="Available Templates"
-			targetCaptionLabel="Selected Templates" converter="templateConverter">
-			<rich:column>
-				<h:outputText value="#{template.name}"></h:outputText>
-			</rich:column>
-		</rich:listShuttle>
 		<h:panelGrid columns="2">
-			<a4j:commandButton action="#{templateAction.saveConfiguration}"
+			<a4j:commandButton action="#{templateAction.saveTemplateAndSiteConfiguration}"
 				value="Save"
-				onclick="Richfaces.hideModalPanel('templateConfigurationPanel');" />
-			<a4j:commandButton action="#{templateAction.cancel}" value="Cancel"
-				ajaxSingle="true"
-				onclick="Richfaces.hideModalPanel('templateConfigurationPanel');" />
+				onclick="Richfaces.hideModalPanel('templateAndSiteConfigurationPanel');" />
+			<a4j:commandButton  value="Cancel" type="reset"
+				onclick="Richfaces.hideModalPanel('templateAndSiteConfigurationPanel');" />
 		</h:panelGrid>
 	</a4j:form>
 </rich:modalPanel>

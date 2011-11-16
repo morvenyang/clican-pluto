@@ -16,11 +16,11 @@ import com.clican.pluto.cms.core.service.TemplateService;
 import com.clican.pluto.cms.dao.DataModelDao;
 import com.clican.pluto.cms.dao.SiteDao;
 import com.clican.pluto.cms.dao.TemplateDao;
+import com.clican.pluto.orm.desc.TemplateSiteIdPair;
 import com.clican.pluto.orm.desc.TemplateSitePair;
 import com.clican.pluto.orm.dynamic.inter.ClassLoaderUtil;
 import com.clican.pluto.orm.dynamic.inter.IDataModel;
 import com.clican.pluto.orm.dynamic.inter.IDirectory;
-import com.clican.pluto.orm.dynamic.inter.ISite;
 import com.clican.pluto.orm.dynamic.inter.ITemplate;
 import com.clican.pluto.orm.dynamic.inter.ITemplateDirectorySiteRelation;
 import com.clican.pluto.orm.dynamic.inter.ITemplateModelSiteRelation;
@@ -70,15 +70,15 @@ public class TemplateServiceImpl extends BaseService implements TemplateService 
 	}
 
 	@Transactional(readOnly = true)
-	public List<TemplateSitePair> getTemplateSitePairs(IDataModel dataModel) {
-		List<TemplateSitePair> result = new ArrayList<TemplateSitePair>();
+	public List<TemplateSiteIdPair> getTemplateSitePairs(IDataModel dataModel) {
+		List<TemplateSiteIdPair> result = new ArrayList<TemplateSiteIdPair>();
 		if (dataModel instanceof IDirectory) {
 			List<ITemplateDirectorySiteRelation> relationList = templateDao
 					.getTemplateDirectorySiteRelations(dataModel);
 			for (ITemplateDirectorySiteRelation rel : relationList) {
-				TemplateSitePair pair = new TemplateSitePair();
-				pair.setSite(rel.getSite());
-				pair.setTemplate(rel.getTemplate());
+				TemplateSiteIdPair pair = new TemplateSiteIdPair();
+				pair.setSiteId(rel.getSite().getId());
+				pair.setTemplateId(rel.getTemplate().getId());
 				result.add(pair);
 			}
 		} else {
@@ -86,9 +86,9 @@ public class TemplateServiceImpl extends BaseService implements TemplateService 
 			List<ITemplateModelSiteRelation> relationList = templateDao
 					.getTemplateModelSiteRelations(dataModel);
 			for (ITemplateModelSiteRelation rel : relationList) {
-				TemplateSitePair pair = new TemplateSitePair();
-				pair.setSite(rel.getSite());
-				pair.setTemplate(rel.getTemplate());
+				TemplateSiteIdPair pair = new TemplateSiteIdPair();
+				pair.setSiteId(rel.getSite().getId());
+				pair.setTemplateId(rel.getTemplate().getId());
 				result.add(pair);
 			}
 		}
@@ -102,8 +102,9 @@ public class TemplateServiceImpl extends BaseService implements TemplateService 
 
 	@Transactional
 	public void configureTemplateDirectorySiteRelations(IDataModel dataModel,
-			List<TemplateSitePair> selectedTemplateSitePairs) {
+			List<TemplateSiteIdPair> selectedTemplateSiteIdPairs) {
 		templateDao.deleteTemplateSiteRelation(dataModel);
+		List<TemplateSitePair> selectedTemplateSitePairs = null;
 		classLoaderUtil.configureTemplateDirectorySiteRelations(dataModel,
 				selectedTemplateSitePairs);
 		dataModelDao.update(dataModel);
