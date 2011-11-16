@@ -14,7 +14,7 @@
 	</f:facet>
 	<a4j:form id="templateAndSiteConfigurationForm">
 		<a4j:commandButton action="#{templateAction.addPair}" value="Add"
-			ajaxSingle="true" />
+			ajaxSingle="true" reRender="templateAndSiteConfigurationTable"/>
 		<rich:dataTable id="templateAndSiteConfigurationTable" width="100%"
 			var="pair" value="#{templateAction.selectedIdPairs}">
 			<rich:column>
