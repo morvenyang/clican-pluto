@@ -21,7 +21,7 @@ public interface TemplateService {
 
 	public ITemplate newTemplate();
 
-	public List<TemplateSiteIdPair> getTemplateSitePairs(IDataModel dataModel);
+	public List<TemplateSiteIdPair> getTemplateSiteIdPairs(IDataModel dataModel);
 
 	public void delete(ITemplate template);
 
