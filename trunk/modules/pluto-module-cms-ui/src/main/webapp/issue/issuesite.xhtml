@@ -8,14 +8,14 @@
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:a4j="http://richfaces.org/a4j" template="../site.xhtml">
 	<ui:define name="body">
-		<rich:modalPanel id="sitePanel" height="300">
+		<rich:modalPanel id="sitePanel" autosized="ture">
 			<f:facet name="header">
 				<h:panelGroup>
 					<h:outputText value="发布站点"></h:outputText>
 				</h:panelGroup>
 			</f:facet>
 			<a4j:form id="siteForm">
-				<h:panelGrid columns="1">
+				<h:panelGrid columns="2">
 					<h:outputLabel value="发布站点:" />
 					<h:inputText value="#{siteAction.site.name}" />
 					<h:outputLabel value="URL:" />
