@@ -48,6 +48,8 @@ public class Directory implements IDirectory {
 	
 	private Calendar updateTime;
 	
+	private int issueMode;
+	
 	private Set<ITemplateDirectorySiteRelation> templateDirectorySiteRelationSet;
 	
 	#foreach( $modelDescription in $modelDescriptionList )
@@ -138,6 +140,15 @@ public class Directory implements IDirectory {
 	
 	public void setUpdateTime(Calendar updateTime){
 		this.updateTime = updateTime;
+	}
+	
+	@Column(name = "ISSUE_MODE")
+	public int getIssueMode(){
+		return issueMode;
+	}
+	
+	public void setIssueMode(int issueMode){
+		this.issueMode = issueMode;
 	}
 	
 	#foreach( $modelDescription in $modelDescriptionList )
