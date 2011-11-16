@@ -94,17 +94,17 @@ public class TemplateDaoHibernateImpl extends BaseDao implements TemplateDao {
 
 	@SuppressWarnings("unchecked")
 	public List<ITemplateDirectorySiteRelation> getTemplateDirectorySiteRelations(
-			IDataModel dataModel) {
-		String modelName = dataModel.getClass().getAnnotation(Entity.class).name();
+			IDirectory directory) {
+		String directoryName = directory.getClass().getAnnotation(Entity.class).name();
 		StringBuffer sql = new StringBuffer();
 		sql.append("select r from ");
-		sql.append(modelName);
-		sql.append(" m,");
+		sql.append(directoryName);
+		sql.append(" d,");
 		sql.append("Template t,");
 		sql.append("Template");
-		sql.append(modelName);
-		sql.append("SiteRelation r where r.template=t and r.dataModel=m and m.id = ");
-		sql.append(dataModel.getId());
+		sql.append(directoryName);
+		sql.append("SiteRelation r where r.template=t and r.directory=d and d.id = ");
+		sql.append(directory.getId());
 		return getHibernateTemplate().find(sql.toString());
 	}
 
