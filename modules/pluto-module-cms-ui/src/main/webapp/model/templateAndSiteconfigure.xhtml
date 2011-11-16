@@ -13,9 +13,8 @@
 		</h:panelGroup>
 	</f:facet>
 	<a4j:form id="templateAndSiteConfigurationForm">
-		<a4j:commandButton action="#{templateAction.addPair}"
-				value="Add"
-				ajaxSingle="true" />
+		<a4j:commandButton action="#{templateAction.addPair}" value="Add"
+			ajaxSingle="true" />
 		<rich:dataTable id="templateAndSiteConfigurationTable" width="100%"
 			var="pair" value="#{templateAction.selectedPairs}">
 			<rich:column>
@@ -40,12 +39,20 @@
 					</c:forEach>
 				</h:selectOneMenu>
 			</rich:column>
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="Delete" />
+				</f:facet>
+				<a4j:commandButton action="#{templateAction.deletePair(pair)}"
+					value="Delete" ajaxSingle="true" reRender="templateAndSiteConfigurationTable"/>
+			</rich:column>
 		</rich:dataTable>
 		<h:panelGrid columns="2">
-			<a4j:commandButton action="#{templateAction.saveTemplateAndSiteConfiguration}"
+			<a4j:commandButton
+				action="#{templateAction.saveTemplateAndSiteConfiguration}"
 				value="Save"
 				onclick="Richfaces.hideModalPanel('templateAndSiteConfigurationPanel');" />
-			<a4j:commandButton  value="Cancel" type="reset"
+			<a4j:commandButton value="Cancel" type="reset"
 				onclick="Richfaces.hideModalPanel('templateAndSiteConfigurationPanel');" />
 		</h:panelGrid>
 	</a4j:form>

@@ -65,9 +65,9 @@
 										<rich:menuItem value="Configure Template and Site"
 											id="configureTemplateAndSite" submitMode="ajax"
 											action="#{templateAction.configureTemplateAndSite(directory)}"
-											reRender="templateConfigurationForm">
-											<rich:componentControl for="templateConfigurationPanel"
-												attachTo="configureTemplate" operation="show"
+											reRender="templateAndSiteConfigurationForm">
+											<rich:componentControl for="templateAndSiteConfigurationPanel"
+												attachTo="configureTemplateAndSite" operation="show"
 												event="onclick">
 											</rich:componentControl>
 										</rich:menuItem>
