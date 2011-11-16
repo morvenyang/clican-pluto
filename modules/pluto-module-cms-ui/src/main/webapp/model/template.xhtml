@@ -53,7 +53,21 @@
 		</h:form>
 
 		<rich:modalPanel id="newTemplatePanel"
-			style="overflow:auto;height:650px;width:1000px">
+			style="overflow:auto;" autosized="true">
+			<f:facet name="controls">
+				<h:panelGroup>
+					<h:graphicImage value="/img/close.png" styleClass="hidelink"
+						style="CURSOR: hand">
+						<rich:componentControl for="newTemplatePanel"
+							operation="hide" event="onclick" />
+					</h:graphicImage>
+				</h:panelGroup>
+			</f:facet>
+			<f:facet name="header">
+				<h:panelGroup>
+					<h:outputText value="模板"></h:outputText>
+				</h:panelGroup>
+			</f:facet>
 			<a4j:form id="newTemplateForm">
 				<h:panelGrid columns="3">
 					<h:outputLabel value="Template Name:" styleClass="name" />
@@ -88,9 +102,9 @@
 				<h:panelGrid columns="2">
 					<a4j:commandButton action="#{templateAction.save}" value="Save"
 						reRender="templateTable"
-						oncomplete="Richfaces.hideModalPanel('newDataStructurePanel');" />
+						oncomplete="Richfaces.hideModalPanel('newTemplatePanel');" />
 					<h:commandButton value="Cancel"
-						oncomplete="Richfaces.hideModalPanel('newDataStructurePanel');" />
+						oncomplete="Richfaces.hideModalPanel('newTemplatePanel');" />
 				</h:panelGrid>
 			</a4j:form>
 		</rich:modalPanel>

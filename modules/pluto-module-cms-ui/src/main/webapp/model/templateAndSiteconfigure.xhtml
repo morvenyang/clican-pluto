@@ -35,7 +35,7 @@
 				<h:selectOneMenu value="#{pair.siteId}">
 					<c:forEach var="site" items="#{templateAction.allSiteList}">
 						<f:selectItem itemLabel="#{site.split(',')[1]}"
-							itemValue="#{site.split(',')[0]" />
+							itemValue="#{site.split(',')[0]}" />
 					</c:forEach>
 				</h:selectOneMenu>
 			</rich:column>
@@ -44,7 +44,8 @@
 					<h:outputText value="Delete" />
 				</f:facet>
 				<a4j:commandButton action="#{templateAction.deletePair(pair)}"
-					value="Delete" ajaxSingle="true" reRender="templateAndSiteConfigurationTable"/>
+					value="Delete" ajaxSingle="true"
+					reRender="templateAndSiteConfigurationTable" />
 			</rich:column>
 		</rich:dataTable>
 		<h:panelGrid columns="2">
