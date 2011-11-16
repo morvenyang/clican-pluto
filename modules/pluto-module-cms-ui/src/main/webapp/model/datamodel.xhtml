@@ -33,12 +33,12 @@
 					</rich:column>
 					<rich:column>
 						<f:facet name="header">
-							<h:outputText value="Configure Templates" />
+							<h:outputText value="Configure Templates And Site" />
 						</f:facet>
 						<a4j:commandButton value="Configure"
-							action="#{templateAction.configureTemplate(dataModel)}"
-							reRender="templateConfigurationForm">
-							<rich:componentControl for="templateConfigurationPanel"
+							action="#{templateAction.configureTemplateAndSite(dataModel)}"
+							reRender="templateAndSiteConfigurationForm">
+							<rich:componentControl for="templateAndSiteConfigurationPanel"
 								operation="show" event="onclick">
 							</rich:componentControl>
 						</a4j:commandButton>
