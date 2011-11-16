@@ -9,10 +9,29 @@
 	xmlns:c="http://java.sun.com/jstl/core" height="350" width="500">
 	<f:facet name="header">
 		<h:panelGroup>
-			<h:outputText value="Template Configuration"></h:outputText>
+			<h:outputText value="Template And Site Configuration"></h:outputText>
 		</h:panelGroup>
 	</f:facet>
-	<a4j:form id="templateConfigurationForm">
+	<a4j:form id="templateAndSiteConfigurationForm">
+		<rich:dataTable id="templateAndSiteConfigurationTable" width="100%" var="pair"
+			value="#{templateAction.selectedPairs}">
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="Template" />
+				</f:facet>
+				<h:selectOneMenu
+						value="#{templateAction.allTemplateList}">
+						
+				</h:selectOneMenu>
+				<h:outputText value="pair.template.name" />
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="Site" />
+				</f:facet>
+				<h:outputText value="pair.site.name" />
+			</rich:column>
+		</rich:dataTable>
 		<rich:listShuttle sourceValue="#{templateAction.remainedTemplates}"
 			targetValue="#{templateAction.selectedTemplates}" var="template"
 			listHeight="300" listWidth="300"

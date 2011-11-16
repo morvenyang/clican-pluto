@@ -22,12 +22,13 @@ import com.clican.pluto.orm.desc.ModelDescription;
 import com.clican.pluto.orm.dynamic.inter.IDataModel;
 import com.clican.pluto.orm.dynamic.inter.IDirectory;
 import com.clican.pluto.orm.dynamic.inter.ITemplate;
+import com.clican.pluto.orm.dynamic.inter.ITemplateDirectorySiteRelation;
 import com.clican.pluto.orm.dynamic.inter.ITemplateModelSiteRelation;
 
 public class TemplateDaoHibernateImpl extends BaseDao implements TemplateDao {
 
 	@SuppressWarnings("unchecked")
-	public List<ITemplate> getTemplates() {
+	public List<ITemplate> getAllTemplates() {
 		return getHibernateTemplate().find("from Template");
 	}
 
@@ -77,6 +78,22 @@ public class TemplateDaoHibernateImpl extends BaseDao implements TemplateDao {
 
 	@SuppressWarnings("unchecked")
 	public List<ITemplateModelSiteRelation> getTemplateModelSiteRelations(
+			IDataModel dataModel) {
+		String modelName = dataModel.getClass().getAnnotation(Entity.class).name();
+		StringBuffer sql = new StringBuffer();
+		sql.append("select r from ");
+		sql.append(modelName);
+		sql.append(" m,");
+		sql.append("Template t,");
+		sql.append("Template");
+		sql.append(modelName);
+		sql.append("SiteRelation r where r.template=t and r.dataModel=m and m.id = ");
+		sql.append(dataModel.getId());
+		return getHibernateTemplate().find(sql.toString());
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<ITemplateDirectorySiteRelation> getTemplateDirectorySiteRelations(
 			IDataModel dataModel) {
 		String modelName = dataModel.getClass().getAnnotation(Entity.class).name();
 		StringBuffer sql = new StringBuffer();
