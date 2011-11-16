@@ -9,7 +9,9 @@ package com.clican.pluto.orm.dynamic.inter;
 
 import java.io.Serializable;
 
-public interface IPojo extends Serializable {
+import com.clican.pluto.common.inter.SelectItem;
+
+public interface IPojo extends Serializable,SelectItem {
 
 	public Long getId();
 

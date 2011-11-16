@@ -29,6 +29,7 @@ import sun.misc.Launcher;
 import com.clican.pluto.common.constant.Constants;
 import com.clican.pluto.common.exception.PlutoException;
 import com.clican.pluto.orm.desc.ModelDescription;
+import com.clican.pluto.orm.desc.TemplateSitePair;
 import com.clican.pluto.orm.dynamic.inter.ClassLoaderUtil;
 import com.clican.pluto.orm.dynamic.inter.IDataModel;
 import com.clican.pluto.orm.dynamic.inter.IDirectory;
@@ -154,8 +155,8 @@ public class ClassLoaderUtilImpl implements ClassLoaderUtil {
 		return directory;
 	}
 
-	public void configureTemplates(IDataModel dataModel,
-			List<ITemplate> selectedTemplates) {
+	public void configureTemplateDirectorySiteRelations(IDataModel dataModel,
+			List<TemplateSitePair> selectedTemplateSitePairs) {
 		String entityName = dataModel.getClass().getAnnotation(Entity.class)
 				.name();
 		String name = Constants.DYNAMIC_MODEL_PACKAGE + "."
@@ -164,25 +165,28 @@ public class ClassLoaderUtilImpl implements ClassLoaderUtil {
 		try {
 			Set<IPojo> set = new HashSet<IPojo>();
 			if (dataModel instanceof IDirectory) {
-				for (ITemplate template : selectedTemplates) {
+				for (TemplateSitePair pair : selectedTemplateSitePairs) {
 					ITemplateDirectorySiteRelation relation = (ITemplateDirectorySiteRelation) (dynamicClassLoader
-							.loadClass(name).newInstance());
+	                        .loadClass(name).newInstance());
 					relation.setDirectory((IDirectory) dataModel);
-					relation.setTemplate(template);
+					relation.setSite(pair.getSite());
+					relation.setTemplate(pair.getTemplate());
 					set.add(relation);
 				}
 			} else {
-				for (ITemplate template : selectedTemplates) {
+				for (TemplateSitePair pair : selectedTemplateSitePairs) {
 					ITemplateModelSiteRelation relation = (ITemplateModelSiteRelation) (dynamicClassLoader
-							.loadClass(name).newInstance());
+	                        .loadClass(name).newInstance());
 					relation.setDataModel(dataModel);
-					relation.setTemplate(template);
+					relation.setSite(pair.getSite());
+					relation.setTemplate(pair.getTemplate());
 					set.add(relation);
 				}
 			}
 			BeanUtils.setProperty(dataModel,
 					Constants.DEFAULT_TEMPLATE_CLASS_NAME.toLowerCase()
-							+ entityName+ Constants.DEFAULT_SITE_CLASS_NAME + "RelationSet", set);
+							+ entityName + Constants.DEFAULT_SITE_CLASS_NAME
+							+ "RelationSet", set);
 		} catch (Exception e) {
 			throw new PlutoException("The " + name
 					+ " can't be found in the classloader.", e);
