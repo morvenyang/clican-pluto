@@ -14,6 +14,8 @@ public class TemplateSiteIdPair {
 
 	private Long templateId;
 
+	private String relativePath;
+	
 	public Long getSiteId() {
 		return siteId;
 	}
@@ -28,6 +30,14 @@ public class TemplateSiteIdPair {
 
 	public void setTemplateId(Long templateId) {
 		this.templateId = templateId;
+	}
+
+	public String getRelativePath() {
+		return relativePath;
+	}
+
+	public void setRelativePath(String relativePath) {
+		this.relativePath = relativePath;
 	}
 
 	@Override
