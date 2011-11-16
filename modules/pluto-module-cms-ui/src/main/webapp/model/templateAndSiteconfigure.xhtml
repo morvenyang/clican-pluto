@@ -24,7 +24,7 @@
 				<h:selectOneMenu value="#{pair.templateId}">
 					<c:forEach var="template" items="#{templateAction.allTemplateList}">
 						<f:selectItem itemLabel="#{template.split(',')[1]}"
-							itemValue="#{template.split(',')[0]" />
+							itemValue="#{template.split(',')[0]}" />
 					</c:forEach>
 				</h:selectOneMenu>
 			</rich:column>
