@@ -9,8 +9,10 @@ package com.clican.pluto.orm.dynamic.inter;
 
 import java.util.Calendar;
 
-public interface ITemplate extends IPojo {
-	
+import com.clican.pluto.common.inter.SelectItem;
+
+public interface ITemplate extends IPojo, SelectItem {
+
 	public Long getId();
 
 	public void setId(Long id);
@@ -30,9 +32,9 @@ public interface ITemplate extends IPojo {
 	public String getContent();
 
 	public void setContent(String content);
-	
+
 	public String getSuffix();
-	
+
 	public void setSuffix(String suffix);
 }
 
