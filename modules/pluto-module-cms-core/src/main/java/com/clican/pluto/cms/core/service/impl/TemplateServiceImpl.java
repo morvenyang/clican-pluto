@@ -77,7 +77,7 @@ public class TemplateServiceImpl extends BaseService implements TemplateService 
 		List<TemplateSiteIdPair> result = new ArrayList<TemplateSiteIdPair>();
 		if (dataModel instanceof IDirectory) {
 			List<ITemplateDirectorySiteRelation> relationList = templateDao
-					.getTemplateDirectorySiteRelations(dataModel);
+					.getTemplateDirectorySiteRelations((IDirectory)dataModel);
 			for (ITemplateDirectorySiteRelation rel : relationList) {
 				TemplateSiteIdPair pair = new TemplateSiteIdPair();
 				pair.setSiteId(rel.getSite().getId());
