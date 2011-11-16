@@ -15,6 +15,8 @@ public class TemplateSitePair {
 	private ITemplate template;
 	
 	private ISite site;
+	
+	private String relativePath;
 
 	public ITemplate getTemplate() {
 		return template;
@@ -30,6 +32,14 @@ public class TemplateSitePair {
 
 	public void setSite(ISite site) {
 		this.site = site;
+	}
+
+	public String getRelativePath() {
+		return relativePath;
+	}
+
+	public void setRelativePath(String relativePath) {
+		this.relativePath = relativePath;
 	}
 	
 	
