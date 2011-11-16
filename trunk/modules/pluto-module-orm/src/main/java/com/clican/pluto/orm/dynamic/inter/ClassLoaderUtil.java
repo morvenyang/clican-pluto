@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.clican.pluto.orm.desc.ModelDescription;
+import com.clican.pluto.orm.desc.TemplateSitePair;
 
 public interface ClassLoaderUtil {
 
@@ -21,8 +22,8 @@ public interface ClassLoaderUtil {
 	public IDataModel newDataModel(IDirectory parent,
 			ModelDescription modelDescription);
 
-	public void configureTemplates(IDataModel dataModel,
-			List<ITemplate> selectedTemplates);
+	public void configureTemplateDirectorySiteRelations(IDataModel dataModel,
+			List<TemplateSitePair> selectedTemplateSitePairs);
 
 	public ITemplate newTemplate();
 	
