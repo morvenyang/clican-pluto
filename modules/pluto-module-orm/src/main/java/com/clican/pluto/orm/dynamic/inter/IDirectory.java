@@ -47,6 +47,8 @@ public interface IDirectory extends IDataModel {
 	public Calendar getUpdateTime();
 
 	public void setUpdateTime(Calendar updateTime);
+	
+	public int issueMode();
 }
 
 // $Id$
