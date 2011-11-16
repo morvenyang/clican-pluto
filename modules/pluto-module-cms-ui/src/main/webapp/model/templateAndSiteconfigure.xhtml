@@ -16,7 +16,7 @@
 		<a4j:commandButton action="#{templateAction.addPair}" value="Add"
 			ajaxSingle="true" />
 		<rich:dataTable id="templateAndSiteConfigurationTable" width="100%"
-			var="pair" value="#{templateAction.selectedPairs}">
+			var="pair" value="#{templateAction.selectedIdPairs}">
 			<rich:column>
 				<f:facet name="header">
 					<h:outputText value="Template" />
