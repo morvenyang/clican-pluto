@@ -82,6 +82,7 @@ public class TemplateServiceImpl extends BaseService implements TemplateService 
 				TemplateSiteIdPair pair = new TemplateSiteIdPair();
 				pair.setSiteId(rel.getSite().getId());
 				pair.setTemplateId(rel.getTemplate().getId());
+				pair.setRelativePath(rel.getRelativePath());
 				result.add(pair);
 			}
 		} else {
@@ -92,6 +93,7 @@ public class TemplateServiceImpl extends BaseService implements TemplateService 
 				TemplateSiteIdPair pair = new TemplateSiteIdPair();
 				pair.setSiteId(rel.getSite().getId());
 				pair.setTemplateId(rel.getTemplate().getId());
+				pair.setRelativePath(rel.getRelativePath());
 				result.add(pair);
 			}
 		}
@@ -122,6 +124,7 @@ public class TemplateServiceImpl extends BaseService implements TemplateService 
 			if (template != null && site != null) {
 				pair.setSite(site);
 				pair.setTemplate(template);
+				pair.setRelativePath(idPair.getRelativePath());
 				selectedTemplateSitePairs.add(pair);
 			}
 		}

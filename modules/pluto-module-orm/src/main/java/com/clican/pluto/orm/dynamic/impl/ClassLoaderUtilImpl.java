@@ -171,6 +171,7 @@ public class ClassLoaderUtilImpl implements ClassLoaderUtil {
 					relation.setDirectory((IDirectory) dataModel);
 					relation.setSite(pair.getSite());
 					relation.setTemplate(pair.getTemplate());
+					relation.setRelativePath(pair.getRelativePath());
 					set.add(relation);
 				}
 			} else {
@@ -180,6 +181,7 @@ public class ClassLoaderUtilImpl implements ClassLoaderUtil {
 					relation.setDataModel(dataModel);
 					relation.setSite(pair.getSite());
 					relation.setTemplate(pair.getTemplate());
+					relation.setRelativePath(pair.getRelativePath());
 					set.add(relation);
 				}
 			}

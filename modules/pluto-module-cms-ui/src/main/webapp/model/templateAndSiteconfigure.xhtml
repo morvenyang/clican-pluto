@@ -41,6 +41,17 @@
 			</rich:column>
 			<rich:column>
 				<f:facet name="header">
+					<h:outputText value="Relative Path" />
+				</f:facet>
+				<h:selectOneMenu value="#{pair.siteId}">
+					<c:forEach var="site" items="#{templateAction.allSiteList}">
+						<f:selectItem itemLabel="#{site.split(',')[1]}"
+							itemValue="#{site.split(',')[0]}" />
+					</c:forEach>
+				</h:selectOneMenu>
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">
 					<h:outputText value="Delete" />
 				</f:facet>
 				<a4j:commandButton action="#{templateAction.deletePair(pair)}"
