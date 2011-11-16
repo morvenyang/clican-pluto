@@ -44,6 +44,11 @@ public class DirectoryServiceTestCase extends BaseTestCase {
 			 */
 			private static final long serialVersionUID = 4645740417113237029L;
 
+			public int getIssueMode() {
+				// TODO Auto-generated method stub
+				return 0;
+			}
+
 			public Set<IDirectory> getChildren() {
 				// TODO Auto-generated method stub
 				return null;
