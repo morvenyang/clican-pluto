@@ -32,6 +32,7 @@ import com.clican.pluto.orm.dynamic.inter.ISite;
 import com.clican.pluto.orm.dynamic.inter.ITemplate;
 import com.clican.pluto.orm.dynamic.inter.ITemplateModelSiteRelation;
 import com.clican.pluto.orm.dynamic.inter.ModelContainer;
+import com.clican.pluto.orm.enumeration.IssueMode;
 
 public class IssueServiceImpl extends BaseService implements IssueService {
 
@@ -55,6 +56,9 @@ public class IssueServiceImpl extends BaseService implements IssueService {
 
 	@Transactional(readOnly = true)
 	public void issue(IDataModel dataModel) {
+		if (dataModel.getParent().getIssueMode() == IssueMode.EXTENDS.getMode()) {
+			
+		}
 		List<ITemplateModelSiteRelation> tmrList = templateDao
 				.getTemplateModelSiteRelations(dataModel);
 		for (ITemplateModelSiteRelation tmr : tmrList) {
