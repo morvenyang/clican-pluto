@@ -52,7 +52,7 @@ public class TemplateAction extends BaseAction {
 
 	private IDataModel dataModel;
 
-	private List<TemplateSiteIdPair> selectedPairs;
+	private List<TemplateSiteIdPair> selectedIdPairs;
 
 	private List<String> allTemplateList;
 
@@ -95,7 +95,7 @@ public class TemplateAction extends BaseAction {
 
 	public void configureTemplateAndSite(IDataModel dataModel) {
 		this.dataModel = dataModel;
-		selectedPairs = templateService.getTemplateSitePairs(dataModel);
+		selectedIdPairs = templateService.getTemplateSiteIdPairs(dataModel);
 		allTemplateList = new ArrayList<String>();
 		allSiteList = new ArrayList<String>();
 		CollectionUtils.collect(templateService.getAllTemplates(),
@@ -106,16 +106,16 @@ public class TemplateAction extends BaseAction {
 
 	public void addPair() {
 		TemplateSiteIdPair pair = new TemplateSiteIdPair();
-		selectedPairs.add(pair);
+		selectedIdPairs.add(pair);
 	}
 	
 	public void deletePair(TemplateSiteIdPair pair){
-		selectedPairs.remove(pair);
+		selectedIdPairs.remove(pair);
 	}
 
 	public void saveTemplateAndSiteConfiguration() {
 		templateService.configureTemplateDirectorySiteRelations(dataModel,
-				selectedPairs);
+				selectedIdPairs);
 		clear();
 	}
 
@@ -129,12 +129,12 @@ public class TemplateAction extends BaseAction {
 	}
 
 	@BypassInterceptors
-	public List<TemplateSiteIdPair> getSelectedPairs() {
-		return selectedPairs;
+	public List<TemplateSiteIdPair> getSelectedIdPairs() {
+		return selectedIdPairs;
 	}
 
-	public void setSelectedPairs(List<TemplateSiteIdPair> selectedPairs) {
-		this.selectedPairs = selectedPairs;
+	public void setSelectedIdPairs(List<TemplateSiteIdPair> selectedIdPairs) {
+		this.selectedIdPairs = selectedIdPairs;
 	}
 
 	@BypassInterceptors
