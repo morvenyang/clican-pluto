@@ -44,6 +44,8 @@ public class TemplateSiteIdPair {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result
+				+ ((relativePath == null) ? 0 : relativePath.hashCode());
 		result = prime * result + ((siteId == null) ? 0 : siteId.hashCode());
 		result = prime * result
 				+ ((templateId == null) ? 0 : templateId.hashCode());
@@ -59,6 +61,11 @@ public class TemplateSiteIdPair {
 		if (getClass() != obj.getClass())
 			return false;
 		TemplateSiteIdPair other = (TemplateSiteIdPair) obj;
+		if (relativePath == null) {
+			if (other.relativePath != null)
+				return false;
+		} else if (!relativePath.equals(other.relativePath))
+			return false;
 		if (siteId == null) {
 			if (other.siteId != null)
 				return false;
@@ -71,6 +78,8 @@ public class TemplateSiteIdPair {
 			return false;
 		return true;
 	}
+
+	
 	
 	
 
