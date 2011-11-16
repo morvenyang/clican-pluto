@@ -12,17 +12,9 @@ import com.clican.pluto.orm.dynamic.inter.ITemplate;
 
 public class TemplateSitePair {
 
-	private ISite site;
-
 	private ITemplate template;
-
-	public ISite getSite() {
-		return site;
-	}
-
-	public void setSite(ISite site) {
-		this.site = site;
-	}
+	
+	private ISite site;
 
 	public ITemplate getTemplate() {
 		return template;
@@ -32,6 +24,16 @@ public class TemplateSitePair {
 		this.template = template;
 	}
 
+	public ISite getSite() {
+		return site;
+	}
+
+	public void setSite(ISite site) {
+		this.site = site;
+	}
+	
+	
 }
 
-// $Id$
+
+//$Id$

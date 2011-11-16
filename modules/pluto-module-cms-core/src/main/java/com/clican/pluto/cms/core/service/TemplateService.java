@@ -9,7 +9,7 @@ package com.clican.pluto.cms.core.service;
 
 import java.util.List;
 
-import com.clican.pluto.orm.desc.TemplateSitePair;
+import com.clican.pluto.orm.desc.TemplateSiteIdPair;
 import com.clican.pluto.orm.dynamic.inter.IDataModel;
 import com.clican.pluto.orm.dynamic.inter.ITemplate;
 
@@ -21,12 +21,12 @@ public interface TemplateService {
 
 	public ITemplate newTemplate();
 
-	public List<TemplateSitePair> getTemplateSitePairs(IDataModel dataModel);
+	public List<TemplateSiteIdPair> getTemplateSitePairs(IDataModel dataModel);
 
 	public void delete(ITemplate template);
 
 	public void configureTemplateDirectorySiteRelations(IDataModel dataModel,
-			List<TemplateSitePair> selectedTemplateSitePairs);
+			List<TemplateSiteIdPair> selectedTemplateSiteIdPairs);
 
 }
 
