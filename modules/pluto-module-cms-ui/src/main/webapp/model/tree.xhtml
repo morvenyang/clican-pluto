@@ -15,7 +15,7 @@
 		<ui:include src="newdatamodel.xhtml">
 			<ui:param name="projectName" value="Pluto" />
 		</ui:include>
-		<ui:include src="templateconfigure.xhtml">
+		<ui:include src="templateAndSiteconfigure.xhtml">
 			<ui:param name="projectName" value="Pluto" />
 		</ui:include>
 		<rich:panel id="directoryTreeTab" label="Directory Tree">
@@ -62,9 +62,9 @@
 											</rich:menuGroup>
 										</rich:menuGroup>
 										<rich:menuItem value="Delete"></rich:menuItem>
-										<rich:menuItem value="Configure Template"
-											id="configureTemplate" submitMode="ajax"
-											action="#{templateAction.configureTemplate(directory)}"
+										<rich:menuItem value="Configure Template and Site"
+											id="configureTemplateAndSite" submitMode="ajax"
+											action="#{templateAction.configureTemplateAndSite(directory)}"
 											reRender="templateConfigurationForm">
 											<rich:componentControl for="templateConfigurationPanel"
 												attachTo="configureTemplate" operation="show"

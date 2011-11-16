@@ -11,16 +11,21 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Factory;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Out;
 import org.jboss.seam.annotations.Scope;
+import org.jboss.seam.annotations.intercept.BypassInterceptors;
 
 import com.clican.pluto.cms.core.comparator.PropertyComparator;
+import com.clican.pluto.cms.core.service.SiteService;
 import com.clican.pluto.cms.core.service.TemplateService;
 import com.clican.pluto.cms.ui.action.BaseAction;
+import com.clican.pluto.cms.ui.ext.transfer.SelectItem2StringTransfer;
+import com.clican.pluto.orm.desc.TemplateSitePair;
 import com.clican.pluto.orm.dynamic.inter.IDataModel;
 import com.clican.pluto.orm.dynamic.inter.ITemplate;
 
@@ -36,6 +41,9 @@ public class TemplateAction extends BaseAction {
 	@In("#{templateService}")
 	private TemplateService templateService;
 
+	@In("#{siteService}")
+	private SiteService siteService;
+
 	@Out(required = false)
 	@In(required = false)
 	private List<ITemplate> templateList;
@@ -44,13 +52,15 @@ public class TemplateAction extends BaseAction {
 
 	private IDataModel dataModel;
 
-	private List<ITemplate> selectedTemplates;
+	private List<TemplateSitePair> selectedPairs;
 
-	private List<ITemplate> remainedTemplates;
+	private List<String> allTemplateList;
+
+	private List<String> allSiteList;
 
 	@Factory("templateList")
 	public void loadTemplateList() {
-		templateList = templateService.getTemplates();
+		templateList = templateService.getAllTemplates();
 	}
 
 	public void newTemplate() {
@@ -60,8 +70,9 @@ public class TemplateAction extends BaseAction {
 	public void save() {
 		templateService.save(template);
 		templateList.clear();
-		templateList.addAll(templateService.getTemplates());
-		Collections.sort(templateList, new PropertyComparator<ITemplate>("name"));
+		templateList.addAll(templateService.getAllTemplates());
+		Collections.sort(templateList,
+				new PropertyComparator<ITemplate>("name"));
 		cancel();
 	}
 
@@ -80,26 +91,26 @@ public class TemplateAction extends BaseAction {
 
 	private void clear() {
 		template = null;
-		remainedTemplates = null;
-		selectedTemplates = null;
 	}
 
-	public void configureTemplate(IDataModel dataModel) {
+	public void configureTemplateAndSite(IDataModel dataModel) {
 		this.dataModel = dataModel;
-		selectedTemplates = templateService.getSelectedTemplates(dataModel);
-		remainedTemplates = new ArrayList<ITemplate>();
-		for (ITemplate template : templateList) {
-			if (!selectedTemplates.contains(template)) {
-				remainedTemplates.add(template);
-			}
-		}
+		selectedPairs = templateService.getTemplateSitePairs(dataModel);
+		allTemplateList = new ArrayList<String>();
+		allSiteList = new ArrayList<String>();
+		CollectionUtils.collect(templateService.getAllTemplates(),
+				new SelectItem2StringTransfer(), allTemplateList);
+		CollectionUtils.collect(siteService.getAllSites(),
+				new SelectItem2StringTransfer(), allSiteList);
 	}
 
 	public void saveConfiguration() {
-		templateService.configureTemplates(dataModel, selectedTemplates);
+		templateService.configureTemplateDirectorySiteRelations(dataModel,
+				selectedPairs);
 		clear();
 	}
 
+	@BypassInterceptors
 	public ITemplate getTemplate() {
 		return template;
 	}
@@ -108,21 +119,33 @@ public class TemplateAction extends BaseAction {
 		this.template = template;
 	}
 
-	public List<ITemplate> getSelectedTemplates() {
-		return selectedTemplates;
+	@BypassInterceptors
+	public List<TemplateSitePair> getSelectedPairs() {
+		return selectedPairs;
 	}
 
-	public void setSelectedTemplates(List<ITemplate> selectedTemplates) {
-		this.selectedTemplates = selectedTemplates;
+	public void setSelectedPairs(List<TemplateSitePair> selectedPairs) {
+		this.selectedPairs = selectedPairs;
 	}
 
-	public List<ITemplate> getRemainedTemplates() {
-		return remainedTemplates;
+	@BypassInterceptors
+	public List<String> getAllTemplateList() {
+		return allTemplateList;
 	}
 
-	public void setRemainedTemplates(List<ITemplate> remainedTemplates) {
-		this.remainedTemplates = remainedTemplates;
+	public void setAllTemplateList(List<String> allTemplateList) {
+		this.allTemplateList = allTemplateList;
 	}
+
+	@BypassInterceptors
+	public List<String> getAllSiteList() {
+		return allSiteList;
+	}
+
+	public void setAllSiteList(List<String> allSiteList) {
+		this.allSiteList = allSiteList;
+	}
+
 }
 
 // $Id$
