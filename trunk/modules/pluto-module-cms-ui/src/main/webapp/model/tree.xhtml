@@ -106,16 +106,24 @@
 								</rich:column>
 								<rich:column>
 									<f:facet name="header">
-										<h:outputText value="Configure Templates" />
+										<h:outputText value="Configure Templates And Site" />
 									</f:facet>
-									<a4j:commandButton value="Configure"
-										action="#{templateAction.configureTemplate(dataModel)}"
-										reRender="templateConfigurationForm">
-										<rich:componentControl for="templateConfigurationPanel"
+									<a4j:commandButton value="Configure Template And Site"
+										action="#{templateAction.configureTemplateAndSite(dataModel)}"
+										reRender="templateAndSiteConfigurationForm" ajaxSingle="true">
+										<rich:componentControl for="templateAndSiteConfigurationPanel"
 											operation="show" event="onclick">
 										</rich:componentControl>
 									</a4j:commandButton>
 								</rich:column>
+								<rich:column>
+										<f:facet name="header">
+											<h:outputText value="Issue" />
+										</f:facet>
+										<a4j:commandButton value="Issue"
+										action="#{dataModelAction.issue(dataModel)}" ajaxSingle="true">
+									</a4j:commandButton>
+									</rich:column>
 							</rich:dataTable>
 							<rich:datascroller align="left" for="tableall"
 								fastControls="show" renderIfSinglePage="false" />
@@ -161,15 +169,23 @@
 									</rich:columns>
 									<rich:column>
 										<f:facet name="header">
-											<h:outputText value="Configure Templates" />
+											<h:outputText value="Configure Templates And Site" />
 										</f:facet>
-										<a4j:commandButton value="Configure"
-											action="#{templateAction.configureTemplate(dataModel)}"
-											reRender="templateConfigurationForm">
-											<rich:componentControl for="templateConfigurationPanel"
-												operation="show" event="onclick">
-											</rich:componentControl>
-										</a4j:commandButton>
+										<a4j:commandButton value="Configure Template And Site"
+										action="#{templateAction.configureTemplateAndSite(dataModel)}"
+										reRender="templateAndSiteConfigurationForm" ajaxSingle="true">
+										<rich:componentControl for="templateAndSiteConfigurationPanel"
+											operation="show" event="onclick">
+										</rich:componentControl>
+									</a4j:commandButton>
+									</rich:column>
+									<rich:column>
+										<f:facet name="header">
+											<h:outputText value="Issue" />
+										</f:facet>
+										<a4j:commandButton value="Issue"
+										action="#{dataModelAction.issue(dataModel)}" ajaxSingle="true">
+									</a4j:commandButton>
 									</rich:column>
 								</rich:dataTable>
 								<rich:datascroller align="left"
