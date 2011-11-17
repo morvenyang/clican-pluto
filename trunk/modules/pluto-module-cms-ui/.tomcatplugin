@@ -26,8 +26,10 @@
         <webClassPathEntry>C:/m2/commons-collections/commons-collections/3.2/commons-collections-3.2.jar</webClassPathEntry>
         <webClassPathEntry>C:/m2/commons-dbcp/commons-dbcp/1.2.2/commons-dbcp-1.2.2.jar</webClassPathEntry>
         <webClassPathEntry>C:/m2/commons-digester/commons-digester/1.8.1/commons-digester-1.8.1.jar</webClassPathEntry>
+        <webClassPathEntry>C:/m2/commons-io/commons-io/2.1/commons-io-2.1.jar</webClassPathEntry>
         <webClassPathEntry>C:/m2/commons-lang/commons-lang/2.3/commons-lang-2.3.jar</webClassPathEntry>
         <webClassPathEntry>C:/m2/commons-logging/commons-logging/1.1/commons-logging-1.1.jar</webClassPathEntry>
+        <webClassPathEntry>C:/m2/commons-net/commons-net/3.0.1/commons-net-3.0.1.jar</webClassPathEntry>
         <webClassPathEntry>C:/m2/commons-pool/commons-pool/1.3/commons-pool-1.3.jar</webClassPathEntry>
         <webClassPathEntry>C:/m2/dom4j/dom4j/1.6.1/dom4j-1.6.1.jar</webClassPathEntry>
         <webClassPathEntry>C:/m2/howl/howl-logger/0.1.11/howl-logger-0.1.11.jar</webClassPathEntry>
