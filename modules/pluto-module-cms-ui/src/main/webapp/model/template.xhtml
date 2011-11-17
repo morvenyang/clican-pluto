@@ -35,7 +35,7 @@
 						<h:outputText value="修改 " />
 					</f:facet>
 					<a4j:commandButton value="修改"
-						action="#{templateAction.edit(dataModelDesc)}" ajaxSingle="true"
+						action="#{templateAction.edit(template)}" ajaxSingle="true"
 						reRender="newTemplateForm">
 						<rich:componentControl for="newTemplatePanel" operation="show"
 							event="onclick">
@@ -103,7 +103,7 @@
 					<a4j:commandButton action="#{templateAction.save}" value="Save"
 						reRender="templateTable"
 						oncomplete="Richfaces.hideModalPanel('newTemplatePanel');" />
-					<h:commandButton value="Cancel"
+					<h:commandButton value="Cancel" type="reset"
 						oncomplete="Richfaces.hideModalPanel('newTemplatePanel');" />
 				</h:panelGrid>
 			</a4j:form>
