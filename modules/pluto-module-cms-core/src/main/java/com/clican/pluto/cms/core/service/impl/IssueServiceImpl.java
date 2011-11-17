@@ -269,6 +269,7 @@ public class IssueServiceImpl extends BaseService implements IssueService {
 				if (!relativePath.endsWith("/")) {
 					relativePath = relativePath + "/";
 				}
+				client.mkd(relativePath);
 				os = client.appendFileStream(relativePath + dataModel.getName()
 						+ "." + template.getSuffix());
 			} else if (site.getUrl().startsWith("file://")) {

@@ -39,7 +39,11 @@ public class SiteServiceImpl implements SiteService {
 
 	@Transactional
 	public void save(ISite site) {
-		siteDao.save(site);
+		if (site.getId() != null) {
+			siteDao.update(site);
+		} else {
+			siteDao.save(site);
+		}
 	}
 
 	@Transactional
@@ -89,7 +93,12 @@ public class SiteServiceImpl implements SiteService {
 				return null;
 			}
 			if (StringUtils.isNotEmpty(site.getUsername())) {
-				client.login(site.getUsername(), site.getPassword());
+				boolean login = client.login(site.getUsername(),
+						site.getPassword());
+				if (!login) {
+					client.disconnect();
+					return null;
+				}
 			}
 
 			return client;
