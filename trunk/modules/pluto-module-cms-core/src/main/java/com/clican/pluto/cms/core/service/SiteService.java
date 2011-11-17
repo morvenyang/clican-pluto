@@ -27,9 +27,9 @@ public interface SiteService {
 
 	public void writeFile(FTPClient client, String relativePath, InputStream is)
 			throws IOException;
-	
+
 	public void writeFile(File file, String relativePath, InputStream is)
-	throws IOException;
+			throws IOException;
 
 	public SocketClient getClient(ISite site) throws IOException;
 }
