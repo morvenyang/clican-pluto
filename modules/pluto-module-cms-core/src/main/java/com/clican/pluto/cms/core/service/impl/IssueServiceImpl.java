@@ -90,15 +90,19 @@ public class IssueServiceImpl extends BaseService implements IssueService {
 			queue.add(iq);
 		}
 		IDirectory directory = dataModel.getParent();
-		while (directory != null
-				&& directory.getIssueMode() == IssueMode.EXTENDS.getMode()) {
+		while (directory != null) {
 			List<ITemplateDirectorySiteRelation> tdrList = templateDao
 					.getTemplateDirectorySiteRelations(directory);
 			for (ITemplateDirectorySiteRelation tdr : tdrList) {
 				IssueQueue iq = convertToIssueQueue(tdr, dataModel);
 				queue.add(iq);
 			}
-			directory = directory.getParent();
+			if (directory.getIssueMode() == IssueMode.EXTENDS.getMode()) {
+				directory = directory.getParent();
+			} else {
+				break;
+			}
+
 		}
 		this.addIntoIssueQueue(queue, true);
 	}
@@ -156,9 +160,7 @@ public class IssueServiceImpl extends BaseService implements IssueService {
 				}
 			}
 		}
-		while (parentDirectory != null
-				&& parentDirectory.getIssueMode() == IssueMode.EXTENDS
-						.getMode()) {
+		while (parentDirectory != null) {
 			List<ITemplateDirectorySiteRelation> tdrList = templateDao
 					.getTemplateDirectorySiteRelations(parentDirectory);
 			for (ITemplateDirectorySiteRelation tdr : tdrList) {
@@ -167,7 +169,12 @@ public class IssueServiceImpl extends BaseService implements IssueService {
 					queue.add(iq);
 				}
 			}
-			parentDirectory = parentDirectory.getParent();
+			if (parentDirectory.getIssueMode() == IssueMode.EXTENDS.getMode()) {
+				parentDirectory = parentDirectory.getParent();
+			} else {
+				break;
+			}
+
 		}
 		this.addIntoIssueQueue(queue, true);
 	}
