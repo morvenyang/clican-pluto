@@ -55,6 +55,10 @@ public class SiteAction extends BaseAction {
         siteList = siteService.getAllSites();
     }
 
+    public void edit(ISite site) {
+        this.site=site;
+    }
+    
     public void delete(ISite site) {
         siteService.delete(site);
         siteList = siteService.getAllSites();
