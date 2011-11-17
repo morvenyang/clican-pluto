@@ -7,9 +7,12 @@
  */
 package com.clican.pluto.cms.core.service.impl;
 
+import java.io.File;
 import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -24,6 +27,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.clican.pluto.cms.core.service.DataModelService;
 import com.clican.pluto.cms.core.service.IssueService;
+import com.clican.pluto.cms.core.service.SiteService;
 import com.clican.pluto.cms.dao.DataModelDao;
 import com.clican.pluto.cms.dao.SiteDao;
 import com.clican.pluto.cms.dao.TemplateDao;
@@ -57,6 +61,8 @@ public class IssueServiceImpl extends BaseService implements IssueService {
 
 	private DataModelDao dataModelDao;
 
+	private SiteService siteService;
+
 	public void setTemplateDao(TemplateDao templateDao) {
 		this.templateDao = templateDao;
 	}
@@ -79,6 +85,10 @@ public class IssueServiceImpl extends BaseService implements IssueService {
 
 	public void setDataModelService(DataModelService dataModelService) {
 		this.dataModelService = dataModelService;
+	}
+
+	public void setSiteService(SiteService siteService) {
+		this.siteService = siteService;
 	}
 
 	@Transactional(readOnly = true)
@@ -127,7 +137,10 @@ public class IssueServiceImpl extends BaseService implements IssueService {
 		iq.setDataModelName(dataModel.getClass()
 				.getAnnotation(DynamicModel.class).name());
 		iq.setIssueStatus(IssueStatus.NOT_ISSUE);
-		iq.setRelativePath(rel.getRelativePath());
+		String path1 = rel.getDirectory().getPath();
+		String path2 = dataModel.getParent().getPath();
+		String diff = path2.replaceAll(path1, "");
+		iq.setRelativePath(rel.getRelativePath() + diff);
 		iq.setSiteId(rel.getSite().getId());
 		iq.setTemplateId(rel.getTemplate().getId());
 		return iq;
@@ -207,7 +220,7 @@ public class IssueServiceImpl extends BaseService implements IssueService {
 								.getClass(Constants.DYNAMIC_MODEL_PACKAGE + "."
 										+ iq.getDataModelName()), iq
 								.getDataModelId());
-				issue(site, template, dataModel);
+				issue(site, template, dataModel, iq.getRelativePath(), null);
 			}
 		} else {
 			for (int i = 0; i < queue.size(); i++) {
@@ -219,16 +232,18 @@ public class IssueServiceImpl extends BaseService implements IssueService {
 								.getClass(Constants.DYNAMIC_MODEL_PACKAGE + "."
 										+ iq.getDataModelName()), iq
 								.getDataModelId());
-				issue(site, template, dataModel);
+				issue(site, template, dataModel, iq.getRelativePath(), null);
 			}
 		}
 	}
 
-	private void issue(ISite site, ITemplate template, IDataModel dataModel) {
+	private boolean issue(ISite site, ITemplate template, IDataModel dataModel,
+			String relativePath, Map<ISite, FTPClient> ftpMap) {
 		Template t = null;
 		Writer w = null;
 		VelocityContext velocityContext = new VelocityContext();
 		velocityContext.put("this", dataModel);
+		FTPClient client = null;
 		try {
 			SimpleNode node = RuntimeSingleton.getRuntimeServices().parse(
 					template.getContent(), template.getName());
@@ -237,17 +252,55 @@ public class IssueServiceImpl extends BaseService implements IssueService {
 			t.setRuntimeServices(RuntimeSingleton.getRuntimeServices());
 			t.setData(node);
 			t.initDocument();
-			w = new OutputStreamWriter(new FileOutputStream("c:/aa/"
-					+ dataModel.getName() + "." + template.getSuffix()),
-					"utf-8");
+			OutputStream os = null;
+			if (site.getUrl().startsWith("ftp://")) {
+				client = null;
+				if (ftpMap != null) {
+					client = ftpMap.get(site);
+				}
+				if (client == null) {
+					client = siteService.getFTPClient(site);
+				}
+				if (client == null) {
+					log.error("This site[" + site.getName()
+							+ "] is unavailable");
+					return false;
+				}
+				if (!relativePath.endsWith("/")) {
+					relativePath = relativePath + "/";
+				}
+				os = client.appendFileStream(relativePath + dataModel.getName()
+						+ "." + template.getSuffix());
+			} else if (site.getUrl().startsWith("file://")) {
+				String filePath = site.getUrl().substring(7);
+				File file = new File(filePath + relativePath);
+				if (file.exists()) {
+					file.mkdirs();
+				}
+				os = new FileOutputStream(new File(file, dataModel.getName()
+						+ "." + template.getSuffix()));
+			} else {
+				throw new UnknownHostException(site.getUrl());
+			}
+			w = new OutputStreamWriter(os, "utf-8");
 			t.merge(velocityContext, w);
 			w.flush();
+			return true;
 		} catch (Exception e) {
 			log.error("", e);
+			return false;
 		} finally {
 			try {
 				if (w != null) {
 					w.close();
+				}
+			} catch (Exception e) {
+				log.error("", e);
+			}
+			try {
+				if (ftpMap == null && client != null) {
+					client.logout();
+					client.disconnect();
 				}
 			} catch (Exception e) {
 				log.error("", e);

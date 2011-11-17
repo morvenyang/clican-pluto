@@ -7,12 +7,9 @@
  */
 package com.clican.pluto.cms.core.service;
 
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
 
-import org.apache.commons.net.SocketClient;
 import org.apache.commons.net.ftp.FTPClient;
 
 import com.clican.pluto.orm.dynamic.inter.ISite;
@@ -25,13 +22,7 @@ public interface SiteService {
 
 	public void delete(ISite site);
 
-	public void writeFile(FTPClient client, String relativePath, InputStream is)
-			throws IOException;
-
-	public void writeFile(File file, String relativePath, InputStream is)
-			throws IOException;
-
-	public SocketClient getClient(ISite site) throws IOException;
+	public FTPClient getFTPClient(ISite site) throws IOException;
 }
 
 // $Id$
