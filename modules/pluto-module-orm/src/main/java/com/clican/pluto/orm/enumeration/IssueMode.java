@@ -9,8 +9,11 @@ package com.clican.pluto.orm.enumeration;
 
 public enum IssueMode {
 
-	OVERRIDE(0),
+	NOT_EXTENDS(0),
 	
+	/**
+	 * 在该Directory上设置的模板和站点是可以被子Directory和Model使用的
+	 */
 	EXTENDS(1);
 	
 	private int mode;
