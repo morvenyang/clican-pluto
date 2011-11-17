@@ -16,9 +16,9 @@ public interface IssueService {
 
 	public void issue(IDataModel dataModel);
 
-	public void issue(List<IDataModel> dataModels);
+	public void issue(List<IDataModel> dataModels, IDirectory parentDirectory);
 
-	public void issue(IDirectory directory,boolean recursion);
+	public void issue(IDirectory directory, boolean recursion);
 
 }
 

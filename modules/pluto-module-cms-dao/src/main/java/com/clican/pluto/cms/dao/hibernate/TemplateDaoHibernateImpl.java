@@ -134,7 +134,7 @@ public class TemplateDaoHibernateImpl extends BaseDao implements TemplateDao {
 		sql.append("Template t,");
 		sql.append("Template");
 		sql.append(modelName);
-		sql.append("SiteRelation r where r.template=t and r.dataModel=m and m.parent.path like :pathExpression");
+		sql.append("SiteRelation r where r.template=t and r.dataModel=m and m.parent.path like :pathExpression order by m.parent.path,m.name");
 		return getHibernateTemplate().executeFind(new HibernateCallback() {
 			public Object doInHibernate(Session session) throws HibernateException, SQLException {
 				Query query = session.createQuery(sql.toString());

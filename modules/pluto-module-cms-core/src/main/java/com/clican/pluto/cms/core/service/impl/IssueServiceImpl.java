@@ -21,8 +21,13 @@ import org.apache.velocity.runtime.RuntimeSingleton;
 import org.apache.velocity.runtime.parser.node.SimpleNode;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.clican.pluto.cms.core.service.DataModelService;
 import com.clican.pluto.cms.core.service.IssueService;
+import com.clican.pluto.cms.dao.DataModelDao;
+import com.clican.pluto.cms.dao.SiteDao;
 import com.clican.pluto.cms.dao.TemplateDao;
+import com.clican.pluto.common.constant.Constants;
+import com.clican.pluto.common.util.BeanUtils;
 import com.clican.pluto.orm.annotation.DynamicModel;
 import com.clican.pluto.orm.desc.ModelDescription;
 import com.clican.pluto.orm.dynamic.inter.ClassLoaderUtil;
@@ -30,9 +35,12 @@ import com.clican.pluto.orm.dynamic.inter.IDataModel;
 import com.clican.pluto.orm.dynamic.inter.IDirectory;
 import com.clican.pluto.orm.dynamic.inter.ISite;
 import com.clican.pluto.orm.dynamic.inter.ITemplate;
+import com.clican.pluto.orm.dynamic.inter.ITemplateDirectorySiteRelation;
 import com.clican.pluto.orm.dynamic.inter.ITemplateModelSiteRelation;
 import com.clican.pluto.orm.dynamic.inter.ModelContainer;
 import com.clican.pluto.orm.enumeration.IssueMode;
+import com.clican.pluto.orm.enumeration.IssueStatus;
+import com.clican.pluto.orm.model.IssueQueue;
 
 public class IssueServiceImpl extends BaseService implements IssueService {
 
@@ -42,8 +50,22 @@ public class IssueServiceImpl extends BaseService implements IssueService {
 
 	private ClassLoaderUtil classLoaderUtil;
 
+	private DataModelService dataModelService;
+
+	private SiteDao siteDao;
+
+	private DataModelDao dataModelDao;
+
 	public void setTemplateDao(TemplateDao templateDao) {
 		this.templateDao = templateDao;
+	}
+
+	public void setSiteDao(SiteDao siteDao) {
+		this.siteDao = siteDao;
+	}
+
+	public void setDataModelDao(DataModelDao dataModelDao) {
+		this.dataModelDao = dataModelDao;
 	}
 
 	public void setModelContainer(ModelContainer modelContainer) {
@@ -54,20 +76,61 @@ public class IssueServiceImpl extends BaseService implements IssueService {
 		this.classLoaderUtil = classLoaderUtil;
 	}
 
-	@Transactional(readOnly = true)
-	public void issue(IDataModel dataModel) {
-		if (dataModel.getParent().getIssueMode() == IssueMode.EXTENDS.getMode()) {
-			
-		}
-		List<ITemplateModelSiteRelation> tmrList = templateDao
-				.getTemplateModelSiteRelations(dataModel);
-		for (ITemplateModelSiteRelation tmr : tmrList) {
-			issue(tmr.getSite(), tmr.getTemplate(), tmr.getDataModel());
-		}
+	public void setDataModelService(DataModelService dataModelService) {
+		this.dataModelService = dataModelService;
 	}
 
 	@Transactional(readOnly = true)
-	public void issue(List<IDataModel> dataModels) {
+	public void issue(IDataModel dataModel) {
+		List<IssueQueue> queue = new ArrayList<IssueQueue>();
+		List<ITemplateModelSiteRelation> tmrList = templateDao
+				.getTemplateModelSiteRelations(dataModel);
+		for (ITemplateModelSiteRelation tmr : tmrList) {
+			IssueQueue iq = convertToIssueQueue(tmr);
+			queue.add(iq);
+		}
+		IDirectory directory = dataModel.getParent();
+		while (directory != null
+				&& directory.getIssueMode() == IssueMode.EXTENDS.getMode()) {
+			List<ITemplateDirectorySiteRelation> tdrList = templateDao
+					.getTemplateDirectorySiteRelations(directory);
+			for (ITemplateDirectorySiteRelation tdr : tdrList) {
+				IssueQueue iq = convertToIssueQueue(tdr, dataModel);
+				queue.add(iq);
+			}
+			directory = directory.getParent();
+		}
+		this.addIntoIssueQueue(queue, true);
+	}
+
+	private IssueQueue convertToIssueQueue(ITemplateModelSiteRelation rel) {
+		IssueQueue iq = new IssueQueue();
+		iq.setDataModelId(rel.getDataModel().getId());
+		iq.setDataModelName(rel.getDataModel().getClass()
+				.getAnnotation(DynamicModel.class).name());
+		iq.setIssueStatus(IssueStatus.NOT_ISSUE);
+		iq.setRelativePath(rel.getRelativePath());
+		iq.setSiteId(rel.getSite().getId());
+		iq.setTemplateId(rel.getTemplate().getId());
+		return iq;
+	}
+
+	private IssueQueue convertToIssueQueue(ITemplateDirectorySiteRelation rel,
+			IDataModel dataModel) {
+		IssueQueue iq = new IssueQueue();
+		iq.setDataModelId(dataModel.getId());
+		iq.setDataModelName(dataModel.getClass()
+				.getAnnotation(DynamicModel.class).name());
+		iq.setIssueStatus(IssueStatus.NOT_ISSUE);
+		iq.setRelativePath(rel.getRelativePath());
+		iq.setSiteId(rel.getSite().getId());
+		iq.setTemplateId(rel.getTemplate().getId());
+		return iq;
+	}
+
+	@Transactional(readOnly = true)
+	public void issue(List<IDataModel> dataModels, IDirectory parentDirectory) {
+		List<IssueQueue> queue = new ArrayList<IssueQueue>();
 		Map<ModelDescription, List<IDataModel>> dataModelMap = new HashMap<ModelDescription, List<IDataModel>>();
 		for (IDataModel dataModel : dataModels) {
 			ModelDescription md = modelContainer.getModelDesc(classLoaderUtil
@@ -88,32 +151,68 @@ public class IssueServiceImpl extends BaseService implements IssueService {
 						.getTemplateModelSiteRelations(
 								dataModelList.subList(start, end), md);
 				for (ITemplateModelSiteRelation tmr : tmrList) {
-					issue(tmr.getSite(), tmr.getTemplate(), tmr.getDataModel());
+					IssueQueue iq = convertToIssueQueue(tmr);
+					queue.add(iq);
 				}
 			}
 		}
+		while (parentDirectory != null
+				&& parentDirectory.getIssueMode() == IssueMode.EXTENDS
+						.getMode()) {
+			List<ITemplateDirectorySiteRelation> tdrList = templateDao
+					.getTemplateDirectorySiteRelations(parentDirectory);
+			for (ITemplateDirectorySiteRelation tdr : tdrList) {
+				for (IDataModel dataModel : dataModels) {
+					IssueQueue iq = convertToIssueQueue(tdr, dataModel);
+					queue.add(iq);
+				}
+			}
+			parentDirectory = parentDirectory.getParent();
+		}
+		this.addIntoIssueQueue(queue, true);
 	}
 
 	@Transactional(readOnly = true)
 	public void issue(IDirectory directory, boolean recursion) {
-		String pathExpression = directory.getPath();
+		List<IDataModel> dataModels = dataModelService.getDataModels(directory,
+				null, null);
+		issue(dataModels, directory);
 		if (recursion) {
-			pathExpression = pathExpression + "%";
-		}
-		for (ModelDescription md : modelContainer.getModelDescs()) {
-			int count = templateDao.getTemplateModelSiteRelationCount(md,
-					pathExpression);
-			for (int i = 0; i < count; i = i + 1000) {
-				int start = i;
-				int end = i + 1000 > count ? count : i + 1000;
-				List<ITemplateModelSiteRelation> tmrList = templateDao
-						.getTemplateModelSiteRelations(md, pathExpression,
-								start, end);
-				for (ITemplateModelSiteRelation tmr : tmrList) {
-					issue(tmr.getSite(), tmr.getTemplate(), tmr.getDataModel());
-				}
+			for (IDirectory child : directory.getChildren()) {
+				issue(child, recursion);
 			}
+		}
+	}
 
+	private void addIntoIssueQueue(List<IssueQueue> queue, boolean reverse) {
+		Map<Long, ISite> siteMap = BeanUtils.convertToMap(
+				siteDao.getAllSites(), "id");
+		Map<Long, ITemplate> templateMap = BeanUtils.convertToMap(
+				templateDao.getAllTemplates(), "id");
+		if (reverse) {
+			for (int i = queue.size() - 1; i >= 0; i--) {
+				IssueQueue iq = queue.get(i);
+				ISite site = siteMap.get(iq.getSiteId());
+				ITemplate template = templateMap.get(iq.getTemplateId());
+				IDataModel dataModel = dataModelDao.loadDataModel(
+						classLoaderUtil
+								.getClass(Constants.DYNAMIC_MODEL_PACKAGE + "."
+										+ iq.getDataModelName()), iq
+								.getDataModelId());
+				issue(site, template, dataModel);
+			}
+		} else {
+			for (int i = 0; i < queue.size(); i++) {
+				IssueQueue iq = queue.get(i);
+				ISite site = siteMap.get(iq.getSiteId());
+				ITemplate template = templateMap.get(iq.getTemplateId());
+				IDataModel dataModel = dataModelDao.loadDataModel(
+						classLoaderUtil
+								.getClass(Constants.DYNAMIC_MODEL_PACKAGE + "."
+										+ iq.getDataModelName()), iq
+								.getDataModelId());
+				issue(site, template, dataModel);
+			}
 		}
 	}
 
