@@ -7,13 +7,17 @@
  */
 package com.clican.pluto.orm.enumeration;
 
+/**
+ * 默认情况下Directory上设置的Site和Template只会被一级子DataModel使用
+ * 如果该Directory上设置的是EXTENDS状态的话，就可以继承上级Directory的设置，并且可以递归继承
+ *
+ * @author weizha
+ *
+ */
 public enum IssueMode {
 
-	NOT_EXTENDS(0),
+	OVERRIDE(0),
 	
-	/**
-	 * 在该Directory上设置的模板和站点是可以被子Directory和Model使用的
-	 */
 	EXTENDS(1);
 	
 	private int mode;
