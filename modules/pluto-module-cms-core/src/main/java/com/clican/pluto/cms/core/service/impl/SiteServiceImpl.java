@@ -7,19 +7,13 @@
  */
 package com.clican.pluto.cms.core.service.impl;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.UnknownHostException;
 import java.util.List;
 
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.commons.net.SocketClient;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPReply;
 import org.springframework.transaction.annotation.Transactional;
@@ -53,7 +47,7 @@ public class SiteServiceImpl implements SiteService {
 		siteDao.delete(site);
 	}
 
-	public SocketClient getClient(ISite site) throws IOException {
+	public FTPClient getFTPClient(ISite site) throws IOException {
 		String url = site.getUrl();
 		if (url == null) {
 			return null;
@@ -101,35 +95,6 @@ public class SiteServiceImpl implements SiteService {
 			return client;
 		}
 		return null;
-	}
-
-	public void writeFile(FTPClient client, String relativePath, InputStream is)
-			throws IOException {
-		OutputStream os = client.appendFileStream(relativePath);
-		writeFile(os, is);
-	}
-
-	public void writeFile(File file, String relativePath, InputStream is)
-			throws IOException {
-		File outputFile = new File(file, relativePath);
-		writeFile(new FileOutputStream(outputFile), is);
-	}
-
-	private void writeFile(OutputStream os, InputStream is) throws IOException {
-		try {
-			IOUtils.copy(is, os);
-		} finally {
-			try {
-				os.close();
-			} catch (Exception e) {
-				log.error("", e);
-			}
-			try {
-				is.close();
-			} catch (Exception e) {
-				log.error("", e);
-			}
-		}
 	}
 
 }
