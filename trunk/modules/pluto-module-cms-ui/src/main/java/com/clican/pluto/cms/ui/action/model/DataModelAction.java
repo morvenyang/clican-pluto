@@ -113,8 +113,7 @@ public class DataModelAction extends BaseAction {
 				}
 			}
 		}
-
-		issueService.issue(dataModels);
+		issueService.issue(dataModels, parentDirectory);
 	}
 
 	public void issue(IDataModel dataModel) {
