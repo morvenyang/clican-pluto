@@ -48,6 +48,8 @@ public class IssueQueue implements Serializable {
 	private String relativePath;
 	
 	private IssueStatus issueStatus;
+	
+	private String localTempPath;
 
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -131,6 +133,15 @@ public class IssueQueue implements Serializable {
 
 	public void setIssueStatus(IssueStatus issueStatus) {
 		this.issueStatus = issueStatus;
+	}
+
+	@Column(name="LOCAL_TEMP_PATH")
+	public String getLocalTempPath() {
+		return localTempPath;
+	}
+
+	public void setLocalTempPath(String localTempPath) {
+		this.localTempPath = localTempPath;
 	}
 	
 	
