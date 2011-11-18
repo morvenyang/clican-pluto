@@ -14,6 +14,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.clican.pluto.cms.core.service.IssueQueueService;
 import com.clican.pluto.cms.dao.IssueQueueDao;
@@ -51,18 +52,22 @@ public class IssueQueueServiceImpl implements IssueQueueService {
 				TimeUnit.SECONDS, issueQueue);
 	}
 
+	@Transactional
 	public void issueImmediately(List<IssueQueue> queueList) {
-		
+		issueSchedule(queueList);
 	}
 
+	@Transactional
 	public void issueSchedule(List<IssueQueue> queueList) {
 		for (IssueQueue queue : queueList) {
 			issueQueueDao.save(queue);
 		}
 	}
 
+	/**
+	 * There is no transaction on this method
+	 */
 	public void onCheckIssueQueue() {
-		// TODO Auto-generated method stub
 
 	}
 
