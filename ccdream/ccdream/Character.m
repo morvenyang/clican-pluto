@@ -21,15 +21,24 @@
         self.airMobility = [Mobility initWithDefault];
         self.landMobility = [Mobility initWithDefault];
         self.characterSprite = [CCSprite spriteWithFile:spriteFile];
-        self.characterSprite.position = CGPointMake(0, 0);
+        self.characterSprite.scale=0.5; 
+        self.characterSprite.position = CGPointMake(16, 16);
+ 
         [parentNode addChild:self.characterSprite];
+        [[CCTouchDispatcher sharedDispatcher] addTargetedDelegate:self priority:-1 swallowsTouches:YES];
     }
-    [[CCScheduler sharedScheduler] scheduleUpdateForTarget:self priority:0 paused:NO];
     return self;
 }
 
+
 - (BOOL)ccTouchBegan:(UITouch *)touch withEvent:(UIEvent *)even{
-    CCLOG(@"Character is touched");
+    if([PositionUtil isTouch:touch forNode:self.characterSprite]){
+        CCLOG(@"Character is touched");
+        return NO;
+    }else {
+        CCLOG(@"Map is touched");
+    }
+    
     return YES;
 }
 - (void)dealloc {
@@ -41,4 +50,6 @@
     _characterSprite = nil;
 	[super dealloc];
 }
+
+
 @end

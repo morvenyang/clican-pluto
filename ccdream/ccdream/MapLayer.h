@@ -8,10 +8,13 @@
 
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
+#import "Character.h"
 
 @interface MapLayer : CCLayer {
-
+    Character* _char1;
 }
+
+@property (nonatomic,retain) Character* char1;
 
 +(CCScene *) scene;
 
