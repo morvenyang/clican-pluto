@@ -121,10 +121,10 @@
 		720CE0DB157AC4B600DB894D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 720CE0DA157AC4B600DB894D /* main.m */; };
 		720CE0DE157AC4B600DB894D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 720CE0DD157AC4B600DB894D /* AppDelegate.m */; };
 		720CE0E1157AC4B600DB894D /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 720CE0E0157AC4B600DB894D /* RootViewController.m */; };
-		720CE0E4157AC4B600DB894D /* HelloWorldLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 720CE0E3157AC4B600DB894D /* HelloWorldLayer.m */; };
 		720CE0F1157AC55F00DB894D /* MapLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 720CE0F0157AC55F00DB894D /* MapLayer.m */; };
 		720CE10A157ADDFC00DB894D /* Tilesheet-land-v5.png in Resources */ = {isa = PBXBuildFile; fileRef = 720CE108157ADDFC00DB894D /* Tilesheet-land-v5.png */; };
 		720CE10B157ADDFC00DB894D /* ccdream_map01.tmx in Resources */ = {isa = PBXBuildFile; fileRef = 720CE109157ADDFC00DB894D /* ccdream_map01.tmx */; };
+		723DC29D157B90F7006BDA9B /* PositionUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 723DC29C157B90F7006BDA9B /* PositionUtil.m */; };
 		727F5066157B0F9B007BBA9F /* trs-037.gif in Resources */ = {isa = PBXBuildFile; fileRef = 727F5064157B0F9B007BBA9F /* trs-037.gif */; };
 		727F5067157B0F9B007BBA9F /* trs-012.gif in Resources */ = {isa = PBXBuildFile; fileRef = 727F5065157B0F9B007BBA9F /* trs-012.gif */; };
 		727F506B157B102E007BBA9F /* Character.m in Sources */ = {isa = PBXBuildFile; fileRef = 727F506A157B102E007BBA9F /* Character.m */; };
@@ -364,13 +364,13 @@
 		720CE0DD157AC4B600DB894D /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		720CE0DF157AC4B600DB894D /* RootViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
 		720CE0E0157AC4B600DB894D /* RootViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
-		720CE0E2157AC4B600DB894D /* HelloWorldLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HelloWorldLayer.h; sourceTree = "<group>"; };
-		720CE0E3157AC4B600DB894D /* HelloWorldLayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HelloWorldLayer.m; sourceTree = "<group>"; };
 		720CE0E5157AC4B600DB894D /* GameConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameConfig.h; sourceTree = "<group>"; };
 		720CE0EF157AC55F00DB894D /* MapLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapLayer.h; sourceTree = "<group>"; };
 		720CE0F0157AC55F00DB894D /* MapLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapLayer.m; sourceTree = "<group>"; };
 		720CE108157ADDFC00DB894D /* Tilesheet-land-v5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Tilesheet-land-v5.png"; path = "Resources/Tilesheet-land-v5.png"; sourceTree = "<group>"; };
 		720CE109157ADDFC00DB894D /* ccdream_map01.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = ccdream_map01.tmx; path = Resources/ccdream_map01.tmx; sourceTree = "<group>"; };
+		723DC29B157B90F7006BDA9B /* PositionUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PositionUtil.h; sourceTree = "<group>"; };
+		723DC29C157B90F7006BDA9B /* PositionUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PositionUtil.m; sourceTree = "<group>"; };
 		727F5064157B0F9B007BBA9F /* trs-037.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = "trs-037.gif"; path = "Resources/trs-037.gif"; sourceTree = "<group>"; };
 		727F5065157B0F9B007BBA9F /* trs-012.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = "trs-012.gif"; path = "Resources/trs-012.gif"; sourceTree = "<group>"; };
 		727F5069157B102E007BBA9F /* Character.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Character.h; sourceTree = "<group>"; };
@@ -433,6 +433,7 @@
 		720CDF8A157AC4B400DB894D /* ccdream */ = {
 			isa = PBXGroup;
 			children = (
+				723DC29A157B90DE006BDA9B /* util */,
 				720CE0EE157AC50D00DB894D /* model */,
 				720CE0ED157AC4E200DB894D /* workflow */,
 				720CE0EC157AC4D700DB894D /* scene */,
@@ -441,8 +442,6 @@
 				720CE0DD157AC4B600DB894D /* AppDelegate.m */,
 				720CE0DF157AC4B600DB894D /* RootViewController.h */,
 				720CE0E0157AC4B600DB894D /* RootViewController.m */,
-				720CE0E2157AC4B600DB894D /* HelloWorldLayer.h */,
-				720CE0E3157AC4B600DB894D /* HelloWorldLayer.m */,
 				720CE0E5157AC4B600DB894D /* GameConfig.h */,
 				720CDF8B157AC4B400DB894D /* Resources */,
 				720CDF9F157AC4B400DB894D /* libs */,
@@ -817,6 +816,15 @@
 			name = model;
 			sourceTree = "<group>";
 		};
+		723DC29A157B90DE006BDA9B /* util */ = {
+			isa = PBXGroup;
+			children = (
+				723DC29B157B90F7006BDA9B /* PositionUtil.h */,
+				723DC29C157B90F7006BDA9B /* PositionUtil.m */,
+			);
+			name = util;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -988,10 +996,10 @@
 				720CE0DB157AC4B600DB894D /* main.m in Sources */,
 				720CE0DE157AC4B600DB894D /* AppDelegate.m in Sources */,
 				720CE0E1157AC4B600DB894D /* RootViewController.m in Sources */,
-				720CE0E4157AC4B600DB894D /* HelloWorldLayer.m in Sources */,
 				720CE0F1157AC55F00DB894D /* MapLayer.m in Sources */,
 				727F506B157B102E007BBA9F /* Character.m in Sources */,
 				727F506E157B1071007BBA9F /* Mobility.m in Sources */,
+				723DC29D157B90F7006BDA9B /* PositionUtil.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
