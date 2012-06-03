@@ -5,6 +5,7 @@
 		<artifactId>master</artifactId>
 		<groupId>com.clican.pluto</groupId>
 		<version>0.0.1</version>
+
 		<relativePath>
 			../pluto-application-master/pom.xml
 		</relativePath>
