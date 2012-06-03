@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
 #import "Mobility.h"
+#import "PositionUtil.h"
 
 @interface Character : NSObject<CCTargetedTouchDelegate> {
     Mobility* _landMobility;
@@ -20,4 +21,9 @@
 @property (nonatomic,retain) Mobility* airMobility;
 @property (nonatomic,retain) CCSprite* characterSprite;
 
+
+-(id)initWithParentNode:(CCNode*) parentNode spriteFile:(NSString*) spriteFile;
+
 @end
+
+

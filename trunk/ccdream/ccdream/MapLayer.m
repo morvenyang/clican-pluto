@@ -11,9 +11,12 @@
 
 @implementation MapLayer
 
+@synthesize char1 = _char1;
+
 +(CCScene *) scene{
     CCScene* scene = [CCScene node];
     MapLayer* layer = [MapLayer node];
+    layer.char1=[[[Character alloc] initWithParentNode:layer spriteFile:@"trs-012.gif"] autorelease];
     [scene addChild:layer];
     return scene;
 }
