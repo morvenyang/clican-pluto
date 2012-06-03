@@ -10,12 +10,14 @@
 #import "cocos2d.h"
 #import "Mobility.h"
 
-@interface Character : NSObject {
+@interface Character : NSObject<CCTargetedTouchDelegate> {
     Mobility* _landMobility;
     Mobility* _airMobility;
+    CCSprite* _characterSprite;
 }
 
 @property (nonatomic,retain) Mobility* landMobility;
 @property (nonatomic,retain) Mobility* airMobility;
+@property (nonatomic,retain) CCSprite* characterSprite;
 
 @end
