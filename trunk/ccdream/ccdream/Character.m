@@ -34,6 +34,7 @@
 - (BOOL)ccTouchBegan:(UITouch *)touch withEvent:(UIEvent *)even{
     if([PositionUtil isTouch:touch forNode:self.characterSprite]){
         CCLOG(@"Character is touched");
+        
         return NO;
     }else {
         CCLOG(@"Map is touched");
@@ -41,6 +42,9 @@
     
     return YES;
 }
+
+
+
 - (void)dealloc {
     [_airMobility release];
     _airMobility = nil;

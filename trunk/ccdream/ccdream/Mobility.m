@@ -24,6 +24,7 @@
 
 +(id) initWithDefault{
     Mobility* mobility = [[Mobility alloc] init];
+    [mobility autorelease];
     return mobility;
 }
 

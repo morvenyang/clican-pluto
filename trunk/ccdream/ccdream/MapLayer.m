@@ -31,4 +31,11 @@
     }
     return self;
 }
+
+- (void)selectCharacter:(Character*) character{
+    CCSprite* sp = character.characterSprite;
+    CCArray* posiArray = [PositionUtil calcPosiArray:[Position initWithX:sp.position.x Y:sp.position.y]];
+    MovementSprite* movementSprite = [MovementSprite initWithPosiArray:posiArray];
+    [self addChild:movementSprite];
+}
 @end

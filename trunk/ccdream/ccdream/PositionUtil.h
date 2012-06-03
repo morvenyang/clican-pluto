@@ -8,10 +8,13 @@
 
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
+#import "Position.h"
 
 @interface PositionUtil : NSObject {
     
 }
+//根据当前位置计算可移动单元格
++(CCArray*) calcPosiArray: (Position*) charPosi;
 
 //把touch对象转换为位置对象
 +(CGPoint) locationFromTouch:(UITouch*)touch;

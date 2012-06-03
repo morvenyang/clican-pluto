@@ -11,6 +11,28 @@
 
 @implementation PositionUtil
 
++(CCArray*) calcPosiArray: (Position*) charPosi 
+{
+    CCArray* array = [CCArray arrayWithCapacity:13];
+    int xStart = charPosi.x-2;
+    int xEnd = charPosi.x+2;
+    int yStart = charPosi.y-2;
+    int yEnd = charPosi.y+2;
+    
+    int charMobility = 2;
+    
+    for(int x=xStart;x<=xEnd;x++){
+        for(int y=yStart;y<=yEnd;y++){
+            int xOffset =  fabs(charPosi.x - x);
+            int yOffset = fabs(charPosi.y - y);
+            if(xOffset+yOffset<=charMobility){
+                [array addObject:[Position initWithX:x Y:y]];
+            }
+        }
+    }
+    
+    return array;
+}
 
 +(CGPoint) locationFromTouch:(UITouch*)touch
 {
