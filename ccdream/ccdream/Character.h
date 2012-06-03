@@ -10,6 +10,10 @@
 #import "cocos2d.h"
 #import "Mobility.h"
 #import "PositionUtil.h"
+#import "MovementSprite.h"
+
+
+@protocol CharacterSelectDelegate;
 
 @interface Character : NSObject<CCTargetedTouchDelegate> {
     Mobility* _landMobility;
@@ -23,6 +27,13 @@
 
 
 -(id)initWithParentNode:(CCNode*) parentNode spriteFile:(NSString*) spriteFile;
+
+
+@end
+
+@protocol CharacterSelectDelegate <NSObject>
+
+- (void)selectCharacter:(Character*) character;
 
 @end
 

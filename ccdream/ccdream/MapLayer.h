@@ -10,7 +10,8 @@
 #import "cocos2d.h"
 #import "Character.h"
 
-@interface MapLayer : CCLayer {
+@interface MapLayer : CCLayer<CharacterSelectDelegate>
+{
     Character* _char1;
 }
 

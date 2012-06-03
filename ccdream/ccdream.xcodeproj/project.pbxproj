@@ -125,6 +125,9 @@
 		720CE10A157ADDFC00DB894D /* Tilesheet-land-v5.png in Resources */ = {isa = PBXBuildFile; fileRef = 720CE108157ADDFC00DB894D /* Tilesheet-land-v5.png */; };
 		720CE10B157ADDFC00DB894D /* ccdream_map01.tmx in Resources */ = {isa = PBXBuildFile; fileRef = 720CE109157ADDFC00DB894D /* ccdream_map01.tmx */; };
 		723DC29D157B90F7006BDA9B /* PositionUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 723DC29C157B90F7006BDA9B /* PositionUtil.m */; };
+		723DC2EA157B9529006BDA9B /* MovementSprite.m in Sources */ = {isa = PBXBuildFile; fileRef = 723DC2E9157B9529006BDA9B /* MovementSprite.m */; };
+		723DC2ED157B9EBB006BDA9B /* Position.m in Sources */ = {isa = PBXBuildFile; fileRef = 723DC2EC157B9EBB006BDA9B /* Position.m */; };
+		723DC2F0157BA025006BDA9B /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 723DC2EF157BA025006BDA9B /* Constants.m */; };
 		727F5066157B0F9B007BBA9F /* trs-037.gif in Resources */ = {isa = PBXBuildFile; fileRef = 727F5064157B0F9B007BBA9F /* trs-037.gif */; };
 		727F5067157B0F9B007BBA9F /* trs-012.gif in Resources */ = {isa = PBXBuildFile; fileRef = 727F5065157B0F9B007BBA9F /* trs-012.gif */; };
 		727F506B157B102E007BBA9F /* Character.m in Sources */ = {isa = PBXBuildFile; fileRef = 727F506A157B102E007BBA9F /* Character.m */; };
@@ -371,6 +374,12 @@
 		720CE109157ADDFC00DB894D /* ccdream_map01.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = ccdream_map01.tmx; path = Resources/ccdream_map01.tmx; sourceTree = "<group>"; };
 		723DC29B157B90F7006BDA9B /* PositionUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PositionUtil.h; sourceTree = "<group>"; };
 		723DC29C157B90F7006BDA9B /* PositionUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PositionUtil.m; sourceTree = "<group>"; };
+		723DC2E8157B9529006BDA9B /* MovementSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovementSprite.h; sourceTree = "<group>"; };
+		723DC2E9157B9529006BDA9B /* MovementSprite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MovementSprite.m; sourceTree = "<group>"; };
+		723DC2EB157B9EBB006BDA9B /* Position.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Position.h; sourceTree = "<group>"; };
+		723DC2EC157B9EBB006BDA9B /* Position.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Position.m; sourceTree = "<group>"; };
+		723DC2EE157BA025006BDA9B /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		723DC2EF157BA025006BDA9B /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
 		727F5064157B0F9B007BBA9F /* trs-037.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = "trs-037.gif"; path = "Resources/trs-037.gif"; sourceTree = "<group>"; };
 		727F5065157B0F9B007BBA9F /* trs-012.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = "trs-012.gif"; path = "Resources/trs-012.gif"; sourceTree = "<group>"; };
 		727F5069157B102E007BBA9F /* Character.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Character.h; sourceTree = "<group>"; };
@@ -433,6 +442,7 @@
 		720CDF8A157AC4B400DB894D /* ccdream */ = {
 			isa = PBXGroup;
 			children = (
+				723DC2E7157B9514006BDA9B /* sprite */,
 				723DC29A157B90DE006BDA9B /* util */,
 				720CE0EE157AC50D00DB894D /* model */,
 				720CE0ED157AC4E200DB894D /* workflow */,
@@ -812,6 +822,8 @@
 				727F506A157B102E007BBA9F /* Character.m */,
 				727F506C157B1071007BBA9F /* Mobility.h */,
 				727F506D157B1071007BBA9F /* Mobility.m */,
+				723DC2EB157B9EBB006BDA9B /* Position.h */,
+				723DC2EC157B9EBB006BDA9B /* Position.m */,
 			);
 			name = model;
 			sourceTree = "<group>";
@@ -821,8 +833,19 @@
 			children = (
 				723DC29B157B90F7006BDA9B /* PositionUtil.h */,
 				723DC29C157B90F7006BDA9B /* PositionUtil.m */,
+				723DC2EE157BA025006BDA9B /* Constants.h */,
+				723DC2EF157BA025006BDA9B /* Constants.m */,
 			);
 			name = util;
+			sourceTree = "<group>";
+		};
+		723DC2E7157B9514006BDA9B /* sprite */ = {
+			isa = PBXGroup;
+			children = (
+				723DC2E8157B9529006BDA9B /* MovementSprite.h */,
+				723DC2E9157B9529006BDA9B /* MovementSprite.m */,
+			);
+			name = sprite;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -852,7 +875,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0430;
-				ORGANIZATIONNAME = HP;
+				ORGANIZATIONNAME = Clican;
 			};
 			buildConfigurationList = 720CDF70157AC4B400DB894D /* Build configuration list for PBXProject "ccdream" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -1000,6 +1023,9 @@
 				727F506B157B102E007BBA9F /* Character.m in Sources */,
 				727F506E157B1071007BBA9F /* Mobility.m in Sources */,
 				723DC29D157B90F7006BDA9B /* PositionUtil.m in Sources */,
+				723DC2EA157B9529006BDA9B /* MovementSprite.m in Sources */,
+				723DC2ED157B9EBB006BDA9B /* Position.m in Sources */,
+				723DC2F0157BA025006BDA9B /* Constants.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
