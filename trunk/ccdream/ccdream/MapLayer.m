@@ -38,19 +38,25 @@
     CCSprite* sp = character.characterSprite;
     Position* charPosi = [Position initWithX:sp.position.x Y:sp.position.y];
     Mobility* moblitity = [Mobility initWithDefault];
-    NSMutableDictionary* mapTypeMetrix = [NSMutableDictionary dictionary];
-    for(int i=0;i<self.tileMap.grid.gridSize.x;i++){
-        for(int j=0;j<self.tileMap.grid.gridSize.y;j++){
-            int tileId=[[self.tileMap layerNamed:@"GameEventLayer"] tileGIDAt:ccp(i*32, j*32)];
+    
+    
+    
+    int gridx=self.tileMap.contentSizeInPixels.width/self.tileMap.tileSize.width;
+    int gridy=self.tileMap.contentSizeInPixels.height/self.tileMap.tileSize.height;
+    NSMutableDictionary* mapTypeMetrix = [[[NSMutableDictionary alloc] init] autorelease];
+    for(int i=0;i<gridx;i++){
+        for(int j=0;j<gridy;j++){
+            int tileId=[[self.tileMap layerNamed:@"GameEventLayer"] tileGIDAt:ccp(i, j)];
             NSDictionary* dictionary=[self.tileMap propertiesForGID:tileId];
             if(dictionary){
-                NSString* mapTypeStr = [dictionary objectForKey:@"mapType"];
-                Position* position = [Position initWithX:i Y:j];
-                [mapTypeMetrix setObject:[NSNumber numberWithInt:[mapTypeStr intValue]] forKey:position];
+                NSString* mapTypeStr = [dictionary objectForKey:@"type"];
+                Position* position = [Position initWithX:i Y:gridy-j];
+                int mapType = [mapTypeStr intValue];
+                [mapTypeMetrix setValue:[NSNumber numberWithInt:mapType] forKey:[position description]];
             }
         }
     }
-    Position* maxPosi = [Position initWithX:self.tileMap.grid.gridSize.x Y:self.tileMap.grid.gridSize.y];
+    Position* maxPosi = [Position initWithX:gridx Y:gridy];
     
     CCArray* posiArray = [PositionUtil calcMoveOrbitarrayFromPosition:charPosi movement:5 mobility:moblitity mapTypeMetrix:mapTypeMetrix maxPosition:maxPosi];
     MovementSprite* movementSprite = [MovementSprite initWithPosiArray:posiArray];
