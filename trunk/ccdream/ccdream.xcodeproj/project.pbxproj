@@ -132,6 +132,7 @@
 		727F5067157B0F9B007BBA9F /* trs-012.gif in Resources */ = {isa = PBXBuildFile; fileRef = 727F5065157B0F9B007BBA9F /* trs-012.gif */; };
 		727F506B157B102E007BBA9F /* Character.m in Sources */ = {isa = PBXBuildFile; fileRef = 727F506A157B102E007BBA9F /* Character.m */; };
 		727F506E157B1071007BBA9F /* Mobility.m in Sources */ = {isa = PBXBuildFile; fileRef = 727F506D157B1071007BBA9F /* Mobility.m */; };
+		72D33809157CCCD8002D9866 /* MoveOrbit.m in Sources */ = {isa = PBXBuildFile; fileRef = 72D33808157CCCD8002D9866 /* MoveOrbit.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -386,6 +387,8 @@
 		727F506A157B102E007BBA9F /* Character.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Character.m; sourceTree = "<group>"; };
 		727F506C157B1071007BBA9F /* Mobility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mobility.h; sourceTree = "<group>"; };
 		727F506D157B1071007BBA9F /* Mobility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Mobility.m; sourceTree = "<group>"; };
+		72D33807157CCCD8002D9866 /* MoveOrbit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoveOrbit.h; sourceTree = "<group>"; };
+		72D33808157CCCD8002D9866 /* MoveOrbit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoveOrbit.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -824,6 +827,8 @@
 				727F506D157B1071007BBA9F /* Mobility.m */,
 				723DC2EB157B9EBB006BDA9B /* Position.h */,
 				723DC2EC157B9EBB006BDA9B /* Position.m */,
+				72D33807157CCCD8002D9866 /* MoveOrbit.h */,
+				72D33808157CCCD8002D9866 /* MoveOrbit.m */,
 			);
 			name = model;
 			sourceTree = "<group>";
@@ -1026,6 +1031,7 @@
 				723DC2EA157B9529006BDA9B /* MovementSprite.m in Sources */,
 				723DC2ED157B9EBB006BDA9B /* Position.m in Sources */,
 				723DC2F0157BA025006BDA9B /* Constants.m in Sources */,
+				72D33809157CCCD8002D9866 /* MoveOrbit.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

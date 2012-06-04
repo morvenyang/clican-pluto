@@ -23,11 +23,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "ccdream/MapLayer.h"
-         timestampString = "360418573.275486"
+         timestampString = "360426857.796513"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "17"
-         endingLineNumber = "17"
+         startingLineNumber = "18"
+         endingLineNumber = "18"
          landmarkName = "char1"
          landmarkType = "19">
       </FileBreakpoint>
@@ -42,6 +42,19 @@
          startingLineNumber = "36"
          endingLineNumber = "36"
          landmarkName = "-selectCharacter:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "ccdream/MoveOrbit.m"
+         timestampString = "360506010.189746"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "28"
+         endingLineNumber = "28"
+         landmarkName = "+comparator"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>
