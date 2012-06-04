@@ -11,7 +11,7 @@
 
 @implementation PositionUtil
 
-+(CCArray*) calcMoveOrbitarrayFromPosition:(Position*) charPosi movement:(int) movement mobility:(Mobility*) mobility mapTypeMetrix:(NSArray*) mapTypeMetrix maxPosition:(Position*) maxPosition{
++(CCArray*) calcMoveOrbitarrayFromPosition:(Position*) charPosi movement:(int) movement mobility:(Mobility*) mobility mapTypeMetrix:(NSDictionary*) mapTypeMetrix maxPosition:(Position*) maxPosition{
     NSSet* moveOrbitSet = [NSSet set];
     NSDictionary* processedPosiMap = [NSDictionary dictionary];
     
@@ -23,7 +23,7 @@
 }
 
 
-+(void) moveForProcessedposiMap:(NSDictionary*) processedPosiMap moveOrbitSet:(NSSet*) moveOrbitSet previousMoveOrbit:(MoveOrbit*) previousMoveOrbit movement:(int) movement mobility:(Mobility*)mobility mapTypeMetrix:(NSArray*) mapTypeMetrix maxPosition:(Position*) maxPosition xoffset:(int)xoffset yoffset:(int)yoffset{
++(void) moveForProcessedposiMap:(NSDictionary*) processedPosiMap moveOrbitSet:(NSSet*) moveOrbitSet previousMoveOrbit:(MoveOrbit*) previousMoveOrbit movement:(int) movement mobility:(Mobility*)mobility mapTypeMetrix:(NSDictionary*) mapTypeMetrix maxPosition:(Position*) maxPosition xoffset:(int)xoffset yoffset:(int)yoffset{
     Position* currentPosi = [Position initWithX:previousMoveOrbit.position.x+xoffset Y:previousMoveOrbit.position.y+yoffset];
     NSNumber* remainingMovement = (NSNumber*)[processedPosiMap objectForKey:[currentPosi description]];
     if(remainingMovement!=nil&&[remainingMovement intValue]>=movement){
@@ -35,7 +35,7 @@
     int x = currentPosi.x;
     int y = currentPosi.y;
     
-    int mapType = [(NSNumber*)[((NSArray*)[mapTypeMetrix objectAtIndex:x]) objectAtIndex:y] intValue];
+    int mapType = [(NSNumber*)[mapTypeMetrix objectForKey:currentPosi] intValue];
     int moveCost = 0;
     
     //如果不是起始点
