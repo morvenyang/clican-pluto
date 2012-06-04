@@ -11,27 +11,100 @@
 
 @implementation PositionUtil
 
-+(CCArray*) calcPosiArray: (Position*) charPosi 
-{
-    CCArray* array = [CCArray arrayWithCapacity:13];
-    int xStart = charPosi.x-2;
-    int xEnd = charPosi.x+2;
-    int yStart = charPosi.y-2;
-    int yEnd = charPosi.y+2;
++(CCArray*) calcMoveOrbitarrayFromPosition:(Position*) charPosi movement:(int) movement mobility:(Mobility*) mobility mapTypeMetrix:(NSArray*) mapTypeMetrix maxPosition:(Position*) maxPosition{
+    NSSet* moveOrbitSet = [NSSet set];
+    NSDictionary* processedPosiMap = [NSDictionary dictionary];
     
-    int charMobility = 2;
+    MoveOrbit* current = [MoveOrbit initWithPrevious:nil Position:charPosi];
+    [PositionUtil moveForProcessedposiMap: processedPosiMap moveOrbitSet: moveOrbitSet previousMoveOrbit: current movement: movement mobility:mobility mapTypeMetrix: mapTypeMetrix maxPosition: maxPosition xoffset:0 yoffset:0];
+    NSArray* sortedArray = [[moveOrbitSet allObjects] sortedArrayUsingComparator:[MoveOrbit comparator]];
+    CCArray* result = [CCArray arrayWithNSArray:sortedArray];
+    return result;   
+}
+
+
++(void) moveForProcessedposiMap:(NSDictionary*) processedPosiMap moveOrbitSet:(NSSet*) moveOrbitSet previousMoveOrbit:(MoveOrbit*) previousMoveOrbit movement:(int) movement mobility:(Mobility*)mobility mapTypeMetrix:(NSArray*) mapTypeMetrix maxPosition:(Position*) maxPosition xoffset:(int)xoffset yoffset:(int)yoffset{
+    Position* currentPosi = [Position initWithX:previousMoveOrbit.position.x+xoffset Y:previousMoveOrbit.position.y+yoffset];
+    NSNumber* remainingMovement = (NSNumber*)[processedPosiMap objectForKey:[currentPosi description]];
+    if(remainingMovement!=nil&&[remainingMovement intValue]>=movement){
+        return;
+    }else{
+        NSNumber* wrapMovement = [[[NSNumber alloc] autorelease] initWithInt:movement];
+        [processedPosiMap setValue:wrapMovement forKey:[currentPosi description]];
+    }
+    int x = currentPosi.x;
+    int y = currentPosi.y;
     
-    for(int x=xStart;x<=xEnd;x++){
-        for(int y=yStart;y<=yEnd;y++){
-            int xOffset =  fabs(charPosi.x - x);
-            int yOffset = fabs(charPosi.y - y);
-            if(xOffset+yOffset<=charMobility){
-                [array addObject:[Position initWithX:x Y:y]];
-            }
+    int mapType = [(NSNumber*)[((NSArray*)[mapTypeMetrix objectAtIndex:x]) objectAtIndex:y] intValue];
+    int moveCost = 0;
+    
+    //如果不是起始点
+    if(xoffset!=0||yoffset!=0){
+        if(mapType==1){
+            moveCost = mobility.mapType1;
+        }else if (mapType==2) {
+            moveCost = mobility.mapType2;
+        }else if(mapType==-1){
+            //enemy
+            return;
         }
     }
     
-    return array;
+    if(moveCost>movement){
+        //can't move this position
+        return;
+    }else{
+        MoveOrbit* moveOrbit = [MoveOrbit initWithPrevious:previousMoveOrbit Position:currentPosi];
+        if(xoffset!=0||yoffset!=0){
+            [moveOrbitSet setValue:moveOrbit forKey:[moveOrbit.position description]];
+        }else{
+            moveOrbit.previous = nil;
+        }
+        
+        BOOL moveLeft = YES;
+        BOOL moveRight = YES;
+        BOOL moveUp = YES;
+        BOOL moveDown = YES;
+        
+        if(xoffset==-1){
+            moveRight = NO;
+        }else if(xoffset==1){
+            moveLeft = NO;
+        }else if (yoffset==-1){
+            moveUp = NO;
+        }else if(yoffset==1){
+            moveDown = NO;
+        }
+        
+        if(x==0){
+            moveLeft = NO;
+        }else if(x==maxPosition.x){
+            moveRight = NO;
+        }
+        
+        if(y==0){
+            moveDown = NO;
+        }else if(y==maxPosition.y){
+            moveUp = NO;
+        }
+        
+        if(moveLeft){
+            [PositionUtil moveForProcessedposiMap: processedPosiMap moveOrbitSet: moveOrbitSet previousMoveOrbit: moveOrbit movement: movement-moveCost mobility:mobility mapTypeMetrix: mapTypeMetrix maxPosition: maxPosition xoffset:-1 yoffset:0];
+        }
+        
+        if(moveRight){
+            [PositionUtil moveForProcessedposiMap: processedPosiMap moveOrbitSet: moveOrbitSet previousMoveOrbit: moveOrbit movement: movement-moveCost mobility:mobility mapTypeMetrix: mapTypeMetrix maxPosition: maxPosition xoffset:1 yoffset:0];
+        }
+        
+        if(moveUp){
+            [PositionUtil moveForProcessedposiMap: processedPosiMap moveOrbitSet: moveOrbitSet previousMoveOrbit: moveOrbit movement: movement-moveCost mobility:mobility mapTypeMetrix: mapTypeMetrix maxPosition: maxPosition xoffset:0 yoffset:1];
+        }
+        
+        if(moveDown){
+            [PositionUtil moveForProcessedposiMap: processedPosiMap moveOrbitSet: moveOrbitSet previousMoveOrbit: moveOrbit movement: movement-moveCost mobility:mobility mapTypeMetrix: mapTypeMetrix maxPosition: maxPosition xoffset:0 yoffset:-1];
+        }
+    }
+    
 }
 
 +(CGPoint) locationFromTouch:(UITouch*)touch

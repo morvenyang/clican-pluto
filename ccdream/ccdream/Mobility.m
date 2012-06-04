@@ -17,7 +17,7 @@
     self = [super init];
     if(self!=nil){
         _mapType1 = 1;
-        _mapType2 = -1;
+        _mapType2 = 1;
     }
     return self;
 }

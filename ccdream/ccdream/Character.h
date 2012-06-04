@@ -19,16 +19,17 @@
     Mobility* _landMobility;
     Mobility* _airMobility;
     CCSprite* _characterSprite;
+    CCArray* _characterSelectDelegateArray;
 }
 
 @property (nonatomic,retain) Mobility* landMobility;
 @property (nonatomic,retain) Mobility* airMobility;
 @property (nonatomic,retain) CCSprite* characterSprite;
-
+@property (nonatomic,retain) CCArray* characterSelectDelegateArray;
 
 -(id)initWithParentNode:(CCNode*) parentNode spriteFile:(NSString*) spriteFile;
 
-
+-(void) addCharacterSelectDelegate: (id) characterSelectDelegate;
 @end
 
 @protocol CharacterSelectDelegate <NSObject>

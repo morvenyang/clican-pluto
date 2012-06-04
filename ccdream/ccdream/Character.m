@@ -8,12 +8,12 @@
 
 #import "Character.h"
 
-
 @implementation Character
 
 @synthesize airMobility = _airMobility;
 @synthesize landMobility = _landMobility;
 @synthesize characterSprite = _characterSprite;
+@synthesize characterSelectDelegateArray = _characterSelectDelegateArray;
 
 -(id)initWithParentNode:(CCNode*) parentNode spriteFile:(NSString*) spriteFile{
     self = [super init];
@@ -23,18 +23,24 @@
         self.characterSprite = [CCSprite spriteWithFile:spriteFile];
         self.characterSprite.scale=0.5; 
         self.characterSprite.position = CGPointMake(16, 16);
- 
+        self.characterSelectDelegateArray = [CCArray init];
         [parentNode addChild:self.characterSprite];
         [[CCTouchDispatcher sharedDispatcher] addTargetedDelegate:self priority:-1 swallowsTouches:YES];
     }
     return self;
 }
 
-
+-(void) addCharacterSelectDelegate: (id) characterSelectDelegate
+{
+    [self.characterSelectDelegateArray addObject:characterSelectDelegate];
+}
 - (BOOL)ccTouchBegan:(UITouch *)touch withEvent:(UIEvent *)even{
     if([PositionUtil isTouch:touch forNode:self.characterSprite]){
         CCLOG(@"Character is touched");
-        
+        for(int i=0;i<[self.characterSelectDelegateArray count];i++){
+            id<CharacterSelectDelegate> delegate = [self.characterSelectDelegateArray objectAtIndex:i];
+            [delegate selectCharacter:self];
+        }
         return NO;
     }else {
         CCLOG(@"Map is touched");

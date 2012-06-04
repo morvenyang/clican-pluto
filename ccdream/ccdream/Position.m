@@ -22,4 +22,7 @@
     return position;
 }
 
+-(NSString*) description{
+    return [NSString stringWithFormat:@"x=%i,y=%i",self.x,self.y];
+}
 @end
