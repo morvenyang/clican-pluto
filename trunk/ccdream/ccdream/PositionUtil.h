@@ -17,7 +17,7 @@
     
 }
 //根据当前位置计算可移动单元格
-+(CCArray*) calcMoveOrbitarrayFromPosition:(Position*) charPosi movement:(int) movement mobility:(Mobility*) mobility mapTypeMetrix:(NSArray*) mapTypeMetrix maxPosition:(Position*) maxPosition;
++(CCArray*) calcMoveOrbitarrayFromPosition:(Position*) charPosi movement:(int) movement mobility:(Mobility*) mobility mapTypeMetrix:(NSDictionary*) mapTypeMetrix maxPosition:(Position*) maxPosition;
 
 //把touch对象转换为位置对象
 +(CGPoint) locationFromTouch:(UITouch*)touch;

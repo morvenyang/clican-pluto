@@ -23,7 +23,7 @@
         self.characterSprite = [CCSprite spriteWithFile:spriteFile];
         self.characterSprite.scale=0.5; 
         self.characterSprite.position = CGPointMake(16, 16);
-        self.characterSelectDelegateArray = [CCArray init];
+        self.characterSelectDelegateArray = [CCArray array];
         [parentNode addChild:self.characterSprite];
         [[CCTouchDispatcher sharedDispatcher] addTargetedDelegate:self priority:-1 swallowsTouches:YES];
     }
@@ -39,7 +39,9 @@
         CCLOG(@"Character is touched");
         for(int i=0;i<[self.characterSelectDelegateArray count];i++){
             id<CharacterSelectDelegate> delegate = [self.characterSelectDelegateArray objectAtIndex:i];
-            [delegate selectCharacter:self];
+            if ([delegate respondsToSelector:@selector(selectCharacter:)]){
+                 [delegate selectCharacter:self];
+            }
         }
         return NO;
     }else {
