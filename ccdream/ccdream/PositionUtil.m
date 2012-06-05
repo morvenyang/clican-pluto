@@ -127,4 +127,16 @@
     return position.x==xPosition&&position.y==yPosition;
 }
 
++(bool) containsPosition:(Position*)position forArray:(CCArray*) array
+{
+    int count = [array count];
+    for(int i=0;i<count;i++){
+        Position* posi = [(MoveOrbit*)[array objectAtIndex:i] position];
+        if(posi.x==position.x&&posi.y==position.y){
+            return YES;
+        }
+    }
+    return NO;
+}
+
 @end

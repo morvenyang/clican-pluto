@@ -14,20 +14,21 @@
 @synthesize landMobility = _landMobility;
 @synthesize characterSprite = _characterSprite;
 @synthesize characterSelectDelegateArray = _characterSelectDelegateArray;
+@synthesize selected = _selected;
 
--(id)characterWithParentNode:(CCNode*) parentNode spriteFile:(NSString*) spriteFile{
-    self = [super init];
-    if(self !=nil){
-        self.airMobility = [Mobility mobilityWithDefault];
-        self.landMobility = [Mobility mobilityWithDefault];
-        self.characterSprite = [CCSprite spriteWithFile:spriteFile];
-        self.characterSprite.scale=0.5; 
-        self.characterSprite.position = CGPointMake(16, 16);
-        self.characterSelectDelegateArray = [CCArray array];
-        [parentNode addChild:self.characterSprite];
-        [[GlobalEventHandler sharedHandler] addPositionTouchDelegate:self];
-    }
-    return self;
+
+
++(id)characterWithParentNode:(CCNode*) parentNode spriteFile:(NSString*) spriteFile{
+        Character* character = [[[Character alloc] init] autorelease];
+        character.airMobility = [Mobility mobilityWithDefault];
+        character.landMobility = [Mobility mobilityWithDefault];
+        character.characterSprite = [CCSprite spriteWithFile:spriteFile];
+        character.characterSprite.scale=0.5; 
+        character.characterSprite.position = CGPointMake(16, 16);
+        character.characterSelectDelegateArray = [CCArray array];
+        [parentNode addChild:character.characterSprite];
+        [[GlobalEventHandler sharedHandler] addPositionTouchDelegate:character];
+        return character;
 }
 
 -(void) addCharacterSelectDelegate: (id) characterSelectDelegate
@@ -62,6 +63,8 @@
     _landMobility = nil;
     [_characterSprite release];
     _characterSprite = nil;
+    [_characterSelectDelegateArray release];
+    _characterSelectDelegateArray = nil;
 	[super dealloc];
 }
 
