@@ -118,4 +118,13 @@
     CGPoint touchLocation = [self locationFromTouch:touch];
     return CGRectContainsPoint([node boundingBox], touchLocation);
 }
+
++(bool) isPosition:(Position*)position forNode:(CCNode*) node
+{
+    CGRect rect = [node boundingBox];
+    int xPosition = rect.origin.x/MAP_POINT_SIZE;
+    int yPosition = rect.origin.y/MAP_POINT_SIZE;
+    return position.x==xPosition&&position.y==yPosition;
+}
+
 @end

@@ -111,6 +111,8 @@
 	
 	// Run the intro Scene
 	[[CCDirector sharedDirector] runWithScene: [MapLayer scene]];
+    
+    [[CCTouchDispatcher sharedDispatcher] addTargetedDelegate:[GlobalEventHandler sharedHandler] priority:-1 swallowsTouches:YES];
 }
 
 
