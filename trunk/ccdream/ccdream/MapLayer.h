@@ -10,15 +10,20 @@
 #import "cocos2d.h"
 #import "Character.h"
 
-@interface MapLayer : CCLayer<CharacterSelectDelegate>
+@interface MapLayer : CCLayer<CharacterSelectDelegate,PositionTouchDelegate>
 {
     Character* _char1;
     CCTMXTiledMap* _tileMap;
+    Character* _selectedCharacter;
+    CCArray* _movementArray;
+    CCArray* _shadowSpriteArray;
 }
 
 @property (nonatomic,retain) Character* char1;
+@property (nonatomic,retain) Character* selectedCharacter;
 @property (nonatomic,retain) CCTMXTiledMap* tileMap;
-
+@property (nonatomic,retain) CCArray* movementArray;
+@property (nonatomic,retain) CCArray* shadowSpriteArray;
 +(CCScene *) scene;
 - (void)selectCharacter:(Character*) character;
 @end

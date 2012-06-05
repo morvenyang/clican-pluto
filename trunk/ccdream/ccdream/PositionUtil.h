@@ -28,4 +28,6 @@
 //判断是不是这个节点在该位置上
 +(bool) isPosition:(Position*)position forNode:(CCNode*) node;
 
+//判断位置数组是否包含某个位置
++(bool) containsPosition:(Position*)position forArray:(CCArray*) array;
 @end

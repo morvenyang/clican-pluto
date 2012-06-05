@@ -22,6 +22,21 @@
     return position;
 }
 
++(id)positionWithCGPoint:(CGPoint) point{
+    Position* position = [[Position alloc] init];
+    position.x=point.x/MAP_POINT_SIZE;
+    position.y=point.y/MAP_POINT_SIZE;
+    [position autorelease];
+    return position;
+}
+
+-(CGPoint) toLeft0Right0CGPoint{
+    return ccp(self.x*MAP_POINT_SIZE,self.y*MAP_POINT_SIZE);
+}
+
+-(CGPoint) toCenterCGPoint{
+    return ccp(self.x*MAP_POINT_SIZE+MAP_POINT_SIZE/2,self.y*MAP_POINT_SIZE+MAP_POINT_SIZE/2);
+}
 -(NSString*) description{
     return [NSString stringWithFormat:@"x=%i,y=%i",self.x,self.y];
 }

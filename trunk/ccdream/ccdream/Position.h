@@ -20,4 +20,7 @@
 
 
 +(id)positionWithX:(int) x Y:(int) y;
++(id)positionWithCGPoint:(CGPoint) point;
+-(CGPoint) toLeft0Right0CGPoint;
+-(CGPoint) toCenterCGPoint;
 @end
