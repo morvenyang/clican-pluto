@@ -23,6 +23,6 @@
 @property (nonatomic, assign) int mapType1;
 @property (nonatomic, assign) int mapType2;
 
-+(id) initWithDefault;
++(id) mobilityWithDefault;
 
 @end

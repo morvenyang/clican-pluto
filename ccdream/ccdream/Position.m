@@ -14,7 +14,7 @@
 @synthesize x = _x;
 @synthesize y = _y;
 
-+(id)initWithX:(int) x Y:(int) y{
++(id)positionWithX:(int) x Y:(int) y{
     Position* position = [[Position alloc] init];
     position.x=x;
     position.y=y;

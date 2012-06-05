@@ -17,7 +17,7 @@
 +(CCScene *) scene{
     CCScene* scene = [CCScene node];
     MapLayer* layer = [MapLayer node];
-    layer.char1=[[[Character alloc] initWithParentNode:layer spriteFile:@"trs-012.gif"] autorelease];
+    layer.char1=[[[Character alloc] characterWithParentNode:layer spriteFile:@"trs-012.gif"] autorelease];
     [layer.char1.characterSelectDelegateArray addObject:layer];
     [scene addChild:layer];
     return scene;
@@ -35,9 +35,9 @@
 }
 
 - (void)selectCharacter:(Character*) character{
-    CCSprite* sp = character.characterSprite;
-    Position* charPosi = [Position initWithX:sp.position.x Y:sp.position.y];
-    Mobility* moblitity = [Mobility initWithDefault];
+    
+    Position* charPosi = [Position positionWithX:0 Y:0];
+    Mobility* moblitity = [Mobility mobilityWithDefault];
     
     
     
@@ -50,16 +50,32 @@
             NSDictionary* dictionary=[self.tileMap propertiesForGID:tileId];
             if(dictionary){
                 NSString* mapTypeStr = [dictionary objectForKey:@"type"];
-                Position* position = [Position initWithX:i Y:gridy-j];
+                Position* position = [Position positionWithX:i Y:gridy-j-1];
                 int mapType = [mapTypeStr intValue];
-                [mapTypeMetrix setValue:[NSNumber numberWithInt:mapType] forKey:[position description]];
+                if(mapType==0){
+                    CCLOG(@"Found mapType==0");
+                }else{
+                     [mapTypeMetrix setValue:[NSNumber numberWithInt:mapType] forKey:[position description]];
+                }
+               
             }
         }
     }
-    Position* maxPosi = [Position initWithX:gridx Y:gridy];
+    Position* maxPosi = [Position positionWithX:gridx Y:gridy];
     
-    CCArray* posiArray = [PositionUtil calcMoveOrbitarrayFromPosition:charPosi movement:5 mobility:moblitity mapTypeMetrix:mapTypeMetrix maxPosition:maxPosi];
-    MovementSprite* movementSprite = [MovementSprite initWithPosiArray:posiArray];
-    [self addChild:movementSprite];
+    CCArray* posiArray = [PositionUtil calcMoveOrbitarrayFromPosition:charPosi movement:7 mobility:moblitity mapTypeMetrix:mapTypeMetrix maxPosition:maxPosi];
+    CCLOG(@"count=%i",[posiArray count]);
+    
+    for(int i=0;i<[posiArray count];i++){
+        MoveOrbit* mo = [posiArray objectAtIndex:i];
+        CCLOG(@"%@",[mo.position description]);
+        CCSprite* redSprite = [[CCSprite alloc] init];
+        [redSprite setColor:ccc3(255, 0, 0)];
+        redSprite.opacity=100;
+        redSprite.textureRect = CGRectMake(0, 0, MAP_POINT_SIZE, MAP_POINT_SIZE);
+        
+        redSprite.position = CGPointMake(mo.position.x*32+16, mo.position.y*32+16);
+        [self addChild:redSprite];
+    }
 }
 @end

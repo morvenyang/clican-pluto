@@ -19,5 +19,5 @@
 @property (nonatomic,assign) int y;
 
 
-+(id)initWithX:(int) x Y:(int) y;
++(id)positionWithX:(int) x Y:(int) y;
 @end

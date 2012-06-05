@@ -27,7 +27,7 @@
 @property (nonatomic,retain) CCSprite* characterSprite;
 @property (nonatomic,retain) CCArray* characterSelectDelegateArray;
 
--(id)initWithParentNode:(CCNode*) parentNode spriteFile:(NSString*) spriteFile;
+-(id)characterWithParentNode:(CCNode*) parentNode spriteFile:(NSString*) spriteFile;
 
 -(void) addCharacterSelectDelegate: (id) characterSelectDelegate;
 @end

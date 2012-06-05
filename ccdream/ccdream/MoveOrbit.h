@@ -18,7 +18,7 @@
 @property (nonatomic,retain) MoveOrbit* previous;
 @property (nonatomic,retain) Position* position;
 
-+(id)initWithPrevious:(MoveOrbit*) previous Position:(Position*) position;
++(id)moveOrbitWithPrevious:(MoveOrbit*) previous Position:(Position*) position;
 
 +(id)comparator;
 @end
