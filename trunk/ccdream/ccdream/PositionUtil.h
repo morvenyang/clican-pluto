@@ -25,4 +25,7 @@
 //判断是不是点击了该节点
 +(bool) isTouch:(UITouch*)touch forNode:(CCNode*) node;
 
+//判断是不是这个节点在该位置上
++(bool) isPosition:(Position*)position forNode:(CCNode*) node;
+
 @end

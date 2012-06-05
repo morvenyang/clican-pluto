@@ -25,7 +25,7 @@
         self.characterSprite.position = CGPointMake(16, 16);
         self.characterSelectDelegateArray = [CCArray array];
         [parentNode addChild:self.characterSprite];
-        [[CCTouchDispatcher sharedDispatcher] addTargetedDelegate:self priority:-1 swallowsTouches:YES];
+        [[GlobalEventHandler sharedHandler] addPositionTouchDelegate:self];
     }
     return self;
 }
@@ -34,8 +34,9 @@
 {
     [self.characterSelectDelegateArray addObject:characterSelectDelegate];
 }
-- (BOOL)ccTouchBegan:(UITouch *)touch withEvent:(UIEvent *)even{
-    if([PositionUtil isTouch:touch forNode:self.characterSprite]){
+
+- (BOOL)touchBegan:(Position *)posi withEvent:(UIEvent *)event {
+    if([PositionUtil isPosition:posi forNode:self.characterSprite]){
         CCLOG(@"Character is touched");
         for(int i=0;i<[self.characterSelectDelegateArray count];i++){
             id<CharacterSelectDelegate> delegate = [self.characterSelectDelegateArray objectAtIndex:i];
@@ -54,6 +55,7 @@
 
 
 - (void)dealloc {
+    [[GlobalEventHandler sharedHandler] removePositionTouchDelegate:self];
     [_airMobility release];
     _airMobility = nil;
 	[_landMobility release];

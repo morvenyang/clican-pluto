@@ -11,11 +11,11 @@
 #import "Mobility.h"
 #import "PositionUtil.h"
 #import "MovementSprite.h"
-
+#import "GlobalEventHandler.h"
 
 @protocol CharacterSelectDelegate;
 
-@interface Character : NSObject<CCTargetedTouchDelegate> {
+@interface Character : NSObject<PositionTouchDelegate> {
     Mobility* _landMobility;
     Mobility* _airMobility;
     CCSprite* _characterSprite;
