@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
 #import "Position.h"
-
+#import "MoveOrbit.h"
 @interface MovementSprite : CCSpriteBatchNode {
     
 }

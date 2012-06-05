@@ -15,11 +15,11 @@
 @synthesize characterSprite = _characterSprite;
 @synthesize characterSelectDelegateArray = _characterSelectDelegateArray;
 
--(id)initWithParentNode:(CCNode*) parentNode spriteFile:(NSString*) spriteFile{
+-(id)characterWithParentNode:(CCNode*) parentNode spriteFile:(NSString*) spriteFile{
     self = [super init];
     if(self !=nil){
-        self.airMobility = [Mobility initWithDefault];
-        self.landMobility = [Mobility initWithDefault];
+        self.airMobility = [Mobility mobilityWithDefault];
+        self.landMobility = [Mobility mobilityWithDefault];
         self.characterSprite = [CCSprite spriteWithFile:spriteFile];
         self.characterSprite.scale=0.5; 
         self.characterSprite.position = CGPointMake(16, 16);

@@ -14,7 +14,7 @@
 @synthesize previous = _previous;
 @synthesize position = _position;
 
-+(id)initWithPrevious:(MoveOrbit*) previous Position:(Position*) position{
++(id)moveOrbitWithPrevious:(MoveOrbit*) previous Position:(Position*) position{
     MoveOrbit* mo = [[MoveOrbit alloc] init];
     mo.previous = previous;
     mo.position = position;

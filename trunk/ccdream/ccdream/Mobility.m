@@ -22,7 +22,7 @@
     return self;
 }
 
-+(id) initWithDefault{
++(id) mobilityWithDefault{
     Mobility* mobility = [[Mobility alloc] init];
     [mobility autorelease];
     return mobility;

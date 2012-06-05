@@ -15,7 +15,7 @@
     NSMutableDictionary* moveOrbitSet = [[[NSMutableDictionary alloc] init] autorelease];
     NSMutableDictionary* processedPosiMap = [[[NSMutableDictionary alloc] init] autorelease];
     
-    MoveOrbit* current = [MoveOrbit initWithPrevious:nil Position:charPosi];
+    MoveOrbit* current = [MoveOrbit moveOrbitWithPrevious:nil Position:charPosi];
     [PositionUtil moveForProcessedposiMap: processedPosiMap moveOrbitSet: moveOrbitSet previousMoveOrbit: current movement: movement mobility:mobility mapTypeMetrix: mapTypeMetrix maxPosition: maxPosition xoffset:0 yoffset:0];
     NSArray* sortedArray = [[moveOrbitSet allValues] sortedArrayUsingComparator:[MoveOrbit comparator]];
     CCArray* result = [CCArray arrayWithNSArray:sortedArray];
@@ -24,7 +24,7 @@
 
 
 +(void) moveForProcessedposiMap:(NSMutableDictionary*) processedPosiMap moveOrbitSet:(NSMutableDictionary*) moveOrbitSet previousMoveOrbit:(MoveOrbit*) previousMoveOrbit movement:(int) movement mobility:(Mobility*)mobility mapTypeMetrix:(NSDictionary*) mapTypeMetrix maxPosition:(Position*) maxPosition xoffset:(int)xoffset yoffset:(int)yoffset{
-    Position* currentPosi = [Position initWithX:previousMoveOrbit.position.x+xoffset Y:previousMoveOrbit.position.y+yoffset];
+    Position* currentPosi = [Position positionWithX:previousMoveOrbit.position.x+xoffset Y:previousMoveOrbit.position.y+yoffset];
     NSNumber* remainingMovement = (NSNumber*)[processedPosiMap objectForKey:[currentPosi description]];
     if(remainingMovement!=nil&&[remainingMovement intValue]>=movement){
         return;
@@ -54,7 +54,7 @@
         //can't move this position
         return;
     }else{
-        MoveOrbit* moveOrbit = [MoveOrbit initWithPrevious:previousMoveOrbit Position:currentPosi];
+        MoveOrbit* moveOrbit = [MoveOrbit moveOrbitWithPrevious:previousMoveOrbit Position:currentPosi];
         if(xoffset!=0||yoffset!=0){
             [moveOrbitSet setValue:moveOrbit forKey:[moveOrbit.position description]];
         }else{
