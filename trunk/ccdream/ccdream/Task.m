@@ -14,6 +14,7 @@
 
 @synthesize taskId = _taskId;
 @synthesize name = _name;
+@synthesize type = _type;
 @synthesize assignee = _assignee;
 @synthesize variables = _variables;
 @synthesize state = _state;
@@ -25,6 +26,8 @@
 - (void)dealloc {
     [_name release];
     _name = nil;
+    [_type release];
+    _type = nil;
     [_assignee release];
     _assignee = nil;
     [_variables release];

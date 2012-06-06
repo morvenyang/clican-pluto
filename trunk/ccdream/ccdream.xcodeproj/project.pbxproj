@@ -130,6 +130,13 @@
 		722E05C6157F22D6001B0A8D /* Variable.m in Sources */ = {isa = PBXBuildFile; fileRef = 722E05C5157F22D6001B0A8D /* Variable.m */; };
 		722E05C9157F23F7001B0A8D /* Job.m in Sources */ = {isa = PBXBuildFile; fileRef = 722E05C8157F23F7001B0A8D /* Job.m */; };
 		722E05CC157F2404001B0A8D /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 722E05CB157F2404001B0A8D /* Event.m */; };
+		722E05D1157F3161001B0A8D /* EventDispatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 722E05D0157F3161001B0A8D /* EventDispatcher.m */; };
+		722E05D4157F3252001B0A8D /* EngineContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 722E05D3157F3252001B0A8D /* EngineContext.m */; };
+		722E05E4157F5612001B0A8D /* DefaultState.m in Sources */ = {isa = PBXBuildFile; fileRef = 722E05E3157F5612001B0A8D /* DefaultState.m */; };
+		722E05E7157F574B001B0A8D /* IState.m in Sources */ = {isa = PBXBuildFile; fileRef = 722E05E6157F574B001B0A8D /* IState.m */; };
+		722E05EA157F74AF001B0A8D /* StartState.m in Sources */ = {isa = PBXBuildFile; fileRef = 722E05E9157F74AE001B0A8D /* StartState.m */; };
+		722E05ED157F74D1001B0A8D /* EndState.m in Sources */ = {isa = PBXBuildFile; fileRef = 722E05EC157F74D1001B0A8D /* EndState.m */; };
+		722E05F0157F750C001B0A8D /* TaskState.m in Sources */ = {isa = PBXBuildFile; fileRef = 722E05EF157F750B001B0A8D /* TaskState.m */; };
 		723DC29D157B90F7006BDA9B /* PositionUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 723DC29C157B90F7006BDA9B /* PositionUtil.m */; };
 		723DC2ED157B9EBB006BDA9B /* Position.m in Sources */ = {isa = PBXBuildFile; fileRef = 723DC2EC157B9EBB006BDA9B /* Position.m */; };
 		723DC2F0157BA025006BDA9B /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 723DC2EF157BA025006BDA9B /* Constants.m */; };
@@ -395,6 +402,22 @@
 		722E05C8157F23F7001B0A8D /* Job.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Job.m; sourceTree = "<group>"; };
 		722E05CA157F2404001B0A8D /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
 		722E05CB157F2404001B0A8D /* Event.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Event.m; sourceTree = "<group>"; };
+		722E05CF157F3161001B0A8D /* EventDispatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventDispatcher.h; sourceTree = "<group>"; };
+		722E05D0157F3161001B0A8D /* EventDispatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventDispatcher.m; sourceTree = "<group>"; };
+		722E05D2157F3252001B0A8D /* EngineContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EngineContext.h; sourceTree = "<group>"; };
+		722E05D3157F3252001B0A8D /* EngineContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EngineContext.m; sourceTree = "<group>"; };
+		722E05E2157F5612001B0A8D /* DefaultState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DefaultState.h; sourceTree = "<group>"; };
+		722E05E3157F5612001B0A8D /* DefaultState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DefaultState.m; sourceTree = "<group>"; };
+		722E05E5157F574B001B0A8D /* IState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IState.h; sourceTree = "<group>"; };
+		722E05E6157F574B001B0A8D /* IState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IState.m; sourceTree = "<group>"; };
+		722E05E8157F74AE001B0A8D /* StartState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StartState.h; sourceTree = "<group>"; };
+		722E05E9157F74AE001B0A8D /* StartState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StartState.m; sourceTree = "<group>"; };
+		722E05EB157F74D1001B0A8D /* EndState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EndState.h; sourceTree = "<group>"; };
+		722E05EC157F74D1001B0A8D /* EndState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EndState.m; sourceTree = "<group>"; };
+		722E05EE157F750B001B0A8D /* TaskState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskState.h; sourceTree = "<group>"; };
+		722E05EF157F750B001B0A8D /* TaskState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskState.m; sourceTree = "<group>"; };
+		722E05F1157F779D001B0A8D /* GDataXMLNode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GDataXMLNode.h; sourceTree = "<group>"; };
+		722E05F2157F779D001B0A8D /* GDataXMLNode.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GDataXMLNode.m; sourceTree = "<group>"; };
 		723DC29B157B90F7006BDA9B /* PositionUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PositionUtil.h; sourceTree = "<group>"; };
 		723DC29C157B90F7006BDA9B /* PositionUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PositionUtil.m; sourceTree = "<group>"; };
 		723DC2EB157B9EBB006BDA9B /* Position.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Position.h; sourceTree = "<group>"; };
@@ -849,6 +872,7 @@
 		720CE0ED157AC4E200DB894D /* workflow */ = {
 			isa = PBXGroup;
 			children = (
+				722E05CE157F312C001B0A8D /* engine */,
 				722E05CD157F240B001B0A8D /* model */,
 			);
 			name = workflow;
@@ -890,6 +914,37 @@
 				722E05CB157F2404001B0A8D /* Event.m */,
 			);
 			name = model;
+			sourceTree = "<group>";
+		};
+		722E05CE157F312C001B0A8D /* engine */ = {
+			isa = PBXGroup;
+			children = (
+				722E05E0157F5566001B0A8D /* state */,
+				722E05CF157F3161001B0A8D /* EventDispatcher.h */,
+				722E05D0157F3161001B0A8D /* EventDispatcher.m */,
+				722E05D2157F3252001B0A8D /* EngineContext.h */,
+				722E05D3157F3252001B0A8D /* EngineContext.m */,
+				722E05F1157F779D001B0A8D /* GDataXMLNode.h */,
+				722E05F2157F779D001B0A8D /* GDataXMLNode.m */,
+			);
+			name = engine;
+			sourceTree = "<group>";
+		};
+		722E05E0157F5566001B0A8D /* state */ = {
+			isa = PBXGroup;
+			children = (
+				722E05E2157F5612001B0A8D /* DefaultState.h */,
+				722E05E3157F5612001B0A8D /* DefaultState.m */,
+				722E05E5157F574B001B0A8D /* IState.h */,
+				722E05E6157F574B001B0A8D /* IState.m */,
+				722E05E8157F74AE001B0A8D /* StartState.h */,
+				722E05E9157F74AE001B0A8D /* StartState.m */,
+				722E05EB157F74D1001B0A8D /* EndState.h */,
+				722E05EC157F74D1001B0A8D /* EndState.m */,
+				722E05EE157F750B001B0A8D /* TaskState.h */,
+				722E05EF157F750B001B0A8D /* TaskState.m */,
+			);
+			name = state;
 			sourceTree = "<group>";
 		};
 		723DC29A157B90DE006BDA9B /* util */ = {
@@ -1108,6 +1163,13 @@
 				722E05C6157F22D6001B0A8D /* Variable.m in Sources */,
 				722E05C9157F23F7001B0A8D /* Job.m in Sources */,
 				722E05CC157F2404001B0A8D /* Event.m in Sources */,
+				722E05D1157F3161001B0A8D /* EventDispatcher.m in Sources */,
+				722E05D4157F3252001B0A8D /* EngineContext.m in Sources */,
+				722E05E4157F5612001B0A8D /* DefaultState.m in Sources */,
+				722E05E7157F574B001B0A8D /* IState.m in Sources */,
+				722E05EA157F74AF001B0A8D /* StartState.m in Sources */,
+				722E05ED157F74D1001B0A8D /* EndState.m in Sources */,
+				722E05F0157F750C001B0A8D /* TaskState.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
