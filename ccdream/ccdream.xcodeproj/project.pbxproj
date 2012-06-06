@@ -124,6 +124,12 @@
 		720CE0F1157AC55F00DB894D /* MapLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 720CE0F0157AC55F00DB894D /* MapLayer.m */; };
 		720CE10A157ADDFC00DB894D /* Tilesheet-land-v5.png in Resources */ = {isa = PBXBuildFile; fileRef = 720CE108157ADDFC00DB894D /* Tilesheet-land-v5.png */; };
 		720CE10B157ADDFC00DB894D /* ccdream_map01.tmx in Resources */ = {isa = PBXBuildFile; fileRef = 720CE109157ADDFC00DB894D /* ccdream_map01.tmx */; };
+		722E05BC157F229E001B0A8D /* Session.m in Sources */ = {isa = PBXBuildFile; fileRef = 722E05BB157F229E001B0A8D /* Session.m */; };
+		722E05C0157F22AE001B0A8D /* State.m in Sources */ = {isa = PBXBuildFile; fileRef = 722E05BF157F22AE001B0A8D /* State.m */; };
+		722E05C3157F22BB001B0A8D /* Task.m in Sources */ = {isa = PBXBuildFile; fileRef = 722E05C2157F22BB001B0A8D /* Task.m */; };
+		722E05C6157F22D6001B0A8D /* Variable.m in Sources */ = {isa = PBXBuildFile; fileRef = 722E05C5157F22D6001B0A8D /* Variable.m */; };
+		722E05C9157F23F7001B0A8D /* Job.m in Sources */ = {isa = PBXBuildFile; fileRef = 722E05C8157F23F7001B0A8D /* Job.m */; };
+		722E05CC157F2404001B0A8D /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 722E05CB157F2404001B0A8D /* Event.m */; };
 		723DC29D157B90F7006BDA9B /* PositionUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 723DC29C157B90F7006BDA9B /* PositionUtil.m */; };
 		723DC2ED157B9EBB006BDA9B /* Position.m in Sources */ = {isa = PBXBuildFile; fileRef = 723DC2EC157B9EBB006BDA9B /* Position.m */; };
 		723DC2F0157BA025006BDA9B /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 723DC2EF157BA025006BDA9B /* Constants.m */; };
@@ -377,6 +383,18 @@
 		720CE0F0157AC55F00DB894D /* MapLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapLayer.m; sourceTree = "<group>"; };
 		720CE108157ADDFC00DB894D /* Tilesheet-land-v5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Tilesheet-land-v5.png"; path = "Resources/Tilesheet-land-v5.png"; sourceTree = "<group>"; };
 		720CE109157ADDFC00DB894D /* ccdream_map01.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = ccdream_map01.tmx; path = Resources/ccdream_map01.tmx; sourceTree = "<group>"; };
+		722E05BA157F229E001B0A8D /* Session.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Session.h; sourceTree = "<group>"; };
+		722E05BB157F229E001B0A8D /* Session.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Session.m; sourceTree = "<group>"; };
+		722E05BE157F22AE001B0A8D /* State.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = State.h; sourceTree = "<group>"; };
+		722E05BF157F22AE001B0A8D /* State.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = State.m; sourceTree = "<group>"; };
+		722E05C1157F22BB001B0A8D /* Task.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Task.h; sourceTree = "<group>"; };
+		722E05C2157F22BB001B0A8D /* Task.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Task.m; sourceTree = "<group>"; };
+		722E05C4157F22D6001B0A8D /* Variable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Variable.h; sourceTree = "<group>"; };
+		722E05C5157F22D6001B0A8D /* Variable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Variable.m; sourceTree = "<group>"; };
+		722E05C7157F23F7001B0A8D /* Job.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Job.h; sourceTree = "<group>"; };
+		722E05C8157F23F7001B0A8D /* Job.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Job.m; sourceTree = "<group>"; };
+		722E05CA157F2404001B0A8D /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
+		722E05CB157F2404001B0A8D /* Event.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Event.m; sourceTree = "<group>"; };
 		723DC29B157B90F7006BDA9B /* PositionUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PositionUtil.h; sourceTree = "<group>"; };
 		723DC29C157B90F7006BDA9B /* PositionUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PositionUtil.m; sourceTree = "<group>"; };
 		723DC2EB157B9EBB006BDA9B /* Position.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Position.h; sourceTree = "<group>"; };
@@ -831,6 +849,7 @@
 		720CE0ED157AC4E200DB894D /* workflow */ = {
 			isa = PBXGroup;
 			children = (
+				722E05CD157F240B001B0A8D /* model */,
 			);
 			name = workflow;
 			sourceTree = "<group>";
@@ -850,6 +869,25 @@
 				72A6DC2E157EEFC20042B7E0 /* MapAttribute.m */,
 				72A6DC30157EF3F70042B7E0 /* MapGridAttribute.h */,
 				72A6DC31157EF3F70042B7E0 /* MapGridAttribute.m */,
+			);
+			name = model;
+			sourceTree = "<group>";
+		};
+		722E05CD157F240B001B0A8D /* model */ = {
+			isa = PBXGroup;
+			children = (
+				722E05BA157F229E001B0A8D /* Session.h */,
+				722E05BB157F229E001B0A8D /* Session.m */,
+				722E05BE157F22AE001B0A8D /* State.h */,
+				722E05BF157F22AE001B0A8D /* State.m */,
+				722E05C1157F22BB001B0A8D /* Task.h */,
+				722E05C2157F22BB001B0A8D /* Task.m */,
+				722E05C4157F22D6001B0A8D /* Variable.h */,
+				722E05C5157F22D6001B0A8D /* Variable.m */,
+				722E05C7157F23F7001B0A8D /* Job.h */,
+				722E05C8157F23F7001B0A8D /* Job.m */,
+				722E05CA157F2404001B0A8D /* Event.h */,
+				722E05CB157F2404001B0A8D /* Event.m */,
 			);
 			name = model;
 			sourceTree = "<group>";
@@ -1064,6 +1102,12 @@
 				72A6DC32157EF3F70042B7E0 /* MapGridAttribute.m in Sources */,
 				72A6DC35157F0BBC0042B7E0 /* FightMapScene.m in Sources */,
 				72A6DC38157F0D250042B7E0 /* FightMenuLayer.m in Sources */,
+				722E05BC157F229E001B0A8D /* Session.m in Sources */,
+				722E05C0157F22AE001B0A8D /* State.m in Sources */,
+				722E05C3157F22BB001B0A8D /* Task.m in Sources */,
+				722E05C6157F22D6001B0A8D /* Variable.m in Sources */,
+				722E05C9157F23F7001B0A8D /* Job.m in Sources */,
+				722E05CC157F2404001B0A8D /* Event.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
