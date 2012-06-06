@@ -11,4 +11,39 @@
 
 @implementation State
 
+
+@synthesize stateId = _stateId;
+@synthesize name = _name;
+@synthesize value = _value;
+@synthesize status = _status;
+@synthesize session = _session;
+@synthesize jobs = _jobs;
+@synthesize tasks = _tasks;
+@synthesize events = _events;
+@synthesize variables = _variables;
+@synthesize startTime = _startTime;
+@synthesize endTime = _endTime;
+
+
+- (void)dealloc {
+    [_name release];
+    _name = nil;
+    [_status release];
+    _status = nil;
+    [_session release];
+    _session = nil;
+    [_jobs release];
+    _jobs = nil;
+    [_tasks release];
+    _tasks = nil;
+    [_events release];
+    _events = nil;
+    [_variables release];
+    _variables = nil;
+    [_startTime release];
+    _startTime = nil;
+    [_endTime release];
+    _endTime = nil;
+    [super dealloc];
+}
 @end
