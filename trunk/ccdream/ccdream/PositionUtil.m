@@ -11,19 +11,21 @@
 
 @implementation PositionUtil
 
-+(CCArray*) calcMoveOrbitarrayFromPosition:(Position*) charPosi movement:(int) movement mobility:(Mobility*) mobility mapGridAttributeMap:(NSDictionary*) mapGridAttributeMap maxPosition:(Position*) maxPosition{
++(CCArray*) calcMoveOrbitarrayFromPosition:(Position*) charPosi movement:(int) movement mobility:(Mobility*) mobility mapGridAttributeMap:(NSDictionary*) mapGridAttributeMap maxPosition:(Position*) maxPosition playerCharacterArray:(CCArray*) playerCharacterArray enemyCharacterArray:(CCArray*) enemyCharacterArray{
     NSMutableDictionary* moveOrbitSet = [[[NSMutableDictionary alloc] init] autorelease];
     NSMutableDictionary* processedPosiMap = [[[NSMutableDictionary alloc] init] autorelease];
     
     MoveOrbit* current = [MoveOrbit moveOrbitWithPrevious:nil Position:charPosi];
-    [PositionUtil moveForProcessedposiMap: processedPosiMap moveOrbitSet: moveOrbitSet previousMoveOrbit: current movement: movement mobility:mobility mapGridAttributeMap: mapGridAttributeMap maxPosition: maxPosition xoffset:0 yoffset:0];
+    [PositionUtil moveForProcessedposiMap: processedPosiMap moveOrbitSet: moveOrbitSet previousMoveOrbit: current movement: movement mobility:mobility mapGridAttributeMap: mapGridAttributeMap maxPosition: maxPosition playerCharacterArray:playerCharacterArray enemyCharacterArray:enemyCharacterArray xoffset:0 yoffset:0];
+    
+    
     NSArray* sortedArray = [[moveOrbitSet allValues] sortedArrayUsingComparator:[MoveOrbit comparator]];
     CCArray* result = [CCArray arrayWithNSArray:sortedArray];
     return result;   
 }
 
 
-+(void) moveForProcessedposiMap:(NSMutableDictionary*) processedPosiMap moveOrbitSet:(NSMutableDictionary*) moveOrbitSet previousMoveOrbit:(MoveOrbit*) previousMoveOrbit movement:(int) movement mobility:(Mobility*)mobility mapGridAttributeMap:(NSDictionary*) mapGridAttributeMap maxPosition:(Position*) maxPosition xoffset:(int)xoffset yoffset:(int)yoffset{
++(void) moveForProcessedposiMap:(NSMutableDictionary*) processedPosiMap moveOrbitSet:(NSMutableDictionary*) moveOrbitSet previousMoveOrbit:(MoveOrbit*) previousMoveOrbit movement:(int) movement mobility:(Mobility*)mobility mapGridAttributeMap:(NSDictionary*) mapGridAttributeMap maxPosition:(Position*) maxPosition playerCharacterArray:(CCArray*) playerCharacterArray enemyCharacterArray:(CCArray*) enemyCharacterArray xoffset:(int)xoffset yoffset:(int)yoffset{
     Position* currentPosi = [Position positionWithX:previousMoveOrbit.position.x+xoffset Y:previousMoveOrbit.position.y+yoffset];
     NSNumber* remainingMovement = (NSNumber*)[processedPosiMap objectForKey:[currentPosi description]];
     if(remainingMovement!=nil&&[remainingMovement intValue]>=movement){
@@ -38,6 +40,10 @@
     int mapType = [(MapGridAttribute*)[mapGridAttributeMap objectForKey:[currentPosi description]] mapType];
     int moveCost = 0;
     
+    if([PositionUtil containsPosition:currentPosi forCharacterArray:enemyCharacterArray]){
+        //敌人所在位置不可站立
+        return;
+    }
     //如果不是起始点
     if(xoffset!=0||yoffset!=0){
         if(mapType==1){
@@ -45,7 +51,7 @@
         }else if (mapType==2) {
             moveCost = mobility.mapType2;
         }else if(mapType==-1){
-            //enemy
+            //不可站立位置
             return;
         }
     }
@@ -56,7 +62,11 @@
     }else{
         MoveOrbit* moveOrbit = [MoveOrbit moveOrbitWithPrevious:previousMoveOrbit Position:currentPosi];
         if(xoffset!=0||yoffset!=0){
-            [moveOrbitSet setValue:moveOrbit forKey:[moveOrbit.position description]];
+            if(![PositionUtil containsPosition:currentPosi forCharacterArray:playerCharacterArray]){
+                //非友军位置可以站立
+                [moveOrbitSet setValue:moveOrbit forKey:[moveOrbit.position description]];
+            }
+
         }else{
             moveOrbit.previous = nil;
         }
@@ -89,19 +99,19 @@
         }
         
         if(moveLeft){
-            [PositionUtil moveForProcessedposiMap: processedPosiMap moveOrbitSet: moveOrbitSet previousMoveOrbit: moveOrbit movement: movement-moveCost mobility:mobility mapGridAttributeMap: mapGridAttributeMap maxPosition: maxPosition xoffset:-1 yoffset:0];
+            [PositionUtil moveForProcessedposiMap: processedPosiMap moveOrbitSet: moveOrbitSet previousMoveOrbit: moveOrbit movement: movement-moveCost mobility:mobility mapGridAttributeMap: mapGridAttributeMap maxPosition: maxPosition playerCharacterArray:playerCharacterArray enemyCharacterArray:enemyCharacterArray xoffset:-1 yoffset:0];
         }
         
         if(moveRight){
-            [PositionUtil moveForProcessedposiMap: processedPosiMap moveOrbitSet: moveOrbitSet previousMoveOrbit: moveOrbit movement: movement-moveCost mobility:mobility mapGridAttributeMap: mapGridAttributeMap maxPosition: maxPosition xoffset:1 yoffset:0];
+            [PositionUtil moveForProcessedposiMap: processedPosiMap moveOrbitSet: moveOrbitSet previousMoveOrbit: moveOrbit movement: movement-moveCost mobility:mobility mapGridAttributeMap: mapGridAttributeMap maxPosition: maxPosition playerCharacterArray:playerCharacterArray enemyCharacterArray:enemyCharacterArray xoffset:1 yoffset:0];
         }
         
         if(moveUp){
-            [PositionUtil moveForProcessedposiMap: processedPosiMap moveOrbitSet: moveOrbitSet previousMoveOrbit: moveOrbit movement: movement-moveCost mobility:mobility mapGridAttributeMap: mapGridAttributeMap maxPosition: maxPosition xoffset:0 yoffset:1];
+            [PositionUtil moveForProcessedposiMap: processedPosiMap moveOrbitSet: moveOrbitSet previousMoveOrbit: moveOrbit movement: movement-moveCost mobility:mobility mapGridAttributeMap: mapGridAttributeMap maxPosition: maxPosition playerCharacterArray:playerCharacterArray enemyCharacterArray:enemyCharacterArray xoffset:0 yoffset:1];
         }
         
         if(moveDown){
-            [PositionUtil moveForProcessedposiMap: processedPosiMap moveOrbitSet: moveOrbitSet previousMoveOrbit: moveOrbit movement: movement-moveCost mobility:mobility mapGridAttributeMap: mapGridAttributeMap maxPosition: maxPosition xoffset:0 yoffset:-1];
+            [PositionUtil moveForProcessedposiMap: processedPosiMap moveOrbitSet: moveOrbitSet previousMoveOrbit: moveOrbit movement: movement-moveCost mobility:mobility mapGridAttributeMap: mapGridAttributeMap maxPosition: maxPosition playerCharacterArray:playerCharacterArray enemyCharacterArray:enemyCharacterArray xoffset:0 yoffset:-1];
         }
     }
     
@@ -128,12 +138,26 @@
     return p1.x==p2.x&&p1.y==p2.y;
 }
 
-+(bool) containsPosition:(Position*)position forArray:(CCArray*) array
++(bool) containsPosition:(Position*)position forMoveOrbitArray:(CCArray*) array
 {
     int count = [array count];
     for(int i=0;i<count;i++){
         Position* posi = [(MoveOrbit*)[array objectAtIndex:i] position];
         if(posi.x==position.x&&posi.y==position.y){
+            return YES;
+        }
+    }
+    return NO;
+}
+
++(bool) containsPosition:(Position*)position forCharacterArray:(CCArray*) array
+{
+    
+    CGPoint cur = [position toCenterCGPoint];    
+    int count = [array count];
+    for(int i=0;i<count;i++){
+        CGPoint posi = [[(Character*)[array objectAtIndex:i] characterSprite] position];
+        if(cur.x==posi.x&&cur.y==posi.y){
             return YES;
         }
     }
