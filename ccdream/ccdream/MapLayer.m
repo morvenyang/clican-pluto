@@ -12,16 +12,19 @@
 @implementation MapLayer
 
 @synthesize char1 = _char1;
+@synthesize playerCharacterArray = _playerCharacterArray;
+@synthesize enemyCharacterArray = _enemyCharacterArray;
 @synthesize selectedCharacter = _selectedCharacter;
-@synthesize tileMap = _tileMap;
+@synthesize tiledMap = _tiledMap;
 @synthesize movementArray = _movementArray;
 @synthesize shadowSpriteArray = _shadowSpriteArray;
+@synthesize maxPosi = _maxPosi;
+@synthesize mapAttribute = _mapAttribute;
+@synthesize mapGridAttributeMap = _mapGridAttributeMap;
 
 +(CCScene *) scene{
     CCScene* scene = [CCScene node];
     MapLayer* layer = [MapLayer node];
-    layer.char1=[Character characterWithParentNode:layer spriteFile:@"trs-012.gif"];
-    [layer.char1.characterSelectDelegateArray addObject:layer];
     [scene addChild:layer];
     return scene;
 }
@@ -29,16 +32,64 @@
 -(id) init{
     self = [super init];
     if(self!=nil){
-        self.tileMap = [CCTMXTiledMap tiledMapWithTMXFile:@"ccdream_map01.tmx"];
+        
+        //加载关卡地图
+        self.tiledMap = [CCTMXTiledMap tiledMapWithTMXFile:@"ccdream_map01.tmx"];
         self.shadowSpriteArray = [CCArray array];
-        [self addChild:self.tileMap z:-1 tag:1]; 
-        CCTMXLayer* eventLayer = [self.tileMap layerNamed:@"GameEventLayer"]; 
+        [self addChild:self.tiledMap z:-1 tag:1]; 
+        CCTMXLayer* eventLayer = [self.tiledMap layerNamed:@"GameEventLayer"]; 
         eventLayer.visible = YES;
+        [self loadMap];
+        //加载关卡玩家角色和敌对角色
+        [self loadCharacter];
+        
         [[GlobalEventHandler sharedHandler] addPositionTouchDelegate:self];
     }
     return self;
 }
 
+-(void) loadMap{
+    int gridx=self.tiledMap.contentSizeInPixels.width/self.tiledMap.tileSize.width;
+    int gridy=self.tiledMap.contentSizeInPixels.height/self.tiledMap.tileSize.height;
+    
+    self.mapAttribute = [MapAttribute mapAttributeWith:self.tiledMap];
+    
+    self.mapGridAttributeMap = [[[NSMutableDictionary alloc] init] autorelease];
+    for(int i=0;i<gridx;i++){
+        for(int j=0;j<gridy;j++){
+            int tileId=[[self.tiledMap layerNamed:@"GameEventLayer"] tileGIDAt:ccp(i, j)];
+            NSDictionary* dictionary=[self.tiledMap propertiesForGID:tileId];
+            if(dictionary){
+                Position* position = [Position positionWithX:i Y:gridy-j-1];
+                MapGridAttribute* mga = [MapGridAttribute mapGridAttribut:dictionary position:position];
+                [self.mapGridAttributeMap setValue:mga forKey:position.description];
+            }
+            
+        }
+    }
+    
+    self.maxPosi = [Position positionWithX:gridx-1 Y:gridy-1];
+    CCLOG(@"max position=%@",self.maxPosi.description);
+}
+
+-(void) loadCharacter{
+    self.playerCharacterArray = [CCArray array];
+    self.enemyCharacterArray = [CCArray array];
+    
+    for(int i=0;i<[self.mapAttribute.enemyBeginPosiArray count];i++){
+        Position* position = [self.mapAttribute.enemyBeginPosiArray objectAtIndex:i];
+        Character* character =[Character characterWithParentNode:self spriteFile:@"trs-037.gif" position:position];
+        [character addCharacterSelectDelegate:self];
+        [self.enemyCharacterArray addObject:character];
+    }
+   
+    for(int i=0;i<[self.mapAttribute.playerBeginPosiArray count];i++){
+        Position* position = [self.mapAttribute.playerBeginPosiArray objectAtIndex:i];
+        Character* character =[Character characterWithParentNode:self spriteFile:@"trs-012.gif" position:position];
+        [character addCharacterSelectDelegate:self];
+        [self.playerCharacterArray addObject:character];
+    }
+}
 - (BOOL)touchBegan:(Position *)posi withEvent:(UIEvent *)event {
     if(self.selectedCharacter!=nil){
         if(self.movementArray!=nil&&[PositionUtil containsPosition:posi forArray:self.movementArray]){
@@ -67,30 +118,8 @@
     Mobility* moblitity = [Mobility mobilityWithDefault];
     
     
-    
-    int gridx=self.tileMap.contentSizeInPixels.width/self.tileMap.tileSize.width;
-    int gridy=self.tileMap.contentSizeInPixels.height/self.tileMap.tileSize.height;
-    NSMutableDictionary* mapTypeMetrix = [[[NSMutableDictionary alloc] init] autorelease];
-    for(int i=0;i<gridx;i++){
-        for(int j=0;j<gridy;j++){
-            int tileId=[[self.tileMap layerNamed:@"GameEventLayer"] tileGIDAt:ccp(i, j)];
-            NSDictionary* dictionary=[self.tileMap propertiesForGID:tileId];
-            if(dictionary){
-                NSString* mapTypeStr = [dictionary objectForKey:@"type"];
-                Position* position = [Position positionWithX:i Y:gridy-j-1];
-                int mapType = [mapTypeStr intValue];
-                if(mapType==0){
-                    CCLOG(@"Found mapType==0");
-                }else{
-                     [mapTypeMetrix setValue:[NSNumber numberWithInt:mapType] forKey:[position description]];
-                }
-               
-            }
-        }
-    }
-    Position* maxPosi = [Position positionWithX:gridx Y:gridy];
-    
-    CCArray* posiArray = [PositionUtil calcMoveOrbitarrayFromPosition:charPosi movement:3 mobility:moblitity mapTypeMetrix:mapTypeMetrix maxPosition:maxPosi];
+    //计算可移动范围
+    CCArray* posiArray = [PositionUtil calcMoveOrbitarrayFromPosition:charPosi movement:3 mobility:moblitity mapGridAttributeMap:self.mapGridAttributeMap maxPosition:self.maxPosi];
     CCLOG(@"count=%i",[posiArray count]);
     
     [self cleanShadowSpriteArray];

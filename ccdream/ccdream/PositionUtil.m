@@ -11,19 +11,19 @@
 
 @implementation PositionUtil
 
-+(CCArray*) calcMoveOrbitarrayFromPosition:(Position*) charPosi movement:(int) movement mobility:(Mobility*) mobility mapTypeMetrix:(NSDictionary*) mapTypeMetrix maxPosition:(Position*) maxPosition{
++(CCArray*) calcMoveOrbitarrayFromPosition:(Position*) charPosi movement:(int) movement mobility:(Mobility*) mobility mapGridAttributeMap:(NSDictionary*) mapGridAttributeMap maxPosition:(Position*) maxPosition{
     NSMutableDictionary* moveOrbitSet = [[[NSMutableDictionary alloc] init] autorelease];
     NSMutableDictionary* processedPosiMap = [[[NSMutableDictionary alloc] init] autorelease];
     
     MoveOrbit* current = [MoveOrbit moveOrbitWithPrevious:nil Position:charPosi];
-    [PositionUtil moveForProcessedposiMap: processedPosiMap moveOrbitSet: moveOrbitSet previousMoveOrbit: current movement: movement mobility:mobility mapTypeMetrix: mapTypeMetrix maxPosition: maxPosition xoffset:0 yoffset:0];
+    [PositionUtil moveForProcessedposiMap: processedPosiMap moveOrbitSet: moveOrbitSet previousMoveOrbit: current movement: movement mobility:mobility mapGridAttributeMap: mapGridAttributeMap maxPosition: maxPosition xoffset:0 yoffset:0];
     NSArray* sortedArray = [[moveOrbitSet allValues] sortedArrayUsingComparator:[MoveOrbit comparator]];
     CCArray* result = [CCArray arrayWithNSArray:sortedArray];
     return result;   
 }
 
 
-+(void) moveForProcessedposiMap:(NSMutableDictionary*) processedPosiMap moveOrbitSet:(NSMutableDictionary*) moveOrbitSet previousMoveOrbit:(MoveOrbit*) previousMoveOrbit movement:(int) movement mobility:(Mobility*)mobility mapTypeMetrix:(NSDictionary*) mapTypeMetrix maxPosition:(Position*) maxPosition xoffset:(int)xoffset yoffset:(int)yoffset{
++(void) moveForProcessedposiMap:(NSMutableDictionary*) processedPosiMap moveOrbitSet:(NSMutableDictionary*) moveOrbitSet previousMoveOrbit:(MoveOrbit*) previousMoveOrbit movement:(int) movement mobility:(Mobility*)mobility mapGridAttributeMap:(NSDictionary*) mapGridAttributeMap maxPosition:(Position*) maxPosition xoffset:(int)xoffset yoffset:(int)yoffset{
     Position* currentPosi = [Position positionWithX:previousMoveOrbit.position.x+xoffset Y:previousMoveOrbit.position.y+yoffset];
     NSNumber* remainingMovement = (NSNumber*)[processedPosiMap objectForKey:[currentPosi description]];
     if(remainingMovement!=nil&&[remainingMovement intValue]>=movement){
@@ -35,7 +35,7 @@
     int x = currentPosi.x;
     int y = currentPosi.y;
     
-    int mapType = [(NSNumber*)[mapTypeMetrix objectForKey:[currentPosi description]] intValue];
+    int mapType = [(MapGridAttribute*)[mapGridAttributeMap objectForKey:[currentPosi description]] mapType];
     int moveCost = 0;
     
     //如果不是起始点
@@ -89,19 +89,19 @@
         }
         
         if(moveLeft){
-            [PositionUtil moveForProcessedposiMap: processedPosiMap moveOrbitSet: moveOrbitSet previousMoveOrbit: moveOrbit movement: movement-moveCost mobility:mobility mapTypeMetrix: mapTypeMetrix maxPosition: maxPosition xoffset:-1 yoffset:0];
+            [PositionUtil moveForProcessedposiMap: processedPosiMap moveOrbitSet: moveOrbitSet previousMoveOrbit: moveOrbit movement: movement-moveCost mobility:mobility mapGridAttributeMap: mapGridAttributeMap maxPosition: maxPosition xoffset:-1 yoffset:0];
         }
         
         if(moveRight){
-            [PositionUtil moveForProcessedposiMap: processedPosiMap moveOrbitSet: moveOrbitSet previousMoveOrbit: moveOrbit movement: movement-moveCost mobility:mobility mapTypeMetrix: mapTypeMetrix maxPosition: maxPosition xoffset:1 yoffset:0];
+            [PositionUtil moveForProcessedposiMap: processedPosiMap moveOrbitSet: moveOrbitSet previousMoveOrbit: moveOrbit movement: movement-moveCost mobility:mobility mapGridAttributeMap: mapGridAttributeMap maxPosition: maxPosition xoffset:1 yoffset:0];
         }
         
         if(moveUp){
-            [PositionUtil moveForProcessedposiMap: processedPosiMap moveOrbitSet: moveOrbitSet previousMoveOrbit: moveOrbit movement: movement-moveCost mobility:mobility mapTypeMetrix: mapTypeMetrix maxPosition: maxPosition xoffset:0 yoffset:1];
+            [PositionUtil moveForProcessedposiMap: processedPosiMap moveOrbitSet: moveOrbitSet previousMoveOrbit: moveOrbit movement: movement-moveCost mobility:mobility mapGridAttributeMap: mapGridAttributeMap maxPosition: maxPosition xoffset:0 yoffset:1];
         }
         
         if(moveDown){
-            [PositionUtil moveForProcessedposiMap: processedPosiMap moveOrbitSet: moveOrbitSet previousMoveOrbit: moveOrbit movement: movement-moveCost mobility:mobility mapTypeMetrix: mapTypeMetrix maxPosition: maxPosition xoffset:0 yoffset:-1];
+            [PositionUtil moveForProcessedposiMap: processedPosiMap moveOrbitSet: moveOrbitSet previousMoveOrbit: moveOrbit movement: movement-moveCost mobility:mobility mapGridAttributeMap: mapGridAttributeMap maxPosition: maxPosition xoffset:0 yoffset:-1];
         }
     }
     
@@ -121,10 +121,11 @@
 
 +(bool) isPosition:(Position*)position forNode:(CCNode*) node
 {
-    CGRect rect = [node boundingBox];
-    int xPosition = rect.origin.x/MAP_POINT_SIZE;
-    int yPosition = rect.origin.y/MAP_POINT_SIZE;
-    return position.x==xPosition&&position.y==yPosition;
+    CGPoint p1 = [position toCenterCGPoint];
+    CCLOG(@"p1.x=%f,p1.y=%f",p1.x,p1.y);
+    CGPoint p2 = node.position;
+    CCLOG(@"p2.x=%f,p2.y=%f",p2.x,p2.y);
+    return p1.x==p2.x&&p1.y==p2.y;
 }
 
 +(bool) containsPosition:(Position*)position forArray:(CCArray*) array

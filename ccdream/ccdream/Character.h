@@ -10,7 +10,7 @@
 #import "cocos2d.h"
 #import "Mobility.h"
 #import "PositionUtil.h"
-#import "MovementSprite.h"
+
 #import "GlobalEventHandler.h"
 
 @protocol CharacterSelectDelegate;
@@ -29,7 +29,7 @@
 @property (nonatomic,retain) CCArray* characterSelectDelegateArray;
 @property (nonatomic,assign)  BOOL selected;
 
-+(id)characterWithParentNode:(CCNode*) parentNode spriteFile:(NSString*) spriteFile;
++(id)characterWithParentNode:(CCNode*) parentNode spriteFile:(NSString*) spriteFile position:(Position*) position;
 
 
 
