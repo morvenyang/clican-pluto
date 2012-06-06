@@ -18,7 +18,7 @@
     
 }
 //根据当前位置计算可移动单元格
-+(CCArray*) calcMoveOrbitarrayFromPosition:(Position*) charPosi movement:(int) movement mobility:(Mobility*) mobility mapGridAttributeMap:(NSDictionary*) mapGridAttributeMap maxPosition:(Position*) maxPosition;
++(CCArray*) calcMoveOrbitarrayFromPosition:(Position*) charPosi movement:(int) movement mobility:(Mobility*) mobility mapGridAttributeMap:(NSDictionary*) mapGridAttributeMap maxPosition:(Position*) maxPosition  playerCharacterArray:(CCArray*) playerCharacterArray enemyCharacterArray:(CCArray*) enemyCharacterArray;
 
 //把touch对象转换为位置对象
 +(CGPoint) locationFromTouch:(UITouch*)touch;
@@ -30,5 +30,7 @@
 +(bool) isPosition:(Position*)position forNode:(CCNode*) node;
 
 //判断位置数组是否包含某个位置
-+(bool) containsPosition:(Position*)position forArray:(CCArray*) array;
++(bool) containsPosition:(Position*)position forMoveOrbitArray:(CCArray*) array;
+
++(bool) containsPosition:(Position*)position forCharacterArray:(CCArray*) array;
 @end

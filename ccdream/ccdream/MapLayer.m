@@ -92,7 +92,7 @@
 }
 - (BOOL)touchBegan:(Position *)posi withEvent:(UIEvent *)event {
     if(self.selectedCharacter!=nil){
-        if(self.movementArray!=nil&&[PositionUtil containsPosition:posi forArray:self.movementArray]){
+        if(self.movementArray!=nil&&[PositionUtil containsPosition:posi forMoveOrbitArray:self.movementArray]){
             //选中的位置是可移动的位置
             Character* character = self.selectedCharacter;
             character.selected = NO;
@@ -117,9 +117,10 @@
     Position* charPosi = [Position positionWithCGPoint:self.selectedCharacter.characterSprite.position];
     Mobility* moblitity = [Mobility mobilityWithDefault];
     
-    
+    CCArray* posiArray = nil;
     //计算可移动范围
-    CCArray* posiArray = [PositionUtil calcMoveOrbitarrayFromPosition:charPosi movement:3 mobility:moblitity mapGridAttributeMap:self.mapGridAttributeMap maxPosition:self.maxPosi];
+    
+    posiArray = [PositionUtil calcMoveOrbitarrayFromPosition:charPosi movement:3 mobility:moblitity mapGridAttributeMap:self.mapGridAttributeMap maxPosition:self.maxPosi playerCharacterArray:self.playerCharacterArray enemyCharacterArray:self.enemyCharacterArray];
     CCLOG(@"count=%i",[posiArray count]);
     
     [self cleanShadowSpriteArray];
