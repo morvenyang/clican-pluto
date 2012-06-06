@@ -15,6 +15,7 @@
 @synthesize attack = _attack;
 @synthesize cancel = _cancel;
 @synthesize standby = _standby;
+@synthesize selectAttack = _selectAttack;
 
 static FightMenuLayer* sharedFightMenuLayer = nil;
 
@@ -62,14 +63,19 @@ static FightMenuLayer* sharedFightMenuLayer = nil;
 
 -(void) attack:(id) sender {
     CCLOG(@"attack");
+    self.selectAttack = YES;
 }
 
 -(void) standby:(id) sender {
     CCLOG(@"standby");
+    self.selectAttack = NO;
+    [self hide];
 }
 
 -(void) cancel:(id) sender {
     CCLOG(@"cancel");
+    self.selectAttack = NO;
+    [self hide];
 }
 
 - (BOOL)touchBegan:(Position *)posi withEvent:(UIEvent *)event {
