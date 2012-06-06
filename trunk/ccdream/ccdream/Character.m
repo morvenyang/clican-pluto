@@ -18,13 +18,15 @@
 
 
 
-+(id)characterWithParentNode:(CCNode*) parentNode spriteFile:(NSString*) spriteFile{
++(id)characterWithParentNode:(CCNode*) parentNode spriteFile:(NSString*) spriteFile position:(Position*) position {
         Character* character = [[[Character alloc] init] autorelease];
         character.airMobility = [Mobility mobilityWithDefault];
         character.landMobility = [Mobility mobilityWithDefault];
         character.characterSprite = [CCSprite spriteWithFile:spriteFile];
         character.characterSprite.scale=0.5; 
-        character.characterSprite.position = CGPointMake(16, 16);
+        character.characterSprite.position = [position toCenterCGPoint];
+        CCLOG(@"position=%@",position);
+        CCLOG(@"p.x=%f,p.y=%f",character.characterSprite.position.x,character.characterSprite.position.y);
         character.characterSelectDelegateArray = [CCArray array];
         [parentNode addChild:character.characterSprite];
         [[GlobalEventHandler sharedHandler] addPositionTouchDelegate:character];
@@ -45,12 +47,12 @@
                  [delegate selectCharacter:self];
             }
         }
-        return NO;
+        return YES;
     }else {
         CCLOG(@"Map is touched");
     }
     
-    return YES;
+    return NO;
 }
 
 

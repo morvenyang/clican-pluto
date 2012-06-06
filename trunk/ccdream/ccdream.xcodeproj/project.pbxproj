@@ -125,13 +125,14 @@
 		720CE10A157ADDFC00DB894D /* Tilesheet-land-v5.png in Resources */ = {isa = PBXBuildFile; fileRef = 720CE108157ADDFC00DB894D /* Tilesheet-land-v5.png */; };
 		720CE10B157ADDFC00DB894D /* ccdream_map01.tmx in Resources */ = {isa = PBXBuildFile; fileRef = 720CE109157ADDFC00DB894D /* ccdream_map01.tmx */; };
 		723DC29D157B90F7006BDA9B /* PositionUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 723DC29C157B90F7006BDA9B /* PositionUtil.m */; };
-		723DC2EA157B9529006BDA9B /* MovementSprite.m in Sources */ = {isa = PBXBuildFile; fileRef = 723DC2E9157B9529006BDA9B /* MovementSprite.m */; };
 		723DC2ED157B9EBB006BDA9B /* Position.m in Sources */ = {isa = PBXBuildFile; fileRef = 723DC2EC157B9EBB006BDA9B /* Position.m */; };
 		723DC2F0157BA025006BDA9B /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 723DC2EF157BA025006BDA9B /* Constants.m */; };
 		727F5066157B0F9B007BBA9F /* trs-037.gif in Resources */ = {isa = PBXBuildFile; fileRef = 727F5064157B0F9B007BBA9F /* trs-037.gif */; };
 		727F5067157B0F9B007BBA9F /* trs-012.gif in Resources */ = {isa = PBXBuildFile; fileRef = 727F5065157B0F9B007BBA9F /* trs-012.gif */; };
 		727F506B157B102E007BBA9F /* Character.m in Sources */ = {isa = PBXBuildFile; fileRef = 727F506A157B102E007BBA9F /* Character.m */; };
 		727F506E157B1071007BBA9F /* Mobility.m in Sources */ = {isa = PBXBuildFile; fileRef = 727F506D157B1071007BBA9F /* Mobility.m */; };
+		72A6DC2F157EEFC30042B7E0 /* MapAttribute.m in Sources */ = {isa = PBXBuildFile; fileRef = 72A6DC2E157EEFC20042B7E0 /* MapAttribute.m */; };
+		72A6DC32157EF3F70042B7E0 /* MapGridAttribute.m in Sources */ = {isa = PBXBuildFile; fileRef = 72A6DC31157EF3F70042B7E0 /* MapGridAttribute.m */; };
 		72B8AE2F157D9D2500AE0669 /* GlobalEventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 72B8AE2E157D9D2500AE0669 /* GlobalEventHandler.m */; };
 		72D33809157CCCD8002D9866 /* MoveOrbit.m in Sources */ = {isa = PBXBuildFile; fileRef = 72D33808157CCCD8002D9866 /* MoveOrbit.m */; };
 /* End PBXBuildFile section */
@@ -376,8 +377,6 @@
 		720CE109157ADDFC00DB894D /* ccdream_map01.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = ccdream_map01.tmx; path = Resources/ccdream_map01.tmx; sourceTree = "<group>"; };
 		723DC29B157B90F7006BDA9B /* PositionUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PositionUtil.h; sourceTree = "<group>"; };
 		723DC29C157B90F7006BDA9B /* PositionUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PositionUtil.m; sourceTree = "<group>"; };
-		723DC2E8157B9529006BDA9B /* MovementSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovementSprite.h; sourceTree = "<group>"; };
-		723DC2E9157B9529006BDA9B /* MovementSprite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MovementSprite.m; sourceTree = "<group>"; };
 		723DC2EB157B9EBB006BDA9B /* Position.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Position.h; sourceTree = "<group>"; };
 		723DC2EC157B9EBB006BDA9B /* Position.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Position.m; sourceTree = "<group>"; };
 		723DC2EE157BA025006BDA9B /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
@@ -388,6 +387,10 @@
 		727F506A157B102E007BBA9F /* Character.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Character.m; sourceTree = "<group>"; };
 		727F506C157B1071007BBA9F /* Mobility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mobility.h; sourceTree = "<group>"; };
 		727F506D157B1071007BBA9F /* Mobility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Mobility.m; sourceTree = "<group>"; };
+		72A6DC2D157EEFC20042B7E0 /* MapAttribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapAttribute.h; sourceTree = "<group>"; };
+		72A6DC2E157EEFC20042B7E0 /* MapAttribute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapAttribute.m; sourceTree = "<group>"; };
+		72A6DC30157EF3F70042B7E0 /* MapGridAttribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapGridAttribute.h; sourceTree = "<group>"; };
+		72A6DC31157EF3F70042B7E0 /* MapGridAttribute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapGridAttribute.m; sourceTree = "<group>"; };
 		72B8AE2D157D9D2500AE0669 /* GlobalEventHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlobalEventHandler.h; sourceTree = "<group>"; };
 		72B8AE2E157D9D2500AE0669 /* GlobalEventHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlobalEventHandler.m; sourceTree = "<group>"; };
 		72D33807157CCCD8002D9866 /* MoveOrbit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoveOrbit.h; sourceTree = "<group>"; };
@@ -833,6 +836,10 @@
 				723DC2EC157B9EBB006BDA9B /* Position.m */,
 				72D33807157CCCD8002D9866 /* MoveOrbit.h */,
 				72D33808157CCCD8002D9866 /* MoveOrbit.m */,
+				72A6DC2D157EEFC20042B7E0 /* MapAttribute.h */,
+				72A6DC2E157EEFC20042B7E0 /* MapAttribute.m */,
+				72A6DC30157EF3F70042B7E0 /* MapGridAttribute.h */,
+				72A6DC31157EF3F70042B7E0 /* MapGridAttribute.m */,
 			);
 			name = model;
 			sourceTree = "<group>";
@@ -851,8 +858,6 @@
 		723DC2E7157B9514006BDA9B /* sprite */ = {
 			isa = PBXGroup;
 			children = (
-				723DC2E8157B9529006BDA9B /* MovementSprite.h */,
-				723DC2E9157B9529006BDA9B /* MovementSprite.m */,
 			);
 			name = sprite;
 			sourceTree = "<group>";
@@ -1041,11 +1046,12 @@
 				727F506B157B102E007BBA9F /* Character.m in Sources */,
 				727F506E157B1071007BBA9F /* Mobility.m in Sources */,
 				723DC29D157B90F7006BDA9B /* PositionUtil.m in Sources */,
-				723DC2EA157B9529006BDA9B /* MovementSprite.m in Sources */,
 				723DC2ED157B9EBB006BDA9B /* Position.m in Sources */,
 				723DC2F0157BA025006BDA9B /* Constants.m in Sources */,
 				72D33809157CCCD8002D9866 /* MoveOrbit.m in Sources */,
 				72B8AE2F157D9D2500AE0669 /* GlobalEventHandler.m in Sources */,
+				72A6DC2F157EEFC30042B7E0 /* MapAttribute.m in Sources */,
+				72A6DC32157EF3F70042B7E0 /* MapGridAttribute.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
