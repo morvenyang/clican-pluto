@@ -109,33 +109,41 @@
 
 - (void)selectCharacter:(Character*) character{
     //被选中了
-    character.selected = YES;
-    self.selectedCharacter = character;
-    
-    Position* charPosi = [Position positionWithCGPoint:self.selectedCharacter.characterSprite.position];
-    [[FightMenuLayer sharedFightMenuLayer] showAtPosition:[charPosi toFightMenuPosition:self.maxPosi]];
-    Mobility* moblitity = [Mobility mobilityWithDefault];
-    
-    CCArray* posiArray = nil;
-    //计算可移动范围
-    
-    posiArray = [PositionUtil calcMoveOrbitarrayFromPosition:charPosi movement:3 mobility:moblitity mapGridAttributeMap:self.mapGridAttributeMap maxPosition:self.maxPosi playerCharacterArray:self.playerCharacterArray enemyCharacterArray:self.enemyCharacterArray];
-    CCLOG(@"count=%i",[posiArray count]);
-    
-    [self cleanShadowSpriteArray];
-    for(int i=0;i<[posiArray count];i++){
-        MoveOrbit* mo = [posiArray objectAtIndex:i];
-        CCLOG(@"%@",[mo.position description]);
-        CCSprite* redSprite = [[CCSprite alloc] init];
-        [redSprite setColor:ccc3(255, 0, 0)];
-        redSprite.opacity=100;
-        redSprite.textureRect = CGRectMake(0, 0, MAP_POINT_SIZE, MAP_POINT_SIZE);
+    if([FightMenuLayer sharedFightMenuLayer].selectAttack){
+        [self.enemyCharacterArray removeObject:character];
+        [character.characterSprite removeFromParentAndCleanup:YES];
+        [FightMenuLayer sharedFightMenuLayer].selectAttack = NO;
+        [[FightMenuLayer sharedFightMenuLayer] hide]; 
+    }else{
+        character.selected = YES;
+        self.selectedCharacter = character;
         
-        redSprite.position = CGPointMake(mo.position.x*MAP_POINT_SIZE+MAP_POINT_SIZE/2, mo.position.y*MAP_POINT_SIZE+MAP_POINT_SIZE/2);
-        [self.shadowSpriteArray addObject:redSprite];
-        [self addChild:redSprite];
+        Position* charPosi = [Position positionWithCGPoint:self.selectedCharacter.characterSprite.position];
+        [[FightMenuLayer sharedFightMenuLayer] showAtPosition:[charPosi toFightMenuPosition:self.maxPosi]];
+        Mobility* moblitity = [Mobility mobilityWithDefault];
+        
+        CCArray* posiArray = nil;
+        //计算可移动范围
+        
+        posiArray = [PositionUtil calcMoveOrbitarrayFromPosition:charPosi movement:3 mobility:moblitity mapGridAttributeMap:self.mapGridAttributeMap maxPosition:self.maxPosi playerCharacterArray:self.playerCharacterArray enemyCharacterArray:self.enemyCharacterArray];
+        CCLOG(@"count=%i",[posiArray count]);
+        
+        [self cleanShadowSpriteArray];
+        for(int i=0;i<[posiArray count];i++){
+            MoveOrbit* mo = [posiArray objectAtIndex:i];
+            CCLOG(@"%@",[mo.position description]);
+            CCSprite* redSprite = [[CCSprite alloc] init];
+            [redSprite setColor:ccc3(255, 0, 0)];
+            redSprite.opacity=100;
+            redSprite.textureRect = CGRectMake(0, 0, MAP_POINT_SIZE, MAP_POINT_SIZE);
+            
+            redSprite.position = CGPointMake(mo.position.x*MAP_POINT_SIZE+MAP_POINT_SIZE/2, mo.position.y*MAP_POINT_SIZE+MAP_POINT_SIZE/2);
+            [self.shadowSpriteArray addObject:redSprite];
+            [self addChild:redSprite];
+        }
+        self.movementArray = posiArray;
     }
-    self.movementArray = posiArray;
+    
 }
 
 -(void) cleanShadowSpriteArray{

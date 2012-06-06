@@ -18,14 +18,14 @@
     CCMenuItemFont* _attack;
     CCMenuItemFont* _standby;
     CCMenuItemFont* _cancel;
-    
+    BOOL _selectAttack;
 }
 
 @property (nonatomic,retain) CCMenu* fightMenu;
 @property (nonatomic,retain) CCMenuItemFont* attack;
 @property (nonatomic,retain) CCMenuItemFont* standby;
 @property (nonatomic,retain) CCMenuItemFont* cancel;
-
+@property (nonatomic,assign) BOOL selectAttack;
 +(FightMenuLayer*) sharedFightMenuLayer;
 
 -(void) showAtPosition:(Position*) position;
