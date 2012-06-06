@@ -37,6 +37,19 @@
 -(CGPoint) toCenterCGPoint{
     return ccp(self.x*MAP_POINT_SIZE+MAP_POINT_SIZE/2,self.y*MAP_POINT_SIZE+MAP_POINT_SIZE/2);
 }
+
+-(Position*) toFightMenuPosition:(Position*) maxPosition{
+    int xoffset = 2;
+    int yoffset = 2;
+    if(self.x>maxPosition.x*2/3){
+        xoffset = -2;
+    }
+    if(self.y>maxPosition.y*2/3){
+        yoffset = -2;
+    }
+    return [Position positionWithX:_x+xoffset Y:_y+yoffset];
+}
+
 -(NSString*) description{
     return [NSString stringWithFormat:@"x=%i,y=%i",self.x,self.y];
 }

@@ -133,6 +133,8 @@
 		727F506E157B1071007BBA9F /* Mobility.m in Sources */ = {isa = PBXBuildFile; fileRef = 727F506D157B1071007BBA9F /* Mobility.m */; };
 		72A6DC2F157EEFC30042B7E0 /* MapAttribute.m in Sources */ = {isa = PBXBuildFile; fileRef = 72A6DC2E157EEFC20042B7E0 /* MapAttribute.m */; };
 		72A6DC32157EF3F70042B7E0 /* MapGridAttribute.m in Sources */ = {isa = PBXBuildFile; fileRef = 72A6DC31157EF3F70042B7E0 /* MapGridAttribute.m */; };
+		72A6DC35157F0BBC0042B7E0 /* FightMapScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 72A6DC34157F0BBC0042B7E0 /* FightMapScene.m */; };
+		72A6DC38157F0D250042B7E0 /* FightMenuLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 72A6DC37157F0D240042B7E0 /* FightMenuLayer.m */; };
 		72B8AE2F157D9D2500AE0669 /* GlobalEventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 72B8AE2E157D9D2500AE0669 /* GlobalEventHandler.m */; };
 		72D33809157CCCD8002D9866 /* MoveOrbit.m in Sources */ = {isa = PBXBuildFile; fileRef = 72D33808157CCCD8002D9866 /* MoveOrbit.m */; };
 /* End PBXBuildFile section */
@@ -391,6 +393,10 @@
 		72A6DC2E157EEFC20042B7E0 /* MapAttribute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapAttribute.m; sourceTree = "<group>"; };
 		72A6DC30157EF3F70042B7E0 /* MapGridAttribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapGridAttribute.h; sourceTree = "<group>"; };
 		72A6DC31157EF3F70042B7E0 /* MapGridAttribute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapGridAttribute.m; sourceTree = "<group>"; };
+		72A6DC33157F0BBC0042B7E0 /* FightMapScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FightMapScene.h; sourceTree = "<group>"; };
+		72A6DC34157F0BBC0042B7E0 /* FightMapScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FightMapScene.m; sourceTree = "<group>"; };
+		72A6DC36157F0D240042B7E0 /* FightMenuLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FightMenuLayer.h; sourceTree = "<group>"; };
+		72A6DC37157F0D240042B7E0 /* FightMenuLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FightMenuLayer.m; sourceTree = "<group>"; };
 		72B8AE2D157D9D2500AE0669 /* GlobalEventHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlobalEventHandler.h; sourceTree = "<group>"; };
 		72B8AE2E157D9D2500AE0669 /* GlobalEventHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlobalEventHandler.m; sourceTree = "<group>"; };
 		72D33807157CCCD8002D9866 /* MoveOrbit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoveOrbit.h; sourceTree = "<group>"; };
@@ -807,6 +813,8 @@
 			children = (
 				720CE0EF157AC55F00DB894D /* MapLayer.h */,
 				720CE0F0157AC55F00DB894D /* MapLayer.m */,
+				72A6DC36157F0D240042B7E0 /* FightMenuLayer.h */,
+				72A6DC37157F0D240042B7E0 /* FightMenuLayer.m */,
 			);
 			name = layer;
 			sourceTree = "<group>";
@@ -814,6 +822,8 @@
 		720CE0EC157AC4D700DB894D /* scene */ = {
 			isa = PBXGroup;
 			children = (
+				72A6DC33157F0BBC0042B7E0 /* FightMapScene.h */,
+				72A6DC34157F0BBC0042B7E0 /* FightMapScene.m */,
 			);
 			name = scene;
 			sourceTree = "<group>";
@@ -1052,6 +1062,8 @@
 				72B8AE2F157D9D2500AE0669 /* GlobalEventHandler.m in Sources */,
 				72A6DC2F157EEFC30042B7E0 /* MapAttribute.m in Sources */,
 				72A6DC32157EF3F70042B7E0 /* MapGridAttribute.m in Sources */,
+				72A6DC35157F0BBC0042B7E0 /* FightMapScene.m in Sources */,
+				72A6DC38157F0D250042B7E0 /* FightMenuLayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
