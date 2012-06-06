@@ -11,10 +11,10 @@
 #import "Character.h"
 #import "MapAttribute.h"
 #import "MapGridAttribute.h"
+#import "FightMenuLayer.h"
 
 @interface MapLayer : CCLayer<CharacterSelectDelegate,PositionTouchDelegate>
 {
-    Character* _char1;
     CCArray* _playerCharacterArray;
     CCArray* _enemyCharacterArray;
     CCTMXTiledMap* _tiledMap;
@@ -26,7 +26,6 @@
     MapAttribute* _mapAttribute;
 }
 
-@property (nonatomic,retain) Character* char1;
 @property (nonatomic,retain) CCArray* playerCharacterArray;
 @property (nonatomic,retain) CCArray* enemyCharacterArray;
 @property (nonatomic,retain) Character* selectedCharacter;
@@ -36,6 +35,6 @@
 @property (nonatomic,retain) Position* maxPosi;
 @property (nonatomic,retain) NSMutableDictionary* mapGridAttributeMap;
 @property (nonatomic,retain) MapAttribute* mapAttribute;
-+(CCScene *) scene;
+
 - (void)selectCharacter:(Character*) character;
 @end

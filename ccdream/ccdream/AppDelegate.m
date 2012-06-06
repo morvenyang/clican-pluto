@@ -12,6 +12,7 @@
 #import "GameConfig.h"
 #import "MapLayer.h"
 #import "RootViewController.h"
+#import "FightMapScene.h"
 
 @implementation AppDelegate
 
@@ -110,7 +111,7 @@
 	[self removeStartupFlicker];
 	
 	// Run the intro Scene
-	[[CCDirector sharedDirector] runWithScene: [MapLayer scene]];
+	[[CCDirector sharedDirector] runWithScene: [FightMapScene scene]];
     
     [[CCTouchDispatcher sharedDispatcher] addTargetedDelegate:[GlobalEventHandler sharedHandler] priority:-1 swallowsTouches:YES];
 }

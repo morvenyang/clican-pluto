@@ -23,4 +23,5 @@
 +(id)positionWithCGPoint:(CGPoint) point;
 -(CGPoint) toLeft0Right0CGPoint;
 -(CGPoint) toCenterCGPoint;
+-(Position*) toFightMenuPosition:(Position*) maxPosition;
 @end

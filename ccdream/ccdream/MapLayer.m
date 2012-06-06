@@ -11,7 +11,6 @@
 
 @implementation MapLayer
 
-@synthesize char1 = _char1;
 @synthesize playerCharacterArray = _playerCharacterArray;
 @synthesize enemyCharacterArray = _enemyCharacterArray;
 @synthesize selectedCharacter = _selectedCharacter;
@@ -22,12 +21,7 @@
 @synthesize mapAttribute = _mapAttribute;
 @synthesize mapGridAttributeMap = _mapGridAttributeMap;
 
-+(CCScene *) scene{
-    CCScene* scene = [CCScene node];
-    MapLayer* layer = [MapLayer node];
-    [scene addChild:layer];
-    return scene;
-}
+
 
 -(id) init{
     self = [super init];
@@ -91,6 +85,7 @@
     }
 }
 - (BOOL)touchBegan:(Position *)posi withEvent:(UIEvent *)event {
+    [[FightMenuLayer sharedFightMenuLayer] hide];
     if(self.selectedCharacter!=nil){
         if(self.movementArray!=nil&&[PositionUtil containsPosition:posi forMoveOrbitArray:self.movementArray]){
             //选中的位置是可移动的位置
@@ -99,7 +94,9 @@
             [self.movementArray removeAllObjects];
             [self cleanShadowSpriteArray];
             CCLOG(@"move to%@",posi.description);
+            
             [character.characterSprite runAction: [CCMoveTo actionWithDuration:0.5 position:[posi toCenterCGPoint]]];
+            [[FightMenuLayer sharedFightMenuLayer] showAtPosition:[posi  toFightMenuPosition:self.maxPosi]];
             [self cleanShadowSpriteArray];
             return YES;
         }
@@ -114,7 +111,9 @@
     //被选中了
     character.selected = YES;
     self.selectedCharacter = character;
+    
     Position* charPosi = [Position positionWithCGPoint:self.selectedCharacter.characterSprite.position];
+    [[FightMenuLayer sharedFightMenuLayer] showAtPosition:[charPosi toFightMenuPosition:self.maxPosi]];
     Mobility* moblitity = [Mobility mobilityWithDefault];
     
     CCArray* posiArray = nil;
