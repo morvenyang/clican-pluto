@@ -132,7 +132,7 @@
         redSprite.opacity=100;
         redSprite.textureRect = CGRectMake(0, 0, MAP_POINT_SIZE, MAP_POINT_SIZE);
         
-        redSprite.position = CGPointMake(mo.position.x*32+16, mo.position.y*32+16);
+        redSprite.position = CGPointMake(mo.position.x*MAP_POINT_SIZE+MAP_POINT_SIZE/2, mo.position.y*MAP_POINT_SIZE+MAP_POINT_SIZE/2);
         [self.shadowSpriteArray addObject:redSprite];
         [self addChild:redSprite];
     }
