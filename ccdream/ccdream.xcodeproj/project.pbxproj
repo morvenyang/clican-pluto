@@ -416,8 +416,6 @@
 		722E05EC157F74D1001B0A8D /* EndState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EndState.m; sourceTree = "<group>"; };
 		722E05EE157F750B001B0A8D /* TaskState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskState.h; sourceTree = "<group>"; };
 		722E05EF157F750B001B0A8D /* TaskState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskState.m; sourceTree = "<group>"; };
-		722E05F1157F779D001B0A8D /* GDataXMLNode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GDataXMLNode.h; sourceTree = "<group>"; };
-		722E05F2157F779D001B0A8D /* GDataXMLNode.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GDataXMLNode.m; sourceTree = "<group>"; };
 		723DC29B157B90F7006BDA9B /* PositionUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PositionUtil.h; sourceTree = "<group>"; };
 		723DC29C157B90F7006BDA9B /* PositionUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PositionUtil.m; sourceTree = "<group>"; };
 		723DC2EB157B9EBB006BDA9B /* Position.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Position.h; sourceTree = "<group>"; };
@@ -924,8 +922,6 @@
 				722E05D0157F3161001B0A8D /* EventDispatcher.m */,
 				722E05D2157F3252001B0A8D /* EngineContext.h */,
 				722E05D3157F3252001B0A8D /* EngineContext.m */,
-				722E05F1157F779D001B0A8D /* GDataXMLNode.h */,
-				722E05F2157F779D001B0A8D /* GDataXMLNode.m */,
 			);
 			name = engine;
 			sourceTree = "<group>";
