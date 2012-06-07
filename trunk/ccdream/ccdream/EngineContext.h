@@ -9,9 +9,9 @@
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
 #import "Session.h"
-#import "GDataXMLNode.h"
 #import "State.h"
 #import "DefaultState.h"
+#import "StartState.h"
 #import "EndState.h"
 #import "TaskState.h"
 
