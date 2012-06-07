@@ -20,6 +20,15 @@
 @synthesize propagation = _propagation;
 @synthesize value = _value;
 
+- (id) init{
+    self = [super init];
+    if(self){
+        self.stateListeners = [[[NSMutableArray alloc] init] autorelease];
+        self.nextStats = [[[NSMutableArray alloc] init] autorelease];
+        self.nextCondStates = [[[NSMutableDictionary alloc] init] autorelease];
+    }
+    return self;
+}
 - (void)dealloc {
     [_name release];
     _name = nil;
