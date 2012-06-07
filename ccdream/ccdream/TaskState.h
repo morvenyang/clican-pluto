@@ -11,7 +11,9 @@
 #import "IState.h"
 
 @interface TaskState : IState {
-    
+    NSMutableArray* _taskListeners;
 }
+
+@property (nonatomic,retain) NSMutableArray* taskListeners;
 
 @end

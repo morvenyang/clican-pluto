@@ -14,21 +14,21 @@
 
 @interface IState : NSObject {
     NSString* _name;
-    NSDictionary* _params;
-    NSArray* _stateListeners;
-    NSDictionary* _timeoutListeners;
-    NSDictionary* _nextCondStates;
-    NSArray* _nextStats;
+    NSMutableDictionary* _params;
+    NSMutableArray* _stateListeners;
+    NSMutableDictionary* _timeoutListeners;
+    NSMutableDictionary* _nextCondStates;
+    NSMutableArray* _nextStats;
     NSString* _propagation;
     int _value;
 }
 
 @property (nonatomic,retain) NSString* name;
-@property (nonatomic,retain) NSDictionary* params;
-@property (nonatomic,retain) NSArray* stateListeners;
-@property (nonatomic,retain) NSDictionary* timeoutListeners;
-@property (nonatomic,retain) NSDictionary* nextCondStates;
-@property (nonatomic,retain) NSArray* nextStats;
+@property (nonatomic,retain) NSMutableDictionary* params;
+@property (nonatomic,retain) NSMutableArray* stateListeners;
+@property (nonatomic,retain) NSMutableDictionary* timeoutListeners;
+@property (nonatomic,retain) NSMutableDictionary* nextCondStates;
+@property (nonatomic,retain) NSMutableArray* nextStats;
 @property (nonatomic,retain) NSString* propagation;
 @property (nonatomic,assign) int value;
 
