@@ -10,7 +10,6 @@
 
 
 int main(int argc, char *argv[]) {
-    //iVelocity* vel = [[[iVelocity alloc] init] autorelease];
     NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
     int retVal = UIApplicationMain(argc, argv, nil, @"AppDelegate");
     [pool release];
