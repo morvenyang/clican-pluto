@@ -442,35 +442,6 @@
 		72B0E5EB1580CFD100EE546D /* Listener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Listener.h; sourceTree = "<group>"; };
 		72B8AE2D157D9D2500AE0669 /* GlobalEventHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlobalEventHandler.h; sourceTree = "<group>"; };
 		72B8AE2E157D9D2500AE0669 /* GlobalEventHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlobalEventHandler.m; sourceTree = "<group>"; };
-		72BB0F3E15821AA2000AA4DB /* iVelocity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iVelocity.h; sourceTree = "<group>"; };
-		72BB0F3F15821AAF000AA4DB /* ivelocity.l */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.lex; path = ivelocity.l; sourceTree = "<group>"; };
-		72BB0F4015821AAF000AA4DB /* ivelocity.y */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.yacc; path = ivelocity.y; sourceTree = "<group>"; };
-		72BB0F4115821AAF000AA4DB /* NameBlock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NameBlock.h; sourceTree = "<group>"; };
-		72BB0F4215821AAF000AA4DB /* CoreInterface.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoreInterface.h; sourceTree = "<group>"; };
-		72BB0F4315821AAF000AA4DB /* CmdForeachBlock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CmdForeachBlock.h; sourceTree = "<group>"; };
-		72BB0F4415821AAF000AA4DB /* TransLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TransLayer.h; sourceTree = "<group>"; };
-		72BB0F4515821AAF000AA4DB /* CmdIfBlock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CmdIfBlock.h; sourceTree = "<group>"; };
-		72BB0F4615821AAF000AA4DB /* NameLevel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NameLevel.h; sourceTree = "<group>"; };
-		72BB0F4715821AAF000AA4DB /* CmdSetBlock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CmdSetBlock.h; sourceTree = "<group>"; };
-		72BB0F4815821AAF000AA4DB /* NumberBlock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NumberBlock.h; sourceTree = "<group>"; };
-		72BB0F4915821AAF000AA4DB /* TextBlock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TextBlock.h; sourceTree = "<group>"; };
-		72BB0F4A15821AAF000AA4DB /* ExpSubBlock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExpSubBlock.h; sourceTree = "<group>"; };
-		72BB0F4B15821AAF000AA4DB /* ExpAddBlock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExpAddBlock.h; sourceTree = "<group>"; };
-		72BB0F4C15821AAF000AA4DB /* StatementBlock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StatementBlock.h; sourceTree = "<group>"; };
-		72BB0F4D15821AAF000AA4DB /* CmdForeachBlock.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CmdForeachBlock.m; sourceTree = "<group>"; };
-		72BB0F4E15821AAF000AA4DB /* NameLevel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NameLevel.m; sourceTree = "<group>"; };
-		72BB0F4F15821AAF000AA4DB /* TransLayer.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = TransLayer.c; sourceTree = "<group>"; };
-		72BB0F5015821AAF000AA4DB /* NameBlock.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NameBlock.m; sourceTree = "<group>"; };
-		72BB0F5115821AAF000AA4DB /* CmdIfBlock.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CmdIfBlock.m; sourceTree = "<group>"; };
-		72BB0F5215821AAF000AA4DB /* CmdSetBlock.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CmdSetBlock.m; sourceTree = "<group>"; };
-		72BB0F5315821AAF000AA4DB /* NumberBlock.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NumberBlock.m; sourceTree = "<group>"; };
-		72BB0F5415821AAF000AA4DB /* ExpSubBlock.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExpSubBlock.m; sourceTree = "<group>"; };
-		72BB0F5515821AAF000AA4DB /* ExpAddBlock.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExpAddBlock.m; sourceTree = "<group>"; };
-		72BB0F5615821AAF000AA4DB /* iVelocity.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = iVelocity.m; sourceTree = "<group>"; };
-		72BB0F5715821AAF000AA4DB /* TextBlock.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TextBlock.m; sourceTree = "<group>"; };
-		72BB0F5815821AAF000AA4DB /* StatementBlock.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StatementBlock.m; sourceTree = "<group>"; };
-		72BB0F5915821AAF000AA4DB /* LocalCache.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LocalCache.h; sourceTree = "<group>"; };
-		72BB0F5A15821AAF000AA4DB /* LocalCache.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LocalCache.m; sourceTree = "<group>"; };
 		72D33807157CCCD8002D9866 /* MoveOrbit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoveOrbit.h; sourceTree = "<group>"; };
 		72D33808157CCCD8002D9866 /* MoveOrbit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoveOrbit.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1018,35 +989,6 @@
 		72BB0F3D15821A8B000AA4DB /* ivelocity */ = {
 			isa = PBXGroup;
 			children = (
-				72BB0F3E15821AA2000AA4DB /* iVelocity.h */,
-				72BB0F3F15821AAF000AA4DB /* ivelocity.l */,
-				72BB0F4015821AAF000AA4DB /* ivelocity.y */,
-				72BB0F4115821AAF000AA4DB /* NameBlock.h */,
-				72BB0F4215821AAF000AA4DB /* CoreInterface.h */,
-				72BB0F4315821AAF000AA4DB /* CmdForeachBlock.h */,
-				72BB0F4415821AAF000AA4DB /* TransLayer.h */,
-				72BB0F4515821AAF000AA4DB /* CmdIfBlock.h */,
-				72BB0F4615821AAF000AA4DB /* NameLevel.h */,
-				72BB0F4715821AAF000AA4DB /* CmdSetBlock.h */,
-				72BB0F4815821AAF000AA4DB /* NumberBlock.h */,
-				72BB0F4915821AAF000AA4DB /* TextBlock.h */,
-				72BB0F4A15821AAF000AA4DB /* ExpSubBlock.h */,
-				72BB0F4B15821AAF000AA4DB /* ExpAddBlock.h */,
-				72BB0F4C15821AAF000AA4DB /* StatementBlock.h */,
-				72BB0F4D15821AAF000AA4DB /* CmdForeachBlock.m */,
-				72BB0F4E15821AAF000AA4DB /* NameLevel.m */,
-				72BB0F4F15821AAF000AA4DB /* TransLayer.c */,
-				72BB0F5015821AAF000AA4DB /* NameBlock.m */,
-				72BB0F5115821AAF000AA4DB /* CmdIfBlock.m */,
-				72BB0F5215821AAF000AA4DB /* CmdSetBlock.m */,
-				72BB0F5315821AAF000AA4DB /* NumberBlock.m */,
-				72BB0F5415821AAF000AA4DB /* ExpSubBlock.m */,
-				72BB0F5515821AAF000AA4DB /* ExpAddBlock.m */,
-				72BB0F5615821AAF000AA4DB /* iVelocity.m */,
-				72BB0F5715821AAF000AA4DB /* TextBlock.m */,
-				72BB0F5815821AAF000AA4DB /* StatementBlock.m */,
-				72BB0F5915821AAF000AA4DB /* LocalCache.h */,
-				72BB0F5A15821AAF000AA4DB /* LocalCache.m */,
 			);
 			name = ivelocity;
 			sourceTree = "<group>";
