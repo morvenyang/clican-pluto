@@ -500,7 +500,6 @@
 		720CDF8A157AC4B400DB894D /* ccdream */ = {
 			isa = PBXGroup;
 			children = (
-				72BB0F3D15821A8B000AA4DB /* ivelocity */,
 				72B8AE2B157D9CED00AE0669 /* event */,
 				723DC2E7157B9514006BDA9B /* sprite */,
 				723DC29A157B90DE006BDA9B /* util */,
@@ -984,13 +983,6 @@
 				72B8AE2E157D9D2500AE0669 /* GlobalEventHandler.m */,
 			);
 			name = event;
-			sourceTree = "<group>";
-		};
-		72BB0F3D15821A8B000AA4DB /* ivelocity */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = ivelocity;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
