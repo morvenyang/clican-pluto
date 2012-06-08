@@ -151,6 +151,8 @@
 		72B0E5E51580643100EE546D /* XMLParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 72B0E5E41580643100EE546D /* XMLParserDelegate.m */; };
 		72B8AE2F157D9D2500AE0669 /* GlobalEventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 72B8AE2E157D9D2500AE0669 /* GlobalEventHandler.m */; };
 		72D33809157CCCD8002D9866 /* MoveOrbit.m in Sources */ = {isa = PBXBuildFile; fileRef = 72D33808157CCCD8002D9866 /* MoveOrbit.m */; };
+		72E1393815823F0F006AE49E /* Listener.m in Sources */ = {isa = PBXBuildFile; fileRef = 72E1393715823F0F006AE49E /* Listener.m */; };
+		72E1393B15824084006AE49E /* StateChangeListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 72E1393A15824084006AE49E /* StateChangeListener.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -444,6 +446,9 @@
 		72B8AE2E157D9D2500AE0669 /* GlobalEventHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlobalEventHandler.m; sourceTree = "<group>"; };
 		72D33807157CCCD8002D9866 /* MoveOrbit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoveOrbit.h; sourceTree = "<group>"; };
 		72D33808157CCCD8002D9866 /* MoveOrbit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoveOrbit.m; sourceTree = "<group>"; };
+		72E1393715823F0F006AE49E /* Listener.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Listener.m; sourceTree = "<group>"; };
+		72E1393915824084006AE49E /* StateChangeListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StateChangeListener.h; sourceTree = "<group>"; };
+		72E1393A15824084006AE49E /* StateChangeListener.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StateChangeListener.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -972,6 +977,9 @@
 			isa = PBXGroup;
 			children = (
 				72B0E5EB1580CFD100EE546D /* Listener.h */,
+				72E1393715823F0F006AE49E /* Listener.m */,
+				72E1393915824084006AE49E /* StateChangeListener.h */,
+				72E1393A15824084006AE49E /* StateChangeListener.m */,
 			);
 			name = listener;
 			sourceTree = "<group>";
@@ -1182,6 +1190,8 @@
 				722E05ED157F74D1001B0A8D /* EndState.m in Sources */,
 				722E05F0157F750C001B0A8D /* TaskState.m in Sources */,
 				72B0E5E51580643100EE546D /* XMLParserDelegate.m in Sources */,
+				72E1393815823F0F006AE49E /* Listener.m in Sources */,
+				72E1393B15824084006AE49E /* StateChangeListener.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1239,7 +1249,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
 				);
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-lz";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
@@ -1260,7 +1270,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
 				);
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-lz";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				VALIDATE_PRODUCT = YES;

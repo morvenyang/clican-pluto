@@ -12,18 +12,44 @@
 
 @synthesize sessionMap = _sessionMap;
 
--(void) loadConfig:(NSString*) name {
-        
-    
+-(StartState*) loadSession:(NSString*) name {
+    StartState* startState = [self.sessionMap objectForKey:name];
+    if (startState!=nil) {
+        return startState;
+    }else{
+        NSBundle* bundle = [NSBundle bundleWithPath:[name stringByAppendingString:@".xml"]];
+        NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithContentsOfURL:bundle.bundleURL];
+        //Initialize the delegate.
+        XMLParserDelegate* parser = [[XMLParserDelegate alloc] init];
+        //Set delegate
+        [xmlParser setDelegate:parser];
+        BOOL success = [xmlParser parse];
+        if(success){
+            CCLOG(@"parse %@.xml successfully",name);
+            startState = parser.startState;
+            [self.sessionMap setValue:startState forKey:name];
+            return startState;
+        }else{
+            CCLOGERROR(@"parse %@.xml successfully",name);
+            return nil;
+        }
+    }
 }
 
 
 
 
 -(Session*) newSession:(NSString*) name forSponsor:(NSString*) sponsor{
-    Session* session = [[[Session alloc] init] autorelease];
-    session.sponsor = sponsor;
-    return session;
+    StartState* startState = [self loadSession:name];
+    if(startState!=nil){
+        Session* session = [[[Session alloc] init] autorelease];
+        session.sponsor = sponsor;
+        
+        return session;
+    }else{
+        return nil;
+    }
+    
 }
 
 -(Session*) querySesion:(int) sessionId{

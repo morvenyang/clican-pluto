@@ -14,6 +14,7 @@
 #import "StartState.h"
 #import "EndState.h"
 #import "TaskState.h"
+#import "XMLParserDelegate.h"
 
 @interface EngineContext : NSObject {
     NSMutableDictionary* _sessionMap;
@@ -21,7 +22,7 @@
 
 @property (nonatomic,retain) NSMutableDictionary* sessionMap;
 
--(void) loadConfig:(NSString*) name;
+-(StartState*) loadSession:(NSString*) name;
 
 -(Session*) newSession:(NSString*) name forSponsor:(NSString*) sponsor;
 

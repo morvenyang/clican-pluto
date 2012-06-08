@@ -13,6 +13,23 @@
 #import "IState.h"
 #import "Event.h"
 
+@class IState;
+
+@interface Listener : NSObject
+
+@end
+
+@protocol StateListener <NSObject>
+
+@optional
+
+-(void) onStart:(State*) state previousState:(IState*) previousState event:(Event*)event;
+
+-(void) onEnd:(State*) state nextStateList:(NSArray*) nextStateList event:(Event*) event;
+
+
+@end
+
 @protocol TaskListener <NSObject>
 
 @optional
@@ -27,13 +44,4 @@
 
 @end
 
-@protocol StateListener <NSObject>
 
-@optional
-
--(void) onStart:(State*) state previousState:(IState*) state event:(Event*)event;
-
--(void) onEnd:(State*) state nextStateList:(NSArray*) nextStateList event:(Event*) event;
-
-
-@end

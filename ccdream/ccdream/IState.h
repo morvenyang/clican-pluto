@@ -11,6 +11,10 @@
 #import "Event.h"
 #import "Session.h"
 #import "State.h"
+#import "Variable.h"
+#import "Listener.h"
+
+
 
 @interface IState : NSObject {
     NSString* _name;
@@ -32,10 +36,10 @@
 @property (nonatomic,retain) NSString* propagation;
 @property (nonatomic,assign) int value;
 
-//-(void) handle:(Event*) event;
+-(void) handle:(Event*) event;
 
-//-(void) onStart:(Session*) session istate:(IState*) previousState event:(Event*) event;
+-(void) onStart:(Session*) session istate:(IState*) previousState event:(Event*) event;
 
-//-(void) onEnd:(State*) state event:(Event*) event;
+-(void) onEnd:(State*) state event:(Event*) event;
 
 @end
