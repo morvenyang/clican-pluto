@@ -23,6 +23,17 @@
 @synthesize variables = _variables;
 @synthesize status = _status;
 
+-(id) init {
+    self = [super init];
+    if(self!=nil){
+        self.startTime = [NSDate date];
+        self.lastUpdateTime = [NSDate date];
+        self.states = [[[NSMutableArray alloc] init] autorelease];
+        self.variables = [[[NSMutableArray alloc] init] autorelease];
+        self.status = @"active";
+    }
+    return self;
+}
 - (void)dealloc {
     [_name release];
     _name = nil;

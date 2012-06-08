@@ -17,6 +17,15 @@
 @synthesize nextCondStatesMap = _nextCondStatesMap;
 @synthesize statesMap = _statesMap;
 
+- (id) init{
+    self = [super init];
+    if(self!=nil){
+        self.nextStatesMap = [[[NSMutableDictionary alloc] init] autorelease];
+        self.nextCondStatesMap = [[[NSMutableDictionary alloc] init] autorelease];
+        self.statesMap = [[[NSMutableDictionary alloc] init] autorelease];
+    }
+    return self;
+}
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict{
     BOOL stateElement = NO;
     

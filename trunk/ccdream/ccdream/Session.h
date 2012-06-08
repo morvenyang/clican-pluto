@@ -18,8 +18,8 @@
     NSDate* _startTime;
     NSDate* _lastUpdateTime;
     NSDate* _endTime;
-    NSArray* _states;
-    NSArray* _variables;
+    NSMutableArray* _states;
+    NSMutableArray* _variables;
     NSString* _status;
     
 }
@@ -32,8 +32,8 @@
 @property (nonatomic,retain) NSDate* startTime;
 @property (nonatomic,retain) NSDate* lastUpdateTime;
 @property (nonatomic,retain) NSDate* endTime;
-@property (nonatomic,retain) NSArray* states;
-@property (nonatomic,retain) NSArray* variables;
+@property (nonatomic,retain) NSMutableArray* states;
+@property (nonatomic,retain) NSMutableArray* variables;
 @property (nonatomic,retain) NSString* status;
 
 @end
