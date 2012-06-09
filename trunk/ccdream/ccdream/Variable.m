@@ -42,14 +42,6 @@
     _value = nil;
     [_changeDate release];
     _changeDate = nil;
-    [_task release];
-    _task = nil;
-    [_session release];
-    _session = nil;
-    [_event release];
-    _event = nil;
-    [_state release];
-    _state = nil;
     [super dealloc];
 }
 

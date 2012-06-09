@@ -19,7 +19,7 @@
 
 @property (nonatomic,assign) long eventId;
 @property (nonatomic,retain) NSMutableArray* variables;
-@property (nonatomic,retain) State* state;
+@property (nonatomic,assign) State* state;
 @property (nonatomic,retain) NSDate* completeTime;
 @property (nonatomic,retain) NSString* eventType;
 

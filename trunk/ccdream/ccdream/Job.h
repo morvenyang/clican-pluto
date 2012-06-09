@@ -26,7 +26,7 @@
 @property (nonatomic,assign) int repeatTime;
 @property (nonatomic,assign) int repeatedTime;
 @property (nonatomic,retain) NSString* repeatDuration;
-@property (nonatomic,retain) State* state;
+@property (nonatomic,assign) State* state;
 @property (nonatomic,retain) NSString* status;
 
 @end
