@@ -30,8 +30,6 @@
     _name = nil;
     [_status release];
     _status = nil;
-    [_session release];
-    _session = nil;
     [_jobs release];
     _jobs = nil;
     [_tasks release];

@@ -29,10 +29,10 @@
 @property (nonatomic,retain) NSString* name;
 @property (nonatomic,retain) NSString* value;
 @property (nonatomic,retain) NSData* changeDate;
-@property (nonatomic,retain) Task* task;
-@property (nonatomic,retain) Session* session;
-@property (nonatomic,retain) Event* event;
-@property (nonatomic,retain) State* state;
+@property (nonatomic,assign) Task* task;
+@property (nonatomic,assign) Session* session;
+@property (nonatomic,assign) Event* event;
+@property (nonatomic,assign) State* state;
 
 +(Variable*) copyFromVariable:(Variable*) variable;
 

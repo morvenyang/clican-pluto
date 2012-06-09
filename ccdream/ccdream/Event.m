@@ -28,8 +28,6 @@
 - (void)dealloc {
     [_variables release];
     _variables = nil;
-    [_state release];
-        _state = nil;
     [_completeTime release];
     _completeTime = nil;
     [_eventType release];

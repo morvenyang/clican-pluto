@@ -28,8 +28,6 @@
     _executeTime = nil;
     [_repeatDuration release];
     _repeatDuration = nil;
-    [_state release];
-    _state = nil;
     [_status release];
     _status = nil;
     [super dealloc];

@@ -32,8 +32,6 @@
     _assignee = nil;
     [_variables release];
     _variables = nil;
-    [_state release];
-    _state = nil;
     [_assignTime release];
     _assignTime = nil;
     [_completeTime release];
