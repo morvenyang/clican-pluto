@@ -9,10 +9,11 @@
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
 
+
 @interface EventDispatcher : NSObject {
     
 }
 
--(void) dispatchForSession:(int) sessionId forState:(int) stateId forEventType:(int) eventType forParameters:(NSDictionary*) parameters;
+-(void) dispatch:(long) sessionId forState:(long) stateId forEventType:(NSString*) eventType forParameters:(NSDictionary*) parameters;
 
 @end

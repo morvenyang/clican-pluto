@@ -7,7 +7,12 @@
 //
 
 #import "IState.h"
-
+#import "Listener.h"
+#import "Event.h"
+#import "Session.h"
+#import "State.h"
+#import "Variable.h"
+#import "EngineContext.h"
 
 @implementation IState
 
@@ -17,7 +22,6 @@
 @synthesize stateListeners = _stateListeners;
 @synthesize nextStats = _nextStats;
 @synthesize nextCondStates = _nextCondStates;
-@synthesize propagation = _propagation;
 @synthesize value = _value;
 
 - (id) init{
@@ -29,21 +33,45 @@
     }
     return self;
 }
+
 -(void) handle:(Event*) event{
-    
+    @try{
+        CCLOG(@"receive event[%@]",event);
+        [self proppagateVariables:event];
+        [self onEnd:event.state event:event];
+    }@catch (NSException* e) {
+        CCLOGERROR(@"Exception occured:%@",e);
+        @throw e;
+    }
 }
 
--(void) onStart:(Session*) session istate:(IState*) previousState event:(Event*) event{
+-(void) proppagateVariables:(Event*) event{
+    State* state = event.state;
+    Session* session = event.state.session;
+    for (Variable* var in event.variables) {
+        Variable* v1 = [Variable copyFromVariable:var];
+        Variable* v2 = [Variable copyFromVariable:var];
+        v1.state = state;
+        v2.session = session;
+        [state.variables addObject:v1];
+        [session.variables addObject:v2];
+    }
+    session.lastUpdateTime = [NSDate date];
+}
+-(State*) onStart:(Session*) session istate:(IState*) previousState event:(Event*) event{
     State* state = [[[State alloc] init] autorelease];
+    state.stateId = [[EngineContext sharedEngineContext] getAndAddAtomicLong];
     state.value = self.value;
     state.session = session;
     state.name = self.name;
     state.startTime = [NSDate date];
+    state.status = @"active";
     [session.states addObject:state];
     
     for (id<StateListener> stateListener in self.stateListeners) {
         [stateListener onStart:state previousState:previousState event:event];
     }
+    return state;
 }
 
 -(void) onEnd:(State*) state event:(Event*) event{
@@ -121,8 +149,6 @@
     _nextStats = nil;
     [_nextCondStates release];
     _nextCondStates = nil;
-    [_propagation release];
-    _propagation = nil;
     [super dealloc];
 }
 @end

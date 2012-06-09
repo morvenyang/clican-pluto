@@ -11,7 +11,7 @@
 #import "State.h"
 
 @interface Task : NSObject {
-    int _taskId;
+    long _taskId;
     NSString* _name;
     NSString* _type;
     NSString* _assignee;
@@ -22,7 +22,7 @@
     NSDate* _endTime;
 }
 
-@property (nonatomic,assign) int taskId;
+@property (nonatomic,assign) long taskId;
 @property (nonatomic,retain) NSString* name;
 @property (nonatomic,retain) NSString* type;
 @property (nonatomic,retain) NSString* assignee;

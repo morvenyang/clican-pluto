@@ -6,8 +6,7 @@
 //  Copyright 2012年 Clican. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import "cocos2d.h"
+
 #import "IState.h"
 
 @interface StartState : IState {

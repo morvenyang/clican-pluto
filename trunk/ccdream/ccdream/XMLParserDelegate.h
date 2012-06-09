@@ -14,6 +14,10 @@
 #import "DefaultState.h"
 #import "TaskState.h"
 #import "Listener.h"
+#import "IState.h"
+
+@class StartState;
+@class IState;
 
 @interface XMLParserDelegate : NSObject<NSXMLParserDelegate> {
     StartState* _startState;

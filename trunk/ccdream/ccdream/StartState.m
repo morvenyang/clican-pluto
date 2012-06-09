@@ -8,7 +8,6 @@
 
 #import "StartState.h"
 
-
 @implementation StartState
 
 @end

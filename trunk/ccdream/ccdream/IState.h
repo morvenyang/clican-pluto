@@ -11,10 +11,6 @@
 #import "Event.h"
 #import "Session.h"
 #import "State.h"
-#import "Variable.h"
-#import "Listener.h"
-
-
 
 @interface IState : NSObject {
     NSString* _name;
@@ -33,12 +29,12 @@
 @property (nonatomic,retain) NSMutableDictionary* timeoutListeners;
 @property (nonatomic,retain) NSMutableDictionary* nextCondStates;
 @property (nonatomic,retain) NSMutableArray* nextStats;
-@property (nonatomic,retain) NSString* propagation;
 @property (nonatomic,assign) int value;
+
 
 -(void) handle:(Event*) event;
 
--(void) onStart:(Session*) session istate:(IState*) previousState event:(Event*) event;
+-(State*) onStart:(Session*) session istate:(IState*) previousState event:(Event*) event;
 
 -(void) onEnd:(State*) state event:(Event*) event;
 
