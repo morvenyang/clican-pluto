@@ -7,12 +7,46 @@
 //
 
 #import "EventDispatcher.h"
-
+#import "Session.h"
+#import "State.h"
+#import "Event.h"
+#import "EngineContext.h"
+#import "Variable.h"
+#import "IState.h"
 
 @implementation EventDispatcher
 
 
--(void) dispatchForSession:(int) sessionId forState:(int) stateId forEventType:(int) eventType forParameters:(NSDictionary*) parameters{
-    
+-(void) dispatch:(long) sessionId forState:(long) stateId forEventType:(NSString*) eventType forParameters:(NSDictionary*) parameters{
+    @try {
+        EngineContext* engineContext = [EngineContext sharedEngineContext];
+        
+        Event* event = [[[Event alloc] init] autorelease];
+        event.completeTime = [NSDate date];
+        State* activeState = [engineContext findStateById:stateId sessionId:sessionId];
+        if(activeState==nil||![activeState.status isEqualToString:@"active"]){
+            [NSException raise:@"Active state not found" format:@"There is no active state for session[%l] state[%l]",sessionId,stateId];
+        }
+        event.state = activeState;
+        event.eventType = eventType;
+        for (NSString* name in parameters.allKeys) {
+            NSString* value = [parameters objectForKey:name];
+            Variable* var = [[[Variable alloc] init] autorelease];
+            var.name = name;
+            var.value = value;
+            var.event = event;
+            var.changeDate = [NSDate date];
+            [event.variables addObject:var];
+        }
+        IState* istate = nil;
+        [istate handle:event];
+    }
+    @catch (NSException *exception) {
+        CCLOGERROR(@"handle event exception%@",exception);
+        @throw exception;
+    }
+    @finally {
+        
+    }
 }
 @end

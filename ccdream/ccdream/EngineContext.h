@@ -15,18 +15,29 @@
 #import "EndState.h"
 #import "TaskState.h"
 #import "XMLParserDelegate.h"
+#import "IState.h"
 
 @interface EngineContext : NSObject {
     NSMutableDictionary* _sessionMap;
+    NSMutableDictionary* _startStateMap;
+    NSMutableDictionary* _sessionStateMap;
+    long _atomicLong;
 }
 
 @property (nonatomic,retain) NSMutableDictionary* sessionMap;
+@property (nonatomic,retain) NSMutableDictionary* startStateMap;
+@property (nonatomic,retain) NSMutableDictionary* sessionStateMap;
++(EngineContext*) sharedEngineContext;
+
+-(long) getAndAddAtomicLong;
 
 -(StartState*) loadSession:(NSString*) name;
 
 -(Session*) newSession:(NSString*) name forSponsor:(NSString*) sponsor;
 
--(Session*) querySesion:(int) sessionId;
+-(Session*) querySesion:(long) sessionId;
 
+-(State*) findStateById:(long) stateId sessionId:(long) sessionId;
 
+-(IState*) getState:(NSString*) sessionName stateName:(NSString*) stateName;
 @end

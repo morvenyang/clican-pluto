@@ -10,15 +10,15 @@
 #import "cocos2d.h"
 #import "State.h"
 @interface Event : NSObject {
-    int _eventId;
-    NSArray* _variables;
+    long _eventId;
+    NSMutableArray* _variables;
     State* _state;
     NSDate* _completeTime;
     NSString* _eventType;
 }
 
-@property (nonatomic,assign) int eventId;
-@property (nonatomic,retain) NSArray* variables;
+@property (nonatomic,assign) long eventId;
+@property (nonatomic,retain) NSMutableArray* variables;
 @property (nonatomic,retain) State* state;
 @property (nonatomic,retain) NSDate* completeTime;
 @property (nonatomic,retain) NSString* eventType;

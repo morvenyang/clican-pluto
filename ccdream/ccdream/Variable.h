@@ -13,7 +13,7 @@
 #import "Event.h"
 #import "State.h"
 @interface Variable : NSObject {
-    int _variableId;
+    long _variableId;
     NSString* _name;
     NSString* _value;
     NSData* _changeDate;
@@ -25,7 +25,7 @@
     
 }
 
-@property (nonatomic,assign) int variableId;
+@property (nonatomic,assign) long variableId;
 @property (nonatomic,retain) NSString* name;
 @property (nonatomic,retain) NSString* value;
 @property (nonatomic,retain) NSData* changeDate;
@@ -33,5 +33,7 @@
 @property (nonatomic,retain) Session* session;
 @property (nonatomic,retain) Event* event;
 @property (nonatomic,retain) State* state;
+
++(Variable*) copyFromVariable:(Variable*) variable;
 
 @end

@@ -8,7 +8,6 @@
 
 #import "DefaultState.h"
 
-
 @implementation DefaultState
 
 @end

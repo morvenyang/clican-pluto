@@ -85,8 +85,6 @@
         if(value!=nil&&[value length]>0){
             self.currentParseState.value = [value intValue];
         }
-        NSString* propagation = [attributeDict objectForKey:@"propagation"];
-        self.currentParseState.propagation = propagation;
         NSString* nextStates = [attributeDict objectForKey:@"nextStates"];
         if(nextStates!=nil&&[nextStates length]>0){
             [self.nextStatesMap setValue:nextStates forKey:name];

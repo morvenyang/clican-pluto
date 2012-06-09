@@ -21,6 +21,20 @@
 @synthesize event = _event;
 @synthesize state = _state;
 
+-(Variable*)init{
+    self = [super init];
+    if(self!=nil){
+        self.changeDate = [NSDate date];
+    }
+    return self;
+}
++(Variable*) copyFromVariable:(Variable*) variable{
+    Variable* var = [[[Variable alloc] init] autorelease];
+    var.name = variable.name;
+    var.value = variable.value;
+    return var;
+}
+
 - (void)dealloc {
     [_name release];
     _name = nil;

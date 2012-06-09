@@ -10,7 +10,7 @@
 #import "cocos2d.h"
 
 @interface Session : NSObject {
-    int _sessionId;
+    long _sessionId;
     NSString* _title;
     NSString* _name;
     NSString* _type;
@@ -24,7 +24,7 @@
     
 }
 
-@property (nonatomic,assign) int sessionId;
+@property (nonatomic,assign) long sessionId;
 @property (nonatomic,retain) NSString* title;
 @property (nonatomic,retain) NSString* name;
 @property (nonatomic,retain) NSString* type;

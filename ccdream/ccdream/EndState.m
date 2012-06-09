@@ -7,8 +7,29 @@
 //
 
 #import "EndState.h"
-
+#import "Event.h"
+#import "Session.h"
+#import "State.h"
+#import "IState.h"
 
 @implementation EndState
+
+
+-(State*) onStart:(Session*) session istate:(IState*) previousState event:(Event*) event{
+    State* state = [super onStart:session istate:previousState event:event];
+    if(![state.status isEqualToString:@"active"]){
+        return state;
+    }
+    [self onEnd:state event:event];
+    return state;
+}
+
+-(void) onEnd:(State*) state event:(Event*) event{
+    [super onEnd:state event:event];
+    Session* session = state.session;
+    session.status = @"inactive";
+    session.endTime = [NSDate date];
+}
+
 
 @end

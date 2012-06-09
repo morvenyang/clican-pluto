@@ -18,6 +18,13 @@
 @synthesize completeTime = _completeTime;
 @synthesize eventType = _eventType;
 
+-(id) init{
+    self =[super init];
+    if(self){
+        self.variables = [[[NSMutableArray alloc] init] autorelease];
+    }
+    return self;
+}
 - (void)dealloc {
     [_variables release];
     _variables = nil;

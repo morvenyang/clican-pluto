@@ -10,7 +10,7 @@
 #import "cocos2d.h"
 #import "State.h"
 @interface Job : NSObject {
-    int _jobId;
+    long _jobId;
     NSString* _name;
     NSDate* _executeTime;
     int _repeatTime;
@@ -20,7 +20,7 @@
     NSString* _status;
 }
 
-@property (nonatomic,assign) int jobId;
+@property (nonatomic,assign) long jobId;
 @property (nonatomic,retain) NSString* name;
 @property (nonatomic,retain) NSDate* executeTime;
 @property (nonatomic,assign) int repeatTime;
