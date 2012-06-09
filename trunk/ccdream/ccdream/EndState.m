@@ -11,13 +11,14 @@
 #import "Session.h"
 #import "State.h"
 #import "IState.h"
-
+#import "EngineContext.h"
+#import "WorkflowConstants.h"
 @implementation EndState
 
 
 -(State*) onStart:(Session*) session istate:(IState*) previousState event:(Event*) event{
     State* state = [super onStart:session istate:previousState event:event];
-    if(![state.status isEqualToString:@"active"]){
+    if(![state.status isEqualToString:STATUS_ACTIVE]){
         return state;
     }
     [self onEnd:state event:event];
@@ -27,8 +28,9 @@
 -(void) onEnd:(State*) state event:(Event*) event{
     [super onEnd:state event:event];
     Session* session = state.session;
-    session.status = @"inactive";
+    session.status = STATUS_INACTIVE;
     session.endTime = [NSDate date];
+    [[EngineContext sharedEngineContext] deleteSession:session.sessionId];
 }
 
 

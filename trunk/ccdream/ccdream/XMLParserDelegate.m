@@ -51,6 +51,12 @@
         }else{
             self.currentParseState = [[[TaskState alloc] init] autorelease];
         }
+        NSString* assignees = [attributeDict objectForKey:@"assignees"];
+        ((TaskState*)self.currentParseState).assignees = assignees;
+        NSString* taskName = [attributeDict objectForKey:@"taskName"];
+        ((TaskState*)self.currentParseState).taskName = taskName;
+        NSString* taskType = [attributeDict objectForKey:@"taskType"];
+        ((TaskState*)self.currentParseState).taskType = taskType;
     }else if([elementName isEqualToString:@"nextCondStates"]){
         
         NSString* expr = [attributeDict objectForKey:@"expr"];

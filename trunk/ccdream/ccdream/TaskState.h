@@ -12,8 +12,13 @@
 
 @interface TaskState : IState {
     NSMutableArray* _taskListeners;
+    NSString* _assignees;
+    NSString* _taskName;
+    NSString* _taskType;
 }
 
 @property (nonatomic,retain) NSMutableArray* taskListeners;
-
+@property (nonatomic,retain) NSString* assignees;
+@property (nonatomic,retain) NSString* taskName;
+@property (nonatomic,retain) NSString* taskType;
 @end

@@ -12,6 +12,7 @@
 #import "Session.h"
 #import "State.h"
 
+
 @interface IState : NSObject {
     NSString* _name;
     NSMutableDictionary* _params;

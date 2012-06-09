@@ -14,7 +14,6 @@
 #import "StartState.h"
 #import "EndState.h"
 #import "TaskState.h"
-#import "XMLParserDelegate.h"
 #import "IState.h"
 
 @interface EngineContext : NSObject {
@@ -36,6 +35,8 @@
 -(Session*) newSession:(NSString*) name forSponsor:(NSString*) sponsor;
 
 -(Session*) querySesion:(long) sessionId;
+
+-(void) deleteSession:(long) sessionId;
 
 -(State*) findStateById:(long) stateId sessionId:(long) sessionId;
 
