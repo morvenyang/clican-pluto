@@ -13,6 +13,7 @@
 #import "State.h"
 #import "Variable.h"
 #import "EngineContext.h"
+#import "WorkflowConstants.h"
 
 @implementation IState
 
@@ -65,7 +66,7 @@
     state.session = session;
     state.name = self.name;
     state.startTime = [NSDate date];
-    state.status = @"active";
+    state.status = STATUS_ACTIVE;
     [session.states addObject:state];
     
     for (id<StateListener> stateListener in self.stateListeners) {

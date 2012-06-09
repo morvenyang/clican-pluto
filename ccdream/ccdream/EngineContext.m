@@ -7,6 +7,7 @@
 //
 
 #import "EngineContext.h"
+#import "XMLParserDelegate.h"
 
 @implementation EngineContext
 
@@ -85,6 +86,10 @@ static EngineContext *sharedEngineContext = nil;
 -(Session*) querySesion:(long) sessionId{
     Session* session = [self.sessionMap objectForKey:[NSString stringWithFormat:@"%i",sessionId]];
     return session;
+}
+
+-(void) deleteSession:(long) sessionId{
+    [self.sessionMap removeObjectForKey:[NSString stringWithFormat:@"%i",sessionId]];
 }
 
 -(State*) findStateById:(long) stateId sessionId:(long) sessionId{
