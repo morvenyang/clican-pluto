@@ -38,7 +38,7 @@
 -(void) handle:(Event*) event{
     @try{
         CCLOG(@"receive event[%@]",event);
-        [self proppagateVariables:event];
+        [self propagateVariables:event];
         [self onEnd:event.state event:event];
     }@catch (NSException* e) {
         CCLOGERROR(@"Exception occured:%@",e);
@@ -46,7 +46,7 @@
     }
 }
 
--(void) proppagateVariables:(Event*) event{
+-(void) propagateVariables:(Event*) event{
     State* state = event.state;
     Session* session = event.state.session;
     for (Variable* var in event.variables) {
@@ -99,6 +99,12 @@
         [stateListener onEnd:state nextStateList:nextStateArray event:event];
     }
     
+    state.status = STATUS_INACTIVE;
+    state.endTime = [NSDate date];
+    state.session.lastUpdateTime = [NSDate date];
+    for (IState* nextState in nextStateArray) {
+        [nextState onStart:state.session istate:self event:event];
+    }
 }
 
 -(NSString*) getExprResult:(Event*) event state:(State*) state{
@@ -137,6 +143,55 @@
     return result;
 }
 
+-(NSString*) getVariableValue:(NSString*) variableName variables:(NSArray*) variables{
+    if(variableName==nil||variables==nil){
+        return nil;
+    }
+    for (Variable* var in variables) {
+        if([var.name isEqualToString:variableName]){
+            return var.value;
+        }
+    }
+    return nil;
+}
+
+-(NSString*) getVariableValueForTask:(Task*) task variableName:(NSString*) variableName nested:(BOOL) nested{
+    NSString* value = [self getVariableValue:variableName variables:task.variables];
+    if(value!=nil){
+        return value;
+    }  
+    if(nested){
+        value = [self getVariableValueForState:task.state variableName:variableName nested :nested];
+    }
+    return value;
+}
+
+-(NSString*) getVariableValueForEvent:(Event*) event variableName:(NSString*) variableName nested:(BOOL) nested{
+    NSString* value = [self getVariableValue:variableName variables:event.variables];
+    if(value!=nil){
+        return value;
+    }  
+    if(nested){
+        value = [self getVariableValueForState:event.state variableName:variableName nested :nested];
+    }
+    return value;
+}
+
+-(NSString*) getVariableValueForState:(State*) state variableName:(NSString*) variableName nested:(BOOL) nested{
+    NSString* value = [self getVariableValue:variableName variables:state.variables];
+    if(value!=nil){
+        return value;
+    }  
+    if(nested){
+        value = [self getVariableValueForSession:state.session variableName:variableName];
+    }
+    return value;
+}
+
+-(NSString*) getVariableValueForSession:(Session*) session variableName:(NSString*) variableName{
+    NSString* value = [self getVariableValue:variableName variables:session.variables];
+    return value;
+}
 - (void)dealloc {
     [_name release];
     _name = nil;

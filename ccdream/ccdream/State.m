@@ -24,6 +24,16 @@
 @synthesize startTime = _startTime;
 @synthesize endTime = _endTime;
 
+-(id) init {
+    self = [super init];
+    if(self!=nil){
+        self.jobs = [[[NSMutableArray alloc] init] autorelease];
+        self.variables = [[[NSMutableArray alloc] init] autorelease];
+        self.events = [[[NSMutableArray alloc] init] autorelease];
+        self.tasks = [[[NSMutableArray alloc] init] autorelease];
+    }
+    return self;
+}
 
 - (void)dealloc {
     [_name release];

@@ -38,7 +38,10 @@
 
 -(void) deleteSession:(long) sessionId;
 
+-(State*) findActiveStateBySessionId:(long) sessionId;
+
 -(State*) findStateById:(long) stateId sessionId:(long) sessionId;
+
 
 -(IState*) getState:(NSString*) sessionName stateName:(NSString*) stateName;
 @end

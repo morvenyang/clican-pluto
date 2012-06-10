@@ -22,6 +22,14 @@
 @synthesize completeTime = _completeTime;
 @synthesize endTime = _endTime;
 
+-(id) init {
+    self = [super init];
+    if(self!=nil){
+        self.variables = [[[NSMutableArray alloc] init] autorelease];
+    }
+    return self;
+}
+
 
 - (void)dealloc {
     [_name release];

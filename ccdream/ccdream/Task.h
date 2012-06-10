@@ -15,7 +15,7 @@
     NSString* _name;
     NSString* _type;
     NSString* _assignee;
-    NSArray* _variables;
+    NSMutableArray* _variables;
     State* _state;
     NSDate* _assignTime;
     NSDate* _completeTime;
@@ -26,7 +26,7 @@
 @property (nonatomic,retain) NSString* name;
 @property (nonatomic,retain) NSString* type;
 @property (nonatomic,retain) NSString* assignee;
-@property (nonatomic,retain) NSArray* variables;
+@property (nonatomic,retain) NSMutableArray* variables;
 @property (nonatomic,assign) State* state;
 @property (nonatomic,retain) NSDate* assignTime;
 @property (nonatomic,retain) NSDate* completeTime;

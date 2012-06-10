@@ -30,11 +30,77 @@
     return self;
 }
 
+-(void) handle:(Event*) event{
+    @try{
+        [super propagateVariables:event];
+        if([event.eventType isEqualToString:EVENT_TYPE_JOB]){
+            
+        }else if([event.eventType isEqualToString:EVENT_TYPE_TASK]){
+            NSString* taskIdStr = [self getVariableValueForEvent:event variableName:PARAM_TASK_ID nested:NO];
+            NSString* taskAssigneeStr = [self getVariableValueForEvent:event variableName:PARAM_TASK_ASSIGNEE nested:NO];
+            Task* task = nil;
+            
+            for (Task* t in event.state.tasks) {
+                if(taskIdStr!=nil&&[taskIdStr length]>0){
+                    if(t.taskId == [taskIdStr longLongValue]){
+                        task = t;
+                        break;
+                    } 
+                }else if(taskAssigneeStr!=nil&&[taskAssigneeStr length]>0){
+                    if([t.assignee isEqualToString:taskAssigneeStr]){
+                        task = t;
+                        break;
+                    } 
+                }
+            }
+            if(task ==nil){
+                [NSException raise:@"Task not found" format:@"taskId=%@",taskIdStr];
+            }
+            [self setTaskVariable:task variables:event.variables];
+            @try {
+                for (id<TaskListener> taskListener in self.taskListeners) {
+                    [taskListener beforeHandleTask:task];
+                }
+                [self handleTask:task];
+            }
+            @finally {
+                for (id<TaskListener> taskListener in self.taskListeners) {
+                    [taskListener afterHandleTask:task];
+                }
+            }
+        }else{
+            [NSException raise:@"Handle event error for state" format:@"state name=%@",self.name];
+        }
+    }@catch (NSException* e) {
+        CCLOGERROR(@"Exception occured:%@",e);
+        @throw e;
+    }
+    BOOL allCompleted = YES;
+    for (Task* task in event.state.tasks) {
+        if(task.completeTime==nil){
+            allCompleted =NO;
+        }
+    }
+    if(allCompleted){
+        [super onEnd:event.state event:event];
+    }
+}
+
+-(void) handleTask:(Task*) task {
+    task.completeTime = [NSDate date];
+}
+
+-(void) setTaskVariable:(Task*) task variables:(NSArray*) variables{
+    for (Variable* var in variables) {
+        [task.variables addObject:[Variable copyFromVariable:var]];
+    }
+}
 -(State*) onStart:(Session*) session istate:(IState*) previousState event:(Event*) event{
     State* state = [super onStart:session istate:previousState event:event];
     if (![state.status isEqualToString:STATUS_ACTIVE]) {
         return state;
     }
+    [self assignTasks:state event:event];
     return state;
 }
 

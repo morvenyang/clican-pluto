@@ -11,7 +11,7 @@
 #import "Event.h"
 #import "Session.h"
 #import "State.h"
-
+#import "Task.h"
 
 @interface IState : NSObject {
     NSString* _name;
@@ -38,5 +38,18 @@
 -(State*) onStart:(Session*) session istate:(IState*) previousState event:(Event*) event;
 
 -(void) onEnd:(State*) state event:(Event*) event;
+
+-(void) propagateVariables:(Event*) event;
+
+-(NSString*) getVariableValue:(NSString*) variableName variables:(NSArray*) variables;
+
+-(NSString*) getVariableValueForTask:(Task*) task variableName:(NSString*) variableName nested:(BOOL) nested;
+
+-(NSString*) getVariableValueForEvent:(Event*) event variableName:(NSString*) variableName nested:(BOOL) nested;
+
+-(NSString*) getVariableValueForState:(State*) state variableName:(NSString*) variableName nested:(BOOL) nested;
+
+-(NSString*) getVariableValueForSession:(Session*) session variableName:(NSString*) variableName;
+
 
 @end

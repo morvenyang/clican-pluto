@@ -14,6 +14,8 @@
     
 }
 
++(EventDispatcher*) sharedEventDispatcher;
+
 -(void) dispatch:(long) sessionId forState:(long) stateId forEventType:(NSString*) eventType forParameters:(NSDictionary*) parameters;
 
 @end
