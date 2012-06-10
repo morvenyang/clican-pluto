@@ -8,7 +8,7 @@
 
 #import "EngineContext.h"
 #import "XMLParserDelegate.h"
-
+#import "WorkflowConstants.h"
 @implementation EngineContext
 
 @synthesize sessionMap = _sessionMap;
@@ -21,6 +21,9 @@ static EngineContext *sharedEngineContext = nil;
     self = [super init];
     if(self){
         _atomicLong = [[NSDate date] timeIntervalSince1970];
+        _sessionMap = [[[NSMutableDictionary alloc] init] autorelease];
+        _startStateMap = [[[NSMutableDictionary alloc] init] autorelease];
+        _sessionStateMap = [[[NSMutableDictionary alloc] init] autorelease];
     }
     return self;
 }
@@ -46,8 +49,13 @@ static EngineContext *sharedEngineContext = nil;
     if (startState!=nil) {
         return startState;
     }else{
-        NSBundle* bundle = [NSBundle bundleWithPath:[name stringByAppendingString:@".xml"]];
-        NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithContentsOfURL:bundle.bundleURL];
+        CCLOG(@"xml file name=%@",[name stringByAppendingString:@".xml"]);
+
+        NSBundle* bundle = [NSBundle mainBundle];
+        NSString* path = [bundle pathForResource:@"test_workflow" ofType:@"xml"];
+        CCLOG(@"xml path=%@",path);
+        NSURL* url = [NSURL fileURLWithPath:path];
+        NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithContentsOfURL:url];
         //Initialize the delegate.
         XMLParserDelegate* parser = [[XMLParserDelegate alloc] init];
         //Set delegate
@@ -56,11 +64,12 @@ static EngineContext *sharedEngineContext = nil;
         if(success){
             CCLOG(@"parse %@.xml successfully",name);
             startState = parser.startState;
+            CCLOG(@"start state[%@] for session[%@]",startState.name,name);
             [self.startStateMap setValue:startState forKey:name];
             [self.sessionStateMap setValue:parser.statesMap forKey:name];
             return startState;
         }else{
-            CCLOGERROR(@"parse %@.xml successfully",name);
+            CCLOGERROR(@"parse %@.xml failure",name);
             return nil;
         }
     }
@@ -74,8 +83,12 @@ static EngineContext *sharedEngineContext = nil;
     if(startState!=nil){
         Session* session = [[[Session alloc] init] autorelease];
         session.sessionId = [self getAndAddAtomicLong];
+        session.name = name;
+        NSString* sessionIdStr = [NSString stringWithFormat:@"%ld",session.sessionId];
+        CCLOG(@"new session with id=%@",sessionIdStr);
         session.sponsor = sponsor;
-        [self.sessionMap setValue:session forKey:[NSString stringWithFormat:@"@i",session.sessionId]];
+        [_sessionMap setValue:session forKey:sessionIdStr];
+        [startState onStart:session istate:nil event:nil];
         return session;
     }else{
         return nil;
@@ -84,12 +97,25 @@ static EngineContext *sharedEngineContext = nil;
 }
 
 -(Session*) querySesion:(long) sessionId{
-    Session* session = [self.sessionMap objectForKey:[NSString stringWithFormat:@"%i",sessionId]];
+    NSString* sessionIdStr = [NSString stringWithFormat:@"%ld",sessionId];
+    CCLOG(@"query session with id=%@",sessionIdStr);
+    CCLOG(@"session map count=%i",[self.sessionMap count]);
+    Session* session = [self.sessionMap objectForKey:sessionIdStr];
     return session;
 }
 
 -(void) deleteSession:(long) sessionId{
-    [self.sessionMap removeObjectForKey:[NSString stringWithFormat:@"%i",sessionId]];
+    [self.sessionMap removeObjectForKey:[NSString stringWithFormat:@"%ld",sessionId]];
+}
+
+-(State*) findActiveStateBySessionId:(long) sessionId{
+    Session* session = [self querySesion:sessionId];
+    for (State* state in session.states) {
+        if([state.status isEqualToString:STATUS_ACTIVE]){
+            return state;
+        }
+    }
+    return nil;
 }
 
 -(State*) findStateById:(long) stateId sessionId:(long) sessionId{
@@ -103,7 +129,10 @@ static EngineContext *sharedEngineContext = nil;
 }
 
 -(IState*) getState:(NSString*) sessionName stateName:(NSString*) stateName{
+    CCLOG(@"session name:%@,state name:%@",sessionName,stateName);
+    CCLOG(@"session state map count:%i",[self.sessionStateMap count]);
     NSMutableDictionary* stateMap = [self.sessionStateMap objectForKey:sessionName];
+    CCLOG(@"state map count:%i",[stateMap count]);
     return [stateMap objectForKey:stateName];
 }
 
@@ -112,6 +141,8 @@ static EngineContext *sharedEngineContext = nil;
     _sessionMap = nil;
     [_startStateMap release];
     _startStateMap = nil;
+    [_sessionStateMap release];
+    _sessionStateMap = nil;
     [super dealloc];
 }
 @end

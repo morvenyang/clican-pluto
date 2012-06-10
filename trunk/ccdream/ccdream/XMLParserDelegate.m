@@ -31,7 +31,8 @@
     
     if([elementName isEqualToString:@"start"]){
         stateElement = YES;
-        self.currentParseState = [[[StartState alloc] init] autorelease];
+        self.startState = [[[StartState alloc] init] autorelease];
+        self.currentParseState = self.startState;
     }else if([elementName isEqualToString:@"end"]){
         stateElement = YES;
         self.currentParseState = [[[EndState alloc] init] autorelease];
@@ -101,40 +102,40 @@
 }
 
 - (void)parserDidEndDocument:(NSXMLParser *)parser{
-    for(IState* state in [self.statesMap allKeys]){
-        if(state!=nil){
-            //处理下个状态节点
-            NSString* nextStates = [self.nextStatesMap objectForKey:state.name];
-            if(nextStates!=nil&&[nextStates length]>0){
-                NSArray* array = [nextStates componentsSeparatedByString:@","];
+    for(NSString* name in [self.statesMap allKeys]){
+        IState* state = [self.statesMap valueForKey:name];
+        
+        //处理下个状态节点
+        CCLOG(@"state name=%@",name);
+        NSString* nextStates = [self.nextStatesMap objectForKey:state.name];
+        if(nextStates!=nil&&[nextStates length]>0){
+            NSArray* array = [nextStates componentsSeparatedByString:@","];
+            for(int i=0;i<[array count];i++){
+                NSString* stateName = [array objectAtIndex:i];
+                IState* nextState = [self.statesMap objectForKey:stateName];
+                [state.nextStats addObject:nextState];
+            }
+        }
+        
+        //处理下个带条件状态节点
+        
+        NSMutableDictionary* nextCondStatesMap = [self.nextCondStatesMap objectForKey:state.name];
+        
+        if(nextCondStatesMap!=nil){
+            for (NSString* expr in [nextCondStatesMap allKeys]) {
+                NSString* nextCondStates = [nextCondStatesMap valueForKey:expr]; 
+                NSArray* array = [nextCondStates componentsSeparatedByString:@","];
+                NSMutableArray* nextStateArray = [[[NSMutableArray alloc] init]autorelease];
                 for(int i=0;i<[array count];i++){
                     NSString* stateName = [array objectAtIndex:i];
                     IState* nextState = [self.statesMap objectForKey:stateName];
-                    [state.nextStats addObject:nextState];
+                    [nextStateArray addObject:nextState];
                 }
+                [state.nextCondStates setValue:nextStateArray forKey:expr];
             }
             
-            //处理下个带条件状态节点
-            
-            NSMutableDictionary* nextCondStatesMap = [self.nextCondStatesMap objectForKey:state.name];
-            
-            if(nextCondStatesMap!=nil){
-                for (NSString* expr in [nextCondStatesMap allKeys]) {
-                    NSString* nextCondStates = [nextCondStatesMap valueForKey:expr]; 
-                    NSArray* array = [nextCondStates componentsSeparatedByString:@","];
-                    NSMutableArray* nextStateArray = [[[NSMutableArray alloc] init]autorelease];
-                    for(int i=0;i<[array count];i++){
-                        NSString* stateName = [array objectAtIndex:i];
-                        IState* nextState = [self.statesMap objectForKey:stateName];
-                        [nextStateArray addObject:nextState];
-                    }
-                    [state.nextCondStates setValue:nextStateArray forKey:expr];
-                }
-                
-            }
-        }else{
-            break;
         }
+        
     }
 }
 @end

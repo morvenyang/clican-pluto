@@ -21,4 +21,6 @@
 @property (nonatomic,retain) NSString* assignees;
 @property (nonatomic,retain) NSString* taskName;
 @property (nonatomic,retain) NSString* taskType;
+
+-(void) handleTask:(Task*) task;
 @end
