@@ -48,7 +48,7 @@ static EventDispatcher *sharedEventDispatcher = nil;
         event.eventType = eventType;
         if(parameters!=nil){
             for (NSString* name in parameters.allKeys) {
-                NSString* value = [parameters objectForKey:name];
+                id value = [parameters objectForKey:name];
                 Variable* var = [[[Variable alloc] init] autorelease];
                 var.name = name;
                 var.value = value;

@@ -144,6 +144,10 @@
 		727F5067157B0F9B007BBA9F /* trs-012.gif in Resources */ = {isa = PBXBuildFile; fileRef = 727F5065157B0F9B007BBA9F /* trs-012.gif */; };
 		727F506B157B102E007BBA9F /* Character.m in Sources */ = {isa = PBXBuildFile; fileRef = 727F506A157B102E007BBA9F /* Character.m */; };
 		727F506E157B1071007BBA9F /* Mobility.m in Sources */ = {isa = PBXBuildFile; fileRef = 727F506D157B1071007BBA9F /* Mobility.m */; };
+		728026FA158608F000EB74FC /* ws_fight_map.xml in Resources */ = {isa = PBXBuildFile; fileRef = 728026F9158608F000EB74FC /* ws_fight_map.xml */; };
+		728026FD15860AC300EB74FC /* WaitUserInputAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 728026FC15860AC300EB74FC /* WaitUserInputAction.m */; };
+		7280270015860AD800EB74FC /* NoUserInputAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 728026FF15860AD800EB74FC /* NoUserInputAction.m */; };
+		7280270615860F2700EB74FC /* DisplayMoveShadowAndPreMoveAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 7280270515860F2700EB74FC /* DisplayMoveShadowAndPreMoveAction.m */; };
 		7295EF7A15833FBD0074E449 /* WorkflowConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 7295EF7915833FBD0074E449 /* WorkflowConstants.m */; };
 		72A6DC2F157EEFC30042B7E0 /* MapAttribute.m in Sources */ = {isa = PBXBuildFile; fileRef = 72A6DC2E157EEFC20042B7E0 /* MapAttribute.m */; };
 		72A6DC32157EF3F70042B7E0 /* MapGridAttribute.m in Sources */ = {isa = PBXBuildFile; fileRef = 72A6DC31157EF3F70042B7E0 /* MapGridAttribute.m */; };
@@ -440,6 +444,13 @@
 		727F506A157B102E007BBA9F /* Character.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Character.m; sourceTree = "<group>"; };
 		727F506C157B1071007BBA9F /* Mobility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mobility.h; sourceTree = "<group>"; };
 		727F506D157B1071007BBA9F /* Mobility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Mobility.m; sourceTree = "<group>"; };
+		728026F9158608F000EB74FC /* ws_fight_map.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = ws_fight_map.xml; path = Resources/ws_fight_map.xml; sourceTree = "<group>"; };
+		728026FB15860AC300EB74FC /* WaitUserInputAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaitUserInputAction.h; sourceTree = "<group>"; };
+		728026FC15860AC300EB74FC /* WaitUserInputAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaitUserInputAction.m; sourceTree = "<group>"; };
+		728026FE15860AD800EB74FC /* NoUserInputAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoUserInputAction.h; sourceTree = "<group>"; };
+		728026FF15860AD800EB74FC /* NoUserInputAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoUserInputAction.m; sourceTree = "<group>"; };
+		7280270415860F2700EB74FC /* DisplayMoveShadowAndPreMoveAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DisplayMoveShadowAndPreMoveAction.h; sourceTree = "<group>"; };
+		7280270515860F2700EB74FC /* DisplayMoveShadowAndPreMoveAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DisplayMoveShadowAndPreMoveAction.m; sourceTree = "<group>"; };
 		7295EF7815833FBD0074E449 /* WorkflowConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorkflowConstants.h; sourceTree = "<group>"; };
 		7295EF7915833FBD0074E449 /* WorkflowConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WorkflowConstants.m; sourceTree = "<group>"; };
 		72A6DC2D157EEFC20042B7E0 /* MapAttribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapAttribute.h; sourceTree = "<group>"; };
@@ -541,6 +552,7 @@
 		720CDF8A157AC4B400DB894D /* ccdream */ = {
 			isa = PBXGroup;
 			children = (
+				728026F71586075A00EB74FC /* action */,
 				72B8AE2B157D9CED00AE0669 /* event */,
 				723DC2E7157B9514006BDA9B /* sprite */,
 				723DC29A157B90DE006BDA9B /* util */,
@@ -563,6 +575,7 @@
 		720CDF8B157AC4B400DB894D /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				728026F9158608F000EB74FC /* ws_fight_map.xml */,
 				727F5064157B0F9B007BBA9F /* trs-037.gif */,
 				727F5065157B0F9B007BBA9F /* trs-012.gif */,
 				720CE108157ADDFC00DB894D /* Tilesheet-land-v5.png */,
@@ -1016,6 +1029,43 @@
 			name = sprite;
 			sourceTree = "<group>";
 		};
+		728026F71586075A00EB74FC /* action */ = {
+			isa = PBXGroup;
+			children = (
+				7280270315860ED200EB74FC /* waitinput */,
+				7280270215860EC800EB74FC /* noinput */,
+				7280270115860EB000EB74FC /* base */,
+			);
+			name = action;
+			sourceTree = "<group>";
+		};
+		7280270115860EB000EB74FC /* base */ = {
+			isa = PBXGroup;
+			children = (
+				728026FB15860AC300EB74FC /* WaitUserInputAction.h */,
+				728026FC15860AC300EB74FC /* WaitUserInputAction.m */,
+				728026FE15860AD800EB74FC /* NoUserInputAction.h */,
+				728026FF15860AD800EB74FC /* NoUserInputAction.m */,
+			);
+			name = base;
+			sourceTree = "<group>";
+		};
+		7280270215860EC800EB74FC /* noinput */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = noinput;
+			sourceTree = "<group>";
+		};
+		7280270315860ED200EB74FC /* waitinput */ = {
+			isa = PBXGroup;
+			children = (
+				7280270415860F2700EB74FC /* DisplayMoveShadowAndPreMoveAction.h */,
+				7280270515860F2700EB74FC /* DisplayMoveShadowAndPreMoveAction.m */,
+			);
+			name = waitinput;
+			sourceTree = "<group>";
+		};
 		72B0E5E71580CF6500EE546D /* listener */ = {
 			isa = PBXGroup;
 			children = (
@@ -1140,6 +1190,7 @@
 				727F5066157B0F9B007BBA9F /* trs-037.gif in Resources */,
 				727F5067157B0F9B007BBA9F /* trs-012.gif in Resources */,
 				72DA4C1D1584024400F5AD82 /* test_workflow.xml in Resources */,
+				728026FA158608F000EB74FC /* ws_fight_map.xml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1302,6 +1353,9 @@
 				7295EF7A15833FBD0074E449 /* WorkflowConstants.m in Sources */,
 				72D5CE961584351F005F0C3B /* WeaponSelect.m in Sources */,
 				72D5CE9A15843537005F0C3B /* Weapon.m in Sources */,
+				728026FD15860AC300EB74FC /* WaitUserInputAction.m in Sources */,
+				7280270015860AD800EB74FC /* NoUserInputAction.m in Sources */,
+				7280270615860F2700EB74FC /* DisplayMoveShadowAndPreMoveAction.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

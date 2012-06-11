@@ -12,6 +12,7 @@
 #import "Session.h"
 #import "State.h"
 #import "Task.h"
+#import "WorkflowConstants.h"
 
 @interface IState : NSObject {
     NSString* _name;
@@ -41,7 +42,7 @@
 
 -(void) propagateVariables:(Event*) event;
 
--(NSString*) getVariableValue:(NSString*) variableName variables:(NSArray*) variables;
+-(id) getVariableValue:(NSString*) variableName variables:(NSArray*) variables;
 
 -(NSString*) getVariableValueForTask:(Task*) task variableName:(NSString*) variableName nested:(BOOL) nested;
 

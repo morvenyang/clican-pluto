@@ -7,7 +7,8 @@
 //
 
 #import "MapLayer.h"
-
+#import "EngineContext.h"
+#import "EventDispatcher.h"
 
 @implementation MapLayer
 
@@ -20,7 +21,7 @@
 @synthesize maxPosi = _maxPosi;
 @synthesize mapAttribute = _mapAttribute;
 @synthesize mapGridAttributeMap = _mapGridAttributeMap;
-
+@synthesize fightMapSession = _fightMapSession;
 
 
 -(id) init{
@@ -115,33 +116,12 @@
         [FightMenuLayer sharedFightMenuLayer].selectAttack = NO;
         [[FightMenuLayer sharedFightMenuLayer] hide]; 
     }else{
-        character.selected = YES;
-        self.selectedCharacter = character;
-        
-        Position* charPosi = [Position positionWithCGPoint:self.selectedCharacter.characterSprite.position];
-        [[FightMenuLayer sharedFightMenuLayer] showAtPosition:[charPosi toFightMenuPosition:self.maxPosi]];
-        Mobility* moblitity = [Mobility mobilityWithDefault];
-        
-        CCArray* posiArray = nil;
-        //计算可移动范围
-        
-        posiArray = [PositionUtil calcMoveOrbitarrayFromPosition:charPosi movement:3 mobility:moblitity mapGridAttributeMap:self.mapGridAttributeMap maxPosition:self.maxPosi playerCharacterArray:self.playerCharacterArray enemyCharacterArray:self.enemyCharacterArray];
-        CCLOG(@"count=%i",[posiArray count]);
-        
-        [self cleanShadowSpriteArray];
-        for(int i=0;i<[posiArray count];i++){
-            MoveOrbit* mo = [posiArray objectAtIndex:i];
-            CCLOG(@"%@",[mo.position description]);
-            CCSprite* redSprite = [[CCSprite alloc] init];
-            [redSprite setColor:ccc3(255, 0, 0)];
-            redSprite.opacity=100;
-            redSprite.textureRect = CGRectMake(0, 0, MAP_POINT_SIZE, MAP_POINT_SIZE);
-            
-            redSprite.position = CGPointMake(mo.position.x*MAP_POINT_SIZE+MAP_POINT_SIZE/2, mo.position.y*MAP_POINT_SIZE+MAP_POINT_SIZE/2);
-            [self.shadowSpriteArray addObject:redSprite];
-            [self addChild:redSprite];
+        if(self.fightMapSession==nil||[self.fightMapSession.status isEqualToString:STATUS_INACTIVE]){
+            self.fightMapSession = [[EngineContext sharedEngineContext] newSession:@"ws_fight_map" forSponsor:@"character"];
         }
-        self.movementArray = posiArray;
+        NSMutableDictionary* params = [[[NSMutableDictionary alloc] init] autorelease];
+        [params setValue:self forKey:PARAM_MAP_LAYER];
+        [[EventDispatcher sharedEventDispatcher] dispatch:self.fightMapSession.sessionId forState:0 forEventType:PARAM_SELECTED_CHARACTER forParameters:params];
     }
     
 }

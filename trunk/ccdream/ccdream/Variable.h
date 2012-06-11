@@ -15,7 +15,7 @@
 @interface Variable : NSObject {
     long _variableId;
     NSString* _name;
-    NSString* _value;
+    id _value;
     NSData* _changeDate;
     Task* _task;
     Session* _session;
@@ -27,7 +27,7 @@
 
 @property (nonatomic,assign) long variableId;
 @property (nonatomic,retain) NSString* name;
-@property (nonatomic,retain) NSString* value;
+@property (nonatomic,retain) id value;
 @property (nonatomic,retain) NSData* changeDate;
 @property (nonatomic,assign) Task* task;
 @property (nonatomic,assign) Session* session;

@@ -12,6 +12,7 @@
 #import "MapAttribute.h"
 #import "MapGridAttribute.h"
 #import "FightMenuLayer.h"
+#import "Session.h"
 
 @interface MapLayer : CCLayer<CharacterSelectDelegate,PositionTouchDelegate>
 {
@@ -24,6 +25,7 @@
     Position* _maxPosi;
     NSMutableDictionary* _mapGridAttributeMap;
     MapAttribute* _mapAttribute;
+    Session* _fightMapSession;
 }
 
 @property (nonatomic,retain) CCArray* playerCharacterArray;
@@ -35,6 +37,7 @@
 @property (nonatomic,retain) Position* maxPosi;
 @property (nonatomic,retain) NSMutableDictionary* mapGridAttributeMap;
 @property (nonatomic,retain) MapAttribute* mapAttribute;
+@property (nonatomic,retain) Session* fightMapSession;
 
 - (void)selectCharacter:(Character*) character;
 @end
