@@ -152,6 +152,8 @@
 		72B0E5E51580643100EE546D /* XMLParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 72B0E5E41580643100EE546D /* XMLParserDelegate.m */; };
 		72B8AE2F157D9D2500AE0669 /* GlobalEventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 72B8AE2E157D9D2500AE0669 /* GlobalEventHandler.m */; };
 		72D33809157CCCD8002D9866 /* MoveOrbit.m in Sources */ = {isa = PBXBuildFile; fileRef = 72D33808157CCCD8002D9866 /* MoveOrbit.m */; };
+		72D5CE961584351F005F0C3B /* WeaponSelect.m in Sources */ = {isa = PBXBuildFile; fileRef = 72D5CE951584351F005F0C3B /* WeaponSelect.m */; };
+		72D5CE9A15843537005F0C3B /* Weapon.m in Sources */ = {isa = PBXBuildFile; fileRef = 72D5CE9915843537005F0C3B /* Weapon.m */; };
 		72DA4C0B1583FFEA00F5AD82 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72DA4C0A1583FFEA00F5AD82 /* SenTestingKit.framework */; };
 		72DA4C0C1583FFEA00F5AD82 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 720CDF84157AC4B400DB894D /* UIKit.framework */; };
 		72DA4C0D1583FFEA00F5AD82 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 720CDF86157AC4B400DB894D /* Foundation.framework */; };
@@ -455,6 +457,10 @@
 		72B8AE2E157D9D2500AE0669 /* GlobalEventHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlobalEventHandler.m; sourceTree = "<group>"; };
 		72D33807157CCCD8002D9866 /* MoveOrbit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoveOrbit.h; sourceTree = "<group>"; };
 		72D33808157CCCD8002D9866 /* MoveOrbit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoveOrbit.m; sourceTree = "<group>"; };
+		72D5CE941584351F005F0C3B /* WeaponSelect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeaponSelect.h; sourceTree = "<group>"; };
+		72D5CE951584351F005F0C3B /* WeaponSelect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeaponSelect.m; sourceTree = "<group>"; };
+		72D5CE9815843537005F0C3B /* Weapon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Weapon.h; sourceTree = "<group>"; };
+		72D5CE9915843537005F0C3B /* Weapon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Weapon.m; sourceTree = "<group>"; };
 		72DA4C091583FFEA00F5AD82 /* ccdreamTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ccdreamTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		72DA4C0A1583FFEA00F5AD82 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		72DA4C101583FFEA00F5AD82 /* ccdreamTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ccdreamTests-Info.plist"; sourceTree = "<group>"; };
@@ -894,6 +900,8 @@
 				720CE0F0157AC55F00DB894D /* MapLayer.m */,
 				72A6DC36157F0D240042B7E0 /* FightMenuLayer.h */,
 				72A6DC37157F0D240042B7E0 /* FightMenuLayer.m */,
+				72D5CE941584351F005F0C3B /* WeaponSelect.h */,
+				72D5CE951584351F005F0C3B /* WeaponSelect.m */,
 			);
 			name = layer;
 			sourceTree = "<group>";
@@ -932,6 +940,8 @@
 				72A6DC2E157EEFC20042B7E0 /* MapAttribute.m */,
 				72A6DC30157EF3F70042B7E0 /* MapGridAttribute.h */,
 				72A6DC31157EF3F70042B7E0 /* MapGridAttribute.m */,
+				72D5CE9815843537005F0C3B /* Weapon.h */,
+				72D5CE9915843537005F0C3B /* Weapon.m */,
 			);
 			name = model;
 			sourceTree = "<group>";
@@ -1290,6 +1300,8 @@
 				72E1393815823F0F006AE49E /* Listener.m in Sources */,
 				72E1393B15824084006AE49E /* StateChangeListener.m in Sources */,
 				7295EF7A15833FBD0074E449 /* WorkflowConstants.m in Sources */,
+				72D5CE961584351F005F0C3B /* WeaponSelect.m in Sources */,
+				72D5CE9A15843537005F0C3B /* Weapon.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1479,6 +1491,7 @@
 				72DA4C191583FFEA00F5AD82 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
