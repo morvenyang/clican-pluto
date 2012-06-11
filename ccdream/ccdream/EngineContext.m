@@ -52,7 +52,7 @@ static EngineContext *sharedEngineContext = nil;
         CCLOG(@"xml file name=%@",[name stringByAppendingString:@".xml"]);
 
         NSBundle* bundle = [NSBundle mainBundle];
-        NSString* path = [bundle pathForResource:@"test_workflow" ofType:@"xml"];
+        NSString* path = [bundle pathForResource:name ofType:@"xml"];
         CCLOG(@"xml path=%@",path);
         NSURL* url = [NSURL fileURLWithPath:path];
         NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithContentsOfURL:url];

@@ -13,7 +13,7 @@
 #import "State.h"
 #import "Variable.h"
 #import "EngineContext.h"
-#import "WorkflowConstants.h"
+
 
 @implementation IState
 
@@ -143,7 +143,7 @@
     return result;
 }
 
--(NSString*) getVariableValue:(NSString*) variableName variables:(NSArray*) variables{
+-(id) getVariableValue:(NSString*) variableName variables:(NSArray*) variables{
     if(variableName==nil||variables==nil){
         return nil;
     }

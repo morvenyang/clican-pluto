@@ -28,7 +28,8 @@
 }
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict{
     BOOL stateElement = NO;
-    
+    NSString* name = [attributeDict objectForKey:@"name"];
+    CCLOG(@"parse name:%@",name);
     if([elementName isEqualToString:@"start"]){
         stateElement = YES;
         self.startState = [[[StartState alloc] init] autorelease];
@@ -40,7 +41,11 @@
         stateElement = YES;
         NSString* className = [attributeDict objectForKey:@"class"];
         if(className!=nil&&[className length]>0){
-            self.currentParseState = [[[NSClassFromString(className) alloc] init] autorelease];
+                self.currentParseState = [[[NSClassFromString(className) alloc] init] autorelease];
+            if(self.currentParseState==nil){
+                CCLOGERROR(@"The class [%@] not exist, we use DetaultState.",className);
+                self.currentParseState = [[[DefaultState alloc] init] autorelease];
+            }
         }else{
             self.currentParseState = [[[DefaultState alloc] init] autorelease];
         }
@@ -59,7 +64,7 @@
         NSString* taskType = [attributeDict objectForKey:@"taskType"];
         ((TaskState*)self.currentParseState).taskType = taskType;
     }else if([elementName isEqualToString:@"nextCondStates"]){
-        
+        CCLOG(@"current parse state name:%@",self.currentParseState.name);
         NSString* expr = [attributeDict objectForKey:@"expr"];
         NSString* nextStates = [attributeDict objectForKey:@"nextStates"];
         NSMutableDictionary* dict = [self.nextCondStatesMap objectForKey:self.currentParseState.name];
@@ -86,7 +91,7 @@
     }
     
     if(stateElement){
-        NSString* name = [attributeDict objectForKey:@"name"];
+        
         self.currentParseState.name = name;
         NSString* value = [attributeDict objectForKey:@"value"];
         if(value!=nil&&[value length]>0){
@@ -113,6 +118,9 @@
             for(int i=0;i<[array count];i++){
                 NSString* stateName = [array objectAtIndex:i];
                 IState* nextState = [self.statesMap objectForKey:stateName];
+                if(nextState==nil){
+                    CCLOGERROR(@"The state[%@] doesn't exist",stateName);
+                }
                 [state.nextStats addObject:nextState];
             }
         }
