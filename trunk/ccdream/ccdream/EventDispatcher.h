@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
-
+#import "Position.h"
 
 @interface EventDispatcher : NSObject {
     
@@ -18,4 +18,5 @@
 
 -(void) dispatch:(long) sessionId forState:(long) stateId forEventType:(NSString*) eventType forParameters:(NSDictionary*) parameters;
 
+-(void) dispatch:(long) sessionId forState:(long) stateId mapPosition:(Position*) mapPosition;
 @end

@@ -82,10 +82,6 @@ static FightMenuLayer* sharedFightMenuLayer = nil;
     return YES;
 }
 
-- (void)selectCharacter:(Character*) character{
-    
-}
-
 - (void)dealloc {
     [_fightMenu release];
     _fightMenu = nil;

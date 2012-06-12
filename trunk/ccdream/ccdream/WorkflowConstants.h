@@ -13,20 +13,21 @@
 #define EVENT_TYPE_NORMAL @"normal"
 
 #define EVENT_TYPE_CHARACTER_ONCLICK @"character_onclick"
-
+#define EVENT_TYPE_MAP_ONCLICK @"map_onclick"
 
 
 
 #define PARAM_TASK_ID @"taskId"
 #define PARAM_TASK_ASSIGNEE @"assignee"
-
+#define PARAM_RESULT @"result"
 #define PARAM_SELECTED_CHARACTER @"selected_character"
 
  
 
 #define PARAM_MAP_LAYER @"map_layer"
 #define PARAM_SHADOW_ARRAY @"selected_character"
-
+#define PARAM_SELECTED_MAP_POSITION @"selected_map_position"
+#define PARAM_SELECTED_MODEL @"selected_model"
 
 @interface WorkflowConstants : NSObject {
     

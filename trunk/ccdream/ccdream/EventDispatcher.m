@@ -28,6 +28,12 @@ static EventDispatcher *sharedEventDispatcher = nil;
 }
 
 
+-(void) dispatch:(long) sessionId forState:(long) stateId mapPosition:(Position*) mapPosition{
+    NSMutableDictionary* param  = [[[NSMutableDictionary alloc] init] autorelease];
+    [param setValue:mapPosition forKey:PARAM_SELECTED_MAP_POSITION];
+    [self dispatch:sessionId forState:stateId forEventType:EVENT_TYPE_MAP_ONCLICK forParameters:param];
+}
+
 -(void) dispatch:(long) sessionId forState:(long) stateId forEventType:(NSString*) eventType forParameters:(NSDictionary*) parameters{
     @try {
         EngineContext* engineContext = [EngineContext sharedEngineContext];

@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
 #import "IState.h"
+#import "Position.h"
 
 @interface WaitUserInputAction : IState {
     
@@ -16,4 +17,5 @@
 
 -(void) playSprite:(Session*) session istate:(IState*) previousState event:(Event*) event;
 
+-(NSString*) onClick:(Position*) mapPosition event:(Event*) event;
 @end

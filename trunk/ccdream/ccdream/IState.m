@@ -112,13 +112,13 @@
     if(event.state!=nil){
         if(event.state.session!=nil){
             for (Variable* var in event.state.session.variables) {
-                if([var.name isEqualToString:@"result"]){
+                if([var.name isEqualToString:PARAM_RESULT]){
                     result = var.value;
                 }
             }
         }
         for (Variable* var in event.state.variables) {
-            if([var.name isEqualToString:@"result"]){
+            if([var.name isEqualToString:PARAM_RESULT]){
                 result = var.value;
             }
         }
@@ -126,7 +126,7 @@
     
     if(state!=nil){
         for (Variable* var in state.variables) {
-            if([var.name isEqualToString:@"result"]){
+            if([var.name isEqualToString:PARAM_RESULT]){
                 result = var.value;
             }
         }
@@ -134,7 +134,7 @@
     
     if(event!=nil){
         for (Variable* var in event.variables) {
-            if([var.name isEqualToString:@"result"]){
+            if([var.name isEqualToString:PARAM_RESULT]){
                 result = var.value;
             }
         }
@@ -155,7 +155,7 @@
     return nil;
 }
 
--(NSString*) getVariableValueForTask:(Task*) task variableName:(NSString*) variableName nested:(BOOL) nested{
+-(id) getVariableValueForTask:(Task*) task variableName:(NSString*) variableName nested:(BOOL) nested{
     NSString* value = [self getVariableValue:variableName variables:task.variables];
     if(value!=nil){
         return value;
@@ -166,7 +166,7 @@
     return value;
 }
 
--(NSString*) getVariableValueForEvent:(Event*) event variableName:(NSString*) variableName nested:(BOOL) nested{
+-(id) getVariableValueForEvent:(Event*) event variableName:(NSString*) variableName nested:(BOOL) nested{
     NSString* value = [self getVariableValue:variableName variables:event.variables];
     if(value!=nil){
         return value;
@@ -177,7 +177,7 @@
     return value;
 }
 
--(NSString*) getVariableValueForState:(State*) state variableName:(NSString*) variableName nested:(BOOL) nested{
+-(id) getVariableValueForState:(State*) state variableName:(NSString*) variableName nested:(BOOL) nested{
     NSString* value = [self getVariableValue:variableName variables:state.variables];
     if(value!=nil){
         return value;

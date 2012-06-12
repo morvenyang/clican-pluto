@@ -14,7 +14,6 @@
 
 @synthesize playerCharacterArray = _playerCharacterArray;
 @synthesize enemyCharacterArray = _enemyCharacterArray;
-@synthesize selectedCharacter = _selectedCharacter;
 @synthesize tiledMap = _tiledMap;
 @synthesize movementArray = _movementArray;
 @synthesize shadowSpriteArray = _shadowSpriteArray;
@@ -74,38 +73,32 @@
     for(int i=0;i<[self.mapAttribute.enemyBeginPosiArray count];i++){
         Position* position = [self.mapAttribute.enemyBeginPosiArray objectAtIndex:i];
         Character* character =[Character characterWithParentNode:self spriteFile:@"trs-037.gif" position:position];
-        [character addCharacterSelectDelegate:self];
         [self.enemyCharacterArray addObject:character];
     }
    
     for(int i=0;i<[self.mapAttribute.playerBeginPosiArray count];i++){
         Position* position = [self.mapAttribute.playerBeginPosiArray objectAtIndex:i];
         Character* character =[Character characterWithParentNode:self spriteFile:@"trs-012.gif" position:position];
-        [character addCharacterSelectDelegate:self];
         [self.playerCharacterArray addObject:character];
     }
 }
 - (BOOL)touchBegan:(Position *)posi withEvent:(UIEvent *)event {
-    [[FightMenuLayer sharedFightMenuLayer] hide];
-    if(self.selectedCharacter!=nil){
-        if(self.movementArray!=nil&&[PositionUtil containsPosition:posi forMoveOrbitArray:self.movementArray]){
-            //选中的位置是可移动的位置
-            Character* character = self.selectedCharacter;
-            character.selected = NO;
-            [self.movementArray removeAllObjects];
-            [self cleanShadowSpriteArray];
-            CCLOG(@"move to%@",posi.description);
-            
-            [character.characterSprite runAction: [CCMoveTo actionWithDuration:0.5 position:[posi toCenterCGPoint]]];
-            [[FightMenuLayer sharedFightMenuLayer] showAtPosition:[posi  toFightMenuPosition:self.maxPosi]];
-            [self cleanShadowSpriteArray];
+    for (Character* character in self.playerCharacterArray) {
+        if([PositionUtil isPosition:posi forNode:character.characterSprite]){
+            if(self.fightMapSession==nil||[self.fightMapSession.status isEqualToString:STATUS_INACTIVE]){
+                self.fightMapSession = [[EngineContext sharedEngineContext] newSession:@"ws_fight_map" forSponsor:@"character"];
+                NSMutableDictionary* params = [[[NSMutableDictionary alloc] init] autorelease];
+                [params setValue:self forKey:PARAM_MAP_LAYER];
+                [params setValue:character forKey:PARAM_SELECTED_CHARACTER];
+                [[EventDispatcher sharedEventDispatcher] dispatch:self.fightMapSession.sessionId forState:0 forEventType:EVENT_TYPE_CHARACTER_ONCLICK forParameters:params];
+            }
             return YES;
         }
     }
-    self.selectedCharacter = nil;
-    [self.movementArray removeAllObjects];
-    [self cleanShadowSpriteArray];
-    return NO;
+    if(self.fightMapSession!=nil&&[self.fightMapSession.status isEqualToString:STATUS_ACTIVE]){
+        [[EventDispatcher sharedEventDispatcher] dispatch:self.fightMapSession.sessionId forState:0 mapPosition:posi];
+    }
+    return YES;
 }
 
 - (void)selectCharacter:(Character*) character{

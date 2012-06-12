@@ -154,6 +154,8 @@
 		72A6DC35157F0BBC0042B7E0 /* FightMapScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 72A6DC34157F0BBC0042B7E0 /* FightMapScene.m */; };
 		72A6DC38157F0D250042B7E0 /* FightMenuLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 72A6DC37157F0D240042B7E0 /* FightMenuLayer.m */; };
 		72B0E5E51580643100EE546D /* XMLParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 72B0E5E41580643100EE546D /* XMLParserDelegate.m */; };
+		72B61C9B15875BCC006F7797 /* MoveAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 72B61C9A15875BCC006F7797 /* MoveAction.m */; };
+		72B61C9F158764C6006F7797 /* PopupOperationWindowAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 72B61C9E158764C6006F7797 /* PopupOperationWindowAction.m */; };
 		72B8AE2F157D9D2500AE0669 /* GlobalEventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 72B8AE2E157D9D2500AE0669 /* GlobalEventHandler.m */; };
 		72D33809157CCCD8002D9866 /* MoveOrbit.m in Sources */ = {isa = PBXBuildFile; fileRef = 72D33808157CCCD8002D9866 /* MoveOrbit.m */; };
 		72D5CE961584351F005F0C3B /* WeaponSelect.m in Sources */ = {isa = PBXBuildFile; fileRef = 72D5CE951584351F005F0C3B /* WeaponSelect.m */; };
@@ -464,6 +466,10 @@
 		72B0E5E31580643100EE546D /* XMLParserDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMLParserDelegate.h; sourceTree = "<group>"; };
 		72B0E5E41580643100EE546D /* XMLParserDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMLParserDelegate.m; sourceTree = "<group>"; };
 		72B0E5EB1580CFD100EE546D /* Listener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Listener.h; sourceTree = "<group>"; };
+		72B61C9915875BCC006F7797 /* MoveAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoveAction.h; sourceTree = "<group>"; };
+		72B61C9A15875BCC006F7797 /* MoveAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoveAction.m; sourceTree = "<group>"; };
+		72B61C9D158764C6006F7797 /* PopupOperationWindowAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopupOperationWindowAction.h; sourceTree = "<group>"; };
+		72B61C9E158764C6006F7797 /* PopupOperationWindowAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopupOperationWindowAction.m; sourceTree = "<group>"; };
 		72B8AE2D157D9D2500AE0669 /* GlobalEventHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlobalEventHandler.h; sourceTree = "<group>"; };
 		72B8AE2E157D9D2500AE0669 /* GlobalEventHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlobalEventHandler.m; sourceTree = "<group>"; };
 		72D33807157CCCD8002D9866 /* MoveOrbit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoveOrbit.h; sourceTree = "<group>"; };
@@ -1053,6 +1059,8 @@
 		7280270215860EC800EB74FC /* noinput */ = {
 			isa = PBXGroup;
 			children = (
+				72B61C9915875BCC006F7797 /* MoveAction.h */,
+				72B61C9A15875BCC006F7797 /* MoveAction.m */,
 			);
 			name = noinput;
 			sourceTree = "<group>";
@@ -1062,6 +1070,8 @@
 			children = (
 				7280270415860F2700EB74FC /* DisplayMoveShadowAndPreMoveAction.h */,
 				7280270515860F2700EB74FC /* DisplayMoveShadowAndPreMoveAction.m */,
+				72B61C9D158764C6006F7797 /* PopupOperationWindowAction.h */,
+				72B61C9E158764C6006F7797 /* PopupOperationWindowAction.m */,
 			);
 			name = waitinput;
 			sourceTree = "<group>";
@@ -1356,6 +1366,8 @@
 				728026FD15860AC300EB74FC /* WaitUserInputAction.m in Sources */,
 				7280270015860AD800EB74FC /* NoUserInputAction.m in Sources */,
 				7280270615860F2700EB74FC /* DisplayMoveShadowAndPreMoveAction.m in Sources */,
+				72B61C9B15875BCC006F7797 /* MoveAction.m in Sources */,
+				72B61C9F158764C6006F7797 /* PopupOperationWindowAction.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -9,6 +9,7 @@
 #import "DisplayMoveShadowAndPreMoveAction.h"
 #import "Character.h"
 #import "MapLayer.h"
+#import "Variable.h"
 
 @implementation DisplayMoveShadowAndPreMoveAction
 
@@ -25,8 +26,7 @@
     posiArray = [PositionUtil calcMoveOrbitarrayFromPosition:charPosi movement:3 mobility:moblitity mapGridAttributeMap:mapLayer.mapGridAttributeMap maxPosition:mapLayer.maxPosi playerCharacterArray:mapLayer.playerCharacterArray enemyCharacterArray:mapLayer.enemyCharacterArray];
     CCLOG(@"count=%i",[posiArray count]);
     
-    CCArray* shadowSpriteArray = [self getVariableValue:PARAM_SHADOW_ARRAY variables:event.variables];
-    [self cleanShadowSpriteArray:shadowSpriteArray];
+    [self cleanShadowSpriteArray:mapLayer.shadowSpriteArray];
     
     for(int i=0;i<[posiArray count];i++){
         MoveOrbit* mo = [posiArray objectAtIndex:i];
@@ -37,10 +37,34 @@
         redSprite.textureRect = CGRectMake(0, 0, MAP_POINT_SIZE, MAP_POINT_SIZE);
         
         redSprite.position = CGPointMake(mo.position.x*MAP_POINT_SIZE+MAP_POINT_SIZE/2, mo.position.y*MAP_POINT_SIZE+MAP_POINT_SIZE/2);
-        [shadowSpriteArray addObject:redSprite];
+        [mapLayer.shadowSpriteArray addObject:redSprite];
         [mapLayer addChild:redSprite];
     }
     mapLayer.movementArray = posiArray;
+}
+
+-(NSString*) onClick:(Position*) mapPosition event:(Event*) event
+{
+    [super onClick:mapPosition event:event];
+    
+    MapLayer* mapLayer = [self getVariableValueForEvent:event variableName:PARAM_MAP_LAYER nested:YES];
+    Character* character = [self getVariableValueForEvent:event variableName:PARAM_SELECTED_CHARACTER nested:YES];
+    NSString* result = nil;
+    if(mapLayer.movementArray!=nil&&[PositionUtil containsPosition:mapPosition forMoveOrbitArray:mapLayer.movementArray]){
+        result = @"selectMovePoint";
+    }else{
+        CGPoint cp = [mapPosition toCenterCGPoint];
+        if(cp.x==character.characterSprite.position.x&&cp.y==character.characterSprite.position.y){
+            //再点击角色
+            result = @"selectRoleAgain";
+        }else{
+            result = @"selectNotMovePoint";
+        }
+        
+    }
+    
+    return result;
+    
 }
 
 -(void) cleanShadowSpriteArray:(CCArray*) shadowSpriteArray{

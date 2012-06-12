@@ -44,13 +44,13 @@
 
 -(id) getVariableValue:(NSString*) variableName variables:(NSArray*) variables;
 
--(NSString*) getVariableValueForTask:(Task*) task variableName:(NSString*) variableName nested:(BOOL) nested;
+-(id) getVariableValueForTask:(Task*) task variableName:(NSString*) variableName nested:(BOOL) nested;
 
--(NSString*) getVariableValueForEvent:(Event*) event variableName:(NSString*) variableName nested:(BOOL) nested;
+-(id) getVariableValueForEvent:(Event*) event variableName:(NSString*) variableName nested:(BOOL) nested;
 
--(NSString*) getVariableValueForState:(State*) state variableName:(NSString*) variableName nested:(BOOL) nested;
+-(id) getVariableValueForState:(State*) state variableName:(NSString*) variableName nested:(BOOL) nested;
 
--(NSString*) getVariableValueForSession:(Session*) session variableName:(NSString*) variableName;
+-(id) getVariableValueForSession:(Session*) session variableName:(NSString*) variableName;
 
 
 @end

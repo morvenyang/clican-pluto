@@ -13,7 +13,7 @@
 #import "Character.h"
 #import "Position.h"
 
-@interface FightMenuLayer : CCLayer<CharacterSelectDelegate,PositionTouchDelegate> {
+@interface FightMenuLayer : CCLayer<PositionTouchDelegate> {
     CCMenu* _fightMenu;
     CCMenuItemFont* _attack;
     CCMenuItemFont* _standby;

@@ -7,6 +7,7 @@
     <state name="displayMoveShadowAndPreMoveAction" class="DisplayMoveShadowAndPreMoveAction">
         <nextCondStates expr="selectRoleAgain" nextStates="popupOperationWindowAction"/>
         <nextCondStates expr="selectMovePoint" nextStates="moveAction"/>
+        <nextCondStates expr="selectNotMovePoint" nextStates="end"/>
     </state>
     
     <!-- 移动效果 -->
@@ -19,7 +20,7 @@
     	<nextCondStates expr="selectDismount" nextStates="dismountAction"/>
     	<nextCondStates expr="selectItem" nextStates="itemAction"/>
     	<!-- 在有可攻击目标情况下这个选项才会出现 -->
-    	<nextCondStates expr="selectAttack" nextStates="popupWeaponSelectWindowAction,displayWeaponAction"/>
+    	<nextCondStates expr="selectAttack" nextStates="popupWeaponSelectWindowAction"/>
     </state>
     
     <state name="itemAction" class="ItemAction" nextStates="end"/>
@@ -39,7 +40,7 @@
 	</state>
     
     <!-- 显示战斗画面-->
-    <state name="DisplayFightAction" class="DisplayFightAction">
+    <state name="displayFightAction" class="DisplayFightAction">
     	<nextCondStates expr="canReMove" nextStates="displayReMoveShadowAndPreReMoveAction"/>
     	<nextCondStates expr="cannotReMove" nextStates="standbyAction"/>
     </state>

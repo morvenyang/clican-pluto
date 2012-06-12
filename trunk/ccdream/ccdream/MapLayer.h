@@ -14,12 +14,11 @@
 #import "FightMenuLayer.h"
 #import "Session.h"
 
-@interface MapLayer : CCLayer<CharacterSelectDelegate,PositionTouchDelegate>
+@interface MapLayer : CCLayer<PositionTouchDelegate>
 {
     CCArray* _playerCharacterArray;
     CCArray* _enemyCharacterArray;
     CCTMXTiledMap* _tiledMap;
-    Character* _selectedCharacter;
     CCArray* _movementArray;
     CCArray* _shadowSpriteArray;
     Position* _maxPosi;
@@ -30,7 +29,6 @@
 
 @property (nonatomic,retain) CCArray* playerCharacterArray;
 @property (nonatomic,retain) CCArray* enemyCharacterArray;
-@property (nonatomic,retain) Character* selectedCharacter;
 @property (nonatomic,retain) CCTMXTiledMap* tiledMap;
 @property (nonatomic,retain) CCArray* movementArray;
 @property (nonatomic,retain) CCArray* shadowSpriteArray;
