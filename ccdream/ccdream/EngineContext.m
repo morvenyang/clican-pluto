@@ -21,9 +21,9 @@ static EngineContext *sharedEngineContext = nil;
     self = [super init];
     if(self){
         _atomicLong = [[NSDate date] timeIntervalSince1970];
-        _sessionMap = [[[NSMutableDictionary alloc] init] autorelease];
-        _startStateMap = [[[NSMutableDictionary alloc] init] autorelease];
-        _sessionStateMap = [[[NSMutableDictionary alloc] init] autorelease];
+        self.sessionMap = [[[NSMutableDictionary alloc] init] autorelease];
+        self.startStateMap = [[[NSMutableDictionary alloc] init] autorelease];
+        self.sessionStateMap = [[[NSMutableDictionary alloc] init] autorelease];
     }
     return self;
 }
