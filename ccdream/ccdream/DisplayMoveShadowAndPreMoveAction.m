@@ -49,6 +49,7 @@
     
     MapLayer* mapLayer = [self getVariableValueForEvent:event variableName:PARAM_MAP_LAYER nested:YES];
     Character* character = [self getVariableValueForEvent:event variableName:PARAM_SELECTED_CHARACTER nested:YES];
+    [self cleanShadowSpriteArray:mapLayer.shadowSpriteArray];
     NSString* result = nil;
     if(mapLayer.movementArray!=nil&&[PositionUtil containsPosition:mapPosition forMoveOrbitArray:mapLayer.movementArray]){
         result = @"selectMovePoint";

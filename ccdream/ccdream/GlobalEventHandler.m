@@ -27,7 +27,7 @@ static GlobalEventHandler *sharedHandler = nil;
 }
 
 -(void) addPositionTouchDelegate:(id<PositionTouchDelegate>) delegate {
-    [[self delegateArray] addObject:delegate];
+    [[self delegateArray] insertObject:delegate atIndex:0];
 }
 
 -(void) removePositionTouchDelegate:(id<PositionTouchDelegate>) delegate{

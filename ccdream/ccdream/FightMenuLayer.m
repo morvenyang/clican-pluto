@@ -19,13 +19,7 @@
 
 static FightMenuLayer* sharedFightMenuLayer = nil;
 
--(id) init{
-    self = [super init];
-    if(self!=nil){
-        [[GlobalEventHandler sharedHandler] addPositionTouchDelegate:self];
-    }
-    return self;
-}
+
 
 
 
@@ -55,21 +49,25 @@ static FightMenuLayer* sharedFightMenuLayer = nil;
     CCLOG(@"position%@",position);
     self.fightMenu.position = [position toCenterCGPoint];
     self.visible = YES;
+     [[GlobalEventHandler sharedHandler] addPositionTouchDelegate:self];
 }
 
 -(void) hide{
     self.visible = NO;
+     [[GlobalEventHandler sharedHandler] removePositionTouchDelegate:self];
 }
 
 -(void) attack:(id) sender {
     CCLOG(@"attack");
     self.selectAttack = YES;
+    [self hide];
 }
 
 -(void) standby:(id) sender {
     CCLOG(@"standby");
     self.selectAttack = NO;
     [self hide];
+    
 }
 
 -(void) cancel:(id) sender {
