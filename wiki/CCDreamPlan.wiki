@@ -17,9 +17,9 @@
 ==游戏引擎的开发==
 游戏角色移动算法 --<font color="green">已经完成</font>
 
-提供一个基本的状态流转引擎，俗称工作流引擎 --<font color="yellow">基本完成</font>
+提供一个基本的状态流转引擎，俗称工作流引擎 --<font color="green">已经完成</font>
 
-武器攻击范围算法 --<font color="red">未开始</font>
+武器攻击范围算法 --<font color="green">已经完成</font>
 
 敌人AI算法 --<font color="red">未开始</font>
 
