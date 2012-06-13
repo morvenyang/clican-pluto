@@ -97,17 +97,18 @@ static MapLayer* sharedMapLayer = nil;
 -(void) loadCharacter{
     self.playerCharacterArray = [CCArray array];
     self.enemyCharacterArray = [CCArray array];
-    
+    NSString* a1[] = {@"tsqa01.gif",@"tsqa02.gif",@"tsqa03.gif",@"tsqa05.gif",@"tsqa06.gif"};
+     NSString* a2[] = {@"tsqa18.gif",@"tsqa19.gif",@"tsqa20.gif",@"tsqa21.gif",@"tsqa24.gif"};
     for(int i=0;i<[self.mapAttribute.enemyBeginPosiArray count];i++){
         Position* position = [self.mapAttribute.enemyBeginPosiArray objectAtIndex:i];
-        Character* character =[Character characterWithParentNode:self spriteFile:@"trs-037.gif" position:position];
+        Character* character =[Character characterWithParentNode:self spriteFile:a2[i] position:position];
         character.player = NO;
         [self.enemyCharacterArray addObject:character];
     }
    
     for(int i=0;i<[self.mapAttribute.playerBeginPosiArray count];i++){
         Position* position = [self.mapAttribute.playerBeginPosiArray objectAtIndex:i];
-        Character* character =[Character characterWithParentNode:self spriteFile:@"trs-012.gif" position:position];
+        Character* character =[Character characterWithParentNode:self spriteFile:a1[i] position:position];
         character.player = YES;
         [self.playerCharacterArray addObject:character];
     }
