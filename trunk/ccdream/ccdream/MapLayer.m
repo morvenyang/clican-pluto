@@ -21,6 +21,8 @@
 @synthesize mapAttribute = _mapAttribute;
 @synthesize mapGridAttributeMap = _mapGridAttributeMap;
 @synthesize fightMapSession = _fightMapSession;
+@synthesize mapMenu = _mapMenu;
+@synthesize nextRound = _nextRound;
 
 static MapLayer* sharedMapLayer = nil;
 
@@ -47,9 +49,25 @@ static MapLayer* sharedMapLayer = nil;
         //加载关卡玩家角色和敌对角色
         [self loadCharacter];
         
+        [CCMenuItemFont setFontSize:20];
+        self.nextRound = [CCMenuItemFont 
+                                       itemFromString:@"下回合" target:self selector:@selector(nextRound:)];
+
+        self.mapMenu = [CCMenu menuWithItems:self.nextRound,nil];
+        self.mapMenu.position = ccp(450,300);
+        [self.mapMenu alignItemsVertically];
+        [self addChild:self.mapMenu];
         [[GlobalEventHandler sharedHandler] addPositionTouchDelegate:self];
     }
     return self;
+}
+
+-(void) nextRound:(id) sender{
+    CCLOG(@"next round");
+    for (Character* character in self.playerCharacterArray) {
+        character.finished = NO;
+        [character.characterSprite.texture initWithImage:character.sourceCharacterImage];
+    }
 }
 
 -(void) loadMap{

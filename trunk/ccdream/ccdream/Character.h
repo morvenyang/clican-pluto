@@ -22,6 +22,8 @@
     UIImage* _sourceCharacterImage;
     UIImage* _grayCharacterImage;
     Position* _sourcePosition;
+    CCArray* _weapens;
+    NSMutableSet* _attackRange;
     BOOL _canMountHorse;
     BOOL _mountHorse;
     BOOL _selected;
@@ -34,6 +36,8 @@
 @property (nonatomic,retain) UIImage* sourceCharacterImage;
 @property (nonatomic,retain) UIImage* grayCharacterImage;
 @property (nonatomic,retain) Position* sourcePosition;
+@property (nonatomic,retain) CCArray* weapens;
+@property (nonatomic,retain) NSMutableSet* attackRange;
 @property (nonatomic,assign)  BOOL canMountHorse;
 @property (nonatomic,assign)  BOOL mountHorse;
 @property (nonatomic,assign)  BOOL selected;

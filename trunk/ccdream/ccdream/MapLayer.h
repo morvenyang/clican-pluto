@@ -25,6 +25,8 @@
     NSMutableDictionary* _mapGridAttributeMap;
     MapAttribute* _mapAttribute;
     Session* _fightMapSession;
+    CCMenu* _mapMenu;
+    CCMenuItemFont* _nextRound;
 }
 
 @property (nonatomic,retain) CCArray* playerCharacterArray;
@@ -36,8 +38,9 @@
 @property (nonatomic,retain) NSMutableDictionary* mapGridAttributeMap;
 @property (nonatomic,retain) MapAttribute* mapAttribute;
 @property (nonatomic,retain) Session* fightMapSession;
+@property (nonatomic,retain) CCMenu* mapMenu;
+@property (nonatomic,retain) CCMenuItemFont* nextRound;
 
 +(MapLayer*) sharedMapLayer;
 
-- (void)selectCharacter:(Character*) character;
 @end
