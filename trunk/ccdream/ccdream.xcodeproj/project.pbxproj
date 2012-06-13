@@ -140,6 +140,7 @@
 		723DC29D157B90F7006BDA9B /* PositionUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 723DC29C157B90F7006BDA9B /* PositionUtil.m */; };
 		723DC2ED157B9EBB006BDA9B /* Position.m in Sources */ = {isa = PBXBuildFile; fileRef = 723DC2EC157B9EBB006BDA9B /* Position.m */; };
 		723DC2F0157BA025006BDA9B /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 723DC2EF157BA025006BDA9B /* Constants.m */; };
+		723DDDCE15885F2F003C808B /* PopupWeaponSelectWindowAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 723DDDCD15885F2F003C808B /* PopupWeaponSelectWindowAction.m */; };
 		7241900315884B12002ABCDC /* axe_iron.gif in Resources */ = {isa = PBXBuildFile; fileRef = 72418FFF15884B12002ABCDC /* axe_iron.gif */; };
 		7241900415884B12002ABCDC /* bow_iron.gif in Resources */ = {isa = PBXBuildFile; fileRef = 7241900015884B12002ABCDC /* bow_iron.gif */; };
 		7241900515884B12002ABCDC /* spear_iron.gif in Resources */ = {isa = PBXBuildFile; fileRef = 7241900115884B12002ABCDC /* spear_iron.gif */; };
@@ -170,11 +171,6 @@
 		72D33809157CCCD8002D9866 /* MoveOrbit.m in Sources */ = {isa = PBXBuildFile; fileRef = 72D33808157CCCD8002D9866 /* MoveOrbit.m */; };
 		72D5CE961584351F005F0C3B /* WeaponSelect.m in Sources */ = {isa = PBXBuildFile; fileRef = 72D5CE951584351F005F0C3B /* WeaponSelect.m */; };
 		72D5CE9A15843537005F0C3B /* Weapon.m in Sources */ = {isa = PBXBuildFile; fileRef = 72D5CE9915843537005F0C3B /* Weapon.m */; };
-		72DA4C0B1583FFEA00F5AD82 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72DA4C0A1583FFEA00F5AD82 /* SenTestingKit.framework */; };
-		72DA4C0C1583FFEA00F5AD82 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 720CDF84157AC4B400DB894D /* UIKit.framework */; };
-		72DA4C0D1583FFEA00F5AD82 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 720CDF86157AC4B400DB894D /* Foundation.framework */; };
-		72DA4C131583FFEA00F5AD82 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 72DA4C111583FFEA00F5AD82 /* InfoPlist.strings */; };
-		72DA4C161583FFEA00F5AD82 /* ccdreamTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 72DA4C151583FFEA00F5AD82 /* ccdreamTests.m */; };
 		72DA4C1D1584024400F5AD82 /* test_workflow.xml in Resources */ = {isa = PBXBuildFile; fileRef = 72DA4C1C1584024400F5AD82 /* test_workflow.xml */; };
 		72E1393815823F0F006AE49E /* Listener.m in Sources */ = {isa = PBXBuildFile; fileRef = 72E1393715823F0F006AE49E /* Listener.m */; };
 		72E1393B15824084006AE49E /* StateChangeListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 72E1393A15824084006AE49E /* StateChangeListener.m */; };
@@ -450,6 +446,8 @@
 		723DC2EC157B9EBB006BDA9B /* Position.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Position.m; sourceTree = "<group>"; };
 		723DC2EE157BA025006BDA9B /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		723DC2EF157BA025006BDA9B /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
+		723DDDCC15885F2F003C808B /* PopupWeaponSelectWindowAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopupWeaponSelectWindowAction.h; sourceTree = "<group>"; };
+		723DDDCD15885F2F003C808B /* PopupWeaponSelectWindowAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopupWeaponSelectWindowAction.m; sourceTree = "<group>"; };
 		72418FFF15884B12002ABCDC /* axe_iron.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = axe_iron.gif; path = Resources/axe_iron.gif; sourceTree = "<group>"; };
 		7241900015884B12002ABCDC /* bow_iron.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = bow_iron.gif; path = Resources/bow_iron.gif; sourceTree = "<group>"; };
 		7241900115884B12002ABCDC /* spear_iron.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = spear_iron.gif; path = Resources/spear_iron.gif; sourceTree = "<group>"; };
@@ -457,7 +455,7 @@
 		7241900715884C9E002ABCDC /* weapon.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = weapon.plist; sourceTree = "<group>"; };
 		727F5064157B0F9B007BBA9F /* trs-037.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = "trs-037.gif"; path = "Resources/trs-037.gif"; sourceTree = "<group>"; };
 		727F5065157B0F9B007BBA9F /* trs-012.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = "trs-012.gif"; path = "Resources/trs-012.gif"; sourceTree = "<group>"; };
-		727F5069157B102E007BBA9F /* Character.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Character.h; sourceTree = "<group>"; };
+		727F5069157B102E007BBA9F /* Character.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Character.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		727F506A157B102E007BBA9F /* Character.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Character.m; sourceTree = "<group>"; };
 		727F506C157B1071007BBA9F /* Mobility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mobility.h; sourceTree = "<group>"; };
 		727F506D157B1071007BBA9F /* Mobility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Mobility.m; sourceTree = "<group>"; };
@@ -503,13 +501,7 @@
 		72D5CE951584351F005F0C3B /* WeaponSelect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeaponSelect.m; sourceTree = "<group>"; };
 		72D5CE9815843537005F0C3B /* Weapon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Weapon.h; sourceTree = "<group>"; };
 		72D5CE9915843537005F0C3B /* Weapon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Weapon.m; sourceTree = "<group>"; };
-		72DA4C091583FFEA00F5AD82 /* ccdreamTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ccdreamTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		72DA4C0A1583FFEA00F5AD82 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
-		72DA4C101583FFEA00F5AD82 /* ccdreamTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ccdreamTests-Info.plist"; sourceTree = "<group>"; };
-		72DA4C121583FFEA00F5AD82 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		72DA4C141583FFEA00F5AD82 /* ccdreamTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ccdreamTests.h; sourceTree = "<group>"; };
-		72DA4C151583FFEA00F5AD82 /* ccdreamTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ccdreamTests.m; sourceTree = "<group>"; };
-		72DA4C171583FFEA00F5AD82 /* ccdreamTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ccdreamTests-Prefix.pch"; sourceTree = "<group>"; };
 		72DA4C1C1584024400F5AD82 /* test_workflow.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = test_workflow.xml; sourceTree = "<group>"; };
 		72E1393715823F0F006AE49E /* Listener.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Listener.m; sourceTree = "<group>"; };
 		72E1393915824084006AE49E /* StateChangeListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StateChangeListener.h; sourceTree = "<group>"; };
@@ -532,16 +524,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		72DA4C051583FFEA00F5AD82 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				72DA4C0B1583FFEA00F5AD82 /* SenTestingKit.framework in Frameworks */,
-				72DA4C0C1583FFEA00F5AD82 /* UIKit.framework in Frameworks */,
-				72DA4C0D1583FFEA00F5AD82 /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -549,7 +531,6 @@
 			isa = PBXGroup;
 			children = (
 				720CDF8A157AC4B400DB894D /* ccdream */,
-				72DA4C0E1583FFEA00F5AD82 /* ccdreamTests */,
 				720CDF79157AC4B400DB894D /* Frameworks */,
 				720CDF77157AC4B400DB894D /* Products */,
 			);
@@ -559,7 +540,6 @@
 			isa = PBXGroup;
 			children = (
 				720CDF76157AC4B400DB894D /* ccdream.app */,
-				72DA4C091583FFEA00F5AD82 /* ccdreamTests.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1120,6 +1100,8 @@
 				7280270515860F2700EB74FC /* DisplayMoveShadowAndPreMoveAction.m */,
 				72B61C9D158764C6006F7797 /* PopupOperationWindowAction.h */,
 				72B61C9E158764C6006F7797 /* PopupOperationWindowAction.m */,
+				723DDDCC15885F2F003C808B /* PopupWeaponSelectWindowAction.h */,
+				723DDDCD15885F2F003C808B /* PopupWeaponSelectWindowAction.m */,
 			);
 			name = waitinput;
 			sourceTree = "<group>";
@@ -1144,26 +1126,6 @@
 			name = event;
 			sourceTree = "<group>";
 		};
-		72DA4C0E1583FFEA00F5AD82 /* ccdreamTests */ = {
-			isa = PBXGroup;
-			children = (
-				72DA4C141583FFEA00F5AD82 /* ccdreamTests.h */,
-				72DA4C151583FFEA00F5AD82 /* ccdreamTests.m */,
-				72DA4C0F1583FFEA00F5AD82 /* Supporting Files */,
-			);
-			path = ccdreamTests;
-			sourceTree = "<group>";
-		};
-		72DA4C0F1583FFEA00F5AD82 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				72DA4C101583FFEA00F5AD82 /* ccdreamTests-Info.plist */,
-				72DA4C111583FFEA00F5AD82 /* InfoPlist.strings */,
-				72DA4C171583FFEA00F5AD82 /* ccdreamTests-Prefix.pch */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1183,24 +1145,6 @@
 			productName = ccdream;
 			productReference = 720CDF76157AC4B400DB894D /* ccdream.app */;
 			productType = "com.apple.product-type.application";
-		};
-		72DA4C081583FFEA00F5AD82 /* ccdreamTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 72DA4C1A1583FFEA00F5AD82 /* Build configuration list for PBXNativeTarget "ccdreamTests" */;
-			buildPhases = (
-				72DA4C041583FFEA00F5AD82 /* Sources */,
-				72DA4C051583FFEA00F5AD82 /* Frameworks */,
-				72DA4C061583FFEA00F5AD82 /* Resources */,
-				72DA4C071583FFEA00F5AD82 /* ShellScript */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = ccdreamTests;
-			productName = ccdreamTests;
-			productReference = 72DA4C091583FFEA00F5AD82 /* ccdreamTests.octest */;
-			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
 
@@ -1224,7 +1168,6 @@
 			projectRoot = "";
 			targets = (
 				720CDF75157AC4B400DB894D /* ccdream */,
-				72DA4C081583FFEA00F5AD82 /* ccdreamTests */,
 			);
 		};
 /* End PBXProject section */
@@ -1257,31 +1200,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		72DA4C061583FFEA00F5AD82 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				72DA4C131583FFEA00F5AD82 /* InfoPlist.strings in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		72DA4C071583FFEA00F5AD82 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		720CDF72157AC4B400DB894D /* Sources */ = {
@@ -1426,29 +1345,11 @@
 				72B9497D15882D1800916AEF /* GrayeOutAction.m in Sources */,
 				72B94980158830E100916AEF /* ImageUtil.m in Sources */,
 				72B949831588404800916AEF /* BackToSourcePositionAction.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		72DA4C041583FFEA00F5AD82 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				72DA4C161583FFEA00F5AD82 /* ccdreamTests.m in Sources */,
+				723DDDCE15885F2F003C808B /* PopupWeaponSelectWindowAction.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		72DA4C111583FFEA00F5AD82 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				72DA4C121583FFEA00F5AD82 /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		720CE0E6157AC4B600DB894D /* Debug */ = {
@@ -1531,62 +1432,6 @@
 			};
 			name = Release;
 		};
-		72DA4C181583FFEA00F5AD82 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
-				);
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ccdreamTests/ccdreamTests-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				GENERATE_PKGINFO_FILE = YES;
-				INFOPLIST_FILE = "ccdreamTests/ccdreamTests-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
-				OTHER_LDFLAGS = "-lz";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				STRIP_STYLE = all;
-				TEST_AFTER_BUILD = NO;
-				WRAPPER_EXTENSION = octest;
-			};
-			name = Debug;
-		};
-		72DA4C191583FFEA00F5AD82 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				COPY_PHASE_STRIP = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ccdreamTests/ccdreamTests-Prefix.pch";
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				GENERATE_PKGINFO_FILE = YES;
-				INFOPLIST_FILE = "ccdreamTests/ccdreamTests-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
-				OTHER_LDFLAGS = "-lz";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				STRIP_STYLE = all;
-				TEST_AFTER_BUILD = NO;
-				VALIDATE_PRODUCT = YES;
-				WRAPPER_EXTENSION = octest;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1604,15 +1449,6 @@
 			buildConfigurations = (
 				720CE0E9157AC4B600DB894D /* Debug */,
 				720CE0EA157AC4B600DB894D /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		72DA4C1A1583FFEA00F5AD82 /* Build configuration list for PBXNativeTarget "ccdreamTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				72DA4C181583FFEA00F5AD82 /* Debug */,
-				72DA4C191583FFEA00F5AD82 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
