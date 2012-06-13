@@ -162,4 +162,20 @@
     return NO;
 }
 
++(int) calcPositionRange:(Position*) source dest:(Position*) dest{
+    int range = abs(source.x-dest.x)+abs(source.y-dest.y);
+    return range;
+}
+
++(bool) canAttack:(Position*) attacker targetCharacterArray:(CCArray*) targetCharacterArray rangeSet:(NSSet*) rangeSet{
+    for (Character* targetCharacter in targetCharacterArray) {
+        Position* target = targetCharacter.sourcePosition;
+        int range = [PositionUtil calcPositionRange:attacker dest:target];
+        NSNumber* rangeNumber = [NSNumber numberWithInt:range];
+        if([rangeSet containsObject:rangeNumber]){
+            return YES;
+        }
+    }
+    return NO;
+}
 @end

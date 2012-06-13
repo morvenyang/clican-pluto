@@ -33,4 +33,10 @@
 +(bool) containsPosition:(Position*)position forMoveOrbitArray:(CCArray*) array;
 
 +(bool) containsPosition:(Position*)position forCharacterArray:(CCArray*) array;
+
+
++(int) calcPositionRange:(Position*) source dest:(Position*) dest;
+
++(bool) canAttack:(Position*) attacker targetCharacterArray:(CCArray*) targetCharacterArray rangeSet:(NSSet*) rangeSet;
+
 @end

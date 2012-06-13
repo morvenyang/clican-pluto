@@ -140,6 +140,11 @@
 		723DC29D157B90F7006BDA9B /* PositionUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 723DC29C157B90F7006BDA9B /* PositionUtil.m */; };
 		723DC2ED157B9EBB006BDA9B /* Position.m in Sources */ = {isa = PBXBuildFile; fileRef = 723DC2EC157B9EBB006BDA9B /* Position.m */; };
 		723DC2F0157BA025006BDA9B /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 723DC2EF157BA025006BDA9B /* Constants.m */; };
+		7241900315884B12002ABCDC /* axe_iron.gif in Resources */ = {isa = PBXBuildFile; fileRef = 72418FFF15884B12002ABCDC /* axe_iron.gif */; };
+		7241900415884B12002ABCDC /* bow_iron.gif in Resources */ = {isa = PBXBuildFile; fileRef = 7241900015884B12002ABCDC /* bow_iron.gif */; };
+		7241900515884B12002ABCDC /* spear_iron.gif in Resources */ = {isa = PBXBuildFile; fileRef = 7241900115884B12002ABCDC /* spear_iron.gif */; };
+		7241900615884B12002ABCDC /* sword_iron.gif in Resources */ = {isa = PBXBuildFile; fileRef = 7241900215884B12002ABCDC /* sword_iron.gif */; };
+		7241900815884C9E002ABCDC /* weapon.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7241900715884C9E002ABCDC /* weapon.plist */; };
 		727F5066157B0F9B007BBA9F /* trs-037.gif in Resources */ = {isa = PBXBuildFile; fileRef = 727F5064157B0F9B007BBA9F /* trs-037.gif */; };
 		727F5067157B0F9B007BBA9F /* trs-012.gif in Resources */ = {isa = PBXBuildFile; fileRef = 727F5065157B0F9B007BBA9F /* trs-012.gif */; };
 		727F506B157B102E007BBA9F /* Character.m in Sources */ = {isa = PBXBuildFile; fileRef = 727F506A157B102E007BBA9F /* Character.m */; };
@@ -445,6 +450,11 @@
 		723DC2EC157B9EBB006BDA9B /* Position.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Position.m; sourceTree = "<group>"; };
 		723DC2EE157BA025006BDA9B /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		723DC2EF157BA025006BDA9B /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
+		72418FFF15884B12002ABCDC /* axe_iron.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = axe_iron.gif; path = Resources/axe_iron.gif; sourceTree = "<group>"; };
+		7241900015884B12002ABCDC /* bow_iron.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = bow_iron.gif; path = Resources/bow_iron.gif; sourceTree = "<group>"; };
+		7241900115884B12002ABCDC /* spear_iron.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = spear_iron.gif; path = Resources/spear_iron.gif; sourceTree = "<group>"; };
+		7241900215884B12002ABCDC /* sword_iron.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = sword_iron.gif; path = Resources/sword_iron.gif; sourceTree = "<group>"; };
+		7241900715884C9E002ABCDC /* weapon.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = weapon.plist; sourceTree = "<group>"; };
 		727F5064157B0F9B007BBA9F /* trs-037.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = "trs-037.gif"; path = "Resources/trs-037.gif"; sourceTree = "<group>"; };
 		727F5065157B0F9B007BBA9F /* trs-012.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = "trs-012.gif"; path = "Resources/trs-012.gif"; sourceTree = "<group>"; };
 		727F5069157B102E007BBA9F /* Character.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Character.h; sourceTree = "<group>"; };
@@ -596,6 +606,7 @@
 		720CDF8B157AC4B400DB894D /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				72418FFD15884AF1002ABCDC /* weapon */,
 				728026F9158608F000EB74FC /* ws_fight_map.xml */,
 				727F5064157B0F9B007BBA9F /* trs-037.gif */,
 				727F5065157B0F9B007BBA9F /* trs-012.gif */,
@@ -1052,6 +1063,18 @@
 			name = sprite;
 			sourceTree = "<group>";
 		};
+		72418FFD15884AF1002ABCDC /* weapon */ = {
+			isa = PBXGroup;
+			children = (
+				72418FFF15884B12002ABCDC /* axe_iron.gif */,
+				7241900015884B12002ABCDC /* bow_iron.gif */,
+				7241900115884B12002ABCDC /* spear_iron.gif */,
+				7241900215884B12002ABCDC /* sword_iron.gif */,
+				7241900715884C9E002ABCDC /* weapon.plist */,
+			);
+			name = weapon;
+			sourceTree = "<group>";
+		};
 		728026F71586075A00EB74FC /* action */ = {
 			isa = PBXGroup;
 			children = (
@@ -1226,6 +1249,11 @@
 				727F5067157B0F9B007BBA9F /* trs-012.gif in Resources */,
 				72DA4C1D1584024400F5AD82 /* test_workflow.xml in Resources */,
 				728026FA158608F000EB74FC /* ws_fight_map.xml in Resources */,
+				7241900315884B12002ABCDC /* axe_iron.gif in Resources */,
+				7241900415884B12002ABCDC /* bow_iron.gif in Resources */,
+				7241900515884B12002ABCDC /* spear_iron.gif in Resources */,
+				7241900615884B12002ABCDC /* sword_iron.gif in Resources */,
+				7241900815884C9E002ABCDC /* weapon.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

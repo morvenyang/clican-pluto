@@ -10,6 +10,7 @@
 #import "EventDispatcher.h"
 #import "MapLayer.h"
 #import "WorkflowConstants.h"
+#import "PositionUtil.h"
 
 @implementation FightMenuLayer
 
@@ -33,7 +34,7 @@ static FightMenuLayer* sharedFightMenuLayer = nil;
 		if (sharedFightMenuLayer == nil){
             sharedFightMenuLayer = [FightMenuLayer node]; // assignment not done here
             
-            
+            [CCMenuItemFont setFontSize:20];
             sharedFightMenuLayer.attack = [CCMenuItemFont 
                                            itemFromString:@"攻击" target:sharedFightMenuLayer selector:@selector(attack:)];
             sharedFightMenuLayer.item = [CCMenuItemFont 
@@ -69,6 +70,11 @@ static FightMenuLayer* sharedFightMenuLayer = nil;
     }else{
         self.mountHorse.visible = NO;
         self.dismountHorse.visible = NO;
+    }
+    if([PositionUtil canAttack:position targetCharacterArray:[MapLayer sharedMapLayer].enemyCharacterArray rangeSet:character.attackRange]){
+        self.attack.visible= YES;
+    }else {
+        self.attack.visible= NO;
     }
     self.visible = YES;
     [[GlobalEventHandler sharedHandler] addPositionTouchDelegate:self];
