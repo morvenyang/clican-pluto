@@ -18,17 +18,25 @@
     CCMenuItemFont* _attack;
     CCMenuItemFont* _standby;
     CCMenuItemFont* _cancel;
-    BOOL _selectAttack;
+    CCMenuItemFont* _mountHorse;
+    CCMenuItemFont* _dismountHorse;
+    CCMenuItemFont* _item;
+
+
 }
 
 @property (nonatomic,retain) CCMenu* fightMenu;
 @property (nonatomic,retain) CCMenuItemFont* attack;
 @property (nonatomic,retain) CCMenuItemFont* standby;
 @property (nonatomic,retain) CCMenuItemFont* cancel;
-@property (nonatomic,assign) BOOL selectAttack;
+@property (nonatomic,retain) CCMenuItemFont* mountHorse;
+@property (nonatomic,retain) CCMenuItemFont* dismountHorse;
+@property (nonatomic,retain) CCMenuItemFont* item;
+
+
 +(FightMenuLayer*) sharedFightMenuLayer;
 
--(void) showAtPosition:(Position*) position;
+-(void) showAtPosition:(Position*) position character:(Character*) character;
 -(void) hide;
 
 @end

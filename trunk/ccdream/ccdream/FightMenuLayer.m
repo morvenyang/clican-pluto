@@ -7,7 +7,9 @@
 //
 
 #import "FightMenuLayer.h"
-
+#import "EventDispatcher.h"
+#import "MapLayer.h"
+#import "WorkflowConstants.h"
 
 @implementation FightMenuLayer
 
@@ -15,7 +17,9 @@
 @synthesize attack = _attack;
 @synthesize cancel = _cancel;
 @synthesize standby = _standby;
-@synthesize selectAttack = _selectAttack;
+@synthesize mountHorse = _mountHorse;
+@synthesize dismountHorse = _dismountHorse;
+@synthesize item = _item;
 
 static FightMenuLayer* sharedFightMenuLayer = nil;
 
@@ -32,6 +36,12 @@ static FightMenuLayer* sharedFightMenuLayer = nil;
             
             sharedFightMenuLayer.attack = [CCMenuItemFont 
                                            itemFromString:@"攻击" target:sharedFightMenuLayer selector:@selector(attack:)];
+            sharedFightMenuLayer.item = [CCMenuItemFont 
+                                           itemFromString:@"道具" target:sharedFightMenuLayer selector:@selector(item:)];
+            sharedFightMenuLayer.mountHorse = [CCMenuItemFont 
+                                         itemFromString:@"上马" target:sharedFightMenuLayer selector:@selector(mountHorse:)];
+            sharedFightMenuLayer.dismountHorse = [CCMenuItemFont 
+                                         itemFromString:@"下马" target:sharedFightMenuLayer selector:@selector(dismountHorse:)];
             sharedFightMenuLayer.standby = [CCMenuItemFont 
                                            itemFromString:@"待机" target:sharedFightMenuLayer selector:@selector(standby:)];
             sharedFightMenuLayer.cancel = [CCMenuItemFont 
@@ -45,11 +55,23 @@ static FightMenuLayer* sharedFightMenuLayer = nil;
 	return sharedFightMenuLayer;
 }
 
--(void) showAtPosition:(Position*) position{
+-(void) showAtPosition:(Position*) position character:(Character*) character{
     CCLOG(@"position%@",position);
     self.fightMenu.position = [position toCenterCGPoint];
+    if(character.canMountHorse){
+        if(character.mountHorse){
+            self.mountHorse.visible = NO;
+            self.dismountHorse.visible = YES;
+        } else {
+            self.mountHorse.visible = YES;
+            self.dismountHorse.visible = NO;
+        }
+    }else{
+        self.mountHorse.visible = NO;
+        self.dismountHorse.visible = NO;
+    }
     self.visible = YES;
-     [[GlobalEventHandler sharedHandler] addPositionTouchDelegate:self];
+    [[GlobalEventHandler sharedHandler] addPositionTouchDelegate:self];
 }
 
 -(void) hide{
@@ -59,21 +81,44 @@ static FightMenuLayer* sharedFightMenuLayer = nil;
 
 -(void) attack:(id) sender {
     CCLOG(@"attack");
-    self.selectAttack = YES;
+
     [self hide];
+    [[EventDispatcher sharedEventDispatcher] dispatch:[MapLayer sharedMapLayer].fightMapSession.sessionId forState:0 forEventType:EVENT_TYPE_FM_ATTACK_ONCLICK forParameters:nil];
+}
+
+-(void) item:(id) sender {
+    CCLOG(@"item");
+
+    [self hide];
+    [[EventDispatcher sharedEventDispatcher] dispatch:[MapLayer sharedMapLayer].fightMapSession.sessionId forState:0 forEventType:EVENT_TYPE_FM_ITEM_ONCLICK forParameters:nil];
+}
+
+-(void) mountHorse:(id) sender {
+    CCLOG(@"mountHorse");
+
+    [self hide];
+    [[EventDispatcher sharedEventDispatcher] dispatch:[MapLayer sharedMapLayer].fightMapSession.sessionId forState:0 forEventType:EVENT_TYPE_FM_MOUNTHOUSE_ONCLICK forParameters:nil];
+}
+
+-(void) dismountHorse:(id) sender {
+    CCLOG(@"dismountHorse");
+
+    [self hide];
+    [[EventDispatcher sharedEventDispatcher] dispatch:[MapLayer sharedMapLayer].fightMapSession.sessionId forState:0 forEventType:EVENT_TYPE_FM_DISMOUNTHOUSE_ONCLICK forParameters:nil];
 }
 
 -(void) standby:(id) sender {
     CCLOG(@"standby");
-    self.selectAttack = NO;
-    [self hide];
     
+    [self hide];
+    [[EventDispatcher sharedEventDispatcher] dispatch:[MapLayer sharedMapLayer].fightMapSession.sessionId forState:0 forEventType:EVENT_TYPE_FM_STANDBY_ONCLICK forParameters:nil];
 }
 
 -(void) cancel:(id) sender {
     CCLOG(@"cancel");
-    self.selectAttack = NO;
+
     [self hide];
+    [[EventDispatcher sharedEventDispatcher] dispatch:[MapLayer sharedMapLayer].fightMapSession.sessionId forState:0 forEventType:EVENT_TYPE_FM_CANCEL_ONCLICK forParameters:nil];
 }
 
 - (BOOL)touchBegan:(Position *)posi withEvent:(UIEvent *)event {

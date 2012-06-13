@@ -12,20 +12,22 @@
 #define EVENT_TYPE_JOB @"job"
 #define EVENT_TYPE_NORMAL @"normal"
 
-#define EVENT_TYPE_CHARACTER_ONCLICK @"character_onclick"
+//MapLayer上的event
+#define EVENT_TYPE_MAP_CHARACTER_ONCLICK @"character_onclick"
 #define EVENT_TYPE_MAP_ONCLICK @"map_onclick"
-
-
+//FightMenuLayer上的event
+#define EVENT_TYPE_FM_STANDBY_ONCLICK @"fm_standby_onclick"
+#define EVENT_TYPE_FM_MOUNTHOUSE_ONCLICK @"fm_mounthorse_onclick"
+#define EVENT_TYPE_FM_DISMOUNTHOUSE_ONCLICK @"fm_dismounthorse_onclick"
+#define EVENT_TYPE_FM_ITEM_ONCLICK @"fm_item_onclick"
+#define EVENT_TYPE_FM_ATTACK_ONCLICK @"fm_attack_onclick"
+#define EVENT_TYPE_FM_CANCEL_ONCLICK @"fm_cancel_onclick"
 
 #define PARAM_TASK_ID @"taskId"
 #define PARAM_TASK_ASSIGNEE @"assignee"
 #define PARAM_RESULT @"result"
 #define PARAM_SELECTED_CHARACTER @"selected_character"
 
- 
-
-#define PARAM_MAP_LAYER @"map_layer"
-#define PARAM_SHADOW_ARRAY @"selected_character"
 #define PARAM_SELECTED_MAP_POSITION @"selected_map_position"
 #define PARAM_SELECTED_MODEL @"selected_model"
 

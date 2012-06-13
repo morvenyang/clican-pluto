@@ -19,13 +19,25 @@
     Mobility* _landMobility;
     Mobility* _airMobility;
     CCSprite* _characterSprite;
+    UIImage* _sourceCharacterImage;
+    UIImage* _grayCharacterImage;
+    Position* _sourcePosition;
+    BOOL _canMountHorse;
+    BOOL _mountHorse;
     BOOL _selected;
+    BOOL _finished;
 }
 
 @property (nonatomic,retain) Mobility* landMobility;
 @property (nonatomic,retain) Mobility* airMobility;
 @property (nonatomic,retain) CCSprite* characterSprite;
+@property (nonatomic,retain) UIImage* sourceCharacterImage;
+@property (nonatomic,retain) UIImage* grayCharacterImage;
+@property (nonatomic,retain) Position* sourcePosition;
+@property (nonatomic,assign)  BOOL canMountHorse;
+@property (nonatomic,assign)  BOOL mountHorse;
 @property (nonatomic,assign)  BOOL selected;
+@property (nonatomic,assign)  BOOL finished;
 
 +(id)characterWithParentNode:(CCNode*) parentNode spriteFile:(NSString*) spriteFile position:(Position*) position;
 
