@@ -149,6 +149,16 @@
 		7241900615884B12002ABCDC /* sword_iron.gif in Resources */ = {isa = PBXBuildFile; fileRef = 7241900215884B12002ABCDC /* sword_iron.gif */; };
 		7241900815884C9E002ABCDC /* weapon.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7241900715884C9E002ABCDC /* weapon.plist */; };
 		7242264A158898AB00B500F5 /* DisplayFightAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 72422649158898AB00B500F5 /* DisplayFightAction.m */; };
+		7242265C1588A27700B500F5 /* tsqa01.gif in Resources */ = {isa = PBXBuildFile; fileRef = 724226521588A27700B500F5 /* tsqa01.gif */; };
+		7242265D1588A27700B500F5 /* tsqa02.gif in Resources */ = {isa = PBXBuildFile; fileRef = 724226531588A27700B500F5 /* tsqa02.gif */; };
+		7242265E1588A27700B500F5 /* tsqa03.gif in Resources */ = {isa = PBXBuildFile; fileRef = 724226541588A27700B500F5 /* tsqa03.gif */; };
+		7242265F1588A27700B500F5 /* tsqa05.gif in Resources */ = {isa = PBXBuildFile; fileRef = 724226551588A27700B500F5 /* tsqa05.gif */; };
+		724226601588A27700B500F5 /* tsqa06.gif in Resources */ = {isa = PBXBuildFile; fileRef = 724226561588A27700B500F5 /* tsqa06.gif */; };
+		724226611588A27700B500F5 /* tsqa18.gif in Resources */ = {isa = PBXBuildFile; fileRef = 724226571588A27700B500F5 /* tsqa18.gif */; };
+		724226621588A27700B500F5 /* tsqa19.gif in Resources */ = {isa = PBXBuildFile; fileRef = 724226581588A27700B500F5 /* tsqa19.gif */; };
+		724226631588A27700B500F5 /* tsqa20.gif in Resources */ = {isa = PBXBuildFile; fileRef = 724226591588A27700B500F5 /* tsqa20.gif */; };
+		724226641588A27700B500F5 /* tsqa21.gif in Resources */ = {isa = PBXBuildFile; fileRef = 7242265A1588A27700B500F5 /* tsqa21.gif */; };
+		724226651588A27700B500F5 /* tsqa24.gif in Resources */ = {isa = PBXBuildFile; fileRef = 7242265B1588A27700B500F5 /* tsqa24.gif */; };
 		727F5066157B0F9B007BBA9F /* trs-037.gif in Resources */ = {isa = PBXBuildFile; fileRef = 727F5064157B0F9B007BBA9F /* trs-037.gif */; };
 		727F5067157B0F9B007BBA9F /* trs-012.gif in Resources */ = {isa = PBXBuildFile; fileRef = 727F5065157B0F9B007BBA9F /* trs-012.gif */; };
 		727F506B157B102E007BBA9F /* Character.m in Sources */ = {isa = PBXBuildFile; fileRef = 727F506A157B102E007BBA9F /* Character.m */; };
@@ -462,6 +472,16 @@
 		7241900715884C9E002ABCDC /* weapon.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = weapon.plist; sourceTree = "<group>"; };
 		72422648158898AB00B500F5 /* DisplayFightAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DisplayFightAction.h; sourceTree = "<group>"; };
 		72422649158898AB00B500F5 /* DisplayFightAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DisplayFightAction.m; sourceTree = "<group>"; };
+		724226521588A27700B500F5 /* tsqa01.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = tsqa01.gif; path = Resources/tsqa01.gif; sourceTree = "<group>"; };
+		724226531588A27700B500F5 /* tsqa02.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = tsqa02.gif; path = Resources/tsqa02.gif; sourceTree = "<group>"; };
+		724226541588A27700B500F5 /* tsqa03.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = tsqa03.gif; path = Resources/tsqa03.gif; sourceTree = "<group>"; };
+		724226551588A27700B500F5 /* tsqa05.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = tsqa05.gif; path = Resources/tsqa05.gif; sourceTree = "<group>"; };
+		724226561588A27700B500F5 /* tsqa06.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = tsqa06.gif; path = Resources/tsqa06.gif; sourceTree = "<group>"; };
+		724226571588A27700B500F5 /* tsqa18.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = tsqa18.gif; path = Resources/tsqa18.gif; sourceTree = "<group>"; };
+		724226581588A27700B500F5 /* tsqa19.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = tsqa19.gif; path = Resources/tsqa19.gif; sourceTree = "<group>"; };
+		724226591588A27700B500F5 /* tsqa20.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = tsqa20.gif; path = Resources/tsqa20.gif; sourceTree = "<group>"; };
+		7242265A1588A27700B500F5 /* tsqa21.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = tsqa21.gif; path = Resources/tsqa21.gif; sourceTree = "<group>"; };
+		7242265B1588A27700B500F5 /* tsqa24.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = tsqa24.gif; path = Resources/tsqa24.gif; sourceTree = "<group>"; };
 		727F5064157B0F9B007BBA9F /* trs-037.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = "trs-037.gif"; path = "Resources/trs-037.gif"; sourceTree = "<group>"; };
 		727F5065157B0F9B007BBA9F /* trs-012.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = "trs-012.gif"; path = "Resources/trs-012.gif"; sourceTree = "<group>"; };
 		727F5069157B102E007BBA9F /* Character.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Character.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -596,6 +616,7 @@
 		720CDF8B157AC4B400DB894D /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				724226501588A20F00B500F5 /* character */,
 				72418FFD15884AF1002ABCDC /* weapon */,
 				728026F9158608F000EB74FC /* ws_fight_map.xml */,
 				727F5064157B0F9B007BBA9F /* trs-037.gif */,
@@ -1076,6 +1097,23 @@
 			name = weapon;
 			sourceTree = "<group>";
 		};
+		724226501588A20F00B500F5 /* character */ = {
+			isa = PBXGroup;
+			children = (
+				724226521588A27700B500F5 /* tsqa01.gif */,
+				724226531588A27700B500F5 /* tsqa02.gif */,
+				724226541588A27700B500F5 /* tsqa03.gif */,
+				724226551588A27700B500F5 /* tsqa05.gif */,
+				724226561588A27700B500F5 /* tsqa06.gif */,
+				724226571588A27700B500F5 /* tsqa18.gif */,
+				724226581588A27700B500F5 /* tsqa19.gif */,
+				724226591588A27700B500F5 /* tsqa20.gif */,
+				7242265A1588A27700B500F5 /* tsqa21.gif */,
+				7242265B1588A27700B500F5 /* tsqa24.gif */,
+			);
+			name = character;
+			sourceTree = "<group>";
+		};
 		728026F71586075A00EB74FC /* action */ = {
 			isa = PBXGroup;
 			children = (
@@ -1220,6 +1258,16 @@
 				7241900515884B12002ABCDC /* spear_iron.gif in Resources */,
 				7241900615884B12002ABCDC /* sword_iron.gif in Resources */,
 				7241900815884C9E002ABCDC /* weapon.plist in Resources */,
+				7242265C1588A27700B500F5 /* tsqa01.gif in Resources */,
+				7242265D1588A27700B500F5 /* tsqa02.gif in Resources */,
+				7242265E1588A27700B500F5 /* tsqa03.gif in Resources */,
+				7242265F1588A27700B500F5 /* tsqa05.gif in Resources */,
+				724226601588A27700B500F5 /* tsqa06.gif in Resources */,
+				724226611588A27700B500F5 /* tsqa18.gif in Resources */,
+				724226621588A27700B500F5 /* tsqa19.gif in Resources */,
+				724226631588A27700B500F5 /* tsqa20.gif in Resources */,
+				724226641588A27700B500F5 /* tsqa21.gif in Resources */,
+				724226651588A27700B500F5 /* tsqa24.gif in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
