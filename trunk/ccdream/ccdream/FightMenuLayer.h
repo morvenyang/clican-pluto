@@ -36,7 +36,7 @@
 
 +(FightMenuLayer*) sharedFightMenuLayer;
 
--(void) showAtPosition:(Position*) position character:(Character*) character;
+-(void) showAtPosition:(Position*) position charPosi:(Position*) charPosi character:(Character*) character;
 -(void) hide;
 
 @end

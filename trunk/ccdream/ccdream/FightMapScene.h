@@ -9,14 +9,17 @@
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
 #import "MapLayer.h"
+#import "WeaponLayer.h"
 @interface FightMapScene : CCScene {
     
     MapLayer* _mapLayer;
     FightMenuLayer* _fightMenuLayer;
+    WeaponLayer* _weaponLayer;
 }
 
 @property (nonatomic,retain) MapLayer* mapLayer;
 @property (nonatomic,retain) FightMenuLayer* fightMenuLayer;
+@property (nonatomic,retain) WeaponLayer* weaponLayer;
 
 +(FightMapScene*) scene;
 @end

@@ -13,9 +13,11 @@
     //基础属性
     NSString* _name;//武器名称
     UIImage* _image;//武器图片
+    NSString* _imageFile;//武器图片
     CCSprite* _weaponSprite;
     int _minRange;//最小攻击范围
     int _maxRange;//最大攻击范围
+    NSMutableSet* _rangeSet;
     int _phyPower;//物理攻击力
     int _magPower;//魔法攻击力
     int _requiredLevel;//武器使用级别
@@ -31,9 +33,11 @@
 
 @property (nonatomic,retain) NSString* name;
 @property (nonatomic,retain) UIImage* image;
+@property (nonatomic,retain) NSString* imageFile;
 @property (nonatomic,retain) CCSprite* weaponSprite;
 @property (nonatomic,assign) int minRange;
 @property (nonatomic,assign) int maxRange;
+@property (nonatomic,retain) NSMutableSet* rangeSet;
 @property (nonatomic,assign) int phyPower;
 @property (nonatomic,assign) int magPower;
 @property (nonatomic,assign) int requiredLevel;

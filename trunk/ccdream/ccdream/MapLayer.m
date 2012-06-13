@@ -9,7 +9,7 @@
 #import "MapLayer.h"
 #import "EngineContext.h"
 #import "EventDispatcher.h"
-
+#import "PositionUtil.h"
 @implementation MapLayer
 
 @synthesize playerCharacterArray = _playerCharacterArray;
@@ -101,12 +101,14 @@ static MapLayer* sharedMapLayer = nil;
     for(int i=0;i<[self.mapAttribute.enemyBeginPosiArray count];i++){
         Position* position = [self.mapAttribute.enemyBeginPosiArray objectAtIndex:i];
         Character* character =[Character characterWithParentNode:self spriteFile:@"trs-037.gif" position:position];
+        character.player = NO;
         [self.enemyCharacterArray addObject:character];
     }
    
     for(int i=0;i<[self.mapAttribute.playerBeginPosiArray count];i++){
         Position* position = [self.mapAttribute.playerBeginPosiArray objectAtIndex:i];
         Character* character =[Character characterWithParentNode:self spriteFile:@"trs-012.gif" position:position];
+        character.player = YES;
         [self.playerCharacterArray addObject:character];
     }
 }

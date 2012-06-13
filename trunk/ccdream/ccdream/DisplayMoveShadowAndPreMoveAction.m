@@ -10,6 +10,7 @@
 #import "Character.h"
 #import "MapLayer.h"
 #import "Variable.h"
+#import "PositionUtil.h"
 
 @implementation DisplayMoveShadowAndPreMoveAction
 

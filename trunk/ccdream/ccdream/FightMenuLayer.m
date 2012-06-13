@@ -56,8 +56,8 @@ static FightMenuLayer* sharedFightMenuLayer = nil;
 	return sharedFightMenuLayer;
 }
 
--(void) showAtPosition:(Position*) position character:(Character*) character{
-    CCLOG(@"position%@",position);
+-(void) showAtPosition:(Position*) position charPosi:(Position*) charPosi character:(Character*) character{
+    CCLOG(@"show fight menu at position:%@",position);
     self.fightMenu.position = [position toCenterCGPoint];
     if(character.canMountHorse){
         if(character.mountHorse){
@@ -71,7 +71,7 @@ static FightMenuLayer* sharedFightMenuLayer = nil;
         self.mountHorse.visible = NO;
         self.dismountHorse.visible = NO;
     }
-    if([PositionUtil canAttack:position targetCharacterArray:[MapLayer sharedMapLayer].enemyCharacterArray rangeSet:character.attackRange]){
+    if([PositionUtil canAttack:charPosi targetCharacterArray:[MapLayer sharedMapLayer].enemyCharacterArray rangeSet:character.attackRange]){
         self.attack.visible= YES;
     }else {
         self.attack.visible= NO;

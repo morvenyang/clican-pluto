@@ -35,6 +35,13 @@
     return var;
 }
 
++(Variable*) variable:(NSString*) name value:(id) value{
+    Variable* var = [[[Variable alloc] init] autorelease];
+    var.name = name;
+    var.value = value;
+    return var;
+}
+
 - (void)dealloc {
     [_name release];
     _name = nil;

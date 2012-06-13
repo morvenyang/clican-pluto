@@ -162,6 +162,17 @@
     return NO;
 }
 
++(Character*) getCharacter:(Position*)position forCharacterArray:(CCArray*) array{
+    int count = [array count];
+    for(int i=0;i<count;i++){
+        Position* posi = [(Character*)[array objectAtIndex:i] sourcePosition] ;
+        if(position.x==posi.x&&position.y==posi.y){
+            return [array objectAtIndex:i];
+        }
+    }
+    return nil;
+}
+
 +(int) calcPositionRange:(Position*) source dest:(Position*) dest{
     int range = abs(source.x-dest.x)+abs(source.y-dest.y);
     return range;
@@ -177,5 +188,18 @@
         }
     }
     return NO;
+}
+
++(CCArray*) canAttackTargetArray:(Position*) attacker targetCharacterArray:(CCArray*) targetCharacterArray rangeSet:(NSSet*) rangeSet{
+    CCArray* array = [CCArray array];
+    for (Character* targetCharacter in targetCharacterArray) {
+        Position* target = targetCharacter.sourcePosition;
+        int range = [PositionUtil calcPositionRange:attacker dest:target];
+        NSNumber* rangeNumber = [NSNumber numberWithInt:range];
+        if([rangeSet containsObject:rangeNumber]){
+            [array addObject:targetCharacter];
+        }
+    }
+    return array;
 }
 @end

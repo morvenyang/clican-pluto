@@ -1,5 +1,5 @@
 //
-//  ImageUtil.h
+//  DisplayFightAction.h
 //  ccdream
 //
 //  Created by wei zhang on 12-6-13.
@@ -8,12 +8,10 @@
 
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
+#import "NoUserInputAction.h"
 
-@interface ImageUtil : NSObject {
+@interface DisplayFightAction : NoUserInputAction {
     
 }
 
-+ (UIImage *)convertToGrayScale:(UIImage*) source;
-
-+ (UIImage *)convertToRedScale:(UIImage*) source;
 @end

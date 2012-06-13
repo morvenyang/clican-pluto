@@ -16,7 +16,8 @@
 -(void) playSprite:(Session*) session istate:(IState*) previousState event:(Event*) event{
     Character* character = [self getVariableValueForEvent:event variableName:PARAM_SELECTED_CHARACTER nested:YES];
     [character.characterSprite.texture initWithImage:character.grayCharacterImage];
-    character.sourcePosition = [Position positionWithCGPoint:character.characterSprite.position];
+    character.sourcePosition = character.targetPosition;
+    character.targetPosition = nil;
     character.finished = YES;
 }
 
