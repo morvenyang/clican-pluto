@@ -132,9 +132,9 @@
 +(bool) isPosition:(Position*)position forNode:(CCNode*) node
 {
     CGPoint p1 = [position toCenterCGPoint];
-    CCLOG(@"p1.x=%f,p1.y=%f",p1.x,p1.y);
+
     CGPoint p2 = node.position;
-    CCLOG(@"p2.x=%f,p2.y=%f",p2.x,p2.y);
+
     return p1.x==p2.x&&p1.y==p2.y;
 }
 
@@ -152,12 +152,10 @@
 
 +(bool) containsPosition:(Position*)position forCharacterArray:(CCArray*) array
 {
-    
-    CGPoint cur = [position toCenterCGPoint];    
     int count = [array count];
     for(int i=0;i<count;i++){
-        CGPoint posi = [[(Character*)[array objectAtIndex:i] characterSprite] position];
-        if(cur.x==posi.x&&cur.y==posi.y){
+        Position* posi = [(Character*)[array objectAtIndex:i] sourcePosition] ;
+        if(position.x==posi.x&&position.y==posi.y){
             return YES;
         }
     }

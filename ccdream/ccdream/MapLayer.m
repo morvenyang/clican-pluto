@@ -22,6 +22,16 @@
 @synthesize mapGridAttributeMap = _mapGridAttributeMap;
 @synthesize fightMapSession = _fightMapSession;
 
+static MapLayer* sharedMapLayer = nil;
+
++(MapLayer*) sharedMapLayer{
+    @synchronized(self) {
+        if (sharedMapLayer == nil){
+            sharedMapLayer = [MapLayer node];
+    }
+    }
+        return sharedMapLayer;
+}
 
 -(id) init{
     self = [super init];
@@ -83,41 +93,33 @@
     }
 }
 - (BOOL)touchBegan:(Position *)posi withEvent:(UIEvent *)event {
-    for (Character* character in self.playerCharacterArray) {
-        if([PositionUtil isPosition:posi forNode:character.characterSprite]){
-            if(self.fightMapSession==nil||[self.fightMapSession.status isEqualToString:STATUS_INACTIVE]){
-                self.fightMapSession = [[EngineContext sharedEngineContext] newSession:@"ws_fight_map" forSponsor:@"character"];
-                NSMutableDictionary* params = [[[NSMutableDictionary alloc] init] autorelease];
-                [params setValue:self forKey:PARAM_MAP_LAYER];
-                [params setValue:character forKey:PARAM_SELECTED_CHARACTER];
-                [[EventDispatcher sharedEventDispatcher] dispatch:self.fightMapSession.sessionId forState:0 forEventType:EVENT_TYPE_CHARACTER_ONCLICK forParameters:params];
+    
+    if(self.fightMapSession!=nil&&[self.fightMapSession.status isEqualToString:STATUS_ACTIVE]){
+        //如果fightMapSession存在则走该工作流
+        [[EventDispatcher sharedEventDispatcher] dispatch:self.fightMapSession.sessionId forState:0 mapPosition:posi];
+    }else{
+        //如果工作流不存在则判断是否需要创建工作流
+        for (Character* character in self.playerCharacterArray) {
+            if([PositionUtil isPosition:posi forNode:character.characterSprite]){
+                //如果选中了角色并且该角色还未操作过
+                if(!character.finished){
+                    self.fightMapSession = [[EngineContext sharedEngineContext] newSession:@"ws_fight_map" forSponsor:@"character"];
+                    NSMutableDictionary* params = [[[NSMutableDictionary alloc] init] autorelease];
+                    [params setValue:character forKey:PARAM_SELECTED_CHARACTER];
+                    [[EventDispatcher sharedEventDispatcher] dispatch:self.fightMapSession.sessionId forState:0 forEventType:EVENT_TYPE_MAP_CHARACTER_ONCLICK forParameters:params];
+                }else{
+                    //如果操作过了则显示别的内容
+                    
+                }
+                return YES;
             }
-            return YES;
         }
     }
-    if(self.fightMapSession!=nil&&[self.fightMapSession.status isEqualToString:STATUS_ACTIVE]){
-        [[EventDispatcher sharedEventDispatcher] dispatch:self.fightMapSession.sessionId forState:0 mapPosition:posi];
-    }
+    
     return YES;
 }
 
-- (void)selectCharacter:(Character*) character{
-    //被选中了
-    if([FightMenuLayer sharedFightMenuLayer].selectAttack){
-        [self.enemyCharacterArray removeObject:character];
-        [character.characterSprite removeFromParentAndCleanup:YES];
-        [FightMenuLayer sharedFightMenuLayer].selectAttack = NO;
-        [[FightMenuLayer sharedFightMenuLayer] hide]; 
-    }else{
-        if(self.fightMapSession==nil||[self.fightMapSession.status isEqualToString:STATUS_INACTIVE]){
-            self.fightMapSession = [[EngineContext sharedEngineContext] newSession:@"ws_fight_map" forSponsor:@"character"];
-        }
-        NSMutableDictionary* params = [[[NSMutableDictionary alloc] init] autorelease];
-        [params setValue:self forKey:PARAM_MAP_LAYER];
-        [[EventDispatcher sharedEventDispatcher] dispatch:self.fightMapSession.sessionId forState:0 forEventType:PARAM_SELECTED_CHARACTER forParameters:params];
-    }
-    
-}
+
 
 -(void) cleanShadowSpriteArray{
     int count = [self.shadowSpriteArray count];

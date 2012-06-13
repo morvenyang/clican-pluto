@@ -37,5 +37,7 @@
 @property (nonatomic,retain) MapAttribute* mapAttribute;
 @property (nonatomic,retain) Session* fightMapSession;
 
++(MapLayer*) sharedMapLayer;
+
 - (void)selectCharacter:(Character*) character;
 @end

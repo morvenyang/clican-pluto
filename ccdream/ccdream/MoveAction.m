@@ -14,7 +14,7 @@
 
 
 -(void) playSprite:(Session*) session istate:(IState*) previousState event:(Event*) event{
-    MapLayer* mapLayer = [self getVariableValueForEvent:event variableName:PARAM_MAP_LAYER nested:YES];
+    MapLayer* mapLayer = [MapLayer sharedMapLayer];
     Character* character = [self getVariableValueForEvent:event variableName:PARAM_SELECTED_CHARACTER nested:YES];
     Position * posi = [self getVariableValue:PARAM_SELECTED_MAP_POSITION variables:event.variables];
     [mapLayer.movementArray removeAllObjects];

@@ -157,6 +157,11 @@
 		72B61C9B15875BCC006F7797 /* MoveAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 72B61C9A15875BCC006F7797 /* MoveAction.m */; };
 		72B61C9F158764C6006F7797 /* PopupOperationWindowAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 72B61C9E158764C6006F7797 /* PopupOperationWindowAction.m */; };
 		72B8AE2F157D9D2500AE0669 /* GlobalEventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 72B8AE2E157D9D2500AE0669 /* GlobalEventHandler.m */; };
+		72B9497615882B6A00916AEF /* MountHorseAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 72B9497515882B6A00916AEF /* MountHorseAction.m */; };
+		72B9497A15882BA100916AEF /* DismountHorseAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 72B9497915882BA100916AEF /* DismountHorseAction.m */; };
+		72B9497D15882D1800916AEF /* GrayeOutAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 72B9497C15882D1800916AEF /* GrayeOutAction.m */; };
+		72B94980158830E100916AEF /* ImageUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 72B9497F158830E100916AEF /* ImageUtil.m */; };
+		72B949831588404800916AEF /* BackToSourcePositionAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 72B949821588404800916AEF /* BackToSourcePositionAction.m */; };
 		72D33809157CCCD8002D9866 /* MoveOrbit.m in Sources */ = {isa = PBXBuildFile; fileRef = 72D33808157CCCD8002D9866 /* MoveOrbit.m */; };
 		72D5CE961584351F005F0C3B /* WeaponSelect.m in Sources */ = {isa = PBXBuildFile; fileRef = 72D5CE951584351F005F0C3B /* WeaponSelect.m */; };
 		72D5CE9A15843537005F0C3B /* Weapon.m in Sources */ = {isa = PBXBuildFile; fileRef = 72D5CE9915843537005F0C3B /* Weapon.m */; };
@@ -472,6 +477,16 @@
 		72B61C9E158764C6006F7797 /* PopupOperationWindowAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopupOperationWindowAction.m; sourceTree = "<group>"; };
 		72B8AE2D157D9D2500AE0669 /* GlobalEventHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlobalEventHandler.h; sourceTree = "<group>"; };
 		72B8AE2E157D9D2500AE0669 /* GlobalEventHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlobalEventHandler.m; sourceTree = "<group>"; };
+		72B9497415882B6A00916AEF /* MountHorseAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MountHorseAction.h; sourceTree = "<group>"; };
+		72B9497515882B6A00916AEF /* MountHorseAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MountHorseAction.m; sourceTree = "<group>"; };
+		72B9497815882BA100916AEF /* DismountHorseAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DismountHorseAction.h; sourceTree = "<group>"; };
+		72B9497915882BA100916AEF /* DismountHorseAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DismountHorseAction.m; sourceTree = "<group>"; };
+		72B9497B15882D1800916AEF /* GrayeOutAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GrayeOutAction.h; sourceTree = "<group>"; };
+		72B9497C15882D1800916AEF /* GrayeOutAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GrayeOutAction.m; sourceTree = "<group>"; };
+		72B9497E158830E100916AEF /* ImageUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageUtil.h; sourceTree = "<group>"; };
+		72B9497F158830E100916AEF /* ImageUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageUtil.m; sourceTree = "<group>"; };
+		72B949811588404800916AEF /* BackToSourcePositionAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackToSourcePositionAction.h; sourceTree = "<group>"; };
+		72B949821588404800916AEF /* BackToSourcePositionAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BackToSourcePositionAction.m; sourceTree = "<group>"; };
 		72D33807157CCCD8002D9866 /* MoveOrbit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoveOrbit.h; sourceTree = "<group>"; };
 		72D33808157CCCD8002D9866 /* MoveOrbit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoveOrbit.m; sourceTree = "<group>"; };
 		72D5CE941584351F005F0C3B /* WeaponSelect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeaponSelect.h; sourceTree = "<group>"; };
@@ -1024,6 +1039,8 @@
 				723DC29C157B90F7006BDA9B /* PositionUtil.m */,
 				723DC2EE157BA025006BDA9B /* Constants.h */,
 				723DC2EF157BA025006BDA9B /* Constants.m */,
+				72B9497E158830E100916AEF /* ImageUtil.h */,
+				72B9497F158830E100916AEF /* ImageUtil.m */,
 			);
 			name = util;
 			sourceTree = "<group>";
@@ -1061,6 +1078,14 @@
 			children = (
 				72B61C9915875BCC006F7797 /* MoveAction.h */,
 				72B61C9A15875BCC006F7797 /* MoveAction.m */,
+				72B9497415882B6A00916AEF /* MountHorseAction.h */,
+				72B9497515882B6A00916AEF /* MountHorseAction.m */,
+				72B9497815882BA100916AEF /* DismountHorseAction.h */,
+				72B9497915882BA100916AEF /* DismountHorseAction.m */,
+				72B9497B15882D1800916AEF /* GrayeOutAction.h */,
+				72B9497C15882D1800916AEF /* GrayeOutAction.m */,
+				72B949811588404800916AEF /* BackToSourcePositionAction.h */,
+				72B949821588404800916AEF /* BackToSourcePositionAction.m */,
 			);
 			name = noinput;
 			sourceTree = "<group>";
@@ -1368,6 +1393,11 @@
 				7280270615860F2700EB74FC /* DisplayMoveShadowAndPreMoveAction.m in Sources */,
 				72B61C9B15875BCC006F7797 /* MoveAction.m in Sources */,
 				72B61C9F158764C6006F7797 /* PopupOperationWindowAction.m in Sources */,
+				72B9497615882B6A00916AEF /* MountHorseAction.m in Sources */,
+				72B9497A15882BA100916AEF /* DismountHorseAction.m in Sources */,
+				72B9497D15882D1800916AEF /* GrayeOutAction.m in Sources */,
+				72B94980158830E100916AEF /* ImageUtil.m in Sources */,
+				72B949831588404800916AEF /* BackToSourcePositionAction.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -13,7 +13,31 @@
 
 -(void) playSprite:(Session*) session istate:(IState*) previousState event:(Event*) event{
     Position* position = [self getVariableValue:PARAM_SELECTED_MAP_POSITION variables:event.variables];
-    MapLayer* mapLayer = [self getVariableValueForEvent:event variableName:PARAM_MAP_LAYER nested:YES];
-    [[FightMenuLayer sharedFightMenuLayer] showAtPosition:[position  toFightMenuPosition:mapLayer.maxPosi]];
+    MapLayer* mapLayer = [MapLayer sharedMapLayer];
+    Character* character = [self getVariableValueForEvent:event variableName:PARAM_SELECTED_CHARACTER nested:YES];
+    [[FightMenuLayer sharedFightMenuLayer] showAtPosition:[position  toFightMenuPosition:mapLayer.maxPosi] character:character];
+}
+
+-(NSString*) onClick:(Position*) mapPosition event:(Event*) event
+{
+    [super onClick:mapPosition event:event];
+    NSString* eventType = event.eventType;
+    if([eventType isEqualToString:EVENT_TYPE_FM_ATTACK_ONCLICK]){
+        return @"selectAttack";
+    }else if([eventType isEqualToString:EVENT_TYPE_FM_STANDBY_ONCLICK]){
+        return @"selectStandby";
+    }else if([eventType isEqualToString:EVENT_TYPE_FM_ITEM_ONCLICK]){
+        return @"selectItem";
+    }else if([eventType isEqualToString:EVENT_TYPE_FM_MOUNTHOUSE_ONCLICK]){
+        return @"selectMountHorse";
+    }else if([eventType isEqualToString:EVENT_TYPE_FM_DISMOUNTHOUSE_ONCLICK]){
+        return @"selectDismountHorse";
+    }else if([eventType isEqualToString:EVENT_TYPE_FM_CANCEL_ONCLICK]){
+        return @"selectCancel";
+    }else{
+        CCLOGERROR(@"Not supported event type %@",eventType);
+        return nil;
+    }
+    
 }
 @end

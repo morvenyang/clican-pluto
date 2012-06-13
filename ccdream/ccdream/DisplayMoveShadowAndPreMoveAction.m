@@ -14,10 +14,11 @@
 @implementation DisplayMoveShadowAndPreMoveAction
 
 -(void) playSprite:(Session*) session istate:(IState*) previousState event:(Event*) event{
-    MapLayer* mapLayer = [self getVariableValue:PARAM_MAP_LAYER variables:event.variables];
-    Character* character = [self getVariableValue:PARAM_SELECTED_CHARACTER variables:event.variables];
-    Position* charPosi = [Position positionWithCGPoint:character.characterSprite.position];
+    MapLayer* mapLayer = [MapLayer sharedMapLayer];
+    Character* character = [self getVariableValueForEvent:event variableName:PARAM_SELECTED_CHARACTER nested:YES];
     
+    Position* charPosi = character.sourcePosition; 
+    CCLOG(@"char posi=%@",charPosi.description);
     Mobility* moblitity = [Mobility mobilityWithDefault];
     
     CCArray* posiArray = nil;
@@ -47,7 +48,7 @@
 {
     [super onClick:mapPosition event:event];
     
-    MapLayer* mapLayer = [self getVariableValueForEvent:event variableName:PARAM_MAP_LAYER nested:YES];
+    MapLayer* mapLayer = [MapLayer sharedMapLayer];
     Character* character = [self getVariableValueForEvent:event variableName:PARAM_SELECTED_CHARACTER nested:YES];
     [self cleanShadowSpriteArray:mapLayer.shadowSpriteArray];
     NSString* result = nil;

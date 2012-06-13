@@ -15,7 +15,7 @@
 @synthesize fightMenuLayer = _fightMenuLayer;
 +(FightMapScene*) scene{
     FightMapScene* scene = [FightMapScene node];
-    MapLayer* mapLayer = [MapLayer node];
+    MapLayer* mapLayer = [MapLayer sharedMapLayer];
     FightMenuLayer* fightMenuLayer = [FightMenuLayer sharedFightMenuLayer];
     scene.mapLayer = mapLayer;
     scene.fightMenuLayer = fightMenuLayer;
