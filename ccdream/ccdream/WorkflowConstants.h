@@ -23,11 +23,15 @@
 #define EVENT_TYPE_FM_ATTACK_ONCLICK @"fm_attack_onclick"
 #define EVENT_TYPE_FM_CANCEL_ONCLICK @"fm_cancel_onclick"
 
+//WeaponLayer上的event
+#define EVENT_TYPE_WL_SELECT_WEAPON @"wl_select_weapon"
+
 #define PARAM_TASK_ID @"taskId"
 #define PARAM_TASK_ASSIGNEE @"assignee"
 #define PARAM_RESULT @"result"
 #define PARAM_SELECTED_CHARACTER @"selected_character"
-
+#define PARAM_SELECTED_TARGET @"selected_target"
+#define PARAM_SELECTED_WEAPON @"selected_weapon"
 #define PARAM_SELECTED_MAP_POSITION @"selected_map_position"
 #define PARAM_SELECTED_MODEL @"selected_model"
 

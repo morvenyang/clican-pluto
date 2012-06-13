@@ -33,11 +33,13 @@
         [super propagateVariables:event];
         Position* position = [self getVariableValue:PARAM_SELECTED_MAP_POSITION variables:event.variables];
         NSString* result = [self onClick:position event:event];
-        Variable* var = [[[Variable alloc] init] autorelease];
-        var.name = PARAM_RESULT;
-        var.value = result;
-        [event.variables addObject:var];
-        [self onEnd:event.state event:event];
+        if(result!=nil){
+            Variable* var = [[[Variable alloc] init] autorelease];
+            var.name = PARAM_RESULT;
+            var.value = result;
+            [event.variables addObject:var];
+            [self onEnd:event.state event:event];
+        }
     }@catch (NSException* e) {
         CCLOGERROR(@"Exception occured:%@",e);
         @throw e;

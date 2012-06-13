@@ -35,7 +35,7 @@
 	<state name="popupWeaponSelectWindowAction" class="PopupWeaponSelectWindowAction">
 		<nextCondStates expr="selectCancel" nextStates="popupOperationWindowAction"/>
 		<nextCondStates expr="selectWeapon" nextStates="popupWeaponSelectWindowAction"/>
-		<nextCondStates expr="selectEnemy" nextStates="displayAttackDefenceAttributeAction"/>
+		<nextCondStates expr="selectTarget" nextStates="displayFightAction"/>
 	</state>
 	
 	<!-- 显示攻防双方属性 -->

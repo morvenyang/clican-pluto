@@ -10,6 +10,7 @@
 #import "ImageUtil.h"
 #import "Weapon.h"
 #import "Constants.h"
+#import "PositionUtil.h"
 
 @implementation Character
 
@@ -19,12 +20,14 @@
 @synthesize sourceCharacterImage = _sourceCharacterImage;
 @synthesize grayCharacterImage = _grayCharacterImage;
 @synthesize sourcePosition = _sourcePosition;
+@synthesize targetPosition = _targetPosition;
 @synthesize weapens = _weapens;
 @synthesize attackRange = _attackRange;
 @synthesize canMountHorse = _canMountHorse;
 @synthesize mountHorse = _mountHorse;
 @synthesize selected = _selected;
 @synthesize finished = _finished;
+@synthesize player = _player;
 
 
 -(id) init{
@@ -47,7 +50,7 @@
         character.sourcePosition = position;
         character.characterSprite.position = [position toCenterCGPoint];
     Weapon* w1 = [Constants getWeapon:@"1"];
-    Weapon* w2 = [Constants getWeapon:@"2"];
+    Weapon* w2 = [Constants getWeapon:@"4"];
     [character.weapens addObject:w1];
     [character.weapens addObject:w2];
     for (Weapon* w in character.weapens) {
@@ -77,6 +80,8 @@
     _grayCharacterImage = nil;
     [_sourcePosition release];
     _sourcePosition = nil;
+    [_targetPosition release];
+    _targetPosition = nil;
     [_weapens release];
     _weapens = nil;
     [_attackRange release];

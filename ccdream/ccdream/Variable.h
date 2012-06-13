@@ -36,4 +36,6 @@
 
 +(Variable*) copyFromVariable:(Variable*) variable;
 
++(Variable*) variable:(NSString*) name value:(id) value;
+
 @end

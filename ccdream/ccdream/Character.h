@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
 #import "Mobility.h"
-#import "PositionUtil.h"
+
 
 #import "GlobalEventHandler.h"
 
@@ -22,12 +22,14 @@
     UIImage* _sourceCharacterImage;
     UIImage* _grayCharacterImage;
     Position* _sourcePosition;
+    Position* _targetPosition;
     CCArray* _weapens;
     NSMutableSet* _attackRange;
     BOOL _canMountHorse;
     BOOL _mountHorse;
     BOOL _selected;
     BOOL _finished;
+    BOOL _player;
 }
 
 @property (nonatomic,retain) Mobility* landMobility;
@@ -36,13 +38,14 @@
 @property (nonatomic,retain) UIImage* sourceCharacterImage;
 @property (nonatomic,retain) UIImage* grayCharacterImage;
 @property (nonatomic,retain) Position* sourcePosition;
+@property (nonatomic,retain) Position* targetPosition;
 @property (nonatomic,retain) CCArray* weapens;
 @property (nonatomic,retain) NSMutableSet* attackRange;
 @property (nonatomic,assign)  BOOL canMountHorse;
 @property (nonatomic,assign)  BOOL mountHorse;
 @property (nonatomic,assign)  BOOL selected;
 @property (nonatomic,assign)  BOOL finished;
-
+@property (nonatomic,assign)  BOOL player;
 +(id)characterWithParentNode:(CCNode*) parentNode spriteFile:(NSString*) spriteFile position:(Position*) position;
 
 @end

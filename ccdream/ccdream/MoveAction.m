@@ -22,6 +22,7 @@
     CCLOG(@"move to%@",posi.description);
     
     [character.characterSprite runAction: [CCMoveTo actionWithDuration:0.5 position:[posi toCenterCGPoint]]];
+    character.targetPosition = posi;
 
 }
 

@@ -12,10 +12,10 @@
 @implementation PopupOperationWindowAction
 
 -(void) playSprite:(Session*) session istate:(IState*) previousState event:(Event*) event{
-    Position* position = [self getVariableValue:PARAM_SELECTED_MAP_POSITION variables:event.variables];
+    
     MapLayer* mapLayer = [MapLayer sharedMapLayer];
     Character* character = [self getVariableValueForEvent:event variableName:PARAM_SELECTED_CHARACTER nested:YES];
-    [[FightMenuLayer sharedFightMenuLayer] showAtPosition:[position  toFightMenuPosition:mapLayer.maxPosi] character:character];
+    [[FightMenuLayer sharedFightMenuLayer] showAtPosition:[character.targetPosition  toFightMenuPosition:mapLayer.maxPosi] charPosi:character.targetPosition character:character];
 }
 
 -(NSString*) onClick:(Position*) mapPosition event:(Event*) event

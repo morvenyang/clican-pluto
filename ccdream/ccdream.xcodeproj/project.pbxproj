@@ -124,6 +124,8 @@
 		720CE0F1157AC55F00DB894D /* MapLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 720CE0F0157AC55F00DB894D /* MapLayer.m */; };
 		720CE10A157ADDFC00DB894D /* Tilesheet-land-v5.png in Resources */ = {isa = PBXBuildFile; fileRef = 720CE108157ADDFC00DB894D /* Tilesheet-land-v5.png */; };
 		720CE10B157ADDFC00DB894D /* ccdream_map01.tmx in Resources */ = {isa = PBXBuildFile; fileRef = 720CE109157ADDFC00DB894D /* ccdream_map01.tmx */; };
+		7224A220158863B300E02093 /* WeaponLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7224A21F158863B300E02093 /* WeaponLayer.m */; };
+		7224A22415886FAE00E02093 /* WeaponMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 7224A22315886FAE00E02093 /* WeaponMenuItem.m */; };
 		722E05BC157F229E001B0A8D /* Session.m in Sources */ = {isa = PBXBuildFile; fileRef = 722E05BB157F229E001B0A8D /* Session.m */; };
 		722E05C0157F22AE001B0A8D /* State.m in Sources */ = {isa = PBXBuildFile; fileRef = 722E05BF157F22AE001B0A8D /* State.m */; };
 		722E05C3157F22BB001B0A8D /* Task.m in Sources */ = {isa = PBXBuildFile; fileRef = 722E05C2157F22BB001B0A8D /* Task.m */; };
@@ -146,6 +148,7 @@
 		7241900515884B12002ABCDC /* spear_iron.gif in Resources */ = {isa = PBXBuildFile; fileRef = 7241900115884B12002ABCDC /* spear_iron.gif */; };
 		7241900615884B12002ABCDC /* sword_iron.gif in Resources */ = {isa = PBXBuildFile; fileRef = 7241900215884B12002ABCDC /* sword_iron.gif */; };
 		7241900815884C9E002ABCDC /* weapon.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7241900715884C9E002ABCDC /* weapon.plist */; };
+		7242264A158898AB00B500F5 /* DisplayFightAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 72422649158898AB00B500F5 /* DisplayFightAction.m */; };
 		727F5066157B0F9B007BBA9F /* trs-037.gif in Resources */ = {isa = PBXBuildFile; fileRef = 727F5064157B0F9B007BBA9F /* trs-037.gif */; };
 		727F5067157B0F9B007BBA9F /* trs-012.gif in Resources */ = {isa = PBXBuildFile; fileRef = 727F5065157B0F9B007BBA9F /* trs-012.gif */; };
 		727F506B157B102E007BBA9F /* Character.m in Sources */ = {isa = PBXBuildFile; fileRef = 727F506A157B102E007BBA9F /* Character.m */; };
@@ -414,6 +417,10 @@
 		720CE0F0157AC55F00DB894D /* MapLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapLayer.m; sourceTree = "<group>"; };
 		720CE108157ADDFC00DB894D /* Tilesheet-land-v5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Tilesheet-land-v5.png"; path = "Resources/Tilesheet-land-v5.png"; sourceTree = "<group>"; };
 		720CE109157ADDFC00DB894D /* ccdream_map01.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = ccdream_map01.tmx; path = Resources/ccdream_map01.tmx; sourceTree = "<group>"; };
+		7224A21E158863B300E02093 /* WeaponLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeaponLayer.h; sourceTree = "<group>"; };
+		7224A21F158863B300E02093 /* WeaponLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeaponLayer.m; sourceTree = "<group>"; };
+		7224A22215886FAE00E02093 /* WeaponMenuItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeaponMenuItem.h; sourceTree = "<group>"; };
+		7224A22315886FAE00E02093 /* WeaponMenuItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeaponMenuItem.m; sourceTree = "<group>"; };
 		722E05BA157F229E001B0A8D /* Session.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Session.h; sourceTree = "<group>"; };
 		722E05BB157F229E001B0A8D /* Session.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Session.m; sourceTree = "<group>"; };
 		722E05BE157F22AE001B0A8D /* State.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = State.h; sourceTree = "<group>"; };
@@ -453,6 +460,8 @@
 		7241900115884B12002ABCDC /* spear_iron.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = spear_iron.gif; path = Resources/spear_iron.gif; sourceTree = "<group>"; };
 		7241900215884B12002ABCDC /* sword_iron.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = sword_iron.gif; path = Resources/sword_iron.gif; sourceTree = "<group>"; };
 		7241900715884C9E002ABCDC /* weapon.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = weapon.plist; sourceTree = "<group>"; };
+		72422648158898AB00B500F5 /* DisplayFightAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DisplayFightAction.h; sourceTree = "<group>"; };
+		72422649158898AB00B500F5 /* DisplayFightAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DisplayFightAction.m; sourceTree = "<group>"; };
 		727F5064157B0F9B007BBA9F /* trs-037.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = "trs-037.gif"; path = "Resources/trs-037.gif"; sourceTree = "<group>"; };
 		727F5065157B0F9B007BBA9F /* trs-012.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = "trs-012.gif"; path = "Resources/trs-012.gif"; sourceTree = "<group>"; };
 		727F5069157B102E007BBA9F /* Character.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Character.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -563,6 +572,7 @@
 		720CDF8A157AC4B400DB894D /* ccdream */ = {
 			isa = PBXGroup;
 			children = (
+				7224A22115886F8F00E02093 /* menu */,
 				728026F71586075A00EB74FC /* action */,
 				72B8AE2B157D9CED00AE0669 /* event */,
 				723DC2E7157B9514006BDA9B /* sprite */,
@@ -927,6 +937,8 @@
 				72A6DC37157F0D240042B7E0 /* FightMenuLayer.m */,
 				72D5CE941584351F005F0C3B /* WeaponSelect.h */,
 				72D5CE951584351F005F0C3B /* WeaponSelect.m */,
+				7224A21E158863B300E02093 /* WeaponLayer.h */,
+				7224A21F158863B300E02093 /* WeaponLayer.m */,
 			);
 			name = layer;
 			sourceTree = "<group>";
@@ -969,6 +981,15 @@
 				72D5CE9915843537005F0C3B /* Weapon.m */,
 			);
 			name = model;
+			sourceTree = "<group>";
+		};
+		7224A22115886F8F00E02093 /* menu */ = {
+			isa = PBXGroup;
+			children = (
+				7224A22215886FAE00E02093 /* WeaponMenuItem.h */,
+				7224A22315886FAE00E02093 /* WeaponMenuItem.m */,
+			);
+			name = menu;
 			sourceTree = "<group>";
 		};
 		722E05CD157F240B001B0A8D /* model */ = {
@@ -1089,6 +1110,8 @@
 				72B9497C15882D1800916AEF /* GrayeOutAction.m */,
 				72B949811588404800916AEF /* BackToSourcePositionAction.h */,
 				72B949821588404800916AEF /* BackToSourcePositionAction.m */,
+				72422648158898AB00B500F5 /* DisplayFightAction.h */,
+				72422649158898AB00B500F5 /* DisplayFightAction.m */,
 			);
 			name = noinput;
 			sourceTree = "<group>";
@@ -1346,6 +1369,9 @@
 				72B94980158830E100916AEF /* ImageUtil.m in Sources */,
 				72B949831588404800916AEF /* BackToSourcePositionAction.m in Sources */,
 				723DDDCE15885F2F003C808B /* PopupWeaponSelectWindowAction.m in Sources */,
+				7224A220158863B300E02093 /* WeaponLayer.m in Sources */,
+				7224A22415886FAE00E02093 /* WeaponMenuItem.m in Sources */,
+				7242264A158898AB00B500F5 /* DisplayFightAction.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

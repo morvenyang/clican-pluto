@@ -50,6 +50,18 @@
     return [Position positionWithX:_x+xoffset Y:_y+yoffset];
 }
 
+-(Position*) toWeaponMenuPosition:(Position*) maxPosition{
+    int xoffset = 1;
+    int yoffset = 1;
+    if(self.x>maxPosition.x*2/3){
+        xoffset = -1;
+    }
+    if(self.y>maxPosition.y*2/3){
+        yoffset = -1;
+    }
+    return [Position positionWithX:_x+xoffset Y:_y+yoffset];
+}
+
 -(NSString*) description{
     return [NSString stringWithFormat:@"x=%i,y=%i",self.x,self.y];
 }
