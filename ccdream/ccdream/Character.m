@@ -28,7 +28,7 @@
 @synthesize selected = _selected;
 @synthesize finished = _finished;
 @synthesize player = _player;
-
+@synthesize moveStratege = _moveStratege;
 
 -(id) init{
     self = [super init];
