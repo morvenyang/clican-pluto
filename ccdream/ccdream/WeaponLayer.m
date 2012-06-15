@@ -51,7 +51,7 @@ static WeaponLayer* _sharedWeaponLayer = nil;
     WeaponMenuItem* item1 = nil;
     WeaponMenuItem* item2 = nil;
     WeaponMenuItem* item3 = nil;
-    for (Weapon* weapon in character.weapens) {
+    for (Weapon* weapon in character.weapons) {
         if([PositionUtil canAttack:charPosi targetCharacterArray:mapLayer.enemyCharacterArray rangeSet:weapon.rangeSet]){
             [self.weapons addObject:weapon];
             if(i==0){

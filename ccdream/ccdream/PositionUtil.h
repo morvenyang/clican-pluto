@@ -13,12 +13,17 @@
 #import "Mobility.h"
 #import "MoveOrbit.h"
 #import "MapGridAttribute.h"
+#import "AITarget.h"
 
 @interface PositionUtil : NSObject {
     
 }
 //根据当前位置计算可移动单元格
-+(CCArray*) calcMoveOrbitarrayFromPosition:(Position*) charPosi movement:(int) movement mobility:(Mobility*) mobility mapGridAttributeMap:(NSDictionary*) mapGridAttributeMap maxPosition:(Position*) maxPosition  playerCharacterArray:(CCArray*) playerCharacterArray enemyCharacterArray:(CCArray*) enemyCharacterArray;
++(CCArray*) calcMoveOrbitarrayFromPosition:(Position*) charPosi movement:(int) movement mobility:(Mobility*) mobility mapGridAttributeMap:(NSDictionary*) mapGridAttributeMap maxPosition:(Position*) maxPosition  playerCharacterArray:(CCArray*) playerCharacterArray enemyCharacterArray:(CCArray*) enemyCharacterArray comparator:(NSComparator) comparator;
+
+
++(AITarget*) calcAITargetFromPosition:(Position*) charPosi mobility:(Mobility*) mobility mapGridAttributeMap:(NSDictionary*) mapGridAttributeMap maxPosition:(Position*) maxPosition  playerCharacterArray:(CCArray*) playerCharacterArray enemyCharacterArray:(CCArray*) enemyCharacterArray;
+
 
 //把touch对象转换为位置对象
 +(CGPoint) locationFromTouch:(UITouch*)touch;
@@ -35,6 +40,7 @@
 +(bool) containsPosition:(Position*)position forCharacterArray:(CCArray*) array;
 
 +(Character*) getCharacter:(Position*)position forCharacterArray:(CCArray*) array;
+
 
 
 +(int) calcPositionRange:(Position*) source dest:(Position*) dest;

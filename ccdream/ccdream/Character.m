@@ -16,12 +16,13 @@
 
 @synthesize airMobility = _airMobility;
 @synthesize landMobility = _landMobility;
+@synthesize movement = _movement;
 @synthesize characterSprite = _characterSprite;
 @synthesize sourceCharacterImage = _sourceCharacterImage;
 @synthesize grayCharacterImage = _grayCharacterImage;
 @synthesize sourcePosition = _sourcePosition;
 @synthesize targetPosition = _targetPosition;
-@synthesize weapens = _weapens;
+@synthesize weapons = _weapons;
 @synthesize attackRange = _attackRange;
 @synthesize canMountHorse = _canMountHorse;
 @synthesize mountHorse = _mountHorse;
@@ -33,7 +34,7 @@
 -(id) init{
     self = [super init];
     if(self){
-        self.weapens = [CCArray array];
+        self.weapons = [CCArray array];
         self.attackRange = [[[NSMutableSet alloc] init] autorelease];
     }
     return self;
@@ -42,6 +43,7 @@
         Character* character = [[[Character alloc] init] autorelease];
         character.airMobility = [Mobility mobilityWithDefault];
         character.landMobility = [Mobility mobilityWithDefault];
+        character.movement = 3;
         character.sourceCharacterImage = [UIImage imageNamed:spriteFile];
         character.grayCharacterImage = [ImageUtil convertToGrayScale:character.sourceCharacterImage];
         CCTexture2D *texture = [[[CCTexture2D alloc] initWithImage:character.sourceCharacterImage] autorelease];
@@ -51,9 +53,9 @@
         character.characterSprite.position = [position toCenterCGPoint];
     Weapon* w1 = [Constants getWeapon:@"1"];
     Weapon* w2 = [Constants getWeapon:@"4"];
-    [character.weapens addObject:w1];
-    [character.weapens addObject:w2];
-    for (Weapon* w in character.weapens) {
+    [character.weapons addObject:w1];
+    [character.weapons addObject:w2];
+    for (Weapon* w in character.weapons) {
         for(int i=w.minRange;i<=w.maxRange;i++){
             NSNumber* range = [NSNumber numberWithInt:i];
             [character.attackRange addObject:range];
@@ -82,8 +84,8 @@
     _sourcePosition = nil;
     [_targetPosition release];
     _targetPosition = nil;
-    [_weapens release];
-    _weapens = nil;
+    [_weapons release];
+    _weapons = nil;
     [_attackRange release];
     _attackRange = nil;
 	[super dealloc];

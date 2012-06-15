@@ -11,7 +11,7 @@
 
 @implementation PositionUtil
 
-+(CCArray*) calcMoveOrbitarrayFromPosition:(Position*) charPosi movement:(int) movement mobility:(Mobility*) mobility mapGridAttributeMap:(NSDictionary*) mapGridAttributeMap maxPosition:(Position*) maxPosition playerCharacterArray:(CCArray*) playerCharacterArray enemyCharacterArray:(CCArray*) enemyCharacterArray{
++(CCArray*) calcMoveOrbitarrayFromPosition:(Position*) charPosi movement:(int) movement mobility:(Mobility*) mobility mapGridAttributeMap:(NSDictionary*) mapGridAttributeMap maxPosition:(Position*) maxPosition playerCharacterArray:(CCArray*) playerCharacterArray enemyCharacterArray:(CCArray*) enemyCharacterArray comparator:(NSComparator) comparator{
     NSMutableDictionary* moveOrbitSet = [[[NSMutableDictionary alloc] init] autorelease];
     NSMutableDictionary* processedPosiMap = [[[NSMutableDictionary alloc] init] autorelease];
     
@@ -19,7 +19,7 @@
     [PositionUtil moveForProcessedposiMap: processedPosiMap moveOrbitSet: moveOrbitSet previousMoveOrbit: current movement: movement mobility:mobility mapGridAttributeMap: mapGridAttributeMap maxPosition: maxPosition playerCharacterArray:playerCharacterArray enemyCharacterArray:enemyCharacterArray xoffset:0 yoffset:0];
     
     
-    NSArray* sortedArray = [[moveOrbitSet allValues] sortedArrayUsingComparator:[MoveOrbit comparator]];
+    NSArray* sortedArray = [[moveOrbitSet allValues] sortedArrayUsingComparator:comparator];
     CCArray* result = [CCArray arrayWithNSArray:sortedArray];
     return result;   
 }
@@ -64,11 +64,13 @@
         if(xoffset!=0||yoffset!=0){
             if(![PositionUtil containsPosition:currentPosi forCharacterArray:playerCharacterArray]){
                 //非友军位置可以站立
+                moveOrbit.spentMovement = previousMoveOrbit.spentMovement+moveCost;
                 [moveOrbitSet setValue:moveOrbit forKey:[moveOrbit.position description]];
             }
-
+            
         }else{
             moveOrbit.previous = nil;
+            moveOrbit.moveDistance = 0;
         }
         
         BOOL moveLeft = YES;
@@ -115,6 +117,11 @@
         }
     }
     
+}
+
+
++(AITarget*) calcAITargetFromPosition:(Position*) charPosi mobility:(Mobility*) mobility mapGridAttributeMap:(NSDictionary*) mapGridAttributeMap maxPosition:(Position*) maxPosition  playerCharacterArray:(CCArray*) playerCharacterArray enemyCharacterArray:(CCArray*) enemyCharacterArray{
+    return nil;
 }
 
 +(CGPoint) locationFromTouch:(UITouch*)touch
