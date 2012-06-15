@@ -90,29 +90,29 @@ static WeaponLayer* _sharedWeaponLayer = nil;
     self.visible = YES;
 }
 
--(void) seletcWeapon:(int) index{
+-(void) selectWeapon:(int) index{
     CCLOG(@"selectWeapon%i",index);
     [self hide];
     NSMutableDictionary* param = [[[NSMutableDictionary alloc] init] autorelease];
     Weapon* selectedWeapon = [self.weapons objectAtIndex:index];
     CCLOG(@"selectedWeapon=%@",selectedWeapon.name);
-    [param setValue:[self.weapons objectAtIndex:index] forKey:PARAM_SELECTED_WEAPON];
+    [param setValue:selectedWeapon forKey:PARAM_SELECTED_WEAPON];
     [[EventDispatcher sharedEventDispatcher] dispatch:[MapLayer sharedMapLayer].fightMapSession.sessionId forState:0 forEventType:EVENT_TYPE_WL_SELECT_WEAPON forParameters:param];
 }
 -(void) selectWeapon0:(id) sender{
-    [self seletcWeapon:0];
+    [self selectWeapon:0];
 }
 
 -(void) selectWeapon1:(id) sender{
-    [self seletcWeapon:1];
+    [self selectWeapon:1];
 }
 
 -(void) selectWeapon2:(id) sender{
-    [self seletcWeapon:2];
+    [self selectWeapon:2];
 }
 
 -(void) selectWeapon3:(id) sender{
-    [self seletcWeapon:3];
+    [self selectWeapon:3];
 }
 
 -(void) hide{
