@@ -159,6 +159,8 @@
 		724226631588A27700B500F5 /* tsqa20.gif in Resources */ = {isa = PBXBuildFile; fileRef = 724226591588A27700B500F5 /* tsqa20.gif */; };
 		724226641588A27700B500F5 /* tsqa21.gif in Resources */ = {isa = PBXBuildFile; fileRef = 7242265A1588A27700B500F5 /* tsqa21.gif */; };
 		724226651588A27700B500F5 /* tsqa24.gif in Resources */ = {isa = PBXBuildFile; fileRef = 7242265B1588A27700B500F5 /* tsqa24.gif */; };
+		727E8214158BE31800A342DD /* ws_enemy_fight_map.xml in Resources */ = {isa = PBXBuildFile; fileRef = 727E8213158BE31800A342DD /* ws_enemy_fight_map.xml */; };
+		727E8217158BE3A100A342DD /* MoveStrategeAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 727E8216158BE3A100A342DD /* MoveStrategeAction.m */; };
 		727F5066157B0F9B007BBA9F /* trs-037.gif in Resources */ = {isa = PBXBuildFile; fileRef = 727F5064157B0F9B007BBA9F /* trs-037.gif */; };
 		727F5067157B0F9B007BBA9F /* trs-012.gif in Resources */ = {isa = PBXBuildFile; fileRef = 727F5065157B0F9B007BBA9F /* trs-012.gif */; };
 		727F506B157B102E007BBA9F /* Character.m in Sources */ = {isa = PBXBuildFile; fileRef = 727F506A157B102E007BBA9F /* Character.m */; };
@@ -482,6 +484,9 @@
 		724226591588A27700B500F5 /* tsqa20.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = tsqa20.gif; path = Resources/tsqa20.gif; sourceTree = "<group>"; };
 		7242265A1588A27700B500F5 /* tsqa21.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = tsqa21.gif; path = Resources/tsqa21.gif; sourceTree = "<group>"; };
 		7242265B1588A27700B500F5 /* tsqa24.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = tsqa24.gif; path = Resources/tsqa24.gif; sourceTree = "<group>"; };
+		727E8213158BE31800A342DD /* ws_enemy_fight_map.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = ws_enemy_fight_map.xml; sourceTree = "<group>"; };
+		727E8215158BE3A100A342DD /* MoveStrategeAction.h */ = {isa = PBXFileReference; fileEncoding = 4; path = MoveStrategeAction.h; sourceTree = "<group>"; };
+		727E8216158BE3A100A342DD /* MoveStrategeAction.m */ = {isa = PBXFileReference; fileEncoding = 4; path = MoveStrategeAction.m; sourceTree = "<group>"; };
 		727F5064157B0F9B007BBA9F /* trs-037.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = "trs-037.gif"; path = "Resources/trs-037.gif"; sourceTree = "<group>"; };
 		727F5065157B0F9B007BBA9F /* trs-012.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = "trs-012.gif"; path = "Resources/trs-012.gif"; sourceTree = "<group>"; };
 		727F5069157B102E007BBA9F /* Character.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Character.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -530,7 +535,6 @@
 		72D5CE951584351F005F0C3B /* WeaponSelect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeaponSelect.m; sourceTree = "<group>"; };
 		72D5CE9815843537005F0C3B /* Weapon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Weapon.h; sourceTree = "<group>"; };
 		72D5CE9915843537005F0C3B /* Weapon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Weapon.m; sourceTree = "<group>"; };
-		72DA4C0A1583FFEA00F5AD82 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		72DA4C1C1584024400F5AD82 /* test_workflow.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = test_workflow.xml; sourceTree = "<group>"; };
 		72E1393715823F0F006AE49E /* Listener.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Listener.m; sourceTree = "<group>"; };
 		72E1393915824084006AE49E /* StateChangeListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StateChangeListener.h; sourceTree = "<group>"; };
@@ -584,7 +588,6 @@
 				720CDF84157AC4B400DB894D /* UIKit.framework */,
 				720CDF86157AC4B400DB894D /* Foundation.framework */,
 				720CDF88157AC4B400DB894D /* CoreGraphics.framework */,
-				72DA4C0A1583FFEA00F5AD82 /* SenTestingKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -616,9 +619,9 @@
 		720CDF8B157AC4B400DB894D /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				727E8212158BE2ED00A342DD /* workflow */,
 				724226501588A20F00B500F5 /* character */,
 				72418FFD15884AF1002ABCDC /* weapon */,
-				728026F9158608F000EB74FC /* ws_fight_map.xml */,
 				727F5064157B0F9B007BBA9F /* trs-037.gif */,
 				727F5065157B0F9B007BBA9F /* trs-012.gif */,
 				720CE108157ADDFC00DB894D /* Tilesheet-land-v5.png */,
@@ -1114,6 +1117,15 @@
 			name = character;
 			sourceTree = "<group>";
 		};
+		727E8212158BE2ED00A342DD /* workflow */ = {
+			isa = PBXGroup;
+			children = (
+				728026F9158608F000EB74FC /* ws_fight_map.xml */,
+				727E8213158BE31800A342DD /* ws_enemy_fight_map.xml */,
+			);
+			name = workflow;
+			sourceTree = "<group>";
+		};
 		728026F71586075A00EB74FC /* action */ = {
 			isa = PBXGroup;
 			children = (
@@ -1150,6 +1162,8 @@
 				72B949821588404800916AEF /* BackToSourcePositionAction.m */,
 				72422648158898AB00B500F5 /* DisplayFightAction.h */,
 				72422649158898AB00B500F5 /* DisplayFightAction.m */,
+				727E8215158BE3A100A342DD /* MoveStrategeAction.h */,
+				727E8216158BE3A100A342DD /* MoveStrategeAction.m */,
 			);
 			name = noinput;
 			sourceTree = "<group>";
@@ -1268,6 +1282,7 @@
 				724226631588A27700B500F5 /* tsqa20.gif in Resources */,
 				724226641588A27700B500F5 /* tsqa21.gif in Resources */,
 				724226651588A27700B500F5 /* tsqa24.gif in Resources */,
+				727E8214158BE31800A342DD /* ws_enemy_fight_map.xml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1420,6 +1435,7 @@
 				7224A220158863B300E02093 /* WeaponLayer.m in Sources */,
 				7224A22415886FAE00E02093 /* WeaponMenuItem.m in Sources */,
 				7242264A158898AB00B500F5 /* DisplayFightAction.m in Sources */,
+				727E8217158BE3A100A342DD /* MoveStrategeAction.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
