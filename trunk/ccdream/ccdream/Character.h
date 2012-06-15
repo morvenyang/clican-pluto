@@ -23,12 +23,13 @@ typedef enum {
 @interface Character : NSObject {
     Mobility* _landMobility;
     Mobility* _airMobility;
+    int _movement;
     CCSprite* _characterSprite;
     UIImage* _sourceCharacterImage;
     UIImage* _grayCharacterImage;
     Position* _sourcePosition;
     Position* _targetPosition;
-    CCArray* _weapens;
+    CCArray* _weapons;
     NSMutableSet* _attackRange;
     BOOL _canMountHorse;
     BOOL _mountHorse;
@@ -43,12 +44,13 @@ typedef enum {
 
 @property (nonatomic,retain) Mobility* landMobility;
 @property (nonatomic,retain) Mobility* airMobility;
+@property (nonatomic,assign) int movement;
 @property (nonatomic,retain) CCSprite* characterSprite;
 @property (nonatomic,retain) UIImage* sourceCharacterImage;
 @property (nonatomic,retain) UIImage* grayCharacterImage;
 @property (nonatomic,retain) Position* sourcePosition;
 @property (nonatomic,retain) Position* targetPosition;
-@property (nonatomic,retain) CCArray* weapens;
+@property (nonatomic,retain) CCArray* weapons;
 @property (nonatomic,retain) NSMutableSet* attackRange;
 @property (nonatomic,assign)  BOOL canMountHorse;
 @property (nonatomic,assign)  BOOL mountHorse;

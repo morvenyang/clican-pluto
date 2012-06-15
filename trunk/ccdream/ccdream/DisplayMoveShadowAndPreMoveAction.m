@@ -25,7 +25,7 @@
     CCArray* posiArray = nil;
     //计算可移动范围
     
-    posiArray = [PositionUtil calcMoveOrbitarrayFromPosition:charPosi movement:3 mobility:moblitity mapGridAttributeMap:mapLayer.mapGridAttributeMap maxPosition:mapLayer.maxPosi playerCharacterArray:mapLayer.playerCharacterArray enemyCharacterArray:mapLayer.enemyCharacterArray];
+    posiArray = [PositionUtil calcMoveOrbitarrayFromPosition:charPosi movement:character.movement mobility:moblitity mapGridAttributeMap:mapLayer.mapGridAttributeMap maxPosition:mapLayer.maxPosi playerCharacterArray:mapLayer.playerCharacterArray enemyCharacterArray:mapLayer.enemyCharacterArray comparator:[MoveOrbit posiComparator]];
     CCLOG(@"count=%i",[posiArray count]);
     
     [self cleanShadowSpriteArray:mapLayer.shadowSpriteArray];
