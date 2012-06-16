@@ -21,7 +21,7 @@
 
 武器攻击范围算法 --<font color="green">已经完成</font>
 
-敌人AI算法 --<font color="red">未开始</font>
+敌人AI算法 --<font color="green">基本完成AI算法</font>
 
 战斗动画算法 --<font color="red">未开始</font>
 
