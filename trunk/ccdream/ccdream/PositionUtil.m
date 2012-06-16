@@ -320,6 +320,24 @@
     return nil;
 }
 
+
++(MoveOrbit*) calcNearestMoveOrbit:(MoveOrbit*) source forMoveOrbitArray:(CCArray*) array{
+    int range = -1;
+    MoveOrbit* result = nil;
+    for (MoveOrbit* mo in array) {
+        int r = [PositionUtil calcPositionRange:source.position dest:mo.position];
+        if(range==-1){
+            range = r;
+            result = mo;
+        }else{
+            if(range>r){
+                range =r;
+                result = mo;
+            }
+        }
+    }
+    return result;
+}
 +(int) calcPositionRange:(Position*) source dest:(Position*) dest{
     int range = abs(source.x-dest.x)+abs(source.y-dest.y);
     return range;
