@@ -23,6 +23,7 @@
 @synthesize fightMapSession = _fightMapSession;
 @synthesize mapMenu = _mapMenu;
 @synthesize nextRound = _nextRound;
+@synthesize nextAIAction = _nextAIAction;
 
 static MapLayer* sharedMapLayer = nil;
 
@@ -50,6 +51,7 @@ static MapLayer* sharedMapLayer = nil;
         [self loadCharacter];
         
         [CCMenuItemFont setFontSize:20];
+        self.nextAIAction = -1;
         self.nextRound = [CCMenuItemFont 
                                        itemFromString:@"下回合" target:self selector:@selector(nextRound:)];
 
@@ -62,19 +64,63 @@ static MapLayer* sharedMapLayer = nil;
     return self;
 }
 
+-(void) onEnemyAIActionND:(id)sender data:(Character*)character {
+    Session* enemyFightMapSession = [[EngineContext sharedEngineContext] newSession:@"ws_enemy_fight_map" forSponsor:@"character"];
+    NSMutableDictionary* params = [[[NSMutableDictionary alloc] init] autorelease];
+    [params setValue:character forKey:PARAM_SELECTED_CHARACTER];
+    
+    [[EventDispatcher sharedEventDispatcher] dispatch:enemyFightMapSession.sessionId forState:0 forEventType:EVENT_TYPE_MAP_CHARACTER_ONCLICK forParameters:params];
+}
+
+-(void) scheduleUpdates
+{
+    [self schedule:@selector(executeNextAIAction:) interval:0.1f];
+}
+-(void) executeNextAIAction:(ccTime)delta
+{
+    int enemyCount = [self.enemyCharacterArray count];
+    if(self.nextAIAction<enemyCount-1){
+        if(self.nextAIAction==-1){
+            self.nextAIAction = 0;
+            Character* character = [self.enemyCharacterArray objectAtIndex:0];
+            Session* enemyFightMapSession = [[EngineContext sharedEngineContext] newSession:@"ws_enemy_fight_map" forSponsor:@"character"];
+            NSMutableDictionary* params = [[[NSMutableDictionary alloc] init] autorelease];
+            [params setValue:character forKey:PARAM_SELECTED_CHARACTER];
+            
+            [[EventDispatcher sharedEventDispatcher] dispatch:enemyFightMapSession.sessionId forState:0 forEventType:EVENT_TYPE_MAP_CHARACTER_ONCLICK forParameters:params];
+        }else{
+            Character* character = [self.enemyCharacterArray objectAtIndex:self.nextAIAction];
+            CCLOG(@"nextAIAction:%i,finished=%d",self.nextAIAction,character.finished);
+            if(character.finished){
+                self.nextAIAction = self.nextAIAction+1;
+                character = [self.enemyCharacterArray objectAtIndex:self.nextAIAction];
+                Character* character = [self.enemyCharacterArray objectAtIndex:self.nextAIAction];
+                Session* enemyFightMapSession = [[EngineContext sharedEngineContext] newSession:@"ws_enemy_fight_map" forSponsor:@"character"];
+                NSMutableDictionary* params = [[[NSMutableDictionary alloc] init] autorelease];
+                [params setValue:character forKey:PARAM_SELECTED_CHARACTER];
+                
+                [[EventDispatcher sharedEventDispatcher] dispatch:enemyFightMapSession.sessionId forState:0 forEventType:EVENT_TYPE_MAP_CHARACTER_ONCLICK forParameters:params];
+            }
+        }
+        
+    }else{
+        [self unschedule:@selector(executeNextAIAction:)];
+        self.nextAIAction = -1;
+        for (Character* character in self.enemyCharacterArray) {
+            character.finished = NO;
+            [character.characterSprite.texture initWithImage:character.sourceCharacterImage];
+        }
+    }
+}
+
 -(void) nextRound:(id) sender{
     CCLOG(@"next round");
-    for(Character* character in self.enemyCharacterArray){
-        CCLOG(@"enemy character:%@",character);
-        Session* enemyFightMapSession = [[EngineContext sharedEngineContext] newSession:@"ws_enemy_fight_map" forSponsor:@"character"];
-        NSMutableDictionary* params = [[[NSMutableDictionary alloc] init] autorelease];
-        [params setValue:character forKey:PARAM_SELECTED_CHARACTER];
-        [[EventDispatcher sharedEventDispatcher] dispatch:enemyFightMapSession.sessionId forState:0 forEventType:EVENT_TYPE_MAP_CHARACTER_ONCLICK forParameters:params];
-    }
+    [self scheduleUpdates];
     for (Character* character in self.playerCharacterArray) {
         character.finished = NO;
         [character.characterSprite.texture initWithImage:character.sourceCharacterImage];
     }
+    
 }
 
 -(void) loadMap{

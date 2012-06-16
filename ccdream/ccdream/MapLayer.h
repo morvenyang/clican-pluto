@@ -27,6 +27,7 @@
     Session* _fightMapSession;
     CCMenu* _mapMenu;
     CCMenuItemFont* _nextRound;
+    int _nextAIAction;
 }
 
 @property (nonatomic,retain) CCArray* playerCharacterArray;
@@ -40,6 +41,7 @@
 @property (nonatomic,retain) Session* fightMapSession;
 @property (nonatomic,retain) CCMenu* mapMenu;
 @property (nonatomic,retain) CCMenuItemFont* nextRound;
+@property (nonatomic,assign) int nextAIAction;
 
 +(MapLayer*) sharedMapLayer;
 

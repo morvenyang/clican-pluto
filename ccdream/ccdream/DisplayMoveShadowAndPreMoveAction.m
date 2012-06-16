@@ -53,9 +53,12 @@
     Character* character = [self getVariableValueForEvent:event variableName:PARAM_SELECTED_CHARACTER nested:YES];
     [self cleanShadowSpriteArray:mapLayer.shadowSpriteArray];
     NSString* result = nil;
+    
     if(mapLayer.movementArray!=nil&&[PositionUtil containsPosition:mapPosition forMoveOrbitArray:mapLayer.movementArray]){
+        [mapLayer.movementArray removeAllObjects];
         result = @"selectMovePoint";
     }else{
+        [mapLayer.movementArray removeAllObjects];
         CGPoint cp = [mapPosition toCenterCGPoint];
         if(cp.x==character.characterSprite.position.x&&cp.y==character.characterSprite.position.y){
             //再点击角色

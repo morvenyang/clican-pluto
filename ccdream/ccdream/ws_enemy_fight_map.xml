@@ -4,9 +4,19 @@
     <start name="start" nextStates="moveStrategeAction"/>
     
     <!-- 在onStart就产生移动阴影和移动前效果 -->
-    <state name="moveStrategeAction" class="MoveStrategeAction" nextStates="finishedEnd">
-        
+    <state name="moveStrategeAction" class="MoveStrategeAction" nextStates="moveAction">
     </state>
+    
+    <state name="moveAction" class="MoveAction">
+        <nextCondStates expr="canAttack" nextStates="displayFightAction"/>
+        <nextCondStates expr="canNotAttack" nextStates="grayeOutAction"/>
+    </state>
+    
+    <state name="displayFightAction" class="DisplayFightAction">
+    	<nextCondStates expr="cannotReMove" nextStates="grayeOutAction"/>
+    </state>
+    
+    <state name="grayeOutAction" class="GrayeOutAction" nextStates="finishedEnd"/>
     
     <end name="finishedEnd"/>
     
