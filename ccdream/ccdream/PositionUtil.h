@@ -42,7 +42,7 @@
 
 +(Character*) getCharacter:(Position*)position forCharacterArray:(CCArray*) array;
 
-
++(MoveOrbit*) calcNearestMoveOrbit:(MoveOrbit*) source forMoveOrbitArray:(CCArray*) array;
 
 +(int) calcPositionRange:(Position*) source dest:(Position*) dest;
 
