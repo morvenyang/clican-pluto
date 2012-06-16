@@ -22,7 +22,7 @@
 @synthesize states = _states;
 @synthesize variables = _variables;
 @synthesize status = _status;
-
+@synthesize actions = actions;
 -(id) init {
     self = [super init];
     if(self!=nil){
@@ -31,6 +31,7 @@
         self.states = [[[NSMutableArray alloc] init] autorelease];
         self.variables = [[[NSMutableArray alloc] init] autorelease];
         self.status = @"active";
+        self.actions = [[[NSMutableArray alloc] init] autorelease];
     }
     return self;
 }
@@ -55,6 +56,8 @@
     _variables = nil;
     [_status release];
     _status = nil;
+    [_actions release];
+    _actions = nil;
     [super dealloc];
 }
 

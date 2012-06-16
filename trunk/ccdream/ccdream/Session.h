@@ -21,6 +21,7 @@
     NSMutableArray* _states;
     NSMutableArray* _variables;
     NSString* _status;
+    NSMutableArray* _actions;
     
 }
 
@@ -35,5 +36,5 @@
 @property (nonatomic,retain) NSMutableArray* states;
 @property (nonatomic,retain) NSMutableArray* variables;
 @property (nonatomic,retain) NSString* status;
-
+@property (nonatomic,retain) NSMutableArray* actions;
 @end

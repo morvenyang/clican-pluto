@@ -15,6 +15,8 @@
     
     MapLayer* mapLayer = [MapLayer sharedMapLayer];
     Character* character = [self getVariableValueForEvent:event variableName:PARAM_SELECTED_CHARACTER nested:YES];
+    [character.characterSprite runAction:[CCSequence actionsWithArray:session.actions]];
+    [session.actions removeAllObjects];
     [[FightMenuLayer sharedFightMenuLayer] showAtPosition:[character.targetPosition  toFightMenuPosition:mapLayer.maxPosi] charPosi:character.targetPosition character:character];
 }
 

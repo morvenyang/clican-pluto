@@ -39,20 +39,46 @@
     //IN_RANGE = 2,范围内攻击--如果1次移动后有可攻击敌人则向敌人移动并且攻击
     //ADHERE = 3,固守反击--不移动只攻击范围内敌人
     AITarget* aiTarget = nil;
+    Character* target = nil;
     if(moveStratege==POSITIVE){
         aiTarget = [self findInRangeTarget:moveOrbitArray character:character mapLayer:mapLayer];
         //在没有可攻击的目标的情况下尽量向目标移动
         if(aiTarget==nil){
             aiTarget = [PositionUtil calcAITargetFromPosition:character.sourcePosition mobility:moblitity mapGridAttributeMap:mapLayer.mapGridAttributeMap maxPosition:mapLayer.maxPosi playerCharacterArray:mapLayer.enemyCharacterArray enemyCharacterArray:mapLayer.playerCharacterArray attackRange:character.attackRange];
+            MoveOrbit* nearestMo = aiTarget.moveOrbit;
+            while(nearestMo.spentMovement>character.movement&&![PositionUtil containsPosition:nearestMo.position forCharacterArray:mapLayer.enemyCharacterArray]){
+                nearestMo = nearestMo.previous;
+                if(nearestMo==nil){
+                    break;
+                }
+            }
+            aiTarget = [AITarget targetCharacter:aiTarget.targetCharacter usingWeapon:aiTarget.usingWeapon moveOrbit:nearestMo];
+            aiTarget.usingWeapon = [character.weapons objectAtIndex:0];
+        }else{
+            target = aiTarget.targetCharacter;
         }
     }else if(moveStratege==IN_RANGE){
         aiTarget = [self findInRangeTarget:moveOrbitArray character:character mapLayer:mapLayer];
+        if(aiTarget!=nil){
+            target = aiTarget.targetCharacter;
+        }
     }else if(moveStratege==ADHERE){
         aiTarget = [self findNearTarget:character mapLayer:mapLayer];
+        if(aiTarget!=nil){
+            target = aiTarget.targetCharacter;
+        }
     }
     CCLOG(@"AITarget=%@",aiTarget);
     if(aiTarget!=nil){
         [event.variables addObject:[Variable variable:PARAM_AI_TARGET value:aiTarget]];
+        [event.variables addObject:[Variable variable:PARAM_SELECTED_MAP_POSITION value:aiTarget.moveOrbit.position]];
+        if(target!=nil){
+            [event.variables addObject:[Variable variable:PARAM_RESULT value:@"canAttack"]];
+            [event.variables addObject:[Variable variable:PARAM_SELECTED_TARGET value:target]];
+        }else{
+            [event.variables addObject:[Variable variable:PARAM_RESULT value:@"canNotAttack"]];
+            
+        }
     }
 }
 
