@@ -16,8 +16,8 @@
 typedef enum {
     POSITIVE = 1,//极攻击--尽量选找可攻击敌人如果范围内没有敌人则向最近的敌人移动
     IN_RANGE = 2,//范围内攻击--如果1次移动后有可攻击敌人则向敌人移动并且攻击
-    ADHERE = 3,//固守反击--不移动只攻击范围内敌人
-    DEFENSIVE_BACK = 4//防守反击--如果受到攻击则采用范围内攻击否则采用固守反击
+    ADHERE = 3//固守反击--不移动只攻击范围内敌人
+    
 } MOVE_STRATEGE;
 
 @interface Character : NSObject {

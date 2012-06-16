@@ -30,6 +30,7 @@
 
     CCLOG(@"count=%i",[moveOrbitArray count]);
     
+   
     //AI计算最终的移动点
     
     MOVE_STRATEGE moveStratege=character.moveStratege;
@@ -37,29 +38,46 @@
     //POSITIVE = 1,积极攻击--尽量选找可攻击敌人如果范围内没有敌人则向最近的敌人移动
     //IN_RANGE = 2,范围内攻击--如果1次移动后有可攻击敌人则向敌人移动并且攻击
     //ADHERE = 3,固守反击--不移动只攻击范围内敌人
-    //DEFENSIVE_BACK = 4防守反击--如果受到攻击则采用范围内攻击否则采用固守反击
     AITarget* aiTarget = nil;
     if(moveStratege==POSITIVE){
-        for (MoveOrbit* mo in moveOrbitArray) {
-           CCArray* canAttackTargetArray  = [PositionUtil canAttackTargetArray:mo.position targetCharacterArray:mapLayer.playerCharacterArray rangeSet:character.attackRange];
-            if(canAttackTargetArray!=nil&&[canAttackTargetArray count]>0){
-                Character* targetCharacter = [canAttackTargetArray objectAtIndex:0];
-                //假设敌人只有一把武器 否则需要优化这里的算法
-                aiTarget = [AITarget targetCharacter:targetCharacter usingWeapon:[targetCharacter.weapons objectAtIndex:0] moveOrbit:mo];
-                break;
-            }
-        }
+        aiTarget = [self findInRangeTarget:moveOrbitArray character:character mapLayer:mapLayer];
         //在没有可攻击的目标的情况下尽量向目标移动
         if(aiTarget==nil){
-           
+            aiTarget = [PositionUtil calcAITargetFromPosition:character.sourcePosition mobility:moblitity mapGridAttributeMap:mapLayer.mapGridAttributeMap maxPosition:mapLayer.maxPosi playerCharacterArray:mapLayer.enemyCharacterArray enemyCharacterArray:mapLayer.playerCharacterArray attackRange:character.attackRange];
         }
     }else if(moveStratege==IN_RANGE){
-        
+        aiTarget = [self findInRangeTarget:moveOrbitArray character:character mapLayer:mapLayer];
     }else if(moveStratege==ADHERE){
-        
-    }else if(moveStratege==DEFENSIVE_BACK){
-        
+        aiTarget = [self findNearTarget:character mapLayer:mapLayer];
+    }
+    CCLOG(@"AITarget=%@",aiTarget);
+    if(aiTarget!=nil){
+        [event.variables addObject:[Variable variable:PARAM_AI_TARGET value:aiTarget]];
     }
 }
 
+-(AITarget*) findNearTarget:(Character*) character mapLayer:(MapLayer*) mapLayer{
+        CCArray* canAttackTargetArray  = [PositionUtil canAttackTargetArray:character.sourcePosition targetCharacterArray:mapLayer.playerCharacterArray rangeSet:character.attackRange];
+        if(canAttackTargetArray!=nil&&[canAttackTargetArray count]>0){
+            Character* targetCharacter = [canAttackTargetArray objectAtIndex:0];
+            //假设敌人只有一把武器 否则需要优化这里的算法
+            MoveOrbit* mo = [MoveOrbit moveOrbitWithPrevious:nil Position:character.sourcePosition];
+            return  [AITarget targetCharacter:targetCharacter usingWeapon:[targetCharacter.weapons objectAtIndex:0] moveOrbit:mo];
+        }
+    
+    return nil;
+}
+
+-(AITarget*) findInRangeTarget:(CCArray*) moveOrbitArray character:(Character*) character mapLayer:(MapLayer*) mapLayer{
+for (MoveOrbit* mo in moveOrbitArray) {
+    
+    CCArray* canAttackTargetArray  = [PositionUtil canAttackTargetArray:mo.position targetCharacterArray:mapLayer.playerCharacterArray rangeSet:character.attackRange];
+    if(canAttackTargetArray!=nil&&[canAttackTargetArray count]>0){
+        Character* targetCharacter = [canAttackTargetArray objectAtIndex:0];
+        //假设敌人只有一把武器 否则需要优化这里的算法
+        return  [AITarget targetCharacter:targetCharacter usingWeapon:[targetCharacter.weapons objectAtIndex:0] moveOrbit:mo];
+    }
+}
+    return nil;
+}
 @end

@@ -25,6 +25,10 @@
     return aiTarget;
 }
 
+-(NSString*) description{
+    return [@"" stringByAppendingFormat:@"targetCharacter:%@,usingWeapon:%@,moveOrbit:%@",_targetCharacter,_usingWeapon, _moveOrbit];
+}
+
 - (void)dealloc {
     [_targetCharacter release];
     _targetCharacter = nil;

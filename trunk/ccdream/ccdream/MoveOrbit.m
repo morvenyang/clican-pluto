@@ -59,6 +59,11 @@
         }
     };
 }
+
+-(NSString*) description{
+    return [@"" stringByAppendingFormat:@"position:%@,spentMovement=%i",_position,_spentMovement];
+}
+
 - (void)dealloc {
     [_previous release];
     _previous = nil;

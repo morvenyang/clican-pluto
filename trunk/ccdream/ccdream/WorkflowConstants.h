@@ -34,7 +34,7 @@
 #define PARAM_SELECTED_WEAPON @"selected_weapon"
 #define PARAM_SELECTED_MAP_POSITION @"selected_map_position"
 #define PARAM_SELECTED_MODEL @"selected_model"
-
+#define PARAM_AI_TARGET @"ai_target"
 @interface WorkflowConstants : NSObject {
     
 }

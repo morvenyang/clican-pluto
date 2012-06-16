@@ -36,6 +36,7 @@
     if(self){
         self.weapons = [CCArray array];
         self.attackRange = [[[NSMutableSet alloc] init] autorelease];
+        self.moveStratege = POSITIVE;
     }
     return self;
 }
@@ -52,9 +53,9 @@
         character.sourcePosition = position;
         character.characterSprite.position = [position toCenterCGPoint];
     Weapon* w1 = [Constants getWeapon:@"1"];
-    Weapon* w2 = [Constants getWeapon:@"4"];
+    //Weapon* w2 = [Constants getWeapon:@"4"];
     [character.weapons addObject:w1];
-    [character.weapons addObject:w2];
+    //[character.weapons addObject:w2];
     for (Weapon* w in character.weapons) {
         for(int i=w.minRange;i<=w.maxRange;i++){
             NSNumber* range = [NSNumber numberWithInt:i];
@@ -66,7 +67,9 @@
 }
 
 
-
+-(NSString*) description {
+    return [@"" stringByAppendingFormat:@"sourcePosition:%@,weapons:%@",_sourcePosition,_weapons];
+}
 
 
 - (void)dealloc {

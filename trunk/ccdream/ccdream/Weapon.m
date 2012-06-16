@@ -62,6 +62,10 @@
     return weapon;
 }
 
+-(NSString*)description{
+    return [@"" stringByAppendingFormat:@"name:%@,minRange:%i,maxRange:%i",_name,_minRange,_maxRange];
+}
+
 - (void)dealloc {
     [_name release];
     _name = nil;
