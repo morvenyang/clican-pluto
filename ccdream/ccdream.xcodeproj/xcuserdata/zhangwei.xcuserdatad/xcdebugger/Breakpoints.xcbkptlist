@@ -8,11 +8,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "ccdream/MapLayer.m"
-         timestampString = "361276204.57282"
+         timestampString = "361509094.163144"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "100"
-         endingLineNumber = "100"
+         startingLineNumber = "107"
+         endingLineNumber = "107"
          landmarkName = "-loadCharacter"
          landmarkType = "5">
       </FileBreakpoint>
@@ -47,11 +47,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "ccdream/MapLayer.m"
-         timestampString = "361494149.936086"
+         timestampString = "361509094.163144"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "118"
-         endingLineNumber = "118"
+         startingLineNumber = "125"
+         endingLineNumber = "125"
          landmarkName = "-touchBegan:withEvent:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -95,42 +95,68 @@
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
-         shouldBeEnabled = "Yes"
+         shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "ccdream/PositionUtil.m"
-         timestampString = "361494315.654659"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "15"
-         endingLineNumber = "15"
-         landmarkName = "+calcMoveOrbitarrayFromPosition:movement:mobility:mapGridAttributeMap:maxPosition:playerCharacterArray:enemyCharacterArray:comparator:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "Yes"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "ccdream/PositionUtil.m"
-         timestampString = "361494393.126549"
+         filePath = "ccdream/MoveStrategeAction.m"
+         timestampString = "361508412.791135"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "19"
          endingLineNumber = "19"
-         landmarkName = "+calcMoveOrbitarrayFromPosition:movement:mobility:mapGridAttributeMap:maxPosition:playerCharacterArray:enemyCharacterArray:comparator:"
+         landmarkName = "-playSprite:istate:event:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "ccdream/MapLayer.m"
+         timestampString = "361509094.163144"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "72"
+         endingLineNumber = "72"
+         landmarkName = "-nextRound:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "ccdream/PositionUtil.m"
+         timestampString = "361508766.350642"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "133"
+         endingLineNumber = "133"
+         landmarkName = "+calcAITargetFromPosition:moveOrbitSet:previousMoveOrbit:costMovement:mobility:mapGridAttributeMap:maxPosition:playerCharacterArray:enemyCharacterArray:attackRange:xoffset:yoffset:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "ccdream/MoveStrategeAction.m"
+         timestampString = "361508862.658061"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "57"
+         endingLineNumber = "57"
+         landmarkName = "-playSprite:istate:event:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "ccdream/PositionUtil.m"
-         timestampString = "361494608.381545"
+         filePath = "ccdream/MapLayer.m"
+         timestampString = "361509088.995874"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "22"
-         endingLineNumber = "22"
-         landmarkName = "+calcMoveOrbitarrayFromPosition:movement:mobility:mapGridAttributeMap:maxPosition:playerCharacterArray:enemyCharacterArray:comparator:"
+         startingLineNumber = "68"
+         endingLineNumber = "68"
+         landmarkName = "-nextRound:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

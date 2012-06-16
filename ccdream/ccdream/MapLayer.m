@@ -64,6 +64,13 @@ static MapLayer* sharedMapLayer = nil;
 
 -(void) nextRound:(id) sender{
     CCLOG(@"next round");
+    for(Character* character in self.enemyCharacterArray){
+        CCLOG(@"enemy character:%@",character);
+        Session* enemyFightMapSession = [[EngineContext sharedEngineContext] newSession:@"ws_enemy_fight_map" forSponsor:@"character"];
+        NSMutableDictionary* params = [[[NSMutableDictionary alloc] init] autorelease];
+        [params setValue:character forKey:PARAM_SELECTED_CHARACTER];
+        [[EventDispatcher sharedEventDispatcher] dispatch:enemyFightMapSession.sessionId forState:0 forEventType:EVENT_TYPE_MAP_CHARACTER_ONCLICK forParameters:params];
+    }
     for (Character* character in self.playerCharacterArray) {
         character.finished = NO;
         [character.characterSprite.texture initWithImage:character.sourceCharacterImage];
