@@ -12,12 +12,13 @@
 @implementation Mobility
 @synthesize mapType1 = _mapType1;
 @synthesize mapType2 = _mapType2;
-
+@synthesize mapType3 = _mapType3;
 -(id)init{
     self = [super init];
     if(self!=nil){
         _mapType1 = 1;
         _mapType2 = 2;
+        _mapType3 = -1;
     }
     return self;
 }

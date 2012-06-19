@@ -41,7 +41,7 @@ static MapLayer* sharedMapLayer = nil;
     if(self!=nil){
         
         //加载关卡地图
-        self.tiledMap = [CCTMXTiledMap tiledMapWithTMXFile:@"ccdream_map01.tmx"];
+        self.tiledMap = [CCTMXTiledMap tiledMapWithTMXFile:@"map01.tmx"];
         self.shadowSpriteArray = [CCArray array];
         [self addChild:self.tiledMap z:-1 tag:1]; 
         CCTMXLayer* eventLayer = [self.tiledMap layerNamed:@"GameEventLayer"]; 

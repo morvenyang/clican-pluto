@@ -50,12 +50,17 @@
             moveCost = mobility.mapType1;
         }else if (mapType==2) {
             moveCost = mobility.mapType2;
+        }else if (mapType==3) {
+            moveCost = mobility.mapType3;
         }else if(mapType==-1){
             //不可站立位置
             return;
         }
     }
-    
+    if(moveCost==-1){
+        //不可站立位置
+        return;
+    }
     if(moveCost>movement){
         //can't move this position
         return;
@@ -155,12 +160,17 @@
             moveCost = mobility.mapType1;
         }else if (mapType==2) {
             moveCost = mobility.mapType2;
+        }else if (mapType==3) {
+            moveCost = mobility.mapType3;
         }else if(mapType==-1){
             //不可站立位置
             return nil;
         }
     }
-    
+    if(moveCost==-1){
+        //不可站立位置
+        return nil;
+    }
     
     MoveOrbit* moveOrbit = [MoveOrbit moveOrbitWithPrevious:previousMoveOrbit Position:currentPosi];
     if(xoffset!=0||yoffset!=0){

@@ -18,10 +18,12 @@
 @interface Mobility : NSObject {
     int _mapType1;
     int _mapType2;
+    int _mapType3;
 }
 
 @property (nonatomic, assign) int mapType1;
 @property (nonatomic, assign) int mapType2;
+@property (nonatomic, assign) int mapType3;
 
 +(id) mobilityWithDefault;
 

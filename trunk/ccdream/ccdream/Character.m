@@ -49,7 +49,8 @@
         character.grayCharacterImage = [ImageUtil convertToGrayScale:character.sourceCharacterImage];
         CCTexture2D *texture = [[[CCTexture2D alloc] initWithImage:character.sourceCharacterImage] autorelease];
         character.characterSprite = [CCSprite spriteWithTexture:texture];
-        character.characterSprite.scale=0.8;
+        character.characterSprite.scaleX=0.5454;
+        character.characterSprite.scaleY=0.4545;
         character.sourcePosition = position;
         character.characterSprite.position = [position toCenterCGPoint];
     Weapon* w1 = [Constants getWeapon:@"1"];
