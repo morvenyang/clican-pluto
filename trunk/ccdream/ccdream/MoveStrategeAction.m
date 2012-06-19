@@ -25,8 +25,10 @@
     
     CCArray* moveOrbitArray = nil;
     //计算可移动范围
+    NSSet* playerPosiSet = [mapLayer getPlayerPosiSet];
+    NSSet* enemyPosiSet = [mapLayer getEnemyPosiSet];
     
-    moveOrbitArray = [PositionUtil calcMoveOrbitarrayFromPosition:charPosi movement:character.movement mobility:moblitity mapGridAttributeMap:mapLayer.mapGridAttributeMap maxPosition:mapLayer.maxPosi playerCharacterArray:mapLayer.enemyCharacterArray enemyCharacterArray:mapLayer.playerCharacterArray comparator:[MoveOrbit distanceComparator]];
+    moveOrbitArray = [PositionUtil calcMoveOrbitarrayFromPosition:charPosi movement:character.movement mobility:moblitity mapGridAttributeMap:mapLayer.mapGridAttributeMap maxPosition:mapLayer.maxPosi playerPositionSet:enemyPosiSet enemyPositionSet:playerPosiSet  comparator:[MoveOrbit distanceComparator]];
 
     CCLOG(@"count=%i",[moveOrbitArray count]);
     
@@ -44,7 +46,7 @@
         aiTarget = [self findInRangeTarget:moveOrbitArray character:character mapLayer:mapLayer];
         //在没有可攻击的目标的情况下尽量向目标移动
         if(aiTarget==nil){
-            aiTarget = [PositionUtil calcAITargetFromPosition:character.sourcePosition mobility:moblitity mapGridAttributeMap:mapLayer.mapGridAttributeMap maxPosition:mapLayer.maxPosi playerCharacterArray:mapLayer.enemyCharacterArray enemyCharacterArray:mapLayer.playerCharacterArray attackRange:character.attackRange];
+            aiTarget = [PositionUtil calcAITargetFromPosition:character.sourcePosition mobility:moblitity mapGridAttributeMap:mapLayer.mapGridAttributeMap maxPosition:mapLayer.maxPosi playerPositionSet:enemyPosiSet enemyPositionSet:playerPosiSet  enemyCharacterArray:mapLayer.playerCharacterArray attackRange:character.attackRange];
             MoveOrbit* nearestMo = aiTarget.moveOrbit;
             while(nearestMo.spentMovement>character.movement){
                 nearestMo = nearestMo.previous;

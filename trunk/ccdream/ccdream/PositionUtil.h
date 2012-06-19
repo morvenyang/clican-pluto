@@ -19,11 +19,11 @@
     
 }
 //根据当前位置计算可移动单元格
-+(CCArray*) calcMoveOrbitarrayFromPosition:(Position*) charPosi movement:(int) movement mobility:(Mobility*) mobility mapGridAttributeMap:(NSDictionary*) mapGridAttributeMap maxPosition:(Position*) maxPosition  playerCharacterArray:(CCArray*) playerCharacterArray enemyCharacterArray:(CCArray*) enemyCharacterArray comparator:(NSComparator) comparator;
++(CCArray*) calcMoveOrbitarrayFromPosition:(Position*) charPosi movement:(int) movement mobility:(Mobility*) mobility mapGridAttributeMap:(NSDictionary*) mapGridAttributeMap maxPosition:(Position*) maxPosition  playerPositionSet:(NSSet*) playerPositionSet enemyPositionSet:(NSSet*) enemyPositionSet comparator:(NSComparator) comparator;
 
 
 //根据当然位置查找最近的可被攻击到的目标
-+(AITarget*) calcAITargetFromPosition:(Position*) charPosi mobility:(Mobility*) mobility mapGridAttributeMap:(NSDictionary*) mapGridAttributeMap maxPosition:(Position*) maxPosition  playerCharacterArray:(CCArray*) playerCharacterArray enemyCharacterArray:(CCArray*) enemyCharacterArray attackRange:(NSSet*) attackRange;
++(AITarget*) calcAITargetFromPosition:(Position*) charPosi mobility:(Mobility*) mobility mapGridAttributeMap:(NSDictionary*) mapGridAttributeMap maxPosition:(Position*) maxPosition  playerPositionSet:(NSSet*) playerPositionSet enemyPositionSet:(NSSet*) enemyPositionSet enemyCharacterArray:(CCArray*) enemyCharacterArray attackRange:(NSSet*) attackRange;
 
 
 //把touch对象转换为位置对象
@@ -39,6 +39,8 @@
 +(bool) containsPosition:(Position*)position forMoveOrbitArray:(CCArray*) array;
 
 +(bool) containsPosition:(Position*)position forCharacterArray:(CCArray*) array;
+
++(bool) containsPosition:(Position *)position forPositionSet:(NSSet *) set;
 
 +(Character*) getCharacter:(Position*)position forCharacterArray:(CCArray*) array;
 

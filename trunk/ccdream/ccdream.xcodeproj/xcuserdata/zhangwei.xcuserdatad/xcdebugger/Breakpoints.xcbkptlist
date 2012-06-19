@@ -13,7 +13,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "48"
          endingLineNumber = "48"
-         landmarkName = "+moveForProcessedposiMap:moveOrbitSet:previousMoveOrbit:movement:mobility:mapGridAttributeMap:maxPosition:playerCharacterArray:enemyCharacterArray:xoffset:yoffset:"
+         landmarkName = "+moveForProcessedposiMap:moveOrbitSet:previousMoveOrbit:movement:mobility:mapGridAttributeMap:maxPosition:playerPositionSet:enemyPositionSet:xoffset:yoffset:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -78,7 +78,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "258"
          endingLineNumber = "258"
-         landmarkName = "+calcAITargetFromPosition:moveOrbitSet:previousMoveOrbit:costMovement:mobility:mapGridAttributeMap:maxPosition:playerCharacterArray:enemyCharacterArray:attackRange:xoffset:yoffset:"
+         landmarkName = "+calcAITargetFromPosition:moveOrbitSet:previousMoveOrbit:costMovement:mobility:mapGridAttributeMap:maxPosition:playerPositionSet:enemyPositionSet:enemyCharacterArray:attackRange:xoffset:yoffset:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>
