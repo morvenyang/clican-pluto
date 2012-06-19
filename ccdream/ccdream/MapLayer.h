@@ -45,4 +45,6 @@
 
 +(MapLayer*) sharedMapLayer;
 
+-(NSSet*) getPlayerPosiSet;
+-(NSSet*) getEnemyPosiSet;
 @end

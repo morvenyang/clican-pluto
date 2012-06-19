@@ -60,7 +60,21 @@
         yoffset = -1;
     }
     return [Position positionWithX:_x+xoffset Y:_y+yoffset];
+    
 }
+
+- (BOOL)isEqual:(id)object{
+    Position* posi = (Position*)object;
+    if(posi.x==_x&&posi.y==_y){
+        return true;
+    }else{
+        return false;
+    }
+}
+- (NSUInteger)hash{
+    return _x*100+_y;
+}
+
 
 -(NSString*) description{
     return [NSString stringWithFormat:@"x=%i,y=%i",self.x,self.y];

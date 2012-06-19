@@ -193,7 +193,20 @@ static MapLayer* sharedMapLayer = nil;
     return YES;
 }
 
-
+-(NSSet*) getPlayerPosiSet{
+    NSMutableSet* set = [[[NSMutableSet alloc] init] autorelease];
+    for (Character* character in self.playerCharacterArray) {
+        [set addObject:character.sourcePosition];
+    }
+    return set;
+}
+-(NSSet*) getEnemyPosiSet{
+    NSMutableSet* set = [[[NSMutableSet alloc] init] autorelease];
+    for (Character* character in self.enemyCharacterArray) {
+        [set addObject:character.sourcePosition];
+    }
+    return set;
+}
 
 -(void) cleanShadowSpriteArray{
     int count = [self.shadowSpriteArray count];
