@@ -7,7 +7,7 @@
 //
 
 #import "GlobalEventHandler.h"
-
+#import "MapLayer.h"
 
 @implementation GlobalEventHandler
 
@@ -34,15 +34,22 @@ static GlobalEventHandler *sharedHandler = nil;
     [[self delegateArray] removeObject:delegate];
 }
 
-- (BOOL)ccTouchBegan:(UITouch *)touch withEvent:(UIEvent *)event{
+-(Position*) getPosition:(UITouch*) touch{
     CGPoint touchLocation = [touch locationInView: [touch view]];
     CCDirector *director = [CCDirector sharedDirector];
     CCLOG(@"touch location=%f,%f",touchLocation.x,[director winSize].height-touchLocation.y);
     int positionX = touchLocation.x/MAP_POINT_SIZE_X;
     int positionY = ([director winSize].height-touchLocation.y)/MAP_POINT_SIZE_Y;
-    Position* touchPosition = [Position positionWithX:positionX Y:positionY];
+    MapLayer* mapLayer = [MapLayer sharedMapLayer];
+    Position* touchPosition = [Position positionWithX:positionX+mapLayer.xposiOffset Y:positionY+mapLayer.yposiOffset];
     CCLOG(@"touch position=%@",touchPosition.description);
-    int count = [[self delegateArray] count];
+
+    return touchPosition;
+}
+
+- (BOOL)ccTouchBegan:(UITouch *)touch withEvent:(UIEvent *)event{
+        int count = [[self delegateArray] count];
+    Position* touchPosition = [self getPosition:touch];
     for(int i=0;i<count;i++){
         id<PositionTouchDelegate> delegate = [[self delegateArray] objectAtIndex:i];
         BOOL breakAndReturn = NO;
@@ -53,9 +60,50 @@ static GlobalEventHandler *sharedHandler = nil;
         }
         
         if(breakAndReturn){
-            return NO;
+            return YES;
         }
     }
-    return NO;
+    return YES;
 }
+
+- (void)ccTouchMoved:(UITouch *)touch withEvent:(UIEvent *)event{
+    Position* touchPosition = [self getPosition:touch];
+    int count = [[self delegateArray] count];
+    for(int i=0;i<count;i++){
+        id<PositionTouchDelegate> delegate = [[self delegateArray] objectAtIndex:i];
+        @try{
+            [delegate touchMoved:touchPosition withEvent:event];
+        }@catch(NSException* ex){
+            CCLOGERROR(@"Exception occured for touch %@, detail:%@",touchPosition.description,ex.description);
+        }
+    }
+
+}
+
+- (void)ccTouchEnded:(UITouch *)touch withEvent:(UIEvent *)event
+{
+    Position* touchPosition = [self getPosition:touch];
+    int count = [[self delegateArray] count];
+    for(int i=0;i<count;i++){
+        id<PositionTouchDelegate> delegate = [[self delegateArray] objectAtIndex:i];
+        @try{
+            [delegate touchEnded:touchPosition withEvent:event];
+        }@catch(NSException* ex){
+            CCLOGERROR(@"Exception occured for touch %@, detail:%@",touchPosition.description,ex.description);
+        }
+    }
+}
+- (void)ccTouchCancelled:(UITouch *)touch withEvent:(UIEvent *)event{
+    Position* touchPosition = [self getPosition:touch];
+    int count = [[self delegateArray] count];
+    for(int i=0;i<count;i++){
+        id<PositionTouchDelegate> delegate = [[self delegateArray] objectAtIndex:i];
+        @try{
+            [delegate touchCancelled:touchPosition withEvent:event];
+        }@catch(NSException* ex){
+            CCLOGERROR(@"Exception occured for touch %@, detail:%@",touchPosition.description,ex.description);
+        }
+    }
+}
+
 @end

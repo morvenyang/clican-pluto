@@ -32,7 +32,7 @@
    </properties>
   </tile>
  </tileset>
- <layer name="Tile Layer 1" width="25" height="17">
+ <layer name="GameEventLayer" width="25" height="17">
   <data encoding="base64" compression="zlib">
    eJzjZmBg4B7FNMW9ePCoHeTbgU8tITcRq56QHaToJ8fPIwkXIGFS1BKrhxL3kGsHIb3E2EGKGdQOe1qEK6nuBwB0Oo/o
   </data>

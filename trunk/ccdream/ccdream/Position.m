@@ -22,6 +22,7 @@
     return position;
 }
 
+
 +(id)positionWithCGPoint:(CGPoint) point{
     Position* position = [[Position alloc] init];
     position.x=point.x/MAP_POINT_SIZE_X;

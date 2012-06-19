@@ -28,6 +28,10 @@
     CCMenu* _mapMenu;
     CCMenuItemFont* _nextRound;
     int _nextAIAction;
+    Position* _beignPosi;
+    Position* _endPosi;
+    int _xposiOffset;
+    int _yposiOffset;
 }
 
 @property (nonatomic,retain) CCArray* playerCharacterArray;
@@ -42,6 +46,10 @@
 @property (nonatomic,retain) CCMenu* mapMenu;
 @property (nonatomic,retain) CCMenuItemFont* nextRound;
 @property (nonatomic,assign) int nextAIAction;
+@property (nonatomic,retain) Position* beginPosi;
+@property (nonatomic,retain) Position* endPosi;
+@property (nonatomic,assign) int xposiOffset;
+@property (nonatomic,assign) int yposiOffset;
 
 +(MapLayer*) sharedMapLayer;
 
