@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" width="26" height="16" tilewidth="24" tileheight="20">
+<map version="1.0" orientation="orthogonal" width="25" height="17" tilewidth="24" tileheight="20">
  <tileset firstgid="1" name="map01" tilewidth="24" tileheight="20">
-  <image source="../../../TDDOWNLOAD/tear/ePSXe1.70cn/snap/map01.bmp" width="623" height="340"/>
+  <image source="map01.bmp" width="623" height="340"/>
  </tileset>
- <layer name="Tile Layer 1" width="26" height="16">
+ <layer name="块层 1" width="25" height="17">
   <data encoding="base64" compression="zlib">
-   eJxdzUWMkAcUhdHBrXhCcXcp7j64u0txd3cdnBnc3R0S3KF4gre0uCVQrMU9QQ5L/pd3Fnf1pQwJCUlFatKQlnSkJwMZyURmspCVbGQnBznJxW/kJg95yRfy8xWkEIUpQlGKUZwSlKQUpSlDWUIpR3kqUJFKVKYKVakW6NSkFrWpQ13qUZ8GNKQRjWlCU5rRnBa05Hda0Zo2tKVdoNORTnSmC13pRnd60JNe9KYPfelHfwYwkEEMZghDGcbwQGcUoxnDWMIYx3gmMJFJTGYKUwkngmlMZwYzmcVs5jA30FnAQhaxmCUsZRnLWcFKVrGaNaxlHevZwEY2sZktbGVboLOdHexkF7vZw172sZ8DHOQQhznCUf7gGMc5wUlOcZozgc5ZznGeC1zkEpf5k7+4wt/8w1WucZ0b3OQWt7nDXe5xP9B5wEP+5RGPecJTnvEf//OcF7zkFa95w1ve8Z4PfOQTnwOdL3zl248RyROZKEQlGtGJQUxiEZs4/EJc4hGfBCQkEYkj/dxJYv9KUpKRnBSkJBWpSUNa0pGeDGQkE5nJQlaykZ0c5Ax0ctt5yEs+8lOAghSiMEUoSjGKU4KSlKI0ZShLKOUoT4VAp7JdhapUozo1qEktalOHutSjPg1oSCMa04SmNKM5LWgZ6LS229CWdrSnAx3pRGe60JVudKcHPelFb/rQl370ZwADA50h9lCGMZwRjGQUoxnDWMIYx3gmMJFJTGYKUwkngmlMD3Rm2bOZw1zmMZ8FLGQRi1nCUpaxnBWsZBWrWcNa1rGeDYHOd65mqDc=
+   eJwNwwOUEAYAANCLl21etu3rsm3btusu27btLXPMGLK55bbM/97/4QICAsIbwYhGMrKBRjGq0YxuDGMay9jGMa7xjG8CE5rIxCYxqclMbgpTmsrUBpnGtKYzvRnMaCYzm8WsZjO7OcxpLnObx7zmM78FLGghC1vEohazuCUsaSmDLW2IZSxrOctbwYpWsrJVrGo1q1vDmtaytnWsaz3r28CGNrKxTWxqM5vbwpa2srVtbGs729vBjnays13saje728Oe9rK3fexrP/s7wIEOcrBDHOowhzvCkY4y1DBHO8axjnO8E5zoJCc7xalOc7oznOksZzvHuc5zvgtc6CIXu8SlLnO5K1zpKle7xrWuc70b3OgmN7vFrW5zuzvc6S53+4M/use97nO/BzzoIQ97xKMe87g/+bO/+Ku/+bsnPOkpT3vGs57zvBe86B/+6V/+7SUve8WrXvO6N7zpLW97x7ve874PfOgjH/uP//rEpz7zuS986Stf+5//+8a3vvO9H/zoJz/7xa9+MyAchjeCEY1kZAONYlSjGd0YxjSWsY1jXOMZ3wQmNJGJTWJSk5ncFKY0lakNMo1pTWd6M5jRTGY2i1nNZnZzmNNc5jaPec1nfgtY0EIWtohFLWZxS1jSUgZb2hDLWNZylreCFa1kZatY1WpWt4Y1rWVt61jXeta3gQ1tZGOb2NRmNreFLW1la9vY1na2t4Md7WRnu9jVbna3hz3tZW/72Nd+9neAAx3kYIc41GEOd4QjHWWoYY52jGMd53gnONFJTnaKU53mdGc401nOdo5zned8F7jQRS52iUtd5nJXuNJVrnaNa13nejf4HVm6uEg=
   </data>
  </layer>
 </map>
