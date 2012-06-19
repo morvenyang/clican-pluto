@@ -24,6 +24,10 @@
 @synthesize mapMenu = _mapMenu;
 @synthesize nextRound = _nextRound;
 @synthesize nextAIAction = _nextAIAction;
+@synthesize beginPosi = _beginPosi;
+@synthesize endPosi = _endPosi;
+@synthesize xposiOffset = _xposiOffset;
+@synthesize yposiOffset = _yposiOffset;
 
 static MapLayer* sharedMapLayer = nil;
 
@@ -167,7 +171,8 @@ static MapLayer* sharedMapLayer = nil;
     }
 }
 - (BOOL)touchBegan:(Position *)posi withEvent:(UIEvent *)event {
-    
+    self.beginPosi = [Position positionWithX:posi.x Y:posi.y];
+    CCLOG(@"beginPosi=%@",self.beginPosi);
     if(self.fightMapSession!=nil&&[self.fightMapSession.status isEqualToString:STATUS_ACTIVE]){
         //如果fightMapSession存在则走该工作流
         [[EventDispatcher sharedEventDispatcher] dispatch:self.fightMapSession.sessionId forState:0 mapPosition:posi];
@@ -191,6 +196,49 @@ static MapLayer* sharedMapLayer = nil;
     }
     
     return YES;
+}
+
+- (void)touchMoved:(Position *)posi withEvent:(UIEvent *)event{
+    if(self.beginPosi!=nil){
+        self.endPosi = [Position positionWithX:posi.x Y:posi.y];
+        if(![self.beginPosi isEqual:self.endPosi]){
+            
+            int xoffset= (self.endPosi.x-self.beginPosi.x)*MAP_POINT_SIZE_X;
+            int yoffset = (self.endPosi.y-self.beginPosi.y)*MAP_POINT_SIZE_Y;
+            int mapWidth = self.tiledMap.contentSizeInPixels.width;
+            int mapHeight = self.tiledMap.contentSizeInPixels.height;
+            int x= self.position.x;
+            int y = self.position.y;
+            CCLOG(@"x=%i,y=%i,xoffset=%i,yoffset=%i",x,y,xoffset,yoffset);
+            x = x+xoffset;
+            y = y+yoffset;
+            
+            if(x<(320-mapWidth)){
+                x=320-mapWidth;
+            }else if(x>0){
+                x=0;
+            }
+            if(y<(240-mapHeight)){
+                y=240-mapHeight;
+            }else if(y>0){
+                y=0;
+            }
+            self.xposiOffset = -x/MAP_POINT_SIZE_X;
+            self.yposiOffset = -y/MAP_POINT_SIZE_Y;
+            CCLOG(@"x=%i,y=%i,xposiOffset=%i,yposiOffset=%i",x,y,self.xposiOffset,self.yposiOffset);
+            self.position = ccp(x,y);
+            self.mapMenu.position = ccp(450,300);
+        }
+    }
+}
+
+- (void)touchEnded:(Position *)posi withEvent:(UIEvent *)event{
+    self.beginPosi = nil;
+    self.endPosi = nil;
+}
+- (void)touchCancelled:(Position *)touch withEvent:(UIEvent *)event{
+    self.beginPosi = nil;
+    self.endPosi = nil;
 }
 
 -(NSSet*) getPlayerPosiSet{

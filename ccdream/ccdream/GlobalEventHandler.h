@@ -36,6 +36,6 @@
 // touch updates:
 - (void)touchMoved:(Position *)posi withEvent:(UIEvent *)event;
 - (void)touchEnded:(Position *)posi withEvent:(UIEvent *)event;
-- (void)touchCancelled:(UITouch *)touch withEvent:(UIEvent *)event;
+- (void)touchCancelled:(Position *)touch withEvent:(UIEvent *)event;
 
 @end

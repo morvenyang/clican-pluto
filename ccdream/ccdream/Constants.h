@@ -10,8 +10,8 @@
 #import "cocos2d.h"
 #import "Weapon.h"
 
-#define MAP_POINT_SIZE_X 24
-#define MAP_POINT_SIZE_Y 20
+#define MAP_POINT_SIZE_X 48
+#define MAP_POINT_SIZE_Y 40
 @interface Constants : NSObject {
     
 }
