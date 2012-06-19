@@ -36,9 +36,9 @@
         CCSprite* redSprite = [[CCSprite alloc] init];
         [redSprite setColor:ccc3(255, 0, 0)];
         redSprite.opacity=100;
-        redSprite.textureRect = CGRectMake(0, 0, MAP_POINT_SIZE, MAP_POINT_SIZE);
+        redSprite.textureRect = CGRectMake(0, 0, MAP_POINT_SIZE_X, MAP_POINT_SIZE_Y);
         
-        redSprite.position = CGPointMake(mo.position.x*MAP_POINT_SIZE+MAP_POINT_SIZE/2, mo.position.y*MAP_POINT_SIZE+MAP_POINT_SIZE/2);
+        redSprite.position = CGPointMake(mo.position.x*MAP_POINT_SIZE_X+MAP_POINT_SIZE_X/2, mo.position.y*MAP_POINT_SIZE_Y+MAP_POINT_SIZE_Y/2);
         [mapLayer.shadowSpriteArray addObject:redSprite];
         [mapLayer addChild:redSprite];
     }

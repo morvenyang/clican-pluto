@@ -1,11 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="25" height="17" tilewidth="24" tileheight="20">
+    <properties>
+        <property name="enemyBeginPosi" value="0,0,0,1,0,2,1,0,2,0"/>
+        <property name="playerBeginPosi" value="16,10,17,10,18,10,15,10,14,10"/>
+    </properties>
  <tileset firstgid="1" name="map01" tilewidth="24" tileheight="20">
   <image source="map01.bmp" width="623" height="340"/>
+  <tile id="0">
+   <properties>
+    <property name="mapType" value="3"/>
+   </properties>
+  </tile>
+  <tile id="1">
+   <properties>
+    <property name="mapType" value="3"/>
+   </properties>
+  </tile>
+  <tile id="118">
+   <properties>
+    <property name="mapType" value="1"/>
+   </properties>
+  </tile>
+  <tile id="120">
+   <properties>
+    <property name="mapType" value="2"/>
+   </properties>
+  </tile>
+  <tile id="143">
+   <properties>
+    <property name="mapType" value="1"/>
+   </properties>
+  </tile>
  </tileset>
- <layer name="块层 1" width="25" height="17">
+ <layer name="GameEventLayer" width="25" height="17">
   <data encoding="base64" compression="zlib">
-   eJwNwwOUEAYAANCLl21etu3rsm3btusu27btLXPMGLK55bbM/97/4QICAsIbwYhGMrKBRjGq0YxuDGMay9jGMa7xjG8CE5rIxCYxqclMbgpTmsrUBpnGtKYzvRnMaCYzm8WsZjO7OcxpLnObx7zmM78FLGghC1vEohazuCUsaSmDLW2IZSxrOctbwYpWsrJVrGo1q1vDmtaytnWsaz3r28CGNrKxTWxqM5vbwpa2srVtbGs729vBjnays13saje728Oe9rK3fexrP/s7wIEOcrBDHOowhzvCkY4y1DBHO8axjnO8E5zoJCc7xalOc7oznOksZzvHuc5zvgtc6CIXu8SlLnO5K1zpKle7xrWuc70b3OgmN7vFrW5zuzvc6S53+4M/use97nO/BzzoIQ97xKMe87g/+bO/+Ku/+bsnPOkpT3vGs57zvBe86B/+6V/+7SUve8WrXvO6N7zpLW97x7ve874PfOgjH/uP//rEpz7zuS986Stf+5//+8a3vvO9H/zoJz/7xa9+MyAchjeCEY1kZAONYlSjGd0YxjSWsY1jXOMZ3wQmNJGJTWJSk5ncFKY0lakNMo1pTWd6M5jRTGY2i1nNZnZzmNNc5jaPec1nfgtY0EIWtohFLWZxS1jSUgZb2hDLWNZylreCFa1kZatY1WpWt4Y1rWVt61jXeta3gQ1tZGOb2NRmNreFLW1la9vY1na2t4Md7WRnu9jVbna3hz3tZW/72Nd+9neAAx3kYIc41GEOd4QjHWWoYY52jGMd53gnONFJTnaKU53mdGc401nOdo5zned8F7jQRS52iUtd5nJXuNJVrnaNa13nejf4HVm6uEg=
+   eJzl0TkKADEMA0D71Sa/TxVw4/toUqhZVhpDEADw85CQye0uw9rvcDJG5g6vQ4H/N4yoU7lJ6ne9YfWOqXDjGKk61n7VeNkwNMfbIaXj2dS+SwbvXDemfgY=
   </data>
  </layer>
 </map>

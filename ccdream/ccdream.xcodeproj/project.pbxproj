@@ -184,6 +184,8 @@
 		72B9497D15882D1800916AEF /* GrayeOutAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 72B9497C15882D1800916AEF /* GrayeOutAction.m */; };
 		72B94980158830E100916AEF /* ImageUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 72B9497F158830E100916AEF /* ImageUtil.m */; };
 		72B949831588404800916AEF /* BackToSourcePositionAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 72B949821588404800916AEF /* BackToSourcePositionAction.m */; };
+		72BEA0C01590262600B198DF /* map01.bmp in Resources */ = {isa = PBXBuildFile; fileRef = 72BEA0BF1590262600B198DF /* map01.bmp */; };
+		72BEA0C215902AC600B198DF /* map01.tmx in Resources */ = {isa = PBXBuildFile; fileRef = 72BEA0C115902AC600B198DF /* map01.tmx */; };
 		72D33809157CCCD8002D9866 /* MoveOrbit.m in Sources */ = {isa = PBXBuildFile; fileRef = 72D33808157CCCD8002D9866 /* MoveOrbit.m */; };
 		72D5CE961584351F005F0C3B /* WeaponSelect.m in Sources */ = {isa = PBXBuildFile; fileRef = 72D5CE951584351F005F0C3B /* WeaponSelect.m */; };
 		72D5CE9A15843537005F0C3B /* Weapon.m in Sources */ = {isa = PBXBuildFile; fileRef = 72D5CE9915843537005F0C3B /* Weapon.m */; };
@@ -532,6 +534,8 @@
 		72B9497F158830E100916AEF /* ImageUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageUtil.m; sourceTree = "<group>"; };
 		72B949811588404800916AEF /* BackToSourcePositionAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackToSourcePositionAction.h; sourceTree = "<group>"; };
 		72B949821588404800916AEF /* BackToSourcePositionAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BackToSourcePositionAction.m; sourceTree = "<group>"; };
+		72BEA0BF1590262600B198DF /* map01.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; name = map01.bmp; path = Resources/map01.bmp; sourceTree = "<group>"; };
+		72BEA0C115902AC600B198DF /* map01.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = map01.tmx; path = Resources/map01.tmx; sourceTree = "<group>"; };
 		72D33807157CCCD8002D9866 /* MoveOrbit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoveOrbit.h; sourceTree = "<group>"; };
 		72D33808157CCCD8002D9866 /* MoveOrbit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoveOrbit.m; sourceTree = "<group>"; };
 		72D5CE941584351F005F0C3B /* WeaponSelect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeaponSelect.h; sourceTree = "<group>"; };
@@ -622,6 +626,7 @@
 		720CDF8B157AC4B400DB894D /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				72BEA0BB159025F900B198DF /* map */,
 				727E8212158BE2ED00A342DD /* workflow */,
 				724226501588A20F00B500F5 /* character */,
 				72418FFD15884AF1002ABCDC /* weapon */,
@@ -1206,6 +1211,15 @@
 			name = event;
 			sourceTree = "<group>";
 		};
+		72BEA0BB159025F900B198DF /* map */ = {
+			isa = PBXGroup;
+			children = (
+				72BEA0C115902AC600B198DF /* map01.tmx */,
+				72BEA0BF1590262600B198DF /* map01.bmp */,
+			);
+			name = map;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1288,6 +1302,8 @@
 				724226641588A27700B500F5 /* tsqa21.gif in Resources */,
 				724226651588A27700B500F5 /* tsqa24.gif in Resources */,
 				727E8214158BE31800A342DD /* ws_enemy_fight_map.xml in Resources */,
+				72BEA0C01590262600B198DF /* map01.bmp in Resources */,
+				72BEA0C215902AC600B198DF /* map01.tmx in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

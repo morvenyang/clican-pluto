@@ -34,7 +34,7 @@
         CCSprite* redSprite = [[CCSprite alloc] init];
         [redSprite setColor:ccc3(255, 0, 0)];
         redSprite.opacity=100;
-        redSprite.textureRect = CGRectMake(0, 0, MAP_POINT_SIZE, MAP_POINT_SIZE);
+        redSprite.textureRect = CGRectMake(0, 0, MAP_POINT_SIZE_X, MAP_POINT_SIZE_Y);
         redSprite.position = character.characterSprite.position;
         [weaponLayer.targetShadowSpriteArray addObject:redSprite];
         [mapLayer addChild:redSprite];

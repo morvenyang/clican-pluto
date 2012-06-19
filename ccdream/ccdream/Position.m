@@ -24,18 +24,18 @@
 
 +(id)positionWithCGPoint:(CGPoint) point{
     Position* position = [[Position alloc] init];
-    position.x=point.x/MAP_POINT_SIZE;
-    position.y=point.y/MAP_POINT_SIZE;
+    position.x=point.x/MAP_POINT_SIZE_X;
+    position.y=point.y/MAP_POINT_SIZE_Y;
     [position autorelease];
     return position;
 }
 
 -(CGPoint) toLeft0Right0CGPoint{
-    return ccp(self.x*MAP_POINT_SIZE,self.y*MAP_POINT_SIZE);
+    return ccp(self.x*MAP_POINT_SIZE_X,self.y*MAP_POINT_SIZE_Y);
 }
 
 -(CGPoint) toCenterCGPoint{
-    return ccp(self.x*MAP_POINT_SIZE+MAP_POINT_SIZE/2,self.y*MAP_POINT_SIZE+MAP_POINT_SIZE/2);
+    return ccp(self.x*MAP_POINT_SIZE_X+MAP_POINT_SIZE_X/2,self.y*MAP_POINT_SIZE_Y+MAP_POINT_SIZE_Y/2);
 }
 
 -(Position*) toFightMenuPosition:(Position*) maxPosition{
