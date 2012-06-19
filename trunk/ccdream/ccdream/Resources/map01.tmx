@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="25" height="17" tilewidth="24" tileheight="20">
-    <properties>
-        <property name="enemyBeginPosi" value="0,0,0,1,0,2,1,0,2,0"/>
-        <property name="playerBeginPosi" value="16,10,17,10,18,10,15,10,14,10"/>
-    </properties>
+ <properties>
+  <property name="enemyBeginPosi" value="0,0,0,1,0,2,1,0,2,0"/>
+  <property name="playerBeginPosi" value="16,10,17,10,18,10,15,10,14,10"/>
+ </properties>
  <tileset firstgid="1" name="map01" tilewidth="24" tileheight="20">
-  <image source="map01.bmp" width="623" height="340"/>
+  <image source="map01.bmp" width="640" height="480"/>
   <tile id="0">
    <properties>
     <property name="mapType" value="3"/>
@@ -14,6 +14,16 @@
   <tile id="1">
    <properties>
     <property name="mapType" value="3"/>
+   </properties>
+  </tile>
+  <tile id="25">
+   <properties>
+    <property name="mapType" value="3"/>
+   </properties>
+  </tile>
+  <tile id="37">
+   <properties>
+    <property name="mapType" value="1"/>
    </properties>
   </tile>
   <tile id="118">
@@ -31,10 +41,15 @@
     <property name="mapType" value="1"/>
    </properties>
   </tile>
+  <tile id="560">
+   <properties>
+    <property name="mapType" value="2"/>
+   </properties>
+  </tile>
  </tileset>
  <layer name="GameEventLayer" width="25" height="17">
   <data encoding="base64" compression="zlib">
-   eJzl0TkKADEMA0D71Sa/TxVw4/toUqhZVhpDEADw85CQye0uw9rvcDJG5g6vQ4H/N4yoU7lJ6ne9YfWOqXDjGKk61n7VeNkwNMfbIaXj2dS+SwbvXDemfgY=
+   eJyTYmBgkBrhWA0HpqXZ1LKDkPnUsIccO8hxB7H2qJGgnh52kGoPJW7CpZ9acUipO2iFke0wZMKPKbWHkPmU2gHD9LADnz3E6kHmEzIbl1mk2oGsBwDNazoq
   </data>
  </layer>
 </map>
