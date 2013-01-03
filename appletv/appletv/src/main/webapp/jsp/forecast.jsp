@@ -17,6 +17,12 @@
 							onPlay="atv.loadURL('http://trailers.apple.com/appletv/index-hd.xml');">
 							<image>http://trailers.apple.com/appletv/image/youku-v1.png</image>
 						</moviePoster>
+						<moviePoster id="shelf_item_3" accessibilityLabel="tudou"
+							featured="true"
+							onSelect="atv.loadURL('http://trailers.apple.com/appletv/index-hd.xml');"
+							onPlay="atv.loadURL('http://trailers.apple.com/appletv/index-hd.xml');">
+							<image>http://trailers.apple.com/appletv/image/toudo.png</image>
+						</moviePoster>
 					</items>
 				</grid>
 			</items>
