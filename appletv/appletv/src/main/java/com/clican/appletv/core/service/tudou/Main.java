@@ -10,10 +10,38 @@ import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
 import org.apache.http.conn.params.ConnRoutePNames;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.BasicHttpParams;
 
 public class Main {
+
+	public static void test4() throws Exception {
+		HttpClient client = new DefaultHttpClient();
+
+		HttpPost httppost = new HttpPost("http://minterface.tudou.com/login");
+		BasicHttpParams params = new BasicHttpParams();
+		params.setParameter("email", "clican@gmail.com");
+		params.setParameter("password", "810428");
+		params.setParameter("sessionid", "");
+		httppost.setParams(params);
+		HttpResponse response = client.execute(httppost);
+		System.out.println(response.getStatusLine());
+		HttpEntity entity = response.getEntity();
+		InputStream is = entity.getContent();
+		ByteArrayOutputStream os = new ByteArrayOutputStream();
+
+		byte[] buffer = new byte[1024];
+
+		int read = -1;
+		while ((read = is.read(buffer)) != -1) {
+			os.write(buffer, 0, read);
+		}
+		is.close();
+		System.out.println(new String(os.toByteArray()));
+		os.close();
+	}
 
 	public static void test3() throws Exception {
 		HttpClient client = new DefaultHttpClient();
@@ -34,39 +62,38 @@ public class Main {
 		while ((read = is.read(buffer)) != -1) {
 			os.write(buffer, 0, read);
 			os.flush();
-			total+=read;
-			System.out.println(total/1024+" k");
+			total += read;
+			System.out.println(total / 1024 + " k");
 		}
 		is.close();
 		os.close();
 	}
-	
+
 	public static void test1() throws Exception {
 		HttpClient client1 = new DefaultHttpClient();
-		client1.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY,
-				new HttpHost("web-proxy.china.hp.com", 8080, "http"));
+
 		int id = 154130605;
-		
+
 		HttpGet httpget1 = new HttpGet(
-				"http://vr.tudou.com/v2proxy/v2.m3u8?st=3&it="+id);
+				"http://vr.tudou.com/v2proxy/v2.m3u8?st=2&it=" + id);
 		HttpResponse response1 = client1.execute(httpget1);
 		System.out.println(response1.getStatusLine());
 		ByteArrayOutputStream os1 = new ByteArrayOutputStream();
 		response1.getEntity().writeTo(os1);
 		System.out.println(new String(os1.toByteArray()));
-		
-		System.out.println("http://v3.tudou.com/v2.ts?st=3&it="+id+"&s=0&e="+10);
-		HttpGet httpget = new HttpGet(
-				"http://v3.tudou.com/v2.ts?st=3&it="+id+"&s=0&e="+10);
+
+		System.out.println("http://v3.tudou.com/v2.ts?st=2&it=" + id
+				+ "&s=0&e=" + 10);
+		HttpGet httpget = new HttpGet("http://v3.tudou.com/v2.ts?st=2&it=" + id
+				+ "&s=0&e=" + 10);
 
 		HttpClient client = new DefaultHttpClient();
-		client.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY,
-				new HttpHost("web-proxy.china.hp.com", 8080, "http"));
+
 		HttpResponse response = client.execute(httpget);
 		System.out.println(response.getStatusLine());
 		HttpEntity entity = response.getEntity();
 		InputStream is = entity.getContent();
-		OutputStream os = new FileOutputStream("c:/appletv/19.f4v");
+		OutputStream os = new FileOutputStream("d:/appletv/19.ts");
 
 		byte[] buffer = new byte[1024];
 
@@ -75,8 +102,8 @@ public class Main {
 		while ((read = is.read(buffer)) != -1) {
 			os.write(buffer, 0, read);
 			os.flush();
-			total+=read;
-			System.out.println(total/1024+" k");
+			total += read;
+			System.out.println(total / 1024 + " k");
 		}
 		is.close();
 		os.close();
@@ -117,7 +144,7 @@ public class Main {
 	 * @param args
 	 */
 	public static void main(String[] args) throws Exception {
-		test1();
+		test4();
 	}
 
 }
