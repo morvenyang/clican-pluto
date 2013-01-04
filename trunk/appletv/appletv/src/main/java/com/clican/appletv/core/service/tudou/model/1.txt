@@ -1,2 +1,5 @@
 http://58.221.54.206/f4v/97/23138397.cgo.2.f4v?81000&key=2b9ede8b4720f4b3a0ed2850e546eb0040966d0994&playtype=1&tk=155012689724873950510663343&brt=2&bc=0&nt=0&du=1236200&ispid=23&rc=200&inf=1&si=sp&npc=2946&pp=0&ul=2&mt=0&sid=81000&au=0&pc=0&cip=114.92.101.75&hf=0&id=tudou&itemid=119456926&fi=23138397&sz=43243170&posky=N9Jq0CCRUridpd5Xbt8aEf7jTZ10f3&plybgn=1
 http://114.80.235.196/f4v/97/23138397.cgo.2.f4v?81000&key=b1eb7d6797ed3951eb63c950e552500040e15c9d8b&playtype=1&tk=154292113784494700320873410&brt=2&bc=0&nt=0&du=1236200&ispid=23&rc=200&inf=1&si=sp&npc=1602&pp=0&ul=2&mt=0&sid=81000&au=0&pc=0&cip=114.92.101.75&hf=0&id=tudou&itemid=119456926&fi=23138397&sz=43243170&posky=Vutietye6urokns1DjFf56lrS8empi&plybgn=1
+
+
+http://vr.tudou.com/v2proxy/v2.m3u8?st=2&it=160686256
