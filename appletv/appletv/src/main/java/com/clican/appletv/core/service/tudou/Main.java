@@ -1,5 +1,6 @@
 package com.clican.appletv.core.service.tudou;
 
+import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -41,19 +42,31 @@ public class Main {
 	}
 	
 	public static void test1() throws Exception {
+		HttpClient client1 = new DefaultHttpClient();
+		client1.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY,
+				new HttpHost("web-proxy.china.hp.com", 8080, "http"));
+		int id = 154130605;
+		
+		HttpGet httpget1 = new HttpGet(
+				"http://vr.tudou.com/v2proxy/v2.m3u8?st=3&it="+id);
+		HttpResponse response1 = client1.execute(httpget1);
+		System.out.println(response1.getStatusLine());
+		ByteArrayOutputStream os1 = new ByteArrayOutputStream();
+		response1.getEntity().writeTo(os1);
+		System.out.println(new String(os1.toByteArray()));
+		
+		System.out.println("http://v3.tudou.com/v2.ts?st=3&it="+id+"&s=0&e="+10);
+		HttpGet httpget = new HttpGet(
+				"http://v3.tudou.com/v2.ts?st=3&it="+id+"&s=0&e="+10);
+
 		HttpClient client = new DefaultHttpClient();
 		client.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY,
-				new HttpHost("web-proxy.corp.hp.com", 8080, "http"));
-		int id = 160246887;
-		System.out.println("http://v3.tudou.com/v2.ts?st=2&it="+id+"&s=0&e="+Integer.MAX_VALUE);
-		HttpGet httpget = new HttpGet(
-				"http://v3.tudou.com/v2.ts?st=2&it="+id+"&s=0&e="+Integer.MAX_VALUE);
-
+				new HttpHost("web-proxy.china.hp.com", 8080, "http"));
 		HttpResponse response = client.execute(httpget);
 		System.out.println(response.getStatusLine());
 		HttpEntity entity = response.getEntity();
 		InputStream is = entity.getContent();
-		OutputStream os = new FileOutputStream("c:/appletv/13.f4v");
+		OutputStream os = new FileOutputStream("c:/appletv/19.f4v");
 
 		byte[] buffer = new byte[1024];
 
