@@ -5,23 +5,11 @@
 			<items>
 				<grid id="grid_1" columnCount="5">
 					<items>
-						<moviePoster id="shelf_item_1" accessibilityLabel="sohu"
+						<moviePoster id="shelf_item_1" accessibilityLabel="tudou"
 							featured="true"
-							onSelect="atv.loadURL('http://trailers.apple.com/appletv/index-hd.xml');"
-							onPlay="atv.loadURL('http://trailers.apple.com/appletv/index-hd.xml');">
-							<image>http://trailers.apple.com/appletv/image/sohu-v1.png</image>
-						</moviePoster>
-						<moviePoster id="shelf_item_2" accessibilityLabel="youku"
-							featured="true"
-							onSelect="atv.loadURL('http://trailers.apple.com/appletv/index-hd.xml');"
-							onPlay="atv.loadURL('http://trailers.apple.com/appletv/index-hd.xml');">
-							<image>http://trailers.apple.com/appletv/image/youku-v1.png</image>
-						</moviePoster>
-						<moviePoster id="shelf_item_3" accessibilityLabel="tudou"
-							featured="true"
-							onSelect="atv.loadURL('http://trailers.apple.com/appletv/index-hd.xml');"
-							onPlay="atv.loadURL('http://trailers.apple.com/appletv/index-hd.xml');">
-							<image>http://trailers.apple.com/appletv/image/toudo.png</image>
+							onSelect="atv.loadURL('http://10.0.1.5/appletv/recommend.do');"
+							onPlay="atv.loadURL('http://10.0.1.5/appletv/recommend.do');">
+							<image>http://10.0.1.5/appletv/image/toudo.png</image>
 						</moviePoster>
 					</items>
 				</grid>

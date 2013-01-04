@@ -28,7 +28,7 @@ public class TudouClientImpl implements TudouClient {
 		String jsonStr = httpGet(url);
 		List<TudouVideo> result = new ArrayList<TudouVideo>();
 		if (StringUtils.isNotEmpty(jsonStr)) {
-			JSONArray array = JSONArray.fromObject(jsonStr);
+			JSONArray array = JSONObject.fromObject(jsonStr).getJSONArray("items");
 			for (int i = 0; i < array.size(); i++) {
 				JSONObject obj = array.getJSONObject(i);
 				TudouVideo tv = (TudouVideo) JSONObject.toBean(obj,
@@ -42,7 +42,7 @@ public class TudouClientImpl implements TudouClient {
 	@Override
 	public String convertToATVXml(List<TudouVideo> videos) {
 		String str = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><atv><body><scroller id=\"com.sample.movie-shelf\"><items><shelf id=\"shelf_1\"><sections><shelfSection><items>";
-		String end = "</items></shelfSection></sections></shelf>";
+		String end = "</items></shelfSection></sections></shelf></items></scroller></body></atv>";
 		StringBuffer result = new StringBuffer(str);
 		for (int i = 0; i < videos.size(); i++) {
 			TudouVideo tv = videos.get(i);
