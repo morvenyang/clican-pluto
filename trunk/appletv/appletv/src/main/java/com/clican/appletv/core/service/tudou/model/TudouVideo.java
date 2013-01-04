@@ -15,10 +15,12 @@ public class TudouVideo implements Serializable {
 	private String title;
 	private String picurl;
 	private Long albumId;
-	private Long playtims;
+	private Long playtimes;
 	private String playlistId;
 	private Integer ishd;
 	private boolean haspwd;
+	private Integer origin;
+	private Integer pwd;
 	private Integer hd;
 	private Integer cid;
 	private Integer isalbum;
@@ -58,11 +60,12 @@ public class TudouVideo implements Serializable {
 	public void setAlbumId(Long albumId) {
 		this.albumId = albumId;
 	}
-	public Long getPlaytims() {
-		return playtims;
+	
+	public Long getPlaytimes() {
+		return playtimes;
 	}
-	public void setPlaytims(Long playtims) {
-		this.playtims = playtims;
+	public void setPlaytimes(Long playtimes) {
+		this.playtimes = playtimes;
 	}
 	public String getPlaylistId() {
 		return playlistId;
@@ -99,6 +102,18 @@ public class TudouVideo implements Serializable {
 	}
 	public void setIsalbum(Integer isalbum) {
 		this.isalbum = isalbum;
+	}
+	public Integer getOrigin() {
+		return origin;
+	}
+	public void setOrigin(Integer origin) {
+		this.origin = origin;
+	}
+	public Integer getPwd() {
+		return pwd;
+	}
+	public void setPwd(Integer pwd) {
+		this.pwd = pwd;
 	}
 	
 }

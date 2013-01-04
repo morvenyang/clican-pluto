@@ -18,5 +18,7 @@ http://www.springframework.org/schema/context/spring-context-2.5.xsd">
 		</property>
 		<property name="fileEncoding" value="utf-8" />
 	</bean>
+	
+	<bean id="tudouClient" class="com.clican.appletv.core.service.tudou.TudouClientImpl"/>
 
 </beans>
