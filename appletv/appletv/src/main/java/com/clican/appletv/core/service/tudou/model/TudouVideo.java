@@ -1,7 +1,6 @@
 package com.clican.appletv.core.service.tudou.model;
 
 import java.io.Serializable;
-import java.util.Date;
 
 public class TudouVideo implements Serializable {
 
@@ -10,53 +9,36 @@ public class TudouVideo implements Serializable {
 	 */
 	private static final long serialVersionUID = 3764310120345910215L;
 
-	
-	private String location;
-	private String description;
-	private String tags;
+	private String level;
+	private Long itemid;
+	private Long totaltime;
 	private String title;
-	private Long itemId;
-	private Long totalTime;
-	private String itemCode;
-	private Long playTimes;
-	private Integer channelId;
-	private String alias;
-	private Date pubDate;
-	private Long ownerId;
-	private String outerPlayerUrl;
-	private String bigPicUrl;
-	private int favorall;
-	private String picUrl;
-	private Integer definition;
-	private String mediaType;
-	private boolean downEnable;
-	private String itemUrl;
-	private Long commentCount;
-	private String ownerName;
-	private String ownerNickName;
-	private String[] picChoiceUrl;
-	private boolean secret;
-	private String addPlayListTime;
-	private String ownerPic;
-	private String ownerURL;
-	private String html5Url;
-	public String getLocation() {
-		return location;
+	private String picurl;
+	private Long albumId;
+	private Long playtims;
+	private String playlistId;
+	private Integer ishd;
+	private boolean haspwd;
+	private Integer hd;
+	private Integer cid;
+	private Integer isalbum;
+	public String getLevel() {
+		return level;
 	}
-	public void setLocation(String location) {
-		this.location = location;
+	public void setLevel(String level) {
+		this.level = level;
 	}
-	public String getDescription() {
-		return description;
+	public Long getItemid() {
+		return itemid;
 	}
-	public void setDescription(String description) {
-		this.description = description;
+	public void setItemid(Long itemid) {
+		this.itemid = itemid;
 	}
-	public String getTags() {
-		return tags;
+	public Long getTotaltime() {
+		return totaltime;
 	}
-	public void setTags(String tags) {
-		this.tags = tags;
+	public void setTotaltime(Long totaltime) {
+		this.totaltime = totaltime;
 	}
 	public String getTitle() {
 		return title;
@@ -64,156 +46,59 @@ public class TudouVideo implements Serializable {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public Long getItemId() {
-		return itemId;
+	public String getPicurl() {
+		return picurl;
 	}
-	public void setItemId(Long itemId) {
-		this.itemId = itemId;
+	public void setPicurl(String picurl) {
+		this.picurl = picurl;
 	}
-	public Long getTotalTime() {
-		return totalTime;
+	public Long getAlbumId() {
+		return albumId;
 	}
-	public void setTotalTime(Long totalTime) {
-		this.totalTime = totalTime;
+	public void setAlbumId(Long albumId) {
+		this.albumId = albumId;
 	}
-	public String getItemCode() {
-		return itemCode;
+	public Long getPlaytims() {
+		return playtims;
 	}
-	public void setItemCode(String itemCode) {
-		this.itemCode = itemCode;
+	public void setPlaytims(Long playtims) {
+		this.playtims = playtims;
 	}
-	public Long getPlayTimes() {
-		return playTimes;
+	public String getPlaylistId() {
+		return playlistId;
 	}
-	public void setPlayTimes(Long playTimes) {
-		this.playTimes = playTimes;
+	public void setPlaylistId(String playlistId) {
+		this.playlistId = playlistId;
 	}
-	public Integer getChannelId() {
-		return channelId;
+	public Integer getIshd() {
+		return ishd;
 	}
-	public void setChannelId(Integer channelId) {
-		this.channelId = channelId;
+	public void setIshd(Integer ishd) {
+		this.ishd = ishd;
 	}
-	public String getAlias() {
-		return alias;
+	public boolean isHaspwd() {
+		return haspwd;
 	}
-	public void setAlias(String alias) {
-		this.alias = alias;
+	public void setHaspwd(boolean haspwd) {
+		this.haspwd = haspwd;
 	}
-	public Date getPubDate() {
-		return pubDate;
+	public Integer getHd() {
+		return hd;
 	}
-	public void setPubDate(Date pubDate) {
-		this.pubDate = pubDate;
+	public void setHd(Integer hd) {
+		this.hd = hd;
 	}
-	public Long getOwnerId() {
-		return ownerId;
+	public Integer getCid() {
+		return cid;
 	}
-	public void setOwnerId(Long ownerId) {
-		this.ownerId = ownerId;
+	public void setCid(Integer cid) {
+		this.cid = cid;
 	}
-	public String getOuterPlayerUrl() {
-		return outerPlayerUrl;
+	public Integer getIsalbum() {
+		return isalbum;
 	}
-	public void setOuterPlayerUrl(String outerPlayerUrl) {
-		this.outerPlayerUrl = outerPlayerUrl;
+	public void setIsalbum(Integer isalbum) {
+		this.isalbum = isalbum;
 	}
-	public String getBigPicUrl() {
-		return bigPicUrl;
-	}
-	public void setBigPicUrl(String bigPicUrl) {
-		this.bigPicUrl = bigPicUrl;
-	}
-	public int getFavorall() {
-		return favorall;
-	}
-	public void setFavorall(int favorall) {
-		this.favorall = favorall;
-	}
-	public String getPicUrl() {
-		return picUrl;
-	}
-	public void setPicUrl(String picUrl) {
-		this.picUrl = picUrl;
-	}
-	public Integer getDefinition() {
-		return definition;
-	}
-	public void setDefinition(Integer definition) {
-		this.definition = definition;
-	}
-	public String getMediaType() {
-		return mediaType;
-	}
-	public void setMediaType(String mediaType) {
-		this.mediaType = mediaType;
-	}
-	public boolean isDownEnable() {
-		return downEnable;
-	}
-	public void setDownEnable(boolean downEnable) {
-		this.downEnable = downEnable;
-	}
-	public String getItemUrl() {
-		return itemUrl;
-	}
-	public void setItemUrl(String itemUrl) {
-		this.itemUrl = itemUrl;
-	}
-	public Long getCommentCount() {
-		return commentCount;
-	}
-	public void setCommentCount(Long commentCount) {
-		this.commentCount = commentCount;
-	}
-	public String getOwnerName() {
-		return ownerName;
-	}
-	public void setOwnerName(String ownerName) {
-		this.ownerName = ownerName;
-	}
-	public String getOwnerNickName() {
-		return ownerNickName;
-	}
-	public void setOwnerNickName(String ownerNickName) {
-		this.ownerNickName = ownerNickName;
-	}
-	public String[] getPicChoiceUrl() {
-		return picChoiceUrl;
-	}
-	public void setPicChoiceUrl(String[] picChoiceUrl) {
-		this.picChoiceUrl = picChoiceUrl;
-	}
-	public boolean isSecret() {
-		return secret;
-	}
-	public void setSecret(boolean secret) {
-		this.secret = secret;
-	}
-	public String getAddPlayListTime() {
-		return addPlayListTime;
-	}
-	public void setAddPlayListTime(String addPlayListTime) {
-		this.addPlayListTime = addPlayListTime;
-	}
-	public String getOwnerPic() {
-		return ownerPic;
-	}
-	public void setOwnerPic(String ownerPic) {
-		this.ownerPic = ownerPic;
-	}
-	public String getOwnerURL() {
-		return ownerURL;
-	}
-	public void setOwnerURL(String ownerURL) {
-		this.ownerURL = ownerURL;
-	}
-	public String getHtml5Url() {
-		return html5Url;
-	}
-	public void setHtml5Url(String html5Url) {
-		this.html5Url = html5Url;
-	}
-	
 	
 }
