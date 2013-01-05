@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<accessories xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="atv.xsd">
+	<body>
+		<scroller id="com.atvttvv.index">
+			<header>
+				<simpleHeader>
+					<title>aaaaaa</title>
+				</simpleHeader>
+			</header>
+			<items>
+				<grid id="grid_1" columnCount="5">
+					<items>
+						<actionButton id="shelf_item_1" 
+							onSelect="atv.loadURL('${serverurl}/tudou/index.xml');"
+							onPlay="atv.loadURL('${serverurl}/tudou/index.xml');">
+							<title>继续</title>
+						</actionButton>
+					</items>
+				</grid>
+			</items>
+		</scroller>
+	</body>
+</accessories>

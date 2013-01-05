@@ -18,6 +18,7 @@
         <webClassPathEntry>D:/m2/commons-lang/commons-lang/2.4/commons-lang-2.4.jar</webClassPathEntry>
         <webClassPathEntry>D:/m2/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.jar</webClassPathEntry>
         <webClassPathEntry>D:/m2/jstl/jstl/1.2/jstl-1.2.jar</webClassPathEntry>
+        <webClassPathEntry>D:/m2/log4j/log4j/1.2.9/log4j-1.2.9.jar</webClassPathEntry>
         <webClassPathEntry>D:/m2/net/sf/ezmorph/ezmorph/1.0.6/ezmorph-1.0.6.jar</webClassPathEntry>
         <webClassPathEntry>D:/m2/net/sf/json-lib/json-lib/2.3/json-lib-2.3-jdk15.jar</webClassPathEntry>
         <webClassPathEntry>D:/m2/org/apache/httpcomponents/httpclient/4.2.2/httpclient-4.2.2.jar</webClassPathEntry>
