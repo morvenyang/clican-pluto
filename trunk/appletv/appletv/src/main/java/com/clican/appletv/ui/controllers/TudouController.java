@@ -12,8 +12,11 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.clican.appletv.common.SpringProperty;
 import com.clican.appletv.core.service.tudou.TudouClient;
+import com.clican.appletv.core.service.tudou.enumeration.Channel;
 import com.clican.appletv.core.service.tudou.model.TudouVideo;
 
 @Controller
@@ -23,18 +26,18 @@ public class TudouController {
 
 	@Autowired
 	private TudouClient tudouClient;
+	
+	@Autowired
+	private SpringProperty springProperty;
 
-	@RequestMapping("/recommend.do")
-	public void indexPage(HttpServletRequest request,
-			HttpServletResponse response) throws IOException {
-
-		if (log.isDebugEnabled()) {
-			log.debug("access tudou recommend page");
-		}
-		List<TudouVideo> videos = tudouClient
-				.queryVideos("http://minterface.tudou.com/ih?sessionid=GTR7J672EMAAA&page=0&pagesize=30&type=recommend");
-		String result = tudouClient.convertToATVXml(videos);
-		byte[] data = result.getBytes("utf-8");
+	@RequestMapping("/play.xml")
+	public void planVideo(HttpServletRequest request,
+			HttpServletResponse response, @RequestParam("itemid") String itemid)
+			throws IOException {
+		String playXml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><atv><body><videoPlayer id=\"com.sample.video-player\"><httpFileVideoAsset id=\""+itemid+"\"><mediaURL>http://vr.tudou.com/v2proxy/v2.m3u8?st=2&amp;it="
+				+ itemid
+				+ "</mediaURL><title></title><description></description></httpFileVideoAsset></videoPlayer></body></atv>";
+		byte[] data = playXml.getBytes("utf-8");
 		OutputStream os = null;
 		try {
 			response.setContentType("text/xml");
@@ -50,6 +53,39 @@ public class TudouController {
 				os.close();
 			}
 		}
+	}
 
+	@RequestMapping("/tudou/index.xml")
+	public String indexPage(HttpServletRequest request,
+			HttpServletResponse response) throws IOException {
+
+		if (log.isDebugEnabled()) {
+			log.debug("access tudou index page");
+		}
+		
+		List<TudouVideo> videos = tudouClient
+				.queryVideos(springProperty.getTudouRecommendApi());
+		request.setAttribute("channels", Channel.values());
+		request.setAttribute("videos", videos);
+		request.setAttribute("channelCount", Channel.values().length+1);
+		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
+		return "tudou/index";
+	}
+	
+	@RequestMapping("/tudou/channel.xml")
+	public String channelPage(HttpServletRequest request,
+			HttpServletResponse response,@RequestParam("channelId")int channelId) throws IOException {
+
+		if (log.isDebugEnabled()) {
+			log.debug("access tudou channel page");
+		}
+		
+		List<TudouVideo> videos = tudouClient
+				.queryVideos(springProperty.getTudouChannelApi()+"&columnid="+channelId);
+		request.setAttribute("channels", Channel.values());
+		request.setAttribute("videos", videos);
+		request.setAttribute("channelCount", Channel.values().length+1);
+		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
+		return "tudou/index";
 	}
 }
