@@ -46,5 +46,22 @@
 			<version>2.3</version>
 			<classifier>jdk15</classifier>
 		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.9</version>
+		</dependency>
 	</dependencies>
+	<build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-war-plugin</artifactId>
+        <version>2.3</version>
+        <configuration>
+          <warName>appletv</warName>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 </project>

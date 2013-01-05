@@ -30,6 +30,13 @@ public class TudouController {
 	@Autowired
 	private SpringProperty springProperty;
 
+	@RequestMapping("/tudou/releasenote.xml")
+	public String indexPage(HttpServletRequest request,
+			HttpServletResponse response) throws IOException {
+		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
+		return "tudou/releasenote";
+	}
+
 	@RequestMapping("/play.xml")
 	public void planVideo(HttpServletRequest request,
 			HttpServletResponse response, @RequestParam("itemid") String itemid)
@@ -85,8 +92,8 @@ public class TudouController {
 			end = 99;
 			begin = 90;
 		}
-		request.setAttribute("begin",begin);
-		request.setAttribute("end",end);
+		request.setAttribute("begin", begin);
+		request.setAttribute("end", end);
 		return "tudou/index";
 	}
 
@@ -114,7 +121,7 @@ public class TudouController {
 		request.setAttribute("channelCount", Channel.values().length + 1);
 		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
 		request.setAttribute("pagiurl", springProperty.getSystemServerUrl()
-				+ "/tudou/channel.xml?channelId="+channelId);
+				+ "/tudou/channel.xml?channelId=" + channelId);
 		int begin, end = 0;
 		if (page < 90) {
 			begin = page;
@@ -123,8 +130,8 @@ public class TudouController {
 			end = 99;
 			begin = 90;
 		}
-		request.setAttribute("begin",begin);
-		request.setAttribute("end",end);
+		request.setAttribute("begin", begin);
+		request.setAttribute("end", end);
 		return "tudou/index";
 	}
 }
