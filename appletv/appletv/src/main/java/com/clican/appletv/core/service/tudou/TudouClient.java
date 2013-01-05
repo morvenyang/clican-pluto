@@ -14,6 +14,5 @@ public interface TudouClient {
 	 */
 	public List<TudouVideo> queryVideos(String url);
 	
-	public String convertToATVXml(List<TudouVideo> videos);
 
 }

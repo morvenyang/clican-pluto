@@ -3,12 +3,17 @@ package com.clican.appletv.core.service.tudou;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.time.DateUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.http.HttpEntity;
@@ -23,12 +28,15 @@ public class TudouClientImpl implements TudouClient {
 
 	private final static Log log = LogFactory.getLog(TudouClientImpl.class);
 
-	@Override
-	public List<TudouVideo> queryVideos(String url) {
-		String jsonStr = httpGet(url);
+	private Date lastExpireTime = DateUtils.truncate(new Date(),
+			Calendar.DAY_OF_MONTH);
+	private Map<String, String> cacheMap = new ConcurrentHashMap<String, String>();
+
+	private List<TudouVideo> convertToVideos(String jsonStr) {
 		List<TudouVideo> result = new ArrayList<TudouVideo>();
 		if (StringUtils.isNotEmpty(jsonStr)) {
-			JSONArray array = JSONObject.fromObject(jsonStr).getJSONArray("items");
+			JSONArray array = JSONObject.fromObject(jsonStr).getJSONArray(
+					"items");
 			for (int i = 0; i < array.size(); i++) {
 				JSONObject obj = array.getJSONObject(i);
 				TudouVideo tv = (TudouVideo) JSONObject.toBean(obj,
@@ -40,27 +48,31 @@ public class TudouClientImpl implements TudouClient {
 	}
 
 	@Override
-	public String convertToATVXml(List<TudouVideo> videos) {
-		String str = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><atv><body><scroller id=\"com.sample.movie-shelf\"><items><shelf id=\"shelf_1\"><sections><shelfSection><items>";
-		String end = "</items></shelfSection></sections></shelf></items></scroller></body></atv>";
-		StringBuffer result = new StringBuffer(str);
-		for (int i = 0; i < videos.size(); i++) {
-			TudouVideo tv = videos.get(i);
-			String s = "<moviePoster id=\"shelf_item_"
-					+ i
-					+ "\" accessibilityLabel=\"\" onSelect=\"atv.loadURL('http://10.0.1.5:9000/appletv/play.do?itemid="
-					+ tv.getItemid()
-					+ "');\" onPlay=\"atv.loadURL('http://10.0.1.5:9000/appletv/play.do?itemid="
-					+ tv.getItemid()
-					+ "');\"><title>"
-					+ tv.getTitle()
-					+ "</title><image>"
-					+ tv.getPicurl()
-					+ "</image><defaultImage>resource://Poster.png</defaultImage></moviePoster>";
-			result.append(s);
+	public List<TudouVideo> queryVideos(String url) {
+		Date current = DateUtils.truncate(new Date(), Calendar.DAY_OF_MONTH);
+		if (!current.equals(lastExpireTime)) {
+			cacheMap.clear();
 		}
-		result.append(end);
-		return result.toString();
+		String jsonStr;
+		if (cacheMap.containsKey(url)) {
+			jsonStr = cacheMap.get(url);
+		} else {
+			synchronized (this) {
+				if (cacheMap.containsKey(url)) {
+					jsonStr = cacheMap.get(url);
+				} else {
+					jsonStr = httpGet(url);
+					List<TudouVideo> result = convertToVideos(jsonStr);
+					if (result.size() > 0) {
+						cacheMap.put(url, jsonStr);
+					}
+					return result;
+				}
+			}
+		}
+		List<TudouVideo> result = convertToVideos(jsonStr);
+		return result;
+
 	}
 
 	private String httpGet(String url) {
