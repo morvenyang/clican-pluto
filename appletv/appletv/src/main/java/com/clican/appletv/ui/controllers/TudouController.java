@@ -26,7 +26,7 @@ public class TudouController {
 
 	@Autowired
 	private TudouClient tudouClient;
-	
+
 	@Autowired
 	private SpringProperty springProperty;
 
@@ -34,7 +34,9 @@ public class TudouController {
 	public void planVideo(HttpServletRequest request,
 			HttpServletResponse response, @RequestParam("itemid") String itemid)
 			throws IOException {
-		String playXml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><atv><body><videoPlayer id=\"com.sample.video-player\"><httpFileVideoAsset id=\""+itemid+"\"><mediaURL>http://vr.tudou.com/v2proxy/v2.m3u8?st=2&amp;it="
+		String playXml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><atv><body><videoPlayer id=\"com.sample.video-player\"><httpFileVideoAsset id=\""
+				+ itemid
+				+ "\"><mediaURL>http://vr.tudou.com/v2proxy/v2.m3u8?st=2&amp;it="
 				+ itemid
 				+ "</mediaURL><title></title><description></description></httpFileVideoAsset></videoPlayer></body></atv>";
 		byte[] data = playXml.getBytes("utf-8");
@@ -57,35 +59,72 @@ public class TudouController {
 
 	@RequestMapping("/tudou/index.xml")
 	public String indexPage(HttpServletRequest request,
-			HttpServletResponse response) throws IOException {
+			HttpServletResponse response,
+			@RequestParam(value = "page", required = false) Integer page)
+			throws IOException {
 
 		if (log.isDebugEnabled()) {
 			log.debug("access tudou index page");
 		}
-		
-		List<TudouVideo> videos = tudouClient
-				.queryVideos(springProperty.getTudouRecommendApi());
+		if (page == null) {
+			page = 0;
+		}
+		List<TudouVideo> videos = tudouClient.queryVideos(springProperty
+				.getTudouRecommendApi() + "&page=" + page);
 		request.setAttribute("channels", Channel.values());
 		request.setAttribute("videos", videos);
-		request.setAttribute("channelCount", Channel.values().length+1);
+		request.setAttribute("channelCount", Channel.values().length + 1);
 		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
+		request.setAttribute("pagiurl", springProperty.getSystemServerUrl()
+				+ "/tudou/index.xml?1=1");
+		int begin, end = 0;
+		if (page < 94) {
+			begin = page;
+			end = page + 5;
+		} else {
+			end = 98;
+			begin = 94;
+		}
+		request.setAttribute("begin",begin);
+		request.setAttribute("end",end);
 		return "tudou/index";
 	}
-	
+
 	@RequestMapping("/tudou/channel.xml")
 	public String channelPage(HttpServletRequest request,
-			HttpServletResponse response,@RequestParam("channelId")int channelId) throws IOException {
+			HttpServletResponse response,
+			@RequestParam("channelId") int channelId,
+			@RequestParam(value = "page", required = false) Integer page)
+			throws IOException {
 
 		if (log.isDebugEnabled()) {
 			log.debug("access tudou channel page");
 		}
-		
-		List<TudouVideo> videos = tudouClient
-				.queryVideos(springProperty.getTudouChannelApi()+"&columnid="+channelId);
+		if (page == null) {
+			page = 0;
+		}
+		List<TudouVideo> videos = tudouClient.queryVideos(springProperty
+				.getTudouChannelApi()
+				+ "&columnid="
+				+ channelId
+				+ "&page="
+				+ page);
 		request.setAttribute("channels", Channel.values());
 		request.setAttribute("videos", videos);
-		request.setAttribute("channelCount", Channel.values().length+1);
+		request.setAttribute("channelCount", Channel.values().length + 1);
 		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
+		request.setAttribute("pagiurl", springProperty.getSystemServerUrl()
+				+ "/tudou/channel.xml?channelId="+channelId);
+		int begin, end = 0;
+		if (page < 94) {
+			begin = page;
+			end = page + 5;
+		} else {
+			end = 99;
+			begin = 94;
+		}
+		request.setAttribute("begin",begin);
+		request.setAttribute("end",end);
 		return "tudou/index";
 	}
 }
