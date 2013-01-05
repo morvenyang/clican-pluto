@@ -78,12 +78,12 @@ public class TudouController {
 		request.setAttribute("pagiurl", springProperty.getSystemServerUrl()
 				+ "/tudou/index.xml?1=1");
 		int begin, end = 0;
-		if (page < 94) {
+		if (page < 90) {
 			begin = page;
-			end = page + 5;
+			end = page + 9;
 		} else {
-			end = 98;
-			begin = 94;
+			end = 99;
+			begin = 90;
 		}
 		request.setAttribute("begin",begin);
 		request.setAttribute("end",end);
@@ -116,12 +116,12 @@ public class TudouController {
 		request.setAttribute("pagiurl", springProperty.getSystemServerUrl()
 				+ "/tudou/channel.xml?channelId="+channelId);
 		int begin, end = 0;
-		if (page < 94) {
+		if (page < 90) {
 			begin = page;
-			end = page + 5;
+			end = page + 9;
 		} else {
 			end = 99;
-			begin = 94;
+			begin = 90;
 		}
 		request.setAttribute("begin",begin);
 		request.setAttribute("end",end);

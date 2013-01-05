@@ -23,7 +23,22 @@
 				</shelfSection>
 			</sections>
 		</shelf>
-		<grid id="grid_1" columnCount="6">
+		<grid id="grid_1" columnCount="12">
+					<items>
+						<actionButton id="shelf_item_first_page" onSelect="atv.loadURL('${pagiurl}&amp;page=0');" onPlay="atv.loadURL('${pagiurl}&amp;page=0');">
+							<title>第一页</title>
+						</actionButton>
+						<c:forEach var="i" begin="${begin}" end="${end}">
+							<actionButton id="shelf_item_${i}_page" onSelect="atv.loadURL('${pagiurl}&amp;page=${i}');" onPlay="atv.loadURL('${pagiurl}&amp;page=${i}');">
+								<title>${i+1}</title>
+							</actionButton>
+						</c:forEach>
+						<actionButton id="shelf_item_last_page" onSelect="atv.loadURL('${pagiurl}&amp;page=99');" onPlay="atv.loadURL('${pagiurl}&amp;page=99');">
+							<title>最后页</title>
+						</actionButton>
+					</items>
+					</grid>
+		<grid id="grid_2" columnCount="6">
 			<items>
 				<c:forEach var="video" items="${videos}">
 					<moviePoster id="shelf_item_${video.itemid}" onSelect="atv.loadURL('${serverurl}/play.xml?itemid=${video.itemid}');" onPlay="atv.loadURL('${serverurl}/appletv/play.xml?itemid=${video.itemid}');">
@@ -35,30 +50,23 @@
 				</c:forEach>
 			</items>
 		</grid>
-		<shelf id="foot_bar">
-			<sections>
-				<shelfSection>
+		
+				<grid id="grid_3" columnCount="12">
 					<items>
-						<moviePoster id="shelf_item_first_page" featured="true" onSelect="atv.loadURL('${pagiurl}&amp;page=0');" onPlay="atv.loadURL('${pagiurl}&amp;page=0');">
+						<actionButton id="shelf_item_first_page" onSelect="atv.loadURL('${pagiurl}&amp;page=0');" onPlay="atv.loadURL('${pagiurl}&amp;page=0');">
 							<title>第一页</title>
-							<subtitle>第一页</subtitle>
-							<defaultImage>resource://Poster.png</defaultImage>
-						</moviePoster>
+						</actionButton>
 						<c:forEach var="i" begin="${begin}" end="${end}">
-							<moviePoster id="shelf_item_${i}_page" featured="true" onSelect="atv.loadURL('${pagiurl}&amp;page=${i}');" onPlay="atv.loadURL('${pagiurl}&amp;page=${i}');">
+							<actionButton id="shelf_item_${i}_page" onSelect="atv.loadURL('${pagiurl}&amp;page=${i}');" onPlay="atv.loadURL('${pagiurl}&amp;page=${i}');">
 								<title>${i+1}</title>
-								<subtitle>${i+1}</subtitle>
-								<defaultImage>resource://Poster.png</defaultImage>
-							</moviePoster>
+							</actionButton>
 						</c:forEach>
-						<moviePoster id="shelf_item_last_page" featured="true" onSelect="atv.loadURL('${pagiurl}&amp;page=99');" onPlay="atv.loadURL('${pagiurl}&amp;page=99');">
-							<subtitle>最后页</subtitle>
-							<defaultImage>resource://Poster.png</defaultImage>
-						</moviePoster>
+						<actionButton id="shelf_item_last_page" onSelect="atv.loadURL('${pagiurl}&amp;page=99');" onPlay="atv.loadURL('${pagiurl}&amp;page=99');">
+							<title>最后页</title>
+						</actionButton>
 					</items>
-				</shelfSection>
-			</sections>
-		</shelf>
+					</grid>
+			
 	</items>
 </scroller>
 </body>
