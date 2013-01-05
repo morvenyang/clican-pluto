@@ -1,9 +1,11 @@
 package com.clican.appletv.core.service.tudou;
 
 import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.zip.GZIPInputStream;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHost;
@@ -140,11 +142,51 @@ public class Main {
 		// os.close();
 	}
 
+	public static void test5() throws Exception {
+		HttpClient client = new DefaultHttpClient();
+		HttpGet httpget = new HttpGet(
+				"http://180.153.225.136/appletv/us/js/application.js");
+		httpget.addHeader("Accept", "*/*");
+		httpget.addHeader("Cookie",
+				"Pod=46; s_vi=[CS]v1|2866D71F8514B857-4000017440052C42[CE]");
+		httpget.addHeader("X-Apple-TV-Resolution", "720");
+		httpget.addHeader("X-Apple-TV-Version", "5.1");
+		httpget.addHeader("Accept-Charset", "GBK,utf-8;q=0.7,*;q=0.3");
+		httpget.addHeader("Accept-Encoding", "gzip, deflate");
+		httpget.addHeader("Accept-Language", "zh_CN;q=0.9, en;q=0.8");
+		httpget.addHeader("Connection", "keep-alive");
+		httpget.addHeader("Host", "trailers.apple.com");
+		httpget.addHeader("User-Agent", "iTunes-AppleTV/5.1 (3; 8GB; dt:12)");
+
+		HttpResponse response = client.execute(httpget);
+		System.out.println(response.getStatusLine());
+	}
+
+	private static void doUncompressFile(String inFileName) throws Exception {
+
+		GZIPInputStream in = new GZIPInputStream(
+				new FileInputStream(inFileName));
+
+		FileOutputStream out = null;
+
+		out = new FileOutputStream("d:/123.js");
+
+		byte[] buf = new byte[1024];
+		int len;
+		while ((len = in.read(buf)) > 0) {
+			out.write(buf, 0, len);
+		}
+
+		in.close();
+		out.close();
+
+	}
+
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) throws Exception {
-		test4();
+		test5();
 	}
 
 }

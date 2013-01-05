@@ -9,7 +9,7 @@
 							featured="true"
 							onSelect="atv.loadURL('http://10.0.1.5/appletv/recommend.do');"
 							onPlay="atv.loadURL('http://10.0.1.5/appletv/recommend.do');">
-							<image>http://10.0.1.5/appletv/image/toudo.png</image>
+							<image>http://10.0.1.5/appletv/image/tudou.jpg</image>
 						</moviePoster>
 					</items>
 				</grid>

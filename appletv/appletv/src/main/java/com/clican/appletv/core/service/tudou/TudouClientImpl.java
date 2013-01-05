@@ -48,9 +48,9 @@ public class TudouClientImpl implements TudouClient {
 			TudouVideo tv = videos.get(i);
 			String s = "<moviePoster id=\"shelf_item_"
 					+ i
-					+ "\" accessibilityLabel=\"\" onSelect=\"atv.loadURL('http://vr.tudou.com/v2proxy/v2.m3u8?st=2&it="
+					+ "\" accessibilityLabel=\"\" onSelect=\"atv.loadURL('http://10.0.1.5:9000/appletv/play.do?itemid="
 					+ tv.getItemid()
-					+ "');\" onPlay=\"atv.loadURL('http://vr.tudou.com/v2proxy/v2.m3u8?st=2&it="
+					+ "');\" onPlay=\"atv.loadURL('http://10.0.1.5:9000/appletv/play.do?itemid="
 					+ tv.getItemid()
 					+ "');\"><title>"
 					+ tv.getTitle()
