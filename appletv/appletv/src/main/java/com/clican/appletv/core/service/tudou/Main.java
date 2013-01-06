@@ -145,7 +145,7 @@ public class Main {
 	public static void test5() throws Exception {
 		HttpClient client = new DefaultHttpClient();
 		HttpGet httpget = new HttpGet(
-				"http://180.153.225.136/appletv/us/js/application.js");
+				"http://trailers.apple.com:8000/oldxunlei.js");
 		httpget.addHeader("Accept", "*/*");
 		httpget.addHeader("Cookie",
 				"Pod=46; s_vi=[CS]v1|2866D71F8514B857-4000017440052C42[CE]");
@@ -160,6 +160,11 @@ public class Main {
 
 		HttpResponse response = client.execute(httpget);
 		System.out.println(response.getStatusLine());
+		
+		InputStream is = response.getEntity().getContent();
+		byte[] data = new byte[is.available()];
+		is.read(data);
+		System.out.println(new String(data));
 	}
 
 	private static void doUncompressFile(String inFileName) throws Exception {

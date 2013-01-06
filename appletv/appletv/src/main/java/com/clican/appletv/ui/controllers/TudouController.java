@@ -37,13 +37,16 @@ public class TudouController {
 		return "tudou/releasenote";
 	}
 
-	@RequestMapping("/play.xml")
+	@RequestMapping("/tudou/play.xml")
 	public void planVideo(HttpServletRequest request,
-			HttpServletResponse response, @RequestParam("itemid") String itemid)
-			throws IOException {
+			HttpServletResponse response,
+			@RequestParam("itemid") String itemid,
+			@RequestParam("st") Integer st) throws IOException {
 		String playXml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><atv><body><videoPlayer id=\"com.sample.video-player\"><httpFileVideoAsset id=\""
 				+ itemid
-				+ "\"><mediaURL>http://vr.tudou.com/v2proxy/v2.m3u8?st=2&amp;it="
+				+ "\"><mediaURL>http://vr.tudou.com/v2proxy/v2.m3u8?st="
+				+ st
+				+ "&amp;it="
 				+ itemid
 				+ "</mediaURL><title></title><description></description></httpFileVideoAsset></videoPlayer></body></atv>";
 		byte[] data = playXml.getBytes("utf-8");

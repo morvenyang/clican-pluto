@@ -7,13 +7,13 @@
 			<sections>
 				<shelfSection>
 					<items>
-						<moviePoster id="shelf_item_recommand" accessibilityLabel="推荐" featured="true" onSelect="atv.loadURL('${serverurl}/tudou/index.xml');" onPlay="atv.loadURL('${serverurl}/tudou/index.xml');">
+						<moviePoster id="shelf_item_recommand" alwaysShowTitles="true" accessibilityLabel="推荐" featured="true" onSelect="atv.loadURL('${serverurl}/tudou/index.xml');" onPlay="atv.loadURL('${serverurl}/tudou/index.xml');">
 							<title>推荐</title>
 							<image>${serverurl}/image/tudou/channel/channel_recommand.png</image>
 							<defaultImage>resource://Poster.png</defaultImage>
 						</moviePoster>
 						<c:forEach var="channel" items="${channels}">
-							<moviePoster id="shelf_item_${channel.value}" accessibilityLabel="${channel.label}" featured="true" onSelect="atv.loadURL('${serverurl}/tudou/channel.xml?channelId=${channel.value}');" onPlay="atv.loadURL('${serverurl}/tudou/channel.xml?channelId=${channel.value}');">
+							<moviePoster id="shelf_item_${channel.value}" alwaysShowTitles="true" accessibilityLabel="${channel.label}" featured="true" onSelect="atv.loadURL('${serverurl}/tudou/channel.xml?channelId=${channel.value}');" onPlay="atv.loadURL('${serverurl}/tudou/channel.xml?channelId=${channel.value}');">
 								<title>${channel.label}</title>
 								<image>${serverurl}/image/tudou/channel/channel_${channel.value}.png</image>
 								<defaultImage>resource://Poster.png</defaultImage>
@@ -41,7 +41,7 @@
 		<grid id="grid_2" columnCount="6">
 			<items>
 				<c:forEach var="video" items="${videos}">
-					<moviePoster id="shelf_item_${video.itemid}" onSelect="atv.loadURL('${serverurl}/play.xml?itemid=${video.itemid}');" onPlay="atv.loadURL('${serverurl}/appletv/play.xml?itemid=${video.itemid}');">
+					<moviePoster id="shelf_item_${video.itemid}" alwaysShowTitles="true" onSelect="atv.loadURL('${serverurl}/tudou/play.xml?itemid=${video.itemid}');" onPlay="atv.loadURL('${serverurl}/tudou/play.xml?itemid=${video.itemid}');">
 						<title><![CDATA[${video.title}]]></title>
 						<subtitle><![CDATA[${video.title}]]></subtitle>
 						<image>${video.picurl}</image>
