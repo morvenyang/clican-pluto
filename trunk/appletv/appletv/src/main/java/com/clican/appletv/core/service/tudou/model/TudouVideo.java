@@ -2,7 +2,7 @@ package com.clican.appletv.core.service.tudou.model;
 
 import java.io.Serializable;
 
-public class TudouVideo implements Serializable {
+public class TudouVideo extends ListView implements Serializable {
 
 	/**
 	 * 
@@ -10,10 +10,7 @@ public class TudouVideo implements Serializable {
 	private static final long serialVersionUID = 3764310120345910215L;
 
 	private String level;
-	private Long itemid;
 	private Long totaltime;
-	private String title;
-	private String picurl;
 	private Long albumId;
 	private Long playtimes;
 	private String playlistId;
@@ -30,30 +27,14 @@ public class TudouVideo implements Serializable {
 	public void setLevel(String level) {
 		this.level = level;
 	}
-	public Long getItemid() {
-		return itemid;
-	}
-	public void setItemid(Long itemid) {
-		this.itemid = itemid;
-	}
+
 	public Long getTotaltime() {
 		return totaltime;
 	}
 	public void setTotaltime(Long totaltime) {
 		this.totaltime = totaltime;
 	}
-	public String getTitle() {
-		return title;
-	}
-	public void setTitle(String title) {
-		this.title = title;
-	}
-	public String getPicurl() {
-		return picurl;
-	}
-	public void setPicurl(String picurl) {
-		this.picurl = picurl;
-	}
+	
 	public Long getAlbumId() {
 		return albumId;
 	}

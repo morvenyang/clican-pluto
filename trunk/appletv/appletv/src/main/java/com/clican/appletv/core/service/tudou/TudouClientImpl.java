@@ -22,6 +22,10 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
+import com.clican.appletv.common.SpringProperty;
+import com.clican.appletv.core.service.tudou.enumeration.Channel;
+import com.clican.appletv.core.service.tudou.model.ListView;
+import com.clican.appletv.core.service.tudou.model.TudouAlbum;
 import com.clican.appletv.core.service.tudou.model.TudouVideo;
 
 public class TudouClientImpl implements TudouClient {
@@ -32,28 +36,72 @@ public class TudouClientImpl implements TudouClient {
 			Calendar.DAY_OF_MONTH);
 	private Map<String, String> cacheMap = new ConcurrentHashMap<String, String>();
 
-	private List<TudouVideo> convertToVideos(String jsonStr) {
-		List<TudouVideo> result = new ArrayList<TudouVideo>();
+	private SpringProperty springProperty;
+
+	public void setSpringProperty(SpringProperty springProperty) {
+		this.springProperty = springProperty;
+	}
+
+	private List<ListView> convertToVideos(String jsonStr, Channel channel) {
+		List<ListView> result = new ArrayList<ListView>();
 		if (StringUtils.isNotEmpty(jsonStr)) {
-			JSONArray array = JSONObject.fromObject(jsonStr).getJSONArray(
-					"items");
+			JSONArray array = null;
+			if (channel != null && channel.isAlbum()) {
+				array = JSONObject.fromObject(jsonStr)
+						.getJSONObject("wirelessAlbum").getJSONArray("albums");
+			} else {
+				array = JSONObject.fromObject(jsonStr).getJSONArray("items");
+			}
 			for (int i = 0; i < array.size(); i++) {
 				JSONObject obj = array.getJSONObject(i);
-				TudouVideo tv = (TudouVideo) JSONObject.toBean(obj,
-						TudouVideo.class);
-				result.add(tv);
+				if (channel != null && channel.isAlbum()) {
+					TudouAlbum tv = (TudouAlbum) JSONObject.toBean(obj,
+							TudouAlbum.class);
+					result.add(tv);
+				} else {
+					TudouVideo tv = (TudouVideo) JSONObject.toBean(obj,
+							TudouVideo.class);
+					result.add(tv);
+				}
 			}
 		}
 		return result;
 	}
 
 	@Override
-	public List<TudouVideo> queryVideos(String url) {
+	public List<ListView> queryAlbumVideos(Channel channle, Long itemid,
+			Integer ishd) {
+		String url = springProperty.getTudouAlbumVideosApi() + "columnid="
+				+ channle.getValue() + "&itemid=" + itemid + "&ishd" + ishd;
+		String jsonStr = httpGet(url);
+		List<ListView> result = new ArrayList<ListView>();
+		JSONArray array = JSONObject.fromObject(jsonStr).getJSONArray(
+				"albumitems");
+		for (int i = 0; i < array.size(); i++) {
+			JSONObject obj = array.getJSONObject(i);
+			ListView tv = (ListView) JSONObject.toBean(obj, ListView.class);
+			result.add(tv);
+		}
+		return result;
+	}
+
+	@Override
+	public List<ListView> queryVideos(Channel channel, Integer page) {
 		Date current = DateUtils.truncate(new Date(), Calendar.DAY_OF_MONTH);
 		if (!current.equals(lastExpireTime)) {
 			cacheMap.clear();
 		}
 		String jsonStr;
+		String url = null;
+		if (channel == null) {
+			url = springProperty.getTudouRecommendApi() + "&page=" + page;
+		} else if (channel.isAlbum()) {
+			url = springProperty.getTudouAlbumChannelApi() + "&cid="
+					+ channel.getValue() + "&page=" + page;
+		} else {
+			url = springProperty.getTudouChannelApi() + "&columnid="
+					+ channel.getValue() + "&page=" + page;
+		}
 		if (cacheMap.containsKey(url)) {
 			jsonStr = cacheMap.get(url);
 		} else {
@@ -62,7 +110,7 @@ public class TudouClientImpl implements TudouClient {
 					jsonStr = cacheMap.get(url);
 				} else {
 					jsonStr = httpGet(url);
-					List<TudouVideo> result = convertToVideos(jsonStr);
+					List<ListView> result = convertToVideos(jsonStr, channel);
 					if (result.size() > 0) {
 						cacheMap.put(url, jsonStr);
 					}
@@ -70,7 +118,7 @@ public class TudouClientImpl implements TudouClient {
 				}
 			}
 		}
-		List<TudouVideo> result = convertToVideos(jsonStr);
+		List<ListView> result = convertToVideos(jsonStr, channel);
 		return result;
 
 	}

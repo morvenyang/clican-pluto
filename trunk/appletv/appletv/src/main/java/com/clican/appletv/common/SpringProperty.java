@@ -1,6 +1,5 @@
 package com.clican.appletv.common;
 
-import org.springframework.stereotype.Component;
 
 public class SpringProperty {
 
@@ -11,6 +10,10 @@ public class SpringProperty {
 	private String tudouRecommendApi;
 
 	private String tudouChannelApi;
+	
+	private String tudouAlbumChannelApi;
+	
+	private String tudouAlbumVideosApi;
 
 	public String getSystemServerUrl() {
 		return systemServerUrl;
@@ -42,6 +45,22 @@ public class SpringProperty {
 
 	public void setTudouChannelApi(String tudouChannelApi) {
 		this.tudouChannelApi = tudouChannelApi;
+	}
+
+	public String getTudouAlbumChannelApi() {
+		return tudouAlbumChannelApi;
+	}
+
+	public void setTudouAlbumChannelApi(String tudouAlbumChannelApi) {
+		this.tudouAlbumChannelApi = tudouAlbumChannelApi;
+	}
+
+	public String getTudouAlbumVideosApi() {
+		return tudouAlbumVideosApi;
+	}
+
+	public void setTudouAlbumVideosApi(String tudouAlbumVideosApi) {
+		this.tudouAlbumVideosApi = tudouAlbumVideosApi;
 	}
 
 }
