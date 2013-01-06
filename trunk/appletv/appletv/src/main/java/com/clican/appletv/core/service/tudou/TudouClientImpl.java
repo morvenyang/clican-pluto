@@ -69,20 +69,40 @@ public class TudouClientImpl implements TudouClient {
 	}
 
 	@Override
-	public List<ListView> queryAlbumVideos(Channel channle, Long itemid,
-			Integer hd) {
+	public TudouAlbum queryAlbum(Channel channel, Long itemid, Integer hd) {
 		String url = springProperty.getTudouAlbumVideosApi() + "columnid="
-				+ channle.getValue() + "&itemid=" + itemid + "&ishd" + hd;
-		String jsonStr = httpGet(url);
+				+ channel.getValue() + "&itemid=" + itemid + "&ishd=" + hd;
+		String jsonStr = null;
+		boolean cache = false;
+		if (cacheMap.containsKey(url)) {
+			jsonStr = cacheMap.get(url);
+		} else {
+			synchronized (this) {
+				if (cacheMap.containsKey(url)) {
+					jsonStr = cacheMap.get(url);
+				} else {
+					jsonStr = httpGet(url);
+					cache = true;
+				}
+			}
+		}
 		List<ListView> result = new ArrayList<ListView>();
-		JSONArray array = JSONObject.fromObject(jsonStr).getJSONArray(
-				"albumitems");
+		JSONObject albumJson = JSONObject.fromObject(jsonStr);
+		TudouAlbum album = (TudouAlbum) JSONObject.toBean(albumJson,
+				TudouAlbum.class);
+		album.setAreaDesc(albumJson.getString("area_desc"));
+		album.setTypeDesc(albumJson.getString("type_desc"));
+		JSONArray array = albumJson.getJSONArray("albumitems");
 		for (int i = 0; i < array.size(); i++) {
 			JSONObject obj = array.getJSONObject(i);
 			ListView tv = (ListView) JSONObject.toBean(obj, ListView.class);
 			result.add(tv);
 		}
-		return result;
+		if (result.size() > 0 && cache) {
+			cacheMap.put(url, jsonStr);
+		}
+		album.setAlbumitems(result);
+		return album;
 	}
 
 	@Override

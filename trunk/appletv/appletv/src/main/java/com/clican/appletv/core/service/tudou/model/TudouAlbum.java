@@ -1,6 +1,7 @@
 package com.clican.appletv.core.service.tudou.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class TudouAlbum extends ListView implements Serializable {
 
@@ -23,7 +24,12 @@ public class TudouAlbum extends ListView implements Serializable {
 	private Integer isalbum;
 	private Integer currentSize;
 	private String itemBigPic;
+	private String tags;
 	private Object[] items;
+	private String typeDesc;
+	private String areaDesc;
+	private List<ListView> albumitems;
+	
 	public Integer getSize() {
 		return size;
 	}
@@ -115,8 +121,30 @@ public class TudouAlbum extends ListView implements Serializable {
 	public void setItems(Object[] items) {
 		this.items = items;
 	}
-    
+	public String getTags() {
+		return tags;
+	}
+	public void setTags(String tags) {
+		this.tags = tags;
+	}
+	public String getTypeDesc() {
+		return typeDesc;
+	}
+	public void setTypeDesc(String typeDesc) {
+		this.typeDesc = typeDesc;
+	}
 	
-    	
+	public String getAreaDesc() {
+		return areaDesc;
+	}
+	public void setAreaDesc(String areaDesc) {
+		this.areaDesc = areaDesc;
+	}
+	public List<ListView> getAlbumitems() {
+		return albumitems;
+	}
+	public void setAlbumitems(List<ListView> albumitems) {
+		this.albumitems = albumitems;
+	}
 	
 }

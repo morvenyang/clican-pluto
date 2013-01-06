@@ -2,32 +2,34 @@
 <atv xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:noNamespaceSchemaLocation="atv.xsd">
 	<body>
-		<itemDetail id="">
-			<title></title>
-			<subtitle></subtitle>
-			<summary></summary>
-			<image style="moviePoster"></image>
+		<itemDetail id="itemdetail">
+			<title>我家有喜 TV版</title>
+			<summary>父亲白尚武是军人出身，从小对四个女儿要求严格，采取军事化管理，希望四个女儿都能女承父业成为军人，没想到女儿们却一个个都与他的设想背道而驰。最放心的大女儿白金喜突然离婚再婚，最优秀的二女儿白木喜决定离开军校转战婚纱设计，最头疼的三女儿白水喜一心想成大明星遭遇丑闻诽谤，最懂事的四女儿白欢喜也因成绩不好几年考不上理想大学。白尚武固执的利用霸权操纵者女儿们的学业事业生活情感，一连串的父女冲突激烈的在白家展开，最终四个女儿都不负父望，赢得幸福。</summary>
+			<image style="moviePoster">http://i2.tdimg.com/b/20120917/c204.jpg</image>
 			<table>
-				<columnDefinitions>
-					<columnDefinition width="50">
-						<title></title>
-					</columnDefinition>
-				</columnDefinitions>
+				<columnDefinitions><columnDefinition width="150"><title>其他信息</title></columnDefinition><columnDefinition width="150"><title></title></columnDefinition></columnDefinitions>
 				<rows>
-					<row>
-						<label>aaa</label>
-					</row>
+					<row><label>导演:伟大军</label><label>年代:2012</label></row>
+					<row><label>类型:伟大军</label><label>地区:2012</label></row>
+					<row><label>剧集:伟大军</label><label>主演:2012</label></row>
 				</rows>
 			</table>
+			<centerShelf>
+				<shelf id="album">
+					<sections>
+						<shelfSection>
+							<items>
+								<actionButton id="album_1" onSelect="atv.loadURL('');" onPlay="atv.loadURL('');">
+							<title>1</title>
+						</actionButton>
+						<actionButton id="album_2" onSelect="atv.loadURL('');" onPlay="atv.loadURL('');">
+							<title>2</title>
+						</actionButton>
+							</items>
+						</shelfSection>
+					</sections>
+				</shelf>
+			</centerShelf>
 		</itemDetail>
-		<scroller id="a">
-			<items>
-				<grid id="1">
-					<items>
-						<moviePoster id="" alwaysShowTitles="true"></moviePoster>
-					</items>
-				</grid>
-			</items>
-		</scroller>
 	</body>
 </atv>

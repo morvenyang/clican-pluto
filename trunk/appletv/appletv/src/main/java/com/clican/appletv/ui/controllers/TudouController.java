@@ -18,6 +18,7 @@ import com.clican.appletv.common.SpringProperty;
 import com.clican.appletv.core.service.tudou.TudouClient;
 import com.clican.appletv.core.service.tudou.enumeration.Channel;
 import com.clican.appletv.core.service.tudou.model.ListView;
+import com.clican.appletv.core.service.tudou.model.TudouAlbum;
 
 @Controller
 public class TudouController {
@@ -113,7 +114,7 @@ public class TudouController {
 		}
 
 		request.setAttribute("channels", Channel.values());
-		
+
 		request.setAttribute("channelCount", Channel.values().length + 1);
 		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
 		request.setAttribute("pagiurl", springProperty.getSystemServerUrl()
@@ -137,10 +138,19 @@ public class TudouController {
 	}
 
 	@RequestMapping("/tudou/album.xml")
-	public String albumPage(HttpServletRequest request,
-			HttpServletResponse response, @RequestParam("itemid") Long itemid,@RequestParam("hd") Integer hd,@RequestParam("channelId") int channelId)
+	public String albumPage(
+			HttpServletRequest request,
+			HttpServletResponse response,
+			@RequestParam(value = "itemid", required = false) Long itemid,
+			@RequestParam(value = "hd", required = false) Integer hd,
+			@RequestParam(value = "channelId", required = false) Integer channelId)
 			throws IOException {
-
+		if (log.isDebugEnabled()) {
+			log.debug("access album page");
+		}
+		Channel channel = Channel.convertToChannel(channelId);
+		TudouAlbum album = tudouClient.queryAlbum(channel, itemid, hd);
+		request.setAttribute("album", album);
 		return "tudou/album";
 	}
 }
