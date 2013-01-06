@@ -41,7 +41,11 @@ public class TudouController {
 	@RequestMapping("/tudou/play.xml")
 	public void planVideo(HttpServletRequest request,
 			HttpServletResponse response, @RequestParam("itemid") Long itemid,
-			@RequestParam("st") Integer st) throws IOException {
+			@RequestParam(value = "st", required = false) Integer st)
+			throws IOException {
+		if (st == null) {
+			st = 2;
+		}
 		String playXml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><atv><body><videoPlayer id=\"com.sample.video-player\"><httpFileVideoAsset id=\""
 				+ itemid
 				+ "\"><mediaURL>http://vr.tudou.com/v2proxy/v2.m3u8?st="
@@ -146,11 +150,29 @@ public class TudouController {
 			@RequestParam(value = "channelId", required = false) Integer channelId)
 			throws IOException {
 		if (log.isDebugEnabled()) {
-			log.debug("access album page");
+			log.debug("access album page itemid=" + itemid + " hd=" + hd
+					+ " channelId=" + channelId);
 		}
 		Channel channel = Channel.convertToChannel(channelId);
 		TudouAlbum album = tudouClient.queryAlbum(channel, itemid, hd);
 		request.setAttribute("album", album);
+		request.getSession().setAttribute("album", album);
+		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
 		return "tudou/album";
+	}
+
+	@RequestMapping("/tudou/albumlist.xml")
+	public String albumListPage(HttpServletRequest request,
+			HttpServletResponse response, @RequestParam(value = "st") Integer st)
+			throws IOException {
+		if (log.isDebugEnabled()) {
+			log.debug("access album list page");
+		}
+		TudouAlbum album = (TudouAlbum) request.getSession().getAttribute(
+				"album");
+		request.setAttribute("album", album);
+		request.setAttribute("st", st);
+		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
+		return "tudou/albumlist";
 	}
 }
