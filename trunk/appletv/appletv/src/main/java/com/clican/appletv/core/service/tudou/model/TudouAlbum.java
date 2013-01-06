@@ -23,6 +23,7 @@ public class TudouAlbum extends ListView implements Serializable {
 	private Integer isalbum;
 	private Integer currentSize;
 	private String itemBigPic;
+	private Object[] items;
 	public Integer getSize() {
 		return size;
 	}
@@ -107,6 +108,12 @@ public class TudouAlbum extends ListView implements Serializable {
 	}
 	public void setItemBigPic(String itemBigPic) {
 		this.itemBigPic = itemBigPic;
+	}
+	public Object[] getItems() {
+		return items;
+	}
+	public void setItems(Object[] items) {
+		this.items = items;
 	}
     
 	
