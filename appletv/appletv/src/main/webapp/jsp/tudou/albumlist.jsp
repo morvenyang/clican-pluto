@@ -14,7 +14,7 @@
 						<items>
 							<c:forEach var="albumItem" items="${album.albumitems}" varStatus="status">
 								<imageTextImageMenuItem id="albumItem_${status.count+1}" onPlay="atv.loadURL('${serverurl}/tudou/play.xml?itemid=${albumItem.itemid}&amp;st=${st}');" onSelect="atv.loadURL('${serverurl}/tudou/play.xml?itemid=${albumItem.itemid}&amp;st=${st}');">
-									<leftImage>${album.picurl}</leftImage>
+									<leftImage>${albumItem.picurl}</leftImage>
 									<imageSeparatorText></imageSeparatorText>
 									<label>第${status.count}集</label>
 									<rightImage></rightImage>
