@@ -24,8 +24,11 @@ http://www.springframework.org/schema/context/spring-context-2.5.xsd">
 		<property name="tudouSessionid" value="${tudou.sessionid}"></property>
 		<property name="tudouRecommendApi" value="${tudou.recommend.api}"></property>
 		<property name="tudouChannelApi" value="${tudou.channel.api}"></property>
+		<property name="tudouAlbumChannelApi" value="${tudou.album.channel.api}"></property>
+		<property name="tudouAlbumVideosApi" value="${tudou.album.videos.api}"></property>
 	</bean>
 	
-	<bean id="tudouClient" class="com.clican.appletv.core.service.tudou.TudouClientImpl"/>
+	<bean id="tudouClient" class="com.clican.appletv.core.service.tudou.TudouClientImpl" autowire="byName">
+	</bean>
 
 </beans>
