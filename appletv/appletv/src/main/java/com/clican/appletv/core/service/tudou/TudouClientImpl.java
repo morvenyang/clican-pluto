@@ -70,9 +70,9 @@ public class TudouClientImpl implements TudouClient {
 
 	@Override
 	public List<ListView> queryAlbumVideos(Channel channle, Long itemid,
-			Integer ishd) {
+			Integer hd) {
 		String url = springProperty.getTudouAlbumVideosApi() + "columnid="
-				+ channle.getValue() + "&itemid=" + itemid + "&ishd" + ishd;
+				+ channle.getValue() + "&itemid=" + itemid + "&ishd" + hd;
 		String jsonStr = httpGet(url);
 		List<ListView> result = new ArrayList<ListView>();
 		JSONArray array = JSONObject.fromObject(jsonStr).getJSONArray(

@@ -15,6 +15,6 @@ public interface TudouClient {
 	 */
 	public List<ListView> queryVideos(Channel channel,Integer page);
 	
-	public List<ListView> queryAlbumVideos(Channel channle,Long itemid,Integer ishd);
+	public List<ListView> queryAlbumVideos(Channel channle,Long itemid,Integer hd);
 
 }
