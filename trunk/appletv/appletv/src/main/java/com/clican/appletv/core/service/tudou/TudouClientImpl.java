@@ -50,9 +50,6 @@ public class TudouClientImpl implements TudouClient {
 	@Override
 	public List<TudouVideo> queryVideos(String url) {
 		Date current = DateUtils.truncate(new Date(), Calendar.DAY_OF_MONTH);
-		if(log.isDebugEnabled()){
-			log.debug("aaa");
-		}
 		if (!current.equals(lastExpireTime)) {
 			cacheMap.clear();
 		}
