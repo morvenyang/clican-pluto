@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.clican.appletv.common.SpringProperty;
 import com.clican.appletv.core.service.tudou.TudouClient;
 import com.clican.appletv.core.service.tudou.enumeration.Channel;
-import com.clican.appletv.core.service.tudou.model.TudouVideo;
+import com.clican.appletv.core.service.tudou.model.ListView;
 
 @Controller
 public class TudouController {
@@ -39,8 +39,7 @@ public class TudouController {
 
 	@RequestMapping("/tudou/play.xml")
 	public void planVideo(HttpServletRequest request,
-			HttpServletResponse response,
-			@RequestParam("itemid") String itemid,
+			HttpServletResponse response, @RequestParam("itemid") Long itemid,
 			@RequestParam("st") Integer st) throws IOException {
 		String playXml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><atv><body><videoPlayer id=\"com.sample.video-player\"><httpFileVideoAsset id=\""
 				+ itemid
@@ -79,8 +78,7 @@ public class TudouController {
 		if (page == null) {
 			page = 0;
 		}
-		List<TudouVideo> videos = tudouClient.queryVideos(springProperty
-				.getTudouRecommendApi() + "&page=" + page);
+		List<ListView> videos = tudouClient.queryVideos(null, page);
 		request.setAttribute("channels", Channel.values());
 		request.setAttribute("videos", videos);
 		request.setAttribute("channelCount", Channel.values().length + 1);
@@ -113,18 +111,17 @@ public class TudouController {
 		if (page == null) {
 			page = 0;
 		}
-		List<TudouVideo> videos = tudouClient.queryVideos(springProperty
-				.getTudouChannelApi()
-				+ "&columnid="
-				+ channelId
-				+ "&page="
-				+ page);
+
 		request.setAttribute("channels", Channel.values());
-		request.setAttribute("videos", videos);
 		request.setAttribute("channelCount", Channel.values().length + 1);
 		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
 		request.setAttribute("pagiurl", springProperty.getSystemServerUrl()
 				+ "/tudou/channel.xml?channelId=" + channelId);
+
+		Channel channel = Channel.convertToChannel(channelId);
+		List<ListView> videos = tudouClient.queryVideos(channel, page);
+		request.setAttribute("videos", videos);
+
 		int begin, end = 0;
 		if (page < 90) {
 			begin = page;
@@ -136,5 +133,13 @@ public class TudouController {
 		request.setAttribute("begin", begin);
 		request.setAttribute("end", end);
 		return "tudou/index";
+	}
+
+	@RequestMapping("/tudou/album.xml")
+	public String albumPage(HttpServletRequest request,
+			HttpServletResponse response, @RequestParam("itemid") Long itemid)
+			throws IOException {
+
+		return "tudou/album";
 	}
 }
