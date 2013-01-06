@@ -113,6 +113,7 @@ public class TudouController {
 		}
 
 		request.setAttribute("channels", Channel.values());
+		
 		request.setAttribute("channelCount", Channel.values().length + 1);
 		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
 		request.setAttribute("pagiurl", springProperty.getSystemServerUrl()
@@ -121,7 +122,7 @@ public class TudouController {
 		Channel channel = Channel.convertToChannel(channelId);
 		List<ListView> videos = tudouClient.queryVideos(channel, page);
 		request.setAttribute("videos", videos);
-
+		request.setAttribute("isAlbum", channel.isAlbum());
 		int begin, end = 0;
 		if (page < 90) {
 			begin = page;
@@ -137,7 +138,7 @@ public class TudouController {
 
 	@RequestMapping("/tudou/album.xml")
 	public String albumPage(HttpServletRequest request,
-			HttpServletResponse response, @RequestParam("itemid") Long itemid)
+			HttpServletResponse response, @RequestParam("itemid") Long itemid,@RequestParam("hd") Integer hd,@RequestParam("channelId") int channelId)
 			throws IOException {
 
 		return "tudou/album";
