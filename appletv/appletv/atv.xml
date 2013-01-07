@@ -2,33 +2,12 @@
 <atv xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:noNamespaceSchemaLocation="atv.xsd">
 	<body>
-		<listScrollerSplit id="bbbb">
-			<header>
-				<simpleHeader horizontalAlignment="left">
-					<title>${album.title}</title>
-					<image src="${album.picurl}"></image>
-				</simpleHeader>
-			</header>
-			<menu>
-				<sections>
-					<menuSection>
-						<items>
-							<imageTextImageMenuItem id="cccc">
-								<leftImage>${album.picurl}</leftImage>
-								<imageSeparatorText></imageSeparatorText>
-								<label>${album.title}</label>
-								<rightImage></rightImage>
-							</imageTextImageMenuItem>
-							<imageTextImageMenuItem id="cccc">
-								<leftImage>${album.picurl}</leftImage>
-								<imageSeparatorText></imageSeparatorText>
-								<label>${album.title}</label>
-								<rightImage></rightImage>
-							</imageTextImageMenuItem>
-						</items>
-					</menuSection>
-				</sections>
-			</menu>
-		</listScrollerSplit>
+		<scroller id="a" onVolatileReload="">
+			<items>
+				<collectionDivider>
+					<title>a</title>
+				</collectionDivider>
+			</items>
+		</scroller>
 	</body>
 </atv>

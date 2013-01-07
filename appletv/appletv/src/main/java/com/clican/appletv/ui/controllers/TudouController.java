@@ -128,6 +128,7 @@ public class TudouController {
 		List<ListView> videos = tudouClient.queryVideos(channel, page);
 		request.setAttribute("videos", videos);
 		request.setAttribute("isAlbum", channel.isAlbum());
+		request.setAttribute("page", page);
 		int begin, end = 0;
 		if (page < 90) {
 			begin = page;
@@ -147,16 +148,24 @@ public class TudouController {
 			HttpServletResponse response,
 			@RequestParam(value = "itemid", required = false) Long itemid,
 			@RequestParam(value = "hd", required = false) Integer hd,
-			@RequestParam(value = "channelId", required = false) Integer channelId)
+			@RequestParam(value = "channelId", required = false) Integer channelId,
+			@RequestParam(value = "page", required = false) Integer page)
 			throws IOException {
 		if (log.isDebugEnabled()) {
 			log.debug("access album page itemid=" + itemid + " hd=" + hd
 					+ " channelId=" + channelId);
 		}
 		Channel channel = Channel.convertToChannel(channelId);
-		TudouAlbum album = tudouClient.queryAlbum(channel, itemid, hd);
+		List<ListView> videos = tudouClient.queryVideos(channel, page);
+		TudouAlbum album = null;
+		for (ListView ta : videos) {
+			if (ta.getItemid().equals(itemid)) {
+				album = (TudouAlbum) ta;
+			}
+		}
 		request.setAttribute("album", album);
-		request.getSession().setAttribute("album", album);
+		request.setAttribute("hd", hd);
+		request.setAttribute("channelId", channelId);
 		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
 		return "tudou/album";
 	}
