@@ -135,13 +135,8 @@ public class TudouController {
 					+ " channelId=" + channelId);
 		}
 		Channel channel = Channel.convertToChannel(channelId);
-		List<ListView> videos = tudouClient.queryVideos(null, channel, page);
-		TudouAlbum album = null;
-		for (ListView ta : videos) {
-			if (ta.getItemid().equals(itemid)) {
-				album = (TudouAlbum) ta;
-			}
-		}
+		TudouAlbum album = tudouClient.queryAlbum(channel, itemid, hd);
+		request.getSession().setAttribute("album", album);
 		request.setAttribute("album", album);
 		request.setAttribute("hd", hd);
 		request.setAttribute("channelId", channelId);

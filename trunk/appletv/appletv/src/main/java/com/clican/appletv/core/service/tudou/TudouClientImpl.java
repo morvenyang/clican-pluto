@@ -50,28 +50,41 @@ public class TudouClientImpl implements TudouClient {
 	private List<ListView> convertToVideos(String jsonStr, Channel channel) {
 		List<ListView> result = new ArrayList<ListView>();
 		if (StringUtils.isNotEmpty(jsonStr)) {
-			JSONArray array = null;
-			if (channel != null && channel.isAlbum()) {
-				array = JSONObject.fromObject(jsonStr)
+			JSONArray itemArray = null;
+			JSONArray albumArray = null;
+			if (channel.isAlbum()) {
+				albumArray = JSONObject.fromObject(jsonStr)
 						.getJSONObject("wirelessAlbum").getJSONArray("albums");
+			} else if (channel == Channel.Search) {
+				JSONObject wirelessSearchResult = JSONObject
+						.fromObject(jsonStr).getJSONObject(
+								"wirelessSearchResult");
+				albumArray = wirelessSearchResult.getJSONArray("albums");
+				itemArray = wirelessSearchResult.getJSONArray("items");
 			} else {
-				array = JSONObject.fromObject(jsonStr).getJSONArray("items");
+				itemArray = JSONObject.fromObject(jsonStr)
+						.getJSONArray("items");
 			}
-			for (int i = 0; i < array.size(); i++) {
-				JSONObject obj = array.getJSONObject(i);
-				if (channel != null && channel.isAlbum()) {
+			if (albumArray != null) {
+				for (int i = 0; i < albumArray.size(); i++) {
+					JSONObject obj = albumArray.getJSONObject(i);
 					TudouAlbum tv = (TudouAlbum) JSONObject.toBean(obj,
 							TudouAlbum.class);
 					tv.setAreaDesc(obj.getString("areas_desc"));
 					tv.setTypeDesc(obj.getString("type_desc"));
-
 					result.add(tv);
-				} else {
+				}
+			}
+
+			if (itemArray != null) {
+				for (int i = 0; i < itemArray.size(); i++) {
+					JSONObject obj = itemArray.getJSONObject(i);
 					TudouVideo tv = (TudouVideo) JSONObject.toBean(obj,
 							TudouVideo.class);
 					result.add(tv);
 				}
 			}
+
 		}
 		return result;
 	}
@@ -125,14 +138,18 @@ public class TudouClientImpl implements TudouClient {
 		if (channel == Channel.Recommand) {
 			url = springProperty.getTudouRecommendApi() + "&page=" + page;
 		} else if (channel == Channel.Search) {
-			url = springProperty.getTudouSearchApi() + "&page=" + page + "&kw="
-					+ keyword;
+			url = springProperty.getTudouSearchApi() + "&pageNo=" + (page+1)
+					+ "&kw=" + keyword;
 		} else if (channel.isAlbum()) {
 			url = springProperty.getTudouAlbumChannelApi() + "&cid="
 					+ channel.getValue() + "&page=" + page;
 		} else {
 			url = springProperty.getTudouChannelApi() + "&columnid="
 					+ channel.getValue() + "&page=" + page;
+		}
+
+		if (log.isDebugEnabled()) {
+			log.debug(url);
 		}
 		if (cacheMap.containsKey(url)) {
 			jsonStr = cacheMap.get(url);
@@ -178,7 +195,7 @@ public class TudouClientImpl implements TudouClient {
 		try {
 			HttpClient client = new DefaultHttpClient();
 			client.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY,
-					new HttpHost("web-proxy.corp.hp.com", 8080, "http"));
+					new HttpHost("web-proxy.china.hp.com", 8080, "http"));
 			HttpGet httpGet = new HttpGet(url);
 			if (headers != null) {
 				for (String key : headers.keySet()) {
