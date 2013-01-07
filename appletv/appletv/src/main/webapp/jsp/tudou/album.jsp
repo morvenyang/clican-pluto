@@ -19,7 +19,7 @@
 					<sections>
 						<shelfSection>
 							<items>
-								<actionButton id="album_1" onSelect="loadData();" onPlay="atv.loadURL('${serverurl}/tudou/albumlist.xml?st=2');">
+								<actionButton id="album_1" onSelect="appletv.loadData();" onPlay="appletv.loadData();">
 									<title>标清</title>
 								</actionButton>
 								<actionButton id="album_2" onSelect="atv.loadURL('${serverurl}/tudou/albumlist.xml?st=3');" onPlay="atv.loadURL('${serverurl}/tudou/albumlist.xml?st=3');">
