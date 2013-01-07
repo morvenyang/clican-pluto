@@ -185,6 +185,17 @@ public class TudouController {
 		return "tudou/albumlist";
 	}
 
+	@RequestMapping("/tudou/search.xml")
+	public String keywordSearchListPage(HttpServletRequest request,
+			HttpServletResponse response)
+			throws IOException {
+		if (log.isDebugEnabled()) {
+			log.debug("access search page");
+		}
+		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
+		return "tudou/search";
+	}
+	
 	@RequestMapping("/tudou/keywrodsearchlist.xml")
 	public String keywordSearchListPage(HttpServletRequest request,
 			HttpServletResponse response, @RequestParam(value = "q") String q)
