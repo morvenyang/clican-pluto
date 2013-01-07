@@ -122,8 +122,16 @@ public class TudouClientImpl implements TudouClient {
 		}
 		String jsonStr;
 		String url = null;
-		if (channel == null) {
+		if (channel == Channel.Recommand) {
 			url = springProperty.getTudouRecommendApi() + "&page=" + page;
+		} else if (channel == Channel.Search) {
+			try {
+				url = springProperty.getTudouSearchApi() + "&page=" + page
+						+ "&kw=" + keyword;
+			} catch (Exception e) {
+				log.error("", e);
+			}
+
 		} else if (channel.isAlbum()) {
 			url = springProperty.getTudouAlbumChannelApi() + "&cid="
 					+ channel.getValue() + "&page=" + page;
@@ -140,7 +148,7 @@ public class TudouClientImpl implements TudouClient {
 				} else {
 					jsonStr = httpGet(url, null);
 					List<ListView> result = convertToVideos(jsonStr, channel);
-					if (result.size() > 0) {
+					if (channel != Channel.Search && result.size() > 0) {
 						cacheMap.put(url, jsonStr);
 					}
 					return result;
@@ -151,8 +159,6 @@ public class TudouClientImpl implements TudouClient {
 		return result;
 
 	}
-
-	
 
 	@Override
 	public List<String> queryKeywords(String q) {
@@ -198,8 +204,11 @@ public class TudouClientImpl implements TudouClient {
 				}
 			}
 			Header contentTypeHeader = response.getFirstHeader("Content-Type");
+			Header contentEncodingHeader = response
+					.getFirstHeader("Content-Encoding");
 			String contentType = contentTypeHeader.getValue();
 			String charset = "UTF-8";
+			String contentEncoding = null;
 			if (StringUtils.isNotEmpty(contentType)) {
 				int index = contentType.indexOf("charset=");
 				if (index != -1) {
@@ -212,7 +221,9 @@ public class TudouClientImpl implements TudouClient {
 							.toLowerCase();
 				}
 			}
-
+			if (contentEncodingHeader != null) {
+				contentEncoding = contentEncodingHeader.getValue();
+			}
 			is = entity.getContent();
 			os1 = new ByteArrayOutputStream();
 
@@ -222,10 +233,11 @@ public class TudouClientImpl implements TudouClient {
 			while ((read = is.read(buffer)) != -1) {
 				os1.write(buffer, 0, read);
 			}
-			if (contentType.equals("gzip")) {
+			if (StringUtils.isNotEmpty(contentEncoding)
+					&& contentEncoding.equals("gzip")) {
 				os2 = new ByteArrayOutputStream();
 				gis = new GZIPInputStream(new ByteArrayInputStream(
-						os2.toByteArray()));
+						os1.toByteArray()));
 				buffer = new byte[1024];
 				read = -1;
 				while ((read = gis.read(buffer)) != -1) {
