@@ -7,11 +7,6 @@
 			<sections>
 				<shelfSection>
 					<items>
-						<moviePoster id="shelf_item_recommand" alwaysShowTitles="true" accessibilityLabel="推荐" featured="true" onSelect="atv.loadURL('${serverurl}/tudou/index.xml');" onPlay="atv.loadURL('${serverurl}/tudou/index.xml');">
-							<title>推荐</title>
-							<image>${serverurl}/image/tudou/channel/channel_recommand.png</image>
-							<defaultImage>resource://Poster.png</defaultImage>
-						</moviePoster>
 						<c:forEach var="channel" items="${channels}">
 							<moviePoster id="shelf_item_${channel.value}" alwaysShowTitles="true" accessibilityLabel="${channel.label}" featured="true" onSelect="atv.loadURL('${serverurl}/tudou/channel.xml?channelId=${channel.value}');" onPlay="atv.loadURL('${serverurl}/tudou/channel.xml?channelId=${channel.value}');">
 								<title>${channel.label}</title>

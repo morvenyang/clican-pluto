@@ -12,7 +12,7 @@
 					<menuSection>
 						<items>
 							<c:forEach var="keyword" items="${keywordList}" varStatus="status">
-								<imageTextImageMenuItem id="keyword_${status.count+1}" onPlay="atv.loadURL('${serverurl}/tudou/play.xml?itemid=${albumItem.itemid}&amp;st=${st}');" onSelect="atv.loadURL('${serverurl}/tudou/play.xml?itemid=${albumItem.itemid}&amp;st=${st}');">
+								<imageTextImageMenuItem id="keyword_${status.count+1}" onPlay="atv.loadURL('${serverurl}/tudou/index.xml?keyword=${keyword}&amp;channelId=1001&amp;page=0');" onSelect="atv.loadURL('${serverurl}/tudou/index.xml?keyword=${keyword}&amp;channelId=1001&amp;page=0'););">
 									<leftImage></leftImage>
 									<imageSeparatorText></imageSeparatorText>
 									<label><![CDATA[${keyword}]]></label>
