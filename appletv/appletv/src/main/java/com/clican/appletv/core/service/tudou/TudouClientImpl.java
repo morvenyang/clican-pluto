@@ -1,14 +1,15 @@
 package com.clican.appletv.core.service.tudou;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.zip.GZIPInputStream;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -153,12 +154,10 @@ public class TudouClientImpl implements TudouClient {
 	@Override
 	public List<String> queryKeywords(String q) {
 		String url = springProperty.getTudouKeywordSearchApi() + "?q=" + q;
-		Map<String, String> headers = new HashMap<String, String>();
-		headers.put("Accept-Charset", "utf-8");
-		String jsonStr = httpGet(url, headers);
+		String jsonStr = httpGet(url, null);
 		JSONArray array = JSONArray.fromObject(jsonStr);
-		if(log.isDebugEnabled()){
-			log.debug("keywrod size="+array.size());
+		if (log.isDebugEnabled()) {
+			log.debug("keywrod size=" + array.size());
 		}
 		List<String> result = new ArrayList<String>();
 		for (int i = 0; i < array.size(); i++) {
@@ -169,7 +168,9 @@ public class TudouClientImpl implements TudouClient {
 
 	private String httpGet(String url, Map<String, String> headers) {
 		InputStream is = null;
-		ByteArrayOutputStream os = null;
+		ByteArrayOutputStream os1 = null;
+		GZIPInputStream gis = null;
+		ByteArrayOutputStream os2 = null;
 		try {
 			HttpClient client = new DefaultHttpClient();
 			client.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY,
@@ -180,6 +181,7 @@ public class TudouClientImpl implements TudouClient {
 					httpGet.addHeader(key, headers.get(key));
 				}
 			}
+			httpGet.addHeader("Accept-Encoding", "gzip");
 			HttpResponse response = client.execute(httpGet);
 			if (log.isDebugEnabled()) {
 				log.debug("Status:" + response.getStatusLine() + " for url:"
@@ -192,22 +194,45 @@ public class TudouClientImpl implements TudouClient {
 					log.debug(header.getName() + ":" + header.getValue());
 				}
 			}
-			Header contentType = response.getFirstHeader("Content-Type");
+			Header contentTypeHeader = response.getFirstHeader("Content-Type");
+			String contentType = contentTypeHeader.getValue();
+			String charset = "UTF-8";
+			if (StringUtils.isNotEmpty(contentType)) {
+				int index = contentType.indexOf("charset=");
+				if (index != -1) {
+					charset = contentType.substring(index + 8).trim()
+							.toLowerCase();
+				}
+				index = contentType.indexOf(";");
+				if (index != -1) {
+					contentType = contentType.substring(0, index).trim()
+							.toLowerCase();
+				}
+			}
+
 			is = entity.getContent();
-			os = new ByteArrayOutputStream();
+			os1 = new ByteArrayOutputStream();
 
 			byte[] buffer = new byte[1024];
 
 			int read = -1;
 			while ((read = is.read(buffer)) != -1) {
-				os.write(buffer, 0, read);
+				os1.write(buffer, 0, read);
 			}
-			if (contentType != null) {
-				if (contentType.getValue().toLowerCase().contains("gbk")) {
-					return new String(os.toByteArray(), "GBK");
+			if (contentType.equals("gzip")) {
+				os2 = new ByteArrayOutputStream();
+				gis = new GZIPInputStream(new ByteArrayInputStream(
+						os2.toByteArray()));
+				buffer = new byte[1024];
+				read = -1;
+				while ((read = gis.read(buffer)) != -1) {
+					os2.write(buffer, 0, read);
 				}
+				return new String(os2.toByteArray(), charset);
+			} else {
+				return new String(os1.toByteArray(), charset);
 			}
-			return new String(os.toByteArray(), "UTF-8");
+
 		} catch (Exception e) {
 			log.error("", e);
 			return null;
@@ -220,9 +245,25 @@ public class TudouClientImpl implements TudouClient {
 				}
 
 			}
-			if (os != null) {
+			if (gis != null) {
 				try {
-					os.close();
+					gis.close();
+				} catch (Exception e) {
+					log.error("", e);
+				}
+
+			}
+			if (os1 != null) {
+				try {
+					os1.close();
+				} catch (Exception e) {
+					log.error("", e);
+				}
+
+			}
+			if (os2 != null) {
+				try {
+					os2.close();
 				} catch (Exception e) {
 					log.error("", e);
 				}
