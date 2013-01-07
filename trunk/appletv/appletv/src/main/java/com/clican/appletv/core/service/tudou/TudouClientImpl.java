@@ -131,6 +131,7 @@ public class TudouClientImpl implements TudouClient {
 			Integer page) {
 		Date current = DateUtils.truncate(new Date(), Calendar.DAY_OF_MONTH);
 		if (!current.equals(lastExpireTime)) {
+			lastExpireTime = current;
 			cacheMap.clear();
 		}
 		String jsonStr;
@@ -138,7 +139,7 @@ public class TudouClientImpl implements TudouClient {
 		if (channel == Channel.Recommand) {
 			url = springProperty.getTudouRecommendApi() + "&page=" + page;
 		} else if (channel == Channel.Search) {
-			url = springProperty.getTudouSearchApi() + "&pageNo=" + (page+1)
+			url = springProperty.getTudouSearchApi() + "&pageNo=" + (page + 1)
 					+ "&kw=" + keyword;
 		} else if (channel.isAlbum()) {
 			url = springProperty.getTudouAlbumChannelApi() + "&cid="
