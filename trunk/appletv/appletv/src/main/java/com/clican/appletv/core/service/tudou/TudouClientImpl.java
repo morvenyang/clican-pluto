@@ -57,6 +57,9 @@ public class TudouClientImpl implements TudouClient {
 				if (channel != null && channel.isAlbum()) {
 					TudouAlbum tv = (TudouAlbum) JSONObject.toBean(obj,
 							TudouAlbum.class);
+					tv.setAreaDesc(obj.getString("areas_desc"));
+					tv.setTypeDesc(obj.getString("type_desc"));
+					
 					result.add(tv);
 				} else {
 					TudouVideo tv = (TudouVideo) JSONObject.toBean(obj,

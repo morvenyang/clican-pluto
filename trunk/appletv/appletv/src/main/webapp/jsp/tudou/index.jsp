@@ -42,7 +42,7 @@
 			<items>
 				<c:forEach var="video" items="${videos}">
 					<c:if test="${isAlbum}">
-						<moviePoster id="shelf_item_${video.itemid}" alwaysShowTitles="true" onSelect="atv.loadURL('${serverurl}/tudou/album.xml?itemid=${video.itemid}&amp;channelId=${video.cid}&amp;hd=${video.hd}');" onPlay="atv.loadURL('${serverurl}/tudou/album.xml?itemid=${video.itemid}&amp;channelId=${video.cid}&amp;hd=${video.hd}');">
+						<moviePoster id="shelf_item_${video.itemid}" alwaysShowTitles="true" onSelect="atv.loadURL('${serverurl}/tudou/album.xml?itemid=${video.itemid}&amp;channelId=${video.cid}&amp;hd=${video.hd}&amp;page=${page}');" onPlay="atv.loadURL('${serverurl}/tudou/album.xml?itemid=${video.itemid}&amp;channelId=${video.cid}&amp;hd=${video.hd}');">
 							<title><![CDATA[${video.title}]]></title>
 							<subtitle><![CDATA[${video.title}]]></subtitle>
 							<image>${video.picurl}</image>

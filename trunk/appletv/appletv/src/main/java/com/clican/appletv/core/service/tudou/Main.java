@@ -12,23 +12,21 @@ import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
 import org.apache.http.conn.params.ConnRoutePNames;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.params.BasicHttpParams;
 
 public class Main {
 
 	public static void test4() throws Exception {
 		HttpClient client = new DefaultHttpClient();
-
-		HttpPost httppost = new HttpPost("http://minterface.tudou.com/login");
-		BasicHttpParams params = new BasicHttpParams();
-		params.setParameter("email", "clican@gmail.com");
-		params.setParameter("password", "810428");
-		params.setParameter("sessionid", "");
-		httppost.setParams(params);
-		HttpResponse response = client.execute(httppost);
+		//client.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY, new HttpHost("15.185.225.83", 80, "http"));
+		HttpGet httpget = new HttpGet(
+				"http://minterface.tudou.com/iteminfo?sessionid=GTR7J672EMAAA&origin=columnid=30&itemid=151608667&ishd=1");
+		httpget.addHeader("x-forwarded-for", "15.185.225.83");
+		httpget.addHeader("Proxy-Client-IP", "15.185.225.83");
+		httpget.addHeader("WL-Proxy-Client-IP", "15.185.225.83");
+		
+		HttpResponse response = client.execute(httpget);
 		System.out.println(response.getStatusLine());
 		HttpEntity entity = response.getEntity();
 		InputStream is = entity.getContent();
@@ -160,7 +158,7 @@ public class Main {
 
 		HttpResponse response = client.execute(httpget);
 		System.out.println(response.getStatusLine());
-		
+
 		InputStream is = response.getEntity().getContent();
 		byte[] data = new byte[is.available()];
 		is.read(data);
@@ -191,7 +189,7 @@ public class Main {
 	 * @param args
 	 */
 	public static void main(String[] args) throws Exception {
-		test5();
+		test4();
 	}
 
 }
