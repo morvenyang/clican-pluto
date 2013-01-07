@@ -3,7 +3,6 @@ var appletv = {
 			this.makeRequest('http://minterface.tudou.com/iteminfo?sessionid=GTR7J672EMAAA&origin=columnid='+channelId+'&itemid='+itemid+'&ishd='+hd,function(data){
 				var album = JSON.parse(data);
 				var hd = album['hd'];
-				var description = album['description'];
 				var xml = '<?xml version=\"1.0\" encoding=\"UTF-8\"?><atv><body>';
 				xml+='<itemDetail id=\"itemdetail\">';
 				xml+='<title>'+album['title']+'</title>';
