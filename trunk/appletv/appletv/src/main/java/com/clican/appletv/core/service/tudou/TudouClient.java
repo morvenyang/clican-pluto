@@ -18,4 +18,6 @@ public interface TudouClient {
 
 	public TudouAlbum queryAlbum(Channel channel, Long itemid, Integer hd);
 
+	public List<String> queryKeywords(String q);
+
 }
