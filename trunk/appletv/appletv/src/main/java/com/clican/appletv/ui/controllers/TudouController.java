@@ -194,6 +194,7 @@ public class TudouController {
 		}
 		List<String> keywordList = tudouClient.queryKeywords(q);
 		request.setAttribute("keywordList", keywordList);
+		request.setAttribute("q", q);
 		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
 		return "tudou/keywrodsearchlist";
 	}

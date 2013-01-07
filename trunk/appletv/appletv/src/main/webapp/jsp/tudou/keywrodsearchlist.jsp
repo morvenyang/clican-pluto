@@ -15,7 +15,7 @@
 								<imageTextImageMenuItem id="keyword_${status.count+1}" onPlay="atv.loadURL('${serverurl}/tudou/play.xml?itemid=${albumItem.itemid}&amp;st=${st}');" onSelect="atv.loadURL('${serverurl}/tudou/play.xml?itemid=${albumItem.itemid}&amp;st=${st}');">
 									<leftImage></leftImage>
 									<imageSeparatorText></imageSeparatorText>
-									<label>${keyword}</label>
+									<label><![CDATA[${keyword}]]></label>
 									<rightImage></rightImage>
 								</imageTextImageMenuItem>
 							</c:forEach>
