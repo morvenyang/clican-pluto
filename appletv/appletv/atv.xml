@@ -1,13 +1,1 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<atv xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:noNamespaceSchemaLocation="atv.xsd">
-	<body>
-		<scroller id="a" onVolatileReload="">
-			<items>
-				<collectionDivider>
-					<title>a</title>
-				</collectionDivider>
-			</items>
-		</scroller>
-	</body>
-</atv>
+</items></shelfSection></sections></shelf></centerShelf></itemDetail></body></atv>
