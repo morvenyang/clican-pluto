@@ -8,7 +8,7 @@ var appletv = {
 				xml+='<itemDetail id=\"itemdetail\">';
 				xml+='<title>'+album['title']+'</title>';
 				xml+='<summary>'+album['description']+'</summary>';
-				xml+='<image style="moviePoster">'+album['picurl']+'</image>';
+				xml+='<image style=\"moviePoster\">'+album['picurl']+'</image>';
 				xml+='<table><columnDefinitions><columnDefinition width=\"50\"><title>其他信息</title></columnDefinition><columnDefinition width=\"50\"><title></title></columnDefinition></columnDefinitions><rows>';
 				xml+='<row><label><![CDATA[导演:'+album['directors']+']]></label><label><![CDATA[年代:'+album['year']+']]></label></row>';
 				xml+='<row><label><![CDATA[类型:'+album['type_desc']+']]></label><label><![CDATA[地区:'+album['areas_desc']+']]></label></row>';
