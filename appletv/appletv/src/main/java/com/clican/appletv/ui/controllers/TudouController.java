@@ -184,4 +184,18 @@ public class TudouController {
 		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
 		return "tudou/albumlist";
 	}
+
+	@RequestMapping("/tudou/keywrodsearchlist.xml")
+	public String keywordSearchListPage(HttpServletRequest request,
+			HttpServletResponse response, @RequestParam(value = "q") String q)
+			throws IOException {
+		if (log.isDebugEnabled()) {
+			log.debug("query keywords");
+		}
+		List<String> keywordList = tudouClient.queryKeywords(q);
+		request.setAttribute("keywordList", keywordList);
+		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
+		return "tudou/keywrodsearchlist";
+	}
+
 }

@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -16,10 +17,13 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.http.Header;
 import org.apache.http.HttpEntity;
+import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.conn.params.ConnRoutePNames;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 import com.clican.appletv.common.SpringProperty;
@@ -59,7 +63,7 @@ public class TudouClientImpl implements TudouClient {
 							TudouAlbum.class);
 					tv.setAreaDesc(obj.getString("areas_desc"));
 					tv.setTypeDesc(obj.getString("type_desc"));
-					
+
 					result.add(tv);
 				} else {
 					TudouVideo tv = (TudouVideo) JSONObject.toBean(obj,
@@ -84,7 +88,7 @@ public class TudouClientImpl implements TudouClient {
 				if (cacheMap.containsKey(url)) {
 					jsonStr = cacheMap.get(url);
 				} else {
-					jsonStr = httpGet(url);
+					jsonStr = httpGet(url, null);
 					cache = true;
 				}
 			}
@@ -132,7 +136,7 @@ public class TudouClientImpl implements TudouClient {
 				if (cacheMap.containsKey(url)) {
 					jsonStr = cacheMap.get(url);
 				} else {
-					jsonStr = httpGet(url);
+					jsonStr = httpGet(url, null);
 					List<ListView> result = convertToVideos(jsonStr, channel);
 					if (result.size() > 0) {
 						cacheMap.put(url, jsonStr);
@@ -146,13 +150,36 @@ public class TudouClientImpl implements TudouClient {
 
 	}
 
-	private String httpGet(String url) {
+	@Override
+	public List<String> queryKeywords(String q) {
+		String url = springProperty.getTudouKeywordSearchApi() + "?q=" + q;
+		Map<String, String> headers = new HashMap<String, String>();
+		headers.put("Accept-Charset", "utf-8");
+		String jsonStr = httpGet(url, headers);
+		JSONArray array = JSONArray.fromObject(jsonStr);
+		if(log.isDebugEnabled()){
+			log.debug("keywrod size="+array.size());
+		}
+		List<String> result = new ArrayList<String>();
+		for (int i = 0; i < array.size(); i++) {
+			result.add(array.getString(i));
+		}
+		return result;
+	}
+
+	private String httpGet(String url, Map<String, String> headers) {
 		InputStream is = null;
 		ByteArrayOutputStream os = null;
 		try {
 			HttpClient client = new DefaultHttpClient();
-
+			client.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY,
+					new HttpHost("web-proxy.corp.hp.com", 8080, "http"));
 			HttpGet httpGet = new HttpGet(url);
+			if (headers != null) {
+				for (String key : headers.keySet()) {
+					httpGet.addHeader(key, headers.get(key));
+				}
+			}
 			HttpResponse response = client.execute(httpGet);
 			if (log.isDebugEnabled()) {
 				log.debug("Status:" + response.getStatusLine() + " for url:"
@@ -160,6 +187,12 @@ public class TudouClientImpl implements TudouClient {
 			}
 
 			HttpEntity entity = response.getEntity();
+			for (Header header : response.getAllHeaders()) {
+				if (log.isDebugEnabled()) {
+					log.debug(header.getName() + ":" + header.getValue());
+				}
+			}
+			Header contentType = response.getFirstHeader("Content-Type");
 			is = entity.getContent();
 			os = new ByteArrayOutputStream();
 
@@ -169,7 +202,12 @@ public class TudouClientImpl implements TudouClient {
 			while ((read = is.read(buffer)) != -1) {
 				os.write(buffer, 0, read);
 			}
-			return new String(os.toByteArray(), "utf-8");
+			if (contentType != null) {
+				if (contentType.getValue().toLowerCase().contains("gbk")) {
+					return new String(os.toByteArray(), "GBK");
+				}
+			}
+			return new String(os.toByteArray(), "UTF-8");
 		} catch (Exception e) {
 			log.error("", e);
 			return null;
