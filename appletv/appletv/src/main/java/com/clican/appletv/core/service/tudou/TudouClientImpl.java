@@ -20,11 +20,9 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
-import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.conn.params.ConnRoutePNames;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 import com.clican.appletv.common.SpringProperty;
@@ -90,25 +88,9 @@ public class TudouClientImpl implements TudouClient {
 	}
 
 	@Override
-	public TudouAlbum queryAlbum(Channel channel, Long itemid, Integer hd) {
-		String url = springProperty.getTudouAlbumVideosApi() + "columnid="
-				+ channel.getValue() + "&itemid=" + itemid + "&ishd=" + hd;
-		String jsonStr = null;
-		boolean cache = false;
-		if (cacheMap.containsKey(url)) {
-			jsonStr = cacheMap.get(url);
-		} else {
-			synchronized (this) {
-				if (cacheMap.containsKey(url)) {
-					jsonStr = cacheMap.get(url);
-				} else {
-					jsonStr = httpGet(url, null);
-					cache = true;
-				}
-			}
-		}
+	public TudouAlbum queryAlbum(String data) {
 		List<ListView> result = new ArrayList<ListView>();
-		JSONObject albumJson = JSONObject.fromObject(jsonStr);
+		JSONObject albumJson = JSONObject.fromObject(data);
 		TudouAlbum album = (TudouAlbum) JSONObject.toBean(albumJson,
 				TudouAlbum.class);
 		album.setAreaDesc(albumJson.getString("area_desc"));
@@ -118,9 +100,6 @@ public class TudouClientImpl implements TudouClient {
 			JSONObject obj = array.getJSONObject(i);
 			ListView tv = (ListView) JSONObject.toBean(obj, ListView.class);
 			result.add(tv);
-		}
-		if (result.size() > 0 && cache) {
-			cacheMap.put(url, jsonStr);
 		}
 		album.setAlbumitems(result);
 		return album;
@@ -195,8 +174,8 @@ public class TudouClientImpl implements TudouClient {
 		ByteArrayOutputStream os2 = null;
 		try {
 			HttpClient client = new DefaultHttpClient();
-//			client.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY,
-//					new HttpHost("web-proxy.china.hp.com", 8080, "http"));
+			// client.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY,
+			// new HttpHost("web-proxy.china.hp.com", 8080, "http"));
 			HttpGet httpGet = new HttpGet(url);
 			if (headers != null) {
 				for (String key : headers.keySet()) {
