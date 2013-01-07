@@ -2,7 +2,7 @@ var appletv = {
 		loadAlbumXml:function(itemid,channelId,hd,serverurl) {
 			this.makeRequest('http://minterface.tudou.com/iteminfo?sessionid=GTR7J672EMAAA&origin=columnid='+channelId+'&itemid='+itemid+'&ishd='+hd,function(data){
 				var album = JSON.parse(data);
-				var xml = '<?xml version=\"1.0\" encoding=\"UTF-8\"?><atv><head><script src=\"'+serverurl+'javascript/album.js\"/></head><body>';
+				var xml = '<?xml version=\"1.0\" encoding=\"UTF-8\"?><atv><head><script src=\"'+serverurl+'javascript/clican.js\"/></head><body>';
 				xml+='<itemDetail id=\"itemdetail\">';
 				xml+='<title>'+album['title']+'</title>';
 				xml+='<summary>'+album['description']+'</summary>';
