@@ -125,13 +125,8 @@ public class TudouClientImpl implements TudouClient {
 		if (channel == Channel.Recommand) {
 			url = springProperty.getTudouRecommendApi() + "&page=" + page;
 		} else if (channel == Channel.Search) {
-			try {
-				url = springProperty.getTudouSearchApi() + "&page=" + page
-						+ "&kw=" + keyword;
-			} catch (Exception e) {
-				log.error("", e);
-			}
-
+			url = springProperty.getTudouSearchApi() + "&page=" + page + "&kw="
+					+ keyword;
 		} else if (channel.isAlbum()) {
 			url = springProperty.getTudouAlbumChannelApi() + "&cid="
 					+ channel.getValue() + "&page=" + page;
