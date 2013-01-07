@@ -2,7 +2,6 @@ package com.clican.appletv.ui.controllers;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.net.URLEncoder;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
