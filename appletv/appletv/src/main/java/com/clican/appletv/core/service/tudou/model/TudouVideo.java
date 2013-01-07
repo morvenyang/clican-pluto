@@ -20,7 +20,6 @@ public class TudouVideo extends ListView implements Serializable {
 	private Integer pwd;
 	private Integer hd;
 	private Integer cid;
-	private Integer isalbum;
 	public String getLevel() {
 		return level;
 	}
@@ -77,12 +76,6 @@ public class TudouVideo extends ListView implements Serializable {
 	}
 	public void setCid(Integer cid) {
 		this.cid = cid;
-	}
-	public Integer getIsalbum() {
-		return isalbum;
-	}
-	public void setIsalbum(Integer isalbum) {
-		this.isalbum = isalbum;
 	}
 	public Integer getOrigin() {
 		return origin;

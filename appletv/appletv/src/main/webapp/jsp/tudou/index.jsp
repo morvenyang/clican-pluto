@@ -45,7 +45,7 @@
 		<grid id="grid_2" columnCount="6">
 			<items>
 				<c:forEach var="video" items="${videos}">
-					<c:if test="${isAlbum}">
+					<c:if test="${video.isalbum==1}">
 						<moviePoster id="shelf_item_${video.itemid}" alwaysShowTitles="true" onSelect="atv.loadURL('${serverurl}/tudou/album.xml?itemid=${video.itemid}&amp;channelId=${video.cid}&amp;hd=${video.hd}&amp;page=${page}');" onPlay="atv.loadURL('${serverurl}/tudou/album.xml?itemid=${video.itemid}&amp;channelId=${video.cid}&amp;hd=${video.hd}');">
 							<title><![CDATA[${video.title}]]></title>
 							<subtitle><![CDATA[${video.title}]]></subtitle>
@@ -53,7 +53,7 @@
 							<defaultImage>resource://Poster.png</defaultImage>
 						</moviePoster>
 					</c:if>
-					<c:if test="${!isAlbum}">
+					<c:if test="${video.isalbum!=1}">
 						<moviePoster id="shelf_item_${video.itemid}" alwaysShowTitles="true" onSelect="atv.loadURL('${serverurl}/tudou/play.xml?itemid=${video.itemid}');" onPlay="atv.loadURL('${serverurl}/tudou/play.xml?itemid=${video.itemid}');">
 							<title><![CDATA[${video.title}]]></title>
 							<subtitle><![CDATA[${video.title}]]></subtitle>

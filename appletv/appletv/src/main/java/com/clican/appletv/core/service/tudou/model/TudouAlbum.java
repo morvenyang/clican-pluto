@@ -21,7 +21,6 @@ public class TudouAlbum extends ListView implements Serializable {
 	private Long albumid;
 	private Integer isfull;
 	private Integer hd;
-	private Integer isalbum;
 	private Integer currentSize;
 	private String itemBigPic;
 	private String tags;
@@ -97,12 +96,7 @@ public class TudouAlbum extends ListView implements Serializable {
 	public void setHd(Integer hd) {
 		this.hd = hd;
 	}
-	public Integer getIsalbum() {
-		return isalbum;
-	}
-	public void setIsalbum(Integer isalbum) {
-		this.isalbum = isalbum;
-	}
+	
 	public Integer getCurrentSize() {
 		return currentSize;
 	}

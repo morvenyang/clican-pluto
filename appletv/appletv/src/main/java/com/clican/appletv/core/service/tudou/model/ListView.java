@@ -12,6 +12,7 @@ public class ListView implements Serializable {
 	private Long itemid;
 	private String picurl;
 	private String title;
+	private Integer isalbum;
 	
 	public Long getItemid() {
 		return itemid;
@@ -30,6 +31,12 @@ public class ListView implements Serializable {
 	}
 	public void setTitle(String title) {
 		this.title = title;
+	}
+	public Integer getIsalbum() {
+		return isalbum;
+	}
+	public void setIsalbum(Integer isalbum) {
+		this.isalbum = isalbum;
 	}
 	
 	
