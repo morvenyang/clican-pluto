@@ -16,6 +16,8 @@ public class SpringProperty {
 	private String tudouAlbumVideosApi;
 	
 	private String tudouKeywordSearchApi;
+	
+	private String tudouSearchApi;
 
 	public String getSystemServerUrl() {
 		return systemServerUrl;
@@ -71,6 +73,14 @@ public class SpringProperty {
 
 	public void setTudouKeywordSearchApi(String tudouKeywordSearchApi) {
 		this.tudouKeywordSearchApi = tudouKeywordSearchApi;
+	}
+
+	public String getTudouSearchApi() {
+		return tudouSearchApi;
+	}
+
+	public void setTudouSearchApi(String tudouSearchApi) {
+		this.tudouSearchApi = tudouSearchApi;
 	}
 
 }
