@@ -2,6 +2,8 @@ package com.clican.appletv.core.service.tudou.enumeration;
 
 public enum Channel {
 	
+	Recommand("推荐",1000,-1,false),
+	Search("搜索",1001,0,false),
 	DianShiJu("电视剧",30,1,true),
 	DianYing("电影",22,2,false),
 	ZongYi("综艺",31,3,false),
@@ -18,7 +20,9 @@ public enum Channel {
 	FengShang("风尚",32,14,false),
 	LeHuo("乐活",3,15,false),
 	JiaoYu("教育",25,16,false),
-	CaiFu("财富",24,17,false);
+	CaiFu("财富",24,17,false),
+	
+	;
 	
 	private String label;
 	private int value;

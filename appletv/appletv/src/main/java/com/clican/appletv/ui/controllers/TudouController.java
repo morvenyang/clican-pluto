@@ -7,6 +7,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,9 +73,12 @@ public class TudouController {
 	}
 
 	@RequestMapping("/tudou/index.xml")
-	public String indexPage(HttpServletRequest request,
+	public String indexPage(
+			HttpServletRequest request,
 			HttpServletResponse response,
-			@RequestParam(value = "page", required = false) Integer page)
+			@RequestParam(value = "keyword", required = false) String keyword,
+			@RequestParam(value = "page", required = false) Integer page,
+			@RequestParam(value = "channelId", required = false) Integer channelId)
 			throws IOException {
 
 		if (log.isDebugEnabled()) {
@@ -83,50 +87,23 @@ public class TudouController {
 		if (page == null) {
 			page = 0;
 		}
-		List<ListView> videos = tudouClient.queryVideos(null, page);
+		Channel channel = Channel.Recommand;
+
+		if (channelId != null) {
+			channel = Channel.convertToChannel(channelId);
+		}
+
+		List<ListView> videos = tudouClient.queryVideos(null, channel, page);
 		request.setAttribute("channels", Channel.values());
 		request.setAttribute("videos", videos);
 		request.setAttribute("channelCount", Channel.values().length + 1);
 		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
-		request.setAttribute("pagiurl", springProperty.getSystemServerUrl()
-				+ "/tudou/index.xml?1=1");
-		int begin, end = 0;
-		if (page < 90) {
-			begin = page;
-			end = page + 9;
-		} else {
-			end = 99;
-			begin = 90;
+		String pagiurl = springProperty.getSystemServerUrl()
+				+ "/tudou/index.xml?channleId=" + channelId;
+		if (StringUtils.isNotEmpty(keyword) && channel == Channel.Search) {
+			pagiurl = pagiurl + "&keyword=" + keyword;
 		}
-		request.setAttribute("begin", begin);
-		request.setAttribute("end", end);
-		return "tudou/index";
-	}
-
-	@RequestMapping("/tudou/channel.xml")
-	public String channelPage(HttpServletRequest request,
-			HttpServletResponse response,
-			@RequestParam("channelId") int channelId,
-			@RequestParam(value = "page", required = false) Integer page)
-			throws IOException {
-
-		if (log.isDebugEnabled()) {
-			log.debug("access tudou channel page");
-		}
-		if (page == null) {
-			page = 0;
-		}
-
-		request.setAttribute("channels", Channel.values());
-
-		request.setAttribute("channelCount", Channel.values().length + 1);
-		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
-		request.setAttribute("pagiurl", springProperty.getSystemServerUrl()
-				+ "/tudou/channel.xml?channelId=" + channelId);
-
-		Channel channel = Channel.convertToChannel(channelId);
-		List<ListView> videos = tudouClient.queryVideos(channel, page);
-		request.setAttribute("videos", videos);
+		request.setAttribute("pagiurl", pagiurl);
 		request.setAttribute("isAlbum", channel.isAlbum());
 		request.setAttribute("page", page);
 		int begin, end = 0;
@@ -156,7 +133,7 @@ public class TudouController {
 					+ " channelId=" + channelId);
 		}
 		Channel channel = Channel.convertToChannel(channelId);
-		List<ListView> videos = tudouClient.queryVideos(channel, page);
+		List<ListView> videos = tudouClient.queryVideos(null, channel, page);
 		TudouAlbum album = null;
 		for (ListView ta : videos) {
 			if (ta.getItemid().equals(itemid)) {
@@ -186,16 +163,15 @@ public class TudouController {
 	}
 
 	@RequestMapping("/tudou/search.xml")
-	public String keywordSearchListPage(HttpServletRequest request,
-			HttpServletResponse response)
-			throws IOException {
+	public String searchPage(HttpServletRequest request,
+			HttpServletResponse response) throws IOException {
 		if (log.isDebugEnabled()) {
 			log.debug("access search page");
 		}
 		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
 		return "tudou/search";
 	}
-	
+
 	@RequestMapping("/tudou/keywrodsearchlist.xml")
 	public String keywordSearchListPage(HttpServletRequest request,
 			HttpServletResponse response, @RequestParam(value = "q") String q)

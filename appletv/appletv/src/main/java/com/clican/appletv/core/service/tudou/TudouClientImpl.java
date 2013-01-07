@@ -114,7 +114,8 @@ public class TudouClientImpl implements TudouClient {
 	}
 
 	@Override
-	public List<ListView> queryVideos(Channel channel, Integer page) {
+	public List<ListView> queryVideos(String keyword, Channel channel,
+			Integer page) {
 		Date current = DateUtils.truncate(new Date(), Calendar.DAY_OF_MONTH);
 		if (!current.equals(lastExpireTime)) {
 			cacheMap.clear();
@@ -150,6 +151,8 @@ public class TudouClientImpl implements TudouClient {
 		return result;
 
 	}
+
+	
 
 	@Override
 	public List<String> queryKeywords(String q) {
