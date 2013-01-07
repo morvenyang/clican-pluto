@@ -127,8 +127,7 @@ public class TudouController {
 			HttpServletResponse response,
 			@RequestParam(value = "itemid", required = false) Long itemid,
 			@RequestParam(value = "hd", required = false) Integer hd,
-			@RequestParam(value = "channelId", required = false) Integer channelId,
-			@RequestParam(value = "page", required = false) Integer page)
+			@RequestParam(value = "channelId", required = false) Integer channelId)
 			throws IOException {
 		if (log.isDebugEnabled()) {
 			log.debug("access album page itemid=" + itemid + " hd=" + hd
