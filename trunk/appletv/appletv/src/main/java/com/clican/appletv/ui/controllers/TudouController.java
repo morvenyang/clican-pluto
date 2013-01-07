@@ -101,8 +101,8 @@ public class TudouController {
 		String pagiurl = springProperty.getSystemServerUrl()
 				+ "/tudou/index.xml?channelId=" + channel.getValue();
 		if (StringUtils.isNotEmpty(keyword) && channel == Channel.Search) {
-			pagiurl = pagiurl + "&amp;keyword="+keyword;
-					
+			pagiurl = pagiurl + "&amp;keyword=" + keyword;
+
 		}
 		request.setAttribute("pagiurl", pagiurl);
 		request.setAttribute("isAlbum", channel.isAlbum());
@@ -120,24 +120,23 @@ public class TudouController {
 		return "tudou/index";
 	}
 
-	@RequestMapping("/tudou/album.xml")
-	public String albumPage(
-			HttpServletRequest request,
-			HttpServletResponse response,
-			@RequestParam(value = "itemid", required = false) Long itemid,
-			@RequestParam(value = "hd", required = false) Integer hd,
-			@RequestParam(value = "channelId", required = false) Integer channelId)
-			throws IOException {
+	@RequestMapping("/tudou/test.xml")
+	public void testPage() {
 		if (log.isDebugEnabled()) {
-			log.debug("access album page itemid=" + itemid + " hd=" + hd
-					+ " channelId=" + channelId);
+			log.debug("access test page");
 		}
-		Channel channel = Channel.convertToChannel(channelId);
-		TudouAlbum album = tudouClient.queryAlbum(channel, itemid, hd);
+	}
+
+	@RequestMapping("/tudou/album.xml")
+	public String albumPage(HttpServletRequest request,
+			HttpServletResponse response, String data) throws IOException {
+		if (log.isDebugEnabled()) {
+			log.debug("access album page data=" + data);
+		}
+		TudouAlbum album = tudouClient.queryAlbum(data);
 		request.getSession().setAttribute("album", album);
 		request.setAttribute("album", album);
-		request.setAttribute("hd", hd);
-		request.setAttribute("channelId", channelId);
+		request.setAttribute("hd", album.getHd());
 		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
 		return "tudou/album";
 	}

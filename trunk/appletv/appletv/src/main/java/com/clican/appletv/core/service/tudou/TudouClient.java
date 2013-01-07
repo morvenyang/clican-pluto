@@ -16,7 +16,7 @@ public interface TudouClient {
 	 */
 	public List<ListView> queryVideos(String keyword ,Channel channel, Integer page);
 
-	public TudouAlbum queryAlbum(Channel channel, Long itemid, Integer hd);
+	public TudouAlbum queryAlbum(String data);
 	
 	public List<String> queryKeywords(String q);
 
