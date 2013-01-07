@@ -10,8 +10,8 @@ var appletv = {
 				xml+='<image style=\"moviePoster\">'+album['picurl']+'</image>';
 				xml+='<table><columnDefinitions><columnDefinition width=\"50\"><title>其他信息</title></columnDefinition><columnDefinition width=\"50\"><title></title></columnDefinition></columnDefinitions><rows>';
 				xml+='<row><label><![CDATA[导演:'+album['directors']+']]></label><label><![CDATA[年代:'+album['year']+']]></label></row>';
-				xml+='<row><label><![CDATA[类型:'+album['type_desc']+']]></label><label><![CDATA[地区:'+album['areas_desc']+']]></label></row>';
-				xml+='<row><label><![CDATA[剧集:共'+album['size']集+']]></label><label><![CDATA[主演:'+album['actors']+']]></label></row>';
+				xml+='<row><label><![CDATA[类型:'+album['type_desc']+']]></label><label><![CDATA[地区:'+album['area_desc']+']]></label></row>';
+				xml+='<row><label><![CDATA[剧集:共'+album['size']+'集]]></label><label><![CDATA[主演:'+album['actors']+']]></label></row>';
 				xml+='</rows></table><centerShelf><shelf id=\"album\"><sections><shelfSection><items>';
 				xml+='<actionButton id=\"album_1\" onSelect=\"atv.loadURL(\''+serverurl+'/tudou/albumlist.xml?st=2\');\" onPlay=\"atv.loadURL(\''+serverurl+'/tudou/albumlist.xml?st=2\');\"><title>标清</title></actionButton>';
 				xml+='<actionButton id=\"album_2\" onSelect=\"atv.loadURL(\''+serverurl+'/tudou/albumlist.xml?st=3\');\" onPlay=\"atv.loadURL(\''+serverurl+'/tudou/albumlist.xml?st=3\');\"><title>高清</title></actionButton>';

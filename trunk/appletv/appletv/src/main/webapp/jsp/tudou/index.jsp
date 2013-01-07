@@ -47,7 +47,7 @@
 			<items>
 				<c:forEach var="video" items="${videos}">
 					<c:if test="${video.isalbum==1}">
-						<moviePoster id="shelf_item_${video.itemid}" alwaysShowTitles="true" onSelect="appletv.loadData(${video.itemid},${video.cid},${video.hd},${serverurl});" onPlay="appletv.loadData(${video.itemid},${video.cid},${video.hd},${serverurl});">
+						<moviePoster id="shelf_item_${video.itemid}" alwaysShowTitles="true" onSelect="appletv.loadData(${video.itemid},${video.cid},${video.hd},'${serverurl}');" onPlay="appletv.loadData(${video.itemid},${video.cid},${video.hd},'${serverurl}');">
 							<title><![CDATA[${video.title}]]></title>
 							<subtitle><![CDATA[${video.title}]]></subtitle>
 							<image>${video.picurl}</image>
