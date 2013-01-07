@@ -2,6 +2,7 @@ package com.clican.appletv.ui.controllers;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.net.URLEncoder;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -93,15 +94,16 @@ public class TudouController {
 			channel = Channel.convertToChannel(channelId);
 		}
 
-		List<ListView> videos = tudouClient.queryVideos(null, channel, page);
+		List<ListView> videos = tudouClient.queryVideos(keyword, channel, page);
 		request.setAttribute("channels", Channel.values());
 		request.setAttribute("videos", videos);
 		request.setAttribute("channelCount", Channel.values().length + 1);
 		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
 		String pagiurl = springProperty.getSystemServerUrl()
-				+ "/tudou/index.xml?channleId=" + channelId;
+				+ "/tudou/index.xml?channelId=" + channel.getValue();
 		if (StringUtils.isNotEmpty(keyword) && channel == Channel.Search) {
-			pagiurl = pagiurl + "&keyword=" + keyword;
+			pagiurl = pagiurl + "&amp;keyword="+keyword;
+					
 		}
 		request.setAttribute("pagiurl", pagiurl);
 		request.setAttribute("isAlbum", channel.isAlbum());

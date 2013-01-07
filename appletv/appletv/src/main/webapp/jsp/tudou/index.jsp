@@ -8,11 +8,20 @@
 				<shelfSection>
 					<items>
 						<c:forEach var="channel" items="${channels}">
-							<moviePoster id="shelf_item_${channel.value}" alwaysShowTitles="true" accessibilityLabel="${channel.label}" featured="true" onSelect="atv.loadURL('${serverurl}/tudou/channel.xml?channelId=${channel.value}');" onPlay="atv.loadURL('${serverurl}/tudou/channel.xml?channelId=${channel.value}');">
-								<title>${channel.label}</title>
-								<image>${serverurl}/image/tudou/channel/channel_${channel.value}.png</image>
-								<defaultImage>resource://Poster.png</defaultImage>
-							</moviePoster>
+							<c:if test="${channel.value==1001}">
+								<moviePoster id="shelf_item_${channel.value}" alwaysShowTitles="true" accessibilityLabel="${channel.label}" featured="true" onSelect="atv.loadURL('${serverurl}/tudou/search.xml');" onPlay="atv.loadURL('${serverurl}/tudou/search.xml');">
+									<title>${channel.label}</title>
+									<image>${serverurl}/image/tudou/channel/channel_${channel.value}.png</image>
+									<defaultImage>resource://Poster.png</defaultImage>
+								</moviePoster>
+							</c:if>
+							<c:if test="${channel.value!=1001}">
+								<moviePoster id="shelf_item_${channel.value}" alwaysShowTitles="true" accessibilityLabel="${channel.label}" featured="true" onSelect="atv.loadURL('${serverurl}/tudou/index.xml?channelId=${channel.value}');" onPlay="atv.loadURL('${serverurl}/tudou/index.xml?channelId=${channel.value}');">
+									<title>${channel.label}</title>
+									<image>${serverurl}/image/tudou/channel/channel_${channel.value}.png</image>
+									<defaultImage>resource://Poster.png</defaultImage>
+								</moviePoster>
+							</c:if>
 						</c:forEach>
 					</items>
 				</shelfSection>
