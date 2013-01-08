@@ -27,7 +27,7 @@ var appletv = {
 					xml+='<actionButton id=\"album_3\" onSelect=\"appletv.loadAlbumListXml('+itemid+','+channelId+','+hd+',4,\''+serverurl+'\');\" onPlay=\"appletv.loadAlbumListXml('+itemid+','+channelId+','+hd+',4,\''+serverurl+'\');\"><title>超清</title></actionButton>';
 				}
 				xml+='</items></shelfSection></sections></shelf></centerShelf></itemDetail></body></atv>';
-				atv.loadAndSwapXML(atv.parseXML(xml));
+				atv.loadXML(atv.parseXML(xml));
 			});
 		},
 		loadTest:function(){
@@ -53,10 +53,7 @@ var appletv = {
 					xml+='</imageTextImageMenuItem>';
 				}
 				xml+='</items></menuSection></sections></menu></listScrollerSplit></body></atv>';
-				appletv.logToServer('1',serverurl);
-				appletv.logToServer(xml,serverurl);
-				appletv.logToServer('2',serverurl);
-				atv.loadAndSwapXML(atv.parseXML(xml));
+				atv.loadXML(atv.parseXML(xml));
 			});
 		},
 		
@@ -65,7 +62,8 @@ var appletv = {
 	            throw "loadURL requires a url argument";
 	        }
 
-	        var xhr = new XMLHttpRequest();
+	        atv.loadXML(this.makeDialog('Loading','Loading'));
+	        
 	        xhr.onreadystatechange = function() {
 	            try {
 	                if (xhr.readyState == 4 ) {
@@ -112,5 +110,26 @@ var appletv = {
 	        xhr.open("POST", url, true);
 	        xhr.send(content);
 	        return xhr;
-	    }
+	    },
+	    
+	    makeDialog: function(message, description) {
+	        if ( !message ) {
+	            message = "";
+	        }
+	        if ( !description ) {
+	            description = "";
+	        }
+
+	        var errorXML = '<?xml version="1.0" encoding="UTF-8"?> \
+	        <atv> \
+	        <body> \
+	        <dialog id="com.sample.error-dialog"> \
+	        <title><![CDATA[' + message + ']]></title> \
+	        <description><![CDATA[' + description + ']]></description> \
+	        </dialog> \
+	        </body> \
+	        </atv>';
+
+	        return atv.parseXML(errorXML);
+	    },
 }
