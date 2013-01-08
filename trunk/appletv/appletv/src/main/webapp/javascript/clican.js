@@ -1,19 +1,6 @@
 var appletv = {
-		logEnable:true,
-		loadTest:function(){
-			alert("loadTest");
-		},
-		
-		logToServer:function(logText,serverurl){
-			if(this.logEnable){
-				this.makePostRequest(serverurl+'/tudou/log.do',logText,function(data){
-					
-				});
-			}
-		},
-		
 		loadAlbumXml:function(itemid,channelId,hd,serverurl) {
-			this.makeGetRequest('http://minterface.tudou.com/iteminfo?sessionid=GTR7J672EMAAA&origin=&columnid='+channelId+'&itemid='+itemid+'&ishd='+hd,function(data){
+			this.makeRequest('http://minterface.tudou.com/iteminfo?sessionid=GTR7J672EMAAA&origin=&columnid='+channelId+'&itemid='+itemid+'&ishd='+hd,function(data){
 				var album = JSON.parse(data);
 				var xml = '<?xml version=\"1.0\" encoding=\"UTF-8\"?><atv><head><script src=\"'+serverurl+'javascript/clican.js\"/></head><body>';
 				xml+='<itemDetail id=\"itemdetail\">';
@@ -31,24 +18,22 @@ var appletv = {
 					xml+='<actionButton id=\"album_3\" onSelect=\"atv.loadURL(\''+serverurl+'/tudou/albumlist.xml?st=4\');\" onPlay=\"atv.loadURL(\''+serverurl+'/tudou/albumlist.xml?st=4\');\"><title>超清</title></actionButton>';
 				}
 				xml+='</items></shelfSection></sections></shelf></centerShelf></itemDetail></body></atv>';
-				appletv.logToServer(xml,serverurl);
-				
+				atv.loadAndSwapXML(atv.parseXML(xml));
 			});
 		},
-		
+		loadTest:function(){
+			
+		},
 		
 		loadAlbumListXml:function(itemid,channelId,hd,st,serverurl) {
-			this.makeGetRequest('http://minterface.tudou.com/iteminfo?sessionid=GTR7J672EMAAA&origin=&columnid='+channelId+'&itemid='+itemid+'&ishd='+hd,function(data){
+			this.makeRequest('http://minterface.tudou.com/iteminfo?sessionid=GTR7J672EMAAA&origin=&columnid='+channelId+'&itemid='+itemid+'&ishd='+hd,function(data){
 				var album = JSON.parse(data);
-				var xml = '<?xml version=\"1.0\" encoding=\"UTF-8\"?><atv><body><listScrollerSplit id=\"albumlist\">';
-				xml+='<header><simpleHeader horizontalAlignment=\"left\">';
+				var xml = '<?xml version=\"1.0\" encoding=\"UTF-8\"?><atv><body><listScrollerSplit id=\"albumlist\"><header><simpleHeader horizontalAlignment=\"left\">';
 				xml+='<title>'+album['title']+'</title>';
 				xml+='<image>'+album['picurl']+'</image>';
-				xml+='</simpleHeader></header>';
-				xml+='<menu><sections><menuSection><items>';
+				xml+='</simpleHeader></header><menu><sections><menuSection><items>';
 				var items = album['albumitems'];
 				var item;
-				appletv.logToServer('albumitems='+data,serverurl);
 				for ( var i = 0; i < items.length; i++) {
 					item = items[i];
 					xml+='<imageTextImageMenuItem id=\"albumItem_'+i+'\" onPlay=\"atv.loadURL(\''+serverurl+'/tudou/play.xml?itemid='+item['itemid']+'&amp;st='+st+'\');" onSelect=\"atv.loadURL(\''+serverurl+'/tudou/play.xml?itemid='+item['itemid']+'&amp;st='+st+'\');\">';
@@ -57,17 +42,16 @@ var appletv = {
 					xml+='<rightImage></rightImage>';
 					xml+='</imageTextImageMenuItem>';
 				}
-				xml+='</items></menuSection></sections></menu>';
-				xml+='</listScrollerSplit></body></atv>';
-				appletv.logToServer('invoke loadAlbumListXml xml='+xml,serverurl);
-				
+				xml+='</items></menuSection></sections></menu></listScrollerSplit></body></atv>';
+				atv.loadAndSwapXML(atv.parseXML(xml));
 			});
 		},
-
-		makeGetRequest: function(url, callback) {
+		
+		makeRequest: function(url, callback) {
 	        if ( !url ) {
 	            throw "loadURL requires a url argument";
 	        }
+
 	        var xhr = new XMLHttpRequest();
 	        xhr.onreadystatechange = function() {
 	            try {
@@ -75,48 +59,18 @@ var appletv = {
 	                    if ( xhr.status == 200) {
 	                        callback(xhr.responseText);
 	                    } else {
-	                    	alert("makeRequest received HTTP status " + xhr.status + " for " + url);
+	                        console.log("makeRequest received HTTP status " + xhr.status + " for " + url);
 	                        callback(null);
 	                    }
 	                }
 	            } catch (e) {
-	            	alert('makeRequest caught exception while processing request for ' + url + '. Aborting. Exception: ' + e);
+	                console.error('makeRequest caught exception while processing request for ' + url + '. Aborting. Exception: ' + e);
 	                xhr.abort();
 	                callback(null);
 	            }
 	        }
-	        
 	        xhr.open("GET", url, true);
 	        xhr.send();
-	        
 	        return xhr;
-	    },
-	    
-	    makePostRequest: function(url,content, callback) {
-	        if ( !url ) {
-	            throw "loadURL requires a url argument";
-	        }
-	        var xhr = new XMLHttpRequest();
-	        xhr.onreadystatechange = function() {
-	            try {
-	                if (xhr.readyState == 4 ) {
-	                    if ( xhr.status == 200) {
-	                        callback(xhr.responseText);
-	                    } else {
-	                    	alert("makeRequest received HTTP status " + xhr.status + " for " + url);
-	                        callback(null);
-	                    }
-	                }
-	            } catch (e) {
-	            	alert('makeRequest caught exception while processing request for ' + url + '. Aborting. Exception: ' + e);
-	                xhr.abort();
-	                callback(null);
-	            }
-	        }
-	        
-	        xhr.open("POST", url, true);
-	        xhr.send(content);
-	        return xhr;
-	    },
-	    
+	    }
 }
