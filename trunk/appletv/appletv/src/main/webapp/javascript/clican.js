@@ -1,6 +1,7 @@
 var appletv = {
+		logEnable:true,
 		loadAlbumXml:function(itemid,channelId,hd,serverurl) {
-			this.makeRequest('http://minterface.tudou.com/iteminfo?sessionid=GTR7J672EMAAA&origin=columnid='+channelId+'&itemid='+itemid+'&ishd='+hd,function(data){
+			this.makeGetRequest('http://minterface.tudou.com/iteminfo?sessionid=GTR7J672EMAAA&origin=columnid='+channelId+'&itemid='+itemid+'&ishd='+hd,function(data){
 				var album = JSON.parse(data);
 				var xml = '<?xml version=\"1.0\" encoding=\"UTF-8\"?><atv><head><script src=\"'+serverurl+'javascript/clican.js\"/></head><body>';
 				xml+='<itemDetail id=\"itemdetail\">';
@@ -22,13 +23,17 @@ var appletv = {
 			});
 		},
 		log:function(log,serverurl){
-			this.makePostRequest(serverurl+'/tudou/log.do','log='+log,function(data){
-				
-			});
+			if(this.logEnable){
+				this.makePostRequest(serverurl+'/tudou/log.do','log='+log,function(data){
+					
+				});
+			}
 		},
 		
 		loadAlbumListXml:function(itemid,channelId,hd,st,serverurl) {
-			this.makeRequest('http://minterface.tudou.com/iteminfo?sessionid=GTR7J672EMAAA&origin=columnid='+channelId+'&itemid='+itemid+'&ishd='+hd,function(data){
+			this.log('invoke loadAlbumListXml 1',serverurl);
+			this.makeGetRequest('http://minterface.tudou.com/iteminfo?sessionid=GTR7J672EMAAA&origin=columnid='+channelId+'&itemid='+itemid+'&ishd='+hd,function(data){
+				this.log('invoke loadAlbumListXml 2',serverurl);
 				var album = JSON.parse(data);
 				var xml = '<?xml version=\"1.0\" encoding=\"UTF-8\"?><atv><body><listScrollerSplit id=\"albumlist\">';
 				xml+='<header><simpleHeader horizontalAlignment=\"left\">';
@@ -48,11 +53,12 @@ var appletv = {
 				}
 				xml+='</items></menuSection></sections></menu>';
 				xml+='</listScrollerSplit></body></atv>';
+				this.log('invoke loadAlbumListXml xml='+xml,serverurl);
 				atv.loadAndSwapXML(atv.parseXML(xml));
 			});
 		},
 		
-		makeRequest: function(url, callback) {
+		makeGetRequest: function(url, callback) {
 	        if ( !url ) {
 	            throw "loadURL requires a url argument";
 	        }
