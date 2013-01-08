@@ -21,8 +21,10 @@ var appletv = {
 				atv.loadAndSwapXML(atv.parseXML(xml));
 			});
 		},
-		loadTest:function(){
-			
+		log:function(log,serverurl){
+			this.makePostRequest(serverurl+'/tudou/log.do','log='+log,function(data){
+				
+			});
 		},
 		
 		loadAlbumListXml:function(itemid,channelId,hd,st,serverurl) {
@@ -75,5 +77,33 @@ var appletv = {
 	        xhr.open("GET", url, true);
 	        xhr.send();
 	        return xhr;
-	    }
+	    },
+	    
+	    makePostRequest: function(url, params, callback) {
+	        if ( !url ) {
+	            throw "loadURL requires a url argument";
+	        }
+
+	        var xhr = new XMLHttpRequest();
+	        xhr.onreadystatechange = function() {
+	            try {
+	                if (xhr.readyState == 4 ) {
+	                    if ( xhr.status == 200) {
+	                        callback(xhr.responseText);
+	                    } else {
+	                        console.log("makeRequest received HTTP status " + xhr.status + " for " + url);
+	                        callback(null);
+	                    }
+	                }
+	            } catch (e) {
+	                console.error('makeRequest caught exception while processing request for ' + url + '. Aborting. Exception: ' + e);
+	                xhr.abort();
+	                callback(null);
+	            }
+	        }
+	        xhr.open("POST", url, true);
+	        
+	        xhr.send(params);
+	        return xhr;
+	    },
 }
