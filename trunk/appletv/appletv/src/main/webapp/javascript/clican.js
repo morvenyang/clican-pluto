@@ -48,10 +48,11 @@ var appletv = {
 				xml+='<menu><sections><menuSection><items>';
 				var items = album['albumitems'];
 				var item;
+				appletv.logToServer('albumitems='+data,serverurl);
 				for ( var i = 0; i < items.length; i++) {
 					item = items[i];
-					xml+='<imageTextImageMenuItem id=\"albumItem_'+i+'\" onPlay=\"atv.loadURL(\''+serverurl+'/tudou/play.xml?itemid='+item['itemid']+'&st='+st+'\');" onSelect=\"atv.loadURL(\''+serverurl+'/tudou/play.xml?itemid='+item['itemid']+'&st='+st+'\');\">';
-					xml+='<leftImage>'+item['pciurl']+'</leftImage>';
+					xml+='<imageTextImageMenuItem id=\"albumItem_'+i+'\" onPlay=\"atv.loadURL(\''+serverurl+'/tudou/play.xml?itemid='+item['itemid']+'&amp;st='+st+'\');" onSelect=\"atv.loadURL(\''+serverurl+'/tudou/play.xml?itemid='+item['itemid']+'&amp;st='+st+'\');\">';
+					xml+='<leftImage>'+item['picurl']+'</leftImage>';
 					xml+='<label>第'+i+'集</label>';
 					xml+='<rightImage></rightImage>';
 					xml+='</imageTextImageMenuItem>';
