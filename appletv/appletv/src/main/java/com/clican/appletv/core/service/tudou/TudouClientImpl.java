@@ -176,8 +176,8 @@ public class TudouClientImpl implements TudouClient {
 		ByteArrayOutputStream os2 = null;
 		try {
 			HttpClient client = new DefaultHttpClient();
-			client.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY,
-					new HttpHost("web-proxy.china.hp.com", 8080, "http"));
+//			client.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY,
+//					new HttpHost("web-proxy.china.hp.com", 8080, "http"));
 			HttpGet httpGet = new HttpGet(url);
 			if (headers != null) {
 				for (String key : headers.keySet()) {
@@ -193,9 +193,9 @@ public class TudouClientImpl implements TudouClient {
 
 			HttpEntity entity = response.getEntity();
 			for (Header header : response.getAllHeaders()) {
-				if (log.isDebugEnabled()) {
-					log.debug(header.getName() + ":" + header.getValue());
-				}
+//				if (log.isDebugEnabled()) {
+//					log.debug(header.getName() + ":" + header.getValue());
+//				}
 			}
 			Header contentTypeHeader = response.getFirstHeader("Content-Type");
 			Header contentEncodingHeader = response

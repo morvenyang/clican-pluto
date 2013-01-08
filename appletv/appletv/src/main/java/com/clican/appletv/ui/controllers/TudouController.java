@@ -49,9 +49,8 @@ public class TudouController {
 	}
 
 	@RequestMapping("/tudou/log.do")
-	public void indexPage(HttpServletRequest request,
-			HttpServletResponse response,
-			@RequestParam(value = "log", required = false) String logText)
+	public void logText(HttpServletRequest request,
+			HttpServletResponse response)
 			throws IOException {
 		InputStream is = request.getInputStream();
 		ByteArrayOutputStream os = new ByteArrayOutputStream();
@@ -61,11 +60,11 @@ public class TudouController {
 		while ((read = is.read(buffer)) != -1) {
 			os.write(buffer, 0, read);
 		}
-		logText = new String(os.toByteArray(), "UTF-8");
+		String logText = new String(os.toByteArray(), "UTF-8");
 		is.close();
 		os.close();
 		if (log.isDebugEnabled()) {
-			log.debug(logText);
+			log.debug("log="+logText);
 		}
 	}
 
