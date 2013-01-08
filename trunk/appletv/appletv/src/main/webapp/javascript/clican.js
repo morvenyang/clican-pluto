@@ -49,6 +49,7 @@ var appletv = {
 					xml+='<leftImage>'+item['picurl']+'</leftImage>';
 					xml+='<label>第'+i+'集</label>';
 					xml+='<rightImage></rightImage>';
+					xml+='<imageSeparatorText></imageSeparatorText>'
 					xml+='</imageTextImageMenuItem>';
 				}
 				xml+='</items></menuSection></sections></menu></listScrollerSplit></body></atv>';
