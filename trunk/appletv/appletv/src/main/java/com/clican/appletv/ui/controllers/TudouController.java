@@ -4,6 +4,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.URLDecoder;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -66,6 +67,9 @@ public class TudouController {
 		os.close();
 		if (log.isDebugEnabled()) {
 			log.debug(logText);
+			System.out.println(logText);
+			log.debug("测试");
+			System.out.println("测试");
 		}
 	}
 
@@ -210,4 +214,8 @@ public class TudouController {
 		return "tudou/keywrodsearchlist";
 	}
 
+	public static void main(String[] args){
+		String s = "测试";
+		System.out.println(s);
+	}
 }
