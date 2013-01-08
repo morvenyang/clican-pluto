@@ -13,7 +13,7 @@ var appletv = {
 		},
 		
 		loadAlbumXml:function(itemid,channelId,hd,serverurl) {
-			this.makeGetRequest('http://minterface.tudou.com/iteminfo?sessionid=GTR7J672EMAAA&origin=columnid='+channelId+'&itemid='+itemid+'&ishd='+hd,function(data){
+			this.makeGetRequest('http://minterface.tudou.com/iteminfo?sessionid=GTR7J672EMAAA&origin=&columnid='+channelId+'&itemid='+itemid+'&ishd='+hd,function(data){
 				var album = JSON.parse(data);
 				var xml = '<?xml version=\"1.0\" encoding=\"UTF-8\"?><atv><head><script src=\"'+serverurl+'javascript/clican.js\"/></head><body>';
 				xml+='<itemDetail id=\"itemdetail\">';
@@ -38,7 +38,7 @@ var appletv = {
 		
 		
 		loadAlbumListXml:function(itemid,channelId,hd,st,serverurl) {
-			this.makeGetRequest('http://minterface.tudou.com/iteminfo?sessionid=GTR7J672EMAAA&origin=columnid='+channelId+'&itemid='+itemid+'&ishd='+hd,function(data){
+			this.makeGetRequest('http://minterface.tudou.com/iteminfo?sessionid=GTR7J672EMAAA&origin=&columnid='+channelId+'&itemid='+itemid+'&ishd='+hd,function(data){
 				var album = JSON.parse(data);
 				var xml = '<?xml version=\"1.0\" encoding=\"UTF-8\"?><atv><body><listScrollerSplit id=\"albumlist\">';
 				xml+='<header><simpleHeader horizontalAlignment=\"left\">';
