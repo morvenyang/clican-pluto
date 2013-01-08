@@ -117,7 +117,6 @@ var appletv = {
 	        
 	        xhr.open("POST", url, true);
 	        xhr.send(content);
-	        
 	        return xhr;
 	    },
 	    
