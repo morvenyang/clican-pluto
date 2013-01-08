@@ -28,11 +28,12 @@ var appletv = {
 		loadAlbumListXml:function(itemid,channelId,hd,st,serverurl) {
 			this.makeRequest('http://minterface.tudou.com/iteminfo?sessionid=GTR7J672EMAAA&origin=columnid='+channelId+'&itemid='+itemid+'&ishd='+hd,function(data){
 				var album = JSON.parse(data);
-				var xml = '<?xml version=\"1.0\" encoding=\"UTF-8\"?><atv><body><listScrollerSplit id=\"albumlist\"><header><simpleHeader horizontalAlignment=\"left\">';
+				var xml = '<?xml version=\"1.0\" encoding=\"UTF-8\"?><atv><body><listScrollerSplit id=\"albumlist\">';
+				xml+='<header><simpleHeader horizontalAlignment=\"left\">';
 				xml+='<title>'+album['title']+'</title>';
 				xml+='<image>'+album['picurl']+'</image>';
-				xml+='<itemDetail id=\"itemdetail\">';
-				xml+='</simpleHeader></header><menu><sections><menuSection><items>';
+				xml+='</simpleHeader></header>';
+				xml+='<menu><sections><menuSection><items>';
 				var items = album['albumitems'];
 				var item;
 				for ( var i = 0; i < items.length; i++) {
@@ -43,7 +44,8 @@ var appletv = {
 					xml+='<rightImage></rightImage>';
 					xml+='</imageTextImageMenuItem>';
 				}
-				xml+='</items></menuSection></sections></menu></listScrollerSplit></body></atv>';
+				xml+='</items></menuSection></sections></menu>';
+				xml+='</listScrollerSplit></body></atv>';
 				atv.loadAndSwapXML(atv.parseXML(xml));
 			});
 		},
