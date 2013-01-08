@@ -20,9 +20,11 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
+import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.conn.params.ConnRoutePNames;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 import com.clican.appletv.common.SpringProperty;
@@ -174,8 +176,8 @@ public class TudouClientImpl implements TudouClient {
 		ByteArrayOutputStream os2 = null;
 		try {
 			HttpClient client = new DefaultHttpClient();
-			// client.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY,
-			// new HttpHost("web-proxy.china.hp.com", 8080, "http"));
+			client.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY,
+					new HttpHost("web-proxy.china.hp.com", 8080, "http"));
 			HttpGet httpGet = new HttpGet(url);
 			if (headers != null) {
 				for (String key : headers.keySet()) {

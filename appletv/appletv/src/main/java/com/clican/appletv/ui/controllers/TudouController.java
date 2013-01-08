@@ -1,6 +1,8 @@
 package com.clican.appletv.ui.controllers;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.List;
 
@@ -32,6 +34,13 @@ public class TudouController {
 	@Autowired
 	private SpringProperty springProperty;
 
+	@RequestMapping("/jstest.do")
+	public String jstest(HttpServletRequest request,
+			HttpServletResponse response) throws IOException {
+		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
+		return "jstest";
+	}
+
 	@RequestMapping("/tudou/releasenote.xml")
 	public String indexPage(HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
@@ -44,6 +53,17 @@ public class TudouController {
 			HttpServletResponse response,
 			@RequestParam(value = "log", required = false) String logText)
 			throws IOException {
+		InputStream is = request.getInputStream();
+		ByteArrayOutputStream os = new ByteArrayOutputStream();
+		byte[] buffer = new byte[1024];
+
+		int read = -1;
+		while ((read = is.read(buffer)) != -1) {
+			os.write(buffer, 0, read);
+		}
+		logText = new String(os.toByteArray(), "UTF-8");
+		is.close();
+		os.close();
 		if (log.isDebugEnabled()) {
 			log.debug(logText);
 		}
