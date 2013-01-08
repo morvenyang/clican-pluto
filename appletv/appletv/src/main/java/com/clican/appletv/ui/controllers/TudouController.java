@@ -39,6 +39,16 @@ public class TudouController {
 		return "tudou/releasenote";
 	}
 
+	@RequestMapping("/tudou/log.do")
+	public void indexPage(HttpServletRequest request,
+			HttpServletResponse response,
+			@RequestParam(value = "log", required = false) String logText)
+			throws IOException {
+		if (log.isDebugEnabled()) {
+			log.debug(logText);
+		}
+	}
+
 	@RequestMapping("/tudou/play.xml")
 	public void planVideo(HttpServletRequest request,
 			HttpServletResponse response, @RequestParam("itemid") Long itemid,
