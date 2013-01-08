@@ -12,7 +12,7 @@ var appletv = {
 				xml+='<row><label><![CDATA[类型:'+album['type_desc']+']]></label><label><![CDATA[地区:'+album['area_desc']+']]></label></row>';
 				xml+='<row><label><![CDATA[剧集:共'+album['size']+'集]]></label><label><![CDATA[主演:'+album['actors']+']]></label></row>';
 				xml+='</rows></table><centerShelf><shelf id=\"album\"><sections><shelfSection><items>';
-				xml+='<actionButton id=\"album_1\" onSelect=\"appletv.loadAlbumListXml('+itemid+','+channelid+','+hd+',2,\''+serverurl+'\');\" onPlay=\"atv.loadURL(\''+serverurl+'/tudou/albumlist.xml?st=2\');\"><title>标清</title></actionButton>';
+				xml+='<actionButton id=\"album_1\" onSelect=\"appletv.loadAlbumListXml('+itemid+','+channelId+','+hd+',2,\''+serverurl+'\');\" onPlay=\"atv.loadURL(\''+serverurl+'/tudou/albumlist.xml?st=2\');\"><title>标清</title></actionButton>';
 				xml+='<actionButton id=\"album_2\" onSelect=\"atv.loadURL(\''+serverurl+'/tudou/albumlist.xml?st=3\');\" onPlay=\"atv.loadURL(\''+serverurl+'/tudou/albumlist.xml?st=3\');\"><title>高清</title></actionButton>';
 				if(album['hd']==1){
 					xml+='<actionButton id=\"album_3\" onSelect=\"atv.loadURL(\''+serverurl+'/tudou/albumlist.xml?st=4\');\" onPlay=\"atv.loadURL(\''+serverurl+'/tudou/albumlist.xml?st=4\');\"><title>超清</title></actionButton>';
@@ -20,6 +20,9 @@ var appletv = {
 				xml+='</items></shelfSection></sections></shelf></centerShelf></itemDetail></body></atv>';
 				atv.loadAndSwapXML(atv.parseXML(xml));
 			});
+		},
+		loadTest:function(){
+			
 		},
 		
 		loadAlbumListXml:function(itemid,channelId,hd,st,serverurl) {
