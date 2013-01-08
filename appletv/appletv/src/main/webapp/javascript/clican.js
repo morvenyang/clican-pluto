@@ -31,11 +31,12 @@ var appletv = {
 				xml+='<itemDetail id=\"itemdetail\">';
 				xml+='</simpleHeader></header><menu><sections><menuSection><items>';
 				var items = album['albumitems'];
+				var item;
 				for ( var i = 0; i < items.length; i++) {
 					item = items[i];
 					xml+='<imageTextImageMenuItem id=\"albumItem_'+i+'\" onPlay=\"atv.loadURL(\''+serverurl+'/tudou/play.xml?itemid='+item['itemid']+'&st='+st+'\');" onSelect=\"atv.loadURL(\''+serverurl+'/tudou/play.xml?itemid='+item['itemid']+'&st='+st+'\');\">';
 					xml+='<leftImage>'+item['pciurl']+'</leftImage>';
-					xml+='<label>第'+i+'集</label>;
+					xml+='<label>第'+i+'集</label>';
 					xml+='<rightImage></rightImage>';
 					xml+='</imageTextImageMenuItem>';
 				}
