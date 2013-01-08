@@ -7,6 +7,9 @@
 	<artifactId>ui</artifactId>
 	<packaging>war</packaging>
 	<name>appletv-ui</name>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
 	<dependencies>
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -53,15 +56,15 @@
 		</dependency>
 	</dependencies>
 	<build>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-war-plugin</artifactId>
-        <version>2.3</version>
-        <configuration>
-          <warName>appletv</warName>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.3</version>
+				<configuration>
+					<warName>appletv</warName>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 </project>
