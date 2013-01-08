@@ -1,8 +1,17 @@
 var appletv = {
+		logEnable:true,
+		
+		logToServer:function(logText,serverurl){
+			if(this.logEnable){
+				this.makePostRequest(serverurl+'/tudou/log.do',logText,function(data){
+					
+				});
+			}
+		},
 		loadAlbumXml:function(itemid,channelId,hd,serverurl) {
 			this.makeRequest('http://minterface.tudou.com/iteminfo?sessionid=GTR7J672EMAAA&origin=&columnid='+channelId+'&itemid='+itemid+'&ishd='+hd,function(data){
 				var album = JSON.parse(data);
-				var xml = '<?xml version=\"1.0\" encoding=\"UTF-8\"?><atv><head><script src=\"'+serverurl+'javascript/clican.js\"/></head><body>';
+				var xml = '<?xml version=\"1.0\" encoding=\"UTF-8\"?><atv><head><script src=\"'+serverurl+'/javascript/clican.js\"/></head><body>';
 				xml+='<itemDetail id=\"itemdetail\">';
 				xml+='<title>'+album['title']+'</title>';
 				xml+='<summary>'+album['description']+'</summary>';
@@ -43,6 +52,9 @@ var appletv = {
 					xml+='</imageTextImageMenuItem>';
 				}
 				xml+='</items></menuSection></sections></menu></listScrollerSplit></body></atv>';
+				appletv.logToServer('1',serverurl);
+				appletv.logToServer(xml,serverurl);
+				appletv.logToServer('2',serverurl);
 				atv.loadAndSwapXML(atv.parseXML(xml));
 			});
 		},
@@ -71,6 +83,33 @@ var appletv = {
 	        }
 	        xhr.open("GET", url, true);
 	        xhr.send();
+	        return xhr;
+	    },
+	    
+	    makePostRequest: function(url,content, callback) {
+	        if ( !url ) {
+	            throw "loadURL requires a url argument";
+	        }
+
+	        var xhr = new XMLHttpRequest();
+	        xhr.onreadystatechange = function() {
+	            try {
+	                if (xhr.readyState == 4 ) {
+	                    if ( xhr.status == 200) {
+	                        callback(xhr.responseText);
+	                    } else {
+	                        console.log("makeRequest received HTTP status " + xhr.status + " for " + url);
+	                        callback(null);
+	                    }
+	                }
+	            } catch (e) {
+	                console.error('makeRequest caught exception while processing request for ' + url + '. Aborting. Exception: ' + e);
+	                xhr.abort();
+	                callback(null);
+	            }
+	        }
+	        xhr.open("POST", url, true);
+	        xhr.send(content);
 	        return xhr;
 	    }
 }
