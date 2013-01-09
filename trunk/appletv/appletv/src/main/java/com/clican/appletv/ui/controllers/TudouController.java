@@ -125,6 +125,9 @@ public class TudouController {
 		}
 
 		List<ListView> videos = tudouClient.queryVideos(keyword, channel, page);
+		if(videos.size()==0){
+			return "tudou/noresult";
+		}
 		request.setAttribute("channels", Channel.values());
 		request.setAttribute("videos", videos);
 		request.setAttribute("channelCount", Channel.values().length + 1);
