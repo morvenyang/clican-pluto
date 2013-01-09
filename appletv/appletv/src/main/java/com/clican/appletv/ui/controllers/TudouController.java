@@ -132,7 +132,7 @@ public class TudouController {
 		String pagiurl = springProperty.getSystemServerUrl()
 				+ "/tudou/index.xml?channelId=" + channel.getValue();
 		if (StringUtils.isNotEmpty(keyword) && channel == Channel.Search) {
-			pagiurl = pagiurl + "&amp;keyword=" + keyword;
+			pagiurl = pagiurl + "&amp;keyword=" + URLEncoder.encode(keyword,"utf-8");
 
 		}
 		request.setAttribute("pagiurl", pagiurl);
