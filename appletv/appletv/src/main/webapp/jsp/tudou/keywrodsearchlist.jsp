@@ -1,28 +1,59 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %><%@ page contentType="text/xml;charset=utf-8" %><?xml version="1.0" encoding="UTF-8"?>
-<atv>
-	<body>
-    <listScrollerSplit id="keywordsearchlist">
-			<header>
-				<simpleHeader horizontalAlignment="left">
-					<title>${q}</title>
-				</simpleHeader>
-			</header>
-			<menu>
-				<sections>
-					<menuSection>
-						<items>
-							<c:forEach var="keyword" items="${keywordList}" varStatus="status">
-								<imageTextImageMenuItem id="keyword_${status.count+1}" onPlay="atv.loadURL('${serverurl}/tudou/index.xml?keyword=${keyword}&amp;channelId=1001&amp;page=0');" onSelect="atv.loadURL('${serverurl}/tudou/index.xml?keyword=${keyword}&amp;channelId=1001&amp;page=0'););">
-									<leftImage></leftImage>
-									<imageSeparatorText></imageSeparatorText>
-									<label><![CDATA[${keyword}]]></label>
-									<rightImage></rightImage>
-								</imageTextImageMenuItem>
-							</c:forEach>
-						</items>
-					</menuSection>
-				</sections>
-			</menu>
-		</listScrollerSplit>
-  </body>
-</atv>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+	<dict>
+		<key>items</key>
+		<array>
+			<c:forEach items="${keywordList}" var="keyword" varStatus="status">
+				<dict>
+				<key>menu-item</key>
+				<dict>
+					<key>type</key>
+					<string>one-line-menu-item</string>
+					<key>label</key>
+					<string><![CDATA[${keyword}]]></string>
+					<key>event-handlers</key>
+					<dict>
+						<key>select</key>
+						<dict>
+							<key>action</key>
+							<string>js-invoke</string>
+							<key>parameters</key>
+							<dict>
+								<key>function</key>
+								<string>atvuload</string>
+								<key>fname</key>
+								<string>ottntclicanbridge.searchword</string>
+								<key>args</key>
+								<array>
+									<string><![CDATA[${keyword}]]></string>
+									<string>${serverurl}</string>
+								</array>
+							</dict>
+						</dict>
+						<key>play</key>
+						<dict>
+							<key>action</key>
+							<string>js-invoke</string>
+							<key>parameters</key>
+							<dict>
+								<key>function</key>
+								<string>atvuload</string>
+								<key>fname</key>
+								<string>ottntclicanbridge.searchword</string>
+								<key>args</key>
+								<array>
+									<string><![CDATA[${keyword}]]></string>
+									<string>${serverurl}</string>
+								</array>
+							</dict>
+						</dict>
+					</dict>
+				</dict>
+				<key>identifier</key>
+				<string>list_${status.count}</string>
+			</dict>
+			</c:forEach>
+		</array>
+	</dict>
+</plist>

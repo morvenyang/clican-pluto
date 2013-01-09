@@ -28,6 +28,7 @@ public class TudouAlbum extends ListView implements Serializable {
 	private String typeDesc;
 	private String areaDesc;
 	private List<ListView> albumitems;
+	private Object transitPagePoster;
 	
 	public Integer getSize() {
 		return size;
@@ -139,6 +140,12 @@ public class TudouAlbum extends ListView implements Serializable {
 	}
 	public void setAlbumitems(List<ListView> albumitems) {
 		this.albumitems = albumitems;
+	}
+	public Object getTransitPagePoster() {
+		return transitPagePoster;
+	}
+	public void setTransitPagePoster(Object transitPagePoster) {
+		this.transitPagePoster = transitPagePoster;
 	}
 	
 }
