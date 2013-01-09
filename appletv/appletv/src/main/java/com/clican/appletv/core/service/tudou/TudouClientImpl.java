@@ -112,7 +112,8 @@ public class TudouClientImpl implements TudouClient {
 	public List<ListView> queryVideos(String keyword, Channel channel,
 			Integer page) {
 		Date current = DateUtils.truncate(new Date(), Calendar.DAY_OF_MONTH);
-		if (!current.equals(lastExpireTime)) {
+		if (DateUtils.getFragmentInDays(current, Calendar.DAY_OF_MONTH) != DateUtils
+				.getFragmentInDays(lastExpireTime, Calendar.DAY_OF_MONTH)) {
 			if (log.isDebugEnabled()) {
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
 				log.debug("clear cache current:" + sdf.format(current)
