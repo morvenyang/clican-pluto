@@ -3,6 +3,7 @@ package com.clican.appletv.core.service.tudou;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -112,6 +113,11 @@ public class TudouClientImpl implements TudouClient {
 			Integer page) {
 		Date current = DateUtils.truncate(new Date(), Calendar.DAY_OF_MONTH);
 		if (!current.equals(lastExpireTime)) {
+			if (log.isDebugEnabled()) {
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+				log.debug("clear cache current:" + sdf.format(current)
+						+ ",lastExpireTime:" + sdf.format(lastExpireTime));
+			}
 			lastExpireTime = current;
 			cacheMap.clear();
 		}
@@ -123,7 +129,7 @@ public class TudouClientImpl implements TudouClient {
 			url = springProperty.getTudouSearchApi() + "&pageNo=" + (page + 1)
 					+ "&kw=" + keyword;
 		} else if (channel == Channel.Favorite) {
-			
+
 		} else if (channel.isAlbum()) {
 			url = springProperty.getTudouAlbumChannelApi() + "&cid="
 					+ channel.getValue() + "&page=" + page;
