@@ -49,8 +49,7 @@ public class TudouController {
 	}
 
 	@RequestMapping("/tudou/log.do")
-	public void logText(HttpServletRequest request,
-			HttpServletResponse response)
+	public void logText(HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
 		InputStream is = request.getInputStream();
 		ByteArrayOutputStream os = new ByteArrayOutputStream();
@@ -64,7 +63,7 @@ public class TudouController {
 		is.close();
 		os.close();
 		if (log.isDebugEnabled()) {
-			log.debug("log="+logText);
+			log.debug("log=" + logText);
 		}
 	}
 
@@ -197,10 +196,11 @@ public class TudouController {
 
 	@RequestMapping("/tudou/keywrodsearchlist.xml")
 	public String keywordSearchListPage(HttpServletRequest request,
-			HttpServletResponse response, @RequestParam(value = "q") String q)
+			HttpServletResponse response,
+			@RequestParam(value = "q", required = false) String q)
 			throws IOException {
 		if (log.isDebugEnabled()) {
-			log.debug("query keywords");
+			log.debug("query keywords:" + q);
 		}
 		List<String> keywordList = tudouClient.queryKeywords(q);
 		request.setAttribute("keywordList", keywordList);
@@ -209,7 +209,7 @@ public class TudouController {
 		return "tudou/keywrodsearchlist";
 	}
 
-	public static void main(String[] args){
+	public static void main(String[] args) {
 		String s = "测试";
 		System.out.println(s);
 	}

@@ -129,5 +129,5 @@ var appletv = {
 	        </atv>';
 
 	        return atv.parseXML(errorXML);
-	    },
-}
+	    }
+};
