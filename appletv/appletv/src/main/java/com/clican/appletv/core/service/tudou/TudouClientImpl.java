@@ -192,11 +192,6 @@ public class TudouClientImpl implements TudouClient {
 			}
 
 			HttpEntity entity = response.getEntity();
-			for (Header header : response.getAllHeaders()) {
-				if (log.isTraceEnabled()) {
-					log.trace(header.getName() + ":" + header.getValue());
-				}
-			}
 			Header contentTypeHeader = response.getFirstHeader("Content-Type");
 			Header contentEncodingHeader = response
 					.getFirstHeader("Content-Encoding");
