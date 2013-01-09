@@ -4,6 +4,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.clican.appletv.common.SpringProperty;
 import com.clican.appletv.core.service.tudou.TudouClient;
 import com.clican.appletv.core.service.tudou.enumeration.Channel;
+import com.clican.appletv.core.service.tudou.model.Keyword;
 import com.clican.appletv.core.service.tudou.model.ListView;
 import com.clican.appletv.core.service.tudou.model.TudouAlbum;
 
@@ -203,7 +206,14 @@ public class TudouController {
 			log.debug("query keywords:" + q);
 		}
 		List<String> keywordList = tudouClient.queryKeywords(q);
-		request.setAttribute("keywordList", keywordList);
+		List<Keyword> klist = new ArrayList<Keyword>();
+		for(String kw:keywordList){
+			Keyword keyword = new Keyword();
+			keyword.setLabel(kw);
+			keyword.setUrlValue(URLEncoder.encode(kw,"UTF-8"));
+			klist.add(keyword);
+		}
+		request.setAttribute("keywordList", klist);
 		request.setAttribute("q", q);
 		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
 		return "tudou/keywrodsearchlist";

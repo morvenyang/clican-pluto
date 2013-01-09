@@ -11,41 +11,27 @@
 					<key>type</key>
 					<string>one-line-menu-item</string>
 					<key>label</key>
-					<string><![CDATA[${keyword}]]></string>
+					<string><![CDATA[${keyword.label}]]></string>
 					<key>event-handlers</key>
 					<dict>
 						<key>select</key>
 						<dict>
 							<key>action</key>
-							<string>js-invoke</string>
+							<string>load-url</string>
 							<key>parameters</key>
 							<dict>
-								<key>function</key>
-								<string>atvuload</string>
-								<key>fname</key>
-								<string>ottntclicanbridge.searchword</string>
-								<key>args</key>
-								<array>
-									<string><![CDATA[${keyword}]]></string>
-									<string>${serverurl}</string>
-								</array>
+							<key>url</key>
+							<string>${serverurl}/tudou/index.xml?channelId=1001&amp;keyword=${keyword.urlValue}</string>
 							</dict>
 						</dict>
-						<key>play</key>
+						<key>plan</key>
 						<dict>
 							<key>action</key>
-							<string>js-invoke</string>
+							<string>load-url</string>
 							<key>parameters</key>
 							<dict>
-								<key>function</key>
-								<string>atvuload</string>
-								<key>fname</key>
-								<string>ottntclicanbridge.searchword</string>
-								<key>args</key>
-								<array>
-									<string><![CDATA[${keyword}]]></string>
-									<string>${serverurl}</string>
-								</array>
+							<key>url</key>
+							<string>${serverurl}/tudou/index.xml?channelId=1001&amp;keyword=${keyword.urlValue}</string>
 							</dict>
 						</dict>
 					</dict>
