@@ -129,8 +129,6 @@ public class TudouClientImpl implements TudouClient {
 		} else if (channel == Channel.Search) {
 			url = springProperty.getTudouSearchApi() + "&pageNo=" + (page + 1)
 					+ "&kw=" + keyword;
-		} else if (channel == Channel.Favorite) {
-
 		} else if (channel.isAlbum()) {
 			url = springProperty.getTudouAlbumChannelApi() + "&cid="
 					+ channel.getValue() + "&page=" + page;
