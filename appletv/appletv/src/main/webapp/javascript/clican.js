@@ -61,9 +61,7 @@ var appletv = {
 	        if ( !url ) {
 	            throw "loadURL requires a url argument";
 	        }
-
-	        atv.loadXML(this.makeDialog('Loading','Loading'));
-	        
+	        var xhr = new XMLHttpRequest();
 	        xhr.onreadystatechange = function() {
 	            try {
 	                if (xhr.readyState == 4 ) {
