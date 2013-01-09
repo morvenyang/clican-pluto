@@ -18,6 +18,10 @@ public class SpringProperty {
 	private String tudouKeywordSearchApi;
 	
 	private String tudouSearchApi;
+	
+	private String tudouGetFavoriteApi;
+	
+	private String tudouSetFavoriteApi;
 
 	public String getSystemServerUrl() {
 		return systemServerUrl;
@@ -81,6 +85,22 @@ public class SpringProperty {
 
 	public void setTudouSearchApi(String tudouSearchApi) {
 		this.tudouSearchApi = tudouSearchApi;
+	}
+
+	public String getTudouGetFavoriteApi() {
+		return tudouGetFavoriteApi;
+	}
+
+	public void setTudouGetFavoriteApi(String tudouGetFavoriteApi) {
+		this.tudouGetFavoriteApi = tudouGetFavoriteApi;
+	}
+
+	public String getTudouSetFavoriteApi() {
+		return tudouSetFavoriteApi;
+	}
+
+	public void setTudouSetFavoriteApi(String tudouSetFavoriteApi) {
+		this.tudouSetFavoriteApi = tudouSetFavoriteApi;
 	}
 
 }

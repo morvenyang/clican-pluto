@@ -4,6 +4,7 @@ public enum Channel {
 	
 	Recommand("推荐",1000,-1,false),
 	Search("搜索",1001,0,false),
+	Favorite("收藏",1001,0,false),
 	DianShiJu("电视剧",30,1,true),
 	DianYing("电影",22,2,false),
 	ZongYi("综艺",31,3,false),

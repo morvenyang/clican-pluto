@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -14,17 +15,16 @@ import java.util.zip.GZIPInputStream;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
-import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.conn.params.ConnRoutePNames;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 import com.clican.appletv.common.SpringProperty;
@@ -122,6 +122,8 @@ public class TudouClientImpl implements TudouClient {
 		} else if (channel == Channel.Search) {
 			url = springProperty.getTudouSearchApi() + "&pageNo=" + (page + 1)
 					+ "&kw=" + keyword;
+		} else if (channel == Channel.Favorite) {
+			
 		} else if (channel.isAlbum()) {
 			url = springProperty.getTudouAlbumChannelApi() + "&cid="
 					+ channel.getValue() + "&page=" + page;
@@ -176,8 +178,8 @@ public class TudouClientImpl implements TudouClient {
 		ByteArrayOutputStream os2 = null;
 		try {
 			HttpClient client = new DefaultHttpClient();
-//			client.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY,
-//					new HttpHost("web-proxy.china.hp.com", 8080, "http"));
+			// client.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY,
+			// new HttpHost("web-proxy.china.hp.com", 8080, "http"));
 			HttpGet httpGet = new HttpGet(url);
 			if (headers != null) {
 				for (String key : headers.keySet()) {
@@ -276,4 +278,18 @@ public class TudouClientImpl implements TudouClient {
 		}
 	}
 
+	public static void main(String[] args) {
+		TudouClientImpl client = new TudouClientImpl();
+		Map<String, String> headers = new HashMap<String, String>();
+		headers.put(
+				"Authorization",
+				"Basic "
+						+ Base64.encodeBase64String("clican@gmail.com:810428"
+								.getBytes()));
+		String result = client
+				.httpGet(
+						"http://api.tudou.com/v3/gw?method=item.favor.get&appKey=0b078dbd69dc3b48",
+						headers);
+		System.out.println(result);
+	}
 }
