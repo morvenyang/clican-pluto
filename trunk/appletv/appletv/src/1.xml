@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<atv>
+	<body>
+		<videoPlayer id="play">
+			<httpLiveStreamingVideoAsset>
+				<mediaURL>http://180.153.90.11/vlive.qqvideo.tc.qq.com/u0011bzh4ub.mp4?vkey=D11F92100DF80DD5A92ABAC8D8859FBF3A096A8134FDBD048E4783AE3B52542C4C66123086F39D64&br=71&platform=0&fmt=mp4&level=3</mediaURL>
+			</httpLiveStreamingVideoAsset>
+		</videoPlayer>
+	</body>
+</atv>
