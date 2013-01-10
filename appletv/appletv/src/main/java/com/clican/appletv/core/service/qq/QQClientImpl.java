@@ -111,14 +111,32 @@ public class QQClientImpl extends BaseClient implements QQClient {
 
 	@Override
 	public QQAlbum queryAlbum(String coverId) {
-		String url = springProperty.getQqVideoApi().replace("json",
-				coverId + ".json");
+		String url = springProperty.getQqVideoApi().replace("cidjson",
+				coverId.subSequence(0, 1) + "/" + coverId + ".json");
 		if (log.isDebugEnabled()) {
 			log.debug("query album url=" + url);
 		}
 		String jsonStr = httpGet(url, null);
-		QQAlbum album = (QQAlbum) JSONObject.toBean(
-				JSONObject.fromObject(jsonStr), QQAlbum.class);
+		JSONObject albumJson = JSONObject.fromObject(jsonStr);
+		QQAlbum album = new QQAlbum();
+		
+		album.setActor(StringUtils.join(albumJson.getJSONArray("actor").iterator(), ","));
+		album.setArea(albumJson.getString("area"));
+		album.setDctor(StringUtils.join(albumJson.getJSONArray("dctor").iterator(), ","));
+		album.setId(albumJson.getString("id"));
+		album.setPic(albumJson.getString("pic"));
+		album.setScore(albumJson.getString("score"));
+		album.setTt(albumJson.getString("tt"));
+		album.setYear(albumJson.getInt("year"));
+		album.setDesc(albumJson.getString("desc"));
+		
+		List<String> vids = new ArrayList<String>();
+		JSONArray videos = albumJson.getJSONArray("videos");
+		for (int i = 0; i < videos.size(); i++) {
+			vids.add(((JSONObject) videos.get(i)).getString("vid"));
+		}
+		album.setSize(vids.size());
+		album.setVids(vids);
 		return album;
 	}
 

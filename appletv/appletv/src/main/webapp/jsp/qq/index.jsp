@@ -1,6 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %><%@ page contentType="text/xml;charset=utf-8" %><?xml version="1.0" encoding="UTF-8"?>
 <atv>
-<head><script src="${serverurl}/javascript/clican.js"/></head>
 <body>
 <scroller id="com.sample.movie-shelf">
 	<items>
@@ -9,7 +8,7 @@
 				<shelfSection>
 					<items>
 						<c:forEach var="channel" items="${channels}">
-								<moviePoster id="shelf_item_${channel.value}" alwaysShowTitles="true" accessibilityLabel="${channel.label}" featured="true" onSelect="atv.loadURL('${serverurl}/tudou/index.xml?channelId=${channel.value}');" onPlay="atv.loadURL('${serverurl}/tudou/index.xml?channelId=${channel.value}');">
+								<moviePoster id="shelf_item_${channel.value}" alwaysShowTitles="true" accessibilityLabel="${channel.label}" featured="true" onSelect="atv.loadURL('${serverurl}/qq/index.xml?channelId=${channel.value}');" onPlay="atv.loadURL('${serverurl}/qq/index.xml?channelId=${channel.value}');">
 									<title>${channel.label}</title>
 									<image>${serverurl}/image/qq/channel/channel_${channel.value}.png</image>
 									<defaultImage>resource://Poster.png</defaultImage>
@@ -39,7 +38,7 @@
 		<grid id="grid_2" columnCount="6">
 			<items>
 				<c:forEach var="video" items="${videos}">
-						<moviePoster id="shelf_item_${video.coverId}" alwaysShowTitles="true" onSelect="atv.loadURL('${serverurl}/qq/album.xml?coverId=${video.coverId}');" onPlay="atv.loadURL('${serverurl}/tudou/album.xml?coverId=${video.coverId}');">
+						<moviePoster id="shelf_item_${video.coverId}" alwaysShowTitles="true" onSelect="atv.loadURL('${serverurl}/qq/album.xml?coverId=${video.coverId}');" onPlay="atv.loadURL('${serverurl}/qq/album.xml?coverId=${video.coverId}');">
 							<title><![CDATA[${video.title}]]></title>
 							<subtitle><![CDATA[${video.title}]]></subtitle>
 							<image>${video.pic}</image>

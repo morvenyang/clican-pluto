@@ -14,6 +14,7 @@ public class QQAlbum {
 	private String tt;
 	private int year;
 	private List<String> vids;
+	private int size;
 	
 	public String getActor() {
 		return actor;
@@ -75,7 +76,12 @@ public class QQAlbum {
 	public void setVids(List<String> vids) {
 		this.vids = vids;
 	}
-	
+	public int getSize() {
+		return size;
+	}
+	public void setSize(int size) {
+		this.size = size;
+	}
 	
 	
 }
