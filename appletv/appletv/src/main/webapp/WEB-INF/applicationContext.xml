@@ -35,5 +35,8 @@ http://www.springframework.org/schema/context/spring-context-2.5.xsd">
 	
 	<bean id="tudouClient" class="com.clican.appletv.core.service.tudou.TudouClientImpl" autowire="byName">
 	</bean>
+	
+	<bean id="qqClient" class="com.clican.appletv.core.service.qq.QQClientImpl" autowire="byName">
+	</bean>
 
 </beans>
