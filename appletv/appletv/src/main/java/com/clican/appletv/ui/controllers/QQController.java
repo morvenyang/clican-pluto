@@ -1,6 +1,8 @@
 package com.clican.appletv.ui.controllers;
 
 import java.io.IOException;
+import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,6 +20,7 @@ import com.clican.appletv.core.service.qq.QQClient;
 import com.clican.appletv.core.service.qq.enumeration.Channel;
 import com.clican.appletv.core.service.qq.model.QQAlbum;
 import com.clican.appletv.core.service.qq.model.QQVideo;
+import com.clican.appletv.core.service.tudou.model.Keyword;
 
 @Controller
 public class QQController {
@@ -104,5 +107,37 @@ public class QQController {
 		request.setAttribute("playdescurl", springProperty.getQqVideoPlayApi().replaceAll("&", "&amp;"));
 		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
 		return "qq/albumlist";
+	}
+	
+	@RequestMapping("/qq/search.xml")
+	public String searchPage(HttpServletRequest request,
+			HttpServletResponse response) throws IOException {
+		if (log.isDebugEnabled()) {
+			log.debug("access search page");
+		}
+		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
+		return "qq/search";
+	}
+
+	@RequestMapping("/qq/keywrodsearchlist.xml")
+	public String keywordSearchListPage(HttpServletRequest request,
+			HttpServletResponse response,
+			@RequestParam(value = "q", required = false) String q)
+			throws IOException {
+		if (log.isDebugEnabled()) {
+			log.debug("query keywords:" + q);
+		}
+		List<String> keywordList = qqClient.queryKeywords(q);
+		List<Keyword> klist = new ArrayList<Keyword>();
+		for(String kw:keywordList){
+			Keyword keyword = new Keyword();
+			keyword.setLabel(kw);
+			keyword.setUrlValue(URLEncoder.encode(kw,"UTF-8"));
+			klist.add(keyword);
+		}
+		request.setAttribute("keywordList", klist);
+		request.setAttribute("q", q);
+		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
+		return "qq/keywrodsearchlist";
 	}
 }
