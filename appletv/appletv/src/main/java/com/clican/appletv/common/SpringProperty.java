@@ -29,6 +29,8 @@ public class SpringProperty {
 	
 	private String qqVideoPlayApi;
 	
+	private String qqKeywordSearchApi;
+	
 	public String getSystemServerUrl() {
 		return systemServerUrl;
 	}
@@ -131,6 +133,14 @@ public class SpringProperty {
 
 	public void setQqVideoPlayApi(String qqVideoPlayApi) {
 		this.qqVideoPlayApi = qqVideoPlayApi;
+	}
+
+	public String getQqKeywordSearchApi() {
+		return qqKeywordSearchApi;
+	}
+
+	public void setQqKeywordSearchApi(String qqKeywordSearchApi) {
+		this.qqKeywordSearchApi = qqKeywordSearchApi;
 	}
 
 }

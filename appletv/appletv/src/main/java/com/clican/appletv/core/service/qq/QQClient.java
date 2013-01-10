@@ -12,5 +12,7 @@ public interface QQClient {
 			Integer page);
 
 	public QQAlbum queryAlbum(String coverId);
+	
+	public List<String> queryKeywords(String q);
 
 }

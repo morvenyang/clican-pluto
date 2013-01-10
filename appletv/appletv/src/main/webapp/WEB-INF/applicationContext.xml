@@ -31,6 +31,7 @@ http://www.springframework.org/schema/context/spring-context-2.5.xsd">
 		<property name="qqChannelApi" value="${qq.channel.api}"></property>
 		<property name="qqVideoApi" value="${qq.video.api}"></property>
 		<property name="qqVideoPlayApi" value="${qq.video.play.api}"></property>
+		<property name="qqKeywordSearchApi" value="qq.keyword.search.api"></property>
 	</bean>
 	
 	<bean id="tudouClient" class="com.clican.appletv.core.service.tudou.TudouClientImpl" autowire="byName">
