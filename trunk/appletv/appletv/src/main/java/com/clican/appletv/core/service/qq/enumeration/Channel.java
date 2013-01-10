@@ -4,6 +4,7 @@ package com.clican.appletv.core.service.qq.enumeration;
 public enum Channel {
 
 	Recommand("推荐",3),
+	Search("搜索",1001),
 	DianShiJu("电视剧",15),
 	DianYing("电影",14),
 	DongMan("动漫",16),
