@@ -113,21 +113,19 @@ var appletv = {
 	    
 	    playQQVideo: function(playDescUrl,serverurl){
 	    	this.makeRequest(playDescUrl,function(data){
-	    		appletv.logToServer(playDescUrl, serverurl);
 	    		var urlIndexStart = data.indexOf("\"url\":\"");
 	    		urlIndexStart += 7;
 	    		var urlIndexEnd = data.indexOf("\"",urlIndexStart);
 	    		var url = data.substring(urlIndexStart,urlIndexEnd);
-	    		appletv.logToServer(url, serverurl);
-	    		atv.loadXML(appletv.makePlayXml(url));
+	    		atv.loadXML(appletv.makePlayXml(url,serverurl));
 	    	});
 	    },
 	    
-	    makePlayXml: function(url){
-	    	var xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><atv><body><videoPlayer id=\"play\"><httpLiveStreamingVideoAsset><mediaURL>";
+	    makePlayXml: function(url,serverurl){
+	    	var xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><atv><body><videoPlayer id=\"play\"><httpLiveStreamingVideoAsset><mediaURL><![CDATA[";
 	    	xml+=url;
-	    	xml+="</mediaURL></httpLiveStreamingVideoAsset></videoPlayer></body></atv>";
-	    	return atv.parseXML(errorXML);
+	    	xml+="]]></mediaURL></httpLiveStreamingVideoAsset></videoPlayer></body></atv>";
+	    	return atv.parseXML(xml);
 	    },
 	    
 	    makeDialog: function(message, description) {
