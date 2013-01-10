@@ -111,6 +111,23 @@ var appletv = {
 	        return xhr;
 	    },
 	    
+	    playQQVideo: function(playDescUrl,serverurl){
+	    	this.makeRequest(playDescUrl,function(data){
+	    		var urlIndexStart = data.indexOf("\"url\":\"");
+	    		urlIndexStart += 7;
+	    		var urlIndexEnd = data.indexOf("\"",urlIndexStart);
+	    		var url = data.substring(urlIndexStart,urlIndexEnd);
+	    		atv.loadXML(appletv.makePlayXml(url));
+	    	});
+	    },
+	    
+	    makePlayXml: function(url){
+	    	var xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><atv><body><videoPlayer id=\"play\"><httpLiveStreamingVideoAsset><mediaURL>";
+	    	xml+=url;
+	    	xml+="</mediaURL></httpLiveStreamingVideoAsset></videoPlayer></body></atv>";
+	    	return atv.parseXML(errorXML);
+	    },
+	    
 	    makeDialog: function(message, description) {
 	        if ( !message ) {
 	            message = "";

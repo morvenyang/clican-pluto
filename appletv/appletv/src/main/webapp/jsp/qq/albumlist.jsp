@@ -13,7 +13,7 @@
 					<menuSection>
 						<items>
 							<c:forEach var="albumItem" items="${album.vids}" varStatus="status">
-								<imageTextImageMenuItem id="albumItem_${status.count+1}" onPlay="atv.loadURL('${serverurl}/qq/play.xml?coverId=${albumItem}');" onSelect="atv.loadURL('${serverurl}/qq/play.xml?coverId=${albumItem}');">
+								<imageTextImageMenuItem id="albumItem_${status.count+1}" onPlay="appletv.playQQVideo('${albumItem}','${serverurl}');" onSelect="appletv.playQQVideo('${albumItem}','${serverurl}');">
 									<leftImage></leftImage>
 									<imageSeparatorText></imageSeparatorText>
 									<label>第${status.count}集</label>
