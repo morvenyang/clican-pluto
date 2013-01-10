@@ -1,5 +1,6 @@
 package com.clican.appletv.core.service.qq.enumeration;
 
+
 public enum Channel {
 
 	Recommand("推荐",3),
@@ -29,6 +30,15 @@ public enum Channel {
 
 	public int getValue() {
 		return value;
+	}
+	
+	public static Channel convertToChannel(Integer channelId){
+		for(Channel channel:values()){
+			if(channel.getValue()==channelId){
+				return channel;
+			}
+		}
+		return null;
 	}
 	
 }

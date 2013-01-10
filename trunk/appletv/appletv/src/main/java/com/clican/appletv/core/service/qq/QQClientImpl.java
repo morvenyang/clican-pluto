@@ -17,6 +17,7 @@ import org.apache.commons.lang.time.DateUtils;
 import com.clican.appletv.common.SpringProperty;
 import com.clican.appletv.core.service.BaseClient;
 import com.clican.appletv.core.service.qq.enumeration.Channel;
+import com.clican.appletv.core.service.qq.model.QQAlbum;
 import com.clican.appletv.core.service.qq.model.QQVideo;
 
 public class QQClientImpl extends BaseClient implements QQClient {
@@ -86,6 +87,11 @@ public class QQClientImpl extends BaseClient implements QQClient {
 		List<QQVideo> result = convertToVideos(jsonStr, channel);
 		return result;
 
+	}
+
+	@Override
+	public QQAlbum queryAlbum(String coverId) {
+		return null;
 	}
 
 }
