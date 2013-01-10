@@ -3,7 +3,6 @@ package com.clican.appletv.core.service.tudou;
 import java.util.List;
 
 import com.clican.appletv.core.service.tudou.enumeration.Channel;
-import com.clican.appletv.core.service.tudou.model.Keyword;
 import com.clican.appletv.core.service.tudou.model.ListView;
 import com.clican.appletv.core.service.tudou.model.TudouAlbum;
 

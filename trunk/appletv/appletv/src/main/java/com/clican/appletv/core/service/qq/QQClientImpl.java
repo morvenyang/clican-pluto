@@ -119,17 +119,19 @@ public class QQClientImpl extends BaseClient implements QQClient {
 		String jsonStr = httpGet(url, null);
 		JSONObject albumJson = JSONObject.fromObject(jsonStr);
 		QQAlbum album = new QQAlbum();
-		
-		album.setActor(StringUtils.join(albumJson.getJSONArray("actor").iterator(), ","));
+
+		album.setActor(StringUtils.join(albumJson.getJSONArray("actor")
+				.iterator(), ","));
 		album.setArea(albumJson.getString("area"));
-		album.setDctor(StringUtils.join(albumJson.getJSONArray("dctor").iterator(), ","));
+		album.setDctor(StringUtils.join(albumJson.getJSONArray("dctor")
+				.iterator(), ","));
 		album.setId(albumJson.getString("id"));
 		album.setPic(albumJson.getString("pic"));
 		album.setScore(albumJson.getString("score"));
 		album.setTt(albumJson.getString("tt"));
 		album.setYear(albumJson.getInt("year"));
 		album.setDesc(albumJson.getString("desc"));
-		
+
 		List<String> vids = new ArrayList<String>();
 		JSONArray videos = albumJson.getJSONArray("videos");
 		for (int i = 0; i < videos.size(); i++) {
@@ -138,6 +140,26 @@ public class QQClientImpl extends BaseClient implements QQClient {
 		album.setSize(vids.size());
 		album.setVids(vids);
 		return album;
+	}
+
+	@Override
+	public List<String> queryKeywords(String q) {
+		String url = springProperty.getQqKeywordSearchApi() + "?sm_key=" + q;
+		String jsonStr = httpGet(url, null);
+		List<String> result = new ArrayList<String>();
+		if (StringUtils.isNotEmpty(jsonStr)) {
+			jsonStr = jsonStr.replace("a(", "").replace(")", "");
+			JSONArray array = JSONObject.fromObject(jsonStr).getJSONArray(
+					"item");
+			if (log.isDebugEnabled()) {
+				log.debug("keywrod size=" + array.size());
+			}
+			for (int i = 0; i < array.size(); i++) {
+				result.add(array.getJSONObject(i).getString("w"));
+			}
+		}
+
+		return result;
 	}
 
 }
