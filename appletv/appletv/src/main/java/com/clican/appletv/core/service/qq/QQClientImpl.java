@@ -42,7 +42,8 @@ public class QQClientImpl extends BaseClient implements QQClient {
 			if (channel == Channel.Recommand) {
 				JSONArray datas = qzOutputJson.getJSONArray("data");
 				for (int i = 0; i < datas.size(); i++) {
-					JSONArray contents = datas.getJSONObject(i).getJSONArray("contents");
+					JSONArray contents = datas.getJSONObject(i).getJSONArray(
+							"contents");
 					for (int j = 0; j < contents.size(); j++) {
 						JSONObject cover = contents.getJSONObject(j);
 						QQVideo video = new QQVideo();
@@ -110,7 +111,15 @@ public class QQClientImpl extends BaseClient implements QQClient {
 
 	@Override
 	public QQAlbum queryAlbum(String coverId) {
-		return null;
+		String url = springProperty.getQqVideoApi().replace("json",
+				coverId + ".json");
+		if (log.isDebugEnabled()) {
+			log.debug("query album url=" + url);
+		}
+		String jsonStr = httpGet(url, null);
+		QQAlbum album = (QQAlbum) JSONObject.toBean(
+				JSONObject.fromObject(jsonStr), QQAlbum.class);
+		return album;
 	}
 
 }
