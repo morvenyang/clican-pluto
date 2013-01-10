@@ -18,7 +18,6 @@ import com.clican.appletv.core.service.qq.QQClient;
 import com.clican.appletv.core.service.qq.enumeration.Channel;
 import com.clican.appletv.core.service.qq.model.QQAlbum;
 import com.clican.appletv.core.service.qq.model.QQVideo;
-import com.clican.appletv.core.service.tudou.model.TudouAlbum;
 
 @Controller
 public class QQController {
