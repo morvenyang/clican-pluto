@@ -19,6 +19,7 @@
 				</shelfSection>
 			</sections>
 		</shelf>
+		<c:if test="${channel.value!=3}">
 		<grid id="grid_1" columnCount="12">
 					<items>
 						<actionButton id="shelf_item_first_page" onSelect="atv.loadURL('${pagiurl}&amp;page=0');" onPlay="atv.loadURL('${pagiurl}&amp;page=0');">
@@ -34,19 +35,20 @@
 						</actionButton>
 					</items>
 					</grid>
+		</c:if>
 		<grid id="grid_2" columnCount="6">
 			<items>
 				<c:forEach var="video" items="${videos}">
-						<moviePoster id="shelf_item_${video.c_cover_id}" alwaysShowTitles="true" onSelect="atv.loadURL('${serverurl}/qq/album.xml?coverId=${video.c_cover_id}');" onPlay="atv.loadURL('${serverurl}/tudou/album.xml?coverId=${video.c_cover_id}');">
-							<title><![CDATA[${video.c_title}]]></title>
-							<subtitle><![CDATA[${video.c_second_title}]]></subtitle>
-							<image>${video.c_pic}</image>
+						<moviePoster id="shelf_item_${video.coverId}" alwaysShowTitles="true" onSelect="atv.loadURL('${serverurl}/qq/album.xml?coverId=${video.coverId}');" onPlay="atv.loadURL('${serverurl}/tudou/album.xml?coverId=${video.coverId}');">
+							<title><![CDATA[${video.title}]]></title>
+							<subtitle><![CDATA[${video.title}]]></subtitle>
+							<image>${video.pic}</image>
 							<defaultImage>resource://Poster.png</defaultImage>
 						</moviePoster>
 				</c:forEach>
 			</items>
 		</grid>
-		
+		<c:if test="${channel.value!=3}">
 				<grid id="grid_3" columnCount="12">
 					<items>
 						<actionButton id="shelf_item_first_page" onSelect="atv.loadURL('${pagiurl}&amp;page=0');" onPlay="atv.loadURL('${pagiurl}&amp;page=0');">
@@ -62,6 +64,7 @@
 						</actionButton>
 					</items>
 					</grid>
+					</c:if>
 			
 	</items>
 </scroller>

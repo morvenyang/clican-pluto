@@ -37,14 +37,33 @@ public class QQClientImpl extends BaseClient implements QQClient {
 		List<QQVideo> result = new ArrayList<QQVideo>();
 		if (StringUtils.isNotEmpty(jsonStr)) {
 			String content = jsonStr.replaceAll("QZOutputJson=", "");
-			JSONArray array = JSONArray.fromObject(content);
-			for (int i = 0; i < array.size(); i++) {
-				JSONObject cover = array.getJSONObject(i)
-						.getJSONObject("cover");
-				QQVideo video = (QQVideo) JSONObject.toBean(cover,
-						QQVideo.class);
-				result.add(video);
+			content = content.substring(0, content.length() - 1);
+			JSONObject qzOutputJson = JSONObject.fromObject(content);
+			if (channel == Channel.Recommand) {
+				JSONArray datas = qzOutputJson.getJSONArray("data");
+				for (int i = 0; i < datas.size(); i++) {
+					JSONArray contents = datas.getJSONObject(i).getJSONArray("contents");
+					for (int j = 0; j < contents.size(); j++) {
+						JSONObject cover = contents.getJSONObject(j);
+						QQVideo video = new QQVideo();
+						video.setPic(cover.getString("v_pic"));
+						video.setCoverId(cover.getString("id"));
+						video.setTitle(cover.getString("title"));
+						result.add(video);
+					}
+				}
+			} else {
+				JSONArray array = qzOutputJson.getJSONArray("cover");
+				for (int i = 0; i < array.size(); i++) {
+					JSONObject cover = array.getJSONObject(i);
+					QQVideo video = new QQVideo();
+					video.setPic(cover.getString("c_pic"));
+					video.setCoverId(cover.getString("c_cover_id"));
+					video.setTitle(cover.getString("c_title"));
+					result.add(video);
+				}
 			}
+
 		}
 		return result;
 	}
