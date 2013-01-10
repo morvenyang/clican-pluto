@@ -63,6 +63,7 @@ public class QQController {
 		
 		request.setAttribute("pagiurl", pagiurl);
 		request.setAttribute("page", page);
+		request.setAttribute("channel", channel);
 		int begin, end = 0;
 		if (page < 90) {
 			begin = page;
