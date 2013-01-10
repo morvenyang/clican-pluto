@@ -1,21 +1,24 @@
 package com.clican.appletv.core.service.qq.model;
 
+import java.util.List;
+
 public class QQAlbum {
 
-	private String[] actor;
+	private String actor;
 	private String area;
-	private String[] dctor;
+	private String dctor;
 	private String desc;
 	private String id;
 	private String pic;
 	private String score;
 	private String tt;
 	private int year;
-	private String[] vids;
-	public String[] getActor() {
+	private List<String> vids;
+	
+	public String getActor() {
 		return actor;
 	}
-	public void setActor(String[] actor) {
+	public void setActor(String actor) {
 		this.actor = actor;
 	}
 	public String getArea() {
@@ -24,10 +27,10 @@ public class QQAlbum {
 	public void setArea(String area) {
 		this.area = area;
 	}
-	public String[] getDctor() {
+	public String getDctor() {
 		return dctor;
 	}
-	public void setDctor(String[] dctor) {
+	public void setDctor(String dctor) {
 		this.dctor = dctor;
 	}
 	public String getDesc() {
@@ -66,12 +69,13 @@ public class QQAlbum {
 	public void setYear(int year) {
 		this.year = year;
 	}
-	public String[] getVids() {
+	public List<String> getVids() {
 		return vids;
 	}
-	public void setVids(String[] vids) {
+	public void setVids(List<String> vids) {
 		this.vids = vids;
 	}
+	
 	
 	
 }
