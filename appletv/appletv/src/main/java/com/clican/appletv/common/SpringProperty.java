@@ -22,7 +22,13 @@ public class SpringProperty {
 	private String tudouGetFavoriteApi;
 	
 	private String tudouSetFavoriteApi;
-
+	
+	private String qqChannelApi;
+	
+	private String qqVideoApi;
+	
+	private String qqVideoPlayApi;
+	
 	public String getSystemServerUrl() {
 		return systemServerUrl;
 	}
@@ -101,6 +107,30 @@ public class SpringProperty {
 
 	public void setTudouSetFavoriteApi(String tudouSetFavoriteApi) {
 		this.tudouSetFavoriteApi = tudouSetFavoriteApi;
+	}
+
+	public String getQqChannelApi() {
+		return qqChannelApi;
+	}
+
+	public void setQqChannelApi(String qqChannelApi) {
+		this.qqChannelApi = qqChannelApi;
+	}
+
+	public String getQqVideoApi() {
+		return qqVideoApi;
+	}
+
+	public void setQqVideoApi(String qqVideoApi) {
+		this.qqVideoApi = qqVideoApi;
+	}
+
+	public String getQqVideoPlayApi() {
+		return qqVideoPlayApi;
+	}
+
+	public void setQqVideoPlayApi(String qqVideoPlayApi) {
+		this.qqVideoPlayApi = qqVideoPlayApi;
 	}
 
 }
