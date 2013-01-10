@@ -1,5 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %><%@ page contentType="text/xml;charset=utf-8" %><?xml version="1.0" encoding="UTF-8"?>
 <atv>
+<c:if test="${album.size<7}">
+<head><script src="${serverurl}/javascript/clican.js"/></head>
+</c:if>
 <body>
 <itemDetail id="itemdetail">
 			<title>${album.tt}</title>
@@ -10,7 +13,7 @@
 				<rows>
 					<row><label><![CDATA[导演:${album.dctor}]]></label><label><![CDATA[年代:${album.year}]]></label></row>
 					<row><label><![CDATA[评分:${album.score}]]></label><label><![CDATA[地区:${album.area}]]></label></row>
-					<row><label><![CDATA[剧集:共${album.getVids().size()}集]]></label><label><![CDATA[主演:${album.actor}]]></label></row>
+					<row><label><![CDATA[剧集:共${album.size}集]]></label><label><![CDATA[主演:${album.actor}]]></label></row>
 				</rows>
 			</table>
 			<centerShelf>
@@ -18,9 +21,18 @@
 					<sections>
 						<shelfSection>
 							<items>
-								<actionButton id="album_1" onSelect="atv.loadURL('${serverurl}/qq/albumlist.xml');" onPlay="atv.loadURL('${serverurl}/qq/albumlist.xml');">
-									<title>高清</title>
-								</actionButton>
+								<c:if test="${album.size<7}">
+									<c:forEach var="albumItem" items="${album.vids}" varStatus="status">
+										<actionButton id="album_1" onSelect="appletv.playQQVideo('${albumItem}','${serverurl}');" onPlay="appletv.playQQVideo('${albumItem}','${serverurl}');">
+											<title>第${status.count}集</title>
+										</actionButton>
+									</c:forEach>
+								</c:if>
+								<c:if test="${album.size>7}">
+									<actionButton id="album_1" onSelect="atv.loadURL('${serverurl}/qq/albumlist.xml');" onPlay="atv.loadURL('${serverurl}/qq/albumlist.xml');">
+										<title>高清</title>
+									</actionButton>
+								</c:if>
 							</items>
 						</shelfSection>
 					</sections>
