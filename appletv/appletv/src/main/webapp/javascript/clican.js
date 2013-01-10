@@ -113,10 +113,12 @@ var appletv = {
 	    
 	    playQQVideo: function(playDescUrl,serverurl){
 	    	this.makeRequest(playDescUrl,function(data){
+	    		appletv.logToServer(playDescUrl, serverurl);
 	    		var urlIndexStart = data.indexOf("\"url\":\"");
 	    		urlIndexStart += 7;
 	    		var urlIndexEnd = data.indexOf("\"",urlIndexStart);
 	    		var url = data.substring(urlIndexStart,urlIndexEnd);
+	    		appletv.logToServer(url, serverurl);
 	    		atv.loadXML(appletv.makePlayXml(url));
 	    	});
 	    },

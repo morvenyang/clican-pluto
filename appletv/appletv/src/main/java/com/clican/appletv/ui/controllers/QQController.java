@@ -88,6 +88,7 @@ public class QQController {
 		}
 		QQAlbum album = qqClient.queryAlbum(coverId);
 		request.getSession().setAttribute("album", album);
+		request.setAttribute("playdescurl", springProperty.getQqVideoPlayApi().replaceAll("&", "&amp;"));
 		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
 		return "qq/album";
 	}
@@ -101,6 +102,7 @@ public class QQController {
 		QQAlbum album = (QQAlbum) request.getSession().getAttribute(
 				"album");
 		request.setAttribute("album", album);
+		request.setAttribute("playdescurl", springProperty.getQqVideoPlayApi().replaceAll("&", "&amp;"));
 		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
 		return "qq/albumlist";
 	}
