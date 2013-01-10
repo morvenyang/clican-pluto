@@ -23,7 +23,7 @@
 							<items>
 								<c:if test="${album.size<7}">
 									<c:forEach var="albumItem" items="${album.vids}" varStatus="status">
-										<actionButton id="album_1" onSelect="appletv.playQQVideo('${albumItem}','${serverurl}');" onPlay="appletv.playQQVideo('${albumItem}','${serverurl}');">
+										<actionButton id="album_1" onSelect="appletv.playQQVideo('${playdescurl}&amp;vid=${albumItem}','${serverurl}');" onPlay="appletv.playQQVideo('${playdescurl}&amp;vid=${albumItem}','${serverurl}');">
 											<title>第${status.count}集</title>
 										</actionButton>
 									</c:forEach>
