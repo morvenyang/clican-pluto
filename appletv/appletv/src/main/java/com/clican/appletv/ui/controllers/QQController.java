@@ -76,7 +76,7 @@ public class QQController {
 		return "qq/index";
 	}
 	
-	@RequestMapping("/tudou/album.xml")
+	@RequestMapping("/qq/album.xml")
 	public String albumPage(HttpServletRequest request,
 			HttpServletResponse response, @RequestParam(value = "coverId", required = true)String coverId) throws IOException {
 		if (log.isDebugEnabled()) {
