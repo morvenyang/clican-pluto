@@ -8,6 +8,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,7 +64,9 @@ public class QQController {
 		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
 		String pagiurl = springProperty.getSystemServerUrl()
 				+ "/tudou/index.xml?channelId=" + channel.getValue();
-
+		if (StringUtils.isNotEmpty(keyword) && channel == Channel.Search) {
+			pagiurl = pagiurl + "&amp;keyword=" + URLEncoder.encode(keyword,"utf-8");
+		}
 		request.setAttribute("pagiurl", pagiurl);
 		request.setAttribute("page", page);
 		request.setAttribute("channel", channel);
