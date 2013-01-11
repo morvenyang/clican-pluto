@@ -124,7 +124,12 @@ public class TudouClientImpl extends BaseClient implements TudouClient {
 				if (cacheMap.containsKey(url)) {
 					jsonStr = cacheMap.get(url);
 				} else {
-					jsonStr = httpGet(url, null);
+					if (channel == Channel.Search) {
+						jsonStr = httpGet(url, null,
+								springProperty.getSystemHttpconnectionTimeout());
+					} else {
+						jsonStr = httpGet(url, null, null);
+					}
 					List<ListView> result = convertToVideos(jsonStr, channel);
 					if (channel != Channel.Search && result.size() > 0) {
 						cacheMap.put(url, jsonStr);
@@ -146,7 +151,7 @@ public class TudouClientImpl extends BaseClient implements TudouClient {
 		} catch (Exception e) {
 			log.error("", e);
 		}
-		String jsonStr = httpGet(url, null);
+		String jsonStr = httpGet(url, null, null);
 		JSONArray array = JSONArray.fromObject(jsonStr);
 		if (log.isDebugEnabled()) {
 			log.debug("keywrod size=" + array.size());
@@ -169,7 +174,7 @@ public class TudouClientImpl extends BaseClient implements TudouClient {
 		String result = client
 				.httpGet(
 						"http://api.tudou.com/v3/gw?method=item.favor.get&appKey=0b078dbd69dc3b48",
-						headers);
+						headers, null);
 		System.out.println(result);
 	}
 }

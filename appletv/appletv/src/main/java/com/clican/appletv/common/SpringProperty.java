@@ -4,6 +4,8 @@ package com.clican.appletv.common;
 public class SpringProperty {
 
 	private String systemServerUrl;
+	
+	private Integer systemHttpconnectionTimeout;
 
 	private String tudouSessionid;
 
@@ -161,6 +163,14 @@ public class SpringProperty {
 
 	public void setQqSearchAlbumsApi(String qqSearchAlbumsApi) {
 		this.qqSearchAlbumsApi = qqSearchAlbumsApi;
+	}
+
+	public Integer getSystemHttpconnectionTimeout() {
+		return systemHttpconnectionTimeout;
+	}
+
+	public void setSystemHttpconnectionTimeout(Integer systemHttpconnectionTimeout) {
+		this.systemHttpconnectionTimeout = systemHttpconnectionTimeout;
 	}
 
 }

@@ -127,7 +127,12 @@ public class QQClientImpl extends BaseClient implements QQClient {
 				if (cacheMap.containsKey(url)) {
 					jsonStr = cacheMap.get(url);
 				} else {
-					jsonStr = httpGet(url, null);
+					if (channel == Channel.Search) {
+						jsonStr = httpGet(url, null,
+								springProperty.getSystemHttpconnectionTimeout());
+					} else {
+						jsonStr = httpGet(url, null, null);
+					}
 					List<Object> result = convertToVideos(jsonStr, channel,
 							album);
 					if (channel != Channel.Search && result.size() > 0) {
@@ -148,7 +153,7 @@ public class QQClientImpl extends BaseClient implements QQClient {
 		if (log.isDebugEnabled()) {
 			log.debug("query album url=" + url);
 		}
-		String jsonStr = httpGet(url, null);
+		String jsonStr = httpGet(url, null, null);
 		JSONObject albumJson = JSONObject.fromObject(jsonStr);
 		QQAlbum album = new QQAlbum();
 
@@ -185,7 +190,7 @@ public class QQClientImpl extends BaseClient implements QQClient {
 		} catch (Exception e) {
 			log.error("", e);
 		}
-		String jsonStr = httpGet(url, null);
+		String jsonStr = httpGet(url, null, null);
 		List<String> result = new ArrayList<String>();
 		if (StringUtils.isNotEmpty(jsonStr)) {
 			jsonStr = jsonStr.replace("a(", "").replace(")", "");

@@ -21,6 +21,7 @@ http://www.springframework.org/schema/context/spring-context-2.5.xsd">
 
 	<bean id="springProperty" class="com.clican.appletv.common.SpringProperty">
 		<property name="systemServerUrl" value="${system.server.url}"></property>
+		<property name="systemHttpconnectionTimeout" value="${system.httpconnection.timeout}"></property>
 		<property name="tudouSessionid" value="${tudou.sessionid}"></property>
 		<property name="tudouRecommendApi" value="${tudou.recommend.api}"></property>
 		<property name="tudouChannelApi" value="${tudou.channel.api}"></property>
