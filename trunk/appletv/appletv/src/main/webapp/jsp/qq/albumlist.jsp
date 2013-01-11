@@ -13,11 +13,11 @@
 				<sections>
 					<menuSection>
 						<items>
-							<c:forEach var="albumItem" items="${album.vids}" varStatus="status">
-								<imageTextImageMenuItem id="albumItem_${status.count+1}" onPlay="appletv.playQQVideo('${playdescurl}&amp;vid=${albumItem}','${serverurl}');" onSelect="appletv.playQQVideo('${playdescurl}&amp;vid=${albumItem}','${serverurl}');">
+							<c:forEach var="albumItem" items="${album.albumItems}" varStatus="status">
+								<imageTextImageMenuItem id="albumItem_${status.count+1}" onPlay="appletv.playQQVideo('${playdescurl}&amp;vid=${albumItem.vid}','${serverurl}');" onSelect="appletv.playQQVideo('${playdescurl}&amp;vid=${albumItem.vid}','${serverurl}');">
 									<leftImage></leftImage>
 									<imageSeparatorText></imageSeparatorText>
-									<label>第${status.count}集</label>
+									<label>albumItem.tt</label>
 									<rightImage></rightImage>
 								</imageTextImageMenuItem>
 							</c:forEach>
