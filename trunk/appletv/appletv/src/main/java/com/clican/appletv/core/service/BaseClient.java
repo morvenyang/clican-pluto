@@ -53,8 +53,8 @@ public class BaseClient {
 		ByteArrayOutputStream os2 = null;
 		try {
 			HttpClient client = new DefaultHttpClient();
-			client.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY,
-					new HttpHost("web-proxy.corp.hp.com", 8080, "http"));
+//			client.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY,
+//					new HttpHost("web-proxy.corp.hp.com", 8080, "http"));
 			HttpGet httpGet = new HttpGet(url);
 			if (headers != null) {
 				for (String key : headers.keySet()) {
