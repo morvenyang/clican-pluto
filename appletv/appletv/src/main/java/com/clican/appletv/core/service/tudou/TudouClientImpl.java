@@ -1,5 +1,6 @@
 package com.clican.appletv.core.service.tudou;
 
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -97,8 +98,14 @@ public class TudouClientImpl extends BaseClient implements TudouClient {
 		if (channel == Channel.Recommand) {
 			url = springProperty.getTudouRecommendApi() + "&page=" + page;
 		} else if (channel == Channel.Search) {
-			url = springProperty.getTudouSearchApi() + "&pageNo=" + (page + 1)
-					+ "&kw=" + keyword;
+			try {
+				url = springProperty.getTudouSearchApi() + "&pageNo="
+						+ (page + 1) + "&kw="
+						+ URLEncoder.encode(keyword, "utf-8");
+			} catch (Exception e) {
+				log.error("", e);
+			}
+
 		} else if (channel.isAlbum()) {
 			url = springProperty.getTudouAlbumChannelApi() + "&cid="
 					+ channel.getValue() + "&page=" + page;
