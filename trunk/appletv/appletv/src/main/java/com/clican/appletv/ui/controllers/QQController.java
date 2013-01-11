@@ -22,7 +22,6 @@ import com.clican.appletv.common.SpringProperty;
 import com.clican.appletv.core.service.qq.QQClient;
 import com.clican.appletv.core.service.qq.enumeration.Channel;
 import com.clican.appletv.core.service.qq.model.QQAlbum;
-import com.clican.appletv.core.service.qq.model.QQVideo;
 
 @Controller
 public class QQController {
@@ -57,7 +56,7 @@ public class QQController {
 			channel = Channel.convertToChannel(channelId);
 		}
 
-		List<QQVideo> videos = qqClient.queryVideos(keyword, channel, page);
+		List<Object> videos = qqClient.queryVideos(keyword, channel, page);
 		if (videos.size() == 0) {
 			return "qq/noresult";
 		}

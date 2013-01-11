@@ -1,5 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %><%@ page contentType="text/xml;charset=utf-8" %><?xml version="1.0" encoding="UTF-8"?>
 <atv>
+<c:if test="${channel.value==1001}">
+<head><script src="${serverurl}/javascript/clican.js"/></head>
+</c:if>
 <body>
 <scroller id="com.sample.movie-shelf">
 	<items>
@@ -47,12 +50,21 @@
 		<grid id="grid_2" columnCount="6">
 			<items>
 				<c:forEach var="video" items="${videos}">
-						<moviePoster id="shelf_item_${video.coverId}" alwaysShowTitles="true" onSelect="atv.loadURL('${serverurl}/qq/album.xml?coverId=${video.coverId}');" onPlay="atv.loadURL('${serverurl}/qq/album.xml?coverId=${video.coverId}');">
-							<title><![CDATA[${video.title}]]></title>
-							<subtitle><![CDATA[${video.subTitle}]]></subtitle>
-							<image>${video.pic}</image>
-							<defaultImage>resource://Poster.png</defaultImage>
-						</moviePoster>
+						<c:if test="${video.isalbum!=1}">
+							<moviePoster id="shelf_item_${video.coverId}" alwaysShowTitles="true" onSelect="atv.loadURL('${serverurl}/qq/album.xml?coverId=${video.coverId}');" onPlay="atv.loadURL('${serverurl}/qq/album.xml?coverId=${video.coverId}');">
+								<title><![CDATA[${video.title}]]></title>
+								<image>${video.pic}</image>
+								<defaultImage>resource://Poster.png</defaultImage>
+							</moviePoster>
+						</c:if>
+						<c:if test="${video.isalbum==1}">
+							<moviePoster id="shelf_item_${video.id}" alwaysShowTitles="true" onSelect="appletv.playQQVideo('${playdescurl}&amp;vid=${video.id}','${serverurl}');" onPlay="appletv.playQQVideo('${playdescurl}&amp;vid=${video.id}','${serverurl}');">
+								<title><![CDATA[${video.tt}]]></title>
+								<subtitle><![CDATA[${video.subTt}]]></subtitle>
+								<image>${video.pic}</image>
+								<defaultImage>resource://Poster.png</defaultImage>
+							</moviePoster>
+						</c:if>
 				</c:forEach>
 			</items>
 		</grid>

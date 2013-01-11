@@ -8,7 +8,7 @@ import com.clican.appletv.core.service.qq.model.QQVideo;
 
 public interface QQClient {
 
-	public List<QQVideo> queryVideos(String keyword, Channel channel,
+	public List<Object> queryVideos(String keyword, Channel channel,
 			Integer page);
 
 	public QQAlbum queryAlbum(String coverId);

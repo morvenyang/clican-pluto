@@ -22,8 +22,9 @@ public class QQClientImpl extends BaseClient implements QQClient {
 		this.springProperty = springProperty;
 	}
 
-	private List<QQVideo> convertToVideos(String jsonStr, Channel channel) {
-		List<QQVideo> result = new ArrayList<QQVideo>();
+	private List<Object> convertToVideos(String jsonStr, Channel channel,
+			boolean isalbum) {
+		List<Object> result = new ArrayList<Object>();
 		if (StringUtils.isNotEmpty(jsonStr)) {
 			String content = jsonStr.replaceAll("QZOutputJson=", "");
 			content = content.substring(0, content.length() - 1);
@@ -46,15 +47,24 @@ public class QQClientImpl extends BaseClient implements QQClient {
 				JSONArray array = qzOutputJson.getJSONArray("list");
 				for (int i = 0; i < array.size(); i++) {
 					JSONObject cover = array.getJSONObject(i);
-					QQVideo video = new QQVideo();
-					video.setCoverId(cover.getString("ID"));
-					video.setPic(cover.getString("AU"));
-					video.setTitle(cover.getString("TI"));
-					String bn = cover.getString("BN");
-					if (StringUtils.isNotEmpty(bn) && !bn.equals("0")) {
-						video.setSubTitle("第" + cover.getString("BN") + "集");
+					if (isalbum) {
+						QQAlbum album = new QQAlbum();
+						album.setId(cover.getString("ID"));
+						album.setPic(cover.getString("AU"));
+						album.setTt(cover.getString("TI"));
+						String bn = cover.getString("BN");
+						if (StringUtils.isNotEmpty(bn) && !bn.equals("0")) {
+							album.setSubTt("第" + cover.getString("BN") + "集");
+						}
+						result.add(album);
+					} else {
+						QQVideo video = new QQVideo();
+						video.setCoverId(cover.getString("ID"));
+						video.setPic(cover.getString("AU"));
+						video.setTitle(cover.getString("TI"));
+						result.add(video);
 					}
-					result.add(video);
+
 				}
 			} else {
 				JSONArray array = qzOutputJson.getJSONArray("cover");
@@ -73,30 +83,33 @@ public class QQClientImpl extends BaseClient implements QQClient {
 	}
 
 	@Override
-	public List<QQVideo> queryVideos(String keyword, Channel channel,
+	public List<Object> queryVideos(String keyword, Channel channel,
 			Integer page) {
 
 		this.checkCache();
 
 		String url = null;
 		if (channel == Channel.Search) {
-			List<QQVideo> videos = new ArrayList<QQVideo>();
+			List<Object> videos = new ArrayList<Object>();
 			if (page == 0) {
-				url = springProperty.getQqSearchAlbumsApi() + "&cur=" + page+"&query="+keyword;
-				videos.addAll(getVideos(url, channel));
+				url = springProperty.getQqSearchAlbumsApi() + "&cur=" + page
+						+ "&query=" + keyword;
+				videos.addAll(getVideos(url, channel, true));
 			}
-			url = springProperty.getQqSearchVideosApi() + "&cur=" + page+"&query="+keyword;;
-			videos.addAll(getVideos(url, channel));
+			url = springProperty.getQqSearchVideosApi() + "&cur=" + page
+					+ "&query=" + keyword;
+			;
+			videos.addAll(getVideos(url, channel, false));
 			return videos;
 		} else {
 			url = springProperty.getQqChannelApi() + "&page=" + page
 					+ "&auto_id=" + channel.getValue();
-			return getVideos(url, channel);
+			return getVideos(url, channel, false);
 		}
 
 	}
 
-	private List<QQVideo> getVideos(String url, Channel channel) {
+	private List<Object> getVideos(String url, Channel channel, boolean album) {
 		String jsonStr;
 		if (log.isDebugEnabled()) {
 			log.debug(url);
@@ -109,7 +122,8 @@ public class QQClientImpl extends BaseClient implements QQClient {
 					jsonStr = cacheMap.get(url);
 				} else {
 					jsonStr = httpGet(url, null);
-					List<QQVideo> result = convertToVideos(jsonStr, channel);
+					List<Object> result = convertToVideos(jsonStr, channel,
+							album);
 					if (channel != Channel.Search && result.size() > 0) {
 						cacheMap.put(url, jsonStr);
 					}
@@ -117,7 +131,7 @@ public class QQClientImpl extends BaseClient implements QQClient {
 				}
 			}
 		}
-		List<QQVideo> result = convertToVideos(jsonStr, channel);
+		List<Object> result = convertToVideos(jsonStr, channel, album);
 		return result;
 	}
 
