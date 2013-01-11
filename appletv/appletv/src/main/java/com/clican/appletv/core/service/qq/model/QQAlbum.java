@@ -12,9 +12,11 @@ public class QQAlbum {
 	private String pic;
 	private String score;
 	private String tt;
+	private String subTt;
 	private int year;
 	private List<String> vids;
 	private int size;
+	private Integer isalbum=1;
 	
 	public String getActor() {
 		return actor;
@@ -81,6 +83,18 @@ public class QQAlbum {
 	}
 	public void setSize(int size) {
 		this.size = size;
+	}
+	public String getSubTt() {
+		return subTt;
+	}
+	public void setSubTt(String subTt) {
+		this.subTt = subTt;
+	}
+	public Integer getIsalbum() {
+		return isalbum;
+	}
+	public void setIsalbum(Integer isalbum) {
+		this.isalbum = isalbum;
 	}
 	
 	
