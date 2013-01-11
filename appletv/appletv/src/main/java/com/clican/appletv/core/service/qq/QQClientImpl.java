@@ -12,6 +12,7 @@ import com.clican.appletv.common.SpringProperty;
 import com.clican.appletv.core.service.BaseClient;
 import com.clican.appletv.core.service.qq.enumeration.Channel;
 import com.clican.appletv.core.service.qq.model.QQAlbum;
+import com.clican.appletv.core.service.qq.model.QQAlbumItem;
 import com.clican.appletv.core.service.qq.model.QQVideo;
 
 public class QQClientImpl extends BaseClient implements QQClient {
@@ -158,13 +159,16 @@ public class QQClientImpl extends BaseClient implements QQClient {
 		album.setYear(albumJson.getInt("year"));
 		album.setDesc(albumJson.getString("desc"));
 
-		List<String> vids = new ArrayList<String>();
+		List<QQAlbumItem> albumItems = new ArrayList<QQAlbumItem>();
 		JSONArray videos = albumJson.getJSONArray("videos");
 		for (int i = 0; i < videos.size(); i++) {
-			vids.add(((JSONObject) videos.get(i)).getString("vid"));
+			QQAlbumItem ai = new QQAlbumItem();
+			ai.setVid(((JSONObject) videos.get(i)).getString("vid"));
+			ai.setTitle(((JSONObject) videos.get(i)).getString("tt"));
+			albumItems.add(ai);
 		}
-		album.setSize(vids.size());
-		album.setVids(vids);
+		album.setSize(albumItems.size());
+		album.setAlbumItems(albumItems);
 		return album;
 	}
 

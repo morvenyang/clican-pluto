@@ -14,7 +14,7 @@ public class QQAlbum {
 	private String tt;
 	private String subTt;
 	private int year;
-	private List<String> vids;
+	private List<QQAlbumItem> albumItems;
 	private int size;
 	private Integer isalbum=1;
 	
@@ -72,11 +72,12 @@ public class QQAlbum {
 	public void setYear(int year) {
 		this.year = year;
 	}
-	public List<String> getVids() {
-		return vids;
+	
+	public List<QQAlbumItem> getAlbumItems() {
+		return albumItems;
 	}
-	public void setVids(List<String> vids) {
-		this.vids = vids;
+	public void setAlbumItems(List<QQAlbumItem> albumItems) {
+		this.albumItems = albumItems;
 	}
 	public int getSize() {
 		return size;
