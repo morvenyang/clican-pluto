@@ -16,12 +16,12 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
-import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.conn.params.ConnRoutePNames;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
 
 public class BaseClient {
 
@@ -46,16 +46,22 @@ public class BaseClient {
 		}
 	}
 
-	protected String httpGet(String url, Map<String, String> headers) {
+	protected String httpGet(String url, Map<String, String> headers,
+			Integer timeout) {
 		InputStream is = null;
 		ByteArrayOutputStream os1 = null;
 		GZIPInputStream gis = null;
 		ByteArrayOutputStream os2 = null;
 		try {
 			HttpClient client = new DefaultHttpClient();
-//			client.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY,
-//					new HttpHost("web-proxy.corp.hp.com", 8080, "http"));
+			// client.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY,
+			// new HttpHost("web-proxy.corp.hp.com", 8080, "http"));
 			HttpGet httpGet = new HttpGet(url);
+			if (timeout != null) {
+				HttpParams params = client.getParams();
+				HttpConnectionParams.setConnectionTimeout(params, timeout);
+				HttpConnectionParams.setSoTimeout(params, timeout);
+			}
 			if (headers != null) {
 				for (String key : headers.keySet()) {
 					httpGet.addHeader(key, headers.get(key));
