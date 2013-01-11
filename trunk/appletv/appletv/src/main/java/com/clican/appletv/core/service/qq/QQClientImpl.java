@@ -1,5 +1,6 @@
 package com.clican.appletv.core.service.qq;
 
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -92,14 +93,18 @@ public class QQClientImpl extends BaseClient implements QQClient {
 		String url = null;
 		if (channel == Channel.Search) {
 			List<Object> videos = new ArrayList<Object>();
-			if (page == 0) {
-				url = springProperty.getQqSearchAlbumsApi() + "&cur=" + page
-						+ "&query=" + keyword;
-				videos.addAll(getVideos(url, channel, true));
+			try {
+				if (page == 0) {
+					url = springProperty.getQqSearchAlbumsApi() + "&cur="
+							+ page + "&query="
+							+ URLEncoder.encode(keyword, "utf-8");
+					videos.addAll(getVideos(url, channel, true));
+				}
+				url = springProperty.getQqSearchVideosApi() + "&cur=" + page
+						+ "&query=" + URLEncoder.encode(keyword, "utf-8");
+			} catch (Exception e) {
+				log.error("", e);
 			}
-			url = springProperty.getQqSearchVideosApi() + "&cur=" + page
-					+ "&query=" + keyword;
-			;
 			videos.addAll(getVideos(url, channel, false));
 			return videos;
 		} else {
