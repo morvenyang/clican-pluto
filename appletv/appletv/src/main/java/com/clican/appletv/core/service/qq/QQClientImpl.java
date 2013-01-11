@@ -53,6 +53,19 @@ public class QQClientImpl extends BaseClient implements QQClient {
 						result.add(video);
 					}
 				}
+			} else if (channel == Channel.Search) {
+				JSONArray array = qzOutputJson.getJSONArray("list");
+				for (int i = 0; i < array.size(); i++) {
+					JSONObject cover = array.getJSONObject(i);
+					QQVideo video = new QQVideo();
+					video.setCoverId(cover.getString("id"));
+					video.setPic(cover.getString("AU"));
+					video.setPic(cover.getString("TI"));
+					String bn = cover.getString("BN");
+					if (StringUtils.isNotEmpty(bn) && !bn.equals("0")) {
+						video.setSubTitle("第" + cover.getString("BN") + "集");
+					}
+				}
 			} else {
 				JSONArray array = qzOutputJson.getJSONArray("cover");
 				for (int i = 0; i < array.size(); i++) {
@@ -84,10 +97,27 @@ public class QQClientImpl extends BaseClient implements QQClient {
 			lastExpireTime = current;
 			cacheMap.clear();
 		}
-		String jsonStr;
-		String url = springProperty.getQqChannelApi() + "&page=" + page
-				+ "&auto_id=" + channel.getValue();
 
+		String url = null;
+		if (channel == Channel.Search) {
+			List<QQVideo> videos = new ArrayList<QQVideo>();
+			if (page == 0) {
+				url = springProperty.getQqSearchAlbumsApi() + "&cur=" + page;
+				videos.addAll(getVideos(url, channel));
+			}
+			url = springProperty.getQqSearchVideosApi() + "&cur=" + page;
+			videos.addAll(getVideos(url, channel));
+			return videos;
+		} else {
+			url = springProperty.getQqChannelApi() + "&page=" + page
+					+ "&auto_id=" + channel.getValue();
+			return getVideos(url, channel);
+		}
+
+	}
+
+	private List<QQVideo> getVideos(String url, Channel channel) {
+		String jsonStr;
 		if (log.isDebugEnabled()) {
 			log.debug(url);
 		}
@@ -106,7 +136,6 @@ public class QQClientImpl extends BaseClient implements QQClient {
 		}
 		List<QQVideo> result = convertToVideos(jsonStr, channel);
 		return result;
-
 	}
 
 	@Override

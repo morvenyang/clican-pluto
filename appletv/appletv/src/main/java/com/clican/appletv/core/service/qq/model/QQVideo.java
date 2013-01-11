@@ -5,6 +5,7 @@ public class QQVideo {
 	private String coverId;
 	private String pic;
 	private String title;
+	private String subTitle;
 	
 	public String getCoverId() {
 		return coverId;
@@ -23,6 +24,12 @@ public class QQVideo {
 	}
 	public void setTitle(String title) {
 		this.title = title;
+	}
+	public String getSubTitle() {
+		return subTitle;
+	}
+	public void setSubTitle(String subTitle) {
+		this.subTitle = subTitle;
 	}
 	
 	

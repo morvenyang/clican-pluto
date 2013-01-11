@@ -31,6 +31,10 @@ public class SpringProperty {
 	
 	private String qqKeywordSearchApi;
 	
+	private String qqSearchVideosApi;
+	
+	private String qqSearchAlbumsApi;
+	
 	public String getSystemServerUrl() {
 		return systemServerUrl;
 	}
@@ -141,6 +145,22 @@ public class SpringProperty {
 
 	public void setQqKeywordSearchApi(String qqKeywordSearchApi) {
 		this.qqKeywordSearchApi = qqKeywordSearchApi;
+	}
+
+	public String getQqSearchVideosApi() {
+		return qqSearchVideosApi;
+	}
+
+	public void setQqSearchVideosApi(String qqSearchVideosApi) {
+		this.qqSearchVideosApi = qqSearchVideosApi;
+	}
+
+	public String getQqSearchAlbumsApi() {
+		return qqSearchAlbumsApi;
+	}
+
+	public void setQqSearchAlbumsApi(String qqSearchAlbumsApi) {
+		this.qqSearchAlbumsApi = qqSearchAlbumsApi;
 	}
 
 }
