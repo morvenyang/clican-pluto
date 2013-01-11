@@ -19,7 +19,7 @@
 							onPlay="atv.loadURL('http://15.185.225.83/appletv/tudou/index.xml');">
 							<title>土豆</title>
 						</actionButton>
-						<actionButton id="shelf_item_1" 
+						<actionButton id="shelf_item_2" 
 							onSelect="atv.loadURL('http://15.185.225.83/appletv/qq/index.xml');"
 							onPlay="atv.loadURL('http://15.185.225.83/appletv/qq/index.xml');">
 							<title>QQ</title>
