@@ -47,13 +47,14 @@ public class QQClientImpl extends BaseClient implements QQClient {
 				for (int i = 0; i < array.size(); i++) {
 					JSONObject cover = array.getJSONObject(i);
 					QQVideo video = new QQVideo();
-					video.setCoverId(cover.getString("id"));
+					video.setCoverId(cover.getString("ID"));
 					video.setPic(cover.getString("AU"));
 					video.setPic(cover.getString("TI"));
 					String bn = cover.getString("BN");
 					if (StringUtils.isNotEmpty(bn) && !bn.equals("0")) {
 						video.setSubTitle("第" + cover.getString("BN") + "集");
 					}
+					result.add(video);
 				}
 			} else {
 				JSONArray array = qzOutputJson.getJSONArray("cover");
@@ -81,10 +82,10 @@ public class QQClientImpl extends BaseClient implements QQClient {
 		if (channel == Channel.Search) {
 			List<QQVideo> videos = new ArrayList<QQVideo>();
 			if (page == 0) {
-				url = springProperty.getQqSearchAlbumsApi() + "&cur=" + page;
+				url = springProperty.getQqSearchAlbumsApi() + "&cur=" + page+"&query="+keyword;
 				videos.addAll(getVideos(url, channel));
 			}
-			url = springProperty.getQqSearchVideosApi() + "&cur=" + page;
+			url = springProperty.getQqSearchVideosApi() + "&cur=" + page+"&query="+keyword;;
 			videos.addAll(getVideos(url, channel));
 			return videos;
 		} else {
@@ -155,7 +156,7 @@ public class QQClientImpl extends BaseClient implements QQClient {
 
 	@Override
 	public List<String> queryKeywords(String q) {
-		String url = springProperty.getQqKeywordSearchApi() + "?sm_key=" + q;
+		String url = springProperty.getQqKeywordSearchApi() + "&sm_key=" + q;
 		String jsonStr = httpGet(url, null);
 		List<String> result = new ArrayList<String>();
 		if (StringUtils.isNotEmpty(jsonStr)) {
