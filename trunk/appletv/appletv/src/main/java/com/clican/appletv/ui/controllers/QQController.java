@@ -62,6 +62,8 @@ public class QQController {
 		}
 		request.setAttribute("channels", Channel.values());
 		request.setAttribute("videos", videos);
+		request.setAttribute("playdescurl", springProperty.getQqVideoPlayApi()
+				.replaceAll("&", "&amp;"));
 		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
 		String pagiurl = springProperty.getSystemServerUrl()
 				+ "/qq/index.xml?channelId=" + channel.getValue();

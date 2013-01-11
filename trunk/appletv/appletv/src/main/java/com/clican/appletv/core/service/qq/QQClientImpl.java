@@ -48,6 +48,12 @@ public class QQClientImpl extends BaseClient implements QQClient {
 				for (int i = 0; i < array.size(); i++) {
 					JSONObject cover = array.getJSONObject(i);
 					if (isalbum) {
+						QQVideo video = new QQVideo();
+						video.setCoverId(cover.getString("ID"));
+						video.setPic(cover.getString("AU"));
+						video.setTitle(cover.getString("TI"));
+						result.add(video);
+					} else {
 						QQAlbum album = new QQAlbum();
 						album.setId(cover.getString("ID"));
 						album.setPic(cover.getString("AU"));
@@ -57,12 +63,6 @@ public class QQClientImpl extends BaseClient implements QQClient {
 							album.setSubTt("第" + cover.getString("BN") + "集");
 						}
 						result.add(album);
-					} else {
-						QQVideo video = new QQVideo();
-						video.setCoverId(cover.getString("ID"));
-						video.setPic(cover.getString("AU"));
-						video.setTitle(cover.getString("TI"));
-						result.add(video);
 					}
 
 				}
