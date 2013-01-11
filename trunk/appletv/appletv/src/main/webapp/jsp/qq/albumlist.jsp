@@ -17,7 +17,7 @@
 								<imageTextImageMenuItem id="albumItem_${status.count+1}" onPlay="appletv.playQQVideo('${playdescurl}&amp;vid=${albumItem.vid}','${serverurl}');" onSelect="appletv.playQQVideo('${playdescurl}&amp;vid=${albumItem.vid}','${serverurl}');">
 									<leftImage></leftImage>
 									<imageSeparatorText></imageSeparatorText>
-									<label>albumItem.tt</label>
+									<label>${albumItem.title}</label>
 									<rightImage></rightImage>
 								</imageTextImageMenuItem>
 							</c:forEach>
