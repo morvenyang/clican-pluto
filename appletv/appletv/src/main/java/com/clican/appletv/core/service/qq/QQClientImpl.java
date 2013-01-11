@@ -179,7 +179,12 @@ public class QQClientImpl extends BaseClient implements QQClient {
 
 	@Override
 	public List<String> queryKeywords(String q) {
-		String url = springProperty.getQqKeywordSearchApi() + "&sm_key=" + q;
+		String url = springProperty.getQqKeywordSearchApi() + "&sm_key=";
+		try {
+			url += URLEncoder.encode(q, "utf-8");
+		} catch (Exception e) {
+			log.error("", e);
+		}
 		String jsonStr = httpGet(url, null);
 		List<String> result = new ArrayList<String>();
 		if (StringUtils.isNotEmpty(jsonStr)) {
