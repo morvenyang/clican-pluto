@@ -19,10 +19,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.clican.appletv.common.Keyword;
 import com.clican.appletv.common.SpringProperty;
 import com.clican.appletv.core.service.tudou.TudouClient;
 import com.clican.appletv.core.service.tudou.enumeration.Channel;
-import com.clican.appletv.core.service.tudou.model.Keyword;
 import com.clican.appletv.core.service.tudou.model.ListView;
 import com.clican.appletv.core.service.tudou.model.TudouAlbum;
 

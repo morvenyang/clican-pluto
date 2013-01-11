@@ -1,4 +1,4 @@
-package com.clican.appletv.core.service.tudou.model;
+package com.clican.appletv.common;
 
 public class Keyword {
 
