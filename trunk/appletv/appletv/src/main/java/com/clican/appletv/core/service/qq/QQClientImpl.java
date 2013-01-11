@@ -1,18 +1,12 @@
 package com.clican.appletv.core.service.qq;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.time.DateUtils;
 
 import com.clican.appletv.common.SpringProperty;
 import com.clican.appletv.core.service.BaseClient;
@@ -21,11 +15,6 @@ import com.clican.appletv.core.service.qq.model.QQAlbum;
 import com.clican.appletv.core.service.qq.model.QQVideo;
 
 public class QQClientImpl extends BaseClient implements QQClient {
-
-	private Date lastExpireTime = DateUtils.truncate(new Date(),
-			Calendar.DAY_OF_MONTH);
-
-	private Map<String, String> cacheMap = new ConcurrentHashMap<String, String>();
 
 	private SpringProperty springProperty;
 
@@ -86,17 +75,7 @@ public class QQClientImpl extends BaseClient implements QQClient {
 	public List<QQVideo> queryVideos(String keyword, Channel channel,
 			Integer page) {
 
-		Date current = DateUtils.truncate(new Date(), Calendar.DAY_OF_MONTH);
-		if (DateUtils.getFragmentInDays(current, Calendar.DAY_OF_MONTH) != DateUtils
-				.getFragmentInDays(lastExpireTime, Calendar.DAY_OF_MONTH)) {
-			if (log.isDebugEnabled()) {
-				SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
-				log.debug("clear cache current:" + sdf.format(current)
-						+ ",lastExpireTime:" + sdf.format(lastExpireTime));
-			}
-			lastExpireTime = current;
-			cacheMap.clear();
-		}
+		this.checkCache();
 
 		String url = null;
 		if (channel == Channel.Search) {
@@ -130,6 +109,9 @@ public class QQClientImpl extends BaseClient implements QQClient {
 				} else {
 					jsonStr = httpGet(url, null);
 					List<QQVideo> result = convertToVideos(jsonStr, channel);
+					if (channel != Channel.Search && result.size() > 0) {
+						cacheMap.put(url, jsonStr);
+					}
 					return result;
 				}
 			}

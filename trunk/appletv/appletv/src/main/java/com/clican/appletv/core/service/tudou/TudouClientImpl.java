@@ -1,20 +1,15 @@
 package com.clican.appletv.core.service.tudou;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.time.DateUtils;
 
 import com.clican.appletv.common.SpringProperty;
 import com.clican.appletv.core.service.BaseClient;
@@ -24,11 +19,6 @@ import com.clican.appletv.core.service.tudou.model.TudouAlbum;
 import com.clican.appletv.core.service.tudou.model.TudouVideo;
 
 public class TudouClientImpl extends BaseClient implements TudouClient {
-
-
-	private Date lastExpireTime = DateUtils.truncate(new Date(),
-			Calendar.DAY_OF_MONTH);
-	private Map<String, String> cacheMap = new ConcurrentHashMap<String, String>();
 
 	private SpringProperty springProperty;
 
@@ -99,17 +89,9 @@ public class TudouClientImpl extends BaseClient implements TudouClient {
 	@Override
 	public List<ListView> queryVideos(String keyword, Channel channel,
 			Integer page) {
-		Date current = DateUtils.truncate(new Date(), Calendar.DAY_OF_MONTH);
-		if (DateUtils.getFragmentInDays(current, Calendar.DAY_OF_MONTH) != DateUtils
-				.getFragmentInDays(lastExpireTime, Calendar.DAY_OF_MONTH)) {
-			if (log.isDebugEnabled()) {
-				SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
-				log.debug("clear cache current:" + sdf.format(current)
-						+ ",lastExpireTime:" + sdf.format(lastExpireTime));
-			}
-			lastExpireTime = current;
-			cacheMap.clear();
-		}
+
+		this.checkCache();
+
 		String jsonStr;
 		String url = null;
 		if (channel == Channel.Recommand) {
@@ -163,8 +145,6 @@ public class TudouClientImpl extends BaseClient implements TudouClient {
 		}
 		return result;
 	}
-
-	
 
 	public static void main(String[] args) {
 		TudouClientImpl client = new TudouClientImpl();
