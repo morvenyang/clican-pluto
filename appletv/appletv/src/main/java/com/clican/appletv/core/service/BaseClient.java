@@ -3,23 +3,49 @@ package com.clican.appletv.core.service;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.zip.GZIPInputStream;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.time.DateUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
+import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.conn.params.ConnRoutePNames;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 public class BaseClient {
-	
+
 	protected final Log log = LogFactory.getLog(getClass());
-	
+
+	protected Map<String, String> cacheMap = new ConcurrentHashMap<String, String>();
+
+	protected Date lastExpireTime = DateUtils.truncate(new Date(),
+			Calendar.DAY_OF_MONTH);
+
+	protected void checkCache() {
+		Date current = DateUtils.truncate(new Date(), Calendar.DAY_OF_MONTH);
+		if (DateUtils.getFragmentInDays(current, Calendar.DAY_OF_MONTH) != DateUtils
+				.getFragmentInDays(lastExpireTime, Calendar.DAY_OF_MONTH)) {
+			if (log.isDebugEnabled()) {
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+				log.debug("clear cache current:" + sdf.format(current)
+						+ ",lastExpireTime:" + sdf.format(lastExpireTime));
+			}
+			lastExpireTime = current;
+			cacheMap.clear();
+		}
+	}
+
 	protected String httpGet(String url, Map<String, String> headers) {
 		InputStream is = null;
 		ByteArrayOutputStream os1 = null;
@@ -27,8 +53,8 @@ public class BaseClient {
 		ByteArrayOutputStream os2 = null;
 		try {
 			HttpClient client = new DefaultHttpClient();
-			// client.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY,
-			// new HttpHost("web-proxy.china.hp.com", 8080, "http"));
+			client.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY,
+					new HttpHost("web-proxy.corp.hp.com", 8080, "http"));
 			HttpGet httpGet = new HttpGet(url);
 			if (headers != null) {
 				for (String key : headers.keySet()) {

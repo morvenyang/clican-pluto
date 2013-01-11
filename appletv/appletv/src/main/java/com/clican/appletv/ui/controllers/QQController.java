@@ -3,6 +3,7 @@ package com.clican.appletv.ui.controllers;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -43,6 +44,7 @@ public class QQController {
 			@RequestParam(value = "channelId", required = false) Integer channelId)
 			throws IOException {
 
+		Date startDate = new Date();
 		if (log.isDebugEnabled()) {
 			log.debug("access qq index page");
 		}
@@ -65,7 +67,8 @@ public class QQController {
 		String pagiurl = springProperty.getSystemServerUrl()
 				+ "/qq/index.xml?channelId=" + channel.getValue();
 		if (StringUtils.isNotEmpty(keyword) && channel == Channel.Search) {
-			pagiurl = pagiurl + "&amp;keyword=" + URLEncoder.encode(keyword,"utf-8");
+			pagiurl = pagiurl + "&amp;keyword="
+					+ URLEncoder.encode(keyword, "utf-8");
 		}
 		request.setAttribute("pagiurl", pagiurl);
 		request.setAttribute("page", page);
@@ -80,6 +83,12 @@ public class QQController {
 		}
 		request.setAttribute("begin", begin);
 		request.setAttribute("end", end);
+
+		Date endDate = new Date();
+		if (log.isDebugEnabled()) {
+			log.debug("spend " + (endDate.getTime() - startDate.getTime())
+					+ " ms");
+		}
 		return "qq/index";
 	}
 
@@ -93,7 +102,8 @@ public class QQController {
 		}
 		QQAlbum album = qqClient.queryAlbum(coverId);
 		request.getSession().setAttribute("album", album);
-		request.setAttribute("playdescurl", springProperty.getQqVideoPlayApi().replaceAll("&", "&amp;"));
+		request.setAttribute("playdescurl", springProperty.getQqVideoPlayApi()
+				.replaceAll("&", "&amp;"));
 		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
 		return "qq/album";
 	}
@@ -104,14 +114,14 @@ public class QQController {
 		if (log.isDebugEnabled()) {
 			log.debug("access qq album page");
 		}
-		QQAlbum album = (QQAlbum) request.getSession().getAttribute(
-				"album");
+		QQAlbum album = (QQAlbum) request.getSession().getAttribute("album");
 		request.setAttribute("album", album);
-		request.setAttribute("playdescurl", springProperty.getQqVideoPlayApi().replaceAll("&", "&amp;"));
+		request.setAttribute("playdescurl", springProperty.getQqVideoPlayApi()
+				.replaceAll("&", "&amp;"));
 		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
 		return "qq/albumlist";
 	}
-	
+
 	@RequestMapping("/qq/search.xml")
 	public String searchPage(HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
@@ -132,10 +142,10 @@ public class QQController {
 		}
 		List<String> keywordList = qqClient.queryKeywords(q);
 		List<Keyword> klist = new ArrayList<Keyword>();
-		for(String kw:keywordList){
+		for (String kw : keywordList) {
 			Keyword keyword = new Keyword();
 			keyword.setLabel(kw);
-			keyword.setUrlValue(URLEncoder.encode(kw,"UTF-8"));
+			keyword.setUrlValue(URLEncoder.encode(kw, "UTF-8"));
 			klist.add(keyword);
 		}
 		request.setAttribute("keywordList", klist);
