@@ -151,7 +151,6 @@ public class TudouController {
 		}
 		request.setAttribute("begin", begin);
 		request.setAttribute("end", end);
-		response.setHeader("Cache-Control", "max-age=86400,public");
 		return "tudou/index";
 	}
 
