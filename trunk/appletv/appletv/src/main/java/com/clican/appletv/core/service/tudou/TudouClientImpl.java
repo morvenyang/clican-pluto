@@ -140,7 +140,12 @@ public class TudouClientImpl extends BaseClient implements TudouClient {
 
 	@Override
 	public List<String> queryKeywords(String q) {
-		String url = springProperty.getTudouKeywordSearchApi() + "?q=" + q;
+		String url = springProperty.getTudouKeywordSearchApi() + "?q=";
+		try {
+			url += URLEncoder.encode(q, "utf-8");
+		} catch (Exception e) {
+			log.error("", e);
+		}
 		String jsonStr = httpGet(url, null);
 		JSONArray array = JSONArray.fromObject(jsonStr);
 		if (log.isDebugEnabled()) {
