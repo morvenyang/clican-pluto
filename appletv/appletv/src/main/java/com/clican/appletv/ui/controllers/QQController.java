@@ -63,7 +63,7 @@ public class QQController {
 		request.setAttribute("videos", videos);
 		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
 		String pagiurl = springProperty.getSystemServerUrl()
-				+ "/tudou/index.xml?channelId=" + channel.getValue();
+				+ "/qq/index.xml?channelId=" + channel.getValue();
 		if (StringUtils.isNotEmpty(keyword) && channel == Channel.Search) {
 			pagiurl = pagiurl + "&amp;keyword=" + URLEncoder.encode(keyword,"utf-8");
 		}
