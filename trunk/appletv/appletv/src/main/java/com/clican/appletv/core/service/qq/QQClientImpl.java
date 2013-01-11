@@ -49,7 +49,7 @@ public class QQClientImpl extends BaseClient implements QQClient {
 					QQVideo video = new QQVideo();
 					video.setCoverId(cover.getString("ID"));
 					video.setPic(cover.getString("AU"));
-					video.setPic(cover.getString("TI"));
+					video.setTitle(cover.getString("TI"));
 					String bn = cover.getString("BN");
 					if (StringUtils.isNotEmpty(bn) && !bn.equals("0")) {
 						video.setSubTitle("第" + cover.getString("BN") + "集");
