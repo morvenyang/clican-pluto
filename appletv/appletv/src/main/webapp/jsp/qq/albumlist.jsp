@@ -14,12 +14,9 @@
 					<menuSection>
 						<items>
 							<c:forEach var="albumItem" items="${album.albumItems}" varStatus="status">
-								<imageTextImageMenuItem id="albumItem_${status.count+1}" onPlay="appletv.playQQVideo('${playdescurl}&amp;vid=${albumItem.vid}','${serverurl}');" onSelect="appletv.playQQVideo('${playdescurl}&amp;vid=${albumItem.vid}','${serverurl}');">
-									<leftImage></leftImage>
-									<imageSeparatorText></imageSeparatorText>
+								<oneLineMenuItem id="albumItem_${status.count+1}" onPlay="appletv.playQQVideo('${playdescurl}&amp;vid=${albumItem.vid}','${serverurl}');" onSelect="appletv.playQQVideo('${playdescurl}&amp;vid=${albumItem.vid}','${serverurl}');">
 									<label>${albumItem.title}</label>
-									<rightImage></rightImage>
-								</imageTextImageMenuItem>
+								</oneLineMenuItem>
 							</c:forEach>
 						</items>
 					</menuSection>
