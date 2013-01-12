@@ -25,7 +25,7 @@
 关注QQ群内讨论,群号:222099750
 		        ]]>
 		    </text>
-		    <!--buttons>
+		    <buttons>
 		        <actionButton id="shelf_item_1" 
 							onSelect="atv.loadURL('http://15.185.225.83/appletv/tudou/index.xml');"
 							onPlay="atv.loadURL('http://15.185.225.83/appletv/tudou/index.xml');">
@@ -36,7 +36,7 @@
 							onPlay="atv.loadURL('http://15.185.225.83/appletv/qq/index.xml');">
 							<title>QQ</title>
 						</actionButton>
-		    </buttons-->
+		    </buttons>
 		</scrollingText>
 	</body>
 </atv>
