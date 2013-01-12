@@ -31,4 +31,11 @@ public class WeiboController {
 		}
 		request.getSession().setAttribute("accessToken", accessToken);
 	}
+
+	@RequestMapping("/weibo/homeTimeline.xml")
+	public String homeTimeline(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		
+		return "weibo/homeTimeline";
+	}
 }
