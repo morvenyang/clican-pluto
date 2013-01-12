@@ -1,0 +1,27 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<script src=" http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=2668371916" type="text/javascript" charset="utf-8"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<div id="wb_connect_btn"></div>
+<script type="text/javascript">
+WB2.anyWhere(function(W){
+		W.widget.connectButton({
+			id: "wb_connect_btn",	
+			type:'3,2',
+			callback : {
+				login:function(o){	//登录后的回调函数
+					alert("login: "+o.screen_name)	
+				},
+				logout:function(){	//退出后的回调函数
+					alert('logout');
+				}
+			}
+		});
+	});
+</script>
+</body>
+</html>
