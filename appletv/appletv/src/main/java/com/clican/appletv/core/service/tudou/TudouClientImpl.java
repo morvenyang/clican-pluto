@@ -2,14 +2,11 @@ package com.clican.appletv.core.service.tudou;
 
 import java.net.URLEncoder;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
-import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang.StringUtils;
 
 import com.clican.appletv.common.SpringProperty;
@@ -163,18 +160,4 @@ public class TudouClientImpl extends BaseClient implements TudouClient {
 		return result;
 	}
 
-	public static void main(String[] args) {
-		TudouClientImpl client = new TudouClientImpl();
-		Map<String, String> headers = new HashMap<String, String>();
-		headers.put(
-				"Authorization",
-				"Basic "
-						+ Base64.encodeBase64String("clican@gmail.com:810428"
-								.getBytes()));
-		String result = client
-				.httpGet(
-						"http://api.tudou.com/v3/gw?method=item.favor.get&appKey=0b078dbd69dc3b48",
-						headers, null);
-		System.out.println(result);
-	}
 }

@@ -10,18 +10,14 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.zip.GZIPInputStream;
 
+import org.apache.commons.httpclient.Header;
+import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.HttpMethod;
+import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.http.Header;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.params.HttpConnectionParams;
-import org.apache.http.params.HttpParams;
 
 public class BaseClient {
 
@@ -53,31 +49,31 @@ public class BaseClient {
 		GZIPInputStream gis = null;
 		ByteArrayOutputStream os2 = null;
 		try {
-			HttpClient client = new DefaultHttpClient();
+			HttpClient client = new HttpClient();
 			// client.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY,
 			// new HttpHost("web-proxy.corp.hp.com", 8080, "http"));
-			HttpGet httpGet = new HttpGet(url);
+			HttpMethod httpGet = new GetMethod(url);
+
 			if (timeout != null) {
-				HttpParams params = client.getParams();
-				HttpConnectionParams.setConnectionTimeout(params, timeout);
-				HttpConnectionParams.setSoTimeout(params, timeout);
+				client.getHttpConnectionManager().getParams()
+						.setConnectionTimeout(timeout);
+				client.getHttpConnectionManager().getParams()
+						.setSoTimeout(timeout);
 			}
 			if (headers != null) {
 				for (String key : headers.keySet()) {
-					httpGet.addHeader(key, headers.get(key));
+					httpGet.addRequestHeader(key, headers.get(key));
 				}
 			}
-			httpGet.addHeader("Accept-Encoding", "gzip");
-			HttpResponse response = client.execute(httpGet);
+			httpGet.addRequestHeader("Accept-Encoding", "gzip");
+			int status = client.executeMethod(httpGet);
 			if (log.isDebugEnabled()) {
-				log.debug("Status:" + response.getStatusLine() + " for url:"
-						+ url);
+				log.debug("Status:" + status + " for url:" + url);
 			}
-
-			HttpEntity entity = response.getEntity();
-			Header contentTypeHeader = response.getFirstHeader("Content-Type");
-			Header contentEncodingHeader = response
-					.getFirstHeader("Content-Encoding");
+			Header contentTypeHeader = httpGet
+					.getResponseHeader("Content-Type");
+			Header contentEncodingHeader = httpGet
+					.getResponseHeader("Content-Encoding");
 			String contentType = contentTypeHeader.getValue();
 			String charset = "UTF-8";
 			String contentEncoding = null;
@@ -96,7 +92,7 @@ public class BaseClient {
 			if (contentEncodingHeader != null) {
 				contentEncoding = contentEncodingHeader.getValue();
 			}
-			is = entity.getContent();
+			is = httpGet.getResponseBodyAsStream();
 			os1 = new ByteArrayOutputStream();
 
 			byte[] buffer = new byte[1024];
