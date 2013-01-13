@@ -63,6 +63,13 @@ public class WeiboController {
 		request.setAttribute("weiboLoginURL", springProperty.getWeiboLoginURL());
 		return "weibo/bind";
 	}
+	
+	@RequestMapping("/weibo/login.do")
+	public void login(HttpServletRequest request,
+			HttpServletResponse response)
+			throws Exception {
+		response.sendRedirect(springProperty.getWeiboLoginURL());
+	}
 
 	@RequestMapping("/weibo/checkAccessToken.xml")
 	public String checkAccessToken(HttpServletRequest request,
@@ -74,7 +81,7 @@ public class WeiboController {
 		}
 		String uid = weiboClient.getUid(deviceId);
 		String accessToken = weiboClient.getAccessToken(deviceId);
-		if (StringUtils.isEmpty(uid)) {
+		if (StringUtils.isNotEmpty(uid)) {
 			request.getSession().setAttribute("weiboUid", uid);
 			request.getSession().setAttribute("weiboAccessToken", accessToken);
 			Users users = new Users();
@@ -83,7 +90,9 @@ public class WeiboController {
 			request.getSession().setAttribute("weiboUser", user);
 			return "weibo/profile";
 		} else {
-			return "weibo/profile";
+			request.setAttribute("weiboLoginURL", springProperty.getSystemServerUrl()+"/weibo/login.do");
+			request.setAttribute("deviceId", deviceId);
+			return "weibo/checkAccessToken";
 		}
 	}
 
