@@ -91,7 +91,8 @@ public class WeiboController {
 			users.client.setToken(accessToken);
 			User user = users.showUserById(uid);
 			request.getSession().setAttribute("weiboUser", user);
-			request.setAttribute("serverurl", springProperty.getSystemServerUrl());
+			request.setAttribute("serverurl",
+					springProperty.getSystemServerUrl());
 			return "weibo/profile";
 		} else {
 			request.setAttribute("weiboLoginURL",
@@ -99,6 +100,15 @@ public class WeiboController {
 			request.setAttribute("deviceId", deviceId);
 			return "weibo/checkAccessToken";
 		}
+	}
+
+	@RequestMapping("/weibo/imagePreview.xml")
+	public String imagePreview(HttpServletRequest request,
+			HttpServletResponse response,
+			@RequestParam(value = "imageURL", required = false) String imageURL)
+			throws Exception {
+		request.setAttribute("imageURL", imageURL);
+		return "weibo/imagePreview";
 	}
 
 	@RequestMapping("/weibo/homeTimeline.xml")
@@ -119,10 +129,11 @@ public class WeiboController {
 			if (statusWapper.getStatuses().size() > 0) {
 				status = statusWapper.getStatuses().get(0);
 			}
-			index=0;
+			index = 0;
 			request.setAttribute("weiboStatus", status);
 			request.getSession().setAttribute("weiboPage", 0);
-			request.getSession().setAttribute("weiboStatusWapper", statusWapper);
+			request.getSession()
+					.setAttribute("weiboStatusWapper", statusWapper);
 		} else {
 			weiboPage = (Integer) request.getSession()
 					.getAttribute("weiboPage");

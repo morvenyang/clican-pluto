@@ -2,40 +2,10 @@
 <atv xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:noNamespaceSchemaLocation="atv.xsd">
 	<body>
-	    <itemDetail id="status">
-	        <title>${status.user.screenName}</title>
-	        <summary><![CDATA[${status.text}
-	            <c:if test=${status.retweetedStatus!=null}>@${status.retweetedStatus.screenName}:${status.retweetedStatus.text}</c:if>
-	            ]]></summary>
-	        <c:if test="{status.retweetedStatus==null}">
-	            <image style="moviePoster">${status.thumbnailPic}</image>
-	        </c:if>
-	        <c:if test="{status.retweetedStatus!=null}">
-	            <image style="moviePoster">${status.retweetedStatus.thumbnailPic}</image>
-	        </c:if>
-	        <centerShelf>
-				<shelf id="shelf">
-					<sections>
-						<shelfSection>
-							<items>
-								<actionButton id="shelf_1" onSelect="atv.loadURL('${serverurl}/weibo/index.xml');" onPlay="atv.loadURL('${serverurl}/weibo/index.xml');">
-									<title>赞</title>
-								</actionButton>
-								<actionButton id="shelf_2" onSelect="atv.loadURL('${serverurl}/weibo/index.xml');" onPlay="atv.loadURL('${serverurl}/weibo/index.xml');">
-									<title><![CDATA[转发(${status.repostsCount})]]></title>
-								</actionButton>
-								<actionButton id="shelf_3" onSelect="atv.loadURL('${serverurl}/weibo/index.xml');" onPlay="atv.loadURL('${serverurl}/weibo/index.xml');">
-									<title>收藏</title>
-								</actionButton>
-								<actionButton id="shelf_4" onSelect="atv.loadURL('${serverurl}/weibo/index.xml');" onPlay="atv.loadURL('${serverurl}/weibo/index.xml');">
-									<title><![CDATA[评论(${status.commentsCount})]]></title>
-								</actionButton>
-							</items>
-						</shelfSection>
-					</sections>
-				</shelf>
-			</centerShelf>
-			<bottomShelf></bottomShelf>
-	    </itemDetail>
+	    <preview>
+	        <imagePreview>
+	            <image required="true"></image>
+	        </imagePreview>
+	    </preview>
 	</body>
 </atv>

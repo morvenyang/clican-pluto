@@ -23,9 +23,16 @@
 					<sections>
 						<shelfSection>
 							<items>
-								<actionButton id="shelf_1" onSelect="atv.loadURL('${serverurl}/weibo/index.xml');" onPlay="atv.loadURL('${serverurl}/weibo/index.xml');">
-									<title>详细</title>
-								</actionButton>
+								<c:if test="${weiboStatus.retweetedStatus==null}">
+									<actionButton id="shelf_1" onSelect="atv.loadURL('${serverurl}/weibo/imagePreview.xml?imageURL=weiboStatus.originalPic');" onPlay="atv.loadURL('${serverurl}/weibo/imagePreview.xml?imageURL=weiboStatus.originalPic');">
+										<title>详细</title>
+									</actionButton>
+								</c:if>
+								<c:if test="${weiboStatus.retweetedStatus!=null}">
+									<actionButton id="shelf_1" onSelect="atv.loadURL('${serverurl}/weibo/imagePreview.xml?imageURL=weiboStatus.retweetedStatus.originalPic');" onPlay="atv.loadURL('${serverurl}/weibo/imagePreview.xml?imageURL=weiboStatus.retweetedStatus.originalPic');">
+										<title>详细</title>
+									</actionButton>
+								</c:if>
 								<actionButton id="shelf_5" onSelect="atv.loadURL('${serverurl}/weibo/index.xml');" onPlay="atv.loadURL('${serverurl}/weibo/index.xml');">
 									<title>赞</title>
 								</actionButton>
@@ -43,7 +50,6 @@
 					</sections>
 				</shelf>
 			</centerShelf>
-				
 			<bottomShelf>
 				<shelf id="bottomShelf">
 					<sections>
