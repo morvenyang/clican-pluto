@@ -51,6 +51,9 @@ public class WeiboClientImpl implements WeiboClient {
 	}
 
 	public void init() {
+		if (log.isInfoEnabled()) {
+			log.info("Begin to load weibo token file");
+		}
 		InputStream is = null;
 		try {
 			File file = new File(springProperty.getWeiboTokenFile());
@@ -64,6 +67,10 @@ public class WeiboClientImpl implements WeiboClient {
 				deviceIdAccessTokenMap.put((String) entry.getKey(),
 						(String) entry.getValue());
 			}
+			if (log.isInfoEnabled()) {
+				log.info("Load " + deviceIdAccessTokenMap.size()
+						+ " tokens from weibo token file");
+			}
 		} catch (Exception e) {
 			log.error("", e);
 		} finally {
@@ -73,12 +80,14 @@ public class WeiboClientImpl implements WeiboClient {
 				} catch (Exception e) {
 					log.error("", e);
 				}
-
 			}
 		}
 	}
 
-	public void destory() {
+	public void destroy() {
+		if (log.isInfoEnabled()) {
+			log.info("Begin to persist weibo token file");
+		}
 		OutputStream os = null;
 		try {
 			File file = new File(springProperty.getWeiboTokenFile());
@@ -89,6 +98,10 @@ public class WeiboClientImpl implements WeiboClient {
 			for (String key : deviceIdAccessTokenMap.keySet()) {
 				String entry = key + "=" + deviceIdAccessTokenMap.get(key);
 				os.write(entry.getBytes("utf-8"));
+			}
+			if (log.isInfoEnabled()) {
+				log.info("Persist " + deviceIdAccessTokenMap.size()
+						+ " tokens into weibo token file");
 			}
 		} catch (Exception e) {
 			log.error("", e);
@@ -105,14 +118,20 @@ public class WeiboClientImpl implements WeiboClient {
 	}
 
 	@Override
-	public String getValidAccessToken(String deviceId) {
+	public String getAccessToken(String deviceId) {
+		String accessToken = deviceIdAccessTokenMap.get(deviceId);
+		return accessToken;
+	}
+
+	@Override
+	public String getUid(String deviceId) {
 		String accessToken = deviceIdAccessTokenMap.get(deviceId);
 		Account account = new Account();
 		account.client.setToken(accessToken);
 		try {
-			JSONObject uid = account.getUid();
-			if (StringUtils.isNotEmpty(uid.getString("uid"))) {
-				return accessToken;
+			String uid = account.getUid().getString("uid");
+			if (StringUtils.isNotEmpty(uid)) {
+				return uid;
 			} else {
 				log.debug("Get the uid failure, the user must rebind once again.");
 				return null;

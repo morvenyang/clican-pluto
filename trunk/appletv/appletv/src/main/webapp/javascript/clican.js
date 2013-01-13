@@ -1,6 +1,10 @@
 var appletv = {
 		logEnable:true,
 		
+		getDeviceUdid:function(){
+			return atv.device.udid;
+		},
+		
 		logToServer:function(logText,serverurl){
 			if(this.logEnable){
 				this.makePostRequest(serverurl+'/tudou/log.do',logText,function(data){

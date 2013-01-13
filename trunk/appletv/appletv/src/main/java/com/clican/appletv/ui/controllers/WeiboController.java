@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import weibo4j.Oauth;
+import weibo4j.Users;
+import weibo4j.model.User;
 
 import com.clican.appletv.common.SpringProperty;
 import com.clican.appletv.core.service.weibo.WeiboClient;
@@ -63,15 +65,26 @@ public class WeiboController {
 	}
 
 	@RequestMapping("/weibo/checkAccessToken.xml")
-	public String bind(HttpServletRequest request, HttpServletResponse response)
+	public String checkAccessToken(HttpServletRequest request,
+			HttpServletResponse response,
+			@RequestParam(value = "deviceId", required = false) String deviceId)
 			throws Exception {
 		if (log.isDebugEnabled()) {
 			log.debug("check access token is valid or not");
 		}
-
-		String deviceId = null;
-
-		return "weibo/checkAccessToken";
+		String uid = weiboClient.getUid(deviceId);
+		String accessToken = weiboClient.getAccessToken(deviceId);
+		if (StringUtils.isEmpty(uid)) {
+			request.getSession().setAttribute("weiboUid", uid);
+			request.getSession().setAttribute("weiboAccessToken", accessToken);
+			Users users = new Users();
+			users.client.setToken(accessToken);
+			User user = users.showUserById(uid);
+			request.getSession().setAttribute("weiboUser", user);
+			return "weibo/profile";
+		} else {
+			return "weibo/profile";
+		}
 	}
 
 	@RequestMapping("/weibo/homeTimeline.xml")

@@ -8,10 +8,10 @@
 <title>AppleTV3 Sina Weibo</title>
 </head>
 <body>
-	<c:if test=${result}>
+	<c:if test="${result}">
 		<p>绑定成功</p>
 	</c:if>
-	<c:if test=${!result}>
+	<c:if test="${!result}">
 		<p><a href="${weiboLoginURL}">绑定失败请重试</a></p>
 	</c:if>
 </body>
