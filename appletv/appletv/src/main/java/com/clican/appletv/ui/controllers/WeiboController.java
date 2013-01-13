@@ -45,6 +45,18 @@ public class WeiboController {
 		return "weibo/bind";
 	}
 
+	@RequestMapping("/weibo/checkAccessToken.xml")
+	public String bind(HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
+		if (log.isDebugEnabled()) {
+			log.debug("check access token is valid or not");
+		}
+
+		String deviceId = null;
+		
+		return "weibo/checkAccessToken";
+	}
+
 	@RequestMapping("/weibo/homeTimeline.xml")
 	public String homeTimeline(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
