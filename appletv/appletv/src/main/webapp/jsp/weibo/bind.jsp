@@ -7,9 +7,6 @@
 <title>AppleTV3 Sina Weibo</title>
 </head>
 <body>
-	<form action="weibo/bind.do">
-		AppleTV 设备号:<input type="text" name="deviceId" />
-		<input type="submit" value="绑定" />
-	</form>
+	<p>绑定成功</p>
 </body>
 </html>

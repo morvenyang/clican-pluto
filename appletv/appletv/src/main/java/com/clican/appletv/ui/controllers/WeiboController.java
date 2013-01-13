@@ -16,7 +16,7 @@ public class WeiboController {
 	private final static Log log = LogFactory.getLog(WeiboController.class);
 
 	@RequestMapping("/weibo/oaAuthCallback.do")
-	public void callback(HttpServletRequest request,
+	public String callback(HttpServletRequest request,
 			HttpServletResponse response,
 			@RequestParam(value = "code", required = false) String code)
 			throws Exception {
@@ -26,16 +26,29 @@ public class WeiboController {
 		String accessToken = new Oauth().getAccessTokenByCode(code)
 				.getAccessToken();
 		if (log.isDebugEnabled()) {
-			log.debug("set access token[" + accessToken + "] for session:"
-					+ request.getSession().getId());
+			log.debug("set access token[" + accessToken + "]");
 		}
 		request.getSession().setAttribute("accessToken", accessToken);
+		return "weibo/oaAuthCallback";
+	}
+
+	@RequestMapping("/weibo/bind.do")
+	public String bind(HttpServletRequest request,
+			HttpServletResponse response,
+			@RequestParam(value = "deviceId", required = false) String deviceId)
+			throws Exception {
+		if (log.isDebugEnabled()) {
+			log.debug("Bind " + deviceId + " with accessToken "
+					+ request.getSession().getAttribute("accessToken"));
+		}
+
+		return "weibo/bind";
 	}
 
 	@RequestMapping("/weibo/homeTimeline.xml")
 	public String homeTimeline(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-		
+
 		return "weibo/homeTimeline";
 	}
 }
