@@ -54,6 +54,6 @@ http://www.springframework.org/schema/context/spring-context-2.5.xsd">
 	<bean id="qqClient" class="com.clican.appletv.core.service.qq.QQClientImpl" autowire="byName">
 	</bean>
 
-	<bean id="weiboClient" class="com.clican.appletv.core.service.weibo.WeiboClientImpl" autowire="byName" init-method="init" destory-method="destory">
+	<bean id="weiboClient" class="com.clican.appletv.core.service.weibo.WeiboClientImpl" autowire="byName" init-method="init" destroy-method="destroy">
 	</bean>
 </beans>

@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<atv xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:noNamespaceSchemaLocation="atv.xsd">
-	<body>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %><%@ page contentType="text/xml;charset=utf-8" %><?xml version="1.0" encoding="UTF-8"?>
+<atv>
+<head><script src="${serverurl}/javascript/clican.js"/></head>
+<body>
 		<itemDetail id="profile">
-			<title></title>
-			<image></image>
+			<title>${weiboUser.name}</title>
+			<image>${weiboUser.profileImageUrl}</image>
 			<table>
 				<columnDefinitions>
 					<columnDefinition width="30"></columnDefinition>
@@ -13,9 +13,9 @@
 				</columnDefinitions>
 				<rows>
 					<row>
-						<label><![CDATA[关注:]]></label>
-						<label><![CDATA[粉丝:]]></label>
-						<label><![CDATA[微博:]]></label>
+						<label><![CDATA[关注:${weiboUser.friendsCount}]]></label>
+						<label><![CDATA[粉丝:${weiboUser.followersCount}]]></label>
+						<label><![CDATA[微博:${weiboUser.statusesCount}]]></label>
 					</row>
 				</rows>
 			</table>
