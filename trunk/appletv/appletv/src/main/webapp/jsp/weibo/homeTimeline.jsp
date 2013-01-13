@@ -23,13 +23,13 @@
 					<sections>
 						<shelfSection>
 							<items>
-								<c:if test="${weiboStatus.retweetedStatus==null}">
-									<actionButton id="shelf_1" onSelect="atv.loadURL('${serverurl}/weibo/imagePreview.xml?imageURL=weiboStatus.originalPic');" onPlay="atv.loadURL('${serverurl}/weibo/imagePreview.xml?imageURL=weiboStatus.originalPic');">
+								<c:if test="${weiboStatus.retweetedStatus==null&&weiboStatus.originalPic!=null}">
+									<actionButton id="shelf_1" onSelect="atv.loadURL('${serverurl}/weibo/imagePreview.xml?imageURL=${weiboStatus.originalPic}');" onPlay="atv.loadURL('${serverurl}/weibo/imagePreview.xml?imageURL=${weiboStatus.originalPic}');">
 										<title>详细</title>
 									</actionButton>
 								</c:if>
-								<c:if test="${weiboStatus.retweetedStatus!=null}">
-									<actionButton id="shelf_1" onSelect="atv.loadURL('${serverurl}/weibo/imagePreview.xml?imageURL=weiboStatus.retweetedStatus.originalPic');" onPlay="atv.loadURL('${serverurl}/weibo/imagePreview.xml?imageURL=weiboStatus.retweetedStatus.originalPic');">
+								<c:if test="${weiboStatus.retweetedStatus!=null&&weiboStatus.retweetedStatus.originalPic!=null}">
+									<actionButton id="shelf_1" onSelect="atv.loadURL('${serverurl}/weibo/imagePreview.xml?imageURL=${weiboStatus.retweetedStatus.originalPic}');" onPlay="atv.loadURL('${serverurl}/weibo/imagePreview.xml?imageURL=${weiboStatus.retweetedStatus.originalPic}');">
 										<title>详细</title>
 									</actionButton>
 								</c:if>

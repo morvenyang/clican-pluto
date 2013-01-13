@@ -96,7 +96,7 @@ public class WeiboClientImpl implements WeiboClient {
 			}
 			os = new FileOutputStream(springProperty.getWeiboTokenFile());
 			for (String key : deviceIdAccessTokenMap.keySet()) {
-				String entry = key + "=" + deviceIdAccessTokenMap.get(key);
+				String entry = key + "=" + deviceIdAccessTokenMap.get(key)+"\n";
 				os.write(entry.getBytes("utf-8"));
 			}
 			if (log.isInfoEnabled()) {
