@@ -4,9 +4,12 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>AppleTV3 Sina Weibo</title>
 </head>
 <body>
-
+	<form action="weibo/login.do">
+		AppleTV 设备号:<input type="text" name="deviceId" />
+		<input type="submit" value="绑定" />
+	</form>
 </body>
 </html>
