@@ -3,17 +3,28 @@ package com.clican.appletv.ui.controllers;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import weibo4j.Oauth;
 
+import com.clican.appletv.common.SpringProperty;
+import com.clican.appletv.core.service.weibo.WeiboClient;
+
 @Controller
 public class WeiboController {
 	private final static Log log = LogFactory.getLog(WeiboController.class);
+
+	@Autowired
+	private WeiboClient weiboClient;
+
+	@Autowired
+	private SpringProperty springProperty;
 
 	@RequestMapping("/weibo/oaAuthCallback.do")
 	public String callback(HttpServletRequest request,
@@ -37,11 +48,17 @@ public class WeiboController {
 			HttpServletResponse response,
 			@RequestParam(value = "deviceId", required = false) String deviceId)
 			throws Exception {
+		String accessToken = (String) request.getSession().getAttribute(
+				"accessToken");
 		if (log.isDebugEnabled()) {
-			log.debug("Bind " + deviceId + " with accessToken "
-					+ request.getSession().getAttribute("accessToken"));
+			log.debug("Bind " + deviceId + " with accessToken " + accessToken);
 		}
-
+		boolean result = false;
+		if (StringUtils.isNotEmpty(accessToken)) {
+			result = weiboClient.saveUserInfo(accessToken, deviceId);
+		}
+		request.setAttribute("result", result);
+		request.setAttribute("weiboLoginURL", springProperty.getWeiboLoginURL());
 		return "weibo/bind";
 	}
 
@@ -53,7 +70,7 @@ public class WeiboController {
 		}
 
 		String deviceId = null;
-		
+
 		return "weibo/checkAccessToken";
 	}
 

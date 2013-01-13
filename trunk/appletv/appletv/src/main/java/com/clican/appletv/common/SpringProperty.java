@@ -38,6 +38,7 @@ public class SpringProperty {
 
 	private String qqSearchAlbumsApi;
 	
+	private String weiboLoginURL;
 	private String weiboAppKey;
 	private String weiboAppSercret;
 	private String weiboRedirectURL;
@@ -45,6 +46,7 @@ public class SpringProperty {
 	private String weiboAccessTokenURL;
 	private String weiboAuthorizeURL;
 	private String weiboRmURL;
+	private String weiboTokenFile;
 	
 
 	public SpringProperty() {
@@ -246,6 +248,22 @@ public class SpringProperty {
 
 	public void setWeiboRedirectURL(String weiboRedirectURL) {
 		this.weiboRedirectURL = weiboRedirectURL;
+	}
+
+	public String getWeiboTokenFile() {
+		return weiboTokenFile;
+	}
+
+	public void setWeiboTokenFile(String weiboTokenFile) {
+		this.weiboTokenFile = weiboTokenFile;
+	}
+
+	public String getWeiboLoginURL() {
+		return weiboLoginURL;
+	}
+
+	public void setWeiboLoginURL(String weiboLoginURL) {
+		this.weiboLoginURL = weiboLoginURL;
 	}
 
 }
