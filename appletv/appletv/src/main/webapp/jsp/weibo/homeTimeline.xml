@@ -2,10 +2,12 @@
 <atv xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:noNamespaceSchemaLocation="atv.xsd">
 	<body>
-	    <preview>
-	        <imagePreview>
-	            <image required="true"></image>
-	        </imagePreview>
-	    </preview>
+	    <standings>
+	        <items>
+	            <standingsItem>
+	                <backgroundImage>${imageURL}</backgroundImage>
+	            </standingsItem>
+	        </items>
+	    </standings>
 	</body>
 </atv>
