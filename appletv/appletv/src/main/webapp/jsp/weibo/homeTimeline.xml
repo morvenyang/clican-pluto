@@ -2,36 +2,9 @@
 <atv xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:noNamespaceSchemaLocation="atv.xsd">
 	<body>
-		<itemDetail id="profile">
-			<title></title>
-			<image></image>
-			<table>
-				<columnDefinitions>
-					<columnDefinition width="30"></columnDefinition>
-					<columnDefinition width="30"></columnDefinition>
-					<columnDefinition width="30"></columnDefinition>
-				</columnDefinitions>
-				<rows>
-					<row>
-						<label><![CDATA[关注:]]></label>
-						<label><![CDATA[粉丝:]]></label>
-						<label><![CDATA[微博:]]></label>
-					</row>
-				</rows>
-			</table>
-			<centerShelf>
-				<shelf id="shelf">
-					<sections>
-						<shelfSection>
-							<items>
-								<actionButton id="shelf_1" onSelect="atv.loadURL('${serverurl}/weibo/index.xml');" onPlay="atv.loadURL('${serverurl}/weibo/index.xml');">
-									<title>开始微博</title>
-								</actionButton>
-							</items>
-						</shelfSection>
-					</sections>
-				</shelf>
-			</centerShelf>
-		</itemDetail>
+	    <dialog id="dialog">
+	        <title>请通过以下URL进行新浪微博授权然后返回重试</title>
+	        <description><%=request.getAttribute("weiboLoginURL")%></description>
+	    </dialog>
 	</body>
 </atv>
