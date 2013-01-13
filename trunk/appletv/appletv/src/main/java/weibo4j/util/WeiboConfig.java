@@ -1,26 +1,28 @@
 package weibo4j.util;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.Properties;
+import com.clican.appletv.common.SpringProperty;
 
 public class WeiboConfig {
-	public WeiboConfig(){}
-	private static Properties props = new Properties(); 
-	static{
-		try {
-			props.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("META-INF/conf.properties"));
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
+
+	public static String getValue(String key) {
+		SpringProperty sp = SpringProperty.getInstance();
+		if (key.equals("client_ID")) {
+			return sp.getWeiboAppKey();
+		} else if (key.equals("client_SERCRET")) {
+			return sp.getWeiboAppSercret();
+		} else if (key.equals("redirect_URI")) {
+			return sp.getWeiboRedirectURL();
+		} else if (key.equals("baseURL")) {
+			return sp.getWeiboBaseURL();
+		} else if (key.equals("accessTokenURL")) {
+			return sp.getWeiboAccessTokenURL();
+		} else if (key.equals("authorizeURL")) {
+			return sp.getWeiboAuthorizeURL();
+		} else if (key.equals("rmURL")) {
+			return sp.getWeiboRmURL();
+		} else {
+			throw new RuntimeException("The key " + key + " is not defined");
 		}
 	}
-	public static String getValue(String key){
-		return props.getProperty(key);
-	}
 
-    public static void updateProperties(String key,String value) {    
-            props.setProperty(key, value); 
-    } 
 }
