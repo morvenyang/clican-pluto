@@ -4,7 +4,8 @@
 <body>
 		<itemDetail id="profile">
 			<title>${weiboUser.name}</title>
-			<image>${weiboUser.profileImageUrl}</image>
+			<image style="moviePoster">${weiboUser.avatarLarge}</image>
+			<summary>${weiboUser.description}</summary>
 			<table>
 				<columnDefinitions>
 					<columnDefinition width="30"></columnDefinition>
