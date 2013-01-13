@@ -122,6 +122,7 @@ public class WeiboController {
 			index=0;
 			request.setAttribute("weiboStatus", status);
 			request.getSession().setAttribute("weiboPage", 0);
+			request.getSession().setAttribute("weiboStatusWapper", statusWapper);
 		} else {
 			weiboPage = (Integer) request.getSession()
 					.getAttribute("weiboPage");
