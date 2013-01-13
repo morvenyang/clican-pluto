@@ -30,13 +30,13 @@
 									<title>赞</title>
 								</actionButton>
 								<actionButton id="shelf_6" onSelect="atv.loadURL('${serverurl}/weibo/index.xml');" onPlay="atv.loadURL('${serverurl}/weibo/index.xml');">
-									<title><![CDATA[转发(${status.repostsCount})]]></title>
+									<title><![CDATA[转发(${weiboStatus.repostsCount})]]></title>
 								</actionButton>
 								<actionButton id="shelf_7" onSelect="atv.loadURL('${serverurl}/weibo/index.xml');" onPlay="atv.loadURL('${serverurl}/weibo/index.xml');">
 									<title>收藏</title>
 								</actionButton>
 								<actionButton id="shelf_8" onSelect="atv.loadURL('${serverurl}/weibo/index.xml');" onPlay="atv.loadURL('${serverurl}/weibo/index.xml');">
-									<title><![CDATA[评论(${status.commentsCount})]]></title>
+									<title><![CDATA[评论(${weiboStatus.commentsCount})]]></title>
 								</actionButton>
 							</items>
 						</shelfSection>
