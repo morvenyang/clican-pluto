@@ -2,59 +2,44 @@
 <atv>
 <head><script src="${serverurl}/javascript/clican.js"/></head>
 <body>
-    <scroller id="scroller">
-      <items>
-        <pagedGrid id="pagedGrid">
-            <grid id="grid1" columnCount="2">
-                <items>
-                    <moviePoster id="p1" alwaysShowTitles="true">
-                        <title><![CDATA[潮男搭配日记]]></title>
-                        <subtitle><![CDATA[冬装加厚刺绣毛内胆毛衣保暖毛衣外套，好看，小清新！！]]></subtitle>
-                        <image>http://ww3.sinaimg.cn/thumbnail/a30798bejw1e0qzh2wd2gj.jpg</image>
-                    </moviePoster>
-                    <moviePoster id="p2" alwaysShowTitles="true">
-                        <title><![CDATA[潮男搭配日记]]></title>
-                        <subtitle><![CDATA[冬装加厚刺绣毛内胆毛衣保暖毛衣外套，好看，小清新！！]]></subtitle>
-                        <image>http://ww3.sinaimg.cn/thumbnail/a30798bejw1e0qzh2wd2gj.jpg</image>
-                    </moviePoster>
-                    <moviePoster id="p3" alwaysShowTitles="true">
-                        <title><![CDATA[潮男搭配日记]]></title>
-                        <subtitle><![CDATA[冬装加厚刺绣毛内胆毛衣保暖毛衣外套，好看，小清新！！]]></subtitle>
-                        <image>http://ww3.sinaimg.cn/thumbnail/a30798bejw1e0qzh2wd2gj.jpg</image>
-                    </moviePoster>
-                    <moviePoster id="p4" alwaysShowTitles="true">
-                        <title><![CDATA[潮男搭配日记]]></title>
-                        <subtitle><![CDATA[冬装加厚刺绣毛内胆毛衣保暖毛衣外套，好看，小清新！！]]></subtitle>
-                        <image>http://ww3.sinaimg.cn/thumbnail/a30798bejw1e0qzh2wd2gj.jpg</image>
-                    </moviePoster>
-                </items>
-            </grid>
-            <grid id="grid2" columnCount="2">
-                <items>
-                    <moviePoster id="p5" alwaysShowTitles="true">
-                        <title><![CDATA[潮男搭配日记]]></title>
-                        <subtitle><![CDATA[冬装加厚刺绣毛内胆毛衣保暖毛衣外套，好看，小清新！！]]></subtitle>
-                        <image>http://ww3.sinaimg.cn/thumbnail/a30798bejw1e0qzh2wd2gj.jpg</image>
-                    </moviePoster>
-                    <moviePoster id="p6" alwaysShowTitles="true">
-                        <title><![CDATA[潮男搭配日记]]></title>
-                        <subtitle><![CDATA[冬装加厚刺绣毛内胆毛衣保暖毛衣外套，好看，小清新！！]]></subtitle>
-                        <image>http://ww3.sinaimg.cn/thumbnail/a30798bejw1e0qzh2wd2gj.jpg</image>
-                    </moviePoster>
-                    <moviePoster id="p7" alwaysShowTitles="true">
-                        <title><![CDATA[潮男搭配日记]]></title>
-                        <subtitle><![CDATA[冬装加厚刺绣毛内胆毛衣保暖毛衣外套，好看，小清新！！]]></subtitle>
-                        <image>http://ww3.sinaimg.cn/thumbnail/a30798bejw1e0qzh2wd2gj.jpg</image>
-                    </moviePoster>
-                    <moviePoster id="p8" alwaysShowTitles="true">
-                        <title><![CDATA[潮男搭配日记]]></title>
-                        <subtitle><![CDATA[冬装加厚刺绣毛内胆毛衣保暖毛衣外套，好看，小清新！！]]></subtitle>
-                        <image>http://ww3.sinaimg.cn/thumbnail/a30798bejw1e0qzh2wd2gj.jpg</image>
-                    </moviePoster>
-                </items>
-            </grid>
-        </pagedGrid>
-      </items>
-    </scroller>
+    <itemDetail id="status">
+	        <title>${status.user.screenName}</title>
+	        <c:if test=${status.retweetedStatus!=null}>
+	        	<summary><![CDATA[${status.text}
+	            @${status.retweetedStatus.screenName}:${status.retweetedStatus.text}
+	            ]]></summary>
+	        </c:if>
+	        <c:if test=${status.retweetedStatus==null}>
+	        	<summary><![CDATA[${status.text}]]></summary>
+	        </c:if>
+	        <c:if test="{status.retweetedStatus==null}">
+	            <image style="moviePoster">${status.thumbnailPic}</image>
+	        </c:if>
+	        <c:if test="{status.retweetedStatus!=null}">
+	            <image style="moviePoster">${status.retweetedStatus.thumbnailPic}</image>
+	        </c:if>
+	        <centerShelf>
+				<shelf id="shelf">
+					<sections>
+						<shelfSection>
+							<items>
+								<actionButton id="shelf_1" onSelect="atv.loadURL('${serverurl}/weibo/index.xml');" onPlay="atv.loadURL('${serverurl}/weibo/index.xml');">
+									<title>赞</title>
+								</actionButton>
+								<actionButton id="shelf_2" onSelect="atv.loadURL('${serverurl}/weibo/index.xml');" onPlay="atv.loadURL('${serverurl}/weibo/index.xml');">
+									<title><![CDATA[转发(${status.repostsCount})]]></title>
+								</actionButton>
+								<actionButton id="shelf_3" onSelect="atv.loadURL('${serverurl}/weibo/index.xml');" onPlay="atv.loadURL('${serverurl}/weibo/index.xml');">
+									<title>收藏</title>
+								</actionButton>
+								<actionButton id="shelf_4" onSelect="atv.loadURL('${serverurl}/weibo/index.xml');" onPlay="atv.loadURL('${serverurl}/weibo/index.xml');">
+									<title><![CDATA[评论(${status.commentsCount})]]></title>
+								</actionButton>
+							</items>
+						</shelfSection>
+					</sections>
+				</shelf>
+			</centerShelf>
+	    </itemDetail>
   </body>
 </atv>
