@@ -187,19 +187,24 @@ public class WeiboController {
 		if (page < 1) {
 			page = 1;
 		}
-		if (sinceId == null) {
-			sinceId = -1L;
+		Paging paging = new Paging(page, 10);
+		if (sinceId != null && sinceId >= 0) {
+			paging.setSinceId(sinceId);
 		}
-		if (maxId == null) {
-			maxId = -1L;
+		if (maxId != null && maxId >= 0) {
+			paging.setMaxId(maxId);
 		}
-		StatusWapper statusWapper = timeline.getHomeTimeline(0, 0, new Paging(
-				page, 20, sinceId, maxId));
 
+		StatusWapper statusWapper = timeline.getHomeTimeline(0, 0, paging);
+
+		StringBuffer list = new StringBuffer("###########\n");
 		for (Status status : statusWapper.getStatuses()) {
+			list.append(status.getIdstr());
+			list.append("\n");
 			String statusPic = weiboClient.generateWeiboImage(status);
 			status.setStatusPic(statusPic);
 		}
+		log.debug(list);
 		if (statusWapper.getStatuses().size() > 0) {
 			request.setAttribute("weiboFirstStatus", statusWapper.getStatuses()
 					.get(0));
@@ -208,7 +213,7 @@ public class WeiboController {
 		}
 		request.setAttribute("weiboStatusWapper", statusWapper);
 		request.setAttribute("page", page);
-		request.setAttribute("sinceId", statusWapper.getNextCursor());
+		request.setAttribute("sinceId", statusWapper.getPreviousCursor());
 		request.setAttribute("maxId", statusWapper.getNextCursor());
 		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
 		return "weibo/homeTimeline2";

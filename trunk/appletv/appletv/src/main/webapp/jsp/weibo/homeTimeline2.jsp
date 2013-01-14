@@ -11,13 +11,13 @@
 				<sections>
 					<menuSection>
 						<items>
-							<imageTextImageMenuItem id="prev" onSelect="atv.loadURL('${serverurl}'+'/weibo/homeTimeline2.xml')">
+							<imageTextImageMenuItem id="prev" onSelect="atv.loadURL('${serverurl}/weibo/homeTimeline2.xml')">
 								<leftImage></leftImage>
 								<rightImage></rightImage>
 								<imageSeparatorText></imageSeparatorText>
 								<label>最新</label>
 							</imageTextImageMenuItem>
-							<imageTextImageMenuItem id="prev" onSelect="atv.loadURL('${serverurl}'+'/weibo/homeTimeline2.xml?page=${page-1}&amp;maxId=${maxId}')">
+							<imageTextImageMenuItem id="prev" onSelect="atv.loadURL('${serverurl}/weibo/homeTimeline2.xml?page=${page-1}&amp;sinceId=${sinceId}')">
 								<leftImage></leftImage>
 								<rightImage></rightImage>
 								<imageSeparatorText></imageSeparatorText>
@@ -27,7 +27,7 @@
 								varStatus="varStatus">
 								<imageTextImageMenuItem id="item_${varStatus.count}">
 									<leftImage>${weiboStatus.user.profileImageUrl}</leftImage>
-									<rightImage></rightImage>
+									<rightImage>${weiboStatus.idstr}</rightImage>
 									<imageSeparatorText></imageSeparatorText>
 									<c:if test="${fn:length(weiboStatus.text)>10}">
 										<label>${fn:substring(weiboStatus.text,0,10)}</label>
@@ -77,7 +77,7 @@
 									</preview>
 								</imageTextImageMenuItem>
 							</c:forEach>
-							<imageTextImageMenuItem id="prev" onSelect="atv.loadURL('${serverurl}'+'/weibo/homeTimeline2.xml?page=${page+1}&amp;sinceId=${sinceId}')">
+							<imageTextImageMenuItem id="prev" onSelect="atv.loadURL('${serverurl}/weibo/homeTimeline2.xml?page=${page+1}&amp;maxId=${maxId}')">
 								<leftImage></leftImage>
 								<rightImage></rightImage>
 								<imageSeparatorText></imageSeparatorText>
