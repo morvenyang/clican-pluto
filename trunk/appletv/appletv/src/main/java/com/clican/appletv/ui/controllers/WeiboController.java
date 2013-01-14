@@ -131,7 +131,8 @@ public class WeiboController {
 			}
 			index = 0;
 			request.setAttribute("weiboStatus", status);
-			request.setAttribute("weiboStatusImageURL", weiboClient.generateWeiboImage(status));
+			request.setAttribute("weiboStatusImageURL",
+					weiboClient.generateWeiboImage(status));
 			request.getSession().setAttribute("weiboPage", 0);
 			request.getSession()
 					.setAttribute("weiboStatusWapper", statusWapper);
@@ -161,12 +162,39 @@ public class WeiboController {
 				status = statusWapper.getStatuses().get(index);
 			}
 			request.setAttribute("weiboStatus", status);
-			request.setAttribute("weiboStatusImageURL", weiboClient.generateWeiboImage(status));
+			request.setAttribute("weiboStatusImageURL",
+					weiboClient.generateWeiboImage(status));
 			request.getSession().setAttribute("weiboPage", weiboPage);
 		}
 		request.setAttribute("prevIndex", index - 1);
 		request.setAttribute("nextIndex", index + 1);
 		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
 		return "weibo/homeTimeline";
+	}
+
+	@RequestMapping("/weibo/homeTimeline2.xml")
+	public String homeTimeline2(HttpServletRequest request,
+			HttpServletResponse response,
+			@RequestParam(value = "page", required = false) Integer page)
+			throws Exception {
+		Timeline timeline = new Timeline();
+		String accessToken = (String) request.getSession().getAttribute(
+				"weiboAccessToken");
+		timeline.setToken(accessToken);
+		if (page == null) {
+			page = 1;
+		}
+		StatusWapper statusWapper = timeline.getHomeTimeline(0, 0, new Paging(
+				page, 20));
+		if (statusWapper.getStatuses().size() > 0) {
+			request.setAttribute("weiboFirstStatus", statusWapper.getStatuses()
+					.get(0));
+		} else {
+			request.setAttribute("weiboFirstStatus", null);
+		}
+		request.setAttribute("weiboStatusWapper", statusWapper);
+
+		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
+		return "weibo/homeTimeline2";
 	}
 }
