@@ -73,7 +73,11 @@ public class QQClientImpl extends BaseClient implements QQClient {
 				for (int i = 0; i < array.size(); i++) {
 					JSONObject cover = array.getJSONObject(i);
 					QQVideo video = new QQVideo();
-					video.setPic(cover.getString("c_pic"));
+					if(cover.containsKey("c_pic")){
+						video.setPic(cover.getString("c_pic"));
+					}else if(cover.containsKey("c_pic_url")){
+						video.setPic(cover.getString("c_pic_url"));
+					}
 					video.setCoverId(cover.getString("c_cover_id"));
 					video.setTitle(cover.getString("c_title"));
 					result.add(video);
