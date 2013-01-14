@@ -69,22 +69,20 @@ public class WeiboClientImpl implements WeiboClient {
 			content.append("<p style=\"width: 800px\">");
 			content.append(status.getRetweetedStatus().getText());
 			content.append("</p> ");
-		} 
+		}
 		String imageFileName = this.generateImageFileName();
 
 		String filePath = springProperty.getWeiboTempImageFolder() + "/"
 				+ imageFileName;
 		String urlPath = springProperty.getWeiboTempImageURL() + "/"
 				+ imageFileName;
-		for (int i = 0; i < 10; i++) {
-			HtmlImageGenerator imageGenerator = new HtmlImageGenerator();
-			imageGenerator.loadHtml(content.toString());
-			File weiboTempImageFile = new File(filePath);
-			if (!weiboTempImageFile.getParentFile().exists()) {
-				weiboTempImageFile.getParentFile().mkdirs();
-			}
-			imageGenerator.saveAsImage(filePath);
+		HtmlImageGenerator imageGenerator = new HtmlImageGenerator();
+		imageGenerator.loadHtml(content.toString());
+		File weiboTempImageFile = new File(filePath);
+		if (!weiboTempImageFile.getParentFile().exists()) {
+			weiboTempImageFile.getParentFile().mkdirs();
 		}
+		imageGenerator.saveAsImage(filePath);
 		Date end = new Date();
 		if (log.isDebugEnabled()) {
 			log.debug("spend " + (end.getTime() - start.getTime())
