@@ -45,7 +45,8 @@ http://www.springframework.org/schema/context/spring-context-2.5.xsd">
 		<property name="weiboAuthorizeURL" value="${weibo.authorize.url}"></property>
 		<property name="weiboRmURL" value="${weibo.rm.url}"></property>
 		<property name="weiboTokenFile" value="${weibo.token.file}"></property>
-		
+		<property name="weiboTempImageFolder" value="${weibo.temp.image.folder}"></property>
+		<property name="weiboTempImageURL" value="${weibo.temp.image.url}"></property>
 	</bean>
 	
 	<bean id="tudouClient" class="com.clican.appletv.core.service.tudou.TudouClientImpl" autowire="byName">

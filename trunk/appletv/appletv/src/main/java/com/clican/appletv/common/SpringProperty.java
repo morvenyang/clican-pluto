@@ -47,7 +47,8 @@ public class SpringProperty {
 	private String weiboAuthorizeURL;
 	private String weiboRmURL;
 	private String weiboTokenFile;
-	
+	private String weiboTempImageFolder;
+	private String weiboTempImageURL;
 
 	public SpringProperty() {
 		instance = this;
@@ -264,6 +265,22 @@ public class SpringProperty {
 
 	public void setWeiboLoginURL(String weiboLoginURL) {
 		this.weiboLoginURL = weiboLoginURL;
+	}
+
+	public String getWeiboTempImageFolder() {
+		return weiboTempImageFolder;
+	}
+
+	public void setWeiboTempImageFolder(String weiboTempImageFolder) {
+		this.weiboTempImageFolder = weiboTempImageFolder;
+	}
+
+	public String getWeiboTempImageURL() {
+		return weiboTempImageURL;
+	}
+
+	public void setWeiboTempImageURL(String weiboTempImageURL) {
+		this.weiboTempImageURL = weiboTempImageURL;
 	}
 
 }
