@@ -52,21 +52,23 @@ public class WeiboClientImpl implements WeiboClient {
 	public String generateWeiboImage(Status status) {
 		Date start = new Date();
 		StringBuffer content = new StringBuffer();
+		content.append("<p style=\"width: 700px;font-size:60\">");
 		content.append(status.getUser().getScreenName());
+		content.append("</p>");
 		// append content
-		content.append("<p style=\"width: 800px\">");
+		content.append("<p style=\"width: 700px;font-size:60\">");
 		content.append(status.getText());
 		content.append("</p>");
 
 		if (status.getRetweetedStatus() != null&&status.getRetweetedStatus().getUser()!=null) {
 			// append refer user name
-			content.append("<p>");
+			content.append("<p style=\"width: 700px;font-size:60\">");
 			content.append("@"
 					+ status.getRetweetedStatus().getUser().getScreenName());
 			content.append("</p>");
 
 			// append refer content
-			content.append("<p style=\"width: 800px\">");
+			content.append("<p style=\"width: 700px;font-size:60\">");
 			content.append(status.getRetweetedStatus().getText());
 			content.append("</p> ");
 		}

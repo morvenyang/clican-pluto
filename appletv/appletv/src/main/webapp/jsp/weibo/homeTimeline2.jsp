@@ -36,44 +36,11 @@
 										<label><![CDATA[${weiboStatus.text}]]></label>
 									</c:if>
 									<preview>
-										<scrollerPreview id="sp_${varStatus.count}">
-											<header>
-												<simpleHeader><image>${weiboStatus.user.profileImageUrl}</image></simpleHeader>
-											</header>
-											<items>
-												<pagedGrid id="pg_${varStatus.count}">
-													<grid id="g1_${varStatus.count}" columnCount="1">
-														<items>
-															<moviePoster id="g1mpt_${varStatus.count}">
-																<image>${weiboStatus.statusPic}</image>
-															</moviePoster>
-															<moviePoster id="g1mpp_${varStatus.count}">
-																<c:if test="${weiboStatus.thumbnailPic!=null&&fn:length(weiboStatus.thumbnailPic)!=0}">
-																	<image>${weiboStatus.thumbnailPic}</image>
-																</c:if>
-																<c:if
-																	test="${weiboStatus.retweetedStatus.thumbnailPic!=null&&fn:length(weiboStatus.retweetedStatus.thumbnailPic)!=0}">
-																	<image>${weiboStatus.retweetedStatus.thumbnailPic}</image>
-																</c:if>
-															</moviePoster>
-														</items>
-													</grid>
-													<grid id="g2_${varStatus.count}" columnCount="1">
-														<items>
-															<moviePoster id="g2mp_${varStatus.count}">
-																<c:if test="${weiboStatus.originalPic!=null&&fn:length(weiboStatus.originalPic)!=0}">
-																	<image>${weiboStatus.originalPic}</image>
-																</c:if>
-																<c:if
-																	test="${weiboStatus.retweetedStatus!=null&&weiboStatus.retweetedStatus.originalPic!=null&&fn:length(weiboStatus.retweetedStatus.originalPic)!=0}">
-																	<image>${weiboStatus.retweetedStatus.originalPic}</image>
-																</c:if>
-															</moviePoster>
-														</items>
-													</grid>
-												</pagedGrid>
-											</items>
-										</scrollerPreview>
+										<longDescriptionPreview>
+									        <title>${weiboStatus.user.screenName}</title>
+									        <summary>${weiboStatus.text}</summary>
+									        <image>${weiboStatus.originalPic}</image>
+									    </longDescriptionPreview>
 									</preview>
 								</imageTextImageMenuItem>
 							</c:forEach>
@@ -87,45 +54,6 @@
 					</menuSection>
 				</sections>
 			</menu>
-			<preview>
-				<scrollerPreview id="sp">
-					<header>
-						<simpleHeader><image>${weiboStatus.user.profileImageUrl}</image></simpleHeader>
-					</header>
-					<items>
-						<pagedGrid id="pg">
-							<grid id="g1" columnCount="1">
-								<items>
-									<moviePoster id="g1mpt">
-										<image>${weiboFirstStatus.statusPic}</image>
-									</moviePoster>
-									<moviePoster id="g1mpp">
-										<c:if test="${weiboFirstStatus.thumbnailPic!=null&&fn:length(weiboStatus.thumbnailPic)!=0}">
-											<image>${weiboFirstStatus.thumbnailPic}</image>
-										</c:if>
-										<c:if test="${weiboFirstStatus.retweetedStatus.thumbnailPic!=null&&fn:length(weiboStatus.retweetedStatus.thumbnailPic)!=0}">
-											<image>${weiboFirstStatus.retweetedStatus.thumbnailPic}</image>
-										</c:if>
-									</moviePoster>
-								</items>
-							</grid>
-							<grid id="g2" columnCount="1">
-								<items>
-									<moviePoster id="g2mp">
-										<c:if test="${weiboFirstStatus.originalPic!=null&&fn:length(weiboStatus.originalPic)!=0}">
-											<image>${weiboFirstStatus.originalPic}</image>
-										</c:if>
-										<c:if
-											test="${weiboFirstStatus.retweetedStatus!=null&&weiboFirstStatus.retweetedStatus.originalPic!=null&&fn:length(weiboStatus.retweetedStatus.originalPic)!=0}">
-											<image>${weiboFirstStatus.retweetedStatus.originalPic}</image>
-										</c:if>
-									</moviePoster>
-								</items>
-							</grid>
-						</pagedGrid>
-					</items>
-				</scrollerPreview>
-			</preview>
 		</listWithPreview>
 	</body>
 </atv>
