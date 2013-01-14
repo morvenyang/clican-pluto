@@ -52,13 +52,6 @@ public class WeiboClientImpl implements WeiboClient {
 	public String generateWeiboImage(Status status) {
 		Date start = new Date();
 		StringBuffer content = new StringBuffer();
-		content.append("<table><tr><td valign=\"top\">");
-		// append profile image
-		content.append("<img width=\"50\" height=\"50\"src=\"");
-		content.append(status.getUser().getProfileImageUrl());
-		content.append("\" /></td>");
-		// append user name
-		content.append("<td>");
 		content.append(status.getUser().getScreenName());
 		// append content
 		content.append("<p style=\"width: 800px\">");
@@ -76,22 +69,7 @@ public class WeiboClientImpl implements WeiboClient {
 			content.append("<p style=\"width: 800px\">");
 			content.append(status.getRetweetedStatus().getText());
 			content.append("</p> ");
-
-			if (StringUtils.isNotEmpty(status.getRetweetedStatus()
-					.getThumbnailPic())) {
-				content.append("<img src=\"");
-				content.append(status.getRetweetedStatus().getThumbnailPic());
-				content.append("\" />");
-			}
-		} else {
-			if (StringUtils.isNotEmpty(status.getThumbnailPic())) {
-				content.append("<img src=\"");
-				content.append(status.getThumbnailPic());
-				content.append("\" />");
-			}
-
-		}
-		content.append("</td></tr></table>");
+		} 
 		String imageFileName = this.generateImageFileName();
 
 		String filePath = springProperty.getWeiboTempImageFolder() + "/"
