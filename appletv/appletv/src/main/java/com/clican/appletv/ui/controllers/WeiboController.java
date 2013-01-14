@@ -186,6 +186,11 @@ public class WeiboController {
 		}
 		StatusWapper statusWapper = timeline.getHomeTimeline(0, 0, new Paging(
 				page, 20));
+
+		for (Status status : statusWapper.getStatuses()) {
+			String statusPic = weiboClient.generateWeiboImage(status);
+			status.setStatusPic(statusPic);
+		}
 		if (statusWapper.getStatuses().size() > 0) {
 			request.setAttribute("weiboFirstStatus", statusWapper.getStatuses()
 					.get(0));
