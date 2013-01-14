@@ -37,6 +37,7 @@ public class Status extends WeiboResponse implements java.io.Serializable {
 	private String annotations;                          //元数据，没有时不返回此字段
 	private int mlevel;
 	private Visible visible;
+	private String statusPic;
 	public Status()
 	{
 
@@ -258,6 +259,14 @@ public class Status extends WeiboResponse implements java.io.Serializable {
 	}
 	public void setTruncated(boolean truncated) {
 		this.truncated = truncated;
+	}
+	
+	
+	public String getStatusPic() {
+		return statusPic;
+	}
+	public void setStatusPic(String statusPic) {
+		this.statusPic = statusPic;
 	}
 	public static StatusWapper constructWapperStatus(Response res) throws WeiboException {
 		JSONObject jsonStatus = res.asJSONObject(); //asJSONArray();
