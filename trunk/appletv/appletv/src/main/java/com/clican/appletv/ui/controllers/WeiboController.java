@@ -175,8 +175,8 @@ public class WeiboController {
 	@RequestMapping("/weibo/homeTimeline2.xml")
 	public String homeTimeline2(HttpServletRequest request,
 			HttpServletResponse response,
-			@RequestParam(value = "page", required = false) Integer page)
-			throws Exception {
+			@RequestParam(value = "page", required = false) Integer page,
+			Long sinceId, Long maxId) throws Exception {
 		Timeline timeline = new Timeline();
 		String accessToken = (String) request.getSession().getAttribute(
 				"weiboAccessToken");
@@ -184,8 +184,17 @@ public class WeiboController {
 		if (page == null) {
 			page = 1;
 		}
+		if (page < 1) {
+			page = 1;
+		}
+		if (sinceId == null) {
+			sinceId = -1L;
+		}
+		if (maxId == null) {
+			maxId = -1L;
+		}
 		StatusWapper statusWapper = timeline.getHomeTimeline(0, 0, new Paging(
-				page, 20));
+				page, 20, sinceId, maxId));
 
 		for (Status status : statusWapper.getStatuses()) {
 			String statusPic = weiboClient.generateWeiboImage(status);
@@ -198,7 +207,9 @@ public class WeiboController {
 			request.setAttribute("weiboFirstStatus", null);
 		}
 		request.setAttribute("weiboStatusWapper", statusWapper);
-
+		request.setAttribute("page", page);
+		request.setAttribute("sinceId", statusWapper.getNextCursor());
+		request.setAttribute("maxId", statusWapper.getNextCursor());
 		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
 		return "weibo/homeTimeline2";
 	}
