@@ -148,14 +148,14 @@ public class HttpClient implements java.io.Serializable {
 		clientParams.setCookiePolicy(CookiePolicy.IGNORE_COOKIES);
 		client = new org.apache.commons.httpclient.HttpClient(clientParams,
 				connectionManager);
-		Protocol myhttps = new Protocol("https", new MySSLSocketFactory(), 443);
-		Protocol.registerProtocol("https", myhttps);
+//		Protocol myhttps = new Protocol("https", new MySSLSocketFactory(), 443);
+//		Protocol.registerProtocol("https", myhttps);
 		this.maxSize = maxSize;
 		// 支持proxy
 		if (proxyHost != null && !proxyHost.equals("")) {
 			client.getHostConfiguration().setProxy(proxyHost, proxyPort);
-			client.getParams().setAuthenticationPreemptive(true);
 			if (proxyAuthUser != null && !proxyAuthUser.equals("")) {
+				client.getParams().setAuthenticationPreemptive(true);
 				client.getState().setProxyCredentials(
 						AuthScope.ANY,
 						new UsernamePasswordCredentials(proxyAuthUser,

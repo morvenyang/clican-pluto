@@ -14,7 +14,7 @@
 							<c:forEach var="weiboStatus" items="${weiboStatusWapper}"
 								varStatus="varStatus">
 								<imageTextImageMenuItem id="item_${varStatus.count}">
-									<leftImage></leftImage>
+									<leftImage>${weiboStatus.user.profileImageUrl}</leftImage>
 									<rightImage></rightImage>
 									<imageSeparatorText></imageSeparatorText>
 									<c:if test="${weiboStatus.text.length>10" }>
@@ -26,7 +26,7 @@
 									<preview>
 										<scrollerPreview id="sp_${varStatus.count}">
 											<header>
-												<simpleHeader></simpleHeader>
+												<simpleHeader><image>${weiboStatus.user.profileImageUrl}</image></simpleHeader>
 											</header>
 											<items>
 												<pagedGrid id="pg_${varStatus.count}">
@@ -72,7 +72,7 @@
 			<preview>
 				<scrollerPreview id="sp">
 					<header>
-						<simpleHeader></simpleHeader>
+						<simpleHeader><image>${weiboStatus.user.profileImageUrl}</image></simpleHeader>
 					</header>
 					<items>
 						<pagedGrid id="pg">
