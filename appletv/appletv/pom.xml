@@ -54,6 +54,11 @@
 			<artifactId>commons-httpclient</artifactId>
 			<version>3.1</version>
 		</dependency>
+		<dependency>
+			<groupId>gui.ava</groupId>
+			<artifactId>html2image</artifactId>
+			<version>0.9</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>
