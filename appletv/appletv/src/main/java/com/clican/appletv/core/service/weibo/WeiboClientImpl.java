@@ -93,12 +93,18 @@ public class WeiboClientImpl implements WeiboClient {
 		}
 		content.append("</td></tr></table>");
 		String imageFileName = this.generateImageFileName();
-		String filePath = springProperty.getWeiboTempImageFolder()
+
+		String filePath = springProperty.getWeiboTempImageFolder() + "/"
 				+ imageFileName;
-		String urlPath = springProperty.getWeiboTempImageURL() + imageFileName;
+		String urlPath = springProperty.getWeiboTempImageURL() + "/"
+				+ imageFileName;
 		for (int i = 0; i < 10; i++) {
 			HtmlImageGenerator imageGenerator = new HtmlImageGenerator();
 			imageGenerator.loadHtml(content.toString());
+			File weiboTempImageFile = new File(filePath);
+			if (!weiboTempImageFile.getParentFile().exists()) {
+				weiboTempImageFile.getParentFile().mkdirs();
+			}
 			imageGenerator.saveAsImage(filePath);
 		}
 		Date end = new Date();
