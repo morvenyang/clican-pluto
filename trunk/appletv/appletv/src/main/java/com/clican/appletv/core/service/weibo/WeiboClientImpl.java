@@ -58,7 +58,7 @@ public class WeiboClientImpl implements WeiboClient {
 		content.append(status.getText());
 		content.append("</p>");
 
-		if (status.getRetweetedStatus() != null) {
+		if (status.getRetweetedStatus() != null&&status.getRetweetedStatus().getUser()!=null) {
 			// append refer user name
 			content.append("<p>");
 			content.append("@"
