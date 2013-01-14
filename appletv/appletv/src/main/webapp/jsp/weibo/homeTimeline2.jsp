@@ -1,4 +1,4 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %><%@ page contentType="text/xml;charset=utf-8" %><?xml version="1.0" encoding="UTF-8"?>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %><%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %><%@ page contentType="text/xml;charset=utf-8" %><?xml version="1.0" encoding="UTF-8"?>
 <atv>
 <body>
 		<listWithPreview id="lwp">
@@ -11,16 +11,16 @@
 				<sections>
 					<menuSection>
 						<items>
-							<c:forEach var="weiboStatus" items="${weiboStatusWapper}"
+							<c:forEach var="weiboStatus" items="${weiboStatusWapper.statuses}"
 								varStatus="varStatus">
 								<imageTextImageMenuItem id="item_${varStatus.count}">
 									<leftImage>${weiboStatus.user.profileImageUrl}</leftImage>
 									<rightImage></rightImage>
 									<imageSeparatorText></imageSeparatorText>
-									<c:if test="${weiboStatus.text.length>10" }>
-										<label>${weiboStatus.text.substring(0,10)}</label>
+									<c:if test="${fn:length(weiboStatus.text)>10}">
+										<label>${fn:substring(weiboStatus.text,0,10)}</label>
 									</c:if>
-									<c:if test="${weiboStatus.text.length<=10" }>
+									<c:if test="${fn:length(weiboStatus.text)<=10}">
 										<label>${weiboStatus.text}</label>
 									</c:if>
 									<preview>
