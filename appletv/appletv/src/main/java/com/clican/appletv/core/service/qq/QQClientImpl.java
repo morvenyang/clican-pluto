@@ -69,13 +69,19 @@ public class QQClientImpl extends BaseClient implements QQClient {
 
 				}
 			} else {
-				JSONArray array = qzOutputJson.getJSONArray("cover");
+				JSONArray array;
+				if (qzOutputJson.containsKey("video")) {
+					array = qzOutputJson.getJSONArray("video");
+				} else {
+					array = qzOutputJson.getJSONArray("cover");
+				}
+
 				for (int i = 0; i < array.size(); i++) {
 					JSONObject cover = array.getJSONObject(i);
 					QQVideo video = new QQVideo();
-					if(cover.containsKey("c_pic")){
+					if (cover.containsKey("c_pic")) {
 						video.setPic(cover.getString("c_pic"));
-					}else if(cover.containsKey("c_pic_url")){
+					} else if (cover.containsKey("c_pic_url")) {
 						video.setPic(cover.getString("c_pic_url"));
 					}
 					video.setCoverId(cover.getString("c_cover_id"));
@@ -113,7 +119,8 @@ public class QQClientImpl extends BaseClient implements QQClient {
 			return videos;
 		} else {
 			url = springProperty.getQqChannelApi() + "&page=" + page
-					+ "&auto_id=" + channel.getValue();
+					+ "&auto_id=" + channel.getValue() + "&platform="
+					+ channel.getPlatform();
 			return getVideos(url, channel, false);
 		}
 

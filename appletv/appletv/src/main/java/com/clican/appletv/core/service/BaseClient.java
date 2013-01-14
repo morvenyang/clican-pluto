@@ -50,8 +50,9 @@ public class BaseClient {
 		ByteArrayOutputStream os2 = null;
 		try {
 			HttpClient client = new HttpClient();
-			// client.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY,
-			// new HttpHost("web-proxy.corp.hp.com", 8080, "http"));
+			client.getHostConfiguration().setProxy("web-proxy.corp.hp.com",
+					8080);
+
 			HttpMethod httpGet = new GetMethod(url);
 
 			if (timeout != null) {
