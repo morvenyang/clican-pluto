@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<atv xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:noNamespaceSchemaLocation="atv.xsd">
-	<body>
+<atv>
+<body>
 		<listWithPreview id="lwp">
 			<header>
 				<simpleHeader>
@@ -18,7 +17,7 @@
 								<imageSeparatorText></imageSeparatorText>
 								<label>最新</label>
 							</imageTextImageMenuItem>
-							<imageTextImageMenuItem id="prev" onSelect="atv.loadURL('http://10.0.1.5/appletv/weibo/homeTimeline2.xml?sinceId=3534478645742939')">
+							<imageTextImageMenuItem id="prev" onSelect="atv.loadURL('http://10.0.1.5/appletv/weibo/homeTimeline2.xml?sinceId=3534482868795759')">
 								<leftImage></leftImage>
 								<rightImage></rightImage>
 								<imageSeparatorText></imageSeparatorText>
@@ -26,28 +25,28 @@
 							</imageTextImageMenuItem>
 							
 								<imageTextImageMenuItem id="item_1">
-									<leftImage>http://tp2.sinaimg.cn/1675718025/50/40012794961/0</leftImage>
-									<rightImage>3534478645742939</rightImage>
+									<leftImage>http://tp4.sinaimg.cn/1069205631/50/1292988050/0</leftImage>
+									<rightImage>3534482868795759</rightImage>
 									<imageSeparatorText></imageSeparatorText>
 									
-										<label>有一种填空题叫完全不</label>
+										<label><![CDATA[【大众点评：城市生活]]></label>
 									
 									
 									<preview>
 										<scrollerPreview id="sp_1">
 											<header>
-												<simpleHeader><image>http://tp2.sinaimg.cn/1675718025/50/40012794961/0</image></simpleHeader>
+												<simpleHeader><image>http://tp4.sinaimg.cn/1069205631/50/1292988050/0</image></simpleHeader>
 											</header>
 											<items>
 												<pagedGrid id="pg_1">
 													<grid id="g1_1" columnCount="1">
 														<items>
 															<moviePoster id="g1mpt_1">
-																<image>http://10.0.1.5/appletv/tempimage/2013/01/14/21/08/46/1358168700145.png</image>
+																<image>http://10.0.1.5/appletv/tempimage/2013/01/14/21/25/30/1358169917478.png</image>
 															</moviePoster>
 															<moviePoster id="g1mpp_1">
 																
-																	<image>http://ww1.sinaimg.cn/thumbnail/63e16d89jw1e0tedk2adhj.jpg</image>
+																	<image>http://ww2.sinaimg.cn/thumbnail/3fbac87fjw1e0teh7umjej.jpg</image>
 																
 																
 															</moviePoster>
@@ -57,7 +56,7 @@
 														<items>
 															<moviePoster id="g2mp_1">
 																
-																	<image>http://ww1.sinaimg.cn/large/63e16d89jw1e0tedk2adhj.jpg</image>
+																	<image>http://ww2.sinaimg.cn/large/3fbac87fjw1e0teh7umjej.jpg</image>
 																
 																
 															</moviePoster>
@@ -70,31 +69,29 @@
 								</imageTextImageMenuItem>
 							
 								<imageTextImageMenuItem id="item_2">
-									<leftImage>http://tp4.sinaimg.cn/1762696131/50/5601957015/1</leftImage>
-									<rightImage>3534478058135981</rightImage>
+									<leftImage>http://tp4.sinaimg.cn/2097112435/50/5622335614/1</leftImage>
+									<rightImage>3534482105342476</rightImage>
 									<imageSeparatorText></imageSeparatorText>
 									
-										<label>这小妮子有前途，从小</label>
+										<label><![CDATA[这才是大实话。。。「]]></label>
 									
 									
 									<preview>
 										<scrollerPreview id="sp_2">
 											<header>
-												<simpleHeader><image>http://tp4.sinaimg.cn/1762696131/50/5601957015/1</image></simpleHeader>
+												<simpleHeader><image>http://tp4.sinaimg.cn/2097112435/50/5622335614/1</image></simpleHeader>
 											</header>
 											<items>
 												<pagedGrid id="pg_2">
 													<grid id="g1_2" columnCount="1">
 														<items>
 															<moviePoster id="g1mpt_2">
-																<image>http://10.0.1.5/appletv/tempimage/2013/01/14/21/08/46/1358168700146.png</image>
+																<image>http://10.0.1.5/appletv/tempimage/2013/01/14/21/25/31/1358169917479.png</image>
 															</moviePoster>
 															<moviePoster id="g1mpp_2">
 																
-																	<image></image>
+																	<image>http://ww3.sinaimg.cn/thumbnail/7cff6573jw1e0terutqi8j.jpg</image>
 																
-																
-																	<image>http://ww4.sinaimg.cn/thumbnail/83ff3db6tw1e0pkslzlm6j.jpg</image>
 																
 															</moviePoster>
 														</items>
@@ -103,10 +100,8 @@
 														<items>
 															<moviePoster id="g2mp_2">
 																
-																	<image></image>
+																	<image>http://ww3.sinaimg.cn/large/7cff6573jw1e0terutqi8j.jpg</image>
 																
-																
-																	<image>http://ww4.sinaimg.cn/large/83ff3db6tw1e0pkslzlm6j.jpg</image>
 																
 															</moviePoster>
 														</items>
@@ -118,31 +113,31 @@
 								</imageTextImageMenuItem>
 							
 								<imageTextImageMenuItem id="item_3">
-									<leftImage>http://tp4.sinaimg.cn/1069205631/50/1292988050/0</leftImage>
-									<rightImage>3534477668021844</rightImage>
+									<leftImage>http://tp3.sinaimg.cn/1843443790/50/1289115377/1</leftImage>
+									<rightImage>3534481938017914</rightImage>
 									<imageSeparatorText></imageSeparatorText>
 									
-										<label>微电影《豪宅》：一个</label>
 									
+										<label><![CDATA[[哈哈]老板好贴心]]></label>
 									
 									<preview>
 										<scrollerPreview id="sp_3">
 											<header>
-												<simpleHeader><image>http://tp4.sinaimg.cn/1069205631/50/1292988050/0</image></simpleHeader>
+												<simpleHeader><image>http://tp3.sinaimg.cn/1843443790/50/1289115377/1</image></simpleHeader>
 											</header>
 											<items>
 												<pagedGrid id="pg_3">
 													<grid id="g1_3" columnCount="1">
 														<items>
 															<moviePoster id="g1mpt_3">
-																<image>http://10.0.1.5/appletv/tempimage/2013/01/14/21/08/46/1358168700147.png</image>
+																<image>http://10.0.1.5/appletv/tempimage/2013/01/14/21/25/31/1358169917480.png</image>
 															</moviePoster>
 															<moviePoster id="g1mpp_3">
 																
 																	<image></image>
 																
 																
-																	<image>http://ww4.sinaimg.cn/thumbnail/63e054f8jw1e0s86h1yjkj.jpg</image>
+																	<image>http://ww1.sinaimg.cn/thumbnail/6e85cd22jw1e0sc1x1tb6j.jpg</image>
 																
 															</moviePoster>
 														</items>
@@ -151,10 +146,8 @@
 														<items>
 															<moviePoster id="g2mp_3">
 																
-																	<image></image>
 																
-																
-																	<image>http://ww4.sinaimg.cn/large/63e054f8jw1e0s86h1yjkj.jpg</image>
+																	<image>http://ww1.sinaimg.cn/large/6e85cd22jw1e0sc1x1tb6j.jpg</image>
 																
 															</moviePoster>
 														</items>
@@ -166,31 +159,29 @@
 								</imageTextImageMenuItem>
 							
 								<imageTextImageMenuItem id="item_4">
-									<leftImage>http://tp1.sinaimg.cn/1618051664/50/5634706464/0</leftImage>
-									<rightImage>3534477273710296</rightImage>
+									<leftImage>http://tp4.sinaimg.cn/1762696131/50/5601957015/1</leftImage>
+									<rightImage>3534481921236390</rightImage>
 									<imageSeparatorText></imageSeparatorText>
 									
+										<label><![CDATA[人平均一辈子只有7次]]></label>
 									
-										<label>转发微博</label>
 									
 									<preview>
 										<scrollerPreview id="sp_4">
 											<header>
-												<simpleHeader><image>http://tp1.sinaimg.cn/1618051664/50/5634706464/0</image></simpleHeader>
+												<simpleHeader><image>http://tp4.sinaimg.cn/1762696131/50/5601957015/1</image></simpleHeader>
 											</header>
 											<items>
 												<pagedGrid id="pg_4">
 													<grid id="g1_4" columnCount="1">
 														<items>
 															<moviePoster id="g1mpt_4">
-																<image>http://10.0.1.5/appletv/tempimage/2013/01/14/21/08/46/1358168700148.png</image>
+																<image>http://10.0.1.5/appletv/tempimage/2013/01/14/21/25/31/1358169917481.png</image>
 															</moviePoster>
 															<moviePoster id="g1mpp_4">
 																
-																	<image></image>
+																	<image>http://ww2.sinaimg.cn/thumbnail/69109bc3jw1e0ter3dk9pj.jpg</image>
 																
-																
-																	<image>http://ww4.sinaimg.cn/thumbnail/6403c928jw1e0tdzvq6puj.jpg</image>
 																
 															</moviePoster>
 														</items>
@@ -199,10 +190,8 @@
 														<items>
 															<moviePoster id="g2mp_4">
 																
-																	<image></image>
+																	<image>http://ww2.sinaimg.cn/large/69109bc3jw1e0ter3dk9pj.jpg</image>
 																
-																
-																	<image>http://ww4.sinaimg.cn/large/6403c928jw1e0tdzvq6puj.jpg</image>
 																
 															</moviePoster>
 														</items>
@@ -214,31 +203,29 @@
 								</imageTextImageMenuItem>
 							
 								<imageTextImageMenuItem id="item_5">
-									<leftImage>http://tp4.sinaimg.cn/1757353251/50/5633528757/1</leftImage>
-									<rightImage>3534477253447344</rightImage>
+									<leftImage>http://tp3.sinaimg.cn/2306772634/50/5627004580/0</leftImage>
+									<rightImage>3534480612829473</rightImage>
 									<imageSeparatorText></imageSeparatorText>
 									
-										<label>爱情不限种族、年龄、</label>
+										<label><![CDATA[【摄影】成年帝企鹅和]]></label>
 									
 									
 									<preview>
 										<scrollerPreview id="sp_5">
 											<header>
-												<simpleHeader><image>http://tp4.sinaimg.cn/1757353251/50/5633528757/1</image></simpleHeader>
+												<simpleHeader><image>http://tp3.sinaimg.cn/2306772634/50/5627004580/0</image></simpleHeader>
 											</header>
 											<items>
 												<pagedGrid id="pg_5">
 													<grid id="g1_5" columnCount="1">
 														<items>
 															<moviePoster id="g1mpt_5">
-																<image>http://10.0.1.5/appletv/tempimage/2013/01/14/21/08/46/1358168700149.png</image>
+																<image>http://10.0.1.5/appletv/tempimage/2013/01/14/21/25/31/1358169917482.png</image>
 															</moviePoster>
 															<moviePoster id="g1mpp_5">
 																
-																	<image></image>
+																	<image>http://ww3.sinaimg.cn/thumbnail/897e8e9ajw1e0telots13j.jpg</image>
 																
-																
-																	<image>http://ww2.sinaimg.cn/thumbnail/6d5834d3gw1e0l291yc37j.jpg</image>
 																
 															</moviePoster>
 														</items>
@@ -247,10 +234,8 @@
 														<items>
 															<moviePoster id="g2mp_5">
 																
-																	<image></image>
+																	<image>http://ww3.sinaimg.cn/large/897e8e9ajw1e0telots13j.jpg</image>
 																
-																
-																	<image>http://ww2.sinaimg.cn/large/6d5834d3gw1e0l291yc37j.jpg</image>
 																
 															</moviePoster>
 														</items>
@@ -262,28 +247,28 @@
 								</imageTextImageMenuItem>
 							
 								<imageTextImageMenuItem id="item_6">
-									<leftImage>http://tp2.sinaimg.cn/1764222885/50/5641309390/1</leftImage>
-									<rightImage>3534476862375942</rightImage>
+									<leftImage>http://tp3.sinaimg.cn/1642512402/50/5615969083/1</leftImage>
+									<rightImage>3534480612545892</rightImage>
 									<imageSeparatorText></imageSeparatorText>
 									
-										<label>我认为这是年度最牛逼</label>
+										<label><![CDATA[【《泰囧》逆袭 这是]]></label>
 									
 									
 									<preview>
 										<scrollerPreview id="sp_6">
 											<header>
-												<simpleHeader><image>http://tp2.sinaimg.cn/1764222885/50/5641309390/1</image></simpleHeader>
+												<simpleHeader><image>http://tp3.sinaimg.cn/1642512402/50/5615969083/1</image></simpleHeader>
 											</header>
 											<items>
 												<pagedGrid id="pg_6">
 													<grid id="g1_6" columnCount="1">
 														<items>
 															<moviePoster id="g1mpt_6">
-																<image>http://10.0.1.5/appletv/tempimage/2013/01/14/21/08/46/1358168700150.png</image>
+																<image>http://10.0.1.5/appletv/tempimage/2013/01/14/21/25/31/1358169917483.png</image>
 															</moviePoster>
 															<moviePoster id="g1mpp_6">
 																
-																	<image>http://ww2.sinaimg.cn/thumbnail/6927e7a5jw1e0tdybuzyhj.jpg</image>
+																	<image>http://ww4.sinaimg.cn/thumbnail/61e6c012jw1e0telooyf5j.jpg</image>
 																
 																
 															</moviePoster>
@@ -293,7 +278,7 @@
 														<items>
 															<moviePoster id="g2mp_6">
 																
-																	<image>http://ww2.sinaimg.cn/large/6927e7a5jw1e0tdybuzyhj.jpg</image>
+																	<image>http://ww4.sinaimg.cn/large/61e6c012jw1e0telooyf5j.jpg</image>
 																
 																
 															</moviePoster>
@@ -307,11 +292,11 @@
 							
 								<imageTextImageMenuItem id="item_7">
 									<leftImage>http://tp2.sinaimg.cn/2231350825/50/5613348269/1</leftImage>
-									<rightImage>3534476850669499</rightImage>
+									<rightImage>3534480608350713</rightImage>
 									<imageSeparatorText></imageSeparatorText>
 									
+										<label><![CDATA[这个狮子座微博很不错]]></label>
 									
-										<label>坚持走下去~[心]</label>
 									
 									<preview>
 										<scrollerPreview id="sp_7">
@@ -323,14 +308,14 @@
 													<grid id="g1_7" columnCount="1">
 														<items>
 															<moviePoster id="g1mpt_7">
-																<image>http://10.0.1.5/appletv/tempimage/2013/01/14/21/08/46/1358168700151.png</image>
+																<image>http://10.0.1.5/appletv/tempimage/2013/01/14/21/25/31/1358169917484.png</image>
 															</moviePoster>
 															<moviePoster id="g1mpp_7">
 																
 																	<image></image>
 																
 																
-																	<image>http://ww4.sinaimg.cn/thumbnail/962b3806jw1e0pq89xz4dj.jpg</image>
+																	<image>http://ww2.sinaimg.cn/thumbnail/9b61ebb6jw1e0q12i3dlzj.jpg</image>
 																
 															</moviePoster>
 														</items>
@@ -339,10 +324,8 @@
 														<items>
 															<moviePoster id="g2mp_7">
 																
-																	<image></image>
 																
-																
-																	<image>http://ww4.sinaimg.cn/large/962b3806jw1e0pq89xz4dj.jpg</image>
+																	<image>http://ww2.sinaimg.cn/large/9b61ebb6jw1e0q12i3dlzj.jpg</image>
 																
 															</moviePoster>
 														</items>
@@ -354,28 +337,28 @@
 								</imageTextImageMenuItem>
 							
 								<imageTextImageMenuItem id="item_8">
-									<leftImage>http://tp3.sinaimg.cn/1642512402/50/5615969083/1</leftImage>
-									<rightImage>3534476845596082</rightImage>
+									<leftImage>http://tp2.sinaimg.cn/1644489953/50/5635835425/1</leftImage>
+									<rightImage>3534480591852732</rightImage>
 									<imageSeparatorText></imageSeparatorText>
 									
-										<label>【“刚性透析费”逼出</label>
+										<label><![CDATA[【周星驰担任广东省政]]></label>
 									
 									
 									<preview>
 										<scrollerPreview id="sp_8">
 											<header>
-												<simpleHeader><image>http://tp3.sinaimg.cn/1642512402/50/5615969083/1</image></simpleHeader>
+												<simpleHeader><image>http://tp2.sinaimg.cn/1644489953/50/5635835425/1</image></simpleHeader>
 											</header>
 											<items>
 												<pagedGrid id="pg_8">
 													<grid id="g1_8" columnCount="1">
 														<items>
 															<moviePoster id="g1mpt_8">
-																<image>http://10.0.1.5/appletv/tempimage/2013/01/14/21/08/46/1358168700152.png</image>
+																<image>http://10.0.1.5/appletv/tempimage/2013/01/14/21/25/31/1358169917485.png</image>
 															</moviePoster>
 															<moviePoster id="g1mpp_8">
 																
-																	<image></image>
+																	<image>http://ww2.sinaimg.cn/thumbnail/6204ece1gw1e0telbzryyj.jpg</image>
 																
 																
 															</moviePoster>
@@ -385,7 +368,7 @@
 														<items>
 															<moviePoster id="g2mp_8">
 																
-																	<image></image>
+																	<image>http://ww2.sinaimg.cn/large/6204ece1gw1e0telbzryyj.jpg</image>
 																
 																
 															</moviePoster>
@@ -398,28 +381,28 @@
 								</imageTextImageMenuItem>
 							
 								<imageTextImageMenuItem id="item_9">
-									<leftImage>http://tp3.sinaimg.cn/2735184062/50/5630212531/1</leftImage>
-									<rightImage>3534476821301525</rightImage>
+									<leftImage>http://tp3.sinaimg.cn/2281122894/50/5632125284/0</leftImage>
+									<rightImage>3534480087909125</rightImage>
 									<imageSeparatorText></imageSeparatorText>
 									
-										<label>帅气时尚保暖高帮鞋 </label>
+										<label><![CDATA[执狗之手，将狗拐走；]]></label>
 									
 									
 									<preview>
 										<scrollerPreview id="sp_9">
 											<header>
-												<simpleHeader><image>http://tp3.sinaimg.cn/2735184062/50/5630212531/1</image></simpleHeader>
+												<simpleHeader><image>http://tp3.sinaimg.cn/2281122894/50/5632125284/0</image></simpleHeader>
 											</header>
 											<items>
 												<pagedGrid id="pg_9">
 													<grid id="g1_9" columnCount="1">
 														<items>
 															<moviePoster id="g1mpt_9">
-																<image>http://10.0.1.5/appletv/tempimage/2013/01/14/21/08/46/1358168700153.png</image>
+																<image>http://10.0.1.5/appletv/tempimage/2013/01/14/21/25/31/1358169917486.png</image>
 															</moviePoster>
 															<moviePoster id="g1mpp_9">
 																
-																	<image>http://ww3.sinaimg.cn/thumbnail/a30798bejw1e0te60h896j.jpg</image>
+																	<image>http://ww4.sinaimg.cn/thumbnail/87f72c4ejw1e0tejipwhwj.jpg</image>
 																
 																
 															</moviePoster>
@@ -429,7 +412,7 @@
 														<items>
 															<moviePoster id="g2mp_9">
 																
-																	<image>http://ww3.sinaimg.cn/large/a30798bejw1e0te60h896j.jpg</image>
+																	<image>http://ww4.sinaimg.cn/large/87f72c4ejw1e0tejipwhwj.jpg</image>
 																
 																
 															</moviePoster>
@@ -442,31 +425,31 @@
 								</imageTextImageMenuItem>
 							
 								<imageTextImageMenuItem id="item_10">
-									<leftImage>http://tp4.sinaimg.cn/1642909335/50/5597136100/0</leftImage>
-									<rightImage>3534476699638863</rightImage>
+									<leftImage>http://tp4.sinaimg.cn/1762696131/50/5601957015/1</leftImage>
+									<rightImage>3534479652358999</rightImage>
 									<imageSeparatorText></imageSeparatorText>
 									
-										<label>#2012微博之夜#</label>
+										<label><![CDATA[组建乐队都不用乐器，]]></label>
 									
 									
 									<preview>
 										<scrollerPreview id="sp_10">
 											<header>
-												<simpleHeader><image>http://tp4.sinaimg.cn/1642909335/50/5597136100/0</image></simpleHeader>
+												<simpleHeader><image>http://tp4.sinaimg.cn/1762696131/50/5601957015/1</image></simpleHeader>
 											</header>
 											<items>
 												<pagedGrid id="pg_10">
 													<grid id="g1_10" columnCount="1">
 														<items>
 															<moviePoster id="g1mpt_10">
-																<image>http://10.0.1.5/appletv/tempimage/2013/01/14/21/08/47/1358168700154.png</image>
+																<image>http://10.0.1.5/appletv/tempimage/2013/01/14/21/25/31/1358169917487.png</image>
 															</moviePoster>
 															<moviePoster id="g1mpp_10">
 																
 																	<image></image>
 																
 																
-																	<image>http://ww4.sinaimg.cn/thumbnail/6403c928jw1e0tdzvq6puj.jpg</image>
+																	<image>http://ww1.sinaimg.cn/thumbnail/7271d05cgw1e0t7ah6zwcj.jpg</image>
 																
 															</moviePoster>
 														</items>
@@ -475,10 +458,8 @@
 														<items>
 															<moviePoster id="g2mp_10">
 																
-																	<image></image>
 																
-																
-																	<image>http://ww4.sinaimg.cn/large/6403c928jw1e0tdzvq6puj.jpg</image>
+																	<image>http://ww1.sinaimg.cn/large/7271d05cgw1e0t7ah6zwcj.jpg</image>
 																
 															</moviePoster>
 														</items>
@@ -489,7 +470,7 @@
 									</preview>
 								</imageTextImageMenuItem>
 							
-							<imageTextImageMenuItem id="prev" onSelect="atv.loadURL('http://10.0.1.5/appletv/weibo/homeTimeline2.xml?maxId=3534476699638862')">
+							<imageTextImageMenuItem id="prev" onSelect="atv.loadURL('http://10.0.1.5/appletv/weibo/homeTimeline2.xml?maxId=3534479652358998')">
 								<leftImage></leftImage>
 								<rightImage></rightImage>
 								<imageSeparatorText></imageSeparatorText>
