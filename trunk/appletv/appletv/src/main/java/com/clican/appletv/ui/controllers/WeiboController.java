@@ -175,20 +175,13 @@ public class WeiboController {
 	@RequestMapping("/weibo/homeTimeline2.xml")
 	public String homeTimeline2(HttpServletRequest request,
 			HttpServletResponse response,
-			@RequestParam(value = "page", required = false) Integer page,
 			Long sinceId, Long maxId) throws Exception {
 		Timeline timeline = new Timeline();
 		String accessToken = (String) request.getSession().getAttribute(
 				"weiboAccessToken");
 		timeline.setToken(accessToken);
-		if (page == null) {
-			page = 1;
-		}
-		if (page < 1) {
-			page = 1;
-		}
 		Paging paging = new Paging();
-		paging.setCount(50);
+		paging.setCount(10);
 		if (sinceId != null && sinceId >= 0) {
 			paging.setSinceId(sinceId);
 		}
@@ -209,7 +202,6 @@ public class WeiboController {
 			request.setAttribute("weiboFirstStatus", null);
 		}
 		request.setAttribute("weiboStatusWapper", statusWapper);
-		request.setAttribute("page", page);
 		if (statusWapper.getStatuses().size() > 0) {
 			Status prevOne = statusWapper.getStatuses().get(0);
 			Status nextOne = statusWapper.getStatuses().get(
