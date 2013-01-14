@@ -131,6 +131,7 @@ public class WeiboController {
 			}
 			index = 0;
 			request.setAttribute("weiboStatus", status);
+			request.setAttribute("weiboStatusImageURL", weiboClient.generateWeiboImage(status));
 			request.getSession().setAttribute("weiboPage", 0);
 			request.getSession()
 					.setAttribute("weiboStatusWapper", statusWapper);
@@ -160,6 +161,7 @@ public class WeiboController {
 				status = statusWapper.getStatuses().get(index);
 			}
 			request.setAttribute("weiboStatus", status);
+			request.setAttribute("weiboStatusImageURL", weiboClient.generateWeiboImage(status));
 			request.getSession().setAttribute("weiboPage", weiboPage);
 		}
 		request.setAttribute("prevIndex", index - 1);
