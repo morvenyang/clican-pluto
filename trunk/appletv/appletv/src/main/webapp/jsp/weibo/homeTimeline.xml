@@ -34,6 +34,15 @@
 									
 									
 									<preview>
+									    <longDescriptionPreview>
+									        <title>a</title>
+									        <summary></summary>
+									        <image></image>
+									    </longDescriptionPreview>
+									    <imagePreview>
+									        <image required="true"></image>
+									        <image required="true"></image>
+									    </imagePreview>
 										<scrollerPreview id="sp_1">
 											<header>
 												<simpleHeader><image>http://tp2.sinaimg.cn/1675718025/50/40012794961/0</image></simpleHeader>
