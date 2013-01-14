@@ -11,6 +11,18 @@
 				<sections>
 					<menuSection>
 						<items>
+							<imageTextImageMenuItem id="prev" onSelect="atv.loadURL('${serverurl}'+'/weibo/homeTimeline2.xml')">
+								<leftImage></leftImage>
+								<rightImage></rightImage>
+								<imageSeparatorText></imageSeparatorText>
+								<label>最新</label>
+							</imageTextImageMenuItem>
+							<imageTextImageMenuItem id="prev" onSelect="atv.loadURL('${serverurl}'+'/weibo/homeTimeline2.xml?page=${page-1}&amp;maxId=${maxId}')">
+								<leftImage></leftImage>
+								<rightImage></rightImage>
+								<imageSeparatorText></imageSeparatorText>
+								<label>上一页</label>
+							</imageTextImageMenuItem>
 							<c:forEach var="weiboStatus" items="${weiboStatusWapper.statuses}"
 								varStatus="varStatus">
 								<imageTextImageMenuItem id="item_${varStatus.count}">
@@ -65,6 +77,12 @@
 									</preview>
 								</imageTextImageMenuItem>
 							</c:forEach>
+							<imageTextImageMenuItem id="prev" onSelect="atv.loadURL('${serverurl}'+'/weibo/homeTimeline2.xml?page=${page+1}&amp;sinceId=${sinceId}')">
+								<leftImage></leftImage>
+								<rightImage></rightImage>
+								<imageSeparatorText></imageSeparatorText>
+								<label>下一页</label>
+							</imageTextImageMenuItem>
 						</items>
 					</menuSection>
 				</sections>
