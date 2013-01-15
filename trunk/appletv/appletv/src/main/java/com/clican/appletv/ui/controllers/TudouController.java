@@ -222,8 +222,4 @@ public class TudouController {
 		return "tudou/keywrodsearchlist";
 	}
 
-	public static void main(String[] args) {
-		String s = "测试";
-		System.out.println(s);
-	}
 }
