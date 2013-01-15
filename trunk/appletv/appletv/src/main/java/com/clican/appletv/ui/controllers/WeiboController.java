@@ -226,8 +226,9 @@ public class WeiboController {
 		}
 
 		comments.getCommentById(statusId.toString(), paging, 0);
-		CommentWapper commentWapper = comments.getCommentById(statusId.toString(), paging, 0);
-		
+		CommentWapper commentWapper = comments.getCommentById(
+				statusId.toString(), paging, 0);
+
 		if (commentWapper.getComments().size() > 0) {
 			Comment prevOne = commentWapper.getComments().get(0);
 			Comment nextOne = commentWapper.getComments().get(
@@ -238,6 +239,30 @@ public class WeiboController {
 			request.setAttribute("sinceId", 0);
 			request.setAttribute("maxId", 0);
 		}
+		request.setAttribute("statusId", statusId);
+		request.setAttribute("weiboCommentWapper", commentWapper);
+		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
+		return "weibo/showComments";
+	}
+
+	@RequestMapping("/weibo/createComment.xml")
+	public String showComments(HttpServletRequest request,
+			HttpServletResponse response,
+			@RequestParam(value = "statusId", required = false) Long statusId,
+			@RequestParam(value = "comment", required = false) String comment)
+			throws Exception {
+		if (!isLogin(request, response)) {
+			return null;
+		}
+		Comments comments = new Comments();
+		String accessToken = (String) request.getSession().getAttribute(
+				"weiboAccessToken");
+		comments.setToken(accessToken);
+		comments.createComment(comment, statusId.toString());
+		Paging paging = new Paging();
+		paging.setCount(10);
+		CommentWapper commentWapper = comments.getCommentById(
+				statusId.toString(), paging, 0);
 		request.setAttribute("statusId", statusId);
 		request.setAttribute("weiboCommentWapper", commentWapper);
 		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
