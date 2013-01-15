@@ -38,7 +38,7 @@ var appletv = {
 						xml+='<actionButton id=\"album_3\" onSelect=\"atv.loadURL(\''+serverurl+'/tudou/play.xml?st=4&amp;itemid='+itemid+'\');\" onPlay=\"atv.loadURL(\''+serverurl+'/tudou/play.xml?st=4&amp;itemid='+itemid+'\');\"><title>超清</title></actionButton>';
 					}
 				}
-				xml+='<actionButton id=\"album_4\" onSelect=\"atv.loadURL(\''+serverurl+'/weibo/createStatus.xml?provider=tudou&amp;itemid='+itemid+'\');\" onPlay=\"atv.loadURL(\''+serverurl+'/weibo/createStatus.xml?provider=tudou&amp;itemid='+itemid+'\');\"><title>Share</title></actionButton>';
+				xml+='<actionButton id=\"album_4\" onSelect=\"atv.loadURL(\''+serverurl+'/weibo/createStatus.xml?provider=tudou&amp;itemid='+itemid+'\');\" onPlay=\"atv.loadURL(\''+serverurl+'/weibo/createStatus.xml?provider=tudou&amp;itemid='+itemid+'\');\"><title>分享到新浪微博</title></actionButton>';
 				xml+='</items></shelfSection></sections></shelf></centerShelf></itemDetail></body></atv>';
 				atv.loadXML(atv.parseXML(xml));
 			});
