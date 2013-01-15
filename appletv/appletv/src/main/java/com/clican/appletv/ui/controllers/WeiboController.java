@@ -25,10 +25,7 @@ import weibo4j.model.Status;
 import weibo4j.model.StatusWapper;
 import weibo4j.model.User;
 
-import com.clican.appletv.common.Provider;
 import com.clican.appletv.common.SpringProperty;
-import com.clican.appletv.core.service.qq.QQClient;
-import com.clican.appletv.core.service.tudou.TudouClient;
 import com.clican.appletv.core.service.weibo.WeiboClient;
 
 @Controller
@@ -40,12 +37,6 @@ public class WeiboController {
 
 	@Autowired
 	private SpringProperty springProperty;
-	
-	@Autowired
-	private TudouClient tudouClient;
-	
-	@Autowired
-	private QQClient qqClient;
 
 	private boolean isLogin(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
@@ -265,7 +256,12 @@ public class WeiboController {
 		if (!isLogin(request, response)) {
 			return null;
 		}
-		
+		Timeline timeline = new Timeline();
+		String accessToken = (String) request.getSession().getAttribute(
+				"weiboAccessToken");
+		timeline.setToken(accessToken);
+		String status = "我正在Apple TV3上观看在线视频（" + title + "） >>>" + shareURL;
+		timeline.UploadStatus(status, imageURL);
 		return "/weibo/createStatus.xml";
 	}
 
