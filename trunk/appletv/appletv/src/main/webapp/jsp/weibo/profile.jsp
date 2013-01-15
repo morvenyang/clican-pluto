@@ -30,11 +30,6 @@
 										<title>开始微博</title>
 									</actionButton>
 								</c:if>
-								<c:if test="${!weiboFavoriteAuthor}">
-									<actionButton id="shelf_1" onSelect="atv.loadURL('${serverurl}/weibo/favoriteAuthor.xml');" onPlay="atv.loadURL('${serverurl}/weibo/favoriteAuthor.xml');">
-										<title>开始并关注Clican微博</title>
-									</actionButton>
-								</c:if>
 							</items>
 						</shelfSection>
 					</sections>
