@@ -55,6 +55,7 @@ public class SpringProperty {
 	private String weiboTokenFile;
 	private String weiboTempImageFolder;
 	private String weiboTempImageURL;
+	private String weiboShortURLPattern;
 
 	public SpringProperty() {
 		instance = this;
@@ -311,6 +312,14 @@ public class SpringProperty {
 
 	public void setSystemProxyEnable(boolean systemProxyEnable) {
 		this.systemProxyEnable = systemProxyEnable;
+	}
+
+	public String getWeiboShortURLPattern() {
+		return weiboShortURLPattern;
+	}
+
+	public void setWeiboShortURLPattern(String weiboShortURLPattern) {
+		this.weiboShortURLPattern = weiboShortURLPattern;
 	}
 
 }

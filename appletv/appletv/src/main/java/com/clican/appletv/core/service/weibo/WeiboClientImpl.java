@@ -8,20 +8,27 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import weibo4j.Account;
+import weibo4j.ShortUrl;
 import weibo4j.model.Status;
+import weibo4j.model.StatusWapper;
 import weibo4j.org.json.JSONObject;
 
 import com.clican.appletv.common.SpringProperty;
@@ -39,6 +46,32 @@ public class WeiboClientImpl implements WeiboClient {
 
 	public void setSpringProperty(SpringProperty springProperty) {
 		this.springProperty = springProperty;
+	}
+
+	@Override
+	public void processLongUrl(StatusWapper statusWapper, String accessToken) {
+		ShortUrl shortUrl = new ShortUrl();
+		shortUrl.client.setToken(accessToken);
+		List<String> urls = new ArrayList<String>();
+		Map<String, Status> urlMap = new HashMap<String, Status>();
+		Pattern pattern = Pattern.compile(springProperty
+				.getWeiboShortURLPattern());
+		List<String> result = new ArrayList<String>();
+		for (Status status : statusWapper.getStatuses()) {
+			String text = status.getText();
+			if (status.getRetweetedStatus() != null
+					&& StringUtils.isNotEmpty(status.getRetweetedStatus()
+							.getText())) {
+				text += status.getRetweetedStatus().getText();
+			}
+			Matcher matcher = pattern.matcher(text);
+			while (matcher.find()) {
+				String matchText = matcher.group();
+				result.add(matchText);
+				urlMap.put(matchText, status);
+			}
+		}
+		
 	}
 
 	private String generateImageFileName() {
@@ -60,7 +93,8 @@ public class WeiboClientImpl implements WeiboClient {
 		content.append(status.getText());
 		content.append("</p>");
 
-		if (status.getRetweetedStatus() != null&&status.getRetweetedStatus().getUser()!=null) {
+		if (status.getRetweetedStatus() != null
+				&& status.getRetweetedStatus().getUser() != null) {
 			// append refer user name
 			content.append("<p style=\"width: 700px;font-size:60\">");
 			content.append("@"
@@ -207,5 +241,16 @@ public class WeiboClientImpl implements WeiboClient {
 		}
 
 		return null;
+	}
+
+	public static void main(String[] args) {
+		String s = "abcd http://t.cn/asdfgh0 er http://t.cn/0dddeee";
+		Pattern pattern = Pattern.compile("http://t\\.cn/\\p{Alnum}{7}");
+		List<String> result = new ArrayList<String>();
+		Matcher matcher = pattern.matcher(s);
+		while (matcher.find()) {
+			result.add(matcher.group());
+		}
+		System.out.println(StringUtils.join(result.iterator(), ","));
 	}
 }
