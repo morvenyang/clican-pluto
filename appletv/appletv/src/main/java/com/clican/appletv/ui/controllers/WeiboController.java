@@ -260,8 +260,21 @@ public class WeiboController {
 		String accessToken = (String) request.getSession().getAttribute(
 				"weiboAccessToken");
 		timeline.setToken(accessToken);
-		String status = "我正在Apple TV3上观看在线视频（" + title + "） >>>" + shareURL;
-		timeline.UploadStatus(status, imageURL);
+		String statusContent = "我正在Apple TV3上观看在线视频（" + title + "） >>>"
+				+ shareURL;
+		Status status = null;
+		boolean result = true;
+		try {
+			status = timeline.UploadStatus(statusContent, imageURL);
+		} catch (Exception e) {
+			log.error("", e);
+			result = false;
+		}
+
+		if (status == null) {
+			result = false;
+		}
+		request.setAttribute("result", result);
 		return "/weibo/createStatus.xml";
 	}
 
