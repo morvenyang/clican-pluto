@@ -9,7 +9,6 @@ import net.sf.json.JSONObject;
 
 import org.apache.commons.lang.StringUtils;
 
-import com.clican.appletv.common.SpringProperty;
 import com.clican.appletv.core.service.BaseClient;
 import com.clican.appletv.core.service.qq.enumeration.Channel;
 import com.clican.appletv.core.service.qq.model.QQAlbum;
@@ -17,12 +16,6 @@ import com.clican.appletv.core.service.qq.model.QQAlbumItem;
 import com.clican.appletv.core.service.qq.model.QQVideo;
 
 public class QQClientImpl extends BaseClient implements QQClient {
-
-	private SpringProperty springProperty;
-
-	public void setSpringProperty(SpringProperty springProperty) {
-		this.springProperty = springProperty;
-	}
 
 	private List<Object> convertToVideos(String jsonStr, Channel channel,
 			boolean isalbum) {

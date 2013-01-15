@@ -19,6 +19,8 @@ import org.apache.commons.lang.time.DateUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.clican.appletv.common.SpringProperty;
+
 public class BaseClient {
 
 	protected final Log log = LogFactory.getLog(getClass());
@@ -27,6 +29,12 @@ public class BaseClient {
 
 	protected Date lastExpireTime = DateUtils.truncate(new Date(),
 			Calendar.DAY_OF_MONTH);
+
+	protected SpringProperty springProperty;
+
+	public void setSpringProperty(SpringProperty springProperty) {
+		this.springProperty = springProperty;
+	}
 
 	protected void checkCache() {
 		Date current = DateUtils.truncate(new Date(), Calendar.DAY_OF_MONTH);
@@ -50,8 +58,11 @@ public class BaseClient {
 		ByteArrayOutputStream os2 = null;
 		try {
 			HttpClient client = new HttpClient();
-//			client.getHostConfiguration().setProxy("web-proxy.corp.hp.com",
-//					8080);
+			if (springProperty.isSystemProxyEnable()) {
+				client.getHostConfiguration().setProxy(
+						springProperty.getSystemProxyHost(),
+						springProperty.getSystemProxyPort());
+			}
 
 			HttpMethod httpGet = new GetMethod(url);
 
