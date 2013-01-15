@@ -38,7 +38,7 @@ var appletv = {
 						xml+='<actionButton id=\"album_3\" onSelect=\"atv.loadURL(\''+serverurl+'/tudou/play.xml?st=4&amp;itemid='+itemid+'\');\" onPlay=\"atv.loadURL(\''+serverurl+'/tudou/play.xml?st=4&amp;itemid='+itemid+'\');\"><title>超清</title></actionButton>';
 					}
 				}
-				xml+='<actionButton id=\"album_4\" onSelect=\"atv.loadURL(\''+serverurl+'/weibo/createStatus.xml?provider=tudou&amp;itemid='+itemid+'\');\" onPlay=\"atv.loadURL(\''+serverurl+'/weibo/createStatus.xml?provider=tudou&amp;itemid='+itemid+'\');\"><title>分享到新浪微博</title></actionButton>';
+				xml+='<actionButton id=\"album_4\" onSelect=\"appletv.shareToSinaWeibo(\''+serverurl+'\',\''+album['title']+'\',\''+album['emailshareurl']+'\',\''+album['picurl']+'\');\" onPlay=\"appletv.shareToSinaWeibo(\''+serverurl+'\',\''+album['title']+'\',\''+album['emailshareurl']+'\',\''+album['picurl']+'\');\"><title>分享到新浪微博</title></actionButton>';
 				xml+='</items></shelfSection></sections></shelf></centerShelf></itemDetail></body></atv>';
 				atv.loadXML(atv.parseXML(xml));
 			});
@@ -74,7 +74,7 @@ var appletv = {
 	        if ( !url ) {
 	            throw "loadURL requires a url argument";
 	        }
-	        //atv.loadXML(this.makeDialog('加载中...','Loading...'));
+	        atv.loadXML(this.makeDialog('加载中...','Loading...'));
 	        var xhr = new XMLHttpRequest();
 	        xhr.onreadystatechange = function() {
 	            try {
@@ -122,6 +122,11 @@ var appletv = {
 	        xhr.open("POST", url, true);
 	        xhr.send(content);
 	        return xhr;
+	    },
+	    
+	    shareToSinaWeibo: function(serverurl, title, shareURL, imageURL){
+	    	var url = serverurl+'/weibo/createStatus.xml?title='+title+'&shareURL'+shareURL+'&imageURL='+imageURL;
+	    	atv.loadURL(url);
 	    },
 	    
 	    playQQVideo: function(playDescUrl,serverurl){
