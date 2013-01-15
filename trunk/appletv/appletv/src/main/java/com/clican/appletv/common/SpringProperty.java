@@ -7,6 +7,12 @@ public class SpringProperty {
 	private String systemServerUrl;
 
 	private Integer systemHttpconnectionTimeout;
+	
+	private String systemProxyHost;
+	
+	private Integer systemProxyPort;
+	
+	private boolean systemProxyEnable;
 
 	private String tudouSessionid;
 
@@ -281,6 +287,30 @@ public class SpringProperty {
 
 	public void setWeiboTempImageURL(String weiboTempImageURL) {
 		this.weiboTempImageURL = weiboTempImageURL;
+	}
+
+	public String getSystemProxyHost() {
+		return systemProxyHost;
+	}
+
+	public void setSystemProxyHost(String systemProxyHost) {
+		this.systemProxyHost = systemProxyHost;
+	}
+
+	public Integer getSystemProxyPort() {
+		return systemProxyPort;
+	}
+
+	public void setSystemProxyPort(Integer systemProxyPort) {
+		this.systemProxyPort = systemProxyPort;
+	}
+
+	public boolean isSystemProxyEnable() {
+		return systemProxyEnable;
+	}
+
+	public void setSystemProxyEnable(boolean systemProxyEnable) {
+		this.systemProxyEnable = systemProxyEnable;
 	}
 
 }

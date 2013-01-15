@@ -9,7 +9,6 @@ import net.sf.json.JSONObject;
 
 import org.apache.commons.lang.StringUtils;
 
-import com.clican.appletv.common.SpringProperty;
 import com.clican.appletv.core.service.BaseClient;
 import com.clican.appletv.core.service.tudou.enumeration.Channel;
 import com.clican.appletv.core.service.tudou.model.ListView;
@@ -18,11 +17,6 @@ import com.clican.appletv.core.service.tudou.model.TudouVideo;
 
 public class TudouClientImpl extends BaseClient implements TudouClient {
 
-	private SpringProperty springProperty;
-
-	public void setSpringProperty(SpringProperty springProperty) {
-		this.springProperty = springProperty;
-	}
 
 	private List<ListView> convertToVideos(String jsonStr, Channel channel) {
 		List<ListView> result = new ArrayList<ListView>();
