@@ -25,7 +25,10 @@ import weibo4j.model.Status;
 import weibo4j.model.StatusWapper;
 import weibo4j.model.User;
 
+import com.clican.appletv.common.Provider;
 import com.clican.appletv.common.SpringProperty;
+import com.clican.appletv.core.service.qq.QQClient;
+import com.clican.appletv.core.service.tudou.TudouClient;
 import com.clican.appletv.core.service.weibo.WeiboClient;
 
 @Controller
@@ -37,6 +40,12 @@ public class WeiboController {
 
 	@Autowired
 	private SpringProperty springProperty;
+	
+	@Autowired
+	private TudouClient tudouClient;
+	
+	@Autowired
+	private QQClient qqClient;
 
 	private boolean isLogin(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
@@ -243,6 +252,21 @@ public class WeiboController {
 		request.setAttribute("weiboCommentWapper", commentWapper);
 		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
 		return "weibo/showComments";
+	}
+
+	@RequestMapping("/weibo/createStatus.xml")
+	public String createStatus(
+			HttpServletRequest request,
+			HttpServletResponse response,
+			@RequestParam(value = "title", required = false) String title,
+			@RequestParam(value = "shareURL", required = false) String shareURL,
+			@RequestParam(value = "imageURL", required = false) String imageURL)
+			throws Exception {
+		if (!isLogin(request, response)) {
+			return null;
+		}
+		
+		return "/weibo/createStatus.xml";
 	}
 
 	@RequestMapping("/weibo/createComment.xml")
