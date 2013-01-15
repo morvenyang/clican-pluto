@@ -12,13 +12,13 @@
 				<sections>
 					<menuSection>
 						<items>
-							<imageTextImageMenuItem id="prev" onSelect="atv.loadURL('http://10.0.1.5/appletv/weibo/homeTimeline2.xml')">
+							<imageTextImageMenuItem id="prev" onSelect="atv.loadURL('http://127.0.0.1/appletv/weibo/homeTimeline2.xml')">
 								<leftImage></leftImage>
 								<rightImage></rightImage>
 								<imageSeparatorText></imageSeparatorText>
 								<label>最新</label>
 							</imageTextImageMenuItem>
-							<imageTextImageMenuItem id="prev" onSelect="atv.loadURL('http://10.0.1.5/appletv/weibo/homeTimeline2.xml?sinceId=3534478645742939')">
+							<imageTextImageMenuItem id="prev" onSelect="atv.loadURL('http://127.0.0.1/appletv/weibo/homeTimeline2.xml?sinceId=3534680668639117')">
 								<leftImage></leftImage>
 								<rightImage></rightImage>
 								<imageSeparatorText></imageSeparatorText>
@@ -26,479 +26,176 @@
 							</imageTextImageMenuItem>
 							
 								<imageTextImageMenuItem id="item_1">
-									<leftImage>http://tp2.sinaimg.cn/1675718025/50/40012794961/0</leftImage>
-									<rightImage>3534478645742939</rightImage>
+									<leftImage>http://tp3.sinaimg.cn/2735184062/50/5630212531/1</leftImage>
+									<rightImage>3534680668639117</rightImage>
 									<imageSeparatorText></imageSeparatorText>
 									
-										<label>有一种填空题叫完全不</label>
+										<label><![CDATA[韩版牛皮保暖短靴 时]]></label>
 									
 									
 									<preview>
-									    <longDescriptionPreview>
-									        <title>a</title>
-									        <summary></summary>
-									        <image></image>
+										<longDescriptionPreview>
+									        <title>潮男搭配日记</title>
+									        <summary>韩版牛皮保暖短靴 时尚英伦复古男靴子 ，好看很前卫很潮哦！！地址：http://t.cn/zj8Fhz2</summary>
+									        <image>http://ww4.sinaimg.cn/large/a30798bejw1e0u1ktrrpqj.jpg</image>
 									    </longDescriptionPreview>
-									    <imagePreview>
-									        <image required="true"></image>
-									        <image required="true"></image>
-									    </imagePreview>
-										<scrollerPreview id="sp_1">
-											<header>
-												<simpleHeader><image>http://tp2.sinaimg.cn/1675718025/50/40012794961/0</image></simpleHeader>
-											</header>
-											<items>
-												<pagedGrid id="pg_1">
-													<grid id="g1_1" columnCount="1">
-														<items>
-															<moviePoster id="g1mpt_1">
-																<image>http://10.0.1.5/appletv/tempimage/2013/01/14/21/08/46/1358168700145.png</image>
-															</moviePoster>
-															<moviePoster id="g1mpp_1">
-																
-																	<image>http://ww1.sinaimg.cn/thumbnail/63e16d89jw1e0tedk2adhj.jpg</image>
-																
-																
-															</moviePoster>
-														</items>
-													</grid>
-													<grid id="g2_1" columnCount="1">
-														<items>
-															<moviePoster id="g2mp_1">
-																
-																	<image>http://ww1.sinaimg.cn/large/63e16d89jw1e0tedk2adhj.jpg</image>
-																
-																
-															</moviePoster>
-														</items>
-													</grid>
-												</pagedGrid>
-											</items>
-										</scrollerPreview>
 									</preview>
 								</imageTextImageMenuItem>
 							
 								<imageTextImageMenuItem id="item_2">
-									<leftImage>http://tp4.sinaimg.cn/1762696131/50/5601957015/1</leftImage>
-									<rightImage>3534478058135981</rightImage>
+									<leftImage>http://tp1.sinaimg.cn/1618051664/50/5634706464/0</leftImage>
+									<rightImage>3534680005232692</rightImage>
 									<imageSeparatorText></imageSeparatorText>
 									
-										<label>这小妮子有前途，从小</label>
 									
+										<label><![CDATA[转发微博]]></label>
 									
 									<preview>
-										<scrollerPreview id="sp_2">
-											<header>
-												<simpleHeader><image>http://tp4.sinaimg.cn/1762696131/50/5601957015/1</image></simpleHeader>
-											</header>
-											<items>
-												<pagedGrid id="pg_2">
-													<grid id="g1_2" columnCount="1">
-														<items>
-															<moviePoster id="g1mpt_2">
-																<image>http://10.0.1.5/appletv/tempimage/2013/01/14/21/08/46/1358168700146.png</image>
-															</moviePoster>
-															<moviePoster id="g1mpp_2">
-																
-																	<image></image>
-																
-																
-																	<image>http://ww4.sinaimg.cn/thumbnail/83ff3db6tw1e0pkslzlm6j.jpg</image>
-																
-															</moviePoster>
-														</items>
-													</grid>
-													<grid id="g2_2" columnCount="1">
-														<items>
-															<moviePoster id="g2mp_2">
-																
-																	<image></image>
-																
-																
-																	<image>http://ww4.sinaimg.cn/large/83ff3db6tw1e0pkslzlm6j.jpg</image>
-																
-															</moviePoster>
-														</items>
-													</grid>
-												</pagedGrid>
-											</items>
-										</scrollerPreview>
+										<longDescriptionPreview>
+									        <title>头条新闻</title>
+									        <summary>转发微博</summary>
+									        <image></image>
+									    </longDescriptionPreview>
 									</preview>
 								</imageTextImageMenuItem>
 							
 								<imageTextImageMenuItem id="item_3">
-									<leftImage>http://tp4.sinaimg.cn/1069205631/50/1292988050/0</leftImage>
-									<rightImage>3534477668021844</rightImage>
+									<leftImage>http://tp2.sinaimg.cn/1644489953/50/5635835425/1</leftImage>
+									<rightImage>3534679842061507</rightImage>
 									<imageSeparatorText></imageSeparatorText>
 									
-										<label>微电影《豪宅》：一个</label>
+										<label><![CDATA[一个有容人之量、自由]]></label>
 									
 									
 									<preview>
-										<scrollerPreview id="sp_3">
-											<header>
-												<simpleHeader><image>http://tp4.sinaimg.cn/1069205631/50/1292988050/0</image></simpleHeader>
-											</header>
-											<items>
-												<pagedGrid id="pg_3">
-													<grid id="g1_3" columnCount="1">
-														<items>
-															<moviePoster id="g1mpt_3">
-																<image>http://10.0.1.5/appletv/tempimage/2013/01/14/21/08/46/1358168700147.png</image>
-															</moviePoster>
-															<moviePoster id="g1mpp_3">
-																
-																	<image></image>
-																
-																
-																	<image>http://ww4.sinaimg.cn/thumbnail/63e054f8jw1e0s86h1yjkj.jpg</image>
-																
-															</moviePoster>
-														</items>
-													</grid>
-													<grid id="g2_3" columnCount="1">
-														<items>
-															<moviePoster id="g2mp_3">
-																
-																	<image></image>
-																
-																
-																	<image>http://ww4.sinaimg.cn/large/63e054f8jw1e0s86h1yjkj.jpg</image>
-																
-															</moviePoster>
-														</items>
-													</grid>
-												</pagedGrid>
-											</items>
-										</scrollerPreview>
+										<longDescriptionPreview>
+									        <title>南方都市报</title>
+									        <summary>一个有容人之量、自由理性的现代社会，需要更开放地讨论那些“全世界人民都知道”的常识，理性的公民首先需要学会的就是如何辩论，如何开会，以及如何包容他人不那么顺耳的主张。</summary>
+									        <image></image>
+									    </longDescriptionPreview>
 									</preview>
 								</imageTextImageMenuItem>
 							
 								<imageTextImageMenuItem id="item_4">
-									<leftImage>http://tp1.sinaimg.cn/1618051664/50/5634706464/0</leftImage>
-									<rightImage>3534477273710296</rightImage>
+									<leftImage>http://tp3.sinaimg.cn/1642512402/50/5615969083/1</leftImage>
+									<rightImage>3534679665463629</rightImage>
 									<imageSeparatorText></imageSeparatorText>
 									
+										<label><![CDATA[【广东揭阳借孤儿应付]]></label>
 									
-										<label>转发微博</label>
 									
 									<preview>
-										<scrollerPreview id="sp_4">
-											<header>
-												<simpleHeader><image>http://tp1.sinaimg.cn/1618051664/50/5634706464/0</image></simpleHeader>
-											</header>
-											<items>
-												<pagedGrid id="pg_4">
-													<grid id="g1_4" columnCount="1">
-														<items>
-															<moviePoster id="g1mpt_4">
-																<image>http://10.0.1.5/appletv/tempimage/2013/01/14/21/08/46/1358168700148.png</image>
-															</moviePoster>
-															<moviePoster id="g1mpp_4">
-																
-																	<image></image>
-																
-																
-																	<image>http://ww4.sinaimg.cn/thumbnail/6403c928jw1e0tdzvq6puj.jpg</image>
-																
-															</moviePoster>
-														</items>
-													</grid>
-													<grid id="g2_4" columnCount="1">
-														<items>
-															<moviePoster id="g2mp_4">
-																
-																	<image></image>
-																
-																
-																	<image>http://ww4.sinaimg.cn/large/6403c928jw1e0tdzvq6puj.jpg</image>
-																
-															</moviePoster>
-														</items>
-													</grid>
-												</pagedGrid>
-											</items>
-										</scrollerPreview>
+										<longDescriptionPreview>
+									        <title>中国新闻周刊</title>
+									        <summary>【广东揭阳借孤儿应付检查 区民政局长被免职】近日，有报道称广东揭阳“借孤儿”事件背后存在“福利院变成空壳”、115个孤儿散落在寺庙和个人家庭里等问题后，揭阳市政府14日对外通报该事件处理结果：区民政局局长被免职，区民政局办公室主任被停职检查。（中国新闻周刊网） http://t.cn/zjgtL8X</summary>
+									        <image>http://ww1.sinaimg.cn/large/61e6c012jw1e0u1gom9i3j.jpg</image>
+									    </longDescriptionPreview>
 									</preview>
 								</imageTextImageMenuItem>
 							
 								<imageTextImageMenuItem id="item_5">
-									<leftImage>http://tp4.sinaimg.cn/1757353251/50/5633528757/1</leftImage>
-									<rightImage>3534477253447344</rightImage>
+									<leftImage>http://tp4.sinaimg.cn/2219227283/50/5611473305/1</leftImage>
+									<rightImage>3534679418783936</rightImage>
 									<imageSeparatorText></imageSeparatorText>
 									
-										<label>爱情不限种族、年龄、</label>
+										<label><![CDATA[我要强大到任何事情都]]></label>
 									
 									
 									<preview>
-										<scrollerPreview id="sp_5">
-											<header>
-												<simpleHeader><image>http://tp4.sinaimg.cn/1757353251/50/5633528757/1</image></simpleHeader>
-											</header>
-											<items>
-												<pagedGrid id="pg_5">
-													<grid id="g1_5" columnCount="1">
-														<items>
-															<moviePoster id="g1mpt_5">
-																<image>http://10.0.1.5/appletv/tempimage/2013/01/14/21/08/46/1358168700149.png</image>
-															</moviePoster>
-															<moviePoster id="g1mpp_5">
-																
-																	<image></image>
-																
-																
-																	<image>http://ww2.sinaimg.cn/thumbnail/6d5834d3gw1e0l291yc37j.jpg</image>
-																
-															</moviePoster>
-														</items>
-													</grid>
-													<grid id="g2_5" columnCount="1">
-														<items>
-															<moviePoster id="g2mp_5">
-																
-																	<image></image>
-																
-																
-																	<image>http://ww2.sinaimg.cn/large/6d5834d3gw1e0l291yc37j.jpg</image>
-																
-															</moviePoster>
-														</items>
-													</grid>
-												</pagedGrid>
-											</items>
-										</scrollerPreview>
+										<longDescriptionPreview>
+									        <title>咱们去旅游</title>
+									        <summary>我要强大到任何事情都无法破坏我内心的平和[心]@一句话情诗表白</summary>
+									        <image></image>
+									    </longDescriptionPreview>
 									</preview>
 								</imageTextImageMenuItem>
 							
 								<imageTextImageMenuItem id="item_6">
-									<leftImage>http://tp2.sinaimg.cn/1764222885/50/5641309390/1</leftImage>
-									<rightImage>3534476862375942</rightImage>
+									<leftImage>http://tp4.sinaimg.cn/1713926427/50/40000875722/0</leftImage>
+									<rightImage>3534679397004625</rightImage>
 									<imageSeparatorText></imageSeparatorText>
 									
-										<label>我认为这是年度最牛逼</label>
+										<label><![CDATA[亲，胃不好少吃9种食]]></label>
 									
 									
 									<preview>
-										<scrollerPreview id="sp_6">
-											<header>
-												<simpleHeader><image>http://tp2.sinaimg.cn/1764222885/50/5641309390/1</image></simpleHeader>
-											</header>
-											<items>
-												<pagedGrid id="pg_6">
-													<grid id="g1_6" columnCount="1">
-														<items>
-															<moviePoster id="g1mpt_6">
-																<image>http://10.0.1.5/appletv/tempimage/2013/01/14/21/08/46/1358168700150.png</image>
-															</moviePoster>
-															<moviePoster id="g1mpp_6">
-																
-																	<image>http://ww2.sinaimg.cn/thumbnail/6927e7a5jw1e0tdybuzyhj.jpg</image>
-																
-																
-															</moviePoster>
-														</items>
-													</grid>
-													<grid id="g2_6" columnCount="1">
-														<items>
-															<moviePoster id="g2mp_6">
-																
-																	<image>http://ww2.sinaimg.cn/large/6927e7a5jw1e0tdybuzyhj.jpg</image>
-																
-																
-															</moviePoster>
-														</items>
-													</grid>
-												</pagedGrid>
-											</items>
-										</scrollerPreview>
+										<longDescriptionPreview>
+									        <title>微博搞笑排行榜</title>
+									        <summary>亲，胃不好少吃9种食物。[抱抱]</summary>
+									        <image></image>
+									    </longDescriptionPreview>
 									</preview>
 								</imageTextImageMenuItem>
 							
 								<imageTextImageMenuItem id="item_7">
-									<leftImage>http://tp2.sinaimg.cn/2231350825/50/5613348269/1</leftImage>
-									<rightImage>3534476850669499</rightImage>
+									<leftImage>http://tp1.sinaimg.cn/1657430300/50/5644801733/1</leftImage>
+									<rightImage>3534679393154041</rightImage>
 									<imageSeparatorText></imageSeparatorText>
 									
+										<label><![CDATA[纵使奇葩看得多，可你]]></label>
 									
-										<label>坚持走下去~[心]</label>
 									
 									<preview>
-										<scrollerPreview id="sp_7">
-											<header>
-												<simpleHeader><image>http://tp2.sinaimg.cn/2231350825/50/5613348269/1</image></simpleHeader>
-											</header>
-											<items>
-												<pagedGrid id="pg_7">
-													<grid id="g1_7" columnCount="1">
-														<items>
-															<moviePoster id="g1mpt_7">
-																<image>http://10.0.1.5/appletv/tempimage/2013/01/14/21/08/46/1358168700151.png</image>
-															</moviePoster>
-															<moviePoster id="g1mpp_7">
-																
-																	<image></image>
-																
-																
-																	<image>http://ww4.sinaimg.cn/thumbnail/962b3806jw1e0pq89xz4dj.jpg</image>
-																
-															</moviePoster>
-														</items>
-													</grid>
-													<grid id="g2_7" columnCount="1">
-														<items>
-															<moviePoster id="g2mp_7">
-																
-																	<image></image>
-																
-																
-																	<image>http://ww4.sinaimg.cn/large/962b3806jw1e0pq89xz4dj.jpg</image>
-																
-															</moviePoster>
-														</items>
-													</grid>
-												</pagedGrid>
-											</items>
-										</scrollerPreview>
+										<longDescriptionPreview>
+									        <title>创意工坊</title>
+									        <summary>纵使奇葩看得多，可你见过这样的艺术创作吗？用屁屁表演《命运交响曲》！不仅是男士，女士们也为之疯狂啊！介真是神一样的臀部啊！[真V5]  http://t.cn/zjg5s36</summary>
+									        <image>http://ww4.sinaimg.cn/large/62ca611cjw1e0u1fk832aj.jpg</image>
+									    </longDescriptionPreview>
 									</preview>
 								</imageTextImageMenuItem>
 							
 								<imageTextImageMenuItem id="item_8">
-									<leftImage>http://tp3.sinaimg.cn/1642512402/50/5615969083/1</leftImage>
-									<rightImage>3534476845596082</rightImage>
+									<leftImage>http://tp1.sinaimg.cn/1657430300/50/5644801733/1</leftImage>
+									<rightImage>3534679384420280</rightImage>
 									<imageSeparatorText></imageSeparatorText>
 									
-										<label>【“刚性透析费”逼出</label>
+										<label><![CDATA[这特么是青春期到了，]]></label>
 									
 									
 									<preview>
-										<scrollerPreview id="sp_8">
-											<header>
-												<simpleHeader><image>http://tp3.sinaimg.cn/1642512402/50/5615969083/1</image></simpleHeader>
-											</header>
-											<items>
-												<pagedGrid id="pg_8">
-													<grid id="g1_8" columnCount="1">
-														<items>
-															<moviePoster id="g1mpt_8">
-																<image>http://10.0.1.5/appletv/tempimage/2013/01/14/21/08/46/1358168700152.png</image>
-															</moviePoster>
-															<moviePoster id="g1mpp_8">
-																
-																	<image></image>
-																
-																
-															</moviePoster>
-														</items>
-													</grid>
-													<grid id="g2_8" columnCount="1">
-														<items>
-															<moviePoster id="g2mp_8">
-																
-																	<image></image>
-																
-																
-															</moviePoster>
-														</items>
-													</grid>
-												</pagedGrid>
-											</items>
-										</scrollerPreview>
+										<longDescriptionPreview>
+									        <title>创意工坊</title>
+									        <summary>这特么是青春期到了，痘痘一个接一个冒出来也不知道累，还手贱好挤，留下的痘印难看死了，惨不忍睹啊！！祛印的极度需要啊！！  </summary>
+									        <image></image>
+									    </longDescriptionPreview>
 									</preview>
 								</imageTextImageMenuItem>
 							
 								<imageTextImageMenuItem id="item_9">
-									<leftImage>http://tp3.sinaimg.cn/2735184062/50/5630212531/1</leftImage>
-									<rightImage>3534476821301525</rightImage>
+									<leftImage>http://tp4.sinaimg.cn/1733770795/50/22824584598/0</leftImage>
+									<rightImage>3534679380570031</rightImage>
 									<imageSeparatorText></imageSeparatorText>
 									
-										<label>帅气时尚保暖高帮鞋 </label>
+										<label><![CDATA[iPad 存储空间不]]></label>
 									
 									
 									<preview>
-										<scrollerPreview id="sp_9">
-											<header>
-												<simpleHeader><image>http://tp3.sinaimg.cn/2735184062/50/5630212531/1</image></simpleHeader>
-											</header>
-											<items>
-												<pagedGrid id="pg_9">
-													<grid id="g1_9" columnCount="1">
-														<items>
-															<moviePoster id="g1mpt_9">
-																<image>http://10.0.1.5/appletv/tempimage/2013/01/14/21/08/46/1358168700153.png</image>
-															</moviePoster>
-															<moviePoster id="g1mpp_9">
-																
-																	<image>http://ww3.sinaimg.cn/thumbnail/a30798bejw1e0te60h896j.jpg</image>
-																
-																
-															</moviePoster>
-														</items>
-													</grid>
-													<grid id="g2_9" columnCount="1">
-														<items>
-															<moviePoster id="g2mp_9">
-																
-																	<image>http://ww3.sinaimg.cn/large/a30798bejw1e0te60h896j.jpg</image>
-																
-																
-															</moviePoster>
-														</items>
-													</grid>
-												</pagedGrid>
-											</items>
-										</scrollerPreview>
+										<longDescriptionPreview>
+									        <title>微博小百科</title>
+									        <summary>iPad 存储空间不够怎么办？电脑传文件到iPad不方便怎么办？   PAD Max解决所有问题。 PAD Max是一款用于读取iPad（2,3）的小配件，插到iPad上可以像传统电脑U盘一样读取文件，体积小巧玲珑。http://t.cn/zjuFaY5  </summary>
+									        <image>http://ww2.sinaimg.cn/large/a6618630jw1e0sz5cwb34j.jpg</image>
+									    </longDescriptionPreview>
 									</preview>
 								</imageTextImageMenuItem>
 							
 								<imageTextImageMenuItem id="item_10">
-									<leftImage>http://tp4.sinaimg.cn/1642909335/50/5597136100/0</leftImage>
-									<rightImage>3534476699638863</rightImage>
+									<leftImage>http://tp4.sinaimg.cn/1757353251/50/5633528757/1</leftImage>
+									<rightImage>3534678990120920</rightImage>
 									<imageSeparatorText></imageSeparatorText>
 									
-										<label>#2012微博之夜#</label>
+										<label><![CDATA[唱得如此成熟的妹子真]]></label>
 									
 									
 									<preview>
-										<scrollerPreview id="sp_10">
-											<header>
-												<simpleHeader><image>http://tp4.sinaimg.cn/1642909335/50/5597136100/0</image></simpleHeader>
-											</header>
-											<items>
-												<pagedGrid id="pg_10">
-													<grid id="g1_10" columnCount="1">
-														<items>
-															<moviePoster id="g1mpt_10">
-																<image>http://10.0.1.5/appletv/tempimage/2013/01/14/21/08/47/1358168700154.png</image>
-															</moviePoster>
-															<moviePoster id="g1mpp_10">
-																
-																	<image></image>
-																
-																
-																	<image>http://ww4.sinaimg.cn/thumbnail/6403c928jw1e0tdzvq6puj.jpg</image>
-																
-															</moviePoster>
-														</items>
-													</grid>
-													<grid id="g2_10" columnCount="1">
-														<items>
-															<moviePoster id="g2mp_10">
-																
-																	<image></image>
-																
-																
-																	<image>http://ww4.sinaimg.cn/large/6403c928jw1e0tdzvq6puj.jpg</image>
-																
-															</moviePoster>
-														</items>
-													</grid>
-												</pagedGrid>
-											</items>
-										</scrollerPreview>
+										<longDescriptionPreview>
+									        <title>电影工厂</title>
+									        <summary>唱得如此成熟的妹子真的是高中生吗？！</summary>
+									        <image></image>
+									    </longDescriptionPreview>
 									</preview>
 								</imageTextImageMenuItem>
 							
-							<imageTextImageMenuItem id="prev" onSelect="atv.loadURL('http://10.0.1.5/appletv/weibo/homeTimeline2.xml?maxId=3534476699638862')">
+							<imageTextImageMenuItem id="prev" onSelect="atv.loadURL('http://127.0.0.1/appletv/weibo/homeTimeline2.xml?maxId=3534678990120919')">
 								<leftImage></leftImage>
 								<rightImage></rightImage>
 								<imageSeparatorText></imageSeparatorText>
@@ -508,7 +205,6 @@
 					</menuSection>
 				</sections>
 			</menu>
-			
 		</listWithPreview>
 	</body>
 </atv>

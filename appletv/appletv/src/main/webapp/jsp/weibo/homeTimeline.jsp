@@ -27,7 +27,7 @@
 								varStatus="varStatus">
 								<imageTextImageMenuItem id="item_${varStatus.count}">
 									<leftImage>${weiboStatus.user.profileImageUrl}</leftImage>
-									<rightImage>${weiboStatus.idstr}</rightImage>
+									<rightImage></rightImage>
 									<imageSeparatorText></imageSeparatorText>
 									<c:if test="${fn:length(weiboStatus.text)>10}">
 										<label><![CDATA[${fn:substring(weiboStatus.text,0,10)}]]></label>
@@ -37,9 +37,19 @@
 									</c:if>
 									<preview>
 										<longDescriptionPreview>
-									        <title>${weiboStatus.user.screenName}</title>
-									        <summary>${weiboStatus.text}</summary>
-									        <image>${weiboStatus.originalPic}</image>
+									        <title><![CDATA[${weiboStatus.user.screenName}]]></title>
+									        <c:if test="${weiboStatusWapper.retweetedStatus!=null}">
+									        	<summary><![CDATA[${weiboStatus.text} @${weiboStatus.retweetedStatus.user.screenName} @${weiboStatus.retweetedStatus.text}]]></summary>
+									        	<c:if test="${weiboStatusWapper.retweetedStatus.originalPic!=null&&fn:length(weiboStatusWapper.retweetedStatus.originalPic)!=0}">
+									        		<image src1080="${weiboStatus.retweetedStatus.originalPic}"></image>
+									        	</c:if>
+									        </c:if>
+									        <c:if test="${weiboStatusWapper.retweetedStatus==null}">
+									        	 <summary><![CDATA[${weiboStatus.text}]]></summary>
+									        	 <c:if test="${weiboStatusWapper.originalPic!=null&&fn:length(weiboStatusWapper.originalPic)!=0}">
+									         		<image src1080="${weiboStatus.originalPic}"></image>
+									         	</c:if>
+									        </c:if>
 									    </longDescriptionPreview>
 									</preview>
 								</imageTextImageMenuItem>
