@@ -52,12 +52,12 @@ public class Configuration {
         //defaultProperty.setProperty("weibo4j.user","");
         //defaultProperty.setProperty("weibo4j.password","");
         defaultProperty.setProperty("weibo4j.http.useSSL", "false");
-//        defaultProperty.setProperty("weibo4j.http.proxyHost","web-proxy.corp.hp.com");
-//        defaultProperty.setProperty("weibo4j.http.proxyHost.fallback", "http.proxyHost");
-//        defaultProperty.setProperty("weibo4j.http.proxyUser","");
-//        defaultProperty.setProperty("weibo4j.http.proxyPassword","");
-//        defaultProperty.setProperty("weibo4j.http.proxyPort","8080");
-//        defaultProperty.setProperty("weibo4j.http.proxyPort.fallback", "http.proxyPort");
+        defaultProperty.setProperty("weibo4j.http.proxyHost","web-proxy.corp.hp.com");
+        defaultProperty.setProperty("weibo4j.http.proxyHost.fallback", "http.proxyHost");
+        defaultProperty.setProperty("weibo4j.http.proxyUser","");
+        defaultProperty.setProperty("weibo4j.http.proxyPassword","");
+        defaultProperty.setProperty("weibo4j.http.proxyPort","8080");
+        defaultProperty.setProperty("weibo4j.http.proxyPort.fallback", "http.proxyPort");
         defaultProperty.setProperty("weibo4j.http.connectionTimeout", "20000");
         defaultProperty.setProperty("weibo4j.http.readTimeout", "120000");
         defaultProperty.setProperty("weibo4j.http.retryCount", "3");
