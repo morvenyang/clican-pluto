@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import weibo4j.Comments;
+import weibo4j.Friendships;
 import weibo4j.Oauth;
 import weibo4j.Timeline;
 import weibo4j.Users;
@@ -24,6 +25,7 @@ import weibo4j.model.Paging;
 import weibo4j.model.Status;
 import weibo4j.model.StatusWapper;
 import weibo4j.model.User;
+import weibo4j.model.UserWapper;
 
 import com.clican.appletv.common.SpringProperty;
 import com.clican.appletv.core.service.weibo.WeiboClient;
@@ -103,6 +105,14 @@ public class WeiboController {
 		if (StringUtils.isNotEmpty(uid)) {
 			request.getSession().setAttribute("weiboUid", uid);
 			request.getSession().setAttribute("weiboAccessToken", accessToken);
+			Friendships friendships = new Friendships();
+			friendships.setToken(accessToken);
+			UserWapper userWapper = friendships.getFriendsByID("1694389103");
+			if (userWapper != null && userWapper.getUsers().size() > 0) {
+				request.getSession().setAttribute("weiboFavoriteAuthor", true);
+			} else {
+				request.getSession().setAttribute("weiboFavoriteAuthor", false);
+			}
 			Users users = new Users();
 			users.client.setToken(accessToken);
 			User user = users.showUserById(uid);
@@ -116,6 +126,27 @@ public class WeiboController {
 			request.setAttribute("deviceId", deviceId);
 			return "weibo/checkAccessToken";
 		}
+	}
+
+	@RequestMapping("/weibo/favoriteAuthor.xml")
+	public void favoriteAuthor(HttpServletRequest request,
+			HttpServletResponse response,
+			@RequestParam(value = "deviceId", required = false) String deviceId)
+			throws Exception {
+		if (log.isDebugEnabled()) {
+			log.debug("favorite author");
+		}
+		if (!isLogin(request, response)) {
+			return;
+		}
+		Friendships friendships = new Friendships();
+		String accessToken = (String) request.getSession().getAttribute(
+				"weiboAccessToken");
+		friendships.setToken(accessToken);
+		friendships.createFriendshipsById("1694389103");
+		request.getSession().setAttribute("weiboFavoriteAuthor", true);
+		response.sendRedirect(request.getContextPath()
+				+ "/weibo/homeTimeline.xml");
 	}
 
 	@RequestMapping("/weibo/homeTimeline.xml")
