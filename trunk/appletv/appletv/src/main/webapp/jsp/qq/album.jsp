@@ -1,4 +1,4 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %><%@ page contentType="text/xml;charset=utf-8" %><?xml version="1.0" encoding="UTF-8"?>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %><%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %><%@ page contentType="text/xml;charset=utf-8" %><?xml version="1.0" encoding="UTF-8"?>
 <atv>
 <c:if test="${album.size<7}">
 <head><script src="${serverurl}/javascript/clican.js"/></head>
@@ -33,7 +33,7 @@
 										<title>高清</title>
 									</actionButton>
 								</c:if>
-								<actionButton id="album_4" onSelect="atv.loadURL('${serverurl}/weibo/createStatus.xml?title=${album.tt}&amp;shareURL=http://v.qq.com/cover/q/${album.id}.html&amp;imageURL=${album.pic}');" onPlay="atv.loadURL('${serverurl}/weibo/createStatus.xml?title=${album.tt}&amp;shareURL=http://v.qq.com/cover/q/${album.id}.html&amp;imageURL=${album.pic}');">
+								<actionButton id="album_4" onSelect="atv.loadURL('${serverurl}/weibo/createStatus.xml?title=${album.tt}&amp;shareURL=http://v.qq.com/cover/${fn:substring(album.id,0,1)}/${album.id}.html&amp;imageURL=${album.pic}');" onPlay="atv.loadURL('${serverurl}/weibo/createStatus.xml?title=${album.tt}&amp;shareURL=http://v.qq.com/cover/${fn:substring(album.id,0,1)}/${album.id}.html&amp;imageURL=${album.pic}');">
 									<title>分享到新浪微博</title>
 								</actionButton>
 							</items>
