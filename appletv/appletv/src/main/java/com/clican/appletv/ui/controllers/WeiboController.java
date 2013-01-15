@@ -111,12 +111,10 @@ public class WeiboController {
 		return "weibo/imagePreview";
 	}
 
-	
-
 	@RequestMapping("/weibo/homeTimeline.xml")
 	public String homeTimeline2(HttpServletRequest request,
-			HttpServletResponse response,
-			Long sinceId, Long maxId) throws Exception {
+			HttpServletResponse response, Long sinceId, Long maxId)
+			throws Exception {
 		Timeline timeline = new Timeline();
 		String accessToken = (String) request.getSession().getAttribute(
 				"weiboAccessToken");
@@ -132,10 +130,6 @@ public class WeiboController {
 
 		StatusWapper statusWapper = timeline.getHomeTimeline(0, 0, paging);
 
-		for (Status status : statusWapper.getStatuses()) {
-			String statusPic = weiboClient.generateWeiboImage(status);
-			status.setStatusPic(statusPic);
-		}
 		if (statusWapper.getStatuses().size() > 0) {
 			request.setAttribute("weiboFirstStatus", statusWapper.getStatuses()
 					.get(0));
