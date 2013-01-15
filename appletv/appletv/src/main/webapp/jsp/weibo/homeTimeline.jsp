@@ -38,15 +38,15 @@
 									<preview>
 										<longDescriptionPreview>
 									        <title><![CDATA[${weiboStatus.user.screenName}]]></title>
-									        <c:if test="${weiboStatusWapper.retweetedStatus!=null}">
+									        <c:if test="${weiboStatus.retweetedStatus!=null}">
 									        	<summary><![CDATA[${weiboStatus.text} @${weiboStatus.retweetedStatus.user.screenName} @${weiboStatus.retweetedStatus.text}]]></summary>
-									        	<c:if test="${weiboStatusWapper.retweetedStatus.originalPic!=null&&fn:length(weiboStatusWapper.retweetedStatus.originalPic)!=0}">
+									        	<c:if test="${weiboStatus.retweetedStatus.originalPic!=null&&fn:length(weiboStatus.retweetedStatus.originalPic)!=0}">
 									        		<image src1080="${weiboStatus.retweetedStatus.originalPic}"></image>
 									        	</c:if>
 									        </c:if>
-									        <c:if test="${weiboStatusWapper.retweetedStatus==null}">
+									        <c:if test="${weiboStatus.retweetedStatus==null}">
 									        	 <summary><![CDATA[${weiboStatus.text}]]></summary>
-									        	 <c:if test="${weiboStatusWapper.originalPic!=null&&fn:length(weiboStatusWapper.originalPic)!=0}">
+									        	 <c:if test="${weiboStatus.originalPic!=null&&fn:length(weiboStatus.originalPic)!=0}">
 									         		<image src1080="${weiboStatus.originalPic}"></image>
 									         	</c:if>
 									        </c:if>
