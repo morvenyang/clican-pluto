@@ -3,7 +3,7 @@
 <body>
 		<scrollingText id="text">
 			<title>内容</title>
-			<text><![CDATA[${status.text}]]></text>
+			<text><![CDATA[${weiboStatus.text}]]></text>
 			<buttons>
 				<actionButton id="ab1" onSelect="">
 					<title>转发</title>
