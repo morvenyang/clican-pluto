@@ -46,22 +46,12 @@
 		<grid id="grid_2" columnCount="6">
 			<items>
 				<c:forEach var="video" items="${videos}">
-					<c:if test="${video.isalbum==1}">
-						<moviePoster id="shelf_item_${video.itemid}" alwaysShowTitles="true" onSelect="appletv.loadAlbumXml(${video.itemid},${video.cid},${video.hd},'${serverurl}');" onPlay="appletv.loadAlbumXml(${video.itemid},${video.cid},${video.hd},'${serverurl}');">
+						<moviePoster id="shelf_item_${video.itemid}" alwaysShowTitles="true" onSelect="appletv.loadAlbumXml(${video.itemid},${video.cid},${video.hd},${video.isalbum},'${serverurl}');" onPlay="appletv.loadAlbumXml(${video.itemid},${video.cid},${video.hd},'${serverurl}');">
 							<title><![CDATA[${video.title}]]></title>
 							<subtitle><![CDATA[${video.title}]]></subtitle>
 							<image>${video.picurl}</image>
 							<defaultImage>resource://Poster.png</defaultImage>
 						</moviePoster>
-					</c:if>
-					<c:if test="${video.isalbum!=1}">
-						<moviePoster id="shelf_item_${video.itemid}" alwaysShowTitles="true" onSelect="atv.loadURL('${serverurl}/tudou/play.xml?itemid=${video.itemid}');" onPlay="atv.loadURL('${serverurl}/tudou/play.xml?itemid=${video.itemid}');">
-							<title><![CDATA[${video.title}]]></title>
-							<subtitle><![CDATA[${video.title}]]></subtitle>
-							<image>${video.picurl}</image>
-							<defaultImage>resource://Poster.png</defaultImage>
-						</moviePoster>
-					</c:if>
 				</c:forEach>
 			</items>
 		</grid>
