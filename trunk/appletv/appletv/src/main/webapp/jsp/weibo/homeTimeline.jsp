@@ -11,7 +11,7 @@
 				<sections>
 					<menuSection>
 						<items>
-							<imageTextImageMenuItem id="prev" onSelect="atv.loadURL('${serverurl}/weibo/homeTimeline.xml')">
+							<imageTextImageMenuItem id="top" onSelect="atv.loadURL('${serverurl}/weibo/homeTimeline.xml')">
 								<leftImage></leftImage>
 								<rightImage></rightImage>
 								<imageSeparatorText></imageSeparatorText>
@@ -40,21 +40,17 @@
 									        <title><![CDATA[${weiboStatus.user.screenName}]]></title>
 									        <c:if test="${weiboStatus.retweetedStatus!=null}">
 									        	<summary><![CDATA[${weiboStatus.text} @${weiboStatus.retweetedStatus.user.screenName} @${weiboStatus.retweetedStatus.text}]]></summary>
-									        	<c:if test="${weiboStatus.retweetedStatus.originalPic!=null&&fn:length(weiboStatus.retweetedStatus.originalPic)!=0}">
-									        		<image src1080="${weiboStatus.retweetedStatus.originalPic}"></image>
-									        	</c:if>
+									        	<image src="${weiboStatus.retweetedStatus.originalPic}"></image>
 									        </c:if>
 									        <c:if test="${weiboStatus.retweetedStatus==null}">
 									        	 <summary><![CDATA[${weiboStatus.text}]]></summary>
-									        	 <c:if test="${weiboStatus.originalPic!=null&&fn:length(weiboStatus.originalPic)!=0}">
-									         		<image src1080="${weiboStatus.originalPic}"></image>
-									         	</c:if>
+									        	 <image src="${weiboStatus.originalPic}"></image>
 									        </c:if>
 									    </longDescriptionPreview>
 									</preview>
 								</imageTextImageMenuItem>
 							</c:forEach>
-							<imageTextImageMenuItem id="prev" onSelect="atv.loadURL('${serverurl}/weibo/homeTimeline.xml?maxId=${maxId}')">
+							<imageTextImageMenuItem id="next" onSelect="atv.loadURL('${serverurl}/weibo/homeTimeline.xml?maxId=${maxId}')">
 								<leftImage></leftImage>
 								<rightImage></rightImage>
 								<imageSeparatorText></imageSeparatorText>
