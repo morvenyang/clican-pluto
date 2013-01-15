@@ -21,7 +21,7 @@
 				<actionButton id="ab1" onSelect="">
 					<title>转发</title>
 				</actionButton>
-				<actionButton id="ab2" onSelect="">
+				<actionButton id="ab2" onSelect="atv.loadURL('${serverurl}/weibo/showComments.xml?statusId=${weiboStatus.idstr}');">
 					<title>评论</title>
 				</actionButton>
 			</buttons>
