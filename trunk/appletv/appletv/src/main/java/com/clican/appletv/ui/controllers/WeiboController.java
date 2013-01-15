@@ -279,7 +279,7 @@ public class WeiboController {
 			result = false;
 		}
 		request.setAttribute("result", result);
-		return "/weibo/createStatus.xml";
+		return "/weibo/createStatus";
 	}
 
 	@RequestMapping("/weibo/createComment.xml")
