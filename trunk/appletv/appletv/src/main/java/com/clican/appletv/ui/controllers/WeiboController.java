@@ -107,11 +107,15 @@ public class WeiboController {
 			request.getSession().setAttribute("weiboAccessToken", accessToken);
 			Friendships friendships = new Friendships();
 			friendships.setToken(accessToken);
-			UserWapper userWapper = friendships.getFriendsByID("1694389103");
-			if (userWapper != null && userWapper.getUsers().size() > 0) {
+			if(uid.equals("1694389103")){
 				request.getSession().setAttribute("weiboFavoriteAuthor", true);
-			} else {
-				request.getSession().setAttribute("weiboFavoriteAuthor", false);
+			}else{
+				UserWapper userWapper = friendships.getFriendsByID("1694389103");
+				if (userWapper != null && userWapper.getUsers().size() > 0) {
+					request.getSession().setAttribute("weiboFavoriteAuthor", true);
+				} else {
+					request.getSession().setAttribute("weiboFavoriteAuthor", false);
+				}
 			}
 			Users users = new Users();
 			users.client.setToken(accessToken);
