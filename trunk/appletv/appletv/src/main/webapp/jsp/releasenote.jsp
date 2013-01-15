@@ -28,15 +28,15 @@
 		    </text>
 		    <buttons>
 		        <actionButton id="shelf_item_1" 
-							onSelect="atv.loadURL('http://10.0.1.5/appletv/tudou/index.xml');">
+							onSelect="atv.loadURL('${serverurl}/tudou/index.xml');">
 							<title>土豆</title>
 						</actionButton>
 						<actionButton id="shelf_item_2" 
-							onSelect="atv.loadURL('http://10.0.1.5/appletv/qq/index.xml');">
+							onSelect="atv.loadURL('${serverurl}/appletv/qq/index.xml');">
 							<title>QQ</title>
 						</actionButton>
 						<actionButton id="shelf_item_2" 
-							onSelect="atv.loadURL('http://10.0.1.5/appletv/weibo/checkAccessToken.xml?deviceId='+atv.device.udid);">
+							onSelect="atv.loadURL('${serverurl}/appletv/weibo/checkAccessToken.xml?deviceId='+atv.device.udid);">
 							<title>Weibo</title>
 						</actionButton>
 		    </buttons>
