@@ -7,16 +7,16 @@
 				<photos>
 					<photo id="p1">
 						<assets>
-							<photoAsset height="1024" width="1024" src="${status.originalPic}"/>
+							<photoAsset height="1024" width="1024" src="${weiboStatus.originalPic}"/>
 						</assets>
 					</photo>
 				</photos>
 			</photoGrid>
 			<buttons>
-				<actionButton id="ab1">
+				<actionButton id="ab1" onSelect="">
 					<title>转发</title>
 				</actionButton>
-				<actionButton id="ab2">
+				<actionButton id="ab2" onSelect="">
 					<title>评论</title>
 				</actionButton>
 			</buttons>

@@ -1,5 +1,8 @@
 package com.clican.appletv.ui.controllers;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -112,8 +115,10 @@ public class WeiboController {
 	}
 
 	@RequestMapping("/weibo/homeTimeline.xml")
-	public String homeTimeline2(HttpServletRequest request,
-			HttpServletResponse response, Long sinceId, Long maxId)
+	public String homeTimeline(HttpServletRequest request,
+			HttpServletResponse response,
+			@RequestParam(value = "sinceId", required = false) Long sinceId,
+			@RequestParam(value = "maxId", required = false) Long maxId)
 			throws Exception {
 		Timeline timeline = new Timeline();
 		String accessToken = (String) request.getSession().getAttribute(
@@ -129,14 +134,10 @@ public class WeiboController {
 		}
 
 		StatusWapper statusWapper = timeline.getHomeTimeline(0, 0, paging);
-
-		if (statusWapper.getStatuses().size() > 0) {
-			request.setAttribute("weiboFirstStatus", statusWapper.getStatuses()
-					.get(0));
-		} else {
-			request.setAttribute("weiboFirstStatus", null);
+		Map<Long, Status> statusMap = new HashMap<Long, Status>();
+		for (Status status : statusWapper.getStatuses()) {
+			statusMap.put(status.getIdstr(), status);
 		}
-		request.setAttribute("weiboStatusWapper", statusWapper);
 		if (statusWapper.getStatuses().size() > 0) {
 			Status prevOne = statusWapper.getStatuses().get(0);
 			Status nextOne = statusWapper.getStatuses().get(
@@ -147,7 +148,35 @@ public class WeiboController {
 			request.setAttribute("sinceId", 0);
 			request.setAttribute("maxId", 0);
 		}
+		request.getSession().setAttribute("weiboStatusMap", statusMap);
+		request.setAttribute("weiboStatusWapper", statusWapper);
 		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
 		return "weibo/homeTimeline";
+	}
+
+	@RequestMapping("/weibo/imagePreview.xml")
+	public String imagePreview(HttpServletRequest request,
+			HttpServletResponse response,
+			@RequestParam(value = "statusId", required = false) Long statusId)
+			throws Exception {
+		Map<Long, Status> statusMap = (Map<Long, Status>) request.getSession()
+				.getAttribute("weiboStatusMap");
+		Status status = statusMap.get(statusId);
+		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
+		request.setAttribute("weiboStatus", status);
+		return "weibo/imagePreview";
+	}
+	
+	@RequestMapping("/weibo/textPreview.xml")
+	public String textPreview(HttpServletRequest request,
+			HttpServletResponse response,
+			@RequestParam(value = "statusId", required = false) Long statusId)
+			throws Exception {
+		Map<Long, Status> statusMap = (Map<Long, Status>) request.getSession()
+				.getAttribute("weiboStatusMap");
+		Status status = statusMap.get(statusId);
+		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
+		request.setAttribute("weiboStatus", status);
+		return "weibo/textPreview";
 	}
 }
