@@ -109,6 +109,10 @@ public class WeiboController {
 			request.getSession().setAttribute("weiboUser", user);
 			request.setAttribute("serverurl",
 					springProperty.getSystemServerUrl());
+			if (log.isDebugEnabled()) {
+				log.debug("There is an user [" + uid
+						+ "] begin to play with weibo at ATV3");
+			}
 			return "weibo/profile";
 		} else {
 			request.setAttribute("weiboLoginURL",
