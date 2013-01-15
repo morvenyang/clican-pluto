@@ -10,7 +10,7 @@
 							<c:if test="${weiboStatus.originalPic!=null&&fn:length(weiboStatus.originalPic)!=0}">
 								<photoAsset height="1024" width="1024" src="${weiboStatus.originalPic}"/>
 							</c:if>
-							<c:if test="${weiboStatus.retweetedStatus.originalPic!=null&&fn:length(weiboStatus.retweetedStatus.originalPic)!=0}">
+							<c:if test="${weiboStatus.retweetedStatus!=null&&weiboStatus.retweetedStatus.originalPic!=null&&fn:length(weiboStatus.retweetedStatus.originalPic)!=0}">
 								<photoAsset height="1024" width="1024" src="${weiboStatus.retweetedStatus.originalPic}"/>
 							</c:if>
 						</assets>

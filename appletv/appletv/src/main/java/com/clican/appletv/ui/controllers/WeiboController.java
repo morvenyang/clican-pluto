@@ -35,6 +35,16 @@ public class WeiboController {
 	@Autowired
 	private SpringProperty springProperty;
 
+	private boolean isLogin(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		if (request.getSession().getAttribute("weiboAccessToken") != null) {
+			return true;
+		} else {
+			response.sendRedirect(request.getContextPath() + "/releasenote.xml");
+			return false;
+		}
+	}
+
 	@RequestMapping("/weibo/oaAuthCallback.do")
 	public String callback(HttpServletRequest request,
 			HttpServletResponse response,
@@ -105,21 +115,15 @@ public class WeiboController {
 		}
 	}
 
-	@RequestMapping("/weibo/imagePreview.xml")
-	public String imagePreview(HttpServletRequest request,
-			HttpServletResponse response,
-			@RequestParam(value = "imageURL", required = false) String imageURL)
-			throws Exception {
-		request.setAttribute("imageURL", imageURL);
-		return "weibo/imagePreview";
-	}
-
 	@RequestMapping("/weibo/homeTimeline.xml")
 	public String homeTimeline(HttpServletRequest request,
 			HttpServletResponse response,
 			@RequestParam(value = "sinceId", required = false) Long sinceId,
 			@RequestParam(value = "maxId", required = false) Long maxId)
 			throws Exception {
+		if (!isLogin(request, response)) {
+			return null;
+		}
 		Timeline timeline = new Timeline();
 		String accessToken = (String) request.getSession().getAttribute(
 				"weiboAccessToken");
@@ -154,24 +158,39 @@ public class WeiboController {
 		return "weibo/homeTimeline";
 	}
 
+	@SuppressWarnings("unchecked")
 	@RequestMapping("/weibo/imagePreview.xml")
 	public String imagePreview(HttpServletRequest request,
 			HttpServletResponse response,
 			@RequestParam(value = "statusId", required = false) Long statusId)
 			throws Exception {
+		if (!isLogin(request, response)) {
+			return null;
+		}
 		Map<Long, Status> statusMap = (Map<Long, Status>) request.getSession()
 				.getAttribute("weiboStatusMap");
 		Status status = statusMap.get(statusId);
 		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
 		request.setAttribute("weiboStatus", status);
-		return "weibo/imagePreview";
+		if (StringUtils.isEmpty(status.getOriginalPic())
+				&& (status.getRetweetedStatus() == null || StringUtils
+						.isEmpty(status.getRetweetedStatus().getOriginalPic()))) {
+			return "weibo/textPreview";
+		} else {
+			return "weibo/imagePreview";
+		}
+
 	}
-	
+
+	@SuppressWarnings("unchecked")
 	@RequestMapping("/weibo/textPreview.xml")
 	public String textPreview(HttpServletRequest request,
 			HttpServletResponse response,
 			@RequestParam(value = "statusId", required = false) Long statusId)
 			throws Exception {
+		if (!isLogin(request, response)) {
+			return null;
+		}
 		Map<Long, Status> statusMap = (Map<Long, Status>) request.getSession()
 				.getAttribute("weiboStatusMap");
 		Status status = statusMap.get(statusId);

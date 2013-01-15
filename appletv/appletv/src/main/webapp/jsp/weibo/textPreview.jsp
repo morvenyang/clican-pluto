@@ -3,7 +3,12 @@
 <body>
 		<scrollingText id="text">
 			<title>内容</title>
-			<text><![CDATA[${weiboStatus.text}]]></text>
+			<c:if test="${weiboStatus.retweetedStatus!=null}">
+				<text><![CDATA[${weiboStatus.text} @${weiboStatus.retweetedStatus.user.screenName} @${weiboStatus.retweetedStatus.text}]]></text>
+			</c:if>
+			<c:if test="${weiboStatus.retweetedStatus==null}">
+				<text><![CDATA[${weiboStatus.text}]]></text>
+			</c:if>
 			<buttons>
 				<actionButton id="ab1" onSelect="">
 					<title>转发</title>
