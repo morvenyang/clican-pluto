@@ -1,7 +1,10 @@
 package weibo4j;
 
+import java.util.List;
+
 import weibo4j.model.PostParameter;
 import weibo4j.model.WeiboException;
+import weibo4j.org.json.JSONArray;
 import weibo4j.org.json.JSONObject;
 import weibo4j.util.WeiboConfig;
 
@@ -29,6 +32,15 @@ public class ShortUrl extends Weibo{
 		return client.get(WeiboConfig.getValue("baseURL") + "short_url/expand.json",new PostParameter[] {
 			new PostParameter("url_short",url_short)
 		}).asJSONObject();
+	}
+	
+	public JSONArray shortToLongUrl (List<String> url_shorts) throws WeiboException {
+		PostParameter[] pps = new PostParameter[url_shorts.size()];
+		for(int i=0;i<url_shorts.size();i++){
+			String url_short=url_shorts.get(i);
+			pps[i]= new PostParameter("url_short",url_short);
+		}
+		return client.get(WeiboConfig.getValue("baseURL") + "short_url/expand.json",pps).asJSONArray();
 	}
 	
 	/**

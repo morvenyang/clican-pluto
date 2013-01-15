@@ -29,6 +29,7 @@ import weibo4j.Account;
 import weibo4j.ShortUrl;
 import weibo4j.model.Status;
 import weibo4j.model.StatusWapper;
+import weibo4j.org.json.JSONArray;
 import weibo4j.org.json.JSONObject;
 
 import com.clican.appletv.common.SpringProperty;
@@ -56,7 +57,6 @@ public class WeiboClientImpl implements WeiboClient {
 		Map<String, Status> urlMap = new HashMap<String, Status>();
 		Pattern pattern = Pattern.compile(springProperty
 				.getWeiboShortURLPattern());
-		List<String> result = new ArrayList<String>();
 		for (Status status : statusWapper.getStatuses()) {
 			String text = status.getText();
 			if (status.getRetweetedStatus() != null
@@ -67,11 +67,30 @@ public class WeiboClientImpl implements WeiboClient {
 			Matcher matcher = pattern.matcher(text);
 			while (matcher.find()) {
 				String matchText = matcher.group();
-				result.add(matchText);
+				urls.add(matchText);
 				urlMap.put(matchText, status);
 			}
 		}
-		
+		if (urls.size() > 0) {
+			try {
+				JSONArray jsonArray = shortUrl.shortToLongUrl(urls);
+				for (int i = 0; i < jsonArray.length(); i++) {
+					JSONObject jsonUrl = jsonArray.getJSONObject(i);
+					String surl = jsonUrl.getString("url_short");
+					String lurl = jsonUrl.getString("url_long");
+					String type = jsonUrl.getString("type");
+					if (type.equals("1")) {
+						// video
+						Status status = urlMap.get(surl);
+						// convert this lurl to AppleTV page
+						status.getVideoUrls().add(lurl);
+					}
+				}
+			} catch (Exception e) {
+				log.error("", e);
+			}
+		}
+
 	}
 
 	private String generateImageFileName() {
