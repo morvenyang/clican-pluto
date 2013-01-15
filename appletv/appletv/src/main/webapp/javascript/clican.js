@@ -32,10 +32,10 @@ var appletv = {
 						xml+='<actionButton id=\"album_3\" onSelect=\"appletv.loadAlbumListXml('+itemid+','+channelId+','+hd+',4,\''+serverurl+'\');\" onPlay=\"appletv.loadAlbumListXml('+itemid+','+channelId+','+hd+',4,\''+serverurl+'\');\"><title>超清</title></actionButton>';
 					}
 				}else{
-					xml+='<actionButton id=\"album_1\" onSelect=\"atv.loadURL('+serverurl+'/tudou/play.xml?st=2&amp;itemid='+itemid+');\" onPlay=\"atv.loadURL('+serverurl+'/tudou/play.xml?st=2&amp;itemid='+itemid+');\"><title>标清</title></actionButton>';
-					xml+='<actionButton id=\"album_2\" onSelect=\"atv.loadURL('+serverurl+'/tudou/play.xml?st=4&amp;itemid='+itemid+');\" onPlay=\"atv.loadURL('+serverurl+'/tudou/play.xml?st=3&amp;itemid='+itemid+');\"><title>高清</title></actionButton>';
+					xml+='<actionButton id=\"album_1\" onSelect=\"atv.loadURL(\''+serverurl+'/tudou/play.xml?st=2&amp;itemid='+itemid+'\');\" onPlay=\"atv.loadURL(\''+serverurl+'/tudou/play.xml?st=2&amp;itemid='+itemid+'\');\"><title>标清</title></actionButton>';
+					xml+='<actionButton id=\"album_2\" onSelect=\"atv.loadURL(\''+serverurl+'/tudou/play.xml?st=4&amp;itemid='+itemid+'\');\" onPlay=\"atv.loadURL(\''+serverurl+'/tudou/play.xml?st=3&amp;itemid='+itemid+'\');\"><title>高清</title></actionButton>';
 					if(album['hd']==1){
-						xml+='<actionButton id=\"album_3\" onSelect=\"atv.loadURL('+serverurl+'/tudou/play.xml?st=4&amp;itemid='+itemid+');\" onPlay=\"atv.loadURL('+serverurl+'/tudou/play.xml?st=4&amp;itemid='+itemid+');\"><title>超清</title></actionButton>';
+						xml+='<actionButton id=\"album_3\" onSelect=\"atv.loadURL(\''+serverurl+'/tudou/play.xml?st=4&amp;itemid='+itemid+'\');\" onPlay=\"atv.loadURL(\''+serverurl+'/tudou/play.xml?st=4&amp;itemid='+itemid+'\');\"><title>超清</title></actionButton>';
 					}
 				}
 				
