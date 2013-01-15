@@ -14,9 +14,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import weibo4j.Comments;
 import weibo4j.Oauth;
 import weibo4j.Timeline;
 import weibo4j.Users;
+import weibo4j.model.Comment;
+import weibo4j.model.CommentWapper;
 import weibo4j.model.Paging;
 import weibo4j.model.Status;
 import weibo4j.model.StatusWapper;
@@ -197,5 +200,47 @@ public class WeiboController {
 		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
 		request.setAttribute("weiboStatus", status);
 		return "weibo/textPreview";
+	}
+
+	@RequestMapping("/weibo/showComments.xml")
+	public String showComments(HttpServletRequest request,
+			HttpServletResponse response,
+			@RequestParam(value = "statusId", required = false) Long statusId,
+			@RequestParam(value = "sinceId", required = false) Long sinceId,
+			@RequestParam(value = "maxId", required = false) Long maxId)
+			throws Exception {
+		if (!isLogin(request, response)) {
+			return null;
+		}
+		Comments comments = new Comments();
+		String accessToken = (String) request.getSession().getAttribute(
+				"weiboAccessToken");
+		comments.setToken(accessToken);
+		Paging paging = new Paging();
+		paging.setCount(10);
+		if (sinceId != null && sinceId >= 0) {
+			paging.setSinceId(sinceId);
+		}
+		if (maxId != null && maxId >= 0) {
+			paging.setMaxId(maxId);
+		}
+
+		comments.getCommentById(statusId.toString(), paging, 0);
+		CommentWapper commentWapper = comments.getCommentById(statusId.toString(), paging, 0);
+		
+		if (commentWapper.getComments().size() > 0) {
+			Comment prevOne = commentWapper.getComments().get(0);
+			Comment nextOne = commentWapper.getComments().get(
+					commentWapper.getComments().size() - 1);
+			request.setAttribute("sinceId", prevOne.getId());
+			request.setAttribute("maxId", nextOne.getId() - 1);
+		} else {
+			request.setAttribute("sinceId", 0);
+			request.setAttribute("maxId", 0);
+		}
+		request.setAttribute("statusId", statusId);
+		request.setAttribute("weiboCommentWapper", commentWapper);
+		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
+		return "weibo/showComments";
 	}
 }
