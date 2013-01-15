@@ -6,6 +6,16 @@
 				<c:forEach var="weiboComment" items="${weiboCommentWapper.comments}">
 					<collectionDivider><title><![CDATA[${weiboComment.user.screenName}:${weiboComment.text}]]></title></collectionDivider>
 				</c:forEach>
+				<shelf id="action">
+					<sections>
+						<shelfSection>
+							<items>
+								<actionButton id="comment"><title>评论</title></actionButton>
+								<actionButton id="next" onSelect="atv.loadURL('${serverurl}/weibo/showComments.xml?statusId=${statusId}&amp;maxId=${maxId}')"><title>下一页</title></actionButton>
+							</items>
+						</shelfSection>
+					</sections>
+				</shelf>
 			</items>
 		</scroller>
 	</body>
