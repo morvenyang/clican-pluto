@@ -11,7 +11,7 @@ public class YoukuClientImpl extends BaseClient implements YoukuClient {
 
 	@Override
 	public YoukuAlbum queryAlbum(String showid) {
-		String url = springProperty.getQqVideoApi() + "&id=" + showid;
+		String url = springProperty.getYoukuVideoApi() + "&id=" + showid;
 		if (log.isDebugEnabled()) {
 			log.debug("query album url=" + url);
 		}
@@ -19,16 +19,29 @@ public class YoukuClientImpl extends BaseClient implements YoukuClient {
 		JSONObject albumJson = JSONObject.fromObject(jsonStr).getJSONObject("detail");
 		YoukuAlbum album = new YoukuAlbum();
 
-		album.setPerformer(StringUtils.join(albumJson.getJSONArray("performer")
-				.iterator(), ","));
-		album.setArea(albumJson.getString("area"));
-		album.setDirector(StringUtils.join(albumJson.getJSONArray("director")
-				.iterator(), ","));
-		album.setShowid(albumJson.getString("showid"));
+		if(albumJson.containsKey("performer")){
+			album.setPerformer(StringUtils.join(albumJson.getJSONArray("performer")
+					.iterator(), ","));
+		}
+		
+		if(albumJson.containsKey("director")){
+			album.setPerformer(StringUtils.join(albumJson.getJSONArray("director")
+					.iterator(), ","));
+		}
+		
+		if(albumJson.containsKey("area")){
+			album.setArea(albumJson.getString("area"));
+		}
+		
+		if(albumJson.containsKey("showdate")){
+			album.setArea(albumJson.getString("showdate"));
+		}
+		if(albumJson.containsKey("desc")){
+			album.setArea(albumJson.getString("desc"));
+		}
+		album.setShowid(showid);
 		album.setImg(albumJson.getString("img"));
 		album.setTitle(albumJson.getString("title"));
-		album.setShowdate(albumJson.getString("showdate"));
-		album.setDesc(albumJson.getString("desc"));
 
 		return album;
 	}

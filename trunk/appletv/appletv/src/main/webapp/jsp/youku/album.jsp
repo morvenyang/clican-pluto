@@ -1,8 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %><%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %><%@ page contentType="text/xml;charset=utf-8" %><?xml version="1.0" encoding="UTF-8"?>
 <atv>
-<c:if test="${album.size<7}">
-<head><script src="${serverurl}/javascript/clican.js"/></head>
-</c:if>
 <body>
 <itemDetail id="itemdetail">
 			<title>${album.title}</title>
@@ -26,7 +23,7 @@
 								<actionButton id="album_1" onSelect="atv.loadURL('${serverurl}/youku/play.xml?showid=${showid}');" onPlay="atv.loadURL('${serverurl}/youku/play.xml?showid=${showid}');">
 									<title>高清</title>
 								</actionButton>
-								<actionButton id="album_4" onSelect="atv.loadURL('${serverurl}/weibo/createStatus.xml?title=${album.title}&amp;shareURL=http://v.youku.com/v_show/id_${showid}.html&amp;imageURL=${album.img}');" onPlay="atv.loadURL('${serverurl}/weibo/createStatus.xml?title=${album.tt}&amp;shareURL=http://v.qq.com/cover/${fn:substring(album.id,0,1)}/${album.id}.html&amp;imageURL=${album.pic}');">
+								<actionButton id="album_4" onSelect="atv.loadURL('${serverurl}/weibo/createStatus.xml?title=${album.title}&amp;shareURL=http://v.youku.com/v_show/id_${showid}.html&amp;imageURL=${album.img}');" onPlay="atv.loadURL('${serverurl}/weibo/createStatus.xml?title=${album.title}&amp;shareURL=http://v.youku.com/v_show/id_${showid}.html&amp;imageURL=${album.img}');">
 									<title>分享</title>
 								</actionButton>
 							</items>
