@@ -26,7 +26,7 @@
 						<shelfSection>
 							<items>
 									<actionButton id="shelf_1" onSelect="atv.loadURL('${serverurl}/weibo/homeTimeline.xml');" onPlay="atv.loadURL('${serverurl}/weibo/homeTimeline.xml');">
-										<title>开始微博</title>
+										<title>开始</title>
 									</actionButton>
 							</items>
 						</shelfSection>
