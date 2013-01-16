@@ -147,7 +147,7 @@ public class WeiboController {
 			paging.setMaxId(maxId);
 		}
 
-		StatusWapper statusWapper = timeline.getHomeTimeline(0, 3, paging);
+		StatusWapper statusWapper = timeline.getHomeTimeline(0, 0, paging);
 		weiboClient.processLongUrl(statusWapper, accessToken);
 		Map<Long, Status> statusMap = new HashMap<Long, Status>();
 		for (Status status : statusWapper.getStatuses()) {
