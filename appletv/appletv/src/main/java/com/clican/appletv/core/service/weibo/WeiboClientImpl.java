@@ -80,7 +80,7 @@ public class WeiboClientImpl implements WeiboClient {
 		}
 		if (urls.size() > 0) {
 			try {
-				JSONArray jsonArray = shortUrl.shortToLongUrl(urls);
+				JSONArray jsonArray = shortUrl.shortToLongUrl(urls).getJSONArray("urls");
 				for (int i = 0; i < jsonArray.length(); i++) {
 					JSONObject jsonUrl = jsonArray.getJSONObject(i);
 					String surl = jsonUrl.getString("url_short");
@@ -283,8 +283,9 @@ public class WeiboClientImpl implements WeiboClient {
 
 	public static void main(String[] args) {
 		String s = "http://v.youku.com/v_show/id_XNTAwMzg1OTEy.html";
+		String p = "http://v.youku.com/v_show/id_(\\p{Alnum}*)\\.html";
 		Pattern pattern = Pattern
-				.compile("http://v.youku.com/v_show/id_(\\p{Alnum}*)\\.html");
+				.compile(p);
 		Matcher youkuMatcher = pattern.matcher(s);
 		if (youkuMatcher.matches()) {
 			String showid = youkuMatcher.group(1);
