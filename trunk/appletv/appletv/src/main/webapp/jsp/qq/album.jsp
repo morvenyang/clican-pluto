@@ -34,7 +34,7 @@
 									</actionButton>
 								</c:if>
 								<actionButton id="album_4" onSelect="atv.loadURL('${serverurl}/weibo/createStatus.xml?title=${album.tt}&amp;shareURL=http://v.qq.com/cover/${fn:substring(album.id,0,1)}/${album.id}.html&amp;imageURL=${album.pic}');" onPlay="atv.loadURL('${serverurl}/weibo/createStatus.xml?title=${album.tt}&amp;shareURL=http://v.qq.com/cover/${fn:substring(album.id,0,1)}/${album.id}.html&amp;imageURL=${album.pic}');">
-									<title>分享到新浪微博</title>
+									<title>分享</title>
 								</actionButton>
 							</items>
 						</shelfSection>
