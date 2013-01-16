@@ -25,7 +25,7 @@
 							</imageTextImageMenuItem>
 							<c:forEach var="weiboStatus" items="${weiboStatusWapper.statuses}"
 								varStatus="varStatus">
-								<imageTextImageMenuItem id="item_${varStatus.count}" onSelect="atv.loadURL('${serverurl}/weibo/textPreview.xml?statusId=${weiboStatus.idstr}');" onPlay="atv.loadURL('${serverurl}/weibo/imagePreview.xml?statusId=${weiboStatus.idstr}');">
+								<imageTextImageMenuItem id="item_${varStatus.count}" onSelect="atv.loadURL('${serverurl}/weibo/textPreview.xml?statusId=${weiboStatus.idstr}');" onPlay="atv.loadURL('${serverurl}/weibo/imageOrVideoPreview.xml?statusId=${weiboStatus.idstr}');">
 									<leftImage>${weiboStatus.user.profileImageUrl}</leftImage>
 									<rightImage></rightImage>
 									<imageSeparatorText></imageSeparatorText>
