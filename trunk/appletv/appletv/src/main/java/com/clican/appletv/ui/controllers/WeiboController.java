@@ -43,6 +43,9 @@ public class WeiboController {
 		if (request.getSession().getAttribute("weiboAccessToken") != null) {
 			return true;
 		} else {
+			if (log.isDebugEnabled()) {
+				log.debug("The user has not login weibo account.");
+			}
 			response.sendRedirect(request.getContextPath() + "/releasenote.xml");
 			return false;
 		}
@@ -257,6 +260,10 @@ public class WeiboController {
 			@RequestParam(value = "shareURL", required = false) String shareURL,
 			@RequestParam(value = "imageURL", required = false) String imageURL)
 			throws Exception {
+		if (log.isDebugEnabled()) {
+			log.debug("create status, title:" + title + ",shareURL:" + shareURL
+					+ ".imageURL:" + imageURL);
+		}
 		if (!isLogin(request, response)) {
 			return null;
 		}
