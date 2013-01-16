@@ -60,18 +60,23 @@ public class WeiboClientImpl implements WeiboClient {
 		Pattern youkuPattern = Pattern.compile(springProperty
 				.getYoukuShowidPattern());
 		for (Status status : statusWapper.getStatuses()) {
-			String text = status.getText();
-			if (status.getRetweetedStatus() != null
-					&& StringUtils.isNotEmpty(status.getRetweetedStatus()
-							.getText())) {
-				text += status.getRetweetedStatus().getText();
+			try {
+				String text = status.getText();
+				if (status.getRetweetedStatus() != null
+						&& StringUtils.isNotEmpty(status.getRetweetedStatus()
+								.getText())) {
+					text += status.getRetweetedStatus().getText();
+				}
+				Matcher matcher = pattern.matcher(text);
+				while (matcher.find()) {
+					String matchText = matcher.group();
+					urls.add(matchText);
+					urlMap.put(matchText, status);
+				}
+			} catch (Exception e) {
+				log.error("", e);
 			}
-			Matcher matcher = pattern.matcher(text);
-			while (matcher.find()) {
-				String matchText = matcher.group();
-				urls.add(matchText);
-				urlMap.put(matchText, status);
-			}
+
 		}
 		if (urls.size() > 0) {
 			try {
@@ -81,19 +86,23 @@ public class WeiboClientImpl implements WeiboClient {
 					String surl = jsonUrl.getString("url_short");
 					String lurl = jsonUrl.getString("url_long");
 					String type = jsonUrl.getString("type");
-					if (type.equals("1")) {
-						// video
-						Status status = urlMap.get(surl);
-						// convert this lurl to AppleTV page
-						Matcher youkuMatcher = youkuPattern.matcher(lurl);
-						if (youkuMatcher.matches()) {
-							String showid = youkuMatcher.group(1);
-							status.getVideoUrls().add(
-									springProperty.getSystemServerUrl()
-											+ "/youku/album.xml?showid="
-											+ showid);
-						}
+					try {
+						if (type.equals("1")) {
+							// video
+							Status status = urlMap.get(surl);
+							// convert this lurl to AppleTV page
+							Matcher youkuMatcher = youkuPattern.matcher(lurl);
+							if (youkuMatcher.matches()) {
+								String showid = youkuMatcher.group(1);
+								status.getVideoUrls().add(
+										springProperty.getSystemServerUrl()
+												+ "/youku/album.xml?showid="
+												+ showid);
+							}
 
+						}
+					} catch (Exception e) {
+						log.error("", e);
 					}
 				}
 			} catch (Exception e) {
