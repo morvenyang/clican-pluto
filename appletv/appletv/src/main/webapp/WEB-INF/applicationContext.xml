@@ -38,6 +38,7 @@ http://www.springframework.org/schema/context/spring-context-2.5.xsd">
 		<property name="qqKeywordSearchApi" value="${qq.keyword.search.api}"></property>
 		<property name="qqSearchVideosApi" value="${qq.search.videos.api}"></property>
 		<property name="qqSearchAlbumsApi" value="${qq.search.albums.api}"></property>
+		<property name="qqIdPattern" value="${qq.id.pattern}"></property>
 		
 		<property name="youkuVideoApi" value="${youku.video.api}"></property>
 		<property name="youkuVideoPlayApi" value="${youku.video.play.api}"></property>
