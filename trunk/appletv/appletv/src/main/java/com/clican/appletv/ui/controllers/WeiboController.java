@@ -182,7 +182,8 @@ public class WeiboController {
 				.getAttribute("weiboStatusMap");
 		Status status = statusMap.get(statusId);
 		if (status.getVideoUrls().size() > 0) {
-			response.sendRedirect(status.getVideoUrls().get(0));
+			String url = status.getVideoUrls().get(0);
+			response.sendRedirect(url);
 			return null;
 		}
 		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
