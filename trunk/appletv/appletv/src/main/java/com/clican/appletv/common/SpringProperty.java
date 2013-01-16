@@ -46,6 +46,7 @@ public class SpringProperty {
 	
 	private String youkuVideoApi;
 	private String youkuVideoPlayApi;
+	private String youkuShowidPattern;
 	
 	private String weiboLoginURL;
 	private String weiboAppKey;
@@ -339,6 +340,14 @@ public class SpringProperty {
 
 	public void setYoukuVideoPlayApi(String youkuVideoPlayApi) {
 		this.youkuVideoPlayApi = youkuVideoPlayApi;
+	}
+
+	public String getYoukuShowidPattern() {
+		return youkuShowidPattern;
+	}
+
+	public void setYoukuShowidPattern(String youkuShowidPattern) {
+		this.youkuShowidPattern = youkuShowidPattern;
 	}
 
 }

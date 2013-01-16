@@ -57,6 +57,8 @@ public class WeiboClientImpl implements WeiboClient {
 		Map<String, Status> urlMap = new HashMap<String, Status>();
 		Pattern pattern = Pattern.compile(springProperty
 				.getWeiboShortURLPattern());
+		Pattern youkuPattern = Pattern.compile(springProperty
+				.getYoukuShowidPattern());
 		for (Status status : statusWapper.getStatuses()) {
 			String text = status.getText();
 			if (status.getRetweetedStatus() != null
@@ -83,7 +85,15 @@ public class WeiboClientImpl implements WeiboClient {
 						// video
 						Status status = urlMap.get(surl);
 						// convert this lurl to AppleTV page
-						status.getVideoUrls().add(lurl);
+						Matcher youkuMatcher = youkuPattern.matcher(lurl);
+						if (youkuMatcher.matches()) {
+							String showid = youkuMatcher.group(1);
+							status.getVideoUrls().add(
+									springProperty.getSystemServerUrl()
+											+ "/youku/album.xml?showid="
+											+ showid);
+						}
+
 					}
 				}
 			} catch (Exception e) {
@@ -263,13 +273,13 @@ public class WeiboClientImpl implements WeiboClient {
 	}
 
 	public static void main(String[] args) {
-		String s = "abcd http://t.cn/asdfgh0 er http://t.cn/0dddeee";
-		Pattern pattern = Pattern.compile("http://t\\.cn/\\p{Alnum}{7}");
-		List<String> result = new ArrayList<String>();
-		Matcher matcher = pattern.matcher(s);
-		while (matcher.find()) {
-			result.add(matcher.group());
+		String s = "http://v.youku.com/v_show/id_XNTAwMzg1OTEy.html";
+		Pattern pattern = Pattern
+				.compile("http://v.youku.com/v_show/id_(\\p{Alnum}*)\\.html");
+		Matcher youkuMatcher = pattern.matcher(s);
+		if (youkuMatcher.matches()) {
+			String showid = youkuMatcher.group(1);
+			System.out.println(showid);
 		}
-		System.out.println(StringUtils.join(result.iterator(), ","));
 	}
 }
