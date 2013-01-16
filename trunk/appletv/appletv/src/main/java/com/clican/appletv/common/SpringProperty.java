@@ -43,6 +43,7 @@ public class SpringProperty {
 	private String qqSearchVideosApi;
 
 	private String qqSearchAlbumsApi;
+	private String qqIdPattern;
 	
 	private String youkuVideoApi;
 	private String youkuVideoPlayApi;
@@ -348,6 +349,14 @@ public class SpringProperty {
 
 	public void setYoukuShowidPattern(String youkuShowidPattern) {
 		this.youkuShowidPattern = youkuShowidPattern;
+	}
+
+	public String getQqIdPattern() {
+		return qqIdPattern;
+	}
+
+	public void setQqIdPattern(String qqIdPattern) {
+		this.qqIdPattern = qqIdPattern;
 	}
 
 }
