@@ -44,6 +44,9 @@ public class SpringProperty {
 
 	private String qqSearchAlbumsApi;
 	
+	private String youkuVideoApi;
+	private String youkuVideoPlayApi;
+	
 	private String weiboLoginURL;
 	private String weiboAppKey;
 	private String weiboAppSercret;
@@ -320,6 +323,22 @@ public class SpringProperty {
 
 	public void setWeiboShortURLPattern(String weiboShortURLPattern) {
 		this.weiboShortURLPattern = weiboShortURLPattern;
+	}
+
+	public String getYoukuVideoApi() {
+		return youkuVideoApi;
+	}
+
+	public void setYoukuVideoApi(String youkuVideoApi) {
+		this.youkuVideoApi = youkuVideoApi;
+	}
+
+	public String getYoukuVideoPlayApi() {
+		return youkuVideoPlayApi;
+	}
+
+	public void setYoukuVideoPlayApi(String youkuVideoPlayApi) {
+		this.youkuVideoPlayApi = youkuVideoPlayApi;
 	}
 
 }
