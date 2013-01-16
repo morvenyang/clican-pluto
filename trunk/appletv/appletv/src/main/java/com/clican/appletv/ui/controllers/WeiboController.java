@@ -169,7 +169,7 @@ public class WeiboController {
 	}
 
 	@SuppressWarnings("unchecked")
-	@RequestMapping("/weibo/imagePreview.xml")
+	@RequestMapping("/weibo/imageOrVideoPreview.xml")
 	public String imagePreview(HttpServletRequest request,
 			HttpServletResponse response,
 			@RequestParam(value = "statusId", required = false) Long statusId)
@@ -180,6 +180,10 @@ public class WeiboController {
 		Map<Long, Status> statusMap = (Map<Long, Status>) request.getSession()
 				.getAttribute("weiboStatusMap");
 		Status status = statusMap.get(statusId);
+		if (status.getVideoUrls().size() > 0) {
+			response.sendRedirect(status.getVideoUrls().get(0));
+			return null;
+		}
 		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
 		request.setAttribute("weiboStatus", status);
 		if (StringUtils.isEmpty(status.getOriginalPic())
