@@ -63,7 +63,7 @@ public class WeiboClientImpl implements WeiboClient {
 		Pattern tudouPattern = Pattern.compile(springProperty
 				.getTudouCodePattern());
 		Pattern sohuPattern = Pattern.compile(springProperty.getSohuURLPattern());
-		Pattern qiyiPattern = Pattern.compile(springProperty.getQiyiCodePattern());
+		Pattern fiveSixPattern = Pattern.compile(springProperty.getFivesixCodePattern());
 		for (Status status : statusWapper.getStatuses()) {
 			try {
 				String text = status.getText();
@@ -128,12 +128,12 @@ public class WeiboClientImpl implements WeiboClient {
 													+ "/sohu/playVideoByURL.xml?url="
 													+ lurl);
 										}else{
-											Matcher qiyiMatcher = qiyiPattern.matcher(lurl);
-											if(qiyiMatcher.matches()){
-												String code = qiyiMatcher.group(1);
+											Matcher fiveSixMatcher = fiveSixPattern.matcher(lurl);
+											if(fiveSixMatcher.matches()){
+												String code = fiveSixMatcher.group(1);
 												status.setVideoUrl(springProperty
 														.getSystemServerUrl()
-														+ "/qiyi/playVideoByCode.xml?code="
+														+ "/fivesix/playVideoByCode.xml?code="
 														+ code);
 											}
 										}
