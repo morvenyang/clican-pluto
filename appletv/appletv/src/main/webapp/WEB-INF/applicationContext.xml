@@ -52,6 +52,7 @@ http://www.springframework.org/schema/context/spring-context-2.5.xsd">
 		
 		<property name="fivesixCodePattern" value="${fivesix.code.pattern}"></property>
 		<property name="fivesixVideoApi" value="${fivesix.video.api}"></property>
+		<property name="fivesixVideoHtmlApi" value="${fivesix.video.html.api}"></property>
 		
 		<property name="weiboAppKey" value="${weibo.app.key}"></property>
 		<property name="weiboAppSercret" value="${weibo.app.sercret}"></property>
