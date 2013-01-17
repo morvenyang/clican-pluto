@@ -112,11 +112,13 @@ public class WeiboClientImpl implements WeiboClient {
 								} else {
 									Matcher tudouMatcher = tudouPattern
 											.matcher(lurl);
-									String code = tudouMatcher.group(1);
-									status.setVideoUrl(springProperty
-											.getSystemServerUrl()
-											+ "/tudou/playVideoByCode.xml?code="
-											+ code);
+									if (tudouMatcher.matches()) {
+										String code = tudouMatcher.group(1);
+										status.setVideoUrl(springProperty
+												.getSystemServerUrl()
+												+ "/tudou/playVideoByCode.xml?code="
+												+ code);
+									}
 								}
 							}
 
