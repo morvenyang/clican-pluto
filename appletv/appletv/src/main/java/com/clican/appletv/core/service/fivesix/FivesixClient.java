@@ -1,4 +1,4 @@
-package com.clican.appletv.core.service.qiyi;
+package com.clican.appletv.core.service.fivesix;
 
 public interface FivesixClient {
 
