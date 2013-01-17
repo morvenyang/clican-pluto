@@ -17,6 +17,11 @@ public class FivesixClientImpl extends BaseClient implements FivesixClient {
 		int start = htmlContent.indexOf("user_ding(");
 		if (start == -1) {
 			return null;
+		} else {
+			start = htmlContent.indexOf("user_ding(", start + 1);
+			if (start == -1) {
+				return null;
+			}
 		}
 		start = start + "user_ding(".length();
 		int end = htmlContent.indexOf(",", start);
@@ -32,7 +37,7 @@ public class FivesixClientImpl extends BaseClient implements FivesixClient {
 					.getJSONObject("info").getJSONArray("rfiles");
 			String playurl = null;
 			if (array.size() > 0) {
-				playurl = array.getJSONObject(0).getString(url);
+				playurl = array.getJSONObject(0).getString("url");
 			}
 			return playurl;
 		} else {

@@ -25,7 +25,7 @@ public class FivesixController {
 			throws IOException {
 		String url = fivesixClient.getPlayURL(code);
 		String playXml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><atv><body><videoPlayer id=\"com.sample.video-player\"><httpFileVideoAsset id=\"play\"><mediaURL>"
-				+ url
+				+ url.replaceAll("&", "&amp;")
 				+ "</mediaURL><title></title><description></description></httpFileVideoAsset></videoPlayer></body></atv>";
 		byte[] data = playXml.getBytes("utf-8");
 		OutputStream os = null;
