@@ -23,7 +23,7 @@ public class SohuClientImpl extends BaseClient implements SohuClient {
 		String matcherContent = htmlContent.substring(start, end);
 		if (StringUtils.isNumeric(matcherContent)) {
 			String apiURL = springProperty.getSohuVideoApi().replace(
-					"vid.json", matcherContent);
+					"vid.json", matcherContent+".json");
 			String jsonContent = this.httpGet(apiURL, null, null);
 			String m3u8URL = JSONObject.fromObject(jsonContent)
 					.getJSONObject("data").getString("url_high");
