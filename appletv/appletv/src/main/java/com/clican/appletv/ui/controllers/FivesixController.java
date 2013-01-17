@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.clican.appletv.core.service.fivesix.FivesixClient;
 
 @Controller
-public class QiYiController {
+public class FivesixController {
 
 	@Autowired
 	private FivesixClient qiYiClient;
