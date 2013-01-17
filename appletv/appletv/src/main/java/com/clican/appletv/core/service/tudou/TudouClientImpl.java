@@ -17,7 +17,6 @@ import com.clican.appletv.core.service.tudou.model.TudouVideo;
 
 public class TudouClientImpl extends BaseClient implements TudouClient {
 
-
 	private List<ListView> convertToVideos(String jsonStr, Channel channel) {
 		List<ListView> result = new ArrayList<ListView>();
 		if (StringUtils.isNotEmpty(jsonStr)) {
@@ -132,6 +131,32 @@ public class TudouClientImpl extends BaseClient implements TudouClient {
 		List<ListView> result = convertToVideos(jsonStr, channel);
 		return result;
 
+	}
+
+	@Override
+	public Long getItemid(String code) {
+		String url = springProperty.getTudouItemidTransferApi() + "?code="
+				+ code;
+		String htmlContent = httpGet(url, null, null);
+		int start = htmlContent.indexOf("http://i2.tdimg.com/");
+		if (start == -1) {
+			return null;
+		}
+		start = start + "http://i2.tdimg.com/".length();
+		int end = htmlContent.indexOf("/p.jpg", start);
+		if (end == -1) {
+			return null;
+		}
+		String matcherContent = htmlContent.substring(start, end);
+
+		if (StringUtils.isNotEmpty(matcherContent)) {
+			matcherContent = matcherContent.replaceAll("/", "").trim();
+		}
+		if (StringUtils.isNumeric(matcherContent)) {
+			return Long.parseLong(matcherContent);
+		} else {
+			return null;
+		}
 	}
 
 	@Override
