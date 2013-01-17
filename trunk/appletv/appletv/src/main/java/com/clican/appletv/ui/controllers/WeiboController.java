@@ -128,6 +128,7 @@ public class WeiboController {
 	@RequestMapping("/weibo/homeTimeline.xml")
 	public String homeTimeline(HttpServletRequest request,
 			HttpServletResponse response,
+			@RequestParam(value = "feature", required = false) Integer feature,
 			@RequestParam(value = "sinceId", required = false) Long sinceId,
 			@RequestParam(value = "maxId", required = false) Long maxId)
 			throws Exception {
@@ -146,8 +147,11 @@ public class WeiboController {
 		if (maxId != null && maxId >= 0) {
 			paging.setMaxId(maxId);
 		}
-
-		StatusWapper statusWapper = timeline.getHomeTimeline(0, 3, paging);
+		if(feature==null){
+			feature = 0;
+		}
+		request.setAttribute("weiboFeature", feature);
+		StatusWapper statusWapper = timeline.getHomeTimeline(0, feature, paging);
 		weiboClient.processLongUrl(statusWapper, accessToken);
 		Map<Long, Status> statusMap = new HashMap<Long, Status>();
 		for (Status status : statusWapper.getStatuses()) {
