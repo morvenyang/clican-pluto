@@ -70,7 +70,10 @@ http://www.springframework.org/schema/context/spring-context-2.5.xsd">
 	
 	<bean id="youkuClient" class="com.clican.appletv.core.service.youku.YoukuClientImpl" autowire="byName">
 	</bean>
-
+	
+	<bean id="sohuClient" class="com.clican.appletv.core.service.sohu.SohuClientImpl" autowire="byName">
+	</bean>
+	
 	<bean id="weiboClient" class="com.clican.appletv.core.service.weibo.WeiboClientImpl" autowire="byName" init-method="init" destroy-method="destroy">
 	</bean>
 </beans>
