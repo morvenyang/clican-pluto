@@ -147,15 +147,24 @@ public class WeiboController {
 		if (maxId != null && maxId >= 0) {
 			paging.setMaxId(maxId);
 		}
-		if(feature==null){
+		if (feature == null) {
 			feature = 0;
 		}
 		request.setAttribute("weiboFeature", feature);
-		StatusWapper statusWapper = timeline.getHomeTimeline(0, feature, paging);
+		StatusWapper statusWapper = timeline
+				.getHomeTimeline(0, feature, paging);
 		weiboClient.processLongUrl(statusWapper, accessToken);
-		Map<Long, Status> statusMap = new HashMap<Long, Status>();
 		for (Status status : statusWapper.getStatuses()) {
-			statusMap.put(status.getIdstr(), status);
+			String text = status.getText();
+			if(status.getRetweetedStatus()!=null){
+				if(status.getRetweetedStatus().getUser()!=null){
+					text+= " @"+status.getRetweetedStatus().getUser().getScreenName();
+				}
+				if(StringUtils.isNotEmpty(status.getRetweetedStatus().getText())){
+					text+=" "+status.getRetweetedStatus().getText();
+				}
+			}
+			status.setFullText(text);
 		}
 		if (statusWapper.getStatuses().size() > 0) {
 			Status prevOne = statusWapper.getStatuses().get(0);
@@ -167,34 +176,34 @@ public class WeiboController {
 			request.setAttribute("sinceId", 0);
 			request.setAttribute("maxId", 0);
 		}
-		request.getSession().setAttribute("weiboStatusMap", statusMap);
 		request.setAttribute("weiboStatusWapper", statusWapper);
+		
 		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
 		return "weibo/homeTimeline";
 	}
 
-	@SuppressWarnings("unchecked")
 	@RequestMapping("/weibo/imageOrVideoPreview.xml")
-	public String imagePreview(HttpServletRequest request,
+	public String imagePreview(
+			HttpServletRequest request,
 			HttpServletResponse response,
-			@RequestParam(value = "statusId", required = false) Long statusId)
+			@RequestParam(value = "statusId", required = false) Long statusId,
+			@RequestParam(value = "vedioURL", required = false) String vedioURL,
+			@RequestParam(value = "imageURL", required = false) String imageURL,
+			@RequestParam(value = "fullText", required = false) String fullText)
 			throws Exception {
 		if (!isLogin(request, response)) {
 			return null;
 		}
-		Map<Long, Status> statusMap = (Map<Long, Status>) request.getSession()
-				.getAttribute("weiboStatusMap");
-		Status status = statusMap.get(statusId);
-		if (StringUtils.isNotEmpty(status.getVideoUrl())) {
-			String url = status.getVideoUrl();
-			response.sendRedirect(url);
+
+		if (StringUtils.isNotEmpty(vedioURL)) {
+			response.sendRedirect(vedioURL);
 			return null;
 		}
 		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
-		request.setAttribute("weiboStatus", status);
-		if (StringUtils.isEmpty(status.getOriginalPic())
-				&& (status.getRetweetedStatus() == null || StringUtils
-						.isEmpty(status.getRetweetedStatus().getOriginalPic()))) {
+		request.setAttribute("fullText", fullText);
+		request.setAttribute("statusId", statusId);
+		request.setAttribute("imageURL", imageURL);
+		if (StringUtils.isEmpty(imageURL)) {
 			return "weibo/textPreview";
 		} else {
 			return "weibo/imagePreview";
@@ -202,20 +211,18 @@ public class WeiboController {
 
 	}
 
-	@SuppressWarnings("unchecked")
 	@RequestMapping("/weibo/textPreview.xml")
 	public String textPreview(HttpServletRequest request,
 			HttpServletResponse response,
-			@RequestParam(value = "statusId", required = false) Long statusId)
+			@RequestParam(value = "statusId", required = false) Long statusId,
+			@RequestParam(value = "fullText", required = false) String fullText)
 			throws Exception {
 		if (!isLogin(request, response)) {
 			return null;
 		}
-		Map<Long, Status> statusMap = (Map<Long, Status>) request.getSession()
-				.getAttribute("weiboStatusMap");
-		Status status = statusMap.get(statusId);
+		request.setAttribute("fullText", fullText);
+		request.setAttribute("statusId", statusId);
 		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
-		request.setAttribute("weiboStatus", status);
 		return "weibo/textPreview";
 	}
 

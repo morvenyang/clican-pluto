@@ -25,7 +25,7 @@
 							</imageTextImageMenuItem>
 							<c:forEach var="weiboStatus" items="${weiboStatusWapper.statuses}"
 								varStatus="varStatus">
-								<imageTextImageMenuItem id="item_${varStatus.count}" onSelect="atv.loadURL('${serverurl}/weibo/textPreview.xml?statusId=${weiboStatus.idstr}');" onPlay="atv.loadURL('${serverurl}/weibo/imageOrVideoPreview.xml?statusId=${weiboStatus.idstr}');">
+								<imageTextImageMenuItem id="item_${varStatus.count}" onSelect="atv.loadURL('${serverurl}/weibo/textPreview.xml?statusId=${weiboStatus.idstr}&amp;fullText=${weiboStatus.fullText}');" onPlay="atv.loadURL('${serverurl}/weibo/imageOrVideoPreview.xml?statusId=${weiboStatus.idstr}&amp;imageURL=${weiboStatus.retweetedStatus.originalPic}&amp;videoURL=${weiboStatus.videoURL}&amp;fullText=${weiboStatus.fullText}');">
 									<leftImage>${weiboStatus.user.profileImageUrl}</leftImage>
 									<rightImage></rightImage>
 									<imageSeparatorText></imageSeparatorText>
@@ -37,15 +37,9 @@
 									</c:if>
 									<preview>
 										<longDescriptionPreview>
-									        <title><![CDATA[${weiboStatus.user.screenName}]]></title>
-									        <c:if test="${weiboStatus.retweetedStatus!=null}">
-									        	<summary><![CDATA[${weiboStatus.text} @${weiboStatus.retweetedStatus.user.screenName} @${weiboStatus.retweetedStatus.text}]]></summary>
-									        	<image src="${weiboStatus.retweetedStatus.originalPic}"></image>
-									        </c:if>
-									        <c:if test="${weiboStatus.retweetedStatus==null}">
-									        	 <summary><![CDATA[${weiboStatus.text}]]></summary>
-									        	 <image src="${weiboStatus.originalPic}"></image>
-									        </c:if>
+									         <title><![CDATA[${weiboStatus.user.screenName}]]></title>
+									         <summary><![CDATA[${weiboStatus.fullText}]]></summary>
+									         <image src="${weiboStatus.retweetedStatus.originalPic}"></image>
 									    </longDescriptionPreview>
 									</preview>
 								</imageTextImageMenuItem>
