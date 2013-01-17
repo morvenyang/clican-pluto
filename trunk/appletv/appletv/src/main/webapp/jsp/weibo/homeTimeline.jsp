@@ -28,7 +28,7 @@
 								<c:if test="${weiboStatus.videoUrl!=null}">
 									<imageTextImageMenuItem id="item_${varStatus.count}" onSelect="atv.loadURL('${serverurl}/weibo/textPreview.xml?statusId=${weiboStatus.idstr}&amp;fullText=${weiboStatus.fullText}');" onPlay="atv.loadURL('${weiboStatus.videoUrl}');">
 										<leftImage>${weiboStatus.user.profileImageUrl}</leftImage>
-										<rightImage></rightImage>
+										<rightImage>${serverurl}/image/weibo/video.png</rightImage>
 										<imageSeparatorText></imageSeparatorText>
 										<c:if test="${fn:length(weiboStatus.text)>10}">
 											<label><![CDATA[${fn:substring(weiboStatus.text,0,10)}]]></label>
