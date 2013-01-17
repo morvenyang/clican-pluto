@@ -187,7 +187,7 @@ public class WeiboController {
 			HttpServletRequest request,
 			HttpServletResponse response,
 			@RequestParam(value = "statusId", required = false) Long statusId,
-			@RequestParam(value = "vedioURL", required = false) String vedioURL,
+			@RequestParam(value = "videoURL", required = false) String videoURL,
 			@RequestParam(value = "imageURL", required = false) String imageURL,
 			@RequestParam(value = "fullText", required = false) String fullText)
 			throws Exception {
@@ -195,8 +195,8 @@ public class WeiboController {
 			return null;
 		}
 
-		if (StringUtils.isNotEmpty(vedioURL)) {
-			response.sendRedirect(vedioURL);
+		if (StringUtils.isNotEmpty(videoURL)) {
+			response.sendRedirect(videoURL);
 			return null;
 		}
 		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
