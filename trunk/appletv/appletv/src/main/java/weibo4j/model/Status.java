@@ -42,6 +42,7 @@ public class Status extends WeiboResponse implements java.io.Serializable {
 	private String statusPic;
 	private String videoUrl;
 	private String fullText;
+	private String fullTextEncode;
 
 	public Status() {
 
@@ -348,6 +349,14 @@ public class Status extends WeiboResponse implements java.io.Serializable {
 
 	public void setFullText(String fullText) {
 		this.fullText = fullText;
+	}
+
+	public String getFullTextEncode() {
+		return fullTextEncode;
+	}
+
+	public void setFullTextEncode(String fullTextEncode) {
+		this.fullTextEncode = fullTextEncode;
 	}
 
 	public static StatusWapper constructWapperStatus(Response res)
