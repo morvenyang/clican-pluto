@@ -11,13 +11,13 @@
 				<sections>
 					<menuSection>
 						<items>
-							<imageTextImageMenuItem id="top" onSelect="atv.loadURL('${serverurl}/weibo/homeTimeline.xml')">
+							<imageTextImageMenuItem id="top" onSelect="atv.loadURL('${serverurl}/weibo/homeTimeline.xml?feature=${weiboFeature}')">
 								<leftImage></leftImage>
 								<rightImage></rightImage>
 								<imageSeparatorText></imageSeparatorText>
 								<label>最新</label>
 							</imageTextImageMenuItem>
-							<imageTextImageMenuItem id="prev" onSelect="atv.loadURL('${serverurl}/weibo/homeTimeline.xml?sinceId=${sinceId}')">
+							<imageTextImageMenuItem id="prev" onSelect="atv.loadURL('${serverurl}/weibo/homeTimeline.xml?sinceId=${sinceId}&amp;feature=${weiboFeature}')">
 								<leftImage></leftImage>
 								<rightImage></rightImage>
 								<imageSeparatorText></imageSeparatorText>
@@ -50,7 +50,7 @@
 									</preview>
 								</imageTextImageMenuItem>
 							</c:forEach>
-							<imageTextImageMenuItem id="next" onSelect="atv.loadURL('${serverurl}/weibo/homeTimeline.xml?maxId=${maxId}')">
+							<imageTextImageMenuItem id="next" onSelect="atv.loadURL('${serverurl}/weibo/homeTimeline.xml?maxId=${maxId}&amp;feature=${weiboFeature}')">
 								<leftImage></leftImage>
 								<rightImage></rightImage>
 								<imageSeparatorText></imageSeparatorText>
