@@ -125,7 +125,7 @@ var appletv = {
 	    },
 	    
 	    shareToSinaWeibo: function(serverurl, title, shareURL, imageURL){
-	    	var url = serverurl+'/weibo/createStatus.xml?title='+title+'&shareURL'+shareURL+'&imageURL='+imageURL;
+	    	var url = serverurl+'/weibo/createStatus.xml?title='+encodeURIComponent(title)+'&shareURL'+shareURL+'&imageURL='+imageURL;
 	    	atv.loadURL(url);
 	    },
 	    
