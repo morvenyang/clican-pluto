@@ -55,8 +55,8 @@ public class SpringProperty {
 	private String sohuURLPattern;
 	private String sohuVideoApi;
 	
-	private String qiyiCodePattern;
-	private String qiyiVideoApi;
+	private String fivesixCodePattern;
+	private String fivesixVideoApi;
 	
 	private String weiboLoginURL;
 	private String weiboAppKey;
@@ -402,21 +402,23 @@ public class SpringProperty {
 		this.sohuVideoApi = sohuVideoApi;
 	}
 
-	public String getQiyiCodePattern() {
-		return qiyiCodePattern;
+	public String getFivesixCodePattern() {
+		return fivesixCodePattern;
 	}
 
-	public void setQiyiCodePattern(String qiyiCodePattern) {
-		this.qiyiCodePattern = qiyiCodePattern;
+	public void setFivesixCodePattern(String fivesixCodePattern) {
+		this.fivesixCodePattern = fivesixCodePattern;
 	}
 
-	public String getQiyiVideoApi() {
-		return qiyiVideoApi;
+	public String getFivesixVideoApi() {
+		return fivesixVideoApi;
 	}
 
-	public void setQiyiVideoApi(String qiyiVideoApi) {
-		this.qiyiVideoApi = qiyiVideoApi;
+	public void setFivesixVideoApi(String fivesixVideoApi) {
+		this.fivesixVideoApi = fivesixVideoApi;
 	}
+
+	
 
 	
 

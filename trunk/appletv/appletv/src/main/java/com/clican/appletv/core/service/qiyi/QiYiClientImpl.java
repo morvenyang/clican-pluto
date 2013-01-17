@@ -6,7 +6,7 @@ public class QiYiClientImpl extends BaseClient implements QiYiClient {
 
 	@Override
 	public String getPlayURL(String code) {
-		String url = springProperty.getQiyiVideoApi().replace("code", code);
+		String url = springProperty.getFivesixVideoApi().replace("code", code);
 		String htmlContent = this.httpGet(url, null, null);
 		int end = htmlContent.indexOf("hd_qqvga.mp4");
 		if (end == -1) {
