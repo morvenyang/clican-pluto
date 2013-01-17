@@ -17,13 +17,13 @@ import com.clican.appletv.core.service.fivesix.FivesixClient;
 public class FivesixController {
 
 	@Autowired
-	private FivesixClient qiYiClient;
+	private FivesixClient fivesixClient;
 	
-	@RequestMapping("/qiyi/playVideoByCode.xml")
+	@RequestMapping("/fivesix/playVideoByCode.xml")
 	public void playVideoByURL(HttpServletRequest request,
 			HttpServletResponse response, @RequestParam("code") String code)
 			throws IOException {
-		String url = qiYiClient.getPlayURL(code);
+		String url = fivesixClient.getPlayURL(code);
 		String playXml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><atv><body><videoPlayer id=\"com.sample.video-player\"><httpFileVideoAsset id=\"play\"><mediaURL>"
 				+ url
 				+ "</mediaURL><title></title><description></description></httpFileVideoAsset></videoPlayer></body></atv>";

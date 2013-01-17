@@ -323,8 +323,8 @@ public class WeiboClientImpl implements WeiboClient {
 	}
 
 	public static void main(String[] args) {
-		String s = "http://v.youku.com/v_show/id_XNTAwMzg1OTEy.html";
-		String p = "http://v.youku.com/v_show/id_(\\p{Alnum}*)\\.html";
+		String s = "http://www.56.com/u59/v_NzA1NzAzMjg.html/1030_r412182261.html";
+		String p = "http://www\\.56\\.com/u59/v_(\\p{Alnum}*)\\.html.*";
 		Pattern pattern = Pattern.compile(p);
 		Matcher youkuMatcher = pattern.matcher(s);
 		if (youkuMatcher.matches()) {

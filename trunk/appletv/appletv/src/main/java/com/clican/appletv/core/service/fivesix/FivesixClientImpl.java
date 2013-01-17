@@ -10,9 +10,16 @@ public class FivesixClientImpl extends BaseClient implements FivesixClient {
 		String htmlContent = this.httpGet(url, null, null);
 		int end = htmlContent.indexOf("hd_qqvga.mp4");
 		if (end == -1) {
-			return null;
+			end = htmlContent.indexOf("hd.flv.mp4");
+			if(end==-1){
+				return null;
+			}else{
+				end = end + "hd.flv.mp4".length();
+			}
+		}else{
+			end = end + "hd_qqvga.mp4".length();
 		}
-		end = end + "hd_qqvga.mp4".length();
+		
 		int start = htmlContent.lastIndexOf("http", end);
 		if (start == -1) {
 			return null;
