@@ -77,6 +77,9 @@ http://www.springframework.org/schema/context/spring-context-2.5.xsd">
 	<bean id="sohuClient" class="com.clican.appletv.core.service.sohu.SohuClientImpl" autowire="byName">
 	</bean>
 	
+	<bean id="qiyiClient" class="com.clican.appletv.core.service.qiyi.QiYiClientImpl" autowire="byName">
+	</bean>
+	
 	<bean id="weiboClient" class="com.clican.appletv.core.service.weibo.WeiboClientImpl" autowire="byName" init-method="init" destroy-method="destroy">
 	</bean>
 </beans>
