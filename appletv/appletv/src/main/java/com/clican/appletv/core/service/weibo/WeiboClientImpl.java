@@ -54,7 +54,7 @@ public class WeiboClientImpl implements WeiboClient {
 		ShortUrl shortUrl = new ShortUrl();
 		shortUrl.client.setToken(accessToken);
 		List<String> urls = new ArrayList<String>();
-		Map<String, Status> urlMap = new HashMap<String, Status>();
+		Map<String, List<Status>> urlMap = new HashMap<String, List<Status>>();
 		Pattern pattern = Pattern.compile(springProperty
 				.getWeiboShortURLPattern());
 		Pattern youkuPattern = Pattern.compile(springProperty
@@ -62,8 +62,10 @@ public class WeiboClientImpl implements WeiboClient {
 		Pattern qqPattern = Pattern.compile(springProperty.getQqIdPattern());
 		Pattern tudouPattern = Pattern.compile(springProperty
 				.getTudouCodePattern());
-		Pattern sohuPattern = Pattern.compile(springProperty.getSohuURLPattern());
-		Pattern fiveSixPattern = Pattern.compile(springProperty.getFivesixCodePattern());
+		Pattern sohuPattern = Pattern.compile(springProperty
+				.getSohuURLPattern());
+		Pattern fiveSixPattern = Pattern.compile(springProperty
+				.getFivesixCodePattern());
 		for (Status status : statusWapper.getStatuses()) {
 			try {
 				String text = status.getText();
@@ -76,7 +78,12 @@ public class WeiboClientImpl implements WeiboClient {
 				while (matcher.find()) {
 					String matchText = matcher.group();
 					urls.add(matchText);
-					urlMap.put(matchText, status);
+					List<Status> list = urlMap.get(matchText);
+					if (list == null) {
+						list = new ArrayList<Status>();
+						urlMap.put(matchText, list);
+					}
+					list.add(status);
 				}
 			} catch (Exception e) {
 				log.error("", e);
@@ -95,19 +102,19 @@ public class WeiboClientImpl implements WeiboClient {
 					try {
 						if (type.equals("1")) {
 							// video
-							Status status = urlMap.get(surl);
+							List<Status> list = urlMap.get(surl);
 							// convert this lurl to AppleTV page
 							Matcher youkuMatcher = youkuPattern.matcher(lurl);
 							if (youkuMatcher.matches()) {
 								String showid = youkuMatcher.group(1);
-								status.setVideoUrl(springProperty
+								addVideoUrlForStatus(list,springProperty
 										.getSystemServerUrl()
 										+ "/youku/album.xml?showid=" + showid);
 							} else {
 								Matcher qqMatcher = qqPattern.matcher(lurl);
 								if (qqMatcher.matches()) {
 									String coverId = qqMatcher.group(1);
-									status.setVideoUrl(springProperty
+									addVideoUrlForStatus(list,springProperty
 											.getSystemServerUrl()
 											+ "/qq/album.xml?coverId="
 											+ coverId);
@@ -116,22 +123,25 @@ public class WeiboClientImpl implements WeiboClient {
 											.matcher(lurl);
 									if (tudouMatcher.matches()) {
 										String code = tudouMatcher.group(1);
-										status.setVideoUrl(springProperty
+										addVideoUrlForStatus(list,springProperty
 												.getSystemServerUrl()
 												+ "/tudou/playVideoByCode.xml?code="
 												+ code);
 									} else {
-										Matcher sohuMatcher = sohuPattern.matcher(lurl);
+										Matcher sohuMatcher = sohuPattern
+												.matcher(lurl);
 										if (sohuMatcher.matches()) {
-											status.setVideoUrl(springProperty
+											addVideoUrlForStatus(list,springProperty
 													.getSystemServerUrl()
 													+ "/sohu/playVideoByURL.xml?url="
 													+ lurl);
-										}else{
-											Matcher fiveSixMatcher = fiveSixPattern.matcher(lurl);
-											if(fiveSixMatcher.matches()){
-												String code = fiveSixMatcher.group(1);
-												status.setVideoUrl(springProperty
+										} else {
+											Matcher fiveSixMatcher = fiveSixPattern
+													.matcher(lurl);
+											if (fiveSixMatcher.matches()) {
+												String code = fiveSixMatcher
+														.group(1);
+												addVideoUrlForStatus(list,springProperty
 														.getSystemServerUrl()
 														+ "/fivesix/playVideoByCode.xml?code="
 														+ code);
@@ -151,6 +161,12 @@ public class WeiboClientImpl implements WeiboClient {
 			}
 		}
 
+	}
+
+	private void addVideoUrlForStatus(List<Status> list, String videoUrl) {
+		for (Status status : list) {
+			status.setVideoUrl(videoUrl);
+		}
 	}
 
 	private String generateImageFileName() {
