@@ -52,6 +52,9 @@ public class SpringProperty {
 	private String youkuVideoPlayApi;
 	private String youkuShowidPattern;
 	
+	private String sohuURLPattern;
+	private String sohuVideoApi;
+	
 	private String weiboLoginURL;
 	private String weiboAppKey;
 	private String weiboAppSercret;
@@ -378,6 +381,22 @@ public class SpringProperty {
 
 	public void setTudouItemidTransferApi(String tudouItemidTransferApi) {
 		this.tudouItemidTransferApi = tudouItemidTransferApi;
+	}
+
+	public String getSohuURLPattern() {
+		return sohuURLPattern;
+	}
+
+	public void setSohuURLPattern(String sohuURLPattern) {
+		this.sohuURLPattern = sohuURLPattern;
+	}
+
+	public String getSohuVideoApi() {
+		return sohuVideoApi;
+	}
+
+	public void setSohuVideoApi(String sohuVideoApi) {
+		this.sohuVideoApi = sohuVideoApi;
 	}
 
 	

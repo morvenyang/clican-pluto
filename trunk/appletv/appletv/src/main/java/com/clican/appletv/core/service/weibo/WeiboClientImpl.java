@@ -62,6 +62,7 @@ public class WeiboClientImpl implements WeiboClient {
 		Pattern qqPattern = Pattern.compile(springProperty.getQqIdPattern());
 		Pattern tudouPattern = Pattern.compile(springProperty
 				.getTudouCodePattern());
+		Pattern sohuPattern = Pattern.compile(springProperty.getSohuURLPattern());
 		for (Status status : statusWapper.getStatuses()) {
 			try {
 				String text = status.getText();
@@ -118,6 +119,14 @@ public class WeiboClientImpl implements WeiboClient {
 												.getSystemServerUrl()
 												+ "/tudou/playVideoByCode.xml?code="
 												+ code);
+									} else {
+										Matcher sohuMatcher = sohuPattern.matcher(lurl);
+										if (sohuMatcher.matches()) {
+											status.setVideoUrl(springProperty
+													.getSystemServerUrl()
+													+ "/sohu/playVideoByURL.xml?url="
+													+ lurl);
+										}
 									}
 								}
 							}

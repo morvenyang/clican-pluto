@@ -329,4 +329,9 @@ public class WeiboController {
 		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
 		return "weibo/showComments";
 	}
+	
+	public static void main(String[] args){
+		Long l = 0x905939L;
+		System.out.print(l);
+	}
 }
