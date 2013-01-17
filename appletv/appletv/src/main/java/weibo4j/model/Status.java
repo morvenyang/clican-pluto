@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
+
 import weibo4j.http.Response;
 import weibo4j.org.json.JSONArray;
 import weibo4j.org.json.JSONException;
@@ -39,6 +41,7 @@ public class Status extends WeiboResponse implements java.io.Serializable {
 	private Visible visible;
 	private String statusPic;
 	private String videoUrl;
+	private String fullText;
 
 	public Status() {
 
@@ -200,6 +203,12 @@ public class Status extends WeiboResponse implements java.io.Serializable {
 	}
 
 	public String getThumbnailPic() {
+		if (StringUtils.isEmpty(thumbnailPic)) {
+			if (this.retweetedStatus != null
+					&& StringUtils.isNotEmpty(this.retweetedStatus.thumbnailPic)) {
+				return this.retweetedStatus.thumbnailPic;
+			}
+		}
 		return thumbnailPic;
 	}
 
@@ -216,6 +225,12 @@ public class Status extends WeiboResponse implements java.io.Serializable {
 	}
 
 	public String getOriginalPic() {
+		if (StringUtils.isEmpty(originalPic)) {
+			if (this.retweetedStatus != null
+					&& StringUtils.isNotEmpty(this.retweetedStatus.originalPic)) {
+				return this.retweetedStatus.originalPic;
+			}
+		}
 		return originalPic;
 	}
 
@@ -319,14 +334,20 @@ public class Status extends WeiboResponse implements java.io.Serializable {
 		this.statusPic = statusPic;
 	}
 
-	
-
 	public String getVideoUrl() {
 		return videoUrl;
 	}
 
 	public void setVideoUrl(String videoUrl) {
 		this.videoUrl = videoUrl;
+	}
+
+	public String getFullText() {
+		return fullText;
+	}
+
+	public void setFullText(String fullText) {
+		this.fullText = fullText;
 	}
 
 	public static StatusWapper constructWapperStatus(Response res)
