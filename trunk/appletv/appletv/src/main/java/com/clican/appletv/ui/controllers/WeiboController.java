@@ -147,7 +147,7 @@ public class WeiboController {
 			paging.setMaxId(maxId);
 		}
 
-		StatusWapper statusWapper = timeline.getHomeTimeline(0, 0, paging);
+		StatusWapper statusWapper = timeline.getHomeTimeline(0, 3, paging);
 		weiboClient.processLongUrl(statusWapper, accessToken);
 		Map<Long, Status> statusMap = new HashMap<Long, Status>();
 		for (Status status : statusWapper.getStatuses()) {
@@ -181,8 +181,8 @@ public class WeiboController {
 		Map<Long, Status> statusMap = (Map<Long, Status>) request.getSession()
 				.getAttribute("weiboStatusMap");
 		Status status = statusMap.get(statusId);
-		if (status.getVideoUrls().size() > 0) {
-			String url = status.getVideoUrls().get(0);
+		if (StringUtils.isNotEmpty(status.getVideoUrl())) {
+			String url = status.getVideoUrl();
 			response.sendRedirect(url);
 			return null;
 		}

@@ -70,8 +70,22 @@ public class TudouController {
 		}
 	}
 
+	@RequestMapping("/tudou/playVideoByCode.xml")
+	public void playVideoByCode(HttpServletRequest request,
+			HttpServletResponse response, @RequestParam("code") String code,
+			@RequestParam(value = "st", required = false) Integer st)
+			throws IOException {
+		if (st == null) {
+			st = 2;
+		}
+		Long itemid = tudouClient.getItemid(code);
+		if (itemid != null) {
+			playVideo(request, response, itemid, st);
+		}
+	}
+
 	@RequestMapping("/tudou/play.xml")
-	public void planVideo(HttpServletRequest request,
+	public void playVideo(HttpServletRequest request,
 			HttpServletResponse response, @RequestParam("itemid") Long itemid,
 			@RequestParam(value = "st", required = false) Integer st)
 			throws IOException {
@@ -125,7 +139,7 @@ public class TudouController {
 		}
 
 		List<ListView> videos = tudouClient.queryVideos(keyword, channel, page);
-		if(videos.size()==0){
+		if (videos.size() == 0) {
 			return "tudou/noresult";
 		}
 		request.setAttribute("channels", Channel.values());
@@ -135,7 +149,8 @@ public class TudouController {
 		String pagiurl = springProperty.getSystemServerUrl()
 				+ "/tudou/index.xml?channelId=" + channel.getValue();
 		if (StringUtils.isNotEmpty(keyword) && channel == Channel.Search) {
-			pagiurl = pagiurl + "&amp;keyword=" + URLEncoder.encode(keyword,"utf-8");
+			pagiurl = pagiurl + "&amp;keyword="
+					+ URLEncoder.encode(keyword, "utf-8");
 
 		}
 		request.setAttribute("pagiurl", pagiurl);
@@ -210,10 +225,10 @@ public class TudouController {
 		}
 		List<String> keywordList = tudouClient.queryKeywords(q);
 		List<Keyword> klist = new ArrayList<Keyword>();
-		for(String kw:keywordList){
+		for (String kw : keywordList) {
 			Keyword keyword = new Keyword();
 			keyword.setLabel(kw);
-			keyword.setUrlValue(URLEncoder.encode(kw,"UTF-8"));
+			keyword.setUrlValue(URLEncoder.encode(kw, "UTF-8"));
 			klist.add(keyword);
 		}
 		request.setAttribute("keywordList", klist);

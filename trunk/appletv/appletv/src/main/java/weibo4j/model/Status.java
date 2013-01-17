@@ -38,7 +38,7 @@ public class Status extends WeiboResponse implements java.io.Serializable {
 	private int mlevel;
 	private Visible visible;
 	private String statusPic;
-	private List<String> videoUrls = new ArrayList<String>();
+	private String videoUrl;
 
 	public Status() {
 
@@ -319,12 +319,14 @@ public class Status extends WeiboResponse implements java.io.Serializable {
 		this.statusPic = statusPic;
 	}
 
-	public List<String> getVideoUrls() {
-		return videoUrls;
+	
+
+	public String getVideoUrl() {
+		return videoUrl;
 	}
 
-	public void setVideoUrls(List<String> videoUrls) {
-		this.videoUrls = videoUrls;
+	public void setVideoUrl(String videoUrl) {
+		this.videoUrl = videoUrl;
 	}
 
 	public static StatusWapper constructWapperStatus(Response res)

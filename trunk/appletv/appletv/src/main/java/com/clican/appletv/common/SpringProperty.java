@@ -31,6 +31,9 @@ public class SpringProperty {
 	private String tudouGetFavoriteApi;
 
 	private String tudouSetFavoriteApi;
+	
+	private String tudouCodePattern;
+	private String tudouItemidTransferApi;
 
 	private String qqChannelApi;
 
@@ -358,5 +361,25 @@ public class SpringProperty {
 	public void setQqIdPattern(String qqIdPattern) {
 		this.qqIdPattern = qqIdPattern;
 	}
+
+	
+
+	public String getTudouCodePattern() {
+		return tudouCodePattern;
+	}
+
+	public void setTudouCodePattern(String tudouCodePattern) {
+		this.tudouCodePattern = tudouCodePattern;
+	}
+
+	public String getTudouItemidTransferApi() {
+		return tudouItemidTransferApi;
+	}
+
+	public void setTudouItemidTransferApi(String tudouItemidTransferApi) {
+		this.tudouItemidTransferApi = tudouItemidTransferApi;
+	}
+
+	
 
 }

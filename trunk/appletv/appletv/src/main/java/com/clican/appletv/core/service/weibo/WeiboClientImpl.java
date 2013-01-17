@@ -60,6 +60,8 @@ public class WeiboClientImpl implements WeiboClient {
 		Pattern youkuPattern = Pattern.compile(springProperty
 				.getYoukuShowidPattern());
 		Pattern qqPattern = Pattern.compile(springProperty.getQqIdPattern());
+		Pattern tudouPattern = Pattern.compile(springProperty
+				.getTudouCodePattern());
 		for (Status status : statusWapper.getStatuses()) {
 			try {
 				String text = status.getText();
@@ -96,18 +98,25 @@ public class WeiboClientImpl implements WeiboClient {
 							Matcher youkuMatcher = youkuPattern.matcher(lurl);
 							if (youkuMatcher.matches()) {
 								String showid = youkuMatcher.group(1);
-								status.getVideoUrls().add(
-										springProperty.getSystemServerUrl()
-												+ "/youku/album.xml?showid="
-												+ showid);
+								status.setVideoUrl(springProperty
+										.getSystemServerUrl()
+										+ "/youku/album.xml?showid=" + showid);
 							} else {
 								Matcher qqMatcher = qqPattern.matcher(lurl);
 								if (qqMatcher.matches()) {
 									String coverId = qqMatcher.group(1);
-									status.getVideoUrls().add(
-											springProperty.getSystemServerUrl()
-													+ "/qq/album.xml?coverId="
-													+ coverId);
+									status.setVideoUrl(springProperty
+											.getSystemServerUrl()
+											+ "/qq/album.xml?coverId="
+											+ coverId);
+								} else {
+									Matcher tudouMatcher = tudouPattern
+											.matcher(lurl);
+									String code = tudouMatcher.group(1);
+									status.setVideoUrl(springProperty
+											.getSystemServerUrl()
+											+ "/tudou/playVideoByCode.xml?code="
+											+ code);
 								}
 							}
 
