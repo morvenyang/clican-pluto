@@ -26,7 +26,7 @@
 							<c:forEach var="weiboStatus" items="${weiboStatusWapper.statuses}"
 								varStatus="varStatus">
 								<c:if test="${weiboStatus.videoUrl!=null}">
-									<imageTextImageMenuItem id="item_${varStatus.count}" onSelect="atv.loadURL('${serverurl}/weibo/textPreview.xml?statusId=${weiboStatus.idstr}&amp;fullText=${weiboStatus.fullText}');" onPlay="atv.loadURL('${weiboStatus.videoUrl}');">
+									<imageTextImageMenuItem id="item_${varStatus.count}" onSelect="atv.loadURL('${serverurl}/weibo/textPreview.xml?statusId=${weiboStatus.idstr}&amp;fullText=${weiboStatus.fullTextEncode}');" onPlay="atv.loadURL('${weiboStatus.videoUrl}');">
 										<leftImage>${weiboStatus.user.profileImageUrl}</leftImage>
 										<rightImage>${serverurl}/image/weibo/video.png</rightImage>
 										<imageSeparatorText></imageSeparatorText>
@@ -46,7 +46,7 @@
 									</imageTextImageMenuItem>
 								</c:if>
 								<c:if test="${weiboStatus.videoUrl==null}">
-									<imageTextImageMenuItem id="item_${varStatus.count}" onSelect="atv.loadURL('${serverurl}/weibo/textPreview.xml?statusId=${weiboStatus.idstr}&amp;fullText=${weiboStatus.fullText}');">
+									<imageTextImageMenuItem id="item_${varStatus.count}" onSelect="atv.loadURL('${serverurl}/weibo/textPreview.xml?statusId=${weiboStatus.idstr}&amp;fullText=${weiboStatus.fullTextEncode}');">
 										<leftImage>${weiboStatus.user.profileImageUrl}</leftImage>
 										<rightImage></rightImage>
 										<imageSeparatorText></imageSeparatorText>

@@ -1,5 +1,7 @@
 package com.clican.appletv.ui.controllers;
 
+import java.net.URLEncoder;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -165,6 +167,7 @@ public class WeiboController {
 				}
 			}
 			status.setFullText(text);
+			status.setFullTextEncode(URLEncoder.encode(text, "utf-8"));
 		}
 		if (statusWapper.getStatuses().size() > 0) {
 			Status prevOne = statusWapper.getStatuses().get(0);

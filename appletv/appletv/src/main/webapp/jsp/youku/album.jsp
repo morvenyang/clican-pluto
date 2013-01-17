@@ -23,7 +23,7 @@
 								<actionButton id="album_1" onSelect="atv.loadURL('${serverurl}/youku/play.xml?showid=${showid}');" onPlay="atv.loadURL('${serverurl}/youku/play.xml?showid=${showid}');">
 									<title>高清</title>
 								</actionButton>
-								<actionButton id="album_4" onSelect="atv.loadURL('${serverurl}/weibo/createStatus.xml?title=${album.title}&amp;shareURL=http://v.youku.com/v_show/id_${showid}.html&amp;imageURL=${album.img}');" onPlay="atv.loadURL('${serverurl}/weibo/createStatus.xml?title=${album.title}&amp;shareURL=http://v.youku.com/v_show/id_${showid}.html&amp;imageURL=${album.img}');">
+								<actionButton id="album_4" onSelect="atv.loadURL('${serverurl}/weibo/createStatus.xml?title=encodeURIComponent(${album.title})&amp;shareURL=http://v.youku.com/v_show/id_${showid}.html&amp;imageURL=${album.img}');" onPlay="atv.loadURL('${serverurl}/weibo/createStatus.xml?title=encodeURIComponent(${album.title})&amp;shareURL=http://v.youku.com/v_show/id_${showid}.html&amp;imageURL=${album.img}');">
 									<title>分享</title>
 								</actionButton>
 							</items>
