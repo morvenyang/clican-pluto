@@ -2,7 +2,7 @@ package com.clican.appletv.core.service.qiyi;
 
 import com.clican.appletv.core.service.BaseClient;
 
-public class QiYiClientImpl extends BaseClient implements QiYiClient {
+public class FivesixClientImpl extends BaseClient implements FivesixClient {
 
 	@Override
 	public String getPlayURL(String code) {

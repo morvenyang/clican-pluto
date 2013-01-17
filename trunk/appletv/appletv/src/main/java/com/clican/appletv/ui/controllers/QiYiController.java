@@ -11,13 +11,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.clican.appletv.core.service.qiyi.QiYiClient;
+import com.clican.appletv.core.service.qiyi.FivesixClient;
 
 @Controller
 public class QiYiController {
 
 	@Autowired
-	private QiYiClient qiYiClient;
+	private FivesixClient qiYiClient;
 	
 	@RequestMapping("/qiyi/playVideoByCode.xml")
 	public void playVideoByURL(HttpServletRequest request,
