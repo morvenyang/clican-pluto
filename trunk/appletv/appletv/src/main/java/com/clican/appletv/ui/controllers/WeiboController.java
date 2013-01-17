@@ -1,8 +1,5 @@
 package com.clican.appletv.ui.controllers;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -156,12 +153,15 @@ public class WeiboController {
 		weiboClient.processLongUrl(statusWapper, accessToken);
 		for (Status status : statusWapper.getStatuses()) {
 			String text = status.getText();
-			if(status.getRetweetedStatus()!=null){
-				if(status.getRetweetedStatus().getUser()!=null){
-					text+= " @"+status.getRetweetedStatus().getUser().getScreenName();
+			if (status.getRetweetedStatus() != null) {
+				if (status.getRetweetedStatus().getUser() != null) {
+					text += " @"
+							+ status.getRetweetedStatus().getUser()
+									.getScreenName();
 				}
-				if(StringUtils.isNotEmpty(status.getRetweetedStatus().getText())){
-					text+=" "+status.getRetweetedStatus().getText();
+				if (StringUtils.isNotEmpty(status.getRetweetedStatus()
+						.getText())) {
+					text += " " + status.getRetweetedStatus().getText();
 				}
 			}
 			status.setFullText(text);
@@ -177,38 +177,9 @@ public class WeiboController {
 			request.setAttribute("maxId", 0);
 		}
 		request.setAttribute("weiboStatusWapper", statusWapper);
-		
+
 		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
 		return "weibo/homeTimeline";
-	}
-
-	@RequestMapping("/weibo/imageOrVideoPreview.xml")
-	public String imagePreview(
-			HttpServletRequest request,
-			HttpServletResponse response,
-			@RequestParam(value = "statusId", required = false) Long statusId,
-			@RequestParam(value = "videoURL", required = false) String videoURL,
-			@RequestParam(value = "imageURL", required = false) String imageURL,
-			@RequestParam(value = "fullText", required = false) String fullText)
-			throws Exception {
-		if (!isLogin(request, response)) {
-			return null;
-		}
-
-		if (StringUtils.isNotEmpty(videoURL)) {
-			response.sendRedirect(videoURL);
-			return null;
-		}
-		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
-		request.setAttribute("fullText", fullText);
-		request.setAttribute("statusId", statusId);
-		request.setAttribute("imageURL", imageURL);
-		if (StringUtils.isEmpty(imageURL)) {
-			return "weibo/textPreview";
-		} else {
-			return "weibo/imagePreview";
-		}
-
 	}
 
 	@RequestMapping("/weibo/textPreview.xml")
@@ -329,8 +300,8 @@ public class WeiboController {
 		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
 		return "weibo/showComments";
 	}
-	
-	public static void main(String[] args){
+
+	public static void main(String[] args) {
 		Long l = 0x905939L;
 		System.out.print(l);
 	}
