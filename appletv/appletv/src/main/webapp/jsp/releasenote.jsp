@@ -32,11 +32,11 @@
 							<title>土豆</title>
 						</actionButton>
 						<actionButton id="shelf_item_2" 
-							onSelect="atv.loadURL('${serverurl}/appletv/qq/index.xml');">
+							onSelect="atv.loadURL('${serverurl}/qq/index.xml');">
 							<title>QQ</title>
 						</actionButton>
 						<actionButton id="shelf_item_2" 
-							onSelect="atv.loadURL('${serverurl}/appletv/weibo/checkAccessToken.xml?deviceId='+atv.device.udid);">
+							onSelect="atv.loadURL('${serverurl}/weibo/checkAccessToken.xml?deviceId='+atv.device.udid);">
 							<title>Weibo</title>
 						</actionButton>
 		    </buttons>
