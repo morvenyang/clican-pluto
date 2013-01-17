@@ -56,6 +56,7 @@ public class SpringProperty {
 	private String sohuVideoApi;
 	
 	private String fivesixCodePattern;
+	private String fivesixVideoHtmlApi;
 	private String fivesixVideoApi;
 	
 	private String weiboLoginURL;
@@ -416,6 +417,14 @@ public class SpringProperty {
 
 	public void setFivesixVideoApi(String fivesixVideoApi) {
 		this.fivesixVideoApi = fivesixVideoApi;
+	}
+
+	public String getFivesixVideoHtmlApi() {
+		return fivesixVideoHtmlApi;
+	}
+
+	public void setFivesixVideoHtmlApi(String fivesixVideoHtmlApi) {
+		this.fivesixVideoHtmlApi = fivesixVideoHtmlApi;
 	}
 
 	
