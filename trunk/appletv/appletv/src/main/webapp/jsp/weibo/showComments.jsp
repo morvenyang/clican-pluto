@@ -3,6 +3,9 @@
 <body>
 		<scroller id="comments">
 			<items>
+				<c:if test="${fn:length(weiboCommentWapper.comments)==0}">
+					<collectionDivider><title><![CDATA[没有相关评论]]></title></collectionDivider>
+				</c:if>
 				<c:forEach var="weiboComment" items="${weiboCommentWapper.comments}">
 					<collectionDivider><title><![CDATA[${weiboComment.user.screenName}:${weiboComment.text}]]></title></collectionDivider>
 				</c:forEach>
