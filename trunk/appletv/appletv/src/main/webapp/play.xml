@@ -3,7 +3,7 @@
   <body>
     <videoPlayer id="a">
         <httpFileVideoAsset>
-            <mediaURL><![CDATA[http://182.131.9.170/videoctfs.tc.qq.com/j0109nuqtza.mp4?vkey=32E86AE2B659D1443F541BA0FF1C10863564C25D0C241EE0B81494AB5CC98683EC886784518479CE&br=74&platform=0&fmt=mp4&level=3&sha=672a5a4763f57de697bad3d832f37452f61cde1e]]></mediaURL>
+            <mediaURL><![CDATA[http://v.iask.com/v_play_ipad.php?vid=95404095]]></mediaURL>
             <title></title>
             <description></description>
         </httpFileVideoAsset>
