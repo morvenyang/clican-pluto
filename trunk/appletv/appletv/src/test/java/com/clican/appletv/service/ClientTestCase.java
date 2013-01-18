@@ -28,7 +28,15 @@ public class ClientTestCase extends BaseServiceTestCase {
 		if (matcher.matches()) {
 			code = matcher.group(1);
 		}
-		assertEquals(code, "r1rJ-fxW_hE");
+		//assertEquals("r1rJ-fxW_hE",code );
+
+		matcher = pattern
+				.matcher("http://www.tudou.com/programs/view/r1rJ-fxW_hE/");
+		code = null;
+		if (matcher.matches()) {
+			code = matcher.group(1);
+		}
+		assertEquals("r1rJ-fxW_hE",code );
 	}
 
 	public void testSohuUrlPattern() throws Exception {
@@ -72,7 +80,7 @@ public class ClientTestCase extends BaseServiceTestCase {
 		assertEquals("ODA1NDE2NjE", code);
 
 	}
-	
+
 	public void testQQIdPattern() throws Exception {
 		String s1 = "http://v.qq.com/cover/k/k4aj50t7k1d3re0.html";
 		Pattern pattern = Pattern
@@ -84,10 +92,6 @@ public class ClientTestCase extends BaseServiceTestCase {
 		}
 		assertEquals("k4aj50t7k1d3re0", code);
 
-		
-
 	}
-	
-	
 
 }

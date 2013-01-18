@@ -142,7 +142,11 @@ public class WeiboClientImpl implements WeiboClient {
 									}
 
 								} else {
-									Matcher tudouMatcher = tudouPattern
+									Matcher tudouMatcher = null;
+									if(!lurl.endsWith("/")){
+										lurl = lurl+"/";
+									}
+									tudouMatcher=tudouPattern
 											.matcher(lurl);
 									if (tudouMatcher.matches()) {
 										String code = tudouMatcher.group(1);
