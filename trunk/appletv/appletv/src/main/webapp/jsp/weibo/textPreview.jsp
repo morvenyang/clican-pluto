@@ -3,17 +3,12 @@
 <body>
 		<scrollingText id="text">
 			<title>内容</title>
-			<c:if test="${weiboStatus.retweetedStatus!=null}">
-				<text><![CDATA[${weiboStatus.text} @${weiboStatus.retweetedStatus.user.screenName} @${weiboStatus.retweetedStatus.text}]]></text>
-			</c:if>
-			<c:if test="${weiboStatus.retweetedStatus==null}">
-				<text><![CDATA[${weiboStatus.text}]]></text>
-			</c:if>
+				<text><![CDATA[${fullText}]]></text>
 			<buttons>
 				<actionButton id="ab1" onSelect="">
 					<title>转发</title>
 				</actionButton>
-				<actionButton id="ab2" onSelect="atv.loadURL('${serverurl}/weibo/showComments.xml?statusId=${weiboStatus.idstr}');">
+				<actionButton id="ab2" onSelect="atv.loadURL('${serverurl}/weibo/showComments.xml?statusId=${statusId}');">
 					<title>评论</title>
 				</actionButton>
 			</buttons>
