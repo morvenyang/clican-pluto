@@ -13,6 +13,7 @@ public class SohuClientImpl extends BaseClient implements SohuClient {
 
 	@Override
 	public String getPlayURL(String url) {
+
 		String htmlContent = this.httpGet(url, null, null);
 		Pattern pattern = Pattern.compile(springProperty.getSohuIdPattern(),
 				Pattern.DOTALL);
@@ -23,6 +24,9 @@ public class SohuClientImpl extends BaseClient implements SohuClient {
 		}
 
 		if (StringUtils.isNumeric(code)) {
+			if (url.startsWith("http://my")) {
+				return "http://my.tv.sohu.com/ipad/" + code + ".m3u8";
+			}
 			String apiURL = springProperty.getSohuVideoApi().replace(
 					"vid.json", code + ".json");
 			String jsonContent = this.httpGet(apiURL, null, null);
