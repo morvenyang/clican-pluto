@@ -23,7 +23,7 @@
 							<items>
 								<c:if test="${album.size<7}">
 									<c:forEach var="albumItem" items="${album.albumItems}" varStatus="status">
-										<actionButton id="album_1" onSelect="appletv.playQQVideo('${playdescurl}&amp;vid=${albumItem.vid}','${serverurl}');" onPlay="appletv.playQQVideo('${playdescurl}&amp;vid=${albumItem.vid}','${serverurl}');">
+										<actionButton id="album_${status.count}" onSelect="appletv.playQQVideo('${playdescurl}&amp;vid=${albumItem.vid}','${serverurl}');" onPlay="appletv.playQQVideo('${playdescurl}&amp;vid=${albumItem.vid}','${serverurl}');">
 											<title>第${status.count}集</title>
 										</actionButton>
 									</c:forEach>
@@ -33,7 +33,7 @@
 										<title>高清</title>
 									</actionButton>
 								</c:if>
-								<actionButton id="album_4" onSelect="atv.loadURL('${serverurl}/weibo/createStatus.xml?title=encodeURIComponent('${album.tt}')&amp;shareURL=http://v.qq.com/cover/${fn:substring(album.id,0,1)}/${album.id}.html&amp;imageURL=${album.pic}');" onPlay="atv.loadURL('${serverurl}/weibo/createStatus.xml?title=encodeURIComponent('${album.tt}')&amp;shareURL=http://v.qq.com/cover/${fn:substring(album.id,0,1)}/${album.id}.html&amp;imageURL=${album.pic}');">
+								<actionButton id="album_8" onSelect="atv.loadURL('${serverurl}/weibo/createStatus.xml?title='+encodeURIComponent('${album.tt}')+'&amp;shareURL=http://v.qq.com/cover/${fn:substring(album.id,0,1)}/${album.id}.html&amp;imageURL=${album.pic}');" onPlay="atv.loadURL('${serverurl}/weibo/createStatus.xml?title='+encodeURIComponent('${album.tt}')+'&amp;shareURL=http://v.qq.com/cover/${fn:substring(album.id,0,1)}/${album.id}.html&amp;imageURL=${album.pic}');">
 									<title>分享</title>
 								</actionButton>
 							</items>
