@@ -1,13 +1,10 @@
 package com.clican.appletv.service;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.clican.appletv.common.SpringProperty;
 import com.clican.appletv.core.service.tudou.TudouClient;
-import com.clican.appletv.core.service.tudou.TudouClientImpl;
 
 public class ClientTestCase extends BaseServiceTestCase {
 
@@ -54,6 +51,26 @@ public class ClientTestCase extends BaseServiceTestCase {
 			code = matcher.group(1);
 		}
 		assertEquals(code, "51930969");
+	}
+
+	public void testFivesixIdPattern() throws Exception {
+		String s1 = "http://www.56.com/w22/play_album-aid-9938908_vid-ODQ0MDc4OTM.html/1030_yesweibo.html";
+		String s2 = "http://www.56.com/u24/v_ODA1NDE2NjE.html";
+		Pattern pattern = Pattern
+				.compile("http://www\\.56\\.com/.*(vid-|/v_)(\\p{Alnum}*)\\.html.*");
+		Matcher matcher = pattern.matcher(s1);
+		String code = null;
+		if (matcher.matches()) {
+			code = matcher.group(2);
+		}
+		assertEquals("ODQ0MDc4OTM", code);
+
+		matcher = pattern.matcher(s2);
+		if (matcher.matches()) {
+			code = matcher.group(2);
+		}
+		assertEquals("ODA1NDE2NjE", code);
+
 	}
 
 }
