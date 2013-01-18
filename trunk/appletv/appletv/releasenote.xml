@@ -2,22 +2,27 @@
 <atv>
 <body>
 		<scrollingText id="releasenote">
-		    <title>更新日志2013/01/12</title>
+		    <title>更新日志2013/01/18</title>
 		    <text>
 		        <![CDATA[
 本次升级内容:
-新增加QQ站点
+新增加新浪微博集成，具体操作流程请参见 http://15.185.225.83/appletv/index.html
+本次集成内容如下:
+1, 土豆和QQ站点内的视频可以分享到个人微博
+2, 通过Weibo站点可以浏览个人的微博内容
+3, 特别加入视频类微博,其中支持的视频网站有 Youku, Tudou, QQ, Sohu, 56. 暂时无法支持Sina和QiYi
 
 修复Bug如下:
-1, 搜索导致的系统奔溃，由于土豆的搜索接口对于某些关键字搜索响应非常慢，最终导致服务器线程无法快速释放，导致系统崩溃。现在对搜索接口设置3秒超时。
-2, 修复搜索时带空格导致搜索结果为空的错误
+1, 修复部分QQ频道无法使用的问题
 
 待开发内容:
-收藏
+1, 收藏
+2, 微博内音乐的集成播放
+
 
 已知问题:
-分页实现有待优化
-性能有待优化
+1, 微博内长图片无法适配显示，受限于ATV3渲染能力，目前无法解决
+2, 性能有待优化
 
 
 联系方式:
@@ -26,7 +31,7 @@
 关注QQ群内讨论,群号:222099750
 		        ]]>
 		    </text>
-		    <buttons>
+		    		    <buttons>
 		        <actionButton id="shelf_item_1" 
 							onSelect="atv.loadURL('http://15.185.225.83/appletv/tudou/index.xml');">
 							<title>土豆</title>
@@ -34,6 +39,10 @@
 						<actionButton id="shelf_item_2" 
 							onSelect="atv.loadURL('http://15.185.225.83/appletv/qq/index.xml');">
 							<title>QQ</title>
+						</actionButton>
+						<actionButton id="shelf_item_3" 
+							onSelect="atv.loadURL('http://15.185.225.83/appletv/weibo/checkAccessToken.xml?deviceId='+atv.device.udid);">
+							<title>Weibo</title>
 						</actionButton>
 		    </buttons>
 		</scrollingText>
