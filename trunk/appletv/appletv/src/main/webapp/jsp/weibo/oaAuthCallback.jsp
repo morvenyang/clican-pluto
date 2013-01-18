@@ -8,7 +8,7 @@
 </head>
 <body>
 	<form action="bind.do">
-		AppleTV 设备号:<input type="text" name="deviceId" />
+		AppleTV 设备号(请注意大小写保值一致):<input type="text" name="deviceId" />
 		<input type="submit" value="绑定" />
 	</form>
 </body>
