@@ -77,7 +77,7 @@ public class BaseClient {
 					httpGet.addRequestHeader(key, headers.get(key));
 				}
 			}
-			httpGet.addRequestHeader("Accept-Encoding", "gzip");
+//			httpGet.addRequestHeader("Accept-Encoding", "gzip");
 			int status = client.executeMethod(httpGet);
 			if (log.isDebugEnabled()) {
 				log.debug("Status:" + status + " for url:" + url);
