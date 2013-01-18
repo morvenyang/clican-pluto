@@ -77,7 +77,7 @@ public class BaseClient {
 					httpGet.addRequestHeader(key, headers.get(key));
 				}
 			}
-//			httpGet.addRequestHeader("Accept-Encoding", "gzip");
+			httpGet.addRequestHeader("Accept-Encoding", "gzip");
 			int status = client.executeMethod(httpGet);
 			if (log.isDebugEnabled()) {
 				log.debug("Status:" + status + " for url:" + url);
@@ -129,7 +129,13 @@ public class BaseClient {
 			}
 
 		} catch (Exception e) {
-			log.error("", e);
+			if(e instanceof org.apache.commons.httpclient.ConnectTimeoutException){
+				if(log.isDebugEnabled()){
+					log.debug("connection timeout for url:"+url);
+				}
+			}else{
+				log.error("", e);
+			}
 			return null;
 		} finally {
 			if (is != null) {
