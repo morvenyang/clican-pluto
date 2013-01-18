@@ -2,20 +2,5 @@
 <atv xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:noNamespaceSchemaLocation="atv.xsd">
 	<body>
-		<scroller id="comments">
-			<items>
-				<collectionDivider><title></title></collectionDivider>
-				<shelf id="action">
-					<sections>
-						<shelfSection>
-							<items>
-								<actionButton id="comment"><title>评论</title></actionButton>
-								<actionButton id="next" onSelect="atv.loadURL('${serverurl}/weibo/showComments?statusId=${statusId}&amp;maxId=${maxId}')"><title>下一页</title></actionButton>
-							</items>
-						</shelfSection>
-					</sections>
-				</shelf>
-			</items>
-		</scroller>
 	</body>
 </atv>
