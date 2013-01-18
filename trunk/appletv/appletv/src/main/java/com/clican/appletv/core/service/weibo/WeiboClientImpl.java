@@ -56,7 +56,7 @@ public class WeiboClientImpl implements WeiboClient {
 		List<String> urls = new ArrayList<String>();
 		Map<String, List<Status>> urlMap = new HashMap<String, List<Status>>();
 		Pattern pattern = Pattern.compile(springProperty
-				.getWeiboShortURLPattern());
+				.getWeiboShortURLPattern(),Pattern.DOTALL);
 		Pattern youkuPattern = Pattern.compile(springProperty
 				.getYoukuShowidPattern());
 		Pattern qqPattern = Pattern.compile(springProperty.getQqIdPattern());
@@ -108,17 +108,39 @@ public class WeiboClientImpl implements WeiboClient {
 							if (youkuMatcher.matches()) {
 								String showid = youkuMatcher.group(1);
 								addVideoUrlForStatus(list,
-										springProperty.getSystemServerUrl()
+										"atv.loadURL('"
+												+springProperty.getSystemServerUrl()
 												+ "/youku/album.xml?showid="
-												+ showid);
+												+ showid+"');");
 							} else {
 								Matcher qqMatcher = qqPattern.matcher(lurl);
 								if (qqMatcher.matches()) {
 									String coverId = qqMatcher.group(1);
-									addVideoUrlForStatus(list,
-											springProperty.getSystemServerUrl()
-													+ "/qq/album.xml?coverId="
-													+ coverId);
+									if (lurl.contains("cover")) {
+										addVideoUrlForStatus(
+												list,
+												"atv.loadURL('"
+												+springProperty
+														.getSystemServerUrl()
+														+ "/qq/album.xml?coverId="
+														+ coverId+"');");
+									} else {
+										addVideoUrlForStatus(
+												list,
+												"appletv.playQQVideo('"
+														+ springProperty
+																.getQqVideoPlayApi()
+																.replaceAll(
+																		"&",
+																		"&amp;")
+														+ "&amp;vid="
+														+ coverId
+														+ "','"
+														+ springProperty
+																.getSystemServerUrl()
+														+ "');");
+									}
+
 								} else {
 									Matcher tudouMatcher = tudouPattern
 											.matcher(lurl);
@@ -126,42 +148,44 @@ public class WeiboClientImpl implements WeiboClient {
 										String code = tudouMatcher.group(1);
 										addVideoUrlForStatus(
 												list,
-												springProperty
+												"atv.loadURL('"
+												+springProperty
 														.getSystemServerUrl()
 														+ "/tudou/playVideoByCode.xml?code="
-														+ code);
+														+ code+"');");
 									} else {
 										Matcher sohuMatcher = sohuPattern
 												.matcher(lurl);
 										if (sohuMatcher.matches()) {
 											addVideoUrlForStatus(
 													list,
-													springProperty
+													"atv.loadURL('"
+													+springProperty
 															.getSystemServerUrl()
 															+ "/sohu/playVideoByURL.xml?url="
-															+ lurl);
+															+ lurl+"');");
 										} else {
 											Matcher fiveSixMatcher = fiveSixPattern
 													.matcher(lurl);
 											if (fiveSixMatcher.matches()) {
 												String code = fiveSixMatcher
-														.group(1);
+														.group(2);
 												addVideoUrlForStatus(
 														list,
-														springProperty
+														"atv.loadURL('"
+														+springProperty
 																.getSystemServerUrl()
 																+ "/fivesix/playVideoByCode.xml?code="
-																+ code);
-											} else {
-												addUnknownVideoUrlForStatus(
-														list, lurl);
-											}
+																+ code+"');");
+											} 
 										}
 									}
 								}
 							}
-
+							addUnknownVideoUrlForStatus(
+									list, lurl);
 						}
+						
 					} catch (Exception e) {
 						log.error("", e);
 					}

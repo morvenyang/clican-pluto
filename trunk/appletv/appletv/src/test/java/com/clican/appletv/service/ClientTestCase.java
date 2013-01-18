@@ -72,5 +72,22 @@ public class ClientTestCase extends BaseServiceTestCase {
 		assertEquals("ODA1NDE2NjE", code);
 
 	}
+	
+	public void testQQIdPattern() throws Exception {
+		String s1 = "http://v.qq.com/cover/k/k4aj50t7k1d3re0.html";
+		Pattern pattern = Pattern
+				.compile("http://v\\.qq\\.com/.*/(\\p{Alnum}*)\\.html");
+		Matcher matcher = pattern.matcher(s1);
+		String code = null;
+		if (matcher.matches()) {
+			code = matcher.group(1);
+		}
+		assertEquals("k4aj50t7k1d3re0", code);
+
+		
+
+	}
+	
+	
 
 }
