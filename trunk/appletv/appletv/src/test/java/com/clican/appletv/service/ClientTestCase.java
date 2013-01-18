@@ -15,22 +15,32 @@ public class ClientTestCase extends BaseServiceTestCase {
 
 	public void testTudouPattern() throws Exception {
 		Pattern pattern = Pattern.compile(springProperty.getTudouCodePattern());
-		Matcher tudouMatcher = pattern
+		Matcher matcher = pattern
 				.matcher("http://www.tudou.com/programs/view/r1rJ-fxW_hE/?resourceId=95575290_06_05_99");
 		String code = null;
-		if (tudouMatcher.matches()) {
-			code = tudouMatcher.group(1);
+		if (matcher.matches()) {
+			code = matcher.group(1);
 		}
 		assertEquals(code, "r1rJ-fxW_hE");
 	}
-	
-	
-	public void testSohuPattern() throws Exception {
+
+	public void testSohuUrlPattern() throws Exception {
 		Pattern pattern = Pattern.compile(springProperty.getSohuURLPattern());
 		Matcher tudouMatcher = pattern
 				.matcher("http://my.tv.sohu.com/u/vw/51930969?xuid=e6762432");
-		
+
 		assertTrue(tudouMatcher.matches());
 	}
-	
+
+	public void testSohuIdPattern() throws Exception {
+		Pattern pattern = Pattern.compile(springProperty.getSohuIdPattern(),Pattern.DOTALL);
+		Matcher matcher = pattern
+				.matcher("var vid='51930969';\n");
+		String code = null;
+		if (matcher.matches()) {
+			code = matcher.group(1);
+		}
+		assertEquals(code, "51930969");
+	}
+
 }

@@ -48,6 +48,7 @@ http://www.springframework.org/schema/context/spring-context-2.5.xsd">
 		<property name="youkuShowidPattern" value="${youku.showid.pattern}"></property>
 		
 		<property name="sohuURLPattern" value="${sohu.url.pattern}"></property>
+		<property name="sohuIdPattern" value="${sohu.id.pattern}"></property>
 		<property name="sohuVideoApi" value="${sohu.video.api}"></property>
 		
 		<property name="fivesixCodePattern" value="${fivesix.code.pattern}"></property>

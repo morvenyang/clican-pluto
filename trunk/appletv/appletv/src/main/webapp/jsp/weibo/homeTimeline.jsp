@@ -46,7 +46,7 @@
 									</imageTextImageMenuItem>
 								</c:if>
 								<c:if test="${weiboStatus.videoUrl==null}">
-									<imageTextImageMenuItem id="item_${varStatus.count}" onSelect="atv.loadURL('${serverurl}/weibo/textPreview.xml?statusId=${weiboStatus.idstr}&amp;fullText='+encodeURIComponent('${weiboStatus.fullTextEncode}'));">
+									<imageTextImageMenuItem id="item_${varStatus.count}" onSelect="atv.loadURL('${serverurl}/weibo/textPreview.xml?statusId=${weiboStatus.idstr}&amp;fullText=${weiboStatus.fullTextEncode}');">
 										<leftImage>${weiboStatus.user.profileImageUrl}</leftImage>
 										<rightImage></rightImage>
 										<imageSeparatorText></imageSeparatorText>

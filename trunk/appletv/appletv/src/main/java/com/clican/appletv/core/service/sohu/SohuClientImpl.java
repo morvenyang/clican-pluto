@@ -11,9 +11,18 @@ public class SohuClientImpl extends BaseClient implements SohuClient {
 	@Override
 	public String getPlayURL(String url) {
 		String htmlContent = this.httpGet(url, null, null);
+		boolean single = false;
 		int start = htmlContent.indexOf("var vid=\"");
 		if (start == -1) {
-			return null;
+			start =  htmlContent.indexOf("var vid= \'");
+			if(start==-1){
+				return null;
+			}else{
+				single = true;
+			}
+		}
+		if(single){
+			
 		}
 		start = start + "var vid=\"".length();
 		int end = htmlContent.indexOf("\";", start);
