@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %><%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %><%@ page contentType="text/xml;charset=utf-8" %><?xml version="1.0" encoding="UTF-8"?>
 <atv>
+<head><script src="${serverurl}/javascript/clican.js"/></head>
 <body>
 		<listWithPreview id="lwp">
 			<header>
@@ -26,7 +27,7 @@
 							<c:forEach var="weiboStatus" items="${weiboStatusWapper.statuses}"
 								varStatus="varStatus">
 								<c:if test="${weiboStatus.videoUrl!=null}">
-									<imageTextImageMenuItem id="item_${varStatus.count}" onSelect="atv.loadURL('${serverurl}/weibo/textPreview.xml?statusId=${weiboStatus.idstr}&amp;fullText=${weiboStatus.fullTextEncode}');" onPlay="atv.loadURL('${weiboStatus.videoUrl}');">
+									<imageTextImageMenuItem id="item_${varStatus.count}" onSelect="atv.loadURL('${serverurl}/weibo/textPreview.xml?statusId=${weiboStatus.idstr}&amp;fullText=${weiboStatus.fullTextEncode}');" onPlay="${weiboStatus.videoUrl}">
 										<leftImage>${weiboStatus.user.profileImageUrl}</leftImage>
 										<rightImage>${serverurl}/image/weibo/video.png</rightImage>
 										<imageSeparatorText></imageSeparatorText>
