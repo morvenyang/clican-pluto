@@ -50,7 +50,7 @@ public class BaseClient {
 		}
 	}
 
-	protected String httpGet(String url, Map<String, String> headers,
+	public String httpGet(String url, Map<String, String> headers,
 			Integer timeout) {
 		InputStream is = null;
 		ByteArrayOutputStream os1 = null;
