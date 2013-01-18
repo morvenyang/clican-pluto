@@ -1,23 +1,17 @@
 package com.clican.appletv.core.service.weibo;
 
-import gui.ava.html.image.generator.HtmlImageGenerator;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.atomic.AtomicLong;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -42,9 +36,6 @@ public class WeiboClientImpl implements WeiboClient {
 
 	private SpringProperty springProperty;
 
-	private final static AtomicLong imageFileName = new AtomicLong(Calendar
-			.getInstance().getTimeInMillis());
-
 	public void setSpringProperty(SpringProperty springProperty) {
 		this.springProperty = springProperty;
 	}
@@ -55,8 +46,8 @@ public class WeiboClientImpl implements WeiboClient {
 		shortUrl.client.setToken(accessToken);
 		List<String> urls = new ArrayList<String>();
 		Map<String, List<Status>> urlMap = new HashMap<String, List<Status>>();
-		Pattern pattern = Pattern.compile(springProperty
-				.getWeiboShortURLPattern(),Pattern.DOTALL);
+		Pattern pattern = Pattern.compile(
+				springProperty.getWeiboShortURLPattern(), Pattern.DOTALL);
 		Pattern youkuPattern = Pattern.compile(springProperty
 				.getYoukuShowidPattern());
 		Pattern qqPattern = Pattern.compile(springProperty.getQqIdPattern());
@@ -107,11 +98,10 @@ public class WeiboClientImpl implements WeiboClient {
 							Matcher youkuMatcher = youkuPattern.matcher(lurl);
 							if (youkuMatcher.matches()) {
 								String showid = youkuMatcher.group(1);
-								addVideoUrlForStatus(list,
-										"atv.loadURL('"
-												+springProperty.getSystemServerUrl()
-												+ "/youku/album.xml?showid="
-												+ showid+"');");
+								addVideoUrlForStatus(list, "atv.loadURL('"
+										+ springProperty.getSystemServerUrl()
+										+ "/youku/album.xml?showid=" + showid
+										+ "');");
 							} else {
 								Matcher qqMatcher = qqPattern.matcher(lurl);
 								if (qqMatcher.matches()) {
@@ -120,10 +110,10 @@ public class WeiboClientImpl implements WeiboClient {
 										addVideoUrlForStatus(
 												list,
 												"atv.loadURL('"
-												+springProperty
-														.getSystemServerUrl()
+														+ springProperty
+																.getSystemServerUrl()
 														+ "/qq/album.xml?coverId="
-														+ coverId+"');");
+														+ coverId + "');");
 									} else {
 										addVideoUrlForStatus(
 												list,
@@ -143,20 +133,19 @@ public class WeiboClientImpl implements WeiboClient {
 
 								} else {
 									Matcher tudouMatcher = null;
-									if(!lurl.endsWith("/")){
-										lurl = lurl+"/";
+									if (!lurl.endsWith("/")) {
+										lurl = lurl + "/";
 									}
-									tudouMatcher=tudouPattern
-											.matcher(lurl);
+									tudouMatcher = tudouPattern.matcher(lurl);
 									if (tudouMatcher.matches()) {
 										String code = tudouMatcher.group(1);
 										addVideoUrlForStatus(
 												list,
 												"atv.loadURL('"
-												+springProperty
-														.getSystemServerUrl()
+														+ springProperty
+																.getSystemServerUrl()
 														+ "/tudou/playVideoByCode.xml?code="
-														+ code+"');");
+														+ code + "');");
 									} else {
 										Matcher sohuMatcher = sohuPattern
 												.matcher(lurl);
@@ -164,10 +153,10 @@ public class WeiboClientImpl implements WeiboClient {
 											addVideoUrlForStatus(
 													list,
 													"atv.loadURL('"
-													+springProperty
-															.getSystemServerUrl()
+															+ springProperty
+																	.getSystemServerUrl()
 															+ "/sohu/playVideoByURL.xml?url="
-															+ lurl+"');");
+															+ lurl + "');");
 										} else {
 											Matcher fiveSixMatcher = fiveSixPattern
 													.matcher(lurl);
@@ -177,19 +166,18 @@ public class WeiboClientImpl implements WeiboClient {
 												addVideoUrlForStatus(
 														list,
 														"atv.loadURL('"
-														+springProperty
-																.getSystemServerUrl()
+																+ springProperty
+																		.getSystemServerUrl()
 																+ "/fivesix/playVideoByCode.xml?code="
-																+ code+"');");
-											} 
+																+ code + "');");
+											}
 										}
 									}
 								}
 							}
-							addUnknownVideoUrlForStatus(
-									list, lurl);
+							addUnknownVideoUrlForStatus(list, lurl);
 						}
-						
+
 					} catch (Exception e) {
 						log.error("", e);
 					}
@@ -211,59 +199,6 @@ public class WeiboClientImpl implements WeiboClient {
 		for (Status status : list) {
 			status.setUnknownVideoUrl(videoUrl);
 		}
-	}
-
-	private String generateImageFileName() {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd/HH/mm/ss");
-		sdf.format(new Date());
-		String fileName = sdf.format(new Date()) + "/"
-				+ imageFileName.getAndIncrement() + ".png";
-		return fileName;
-	}
-
-	public String generateWeiboImage(Status status) {
-		Date start = new Date();
-		StringBuffer content = new StringBuffer();
-		content.append("<p style=\"width: 700px;font-size:60\">");
-		content.append(status.getUser().getScreenName());
-		content.append("</p>");
-		// append content
-		content.append("<p style=\"width: 700px;font-size:60\">");
-		content.append(status.getText());
-		content.append("</p>");
-
-		if (status.getRetweetedStatus() != null
-				&& status.getRetweetedStatus().getUser() != null) {
-			// append refer user name
-			content.append("<p style=\"width: 700px;font-size:60\">");
-			content.append("@"
-					+ status.getRetweetedStatus().getUser().getScreenName());
-			content.append("</p>");
-
-			// append refer content
-			content.append("<p style=\"width: 700px;font-size:60\">");
-			content.append(status.getRetweetedStatus().getText());
-			content.append("</p> ");
-		}
-		String imageFileName = this.generateImageFileName();
-
-		String filePath = springProperty.getWeiboTempImageFolder() + "/"
-				+ imageFileName;
-		String urlPath = springProperty.getWeiboTempImageURL() + "/"
-				+ imageFileName;
-		HtmlImageGenerator imageGenerator = new HtmlImageGenerator();
-		imageGenerator.loadHtml(content.toString());
-		File weiboTempImageFile = new File(filePath);
-		if (!weiboTempImageFile.getParentFile().exists()) {
-			weiboTempImageFile.getParentFile().mkdirs();
-		}
-		imageGenerator.saveAsImage(filePath);
-		Date end = new Date();
-		if (log.isDebugEnabled()) {
-			log.debug("spend " + (end.getTime() - start.getTime())
-					+ " ms to generate png");
-		}
-		return urlPath;
 	}
 
 	@Override
