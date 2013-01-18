@@ -39,14 +39,14 @@
 										<preview>
 											<longDescriptionPreview>
 										         <title><![CDATA[${weiboStatus.user.screenName}]]></title>
-										         <summary><![CDATA[${weiboStatus.fullText}]]></summary>
+										         <summary><![CDATA[${weiboStatus.fullText} ${weiboStatus.unknownVideoUrl}]]></summary>
 										         <image src="${weiboStatus.retweetedStatus.originalPic}"></image>
 										    </longDescriptionPreview>
 										</preview>
 									</imageTextImageMenuItem>
 								</c:if>
 								<c:if test="${weiboStatus.videoUrl==null}">
-									<imageTextImageMenuItem id="item_${varStatus.count}" onSelect="atv.loadURL('${serverurl}/weibo/textPreview.xml?statusId=${weiboStatus.idstr}&amp;fullText=${weiboStatus.fullTextEncode}');">
+									<imageTextImageMenuItem id="item_${varStatus.count}" onSelect="atv.loadURL('${serverurl}/weibo/textPreview.xml?statusId=${weiboStatus.idstr}&amp;fullText='+encodeURIComponent('${weiboStatus.fullTextEncode}'));">
 										<leftImage>${weiboStatus.user.profileImageUrl}</leftImage>
 										<rightImage></rightImage>
 										<imageSeparatorText></imageSeparatorText>
@@ -59,7 +59,7 @@
 										<preview>
 											<longDescriptionPreview>
 										         <title><![CDATA[${weiboStatus.user.screenName}]]></title>
-										         <summary><![CDATA[${weiboStatus.fullText}]]></summary>
+										         <summary><![CDATA[${weiboStatus.fullText} ${weiboStatus.unknownVideoUrl}]]></summary>
 										         <image src="${weiboStatus.retweetedStatus.originalPic}"></image>
 										    </longDescriptionPreview>
 										</preview>

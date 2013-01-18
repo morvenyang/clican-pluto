@@ -41,6 +41,7 @@ public class Status extends WeiboResponse implements java.io.Serializable {
 	private Visible visible;
 	private String statusPic;
 	private String videoUrl;
+	private String unknownVideoUrl;
 	private String fullText;
 	private String fullTextEncode;
 
@@ -357,6 +358,14 @@ public class Status extends WeiboResponse implements java.io.Serializable {
 
 	public void setFullTextEncode(String fullTextEncode) {
 		this.fullTextEncode = fullTextEncode;
+	}
+
+	public String getUnknownVideoUrl() {
+		return unknownVideoUrl;
+	}
+
+	public void setUnknownVideoUrl(String unknownVideoUrl) {
+		this.unknownVideoUrl = unknownVideoUrl;
 	}
 
 	public static StatusWapper constructWapperStatus(Response res)

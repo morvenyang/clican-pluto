@@ -107,44 +107,54 @@ public class WeiboClientImpl implements WeiboClient {
 							Matcher youkuMatcher = youkuPattern.matcher(lurl);
 							if (youkuMatcher.matches()) {
 								String showid = youkuMatcher.group(1);
-								addVideoUrlForStatus(list,springProperty
-										.getSystemServerUrl()
-										+ "/youku/album.xml?showid=" + showid);
+								addVideoUrlForStatus(list,
+										springProperty.getSystemServerUrl()
+												+ "/youku/album.xml?showid="
+												+ showid);
 							} else {
 								Matcher qqMatcher = qqPattern.matcher(lurl);
 								if (qqMatcher.matches()) {
 									String coverId = qqMatcher.group(1);
-									addVideoUrlForStatus(list,springProperty
-											.getSystemServerUrl()
-											+ "/qq/album.xml?coverId="
-											+ coverId);
+									addVideoUrlForStatus(list,
+											springProperty.getSystemServerUrl()
+													+ "/qq/album.xml?coverId="
+													+ coverId);
 								} else {
 									Matcher tudouMatcher = tudouPattern
 											.matcher(lurl);
 									if (tudouMatcher.matches()) {
 										String code = tudouMatcher.group(1);
-										addVideoUrlForStatus(list,springProperty
-												.getSystemServerUrl()
-												+ "/tudou/playVideoByCode.xml?code="
-												+ code);
+										addVideoUrlForStatus(
+												list,
+												springProperty
+														.getSystemServerUrl()
+														+ "/tudou/playVideoByCode.xml?code="
+														+ code);
 									} else {
 										Matcher sohuMatcher = sohuPattern
 												.matcher(lurl);
 										if (sohuMatcher.matches()) {
-											addVideoUrlForStatus(list,springProperty
-													.getSystemServerUrl()
-													+ "/sohu/playVideoByURL.xml?url="
-													+ lurl);
+											addVideoUrlForStatus(
+													list,
+													springProperty
+															.getSystemServerUrl()
+															+ "/sohu/playVideoByURL.xml?url="
+															+ lurl);
 										} else {
 											Matcher fiveSixMatcher = fiveSixPattern
 													.matcher(lurl);
 											if (fiveSixMatcher.matches()) {
 												String code = fiveSixMatcher
 														.group(1);
-												addVideoUrlForStatus(list,springProperty
-														.getSystemServerUrl()
-														+ "/fivesix/playVideoByCode.xml?code="
-														+ code);
+												addVideoUrlForStatus(
+														list,
+														springProperty
+																.getSystemServerUrl()
+																+ "/fivesix/playVideoByCode.xml?code="
+																+ code);
+											} else {
+												addUnknownVideoUrlForStatus(
+														list, lurl);
 											}
 										}
 									}
@@ -166,6 +176,12 @@ public class WeiboClientImpl implements WeiboClient {
 	private void addVideoUrlForStatus(List<Status> list, String videoUrl) {
 		for (Status status : list) {
 			status.setVideoUrl(videoUrl);
+		}
+	}
+
+	private void addUnknownVideoUrlForStatus(List<Status> list, String videoUrl) {
+		for (Status status : list) {
+			status.setUnknownVideoUrl(videoUrl);
 		}
 	}
 
