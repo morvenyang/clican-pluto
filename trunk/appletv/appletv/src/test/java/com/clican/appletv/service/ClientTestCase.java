@@ -34,8 +34,12 @@ public class ClientTestCase extends BaseServiceTestCase {
 
 	public void testSohuIdPattern() throws Exception {
 		Pattern pattern = Pattern.compile(springProperty.getSohuIdPattern(),Pattern.DOTALL);
+		String html = "        var vid = '51930969';\n"
+        +"var _uid = '5866814';\n"
+        +"var cateId ='124105';\n"
+        +"var _playListId='';\n";
 		Matcher matcher = pattern
-				.matcher("var vid='51930969';\n");
+				.matcher(html);
 		String code = null;
 		if (matcher.matches()) {
 			code = matcher.group(1);
