@@ -262,7 +262,7 @@ public class WeiboController {
 		String accessToken = (String) request.getSession().getAttribute(
 				"weiboAccessToken");
 		timeline.setToken(accessToken);
-		String statusContent = "我正在Apple TV3上观看在线视频（" + title + "） >>>"
+		String statusContent = "我正在Apple TV3上观看在线视频（" + title + "）@Clican 了解更多 >>>"
 				+ shareURL;
 		Status status = null;
 		boolean result = true;
