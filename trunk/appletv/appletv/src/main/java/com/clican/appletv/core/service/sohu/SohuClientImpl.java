@@ -1,5 +1,8 @@
 package com.clican.appletv.core.service.sohu;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import net.sf.json.JSONObject;
 
 import org.apache.commons.lang.StringUtils;
@@ -11,28 +14,17 @@ public class SohuClientImpl extends BaseClient implements SohuClient {
 	@Override
 	public String getPlayURL(String url) {
 		String htmlContent = this.httpGet(url, null, null);
-		boolean single = false;
-		int start = htmlContent.indexOf("var vid=\"");
-		if (start == -1) {
-			start =  htmlContent.indexOf("var vid= \'");
-			if(start==-1){
-				return null;
-			}else{
-				single = true;
-			}
+		Pattern pattern = Pattern.compile(springProperty.getSohuIdPattern(),
+				Pattern.DOTALL);
+		Matcher matcher = pattern.matcher(htmlContent);
+		String code = null;
+		if (matcher.matches()) {
+			code = matcher.group(1);
 		}
-		if(single){
-			
-		}
-		start = start + "var vid=\"".length();
-		int end = htmlContent.indexOf("\";", start);
-		if (end == -1) {
-			return null;
-		}
-		String matcherContent = htmlContent.substring(start, end);
-		if (StringUtils.isNumeric(matcherContent)) {
+
+		if (StringUtils.isNumeric(code)) {
 			String apiURL = springProperty.getSohuVideoApi().replace(
-					"vid.json", matcherContent+".json");
+					"vid.json", code + ".json");
 			String jsonContent = this.httpGet(apiURL, null, null);
 			String m3u8URL = JSONObject.fromObject(jsonContent)
 					.getJSONObject("data").getString("url_high");
