@@ -6,6 +6,7 @@ import java.io.OutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +25,10 @@ public class SohuController {
 			HttpServletResponse response, @RequestParam("url") String url)
 			throws IOException {
 		String m3u8URL = sohuClient.getPlayURL(url);
+		if (StringUtils.isEmpty(m3u8URL)) {
+			response.sendError(HttpServletResponse.SC_BAD_REQUEST);
+			return;
+		}
 		String playXml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><atv><body><videoPlayer id=\"com.sample.video-player\"><httpFileVideoAsset id=\"play\"><mediaURL>"
 				+ m3u8URL
 				+ "</mediaURL><title></title><description></description></httpFileVideoAsset></videoPlayer></body></atv>";

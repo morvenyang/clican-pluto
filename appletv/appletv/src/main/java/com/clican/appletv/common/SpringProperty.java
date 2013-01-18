@@ -53,6 +53,7 @@ public class SpringProperty {
 	private String youkuShowidPattern;
 	
 	private String sohuURLPattern;
+	private String sohuIdPattern;
 	private String sohuVideoApi;
 	
 	private String fivesixCodePattern;
@@ -425,6 +426,14 @@ public class SpringProperty {
 
 	public void setFivesixVideoHtmlApi(String fivesixVideoHtmlApi) {
 		this.fivesixVideoHtmlApi = fivesixVideoHtmlApi;
+	}
+
+	public String getSohuIdPattern() {
+		return sohuIdPattern;
+	}
+
+	public void setSohuIdPattern(String sohuIdPattern) {
+		this.sohuIdPattern = sohuIdPattern;
 	}
 
 	
