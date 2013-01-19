@@ -267,11 +267,15 @@ public class WeiboController {
 				"weiboAccessToken");
 		timeline.setToken(accessToken);
 		String statusContent = "我正在Apple TV3上观看在线视频（" + title
-				+ "）@Clican 了解更多 >>>" + shareURL;
+				+ "）@Clican 了解更多 >>>";
+		if (StringUtils.isNotEmpty(shareURL)) {
+			statusContent += shareURL;
+		}
 		Status status = null;
 		boolean result = true;
 		try {
-			status = timeline.UploadStatus(statusContent, imageURL);
+			status = timeline.UpdateStatus(statusContent);
+			//status = timeline.UploadStatus(statusContent, imageURL);
 		} catch (Exception e) {
 			log.error("", e);
 			result = false;
