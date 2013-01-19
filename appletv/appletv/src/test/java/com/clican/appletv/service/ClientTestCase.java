@@ -94,4 +94,16 @@ public class ClientTestCase extends BaseServiceTestCase {
 
 	}
 
+	public void testYoukuCodePattern() throws Exception {
+		String s1 = "http://v.youku.com/v_show/id_XMzA5MzY=.html";
+		Pattern pattern = Pattern
+				.compile(springProperty.getYoukuShowidPattern());
+		Matcher matcher = pattern.matcher(s1);
+		String code = null;
+		if (matcher.matches()) {
+			code = matcher.group(1);
+		}
+		assertEquals("XMzA5MzY=", code);
+
+	}
 }
