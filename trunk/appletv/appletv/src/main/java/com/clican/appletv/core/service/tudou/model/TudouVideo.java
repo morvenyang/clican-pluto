@@ -19,7 +19,7 @@ public class TudouVideo extends ListView implements Serializable {
 	private Integer origin;
 	private Integer pwd;
 	private Integer hd;
-	private Integer cid;
+	private Integer cid = -1;
 	public String getLevel() {
 		return level;
 	}
