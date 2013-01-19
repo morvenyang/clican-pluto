@@ -129,11 +129,12 @@ public class BaseClient {
 			}
 
 		} catch (Exception e) {
-			if(e instanceof org.apache.commons.httpclient.ConnectTimeoutException){
-				if(log.isDebugEnabled()){
-					log.debug("connection timeout for url:"+url);
+			if (e instanceof org.apache.commons.httpclient.ConnectTimeoutException
+					|| e instanceof java.net.SocketException) {
+				if (log.isDebugEnabled()) {
+					log.debug("connection timeout for url:" + url);
 				}
-			}else{
+			} else {
 				log.error("", e);
 			}
 			return null;
