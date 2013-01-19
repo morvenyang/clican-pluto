@@ -100,7 +100,11 @@ public class WeiboController {
 		if (log.isDebugEnabled()) {
 			log.debug("check access token is valid or not");
 		}
-		String uid = weiboClient.getUid(deviceId);
+		String uid = (String) request.getSession().getAttribute("weiboUid");
+		if (StringUtils.isEmpty(uid)) {
+			uid = weiboClient.getUid(deviceId);
+		}
+
 		String accessToken = weiboClient.getAccessToken(deviceId);
 		if (StringUtils.isNotEmpty(uid)) {
 			request.getSession().setAttribute("weiboUid", uid);
@@ -262,8 +266,8 @@ public class WeiboController {
 		String accessToken = (String) request.getSession().getAttribute(
 				"weiboAccessToken");
 		timeline.setToken(accessToken);
-		String statusContent = "我正在Apple TV3上观看在线视频（" + title + "）@Clican 了解更多 >>>"
-				+ shareURL;
+		String statusContent = "我正在Apple TV3上观看在线视频（" + title
+				+ "）@Clican 了解更多 >>>" + shareURL;
 		Status status = null;
 		boolean result = true;
 		try {
@@ -275,6 +279,12 @@ public class WeiboController {
 
 		if (status == null) {
 			result = false;
+		} else {
+			if (log.isDebugEnabled()) {
+				log.debug("The user["
+						+ request.getSession().getAttribute("weiboUid")
+						+ "] send status[" + status.getId() + "]");
+			}
 		}
 		request.setAttribute("result", result);
 		return "/weibo/createStatus";
