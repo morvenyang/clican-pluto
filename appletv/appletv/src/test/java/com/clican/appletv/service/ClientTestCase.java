@@ -28,7 +28,7 @@ public class ClientTestCase extends BaseServiceTestCase {
 		if (matcher.matches()) {
 			code = matcher.group(1);
 		}
-		//assertEquals("r1rJ-fxW_hE",code );
+		assertEquals("r1rJ-fxW_hE",code );
 
 		matcher = pattern
 				.matcher("http://www.tudou.com/programs/view/r1rJ-fxW_hE/");
