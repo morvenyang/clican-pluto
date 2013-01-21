@@ -186,6 +186,7 @@ public class WeiboClientImpl implements WeiboClient {
 										+ springProperty.getSystemServerUrl()
 										+ "/sina/music.xml?id=" + id + "');");
 							}
+							addUnknownVideoUrlForStatus(list, lurl);
 						}
 
 					} catch (Exception e) {

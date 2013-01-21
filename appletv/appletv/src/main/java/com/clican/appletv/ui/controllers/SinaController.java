@@ -1,6 +1,7 @@
 package com.clican.appletv.ui.controllers;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -36,6 +37,8 @@ public class SinaController {
 			log.debug("access sina music id=" + id);
 		}
 		SinaMusic sinaMusic = sinaClient.getMusic(id);
+		sinaMusic.setMp3Url(URLEncoder.encode(sinaMusic.getMp3Url(), "utf-8"));
+		sinaMusic.setId(id);
 		request.setAttribute("music", sinaMusic);
 		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
 		return "sina/music";
