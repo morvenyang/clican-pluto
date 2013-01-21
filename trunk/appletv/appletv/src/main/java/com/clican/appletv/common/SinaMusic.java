@@ -1,4 +1,4 @@
-package com.clican.appletv.core.service.sina.model;
+package com.clican.appletv.common;
 
 public class SinaMusic {
 
