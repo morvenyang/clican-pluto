@@ -14,6 +14,8 @@ import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.httpclient.methods.GetMethod;
+import org.apache.commons.httpclient.methods.PostMethod;
+import org.apache.commons.httpclient.methods.StringRequestEntity;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
 import org.apache.commons.logging.Log;
@@ -48,6 +50,134 @@ public class BaseClient {
 			lastExpireTime = current;
 			cacheMap.clear();
 		}
+	}
+
+	public String httpPost(String url, String content, String reqContentType,
+			String reqCharset, Map<String, String> headers, Integer timeout) {
+
+		InputStream is = null;
+		ByteArrayOutputStream os1 = null;
+		GZIPInputStream gis = null;
+		ByteArrayOutputStream os2 = null;
+		try {
+			HttpClient client = new HttpClient();
+			if (springProperty.isSystemProxyEnable()) {
+				client.getHostConfiguration().setProxy(
+						springProperty.getSystemProxyHost(),
+						springProperty.getSystemProxyPort());
+			}
+
+			PostMethod httpPost = new PostMethod(url);
+
+			if (timeout != null) {
+				client.getHttpConnectionManager().getParams()
+						.setConnectionTimeout(timeout);
+				client.getHttpConnectionManager().getParams()
+						.setSoTimeout(timeout);
+			}
+			if (headers != null) {
+				for (String key : headers.keySet()) {
+					httpPost.addRequestHeader(key, headers.get(key));
+				}
+			}
+			httpPost.addRequestHeader("Accept-Encoding", "gzip");
+			httpPost.setRequestEntity(new StringRequestEntity(content,
+					reqContentType, reqCharset));
+			int status = client.executeMethod(httpPost);
+			if (log.isDebugEnabled()) {
+				log.debug("Status:" + status + " for url:" + url);
+			}
+			Header contentTypeHeader = httpPost
+					.getResponseHeader("Content-Type");
+			Header contentEncodingHeader = httpPost
+					.getResponseHeader("Content-Encoding");
+			String contentType = contentTypeHeader.getValue();
+			String charset = "UTF-8";
+			String contentEncoding = null;
+			if (StringUtils.isNotEmpty(contentType)) {
+				int index = contentType.indexOf("charset=");
+				if (index != -1) {
+					charset = contentType.substring(index + 8).trim()
+							.toLowerCase();
+				}
+				index = contentType.indexOf(";");
+				if (index != -1) {
+					contentType = contentType.substring(0, index).trim()
+							.toLowerCase();
+				}
+			}
+			if (contentEncodingHeader != null) {
+				contentEncoding = contentEncodingHeader.getValue();
+			}
+			is = httpPost.getResponseBodyAsStream();
+			os1 = new ByteArrayOutputStream();
+
+			byte[] buffer = new byte[1024];
+
+			int read = -1;
+			while ((read = is.read(buffer)) != -1) {
+				os1.write(buffer, 0, read);
+			}
+			if (StringUtils.isNotEmpty(contentEncoding)
+					&& contentEncoding.equals("gzip")) {
+				os2 = new ByteArrayOutputStream();
+				gis = new GZIPInputStream(new ByteArrayInputStream(
+						os1.toByteArray()));
+				buffer = new byte[1024];
+				read = -1;
+				while ((read = gis.read(buffer)) != -1) {
+					os2.write(buffer, 0, read);
+				}
+				return new String(os2.toByteArray(), charset);
+			} else {
+				return new String(os1.toByteArray(), charset);
+			}
+
+		} catch (Exception e) {
+			if (e instanceof org.apache.commons.httpclient.ConnectTimeoutException
+					|| e instanceof java.net.SocketException) {
+				if (log.isDebugEnabled()) {
+					log.debug("connection timeout for url:" + url);
+				}
+			} else {
+				log.error("", e);
+			}
+			return null;
+		} finally {
+			if (is != null) {
+				try {
+					is.close();
+				} catch (Exception e) {
+					log.error("", e);
+				}
+
+			}
+			if (gis != null) {
+				try {
+					gis.close();
+				} catch (Exception e) {
+					log.error("", e);
+				}
+
+			}
+			if (os1 != null) {
+				try {
+					os1.close();
+				} catch (Exception e) {
+					log.error("", e);
+				}
+
+			}
+			if (os2 != null) {
+				try {
+					os2.close();
+				} catch (Exception e) {
+					log.error("", e);
+				}
+
+			}
+		}
+
 	}
 
 	public String httpGet(String url, Map<String, String> headers,
