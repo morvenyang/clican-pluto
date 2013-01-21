@@ -11,7 +11,7 @@ public class SinaClientImpl extends BaseClient implements SinaClient {
 
 	@Override
 	public SinaMusic getMusic(String musicId) {
-		
+
 		String url = this.springProperty.getSinaMusicApi();
 		String jsonContent = this.httpPost(url, "id[]=2841754",
 				"application/x-www-form-urlencoded", "utf-8", null, null);
@@ -29,5 +29,17 @@ public class SinaClientImpl extends BaseClient implements SinaClient {
 		sinaMusic.setMp3Url(result.getString("MP3_URL"));
 
 		return sinaMusic;
+	}
+
+	@Override
+	public String getMp3Url(String url) {
+		String content = this.httpGet(url, null, null);
+		if (StringUtils.isNotEmpty(content)) {
+			content = content.trim();
+			content = content.replaceAll("iask_music_song_url=\"", "");
+			content = content.substring(0, content.length() - 2);
+			content = content.trim();
+		}
+		return content;
 	}
 }
