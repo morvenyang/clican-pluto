@@ -34,7 +34,7 @@ public class XiaomiController {
 
 		Music music = xiamiClient.getMusic(id);
 		request.setAttribute("music", music);
-		return "xiami/music.jsp";
+		return "xiami/music";
 	}
 
 	@RequestMapping("/xiami/playMusic.xml")
