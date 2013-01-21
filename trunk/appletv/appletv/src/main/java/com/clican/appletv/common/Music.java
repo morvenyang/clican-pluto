@@ -1,6 +1,6 @@
 package com.clican.appletv.common;
 
-public class SinaMusic {
+public class Music {
 
 	private String id;
 	

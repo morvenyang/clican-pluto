@@ -1,10 +1,10 @@
 package com.clican.appletv.core.service.sina;
 
-import com.clican.appletv.common.SinaMusic;
+import com.clican.appletv.common.Music;
 
 public interface SinaClient {
 
-	public SinaMusic getMusic(String musicId);
+	public Music getMusic(String musicId);
 	
 	public String getMp3Url(String url);
 }
