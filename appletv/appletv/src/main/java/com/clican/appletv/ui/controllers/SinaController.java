@@ -14,7 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.clican.appletv.common.SinaMusic;
+import com.clican.appletv.common.Music;
 import com.clican.appletv.common.SpringProperty;
 import com.clican.appletv.core.service.sina.SinaClient;
 
@@ -37,7 +37,7 @@ public class SinaController {
 		if (log.isDebugEnabled()) {
 			log.debug("access sina music id=" + id);
 		}
-		SinaMusic sinaMusic = sinaClient.getMusic(id);
+		Music sinaMusic = sinaClient.getMusic(id);
 		if (StringUtils.isNotEmpty(sinaMusic.getMp3Url())) {
 			sinaMusic.setMp3Url(URLEncoder.encode(sinaMusic.getMp3Url(),
 					"utf-8"));

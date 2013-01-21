@@ -5,13 +5,13 @@ import net.sf.json.JSONObject;
 
 import org.apache.commons.lang.StringUtils;
 
-import com.clican.appletv.common.SinaMusic;
+import com.clican.appletv.common.Music;
 import com.clican.appletv.core.service.BaseClient;
 
 public class SinaClientImpl extends BaseClient implements SinaClient {
 
 	@Override
-	public SinaMusic getMusic(String musicId) {
+	public Music getMusic(String musicId) {
 
 		String url = this.springProperty.getSinaMusicApi();
 		String jsonContent = this.httpPost(url, "id[]=2841754",
@@ -21,7 +21,7 @@ public class SinaClientImpl extends BaseClient implements SinaClient {
 		}
 		JSONArray resultArray = JSONObject.fromObject(jsonContent)
 				.getJSONArray("result");
-		SinaMusic sinaMusic = new SinaMusic();
+		Music sinaMusic = new Music();
 		if (resultArray.size() > 0) {
 			JSONObject result = resultArray.getJSONObject(0);
 			sinaMusic.setName(result.getString("NAME"));
