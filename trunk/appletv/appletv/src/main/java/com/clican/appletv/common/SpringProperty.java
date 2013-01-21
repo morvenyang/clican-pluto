@@ -72,6 +72,10 @@ public class SpringProperty {
 	private String weiboTempImageFolder;
 	private String weiboTempImageURL;
 	private String weiboShortURLPattern;
+	
+	private String sinaMusicIdPattern;
+	private String sinaMusicApi;
+	private String sinaMusicShareURL;
 
 	public SpringProperty() {
 		instance = this;
@@ -436,10 +440,29 @@ public class SpringProperty {
 		this.sohuIdPattern = sohuIdPattern;
 	}
 
-	
+	public String getSinaMusicIdPattern() {
+		return sinaMusicIdPattern;
+	}
 
-	
+	public void setSinaMusicIdPattern(String sinaMusicIdPattern) {
+		this.sinaMusicIdPattern = sinaMusicIdPattern;
+	}
 
-	
+	public String getSinaMusicApi() {
+		return sinaMusicApi;
+	}
+
+	public void setSinaMusicApi(String sinaMusicApi) {
+		this.sinaMusicApi = sinaMusicApi;
+	}
+
+	public String getSinaMusicShareURL() {
+		return sinaMusicShareURL;
+	}
+
+	public void setSinaMusicShareURL(String sinaMusicShareURL) {
+		this.sinaMusicShareURL = sinaMusicShareURL;
+	}
+
 
 }

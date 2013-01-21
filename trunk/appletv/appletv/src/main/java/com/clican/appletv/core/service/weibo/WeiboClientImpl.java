@@ -57,6 +57,9 @@ public class WeiboClientImpl implements WeiboClient {
 				.getSohuURLPattern());
 		Pattern fiveSixPattern = Pattern.compile(springProperty
 				.getFivesixCodePattern());
+
+		Pattern sinaMusicPattern = Pattern.compile(springProperty
+				.getSinaMusicIdPattern());
 		for (Status status : statusWapper.getStatuses()) {
 			try {
 				String text = status.getText();
@@ -91,9 +94,9 @@ public class WeiboClientImpl implements WeiboClient {
 					String lurl = jsonUrl.getString("url_long");
 					String type = jsonUrl.getString("type");
 					try {
+						List<Status> list = urlMap.get(surl);
 						if (type.equals("1")) {
 							// video
-							List<Status> list = urlMap.get(surl);
 							// convert this lurl to AppleTV page
 							Matcher youkuMatcher = youkuPattern.matcher(lurl);
 							if (youkuMatcher.matches()) {
@@ -173,6 +176,16 @@ public class WeiboClientImpl implements WeiboClient {
 								}
 							}
 							addUnknownVideoUrlForStatus(list, lurl);
+						} else if (type.equals("2")) {
+							// music
+							Matcher sinaMusicMatcher = sinaMusicPattern
+									.matcher(lurl);
+							if (sinaMusicMatcher.matches()) {
+								String id = sinaMusicMatcher.group(1);
+								addVideoUrlForStatus(list, "atv.loadURL('"
+										+ springProperty.getSystemServerUrl()
+										+ "/sina/music.xml?id=" + id + "');");
+							}
 						}
 
 					} catch (Exception e) {
