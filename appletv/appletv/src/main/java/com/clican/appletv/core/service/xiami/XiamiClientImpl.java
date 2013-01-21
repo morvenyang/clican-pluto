@@ -14,7 +14,7 @@ public class XiamiClientImpl extends BaseClient implements XiamiClient {
 			String xmlContent = this.httpGet(springProperty.getXiamiMusicApi()
 					+ id, null, null);
 			Pattern pattern = Pattern
-					.compile("\\<location\\>\\<\\!\\[CDATA\\[(\\p{Alnum}*)\\]\\]\\>\\</location\\>");
+					.compile(".*\\<location\\>\\<\\!\\[CDATA\\[(.*)\\]\\]\\>\\</location\\>.*",Pattern.DOTALL);
 			Matcher matcher = pattern.matcher(xmlContent);
 			String location = null;
 			if (matcher.matches()) {
