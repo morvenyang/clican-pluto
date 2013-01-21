@@ -35,11 +35,8 @@ public class SinaController {
 		if (log.isDebugEnabled()) {
 			log.debug("access sina music id=" + id);
 		}
-		String shareURL = springProperty.getSinaMusicShareURL().replace(
-				"musicid", id);
 		SinaMusic sinaMusic = sinaClient.getMusic(id);
 		request.setAttribute("music", sinaMusic);
-		request.setAttribute("shareURL", shareURL);
 		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
 		return "sina/music";
 	}
