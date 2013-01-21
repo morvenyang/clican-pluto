@@ -1,25 +1,47 @@
 package com.clican.appletv.core.service.xiami;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.net.URLDecoder;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
+import org.apache.commons.digester3.Digester;
+
+import com.clican.appletv.common.Music;
 import com.clican.appletv.core.service.BaseClient;
 
 public class XiamiClientImpl extends BaseClient implements XiamiClient {
 
 	@Override
-	public String getMp3Url(String id) {
+	public Music getMusic(String id) {
+		String xmlContent = this.httpGet(
+				springProperty.getXiamiMusicApi() + id, null, null);
+		Digester digester = new Digester();
+		InputStream is = null;
+		Music music = null;
 		try {
-			String xmlContent = this.httpGet(springProperty.getXiamiMusicApi()
-					+ id, null, null);
-			Pattern pattern = Pattern
-					.compile(".*\\<location\\>\\<\\!\\[CDATA\\[(.*)\\]\\]\\>\\</location\\>.*",Pattern.DOTALL);
-			Matcher matcher = pattern.matcher(xmlContent);
-			String location = null;
-			if (matcher.matches()) {
-				location = matcher.group(1);
-			}
+			is = new ByteArrayInputStream(xmlContent.getBytes("utf-8"));
+			digester.addObjectCreate("trackList/track", Music.class.getName());
+			digester.addCallMethod("trackList/track/song_name",
+					"setName", 0);
+			digester.addCallMethod("trackList/track/album_cover",
+					"setSingerPhoto", 0);
+			digester.addCallMethod("trackList/track/album_name",
+					"setAlbumName", 0);
+			digester.addCallMethod("trackList/track/artist_name",
+					"setSingerName", 0);
+			digester.addCallMethod("trackList/track/location",
+					"setMp3Url", 0);
+			music = digester.parse(is);
+			music.setId(id);
+			music.setMp3Url(getMp3Url(music.getMp3Url()));
+		} catch (Exception e) {
+			log.error("", e);
+		}
+		return music;
+	}
+
+	private String getMp3Url(String location) {
+		try {
 			int squall = Integer.parseInt(location.substring(0, 1));
 			char[] array = location.substring(1).toCharArray();
 			int length = array.length / squall;
