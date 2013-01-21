@@ -197,7 +197,7 @@ public class WeiboClientImpl implements WeiboClient {
 											"atv.loadURL('"
 													+ springProperty
 															.getSystemServerUrl()
-													+ "/xiami/playMusic.xml?id="
+													+ "/xiami/music.xml?id="
 													+ id + "');");
 								}
 							}
