@@ -1,0 +1,58 @@
+package com.clican.appletv.ui.controllers;
+
+import java.io.IOException;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.clican.appletv.common.SpringProperty;
+import com.clican.appletv.core.service.sina.SinaClient;
+import com.clican.appletv.core.service.sina.model.SinaMusic;
+
+@Controller
+public class SinaController {
+
+	private final static Log log = LogFactory.getLog(SinaController.class);
+
+	@Autowired
+	private SinaClient sinaClient;
+
+	@Autowired
+	private SpringProperty springProperty;
+
+	@RequestMapping("/sina/music.xml")
+	public String musicPage(HttpServletRequest request,
+			HttpServletResponse response,
+			@RequestParam(value = "id", required = true) String id)
+			throws IOException {
+		if (log.isDebugEnabled()) {
+			log.debug("access sina music id=" + id);
+		}
+		String shareURL = springProperty.getSinaMusicShareURL().replace(
+				"musicid", id);
+		SinaMusic sinaMusic = sinaClient.getMusic(id);
+		request.setAttribute("music", sinaMusic);
+		request.setAttribute("shareURL", shareURL);
+		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
+		return "sina/music";
+	}
+
+	@RequestMapping("/sina/playMusic.xml")
+	public String playMusicPage(
+			HttpServletRequest request,
+			HttpServletResponse response,
+			@RequestParam(value = "playUrlDesc", required = true) String playUrlDesc)
+			throws IOException {
+		if (log.isDebugEnabled()) {
+			log.debug("play music playUrlDesc=" + playUrlDesc);
+		}
+		return "sina/playMusic";
+	}
+}
