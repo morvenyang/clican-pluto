@@ -1,19 +1,9 @@
 package com.clican.appletv.service;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.zip.GZIPInputStream;
-
-import org.apache.commons.httpclient.Header;
-import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.methods.PostMethod;
-import org.apache.commons.lang.StringUtils;
 
 import com.clican.appletv.common.SpringProperty;
-import com.clican.appletv.core.service.BaseClient;
 import com.clican.appletv.core.service.tudou.TudouClient;
 
 public class ClientTestCase extends BaseServiceTestCase {
@@ -117,10 +107,4 @@ public class ClientTestCase extends BaseServiceTestCase {
 
 	}
 
-	public void testGetSinaMusic() throws Exception {
-		BaseClient client = (BaseClient)tudouClient;
-		String url = "http://music.sina.com.cn/yueku/intro/musina_mpw_playlist.php";
-		String result = client.httpPost(url, "id[]=2841754", "application/x-www-form-urlencoded", "utf-8", null, null);
-		System.out.println(result);
-	}
 }
