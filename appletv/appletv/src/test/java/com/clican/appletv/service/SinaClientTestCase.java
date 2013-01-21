@@ -25,20 +25,20 @@ public class SinaClientTestCase extends BaseServiceTestCase {
 		
 		String url1 = "http://music.sina.com.cn/yueku/i/2841754.html";
 		String url2 = "http://music.weibo.com/t/i/100059158.html";
-		String url3 = "http://music.qq.com/t/i/100059158.html";
+		String url3 = "http://music.s.com/t/i/100059158.html";
 		Pattern pattern = Pattern
-				.compile(springProperty.getSinaMusicIdPattern());
+				.compile("http://music\\.(sina|weibo).*/i/(\\p{Alnum}*).html");
 		Matcher m1 = pattern.matcher(url1);
 		String id1 = null;
 		if (m1.matches()) {
-			id1 = m1.group(1);
+			id1 = m1.group(2);
 		}
 		assertEquals("2841754", id1);
 		
 		Matcher m2 = pattern.matcher(url2);
 		String id2 = null;
 		if (m2.matches()) {
-			id2 = m2.group(1);
+			id2 = m2.group(2);
 		}
 		assertEquals("100059158", id2);
 		Matcher m3 = pattern.matcher(url3);

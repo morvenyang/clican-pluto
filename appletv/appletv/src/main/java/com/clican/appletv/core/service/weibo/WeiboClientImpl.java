@@ -183,7 +183,7 @@ public class WeiboClientImpl implements WeiboClient {
 							Matcher sinaMusicMatcher = sinaMusicPattern
 									.matcher(lurl);
 							if (sinaMusicMatcher.matches()) {
-								String id = sinaMusicMatcher.group(1);
+								String id = sinaMusicMatcher.group(2);
 								addMusicUrlForStatus(list, "atv.loadURL('"
 										+ springProperty.getSystemServerUrl()
 										+ "/sina/music.xml?id=" + id + "');");
