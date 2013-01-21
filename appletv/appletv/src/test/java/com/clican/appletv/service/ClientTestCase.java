@@ -1,9 +1,19 @@
 package com.clican.appletv.service;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.zip.GZIPInputStream;
+
+import org.apache.commons.httpclient.Header;
+import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.methods.PostMethod;
+import org.apache.commons.lang.StringUtils;
 
 import com.clican.appletv.common.SpringProperty;
+import com.clican.appletv.core.service.BaseClient;
 import com.clican.appletv.core.service.tudou.TudouClient;
 
 public class ClientTestCase extends BaseServiceTestCase {
@@ -28,7 +38,7 @@ public class ClientTestCase extends BaseServiceTestCase {
 		if (matcher.matches()) {
 			code = matcher.group(1);
 		}
-		assertEquals("r1rJ-fxW_hE",code );
+		assertEquals("r1rJ-fxW_hE", code);
 
 		matcher = pattern
 				.matcher("http://www.tudou.com/programs/view/r1rJ-fxW_hE/");
@@ -36,7 +46,7 @@ public class ClientTestCase extends BaseServiceTestCase {
 		if (matcher.matches()) {
 			code = matcher.group(1);
 		}
-		assertEquals("r1rJ-fxW_hE",code );
+		assertEquals("r1rJ-fxW_hE", code);
 	}
 
 	public void testSohuUrlPattern() throws Exception {
@@ -96,8 +106,8 @@ public class ClientTestCase extends BaseServiceTestCase {
 
 	public void testYoukuCodePattern() throws Exception {
 		String s1 = "http://v.youku.com/v_show/id_XMzA5MzY=.html";
-		Pattern pattern = Pattern
-				.compile(springProperty.getYoukuShowidPattern());
+		Pattern pattern = Pattern.compile(springProperty
+				.getYoukuShowidPattern());
 		Matcher matcher = pattern.matcher(s1);
 		String code = null;
 		if (matcher.matches()) {
@@ -105,5 +115,12 @@ public class ClientTestCase extends BaseServiceTestCase {
 		}
 		assertEquals("XMzA5MzY=", code);
 
+	}
+
+	public void testGetSinaMusic() throws Exception {
+		BaseClient client = (BaseClient)tudouClient;
+		String url = "http://music.sina.com.cn/yueku/intro/musina_mpw_playlist.php";
+		String result = client.httpPost(url, "id[]=2841754", "application/x-www-form-urlencoded", "utf-8", null, null);
+		System.out.println(result);
 	}
 }
