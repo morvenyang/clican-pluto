@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import weibo4j.Comments;
-import weibo4j.Favorite;
 import weibo4j.Oauth;
 import weibo4j.Timeline;
 import weibo4j.Users;
@@ -275,8 +274,8 @@ public class WeiboController {
 		Status status = null;
 		boolean result = true;
 		try {
-			status = timeline.UpdateStatus(statusContent);
-			//status = timeline.UploadStatus(statusContent, imageURL);
+//			status = timeline.UpdateStatus(statusContent);
+			status = timeline.UploadStatus(statusContent, imageURL);
 		} catch (Exception e) {
 			log.error("", e);
 			result = false;
