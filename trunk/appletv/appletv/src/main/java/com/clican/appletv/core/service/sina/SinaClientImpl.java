@@ -1,5 +1,6 @@
 package com.clican.appletv.core.service.sina;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import org.apache.commons.lang.StringUtils;
@@ -18,15 +19,18 @@ public class SinaClientImpl extends BaseClient implements SinaClient {
 		if (StringUtils.isEmpty(jsonContent)) {
 			return null;
 		}
-		JSONObject result = JSONObject.fromObject(jsonContent).getJSONObject(
-				"result");
+		JSONArray resultArray = JSONObject.fromObject(jsonContent)
+				.getJSONArray("result");
 		SinaMusic sinaMusic = new SinaMusic();
-		sinaMusic.setName(result.getString("NAME"));
-		sinaMusic.setSingerName(result.getString("SINGERCNAME"));
-		sinaMusic.setSingerPhoto(result.getString("SINGERPHOTO"));
-		sinaMusic.setStyle(result.getString("STYLE"));
-		sinaMusic.setAlbumName(result.getString("ALBUMCNAME"));
-		sinaMusic.setMp3Url(result.getString("MP3_URL"));
+		if (resultArray.size() > 0) {
+			JSONObject result = resultArray.getJSONObject(0);
+			sinaMusic.setName(result.getString("NAME"));
+			sinaMusic.setSingerName(result.getString("SINGERCNAME"));
+			sinaMusic.setSingerPhoto(result.getString("SINGERPHOTO"));
+			sinaMusic.setStyle(result.getString("STYLE"));
+			sinaMusic.setAlbumName(result.getString("ALBUMCNAME"));
+			sinaMusic.setMp3Url(result.getString("MP3_URL"));
+		}
 
 		return sinaMusic;
 	}

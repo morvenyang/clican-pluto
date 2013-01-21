@@ -2,6 +2,8 @@ package com.clican.appletv.core.service.sina.model;
 
 public class SinaMusic {
 
+	private String id;
+	
 	private String name;
 	
 	private String style;
@@ -13,6 +15,14 @@ public class SinaMusic {
 	private String singerPhoto;
 	
 	private String mp3Url;
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
 
 	public String getName() {
 		return name;
