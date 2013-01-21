@@ -60,6 +60,8 @@ public class WeiboClientImpl implements WeiboClient {
 
 		Pattern sinaMusicPattern = Pattern.compile(springProperty
 				.getSinaMusicIdPattern());
+		Pattern xiamiMusicPattern = Pattern.compile(springProperty
+				.getXiamiMusicIdPattern());
 		for (Status status : statusWapper.getStatuses()) {
 			try {
 				String text = status.getText();
@@ -175,18 +177,31 @@ public class WeiboClientImpl implements WeiboClient {
 									}
 								}
 							}
-							addUnknownVideoUrlForStatus(list, lurl);
+							addUnknownUrlForStatus(list, lurl);
 						} else if (type.equals("2")) {
 							// music
 							Matcher sinaMusicMatcher = sinaMusicPattern
 									.matcher(lurl);
 							if (sinaMusicMatcher.matches()) {
 								String id = sinaMusicMatcher.group(1);
-								addVideoUrlForStatus(list, "atv.loadURL('"
+								addMusicUrlForStatus(list, "atv.loadURL('"
 										+ springProperty.getSystemServerUrl()
 										+ "/sina/music.xml?id=" + id + "');");
+							} else {
+								Matcher xiamiMusicMatcher = xiamiMusicPattern
+										.matcher(lurl);
+								if (xiamiMusicMatcher.matches()) {
+									String id = xiamiMusicMatcher.group(1);
+									addMusicUrlForStatus(
+											list,
+											"atv.loadURL('"
+													+ springProperty
+															.getSystemServerUrl()
+													+ "/xiami/playMusic.xml?id="
+													+ id + "');");
+								}
 							}
-							addUnknownVideoUrlForStatus(list, lurl);
+							addUnknownUrlForStatus(list, lurl);
 						}
 
 					} catch (Exception e) {
@@ -206,9 +221,15 @@ public class WeiboClientImpl implements WeiboClient {
 		}
 	}
 
-	private void addUnknownVideoUrlForStatus(List<Status> list, String videoUrl) {
+	private void addMusicUrlForStatus(List<Status> list, String videoUrl) {
 		for (Status status : list) {
-			status.setUnknownVideoUrl(videoUrl);
+			status.setMusicUrl(videoUrl);
+		}
+	}
+
+	private void addUnknownUrlForStatus(List<Status> list, String videoUrl) {
+		for (Status status : list) {
+			status.setUnknownUrl(videoUrl);
 		}
 	}
 
