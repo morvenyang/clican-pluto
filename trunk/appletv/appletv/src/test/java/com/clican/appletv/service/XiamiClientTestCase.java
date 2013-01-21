@@ -5,12 +5,7 @@ import com.clican.appletv.core.service.xiami.XiamiClient;
 
 public class XiamiClientTestCase extends BaseServiceTestCase {
 
-	private SpringProperty springProperty;
 	private XiamiClient xiamiClient;
-
-	public void setSpringProperty(SpringProperty springProperty) {
-		this.springProperty = springProperty;
-	}
 
 	public void setXiamiClient(XiamiClient xiamiClient) {
 		this.xiamiClient = xiamiClient;
