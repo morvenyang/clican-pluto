@@ -14,9 +14,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.clican.appletv.common.SinaMusic;
 import com.clican.appletv.common.SpringProperty;
 import com.clican.appletv.core.service.sina.SinaClient;
-import com.clican.appletv.core.service.sina.model.SinaMusic;
 
 @Controller
 public class SinaController {

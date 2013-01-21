@@ -5,8 +5,8 @@ import net.sf.json.JSONObject;
 
 import org.apache.commons.lang.StringUtils;
 
+import com.clican.appletv.common.SinaMusic;
 import com.clican.appletv.core.service.BaseClient;
-import com.clican.appletv.core.service.sina.model.SinaMusic;
 
 public class SinaClientImpl extends BaseClient implements SinaClient {
 

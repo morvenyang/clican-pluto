@@ -1,6 +1,6 @@
 package com.clican.appletv.core.service.sina;
 
-import com.clican.appletv.core.service.sina.model.SinaMusic;
+import com.clican.appletv.common.SinaMusic;
 
 public interface SinaClient {
 
