@@ -42,7 +42,7 @@ public class SinaController {
 	}
 
 	@RequestMapping("/sina/playMusic.xml")
-	public String playMusicPage(
+	public void playMusicPage(
 			HttpServletRequest request,
 			HttpServletResponse response,
 			@RequestParam(value = "playUrlDesc", required = true) String playUrlDesc)
@@ -50,6 +50,12 @@ public class SinaController {
 		if (log.isDebugEnabled()) {
 			log.debug("play music playUrlDesc=" + playUrlDesc);
 		}
-		return "sina/playMusic";
+
+		String mp3Url = sinaClient.getMp3Url(playUrlDesc);
+
+		if (log.isDebugEnabled()) {
+			log.debug("mp3 url:" + mp3Url);
+		}
+
 	}
 }
