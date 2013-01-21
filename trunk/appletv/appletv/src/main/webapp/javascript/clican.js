@@ -17,8 +17,8 @@ var appletv = {
 				var album = JSON.parse(data);
 				var xml = '<?xml version=\"1.0\" encoding=\"UTF-8\"?><atv><head><script src=\"'+serverurl+'/javascript/clican.js\"/></head><body>';
 				xml+='<itemDetail id=\"itemdetail\">';
-				xml+='<title>'+album['title']+'</title>';
-				xml+='<summary>'+album['description']+'</summary>';
+				xml+='<title><![CDATA['+album['title']+']]></title>';
+				xml+='<summary><![CDATA['+album['description']+']]></summary>';
 				xml+='<image style=\"moviePoster\">'+album['picurl']+'</image>';
 				xml+='<table><columnDefinitions><columnDefinition width=\"50\"><title>其他信息</title></columnDefinition><columnDefinition width=\"50\"><title></title></columnDefinition></columnDefinitions><rows>';
 				xml+='<row><label><![CDATA[导演:'+album['directors']+']]></label><label><![CDATA[年代:'+album['year']+']]></label></row>';
@@ -51,7 +51,7 @@ var appletv = {
 			this.makeRequest('http://minterface.tudou.com/iteminfo?sessionid=GTR7J672EMAAA&origin=&columnid='+channelId+'&itemid='+itemid+'&ishd='+hd,function(data){
 				var album = JSON.parse(data);
 				var xml = '<?xml version=\"1.0\" encoding=\"UTF-8\"?><atv><body><listScrollerSplit id=\"albumlist\"><header><simpleHeader horizontalAlignment=\"left\">';
-				xml+='<title>'+album['title']+'</title>';
+				xml+='<title><![CDATA['+album['title']+']]></title>';
 				xml+='<image>'+album['picurl']+'</image>';
 				xml+='</simpleHeader></header><menu><sections><menuSection><items>';
 				var items = album['albumitems'];

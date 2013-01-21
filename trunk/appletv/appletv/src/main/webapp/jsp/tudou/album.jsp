@@ -2,7 +2,7 @@
 <atv>
 <body>
 <itemDetail id="itemdetail">
-			<title>${album.title}</title>
+			<title><![CDATA[${album.title}]]></title>
 			<summary>${album.description}</summary>
 			<image style="moviePoster">${album.picurl}</image>
 			<table>

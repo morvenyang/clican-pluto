@@ -6,6 +6,7 @@ import java.net.URLEncoder;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +38,14 @@ public class SinaController {
 			log.debug("access sina music id=" + id);
 		}
 		SinaMusic sinaMusic = sinaClient.getMusic(id);
-		sinaMusic.setMp3Url(URLEncoder.encode(sinaMusic.getMp3Url(), "utf-8"));
+		if (StringUtils.isNotEmpty(sinaMusic.getMp3Url())) {
+			sinaMusic.setMp3Url(URLEncoder.encode(sinaMusic.getMp3Url(),
+					"utf-8"));
+		}
+		if (StringUtils.isNotEmpty(sinaMusic.getSingerPhoto())) {
+			sinaMusic.setSingerPhoto(URLEncoder.encode(
+					sinaMusic.getSingerPhoto(), "utf-8"));
+		}
 		sinaMusic.setId(id);
 		request.setAttribute("music", sinaMusic);
 		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
