@@ -40,13 +40,33 @@
 										<preview>
 											<longDescriptionPreview>
 										         <title><![CDATA[${weiboStatus.user.screenName}]]></title>
-										         <summary><![CDATA[${weiboStatus.fullText} ${weiboStatus.unknownVideoUrl}]]></summary>
+										         <summary><![CDATA[${weiboStatus.fullText} ${weiboStatus.unknownUrl}]]></summary>
 										         <image src="${weiboStatus.retweetedStatus.originalPic}"></image>
 										    </longDescriptionPreview>
 										</preview>
 									</imageTextImageMenuItem>
 								</c:if>
-								<c:if test="${weiboStatus.videoUrl==null}">
+								<c:if test="${weiboStatus.videoUrl==null&&weiboStatus.musicUrl!=null}">
+									<imageTextImageMenuItem id="item_${varStatus.count}" onSelect="atv.loadURL('${serverurl}/weibo/textPreview.xml?statusId=${weiboStatus.idstr}&amp;fullText=${weiboStatus.fullTextEncode}');" onPlay="${weiboStatus.musicUrl}">
+										<leftImage>${weiboStatus.user.profileImageUrl}</leftImage>
+										<rightImage>${serverurl}/image/weibo/music.png</rightImage>
+										<imageSeparatorText></imageSeparatorText>
+										<c:if test="${fn:length(weiboStatus.text)>10}">
+											<label><![CDATA[${fn:substring(weiboStatus.text,0,10)}]]></label>
+										</c:if>
+										<c:if test="${fn:length(weiboStatus.text)<=10}">
+											<label><![CDATA[${weiboStatus.text}]]></label>
+										</c:if>
+										<preview>
+											<longDescriptionPreview>
+										         <title><![CDATA[${weiboStatus.user.screenName}]]></title>
+										         <summary><![CDATA[${weiboStatus.fullText} ${weiboStatus.unknownUrl}]]></summary>
+										         <image src="${weiboStatus.retweetedStatus.originalPic}"></image>
+										    </longDescriptionPreview>
+										</preview>
+									</imageTextImageMenuItem>
+								</c:if>
+								<c:if test="${weiboStatus.videoUrl==null&&weiboStatus.musicUrl==null}">
 									<imageTextImageMenuItem id="item_${varStatus.count}" onSelect="atv.loadURL('${serverurl}/weibo/textPreview.xml?statusId=${weiboStatus.idstr}&amp;fullText=${weiboStatus.fullTextEncode}');">
 										<leftImage>${weiboStatus.user.profileImageUrl}</leftImage>
 										<rightImage></rightImage>
@@ -60,7 +80,7 @@
 										<preview>
 											<longDescriptionPreview>
 										         <title><![CDATA[${weiboStatus.user.screenName}]]></title>
-										         <summary><![CDATA[${weiboStatus.fullText} ${weiboStatus.unknownVideoUrl}]]></summary>
+										         <summary><![CDATA[${weiboStatus.fullText} ${weiboStatus.unknownUrl}]]></summary>
 										         <image src="${weiboStatus.retweetedStatus.originalPic}"></image>
 										    </longDescriptionPreview>
 										</preview>
