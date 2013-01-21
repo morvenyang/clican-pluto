@@ -49,7 +49,7 @@ public class SinaClientTestCase extends BaseServiceTestCase {
 	public void testGetSinaMusic() throws Exception {
 		BaseClient client = (BaseClient) sinaClient;
 		String url = "http://music.sina.com.cn/yueku/intro/musina_mpw_playlist.php";
-		String result = client.httpPost(url, "id[]=2841754",
+		String result = client.httpPost(url, "id[]=100059209",
 				"application/x-www-form-urlencoded", "utf-8", null, null);
 		System.out.println(result);
 	}
