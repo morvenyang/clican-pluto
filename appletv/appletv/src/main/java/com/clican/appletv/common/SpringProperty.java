@@ -76,6 +76,7 @@ public class SpringProperty {
 	private String sinaMusicIdPattern;
 	private String sinaMusicApi;
 
+	private String xiamiMusicApi;
 	public SpringProperty() {
 		instance = this;
 	}
@@ -453,6 +454,14 @@ public class SpringProperty {
 
 	public void setSinaMusicApi(String sinaMusicApi) {
 		this.sinaMusicApi = sinaMusicApi;
+	}
+
+	public String getXiamiMusicApi() {
+		return xiamiMusicApi;
+	}
+
+	public void setXiamiMusicApi(String xiamiMusicApi) {
+		this.xiamiMusicApi = xiamiMusicApi;
 	}
 
 	
