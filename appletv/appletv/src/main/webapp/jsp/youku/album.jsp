@@ -2,8 +2,8 @@
 <atv>
 <body>
 <itemDetail id="itemdetail">
-			<title>${album.title}</title>
-			<summary>${album.desc}</summary>
+			<title><![CDATA[${album.title}]]></title>
+			<summary><![CDATA[${album.desc}]]></summary>
 			<image style="moviePoster">${album.img}</image>
 			<table>
 				<columnDefinitions><columnDefinition width="50"><title>其他信息</title></columnDefinition><columnDefinition width="50"><title></title></columnDefinition></columnDefinitions>

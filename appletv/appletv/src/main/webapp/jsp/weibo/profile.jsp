@@ -31,7 +31,7 @@
 									<actionButton id="shelf_2" onSelect="atv.loadURL('${serverurl}/weibo/homeTimeline.xml?feature=2');" onPlay="atv.loadURL('${serverurl}/weibo/homeTimeline.xml?feature=2');">
 										<title>音乐</title>
 									</actionButton>
-									<actionButton id="shelf_3" onSelect="atv.loadURL('${serverurl}/weibo/homeTimeline.xml?feature=3');" onPlay="atv.loadURL('${serverurl}/weibo/homeTimeline.xml?feature=3');">
+									<actionButton id="shelf_3" onSelect="atv.loadURL('${serverurl}/weibo/homeTimeline.xml?feature=4');" onPlay="atv.loadURL('${serverurl}/weibo/homeTimeline.xml?feature=4');">
 										<title>视频</title>
 									</actionButton>
 							</items>
