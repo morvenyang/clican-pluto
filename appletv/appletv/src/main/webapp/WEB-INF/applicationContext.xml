@@ -85,6 +85,9 @@ http://www.springframework.org/schema/context/spring-context-2.5.xsd">
 	<bean id="fivesixClient" class="com.clican.appletv.core.service.fivesix.FivesixClientImpl" autowire="byName">
 	</bean>
 	
+	<bean id="sinaClient" class="com.clican.appletv.core.service.sina.SinaClientImpl" autowire="byName">
+	</bean>
+	
 	<bean id="weiboClient" class="com.clican.appletv.core.service.weibo.WeiboClientImpl" autowire="byName" init-method="init" destroy-method="destroy">
 	</bean>
 </beans>
