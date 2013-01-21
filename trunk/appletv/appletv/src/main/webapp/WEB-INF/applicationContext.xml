@@ -56,7 +56,6 @@ http://www.springframework.org/schema/context/spring-context-2.5.xsd">
 		<property name="fivesixVideoHtmlApi" value="${fivesix.video.html.api}"></property>
 		
 		<property name="sinaMusicIdPattern" value="${sina.music.id.pattern}"></property>
-		<property name="sinaMusicShareUrl" value="${sina.music.share.url}"></property>
 		<property name="sinaMusicApi" value="${sina.music.api}"></property>
 		
 		<property name="weiboAppKey" value="${weibo.app.key}"></property>

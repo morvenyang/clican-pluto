@@ -75,7 +75,6 @@ public class SpringProperty {
 	
 	private String sinaMusicIdPattern;
 	private String sinaMusicApi;
-	private String sinaMusicShareURL;
 
 	public SpringProperty() {
 		instance = this;
@@ -456,13 +455,7 @@ public class SpringProperty {
 		this.sinaMusicApi = sinaMusicApi;
 	}
 
-	public String getSinaMusicShareURL() {
-		return sinaMusicShareURL;
-	}
-
-	public void setSinaMusicShareURL(String sinaMusicShareURL) {
-		this.sinaMusicShareURL = sinaMusicShareURL;
-	}
+	
 
 
 }
