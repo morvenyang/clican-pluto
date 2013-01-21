@@ -14,7 +14,7 @@ public class SinaClientImpl extends BaseClient implements SinaClient {
 	public Music getMusic(String musicId) {
 
 		String url = this.springProperty.getSinaMusicApi();
-		String jsonContent = this.httpPost(url, "id[]=2841754",
+		String jsonContent = this.httpPost(url, "id[]="+musicId,
 				"application/x-www-form-urlencoded", "utf-8", null, null);
 		if (StringUtils.isEmpty(jsonContent)) {
 			return null;
@@ -26,7 +26,12 @@ public class SinaClientImpl extends BaseClient implements SinaClient {
 			JSONObject result = resultArray.getJSONObject(0);
 			sinaMusic.setName(result.getString("NAME"));
 			sinaMusic.setSingerName(result.getString("SINGERCNAME"));
-			sinaMusic.setSingerPhoto(result.getString("SINGERPHOTO"));
+			if(result.containsKey("SINGERPHOTO")&&StringUtils.isNotEmpty(result.getString("SINGERPHOTO"))){
+				sinaMusic.setSingerPhoto(result.getString("SINGERPHOTO"));
+			}else if(result.containsKey("ALBUMPHOTO")&&StringUtils.isNotEmpty(result.getString("ALBUMPHOTO"))){
+				sinaMusic.setSingerPhoto(result.getString("ALBUMPHOTO"));
+			}
+			
 			sinaMusic.setStyle(result.getString("STYLE"));
 			sinaMusic.setAlbumName(result.getString("ALBUMCNAME"));
 			sinaMusic.setMp3Url(result.getString("MP3_URL"));

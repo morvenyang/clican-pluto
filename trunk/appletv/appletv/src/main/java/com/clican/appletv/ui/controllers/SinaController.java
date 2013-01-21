@@ -42,10 +42,6 @@ public class SinaController {
 			sinaMusic.setMp3Url(URLEncoder.encode(sinaMusic.getMp3Url(),
 					"utf-8"));
 		}
-		if (StringUtils.isNotEmpty(sinaMusic.getSingerPhoto())) {
-			sinaMusic.setSingerPhoto(URLEncoder.encode(
-					sinaMusic.getSingerPhoto(), "utf-8"));
-		}
 		sinaMusic.setId(id);
 		request.setAttribute("music", sinaMusic);
 		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
