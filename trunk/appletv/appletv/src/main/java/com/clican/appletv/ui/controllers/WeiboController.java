@@ -128,6 +128,13 @@ public class WeiboController {
 		}
 	}
 
+	@RequestMapping("/weibo/homeTimelineBar.xml")
+	public String homeTimelineBar(HttpServletRequest request,
+			HttpServletResponse response)
+			throws Exception {
+		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
+		return "weibo/homeTimelineBar";
+	}
 	@RequestMapping("/weibo/homeTimeline.xml")
 	public String homeTimeline(HttpServletRequest request,
 			HttpServletResponse response,
