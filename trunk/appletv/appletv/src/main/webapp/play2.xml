@@ -11,7 +11,7 @@
 					<sections>
 						<shelfSection>
 							<items>
-								<actionButton id="album_1" onSelect="atv.loadUrl('http://10.0.1.5/appletv/play.xml')" onPlay="appletv.playMp3('http://www.clican.org/appletv/2841754.mp3','test','test',100);">
+								<actionButton id="album_1" onSelect="atv.loadURL('http://10.0.1.5/appletv/play.xml')" onPlay="appletv.playMp3('http://www.clican.org/appletv/2841754.mp3','test','test',100);">
 									<title>播放</title>
 								</actionButton>
 							</items>
