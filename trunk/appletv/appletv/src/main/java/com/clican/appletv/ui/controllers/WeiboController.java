@@ -179,9 +179,10 @@ public class WeiboController {
 			status.setFullText(text);
 			status.setFullTextEncode(URLEncoder.encode(text, "utf-8"));
 		}
+		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
 		request.setAttribute("weiboStatusWapper", statusWapper);
 		request.setAttribute("weiboPage", page);
-		return "/weibo/homeTimeline";
+		return "/weibo/favorite";
 	}
 
 	@RequestMapping("/weibo/homeTimeline.xml")
