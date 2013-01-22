@@ -5,7 +5,7 @@
 			<title>内容</title>
 				<text><![CDATA[${fullText}]]></text>
 			<buttons>
-				<actionButton id="ab1" onSelect="atv.loadURL('${serverurl}/weibo/doForward.xml?statusId=${statusId}');">
+				<actionButton id="ab1" onSelect="atv.loadURL('${serverurl}/weibo/doRepost.xml?statusId=${statusId}');">
 					<title>转发</title>
 				</actionButton>
 				<actionButton id="ab2" onSelect="atv.loadURL('${serverurl}/weibo/showComments.xml?statusId=${statusId}');">

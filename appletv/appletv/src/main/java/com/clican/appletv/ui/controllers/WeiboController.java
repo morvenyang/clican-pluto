@@ -383,15 +383,36 @@ public class WeiboController {
 		return "weibo/showComments";
 	}
 
-	@RequestMapping("/weibo/doForward.xml")
-	public String doForward(HttpServletRequest request,
+	@RequestMapping("/weibo/doRepost.xml")
+	public String doRepost(HttpServletRequest request,
 			HttpServletResponse response,
 			@RequestParam(value = "statusId") Long statusId) throws Exception {
 		if (!isLogin(request, response)) {
 			return null;
 		}
 
-		request.setAttribute("promptTitle", "该功能尚未实现");
+		Timeline timeline = new Timeline();
+		String accessToken = (String) request.getSession().getAttribute(
+				"weiboAccessToken");
+		timeline.setToken(accessToken);
+		timeline.Repost(statusId.toString());
+		boolean result = true;
+		Status status = null;
+		try {
+			status = timeline.Repost(statusId.toString());
+		} catch (Exception e) {
+			log.error("", e);
+			result = false;
+		}
+		if (status == null) {
+			result = false;
+		}
+		if (result) {
+			request.setAttribute("promptTitle", "转发成功");
+		} else {
+			request.setAttribute("promptTitle", "转发失败请稍候再试");
+		}
+
 		request.setAttribute("promptDescription", "");
 		return "/weibo/prompt";
 	}
