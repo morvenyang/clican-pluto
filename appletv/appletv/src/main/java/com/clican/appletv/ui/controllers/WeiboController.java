@@ -161,7 +161,7 @@ public class WeiboController {
 			statuses.add(f.getStatus());
 		}
 		StatusWapper statusWapper = new StatusWapper(statuses);
-		
+
 		weiboClient.processLongUrl(statusWapper, accessToken);
 		for (Status status : statusWapper.getStatuses()) {
 			String text = status.getText();
@@ -349,8 +349,14 @@ public class WeiboController {
 						+ "] send status[" + status.getId() + "]");
 			}
 		}
-		request.setAttribute("result", result);
-		return "/weibo/createStatus";
+		if (result) {
+			request.setAttribute("promptTitle", "分享成功");
+		} else {
+			request.setAttribute("promptTitle", "分享失败请稍候再试");
+		}
+
+		request.setAttribute("promptDescription", "");
+		return "/weibo/prompt";
 	}
 
 	@RequestMapping("/weibo/createComment.xml")
@@ -377,8 +383,49 @@ public class WeiboController {
 		return "weibo/showComments";
 	}
 
-	public static void main(String[] args) {
-		Long l = 0x905939L;
-		System.out.print(l);
+	@RequestMapping("/weibo/doForward.xml")
+	public String doForward(HttpServletRequest request,
+			HttpServletResponse response,
+			@RequestParam(value = "statusId") Long statusId) throws Exception {
+		if (!isLogin(request, response)) {
+			return null;
+		}
+
+		request.setAttribute("promptTitle", "该功能尚未实现");
+		request.setAttribute("promptDescription", "");
+		return "/weibo/prompt";
 	}
+
+	@RequestMapping("/weibo/doFavorite.xml")
+	public String doFavorite(HttpServletRequest request,
+			HttpServletResponse response,
+			@RequestParam(value = "statusId") Long statusId) throws Exception {
+		if (!isLogin(request, response)) {
+			return null;
+		}
+		Favorite favorite = new Favorite();
+		String accessToken = (String) request.getSession().getAttribute(
+				"weiboAccessToken");
+		favorite.setToken(accessToken);
+		boolean result = true;
+		Favorites favorites = null;
+		try {
+			favorites = favorite.createFavorites(statusId.toString());
+		} catch (Exception e) {
+			log.error("", e);
+			result = false;
+		}
+		if (favorites == null) {
+			result = false;
+		}
+		if (result) {
+			request.setAttribute("promptTitle", "收藏成功");
+		} else {
+			request.setAttribute("promptTitle", "收藏失败请稍候再试");
+		}
+
+		request.setAttribute("promptDescription", "");
+		return "/weibo/prompt";
+	}
+
 }

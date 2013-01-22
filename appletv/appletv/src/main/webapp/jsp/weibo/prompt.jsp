@@ -2,13 +2,8 @@
 <atv>
 <body>
 	<dialog id="dialog">
-			<c:if test="${result}">
-				<title>分享成功</title>
-			</c:if>
-			<c:if test="${!result}">
-				<title>分享失败请稍候再试</title>
-			</c:if>
-			<description></description>
+			<title>${promptTitle}</title>
+			<description>${promptDescription}</description>
 		</dialog>	
 </body>
 </atv>
