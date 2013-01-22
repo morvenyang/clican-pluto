@@ -59,7 +59,9 @@ http://www.springframework.org/schema/context/spring-context-2.5.xsd">
 		<property name="sinaMusicApi" value="${sina.music.api}"></property>
 		
 		<property name="xiamiMusicApi" value="${xiami.music.api}"></property>
+		<property name="xiamiMusicIdPattern" value="${xiami.music.id.pattern}"></property>
 		
+		<property name="baibianChannelApi" value="${baibian.channel.api}"></property>
 		<property name="weiboAppKey" value="${weibo.app.key}"></property>
 		<property name="weiboAppSercret" value="${weibo.app.sercret}"></property>
 		<property name="weiboLoginURL" value="${weibo.login.url}"></property>
@@ -91,6 +93,9 @@ http://www.springframework.org/schema/context/spring-context-2.5.xsd">
 	</bean>
 	
 	<bean id="xiamiClient" class="com.clican.appletv.core.service.xiami.XiamiClientImpl" autowire="byName">
+	</bean>
+	
+	<bean id="baibianClient" class="com.clican.appletv.core.service.BaibianClientImpl" autowire="byName">
 	</bean>
 	
 	<bean id="weiboClient" class="com.clican.appletv.core.service.weibo.WeiboClientImpl" autowire="byName" init-method="init" destroy-method="destroy">
