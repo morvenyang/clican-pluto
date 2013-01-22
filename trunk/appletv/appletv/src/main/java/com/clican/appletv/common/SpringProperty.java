@@ -79,6 +79,8 @@ public class SpringProperty {
 	private String xiamiMusicApi;
 	private String xiamiMusicIdPattern;
 	
+	private String baibianChannelApi;
+	
 	public SpringProperty() {
 		instance = this;
 	}
@@ -474,7 +476,12 @@ public class SpringProperty {
 		this.xiamiMusicIdPattern = xiamiMusicIdPattern;
 	}
 
-	
+	public String getBaibianChannelApi() {
+		return baibianChannelApi;
+	}
 
+	public void setBaibianChannelApi(String baibianChannelApi) {
+		this.baibianChannelApi = baibianChannelApi;
+	}
 
 }
