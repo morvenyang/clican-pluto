@@ -332,29 +332,27 @@ public class WeiboController {
 			statusContent += shareURL;
 		}
 		Status status = null;
-		boolean result = true;
+		String promptTitle = "转发成功";
 		try {
-			// status = timeline.UpdateStatus(statusContent);
 			status = timeline.UploadStatus(statusContent, imageURL);
+		} catch (WeiboException e) {
+			if (log.isDebugEnabled()) {
+				log.debug(e.getMessage());
+			}
+			promptTitle = e.getMessage();
 		} catch (Exception e) {
+			promptTitle = "分享失败请稍候再试";
 			log.error("", e);
-			result = false;
 		}
 
-		if (status == null) {
-			result = false;
-		} else {
+		if (status != null) {
 			if (log.isDebugEnabled()) {
 				log.debug("The user["
 						+ request.getSession().getAttribute("weiboUid")
 						+ "] send status[" + status.getId() + "]");
 			}
 		}
-		if (result) {
-			request.setAttribute("promptTitle", "分享成功");
-		} else {
-			request.setAttribute("promptTitle", "分享失败请稍候再试");
-		}
+		request.setAttribute("promptTitle", promptTitle);
 
 		request.setAttribute("promptDescription", "");
 		return "/weibo/prompt";
@@ -397,11 +395,9 @@ public class WeiboController {
 				"weiboAccessToken");
 		timeline.setToken(accessToken);
 		timeline.Repost(statusId.toString());
-		Status status = null;
 		String promptTitle = "转发成功";
 		try {
-			status = timeline
-					.Repost(statusId.toString(), "从ATV3_Client转发微博", 3);
+			timeline.Repost(statusId.toString(), "从ATV3_Client转发微博", 3);
 		} catch (WeiboException e) {
 			if (log.isDebugEnabled()) {
 				log.debug(e.getMessage());
@@ -428,22 +424,20 @@ public class WeiboController {
 		String accessToken = (String) request.getSession().getAttribute(
 				"weiboAccessToken");
 		favorite.setToken(accessToken);
-		boolean result = true;
-		Favorites favorites = null;
+		String promptTitle = "收藏成功";
 		try {
-			favorites = favorite.createFavorites(statusId.toString());
+			favorite.createFavorites(statusId.toString());
+		} catch (WeiboException e) {
+			if (log.isDebugEnabled()) {
+				log.debug(e.getMessage());
+			}
+			promptTitle = e.getMessage();
 		} catch (Exception e) {
+			promptTitle = "收藏失败请稍候再试";
 			log.error("", e);
-			result = false;
 		}
-		if (favorites == null) {
-			result = false;
-		}
-		if (result) {
-			request.setAttribute("promptTitle", "收藏成功");
-		} else {
-			request.setAttribute("promptTitle", "收藏失败请稍候再试");
-		}
+
+		request.setAttribute("promptTitle", promptTitle);
 
 		request.setAttribute("promptDescription", "");
 		return "/weibo/prompt";
