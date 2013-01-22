@@ -12,6 +12,19 @@ var appletv = {
 				});
 			}
 		},
+		playMp3:function(mp3url, title, desc, mlength){
+			var plist = {
+					type : "video-asset",
+					"media-asset" : {
+						"media-url" : mp3url,
+						type : 'http-live-streaming',
+						title : title,
+						description : desc,
+						length : mlength
+					}
+			};
+			atv.loadAndSwapPlist(plist);
+		},
 		loadAlbumXml:function(itemid,channelId,hd,isalbum,serverurl) {
 			this.makeRequest('http://minterface.tudou.com/iteminfo?sessionid=GTR7J672EMAAA&origin=&columnid='+channelId+'&itemid='+itemid+'&ishd='+hd,function(data){
 				var album = JSON.parse(data);

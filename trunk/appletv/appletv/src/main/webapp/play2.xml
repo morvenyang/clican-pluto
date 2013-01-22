@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <atv>
+<head><script src="http://www.clican.org/appletv/clican.js"/></head>
 <body>
 <itemDetail id="itemdetail">
 			<title><![CDATA[测试]]></title>
@@ -10,7 +11,7 @@
 					<sections>
 						<shelfSection>
 							<items>
-								<actionButton id="album_1" onSelect="http://www.clican.org/appletv/2841754.mp3" onPlay="http://www.clican.org/appletv/2841754.mp3">
+								<actionButton id="album_1" onSelect="appletv.playMp3('http://www.clican.org/appletv/2841754.mp3','test','test',100);" onPlay="appletv.playMp3('http://www.clican.org/appletv/2841754.mp3','test','test',100);">
 									<title>播放</title>
 								</actionButton>
 							</items>
