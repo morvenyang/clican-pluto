@@ -5,7 +5,7 @@
 		<listWithPreview id="lwp">
 			<header>
 				<simpleHeader>
-					<title>微薄</title>
+					<title>收藏</title>
 				</simpleHeader>
 			</header>
 			<menu>
