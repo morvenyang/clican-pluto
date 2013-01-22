@@ -1,6 +1,8 @@
 package com.clican.appletv.ui.controllers;
 
 import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,11 +16,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import weibo4j.Comments;
+import weibo4j.Favorite;
 import weibo4j.Oauth;
 import weibo4j.Timeline;
 import weibo4j.Users;
 import weibo4j.model.Comment;
 import weibo4j.model.CommentWapper;
+import weibo4j.model.Favorites;
 import weibo4j.model.Paging;
 import weibo4j.model.Status;
 import weibo4j.model.StatusWapper;
@@ -130,11 +134,56 @@ public class WeiboController {
 
 	@RequestMapping("/weibo/homeTimelineBar.xml")
 	public String homeTimelineBar(HttpServletRequest request,
-			HttpServletResponse response)
-			throws Exception {
+			HttpServletResponse response) throws Exception {
 		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
 		return "weibo/homeTimelineBar";
 	}
+
+	@RequestMapping("/weibo/favorite.xml")
+	public String favorite(HttpServletRequest request,
+			HttpServletResponse response,
+			@RequestParam(value = "page", required = false) Integer page)
+			throws Exception {
+		if (!isLogin(request, response)) {
+			return null;
+		}
+		Favorite favorite = new Favorite();
+		String accessToken = (String) request.getSession().getAttribute(
+				"weiboAccessToken");
+		favorite.setToken(accessToken);
+		if (page == null || page < 1) {
+			page = 1;
+		}
+		Paging paging = new Paging(page, 10);
+		List<Favorites> favorites = favorite.getFavorites(paging);
+		List<Status> statuses = new ArrayList<Status>();
+		for (Favorites f : favorites) {
+			statuses.add(f.getStatus());
+		}
+		StatusWapper statusWapper = new StatusWapper(statuses);
+		
+		weiboClient.processLongUrl(statusWapper, accessToken);
+		for (Status status : statusWapper.getStatuses()) {
+			String text = status.getText();
+			if (status.getRetweetedStatus() != null) {
+				if (status.getRetweetedStatus().getUser() != null) {
+					text += " @"
+							+ status.getRetweetedStatus().getUser()
+									.getScreenName();
+				}
+				if (StringUtils.isNotEmpty(status.getRetweetedStatus()
+						.getText())) {
+					text += " " + status.getRetweetedStatus().getText();
+				}
+			}
+			status.setFullText(text);
+			status.setFullTextEncode(URLEncoder.encode(text, "utf-8"));
+		}
+		request.setAttribute("weiboStatusWapper", statusWapper);
+		request.setAttribute("weiboPage", page);
+		return "/weibo/homeTimeline";
+	}
+
 	@RequestMapping("/weibo/homeTimeline.xml")
 	public String homeTimeline(HttpServletRequest request,
 			HttpServletResponse response,
@@ -146,9 +195,11 @@ public class WeiboController {
 			return null;
 		}
 		Timeline timeline = new Timeline();
+
 		String accessToken = (String) request.getSession().getAttribute(
 				"weiboAccessToken");
 		timeline.setToken(accessToken);
+
 		Paging paging = new Paging();
 		paging.setCount(10);
 		if (sinceId != null && sinceId >= 0) {
@@ -281,7 +332,7 @@ public class WeiboController {
 		Status status = null;
 		boolean result = true;
 		try {
-//			status = timeline.UpdateStatus(statusContent);
+			// status = timeline.UpdateStatus(statusContent);
 			status = timeline.UploadStatus(statusContent, imageURL);
 		} catch (Exception e) {
 			log.error("", e);
