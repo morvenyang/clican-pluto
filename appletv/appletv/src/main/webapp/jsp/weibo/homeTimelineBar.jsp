@@ -15,6 +15,10 @@
 					<title>音乐</title>
 					<url>${serverurl}/weibo/homeTimeline.xml?feature=4</url>
 				</navigationItem>
+				<navigationItem>
+					<title>收藏</title>
+					<url>${serverurl}/weibo/favorite.xml</url>
+				</navigationItem>
 			</navigation>
 		</viewWithNavigationBar>
 	</body>
