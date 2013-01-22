@@ -27,7 +27,7 @@ public class SinaClientTestCase extends BaseServiceTestCase {
 		String url2 = "http://music.weibo.com/t/i/100059158.html";
 		String url3 = "http://music.s.com/t/i/100059158.html";
 		Pattern pattern = Pattern
-				.compile("http://music\\.(sina|weibo).*/i/(\\p{Alnum}*).html");
+				.compile(springProperty.getSinaMusicIdPattern());
 		Matcher m1 = pattern.matcher(url1);
 		String id1 = null;
 		if (m1.matches()) {
