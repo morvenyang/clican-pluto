@@ -25,6 +25,7 @@
         <webClassPathEntry>C:/m2/net/sf/ezmorph/ezmorph/1.0.6/ezmorph-1.0.6.jar</webClassPathEntry>
         <webClassPathEntry>C:/m2/net/sf/json-lib/json-lib/2.3/json-lib-2.3-jdk15.jar</webClassPathEntry>
         <webClassPathEntry>C:/m2/org/apache/commons/commons-digester3/3.2/commons-digester3-3.2.jar</webClassPathEntry>
+        <webClassPathEntry>C:/m2/org/htmlparser/htmlparser/1.6/htmlparser-1.6.jar</webClassPathEntry>
         <webClassPathEntry>C:/m2/org/springframework/spring-beans/2.5.6.SEC03/spring-beans-2.5.6.SEC03.jar</webClassPathEntry>
         <webClassPathEntry>C:/m2/org/springframework/spring-context-support/2.5.6.SEC03/spring-context-support-2.5.6.SEC03.jar</webClassPathEntry>
         <webClassPathEntry>C:/m2/org/springframework/spring-context/2.5.6.SEC03/spring-context-2.5.6.SEC03.jar</webClassPathEntry>
