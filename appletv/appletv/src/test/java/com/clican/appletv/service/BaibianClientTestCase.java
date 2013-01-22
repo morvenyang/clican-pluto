@@ -15,6 +15,6 @@ public class BaibianClientTestCase extends BaseServiceTestCase {
 
 	public void testQueryVideos() throws Exception {
 		List<Baibian> result = baibianClient.queryVideos(0);
-		assertEquals(30, result.size());
+		assertEquals(0, result.size());
 	}
 }
