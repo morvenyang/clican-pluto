@@ -27,6 +27,7 @@ import weibo4j.model.Paging;
 import weibo4j.model.Status;
 import weibo4j.model.StatusWapper;
 import weibo4j.model.User;
+import weibo4j.model.WeiboException;
 
 import com.clican.appletv.common.SpringProperty;
 import com.clican.appletv.core.service.weibo.WeiboClient;
@@ -396,22 +397,21 @@ public class WeiboController {
 				"weiboAccessToken");
 		timeline.setToken(accessToken);
 		timeline.Repost(statusId.toString());
-		boolean result = true;
 		Status status = null;
+		String promptTitle = "转发成功";
 		try {
-			status = timeline.Repost(statusId.toString());
+			status = timeline
+					.Repost(statusId.toString(), "从ATV3_Client转发微博", 3);
+		} catch (WeiboException e) {
+			if (log.isDebugEnabled()) {
+				log.debug(e.getMessage());
+			}
+			promptTitle = e.getMessage();
 		} catch (Exception e) {
 			log.error("", e);
-			result = false;
+			promptTitle = "转发失败请稍候再试";
 		}
-		if (status == null) {
-			result = false;
-		}
-		if (result) {
-			request.setAttribute("promptTitle", "转发成功");
-		} else {
-			request.setAttribute("promptTitle", "转发失败请稍候再试");
-		}
+		request.setAttribute("promptTitle", promptTitle);
 
 		request.setAttribute("promptDescription", "");
 		return "/weibo/prompt";
