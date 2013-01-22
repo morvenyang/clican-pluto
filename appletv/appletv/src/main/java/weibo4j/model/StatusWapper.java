@@ -11,11 +11,15 @@ public class StatusWapper {
 	private long nextCursor;
 
 	private long totalNumber;
-	
+
 	private String hasvisible;
 
+	public StatusWapper(List<Status> statuses) {
+		this.statuses = statuses;
+	}
+
 	public StatusWapper(List<Status> statuses, long previousCursor,
-			long nextCursor, long totalNumber,String hasvisible) {
+			long nextCursor, long totalNumber, String hasvisible) {
 		this.statuses = statuses;
 		this.previousCursor = previousCursor;
 		this.nextCursor = nextCursor;
