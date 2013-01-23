@@ -8,7 +8,7 @@
 		<listWithPreview id="lwp">
 			<header>
 				<simpleHeader>
-					<title>微薄</title>
+					<title>微博</title>
 				</simpleHeader>
 			</header>
 			<menu>

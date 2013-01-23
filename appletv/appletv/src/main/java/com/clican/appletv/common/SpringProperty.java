@@ -82,6 +82,15 @@ public class SpringProperty {
 	private String baibianChannelApi;
 	private String applePodcastUrlPattern;
 	
+	
+	private String taobaoAppKey;
+	private String taobaoAppSercret;
+	private String taobaoAuthorizeUrl;
+	private String taobaoRedirectUrl;
+	private String taobaoTokenFile;
+	private String taobaoLoginUrl;
+
+			
 	public SpringProperty() {
 		instance = this;
 	}
@@ -491,6 +500,54 @@ public class SpringProperty {
 
 	public void setApplePodcastUrlPattern(String applePodcastUrlPattern) {
 		this.applePodcastUrlPattern = applePodcastUrlPattern;
+	}
+
+	public String getTaobaoAppKey() {
+		return taobaoAppKey;
+	}
+
+	public void setTaobaoAppKey(String taobaoAppKey) {
+		this.taobaoAppKey = taobaoAppKey;
+	}
+
+	public String getTaobaoAppSercret() {
+		return taobaoAppSercret;
+	}
+
+	public void setTaobaoAppSercret(String taobaoAppSercret) {
+		this.taobaoAppSercret = taobaoAppSercret;
+	}
+
+	public String getTaobaoAuthorizeUrl() {
+		return taobaoAuthorizeUrl;
+	}
+
+	public void setTaobaoAuthorizeUrl(String taobaoAuthorizeUrl) {
+		this.taobaoAuthorizeUrl = taobaoAuthorizeUrl;
+	}
+
+	public String getTaobaoRedirectUrl() {
+		return taobaoRedirectUrl;
+	}
+
+	public void setTaobaoRedirectUrl(String taobaoRedirectUrl) {
+		this.taobaoRedirectUrl = taobaoRedirectUrl;
+	}
+
+	public String getTaobaoTokenFile() {
+		return taobaoTokenFile;
+	}
+
+	public void setTaobaoTokenFile(String taobaoTokenFile) {
+		this.taobaoTokenFile = taobaoTokenFile;
+	}
+
+	public String getTaobaoLoginUrl() {
+		return taobaoLoginUrl;
+	}
+
+	public void setTaobaoLoginUrl(String taobaoLoginUrl) {
+		this.taobaoLoginUrl = taobaoLoginUrl;
 	}
 
 }
