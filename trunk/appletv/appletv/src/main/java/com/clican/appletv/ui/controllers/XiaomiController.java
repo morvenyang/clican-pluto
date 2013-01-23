@@ -2,6 +2,7 @@ package com.clican.appletv.ui.controllers;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.net.URLEncoder;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,13 +15,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.clican.appletv.common.Music;
+import com.clican.appletv.common.SpringProperty;
 import com.clican.appletv.core.service.xiami.XiamiClient;
 
 @Controller
 public class XiaomiController {
 
 	private final static Log log = LogFactory.getLog(XiaomiController.class);
-
+	
+	@Autowired
+	private SpringProperty springProperty;
+	
 	@Autowired
 	private XiamiClient xiamiClient;
 
@@ -35,6 +40,7 @@ public class XiaomiController {
 
 		Music music = xiamiClient.getMusic(id);
 		request.setAttribute("music", music);
+		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
 		return "xiami/music";
 	}
 
@@ -50,7 +56,7 @@ public class XiaomiController {
 		String playXml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><atv><body><videoPlayer id=\"com.sample.video-player\"><httpFileVideoAsset id=\""
 				+ "hfva"
 				+ "\"><mediaURL>"
-				+ playUrl
+				+ URLEncoder.encode(playUrl,"utf-8")
 				+ "</mediaURL><title></title><description></description></httpFileVideoAsset></videoPlayer></body></atv>";
 		byte[] data = playXml.getBytes("utf-8");
 		OutputStream os = null;
