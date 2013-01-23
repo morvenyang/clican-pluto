@@ -16,7 +16,7 @@
 					<sections>
 						<shelfSection>
 							<items>
-								<actionButton id="album_1" onSelect="atv.loadURL('${serverurl}/xiami/playMusic.xml?playUr=${music.mp3Url}');" onPlay="atv.loadURL('${serverurl}/xiami/playMusic.xml?playUrl=${music.mp3Url}');">
+								<actionButton id="album_1" onSelect="atv.loadURL('${serverurl}/xiami/playMusic.xml?playUrl=${music.mp3Url}');" onPlay="atv.loadURL('${serverurl}/xiami/playMusic.xml?playUrl=${music.mp3Url}');">
 									<title>播放</title>
 								</actionButton>
 								<actionButton id="album_2" onSelect="atv.loadURL('${serverurl}/weibo/createStatus.xml?title='+encodeURIComponent('${music.name}')+'&amp;shareURL=http://www.xiami.com/song/${music.id}.html&amp;imageURL=${music.singerPhoto}');" onPlay="atv.loadURL('${serverurl}/weibo/createStatus.xml?title='+encodeURIComponent('${music.name}')+'&amp;shareURL=http://www.xiami.com/song/${music.id}.html&amp;imageURL=${music.singerPhoto}');">

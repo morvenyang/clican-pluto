@@ -68,7 +68,7 @@ public class SinaController {
 		String playXml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><atv><body><videoPlayer id=\"com.sample.video-player\"><httpFileVideoAsset id=\""
 				+ "hfva"
 				+ "\"><mediaURL>"
-				+ mp3Url
+				+ URLEncoder.encode(mp3Url,"utf-8")
 				+ "</mediaURL><title></title><description></description></httpFileVideoAsset></videoPlayer></body></atv>";
 		byte[] data = playXml.getBytes("utf-8");
 		OutputStream os = null;
