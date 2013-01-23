@@ -318,7 +318,7 @@ public class WeiboController {
 			throws Exception {
 		if (log.isDebugEnabled()) {
 			log.debug("create status, title:" + title + ",shareURL:" + shareURL
-					+ ".imageURL:" + imageURL);
+					+ ",imageURL:" + imageURL);
 		}
 		if (!isLogin(request, response)) {
 			return null;
