@@ -12,7 +12,7 @@ public class ListView implements Serializable {
 	private Long itemid;
 	private String picurl;
 	private String title;
-	private Integer isalbum;
+	private Integer isalbum=0;
 	
 	public Long getItemid() {
 		return itemid;
