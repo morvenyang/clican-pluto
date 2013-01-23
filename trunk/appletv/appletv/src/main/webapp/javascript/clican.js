@@ -12,15 +12,15 @@ var appletv = {
 				});
 			}
 		},
-		playMp3:function(mp3url, title, desc, mlength){
+		playMp3:function(mp3url){
 			var plist = {
 					type : "video-asset",
 					"media-asset" : {
 						"media-url" : mp3url,
 						type : 'http-live-streaming',
-						title : title,
-						description : desc,
-						length : mlength
+						title : 'test',
+						description : 'test',
+						length : 100
 					}
 			};
 			atv.loadAndSwapPlist(plist);

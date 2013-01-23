@@ -61,9 +61,7 @@ public class SinaController {
 
 		String mp3Url = sinaClient.getMp3Url(playUrlDesc);
 
-		mp3Url = "http://"
-				+ URLEncoder.encode(mp3Url.replace("http://", ""), "utf-8");
-
+		mp3Url = mp3Url.replaceAll("\\s", "&nbsp;").replaceAll("&", "&amp;");
 		if (log.isDebugEnabled()) {
 			log.debug("mp3 url:" + mp3Url);
 		}
