@@ -96,7 +96,6 @@ public class WeiboClientImpl implements WeiboClient {
 					JSONObject jsonUrl = jsonArray.getJSONObject(i);
 					String surl = jsonUrl.getString("url_short");
 					String lurl = jsonUrl.getString("url_long");
-					log.debug(lurl);
 					String type = jsonUrl.getString("type");
 					try {
 						List<Status> list = urlMap.get(surl);
