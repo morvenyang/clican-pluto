@@ -394,7 +394,6 @@ public class WeiboController {
 		String accessToken = (String) request.getSession().getAttribute(
 				"weiboAccessToken");
 		timeline.setToken(accessToken);
-		timeline.Repost(statusId.toString());
 		String promptTitle = "转发成功";
 		try {
 			timeline.Repost(statusId.toString(), "从ATV3_Client转发微博", 3);
