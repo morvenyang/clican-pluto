@@ -41,7 +41,7 @@
 											<longDescriptionPreview>
 										         <title><![CDATA[${weiboStatus.user.screenName}]]></title>
 										         <summary><![CDATA[${weiboStatus.fullText} ${weiboStatus.unknownUrl}]]></summary>
-										         <image src="${weiboStatus.retweetedStatus.originalPic}"></image>
+										         <image src="${weiboStatus.thumbnailPic}"></image>
 										    </longDescriptionPreview>
 										</preview>
 									</imageTextImageMenuItem>
@@ -61,13 +61,13 @@
 											<longDescriptionPreview>
 										         <title><![CDATA[${weiboStatus.user.screenName}]]></title>
 										         <summary><![CDATA[${weiboStatus.fullText} ${weiboStatus.unknownUrl}]]></summary>
-										         <image src="${weiboStatus.retweetedStatus.originalPic}"></image>
+										         <image src="${weiboStatus.thumbnailPic}"></image>
 										    </longDescriptionPreview>
 										</preview>
 									</imageTextImageMenuItem>
 								</c:if>
 								<c:if test="${weiboStatus.videoUrl==null&&weiboStatus.musicUrl==null}">
-									<imageTextImageMenuItem id="item_${varStatus.count}" onSelect="atv.loadURL('${serverurl}/weibo/textPreview.xml?statusId=${weiboStatus.idstr}&amp;fullText=${weiboStatus.fullTextEncode}');">
+									<imageTextImageMenuItem id="item_${varStatus.count}" onSelect="atv.loadURL('${serverurl}/weibo/textPreview.xml?statusId=${weiboStatus.idstr}&amp;fullText=${weiboStatus.fullTextEncode}');" onPlay="onPhotoSelection('${weiboStatus.originalPic}'); >
 										<leftImage>${weiboStatus.user.profileImageUrl}</leftImage>
 										<rightImage></rightImage>
 										<imageSeparatorText></imageSeparatorText>
@@ -81,7 +81,7 @@
 											<longDescriptionPreview>
 										         <title><![CDATA[${weiboStatus.user.screenName}]]></title>
 										         <summary><![CDATA[${weiboStatus.fullText} ${weiboStatus.unknownUrl}]]></summary>
-										         <image src="${weiboStatus.retweetedStatus.originalPic}"></image>
+										         <image src="${weiboStatus.thumbnailPic}"></image>
 										    </longDescriptionPreview>
 										</preview>
 									</imageTextImageMenuItem>

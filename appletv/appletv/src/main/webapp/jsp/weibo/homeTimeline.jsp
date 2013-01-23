@@ -1,7 +1,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %><%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %><%@ page contentType="text/xml;charset=utf-8" %><?xml version="1.0" encoding="UTF-8"?>
 <atv>
-<head><script src="${serverurl}/javascript/clican.js"/></head>
-<head><script src="${serverurl}/javascript/photoPreview.js"/></head>
+<head>
+<script src="${serverurl}/javascript/clican.js"/>
+<script src="${serverurl}/javascript/photoPreview.js"/>
+</head>
 <body>
 		<listWithPreview id="lwp">
 			<header>
@@ -42,7 +44,7 @@
 											<longDescriptionPreview>
 										         <title><![CDATA[${weiboStatus.user.screenName}]]></title>
 										         <summary><![CDATA[${weiboStatus.fullText} ${weiboStatus.unknownUrl}]]></summary>
-										         <image src="${weiboStatus.retweetedStatus.originalPic}"></image>
+										         <image src="${weiboStatus.thumbnailPic}"></image>
 										    </longDescriptionPreview>
 										</preview>
 									</imageTextImageMenuItem>
@@ -62,7 +64,7 @@
 											<longDescriptionPreview>
 										         <title><![CDATA[${weiboStatus.user.screenName}]]></title>
 										         <summary><![CDATA[${weiboStatus.fullText} ${weiboStatus.unknownUrl}]]></summary>
-										         <image src="${weiboStatus.retweetedStatus.originalPic}"></image>
+										         <image src="${weiboStatus.thumbnailPic}"></image>
 										    </longDescriptionPreview>
 										</preview>
 									</imageTextImageMenuItem>
@@ -82,7 +84,7 @@
 											<longDescriptionPreview>
 										         <title><![CDATA[${weiboStatus.user.screenName}]]></title>
 										         <summary><![CDATA[${weiboStatus.fullText} ${weiboStatus.unknownUrl}]]></summary>
-										         <image src="${weiboStatus.originalPic}"></image>
+										         <image src="${weiboStatus.thumbnailPic}"></image>
 										    </longDescriptionPreview>
 										</preview>
 									</imageTextImageMenuItem>
