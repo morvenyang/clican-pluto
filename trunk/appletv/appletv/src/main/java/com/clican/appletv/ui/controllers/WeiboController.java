@@ -313,7 +313,8 @@ public class WeiboController {
 			HttpServletResponse response,
 			@RequestParam(value = "title", required = false) String title,
 			@RequestParam(value = "shareURL", required = false) String shareURL,
-			@RequestParam(value = "imageURL", required = false) String imageURL)
+			@RequestParam(value = "imageURL", required = false) String imageURL,
+			@RequestParam(value = "feature", required = false) Integer feature)
 			throws Exception {
 		if (log.isDebugEnabled()) {
 			log.debug("create status, title:" + title + ",shareURL:" + shareURL
@@ -326,8 +327,14 @@ public class WeiboController {
 		String accessToken = (String) request.getSession().getAttribute(
 				"weiboAccessToken");
 		timeline.setToken(accessToken);
-		String statusContent = "我正在Apple TV3上观看在线视频（" + title
-				+ "）@Clican 了解更多 >>>";
+		String statusContent = null;
+		if(feature!=null&&feature==4){
+			statusContent = "我正在Apple TV3上收听在线音乐（" + title
+			+ "）@Clican 了解更多 >>>";
+		}else{
+			statusContent = "我正在Apple TV3上观看在线视频（" + title
+			+ "）@Clican 了解更多 >>>";
+		}
 		if (StringUtils.isNotEmpty(shareURL)) {
 			statusContent += shareURL;
 		}
