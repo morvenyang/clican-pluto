@@ -6,6 +6,7 @@ import java.io.OutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,8 @@ public class XiaomiController {
 	@RequestMapping("/xiami/music.xml")
 	public String musicPage(HttpServletRequest request,
 			HttpServletResponse response,
-			@RequestParam(value = "id", required = true) String id)
+			@RequestParam(value = "id", required = true) String id,
+			@RequestParam(value = "podcastURL", required = true) String podcastURL)
 			throws IOException {
 		if (log.isDebugEnabled()) {
 			log.debug("play music id=" + id);
@@ -39,6 +41,9 @@ public class XiaomiController {
 
 		Music music = xiamiClient.getMusic(id);
 		request.setAttribute("music", music);
+		if(StringUtils.isNotEmpty(podcastURL)){
+			request.setAttribute("podcastURL", podcastURL);
+		}
 		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
 		return "xiami/music";
 	}
