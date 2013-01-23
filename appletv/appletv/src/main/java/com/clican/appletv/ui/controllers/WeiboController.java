@@ -332,7 +332,7 @@ public class WeiboController {
 			statusContent += shareURL;
 		}
 		Status status = null;
-		String promptTitle = "转发成功";
+		String promptTitle = "分享成功";
 		try {
 			status = timeline.UploadStatus(statusContent, imageURL);
 		} catch (WeiboException e) {
