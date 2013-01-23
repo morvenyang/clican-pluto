@@ -2,7 +2,6 @@ package com.clican.appletv.ui.controllers;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.net.URLEncoder;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -49,9 +48,8 @@ public class XiaomiController {
 			HttpServletResponse response,
 			@RequestParam(value = "playUrl", required = true) String playUrl)
 			throws IOException {
+		playUrl=playUrl.replaceAll("&", "&amp;").replaceAll("\\s", "%20");
 		
-
-		playUrl = "http://"+URLEncoder.encode(playUrl.replace("http://", ""),"utf-8");
 		if (log.isDebugEnabled()) {
 			log.debug("mp3 url:" + playUrl);
 		}
