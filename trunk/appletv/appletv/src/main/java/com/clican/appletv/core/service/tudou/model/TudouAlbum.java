@@ -17,7 +17,7 @@ public class TudouAlbum extends ListView implements Serializable {
 	private String actors;
 	private String directors;
 	private Integer area;
-	private Integer cid;
+	private Integer cid = -1;
 	private Long albumid;
 	private Integer isfull;
 	private Integer hd;
