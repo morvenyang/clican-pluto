@@ -49,14 +49,16 @@ public class XiaomiController {
 			HttpServletResponse response,
 			@RequestParam(value = "playUrl", required = true) String playUrl)
 			throws IOException {
+		
+
+		playUrl = "http://"+URLEncoder.encode(playUrl.replace("http://", ""),"utf-8");
 		if (log.isDebugEnabled()) {
 			log.debug("mp3 url:" + playUrl);
 		}
-
 		String playXml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><atv><body><videoPlayer id=\"com.sample.video-player\"><httpFileVideoAsset id=\""
 				+ "hfva"
 				+ "\"><mediaURL>"
-				+ URLEncoder.encode(playUrl,"utf-8")
+				+ playUrl
 				+ "</mediaURL><title></title><description></description></httpFileVideoAsset></videoPlayer></body></atv>";
 		byte[] data = playXml.getBytes("utf-8");
 		OutputStream os = null;

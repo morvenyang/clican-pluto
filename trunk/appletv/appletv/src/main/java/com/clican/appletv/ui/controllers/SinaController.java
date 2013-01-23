@@ -61,14 +61,16 @@ public class SinaController {
 
 		String mp3Url = sinaClient.getMp3Url(playUrlDesc);
 
+		mp3Url = "http://"
+				+ URLEncoder.encode(mp3Url.replace("http://", ""), "utf-8");
+
 		if (log.isDebugEnabled()) {
 			log.debug("mp3 url:" + mp3Url);
 		}
-
 		String playXml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><atv><body><videoPlayer id=\"com.sample.video-player\"><httpFileVideoAsset id=\""
 				+ "hfva"
 				+ "\"><mediaURL>"
-				+ URLEncoder.encode(mp3Url,"utf-8")
+				+ mp3Url
 				+ "</mediaURL><title></title><description></description></httpFileVideoAsset></videoPlayer></body></atv>";
 		byte[] data = playXml.getBytes("utf-8");
 		OutputStream os = null;
