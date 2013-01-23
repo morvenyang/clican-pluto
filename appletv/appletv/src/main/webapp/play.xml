@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<atv>
+	<body>
+		<videoPlayer id="com.sample.video-player">
+			<httpFileVideoAsset id="hfva">
+				<mediaURL>http://f3.xiami.net/7155/363159/02%201769313132_1005720.mp3</mediaURL>
+				<title></title>
+				<description></description>
+			</httpFileVideoAsset>
+		</videoPlayer>
+	</body>
+</atv>
