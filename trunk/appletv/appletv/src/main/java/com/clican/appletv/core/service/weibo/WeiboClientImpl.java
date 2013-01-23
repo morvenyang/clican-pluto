@@ -62,6 +62,8 @@ public class WeiboClientImpl implements WeiboClient {
 				.getSinaMusicIdPattern());
 		Pattern xiamiMusicPattern = Pattern.compile(springProperty
 				.getXiamiMusicIdPattern());
+		Pattern applePodcastPattern = Pattern.compile(springProperty
+				.getApplePodcastUrlPattern());
 		for (Status status : statusWapper.getStatuses()) {
 			try {
 				String text = status.getText();
@@ -94,6 +96,7 @@ public class WeiboClientImpl implements WeiboClient {
 					JSONObject jsonUrl = jsonArray.getJSONObject(i);
 					String surl = jsonUrl.getString("url_short");
 					String lurl = jsonUrl.getString("url_long");
+					log.debug(lurl);
 					String type = jsonUrl.getString("type");
 					try {
 						List<Status> list = urlMap.get(surl);
@@ -184,24 +187,27 @@ public class WeiboClientImpl implements WeiboClient {
 									.matcher(lurl);
 							if (sinaMusicMatcher.matches()) {
 								String id = sinaMusicMatcher.group(2);
-								addMusicUrlForStatus(list, "atv.loadURL('"
-										+ springProperty.getSystemServerUrl()
-										+ "/sina/music.xml?id=" + id + "');");
+								addMusicUrlForStatus(list,
+										springProperty.getSystemServerUrl()
+												+ "/sina/music.xml?id=" + id);
 							} else {
 								Matcher xiamiMusicMatcher = xiamiMusicPattern
 										.matcher(lurl);
 								if (xiamiMusicMatcher.matches()) {
 									String id = xiamiMusicMatcher.group(1);
-									addMusicUrlForStatus(
-											list,
-											"atv.loadURL('"
-													+ springProperty
-															.getSystemServerUrl()
+									addMusicUrlForStatus(list,
+											springProperty.getSystemServerUrl()
 													+ "/xiami/music.xml?id="
-													+ id + "');");
+													+ id);
 								}
 							}
 							addUnknownUrlForStatus(list, lurl);
+						} else if (type.equals("0")) {
+							Matcher applePodcastMatcher = applePodcastPattern
+									.matcher(lurl);
+							if (applePodcastMatcher.matches()) {
+								addPodcastUrlForStatus(list, lurl);
+							}
 						}
 
 					} catch (Exception e) {
@@ -224,6 +230,12 @@ public class WeiboClientImpl implements WeiboClient {
 	private void addMusicUrlForStatus(List<Status> list, String videoUrl) {
 		for (Status status : list) {
 			status.setMusicUrl(videoUrl);
+		}
+	}
+
+	private void addPodcastUrlForStatus(List<Status> list, String podcastUrl) {
+		for (Status status : list) {
+			status.setPodcastUrl(podcastUrl);
 		}
 	}
 

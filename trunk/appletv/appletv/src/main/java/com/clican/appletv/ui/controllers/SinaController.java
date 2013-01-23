@@ -33,7 +33,8 @@ public class SinaController {
 	@RequestMapping("/sina/music.xml")
 	public String musicPage(HttpServletRequest request,
 			HttpServletResponse response,
-			@RequestParam(value = "id", required = true) String id)
+			@RequestParam(value = "id", required = true) String id,
+			@RequestParam(value = "podcastURL", required = true) String podcastURL)
 			throws IOException {
 		if (log.isDebugEnabled()) {
 			log.debug("access sina music id=" + id);
@@ -45,6 +46,9 @@ public class SinaController {
 		}
 		sinaMusic.setId(id);
 		request.setAttribute("music", sinaMusic);
+		if(StringUtils.isNotEmpty(podcastURL)){
+			request.setAttribute("podcastURL", podcastURL);
+		}
 		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
 		return "sina/music";
 	}

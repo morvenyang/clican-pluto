@@ -42,6 +42,7 @@ public class Status extends WeiboResponse implements java.io.Serializable {
 	private String statusPic;
 	private String videoUrl;
 	private String musicUrl;
+	private String podcastUrl;
 	private String unknownUrl;
 	private String fullText;
 	private String fullTextEncode;
@@ -367,6 +368,14 @@ public class Status extends WeiboResponse implements java.io.Serializable {
 
 	public void setMusicUrl(String musicUrl) {
 		this.musicUrl = musicUrl;
+	}
+
+	public String getPodcastUrl() {
+		return podcastUrl;
+	}
+
+	public void setPodcastUrl(String podcastUrl) {
+		this.podcastUrl = podcastUrl;
 	}
 
 	public String getUnknownUrl() {

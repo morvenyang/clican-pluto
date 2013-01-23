@@ -62,6 +62,7 @@ http://www.springframework.org/schema/context/spring-context-2.5.xsd">
 		<property name="xiamiMusicIdPattern" value="${xiami.music.id.pattern}"></property>
 		
 		<property name="baibianChannelApi" value="${baibian.channel.api}"></property>
+		<property name="applePodcastUrlPattern" value="${apple.podcast.url.pattern}"></property>
 		
 		<property name="weiboAppKey" value="${weibo.app.key}"></property>
 		<property name="weiboAppSercret" value="${weibo.app.sercret}"></property>

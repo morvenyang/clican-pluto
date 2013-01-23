@@ -80,6 +80,7 @@ public class SpringProperty {
 	private String xiamiMusicIdPattern;
 	
 	private String baibianChannelApi;
+	private String applePodcastUrlPattern;
 	
 	public SpringProperty() {
 		instance = this;
@@ -482,6 +483,14 @@ public class SpringProperty {
 
 	public void setBaibianChannelApi(String baibianChannelApi) {
 		this.baibianChannelApi = baibianChannelApi;
+	}
+
+	public String getApplePodcastUrlPattern() {
+		return applePodcastUrlPattern;
+	}
+
+	public void setApplePodcastUrlPattern(String applePodcastUrlPattern) {
+		this.applePodcastUrlPattern = applePodcastUrlPattern;
 	}
 
 }

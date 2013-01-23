@@ -50,7 +50,7 @@
 									</imageTextImageMenuItem>
 								</c:if>
 								<c:if test="${weiboStatus.videoUrl==null&&weiboStatus.musicUrl!=null}">
-									<imageTextImageMenuItem id="item_${varStatus.count}" onSelect="atv.loadURL('${serverurl}/weibo/textPreview.xml?statusId=${weiboStatus.idstr}&amp;fullText=${weiboStatus.fullTextEncode}');" onPlay="${weiboStatus.musicUrl}">
+									<imageTextImageMenuItem id="item_${varStatus.count}" onSelect="atv.loadURL('${serverurl}/weibo/textPreview.xml?statusId=${weiboStatus.idstr}&amp;fullText=${weiboStatus.fullTextEncode}');" onPlay="atv.loadURL('${weiboStatus.musicUrl}&amp;podcastURL=${weiboStatus.podcastUrl}');">
 										<leftImage>${weiboStatus.user.profileImageUrl}</leftImage>
 										<rightImage>${serverurl}/image/weibo/music.png</rightImage>
 										<imageSeparatorText></imageSeparatorText>
