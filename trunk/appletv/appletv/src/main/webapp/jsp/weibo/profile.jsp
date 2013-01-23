@@ -37,9 +37,6 @@
 									<actionButton id="shelf_4" onSelect="atv.loadURL('${serverurl}/weibo/favorite.xml');" onPlay="atv.loadURL('${serverurl}/weibo/favorite.xml');">
 										<title>收藏</title>
 									</actionButton>
-									<actionButton id="shelf_5" onSelect="atv.loadURL('${serverurl}/weibo/homeTimelineBar.xml');" onPlay="atv.loadURL('${serverurl}/weibo/homeTimelineBar.xml');">
-										<title>微博</title>
-									</actionButton>
 							</items>
 						</shelfSection>
 					</sections>

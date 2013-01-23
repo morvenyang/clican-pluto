@@ -1,6 +1,7 @@
 package com.clican.appletv.ui.controllers;
 
 import java.io.IOException;
+import java.io.OutputStream;
 import java.net.URLEncoder;
 
 import javax.servlet.http.HttpServletRequest;
@@ -64,5 +65,26 @@ public class SinaController {
 			log.debug("mp3 url:" + mp3Url);
 		}
 
+		String playXml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><atv><body><videoPlayer id=\"com.sample.video-player\"><httpFileVideoAsset id=\""
+				+ "hfva"
+				+ "\"><mediaURL>"
+				+ mp3Url
+				+ "</mediaURL><title></title><description></description></httpFileVideoAsset></videoPlayer></body></atv>";
+		byte[] data = playXml.getBytes("utf-8");
+		OutputStream os = null;
+		try {
+			response.setContentType("text/xml");
+			response.setContentLength(data.length);
+			os = response.getOutputStream();
+			os.write(data);
+		} catch (Exception e) {
+			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR,
+					"System Error");
+			return;
+		} finally {
+			if (os != null) {
+				os.close();
+			}
+		}
 	}
 }

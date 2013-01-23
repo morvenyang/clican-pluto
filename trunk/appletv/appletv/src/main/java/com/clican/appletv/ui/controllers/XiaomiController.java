@@ -1,6 +1,7 @@
 package com.clican.appletv.ui.controllers;
 
 import java.io.IOException;
+import java.io.OutputStream;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -38,18 +39,34 @@ public class XiaomiController {
 	}
 
 	@RequestMapping("/xiami/playMusic.xml")
-	public void playMusicPage(
-			HttpServletRequest request,
+	public void playMusicPage(HttpServletRequest request,
 			HttpServletResponse response,
 			@RequestParam(value = "playUrl", required = true) String playUrl)
 			throws IOException {
 		if (log.isDebugEnabled()) {
-			log.debug("play music playUrl=" + playUrl);
-		}
-
-		if (log.isDebugEnabled()) {
 			log.debug("mp3 url:" + playUrl);
 		}
 
+		String playXml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><atv><body><videoPlayer id=\"com.sample.video-player\"><httpFileVideoAsset id=\""
+				+ "hfva"
+				+ "\"><mediaURL>"
+				+ playUrl
+				+ "</mediaURL><title></title><description></description></httpFileVideoAsset></videoPlayer></body></atv>";
+		byte[] data = playXml.getBytes("utf-8");
+		OutputStream os = null;
+		try {
+			response.setContentType("text/xml");
+			response.setContentLength(data.length);
+			os = response.getOutputStream();
+			os.write(data);
+		} catch (Exception e) {
+			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR,
+					"System Error");
+			return;
+		} finally {
+			if (os != null) {
+				os.close();
+			}
+		}
 	}
 }
