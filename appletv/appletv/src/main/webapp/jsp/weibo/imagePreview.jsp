@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %><%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %><%@ page contentType="text/xml;charset=utf-8" %><?xml version="1.0" encoding="UTF-8"?>
 <atv>
 <head>
-<script src="http://10.0.1.5/appletv/javascript/photoPreview.js"/>
+<script src="${serverurl}/javascript/photoPreview.js"/>
 </head>
 	<body>
 		<mediaBrowser id="mb" gridLayout="mixed">
