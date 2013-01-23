@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %><%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %><%@ page contentType="text/xml;charset=utf-8" %><?xml version="1.0" encoding="UTF-8"?>
 <atv>
 <head><script src="${serverurl}/javascript/clican.js"/></head>
+<head><script src="${serverurl}/javascript/photoPreview.js"/></head>
 <body>
 		<listWithPreview id="lwp">
 			<header>
@@ -67,7 +68,7 @@
 									</imageTextImageMenuItem>
 								</c:if>
 								<c:if test="${weiboStatus.videoUrl==null&&weiboStatus.musicUrl==null}">
-									<imageTextImageMenuItem id="item_${varStatus.count}" onSelect="atv.loadURL('${serverurl}/weibo/textPreview.xml?statusId=${weiboStatus.idstr}&amp;fullText=${weiboStatus.fullTextEncode}');" onPlay="atv.loadURL('${serverurl}/weibo/imagePreview.xml?imageURL=${weiboStatus.originalPic}');">
+									<imageTextImageMenuItem id="item_${varStatus.count}" onSelect="atv.loadURL('${serverurl}/weibo/textPreview.xml?statusId=${weiboStatus.idstr}&amp;fullText=${weiboStatus.fullTextEncode}');" onPlay="onPhotoSelection('${weiboStatus.originalPic}');">
 										<leftImage>${weiboStatus.user.profileImageUrl}</leftImage>
 										<rightImage></rightImage>
 										<imageSeparatorText></imageSeparatorText>
