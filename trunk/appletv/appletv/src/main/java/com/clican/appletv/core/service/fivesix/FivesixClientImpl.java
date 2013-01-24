@@ -1,8 +1,14 @@
 package com.clican.appletv.core.service.fivesix;
 
+import java.util.Calendar;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
+
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang.StringUtils;
 
 import com.clican.appletv.core.service.BaseClient;
@@ -43,6 +49,32 @@ public class FivesixClientImpl extends BaseClient implements FivesixClient {
 		} else {
 			return null;
 		}
+	}
+
+	@Override
+	public List<Object> queryVideos(int channel) {
+		Map<String, String> map = new TreeMap<String, String>();
+		map.put("page_size", "20");
+		map.put("page", "1");
+		map.put("v", "1.0");
+		map.put("platform", "ios");
+		map.put("cid", channel+"");
+		String queryString ="";
+		for(String key:map.keySet()){
+			if(!queryString.endsWith("&")&&StringUtils.isNotEmpty(queryString)){
+				queryString=queryString+"&";
+			}
+			queryString=queryString+key+"="+map.get(key);
+		}
+		int call_id = (int)Calendar.getInstance().getTimeInMillis();
+		String md5str = DigestUtils.md5Hex(queryString);
+		String sign = DigestUtils.md5Hex(md5str + "#6bd49bbd29d24b0e972cfbd1f677593b#"+call_id);
+		String url = "http://api.m.renren.com/api/v56/getOperaOrVideoByCid?" + queryString + "&api_key=6bd49bbd29d24b0e972cfbd1f677593b&call_id="+call_id+"&sig=" + sign;
+		String response = this.httpGet(url, null, null);
+		if (log.isDebugEnabled()) {
+			log.debug(response);
+		}
+		return null;
 	}
 
 }
