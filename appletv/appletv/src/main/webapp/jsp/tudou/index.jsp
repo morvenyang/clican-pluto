@@ -30,6 +30,11 @@
 		</shelf>
 		<grid id="grid_1" columnCount="12">
 					<items>
+						<c:if test="${channel.album}">
+							<actionButton id="shelf_item_filter_page" onSelect="atv.loadURL('${pagiurl}&amp;page=0');" onPlay="atv.loadURL('${pagiurl}&amp;page=0');">
+								<title>过滤</title>
+							</actionButton>
+						</c:if>
 						<actionButton id="shelf_item_first_page" onSelect="atv.loadURL('${pagiurl}&amp;page=0');" onPlay="atv.loadURL('${pagiurl}&amp;page=0');">
 							<title>第一页</title>
 						</actionButton>
