@@ -110,4 +110,17 @@ http://www.springframework.org/schema/context/spring-context-2.5.xsd">
 	
 	<bean id="weiboClient" class="com.clican.appletv.core.service.weibo.WeiboClientImpl" autowire="byName" init-method="init" destroy-method="destroy">
 	</bean>
+	
+	<bean id="taobaoAuthClient" class="com.taobao.api.DefaultTaobaoClient" autowire="byName">
+		<constructor-arg><value>${taobao.authorize.base.url}</value></constructor-arg>
+		<constructor-arg><value>${taobao.app.key}</value></constructor-arg>
+		<constructor-arg><value>${taobao.app.sercret}</value></constructor-arg>
+	</bean>
+	
+	<bean id="taobaoRestClient" class="com.taobao.api.AutoRetryTaobaoClient" autowire="byName">
+		<constructor-arg><value>${taobao.rest.base.url}</value></constructor-arg>
+		<constructor-arg><value>${taobao.app.key}</value></constructor-arg>
+		<constructor-arg><value>${taobao.app.sercret}</value></constructor-arg>
+	</bean>
+	
 </beans>
