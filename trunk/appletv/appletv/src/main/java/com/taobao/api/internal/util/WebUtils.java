@@ -422,7 +422,15 @@ public abstract class WebUtils {
 			});
 			conn = connHttps;
 		} else {
-			conn = (HttpURLConnection) url.openConnection();
+			if (springProperty.isSystemProxyEnable()) {
+				conn = (HttpURLConnection) url.openConnection(new Proxy(
+						Type.HTTP, new InetSocketAddress(springProperty
+								.getSystemProxyHost(), springProperty
+								.getSystemProxyPort())));
+			} else {
+				conn = (HttpURLConnection) url.openConnection();
+			}
+
 		}
 
 		conn.setRequestMethod(method);
