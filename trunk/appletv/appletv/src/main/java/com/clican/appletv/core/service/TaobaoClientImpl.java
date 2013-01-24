@@ -20,7 +20,7 @@ public class TaobaoClientImpl extends BaseClient implements TaobaoClient {
 		param.put("redirect_uri", springProperty.getTaobaoRedirectUrl());
 		try {
 			String responseJson = WebUtils.doPost(
-					"https://oauth.taobao.com/token", param, 3000, 3000);
+					springProperty.getTaobaoAuthorizeBaseUrl()+"/token", param, 3000, 3000);
 			JSONObject json = JSONObject.fromObject(responseJson);
 			TaobaoAccessToken taobaoAccessToken = new TaobaoAccessToken();
 			taobaoAccessToken.setAccessToken(json.getString("access_token"));
