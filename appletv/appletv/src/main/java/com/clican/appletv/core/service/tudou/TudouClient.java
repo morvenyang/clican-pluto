@@ -14,7 +14,7 @@ public interface TudouClient {
 	 * @param url
 	 * @return
 	 */
-	public List<ListView> queryVideos(String keyword, Channel channel,
+	public List<ListView> queryVideos(String keyword, Channel channel,int year,int area,
 			Integer page);
 
 	public TudouAlbum queryAlbum(String data);

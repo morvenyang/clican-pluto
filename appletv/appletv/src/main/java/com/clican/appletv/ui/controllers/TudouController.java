@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.clican.appletv.common.Keyword;
 import com.clican.appletv.common.SpringProperty;
 import com.clican.appletv.core.service.tudou.TudouClient;
+import com.clican.appletv.core.service.tudou.enumeration.Area;
 import com.clican.appletv.core.service.tudou.enumeration.Channel;
 import com.clican.appletv.core.service.tudou.model.ListView;
 import com.clican.appletv.core.service.tudou.model.TudouAlbum;
@@ -123,7 +125,9 @@ public class TudouController {
 			HttpServletResponse response,
 			@RequestParam(value = "keyword", required = false) String keyword,
 			@RequestParam(value = "page", required = false) Integer page,
-			@RequestParam(value = "channelId", required = false) Integer channelId)
+			@RequestParam(value = "channelId", required = false) Integer channelId,
+			@RequestParam(value = "year", required = false) Integer year,
+			@RequestParam(value = "area", required = false) Integer area)
 			throws IOException {
 
 		if (log.isDebugEnabled()) {
@@ -138,7 +142,14 @@ public class TudouController {
 			channel = Channel.convertToChannel(channelId);
 		}
 
-		List<ListView> videos = tudouClient.queryVideos(keyword, channel, page);
+		if (year == null) {
+			year = -1;
+		}
+		if (area == null) {
+			area = -1;
+		}
+		List<ListView> videos = tudouClient.queryVideos(keyword, channel, year,
+				area, page);
 		if (videos.size() == 0) {
 			return "tudou/noresult";
 		}
@@ -235,6 +246,30 @@ public class TudouController {
 		request.setAttribute("q", q);
 		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
 		return "tudou/keywrodsearchlist";
+	}
+
+	@RequestMapping("/tudou/filter.xml")
+	public String filterPage(
+			HttpServletRequest request,
+			HttpServletResponse response,
+			@RequestParam(value = "channelId", required = false) Integer channelId,
+			@RequestParam(value = "year", required = false) Integer year,
+			@RequestParam(value = "area", required = false) Integer area)
+			throws IOException {
+		if (year == null) {
+			year = -1;
+		}
+		if (area == null) {
+			area = -1;
+		}
+		request.setAttribute("channelId", channelId);
+		request.setAttribute("selectedYear", year);
+		request.setAttribute("selectedArea", area);
+		request.setAttribute("areas", Area.values());
+		request.setAttribute("currentYear",
+				Calendar.getInstance().get(Calendar.YEAR));
+		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
+		return "tudou/filter";
 	}
 
 }

@@ -81,7 +81,7 @@ public class TudouClientImpl extends BaseClient implements TudouClient {
 
 	@Override
 	public List<ListView> queryVideos(String keyword, Channel channel,
-			Integer page) {
+			int year, int area, Integer page) {
 
 		this.checkCache();
 
@@ -100,7 +100,8 @@ public class TudouClientImpl extends BaseClient implements TudouClient {
 
 		} else if (channel.isAlbum()) {
 			url = springProperty.getTudouAlbumChannelApi() + "&cid="
-					+ channel.getValue() + "&page=" + page;
+					+ channel.getValue() + "&page=" + page + "&year=" + year
+					+ "&area=" + area;
 		} else {
 			url = springProperty.getTudouChannelApi() + "&columnid="
 					+ channel.getValue() + "&page=" + page;
@@ -139,8 +140,10 @@ public class TudouClientImpl extends BaseClient implements TudouClient {
 	public Long getItemid(String code) {
 		String url = springProperty.getTudouItemidTransferApi() + "?code="
 				+ code;
-		Map<String,String> headMap = new HashMap<String,String>();
-		headMap.put("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.52 Safari/537.17");
+		Map<String, String> headMap = new HashMap<String, String>();
+		headMap.put(
+				"User-Agent",
+				"Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.52 Safari/537.17");
 		String htmlContent = httpGet(url, headMap, null);
 		int start = htmlContent.indexOf("http://i2.tdimg.com/");
 		if (start == -1) {
