@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,8 +21,14 @@ public class TaobaoController {
 
 	public final static String TAOBAO_TOKEN_NAME = "taobaoAccessToken";
 	public final static String TAOBAO_USER_ID_NAME = "taobaoUserId";
+
 	@Autowired
+	@Qualifier("taobaoAuthClient")
 	private TaobaoClient taobaoAuthClient;
+
+	@Autowired
+	@Qualifier("taobaoRestClient")
+	private TaobaoClient taobaoRestClient;
 
 	@Autowired
 	private SpringProperty springProperty;
