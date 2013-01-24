@@ -10,21 +10,24 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import weibo4j.Oauth;
-
 import com.clican.appletv.common.SpringProperty;
+import com.taobao.api.TaobaoClient;
+import com.taobao.api.request.AlipaySystemOauthTokenRequest;
+import com.taobao.api.response.AlipaySystemOauthTokenResponse;
 
 @Controller
 public class TaobaoController {
 
-	
-
+	public final static String TAOBAO_TOKEN_NAME = "taobaoAccessToken";
+	public final static String TAOBAO_USER_ID_NAME = "taobaoUserId";
+	@Autowired
+	private TaobaoClient taobaoAuthClient;
 
 	@Autowired
 	private SpringProperty springProperty;
-	
+
 	private final static Log log = LogFactory.getLog(TaobaoController.class);
-	
+
 	@RequestMapping("/taobao/oaAuthCallback.do")
 	public String callback(HttpServletRequest request,
 			HttpServletResponse response,
@@ -33,15 +36,20 @@ public class TaobaoController {
 		if (log.isDebugEnabled()) {
 			log.debug("code=" + code);
 		}
-		String accessToken = new Oauth().getAccessTokenByCode(code)
-				.getAccessToken();
+		AlipaySystemOauthTokenRequest req = new AlipaySystemOauthTokenRequest();
+		req.setCode(code);
+		req.setGrantType("authorization_code");
+		AlipaySystemOauthTokenResponse resp = taobaoAuthClient.execute(req);
+		String accessToken = resp.getAccessToken();
+		String userId = resp.getAlipayUserId();
 		if (log.isDebugEnabled()) {
 			log.debug("set access token[" + accessToken + "]");
 		}
-		request.getSession().setAttribute("accessToken", accessToken);
+		request.getSession().setAttribute(TAOBAO_TOKEN_NAME, accessToken);
+		request.getSession().setAttribute(TAOBAO_USER_ID_NAME, userId);
 		return "taobao/oaAuthCallback";
 	}
-	
+
 	@RequestMapping("/taobao/login.do")
 	public void login(HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
