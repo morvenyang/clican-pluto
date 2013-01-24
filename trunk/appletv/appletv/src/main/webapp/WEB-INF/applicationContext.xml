@@ -81,6 +81,7 @@ http://www.springframework.org/schema/context/spring-context-2.5.xsd">
 		<property name="taobaoRedirectUrl" value="${taobao.redirect.url}"></property>
 		<property name="taobaoTokenFile" value="${taobao.token.file}"></property>
 		<property name="taobaoLoginUrl" value="${taobao.login.url}"></property>
+		<property name="taobaoAuthorizeBaseUrl" value="${taobao.authorize.base.url}"></property>
 
 	</bean>
 	
