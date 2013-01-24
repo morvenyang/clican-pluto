@@ -6,15 +6,13 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.clican.appletv.common.SpringProperty;
+import com.clican.appletv.core.model.TaobaoAccessToken;
 import com.taobao.api.TaobaoClient;
-import com.taobao.api.request.AlipaySystemOauthTokenRequest;
-import com.taobao.api.response.AlipaySystemOauthTokenResponse;
 
 @Controller
 public class TaobaoController {
@@ -23,11 +21,9 @@ public class TaobaoController {
 	public final static String TAOBAO_USER_ID_NAME = "taobaoUserId";
 
 	@Autowired
-	@Qualifier("taobaoAuthClient")
-	private TaobaoClient taobaoAuthClient;
+	private com.clican.appletv.core.service.TaobaoClient taobaoClient;
 
 	@Autowired
-	@Qualifier("taobaoRestClient")
 	private TaobaoClient taobaoRestClient;
 
 	@Autowired
@@ -43,17 +39,12 @@ public class TaobaoController {
 		if (log.isDebugEnabled()) {
 			log.debug("code=" + code);
 		}
-		AlipaySystemOauthTokenRequest req = new AlipaySystemOauthTokenRequest();
-		req.setCode(code);
-		req.setGrantType("authorization_code");
-		AlipaySystemOauthTokenResponse resp = taobaoAuthClient.execute(req);
-		String accessToken = resp.getAccessToken();
-		String userId = resp.getAlipayUserId();
+		TaobaoAccessToken accessToken = taobaoClient.getAccessToken(code);
 		if (log.isDebugEnabled()) {
 			log.debug("set access token[" + accessToken + "]");
 		}
-		request.getSession().setAttribute(TAOBAO_TOKEN_NAME, accessToken);
-		request.getSession().setAttribute(TAOBAO_USER_ID_NAME, userId);
+		request.getSession().setAttribute(TAOBAO_TOKEN_NAME, accessToken.getAccessToken());
+		request.getSession().setAttribute(TAOBAO_TOKEN_NAME, accessToken.getUserId());
 		return "taobao/oaAuthCallback";
 	}
 
