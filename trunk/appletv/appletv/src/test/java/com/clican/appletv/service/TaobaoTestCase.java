@@ -2,10 +2,8 @@ package com.clican.appletv.service;
 
 import com.clican.appletv.common.SpringProperty;
 import com.taobao.api.TaobaoClient;
-import com.taobao.api.request.TopatsItemcatsGetRequest;
-import com.taobao.api.request.TopatsResultGetRequest;
-import com.taobao.api.response.TopatsItemcatsGetResponse;
-import com.taobao.api.response.TopatsResultGetResponse;
+import com.taobao.api.request.ItemsOnsaleGetRequest;
+import com.taobao.api.response.ItemsOnsaleGetResponse;
 
 public class TaobaoTestCase extends BaseServiceTestCase {
 
@@ -21,13 +19,11 @@ public class TaobaoTestCase extends BaseServiceTestCase {
 	}
 
 	public void testGetCategorys() throws Exception {
-		TopatsItemcatsGetRequest req = new TopatsItemcatsGetRequest();
-		TopatsItemcatsGetResponse response = taobaoRestClient.execute(req);
-		//Long taskId = response.getTask().getTaskId();
-		//response.getTask().getStatus();
-		TopatsResultGetRequest req1 = new TopatsResultGetRequest();
-		req1.setTaskId(3557812L);
-		TopatsResultGetResponse rep2 = taobaoRestClient.execute(req1);
-		log.debug(rep2);
+		ItemsOnsaleGetRequest req = new ItemsOnsaleGetRequest();
+		req.setQ("ATV3");
+		req.setFields("approve_status,num_iid,title,nick,type,cid,pic_url,num,props,valid_thru,list_time,price,has_discount,has_invoice,has_warranty,has_showcase,modified,delist_time,postage_id,seller_cids,outer_id");
+		ItemsOnsaleGetResponse response = taobaoRestClient.execute(req,
+				"620170796559902ZZ91146eead9cdcd0e1696a77da5779c82478075");
+		log.debug(response);
 	}
 }
