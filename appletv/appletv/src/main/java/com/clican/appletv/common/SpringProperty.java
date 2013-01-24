@@ -89,7 +89,7 @@ public class SpringProperty {
 	private String taobaoRedirectUrl;
 	private String taobaoTokenFile;
 	private String taobaoLoginUrl;
-
+	private String taobaoAuthorizeBaseUrl;
 			
 	public SpringProperty() {
 		instance = this;
@@ -548,6 +548,14 @@ public class SpringProperty {
 
 	public void setTaobaoLoginUrl(String taobaoLoginUrl) {
 		this.taobaoLoginUrl = taobaoLoginUrl;
+	}
+
+	public String getTaobaoAuthorizeBaseUrl() {
+		return taobaoAuthorizeBaseUrl;
+	}
+
+	public void setTaobaoAuthorizeBaseUrl(String taobaoAuthorizeBaseUrl) {
+		this.taobaoAuthorizeBaseUrl = taobaoAuthorizeBaseUrl;
 	}
 
 }
