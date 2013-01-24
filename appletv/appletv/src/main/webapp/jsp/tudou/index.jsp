@@ -30,11 +30,6 @@
 		</shelf>
 		<grid id="grid_1" columnCount="12">
 					<items>
-						<c:if test="${isAlbum}">
-							<actionButton id="shelf_item_filter_page" onSelect="atv.loadURL('${serverurl}/tudou/filter.xml?channelId=${channelId}&amp;year=${year}&amp;area=${area}');" onPlay="atv.loadURL('${serverurl}/tudou/filter.xml?channelId=${channelId}&amp;year=${year}&amp;area=${area}');">
-								<title>过滤</title>
-							</actionButton>
-						</c:if>
 						<actionButton id="shelf_item_first_page" onSelect="atv.loadURL('${pagiurl}&amp;page=0');" onPlay="atv.loadURL('${pagiurl}&amp;page=0');">
 							<title>第一页</title>
 						</actionButton>
@@ -62,11 +57,6 @@
 		</grid>
 				<grid id="grid_3" columnCount="12">
 					<items>
-						<c:if test="${isAlbum}">
-							<actionButton id="shelf_item_filter_page" onSelect="atv.loadURL('${serverurl}/tudou/filter.xml?channelId=${channelId}&amp;year=${year}&amp;area=${area}');" onPlay="atv.loadURL('${serverurl}/tudou/filter.xml?channelId=${channelId}&amp;year=${year}&amp;area=${area}');">
-								<title>过滤</title>
-							</actionButton>
-						</c:if>
 						<actionButton id="shelf_item_first_page" onSelect="atv.loadURL('${pagiurl}&amp;page=0');" onPlay="atv.loadURL('${pagiurl}&amp;page=0');">
 							<title>第一页</title>
 						</actionButton>
