@@ -154,6 +154,9 @@ public class TudouController {
 			return "tudou/noresult";
 		}
 		request.setAttribute("channels", Channel.values());
+		request.setAttribute("channelId", channelId);
+		request.setAttribute("year", year);
+		request.setAttribute("area", area);
 		request.setAttribute("videos", videos);
 		request.setAttribute("channelCount", Channel.values().length + 1);
 		request.setAttribute("serverurl", springProperty.getSystemServerUrl());

@@ -5,10 +5,10 @@
 	<items>
 		<grid id="grid_1" columnCount="12">	
 			<items>
-				<c:forEach var="area" items="areas">
+				<c:forEach var="area" items="${areas}">
 					<actionButton id="area_${area.value}" onSelect="atv.loadURL('${serverurl}/tudou/filter.xml?channelId=${channelId}&amp;area=${area.value}&amp;year=${selectedYear}');" onPlay="atv.loadURL('${serverurl}/tudou/filter.xml?channelId=${channelId}&amp;area=${area.value}&amp;year=${selectedYear}');">
 						<title>${area.label}</title>
-						<c:if test="${selectedArea==area}">
+						<c:if test="${selectedArea==area.value}">
 							<image>resource://PlayFocused.png</image>
 						</c:if>
 					</actionButton>
@@ -23,7 +23,7 @@
 							<image>resource://PlayFocused.png</image>
 						</c:if>
 				</actionButton>
-				<c:forEach var="year" begin="${currentYear}" step="-1" end="${currentYear-6}">
+				<c:forEach var="year" begin="${currentYear-6}" step="1" end="${currentYear}">
 					<actionButton id="year_${year}" onSelect="atv.loadURL('${serverurl}/tudou/filter.xml?channelId=${channelId}&amp;year=${year}&amp;area=${selectedArea}');" onPlay="atv.loadURL('${serverurl}/tudou/filter.xml?channelId=${channelId}&amp;year=${year}&amp;area=${selectedArea}');">
 						<title>${year}</title>
 						<c:if test="${selectedYear==year}">
