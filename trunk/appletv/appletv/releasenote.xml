@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <atv>
+<head>
+<script src="http://15.185.225.83/appletv/javascript/clican.js"/>
+<script src="http://15.185.225.83/appletv/javascript/ejs.js"/>
+<script src="http://15.185.225.83/appletv/javascript/qq.js"/>
+</head>
 <body>
 		<scrollingText id="releasenote">
-		    <title>升级维护中2013/01/25</title>
+		    <title>更新日志2013/01/25</title>
 		    		    <text>
 		        <![CDATA[
 联系方式: http://15.185.225.83/appletv/index.html
@@ -80,7 +85,7 @@ N/A
 							<title>土豆</title>
 						</actionButton>
 						<actionButton id="shelf_item_2" 
-							onSelect="atv.loadURL('http://15.185.225.83/appletv/qq/index.xml');">
+							onSelect="qqClient.loadIndexPage('',0,3);">
 							<title>QQ</title>
 						</actionButton>
 						<actionButton id="shelf_item_3" 
