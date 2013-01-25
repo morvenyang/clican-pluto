@@ -137,6 +137,16 @@ var qqClient ={
 			appletv.makePostRequest(serverurl+'/tudou/log.do',xml,function(callback){});
 		},
 		
+		loadAlbumPage: function(id){
+			var url ='http://live.qq.com/json/ipad/cover/'+id.substring(0,1)+'/'+id+'.json?qq=&appver=2.0.0.2208&sysver=ios5.1.1&device=iPad&lang=zh_CN';
+			appletv.makeRequest(url,function(content){
+				var result = JSON.parse(content);
+				var video = {actor:JSON.stringify(result['actor']),area:result['area'],dctor:JSON.stringify(result['dctor']),pic:result['pic'],score:result['score'],title:result['tt'],year:result['year'],year:result['desc']};
+				var xml = new EJS({url: serverurl+'/template/qq/video.ejs'}).render(video);
+				appletv.makePostRequest(serverurl+'/tudou/log.do',xml,function(callback){});
+			};
+		},
+		
 		playVideo: function(id){
 			var playDescUrl = qqPlayApi+'&vid='+id;
 	    	this.makeRequest(playDescUrl,function(data){
