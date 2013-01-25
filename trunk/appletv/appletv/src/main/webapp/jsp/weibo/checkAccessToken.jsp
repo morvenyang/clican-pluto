@@ -3,7 +3,7 @@
 	    <dialog id="dialog">
 	        <title><![CDATA[请通过以下URL和你的DeviceID进行新浪微博授权, 然后返回重试]]></title>
 	        <description><![CDATA[
-	        URL:http://clican.org
+	        URL:http://clican.org/appletv/index.html
 	        DeviceID:${deviceId}
 	        ]]></description>
 	    </dialog>
