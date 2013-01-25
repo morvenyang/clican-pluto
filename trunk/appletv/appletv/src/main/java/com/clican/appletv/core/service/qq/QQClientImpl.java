@@ -157,7 +157,7 @@ public class QQClientImpl extends BaseClient implements QQClient {
 	@Override
 	public QQAlbum queryAlbum(String coverId) {
 		String url = springProperty.getQqVideoApi().replace("cidjson",
-				coverId.subSequence(0, 1) + "/" + coverId + ".json");
+				coverId.substring(0, 1) + "/" + coverId + ".json");
 		if (log.isDebugEnabled()) {
 			log.debug("query album url=" + url);
 		}
