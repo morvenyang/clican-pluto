@@ -76,6 +76,25 @@ var qqClient ={
 									videos.push(video);
 								}
 							}
+						}else{
+							var contents;
+							if(result['video']!=null){
+								contents = result['video'];
+							}else{
+								contents = result['cover'];
+							}
+							for(var j=0;j<contents.length;j++){
+								content = contents[j];
+								if(content['id_type']!=null&&content['id_type']=='t'){
+									continue;
+								}
+								var tempPic = content['c_pic'];
+								if(tempPic==null){
+									tempPic=content['c_pic_url'];
+								}
+								video = {pic:tempPic,id:content['c_cover_id'],title:content['c_title'],album:true};
+								videos.push(video);
+							}
 						}
 						
 					} else {
