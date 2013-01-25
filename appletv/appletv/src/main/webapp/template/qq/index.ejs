@@ -54,13 +54,13 @@
 			<items>
 				<%for(var i=0;i<videos.length;i++){%>
 						<%if(videos[i].album){%>
-							<moviePoster id="shelf_item_<%=videos[i]['id']%>" alwaysShowTitles="true" onSelect="" onPlay="">
+							<moviePoster id="shelf_item_<%=videos[i]['id']%>" alwaysShowTitles="true" onSelect="qqClient.loadAlbumPage('<%=videos[i]['id']%>');" onPlay="qqClient.loadAlbumPage('<%=videos[i]['id']%>');">
 								<title><![CDATA[<%=videos[i].title%>]]></title>
 								<image><%=videos[i].pic%></image>
 								<defaultImage>resource://Poster.png</defaultImage>
 							</moviePoster>
 						<%}else{%>
-							<moviePoster id="shelf_item_<%=videos[i]['id']%>" alwaysShowTitles="true" onSelect="" onPlay="">
+							<moviePoster id="shelf_item_<%=videos[i]['id']%>" alwaysShowTitles="true" onSelect="qqClient.playVideo('<%=videos[i]['id']%>');" onPlay="qqClient.playVideo('<%=videos[i]['id']%>');">
 								<title><![CDATA[<%=videos[i].title%>]]></title>
 								<subtitle><![CDATA[<%=videos[i].subTitle%>]]></subtitle>
 								<image><%=videos[i].pic%></image>
