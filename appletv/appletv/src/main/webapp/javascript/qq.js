@@ -17,11 +17,12 @@ var qqClient ={
 		},
 		
 		loadIndexPage: function(keyword,page,channgeId){
-			
+			var data = {title:'test'};
+			var xml = new EJS({url: '/appletv/template/qq/index.ejs'}).render(data);
 		},
 		
 	
 		printChannel: function(){
 			alert(this.qqChannel['15']['label']);
 		}
-}
+};
