@@ -2,6 +2,8 @@
 <atv>
 <head>
 <script src="${serverurl}/javascript/clican.js"/>
+<script src="${serverurl}/javascript/qq.js"/>
+<script src="${serverurl}/javascript/ejs.js"/>
 <script src="${serverurl}/javascript/photoPreview.js"/>
 </head>
 <body>
