@@ -45,7 +45,7 @@ var qqClient ={
 				appletv.makeRequest(search1,function(content){
 					if(content!=null&&content.length>0){
 						var jsonContent = content.substring("QZOutputJson=".length,content.length-1);
-						var videos = JSON.parse(jsonContent);
+						var result = JSON.parse(jsonContent);
 						
 					} else {
 						//atv.loadXML(this.makeDialog('加载失败',''));
@@ -56,6 +56,7 @@ var qqClient ={
 				appletv.makeRequest(queryUrl,function(content){
 					if(content!=null&&content.length>0){
 						var jsonContent = content.substring("QZOutputJson=".length,content.length-1);
+						
 						var result = JSON.parse(jsonContent);
 						if(channelId==3){
 							//推荐
@@ -69,27 +70,31 @@ var qqClient ={
 									if(content['id_type']!=null&&content['id_type']=='t'){
 										continue;
 									}
-									video = {pic:content['v_pic'],id:content['id'],title:content['title']};
+									video = {pic:content['v_pic'],id:content['id'],title:content['title'],album:true};
+									
 									videos.push(video);
 								}
 							}
 						}
+						
 					} else {
 						//atv.loadXML(this.makeDialog('加载失败',''));
 					}
+					var begin, end = 0;
+					if (page < 90) {
+						begin = page;
+						end = page + 9;
+					} else {
+						end = 99;
+						begin = 90;
+					}
+					
+					var data = {'channel':channel,'keyword':keyword,'begin':begin,'end':end,'channels':this.qqChannels,'serverurl':serverurl,'videos':videos};
+					var xml = new EJS({url: serverurl+'/template/qq/index.ejs'}).render(data);
+					appletv.makePostRequest(serverurl+'/tudou/log.do',xml,function(callback){});
 				});
 			}
-			var begin, end = 0;
-			if (page < 90) {
-				begin = page;
-				end = page + 9;
-			} else {
-				end = 99;
-				begin = 90;
-			}
-			var data = {'channel':channel,'keyword':keyword,'begin':begin,'end':end,'channels':this.qqChannels,'serverurl':serverurl,'videos':videos};
-			var xml = new EJS({url: serverurl+'/template/qq/index.ejs'}).render(data);
-			appletv.makePostRequest(serverurl+'/tudou/log.do',xml,function(callback){});
+			
 		},
 		
 	
