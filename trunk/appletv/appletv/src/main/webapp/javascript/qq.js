@@ -1,4 +1,6 @@
 var serverurl = 'http://127.0.0.1/appletv';
+var qqSearchApi = "http://ncgi.video.qq.com/tvideo/fcgi-bin/srh_ipad?num=30&tabid=0&plat=4&pver=2&sort=0&filter=18&otype=json&qq=&appver=2.0.0.2208&sysver=ios5.1.1&device=iPad&lang=zh_CN";
+var qqChannelApi = "http://sns.video.qq.com/fcgi-bin/dlib/dataout?sort=2&iarea=-1&itype=-1&iyear=-1&iedition=-1&pagesize=30&itrailer=-1&otype=json&version=20000&qq=&appver=2.0.0.2208&sysver=ios5.1.1&device=iPad&lang=zh_CN&timeout=0";
 var qqClient ={
 		qqChannels:
 		[
@@ -35,12 +37,36 @@ var qqClient ={
 		},
 		
 		loadIndexPage: function(keyword,page,channelId){
-			alert(1);
 			var channel = this.qqChannelMap[channelId];
-			var data = {'channel':channel,'channels':this.qqChannels,'serverurl':serverurl};
-			var xml = new EJS({url: serverurl+'/template/qq/index.ejs'}).render(data);
-			alert(2);
-			appletv.makePostRequest(serverurl+'/tudou/log.do',xml,function(callback){});
+			if(channelId==1001){
+				//搜索
+				var search1 = qqSearchApi+"&comment=1&cur="+page+"&query="+keywrod;
+				appletv.makeRequest(search1,function(content){
+					if(content!=null&&content.length>0){
+						var jsonContent = content.substring("QZOutputJson=".length,content.length-1);
+						var videos = JSON.parse(jsonContent);
+						
+					} else {
+						//atv.loadXML(this.makeDialog('加载失败',''));
+					}
+				});
+			}else{
+				var queryUrl = qqChannelApi+"&page="+page+"&auto_id="+channelId+"&platform="+channel['platform'];
+				appletv.makePostRequest(serverurl+'/tudou/log.do',queryUrl,function(callback){});
+				appletv.makeRequest(queryUrl,function(content){
+					if(content!=null&&content.length>0){
+						var jsonContent = content.substring("QZOutputJson=".length,content.length-1);
+						var videos = JSON.parse(jsonContent);
+						appletv.makePostRequest(serverurl+'/tudou/log.do',jsonContent,function(callback){});
+					} else {
+						//atv.loadXML(this.makeDialog('加载失败',''));
+					}
+				});
+			}
+			
+			//var data = {'channel':channel,'channels':this.qqChannels,'serverurl':serverurl};
+			//var xml = new EJS({url: serverurl+'/template/qq/index.ejs'}).render(data);
+			//appletv.makePostRequest(serverurl+'/tudou/log.do',xml,function(callback){});
 		},
 		
 	
