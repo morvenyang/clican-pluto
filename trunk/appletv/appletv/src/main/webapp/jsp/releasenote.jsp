@@ -78,7 +78,7 @@ N/A
 							<title>土豆</title>
 						</actionButton>
 						<actionButton id="shelf_item_2" 
-							onSelect="atv.loadURL('${serverurl}/qq/index.xml');">
+							onSelect="qqClient.loadIndexPage('',0,3);">
 							<title>QQ</title>
 						</actionButton>
 						<actionButton id="shelf_item_3" 
