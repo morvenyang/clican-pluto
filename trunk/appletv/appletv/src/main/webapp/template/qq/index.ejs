@@ -1,3 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <atv>
-<%= title %>
+<head>
+<%if(channel['value']==1001){%>
+<script src="<%=serverurl%>/javascript/clican.js"/>
+<%}%>
+<script src="<%=serverurl%>/javascript/ejs.js"/>
+<script src="<%=serverurl%>/javascript/qq.js"/>
+</head>
+<body>
+<scroller id="com.sample.movie-shelf">
+	<items>
+		<shelf id="menu_bar">
+			<sections>
+				<shelfSection>
+					<items>
+						<%for(int i=0;i<channels.length;i++){%>
+							<%if(channels[i]['value']==1001){%>
+								<moviePoster id="shelf_item_<%=channels[i]['value']%>" alwaysShowTitles="true" featured="true" onSelect="qqClient.loadSearchPage();" onPlay="qqClient.loadSearchPage();">
+									<title><%=channels[i]['label']}</title>
+									<image><%=serverurl%>/image/qq/channel/channel_${channel.value}.png</image>
+									<defaultImage>resource://Poster.png</defaultImage>
+								</moviePoster>
+							<%}else{%>
+								<moviePoster id="shelf_item_<%=channels[i]['value']%>" alwaysShowTitles="true" featured="true" onSelect="qqClient.loadIndexPage('',0,channel['value']);" onPlay="qqClient.loadIndexPage('',0,channel['value']);">
+									<title>%=channels[i]['label']}</title>
+									<image><%=serverurl%>/image/qq/channel/channel_${channel.value}.png</image>
+									<defaultImage>resource://Poster.png</defaultImage>
+								</moviePoster>
+							<%}%>
+						<%}%>
+					</items>
+				</shelfSection>
+			</sections>
+		</shelf>
+	</items>
+</scroller>
+</body>
 </atv>
