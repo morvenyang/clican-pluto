@@ -145,7 +145,12 @@ public class QQController {
 		if (log.isDebugEnabled()) {
 			log.debug("query keywords:" + q);
 		}
-		List<String> keywordList = tudouClient.queryKeywords(q);
+		
+		List<String> keywordList = new ArrayList<String>();
+		if(StringUtils.isNotEmpty(q)){
+			keywordList=tudouClient.queryKeywords(q);
+		}
+		
 		List<Keyword> klist = new ArrayList<Keyword>();
 		for (String kw : keywordList) {
 			Keyword keyword = new Keyword();
