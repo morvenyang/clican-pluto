@@ -50,6 +50,26 @@
 			</items>
 		</grid>
 		<%}%>
+		<grid id="grid_2" columnCount="6">
+			<items>
+				<%for(var i=0;i<videos.length;i++){%>
+						<%if(videos[i].album){%>
+							<moviePoster id="shelf_item_<%=videos[i]['id']%>" alwaysShowTitles="true" onSelect="" onPlay="">
+								<title><![CDATA[<%=videos[i].title%>]]></title>
+								<image><%=videos[i].pic%></image>
+								<defaultImage>resource://Poster.png</defaultImage>
+							</moviePoster>
+						<%}else{%>
+							<moviePoster id="shelf_item_<%=videos[i]['id']%>" alwaysShowTitles="true" onSelect="" onPlay="">
+								<title><![CDATA[<%=videos[i].title%>]]></title>
+								<subtitle><![CDATA[<%=videos[i].subTitle%>]]></subtitle>
+								<image><%=videos[i].pic%></image>
+								<defaultImage>resource://Poster.png</defaultImage>
+							</moviePoster>
+						<%}%>
+				<%}%>
+			</items>
+		</grid>
 	</items>
 </scroller>
 </body>
