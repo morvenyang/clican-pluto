@@ -80,7 +80,8 @@ var qqClient ={
 					} else {
 						//atv.loadXML(this.makeDialog('加载失败',''));
 					}
-					var begin, end = 0;
+					var begin= 0;
+					var end = 0;
 					if (page < 90) {
 						begin = page;
 						end = page + 9;
@@ -88,15 +89,13 @@ var qqClient ={
 						end = 99;
 						begin = 90;
 					}
+					var data = {'channel':channel,'keyword':keyword,'begin':begin,'end':end,'channels':qqClient.qqChannels,'serverurl':serverurl,'videos':videos};
 					
-					var data = {'channel':channel,'keyword':keyword,'begin':begin,'end':end,'channels':this.qqChannels,'serverurl':serverurl,'videos':videos};
 					var xml = new EJS({url: serverurl+'/template/qq/index.ejs'}).render(data);
 					appletv.makePostRequest(serverurl+'/tudou/log.do',xml,function(callback){});
 				});
 			}
 			
-		},
-		
-	
+		}
 		
 };
