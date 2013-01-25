@@ -38,6 +38,7 @@ var qqClient ={
 		
 		loadIndexPage: function(keyword,page,channelId){
 			var channel = this.qqChannelMap[channelId];
+			var videos = [];
 			if(channelId==1001){
 				//搜索
 				var search1 = qqSearchApi+"&comment=1&cur="+page+"&query="+keywrod;
@@ -56,17 +57,33 @@ var qqClient ={
 				appletv.makeRequest(queryUrl,function(content){
 					if(content!=null&&content.length>0){
 						var jsonContent = content.substring("QZOutputJson=".length,content.length-1);
-						var videos = JSON.parse(jsonContent);
-						appletv.makePostRequest(serverurl+'/tudou/log.do',jsonContent,function(callback){});
+						var result = JSON.parse(jsonContent);
+						if(channelId==3){
+							//推荐
+							var datas = result['data'];
+							var content;
+							var video;
+							for(var i=0;i<datas.length;i++){
+								var contents = datas[i]['contents'];
+								for(var j=0;j<contents.length;j++){
+									content = contents[j];
+									if(content['id_type']!=null&&content['id_type']=='t'){
+										continue;
+									}
+									video = {pic:content['v_pic'],id:content['id'],title:content['title']};
+									videos.push(video);
+								}
+							}
+						}
 					} else {
 						//atv.loadXML(this.makeDialog('加载失败',''));
 					}
 				});
 			}
 			
-			//var data = {'channel':channel,'channels':this.qqChannels,'serverurl':serverurl};
-			//var xml = new EJS({url: serverurl+'/template/qq/index.ejs'}).render(data);
-			//appletv.makePostRequest(serverurl+'/tudou/log.do',xml,function(callback){});
+			var data = {'channel':channel,'channels':this.qqChannels,'serverurl':serverurl,'videos':videos};
+			var xml = new EJS({url: serverurl+'/template/qq/index.ejs'}).render(data);
+			appletv.makePostRequest(serverurl+'/tudou/log.do',xml,function(callback){});
 		},
 		
 	
