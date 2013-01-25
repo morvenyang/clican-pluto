@@ -53,7 +53,6 @@ var qqClient ={
 				});
 			}else{
 				var queryUrl = qqChannelApi+"&page="+page+"&auto_id="+channelId+"&platform="+channel['platform'];
-				appletv.makePostRequest(serverurl+'/tudou/log.do',queryUrl,function(callback){});
 				appletv.makeRequest(queryUrl,function(content){
 					if(content!=null&&content.length>0){
 						var jsonContent = content.substring("QZOutputJson=".length,content.length-1);
@@ -80,8 +79,15 @@ var qqClient ={
 					}
 				});
 			}
-			
-			var data = {'channel':channel,'channels':this.qqChannels,'serverurl':serverurl,'videos':videos};
+			var begin, end = 0;
+			if (page < 90) {
+				begin = page;
+				end = page + 9;
+			} else {
+				end = 99;
+				begin = 90;
+			}
+			var data = {'channel':channel,'keyword':keyword,'begin':begin,'end':end,'channels':this.qqChannels,'serverurl':serverurl,'videos':videos};
 			var xml = new EJS({url: serverurl+'/template/qq/index.ejs'}).render(data);
 			appletv.makePostRequest(serverurl+'/tudou/log.do',xml,function(callback){});
 		},
