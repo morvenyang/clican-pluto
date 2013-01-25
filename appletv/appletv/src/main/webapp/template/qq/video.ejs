@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<atv>
+<head><script src="<%=serverurl%>/javascript/clican.js"/></head>
+<body>
+<itemDetail id="itemdetail">
+			<title><%=video['title']%></title>
+			<summary><%=video['desc']%></summary>
+			<image style="moviePoster"><%=video['pic']%></image>
+			<table>
+				<columnDefinitions><columnDefinition width="50"><title>其他信息</title></columnDefinition><columnDefinition width="50"><title></title></columnDefinition></columnDefinitions>
+				<rows>
+					<row><label><![CDATA[导演:<%=video['dctor']%>]]></label><label><![CDATA[年代:<%=video['year']%>]]></label></row>
+					<row><label><![CDATA[评分:<%=video['score']%>]]></label><label><![CDATA[地区:<%=video['area']%>]]></label></row>
+					<row><label><![CDATA[剧集:共<%=video['items'].length%>集]]></label><label><![CDATA[主演:<%=video['actor']%>]]></label></row>
+				</rows>
+			</table>
+			<centerShelf>
+				<shelf id="album">
+					<sections>
+						<shelfSection>
+							<items>
+								<%if(video['items'].length<7){%>
+									<%for(var i=0;i<video['items'].length;i++){%>
+										<actionButton id="album_<%=i+1%>" onSelect="qqClient.playVideo('<%=video['items'][i]['vid']%>');" onPlay="qqClient.playVideo('<%=video['items'][i]['vid']%>');">
+											<title>第<%=i+1%>集</title>
+										</actionButton>
+									<%}%>
+								<%}else{%>
+									<actionButton id="album_1" onSelect="qqClient.loadItemsPage('<%=video['items'][i]['vid']%>');" onPlay="qqClient.loadItemsPage('<%=video['items'][i]['vid']%>');">
+										<title>高清</title>
+									</actionButton>
+								<%}%>
+								<actionButton id="album_8" onSelect="atv.loadURL('<%=serverurl%>/weibo/createStatus.xml?title='+encodeURIComponent('<%=video['title']%>')+'&amp;shareURL=http://v.qq.com/cover/<%=video['id'].substring(0,1)%>/<%=video['id']%>.html&amp;imageURL=<%=video['pic']%>');" onPlay="atv.loadURL('<%=serverurl%>/weibo/createStatus.xml?title='+encodeURIComponent('<%=video['title']%>')+'&amp;shareURL=http://v.qq.com/cover/<%=video['id'].substring(0,1)%>/<%=video['id']%>.html&amp;imageURL=<%=video['pic']%>');">
+									<title>分享</title>
+								</actionButton>
+							</items>
+						</shelfSection>
+					</sections>
+				</shelf>
+			</centerShelf>
+		</itemDetail>
+</body>
+</atv>
