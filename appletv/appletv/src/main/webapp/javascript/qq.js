@@ -115,7 +115,7 @@ var qqClient ={
 					}
 					
 				} else {
-					//atv.loadXML(this.makeDialog('加载失败',''));
+					atv.loadXML(this.makeDialog('加载失败',''));
 				}
 				qqClient.generateIndexPage(keyword,page,channel,videos);
 			});
@@ -134,7 +134,7 @@ var qqClient ={
 			}
 			var data = {'channel':channel,'keyword':keyword,'begin':begin,'end':end,'channels':qqClient.qqChannels,'serverurl':serverurl,'videos':videos};
 			var xml = new EJS({url: serverurl+'/template/qq/index.ejs'}).render(data);
-			appletv.makePostRequest(serverurl+'/tudou/log.do',xml,function(callback){});
+			atv.loadXML(atv.parseXML(xml));
 		},
 		
 		loadAlbumPage: function(id){
@@ -150,6 +150,7 @@ var qqClient ={
 				}
 				var video = {'serverurl':serverurl,video:{'id':id,actor:JSON.stringify(result['actor']),area:result['area'],dctor:JSON.stringify(result['dctor']),pic:result['pic'],score:result['score'],title:result['tt'],year:result['year'],desc:result['desc']},'items':items};
 				var xml = new EJS({url: serverurl+'/template/qq/video.ejs'}).render(video);
+				atv.loadXML(atv.parseXML(xml));
 			});
 		},
 		
@@ -166,13 +167,13 @@ var qqClient ={
 				}
 				var video = {'serverurl':serverurl,video:{'id':id,actor:JSON.stringify(result['actor']),area:result['area'],dctor:JSON.stringify(result['dctor']),pic:result['pic'],score:result['score'],title:result['tt'],year:result['year'],desc:result['desc']},'items':items};
 				var xml = new EJS({url: serverurl+'/template/qq/videoItems.ejs'}).render(video);
-				appletv.makePostRequest(serverurl+'/tudou/log.do',xml,function(callback){});
+				atv.loadXML(atv.parseXML(xml));
 			});
 		},
 		
 		playVideo: function(id){
 			var playDescUrl = qqPlayApi+'&vid='+id;
-	    	this.makeRequest(playDescUrl,function(data){
+			appletv.makeRequest(playDescUrl,function(data){
 	    		var urlIndexStart = data.indexOf("\"url\":\"");
 	    		urlIndexStart += 7;
 	    		var urlIndexEnd = data.indexOf("\"",urlIndexStart);
