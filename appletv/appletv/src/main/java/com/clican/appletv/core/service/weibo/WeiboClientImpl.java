@@ -116,25 +116,13 @@ public class WeiboClientImpl implements WeiboClient {
 									if (lurl.contains("cover")) {
 										addVideoUrlForStatus(
 												list,
-												"atv.loadURL('"
-														+ springProperty
-																.getSystemServerUrl()
-														+ "/qq/album.xml?coverId="
-														+ coverId + "');");
+												"qqClient.loadAlbumPage('"+
+														 coverId + "');");
 									} else {
 										addVideoUrlForStatus(
 												list,
-												"appletv.playQQVideo('"
-														+ springProperty
-																.getQqVideoPlayApi()
-																.replaceAll(
-																		"&",
-																		"&amp;")
-														+ "&amp;vid="
+												"qqClient.playVideo('"
 														+ coverId
-														+ "','"
-														+ springProperty
-																.getSystemServerUrl()
 														+ "');");
 									}
 
