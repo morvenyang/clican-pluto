@@ -11,27 +11,27 @@
     <webClassPathEntries>
         <webClassPathEntry>/appletv/src/main/resources</webClassPathEntry>
         <webClassPathEntry>/appletv/target/classes</webClassPathEntry>
-        <webClassPathEntry>C:/m2/aopalliance/aopalliance/1.0/aopalliance-1.0.jar</webClassPathEntry>
-        <webClassPathEntry>C:/m2/asm/asm/3.3.1/asm-3.3.1.jar</webClassPathEntry>
-        <webClassPathEntry>C:/m2/cglib/cglib/2.2.2/cglib-2.2.2.jar</webClassPathEntry>
-        <webClassPathEntry>C:/m2/commons-beanutils/commons-beanutils/1.8.0/commons-beanutils-1.8.0.jar</webClassPathEntry>
-        <webClassPathEntry>C:/m2/commons-codec/commons-codec/1.2/commons-codec-1.2.jar</webClassPathEntry>
-        <webClassPathEntry>C:/m2/commons-collections/commons-collections/3.2.1/commons-collections-3.2.1.jar</webClassPathEntry>
-        <webClassPathEntry>C:/m2/commons-httpclient/commons-httpclient/3.1/commons-httpclient-3.1.jar</webClassPathEntry>
-        <webClassPathEntry>C:/m2/commons-lang/commons-lang/2.4/commons-lang-2.4.jar</webClassPathEntry>
-        <webClassPathEntry>C:/m2/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.jar</webClassPathEntry>
-        <webClassPathEntry>C:/m2/jstl/jstl/1.2/jstl-1.2.jar</webClassPathEntry>
-        <webClassPathEntry>C:/m2/log4j/log4j/1.2.9/log4j-1.2.9.jar</webClassPathEntry>
-        <webClassPathEntry>C:/m2/net/sf/ezmorph/ezmorph/1.0.6/ezmorph-1.0.6.jar</webClassPathEntry>
-        <webClassPathEntry>C:/m2/net/sf/json-lib/json-lib/2.3/json-lib-2.3-jdk15.jar</webClassPathEntry>
-        <webClassPathEntry>C:/m2/org/apache/commons/commons-digester3/3.2/commons-digester3-3.2.jar</webClassPathEntry>
-        <webClassPathEntry>C:/m2/org/htmlparser/htmlparser/1.6/htmlparser-1.6.jar</webClassPathEntry>
-        <webClassPathEntry>C:/m2/org/springframework/spring-beans/2.5.6.SEC03/spring-beans-2.5.6.SEC03.jar</webClassPathEntry>
-        <webClassPathEntry>C:/m2/org/springframework/spring-context-support/2.5.6.SEC03/spring-context-support-2.5.6.SEC03.jar</webClassPathEntry>
-        <webClassPathEntry>C:/m2/org/springframework/spring-context/2.5.6.SEC03/spring-context-2.5.6.SEC03.jar</webClassPathEntry>
-        <webClassPathEntry>C:/m2/org/springframework/spring-core/2.5.6.SEC03/spring-core-2.5.6.SEC03.jar</webClassPathEntry>
-        <webClassPathEntry>C:/m2/org/springframework/spring-web/2.5.6.SEC03/spring-web-2.5.6.SEC03.jar</webClassPathEntry>
-        <webClassPathEntry>C:/m2/org/springframework/spring-webmvc/2.5.6.SEC03/spring-webmvc-2.5.6.SEC03.jar</webClassPathEntry>
-        <webClassPathEntry>C:/m2/org/springframework/spring/2.5.6.SEC03/spring-2.5.6.SEC03.jar</webClassPathEntry>
+        <webClassPathEntry>D:/m2/aopalliance/aopalliance/1.0/aopalliance-1.0.jar</webClassPathEntry>
+        <webClassPathEntry>D:/m2/asm/asm/3.3.1/asm-3.3.1.jar</webClassPathEntry>
+        <webClassPathEntry>D:/m2/cglib/cglib/2.2.2/cglib-2.2.2.jar</webClassPathEntry>
+        <webClassPathEntry>D:/m2/commons-beanutils/commons-beanutils/1.8.0/commons-beanutils-1.8.0.jar</webClassPathEntry>
+        <webClassPathEntry>D:/m2/commons-codec/commons-codec/1.2/commons-codec-1.2.jar</webClassPathEntry>
+        <webClassPathEntry>D:/m2/commons-collections/commons-collections/3.2.1/commons-collections-3.2.1.jar</webClassPathEntry>
+        <webClassPathEntry>D:/m2/commons-httpclient/commons-httpclient/3.1/commons-httpclient-3.1.jar</webClassPathEntry>
+        <webClassPathEntry>D:/m2/commons-lang/commons-lang/2.4/commons-lang-2.4.jar</webClassPathEntry>
+        <webClassPathEntry>D:/m2/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.jar</webClassPathEntry>
+        <webClassPathEntry>D:/m2/jstl/jstl/1.2/jstl-1.2.jar</webClassPathEntry>
+        <webClassPathEntry>D:/m2/log4j/log4j/1.2.9/log4j-1.2.9.jar</webClassPathEntry>
+        <webClassPathEntry>D:/m2/net/sf/ezmorph/ezmorph/1.0.6/ezmorph-1.0.6.jar</webClassPathEntry>
+        <webClassPathEntry>D:/m2/net/sf/json-lib/json-lib/2.3/json-lib-2.3-jdk15.jar</webClassPathEntry>
+        <webClassPathEntry>D:/m2/org/apache/commons/commons-digester3/3.2/commons-digester3-3.2.jar</webClassPathEntry>
+        <webClassPathEntry>D:/m2/org/htmlparser/htmlparser/1.6/htmlparser-1.6.jar</webClassPathEntry>
+        <webClassPathEntry>D:/m2/org/springframework/spring-beans/2.5.6.SEC03/spring-beans-2.5.6.SEC03.jar</webClassPathEntry>
+        <webClassPathEntry>D:/m2/org/springframework/spring-context-support/2.5.6.SEC03/spring-context-support-2.5.6.SEC03.jar</webClassPathEntry>
+        <webClassPathEntry>D:/m2/org/springframework/spring-context/2.5.6.SEC03/spring-context-2.5.6.SEC03.jar</webClassPathEntry>
+        <webClassPathEntry>D:/m2/org/springframework/spring-core/2.5.6.SEC03/spring-core-2.5.6.SEC03.jar</webClassPathEntry>
+        <webClassPathEntry>D:/m2/org/springframework/spring-web/2.5.6.SEC03/spring-web-2.5.6.SEC03.jar</webClassPathEntry>
+        <webClassPathEntry>D:/m2/org/springframework/spring-webmvc/2.5.6.SEC03/spring-webmvc-2.5.6.SEC03.jar</webClassPathEntry>
+        <webClassPathEntry>D:/m2/org/springframework/spring/2.5.6.SEC03/spring-2.5.6.SEC03.jar</webClassPathEntry>
     </webClassPathEntries>
 </tomcatProjectProperties>
