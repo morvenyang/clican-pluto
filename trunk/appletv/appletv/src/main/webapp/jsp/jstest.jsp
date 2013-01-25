@@ -13,7 +13,10 @@
 <input type="button" onclick="qqClient.loadIndexPage(1,1,3);" value="测试"/>
 <input type="button" onclick="qqClient.loadIndexPage(1,1,14);" value="电影"/>
 <input type="button" onclick="qqClient.loadIndexPage('黑猫警长',0,1001);" value="查询"/>
-<input type="button" onclick="qqClient.loadAlbumPage('hcjk4lpe3pnn84e');" value="juji"/>
+<input type="button" onclick="qqClient.loadAlbumPage('hcjk4lpe3pnn84e');" value="剧集"/>
+<input type="button" onclick="qqClient.loadItemsPage('hcjk4lpe3pnn84e');" value="剧集列表"/>
+<input type="button" onclick="qqClient.playVideo('p00116ducjk');" value="播放"/>
+
 <input type="button" onclick="appletv.loadTest();" value="测试"/>
 <input type="button" onclick="appletv.loadAlbumXml(152199347,30,1,0,'<%=request.getAttribute("serverurl")%>');" value="测试剧集详细页面"/>
 <input type="button" onclick="appletv.loadAlbumListXml(152199347,30,1,2,'<%=request.getAttribute("serverurl")%>');" value="测试剧集列表页面"/>
