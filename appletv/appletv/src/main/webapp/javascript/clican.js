@@ -26,6 +26,7 @@ var appletv = {
 			atv.loadAndSwapPlist(plist);
 		},
 		loadAlbumXml:function(itemid,channelId,hd,isalbum,serverurl) {
+			atv.loadXML(this.makeDialog('加载中...','Loading...'));
 			this.makeRequest('http://minterface.tudou.com/iteminfo?sessionid=GTR7J672EMAAA&origin=&columnid='+channelId+'&itemid='+itemid+'&ishd='+hd,function(data){
 				var album = JSON.parse(data);
 				var xml = '<?xml version=\"1.0\" encoding=\"UTF-8\"?><atv><head><script src=\"'+serverurl+'/javascript/clican.js\"/></head><body>';
@@ -61,6 +62,7 @@ var appletv = {
 		},
 		
 		loadAlbumListXml:function(itemid,channelId,hd,st,serverurl) {
+			atv.loadXML(this.makeDialog('加载中...','Loading...'));
 			this.makeRequest('http://minterface.tudou.com/iteminfo?sessionid=GTR7J672EMAAA&origin=&columnid='+channelId+'&itemid='+itemid+'&ishd='+hd,function(data){
 				var album = JSON.parse(data);
 				var xml = '<?xml version=\"1.0\" encoding=\"UTF-8\"?><atv><body><listScrollerSplit id=\"albumlist\"><header><simpleHeader horizontalAlignment=\"left\">';
@@ -87,7 +89,6 @@ var appletv = {
 	        if ( !url ) {
 	            throw "loadURL requires a url argument";
 	        }
-	        atv.loadXML(this.makeDialog('加载中...','Loading...'));
 	        var xhr = new XMLHttpRequest();
 	        xhr.onreadystatechange = function() {
 	            try {
@@ -105,7 +106,9 @@ var appletv = {
 	                callback(null);
 	            }
 	        }
+	       
 	        xhr.open("GET", url, true);
+	        
 	        xhr.send();
 	        return xhr;
 	    },
@@ -143,6 +146,7 @@ var appletv = {
 	    },
 	    
 	    playQQVideo: function(playDescUrl,serverurl){
+	    	atv.loadXML(this.makeDialog('加载中...','Loading...'));
 	    	this.makeRequest(playDescUrl,function(data){
 	    		var urlIndexStart = data.indexOf("\"url\":\"");
 	    		urlIndexStart += 7;
