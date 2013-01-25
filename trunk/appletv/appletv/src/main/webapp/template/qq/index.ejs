@@ -14,17 +14,17 @@
 			<sections>
 				<shelfSection>
 					<items>
-						<%for(int i=0;i<channels.length;i++){%>
+						<%for(var i=0;i<channels.length;i++){%>
 							<%if(channels[i]['value']==1001){%>
 								<moviePoster id="shelf_item_<%=channels[i]['value']%>" alwaysShowTitles="true" featured="true" onSelect="qqClient.loadSearchPage();" onPlay="qqClient.loadSearchPage();">
-									<title><%=channels[i]['label']}</title>
-									<image><%=serverurl%>/image/qq/channel/channel_${channel.value}.png</image>
+									<title><%=channels[i]['label']%></title>
+									<image><%=serverurl%>/image/qq/channel/channel_<%=channels[i]['value']%>.png</image>
 									<defaultImage>resource://Poster.png</defaultImage>
 								</moviePoster>
 							<%}else{%>
 								<moviePoster id="shelf_item_<%=channels[i]['value']%>" alwaysShowTitles="true" featured="true" onSelect="qqClient.loadIndexPage('',0,channel['value']);" onPlay="qqClient.loadIndexPage('',0,channel['value']);">
-									<title>%=channels[i]['label']}</title>
-									<image><%=serverurl%>/image/qq/channel/channel_${channel.value}.png</image>
+									<title><%=channels[i]['label']%></title>
+									<image><%=serverurl%>/image/qq/channel/channel_<%=channels[i]['value']%>.png</image>
 									<defaultImage>resource://Poster.png</defaultImage>
 								</moviePoster>
 							<%}%>
