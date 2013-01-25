@@ -11,7 +11,7 @@
 				<rows>
 					<row><label><![CDATA[导演:<%=video['dctor']%>]]></label><label><![CDATA[年代:<%=video['year']%>]]></label></row>
 					<row><label><![CDATA[评分:<%=video['score']%>]]></label><label><![CDATA[地区:<%=video['area']%>]]></label></row>
-					<row><label><![CDATA[剧集:共<%=video['items'].length%>集]]></label><label><![CDATA[主演:<%=video['actor']%>]]></label></row>
+					<row><label><![CDATA[剧集:共<%=items.length%>集]]></label><label><![CDATA[主演:<%=video['actor']%>]]></label></row>
 				</rows>
 			</table>
 			<centerShelf>
@@ -19,14 +19,14 @@
 					<sections>
 						<shelfSection>
 							<items>
-								<%if(video['items'].length<7){%>
-									<%for(var i=0;i<video['items'].length;i++){%>
-										<actionButton id="album_<%=i+1%>" onSelect="qqClient.playVideo('<%=video['items'][i]['vid']%>');" onPlay="qqClient.playVideo('<%=video['items'][i]['vid']%>');">
+								<%if(items.length<7){%>
+									<%for(var i=0;i<items.length;i++){%>
+										<actionButton id="album_<%=i+1%>" onSelect="qqClient.playVideo('<%=items[i]['vid']%>');" onPlay="qqClient.playVideo('<%=items[i]['vid']%>');">
 											<title>第<%=i+1%>集</title>
 										</actionButton>
 									<%}%>
 								<%}else{%>
-									<actionButton id="album_1" onSelect="qqClient.loadItemsPage('<%=video['items'][i]['vid']%>');" onPlay="qqClient.loadItemsPage('<%=video['items'][i]['vid']%>');">
+									<actionButton id="album_1" onSelect="qqClient.loadItemsPage('<%=video['id']%>');" onPlay="qqClient.loadItemsPage('<%=video['id']%>');">
 										<title>高清</title>
 									</actionButton>
 								<%}%>
