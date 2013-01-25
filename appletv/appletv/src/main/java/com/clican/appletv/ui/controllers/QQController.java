@@ -22,6 +22,7 @@ import com.clican.appletv.common.SpringProperty;
 import com.clican.appletv.core.service.qq.QQClient;
 import com.clican.appletv.core.service.qq.enumeration.Channel;
 import com.clican.appletv.core.service.qq.model.QQAlbum;
+import com.clican.appletv.core.service.tudou.TudouClient;
 
 @Controller
 public class QQController {
@@ -30,6 +31,9 @@ public class QQController {
 
 	@Autowired
 	private QQClient qqClient;
+	
+	@Autowired
+	private TudouClient tudouClient;
 
 	@Autowired
 	private SpringProperty springProperty;
@@ -141,7 +145,7 @@ public class QQController {
 		if (log.isDebugEnabled()) {
 			log.debug("query keywords:" + q);
 		}
-		List<String> keywordList = qqClient.queryKeywords(q);
+		List<String> keywordList = tudouClient.queryKeywords(q);
 		List<Keyword> klist = new ArrayList<Keyword>();
 		for (String kw : keywordList) {
 			Keyword keyword = new Keyword();
