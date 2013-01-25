@@ -10,7 +10,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<input type="button" onclick="qqClient.loadIndexPage(1,1,3);" value="测试"/>
+<input type="button" onclick="qqClient.loadIndexPage('',0,3);" value="测试"/>
 <input type="button" onclick="qqClient.loadIndexPage(1,1,14);" value="电影"/>
 <input type="button" onclick="qqClient.loadIndexPage('黑猫警长',0,1001);" value="查询"/>
 <input type="button" onclick="qqClient.loadAlbumPage('hcjk4lpe3pnn84e');" value="剧集"/>

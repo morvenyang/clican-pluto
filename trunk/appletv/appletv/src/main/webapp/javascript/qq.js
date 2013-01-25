@@ -38,6 +38,7 @@ var qqClient ={
 		},
 		
 		loadIndexPage: function(keyword,page,channelId){
+			atv.loadXML(appletv.makeDialog('加载中...','Loading...'));
 			var channel = this.qqChannelMap[channelId];
 			var videos = [];
 			var queryUrl;
@@ -85,6 +86,8 @@ var qqClient ={
 									var bn = content2['BN'];
 									if(bn!=null&&bn!='0'){
 										bn = '第'+bn+'集';
+									}else{
+										bn='';
 									}
 									video = {pic:content2['AU'],id:content2['ID'],title:content2['TI'],subTitle:bn,album:false};
 									videos.push(video);
@@ -115,7 +118,7 @@ var qqClient ={
 					}
 					
 				} else {
-					atv.loadXML(this.makeDialog('加载失败',''));
+					atv.loadXML(appletv.makeDialog('加载失败',''));
 				}
 				qqClient.generateIndexPage(keyword,page,channel,videos);
 			});
@@ -134,6 +137,7 @@ var qqClient ={
 			}
 			var data = {'channel':channel,'keyword':keyword,'begin':begin,'end':end,'channels':qqClient.qqChannels,'serverurl':serverurl,'videos':videos};
 			var xml = new EJS({url: serverurl+'/template/qq/index.ejs'}).render(data);
+			appletv.logToServer(xml,serverurl);
 			atv.loadXML(atv.parseXML(xml));
 		},
 		

@@ -20,7 +20,7 @@
 									<defaultImage>resource://Poster.png</defaultImage>
 								</moviePoster>
 							<%}else{%>
-								<moviePoster id="shelf_item_<%=channels[i]['value']%>" alwaysShowTitles="true" featured="true" onSelect="qqClient.loadIndexPage('',0,channel['value']);" onPlay="qqClient.loadIndexPage('',0,channel['value']);">
+								<moviePoster id="shelf_item_<%=channels[i]['value']%>" alwaysShowTitles="true" featured="true" onSelect="qqClient.loadIndexPage('',0,<%=channels[i]['value']%>);" onPlay="qqClient.loadIndexPage('',0,<%=channels[i]['value']%>);">
 									<title><%=channels[i]['label']%></title>
 									<image><%=serverurl%>/image/qq/channel/channel_<%=channels[i]['value']%>.png</image>
 									<defaultImage>resource://Poster.png</defaultImage>

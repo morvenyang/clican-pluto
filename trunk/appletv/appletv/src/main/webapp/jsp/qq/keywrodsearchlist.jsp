@@ -1,4 +1,4 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %><%@ page contentType="text/xml;charset=utf-8" %><?xml version="1.0" encoding="UTF-8"?>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %><%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %><%@ page contentType="text/xml;charset=utf-8" %><?xml version="1.0" encoding="UTF-8"?>
 <atv>
 	<head>
 		<script src="${serverurl}/javascript/clican.js"/>
@@ -17,18 +17,18 @@
 							</horizontalDivider>
 						</header>
 						<items>
-							<c:if test="${keywordList.size==0}">
+							<c:if test="${fn:length(keywordList)==0}">
 								<posterMenuItem id="trailer_0" accessibilityLabel=""
 									onSelect="" onPlay="">
 									<label>请继续输入</label>
 									<defaultImage></defaultImage>
 								</posterMenuItem>
 							</c:if>
-							<c:if test="${keywordList.size!=0}">
+							<c:if test="${fn:length(keywordList)!=0}">
 								<c:forEach var="keyword" items="${keywordList}">
 									<posterMenuItem id="trailer_0" accessibilityLabel=""
-									onSelect="qqClient.loadIndexPage('${keyword}',0,1001);" onPlay="qqClient.loadIndexPage('${keyword}',0,1001);">
-										<label><![CDATA[${keyword}]]></label>
+									onSelect="qqClient.loadIndexPage('${keyword.urlValue}',0,1001);" onPlay="qqClient.loadIndexPage('${keyword.urlValue}',0,1001);">
+										<label><![CDATA[${keyword.label}]]></label>
 									</posterMenuItem>
 								</c:forEach>
 							</c:if>
