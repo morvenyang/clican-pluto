@@ -10,11 +10,16 @@ import net.sf.json.JSONObject;
 
 import com.clican.appletv.core.model.TaobaoAccessToken;
 import com.clican.appletv.core.model.TaobaoCategory;
+import com.taobao.api.domain.ItemCat;
 import com.taobao.api.internal.util.WebUtils;
 import com.taobao.api.request.ItemcatsGetRequest;
 import com.taobao.api.response.ItemcatsGetResponse;
 
 public class TaobaoClientImpl extends BaseClient implements TaobaoClient {
+
+	private List<TaobaoCategory> taobaoCategoryList = new ArrayList<TaobaoCategory>();
+
+	private Map<Long, List<TaobaoCategory>> taobaoCategoryMap = new HashMap<Long, List<TaobaoCategory>>();
 
 	private com.taobao.api.TaobaoClient taobaoRestClient;
 
@@ -55,7 +60,11 @@ public class TaobaoClientImpl extends BaseClient implements TaobaoClient {
 			JSONArray jsonArray = JSONArray.fromObject(jsonContent);
 			for (int i = 2; i < jsonArray.size(); i++) {
 				JSONObject category = jsonArray.getJSONObject(i);
-				TaobaoCategory taobaoCategory = new TaobaoCategory();
+				TaobaoCategory taobaoCategory = convertToTaobaoCategory(category);
+				taobaoCategory.setId((long) -i);
+				this.taobaoCategoryMap.put(taobaoCategory.getId(),
+						taobaoCategory.getChildren());
+				taobaoCategoryList.add(taobaoCategory);
 			}
 		} catch (Exception e) {
 			log.error("", e);
@@ -77,16 +86,27 @@ public class TaobaoClientImpl extends BaseClient implements TaobaoClient {
 		for (int i = 0; i < children.size(); i++) {
 			JSONObject child = children.getJSONObject(i);
 			TaobaoCategory t = new TaobaoCategory();
+			List<TaobaoCategory> tcci = new ArrayList<TaobaoCategory>();
+			t.setChildren(tcci);
 			t.setTitle(child.getString("title"));
 			t.setId(child.getLong("catid"));
 			t.setHasChild(!child.getBoolean("no_child"));
 			tcc.add(t);
+			this.taobaoCategoryMap.put(t.getId(), tcci);
 			if (t.isHasChild()) {
 				ItemcatsGetRequest req = new ItemcatsGetRequest();
 				req.setFields("cid,parent_cid,name,is_parent");
 				req.setParentCid(t.getId());
 				ItemcatsGetResponse response = taobaoRestClient.execute(req);
 				List<ItemCat> itemCats = response.getItemCats();
+				if (itemCats != null) {
+					for (ItemCat ic : itemCats) {
+						TaobaoCategory tci = new TaobaoCategory();
+						tci.setTitle(ic.getName());
+						tci.setId(ic.getCid());
+						tcci.add(tci);
+					}
+				}
 			}
 		}
 		return tc;
@@ -94,8 +114,7 @@ public class TaobaoClientImpl extends BaseClient implements TaobaoClient {
 
 	@Override
 	public List<TaobaoCategory> getTopCategories() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.taobaoCategoryList;
 	}
 
 	@Override

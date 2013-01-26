@@ -82,7 +82,7 @@ http://www.springframework.org/schema/context/spring-context-2.5.xsd">
 		<property name="taobaoTokenFile" value="${taobao.token.file}"></property>
 		<property name="taobaoLoginUrl" value="${taobao.login.url}"></property>
 		<property name="taobaoAuthorizeBaseUrl" value="${taobao.authorize.base.url}"></property>
-
+		<property name="taobaoTopCategoryUrl" value="${taobao.top.category.url}"></property>
 	</bean>
 	
 	<bean id="tudouClient" class="com.clican.appletv.core.service.tudou.TudouClientImpl" autowire="byName">
@@ -112,7 +112,7 @@ http://www.springframework.org/schema/context/spring-context-2.5.xsd">
 	<bean id="weiboClient" class="com.clican.appletv.core.service.weibo.WeiboClientImpl" autowire="byName" init-method="init" destroy-method="destroy">
 	</bean>
 	
-	<bean id="taobaoClient" class="com.clican.appletv.core.service.TaobaoClientImpl" autowire="byName">
+	<bean id="taobaoClient" class="com.clican.appletv.core.service.TaobaoClientImpl" autowire="byName" init-method="init">
 	</bean>
 	
 	<bean id="taobaoRestClient" class="com.taobao.api.AutoRetryTaobaoClient" autowire="byName">
