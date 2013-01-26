@@ -90,6 +90,7 @@ public class SpringProperty {
 	private String taobaoTokenFile;
 	private String taobaoLoginUrl;
 	private String taobaoAuthorizeBaseUrl;
+	private String taobaoTopCategoryUrl;
 			
 	public SpringProperty() {
 		instance = this;
@@ -553,9 +554,20 @@ public class SpringProperty {
 	public String getTaobaoAuthorizeBaseUrl() {
 		return taobaoAuthorizeBaseUrl;
 	}
-
+	
 	public void setTaobaoAuthorizeBaseUrl(String taobaoAuthorizeBaseUrl) {
 		this.taobaoAuthorizeBaseUrl = taobaoAuthorizeBaseUrl;
 	}
 
+	public String getTaobaoTopCategoryUrl() {
+		return taobaoTopCategoryUrl;
+	}
+
+	public void setTaobaoTopCategoryUrl(String taobaoTopCategoryUrl) {
+		this.taobaoTopCategoryUrl = taobaoTopCategoryUrl;
+	}
+
+	
+
+	
 }

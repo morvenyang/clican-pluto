@@ -180,6 +180,10 @@ public class BaseClient {
 
 	}
 
+	public String httpGet(String url) {
+		return httpGet(url, null, null);
+	}
+
 	public String httpGet(String url, Map<String, String> headers,
 			Integer timeout) {
 		InputStream is = null;
@@ -207,7 +211,7 @@ public class BaseClient {
 					httpGet.addRequestHeader(key, headers.get(key));
 				}
 			}
-			//httpGet.addRequestHeader("Accept-Encoding", "gzip");
+			// httpGet.addRequestHeader("Accept-Encoding", "gzip");
 			int status = client.executeMethod(httpGet);
 			if (log.isDebugEnabled()) {
 				log.debug("Status:" + status + " for url:" + url);
