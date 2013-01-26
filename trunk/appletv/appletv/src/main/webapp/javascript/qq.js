@@ -139,10 +139,11 @@ var qqClient ={
 			var data = {'channel':channel,'keyword':keyword,'begin':begin,'end':end,'channels':qqClient.qqChannels,'serverurl':serverurl,'videos':videos};
 			var xml = new EJS({url: serverurl+'/template/qq/index.ejs'}).render(data);
 			appletv.logToServer(xml,serverurl);
-			atv.loadXML(atv.parseXML(xml));
+			atv.loadAndSwapXML(atv.parseXML(xml));
 		},
 		
 		loadAlbumPage: function(id){
+			atv.loadXML(appletv.makeDialog('加载中...','Loading...'));
 			var url ='http://live.qq.com/json/ipad/cover/'+id.substring(0,1)+'/'+id+'.json?qq=&appver=2.0.0.2208&sysver=ios5.1.1&device=iPad&lang=zh_CN';
 			
 			appletv.makeRequest(url,function(content){
@@ -155,11 +156,12 @@ var qqClient ={
 				}
 				var video = {'serverurl':serverurl,video:{'id':id,actor:JSON.stringify(result['actor']),area:result['area'],dctor:JSON.stringify(result['dctor']),pic:result['pic'],score:result['score'],title:result['tt'],year:result['year'],desc:result['desc']},'items':items};
 				var xml = new EJS({url: serverurl+'/template/qq/video.ejs'}).render(video);
-				atv.loadXML(atv.parseXML(xml));
+				atv.loadAndSwapXML(atv.parseXML(xml));
 			});
 		},
 		
 		loadItemsPage: function(id){
+			atv.loadXML(appletv.makeDialog('加载中...','Loading...'));
 			var url ='http://live.qq.com/json/ipad/cover/'+id.substring(0,1)+'/'+id+'.json?qq=&appver=2.0.0.2208&sysver=ios5.1.1&device=iPad&lang=zh_CN';
 			
 			appletv.makeRequest(url,function(content){
@@ -172,7 +174,7 @@ var qqClient ={
 				}
 				var video = {'serverurl':serverurl,video:{'id':id,actor:JSON.stringify(result['actor']),area:result['area'],dctor:JSON.stringify(result['dctor']),pic:result['pic'],score:result['score'],title:result['tt'],year:result['year'],desc:result['desc']},'items':items};
 				var xml = new EJS({url: serverurl+'/template/qq/videoItems.ejs'}).render(video);
-				atv.loadXML(atv.parseXML(xml));
+				atv.loadAndSwapXML(atv.parseXML(xml));
 			});
 		},
 		
