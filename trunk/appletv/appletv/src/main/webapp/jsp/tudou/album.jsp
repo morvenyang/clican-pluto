@@ -18,14 +18,14 @@
 					<sections>
 						<shelfSection>
 							<items>
-								<actionButton id="album_1" onSelect="atv.loadURL('${serverurl}/tudou/albumlist.xml?st=2');" onPlay="atv.loadURL('${serverurl}/tudou/albumlist.xml?st=2');">
+								<actionButton id="album_1" onSelect="atv.loadURL('${serverurl}/ctl/tudou/albumlist.xml?st=2');" onPlay="atv.loadURL('${serverurl}/ctl/tudou/albumlist.xml?st=2');">
 									<title>标清</title>
 								</actionButton>
-								<actionButton id="album_2" onSelect="atv.loadURL('${serverurl}/tudou/albumlist.xml?st=3');" onPlay="atv.loadURL('${serverurl}/tudou/albumlist.xml?st=3');">
+								<actionButton id="album_2" onSelect="atv.loadURL('${serverurl}/ctl/tudou/albumlist.xml?st=3');" onPlay="atv.loadURL('${serverurl}/ctl/tudou/albumlist.xml?st=3');">
 									<title>高清</title>
 								</actionButton>
 								<c:if test="${album.hd==1}">
-									<actionButton id="album_3" onSelect="atv.loadURL('${serverurl}/tudou/albumlist.xml?st=4');" onPlay="atv.loadURL('${serverurl}/tudou/albumlist.xml?st=4');">
+									<actionButton id="album_3" onSelect="atv.loadURL('${serverurl}/ctl/tudou/albumlist.xml?st=4');" onPlay="atv.loadURL('${serverurl}/ctl/tudou/albumlist.xml?st=4');">
 										<title>超清</title>
 									</actionButton>
 								</c:if>

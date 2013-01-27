@@ -70,7 +70,7 @@ public class QQController {
 				.replaceAll("&", "&amp;"));
 		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
 		String pagiurl = springProperty.getSystemServerUrl()
-				+ "/qq/index.xml?channelId=" + channel.getValue();
+				+ "/ctl/qq/index.xml?channelId=" + channel.getValue();
 		if (StringUtils.isNotEmpty(keyword) && channel == Channel.Search) {
 			pagiurl = pagiurl + "&amp;keyword="
 					+ URLEncoder.encode(keyword, "utf-8");

@@ -74,7 +74,7 @@ N/A
 		    </text>
 		    <buttons>
 		        <actionButton id="shelf_item_1" 
-							onSelect="atv.loadURL('${serverurl}/tudou/index.xml');">
+							onSelect="atv.loadURL('${serverurl}/ctl/tudou/index.xml');">
 							<title>土豆</title>
 						</actionButton>
 						<actionButton id="shelf_item_2" 
@@ -82,7 +82,7 @@ N/A
 							<title>QQ</title>
 						</actionButton>
 						<actionButton id="shelf_item_3" 
-							onSelect="atv.loadURL('${serverurl}/weibo/checkAccessToken.xml?deviceId='+atv.device.udid);">
+							onSelect="atv.loadURL('${serverurl}/ctl/weibo/checkAccessToken.xml?deviceId='+atv.device.udid);">
 							<title>Weibo</title>
 						</actionButton>
 		    </buttons>

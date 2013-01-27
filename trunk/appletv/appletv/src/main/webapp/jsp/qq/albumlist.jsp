@@ -1,6 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %><%@ page contentType="text/xml;charset=utf-8" %><?xml version="1.0" encoding="UTF-8"?>
 <atv>
 <head><script src="${serverurl}/javascript/clican.js"/></head>
+<head><script src="${serverurl}/javascript/qq.js"/></head>
+<head><script src="${serverurl}/javascript/ejs.js"/></head>
 <body>
 		<listScrollerSplit id="bbbb">
 			<header>
@@ -14,7 +16,7 @@
 					<menuSection>
 						<items>
 							<c:forEach var="albumItem" items="${album.albumItems}" varStatus="status">
-								<oneLineMenuItem id="albumItem_${status.count+1}" onPlay="appletv.playQQVideo('${playdescurl}&amp;vid=${albumItem.vid}','${serverurl}');" onSelect="appletv.playQQVideo('${playdescurl}&amp;vid=${albumItem.vid}','${serverurl}');">
+								<oneLineMenuItem id="albumItem_${status.count+1}" onPlay="qqClient.playVideo('${playdescurl}&amp;vid=${albumItem.vid}','${serverurl}');" onSelect="qqClient.playVideo('${playdescurl}&amp;vid=${albumItem.vid}','${serverurl}');">
 									<label>${albumItem.title}</label>
 								</oneLineMenuItem>
 							</c:forEach>

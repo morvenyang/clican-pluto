@@ -14,7 +14,7 @@
 						<shelfSection>
 							<items>
 								<actionButton id="comment"><title>评论</title></actionButton>
-								<actionButton id="next" onSelect="atv.loadURL('${serverurl}/weibo/showComments.xml?statusId=${statusId}&amp;maxId=${maxId}')"><title>下一页</title></actionButton>
+								<actionButton id="next" onSelect="atv.loadURL('${serverurl}/ctl/weibo/showComments.xml?statusId=${statusId}&amp;maxId=${maxId}')"><title>下一页</title></actionButton>
 							</items>
 						</shelfSection>
 					</sections>

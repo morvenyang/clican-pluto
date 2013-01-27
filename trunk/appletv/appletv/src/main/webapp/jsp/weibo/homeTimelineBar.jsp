@@ -5,19 +5,19 @@
 			<navigation>
 				<navigationItem>
 					<title>全部</title>
-					<url>${serverurl}/weibo/homeTimeline.xml</url>
+					<url>${serverurl}/ctl/weibo/homeTimeline.xml</url>
 				</navigationItem>
 				<navigationItem>
 					<title>视频</title>
-					<url>${serverurl}/weibo/homeTimeline.xml?feature=3</url>
+					<url>${serverurl}/ctl/weibo/homeTimeline.xml?feature=3</url>
 				</navigationItem>
 				<navigationItem>
 					<title>音乐</title>
-					<url>${serverurl}/weibo/homeTimeline.xml?feature=4</url>
+					<url>${serverurl}/ctl/weibo/homeTimeline.xml?feature=4</url>
 				</navigationItem>
 				<navigationItem>
 					<title>收藏</title>
-					<url>${serverurl}/weibo/favorite.xml</url>
+					<url>${serverurl}/ctl/weibo/favorite.xml</url>
 				</navigationItem>
 			</navigation>
 		</viewWithNavigationBar>

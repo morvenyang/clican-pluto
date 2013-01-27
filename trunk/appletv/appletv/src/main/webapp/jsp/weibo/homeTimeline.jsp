@@ -17,13 +17,13 @@
 				<sections>
 					<menuSection>
 						<items>
-							<imageTextImageMenuItem id="top" onSelect="atv.loadURL('${serverurl}/weibo/homeTimeline.xml?feature=${weiboFeature}')">
+							<imageTextImageMenuItem id="top" onSelect="atv.loadURL('${serverurl}/ctl/weibo/homeTimeline.xml?feature=${weiboFeature}')">
 								<leftImage></leftImage>
 								<rightImage></rightImage>
 								<imageSeparatorText></imageSeparatorText>
 								<label>最新</label>
 							</imageTextImageMenuItem>
-							<imageTextImageMenuItem id="prev" onSelect="atv.loadURL('${serverurl}/weibo/homeTimeline.xml?sinceId=${sinceId}&amp;feature=${weiboFeature}')">
+							<imageTextImageMenuItem id="prev" onSelect="atv.loadURL('${serverurl}/ctl/weibo/homeTimeline.xml?sinceId=${sinceId}&amp;feature=${weiboFeature}')">
 								<leftImage></leftImage>
 								<rightImage></rightImage>
 								<imageSeparatorText></imageSeparatorText>
@@ -32,7 +32,7 @@
 							<c:forEach var="weiboStatus" items="${weiboStatusWapper.statuses}"
 								varStatus="varStatus">
 								<c:if test="${weiboStatus.videoUrl!=null}">
-									<imageTextImageMenuItem id="item_${varStatus.count}" onSelect="atv.loadURL('${serverurl}/weibo/textPreview.xml?statusId=${weiboStatus.idstr}&amp;fullText=${weiboStatus.fullTextEncode}');" onPlay="${weiboStatus.videoUrl}">
+									<imageTextImageMenuItem id="item_${varStatus.count}" onSelect="atv.loadURL('${serverurl}/ctl/weibo/textPreview.xml?statusId=${weiboStatus.idstr}&amp;fullText=${weiboStatus.fullTextEncode}');" onPlay="${weiboStatus.videoUrl}">
 										<leftImage>${weiboStatus.user.profileImageUrl}</leftImage>
 										<rightImage>${serverurl}/image/weibo/video.png</rightImage>
 										<imageSeparatorText></imageSeparatorText>
@@ -52,7 +52,7 @@
 									</imageTextImageMenuItem>
 								</c:if>
 								<c:if test="${weiboStatus.videoUrl==null&&weiboStatus.musicUrl!=null}">
-									<imageTextImageMenuItem id="item_${varStatus.count}" onSelect="atv.loadURL('${serverurl}/weibo/textPreview.xml?statusId=${weiboStatus.idstr}&amp;fullText=${weiboStatus.fullTextEncode}');" onPlay="atv.loadURL('${weiboStatus.musicUrl}&amp;podcastURL=${weiboStatus.podcastUrl}');">
+									<imageTextImageMenuItem id="item_${varStatus.count}" onSelect="atv.loadURL('${serverurl}/ctl/weibo/textPreview.xml?statusId=${weiboStatus.idstr}&amp;fullText=${weiboStatus.fullTextEncode}');" onPlay="atv.loadURL('${weiboStatus.musicUrl}&amp;podcastURL=${weiboStatus.podcastUrl}');">
 										<leftImage>${weiboStatus.user.profileImageUrl}</leftImage>
 										<rightImage>${serverurl}/image/weibo/music.png</rightImage>
 										<imageSeparatorText></imageSeparatorText>
@@ -72,7 +72,7 @@
 									</imageTextImageMenuItem>
 								</c:if>
 								<c:if test="${weiboStatus.videoUrl==null&&weiboStatus.musicUrl==null}">
-									<imageTextImageMenuItem id="item_${varStatus.count}" onSelect="atv.loadURL('${serverurl}/weibo/textPreview.xml?statusId=${weiboStatus.idstr}&amp;fullText=${weiboStatus.fullTextEncode}');" onPlay="onPhotoSelection('${weiboStatus.originalPic}');">
+									<imageTextImageMenuItem id="item_${varStatus.count}" onSelect="atv.loadURL('${serverurl}/ctl/weibo/textPreview.xml?statusId=${weiboStatus.idstr}&amp;fullText=${weiboStatus.fullTextEncode}');" onPlay="onPhotoSelection('${weiboStatus.originalPic}');">
 										<leftImage>${weiboStatus.user.profileImageUrl}</leftImage>
 										<rightImage></rightImage>
 										<imageSeparatorText></imageSeparatorText>
@@ -92,7 +92,7 @@
 									</imageTextImageMenuItem>
 								</c:if>
 							</c:forEach>
-							<imageTextImageMenuItem id="next" onSelect="atv.loadURL('${serverurl}/weibo/homeTimeline.xml?maxId=${maxId}&amp;feature=${weiboFeature}')">
+							<imageTextImageMenuItem id="next" onSelect="atv.loadURL('${serverurl}/weibo/ctl/homeTimeline.xml?maxId=${maxId}&amp;feature=${weiboFeature}')">
 								<leftImage></leftImage>
 								<rightImage></rightImage>
 								<imageSeparatorText></imageSeparatorText>
