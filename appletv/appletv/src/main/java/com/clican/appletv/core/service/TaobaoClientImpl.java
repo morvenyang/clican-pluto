@@ -152,8 +152,12 @@ public class TaobaoClientImpl extends BaseClient implements TaobaoClient {
 
 	@Override
 	public List<TaobaoCategory> getCategories(Long parentId) {
-		// TODO Auto-generated method stub
-		return null;
+		TaobaoCategory tc = this.taobaoCategoryMap.get(parentId);
+		if (tc != null) {
+			return tc.getChildren();
+		} else {
+			return new ArrayList<TaobaoCategory>();
+		}
 	}
 
 }
