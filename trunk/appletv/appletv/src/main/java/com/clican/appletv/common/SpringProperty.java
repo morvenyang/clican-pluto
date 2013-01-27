@@ -91,6 +91,7 @@ public class SpringProperty {
 	private String taobaoLoginUrl;
 	private String taobaoAuthorizeBaseUrl;
 	private String taobaoTopCategoryUrl;
+	private String taobaoCategoryJsonFile;
 			
 	public SpringProperty() {
 		instance = this;
@@ -565,6 +566,14 @@ public class SpringProperty {
 
 	public void setTaobaoTopCategoryUrl(String taobaoTopCategoryUrl) {
 		this.taobaoTopCategoryUrl = taobaoTopCategoryUrl;
+	}
+
+	public String getTaobaoCategoryJsonFile() {
+		return taobaoCategoryJsonFile;
+	}
+
+	public void setTaobaoCategoryJsonFile(String taobaoCategoryJsonFile) {
+		this.taobaoCategoryJsonFile = taobaoCategoryJsonFile;
 	}
 
 	

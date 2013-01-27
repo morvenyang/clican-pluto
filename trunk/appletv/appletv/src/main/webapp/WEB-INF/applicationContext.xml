@@ -83,6 +83,7 @@ http://www.springframework.org/schema/context/spring-context-2.5.xsd">
 		<property name="taobaoLoginUrl" value="${taobao.login.url}"></property>
 		<property name="taobaoAuthorizeBaseUrl" value="${taobao.authorize.base.url}"></property>
 		<property name="taobaoTopCategoryUrl" value="${taobao.top.category.url}"></property>
+		<property name="taobaoCategoryJsonFile" value="${taobao.category.json.file}"></property>
 	</bean>
 	
 	<bean id="tudouClient" class="com.clican.appletv.core.service.tudou.TudouClientImpl" autowire="byName">
