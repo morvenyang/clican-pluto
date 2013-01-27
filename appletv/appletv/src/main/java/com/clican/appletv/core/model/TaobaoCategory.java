@@ -1,5 +1,6 @@
 package com.clican.appletv.core.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TaobaoCategory {
@@ -9,7 +10,7 @@ public class TaobaoCategory {
 	private String subTitle;
 	private boolean hasChild;
 	private String picUrl;
-	private List<TaobaoCategory> children;
+	private List<TaobaoCategory> children = new ArrayList<TaobaoCategory>();
 	private Long[] childrenCids;
 
 	public Long getId() {
