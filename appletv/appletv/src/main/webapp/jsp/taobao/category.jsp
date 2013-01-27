@@ -17,13 +17,13 @@
 									<c:if test="${category.children==null||fn:length(category.children)==0}">
 										<oneLineMenuItem id="category_${status.count}" onPlay="atv.loadURL('${serverurl}/ctl/taobao/itemList.xml?cid=${category.id}');" onSelect="atv.loadURL('${serverurl}/ctl/taobao/itemList.xml?cid=${category.id}');">
 											<label>${category.title}</label>
-											<image>${category.picUrl}</image>
+											<image>${serverurl}${category.picUrl}</image>
 										</oneLineMenuItem>
 									</c:if>
 									<c:if test="${category.children!=null&&fn:length(category.children)>0}">
 										<oneLineMenuItem id="category_${status.count}" onPlay="atv.loadURL('${serverurl}/ctl/taobao/category.xml?parentId=${category.id}');" onSelect="atv.loadURL('${serverurl}/ctl/taobao/category.xml?parentId=${category.id}');">
 											<label>${category.title}</label>
-											<image>${category.picUrl}</image>
+											<image>${serverurl}${category.picUrl}</image>
 										</oneLineMenuItem>
 									</c:if>
 								</c:if>
@@ -32,14 +32,14 @@
 										<twoLineMenuItem id="category_${status.count}" onPlay="atv.loadURL('${serverurl}/ctl/taobao/itemList.xml?cid=${category.id}');" onSelect="atv.loadURL('${serverurl}/ctl/taobao/itemList.xml?cid=${category.id}');">
 											<label>${category.title}</label>
 											<label2>${category.subTitle}</label2>
-											<image>${category.picUrl}</image>
+											<image>${serverurl}${category.picUrl}</image>
 										</twoLineMenuItem>
 									</c:if>
 									<c:if test="${category.children!=null&&fn:length(category.children)>0}">
 										<twoLineMenuItem id="category_${status.count}" onPlay="atv.loadURL('${serverurl}/ctl/taobao/category.xml?parentId=${category.id}');" onSelect="atv.loadURL('${serverurl}/ctl/taobao/category.xml?parentId=${category.id}');">
 											<label>${category.title}</label>
 											<label2>${category.subTitle}</label2>
-											<image>${category.picUrl}</image>
+											<image>${serverurl}${category.picUrl}</image>
 										</twoLineMenuItem>
 									</c:if>
 								</c:if>
