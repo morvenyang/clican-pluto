@@ -106,6 +106,8 @@ public class TaobaoClientImpl extends BaseClient implements TaobaoClient {
 						tci.setId(ic.getCid());
 						tcci.add(tci);
 					}
+				} else {
+					t.setHasChild(false);
 				}
 			}
 		}
