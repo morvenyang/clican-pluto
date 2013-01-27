@@ -11,7 +11,7 @@ public class TaobaoCategory {
 	private boolean hasChild;
 	private String picUrl;
 	private List<TaobaoCategory> children = new ArrayList<TaobaoCategory>();
-	private Long[] childrenCids;
+	private String[] childrenCids;
 
 	public Long getId() {
 		return id;
@@ -61,11 +61,13 @@ public class TaobaoCategory {
 		this.children = children;
 	}
 
-	public Long[] getChildrenCids() {
+	
+
+	public String[] getChildrenCids() {
 		return childrenCids;
 	}
 
-	public void setChildrenCids(Long[] childrenCids) {
+	public void setChildrenCids(String[] childrenCids) {
 		this.childrenCids = childrenCids;
 	}
 

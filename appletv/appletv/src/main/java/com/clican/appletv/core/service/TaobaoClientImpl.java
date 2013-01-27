@@ -86,20 +86,23 @@ public class TaobaoClientImpl extends BaseClient implements TaobaoClient {
 					catMap.put(ic.getCid(), ic);
 				}
 				for (TaobaoCategory tc : taobaoTopCategoryList) {
-					for (Long cid : tc.getChildrenCids()) {
+					for (String cid : tc.getChildrenCids()) {
 						TaobaoCategory child = new TaobaoCategory();
-						ItemCat ic = catMap.get(cid);
+						ItemCat ic = catMap.get(Long.parseLong(cid));
 						child.setTitle(ic.getName());
 						child.setId(ic.getCid());
 						tc.getChildren().add(child);
 						req.setParentCid(ic.getCid());
-						ItemcatsGetResponse resp = taobaoRestClient.execute(req);
+						ItemcatsGetResponse resp = taobaoRestClient
+								.execute(req);
 						List<ItemCat> itemCats = resp.getItemCats();
-						for(ItemCat i:itemCats){
-							TaobaoCategory c = new TaobaoCategory();
-							c.setTitle(i.getName());
-							c.setId(i.getCid());
-							child.getChildren().add(c);
+						if (itemCats != null) {
+							for (ItemCat i : itemCats) {
+								TaobaoCategory c = new TaobaoCategory();
+								c.setTitle(i.getName());
+								c.setId(i.getCid());
+								child.getChildren().add(c);
+							}
 						}
 					}
 				}
@@ -126,8 +129,6 @@ public class TaobaoClientImpl extends BaseClient implements TaobaoClient {
 		}
 
 	}
-
-	
 
 	@Override
 	public List<TaobaoCategory> getTopCategories() {
