@@ -26,49 +26,49 @@ http://www.springframework.org/schema/context/spring-context-2.5.xsd">
 					<property name="title" value="服装服饰"></property>
 					<property name="subTitle" value="女装 男装 运动服 女鞋 流行鞋 运动鞋"></property>
 					<property name="picUrl" value="/image/taobao/category_1.png"></property>
-					<property name="childrenCids" value=""></property>
+					<property name="childrenCids" value="30,50011699,50011740,16,50006843,1625,50012029"></property>
 				</bean>
 				<bean class="com.clican.appletv.core.model.TaobaoCategory">
 					<property name="title" value="箱包配饰"></property>
 					<property name="subTitle" value="包包 饰品 手表 围巾 皮带 珠宝 眼镜"></property>
 					<property name="picUrl" value="/image/taobao/category_2.png"></property>
-					<property name="childrenCids" value=""></property>
+					<property name="childrenCids" value="50005700,50006842,50010404,50011397,28,50013864"></property>
 				</bean>
 				<bean class="com.clican.appletv.core.model.TaobaoCategory">
 					<property name="title" value="妈咪宝贝"></property>
 					<property name="subTitle" value="童装 孕妇装 尿片 奶粉 玩具 推车"></property>
 					<property name="picUrl" value="/image/taobao/category_3.png"></property>
-					<property name="childrenCids" value=""></property>
+					<property name="childrenCids" value="35,50014812,50022517,50008165,25"></property>
 				</bean>
 				<bean class="com.clican.appletv.core.model.TaobaoCategory">
 					<property name="title" value="家居美食"></property>
 					<property name="subTitle" value="零食 特产 保健品 居家 建材 家具 布艺"></property>
 					<property name="picUrl" value="/image/taobao/category_4.png"></property>
-					<property name="childrenCids" value=""></property>
+					<property name="childrenCids" value="21,50026316,50023804,50026800,50050359,50008075,50020808,50020857,50008164,50020611,27,50020332,50020485,50020579,50016349,50016348,50008163,50020275,50002766,50016422,2813,50023575,50023717,50023878,50025618,50025705"></property>
 				</bean>
 				<bean class="com.clican.appletv.core.model.TaobaoCategory">
 					<property name="title" value="数码家电"></property>
 					<property name="subTitle" value="手机 相机 笔记本 MP3 数码配件 家电"></property>
 					<property name="picUrl" value="/image/taobao/category_5.png"></property>
-					<property name="childrenCids" value=""></property>
+					<property name="childrenCids" value="50023904,1512,14,1201,1101,50019780,50018222,11,50018264,50008090,50012164,50022703,50011972,50012100,50012082"></property>
 				</bean>
 				<bean class="com.clican.appletv.core.model.TaobaoCategory">
 					<property name="title" value="美容护发"></property>
 					<property name="subTitle" value="护肤 彩妆 香水 洗护 护发 假发"></property>
 					<property name="picUrl" value="/image/taobao/category_6.png"></property>
-					<property name="childrenCids" value=""></property>
+					<property name="childrenCids" value="50010788,1801,50023282,50002768"></property>
 				</bean>
 				<bean class="com.clican.appletv.core.model.TaobaoCategory">
 					<property name="title" value="户外文化"></property>
 					<property name="subTitle" value="运动 瑜伽 汽车 登山 乐器 电子词典 办公用品"></property>
 					<property name="picUrl" value="/image/taobao/category_7.png"></property>
-					<property name="childrenCids" value=""></property>
+					<property name="childrenCids" value="26,50074001,50025707,50007218,50018004,50011949,50010728,50013886,33,34,50017300,29,50024971"></property>
 				</bean>
 				<bean class="com.clican.appletv.core.model.TaobaoCategory">
-					<property name="title" value="完了虚拟"></property>
+					<property name="title" value="玩乐虚拟"></property>
 					<property name="subTitle" value="玩具 折扣券 电玩 鲜花 酒店 点卡 Q币"></property>
 					<property name="picUrl" value="/image/taobao/category_8.png"></property>
-					<property name="childrenCids" value=""></property>
+					<property name="childrenCids" value="50026555,50158001,50026523,20,40,50011665,50008907,99,23,50007216,50004958,50018252,50014442,50014811,50016891,50023724,50017652,50019379,50024186,50024449,50024451,50024612,50025004,50025110,50025111,50025968,50230002"></property>
 				</bean>
 			</list>
 		</constructor-arg>
