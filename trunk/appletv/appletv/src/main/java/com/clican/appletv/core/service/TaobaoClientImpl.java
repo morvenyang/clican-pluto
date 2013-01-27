@@ -56,6 +56,7 @@ public class TaobaoClientImpl extends BaseClient implements TaobaoClient {
 		return null;
 	}
 
+	@SuppressWarnings({ "deprecation", "rawtypes", "unchecked" })
 	public void init() {
 		try {
 			File taobaoCategoryJsonFile = new File(
