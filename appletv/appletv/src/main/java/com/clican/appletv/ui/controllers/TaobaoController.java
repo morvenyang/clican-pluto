@@ -16,6 +16,9 @@ import com.clican.appletv.common.SpringProperty;
 import com.clican.appletv.core.model.TaobaoAccessToken;
 import com.clican.appletv.core.model.TaobaoCategory;
 import com.taobao.api.TaobaoClient;
+import com.taobao.api.domain.TaobaokeItem;
+import com.taobao.api.request.TaobaokeItemsGetRequest;
+import com.taobao.api.response.TaobaokeItemsGetResponse;
 
 @Controller
 public class TaobaoController {
@@ -84,12 +87,38 @@ public class TaobaoController {
 	@RequestMapping("/taobao/itemList.xml")
 	public String itemListPage(HttpServletRequest request,
 			HttpServletResponse response,
-			@RequestParam(value = "cid", required = false) Long cid)
+			@RequestParam(value = "cid", required = false) Long cid,
+			@RequestParam(value = "page", required = false) Long page)
 			throws Exception {
 		if (log.isDebugEnabled()) {
 			log.debug("access item list for cid:" + cid);
 		}
 
+		if (page == null) {
+			page = 0L;
+		}
+		TaobaokeItemsGetRequest req = new TaobaokeItemsGetRequest();
+		req.setFields("num_iid,title,nick,pic_url,price,click_url,commission,commission_rate,commission_num,commission_volume,shop_click_url,seller_credit_score,item_location,volume");
+		req.setCid(cid);
+		req.setPageNo(page);
+		req.setPageSize(30L);
+		TaobaokeItemsGetResponse resp = taobaoRestClient.execute(req);
+		long totalPage = (resp.getTotalResults()-1)/req.getPageSize()+1;
+		List<TaobaokeItem> itemList = resp.getTaobaokeItems();
+		
+		long begin, end = 0;
+		if (page < totalPage-10) {
+			begin = page;
+			end = page + 9;
+		} else {
+			end = totalPage;
+			begin = totalPage-9;
+		}
+		request.setAttribute("pagiurl", springProperty.getSystemServerUrl()+"/ctl/taobao/itemList.xml?cid="+cid);
+		request.setAttribute("itemList", itemList);
+		request.setAttribute("begin", begin);
+		request.setAttribute("end", end);
+		request.setAttribute("totalPage", totalPage);
 		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
 		return "taobao/itemList";
 	}
