@@ -11,6 +11,7 @@ public class TaobaoTestCase extends BaseServiceTestCase {
 	private SpringProperty springProperty;
 	private TaobaoClient taobaoRestClient;
 	private com.clican.appletv.core.service.TaobaoClient taobaoClient;
+
 	public void setSpringProperty(SpringProperty springProperty) {
 		this.springProperty = springProperty;
 	}
@@ -25,7 +26,9 @@ public class TaobaoTestCase extends BaseServiceTestCase {
 	}
 
 	public void testGetCategorys() throws Exception {
-		List<TaobaoCategory> list =taobaoClient.getTopCategories();
-		System.out.print(list.size());
+		List<TaobaoCategory> list = taobaoClient.getTopCategories();
+		StringBuffer sb = new StringBuffer();
+		TaobaoCategory.toString(list, sb, "\n");
+		log.debug(sb.toString());
 	}
 }
