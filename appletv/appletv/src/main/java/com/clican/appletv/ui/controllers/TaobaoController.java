@@ -19,10 +19,10 @@ import com.taobao.api.TaobaoClient;
 import com.taobao.api.domain.Item;
 import com.taobao.api.domain.PromotionInItem;
 import com.taobao.api.domain.TaobaokeItem;
-import com.taobao.api.request.TaobaokeItemsDetailGetRequest;
+import com.taobao.api.request.ItemGetRequest;
 import com.taobao.api.request.TaobaokeItemsGetRequest;
 import com.taobao.api.request.UmpPromotionGetRequest;
-import com.taobao.api.response.TaobaokeItemsDetailGetResponse;
+import com.taobao.api.response.ItemGetResponse;
 import com.taobao.api.response.TaobaokeItemsGetResponse;
 import com.taobao.api.response.UmpPromotionGetResponse;
 
@@ -146,12 +146,11 @@ public class TaobaoController {
 			log.debug("access item :" + itemId);
 		}
 
-		// ItemGetRequest req = new ItemGetRequest();
-		TaobaokeItemsDetailGetRequest req = new TaobaokeItemsDetailGetRequest();
-		req.setFields("num_iid,title,nick,desc,location,price,post_fee,express_fee,ems_fee,item_imgs,videos,pic_url,stuff_status,auction_point");
-		req.setNumIids(itemId.toString());
-		TaobaokeItemsDetailGetResponse resp = taobaoRestClient.execute(req);
-		Item item = resp.getTaobaokeItemDetails().get(0).getItem();
+		ItemGetRequest req = new ItemGetRequest();
+		req.setFields("num_iid,title,nick,desc,location,price,post_fee,express_fee,ems_fee,item_imgs,videos,pic_url,stuff_status");
+		req.setNumIid(itemId);
+		ItemGetResponse resp = taobaoRestClient.execute(req);
+		Item item = resp.getItem();
 
 		UmpPromotionGetRequest req2 = new UmpPromotionGetRequest();
 		req2.setItemId(itemId);
