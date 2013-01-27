@@ -17,7 +17,10 @@ import com.clican.appletv.core.model.TaobaoAccessToken;
 import com.clican.appletv.core.model.TaobaoCategory;
 import com.taobao.api.TaobaoClient;
 import com.taobao.api.domain.TaobaokeItem;
+import com.taobao.api.domain.TaobaokeItemDetail;
+import com.taobao.api.request.TaobaokeItemsDetailGetRequest;
 import com.taobao.api.request.TaobaokeItemsGetRequest;
+import com.taobao.api.response.TaobaokeItemsDetailGetResponse;
 import com.taobao.api.response.TaobaokeItemsGetResponse;
 
 @Controller
@@ -101,25 +104,52 @@ public class TaobaoController {
 		req.setFields("num_iid,title,nick,pic_url,price,click_url,commission,commission_rate,commission_num,commission_volume,shop_click_url,seller_credit_score,item_location,volume");
 		req.setCid(cid);
 		req.setPageNo(page);
-		req.setPageSize(30L);
+		req.setPageSize(40L);
 		TaobaokeItemsGetResponse resp = taobaoRestClient.execute(req);
-		long totalPage = (resp.getTotalResults()-1)/req.getPageSize()+1;
+		long totalPage = (resp.getTotalResults() - 1) / req.getPageSize();
+		if (totalPage > 10) {
+			totalPage = 10;
+		}
 		List<TaobaokeItem> itemList = resp.getTaobaokeItems();
-		
+
 		long begin, end = 0;
-		if (page < totalPage-10) {
+		if (page < totalPage - 10) {
 			begin = page;
 			end = page + 9;
 		} else {
 			end = totalPage;
-			begin = totalPage-9;
+			begin = totalPage - 9;
 		}
-		request.setAttribute("pagiurl", springProperty.getSystemServerUrl()+"/ctl/taobao/itemList.xml?cid="+cid);
+		request.setAttribute("pagiurl", springProperty.getSystemServerUrl()
+				+ "/ctl/taobao/itemList.xml?cid=" + cid);
 		request.setAttribute("itemList", itemList);
 		request.setAttribute("begin", begin);
 		request.setAttribute("end", end);
 		request.setAttribute("totalPage", totalPage);
 		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
 		return "taobao/itemList";
+	}
+
+	@RequestMapping("/taobao/item.xml")
+	public String itemPage(HttpServletRequest request,
+			HttpServletResponse response,
+			@RequestParam(value = "itemId", required = false) Long itemId)
+			throws Exception {
+		if (log.isDebugEnabled()) {
+			log.debug("access item :" + itemId);
+		}
+
+		TaobaokeItemsDetailGetRequest req = new TaobaokeItemsDetailGetRequest();
+		req.setFields("click_url,shop_click_url,seller_credit_score,num_iid,title,nick");
+		req.setNumIids(itemId.toString());
+		TaobaokeItemsDetailGetResponse resp = taobaoRestClient.execute(req);
+		List<TaobaokeItemDetail> list = resp.getTaobaokeItemDetails();
+		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
+		if (list.size() == 0) {
+			return "taobao/noresult";
+		} else {
+			request.setAttribute("itemDetail", list.get(0));
+			return "taobao/item";
+		}
 	}
 }
