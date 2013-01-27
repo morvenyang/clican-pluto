@@ -1,5 +1,6 @@
 package com.clican.appletv.core.service;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -7,6 +8,8 @@ import java.util.Map;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+
+import org.apache.commons.io.FileUtils;
 
 import com.clican.appletv.core.model.TaobaoAccessToken;
 import com.clican.appletv.core.model.TaobaoCategory;
@@ -19,7 +22,7 @@ public class TaobaoClientImpl extends BaseClient implements TaobaoClient {
 
 	private List<TaobaoCategory> taobaoCategoryList = new ArrayList<TaobaoCategory>();
 
-	private Map<Long, List<TaobaoCategory>> taobaoCategoryMap = new HashMap<Long, List<TaobaoCategory>>();
+	private Map<Long, TaobaoCategory> taobaoCategoryMap = new HashMap<Long, TaobaoCategory>();
 
 	private com.taobao.api.TaobaoClient taobaoRestClient;
 
@@ -55,16 +58,44 @@ public class TaobaoClientImpl extends BaseClient implements TaobaoClient {
 
 	public void init() {
 		try {
-			String url = springProperty.getTaobaoTopCategoryUrl();
-			String jsonContent = this.httpGet(url);
-			JSONArray jsonArray = JSONArray.fromObject(jsonContent);
-			for (int i = 2; i < jsonArray.size(); i++) {
-				JSONObject category = jsonArray.getJSONObject(i);
-				TaobaoCategory taobaoCategory = convertToTaobaoCategory(category);
-				taobaoCategory.setId((long) -i);
-				this.taobaoCategoryMap.put(taobaoCategory.getId(),
-						taobaoCategory.getChildren());
-				taobaoCategoryList.add(taobaoCategory);
+			File taobaoCategoryJsonFile = new File(
+					springProperty.getTaobaoCategoryJsonFile());
+			if (taobaoCategoryJsonFile.exists()) {
+				String content = FileUtils.readFileToString(
+						taobaoCategoryJsonFile, "utf-8");
+				Map<String, Class> classMap = new HashMap<String, Class>();
+				classMap.put("children", TaobaoCategory.class);
+				List<TaobaoCategory> result = (List<TaobaoCategory>) JSONArray
+						.toList(JSONArray.fromObject(content),
+								TaobaoCategory.class, classMap);
+				taobaoCategoryList = result;
+			} else {
+				String url = springProperty.getTaobaoTopCategoryUrl();
+				String jsonContent = this.httpGet(url);
+				JSONArray jsonArray = JSONArray.fromObject(jsonContent);
+				for (int i = 2; i < jsonArray.size(); i++) {
+					JSONObject category = jsonArray.getJSONObject(i);
+					TaobaoCategory taobaoCategory = convertToTaobaoCategory(category);
+					taobaoCategory.setId((long) -i);
+					taobaoCategoryList.add(taobaoCategory);
+				}
+				String content = JSONArray.fromObject(taobaoCategoryList)
+						.toString();
+				FileUtils.write(taobaoCategoryJsonFile, content, "utf-8");
+			}
+			for (TaobaoCategory tc1 : taobaoCategoryList) {
+				this.taobaoCategoryMap.put(tc1.getId(), tc1);
+				if (tc1.getChildren() != null && tc1.getChildren().size() > 0) {
+					for (TaobaoCategory tc2 : tc1.getChildren()) {
+						this.taobaoCategoryMap.put(tc2.getId(), tc2);
+						if (tc2.getChildren() != null
+								&& tc2.getChildren().size() > 0) {
+							for (TaobaoCategory tc3 : tc2.getChildren()) {
+								this.taobaoCategoryMap.put(tc3.getId(), tc3);
+							}
+						}
+					}
+				}
 			}
 		} catch (Exception e) {
 			log.error("", e);
@@ -92,7 +123,6 @@ public class TaobaoClientImpl extends BaseClient implements TaobaoClient {
 			t.setId(child.getLong("catid"));
 			t.setHasChild(!child.getBoolean("no_child"));
 			tcc.add(t);
-			this.taobaoCategoryMap.put(t.getId(), tcci);
 			if (t.isHasChild()) {
 				ItemcatsGetRequest req = new ItemcatsGetRequest();
 				req.setFields("cid,parent_cid,name,is_parent");
