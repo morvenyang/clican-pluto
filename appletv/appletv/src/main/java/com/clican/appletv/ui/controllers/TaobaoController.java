@@ -119,6 +119,9 @@ public class TaobaoController {
 		} else {
 			end = totalPage;
 			begin = totalPage - 9;
+			if (begin < 0) {
+				begin = 0;
+			}
 		}
 		request.setAttribute("pagiurl", springProperty.getSystemServerUrl()
 				+ "/ctl/taobao/itemList.xml?cid=" + cid);
