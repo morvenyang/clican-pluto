@@ -16,12 +16,15 @@ import com.clican.appletv.common.SpringProperty;
 import com.clican.appletv.core.model.TaobaoAccessToken;
 import com.clican.appletv.core.model.TaobaoCategory;
 import com.taobao.api.TaobaoClient;
+import com.taobao.api.domain.Item;
+import com.taobao.api.domain.PromotionInItem;
 import com.taobao.api.domain.TaobaokeItem;
-import com.taobao.api.domain.TaobaokeItemDetail;
 import com.taobao.api.request.TaobaokeItemsDetailGetRequest;
 import com.taobao.api.request.TaobaokeItemsGetRequest;
+import com.taobao.api.request.UmpPromotionGetRequest;
 import com.taobao.api.response.TaobaokeItemsDetailGetResponse;
 import com.taobao.api.response.TaobaokeItemsGetResponse;
+import com.taobao.api.response.UmpPromotionGetResponse;
 
 @Controller
 public class TaobaoController {
@@ -143,18 +146,31 @@ public class TaobaoController {
 			log.debug("access item :" + itemId);
 		}
 
+		// ItemGetRequest req = new ItemGetRequest();
 		TaobaokeItemsDetailGetRequest req = new TaobaokeItemsDetailGetRequest();
-		req.setFields("num_iid,title,nick,desc,location,price,post_fee,express_fee,ems_fee,item_imgs,videos,pic_url,stuff_status");
+		req.setFields("num_iid,title,nick,desc,location,price,post_fee,express_fee,ems_fee,item_imgs,videos,pic_url,stuff_status,auction_point");
 		req.setNumIids(itemId.toString());
 		TaobaokeItemsDetailGetResponse resp = taobaoRestClient.execute(req);
-		List<TaobaokeItemDetail> list = resp.getTaobaokeItemDetails();
+		Item item = resp.getTaobaokeItemDetails().get(0).getItem();
+
+		UmpPromotionGetRequest req2 = new UmpPromotionGetRequest();
+		req2.setItemId(itemId);
+		UmpPromotionGetResponse resp2 = taobaoRestClient.execute(req2);
+		List<PromotionInItem> piiList = resp2.getPromotions()
+				.getPromotionInItem();
+		String promotion = null;
+		if (piiList.size() > 0) {
+			promotion = piiList.get(0).getName() + ":"
+					+ piiList.get(0).getItemPromoPrice() + "元";
+		}
+
 		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
-		if (list.size() == 0) {
+		request.setAttribute("promotion", promotion);
+		if (item == null) {
 			return "taobao/noresult";
 		} else {
-			TaobaokeItemDetail detail = list.get(0);
-			detail.getItem().setVolume(volume);
-			request.setAttribute("itemDetail", list.get(0));
+			item.setVolume(volume);
+			request.setAttribute("item", item);
 			return "taobao/item";
 		}
 	}
