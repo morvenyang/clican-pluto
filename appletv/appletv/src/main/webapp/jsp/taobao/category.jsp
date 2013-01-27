@@ -17,13 +17,23 @@
 									<c:if test="${category.children==null||fn:length(category.children)==0}">
 										<oneLineMenuItem id="category_${status.count}" onPlay="atv.loadURL('${serverurl}/ctl/taobao/itemList.xml?cid=${category.id}');" onSelect="atv.loadURL('${serverurl}/ctl/taobao/itemList.xml?cid=${category.id}');">
 											<label>${category.title}</label>
-											<image>${serverurl}${category.picUrl}</image>
+											<c:if test="${category.picUrl!=null}">
+												<image>${serverurl}${category.picUrl}</image>
+											</c:if>
+											<c:if test="${category.picUrl==null}">
+												<image></image>
+											</c:if>
 										</oneLineMenuItem>
 									</c:if>
 									<c:if test="${category.children!=null&&fn:length(category.children)>0}">
 										<oneLineMenuItem id="category_${status.count}" onPlay="atv.loadURL('${serverurl}/ctl/taobao/category.xml?parentId=${category.id}');" onSelect="atv.loadURL('${serverurl}/ctl/taobao/category.xml?parentId=${category.id}');">
 											<label>${category.title}</label>
-											<image>${serverurl}${category.picUrl}</image>
+											<c:if test="${category.picUrl!=null}">
+												<image>${serverurl}${category.picUrl}</image>
+											</c:if>
+											<c:if test="${category.picUrl==null}">
+												<image></image>
+											</c:if>
 										</oneLineMenuItem>
 									</c:if>
 								</c:if>
@@ -32,14 +42,24 @@
 										<twoLineMenuItem id="category_${status.count}" onPlay="atv.loadURL('${serverurl}/ctl/taobao/itemList.xml?cid=${category.id}');" onSelect="atv.loadURL('${serverurl}/ctl/taobao/itemList.xml?cid=${category.id}');">
 											<label>${category.title}</label>
 											<label2>${category.subTitle}</label2>
-											<image>${serverurl}${category.picUrl}</image>
+											<c:if test="${category.picUrl!=null}">
+												<image>${serverurl}${category.picUrl}</image>
+											</c:if>
+											<c:if test="${category.picUrl==null}">
+												<image></image>
+											</c:if>
 										</twoLineMenuItem>
 									</c:if>
 									<c:if test="${category.children!=null&&fn:length(category.children)>0}">
 										<twoLineMenuItem id="category_${status.count}" onPlay="atv.loadURL('${serverurl}/ctl/taobao/category.xml?parentId=${category.id}');" onSelect="atv.loadURL('${serverurl}/ctl/taobao/category.xml?parentId=${category.id}');">
 											<label>${category.title}</label>
 											<label2>${category.subTitle}</label2>
-											<image>${serverurl}${category.picUrl}</image>
+											<c:if test="${category.picUrl!=null}">
+												<image>${serverurl}${category.picUrl}</image>
+											</c:if>
+											<c:if test="${category.picUrl==null}">
+												<image></image>
+											</c:if>
 										</twoLineMenuItem>
 									</c:if>
 								</c:if>
