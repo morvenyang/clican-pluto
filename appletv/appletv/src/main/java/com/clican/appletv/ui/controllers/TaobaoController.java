@@ -80,4 +80,17 @@ public class TaobaoController {
 		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
 		return "taobao/category";
 	}
+
+	@RequestMapping("/taobao/itemList.xml")
+	public String itemListPage(HttpServletRequest request,
+			HttpServletResponse response,
+			@RequestParam(value = "cid", required = false) Long cid)
+			throws Exception {
+		if (log.isDebugEnabled()) {
+			log.debug("access item list for cid:" + cid);
+		}
+
+		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
+		return "taobao/itemList";
+	}
 }
