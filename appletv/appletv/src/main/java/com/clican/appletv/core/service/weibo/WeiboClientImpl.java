@@ -107,7 +107,7 @@ public class WeiboClientImpl implements WeiboClient {
 								String showid = youkuMatcher.group(1);
 								addVideoUrlForStatus(list, "atv.loadURL('"
 										+ springProperty.getSystemServerUrl()
-										+ "/youku/album.xml?showid=" + showid
+										+ "/ctl/youku/album.xml?showid=" + showid
 										+ "');");
 							} else {
 								Matcher qqMatcher = qqPattern.matcher(lurl);
@@ -136,7 +136,7 @@ public class WeiboClientImpl implements WeiboClient {
 												"atv.loadURL('"
 														+ springProperty
 																.getSystemServerUrl()
-														+ "/tudou/playVideoByCode.xml?code="
+														+ "/ctl/tudou/playVideoByCode.xml?code="
 														+ code + "');");
 									} else {
 										Matcher sohuMatcher = sohuPattern
@@ -147,7 +147,7 @@ public class WeiboClientImpl implements WeiboClient {
 													"atv.loadURL('"
 															+ springProperty
 																	.getSystemServerUrl()
-															+ "/sohu/playVideoByURL.xml?url="
+															+ "/ctl/sohu/playVideoByURL.xml?url="
 															+ lurl + "');");
 										} else {
 											Matcher fiveSixMatcher = fiveSixPattern
@@ -160,7 +160,7 @@ public class WeiboClientImpl implements WeiboClient {
 														"atv.loadURL('"
 																+ springProperty
 																		.getSystemServerUrl()
-																+ "/fivesix/playVideoByCode.xml?code="
+																+ "/ctl/fivesix/playVideoByCode.xml?code="
 																+ code + "');");
 											}
 										}
@@ -176,7 +176,7 @@ public class WeiboClientImpl implements WeiboClient {
 								String id = sinaMusicMatcher.group(2);
 								addMusicUrlForStatus(list,
 										springProperty.getSystemServerUrl()
-												+ "/sina/music.xml?id=" + id);
+												+ "/ctl/sina/music.xml?id=" + id);
 							} else {
 								Matcher xiamiMusicMatcher = xiamiMusicPattern
 										.matcher(lurl);
@@ -184,7 +184,7 @@ public class WeiboClientImpl implements WeiboClient {
 									String id = xiamiMusicMatcher.group(1);
 									addMusicUrlForStatus(list,
 											springProperty.getSystemServerUrl()
-													+ "/xiami/music.xml?id="
+													+ "/ctl/xiami/music.xml?id="
 													+ id);
 								}
 							}

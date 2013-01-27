@@ -12,14 +12,14 @@
 					<items>
 						<c:forEach var="channel" items="${channels}">
 								<c:if test="${channel.value==1001}">
-									<moviePoster id="shelf_item_${channel.value}" alwaysShowTitles="true" accessibilityLabel="${channel.label}" featured="true" onSelect="atv.loadURL('${serverurl}/qq/search.xml');" onPlay="atv.loadURL('${serverurl}/qq/search.xml');">
+									<moviePoster id="shelf_item_${channel.value}" alwaysShowTitles="true" accessibilityLabel="${channel.label}" featured="true" onSelect="atv.loadURL('${serverurl}/ctl/qq/search.xml');" onPlay="atv.loadURL('${serverurl}/ctl/qq/search.xml');">
 										<title>${channel.label}</title>
 										<image>${serverurl}/image/qq/channel/channel_${channel.value}.png</image>
 										<defaultImage>resource://Poster.png</defaultImage>
 									</moviePoster>
 								</c:if>
 								<c:if test="${channel.value!=1001}">
-									<moviePoster id="shelf_item_${channel.value}" alwaysShowTitles="true" accessibilityLabel="${channel.label}" featured="true" onSelect="atv.loadURL('${serverurl}/qq/index.xml?channelId=${channel.value}');" onPlay="atv.loadURL('${serverurl}/qq/index.xml?channelId=${channel.value}');">
+									<moviePoster id="shelf_item_${channel.value}" alwaysShowTitles="true" accessibilityLabel="${channel.label}" featured="true" onSelect="atv.loadURL('${serverurl}/ctl/qq/index.xml?channelId=${channel.value}');" onPlay="atv.loadURL('${serverurl}/ctl/qq/index.xml?channelId=${channel.value}');">
 										<title>${channel.label}</title>
 										<image>${serverurl}/image/qq/channel/channel_${channel.value}.png</image>
 										<defaultImage>resource://Poster.png</defaultImage>
@@ -51,14 +51,14 @@
 			<items>
 				<c:forEach var="video" items="${videos}">
 						<c:if test="${video.isalbum!=1}">
-							<moviePoster id="shelf_item_${video.coverId}" alwaysShowTitles="true" onSelect="atv.loadURL('${serverurl}/qq/album.xml?coverId=${video.coverId}');" onPlay="atv.loadURL('${serverurl}/qq/album.xml?coverId=${video.coverId}');">
+							<moviePoster id="shelf_item_${video.coverId}" alwaysShowTitles="true" onSelect="atv.loadURL('${serverurl}/ctl/qq/album.xml?coverId=${video.coverId}');" onPlay="atv.loadURL('${serverurl}/ctl/qq/album.xml?coverId=${video.coverId}');">
 								<title><![CDATA[${video.title}]]></title>
 								<image>${video.pic}</image>
 								<defaultImage>resource://Poster.png</defaultImage>
 							</moviePoster>
 						</c:if>
 						<c:if test="${video.isalbum==1}">
-							<moviePoster id="shelf_item_${video.id}" alwaysShowTitles="true" onSelect="appletv.playQQVideo('${playdescurl}&amp;vid=${video.id}','${serverurl}');" onPlay="appletv.playQQVideo('${playdescurl}&amp;vid=${video.id}','${serverurl}');">
+							<moviePoster id="shelf_item_${video.id}" alwaysShowTitles="true" onSelect="qqClient.playVideo('${playdescurl}&amp;vid=${video.id}','${serverurl}');" onPlay="qqClient.playVideo('${playdescurl}&amp;vid=${video.id}','${serverurl}');">
 								<title><![CDATA[${video.tt}]]></title>
 								<subtitle><![CDATA[${video.subTt}]]></subtitle>
 								<image>${video.pic}</image>

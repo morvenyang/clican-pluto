@@ -13,12 +13,9 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>dispatcher</servlet-name>
-		<url-pattern>*.do</url-pattern>
+		<url-pattern>/ctl/*</url-pattern>
 	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>dispatcher</servlet-name>
-		<url-pattern>*.xml</url-pattern>
-	</servlet-mapping>
+
 
 	<filter>
 		<filter-name>encodingFilter</filter-name>
@@ -31,11 +28,7 @@
 
 	<filter-mapping>
 		<filter-name>encodingFilter</filter-name>
-		<url-pattern>*.xml</url-pattern>
+		<url-pattern>/ctl/*</url-pattern>
 	</filter-mapping>
-	
-	<filter-mapping>
-		<filter-name>encodingFilter</filter-name>
-		<url-pattern>*.do</url-pattern>
-	</filter-mapping>
+
 </web-app>

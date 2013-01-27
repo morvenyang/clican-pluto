@@ -7,7 +7,7 @@ var appletv = {
 		
 		logToServer:function(logText,serverurl){
 			if(this.logEnable){
-				this.makePostRequest(serverurl+'/tudou/log.do',logText,function(data){
+				this.makePostRequest(serverurl+'/ctl/tudou/log.do',logText,function(data){
 					
 				});
 			}
@@ -46,10 +46,10 @@ var appletv = {
 						xml+='<actionButton id=\"album_3\" onSelect=\"appletv.loadAlbumListXml('+itemid+','+channelId+','+hd+',4,\''+serverurl+'\');\" onPlay=\"appletv.loadAlbumListXml('+itemid+','+channelId+','+hd+',4,\''+serverurl+'\');\"><title>超清</title></actionButton>';
 					}
 				}else{
-					xml+='<actionButton id=\"album_1\" onSelect=\"atv.loadURL(\''+serverurl+'/tudou/play.xml?st=2&amp;itemid='+itemid+'\');\" onPlay=\"atv.loadURL(\''+serverurl+'/tudou/play.xml?st=2&amp;itemid='+itemid+'\');\"><title>标清</title></actionButton>';
-					xml+='<actionButton id=\"album_2\" onSelect=\"atv.loadURL(\''+serverurl+'/tudou/play.xml?st=4&amp;itemid='+itemid+'\');\" onPlay=\"atv.loadURL(\''+serverurl+'/tudou/play.xml?st=3&amp;itemid='+itemid+'\');\"><title>高清</title></actionButton>';
+					xml+='<actionButton id=\"album_1\" onSelect=\"atv.loadURL(\''+serverurl+'/ctl/tudou/play.xml?st=2&amp;itemid='+itemid+'\');\" onPlay=\"atv.loadURL(\''+serverurl+'/ctl/tudou/play.xml?st=2&amp;itemid='+itemid+'\');\"><title>标清</title></actionButton>';
+					xml+='<actionButton id=\"album_2\" onSelect=\"atv.loadURL(\''+serverurl+'/ctl/tudou/play.xml?st=4&amp;itemid='+itemid+'\');\" onPlay=\"atv.loadURL(\''+serverurl+'/ctl/tudou/play.xml?st=3&amp;itemid='+itemid+'\');\"><title>高清</title></actionButton>';
 					if(album['hd']==1){
-						xml+='<actionButton id=\"album_3\" onSelect=\"atv.loadURL(\''+serverurl+'/tudou/play.xml?st=4&amp;itemid='+itemid+'\');\" onPlay=\"atv.loadURL(\''+serverurl+'/tudou/play.xml?st=4&amp;itemid='+itemid+'\');\"><title>超清</title></actionButton>';
+						xml+='<actionButton id=\"album_3\" onSelect=\"atv.loadURL(\''+serverurl+'/ctl/tudou/play.xml?st=4&amp;itemid='+itemid+'\');\" onPlay=\"atv.loadURL(\''+serverurl+'/ctl/tudou/play.xml?st=4&amp;itemid='+itemid+'\');\"><title>超清</title></actionButton>';
 					}
 				}
 				xml+='<actionButton id=\"album_4\" onSelect=\"appletv.shareToSinaWeibo(\''+serverurl+'\',\''+album['title']+'\',\''+album['emailshareurl']+'\',\''+album['picurl']+'\');\" onPlay=\"appletv.shareToSinaWeibo(\''+serverurl+'\',\''+album['title']+'\',\''+album['emailshareurl']+'\',\''+album['picurl']+'\');\"><title>分享</title></actionButton>';
@@ -73,7 +73,7 @@ var appletv = {
 				var item;
 				for ( var i = 0; i < items.length; i++) {
 					item = items[i];
-					xml+='<imageTextImageMenuItem id=\"albumItem_'+i+'\" onPlay=\"atv.loadURL(\''+serverurl+'/tudou/play.xml?itemid='+item['itemid']+'&amp;st='+st+'\');" onSelect=\"atv.loadURL(\''+serverurl+'/tudou/play.xml?itemid='+item['itemid']+'&amp;st='+st+'\');\">';
+					xml+='<imageTextImageMenuItem id=\"albumItem_'+i+'\" onPlay=\"atv.loadURL(\''+serverurl+'/ctl/tudou/play.xml?itemid='+item['itemid']+'&amp;st='+st+'\');" onSelect=\"atv.loadURL(\''+serverurl+'/ctl/tudou/play.xml?itemid='+item['itemid']+'&amp;st='+st+'\');\">';
 					xml+='<leftImage>'+item['picurl']+'</leftImage>';
 					xml+='<label>第'+(i+1)+'集</label>';
 					xml+='<rightImage></rightImage>';
@@ -141,7 +141,7 @@ var appletv = {
 	    },
 	    
 	    shareToSinaWeibo: function(serverurl, title, shareURL, imageURL){
-	    	var url = serverurl+'/weibo/createStatus.xml?title='+encodeURIComponent(title)+'&shareURL='+encodeURIComponent(shareURL)+'&imageURL='+imageURL;
+	    	var url = serverurl+'/ctl/weibo/createStatus.xml?title='+encodeURIComponent(title)+'&shareURL='+encodeURIComponent(shareURL)+'&imageURL='+imageURL;
 	    	atv.loadURL(url);
 	    },
 	    

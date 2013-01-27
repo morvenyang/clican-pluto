@@ -190,7 +190,7 @@ var qqClient ={
 	    },
 	    
 	    loadSearchPage: function(){
-	    	var queryUrl = serverurl+'/qq/keywrodsearchlist.xml?q='
+	    	var queryUrl = serverurl+'/ctl/qq/keywrodsearchlist.xml?q='
 			xml = '<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd"><plist version="1.0"><dict><key>merchant</key><string>ottnt</string><key>identifier</key><string>com.atvttvv.vweb.search</string><key>page-type</key><dict><key>template-name</key><string>search</string><key>template-parameters</key><dict><key>header</key><dict><key>type</key><string>simple-header</string><key>title</key><string>搜索</string><key>subtitle</key><string></string></dict></dict></dict><key>url</key><string>'+queryUrl+'</string></dict></plist>';
 			atv.loadPlist(xml);
 	    },

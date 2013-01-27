@@ -3,7 +3,7 @@
 	<head><script src="${serverurl}/javascript/clican.js"/></head>
 	<body>
     	<search id="search" showPreview="true">
-  			<baseURL>${serverurl}/tudou/keywrodsearchlist.xml?q=</baseURL>
+  			<baseURL>${serverurl}/ctl/tudou/keywrodsearchlist.xml?q=</baseURL>
   			<header>
   				<simpleHeader>
   					<title>搜索</title>

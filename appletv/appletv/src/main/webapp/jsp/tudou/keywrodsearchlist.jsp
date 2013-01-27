@@ -21,7 +21,7 @@
 							<key>parameters</key>
 							<dict>
 							<key>url</key>
-							<string>${serverurl}/tudou/index.xml?channelId=1001&amp;keyword=${keyword.urlValue}</string>
+							<string>${serverurl}/ctl/tudou/index.xml?channelId=1001&amp;keyword=${keyword.urlValue}</string>
 							</dict>
 						</dict>
 						<key>plan</key>
@@ -31,7 +31,7 @@
 							<key>parameters</key>
 							<dict>
 							<key>url</key>
-							<string>${serverurl}/tudou/index.xml?channelId=1001&amp;keyword=${keyword.urlValue}</string>
+							<string>${serverurl}/ctl/tudou/index.xml?channelId=1001&amp;keyword=${keyword.urlValue}</string>
 							</dict>
 						</dict>
 					</dict>
