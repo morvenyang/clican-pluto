@@ -136,14 +136,15 @@ public class TaobaoController {
 	@RequestMapping("/taobao/item.xml")
 	public String itemPage(HttpServletRequest request,
 			HttpServletResponse response,
-			@RequestParam(value = "itemId", required = false) Long itemId)
+			@RequestParam(value = "itemId", required = false) Long itemId,
+			@RequestParam(value = "volume", required = false) Long volume)
 			throws Exception {
 		if (log.isDebugEnabled()) {
 			log.debug("access item :" + itemId);
 		}
 
 		TaobaokeItemsDetailGetRequest req = new TaobaokeItemsDetailGetRequest();
-		req.setFields("click_url,shop_click_url,seller_credit_score,num_iid,title,nick");
+		req.setFields("num_iid,title,nick,desc,location,price,post_fee,express_fee,ems_fee,item_imgs,videos,pic_url,stuff_status");
 		req.setNumIids(itemId.toString());
 		TaobaokeItemsDetailGetResponse resp = taobaoRestClient.execute(req);
 		List<TaobaokeItemDetail> list = resp.getTaobaokeItemDetails();
@@ -151,6 +152,8 @@ public class TaobaoController {
 		if (list.size() == 0) {
 			return "taobao/noresult";
 		} else {
+			TaobaokeItemDetail detail = list.get(0);
+			detail.getItem().setVolume(volume);
 			request.setAttribute("itemDetail", list.get(0));
 			return "taobao/item";
 		}

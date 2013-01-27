@@ -3,7 +3,7 @@
 <body>
 <itemDetail id="itemdetail">
 			<title><![CDATA[${itemDetail.item.title}]]></title>
-			<summary>${itemDetail.item.desc}</summary>
+			<summary></summary>
 			<image style="moviePoster">${itemDetail.item.picUrl}</image>
 			<table>
 				<columnDefinitions><columnDefinition width="100"><title>其他信息</title></columnDefinition></columnDefinitions>
@@ -21,6 +21,7 @@
 						<row><label><![CDATA[宝贝类型:闲置]]></label></row>
 					</c:if>
 					<row><label><![CDATA[所在地区:${itemDetail.item.location.city}]]></label></row>
+					<row><label><![CDATA[掌柜:${itemDetail.item.nick}]]></label></row>
 				</rows>
 			</table>
 			<centerShelf>
