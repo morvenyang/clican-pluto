@@ -20,14 +20,19 @@ import com.taobao.api.response.ItemcatsGetResponse;
 
 public class TaobaoClientImpl extends BaseClient implements TaobaoClient {
 
-	private List<TaobaoCategory> taobaoCategoryList = new ArrayList<TaobaoCategory>();
-
 	private Map<Long, TaobaoCategory> taobaoCategoryMap = new HashMap<Long, TaobaoCategory>();
 
 	private com.taobao.api.TaobaoClient taobaoRestClient;
 
+	private List<TaobaoCategory> taobaoTopCategoryList;
+
 	public void setTaobaoRestClient(com.taobao.api.TaobaoClient taobaoRestClient) {
 		this.taobaoRestClient = taobaoRestClient;
+	}
+
+	public void setTaobaoTopCategoryList(
+			List<TaobaoCategory> taobaoTopCategoryList) {
+		this.taobaoTopCategoryList = taobaoTopCategoryList;
 	}
 
 	@Override
@@ -69,34 +74,40 @@ public class TaobaoClientImpl extends BaseClient implements TaobaoClient {
 				List<TaobaoCategory> result = (List<TaobaoCategory>) JSONArray
 						.toList(JSONArray.fromObject(content),
 								TaobaoCategory.class, classMap);
-				taobaoCategoryList = result;
+				taobaoTopCategoryList = result;
 			} else {
 				ItemcatsGetRequest req = new ItemcatsGetRequest();
 				req.setFields("cid,parent_cid,name,is_parent");
 				req.setParentCid(0L);
 				ItemcatsGetResponse response = taobaoRestClient.execute(req);
 				List<ItemCat> cats = response.getItemCats();
-				Map<String, Long> catMap = new HashMap<String, Long>();
+				Map<Long, ItemCat> catMap = new HashMap<Long, ItemCat>();
 				for (ItemCat ic : cats) {
-					catMap.put(ic.getName(), ic.getCid());
-					log.debug("0###name:" + ic.getName() + ",cid:"
-							+ ic.getCid());
+					catMap.put(ic.getCid(), ic);
 				}
-				String url = springProperty.getTaobaoTopCategoryUrl();
-				String jsonContent = this.httpGet(url);
-				JSONArray jsonArray = JSONArray.fromObject(jsonContent);
-				for (int i = 2; i < jsonArray.size(); i++) {
-					JSONObject category = jsonArray.getJSONObject(i);
-					TaobaoCategory taobaoCategory = convertToTaobaoCategory(
-							category, catMap);
-					taobaoCategory.setId((long) -i);
-					taobaoCategoryList.add(taobaoCategory);
+				for (TaobaoCategory tc : taobaoTopCategoryList) {
+					for (Long cid : tc.getChildrenCids()) {
+						TaobaoCategory child = new TaobaoCategory();
+						ItemCat ic = catMap.get(cid);
+						child.setTitle(ic.getName());
+						child.setId(ic.getCid());
+						tc.getChildren().add(child);
+						req.setParentCid(ic.getCid());
+						ItemcatsGetResponse resp = taobaoRestClient.execute(req);
+						List<ItemCat> itemCats = resp.getItemCats();
+						for(ItemCat i:itemCats){
+							TaobaoCategory c = new TaobaoCategory();
+							c.setTitle(i.getName());
+							c.setId(i.getCid());
+							child.getChildren().add(c);
+						}
+					}
 				}
-				String content = JSONArray.fromObject(taobaoCategoryList)
+				String content = JSONArray.fromObject(taobaoTopCategoryList)
 						.toString();
 				FileUtils.write(taobaoCategoryJsonFile, content, "utf-8");
 			}
-			for (TaobaoCategory tc1 : taobaoCategoryList) {
+			for (TaobaoCategory tc1 : taobaoTopCategoryList) {
 				this.taobaoCategoryMap.put(tc1.getId(), tc1);
 				if (tc1.getChildren() != null && tc1.getChildren().size() > 0) {
 					for (TaobaoCategory tc2 : tc1.getChildren()) {
@@ -116,85 +127,11 @@ public class TaobaoClientImpl extends BaseClient implements TaobaoClient {
 
 	}
 
-	private TaobaoCategory convertToTaobaoCategory(JSONObject category,
-			Map<String, Long> catMap) throws Exception {
-		TaobaoCategory tc = new TaobaoCategory();
-		List<TaobaoCategory> tcc = new ArrayList<TaobaoCategory>();
-		tc.setChildren(tcc);
-		tc.setTitle(category.getString("title"));
-		if (category.containsKey("subtitle")) {
-			tc.setSubTitle("subtitle");
-		}
-		tc.setPicUrl(category.getString("pic_url_2x"));
-		JSONArray children = category.getJSONArray("children");
-		for (int i = 0; i < children.size(); i++) {
-			JSONObject child = children.getJSONObject(i);
-			TaobaoCategory t = new TaobaoCategory();
-			List<TaobaoCategory> tcci = new ArrayList<TaobaoCategory>();
-			t.setChildren(tcci);
-			t.setTitle(child.getString("title"));
-			Long wrongId = child.getLong("catid");
-			Long correctId = catMap.get(t.getTitle());
-
-			boolean notfound = false;
-			if (correctId != null && !correctId.equals(wrongId)) {
-				t.setId(correctId);
-				if (log.isDebugEnabled()) {
-					log.debug("Replace###correctId:" + correctId + ",wrongId:"
-							+ wrongId + ",title:" + t.getTitle());
-				}
-			} else if (correctId != null && correctId.equals(wrongId)) {
-				t.setId(correctId);
-				if (log.isDebugEnabled()) {
-					log.debug("NoReplace###correctId:" + correctId
-							+ ",wrongId:" + wrongId + ",title:" + t.getTitle());
-				}
-			} else {
-				t.setId(wrongId);
-				notfound = true;
-			}
-
-			t.setHasChild(!child.getBoolean("no_child"));
-			tcc.add(t);
-			if (t.isHasChild()) {
-				ItemcatsGetRequest req = new ItemcatsGetRequest();
-				req.setFields("cid,parent_cid,name,is_parent");
-				req.setParentCid(t.getId());
-				ItemcatsGetResponse response = taobaoRestClient.execute(req);
-				List<ItemCat> itemCats = response.getItemCats();
-				if (itemCats != null) {
-					for (ItemCat ic : itemCats) {
-						TaobaoCategory tci = new TaobaoCategory();
-						tci.setTitle(ic.getName());
-						tci.setId(ic.getCid());
-						tcci.add(tci);
-					}
-				} else {
-					t.setHasChild(false);
-				}
-			}
-
-			if (notfound) {
-				if (log.isDebugEnabled()) {
-					if (t.getChildren() == null || t.getChildren().size() == 0) {
-						log.debug("NotFoundWithoutChildren###correctId:"
-								+ correctId + ",wrongId:" + wrongId + ",title:"
-								+ t.getTitle());
-					} else {
-						log.debug("NotFoundButHasChildren###correctId:"
-								+ correctId + ",wrongId:" + wrongId + ",title:"
-								+ t.getTitle());
-					}
-
-				}
-			}
-		}
-		return tc;
-	}
+	
 
 	@Override
 	public List<TaobaoCategory> getTopCategories() {
-		return this.taobaoCategoryList;
+		return this.taobaoTopCategoryList;
 	}
 
 	@Override
