@@ -10,6 +10,7 @@ public class TaobaoCategory {
 	private boolean hasChild;
 	private String picUrl;
 	private List<TaobaoCategory> children;
+	private Long[] childrenCids;
 
 	public Long getId() {
 		return id;
@@ -57,6 +58,14 @@ public class TaobaoCategory {
 
 	public void setChildren(List<TaobaoCategory> children) {
 		this.children = children;
+	}
+
+	public Long[] getChildrenCids() {
+		return childrenCids;
+	}
+
+	public void setChildrenCids(Long[] childrenCids) {
+		this.childrenCids = childrenCids;
 	}
 
 	public static void toString(List<TaobaoCategory> list, StringBuffer sb,

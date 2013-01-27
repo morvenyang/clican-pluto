@@ -38,8 +38,7 @@ public class TaobaoTestCase extends BaseServiceTestCase {
 	public void testGetCategorysByParentId() throws Exception {
 		ItemcatsGetRequest req = new ItemcatsGetRequest();
 		req.setFields("cid,parent_cid,name,is_parent");
-		req.setParentCid(50035978L);
-		//req.setCids("50035978");
+		req.setParentCid(50065355L);
 		ItemcatsGetResponse response = taobaoRestClient.execute(req);
 		List<ItemCat> itemCats = response.getItemCats();
 		log.debug(itemCats.size());
