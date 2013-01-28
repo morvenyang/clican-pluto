@@ -6,6 +6,7 @@ import net.sf.json.JSONObject;
 import org.apache.commons.lang.StringUtils;
 
 import com.clican.appletv.common.Music;
+import com.clican.appletv.common.PostResponse;
 import com.clican.appletv.core.service.BaseClient;
 
 public class SinaClientImpl extends BaseClient implements SinaClient {
@@ -14,8 +15,9 @@ public class SinaClientImpl extends BaseClient implements SinaClient {
 	public Music getMusic(String musicId) {
 
 		String url = this.springProperty.getSinaMusicApi();
-		String jsonContent = this.httpPost(url, "id[]="+musicId,
+		PostResponse pr = this.httpPost(url, "id[]=" + musicId, null,
 				"application/x-www-form-urlencoded", "utf-8", null, null);
+		String jsonContent = pr.getContent();
 		if (StringUtils.isEmpty(jsonContent)) {
 			return null;
 		}
@@ -26,12 +28,14 @@ public class SinaClientImpl extends BaseClient implements SinaClient {
 			JSONObject result = resultArray.getJSONObject(0);
 			sinaMusic.setName(result.getString("NAME"));
 			sinaMusic.setSingerName(result.getString("SINGERCNAME"));
-			if(result.containsKey("SINGERPHOTO")&&StringUtils.isNotEmpty(result.getString("SINGERPHOTO"))){
+			if (result.containsKey("SINGERPHOTO")
+					&& StringUtils.isNotEmpty(result.getString("SINGERPHOTO"))) {
 				sinaMusic.setSingerPhoto(result.getString("SINGERPHOTO"));
-			}else if(result.containsKey("ALBUMPHOTO")&&StringUtils.isNotEmpty(result.getString("ALBUMPHOTO"))){
+			} else if (result.containsKey("ALBUMPHOTO")
+					&& StringUtils.isNotEmpty(result.getString("ALBUMPHOTO"))) {
 				sinaMusic.setSingerPhoto(result.getString("ALBUMPHOTO"));
 			}
-			
+
 			sinaMusic.setStyle(result.getString("STYLE"));
 			sinaMusic.setAlbumName(result.getString("ALBUMCNAME"));
 			sinaMusic.setMp3Url(result.getString("MP3_URL"));
