@@ -6,7 +6,7 @@ import java.util.Map;
 public class PostResponse {
 
 	private String content;
-	private String cookies;
+	private Map<String, String> cookieMap = new HashMap<String, String>();
 	private int status;
 
 	public String getContent() {
@@ -17,15 +17,6 @@ public class PostResponse {
 		this.content = content;
 	}
 
-
-	public String getCookies() {
-		return cookies;
-	}
-
-	public void setCookies(String cookies) {
-		this.cookies = cookies;
-	}
-
 	public int getStatus() {
 		return status;
 	}
@@ -34,5 +25,19 @@ public class PostResponse {
 		this.status = status;
 	}
 
-	
+	public Map<String, String> getCookieMap() {
+		return cookieMap;
+	}
+
+	public void setCookieMap(Map<String, String> cookieMap) {
+		this.cookieMap = cookieMap;
+	}
+
+	public String getCookieString() {
+		String result = "";
+		for (String key : cookieMap.keySet()) {
+			result += key + "=" + cookieMap.get(key) + ";";
+		}
+		return result;
+	}
 }

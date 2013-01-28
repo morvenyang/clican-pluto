@@ -1,6 +1,5 @@
 package com.clican.appletv.service;
 
-import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -71,24 +70,20 @@ public class TaobaoTestCase extends BaseServiceTestCase {
 		// client.httpGet("http://i.taobao.com/my_taobao.htm",header,null);
 		// log.debug(content);
 		Map<String, String> header2 = new HashMap<String, String>();
-		header2.put("Cookie", pr.getCookies());
+		header2.put("Cookie", pr.getCookieString());
 		// String content2 =
 		// client.httpGet("http://favorite.taobao.com/collect_list.htm",header2,null);
-		//http://favorite.taobao.com/json/collect_list_chunk.htm?itemtype=1&isBigImgShow=true&orderby=time&startrow=0&chunkSize=12&chunkNum=1&deleNum=0
-		PostResponse pr2 = client
-				.httpGetForCookie(
-						"http://favorite.taobao.com/collect_list.htm",
-						header2, null);
+		// http://favorite.taobao.com/json/collect_list_chunk.htm?itemtype=1&isBigImgShow=true&orderby=time&startrow=0&chunkSize=12&chunkNum=1&deleNum=0
+		PostResponse pr2 = client.httpGetForCookie(
+				"http://favorite.taobao.com/collect_list.htm", header2, null);
 		log.debug(pr2.getContent());
-		int start = pr2.getCookies().indexOf("_tb_token_=")
-				+ "_tb_token_=".length();
-		int end = pr2.getCookies().indexOf(";", start);
-		String token = pr2.getCookies().substring(start, end);
-		
+		String token = pr2.getCookieMap().get("_tb_token_");
+		log.debug("token=" + token);
+		assertNotNull(token);
+		taobaoClient.addFavorite(1, 1, null, null, 12729301574L,"_tb_token_="+token+";"+ pr.getCookieString(), token);
 	}
 
 	public void testAddFavorite() throws Exception {
-		taobaoClient.addFavorite(1, 1, null, null, 18180872462L,
-				null, null);
+		taobaoClient.addFavorite(1, 1, null, null, 18180872462L, null, null);
 	}
 }

@@ -141,7 +141,7 @@ public class TaobaoClientImpl extends BaseClient implements TaobaoClient {
 		nameValueMap.put("isLp", "");
 		nameValueMap.put("isTaohua", "");
 		nameValueMap.put("id", id.toString());
-		nameValueMap.put("_tb_token_", "e71bee60b53ae");
+		nameValueMap.put("_tb_token_", token);
 		Map<String, String> header = new HashMap<String, String>();
 		String c = "_tb_token_=f3d3a11f7e5eb;  t=e61a4f0b9d46d01f9bf1714203a1b1f1; unb=82478075; _nk_=clicanclican; _l_g_=Ug%3D%3D; cookie2=86db46da144cc35e0410bd51e28862f9; tracknick=clicanclican; sg=n5f; lastgetwwmsg=MTM1OTM2NDI0Mg%3D%3D; cookie1=VAFYwFXZxCjbTmyCB%2BKJXAKeZjYGL0WQ%2BK6Ce3BP1YE%3D; cookie17=W8twrd9AJm0%3D; l=clicanclican::1359367854907::11; x=e%3D1%26p%3D*%26s%3D0%26c%3D0%26f%3D0%26g%3D0%26t%3D0; uc1=lltime=1359363765&cookie14=UoLZVdan01UWGA%3D%3D&existShop=false&cookie16=UIHiLt3xCS3yM2h4eKHS9lpEOw%3D%3D&cookie21=W5iHLLyFe3xm&tag=1&cookie15=U%2BGCWk%2F75gdr5Q%3D%3D; mpp=t%3D1%26m%3D%26h%3D1359364384131%26l%3D1359364251900";
 		c = "_tb_token_=f3d3a11f7e5eb;   _l_g_=Ug%3D%3D; cookie2=86db46da144cc35e0410bd51e28862f9; tracknick=clicanclican; sg=n5f; lastgetwwmsg=MTM1OTM2NDI0Mg%3D%3D; cookie1=VAFYwFXZxCjbTmyCB%2BKJXAKeZjYGL0WQ%2BK6Ce3BP1YE%3D; cookie17=W8twrd9AJm0%3D; l=clicanclican::1359367854907::11; x=e%3D1%26p%3D*%26s%3D0%26c%3D0%26f%3D0%26g%3D0%26t%3D0; uc1=lltime=1359363765&cookie14=UoLZVdan01UWGA%3D%3D&existShop=false&cookie16=UIHiLt3xCS3yM2h4eKHS9lpEOw%3D%3D&cookie21=W5iHLLyFe3xm&tag=1&cookie15=U%2BGCWk%2F75gdr5Q%3D%3D; mpp=t%3D1%26m%3D%26h%3D1359364384131%26l%3D1359364251900";
@@ -155,7 +155,7 @@ public class TaobaoClientImpl extends BaseClient implements TaobaoClient {
 		c = "_tb_token_=f3d3a11f7e5eb; cookie2=86db46da144cc35e0410bd51e28862f9; sg=n5f;  cookie1=VAFYwFXZxCjbTmyCB%2BKJXAKeZjYGL0WQ%2BK6Ce3BP1YE%3D; cookie17=W8twrd9AJm0%3D;  uc1=lltime=1359364242&cookie14=UoLZVdan01CPCA%3D%3D&existShop=false&cookie16=VT5L2FSpNgq6fDudInPRgavC%2BQ%3D%3D&cookie21=V32FPkk%2FgPzW&tag=1&cookie15=U%2BGCWk%2F75gdr5Q%3D%3D; ";
 		c = "_tb_token_=f3d3a11f7e5eb; cookie2=86db46da144cc35e0410bd51e28862f9; sg=n5f;  cookie1=VAFYwFXZxCjbTmyCB%2BKJXAKeZjYGL0WQ%2BK6Ce3BP1YE%3D; cookie17=W8twrd9AJm0%3D;  uc1=lltime=1359364242&cookie14=UoLZVdan01CPCA%3D%3D&existShop=false&cookie16=VT5L2FSpNgq6fDudInPRgavC%2BQ%3D%3D&cookie21=V32FPkk%2FgPzW&tag=1&cookie15=U%2BGCWk%2F75gdr5Q%3D%3D;";
 		c = "_tb_token_=e71bee60b53ae; cookie2=6a5e831e3602512995fcad906ea7c47d; sg=n5f;  cookie1=VAFYwFXZxCjbTmyCB%2BKJXAKeZjYGL0WQ%2BK6Ce3BP1YE%3D; cookie17=W8twrd9AJm0%3D;  uc1=lltime=1359364696&cookie14=UoLZVdan0rkVxQ%3D%3D&existShop=false&cookie16=Vq8l%2BKCLySLZMFWHxqs8fwqnEw%3D%3D&cookie21=W5iHLLyFe3xm&tag=1&cookie15=URm48syIIVrSKA%3D%3D;";
-		header.put("Cookie", c);
+		header.put("Cookie", cookie);
 		// String url =
 		// "http://favorite.taobao.com/popup/add_collection.htm?id=12729301574&itemtype=1&scjjc=1&_tb_token_="+token+"&t="+Calendar.getInstance().getTimeInMillis();
 		// header.put(
