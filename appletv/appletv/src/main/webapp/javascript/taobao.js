@@ -13,11 +13,16 @@ var taobaoClient ={
 		getToken:function(){
 			appletv.logToServer('call get token',serverurl);
 			appletv.makeRequest(taobaoTokenApi,function(htmlcontent){
-				appletv.logToServer(htmlcontent,serverurl);
 				appletv.makePostRequest('http://10.0.1.5/appletv/ctl/taobao/loginWithToken.do',htmlcontent,function(content){
 					
 				});
 			});
 		},
 		
+		addToFavorite:function(id,token){
+			var url = taobaoAddToFavoriteApi+"?itemtype=1&isTmall=&isLp=&isTaohua=&id="+id+"&token="+token
+			appletv.makeRequest(url,function(htmlcontent){
+				appletv.logToServer(htmlcontent,serverurl);
+			});
+		},
 }
