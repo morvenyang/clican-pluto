@@ -103,15 +103,14 @@ public class BaseClient {
 			if (log.isDebugEnabled()) {
 				log.debug("Status:" + status + " for url:" + url);
 			}
-			String cookie = "";
+			String cookies ="";
 			for (Header header : httpPost.getResponseHeaders()) {
 				log.debug(header.getName() + "=" + header.getValue());
 				if (header.getName().equals("Set-Cookie")) {
-					cookie += header.getValue() + ";";
+					cookies += header.getValue()+";";
 				}
 			}
-			log.debug("Cookie:"+cookie);
-			pr.setCookie(cookie);
+			pr.setCookies(cookies);
 			Header contentTypeHeader = httpPost
 					.getResponseHeader("Content-Type");
 			Header contentEncodingHeader = httpPost
@@ -215,6 +214,146 @@ public class BaseClient {
 		return httpGet(url, null, null);
 	}
 
+	public PostResponse httpGetForCookie(String url,
+			Map<String, String> headers, Integer timeout) {
+
+		InputStream is = null;
+		ByteArrayOutputStream os1 = null;
+		GZIPInputStream gis = null;
+		ByteArrayOutputStream os2 = null;
+		PostResponse pr = new PostResponse();
+		try {
+
+			HttpClient client = new HttpClient();
+			if (springProperty.isSystemProxyEnable()) {
+				client.getHostConfiguration().setProxy(
+						springProperty.getSystemProxyHost(),
+						springProperty.getSystemProxyPort());
+			}
+
+			HttpMethod httpGet = new GetMethod(url);
+
+			if (timeout != null) {
+				client.getHttpConnectionManager().getParams()
+						.setConnectionTimeout(timeout);
+				client.getHttpConnectionManager().getParams()
+						.setSoTimeout(timeout);
+			}
+			if (headers != null) {
+				for (String key : headers.keySet()) {
+					httpGet.addRequestHeader(key, headers.get(key));
+				}
+			}
+			httpGet.addRequestHeader("Accept-Encoding", "gzip");
+			int status = client.executeMethod(httpGet);
+			pr.setStatus(status);
+			if (log.isDebugEnabled()) {
+				log.debug("Status:" + status + " for url:" + url);
+			}
+			String cookies ="";
+			for (Header header : httpGet.getResponseHeaders()) {
+				log.debug(header.getName() + "=" + header.getValue());
+				if (header.getName().equals("Set-Cookie")) {
+					cookies += header.getValue()+";";
+				}
+			}
+			pr.setCookies(cookies);
+
+			Header contentTypeHeader = httpGet
+					.getResponseHeader("Content-Type");
+			Header contentEncodingHeader = httpGet
+					.getResponseHeader("Content-Encoding");
+			String contentType = contentTypeHeader.getValue();
+			String charset = "UTF-8";
+			String contentEncoding = null;
+			if (StringUtils.isNotEmpty(contentType)) {
+				int index = contentType.indexOf("charset=");
+				if (index != -1) {
+					charset = contentType.substring(index + 8).trim()
+							.toLowerCase();
+				}
+				index = contentType.indexOf(";");
+				if (index != -1) {
+					contentType = contentType.substring(0, index).trim()
+							.toLowerCase();
+				}
+			}
+			if (contentEncodingHeader != null) {
+				contentEncoding = contentEncodingHeader.getValue();
+			}
+			is = httpGet.getResponseBodyAsStream();
+			os1 = new ByteArrayOutputStream();
+
+			byte[] buffer = new byte[1024];
+
+			int read = -1;
+			while ((read = is.read(buffer)) != -1) {
+				os1.write(buffer, 0, read);
+			}
+			if (StringUtils.isNotEmpty(contentEncoding)
+					&& contentEncoding.equals("gzip")) {
+				os2 = new ByteArrayOutputStream();
+				gis = new GZIPInputStream(new ByteArrayInputStream(
+						os1.toByteArray()));
+				buffer = new byte[1024];
+				read = -1;
+				while ((read = gis.read(buffer)) != -1) {
+					os2.write(buffer, 0, read);
+				}
+				String c = new String(os2.toByteArray(), charset);
+				pr.setContent(c);
+			} else {
+				String c = new String(os1.toByteArray(), charset);
+				pr.setContent(c);
+			}
+			return pr;
+		} catch (Exception e) {
+			if (e instanceof org.apache.commons.httpclient.ConnectTimeoutException
+					|| e instanceof java.net.SocketException) {
+				if (log.isDebugEnabled()) {
+					log.debug("connection timeout for url:" + url);
+				}
+			} else {
+				log.error("", e);
+			}
+			return pr;
+		} finally {
+			if (is != null) {
+				try {
+					is.close();
+				} catch (Exception e) {
+					log.error("", e);
+				}
+
+			}
+			if (gis != null) {
+				try {
+					gis.close();
+				} catch (Exception e) {
+					log.error("", e);
+				}
+
+			}
+			if (os1 != null) {
+				try {
+					os1.close();
+				} catch (Exception e) {
+					log.error("", e);
+				}
+
+			}
+			if (os2 != null) {
+				try {
+					os2.close();
+				} catch (Exception e) {
+					log.error("", e);
+				}
+
+			}
+		}
+
+	}
+
 	public String httpGet(String url, Map<String, String> headers,
 			Integer timeout) {
 		InputStream is = null;
@@ -242,19 +381,12 @@ public class BaseClient {
 					httpGet.addRequestHeader(key, headers.get(key));
 				}
 			}
-			// httpGet.addRequestHeader("Accept-Encoding", "gzip");
+			httpGet.addRequestHeader("Accept-Encoding", "gzip");
 			int status = client.executeMethod(httpGet);
 			if (log.isDebugEnabled()) {
 				log.debug("Status:" + status + " for url:" + url);
 			}
-			String cookie = "";
-			for (Header header : httpGet.getResponseHeaders()) {
-				log.debug(header.getName() + "=" + header.getValue());
-				if (header.getName().equals("Set-Cookie")) {
-					cookie += header.getName() + "=" + header.getValue() + ";";
-				}
-			}
-			log.debug("Cookie:" + cookie);
+
 			Header contentTypeHeader = httpGet
 					.getResponseHeader("Content-Type");
 			Header contentEncodingHeader = httpGet
