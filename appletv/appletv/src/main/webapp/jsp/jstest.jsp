@@ -6,11 +6,14 @@
 <script type="text/javascript" src="<%=request.getAttribute("serverurl")%>/javascript/clican.js?ver=1"></script>
 <script type="text/javascript" src="<%=request.getAttribute("serverurl")%>/javascript/qq.js?ver=2"></script>
 <script type="text/javascript" src="<%=request.getAttribute("serverurl")%>/javascript/ejs.js"></script>
+<script type="text/javascript" src="<%=request.getAttribute("serverurl")%>/javascript/taobao.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
-<input type="button" onclick="qqClient.loadIndexPage('',0,3);" value="测试"/>
+<input type="button" onclick="taobaoClient.login('clicanclican','clican@810428');" value="淘宝登陆"/>
+<input type="button" onclick="taobaoClient.getToken();" value="获取令牌"/>
+<input type="button" onclick="taobaoClient.addToFavorite('12729301574','')" value="收藏"/>
 <input type="button" onclick="qqClient.loadIndexPage(1,1,14);" value="电影"/>
 <input type="button" onclick="qqClient.loadIndexPage('黑猫警长',0,1001);" value="查询"/>
 <input type="button" onclick="qqClient.loadAlbumPage('hcjk4lpe3pnn84e');" value="剧集"/>
