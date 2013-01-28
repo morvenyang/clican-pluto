@@ -113,40 +113,7 @@ var appletv = {
 	        return xhr;
 	    },
 	    
-	    makeRequestWithHeadResponse: function(url,headerName,callback) {
-	        if ( !url ) {
-	            throw "loadURL requires a url argument";
-	        }
-	        var xhr = new XMLHttpRequest();
-	        xhr.onreadystatechange = function() {
-	            try {
-	                if (xhr.readyState == 4 ) {
-	                    if ( xhr.status == 200) {
-	                    	_tb_token_
-	                        callback(xhr.responseText);
-	                    } else {
-	                        console.log("makeRequest received HTTP status " + xhr.status + " for " + url);
-	                        callback(null);
-	                    }
-	                }
-	            } catch (e) {
-	                console.error('makeRequest caught exception while processing request for ' + url + '. Aborting. Exception: ' + e);
-	                xhr.abort();
-	                callback(null);
-	            }
-	        }
-	       
-	        xhr.open("GET", url, true);
-	        
-	        xhr.send();
-	        return xhr;
-	    },
-	    
 	    makePostRequest: function(url,content, callback) {
-	    	this.makePostRequest(url, content, callback,null);
-	    },
-	    
-	    makePostRequest: function(url,content, callback, headers) {
 	        if ( !url ) {
 	            throw "loadURL requires a url argument";
 	        }
@@ -168,12 +135,7 @@ var appletv = {
 	                callback(null);
 	            }
 	        }
-	        if(headers!=null){
-	        	for(var i=0;i<headers.length;i++){
-	        		xhr.setRequestHeader(headers[i]['name'],headers[i]['value']);
-	        		appletv.logToServer(headers[i]['name']+'='+headers[i]['value'], 'http://10.0.1.5/appletv')
-	        	}
-	        }
+	        
 	        xhr.open("POST", url, true);
 	        xhr.send(content);
 	        return xhr;
