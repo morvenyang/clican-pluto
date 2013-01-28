@@ -103,14 +103,21 @@ public class BaseClient {
 			if (log.isDebugEnabled()) {
 				log.debug("Status:" + status + " for url:" + url);
 			}
-			String cookies ="";
 			for (Header header : httpPost.getResponseHeaders()) {
 				log.debug(header.getName() + "=" + header.getValue());
 				if (header.getName().equals("Set-Cookie")) {
-					cookies += header.getValue()+";";
+					try {
+						String cookie = header.getValue().split(";")[0];
+						int index = cookie.indexOf("=");
+						String cookieName = cookie.substring(0,index);
+						String cookieValue = cookie.substring(index+1);
+						pr.getCookieMap().put(cookieName, cookieValue);
+					} catch (Exception e) {
+						log.debug("Error to get cookie:" + header.getName()
+								+ "=" + header.getValue());
+					}
 				}
 			}
-			pr.setCookies(cookies);
 			Header contentTypeHeader = httpPost
 					.getResponseHeader("Content-Type");
 			Header contentEncodingHeader = httpPost
@@ -250,14 +257,20 @@ public class BaseClient {
 			if (log.isDebugEnabled()) {
 				log.debug("Status:" + status + " for url:" + url);
 			}
-			String cookies ="";
 			for (Header header : httpGet.getResponseHeaders()) {
 				log.debug(header.getName() + "=" + header.getValue());
 				if (header.getName().equals("Set-Cookie")) {
-					cookies += header.getValue()+";";
+					try {
+						String cookie = header.getValue().split(";")[0];
+						String cookieName = cookie.split("=")[0];
+						String cookieValue = cookie.split("=")[1];
+						pr.getCookieMap().put(cookieName, cookieValue);
+					} catch (Exception e) {
+						log.debug("Error to get cookie:" + header.getName()
+								+ "=" + header.getValue());
+					}
 				}
 			}
-			pr.setCookies(cookies);
 
 			Header contentTypeHeader = httpGet
 					.getResponseHeader("Content-Type");
