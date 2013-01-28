@@ -132,18 +132,19 @@ public class TaobaoClientImpl extends BaseClient implements TaobaoClient {
 
 	@Override
 	public boolean addFavorite(Integer itemtype, Integer isMall, Integer isLp,
-			Integer isTaohua, Long id) {
+			Integer isTaohua, Long id, String cookie) {
 		Map<String, String> nameValueMap = new HashMap<String, String>();
 		nameValueMap.put("itemtype", "1");
 		nameValueMap.put("isTmall", "1");
 		nameValueMap.put("isLp", "");
 		nameValueMap.put("isTaohua", "");
-		nameValueMap.put("id", "18180872462");
+		nameValueMap.put("id", id.toString());
 		nameValueMap.put("_tb_token_", "ede69ee51ee17");
 		Map<String, String> header = new HashMap<String, String>();
+		// header.put("Cookie", cookie);
 		header.put(
 				"Cookie",
-				"cna=q7h7CaJDmGoCAQ/bmUsaWfGb; __utma=6906807.320180861.1359014561.1359014561.1359014561.1; __utmz=6906807.1359014561.1.1.utmcsr=mtop.taobao.com|utmccn=(referral)|utmcmd=referral|utmcct=/; v=0; tg=0; _cc_=VFC%2FuZ9ajQ%3D%3D; _l_g_=Ug%3D%3D; tracknick=clicanclican; sg=n5f; lastgetwwmsg=MTM1OTM0NzYxMg%3D%3D; mt=ci=0_1; cookie1=VAFYwFXZxCjbTmyCB%2BKJXAKeZjYGL0WQ%2BK6Ce3BP1YE%3D; cookie2=4785494734a5562015ef76a6ac1c3575; cookie17=W8twrd9AJm0%3D; t=9f05c88e7aa4b54d21d7afdafded91e9; _tb_token_=ede69ee51ee17; unb=82478075; _nk_=clicanclican; l=clicanclican::1359351317361::11; swfstore=229989; x=e%3D1%26p%3D*%26s%3D0%26c%3D1%26f%3D0%26g%3D0%26t%3D0; uc1=lltime=1359345578&cookie14=UoLZVdalI0x1ag%3D%3D&existShop=false&cookie16=URm48syIJ1yk0MX2J7mAAEhTuw%3D%3D&cookie21=UtASsssme%2BBq&tag=1&cookie15=WqG3DMC9VAQiUQ%3D%3D; mpp=t%3D1%26m%3D%26h%3D1359348476806%26l%3D1359348454372");
+				"cna=q7h7CaJDmGoCAQ/bmUsaWfGb; __utma=6906807.320180861.1359014561.1359014561.1359014561.1; __utmz=6906807.1359014561.1.1.utmcsr=mtop.taobao.com|utmccn=(referral)|utmcmd=referral|utmcct=/; v=0; mt=ci=0_1; _tb_token_=ede69ee51ee17; swfstore=229989; x=e%3D1%26p%3D*%26s%3D0%26c%3D1%26f%3D0%26g%3D0%26t%3D0; l=clicanclican::1359355944079::11; tg=0; _cc_=Vq8l%2BKCLiw%3D%3D; t=9f05c88e7aa4b54d21d7afdafded91e9; unb=82478075; _nk_=clicanclican; _l_g_=Ug%3D%3D; cookie2=4785494734a5562015ef76a6ac1c3575; tracknick=clicanclican; sg=n5f; lastgetwwmsg=MTM1OTM1MjQzOQ%3D%3D; cookie1=VAFYwFXZxCjbTmyCB%2BKJXAKeZjYGL0WQ%2BK6Ce3BP1YE%3D; cookie17=W8twrd9AJm0%3D; uc1=lltime=1359352046&cookie14=UoLZVdakrkfIIA%3D%3D&existShop=false&cookie16=UtASsssmPlP%2Ff1IHDsDaPRu%2BPw%3D%3D&cookie21=UIHiLt3xTIkz&tag=1&cookie15=UtASsssmOIJ0bQ%3D%3D;");
 		this.httpPost("http://favorite.taobao.com/popup/add_collection.htm",
 				null, nameValueMap, "application/x-www-form-urlencoded",
 				"utf-8", header, null);

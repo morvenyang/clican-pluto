@@ -105,10 +105,12 @@ public class BaseClient {
 			}
 			String cookie = "";
 			for (Header header : httpPost.getResponseHeaders()) {
-				if (header.equals("Set-Cookie")) {
-					cookie += header.getName() + "=" + header.getValue() + ";";
+				log.debug(header.getName() + "=" + header.getValue());
+				if (header.getName().equals("Set-Cookie")) {
+					cookie += header.getValue() + ";";
 				}
 			}
+			log.debug("Cookie:"+cookie);
 			pr.setCookie(cookie);
 			Header contentTypeHeader = httpPost
 					.getResponseHeader("Content-Type");
@@ -245,6 +247,14 @@ public class BaseClient {
 			if (log.isDebugEnabled()) {
 				log.debug("Status:" + status + " for url:" + url);
 			}
+			String cookie = "";
+			for (Header header : httpGet.getResponseHeaders()) {
+				log.debug(header.getName() + "=" + header.getValue());
+				if (header.getName().equals("Set-Cookie")) {
+					cookie += header.getName() + "=" + header.getValue() + ";";
+				}
+			}
+			log.debug("Cookie:" + cookie);
 			Header contentTypeHeader = httpGet
 					.getResponseHeader("Content-Type");
 			Header contentEncodingHeader = httpGet
