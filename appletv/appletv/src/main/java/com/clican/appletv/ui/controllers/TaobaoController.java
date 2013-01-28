@@ -95,7 +95,7 @@ public class TaobaoController {
 
 			Parser parser = Parser.createParser(content, "utf-8");
 			AndFilter tokenFilter = new AndFilter(new TagNameFilter("input"),
-					new HasAttributeFilter("name", "token"));
+					new HasAttributeFilter("name", "_tb_token_"));
 			NodeList list = parser.parse(tokenFilter);
 			String token = null;
 
