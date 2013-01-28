@@ -13,6 +13,7 @@ import java.util.zip.GZIPInputStream;
 import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpMethod;
+import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.StringRequestEntity;
@@ -21,6 +22,7 @@ import org.apache.commons.lang.time.DateUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.clican.appletv.common.PostResponse;
 import com.clican.appletv.common.SpringProperty;
 
 public class BaseClient {
@@ -52,13 +54,15 @@ public class BaseClient {
 		}
 	}
 
-	public String httpPost(String url, String content, String reqContentType,
+	public PostResponse httpPost(String url, String content,
+			Map<String, String> nameValuePairs, String reqContentType,
 			String reqCharset, Map<String, String> headers, Integer timeout) {
 
 		InputStream is = null;
 		ByteArrayOutputStream os1 = null;
 		GZIPInputStream gis = null;
 		ByteArrayOutputStream os2 = null;
+		PostResponse pr = new PostResponse();
 		try {
 			HttpClient client = new HttpClient();
 			if (springProperty.isSystemProxyEnable()) {
@@ -81,17 +85,40 @@ public class BaseClient {
 				}
 			}
 			httpPost.addRequestHeader("Accept-Encoding", "gzip");
-			httpPost.setRequestEntity(new StringRequestEntity(content,
-					reqContentType, reqCharset));
+			if (StringUtils.isNotEmpty(content)) {
+				httpPost.setRequestEntity(new StringRequestEntity(content,
+						reqContentType, reqCharset));
+			} else {
+				NameValuePair[] pairs = new NameValuePair[nameValuePairs.size()];
+				int i = 0;
+				for (String key : nameValuePairs.keySet()) {
+					pairs[i] = new NameValuePair(key, nameValuePairs.get(key));
+					i++;
+				}
+				httpPost.setRequestBody(pairs);
+			}
+
 			int status = client.executeMethod(httpPost);
+			pr.setStatus(status);
 			if (log.isDebugEnabled()) {
 				log.debug("Status:" + status + " for url:" + url);
 			}
+			String cookie = "";
+			for (Header header : httpPost.getResponseHeaders()) {
+				if (header.equals("Set-Cookie")) {
+					cookie += header.getName() + "=" + header.getValue() + ";";
+				}
+			}
+			pr.setCookie(cookie);
 			Header contentTypeHeader = httpPost
 					.getResponseHeader("Content-Type");
 			Header contentEncodingHeader = httpPost
 					.getResponseHeader("Content-Encoding");
-			String contentType = contentTypeHeader.getValue();
+			String contentType = null;
+			if (contentTypeHeader != null) {
+				contentType = contentTypeHeader.getValue();
+			}
+
 			String charset = "UTF-8";
 			String contentEncoding = null;
 			if (StringUtils.isNotEmpty(contentType)) {
@@ -128,11 +155,13 @@ public class BaseClient {
 				while ((read = gis.read(buffer)) != -1) {
 					os2.write(buffer, 0, read);
 				}
-				return new String(os2.toByteArray(), charset);
+				String c = new String(os2.toByteArray(), charset);
+				pr.setContent(c);
 			} else {
-				return new String(os1.toByteArray(), charset);
+				String c = new String(os1.toByteArray(), charset);
+				pr.setContent(c);
 			}
-
+			return pr;
 		} catch (Exception e) {
 			if (e instanceof org.apache.commons.httpclient.ConnectTimeoutException
 					|| e instanceof java.net.SocketException) {
@@ -142,7 +171,7 @@ public class BaseClient {
 			} else {
 				log.error("", e);
 			}
-			return null;
+			return pr;
 		} finally {
 			if (is != null) {
 				try {

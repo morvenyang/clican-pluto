@@ -147,7 +147,7 @@ public class TaobaoController {
 		}
 
 		ItemGetRequest req = new ItemGetRequest();
-		req.setFields("num_iid,title,nick,desc,location,price,post_fee,express_fee,ems_fee,item_imgs,videos,pic_url,stuff_status");
+		req.setFields("detail_url,num_iid,title,nick,desc,location,price,post_fee,express_fee,ems_fee,item_imgs,videos,pic_url,stuff_status");
 		req.setNumIid(itemId);
 		ItemGetResponse resp = taobaoRestClient.execute(req);
 		Item item = resp.getItem();
@@ -158,9 +158,13 @@ public class TaobaoController {
 		List<PromotionInItem> piiList = resp2.getPromotions()
 				.getPromotionInItem();
 		String promotion = null;
-		if (piiList.size() > 0) {
+		if (piiList != null && piiList.size() > 0) {
 			promotion = piiList.get(0).getName() + ":"
 					+ piiList.get(0).getItemPromoPrice() + "元";
+		}
+
+		if (log.isDebugEnabled()) {
+			log.debug("detail url:" + resp.getItem().getDetailUrl());
 		}
 
 		request.setAttribute("serverurl", springProperty.getSystemServerUrl());

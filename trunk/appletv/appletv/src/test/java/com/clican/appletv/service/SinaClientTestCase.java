@@ -3,6 +3,7 @@ package com.clican.appletv.service;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.clican.appletv.common.PostResponse;
 import com.clican.appletv.common.SpringProperty;
 import com.clican.appletv.core.service.BaseClient;
 import com.clican.appletv.core.service.sina.SinaClient;
@@ -49,8 +50,8 @@ public class SinaClientTestCase extends BaseServiceTestCase {
 	public void testGetSinaMusic() throws Exception {
 		BaseClient client = (BaseClient) sinaClient;
 		String url = "http://music.sina.com.cn/yueku/intro/musina_mpw_playlist.php";
-		String result = client.httpPost(url, "id[]=100059209",
+		PostResponse pr = client.httpPost(url, "id[]=100059209",null,
 				"application/x-www-form-urlencoded", "utf-8", null, null);
-		System.out.println(result);
+		log.debug(pr.getContent());
 	}
 }

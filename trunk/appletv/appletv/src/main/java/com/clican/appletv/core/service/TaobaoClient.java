@@ -10,6 +10,9 @@ public interface TaobaoClient {
 	public TaobaoAccessToken getAccessToken(String code);
 
 	public List<TaobaoCategory> getTopCategories();
-	
+
 	public List<TaobaoCategory> getCategories(Long parentId);
+
+	public boolean addFavorite(Integer itemtype, Integer isMall, Integer isLp,
+			Integer isTaohua, Long id);
 }
