@@ -13,7 +13,9 @@
 <body>
 <input type="button" onclick="taobaoClient.login('clicanclican','clican@810428');" value="淘宝登陆"/>
 <input type="button" onclick="taobaoClient.getToken();" value="获取令牌"/>
-<input type="button" onclick="taobaoClient.addToFavorite('12729301574','')" value="收藏"/>
+<input type="button" onclick="taobaoClient.addToFavorite('12729301574','<%=request.getSession().getAttribute("taobaoHtmlToken")%>');" value="收藏"/>
+<input type="button" onclick="taobaoClient.addToFavorite(21238720782,'<%=request.getSession().getAttribute("taobaoHtmlToken")%>');" value="收藏2"/>
+
 <input type="button" onclick="qqClient.loadIndexPage(1,1,14);" value="电影"/>
 <input type="button" onclick="qqClient.loadIndexPage('黑猫警长',0,1001);" value="查询"/>
 <input type="button" onclick="qqClient.loadAlbumPage('hcjk4lpe3pnn84e');" value="剧集"/>
