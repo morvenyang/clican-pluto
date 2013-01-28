@@ -1,5 +1,3 @@
-var serverurl = 'http://10.0.1.5/appletv';
-//var serverurl = 'http://15.185.225.83/appletv';
 var qqSearchApi = "http://ncgi.video.qq.com/tvideo/fcgi-bin/srh_ipad?num=30&tabid=0&plat=4&pver=2&sort=0&filter=18&otype=json&qq=&appver=2.0.0.2208&sysver=ios5.1.1&device=iPad&lang=zh_CN";
 var qqChannelApi = "http://sns.video.qq.com/fcgi-bin/dlib/dataout?sort=2&iarea=-1&itype=-1&iyear=-1&iedition=-1&pagesize=30&itrailer=-1&otype=json&version=20000&qq=&appver=2.0.0.2208&sysver=ios5.1.1&device=iPad&lang=zh_CN&timeout=0";
 var qqPlayApi = "http://vv.video.qq.com/geturl?otype=json&callback=a&qq=&appver=2.0.0.2208&sysver=ios5.1.1&device=iPad&lang=zh_CN";
@@ -136,9 +134,8 @@ var qqClient ={
 				end = 99;
 				begin = 90;
 			}
-			var data = {'channel':channel,'keyword':keyword,'begin':begin,'end':end,'channels':qqClient.qqChannels,'serverurl':serverurl,'videos':videos};
-			var xml = new EJS({url: serverurl+'/template/qq/index.ejs'}).render(data);
-			appletv.logToServer(xml,serverurl);
+			var data = {'channel':channel,'keyword':keyword,'begin':begin,'end':end,'channels':qqClient.qqChannels,'serverurl':appletv.serverurl,'videos':videos};
+			var xml = new EJS({url: appletv.serverurl+'/template/qq/index.ejs'}).render(data);
 			atv.loadAndSwapXML(atv.parseXML(xml));
 		},
 		
@@ -154,8 +151,8 @@ var qqClient ={
 					var item = {vid:contents[j]['vid'],title:contents[j]['tt']};
 					items.push(item);
 				}
-				var video = {'serverurl':serverurl,video:{'id':id,actor:JSON.stringify(result['actor']),area:result['area'],dctor:JSON.stringify(result['dctor']),pic:result['pic'],score:result['score'],title:result['tt'],year:result['year'],desc:result['desc']},'items':items};
-				var xml = new EJS({url: serverurl+'/template/qq/video.ejs'}).render(video);
+				var video = {'serverurl':appletv.serverurl,video:{'id':id,actor:JSON.stringify(result['actor']),area:result['area'],dctor:JSON.stringify(result['dctor']),pic:result['pic'],score:result['score'],title:result['tt'],year:result['year'],desc:result['desc']},'items':items};
+				var xml = new EJS({url: appletv.serverurl+'/template/qq/video.ejs'}).render(video);
 				atv.loadAndSwapXML(atv.parseXML(xml));
 			});
 		},
@@ -172,8 +169,8 @@ var qqClient ={
 					var item = {vid:contents[j]['vid'],title:contents[j]['tt']};
 					items.push(item);
 				}
-				var video = {'serverurl':serverurl,video:{'id':id,actor:JSON.stringify(result['actor']),area:result['area'],dctor:JSON.stringify(result['dctor']),pic:result['pic'],score:result['score'],title:result['tt'],year:result['year'],desc:result['desc']},'items':items};
-				var xml = new EJS({url: serverurl+'/template/qq/videoItems.ejs'}).render(video);
+				var video = {'serverurl':appletv.serverurl,video:{'id':id,actor:JSON.stringify(result['actor']),area:result['area'],dctor:JSON.stringify(result['dctor']),pic:result['pic'],score:result['score'],title:result['tt'],year:result['year'],desc:result['desc']},'items':items};
+				var xml = new EJS({url: appletv.serverurl+'/template/qq/videoItems.ejs'}).render(video);
 				atv.loadAndSwapXML(atv.parseXML(xml));
 			});
 		},
@@ -185,12 +182,12 @@ var qqClient ={
 	    		urlIndexStart += 7;
 	    		var urlIndexEnd = data.indexOf("\"",urlIndexStart);
 	    		var url = data.substring(urlIndexStart,urlIndexEnd);
-	    		atv.loadXML(appletv.makePlayXml(url,serverurl));
+	    		atv.loadXML(appletv.makePlayXml(url));
 	    	});
 	    },
 	    
 	    loadSearchPage: function(){
-	    	var queryUrl = serverurl+'/ctl/qq/keywrodsearchlist.xml?q='
+	    	var queryUrl = appletv.serverurl+'/ctl/qq/keywrodsearchlist.xml?q='
 			xml = '<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd"><plist version="1.0"><dict><key>merchant</key><string>ottnt</string><key>identifier</key><string>com.atvttvv.vweb.search</string><key>page-type</key><dict><key>template-name</key><string>search</string><key>template-parameters</key><dict><key>header</key><dict><key>type</key><string>simple-header</string><key>title</key><string>搜索</string><key>subtitle</key><string></string></dict></dict></dict><key>url</key><string>'+queryUrl+'</string></dict></plist>';
 			atv.loadPlist(xml);
 	    },
