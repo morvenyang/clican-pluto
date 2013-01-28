@@ -20,10 +20,4 @@ var taobaoClient ={
 			});
 		},
 		
-		addToFavorite:function(id,token){
-			var url = taobaoAddToFavoriteApi+"itemtype=1&isTmall=1&isLp=&isTaohua=&id="+id+"&token="+token;
-			appletv.makeRequest(url,function(content){
-				appletv.logToServer(content,serverurl);
-			});
-		},
 }
