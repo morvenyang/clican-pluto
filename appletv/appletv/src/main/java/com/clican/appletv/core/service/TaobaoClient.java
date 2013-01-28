@@ -14,5 +14,5 @@ public interface TaobaoClient {
 	public List<TaobaoCategory> getCategories(Long parentId);
 
 	public boolean addFavorite(Integer itemtype, Integer isMall, Integer isLp,
-			Integer isTaohua, Long id);
+			Integer isTaohua, Long id,String cookie);
 }
