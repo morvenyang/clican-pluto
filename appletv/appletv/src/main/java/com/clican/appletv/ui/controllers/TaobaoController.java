@@ -1,12 +1,21 @@
 package com.clican.appletv.ui.controllers;
 
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.htmlparser.Parser;
+import org.htmlparser.filters.AndFilter;
+import org.htmlparser.filters.HasAttributeFilter;
+import org.htmlparser.filters.TagNameFilter;
+import org.htmlparser.nodes.TagNode;
+import org.htmlparser.util.NodeList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,6 +40,7 @@ public class TaobaoController {
 
 	private final static Log log = LogFactory.getLog(TaobaoController.class);
 	public final static String TAOBAO_TOKEN_NAME = "taobaoAccessToken";
+	public final static String TAOBAO_HTML_TOKEN_NAME = "taobaoHtmlToken";
 	public final static String TAOBAO_USER_ID_NAME = "taobaoUserId";
 
 	@Autowired
@@ -65,6 +75,52 @@ public class TaobaoController {
 	public void login(HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
 		response.sendRedirect(springProperty.getTaobaoLoginUrl());
+	}
+
+	@RequestMapping("/taobao/loginWithToken.do")
+	public void loginWithToken(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		try {
+			InputStream is = request.getInputStream();
+			ByteArrayOutputStream os = new ByteArrayOutputStream();
+			byte[] buffer = new byte[1024];
+
+			int read = -1;
+			while ((read = is.read(buffer)) != -1) {
+				os.write(buffer, 0, read);
+			}
+			String content = new String(os.toByteArray(), "UTF-8");
+			is.close();
+			os.close();
+
+			Parser parser = Parser.createParser(content, "utf-8");
+			AndFilter tokenFilter = new AndFilter(new TagNameFilter("input"),
+					new HasAttributeFilter("name", "token"));
+			NodeList list = parser.parse(tokenFilter);
+			String token = null;
+
+			if (list.size() > 0) {
+				TagNode node = (TagNode) list.elementAt(0);
+				token = node.getAttribute("value");
+			}
+
+			if (StringUtils.isNotEmpty(token)) {
+				if (log.isDebugEnabled()) {
+					log.debug("Taobao user login successfully, with token:"
+							+ token);
+				}
+				request.getSession()
+						.setAttribute(TAOBAO_HTML_TOKEN_NAME, token);
+				response.getOutputStream().write("success".getBytes());
+			} else {
+				response.getOutputStream().write("failure".getBytes());
+				if (log.isDebugEnabled()) {
+					log.debug("Taobao user login failure");
+				}
+			}
+		} catch (Exception e) {
+			log.error("", e);
+		}
 	}
 
 	@RequestMapping("/taobao/category.xml")
