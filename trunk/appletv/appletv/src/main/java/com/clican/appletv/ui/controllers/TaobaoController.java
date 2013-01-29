@@ -128,8 +128,13 @@ public class TaobaoController {
 			HttpServletResponse response) throws Exception {
 		String token = (String) request.getSession().getAttribute(
 				TAOBAO_HTML_TOKEN_NAME);
+		if (log.isDebugEnabled()) {
+			log.debug("get token from session");
+		}
 		if (StringUtils.isNotEmpty(token)) {
 			response.getOutputStream().write(token.getBytes());
+		} else {
+			response.getOutputStream().write("".getBytes());
 		}
 	}
 
