@@ -309,7 +309,7 @@ public class TaobaoController {
 			@RequestParam(value = "shopClickUrl", required = false) String shopClickUrl)
 			throws Exception {
 		if (log.isDebugEnabled()) {
-			log.debug("access item :" + itemId);
+			log.debug("access item :" + itemId+",shopClickUrl:"+shopClickUrl);
 		}
 
 		
@@ -335,7 +335,7 @@ public class TaobaoController {
 
 		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
 		request.setAttribute("promotion", promotion);
-		request.setAttribute("shopClickUrl", shopClickUrl);
+		request.setAttribute("shopClickUrl", shopClickUrl.replaceAll("&", "&amp;"));
 		if (item == null) {
 			return "taobao/noresult";
 		} else {

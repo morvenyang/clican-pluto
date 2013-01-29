@@ -183,6 +183,15 @@ var appletv = {
 	    	}
 	    },
 	    
+	    loadURL: function(url) {
+	    	alert(url);
+	    	if(this.simulate){
+	    		window.location.href = url;
+	    	}else{
+	    		atv.loadURL(url);
+	    	}
+	    },
+	    
 	    showDialog: function(message, description) {
 	    	if(this.simulate){
 	    		alert(message);
