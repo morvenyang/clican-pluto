@@ -6,21 +6,22 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.clican.appletv.common.SpringProperty;
 
 @Controller
-public class OtherController {
-	
+public class SimulatorController {
+
 	@Autowired
 	private SpringProperty springProperty;
-	
-	@RequestMapping("/releasenote.xml")
-	public String releasenote(HttpServletRequest request,
-			HttpServletResponse response){
+
+	@RequestMapping("/simulator/input.xml")
+	public String inputPage(HttpServletRequest request,
+			HttpServletResponse response,
+			@RequestParam(value = "callback", required = false) String callback) {
+		request.setAttribute("callback", callback);
 		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
-		return "releasenote";
+		return "simulator/input";
 	}
-	
-	
 }

@@ -184,12 +184,16 @@ var appletv = {
 	    	
 	    },
 	    
-	    showSearchPage: function(label,instructions,callback) {
-	    	var textEntry  = new atv.TextEntry();
-	    	textEntry.type = 'emailAddress';
-	    	textEntry.instructions = "搜索（输入全拼，拼音首字母或者使用Remote App直接输入中文）";
-	    	textEntry.label = '关键字';
-	    	textEntry.onSubmit = callback;
-	    	textEntry.show();
+	    showSearchPage: function(label,instructions,callback,callbackName) {
+	    	if(sumulate){
+	    		window.location.href = serverurl+'/ctl/simulator/input.xml?callback='+callbackName;
+	    	}else{
+	    		var textEntry  = new atv.TextEntry();
+		    	textEntry.type = 'emailAddress';
+		    	textEntry.instructions = "搜索（输入全拼，拼音首字母或者使用Remote App直接输入中文）";
+		    	textEntry.label = '关键字';
+		    	textEntry.onSubmit = callback;
+		    	textEntry.show();
+	    	}
 	    }
 };
