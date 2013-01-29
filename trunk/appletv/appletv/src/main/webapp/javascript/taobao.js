@@ -46,7 +46,7 @@ var taobaoClient = {
 	},
 	
 	addToFavorite : function(id, token) {
-		if (token == null || token.length == 0) {
+		if (token == null || token.length == 0|| token=='null') {
 			appletv
 					.makeRequest(
 							appletv.serverurl + '/ctl/taobao/getToken.do',
@@ -65,7 +65,7 @@ var taobaoClient = {
 											+ sessiontoken;
 									appletv.makePostRequest(url, null,
 											function(htmlcontent) {
-												appletv.showDialog('收藏成功', '');
+												appletv.showDialog('收藏成功1', '');
 											});
 								}
 							});
@@ -75,6 +75,7 @@ var taobaoClient = {
 					+ "?itemtype=1&isTmall=1&isLp=&isTaohua=&id=" + id
 					+ "&_tb_token_=" + token;
 			appletv.makePostRequest(url, null, function(htmlcontent) {
+				appletv.showDialog('收藏成功2', '');
 			});
 		}
 
