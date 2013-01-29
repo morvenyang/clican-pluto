@@ -2,14 +2,20 @@ package com.clican.appletv.ui.controllers;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
+import java.net.URLDecoder;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.htmlparser.Node;
 import org.htmlparser.Parser;
 import org.htmlparser.filters.AndFilter;
 import org.htmlparser.filters.HasAttributeFilter;
@@ -81,17 +87,7 @@ public class TaobaoController {
 	public void loginWithToken(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		try {
-			InputStream is = request.getInputStream();
-			ByteArrayOutputStream os = new ByteArrayOutputStream();
-			byte[] buffer = new byte[1024];
-
-			int read = -1;
-			while ((read = is.read(buffer)) != -1) {
-				os.write(buffer, 0, read);
-			}
-			String content = new String(os.toByteArray(), "UTF-8");
-			is.close();
-			os.close();
+			String content = this.getContent(request);
 
 			Parser parser = Parser.createParser(content, "utf-8");
 			AndFilter tokenFilter = new AndFilter(new TagNameFilter("input"),
@@ -207,6 +203,70 @@ public class TaobaoController {
 		return "taobao/itemList";
 	}
 
+	private String getContent(HttpServletRequest request) throws Exception {
+		InputStream is = request.getInputStream();
+		ByteArrayOutputStream os = new ByteArrayOutputStream();
+		byte[] buffer = new byte[1024];
+
+		int read = -1;
+		while ((read = is.read(buffer)) != -1) {
+			os.write(buffer, 0, read);
+		}
+		String content = new String(os.toByteArray(), "UTF-8");
+		is.close();
+		os.close();
+		return content;
+	}
+
+	@RequestMapping("/taobao/favorite.xml")
+	public String itemListPage(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		List<TaobaokeItem> itemList = new ArrayList<TaobaokeItem>();
+		String content = this.getContent(request);
+		JSONObject json = JSONObject.fromObject(content);
+		String result = "";
+		if (json.containsKey("item")) {
+			JSONObject item = json.getJSONObject("item");
+			JSONArray items = item.getJSONArray("items");
+			for (int i = 0; i < items.size(); i++) {
+				String htmlContent = items.getString(i);
+				htmlContent = URLDecoder.decode(htmlContent, "utf-8");
+				result += htmlContent;
+			}
+		}
+		Parser parser = Parser.createParser(result, "utf-8");
+		AndFilter idFilter = new AndFilter(new TagNameFilter("li"),
+				new HasAttributeFilter("data-type", "FavItem"));
+		NodeList nodeList = parser.parse(idFilter);
+		for (int i = 0; i < nodeList.size(); i++) {
+			TaobaokeItem ti = new TaobaokeItem();
+			TagNode itemNode = ((TagNode) nodeList.elementAt(i));
+			String id = itemNode.getAttribute("data-item-id");
+			ti.setNumIid(Long.parseLong(id));
+			TagNode titleNode = (TagNode) itemNode.getChildren().elementAt(1)
+					.getFirstChild().getFirstChild();
+			ti.setTitle(titleNode.getAttribute("title"));
+			TagNode imageNode = (TagNode) itemNode.getFirstChild()
+					.getFirstChild().getFirstChild();
+			ti.setPicUrl(imageNode.getAttribute("src"));
+			TagNode priceNode = (TagNode) getChildNode(itemNode, new int[] { 1,
+					1, 0, 1, 1 });
+			ti.setPrice(priceNode.getText());
+			TagNode volumn = (TagNode) getChildNode(itemNode, new int[] { 1, 2,
+					0 });
+			String stringVolumn = volumn.getText().replaceAll("30天售出: ", "")
+					.replaceAll("件", "").trim();
+			if (StringUtils.isNumeric(stringVolumn)) {
+				ti.setVolume(Long.parseLong(stringVolumn));
+			}
+			itemList.add(ti);
+		}
+		request.setAttribute("itemList", itemList);
+
+		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
+		return "taobao/favorite";
+	}
+
 	@RequestMapping("/taobao/item.xml")
 	public String itemPage(HttpServletRequest request,
 			HttpServletResponse response,
@@ -247,6 +307,20 @@ public class TaobaoController {
 			request.setAttribute("item", item);
 			return "taobao/item";
 		}
+	}
+
+	private Node getChildNode(Node node, int[] indexs) {
+		Node r = node;
+		try {
+			for (int i = 0; i < indexs.length; i++) {
+				r = node.getChildren().elementAt(i);
+			}
+			return r;
+		} catch (Exception e) {
+			log.error("", e);
+			return null;
+		}
+
 	}
 
 }
