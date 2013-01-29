@@ -305,11 +305,10 @@ public class TaobaoController {
 	public String itemPage(HttpServletRequest request,
 			HttpServletResponse response,
 			@RequestParam(value = "itemId", required = false) Long itemId,
-			@RequestParam(value = "volume", required = false) Long volume,
-			@RequestParam(value = "shopClickUrl", required = false) String shopClickUrl)
+			@RequestParam(value = "volume", required = false) Long volume)
 			throws Exception {
 		if (log.isDebugEnabled()) {
-			log.debug("access item :" + itemId+",shopClickUrl:"+shopClickUrl);
+			log.debug("access item :" + itemId);
 		}
 
 		
@@ -335,7 +334,6 @@ public class TaobaoController {
 
 		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
 		request.setAttribute("promotion", promotion);
-		request.setAttribute("shopClickUrl", shopClickUrl.replaceAll("&", "&amp;"));
 		if (item == null) {
 			return "taobao/noresult";
 		} else {
