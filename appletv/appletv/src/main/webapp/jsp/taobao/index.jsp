@@ -3,15 +3,19 @@
 <body>
 <scroller id="com.sample.movie-shelf">
 	<items>
-		<grid id="grid_2" columnCount="3">
+		<grid id="grid_2" columnCount="2">
 			<items>
 				 <goldenPoster id="gp1">
                 	<image>${serverurl}/image/taobao/category.png</image>
                 	<title>类目浏览</title>
                  </goldenPoster>
                  <goldenPoster id="gp2">
-                	<image>${serverurl}/image/taobao/category.png</image>
+                	<image>${serverurl}/image/taobao/favorite.png</image>
                 	<title>收藏</title>
+                 </goldenPoster>
+                 <goldenPoster id="gp3">
+                	<image>${serverurl}/image/taobao/search.png</image>
+                	<title>搜索</title>
                  </goldenPoster>
 			</items>
 		</grid>
