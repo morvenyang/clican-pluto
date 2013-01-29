@@ -65,7 +65,7 @@ var taobaoClient = {
 											+ sessiontoken;
 									appletv.makePostRequest(url, null,
 											function(htmlcontent) {
-												appletv.showDialog('收藏成功1', '');
+												appletv.showDialog('收藏成功', '');
 											});
 								}
 							});
@@ -75,7 +75,7 @@ var taobaoClient = {
 					+ "?itemtype=1&isTmall=1&isLp=&isTaohua=&id=" + id
 					+ "&_tb_token_=" + token;
 			appletv.makePostRequest(url, null, function(htmlcontent) {
-				appletv.showDialog('收藏成功2', '');
+				appletv.showDialog('收藏成功', '');
 			});
 		}
 
