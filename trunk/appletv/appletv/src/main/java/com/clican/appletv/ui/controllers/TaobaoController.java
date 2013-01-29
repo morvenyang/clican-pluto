@@ -221,7 +221,7 @@ public class TaobaoController {
 		return content;
 	}
 
-	@RequestMapping("/taobao/favorite.xml")
+	@RequestMapping("/taobao/favoriteItem.xml")
 	public String itemListPage(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		List<TaobaokeItem> itemList = new ArrayList<TaobaokeItem>();
