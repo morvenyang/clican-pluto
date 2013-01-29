@@ -1,6 +1,7 @@
 var taobaoLoginApi = 'https://login.taobao.com/member/login.jhtml';
 var taobaoTokenApi = 'http://i.taobao.com/my_taobao.htm';
 var taobaoAddToFavoriteApi = 'http://favorite.taobao.com/popup/add_collection.htm';
+var taobaoMyFavoriteApi = 'http://favorite.taobao.com/json/collect_list_chunk.htm?itemtype=1&isBigImgShow=true&orderby=time&startrow=0&chunkSize=30&chunkNum=1&deleNum=0';
 var taobaoClient = {
 	login : function(username, password) {
 		var url = taobaoLoginApi + "?TPL_username=" + username
@@ -77,6 +78,33 @@ var taobaoClient = {
 			appletv.makePostRequest(url, null, function(htmlcontent) {
 				appletv.showDialog('收藏成功', '');
 			});
+		}
+
+	},
+	
+	loadFavoritePage : function(token) {
+		if (token == null || token.length == 0|| token=='null') {
+			appletv
+					.makeRequest(
+							appletv.serverurl + '/ctl/taobao/getToken.do',
+							function(sessiontoken) {
+								if (sessiontoken == null
+										|| sessiontoken.length == 0) {
+									appletv
+											.showSearchPage(
+													'用户名\密码',
+													'请输入淘宝用户名密码,用户名和密码以\'\\\'分隔',
+													taobaoClient.loginByUserNameAndPassword,'taobaoClient.loginByUserNameAndPassword');
+								} else {
+									appletv.makePostRequest(taobaoMyFavoriteApi, null,
+											function(htmlcontent) {
+												appletv.showDialog('收藏成功', '');
+											});
+								}
+							});
+			return;
+		} else {
+			
 		}
 
 	},
