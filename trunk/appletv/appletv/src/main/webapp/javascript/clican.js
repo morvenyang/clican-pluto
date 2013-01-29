@@ -1,6 +1,6 @@
 var appletv = {
 		logEnable:true,
-		serverurl: 'http://10.0.1.5/appletv',
+		serverurl: 'http://127.0.0.1/appletv',
 		
 		getDeviceUdid:function(){
 			return atv.device.udid;
