@@ -176,7 +176,7 @@ var appletv = {
 	    },
 	    
 	    showDialog: function(message, description) {
-	    	if(simulate){
+	    	if(this.simulate){
 	    		alert(message);
 	    	}else{
 	    		atv.loadXML(this.makeDialog(message, description));
@@ -185,7 +185,7 @@ var appletv = {
 	    },
 	    
 	    showSearchPage: function(label,instructions,callback,callbackName) {
-	    	if(sumulate){
+	    	if(this.simulate){
 	    		window.location.href = serverurl+'/ctl/simulator/input.xml?callback='+callbackName;
 	    	}else{
 	    		var textEntry  = new atv.TextEntry();
