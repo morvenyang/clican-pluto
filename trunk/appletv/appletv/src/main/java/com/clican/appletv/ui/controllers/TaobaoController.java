@@ -160,6 +160,18 @@ public class TaobaoController {
 		return "taobao/category";
 	}
 
+	@RequestMapping("/taobao/store.xml")
+	public String itemListPage(HttpServletRequest request,
+			HttpServletResponse response,
+			@RequestParam(value = "nick", required = false) String nick)
+			throws Exception {
+		if (log.isDebugEnabled()) {
+			log.debug("access store:" + nick);
+		}
+		
+		return "taobao/itemList";
+	}
+
 	@RequestMapping("/taobao/itemList.xml")
 	public String itemListPage(HttpServletRequest request,
 			HttpServletResponse response,
@@ -264,13 +276,15 @@ public class TaobaoController {
 						ti.setTitle(titleNode.getAttribute("title"));
 						TagNode priceNode = (TagNode) getChildNode(childNode,
 								new int[] { 1, 0, 1, 1 });
-						ti.setPrice(((CompositeTag)priceNode).getStringText());
+						ti.setPrice(((CompositeTag) priceNode).getStringText());
 						TagNode volumn = (TagNode) getChildNode(childNode,
 								new int[] { 2, 0 });
 						String stringVolumn = ((CompositeTag) volumn)
 								.getStringText();
-						if(stringVolumn.indexOf(":")!=-1){
-							stringVolumn=stringVolumn.substring(stringVolumn.indexOf(":")+1).replaceAll("件", "").trim();
+						if (stringVolumn.indexOf(":") != -1) {
+							stringVolumn = stringVolumn
+									.substring(stringVolumn.indexOf(":") + 1)
+									.replaceAll("件", "").trim();
 						}
 						if (StringUtils.isNumeric(stringVolumn)) {
 							ti.setVolume(Long.parseLong(stringVolumn));
