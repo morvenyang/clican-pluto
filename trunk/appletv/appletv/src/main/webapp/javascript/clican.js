@@ -177,6 +177,7 @@ var appletv = {
 	    
 	    loadXML: function(xml) {
 	    	if(this.simulate){
+	    		alert(1);
 	    		document.documentElement.innerHTML=xml;
 	    	}else{
 	    		atv.loadXML(atv.parseXML(xml));
