@@ -37,6 +37,7 @@ import com.clican.appletv.ext.htmlparser.StrongTag;
 import com.taobao.api.TaobaoClient;
 import com.taobao.api.domain.Item;
 import com.taobao.api.domain.PromotionInItem;
+import com.taobao.api.domain.Shop;
 import com.taobao.api.domain.TaobaokeItem;
 import com.taobao.api.request.ItemGetRequest;
 import com.taobao.api.request.ShopGetRequest;
@@ -178,7 +179,10 @@ public class TaobaoController {
 		req1.setFields("sid,cid,title,nick,desc,bulletin,pic_path,created,modified");
 		req1.setNick(nick);
 		ShopGetResponse response1 = taobaoRestClient.execute(req1);
-		Long sid = response1.getShop().getSid();
+		
+		Shop shop = response1.getShop();
+		Long sid = shop.getSid();
+		request.setAttribute("shop", shop);
 		String shopUrl = "http://shop"+sid+".taobao.com";
 		String content = ((TaobaoClientImpl)taobaoClient).httpGet(shopUrl);
 		
