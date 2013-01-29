@@ -2,21 +2,29 @@
 <atv>
 <head><script src="${serverurl}/javascript/clican.js"/></head>
 <body>
-<scroller id="com.sample.movie-shelf">
-	<items>
-		<grid id="grid_2" columnCount="6">
-			<items>
-				<c:forEach var="item" items="${itemList}">
-						<moviePoster id="shelf_item_${item.numIid}" alwaysShowTitles="true" onSelect="atv.loadURL('${serverurl}/ctl/taobao/item.xml?itemId=${item.numIid}&amp;volume=${item.volume}'));" onPlay="atv.loadURL('${serverurl}/ctl/taobao/item.xml?itemId=${item.numIid}&amp;volume=${item.volume}'));">
-							<title><![CDATA[${item.title}]]></title>
-							<subtitle><![CDATA[￥${item.price} 最近售出${item.volume}]]></subtitle>
-							<image>${item.picUrl}</image>
-							<defaultImage>resource://Poster.png</defaultImage>
-						</moviePoster>
-				</c:forEach>
-			</items>
-		</grid>
-	</items>
-</scroller>
+<itemDetail id="shopDetail">
+			<title><![CDATA[${shop.nick}]]></title>
+			<summary><![CDATA[${shop.bulletin}]]></summary>
+			<image style="moviePoster">${item.picPath}</image>
+			<centerShelf>
+				<shelf id="album">
+					<sections>
+						<shelfSection>
+							<items>
+								<actionButton id="album_1" onSelect="taobaoClient.addToFavorite(${shop.sid},${taobaoHtmlToken});" onPlay="taobaoClient.addToFavorite(${shop.sid},'${taobaoHtmlToken}');">
+									<title>收藏</title>
+								</actionButton>
+								<actionButton id="album_3" onSelect="atv.loadURL('${serverurl}/ctl/weibo/createStatus.xml?feature=10&amp;title=${fn:escapeXml(shop.title)}&amp;shareURL=http://shop${shop.sid}.taobao.com&amp;imageURL=${fn:escapeXml(shop.picPath)}');" onPlay="atv.loadURL('${serverurl}/ctl/weibo/createStatus.xml?feature=10&amp;title=${fn:escapeXml(item.title)}&amp;shareURL=${fn:escapeXml(item.detailUrl)}&amp;imageURL=${fn:escapeXml(item.picUrl)}');">
+									<title>分享</title>
+								</actionButton>
+							</items>
+						</shelfSection>
+					</sections>
+				</shelf>
+			</centerShelf>
+			<bottomShelf>
+			    <shelf id=""></shelf>
+			</bottomShelf>
+		</itemDetail>
 </body>
 </atv>
