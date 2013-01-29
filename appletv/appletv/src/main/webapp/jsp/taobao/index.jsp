@@ -5,7 +5,7 @@
 	<items>
 		<grid id="grid_2" columnCount="2">
 			<items>
-				 <goldenPoster id="gp1">
+				 <goldenPoster id="gp1" onSelect="" onPlay="">
                 	<image>${serverurl}/image/taobao/category.png</image>
                 	<title>类目浏览</title>
                  </goldenPoster>

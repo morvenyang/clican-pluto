@@ -35,7 +35,7 @@
 								<actionButton id="album_1" onSelect="taobaoClient.addToFavorite(${item.numIid},${taobaoHtmlToken});" onPlay="taobaoClient.addToFavorite(${item.numIid},'${taobaoHtmlToken}');">
 									<title>收藏</title>
 								</actionButton>
-								<actionButton id="album_2" onSelect="atv.loadURL('${serverurl}/ctl/weibo/createStatus.xml?feature=10&amp;title=${fn:escapeXml(item.title)}&amp;shareURL=${fn:escapeXml(item.detailUrl)}&amp;imageURL=${fn:escapeXml(item.picUrl)}');">
+								<actionButton id="album_2" onSelect="atv.loadURL('${serverurl}/ctl/weibo/createStatus.xml?feature=10&amp;title=${fn:escapeXml(item.title)}&amp;shareURL=${fn:escapeXml(item.detailUrl)}&amp;imageURL=${fn:escapeXml(item.picUrl)}');" onPlay="atv.loadURL('${serverurl}/ctl/weibo/createStatus.xml?feature=10&amp;title=${fn:escapeXml(item.title)}&amp;shareURL=${fn:escapeXml(item.detailUrl)}&amp;imageURL=${fn:escapeXml(item.picUrl)}');">
 									<title>分享</title>
 								</actionButton>
 							</items>
