@@ -1,5 +1,6 @@
 var appletv = {
 		logEnable:true,
+		simulate:true,
 		serverurl: 'http://127.0.0.1/appletv',
 		
 		getDeviceUdid:function(){
@@ -175,7 +176,12 @@ var appletv = {
 	    },
 	    
 	    showDialog: function(message, description) {
-	    	atv.loadXML(this.makeDialog(message, description));
+	    	if(simulate){
+	    		alert(message);
+	    	}else{
+	    		atv.loadXML(this.makeDialog(message, description));
+	    	}
+	    	
 	    },
 	    
 	    showSearchPage: function(label,instructions,callback) {
