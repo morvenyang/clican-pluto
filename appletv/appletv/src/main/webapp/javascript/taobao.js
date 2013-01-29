@@ -5,7 +5,6 @@ var taobaoClient ={
 		login:function(username,password){
 			var url = taobaoLoginApi+"?TPL_username="+username+"&TPL_password="+password;
 			appletv.makePostRequest(url,null,function(content){
-				appletv.logToServer(content);
 			});
 		},
 		
