@@ -7,6 +7,10 @@ import com.clican.appletv.common.PostResponse;
 import com.clican.appletv.common.SpringProperty;
 import com.clican.appletv.core.service.TaobaoClientImpl;
 import com.taobao.api.TaobaoClient;
+import com.taobao.api.request.ShopGetRequest;
+import com.taobao.api.request.TaobaokeItemsRelateGetRequest;
+import com.taobao.api.response.ShopGetResponse;
+import com.taobao.api.response.TaobaokeItemsRelateGetResponse;
 
 public class TaobaoTestCase extends BaseServiceTestCase {
 
@@ -43,7 +47,7 @@ public class TaobaoTestCase extends BaseServiceTestCase {
 		// log.debug(itemCats.size());
 	}
 
-	public void testLogin() throws Exception {
+	public void testLoginAndAddFavorite() throws Exception {
 		TaobaoClientImpl client = (TaobaoClientImpl) taobaoClient;
 		Map<String, String> nameValueMap = new HashMap<String, String>();
 		nameValueMap.put("TPL_username", "clicanclican");
@@ -63,10 +67,21 @@ public class TaobaoTestCase extends BaseServiceTestCase {
 		String token = pr2.getCookieMap().get("_tb_token_");
 		log.debug("token=" + token);
 		assertNotNull(token);
-		taobaoClient.addFavorite(1, 1, null, null, 12729301574L,"_tb_token_="+token+";"+ pr.getCookieString(), token);
+		taobaoClient.addFavorite(1, 1, null, null, 12729301574L, "_tb_token_="
+				+ token + ";" + pr.getCookieString(), token);
 	}
 
-	public void testAddFavorite() throws Exception {
-		taobaoClient.addFavorite(1, 1, null, null, 18180872462L, null, null);
+	public void testGetItemsFromStore() throws Exception {
+
+		ShopGetRequest req1=new ShopGetRequest();
+		req1.setFields("sid,cid,title,nick,desc,bulletin,pic_path,created,modified");
+		req1.setNick("海尚丽人旗舰店");
+		ShopGetResponse response1 = taobaoRestClient.execute(req1);
+		Long sid = response1.getShop().getSid();
+		TaobaokeItemsRelateGetRequest req2=new TaobaokeItemsRelateGetRequest();
+		req2.setRelateType(4L);
+		req2.setSellerId(sid);
+		req2.setFields("num_iid,title,nick,pic_url,price,click_url,commission,commission_rate,commission_num,commission_volume,shop_click_url,seller_credit_score,item_location,volume");
+		TaobaokeItemsRelateGetResponse response2 = taobaoRestClient.execute(req2);
 	}
 }
