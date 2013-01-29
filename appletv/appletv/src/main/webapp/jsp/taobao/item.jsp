@@ -32,7 +32,7 @@
 					<sections>
 						<shelfSection>
 							<items>
-								<actionButton id="album_1" onSelect="taobaoClient.addToFavorite(${item.numIid},${taobaoHtmlToken});" onPlay="taobaoClient.addToFavorite(${item.numIid},${taobaoHtmlToken});">
+								<actionButton id="album_1" onSelect="taobaoClient.addToFavorite(${item.numIid},${taobaoHtmlToken});" onPlay="taobaoClient.addToFavorite(${item.numIid},'${taobaoHtmlToken}');">
 									<title>收藏</title>
 								</actionButton>
 								<actionButton id="album_2" onSelect="atv.loadURL('${serverurl}/ctl/tudou/albumlist.xml?st=3');" onPlay="atv.loadURL('${serverurl}/ctl/tudou/albumlist.xml?st=3');">

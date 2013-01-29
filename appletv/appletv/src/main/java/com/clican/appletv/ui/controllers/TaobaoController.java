@@ -123,6 +123,16 @@ public class TaobaoController {
 		}
 	}
 
+	@RequestMapping("/taobao/getToken.do")
+	public void getToken(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		String token = (String) request.getSession().getAttribute(
+				TAOBAO_HTML_TOKEN_NAME);
+		if (StringUtils.isNotEmpty(token)) {
+			response.getOutputStream().write(token.getBytes());
+		}
+	}
+
 	@RequestMapping("/taobao/category.xml")
 	public String categoryPage(HttpServletRequest request,
 			HttpServletResponse response,
