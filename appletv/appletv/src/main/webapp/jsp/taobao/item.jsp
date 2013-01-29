@@ -1,4 +1,4 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %><%@ page contentType="text/xml;charset=utf-8" %><?xml version="1.0" encoding="UTF-8"?>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %><%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %><%@ page contentType="text/xml;charset=utf-8" %><?xml version="1.0" encoding="UTF-8"?>
 <atv>
 <body>
 <itemDetail id="itemdetail">
@@ -35,7 +35,7 @@
 								<actionButton id="album_1" onSelect="taobaoClient.addToFavorite(${item.numIid},${taobaoHtmlToken});" onPlay="taobaoClient.addToFavorite(${item.numIid},'${taobaoHtmlToken}');">
 									<title>收藏</title>
 								</actionButton>
-								<actionButton id="album_2" onSelect="atv.loadURL('${serverurl}/ctl/weibo/createStatus.xml?title='+encodeURIComponent('${item.title}')+'&amp;shareURL=${item.detailUrl};imageURL=${item.picUrl}');">
+								<actionButton id="album_2" onSelect="atv.loadURL('${serverurl}/ctl/weibo/createStatus.xml?feature=10&amp;title=${fn:escapeXml(item.title)}&amp;shareURL=${fn:escapeXml(item.detailUrl)}&amp;imageURL=${fn:escapeXml(item.picUrl)}');">
 									<title>分享</title>
 								</actionButton>
 							</items>
