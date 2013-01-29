@@ -186,7 +186,7 @@ var appletv = {
 	    
 	    showSearchPage: function(label,instructions,callback,callbackName) {
 	    	if(this.simulate){
-	    		window.location.href = serverurl+'/ctl/simulator/input.xml?callback='+callbackName;
+	    		window.location.href = this.serverurl+'/ctl/simulator/input.xml?callback='+callbackName;
 	    	}else{
 	    		var textEntry  = new atv.TextEntry();
 		    	textEntry.type = 'emailAddress';
