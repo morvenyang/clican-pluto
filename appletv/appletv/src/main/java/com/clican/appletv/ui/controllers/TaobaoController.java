@@ -17,10 +17,12 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.htmlparser.Node;
 import org.htmlparser.Parser;
+import org.htmlparser.PrototypicalNodeFactory;
 import org.htmlparser.filters.AndFilter;
 import org.htmlparser.filters.HasAttributeFilter;
 import org.htmlparser.filters.TagNameFilter;
 import org.htmlparser.nodes.TagNode;
+import org.htmlparser.tags.CompositeTag;
 import org.htmlparser.util.NodeList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,6 +32,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.clican.appletv.common.SpringProperty;
 import com.clican.appletv.core.model.TaobaoAccessToken;
 import com.clican.appletv.core.model.TaobaoCategory;
+import com.clican.appletv.ext.htmlparser.StrongTag;
 import com.taobao.api.TaobaoClient;
 import com.taobao.api.domain.Item;
 import com.taobao.api.domain.PromotionInItem;
@@ -234,7 +237,10 @@ public class TaobaoController {
 				result += htmlContent;
 			}
 		}
+		PrototypicalNodeFactory factory = new PrototypicalNodeFactory();
+		factory.registerTag(new StrongTag());
 		Parser parser = Parser.createParser(result, "utf-8");
+		parser.setNodeFactory(factory);
 		AndFilter idFilter = new AndFilter(new TagNameFilter("li"),
 				new HasAttributeFilter("data-type", "FavItem"));
 		NodeList nodeList = parser.parse(idFilter);
@@ -254,16 +260,18 @@ public class TaobaoController {
 						ti.setPicUrl(imageNode.getAttribute("src"));
 					} else if (className.equals("attribute")) {
 						TagNode titleNode = (TagNode) getChildNode(childNode,
-								new int[] { 0, 0 });
+								new int[] { 0, 1 });
 						ti.setTitle(titleNode.getAttribute("title"));
 						TagNode priceNode = (TagNode) getChildNode(childNode,
 								new int[] { 1, 0, 1, 1 });
-						ti.setPrice(priceNode.getText());
+						ti.setPrice(((CompositeTag)priceNode).getStringText());
 						TagNode volumn = (TagNode) getChildNode(childNode,
-								new int[] { 0, 0 });
-						String stringVolumn = volumn.getText()
-								.replaceAll("30天售出: ", "").replaceAll("件", "")
-								.trim();
+								new int[] { 2, 0 });
+						String stringVolumn = ((CompositeTag) volumn)
+								.getStringText();
+						if(stringVolumn.indexOf(":")!=-1){
+							stringVolumn=stringVolumn.substring(stringVolumn.indexOf(":")+1).replaceAll("件", "").trim();
+						}
 						if (StringUtils.isNumeric(stringVolumn)) {
 							ti.setVolume(Long.parseLong(stringVolumn));
 						}
