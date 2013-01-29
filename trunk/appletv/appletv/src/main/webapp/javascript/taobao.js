@@ -96,15 +96,22 @@ var taobaoClient = {
 													'请输入淘宝用户名密码,用户名和密码以\'\\\'分隔',
 													taobaoClient.loginByUserNameAndPassword,'taobaoClient.loginByUserNameAndPassword');
 								} else {
-									appletv.makePostRequest(taobaoMyFavoriteApi, null,
+									appletv.makeRequest(taobaoMyFavoriteApi,
 											function(htmlcontent) {
-												appletv.showDialog('收藏成功', '');
+												appletv.makePostRequest(appletv.serverurl+'/ctl/taobao/favorite.xml',htmlcontent,function(xmlcontent){
+													appletv.loadXML(xmlcontent);
+												});
 											});
 								}
 							});
 			return;
 		} else {
-			
+			appletv.makeRequest(taobaoMyFavoriteApi,
+					function(htmlcontent) {
+						appletv.makePostRequest(appletv.serverurl+'/ctl/taobao/favorite.xml',htmlcontent,function(xmlcontent){
+							appletv.loadXML(xmlcontent);
+						});
+					});
 		}
 
 	},
