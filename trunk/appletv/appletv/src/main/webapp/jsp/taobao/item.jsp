@@ -1,5 +1,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %><%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %><%@ page contentType="text/xml;charset=utf-8" %><?xml version="1.0" encoding="UTF-8"?>
 <atv>
+<head>
+<script type="text/javascript" src="<%=request.getAttribute("serverurl")%>/javascript/clican.js"></script>
+<script type="text/javascript" src="<%=request.getAttribute("serverurl")%>/javascript/taobao.js"></script>
+</head>
 <body>
 <itemDetail id="itemdetail">
 			<title><![CDATA[${item.title}]]></title>
