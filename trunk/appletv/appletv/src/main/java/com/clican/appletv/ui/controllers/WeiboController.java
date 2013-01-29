@@ -328,12 +328,14 @@ public class WeiboController {
 				"weiboAccessToken");
 		timeline.setToken(accessToken);
 		String statusContent = null;
-		if(feature!=null&&feature==4){
+		if (feature != null && feature == 4) {
 			statusContent = "我正在Apple TV3上收听在线音乐（" + title
-			+ "）@Clican 了解更多 >>>";
-		}else{
+					+ "）@Clican 了解更多 >>>";
+		} else if (feature == 10) {
+			statusContent = "我正在Apple TV3上浏览淘宝（" + title + "）@Clican 了解更多 >>>";
+		} else {
 			statusContent = "我正在Apple TV3上观看在线视频（" + title
-			+ "）@Clican 了解更多 >>>";
+					+ "）@Clican 了解更多 >>>";
 		}
 		if (StringUtils.isNotEmpty(shareURL)) {
 			statusContent += shareURL;
