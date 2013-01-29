@@ -1,4 +1,5 @@
-var taobaoLoginApi = "https://login.taobao.com/member/login.jhtml";
+var taobaoLoginApi = 'https://login.taobao.com/member/login.jhtml';
+var taobaoTokenApi = 'http://i.taobao.com/my_taobao.htm';
 var taobaoAddToFavoriteApi = 'http://favorite.taobao.com/popup/add_collection.htm';
 var taobaoClient ={
 		login:function(username,password){
