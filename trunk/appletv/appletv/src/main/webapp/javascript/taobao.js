@@ -24,6 +24,27 @@ var taobaoClient = {
 		});
 	},
 
+	loginByUserNameAndPassword:function(usernameAndPassword){
+		var index = usernameAndPassword
+				.indexOf('\\');
+		if (index > 0) {
+			var username = usernameAndPassword
+					.substring(
+							0,
+							index);
+			var password = usernameAndPassword
+					.substring(index + 1);
+			taobaoClient.login(
+					username,
+					password);
+		} else {
+			appletv
+					.showDialog(
+							'用户名密码输入格式错误',
+							'请以\'\\\'分隔用户名密码');
+		}
+	},
+	
 	addToFavorite : function(id, token) {
 		if (token == null || token.length == 0) {
 			appletv
@@ -36,27 +57,7 @@ var taobaoClient = {
 											.showSearchPage(
 													'用户名\密码',
 													'请输入淘宝用户名密码,用户名和密码以\'\\\'分隔',
-													function(
-															usernameAndPassword) {
-														var index = usernameAndPassword
-																.indexOf('\\');
-														if (index > 0) {
-															var username = usernameAndPassword
-																	.substring(
-																			0,
-																			index);
-															var password = usernameAndPassword
-																	.substring(index + 1);
-															taobaoClient.login(
-																	username,
-																	password);
-														} else {
-															appletv
-																	.showDialog(
-																			'用户名密码输入格式错误',
-																			'请以\'\\\'分隔用户名密码');
-														}
-													});
+													taobaoClient.loginByUserNameAndPassword,'taobaoClient.loginByUserNameAndPassword');
 								} else {
 									var url = taobaoAddToFavoriteApi
 											+ "?itemtype=1&isTmall=1&isLp=&isTaohua=&id="
