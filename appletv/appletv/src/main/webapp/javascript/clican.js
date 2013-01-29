@@ -175,6 +175,14 @@ var appletv = {
 	        return atv.parseXML(errorXML);
 	    },
 	    
+	    loadXML: function(xml) {
+	    	if(this.simulate){
+	    		document.documentElement.innerHTML=xml;
+	    	}else{
+	    		atv.loadXML(atv.parseXML(xml));
+	    	}
+	    },
+	    
 	    showDialog: function(message, description) {
 	    	if(this.simulate){
 	    		alert(message);

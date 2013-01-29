@@ -243,22 +243,34 @@ public class TaobaoController {
 			TagNode itemNode = ((TagNode) nodeList.elementAt(i));
 			String id = itemNode.getAttribute("data-item-id");
 			ti.setNumIid(Long.parseLong(id));
-			TagNode titleNode = (TagNode) itemNode.getChildren().elementAt(1)
-					.getFirstChild().getFirstChild();
-			ti.setTitle(titleNode.getAttribute("title"));
-			TagNode imageNode = (TagNode) itemNode.getFirstChild()
-					.getFirstChild().getFirstChild();
-			ti.setPicUrl(imageNode.getAttribute("src"));
-			TagNode priceNode = (TagNode) getChildNode(itemNode, new int[] { 1,
-					1, 0, 1, 1 });
-			ti.setPrice(priceNode.getText());
-			TagNode volumn = (TagNode) getChildNode(itemNode, new int[] { 1, 2,
-					0 });
-			String stringVolumn = volumn.getText().replaceAll("30天售出: ", "")
-					.replaceAll("件", "").trim();
-			if (StringUtils.isNumeric(stringVolumn)) {
-				ti.setVolume(Long.parseLong(stringVolumn));
+			for (int j = 0; j < itemNode.getChildren().size(); j++) {
+				Node childNode = itemNode.getChildren().elementAt(j);
+				if (childNode instanceof TagNode) {
+					String className = ((TagNode) childNode)
+							.getAttribute("class");
+					if (className.equals("J_FavImgController")) {
+						TagNode imageNode = (TagNode) getChildNode(childNode,
+								new int[] { 0, 0 });
+						ti.setPicUrl(imageNode.getAttribute("src"));
+					} else if (className.equals("attribute")) {
+						TagNode titleNode = (TagNode) getChildNode(childNode,
+								new int[] { 0, 0 });
+						ti.setTitle(titleNode.getAttribute("title"));
+						TagNode priceNode = (TagNode) getChildNode(childNode,
+								new int[] { 1, 0, 1, 1 });
+						ti.setPrice(priceNode.getText());
+						TagNode volumn = (TagNode) getChildNode(childNode,
+								new int[] { 0, 0 });
+						String stringVolumn = volumn.getText()
+								.replaceAll("30天售出: ", "").replaceAll("件", "")
+								.trim();
+						if (StringUtils.isNumeric(stringVolumn)) {
+							ti.setVolume(Long.parseLong(stringVolumn));
+						}
+					}
+				}
 			}
+
 			itemList.add(ti);
 		}
 		request.setAttribute("itemList", itemList);
@@ -313,7 +325,20 @@ public class TaobaoController {
 		Node r = node;
 		try {
 			for (int i = 0; i < indexs.length; i++) {
-				r = node.getChildren().elementAt(i);
+				int index = -1;
+				for (int j = 0; j < r.getChildren().size(); j++) {
+					Node n = r.getChildren().elementAt(j);
+					if (n instanceof TagNode) {
+						index++;
+						if (index == indexs[i]) {
+							r = n;
+							break;
+						}
+					}
+				}
+				if (index != indexs[i]) {
+					throw new RuntimeException("Can't find child:" + indexs[i]);
+				}
 			}
 			return r;
 		} catch (Exception e) {
@@ -322,5 +347,4 @@ public class TaobaoController {
 		}
 
 	}
-
 }

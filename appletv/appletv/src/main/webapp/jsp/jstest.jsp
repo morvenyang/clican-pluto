@@ -12,6 +12,7 @@
 </head>
 <body>
 <input type="button" onclick="taobaoClient.login('clicanclican','clican@810428');" value="淘宝登录"/>
+<input type="button" onclick="taobaoClient.loadFavoritePage('<%=request.getSession().getAttribute("taobaoHtmlToken")%>');" value="我的淘宝"/>
 <input type="button" onclick="taobaoClient.getToken();" value="获取令牌"/>
 <input type="button" onclick="taobaoClient.addToFavorite('12729301574','<%=request.getSession().getAttribute("taobaoHtmlToken")%>');" value="收藏"/>
 <input type="button" onclick="taobaoClient.addToFavorite(21238720782,'<%=request.getSession().getAttribute("taobaoHtmlToken")%>');" value="收藏2"/>
