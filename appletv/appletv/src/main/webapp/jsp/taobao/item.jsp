@@ -39,7 +39,7 @@
 								<actionButton id="album_1" onSelect="taobaoClient.addToFavorite(${item.numIid},${taobaoHtmlToken});" onPlay="taobaoClient.addToFavorite(${item.numIid},'${taobaoHtmlToken}');">
 									<title>收藏</title>
 								</actionButton>
-								<actionButton id="album_2" onSelect="taobaoClient.getSellerIdByShopUrl('${item.shopClickUrl}');" onPlay="atv.loadURL('${serverurl}/ctl/taobao/store.xml?nick=${item.nick}');">
+								<actionButton id="album_2" onSelect="taobaoClient.getSellerIdByShopUrl('${shopClickUrl}');" onPlay="taobaoClient.getSellerIdByShopUrl('${shopClickUrl}');');">
 									<title>店铺</title>
 								</actionButton>
 								<actionButton id="album_3" onSelect="atv.loadURL('${serverurl}/ctl/weibo/createStatus.xml?feature=10&amp;title=${fn:escapeXml(item.title)}&amp;shareURL=${fn:escapeXml(item.detailUrl)}&amp;imageURL=${fn:escapeXml(item.picUrl)}');" onPlay="atv.loadURL('${serverurl}/ctl/weibo/createStatus.xml?feature=10&amp;title=${fn:escapeXml(item.title)}&amp;shareURL=${fn:escapeXml(item.detailUrl)}&amp;imageURL=${fn:escapeXml(item.picUrl)}');">

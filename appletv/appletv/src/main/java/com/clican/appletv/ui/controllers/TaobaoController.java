@@ -186,7 +186,7 @@ public class TaobaoController {
 			page = 0L;
 		}
 		TaobaokeItemsGetRequest req = new TaobaokeItemsGetRequest();
-		req.setFields("num_iid,title,nick,pic_url,price,click_url,commission,commission_rate,commission_num,commission_volume,shop_click_url,seller_credit_score,item_location,volume");
+		req.setFields("num_iid,title,nick,pic_url,price,click_url,shop_click_url,seller_credit_score,item_location,volume");
 		req.setCid(cid);
 		req.setPageNo(page);
 		req.setPageSize(40L);
@@ -305,18 +305,19 @@ public class TaobaoController {
 	public String itemPage(HttpServletRequest request,
 			HttpServletResponse response,
 			@RequestParam(value = "itemId", required = false) Long itemId,
-			@RequestParam(value = "volume", required = false) Long volume)
+			@RequestParam(value = "volume", required = false) Long volume,
+			@RequestParam(value = "shopClickUrl", required = false) String shopClickUrl)
 			throws Exception {
 		if (log.isDebugEnabled()) {
 			log.debug("access item :" + itemId);
 		}
 
+		
 		ItemGetRequest req = new ItemGetRequest();
 		req.setFields("detail_url,num_iid,title,nick,desc,location,price,post_fee,express_fee,ems_fee,item_imgs,videos,pic_url,stuff_status");
 		req.setNumIid(itemId);
 		ItemGetResponse resp = taobaoRestClient.execute(req);
 		Item item = resp.getItem();
-
 		UmpPromotionGetRequest req2 = new UmpPromotionGetRequest();
 		req2.setItemId(itemId);
 		UmpPromotionGetResponse resp2 = taobaoRestClient.execute(req2);
@@ -334,6 +335,7 @@ public class TaobaoController {
 
 		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
 		request.setAttribute("promotion", promotion);
+		request.setAttribute("shopClickUrl", shopClickUrl);
 		if (item == null) {
 			return "taobao/noresult";
 		} else {
