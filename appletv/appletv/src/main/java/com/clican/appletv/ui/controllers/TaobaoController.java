@@ -176,7 +176,7 @@ public class TaobaoController {
 		
 		ShopGetRequest req1=new ShopGetRequest();
 		req1.setFields("sid,cid,title,nick,desc,bulletin,pic_path,created,modified");
-		req1.setNick("海尚丽人旗舰店");
+		req1.setNick(nick);
 		ShopGetResponse response1 = taobaoRestClient.execute(req1);
 		Long sid = response1.getShop().getSid();
 		String shopUrl = "http://shop"+sid+".taobao.com";
