@@ -22,7 +22,7 @@
 		<grid id="grid_2" columnCount="6">
 			<items>
 				<c:forEach var="item" items="${itemList}">
-						<moviePoster id="shelf_item_${item.numIid}" alwaysShowTitles="true" onSelect="atv.loadURL('${serverurl}/ctl/taobao/item.xml?itemId=${item.numIid}&amp;volume=${item.volume}&amp;shopClickUrl='+encodeURIComponent('${fn:escapeXml(item.shopClickUrl)}'));" onPlay="atv.loadURL('${serverurl}/ctl/taobao/item.xml?itemId=${item.numIid}&amp;volume=${item.volume}&amp;shopClickUrl='+encodeURIComponent('${fn:escapeXml(item.shopClickUrl)}'));">
+						<moviePoster id="shelf_item_${item.numIid}" alwaysShowTitles="true" onSelect="atv.loadURL('${serverurl}/ctl/taobao/item.xml?itemId=${item.numIid}&amp;volume=${item.volume}'));" onPlay="atv.loadURL('${serverurl}/ctl/taobao/item.xml?itemId=${item.numIid}&amp;volume=${item.volume}'));">
 							<title><![CDATA[${item.title}]]></title>
 							<subtitle><![CDATA[￥${item.price} 最近售出${item.volume}]]></subtitle>
 							<image>${item.picUrl}</image>

@@ -120,6 +120,7 @@ var taobaoClient = {
 	getSellerIdByShopUrl:function(shopUrl){
 		appletv.makeRequest(shopUrl,
 				function(htmlcontent) {
+					appletv.logToServer(htmlcontent);
 					var start = htmlcontent.indexOf('userid=')+'userid='.length;
 					var end = htmlcontent.indexOf(';',start);
 					sellerId = htmlcontent.substring(start,end);
