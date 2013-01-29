@@ -7,10 +7,10 @@ import com.clican.appletv.common.PostResponse;
 import com.clican.appletv.common.SpringProperty;
 import com.clican.appletv.core.service.TaobaoClientImpl;
 import com.taobao.api.TaobaoClient;
+import com.taobao.api.request.ShopGetRequest;
 import com.taobao.api.request.TaobaokeItemsRelateGetRequest;
-import com.taobao.api.request.TaobaokeShopsGetRequest;
+import com.taobao.api.response.ShopGetResponse;
 import com.taobao.api.response.TaobaokeItemsRelateGetResponse;
-import com.taobao.api.response.TaobaokeShopsGetResponse;
 
 public class TaobaoTestCase extends BaseServiceTestCase {
 
@@ -73,12 +73,18 @@ public class TaobaoTestCase extends BaseServiceTestCase {
 
 	public void testGetItemsFromStore() throws Exception {
 
-		TaobaokeShopsGetRequest req1=new TaobaokeShopsGetRequest();
-		req1.setFields("user_id,seller_nick,shop_id,shop_title,seller_credit,shop_type,commission_rate,click_url,total_auction,auction_count");
-		req1.setKeyword("海尚丽人旗舰店");
-		TaobaokeShopsGetResponse response1 = taobaoRestClient.execute(req1);
-		Long sellerId = response1.getTaobaokeShops().get(0).getUserId();
-		sellerId = 755701707L;
+		ShopGetRequest req1=new ShopGetRequest();
+		req1.setFields("sid,cid,title,nick,desc,bulletin,pic_path,created,modified");
+		req1.setNick("海尚丽人旗舰店");
+		ShopGetResponse response1 = taobaoRestClient.execute(req1);
+		Long sid = response1.getShop().getSid();
+		String shopUrl = "http://shop"+sid+".taobao.com";
+		String content = ((TaobaoClientImpl)taobaoClient).httpGet(shopUrl);
+		
+		int start = content.indexOf("userid=")+"userid=".length();
+		int end = content.indexOf(";",start);
+		Long sellerId = Long.parseLong(content.substring(start,end).trim());
+		
 		TaobaokeItemsRelateGetRequest req2=new TaobaokeItemsRelateGetRequest();
 		req2.setRelateType(4L);
 		req2.setSellerId(sellerId);

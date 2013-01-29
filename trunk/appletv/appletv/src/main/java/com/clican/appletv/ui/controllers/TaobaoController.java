@@ -32,16 +32,21 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.clican.appletv.common.SpringProperty;
 import com.clican.appletv.core.model.TaobaoAccessToken;
 import com.clican.appletv.core.model.TaobaoCategory;
+import com.clican.appletv.core.service.TaobaoClientImpl;
 import com.clican.appletv.ext.htmlparser.StrongTag;
 import com.taobao.api.TaobaoClient;
 import com.taobao.api.domain.Item;
 import com.taobao.api.domain.PromotionInItem;
 import com.taobao.api.domain.TaobaokeItem;
 import com.taobao.api.request.ItemGetRequest;
+import com.taobao.api.request.ShopGetRequest;
 import com.taobao.api.request.TaobaokeItemsGetRequest;
+import com.taobao.api.request.TaobaokeItemsRelateGetRequest;
 import com.taobao.api.request.UmpPromotionGetRequest;
 import com.taobao.api.response.ItemGetResponse;
+import com.taobao.api.response.ShopGetResponse;
 import com.taobao.api.response.TaobaokeItemsGetResponse;
+import com.taobao.api.response.TaobaokeItemsRelateGetResponse;
 import com.taobao.api.response.UmpPromotionGetResponse;
 
 @Controller
@@ -169,8 +174,32 @@ public class TaobaoController {
 			log.debug("access store:" + nick);
 		}
 		
-		return "taobao/itemList";
+		ShopGetRequest req1=new ShopGetRequest();
+		req1.setFields("sid,cid,title,nick,desc,bulletin,pic_path,created,modified");
+		req1.setNick("海尚丽人旗舰店");
+		ShopGetResponse response1 = taobaoRestClient.execute(req1);
+		Long sid = response1.getShop().getSid();
+		String shopUrl = "http://shop"+sid+".taobao.com";
+		String content = ((TaobaoClientImpl)taobaoClient).httpGet(shopUrl);
+		
+		int start = content.indexOf("userid=")+"userid=".length();
+		int end = content.indexOf(";",start);
+		Long sellerId = Long.parseLong(content.substring(start,end).trim());
+		
+		TaobaokeItemsRelateGetRequest req2=new TaobaokeItemsRelateGetRequest();
+		req2.setRelateType(4L);
+		req2.setSellerId(sellerId);
+		req2.setMaxCount(40L);
+		req2.setFields("num_iid,title,nick,pic_url,price,click_url,commission,commission_rate,commission_num,commission_volume,shop_click_url,seller_credit_score,item_location,volume");
+		TaobaokeItemsRelateGetResponse response2 = taobaoRestClient.execute(req2);
+		
+		List<TaobaokeItem> itemList =response2.getTaobaokeItems();
+		
+		request.setAttribute("itemList", itemList);
+		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
+		return "taobao/store";
 	}
+	
 
 	@RequestMapping("/taobao/itemList.xml")
 	public String itemListPage(HttpServletRequest request,
