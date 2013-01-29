@@ -35,14 +35,9 @@
 								<actionButton id="album_1" onSelect="taobaoClient.addToFavorite(${item.numIid},${taobaoHtmlToken});" onPlay="taobaoClient.addToFavorite(${item.numIid},'${taobaoHtmlToken}');">
 									<title>收藏</title>
 								</actionButton>
-								<actionButton id="album_2" onSelect="atv.loadURL('${serverurl}/ctl/tudou/albumlist.xml?st=3');" onPlay="atv.loadURL('${serverurl}/ctl/tudou/albumlist.xml?st=3');">
-									<title>高清</title>
+								<actionButton id="album_2" onSelect="atv.loadURL('${serverurl}/ctl/weibo/createStatus.xml?title='+encodeURIComponent('${item.title}')+'&amp;shareURL=${item.detailUrl};imageURL=${item.picUrl}');">
+									<title>分享</title>
 								</actionButton>
-								<c:if test="${album.hd==1}">
-									<actionButton id="album_3" onSelect="atv.loadURL('${serverurl}/ctl/tudou/albumlist.xml?st=4');" onPlay="atv.loadURL('${serverurl}/ctl/tudou/albumlist.xml?st=4');">
-										<title>超清</title>
-									</actionButton>
-								</c:if>
 							</items>
 						</shelfSection>
 					</sections>
