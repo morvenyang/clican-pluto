@@ -1,6 +1,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %><%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %><%@ page contentType="text/xml;charset=utf-8" %><?xml version="1.0" encoding="UTF-8"?>
 <atv>
-<head><script src="${serverurl}/javascript/clican.js"/></head>
+<head>
+<script src="${serverurl}/javascript/clican.js"/>
+<script src="${serverurl}/javascript/taobao.js"/>
+</head>
 <body>
 <itemDetail id="shopDetail">
 			<title><![CDATA[${shop.nick}]]></title>
@@ -34,9 +37,6 @@
 					</sections>
 				</shelf>
 			</centerShelf>
-			<bottomShelf>
-			    <shelf id=""></shelf>
-			</bottomShelf>
 		</itemDetail>
 </body>
 </atv>
