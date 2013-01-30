@@ -110,7 +110,6 @@ var appletv = {
 	        }
 	       
 	        xhr.open("GET", url, true);
-	        
 	        xhr.send();
 	        return xhr;
 	    },
