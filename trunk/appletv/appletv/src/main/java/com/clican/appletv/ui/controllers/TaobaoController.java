@@ -332,6 +332,9 @@ public class TaobaoController {
 		if (log.isDebugEnabled()) {
 			log.debug("access shop category item:" + itemIds);
 		}
+		if(StringUtils.isEmpty(itemIds)){
+			return "taobao/noresult";
+		}
 		if (itemIds.endsWith(",")) {
 			itemIds = itemIds.substring(0, itemIds.length() - 1);
 		}

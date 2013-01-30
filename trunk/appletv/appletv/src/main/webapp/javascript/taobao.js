@@ -153,9 +153,13 @@ var taobaoClient = {
 	
 	loadItemsByCategory:function(shopId,scid,scname){
 		var url = "http://shop" + shopId + ".taobao.com/search.htm?scid="+ scid + "&scname=" + scname+ "&checkedRange=true&queryType=cat";
-		appletv.logToServer(url);
+		
 		appletv.makeRequest(url,
 				function(htmlcontent) {
+					appletv.logToServer(htmlcontent);
+					if(htmlcontent==null||htmlcontent.length==0){
+						return;
+					}
 					var ids = '';
 					var start=0;
 					var end=0;
