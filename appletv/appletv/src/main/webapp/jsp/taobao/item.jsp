@@ -42,7 +42,7 @@
 								<actionButton id="album_2" onSelect="atv.loadURL('${serverurl}/ctl/taobao/shop.xml?nick=${item.nick}');" onPlay="atv.loadURL('${serverurl}/ctl/taobao/shop.xml?nick=${item.nick}');">
 									<title>店铺</title>
 								</actionButton>
-								<actionButton id="album_3" onSelect="atv.loadURL('${serverurl}/ctl/weibo/createStatus.xml?feature=10&amp;title=${fn:escapeXml(item.title)}&amp;shareURL=${fn:escapeXml(item.detailUrl)}&amp;imageURL=${fn:escapeXml(item.picUrl)}');" onPlay="atv.loadURL('${serverurl}/ctl/weibo/createStatus.xml?feature=10&amp;title=${fn:escapeXml(item.title)}&amp;shareURL=${fn:escapeXml(item.detailUrl)}&amp;imageURL=${fn:escapeXml(item.picUrl)}');">
+								<actionButton id="album_3" onSelect="atv.loadURL('${serverurl}/ctl/weibo/createStatus.xml?deviceId='+atv.device.udid+'&amp;feature=10&amp;title=${fn:escapeXml(item.title)}&amp;shareURL=${fn:escapeXml(item.detailUrl)}&amp;imageURL=${fn:escapeXml(item.picUrl)}');" onPlay="atv.loadURL('${serverurl}/ctl/weibo/createStatus.xml?deviceId='+atv.device.udid+'&amp;feature=10&amp;title=${fn:escapeXml(item.title)}&amp;shareURL=${fn:escapeXml(item.detailUrl)}&amp;imageURL=${fn:escapeXml(item.picUrl)}');">
 									<title>分享</title>
 								</actionButton>
 							</items>
