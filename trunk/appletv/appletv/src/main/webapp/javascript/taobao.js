@@ -127,4 +127,33 @@ var taobaoClient = {
 					alert(sellerId);
 				});
 	},
+	
+	getItemIdsByCategory:function(shopId,scid,scname){
+		var url = "http://shop" + shopId + ".taobao.com/search.htm?scid="+ scid + "&scname=" + scname+ "&checkedRange=true&queryType=cat";
+		appletv.makeRequest(url,
+				function(htmlcontent) {
+					appletv.logToServer(htmlcontent);
+					var ids = '';
+					var start=0;
+					var end=0;
+					var href='';
+					var index = htmlcontent.indexOf('href="');
+					while(index!=-1){
+						start = index+6;
+						end = htmlcontent.indexOf('"');
+						href = htmlcontent.substring(start,end);
+						if(href.indexOf('item.htm')){
+							var idstart = href.indexOf('id=')+3;
+							var idend = href..indexOf('&');
+							if(idend!=-1){
+								id = href.substring(idstart,idend);
+							}else{
+								id = href.substring(idstart);
+							}
+							ids+=id+',';
+						}
+					}
+					appletv.makeRequest(appletv.serverurl+'/ctl/taobao/shopCategoryItemList.xml?itemIds='+ids);
+				});
+	},
 }

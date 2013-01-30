@@ -268,7 +268,8 @@ public class TaobaoController {
 			SellercatsListGetResponse sellerCatResp = taobaoRestClient
 					.execute(sellerCatReq);
 			categoryList = sellerCatResp.getSellerCats();
-			request.getSession().setAttribute(TAOBAO_SELLER_CATEGORY_LIST, categoryList);
+			request.getSession().setAttribute(TAOBAO_SELLER_CATEGORY_LIST,
+					categoryList);
 		}
 
 		Map<Long, TaobaoCategory> categoryMap = new HashMap<Long, TaobaoCategory>();
@@ -301,19 +302,40 @@ public class TaobaoController {
 		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
 		return "taobao/shopCategory";
 	}
-	
-	public String shopCategoryItemPage(HttpServletRequest request,
+
+	@RequestMapping("/taobao/shopCategoryItemList.xml")
+	public String shopCategoryItemListPage(HttpServletRequest request,
 			HttpServletResponse response,
-			@RequestParam(value = "shopId", required = false) Long shopId,
-			@RequestParam(value = "scid", required = false) Long scid,
-			@RequestParam(value = "scname", required = false) String scname)
+			@RequestParam(value = "itemIds", required = false) String itemIds)
 			throws Exception {
 		if (log.isDebugEnabled()) {
-			log.debug("access shop category item:" + scname);
+			log.debug("access shop category item:" + itemIds);
 		}
 
+		List<TaobaokeItem> itemList = new ArrayList<TaobaokeItem>();
 
-		return "taobao/shopCategoryItem";
+		long begin, end = 0;
+		int page = 0;
+		int totalPage=10;
+		if (page < totalPage - 10) {
+			begin = page;
+			end = page + 9;
+		} else {
+			end = totalPage;
+			begin = totalPage - 9;
+			if (begin < 0) {
+				begin = 0;
+			}
+		}
+		request.setAttribute("pagiurl", springProperty.getSystemServerUrl()
+				+ "/ctl/taobao/shopCategoryItemList.xml?itemIds=" + itemIds);
+		request.setAttribute("itemList", itemList);
+		request.setAttribute("begin", begin);
+		request.setAttribute("end", end);
+		request.setAttribute("totalPage", totalPage);
+		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
+
+		return "taobao/shopCategoryItemList";
 	}
 
 	@RequestMapping("/taobao/itemList.xml")
