@@ -17,7 +17,11 @@
                 	<image>${serverurl}/image/taobao/favorite.png</image>
                 	<title>收藏的商品</title>
                  </goldenPoster>
-                 <goldenPoster id="gp3">
+                 <goldenPoster id="gp3" onSelect="taobaoClient.loadFavoriteShopPage(${taobaoHtmlToken});" onPlan="taobaoClient.loadFavoriteShopPage(${taobaoHtmlToken});">
+                	<image>${serverurl}/image/taobao/favorite.png</image>
+                	<title>收藏的店铺</title>
+                 </goldenPoster>
+                 <goldenPoster id="gp4">
                 	<image>${serverurl}/image/taobao/search.png</image>
                 	<title>搜索</title>
                  </goldenPoster>
