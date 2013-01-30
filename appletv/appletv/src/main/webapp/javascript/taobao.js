@@ -47,7 +47,7 @@ var taobaoClient = {
 		}
 	},
 	
-	addToFavorite : function(id, token) {
+	addToFavorite : function(id, itemtype, token) {
 		if (token == null || token.length == 0|| token=='null') {
 			appletv
 					.makeRequest(
@@ -62,7 +62,7 @@ var taobaoClient = {
 													taobaoClient.loginByUserNameAndPassword,'taobaoClient.loginByUserNameAndPassword');
 								} else {
 									var url = taobaoAddToFavoriteApi
-											+ "?itemtype=1&isTmall=1&isLp=&isTaohua=&id="
+											+ "?itemtype"+itemtype+"&isTmall=1&isLp=&isTaohua=&id="
 											+ id + "&_tb_token_="
 											+ sessiontoken;
 									appletv.makePostRequest(url, null,
@@ -74,7 +74,7 @@ var taobaoClient = {
 			return;
 		} else {
 			var url = taobaoAddToFavoriteApi
-					+ "?itemtype=1&isTmall=1&isLp=&isTaohua=&id=" + id
+					+ "?itemtype="+itemtype+"&isTmall=1&isLp=&isTaohua=&id=" + id
 					+ "&_tb_token_=" + token;
 			appletv.makePostRequest(url, null, function(htmlcontent) {
 				appletv.showDialog('收藏成功', '');

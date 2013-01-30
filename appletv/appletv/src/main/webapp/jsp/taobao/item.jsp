@@ -36,7 +36,7 @@
 					<sections>
 						<shelfSection>
 							<items>
-								<actionButton id="album_1" onSelect="taobaoClient.addToFavorite(${item.numIid},${taobaoHtmlToken});" onPlay="taobaoClient.addToFavorite(${item.numIid},'${taobaoHtmlToken}');">
+								<actionButton id="album_1" onSelect="taobaoClient.addToFavorite(${item.numIid},1,${taobaoHtmlToken});" onPlay="taobaoClient.addToFavorite(${item.numIid},'${taobaoHtmlToken}');">
 									<title>收藏</title>
 								</actionButton>
 								<actionButton id="album_2" onSelect="atv.loadURL('${serverurl}/ctl/taobao/shop.xml?nick=${item.nick}');" onPlay="atv.loadURL('${serverurl}/ctl/taobao/shop.xml?nick=${item.nick}');">

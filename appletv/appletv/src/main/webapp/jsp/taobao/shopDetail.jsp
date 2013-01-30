@@ -11,7 +11,7 @@
 					<sections>
 						<shelfSection>
 							<items>
-								<actionButton id="album_1" onSelect="taobaoClient.addToFavorite(${shop.sid},${taobaoHtmlToken});" onPlay="taobaoClient.addToFavorite(${shop.sid},'${taobaoHtmlToken}');">
+								<actionButton id="album_1" onSelect="taobaoClient.addToFavorite(${shop.sid},0,${taobaoHtmlToken});" onPlay="taobaoClient.addToFavorite(${shop.sid},'${taobaoHtmlToken}');">
 									<title>收藏</title>
 								</actionButton>
 								<actionButton id="album_3" onSelect="atv.loadURL('${serverurl}/ctl/weibo/createStatus.xml?feature=10&amp;title=${fn:escapeXml(shop.title)}&amp;shareURL=http://shop${shop.sid}.taobao.com&amp;imageURL=http://logo.taobao.com/shop-logo${fn:escapeXml(shop.picPath)}');" onPlay="atv.loadURL('${serverurl}/ctl/weibo/createStatus.xml?feature=10&amp;title=${fn:escapeXml(shop.title)}&amp;shareURL=http://shop${shop.sid}.taobao.com&amp;imageURL=http://logo.taobao.com/shop-logo${fn:escapeXml(shop.picPath)}');">
