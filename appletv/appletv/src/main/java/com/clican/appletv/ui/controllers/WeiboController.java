@@ -366,7 +366,11 @@ public class WeiboController {
 		Status status = null;
 		String promptTitle = "分享成功";
 		try {
-			status = timeline.UploadStatus(statusContent, imageURL);
+			if(StringUtils.isEmpty(imageURL)){
+				status = timeline.UpdateStatus(statusContent);
+			}else{
+				status = timeline.UploadStatus(statusContent, imageURL);
+			}
 		} catch (WeiboException e) {
 			if (log.isDebugEnabled()) {
 				log.debug(e.getMessage());
