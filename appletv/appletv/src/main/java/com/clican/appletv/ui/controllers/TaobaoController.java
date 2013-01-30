@@ -4,7 +4,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.net.URLDecoder;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -37,14 +39,17 @@ import com.clican.appletv.ext.htmlparser.StrongTag;
 import com.taobao.api.TaobaoClient;
 import com.taobao.api.domain.Item;
 import com.taobao.api.domain.PromotionInItem;
+import com.taobao.api.domain.SellerCat;
 import com.taobao.api.domain.Shop;
 import com.taobao.api.domain.TaobaokeItem;
 import com.taobao.api.request.ItemGetRequest;
+import com.taobao.api.request.SellercatsListGetRequest;
 import com.taobao.api.request.ShopGetRequest;
 import com.taobao.api.request.TaobaokeItemsGetRequest;
 import com.taobao.api.request.TaobaokeItemsRelateGetRequest;
 import com.taobao.api.request.UmpPromotionGetRequest;
 import com.taobao.api.response.ItemGetResponse;
+import com.taobao.api.response.SellercatsListGetResponse;
 import com.taobao.api.response.ShopGetResponse;
 import com.taobao.api.response.TaobaokeItemsGetResponse;
 import com.taobao.api.response.TaobaokeItemsRelateGetResponse;
@@ -57,6 +62,7 @@ public class TaobaoController {
 	public final static String TAOBAO_TOKEN_NAME = "taobaoAccessToken";
 	public final static String TAOBAO_HTML_TOKEN_NAME = "taobaoHtmlToken";
 	public final static String TAOBAO_USER_ID_NAME = "taobaoUserId";
+	public final static String TAOBAO_SELLER_CATEGORY_LIST = "taobaoSellerCategoryList";
 
 	@Autowired
 	private com.clican.appletv.core.service.TaobaoClient taobaoClient;
@@ -196,7 +202,7 @@ public class TaobaoController {
 		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
 		return "taobao/shop";
 	}
-	
+
 	@RequestMapping("/taobao/shopHome.xml")
 	public String shopHomePage(HttpServletRequest request,
 			HttpServletResponse response,
@@ -220,7 +226,7 @@ public class TaobaoController {
 		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
 		return "taobao/shopHome";
 	}
-	
+
 	@RequestMapping("/taobao/shopDetail.xml")
 	public String shopDetailPage(HttpServletRequest request,
 			HttpServletResponse response,
@@ -237,6 +243,63 @@ public class TaobaoController {
 		request.setAttribute("shop", shopResp.getShop());
 		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
 		return "taobao/shopDetail";
+	}
+
+	@SuppressWarnings("unchecked")
+	@RequestMapping("/taobao/shopCategory.xml")
+	public String shopCategoryPage(HttpServletRequest request,
+			HttpServletResponse response,
+			@RequestParam(value = "nick", required = false) String nick,
+			@RequestParam(value = "parentId", required = false) Long parentId)
+			throws Exception {
+		if (log.isDebugEnabled()) {
+			log.debug("access shop detail:" + nick);
+		}
+
+		List<SellerCat> categoryList = null;
+		if (parentId == null) {
+			parentId = 0L;
+			SellercatsListGetRequest sellerCatReq = new SellercatsListGetRequest();
+			sellerCatReq.setNick(nick);
+			SellercatsListGetResponse sellerCatResp = taobaoRestClient
+					.execute(sellerCatReq);
+			categoryList = sellerCatResp.getSellerCats();
+			request.getSession().setAttribute(TAOBAO_SELLER_CATEGORY_LIST,
+					categoryList);
+		} else {
+			categoryList = (List<SellerCat>) request.getSession().getAttribute(
+					TAOBAO_SELLER_CATEGORY_LIST);
+		}
+		Map<Long, TaobaoCategory> categoryMap = new HashMap<Long, TaobaoCategory>();
+		List<TaobaoCategory> list = new ArrayList<TaobaoCategory>();
+		for (SellerCat sc : categoryList) {
+			TaobaoCategory tc = new TaobaoCategory();
+			tc.setId(sc.getCid());
+			tc.setPicUrl(sc.getPicUrl());
+			tc.setTitle(sc.getName());
+			list.add(tc);
+			categoryMap.put(sc.getCid(), tc);
+		}
+
+		for (SellerCat sc : categoryList) {
+			if (sc.getParentCid() != 0) {
+				TaobaoCategory tc = categoryMap.get(sc.getParentCid());
+				tc.getChildren().add(categoryMap.get(sc.getCid()));
+			}
+		}
+
+		List<TaobaoCategory> resultList = new ArrayList<TaobaoCategory>();
+		for (TaobaoCategory tc : list) {
+			if (tc.getId().equals(parentId)) {
+				resultList.add(tc);
+				if (tc.getChildren() != null && tc.getChildren().size() > 0) {
+					tc.setHasChild(true);
+				}
+			}
+		}
+		request.setAttribute("categoryList", resultList);
+		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
+		return "taobao/shopCategory";
 	}
 
 	@RequestMapping("/taobao/itemList.xml")
@@ -301,7 +364,7 @@ public class TaobaoController {
 	}
 
 	@RequestMapping("/taobao/favoriteItem.xml")
-	public String itemListPage(HttpServletRequest request,
+	public String favoriteItemPage(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		List<TaobaokeItem> itemList = new ArrayList<TaobaokeItem>();
 		String content = this.getContent(request);
