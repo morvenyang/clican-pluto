@@ -5,7 +5,7 @@
 <itemDetail id="shopDetail">
 			<title><![CDATA[${shop.nick}]]></title>
 			<summary><![CDATA[${shop.bulletin}]]></summary>
-			<image style="moviePoster">${item.picPath}</image>
+			<image style="moviePoster">http://logo.taobao.com/shop-logo${item.picPath}</image>
 			<centerShelf>
 				<shelf id="album">
 					<sections>
