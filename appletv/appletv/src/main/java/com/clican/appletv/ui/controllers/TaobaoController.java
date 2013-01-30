@@ -3,6 +3,7 @@ package com.clican.appletv.ui.controllers;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -213,7 +214,7 @@ public class TaobaoController {
 
 		request.setAttribute("sellerId", sellerId);
 		request.setAttribute("shopId", sid);
-		request.setAttribute("nick", nick);
+		request.setAttribute("nick", URLEncoder.encode(nick,"utf-8"));
 		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
 		return "taobao/shop";
 	}
@@ -254,7 +255,8 @@ public class TaobaoController {
 		shopReq.setFields("sid,cid,title,nick,desc,bulletin,pic_path,created,modified");
 		shopReq.setNick(nick);
 		ShopGetResponse shopResp = taobaoRestClient.execute(shopReq);
-
+		Shop shop = shopResp.getShop();
+		shop.setTitle(URLEncoder.encode(shop.getTitle(),"utf-8"));
 		request.setAttribute("shop", shopResp.getShop());
 		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
 		return "taobao/shopDetail";
