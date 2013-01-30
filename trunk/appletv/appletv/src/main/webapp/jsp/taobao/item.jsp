@@ -1,8 +1,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %><%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %><%@ page contentType="text/xml;charset=utf-8" %><?xml version="1.0" encoding="UTF-8"?>
 <atv>
 <head>
-<script type="text/javascript" src="<%=request.getAttribute("serverurl")%>/javascript/clican.js"></script>
-<script type="text/javascript" src="<%=request.getAttribute("serverurl")%>/javascript/taobao.js"></script>
+<script src="${serverurl}/javascript/clican.js"></script>
+<script src="${serverurl}/javascript/taobao.js"></script>
+<script src="${serverurl}/javascript/photoPreview.js"/>
 </head>
 <body>
 <itemDetail id="itemdetail">
@@ -36,6 +37,9 @@
 					<sections>
 						<shelfSection>
 							<items>
+								<actionButton id="album_0" onSelect="onPlay="onPhotoSelections('${imageUrls}');" onPlay="onPhotoSelections'${imageUrls}');">
+									<title>图片</title>
+								</actionButton>
 								<actionButton id="album_1" onSelect="taobaoClient.addToFavorite(${item.numIid},1,'${taobaoHtmlToken}');" onPlay="taobaoClient.addToFavorite(${item.numIid},'${taobaoHtmlToken}');">
 									<title>收藏</title>
 								</actionButton>
