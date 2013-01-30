@@ -183,7 +183,6 @@ var appletv = {
 	    },
 	    
 	    loadURL: function(url) {
-	    	alert(url);
 	    	if(this.simulate){
 	    		window.location.href = url;
 	    	}else{
