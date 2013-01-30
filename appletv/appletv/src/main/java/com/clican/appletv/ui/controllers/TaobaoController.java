@@ -137,6 +137,16 @@ public class TaobaoController {
 		}
 	}
 
+	@RequestMapping("/taobao/index.xml")
+	public String indexPage(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		if (log.isDebugEnabled()) {
+			log.debug("access taobao index");
+		}
+		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
+		return "taobao/index";
+	}
+
 	@RequestMapping("/taobao/getToken.do")
 	public void getToken(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
@@ -470,9 +480,9 @@ public class TaobaoController {
 		}
 		request.setAttribute("itemList", itemList);
 		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
-		if(itemList.size()==0){
+		if (itemList.size() == 0) {
 			return "taobao/noresult";
-		}else{
+		} else {
 			return "taobao/favoriteItem";
 		}
 	}
@@ -501,11 +511,12 @@ public class TaobaoController {
 					if (className.contains("thumbnail-private")) {
 						TagNode imageNode = (TagNode) getChildNode(childNode,
 								new int[] { 0, 0 });
-						shop.setPicPath(imageNode.getAttribute("data-ks-lazyload"));
+						shop.setPicPath(imageNode
+								.getAttribute("data-ks-lazyload"));
 					} else if (className
 							.contains("J_NewAucBox J_SimilarItemsBox")) {
-						CompositeTag titleNode = (CompositeTag) getChildNode(childNode,
-								new int[] { 0, 0, 0 });
+						CompositeTag titleNode = (CompositeTag) getChildNode(
+								childNode, new int[] { 0, 0, 0 });
 						shop.setTitle(titleNode.getStringText().trim());
 						shop.setNick(shop.getTitle());
 					}
@@ -516,12 +527,12 @@ public class TaobaoController {
 		request.setAttribute("shopList", shopList);
 
 		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
-		if(shopList.size()==0){
+		if (shopList.size() == 0) {
 			return "taobao/noresult";
-		}else{
+		} else {
 			return "taobao/favoriteShop";
 		}
-		
+
 	}
 
 	@RequestMapping("/taobao/item.xml")
