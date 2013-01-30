@@ -81,7 +81,7 @@ N/A
 		    </text>
 		    		    <buttons>
 		        <actionButton id="shelf_item_1" 
-							onSelect="atv.loadURL('15.185.228.124/appletv/ctl/tudou/index.xml');">
+							onSelect="atv.loadURL('http://15.185.228.124/appletv/ctl/tudou/index.xml');">
 							<title>土豆视频</title>
 						</actionButton>
 						<actionButton id="shelf_item_2" 
