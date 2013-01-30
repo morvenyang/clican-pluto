@@ -9,10 +9,6 @@
 					<url>${serverurl}/ctl/taobao/shopHome.xml?sellerId=${sellerId}</url>
 				</navigationItem>
 				<navigationItem>
-					<title>店铺搜索</title>
-					<url>${serverurl}/ctl/weibo/homeTimeline.xml?feature=3</url>
-				</navigationItem>
-				<navigationItem>
 					<title>店铺分类</title>
 					<url>${serverurl}/ctl/taobao/shopCategory.xml?nick=${nick}&amp;shopId=${shopId}</url>
 				</navigationItem>
