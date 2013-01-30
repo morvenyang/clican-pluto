@@ -205,8 +205,8 @@ var appletv = {
 	    	}else{
 	    		var textEntry  = new atv.TextEntry();
 		    	textEntry.type = 'emailAddress';
-		    	textEntry.instructions = "搜索（输入全拼，拼音首字母或者使用Remote App直接输入中文）";
-		    	textEntry.label = '关键字';
+		    	textEntry.instructions = instructions;
+		    	textEntry.label = label;
 		    	textEntry.onSubmit = callback;
 		    	textEntry.show();
 	    	}
