@@ -1,7 +1,10 @@
 package com.clican.appletv.service;
 
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import com.clican.appletv.common.PostResponse;
 import com.clican.appletv.common.SpringProperty;
@@ -80,7 +83,6 @@ public class TaobaoTestCase extends BaseServiceTestCase {
 		Long sid = response1.getShop().getSid();
 		String shopUrl = "http://shop" + sid + ".taobao.com";
 		String content = ((TaobaoClientImpl) taobaoClient).httpGet(shopUrl);
-
 		int start = content.indexOf("userid=") + "userid=".length();
 		int end = content.indexOf(";", start);
 		Long sellerId = Long.parseLong(content.substring(start, end).trim());
@@ -94,6 +96,10 @@ public class TaobaoTestCase extends BaseServiceTestCase {
 	}
 
 	public void testGetItemsBySellerCategory() throws Exception {
-		taobaoClient.getItemsBySellerCategory(68710510L, 661186880L, "tL%2FD3rbM0ORU0PQ%3D");
+		List<Long> itemIds = taobaoClient.getItemsBySellerCategory(68710510L,
+				661186880L, "tL%2FD3rbM0ORU0PQ%3D");
+		Set<Long> itemIdSet = new HashSet<Long>();
+		itemIdSet.addAll(itemIds);
+		log.debug(itemIdSet.size());
 	}
 }
