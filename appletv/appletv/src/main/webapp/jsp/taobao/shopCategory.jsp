@@ -20,7 +20,7 @@
 									</oneLineMenuItem>
 								</c:if>
 								<c:if test="${category.hasChild}">
-									<oneLineMenuItem id="category_${status.count}" onPlay="atv.loadURL('${serverurl}/ctl/taobao/shopCategory.xml?parentId=${category.id}');" onSelect="atv.loadURL('${serverurl}/ctl/taobao/shopCategory.xml?parentId=${category.id}');">
+									<oneLineMenuItem id="category_${status.count}" onPlay="atv.loadURL('${serverurl}/ctl/taobao/shopCategory.xml?parentId=${category.id}&amp;shopId=${shopId}');" onSelect="atv.loadURL('${serverurl}/ctl/taobao/shopCategory.xml?parentId=${category.id}&amp;shopId=${shopId}');">
 										<label><![CDATA[${category.title} >>]]></label>
 										<image>${category.picUrl}</image>
 									</oneLineMenuItem>
