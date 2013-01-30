@@ -199,7 +199,7 @@ var appletv = {
 	    	
 	    },
 	    
-	    showSearchPage: function(label,instructions,callback,callbackName) {
+	    showInputTextPage: function(label,instructions,callback,callbackName) {
 	    	if(this.simulate){
 	    		window.location.href = this.serverurl+'/ctl/simulator/input.xml?callback='+callbackName;
 	    	}else{
