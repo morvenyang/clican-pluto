@@ -71,6 +71,8 @@ public class TaobaoCategory {
 		this.childrenCids = childrenCids;
 	}
 
+	
+
 	public static void toString(List<TaobaoCategory> list, StringBuffer sb,
 			String changeLine) {
 		for (TaobaoCategory tc : list) {
