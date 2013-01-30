@@ -8,6 +8,7 @@ public class TaobaoCategory {
 	private Long id;
 	private Long parentId=0L;
 	private String title;
+	private String base64Title;
 	private String subTitle;
 	private boolean hasChild;
 	private String picUrl;
@@ -79,6 +80,14 @@ public class TaobaoCategory {
 
 	public void setParentId(Long parentId) {
 		this.parentId = parentId;
+	}
+
+	public String getBase64Title() {
+		return base64Title;
+	}
+
+	public void setBase64Title(String base64Title) {
+		this.base64Title = base64Title;
 	}
 
 	public static void toString(List<TaobaoCategory> list, StringBuffer sb,

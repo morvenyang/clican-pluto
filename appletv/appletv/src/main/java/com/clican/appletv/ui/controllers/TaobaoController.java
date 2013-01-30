@@ -42,6 +42,7 @@ import com.taobao.api.domain.PromotionInItem;
 import com.taobao.api.domain.SellerCat;
 import com.taobao.api.domain.Shop;
 import com.taobao.api.domain.TaobaokeItem;
+import com.taobao.api.internal.util.codec.Base64;
 import com.taobao.api.request.ItemGetRequest;
 import com.taobao.api.request.SellercatsListGetRequest;
 import com.taobao.api.request.ShopGetRequest;
@@ -251,7 +252,8 @@ public class TaobaoController {
 	public String shopCategoryPage(HttpServletRequest request,
 			HttpServletResponse response,
 			@RequestParam(value = "nick", required = false) String nick,
-			@RequestParam(value = "parentId", required = false) Long parentId)
+			@RequestParam(value = "parentId", required = false) Long parentId,
+			@RequestParam(value = "shopId", required = false) Long shopId)
 			throws Exception {
 		if (log.isDebugEnabled()) {
 			log.debug("access shop category:" + nick);
@@ -279,6 +281,8 @@ public class TaobaoController {
 			tc.setId(sc.getCid());
 			tc.setPicUrl(sc.getPicUrl());
 			tc.setTitle(sc.getName());
+			tc.setBase64Title(new String(Base64.encodeBase64(sc.getName()
+					.getBytes("gb2312"))));
 			tc.setParentId(sc.getParentCid());
 			list.add(tc);
 			categoryMap.put(sc.getCid(), tc);
@@ -299,6 +303,7 @@ public class TaobaoController {
 			}
 		}
 		request.setAttribute("categoryList", resultList);
+		request.setAttribute("shopId", shopId);
 		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
 		return "taobao/shopCategory";
 	}
@@ -316,7 +321,7 @@ public class TaobaoController {
 
 		long begin, end = 0;
 		int page = 0;
-		int totalPage=10;
+		int totalPage = 10;
 		if (page < totalPage - 10) {
 			begin = page;
 			end = page + 9;

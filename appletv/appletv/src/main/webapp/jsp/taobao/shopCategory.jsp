@@ -14,7 +14,7 @@
 						<items>
 							<c:forEach var="category" items="${categoryList}" varStatus="status">
 								<c:if test="${!category.hasChild}">
-									<oneLineMenuItem id="category_${status.count}" onPlay="atv.loadURL('${serverurl}/ctl/taobao/itemList.xml?cid=${category.id}');" onSelect="atv.loadURL('${serverurl}/ctl/taobao/itemList.xml?cid=${category.id}');">
+									<oneLineMenuItem id="category_${status.count}" onPlay="taobaoClient.getItemsByCategory(${shopId},${category.id},'${fn:escapeXml(category.base64Title)}');" onSelect="taobaoClient.getItemsByCategory(${shopId},${category.id},'${fn:escapeXml(category.base64Title)}');">
 										<label><![CDATA[${category.title}]]></label>
 										<image>${category.picUrl}</image>
 									</oneLineMenuItem>

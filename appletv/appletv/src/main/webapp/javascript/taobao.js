@@ -128,7 +128,7 @@ var taobaoClient = {
 				});
 	},
 	
-	getItemIdsByCategory:function(shopId,scid,scname){
+	getItemsByCategory:function(shopId,scid,scname){
 		var url = "http://shop" + shopId + ".taobao.com/search.htm?scid="+ scid + "&scname=" + scname+ "&checkedRange=true&queryType=cat";
 		appletv.makeRequest(url,
 				function(htmlcontent) {
