@@ -133,29 +133,26 @@ var taobaoClient = {
 		appletv.logToServer(url);
 		appletv.makeRequest(url,
 				function(htmlcontent) {
-					appletv.logToServer('get html response');
 					var ids = '';
 					var start=0;
 					var end=0;
 					var href='';
 					var index = htmlcontent.indexOf('href="');
-					appletv.logToServer('first index:'+index);
 					var idstart=0;
 					var idend=0;
 					while(index!=-1){
 						start = index+6;
 						end = htmlcontent.indexOf('"',start);
 						href = htmlcontent.substring(start,end);
-						appletv.logToServer(href);
-						if(href.indexOf('item.htm')){
+						if(href.indexOf('item.htm')!=-1){
 							idstart = href.indexOf('id=')+3;
-							idend = href.indexOf('&',instart);
+							idend = href.indexOf('&',idstart);
 							if(idend!=-1){
 								id = href.substring(idstart,idend);
 							}else{
 								id = href.substring(idstart);
 							}
-							appletv.logToServer(id);
+							appletv.logToServer('id:'+id);
 							ids+=id+',';
 						}
 						index = htmlcontent.indexOf('href="',end);
