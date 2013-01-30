@@ -130,30 +130,40 @@ var taobaoClient = {
 	
 	getItemsByCategory:function(shopId,scid,scname){
 		var url = "http://shop" + shopId + ".taobao.com/search.htm?scid="+ scid + "&scname=" + scname+ "&checkedRange=true&queryType=cat";
+		appletv.logToServer(url);
 		appletv.makeRequest(url,
 				function(htmlcontent) {
-					appletv.logToServer(htmlcontent);
+					appletv.logToServer('get html response');
 					var ids = '';
 					var start=0;
 					var end=0;
 					var href='';
 					var index = htmlcontent.indexOf('href="');
+					appletv.logToServer('first index:'+index);
+					var idstart=0;
+					var idend=0;
 					while(index!=-1){
 						start = index+6;
-						end = htmlcontent.indexOf('"');
+						end = htmlcontent.indexOf('"',start);
 						href = htmlcontent.substring(start,end);
+						appletv.logToServer(href);
 						if(href.indexOf('item.htm')){
-							var idstart = href.indexOf('id=')+3;
-							var idend = href..indexOf('&');
+							idstart = href.indexOf('id=')+3;
+							idend = href.indexOf('&',instart);
 							if(idend!=-1){
 								id = href.substring(idstart,idend);
 							}else{
 								id = href.substring(idstart);
 							}
+							appletv.logToServer(id);
 							ids+=id+',';
 						}
+						index = htmlcontent.indexOf('href="',end);
 					}
-					appletv.makeRequest(appletv.serverurl+'/ctl/taobao/shopCategoryItemList.xml?itemIds='+ids);
+					appletv.makeRequest(appletv.serverurl+'/ctl/taobao/shopCategoryItemList.xml?itemIds='+ids,function(xmlcontent){
+						
+					});
 				});
+	
 	},
 }
