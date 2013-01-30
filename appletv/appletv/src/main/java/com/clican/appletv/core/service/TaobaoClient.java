@@ -14,7 +14,7 @@ public interface TaobaoClient {
 
 	public List<TaobaoCategory> getCategories(Long parentId);
 
-	public List<Item> getItemBySellerCategory(Long shopId, Long scid,
+	public List<Long> getItemsBySellerCategory(Long shopId, Long scid,
 			String scname);
 
 	public boolean addFavorite(Integer itemtype, Integer isMall, Integer isLp,
