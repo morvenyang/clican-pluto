@@ -37,9 +37,11 @@
 					<sections>
 						<shelfSection>
 							<items>
-								<actionButton id="album_0" onSelect="onPlay="onPhotoSelections('${imageUrls}');" onPlay="onPhotoSelections'${imageUrls}');">
-									<title>图片</title>
-								</actionButton>
+								<c:if test="${imageUrls!=null}">
+									<actionButton id="album_0" onSelect="onPhotoSelections('${fn:escapeXml(imageUrls)}');" onPlay="onPhotoSelections('${fn:escapeXml(imageUrls)}');">
+										<title>图片</title>
+									</actionButton>
+								</c:if>
 								<actionButton id="album_1" onSelect="taobaoClient.addToFavorite(${item.numIid},1,'${taobaoHtmlToken}');" onPlay="taobaoClient.addToFavorite(${item.numIid},'${taobaoHtmlToken}');">
 									<title>收藏</title>
 								</actionButton>

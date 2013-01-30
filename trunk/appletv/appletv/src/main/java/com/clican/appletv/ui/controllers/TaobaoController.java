@@ -38,6 +38,7 @@ import com.clican.appletv.core.service.TaobaoClientImpl;
 import com.clican.appletv.ext.htmlparser.StrongTag;
 import com.taobao.api.TaobaoClient;
 import com.taobao.api.domain.Item;
+import com.taobao.api.domain.ItemImg;
 import com.taobao.api.domain.PromotionInItem;
 import com.taobao.api.domain.SellerCat;
 import com.taobao.api.domain.Shop;
@@ -546,7 +547,7 @@ public class TaobaoController {
 		}
 
 		ItemGetRequest req = new ItemGetRequest();
-		req.setFields("detail_url,num_iid,title,nick,desc,location,price,post_fee,express_fee,ems_fee,item_imgs,videos,pic_url,stuff_status");
+		req.setFields("detail_url,num_iid,title,nick,desc,location,price,post_fee,express_fee,ems_fee,item_img.url,videos,pic_url,stuff_status");
 		req.setNumIid(itemId);
 		ItemGetResponse resp = taobaoRestClient.execute(req);
 		Item item = resp.getItem();
@@ -561,10 +562,21 @@ public class TaobaoController {
 					+ piiList.get(0).getItemPromoPrice() + "元";
 		}
 
+		String imageUrls = "";
+		if (item.getItemImgs() != null && item.getItemImgs().size() > 0) {
+			for (ItemImg ii : item.getItemImgs()) {
+				imageUrls += ii.getUrl()+",";
+			}
+		}
+		if (imageUrls.endsWith(",")) {
+			imageUrls = imageUrls.substring(0, imageUrls.length() - 1);
+		}
 		if (log.isDebugEnabled()) {
 			log.debug("detail url:" + resp.getItem().getDetailUrl());
 		}
-
+		if (StringUtils.isNotEmpty(imageUrls)) {
+			request.setAttribute("imageUrls", imageUrls);
+		}
 		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
 		request.setAttribute("promotion", promotion);
 		if (item == null) {
