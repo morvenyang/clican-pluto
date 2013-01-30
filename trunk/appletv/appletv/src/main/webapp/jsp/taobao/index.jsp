@@ -13,11 +13,11 @@
                 	<image>${serverurl}/image/taobao/category.png</image>
                 	<title>类目浏览</title>
                  </goldenPoster>
-                 <goldenPoster id="gp2" onSelect="taobaoClient.loadFavoriteItemPage(${taobaoHtmlToken});" onPlan="taobaoClient.loadFavoriteItemPage(${taobaoHtmlToken});">
+                 <goldenPoster id="gp2" onSelect="taobaoClient.loadFavoriteItemPage('${taobaoHtmlToken}');" onPlan="taobaoClient.loadFavoriteItemPage('${taobaoHtmlToken}');">
                 	<image>${serverurl}/image/taobao/favorite.png</image>
                 	<title>收藏的商品</title>
                  </goldenPoster>
-                 <goldenPoster id="gp3" onSelect="taobaoClient.loadFavoriteShopPage(${taobaoHtmlToken});" onPlan="taobaoClient.loadFavoriteShopPage(${taobaoHtmlToken});">
+                 <goldenPoster id="gp3" onSelect="taobaoClient.loadFavoriteShopPage('${taobaoHtmlToken}');" onPlan="taobaoClient.loadFavoriteShopPage('${taobaoHtmlToken}');">
                 	<image>${serverurl}/image/taobao/favorite.png</image>
                 	<title>收藏的店铺</title>
                  </goldenPoster>

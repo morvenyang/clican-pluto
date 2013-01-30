@@ -50,8 +50,31 @@ public class WeiboController {
 			if (log.isDebugEnabled()) {
 				log.debug("The user has not login weibo account.");
 			}
-			response.sendRedirect(request.getContextPath() + "/releasenote.xml");
-			return false;
+			String deviceId = request.getParameter("deviceId");
+			String uid = weiboClient.getUid(deviceId);
+			String accessToken = weiboClient.getAccessToken(deviceId);
+
+			if (StringUtils.isNotEmpty(uid)) {
+				request.getSession().setAttribute("weiboUid", uid);
+				request.getSession().setAttribute("weiboAccessToken",
+						accessToken);
+				Users users = new Users();
+				users.client.setToken(accessToken);
+				User user = users.showUserById(uid);
+				request.getSession().setAttribute("weiboUser", user);
+				request.setAttribute("serverurl",
+						springProperty.getSystemServerUrl());
+				if (log.isDebugEnabled()) {
+					log.debug("There is an user [" + uid
+							+ "] begin to play with weibo at ATV3");
+				}
+				return true;
+			} else {
+				response.sendRedirect(request.getContextPath()
+						+ "/ctl/weibo/checkAccessToken.xml?deviceId="
+						+ deviceId);
+				return false;
+			}
 		}
 	}
 
