@@ -166,44 +166,44 @@ public class TaobaoController {
 		return "taobao/category";
 	}
 
-	@RequestMapping("/taobao/store.xml")
-	public String itemListPage(HttpServletRequest request,
+	@RequestMapping("/taobao/shop.xml")
+	public String shopPage(HttpServletRequest request,
 			HttpServletResponse response,
 			@RequestParam(value = "nick", required = false) String nick)
 			throws Exception {
 		if (log.isDebugEnabled()) {
-			log.debug("access store:" + nick);
+			log.debug("access shop:" + nick);
 		}
-		
-		ShopGetRequest req1=new ShopGetRequest();
-		req1.setFields("sid,cid,title,nick,desc,bulletin,pic_path,created,modified");
-		req1.setNick(nick);
-		ShopGetResponse response1 = taobaoRestClient.execute(req1);
-		
-		Shop shop = response1.getShop();
+
+		ShopGetRequest shopReq = new ShopGetRequest();
+		shopReq.setFields("sid,cid,title,nick,desc,bulletin,pic_path,created,modified");
+		shopReq.setNick(nick);
+		ShopGetResponse shopResp = taobaoRestClient.execute(shopReq);
+
+		Shop shop = shopResp.getShop();
 		Long sid = shop.getSid();
 		request.setAttribute("shop", shop);
-		String shopUrl = "http://shop"+sid+".taobao.com";
-		String content = ((TaobaoClientImpl)taobaoClient).httpGet(shopUrl);
-		
-		int start = content.indexOf("userid=")+"userid=".length();
-		int end = content.indexOf(";",start);
-		Long sellerId = Long.parseLong(content.substring(start,end).trim());
-		
-		TaobaokeItemsRelateGetRequest req2=new TaobaokeItemsRelateGetRequest();
-		req2.setRelateType(4L);
-		req2.setSellerId(sellerId);
-		req2.setMaxCount(40L);
-		req2.setFields("num_iid,title,nick,pic_url,price,click_url,commission,commission_rate,commission_num,commission_volume,shop_click_url,seller_credit_score,item_location,volume");
-		TaobaokeItemsRelateGetResponse response2 = taobaoRestClient.execute(req2);
-		
-		List<TaobaokeItem> itemList =response2.getTaobaokeItems();
-		
+		String shopUrl = "http://shop" + sid + ".taobao.com";
+		String content = ((TaobaoClientImpl) taobaoClient).httpGet(shopUrl);
+
+		int start = content.indexOf("userid=") + "userid=".length();
+		int end = content.indexOf(";", start);
+		Long sellerId = Long.parseLong(content.substring(start, end).trim());
+
+		TaobaokeItemsRelateGetRequest itemReq = new TaobaokeItemsRelateGetRequest();
+		itemReq.setRelateType(4L);
+		itemReq.setSellerId(sellerId);
+		itemReq.setMaxCount(40L);
+		itemReq.setFields("num_iid,title,nick,pic_url,price,click_url,commission,commission_rate,commission_num,commission_volume,shop_click_url,seller_credit_score,item_location,volume");
+		TaobaokeItemsRelateGetResponse itemResp = taobaoRestClient
+				.execute(itemReq);
+
+		List<TaobaokeItem> itemList = itemResp.getTaobaokeItems();
+
 		request.setAttribute("itemList", itemList);
 		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
 		return "taobao/store";
 	}
-	
 
 	@RequestMapping("/taobao/itemList.xml")
 	public String itemListPage(HttpServletRequest request,
@@ -344,7 +344,6 @@ public class TaobaoController {
 			log.debug("access item :" + itemId);
 		}
 
-		
 		ItemGetRequest req = new ItemGetRequest();
 		req.setFields("detail_url,num_iid,title,nick,desc,location,price,post_fee,express_fee,ems_fee,item_imgs,videos,pic_url,stuff_status");
 		req.setNumIid(itemId);
