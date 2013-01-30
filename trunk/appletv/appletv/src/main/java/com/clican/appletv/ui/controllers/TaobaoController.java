@@ -190,6 +190,22 @@ public class TaobaoController {
 		int end = content.indexOf(";", start);
 		Long sellerId = Long.parseLong(content.substring(start, end).trim());
 
+		request.setAttribute("sellerId", sellerId);
+		request.setAttribute("shopId", sid);
+		request.setAttribute("nick", nick);
+		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
+		return "taobao/shop";
+	}
+	
+	@RequestMapping("/taobao/shopHome.xml")
+	public String shopHomePage(HttpServletRequest request,
+			HttpServletResponse response,
+			@RequestParam(value = "sellerId", required = false) Long sellerId)
+			throws Exception {
+		if (log.isDebugEnabled()) {
+			log.debug("access shop home:" + sellerId);
+		}
+
 		TaobaokeItemsRelateGetRequest itemReq = new TaobaokeItemsRelateGetRequest();
 		itemReq.setRelateType(4L);
 		itemReq.setSellerId(sellerId);
@@ -202,7 +218,25 @@ public class TaobaoController {
 
 		request.setAttribute("itemList", itemList);
 		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
-		return "taobao/store";
+		return "taobao/shopHome";
+	}
+	
+	@RequestMapping("/taobao/shopDetail.xml")
+	public String shopDetailPage(HttpServletRequest request,
+			HttpServletResponse response,
+			@RequestParam(value = "nick", required = false) String nick)
+			throws Exception {
+		if (log.isDebugEnabled()) {
+			log.debug("access shop detail:" + nick);
+		}
+		ShopGetRequest shopReq = new ShopGetRequest();
+		shopReq.setFields("sid,cid,title,nick,desc,bulletin,pic_path,created,modified");
+		shopReq.setNick(nick);
+		ShopGetResponse shopResp = taobaoRestClient.execute(shopReq);
+
+		request.setAttribute("shop", shopResp.getShop());
+		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
+		return "taobao/shopDetail";
 	}
 
 	@RequestMapping("/taobao/itemList.xml")

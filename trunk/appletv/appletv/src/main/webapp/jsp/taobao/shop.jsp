@@ -2,29 +2,25 @@
 <atv>
 <head><script src="${serverurl}/javascript/clican.js"/></head>
 <body>
-<itemDetail id="shopDetail">
-			<title><![CDATA[${shop.nick}]]></title>
-			<summary><![CDATA[${shop.bulletin}]]></summary>
-			<image style="moviePoster">${item.picPath}</image>
-			<centerShelf>
-				<shelf id="album">
-					<sections>
-						<shelfSection>
-							<items>
-								<actionButton id="album_1" onSelect="taobaoClient.addToFavorite(${shop.sid},${taobaoHtmlToken});" onPlay="taobaoClient.addToFavorite(${shop.sid},'${taobaoHtmlToken}');">
-									<title>收藏</title>
-								</actionButton>
-								<actionButton id="album_3" onSelect="atv.loadURL('${serverurl}/ctl/weibo/createStatus.xml?feature=10&amp;title=${fn:escapeXml(shop.title)}&amp;shareURL=http://shop${shop.sid}.taobao.com&amp;imageURL=${fn:escapeXml(shop.picPath)}');" onPlay="atv.loadURL('${serverurl}/ctl/weibo/createStatus.xml?feature=10&amp;title=${fn:escapeXml(item.title)}&amp;shareURL=${fn:escapeXml(item.detailUrl)}&amp;imageURL=${fn:escapeXml(item.picUrl)}');">
-									<title>分享</title>
-								</actionButton>
-							</items>
-						</shelfSection>
-					</sections>
-				</shelf>
-			</centerShelf>
-			<bottomShelf>
-			    <shelf id=""></shelf>
-			</bottomShelf>
-		</itemDetail>
-</body>
+		<viewWithNavigationBar id="bar">
+			<navigation>
+				<navigationItem>
+					<title>店铺首页</title>
+					<url>${serverurl}/ctl/taobao/shopHome.xml?sellerId=${sellerId}</url>
+				</navigationItem>
+				<navigationItem>
+					<title>店铺搜索</title>
+					<url>${serverurl}/ctl/weibo/homeTimeline.xml?feature=3</url>
+				</navigationItem>
+				<navigationItem>
+					<title>店铺分类</title>
+					<url>${serverurl}/ctl/weibo/homeTimeline.xml?feature=4</url>
+				</navigationItem>
+				<navigationItem>
+					<title>店铺信息</title>
+					<url>${serverurl}/ctl/taobao/shopDetail.xml?nick=${nick}</url>
+				</navigationItem>
+			</navigation>
+		</viewWithNavigationBar>
+	</body>
 </atv>
