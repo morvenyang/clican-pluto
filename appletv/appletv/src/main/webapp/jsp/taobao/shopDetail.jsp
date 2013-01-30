@@ -14,7 +14,7 @@
 								<actionButton id="album_1" onSelect="taobaoClient.addToFavorite(${shop.sid},${taobaoHtmlToken});" onPlay="taobaoClient.addToFavorite(${shop.sid},'${taobaoHtmlToken}');">
 									<title>收藏</title>
 								</actionButton>
-								<actionButton id="album_3" onSelect="atv.loadURL('${serverurl}/ctl/weibo/createStatus.xml?feature=10&amp;title=${fn:escapeXml(shop.title)}&amp;shareURL=http://shop${shop.sid}.taobao.com&amp;imageURL=${fn:escapeXml(shop.picPath)}');" onPlay="atv.loadURL('${serverurl}/ctl/weibo/createStatus.xml?feature=10&amp;title=${fn:escapeXml(shop.title)}&amp;shareURL=http://shop${shop.sid}.taobao.com&amp;imageURL=${fn:escapeXml(shop.picPath)}');">
+								<actionButton id="album_3" onSelect="atv.loadURL('${serverurl}/ctl/weibo/createStatus.xml?feature=10&amp;title=${fn:escapeXml(shop.title)}&amp;shareURL=http://shop${shop.sid}.taobao.com&amp;imageURL=http://logo.taobao.com/shop-logo${fn:escapeXml(shop.picPath)}');" onPlay="atv.loadURL('${serverurl}/ctl/weibo/createStatus.xml?feature=10&amp;title=${fn:escapeXml(shop.title)}&amp;shareURL=http://shop${shop.sid}.taobao.com&amp;imageURL=http://logo.taobao.com/shop-logo${fn:escapeXml(shop.picPath)}');">
 									<title>分享</title>
 								</actionButton>
 							</items>
