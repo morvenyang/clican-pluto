@@ -253,7 +253,7 @@ public class TaobaoController {
 			@RequestParam(value = "parentId", required = false) Long parentId)
 			throws Exception {
 		if (log.isDebugEnabled()) {
-			log.debug("access shop detail:" + nick);
+			log.debug("access shop category:" + nick);
 		}
 
 		List<SellerCat> categoryList = null;
@@ -269,6 +269,13 @@ public class TaobaoController {
 		} else {
 			categoryList = (List<SellerCat>) request.getSession().getAttribute(
 					TAOBAO_SELLER_CATEGORY_LIST);
+			if (categoryList == null) {
+				SellercatsListGetRequest sellerCatReq = new SellercatsListGetRequest();
+				sellerCatReq.setNick(nick);
+				SellercatsListGetResponse sellerCatResp = taobaoRestClient
+						.execute(sellerCatReq);
+				categoryList = sellerCatResp.getSellerCats();
+			}
 		}
 		Map<Long, TaobaoCategory> categoryMap = new HashMap<Long, TaobaoCategory>();
 		List<TaobaoCategory> list = new ArrayList<TaobaoCategory>();
@@ -284,17 +291,16 @@ public class TaobaoController {
 		for (SellerCat sc : categoryList) {
 			if (sc.getParentCid() != 0) {
 				TaobaoCategory tc = categoryMap.get(sc.getParentCid());
+				tc.setHasChild(true);
+				tc.setParentId(sc.getParentCid());
 				tc.getChildren().add(categoryMap.get(sc.getCid()));
 			}
 		}
 
 		List<TaobaoCategory> resultList = new ArrayList<TaobaoCategory>();
 		for (TaobaoCategory tc : list) {
-			if (tc.getId().equals(parentId)) {
+			if (tc.getParentId().equals(parentId)) {
 				resultList.add(tc);
-				if (tc.getChildren() != null && tc.getChildren().size() > 0) {
-					tc.setHasChild(true);
-				}
 			}
 		}
 		request.setAttribute("categoryList", resultList);
