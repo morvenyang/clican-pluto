@@ -18,6 +18,7 @@
 <input type="button" onclick="taobaoClient.getSellerIdByShopUrl('http://s.click.taobao.com/t?e=zGU34CA7K%2BPkqB04MQzdgG3VSuWRIvnJbEpKV5PcuKFufezxnvbpzyrw2Hthrecou0ks9%2Bc0ABgwjRVXLhlDBy4t2D5QGkgibcZogNYFDbPWq%2F2C8x%2FfbL6mrOqTOhR6%2BlJFYTO2yF%2FSd1o0eSe40pFAJI%2FJiogx5BqD%2BfjddvM1PA%3D%3D&spm=2014.21373190.1.0');" value="店铺"/>
 <input type="button" onclick="taobaoClient.addToFavorite('12729301574','<%=request.getSession().getAttribute("taobaoHtmlToken")%>');" value="收藏"/>
 <input type="button" onclick="taobaoClient.addToFavorite(21238720782,'<%=request.getSession().getAttribute("taobaoHtmlToken")%>');" value="收藏2"/>
+<input type="button" onclick="taobaoClient.loadSellerCategoryItemPage(68710510,661186878,'tL%2FD3rOkVA%3D%3D');" value="加载分类商品"/>
 <input type="button" onclick="appletv.showDialog('测试模拟','')" value="测试模拟"/>
 <input type="button" onclick="qqClient.loadIndexPage(1,1,14);" value="电影"/>
 <input type="button" onclick="qqClient.loadIndexPage('黑猫警长',0,1001);" value="查询"/>

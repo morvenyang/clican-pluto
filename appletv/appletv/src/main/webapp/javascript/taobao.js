@@ -82,7 +82,13 @@ var taobaoClient = {
 		}
 
 	},
-	
+	loadSellerCategoryItemPage: function(shopid,scid,scname){
+		var url = 'http://shop'+shopid+'.taobao.com/search.htm?scid='+scid+'&scname'+scname+'&checkedRange=true&queryType=cat';
+		appletv.logToServer(url);
+		appletv.makeRequest(url,function(htmlcontent){
+			appletv.logToServer(htmlcontent);
+		});
+	},
 	loadFavoriteItemPage : function(token) {
 		if (token == null || token.length == 0|| token=='null') {
 			appletv
