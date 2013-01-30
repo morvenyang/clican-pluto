@@ -14,7 +14,7 @@
 				</navigationItem>
 				<navigationItem>
 					<title>店铺分类</title>
-					<url>${serverurl}/ctl/taobao/shopCategory.xml?nick=${nick}</url>
+					<url>${serverurl}/ctl/taobao/shopCategory.xml?nick=${nick}&amp;shopId=${shopId}</url>
 				</navigationItem>
 				<navigationItem>
 					<title>店铺信息</title>
