@@ -313,7 +313,7 @@ public class TaobaoController {
 		}
 
 
-		return "taobao/shopCategory";
+		return "taobao/shopCategoryItem";
 	}
 
 	@RequestMapping("/taobao/itemList.xml")
