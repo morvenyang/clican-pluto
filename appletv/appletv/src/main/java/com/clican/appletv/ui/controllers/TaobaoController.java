@@ -469,9 +469,12 @@ public class TaobaoController {
 			itemList.add(ti);
 		}
 		request.setAttribute("itemList", itemList);
-
 		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
-		return "taobao/favoriteItem";
+		if(itemList.size()==0){
+			return "taobao/noresult";
+		}else{
+			return "taobao/favoriteItem";
+		}
 	}
 
 	@RequestMapping("/taobao/favoriteShop.xml")
@@ -513,7 +516,12 @@ public class TaobaoController {
 		request.setAttribute("shopList", shopList);
 
 		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
-		return "taobao/favoriteShop";
+		if(shopList.size()==0){
+			return "taobao/noresult";
+		}else{
+			return "taobao/favoriteShop";
+		}
+		
 	}
 
 	@RequestMapping("/taobao/item.xml")
