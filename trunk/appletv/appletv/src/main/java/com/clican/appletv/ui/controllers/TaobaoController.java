@@ -301,6 +301,20 @@ public class TaobaoController {
 		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
 		return "taobao/shopCategory";
 	}
+	
+	public String shopCategoryItemPage(HttpServletRequest request,
+			HttpServletResponse response,
+			@RequestParam(value = "shopId", required = false) Long shopId,
+			@RequestParam(value = "scid", required = false) Long scid,
+			@RequestParam(value = "scname", required = false) String scname)
+			throws Exception {
+		if (log.isDebugEnabled()) {
+			log.debug("access shop category item:" + scname);
+		}
+
+
+		return "taobao/shopCategory";
+	}
 
 	@RequestMapping("/taobao/itemList.xml")
 	public String itemListPage(HttpServletRequest request,

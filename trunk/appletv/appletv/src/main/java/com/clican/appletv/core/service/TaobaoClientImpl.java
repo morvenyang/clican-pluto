@@ -2,7 +2,6 @@ package com.clican.appletv.core.service;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,10 +10,18 @@ import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import org.apache.commons.io.FileUtils;
+import org.htmlparser.Node;
+import org.htmlparser.Parser;
+import org.htmlparser.filters.AndFilter;
+import org.htmlparser.filters.HasAttributeFilter;
+import org.htmlparser.filters.TagNameFilter;
+import org.htmlparser.nodes.TagNode;
+import org.htmlparser.util.NodeList;
 
 import com.clican.appletv.common.PostResponse;
 import com.clican.appletv.core.model.TaobaoAccessToken;
 import com.clican.appletv.core.model.TaobaoCategory;
+import com.taobao.api.domain.Item;
 import com.taobao.api.domain.ItemCat;
 import com.taobao.api.internal.util.WebUtils;
 import com.taobao.api.request.ItemcatsGetRequest;
@@ -133,6 +140,31 @@ public class TaobaoClientImpl extends BaseClient implements TaobaoClient {
 	}
 
 	@Override
+	public List<Item> getItemBySellerCategory(Long shopId, Long scid,
+			String scname) {
+		String url = "http://shop" + shopId + ".taobao.com/search.htm?scid="
+				+ scid + "&scname=" + scname
+				+ "&checkedRange=true&queryType=cat";
+		String htmlContent = this.httpGet(url);
+		Parser parser = Parser.createParser(htmlContent, "utf-8");
+		AndFilter tokenFilter = new AndFilter(new TagNameFilter("div"),
+				new HasAttributeFilter("calss", "item"));
+		List<Item> result = new ArrayList<Item>();
+		try {
+			NodeList nodeList = parser.parse(tokenFilter);
+			for (int i = 0; i < nodeList.size(); i++) {
+				Node node = nodeList.elementAt(i);
+				TagNode picNode = (TagNode)this.getChildNode(node, new int[]{0,0});
+				
+			}
+		} catch (Exception e) {
+
+		}
+
+		return null;
+	}
+
+	@Override
 	public boolean addFavorite(Integer itemtype, Integer isMall, Integer isLp,
 			Integer isTaohua, Long id, String cookie, String token) {
 		Map<String, String> nameValueMap = new HashMap<String, String>();
@@ -156,30 +188,9 @@ public class TaobaoClientImpl extends BaseClient implements TaobaoClient {
 		c = "_tb_token_=f3d3a11f7e5eb; cookie2=86db46da144cc35e0410bd51e28862f9; sg=n5f;  cookie1=VAFYwFXZxCjbTmyCB%2BKJXAKeZjYGL0WQ%2BK6Ce3BP1YE%3D; cookie17=W8twrd9AJm0%3D;  uc1=lltime=1359364242&cookie14=UoLZVdan01CPCA%3D%3D&existShop=false&cookie16=VT5L2FSpNgq6fDudInPRgavC%2BQ%3D%3D&cookie21=V32FPkk%2FgPzW&tag=1&cookie15=U%2BGCWk%2F75gdr5Q%3D%3D;";
 		c = "_tb_token_=e71bee60b53ae; cookie2=6a5e831e3602512995fcad906ea7c47d; sg=n5f;  cookie1=VAFYwFXZxCjbTmyCB%2BKJXAKeZjYGL0WQ%2BK6Ce3BP1YE%3D; cookie17=W8twrd9AJm0%3D;  uc1=lltime=1359364696&cookie14=UoLZVdan0rkVxQ%3D%3D&existShop=false&cookie16=Vq8l%2BKCLySLZMFWHxqs8fwqnEw%3D%3D&cookie21=W5iHLLyFe3xm&tag=1&cookie15=URm48syIIVrSKA%3D%3D;";
 		header.put("Cookie", cookie);
-		// String url =
-		// "http://favorite.taobao.com/popup/add_collection.htm?id=12729301574&itemtype=1&scjjc=1&_tb_token_="+token+"&t="+Calendar.getInstance().getTimeInMillis();
-		// header.put(
-		// "Cookie",
-		// "cna=q7h7CaJDmGoCAQ/bmUsaWfGb; __utma=6906807.320180861.1359014561.1359014561.1359014561.1; __utmz=6906807.1359014561.1.1.utmcsr=mtop.taobao.com|utmccn=(referral)|utmcmd=referral|utmcct=/; v=0; mt=ci=0_1; _tb_token_=ede69ee51ee17; swfstore=229989; x=e%3D1%26p%3D*%26s%3D0%26c%3D1%26f%3D0%26g%3D0%26t%3D0; l=clicanclican::1359355944079::11; tg=0; _cc_=Vq8l%2BKCLiw%3D%3D; t=9f05c88e7aa4b54d21d7afdafded91e9; unb=82478075; _nk_=clicanclican; _l_g_=Ug%3D%3D; cookie2=4785494734a5562015ef76a6ac1c3575; tracknick=clicanclican; sg=n5f; lastgetwwmsg=MTM1OTM1MjQzOQ%3D%3D; cookie1=VAFYwFXZxCjbTmyCB%2BKJXAKeZjYGL0WQ%2BK6Ce3BP1YE%3D; cookie17=W8twrd9AJm0%3D; uc1=lltime=1359352046&cookie14=UoLZVdakrkfIIA%3D%3D&existShop=false&cookie16=UtASsssmPlP%2Ff1IHDsDaPRu%2BPw%3D%3D&cookie21=UIHiLt3xTIkz&tag=1&cookie15=UtASsssmOIJ0bQ%3D%3D;");
-		// PostResponse pr = this.httpGetForCookie(url, header, null);
-		// log.debug(pr.getContent());
 		String url2 = "http://favorite.taobao.com/popup/add_collection.htm";
 		PostResponse pr2 = this.httpPost(url2, null, nameValueMap,
 				"application/x-www-form-urlencoded", "utf-8", header, null);
-//		cookie +=pr2.getCookies();
-//		header.put("Cookie", cookie);
-//		PostResponse pr3 = this
-//				.httpGetForCookie(
-//						"http://favorite.taobao.com/popup/add_collection_2.htm?id=18180872462&itemtype=1&is_tmall=1&is_lp=&is_taohua=",
-//						header, null);
-//		log.debug(pr3.getContent());
-//		cookie +=pr3.getCookies();
-//		header.put("Cookie", cookie);
-//		String url4 = "http://favorite.taobao.com/popup/add_collection.htm";
-//		PostResponse pr4 = this.httpPost(url4, null, nameValueMap,
-//				"application/x-www-form-urlencoded", "utf-8", header, null);
-//
-//		log.debug(pr4.getContent());
 		return true;
 	}
 
@@ -196,6 +207,33 @@ public class TaobaoClientImpl extends BaseClient implements TaobaoClient {
 		} else {
 			return new ArrayList<TaobaoCategory>();
 		}
+	}
+
+	private Node getChildNode(Node node, int[] indexs) {
+		Node r = node;
+		try {
+			for (int i = 0; i < indexs.length; i++) {
+				int index = -1;
+				for (int j = 0; j < r.getChildren().size(); j++) {
+					Node n = r.getChildren().elementAt(j);
+					if (n instanceof TagNode) {
+						index++;
+						if (index == indexs[i]) {
+							r = n;
+							break;
+						}
+					}
+				}
+				if (index != indexs[i]) {
+					throw new RuntimeException("Can't find child:" + indexs[i]);
+				}
+			}
+			return r;
+		} catch (Exception e) {
+			log.error("", e);
+			return null;
+		}
+
 	}
 
 }
