@@ -9,7 +9,7 @@
 	<items>
 		<grid id="grid_2" columnCount="2">
 			<items>
-				 <goldenPoster id="gp1" onSelect="" onPlay="">
+				 <goldenPoster id="gp1" onSelect="atv.loadURL('${serverurl}/ctl/taobao/category.xml');" onPlay="atv.loadURL('${serverurl}/ctl/taobao/category.xml');">
                 	<image>${serverurl}/image/taobao/category.png</image>
                 	<title>类目浏览</title>
                  </goldenPoster>
@@ -20,10 +20,6 @@
                  <goldenPoster id="gp3" onSelect="taobaoClient.loadFavoriteShopPage(${taobaoHtmlToken});" onPlan="taobaoClient.loadFavoriteShopPage(${taobaoHtmlToken});">
                 	<image>${serverurl}/image/taobao/favorite.png</image>
                 	<title>收藏的店铺</title>
-                 </goldenPoster>
-                 <goldenPoster id="gp4">
-                	<image>${serverurl}/image/taobao/search.png</image>
-                	<title>搜索</title>
                  </goldenPoster>
 			</items>
 		</grid>
