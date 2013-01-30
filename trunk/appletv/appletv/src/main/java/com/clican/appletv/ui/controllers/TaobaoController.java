@@ -336,7 +336,7 @@ public class TaobaoController {
 		List<Item> itemList = itemsResp.getItems();
 		List<Item> result = new ArrayList<Item>();
 		for (Item item : itemList) {
-			if(item.getSellerCids().contains(scid.toString())){
+			if (item.getSellerCids().contains(scid.toString())) {
 				result.add(item);
 			}
 		}
@@ -473,70 +473,43 @@ public class TaobaoController {
 		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
 		return "taobao/favorite";
 	}
-	
+
 	@RequestMapping("/taobao/favoriteShop.xml")
 	public String favoriteShopPage(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-		List<TaobaokeItem> itemList = new ArrayList<TaobaokeItem>();
-		String content = this.getContent(request);
-		JSONObject json = JSONObject.fromObject(content);
-		String result = "";
-		if (json.containsKey("item")) {
-			JSONObject item = json.getJSONObject("item");
-			JSONArray items = item.getJSONArray("items");
-			for (int i = 0; i < items.size(); i++) {
-				String htmlContent = items.getString(i);
-				htmlContent = URLDecoder.decode(htmlContent, "utf-8");
-				result += htmlContent;
-			}
-		}
+		List<Shop> shopList = new ArrayList<Shop>();
+		String htmlContent = this.getContent(request);
+
 		PrototypicalNodeFactory factory = new PrototypicalNodeFactory();
 		factory.registerTag(new StrongTag());
-		Parser parser = Parser.createParser(result, "utf-8");
+		Parser parser = Parser.createParser(htmlContent, "utf-8");
 		parser.setNodeFactory(factory);
 		AndFilter idFilter = new AndFilter(new TagNameFilter("li"),
 				new HasAttributeFilter("data-type", "FavItem"));
 		NodeList nodeList = parser.parse(idFilter);
 		for (int i = 0; i < nodeList.size(); i++) {
-			TaobaokeItem ti = new TaobaokeItem();
 			TagNode itemNode = ((TagNode) nodeList.elementAt(i));
-			String id = itemNode.getAttribute("data-item-id");
-			ti.setNumIid(Long.parseLong(id));
+			Shop shop = new Shop();
 			for (int j = 0; j < itemNode.getChildren().size(); j++) {
 				Node childNode = itemNode.getChildren().elementAt(j);
 				if (childNode instanceof TagNode) {
 					String className = ((TagNode) childNode)
 							.getAttribute("class");
-					if (className.equals("J_FavImgController")) {
+					if (className.contains("thumbnail-private")) {
 						TagNode imageNode = (TagNode) getChildNode(childNode,
 								new int[] { 0, 0 });
-						ti.setPicUrl(imageNode.getAttribute("src"));
-					} else if (className.equals("attribute")) {
-						TagNode titleNode = (TagNode) getChildNode(childNode,
-								new int[] { 0, 1 });
-						ti.setTitle(titleNode.getAttribute("title"));
-						TagNode priceNode = (TagNode) getChildNode(childNode,
-								new int[] { 1, 0, 1, 1 });
-						ti.setPrice(((CompositeTag) priceNode).getStringText());
-						TagNode volumn = (TagNode) getChildNode(childNode,
-								new int[] { 2, 0 });
-						String stringVolumn = ((CompositeTag) volumn)
-								.getStringText();
-						if (stringVolumn.indexOf(":") != -1) {
-							stringVolumn = stringVolumn
-									.substring(stringVolumn.indexOf(":") + 1)
-									.replaceAll("件", "").trim();
-						}
-						if (StringUtils.isNumeric(stringVolumn)) {
-							ti.setVolume(Long.parseLong(stringVolumn));
-						}
+						shop.setPicPath(imageNode.getAttribute("src"));
+					} else if (className
+							.contains("J_NewAucBox J_SimilarItemsBox")) {
+						CompositeTag titleNode = (CompositeTag) getChildNode(childNode,
+								new int[] { 0, 0, 0 });
+						shop.setTitle(titleNode.getStringText().trim());
 					}
 				}
 			}
-
-			itemList.add(ti);
+			shopList.add(shop);
 		}
-		request.setAttribute("itemList", itemList);
+		request.setAttribute("shopList", shopList);
 
 		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
 		return "taobao/favorite";
