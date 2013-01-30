@@ -73,22 +73,27 @@ public class TaobaoTestCase extends BaseServiceTestCase {
 
 	public void testGetItemsFromStore() throws Exception {
 
-		ShopGetRequest req1=new ShopGetRequest();
+		ShopGetRequest req1 = new ShopGetRequest();
 		req1.setFields("sid,cid,title,nick,desc,bulletin,pic_path,created,modified");
 		req1.setNick("海尚丽人旗舰店");
 		ShopGetResponse response1 = taobaoRestClient.execute(req1);
 		Long sid = response1.getShop().getSid();
-		String shopUrl = "http://shop"+sid+".taobao.com";
-		String content = ((TaobaoClientImpl)taobaoClient).httpGet(shopUrl);
-		
-		int start = content.indexOf("userid=")+"userid=".length();
-		int end = content.indexOf(";",start);
-		Long sellerId = Long.parseLong(content.substring(start,end).trim());
-		
-		TaobaokeItemsRelateGetRequest req2=new TaobaokeItemsRelateGetRequest();
+		String shopUrl = "http://shop" + sid + ".taobao.com";
+		String content = ((TaobaoClientImpl) taobaoClient).httpGet(shopUrl);
+
+		int start = content.indexOf("userid=") + "userid=".length();
+		int end = content.indexOf(";", start);
+		Long sellerId = Long.parseLong(content.substring(start, end).trim());
+
+		TaobaokeItemsRelateGetRequest req2 = new TaobaokeItemsRelateGetRequest();
 		req2.setRelateType(4L);
 		req2.setSellerId(sellerId);
 		req2.setFields("num_iid,title,nick,pic_url,price,click_url,commission,commission_rate,commission_num,commission_volume,shop_click_url,seller_credit_score,item_location,volume");
-		TaobaokeItemsRelateGetResponse response2 = taobaoRestClient.execute(req2);
+		TaobaokeItemsRelateGetResponse response2 = taobaoRestClient
+				.execute(req2);
+	}
+
+	public void testGetItemsBySellerCategory() throws Exception {
+		taobaoClient.getItemsBySellerCategory(68710510L, 661186880L, "tL%2FD3rbM0ORU0PQ%3D");
 	}
 }

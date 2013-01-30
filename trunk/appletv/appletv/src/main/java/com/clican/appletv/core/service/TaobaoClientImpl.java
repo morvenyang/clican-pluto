@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -13,7 +15,7 @@ import org.apache.commons.io.FileUtils;
 import org.htmlparser.Node;
 import org.htmlparser.Parser;
 import org.htmlparser.filters.AndFilter;
-import org.htmlparser.filters.HasAttributeFilter;
+import org.htmlparser.filters.LinkStringFilter;
 import org.htmlparser.filters.TagNameFilter;
 import org.htmlparser.nodes.TagNode;
 import org.htmlparser.util.NodeList;
@@ -21,7 +23,6 @@ import org.htmlparser.util.NodeList;
 import com.clican.appletv.common.PostResponse;
 import com.clican.appletv.core.model.TaobaoAccessToken;
 import com.clican.appletv.core.model.TaobaoCategory;
-import com.taobao.api.domain.Item;
 import com.taobao.api.domain.ItemCat;
 import com.taobao.api.internal.util.WebUtils;
 import com.taobao.api.request.ItemcatsGetRequest;
@@ -140,28 +141,30 @@ public class TaobaoClientImpl extends BaseClient implements TaobaoClient {
 	}
 
 	@Override
-	public List<Item> getItemBySellerCategory(Long shopId, Long scid,
+	public List<Long> getItemsBySellerCategory(Long shopId, Long scid,
 			String scname) {
 		String url = "http://shop" + shopId + ".taobao.com/search.htm?scid="
 				+ scid + "&scname=" + scname
 				+ "&checkedRange=true&queryType=cat";
 		String htmlContent = this.httpGet(url);
 		Parser parser = Parser.createParser(htmlContent, "utf-8");
-		AndFilter tokenFilter = new AndFilter(new TagNameFilter("div"),
-				new HasAttributeFilter("calss", "item"));
-		List<Item> result = new ArrayList<Item>();
+		List<Long> result = new ArrayList<Long>();
+		Pattern pattern = Pattern.compile(".*id=(\\p{Digit}*).*");
 		try {
-			NodeList nodeList = parser.parse(tokenFilter);
+			NodeList nodeList = parser.parse(new LinkStringFilter("item.htm"));
 			for (int i = 0; i < nodeList.size(); i++) {
-				Node node = nodeList.elementAt(i);
-				TagNode picNode = (TagNode)this.getChildNode(node, new int[]{0,0});
-				
+				TagNode node = (TagNode) nodeList.elementAt(i);
+				String href = node.getAttribute("href");
+				Matcher matcher = pattern.matcher(href);
+				if (matcher.matches()) {
+					String id = matcher.group(1);
+					result.add(Long.parseLong(id));
+				}
 			}
 		} catch (Exception e) {
-
+			log.error("", e);
 		}
-
-		return null;
+		return result;
 	}
 
 	@Override
