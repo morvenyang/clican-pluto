@@ -181,6 +181,7 @@ public class TaobaoController {
 			log.debug("access shop:" + nick);
 		}
 
+		request.getSession().removeAttribute(TAOBAO_SELLER_CATEGORY_LIST);
 		ShopGetRequest shopReq = new ShopGetRequest();
 		shopReq.setFields("sid,cid,title,nick,desc,bulletin,pic_path,created,modified");
 		shopReq.setNick(nick);
@@ -256,27 +257,20 @@ public class TaobaoController {
 			log.debug("access shop category:" + nick);
 		}
 
-		List<SellerCat> categoryList = null;
 		if (parentId == null) {
 			parentId = 0L;
+		}
+		List<SellerCat> categoryList = (List<SellerCat>) request.getSession()
+				.getAttribute(TAOBAO_SELLER_CATEGORY_LIST);
+		if (categoryList == null) {
 			SellercatsListGetRequest sellerCatReq = new SellercatsListGetRequest();
 			sellerCatReq.setNick(nick);
 			SellercatsListGetResponse sellerCatResp = taobaoRestClient
 					.execute(sellerCatReq);
 			categoryList = sellerCatResp.getSellerCats();
-			request.getSession().setAttribute(TAOBAO_SELLER_CATEGORY_LIST,
-					categoryList);
-		} else {
-			categoryList = (List<SellerCat>) request.getSession().getAttribute(
-					TAOBAO_SELLER_CATEGORY_LIST);
-			if (categoryList == null) {
-				SellercatsListGetRequest sellerCatReq = new SellercatsListGetRequest();
-				sellerCatReq.setNick(nick);
-				SellercatsListGetResponse sellerCatResp = taobaoRestClient
-						.execute(sellerCatReq);
-				categoryList = sellerCatResp.getSellerCats();
-			}
+			request.getSession().setAttribute(TAOBAO_SELLER_CATEGORY_LIST, categoryList);
 		}
+
 		Map<Long, TaobaoCategory> categoryMap = new HashMap<Long, TaobaoCategory>();
 		List<TaobaoCategory> list = new ArrayList<TaobaoCategory>();
 		for (SellerCat sc : categoryList) {
@@ -284,6 +278,7 @@ public class TaobaoController {
 			tc.setId(sc.getCid());
 			tc.setPicUrl(sc.getPicUrl());
 			tc.setTitle(sc.getName());
+			tc.setParentId(sc.getParentCid());
 			list.add(tc);
 			categoryMap.put(sc.getCid(), tc);
 		}
@@ -292,7 +287,6 @@ public class TaobaoController {
 			if (sc.getParentCid() != 0) {
 				TaobaoCategory tc = categoryMap.get(sc.getParentCid());
 				tc.setHasChild(true);
-				tc.setParentId(sc.getParentCid());
 				tc.getChildren().add(categoryMap.get(sc.getCid()));
 			}
 		}

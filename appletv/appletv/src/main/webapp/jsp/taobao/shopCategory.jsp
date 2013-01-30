@@ -15,13 +15,13 @@
 							<c:forEach var="category" items="${categoryList}" varStatus="status">
 								<c:if test="${!category.hasChild}">
 									<oneLineMenuItem id="category_${status.count}" onPlay="atv.loadURL('${serverurl}/ctl/taobao/itemList.xml?cid=${category.id}');" onSelect="atv.loadURL('${serverurl}/ctl/taobao/itemList.xml?cid=${category.id}');">
-										<label>${category.title}</label>
+										<label><![CDATA[${category.title}]]></label>
 										<image>${category.picUrl}</image>
 									</oneLineMenuItem>
 								</c:if>
 								<c:if test="${category.hasChild}">
-									<oneLineMenuItem id="category_${status.count}" onPlay="atv.loadURL('${serverurl}/ctl/taobao/shopCategory.xml?parentId=${category.cid}');" onSelect="atv.loadURL('${serverurl}/ctl/taobao/shopCategory.xml?parentId=${category.cid}');">
-										<label>${category.title}</label>
+									<oneLineMenuItem id="category_${status.count}" onPlay="atv.loadURL('${serverurl}/ctl/taobao/shopCategory.xml?parentId=${category.id}');" onSelect="atv.loadURL('${serverurl}/ctl/taobao/shopCategory.xml?parentId=${category.id}');">
+										<label><![CDATA[${category.title} >>]]></label>
 										<image>${category.picUrl}</image>
 									</oneLineMenuItem>
 								</c:if>
