@@ -2,7 +2,7 @@
 <atv>
 <body>
 	<dialog id="com.sample.error-dialog">
-	    <title><![CDATA[没有相关商品信息]]></title>
+	    <title><![CDATA[没有相关数据]]></title>
 	    <description></description>
 	 </dialog>
 </body>
