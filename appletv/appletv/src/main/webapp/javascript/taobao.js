@@ -2,7 +2,7 @@ var taobaoLoginApi = 'https://login.taobao.com/member/login.jhtml';
 var taobaoTokenApi = 'http://i.taobao.com/my_taobao.htm';
 var taobaoAddToFavoriteApi = 'http://favorite.taobao.com/popup/add_collection.htm';
 var taobaoMyFavoriteItemApi = 'http://favorite.taobao.com/json/collect_list_chunk.htm?itemtype=1&isBigImgShow=true&orderby=time&startrow=0&chunkSize=30&chunkNum=1&deleNum=0';
-var taobaoMyFavoriteShopApi = '';
+var taobaoMyFavoriteShopApi = 'http://favorite.taobao.com/collect_list.htm?itemtype=0';
 var taobaoClient = {
 	login : function(username, password) {
 		var url = taobaoLoginApi + "?TPL_username=" + username
@@ -109,7 +109,7 @@ var taobaoClient = {
 		} else {
 			appletv.makeRequest(taobaoMyFavoriteItemApi,
 					function(htmlcontent) {
-						appletv.makePostRequest(appletv.serverurl+'/ctl/taobao/favorite.xml',htmlcontent,function(xmlcontent){
+						appletv.makePostRequest(appletv.serverurl+'/ctl/taobao/favoriteItem.xml',htmlcontent,function(xmlcontent){
 							appletv.loadXML(xmlcontent);
 						});
 					});
@@ -131,9 +131,9 @@ var taobaoClient = {
 													'请输入淘宝用户名密码,用户名和密码以\'\\\'分隔',
 													taobaoClient.loginByUserNameAndPassword,'taobaoClient.loginByUserNameAndPassword');
 								} else {
-									appletv.makeRequest(taobaoMyFavoriteApi,
+									appletv.makeRequest(taobaoMyFavoriteShopApi,
 											function(htmlcontent) {
-												appletv.makePostRequest(appletv.serverurl+'/ctl/taobao/favoriteItem.xml',htmlcontent,function(xmlcontent){
+												appletv.makePostRequest(appletv.serverurl+'/ctl/taobao/favoriteShop.xml',htmlcontent,function(xmlcontent){
 													appletv.loadXML(xmlcontent);
 												});
 											});
@@ -141,9 +141,9 @@ var taobaoClient = {
 							});
 			return;
 		} else {
-			appletv.makeRequest(taobaoMyFavoriteApi,
+			appletv.makeRequest(taobaoMyFavoriteShopApi,
 					function(htmlcontent) {
-						appletv.makePostRequest(appletv.serverurl+'/ctl/taobao/favorite.xml',htmlcontent,function(xmlcontent){
+						appletv.makePostRequest(appletv.serverurl+'/ctl/taobao/favoriteShop.xml',htmlcontent,function(xmlcontent){
 							appletv.loadXML(xmlcontent);
 						});
 					});
