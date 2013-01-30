@@ -152,13 +152,14 @@ var taobaoClient = {
 							}else{
 								id = href.substring(idstart);
 							}
-							appletv.logToServer('id:'+id);
-							ids+=id+',';
+							if(ids.indexOf(id)==-1){
+								ids+=id+',';
+							}
 						}
 						index = htmlcontent.indexOf('href="',end);
 					}
-					appletv.makeRequest(appletv.serverurl+'/ctl/taobao/shopCategoryItemList.xml?itemIds='+ids,function(xmlcontent){
-						
+					appletv.makeRequest(appletv.serverurl+'/ctl/taobao/shopCategoryItemList.xml?scid='+scid+'&itemIds='+ids,function(xmlcontent){
+						appletv.loadXML(xmlcontent);
 					});
 				});
 	

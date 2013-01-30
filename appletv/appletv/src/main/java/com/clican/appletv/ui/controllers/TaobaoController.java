@@ -44,12 +44,14 @@ import com.taobao.api.domain.Shop;
 import com.taobao.api.domain.TaobaokeItem;
 import com.taobao.api.internal.util.codec.Base64;
 import com.taobao.api.request.ItemGetRequest;
+import com.taobao.api.request.ItemsListGetRequest;
 import com.taobao.api.request.SellercatsListGetRequest;
 import com.taobao.api.request.ShopGetRequest;
 import com.taobao.api.request.TaobaokeItemsGetRequest;
 import com.taobao.api.request.TaobaokeItemsRelateGetRequest;
 import com.taobao.api.request.UmpPromotionGetRequest;
 import com.taobao.api.response.ItemGetResponse;
+import com.taobao.api.response.ItemsListGetResponse;
 import com.taobao.api.response.SellercatsListGetResponse;
 import com.taobao.api.response.ShopGetResponse;
 import com.taobao.api.response.TaobaokeItemsGetResponse;
@@ -311,35 +313,35 @@ public class TaobaoController {
 	@RequestMapping("/taobao/shopCategoryItemList.xml")
 	public String shopCategoryItemListPage(HttpServletRequest request,
 			HttpServletResponse response,
-			@RequestParam(value = "itemIds", required = false) String itemIds)
+			@RequestParam(value = "itemIds", required = false) String itemIds,
+			@RequestParam(value = "scid", required = false) Long scid)
 			throws Exception {
 		if (log.isDebugEnabled()) {
 			log.debug("access shop category item:" + itemIds);
 		}
+		if (itemIds.endsWith(",")) {
+			itemIds = itemIds.substring(0, itemIds.length() - 1);
+		}
+		String[] itemIdArray = itemIds.split(",");
+		int endIndex = 20;
+		if (itemIdArray.length < 20) {
+			endIndex = itemIdArray.length;
+		}
 
-		List<TaobaokeItem> itemList = new ArrayList<TaobaokeItem>();
-
-		long begin, end = 0;
-		int page = 0;
-		int totalPage = 10;
-		if (page < totalPage - 10) {
-			begin = page;
-			end = page + 9;
-		} else {
-			end = totalPage;
-			begin = totalPage - 9;
-			if (begin < 0) {
-				begin = 0;
+		String ids = StringUtils.join(itemIdArray, ",", 0, endIndex);
+		ItemsListGetRequest itemsReq = new ItemsListGetRequest();
+		itemsReq.setFields("num_iid,title,nick,pic_url,price,click_url,item_location,volume,seller_cids");
+		itemsReq.setNumIids(ids);
+		ItemsListGetResponse itemsResp = taobaoRestClient.execute(itemsReq);
+		List<Item> itemList = itemsResp.getItems();
+		List<Item> result = new ArrayList<Item>();
+		for (Item item : itemList) {
+			if(item.getSellerCids().contains(scid.toString())){
+				result.add(item);
 			}
 		}
-		request.setAttribute("pagiurl", springProperty.getSystemServerUrl()
-				+ "/ctl/taobao/shopCategoryItemList.xml?itemIds=" + itemIds);
-		request.setAttribute("itemList", itemList);
-		request.setAttribute("begin", begin);
-		request.setAttribute("end", end);
-		request.setAttribute("totalPage", totalPage);
+		request.setAttribute("itemList", result);
 		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
-
 		return "taobao/shopCategoryItemList";
 	}
 

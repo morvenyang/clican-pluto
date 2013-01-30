@@ -4,21 +4,7 @@
 <body>
 <scroller id="com.sample.movie-shelf">
 	<items>
-		<grid id="grid_1" columnCount="12">
-					<items>
-						<actionButton id="shelf_item_first_page" onSelect="atv.loadURL('${pagiurl}&amp;page=0');" onPlay="atv.loadURL('${pagiurl}&amp;page=0');">
-							<title>第一页</title>
-						</actionButton>
-						<c:forEach var="i" begin="${begin}" end="${end}">
-							<actionButton id="shelf_item_${i}_page" onSelect="atv.loadURL('${pagiurl}&amp;page=${i}');" onPlay="atv.loadURL('${pagiurl}&amp;page=${i}');">
-								<title>${i+1}</title>
-							</actionButton>
-						</c:forEach>
-						<actionButton id="shelf_item_last_page" onSelect="atv.loadURL('${pagiurl}&amp;page=${totalPage}');" onPlay="atv.loadURL('${pagiurl}&amp;page=${totalPage}');">
-							<title>最后页</title>
-						</actionButton>
-					</items>
-					</grid>
+		
 		<grid id="grid_2" columnCount="6">
 			<items>
 				<c:forEach var="item" items="${itemList}">
@@ -31,22 +17,6 @@
 				</c:forEach>
 			</items>
 		</grid>
-				<grid id="grid_3" columnCount="12">
-					<items>
-						<actionButton id="shelf_item_first_page" onSelect="atv.loadURL('${pagiurl}&amp;page=0');" onPlay="atv.loadURL('${pagiurl}&amp;page=0');">
-							<title>第一页</title>
-						</actionButton>
-						<c:forEach var="i" begin="${begin}" end="${end}">
-							<actionButton id="shelf_item_${i}_page" onSelect="atv.loadURL('${pagiurl}&amp;page=${i}');" onPlay="atv.loadURL('${pagiurl}&amp;page=${i}');">
-								<title>${i+1}</title>
-							</actionButton>
-						</c:forEach>
-						<actionButton id="shelf_item_last_page" onSelect="atv.loadURL('${pagiurl}&amp;page=${totalPage}');" onPlay="atv.loadURL('${pagiurl}&amp;page=${totalPage}');">
-							<title>最后页</title>
-						</actionButton>
-					</items>
-					</grid>
-			
 	</items>
 </scroller>
 </body>
