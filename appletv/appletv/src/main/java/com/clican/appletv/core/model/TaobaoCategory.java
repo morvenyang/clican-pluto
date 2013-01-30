@@ -6,12 +6,14 @@ import java.util.List;
 public class TaobaoCategory {
 
 	private Long id;
+	private Long parentId=0L;
 	private String title;
 	private String subTitle;
 	private boolean hasChild;
 	private String picUrl;
 	private List<TaobaoCategory> children = new ArrayList<TaobaoCategory>();
 	private String[] childrenCids;
+	
 
 	public Long getId() {
 		return id;
@@ -71,7 +73,13 @@ public class TaobaoCategory {
 		this.childrenCids = childrenCids;
 	}
 
-	
+	public Long getParentId() {
+		return parentId;
+	}
+
+	public void setParentId(Long parentId) {
+		this.parentId = parentId;
+	}
 
 	public static void toString(List<TaobaoCategory> list, StringBuffer sb,
 			String changeLine) {
