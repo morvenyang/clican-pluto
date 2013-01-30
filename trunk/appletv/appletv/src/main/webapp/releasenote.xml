@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <atv>
 <head>
-<script src="http://15.185.228.124/appletv/javascript/clican.js"/>
-<script src="http://15.185.228.124/appletv/javascript/ejs.js"/>
-<script src="http://15.185.228.124/appletv/javascript/qq.js"/>
+<script src="http://10.0.1.5/appletv/javascript/clican.js"/>
+<script src="http://10.0.1.5/appletv/javascript/ejs.js"/>
+<script src="http://10.0.1.5/appletv/javascript/qq.js"/>
 </head>
 <body>
 		<scrollingText id="releasenote">
@@ -81,19 +81,15 @@ N/A
 		    </text>
 		    		    <buttons>
 		        <actionButton id="shelf_item_1" 
-							onSelect="atv.loadURL('http://15.185.228.124/appletv/ctl/tudou/index.xml');">
+							onSelect="atv.loadURL('http://10.0.1.5/appletv/ctl/tudou/index.xml');">
 							<title>土豆视频</title>
 						</actionButton>
 						<actionButton id="shelf_item_2" 
 							onSelect="qqClient.loadIndexPage('',0,3);">
 							<title>腾讯视频</title>
 						</actionButton>
-						<actionButton id="shelf_item_3" 
-							onSelect="atv.loadURL('http://15.185.228.124/appletv/ctl/weibo/checkAccessToken.xml?deviceId='+atv.device.udid);">
-							<title>新浪微博</title>
-						</actionButton>
 						<actionButton id="shelf_item_4" 
-							onSelect="atv.loadURL('http://15.185.228.124/appletv/ctl/taobao/index.xml');">
+							onSelect="atv.loadURL('http://10.0.1.5/appletv/ctl/taobao/index.xml');">
 							<title>淘宝</title>
 						</actionButton>
 		    </buttons>

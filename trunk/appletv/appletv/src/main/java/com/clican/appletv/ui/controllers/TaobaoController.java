@@ -565,7 +565,7 @@ public class TaobaoController {
 		String imageUrls = "";
 		if (item.getItemImgs() != null && item.getItemImgs().size() > 0) {
 			for (ItemImg ii : item.getItemImgs()) {
-				imageUrls += ii.getUrl()+",";
+				imageUrls += ii.getUrl() + ",";
 			}
 		}
 		if (imageUrls.endsWith(",")) {
@@ -579,13 +579,11 @@ public class TaobaoController {
 		}
 		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
 		request.setAttribute("promotion", promotion);
-		if (item == null) {
-			return "taobao/noresult";
-		} else {
-			item.setVolume(volume);
-			request.setAttribute("item", item);
-			return "taobao/item";
-		}
+
+		item.setVolume(volume);
+		request.setAttribute("item", item);
+		return "taobao/item";
+
 	}
 
 	private Node getChildNode(Node node, int[] indexs) {
