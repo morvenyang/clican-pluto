@@ -81,16 +81,20 @@ N/A
 		    </text>
 		    		    <buttons>
 		        <actionButton id="shelf_item_1" 
-							onSelect="atv.loadURL('http://127.0.0.1/appletv/ctl/tudou/index.xml');">
-							<title>土豆</title>
+							onSelect="atv.loadURL('15.185.228.124/appletv/ctl/tudou/index.xml');">
+							<title>土豆视频</title>
 						</actionButton>
 						<actionButton id="shelf_item_2" 
 							onSelect="qqClient.loadIndexPage('',0,3);">
-							<title>QQ</title>
+							<title>腾讯视频</title>
 						</actionButton>
 						<actionButton id="shelf_item_3" 
-							onSelect="atv.loadURL('http://127.0.0.1/appletv/ctl/weibo/checkAccessToken.xml?deviceId='+atv.device.udid);">
-							<title>Weibo</title>
+							onSelect="atv.loadURL('http://15.185.228.124/appletv/ctl/weibo/checkAccessToken.xml?deviceId='+atv.device.udid);">
+							<title>新浪微博</title>
+						</actionButton>
+						<actionButton id="shelf_item_4" 
+							onSelect="atv.loadURL('http://15.185.228.124/appletv/ctl/taobao/index.xml);">
+							<title>淘宝</title>
 						</actionButton>
 		    </buttons>
 		</scrollingText>
