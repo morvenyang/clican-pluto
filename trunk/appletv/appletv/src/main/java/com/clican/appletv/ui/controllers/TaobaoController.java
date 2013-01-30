@@ -471,7 +471,7 @@ public class TaobaoController {
 		request.setAttribute("itemList", itemList);
 
 		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
-		return "taobao/favorite";
+		return "taobao/favoriteItem";
 	}
 
 	@RequestMapping("/taobao/favoriteShop.xml")
@@ -498,12 +498,13 @@ public class TaobaoController {
 					if (className.contains("thumbnail-private")) {
 						TagNode imageNode = (TagNode) getChildNode(childNode,
 								new int[] { 0, 0 });
-						shop.setPicPath(imageNode.getAttribute("src"));
+						shop.setPicPath(imageNode.getAttribute("data-ks-lazyload"));
 					} else if (className
 							.contains("J_NewAucBox J_SimilarItemsBox")) {
 						CompositeTag titleNode = (CompositeTag) getChildNode(childNode,
 								new int[] { 0, 0, 0 });
 						shop.setTitle(titleNode.getStringText().trim());
+						shop.setNick(shop.getTitle());
 					}
 				}
 			}
@@ -512,7 +513,7 @@ public class TaobaoController {
 		request.setAttribute("shopList", shopList);
 
 		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
-		return "taobao/favorite";
+		return "taobao/favoriteShop";
 	}
 
 	@RequestMapping("/taobao/item.xml")
