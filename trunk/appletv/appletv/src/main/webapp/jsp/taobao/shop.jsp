@@ -14,7 +14,7 @@
 				</navigationItem>
 				<navigationItem>
 					<title>店铺分类</title>
-					<url>${serverurl}/ctl/weibo/homeTimeline.xml?feature=4</url>
+					<url>${serverurl}/ctl/weibo/shopCategory?sellerId=${sellerId}</url>
 				</navigationItem>
 				<navigationItem>
 					<title>店铺信息</title>
