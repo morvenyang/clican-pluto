@@ -56,7 +56,7 @@ var taobaoClient = {
 								if (sessiontoken == null
 										|| sessiontoken.length == 0) {
 									appletv
-											.showSearchPage(
+											.showInputTextPage(
 													'用户名\密码',
 													'请输入淘宝用户名密码,用户名和密码以\'\\\'分隔',
 													taobaoClient.loginByUserNameAndPassword,'taobaoClient.loginByUserNameAndPassword');
@@ -92,7 +92,7 @@ var taobaoClient = {
 								if (sessiontoken == null
 										|| sessiontoken.length == 0) {
 									appletv
-											.showSearchPage(
+											.showInputTextPage(
 													'用户名\密码',
 													'请输入淘宝用户名密码,用户名和密码以\'\\\'分隔',
 													taobaoClient.loginByUserNameAndPassword,'taobaoClient.loginByUserNameAndPassword');
@@ -126,7 +126,7 @@ var taobaoClient = {
 								if (sessiontoken == null
 										|| sessiontoken.length == 0) {
 									appletv
-											.showSearchPage(
+											.showInputTextPage(
 													'用户名\密码',
 													'请输入淘宝用户名密码,用户名和密码以\'\\\'分隔',
 													taobaoClient.loginByUserNameAndPassword,'taobaoClient.loginByUserNameAndPassword');
