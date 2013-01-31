@@ -31,7 +31,7 @@
 						</goldenPoster>
 						<goldenPoster id="gp5"
 							onSelect="atv.loadURL('http://10.0.1.5/appletv/release.xml');">
-							<image></image>
+							<image>http://10.0.1.5/appletv/image/announcements.png</image>
 							<title>升级公告</title>
 						</goldenPoster>
 					</items>
