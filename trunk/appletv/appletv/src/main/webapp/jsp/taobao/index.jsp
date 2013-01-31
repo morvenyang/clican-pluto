@@ -7,7 +7,7 @@
 <body>
 <scroller id="com.sample.movie-shelf">
 	<items>
-		<grid id="grid_2" columnCount="2">
+		<grid id="grid_2" columnCount="4">
 			<items>
 				 <goldenPoster id="gp1" onSelect="atv.loadURL('${serverurl}/ctl/taobao/category.xml');" onPlay="atv.loadURL('${serverurl}/ctl/taobao/category.xml');">
                 	<image>${serverurl}/image/taobao/category.png</image>
