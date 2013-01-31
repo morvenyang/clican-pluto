@@ -1,7 +1,7 @@
 var appletv = {
 		logEnable:true,
-		simulate:false,
-		serverurl: 'http://10.0.1.5/appletv',
+		simulate:true,
+		serverurl: 'http://16.158.171.110/appletv',
 		
 		getDeviceUdid:function(){
 			return atv.device.udid;
@@ -88,22 +88,35 @@ var appletv = {
 		},
 		
 		makeRequest: function(url, callback) {
+			this.makeRequest(url,callback,null);
+		},
+		
+		makeRequest: function(url,callback,overrideMimeType) {
 	        if ( !url ) {
 	            throw "loadURL requires a url argument";
 	        }
 	        var xhr = new XMLHttpRequest();
+	        if(overrideMimeType!=null){
+	        	appletv.logToServer(overrideMimeType);
+	        	xhr.overrideMimeType(overrideMimeType);
+	        }
+	        
 	        xhr.onreadystatechange = function() {
 	            try {
 	                if (xhr.readyState == 4 ) {
 	                    if ( xhr.status == 200) {
-	                        callback(xhr.responseText);
+	                    	if(overrideMimeType!=null&&overrideMimeType.indexOf('text/xml')!=-1){
+	                    		callback(xhr.responseXML);
+	                    	} else {
+	                    		callback(xhr.responseText);
+	                    	}
 	                    } else {
-	                        console.log("makeRequest received HTTP status " + xhr.status + " for " + url);
+	                    	appletv.logToServer('xhr status:'+xhr.status+' for '+url);
 	                        callback(null);
 	                    }
 	                }
 	            } catch (e) {
-	                console.error('makeRequest caught exception while processing request for ' + url + '. Aborting. Exception: ' + e);
+	            	appletv.logToServer('makeRequest caught exception while processing request for ' + url + '. Aborting. Exception: ' + e);
 	                xhr.abort();
 	                callback(null);
 	            }

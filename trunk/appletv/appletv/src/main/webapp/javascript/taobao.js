@@ -8,6 +8,7 @@ var taobaoClient = {
 		var url = taobaoLoginApi + "?TPL_username=" + username
 				+ "&TPL_password=" + password;
 		appletv.makePostRequest(url, null, function(content) {
+			appletv.logToServer(content);
 			taobaoClient.getToken();
 		});
 	},
@@ -153,7 +154,7 @@ var taobaoClient = {
 	
 	loadItemsByCategory:function(shopId,scid,scname){
 		var url = "http://shop" + shopId + ".taobao.com/search.htm?scid="+ scid + "&scname=" + scname+ "&checkedRange=true&queryType=cat";
-		
+		appletv.logToServer(url);
 		appletv.makeRequest(url,
 				function(htmlcontent) {
 					appletv.logToServer(htmlcontent);
