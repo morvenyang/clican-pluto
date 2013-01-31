@@ -1,7 +1,7 @@
 var appletv = {
 		logEnable:true,
 		simulate:true,
-		serverurl: 'http://16.158.171.110/appletv',
+		serverurl: 'http://127.0.0.1/appletv',
 		
 		getDeviceUdid:function(){
 			return atv.device.udid;
@@ -9,7 +9,7 @@ var appletv = {
 		
 		logToServer:function(logText){
 			if(this.logEnable){
-				this.makePostRequest(this.serverurl+'/ctl/tudou/log.do',logText,function(data){
+				this.makePostRequest(this.serverurl+'/ctl/log.do',logText,function(data){
 					
 				});
 			}

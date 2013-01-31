@@ -53,24 +53,6 @@ public class TudouController {
 		return "tudou/releasenote";
 	}
 
-	@RequestMapping("/tudou/log.do")
-	public void logText(HttpServletRequest request, HttpServletResponse response)
-			throws IOException {
-		InputStream is = request.getInputStream();
-		ByteArrayOutputStream os = new ByteArrayOutputStream();
-		byte[] buffer = new byte[1024];
-
-		int read = -1;
-		while ((read = is.read(buffer)) != -1) {
-			os.write(buffer, 0, read);
-		}
-		String logText = new String(os.toByteArray(), "UTF-8");
-		is.close();
-		os.close();
-		if (log.isDebugEnabled()) {
-			log.debug("log=" + logText);
-		}
-	}
 
 	@RequestMapping("/tudou/playVideoByCode.xml")
 	public void playVideoByCode(HttpServletRequest request,
