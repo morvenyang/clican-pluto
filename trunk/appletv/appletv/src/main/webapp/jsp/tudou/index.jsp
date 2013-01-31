@@ -49,7 +49,7 @@
 		<grid id="grid_2" columnCount="6">
 			<items>
 				<c:forEach var="video" items="${videos}">
-						<moviePoster id="shelf_item_${video.itemid}" alwaysShowTitles="true" onSelect="appletv.loadAlbumXml(${video.itemid},${video.cid},${video.hd},${video.isalbum==null?0:video.isalbum},'${serverurl}');" onPlay="appletv.loadAlbumXml(${video.itemid},${video.cid},${video.hd},${video.isalbum==null?0:video.isalbum},'${serverurl}');">
+						<moviePoster id="shelf_item_${video.itemid}" alwaysShowTitles="true" onSelect="tudouClient.loadAlbumXml(${video.itemid},${video.cid},${video.hd},${video.isalbum==null?0:video.isalbum},'${serverurl}');" onPlay="tudouClient.loadAlbumXml(${video.itemid},${video.cid},${video.hd},${video.isalbum==null?0:video.isalbum},'${serverurl}');">
 							<title><![CDATA[${video.title}]]></title>
 							<subtitle><![CDATA[${video.title}]]></subtitle>
 							<image>${video.picurl}</image>

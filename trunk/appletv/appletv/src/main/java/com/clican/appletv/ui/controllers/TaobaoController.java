@@ -484,9 +484,12 @@ public class TaobaoController {
 						TagNode titleNode = (TagNode) getChildNode(childNode,
 								new int[] { 0, 1 });
 						ti.setTitle(titleNode.getAttribute("title"));
-						TagNode priceNode = (TagNode) getChildNode(childNode,
-								new int[] { 1, 0, 1, 1 });
-						ti.setPrice(((CompositeTag) priceNode).getStringText());
+						NodeList priceNodeList = new NodeList();
+						childNode.collectInto(priceNodeList, new TagNameFilter("strong"));
+						if(priceNodeList.size()>0){
+							CompositeTag priceNode = (CompositeTag)priceNodeList.elementAt(0);
+							ti.setPrice(priceNode.getStringText());
+						}
 						TagNode volumn = (TagNode) getChildNode(childNode,
 								new int[] { 2, 0 });
 						String stringVolumn = ((CompositeTag) volumn)
