@@ -22,13 +22,14 @@ function onPhotoSelections(imageUrls) {
 		photoDict = {'id':id,'type':'photo','assets':[{width:1024,height:768,src:imageUrlArray[i]}]};
 		photoDicts.push(photoDict);
 	}
-	
+	appletv.logToServer(JSON.stringify(photoDicts));
+	appletv.logToServer(imageUrlArray.length-1);
 	var fullScreenMediaBrowser = new atv.FullScreenMediaBrowser();
 	
 	fullScreenMediaBrowser.onItemSelection = function(photoID) {
 		//
 	};
 	
-	fullScreenMediaBrowser.show(photoDicts, imageUrlArray.length);
+	fullScreenMediaBrowser.show(photoDicts, imageUrlArray.length-1);
 };
 
