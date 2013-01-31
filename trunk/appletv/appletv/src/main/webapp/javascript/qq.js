@@ -178,13 +178,15 @@ var qqClient ={
 		playVideo: function(id){
 			var playDescUrl = qqPlayApi+'&vid='+id;
 			appletv.makeRequest(playDescUrl,function(data){
-				appletv.logToServer(data);
-	    		var urlIndexStart = data.indexOf("\"url\":\"");
-	    		urlIndexStart += 7;
-	    		var urlIndexEnd = data.indexOf("\"",urlIndexStart);
-	    		var url = data.substring(urlIndexStart,urlIndexEnd);
-	    		appletv.logToServer(url);
-	    		atv.loadXML(appletv.makePlayXml(url));
+				if(data.indexOf('ip is not authorized')!=-1){
+					appletv.showDialog('你的IP地址受限','无法播放视频');
+				}else{
+					var urlIndexStart = data.indexOf("\"url\":\"");
+		    		urlIndexStart += 7;
+		    		var urlIndexEnd = data.indexOf("\"",urlIndexStart);
+		    		var url = data.substring(urlIndexStart,urlIndexEnd);
+		    		atv.loadXML(appletv.makePlayXml(url));
+				}
 	    	});
 	    },
 	    
