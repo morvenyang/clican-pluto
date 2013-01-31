@@ -148,7 +148,15 @@ var appletv = {
 				if (xhr.readyState == 4) {
 					if (xhr.status == 200) {
 						if (xhr.responseText == null) {
-							callback(xhr.responseDataAsBase64);
+							gbkchar = atv.localStorage['gbk'];
+							if (!gbkchar) {
+								appletv.makeRequest(appletv.serverurl+'/template/gbk.txt', function(gbkcontent){
+									atv.localStorage['gbk'] = gbkcontent;
+									callback(appletv.toGBK(appletv.base64Decode(xhr.responseDataAsBase64)));
+								});
+							}else{
+								callback(appletv.toGBK(appletv.base64Decode(xhr.responseDataAsBase64)));
+							}
 						}else{
 							callback(xhr.responseText);
 						}
