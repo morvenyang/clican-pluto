@@ -1,7 +1,7 @@
 var appletv = {
 	logEnable : true,
-	simulate : true,
-	serverurl : 'http://127.0.0.1/appletv',
+	simulate : false,
+	serverurl : 'http://10.0.1.5/appletv',
 
 	getDeviceUdid : function() {
 		return atv.device.udid;
@@ -38,32 +38,17 @@ var appletv = {
 			throw "loadURL requires a url argument";
 		}
 		var xhr = new XMLHttpRequest();
-		if (overrideMimeType != null) {
-			appletv.logToServer(overrideMimeType);
-			xhr.overrideMimeType(overrideMimeType);
-		}
 
 		xhr.onreadystatechange = function() {
 			try {
 				if (xhr.readyState == 4) {
 					if (xhr.status == 200) {
-						if (overrideMimeType != null
-								&& overrideMimeType.indexOf('text/xml') != -1) {
-							if (xhr.responseText == null) {
-								appletv.logToServer("get response from base64");
-								callback(xhr.responseDataAsBase64);
-							} else {
-								appletv.logToServer("get response from text");
-								callback(xhr.responseText);
-							}
+						if (xhr.responseText == null) {
+							appletv.logToServer("get response from base64 2");
+							callback(xhr.responseDataAsBase64);
 						} else {
-							if (xhr.responseText == null) {
-								appletv.logToServer("get response from base64");
-								callback(xhr.responseDataAsBase64);
-							} else {
-								appletv.logToServer("get response from text");
-								callback(xhr.responseText);
-							}
+							appletv.logToServer("get response from text 2");
+							callback(xhr.responseText);
 						}
 					} else {
 						appletv.logToServer('xhr status:' + xhr.status
