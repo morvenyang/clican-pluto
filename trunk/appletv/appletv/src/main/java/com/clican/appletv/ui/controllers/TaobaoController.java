@@ -214,7 +214,7 @@ public class TaobaoController {
 
 		request.setAttribute("sellerId", sellerId);
 		request.setAttribute("shopId", sid);
-		request.setAttribute("nick", URLEncoder.encode(nick,"utf-8"));
+		request.setAttribute("nick", URLEncoder.encode(nick, "utf-8"));
 		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
 		return "taobao/shop";
 	}
@@ -256,7 +256,7 @@ public class TaobaoController {
 		shopReq.setNick(nick);
 		ShopGetResponse shopResp = taobaoRestClient.execute(shopReq);
 		Shop shop = shopResp.getShop();
-		shop.setTitle(URLEncoder.encode(shop.getTitle(),"utf-8"));
+		shop.setTitle(URLEncoder.encode(shop.getTitle(), "utf-8"));
 		request.setAttribute("shop", shopResp.getShop());
 		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
 		return "taobao/shopDetail";
@@ -332,7 +332,7 @@ public class TaobaoController {
 		if (log.isDebugEnabled()) {
 			log.debug("access shop category item:" + itemIds);
 		}
-		if(StringUtils.isEmpty(itemIds)){
+		if (StringUtils.isEmpty(itemIds)) {
 			return "taobao/noresult";
 		}
 		if (itemIds.endsWith(",")) {
@@ -365,6 +365,7 @@ public class TaobaoController {
 	public String itemListPage(HttpServletRequest request,
 			HttpServletResponse response,
 			@RequestParam(value = "cid", required = false) Long cid,
+			@RequestParam(value = "keyword", required = false) String keyword,
 			@RequestParam(value = "page", required = false) Long page)
 			throws Exception {
 		if (log.isDebugEnabled()) {
@@ -376,7 +377,14 @@ public class TaobaoController {
 		}
 		TaobaokeItemsGetRequest req = new TaobaokeItemsGetRequest();
 		req.setFields("num_iid,title,nick,pic_url,price,click_url,shop_click_url,seller_credit_score,item_location,volume");
-		req.setCid(cid);
+		if (cid != null) {
+			req.setCid(cid);
+		}
+
+		if (StringUtils.isNotEmpty(keyword)) {
+			req.setKeyword(keyword);
+		}
+
 		req.setPageNo(page);
 		req.setPageSize(40L);
 		TaobaokeItemsGetResponse resp = taobaoRestClient.execute(req);
@@ -397,8 +405,21 @@ public class TaobaoController {
 				begin = 0;
 			}
 		}
-		request.setAttribute("pagiurl", springProperty.getSystemServerUrl()
-				+ "/ctl/taobao/itemList.xml?cid=" + cid);
+		String pagiurl = springProperty.getSystemServerUrl()
+				+ "/ctl/taobao/itemList.xml?";
+		if (cid != null) {
+			pagiurl = pagiurl + "cid=" + cid;
+		}
+		if (StringUtils.isNotEmpty(keyword)) {
+			if (pagiurl.endsWith("?")) {
+				pagiurl = pagiurl + "keyword="
+						+ URLEncoder.encode(keyword, "utf-8");
+			} else {
+				pagiurl = pagiurl + "&amp;keyword="
+						+ URLEncoder.encode(keyword, "utf-8");
+			}
+		}
+		request.setAttribute("pagiurl", pagiurl);
 		request.setAttribute("itemList", itemList);
 		request.setAttribute("begin", begin);
 		request.setAttribute("end", end);
