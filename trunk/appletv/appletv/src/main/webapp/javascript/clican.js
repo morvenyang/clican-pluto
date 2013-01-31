@@ -44,10 +44,8 @@ var appletv = {
 				if (xhr.readyState == 4) {
 					if (xhr.status == 200) {
 						if (xhr.responseText == null) {
-							appletv.logToServer("get response from base64 2");
 							callback(xhr.responseDataAsBase64);
 						} else {
-							appletv.logToServer("get response from text 2");
 							callback(xhr.responseText);
 						}
 					} else {
