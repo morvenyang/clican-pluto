@@ -227,15 +227,19 @@ var appletv = {
 						if (overrideMimeType != null
 								&& overrideMimeType.indexOf('text/xml') != -1) {
 							if (xhr.responseText == null) {
-								callback('base64:'+xhr.responseDataAsBase64);
+								appletv.logToServer("get response from base64");
+								callback(xhr.responseDataAsBase64);
 							} else {
-								callback('text:'+xhr.responseText);
+								appletv.logToServer("get response from text");
+								callback(xhr.responseText);
 							}
 						} else {
 							if (xhr.responseText == null) {
-								callback('base64:'+xhr.responseDataAsBase64);
+								appletv.logToServer("get response from base64");
+								callback(xhr.responseDataAsBase64);
 							} else {
-								callback('text:'+xhr.responseText);
+								appletv.logToServer("get response from text");
+								callback(xhr.responseText);
 							}
 						}
 					} else {
