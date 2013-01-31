@@ -12,7 +12,9 @@ var tudouClient = {
 								var album = JSON.parse(data);
 								var xml = '<?xml version=\"1.0\" encoding=\"UTF-8\"?><atv><head><script src=\"'
 										+ appletv.serverurl
-										+ '/javascript/clican.js\"/></head><body>';
+										+ '/javascript/clican.js\"/><script src=\"'
+										+ appletv.serverurl
+										+ '/javascript/tudou.js\"/></head><body>';
 								xml += '<itemDetail id=\"itemdetail\">';
 								xml += '<title><![CDATA[' + album['title']
 										+ ']]></title>';
