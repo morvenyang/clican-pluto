@@ -123,7 +123,7 @@ var tudouClient = {
 										+ album['picurl']
 										+ '\');\"><title>分享</title></actionButton>';
 								xml += '</items></shelfSection></sections></shelf></centerShelf></itemDetail></body></atv>';
-								atv.loadXML(atv.parseXML(xml));
+								atv.loadAndSwapXML(atv.parseXML(xml));
 							});
 		},
 		
@@ -171,7 +171,7 @@ var tudouClient = {
 									xml += '</imageTextImageMenuItem>';
 								}
 								xml += '</items></menuSection></sections></menu></listScrollerSplit></body></atv>';
-								atv.loadXML(atv.parseXML(xml));
+								atv.loadAndSwapXML(atv.parseXML(xml));
 							});
 		},
 }

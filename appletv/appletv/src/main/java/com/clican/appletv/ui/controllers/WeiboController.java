@@ -47,9 +47,7 @@ public class WeiboController {
 		if (request.getSession().getAttribute("weiboAccessToken") != null) {
 			return true;
 		} else {
-			if (log.isDebugEnabled()) {
-				log.debug("The user has not login weibo account.");
-			}
+			
 			String deviceId = request.getParameter("deviceId");
 			String uid = weiboClient.getUid(deviceId);
 			String accessToken = weiboClient.getAccessToken(deviceId);
@@ -70,6 +68,9 @@ public class WeiboController {
 				}
 				return true;
 			} else {
+				if (log.isDebugEnabled()) {
+					log.debug("The user has not login weibo account.");
+				}
 				response.sendRedirect(request.getContextPath()
 						+ "/ctl/weibo/checkAccessToken.xml?deviceId="
 						+ deviceId);
@@ -354,7 +355,7 @@ public class WeiboController {
 		if (feature != null && feature == 4) {
 			statusContent = "我正在Apple TV3上收听在线音乐（" + title
 					+ "）@Clican 了解更多 >>>";
-		} else if (feature == 10) {
+		} else if (feature != null &&feature == 10) {
 			statusContent = "我正在Apple TV3上浏览淘宝（" + title + "）@Clican 了解更多 >>>";
 		} else {
 			statusContent = "我正在Apple TV3上观看在线视频（" + title

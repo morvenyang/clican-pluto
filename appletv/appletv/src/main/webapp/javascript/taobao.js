@@ -63,9 +63,10 @@ var taobaoClient = {
 													taobaoClient.loginByUserNameAndPassword,'taobaoClient.loginByUserNameAndPassword');
 								} else {
 									var url = taobaoAddToFavoriteApi
-											+ "?itemtype"+itemtype+"&isTmall=1&isLp=&isTaohua=&id="
+											+ "?itemtype="+itemtype+"&isTmall=1&isLp=&isTaohua=&id="
 											+ id + "&_tb_token_="
 											+ sessiontoken;
+									appletv.logToServer(url);
 									appletv.makePostRequest(url, null,
 											function(htmlcontent) {
 												appletv.showDialog('收藏成功', '');
@@ -77,6 +78,7 @@ var taobaoClient = {
 			var url = taobaoAddToFavoriteApi
 					+ "?itemtype="+itemtype+"&isTmall=1&isLp=&isTaohua=&id=" + id
 					+ "&_tb_token_=" + token;
+			appletv.logToServer(url);
 			appletv.makePostRequest(url, null, function(htmlcontent) {
 				appletv.showDialog('收藏成功', '');
 			});
@@ -129,7 +131,7 @@ var taobaoClient = {
 									appletv
 											.showInputTextPage(
 													'用户名\密码',
-													'请输入淘宝用户名密码,用户名和密码以\'\\\'分隔',
+													'请输入淘宝用户名密码,用户名和密码以\'\\\'分隔。淘宝的帐号密码直接通过HTTPS在淘宝登录获得临时令牌用于收藏相关操作,本服务器不会获取你的淘宝帐号和密码。',
 													taobaoClient.loginByUserNameAndPassword,'taobaoClient.loginByUserNameAndPassword');
 								} else {
 									appletv.makeRequest(taobaoMyFavoriteShopApi,
@@ -153,7 +155,7 @@ var taobaoClient = {
 	},
 	
 	search:function(keyword){
-		atv.loadURL(appletv.serverurl+'/ctl/taobao/itemList.xml?keywrod='+encodeURIComponent(keyword));
+		atv.loadURL(appletv.serverurl+'/ctl/taobao/itemList.xml?keyword='+encodeURIComponent(keyword));
 	},
 	
 	loadItemsByCategory:function(shopId,scid,scname){

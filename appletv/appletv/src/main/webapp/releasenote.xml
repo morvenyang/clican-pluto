@@ -8,7 +8,7 @@
 	<body>
 		<scroller id="com.sample.movie-shelf">
 			<items>
-				<grid id="grid_2" columnCount="2">
+				<grid id="grid_2" columnCount="3">
 					<items>
 						<goldenPoster id="gp1"
 							onSelect="atv.loadURL('http://10.0.1.5/appletv/ctl/tudou/index.xml');">

@@ -6,7 +6,7 @@
 		<grid id="grid_2" columnCount="6">
 			<items>
 				<c:forEach var="shop" items="${shopList}" varStatus="status">
-						<moviePoster id="shelf_item_${status.count}" alwaysShowTitles="true" onSelect="atv.loadURL('${serverurl}/ctl/taobao/shop.xml?nick='+encodeURIComponent('${item.nick}'));" onPlay="atv.loadURL('${serverurl}/ctl/taobao/shop.xml?nick='+encodeURIComponent('${item.nick}'));">
+						<moviePoster id="shelf_item_${status.count}" alwaysShowTitles="true" onSelect="atv.loadURL('${serverurl}/ctl/taobao/shop.xml?nick='+encodeURIComponent('${shop.nick}'));" onPlay="atv.loadURL('${serverurl}/ctl/taobao/shop.xml?nick='+encodeURIComponent('${shop.nick}'));">
 							<title><![CDATA[${shop.title}]]></title>
 							<image>${shop.picPath}</image>
 							<defaultImage>resource://Poster.png</defaultImage>
