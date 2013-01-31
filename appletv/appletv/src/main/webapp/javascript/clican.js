@@ -3,6 +3,67 @@ var appletv = {
 	simulate : false,
 	serverurl : 'http://10.0.1.5/appletv',
 
+	toGBK: function (I) {
+		O = '';
+		g = atv.localStorage['gbk'];
+		var i = 0;
+		while (i < I.length) {
+			c = I[i];
+			i++;
+			h = c.charCodeAt(0);
+			if (h < 0x80) {
+				O = O + c;
+			} else {
+				l = I.charCodeAt(i);
+				i++;
+				if (h >= 0xa1 && h <= 0xa9 && l >= 0xa1 && l <= 0xfe) {
+					O = O + g.charAt((h - 0xa1) * 94 + (l - 0xa1));
+				} else if (h >= 0xb0 && h <= 0xf7 && l >= 0xa1 && l <= 0xfe) {
+					O = O + g.charAt((h - 0xb0) * 94 + (l - 0xa1) + 846);
+				} else if (h >= 0x81 && h <= 0xA0 && l >= 0x40 && l <= 0xFE) {
+					O = O
+							+ g.charAt((h - 0x81) * 190 + (l - 0x40)
+									- (l > 0x7F ? 1 : 0) + 846 + 6768);
+				} else if (h >= 0xAA && h <= 0xFE && l >= 0x40 && l <= 0xA0) {
+					O = O
+							+ g.charAt((h - 0xAA) * 96 + (l - 0x40)
+									- (l > 0x7F ? 1 : 0) + 846 + 6768 + 6080);
+				} else if (h >= 0xA8 && h <= 0xA9 && l >= 0x40 && l <= 0xA0) {
+					O = O
+							+ g
+									.charAt((h - 0xA8) * 96 + (l - 0x40)
+											- (l > 0x7F ? 1 : 0) + 846 + 6768
+											+ 6080 + 8160);
+				}
+			}
+		}
+		return O;
+	},
+	
+	base64Decode: function (I) {
+		var k = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=", O = "", chr1, chr2, chr3 = "", enc1, enc2, enc3, enc4 = "", i = 0, I = I
+				.replace(/[^A-Za-z0-9\+\/\=]/g, "");
+		do {
+			enc1 = k.indexOf(I.charAt(i++));
+			enc2 = k.indexOf(I.charAt(i++));
+			enc3 = k.indexOf(I.charAt(i++));
+			enc4 = k.indexOf(I.charAt(i++));
+			chr1 = (enc1 << 2) | (enc2 >> 4);
+			chr2 = ((enc2 & 15) << 4) | (enc3 >> 2);
+			chr3 = ((enc3 & 3) << 6) | enc4;
+			O = O + String.fromCharCode(chr1);
+			if (enc3 != 64) {
+				O = O + String.fromCharCode(chr2);
+			}
+			if (enc4 != 64) {
+				O = O + String.fromCharCode(chr3);
+			}
+			chr1 = chr2 = chr3 = "";
+			enc1 = enc2 = enc3 = enc4 = "";
+		} while (i < I.length);
+		return unescape(O);
+	},
+	
 	getDeviceUdid : function() {
 		return atv.device.udid;
 	},
@@ -48,10 +109,10 @@ var appletv = {
 							if (!gbkchar) {
 								appletv.makeRequest(appletv.serverurl+'/template/gbk.txt', function(gbkcontent){
 									atv.localStorage['gbk'] = gbkcontent;
-									callback(dg(d6(xhr.responseDataAsBase64)));
+									callback(appletv.toGBK(appletv.base64Decode(xhr.responseDataAsBase64)));
 								});
 							}else{
-								callback(dg(d6(xhr.responseDataAsBase64)));
+								callback(appletv.toGBK(appletv.base64Decode(xhr.responseDataAsBase64)));
 							}
 						} else {
 							callback(xhr.responseText);
