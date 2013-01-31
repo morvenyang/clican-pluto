@@ -1,6 +1,6 @@
 function __init() {
 	return {
-		"version" : 17,
+		"version" : 18,
 		main : function(args) {
 			items = [];
 			shelfs = [];
