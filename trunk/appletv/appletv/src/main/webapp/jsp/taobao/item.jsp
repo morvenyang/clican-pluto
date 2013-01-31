@@ -64,7 +64,7 @@
 								<title>推荐商品</title>
 								<items>
 									<c:forEach var="item" items="${relatedItemList}">
-										<moviePoster id="shelf_item_${item.numIid}" alwaysShowTitles="true" onSelect="atv.loadURL('${serverurl}/ctl/taobao/item.xml?itemId=${item.numIid}&amp;volume=${item.volume}&amp;couponPrice=${item.couponPrice}');" onPlay="atv.loadURL('${serverurl}/ctl/taobao/item.xml?itemId=${item.numIid}&amp;volume=${item.volume}&amp;couponPrice=${item.couponPrice}');">
+										<moviePoster id="shelf_item_${item.numIid}" alwaysShowTitles="true" onSelect="atv.loadURL('${serverurl}/ctl/taobao/item.xml?itemId=${item.numIid}&amp;volume=${item.volume}');" onPlay="atv.loadURL('${serverurl}/ctl/taobao/item.xml?itemId=${item.numIid}&amp;volume=${item.volume}');">
 											<title><![CDATA[${item.title}]]></title>
 											<image>${item.picUrl}</image>
 											<defaultImage>resource://Poster.png</defaultImage>
