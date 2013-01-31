@@ -11,7 +11,7 @@
 			<summary></summary>
 			<image style="moviePoster">${item.picUrl}</image>
 			<table>
-				<columnDefinitions><columnDefinition width="20"><title>其他信息</title></columnDefinition><columnDefinition width="80"><title></title></columnDefinition></columnDefinitions>
+				<columnDefinitions><columnDefinition width="10"><title></title></columnDefinition><columnDefinition width="90"><title>其他信息</title></columnDefinition></columnDefinitions>
 				<rows>
 					<row><label></label><label><![CDATA[价格:${item.price}元]]></label></row>
 					<c:if test="${promotion!=null}">
