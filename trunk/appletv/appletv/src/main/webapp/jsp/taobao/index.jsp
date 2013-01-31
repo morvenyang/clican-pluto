@@ -22,7 +22,7 @@
                 	<title>收藏的店铺</title>
                  </goldenPoster>
                  <goldenPoster id="gp3" onSelect="appletv.showInputTextPage('关键字','请输入关键字搜索商品',taobaoClient.search,'taobaoClient.search');" onPlay="appletv.showInputTextPage('关键字','请输入关键字搜索商品',taobaoClient.search,'taobaoClient.search');">
-                	<image>${serverurl}/image/taobao/ssearch.png</image>
+                	<image>${serverurl}/image/taobao/search.png</image>
                 	<title>搜索</title>
                  </goldenPoster>
 			</items>
