@@ -21,6 +21,10 @@
                 	<image>${serverurl}/image/taobao/favoriteShop.png</image>
                 	<title>收藏的店铺</title>
                  </goldenPoster>
+                 <goldenPoster id="gp3" onSelect="taobaoClient.loadFavoriteShopPage('${taobaoHtmlToken}');" onPlay="taobaoClient.loadFavoriteShopPage('${taobaoHtmlToken}');">
+                	<image>${serverurl}/image/taobao/ssearch.png</image>
+                	<title>搜索</title>
+                 </goldenPoster>
 			</items>
 		</grid>
 	</items>
