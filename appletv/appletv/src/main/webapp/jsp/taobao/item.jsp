@@ -11,25 +11,25 @@
 			<summary></summary>
 			<image style="moviePoster">${item.picUrl}</image>
 			<table>
-				<columnDefinitions><columnDefinition width="100"><title>其他信息</title></columnDefinition></columnDefinitions>
+				<columnDefinitions><columnDefinition width="20"><title>其他信息</title></columnDefinition><columnDefinition width="80"><title></title></columnDefinition></columnDefinitions>
 				<rows>
-					<row><label><![CDATA[价格:${item.price}元]]></label></row>
+					<row><label></label><label><![CDATA[价格:${item.price}元]]></label></row>
 					<c:if test="${promotion!=null}">
-						<row><label><![CDATA[${promotion}]]></label></row>
+						<row><<label></label>label><![CDATA[${promotion}]]></label></row>
 					</c:if>
-					<row><label><![CDATA[最近售出:${item.volume}]]></label></row>
-					<row><label><![CDATA[运费:快递 ${item.expressFee}元;EMS ${item.emsFee}元;平邮 ${item.postFee}元]]></label></row>
+					<row><label></label><label><![CDATA[最近售出:${item.volume}]]></label></row>
+					<row><label></label><label><![CDATA[运费:快递 ${item.expressFee}元;EMS ${item.emsFee}元;平邮 ${item.postFee}元]]></label></row>
 					<c:if test="${item.stuffStatus=='new'}">
-						<row><label><![CDATA[宝贝类型:全新]]></label></row>
+						<row><label></label><label><![CDATA[宝贝类型:全新]]></label></row>
 					</c:if>
 					<c:if test="${item.stuffStatus=='second'}">
-						<row><label><![CDATA[宝贝类型:二手]]></label></row>
+						<row><label></label><label><![CDATA[宝贝类型:二手]]></label></row>
 					</c:if>
 					<c:if test="${item.stuffStatus=='unused'}">
-						<row><label><![CDATA[宝贝类型:闲置]]></label></row>
+						<row><label></label><label><![CDATA[宝贝类型:闲置]]></label></row>
 					</c:if>
-					<row><label><![CDATA[所在地区:${item.location.city}]]></label></row>
-					<row><label><![CDATA[掌柜:${item.nick}]]></label></row>
+					<row><label></label><label><![CDATA[所在地区:${item.location.city}]]></label></row>
+					<row><label></label><label><![CDATA[掌柜:${item.nick}]]></label></row>
 				</rows>
 			</table>
 			<centerShelf>
