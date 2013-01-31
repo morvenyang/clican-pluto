@@ -14,11 +14,11 @@
                 	<title>类目浏览</title>
                  </goldenPoster>
                  <goldenPoster id="gp2" onSelect="taobaoClient.loadFavoriteItemPage('${taobaoHtmlToken}');" onPlay="taobaoClient.loadFavoriteItemPage('${taobaoHtmlToken}');">
-                	<image>${serverurl}/image/taobao/favorite.png</image>
+                	<image>${serverurl}/image/taobao/favoriteItem.png</image>
                 	<title>收藏的商品</title>
                  </goldenPoster>
                  <goldenPoster id="gp3" onSelect="taobaoClient.loadFavoriteShopPage('${taobaoHtmlToken}');" onPlay="taobaoClient.loadFavoriteShopPage('${taobaoHtmlToken}');">
-                	<image>${serverurl}/image/taobao/favorite.png</image>
+                	<image>${serverurl}/image/taobao/favoriteShop.png</image>
                 	<title>收藏的店铺</title>
                  </goldenPoster>
 			</items>
