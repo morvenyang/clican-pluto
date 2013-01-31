@@ -154,6 +154,7 @@ var taobaoClient = {
 	
 	loadItemsByCategory:function(shopId,scid,scname){
 		var url = "http://shop" + shopId + ".taobao.com/search.htm?scid="+ scid + "&scname=" + scname+ "&checkedRange=true&queryType=cat";
+	    url = 'http://127.0.0.1/appletv/gbk.jsp'
 		appletv.logToServer(url);
 		appletv.makeRequest(url,
 				function(htmlcontent) {

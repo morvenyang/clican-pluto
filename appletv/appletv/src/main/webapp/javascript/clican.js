@@ -227,15 +227,15 @@ var appletv = {
 						if (overrideMimeType != null
 								&& overrideMimeType.indexOf('text/xml') != -1) {
 							if (xhr.responseText == null) {
-								callback(xhr.responseDataAsBase64);
+								callback('base64:'+xhr.responseDataAsBase64);
 							} else {
-								callback(xhr.responseText);
+								callback('text:'+xhr.responseText);
 							}
 						} else {
 							if (xhr.responseText == null) {
-								callback(xhr.responseDataAsBase64);
+								callback('base64:'+xhr.responseDataAsBase64);
 							} else {
-								callback(xhr.responseText);
+								callback('text:'+xhr.responseText);
 							}
 						}
 					} else {
