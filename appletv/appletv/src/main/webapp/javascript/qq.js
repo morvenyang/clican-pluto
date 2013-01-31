@@ -182,10 +182,15 @@ var qqClient ={
 					appletv.showDialog('你的IP地址受限','无法播放视频');
 				}else{
 					var urlIndexStart = data.indexOf("\"url\":\"");
-		    		urlIndexStart += 7;
-		    		var urlIndexEnd = data.indexOf("\"",urlIndexStart);
-		    		var url = data.substring(urlIndexStart,urlIndexEnd);
-		    		atv.loadXML(appletv.makePlayXml(url));
+					if(urlIndexStart==-1){
+						appletv.logToServer('未知错误,QQ服务器返回数据如下:'+data);
+						appletv.showDialog('未知错误,QQ服务器返回数据如下:',data);
+					}else{
+						urlIndexStart += 7;
+			    		var urlIndexEnd = data.indexOf("\"",urlIndexStart);
+			    		var url = data.substring(urlIndexStart,urlIndexEnd);
+			    		atv.loadXML(appletv.makePlayXml(url));
+					}
 				}
 	    	});
 	    },
