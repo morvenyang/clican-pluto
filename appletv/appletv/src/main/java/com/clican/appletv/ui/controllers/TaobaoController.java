@@ -232,7 +232,7 @@ public class TaobaoController {
 		itemReq.setRelateType(4L);
 		itemReq.setSellerId(sellerId);
 		itemReq.setMaxCount(40L);
-		itemReq.setFields("num_iid,title,nick,pic_url,price,click_url,commission,commission_rate,commission_num,commission_volume,shop_click_url,seller_credit_score,item_location,volume");
+		itemReq.setFields("num_iid,title,nick,pic_url,price,click_url,shop_click_url,item_location,volume");
 		TaobaokeItemsRelateGetResponse itemResp = taobaoRestClient
 				.execute(itemReq);
 
