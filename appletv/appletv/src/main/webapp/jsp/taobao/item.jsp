@@ -15,7 +15,7 @@
 				<rows>
 					<row><label></label><label><![CDATA[价格:${item.price}元]]></label></row>
 					<c:if test="${promotion!=null}">
-						<row><<label></label>label><![CDATA[${promotion}]]></label></row>
+						<row><label></label><label><![CDATA[${promotion}]]></label></row>
 					</c:if>
 					<row><label></label><label><![CDATA[最近售出:${item.volume}]]></label></row>
 					<row><label></label><label><![CDATA[运费:快递 ${item.expressFee}元;EMS ${item.emsFee}元;平邮 ${item.postFee}元]]></label></row>
