@@ -56,6 +56,26 @@
 					</sections>
 				</shelf>
 			</centerShelf>
+			<c:if test="${relatedItemList!=null&&fn:length(relatedItemList)!=0}">
+				<bottomShelf>
+					<shelf id="bottom">
+						<sections>
+							<shelfSection>
+								<title>推荐商品</title>
+								<items>
+									<c:forEach var="item" items="${relatedItemList}">
+										<moviePoster id="shelf_item_${item.numIid}" alwaysShowTitles="true" onSelect="atv.loadURL('${serverurl}/ctl/taobao/item.xml?itemId=${item.numIid}&amp;volume=${item.volume}&amp;couponPrice=${item.couponPrice}');" onPlay="atv.loadURL('${serverurl}/ctl/taobao/item.xml?itemId=${item.numIid}&amp;volume=${item.volume}&amp;couponPrice=${item.couponPrice}');">
+											<title><![CDATA[${item.title}]]></title>
+											<image>${item.picUrl}</image>
+											<defaultImage>resource://Poster.png</defaultImage>
+										</moviePoster>
+									</c:forEach>
+								</items>
+							</shelfSection>
+						</sections>
+					</shelf>
+				</bottomShelf>
+			</c:if>
 		</itemDetail>
 </body>
 </atv>

@@ -376,7 +376,7 @@ public class TaobaoController {
 			page = 0L;
 		}
 		TaobaokeItemsGetRequest req = new TaobaokeItemsGetRequest();
-		req.setFields("num_iid,title,nick,pic_url,price,click_url,shop_click_url,seller_credit_score,item_location,volume");
+		req.setFields("num_iid,title,nick,pic_url,price,coupon_price,click_url,shop_click_url,seller_credit_score,item_location,volume");
 		if (cid != null) {
 			req.setCid(cid);
 		}
@@ -566,7 +566,8 @@ public class TaobaoController {
 	public String itemPage(HttpServletRequest request,
 			HttpServletResponse response,
 			@RequestParam(value = "itemId", required = false) Long itemId,
-			@RequestParam(value = "volume", required = false) Long volume)
+			@RequestParam(value = "volume", required = false) Long volume,
+			@RequestParam(value = "couponPrice", required = false) String couponPrice)
 			throws Exception {
 		if (log.isDebugEnabled()) {
 			log.debug("access item :" + itemId);
@@ -577,16 +578,16 @@ public class TaobaoController {
 		req.setNumIid(itemId);
 		ItemGetResponse resp = taobaoRestClient.execute(req);
 		Item item = resp.getItem();
-		UmpPromotionGetRequest req2 = new UmpPromotionGetRequest();
-		req2.setItemId(itemId);
-		UmpPromotionGetResponse resp2 = taobaoRestClient.execute(req2);
-		List<PromotionInItem> piiList = resp2.getPromotions()
-				.getPromotionInItem();
-		String promotion = null;
-		if (piiList != null && piiList.size() > 0) {
-			promotion = piiList.get(0).getName() + ":"
-					+ piiList.get(0).getItemPromoPrice() + "元";
-		}
+		
+		
+		TaobaokeItemsRelateGetRequest req3=new TaobaokeItemsRelateGetRequest();
+		req3.setRelateType(1L);
+		req3.setNumIid(itemId);
+		req3.setFields("num_iid,title,pic_url,volume,coupon_price");
+		TaobaokeItemsRelateGetResponse resp3 = taobaoRestClient.execute(req3);
+		
+		String promotion = "折扣价 "+couponPrice+" 元";
+		
 
 		String imageUrls = "";
 		if (item.getItemImgs() != null && item.getItemImgs().size() > 0) {
@@ -603,6 +604,8 @@ public class TaobaoController {
 		if (StringUtils.isNotEmpty(imageUrls)) {
 			request.setAttribute("imageUrls", imageUrls);
 		}
+		List<TaobaokeItem> relatedItemList = resp3.getTaobaokeItems();
+		request.setAttribute("relatedItemList", relatedItemList);
 		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
 		request.setAttribute("promotion", promotion);
 
