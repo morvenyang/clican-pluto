@@ -163,6 +163,7 @@ var taobaoClient = {
 					if(htmlcontent==null||htmlcontent.length==0){
 						return;
 					}
+					appletv.logToServer(htmlcontent);
 					var ids = '';
 					var start=0;
 					var end=0;
