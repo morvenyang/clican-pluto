@@ -1,49 +1,84 @@
 package com.clican.appletv.core.service;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+
+import org.apache.commons.lang.StringUtils;
 
 import com.clican.appletv.core.model.Baibian;
 
 public class BaibianClientImpl extends BaseClient implements BaibianClient {
 
+	private String token;
+
+	@Override
+	public void login() {
+		String json = this.httpGet(springProperty.getBaibianLoginApi());
+		if (StringUtils.isNotEmpty(json)) {
+			String token = JSONObject.fromObject(json).getString("token");
+			if (StringUtils.isNotEmpty(token)) {
+				this.token = token;
+			}
+		}
+	}
 
 	@Override
 	public List<Baibian> queryVideos(int page) {
 		this.checkCache();
 
-		String htmlContent;
-		String url = springProperty.getBaibianChannelApi() + (page * 15);
+		String jsonContent;
+		String url = springProperty.getBaibianChannelApi() + "&token=" + token
+				+ "&&page=" + page;
 
 		if (log.isDebugEnabled()) {
 			log.debug(url);
 		}
-		Map<String,String> headers = new HashMap<String,String>();
-		headers.put("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.52 Safari/537.17");
-		headers.put("Accept-Charset", "ISO-8859-1,utf-8;q=0.7,*;q=0.3");
-		headers.put("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
-		headers.put("Cookie", "saeut=15.219.153.81.1358831739353792; PHPSESSID=9f4a55d8eb16e118509be6dd0e5e9049; __utma=51367610.2078390930.1358831751.1358831751.1358837682.2; __utmb=51367610.2.10.1358837682; __utmc=51367610; __utmz=51367610.1358831751.1.1.utmcsr=apps.weibo.com|utmccn=(referral)|utmcmd=referral|utmcct=/dianying");
-		//headers.put("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
-		//headers.put("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
-		//headers.put("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
-		
 		if (cacheMap.containsKey(url)) {
-			htmlContent = cacheMap.get(url);
+			jsonContent = cacheMap.get(url);
 		} else {
 			synchronized (this) {
 				if (cacheMap.containsKey(url)) {
-					htmlContent = cacheMap.get(url);
+					jsonContent = cacheMap.get(url);
 				} else {
-					htmlContent = httpGet(url, null, null);
-					//List<Baibian> result = convertToVideos(htmlContent);
-					cacheMap.put(url, htmlContent);
-					return null;
+					jsonContent = httpGet(url, null, null);
+					List<Baibian> result = convertToVideos(jsonContent);
+					cacheMap.put(url, jsonContent);
+					return result;
 				}
 			}
 		}
-		//List<Baibian> result = convertToVideos(htmlContent);
-		return null;
+		List<Baibian> result = convertToVideos(jsonContent);
+		return result;
 	}
 
+	private List<Baibian> convertToVideos(String jsonContent) {
+		Pattern fiveSixPattern = Pattern.compile(
+				springProperty.getFivesixCodePattern(), Pattern.DOTALL);
+		List<Baibian> result = new ArrayList<Baibian>();
+		JSONArray films = JSONObject.fromObject(jsonContent).getJSONArray(
+				"films");
+		for (int i = 0; i < films.size(); i++) {
+			JSONObject film = films.getJSONObject(i);
+			Baibian baibian = new Baibian();
+			baibian.setTitle(film.getString("title"));
+			baibian.setImageUrl(film.getString("imageUrl"));
+			Long id = film.getLong("id");
+			baibian.setId(id);
+			String contentUrl = film.getString("contentUrl");
+			Matcher fiveSixMatcher = fiveSixPattern.matcher(contentUrl);
+			if (fiveSixMatcher.matches()) {
+				String code = fiveSixMatcher.group(2);
+				baibian.setMediaUrl(springProperty.getSystemServerUrl()
+						+ "/ctl/fivesix/playVideoByCode.xml?code=" + code
+						+ "');");
+			}
+			result.add(baibian);
+		}
+		return result;
+	}
 }

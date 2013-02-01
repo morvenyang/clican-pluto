@@ -40,6 +40,8 @@ public class WeiboClientImpl implements WeiboClient {
 		this.springProperty = springProperty;
 	}
 
+
+
 	@Override
 	public void processLongUrl(StatusWapper statusWapper, String accessToken) {
 		ShortUrl shortUrl = new ShortUrl();
@@ -107,23 +109,20 @@ public class WeiboClientImpl implements WeiboClient {
 								String showid = youkuMatcher.group(1);
 								addVideoUrlForStatus(list, "atv.loadURL('"
 										+ springProperty.getSystemServerUrl()
-										+ "/ctl/youku/album.xml?showid=" + showid
-										+ "');");
+										+ "/ctl/youku/album.xml?showid="
+										+ showid + "');");
 							} else {
 								Matcher qqMatcher = qqPattern.matcher(lurl);
 								if (qqMatcher.matches()) {
 									String coverId = qqMatcher.group(1);
 									if (lurl.contains("cover")) {
-										addVideoUrlForStatus(
-												list,
-												"qqClient.loadAlbumPage('"+
-														 coverId + "');");
+										addVideoUrlForStatus(list,
+												"qqClient.loadAlbumPage('"
+														+ coverId + "');");
 									} else {
-										addVideoUrlForStatus(
-												list,
+										addVideoUrlForStatus(list,
 												"qqClient.playVideo('"
-														+ coverId
-														+ "');");
+														+ coverId + "');");
 									}
 
 								} else {
@@ -176,13 +175,15 @@ public class WeiboClientImpl implements WeiboClient {
 								String id = sinaMusicMatcher.group(2);
 								addMusicUrlForStatus(list,
 										springProperty.getSystemServerUrl()
-												+ "/ctl/sina/music.xml?id=" + id);
+												+ "/ctl/sina/music.xml?id="
+												+ id);
 							} else {
 								Matcher xiamiMusicMatcher = xiamiMusicPattern
 										.matcher(lurl);
 								if (xiamiMusicMatcher.matches()) {
 									String id = xiamiMusicMatcher.group(1);
-									addMusicUrlForStatus(list,
+									addMusicUrlForStatus(
+											list,
 											springProperty.getSystemServerUrl()
 													+ "/ctl/xiami/music.xml?id="
 													+ id);

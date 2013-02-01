@@ -79,7 +79,9 @@ public class SpringProperty {
 	private String xiamiMusicApi;
 	private String xiamiMusicIdPattern;
 	
+	private String baibianLoginApi;
 	private String baibianChannelApi;
+	private String baibianHtmlApi;
 	private String applePodcastUrlPattern;
 	
 	
@@ -592,6 +594,22 @@ public class SpringProperty {
 
 	public void setTaobaoLoveApi(String taobaoLoveApi) {
 		this.taobaoLoveApi = taobaoLoveApi;
+	}
+
+	public String getBaibianLoginApi() {
+		return baibianLoginApi;
+	}
+
+	public void setBaibianLoginApi(String baibianLoginApi) {
+		this.baibianLoginApi = baibianLoginApi;
+	}
+
+	public String getBaibianHtmlApi() {
+		return baibianHtmlApi;
+	}
+
+	public void setBaibianHtmlApi(String baibianHtmlApi) {
+		this.baibianHtmlApi = baibianHtmlApi;
 	}
 
 	
