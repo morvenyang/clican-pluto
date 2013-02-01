@@ -11,4 +11,5 @@ public interface WeiboClient {
 	public String getUid(String deviceId);
 
 	public void processLongUrl(StatusWapper statusWapper,String accessToken);
+	
 }

@@ -2,6 +2,8 @@ package com.clican.appletv.core.model;
 
 public class Baibian {
 
+	private Long id;
+	
 	private String title;
 	
 	private String imageUrl;
@@ -9,6 +11,14 @@ public class Baibian {
 	private String mediaHtmlUrl;
 	
 	private String mediaUrl;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public String getTitle() {
 		return title;
