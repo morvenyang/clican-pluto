@@ -656,6 +656,7 @@ public class TaobaoController {
 		request.setAttribute("gender", gender);
 		request.setAttribute("tagList", tagList);
 		request.setAttribute("itemList", itemList);
+		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
 		return "taobao/love";
 
 	}
