@@ -35,7 +35,7 @@ public class BaibianController {
 		}
 		List<Baibian> videos = baibianClient.queryVideos(page);
 		String pagiurl = springProperty.getSystemServerUrl()
-				+ "/ctl/baibian/index.xml";
+				+ "/ctl/baibian/index.xml?1=1";
 		request.setAttribute("pagiurl", pagiurl);
 		request.setAttribute("page", page);
 		int begin, end = 0;
@@ -46,6 +46,7 @@ public class BaibianController {
 			end = 99;
 			begin = 90;
 		}
+		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
 		request.setAttribute("videos", videos);
 		request.setAttribute("begin", begin);
 		request.setAttribute("end", end);
@@ -66,7 +67,8 @@ public class BaibianController {
 		baibian.setTitle(title);
 		baibian.setMediaHtmlUrl(springProperty.getBaibianHtmlApi()
 				+ id);
-		request.setAttribute("baibian", baibian);
+		request.setAttribute("video", baibian);
+		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
 		return "baibian/video";
 	}
 }
