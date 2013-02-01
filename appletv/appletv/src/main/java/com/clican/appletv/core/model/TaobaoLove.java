@@ -6,6 +6,8 @@ public class TaobaoLove {
 	private String title;
 	private Long itemId;
 	private String sellerNick;
+	private String operateTime;
+	
 	public String getPicUrl() {
 		return picUrl;
 	}
@@ -29,6 +31,12 @@ public class TaobaoLove {
 	}
 	public void setSellerNick(String sellerNick) {
 		this.sellerNick = sellerNick;
+	}
+	public String getOperateTime() {
+		return operateTime;
+	}
+	public void setOperateTime(String operateTime) {
+		this.operateTime = operateTime;
 	}
 	
 	

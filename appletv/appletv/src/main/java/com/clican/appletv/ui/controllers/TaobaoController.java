@@ -35,6 +35,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.clican.appletv.common.SpringProperty;
 import com.clican.appletv.core.model.TaobaoAccessToken;
 import com.clican.appletv.core.model.TaobaoCategory;
+import com.clican.appletv.core.model.TaobaoLove;
+import com.clican.appletv.core.model.TaobaoLoveTag;
 import com.clican.appletv.core.service.TaobaoClientImpl;
 import com.clican.appletv.ext.htmlparser.StrongTag;
 import com.taobao.api.TaobaoClient;
@@ -422,7 +424,7 @@ public class TaobaoController {
 			pagiurl = pagiurl + "&amp;keyword="
 					+ URLEncoder.encode(keyword, "utf-8");
 			sorturl = sorturl + "&amp;keyword="
-			+ URLEncoder.encode(keyword, "utf-8");
+					+ URLEncoder.encode(keyword, "utf-8");
 		}
 		request.setAttribute("sort", sort);
 		request.setAttribute("pagiurl", pagiurl);
@@ -632,16 +634,27 @@ public class TaobaoController {
 		return "taobao/item";
 
 	}
-	
+
 	@RequestMapping("/taobao/love.xml")
 	public String lovePage(HttpServletRequest request,
 			HttpServletResponse response,
-			@RequestParam(value = "gender", required = false) String gender)
+			@RequestParam(value = "gender", required = false) String gender,
+			@RequestParam(value = "tagId", required = false) Long tagId)
 			throws Exception {
 		if (log.isDebugEnabled()) {
-			log.debug("access love page gender:"+gender);
+			log.debug("access love page gender:" + gender);
 		}
-
+		if (StringUtils.isEmpty(gender)) {
+			gender = "woman";
+		}
+		List<TaobaoLoveTag> tagList = taobaoClient.getTaobaoLoveTags().get(
+				gender);
+		if (tagId == null) {
+			tagId = tagList.get(0).getId();
+		}
+		List<TaobaoLove> itemList = taobaoClient.queryTaobaoLoves(tagId);
+		request.setAttribute("tagList", tagList);
+		request.setAttribute("itemList", itemList);
 		return "taobao/love";
 
 	}
