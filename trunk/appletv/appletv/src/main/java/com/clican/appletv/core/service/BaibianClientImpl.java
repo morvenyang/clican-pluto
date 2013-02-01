@@ -72,6 +72,8 @@ public class BaibianClientImpl extends BaseClient implements BaibianClient {
 		try {
 			Pattern fiveSixPattern = Pattern.compile(
 					".*http://.*\\.56\\.com/.*(vid-|v_)(\\p{Alnum}*)\\.swf.*", Pattern.DOTALL);
+			Pattern youkuPattern = Pattern.compile(
+					".*http://v\\.youku\\.com/v_show/id_(.*)\\.swf.*", Pattern.DOTALL);
 			JSONArray films = JSONObject.fromObject(jsonContent).getJSONArray(
 					"films");
 			for (int i = 0; i < films.size(); i++) {
@@ -88,6 +90,15 @@ public class BaibianClientImpl extends BaseClient implements BaibianClient {
 					baibian.setMediaUrl(springProperty.getSystemServerUrl()
 							+ "/ctl/fivesix/playVideoByCode.xml?code=" + code);
 					result.add(baibian);
+				}else{
+					Matcher youkuMatcher = youkuPattern.matcher(contentUrl);
+					if(youkuMatcher.matches()){
+						String code = youkuMatcher.group(1);
+						baibian.setMediaUrl(springProperty.getSystemServerUrl()
+								+ "/ctl/youku/album.xml?showid="
+								+ code);
+						result.add(baibian);
+					}
 				}
 			}
 
