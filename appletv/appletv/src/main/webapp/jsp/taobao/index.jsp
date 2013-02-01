@@ -29,7 +29,7 @@
                 	<image>${serverurl}/image/taobao/love.png</image>
                 	<title>(女)爱逛街</title>
                  </goldenPoster>
-                 <goldenPoster id="gp6" onSelect="appletv.showInputTextPage('关键字','请输入关键字搜索商品',taobaoClient.search,'taobaoClient.search');" onPlay="appletv.showInputTextPage('关键字','请输入关键字搜索商品',taobaoClient.search,'taobaoClient.search');">
+                 <goldenPoster id="gp6" onSelect="appletv.showInputTextPage('关键字','请输入关键字搜索商品',taobaoClient.search,'taobaoClient.search',null);" onPlay="appletv.showInputTextPage('关键字','请输入关键字搜索商品',taobaoClient.search,'taobaoClient.search');">
                 	<image>${serverurl}/image/taobao/search.png</image>
                 	<title>搜索</title>
                  </goldenPoster>

@@ -244,8 +244,22 @@ var appletv = {
 		}
 
 	},
+	
+	setValue:function(key,value){
+		if(!this.simulate){
+			atv.localStorage[key] = value;
+		}
+	},
+	
+	getValue:function(key){
+		if(!this.simulate) {
+			return atv.localStorage[key];
+		}else{
+			return null;
+		}
+	},
 
-	showInputTextPage : function(label, instructions, callback, callbackName) {
+	showInputTextPage : function(label, instructions, callback, callbackName,initialText) {
 		if (this.simulate) {
 			window.location.href = this.serverurl
 					+ '/ctl/simulator/input.xml?callback=' + callbackName;
@@ -254,6 +268,7 @@ var appletv = {
 			textEntry.type = 'emailAddress';
 			textEntry.instructions = instructions;
 			textEntry.label = label;
+			textEntry.initialText=initialText;
 			textEntry.onSubmit = callback;
 			textEntry.show();
 		}
