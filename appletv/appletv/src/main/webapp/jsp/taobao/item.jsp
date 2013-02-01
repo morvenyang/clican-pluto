@@ -44,12 +44,14 @@
 								</c:if>
 								<actionButton id="album_1" onSelect="taobaoClient.addToFavorite(${item.numIid},1,'${taobaoHtmlToken}');" onPlay="taobaoClient.addToFavorite(${item.numIid},'${taobaoHtmlToken}');">
 									<title>收藏</title>
+									<image>${serverurl}/image/taobao/button/favorite.png</image>
 								</actionButton>
 								<actionButton id="album_2" onSelect="atv.loadURL('${serverurl}/ctl/taobao/shop.xml?nick='+encodeURIComponent('${item.nick}'));" onPlay="atv.loadURL('${serverurl}/ctl/taobao/shop.xml?nick='+encodeURIComponent('${item.nick}'));">
 									<title>店铺</title>
 								</actionButton>
 								<actionButton id="album_3" onSelect="atv.loadURL('${serverurl}/ctl/weibo/createStatus.xml?deviceId='+atv.device.udid+'&amp;feature=10&amp;title='+encodeURIComponent('${fn:escapeXml(item.title)}')+'&amp;shareURL=${fn:escapeXml(item.detailUrl)}&amp;imageURL=${fn:escapeXml(item.picUrl)}');" onPlay="atv.loadURL('${serverurl}/ctl/weibo/createStatus.xml?deviceId='+atv.device.udid+'&amp;feature=10&amp;title='+encodeURIComponent('${fn:escapeXml(item.title)}')+'&amp;shareURL=${fn:escapeXml(item.detailUrl)}&amp;imageURL=${fn:escapeXml(item.picUrl)}');">
 									<title>分享</title>
+									<image>${serverurl}/image/weibo/share.png</image>
 								</actionButton>
 							</items>
 						</shelfSection>
