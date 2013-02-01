@@ -21,11 +21,15 @@
                 	<image>${serverurl}/image/taobao/favoriteShop.png</image>
                 	<title>收藏的店铺</title>
                  </goldenPoster>
-                  <goldenPoster id="gp3" onSelect="taobaoClient.loadFavoriteShopPage('${taobaoHtmlToken}');" onPlay="taobaoClient.loadFavoriteShopPage('${taobaoHtmlToken}');">
+                 <goldenPoster id="gp4" onSelect="atv.loadURL('${serverurl}/ctl/taobao/love.xml?gender=man');" onPlay="atv.loadURL('${serverurl}/ctl/taobao/love.xml?gender=man');">
                 	<image>${serverurl}/image/taobao/love.png</image>
-                	<title>爱逛街</title>
+                	<title>(男)爱逛街</title>
                  </goldenPoster>
-                 <goldenPoster id="gp3" onSelect="appletv.showInputTextPage('关键字','请输入关键字搜索商品',taobaoClient.search,'taobaoClient.search');" onPlay="appletv.showInputTextPage('关键字','请输入关键字搜索商品',taobaoClient.search,'taobaoClient.search');">
+                 <goldenPoster id="gp5" onSelect="atv.loadURL('${serverurl}/ctl/taobao/love.xml?gender=woman');" onPlay="atv.loadURL('${serverurl}/ctl/taobao/love.xml?gender=woman');">
+                	<image>${serverurl}/image/taobao/love.png</image>
+                	<title>(女)爱逛街</title>
+                 </goldenPoster>
+                 <goldenPoster id="gp6" onSelect="appletv.showInputTextPage('关键字','请输入关键字搜索商品',taobaoClient.search,'taobaoClient.search');" onPlay="appletv.showInputTextPage('关键字','请输入关键字搜索商品',taobaoClient.search,'taobaoClient.search');">
                 	<image>${serverurl}/image/taobao/search.png</image>
                 	<title>搜索</title>
                  </goldenPoster>
