@@ -72,6 +72,7 @@ public class TaobaoClientImpl extends BaseClient implements TaobaoClient {
 			String title = "买家 " + item.getString("buyerNick") + " "
 					+ item.getString("operateType");
 			taobaoLove.setTitle(title);
+			taobaoLove.setOperateTime(item.getString("operateTime"));
 			result.add(taobaoLove);
 		}
 		return result;
