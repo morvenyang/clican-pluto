@@ -14,15 +14,15 @@ import net.sf.json.JSONObject;
 import org.apache.commons.io.FileUtils;
 import org.htmlparser.Node;
 import org.htmlparser.Parser;
-import org.htmlparser.filters.AndFilter;
 import org.htmlparser.filters.LinkStringFilter;
-import org.htmlparser.filters.TagNameFilter;
 import org.htmlparser.nodes.TagNode;
 import org.htmlparser.util.NodeList;
 
 import com.clican.appletv.common.PostResponse;
 import com.clican.appletv.core.model.TaobaoAccessToken;
 import com.clican.appletv.core.model.TaobaoCategory;
+import com.clican.appletv.core.model.TaobaoLove;
+import com.clican.appletv.core.model.TaobaoLoveTag;
 import com.taobao.api.domain.ItemCat;
 import com.taobao.api.internal.util.WebUtils;
 import com.taobao.api.request.ItemcatsGetRequest;
@@ -43,6 +43,76 @@ public class TaobaoClientImpl extends BaseClient implements TaobaoClient {
 	public void setTaobaoTopCategoryList(
 			List<TaobaoCategory> taobaoTopCategoryList) {
 		this.taobaoTopCategoryList = taobaoTopCategoryList;
+	}
+
+	@Override
+	public List<TaobaoLove> queryTaobaoLoves(Long tagId) {
+		this.checkCache();
+		String url = springProperty.getTaobaoLoveApi() + "?tagid=" + tagId
+				+ "&pagenum=1";
+		String json;
+		if (shortCacheMap.containsKey(url)) {
+			json = shortCacheMap.get(url);
+		} else {
+			if (shortCacheMap.containsKey(url)) {
+				json = shortCacheMap.get(url);
+			} else {
+				json = this.httpGet(url);
+				shortCacheMap.put(url, json);
+			}
+		}
+		List<TaobaoLove> result = new ArrayList<TaobaoLove>();
+		JSONArray array = JSONObject.fromObject(json).getJSONArray("itemList");
+		for (int i = 0; i < array.size(); i++) {
+			TaobaoLove taobaoLove = new TaobaoLove();
+			JSONObject item = array.getJSONObject(i);
+			taobaoLove.setPicUrl(item.getString("picUrl"));
+			taobaoLove.setItemId(item.getLong("itemId"));
+			taobaoLove.setSellerNick(item.getString("sellerNick"));
+			String title = "买家 " + item.getString("buyerNick") + " "
+					+ item.getString("operateType");
+			taobaoLove.setTitle(title);
+			result.add(taobaoLove);
+		}
+		return result;
+	}
+
+	@Override
+	public Map<String, List<TaobaoLoveTag>> getTaobaoLoveTags() {
+		String url = springProperty.getTaobaoLoveTagApi();
+		String json;
+		if (cacheMap.containsKey(url)) {
+			json = cacheMap.get(url);
+		} else {
+			synchronized (this) {
+				if (cacheMap.containsKey(url)) {
+					json = cacheMap.get(url);
+				} else {
+					json = this.httpGet(url);
+					cacheMap.put(url, json);
+				}
+			}
+		}
+		JSONArray array = JSONArray.fromObject(json);
+		Map<String, List<TaobaoLoveTag>> result = new HashMap<String, List<TaobaoLoveTag>>();
+		for (int i = 0; i < array.size(); i++) {
+			JSONObject obj = array.getJSONObject(i);
+			String groupCode = obj.getString("groupCode");
+			if (groupCode.equals("man") || groupCode.equals("woman")) {
+				List<TaobaoLoveTag> tagList = new ArrayList<TaobaoLoveTag>();
+				result.put(groupCode, tagList);
+				JSONArray tags = obj.getJSONArray("tags");
+				for (int j = 0; j < tags.size(); j++) {
+					TaobaoLoveTag tag = new TaobaoLoveTag();
+					String name = tags.getJSONObject(j).getString("name");
+					Long id = tags.getJSONObject(j).getLong("id");
+					tag.setId(id);
+					tag.setName(name);
+					tagList.add(tag);
+				}
+			}
+		}
+		return result;
 	}
 
 	@Override

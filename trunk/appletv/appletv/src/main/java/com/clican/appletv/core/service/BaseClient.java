@@ -31,8 +31,12 @@ public class BaseClient {
 
 	protected Map<String, String> cacheMap = new ConcurrentHashMap<String, String>();
 
+	protected Map<String, String> shortCacheMap = new ConcurrentHashMap<String, String>();
+
 	protected Date lastExpireTime = DateUtils.truncate(new Date(),
 			Calendar.DAY_OF_MONTH);
+
+	protected Date lastShortExpireTime = new Date();
 
 	protected SpringProperty springProperty;
 
@@ -50,6 +54,12 @@ public class BaseClient {
 						+ ",lastExpireTime:" + sdf.format(lastExpireTime));
 			}
 			lastExpireTime = current;
+			cacheMap.clear();
+		}
+		Date shortCurrent = new Date();
+		shortCurrent = DateUtils.addMinutes(shortCurrent, -15);
+		if (shortCurrent.after(lastShortExpireTime)) {
+			lastShortExpireTime = new Date();
 			cacheMap.clear();
 		}
 	}
@@ -109,8 +119,8 @@ public class BaseClient {
 					try {
 						String cookie = header.getValue().split(";")[0];
 						int index = cookie.indexOf("=");
-						String cookieName = cookie.substring(0,index);
-						String cookieValue = cookie.substring(index+1);
+						String cookieName = cookie.substring(0, index);
+						String cookieValue = cookie.substring(index + 1);
 						pr.getCookieMap().put(cookieName, cookieValue);
 					} catch (Exception e) {
 						log.debug("Error to get cookie:" + header.getName()
