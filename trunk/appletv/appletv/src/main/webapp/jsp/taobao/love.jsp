@@ -9,23 +9,23 @@
 				<shelfSection>
 					<items>
 						<c:forEach var="tag" items="${tagList}">
-							<actionButton id="tag_${tag.id}" onSelect="atv.loadURL('${serverurl}/ctl/taobao/love.xml?gender=${gender}&amp;tagId=${tag.id}');" onPlay="atv.loadURL('${serverurl}/ctl/taobao/love.xml?gender=${gender}&amp;tagId=${tag.id}');">
+							<moviePoster id="tag_${tag.id}" alwaysShowTitles="true" onSelect="atv.loadURL('${serverurl}/ctl/taobao/love.xml?gender=${gender}&amp;tagId=${tag.id}');" onPlay="atv.loadURL('${serverurl}/ctl/taobao/love.xml?gender=${gender}&amp;tagId=${tag.id}');">
 								<title><![CDATA[${tag.name}]]></title>
 								<image></image>
-							</actionButton>
+							</moviePoster>
 						</c:forEach>
 					</items>
 				</shelfSection>
 			</sections>
 		</shelf>
-		<grid id="grid_2" columnCount="1000">
+		<grid id="grid_2" columnCount="10">
 			<items>
 				<c:forEach var="item" items="${itemList}">
-						<goldenPoster id="shelf_item_${item.itemId}" alwaysShowTitles="true" onSelect="atv.loadURL('${serverurl}/ctl/taobao/item.xml?itemId=${item.itemId}');" onPlay="atv.loadURL('${serverurl}/ctl/taobao/item.xml?itemId=${item.itemId}');">
+						<moviePoster id="shelf_item_${item.itemId}" alwaysShowTitles="true" onSelect="atv.loadURL('${serverurl}/ctl/taobao/item.xml?itemId=${item.itemId}');" onPlay="atv.loadURL('${serverurl}/ctl/taobao/item.xml?itemId=${item.itemId}');">
 							<title><![CDATA[${item.title}]]></title>
 							<subtitle><![CDATA[${item.operateTime}]]></subtitle>
 							<image>${item.picUrl}</image>
-						</goldenPoster>
+						</moviePoster>
 				</c:forEach>
 			</items>
 		</grid>
