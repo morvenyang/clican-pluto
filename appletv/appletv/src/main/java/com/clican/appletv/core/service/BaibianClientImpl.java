@@ -30,7 +30,9 @@ public class BaibianClientImpl extends BaseClient implements BaibianClient {
 	@Override
 	public List<Baibian> queryVideos(int page) {
 		this.checkCache();
-
+		if (StringUtils.isEmpty(token)) {
+			login();
+		}
 		String jsonContent;
 		String url = springProperty.getBaibianChannelApi() + "&token=" + token
 				+ "&&page=" + page;
@@ -46,7 +48,16 @@ public class BaibianClientImpl extends BaseClient implements BaibianClient {
 					jsonContent = cacheMap.get(url);
 				} else {
 					jsonContent = httpGet(url, null, null);
+					if (StringUtils.isEmpty(jsonContent) && page == 0) {
+						login();
+						jsonContent = httpGet(url, null, null);
+					}
 					List<Baibian> result = convertToVideos(jsonContent);
+					if (result.size() == 0 && page == 0) {
+						login();
+						jsonContent = httpGet(url, null, null);
+						result = convertToVideos(jsonContent);
+					}
 					cacheMap.put(url, jsonContent);
 					return result;
 				}
@@ -57,27 +68,31 @@ public class BaibianClientImpl extends BaseClient implements BaibianClient {
 	}
 
 	private List<Baibian> convertToVideos(String jsonContent) {
-		Pattern fiveSixPattern = Pattern.compile(
-				springProperty.getFivesixCodePattern(), Pattern.DOTALL);
 		List<Baibian> result = new ArrayList<Baibian>();
-		JSONArray films = JSONObject.fromObject(jsonContent).getJSONArray(
-				"films");
-		for (int i = 0; i < films.size(); i++) {
-			JSONObject film = films.getJSONObject(i);
-			Baibian baibian = new Baibian();
-			baibian.setTitle(film.getString("title"));
-			baibian.setImageUrl(film.getString("imageUrl"));
-			Long id = film.getLong("id");
-			baibian.setId(id);
-			String contentUrl = film.getString("contentUrl");
-			Matcher fiveSixMatcher = fiveSixPattern.matcher(contentUrl);
-			if (fiveSixMatcher.matches()) {
-				String code = fiveSixMatcher.group(2);
-				baibian.setMediaUrl(springProperty.getSystemServerUrl()
-						+ "/ctl/fivesix/playVideoByCode.xml?code=" + code
-						+ "');");
+		try {
+			Pattern fiveSixPattern = Pattern.compile(
+					".*http://.*\\.56\\.com/.*(vid-|v_)(\\p{Alnum}*)\\.swf.*", Pattern.DOTALL);
+			JSONArray films = JSONObject.fromObject(jsonContent).getJSONArray(
+					"films");
+			for (int i = 0; i < films.size(); i++) {
+				JSONObject film = films.getJSONObject(i);
+				Baibian baibian = new Baibian();
+				baibian.setTitle(film.getString("title"));
+				baibian.setImageUrl(film.getString("imageUrl"));
+				Long id = film.getLong("id");
+				baibian.setId(id);
+				String contentUrl = film.getString("contentUrl");
+				Matcher fiveSixMatcher = fiveSixPattern.matcher(contentUrl);
+				if (fiveSixMatcher.matches()) {
+					String code = fiveSixMatcher.group(2);
+					baibian.setMediaUrl(springProperty.getSystemServerUrl()
+							+ "/ctl/fivesix/playVideoByCode.xml?code=" + code);
+					result.add(baibian);
+				}
 			}
-			result.add(baibian);
+
+		} catch (Exception e) {
+			log.error("", e);
 		}
 		return result;
 	}

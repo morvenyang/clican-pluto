@@ -21,9 +21,9 @@
 		<grid id="grid_2" columnCount="6">
 			<items>
 				<c:forEach var="video" items="${videos}">
-						<moviePoster id="shelf_item_${video.id}" alwaysShowTitles="true" onSelect="atv.loadURL('${serverurl}/ctl/baibian/video.xml?title='+encodeURIComponent('${title}')+'&amp;id=${video.id}&amp;imageUrl=${video.imageUrl}&amp;mediaUrl='+encodeURIComponent('${mediaUrl}'));" onPlay="atv.loadURL('${serverurl}/ctl/baibian/video.xml?title='+encodeURIComponent('${title}')+'&amp;id=${video.id}&amp;imageUrl=${video.imageUrl}&amp;mediaUrl='+encodeURIComponent('${mediaUrl}'));">
+						<moviePoster id="shelf_item_${video.id}" alwaysShowTitles="true" onSelect="atv.loadURL('${serverurl}/ctl/baibian/video.xml?title='+encodeURIComponent('${video.title}')+'&amp;id=${video.id}&amp;imageUrl=${video.imageUrl}&amp;mediaUrl='+encodeURIComponent('${video.mediaUrl}'));" onPlay="atv.loadURL('${serverurl}/ctl/baibian/video.xml?title='+encodeURIComponent('${video.title}')+'&amp;id=${video.id}&amp;imageUrl=${video.imageUrl}&amp;mediaUrl='+encodeURIComponent('${video.mediaUrl}'));">
 							<title><![CDATA[${video.title}]]></title>
-							<image>${video.picurl}</image>
+							<image>${video.imageUrl}</image>
 							<defaultImage>resource://Poster.png</defaultImage>
 						</moviePoster>
 				</c:forEach>
