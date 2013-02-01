@@ -424,6 +424,7 @@ public class TaobaoController {
 			sorturl = sorturl + "&amp;keyword="
 			+ URLEncoder.encode(keyword, "utf-8");
 		}
+		request.setAttribute("sort", sort);
 		request.setAttribute("pagiurl", pagiurl);
 		request.setAttribute("sorturl", sorturl);
 		request.setAttribute("itemList", itemList);
