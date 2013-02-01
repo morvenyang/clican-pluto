@@ -4,8 +4,8 @@ function onPhotoSelection(imageUrl) {
 	var photoDict = {id:"ph1",type:'photo',assets:[{width:1024,height:768,src:imageUrl}]};
 	var photoDicts =[photoDict];
 	var fullScreenMediaBrowser = new atv.FullScreenMediaBrowser();
-	fullScreenMediaBrowser.fullScreenSize = {width:1024,height:7680};
-	fullScreenMediaBrowser.scrollRectToVisible = {size:{width:1024,height:7680},origin:{x:0,y:0}};
+	//fullScreenMediaBrowser.fullScreenSize = {width:1024,height:7680};
+	//fullScreenMediaBrowser.scrollRectToVisible = {size:{width:1024,height:7680},origin:{x:0,y:0}};
 	fullScreenMediaBrowser.onItemSelection = function(photoID) {
 	};
 	
