@@ -653,6 +653,7 @@ public class TaobaoController {
 			tagId = tagList.get(0).getId();
 		}
 		List<TaobaoLove> itemList = taobaoClient.queryTaobaoLoves(tagId);
+		request.setAttribute("gender", gender);
 		request.setAttribute("tagList", tagList);
 		request.setAttribute("itemList", itemList);
 		return "taobao/love";
