@@ -92,6 +92,8 @@ public class SpringProperty {
 	private String taobaoAuthorizeBaseUrl;
 	private String taobaoTopCategoryUrl;
 	private String taobaoCategoryJsonFile;
+	private String taobaoLoveTagApi;
+	private String taobaoLoveApi;
 			
 	public SpringProperty() {
 		instance = this;
@@ -576,7 +578,21 @@ public class SpringProperty {
 		this.taobaoCategoryJsonFile = taobaoCategoryJsonFile;
 	}
 
-	
+	public String getTaobaoLoveTagApi() {
+		return taobaoLoveTagApi;
+	}
+
+	public void setTaobaoLoveTagApi(String taobaoLoveTagApi) {
+		this.taobaoLoveTagApi = taobaoLoveTagApi;
+	}
+
+	public String getTaobaoLoveApi() {
+		return taobaoLoveApi;
+	}
+
+	public void setTaobaoLoveApi(String taobaoLoveApi) {
+		this.taobaoLoveApi = taobaoLoveApi;
+	}
 
 	
 }

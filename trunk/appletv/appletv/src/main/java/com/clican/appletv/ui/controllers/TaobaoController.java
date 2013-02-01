@@ -632,6 +632,19 @@ public class TaobaoController {
 		return "taobao/item";
 
 	}
+	
+	@RequestMapping("/taobao/love.xml")
+	public String lovePage(HttpServletRequest request,
+			HttpServletResponse response,
+			@RequestParam(value = "gender", required = false) String gender)
+			throws Exception {
+		if (log.isDebugEnabled()) {
+			log.debug("access love page gender:"+gender);
+		}
+
+		return "taobao/love";
+
+	}
 
 	private Node getChildNode(Node node, int[] indexs) {
 		Node r = node;
