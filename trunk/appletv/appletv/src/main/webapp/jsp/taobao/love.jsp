@@ -18,7 +18,7 @@
 				</shelfSection>
 			</sections>
 		</shelf>
-		<grid id="grid_2" columnCount="6">
+		<grid id="grid_2" columnCount="1">
 			<items>
 				<c:forEach var="item" items="${itemList}">
 						<moviePoster id="shelf_item_${item.itemId}" alwaysShowTitles="true" onSelect="atv.loadURL('${serverurl}/ctl/taobao/item.xml?itemId=${item.itemId}');" onPlay="atv.loadURL('${serverurl}/ctl/taobao/item.xml?itemId=${item.itemId}');">
