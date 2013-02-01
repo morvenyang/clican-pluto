@@ -1,10 +1,12 @@
 package com.clican.appletv.core.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.clican.appletv.core.model.TaobaoAccessToken;
 import com.clican.appletv.core.model.TaobaoCategory;
-import com.taobao.api.domain.Item;
+import com.clican.appletv.core.model.TaobaoLove;
+import com.clican.appletv.core.model.TaobaoLoveTag;
 
 public interface TaobaoClient {
 
@@ -19,4 +21,8 @@ public interface TaobaoClient {
 
 	public boolean addFavorite(Integer itemtype, Integer isMall, Integer isLp,
 			Integer isTaohua, Long id, String cookie, String token);
+
+	public Map<String, List<TaobaoLoveTag>> getTaobaoLoveTags();
+
+	public List<TaobaoLove> queryTaobaoLoves(Long tagId);
 }
