@@ -4,6 +4,60 @@
 <body>
 <scroller id="com.sample.movie-shelf">
 	<items>
+		<shelf id="sort_bar">
+			<sections>
+				<shelfSection>
+					<items>
+						<actionButton id="shelf_item_default" onSelect="atv.loadURL('${sorturl}&amp;sort=defalut');" onPlay="atv.loadURL('${sorturl}&amp;sort=defalut');">
+							<title>人气</title>
+							<c:if test="${sort=='default'}">
+								<image>${serverurl}/image/taobao/button/down.png</image>
+							</c:if>
+						</actionButton>
+						<actionButton id="shelf_item_credit" onSelect="atv.loadURL('${sorturl}&amp;sort=credit_desc');" onPlay="atv.loadURL('${sorturl}&amp;sort=credit_desc');">
+							<title>信用</title>
+							<c:if test="${sort=='credit_desc'}">
+								<image>${serverurl}/image/taobao/button/down.png</image>
+							</c:if>
+						</actionButton>
+						<c:if test="${sort=='price_desc'}">
+							<actionButton id="shelf_item_price" onSelect="atv.loadURL('${sorturl}&amp;sort=price_asc');" onPlay="atv.loadURL('${sorturl}&amp;sort=price_asc');">
+								<title>价格</title>
+								<image>${serverurl}/image/taobao/button/price_desc.png</image>
+							</actionButton>
+						</c:if>
+						<c:if test="${sort=='price_asc'}">
+							<actionButton id="shelf_item_price" onSelect="atv.loadURL('${sorturl}&amp;sort=price_desc');" onPlay="atv.loadURL('${sorturl}&amp;sort=price_desc');">
+								<title>价格</title>
+								<image>${serverurl}/image/taobao/button/price_asc.png</image>
+							</actionButton>
+						</c:if>
+						<c:if test="${sort!='price_asc'&&sort!='price_asc'}}">
+							<actionButton id="shelf_item_price" onSelect="atv.loadURL('${sorturl}&amp;sort=price_desc');" onPlay="atv.loadURL('${sorturl}&amp;sort=price_desc');">
+								<title>价格</title>
+							</actionButton>
+						</c:if>
+						<c:if test="${sort=='commissionNum_desc'}">
+							<actionButton id="shelf_item_commission" onSelect="atv.loadURL('${sorturl}&amp;sort=commissionNum_asc');" onPlay="atv.loadURL('${sorturl}&amp;sort=commissionNum_asc');">
+								<title>销量</title>
+								<image>${serverurl}/image/taobao/button/price_desc.png</image>
+							</actionButton>
+						</c:if>
+						<c:if test="${sort=='commissionNum_asc'}">
+							<actionButton id="shelf_item_commission" onSelect="atv.loadURL('${sorturl}&amp;sort=commissionNum_desc');" onPlay="atv.loadURL('${sorturl}&amp;sort=commissionNum_desc');">
+								<title>销量</title>
+								<image>${serverurl}/image/taobao/button/price_asc.png</image>
+							</actionButton>
+						</c:if>
+						<c:if test="${sort!='commissionNum_desc!='commissionNum_asc'}}">
+							<actionButton id="shelf_item_commission" onSelect="atv.loadURL('${sorturl}&amp;sort=commissionNum_desc');" onPlay="atv.loadURL('${sorturl}&amp;sort=commissionNum_desc');">
+								<title>销量</title>
+							</actionButton>
+						</c:if>
+					</items>
+				</shelfSection>
+			</sections>
+		</shelf>
 		<grid id="grid_1" columnCount="12">
 					<items>
 						<actionButton id="shelf_item_first_page" onSelect="atv.loadURL('${pagiurl}&amp;page=0');" onPlay="atv.loadURL('${pagiurl}&amp;page=0');">

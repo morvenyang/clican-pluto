@@ -366,7 +366,8 @@ public class TaobaoController {
 			HttpServletResponse response,
 			@RequestParam(value = "cid", required = false) Long cid,
 			@RequestParam(value = "keyword", required = false) String keyword,
-			@RequestParam(value = "page", required = false) Long page)
+			@RequestParam(value = "page", required = false) Long page,
+			@RequestParam(value = "sort", required = false) String sort)
 			throws Exception {
 		if (log.isDebugEnabled()) {
 			log.debug("access item list for cid:" + cid);
@@ -387,6 +388,10 @@ public class TaobaoController {
 
 		req.setPageNo(page);
 		req.setPageSize(40L);
+		if (StringUtils.isEmpty(sort)) {
+			sort = "default";
+		}
+		req.setSort(sort);
 		TaobaokeItemsGetResponse resp = taobaoRestClient.execute(req);
 		long totalPage = (resp.getTotalResults() - 1) / req.getPageSize();
 		if (totalPage > 10) {
@@ -406,20 +411,21 @@ public class TaobaoController {
 			}
 		}
 		String pagiurl = springProperty.getSystemServerUrl()
-				+ "/ctl/taobao/itemList.xml?";
+				+ "/ctl/taobao/itemList.xml?sort=" + sort;
+		String sorturl = springProperty.getSystemServerUrl()
+				+ "/ctl/taobao/itemList.xml?1=1";
 		if (cid != null) {
-			pagiurl = pagiurl + "cid=" + cid;
+			pagiurl = pagiurl + "&amp;cid=" + cid;
+			sorturl = sorturl + "&amp;cid=" + cid;
 		}
 		if (StringUtils.isNotEmpty(keyword)) {
-			if (pagiurl.endsWith("?")) {
-				pagiurl = pagiurl + "keyword="
-						+ URLEncoder.encode(keyword, "utf-8");
-			} else {
-				pagiurl = pagiurl + "&amp;keyword="
-						+ URLEncoder.encode(keyword, "utf-8");
-			}
+			pagiurl = pagiurl + "&amp;keyword="
+					+ URLEncoder.encode(keyword, "utf-8");
+			sorturl = sorturl + "&amp;keyword="
+			+ URLEncoder.encode(keyword, "utf-8");
 		}
 		request.setAttribute("pagiurl", pagiurl);
+		request.setAttribute("sorturl", sorturl);
 		request.setAttribute("itemList", itemList);
 		request.setAttribute("begin", begin);
 		request.setAttribute("end", end);
@@ -485,9 +491,11 @@ public class TaobaoController {
 								new int[] { 0, 1 });
 						ti.setTitle(titleNode.getAttribute("title"));
 						NodeList priceNodeList = new NodeList();
-						childNode.collectInto(priceNodeList, new TagNameFilter("strong"));
-						if(priceNodeList.size()>0){
-							CompositeTag priceNode = (CompositeTag)priceNodeList.elementAt(0);
+						childNode.collectInto(priceNodeList, new TagNameFilter(
+								"strong"));
+						if (priceNodeList.size() > 0) {
+							CompositeTag priceNode = (CompositeTag) priceNodeList
+									.elementAt(0);
 							ti.setPrice(priceNode.getStringText());
 						}
 						TagNode volumn = (TagNode) getChildNode(childNode,
@@ -585,13 +593,13 @@ public class TaobaoController {
 		UmpPromotionGetResponse resp2 = taobaoRestClient.execute(req2);
 		List<PromotionInItem> piiList = resp2.getPromotions()
 				.getPromotionInItem();
-		
-		TaobaokeItemsRelateGetRequest req3=new TaobaokeItemsRelateGetRequest();
+
+		TaobaokeItemsRelateGetRequest req3 = new TaobaokeItemsRelateGetRequest();
 		req3.setRelateType(1L);
 		req3.setNumIid(itemId);
 		req3.setFields("num_iid,title,pic_url,volume");
 		TaobaokeItemsRelateGetResponse resp3 = taobaoRestClient.execute(req3);
-		
+
 		String promotion = null;
 		if (piiList != null && piiList.size() > 0) {
 			promotion = piiList.get(0).getName() + ":"
