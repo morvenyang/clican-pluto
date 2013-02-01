@@ -4,7 +4,7 @@ function onPhotoSelection(imageUrl) {
 	var photoDict = {id:"ph1",type:'photo',assets:[{width:1024,height:768,src:imageUrl}]};
 	var photoDicts =[photoDict];
 	var fullScreenMediaBrowser = new atv.FullScreenMediaBrowser();
-	
+	fullScreenMediaBrowser.fullScreenSize = {width:1024,height:7680};
 	fullScreenMediaBrowser.onItemSelection = function(photoID) {
 		//
 	};
