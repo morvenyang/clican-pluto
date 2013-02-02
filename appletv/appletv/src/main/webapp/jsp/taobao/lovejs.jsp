@@ -18,7 +18,7 @@ function onPhotoSelection() {
 		var photoTextMap ={};
 		metadata.comments = comments;
 		<c:forEach var="item" items="${itemList}">
-		photoTextMap['${item.itemId}'] = '${item.title}'+' '+'${item.operateTime}'';
+		photoTextMap['${item.itemId}'] = '${item.title}'+' '+'${item.operateTime}';
 		</c:forEach>
 		var comment = {
 				"text": photoTextMap[photoID],
