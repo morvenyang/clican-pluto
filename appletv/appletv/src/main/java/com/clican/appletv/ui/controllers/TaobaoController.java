@@ -652,9 +652,17 @@ public class TaobaoController {
 		if (tagId == null) {
 			tagId = tagList.get(0).getId();
 		}
+		List<List<TaobaoLoveTag>> btagList = new ArrayList<List<TaobaoLoveTag>>();
+		for(int i=0;i<tagList.size();i=i+10){
+			List<TaobaoLoveTag> stagList = new ArrayList<TaobaoLoveTag>();
+			for(int j=0;j<10&&j<tagList.size()-i;j++){
+				stagList.add(tagList.get(i+j));
+			}
+			btagList.add(stagList);
+		}
 		List<TaobaoLove> itemList = taobaoClient.queryTaobaoLoves(tagId);
 		request.setAttribute("gender", gender);
-		request.setAttribute("tagList", tagList);
+		request.setAttribute("btagList", btagList);
 		request.setAttribute("itemList", itemList);
 		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
 		return "taobao/love";

@@ -2,21 +2,21 @@
 <atv xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:noNamespaceSchemaLocation="atv.xsd">
 	<body>
-		<scroller id="s">
-			<items>
-				<shelf id="a">
-					<sections>
-						<shelfSection>
-							<items>
-								<actionButton id="ab1">
-									<image></image>
-									<title></title>
-								</actionButton>
-							</items>
-						</shelfSection>
-					</sections>
-				</shelf>
-			</items>
-		</scroller>
+		<viewWithNavigationBar id="bar">
+			<navigation>
+				<navigationItem>
+					<title>店铺首页</title>
+					<url>${serverurl}/ctl/taobao/shopHome.xml?sellerId=${sellerId}</url>
+				</navigationItem>
+				<navigationItem>
+					<title>店铺分类</title>
+					<url>${serverurl}/ctl/taobao/shopCategory.xml?nick=${nick}&amp;shopId=${shopId}</url>
+				</navigationItem>
+				<navigationItem>
+					<title>店铺信息</title>
+					<url>${serverurl}/ctl/taobao/shopDetail.xml?nick=${nick}</url>
+				</navigationItem>
+			</navigation>
+		</viewWithNavigationBar>
 	</body>
 </atv>
