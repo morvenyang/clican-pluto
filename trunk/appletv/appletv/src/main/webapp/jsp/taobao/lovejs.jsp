@@ -6,10 +6,17 @@ function onPhotoSelection() {
 		photoDicts.push(photoDict${item.itemId});
 	</c:forEach>
 	
+	var nextPage = {id:-1,type:'photo',assets:[{width:1024,height:768,src:'${serverurl}/image/taobao/button/next.png}'}]};
+	photoDicts.push(nextPage)
 	
 	var fullScreenMediaBrowser = new atv.FullScreenMediaBrowser();
 	fullScreenMediaBrowser.onItemSelection = function(photoID) {
-		atv.loadURL('${serverurl}/ctl/taobao/item.xml?itemId='+photoID);
+		if(photoID==-1){
+			
+		}else{
+			atv.loadURL('${serverurl}/ctl/taobao/item.xml?itemId='+photoID);
+		}
+		
 	};
 	
 	fullScreenMediaBrowser.onLoadMetadata = function(photoID) {
