@@ -662,6 +662,7 @@ public class TaobaoController {
 		}
 		List<TaobaoLove> itemList = taobaoClient.queryTaobaoLoves(tagId);
 		request.setAttribute("gender", gender);
+		request.setAttribute("slectedTagId", tagId);
 		request.setAttribute("btagList", btagList);
 		request.setAttribute("itemList", itemList);
 		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
@@ -669,6 +670,24 @@ public class TaobaoController {
 
 	}
 
+	@RequestMapping("/taobao/love.js")
+	public String loveJS(HttpServletRequest request,
+			HttpServletResponse response,
+			@RequestParam(value = "gender", required = false) String gender,
+			@RequestParam(value = "tagId", required = false) Long tagId)
+			throws Exception {
+		if (log.isDebugEnabled()) {
+			log.debug("access love js gender:" + gender);
+		}
+		
+		List<TaobaoLove> itemList = taobaoClient.queryTaobaoLoves(tagId);
+		request.setAttribute("gender", gender);
+		request.setAttribute("itemList", itemList);
+		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
+		return "taobao/lovejs";
+
+	}
+	
 	private Node getChildNode(Node node, int[] indexs) {
 		Node r = node;
 		try {
