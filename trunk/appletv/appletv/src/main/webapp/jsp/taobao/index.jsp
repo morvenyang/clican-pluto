@@ -21,11 +21,11 @@
                 	<image>${serverurl}/image/taobao/favoriteShop.png</image>
                 	<title>收藏的店铺</title>
                  </goldenPoster>
-                 <goldenPoster id="gp4" onSelect="atv.loadURL('${serverurl}/ctl/taobao/love.xml?gender=man');" onPlay="atv.loadURL('${serverurl}/ctl/taobao/love.xml?gender=man');">
+                 <goldenPoster id="gp4" onSelect="atv.loadURL('${serverurl}/ctl/taobao/loveTag.xml?gender=man');" onPlay="atv.loadURL('${serverurl}/ctl/taobao/loveTag.xml?gender=man');">
                 	<image>${serverurl}/image/taobao/love.png</image>
                 	<title>(男)爱逛街</title>
                  </goldenPoster>
-                 <goldenPoster id="gp5" onSelect="atv.loadURL('${serverurl}/ctl/taobao/love.xml?gender=woman');" onPlay="atv.loadURL('${serverurl}/ctl/taobao/love.xml?gender=woman');">
+                 <goldenPoster id="gp5" onSelect="atv.loadURL('${serverurl}/ctl/taobao/loveTag.xml?gender=woman');" onPlay="atv.loadURL('${serverurl}/ctl/taobao/loveTag.xml?gender=woman');">
                 	<image>${serverurl}/image/taobao/love.png</image>
                 	<title>(女)爱逛街</title>
                  </goldenPoster>

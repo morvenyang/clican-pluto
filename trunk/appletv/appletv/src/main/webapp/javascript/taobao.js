@@ -3,6 +3,7 @@ var taobaoTokenApi = 'http://i.taobao.com/my_taobao.htm';
 var taobaoAddToFavoriteApi = 'http://favorite.taobao.com/popup/add_collection.htm';
 var taobaoMyFavoriteItemApi = 'http://favorite.taobao.com/json/collect_list_chunk.htm?itemtype=1&isBigImgShow=true&orderby=time&startrow=0&chunkSize=30&chunkNum=1&deleNum=0';
 var taobaoMyFavoriteShopApi = 'http://favorite.taobao.com/collect_list.htm?itemtype=0';
+var taobaoLoveApi = 'http://love.taobao.com/guang/mobile_search.htm';
 var taobaoClient = {
 	login : function(username, password) {
 		var url = taobaoLoginApi + "?TPL_username=" + username
@@ -149,6 +150,48 @@ var taobaoClient = {
 					});
 		}
 
+	},
+	
+	loadLovePage : function(tagId) {
+		var url = taobaoLoveApi+'?pagenum=1&tagId='+tagId;
+		appletv.makeRequest(url,
+				function(jsonContent) {
+					var json = JSON.parse(jsonContent);
+					var itemList = json['itemList'];
+					var photoDicts =[];
+					var photoTitleMap={};
+					for(var i=0;i<itemList.length;i++){
+						var item = itemList[i];
+						var photoDict = {id:item['itemId'],type:'photo',assets:[{width:1024,height:768,src:item['picUrl']}]};
+						photoDicts.push(photoDict);
+						photoTitleMap[item['itemId']] = '买家 '+item['buyerNick']+' '+item['operateType'] +' '+item['operateTime'];
+					}
+					showPhoto(photoDicts,photoTitleMap);
+				});
+	},
+	
+	showPhoto: function(photoDicts,photoTitleMap){
+		var fullScreenMediaBrowser = new atv.FullScreenMediaBrowser();
+		fullScreenMediaBrowser.onItemSelection = function(photoID) {
+			if(photoID==-1){
+				
+			}else{
+				atv.loadURL(appletv.serverurl+'/ctl/taobao/item.xml?itemId='+photoID);
+			}
+		};
+		
+		fullScreenMediaBrowser.onLoadMetadata = function(photoID) {
+			var comments = [],
+			var metadata = {};
+			metadata.comments = comments;
+			var comment = {
+					"text": photoTextMap[photoID],
+					"footer": ''
+			};
+			comments.push(comment);
+			fullScreenMediaBrowser.updateMetadata(photoID, metadata);
+		};
+		fullScreenMediaBrowser.show(photoDicts, 0);
 	},
 	
 	search:function(keyword){
