@@ -269,7 +269,7 @@ var appletv = {
 			textEntry.type = 'emailAddress';
 			textEntry.instructions = instructions;
 			textEntry.label = label;
-			textEntry.initialText=initialText;
+			textEntry.defaultValue=initialText;
 			textEntry.onSubmit = callback;
 			textEntry.show();
 		}
