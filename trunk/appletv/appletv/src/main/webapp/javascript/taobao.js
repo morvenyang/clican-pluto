@@ -152,14 +152,13 @@ var taobaoClient = {
 
 	},
 	
-	loadLovePage : function(tagId) {
-		var url = taobaoLoveApi+'?pagenum=1&tagId='+tagId;
+	loadLovePage : function(tagId,pagenum) {
+		var url = taobaoLoveApi+'?pagenum='+pagenum+'&tagId='+tagId;
 		appletv.makeRequest(url,
 				function(jsonContent) {
 					var json = JSON.parse(jsonContent);
 					var itemList = json['itemList'];
-					var photoDicts =[];
-					var photoTitleMap={};
+					var photoDicts = [];
 					for(var i=0;i<itemList.length;i++){
 						var item = itemList[i];
 						var id = item['itemId']+'';
@@ -167,15 +166,17 @@ var taobaoClient = {
 						photoDict.caption = '买家 '+item['buyerNick']+' '+item['operateType'] +' '+item['operateTime'];
 						photoDicts.push(photoDict);
 					}
-					taobaoClient.showPhoto(photoDicts);
+					photoDicts.push({"id":'-1',type:'photo',assets:[{width:1024,height:768,src:appletv.serverurl+'/image/taobao/button/right_arrow.png'}]});
+					taobaoClient.showPhoto(photoDicts,tagId,pagenum);
 				});
 	},
 	
-	showPhoto: function(photoDicts){
+	showPhoto: function(photoDicts,tagId,pagenum){
 		var fullScreenMediaBrowser = new atv.FullScreenMediaBrowser();
 		fullScreenMediaBrowser.onItemSelection = function(photoID) {
 			if(photoID=='-1'){
-				
+				appletv.logToServer('load more data');
+				taobaoClient.loadLovePage(tagId, pagenum+1)
 			}else{
 				appletv.logToServer(appletv.serverurl+'/ctl/taobao/item.xml?itemId='+photoID);
 				atv.loadURL(appletv.serverurl+'/ctl/taobao/item.xml?itemId='+photoID);
