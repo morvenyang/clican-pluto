@@ -647,26 +647,31 @@ public class TaobaoController {
 		if (StringUtils.isEmpty(gender)) {
 			gender = "woman";
 		}
-		List<TaobaoLoveTag> tagList = taobaoClient.getTaobaoLoveTags().get(
-				gender);
-		if (tagId == null) {
-			tagId = tagList.get(0).getId();
-		}
-		List<List<TaobaoLoveTag>> btagList = new ArrayList<List<TaobaoLoveTag>>();
-		for(int i=0;i<tagList.size();i=i+10){
-			List<TaobaoLoveTag> stagList = new ArrayList<TaobaoLoveTag>();
-			for(int j=0;j<10&&j<tagList.size()-i;j++){
-				stagList.add(tagList.get(i+j));
-			}
-			btagList.add(stagList);
-		}
 		List<TaobaoLove> itemList = taobaoClient.queryTaobaoLoves(tagId);
-		request.setAttribute("gender", gender);
-		request.setAttribute("slectedTagId", tagId);
-		request.setAttribute("btagList", btagList);
 		request.setAttribute("itemList", itemList);
 		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
 		return "taobao/love";
+
+	}
+	
+	@RequestMapping("/taobao/loveTag.xml")
+	public String loveTagPage(HttpServletRequest request,
+			HttpServletResponse response,
+			@RequestParam(value = "gender", required = false) String gender)
+			throws Exception {
+		if (log.isDebugEnabled()) {
+			log.debug("access love page gender:" + gender);
+		}
+		if (StringUtils.isEmpty(gender)) {
+			gender = "woman";
+		}
+		List<TaobaoLoveTag> tagList = taobaoClient.getTaobaoLoveTags().get(
+				gender);
+		
+		request.setAttribute("gender", gender);
+		request.setAttribute("tagList", tagList);
+		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
+		return "taobao/loveTag";
 
 	}
 
