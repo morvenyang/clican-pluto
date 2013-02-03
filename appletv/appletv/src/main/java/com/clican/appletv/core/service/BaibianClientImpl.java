@@ -35,7 +35,7 @@ public class BaibianClientImpl extends BaseClient implements BaibianClient {
 		}
 		String jsonContent;
 		String url = springProperty.getBaibianChannelApi() + "&token=" + token
-				+ "&&page=" + page;
+				+ "&page=" + page;
 
 		if (log.isDebugEnabled()) {
 			log.debug(url);
