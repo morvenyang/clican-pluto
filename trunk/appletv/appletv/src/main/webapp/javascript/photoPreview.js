@@ -30,6 +30,6 @@ function onPhotoSelections(imageUrls) {
 		//
 	};
 	
-	fullScreenMediaBrowser.show(photoDicts, imageUrlArray.length-1);
+	fullScreenMediaBrowser.show(photoDicts, 0);
 };
 
