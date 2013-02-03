@@ -357,6 +357,8 @@ public class WeiboController {
 					+ "）@Clican 了解更多 >>>";
 		} else if (feature != null &&feature == 10) {
 			statusContent = "我正在Apple TV3上浏览淘宝（" + title + "）@Clican 了解更多 >>>";
+		} else if (feature != null &&feature == 11) {
+			statusContent = "我正在Apple TV3 观看微电影（" + title + "）@微电影官方微博 @Clican 了解更多 >>>";
 		} else {
 			statusContent = "我正在Apple TV3上观看在线视频（" + title
 					+ "）@Clican 了解更多 >>>";
