@@ -18,7 +18,7 @@
 					<menuSection>
 						<items>
 							<c:forEach var="tag" items="${tagList}" varStatus="status">
-								<oneLineMenuItem id="tag_${status.count}" onPlay="taobaoClient.loadLovePage(${tag.id});" onSelect="taobaoClient.loadLovePage(${tag.id});">
+								<oneLineMenuItem id="tag_${status.count}" onPlay="taobaoClient.loadLovePage(${tag.id},1);" onSelect="taobaoClient.loadLovePage(${tag.id},1);">
 									<label><![CDATA[${tag.name}]]></label>
 									<image></image>
 								</oneLineMenuItem>
