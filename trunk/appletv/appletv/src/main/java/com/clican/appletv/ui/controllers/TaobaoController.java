@@ -376,7 +376,7 @@ public class TaobaoController {
 		}
 
 		if (page == null) {
-			page = 0L;
+			page = 1L;
 		}
 		TaobaokeItemsGetRequest req = new TaobaokeItemsGetRequest();
 		req.setFields("num_iid,title,nick,pic_url,price,click_url,shop_click_url,seller_credit_score,item_location,volume");
@@ -401,15 +401,15 @@ public class TaobaoController {
 		}
 		List<TaobaokeItem> itemList = resp.getTaobaokeItems();
 
-		long begin, end = 0;
+		long begin=1, end = 1;
 		if (page < totalPage - 10) {
 			begin = page;
 			end = page + 9;
 		} else {
 			end = totalPage;
 			begin = totalPage - 9;
-			if (begin < 0) {
-				begin = 0;
+			if (begin < 1) {
+				begin = 1;
 			}
 		}
 		String pagiurl = springProperty.getSystemServerUrl()
