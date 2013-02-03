@@ -153,9 +153,11 @@ var taobaoClient = {
 	},
 	
 	loadLovePage : function(tagId,pagenum) {
-		var url = taobaoLoveApi+'?pagenum='+pagenum+'&tagId='+tagId;
+		var url = taobaoLoveApi+'?pagenum='+pagenum+'&tagid='+tagId;
+		appletv.logToServer(url);
 		appletv.makeRequest(url,
 				function(jsonContent) {
+					appletv.logToServer(jsonContent);
 					var json = JSON.parse(jsonContent);
 					var itemList = json['itemList'];
 					var photoDicts = [];
