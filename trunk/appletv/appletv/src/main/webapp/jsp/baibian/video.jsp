@@ -13,7 +13,7 @@
 								<actionButton id="album_1" onSelect="atv.loadURL('${video.mediaUrl}');" onPlay="atv.loadURL('${video.mediaUrl}');">
 									<title>播放</title>
 								</actionButton>
-								<actionButton id="album_2" onSelect="atv.loadURL('${serverurl}/ctl/weibo/createStatus.xml?title='+encodeURIComponent('${video.title}')+'&amp;shareURL=${video.mediaHtmlUrl}&amp;imageURL=${video.imageUrl}');" onPlay="atv.loadURL('${serverurl}/ctl/weibo/createStatus.xml?title='+encodeURIComponent('${video.title}')+'&amp;shareURL=${video.mediaHtmlUrl}&amp;imageURL=${video.imageUrl}');">
+								<actionButton id="album_2" onSelect="atv.loadURL('${serverurl}/ctl/weibo/createStatus.xml?feature=11&amp;deviceId='+atv.device.udid+'&amp;title='+encodeURIComponent('${video.title}')+'&amp;shareURL=${video.mediaHtmlUrl}&amp;imageURL=${video.imageUrl}');" onPlay="atv.loadURL('${serverurl}/ctl/weibo/createStatus.xml?title='+encodeURIComponent('${video.title}')+'&amp;shareURL=${video.mediaHtmlUrl}&amp;imageURL=${video.imageUrl}');">
 									<title>分享</title>
 								</actionButton>
 							</items>
