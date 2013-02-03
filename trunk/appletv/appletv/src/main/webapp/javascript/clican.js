@@ -232,6 +232,7 @@ var appletv = {
 		if (this.simulate) {
 			window.location.href = url;
 		} else {
+			this.showDialog('加载中...', 'Loading...');
 			atv.loadURL(url);
 		}
 	},
