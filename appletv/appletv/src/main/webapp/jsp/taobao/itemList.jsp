@@ -60,7 +60,7 @@
 		</shelf>
 		<grid id="grid_1" columnCount="12">
 					<items>
-						<actionButton id="shelf_item_first_page" onSelect="atv.loadURL('${pagiurl}&amp;page=0');" onPlay="atv.loadURL('${pagiurl}&amp;page=0');">
+						<actionButton id="shelf_item_first_page" onSelect="atv.loadURL('${pagiurl}&amp;page=1');" onPlay="atv.loadURL('${pagiurl}&amp;page=1');">
 							<title>第一页</title>
 						</actionButton>
 						<c:forEach var="i" begin="${begin}" end="${end}">
@@ -87,7 +87,7 @@
 		</grid>
 				<grid id="grid_3" columnCount="12">
 					<items>
-						<actionButton id="shelf_item_first_page" onSelect="atv.loadURL('${pagiurl}&amp;page=0');" onPlay="atv.loadURL('${pagiurl}&amp;page=0');">
+						<actionButton id="shelf_item_first_page" onSelect="atv.loadURL('${pagiurl}&amp;page=1');" onPlay="atv.loadURL('${pagiurl}&amp;page=1');">
 							<title>第一页</title>
 						</actionButton>
 						<c:forEach var="i" begin="${begin}" end="${end}">
