@@ -9,27 +9,29 @@
 				<shelfSection>
 					<items>
 						<actionButton id="shelf_item_default" onSelect="atv.loadURL('${sorturl}&amp;sort=defalut');" onPlay="atv.loadURL('${sorturl}&amp;sort=defalut');">
-							<title>人气</title>
 							<c:if test="${sort=='default'}">
-								<image>${serverurl}/image/taobao/button/down.png</image>
+								<title>↓人气</title>
+							</c:if>
+							<c:if test="${sort!='default'}">
+								<title>人气</title>
 							</c:if>
 						</actionButton>
 						<actionButton id="shelf_item_credit" onSelect="atv.loadURL('${sorturl}&amp;sort=credit_desc');" onPlay="atv.loadURL('${sorturl}&amp;sort=credit_desc');">
-							<title>信用</title>
 							<c:if test="${sort=='credit_desc'}">
-								<image>${serverurl}/image/taobao/button/down.png</image>
+								<title>↓信用</title>
+							</c:if>
+							<c:if test="${sort!='credit_desc'}">
+								<title>信用</title>
 							</c:if>
 						</actionButton>
 						<c:if test="${sort=='price_desc'}">
 							<actionButton id="shelf_item_price" onSelect="atv.loadURL('${sorturl}&amp;sort=price_asc');" onPlay="atv.loadURL('${sorturl}&amp;sort=price_asc');">
-								<title>价格</title>
-								<image>${serverurl}/image/taobao/button/down.png</image>
+								<title>↓价格</title>
 							</actionButton>
 						</c:if>
 						<c:if test="${sort=='price_asc'}">
 							<actionButton id="shelf_item_price" onSelect="atv.loadURL('${sorturl}&amp;sort=price_desc');" onPlay="atv.loadURL('${sorturl}&amp;sort=price_desc');">
-								<title>价格</title>
-								<image>${serverurl}/image/taobao/button/up.png</image>
+								<title>↑价格</title>
 							</actionButton>
 						</c:if>
 						<c:if test="${sort!='price_desc' && sort!='price_asc'}">
@@ -39,14 +41,12 @@
 						</c:if>
 						<c:if test="${sort=='commissionNum_desc'}">
 							<actionButton id="shelf_item_commission" onSelect="atv.loadURL('${sorturl}&amp;sort=commissionNum_asc');" onPlay="atv.loadURL('${sorturl}&amp;sort=commissionNum_asc');">
-								<title>销量</title>
-								<image>${serverurl}/image/taobao/button/down.png</image>
+								<title>↓销量</title>
 							</actionButton>
 						</c:if>
 						<c:if test="${sort=='commissionNum_asc'}">
 							<actionButton id="shelf_item_commission" onSelect="atv.loadURL('${sorturl}&amp;sort=commissionNum_desc');" onPlay="atv.loadURL('${sorturl}&amp;sort=commissionNum_desc');">
-								<title>销量</title>
-								<image>${serverurl}/image/taobao/button/up.png</image>
+								<title>↑销量</title>
 							</actionButton>
 						</c:if>
 						<c:if test="${sort!='commissionNum_desc' && sort!='commissionNum_asc'}">
