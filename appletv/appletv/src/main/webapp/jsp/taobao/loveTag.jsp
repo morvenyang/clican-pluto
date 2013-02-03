@@ -3,12 +3,14 @@
 <head>
 <script src="${serverurl}/javascript/clican.js"/>
 <script src="${serverurl}/javascript/taobao.js"/>
+<script src="${serverurl}/javascript/photoPreview.js"/>
 </head>
 <body>
 		<listScrollerSplit id="lsp">
 			<header>
 				<simpleHeader horizontalAlignment="left">
 					<title>主题</title>
+					<subtitle>图片浏览后,按Plan键查看详细确定键修改图片浏览方式</subtitle>
 				</simpleHeader>
 			</header>
 			<menu>
@@ -17,7 +19,7 @@
 						<items>
 							<c:forEach var="tag" items="${tagList}" varStatus="status">
 								<oneLineMenuItem id="tag_${status.count}" onPlay="taobaoClient.loadLovePage(${tag.id});" onSelect="taobaoClient.loadLovePage(${tag.id});">
-									<label>${tag.name}</label>
+									<label><![CDATA[${tag.name}]]></label>
 									<image></image>
 								</oneLineMenuItem>
 							</c:forEach>
