@@ -1,31 +1,52 @@
 package com.clican.appletv.core.model;
 
+import java.util.Map;
+
 import com.taobao.api.domain.Sku;
+
 
 public class TaobaoSku {
 
-	private String[] keys;
-	private String[] values;
 	private Sku sku;
 	
-	public String[] getKeys() {
-		return keys;
-	}
-	public void setKeys(String[] keys) {
-		this.keys = keys;
-	}
-	public String[] getValues() {
-		return values;
-	}
-	public void setValues(String[] values) {
-		this.values = values;
-	}
+	private String skuValue;
+	
+	private String skuLabel;
+	
+	private Map<String,TaobaoSkuCategory> categoryMap;
+
 	public Sku getSku() {
 		return sku;
 	}
+
 	public void setSku(Sku sku) {
 		this.sku = sku;
 	}
+
+	public Map<String, TaobaoSkuCategory> getCategoryMap() {
+		return categoryMap;
+	}
+
+	public void setCategoryMap(Map<String, TaobaoSkuCategory> categoryMap) {
+		this.categoryMap = categoryMap;
+	}
+
+	public String getSkuValue() {
+		return skuValue;
+	}
+
+	public void setSkuValue(String skuValue) {
+		this.skuValue = skuValue;
+	}
+
+	public String getSkuLabel() {
+		return skuLabel;
+	}
+
+	public void setSkuLabel(String skuLabel) {
+		this.skuLabel = skuLabel;
+	}
+	
 	
 	
 }
