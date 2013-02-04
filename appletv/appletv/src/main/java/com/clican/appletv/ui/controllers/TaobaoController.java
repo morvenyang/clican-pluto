@@ -724,12 +724,20 @@ public class TaobaoController {
 		}
 
 		Map<String, List<String>> labelValueMap = new HashMap<String, List<String>>();
-		Map tempMap = skuMap;
+		Map<String,Object> tempMap = skuMap;
 		for (int i = 0; i < labelList.size(); i++) {
 			String label = labelList.get(i);
 			String slv = selectedLabelValueArray[i];
 			List<String> labelValueList = new ArrayList<String>();
-			
+			for(String key:tempMap.keySet()){
+				String value = aliaMap.get(key);
+				labelValueList.add(value);
+			}
+			if(tempMap.get(slv)==null){
+				tempMap = (Map)tempMap.values().iterator().next();
+			}else{
+				tempMap = (Map)tempMap.get(slv);
+			}
 		}
 		request.setAttribute("labelList", labelList);
 		request.setAttribute("skuMap", skuMap);
