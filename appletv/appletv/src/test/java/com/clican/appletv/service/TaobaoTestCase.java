@@ -57,8 +57,8 @@ public class TaobaoTestCase extends BaseServiceTestCase {
 	private String[] getTokenAndTid() {
 		TaobaoClientImpl client = (TaobaoClientImpl) taobaoClient;
 		Map<String, String> nameValueMap = new HashMap<String, String>();
-		nameValueMap.put("TPL_username", "");
-		nameValueMap.put("TPL_password", "");
+		nameValueMap.put("TPL_username", "clicanclican");
+		nameValueMap.put("TPL_password", "clican@810428");
 		PostResponse pr = client.httpPost(
 				"https://login.taobao.com/member/login.jhtml", null,
 				nameValueMap, "application/x-www-form-urlencoded", "utf-8",
@@ -138,13 +138,13 @@ public class TaobaoTestCase extends BaseServiceTestCase {
 		String[] tokenAndTid = this.getTokenAndTid();
 		log.debug("toke="+tokenAndTid[0]+",tid="+tokenAndTid[1]);
 		Long itemId = 20461976769L;
-		itemId=15211031341L;
+		//itemId=15211031341L;
 		ItemGetRequest req=new ItemGetRequest();
 		req.setFields("detail_url,num_iid,title,nick,type,cid,seller_cids,props,input_pids,input_str,desc,pic_url,num,valid_thru,list_time,delist_time,stuff_status,location,price,post_fee,express_fee,ems_fee,has_discount,freight_payer,has_invoice,has_warranty,has_showcase,modified,increment,approve_status,postage_id,product_id,auction_point,property_alias,item_img,prop_img,sku,video,outer_id,is_virtual");
 		req.setNumIid(itemId);
 		ItemGetResponse response = taobaoRestClient.execute(req );
 		List<Sku> skuList = response.getItem().getSkus();
-		Long skuId= null;
+		Long skuId= skuList.get(0).getSkuId();
 		for(Sku sku:skuList){
 			if(sku.getQuantity()>0){
 				skuId = sku.getSkuId();

@@ -68,6 +68,7 @@ public class TaobaoController {
 	private final static Log log = LogFactory.getLog(TaobaoController.class);
 	public final static String TAOBAO_TOKEN_NAME = "taobaoAccessToken";
 	public final static String TAOBAO_HTML_TOKEN_NAME = "taobaoHtmlToken";
+	public final static String TAOBAO_HTML_TID_NAME = "taobaoHtmlTid";
 	public final static String TAOBAO_USER_ID_NAME = "taobaoUserId";
 	public final static String TAOBAO_SELLER_CATEGORY_LIST = "taobaoSellerCategoryList";
 
@@ -105,15 +106,18 @@ public class TaobaoController {
 		response.sendRedirect(springProperty.getTaobaoLoginUrl());
 	}
 
-	@RequestMapping("/taobao/loginWithToken.do")
-	public void loginWithToken(HttpServletRequest request,
+	@RequestMapping("/taobao/loginWithTokenAndTid.do")
+	public void loginWithTokenAndTid(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		try {
 			String content = this.getContent(request);
-
+			int start = content.indexOf("tid=") + 4;
+			int end = content.indexOf("&", start);
+			String tid = content.substring(start, end);
 			Parser parser = Parser.createParser(content, "utf-8");
 			AndFilter tokenFilter = new AndFilter(new TagNameFilter("input"),
 					new HasAttributeFilter("name", "_tb_token_"));
+
 			NodeList list = parser.parse(tokenFilter);
 			String token = null;
 
@@ -122,13 +126,14 @@ public class TaobaoController {
 				token = node.getAttribute("value");
 			}
 
-			if (StringUtils.isNotEmpty(token)) {
+			if (StringUtils.isNotEmpty(token) && StringUtils.isNotEmpty(tid)) {
 				if (log.isDebugEnabled()) {
 					log.debug("Taobao user login successfully, with token:"
-							+ token);
+							+ token + ",tid=" + tid);
 				}
 				request.getSession()
 						.setAttribute(TAOBAO_HTML_TOKEN_NAME, token);
+				request.getSession().setAttribute(TAOBAO_HTML_TID_NAME, token);
 				response.getOutputStream().write("success".getBytes());
 			} else {
 				response.getOutputStream().write("failure".getBytes());
@@ -151,16 +156,19 @@ public class TaobaoController {
 		return "taobao/index";
 	}
 
-	@RequestMapping("/taobao/getToken.do")
-	public void getToken(HttpServletRequest request,
+	@RequestMapping("/taobao/getTokenAndTid.do")
+	public void getTokenAndTid(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		String token = (String) request.getSession().getAttribute(
 				TAOBAO_HTML_TOKEN_NAME);
+		String tid = (String) request.getSession().getAttribute(
+				TAOBAO_HTML_TID_NAME);
 		if (log.isDebugEnabled()) {
 			log.debug("get token from session");
 		}
-		if (StringUtils.isNotEmpty(token)) {
-			response.getOutputStream().write(token.getBytes());
+		if (StringUtils.isNotEmpty(token) && StringUtils.isNotEmpty(tid)) {
+			String content = "{token:'" + token + "',tid='" + tid + "'}";
+			response.getOutputStream().write(content.getBytes());
 		} else {
 			response.getOutputStream().write("".getBytes());
 		}
@@ -401,7 +409,7 @@ public class TaobaoController {
 		}
 		List<TaobaokeItem> itemList = resp.getTaobaokeItems();
 
-		long begin=1, end = 1;
+		long begin = 1, end = 1;
 		if (page < totalPage - 10) {
 			begin = page;
 			end = page + 9;
@@ -648,7 +656,7 @@ public class TaobaoController {
 		}
 		List<TaobaoLoveTag> tagList = taobaoClient.getTaobaoLoveTags().get(
 				gender);
-		
+
 		request.setAttribute("gender", gender);
 		request.setAttribute("tagList", tagList);
 		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
@@ -665,7 +673,7 @@ public class TaobaoController {
 		if (log.isDebugEnabled()) {
 			log.debug("access love js gender:" + gender);
 		}
-		
+
 		List<TaobaoLove> itemList = taobaoClient.queryTaobaoLoves(tagId);
 		request.setAttribute("gender", gender);
 		request.setAttribute("itemList", itemList);
@@ -673,7 +681,7 @@ public class TaobaoController {
 		return "taobao/lovejs";
 
 	}
-	
+
 	private Node getChildNode(Node node, int[] indexs) {
 		Node r = node;
 		try {
