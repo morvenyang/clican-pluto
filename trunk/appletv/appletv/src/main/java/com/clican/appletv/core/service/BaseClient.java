@@ -114,7 +114,6 @@ public class BaseClient {
 				log.debug("Status:" + status + " for url:" + url);
 			}
 			for (Header header : httpPost.getResponseHeaders()) {
-				log.debug(header.getName() + "=" + header.getValue());
 				if (header.getName().equals("Set-Cookie")) {
 					try {
 						String cookie = header.getValue().split(";")[0];
@@ -268,7 +267,6 @@ public class BaseClient {
 				log.debug("Status:" + status + " for url:" + url);
 			}
 			for (Header header : httpGet.getResponseHeaders()) {
-				log.debug(header.getName() + "=" + header.getValue());
 				if (header.getName().equals("Set-Cookie")) {
 					try {
 						String cookie = header.getValue().split(";")[0];
