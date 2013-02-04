@@ -635,25 +635,6 @@ public class TaobaoController {
 
 	}
 
-	@RequestMapping("/taobao/love.xml")
-	public String lovePage(HttpServletRequest request,
-			HttpServletResponse response,
-			@RequestParam(value = "gender", required = false) String gender,
-			@RequestParam(value = "tagId", required = false) Long tagId)
-			throws Exception {
-		if (log.isDebugEnabled()) {
-			log.debug("access love page gender:" + gender);
-		}
-		if (StringUtils.isEmpty(gender)) {
-			gender = "woman";
-		}
-		List<TaobaoLove> itemList = taobaoClient.queryTaobaoLoves(tagId);
-		request.setAttribute("itemList", itemList);
-		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
-		return "taobao/love";
-
-	}
-	
 	@RequestMapping("/taobao/loveTag.xml")
 	public String loveTagPage(HttpServletRequest request,
 			HttpServletResponse response,
