@@ -45,6 +45,7 @@ import com.taobao.api.domain.ItemImg;
 import com.taobao.api.domain.PromotionInItem;
 import com.taobao.api.domain.SellerCat;
 import com.taobao.api.domain.Shop;
+import com.taobao.api.domain.Sku;
 import com.taobao.api.domain.TaobaokeItem;
 import com.taobao.api.internal.util.codec.Base64;
 import com.taobao.api.request.ItemGetRequest;
@@ -595,7 +596,7 @@ public class TaobaoController {
 		}
 
 		ItemGetRequest req = new ItemGetRequest();
-		req.setFields("detail_url,num_iid,title,nick,desc,location,price,post_fee,express_fee,ems_fee,item_img.url,videos,pic_url,stuff_status");
+		req.setFields("detail_url,num_iid,title,nick,desc,location,price,post_fee,express_fee,ems_fee,item_img.url,videos,pic_url,stuff_status,sku,property_alias,props");
 		req.setNumIid(itemId);
 		ItemGetResponse resp = taobaoRestClient.execute(req);
 		Item item = resp.getItem();
@@ -638,9 +639,52 @@ public class TaobaoController {
 		request.setAttribute("promotion", promotion);
 
 		item.setVolume(volume);
+		String props = item.getProps();
+		String propertyAlias = item.getPropertyAlias();
+		Map<String, String> aliaMap = new HashMap<String, String>();
+		String[] alias = propertyAlias.split(";");
+		for (String alia : alias) {
+			int index = alia.lastIndexOf(":");
+			String key = alia.substring(0, index);
+			String value = alia.substring(index + 1);
+			aliaMap.put(key, value);
+		}
+		List<Sku> skuList = item.getSkus();
+
+		Map skuMap = new HashMap();
+		for (Sku sku : skuList) {
+			setupSkuMap(skuMap, sku, aliaMap, 0);
+		}
+		String skuJson = JSONObject.fromObject(skuMap).toString();
+		if (log.isDebugEnabled()) {
+			log.debug("\n" + skuJson);
+		}
 		request.setAttribute("item", item);
+
 		return "taobao/item";
 
+	}
+
+	@SuppressWarnings({ "unchecked" })
+	private void setupSkuMap(Map skuMap, Sku sku, Map<String, String> aliaMap,
+			int offset) {
+		String[] skuProps = sku.getProperties().split(";");
+		String skuKey = skuProps[offset];
+		String skuValue = sku.getPropertiesName().split(";")[offset].replace(
+				skuKey + ":", "");
+		if (aliaMap.get(skuKey) != null) {
+			skuValue = aliaMap.get(skuKey);
+		}
+		if (offset == skuProps.length - 1) {
+			skuMap.put(skuValue, sku.getSkuId());
+		} else {
+			Map tempMap = (Map) skuMap.get(skuValue);
+			if (tempMap == null) {
+				tempMap = new HashMap();
+			}
+			skuMap.put(skuValue, tempMap);
+			setupSkuMap(tempMap, sku, aliaMap, offset + 1);
+		}
 	}
 
 	@RequestMapping("/taobao/loveTag.xml")
