@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -642,7 +643,7 @@ public class TaobaoController {
 		request.setAttribute("promotion", promotion);
 
 		item.setVolume(volume);
-		Map<String,Object> cacheMap = this.getSkuMap(item);
+		Map<String, Object> cacheMap = this.getSkuMap(item);
 		request.getSession().setAttribute(TAOBAO_SKU_NAME, cacheMap);
 		request.setAttribute("item", item);
 
@@ -650,8 +651,8 @@ public class TaobaoController {
 
 	}
 
-	private Map<String,Object> getSkuMap(Item item) {
-		Map<String,Object> cacheMap = new HashMap<String,Object>();
+	private Map<String, Object> getSkuMap(Item item) {
+		Map<String, Object> cacheMap = new HashMap<String, Object>();
 
 		String propertyAlias = item.getPropertyAlias();
 		Map<String, String> aliaMap = new HashMap<String, String>();
@@ -664,7 +665,7 @@ public class TaobaoController {
 		}
 		List<Sku> skuList = item.getSkus();
 
-		Map<String,Object> skuMap = new HashMap<String,Object>();
+		Map<String, Object> skuMap = new TreeMap<String, Object>();
 		List<String> labelList = new ArrayList<String>();
 		for (Sku sku : skuList) {
 			if (sku.getQuantity() == 0) {
@@ -686,14 +687,17 @@ public class TaobaoController {
 	}
 
 	@RequestMapping("/taobao/itemDetail.xml")
-	public String itemDetailPage(HttpServletRequest request,
+	public String itemDetailPage(
+			HttpServletRequest request,
 			HttpServletResponse response,
-			@RequestParam(value = "itemId", required = false) Long itemId)
+			@RequestParam(value = "itemId", required = false) Long itemId,
+			@RequestParam(value = "selectedLabelValues", required = false) String selectedLabelValues)
 			throws Exception {
 		if (log.isDebugEnabled()) {
 			log.debug("access item :" + itemId);
 		}
-		Map<String,Object> cacheMap = (Map) request.getSession().getAttribute(TAOBAO_SKU_NAME);
+		Map<String, Object> cacheMap = (Map) request.getSession().getAttribute(
+				TAOBAO_SKU_NAME);
 		if (cacheMap == null || cacheMap.get("itemId") == null
 				|| !cacheMap.get("itemId").equals(itemId)) {
 			ItemGetRequest req = new ItemGetRequest();
@@ -703,9 +707,31 @@ public class TaobaoController {
 			Item item = resp.getItem();
 			cacheMap = this.getSkuMap(item);
 		}
-		request.setAttribute("labelList",cacheMap.get("labelList"));
-		request.setAttribute("skuMap",cacheMap.get("skuMap"));
-		request.setAttribute("item",cacheMap.get("item"));
+		String[] selectedLabelValueArray = null;
+		Map skuMap = (Map) cacheMap.get("skuMap");
+		List<String> labelList = (List) cacheMap.get("labelList");
+		if (StringUtils.isNotEmpty(selectedLabelValues)) {
+			selectedLabelValueArray = selectedLabelValues.split(";");
+		} else {
+			selectedLabelValueArray = new String[labelList.size()];
+			Map tempMap = skuMap;
+			for (String slv : selectedLabelValueArray) {
+				slv = (String) tempMap.keySet().iterator().next();
+				tempMap = (Map) tempMap.get(slv);
+			}
+		}
+
+		Map<String, List<String>> labelValueMap = new HashMap<String, List<String>>();
+		Map tempMap = skuMap;
+		for (int i = 0; i < labelList.size(); i++) {
+			String label = labelList.get(i);
+			String slv = selectedLabelValueArray[i];
+			List<String> labelValueList = new ArrayList<String>(tempMap.values());
+			
+		}
+		request.setAttribute("labelList", labelList);
+		request.setAttribute("skuMap", skuMap);
+		request.setAttribute("item", cacheMap.get("item"));
 		return "taobao/itemDetail";
 
 	}
@@ -726,13 +752,13 @@ public class TaobaoController {
 			skuValue = aliaMap.get(skuKey);
 		}
 		if (offset == skuProps.length - 1) {
-			skuMap.put(skuValue, sku);
+			skuMap.put(skuKey, sku);
 		} else {
 			Map tempMap = (Map) skuMap.get(skuValue);
 			if (tempMap == null) {
-				tempMap = new HashMap();
+				tempMap = new TreeMap();
 			}
-			skuMap.put(skuValue, tempMap);
+			skuMap.put(skuKey, tempMap);
 			setupSkuMap(tempMap, labelList, sku, aliaMap, offset + 1);
 		}
 	}
