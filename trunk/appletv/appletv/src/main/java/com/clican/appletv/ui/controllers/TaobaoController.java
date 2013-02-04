@@ -652,13 +652,22 @@ public class TaobaoController {
 		List<Sku> skuList = item.getSkus();
 
 		Map skuMap = new HashMap();
+		List<String> labelList = new ArrayList<String>();
 		for (Sku sku : skuList) {
-			setupSkuMap(skuMap, sku, aliaMap, 0);
+			if(sku.getQuantity()==0){
+				continue;
+			}
+			setupSkuMap(skuMap, labelList, sku, aliaMap, 0);
 		}
 		String skuJson = JSONObject.fromObject(skuMap).toString();
+		String labelJson = JSONArray.fromObject(labelList).toString();
 		if (log.isDebugEnabled()) {
+			log.debug("\n" + labelJson);
 			log.debug("\n" + skuJson);
+			
 		}
+		request.setAttribute("skuBase64Json", new String(Base64.encodeBase64(skuJson.getBytes("utf-8"))));
+		request.setAttribute("labelBase64Json", new String(Base64.encodeBase64(labelJson.getBytes("utf-8"))));
 		request.setAttribute("item", item);
 
 		return "taobao/item";
@@ -666,24 +675,29 @@ public class TaobaoController {
 	}
 
 	@SuppressWarnings({ "unchecked" })
-	private void setupSkuMap(Map skuMap, Sku sku, Map<String, String> aliaMap,
-			int offset) {
+	private void setupSkuMap(Map skuMap, List<String> labelList, Sku sku,
+			Map<String, String> aliaMap, int offset) {
 		String[] skuProps = sku.getProperties().split(";");
 		String skuKey = skuProps[offset];
 		String skuValue = sku.getPropertiesName().split(";")[offset].replace(
 				skuKey + ":", "");
+		String skuValueLabel = skuValue.split(":")[0];
+		if (!labelList.contains(skuValueLabel)) {
+			labelList.add(skuValueLabel);
+		}
+		skuValue = skuValue.split(":")[1];
 		if (aliaMap.get(skuKey) != null) {
 			skuValue = aliaMap.get(skuKey);
 		}
 		if (offset == skuProps.length - 1) {
-			skuMap.put(skuValue, sku.getSkuId());
+			skuMap.put(skuValue,sku);
 		} else {
 			Map tempMap = (Map) skuMap.get(skuValue);
 			if (tempMap == null) {
 				tempMap = new HashMap();
 			}
 			skuMap.put(skuValue, tempMap);
-			setupSkuMap(tempMap, sku, aliaMap, offset + 1);
+			setupSkuMap(tempMap, labelList, sku, aliaMap, offset + 1);
 		}
 	}
 
