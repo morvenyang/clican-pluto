@@ -4,20 +4,21 @@ var taobaoAddToFavoriteApi = 'http://favorite.taobao.com/popup/add_collection.ht
 var taobaoMyFavoriteItemApi = 'http://favorite.taobao.com/json/collect_list_chunk.htm?itemtype=1&isBigImgShow=true&orderby=time&startrow=0&chunkSize=30&chunkNum=1&deleNum=0';
 var taobaoMyFavoriteShopApi = 'http://favorite.taobao.com/collect_list.htm?itemtype=0';
 var taobaoLoveApi = 'http://love.taobao.com/guang/mobile_search.htm';
+var taobaoAddToShoppingCartApi = 'http://cart.taobao.com/add_cart_item.htm?bankfrom=&outer_id_type=2&quantity=1';
 var taobaoClient = {
 	login : function(username, password) {
 		var url = taobaoLoginApi + "?TPL_username=" + username
 				+ "&TPL_password=" + password;
 		appletv.makePostRequest(url, null, function(content) {
 			appletv.logToServer(content);
-			taobaoClient.getToken();
+			taobaoClient.loginWithTokenAndTid();
 		});
 	},
 
-	getToken : function() {
+	loginWithTokenAndTid : function() {
 		appletv.makeRequest(taobaoTokenApi, function(htmlcontent) {
 			appletv.makePostRequest(appletv.serverurl
-					+ '/ctl/taobao/loginWithToken.do', htmlcontent, function(
+					+ '/ctl/taobao/loginWithTokenAndTid.do', htmlcontent, function(
 					content) {
 				if (content == 'success') {
 					appletv.showDialog('登录成功', '');
@@ -62,16 +63,17 @@ var taobaoClient = {
 		if (token == null || token.length == 0|| token=='null') {
 			appletv
 					.makeRequest(
-							appletv.serverurl + '/ctl/taobao/getToken.do',
-							function(sessiontoken) {
-								if (sessiontoken == null
-										|| sessiontoken.length == 0) {
+							appletv.serverurl + '/ctl/taobao/getTokenAndTid.do',
+							function(tokenAndTid) {
+								if (tokenAndTid == null
+										|| tokenAndTid.length == 0) {
 									taobaoClient.showLoginPage();
 								} else {
+									var tat = JSON.parse(tokenAndTid);
 									var url = taobaoAddToFavoriteApi
 											+ "?itemtype="+itemtype+"&isTmall=1&isLp=&isTaohua=&id="
 											+ id + "&_tb_token_="
-											+ sessiontoken;
+											+ tat['token'];
 									appletv.logToServer(url);
 									appletv.makePostRequest(url, null,
 											function(htmlcontent) {
@@ -92,14 +94,53 @@ var taobaoClient = {
 
 	},
 	
+	addToShoppingCart : function(id,skuid, tid) {
+		var url = taobaoAddToShoppingCartApi+'&nekot='+new Date().getMilliseconds();
+		if (tid ==null || tid.length==0 ||tid=='null') {
+			appletv
+					.makeRequest(
+							appletv.serverurl + '/ctl/taobao/getTokenAndTid.do',
+							function(tokenAndTid) {
+								if (tokenAndTid == null
+										|| tokenAndTid.length == 0) {
+									taobaoClient.showLoginPage();
+								} else {
+									var tat = JSON.parse(tokenAndTid);
+									url = url +'&item_id='+id+'&outer_id='+skuid+'&ct='+tid;
+									appletv.logToServer(url);
+									appletv.makePostRequest(url, null,taobaoClient.showAddToShoppingCartResult);
+								}
+							});
+			return;
+		} else {
+			url = url +'&item_id='+id+'&outer_id='+skuid+'&ct='+tid;
+			appletv.logToServer(url);
+			appletv.makePostRequest(url, null, taobaoClient.showAddToShoppingCartResult);
+		}
+
+	},
+	
+	showAddToShoppingCartResult: function(result){
+		var strt = result.indexOf("{");
+		var end = result.lastIndexOf("}");
+		result = result.substring(start,end);
+		var json = JSON.parse(result);
+		var error = json['error'];
+		if(error!=null&&error.length>0){
+			appletv.showDialog('添加购物车失败', error);
+		}else{
+			appletv.showDialog('添加购物车成功', '当前购物车内有'+json['cartQuantity']+'样商品,总价:'+json['cartPrice']+'元');
+		}
+	},
+	
 	loadFavoriteItemPage : function(token) {
 		if (token == null || token.length == 0|| token=='null') {
 			appletv
 					.makeRequest(
-							appletv.serverurl + '/ctl/taobao/getToken.do',
-							function(sessiontoken) {
-								if (sessiontoken == null
-										|| sessiontoken.length == 0) {
+							appletv.serverurl + '/ctl/taobao/getTokenAndTid.do',
+							function(tokenAndTid) {
+								if (tokenAndTid == null
+										|| tokenAndTid.length == 0) {
 									taobaoClient.showLoginPage();
 								} else {
 									appletv.makeRequest(taobaoMyFavoriteItemApi,
@@ -126,10 +167,10 @@ var taobaoClient = {
 		if (token == null || token.length == 0|| token=='null') {
 			appletv
 					.makeRequest(
-							appletv.serverurl + '/ctl/taobao/getToken.do',
+							appletv.serverurl + '/ctl/taobao/getTokenAndTid.do',
 							function(sessiontoken) {
-								if (sessiontoken == null
-										|| sessiontoken.length == 0) {
+								if (tokenAndTid == null
+										|| tokenAndTid.length == 0) {
 									taobaoClient.showLoginPage();
 								} else {
 									appletv.makeRequest(taobaoMyFavoriteShopApi,
