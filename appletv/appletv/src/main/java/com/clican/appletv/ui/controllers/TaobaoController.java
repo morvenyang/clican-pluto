@@ -683,6 +683,7 @@ public class TaobaoController {
 		cacheMap.put("skuMap", skuMap);
 		cacheMap.put("labelList", labelList);
 		cacheMap.put("item", item);
+		cacheMap.put("aliaMap", aliaMap);
 		return cacheMap;
 	}
 
@@ -710,6 +711,7 @@ public class TaobaoController {
 		String[] selectedLabelValueArray = null;
 		Map skuMap = (Map) cacheMap.get("skuMap");
 		List<String> labelList = (List) cacheMap.get("labelList");
+		Map<String,String> aliaMap = (Map)cacheMap.get("aliaMap");
 		if (StringUtils.isNotEmpty(selectedLabelValues)) {
 			selectedLabelValueArray = selectedLabelValues.split(";");
 		} else {
@@ -726,7 +728,7 @@ public class TaobaoController {
 		for (int i = 0; i < labelList.size(); i++) {
 			String label = labelList.get(i);
 			String slv = selectedLabelValueArray[i];
-			List<String> labelValueList = new ArrayList<String>(tempMap.values());
+			List<String> labelValueList = new ArrayList<String>();
 			
 		}
 		request.setAttribute("labelList", labelList);
@@ -748,8 +750,8 @@ public class TaobaoController {
 			labelList.add(skuValueLabel);
 		}
 		skuValue = skuValue.split(":")[1];
-		if (aliaMap.get(skuKey) != null) {
-			skuValue = aliaMap.get(skuKey);
+		if (StringUtils.isEmpty(aliaMap.get(skuKey))) {
+			aliaMap.put(skuKey,skuValue);
 		}
 		if (offset == skuProps.length - 1) {
 			skuMap.put(skuKey, sku);
