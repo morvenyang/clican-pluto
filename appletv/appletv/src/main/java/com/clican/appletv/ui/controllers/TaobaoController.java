@@ -73,6 +73,9 @@ public class TaobaoController {
 	public final static String TAOBAO_USER_ID_NAME = "taobaoUserId";
 	public final static String TAOBAO_SELLER_CATEGORY_LIST = "taobaoSellerCategoryList";
 
+	public final static String TAOBAO_SKU_ITEM_ID_NAME = "taobaoSkuItemIdName";
+	public final static String TAOBAO_SKU_NAME = "taobaoSkuName";
+
 	@Autowired
 	private com.clican.appletv.core.service.TaobaoClient taobaoClient;
 
@@ -639,7 +642,17 @@ public class TaobaoController {
 		request.setAttribute("promotion", promotion);
 
 		item.setVolume(volume);
-		String props = item.getProps();
+		Map<String,Object> cacheMap = this.getSkuMap(item);
+		request.getSession().setAttribute(TAOBAO_SKU_NAME, cacheMap);
+		request.setAttribute("item", item);
+
+		return "taobao/item";
+
+	}
+
+	private Map<String,Object> getSkuMap(Item item) {
+		Map<String,Object> cacheMap = new HashMap<String,Object>();
+
 		String propertyAlias = item.getPropertyAlias();
 		Map<String, String> aliaMap = new HashMap<String, String>();
 		String[] alias = propertyAlias.split(";");
@@ -651,10 +664,10 @@ public class TaobaoController {
 		}
 		List<Sku> skuList = item.getSkus();
 
-		Map skuMap = new HashMap();
+		Map<String,Object> skuMap = new HashMap<String,Object>();
 		List<String> labelList = new ArrayList<String>();
 		for (Sku sku : skuList) {
-			if(sku.getQuantity()==0){
+			if (sku.getQuantity() == 0) {
 				continue;
 			}
 			setupSkuMap(skuMap, labelList, sku, aliaMap, 0);
@@ -664,13 +677,36 @@ public class TaobaoController {
 		if (log.isDebugEnabled()) {
 			log.debug("\n" + labelJson);
 			log.debug("\n" + skuJson);
-			
-		}
-		request.setAttribute("skuBase64Json", new String(Base64.encodeBase64(skuJson.getBytes("utf-8"))));
-		request.setAttribute("labelBase64Json", new String(Base64.encodeBase64(labelJson.getBytes("utf-8"))));
-		request.setAttribute("item", item);
 
-		return "taobao/item";
+		}
+		cacheMap.put("skuMap", skuMap);
+		cacheMap.put("labelList", labelList);
+		cacheMap.put("item", item);
+		return cacheMap;
+	}
+
+	@RequestMapping("/taobao/itemDetail.xml")
+	public String itemDetailPage(HttpServletRequest request,
+			HttpServletResponse response,
+			@RequestParam(value = "itemId", required = false) Long itemId)
+			throws Exception {
+		if (log.isDebugEnabled()) {
+			log.debug("access item :" + itemId);
+		}
+		Map<String,Object> cacheMap = (Map) request.getSession().getAttribute(TAOBAO_SKU_NAME);
+		if (cacheMap == null || cacheMap.get("itemId") == null
+				|| !cacheMap.get("itemId").equals(itemId)) {
+			ItemGetRequest req = new ItemGetRequest();
+			req.setFields("detail_url,num_iid,title,nick,desc,location,price,post_fee,express_fee,ems_fee,item_img.url,videos,pic_url,stuff_status,sku,property_alias,props");
+			req.setNumIid(itemId);
+			ItemGetResponse resp = taobaoRestClient.execute(req);
+			Item item = resp.getItem();
+			cacheMap = this.getSkuMap(item);
+		}
+		request.setAttribute("labelList",cacheMap.get("labelList"));
+		request.setAttribute("skuMap",cacheMap.get("skuMap"));
+		request.setAttribute("item",cacheMap.get("item"));
+		return "taobao/itemDetail";
 
 	}
 
@@ -690,7 +726,7 @@ public class TaobaoController {
 			skuValue = aliaMap.get(skuKey);
 		}
 		if (offset == skuProps.length - 1) {
-			skuMap.put(skuValue,sku);
+			skuMap.put(skuValue, sku);
 		} else {
 			Map tempMap = (Map) skuMap.get(skuValue);
 			if (tempMap == null) {
