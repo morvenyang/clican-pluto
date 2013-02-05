@@ -37,6 +37,7 @@ import com.clican.appletv.core.service.taobao.model.TaobaoLoveTag;
 import com.clican.appletv.core.service.taobao.model.TaobaoOrderByItem;
 import com.clican.appletv.core.service.taobao.model.TaobaoOrderByShop;
 import com.clican.appletv.ext.htmlparser.EmTag;
+import com.clican.appletv.ext.htmlparser.STag;
 import com.clican.appletv.ext.htmlparser.StrongTag;
 import com.taobao.api.domain.ItemCat;
 import com.taobao.api.internal.util.WebUtils;
@@ -336,6 +337,7 @@ public class TaobaoClientImpl extends BaseClient implements TaobaoClient {
 		PrototypicalNodeFactory factory = new PrototypicalNodeFactory();
 		factory.registerTag(new StrongTag());
 		factory.registerTag(new EmTag());
+		factory.registerTag(new STag());
 		Parser parser = Parser.createParser(htmlContent, "utf-8");
 		try {
 			parser.setNodeFactory(factory);
@@ -355,7 +357,7 @@ public class TaobaoClientImpl extends BaseClient implements TaobaoClient {
 						String addrLabel = addrLabelNode.getStringText();
 						TaobaoAddress addr = new TaobaoAddress();
 						addr.setAddress(addrLabel);
-						CompositeTag addrValueNode = (CompositeTag) this
+						TagNode addrValueNode = (TagNode) this
 								.getChildNode(bullet, new int[] { 3 });
 						addr.setAddrId(Long.parseLong(addrValueNode
 								.getAttribute("value")));
