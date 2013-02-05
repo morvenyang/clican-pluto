@@ -9,7 +9,7 @@ import java.util.Set;
 
 import com.clican.appletv.common.PostResponse;
 import com.clican.appletv.common.SpringProperty;
-import com.clican.appletv.core.service.TaobaoClientImpl;
+import com.clican.appletv.core.service.taobao.TaobaoClientImpl;
 import com.taobao.api.TaobaoClient;
 import com.taobao.api.domain.Sku;
 import com.taobao.api.request.ItemGetRequest;
@@ -23,7 +23,7 @@ public class TaobaoTestCase extends BaseServiceTestCase {
 
 	private SpringProperty springProperty;
 	private TaobaoClient taobaoRestClient;
-	private com.clican.appletv.core.service.TaobaoClient taobaoClient;
+	private com.clican.appletv.core.service.taobao.TaobaoClient taobaoClient;
 
 	public void setSpringProperty(SpringProperty springProperty) {
 		this.springProperty = springProperty;
@@ -34,7 +34,7 @@ public class TaobaoTestCase extends BaseServiceTestCase {
 	}
 
 	public void setTaobaoClient(
-			com.clican.appletv.core.service.TaobaoClient taobaoClient) {
+			com.clican.appletv.core.service.taobao.TaobaoClient taobaoClient) {
 		this.taobaoClient = taobaoClient;
 	}
 

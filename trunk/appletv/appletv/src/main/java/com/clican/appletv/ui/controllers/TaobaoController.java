@@ -35,13 +35,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.clican.appletv.common.SpringProperty;
-import com.clican.appletv.core.model.TaobaoAccessToken;
-import com.clican.appletv.core.model.TaobaoCategory;
-import com.clican.appletv.core.model.TaobaoLove;
-import com.clican.appletv.core.model.TaobaoLoveTag;
-import com.clican.appletv.core.model.TaobaoSkuCache;
-import com.clican.appletv.core.model.TaobaoSkuValue;
-import com.clican.appletv.core.service.TaobaoClientImpl;
+import com.clican.appletv.core.service.taobao.TaobaoClientImpl;
+import com.clican.appletv.core.service.taobao.model.TaobaoAccessToken;
+import com.clican.appletv.core.service.taobao.model.TaobaoCategory;
+import com.clican.appletv.core.service.taobao.model.TaobaoLoveTag;
+import com.clican.appletv.core.service.taobao.model.TaobaoSkuCache;
+import com.clican.appletv.core.service.taobao.model.TaobaoSkuValue;
 import com.clican.appletv.ext.htmlparser.StrongTag;
 import com.taobao.api.TaobaoClient;
 import com.taobao.api.domain.Item;
@@ -80,7 +79,7 @@ public class TaobaoController {
 	public final static String TAOBAO_SKU_NAME = "taobaoSkuName";
 
 	@Autowired
-	private com.clican.appletv.core.service.TaobaoClient taobaoClient;
+	private com.clican.appletv.core.service.taobao.TaobaoClient taobaoClient;
 
 	@Autowired
 	private TaobaoClient taobaoRestClient;
@@ -220,7 +219,7 @@ public class TaobaoController {
 		ShopGetResponse shopResp = taobaoRestClient.execute(shopReq);
 
 		Shop shop = shopResp.getShop();
-		if(shop==null){
+		if (shop == null) {
 			return "taobao/noresult";
 		}
 		Long sid = shop.getSid();
@@ -670,7 +669,7 @@ public class TaobaoController {
 		cache.setSkuMap(skuMap);
 		String propertyAlias = item.getPropertyAlias();
 		Map<String, String> aliaMap = new HashMap<String, String>();
-		if(StringUtils.isNotEmpty(propertyAlias)){
+		if (StringUtils.isNotEmpty(propertyAlias)) {
 			String[] alias = propertyAlias.split(";");
 			for (String alia : alias) {
 				int index = alia.lastIndexOf(":");
@@ -679,7 +678,7 @@ public class TaobaoController {
 				aliaMap.put(key, value);
 			}
 		}
-		if(item.getSkus()!=null){
+		if (item.getSkus() != null) {
 			for (Sku sku : item.getSkus()) {
 				if (sku.getQuantity() == 0) {
 					continue;
@@ -698,11 +697,12 @@ public class TaobaoController {
 						tempMap.put(skuLabelValue, map);
 						tempMap = map;
 					} else {
-						tempMap = (Map<String, Object>) tempMap.get(skuLabelValue);
+						tempMap = (Map<String, Object>) tempMap
+								.get(skuLabelValue);
 					}
 
-					String skuLabel = skuPropNames[i].replace(skuLabelValue + ":",
-							"");
+					String skuLabel = skuPropNames[i].replace(skuLabelValue
+							+ ":", "");
 					String skuLabelLabel = skuLabel.split(":")[1];
 					if (aliaMap.containsKey(skuLabelValue)) {
 						skuLabelLabel = aliaMap.get(skuLabelValue);
@@ -772,21 +772,23 @@ public class TaobaoController {
 
 	}
 
-	@RequestMapping("/taobao/love.js")
-	public String loveJS(HttpServletRequest request,
-			HttpServletResponse response,
-			@RequestParam(value = "gender", required = false) String gender,
-			@RequestParam(value = "tagId", required = false) Long tagId)
-			throws Exception {
+	@RequestMapping("/taobao/confirmOrder.xml")
+	public String confirmOrderPage(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
 		if (log.isDebugEnabled()) {
-			log.debug("access love js gender:" + gender);
+			log.debug("access confirm order");
 		}
-
-		List<TaobaoLove> itemList = taobaoClient.queryTaobaoLoves(tagId);
-		request.setAttribute("gender", gender);
-		request.setAttribute("itemList", itemList);
-		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
-		return "taobao/lovejs";
+		String htmlContent = this.getContent(request);
+		
+		PrototypicalNodeFactory factory = new PrototypicalNodeFactory();
+		factory.registerTag(new StrongTag());
+		Parser parser = Parser.createParser(htmlContent, "utf-8");
+		parser.setNodeFactory(factory);
+		AndFilter idFilter = new AndFilter(new TagNameFilter("tbody"),
+				new HasAttributeFilter("data-outorderid"));
+		NodeList nodeList = parser.parse(idFilter);
+		
+		return "taobao/confirmOrder";
 
 	}
 
