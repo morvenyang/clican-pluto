@@ -25,7 +25,6 @@ import org.htmlparser.tags.CompositeTag;
 import org.htmlparser.tags.OptionTag;
 import org.htmlparser.util.NodeList;
 
-import com.clican.appletv.common.PostResponse;
 import com.clican.appletv.core.service.baibian.model.BaseClient;
 import com.clican.appletv.core.service.taobao.model.TaobaoAccessToken;
 import com.clican.appletv.core.service.taobao.model.TaobaoAddress;
@@ -265,21 +264,9 @@ public class TaobaoClientImpl extends BaseClient implements TaobaoClient {
 		nameValueMap.put("id", id.toString());
 		nameValueMap.put("_tb_token_", token);
 		Map<String, String> header = new HashMap<String, String>();
-		String c = "_tb_token_=f3d3a11f7e5eb;  t=e61a4f0b9d46d01f9bf1714203a1b1f1; unb=82478075; _nk_=clicanclican; _l_g_=Ug%3D%3D; cookie2=86db46da144cc35e0410bd51e28862f9; tracknick=clicanclican; sg=n5f; lastgetwwmsg=MTM1OTM2NDI0Mg%3D%3D; cookie1=VAFYwFXZxCjbTmyCB%2BKJXAKeZjYGL0WQ%2BK6Ce3BP1YE%3D; cookie17=W8twrd9AJm0%3D; l=clicanclican::1359367854907::11; x=e%3D1%26p%3D*%26s%3D0%26c%3D0%26f%3D0%26g%3D0%26t%3D0; uc1=lltime=1359363765&cookie14=UoLZVdan01UWGA%3D%3D&existShop=false&cookie16=UIHiLt3xCS3yM2h4eKHS9lpEOw%3D%3D&cookie21=W5iHLLyFe3xm&tag=1&cookie15=U%2BGCWk%2F75gdr5Q%3D%3D; mpp=t%3D1%26m%3D%26h%3D1359364384131%26l%3D1359364251900";
-		c = "_tb_token_=f3d3a11f7e5eb;   _l_g_=Ug%3D%3D; cookie2=86db46da144cc35e0410bd51e28862f9; tracknick=clicanclican; sg=n5f; lastgetwwmsg=MTM1OTM2NDI0Mg%3D%3D; cookie1=VAFYwFXZxCjbTmyCB%2BKJXAKeZjYGL0WQ%2BK6Ce3BP1YE%3D; cookie17=W8twrd9AJm0%3D; l=clicanclican::1359367854907::11; x=e%3D1%26p%3D*%26s%3D0%26c%3D0%26f%3D0%26g%3D0%26t%3D0; uc1=lltime=1359363765&cookie14=UoLZVdan01UWGA%3D%3D&existShop=false&cookie16=UIHiLt3xCS3yM2h4eKHS9lpEOw%3D%3D&cookie21=W5iHLLyFe3xm&tag=1&cookie15=U%2BGCWk%2F75gdr5Q%3D%3D; mpp=t%3D1%26m%3D%26h%3D1359364384131%26l%3D1359364251900";
-		c = "_tb_token_=f3d3a11f7e5eb;  cookie2=86db46da144cc35e0410bd51e28862f9; tracknick=clicanclican; sg=n5f; lastgetwwmsg=MTM1OTM2NDI0Mg%3D%3D; cookie1=VAFYwFXZxCjbTmyCB%2BKJXAKeZjYGL0WQ%2BK6Ce3BP1YE%3D; cookie17=W8twrd9AJm0%3D; l=clicanclican::1359367854907::11; x=e%3D1%26p%3D*%26s%3D0%26c%3D0%26f%3D0%26g%3D0%26t%3D0; uc1=lltime=1359363765&cookie14=UoLZVdan01UWGA%3D%3D&existShop=false&cookie16=UIHiLt3xCS3yM2h4eKHS9lpEOw%3D%3D&cookie21=W5iHLLyFe3xm&tag=1&cookie15=U%2BGCWk%2F75gdr5Q%3D%3D; mpp=t%3D1%26m%3D%26h%3D1359364384131%26l%3D1359364251900";
-		c = "_tb_token_=f3d3a11f7e5eb;  cookie2=86db46da144cc35e0410bd51e28862f9;  sg=n5f; lastgetwwmsg=MTM1OTM2NDI0Mg%3D%3D; cookie1=VAFYwFXZxCjbTmyCB%2BKJXAKeZjYGL0WQ%2BK6Ce3BP1YE%3D; cookie17=W8twrd9AJm0%3D; l=clicanclican::1359367854907::11; x=e%3D1%26p%3D*%26s%3D0%26c%3D0%26f%3D0%26g%3D0%26t%3D0; uc1=lltime=1359363765&cookie14=UoLZVdan01UWGA%3D%3D&existShop=false&cookie16=UIHiLt3xCS3yM2h4eKHS9lpEOw%3D%3D&cookie21=W5iHLLyFe3xm&tag=1&cookie15=U%2BGCWk%2F75gdr5Q%3D%3D; mpp=t%3D1%26m%3D%26h%3D1359364384131%26l%3D1359364251900";
-		c = "_tb_token_=f3d3a11f7e5eb;  cookie2=86db46da144cc35e0410bd51e28862f9;  sg=n5f; lastgetwwmsg=MTM1OTM2NDI0Mg%3D%3D; cookie1=VAFYwFXZxCjbTmyCB%2BKJXAKeZjYGL0WQ%2BK6Ce3BP1YE%3D; cookie17=W8twrd9AJm0%3D; l=clicanclican::1359367854907::11; x=e%3D1%26p%3D*%26s%3D0%26c%3D0%26f%3D0%26g%3D0%26t%3D0; uc1=lltime=1359363765&cookie14=UoLZVdan01UWGA%3D%3D&existShop=false&cookie16=UIHiLt3xCS3yM2h4eKHS9lpEOw%3D%3D&cookie21=W5iHLLyFe3xm&tag=1&cookie15=U%2BGCWk%2F75gdr5Q%3D%3D; mpp=t%3D1%26m%3D%26h%3D1359364384131%26l%3D1359364251900";
-		c = "_tb_token_=f3d3a11f7e5eb; cookie2=86db46da144cc35e0410bd51e28862f9; sg=n5f; lastgetwwmsg=MTM1OTM2NDY5Ng%3D%3D; cookie1=VAFYwFXZxCjbTmyCB%2BKJXAKeZjYGL0WQ%2BK6Ce3BP1YE%3D; cookie17=W8twrd9AJm0%3D; l=clicanclican::1359368308304::11; x=e%3D1%26p%3D*%26s%3D0%26c%3D0%26f%3D0%26g%3D0%26t%3D0; uc1=lltime=1359364242&cookie14=UoLZVdan01CPCA%3D%3D&existShop=false&cookie16=VT5L2FSpNgq6fDudInPRgavC%2BQ%3D%3D&cookie21=V32FPkk%2FgPzW&tag=1&cookie15=U%2BGCWk%2F75gdr5Q%3D%3D; mpp=t%3D1%26m%3D%26h%3D1359364744220%26l%3D1359364700772";
-		c = "_tb_token_=f3d3a11f7e5eb; cookie2=86db46da144cc35e0410bd51e28862f9; sg=n5f;  cookie1=VAFYwFXZxCjbTmyCB%2BKJXAKeZjYGL0WQ%2BK6Ce3BP1YE%3D; cookie17=W8twrd9AJm0%3D; l=clicanclican::1359368308304::11; x=e%3D1%26p%3D*%26s%3D0%26c%3D0%26f%3D0%26g%3D0%26t%3D0; uc1=lltime=1359364242&cookie14=UoLZVdan01CPCA%3D%3D&existShop=false&cookie16=VT5L2FSpNgq6fDudInPRgavC%2BQ%3D%3D&cookie21=V32FPkk%2FgPzW&tag=1&cookie15=U%2BGCWk%2F75gdr5Q%3D%3D; mpp=t%3D1%26m%3D%26h%3D1359364744220%26l%3D1359364700772";
-		c = "_tb_token_=f3d3a11f7e5eb; cookie2=86db46da144cc35e0410bd51e28862f9; sg=n5f;  cookie1=VAFYwFXZxCjbTmyCB%2BKJXAKeZjYGL0WQ%2BK6Ce3BP1YE%3D; cookie17=W8twrd9AJm0%3D;  x=e%3D1%26p%3D*%26s%3D0%26c%3D0%26f%3D0%26g%3D0%26t%3D0; uc1=lltime=1359364242&cookie14=UoLZVdan01CPCA%3D%3D&existShop=false&cookie16=VT5L2FSpNgq6fDudInPRgavC%2BQ%3D%3D&cookie21=V32FPkk%2FgPzW&tag=1&cookie15=U%2BGCWk%2F75gdr5Q%3D%3D; mpp=t%3D1%26m%3D%26h%3D1359364744220%26l%3D1359364700772";
-		c = "_tb_token_=f3d3a11f7e5eb; cookie2=86db46da144cc35e0410bd51e28862f9; sg=n5f;  cookie1=VAFYwFXZxCjbTmyCB%2BKJXAKeZjYGL0WQ%2BK6Ce3BP1YE%3D; cookie17=W8twrd9AJm0%3D;  uc1=lltime=1359364242&cookie14=UoLZVdan01CPCA%3D%3D&existShop=false&cookie16=VT5L2FSpNgq6fDudInPRgavC%2BQ%3D%3D&cookie21=V32FPkk%2FgPzW&tag=1&cookie15=U%2BGCWk%2F75gdr5Q%3D%3D; mpp=t%3D1%26m%3D%26h%3D1359364744220%26l%3D1359364700772";
-		c = "_tb_token_=f3d3a11f7e5eb; cookie2=86db46da144cc35e0410bd51e28862f9; sg=n5f;  cookie1=VAFYwFXZxCjbTmyCB%2BKJXAKeZjYGL0WQ%2BK6Ce3BP1YE%3D; cookie17=W8twrd9AJm0%3D;  uc1=lltime=1359364242&cookie14=UoLZVdan01CPCA%3D%3D&existShop=false&cookie16=VT5L2FSpNgq6fDudInPRgavC%2BQ%3D%3D&cookie21=V32FPkk%2FgPzW&tag=1&cookie15=U%2BGCWk%2F75gdr5Q%3D%3D; ";
-		c = "_tb_token_=f3d3a11f7e5eb; cookie2=86db46da144cc35e0410bd51e28862f9; sg=n5f;  cookie1=VAFYwFXZxCjbTmyCB%2BKJXAKeZjYGL0WQ%2BK6Ce3BP1YE%3D; cookie17=W8twrd9AJm0%3D;  uc1=lltime=1359364242&cookie14=UoLZVdan01CPCA%3D%3D&existShop=false&cookie16=VT5L2FSpNgq6fDudInPRgavC%2BQ%3D%3D&cookie21=V32FPkk%2FgPzW&tag=1&cookie15=U%2BGCWk%2F75gdr5Q%3D%3D;";
-		c = "_tb_token_=e71bee60b53ae; cookie2=6a5e831e3602512995fcad906ea7c47d; sg=n5f;  cookie1=VAFYwFXZxCjbTmyCB%2BKJXAKeZjYGL0WQ%2BK6Ce3BP1YE%3D; cookie17=W8twrd9AJm0%3D;  uc1=lltime=1359364696&cookie14=UoLZVdan0rkVxQ%3D%3D&existShop=false&cookie16=Vq8l%2BKCLySLZMFWHxqs8fwqnEw%3D%3D&cookie21=W5iHLLyFe3xm&tag=1&cookie15=URm48syIIVrSKA%3D%3D;";
 		header.put("Cookie", cookie);
 		String url2 = "http://favorite.taobao.com/popup/add_collection.htm";
-		PostResponse pr2 = this.httpPost(url2, null, nameValueMap,
+		this.httpPost(url2, null, nameValueMap,
 				"application/x-www-form-urlencoded", "utf-8", header, null);
 		return true;
 	}
@@ -338,13 +325,15 @@ public class TaobaoClientImpl extends BaseClient implements TaobaoClient {
 		factory.registerTag(new StrongTag());
 		factory.registerTag(new EmTag());
 		factory.registerTag(new STag());
-		Parser parser = Parser.createParser(htmlContent, "utf-8");
+		Parser addrParser = Parser.createParser(htmlContent, "utf-8");
+		Parser shopParser = Parser.createParser(htmlContent, "utf-8");
 		try {
-			parser.setNodeFactory(factory);
+			addrParser.setNodeFactory(factory);
+			shopParser.setNodeFactory(factory);
 			AndFilter addrFilter = new AndFilter(new TagNameFilter("ul"),
 					new HasAttributeFilter("id", "address-list"));
 
-			NodeList addrListNode = parser.parse(addrFilter);
+			NodeList addrListNode = addrParser.parse(addrFilter);
 			if (addrListNode.size() > 0) {
 				TagNode temp = (TagNode) addrListNode.elementAt(0);
 				addrListNode = temp.getChildren();
@@ -354,8 +343,8 @@ public class TaobaoClientImpl extends BaseClient implements TaobaoClient {
 						Bullet bullet = (Bullet) addrNode;
 						CompositeTag addrLabelNode = (CompositeTag) this
 								.getChildNode(bullet, new int[] { 4 });
-						String addrLabel = addrLabelNode.getStringText();
-						addrLabel = addrLabel.replace("<em>", "").replace("</em>", "");
+						String addrLabel = addrLabelNode.toString();
+						addrLabel = addrLabel.replace("LABEL:", "").trim();
 						TaobaoAddress addr = new TaobaoAddress();
 						addr.setAddress(addrLabel);
 						TagNode addrValueNode = (TagNode) this
@@ -368,7 +357,7 @@ public class TaobaoClientImpl extends BaseClient implements TaobaoClient {
 							int start = areaCode.indexOf("areaCode=");
 							if (start > 0) {
 								start = start + 9;
-								int end = areaCode.indexOf("^^");
+								int end = areaCode.indexOf("^^",start);
 								if (end > 0) {
 									areaCode = areaCode.substring(start, end);
 								} else {
@@ -384,7 +373,7 @@ public class TaobaoClientImpl extends BaseClient implements TaobaoClient {
 			AndFilter shopFilter = new AndFilter(new TagNameFilter("tbody"),
 					new HasAttributeFilter("data-outorderid"));
 
-			NodeList orderByShopListNode = parser.parse(shopFilter);
+			NodeList orderByShopListNode = shopParser.parse(shopFilter);
 
 			AndFilter sellerFilter = new AndFilter(new TagNameFilter("span"),
 					new HasAttributeFilter("class", "seller"));
@@ -405,8 +394,7 @@ public class TaobaoClientImpl extends BaseClient implements TaobaoClient {
 				shop.setOutOrderId(orderByShopNode
 						.getAttribute("data-outorderid"));
 				shop.setPostMode(orderByShopNode
-						.getAttribute("data-outorderid"));
-				shop.setTitle("");
+						.getAttribute("data-postMode"));
 				NodeList sellerNodeList = new NodeList();
 				orderByShopNode.collectInto(sellerNodeList, sellerFilter);
 				if (sellerNodeList.size() > 0) {
