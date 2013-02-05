@@ -95,7 +95,7 @@ var taobaoClient = {
 	},
 	
 	addToShoppingCart : function(id,skuid, tid) {
-		var url = taobaoAddToShoppingCartApi+'&nekot='+new Date().getMilliseconds();
+		var url = taobaoAddToShoppingCartApi+'&nekot='+Date.parse(new Date());
 		if (tid ==null || tid.length==0 ||tid=='null') {
 			appletv
 					.makeRequest(
@@ -121,13 +121,14 @@ var taobaoClient = {
 	},
 	
 	showAddToShoppingCartResult: function(result){
-		var strt = result.indexOf("{");
+		var start = result.indexOf("{");
 		var end = result.lastIndexOf("}");
-		result = result.substring(start,end);
+		result = result.substring(start,end+1);
+		appletv.logToServer(result);
 		var json = JSON.parse(result);
 		var error = json['error'];
 		if(error!=null&&error.length>0){
-			appletv.showDialog('添加购物车失败', error);
+			appletv.showDialog('添加购物车失败'+error, error);
 		}else{
 			appletv.showDialog('添加购物车成功', '当前购物车内有'+json['cartQuantity']+'样商品,总价:'+json['cartPrice']+'元');
 		}
