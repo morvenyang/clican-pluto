@@ -22,7 +22,10 @@ import org.htmlparser.filters.TagNameFilter;
 import org.htmlparser.nodes.TagNode;
 import org.htmlparser.tags.Bullet;
 import org.htmlparser.tags.CompositeTag;
+import org.htmlparser.tags.FormTag;
+import org.htmlparser.tags.InputTag;
 import org.htmlparser.tags.OptionTag;
+import org.htmlparser.tags.TextareaTag;
 import org.htmlparser.util.NodeList;
 
 import com.clican.appletv.core.service.baibian.model.BaseClient;
@@ -329,9 +332,11 @@ public class TaobaoClientImpl extends BaseClient implements TaobaoClient {
 		factory.registerTag(new TbodyTag());
 		Parser addrParser = Parser.createParser(htmlContent, "utf-8");
 		Parser shopParser = Parser.createParser(htmlContent, "utf-8");
+		Parser formParser = Parser.createParser(htmlContent, "utf-8");
 		try {
 			addrParser.setNodeFactory(factory);
 			shopParser.setNodeFactory(factory);
+			formParser.setNodeFactory(factory);
 			AndFilter addrFilter = new AndFilter(new TagNameFilter("ul"),
 					new HasAttributeFilter("id", "address-list"));
 
@@ -449,6 +454,25 @@ public class TaobaoClientImpl extends BaseClient implements TaobaoClient {
 			}
 			if (tco.getAddrList().size() > 0) {
 				tco.setSelectedAddrId(tco.getAddrList().get(0).getAddrId());
+			}
+
+			Map<String, String> formMap = new HashMap<String, String>();
+			AndFilter formFilter = new AndFilter(new TagNameFilter("form"),
+					new HasAttributeFilter("id", "J_Form"));
+			NodeList formNodeList = formParser.parse(formFilter);
+			if (formNodeList.size() > 0) {
+				FormTag form = (FormTag) formNodeList.elementAt(0);
+				NodeList inputs = form.getFormInputs();
+				for (int j = 0; j < inputs.size(); j++) {
+					InputTag input = (InputTag) inputs.elementAt(j);
+					formMap.put(input.getAttribute("name"),
+							input.getAttribute("value"));
+				}
+				NodeList textareas = form.getFormTextareas();
+				for (int j = 0; j < textareas.size(); j++) {
+					TextareaTag textarea = (TextareaTag) textareas.elementAt(j);
+					formMap.put(textarea.getAttribute("name"), "");
+				}
 			}
 			return tco;
 		} catch (Exception e) {
