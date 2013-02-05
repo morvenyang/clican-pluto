@@ -9,7 +9,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.TreeMap;
 import java.util.TreeSet;
 
 import javax.servlet.http.HttpServletRequest;
@@ -40,9 +39,8 @@ import com.clican.appletv.core.model.TaobaoAccessToken;
 import com.clican.appletv.core.model.TaobaoCategory;
 import com.clican.appletv.core.model.TaobaoLove;
 import com.clican.appletv.core.model.TaobaoLoveTag;
-import com.clican.appletv.core.model.TaobaoSku;
 import com.clican.appletv.core.model.TaobaoSkuCache;
-import com.clican.appletv.core.model.TaobaoSkuLabel;
+import com.clican.appletv.core.model.TaobaoSkuValue;
 import com.clican.appletv.core.service.TaobaoClientImpl;
 import com.clican.appletv.ext.htmlparser.StrongTag;
 import com.taobao.api.TaobaoClient;
@@ -648,7 +646,7 @@ public class TaobaoController {
 		request.setAttribute("promotion", promotion);
 
 		item.setVolume(volume);
-		TaobaoSkuCache tks = this.getSkuMap1(item);
+		TaobaoSkuCache tks = this.getSkuMap(item);
 		request.getSession().setAttribute(TAOBAO_SKU_NAME, tks);
 		request.setAttribute("item", item);
 
@@ -656,11 +654,15 @@ public class TaobaoController {
 
 	}
 
-	private TaobaoSkuCache getSkuMap1(Item item) {
+	private TaobaoSkuCache getSkuMap(Item item) {
 		TaobaoSkuCache cache = new TaobaoSkuCache();
-		cache.setLabelCategoryList(new ArrayList<String>());
-		cache.setSkuList(new ArrayList<TaobaoSku>());
+		List<String> skuLabelList = new ArrayList<String>();
+		Map<String, Set<TaobaoSkuValue>> skuLabelValueMap = new HashMap<String, Set<TaobaoSkuValue>>();
+		Map<String, Object> skuRelationMap = new HashMap<String, Object>();
+		cache.setSkuLabelList(skuLabelList);
+		cache.setSkuLabelValueMap(skuLabelValueMap);
 		cache.setItem(item);
+		cache.setSkuRelationMap(skuRelationMap);
 		String propertyAlias = item.getPropertyAlias();
 		Map<String, String> aliaMap = new HashMap<String, String>();
 		String[] alias = propertyAlias.split(";");
@@ -676,64 +678,34 @@ public class TaobaoController {
 			}
 			String[] skuProps = sku.getProperties().split(";");
 			String[] skuPropNames = sku.getPropertiesName().split(";");
-			TaobaoSku ts = new TaobaoSku();
-			ts.setSku(sku);
-			ts.setSkuMap(new HashMap<String, TaobaoSkuLabel>());
-			cache.getSkuList().add(ts);
+			Map<String, Object> tempMap = null;
 			for (int i = 0; i < skuProps.length; i++) {
-				String skuLabelValue = skuProps[i];
-				String skuLabelCategory = skuPropNames[i].replace(skuLabelValue + ":", "");
-				String skuLabelName = skuLabelCategory.split(":")[1];
-				skuLabelCategory = skuLabelCategory.split(":")[0];
-				if (!cache.getLabelCategoryList().contains(skuLabelCategory)) {
-					cache.getLabelCategoryList().add(skuLabelCategory);
+				if (i == 0) {
+					tempMap = skuRelationMap;
 				}
-				TaobaoSkuLabel tsl = new TaobaoSkuLabel();
-				tsl.setLabelName(skuLabelName);
-				tsl.setLabelValue(skuLabelValue);
-				ts.getSkuMap().put(skuLabelCategory, tsl);
-			}
+				String skuLabelValue = skuProps[i];
+				if (!tempMap.containsKey(skuLabelValue)) {
+					Map<String, Object> map = new HashMap<String, Object>();
+					tempMap.put(skuLabelValue, map);
+					tempMap = map;
+				}
 
+				String skuLabel = skuPropNames[i].replace(skuLabelValue + ":",
+						"");
+				String skuLabelLabel = skuLabel.split(":")[1];
+				skuLabel = skuLabel.split(":")[0];
+				if (!skuLabelList.contains(skuLabel)) {
+					skuLabelList.add(skuLabel);
+					skuLabelValueMap.put(skuLabel,
+							new TreeSet<TaobaoSkuValue>());
+				}
+				TaobaoSkuValue tsv = new TaobaoSkuValue();
+				tsv.setLabel(skuLabelLabel);
+				tsv.setValue(skuLabelValue);
+				skuLabelValueMap.get(skuLabel).add(tsv);
+			}
 		}
 		return cache;
-	}
-
-	private Map<String, Object> getSkuMap(Item item) {
-		Map<String, Object> cacheMap = new HashMap<String, Object>();
-
-		String propertyAlias = item.getPropertyAlias();
-		Map<String, String> aliaMap = new HashMap<String, String>();
-		String[] alias = propertyAlias.split(";");
-		for (String alia : alias) {
-			int index = alia.lastIndexOf(":");
-			String key = alia.substring(0, index);
-			String value = alia.substring(index + 1);
-			aliaMap.put(key, value);
-		}
-		List<Sku> skuList = item.getSkus();
-
-		Map<String, Object> skuMap = new TreeMap<String, Object>();
-		Map<String, Set<TaobaoSkuLabel>> labelMap = new HashMap<String, Set<TaobaoSkuLabel>>();
-		List<String> labelList = new ArrayList<String>();
-		for (Sku sku : skuList) {
-			if (sku.getQuantity() == 0) {
-				continue;
-			}
-			setupSkuMap(skuMap, labelList, labelMap, sku, aliaMap, 0);
-		}
-		String skuJson = JSONObject.fromObject(skuMap).toString();
-		String labelJson = JSONArray.fromObject(labelList).toString();
-		if (log.isDebugEnabled()) {
-			log.debug("\n" + labelJson);
-			log.debug("\n" + skuJson);
-
-		}
-		cacheMap.put("skuMap", skuMap);
-		cacheMap.put("labelList", labelList);
-		cacheMap.put("labelMap", labelMap);
-		cacheMap.put("item", item);
-		cacheMap.put("aliaMap", aliaMap);
-		return cacheMap;
 	}
 
 	@RequestMapping("/taobao/itemDetail.xml")
@@ -746,52 +718,19 @@ public class TaobaoController {
 		if (log.isDebugEnabled()) {
 			log.debug("access item :" + itemId);
 		}
-		TaobaoSkuCache tks = (TaobaoSkuCache) request.getSession().getAttribute(
-				TAOBAO_SKU_NAME);
+		TaobaoSkuCache tks = (TaobaoSkuCache) request.getSession()
+				.getAttribute(TAOBAO_SKU_NAME);
 		if (tks == null || !tks.getItem().equals(itemId)) {
 			ItemGetRequest req = new ItemGetRequest();
 			req.setFields("detail_url,num_iid,title,nick,desc,location,price,post_fee,express_fee,ems_fee,item_img.url,videos,pic_url,stuff_status,sku,property_alias,props");
 			req.setNumIid(itemId);
 			ItemGetResponse resp = taobaoRestClient.execute(req);
 			Item item = resp.getItem();
-			tks = this.getSkuMap1(item);
+			tks = this.getSkuMap(item);
 		}
 		
 		return "taobao/itemDetail";
 
-	}
-
-	@SuppressWarnings({ "unchecked" })
-	private void setupSkuMap(Map skuMap, List<String> labelList,
-			Map<String, Set<TaobaoSkuLabel>> labelMap, Sku sku,
-			Map<String, String> aliaMap, int offset) {
-		String[] skuProps = sku.getProperties().split(";");
-		String skuKey = skuProps[offset];
-		String skuValue = sku.getPropertiesName().split(";")[offset].replace(
-				skuKey + ":", "");
-		String skuValueLabel = skuValue.split(":")[0];
-		if (!labelMap.containsKey(skuValueLabel)) {
-			labelList.add(skuValueLabel);
-			labelMap.put(skuValueLabel, new TreeSet<TaobaoSkuLabel>());
-		}
-		skuValue = skuValue.split(":")[1];
-		TaobaoSkuLabel tsl = new TaobaoSkuLabel();
-		tsl.setLabelName(skuKey);
-		tsl.setLabelValue(skuValue);
-		labelMap.get(skuValueLabel).add(tsl);
-		if (StringUtils.isEmpty(aliaMap.get(skuKey))) {
-			aliaMap.put(skuKey, skuValue);
-		}
-		if (offset == skuProps.length - 1) {
-			skuMap.put(skuKey, sku);
-		} else {
-			Map tempMap = (Map) skuMap.get(skuValue);
-			if (tempMap == null) {
-				tempMap = new TreeMap();
-			}
-			skuMap.put(skuKey, tempMap);
-			setupSkuMap(tempMap, labelList, labelMap, sku, aliaMap, offset + 1);
-		}
 	}
 
 	@RequestMapping("/taobao/loveTag.xml")
