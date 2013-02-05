@@ -140,7 +140,7 @@ public class TaobaoController {
 				}
 				request.getSession()
 						.setAttribute(TAOBAO_HTML_TOKEN_NAME, token);
-				request.getSession().setAttribute(TAOBAO_HTML_TID_NAME, token);
+				request.getSession().setAttribute(TAOBAO_HTML_TID_NAME, tid);
 				response.getOutputStream().write("success".getBytes());
 			} else {
 				response.getOutputStream().write("failure".getBytes());
