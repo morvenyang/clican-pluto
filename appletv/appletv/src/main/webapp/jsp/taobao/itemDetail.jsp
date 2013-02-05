@@ -28,8 +28,11 @@
 				<collectionDivider><title><![CDATA[库存:${tsc.selectedSku.quantity} 价格:${tsc.selectedSku.price}]]></title></collectionDivider>
 				<grid id="addToShoppingCart">
 					<items>
-						<actionButton id="ab" onPlay="taobaoClient.addToShoppingCart(${tsc.item.numIid},${tsc.selectedSku.skuId},'${taobaoHtmlTid}');" onSelect="taobaoClient.addToShoppingCart(${tsc.item.numIid},${tsc.selectedSku.skuId},'${taobaoHtmlTid}');">
+						<actionButton id="addshop" onPlay="taobaoClient.addToShoppingCart(${tsc.item.numIid},${tsc.selectedSku.skuId},'${taobaoHtmlTid}');" onSelect="taobaoClient.addToShoppingCart(${tsc.item.numIid},${tsc.selectedSku.skuId},'${taobaoHtmlTid}');">
 							<title>购物车</title>
+						</actionButton>
+						<actionButton id="clean" onPlay="taobaoClient.loadConfirmOrderPage('${taobaoHtmlToken}');" onSelect="taobaoClient.loadConfirmOrderPage('${taobaoHtmlToken}');">
+							<title>结算</title>
 						</actionButton>
 					</items>
 				</grid>
@@ -38,8 +41,11 @@
 				<collectionDivider><title><![CDATA[库存:${tsc.item.num} 价格:${tsc.item.price}]]></title></collectionDivider>
 				<grid id="addToShoppingCart">
 					<items>
-						<actionButton id="ab" onPlay="taobaoClient.addToShoppingCart(${tsc.item.numIid},${tsc.item.numIid},'${taobaoHtmlTid}');" onSelect="taobaoClient.addToShoppingCart(${tsc.item.numIid},${tsc.item.numIid},'${taobaoHtmlTid}');">
+						<actionButton id="addshop" onPlay="taobaoClient.addToShoppingCart(${tsc.item.numIid},${tsc.item.numIid},'${taobaoHtmlTid}');" onSelect="taobaoClient.addToShoppingCart(${tsc.item.numIid},${tsc.item.numIid},'${taobaoHtmlTid}');">
 							<title>购物车</title>
+						</actionButton>
+						<actionButton id="clean" onPlay="taobaoClient.loadConfirmOrderPage('${taobaoHtmlToken}');" onSelect="taobaoClient.loadConfirmOrderPage('${taobaoHtmlToken}');">
+							<title>结算</title>
 						</actionButton>
 					</items>
 				</grid>
