@@ -784,7 +784,7 @@ public class TaobaoController {
 		AndFilter idFilter = new AndFilter(new TagNameFilter("tr"),
 				new HasAttributeFilter("data-cartid"));
 		NodeList itemNodeList = itemParser.parse(idFilter);
-		if (itemNodeList.size() > 0) {
+		if (itemNodeList.size() == 0) {
 			response.setCharacterEncoding("text/plain;charset=utf-8");
 			response.getOutputStream().write("noresult".getBytes("utf-8"));
 			response.getOutputStream().flush();
@@ -802,7 +802,7 @@ public class TaobaoController {
 						+ "_0_0_0,";
 			}
 			if (result.endsWith(",")) {
-				result.substring(0, result.length() - 1);
+				result=result.substring(0, result.length() - 1);
 			}
 			if (log.isDebugEnabled()) {
 				log.debug("my cart content:" + result);

@@ -413,7 +413,7 @@ public class TaobaoClientImpl extends BaseClient implements TaobaoClient {
 						if (fareNode instanceof OptionTag) {
 							TaobaoFare fare = new TaobaoFare();
 							OptionTag fareOption = (OptionTag) fareNode;
-							fare.setId(fareOption.getValue());
+							fare.setId(fareOption.getValue().trim());
 							fare.setLabel(fareOption.getOptionText().trim());
 							fareList.add(fare);
 							if (fareList.size() == 1) {

@@ -296,7 +296,7 @@ var taobaoClient = {
 									if(mycardresult=='noresult'){
 										appletv.showDialog('购物车内空空如也', '');
 									}else{
-										appletv.makePostRequest(taobaoConfirmOrderApi,mycardresult, function(htmlcontent){
+										appletv.makePostRequest(taobaoConfirmOrderApi+'?'+mycardresult,null, function(htmlcontent){
 											appletv.makePostRequest(appletv.serverurl+'/ctl/taobao/confirmOrder.xml',htmlcontent,function(xmlcontent){
 												appletv.loadXML(xmlcontent);
 											});
@@ -317,7 +317,7 @@ var taobaoClient = {
 							if(mycardresult=='noresult'){
 								appletv.showDialog('购物车内空空如也', '');
 							}else{
-								appletv.makePostRequest(taobaoConfirmOrderApi,mycardresult, function(htmlcontent){
+								appletv.makePostRequest(taobaoConfirmOrderApi+'?'+mycardresult,null, function(htmlcontent){
 									appletv.makePostRequest(appletv.serverurl+'/ctl/taobao/confirmOrder.xml',htmlcontent,function(xmlcontent){
 										appletv.loadXML(xmlcontent);
 									});
