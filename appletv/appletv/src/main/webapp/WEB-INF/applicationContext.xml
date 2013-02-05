@@ -184,7 +184,7 @@ http://www.springframework.org/schema/context/spring-context-2.5.xsd">
 		autowire="byName">
 	</bean>
 
-	<bean id="baibianClient" class="com.clican.appletv.core.service.BaibianClientImpl"
+	<bean id="baibianClient" class="com.clican.appletv.core.service.baibian.BaibianClientImpl"
 		autowire="byName">
 	</bean>
 
@@ -192,7 +192,7 @@ http://www.springframework.org/schema/context/spring-context-2.5.xsd">
 		autowire="byName" init-method="init" destroy-method="destroy">
 	</bean>
 
-	<bean id="taobaoClient" class="com.clican.appletv.core.service.TaobaoClientImpl"
+	<bean id="taobaoClient" class="com.clican.appletv.core.service.taobao.TaobaoClientImpl"
 		autowire="byName" init-method="init">
 	</bean>
 

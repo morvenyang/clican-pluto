@@ -2,7 +2,7 @@ package com.clican.appletv.service;
 
 import java.util.regex.Pattern;
 
-import com.clican.appletv.core.service.BaibianClient;
+import com.clican.appletv.core.service.baibian.BaibianClient;
 
 public class BaibianClientTestCase extends BaseServiceTestCase {
 
