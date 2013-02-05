@@ -1,6 +1,7 @@
 package com.clican.appletv.ui.controllers;
 
 import java.io.ByteArrayOutputStream;
+import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
