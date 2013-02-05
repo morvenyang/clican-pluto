@@ -1,14 +1,17 @@
 package com.clican.appletv.core.service.taobao.model;
 
 import java.util.List;
+import java.util.Map;
 
 public class TaobaoConfirmOrder {
 
 	private Long selectedAddrId;
-	
+
 	private List<TaobaoAddress> addrList;
-	
+
 	private List<TaobaoOrderByShop> shopList;
+
+	private Map<String, String> forms;
 
 	public List<TaobaoAddress> getAddrList() {
 		return addrList;
@@ -33,6 +36,13 @@ public class TaobaoConfirmOrder {
 	public void setSelectedAddrId(Long selectedAddrId) {
 		this.selectedAddrId = selectedAddrId;
 	}
-	
-	
+
+	public Map<String, String> getForms() {
+		return forms;
+	}
+
+	public void setForms(Map<String, String> forms) {
+		this.forms = forms;
+	}
+
 }
