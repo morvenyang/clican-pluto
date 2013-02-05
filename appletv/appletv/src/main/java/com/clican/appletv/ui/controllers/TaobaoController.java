@@ -602,7 +602,7 @@ public class TaobaoController {
 		}
 
 		ItemGetRequest req = new ItemGetRequest();
-		req.setFields("detail_url,num_iid,title,nick,desc,location,price,post_fee,express_fee,ems_fee,item_img.url,videos,pic_url,stuff_status,sku,property_alias,props");
+		req.setFields("detail_url,num_iid,num,title,nick,desc,location,price,post_fee,express_fee,ems_fee,item_img.url,videos,pic_url,stuff_status,sku,property_alias,props");
 		req.setNumIid(itemId);
 		ItemGetResponse resp = taobaoRestClient.execute(req);
 		Item item = resp.getItem();
@@ -667,50 +667,54 @@ public class TaobaoController {
 		cache.setSkuMap(skuMap);
 		String propertyAlias = item.getPropertyAlias();
 		Map<String, String> aliaMap = new HashMap<String, String>();
-		String[] alias = propertyAlias.split(";");
-		for (String alia : alias) {
-			int index = alia.lastIndexOf(":");
-			String key = alia.substring(0, index);
-			String value = alia.substring(index + 1);
-			aliaMap.put(key, value);
-		}
-		for (Sku sku : item.getSkus()) {
-			if (sku.getQuantity() == 0) {
-				continue;
+		if(StringUtils.isNotEmpty(propertyAlias)){
+			String[] alias = propertyAlias.split(";");
+			for (String alia : alias) {
+				int index = alia.lastIndexOf(":");
+				String key = alia.substring(0, index);
+				String value = alia.substring(index + 1);
+				aliaMap.put(key, value);
 			}
-			skuMap.put(sku.getProperties(), sku);
-			String[] skuProps = sku.getProperties().split(";");
-			String[] skuPropNames = sku.getPropertiesName().split(";");
-			Map<String, Object> tempMap = null;
-			for (int i = 0; i < skuProps.length; i++) {
-				if (i == 0) {
-					tempMap = skuRelationMap;
+		}
+		if(item.getSkus()!=null){
+			for (Sku sku : item.getSkus()) {
+				if (sku.getQuantity() == 0) {
+					continue;
 				}
-				String skuLabelValue = skuProps[i];
-				if (!tempMap.containsKey(skuLabelValue)) {
-					Map<String, Object> map = new HashMap<String, Object>();
-					tempMap.put(skuLabelValue, map);
-					tempMap = map;
-				} else {
-					tempMap = (Map<String, Object>) tempMap.get(skuLabelValue);
-				}
+				skuMap.put(sku.getProperties(), sku);
+				String[] skuProps = sku.getProperties().split(";");
+				String[] skuPropNames = sku.getPropertiesName().split(";");
+				Map<String, Object> tempMap = null;
+				for (int i = 0; i < skuProps.length; i++) {
+					if (i == 0) {
+						tempMap = skuRelationMap;
+					}
+					String skuLabelValue = skuProps[i];
+					if (!tempMap.containsKey(skuLabelValue)) {
+						Map<String, Object> map = new HashMap<String, Object>();
+						tempMap.put(skuLabelValue, map);
+						tempMap = map;
+					} else {
+						tempMap = (Map<String, Object>) tempMap.get(skuLabelValue);
+					}
 
-				String skuLabel = skuPropNames[i].replace(skuLabelValue + ":",
-						"");
-				String skuLabelLabel = skuLabel.split(":")[1];
-				if (aliaMap.containsKey(skuLabelValue)) {
-					skuLabelLabel = aliaMap.get(skuLabelValue);
+					String skuLabel = skuPropNames[i].replace(skuLabelValue + ":",
+							"");
+					String skuLabelLabel = skuLabel.split(":")[1];
+					if (aliaMap.containsKey(skuLabelValue)) {
+						skuLabelLabel = aliaMap.get(skuLabelValue);
+					}
+					skuLabel = skuLabel.split(":")[0];
+					if (!skuLabelList.contains(skuLabel)) {
+						skuLabelList.add(skuLabel);
+						skuLabelValueMap.put(skuLabel,
+								new TreeSet<TaobaoSkuValue>());
+					}
+					TaobaoSkuValue tsv = new TaobaoSkuValue();
+					tsv.setLabel(skuLabelLabel);
+					tsv.setValue(skuLabelValue);
+					skuLabelValueMap.get(skuLabel).add(tsv);
 				}
-				skuLabel = skuLabel.split(":")[0];
-				if (!skuLabelList.contains(skuLabel)) {
-					skuLabelList.add(skuLabel);
-					skuLabelValueMap.put(skuLabel,
-							new TreeSet<TaobaoSkuValue>());
-				}
-				TaobaoSkuValue tsv = new TaobaoSkuValue();
-				tsv.setLabel(skuLabelLabel);
-				tsv.setValue(skuLabelValue);
-				skuLabelValueMap.get(skuLabel).add(tsv);
 			}
 		}
 		return cache;
@@ -730,7 +734,7 @@ public class TaobaoController {
 				.getAttribute(TAOBAO_SKU_NAME);
 		if (tsc == null || !tsc.getItem().getNumIid().equals(itemId)) {
 			ItemGetRequest req = new ItemGetRequest();
-			req.setFields("detail_url,num_iid,title,nick,desc,location,price,post_fee,express_fee,ems_fee,item_img.url,videos,pic_url,stuff_status,sku,property_alias,props");
+			req.setFields("detail_url,num_iid,num,title,nick,desc,location,price,post_fee,express_fee,ems_fee,item_img.url,videos,pic_url,stuff_status,sku,property_alias,props");
 			req.setNumIid(itemId);
 			ItemGetResponse resp = taobaoRestClient.execute(req);
 			Item item = resp.getItem();

@@ -17,6 +17,7 @@
 <input type="button" onclick="alert(Date.parse(new Date()));" value="当前时间"/>
 
 <input type="button" onclick="taobaoClient.addToShoppingCart(16270348608,18655253252,'${taobaoHtmlTid}');" value="加入购物车"/>
+<input type="button" onclick="taobaoClient.addToShoppingCart(15425635127,15425635127,'${taobaoHtmlTid}');" value="加入购物车2"/>
 <input type="button" onclick="taobaoClient.loadFavoriteItemPage('<%=request.getSession().getAttribute("taobaoHtmlToken")%>');" value="商品收藏"/>
 <input type="button" onclick="taobaoClient.loadFavoriteShopPage('<%=request.getSession().getAttribute("taobaoHtmlToken")%>');" value="店铺收藏"/>
 <input type="button" onclick="taobaoClient.getToken();" value="获取令牌"/>

@@ -4,7 +4,7 @@ var taobaoAddToFavoriteApi = 'http://favorite.taobao.com/popup/add_collection.ht
 var taobaoMyFavoriteItemApi = 'http://favorite.taobao.com/json/collect_list_chunk.htm?itemtype=1&isBigImgShow=true&orderby=time&startrow=0&chunkSize=30&chunkNum=1&deleNum=0';
 var taobaoMyFavoriteShopApi = 'http://favorite.taobao.com/collect_list.htm?itemtype=0';
 var taobaoLoveApi = 'http://love.taobao.com/guang/mobile_search.htm';
-var taobaoAddToShoppingCartApi = 'http://cart.taobao.com/add_cart_item.htm?bankfrom=&outer_id_type=2&quantity=1';
+var taobaoAddToShoppingCartApi = 'http://cart.taobao.com/add_cart_item.htm?bankfrom=&quantity=1';
 var taobaoClient = {
 	login : function(username, password) {
 		var url = taobaoLoginApi + "?TPL_username=" + username
@@ -96,6 +96,11 @@ var taobaoClient = {
 	
 	addToShoppingCart : function(id,skuid, tid) {
 		var url = taobaoAddToShoppingCartApi+'&nekot='+Date.parse(new Date());
+		if(id==skuid){
+			url = url+ '&outer_id_type=1';
+		}else{
+			url = url+ '&outer_id_type=2';
+		}
 		if (tid ==null || tid.length==0 ||tid=='null') {
 			appletv
 					.makeRequest(
