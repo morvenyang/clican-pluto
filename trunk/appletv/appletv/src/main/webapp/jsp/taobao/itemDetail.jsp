@@ -24,14 +24,26 @@
 					</items>
 				</grid>
 			</c:forEach>
-			<collectionDivider><title><![CDATA[库存:${tsc.selectedSku.quantity} 价格:${tsc.selectedSku.price}]]></title></collectionDivider>
-			<grid id="addToShoppingCart">
-				<items>
-					<actionButton id="ab" onPlay="taobaoClient.addToShoppingCart(${tsc.item.numIid},${tsc.selectedSku.skuId},'${taobaoHtmlTid}');" onSelect="taobaoClient.addToShoppingCart(${tsc.item.numIid},${tsc.selectedSku.skuId},'${taobaoHtmlTid}');">
-						<title>加入购物车</title>
-					</actionButton>
-				</items>
-			</grid>
+			<c:if test="${tsc.selectedSku!=null}">
+				<collectionDivider><title><![CDATA[库存:${tsc.selectedSku.quantity} 价格:${tsc.selectedSku.price}]]></title></collectionDivider>
+				<grid id="addToShoppingCart">
+					<items>
+						<actionButton id="ab" onPlay="taobaoClient.addToShoppingCart(${tsc.item.numIid},${tsc.selectedSku.skuId},'${taobaoHtmlTid}');" onSelect="taobaoClient.addToShoppingCart(${tsc.item.numIid},${tsc.selectedSku.skuId},'${taobaoHtmlTid}');">
+							<title>加入购物车</title>
+						</actionButton>
+					</items>
+				</grid>
+			</c:if>
+			<c:if test="${tsc.selectedSku==null}">
+				<collectionDivider><title><![CDATA[库存:${tsc.item.num} 价格:${tsc.item.price}]]></title></collectionDivider>
+				<grid id="addToShoppingCart">
+					<items>
+						<actionButton id="ab" onPlay="taobaoClient.addToShoppingCart(${tsc.item.numIid},${tsc.item.numIid},'${taobaoHtmlTid}');" onSelect="taobaoClient.addToShoppingCart(${tsc.item.numIid},${tsc.item.numIid},'${taobaoHtmlTid}');">
+							<title>加入购物车</title>
+						</actionButton>
+					</items>
+				</grid>
+			</c:if>
 		</items>
 		
 	</scroller>
