@@ -7,13 +7,13 @@
 <body>
 	<scroller id="s">
 		<items>
-			<c:forEach items="${labelList}" var="label" varStatus="status1">
+			<c:forEach items="${tsc.skuLabelList}" var="label" varStatus="status1">
 				<collectionDivider><title><![CDATA[${label}]]></title></collectionDivider>
 				<grid id="g${status1.count}">
 					<items>
-						<c:forEach items="${skuMap}" var="sku" varStatus="status2">
-							<actionButton id="ab">
-								<title><![CDATA[]]></title>
+						<c:forEach items="${tsc.skuDisplayLabelValueMap[label]}" var="tsu" varStatus="status2">
+							<actionButton id="ab${status2.count}" onPlay="${serverurl}/ctl/taobao/itemDetail.xml?itemId=${tsc.item.numIid}&amp;selectedValues=${status1.count}:${tsu.value}" onSelect="">
+								<title><![CDATA[tsu.label]]></title>
 							</actionButton>
 						</c:forEach>
 					</items>

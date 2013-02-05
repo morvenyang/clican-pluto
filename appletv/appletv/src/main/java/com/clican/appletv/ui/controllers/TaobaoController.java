@@ -713,22 +713,23 @@ public class TaobaoController {
 			HttpServletRequest request,
 			HttpServletResponse response,
 			@RequestParam(value = "itemId", required = false) Long itemId,
-			@RequestParam(value = "selectedLabelValues", required = false) String selectedLabelValues)
+			@RequestParam(value = "selectedValue", required = false) String selectedValue)
 			throws Exception {
 		if (log.isDebugEnabled()) {
 			log.debug("access item :" + itemId);
 		}
-		TaobaoSkuCache tks = (TaobaoSkuCache) request.getSession()
+		TaobaoSkuCache tsc = (TaobaoSkuCache) request.getSession()
 				.getAttribute(TAOBAO_SKU_NAME);
-		if (tks == null || !tks.getItem().equals(itemId)) {
+		if (tsc == null || !tsc.getItem().equals(itemId)) {
 			ItemGetRequest req = new ItemGetRequest();
 			req.setFields("detail_url,num_iid,title,nick,desc,location,price,post_fee,express_fee,ems_fee,item_img.url,videos,pic_url,stuff_status,sku,property_alias,props");
 			req.setNumIid(itemId);
 			ItemGetResponse resp = taobaoRestClient.execute(req);
 			Item item = resp.getItem();
-			tks = this.getSkuMap(item);
+			tsc = this.getSkuMap(item);
 		}
-		
+		tsc.updateSelectedValues(selectedValue);
+		request.setAttribute("tsc", tsc);
 		return "taobao/itemDetail";
 
 	}
