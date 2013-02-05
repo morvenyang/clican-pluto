@@ -654,16 +654,18 @@ public class TaobaoController {
 
 	}
 
-	@SuppressWarnings({  "unchecked" })
+	@SuppressWarnings({ "unchecked" })
 	private TaobaoSkuCache getSkuMap(Item item) {
 		TaobaoSkuCache cache = new TaobaoSkuCache();
 		List<String> skuLabelList = new ArrayList<String>();
 		Map<String, Set<TaobaoSkuValue>> skuLabelValueMap = new HashMap<String, Set<TaobaoSkuValue>>();
 		Map<String, Object> skuRelationMap = new HashMap<String, Object>();
+		Map<String, Sku> skuMap = new HashMap<String, Sku>();
 		cache.setSkuLabelList(skuLabelList);
 		cache.setSkuLabelValueMap(skuLabelValueMap);
 		cache.setItem(item);
 		cache.setSkuRelationMap(skuRelationMap);
+		cache.setSkuMap(skuMap);
 		String propertyAlias = item.getPropertyAlias();
 		Map<String, String> aliaMap = new HashMap<String, String>();
 		String[] alias = propertyAlias.split(";");
@@ -677,6 +679,7 @@ public class TaobaoController {
 			if (sku.getQuantity() == 0) {
 				continue;
 			}
+			skuMap.put(sku.getProperties(), sku);
 			String[] skuProps = sku.getProperties().split(";");
 			String[] skuPropNames = sku.getPropertiesName().split(";");
 			Map<String, Object> tempMap = null;
@@ -689,14 +692,14 @@ public class TaobaoController {
 					Map<String, Object> map = new HashMap<String, Object>();
 					tempMap.put(skuLabelValue, map);
 					tempMap = map;
-				}else{
-					tempMap = (Map<String,Object>)tempMap.get(skuLabelValue);
+				} else {
+					tempMap = (Map<String, Object>) tempMap.get(skuLabelValue);
 				}
 
 				String skuLabel = skuPropNames[i].replace(skuLabelValue + ":",
 						"");
 				String skuLabelLabel = skuLabel.split(":")[1];
-				if(aliaMap.containsKey(skuLabelValue)){
+				if (aliaMap.containsKey(skuLabelValue)) {
 					skuLabelLabel = aliaMap.get(skuLabelValue);
 				}
 				skuLabel = skuLabel.split(":")[0];
