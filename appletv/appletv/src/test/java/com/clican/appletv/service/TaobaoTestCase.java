@@ -1,5 +1,6 @@
 package com.clican.appletv.service;
 
+import java.io.InputStream;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -57,8 +58,8 @@ public class TaobaoTestCase extends BaseServiceTestCase {
 	private String[] getTokenAndTid() {
 		TaobaoClientImpl client = (TaobaoClientImpl) taobaoClient;
 		Map<String, String> nameValueMap = new HashMap<String, String>();
-		nameValueMap.put("TPL_username", "clicanclican");
-		nameValueMap.put("TPL_password", "clican@810428");
+		nameValueMap.put("TPL_username", "");
+		nameValueMap.put("TPL_password", "");
 		PostResponse pr = client.httpPost(
 				"https://login.taobao.com/member/login.jhtml", null,
 				nameValueMap, "application/x-www-form-urlencoded", "utf-8",
@@ -71,9 +72,9 @@ public class TaobaoTestCase extends BaseServiceTestCase {
 		String token = pr2.getCookieMap().get("_tb_token_");
 		result[0] = token;
 		String content = pr2.getContent();
-		int start = content.indexOf("tid=")+4;
+		int start = content.indexOf("tid=") + 4;
 		int end = content.indexOf("&", start);
-		result[1] = content.substring(start,end);
+		result[1] = content.substring(start, end);
 		result[2] = pr.getCookieString();
 		return result;
 	}
@@ -136,25 +137,40 @@ public class TaobaoTestCase extends BaseServiceTestCase {
 
 	public void testAddToShoppingCart() throws Exception {
 		String[] tokenAndTid = this.getTokenAndTid();
-		log.debug("toke="+tokenAndTid[0]+",tid="+tokenAndTid[1]);
+		log.debug("toke=" + tokenAndTid[0] + ",tid=" + tokenAndTid[1]);
 		Long itemId = 20461976769L;
-		//itemId=15211031341L;
-		ItemGetRequest req=new ItemGetRequest();
+		// itemId=15211031341L;
+		ItemGetRequest req = new ItemGetRequest();
 		req.setFields("detail_url,num_iid,title,nick,type,cid,seller_cids,props,input_pids,input_str,desc,pic_url,num,valid_thru,list_time,delist_time,stuff_status,location,price,post_fee,express_fee,ems_fee,has_discount,freight_payer,has_invoice,has_warranty,has_showcase,modified,increment,approve_status,postage_id,product_id,auction_point,property_alias,item_img,prop_img,sku,video,outer_id,is_virtual");
 		req.setNumIid(itemId);
-		ItemGetResponse response = taobaoRestClient.execute(req );
+		ItemGetResponse response = taobaoRestClient.execute(req);
 		List<Sku> skuList = response.getItem().getSkus();
-		Long skuId= skuList.get(0).getSkuId();
-		for(Sku sku:skuList){
-			if(sku.getQuantity()>0){
+		Long skuId = skuList.get(0).getSkuId();
+		for (Sku sku : skuList) {
+			if (sku.getQuantity() > 0) {
 				skuId = sku.getSkuId();
 				break;
 			}
 		}
-		String url = "http://cart.taobao.com/add_cart_item.htm?item_id="+itemId+"&bankfrom=&outer_id="+skuId+"&outer_id_type=2&quantity=1&nekot="+Calendar.getInstance().getTimeInMillis()+"&ct="+tokenAndTid[1];
+		String url = "http://cart.taobao.com/add_cart_item.htm?item_id="
+				+ itemId + "&bankfrom=&outer_id=" + skuId
+				+ "&outer_id_type=2&quantity=1&nekot="
+				+ Calendar.getInstance().getTimeInMillis() + "&ct="
+				+ tokenAndTid[1];
 		Map<String, String> header = new HashMap<String, String>();
 		header.put("Cookie", tokenAndTid[2]);
-		String html = ((TaobaoClientImpl)taobaoClient).httpGet(url, header, null);
+		String html = ((TaobaoClientImpl) taobaoClient).httpGet(url, header,
+				null);
 		log.debug(html);
+	}
+
+	public void testGetConfirmOrder() throws Exception {
+		InputStream is = Thread.currentThread().getContextClassLoader()
+				.getResourceAsStream("taobao/confirm.htm");
+		byte[] data = new byte[is.available()];
+		is.read(data);
+		is.close();
+		String htmlContent = new String(data, "gb2312");
+		taobaoClient.getConfirmOrder(htmlContent);
 	}
 }

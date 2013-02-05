@@ -20,6 +20,7 @@ import org.htmlparser.filters.HasAttributeFilter;
 import org.htmlparser.filters.LinkStringFilter;
 import org.htmlparser.filters.TagNameFilter;
 import org.htmlparser.nodes.TagNode;
+import org.htmlparser.tags.Bullet;
 import org.htmlparser.tags.CompositeTag;
 import org.htmlparser.tags.OptionTag;
 import org.htmlparser.util.NodeList;
@@ -330,7 +331,7 @@ public class TaobaoClientImpl extends BaseClient implements TaobaoClient {
 		List<TaobaoOrderByShop> shopList = new ArrayList<TaobaoOrderByShop>();
 		List<TaobaoAddress> addrList = new ArrayList<TaobaoAddress>();
 		tco.setAddrList(addrList);
-		tco.setAddrList(addrList);
+		tco.setShopList(shopList);
 
 		PrototypicalNodeFactory factory = new PrototypicalNodeFactory();
 		factory.registerTag(new StrongTag());
@@ -338,23 +339,65 @@ public class TaobaoClientImpl extends BaseClient implements TaobaoClient {
 		Parser parser = Parser.createParser(htmlContent, "utf-8");
 		try {
 			parser.setNodeFactory(factory);
-			AndFilter idFilter = new AndFilter(new TagNameFilter("tbody"),
+			AndFilter addrFilter = new AndFilter(new TagNameFilter("ul"),
+					new HasAttributeFilter("id", "address-list"));
+
+			NodeList addrListNode = parser.parse(addrFilter);
+			if (addrListNode.size() > 0) {
+				TagNode temp = (TagNode) addrListNode.elementAt(0);
+				addrListNode = temp.getChildren();
+				for (int i = 0; i < addrListNode.size(); i++) {
+					Node addrNode = addrListNode.elementAt(i);
+					if (addrNode instanceof Bullet) {
+						Bullet bullet = (Bullet) addrNode;
+						CompositeTag addrLabelNode = (CompositeTag) this
+								.getChildNode(bullet, new int[] { 4 });
+						String addrLabel = addrLabelNode.getStringText();
+						TaobaoAddress addr = new TaobaoAddress();
+						addr.setAddress(addrLabel);
+						CompositeTag addrValueNode = (CompositeTag) this
+								.getChildNode(bullet, new int[] { 3 });
+						addr.setAddrId(Long.parseLong(addrValueNode
+								.getAttribute("value")));
+						String areaCode = addrValueNode
+								.getAttribute("ah:params");
+						if (areaCode != null) {
+							int start = areaCode.indexOf("areaCode=");
+							if (start > 0) {
+								start = start + 9;
+								int end = areaCode.indexOf("^^");
+								if (end > 0) {
+									areaCode = areaCode.substring(start, end);
+								} else {
+									areaCode = areaCode.substring(start);
+								}
+								addr.setAreaCode(areaCode);
+							}
+						}
+					}
+				}
+			}
+
+			AndFilter shopFilter = new AndFilter(new TagNameFilter("tbody"),
 					new HasAttributeFilter("data-outorderid"));
-			NodeList orderByShopList = parser.parse(idFilter);
+
+			NodeList orderByShopListNode = parser.parse(shopFilter);
+
 			AndFilter sellerFilter = new AndFilter(new TagNameFilter("span"),
 					new HasAttributeFilter("class", "seller"));
 			AndFilter fareFilter = new AndFilter(new TagNameFilter("select"),
 					new HasAttributeFilter("class", "J_Fare"));
 			AndFilter itemFilter = new AndFilter(new TagNameFilter("tr"),
 					new HasAttributeFilter("class", "item"));
-			for (int i = 0; i < orderByShopList.size(); i++) {
+
+			for (int i = 0; i < orderByShopListNode.size(); i++) {
 				TaobaoOrderByShop shop = new TaobaoOrderByShop();
 				shopList.add(shop);
 				List<TaobaoFare> fareList = new ArrayList<TaobaoFare>();
 				List<TaobaoOrderByItem> itemList = new ArrayList<TaobaoOrderByItem>();
 				shop.setFareList(fareList);
 				shop.setItemList(itemList);
-				TagNode orderByShopNode = (TagNode) orderByShopList
+				TagNode orderByShopNode = (TagNode) orderByShopListNode
 						.elementAt(i);
 				shop.setOutOrderId(orderByShopNode
 						.getAttribute("data-outorderid"));
