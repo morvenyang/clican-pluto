@@ -9,6 +9,7 @@ import java.util.Set;
 import org.apache.commons.lang.StringUtils;
 
 import com.taobao.api.domain.Item;
+import com.taobao.api.domain.Sku;
 
 public class TaobaoSkuCache {
 
@@ -22,7 +23,13 @@ public class TaobaoSkuCache {
 
 	private String[] selectedValues;
 
+	private String selectedValueString;
+
 	private Map<String, List<TaobaoSkuValue>> skuDisplayLabelValueMap;
+
+	private Map<String, Sku> skuMap;
+
+	private Sku selectedSku;
 
 	public Item getItem() {
 		return item;
@@ -30,6 +37,14 @@ public class TaobaoSkuCache {
 
 	public void setItem(Item item) {
 		this.item = item;
+	}
+
+	public Map<String, Sku> getSkuMap() {
+		return skuMap;
+	}
+
+	public void setSkuMap(Map<String, Sku> skuMap) {
+		this.skuMap = skuMap;
 	}
 
 	public List<String> getSkuLabelList() {
@@ -75,20 +90,20 @@ public class TaobaoSkuCache {
 		}
 		if (selectedValues == null) {
 			selectedValues = new String[skuLabelList.size()];
-			for (int i = 0; i < skuLabelList.size(); i++) {
-				if (i == index) {
-					selectedValues[i] = selectedValue;
-				} else {
+		}
+		for (int i = 0; i < skuLabelList.size(); i++) {
+			if (i == index) {
+				selectedValues[i] = selectedValue;
+			} else {
+				if (index == -1 || selectedValues[i] == null) {
 					TaobaoSkuValue tsv = skuLabelValueMap
 							.get(skuLabelList.get(i)).iterator().next();
 					if (tsv != null) {
 						selectedValues[i] = tsv.getValue();
 					}
 				}
-
 			}
 		}
-		this.selectedValues = selectedValues;
 		skuDisplayLabelValueMap = new HashMap<String, List<TaobaoSkuValue>>();
 		for (int i = 0; i < selectedValues.length; i++) {
 			String label = skuLabelList.get(i);
@@ -109,6 +124,17 @@ public class TaobaoSkuCache {
 			}
 
 		}
+
+		this.selectedValueString = StringUtils.join(this.selectedValues, ";");
+		this.selectedSku = skuMap.get(this.selectedValueString);
+	}
+
+	public Sku getSelectedSku() {
+		return selectedSku;
+	}
+
+	public void setSelectedSku(Sku selectedSku) {
+		this.selectedSku = selectedSku;
 	}
 
 	public Map<String, List<TaobaoSkuValue>> getSkuDisplayLabelValueMap() {
@@ -118,6 +144,14 @@ public class TaobaoSkuCache {
 	public void setSkuDisplayLabelValueMap(
 			Map<String, List<TaobaoSkuValue>> skuDisplayLabelValueMap) {
 		this.skuDisplayLabelValueMap = skuDisplayLabelValueMap;
+	}
+
+	public String getSelectedValueString() {
+		return selectedValueString;
+	}
+
+	public void setSelectedValueString(String selectedValueString) {
+		this.selectedValueString = selectedValueString;
 	}
 
 }

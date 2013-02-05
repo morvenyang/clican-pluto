@@ -729,13 +729,14 @@ public class TaobaoController {
 		}
 		TaobaoSkuCache tsc = (TaobaoSkuCache) request.getSession()
 				.getAttribute(TAOBAO_SKU_NAME);
-		if (tsc == null || !tsc.getItem().equals(itemId)) {
+		if (tsc == null || !tsc.getItem().getNumIid().equals(itemId)) {
 			ItemGetRequest req = new ItemGetRequest();
 			req.setFields("detail_url,num_iid,title,nick,desc,location,price,post_fee,express_fee,ems_fee,item_img.url,videos,pic_url,stuff_status,sku,property_alias,props");
 			req.setNumIid(itemId);
 			ItemGetResponse resp = taobaoRestClient.execute(req);
 			Item item = resp.getItem();
 			tsc = this.getSkuMap(item);
+			request.getSession().setAttribute(TAOBAO_SKU_NAME, tsc);
 		}
 		tsc.updateSelectedValues(selectedValue);
 		request.setAttribute("tsc", tsc);
