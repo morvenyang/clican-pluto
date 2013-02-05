@@ -54,7 +54,7 @@
 									<image>${serverurl}/image/weibo/share.png</image>
 								</actionButton>
 								<actionButton id="album_4" onSelect="atv.loadURL('${serverurl}/ctl/taobao/itemDetail.xml?itemId=${item.numIid}');" onPlay="atv.loadURL('${serverurl}/ctl/taobao/itemDetail.xml?itemId=${item.numIid}');">
-									<title>购物车</title>
+									<title>购买</title>
 									<image>${serverurl}/image/weibo/share.png</image>
 								</actionButton>
 							</items>
