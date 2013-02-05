@@ -95,14 +95,14 @@ var taobaoClient = {
 
 	},
 	
-	addToShoppingCart : function(id,skuid, tid) {
+	addToShoppingCart : function(id, skuid, tid) {
 		var url = taobaoAddToShoppingCartApi+'&nekot='+Date.parse(new Date());
 		if(id==skuid){
 			url = url+ '&outer_id_type=1';
 		}else{
 			url = url+ '&outer_id_type=2';
 		}
-		if (tid ==null || tid.length==0 ||tid=='null') {
+		if (tid ==null || tid.length==0 ||tid=='null' ||token==null||token.length==0||token=='null') {
 			appletv
 					.makeRequest(
 							appletv.serverurl + '/ctl/taobao/getTokenAndTid.do',
