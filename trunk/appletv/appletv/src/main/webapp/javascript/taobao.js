@@ -291,7 +291,7 @@ var taobaoClient = {
 							taobaoClient.showLoginPage();
 						} else {
 							appletv.makeRequest(url, function(htmlcontent){
-								appletv.makePostRequest(appletv.serverurl+'/ctl/taobao/confirmOrderPage.xml?',htmlcontent,function(xmlcontent){
+								appletv.makePostRequest(appletv.serverurl+'/ctl/taobao/confirmOrderPage.xml',htmlcontent,function(xmlcontent){
 									appletv.loadXML(xmlcontent);
 								});
 							});
@@ -300,7 +300,7 @@ var taobaoClient = {
 			return;
 		}else{
 			appletv.makeRequest(url, function(htmlcontent){
-				appletv.makePostRequest(appletv.serverurl+'/ctl/taobao/confirmOrderPage.xml?',htmlcontent,function(xmlcontent){
+				appletv.makePostRequest(appletv.serverurl+'/ctl/taobao/confirmOrderPage.xml',htmlcontent,function(xmlcontent){
 					appletv.loadXML(xmlcontent);
 				});
 			});
