@@ -291,16 +291,18 @@ var taobaoClient = {
 								|| tokenAndTid.length == 0) {
 							taobaoClient.showLoginPage();
 						} else {
-							appletv.makeRequest(taobaoMyCartApi, function(result){
-								if(result=='noresult'){
-									appletv.showDialog('购物车内空空如也', error);
-								}else{
-									appletv.makePostRequest(taobaoConfirmOrderApi,result function(htmlcontent){
-										appletv.makePostRequest(appletv.serverurl+'/ctl/taobao/confirmOrder.xml',htmlcontent,function(xmlcontent){
-											appletv.loadXML(xmlcontent);
+							appletv.makeRequest(taobaoMyCartApi, function(mycartcontent){
+								appletv.makePostRequest(appletv.serverurl+'/ctl/taobao/myCart.do',mycartcontent,function(result){
+									if(result=='noresult'){
+										appletv.showDialog('购物车内空空如也', error);
+									}else{
+										appletv.makePostRequest(taobaoConfirmOrderApi,result, function(htmlcontent){
+											appletv.makePostRequest(appletv.serverurl+'/ctl/taobao/confirmOrder.xml',htmlcontent,function(xmlcontent){
+												appletv.loadXML(xmlcontent);
+											});
 										});
 									}
-								}
+								});
 							});
 						}
 					});
@@ -310,11 +312,19 @@ var taobaoClient = {
 				if(result=='noresult'){
 					appletv.showDialog('购物车内空空如也', error);
 				}else{
-					appletv.makePostRequest(taobaoConfirmOrderApi,result function(htmlcontent){
-						appletv.makePostRequest(appletv.serverurl+'/ctl/taobao/confirmOrder.xml',htmlcontent,function(xmlcontent){
-							appletv.loadXML(xmlcontent);
+					appletv.makeRequest(taobaoMyCartApi, function(mycartcontent){
+						appletv.makePostRequest(appletv.serverurl+'/ctl/taobao/myCart.do',mycartcontent,function(result){
+							if(result=='noresult'){
+								appletv.showDialog('购物车内空空如也', error);
+							}else{
+								appletv.makePostRequest(taobaoConfirmOrderApi,result, function(htmlcontent){
+									appletv.makePostRequest(appletv.serverurl+'/ctl/taobao/confirmOrder.xml',htmlcontent,function(xmlcontent){
+										appletv.loadXML(xmlcontent);
+									});
+								});
+							}
 						});
-					}
+					});
 				}
 			});
 		}
