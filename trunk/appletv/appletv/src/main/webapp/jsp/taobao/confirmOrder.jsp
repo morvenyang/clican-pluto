@@ -1,4 +1,4 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %><%@ page contentType="text/xml;charset=utf-8" %><?xml version="1.0" encoding="UTF-8"?>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %><%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %><%@ page contentType="text/xml;charset=utf-8" %><?xml version="1.0" encoding="UTF-8"?>
 <atv>
 <body>
 <scroller id="com.sample.movie-shelf">
@@ -7,10 +7,10 @@
 			<items>
 				<c:forEach var="addr" items="${tco.addrList}" varStatus="status1">
 					<actionButton id="address_button_${status1.count}" onSelect="${serverurl}/ctl/taobao/changeAddr.xml?areaCode=${addr.areaCode}&amp;addrId=${addr.addrId}">
-						<c:if test="${tco.selectedAddrId.equals(addr.addrId)}">
+						<c:if test="${tco.selectedAddrId==addr.addrId}">
 							<title>√地址${status1.count+1}</title>
 						</c:if>
-						<c:if test="${!tco.selectedAddrId.equals(addr.addrId)}">
+						<c:if test="${tco.selectedAddrId!=addr.addrId}">
 							<title>地址${status1.count+1}</title>
 						</c:if>
 					</actionButton>
@@ -19,10 +19,10 @@
 		</grid>
 		<c:forEach var="addr" items="${tco.addrList}" varStatus="status2">
 			<collectionDivider>
-				<c:if test="${tco.selectedAddrId.equals(addr.addrId)}">
+				<c:if test="${tco.selectedAddrId==addr.addrId}">
 					<title><![CDATA[√地址${status2.count+1}: ${addr.address}]]></title>
 				</c:if>
-				<c:if test="${!tco.selectedAddrId.equals(addr.addrId)}">
+				<c:if test="${tco.selectedAddrId!=addr.addrId}">
 					<title><![CDATA[地址${status2.count+1}: ${addr.address}]]></title>
 				</c:if>
 			</collectionDivider>
@@ -33,10 +33,10 @@
 				<items>
 					<c:forEach var="fare" items="${shop.fareList}">
 						<actionButton onSelect="${serverurl}/ctl/taobao/changeFare.xml?outOrderId=${shop.outOrderId}&amp;fareId=${fare.id}">
-							<c:if test="${shop.selectedFareId.equals(fare.id)}">
+							<c:if test="${shop.selectedFareId==fare.id}">
 								<title><![CDATA[√${fare.label}]]></title>
 							</c:if>
-							<c:if test="${!shop.selectedFareId.equals(fare.id)}">
+							<c:if test="${shop.selectedFareId!=fare.id}">
 								<title><![CDATA[${fare.label}]]></title>
 							</c:if>
 						</actionButton>

@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<atv>
+	<body>
+		<scroller id="com.sample.movie-shelf">
+			<items>
+				<grid id="address_grid" columnCount="10">
+					<items>
+
+					</items>
+				</grid>
+
+
+				<collectionDivider>
+					<title><![CDATA[续点旗舰店]]></title>
+				</collectionDivider>
+				<grid id="shop_fare_1" columnCount="5">
+					<items>
+
+						<actionButton
+							onSelect="/ctl/taobao/changeFare.xml?outOrderId=23659487275&amp;fareId=2">
+
+							<title><![CDATA[√快递 8.00元]]></title>
+
+
+						</actionButton>
+
+					</items>
+				</grid>
+				<grid id="shop_item_grid_1" columnCount="5">
+					<items>
+
+						<moviePoster id="shelf_item_" alwaysShowTitles="true">
+							<title><![CDATA[2件包邮 背心 男 夏 汗背心男 男士健身紧身运动打底背心男潮汗衫]]></title>
+							<subtitle><![CDATA[价格:23.0元 数量:1]]></subtitle>
+							<image>http://img04.taobaocdn.com/bao/uploaded/i4/804320856/T2N2jmXXNXXXXXXXXX_!!804320856.jpg_60x60.jpg
+							</image>
+							<defaultImage>resource://Poster.png</defaultImage>
+						</moviePoster>
+
+					</items>
+				</grid>
+
+				<collectionDivider>
+					<title><![CDATA[宝格母婴专营店]]></title>
+				</collectionDivider>
+				<grid id="shop_fare_2" columnCount="5">
+					<items>
+
+						<actionButton
+							onSelect="/ctl/taobao/changeFare.xml?outOrderId=23659487276&amp;fareId=2">
+
+							<title><![CDATA[√快递 5.00元]]></title>
+
+
+						</actionButton>
+
+						<actionButton
+							onSelect="/ctl/taobao/changeFare.xml?outOrderId=23659487276&amp;fareId=7">
+
+
+							<title><![CDATA[EMS 14.00元]]></title>
+
+						</actionButton>
+
+					</items>
+				</grid>
+				<grid id="shop_item_grid_2" columnCount="5">
+					<items>
+
+						<moviePoster id="shelf_item_" alwaysShowTitles="true">
+							<title><![CDATA[多比兔4014 新生婴幼儿纯棉护手套 宝宝防抓伤必备 保暖防缩水]]></title>
+							<subtitle><![CDATA[价格:2.8元 数量:1]]></subtitle>
+							<image>http://img03.taobaocdn.com/bao/uploaded/i3/T1VLWnXedJXXaKd6Z8_101245.jpg_60x60.jpg
+							</image>
+							<defaultImage>resource://Poster.png</defaultImage>
+						</moviePoster>
+
+						<moviePoster id="shelf_item_" alwaysShowTitles="true">
+							<title><![CDATA[春新款 宝宝卡通皮底袜/儿童防滑加厚地板袜/婴儿连袜鞋/学步鞋]]></title>
+							<subtitle><![CDATA[价格:9.9元 数量:1]]></subtitle>
+							<image>http://img04.taobaocdn.com/bao/uploaded/i4/14883031194148300/T1CrM1XmpaXXXXXXXX_!!0-item_pic.jpg_60x60.jpg
+							</image>
+							<defaultImage>resource://Poster.png</defaultImage>
+						</moviePoster>
+
+					</items>
+				</grid>
+
+				<collectionDivider>
+					<title><![CDATA[shellydong518]]></title>
+				</collectionDivider>
+				<grid id="shop_fare_3" columnCount="5">
+					<items>
+
+						<actionButton
+							onSelect="/ctl/taobao/changeFare.xml?outOrderId=23659487277&amp;fareId=2">
+
+							<title><![CDATA[√快递 6.00元]]></title>
+
+
+						</actionButton>
+
+						<actionButton
+							onSelect="/ctl/taobao/changeFare.xml?outOrderId=23659487277&amp;fareId=7">
+
+
+							<title><![CDATA[EMS 12.00元]]></title>
+
+						</actionButton>
+
+						<actionButton
+							onSelect="/ctl/taobao/changeFare.xml?outOrderId=23659487277&amp;fareId=1">
+							<title><![CDATA[平邮 10.00元]]></title>
+						</actionButton>
+
+					</items>
+				</grid>
+				<grid id="shop_item_grid_3" columnCount="5">
+					<items>
+
+						<moviePoster id="shelf_item_" alwaysShowTitles="true">
+							<title><![CDATA[上海龙之梦电影 票 兑换券 影城，看3D任意场次无需贴钱！]]></title>
+							<subtitle><![CDATA[价格:39.0元 数量:1]]></subtitle>
+							<image>http://img02.taobaocdn.com/bao/uploaded/i2/T1OJCxXaJFXXX_6as__105325.jpg_60x60.jpg
+							</image>
+							<defaultImage>resource://Poster.png</defaultImage>
+						</moviePoster>
+
+					</items>
+				</grid>
+
+			</items>
+		</scroller>
+	</body>
+</atv>
