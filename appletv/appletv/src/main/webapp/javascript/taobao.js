@@ -5,6 +5,7 @@ var taobaoMyFavoriteItemApi = 'http://favorite.taobao.com/json/collect_list_chun
 var taobaoMyFavoriteShopApi = 'http://favorite.taobao.com/collect_list.htm?itemtype=0';
 var taobaoLoveApi = 'http://love.taobao.com/guang/mobile_search.htm';
 var taobaoAddToShoppingCartApi = 'http://cart.taobao.com/add_cart_item.htm?bankfrom=&quantity=1';
+var taobaoConfirmOrderApi = 'http://buy.taobao.com/auction/order/confirm_order.htm';
 var taobaoClient = {
 	login : function(username, password) {
 		var url = taobaoLoginApi + "?TPL_username=" + username
@@ -277,6 +278,34 @@ var taobaoClient = {
 					});
 				});
 	
+	},
+	
+	loadConfirmOrderPage:function(token){
+		if (token == null || token.length == 0|| token=='null') {
+			appletv
+			.makeRequest(
+					appletv.serverurl + '/ctl/taobao/getTokenAndTid.do',
+					function(sessiontoken) {
+						if (tokenAndTid == null
+								|| tokenAndTid.length == 0) {
+							taobaoClient.showLoginPage();
+						} else {
+							appletv.makeRequest(url, function(htmlcontent){
+								appletv.makePostRequest(appletv.serverurl+'/ctl/taobao/confirmOrderPage.xml?',htmlcontent,function(xmlcontent){
+									appletv.loadXML(xmlcontent);
+								});
+							});
+						}
+					});
+			return;
+		}else{
+			appletv.makeRequest(url, function(htmlcontent){
+				appletv.makePostRequest(appletv.serverurl+'/ctl/taobao/confirmOrderPage.xml?',htmlcontent,function(xmlcontent){
+					appletv.loadXML(xmlcontent);
+				});
+			});
+		}
+		
 	},
 	
 }

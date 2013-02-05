@@ -1,4 +1,4 @@
-package com.clican.appletv.core.service;
+package com.clican.appletv.core.service.taobao;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -19,10 +19,11 @@ import org.htmlparser.nodes.TagNode;
 import org.htmlparser.util.NodeList;
 
 import com.clican.appletv.common.PostResponse;
-import com.clican.appletv.core.model.TaobaoAccessToken;
-import com.clican.appletv.core.model.TaobaoCategory;
-import com.clican.appletv.core.model.TaobaoLove;
-import com.clican.appletv.core.model.TaobaoLoveTag;
+import com.clican.appletv.core.service.BaseClient;
+import com.clican.appletv.core.service.taobao.model.TaobaoAccessToken;
+import com.clican.appletv.core.service.taobao.model.TaobaoCategory;
+import com.clican.appletv.core.service.taobao.model.TaobaoLove;
+import com.clican.appletv.core.service.taobao.model.TaobaoLoveTag;
 import com.taobao.api.domain.ItemCat;
 import com.taobao.api.internal.util.WebUtils;
 import com.taobao.api.request.ItemcatsGetRequest;

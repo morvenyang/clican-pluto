@@ -1,4 +1,4 @@
-package com.clican.appletv.core.model;
+package com.clican.appletv.core.service.taobao.model;
 
 import java.util.ArrayList;
 import java.util.HashMap;

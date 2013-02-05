@@ -1,12 +1,12 @@
-package com.clican.appletv.core.service;
+package com.clican.appletv.core.service.taobao;
 
 import java.util.List;
 import java.util.Map;
 
-import com.clican.appletv.core.model.TaobaoAccessToken;
-import com.clican.appletv.core.model.TaobaoCategory;
-import com.clican.appletv.core.model.TaobaoLove;
-import com.clican.appletv.core.model.TaobaoLoveTag;
+import com.clican.appletv.core.service.taobao.model.TaobaoAccessToken;
+import com.clican.appletv.core.service.taobao.model.TaobaoCategory;
+import com.clican.appletv.core.service.taobao.model.TaobaoLove;
+import com.clican.appletv.core.service.taobao.model.TaobaoLoveTag;
 
 public interface TaobaoClient {
 
