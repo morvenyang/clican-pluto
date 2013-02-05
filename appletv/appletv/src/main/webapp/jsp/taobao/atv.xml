@@ -2,14 +2,19 @@
 <atv xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:noNamespaceSchemaLocation="atv.xsd">
 	<body>
-		<scroller id="s">
+		<scroller id="com.sample.movie-shelf">
 			<items>
-				<collectionDivider><title><![CDATA[]]></title></collectionDivider>
-				<grid id="g">
+				<grid id="address_grid" columnCount="1">
 					<items>
-						<actionButton id="ab">
-							<title><![CDATA[]]></title>
-						</actionButton>
+						<moviePoster id="shelf_item_${item.numIid}"
+							alwaysShowTitles="true"
+							onSelect="atv.loadURL('${serverurl}/ctl/taobao/item.xml?itemId=${item.numIid}&amp;volume=${item.volume}');"
+							onPlay="atv.loadURL('${serverurl}/ctl/taobao/item.xml?itemId=${item.numIid}&amp;volume=${item.volume}');">
+							<title><![CDATA[${item.title}]]></title>
+							<subtitle><![CDATA[￥${item.price} 最近售出${item.volume}]]></subtitle>
+							<image>${item.picUrl}</image>
+							<defaultImage>resource://Poster.png</defaultImage>
+						</moviePoster>
 					</items>
 				</grid>
 			</items>
