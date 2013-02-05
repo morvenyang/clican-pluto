@@ -355,6 +355,7 @@ public class TaobaoClientImpl extends BaseClient implements TaobaoClient {
 						CompositeTag addrLabelNode = (CompositeTag) this
 								.getChildNode(bullet, new int[] { 4 });
 						String addrLabel = addrLabelNode.getStringText();
+						addrLabel = addrLabel.replace("<em>", "").replace("</em>", "");
 						TaobaoAddress addr = new TaobaoAddress();
 						addr.setAddress(addrLabel);
 						TagNode addrValueNode = (TagNode) this
