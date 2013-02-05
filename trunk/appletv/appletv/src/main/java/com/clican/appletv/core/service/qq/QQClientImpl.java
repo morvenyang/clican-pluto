@@ -9,7 +9,7 @@ import net.sf.json.JSONObject;
 
 import org.apache.commons.lang.StringUtils;
 
-import com.clican.appletv.core.service.BaseClient;
+import com.clican.appletv.core.service.baibian.model.BaseClient;
 import com.clican.appletv.core.service.qq.enumeration.Channel;
 import com.clican.appletv.core.service.qq.model.QQAlbum;
 import com.clican.appletv.core.service.qq.model.QQAlbumItem;

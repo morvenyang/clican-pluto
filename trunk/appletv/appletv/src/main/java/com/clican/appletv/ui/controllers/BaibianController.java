@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.clican.appletv.common.SpringProperty;
 import com.clican.appletv.core.model.Baibian;
-import com.clican.appletv.core.service.BaibianClient;
+import com.clican.appletv.core.service.baibian.BaibianClient;
 
 @Controller
 public class BaibianController {

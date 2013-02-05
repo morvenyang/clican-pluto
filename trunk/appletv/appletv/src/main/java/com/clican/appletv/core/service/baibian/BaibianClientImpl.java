@@ -1,4 +1,4 @@
-package com.clican.appletv.core.service;
+package com.clican.appletv.core.service.baibian;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +11,7 @@ import net.sf.json.JSONObject;
 import org.apache.commons.lang.StringUtils;
 
 import com.clican.appletv.core.model.Baibian;
+import com.clican.appletv.core.service.baibian.model.BaseClient;
 
 public class BaibianClientImpl extends BaseClient implements BaibianClient {
 

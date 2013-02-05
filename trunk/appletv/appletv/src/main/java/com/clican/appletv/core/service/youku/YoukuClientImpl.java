@@ -4,7 +4,7 @@ import net.sf.json.JSONObject;
 
 import org.apache.commons.lang.StringUtils;
 
-import com.clican.appletv.core.service.BaseClient;
+import com.clican.appletv.core.service.baibian.model.BaseClient;
 import com.clican.appletv.core.service.youku.model.YoukuAlbum;
 
 public class YoukuClientImpl extends BaseClient implements YoukuClient {

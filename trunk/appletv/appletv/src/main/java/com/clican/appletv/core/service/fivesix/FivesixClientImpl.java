@@ -11,7 +11,7 @@ import net.sf.json.JSONObject;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang.StringUtils;
 
-import com.clican.appletv.core.service.BaseClient;
+import com.clican.appletv.core.service.baibian.model.BaseClient;
 
 public class FivesixClientImpl extends BaseClient implements FivesixClient {
 
