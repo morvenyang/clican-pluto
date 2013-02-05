@@ -12,8 +12,8 @@
 				<grid id="g${status1.count}">
 					<items>
 						<c:forEach items="${tsc.skuDisplayLabelValueMap[label]}" var="tsu" varStatus="status2">
-							<actionButton id="ab${status2.count}" onPlay="${serverurl}/ctl/taobao/itemDetail.xml?itemId=${tsc.item.numIid}&amp;selectedValues=${status1.count}:${tsu.value}" onSelect="">
-								<title><![CDATA[tsu.label]]></title>
+							<actionButton id="ab${status2.count}" onPlay="${serverurl}/ctl/taobao/itemDetail.xml?itemId=${tsc.item.numIid}&amp;selectedValues=${status1.count-1}:${tsu.value}" onSelect="">
+								<title><![CDATA[${tsu.label}]]></title>
 							</actionButton>
 						</c:forEach>
 					</items>

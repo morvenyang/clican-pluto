@@ -654,6 +654,7 @@ public class TaobaoController {
 
 	}
 
+	@SuppressWarnings({  "unchecked" })
 	private TaobaoSkuCache getSkuMap(Item item) {
 		TaobaoSkuCache cache = new TaobaoSkuCache();
 		List<String> skuLabelList = new ArrayList<String>();
@@ -688,11 +689,16 @@ public class TaobaoController {
 					Map<String, Object> map = new HashMap<String, Object>();
 					tempMap.put(skuLabelValue, map);
 					tempMap = map;
+				}else{
+					tempMap = (Map<String,Object>)tempMap.get(skuLabelValue);
 				}
 
 				String skuLabel = skuPropNames[i].replace(skuLabelValue + ":",
 						"");
 				String skuLabelLabel = skuLabel.split(":")[1];
+				if(aliaMap.containsKey(skuLabelValue)){
+					skuLabelLabel = aliaMap.get(skuLabelValue);
+				}
 				skuLabel = skuLabel.split(":")[0];
 				if (!skuLabelList.contains(skuLabel)) {
 					skuLabelList.add(skuLabel);
@@ -730,6 +736,7 @@ public class TaobaoController {
 		}
 		tsc.updateSelectedValues(selectedValue);
 		request.setAttribute("tsc", tsc);
+		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
 		return "taobao/itemDetail";
 
 	}
