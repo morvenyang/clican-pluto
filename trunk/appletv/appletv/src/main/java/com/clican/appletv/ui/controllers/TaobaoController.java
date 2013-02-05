@@ -781,6 +781,7 @@ public class TaobaoController {
 		}
 		String htmlContent = this.getContent(request);
 		TaobaoConfirmOrder tco = taobaoClient.getConfirmOrder(htmlContent);
+		
 		request.setAttribute("tco", tco);
 		return "taobao/confirmOrder";
 

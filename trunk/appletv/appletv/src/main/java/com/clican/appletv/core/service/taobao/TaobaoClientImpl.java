@@ -416,6 +416,9 @@ public class TaobaoClientImpl extends BaseClient implements TaobaoClient {
 							fare.setId(fareOption.getValue());
 							fare.setLabel(fareOption.getOptionText().trim());
 							fareList.add(fare);
+							if (fareList.size() == 1) {
+								shop.setSelectedFareId(fare.getId());
+							}
 						}
 					}
 				}
@@ -436,11 +439,15 @@ public class TaobaoClientImpl extends BaseClient implements TaobaoClient {
 							itemNode, new int[] { 1, 0, 0 });
 					item.setPrice(Float.parseFloat(priceNode.getStringText()
 							.trim()));
-					TagNode quantityNode = (TagNode) this
-							.getChildNode(itemNode, new int[] { 2, 0 });
-					item.setQuantity(Integer.parseInt(quantityNode.getAttribute("value")));
+					TagNode quantityNode = (TagNode) this.getChildNode(
+							itemNode, new int[] { 2, 0 });
+					item.setQuantity(Integer.parseInt(quantityNode
+							.getAttribute("value")));
 					itemList.add(item);
 				}
+			}
+			if (tco.getAddrList().size() > 0) {
+				tco.setSelectedAddrId(tco.getAddrList().get(0).getAddrId());
 			}
 			return tco;
 		} catch (Exception e) {
