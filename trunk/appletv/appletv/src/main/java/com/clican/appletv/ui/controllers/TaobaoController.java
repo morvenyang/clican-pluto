@@ -773,6 +773,42 @@ public class TaobaoController {
 
 	}
 
+	@RequestMapping("/taobao/myCart.do")
+	public void myCart(HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
+		if (log.isDebugEnabled()) {
+			log.debug("access my cart");
+		}
+		String htmlContent = this.getContent(request);
+		Parser itemParser = Parser.createParser(htmlContent, "utf-8");
+		AndFilter idFilter = new AndFilter(new TagNameFilter("tr"),
+				new HasAttributeFilter("data-cartid"));
+		NodeList itemNodeList = itemParser.parse(idFilter);
+		if (itemNodeList.size() > 0) {
+			response.getOutputStream().write("noresult".getBytes());
+		} else {
+			String result = "buyer_from=cart&serviceCartIds&item=";
+			for (int i = 0; i < itemNodeList.size(); i++) {
+				TagNode itemNode = (TagNode) itemNodeList.elementAt(i);
+				String cardid = itemNode.getAttribute("data-cartid");
+				String itemid = itemNode.getAttribute("data-itemid");
+				String skuid = itemNode.getAttribute("data-skuid");
+				if (StringUtils.isEmpty(skuid)) {
+					skuid = "0";
+				}
+				result = result + cardid + "_" + itemid + "_1_" + skuid
+						+ "_0_0_0,";
+			}
+			if (result.endsWith(",")) {
+				result.substring(0, result.length() - 1);
+			}
+			if (log.isDebugEnabled()) {
+				log.debug("my cart content:" + result);
+			}
+			response.getOutputStream().write(result.getBytes());
+		}
+	}
+
 	@RequestMapping("/taobao/confirmOrder.xml")
 	public String confirmOrderPage(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {

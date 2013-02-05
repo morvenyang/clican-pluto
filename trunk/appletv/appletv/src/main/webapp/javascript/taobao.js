@@ -6,6 +6,7 @@ var taobaoMyFavoriteShopApi = 'http://favorite.taobao.com/collect_list.htm?itemt
 var taobaoLoveApi = 'http://love.taobao.com/guang/mobile_search.htm';
 var taobaoAddToShoppingCartApi = 'http://cart.taobao.com/add_cart_item.htm?bankfrom=&quantity=1';
 var taobaoConfirmOrderApi = 'http://buy.taobao.com/auction/order/confirm_order.htm';
+var taobaoMyCartApi = 'http://cart.taobao.com/my_cart.htm';
 var taobaoClient = {
 	login : function(username, password) {
 		var url = taobaoLoginApi + "?TPL_username=" + username
@@ -102,7 +103,7 @@ var taobaoClient = {
 		}else{
 			url = url+ '&outer_id_type=2';
 		}
-		if (tid ==null || tid.length==0 ||tid=='null' ||token==null||token.length==0||token=='null') {
+		if (tid ==null || tid.length==0 ||tid=='null') {
 			appletv
 					.makeRequest(
 							appletv.serverurl + '/ctl/taobao/getTokenAndTid.do',
@@ -134,7 +135,7 @@ var taobaoClient = {
 		var json = JSON.parse(result);
 		var error = json['error'];
 		if(error!=null&&error.length>0){
-			appletv.showDialog('添加购物车失败'+error, error);
+			appletv.showDialog('添加购物车失败', error);
 		}else{
 			appletv.showDialog('添加购物车成功', '当前购物车内有'+json['cartQuantity']+'样商品,总价:'+json['cartPrice']+'元');
 		}
@@ -290,19 +291,31 @@ var taobaoClient = {
 								|| tokenAndTid.length == 0) {
 							taobaoClient.showLoginPage();
 						} else {
-							appletv.makeRequest(url, function(htmlcontent){
-								appletv.makePostRequest(appletv.serverurl+'/ctl/taobao/confirmOrderPage.xml',htmlcontent,function(xmlcontent){
-									appletv.loadXML(xmlcontent);
-								});
+							appletv.makeRequest(taobaoMyCartApi, function(result){
+								if(result=='noresult'){
+									appletv.showDialog('购物车内空空如也', error);
+								}else{
+									appletv.makePostRequest(taobaoConfirmOrderApi,result function(htmlcontent){
+										appletv.makePostRequest(appletv.serverurl+'/ctl/taobao/confirmOrder.xml',htmlcontent,function(xmlcontent){
+											appletv.loadXML(xmlcontent);
+										});
+									}
+								}
 							});
 						}
 					});
 			return;
 		}else{
-			appletv.makeRequest(url, function(htmlcontent){
-				appletv.makePostRequest(appletv.serverurl+'/ctl/taobao/confirmOrderPage.xml',htmlcontent,function(xmlcontent){
-					appletv.loadXML(xmlcontent);
-				});
+			appletv.makeRequest(taobaoMyCartApi, function(result){
+				if(result=='noresult'){
+					appletv.showDialog('购物车内空空如也', error);
+				}else{
+					appletv.makePostRequest(taobaoConfirmOrderApi,result function(htmlcontent){
+						appletv.makePostRequest(appletv.serverurl+'/ctl/taobao/confirmOrder.xml',htmlcontent,function(xmlcontent){
+							appletv.loadXML(xmlcontent);
+						});
+					}
+				}
 			});
 		}
 		
