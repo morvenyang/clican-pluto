@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.clican.appletv.core.service.taobao.model.TaobaoAccessToken;
 import com.clican.appletv.core.service.taobao.model.TaobaoCategory;
+import com.clican.appletv.core.service.taobao.model.TaobaoConfirmOrder;
 import com.clican.appletv.core.service.taobao.model.TaobaoLove;
 import com.clican.appletv.core.service.taobao.model.TaobaoLoveTag;
 
@@ -25,4 +26,6 @@ public interface TaobaoClient {
 	public Map<String, List<TaobaoLoveTag>> getTaobaoLoveTags();
 
 	public List<TaobaoLove> queryTaobaoLoves(Long tagId);
+
+	public TaobaoConfirmOrder getConfirmOrder(String htmlContent);
 }

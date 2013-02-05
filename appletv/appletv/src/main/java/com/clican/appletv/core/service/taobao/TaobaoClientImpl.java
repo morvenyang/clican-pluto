@@ -14,16 +14,29 @@ import net.sf.json.JSONObject;
 import org.apache.commons.io.FileUtils;
 import org.htmlparser.Node;
 import org.htmlparser.Parser;
+import org.htmlparser.PrototypicalNodeFactory;
+import org.htmlparser.filters.AndFilter;
+import org.htmlparser.filters.HasAttributeFilter;
 import org.htmlparser.filters.LinkStringFilter;
+import org.htmlparser.filters.TagNameFilter;
 import org.htmlparser.nodes.TagNode;
+import org.htmlparser.tags.CompositeTag;
+import org.htmlparser.tags.OptionTag;
 import org.htmlparser.util.NodeList;
 
 import com.clican.appletv.common.PostResponse;
 import com.clican.appletv.core.service.baibian.model.BaseClient;
 import com.clican.appletv.core.service.taobao.model.TaobaoAccessToken;
+import com.clican.appletv.core.service.taobao.model.TaobaoAddress;
 import com.clican.appletv.core.service.taobao.model.TaobaoCategory;
+import com.clican.appletv.core.service.taobao.model.TaobaoConfirmOrder;
+import com.clican.appletv.core.service.taobao.model.TaobaoFare;
 import com.clican.appletv.core.service.taobao.model.TaobaoLove;
 import com.clican.appletv.core.service.taobao.model.TaobaoLoveTag;
+import com.clican.appletv.core.service.taobao.model.TaobaoOrderByItem;
+import com.clican.appletv.core.service.taobao.model.TaobaoOrderByShop;
+import com.clican.appletv.ext.htmlparser.EmTag;
+import com.clican.appletv.ext.htmlparser.StrongTag;
 import com.taobao.api.domain.ItemCat;
 import com.taobao.api.internal.util.WebUtils;
 import com.taobao.api.request.ItemcatsGetRequest;
@@ -309,6 +322,93 @@ public class TaobaoClientImpl extends BaseClient implements TaobaoClient {
 			return null;
 		}
 
+	}
+
+	@Override
+	public TaobaoConfirmOrder getConfirmOrder(String htmlContent) {
+		TaobaoConfirmOrder tco = new TaobaoConfirmOrder();
+		List<TaobaoOrderByShop> shopList = new ArrayList<TaobaoOrderByShop>();
+		List<TaobaoAddress> addrList = new ArrayList<TaobaoAddress>();
+		tco.setAddrList(addrList);
+		tco.setAddrList(addrList);
+
+		PrototypicalNodeFactory factory = new PrototypicalNodeFactory();
+		factory.registerTag(new StrongTag());
+		factory.registerTag(new EmTag());
+		Parser parser = Parser.createParser(htmlContent, "utf-8");
+		try {
+			parser.setNodeFactory(factory);
+			AndFilter idFilter = new AndFilter(new TagNameFilter("tbody"),
+					new HasAttributeFilter("data-outorderid"));
+			NodeList orderByShopList = parser.parse(idFilter);
+			AndFilter sellerFilter = new AndFilter(new TagNameFilter("span"),
+					new HasAttributeFilter("class", "seller"));
+			AndFilter fareFilter = new AndFilter(new TagNameFilter("select"),
+					new HasAttributeFilter("class", "J_Fare"));
+			AndFilter itemFilter = new AndFilter(new TagNameFilter("tr"),
+					new HasAttributeFilter("class", "item"));
+			for (int i = 0; i < orderByShopList.size(); i++) {
+				TaobaoOrderByShop shop = new TaobaoOrderByShop();
+				shopList.add(shop);
+				List<TaobaoFare> fareList = new ArrayList<TaobaoFare>();
+				List<TaobaoOrderByItem> itemList = new ArrayList<TaobaoOrderByItem>();
+				shop.setFareList(fareList);
+				shop.setItemList(itemList);
+				TagNode orderByShopNode = (TagNode) orderByShopList
+						.elementAt(i);
+				shop.setOutOrderId(orderByShopNode
+						.getAttribute("data-outorderid"));
+				shop.setPostMode(orderByShopNode
+						.getAttribute("data-outorderid"));
+				shop.setTitle("");
+				NodeList sellerNodeList = new NodeList();
+				orderByShopNode.collectInto(sellerNodeList, sellerFilter);
+				if (sellerNodeList.size() > 0) {
+					CompositeTag hrefNode = (CompositeTag) this.getChildNode(
+							sellerNodeList.elementAt(0), new int[] { 0 });
+					shop.setTitle(hrefNode.getStringText());
+				}
+				NodeList fareNodeList = new NodeList();
+				orderByShopNode.collectInto(fareNodeList, fareFilter);
+				for (int j = 0; j < fareNodeList.size(); j++) {
+					Node fareNode = fareNodeList.elementAt(j);
+					if (fareNode instanceof OptionTag) {
+						TaobaoFare fare = new TaobaoFare();
+						OptionTag fareOption = (OptionTag) fareNode;
+						fare.setId(fareOption.getValue());
+						fare.setLabel(fareOption.getText());
+						fareList.add(fare);
+					}
+				}
+
+				NodeList itemNodeList = new NodeList();
+				orderByShopNode.collectInto(itemNodeList, itemFilter);
+				for (int j = 0; j < itemNodeList.size(); j++) {
+					TagNode itemNode = (TagNode) itemNodeList.elementAt(j);
+					TaobaoOrderByItem item = new TaobaoOrderByItem();
+					item.setDateId(itemNode.getAttribute("data-lineid"));
+					TagNode hrefNode = (TagNode) this.getChildNode(itemNode,
+							new int[] { 0, 0 });
+					item.setTitle(hrefNode.getAttribute("title"));
+					TagNode imageNode = (TagNode) this.getChildNode(itemNode,
+							new int[] { 0, 0, 0 });
+					item.setPicUrl(imageNode.getAttribute("src"));
+					CompositeTag priceNode = (CompositeTag) this.getChildNode(
+							itemNode, new int[] { 1, 0, 0 });
+					item.setPrice(Float.parseFloat(priceNode.getStringText()
+							.trim()));
+					CompositeTag quantityNode = (CompositeTag) this
+							.getChildNode(itemNode, new int[] { 2, 0 });
+					item.setQuantity(Integer.parseInt(quantityNode
+							.getStringText().replaceAll("\"", "").trim()));
+					itemList.add(item);
+				}
+			}
+			return tco;
+		} catch (Exception e) {
+			log.error("", e);
+			return null;
+		}
 	}
 
 }
