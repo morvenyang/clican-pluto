@@ -11,7 +11,7 @@ import net.sf.json.JSONObject;
 
 import org.apache.commons.lang.StringUtils;
 
-import com.clican.appletv.core.service.BaseClient;
+import com.clican.appletv.core.service.baibian.model.BaseClient;
 import com.clican.appletv.core.service.tudou.enumeration.Channel;
 import com.clican.appletv.core.service.tudou.model.ListView;
 import com.clican.appletv.core.service.tudou.model.TudouAlbum;

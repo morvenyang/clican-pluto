@@ -19,7 +19,7 @@ import org.htmlparser.nodes.TagNode;
 import org.htmlparser.util.NodeList;
 
 import com.clican.appletv.common.PostResponse;
-import com.clican.appletv.core.service.BaseClient;
+import com.clican.appletv.core.service.baibian.model.BaseClient;
 import com.clican.appletv.core.service.taobao.model.TaobaoAccessToken;
 import com.clican.appletv.core.service.taobao.model.TaobaoCategory;
 import com.clican.appletv.core.service.taobao.model.TaobaoLove;

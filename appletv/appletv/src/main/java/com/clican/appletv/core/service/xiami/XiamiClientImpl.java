@@ -7,7 +7,7 @@ import java.net.URLDecoder;
 import org.apache.commons.digester3.Digester;
 
 import com.clican.appletv.common.Music;
-import com.clican.appletv.core.service.BaseClient;
+import com.clican.appletv.core.service.baibian.model.BaseClient;
 
 public class XiamiClientImpl extends BaseClient implements XiamiClient {
 

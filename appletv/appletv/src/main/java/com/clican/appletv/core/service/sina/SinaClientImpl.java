@@ -7,7 +7,7 @@ import org.apache.commons.lang.StringUtils;
 
 import com.clican.appletv.common.Music;
 import com.clican.appletv.common.PostResponse;
-import com.clican.appletv.core.service.BaseClient;
+import com.clican.appletv.core.service.baibian.model.BaseClient;
 
 public class SinaClientImpl extends BaseClient implements SinaClient {
 
