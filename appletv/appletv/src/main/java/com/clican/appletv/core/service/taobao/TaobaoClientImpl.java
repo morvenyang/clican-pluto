@@ -368,6 +368,7 @@ public class TaobaoClientImpl extends BaseClient implements TaobaoClient {
 								addr.setAreaCode(areaCode);
 							}
 						}
+						addrList.add(addr);
 					}
 				}
 			}
