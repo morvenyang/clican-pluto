@@ -29,7 +29,7 @@
 				<grid id="addToShoppingCart">
 					<items>
 						<actionButton id="ab" onPlay="taobaoClient.addToShoppingCart(${tsc.item.numIid},${tsc.selectedSku.skuId},'${taobaoHtmlTid}');" onSelect="taobaoClient.addToShoppingCart(${tsc.item.numIid},${tsc.selectedSku.skuId},'${taobaoHtmlTid}');">
-							<title>加入购物车</title>
+							<title>购物车</title>
 						</actionButton>
 					</items>
 				</grid>
@@ -39,7 +39,7 @@
 				<grid id="addToShoppingCart">
 					<items>
 						<actionButton id="ab" onPlay="taobaoClient.addToShoppingCart(${tsc.item.numIid},${tsc.item.numIid},'${taobaoHtmlTid}');" onSelect="taobaoClient.addToShoppingCart(${tsc.item.numIid},${tsc.item.numIid},'${taobaoHtmlTid}');">
-							<title>加入购物车</title>
+							<title>购物车</title>
 						</actionButton>
 					</items>
 				</grid>
