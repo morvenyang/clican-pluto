@@ -220,6 +220,9 @@ public class TaobaoController {
 		ShopGetResponse shopResp = taobaoRestClient.execute(shopReq);
 
 		Shop shop = shopResp.getShop();
+		if(shop==null){
+			return "taobao/noresult";
+		}
 		Long sid = shop.getSid();
 		request.setAttribute("shop", shop);
 		String shopUrl = "http://shop" + sid + ".taobao.com";
