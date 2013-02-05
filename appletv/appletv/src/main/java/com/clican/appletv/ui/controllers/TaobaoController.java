@@ -77,7 +77,6 @@ public class TaobaoController {
 	public final static String TAOBAO_USER_ID_NAME = "taobaoUserId";
 	public final static String TAOBAO_SELLER_CATEGORY_LIST = "taobaoSellerCategoryList";
 
-	public final static String TAOBAO_SKU_ITEM_ID_NAME = "taobaoSkuItemIdName";
 	public final static String TAOBAO_SKU_NAME = "taobaoSkuName";
 
 	@Autowired
