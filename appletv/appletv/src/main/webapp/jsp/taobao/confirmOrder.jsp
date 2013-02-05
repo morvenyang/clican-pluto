@@ -27,19 +27,35 @@
 				</c:if>
 			</collectionDivider>
 		</c:forEach>
-		
-		<grid id="address_grid" columnCount="1">
-			<items>
-				<c:forEach var="item" items="${itemList}">
-						<moviePoster id="shelf_item_${item.numIid}" alwaysShowTitles="true" onSelect="atv.loadURL('${serverurl}/ctl/taobao/item.xml?itemId=${item.numIid}&amp;volume=${item.volume}');" onPlay="atv.loadURL('${serverurl}/ctl/taobao/item.xml?itemId=${item.numIid}&amp;volume=${item.volume}');">
+		<c:forEach var="shop" items="${tco.shopList}" varStatus="status3">
+			<collectionDivider><title><![CDATA[${shop.title}]]></title></collectionDivider>
+			<grid id="shop_fare_${status3.count}" columnCount="5">
+				<items>
+					<c:forEach var="fare" items="${shop.fareList}">
+						<actionButton onSelect="${serverurl}/ctl/taobao/changeFare.xml?outOrderId=${shop.outOrderId}&amp;fareId=${fare.id}">
+							<c:if test="${shop.selectedFareId.equals(fare.id)}">
+								<title><![CDATA[√${fare.label}]]></title>
+							</c:if>
+							<c:if test="${!shop.selectedFareId.equals(fare.id)}">
+								<title><![CDATA[${fare.label}]]></title>
+							</c:if>
+						</actionButton>
+					</c:forEach>
+				</items>
+			</grid>
+			<grid id="shop_item_grid_${status3.count}" columnCount="5">
+				<items>
+					<c:forEach var="item" items="${shop.itemList}">
+						<moviePoster id="shelf_item_${item.itemId}" alwaysShowTitles="true">
 							<title><![CDATA[${item.title}]]></title>
-							<subtitle><![CDATA[￥${item.price} 最近售出${item.volume}]]></subtitle>
+							<subtitle><![CDATA[价格:${item.price}元 数量:${item.quantity}]]></subtitle>
 							<image>${item.picUrl}</image>
 							<defaultImage>resource://Poster.png</defaultImage>
 						</moviePoster>
-				</c:forEach>
-			</items>
-		</grid>
+					</c:forEach>
+				</items>
+			</grid>
+		</c:forEach>
 	</items>
 </scroller>
 </body>

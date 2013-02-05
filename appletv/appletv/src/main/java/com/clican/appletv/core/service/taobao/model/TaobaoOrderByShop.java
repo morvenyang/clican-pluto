@@ -9,6 +9,8 @@ public class TaobaoOrderByShop {
 	private String postMode;
 	
 	private String outOrderId;
+	
+	private String selectedFareId;
 
 	private List<TaobaoFare> fareList;
 
@@ -52,6 +54,14 @@ public class TaobaoOrderByShop {
 
 	public void setOutOrderId(String outOrderId) {
 		this.outOrderId = outOrderId;
+	}
+
+	public String getSelectedFareId() {
+		return selectedFareId;
+	}
+
+	public void setSelectedFareId(String selectedFareId) {
+		this.selectedFareId = selectedFareId;
 	}
 	
 	

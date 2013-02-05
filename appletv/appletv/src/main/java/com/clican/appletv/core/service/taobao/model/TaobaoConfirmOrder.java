@@ -4,6 +4,8 @@ import java.util.List;
 
 public class TaobaoConfirmOrder {
 
+	private Long selectedAddrId;
+	
 	private List<TaobaoAddress> addrList;
 	
 	private List<TaobaoOrderByShop> shopList;
@@ -22,6 +24,14 @@ public class TaobaoConfirmOrder {
 
 	public void setShopList(List<TaobaoOrderByShop> shopList) {
 		this.shopList = shopList;
+	}
+
+	public Long getSelectedAddrId() {
+		return selectedAddrId;
+	}
+
+	public void setSelectedAddrId(Long selectedAddrId) {
+		this.selectedAddrId = selectedAddrId;
 	}
 	
 	
