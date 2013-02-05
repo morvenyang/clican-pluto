@@ -4,18 +4,22 @@ import java.util.List;
 
 public class TaobaoOrderByShop {
 
-	private String shop;
+	private String title;
+	
+	private String postMode;
+	
+	private String outOrderId;
 
 	private List<TaobaoFare> fareList;
 
 	private List<TaobaoOrderByItem> itemList;
 
-	public String getShop() {
-		return shop;
+	public String getTitle() {
+		return title;
 	}
 
-	public void setShop(String shop) {
-		this.shop = shop;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	public List<TaobaoFare> getFareList() {
@@ -32,6 +36,22 @@ public class TaobaoOrderByShop {
 
 	public void setItemList(List<TaobaoOrderByItem> itemList) {
 		this.itemList = itemList;
+	}
+
+	public String getPostMode() {
+		return postMode;
+	}
+
+	public void setPostMode(String postMode) {
+		this.postMode = postMode;
+	}
+
+	public String getOutOrderId() {
+		return outOrderId;
+	}
+
+	public void setOutOrderId(String outOrderId) {
+		this.outOrderId = outOrderId;
 	}
 	
 	
