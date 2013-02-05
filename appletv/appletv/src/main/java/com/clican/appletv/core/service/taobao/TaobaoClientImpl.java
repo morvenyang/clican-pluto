@@ -38,6 +38,7 @@ import com.clican.appletv.core.service.taobao.model.TaobaoOrderByShop;
 import com.clican.appletv.ext.htmlparser.EmTag;
 import com.clican.appletv.ext.htmlparser.STag;
 import com.clican.appletv.ext.htmlparser.StrongTag;
+import com.clican.appletv.ext.htmlparser.TbodyTag;
 import com.taobao.api.domain.ItemCat;
 import com.taobao.api.internal.util.WebUtils;
 import com.taobao.api.request.ItemcatsGetRequest;
@@ -325,6 +326,7 @@ public class TaobaoClientImpl extends BaseClient implements TaobaoClient {
 		factory.registerTag(new StrongTag());
 		factory.registerTag(new EmTag());
 		factory.registerTag(new STag());
+		factory.registerTag(new TbodyTag());
 		Parser addrParser = Parser.createParser(htmlContent, "utf-8");
 		Parser shopParser = Parser.createParser(htmlContent, "utf-8");
 		try {
@@ -347,8 +349,8 @@ public class TaobaoClientImpl extends BaseClient implements TaobaoClient {
 						addrLabel = addrLabel.replace("LABEL:", "").trim();
 						TaobaoAddress addr = new TaobaoAddress();
 						addr.setAddress(addrLabel);
-						TagNode addrValueNode = (TagNode) this
-								.getChildNode(bullet, new int[] { 3 });
+						TagNode addrValueNode = (TagNode) this.getChildNode(
+								bullet, new int[] { 3 });
 						addr.setAddrId(Long.parseLong(addrValueNode
 								.getAttribute("value")));
 						String areaCode = addrValueNode
@@ -357,7 +359,7 @@ public class TaobaoClientImpl extends BaseClient implements TaobaoClient {
 							int start = areaCode.indexOf("areaCode=");
 							if (start > 0) {
 								start = start + 9;
-								int end = areaCode.indexOf("^^",start);
+								int end = areaCode.indexOf("^^", start);
 								if (end > 0) {
 									areaCode = areaCode.substring(start, end);
 								} else {
@@ -393,8 +395,7 @@ public class TaobaoClientImpl extends BaseClient implements TaobaoClient {
 						.elementAt(i);
 				shop.setOutOrderId(orderByShopNode
 						.getAttribute("data-outorderid"));
-				shop.setPostMode(orderByShopNode
-						.getAttribute("data-postMode"));
+				shop.setPostMode(orderByShopNode.getAttribute("data-postMode"));
 				NodeList sellerNodeList = new NodeList();
 				orderByShopNode.collectInto(sellerNodeList, sellerFilter);
 				if (sellerNodeList.size() > 0) {
@@ -404,14 +405,18 @@ public class TaobaoClientImpl extends BaseClient implements TaobaoClient {
 				}
 				NodeList fareNodeList = new NodeList();
 				orderByShopNode.collectInto(fareNodeList, fareFilter);
-				for (int j = 0; j < fareNodeList.size(); j++) {
-					Node fareNode = fareNodeList.elementAt(j);
-					if (fareNode instanceof OptionTag) {
-						TaobaoFare fare = new TaobaoFare();
-						OptionTag fareOption = (OptionTag) fareNode;
-						fare.setId(fareOption.getValue());
-						fare.setLabel(fareOption.getText());
-						fareList.add(fare);
+				if (fareNodeList.size() > 0) {
+					Node fareSelectNode = fareNodeList.elementAt(0);
+					for (int j = 0; j < fareSelectNode.getChildren().size(); j++) {
+						Node fareNode = fareSelectNode.getChildren().elementAt(
+								j);
+						if (fareNode instanceof OptionTag) {
+							TaobaoFare fare = new TaobaoFare();
+							OptionTag fareOption = (OptionTag) fareNode;
+							fare.setId(fareOption.getValue());
+							fare.setLabel(fareOption.getOptionText().trim());
+							fareList.add(fare);
+						}
 					}
 				}
 
@@ -431,10 +436,9 @@ public class TaobaoClientImpl extends BaseClient implements TaobaoClient {
 							itemNode, new int[] { 1, 0, 0 });
 					item.setPrice(Float.parseFloat(priceNode.getStringText()
 							.trim()));
-					CompositeTag quantityNode = (CompositeTag) this
+					TagNode quantityNode = (TagNode) this
 							.getChildNode(itemNode, new int[] { 2, 0 });
-					item.setQuantity(Integer.parseInt(quantityNode
-							.getStringText().replaceAll("\"", "").trim()));
+					item.setQuantity(Integer.parseInt(quantityNode.getAttribute("value")));
 					itemList.add(item);
 				}
 			}
