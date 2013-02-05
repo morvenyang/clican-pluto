@@ -785,7 +785,9 @@ public class TaobaoController {
 				new HasAttributeFilter("data-cartid"));
 		NodeList itemNodeList = itemParser.parse(idFilter);
 		if (itemNodeList.size() > 0) {
-			response.getOutputStream().write("noresult".getBytes());
+			response.setCharacterEncoding("text/plain;charset=utf-8");
+			response.getOutputStream().write("noresult".getBytes("utf-8"));
+			response.getOutputStream().flush();
 		} else {
 			String result = "buyer_from=cart&serviceCartIds&item=";
 			for (int i = 0; i < itemNodeList.size(); i++) {
@@ -805,7 +807,9 @@ public class TaobaoController {
 			if (log.isDebugEnabled()) {
 				log.debug("my cart content:" + result);
 			}
-			response.getOutputStream().write(result.getBytes());
+			response.setCharacterEncoding("text/plain;charset=utf-8");
+			response.getOutputStream().write(result.getBytes("utf-8"));
+			response.getOutputStream().flush();
 		}
 	}
 
