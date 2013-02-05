@@ -12,7 +12,7 @@
 				<grid id="g${status1.count}">
 					<items>
 						<c:forEach items="${tsc.skuDisplayLabelValueMap[label]}" var="tsu" varStatus="status2">
-							<actionButton id="ab${status2.count}" onPlay="${serverurl}/ctl/taobao/itemDetail.xml?itemId=${tsc.item.numIid}&amp;selectedValue=${status1.count-1}:${tsu.value}" onSelect="">
+							<actionButton id="ab${status2.count}" onPlay="atv.loadURL('${serverurl}/ctl/taobao/itemDetail.xml?itemId=${tsc.item.numIid}&amp;selectedValue=${status1.count-1}:${tsu.value}');" onSelect="atv.loadURL('${serverurl}/ctl/taobao/itemDetail.xml?itemId=${tsc.item.numIid}&amp;selectedValue=${status1.count-1}:${tsu.value}');">
 								<c:if test="${fn:contains(tsc.selectedValueString,tsu.value)}">
 									<title><![CDATA[√${tsu.label}]]></title>
 								</c:if>
@@ -25,6 +25,13 @@
 				</grid>
 			</c:forEach>
 			<collectionDivider><title><![CDATA[库存:${tsc.selectedSku.quantity} 价格:${tsc.selectedSku.price}]]></title></collectionDivider>
+			<grid id="addToShoppingCart">
+				<items>
+					<actionButton id="ab" onPlay="taobaoClient.addToShoppingCart(${tsc.item.numIid},${tsc.selectedSku.skuId},'${taobaoHtmlTid}');" onSelect="taobaoClient.addToShoppingCart(${tsc.item.numIid},${tsc.selectedSku.skuId},'${taobaoHtmlTid}');">
+						<title>加入购物车</title>
+					</actionButton>
+				</items>
+			</grid>
 		</items>
 		
 	</scroller>
