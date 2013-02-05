@@ -5,7 +5,7 @@ import java.util.regex.Pattern;
 
 import com.clican.appletv.common.PostResponse;
 import com.clican.appletv.common.SpringProperty;
-import com.clican.appletv.core.service.BaseClient;
+import com.clican.appletv.core.service.baibian.model.BaseClient;
 import com.clican.appletv.core.service.sina.SinaClient;
 
 public class SinaClientTestCase extends BaseServiceTestCase {
