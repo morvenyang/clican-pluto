@@ -2,7 +2,12 @@
 <atv>
 <body>
 	<dialog id="com.sample.error-dialog">
-	    <title><![CDATA[没有相关数据]]></title>
+		<c:if test="${title==null}">
+			 <title><![CDATA[没有相关数据]]></title>
+		</c:if>
+	   	<c:if test="${title!=null}">
+			 <title><![CDATA[${title}]]></title>
+		</c:if>
 	    <description></description>
 	 </dialog>
 </body>

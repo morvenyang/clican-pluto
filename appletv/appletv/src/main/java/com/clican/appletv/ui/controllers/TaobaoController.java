@@ -781,10 +781,14 @@ public class TaobaoController {
 		}
 		String htmlContent = this.getContent(request);
 		TaobaoConfirmOrder tco = taobaoClient.getConfirmOrder(htmlContent);
-		
-		request.setAttribute("tco", tco);
-		return "taobao/confirmOrder";
-
+		if (tco.getShopList().size() == 0) {
+			request.setAttribute("tco", tco);
+			request.setAttribute("title", "购物车内空空如也");
+			return "taobao/noresult";
+		} else {
+			request.setAttribute("tco", tco);
+			return "taobao/confirmOrder";
+		}
 	}
 
 	private Node getChildNode(Node node, int[] indexs) {
