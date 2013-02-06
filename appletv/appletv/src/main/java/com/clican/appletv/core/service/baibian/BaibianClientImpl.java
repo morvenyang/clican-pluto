@@ -75,8 +75,10 @@ public class BaibianClientImpl extends BaseClient implements BaibianClient {
 					".*http://.*\\.56\\.com/.*(vid-|v_)(\\p{Alnum}*)\\.swf.*", Pattern.DOTALL);
 			Pattern youkuPattern = Pattern.compile(
 					".*http://player\\.youku\\.com/player\\.php/sid/(.*)/v\\.swf.*", Pattern.DOTALL);
-			Pattern tudouPattern = Pattern.compile(
+			Pattern tudouPattern1 = Pattern.compile(
 					".*http://www\\.tudou\\.com/.*iid=(\\p{Alnum}*)\\&.*", Pattern.DOTALL);
+			Pattern tudouPattern2 = Pattern.compile(
+					".*http://www\\.tudou\\.com/v/(.*)/\\&resourceId.*", Pattern.DOTALL);
 			JSONArray films = JSONObject.fromObject(jsonContent).getJSONArray(
 					"films");
 			for (int i = 0; i < films.size(); i++) {
@@ -102,15 +104,23 @@ public class BaibianClientImpl extends BaseClient implements BaibianClient {
 								+ code);
 						result.add(baibian);
 					}else{
-						Matcher tudouMatcher = tudouPattern.matcher(contentUrl);
-						if(tudouMatcher.matches()){
-							String code = tudouMatcher.group(1);
+						Matcher tudouMatcher1 = tudouPattern1.matcher(contentUrl);
+						if(tudouMatcher1.matches()){
+							String code = tudouMatcher1.group(1);
 							baibian.setMediaUrl(springProperty.getSystemServerUrl()
 									+ "/ctl//tudou/play.xml?st=4&amp;itemid="
 									+ code);
 							result.add(baibian);
+						}else{
+							Matcher tudouMatcher2 = tudouPattern2.matcher(contentUrl);
+							if(tudouMatcher2.matches()){
+								String code = tudouMatcher2.group(1);
+								baibian.setMediaUrl(springProperty.getSystemServerUrl()
+										+ "/ctl//tudou/playVideoByCode.xml?st=4&amp;code="
+										+ code);
+								result.add(baibian);
+							}
 						}
-						
 					}
 				}
 			}
