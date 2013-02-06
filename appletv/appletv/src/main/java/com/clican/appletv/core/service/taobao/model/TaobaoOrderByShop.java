@@ -17,6 +17,8 @@ public class TaobaoOrderByShop {
 	private List<TaobaoFare> fareList;
 
 	private List<TaobaoOrderByItem> itemList;
+	
+	private TaobaoPromotion promotion;
 
 	public String getTitle() {
 		return title;
@@ -72,6 +74,14 @@ public class TaobaoOrderByShop {
 
 	public void setFareName(String fareName) {
 		this.fareName = fareName;
+	}
+
+	public TaobaoPromotion getPromotion() {
+		return promotion;
+	}
+
+	public void setPromotion(TaobaoPromotion promotion) {
+		this.promotion = promotion;
 	}
 	
 	

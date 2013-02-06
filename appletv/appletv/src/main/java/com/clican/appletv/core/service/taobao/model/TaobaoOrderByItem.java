@@ -8,11 +8,13 @@ public class TaobaoOrderByItem {
 	
 	private String picUrl;
 	
-	private String dateId;
+	private String dataId;
 	
 	private Float price;
 	
 	private Integer quantity; 
+	
+	private TaobaoPromotion promotion;
 
 	public Long getItemId() {
 		return itemId;
@@ -38,12 +40,13 @@ public class TaobaoOrderByItem {
 		this.picUrl = picUrl;
 	}
 
-	public String getDateId() {
-		return dateId;
+
+	public String getDataId() {
+		return dataId;
 	}
 
-	public void setDateId(String dateId) {
-		this.dateId = dateId;
+	public void setDataId(String dataId) {
+		this.dataId = dataId;
 	}
 
 	public Float getPrice() {
@@ -60,6 +63,14 @@ public class TaobaoOrderByItem {
 
 	public void setQuantity(Integer quantity) {
 		this.quantity = quantity;
+	}
+
+	public TaobaoPromotion getPromotion() {
+		return promotion;
+	}
+
+	public void setPromotion(TaobaoPromotion promotion) {
+		this.promotion = promotion;
 	}
 
 	
