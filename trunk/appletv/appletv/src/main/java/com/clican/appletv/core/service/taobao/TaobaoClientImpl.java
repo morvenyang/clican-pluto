@@ -475,18 +475,20 @@ public class TaobaoClientImpl extends BaseClient implements TaobaoClient {
 				NodeList inputs = form.getFormInputs();
 				for (int j = 0; j < inputs.size(); j++) {
 					InputTag input = (InputTag) inputs.elementAt(j);
-					String name = input.getAttribute("name");
-					if(StringUtils.isNotEmpty(name)){
-						formMap.put(name,
-								input.getAttribute("value"));
+					if (input.getAttribute("type").equals("checkbox")) {
+						continue;
 					}
-					
+					String name = input.getAttribute("name");
+					if (StringUtils.isNotEmpty(name)) {
+						formMap.put(name, input.getAttribute("value"));
+					}
+
 				}
 				NodeList textareas = form.getFormTextareas();
 				for (int j = 0; j < textareas.size(); j++) {
 					TextareaTag textarea = (TextareaTag) textareas.elementAt(j);
 					String name = textarea.getAttribute("name");
-					if(StringUtils.isNotEmpty(name)){
+					if (StringUtils.isNotEmpty(name)) {
 						formMap.put(name, "");
 					}
 				}
