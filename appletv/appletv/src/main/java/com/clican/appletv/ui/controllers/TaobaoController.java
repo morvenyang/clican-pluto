@@ -1,6 +1,7 @@
 package com.clican.appletv.ui.controllers;
 
 import java.io.ByteArrayOutputStream;
+import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
@@ -939,19 +940,30 @@ public class TaobaoController {
 			response.getOutputStream().write("error".getBytes());
 		} else {
 			Map<String, String> forms = tco.getForms();
+			String formStr = "";
 			String jsonContent = "[";
 			for (String key : forms.keySet()) {
 				jsonContent += "{\"name\":\"" + key + "\",\"value\":\""
 						+ forms.get(key) + "\"},";
+				formStr += key + ":" + forms.get(key) + "\n";
+			}
+			for (TaobaoOrderByShop shop : tco.getShopList()) {
+				jsonContent += "{\"name\":\"" + shop.getFareName()
+						+ "\",\"value\":\"" + shop.getSelectedFareId() + "\"},";
+				formStr += shop.getFareName() + ":" + shop.getSelectedFareId()
+						+ "\n";
 			}
 			if (jsonContent.endsWith(",")) {
 				jsonContent = jsonContent
 						.substring(0, jsonContent.length() - 1);
 			}
 			jsonContent += "]";
-			if(log.isDebugEnabled()){
-				log.debug("submitRequest\n"+jsonContent);
+			if (log.isDebugEnabled()) {
+				log.debug("submitRequest\n" + jsonContent);
 			}
+			FileOutputStream fos = new FileOutputStream("c:/2.txt");
+			fos.write(formStr.getBytes("utf-8"));
+			fos.close();
 			response.getOutputStream().write(jsonContent.getBytes("utf-8"));
 		}
 	}

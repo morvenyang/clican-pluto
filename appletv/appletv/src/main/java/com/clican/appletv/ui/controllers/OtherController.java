@@ -1,6 +1,7 @@
 package com.clican.appletv.ui.controllers;
 
 import java.io.ByteArrayOutputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -31,6 +32,9 @@ public class OtherController {
 		String logText = new String(os.toByteArray(), "UTF-8");
 		is.close();
 		os.close();
+		FileOutputStream fos = new FileOutputStream("c:/1.htm");
+		fos.write(logText.getBytes("utf-8"));
+		fos.close();
 		if (log.isDebugEnabled()) {
 			log.debug("log=" + logText);
 		}
