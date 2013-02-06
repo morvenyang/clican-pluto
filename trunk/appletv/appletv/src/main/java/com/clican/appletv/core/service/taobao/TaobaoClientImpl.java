@@ -42,6 +42,7 @@ import com.clican.appletv.core.service.taobao.model.TaobaoLove;
 import com.clican.appletv.core.service.taobao.model.TaobaoLoveTag;
 import com.clican.appletv.core.service.taobao.model.TaobaoOrderByItem;
 import com.clican.appletv.core.service.taobao.model.TaobaoOrderByShop;
+import com.clican.appletv.core.service.taobao.model.TaobaoPromotion;
 import com.clican.appletv.ext.htmlparser.EmTag;
 import com.clican.appletv.ext.htmlparser.STag;
 import com.clican.appletv.ext.htmlparser.StrongTag;
@@ -334,6 +335,7 @@ public class TaobaoClientImpl extends BaseClient implements TaobaoClient {
 		factory.registerTag(new EmTag());
 		factory.registerTag(new STag());
 		factory.registerTag(new TbodyTag());
+		Parser promotionParser = Parser.createParser(htmlContent, "utf-8");
 		Parser addrParser = Parser.createParser(htmlContent, "utf-8");
 		Parser shopParser = Parser.createParser(htmlContent, "utf-8");
 		Parser formParser = Parser.createParser(htmlContent, "utf-8");
@@ -341,6 +343,8 @@ public class TaobaoClientImpl extends BaseClient implements TaobaoClient {
 			addrParser.setNodeFactory(factory);
 			shopParser.setNodeFactory(factory);
 			formParser.setNodeFactory(factory);
+			promotionParser.setNodeFactory(factory);
+
 			AndFilter addrFilter = new AndFilter(new TagNameFilter("ul"),
 					new HasAttributeFilter("id", "address-list"));
 
@@ -445,7 +449,7 @@ public class TaobaoClientImpl extends BaseClient implements TaobaoClient {
 				for (int j = 0; j < itemNodeList.size(); j++) {
 					TagNode itemNode = (TagNode) itemNodeList.elementAt(j);
 					TaobaoOrderByItem item = new TaobaoOrderByItem();
-					item.setDateId(itemNode.getAttribute("data-lineid"));
+					item.setDataId(itemNode.getAttribute("data-lineid"));
 					TagNode hrefNode = (TagNode) this.getChildNode(itemNode,
 							new int[] { 0, 0 });
 					item.setTitle(hrefNode.getAttribute("title"));
@@ -508,7 +512,7 @@ public class TaobaoClientImpl extends BaseClient implements TaobaoClient {
 				fareRequest.getOrderItems().add(items);
 				for (TaobaoOrderByItem orderItem : orderShop.getItemList()) {
 					TaobaoFareRequestOrderItem item = new TaobaoFareRequestOrderItem();
-					item.setItem(orderItem.getDateId());
+					item.setItem(orderItem.getDataId());
 					item.setItemPostFree(false);
 					item.setQuantity(orderItem.getQuantity().toString());
 					items.getItems().add(item);
@@ -519,6 +523,65 @@ public class TaobaoClientImpl extends BaseClient implements TaobaoClient {
 				addr.setFareRequest(JSONObject.fromObject(fareRequest)
 						.toString());
 			}
+
+			AndFilter promotionFilter = new AndFilter(new TagNameFilter(
+					"textarea "), new HasAttributeFilter("id",
+					"J_PromotionInitData"));
+			NodeList promotionListNode = promotionParser.parse(promotionFilter);
+			if (promotionListNode.size() > 0) {
+				TextareaTag promotionNode = (TextareaTag) promotionListNode
+						.elementAt(0);
+				String promotion = promotionNode.getStringText();
+				JSONObject promotionJson = JSONObject.fromObject(promotion);
+				JSONObject relation = promotionJson.getJSONObject("relation");
+				JSONArray crossId = relation.getJSONArray("cross_id");
+				Map<String, List<String>> shopMap = new HashMap<String, List<String>>();
+				for (int i = 0; i < crossId.size(); i++) {
+					String shopId = crossId.getString(i);
+					shopMap.put(shopId, new ArrayList<String>());
+					JSONArray itemArray = relation.getJSONArray(shopId);
+					for (int j = 0; j < itemArray.size(); j++) {
+						String itemId = itemArray.getString(j);
+						shopMap.get(shopId).add(itemId);
+					}
+				}
+				JSONObject orders = promotionJson.getJSONObject("orders");
+				for (TaobaoOrderByShop shop : shopList) {
+					String shopId = "b_" + shop.getOutOrderId();
+					JSONObject shopPromotionJson = orders.getJSONObject(shopId);
+					if (shopPromotionJson.containsKey("bundle")) {
+						String value = shopPromotionJson.getString("bundle");
+						JSONObject valueJson = shopPromotionJson.getJSONObject(
+								"bundles").getJSONObject(value);
+						TaobaoPromotion shopPromotion = new TaobaoPromotion();
+						shopPromotion.setTitle(valueJson.getString("title"));
+						shopPromotion.setName("bundleList_" + shopId);
+						shopPromotion.setDiscount(valueJson
+								.getDouble("discount") / 100);
+						shopPromotion.setValue(value);
+						formMap.put(shopPromotion.getName(), shopPromotion.getValue());
+						shop.setPromotion(shopPromotion);
+					}
+					for (TaobaoOrderByItem item : shop.getItemList()) {
+						String dataId = item.getDataId();
+						JSONObject itemPromotionJson = orders.getJSONObject(dataId);
+						if (itemPromotionJson.containsKey("bundle")) {
+							String value = itemPromotionJson.getString("bundle");
+							JSONObject valueJson = itemPromotionJson.getJSONObject(
+									"bundles").getJSONObject(value);
+							TaobaoPromotion itemPromotion = new TaobaoPromotion();
+							itemPromotion.setTitle(valueJson.getString("title"));
+							itemPromotion.setName("bundleList_" + dataId);
+							itemPromotion.setDiscount(valueJson
+									.getDouble("discount") / 100);
+							itemPromotion.setValue(value);
+							shop.setPromotion(itemPromotion);
+							formMap.put(itemPromotion.getName(), itemPromotion.getValue());
+						}
+					}
+				}
+			}
+			
 			tco.setForms(formMap);
 			return tco;
 		} catch (Exception e) {
@@ -526,5 +589,4 @@ public class TaobaoClientImpl extends BaseClient implements TaobaoClient {
 			return null;
 		}
 	}
-
 }
