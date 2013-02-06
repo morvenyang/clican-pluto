@@ -926,6 +926,33 @@ public class TaobaoController {
 		}
 	}
 
+	@RequestMapping("/taobao/getSubmitRequest.do")
+	public void getFareRequest(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		if (log.isDebugEnabled()) {
+			log.debug("get submit request addrId");
+		}
+		TaobaoConfirmOrder tco = (TaobaoConfirmOrder) request.getSession()
+				.getAttribute(TAOBAO_CONFIRM_ORDER);
+		if (tco == null) {
+			log.warn("Can't find tco from session");
+			response.getOutputStream().write("error".getBytes());
+		} else {
+			Map<String, String> forms = tco.getForms();
+			String jsonContent = "[";
+			for (String key : forms.keySet()) {
+				jsonContent += "{name:\"" + key + "\",value:\""
+						+ forms.get(key) + "\"},";
+			}
+			if (jsonContent.endsWith(",")) {
+				jsonContent = jsonContent
+						.substring(0, jsonContent.length() - 1);
+			}
+			jsonContent = "]";
+			response.getOutputStream().write(jsonContent.getBytes("utf-8"));
+		}
+	}
+
 	private Node getChildNode(Node node, int[] indexs) {
 		Node r = node;
 		try {

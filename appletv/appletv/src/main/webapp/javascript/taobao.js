@@ -350,4 +350,22 @@ var taobaoClient = {
 			}
 		});
 	},
+	
+	submitConfirmOrder:function(){
+		appletv.makeRequest(appletv.serverurl+'/ctl/taobao/getSubmitRequest.do',function(submitRequest){
+			if(fareRequest=='error'){
+				appletv.showDialog('结算页面过期请重新进入', '');
+			}else{
+				appletv.logToServer('submitRequest:'+submitRequest);
+				var jsonArray = JSON.parse(submitRequest);
+				var oMyForm = new FormData();
+				for(var i=0;i<jsonArray.length;i++){
+					oMyForm.append(jsonArray[i]['name'], jsonArray[i]['value']);
+				}
+				appletv.makePostRequest(taobaoSubmitOrderApi,oMyForm,function(submitResponse){
+					appletv.logToServer('submitResponse:'+submitResponse);
+				});
+			}
+		});
+	},
 }
