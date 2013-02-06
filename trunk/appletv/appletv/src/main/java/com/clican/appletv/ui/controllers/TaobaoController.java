@@ -122,7 +122,15 @@ public class TaobaoController {
 			HttpServletResponse response) throws Exception {
 		try {
 			String content = this.getContent(request);
-			int start = content.indexOf("tid=") + 4;
+			int start = content.indexOf("tid=");
+			if (start == -1) {
+				response.getOutputStream().write("failure".getBytes());
+				if (log.isDebugEnabled()) {
+					log.debug("Taobao user login failure");
+				}
+				return;
+			}
+			start = start + 4;
 			int end = content.indexOf("&", start);
 			String tid = content.substring(start, end);
 			Parser parser = Parser.createParser(content, "utf-8");
@@ -943,9 +951,13 @@ public class TaobaoController {
 			String formStr = "";
 			String jsonContent = "[";
 			for (String key : forms.keySet()) {
+				String value = forms.get(key);
+				if(value==null){
+					value="";
+				}
 				jsonContent += "{\"name\":\"" + key + "\",\"value\":\""
-						+ forms.get(key) + "\"},";
-				formStr += key + ":" + forms.get(key) + "\n";
+						+ value + "\"},";
+				formStr += key + ":" + value + "\n";
 			}
 			for (TaobaoOrderByShop shop : tco.getShopList()) {
 				jsonContent += "{\"name\":\"" + shop.getFareName()
