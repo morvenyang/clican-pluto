@@ -13,7 +13,7 @@ public class TaobaoConfirmOrder {
 
 	private Map<String, String> forms;
 	
-	private String fareRequest;
+	private TaobaoFareRequest fareRequest;
 
 	public List<TaobaoAddress> getAddrList() {
 		return addrList;
@@ -47,12 +47,14 @@ public class TaobaoConfirmOrder {
 		this.forms = forms;
 	}
 
-	public String getFareRequest() {
+	public TaobaoFareRequest getFareRequest() {
 		return fareRequest;
 	}
 
-	public void setFareRequest(String fareRequest) {
+	public void setFareRequest(TaobaoFareRequest fareRequest) {
 		this.fareRequest = fareRequest;
 	}
+
+	
 
 }

@@ -34,6 +34,9 @@ import com.clican.appletv.core.service.taobao.model.TaobaoAddress;
 import com.clican.appletv.core.service.taobao.model.TaobaoCategory;
 import com.clican.appletv.core.service.taobao.model.TaobaoConfirmOrder;
 import com.clican.appletv.core.service.taobao.model.TaobaoFare;
+import com.clican.appletv.core.service.taobao.model.TaobaoFareRequest;
+import com.clican.appletv.core.service.taobao.model.TaobaoFareRequestOrderItem;
+import com.clican.appletv.core.service.taobao.model.TaobaoFareRequestOrderItems;
 import com.clican.appletv.core.service.taobao.model.TaobaoLove;
 import com.clican.appletv.core.service.taobao.model.TaobaoLoveTag;
 import com.clican.appletv.core.service.taobao.model.TaobaoOrderByItem;
@@ -354,12 +357,13 @@ public class TaobaoClientImpl extends BaseClient implements TaobaoClient {
 						addrLabel = addrLabel.replace("LABEL:", "").trim();
 						TaobaoAddress addr = new TaobaoAddress();
 						addr.setAddress(addrLabel);
-						
+
 						TagNode addrValueNode = (TagNode) this.getChildNode(
 								bullet, new int[] { 3 });
 						addr.setAddrId(Long.parseLong(addrValueNode
 								.getAttribute("value")));
-						addr.setAddrParams(addrValueNode.getAttribute("ah:params"));
+						addr.setAddrParams(addrValueNode
+								.getAttribute("ah:params"));
 						String areaCode = addrValueNode
 								.getAttribute("ah:params");
 						if (areaCode != null) {
@@ -393,7 +397,7 @@ public class TaobaoClientImpl extends BaseClient implements TaobaoClient {
 					new HasAttributeFilter("class", "item"));
 			AndFilter formFilter = new AndFilter(new TagNameFilter("form"),
 					new HasAttributeFilter("id", "J_Form"));
-			
+
 			for (int i = 0; i < orderByShopListNode.size(); i++) {
 				TaobaoOrderByShop shop = new TaobaoOrderByShop();
 				shopList.add(shop);
@@ -416,7 +420,8 @@ public class TaobaoClientImpl extends BaseClient implements TaobaoClient {
 				NodeList fareNodeList = new NodeList();
 				orderByShopNode.collectInto(fareNodeList, fareFilter);
 				if (fareNodeList.size() > 0) {
-					TagNode fareSelectNode = (TagNode)fareNodeList.elementAt(0);
+					TagNode fareSelectNode = (TagNode) fareNodeList
+							.elementAt(0);
 					shop.setFareName(fareSelectNode.getAttribute("name"));
 					for (int j = 0; j < fareSelectNode.getChildren().size(); j++) {
 						Node fareNode = fareSelectNode.getChildren().elementAt(
@@ -460,9 +465,9 @@ public class TaobaoClientImpl extends BaseClient implements TaobaoClient {
 			if (tco.getAddrList().size() > 0) {
 				tco.setSelectedAddrId(tco.getAddrList().get(0).getAddrId());
 			}
-			
+
 			Map<String, String> formMap = new HashMap<String, String>();
-			
+
 			NodeList formNodeList = formParser.parse(formFilter);
 			if (formNodeList.size() > 0) {
 				FormTag form = (FormTag) formNodeList.elementAt(0);
@@ -477,10 +482,30 @@ public class TaobaoClientImpl extends BaseClient implements TaobaoClient {
 					TextareaTag textarea = (TextareaTag) textareas.elementAt(j);
 					formMap.put(textarea.getAttribute("name"), "");
 				}
-				
+
 			}
-			
-			
+
+			TaobaoFareRequest fareRequest = new TaobaoFareRequest();
+			fareRequest.setShop_id(formMap.get("shop_id"));
+			fareRequest.setActivity_id("");
+			fareRequest.setBuyer_from(formMap.get("buyer_from"));
+			fareRequest.setChannel(formMap.get("channel"));
+			fareRequest.setUse_cod(formMap.get("use_cod"));
+			fareRequest.setUseSelfCarry("useSelfCarry");
+			for(TaobaoOrderByShop orderShop:shopList){
+				TaobaoFareRequestOrderItems items = new TaobaoFareRequestOrderItems();
+				items.setOrderPostFree(false);
+				items.setOutOrderId(orderShop.getOutOrderId());
+				items.setPostMode(orderShop.getPostMode());
+				fareRequest.getOrderItems().add(items);
+				for(TaobaoOrderByItem orderItem:orderShop.getItemList()){
+					TaobaoFareRequestOrderItem item = new TaobaoFareRequestOrderItem();
+					item.setItem(orderItem.getDateId());
+					item.setItemPostFree(false);
+					item.setQuantity(orderItem.getQuantity().toString());
+					items.getItems().add(item);
+				}
+			}
 			return tco;
 		} catch (Exception e) {
 			log.error("", e);
