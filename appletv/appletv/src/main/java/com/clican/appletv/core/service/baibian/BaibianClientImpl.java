@@ -74,7 +74,9 @@ public class BaibianClientImpl extends BaseClient implements BaibianClient {
 			Pattern fiveSixPattern = Pattern.compile(
 					".*http://.*\\.56\\.com/.*(vid-|v_)(\\p{Alnum}*)\\.swf.*", Pattern.DOTALL);
 			Pattern youkuPattern = Pattern.compile(
-					".*http://v\\.youku\\.com/v_show/id_(.*)\\.swf.*", Pattern.DOTALL);
+					".*http://player\\.youku\\.com/player\\.php/sid/(.*)/v\\.swf.*", Pattern.DOTALL);
+			Pattern tudouPattern = Pattern.compile(
+					".*http://www\\.tudou\\.com/.*iid=(\\p{Alnum}*)\\&.*", Pattern.DOTALL);
 			JSONArray films = JSONObject.fromObject(jsonContent).getJSONArray(
 					"films");
 			for (int i = 0; i < films.size(); i++) {
@@ -99,6 +101,16 @@ public class BaibianClientImpl extends BaseClient implements BaibianClient {
 								+ "/ctl/youku/album.xml?showid="
 								+ code);
 						result.add(baibian);
+					}else{
+						Matcher tudouMatcher = tudouPattern.matcher(contentUrl);
+						if(tudouMatcher.matches()){
+							String code = tudouMatcher.group(1);
+							baibian.setMediaUrl(springProperty.getSystemServerUrl()
+									+ "/ctl//tudou/play.xml?st=4&amp;itemid="
+									+ code);
+							result.add(baibian);
+						}
+						
 					}
 				}
 			}
