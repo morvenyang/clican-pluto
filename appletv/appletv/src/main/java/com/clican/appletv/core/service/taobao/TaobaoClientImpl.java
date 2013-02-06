@@ -487,11 +487,11 @@ public class TaobaoClientImpl extends BaseClient implements TaobaoClient {
 
 			TaobaoFareRequest fareRequest = new TaobaoFareRequest();
 			fareRequest.setShop_id(formMap.get("shop_id"));
-			fareRequest.setActivity_id("");
+			fareRequest.setActivity_id("70148360");
 			fareRequest.setBuyer_from(formMap.get("buyer_from"));
 			fareRequest.setChannel(formMap.get("channel"));
 			fareRequest.setUse_cod(formMap.get("use_cod"));
-			fareRequest.setUseSelfCarry("useSelfCarry");
+			fareRequest.setUseSelfCarry(formMap.get("useSelfCarry"));
 			for (TaobaoOrderByShop orderShop : shopList) {
 				TaobaoFareRequestOrderItems items = new TaobaoFareRequestOrderItems();
 				items.setOrderPostFree(false);

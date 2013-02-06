@@ -37,6 +37,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.clican.appletv.common.SpringProperty;
 import com.clican.appletv.core.service.taobao.TaobaoClientImpl;
 import com.clican.appletv.core.service.taobao.model.TaobaoAccessToken;
+import com.clican.appletv.core.service.taobao.model.TaobaoAddress;
 import com.clican.appletv.core.service.taobao.model.TaobaoCategory;
 import com.clican.appletv.core.service.taobao.model.TaobaoConfirmOrder;
 import com.clican.appletv.core.service.taobao.model.TaobaoLoveTag;
@@ -76,7 +77,7 @@ public class TaobaoController {
 	public final static String TAOBAO_HTML_TID_NAME = "taobaoHtmlTid";
 	public final static String TAOBAO_USER_ID_NAME = "taobaoUserId";
 	public final static String TAOBAO_SELLER_CATEGORY_LIST = "taobaoSellerCategoryList";
-
+	public final static String TAOBAO_CONFIRM_ORDER = "tco";
 	public final static String TAOBAO_SKU_NAME = "taobaoSkuName";
 
 	@Autowired
@@ -826,7 +827,7 @@ public class TaobaoController {
 			request.setAttribute("title", "购物车内空空如也");
 			return "taobao/noresult";
 		} else {
-			request.getSession().setAttribute("tco", tco);
+			request.getSession().setAttribute(TAOBAO_CONFIRM_ORDER, tco);
 			return "taobao/confirmOrder";
 		}
 	}
@@ -844,6 +845,33 @@ public class TaobaoController {
 			log.debug("fareResponse\n" + fareResponse);
 		}
 		return "taobao/confirmOrder";
+	}
+
+	@RequestMapping("/taobao/getFareRequest.do")
+	public void getFareRequest(HttpServletRequest request,
+			HttpServletResponse response,
+			@RequestParam(value = "addrId", required = false) Long addrId)
+			throws Exception {
+		if (log.isDebugEnabled()) {
+			log.debug("get fare request addrId:" + addrId);
+		}
+		TaobaoConfirmOrder tco = (TaobaoConfirmOrder) request.getSession()
+				.getAttribute(TAOBAO_CONFIRM_ORDER);
+		if (tco == null) {
+			log.warn("Can't find tco from session");
+			response.getOutputStream().write("error".getBytes());
+		} else {
+			for (TaobaoAddress addr : tco.getAddrList()) {
+				if (addr.getAddrId().equals(addrId)) {
+					response.getOutputStream().write(
+							addr.getFareRequest().getBytes("utf-8"));
+					tco.setSelectedAddrId(addrId);
+					return;
+				}
+			}
+			log.warn("Can't find address by addrId");
+			response.getOutputStream().write("error".getBytes());
+		}
 	}
 
 	private Node getChildNode(Node node, int[] indexs) {

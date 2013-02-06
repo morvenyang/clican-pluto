@@ -6,12 +6,12 @@
 		<grid id="address_grid" columnCount="10">
 			<items>
 				<c:forEach var="addr" items="${tco.addrList}" varStatus="status1">
-					<actionButton id="address_button_${status1.count}" onSelect="taobaoClient.changeAddress('${addr.fareRequest}',${addr.addrId});">
+					<actionButton id="address_button_${status1.count}" onSelect="taobaoClient.changeAddress(${addr.addrId});">
 						<c:if test="${tco.selectedAddrId==addr.addrId}">
-							<title>√地址${status1.count+1}</title>
+							<title>√地址${status1.count}</title>
 						</c:if>
 						<c:if test="${tco.selectedAddrId!=addr.addrId}">
-							<title>地址${status1.count+1}</title>
+							<title>地址${status1.count}</title>
 						</c:if>
 					</actionButton>
 				</c:forEach>
@@ -20,10 +20,10 @@
 		<c:forEach var="addr" items="${tco.addrList}" varStatus="status2">
 			<collectionDivider>
 				<c:if test="${tco.selectedAddrId==addr.addrId}">
-					<title><![CDATA[√地址${status2.count+1}: ${addr.address}]]></title>
+					<title><![CDATA[√地址${status2.count}: ${addr.address}]]></title>
 				</c:if>
 				<c:if test="${tco.selectedAddrId!=addr.addrId}">
-					<title><![CDATA[地址${status2.count+1}: ${addr.address}]]></title>
+					<title><![CDATA[地址${status2.count}: ${addr.address}]]></title>
 				</c:if>
 			</collectionDivider>
 		</c:forEach>

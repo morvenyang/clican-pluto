@@ -312,7 +312,7 @@ var taobaoClient = {
 		}else{
 			appletv.makeRequest(taobaoMyCartApi, function(result){
 				if(result=='noresult'){
-					appletv.showDialog('购物车内空空如也', error);
+					appletv.showDialog('购物车内空空如也', '');
 				}else{
 					appletv.makeRequest(taobaoMyCartApi, function(mycartcontent){
 						appletv.makePostRequest(appletv.serverurl+'/ctl/taobao/myCart.do',mycartcontent,function(mycardresult){
@@ -333,11 +333,19 @@ var taobaoClient = {
 		
 	},
 	
-	changeAddress:function(fareRequest,addrId){
-		appletv.makePostRequest(taobaoGetFareApi,fareRequest,function(fareResponse){
-			appletv.makePostRequest(appletv.serverurl+'/ctl/taobao/changeAddr.xml?addrId='+addrId,fareResponse,function(xmlcontent){
-				appletv.loadXML(xmlcontent);
-			});
+	changeAddress:function(addrId){
+		appletv.makeRequest(appletv.serverurl+'/ctl/taobao/getFareRequest.do?addrId='+addrId,function(fareRequest){
+			if(fareRequest=='error'){
+				appletv.showDialog('结算页面过期请重新进入', '');
+			}else{
+				appletv.logToServer('fareRequest:'+fareRequest);
+				appletv.makePostRequest(taobaoGetFareApi,fareRequest,function(fareResponse){
+					appletv.logToServer('fareResponse:'+fareResponse);
+					appletv.makePostRequest(appletv.serverurl+'/ctl/taobao/changeAddr.xml?addrId='+addrId,fareResponse,function(xmlcontent){
+						appletv.loadXML(xmlcontent);
+					});
+				});
+			}
 		});
 	},
 }
