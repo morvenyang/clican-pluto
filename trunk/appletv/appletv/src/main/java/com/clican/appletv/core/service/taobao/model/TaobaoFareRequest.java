@@ -1,5 +1,6 @@
 package com.clican.appletv.core.service.taobao.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TaobaoFareRequest {
@@ -11,8 +12,8 @@ public class TaobaoFareRequest {
 	private String shop_id;
 	private String use_cod;
 	private String channel;
-	
-	private List<TaobaoFareRequestOrderItems> orderItems;
+
+	private List<TaobaoFareRequestOrderItems> orderItems = new ArrayList<TaobaoFareRequestOrderItems>();
 
 	public String getSecondDivisionId() {
 		return secondDivisionId;
@@ -77,7 +78,5 @@ public class TaobaoFareRequest {
 	public void setOrderItems(List<TaobaoFareRequestOrderItems> orderItems) {
 		this.orderItems = orderItems;
 	}
-	
-	
-	
+
 }
