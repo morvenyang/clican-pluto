@@ -941,14 +941,14 @@ public class TaobaoController {
 			Map<String, String> forms = tco.getForms();
 			String jsonContent = "[";
 			for (String key : forms.keySet()) {
-				jsonContent += "{name:\"" + key + "\",value:\""
+				jsonContent += "{\"name\":\"" + key + "\",\"value\":\""
 						+ forms.get(key) + "\"},";
 			}
 			if (jsonContent.endsWith(",")) {
 				jsonContent = jsonContent
 						.substring(0, jsonContent.length() - 1);
 			}
-			jsonContent = "]";
+			jsonContent += "]";
 			if(log.isDebugEnabled()){
 				log.debug("submitRequest\n"+jsonContent);
 			}

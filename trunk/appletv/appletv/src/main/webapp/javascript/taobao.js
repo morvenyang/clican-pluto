@@ -353,7 +353,9 @@ var taobaoClient = {
 	
 	submitConfirmOrder:function(){
 		appletv.makeRequest(appletv.serverurl+'/ctl/taobao/getSubmitRequest.do',function(submitRequest){
-			if(fareRequest=='error'){
+			if(submitRequest==null){
+				appletv.showDialog('系统错误', '请重新进入结算页面然后重试');
+			}else if(submitRequest=='error'){
 				appletv.showDialog('结算页面过期请重新进入', '');
 			}else{
 				appletv.logToServer('submitRequest:'+submitRequest);

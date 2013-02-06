@@ -12,6 +12,7 @@ import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang.StringUtils;
 import org.htmlparser.Node;
 import org.htmlparser.Parser;
 import org.htmlparser.PrototypicalNodeFactory;
@@ -474,15 +475,21 @@ public class TaobaoClientImpl extends BaseClient implements TaobaoClient {
 				NodeList inputs = form.getFormInputs();
 				for (int j = 0; j < inputs.size(); j++) {
 					InputTag input = (InputTag) inputs.elementAt(j);
-					formMap.put(input.getAttribute("name"),
-							input.getAttribute("value"));
+					String name = input.getAttribute("name");
+					if(StringUtils.isNotEmpty(name)){
+						formMap.put(name,
+								input.getAttribute("value"));
+					}
+					
 				}
 				NodeList textareas = form.getFormTextareas();
 				for (int j = 0; j < textareas.size(); j++) {
 					TextareaTag textarea = (TextareaTag) textareas.elementAt(j);
-					formMap.put(textarea.getAttribute("name"), "");
+					String name = textarea.getAttribute("name");
+					if(StringUtils.isNotEmpty(name)){
+						formMap.put(name, "");
+					}
 				}
-
 			}
 
 			TaobaoFareRequest fareRequest = new TaobaoFareRequest();
