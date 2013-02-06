@@ -366,7 +366,7 @@ var taobaoClient = {
 					appletv.logToServer(jsonArray[i]['name']+'='+jsonArray[i]['value']);
 				}
 				appletv.makePostRequest(taobaoSubmitOrderApi,oMyForm,function(submitResponse){
-					//appletv.logToServer('submitResponse:'+submitResponse);
+					appletv.logToServer('submitResponse:'+submitResponse);
 				});
 			}
 		});
