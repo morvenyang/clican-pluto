@@ -12,6 +12,8 @@ public class TaobaoConfirmOrder {
 	private List<TaobaoOrderByShop> shopList;
 
 	private Map<String, String> forms;
+	
+	private String fareRequest;
 
 	public List<TaobaoAddress> getAddrList() {
 		return addrList;
@@ -43,6 +45,14 @@ public class TaobaoConfirmOrder {
 
 	public void setForms(Map<String, String> forms) {
 		this.forms = forms;
+	}
+
+	public String getFareRequest() {
+		return fareRequest;
+	}
+
+	public void setFareRequest(String fareRequest) {
+		this.fareRequest = fareRequest;
 	}
 
 }
