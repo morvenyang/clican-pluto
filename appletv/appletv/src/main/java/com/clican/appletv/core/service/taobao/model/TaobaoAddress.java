@@ -7,6 +7,8 @@ public class TaobaoAddress {
 	private String areaCode;
 	
 	private Long addrId;
+	
+	private String addrParams;
 
 	public String getAddress() {
 		return address;
@@ -30,6 +32,14 @@ public class TaobaoAddress {
 
 	public void setAddrId(Long addrId) {
 		this.addrId = addrId;
+	}
+
+	public String getAddrParams() {
+		return addrParams;
+	}
+
+	public void setAddrParams(String addrParams) {
+		this.addrParams = addrParams;
 	}
 	
 	

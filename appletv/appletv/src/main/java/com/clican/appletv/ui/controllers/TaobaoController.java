@@ -1,7 +1,6 @@
 package com.clican.appletv.ui.controllers;
 
 import java.io.ByteArrayOutputStream;
-import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
@@ -803,7 +802,7 @@ public class TaobaoController {
 						+ "_0_0_0,";
 			}
 			if (result.endsWith(",")) {
-				result=result.substring(0, result.length() - 1);
+				result = result.substring(0, result.length() - 1);
 			}
 			if (log.isDebugEnabled()) {
 				log.debug("my cart content:" + result);
@@ -830,6 +829,15 @@ public class TaobaoController {
 			request.setAttribute("tco", tco);
 			return "taobao/confirmOrder";
 		}
+	}
+
+	@RequestMapping("/taobao/changeAddr.xml")
+	public String changeAddrPage(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		if (log.isDebugEnabled()) {
+			log.debug("change addr");
+		}
+		return "taobao/confirmOrder";
 	}
 
 	private Node getChildNode(Node node, int[] indexs) {
