@@ -826,16 +826,22 @@ public class TaobaoController {
 			request.setAttribute("title", "购物车内空空如也");
 			return "taobao/noresult";
 		} else {
-			request.setAttribute("tco", tco);
+			request.getSession().setAttribute("tco", tco);
 			return "taobao/confirmOrder";
 		}
 	}
 
 	@RequestMapping("/taobao/changeAddr.xml")
 	public String changeAddrPage(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
+			HttpServletResponse response,
+			@RequestParam(value = "addrId", required = false) Long addrId)
+			throws Exception {
 		if (log.isDebugEnabled()) {
-			log.debug("change addr");
+			log.debug("change addr:" + addrId);
+		}
+		String fareResponse = this.getContent(request);
+		if (log.isDebugEnabled()) {
+			log.debug("fareResponse\n" + fareResponse);
 		}
 		return "taobao/confirmOrder";
 	}

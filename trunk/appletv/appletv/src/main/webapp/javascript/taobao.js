@@ -333,9 +333,9 @@ var taobaoClient = {
 		
 	},
 	
-	changeAddress:function(fareRequest){
+	changeAddress:function(fareRequest,addrId){
 		appletv.makePostRequest(taobaoGetFareApi,fareRequest,function(fareResponse){
-			appletv.makePostRequest(appletv.serverurl+'/ctl/taobao/changeAddr.xml',fareResponse,function(xmlcontent){
+			appletv.makePostRequest(appletv.serverurl+'/ctl/taobao/changeAddr.xml?addrId='+addrId,fareResponse,function(xmlcontent){
 				appletv.loadXML(xmlcontent);
 			});
 		});
