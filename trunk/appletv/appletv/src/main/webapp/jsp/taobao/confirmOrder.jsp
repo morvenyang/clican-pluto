@@ -48,7 +48,12 @@
 					<c:forEach var="item" items="${shop.itemList}">
 						<moviePoster id="shelf_item_${item.itemId}" alwaysShowTitles="true">
 							<title><![CDATA[${item.title}]]></title>
-							<subtitle><![CDATA[价格:${item.price}元 数量:${item.quantity}]]></subtitle>
+							<c:if test="${item.promotion!=null}">
+								<subtitle><![CDATA[价格:${item.price}元 折扣价:${item.price-item.promotion.discount} 数量:${item.quantity}]]></subtitle>
+							</c:if>
+							<c:if test="${item.promotion==null}">
+								<subtitle><![CDATA[价格:${item.price}元 数量:${item.quantity}]]></subtitle>
+							</c:if>
 							<image>${item.picUrl}</image>
 							<defaultImage>resource://Poster.png</defaultImage>
 						</moviePoster>
