@@ -9,6 +9,8 @@ public class TaobaoAddress {
 	private Long addrId;
 	
 	private String addrParams;
+	
+	private String fareRequest;
 
 	public String getAddress() {
 		return address;
@@ -41,6 +43,16 @@ public class TaobaoAddress {
 	public void setAddrParams(String addrParams) {
 		this.addrParams = addrParams;
 	}
+
+	public String getFareRequest() {
+		return fareRequest;
+	}
+
+	public void setFareRequest(String fareRequest) {
+		this.fareRequest = fareRequest;
+	}
+
+	
 	
 	
 }
