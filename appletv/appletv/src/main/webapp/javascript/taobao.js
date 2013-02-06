@@ -288,7 +288,7 @@ var taobaoClient = {
 			appletv
 			.makeRequest(
 					appletv.serverurl + '/ctl/taobao/getTokenAndTid.do',
-					function(sessiontoken) {
+					function(tokenAndTid) {
 						if (tokenAndTid == null
 								|| tokenAndTid.length == 0) {
 							taobaoClient.showLoginPage();
@@ -339,7 +339,9 @@ var taobaoClient = {
 				appletv.showDialog('结算页面过期请重新进入', '');
 			}else{
 				appletv.logToServer('fareRequest:'+fareRequest);
-				appletv.makePostRequest(taobaoGetFareApi,fareRequest,function(fareResponse){
+				var oMyForm = new FormData();
+				oMyForm.append("json", fareRequest);
+				appletv.makePostRequest(taobaoGetFareApi,oMyForm,function(fareResponse){
 					appletv.logToServer('fareResponse:'+fareResponse);
 					appletv.makePostRequest(appletv.serverurl+'/ctl/taobao/changeAddr.xml?addrId='+addrId,fareResponse,function(xmlcontent){
 						appletv.loadXML(xmlcontent);

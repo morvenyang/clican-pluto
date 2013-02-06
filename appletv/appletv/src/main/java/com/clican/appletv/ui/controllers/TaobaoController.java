@@ -40,7 +40,9 @@ import com.clican.appletv.core.service.taobao.model.TaobaoAccessToken;
 import com.clican.appletv.core.service.taobao.model.TaobaoAddress;
 import com.clican.appletv.core.service.taobao.model.TaobaoCategory;
 import com.clican.appletv.core.service.taobao.model.TaobaoConfirmOrder;
+import com.clican.appletv.core.service.taobao.model.TaobaoFare;
 import com.clican.appletv.core.service.taobao.model.TaobaoLoveTag;
+import com.clican.appletv.core.service.taobao.model.TaobaoOrderByShop;
 import com.clican.appletv.core.service.taobao.model.TaobaoSkuCache;
 import com.clican.appletv.core.service.taobao.model.TaobaoSkuValue;
 import com.clican.appletv.ext.htmlparser.StrongTag;
@@ -841,10 +843,60 @@ public class TaobaoController {
 			log.debug("change addr:" + addrId);
 		}
 		String fareResponse = this.getContent(request);
-		if (log.isDebugEnabled()) {
-			log.debug("fareResponse\n" + fareResponse);
+		TaobaoConfirmOrder tco = (TaobaoConfirmOrder) request.getSession()
+				.getAttribute(TAOBAO_CONFIRM_ORDER);
+		if (tco == null) {
+			request.setAttribute("title", "结算页面过期请重新进入");
+			return "taobao/noresult";
+		} else {
+			JSONObject json = JSONObject.fromObject(fareResponse);
+			for (TaobaoOrderByShop shop : tco.getShopList()) {
+				JSONArray array = json.getJSONArray(shop.getOutOrderId());
+				List<TaobaoFare> fareList = new ArrayList<TaobaoFare>();
+				for (int i = 0; i < array.size(); i++) {
+					JSONObject fareJson = array.getJSONObject(i);
+					TaobaoFare fare = new TaobaoFare();
+					fare.setId(fareJson.getString("id"));
+					fare.setLabel(fareJson.getString("message"));
+					fareList.add(fare);
+				}
+				shop.setFareList(fareList);
+			}
+
+			for (TaobaoAddress addr : tco.getAddrList()) {
+				if (addr.getAddrId().equals(addrId)) {
+					String addrParams = addr.getAddrParams();
+					String[] params = addrParams.split("^^");
+					for (String param : params) {
+						int index = param.indexOf("=");
+						if (index > 0) {
+							String name = param.substring(0, index);
+							String value = "";
+							if (index < param.length()) {
+								value = param.substring(index + 1);
+							}
+							if (name.equals("id")) {
+								tco.getForms().put("addressId", value);
+							} else if (name.equals("address")) {
+								tco.getForms().put("deliverAddr", value);
+							} else if (name.equals("postCode")) {
+								tco.getForms().put("postCode", value);
+							} else if (name.equals("mobile")) {
+								tco.getForms().put("deliverMobile", value);
+							} else if (name.equals("addressee")) {
+								tco.getForms().put("deliverName", value);
+							} else if (name.equals("phone")) {
+								tco.getForms().put("deliverPhone", value);
+							} else if (name.equals("areaCode")) {
+								tco.getForms().put("divisionCode", value);
+							}
+						}
+					}
+				}
+			}
+			return "taobao/confirmOrder";
 		}
-		return "taobao/confirmOrder";
+
 	}
 
 	@RequestMapping("/taobao/getFareRequest.do")
