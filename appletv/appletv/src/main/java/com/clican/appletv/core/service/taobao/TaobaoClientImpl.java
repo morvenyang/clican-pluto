@@ -525,13 +525,13 @@ public class TaobaoClientImpl extends BaseClient implements TaobaoClient {
 			}
 
 			AndFilter promotionFilter = new AndFilter(new TagNameFilter(
-					"textarea "), new HasAttributeFilter("id",
+					"textarea"), new HasAttributeFilter("id",
 					"J_PromotionInitData"));
 			NodeList promotionListNode = promotionParser.parse(promotionFilter);
 			if (promotionListNode.size() > 0) {
 				TextareaTag promotionNode = (TextareaTag) promotionListNode
 						.elementAt(0);
-				String promotion = promotionNode.getStringText();
+				String promotion = promotionNode.getValue();
 				JSONObject promotionJson = JSONObject.fromObject(promotion);
 				JSONObject relation = promotionJson.getJSONObject("relation");
 				JSONArray crossId = relation.getJSONArray("cross_id");
