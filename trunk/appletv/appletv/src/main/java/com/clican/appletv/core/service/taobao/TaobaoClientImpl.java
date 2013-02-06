@@ -510,6 +510,7 @@ public class TaobaoClientImpl extends BaseClient implements TaobaoClient {
 				addr.setFareRequest(JSONObject.fromObject(fareRequest)
 						.toString());
 			}
+			tco.setForms(formMap);
 			return tco;
 		} catch (Exception e) {
 			log.error("", e);

@@ -949,6 +949,9 @@ public class TaobaoController {
 						.substring(0, jsonContent.length() - 1);
 			}
 			jsonContent = "]";
+			if(log.isDebugEnabled()){
+				log.debug("submitRequest\n"+jsonContent);
+			}
 			response.getOutputStream().write(jsonContent.getBytes("utf-8"));
 		}
 	}
