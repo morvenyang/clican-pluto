@@ -13,7 +13,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<input type="button" onclick="taobaoClient.login('clicanclican','clican@810428');" value="淘宝登录"/>
+<input type="button" onclick="taobaoClient.login('clicantest001','clican@001');" value="淘宝登录"/>
 <input type="button" onclick="alert(Date.parse(new Date()));" value="当前时间"/>
 
 <input type="button" onclick="taobaoClient.addToShoppingCart(16270348608,18655253252,'${taobaoHtmlTid}');" value="加入购物车"/>
