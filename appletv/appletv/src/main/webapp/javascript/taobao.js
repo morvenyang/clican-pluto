@@ -8,6 +8,7 @@ var taobaoAddToShoppingCartApi = 'http://cart.taobao.com/add_cart_item.htm?bankf
 var taobaoConfirmOrderApi = 'http://buy.taobao.com/auction/order/confirm_order.htm';
 var taobaoMyCartApi = 'http://cart.taobao.com/my_cart.htm';
 var taobaoSubmitOrderApi = 'http://buy.taobao.com/auction/order/unity_order_confirm.htm';
+var taobaoGetFareApi = 'http://buy.taobao.com/auction/json/get_fare.do';
 var taobaoClient = {
 	login : function(username, password) {
 		var url = taobaoLoginApi + "?TPL_username=" + username
@@ -332,4 +333,11 @@ var taobaoClient = {
 		
 	},
 	
+	changeAddress:function(fareRequest){
+		appletv.makePostRequest(taobaoGetFareApi,fareRequest,function(fareResponse){
+			appletv.makePostRequest(appletv.serverurl+'/ctl/taobao/changeAddr.xml',fareResponse,function(xmlcontent){
+				appletv.loadXML(xmlcontent);
+			});
+		});
+	},
 }
