@@ -28,7 +28,7 @@
 			</collectionDivider>
 		</c:forEach>
 		<c:forEach var="shop" items="${tco.shopList}" varStatus="status3">
-			<collectionDivider><title><![CDATA[${shop.title}]]></title></collectionDivider>
+			<collectionDivider><title><![CDATA[${shop.title} ${shop.promotion.title}]]></title></collectionDivider>
 			<grid id="shop_fare_${status3.count}" columnCount="5">
 				<items>
 					<c:forEach var="fare" items="${shop.fareList}">
