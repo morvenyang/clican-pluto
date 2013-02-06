@@ -6,7 +6,7 @@
 		<grid id="address_grid" columnCount="10">
 			<items>
 				<c:forEach var="addr" items="${tco.addrList}" varStatus="status1">
-					<actionButton id="address_button_${status1.count}" onSelect="${serverurl}/ctl/taobao/changeAddr.xml?areaCode=${addr.areaCode}&amp;addrId=${addr.addrId}">
+					<actionButton id="address_button_${status1.count}" onSelect="taobaoClient.changeAddress('${addr.fareRequest}',${addr.addrId});">
 						<c:if test="${tco.selectedAddrId==addr.addrId}">
 							<title>√地址${status1.count+1}</title>
 						</c:if>
