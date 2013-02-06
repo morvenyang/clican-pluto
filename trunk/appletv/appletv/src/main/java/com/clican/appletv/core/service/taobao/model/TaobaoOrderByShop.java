@@ -11,6 +11,8 @@ public class TaobaoOrderByShop {
 	private String outOrderId;
 	
 	private String selectedFareId;
+	
+	private String fareName;
 
 	private List<TaobaoFare> fareList;
 
@@ -62,6 +64,14 @@ public class TaobaoOrderByShop {
 
 	public void setSelectedFareId(String selectedFareId) {
 		this.selectedFareId = selectedFareId;
+	}
+
+	public String getFareName() {
+		return fareName;
+	}
+
+	public void setFareName(String fareName) {
+		this.fareName = fareName;
 	}
 	
 	

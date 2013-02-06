@@ -389,7 +389,9 @@ public class TaobaoClientImpl extends BaseClient implements TaobaoClient {
 					new HasAttributeFilter("class", "J_Fare"));
 			AndFilter itemFilter = new AndFilter(new TagNameFilter("tr"),
 					new HasAttributeFilter("class", "item"));
-
+			AndFilter formFilter = new AndFilter(new TagNameFilter("form"),
+					new HasAttributeFilter("id", "J_Form"));
+			
 			for (int i = 0; i < orderByShopListNode.size(); i++) {
 				TaobaoOrderByShop shop = new TaobaoOrderByShop();
 				shopList.add(shop);
@@ -412,7 +414,8 @@ public class TaobaoClientImpl extends BaseClient implements TaobaoClient {
 				NodeList fareNodeList = new NodeList();
 				orderByShopNode.collectInto(fareNodeList, fareFilter);
 				if (fareNodeList.size() > 0) {
-					Node fareSelectNode = fareNodeList.elementAt(0);
+					TagNode fareSelectNode = (TagNode)fareNodeList.elementAt(0);
+					shop.setFareName(fareSelectNode.getAttribute("name"));
 					for (int j = 0; j < fareSelectNode.getChildren().size(); j++) {
 						Node fareNode = fareSelectNode.getChildren().elementAt(
 								j);
@@ -455,10 +458,9 @@ public class TaobaoClientImpl extends BaseClient implements TaobaoClient {
 			if (tco.getAddrList().size() > 0) {
 				tco.setSelectedAddrId(tco.getAddrList().get(0).getAddrId());
 			}
-
+			
 			Map<String, String> formMap = new HashMap<String, String>();
-			AndFilter formFilter = new AndFilter(new TagNameFilter("form"),
-					new HasAttributeFilter("id", "J_Form"));
+			
 			NodeList formNodeList = formParser.parse(formFilter);
 			if (formNodeList.size() > 0) {
 				FormTag form = (FormTag) formNodeList.elementAt(0);
@@ -473,6 +475,7 @@ public class TaobaoClientImpl extends BaseClient implements TaobaoClient {
 					TextareaTag textarea = (TextareaTag) textareas.elementAt(j);
 					formMap.put(textarea.getAttribute("name"), "");
 				}
+				
 			}
 			return tco;
 		} catch (Exception e) {
