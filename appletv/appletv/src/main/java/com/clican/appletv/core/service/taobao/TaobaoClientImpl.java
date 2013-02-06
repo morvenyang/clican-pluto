@@ -535,6 +535,7 @@ public class TaobaoClientImpl extends BaseClient implements TaobaoClient {
 				JSONObject promotionJson = JSONObject.fromObject(promotion);
 				JSONObject relation = promotionJson.getJSONObject("relation");
 				JSONArray crossId = relation.getJSONArray("cross_id");
+				JSONObject proms = promotionJson.getJSONObject("promos");
 				Map<String, List<String>> shopMap = new HashMap<String, List<String>>();
 				for (int i = 0; i < crossId.size(); i++) {
 					String shopId = crossId.getString(i);
@@ -545,6 +546,7 @@ public class TaobaoClientImpl extends BaseClient implements TaobaoClient {
 						shopMap.get(shopId).add(itemId);
 					}
 				}
+				
 				JSONObject orders = promotionJson.getJSONObject("orders");
 				for (TaobaoOrderByShop shop : shopList) {
 					String shopId = "b_" + shop.getOutOrderId();
@@ -553,13 +555,18 @@ public class TaobaoClientImpl extends BaseClient implements TaobaoClient {
 						String value = shopPromotionJson.getString("bundle");
 						JSONObject valueJson = shopPromotionJson.getJSONObject(
 								"bundles").getJSONObject(value);
+						JSONArray promArray = proms.getJSONObject(value).getJSONArray("unused");
 						TaobaoPromotion shopPromotion = new TaobaoPromotion();
 						shopPromotion.setTitle(valueJson.getString("title"));
 						shopPromotion.setName("bundleList_" + shopId);
 						shopPromotion.setDiscount(valueJson
 								.getDouble("discount") / 100);
-						shopPromotion.setValue(value);
-						formMap.put(shopPromotion.getName(), shopPromotion.getValue());
+						if(promArray.size()>0){
+							shopPromotion.setValue(promArray.getString(0));
+						}
+						if(StringUtils.isNotEmpty(shopPromotion.getValue())){
+							formMap.put(shopPromotion.getName(), shopPromotion.getValue());
+						}
 						shop.setPromotion(shopPromotion);
 					}
 					for (TaobaoOrderByItem item : shop.getItemList()) {
@@ -569,13 +576,19 @@ public class TaobaoClientImpl extends BaseClient implements TaobaoClient {
 							String value = itemPromotionJson.getString("bundle");
 							JSONObject valueJson = itemPromotionJson.getJSONObject(
 									"bundles").getJSONObject(value);
+							JSONArray promArray = proms.getJSONObject(value).getJSONArray("unused");
 							TaobaoPromotion itemPromotion = new TaobaoPromotion();
 							itemPromotion.setTitle(valueJson.getString("title"));
 							itemPromotion.setName("bundleList_" + dataId);
 							itemPromotion.setDiscount(valueJson
 									.getDouble("discount") / 100);
-							itemPromotion.setValue(value);
-							shop.setPromotion(itemPromotion);
+							if(promArray.size()>0){
+								itemPromotion.setValue(promArray.getString(0));
+							}
+							if(StringUtils.isNotEmpty(itemPromotion.getValue())){
+								formMap.put(itemPromotion.getName(), itemPromotion.getValue());
+							}
+							item.setPromotion(itemPromotion);
 							formMap.put(itemPromotion.getName(), itemPromotion.getValue());
 						}
 					}
