@@ -31,14 +31,14 @@ public class BaibianController {
 			throws IOException {
 
 		if (page == null) {
-			page = 0;
+			page = 1;
 		}
 		List<Baibian> videos = baibianClient.queryVideos(page);
 		String pagiurl = springProperty.getSystemServerUrl()
 				+ "/ctl/baibian/index.xml?1=1";
 		request.setAttribute("pagiurl", pagiurl);
 		request.setAttribute("page", page);
-		int begin, end = 0;
+		int begin=1, end = 0;
 		if (page < 90) {
 			begin = page;
 			end = page + 9;
