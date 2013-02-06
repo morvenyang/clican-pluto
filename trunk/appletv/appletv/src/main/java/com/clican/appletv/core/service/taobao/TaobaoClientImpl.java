@@ -354,10 +354,12 @@ public class TaobaoClientImpl extends BaseClient implements TaobaoClient {
 						addrLabel = addrLabel.replace("LABEL:", "").trim();
 						TaobaoAddress addr = new TaobaoAddress();
 						addr.setAddress(addrLabel);
+						
 						TagNode addrValueNode = (TagNode) this.getChildNode(
 								bullet, new int[] { 3 });
 						addr.setAddrId(Long.parseLong(addrValueNode
 								.getAttribute("value")));
+						addr.setAddrParams(addrValueNode.getAttribute("ah:params"));
 						String areaCode = addrValueNode
 								.getAttribute("ah:params");
 						if (areaCode != null) {
