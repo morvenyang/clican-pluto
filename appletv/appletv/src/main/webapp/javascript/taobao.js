@@ -366,7 +366,11 @@ var taobaoClient = {
 					appletv.logToServer(jsonArray[i]['name']+'='+jsonArray[i]['value']);
 				}
 				appletv.makePostRequest(taobaoSubmitOrderApi,oMyForm,function(submitResponse){
-					appletv.logToServer('submitResponse:'+submitResponse);
+					if(submitResponse!=null&&submitResponse.indexOf("doAlipayPay")!=-1){
+						appletv.showDialog('订单已经提交', '请去淘宝官方进行支付');
+					}else{
+						appletv.showDialog('订单提交失败', '');
+					}
 				});
 			}
 		});
