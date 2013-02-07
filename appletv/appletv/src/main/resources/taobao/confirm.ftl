@@ -41,7 +41,12 @@
 								<td style="text-align: left;padding-left: 70px;"><a href="#" style="text-decoration: none;">${item.title}</a></td>
 								<td>${item.price}</td>
 								<td >${item.quantity}</td>
+								<#if item.promotion??>
 								<td>${item.promotion.title}</td>
+								</#if>
+								<#if !item.promotion??>
+								<td>无优惠</td>
+								</#if>
 								<td style="text-align: right"><span
 									style="color: red; font: bold 12px tahoma; margin-right: 15px;">${item.actualPrice}</span>
 								</td>

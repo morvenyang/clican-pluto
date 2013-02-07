@@ -69,4 +69,12 @@ public class TaobaoConfirmOrder {
 		this.total = total;
 	}
 
+	public long getRandom() {
+		return random;
+	}
+
+	public void setRandom(long random) {
+		this.random = random;
+	}
+
 }
