@@ -1,12 +1,18 @@
 package com.clican.appletv.core.service.taobao;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import javax.imageio.ImageIO;
+import javax.imageio.stream.MemoryCacheImageOutputStream;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -52,6 +58,12 @@ import com.taobao.api.internal.util.WebUtils;
 import com.taobao.api.request.ItemcatsGetRequest;
 import com.taobao.api.response.ItemcatsGetResponse;
 
+import freemarker.core.Environment;
+import freemarker.template.Configuration;
+import freemarker.template.DefaultObjectWrapper;
+import freemarker.template.Template;
+import gui.ava.html.image.generator.HtmlImageGenerator;
+
 public class TaobaoClientImpl extends BaseClient implements TaobaoClient {
 
 	private Map<Long, TaobaoCategory> taobaoCategoryMap = new HashMap<Long, TaobaoCategory>();
@@ -59,6 +71,8 @@ public class TaobaoClientImpl extends BaseClient implements TaobaoClient {
 	private com.taobao.api.TaobaoClient taobaoRestClient;
 
 	private List<TaobaoCategory> taobaoTopCategoryList;
+
+	private Configuration cfg = new Configuration();
 
 	public void setTaobaoRestClient(com.taobao.api.TaobaoClient taobaoRestClient) {
 		this.taobaoRestClient = taobaoRestClient;
@@ -229,6 +243,9 @@ public class TaobaoClientImpl extends BaseClient implements TaobaoClient {
 					}
 				}
 			}
+			cfg.setDirectoryForTemplateLoading(new File(Thread.currentThread()
+					.getContextClassLoader().getResource("taobao").getFile()));
+			cfg.setObjectWrapper(new DefaultObjectWrapper());
 		} catch (Exception e) {
 			log.error("", e);
 		}
@@ -339,6 +356,9 @@ public class TaobaoClientImpl extends BaseClient implements TaobaoClient {
 		Parser addrParser = Parser.createParser(htmlContent, "utf-8");
 		Parser shopParser = Parser.createParser(htmlContent, "utf-8");
 		Parser formParser = Parser.createParser(htmlContent, "utf-8");
+		ByteArrayOutputStream os = null;
+		MemoryCacheImageOutputStream mos = null;
+		ByteArrayOutputStream ios = null;
 		try {
 			addrParser.setNodeFactory(factory);
 			shopParser.setNodeFactory(factory);
@@ -546,7 +566,7 @@ public class TaobaoClientImpl extends BaseClient implements TaobaoClient {
 						shopMap.get(shopId).add(itemId);
 					}
 				}
-				
+
 				JSONObject orders = promotionJson.getJSONObject("orders");
 				for (TaobaoOrderByShop shop : shopList) {
 					String shopId = "b_" + shop.getOutOrderId();
@@ -555,51 +575,93 @@ public class TaobaoClientImpl extends BaseClient implements TaobaoClient {
 						String value = shopPromotionJson.getString("bundle");
 						JSONObject valueJson = shopPromotionJson.getJSONObject(
 								"bundles").getJSONObject(value);
-						JSONArray promArray = proms.getJSONObject(value).getJSONArray("unused");
+						JSONArray promArray = proms.getJSONObject(value)
+								.getJSONArray("unused");
 						TaobaoPromotion shopPromotion = new TaobaoPromotion();
 						shopPromotion.setTitle(valueJson.getString("title"));
 						shopPromotion.setName("bundleList_" + shopId);
 						shopPromotion.setDiscount(valueJson
 								.getDouble("discount") / 100);
-						if(promArray.size()>0){
+						if (promArray.size() > 0) {
 							shopPromotion.setValue(promArray.getString(0));
 						}
-						if(StringUtils.isNotEmpty(shopPromotion.getValue())){
-							formMap.put(shopPromotion.getName(), shopPromotion.getValue());
+						if (StringUtils.isNotEmpty(shopPromotion.getValue())) {
+							formMap.put(shopPromotion.getName(),
+									shopPromotion.getValue());
 						}
 						shop.setPromotion(shopPromotion);
 					}
 					for (TaobaoOrderByItem item : shop.getItemList()) {
 						String dataId = item.getDataId();
-						JSONObject itemPromotionJson = orders.getJSONObject(dataId);
+						JSONObject itemPromotionJson = orders
+								.getJSONObject(dataId);
 						if (itemPromotionJson.containsKey("bundle")) {
-							String value = itemPromotionJson.getString("bundle");
-							JSONObject valueJson = itemPromotionJson.getJSONObject(
-									"bundles").getJSONObject(value);
-							JSONArray promArray = proms.getJSONObject(value).getJSONArray("unused");
+							String value = itemPromotionJson
+									.getString("bundle");
+							JSONObject valueJson = itemPromotionJson
+									.getJSONObject("bundles").getJSONObject(
+											value);
+							JSONArray promArray = proms.getJSONObject(value)
+									.getJSONArray("unused");
 							TaobaoPromotion itemPromotion = new TaobaoPromotion();
-							itemPromotion.setTitle(valueJson.getString("title"));
+							itemPromotion
+									.setTitle(valueJson.getString("title"));
 							itemPromotion.setName("bundleList_" + dataId);
 							itemPromotion.setDiscount(valueJson
 									.getDouble("discount") / 100);
-							if(promArray.size()>0){
+							if (promArray.size() > 0) {
 								itemPromotion.setValue(promArray.getString(0));
 							}
-							if(StringUtils.isNotEmpty(itemPromotion.getValue())){
-								formMap.put(itemPromotion.getName(), itemPromotion.getValue());
+							if (StringUtils
+									.isNotEmpty(itemPromotion.getValue())) {
+								formMap.put(itemPromotion.getName(),
+										itemPromotion.getValue());
 							}
 							item.setPromotion(itemPromotion);
-							formMap.put(itemPromotion.getName(), itemPromotion.getValue());
+							formMap.put(itemPromotion.getName(),
+									itemPromotion.getValue());
 						}
 					}
 				}
 			}
-			
+
 			tco.setForms(formMap);
+			Map<String,Object> rootMap = new HashMap<String,Object>();
+			rootMap.put("tco", tco);
+			Template template = cfg.getTemplate("confirm.ftl");
+			os = new ByteArrayOutputStream();
+			Writer out = new OutputStreamWriter(os);
+			Environment env = template.createProcessingEnvironment(rootMap, out);
+			env.setOutputEncoding("utf-8");
+			env.process(); 
+			out.flush();
+			String content = new String(os.toByteArray(),"utf-8");
+			HtmlImageGenerator generator = new HtmlImageGenerator();
+			generator.loadHtml(content);
+			ios = new ByteArrayOutputStream();
+			mos = new MemoryCacheImageOutputStream(ios);
+			ImageIO.write(generator.getBufferedImage(), "png", mos);
+			tco.setConfirmOrderImage(ios.toByteArray());
 			return tco;
 		} catch (Exception e) {
 			log.error("", e);
 			return null;
+		} finally {
+			try {
+				os.close();
+			} catch (Exception e) {
+				log.error("", e);
+			}
+			try {
+				ios.close();
+			} catch (Exception e) {
+				log.error("", e);
+			}
+			try {
+				mos.close();
+			} catch (Exception e) {
+				log.error("", e);
+			}
 		}
 	}
 }
