@@ -2,6 +2,7 @@ package com.clican.appletv.core.service.taobao;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.util.ArrayList;
@@ -353,6 +354,7 @@ public class TaobaoClientImpl extends BaseClient implements TaobaoClient {
 		factory.registerTag(new STag());
 		factory.registerTag(new TbodyTag());
 		Parser promotionParser = Parser.createParser(htmlContent, "utf-8");
+		Parser orderParser = Parser.createParser(htmlContent, "utf-8");
 		Parser addrParser = Parser.createParser(htmlContent, "utf-8");
 		Parser shopParser = Parser.createParser(htmlContent, "utf-8");
 		Parser formParser = Parser.createParser(htmlContent, "utf-8");
@@ -364,7 +366,7 @@ public class TaobaoClientImpl extends BaseClient implements TaobaoClient {
 			shopParser.setNodeFactory(factory);
 			formParser.setNodeFactory(factory);
 			promotionParser.setNodeFactory(factory);
-
+			orderParser.setNodeFactory(factory);
 			AndFilter addrFilter = new AndFilter(new TagNameFilter("ul"),
 					new HasAttributeFilter("id", "address-list"));
 
@@ -418,13 +420,9 @@ public class TaobaoClientImpl extends BaseClient implements TaobaoClient {
 					new HasAttributeFilter("class", "seller"));
 			AndFilter fareFilter = new AndFilter(new TagNameFilter("select"),
 					new HasAttributeFilter("class", "J_Fare"));
-			AndFilter fareFeeFilter = new AndFilter(new TagNameFilter("em"),
-					new HasAttributeFilter("class", "style-normal-bold-red J_FareSum"));
-			AndFilter shopTotalFilter = new AndFilter(new TagNameFilter("em"),
-					new HasAttributeFilter("class", "style-middle-bold-red J_ShopTotal"));
 			AndFilter itemFilter = new AndFilter(new TagNameFilter("tr"),
 					new HasAttributeFilter("class", "item"));
-			
+
 			AndFilter formFilter = new AndFilter(new TagNameFilter("form"),
 					new HasAttributeFilter("id", "J_Form"));
 
@@ -448,12 +446,8 @@ public class TaobaoClientImpl extends BaseClient implements TaobaoClient {
 					shop.setTitle(hrefNode.getStringText());
 				}
 				NodeList fareNodeList = new NodeList();
-				NodeList fareFeeNodeList = new NodeList();
-				NodeList shopTotalNodeList = new NodeList();
 				orderByShopNode.collectInto(fareNodeList, fareFilter);
-				orderByShopNode.collectInto(fareFeeNodeList, fareFeeFilter);
-				orderByShopNode.collectInto(shopTotalNodeList, shopTotalFilter);
-				
+
 				if (fareNodeList.size() > 0) {
 					TagNode fareSelectNode = (TagNode) fareNodeList
 							.elementAt(0);
@@ -470,18 +464,11 @@ public class TaobaoClientImpl extends BaseClient implements TaobaoClient {
 							if (fareList.size() == 1) {
 								shop.setSelectedFareId(fare.getId());
 								shop.setSelectedFare(fare);
-								if(fareFeeNodeList.size()!=0){
-									EmTag fareFeeNode = (EmTag)fareFeeNodeList.elementAt(0);
-									fare.setFareFee(Double.parseDouble(fareFeeNode.getStringText()));
-								}
 							}
 						}
 					}
 				}
-				if(shopTotalNodeList.size()!=0){
-					EmTag shopTotalNode = (EmTag)shopTotalNodeList.elementAt(0);
-					shop.setTotal(Double.parseDouble(shopTotalNode.getStringText()));
-				}
+
 				NodeList itemNodeList = new NodeList();
 				orderByShopNode.collectInto(itemNodeList, itemFilter);
 				for (int j = 0; j < itemNodeList.size(); j++) {
@@ -565,6 +552,9 @@ public class TaobaoClientImpl extends BaseClient implements TaobaoClient {
 			AndFilter promotionFilter = new AndFilter(new TagNameFilter(
 					"textarea"), new HasAttributeFilter("id",
 					"J_PromotionInitData"));
+			AndFilter orderFilter = new AndFilter(
+					new TagNameFilter("textarea"), new HasAttributeFilter("id",
+							"J_OrderInitData"));
 			NodeList promotionListNode = promotionParser.parse(promotionFilter);
 			if (promotionListNode.size() > 0) {
 				TextareaTag promotionNode = (TextareaTag) promotionListNode
@@ -642,24 +632,55 @@ public class TaobaoClientImpl extends BaseClient implements TaobaoClient {
 					}
 				}
 			}
-
+			NodeList orderListNode = orderParser.parse(orderFilter);
+			double tcoTotal = 0;
+			if (orderListNode.size() > 0) {
+				TextareaTag orderNode = (TextareaTag) orderListNode
+						.elementAt(0);
+				String order = orderNode.getValue();
+				JSONObject orderJson = JSONObject.fromObject(order);
+				JSONObject ordersJson = orderJson.getJSONObject("orders");
+				for (TaobaoOrderByShop shop : shopList) {
+					String shopId = "b_" + shop.getOutOrderId();
+					JSONArray shopFareJsons = ordersJson.getJSONObject(shopId).getJSONArray("postages");
+					for(int i=0;i<shopFareJsons.size();i++){
+						JSONObject shopFareJson = shopFareJsons.getJSONObject(i);
+						if(shopFareJson.getBoolean("select")){
+							shop.getSelectedFare().setFareFee(shopFareJson.getDouble("fare")/100);
+						}
+					}
+					double total = 0;
+					for(TaobaoOrderByItem item:shop.getItemList()){
+						total+=item.getActualPrice();
+					}
+					total+=shop.getSelectedFare().getFareFee();
+					shop.setTotal(total);
+					tcoTotal+=total;
+				}
+				
+			}
+			tco.setTotal(tcoTotal);
 			tco.setForms(formMap);
-			Map<String,Object> rootMap = new HashMap<String,Object>();
+			Map<String, Object> rootMap = new HashMap<String, Object>();
 			rootMap.put("tco", tco);
-			Template template = cfg.getTemplate("confirm.ftl","utf-8");
+			Template template = cfg.getTemplate("confirm.ftl", "utf-8");
 			os = new ByteArrayOutputStream();
-			Writer out = new OutputStreamWriter(os,"utf-8");
-			Environment env = template.createProcessingEnvironment(rootMap, out);
+			Writer out = new OutputStreamWriter(os, "utf-8");
+			Environment env = template
+					.createProcessingEnvironment(rootMap, out);
 			env.setOutputEncoding("utf-8");
-			env.process(); 
+			env.process();
 			out.flush();
-			String content = new String(os.toByteArray(),"utf-8");
+			String content = new String(os.toByteArray(), "utf-8");
 			HtmlImageGenerator generator = new HtmlImageGenerator();
 			generator.loadHtml(content);
 			ios = new ByteArrayOutputStream();
 			mos = new MemoryCacheImageOutputStream(ios);
 			ImageIO.write(generator.getBufferedImage(), "png", mos);
 			tco.setConfirmOrderImage(ios.toByteArray());
+			FileOutputStream fos = new FileOutputStream("c:/confirm.png");
+			fos.write(ios.toByteArray());
+			fos.close();
 			return tco;
 		} catch (Exception e) {
 			log.error("", e);

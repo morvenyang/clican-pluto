@@ -48,7 +48,7 @@
 								</td>
 							</tr>
 							</#list>
-							<#if shop.promotion!=null>
+							<#if shop.promotion??>
 							<tr style="background-color: #f2f7ff;text-align: center;overflow: hidden;padding: 5px 0;height: 30px">
 								<td colspan="2"></td>
 								<td >店铺优惠：</td>
@@ -68,10 +68,15 @@
 							</tr>
 							<tr style="background-color: #f2f7ff;text-align: center;overflow: hidden;padding: 5px 0;height: 30px">
 								<td colspan="5" style="margin: 0;padding: 0;text-align:right">店铺合计(含运费，服务费)：￥<span
-										style="color: #F50; font: bold 12px tahoma; margin-right: 15px;">${shop.total}</span>
+										style="color: red; font: bold 12px tahoma; margin-right: 15px;">${shop.total}</span>
 								</td>
 							</tr>
 							</#list> 
+							<tr style="background-color: #f2f7ff;text-align: center;overflow: hidden;padding: 5px 0;height: 30px">
+								<td colspan="5" style="margin: 0;padding: 0;text-align:right">合计：￥<span
+										style="color: red; font: bold 12px tahoma; margin-right: 15px;">${tco.total}</span>
+								</td>
+							</tr>
 						</tbody>
 					</table>
 				</div>

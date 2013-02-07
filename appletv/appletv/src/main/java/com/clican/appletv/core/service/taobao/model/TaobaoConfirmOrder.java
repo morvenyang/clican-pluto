@@ -15,6 +15,8 @@ public class TaobaoConfirmOrder {
 	
 	private byte[] confirmOrderImage;
 	
+	private Double total;
+	
 	public List<TaobaoAddress> getAddrList() {
 		return addrList;
 	}
@@ -53,6 +55,14 @@ public class TaobaoConfirmOrder {
 
 	public void setConfirmOrderImage(byte[] confirmOrderImage) {
 		this.confirmOrderImage = confirmOrderImage;
+	}
+
+	public Double getTotal() {
+		return total;
+	}
+
+	public void setTotal(Double total) {
+		this.total = total;
 	}
 
 }
