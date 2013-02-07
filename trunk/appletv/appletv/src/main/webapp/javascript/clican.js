@@ -267,6 +267,20 @@ var appletv = {
 			return null;
 		}
 	},
+	
+	setSessionValue:function(key,value){
+		if(!this.simulate){
+			atv.sessionStorage[key] = value;
+		}
+	},
+	
+	getSessionValue:function(key){
+		if(!this.simulate) {
+			return atv.sessionStorage[key];
+		}else{
+			return null;
+		}
+	},
 
 	showInputTextPage : function(label, instructions, callback, callbackName,initialText) {
 		if (this.simulate) {

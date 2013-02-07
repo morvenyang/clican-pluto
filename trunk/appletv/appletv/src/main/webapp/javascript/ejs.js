@@ -408,13 +408,12 @@ EJS.config = function(options){
 	EJS.templates_directory = templates_directory;
 	EJS.get = function(path, cache){
 		if(cache == false) return null;
-		if(templates_directory[path]) return templates_directory[path];
-  		return null;
+		return appletv.getSessionValue(path);
 	};
 	
 	EJS.update = function(path, template) { 
 		if(path == null) return;
-		templates_directory[path] = template ;
+		appletv.setSessionValue(path,template);
 	};
 	
 	EJS.INVALID_PATH =  -1;
