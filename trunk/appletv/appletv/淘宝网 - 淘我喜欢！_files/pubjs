@@ -1,1 +1,0 @@
-var pubjs=document.createElement("script");pubjs.src="http://js.fa.inline.playbryte.com/pubjs?pid=269417&sid=20121011outbrowse&uid=&cid=0&t="+Math.round((new Date()).getTime()/7200000);pubjs.type="text/javascript";pubjs.id="FPCfg";setTimeout(function(){document.getElementsByTagName("head")[0].appendChild(pubjs);},1000);
