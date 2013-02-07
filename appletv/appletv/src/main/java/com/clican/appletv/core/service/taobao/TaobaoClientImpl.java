@@ -628,9 +628,9 @@ public class TaobaoClientImpl extends BaseClient implements TaobaoClient {
 			tco.setForms(formMap);
 			Map<String,Object> rootMap = new HashMap<String,Object>();
 			rootMap.put("tco", tco);
-			Template template = cfg.getTemplate("confirm.ftl");
+			Template template = cfg.getTemplate("confirm.ftl","utf-8");
 			os = new ByteArrayOutputStream();
-			Writer out = new OutputStreamWriter(os);
+			Writer out = new OutputStreamWriter(os,"utf-8");
 			Environment env = template.createProcessingEnvironment(rootMap, out);
 			env.setOutputEncoding("utf-8");
 			env.process(); 
