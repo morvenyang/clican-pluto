@@ -48,8 +48,11 @@
 		</c:forEach>
 		<grid id="submit_grid" columnCount="10">
 			<items>
-				<actionButton id="submit1" onSelect="onPhotoSelection('${serverurl}/ctl/taobao/getConfirmOrder.png?random=${tco.random}'});">
+				<actionButton id="submit1" onSelect="onPhotoSelection('${serverurl}/ctl/taobao/getConfirmOrder.png?random=${tco.random}'});" onPlay="onPhotoSelection('${serverurl}/ctl/taobao/getConfirmOrder.png?random=${tco.random}'});">
 					<title>详细</title>
+				</actionButton>
+				<actionButton id="submit1" onSelect="taobaoClient.submitConfirmOrder();" onPlay="taobaoClient.submitConfirmOrder();">
+					<title>提交</title>
 				</actionButton>
 			</items>
 		</grid>
