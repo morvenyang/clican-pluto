@@ -1,5 +1,6 @@
 package com.clican.appletv.core.service.taobao.model;
 
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
@@ -14,6 +15,8 @@ public class TaobaoConfirmOrder {
 	private Map<String, String> forms;
 	
 	private byte[] confirmOrderImage;
+	
+	private long random = Calendar.getInstance().getTimeInMillis();
 	
 	private Double total;
 	
@@ -55,6 +58,7 @@ public class TaobaoConfirmOrder {
 
 	public void setConfirmOrderImage(byte[] confirmOrderImage) {
 		this.confirmOrderImage = confirmOrderImage;
+		random = Calendar.getInstance().getTimeInMillis();
 	}
 
 	public Double getTotal() {

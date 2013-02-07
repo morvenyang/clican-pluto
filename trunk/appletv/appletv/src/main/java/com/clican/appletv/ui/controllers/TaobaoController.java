@@ -842,6 +842,20 @@ public class TaobaoController {
 			return "taobao/confirmOrder";
 		}
 	}
+	
+	@RequestMapping("/taobao/getConfirmOrder.png")
+	public void getConfirmOrderPng(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		if (log.isDebugEnabled()) {
+			log.debug("access confirm order");
+		}
+		String htmlContent = this.getContent(request);
+		TaobaoConfirmOrder tco = taobaoClient.getConfirmOrder(htmlContent);
+		response.setContentType("image/png");
+		response.setContentLength(tco.getConfirmOrderImage().length);
+		response.getOutputStream().write(tco.getConfirmOrderImage());
+	}
+	
 
 	@RequestMapping("/taobao/changeAddr.xml")
 	public String changeAddrPage(HttpServletRequest request,

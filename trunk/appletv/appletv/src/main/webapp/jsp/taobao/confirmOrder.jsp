@@ -1,5 +1,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %><%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %><%@ page contentType="text/xml;charset=utf-8" %><?xml version="1.0" encoding="UTF-8"?>
 <atv>
+<head>
+<script src="${serverurl}/javascript/clican.js"/>
+<script src="${serverurl}/javascript/taobao.js"/>
+<script src="${serverurl}/javascript/photoPreview.js"/>
+</head>
 <body>
 <scroller id="com.sample.movie-shelf">
 	<items>
@@ -28,32 +33,12 @@
 			</collectionDivider>
 		</c:forEach>
 		<c:forEach var="shop" items="${tco.shopList}" varStatus="status3">
-			<collectionDivider><title><![CDATA[${shop.title} ${shop.promotion.title}]]></title></collectionDivider>
-			<grid id="shop_fare_${status3.count}" columnCount="5">
-				<items>
-					<c:forEach var="fare" items="${shop.fareList}">
-						<actionButton onSelect="${serverurl}/ctl/taobao/changeFare.xml?outOrderId=${shop.outOrderId}&amp;fareId=${fare.id}">
-							<c:if test="${shop.selectedFareId==fare.id}">
-								<title><![CDATA[√${fare.label}]]></title>
-							</c:if>
-							<c:if test="${shop.selectedFareId!=fare.id}">
-								<title><![CDATA[${fare.label}]]></title>
-							</c:if>
-						</actionButton>
-					</c:forEach>
-				</items>
-			</grid>
+			<collectionDivider><title><![CDATA[${shop.title}]]></title></collectionDivider>
 			<grid id="shop_item_grid_${status3.count}" columnCount="5">
 				<items>
 					<c:forEach var="item" items="${shop.itemList}">
 						<moviePoster id="shelf_item_${item.itemId}" alwaysShowTitles="true">
 							<title><![CDATA[${item.title}]]></title>
-							<c:if test="${item.promotion!=null}">
-								<subtitle><![CDATA[价格:${item.price}元 折扣价:${item.price-item.promotion.discount} 数量:${item.quantity}]]></subtitle>
-							</c:if>
-							<c:if test="${item.promotion==null}">
-								<subtitle><![CDATA[价格:${item.price}元 数量:${item.quantity}]]></subtitle>
-							</c:if>
 							<image>${item.picUrl}</image>
 							<defaultImage>resource://Poster.png</defaultImage>
 						</moviePoster>
@@ -61,6 +46,13 @@
 				</items>
 			</grid>
 		</c:forEach>
+		<grid id="submit_grid" columnCount="10">
+			<items>
+				<actionButton id="submit1" onSelect="onPhotoSelection('${serverurl}/ctl/taobao/getConfirmOrder.png?random=${tco.random}'});">
+					<title>详细</title>
+				</actionButton>
+			</items>
+		</grid>
 	</items>
 </scroller>
 </body>
