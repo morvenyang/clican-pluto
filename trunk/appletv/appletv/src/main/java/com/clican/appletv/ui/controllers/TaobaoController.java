@@ -148,7 +148,7 @@ public class TaobaoController {
 			if (StringUtils.isNotEmpty(token) && StringUtils.isNotEmpty(tid)) {
 				if (log.isDebugEnabled()) {
 					log.debug("Taobao user login successfully, with token:"
-							+ token + ",tid=" + tid);
+							+ token + ",tid:" + tid);
 				}
 				request.getSession()
 						.setAttribute(TAOBAO_HTML_TOKEN_NAME, token);
@@ -186,7 +186,8 @@ public class TaobaoController {
 			log.debug("get token from session");
 		}
 		if (StringUtils.isNotEmpty(token) && StringUtils.isNotEmpty(tid)) {
-			String content = "{token:'" + token + "',tid='" + tid + "'}";
+			String content = "{\"token\":\"" + token + "\",\"tid\":\"" + tid + "\"}";
+			log.debug(content);
 			response.getOutputStream().write(content.getBytes());
 		} else {
 			response.getOutputStream().write("".getBytes());
