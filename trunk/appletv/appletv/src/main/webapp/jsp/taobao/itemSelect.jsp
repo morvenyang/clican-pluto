@@ -12,7 +12,7 @@
 				<grid id="g${status1.count}" columnCount="10">
 					<items>
 						<c:forEach items="${tsc.skuDisplayLabelValueMap[label]}" var="tsu" varStatus="status2">
-							<actionButton id="ab${status2.count}" onPlay="atv.loadURL('${serverurl}/ctl/taobao/itemDetail.xml?itemId=${tsc.item.numIid}&amp;selectedValue=${status1.count-1}:${tsu.value}');" onSelect="atv.loadURL('${serverurl}/ctl/taobao/itemDetail.xml?itemId=${tsc.item.numIid}&amp;selectedValue=${status1.count-1}:${tsu.value}');">
+							<actionButton id="ab${status2.count}" onPlay="atv.loadURL('${serverurl}/ctl/taobao/itemSelect.xml?itemId=${tsc.item.numIid}&amp;selectedValue=${status1.count-1}:${tsu.value}');" onSelect="atv.loadURL('${serverurl}/ctl/taobao/itemSelect.xml?itemId=${tsc.item.numIid}&amp;selectedValue=${status1.count-1}:${tsu.value}');">
 								<c:if test="${fn:contains(tsc.selectedValueString,tsu.value)}">
 									<title><![CDATA[√${tsu.label}]]></title>
 								</c:if>

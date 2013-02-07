@@ -736,8 +736,8 @@ public class TaobaoController {
 		return cache;
 	}
 
-	@RequestMapping("/taobao/itemDetail.xml")
-	public String itemDetailPage(
+	@RequestMapping("/taobao/itemSelect.xml")
+	public String itemSelectPage(
 			HttpServletRequest request,
 			HttpServletResponse response,
 			@RequestParam(value = "itemId", required = false) Long itemId,
@@ -760,7 +760,7 @@ public class TaobaoController {
 		tsc.updateSelectedValues(selectedValue);
 		request.setAttribute("tsc", tsc);
 		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
-		return "taobao/itemDetail";
+		return "taobao/itemSelect";
 
 	}
 
