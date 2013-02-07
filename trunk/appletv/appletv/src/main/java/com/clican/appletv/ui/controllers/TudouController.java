@@ -41,6 +41,8 @@ public class TudouController {
 	public String jstest(HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
 		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
+		log.debug(request.getSession().getAttribute("taobaoHtmlToken"));
+		log.debug(request.getSession().getAttribute("taobaoHtmlTid"));
 		return "jstest";
 	}
 
