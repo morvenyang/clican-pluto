@@ -178,7 +178,7 @@ var taobaoClient = {
 			appletv
 					.makeRequest(
 							appletv.serverurl + '/ctl/taobao/getTokenAndTid.do',
-							function(sessiontoken) {
+							function(tokenAndTid) {
 								if (tokenAndTid == null
 										|| tokenAndTid.length == 0) {
 									taobaoClient.showLoginPage();
