@@ -33,8 +33,7 @@
 							</tr>
 							<tr style="line-height: 30px;">
 								<td colspan="3">店铺：<a
-									href="#" target="_blank" style="text-decoration: none;">${shop.title}</a> <span>卖家：<a
-										href="#" style="text-decoration: none;">${shop.title}</a> </span></td>
+									href="#" target="_blank" style="text-decoration: none;">${shop.title}</a> <span>卖家：${shop.title}</a> </span></td>
 								<td colspan="2"></td>
 							</tr>
 							<#list shop.itemList as item>

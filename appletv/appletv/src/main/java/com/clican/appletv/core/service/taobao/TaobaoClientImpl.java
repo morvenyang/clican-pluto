@@ -2,10 +2,10 @@ package com.clican.appletv.core.service.taobao;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -342,6 +342,7 @@ public class TaobaoClientImpl extends BaseClient implements TaobaoClient {
 
 	@Override
 	public TaobaoConfirmOrder getConfirmOrder(String htmlContent) {
+		Date startDate = new Date();
 		TaobaoConfirmOrder tco = new TaobaoConfirmOrder();
 		List<TaobaoOrderByShop> shopList = new ArrayList<TaobaoOrderByShop>();
 		List<TaobaoAddress> addrList = new ArrayList<TaobaoAddress>();
@@ -642,22 +643,25 @@ public class TaobaoClientImpl extends BaseClient implements TaobaoClient {
 				JSONObject ordersJson = orderJson.getJSONObject("orders");
 				for (TaobaoOrderByShop shop : shopList) {
 					String shopId = "b_" + shop.getOutOrderId();
-					JSONArray shopFareJsons = ordersJson.getJSONObject(shopId).getJSONArray("postages");
-					for(int i=0;i<shopFareJsons.size();i++){
-						JSONObject shopFareJson = shopFareJsons.getJSONObject(i);
-						if(shopFareJson.getBoolean("select")){
-							shop.getSelectedFare().setFareFee(shopFareJson.getDouble("fare")/100);
+					JSONArray shopFareJsons = ordersJson.getJSONObject(shopId)
+							.getJSONArray("postages");
+					for (int i = 0; i < shopFareJsons.size(); i++) {
+						JSONObject shopFareJson = shopFareJsons
+								.getJSONObject(i);
+						if (shopFareJson.getBoolean("select")) {
+							shop.getSelectedFare().setFareFee(
+									shopFareJson.getDouble("fare") / 100);
 						}
 					}
 					double total = 0;
-					for(TaobaoOrderByItem item:shop.getItemList()){
-						total+=item.getActualPrice();
+					for (TaobaoOrderByItem item : shop.getItemList()) {
+						total += item.getActualPrice();
 					}
-					total+=shop.getSelectedFare().getFareFee();
+					total += shop.getSelectedFare().getFareFee();
 					shop.setTotal(total);
-					tcoTotal+=total;
+					tcoTotal += total;
 				}
-				
+
 			}
 			tco.setTotal(tcoTotal);
 			tco.setForms(formMap);
@@ -678,9 +682,11 @@ public class TaobaoClientImpl extends BaseClient implements TaobaoClient {
 			mos = new MemoryCacheImageOutputStream(ios);
 			ImageIO.write(generator.getBufferedImage(), "png", mos);
 			tco.setConfirmOrderImage(ios.toByteArray());
-			FileOutputStream fos = new FileOutputStream("c:/confirm.png");
-			fos.write(ios.toByteArray());
-			fos.close();
+			Date endDate = new Date();
+			if (log.isDebugEnabled()) {
+				log.debug("spend " + (endDate.getTime() - startDate.getTime())
+						+ " ms to generate confirm order");
+			}
 			return tco;
 		} catch (Exception e) {
 			log.error("", e);
