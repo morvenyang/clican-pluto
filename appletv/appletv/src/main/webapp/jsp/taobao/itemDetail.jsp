@@ -29,7 +29,7 @@
 				<grid id="addToShoppingCart">
 					<items>
 						<actionButton id="addshop" onPlay="taobaoClient.addToShoppingCart(${tsc.item.numIid},${tsc.selectedSku.skuId},'${taobaoHtmlTid}');" onSelect="taobaoClient.addToShoppingCart(${tsc.item.numIid},${tsc.selectedSku.skuId},'${taobaoHtmlTid}');">
-							<title>购物车</title>
+							<title>进购物车</title>
 						</actionButton>
 						<actionButton id="clean" onPlay="taobaoClient.loadConfirmOrderPage('${taobaoHtmlToken}');" onSelect="taobaoClient.loadConfirmOrderPage('${taobaoHtmlToken}');">
 							<title>结算</title>
@@ -42,7 +42,7 @@
 				<grid id="addToShoppingCart">
 					<items>
 						<actionButton id="addshop" onPlay="taobaoClient.addToShoppingCart(${tsc.item.numIid},${tsc.item.numIid},'${taobaoHtmlTid}');" onSelect="taobaoClient.addToShoppingCart(${tsc.item.numIid},${tsc.item.numIid},'${taobaoHtmlTid}');">
-							<title>购物车</title>
+							<title>进购物车</title>
 						</actionButton>
 						<actionButton id="clean" onPlay="taobaoClient.loadConfirmOrderPage('${taobaoHtmlToken}');" onSelect="taobaoClient.loadConfirmOrderPage('${taobaoHtmlToken}');">
 							<title>结算</title>
