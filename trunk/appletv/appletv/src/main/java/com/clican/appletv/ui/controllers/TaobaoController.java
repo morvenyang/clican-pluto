@@ -795,6 +795,8 @@ public class TaobaoController {
 		Parser itemParser = Parser.createParser(htmlContent, "utf-8");
 		AndFilter idFilter = new AndFilter(new TagNameFilter("tr"),
 				new HasAttributeFilter("data-cartid"));
+		AndFilter amountFilter = new AndFilter(new TagNameFilter("input"),
+				new HasAttributeFilter("class", "text text-amount"));
 		NodeList itemNodeList = itemParser.parse(idFilter);
 		if (itemNodeList.size() == 0) {
 			response.setCharacterEncoding("text/plain;charset=utf-8");
@@ -810,8 +812,18 @@ public class TaobaoController {
 				if (StringUtils.isEmpty(skuid)) {
 					skuid = "0";
 				}
-				result = result + cardid + "_" + itemid + "_1_" + skuid
-						+ "_0_0_0,";
+				NodeList amountNodeList = new NodeList();
+				itemNode.collectInto(amountNodeList, amountFilter);
+				if (amountNodeList.size() > 0) {
+					String amount = ((TagNode) amountNodeList.elementAt(0))
+							.getAttribute("value");
+					result = result + cardid + "_" + itemid + "_" + amount
+							+ "_" + skuid + "_0_0_0,";
+				} else {
+					result = result + cardid + "_" + itemid + "_1_" + skuid
+							+ "_0_0_0,";
+				}
+
 			}
 			if (result.endsWith(",")) {
 				result = result.substring(0, result.length() - 1);
@@ -838,24 +850,25 @@ public class TaobaoController {
 			request.setAttribute("title", "购物车内空空如也");
 			return "taobao/noresult";
 		} else {
+			request.setAttribute("serverurl",
+					springProperty.getSystemServerUrl());
 			request.getSession().setAttribute(TAOBAO_CONFIRM_ORDER, tco);
 			return "taobao/confirmOrder";
 		}
 	}
-	
+
 	@RequestMapping("/taobao/getConfirmOrder.png")
 	public void getConfirmOrderPng(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		if (log.isDebugEnabled()) {
 			log.debug("access confirm order");
 		}
-		String htmlContent = this.getContent(request);
-		TaobaoConfirmOrder tco = taobaoClient.getConfirmOrder(htmlContent);
+		TaobaoConfirmOrder tco = (TaobaoConfirmOrder) request.getSession()
+				.getAttribute(TAOBAO_CONFIRM_ORDER);
 		response.setContentType("image/png");
 		response.setContentLength(tco.getConfirmOrderImage().length);
 		response.getOutputStream().write(tco.getConfirmOrderImage());
 	}
-	
 
 	@RequestMapping("/taobao/changeAddr.xml")
 	public String changeAddrPage(HttpServletRequest request,
@@ -966,11 +979,11 @@ public class TaobaoController {
 			String jsonContent = "[";
 			for (String key : forms.keySet()) {
 				String value = forms.get(key);
-				if(value==null){
-					value="";
+				if (value == null) {
+					value = "";
 				}
-				jsonContent += "{\"name\":\"" + key + "\",\"value\":\""
-						+ value + "\"},";
+				jsonContent += "{\"name\":\"" + key + "\",\"value\":\"" + value
+						+ "\"},";
 				formStr += key + ":" + value + "\n";
 			}
 			for (TaobaoOrderByShop shop : tco.getShopList()) {

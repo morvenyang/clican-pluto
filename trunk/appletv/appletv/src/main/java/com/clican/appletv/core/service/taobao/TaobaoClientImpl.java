@@ -658,6 +658,9 @@ public class TaobaoClientImpl extends BaseClient implements TaobaoClient {
 						total += item.getActualPrice();
 					}
 					total += shop.getSelectedFare().getFareFee();
+					if (shop.getPromotion() != null) {
+						total = total - shop.getPromotion().getDiscount();
+					}
 					shop.setTotal(total);
 					tcoTotal += total;
 				}

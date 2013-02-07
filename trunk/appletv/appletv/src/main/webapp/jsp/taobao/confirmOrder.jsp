@@ -51,7 +51,7 @@
 				<actionButton id="submit1" onSelect="onPhotoSelection('${serverurl}/ctl/taobao/getConfirmOrder.png?random=${tco.random}'});" onPlay="onPhotoSelection('${serverurl}/ctl/taobao/getConfirmOrder.png?random=${tco.random}'});">
 					<title>详细</title>
 				</actionButton>
-				<actionButton id="submit1" onSelect="taobaoClient.submitConfirmOrder();" onPlay="taobaoClient.submitConfirmOrder();">
+				<actionButton id="submit2" onSelect="taobaoClient.submitConfirmOrder();" onPlay="taobaoClient.submitConfirmOrder();">
 					<title>提交</title>
 				</actionButton>
 			</items>
