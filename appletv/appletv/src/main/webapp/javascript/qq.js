@@ -37,7 +37,7 @@ var qqClient ={
 		},
 		
 		loadIndexPage: function(keyword,page,channelId){
-			atv.loadXML(appletv.makeDialog('加载中...','Loading...'));
+			appletv.showDialog('加载中...','Loading...');
 			var channel = this.qqChannelMap[channelId];
 			var videos = [];
 			var queryUrl;
@@ -136,7 +136,7 @@ var qqClient ={
 			}
 			var data = {'channel':channel,'keyword':keyword,'begin':begin,'end':end,'channels':qqClient.qqChannels,'serverurl':appletv.serverurl,'videos':videos};
 			var xml = new EJS({url: appletv.serverurl+'/template/qq/index.ejs'}).render(data);
-			atv.loadAndSwapXML(atv.parseXML(xml));
+			appletv.loadAndSwapXML(xml);
 		},
 		
 		loadAlbumPage: function(id){
