@@ -227,6 +227,15 @@ var appletv = {
 			atv.loadXML(atv.parseXML(xml));
 		}
 	},
+	
+	loadAndSwapXML : function(xml) {
+		if (this.simulate) {
+			document.documentElement.innerHTML = '<html><head></head><body><textarea rows=\"100\" cols=\"150\">'
+					+ xml + '</textarea></body></html>';
+		} else {
+			atv.loadAndSwapXML(atv.parseXML(xml));
+		}
+	},
 
 	loadURL : function(url) {
 		if (this.simulate) {
