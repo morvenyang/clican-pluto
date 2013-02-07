@@ -12,7 +12,9 @@ public class TaobaoConfirmOrder {
 	private List<TaobaoOrderByShop> shopList;
 
 	private Map<String, String> forms;
-
+	
+	private byte[] confirmOrderImage;
+	
 	public List<TaobaoAddress> getAddrList() {
 		return addrList;
 	}
@@ -43,6 +45,14 @@ public class TaobaoConfirmOrder {
 
 	public void setForms(Map<String, String> forms) {
 		this.forms = forms;
+	}
+
+	public byte[] getConfirmOrderImage() {
+		return confirmOrderImage;
+	}
+
+	public void setConfirmOrderImage(byte[] confirmOrderImage) {
+		this.confirmOrderImage = confirmOrderImage;
 	}
 
 }
