@@ -115,7 +115,8 @@ var taobaoClient = {
 									taobaoClient.showLoginPage();
 								} else {
 									var tat = JSON.parse(tokenAndTid);
-									url = url +'&item_id='+id+'&outer_id='+skuid+'&ct='+tid;
+									appletv.logToServer(tat['tid']);
+									url = url +'&item_id='+id+'&outer_id='+skuid+'&ct='+tat['tid'];
 									appletv.logToServer(url);
 									appletv.makePostRequest(url, null,taobaoClient.showAddToShoppingCartResult);
 								}
