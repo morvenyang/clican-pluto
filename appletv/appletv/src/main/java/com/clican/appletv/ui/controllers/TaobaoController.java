@@ -624,8 +624,10 @@ public class TaobaoController {
 		UmpPromotionGetRequest req2 = new UmpPromotionGetRequest();
 		req2.setItemId(itemId);
 		UmpPromotionGetResponse resp2 = taobaoRestClient.execute(req2);
-		List<PromotionInItem> piiList = resp2.getPromotions()
-				.getPromotionInItem();
+		List<PromotionInItem> piiList = null;
+		if (resp2.getPromotions() != null) {
+			piiList = resp2.getPromotions().getPromotionInItem();
+		}
 
 		TaobaokeItemsRelateGetRequest req3 = new TaobaokeItemsRelateGetRequest();
 		req3.setRelateType(1L);
