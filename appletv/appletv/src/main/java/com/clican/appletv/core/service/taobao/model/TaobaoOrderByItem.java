@@ -73,7 +73,13 @@ public class TaobaoOrderByItem {
 		this.promotion = promotion;
 	}
 
-	
+	public Double getActualPrice(){
+		if(promotion==null){
+			return price.doubleValue();
+		}else{
+			return price-promotion.getDiscount();
+		}
+	}
 	
 	
 }
