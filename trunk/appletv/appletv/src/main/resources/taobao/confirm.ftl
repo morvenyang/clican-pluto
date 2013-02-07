@@ -37,45 +37,38 @@
 										href="#" style="text-decoration: none;">${shop.title}</a> </span></td>
 								<td colspan="2"></td>
 							</tr>
+							<#list shop.itemList as item>
 							<tr style="background-color: #fafcff;text-align: center;overflow: hidden;padding: 5px 0;height: 70px">
-								<td style="text-align: left;padding-left: 70px;"><a href="#" style="text-decoration: none;">
-										格子衬衫 女长袖棉韩版修身格子衬衣短款英伦加厚韩国大码 </a></td>
-								<td>110.00</td>
-								<td >6</td>
-								<td>省330元:只限今日</td>
+								<td style="text-align: left;padding-left: 70px;"><a href="#" style="text-decoration: none;">${item.title}</a></td>
+								<td>${item.price}</td>
+								<td >${item.quantity}</td>
+								<td>${item.promotion.title}</td>
 								<td style="text-align: right"><span
-									style="color: red; font: bold 12px tahoma; margin-right: 15px;">330.00</span>
+									style="color: red; font: bold 12px tahoma; margin-right: 15px;">${item.actualPrice}</span>
 								</td>
 							</tr>
-							<tr style="background-color: #fafcff;text-align: center;overflow: hidden;padding: 5px 0;height: 70px">
-								<td style="text-align: left;padding-left: 70px;"><a href="#" style="text-decoration: none;">
-										格子衬衫 女长袖棉韩版修身格子衬衣短款英伦加厚韩国大码 </a></td>
-								<td>110.00</td>
-								<td >6</td>
-								<td>省330元:只限今日</td>
-								<td style="text-align: right"><span
-									style="color: red; font: bold 12px tahoma; margin-right: 15px;">330.00</span>
-								</td>
-							</tr>
+							</#list>
+							<#if shop.promotion!=null>
 							<tr style="background-color: #f2f7ff;text-align: center;overflow: hidden;padding: 5px 0;height: 30px">
 								<td colspan="2"></td>
 								<td >店铺优惠：</td>
-								<td>省10元:秋季</td>
+								<td>${shop.promotion.title}</td>
 								<td style="text-align: right"><span
-									style="color: #404040; font: bold 12px tahoma; margin-right: 15px;">-10.00</span>
+									style="color: #404040; font: bold 12px tahoma; margin-right: 15px;">-${shop.promotion.discount}</span>
 								</td>
 							</tr>
+							</#if>
 							<tr style="background-color: #f2f7ff;text-align: center;overflow: hidden;padding: 5px 0;height: 30px">
 								<td colspan="2"></td>
 								<td >运送方式：</td>
-								<td>快递 免运费</td>
+								<td>${shop.selectedFare.label}</td>
 								<td style="text-align: right"><span
-									style="color: red; font: bold 12px tahoma; margin-right: 15px;">0.00</span>
+									style="color: red; font: bold 12px tahoma; margin-right: 15px;">${shop.selectedFare.fareFee}</span>
 								</td>
 							</tr>
 							<tr style="background-color: #f2f7ff;text-align: center;overflow: hidden;padding: 5px 0;height: 30px">
 								<td colspan="5" style="margin: 0;padding: 0;text-align:right">店铺合计(含运费，服务费)：￥<span
-										style="color: #F50; font: bold 12px tahoma; margin-right: 15px;">320.00</span>
+										style="color: #F50; font: bold 12px tahoma; margin-right: 15px;">${shop.total}</span>
 								</td>
 							</tr>
 							</#list> 

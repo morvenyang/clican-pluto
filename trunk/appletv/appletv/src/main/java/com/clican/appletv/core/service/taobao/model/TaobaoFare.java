@@ -5,6 +5,8 @@ public class TaobaoFare {
 	private String label;
 	
 	private String id;
+	
+	private Double fareFee;
 
 	public String getLabel() {
 		return label;
@@ -20,6 +22,14 @@ public class TaobaoFare {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public Double getFareFee() {
+		return fareFee;
+	}
+
+	public void setFareFee(Double fareFee) {
+		this.fareFee = fareFee;
 	}
 	
 }

@@ -418,8 +418,13 @@ public class TaobaoClientImpl extends BaseClient implements TaobaoClient {
 					new HasAttributeFilter("class", "seller"));
 			AndFilter fareFilter = new AndFilter(new TagNameFilter("select"),
 					new HasAttributeFilter("class", "J_Fare"));
+			AndFilter fareFeeFilter = new AndFilter(new TagNameFilter("em"),
+					new HasAttributeFilter("class", "style-normal-bold-red J_FareSum"));
+			AndFilter shopTotalFilter = new AndFilter(new TagNameFilter("em"),
+					new HasAttributeFilter("class", "style-middle-bold-red J_ShopTotal"));
 			AndFilter itemFilter = new AndFilter(new TagNameFilter("tr"),
 					new HasAttributeFilter("class", "item"));
+			
 			AndFilter formFilter = new AndFilter(new TagNameFilter("form"),
 					new HasAttributeFilter("id", "J_Form"));
 
@@ -443,7 +448,12 @@ public class TaobaoClientImpl extends BaseClient implements TaobaoClient {
 					shop.setTitle(hrefNode.getStringText());
 				}
 				NodeList fareNodeList = new NodeList();
+				NodeList fareFeeNodeList = new NodeList();
+				NodeList shopTotalNodeList = new NodeList();
 				orderByShopNode.collectInto(fareNodeList, fareFilter);
+				orderByShopNode.collectInto(fareFeeNodeList, fareFeeFilter);
+				orderByShopNode.collectInto(shopTotalNodeList, shopTotalFilter);
+				
 				if (fareNodeList.size() > 0) {
 					TagNode fareSelectNode = (TagNode) fareNodeList
 							.elementAt(0);
@@ -459,11 +469,19 @@ public class TaobaoClientImpl extends BaseClient implements TaobaoClient {
 							fareList.add(fare);
 							if (fareList.size() == 1) {
 								shop.setSelectedFareId(fare.getId());
+								shop.setSelectedFare(fare);
+								if(fareFeeNodeList.size()!=0){
+									EmTag fareFeeNode = (EmTag)fareFeeNodeList.elementAt(0);
+									fare.setFareFee(Double.parseDouble(fareFeeNode.getStringText()));
+								}
 							}
 						}
 					}
 				}
-
+				if(shopTotalNodeList.size()!=0){
+					EmTag shopTotalNode = (EmTag)shopTotalNodeList.elementAt(0);
+					shop.setTotal(Double.parseDouble(shopTotalNode.getStringText()));
+				}
 				NodeList itemNodeList = new NodeList();
 				orderByShopNode.collectInto(itemNodeList, itemFilter);
 				for (int j = 0; j < itemNodeList.size(); j++) {

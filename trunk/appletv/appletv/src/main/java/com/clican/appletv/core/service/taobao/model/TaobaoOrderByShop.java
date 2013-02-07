@@ -19,6 +19,10 @@ public class TaobaoOrderByShop {
 	private List<TaobaoOrderByItem> itemList;
 	
 	private TaobaoPromotion promotion;
+	
+	private TaobaoFare selectedFare;
+	
+	private Double total;
 
 	public String getTitle() {
 		return title;
@@ -82,6 +86,22 @@ public class TaobaoOrderByShop {
 
 	public void setPromotion(TaobaoPromotion promotion) {
 		this.promotion = promotion;
+	}
+
+	public TaobaoFare getSelectedFare() {
+		return selectedFare;
+	}
+
+	public void setSelectedFare(TaobaoFare selectedFare) {
+		this.selectedFare = selectedFare;
+	}
+
+	public Double getTotal() {
+		return total;
+	}
+
+	public void setTotal(Double total) {
+		this.total = total;
 	}
 	
 	
