@@ -258,6 +258,14 @@ var appletv = {
 
 	},
 	
+	showSwapDialog : function(message, description) {
+		if (this.simulate) {
+			alert(message);
+		} else {
+			atv.loadAndSwapXML(this.makeDialog(message, description));
+		}
+
+	},
 	
 	setValue:function(key,value){
 		if(!this.simulate){
