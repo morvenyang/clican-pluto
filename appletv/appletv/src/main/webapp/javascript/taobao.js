@@ -300,7 +300,10 @@ var taobaoClient = {
 										appletv.showDialog('购物车内空空如也', '');
 									}else{
 										appletv.makePostRequest(taobaoConfirmOrderApi+'?'+mycardresult,null, function(htmlcontent){
-											appletv.makePostRequest(appletv.serverurl+'/ctl/taobao/confirmOrder.xml?deviceId='+appletv.getDeviceUdid(),htmlcontent,function(xmlcontent){
+											var oMyForm = new FormData();
+											oMyForm.append('deviceId', appletv.getDeviceUdid());
+											oMyForm.append('htmlContent', htmlcontent);
+											appletv.makePostRequest(appletv.serverurl+'/ctl/taobao/confirmOrder.xml',oMyForm,function(xmlcontent){
 												appletv.loadXML(xmlcontent);
 											});
 										});
@@ -320,10 +323,11 @@ var taobaoClient = {
 							if(mycardresult=='noresult'){
 								appletv.showDialog('购物车内空空如也', '');
 							}else{
-								appletv.makePostRequest(taobaoConfirmOrderApi+'?'+mycardresult,null, function(htmlcontent){
-									appletv.makePostRequest(appletv.serverurl+'/ctl/taobao/confirmOrder.xml?deviceId='+appletv.getDeviceUdid(),htmlcontent,function(xmlcontent){
-										appletv.loadXML(xmlcontent);
-									});
+								var oMyForm = new FormData();
+								oMyForm.append('deviceId', appletv.getDeviceUdid());
+								oMyForm.append('htmlContent', htmlcontent);
+								appletv.makePostRequest(appletv.serverurl+'/ctl/taobao/confirmOrder.xml',oMyForm,function(xmlcontent){
+									appletv.loadXML(xmlcontent);
 								});
 							}
 						});
