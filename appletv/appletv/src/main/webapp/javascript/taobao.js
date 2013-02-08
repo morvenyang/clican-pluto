@@ -25,9 +25,9 @@ var taobaoClient = {
 					+ '/ctl/taobao/loginWithTokenAndTid.do', htmlcontent, function(
 					content) {
 				if (content == 'success') {
-					appletv.showDialog('登录成功', '');
+					appletv.showSwapDialog('登录成功', '');
 				} else {
-					appletv.showDialog('登录失败', '');
+					appletv.showSwapDialog('登录失败', '');
 				}
 			});
 		});
@@ -44,6 +44,7 @@ var taobaoClient = {
 			var password = usernameAndPassword
 					.substring(index + 1);
 			appletv.setValue('taobaousernameandpassword',usernameAndPassword);
+			appletv.showSwapDialog('登录中...','Login...');
 			taobaoClient.login(
 					username,
 					password);
