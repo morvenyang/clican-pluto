@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -73,6 +74,8 @@ public class TaobaoClientImpl extends BaseClient implements TaobaoClient {
 
 	private List<TaobaoCategory> taobaoTopCategoryList;
 
+	private Map<String, byte[]> confirmOrderImageCache = new ConcurrentHashMap<String, byte[]>();
+
 	private Configuration cfg = new Configuration();
 
 	public void setTaobaoRestClient(com.taobao.api.TaobaoClient taobaoRestClient) {
@@ -82,6 +85,16 @@ public class TaobaoClientImpl extends BaseClient implements TaobaoClient {
 	public void setTaobaoTopCategoryList(
 			List<TaobaoCategory> taobaoTopCategoryList) {
 		this.taobaoTopCategoryList = taobaoTopCategoryList;
+	}
+
+	@Override
+	public void cacheConfirOrderImage(String deviceId, byte[] image) {
+		confirmOrderImageCache.put(deviceId, image);
+	}
+
+	@Override
+	public byte[] getConfirOrderImage(String deviceId) {
+		return confirmOrderImageCache.get(deviceId);
 	}
 
 	@Override
