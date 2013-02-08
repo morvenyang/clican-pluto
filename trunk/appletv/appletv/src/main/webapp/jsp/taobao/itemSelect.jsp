@@ -9,7 +9,7 @@
 		<items>
 			<c:forEach items="${tsc.skuLabelList}" var="label" varStatus="status1">
 				<collectionDivider><title><![CDATA[${label}]]></title></collectionDivider>
-				<grid id="g${status1.count}" columnCount="10">
+				<grid id="g${status1.count}" columnCount="8">
 					<items>
 						<c:forEach items="${tsc.skuDisplayLabelValueMap[label]}" var="tsu" varStatus="status2">
 							<actionButton id="ab${status2.count}" onPlay="atv.loadURL('${serverurl}/ctl/taobao/itemSelect.xml?itemId=${tsc.item.numIid}&amp;selectedValue=${status1.count-1}:${tsu.value}');" onSelect="atv.loadURL('${serverurl}/ctl/taobao/itemSelect.xml?itemId=${tsc.item.numIid}&amp;selectedValue=${status1.count-1}:${tsu.value}');">

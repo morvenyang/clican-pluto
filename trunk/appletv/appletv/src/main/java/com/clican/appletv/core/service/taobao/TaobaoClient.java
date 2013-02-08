@@ -28,4 +28,8 @@ public interface TaobaoClient {
 	public List<TaobaoLove> queryTaobaoLoves(Long tagId);
 
 	public TaobaoConfirmOrder getConfirmOrder(String htmlContent);
+
+	public void cacheConfirOrderImage(String deviceId, byte[] image);
+	
+	public byte[] getConfirOrderImage(String deviceId);
 }

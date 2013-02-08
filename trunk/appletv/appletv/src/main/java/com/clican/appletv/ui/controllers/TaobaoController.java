@@ -186,7 +186,8 @@ public class TaobaoController {
 			log.debug("get token from session");
 		}
 		if (StringUtils.isNotEmpty(token) && StringUtils.isNotEmpty(tid)) {
-			String content = "{\"token\":\"" + token + "\",\"tid\":\"" + tid + "\"}";
+			String content = "{\"token\":\"" + token + "\",\"tid\":\"" + tid
+					+ "\"}";
 			log.debug(content);
 			response.getOutputStream().write(content.getBytes());
 		} else {
@@ -842,7 +843,9 @@ public class TaobaoController {
 
 	@RequestMapping("/taobao/confirmOrder.xml")
 	public String confirmOrderPage(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
+			HttpServletResponse response,
+			@RequestParam(value = "deviceId", required = true) String deviceId)
+			throws Exception {
 		if (log.isDebugEnabled()) {
 			log.debug("access confirm order");
 		}
@@ -853,24 +856,27 @@ public class TaobaoController {
 			request.setAttribute("title", "购物车内空空如也");
 			return "taobao/noresult";
 		} else {
+			taobaoClient.cacheConfirOrderImage(deviceId,
+					tco.getConfirmOrderImage());
 			request.setAttribute("serverurl",
 					springProperty.getSystemServerUrl());
-			request.getSession().setAttribute(TAOBAO_CONFIRM_ORDER, tco);
+			request.setAttribute(TAOBAO_CONFIRM_ORDER, tco);
 			return "taobao/confirmOrder";
 		}
 	}
 
 	@RequestMapping("/taobao/getConfirmOrder.png")
 	public void getConfirmOrderPng(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
+			HttpServletResponse response,
+			@RequestParam(value = "deviceId", required = true) String deviceId)
+			throws Exception {
 		if (log.isDebugEnabled()) {
-			log.debug("access confirm order");
+			log.debug("access confirm order png");
 		}
-		TaobaoConfirmOrder tco = (TaobaoConfirmOrder) request.getSession()
-				.getAttribute(TAOBAO_CONFIRM_ORDER);
+		byte[] image = taobaoClient.getConfirOrderImage(deviceId);
 		response.setContentType("image/png");
-		response.setContentLength(tco.getConfirmOrderImage().length);
-		response.getOutputStream().write(tco.getConfirmOrderImage());
+		response.setContentLength(image.length);
+		response.getOutputStream().write(image);
 	}
 
 	@RequestMapping("/taobao/changeAddr.xml")

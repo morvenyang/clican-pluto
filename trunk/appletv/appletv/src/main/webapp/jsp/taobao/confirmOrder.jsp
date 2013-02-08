@@ -8,7 +8,7 @@
 <body>
 <scroller id="com.sample.movie-shelf">
 	<items>
-		<grid id="address_grid" columnCount="10">
+		<grid id="address_grid" columnCount="8">
 			<items>
 				<c:forEach var="addr" items="${tco.addrList}" varStatus="status1">
 					<actionButton id="address_button_${status1.count}" onSelect="taobaoClient.changeAddress(${addr.addrId});">
@@ -46,9 +46,9 @@
 				</items>
 			</grid>
 		</c:forEach>
-		<grid id="submit_grid" columnCount="10">
+		<grid id="submit_grid" columnCount="2">
 			<items>
-				<actionButton id="submit1" onSelect="onPhotoSelection('${serverurl}/ctl/taobao/getConfirmOrder.png?random=${tco.random}'});" onPlay="onPhotoSelection('${serverurl}/ctl/taobao/getConfirmOrder.png?random=${tco.random}'});">
+				<actionButton id="submit1" onSelect="onPhotoSelection('${serverurl}/ctl/taobao/getConfirmOrder.png?deviceId='+appletv.getDeviceUdid()+'&amp;random=${tco.random}');" onPlay="onPhotoSelection('${serverurl}/ctl/taobao/getConfirmOrder.png?deviceId='+appletv.getDeviceUdid()+'&amp;random=${tco.random}');">
 					<title>详细</title>
 				</actionButton>
 				<actionButton id="submit2" onSelect="taobaoClient.submitConfirmOrder();" onPlay="taobaoClient.submitConfirmOrder();">

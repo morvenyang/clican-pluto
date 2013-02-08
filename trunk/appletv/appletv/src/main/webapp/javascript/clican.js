@@ -65,7 +65,11 @@ var appletv = {
 	},
 	
 	getDeviceUdid : function() {
-		return atv.device.udid;
+		if(this.simulate){
+			return '1234';
+		}else{
+			return atv.device.udid;
+		}
 	},
 
 	logToServer : function(logText) {
