@@ -52,30 +52,45 @@ public class RemoteTestCase extends BaseServiceTestCase {
 		log.debug(resp.toString());
 	}
 
-	public void testAllFlow() throws Exception {
+	public void testSelect() throws Exception {
 		String hsgid = "00000000-4342-b555-cb30-ff3a56dd45f9";
 		String loginurl = "http://10.0.1.4:3689/login?hasFP=1&hsgid=" + hsgid;
-		String initurl = "http://10.0.1.4:3689/server-info?hsgid=" + hsgid;
+		byte[] data = tudouClient.httpGetByData(loginurl, headers, null);
+		Response login = ResponseParser.performParse(data);
+		String sessionId = login.getNested("mlog").getNumberString("mlid");
+		log.debug("sessionId:" + sessionId);
+		
+		String controlpromptentry = "http://10.0.1.4:3689/ctrl-int/1/controlpromptentry?prompt-id=48&session-id="+sessionId;
+
+		
+		
+		Map<String,String> hs = new HashMap<String,String>(headers);
+		hs.put("Content-Type", "application/x-www-form-urlencoded");
+		InputStream is1 = Thread.currentThread().getContextClassLoader().getResourceAsStream("remote/select");
+		byte[] select = new byte[is1.available()];
+		is1.read(select);
+		
+		tudouClient.httpPost(controlpromptentry, null, select, null, null, null, hs, null);
+
+	}
+	
+	public void testMenu() throws Exception {
+		String hsgid = "00000000-4342-b555-cb30-ff3a56dd45f9";
+		String loginurl = "http://10.0.1.4:3689/login?hasFP=1&hsgid=" + hsgid;
 
 		byte[] data = tudouClient.httpGetByData(loginurl, headers, null);
 		Response login = ResponseParser.performParse(data);
 		String sessionId = login.getNested("mlog").getNumberString("mlid");
 		log.debug("sessionId:" + sessionId);
-		tudouClient.httpGetByData(initurl, headers, null);
-		String fdsetupurl = "http://10.0.1.4:3689/fp-setup?session-id="
-				+ sessionId + "&hsgid=" + hsgid;
-		Map<String, String> mapForFpsetup = new HashMap<String, String>(headers);
-		mapForFpsetup.put("Content-Type", "application/octet-stream");
-		InputStream is = Thread.currentThread().getContextClassLoader()
-				.getResourceAsStream("remote/fpsetup.txt");
-		byte[] fpsetupData = new byte[is.available()];
-		is.read(fpsetupData);
-		PostResponse pr = tudouClient.httpPost(fdsetupurl, null, fpsetupData, null, null, null, mapForFpsetup,null);
-		log.debug(pr.getContent());
-		String homeshareurl = "http://10.0.1.4:3689/home-share-verify?hspid=0&session-id="
-				+ sessionId + "&hsgid=" + hsgid;
+		
+		String controlpromptentry = "http://10.0.1.4:3689/ctrl-int/1/controlpromptentry?prompt-id=48&session-id="+sessionId;
 
-		tudouClient.httpGetByData(homeshareurl, headers, null);
+		Map<String,String> hs = new HashMap<String,String>(headers);
+		hs.put("Content-Type", "application/x-www-form-urlencoded");
+		InputStream is2 = Thread.currentThread().getContextClassLoader().getResourceAsStream("remote/menu");
+		byte[] menu = new byte[is2.available()];
+		is2.read(menu);
+		tudouClient.httpPost(controlpromptentry, null, menu, null, null, null, hs, null);
 
 	}
 }
