@@ -68,9 +68,11 @@ public class BaseClient {
 	public PostResponse httpPost(String url, String content,
 			Map<String, String> nameValuePairs, String reqContentType,
 			String reqCharset, Map<String, String> headers, Integer timeout) {
-		return this.httpPost(url, content, null, nameValuePairs, reqContentType, reqCharset, headers, timeout);
+		return this.httpPost(url, content, null, nameValuePairs,
+				reqContentType, reqCharset, headers, timeout);
 	}
-	public PostResponse httpPost(String url, String content,byte[] payload,
+
+	public PostResponse httpPost(String url, String content, byte[] payload,
 			Map<String, String> nameValuePairs, String reqContentType,
 			String reqCharset, Map<String, String> headers, Integer timeout) {
 
@@ -101,12 +103,12 @@ public class BaseClient {
 				}
 			}
 			httpPost.addRequestHeader("Accept-Encoding", "gzip");
-			if(payload!=null){
+			if (payload != null) {
 				httpPost.setRequestEntity(new ByteArrayRequestEntity(payload));
-			}else if (StringUtils.isNotEmpty(content)) {
+			} else if (StringUtils.isNotEmpty(content)) {
 				httpPost.setRequestEntity(new StringRequestEntity(content,
 						reqContentType, reqCharset));
-			} else if(nameValuePairs!=null) {
+			} else if (nameValuePairs != null) {
 				NameValuePair[] pairs = new NameValuePair[nameValuePairs.size()];
 				int i = 0;
 				for (String key : nameValuePairs.keySet()) {
@@ -118,9 +120,11 @@ public class BaseClient {
 
 			int status = client.executeMethod(httpPost);
 			pr.setStatus(status);
+
 			if (log.isDebugEnabled()) {
 				log.debug("Status:" + status + " for url:" + url);
 			}
+
 			for (Header header : httpPost.getResponseHeaders()) {
 				if (header.getName().equals("Set-Cookie")) {
 					try {
@@ -134,6 +138,9 @@ public class BaseClient {
 								+ "=" + header.getValue());
 					}
 				}
+			}
+			if (status == 204) {
+				return pr;
 			}
 			Header contentTypeHeader = httpPost
 					.getResponseHeader("Content-Type");
@@ -382,6 +389,7 @@ public class BaseClient {
 		}
 
 	}
+
 	public byte[] httpGetByData(String url, Map<String, String> headers,
 			Integer timeout) {
 		InputStream is = null;
@@ -506,6 +514,7 @@ public class BaseClient {
 			}
 		}
 	}
+
 	public String httpGet(String url, Map<String, String> headers,
 			Integer timeout) {
 		InputStream is = null;
