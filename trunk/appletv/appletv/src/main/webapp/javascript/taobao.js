@@ -299,7 +299,7 @@ var taobaoClient = {
 							appletv.makeRequest(taobaoMyCartApi, function(mycartcontent){
 								appletv.makePostRequest(appletv.serverurl+'/ctl/taobao/myCart.do',mycartcontent,function(mycardresult){
 									if(mycardresult=='noresult'){
-										appletv.showDialog('购物车内空空如也', '');
+										appletv.showDialog('购物车内空空如也', '请先用过购买操作把商品添加到购物车内');
 									}else{
 										appletv.makePostRequest(taobaoConfirmOrderApi+'?'+mycardresult,null, function(htmlcontent){
 											var payload ={"deviceId":appletv.getDeviceUdid(),"htmlContent":htmlcontent};
@@ -317,12 +317,12 @@ var taobaoClient = {
 		}else{
 			appletv.makeRequest(taobaoMyCartApi, function(result){
 				if(result=='noresult'){
-					appletv.showDialog('购物车内空空如也', '');
+					appletv.showDialog('购物车内空空如也', '请先用过购买操作把商品添加到购物车内');
 				}else{
 					appletv.makeRequest(taobaoMyCartApi, function(mycartcontent){
 						appletv.makePostRequest(appletv.serverurl+'/ctl/taobao/myCart.do',mycartcontent,function(mycardresult){
 							if(mycardresult=='noresult'){
-								appletv.showDialog('购物车内空空如也', '');
+								appletv.showDialog('购物车内空空如也', '请先用过购买操作把商品添加到购物车内');
 							}else{
 								appletv.makePostRequest(taobaoConfirmOrderApi+'?'+mycardresult,null, function(htmlcontent){
 									var payload ={"deviceId":appletv.getDeviceUdid(),"htmlContent":htmlcontent};
@@ -370,9 +370,15 @@ var taobaoClient = {
 				var jsonArray = JSON.parse(submitRequest);
 				var urlparam = "";
 				for(var i=0;i<jsonArray.length;i++){
-					urlparam+=jsonArray[i]['name']+'='+encodeURIComponent(jsonArray[i]['value'])+'&';
-					appletv.logToServer(jsonArray[i]['name']+'='+jsonArray[i]['value']);
+					var name = encodeURIComponent(jsonArray[i]['name']);
+					var value = jsonArray[i]['value'];
+					if(value!=null&&value.length>0){
+						value = encodeURIComponent(value);
+					}
+					urlparam=urlparam+name+'='+value+'&';
 				}
+				urlparam = urlparam.substring(0,urlparam.length-1);
+				appletv.logToServer(urlparam);
 				appletv.makePostRequest(taobaoSubmitOrderApi+'?'+urlparam,null,function(submitResponse){
 					if(submitResponse!=null&&submitResponse.indexOf("doAlipayPay")!=-1){
 						appletv.showDialog('订单已经提交', '请去淘宝官方进行支付');
