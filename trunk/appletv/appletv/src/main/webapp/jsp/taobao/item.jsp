@@ -15,7 +15,7 @@
 				<rows>
 					<row><label></label><label><![CDATA[价格:${item.price}元]]></label></row>
 					<c:if test="${promotion!=null}">
-						<row><label></label><label><![CDATA[${promotion}]]></label></row>
+						<row><label></label><label><![CDATA[${promotion.defaultPromotion.title}:${promotion.defaultPromotion.price}]]></label></row>
 					</c:if>
 					<row><label></label><label><![CDATA[最近售出:${item.volume}]]></label></row>
 					<row><label></label><label><![CDATA[运费:快递 ${item.expressFee}元;EMS ${item.emsFee}元;平邮 ${item.postFee}元]]></label></row>
@@ -53,7 +53,7 @@
 									<title>分享</title>
 									<image>${serverurl}/image/weibo/share.png</image>
 								</actionButton>
-								<actionButton id="album_4" onSelect="atv.loadURL('${serverurl}/ctl/taobao/itemSelect.xml?itemId=${item.numIid}');" onPlay="atv.loadURL('${serverurl}/ctl/taobao/itemDetail.xml?itemId=${item.numIid}');">
+								<actionButton id="album_4" onSelect="atv.loadURL('${serverurl}/ctl/taobao/itemSelect.xml?itemId=${item.numIid}&amp;sellerId=${sellerId}');" onPlay="atv.loadURL('${serverurl}/ctl/taobao/itemDetail.xml?itemId=${item.numIid}')&amp;sellerId=${sellerId};">
 									<title>购买</title>
 									<image>${serverurl}/image/weibo/share.png</image>
 								</actionButton>
@@ -73,7 +73,7 @@
 								<title>推荐商品</title>
 								<items>
 									<c:forEach var="item" items="${relatedItemList}">
-										<moviePoster id="shelf_item_${item.numIid}" alwaysShowTitles="true" onSelect="atv.loadURL('${serverurl}/ctl/taobao/item.xml?itemId=${item.numIid}&amp;volume=${item.volume}');" onPlay="atv.loadURL('${serverurl}/ctl/taobao/item.xml?itemId=${item.numIid}&amp;volume=${item.volume}');">
+										<moviePoster id="shelf_item_${item.numIid}" alwaysShowTitles="true" onSelect="taobaoClient.loadItemPage(${item.numIid},'${item.volume}');" onPlay="taobaoClient.loadItemPage(${item.numIid},'${item.volume}');">
 											<title><![CDATA[${item.title}]]></title>
 											<image>${item.picUrl}</image>
 											<defaultImage>resource://Poster.png</defaultImage>

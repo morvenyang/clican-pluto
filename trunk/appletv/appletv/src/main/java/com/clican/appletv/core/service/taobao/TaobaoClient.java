@@ -8,6 +8,8 @@ import com.clican.appletv.core.service.taobao.model.TaobaoCategory;
 import com.clican.appletv.core.service.taobao.model.TaobaoConfirmOrder;
 import com.clican.appletv.core.service.taobao.model.TaobaoLove;
 import com.clican.appletv.core.service.taobao.model.TaobaoLoveTag;
+import com.clican.appletv.core.service.taobao.model.TaobaoSkuPromotionWrap;
+import com.taobao.api.domain.Item;
 
 public interface TaobaoClient {
 
@@ -30,6 +32,8 @@ public interface TaobaoClient {
 	public TaobaoConfirmOrder getConfirmOrder(String htmlContent);
 
 	public void cacheConfirOrderImage(String deviceId, byte[] image);
-	
+
 	public byte[] getConfirOrderImage(String deviceId);
+
+	public TaobaoSkuPromotionWrap getPromotion(Item item, String promotionUrl);
 }

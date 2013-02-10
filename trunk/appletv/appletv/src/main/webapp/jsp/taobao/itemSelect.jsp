@@ -25,7 +25,7 @@
 				</grid>
 			</c:forEach>
 			<c:if test="${tsc.selectedSku!=null}">
-				<collectionDivider><title><![CDATA[库存:${tsc.selectedSku.quantity} 价格:${tsc.selectedSku.price}]]></title></collectionDivider>
+				<collectionDivider><title><![CDATA[库存:${tsc.selectedSku.quantity} 价格:${tsc.price}]]></title></collectionDivider>
 				<grid id="addToShoppingCart" columnCount="2">
 					<items>
 						<actionButton id="addshop" onPlay="taobaoClient.addToShoppingCart(${tsc.item.numIid},${tsc.selectedSku.skuId},'${taobaoHtmlTid}');" onSelect="taobaoClient.addToShoppingCart(${tsc.item.numIid},${tsc.selectedSku.skuId},'${taobaoHtmlTid}');">
