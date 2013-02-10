@@ -1,4 +1,4 @@
-package com.clican.appletv.core.service.baibian.model;
+package com.clican.appletv.core.service;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;

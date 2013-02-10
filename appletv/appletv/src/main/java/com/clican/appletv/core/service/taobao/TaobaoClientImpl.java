@@ -37,7 +37,7 @@ import org.htmlparser.tags.OptionTag;
 import org.htmlparser.tags.TextareaTag;
 import org.htmlparser.util.NodeList;
 
-import com.clican.appletv.core.service.baibian.model.BaseClient;
+import com.clican.appletv.core.service.BaseClient;
 import com.clican.appletv.core.service.taobao.model.TaobaoAccessToken;
 import com.clican.appletv.core.service.taobao.model.TaobaoAddress;
 import com.clican.appletv.core.service.taobao.model.TaobaoCategory;

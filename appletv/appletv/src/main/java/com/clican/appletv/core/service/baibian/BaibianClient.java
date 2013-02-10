@@ -2,7 +2,7 @@ package com.clican.appletv.core.service.baibian;
 
 import java.util.List;
 
-import com.clican.appletv.core.model.Baibian;
+import com.clican.appletv.core.service.baibian.model.Baibian;
 
 public interface BaibianClient {
 

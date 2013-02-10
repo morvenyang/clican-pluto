@@ -10,8 +10,8 @@ import net.sf.json.JSONObject;
 
 import org.apache.commons.lang.StringUtils;
 
-import com.clican.appletv.core.model.Baibian;
-import com.clican.appletv.core.service.baibian.model.BaseClient;
+import com.clican.appletv.core.service.BaseClient;
+import com.clican.appletv.core.service.baibian.model.Baibian;
 
 public class BaibianClientImpl extends BaseClient implements BaibianClient {
 
