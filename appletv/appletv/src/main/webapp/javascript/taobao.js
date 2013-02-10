@@ -234,7 +234,7 @@ var taobaoClient = {
 				taobaoClient.loadLovePage(tagId, pagenum+1)
 			}else{
 				appletv.logToServer(appletv.serverurl+'/ctl/taobao/item.xml?itemId='+photoID);
-				atv.loadURL(appletv.serverurl+'/ctl/taobao/item.xml?itemId='+photoID);
+				taobaoClient.loadItemPage(photoID,'');
 			}
 		};
 		
@@ -387,6 +387,30 @@ var taobaoClient = {
 					}
 				});
 			}
+		});
+	},
+	
+	loadItemPage:function(itemId,volume){
+		appletv.showDialog('加载中...','Loading...');
+		var url = 'http://item.taobao.com/item.htm?id='+itemId;
+		appletv.makeRequest(url,function(itemHtmlContent){
+			var startIndex = itemHtmlContent.indexOf("microscope-data\" content=\"");
+			var microscopedata = null;
+			if(startIndex!=-1){
+				startIndex = startIndex+"microscope-data\" content=\"".length;
+				var endIndex=itemHtmlContent.indexOf("\"",startIndex);
+				microscopedata = itemHtmlContent.substring(startIndex,endIndex);
+			}
+			if(microscopedata!=null){
+				appletv.makeRequest(appletv.serverurl+'/ctl/taobao/item.xml?itemId='+itemId+'&volume='+volume+'&microscopedata='+encodeURIComponent(microscopedata),function(xml){
+					appletv.loadAndSwapXML(xml);
+				});
+			}else{
+				appletv.makeRequest(appletv.serverurl+'/ctl/taobao/item.xml?itemId='+itemId+'&volume='+volume,function(xml){
+					appletv.loadAndSwapXML(xml);
+				});
+			}
+			
 		});
 	},
 }

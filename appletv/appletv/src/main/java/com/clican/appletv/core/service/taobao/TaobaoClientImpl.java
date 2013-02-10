@@ -51,10 +51,13 @@ import com.clican.appletv.core.service.taobao.model.TaobaoLoveTag;
 import com.clican.appletv.core.service.taobao.model.TaobaoOrderByItem;
 import com.clican.appletv.core.service.taobao.model.TaobaoOrderByShop;
 import com.clican.appletv.core.service.taobao.model.TaobaoPromotion;
+import com.clican.appletv.core.service.taobao.model.TaobaoSkuPromotion;
+import com.clican.appletv.core.service.taobao.model.TaobaoSkuPromotionWrap;
 import com.clican.appletv.ext.htmlparser.EmTag;
 import com.clican.appletv.ext.htmlparser.STag;
 import com.clican.appletv.ext.htmlparser.StrongTag;
 import com.clican.appletv.ext.htmlparser.TbodyTag;
+import com.taobao.api.domain.Item;
 import com.taobao.api.domain.ItemCat;
 import com.taobao.api.internal.util.WebUtils;
 import com.taobao.api.request.ItemcatsGetRequest;
@@ -95,6 +98,39 @@ public class TaobaoClientImpl extends BaseClient implements TaobaoClient {
 	@Override
 	public byte[] getConfirOrderImage(String deviceId) {
 		return confirmOrderImageCache.get(deviceId);
+	}
+
+	@Override
+	public TaobaoSkuPromotionWrap getPromotion(Item item, String promptionUrl) {
+		Map<String, String> headers = new HashMap<String, String>();
+		headers.put("Referer",
+				"http://item.taobao.com/item.htm?id=" + item.getNumIid());
+		String htmlContent = this.httpGet(promptionUrl, headers, null);
+		String jsonContent = htmlContent.replaceAll("TB.PromoData =", "")
+				.trim();
+		JSONObject jsonObj = JSONObject.fromObject(jsonContent);
+		JSONArray defList = jsonObj.getJSONArray("def");
+		TaobaoSkuPromotionWrap result = new TaobaoSkuPromotionWrap();
+		TaobaoSkuPromotion defProm = null;
+		for (int i = 0; i < defList.size(); i++) {
+			JSONObject obj = defList.getJSONObject(i);
+			String title = obj.getString("type");
+			String price = null;
+			if (obj.containsKey("price")) {
+				price = obj.getString("price");
+				defProm = new TaobaoSkuPromotion();
+				defProm.setTitle(title);
+				defProm.setPrice(price);
+				break;
+			}
+		}
+		if (defProm == null) {
+			return null;
+		} else {
+			result.setDefaultPromotion(defProm);
+			result.setJsonObject(jsonObj);
+			return result;
+		}
 	}
 
 	@Override

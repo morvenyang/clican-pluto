@@ -44,12 +44,12 @@ import com.clican.appletv.core.service.taobao.model.TaobaoFare;
 import com.clican.appletv.core.service.taobao.model.TaobaoLoveTag;
 import com.clican.appletv.core.service.taobao.model.TaobaoOrderByShop;
 import com.clican.appletv.core.service.taobao.model.TaobaoSkuCache;
+import com.clican.appletv.core.service.taobao.model.TaobaoSkuPromotionWrap;
 import com.clican.appletv.core.service.taobao.model.TaobaoSkuValue;
 import com.clican.appletv.ext.htmlparser.StrongTag;
 import com.taobao.api.TaobaoClient;
 import com.taobao.api.domain.Item;
 import com.taobao.api.domain.ItemImg;
-import com.taobao.api.domain.PromotionInItem;
 import com.taobao.api.domain.SellerCat;
 import com.taobao.api.domain.Shop;
 import com.taobao.api.domain.Sku;
@@ -59,18 +59,14 @@ import com.taobao.api.request.ItemGetRequest;
 import com.taobao.api.request.ItemsListGetRequest;
 import com.taobao.api.request.SellercatsListGetRequest;
 import com.taobao.api.request.ShopGetRequest;
-import com.taobao.api.request.TaobaokeItemsDetailGetRequest;
 import com.taobao.api.request.TaobaokeItemsGetRequest;
 import com.taobao.api.request.TaobaokeItemsRelateGetRequest;
-import com.taobao.api.request.UmpPromotionGetRequest;
 import com.taobao.api.response.ItemGetResponse;
 import com.taobao.api.response.ItemsListGetResponse;
 import com.taobao.api.response.SellercatsListGetResponse;
 import com.taobao.api.response.ShopGetResponse;
-import com.taobao.api.response.TaobaokeItemsDetailGetResponse;
 import com.taobao.api.response.TaobaokeItemsGetResponse;
 import com.taobao.api.response.TaobaokeItemsRelateGetResponse;
-import com.taobao.api.response.UmpPromotionGetResponse;
 
 @Controller
 public class TaobaoController {
@@ -83,6 +79,7 @@ public class TaobaoController {
 	public final static String TAOBAO_SELLER_CATEGORY_LIST = "taobaoSellerCategoryList";
 	public final static String TAOBAO_CONFIRM_ORDER = "tco";
 	public final static String TAOBAO_SKU_NAME = "taobaoSkuName";
+	public final static String TAOBAO_PROMOTION_NAME = "taobaoPromotionName";
 
 	@Autowired
 	private com.clican.appletv.core.service.taobao.TaobaoClient taobaoClient;
@@ -610,30 +607,35 @@ public class TaobaoController {
 	}
 
 	@RequestMapping("/taobao/item.xml")
-	public String itemPage(HttpServletRequest request,
+	public String itemPage(
+			HttpServletRequest request,
 			HttpServletResponse response,
 			@RequestParam(value = "itemId", required = false) Long itemId,
-			@RequestParam(value = "volume", required = false) Long volume)
+			@RequestParam(value = "volume", required = false) Long volume,
+			@RequestParam(value = "microscopedata", required = false) String microscopedata)
 			throws Exception {
 		if (log.isDebugEnabled()) {
 			log.debug("access item :" + itemId);
 		}
 
+		String sellerId = null;
+
+		if (StringUtils.isNotEmpty(microscopedata)) {
+			for (String pair : microscopedata.split(";")) {
+				String[] p = pair.split("=");
+				if (p[0].trim().equals("userid")) {
+					sellerId = p[1].trim();
+				}
+			}
+		}
 		ItemGetRequest req = new ItemGetRequest();
 		req.setFields("detail_url,num_iid,num,title,nick,desc,location,price,post_fee,express_fee,ems_fee,item_img.url,videos,pic_url,stuff_status,sku,property_alias,props");
 		req.setNumIid(itemId);
 		ItemGetResponse resp = taobaoRestClient.execute(req);
 		Item item = resp.getItem();
-		
+
 		if (log.isDebugEnabled()) {
 			log.debug("detail url:" + item.getDetailUrl());
-		}
-		UmpPromotionGetRequest req2 = new UmpPromotionGetRequest();
-		req2.setItemId(itemId);
-		UmpPromotionGetResponse resp2 = taobaoRestClient.execute(req2);
-		List<PromotionInItem> piiList = null;
-		if (resp2.getPromotions() != null) {
-			piiList = resp2.getPromotions().getPromotionInItem();
 		}
 
 		TaobaokeItemsRelateGetRequest req3 = new TaobaokeItemsRelateGetRequest();
@@ -641,12 +643,23 @@ public class TaobaoController {
 		req3.setNumIid(itemId);
 		req3.setFields("num_iid,title,pic_url,volume");
 		TaobaokeItemsRelateGetResponse resp3 = taobaoRestClient.execute(req3);
-
-		String promotion = null;
-		if (piiList != null && piiList.size() > 0) {
-			promotion = piiList.get(0).getName() + ":"
-					+ piiList.get(0).getItemPromoPrice() + "元";
+		TaobaoSkuPromotionWrap promotion = null;
+		try{
+			Double price = Double.parseDouble(item.getPrice());
+			price = price * 100;
+			String promotionUrl = "http://ajax.tbcdn.cn/json/promotionListn.htm?price="
+					+ price.intValue()
+					+ "&itemId="
+					+ itemId
+					+ "&sellerId="
+					+ sellerId;
+			if (StringUtils.isNotEmpty(promotionUrl)) {
+				promotion = taobaoClient.getPromotion(item, promotionUrl);
+			}
+		}catch(Exception e){
+			log.error("",e);
 		}
+		
 
 		String imageUrls = "";
 		if (item.getItemImgs() != null && item.getItemImgs().size() > 0) {
@@ -668,9 +681,10 @@ public class TaobaoController {
 
 		item.setVolume(volume);
 		TaobaoSkuCache tks = this.getSkuMap(item);
+		tks.setTaobaoSkuPromotionWrap(promotion);
 		request.getSession().setAttribute(TAOBAO_SKU_NAME, tks);
 		request.setAttribute("item", item);
-
+		request.setAttribute("sellerId",sellerId);
 		return "taobao/item";
 
 	}
@@ -704,6 +718,7 @@ public class TaobaoController {
 					continue;
 				}
 				skuMap.put(sku.getProperties(), sku);
+				
 				String[] skuProps = sku.getProperties().split(";");
 				String[] skuPropNames = sku.getPropertiesName().split(";");
 				Map<String, Object> tempMap = null;
@@ -748,6 +763,7 @@ public class TaobaoController {
 			HttpServletRequest request,
 			HttpServletResponse response,
 			@RequestParam(value = "itemId", required = false) Long itemId,
+			@RequestParam(value = "sellerId", required = false) String sellerId,
 			@RequestParam(value = "selectedValue", required = false) String selectedValue)
 			throws Exception {
 		if (log.isDebugEnabled()) {
@@ -761,9 +777,27 @@ public class TaobaoController {
 			req.setNumIid(itemId);
 			ItemGetResponse resp = taobaoRestClient.execute(req);
 			Item item = resp.getItem();
+			TaobaoSkuPromotionWrap promotion = null;
+			try{
+				Double price = Double.parseDouble(item.getPrice());
+				price = price * 100;
+				String promotionUrl = "http://ajax.tbcdn.cn/json/promotionListn.htm?price="
+						+ price.intValue()
+						+ "&itemId="
+						+ itemId
+						+ "&sellerId="
+						+ sellerId;
+				if (StringUtils.isNotEmpty(promotionUrl)) {
+					promotion = taobaoClient.getPromotion(item, promotionUrl);
+				}
+			}catch(Exception e){
+				log.error("",e);
+			}
 			tsc = this.getSkuMap(item);
+			tsc.setTaobaoSkuPromotionWrap(promotion);
 			request.getSession().setAttribute(TAOBAO_SKU_NAME, tsc);
 		}
+
 		tsc.updateSelectedValues(selectedValue);
 		request.setAttribute("tsc", tsc);
 		request.setAttribute("serverurl", springProperty.getSystemServerUrl());

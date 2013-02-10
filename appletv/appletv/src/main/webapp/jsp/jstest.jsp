@@ -23,7 +23,8 @@
 <input type="button" onclick="taobaoClient.loadConfirmOrderPage('${taobaoHtmlToken}');" value="加载结算页面"/>
 <input type="button" onclick="taobaoClient.changeAddress(1062799477);" value="修改收货地址"/>
 <input type="button" onclick="taobaoClient.submitConfirmOrder();" value="提交订单"/>
-
+<input type="button" onclick="taobaoClient.loadItemPage(20604348044,0);" value="dange1"/>
+<input type="button" onclick="taobaoClient.loadItemPage(13764231039,'');" value="dange2"/>
 <input type="button" onclick="taobaoClient.getToken();" value="获取令牌"/>
 <input type="button" onclick="appletv.loadURL('http://127.0.0.1/appletv/ctl/taobao/item.xml?itemId=16270348608&volume=12147&shopClickUrl='+encodeURIComponent('http://s.click.taobao.com/t?e=zGU34CA7K%2BPkqB04MQzdgG3VSuWRIvnJbEpKV5PcuKFufezxnvbpzyrw2Hthrecou0ks9%2Bc0ABgwjRVXLhlDBy4t2D5QGkgibcZogNYFDbPWq%2F2C8x%2FfbL6mrOqTOhR6%2BlJFYTO2yF%2FSd1o0eSe40pFAJI%2FJiogx5BqD%2BfjddvM1PA%3D%3D&spm=2014.21373190.1.0'));" value="商品"/>
 <input type="button" onclick="onPhotoSelections('http://img01.taobaocdn.com/bao/uploaded/i1/T1IKfYXmtmXXcdjlIW_024455.jpg,http://img03.taobaocdn.com/bao/uploaded/i3/804320856/T2xSWHXllXXXXXXXXX_!!804320856.jpg,http://img01.taobaocdn.com/bao/uploaded/i1/804320856/T2rt5wXaJXXXXXXXXX_!!804320856.jpg,http://img03.taobaocdn.com/bao/uploaded/i3/804320856/T2lJ1wXcpXXXXXXXXX_!!804320856.jpg,http://img03.taobaocdn.com/bao/uploaded/i3/804320856/T2XB9dXmJXXXXXXXXX_!!804320856.jpg');" value="图片"/>

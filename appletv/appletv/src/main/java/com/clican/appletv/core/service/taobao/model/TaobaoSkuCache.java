@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+
 import org.apache.commons.lang.StringUtils;
 
 import com.taobao.api.domain.Item;
@@ -14,6 +17,8 @@ import com.taobao.api.domain.Sku;
 public class TaobaoSkuCache {
 
 	private Item item;
+
+	private String price;
 
 	private List<String> skuLabelList;
 
@@ -30,6 +35,8 @@ public class TaobaoSkuCache {
 	private Map<String, Sku> skuMap;
 
 	private Sku selectedSku;
+
+	private TaobaoSkuPromotionWrap taobaoSkuPromotionWrap;
 
 	public Item getItem() {
 		return item;
@@ -83,6 +90,7 @@ public class TaobaoSkuCache {
 	@SuppressWarnings("unchecked")
 	public void updateSelectedValues(String selectedValue) {
 		int index = -1;
+
 		if (StringUtils.isNotEmpty(selectedValue)) {
 			int offset = selectedValue.indexOf(":");
 			index = Integer.parseInt(selectedValue.substring(0, offset));
@@ -91,19 +99,40 @@ public class TaobaoSkuCache {
 		if (selectedValues == null) {
 			selectedValues = new String[skuLabelList.size()];
 		}
-		for (int i = 0; i < skuLabelList.size(); i++) {
-			if (i == index) {
-				selectedValues[i] = selectedValue;
-			} else {
-				if (index == -1 || selectedValues[i] == null) {
-					TaobaoSkuValue tsv = skuLabelValueMap
-							.get(skuLabelList.get(i)).iterator().next();
-					if (tsv != null) {
-						selectedValues[i] = tsv.getValue();
+		if (index == -1) {
+			List<String> all = new ArrayList<String>();
+			for (int i = 0; i < skuLabelList.size(); i++) {
+				List<String> temp = new ArrayList<String>();
+				for (TaobaoSkuValue tsv : skuLabelValueMap.get(skuLabelList
+						.get(i))) {
+					if (all.size() == 0) {
+						temp.add(tsv.getValue());
+					} else {
+						for (int j = 0; j < all.size(); j++) {
+							temp.add(all.get(j) + ";" + tsv.getValue());
+						}
 					}
 				}
+				all = temp;
 			}
+			for (String svs : all) {
+				this.selectedValueString = svs;
+				this.selectedSku = skuMap.get(selectedValueString);
+				if (this.selectedSku != null) {
+					selectedValues = this.selectedValueString.split(";");
+					break;
+				}
+			}
+		} else {
+			for (int i = 0; i < skuLabelList.size(); i++) {
+				if (i == index) {
+					selectedValues[i] = selectedValue;
+				}
+			}
+			this.selectedValueString = StringUtils.join(selectedValues, ";");
+			this.selectedSku = skuMap.get(selectedValueString);
 		}
+
 		skuDisplayLabelValueMap = new HashMap<String, List<TaobaoSkuValue>>();
 		for (int i = 0; i < selectedValues.length; i++) {
 			String label = skuLabelList.get(i);
@@ -125,8 +154,28 @@ public class TaobaoSkuCache {
 
 		}
 
-		this.selectedValueString = StringUtils.join(this.selectedValues, ";");
-		this.selectedSku = skuMap.get(this.selectedValueString);
+		this.price = selectedSku.getPrice();
+		if (this.getTaobaoSkuPromotionWrap() != null) {
+			if (this.getTaobaoSkuPromotionWrap().getJsonObject()
+					.containsKey(";" + this.selectedValueString + ";")) {
+				JSONArray jsonArray = this.getTaobaoSkuPromotionWrap()
+						.getJsonObject()
+						.getJSONArray(";" + this.selectedValueString + ";");
+				for (int i = 0; i < jsonArray.size(); i++) {
+					JSONObject obj = jsonArray.getJSONObject(i);
+					String title = obj.getString("type");
+					String price = null;
+					if (obj.containsKey("price")) {
+						price = obj.getString("price");
+						TaobaoSkuPromotion promotion = new TaobaoSkuPromotion();
+						promotion.setTitle(title);
+						promotion.setPrice(price);
+						this.price = title + " " + price;
+						break;
+					}
+				}
+			}
+		}
 	}
 
 	public Sku getSelectedSku() {
@@ -152,6 +201,23 @@ public class TaobaoSkuCache {
 
 	public void setSelectedValueString(String selectedValueString) {
 		this.selectedValueString = selectedValueString;
+	}
+
+	public TaobaoSkuPromotionWrap getTaobaoSkuPromotionWrap() {
+		return taobaoSkuPromotionWrap;
+	}
+
+	public void setTaobaoSkuPromotionWrap(
+			TaobaoSkuPromotionWrap taobaoSkuPromotionWrap) {
+		this.taobaoSkuPromotionWrap = taobaoSkuPromotionWrap;
+	}
+
+	public String getPrice() {
+		return price;
+	}
+
+	public void setPrice(String price) {
+		this.price = price;
 	}
 
 }
