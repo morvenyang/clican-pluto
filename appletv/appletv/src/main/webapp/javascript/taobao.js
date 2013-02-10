@@ -302,12 +302,11 @@ var taobaoClient = {
 										appletv.showDialog('购物车内空空如也', '');
 									}else{
 										appletv.makePostRequest(taobaoConfirmOrderApi+'?'+mycardresult,null, function(htmlcontent){
-											var formData = appletv.formData();
-											formData.append("deviceId",appletv.getDeviceUdid());
-											formData.append("htmlContent",htmlcontent);
-											appletv.makePostRequest(appletv.serverurl+'/ctl/taobao/confirmOrder.xml',formData,function(xmlcontent){
+											var payload ={"deviceId":appletv.getDeviceUdid(),"htmlContent":htmlcontent};
+											appletv.logToServer(appletv.serverurl+'/ctl/taobao/confirmOrder.xml');
+											appletv.makePostRequest(appletv.serverurl+'/ctl/taobao/confirmOrder.xml',JSON.stringify(payload),function(xmlcontent){
 												appletv.loadXML(xmlcontent);
-											},'multipart/form-data');
+											});
 										});
 									}
 								});
@@ -326,12 +325,11 @@ var taobaoClient = {
 								appletv.showDialog('购物车内空空如也', '');
 							}else{
 								appletv.makePostRequest(taobaoConfirmOrderApi+'?'+mycardresult,null, function(htmlcontent){
-									var formData = appletv.formData();
-									formData.append("deviceId",appletv.getDeviceUdid());
-									formData.append("htmlContent",htmlcontent);
-									appletv.makePostRequest(appletv.serverurl+'/ctl/taobao/confirmOrder.xml',formData,function(xmlcontent){
+									var payload ={"deviceId":appletv.getDeviceUdid(),"htmlContent":htmlcontent};
+									appletv.logToServer(appletv.serverurl+'/ctl/taobao/confirmOrder.xml');
+									appletv.makePostRequest(appletv.serverurl+'/ctl/taobao/confirmOrder.xml',JSON.stringify(payload),function(xmlcontent){
 										appletv.loadXML(xmlcontent);
-									},'multipart/form-data');
+									});
 								});
 							}
 						});
@@ -348,8 +346,8 @@ var taobaoClient = {
 				appletv.showDialog('结算页面过期请重新进入', '');
 			}else{
 				appletv.logToServer('fareRequest:'+fareRequest);
-				var payload = encodeURIComponent('json='+fareRequest);
-				appletv.makePostRequest(taobaoGetFareApi,payload,function(fareResponse){
+				var urlparam = encodeURIComponent('json='+fareRequest);
+				appletv.makePostRequest(taobaoGetFareApi+'?'+urlparam,null,function(fareResponse){
 					appletv.logToServer('fareResponse:'+fareResponse);
 					appletv.makePostRequest(appletv.serverurl+'/ctl/taobao/changeAddr.xml?addrId='+addrId,fareResponse,function(xmlcontent){
 						appletv.loadXML(xmlcontent);
@@ -368,13 +366,13 @@ var taobaoClient = {
 			}else{
 				appletv.logToServer('submitRequest:'+submitRequest);
 				var jsonArray = JSON.parse(submitRequest);
-				var payload = "";
+				var urlparam = "";
 				for(var i=0;i<jsonArray.length;i++){
-					payload+=jsonArray[i]['name']+'='+jsonArray[i]['value'];
+					urlparam+=jsonArray[i]['name']+'='+jsonArray[i]['value'];
 					appletv.logToServer(jsonArray[i]['name']+'='+jsonArray[i]['value']);
 				}
-				payload=encodeURIComponent(payload);
-				appletv.makePostRequest(taobaoSubmitOrderApi,payload,function(submitResponse){
+				urlparam=encodeURIComponent(urlparam);
+				appletv.makePostRequest(taobaoSubmitOrderApi+'?'+urlparam,null,function(submitResponse){
 					if(submitResponse!=null&&submitResponse.indexOf("doAlipayPay")!=-1){
 						appletv.showDialog('订单已经提交', '请去淘宝官方进行支付');
 					}else{

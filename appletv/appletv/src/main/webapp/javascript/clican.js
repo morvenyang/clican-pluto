@@ -141,18 +141,12 @@ var appletv = {
 		return xhr;
 	},
 
-	makePostRequest : function(url, content, callback,contentType) {
+	makePostRequest : function(url, content, callback) {
 		if (!url) {
 			throw "loadURL requires a url argument";
 		}
 
 		var xhr = new XMLHttpRequest();
-		if(contentType!=null){
-			xhr.setRequestHeader("Content-Type",contentType);
-			if(contentType=='multipart/form-data'){
-				content = content.body;
-			}
-		}
 		xhr.onreadystatechange = function() {
 			try {
 				if (xhr.readyState == 4) {
@@ -185,10 +179,13 @@ var appletv = {
 			}
 		}
 		xhr.open("POST", url, true);
+		if(content!=null){
+			xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		}
 		xhr.send(content);
 		return xhr;
 	},
-
+	
 	shareToSinaWeibo : function(title, shareURL, imageURL) {
 		var url = appletv.serverurl + '/ctl/weibo/createStatus.xml?deviceId='
 				+ atv.device.udid + '&title=' + encodeURIComponent(title)
@@ -316,19 +313,4 @@ var appletv = {
 		}
 	},
 	
-	formData:function(){
-		return {
-			boundary:'---------------------------clican',
-			body:'',
-			append:function(name,value){
-				this.body += '--' + this.boundary + '\r\n' + 'Content-Disposition: form-data; name="';
-				this.body += name;
-				this.body += '"\r\n\r\n';
-				this.body += value;
-				this.body += '\r\n';
-				this.body += '--' + this.boundary + '--';
-				this.body += '\r\n';
-			}
-		}
-	},
 };

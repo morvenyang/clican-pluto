@@ -844,13 +844,15 @@ public class TaobaoController {
 	@RequestMapping("/taobao/confirmOrder.xml")
 	public String confirmOrderPage(
 			HttpServletRequest request,
-			HttpServletResponse response,
-			@RequestParam(value = "deviceId", required = true) String deviceId,
-			@RequestParam(value = "htmlContent", required = true) String htmlContent)
+			HttpServletResponse response)
 			throws Exception {
 		if (log.isDebugEnabled()) {
 			log.debug("access confirm order");
 		}
+		String content = this.getContent(request);
+		JSONObject json = JSONObject.fromObject(content);
+		String deviceId= json.getString("deviceId");
+		String htmlContent= json.getString("htmlContent");
 		TaobaoConfirmOrder tco = taobaoClient.getConfirmOrder(htmlContent);
 		if (tco.getShopList().size() == 0) {
 			request.setAttribute("tco", tco);
