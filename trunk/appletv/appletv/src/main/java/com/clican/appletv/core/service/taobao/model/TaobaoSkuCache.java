@@ -1,6 +1,7 @@
 package com.clican.appletv.core.service.taobao.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -156,25 +157,41 @@ public class TaobaoSkuCache {
 
 		this.price = selectedSku.getPrice();
 		if (this.getTaobaoSkuPromotionWrap() != null) {
-			if (this.getTaobaoSkuPromotionWrap().getJsonObject()
-					.containsKey(";" + this.selectedValueString + ";")) {
-				JSONArray jsonArray = this.getTaobaoSkuPromotionWrap()
-						.getJsonObject()
-						.getJSONArray(";" + this.selectedValueString + ";");
-				for (int i = 0; i < jsonArray.size(); i++) {
-					JSONObject obj = jsonArray.getJSONObject(i);
-					String title = obj.getString("type");
-					String price = null;
-					if (obj.containsKey("price")) {
-						price = obj.getString("price");
-						TaobaoSkuPromotion promotion = new TaobaoSkuPromotion();
-						promotion.setTitle(title);
-						promotion.setPrice(price);
-						this.price = title + " " + price;
-						break;
+			Set<String> keySet = this.getTaobaoSkuPromotionWrap()
+					.getJsonObject().keySet();
+			for (String key : keySet) {
+				String[] ss = key.substring(1, key.length() - 1).split(";");
+				List<String> list1 = new ArrayList<String>();
+				for (String s : ss) {
+					list1.add(s);
+				}
+				Collections.sort(list1);
+				List<String> list2 = new ArrayList<String>();
+				for (String s : selectedValues) {
+					list2.add(s);
+				}
+				Collections.sort(list2);
+				if (list1.equals(list2)) {
+					JSONArray jsonArray = this.getTaobaoSkuPromotionWrap()
+							.getJsonObject()
+							.getJSONArray(key);
+					for (int i = 0; i < jsonArray.size(); i++) {
+						JSONObject obj = jsonArray.getJSONObject(i);
+						String title = obj.getString("type");
+						String price = null;
+						if (obj.containsKey("price")) {
+							price = obj.getString("price");
+							TaobaoSkuPromotion promotion = new TaobaoSkuPromotion();
+							promotion.setTitle(title);
+							promotion.setPrice(price);
+							this.price = title + " " + price;
+							break;
+						}
 					}
+					break;
 				}
 			}
+
 		}
 	}
 
