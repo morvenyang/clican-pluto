@@ -37,15 +37,7 @@ public class TudouController {
 	@Autowired
 	private SpringProperty springProperty;
 
-	@RequestMapping("/jstest.do")
-	public String jstest(HttpServletRequest request,
-			HttpServletResponse response) throws IOException {
-		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
-		log.debug(request.getSession().getAttribute("taobaoHtmlToken"));
-		log.debug(request.getSession().getAttribute("taobaoHtmlTid"));
-		return "jstest";
-	}
-
+	
 	@RequestMapping("/tudou/releasenote.xml")
 	public String indexPage(HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
