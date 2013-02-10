@@ -10,14 +10,20 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.clican.appletv.common.SpringProperty;
 
 @Controller
 public class OtherController {
 
 	private final static Log log = LogFactory.getLog(OtherController.class);
-
+	
+	@Autowired
+	private SpringProperty springProperty;
+	
 	@RequestMapping("/log.do")
 	public void logText(HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
@@ -39,4 +45,12 @@ public class OtherController {
 			log.debug("log=" + logText);
 		}
 	}
+	
+	@RequestMapping("/jstest.do")
+	public String jstest(HttpServletRequest request,
+			HttpServletResponse response) throws IOException {
+		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
+		return "jstest";
+	}
+
 }
