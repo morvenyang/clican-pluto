@@ -1,6 +1,6 @@
 var appletv = {
 	logEnable : true,
-	simulate : true,
+	simulate : false,
 	serverurl : 'http://10.0.1.5/appletv',
 
 	toGBK: function (I) {
@@ -238,7 +238,7 @@ var appletv = {
 	loadAndSwapXML : function(xml) {
 		if (this.simulate) {
 			document.documentElement.innerHTML = '<html><head></head><body><textarea rows=\"100\" cols=\"150\">'
-					+ xml + '</textarea></body></html>';
+				+ xml + '</textarea></body></html>';
 		} else {
 			atv.loadAndSwapXML(atv.parseXML(xml));
 		}

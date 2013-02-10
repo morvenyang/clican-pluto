@@ -1,7 +1,6 @@
 package com.clican.appletv.ui.controllers;
 
 import java.io.ByteArrayOutputStream;
-import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
@@ -941,6 +940,9 @@ public class TaobaoController {
 					}
 				}
 			}
+			request.setAttribute("serverurl",
+					springProperty.getSystemServerUrl());
+			request.getSession().setAttribute(TAOBAO_CONFIRM_ORDER, tco);
 			return "taobao/confirmOrder";
 		}
 
@@ -977,7 +979,7 @@ public class TaobaoController {
 	public void getFareRequest(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		if (log.isDebugEnabled()) {
-			log.debug("get submit request addrId");
+			log.debug("get submit request");
 		}
 		TaobaoConfirmOrder tco = (TaobaoConfirmOrder) request.getSession()
 				.getAttribute(TAOBAO_CONFIRM_ORDER);
@@ -1011,9 +1013,6 @@ public class TaobaoController {
 			if (log.isDebugEnabled()) {
 				log.debug("submitRequest\n" + jsonContent);
 			}
-			FileOutputStream fos = new FileOutputStream("c:/2.txt");
-			fos.write(formStr.getBytes("utf-8"));
-			fos.close();
 			response.getOutputStream().write(jsonContent.getBytes("utf-8"));
 		}
 	}
