@@ -92,7 +92,7 @@
 									</imageTextImageMenuItem>
 								</c:if>
 							</c:forEach>
-							<imageTextImageMenuItem id="next" onSelect="atv.loadURL('${serverurl}/weibo/ctl/homeTimeline.xml?maxId=${maxId}&amp;feature=${weiboFeature}')">
+							<imageTextImageMenuItem id="next" onSelect="atv.loadURL('${serverurl}/ctl/weibo/homeTimeline.xml?maxId=${maxId}&amp;feature=${weiboFeature}')">
 								<leftImage></leftImage>
 								<rightImage></rightImage>
 								<imageSeparatorText></imageSeparatorText>

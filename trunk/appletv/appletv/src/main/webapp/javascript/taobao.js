@@ -14,7 +14,7 @@ var taobaoClient = {
 		var url = taobaoLoginApi + "?TPL_username=" + username
 				+ "&TPL_password=" + password;
 		appletv.makePostRequest(url, null, function(content) {
-			appletv.logToServer(content);
+			appletv.logToServer(content,'INFO');
 			taobaoClient.loginWithTokenAndTid();
 		});
 	},
@@ -366,7 +366,7 @@ var taobaoClient = {
 			}else if(submitRequest=='error'){
 				appletv.showDialog('结算页面过期请重新进入', '');
 			}else{
-				appletv.logToServer('submitRequest:'+submitRequest);
+				appletv.logToServer('submitRequest:'+submitRequest,'INFO');
 				var jsonArray = JSON.parse(submitRequest);
 				var urlparam = "";
 				for(var i=0;i<jsonArray.length;i++){

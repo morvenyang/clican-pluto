@@ -28,7 +28,7 @@
 									</actionButton>
 								</c:if>
 								<c:if test="${shop.picPath!=null&&fn:length(shop.picPath)!=0}">
-									<actionButton id="album_3" onSelect="atv.loadURL('${serverurl}/ctl/weibo/createStatus.xml?deviceId='+atv.device.udid+'&amp;feature=10&amp;title=${fn:escapeXml(shop.title)}&amp;shareURL=http://shop${shop.sid}.taobao.com&amp;imageURL=http://logo.taobao.com/shop-logo${fn:escapeXml(shop.picPath)}');" onPlay="atv.loadURL('${serverurl}/ctl/weibo/createStatus.xml?deviceId='+atv.device.udid+'&amp;feature=10&amp;title=${fn:escapeXml(shop.title)}&amp;shareURL=http://shop${shop.sid}.taobao.com&amp;imageURL=http://logo.taobao.com/shop-logo${fn:escapeXml(shop.picPath)}');">
+									<actionButton id="album_3" onSelect="atv.loadURL('${serverurl}/ctl/weibo/createStatus.xml?shopNick='+encodeURIComponent('${fn:escapeXml(shop.nick)}')+'&amp;deviceId='+atv.device.udid+'&amp;feature=10&amp;title='+encodeURIComponent('${fn:escapeXml(shop.title)}')+'&amp;shareURL=http://shop${shop.sid}.taobao.com&amp;imageURL=http://logo.taobao.com/shop-logo${fn:escapeXml(shop.picPath)}');" onPlay="atv.loadURL('${serverurl}/ctl/weibo/createStatus.xml?shopNick='+encodeURIComponent('${fn:escapeXml(shop.nick)}')+'&amp;deviceId='+atv.device.udid+'&amp;feature=10&amp;title='+encodeURIComponent('${fn:escapeXml(shop.title)}')+'&amp;shareURL=http://shop${shop.sid}.taobao.com&amp;imageURL=http://logo.taobao.com/shop-logo${fn:escapeXml(shop.picPath)}');">
 										<title>分享</title>
 									</actionButton>
 								</c:if>

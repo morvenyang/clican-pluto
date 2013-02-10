@@ -620,26 +620,12 @@ public class TaobaoController {
 			log.debug("access item :" + itemId);
 		}
 
-		TaobaokeItemsDetailGetRequest req0 = new TaobaokeItemsDetailGetRequest();
-		req0.setFields("click_url");
-		req0.setNick("clicanclican");
-		req0.setNumIids(itemId.toString());
-		TaobaokeItemsDetailGetResponse resp0 = taobaoRestClient.execute(req0);
-
 		ItemGetRequest req = new ItemGetRequest();
 		req.setFields("detail_url,num_iid,num,title,nick,desc,location,price,post_fee,express_fee,ems_fee,item_img.url,videos,pic_url,stuff_status,sku,property_alias,props");
 		req.setNumIid(itemId);
 		ItemGetResponse resp = taobaoRestClient.execute(req);
 		Item item = resp.getItem();
 		
-		if (resp0.getTaobaokeItemDetails() != null
-				&& resp0.getTaobaokeItemDetails().size() > 0) {
-			String clickUrl = resp0.getTaobaokeItemDetails().get(0)
-					.getClickUrl();
-			if(StringUtils.isNotEmpty(clickUrl)){
-				item.setDetailUrl(clickUrl);
-			}
-		} 
 		if (log.isDebugEnabled()) {
 			log.debug("detail url:" + item.getDetailUrl());
 		}
