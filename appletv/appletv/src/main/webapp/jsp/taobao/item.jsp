@@ -57,6 +57,9 @@
 									<title>购买</title>
 									<image>${serverurl}/image/weibo/share.png</image>
 								</actionButton>
+								<actionButton id="album_5" onPlay="taobaoClient.loadConfirmOrderPage('${taobaoHtmlToken}');" onSelect="taobaoClient.loadConfirmOrderPage('${taobaoHtmlToken}');">
+									<title>结算</title>
+								</actionButton>
 							</items>
 						</shelfSection>
 					</sections>
