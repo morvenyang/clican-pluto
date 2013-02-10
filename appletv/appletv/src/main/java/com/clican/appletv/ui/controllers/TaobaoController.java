@@ -59,6 +59,7 @@ import com.taobao.api.request.ItemGetRequest;
 import com.taobao.api.request.ItemsListGetRequest;
 import com.taobao.api.request.SellercatsListGetRequest;
 import com.taobao.api.request.ShopGetRequest;
+import com.taobao.api.request.TaobaokeItemsDetailGetRequest;
 import com.taobao.api.request.TaobaokeItemsGetRequest;
 import com.taobao.api.request.TaobaokeItemsRelateGetRequest;
 import com.taobao.api.request.UmpPromotionGetRequest;
@@ -66,6 +67,7 @@ import com.taobao.api.response.ItemGetResponse;
 import com.taobao.api.response.ItemsListGetResponse;
 import com.taobao.api.response.SellercatsListGetResponse;
 import com.taobao.api.response.ShopGetResponse;
+import com.taobao.api.response.TaobaokeItemsDetailGetResponse;
 import com.taobao.api.response.TaobaokeItemsGetResponse;
 import com.taobao.api.response.TaobaokeItemsRelateGetResponse;
 import com.taobao.api.response.UmpPromotionGetResponse;
@@ -146,7 +148,8 @@ public class TaobaoController {
 
 			if (StringUtils.isNotEmpty(token) && StringUtils.isNotEmpty(tid)) {
 				if (log.isDebugEnabled()) {
-					log.debug("Taobao user login successfully sessionid:"+request.getSession().getId()+", with token:"
+					log.debug("Taobao user login successfully sessionid:"
+							+ request.getSession().getId() + ", with token:"
 							+ token + ",tid:" + tid);
 				}
 				request.getSession()
@@ -617,11 +620,29 @@ public class TaobaoController {
 			log.debug("access item :" + itemId);
 		}
 
+		TaobaokeItemsDetailGetRequest req0 = new TaobaokeItemsDetailGetRequest();
+		req0.setFields("click_url");
+		req0.setNick("clicanclican");
+		req0.setNumIids(itemId.toString());
+		TaobaokeItemsDetailGetResponse resp0 = taobaoRestClient.execute(req0);
+
 		ItemGetRequest req = new ItemGetRequest();
 		req.setFields("detail_url,num_iid,num,title,nick,desc,location,price,post_fee,express_fee,ems_fee,item_img.url,videos,pic_url,stuff_status,sku,property_alias,props");
 		req.setNumIid(itemId);
 		ItemGetResponse resp = taobaoRestClient.execute(req);
 		Item item = resp.getItem();
+		
+		if (resp0.getTaobaokeItemDetails() != null
+				&& resp0.getTaobaokeItemDetails().size() > 0) {
+			String clickUrl = resp0.getTaobaokeItemDetails().get(0)
+					.getClickUrl();
+			if(StringUtils.isNotEmpty(clickUrl)){
+				item.setDetailUrl(clickUrl);
+			}
+		} 
+		if (log.isDebugEnabled()) {
+			log.debug("detail url:" + item.getDetailUrl());
+		}
 		UmpPromotionGetRequest req2 = new UmpPromotionGetRequest();
 		req2.setItemId(itemId);
 		UmpPromotionGetResponse resp2 = taobaoRestClient.execute(req2);
@@ -651,9 +672,7 @@ public class TaobaoController {
 		if (imageUrls.endsWith(",")) {
 			imageUrls = imageUrls.substring(0, imageUrls.length() - 1);
 		}
-		if (log.isDebugEnabled()) {
-			log.debug("detail url:" + resp.getItem().getDetailUrl());
-		}
+
 		if (StringUtils.isNotEmpty(imageUrls)) {
 			request.setAttribute("imageUrls", imageUrls);
 		}
@@ -841,17 +860,16 @@ public class TaobaoController {
 	}
 
 	@RequestMapping("/taobao/confirmOrder.xml")
-	public String confirmOrderPage(
-			HttpServletRequest request,
-			HttpServletResponse response)
-			throws Exception {
+	public String confirmOrderPage(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
 		if (log.isDebugEnabled()) {
-			log.debug("access confirm order sessionid:"+request.getSession().getId());
+			log.debug("access confirm order sessionid:"
+					+ request.getSession().getId());
 		}
 		String content = this.getContent(request);
 		JSONObject json = JSONObject.fromObject(content);
-		String deviceId= json.getString("deviceId");
-		String htmlContent= json.getString("htmlContent");
+		String deviceId = json.getString("deviceId");
+		String htmlContent = json.getString("htmlContent");
 		TaobaoConfirmOrder tco = taobaoClient.getConfirmOrder(htmlContent);
 		if (tco.getShopList().size() == 0) {
 			request.setAttribute("tco", tco);
@@ -883,8 +901,7 @@ public class TaobaoController {
 
 	@RequestMapping("/taobao/changeAddr.xml")
 	public String changeAddrPage(HttpServletRequest request,
-			HttpServletResponse response)
-			throws Exception {
+			HttpServletResponse response) throws Exception {
 		String content = this.getContent(request);
 		JSONObject jsonObj = JSONObject.fromObject(content);
 		Long addrId = jsonObj.getLong("addrId");
@@ -954,7 +971,8 @@ public class TaobaoController {
 			@RequestParam(value = "addrId", required = false) Long addrId)
 			throws Exception {
 		if (log.isDebugEnabled()) {
-			log.debug("get fare request sessionid:"+request.getSession().getId()+",addrId:" + addrId);
+			log.debug("get fare request sessionid:"
+					+ request.getSession().getId() + ",addrId:" + addrId);
 		}
 		TaobaoConfirmOrder tco = (TaobaoConfirmOrder) request.getSession()
 				.getAttribute(TAOBAO_CONFIRM_ORDER);
