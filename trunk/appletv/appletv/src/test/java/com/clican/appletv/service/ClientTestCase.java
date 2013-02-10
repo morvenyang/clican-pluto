@@ -64,6 +64,7 @@ public class ClientTestCase extends BaseServiceTestCase {
 	public void testFivesixIdPattern() throws Exception {
 		String s1 = "http://www.56.com/w22/play_album-aid-9938908_vid-ODQ0MDc4OTM.html/1030_yesweibo.html";
 		String s2 = "http://www.56.com/u24/v_ODA1NDE2NjE.html";
+		String s3= "http://www.56.com/u95/v_NTAxNTY5MTY.html/1030_zhrdy001.html";
 		Pattern pattern = Pattern
 				.compile("http://www\\.56\\.com/.*(vid-|/v_)(\\p{Alnum}*)\\.html.*");
 		Matcher matcher = pattern.matcher(s1);
@@ -79,6 +80,12 @@ public class ClientTestCase extends BaseServiceTestCase {
 		}
 		assertEquals("ODA1NDE2NjE", code);
 
+		matcher = pattern.matcher(s3);
+		if (matcher.matches()) {
+			code = matcher.group(2);
+		}
+		assertEquals("NTAxNTY5MTY", code);
+		
 	}
 
 	public void testQQIdPattern() throws Exception {
