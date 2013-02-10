@@ -292,8 +292,7 @@ public class TaobaoController {
 		shopReq.setNick(nick);
 		ShopGetResponse shopResp = taobaoRestClient.execute(shopReq);
 		Shop shop = shopResp.getShop();
-		shop.setTitle(URLEncoder.encode(shop.getTitle(), "utf-8"));
-		request.setAttribute("shop", shopResp.getShop());
+		request.setAttribute("shop", shop);
 		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
 		return "taobao/shopDetail";
 	}
