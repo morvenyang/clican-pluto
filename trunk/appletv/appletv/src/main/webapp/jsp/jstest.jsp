@@ -21,7 +21,7 @@
 <input type="button" onclick="taobaoClient.loadFavoriteItemPage('<%=request.getSession().getAttribute("taobaoHtmlToken")%>');" value="商品收藏"/>
 <input type="button" onclick="taobaoClient.loadFavoriteShopPage('<%=request.getSession().getAttribute("taobaoHtmlToken")%>');" value="店铺收藏"/>
 <input type="button" onclick="taobaoClient.loadConfirmOrderPage('${taobaoHtmlToken}');" value="加载结算页面"/>
-<input type="button" onclick="taobaoClient.changeAddress(1062172688);" value="修改收货地址"/>
+<input type="button" onclick="taobaoClient.changeAddress(1062799477);" value="修改收货地址"/>
 <input type="button" onclick="taobaoClient.submitConfirmOrder();" value="提交订单"/>
 
 <input type="button" onclick="taobaoClient.getToken();" value="获取令牌"/>

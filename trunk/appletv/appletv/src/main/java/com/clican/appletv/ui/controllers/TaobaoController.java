@@ -847,7 +847,7 @@ public class TaobaoController {
 			HttpServletResponse response)
 			throws Exception {
 		if (log.isDebugEnabled()) {
-			log.debug("access confirm order");
+			log.debug("access confirm order sessionid:"+request.getSession().getId());
 		}
 		String content = this.getContent(request);
 		JSONObject json = JSONObject.fromObject(content);
@@ -863,7 +863,7 @@ public class TaobaoController {
 					tco.getConfirmOrderImage());
 			request.setAttribute("serverurl",
 					springProperty.getSystemServerUrl());
-			request.setAttribute(TAOBAO_CONFIRM_ORDER, tco);
+			request.getSession().setAttribute(TAOBAO_CONFIRM_ORDER, tco);
 			return "taobao/confirmOrder";
 		}
 	}
@@ -884,13 +884,12 @@ public class TaobaoController {
 
 	@RequestMapping("/taobao/changeAddr.xml")
 	public String changeAddrPage(HttpServletRequest request,
-			HttpServletResponse response,
-			@RequestParam(value = "addrId", required = false) Long addrId)
+			HttpServletResponse response)
 			throws Exception {
-		if (log.isDebugEnabled()) {
-			log.debug("change addr:" + addrId);
-		}
-		String fareResponse = this.getContent(request);
+		String content = this.getContent(request);
+		JSONObject jsonObj = JSONObject.fromObject(content);
+		Long addrId = jsonObj.getLong("addrId");
+		String fareResponse = jsonObj.getString("fareResponse");
 		TaobaoConfirmOrder tco = (TaobaoConfirmOrder) request.getSession()
 				.getAttribute(TAOBAO_CONFIRM_ORDER);
 		if (tco == null) {
@@ -953,7 +952,7 @@ public class TaobaoController {
 			@RequestParam(value = "addrId", required = false) Long addrId)
 			throws Exception {
 		if (log.isDebugEnabled()) {
-			log.debug("get fare request addrId:" + addrId);
+			log.debug("get fare request sessionid:"+request.getSession().getId()+",addrId:" + addrId);
 		}
 		TaobaoConfirmOrder tco = (TaobaoConfirmOrder) request.getSession()
 				.getAttribute(TAOBAO_CONFIRM_ORDER);
