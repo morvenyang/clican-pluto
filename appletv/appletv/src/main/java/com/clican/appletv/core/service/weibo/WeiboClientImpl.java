@@ -107,6 +107,9 @@ public class WeiboClientImpl implements WeiboClient {
 							Matcher youkuMatcher = youkuPattern.matcher(lurl);
 							if (youkuMatcher.matches()) {
 								String showid = youkuMatcher.group(1);
+								if(StringUtils.isEmpty(showid)){
+									showid = youkuMatcher.group(2);
+								}
 								addVideoUrlForStatus(list, "atv.loadURL('"
 										+ springProperty.getSystemServerUrl()
 										+ "/ctl/youku/album.xml?showid="

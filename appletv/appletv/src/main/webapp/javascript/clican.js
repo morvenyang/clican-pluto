@@ -1,6 +1,6 @@
 var appletv = {
 	logEnable : true,
-	logSeverity : 'DEBUG',
+	logSeverity : 'INFO',
 	simulate : false,
 	serverurl : 'http://10.0.1.5/appletv',
 

@@ -95,16 +95,22 @@ public class ClientTestCase extends BaseServiceTestCase {
 	}
 
 	public void testYoukuCodePattern() throws Exception {
+		String s2="http://player.youku.com/player.php/sid/XNTAzNzgyNjA0/v.swf";
 		String s1 = "http://v.youku.com/v_show/id_XMzA5MzY=.html";
 		Pattern pattern = Pattern.compile(springProperty
 				.getYoukuShowidPattern());
-		Matcher matcher = pattern.matcher(s1);
-		String code = null;
-		if (matcher.matches()) {
-			code = matcher.group(1);
+		Matcher matcher1 = pattern.matcher(s1);
+		String code1 = null;
+		if (matcher1.matches()) {
+			code1 = matcher1.group(1);
 		}
-		assertEquals("XMzA5MzY=", code);
-
+		assertEquals("XMzA5MzY=", code1);
+		Matcher matcher2 = pattern.matcher(s2);
+		String code2 = null;
+		if (matcher2.matches()) {
+			code2 = matcher2.group(2);
+		}
+		assertEquals("XNTAzNzgyNjA0", code2);
 	}
 
 }
