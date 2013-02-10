@@ -173,4 +173,12 @@ public class TaobaoTestCase extends BaseServiceTestCase {
 		String htmlContent = new String(data, "gb2312");
 		taobaoClient.getConfirmOrder(htmlContent);
 	}
+	
+	public void testGetPromotion() throws Exception{
+		String url ="http://ajax.tbcdn.cn/json/promotionListn.htm?rcid=30&sts=269578240,1179943291358019588,72409437792403584,1166502676530217987&chnl=pc&price=46800&itemId=20604348044&sellerId=297130775&shopId=";
+		Map<String,String> headers = new HashMap<String,String>();
+		headers.put("Referer", "http://item.taobao.com/item.htm?id=20604348044");
+		String content = ((TaobaoClientImpl)taobaoClient).httpGet(url, headers, null);
+		log.debug(content);
+	}
 }
