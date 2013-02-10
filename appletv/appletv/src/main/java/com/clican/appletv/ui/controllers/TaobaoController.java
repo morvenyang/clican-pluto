@@ -641,7 +641,7 @@ public class TaobaoController {
 		TaobaokeItemsRelateGetRequest req3 = new TaobaokeItemsRelateGetRequest();
 		req3.setRelateType(1L);
 		req3.setNumIid(itemId);
-		req3.setFields("num_iid,title,pic_url,volume");
+		req3.setFields("num_iid,title,pic_url,volume,click_url");
 		TaobaokeItemsRelateGetResponse resp3 = taobaoRestClient.execute(req3);
 		TaobaoSkuPromotionWrap promotion = null;
 		try{
