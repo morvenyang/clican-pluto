@@ -8,7 +8,7 @@
 <body>
 <scroller id="com.sample.movie-shelf">
 	<items>
-		<grid id="address_grid" columnCount="8">
+		<grid id="address_grid" columnCount="5">
 			<items>
 				<c:forEach var="addr" items="${tco.addrList}" varStatus="status1">
 					<actionButton id="address_button_${status1.count}" onSelect="taobaoClient.changeAddress(${addr.addrId});">
