@@ -44,7 +44,7 @@ var taobaoClient = {
 			var password = usernameAndPassword
 					.substring(index + 1);
 			appletv.setValue('taobaousernameandpassword',usernameAndPassword);
-			appletv.showSwapDialog('登录中...','Login...');
+			appletv.showDialog('登录中...','Login...');
 			taobaoClient.login(
 					username,
 					password);
@@ -286,6 +286,7 @@ var taobaoClient = {
 	},
 	
 	loadConfirmOrderPage:function(token){
+		appletv.logToServer('token for confirm order page:'+token);
 		if (token == null || token.length == 0|| token=='null') {
 			appletv
 			.makeRequest(
@@ -324,11 +325,13 @@ var taobaoClient = {
 							if(mycardresult=='noresult'){
 								appletv.showDialog('购物车内空空如也', '');
 							}else{
-								var oMyForm = new FormData();
-								oMyForm.append('deviceId', appletv.getDeviceUdid());
-								oMyForm.append('htmlContent', htmlcontent);
-								appletv.makePostRequest(appletv.serverurl+'/ctl/taobao/confirmOrder.xml',oMyForm,function(xmlcontent){
-									appletv.loadXML(xmlcontent);
+								appletv.makePostRequest(taobaoConfirmOrderApi+'?'+mycardresult,null, function(htmlcontent){
+									var oMyForm = new FormData();
+									oMyForm.append('deviceId', appletv.getDeviceUdid());
+									oMyForm.append('htmlContent', htmlcontent);
+									appletv.makePostRequest(appletv.serverurl+'/ctl/taobao/confirmOrder.xml',oMyForm,function(xmlcontent){
+										appletv.loadXML(xmlcontent);
+									});
 								});
 							}
 						});
