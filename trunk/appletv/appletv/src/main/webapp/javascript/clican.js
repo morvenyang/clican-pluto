@@ -1,6 +1,6 @@
 var appletv = {
 	logEnable : true,
-	simulate : false,
+	simulate : true,
 	serverurl : 'http://10.0.1.5/appletv',
 
 	toGBK: function (I) {
@@ -141,12 +141,18 @@ var appletv = {
 		return xhr;
 	},
 
-	makePostRequest : function(url, content, callback) {
+	makePostRequest : function(url, content, callback,contentType) {
 		if (!url) {
 			throw "loadURL requires a url argument";
 		}
 
 		var xhr = new XMLHttpRequest();
+		if(contentType!=null){
+			xhr.setRequestHeader("Content-Type",contentType);
+			if(contentType=='multipart/form-data'){
+				content = content.body;
+			}
+		}
 		xhr.onreadystatechange = function() {
 			try {
 				if (xhr.readyState == 4) {
@@ -308,5 +314,21 @@ var appletv = {
 			textEntry.onSubmit = callback;
 			textEntry.show();
 		}
-	}
+	},
+	
+	formData:function(){
+		return {
+			boundary:'---------------------------clican',
+			body:'',
+			append:function(name,value){
+				this.body += '--' + this.boundary + '\r\n' + 'Content-Disposition: form-data; name="';
+				this.body += name;
+				this.body += '"\r\n\r\n';
+				this.body += value;
+				this.body += '\r\n';
+				this.body += '--' + this.boundary + '--';
+				this.body += '\r\n';
+			}
+		}
+	},
 };

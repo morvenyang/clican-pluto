@@ -147,7 +147,7 @@ public class TaobaoController {
 
 			if (StringUtils.isNotEmpty(token) && StringUtils.isNotEmpty(tid)) {
 				if (log.isDebugEnabled()) {
-					log.debug("Taobao user login successfully, with token:"
+					log.debug("Taobao user login successfully sessionid:"+request.getSession().getId()+", with token:"
 							+ token + ",tid:" + tid);
 				}
 				request.getSession()

@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.clican.appletv.common.SpringProperty;
-import com.clican.appletv.core.model.Baibian;
 import com.clican.appletv.core.service.baibian.BaibianClient;
+import com.clican.appletv.core.service.baibian.model.Baibian;
 
 @Controller
 public class BaibianController {
