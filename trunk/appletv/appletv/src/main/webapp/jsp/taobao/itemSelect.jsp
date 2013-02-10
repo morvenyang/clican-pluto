@@ -32,7 +32,7 @@
 							<title>进购物车</title>
 						</actionButton>
 						<actionButton id="clean" onPlay="taobaoClient.loadConfirmOrderPage('${taobaoHtmlToken}');" onSelect="taobaoClient.loadConfirmOrderPage('${taobaoHtmlToken}');">
-							<title>结算</title>
+							<title>结           算</title>
 						</actionButton>
 					</items>
 				</grid>
