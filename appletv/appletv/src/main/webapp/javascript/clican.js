@@ -1,5 +1,6 @@
 var appletv = {
 	logEnable : true,
+	logSeverity : 'DEBUG',
 	simulate : false,
 	serverurl : 'http://10.0.1.5/appletv',
 
@@ -72,12 +73,41 @@ var appletv = {
 		}
 	},
 
-	logToServer : function(logText) {
+	logToServer : function(logText,severity) {
 		if (this.logEnable) {
-			this.makePostRequest(this.serverurl + '/ctl/log.do', logText,
-					function(data) {
+			if(severity==null){
+				severity='DEBUG';
+			}
+			if(this.logSeverity=='DEBUG'){
+				if(severity=='ERROR'||severity=='WARN'||severity=='INFO'||severity=='DEBUG'){
+					this.makePostRequest(this.serverurl + '/ctl/log.do', logText,
+							function(data) {
 
-					});
+							});
+				}
+			}else if(this.logSeverity=='INFO'){
+				if(severity=='ERROR'||severity=='WARN'||severity=='INFO'){
+					this.makePostRequest(this.serverurl + '/ctl/log.do', logText,
+							function(data) {
+
+							});
+				}
+			}else if(this.logSeverity=='WARN'){
+				if(severity=='ERROR'||severity=='WARN'){
+					this.makePostRequest(this.serverurl + '/ctl/log.do', logText,
+							function(data) {
+
+							});
+				}
+			}else if(this.logSeverity=='ERROR'){
+				if(severity=='ERROR'){
+					this.makePostRequest(this.serverurl + '/ctl/log.do', logText,
+							function(data) {
+
+							});
+				}
+			}
+			
 		}
 	},
 	playMp3 : function(mp3url) {

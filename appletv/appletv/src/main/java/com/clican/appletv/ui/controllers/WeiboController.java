@@ -31,6 +31,9 @@ import weibo4j.model.WeiboException;
 
 import com.clican.appletv.common.SpringProperty;
 import com.clican.appletv.core.service.weibo.WeiboClient;
+import com.taobao.api.TaobaoClient;
+import com.taobao.api.request.TaobaokeItemsDetailGetRequest;
+import com.taobao.api.response.TaobaokeItemsDetailGetResponse;
 
 @Controller
 public class WeiboController {
@@ -40,6 +43,9 @@ public class WeiboController {
 	private WeiboClient weiboClient;
 
 	@Autowired
+	private TaobaoClient taobaoRestClient;
+
+	@Autowired
 	private SpringProperty springProperty;
 
 	private boolean isLogin(HttpServletRequest request,
@@ -47,7 +53,7 @@ public class WeiboController {
 		if (request.getSession().getAttribute("weiboAccessToken") != null) {
 			return true;
 		} else {
-			
+
 			String deviceId = request.getParameter("deviceId");
 			String uid = weiboClient.getUid(deviceId);
 			String accessToken = weiboClient.getAccessToken(deviceId);
@@ -338,7 +344,9 @@ public class WeiboController {
 			@RequestParam(value = "title", required = false) String title,
 			@RequestParam(value = "shareURL", required = false) String shareURL,
 			@RequestParam(value = "imageURL", required = false) String imageURL,
-			@RequestParam(value = "feature", required = false) Integer feature)
+			@RequestParam(value = "feature", required = false) Integer feature,
+			@RequestParam(value = "itemId", required = false) Long itemId,
+			@RequestParam(value = "shopNick", required = false) String shopNick)
 			throws Exception {
 		if (log.isDebugEnabled()) {
 			log.debug("create status, title:" + title + ",shareURL:" + shareURL
@@ -355,10 +363,27 @@ public class WeiboController {
 		if (feature != null && feature == 4) {
 			statusContent = "我正在Apple TV3上收听在线音乐（" + title
 					+ "）@Clican 了解更多 >>>";
-		} else if (feature != null &&feature == 10) {
+		} else if (feature != null && feature == 10) {
 			statusContent = "我正在Apple TV3上浏览淘宝（" + title + "）@Clican 了解更多 >>>";
-		} else if (feature != null &&feature == 11) {
-			statusContent = "我正在Apple TV3 观看微电影（" + title + "）@微电影官方微博 @Clican 了解更多 >>>";
+			if (itemId != null) {
+				TaobaokeItemsDetailGetRequest req = new TaobaokeItemsDetailGetRequest();
+				req.setFields("click_url");
+				req.setNick("clicanclican");
+				req.setNumIids(itemId.toString());
+				TaobaokeItemsDetailGetResponse resp = taobaoRestClient
+						.execute(req);
+				if (resp.getTaobaokeItemDetails() != null
+						&& resp.getTaobaokeItemDetails().size() > 0) {
+					String clickUrl = resp.getTaobaokeItemDetails().get(0)
+							.getClickUrl();
+					if (StringUtils.isNotEmpty(clickUrl)) {
+						shareURL = clickUrl;
+					}
+				}
+			}
+		} else if (feature != null && feature == 11) {
+			statusContent = "我正在Apple TV3 观看微电影（" + title
+					+ "）@微电影官方微博 @Clican 了解更多 >>>";
 		} else {
 			statusContent = "我正在Apple TV3上观看在线视频（" + title
 					+ "）@Clican 了解更多 >>>";
@@ -369,9 +394,9 @@ public class WeiboController {
 		Status status = null;
 		String promptTitle = "分享成功";
 		try {
-			if(StringUtils.isEmpty(imageURL)){
+			if (StringUtils.isEmpty(imageURL)) {
 				status = timeline.UpdateStatus(statusContent);
-			}else{
+			} else {
 				status = timeline.UploadStatus(statusContent, imageURL);
 			}
 		} catch (WeiboException e) {
