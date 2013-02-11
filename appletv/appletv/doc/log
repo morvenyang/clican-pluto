@@ -1,1 +1,3 @@
 cat access_log|awk '{print $1}'|sort|uniq -c|sort -rn|wc -l
+cat access_log|grep "releasenote.xml"|awk '{print $1}'|sort|uniq -c|sort -rn|wc -l
+cat access_log|grep "taobao/index.xml"|awk '{print $1}'|sort|uniq -c|sort -rn|wc -l
