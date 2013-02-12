@@ -21,6 +21,7 @@
 {
     TTNavigator* navigator = [TTNavigator navigator];
     
+    
     navigator.supportsShakeToReload = NO;
     navigator.persistenceMode = TTNavigatorPersistenceModeNone;
     navigator.window = [[UIWindow alloc] initWithFrame:TTScreenBounds()];
