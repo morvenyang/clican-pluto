@@ -8,13 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
-@interface RemoveCallbackURLJSONResponse : NSObject<TTURLResponse>{
-    id _rootObject;
-    NSString* callback;
+@interface RemoveCallbackURLJSONResponse : TTURLJSONResponse<TTURLResponse>{
+    NSString* callbackName;
 }
 
-@property (nonatomic, retain, readonly) id    rootObject;
-@property (nonatomic, copy)     NSString*       callback;
+@property (nonatomic, copy)     NSString*       callbackName;
 
-- (id)initCallback:(NSString*)callback;
+- (id)initWithCallbackName:(NSString*)callbackName;
 @end

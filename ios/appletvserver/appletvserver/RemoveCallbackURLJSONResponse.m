@@ -10,20 +10,18 @@
 
 @implementation RemoveCallbackURLJSONResponse
 
-@synthesize rootObject  = _rootObject;
-@synthesize callback = _callback;
+@synthesize callbackName = _callbackName;
 
 
-- (id)initCallback:(NSString*)callback{
+- (id)initWithCallbackName:(NSString*)cbn{
     if ((self = [super init])) {
-        self.callback = callback;
+        self.callbackName = cbn;
     }
     return self;
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)dealloc {
-    TT_RELEASE_SAFELY(_rootObject);
-    
+    TT_RELEASE_SAFELY(_callbackName);
     [super dealloc];
 }
 
@@ -44,14 +42,11 @@
     NSError* err = nil;
     if ([data isKindOfClass:[NSData class]]) {
         NSString* json = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
-       
-        json =  [json stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]]; 
-        _rootObject = [[json JSONValue] retain];
-        if (!_rootObject) {
-            err = [NSError errorWithDomain:kTTExtJSONErrorDomain
-                                      code:kTTExtJSONErrorCodeInvalidJSON
-                                  userInfo:nil];
-        }
+        NSLog(@"json=%@",json);
+        json = [json stringByReplacingOccurrencesOfString:self.callbackName withString:@""];
+        json = [json substringToIndex:[json length]-1];
+        NSLog(@"json=%@",json);
+        return [super request:request processResponse:response data:[json dataUsingEncoding:NSUTF8StringEncoding]];
     }
     
     return err;
