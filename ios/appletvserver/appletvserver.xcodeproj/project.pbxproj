@@ -19,6 +19,8 @@
 		7219BBCD16C9EAFA00AABA8E /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7219BBCC16C9EAFA00AABA8E /* MainViewController.m */; };
 		7272B39D16C9FC7300E111A7 /* QQIndexRequestModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7272B39C16C9FC7300E111A7 /* QQIndexRequestModel.m */; };
 		7272B3A016C9FD4E00E111A7 /* Video.m in Sources */ = {isa = PBXBuildFile; fileRef = 7272B39F16C9FD4E00E111A7 /* Video.m */; };
+		7272B3A716CA046400E111A7 /* VideoTableItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 7272B3A616CA046400E111A7 /* VideoTableItem.m */; };
+		7272B3AA16CA049A00E111A7 /* VideoTableItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7272B3A916CA049A00E111A7 /* VideoTableItemCell.m */; };
 		72A4368016C9EA5A00D9958D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72A4367F16C9EA5A00D9958D /* UIKit.framework */; };
 		72A4368216C9EA5A00D9958D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72A4368116C9EA5A00D9958D /* Foundation.framework */; };
 		72A4368416C9EA5A00D9958D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72A4368316C9EA5A00D9958D /* CoreGraphics.framework */; };
@@ -26,6 +28,7 @@
 		72A4368C16C9EA5A00D9958D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 72A4368B16C9EA5A00D9958D /* main.m */; };
 		72A4369016C9EA5A00D9958D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 72A4368F16C9EA5A00D9958D /* AppDelegate.m */; };
 		72A69BCA16C9F3360099D974 /* QQIndexDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 72A69BC916C9F3360099D974 /* QQIndexDataSource.m */; };
+		72B5769716CA13B80094DD58 /* libextThree20JSON+SBJSON.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7219BBD516C9EB6900AABA8E /* libextThree20JSON+SBJSON.a */; };
 		72E748FF16C9F04F0024B8BB /* QQIndexViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 72E748FE16C9F04F0024B8BB /* QQIndexViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -198,6 +201,13 @@
 			remoteGlobalIDString = EB9E6C6210B6A8F800DE563C;
 			remoteInfo = "extThree20JSONUnitTests+SBJSON";
 		};
+		72B5769316CA13090094DD58 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7219BBCE16C9EB6900AABA8E /* extThree20JSON.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = BEF31F390F352DF5000DE5D2;
+			remoteInfo = "extThree20JSON+SBJSON";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -218,6 +228,10 @@
 		7272B39E16C9FD4E00E111A7 /* Video.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Video.h; sourceTree = "<group>"; };
 		7272B39F16C9FD4E00E111A7 /* Video.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Video.m; sourceTree = "<group>"; };
 		7272B3A116C9FEBA00E111A7 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		7272B3A516CA046400E111A7 /* VideoTableItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoTableItem.h; sourceTree = "<group>"; };
+		7272B3A616CA046400E111A7 /* VideoTableItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoTableItem.m; sourceTree = "<group>"; };
+		7272B3A816CA049A00E111A7 /* VideoTableItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoTableItemCell.h; sourceTree = "<group>"; };
+		7272B3A916CA049A00E111A7 /* VideoTableItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoTableItemCell.m; sourceTree = "<group>"; };
 		72A4367B16C9EA5A00D9958D /* appletvserver.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = appletvserver.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		72A4367F16C9EA5A00D9958D /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		72A4368116C9EA5A00D9958D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -241,6 +255,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				72B5769716CA13B80094DD58 /* libextThree20JSON+SBJSON.a in Frameworks */,
 				3201088596B4756681693705 /* libThree20UICommon.a in Frameworks */,
 				320D7DCCE32703ACAB9A45E5 /* libThree20.a in Frameworks */,
 				320A737074758E53BA54BE95 /* libThree20UINavigator.a in Frameworks */,
@@ -350,6 +365,33 @@
 			name = Object;
 			sourceTree = "<group>";
 		};
+		7272B3A216CA040F00E111A7 /* Three20 */ = {
+			isa = PBXGroup;
+			children = (
+				7272B3A416CA042D00E111A7 /* TableItemCell */,
+				7272B3A316CA042200E111A7 /* TableItem */,
+			);
+			name = Three20;
+			sourceTree = "<group>";
+		};
+		7272B3A316CA042200E111A7 /* TableItem */ = {
+			isa = PBXGroup;
+			children = (
+				7272B3A516CA046400E111A7 /* VideoTableItem.h */,
+				7272B3A616CA046400E111A7 /* VideoTableItem.m */,
+			);
+			name = TableItem;
+			sourceTree = "<group>";
+		};
+		7272B3A416CA042D00E111A7 /* TableItemCell */ = {
+			isa = PBXGroup;
+			children = (
+				7272B3A816CA049A00E111A7 /* VideoTableItemCell.h */,
+				7272B3A916CA049A00E111A7 /* VideoTableItemCell.m */,
+			);
+			name = TableItemCell;
+			sourceTree = "<group>";
+		};
 		72A4367016C9EA5A00D9958D = {
 			isa = PBXGroup;
 			children = (
@@ -390,6 +432,7 @@
 		72A4368516C9EA5A00D9958D /* appletvserver */ = {
 			isa = PBXGroup;
 			children = (
+				7272B3A216CA040F00E111A7 /* Three20 */,
 				7272B39A16C9FC5100E111A7 /* Object */,
 				72A69BCB16C9F3F20099D974 /* Model */,
 				72E748FB16C9EF430024B8BB /* Datasource */,
@@ -480,6 +523,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				72B5769416CA13090094DD58 /* PBXTargetDependency */,
 				3201088596B4756681693701 /* PBXTargetDependency */,
 				320D7DCCE32703ACAB9A45E1 /* PBXTargetDependency */,
 				320A737074758E53BA54BE91 /* PBXTargetDependency */,
@@ -699,6 +743,8 @@
 				72A69BCA16C9F3360099D974 /* QQIndexDataSource.m in Sources */,
 				7272B39D16C9FC7300E111A7 /* QQIndexRequestModel.m in Sources */,
 				7272B3A016C9FD4E00E111A7 /* Video.m in Sources */,
+				7272B3A716CA046400E111A7 /* VideoTableItem.m in Sources */,
+				7272B3AA16CA049A00E111A7 /* VideoTableItemCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -739,6 +785,11 @@
 			isa = PBXTargetDependency;
 			name = Three20UI;
 			targetProxy = 320F2C48872C2E2C4DF86202 /* PBXContainerItemProxy */;
+		};
+		72B5769416CA13090094DD58 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "extThree20JSON+SBJSON";
+			targetProxy = 72B5769316CA13090094DD58 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

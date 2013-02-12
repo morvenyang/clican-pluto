@@ -20,4 +20,7 @@
 @property (nonatomic, copy)     NSString*       keyword;
 @property (nonatomic, retain) NSMutableArray* videoList;
 @property (nonatomic, readonly) BOOL            finished;
+
+- (id)initWithQQChannel:(QQChannel)channel;
+
 @end

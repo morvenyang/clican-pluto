@@ -8,6 +8,16 @@
 
 #import <Foundation/Foundation.h>
 
-@interface Video : NSObject
+@interface Video : NSObject{
+    NSString* _title;
+    NSString* _subtitle;
+    NSString* _picUrl;
+    NSString* _vid;
+}
+
+@property (nonatomic, copy) NSString* title;
+@property (nonatomic, copy) NSString* subTitle;
+@property (nonatomic, copy) NSString* picUrl;
+@property (nonatomic, copy) NSString* vid;
 
 @end
