@@ -23,6 +23,7 @@
 		72A4368A16C9EA5A00D9958D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 72A4368816C9EA5A00D9958D /* InfoPlist.strings */; };
 		72A4368C16C9EA5A00D9958D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 72A4368B16C9EA5A00D9958D /* main.m */; };
 		72A4369016C9EA5A00D9958D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 72A4368F16C9EA5A00D9958D /* AppDelegate.m */; };
+		72A69BCA16C9F3360099D974 /* QQIndexDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 72A69BC916C9F3360099D974 /* QQIndexDataSource.m */; };
 		72E748FF16C9F04F0024B8BB /* QQIndexViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 72E748FE16C9F04F0024B8BB /* QQIndexViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -220,6 +221,8 @@
 		72A4368D16C9EA5A00D9958D /* appletvserver-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "appletvserver-Prefix.pch"; sourceTree = "<group>"; };
 		72A4368E16C9EA5A00D9958D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		72A4368F16C9EA5A00D9958D /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		72A69BC816C9F3360099D974 /* QQIndexDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QQIndexDataSource.h; sourceTree = "<group>"; };
+		72A69BC916C9F3360099D974 /* QQIndexDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QQIndexDataSource.m; sourceTree = "<group>"; };
 		72E748F916C9EEE70024B8BB /* StyleSheet.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StyleSheet.h; sourceTree = "<group>"; };
 		72E748FA16C9EEE70024B8BB /* StyleSheet.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StyleSheet.m; sourceTree = "<group>"; };
 		72E748FD16C9F04F0024B8BB /* QQIndexViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QQIndexViewController.h; sourceTree = "<group>"; };
@@ -421,6 +424,8 @@
 		72E748FC16C9EF4D0024B8BB /* qq */ = {
 			isa = PBXGroup;
 			children = (
+				72A69BC816C9F3360099D974 /* QQIndexDataSource.h */,
+				72A69BC916C9F3360099D974 /* QQIndexDataSource.m */,
 			);
 			name = qq;
 			sourceTree = "<group>";
@@ -654,6 +659,7 @@
 				72A4369016C9EA5A00D9958D /* AppDelegate.m in Sources */,
 				7219BBCD16C9EAFA00AABA8E /* MainViewController.m in Sources */,
 				72E748FF16C9F04F0024B8BB /* QQIndexViewController.m in Sources */,
+				72A69BCA16C9F3360099D974 /* QQIndexDataSource.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

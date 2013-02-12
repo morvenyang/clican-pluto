@@ -1,5 +1,5 @@
 //
-//  QQIndexViewController.h
+//  QQIndexDataSource.h
 //  appletvserver
 //
 //  Created by zhang wei on 13-2-12.
@@ -7,7 +7,6 @@
 //
 
 
-
-@interface QQIndexViewController : TTTableViewController
+@interface QQIndexDataSource : TTListDataSource
 
 @end
