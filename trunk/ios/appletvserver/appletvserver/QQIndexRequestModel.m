@@ -56,7 +56,7 @@
 
         request.cachePolicy = cachePolicy;
         
-        RemoveCallbackURLJSONResponse* response = [[RemoveCallbackURLJSONResponse alloc] init];
+        RemoveCallbackURLJSONResponse* response = [[RemoveCallbackURLJSONResponse alloc] initWithCallbackName:@"QZOutputJson="];
         request.response = response;
         TT_RELEASE_SAFELY(response);
         
