@@ -17,6 +17,8 @@
 		320D7DCCE32703ACAB9A45E5 /* libThree20.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 320D7DCCE32703ACAB9A45E4 /* libThree20.a */; };
 		320F2C48872C2E2C4DF86205 /* libThree20UI.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 320F2C48872C2E2C4DF86204 /* libThree20UI.a */; };
 		7219BBCD16C9EAFA00AABA8E /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7219BBCC16C9EAFA00AABA8E /* MainViewController.m */; };
+		7272B39D16C9FC7300E111A7 /* QQIndexRequestModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7272B39C16C9FC7300E111A7 /* QQIndexRequestModel.m */; };
+		7272B3A016C9FD4E00E111A7 /* Video.m in Sources */ = {isa = PBXBuildFile; fileRef = 7272B39F16C9FD4E00E111A7 /* Video.m */; };
 		72A4368016C9EA5A00D9958D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72A4367F16C9EA5A00D9958D /* UIKit.framework */; };
 		72A4368216C9EA5A00D9958D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72A4368116C9EA5A00D9958D /* Foundation.framework */; };
 		72A4368416C9EA5A00D9958D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72A4368316C9EA5A00D9958D /* CoreGraphics.framework */; };
@@ -211,6 +213,11 @@
 		7219BBCB16C9EAFA00AABA8E /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		7219BBCC16C9EAFA00AABA8E /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		7219BBCE16C9EB6900AABA8E /* extThree20JSON.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = extThree20JSON.xcodeproj; path = ../../../../three20/src/extThree20JSON/extThree20JSON.xcodeproj; sourceTree = "<group>"; };
+		7272B39B16C9FC7300E111A7 /* QQIndexRequestModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QQIndexRequestModel.h; sourceTree = "<group>"; };
+		7272B39C16C9FC7300E111A7 /* QQIndexRequestModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QQIndexRequestModel.m; sourceTree = "<group>"; };
+		7272B39E16C9FD4E00E111A7 /* Video.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Video.h; sourceTree = "<group>"; };
+		7272B39F16C9FD4E00E111A7 /* Video.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Video.m; sourceTree = "<group>"; };
+		7272B3A116C9FEBA00E111A7 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		72A4367B16C9EA5A00D9958D /* appletvserver.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = appletvserver.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		72A4367F16C9EA5A00D9958D /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		72A4368116C9EA5A00D9958D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -334,9 +341,19 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		7272B39A16C9FC5100E111A7 /* Object */ = {
+			isa = PBXGroup;
+			children = (
+				7272B39E16C9FD4E00E111A7 /* Video.h */,
+				7272B39F16C9FD4E00E111A7 /* Video.m */,
+			);
+			name = Object;
+			sourceTree = "<group>";
+		};
 		72A4367016C9EA5A00D9958D = {
 			isa = PBXGroup;
 			children = (
+				72A69BD016C9F9420099D974 /* Resources */,
 				72A4368516C9EA5A00D9958D /* appletvserver */,
 				72A4367E16C9EA5A00D9958D /* Frameworks */,
 				72A4367C16C9EA5A00D9958D /* Products */,
@@ -373,12 +390,15 @@
 		72A4368516C9EA5A00D9958D /* appletvserver */ = {
 			isa = PBXGroup;
 			children = (
+				7272B39A16C9FC5100E111A7 /* Object */,
+				72A69BCB16C9F3F20099D974 /* Model */,
 				72E748FB16C9EF430024B8BB /* Datasource */,
 				72E748F816C9EEC50024B8BB /* Style */,
 				7219BBCA16C9EAD900AABA8E /* View */,
 				72A4368E16C9EA5A00D9958D /* AppDelegate.h */,
 				72A4368F16C9EA5A00D9958D /* AppDelegate.m */,
 				72A4368616C9EA5A00D9958D /* Supporting Files */,
+				7272B3A116C9FEBA00E111A7 /* Constants.h */,
 			);
 			path = appletvserver;
 			sourceTree = "<group>";
@@ -393,6 +413,22 @@
 				72A4368D16C9EA5A00D9958D /* appletvserver-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		72A69BCB16C9F3F20099D974 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				7272B39B16C9FC7300E111A7 /* QQIndexRequestModel.h */,
+				7272B39C16C9FC7300E111A7 /* QQIndexRequestModel.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		72A69BD016C9F9420099D974 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 		72E748E816C9EE750024B8BB /* qq */ = {
@@ -471,6 +507,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				"zh-Hans",
 			);
 			mainGroup = 72A4367016C9EA5A00D9958D;
 			productRefGroup = 72A4367C16C9EA5A00D9958D /* Products */;
@@ -660,6 +697,8 @@
 				7219BBCD16C9EAFA00AABA8E /* MainViewController.m in Sources */,
 				72E748FF16C9F04F0024B8BB /* QQIndexViewController.m in Sources */,
 				72A69BCA16C9F3360099D974 /* QQIndexDataSource.m in Sources */,
+				7272B39D16C9FC7300E111A7 /* QQIndexRequestModel.m in Sources */,
+				7272B3A016C9FD4E00E111A7 /* Video.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
