@@ -7,6 +7,7 @@
 //
 
 #import "QQIndexViewController.h"
+#import "QQIndexDataSource.h"
 
 @implementation QQIndexViewController
 
@@ -14,9 +15,14 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+        self.variableHeightRows = YES;
     }
     return self;
+}
+
+- (void)createModel {
+    QQIndexDataSource* ds = [[QQIndexDataSource alloc] initWithQQChannel:14];
+    self.dataSource = ds;
 }
 
 - (void)viewDidLoad

@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "QQIndexViewController.h"
 
 @implementation AppDelegate
 
@@ -21,14 +22,18 @@
 {
     TTNavigator* navigator = [TTNavigator navigator];
     
-    
     navigator.supportsShakeToReload = NO;
     navigator.persistenceMode = TTNavigatorPersistenceModeNone;
-    navigator.window = [[UIWindow alloc] initWithFrame:TTScreenBounds()];
+    navigator.window = [[[UIWindow alloc] initWithFrame:TTScreenBounds()] autorelease];
+    
+    
     TTURLMap* map = navigator.URLMap;
-    [map from:@"test://main" toSharedViewController:[MainViewController class]];
+    
+    [map from:@"atvserver://qq/index" toSharedViewController:
+     [QQIndexViewController class]];
+    
     if (![navigator restoreViewControllers]) {
-        [navigator openURLAction:[TTURLAction actionWithURLPath:@"test://main"]];
+        [navigator openURLAction:[TTURLAction actionWithURLPath:@"atvserver://qq/index"]];
     }
     
     return YES;

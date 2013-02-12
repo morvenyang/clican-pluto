@@ -9,6 +9,7 @@
 #import "QQIndexRequestModel.h"
 #import "Constants.h"
 #import "Video.h"
+#import "RemoveCallbackURLJSONResponse.h"
 
 @implementation QQIndexRequestModel
 
@@ -55,7 +56,7 @@
 
         request.cachePolicy = cachePolicy;
         
-        TTURLJSONResponse* response = [[TTURLJSONResponse alloc] init];
+        RemoveCallbackURLJSONResponse* response = [[RemoveCallbackURLJSONResponse alloc] init];
         request.response = response;
         TT_RELEASE_SAFELY(response);
         
@@ -78,12 +79,11 @@
     
     @try {
         
-        TTURLJSONResponse* response = request.response;
-        TTDASSERT([response.rootObject isKindOfClass:[NSDictionary class]]);
+        RemoveCallbackURLJSONResponse* response = request.response;
         
         NSDictionary* data = response.rootObject;
         
-        NSLog(@"response.rootObject:%@" ,data);
+        NSLog(@"response.data:%@" ,data);
         
         TTDASSERT([[data objectForKey:@"result"] isKindOfClass:[NSArray class]]);
         

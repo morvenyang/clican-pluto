@@ -7,8 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <Three20/Three20.h>
-#import "MainViewController.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
