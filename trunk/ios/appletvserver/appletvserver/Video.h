@@ -13,11 +13,28 @@
     NSString* _subtitle;
     NSString* _picUrl;
     NSString* _vid;
+    NSString* _actors;
+    NSString* _directors;
+    NSString* _area;
+    NSString* _score;
+    NSString* _year;
+    NSString* _description;
+    
+    NSMutableArray* _videoItemList;
 }
 
 @property (nonatomic, copy) NSString* title;
 @property (nonatomic, copy) NSString* subTitle;
 @property (nonatomic, copy) NSString* picUrl;
 @property (nonatomic, copy) NSString* vid;
+
+@property (nonatomic, copy) NSString* actors;
+@property (nonatomic, copy) NSString* directors;
+@property (nonatomic, copy) NSString* area;
+@property (nonatomic, copy) NSString* score;
+@property (nonatomic, copy) NSString* year;
+@property (nonatomic, copy) NSString* description;
+
+@property (nonatomic, retain) NSMutableArray* videoItemList;
 
 @end

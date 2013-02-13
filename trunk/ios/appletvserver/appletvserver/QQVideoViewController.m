@@ -30,7 +30,7 @@
     return self;
 }
 
-- (id) initWithVid:(NSNumber*) vid{
+- (id) initWithVid:(NSString*) vid{
     if ((self = [super init])) {
         self.video = nil;
         self.qqVideoRequestModel = [[QQVideoRequestModel alloc] initWithVid:vid delegate:self];
@@ -43,11 +43,11 @@
     
 }
 
-- (void)videoDidStartLoad:(NSNumber*)vid{
+- (void)videoDidStartLoad:(NSString*)vid{
     NSLog(@"load video vid:%@",vid);
 }
 
-- (void)video:(NSNumber*)vid didFailLoadWithError:(NSError*)error{
+- (void)video:(NSString*)vid didFailLoadWithError:(NSError*)error{
     NSLog(@"load video failutre vid:%@, error:%@",vid,[error description]);
 }
 

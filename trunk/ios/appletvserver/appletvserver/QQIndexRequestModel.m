@@ -24,7 +24,7 @@
         self.qqChannel = channel;
         self.keyword = keyword;
         self.searchAlbum = searchAlbum;
-        self.videoList = [[NSMutableArray array] retain];
+        self.videoList = [NSMutableArray array];
     }
     return self;
 }
