@@ -17,7 +17,7 @@
 @synthesize imageArray = _imageArray;
 
 + (CGFloat)tableView:(UITableView*)tableView rowHeightForObject:(id)object {
-    return 130;
+    return 154;
 }
 
 
@@ -54,11 +54,11 @@
     for(int i=0;i<3;i++){
         VideoImageView* imageView = [self.imageArray objectAtIndex:i];
         TTStyledTextLabel* titleLabel = [self.titleArray objectAtIndex:i];
-        imageView.frame = CGRectMake(5+77*i, 10, 75, 100);
+        imageView.frame = CGRectMake(10+103*i, 10, 93, 124);
         imageView.layer.cornerRadius = 8;
         imageView.layer.masksToBounds = YES;
         imageView.actionUrl=@"atvserver://qq/video/%@";
-        titleLabel.frame = CGRectMake(5+77*i, 110, 75, 10);
+        titleLabel.frame = CGRectMake(10+103*i, 134, 93, 124);
     }
 }
 
@@ -71,8 +71,10 @@
     self.videoTableItem = object;
     for(int i=0;i<3;i++){
         TTImageView* imageView = [self.imageArray objectAtIndex:i];
+        TTStyledTextLabel* titleLabel = [self.titleArray objectAtIndex:i];
         Video* video = [self.videoTableItem.videoList objectAtIndex:i];
         imageView.urlPath = [video picUrl];
+        titleLabel.text = [TTStyledText textFromXHTML:[video title] lineBreaks:NO URLs:NO];
     }
     [super setObject:object];
 }
