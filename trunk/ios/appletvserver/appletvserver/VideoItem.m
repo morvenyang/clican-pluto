@@ -12,10 +12,12 @@
 
 @synthesize title=_title;
 @synthesize itemId=_itemId;
+@synthesize mediaUrl=_mediaUrl;
 
 - (void) dealloc {
     TT_RELEASE_SAFELY(_title);
     TT_RELEASE_SAFELY(_itemId);
+    TT_RELEASE_SAFELY(_mediaUrl);
     [super dealloc];
 }
 

@@ -35,6 +35,9 @@
 		72BB0C6A16CB513400D4291D /* VideoImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 72BB0C6916CB513400D4291D /* VideoImageView.m */; };
 		72C217C716CB6403000A56AB /* VideoItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 72C217C616CB6403000A56AB /* VideoItem.m */; };
 		72C217CA16CBB679000A56AB /* AtvUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 72C217C916CBB679000A56AB /* AtvUtil.m */; };
+		72C217F116CBCCE3000A56AB /* QQPlayRequestModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 72C217F016CBCCE3000A56AB /* QQPlayRequestModel.m */; };
+		72C217F416CBCE9A000A56AB /* QQPlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 72C217F316CBCE9A000A56AB /* QQPlayViewController.m */; };
+		72C217F616CBDA8A000A56AB /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72C217F516CBDA8A000A56AB /* MediaPlayer.framework */; };
 		72E748FF16C9F04F0024B8BB /* QQIndexViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 72E748FE16C9F04F0024B8BB /* QQIndexViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -262,6 +265,11 @@
 		72C217C616CB6403000A56AB /* VideoItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoItem.m; sourceTree = "<group>"; };
 		72C217C816CBB679000A56AB /* AtvUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AtvUtil.h; sourceTree = "<group>"; };
 		72C217C916CBB679000A56AB /* AtvUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AtvUtil.m; sourceTree = "<group>"; };
+		72C217EF16CBCCE3000A56AB /* QQPlayRequestModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QQPlayRequestModel.h; sourceTree = "<group>"; };
+		72C217F016CBCCE3000A56AB /* QQPlayRequestModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QQPlayRequestModel.m; sourceTree = "<group>"; };
+		72C217F216CBCE9A000A56AB /* QQPlayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QQPlayViewController.h; sourceTree = "<group>"; };
+		72C217F316CBCE9A000A56AB /* QQPlayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QQPlayViewController.m; sourceTree = "<group>"; };
+		72C217F516CBDA8A000A56AB /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		72E748F916C9EEE70024B8BB /* StyleSheet.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StyleSheet.h; sourceTree = "<group>"; };
 		72E748FA16C9EEE70024B8BB /* StyleSheet.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StyleSheet.m; sourceTree = "<group>"; };
 		72E748FD16C9F04F0024B8BB /* QQIndexViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QQIndexViewController.h; sourceTree = "<group>"; };
@@ -273,6 +281,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				72C217F616CBDA8A000A56AB /* MediaPlayer.framework in Frameworks */,
 				72B5769716CA13B80094DD58 /* libextThree20JSON+SBJSON.a in Frameworks */,
 				3201088596B4756681693705 /* libThree20UICommon.a in Frameworks */,
 				320D7DCCE32703ACAB9A45E5 /* libThree20.a in Frameworks */,
@@ -426,6 +435,7 @@
 		72A4367016C9EA5A00D9958D = {
 			isa = PBXGroup;
 			children = (
+				72C217F516CBDA8A000A56AB /* MediaPlayer.framework */,
 				72A69BD016C9F9420099D974 /* Resources */,
 				72A4368516C9EA5A00D9958D /* appletvserver */,
 				72A4367E16C9EA5A00D9958D /* Frameworks */,
@@ -498,6 +508,8 @@
 				7272B39C16C9FC7300E111A7 /* QQIndexRequestModel.m */,
 				7233879E16CB5DA10061FBDF /* QQVideoRequestModel.h */,
 				7233879F16CB5DA10061FBDF /* QQVideoRequestModel.m */,
+				72C217EF16CBCCE3000A56AB /* QQPlayRequestModel.h */,
+				72C217F016CBCCE3000A56AB /* QQPlayRequestModel.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -525,6 +537,8 @@
 				72E748FE16C9F04F0024B8BB /* QQIndexViewController.m */,
 				7233879B16CB5C890061FBDF /* QQVideoViewController.h */,
 				7233879C16CB5C890061FBDF /* QQVideoViewController.m */,
+				72C217F216CBCE9A000A56AB /* QQPlayViewController.h */,
+				72C217F316CBCE9A000A56AB /* QQPlayViewController.m */,
 			);
 			name = qq;
 			sourceTree = "<group>";
@@ -797,6 +811,8 @@
 				723387A016CB5DA10061FBDF /* QQVideoRequestModel.m in Sources */,
 				72C217C716CB6403000A56AB /* VideoItem.m in Sources */,
 				72C217CA16CBB679000A56AB /* AtvUtil.m in Sources */,
+				72C217F116CBCCE3000A56AB /* QQPlayRequestModel.m in Sources */,
+				72C217F416CBCE9A000A56AB /* QQPlayViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

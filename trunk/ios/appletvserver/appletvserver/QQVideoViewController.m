@@ -8,7 +8,7 @@
 
 #import "QQVideoViewController.h"
 #import "AtvUtil.h"
-
+#import "VideoItem.h"
 
 @implementation QQVideoViewController
 
@@ -96,6 +96,13 @@
 
 - (void) playAction {
     NSLog(@"Play video %@",self.video.title);
+    if([self.video.videoItemList count]>0){
+        VideoItem* vi = [self.video.videoItemList objectAtIndex:0];
+        NSString* actionUrl = [NSString stringWithFormat:@"atvserver://qq/play/%@",[vi itemId]];
+        NSLog(@"playUrl:%@",actionUrl);
+        TTOpenURL(actionUrl);
+    }
+    
 }
 
 - (void)videoDidStartLoad:(NSString*)vid{
