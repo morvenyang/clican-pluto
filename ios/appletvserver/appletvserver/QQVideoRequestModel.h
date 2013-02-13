@@ -10,14 +10,14 @@
 @protocol QQVideoDelegate;
 
 @interface QQVideoRequestModel : TTURLRequestModel{
-    NSNumber* _vid;
+    NSString* _vid;
     id<QQVideoDelegate> _delegate;
 }
 
 @property(nonatomic,assign) id<QQVideoDelegate> delegate;
-@property (nonatomic, retain)     NSNumber*       vid;
+@property (nonatomic, copy)     NSString*       vid;
 
-- (id)initWithVid:(NSNumber*)vid delegate:(id) delegate;
+- (id)initWithVid:(NSString*)vid delegate:(id) delegate;
 
 @end
 
@@ -25,8 +25,8 @@
 
 - (void) videoDidFinishLoad:(Video*) video;
 
-- (void)videoDidStartLoad:(NSNumber*)vid;
+- (void)videoDidStartLoad:(NSString*)vid;
 
-- (void)video:(NSNumber*)vid didFailLoadWithError:(NSError*)error;
+- (void)video:(NSString*)vid didFailLoadWithError:(NSError*)error;
 
 @end

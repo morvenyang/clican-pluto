@@ -33,6 +33,7 @@
 		72A69BCA16C9F3360099D974 /* QQIndexDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 72A69BC916C9F3360099D974 /* QQIndexDataSource.m */; };
 		72B5769716CA13B80094DD58 /* libextThree20JSON+SBJSON.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7219BBD516C9EB6900AABA8E /* libextThree20JSON+SBJSON.a */; };
 		72BB0C6A16CB513400D4291D /* VideoImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 72BB0C6916CB513400D4291D /* VideoImageView.m */; };
+		72C217C716CB6403000A56AB /* VideoItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 72C217C616CB6403000A56AB /* VideoItem.m */; };
 		72E748FF16C9F04F0024B8BB /* QQIndexViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 72E748FE16C9F04F0024B8BB /* QQIndexViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -256,6 +257,8 @@
 		72A69BC916C9F3360099D974 /* QQIndexDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QQIndexDataSource.m; sourceTree = "<group>"; };
 		72BB0C6816CB513400D4291D /* VideoImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoImageView.h; sourceTree = "<group>"; };
 		72BB0C6916CB513400D4291D /* VideoImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoImageView.m; sourceTree = "<group>"; };
+		72C217C516CB6403000A56AB /* VideoItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoItem.h; sourceTree = "<group>"; };
+		72C217C616CB6403000A56AB /* VideoItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoItem.m; sourceTree = "<group>"; };
 		72E748F916C9EEE70024B8BB /* StyleSheet.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StyleSheet.h; sourceTree = "<group>"; };
 		72E748FA16C9EEE70024B8BB /* StyleSheet.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StyleSheet.m; sourceTree = "<group>"; };
 		72E748FD16C9F04F0024B8BB /* QQIndexViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QQIndexViewController.h; sourceTree = "<group>"; };
@@ -382,6 +385,8 @@
 			children = (
 				7272B39E16C9FD4E00E111A7 /* Video.h */,
 				7272B39F16C9FD4E00E111A7 /* Video.m */,
+				72C217C516CB6403000A56AB /* VideoItem.h */,
+				72C217C616CB6403000A56AB /* VideoItem.m */,
 			);
 			name = Object;
 			sourceTree = "<group>";
@@ -785,6 +790,7 @@
 				72BB0C6A16CB513400D4291D /* VideoImageView.m in Sources */,
 				7233879D16CB5C890061FBDF /* QQVideoViewController.m in Sources */,
 				723387A016CB5DA10061FBDF /* QQVideoRequestModel.m in Sources */,
+				72C217C716CB6403000A56AB /* VideoItem.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

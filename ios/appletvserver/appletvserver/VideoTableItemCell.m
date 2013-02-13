@@ -56,7 +56,7 @@
         imageView.frame = CGRectMake(10+103*i, 10, 93, 124);
         imageView.layer.cornerRadius = 8;
         imageView.layer.masksToBounds = YES;
-        imageView.actionUrl=@"atvserver://qq/video/%@";
+        
         titleLabel.frame = CGRectMake(10+103*i, 134, 93, 36);
         [self.contentView addSubview:imageView];
         [self.contentView addSubview:titleLabel];
@@ -71,11 +71,12 @@
 - (void)setObject:(id)object {
     self.videoTableItem = object;
     for(int i=0;i<3;i++){
-        TTImageView* imageView = [self.imageArray objectAtIndex:i];
+        VideoImageView* imageView = [self.imageArray objectAtIndex:i];
         TTStyledTextLabel* titleLabel = [self.titleArray objectAtIndex:i];
         Video* video = [self.videoTableItem.videoList objectAtIndex:i];
         imageView.urlPath = [video picUrl];
         titleLabel.text = [TTStyledText textFromXHTML:[video title] lineBreaks:YES URLs:NO];
+        imageView.actionUrl=[NSString stringWithFormat:@"atvserver://qq/video/%@",video.vid];
     }
     [super setObject:object];
 }
