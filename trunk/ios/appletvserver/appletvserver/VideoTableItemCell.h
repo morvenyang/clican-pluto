@@ -7,12 +7,13 @@
 //
 #import "Video.h"
 #import "VideoTableItem.h"
-@interface VideoTableItemCell : TTStyledTextTableCell{
+@interface VideoTableItemCell : TTTableViewCell{
     VideoTableItem* _videoTableItem;
-    TTImageView* _videoImageView;
+    NSMutableArray* _imageArray;
+    NSMutableArray* _titleArray;
 }
 
-@property (nonatomic, retain) TTImageView* videoImageView;
 @property (nonatomic, retain) VideoTableItem* videoTableItem;
-
+@property (nonatomic, retain) NSMutableArray* titleArray;
+@property (nonatomic, retain) NSMutableArray* imageArray;
 @end

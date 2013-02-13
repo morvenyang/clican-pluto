@@ -14,13 +14,14 @@
         int _resultsPerPage;  
         NSMutableArray* _videoList;
         BOOL _finished;
+        BOOL _searchAlbum;
 }
 
 @property (nonatomic, assign) QQChannel qqChannel;
 @property (nonatomic, copy)     NSString*       keyword;
 @property (nonatomic, retain) NSMutableArray* videoList;
 @property (nonatomic, readonly) BOOL            finished;
-
-- (id)initWithQQChannel:(QQChannel)channel;
+@property (nonatomic, assign) BOOL            searchAlbum;
+- (id)initWithQQChannel:(QQChannel)channel keyword:(NSString*) keyword searchAlbum:(BOOL) searchAlbum;
 
 @end

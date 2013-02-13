@@ -8,10 +8,10 @@
 #import "QQIndexRequestModel.h"
 
 @interface QQIndexDataSource : TTListDataSource{
-    QQIndexRequestModel* _qqIndexRequestMode;
+    QQIndexRequestModel* _qqIndexRequestModel;
 }
 
-@property (nonatomic,retain) QQIndexRequestModel* qqIndexRequestMode;
+@property (nonatomic,retain) QQIndexRequestModel* qqIndexRequestModel;
 
 - (id)initWithQQChannel:(QQChannel)channel;
 

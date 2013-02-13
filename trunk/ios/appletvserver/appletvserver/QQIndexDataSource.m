@@ -12,33 +12,33 @@
 #import "VideoTableItemCell.h"
 @implementation QQIndexDataSource
 
-@synthesize qqIndexRequestMode=_qqIndexRequestMode;
+@synthesize qqIndexRequestModel=_qqIndexRequestModel;
 
 - (id)initWithQQChannel:(QQChannel)channel{
     if ((self = [super init])) {
-        self.qqIndexRequestMode = [[QQIndexRequestModel alloc] initWithQQChannel:channel];
+        self.qqIndexRequestModel = [[QQIndexRequestModel alloc] initWithQQChannel:channel keyword:nil searchAlbum:false];
     }
     return self;
 }
 
 - (void)dealloc {
     [super dealloc];
-    TT_RELEASE_SAFELY(_qqIndexRequestMode);
+    TT_RELEASE_SAFELY(_qqIndexRequestModel);
 }
 
 - (id<TTModel>)model {
-    return _qqIndexRequestMode;
+    return _qqIndexRequestModel;
 }
 
 - (void)tableViewDidLoadModel:(UITableView*)tableView {
     NSMutableArray* items = [[NSMutableArray alloc] init];
-    
-    for (Video* video in _qqIndexRequestMode.videoList) {
+    NSLog(@"video account in videoList= %i",[_qqIndexRequestModel.videoList count]);
+    for (Video* video in _qqIndexRequestModel.videoList) {
         NSString* url = [NSString stringWithFormat:@"atvserver://qq/video/%@", video.vid];
-        [items addObject:[VideoTableItem itemWithVideo:video URL:url]];
+        //[items addObject:[VideoTableItem itemWithVideo:video URL:url]];
     }
     
-    if (!_qqIndexRequestMode.finished) {
+    if (!_qqIndexRequestModel.finished) {
         TTTableMoreButton* moreButton = [TTTableMoreButton itemWithText:@"更多"];
         [items addObject:moreButton];
     }

@@ -17,10 +17,14 @@
 @synthesize keyword = _keyword;
 @synthesize videoList = _videoList;
 @synthesize finished = _finished;
+@synthesize searchAlbum = _searchAlbum;
 
-- (id)initWithQQChannel:(QQChannel)channel{
+- (id)initWithQQChannel:(QQChannel)channel keyword:(NSString*) keyword searchAlbum:(BOOL) searchAlbum{
     if ((self = [super init])) {
         self.qqChannel = channel;
+        self.keyword = keyword;
+        self.searchAlbum = searchAlbum;
+        self.videoList = [[NSMutableArray array] retain];
     }
     return self;
 }
@@ -46,7 +50,12 @@
             [_videoList removeAllObjects];
         }
         
-        NSString* url =[@"" stringByAppendingFormat:QQ_CHANNEL_URL,_page,self.qqChannel,5];
+        NSString* url = nil;
+        if(self.qqChannel==QQ_Search){
+            url = [@"" stringByAppendingFormat:QQ_SEARCH_URL,1,_page,self.keyword];
+        }else{
+            url = [@"" stringByAppendingFormat:QQ_CHANNEL_URL,_page,self.qqChannel,5];
+        }
         
         NSLog(@"URL:%@", url);
         
@@ -85,33 +94,88 @@
         
         NSLog(@"response.data:%@" ,data);
         
-        TTDASSERT([[data objectForKey:@"result"] isKindOfClass:[NSArray class]]);
         
-        NSArray* entries = [data objectForKey:@"result"];
+        NSMutableArray* videos = nil;
+
         
-        NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setTimeStyle:NSDateFormatterFullStyle];
-        [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss.sss"];
         
-        NSLog(@"asset count:%i" ,[entries count]);
         
-        NSMutableArray* videos = [NSMutableArray arrayWithCapacity:[entries count]];
-        
-        for (NSDictionary* entry in entries) {
-            Video* video = [[Video alloc] init];
-            [videos addObject:video];
-            TT_RELEASE_SAFELY(videos);
+        NSArray* entries=nil;
+        if(self.qqChannel==QQ_Recommand){
+            entries = [data objectForKey:@"data"];
+            videos = [NSMutableArray arrayWithCapacity:[entries count]];
+            
+            for (NSDictionary* entry in entries) {
+                NSDictionary* contents = [entry objectForKey:@"contents"];
+                for(NSDictionary* content in contents){
+                    NSString* idType = [content objectForKey:@"id_type"];
+                    if([idType isEqualToString:@"t"]){
+                        continue;
+                    }
+                    Video* video = [[Video alloc] init];
+                    video.title = [content objectForKey:@"title"];
+                    video.vid = [content objectForKey:@"id"];
+                    video.picUrl = [content objectForKey:@"v_pic"];
+                    [videos addObject:video];
+                }
+            }
+            
+        }else if(self.qqChannel == QQ_Search){
+            entries = [data objectForKey:@"list"];
+            videos = [NSMutableArray arrayWithCapacity:[entries count]];
+            for (NSDictionary* content in entries) {
+                Video* video = [[Video alloc] init];
+                video.title = [content objectForKey:@"TI"];
+                video.vid = [content objectForKey:@"ID"];
+                video.picUrl = [content objectForKey:@"AU"];
+                if(!self.searchAlbum){
+                    NSString* subTitle = [content objectForKey:@"BN"];
+                    if(subTitle!=nil&&![subTitle isEqualToString:@"0"]){
+                        subTitle=[@"" stringByAppendingFormat:@"第%@集",subTitle];
+                    }
+                    video.subTitle = subTitle;
+                }
+                [videos addObject:video];
+            }
+        }else{
+            if([data objectForKey:@"cover"]!=nil){
+                entries = [data objectForKey:@"cover"];
+            }else{
+                entries = [data objectForKey:@"video"];
+            }
+            videos = [NSMutableArray arrayWithCapacity:[entries count]];
+            for (NSDictionary* content in entries) {
+                NSString* idType = [content objectForKey:@"id_type"];
+                if([idType isEqualToString:@"t"]){
+                    continue;
+                }
+                Video* video = [[Video alloc] init];
+                video.title = [content objectForKey:@"c_title"];
+                video.vid = [content objectForKey:@"c_cover_id"];
+                if([content objectForKey:@"c_pic"]!=nil){
+                    video.picUrl = [content objectForKey:@"c_pic"];
+                }else{
+                    video.picUrl = [content objectForKey:@"c_pic_url"];
+                }
+                [videos addObject:video];
+            }
         }
         
+         
+        
+               
+        
+        
+        NSLog(@"asset count:%i" ,[entries count]);
+        NSLog(@"video count:%i" ,[videos count]);
         [_videoList addObjectsFromArray: videos];
         if(videos.count<_resultsPerPage){
             _finished = YES;
         }
         
-        TT_RELEASE_SAFELY(dateFormatter);
     }
     @catch (NSException *exception) {
-        TTAlert([NSString stringWithFormat:NSLocalizedString(@"ERROROCCURED", @"Error  Occured"),[exception name]]);
+        TTAlert([NSString stringWithFormat:@"错误:%@",[exception name]]);
         
     }
     

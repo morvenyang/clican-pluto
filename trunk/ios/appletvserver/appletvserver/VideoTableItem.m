@@ -10,17 +10,13 @@
 
 @implementation VideoTableItem
 
-@synthesize video = _video;
+@synthesize videoList = _videoList;
 
 
-+ (id)itemWithVideo:(Video*)video URL:(NSString*)url
++ (id)itemWithVideoList:(NSMutableArray*)videoList
 {
     VideoTableItem* item = [[[self alloc] init] autorelease];
-    NSString* title = [NSString stringWithFormat:@"<span class=\"assetTitle\"><strong>%@</strong></span>",video.title];
-    item.text = [TTStyledText textFromXHTML:title lineBreaks:YES URLs:YES];
-    
-    item.URL = url;
-    item.video = video;
+    item.videoList = videoList;
     return item;
     
 }
@@ -32,13 +28,13 @@
 
 - (id)init {
 	if (self = [super init]) {
-		_video = nil;
+		_videoList = nil;
 	}
 	return self;
 }
 
 - (void)dealloc {
-	TT_RELEASE_SAFELY(_video);
+	TT_RELEASE_SAFELY(_videoList);
 	[super dealloc];
 }
 
@@ -47,15 +43,15 @@
 
 - (id)initWithCoder:(NSCoder*)decoder {
 	if (self = [super initWithCoder:decoder]) {
-		self.video = [decoder decodeObjectForKey:@"video"];
+		self.videoList = [decoder decodeObjectForKey:@"videoList"];
 	}
 	return self;
 }
 
 - (void)encodeWithCoder:(NSCoder*)encoder {
 	[super encodeWithCoder:encoder];
-	if (self.video) {
-		[encoder encodeObject:self.video forKey:@"video"];
+	if (self.videoList) {
+		[encoder encodeObject:self.videoList forKey:@"videoList"];
 	}
 }
 

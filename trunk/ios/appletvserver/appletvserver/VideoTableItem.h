@@ -7,11 +7,11 @@
 //
 #import "Video.h"
 
-@interface VideoTableItem : TTTableStyledTextItem{
-    Video* _video;
+@interface VideoTableItem : TTTableItem{
+    NSMutableArray* _videoList;
 }
 
-@property (nonatomic, retain) Video* video;
+@property (nonatomic, retain) NSMutableArray* videoList;
 
-+ (id)itemWithVideo:(Video*)video URL:(NSString*)url;
++ (id)itemWithVideoList:(NSMutableArray*)videoList;
 @end
