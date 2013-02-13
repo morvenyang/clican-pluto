@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "QQIndexViewController.h"
+#import "QQVideoViewController.h"
 
 @implementation AppDelegate
 
@@ -31,7 +32,8 @@
     
     [map from:@"atvserver://qq/index" toSharedViewController:
      [QQIndexViewController class]];
-    
+    [map from:@"atvserver://qq/video/(initWithVid:)" toSharedViewController:
+     [QQVideoViewController class]];
     if (![navigator restoreViewControllers]) {
         [navigator openURLAction:[TTURLAction actionWithURLPath:@"atvserver://qq/index"]];
     }
