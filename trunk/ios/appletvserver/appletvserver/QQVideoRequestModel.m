@@ -79,6 +79,7 @@
         video.directors = [[data valueForKey:@"dctor"] componentsJoinedByString:@","];
         video.score = [data objectForKey:@"score"];
         video.area = [data objectForKey:@"area"];
+        video.year = [data objectForKey:@"year"];
         video.description = [data objectForKey:@"desc"];
         [self.delegate videoDidFinishLoad:video];
     }

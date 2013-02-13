@@ -46,6 +46,19 @@
         self.imageView.frame = CGRectMake(0, 0, 93, 124);
         self.imageView.layer.cornerRadius = 8;
         self.imageView.layer.masksToBounds = YES;
+        
+        self.summaryTextLabel = [[[TTStyledTextLabel alloc] init] autorelease];
+        
+        self.summaryTextLabel.contentMode = UIViewContentModeCenter;
+        self.summaryTextLabel.frame = CGRectMake(110,10,200,164);
+        
+        self.descriptionTextLabel = [[[TTStyledTextLabel alloc] init] autorelease];
+        
+        self.playButton=[UIButton buttonWithType:UIButtonTypeCustom];
+        
+        self.playButton.contentMode = UIViewContentModeCenter;
+        [self.playButton addTarget:self action:@selector(playAction) forControlEvents: UIControlEventTouchUpInside];
+        
     }             
     return self;
 }
@@ -60,9 +73,17 @@
     NSLog(@"picurl=%@",[video picUrl]);
     self.imageView.delegate = self;
     self.imageView.urlPath = [video picUrl];
-    
-    
+    self.summaryTextLabel.text = [TTStyledText textFromXHTML:[@"" stringByAppendingFormat:@"<strong>%@</strong>\n导演:%@\n主演:%@\n年份:%@ 地区:%@",video.title,video.directors,video.actors,video.year,video.area] lineBreaks:YES URLs:NO];
+    [self.summaryTextLabel sizeToFit];
+    double y = self.summaryTextLabel.frame.origin.y+self.summaryTextLabel.frame.size.height;
+    y=y+10;
+    self.playButton.frame = CGRectMake(110, y, 50, 50);
+    [self.playButton setTitle:@"播放" forState:UIControlStateNormal];
+    self.playButton.backgroundColor = RGBCOLOR(256,20,147);
+    [self.playButton sizeToFit];
     [scrollView addSubview:self.reflectImageView];
+    [scrollView addSubview:self.summaryTextLabel];
+    [scrollView addSubview:self.playButton];
     
     [self.view addSubview:scrollView];
 }
@@ -71,6 +92,10 @@
     if(imageView == self.imageView){
         [AtvUtil markReflect:self.reflectImageView.layer image:self.imageView.image];
     }
+}
+
+- (void) playAction {
+    NSLog(@"Play video %@",self.video.title);
 }
 
 - (void)videoDidStartLoad:(NSString*)vid{
@@ -90,7 +115,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+    // Do any additional setup after loading the view.
 }
 
 - (void)viewDidUnload
@@ -104,6 +129,11 @@
     _qqVideoRequestModel.delegate = nil;
     TT_RELEASE_SAFELY(_video);
     TT_RELEASE_SAFELY(_qqVideoRequestModel);
+    TT_RELEASE_SAFELY(_summaryTextLabel);
+    TT_RELEASE_SAFELY(_descriptionTextLabel);
+    TT_RELEASE_SAFELY(_playButton);
+    TT_RELEASE_SAFELY(_imageView);
+    TT_RELEASE_SAFELY(_reflectImageView);
     [super dealloc];
 }
 
