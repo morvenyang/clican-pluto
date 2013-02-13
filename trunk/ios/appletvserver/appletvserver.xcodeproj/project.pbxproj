@@ -34,6 +34,7 @@
 		72B5769716CA13B80094DD58 /* libextThree20JSON+SBJSON.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7219BBD516C9EB6900AABA8E /* libextThree20JSON+SBJSON.a */; };
 		72BB0C6A16CB513400D4291D /* VideoImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 72BB0C6916CB513400D4291D /* VideoImageView.m */; };
 		72C217C716CB6403000A56AB /* VideoItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 72C217C616CB6403000A56AB /* VideoItem.m */; };
+		72C217CA16CBB679000A56AB /* AtvUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 72C217C916CBB679000A56AB /* AtvUtil.m */; };
 		72E748FF16C9F04F0024B8BB /* QQIndexViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 72E748FE16C9F04F0024B8BB /* QQIndexViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -259,6 +260,8 @@
 		72BB0C6916CB513400D4291D /* VideoImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoImageView.m; sourceTree = "<group>"; };
 		72C217C516CB6403000A56AB /* VideoItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoItem.h; sourceTree = "<group>"; };
 		72C217C616CB6403000A56AB /* VideoItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoItem.m; sourceTree = "<group>"; };
+		72C217C816CBB679000A56AB /* AtvUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AtvUtil.h; sourceTree = "<group>"; };
+		72C217C916CBB679000A56AB /* AtvUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AtvUtil.m; sourceTree = "<group>"; };
 		72E748F916C9EEE70024B8BB /* StyleSheet.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StyleSheet.h; sourceTree = "<group>"; };
 		72E748FA16C9EEE70024B8BB /* StyleSheet.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StyleSheet.m; sourceTree = "<group>"; };
 		72E748FD16C9F04F0024B8BB /* QQIndexViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QQIndexViewController.h; sourceTree = "<group>"; };
@@ -470,6 +473,8 @@
 				72A4368F16C9EA5A00D9958D /* AppDelegate.m */,
 				72A4368616C9EA5A00D9958D /* Supporting Files */,
 				7272B3A116C9FEBA00E111A7 /* Constants.h */,
+				72C217C816CBB679000A56AB /* AtvUtil.h */,
+				72C217C916CBB679000A56AB /* AtvUtil.m */,
 			);
 			path = appletvserver;
 			sourceTree = "<group>";
@@ -791,6 +796,7 @@
 				7233879D16CB5C890061FBDF /* QQVideoViewController.m in Sources */,
 				723387A016CB5DA10061FBDF /* QQVideoRequestModel.m in Sources */,
 				72C217C716CB6403000A56AB /* VideoItem.m in Sources */,
+				72C217CA16CBB679000A56AB /* AtvUtil.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
