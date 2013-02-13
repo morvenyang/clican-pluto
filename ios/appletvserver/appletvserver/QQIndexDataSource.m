@@ -33,9 +33,13 @@
 - (void)tableViewDidLoadModel:(UITableView*)tableView {
     NSMutableArray* items = [[NSMutableArray alloc] init];
     NSLog(@"video account in videoList= %i",[_qqIndexRequestModel.videoList count]);
-    for (Video* video in _qqIndexRequestModel.videoList) {
-        NSString* url = [NSString stringWithFormat:@"atvserver://qq/video/%@", video.vid];
-        //[items addObject:[VideoTableItem itemWithVideo:video URL:url]];
+    for(int i=0;i<[_qqIndexRequestModel.videoList count];i=i+3){
+        NSMutableArray* cellItems = [NSMutableArray array];
+        for(int j=i;j<i+3&&j<[_qqIndexRequestModel.videoList count];j++){
+            Video* video = [_qqIndexRequestModel.videoList objectAtIndex:j];
+            [cellItems addObject:video];
+        }
+        [items addObject:[VideoTableItem itemWithVideoList:cellItems]];
     }
     
     if (!_qqIndexRequestModel.finished) {
