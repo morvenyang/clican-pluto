@@ -18,6 +18,8 @@
 		320F2C48872C2E2C4DF86205 /* libThree20UI.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 320F2C48872C2E2C4DF86204 /* libThree20UI.a */; };
 		7219BBCD16C9EAFA00AABA8E /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7219BBCC16C9EAFA00AABA8E /* MainViewController.m */; };
 		721E6F8B16CA1EC700307E4D /* RemoveCallbackURLJSONResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 721E6F8A16CA1EC700307E4D /* RemoveCallbackURLJSONResponse.m */; };
+		7233879D16CB5C890061FBDF /* QQVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7233879C16CB5C890061FBDF /* QQVideoViewController.m */; };
+		723387A016CB5DA10061FBDF /* QQVideoRequestModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7233879F16CB5DA10061FBDF /* QQVideoRequestModel.m */; };
 		7272B39D16C9FC7300E111A7 /* QQIndexRequestModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7272B39C16C9FC7300E111A7 /* QQIndexRequestModel.m */; };
 		7272B3A016C9FD4E00E111A7 /* Video.m in Sources */ = {isa = PBXBuildFile; fileRef = 7272B39F16C9FD4E00E111A7 /* Video.m */; };
 		7272B3A716CA046400E111A7 /* VideoTableItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 7272B3A616CA046400E111A7 /* VideoTableItem.m */; };
@@ -227,6 +229,10 @@
 		7219BBCE16C9EB6900AABA8E /* extThree20JSON.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = extThree20JSON.xcodeproj; path = ../../../../three20/src/extThree20JSON/extThree20JSON.xcodeproj; sourceTree = "<group>"; };
 		721E6F8916CA1EC700307E4D /* RemoveCallbackURLJSONResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RemoveCallbackURLJSONResponse.h; sourceTree = "<group>"; };
 		721E6F8A16CA1EC700307E4D /* RemoveCallbackURLJSONResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RemoveCallbackURLJSONResponse.m; sourceTree = "<group>"; };
+		7233879B16CB5C890061FBDF /* QQVideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QQVideoViewController.h; sourceTree = "<group>"; };
+		7233879C16CB5C890061FBDF /* QQVideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QQVideoViewController.m; sourceTree = "<group>"; };
+		7233879E16CB5DA10061FBDF /* QQVideoRequestModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QQVideoRequestModel.h; sourceTree = "<group>"; };
+		7233879F16CB5DA10061FBDF /* QQVideoRequestModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QQVideoRequestModel.m; sourceTree = "<group>"; };
 		7272B39B16C9FC7300E111A7 /* QQIndexRequestModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QQIndexRequestModel.h; sourceTree = "<group>"; };
 		7272B39C16C9FC7300E111A7 /* QQIndexRequestModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QQIndexRequestModel.m; sourceTree = "<group>"; };
 		7272B39E16C9FD4E00E111A7 /* Video.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Video.h; sourceTree = "<group>"; };
@@ -480,6 +486,8 @@
 			children = (
 				7272B39B16C9FC7300E111A7 /* QQIndexRequestModel.h */,
 				7272B39C16C9FC7300E111A7 /* QQIndexRequestModel.m */,
+				7233879E16CB5DA10061FBDF /* QQVideoRequestModel.h */,
+				7233879F16CB5DA10061FBDF /* QQVideoRequestModel.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -505,6 +513,8 @@
 			children = (
 				72E748FD16C9F04F0024B8BB /* QQIndexViewController.h */,
 				72E748FE16C9F04F0024B8BB /* QQIndexViewController.m */,
+				7233879B16CB5C890061FBDF /* QQVideoViewController.h */,
+				7233879C16CB5C890061FBDF /* QQVideoViewController.m */,
 			);
 			name = qq;
 			sourceTree = "<group>";
@@ -773,6 +783,8 @@
 				7272B3AA16CA049A00E111A7 /* VideoTableItemCell.m in Sources */,
 				721E6F8B16CA1EC700307E4D /* RemoveCallbackURLJSONResponse.m in Sources */,
 				72BB0C6A16CB513400D4291D /* VideoImageView.m in Sources */,
+				7233879D16CB5C890061FBDF /* QQVideoViewController.m in Sources */,
+				723387A016CB5DA10061FBDF /* QQVideoRequestModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
