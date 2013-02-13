@@ -17,7 +17,7 @@
 @synthesize imageArray = _imageArray;
 
 + (CGFloat)tableView:(UITableView*)tableView rowHeightForObject:(id)object {
-    return 154;
+    return 180;
 }
 
 
@@ -32,8 +32,7 @@
             TTStyledTextLabel* titleLabel = [[[TTStyledTextLabel alloc] autorelease] init];
             [self.titleArray addObject:titleLabel];
             [self.imageArray addObject:imageView];
-            [self.contentView addSubview:imageView];
-            [self.contentView addSubview:titleLabel];
+            
         }
         
     }
@@ -58,7 +57,9 @@
         imageView.layer.cornerRadius = 8;
         imageView.layer.masksToBounds = YES;
         imageView.actionUrl=@"atvserver://qq/video/%@";
-        titleLabel.frame = CGRectMake(10+103*i, 134, 93, 124);
+        titleLabel.frame = CGRectMake(10+103*i, 134, 93, 36);
+        [self.contentView addSubview:imageView];
+        [self.contentView addSubview:titleLabel];
     }
 }
 
@@ -74,7 +75,7 @@
         TTStyledTextLabel* titleLabel = [self.titleArray objectAtIndex:i];
         Video* video = [self.videoTableItem.videoList objectAtIndex:i];
         imageView.urlPath = [video picUrl];
-        titleLabel.text = [TTStyledText textFromXHTML:[video title] lineBreaks:NO URLs:NO];
+        titleLabel.text = [TTStyledText textFromXHTML:[video title] lineBreaks:YES URLs:NO];
     }
     [super setObject:object];
 }
