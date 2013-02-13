@@ -7,13 +7,18 @@
 //
 
 #import "QQVideoViewController.h"
-
+#import "AtvUtil.h"
 
 
 @implementation QQVideoViewController
 
 @synthesize video = _video;
 @synthesize qqVideoRequestModel = _qqVideoRequestModel;
+@synthesize summaryTextLabel = _summaryTextLabel;
+@synthesize descriptionTextLabel = _descriptionTextLabel;
+@synthesize playButton = _playButton;
+@synthesize imageView = _imageView;
+@synthesize reflectImageView = _reflectImageView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -26,6 +31,7 @@
 
 - (id)init {
     if ((self = [self initWithNibName:nil bundle:nil])) {
+        
     }
     return self;
 }
@@ -34,6 +40,12 @@
     if ((self = [super init])) {
         self.video = nil;
         self.qqVideoRequestModel = [[QQVideoRequestModel alloc] initWithVid:vid delegate:self];
+        self.reflectImageView = [[UIView alloc] initWithFrame:CGRectMake(10, 10 , 113, 164)];
+        
+        self.imageView = [[[TTImageView alloc] autorelease] initWithFrame:CGRectZero];
+        self.imageView.frame = CGRectMake(0, 0, 93, 124);
+        self.imageView.layer.cornerRadius = 8;
+        self.imageView.layer.masksToBounds = YES;
     }             
     return self;
 }
@@ -41,6 +53,24 @@
 - (void) videoDidFinishLoad:(Video*) video{
     self.video = video;
     
+    CGRect frame = [UIScreen mainScreen].applicationFrame;
+    UIScrollView* scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height - 92)];
+    
+    
+    NSLog(@"picurl=%@",[video picUrl]);
+    self.imageView.delegate = self;
+    self.imageView.urlPath = [video picUrl];
+    
+    
+    [scrollView addSubview:self.reflectImageView];
+    
+    [self.view addSubview:scrollView];
+}
+
+- (void)imageView:(TTImageView*)imageView didLoadImage:(UIImage*)image{
+    if(imageView == self.imageView){
+        [AtvUtil markReflect:self.reflectImageView.layer image:self.imageView.image];
+    }
 }
 
 - (void)videoDidStartLoad:(NSString*)vid{
