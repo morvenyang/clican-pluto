@@ -34,7 +34,7 @@
      [QQIndexViewController class]];
     [map from:@"atvserver://qq/video/(initWithVid:)" toSharedViewController:
      [QQVideoViewController class]];
-    [map from:@"atvserver://qq/play/(initWithVideoItemId:)" toSharedViewController:
+    [map from:@"atvserver://qq/play/(initWithVideoItemId:)/(vid:)" toSharedViewController:
      [QQPlayViewController class]];
     if (![navigator restoreViewControllers]) {
         [navigator openURLAction:[TTURLAction actionWithURLPath:@"atvserver://qq/index"]];

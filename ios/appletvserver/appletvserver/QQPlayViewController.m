@@ -12,7 +12,8 @@
 @implementation QQPlayViewController
 
 @synthesize qqPlayRequestModel = _qqPlayRequestModel;
-@synthesize moviePlayer = _moviePlayer;
+@synthesize playerViewController = _playerViewController;
+@synthesize vid = _vid;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -30,25 +31,47 @@
     return self;
 }
 
-- (id)initWithVideoItemId:(NSString*)videoItemId {
+- (id)initWithVideoItemId:(NSString*)videoItemId vid:(NSString*)vid{
     if ((self = [super init])) {
         self.qqPlayRequestModel = [[QQPlayRequestModel alloc] initWithVideoItemId:videoItemId delegate:self];
+        self.vid = vid;
     }             
     return self;
 }
 
 - (void) videoItemDidFinishLoad:(VideoItem*) videoItem{
-
     
-    self.moviePlayer = [[MPMoviePlayerController alloc] initWithContentURL:[NSURL URLWithString:videoItem.mediaUrl]];
-    [self.moviePlayer setFullscreen:YES];
+    self.playerViewController = [[MPMoviePlayerViewController alloc] initWithContentURL:[NSURL fileURLWithPath:@"/Users/zhangwei/Desktop/1.mp4"]];
     
-    [[self.moviePlayer view] setFrame:CGRectMake(0, 0, 320, 240)];
-    [self.moviePlayer setMovieControlMode:MPMovieControlModeDefault];
-    [self.view addSubview:[self.moviePlayer view]];
-    [self.moviePlayer play];
-
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moviePlayBackDidFinish:)
+                                                 name:MPMoviePlayerPlaybackDidFinishNotification object:self.playerViewController.moviePlayer];
+    
+    self.playerViewController.moviePlayer.controlStyle = MPMovieControlStyleFullscreen;
+    //[self.view addSubview:self.playerViewController.view];
+    [self.playerViewController.moviePlayer prepareToPlay];
+    [self.playerViewController.moviePlayer setFullscreen:YES animated:YES];
+    [self.playerViewController.moviePlayer play];
+    [self presentMoviePlayerViewControllerAnimated:self.playerViewController];
 }
+
+- (void)moviePlayBackDidFinish:(NSNotification*)notification {
+    int reason = [[[notification userInfo] valueForKey:MPMoviePlayerPlaybackDidFinishReasonUserInfoKey] intValue];
+    if (reason == MPMovieFinishReasonUserExited) {
+        //user hit the done button
+        MPMoviePlayerController *moviePlayer = [notification object];
+        
+        [[NSNotificationCenter defaultCenter] removeObserver:self      
+                                                        name:MPMoviePlayerPlaybackDidFinishNotification
+                                                      object:moviePlayer];
+
+        if ([moviePlayer respondsToSelector:@selector(setFullscreen:animated:)]) {
+            [moviePlayer.view removeFromSuperview];
+        }
+        [self.navigationController setNavigationBarHidden:NO animated:YES];
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+}
+
 
 - (void) videoItemDidStartLoad:(NSString*) videoItemId{
     NSLog(@"load video item:%@",videoItemId);
@@ -61,7 +84,17 @@
 - (void)loadView
 {
     [super loadView];
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
     [self.qqPlayRequestModel load:TTURLRequestCachePolicyNone more:NO];
+}
+
+- (void)dealloc
+{
+    _qqPlayRequestModel.delegate = nil;
+    TT_RELEASE_SAFELY(_qqPlayRequestModel);
+    TT_RELEASE_SAFELY(_playerViewController);
+    TT_RELEASE_SAFELY(_vid);
+    [super dealloc];
 }
 
 - (void)viewDidLoad
@@ -78,7 +111,7 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    return UIInterfaceOrientationIsLandscape(interfaceOrientation);
+    return YES;
 }
 
 @end
