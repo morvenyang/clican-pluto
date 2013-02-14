@@ -38,18 +38,8 @@
 		72C217F116CBCCE3000A56AB /* QQPlayRequestModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 72C217F016CBCCE3000A56AB /* QQPlayRequestModel.m */; };
 		72C217F416CBCE9A000A56AB /* QQPlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 72C217F316CBCE9A000A56AB /* QQPlayViewController.m */; };
 		72C217F616CBDA8A000A56AB /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72C217F516CBDA8A000A56AB /* MediaPlayer.framework */; };
-		72DD38E016CCD97A0010AAC2 /* appletv in Resources */ = {isa = PBXBuildFile; fileRef = 72DD38DF16CCD97A0010AAC2 /* appletv */; };
-		72DD38E716CCEB0C0010AAC2 /* lib in Resources */ = {isa = PBXBuildFile; fileRef = 72DD38E616CCEB0C0010AAC2 /* lib */; };
-		72DD38F216CCEB5F0010AAC2 /* libavcodec.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 72DD38E816CCEB5F0010AAC2 /* libavcodec.a */; };
-		72DD38F316CCEB5F0010AAC2 /* libavdevice.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 72DD38E916CCEB5F0010AAC2 /* libavdevice.a */; };
-		72DD38F416CCEB5F0010AAC2 /* libavfilter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 72DD38EA16CCEB5F0010AAC2 /* libavfilter.a */; };
-		72DD38F516CCEB5F0010AAC2 /* libavformat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 72DD38EB16CCEB5F0010AAC2 /* libavformat.a */; };
-		72DD38F616CCEB5F0010AAC2 /* libavutil.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 72DD38EC16CCEB5F0010AAC2 /* libavutil.a */; };
-		72DD38F716CCEB5F0010AAC2 /* libfaac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 72DD38ED16CCEB5F0010AAC2 /* libfaac.a */; };
-		72DD38F816CCEB5F0010AAC2 /* libfaad.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 72DD38EE16CCEB5F0010AAC2 /* libfaad.a */; };
-		72DD38F916CCEB5F0010AAC2 /* libpostproc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 72DD38EF16CCEB5F0010AAC2 /* libpostproc.a */; };
-		72DD38FA16CCEB5F0010AAC2 /* libswscale.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 72DD38F016CCEB5F0010AAC2 /* libswscale.a */; };
-		72DD38FB16CCEB5F0010AAC2 /* libxvidcore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 72DD38F116CCEB5F0010AAC2 /* libxvidcore.a */; };
+		72DD3AB416CD10C20010AAC2 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72DD3AB316CD10C20010AAC2 /* OpenGLES.framework */; };
+		72DD3AB616CD13050010AAC2 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72DD3AB516CD13050010AAC2 /* AudioToolbox.framework */; };
 		72E748FF16C9F04F0024B8BB /* QQIndexViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 72E748FE16C9F04F0024B8BB /* QQIndexViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -282,18 +272,8 @@
 		72C217F216CBCE9A000A56AB /* QQPlayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QQPlayViewController.h; sourceTree = "<group>"; };
 		72C217F316CBCE9A000A56AB /* QQPlayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QQPlayViewController.m; sourceTree = "<group>"; };
 		72C217F516CBDA8A000A56AB /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
-		72DD38DF16CCD97A0010AAC2 /* appletv */ = {isa = PBXFileReference; lastKnownFileType = folder; name = appletv; path = appletvserver/appletv; sourceTree = "<group>"; };
-		72DD38E616CCEB0C0010AAC2 /* lib */ = {isa = PBXFileReference; lastKnownFileType = folder; name = lib; path = appletvserver/lib; sourceTree = "<group>"; };
-		72DD38E816CCEB5F0010AAC2 /* libavcodec.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libavcodec.a; path = appletvserver/lib/libavcodec.a; sourceTree = "<group>"; };
-		72DD38E916CCEB5F0010AAC2 /* libavdevice.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libavdevice.a; path = appletvserver/lib/libavdevice.a; sourceTree = "<group>"; };
-		72DD38EA16CCEB5F0010AAC2 /* libavfilter.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libavfilter.a; path = appletvserver/lib/libavfilter.a; sourceTree = "<group>"; };
-		72DD38EB16CCEB5F0010AAC2 /* libavformat.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libavformat.a; path = appletvserver/lib/libavformat.a; sourceTree = "<group>"; };
-		72DD38EC16CCEB5F0010AAC2 /* libavutil.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libavutil.a; path = appletvserver/lib/libavutil.a; sourceTree = "<group>"; };
-		72DD38ED16CCEB5F0010AAC2 /* libfaac.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfaac.a; path = appletvserver/lib/libfaac.a; sourceTree = "<group>"; };
-		72DD38EE16CCEB5F0010AAC2 /* libfaad.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfaad.a; path = appletvserver/lib/libfaad.a; sourceTree = "<group>"; };
-		72DD38EF16CCEB5F0010AAC2 /* libpostproc.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpostproc.a; path = appletvserver/lib/libpostproc.a; sourceTree = "<group>"; };
-		72DD38F016CCEB5F0010AAC2 /* libswscale.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libswscale.a; path = appletvserver/lib/libswscale.a; sourceTree = "<group>"; };
-		72DD38F116CCEB5F0010AAC2 /* libxvidcore.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libxvidcore.a; path = appletvserver/lib/libxvidcore.a; sourceTree = "<group>"; };
+		72DD3AB316CD10C20010AAC2 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		72DD3AB516CD13050010AAC2 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		72E748F916C9EEE70024B8BB /* StyleSheet.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StyleSheet.h; sourceTree = "<group>"; };
 		72E748FA16C9EEE70024B8BB /* StyleSheet.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StyleSheet.m; sourceTree = "<group>"; };
 		72E748FD16C9F04F0024B8BB /* QQIndexViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QQIndexViewController.h; sourceTree = "<group>"; };
@@ -305,16 +285,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				72DD38F216CCEB5F0010AAC2 /* libavcodec.a in Frameworks */,
-				72DD38F316CCEB5F0010AAC2 /* libavdevice.a in Frameworks */,
-				72DD38F416CCEB5F0010AAC2 /* libavfilter.a in Frameworks */,
-				72DD38F516CCEB5F0010AAC2 /* libavformat.a in Frameworks */,
-				72DD38F616CCEB5F0010AAC2 /* libavutil.a in Frameworks */,
-				72DD38F716CCEB5F0010AAC2 /* libfaac.a in Frameworks */,
-				72DD38F816CCEB5F0010AAC2 /* libfaad.a in Frameworks */,
-				72DD38F916CCEB5F0010AAC2 /* libpostproc.a in Frameworks */,
-				72DD38FA16CCEB5F0010AAC2 /* libswscale.a in Frameworks */,
-				72DD38FB16CCEB5F0010AAC2 /* libxvidcore.a in Frameworks */,
+				72DD3AB616CD13050010AAC2 /* AudioToolbox.framework in Frameworks */,
+				72DD3AB416CD10C20010AAC2 /* OpenGLES.framework in Frameworks */,
 				72C217F616CBDA8A000A56AB /* MediaPlayer.framework in Frameworks */,
 				72B5769716CA13B80094DD58 /* libextThree20JSON+SBJSON.a in Frameworks */,
 				3201088596B4756681693705 /* libThree20UICommon.a in Frameworks */,
@@ -469,17 +441,7 @@
 		72A4367016C9EA5A00D9958D = {
 			isa = PBXGroup;
 			children = (
-				72DD38E816CCEB5F0010AAC2 /* libavcodec.a */,
-				72DD38E916CCEB5F0010AAC2 /* libavdevice.a */,
-				72DD38EA16CCEB5F0010AAC2 /* libavfilter.a */,
-				72DD38EB16CCEB5F0010AAC2 /* libavformat.a */,
-				72DD38EC16CCEB5F0010AAC2 /* libavutil.a */,
-				72DD38ED16CCEB5F0010AAC2 /* libfaac.a */,
-				72DD38EE16CCEB5F0010AAC2 /* libfaad.a */,
-				72DD38EF16CCEB5F0010AAC2 /* libpostproc.a */,
-				72DD38F016CCEB5F0010AAC2 /* libswscale.a */,
-				72DD38F116CCEB5F0010AAC2 /* libxvidcore.a */,
-				72DD38E616CCEB0C0010AAC2 /* lib */,
+				72DD3AB516CD13050010AAC2 /* AudioToolbox.framework */,
 				72A69BD016C9F9420099D974 /* Resources */,
 				72A4368516C9EA5A00D9958D /* appletvserver */,
 				72A4367E16C9EA5A00D9958D /* Frameworks */,
@@ -498,6 +460,7 @@
 		72A4367E16C9EA5A00D9958D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				72DD3AB316CD10C20010AAC2 /* OpenGLES.framework */,
 				72C217F516CBDA8A000A56AB /* MediaPlayer.framework */,
 				7219BBCE16C9EB6900AABA8E /* extThree20JSON.xcodeproj */,
 				3201088596B4756681693700 /* Three20UICommon.xcodeproj */,
@@ -518,7 +481,7 @@
 		72A4368516C9EA5A00D9958D /* appletvserver */ = {
 			isa = PBXGroup;
 			children = (
-				72DD38FC16CCEB8B0010AAC2 /* New Group */,
+				72DD38FC16CCEB8B0010AAC2 /* ffmpeg */,
 				7272B3A216CA040F00E111A7 /* Three20 */,
 				7272B39A16C9FC5100E111A7 /* Object */,
 				72A69BCB16C9F3F20099D974 /* Model */,
@@ -563,7 +526,6 @@
 		72A69BD016C9F9420099D974 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				72DD38DF16CCD97A0010AAC2 /* appletv */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -577,11 +539,11 @@
 			name = View;
 			sourceTree = "<group>";
 		};
-		72DD38FC16CCEB8B0010AAC2 /* New Group */ = {
+		72DD38FC16CCEB8B0010AAC2 /* ffmpeg */ = {
 			isa = PBXGroup;
 			children = (
 			);
-			name = "New Group";
+			name = ffmpeg;
 			sourceTree = "<group>";
 		};
 		72E748E816C9EE750024B8BB /* qq */ = {
@@ -840,8 +802,6 @@
 			files = (
 				320B6C86F11D9990244A9731 /* Three20.bundle in Resources */,
 				72A4368A16C9EA5A00D9958D /* InfoPlist.strings in Resources */,
-				72DD38E016CCD97A0010AAC2 /* appletv in Resources */,
-				72DD38E716CCEB0C0010AAC2 /* lib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -952,6 +912,7 @@
 					"$(BUILT_PRODUCTS_DIR)/../three20",
 					"$(BUILT_PRODUCTS_DIR)/../../three20",
 					../../../../three20/Build/Products/three20,
+					/Users/zhangwei/Documents/xcodews/googlecode/trunk/ios/appletvserver/appletvserver/include,
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				OTHER_LDFLAGS = "-ObjC";
@@ -977,6 +938,7 @@
 					"$(BUILT_PRODUCTS_DIR)/../three20",
 					"$(BUILT_PRODUCTS_DIR)/../../three20",
 					../../../../three20/Build/Products/three20,
+					/Users/zhangwei/Documents/xcodews/googlecode/trunk/ios/appletvserver/appletvserver/include,
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
@@ -994,10 +956,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "appletvserver/appletvserver-Prefix.pch";
 				INFOPLIST_FILE = "appletvserver/appletvserver-Info.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/appletvserver/lib\"",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -1009,10 +968,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "appletvserver/appletvserver-Prefix.pch";
 				INFOPLIST_FILE = "appletvserver/appletvserver-Info.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/appletvserver/lib\"",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
