@@ -9,12 +9,15 @@
 #import "QQPlayRequestModel.h"
 #import "MediaPlayer/MediaPlayer.h"
 
-@interface QQPlayViewController : TTViewController<QQPlayDelegate>{
+@interface QQPlayViewController : UIViewController<QQPlayDelegate>{
     QQPlayRequestModel* _qqPlayRequestModel;
-    MPMoviePlayerController* _moviePlayer;
+    MPMoviePlayerViewController* _playerViewController;
+    NSString* _vid;
 }
 @property (nonatomic, retain) QQPlayRequestModel* qqPlayRequestModel;
-@property (nonatomic, retain) MPMoviePlayerController* moviePlayer
+@property (nonatomic, retain) MPMoviePlayerViewController* playerViewController
 ;
-- (id)initWithVideoItemId:(NSString*)videoItemId;
+@property (nonatomic, copy) NSString* vid;
+
+- (id)initWithVideoItemId:(NSString*)videoItemId vid:(NSString*)vid;
 @end

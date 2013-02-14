@@ -98,7 +98,7 @@
     NSLog(@"Play video %@",self.video.title);
     if([self.video.videoItemList count]>0){
         VideoItem* vi = [self.video.videoItemList objectAtIndex:0];
-        NSString* actionUrl = [NSString stringWithFormat:@"atvserver://qq/play/%@",[vi itemId]];
+        NSString* actionUrl = [NSString stringWithFormat:@"atvserver://qq/play/%@/%@",vi.itemId,self.video.vid];
         NSLog(@"playUrl:%@",actionUrl);
         TTOpenURL(actionUrl);
     }

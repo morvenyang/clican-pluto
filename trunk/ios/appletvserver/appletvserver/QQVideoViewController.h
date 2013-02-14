@@ -9,6 +9,7 @@
 #import "Video.h"
 #import "QQVideoRequestModel.h"
 
+
 @interface QQVideoViewController : TTViewController<QQVideoDelegate,TTImageViewDelegate>{
     Video* _video;
     QQVideoRequestModel* _qqVideoRequestModel;
@@ -26,6 +27,7 @@
 @property (nonatomic, retain) UIButton* playButton;
 @property (nonatomic, retain) TTImageView* imageView;
 @property (nonatomic, retain) UIView* reflectImageView;
+
 - (id) initWithVid:(NSNumber*) vid;
 
 @end
