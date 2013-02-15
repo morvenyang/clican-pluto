@@ -10,6 +10,7 @@
 #import "QQIndexViewController.h"
 #import "QQVideoViewController.h"
 #import "QQPlayViewController.h"
+#import "FFMpegPlayViewController.h"
 @implementation AppDelegate
 
 
@@ -29,7 +30,8 @@
     
     
     TTURLMap* map = navigator.URLMap;
-    
+    [map from:@"atvserver://ffmpeg" toSharedViewController:
+     [FFMpegPlayViewController class]];
     [map from:@"atvserver://qq/index" toSharedViewController:
      [QQIndexViewController class]];
     [map from:@"atvserver://qq/video/(initWithVid:)" toSharedViewController:
@@ -37,7 +39,7 @@
     [map from:@"atvserver://qq/play/(initWithVideoItemId:)/(vid:)" toSharedViewController:
      [QQPlayViewController class]];
     if (![navigator restoreViewControllers]) {
-        [navigator openURLAction:[TTURLAction actionWithURLPath:@"atvserver://qq/index"]];
+        [navigator openURLAction:[TTURLAction actionWithURLPath:@"atvserver://ffmpeg"]];
     }
     
     return YES;
