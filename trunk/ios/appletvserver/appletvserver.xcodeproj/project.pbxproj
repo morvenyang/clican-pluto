@@ -489,7 +489,6 @@
 		72A4367016C9EA5A00D9958D = {
 			isa = PBXGroup;
 			children = (
-				72B83F8616CDDFA2003B2839 /* libz.1.2.5.dylib */,
 				72B83F4916CDD99D003B2839 /* include */,
 				72B83F4716CDD993003B2839 /* lib */,
 				72A69BD016C9F9420099D974 /* Resources */,
@@ -510,6 +509,7 @@
 		72A4367E16C9EA5A00D9958D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				72B83F8616CDDFA2003B2839 /* libz.1.2.5.dylib */,
 				72B83F7616CDDD89003B2839 /* libavcodec.a */,
 				72B83F7716CDDD89003B2839 /* libavdevice.a */,
 				72B83F7816CDDD89003B2839 /* libavfilter.a */,
