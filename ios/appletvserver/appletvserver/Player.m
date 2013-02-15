@@ -305,7 +305,7 @@ int64_t avSeek(void *opaque, int64_t offset, int whence);
 	
 	//register_protocol(&MythProtocol);
 	
-	NSString   *videoPath=@"/Users/zhangwei/Desktop/1.rmvb";
+	NSString   *videoPath=@"/Users/zhangwei/Desktop/2.rmvb";
 	const char *filename = [videoPath cStringUsingEncoding:NSASCIIStringEncoding];
 	
 	
@@ -473,7 +473,6 @@ int64_t avSeek(void *opaque, int64_t offset, int whence);
 					}
 				}					
 			}
-			
 			if (audio_index >= 0) {
 				audioPacketQueue = [[NSMutableArray alloc] init];
 				audioPacketQueueLock = [[NSLock alloc] init];
