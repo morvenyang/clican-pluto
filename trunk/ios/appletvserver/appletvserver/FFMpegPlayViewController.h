@@ -8,14 +8,16 @@
 
 #import <UIKit/UIKit.h>
 #import "VideoFrameExtractor.h"
-
+#import "Player.h"
 @interface FFMpegPlayViewController : UIViewController{
     UIImageView* _imageView;
 	VideoFrameExtractor* _video;
     float lastFrameTime;
+    Player* _player;
+    
 }
 
 @property (nonatomic, retain) UIImageView *imageView;
 @property (nonatomic, retain) VideoFrameExtractor *video;
-
+@property (nonatomic, retain) Player *player;
 @end
