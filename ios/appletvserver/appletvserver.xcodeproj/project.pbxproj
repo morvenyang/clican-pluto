@@ -51,6 +51,10 @@
 		72B83F8916CDDFC6003B2839 /* sophie.mov in Resources */ = {isa = PBXBuildFile; fileRef = 72B83F8816CDDFC6003B2839 /* sophie.mov */; };
 		72B83F9516CDE40F003B2839 /* FFMpegPlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 72B83F9416CDE40F003B2839 /* FFMpegPlayViewController.m */; };
 		72B83F9716CDE655003B2839 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 72B83F9616CDE655003B2839 /* Default.png */; };
+		72B83FE416CDF21A003B2839 /* CacheBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 72B83FDD16CDF21A003B2839 /* CacheBuffer.m */; };
+		72B83FE516CDF21A003B2839 /* FrameData.m in Sources */ = {isa = PBXBuildFile; fileRef = 72B83FDF16CDF21A003B2839 /* FrameData.m */; };
+		72B83FE616CDF21A003B2839 /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = 72B83FE116CDF21A003B2839 /* Player.m */; };
+		72B83FE716CDF21A003B2839 /* StreamInterface.m in Sources */ = {isa = PBXBuildFile; fileRef = 72B83FE316CDF21A003B2839 /* StreamInterface.m */; };
 		72BB0C6A16CB513400D4291D /* VideoImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 72BB0C6916CB513400D4291D /* VideoImageView.m */; };
 		72C217C716CB6403000A56AB /* VideoItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 72C217C616CB6403000A56AB /* VideoItem.m */; };
 		72C217CA16CBB679000A56AB /* AtvUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 72C217C916CBB679000A56AB /* AtvUtil.m */; };
@@ -300,6 +304,14 @@
 		72B83F9316CDE40F003B2839 /* FFMpegPlayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FFMpegPlayViewController.h; sourceTree = "<group>"; };
 		72B83F9416CDE40F003B2839 /* FFMpegPlayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FFMpegPlayViewController.m; sourceTree = "<group>"; };
 		72B83F9616CDE655003B2839 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		72B83FDC16CDF21A003B2839 /* CacheBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CacheBuffer.h; sourceTree = "<group>"; };
+		72B83FDD16CDF21A003B2839 /* CacheBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CacheBuffer.m; sourceTree = "<group>"; };
+		72B83FDE16CDF21A003B2839 /* FrameData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FrameData.h; sourceTree = "<group>"; };
+		72B83FDF16CDF21A003B2839 /* FrameData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FrameData.m; sourceTree = "<group>"; };
+		72B83FE016CDF21A003B2839 /* Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Player.h; sourceTree = "<group>"; };
+		72B83FE116CDF21A003B2839 /* Player.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Player.m; sourceTree = "<group>"; };
+		72B83FE216CDF21A003B2839 /* StreamInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StreamInterface.h; sourceTree = "<group>"; };
+		72B83FE316CDF21A003B2839 /* StreamInterface.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StreamInterface.m; sourceTree = "<group>"; };
 		72BB0C6816CB513400D4291D /* VideoImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoImageView.h; sourceTree = "<group>"; };
 		72BB0C6916CB513400D4291D /* VideoImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoImageView.m; sourceTree = "<group>"; };
 		72C217C516CB6403000A56AB /* VideoItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoItem.h; sourceTree = "<group>"; };
@@ -613,6 +625,14 @@
 		72DD38FC16CCEB8B0010AAC2 /* ffmpeg */ = {
 			isa = PBXGroup;
 			children = (
+				72B83FDC16CDF21A003B2839 /* CacheBuffer.h */,
+				72B83FDD16CDF21A003B2839 /* CacheBuffer.m */,
+				72B83FDE16CDF21A003B2839 /* FrameData.h */,
+				72B83FDF16CDF21A003B2839 /* FrameData.m */,
+				72B83FE016CDF21A003B2839 /* Player.h */,
+				72B83FE116CDF21A003B2839 /* Player.m */,
+				72B83FE216CDF21A003B2839 /* StreamInterface.h */,
+				72B83FE316CDF21A003B2839 /* StreamInterface.m */,
 				72B83F6D16CDDBD9003B2839 /* Utilities.h */,
 				72B83F6E16CDDBD9003B2839 /* Utilities.m */,
 				72B83F7316CDDC0D003B2839 /* VideoFrameExtractor.h */,
@@ -911,6 +931,10 @@
 				72B83F6F16CDDBD9003B2839 /* Utilities.m in Sources */,
 				72B83F7516CDDC0D003B2839 /* VideoFrameExtractor.m in Sources */,
 				72B83F9516CDE40F003B2839 /* FFMpegPlayViewController.m in Sources */,
+				72B83FE416CDF21A003B2839 /* CacheBuffer.m in Sources */,
+				72B83FE516CDF21A003B2839 /* FrameData.m in Sources */,
+				72B83FE616CDF21A003B2839 /* Player.m in Sources */,
+				72B83FE716CDF21A003B2839 /* StreamInterface.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

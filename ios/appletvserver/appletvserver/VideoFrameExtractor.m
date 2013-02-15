@@ -65,6 +65,8 @@
     av_register_all();
 	
     // Open video file
+    NSLog(@"%@", moviePath);
+    av_log(NULL, AV_LOG_ERROR, [moviePath cStringUsingEncoding:NSASCIIStringEncoding]);
     if(avformat_open_input(&pFormatCtx, [moviePath cStringUsingEncoding:NSASCIIStringEncoding], NULL, NULL) != 0) {
         av_log(NULL, AV_LOG_ERROR, "Couldn't open file\n");
         goto initError;

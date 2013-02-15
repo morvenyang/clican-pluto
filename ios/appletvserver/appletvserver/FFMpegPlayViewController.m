@@ -8,10 +8,10 @@
 
 #import "FFMpegPlayViewController.h"
 #import "Utilities.h"
-
+#import "Player.h"
 @implementation FFMpegPlayViewController
 
-@synthesize imageView = _imageView, video = _video;
+@synthesize imageView = _imageView, video = _video, player = _player;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -25,27 +25,10 @@
 - (void)loadView
 {
     [super loadView];
-    self.video = [[[VideoFrameExtractor alloc] initWithVideo:[Utilities bundlePath:@"sophie"]] autorelease];
-	
-    
-	// set output image size
-	self.video.outputWidth = 426;
-	self.video.outputHeight = 320;
-	
-	// print some info about the video
-	NSLog(@"video duration: %f",self.video.duration);
-	NSLog(@"video size: %d x %d", self.video.sourceWidth, self.video.sourceHeight);
-	self.imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Default.png"]];
-	// video images are landscape, so rotate image view 90 degrees
-	[self.imageView setTransform:CGAffineTransformMakeRotation(M_PI/2)];
-    [self.video seekTime:0.0];
-    
-	[NSTimer scheduledTimerWithTimeInterval:1.0/30
-									 target:self
-								   selector:@selector(displayNextFrame:)
-								   userInfo:nil
-									repeats:YES];
-    [self.view addSubview:self.imageView];
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
+    self.player = [[Player alloc] initWithFrame:CGRectMake(0, 0, 320, 480)];
+    [self.view addSubview:self.player];
+
 }
 
 #define LERP(A,B,C) ((A)*(1.0-C)+(B)*C)
