@@ -26,8 +26,8 @@
 #import <AudioToolbox/AudioToolbox.h>
 #import <OpenGLES/EAGLDrawable.h>
 #import <QuartzCore/QuartzCore.h>
-
-
+#import "Utilities.h"
+#import "libswresample/swresample.h"
 #define FRAME_X 256
 #define FRAME_Y 256
 
@@ -305,22 +305,20 @@ int64_t avSeek(void *opaque, int64_t offset, int whence);
 	
 	//register_protocol(&MythProtocol);
 	
-	NSString   *videoPath=@"/Users/zhangwei/Desktop/2.rmvb";
-	const char *filename = [videoPath cStringUsingEncoding:NSASCIIStringEncoding];
-	
-	
+	//NSString   *videoPath=[Utilities bundlePath:@"3.rmvb"];
+	NSString* videoPath = @"/Users/zhangwei/Desktop/1.mp4";
+    //打开视频流
 	err = avformat_open_input(&avfContext, [videoPath cStringUsingEncoding:NSASCIIStringEncoding], NULL, NULL);
 		
 	if (err) {
-		NSLog(@"Error: Could not open mythtv stream: %d", err);
-		
+		NSLog(@"Error: Could not open stream with path:%@\nerror:%d",videoPath, err);
 		return;
 	}
 	else {
 		NSLog(@"Opened stream");
 	}
-	
-	err = av_find_stream_info(avfContext);
+	//读取视频格式信息
+	err = avformat_find_stream_info(avfContext,NULL);
 	if (err < 0) {
 		NSLog(@"Error: Could not find stream info: %d", err);
 				return;
@@ -328,43 +326,59 @@ int64_t avSeek(void *opaque, int64_t offset, int whence);
 	else {
 		NSLog(@"Found stream info");
 	}
-	
+	//视频数据开始位置
 	video_index = -1;
+    //音频数据开始位置
 	audio_index = -1;
-	
+	NSLog(@"there are %i streams in this file:%@",avfContext->nb_streams,videoPath);
 	int i;
 	for(i = 0; i < avfContext->nb_streams; i++) {
+        //获取某个数据流codec
 		enc = avfContext->streams[i]->codec;
+        //默认设置未丢弃改数据流
 		avfContext->streams[i]->discard = AVDISCARD_ALL;
+        //判断数据流式音频还是视频
 		switch(enc->codec_type) {
+                //视频的话不丢弃并获取位置信息
 			case AVMEDIA_TYPE_VIDEO:
 				video_index = i;
 			 avfContext->streams[i]->discard = AVDISCARD_NONE;
+                NSLog(@"第%i个流是视频",i);
 				break;
+                //音频的话不丢弃并获取位置信息
 			case AVMEDIA_TYPE_AUDIO:
 				audio_index = i;
 			 avfContext->streams[i]->discard = AVDISCARD_NONE;
+                NSLog(@"第%i个流是音频",i);
+                break;
 			default:
+                NSLog(@"第%i个流不是视频或音频,丢弃掉",i);
 				break;
 		}
 	}
 	
 	if (video_index >= 0) {
+        //如果有视频流则保留
 		avfContext->streams[video_index]->discard = AVDISCARD_DEFAULT;
 	}
 	
 	if (audio_index >= 0) {
+        //如果有音频流则保留
 		avfContext->streams[audio_index]->discard = AVDISCARD_DEFAULT;
 	}
 	
+    //获取视频的高宽比
 	float aspectRatio = av_q2d(avfContext->streams[video_index]->codec->sample_aspect_ratio);
+    
 	if (!aspectRatio) {
 		aspectRatio = av_q2d(avfContext->streams[video_index]->sample_aspect_ratio);
 	}
 	if (!aspectRatio) {
-		NSLog(@"No aspect ratio found, assuming 4:3");
+		NSLog(@"没有获得视频的高宽比设置默认 4:3");
 		aspectRatio = 4.0 / 3;
-	}
+	}else{
+        NSLog(@"没有获得视频的高宽比%f",aspectRatio);
+    }
 	
 	if ((float)self.bounds.size.height / self.bounds.size.width > aspectRatio) {
 		GLfloat blank = (self.bounds.size.height - self.bounds.size.width * aspectRatio) / 2;
@@ -398,20 +412,23 @@ int64_t avSeek(void *opaque, int64_t offset, int whence);
 	texturePoints[6] = 1;
 	texturePoints[7] = 1;
 	
+    //获取视频的格式编码
 	enc = avfContext->streams[video_index]->codec;
 	AVCodec *codec = avcodec_find_decoder(enc->codec_id);
 	if (!codec) {
-		NSLog(@"Error: Could not find decoder for video codec %d", enc->codec_id);
+		NSLog(@"无法识别的视频格式 %d", enc->codec_id);
 		av_close_input_file(avfContext);
 				return;
 	}
 	
 	err = avcodec_open(enc, codec);
 	if (err < 0) {
-		NSLog(@"Error: Could not open video decoder: %d", err);
+		NSLog(@"无法用改视频编码[%s]打开视频文件: %d", codec->name,err);
 		av_close_input_file(avfContext);
 			return;
-	}
+	}else{
+        NSLog(@"用视频编码[%s]打开视频文件 %d", codec->name,enc->codec_id);
+    }
 	
 	/*
 	 
@@ -431,7 +448,22 @@ int64_t avSeek(void *opaque, int64_t offset, int whence);
 		AudioStreamBasicDescription audioFormat;
 		audioFormat.mFormatID = -1;
 		audioFormat.mSampleRate = avfContext->streams[audio_index]->codec->sample_rate;
-		audioFormat.mFormatFlags = 0;
+        NSLog(@"音频比特率:%f",audioFormat.mSampleRate);
+        audioFormat.mFormatFlags = 0;
+        AVCodec *aodioCodec = avcodec_find_decoder(avfContext->streams[audio_index]->codec->codec_id);
+        int frame_size = avfContext->streams[audio_index]->codec->frame_size;
+        if (frame_size <= 1) {
+            frame_size = 96;
+        }
+        NSLog(@"frame_size:%i",frame_size);
+        avfContext->streams[audio_index]->codec->frame_size = frame_size;
+        err = avcodec_open(avfContext->streams[audio_index]->codec, aodioCodec);
+        if (err < 0) {
+            NSLog(@"无法用音频编码[%s]打开视频文件: %d", aodioCodec->name,err);
+        }else{
+            NSLog(@"用音频编码[%s]打开视频文件", aodioCodec->name);
+        }
+        
 		switch (avfContext->streams[audio_index]->codec->codec_id) {
 			case CODEC_ID_MP3:
 				audioFormat.mFormatID = kAudioFormatMPEGLayer3;
@@ -443,12 +475,18 @@ int64_t avSeek(void *opaque, int64_t offset, int whence);
 			case CODEC_ID_AC3:
 				audioFormat.mFormatID = kAudioFormatAC3;
 				break;
+            case CODEC_ID_WMAV2:
+                audioFormat.mFormatID = kAudioFormatAC3;
+				break;
+            case CODEC_ID_COOK:
+                audioFormat.mFormatID = kAudioFormatLinearPCM;
+				break;
 			default:
-				NSLog(@"Error: audio format '%s' (%d) is not supported", avfContext->streams[audio_index]->codec->codec_name, avfContext->streams[audio_index]->codec->codec_id);
-				audioFormat.mFormatID = kAudioFormatAC3;				
+				NSLog(@"音频编码 '%s' (%d) 不被支持", aodioCodec->name, avfContext->streams[audio_index]->codec->codec_id);
+				audioFormat.mFormatID = -1;
 				break;
 		}
-		
+		audioFormat.mFormatID = -1;
 		if (audioFormat.mFormatID != -1) {
 			audioFormat.mBytesPerPacket = 0;
 			audioFormat.mFramesPerPacket = avfContext->streams[audio_index]->codec->frame_size;
@@ -457,7 +495,7 @@ int64_t avSeek(void *opaque, int64_t offset, int whence);
 			audioFormat.mBitsPerChannel = 0;
 			
 			if (err = AudioQueueNewOutput(&audioFormat, audioQueueOutputCallback, self, NULL, NULL, 0, &audioQueue)) {
-				NSLog(@"Error creating audio output queue: %d", err);
+				NSLog(@"无法创建音频队列: %d", err);
 				avfContext->streams[audio_index]->discard = AVDISCARD_ALL;
 				audio_index = -1;
 			}

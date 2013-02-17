@@ -28,7 +28,6 @@
     [self.navigationController setNavigationBarHidden:YES animated:YES];
     self.player = [[Player alloc] initWithFrame:CGRectMake(0, 0, 320, 480)];
     [self.view addSubview:self.player];
-
 }
 
 #define LERP(A,B,C) ((A)*(1.0-C)+(B)*C)
