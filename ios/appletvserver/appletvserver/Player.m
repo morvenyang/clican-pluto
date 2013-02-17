@@ -305,8 +305,8 @@ int64_t avSeek(void *opaque, int64_t offset, int whence);
 	
 	//register_protocol(&MythProtocol);
 	
-	NSString   *videoPath=[Utilities bundlePath:@"test1.h264"];
-	//NSString* videoPath = @"/Users/zhangwei/Documents/xcodews/googlecode/trunk/ios/appletvserver/test.h264";
+	//NSString   *videoPath=[Utilities bundlePath:@"test1.h264"];
+	NSString* videoPath = @"/Users/zhangwei/Desktop/2.rmvb";
     //打开视频流
 	err = avformat_open_input(&avfContext, [videoPath cStringUsingEncoding:NSASCIIStringEncoding], NULL, NULL);
 		
@@ -486,7 +486,7 @@ int64_t avSeek(void *opaque, int64_t offset, int whence);
 				audioFormat.mFormatID = -1;
 				break;
 		}
-		audioFormat.mFormatID = -1;
+
 		if (audioFormat.mFormatID != -1) {
 			audioFormat.mBytesPerPacket = 0;
 			audioFormat.mFramesPerPacket = avfContext->streams[audio_index]->codec->frame_size;
