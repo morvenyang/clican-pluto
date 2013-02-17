@@ -305,8 +305,8 @@ int64_t avSeek(void *opaque, int64_t offset, int whence);
 	
 	//register_protocol(&MythProtocol);
 	
-	//NSString   *videoPath=[Utilities bundlePath:@"3.rmvb"];
-	NSString* videoPath = @"/Users/zhangwei/Desktop/1.mp4";
+	NSString   *videoPath=[Utilities bundlePath:@"test.h264"];
+	//NSString* videoPath = @"/Users/zhangwei/Desktop/test.h264";
     //打开视频流
 	err = avformat_open_input(&avfContext, [videoPath cStringUsingEncoding:NSASCIIStringEncoding], NULL, NULL);
 		
