@@ -5,3 +5,8 @@ CC=/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform
 mkdir -p ./dist/fat/lib
 
 xcrun -sdk iphoneos lipo -output ./dist/fat/lib/libx264.a  -create  -arch armv7s ./dist/armv7s/lib/libx264.a  -arch armv7 ./dist/armv7/lib/libx264.a -arch i386 ./dist/i386/lib/libx264.a
+
+#cygwin
+#refer to http://xidige.com/other/250
+CC=/usr/bin/i686-pc-mingw32-gcc ./configure --enable-static --enable-shared --enable-win32thread  --prefix=dist --cross-prefix=/usr/bin/i686-pc-mingw32- --host=i686-pc-mingw32 --disable-asm
+make 
