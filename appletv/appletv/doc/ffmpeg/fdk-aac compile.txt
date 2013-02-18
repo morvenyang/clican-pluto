@@ -1,16 +1,19 @@
-CC=/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/gcc 
-CFLAGS='-arch armv7' 
-LDFLAGS='-L/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.1.sdk/usr/lib/system/ -arch armv7'
-./configure --host=arm-apple-darwin --prefix='/Users/zhangwei/Documents/xcodews/fdk-aac/dist/armv7' --enable-static --enable-shared
+http://sourceforge.net/projects/opencore-amr/files/fdk-aac/
 
-CC=/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/gcc 
-CFLAGS='-arch armv7s' 
-LDFLAGS='-L/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.1.sdk/usr/lib/system/ -arch armv7s'
-./configure --host=arm-apple-darwin --prefix='/Users/zhangwei/Documents/xcodews/fdk-aac/dist/armv7s' --enable-static --enable-shared
+#OK armv7
+./configure CC='/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/gcc  -arch armv7' \
+CFLAGS='-I/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.1.sdk/usr/include -arch armv7' \
+LDFLAGS='-L/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.1.sdk/usr/lib -L/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.1.sdk/usr/lib/system' \
+--host=arm-apple-darwin --prefix='/Users/zhangwei/Documents/xcodews/fdk-aac/dist/armv7' --enable-static --enable-shared
 
+#OK armv7s
+./configure CC='/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/gcc' \
+CFLAGS='-arch armv7s' \
+LDFLAGS='-L/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.1.sdk/usr/lib -L/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.1.sdk/usr/lib/system' \
+--with-sysroot='/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.1.sdk' \
+--host=arm-apple-darwin --prefix='/Users/zhangwei/Documents/xcodews/fdk-aac/dist/armv7s' --enable-static --enable-shared
 
-CC=/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc CFLAGS='-arch i386' LDFLAGS='-L/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator6.1.sdk/usr/lib/system -arch i386' ./configure --build=i386 --prefix='/Users/zhangwei/Documents/xcodews/fdk-aac/dist/i386' --enable-static --enable-shared
-
+#OK i386
 ./configure CC="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc -arch i386" CXX="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/g++ -arch i386" LDFLAGS='-L/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator6.1.sdk/usr/lib/system -arch i386' --prefix='/Users/zhangwei/Documents/xcodews/fdk-aac/dist/i386' --enable-static --enable-shared
 
 #cygwin
