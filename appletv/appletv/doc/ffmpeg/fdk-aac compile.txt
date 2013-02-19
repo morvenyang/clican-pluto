@@ -32,5 +32,7 @@ CPPFLAGS="-I/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platfo
 mkdir -p ./dist/fat/lib
 xcrun -sdk iphoneos lipo -output ./dist/fat/lib/libfdk-aac.a  -create  -arch armv7s ./dist/armv7s/lib/libfdk-aac.a  -arch armv7 ./dist/armv7/lib/libfdk-aac.a -arch i386 ./dist/i386/lib/libfdk-aac.a
 
-#not ok cygwin
+#not ok cygwin ports
+C:\Users\weizha\Desktop\setup.exe -K http://cygwinports.org/ports.gpg
+
 ./configure CC='/usr/bin/i686-pc-mingw32-gcc' CFLAGS='-I/usr/i686-pc-mingw32/sys-root/mingw/include' LDFLAGS='-L/usr/i686-pc-mingw32/sys-root/mingw/lib' --host=i686-w32-mingw32 --prefix=/opt/fdk-aac/dist --enable-static --enable-shared
