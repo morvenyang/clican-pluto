@@ -49,4 +49,4 @@ xcrun -sdk iphoneos lipo -output ./compiled/fat/lib/libavfilter.a  -create -arch
 
 
 #cygwin
-./configure --cc=/usr/bin/i686-pc-mingw32-gcc --disable-shared --prefix=dist --enable-cross-compile --enable-nonfree --enable-gpl --disable-armv5te --disable-swscale-alpha --disable-doc --disable-ffmpeg --disable-ffplay --disable-ffprobe --disable-ffserver --disable-asm --disable-debug --enable-libfdk-aac --enable-libx264 --extra-cflags='-I/opt/fdk-aac/dist/include' --extra-ldflags='-L/opt/fdk-aac/dist/lib' --extra-cflags='-I/opt/x264/dist/include' --extra-ldflags='-L/opt/x264/dist/lib' --arch=x86 --target-os=mingw32
+./configure --cc=/usr/bin/i686-pc-mingw32-gcc --disable-shared --prefix=dist --enable-cross-compile --enable-nonfree --enable-gpl --disable-armv5te --disable-swscale-alpha --disable-doc --disable-ffmpeg --disable-ffplay --disable-ffprobe --disable-ffserver --disable-asm --disable-debug --enable-libfdk-aac --enable-libx264 --arch=x86 --target-os=mingw32
