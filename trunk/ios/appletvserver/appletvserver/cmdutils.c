@@ -29,11 +29,10 @@
    references to libraries that are not being built. */
 
 #include "config.h"
-#include "compat/va_copy.h"
+#include <sys/types.h>
 #include "libavformat/avformat.h"
 #include "libavfilter/avfilter.h"
 #include "libavdevice/avdevice.h"
-#include "libavresample/avresample.h"
 #include "libswscale/swscale.h"
 #include "libswresample/swresample.h"
 #if CONFIG_POSTPROC
@@ -50,9 +49,6 @@
 #include "libavutil/opt.h"
 #include "cmdutils.h"
 #include "version.h"
-#if CONFIG_NETWORK
-#include "libavformat/network.h"
-#endif
 #if HAVE_SYS_RESOURCE_H
 #include <sys/resource.h>
 #endif
@@ -527,10 +523,6 @@ int opt_report(const char *opt)
         return 0;
     time(&now);
     tm = localtime(&now);
-    snprintf(filename, sizeof(filename), "%s-%04d%02d%02d-%02d%02d%02d.log",
-             program_name,
-             tm->tm_year + 1900, tm->tm_mon + 1, tm->tm_mday,
-             tm->tm_hour, tm->tm_min, tm->tm_sec);
     report_file = fopen(filename, "w");
     if (!report_file) {
         av_log(NULL, AV_LOG_ERROR, "Failed to open report \"%s\": %s\n",
@@ -538,13 +530,7 @@ int opt_report(const char *opt)
         return AVERROR(errno);
     }
     av_log_set_callback(log_callback_report);
-    av_log(NULL, AV_LOG_INFO,
-           "%s started on %04d-%02d-%02d at %02d:%02d:%02d\n"
-           "Report written to \"%s\"\n",
-           program_name,
-           tm->tm_year + 1900, tm->tm_mon + 1, tm->tm_mday,
-           tm->tm_hour, tm->tm_min, tm->tm_sec,
-           filename);
+
     av_log_set_level(FFMAX(av_log_get_level(), AV_LOG_VERBOSE));
     return 0;
 }
