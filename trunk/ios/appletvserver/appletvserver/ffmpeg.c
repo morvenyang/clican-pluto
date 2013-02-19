@@ -3110,8 +3110,8 @@ static void parse_cpuflags(int argc, char **argv, const OptionDef *options)
 }
 
 void convert_avi_to_mp4(){
-	char* argv[] = {"ffmpeg","-i","/Users/zhangwei/Desktop/2.rmvb","-acodec","copy","-vcodec","libx264", "-b:v","560k","-pass","1" ,"-f","mp4","/Users/zhangwei/Desktop/2_1.mp4"};
-    main_convert(14,argv);
+	char *argv[] = {"ffmpeg","-i","/Users/zhangwei/Desktop/01.rmvb","-s","qvga", "-acodec", "libfaac" ,"-ar", "22050", "-ab", "128k", "-vcodec", "libx264" ,"-threads", "0", "-f","ipod","/Users/zhangwei/Desktop/01.mp4"};
+	main_convert(14,argv);
 }
 
 int main_convert(int argc, char **argv)
