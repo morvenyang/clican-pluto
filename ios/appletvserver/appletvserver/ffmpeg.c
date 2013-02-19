@@ -3113,7 +3113,7 @@ static void parse_cpuflags(int argc, char **argv, const OptionDef *options)
         opt_cpuflags(NULL, "cpuflags", argv[idx + 1]);
 }
 
-static void convert_avi_to_mp4(){
+void convert_avi_to_mp4(){
 	char** argv = {"ffmpeg","-i","/Users/zhangwei/Desktop/01.rmvb","-acodec","copy","-vcodec","libx264", "-b","560k","-pass","1" ,"-f","mp4","/Users/zhangwei/Desktop/01.mp4"};
 	main_convert(14,argv);
 }
