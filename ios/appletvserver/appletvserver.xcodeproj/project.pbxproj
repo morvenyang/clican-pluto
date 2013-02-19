@@ -18,6 +18,10 @@
 		320F2C48872C2E2C4DF86205 /* libThree20UI.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 320F2C48872C2E2C4DF86204 /* libThree20UI.a */; };
 		7219BBCD16C9EAFA00AABA8E /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7219BBCC16C9EAFA00AABA8E /* MainViewController.m */; };
 		721E6F8B16CA1EC700307E4D /* RemoveCallbackURLJSONResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 721E6F8A16CA1EC700307E4D /* RemoveCallbackURLJSONResponse.m */; };
+		72202AE516D363B3003AC44C /* cmdutils.c in Sources */ = {isa = PBXBuildFile; fileRef = 72202ADD16D363B3003AC44C /* cmdutils.c */; };
+		72202AE616D363B3003AC44C /* ffmpeg_filter.c in Sources */ = {isa = PBXBuildFile; fileRef = 72202AE016D363B3003AC44C /* ffmpeg_filter.c */; };
+		72202AE716D363B3003AC44C /* ffmpeg_opt.c in Sources */ = {isa = PBXBuildFile; fileRef = 72202AE116D363B3003AC44C /* ffmpeg_opt.c */; };
+		72202AE816D363B3003AC44C /* ffmpeg.c in Sources */ = {isa = PBXBuildFile; fileRef = 72202AE216D363B3003AC44C /* ffmpeg.c */; };
 		7233879D16CB5C890061FBDF /* QQVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7233879C16CB5C890061FBDF /* QQVideoViewController.m */; };
 		723387A016CB5DA10061FBDF /* QQVideoRequestModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7233879F16CB5DA10061FBDF /* QQVideoRequestModel.m */; };
 		7272B39D16C9FC7300E111A7 /* QQIndexRequestModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7272B39C16C9FC7300E111A7 /* QQIndexRequestModel.m */; };
@@ -260,6 +264,15 @@
 		7219BBCE16C9EB6900AABA8E /* extThree20JSON.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = extThree20JSON.xcodeproj; path = ../../../../three20/src/extThree20JSON/extThree20JSON.xcodeproj; sourceTree = "<group>"; };
 		721E6F8916CA1EC700307E4D /* RemoveCallbackURLJSONResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RemoveCallbackURLJSONResponse.h; sourceTree = "<group>"; };
 		721E6F8A16CA1EC700307E4D /* RemoveCallbackURLJSONResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RemoveCallbackURLJSONResponse.m; sourceTree = "<group>"; };
+		72202ADC16D363B3003AC44C /* cmdutils_common_opts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cmdutils_common_opts.h; sourceTree = "<group>"; };
+		72202ADD16D363B3003AC44C /* cmdutils.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cmdutils.c; sourceTree = "<group>"; };
+		72202ADE16D363B3003AC44C /* cmdutils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cmdutils.h; sourceTree = "<group>"; };
+		72202ADF16D363B3003AC44C /* config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = config.h; sourceTree = "<group>"; };
+		72202AE016D363B3003AC44C /* ffmpeg_filter.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ffmpeg_filter.c; sourceTree = "<group>"; };
+		72202AE116D363B3003AC44C /* ffmpeg_opt.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ffmpeg_opt.c; sourceTree = "<group>"; };
+		72202AE216D363B3003AC44C /* ffmpeg.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ffmpeg.c; sourceTree = "<group>"; };
+		72202AE316D363B3003AC44C /* ffmpeg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ffmpeg.h; sourceTree = "<group>"; };
+		72202AE416D363B3003AC44C /* version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = version.h; sourceTree = "<group>"; };
 		7233879B16CB5C890061FBDF /* QQVideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QQVideoViewController.h; sourceTree = "<group>"; };
 		7233879C16CB5C890061FBDF /* QQVideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QQVideoViewController.m; sourceTree = "<group>"; };
 		7233879E16CB5DA10061FBDF /* QQVideoRequestModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QQVideoRequestModel.h; sourceTree = "<group>"; };
@@ -473,6 +486,22 @@
 			name = JSON;
 			sourceTree = "<group>";
 		};
+		72202ADB16D3638B003AC44C /* command */ = {
+			isa = PBXGroup;
+			children = (
+				72202ADC16D363B3003AC44C /* cmdutils_common_opts.h */,
+				72202ADD16D363B3003AC44C /* cmdutils.c */,
+				72202ADE16D363B3003AC44C /* cmdutils.h */,
+				72202ADF16D363B3003AC44C /* config.h */,
+				72202AE016D363B3003AC44C /* ffmpeg_filter.c */,
+				72202AE116D363B3003AC44C /* ffmpeg_opt.c */,
+				72202AE216D363B3003AC44C /* ffmpeg.c */,
+				72202AE316D363B3003AC44C /* ffmpeg.h */,
+				72202AE416D363B3003AC44C /* version.h */,
+			);
+			name = command;
+			sourceTree = "<group>";
+		};
 		7272B39A16C9FC5100E111A7 /* Object */ = {
 			isa = PBXGroup;
 			children = (
@@ -644,6 +673,7 @@
 		72DD38FC16CCEB8B0010AAC2 /* ffmpeg */ = {
 			isa = PBXGroup;
 			children = (
+				72202ADB16D3638B003AC44C /* command */,
 				72B83FDC16CDF21A003B2839 /* CacheBuffer.h */,
 				72B83FDD16CDF21A003B2839 /* CacheBuffer.m */,
 				72B83FDE16CDF21A003B2839 /* FrameData.h */,
@@ -955,6 +985,10 @@
 				72B83FE516CDF21A003B2839 /* FrameData.m in Sources */,
 				72B83FE616CDF21A003B2839 /* Player.m in Sources */,
 				72B83FE716CDF21A003B2839 /* StreamInterface.m in Sources */,
+				72202AE516D363B3003AC44C /* cmdutils.c in Sources */,
+				72202AE616D363B3003AC44C /* ffmpeg_filter.c in Sources */,
+				72202AE716D363B3003AC44C /* ffmpeg_opt.c in Sources */,
+				72202AE816D363B3003AC44C /* ffmpeg.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1088,6 +1122,7 @@
 					"/Users/zhangwei/Documents/xcodews/googlecode/trunk/ios/appletvserver/appletvserver/include/**",
 				);
 				INFOPLIST_FILE = "appletvserver/appletvserver-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/appletvserver/lib\"",
@@ -1109,6 +1144,7 @@
 					"/Users/zhangwei/Documents/xcodews/googlecode/trunk/ios/appletvserver/appletvserver/include/**",
 				);
 				INFOPLIST_FILE = "appletvserver/appletvserver-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/appletvserver/lib\"",
