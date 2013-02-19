@@ -19,7 +19,7 @@
  */
 
 #include <stdint.h>
-
+#include <sys/types.h>
 #include "ffmpeg.h"
 #include "cmdutils.h"
 
@@ -485,9 +485,8 @@ static int opt_recording_timestamp(void *optctx, const char *opt, const char *ar
     OptionsContext *o = optctx;
     char buf[128];
     int64_t recording_timestamp = parse_time_or_die(opt, arg, 0) / 1E6;
-    struct tm time = *gmtime((time_t*)&recording_timestamp);
-    strftime(buf, sizeof(buf), "creation_time=%FT%T%z", &time);
-    parse_option(o, "metadata", buf, options);
+
+        parse_option(o, "metadata", buf, options);
 
     av_log(NULL, AV_LOG_WARNING, "%s is deprecated, set the 'creation_time' metadata "
                                  "tag instead.\n", opt);
@@ -1935,9 +1934,6 @@ static int opt_vstats(void *optctx, const char *opt, const char *arg)
     char filename[40];
     time_t today2 = time(NULL);
     struct tm *today = localtime(&today2);
-
-    snprintf(filename, sizeof(filename), "vstats_%02d%02d%02d.log", today->tm_hour, today->tm_min,
-             today->tm_sec);
     return opt_vstats_file(NULL, opt, filename);
 }
 

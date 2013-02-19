@@ -46,21 +46,17 @@
 #include "libavutil/audioconvert.h"
 #include "libavutil/parseutils.h"
 #include "libavutil/samplefmt.h"
-#include "libavutil/colorspace.h"
 #include "libavutil/fifo.h"
 #include "libavutil/intreadwrite.h"
 #include "libavutil/dict.h"
 #include "libavutil/mathematics.h"
 #include "libavutil/pixdesc.h"
 #include "libavutil/avstring.h"
-#include "libavutil/libm.h"
 #include "libavutil/imgutils.h"
 #include "libavutil/timestamp.h"
 #include "libavutil/bprint.h"
 #include "libavutil/time.h"
-#include "libavformat/os_support.h"
 
-#include "libavformat/ffm.h" // not public API
 
 # include "libavfilter/avcodec.h"
 # include "libavfilter/avfilter.h"
@@ -3114,8 +3110,8 @@ static void parse_cpuflags(int argc, char **argv, const OptionDef *options)
 }
 
 void convert_avi_to_mp4(){
-	char** argv = {"ffmpeg","-i","/Users/zhangwei/Desktop/01.rmvb","-acodec","copy","-vcodec","libx264", "-b","560k","-pass","1" ,"-f","mp4","/Users/zhangwei/Desktop/01.mp4"};
-	main_convert(14,argv);
+	char* argv[] = {"ffmpeg","-i","/Users/zhangwei/Desktop/2.rmvb","-acodec","copy","-vcodec","libx264", "-b:v","560k","-pass","1" ,"-f","mp4","/Users/zhangwei/Desktop/2_1.mp4"};
+    main_convert(14,argv);
 }
 
 int main_convert(int argc, char **argv)

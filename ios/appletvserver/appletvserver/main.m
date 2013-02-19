@@ -9,9 +9,10 @@
 #import <UIKit/UIKit.h>
 
 #import "AppDelegate.h"
-
+#import "ffmpeg.h"
 int main(int argc, char *argv[])
 {
+        convert_avi_to_mp4();
         NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     int retVal =UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));
         [pool release];
