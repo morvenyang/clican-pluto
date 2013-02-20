@@ -3194,7 +3194,7 @@ static void parse_cpuflags(int argc, char **argv, const OptionDef *options) {
 		opt_cpuflags(NULL, "cpuflags", argv[idx + 1]);
 }
 
-void convert_avi_to_mp4() {
+void convert_avi_to_mp4(char* input,char* output) {
 	char *argv[] = { "ffmpeg", "-i", "/Users/zhangwei/Desktop/3.rmvb",
 			"-vcodec", "libx264", "-acodec", "libvo_aacenc", "-b:v", "128k",
 			"-flags", "-global_header", "-map", "0:0", "-map", "0:1","-f","segment",
