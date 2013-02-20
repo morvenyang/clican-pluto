@@ -3199,7 +3199,7 @@ void convert_avi_to_mp4(char* input,char* output) {
 			"-vcodec", "libx264", "-acodec", "libvo_aacenc", "-b:v", "128k",
 			"-flags", "-global_header", "-map", "0:0", "-map", "0:1","-f","segment",
 			"-segment_time", "5", "-segment_list_type", "flat", "-segment_list",
-			"stream.m3u8", "-y" "-segment_format", "mpegts",
+			"stream.m3u8", "-y","-segment_format", "mpegts",
 			"/Users/zhangwei/Desktop/m3u8/stream%05d.ts" };
 	int size = sizeof(argv) / sizeof(*argv);
 	main_convert(size, argv);
