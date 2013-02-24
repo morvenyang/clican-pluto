@@ -88,6 +88,7 @@ public class BaibianClientImpl extends BaseClient implements BaibianClient {
 				baibian.setTitle(film.getString("title"));
 				baibian.setImageUrl(film.getString("imageUrl"));
 				Long id = film.getLong("id");
+				baibian.setImageUrl("http://img.vstar365.com/videoImage/"+id+".jpg");
 				baibian.setId(id);
 				String contentUrl = film.getString("contentUrl");
 				Matcher fiveSixMatcher = fiveSixPattern.matcher(contentUrl);
