@@ -1,8 +1,8 @@
 var appletv = {
 	logEnable : true,
 	logSeverity : 'DEBUG',
-	simulate : true,
-	serverurl : 'http://10.0.1.5/appletv',
+	simulate : false,
+	serverurl : 'http://clican.org/appletv',
 
 	toGBK: function (I) {
 		O = '';
