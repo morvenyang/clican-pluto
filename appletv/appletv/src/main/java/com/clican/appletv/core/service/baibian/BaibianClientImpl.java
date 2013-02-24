@@ -41,29 +41,25 @@ public class BaibianClientImpl extends BaseClient implements BaibianClient {
 		if (log.isDebugEnabled()) {
 			log.debug(url);
 		}
+
 		if (cacheMap.containsKey(url)) {
 			jsonContent = cacheMap.get(url);
 		} else {
-			synchronized (this) {
-				if (cacheMap.containsKey(url)) {
-					jsonContent = cacheMap.get(url);
-				} else {
-					jsonContent = httpGet(url, null, null);
-					if (StringUtils.isEmpty(jsonContent) && page == 0) {
-						login();
-						jsonContent = httpGet(url, null, null);
-					}
-					List<Baibian> result = convertToVideos(jsonContent);
-					if (result.size() == 0 && page == 0) {
-						login();
-						jsonContent = httpGet(url, null, null);
-						result = convertToVideos(jsonContent);
-					}
-					cacheMap.put(url, jsonContent);
-					return result;
-				}
+			jsonContent = httpGet(url, null, null);
+			if (StringUtils.isEmpty(jsonContent) && page == 0) {
+				login();
+				jsonContent = httpGet(url, null, null);
 			}
+			List<Baibian> result = convertToVideos(jsonContent);
+			if (result.size() == 0 && page == 0) {
+				login();
+				jsonContent = httpGet(url, null, null);
+				result = convertToVideos(jsonContent);
+			}
+			cacheMap.put(url, jsonContent);
+			return result;
 		}
+
 		List<Baibian> result = convertToVideos(jsonContent);
 		return result;
 	}
@@ -72,13 +68,18 @@ public class BaibianClientImpl extends BaseClient implements BaibianClient {
 		List<Baibian> result = new ArrayList<Baibian>();
 		try {
 			Pattern fiveSixPattern = Pattern.compile(
-					".*http://.*\\.56\\.com/.*(vid-|v_)(\\p{Alnum}*)\\.swf.*", Pattern.DOTALL);
-			Pattern youkuPattern = Pattern.compile(
-					".*http://player\\.youku\\.com/player\\.php/sid/(.*)/v\\.swf.*", Pattern.DOTALL);
+					".*http://.*\\.56\\.com/.*(vid-|v_)(\\p{Alnum}*)\\.swf.*",
+					Pattern.DOTALL);
+			Pattern youkuPattern = Pattern
+					.compile(
+							".*http://player\\.youku\\.com/player\\.php/sid/(.*)/v\\.swf.*",
+							Pattern.DOTALL);
 			Pattern tudouPattern1 = Pattern.compile(
-					".*http://www\\.tudou\\.com/.*iid=(\\p{Alnum}*)\\&.*", Pattern.DOTALL);
+					".*http://www\\.tudou\\.com/.*iid=(\\p{Alnum}*)\\&.*",
+					Pattern.DOTALL);
 			Pattern tudouPattern2 = Pattern.compile(
-					".*http://www\\.tudou\\.com/v/(.*)/\\&resourceId.*", Pattern.DOTALL);
+					".*http://www\\.tudou\\.com/v/(.*)/\\&resourceId.*",
+					Pattern.DOTALL);
 			JSONArray films = JSONObject.fromObject(jsonContent).getJSONArray(
 					"films");
 			for (int i = 0; i < films.size(); i++) {
@@ -95,27 +96,30 @@ public class BaibianClientImpl extends BaseClient implements BaibianClient {
 					baibian.setMediaUrl(springProperty.getSystemServerUrl()
 							+ "/ctl/fivesix/playVideoByCode.xml?code=" + code);
 					result.add(baibian);
-				}else{
+				} else {
 					Matcher youkuMatcher = youkuPattern.matcher(contentUrl);
-					if(youkuMatcher.matches()){
+					if (youkuMatcher.matches()) {
 						String code = youkuMatcher.group(1);
 						baibian.setMediaUrl(springProperty.getSystemServerUrl()
-								+ "/ctl/youku/album.xml?showid="
-								+ code);
+								+ "/ctl/youku/album.xml?showid=" + code);
 						result.add(baibian);
-					}else{
-						Matcher tudouMatcher1 = tudouPattern1.matcher(contentUrl);
-						if(tudouMatcher1.matches()){
+					} else {
+						Matcher tudouMatcher1 = tudouPattern1
+								.matcher(contentUrl);
+						if (tudouMatcher1.matches()) {
 							String code = tudouMatcher1.group(1);
-							baibian.setMediaUrl(springProperty.getSystemServerUrl()
+							baibian.setMediaUrl(springProperty
+									.getSystemServerUrl()
 									+ "/ctl//tudou/play.xml?st=4&amp;itemid="
 									+ code);
 							result.add(baibian);
-						}else{
-							Matcher tudouMatcher2 = tudouPattern2.matcher(contentUrl);
-							if(tudouMatcher2.matches()){
+						} else {
+							Matcher tudouMatcher2 = tudouPattern2
+									.matcher(contentUrl);
+							if (tudouMatcher2.matches()) {
 								String code = tudouMatcher2.group(1);
-								baibian.setMediaUrl(springProperty.getSystemServerUrl()
+								baibian.setMediaUrl(springProperty
+										.getSystemServerUrl()
 										+ "/ctl//tudou/playVideoByCode.xml?st=4&amp;code="
 										+ code);
 								result.add(baibian);

@@ -110,27 +110,24 @@ public class TudouClientImpl extends BaseClient implements TudouClient {
 		if (log.isDebugEnabled()) {
 			log.debug(url);
 		}
+
 		if (cacheMap.containsKey(url)) {
 			jsonStr = cacheMap.get(url);
 		} else {
-			synchronized (this) {
-				if (cacheMap.containsKey(url)) {
-					jsonStr = cacheMap.get(url);
-				} else {
-					if (channel == Channel.Search) {
-						jsonStr = httpGet(url, null,
-								springProperty.getSystemHttpconnectionTimeout());
-					} else {
-						jsonStr = httpGet(url, null, null);
-					}
-					List<ListView> result = convertToVideos(jsonStr, channel);
-					if (channel != Channel.Search && result.size() > 0) {
-						cacheMap.put(url, jsonStr);
-					}
-					return result;
-				}
+			if (channel == Channel.Search) {
+				jsonStr = httpGet(url, null,
+						springProperty.getSystemHttpconnectionTimeout());
+			} else {
+				jsonStr = httpGet(url, null,
+						springProperty.getSystemHttpconnectionTimeout());
 			}
+			List<ListView> result = convertToVideos(jsonStr, channel);
+			if (channel != Channel.Search && result.size() > 0) {
+				cacheMap.put(url, jsonStr);
+			}
+			return result;
 		}
+
 		List<ListView> result = convertToVideos(jsonStr, channel);
 		return result;
 

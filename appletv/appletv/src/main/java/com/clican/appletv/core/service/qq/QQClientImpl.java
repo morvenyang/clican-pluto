@@ -128,27 +128,21 @@ public class QQClientImpl extends BaseClient implements QQClient {
 		if (log.isDebugEnabled()) {
 			log.debug(url);
 		}
+
 		if (cacheMap.containsKey(url)) {
 			jsonStr = cacheMap.get(url);
 		} else {
-			synchronized (this) {
-				if (cacheMap.containsKey(url)) {
-					jsonStr = cacheMap.get(url);
-				} else {
-					if (channel == Channel.Search) {
-						jsonStr = httpGet(url, null,
-								springProperty.getSystemHttpconnectionTimeout());
-					} else {
-						jsonStr = httpGet(url, null, null);
-					}
-					List<Object> result = convertToVideos(jsonStr, channel,
-							album);
-					if (channel != Channel.Search && result.size() > 0) {
-						cacheMap.put(url, jsonStr);
-					}
-					return result;
-				}
+			if (channel == Channel.Search) {
+				jsonStr = httpGet(url, null,
+						springProperty.getSystemHttpconnectionTimeout());
+			} else {
+				jsonStr = httpGet(url, null, null);
 			}
+			List<Object> result = convertToVideos(jsonStr, channel, album);
+			if (channel != Channel.Search && result.size() > 0) {
+				cacheMap.put(url, jsonStr);
+			}
+			return result;
 		}
 		List<Object> result = convertToVideos(jsonStr, channel, album);
 		return result;
