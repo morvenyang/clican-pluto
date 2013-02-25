@@ -14,6 +14,7 @@
 #import "HTTPServer.h"
 #import "DDLog.h"
 #import "DDTTYLogger.h"
+#import "MainViewController.h"
 
 static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
@@ -58,14 +59,13 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 	// Normally there's no need to run our server on any specific port.
 	// Technologies like Bonjour allow clients to dynamically discover the server's port at runtime.
 	// However, for easy testing you may want force a certain port so you can just hit the refresh button.
-	// [httpServer setPort:12345];
+	[httpServer setPort:12345];
 	
 	// Serve files from our embedded Web folder
 	NSString *webPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"web"];
 	DDLogInfo(@"Setting document root: %@", webPath);
 	
 	[httpServer setDocumentRoot:webPath];
-    
     [self startServer];
 
     TTNavigator* navigator = [TTNavigator navigator];
@@ -78,6 +78,8 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     TTURLMap* map = navigator.URLMap;
     [map from:@"atvserver://ffmpeg" toSharedViewController:
      [FFMpegPlayViewController class]];
+    [map from:@"atvserver://main" toSharedViewController:
+     [MainViewController class]];
     [map from:@"atvserver://qq/index" toSharedViewController:
      [QQIndexViewController class]];
     [map from:@"atvserver://qq/video/(initWithVid:)" toSharedViewController:
@@ -85,7 +87,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     [map from:@"atvserver://qq/play/(initWithVideoItemId:)/(vid:)" toSharedViewController:
      [QQPlayViewController class]];
     if (![navigator restoreViewControllers]) {
-        [navigator openURLAction:[TTURLAction actionWithURLPath:@"atvserver://qq/index"]];
+        [navigator openURLAction:[TTURLAction actionWithURLPath:@"atvserver://main"]];
     }
     
     return YES;

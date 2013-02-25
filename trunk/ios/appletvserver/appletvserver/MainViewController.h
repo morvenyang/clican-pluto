@@ -8,6 +8,6 @@
 
 #import <Three20/Three20.h>
 
-@interface MainViewController : TTTableViewController
+@interface MainViewController : UIViewController
 
 @end
