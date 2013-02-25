@@ -15,6 +15,7 @@
 #import "DDLog.h"
 #import "DDTTYLogger.h"
 #import "MainViewController.h"
+#import "MyHTTPConnection.h"
 
 static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
@@ -59,8 +60,8 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 	// Normally there's no need to run our server on any specific port.
 	// Technologies like Bonjour allow clients to dynamically discover the server's port at runtime.
 	// However, for easy testing you may want force a certain port so you can just hit the refresh button.
-	[httpServer setPort:12345];
-	
+	[httpServer setPort:8080];
+	[httpServer setConnectionClass:[MyHTTPConnection class]];
 	// Serve files from our embedded Web folder
 	NSString *webPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"web"];
 	DDLogInfo(@"Setting document root: %@", webPath);

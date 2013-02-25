@@ -19,6 +19,8 @@
 		7215346916DB2E83009D5EA7 /* Base.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 7215346616DB2E83009D5EA7 /* Base.xcconfig */; };
 		7215346A16DB2E83009D5EA7 /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 7215346716DB2E83009D5EA7 /* Debug.xcconfig */; };
 		7215346B16DB2E83009D5EA7 /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 7215346816DB2E83009D5EA7 /* Release.xcconfig */; };
+		7215346E16DB481E009D5EA7 /* web in Resources */ = {isa = PBXBuildFile; fileRef = 7215346D16DB481E009D5EA7 /* web */; };
+		7215347216DB4CF3009D5EA7 /* MyHTTPConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 7215347116DB4CC7009D5EA7 /* MyHTTPConnection.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		7219BBCD16C9EAFA00AABA8E /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7219BBCC16C9EAFA00AABA8E /* MainViewController.m */; };
 		721E6F8B16CA1EC700307E4D /* RemoveCallbackURLJSONResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 721E6F8A16CA1EC700307E4D /* RemoveCallbackURLJSONResponse.m */; };
 		72202AE516D363B3003AC44C /* cmdutils.c in Sources */ = {isa = PBXBuildFile; fileRef = 72202ADD16D363B3003AC44C /* cmdutils.c */; };
@@ -70,7 +72,6 @@
 		72C217F616CBDA8A000A56AB /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72C217F516CBDA8A000A56AB /* MediaPlayer.framework */; };
 		72C9088216D325580075A651 /* libfdk-aac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 72C9088116D325580075A651 /* libfdk-aac.a */; };
 		72CF817016D08692007B3D64 /* test1.h264 in Resources */ = {isa = PBXBuildFile; fileRef = 72CF816F16D08692007B3D64 /* test1.h264 */; };
-		72E200BD16DB25F700F3D7FC /* web in Resources */ = {isa = PBXBuildFile; fileRef = 72E200BC16DB25F700F3D7FC /* web */; };
 		72E200BE16DB26AF00F3D7FC /* DDLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 72E2009316DB247500F3D7FC /* DDLog.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		72E200BF16DB26AF00F3D7FC /* DDASLLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 72E2009516DB247500F3D7FC /* DDASLLogger.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		72E200C016DB26AF00F3D7FC /* DDTTYLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 72E2009716DB247500F3D7FC /* DDTTYLogger.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
@@ -290,6 +291,9 @@
 		7215346616DB2E83009D5EA7 /* Base.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Base.xcconfig; sourceTree = "<group>"; };
 		7215346716DB2E83009D5EA7 /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
 		7215346816DB2E83009D5EA7 /* Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
+		7215346D16DB481E009D5EA7 /* web */ = {isa = PBXFileReference; lastKnownFileType = folder; name = web; path = ../../../../appletvweb/web; sourceTree = "<group>"; };
+		7215347016DB4CC7009D5EA7 /* MyHTTPConnection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyHTTPConnection.h; sourceTree = "<group>"; };
+		7215347116DB4CC7009D5EA7 /* MyHTTPConnection.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyHTTPConnection.m; sourceTree = "<group>"; };
 		7219BBCB16C9EAFA00AABA8E /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		7219BBCC16C9EAFA00AABA8E /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		7219BBCE16C9EB6900AABA8E /* extThree20JSON.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = extThree20JSON.xcodeproj; path = ../../../../three20/src/extThree20JSON/extThree20JSON.xcodeproj; sourceTree = "<group>"; };
@@ -416,7 +420,6 @@
 		72E200B716DB24A500F3D7FC /* DDNumber.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DDNumber.m; sourceTree = "<group>"; };
 		72E200B816DB24A500F3D7FC /* DDRange.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DDRange.h; sourceTree = "<group>"; };
 		72E200B916DB24A500F3D7FC /* DDRange.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DDRange.m; sourceTree = "<group>"; };
-		72E200BC16DB25F700F3D7FC /* web */ = {isa = PBXFileReference; lastKnownFileType = folder; path = web; sourceTree = "<group>"; };
 		72E200D616DB271C00F3D7FC /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		72E200D716DB271C00F3D7FC /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		72E748F916C9EEE70024B8BB /* StyleSheet.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StyleSheet.h; sourceTree = "<group>"; };
@@ -534,6 +537,15 @@
 			children = (
 			);
 			name = sample;
+			sourceTree = "<group>";
+		};
+		7215346F16DB4CAF009D5EA7 /* ext */ = {
+			isa = PBXGroup;
+			children = (
+				7215347016DB4CC7009D5EA7 /* MyHTTPConnection.h */,
+				7215347116DB4CC7009D5EA7 /* MyHTTPConnection.m */,
+			);
+			name = ext;
 			sourceTree = "<group>";
 		};
 		7219BBCA16C9EAD900AABA8E /* View */ = {
@@ -728,10 +740,10 @@
 		72A69BD016C9F9420099D974 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				7215346D16DB481E009D5EA7 /* web */,
 				7215346616DB2E83009D5EA7 /* Base.xcconfig */,
 				7215346716DB2E83009D5EA7 /* Debug.xcconfig */,
 				7215346816DB2E83009D5EA7 /* Release.xcconfig */,
-				72E200BC16DB25F700F3D7FC /* web */,
 				72CF816F16D08692007B3D64 /* test1.h264 */,
 				72B83F9616CDE655003B2839 /* Default.png */,
 				72B83F8816CDDFC6003B2839 /* sophie.mov */,
@@ -780,6 +792,7 @@
 		72E2008716DB23EC00F3D7FC /* CocoaHTTPServer */ = {
 			isa = PBXGroup;
 			children = (
+				7215346F16DB4CAF009D5EA7 /* ext */,
 				72E2008C16DB242500F3D7FC /* Logging */,
 				72E2008B16DB241A00F3D7FC /* TCP */,
 				72E2008816DB23FA00F3D7FC /* HTTP */,
@@ -1137,10 +1150,10 @@
 				72B83F8916CDDFC6003B2839 /* sophie.mov in Resources */,
 				72B83F9716CDE655003B2839 /* Default.png in Resources */,
 				72CF817016D08692007B3D64 /* test1.h264 in Resources */,
-				72E200BD16DB25F700F3D7FC /* web in Resources */,
 				7215346916DB2E83009D5EA7 /* Base.xcconfig in Resources */,
 				7215346A16DB2E83009D5EA7 /* Debug.xcconfig in Resources */,
 				7215346B16DB2E83009D5EA7 /* Release.xcconfig in Resources */,
+				7215346E16DB481E009D5EA7 /* web in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1151,6 +1164,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7215347216DB4CF3009D5EA7 /* MyHTTPConnection.m in Sources */,
 				72E200C616DB26BF00F3D7FC /* HTTPAuthenticationRequest.m in Sources */,
 				72E200C716DB26BF00F3D7FC /* HTTPServer.m in Sources */,
 				72E200C816DB26BF00F3D7FC /* HTTPConnection.m in Sources */,
