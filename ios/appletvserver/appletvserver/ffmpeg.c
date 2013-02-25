@@ -3194,12 +3194,12 @@ static void parse_cpuflags(int argc, char **argv, const OptionDef *options) {
 		opt_cpuflags(NULL, "cpuflags", argv[idx + 1]);
 }
 
-void convert_avi_to_mp4(char* input,char* output) {
+void convert_avi_to_mp4(char* input,char* output1,char* output2) {
 	char *argv[] = { "ffmpeg", "-i", "/Users/zhangwei/Desktop/3.rmvb",
-			"-vcodec","libx264","-acodec","libfdk_aac","-ab","128k",
+			"-vcodec","libx264","-preset","fast","-crf","28","-acodec","libfdk_aac","-ab","128k",
 			"-flags","-global_header","-map","0:0","-map","0:1","-f","segment",
-			"-segment_time","4","-segment_list_size","0","-segment_list",
-			"/Users/zhangwei/Desktop/m3u8/testlist.m3u8","-segment_format","mpegts","/Users/zhangwei/Desktop/m3u8/stream%05d.ts" };
+			"-segment_time","30","-segment_list",
+			output1,"-segment_format","mpegts",output2 };
 	int size = sizeof(argv) / sizeof(*argv);
 	main_convert(size, argv);
 }
