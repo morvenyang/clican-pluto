@@ -11,6 +11,12 @@
 #import "QQVideoViewController.h"
 #import "QQPlayViewController.h"
 #import "FFMpegPlayViewController.h"
+#import "HTTPServer.h"
+#import "DDLog.h"
+#import "DDTTYLogger.h"
+
+static const int ddLogLevel = LOG_LEVEL_VERBOSE;
+
 @implementation AppDelegate
 
 
@@ -20,8 +26,48 @@
     [super dealloc];
 }
 
+- (void)startServer
+{
+    // Start the server (and check for problems)
+	
+	NSError *error;
+	if([httpServer start:&error])
+	{
+		DDLogInfo(@"Started HTTP Server on port %hu", [httpServer listeningPort]);
+	}
+	else
+	{
+		DDLogError(@"Error starting HTTP Server: %@", error);
+	}
+}
+
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    // Configure our logging framework.
+	// To keep things simple and fast, we're just going to log to the Xcode console.
+	[DDLog addLogger:[DDTTYLogger sharedInstance]];
+	
+	// Create server using our custom MyHTTPServer class
+	httpServer = [[HTTPServer alloc] init];
+	//httpServer.port = 80;
+	// Tell the server to broadcast its presence via Bonjour.
+	// This allows browsers such as Safari to automatically discover our service.
+	[httpServer setType:@"_http._tcp."];
+	
+	// Normally there's no need to run our server on any specific port.
+	// Technologies like Bonjour allow clients to dynamically discover the server's port at runtime.
+	// However, for easy testing you may want force a certain port so you can just hit the refresh button.
+	// [httpServer setPort:12345];
+	
+	// Serve files from our embedded Web folder
+	NSString *webPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"web"];
+	DDLogInfo(@"Setting document root: %@", webPath);
+	
+	[httpServer setDocumentRoot:webPath];
+    
+    [self startServer];
+
     TTNavigator* navigator = [TTNavigator navigator];
     
     navigator.supportsShakeToReload = NO;
@@ -39,7 +85,7 @@
     [map from:@"atvserver://qq/play/(initWithVideoItemId:)/(vid:)" toSharedViewController:
      [QQPlayViewController class]];
     if (![navigator restoreViewControllers]) {
-        [navigator openURLAction:[TTURLAction actionWithURLPath:@"atvserver://ffmpeg"]];
+        [navigator openURLAction:[TTURLAction actionWithURLPath:@"atvserver://qq/index"]];
     }
     
     return YES;
