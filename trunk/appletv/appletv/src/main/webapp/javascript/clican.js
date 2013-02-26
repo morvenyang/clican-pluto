@@ -224,6 +224,10 @@ var appletv = {
 		atv.loadURL(url);
 	},
 
+	play:function(url){
+		atv.loadXML(appletv.makePlayXml(url));
+	},
+	
 	makePlayXml : function(url) {
 		var xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><atv><body><videoPlayer id=\"play\"><httpLiveStreamingVideoAsset><mediaURL><![CDATA[";
 		xml += url;
