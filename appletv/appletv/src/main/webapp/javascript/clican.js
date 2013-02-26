@@ -224,7 +224,7 @@ var appletv = {
 		atv.loadURL(url);
 	},
 
-	play:function(url){
+	play : function(url){
 		atv.loadXML(appletv.makePlayXml(url));
 	},
 	
