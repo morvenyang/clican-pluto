@@ -299,6 +299,7 @@ public class BaseClient {
 					.getResponseHeader("Content-Type");
 			Header contentEncodingHeader = httpGet
 					.getResponseHeader("Content-Encoding");
+			Header contentLength = httpGet.getRequestHeader("Content-Length");
 			String contentType = contentTypeHeader.getValue();
 			String charset = "UTF-8";
 			String contentEncoding = null;
@@ -323,8 +324,17 @@ public class BaseClient {
 			byte[] buffer = new byte[1024];
 
 			int read = -1;
+			long totalSize = 0;
+			long mbsize = 0;
+			long prembsize = 0;
 			while ((read = is.read(buffer)) != -1) {
 				os1.write(buffer, 0, read);
+				totalSize = totalSize + read;
+				mbsize = totalSize / (1024 * 1024);
+				if (prembsize != mbsize) {
+					prembsize = mbsize;
+					log.debug("download size=" + prembsize + "MB");
+				}
 			}
 			if (StringUtils.isNotEmpty(contentEncoding)
 					&& contentEncoding.equals("gzip")) {
