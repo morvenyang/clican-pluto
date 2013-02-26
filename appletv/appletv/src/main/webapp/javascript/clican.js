@@ -3,7 +3,11 @@ var appletv = {
 	logSeverity : 'DEBUG',
 	simulate : true,
 	serverurl : 'http://127.0.0.1/appletv',
-
+	
+	isUseProxyServer : function(){
+		return true;
+	},
+	
 	toGBK: function (I) {
 		O = '';
 		g = atv.localStorage['gbk'];
