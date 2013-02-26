@@ -299,8 +299,10 @@ public class BaseClient {
 					.getResponseHeader("Content-Type");
 			Header contentEncodingHeader = httpGet
 					.getResponseHeader("Content-Encoding");
-			Header contentLength = httpGet.getRequestHeader("Content-Length");
-			String contentType = contentTypeHeader.getValue();
+			String contentType = null;
+			if(contentTypeHeader!=null){
+				contentType = contentTypeHeader.getValue();
+			}
 			String charset = "UTF-8";
 			String contentEncoding = null;
 			if (StringUtils.isNotEmpty(contentType)) {
