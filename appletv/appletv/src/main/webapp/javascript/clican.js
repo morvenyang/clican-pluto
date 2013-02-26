@@ -3,8 +3,8 @@ var appletv = {
 	logSeverity : 'DEBUG',
 	simulate : true,
 	serverurl : 'http://127.0.0.1/appletv',
-	
-	isUseProxyServer : function(){
+	proxyServerUrl : 'http://127.0.0.1/appletv',
+	isUseProxyServer : function() {
 		return true;
 	},
 	
@@ -229,7 +229,12 @@ var appletv = {
 	},
 
 	play : function(url){
-		atv.loadXML(appletv.makePlayXml(url));
+		if(appletv.isUseProxyServer()) {
+			url = appletv.proxyServerUrl+"/proxy/play?url="+encodeURIComponent(url);
+			atv.loadXML(appletv.makePlayXml(url));
+		}else{
+			atv.loadXML(appletv.makePlayXml(url));
+		}
 	},
 	
 	makePlayXml : function(url) {
