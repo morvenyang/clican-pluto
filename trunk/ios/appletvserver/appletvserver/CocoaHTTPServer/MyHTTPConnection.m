@@ -52,7 +52,7 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
 {
 	HTTPLogTrace();
 	
-	if ([method isEqualToString:@"GET"] && ([path isEqualToString:@"/appletv/javascript/clican.js"]||[path isEqualToString:@"/appletv/releasenote.xml"]))
+	if ([path isEqualToString:@"/appletv/javascript/clican.js"]||[path isEqualToString:@"/appletv/releasenote.xml"])
 	{
 		NSString  *replaceFilePath=[[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:[@"web" stringByAppendingString:path]];
         NSString* replaceContent = [NSString stringWithContentsOfFile:replaceFilePath encoding:NSUTF8StringEncoding error:nil];
@@ -62,7 +62,11 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
         replaceContent = [replaceContent stringByReplacingOccurrencesOfString:@"clican.org" withString:ipAddress];
 		NSData *response = [replaceContent dataUsingEncoding:NSUTF8StringEncoding];
 		return [[HTTPDataResponse alloc] initWithData:response];
-	}else{
+	}else if([path rangeOfString:@"/appletv/proxy/m3u8"].location!=NSNotFound){
+        NSString* m3u8Url = [[self parseGetParams] objectForKey:@"url"];
+        NSLog(@"m3u8 url:%@",m3u8Url);
+        return nil;
+    }else{
         return [super httpResponseForMethod:method URI:path];
     }
 	
