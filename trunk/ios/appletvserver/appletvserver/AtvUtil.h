@@ -11,4 +11,5 @@
 @interface AtvUtil : NSObject{
 }
 +(void)markReflect:(CALayer*)mainLayer image:(UIImage*)img;
++ (NSString*) getIPAddress;
 @end

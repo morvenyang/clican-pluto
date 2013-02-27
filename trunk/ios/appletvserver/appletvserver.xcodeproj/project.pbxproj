@@ -59,6 +59,8 @@
 		722146CC16DDB52E00850C03 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 722146CB16DDB52E00850C03 /* Reachability.m */; };
 		722146CE16DDB56600850C03 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 722146CD16DDB56600850C03 /* SystemConfiguration.framework */; };
 		722146D016DDB57000850C03 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 722146CF16DDB57000850C03 /* MobileCoreServices.framework */; };
+		722146DB16DDD7BA00850C03 /* M3u8DownloadLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 722146DA16DDD7BA00850C03 /* M3u8DownloadLine.m */; };
+		722146E116DDDFFA00850C03 /* HTTPDataHeaderResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 722146E016DDDFFA00850C03 /* HTTPDataHeaderResponse.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		7233879D16CB5C890061FBDF /* QQVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7233879C16CB5C890061FBDF /* QQVideoViewController.m */; };
 		723387A016CB5DA10061FBDF /* QQVideoRequestModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7233879F16CB5DA10061FBDF /* QQVideoRequestModel.m */; };
 		7272B39D16C9FC7300E111A7 /* QQIndexRequestModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7272B39C16C9FC7300E111A7 /* QQIndexRequestModel.m */; };
@@ -387,6 +389,10 @@
 		722146CB16DDB52E00850C03 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Reachability.m; path = AISHTTPRequest/Reachability.m; sourceTree = "<group>"; };
 		722146CD16DDB56600850C03 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		722146CF16DDB57000850C03 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		722146D916DDD7BA00850C03 /* M3u8DownloadLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3u8DownloadLine.h; sourceTree = "<group>"; };
+		722146DA16DDD7BA00850C03 /* M3u8DownloadLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M3u8DownloadLine.m; sourceTree = "<group>"; };
+		722146DF16DDDFFA00850C03 /* HTTPDataHeaderResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HTTPDataHeaderResponse.h; path = CocoaHTTPServer/HTTPDataHeaderResponse.h; sourceTree = "<group>"; };
+		722146E016DDDFFA00850C03 /* HTTPDataHeaderResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HTTPDataHeaderResponse.m; path = CocoaHTTPServer/HTTPDataHeaderResponse.m; sourceTree = "<group>"; };
 		7233879B16CB5C890061FBDF /* QQVideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QQVideoViewController.h; sourceTree = "<group>"; };
 		7233879C16CB5C890061FBDF /* QQVideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QQVideoViewController.m; sourceTree = "<group>"; };
 		7233879E16CB5DA10061FBDF /* QQVideoRequestModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QQVideoRequestModel.h; sourceTree = "<group>"; };
@@ -569,13 +575,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		7207C0A516CF56C500E252DF /* sample */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = sample;
-			sourceTree = "<group>";
-		};
 		7215346F16DB4CAF009D5EA7 /* ext */ = {
 			isa = PBXGroup;
 			children = (
@@ -667,6 +666,8 @@
 				7272B39F16C9FD4E00E111A7 /* Video.m */,
 				72C217C516CB6403000A56AB /* VideoItem.h */,
 				72C217C616CB6403000A56AB /* VideoItem.m */,
+				722146D916DDD7BA00850C03 /* M3u8DownloadLine.h */,
+				722146DA16DDD7BA00850C03 /* M3u8DownloadLine.m */,
 			);
 			name = Object;
 			sourceTree = "<group>";
@@ -763,7 +764,6 @@
 			children = (
 				7221466916DDB1B800850C03 /* AISHTTPRequest */,
 				72E2008716DB23EC00F3D7FC /* CocoaHTTPServer */,
-				7207C0A516CF56C500E252DF /* sample */,
 				72DD38FC16CCEB8B0010AAC2 /* ffmpeg */,
 				7272B3A216CA040F00E111A7 /* Three20 */,
 				7272B39A16C9FC5100E111A7 /* Object */,
@@ -893,6 +893,8 @@
 		72E2008916DB240000F3D7FC /* Responses */ = {
 			isa = PBXGroup;
 			children = (
+				722146DF16DDDFFA00850C03 /* HTTPDataHeaderResponse.h */,
+				722146E016DDDFFA00850C03 /* HTTPDataHeaderResponse.m */,
 				722146BB16DDB4D100850C03 /* HTTPAsyncFileResponse.h */,
 				722146BC16DDB4D100850C03 /* HTTPAsyncFileResponse.m */,
 				722146BD16DDB4D100850C03 /* HTTPDataResponse.h */,
@@ -1293,6 +1295,8 @@
 				722146C816DDB4D100850C03 /* HTTPFileResponse.m in Sources */,
 				722146C916DDB4D100850C03 /* HTTPRedirectResponse.m in Sources */,
 				722146CC16DDB52E00850C03 /* Reachability.m in Sources */,
+				722146DB16DDD7BA00850C03 /* M3u8DownloadLine.m in Sources */,
+				722146E116DDDFFA00850C03 /* HTTPDataHeaderResponse.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
