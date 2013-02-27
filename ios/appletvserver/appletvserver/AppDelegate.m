@@ -24,7 +24,9 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 @synthesize queue=_queue;
 @synthesize ipAddress=_ipAddress;
-
+@synthesize localM3u8PathPrefix = _localM3u8PathPrefix;
+@synthesize localM3u8UrlPrefix = _localM3u8UrlPrefix;
+@synthesize m3u8Process = _m3u8Process;
 - (void)dealloc
 {
     [super dealloc];
@@ -45,9 +47,24 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 	}
 }
 
+-(void) initProcess{
+    self.m3u8Process = [[M3u8Process alloc] init];
+}
+-(void) initDocument{
+    NSArray *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *outpath = [[path objectAtIndex:0] stringByAppendingFormat:@"%@",@"/temp/m3u8/"];
+    //outpath = @"/Users/zhangwei/Desktop/m3u8/";
+    if(![[NSFileManager defaultManager] fileExistsAtPath:outpath]){
+        [[NSFileManager defaultManager] createDirectoryAtPath:outpath withIntermediateDirectories:YES attributes:nil error:nil];
+    }
+    self.localM3u8UrlPrefix = [@"http://" stringByAppendingFormat:@"%@:8080/appletv/temp/m3u8/",[AtvUtil getIPAddress]];
+    self.localM3u8PathPrefix = outpath;
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [self initDocument];
+    [self initProcess];
     // Configure our logging framework.
 	// To keep things simple and fast, we're just going to log to the Xcode console.
 	[DDLog addLogger:[DDTTYLogger sharedInstance]];
