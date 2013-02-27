@@ -25,42 +25,7 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
 
 
 
--(NSString*) doSyncRequestByM3U8Url:(NSString*) url{
-    ASIHTTPRequest *req = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:url]];
-    [req startSynchronous];
-    NSError *error = [req error];
-    if (!error) {
-      
-        NSString *respString = [req responseString];
-        NSString* localM3U8String = respString;
-        NSArray* lines = [respString componentsSeparatedByCharactersInSet: [NSCharacterSet newlineCharacterSet]];
-        NSMutableArray* m3u8DownloadLines = [NSMutableArray array];
-        M3u8Download* m3u8Download = [[M3u8Download alloc] init];
-        m3u8Download.m3u8DownloadLines = m3u8DownloadLines;
-        int j =0;
-        for(int i=0;i<[lines count];i++){
-            NSString* line = [lines objectAtIndex:i];
-            if(line!=nil&&[line rangeOfString:@"http"].location==0){
-                M3u8DownloadLine* m3u8DownloadLine = [[M3u8DownloadLine alloc] init];
-                m3u8DownloadLine.originalUrl = line;
-                m3u8DownloadLine.localUrl = [[AppDele localM3u8UrlPrefix] stringByAppendingFormat:@"%i.ts",j];
-                m3u8DownloadLine.localPath = [[AppDele localM3u8PathPrefix] stringByAppendingFormat:@"%i.ts",j];
-                [m3u8DownloadLines addObject:m3u8DownloadLine];
-                localM3U8String = [localM3U8String stringByReplacingOccurrencesOfString:m3u8DownloadLine.originalUrl withString:m3u8DownloadLine.localUrl];
-                j++;
-            }
-        }
-        [[AppDele queue] cancelAllOperations];
-        [[AppDele queue] waitUntilAllOperationsAreFinished];
-        for(int i=0;i<5&&i<[m3u8DownloadLines count];i++){
-            [[AppDele m3u8Process] addAsyncM3u8TSRequestByM3u8Download:m3u8Download];
-        }
-        return localM3U8String;
-    } else {
-        NSLog(@"Download m3u8 failure for url:%@, error:%@",url,error);
-        return nil;
-    }
-}
+
 
 - (NSObject<HTTPResponse> *)httpResponseForMethod:(NSString *)method URI:(NSString *)path
 {
@@ -81,7 +46,7 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
         [[NSFileManager defaultManager] removeItemAtPath:[AppDele localM3u8PathPrefix] error:nil];
         [[NSFileManager defaultManager] createDirectoryAtPath:[AppDele localM3u8PathPrefix] withIntermediateDirectories:YES attributes:nil error:nil];
         NSLog(@"m3u8 url:%@",m3u8Url);
-        NSString* localM3u8String = [self doSyncRequestByM3U8Url:m3u8Url];
+        NSString* localM3u8String = [[AppDele m3u8Process] doSyncRequestByM3U8Url:m3u8Url];
         if(localM3u8String!=nil){
             NSData *response = [localM3u8String dataUsingEncoding:NSUTF8StringEncoding];
             HTTPDataHeaderResponse* resp=[[HTTPDataHeaderResponse alloc] initWithData:response];
