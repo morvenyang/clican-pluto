@@ -7,10 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
-@class HTTPServer;
+#import <Three20/Three20.h>
+#import "ASINetworkQueue.h"
+#import "HTTPServer.h"
+
+#define AppDele ((AppDelegate *)[[UIApplication sharedApplication] delegate])
+
+
 @interface AppDelegate : UIResponder <UIApplicationDelegate>{
     HTTPServer *httpServer;
+    ASINetworkQueue* _queue;
+    NSString* _ipAddress;
 }
 
-
+@property (nonatomic, retain) ASINetworkQueue* queue;
+@property (nonatomic, retain) NSString* ipAddress;
 @end

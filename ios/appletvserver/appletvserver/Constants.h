@@ -13,6 +13,8 @@
 #define QQ_SEARCH_URL @"http://ncgi.video.qq.com/tvideo/fcgi-bin/srh_ipad?num=30&tabid=0&plat=4&pver=2&sort=0&filter=18&otype=json&qq=&appver=2.0.0.2208&sysver=ios5.1.1&device=iPad&lang=zh_CN&comment=%i&cur=%i&query=%@"
 #define QQ_VIDEO_URL @"http://live.qq.com/json/ipad/cover/%@/%@.json?qq=&appver=2.0.0.2208&sysver=ios5.1.1&device=iPad&lang=zh_CN"
 #define QQ_PLAY_API @"http://vv.video.qq.com/geturl?otype=json&callback=a&qq=&appver=2.0.0.2208&sysver=ios5.1.1&device=iPad&lang=zh_CN&vid=%@"
+
+
 typedef enum {
     QQ_Recommand = 3,
     QQ_Search = 1001,

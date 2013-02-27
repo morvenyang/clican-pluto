@@ -16,15 +16,17 @@
 #import "DDTTYLogger.h"
 #import "MainViewController.h"
 #import "MyHTTPConnection.h"
+#import "AtvUtil.h"
 
 static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 @implementation AppDelegate
 
+@synthesize queue=_queue;
+@synthesize ipAddress=_ipAddress;
 
 - (void)dealloc
 {
-
     [super dealloc];
 }
 
@@ -49,7 +51,10 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     // Configure our logging framework.
 	// To keep things simple and fast, we're just going to log to the Xcode console.
 	[DDLog addLogger:[DDTTYLogger sharedInstance]];
-	
+    self.ipAddress = [AtvUtil getIPAddress];
+	self.queue = [[ASINetworkQueue alloc] init];
+    [self.queue setShouldCancelAllRequestsOnFailure:NO];
+    [self.queue go];
 	// Create server using our custom MyHTTPServer class
 	httpServer = [[HTTPServer alloc] init];
 	//httpServer.port = 80;
