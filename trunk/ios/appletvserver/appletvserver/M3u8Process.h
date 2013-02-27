@@ -13,6 +13,8 @@
     
 }
 
+-(NSString*) doSyncRequestByM3U8Url:(NSString*) url;
+
 -(void) addAsyncM3u8TSRequestByM3u8Download:(M3u8Download*) m3u8Download;
 
 @end
