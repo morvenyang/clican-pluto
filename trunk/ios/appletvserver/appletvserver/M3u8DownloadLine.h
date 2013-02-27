@@ -9,9 +9,10 @@
 @interface M3u8DownloadLine : NSObject{
     NSString* _originalUrl;
     NSString* _localUrl;
+    NSString* _localPath;
 }
 
 @property (nonatomic, copy) NSString* originalUrl;
 @property (nonatomic, copy) NSString* localUrl;
-
+@property (nonatomic, copy) NSString* localPath;
 @end

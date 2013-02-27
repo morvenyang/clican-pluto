@@ -61,6 +61,8 @@
 		722146D016DDB57000850C03 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 722146CF16DDB57000850C03 /* MobileCoreServices.framework */; };
 		722146DB16DDD7BA00850C03 /* M3u8DownloadLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 722146DA16DDD7BA00850C03 /* M3u8DownloadLine.m */; };
 		722146E116DDDFFA00850C03 /* HTTPDataHeaderResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 722146E016DDDFFA00850C03 /* HTTPDataHeaderResponse.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		722146E416DDE40700850C03 /* M3u8Download.m in Sources */ = {isa = PBXBuildFile; fileRef = 722146E316DDE40700850C03 /* M3u8Download.m */; };
+		722146E716DDE62500850C03 /* M3u8TSHTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 722146E616DDE62500850C03 /* M3u8TSHTTPRequest.m */; };
 		7233879D16CB5C890061FBDF /* QQVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7233879C16CB5C890061FBDF /* QQVideoViewController.m */; };
 		723387A016CB5DA10061FBDF /* QQVideoRequestModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7233879F16CB5DA10061FBDF /* QQVideoRequestModel.m */; };
 		7272B39D16C9FC7300E111A7 /* QQIndexRequestModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7272B39C16C9FC7300E111A7 /* QQIndexRequestModel.m */; };
@@ -105,6 +107,7 @@
 		72C217F416CBCE9A000A56AB /* QQPlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 72C217F316CBCE9A000A56AB /* QQPlayViewController.m */; };
 		72C217F616CBDA8A000A56AB /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72C217F516CBDA8A000A56AB /* MediaPlayer.framework */; };
 		72C9088216D325580075A651 /* libfdk-aac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 72C9088116D325580075A651 /* libfdk-aac.a */; };
+		72CC1B5616DE3BD7006A8E44 /* M3u8Process.m in Sources */ = {isa = PBXBuildFile; fileRef = 72CC1B5516DE3BD7006A8E44 /* M3u8Process.m */; };
 		72CF817016D08692007B3D64 /* test1.h264 in Resources */ = {isa = PBXBuildFile; fileRef = 72CF816F16D08692007B3D64 /* test1.h264 */; };
 		72E200D316DB26BF00F3D7FC /* StyleSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 72E748FA16C9EEE70024B8BB /* StyleSheet.m */; };
 		72E200D816DB271C00F3D7FC /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72E200D616DB271C00F3D7FC /* CFNetwork.framework */; };
@@ -393,6 +396,10 @@
 		722146DA16DDD7BA00850C03 /* M3u8DownloadLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M3u8DownloadLine.m; sourceTree = "<group>"; };
 		722146DF16DDDFFA00850C03 /* HTTPDataHeaderResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HTTPDataHeaderResponse.h; path = CocoaHTTPServer/HTTPDataHeaderResponse.h; sourceTree = "<group>"; };
 		722146E016DDDFFA00850C03 /* HTTPDataHeaderResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HTTPDataHeaderResponse.m; path = CocoaHTTPServer/HTTPDataHeaderResponse.m; sourceTree = "<group>"; };
+		722146E216DDE40700850C03 /* M3u8Download.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3u8Download.h; sourceTree = "<group>"; };
+		722146E316DDE40700850C03 /* M3u8Download.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M3u8Download.m; sourceTree = "<group>"; };
+		722146E516DDE62500850C03 /* M3u8TSHTTPRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = M3u8TSHTTPRequest.h; path = AISHTTPRequest/M3u8TSHTTPRequest.h; sourceTree = "<group>"; };
+		722146E616DDE62500850C03 /* M3u8TSHTTPRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = M3u8TSHTTPRequest.m; path = AISHTTPRequest/M3u8TSHTTPRequest.m; sourceTree = "<group>"; };
 		7233879B16CB5C890061FBDF /* QQVideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QQVideoViewController.h; sourceTree = "<group>"; };
 		7233879C16CB5C890061FBDF /* QQVideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QQVideoViewController.m; sourceTree = "<group>"; };
 		7233879E16CB5DA10061FBDF /* QQVideoRequestModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QQVideoRequestModel.h; sourceTree = "<group>"; };
@@ -460,6 +467,8 @@
 		72C217F316CBCE9A000A56AB /* QQPlayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QQPlayViewController.m; sourceTree = "<group>"; };
 		72C217F516CBDA8A000A56AB /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		72C9088116D325580075A651 /* libfdk-aac.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libfdk-aac.a"; path = "appletvserver/lib/libfdk-aac.a"; sourceTree = "<group>"; };
+		72CC1B5416DE3BD7006A8E44 /* M3u8Process.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3u8Process.h; sourceTree = "<group>"; };
+		72CC1B5516DE3BD7006A8E44 /* M3u8Process.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M3u8Process.m; sourceTree = "<group>"; };
 		72CF816F16D08692007B3D64 /* test1.h264 */ = {isa = PBXFileReference; lastKnownFileType = file; path = test1.h264; sourceTree = "<group>"; };
 		72E200D616DB271C00F3D7FC /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		72E200D716DB271C00F3D7FC /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -655,6 +664,8 @@
 				7221467B16DDB21000850C03 /* ASINetworkQueue.h */,
 				7221467C16DDB21000850C03 /* ASINetworkQueue.m */,
 				7221467D16DDB21000850C03 /* ASIProgressDelegate.h */,
+				722146E516DDE62500850C03 /* M3u8TSHTTPRequest.h */,
+				722146E616DDE62500850C03 /* M3u8TSHTTPRequest.m */,
 			);
 			name = AISHTTPRequest;
 			sourceTree = "<group>";
@@ -668,6 +679,8 @@
 				72C217C616CB6403000A56AB /* VideoItem.m */,
 				722146D916DDD7BA00850C03 /* M3u8DownloadLine.h */,
 				722146DA16DDD7BA00850C03 /* M3u8DownloadLine.m */,
+				722146E216DDE40700850C03 /* M3u8Download.h */,
+				722146E316DDE40700850C03 /* M3u8Download.m */,
 			);
 			name = Object;
 			sourceTree = "<group>";
@@ -762,6 +775,7 @@
 		72A4368516C9EA5A00D9958D /* appletvserver */ = {
 			isa = PBXGroup;
 			children = (
+				72CC1B4A16DE3BA3006A8E44 /* Download */,
 				7221466916DDB1B800850C03 /* AISHTTPRequest */,
 				72E2008716DB23EC00F3D7FC /* CocoaHTTPServer */,
 				72DD38FC16CCEB8B0010AAC2 /* ffmpeg */,
@@ -836,6 +850,15 @@
 				72BB0C6916CB513400D4291D /* VideoImageView.m */,
 			);
 			name = View;
+			sourceTree = "<group>";
+		};
+		72CC1B4A16DE3BA3006A8E44 /* Download */ = {
+			isa = PBXGroup;
+			children = (
+				72CC1B5416DE3BD7006A8E44 /* M3u8Process.h */,
+				72CC1B5516DE3BD7006A8E44 /* M3u8Process.m */,
+			);
+			name = Download;
 			sourceTree = "<group>";
 		};
 		72DD38FC16CCEB8B0010AAC2 /* ffmpeg */ = {
@@ -1297,6 +1320,9 @@
 				722146CC16DDB52E00850C03 /* Reachability.m in Sources */,
 				722146DB16DDD7BA00850C03 /* M3u8DownloadLine.m in Sources */,
 				722146E116DDDFFA00850C03 /* HTTPDataHeaderResponse.m in Sources */,
+				722146E416DDE40700850C03 /* M3u8Download.m in Sources */,
+				722146E716DDE62500850C03 /* M3u8TSHTTPRequest.m in Sources */,
+				72CC1B5616DE3BD7006A8E44 /* M3u8Process.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
