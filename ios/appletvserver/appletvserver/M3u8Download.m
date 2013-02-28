@@ -11,7 +11,7 @@
 @implementation M3u8Download
 
 @synthesize m3u8DownloadLines = _m3u8DownloadLines;
-
+@synthesize m3u8Url = _m3u8Url;
 
 - (M3u8DownloadLine*) getNextDownloadLine{
      @synchronized(self) {
@@ -41,6 +41,7 @@
 }
 - (void) dealloc {
     TT_RELEASE_SAFELY(_m3u8DownloadLines);
+    TT_RELEASE_SAFELY(_m3u8Url);
     [super dealloc];
 }
 

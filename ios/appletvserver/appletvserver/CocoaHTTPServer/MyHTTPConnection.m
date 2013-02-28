@@ -49,7 +49,8 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
         NSString* localM3u8String = [[AppDele m3u8Process] doSyncRequestByM3U8Url:m3u8Url];
         if(localM3u8String!=nil){
             NSData *data = [localM3u8String dataUsingEncoding:NSUTF8StringEncoding];
-            HTTPDataResponse* resp=[[HTTPDataResponse alloc] initWithData:data];
+            HTTPDataHeaderResponse* resp=[[HTTPDataHeaderResponse alloc] initWithData:data];
+            [[resp httpHeaders] setValue:@"audio/x-mpegurl" forKey:@"Content-Type"];
             return resp;
         }else{
             return nil;
