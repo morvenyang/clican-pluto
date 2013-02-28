@@ -11,6 +11,7 @@
 #import "ASINetworkQueue.h"
 #import "HTTPServer.h"
 #import "M3u8Process.h"
+#import "Mp4Process.h"
 #define AppDele ((AppDelegate *)[[UIApplication sharedApplication] delegate])
 
 
@@ -21,6 +22,10 @@
     NSString* _localM3u8UrlPrefix;
     NSString* _localM3u8PathPrefix;
     M3u8Process* _m3u8Process;
+    
+    NSString* _localMp4UrlPrefix;
+    NSString* _localMp4PathPrefix;
+    Mp4Process* _mp4Process;
 }
 
 @property (nonatomic, retain) ASINetworkQueue* queue;
@@ -28,4 +33,8 @@
 @property (nonatomic, retain) NSString* localM3u8UrlPrefix;
 @property (nonatomic, retain) NSString* localM3u8PathPrefix;
 @property (nonatomic, retain) M3u8Process* m3u8Process;
+
+@property (nonatomic, retain) NSString* localMp4UrlPrefix;
+@property (nonatomic, retain) NSString* localMp4PathPrefix;
+@property (nonatomic, retain) Mp4Process* mp4Process;
 @end

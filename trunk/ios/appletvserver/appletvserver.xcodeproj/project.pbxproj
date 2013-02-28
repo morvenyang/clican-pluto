@@ -22,6 +22,9 @@
 		7215346E16DB481E009D5EA7 /* web in Resources */ = {isa = PBXBuildFile; fileRef = 7215346D16DB481E009D5EA7 /* web */; };
 		7219BBCD16C9EAFA00AABA8E /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7219BBCC16C9EAFA00AABA8E /* MainViewController.m */; };
 		721E6F8B16CA1EC700307E4D /* RemoveCallbackURLJSONResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 721E6F8A16CA1EC700307E4D /* RemoveCallbackURLJSONResponse.m */; };
+		721E840516DF4EAE0047EE2D /* Mp4Process.m in Sources */ = {isa = PBXBuildFile; fileRef = 721E840416DF4EAD0047EE2D /* Mp4Process.m */; };
+		721E840816DF4F040047EE2D /* Mp4Download.m in Sources */ = {isa = PBXBuildFile; fileRef = 721E840716DF4F040047EE2D /* Mp4Download.m */; };
+		721E840B16DF4F1E0047EE2D /* Mp4DownloadPartial.m in Sources */ = {isa = PBXBuildFile; fileRef = 721E840A16DF4F1E0047EE2D /* Mp4DownloadPartial.m */; };
 		72202AE516D363B3003AC44C /* cmdutils.c in Sources */ = {isa = PBXBuildFile; fileRef = 72202ADD16D363B3003AC44C /* cmdutils.c */; };
 		72202AE616D363B3003AC44C /* ffmpeg_filter.c in Sources */ = {isa = PBXBuildFile; fileRef = 72202AE016D363B3003AC44C /* ffmpeg_filter.c */; };
 		72202AE716D363B3003AC44C /* ffmpeg_opt.c in Sources */ = {isa = PBXBuildFile; fileRef = 72202AE116D363B3003AC44C /* ffmpeg_opt.c */; };
@@ -313,6 +316,12 @@
 		7219BBCE16C9EB6900AABA8E /* extThree20JSON.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = extThree20JSON.xcodeproj; path = ../../../../three20/src/extThree20JSON/extThree20JSON.xcodeproj; sourceTree = "<group>"; };
 		721E6F8916CA1EC700307E4D /* RemoveCallbackURLJSONResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RemoveCallbackURLJSONResponse.h; sourceTree = "<group>"; };
 		721E6F8A16CA1EC700307E4D /* RemoveCallbackURLJSONResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RemoveCallbackURLJSONResponse.m; sourceTree = "<group>"; };
+		721E840316DF4EAD0047EE2D /* Mp4Process.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mp4Process.h; sourceTree = "<group>"; };
+		721E840416DF4EAD0047EE2D /* Mp4Process.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Mp4Process.m; sourceTree = "<group>"; };
+		721E840616DF4F040047EE2D /* Mp4Download.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mp4Download.h; sourceTree = "<group>"; };
+		721E840716DF4F040047EE2D /* Mp4Download.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Mp4Download.m; sourceTree = "<group>"; };
+		721E840916DF4F1E0047EE2D /* Mp4DownloadPartial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mp4DownloadPartial.h; sourceTree = "<group>"; };
+		721E840A16DF4F1E0047EE2D /* Mp4DownloadPartial.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Mp4DownloadPartial.m; sourceTree = "<group>"; };
 		72202ADC16D363B3003AC44C /* cmdutils_common_opts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cmdutils_common_opts.h; sourceTree = "<group>"; };
 		72202ADD16D363B3003AC44C /* cmdutils.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cmdutils.c; sourceTree = "<group>"; };
 		72202ADE16D363B3003AC44C /* cmdutils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cmdutils.h; sourceTree = "<group>"; };
@@ -681,6 +690,10 @@
 				722146DA16DDD7BA00850C03 /* M3u8DownloadLine.m */,
 				722146E216DDE40700850C03 /* M3u8Download.h */,
 				722146E316DDE40700850C03 /* M3u8Download.m */,
+				721E840616DF4F040047EE2D /* Mp4Download.h */,
+				721E840716DF4F040047EE2D /* Mp4Download.m */,
+				721E840916DF4F1E0047EE2D /* Mp4DownloadPartial.h */,
+				721E840A16DF4F1E0047EE2D /* Mp4DownloadPartial.m */,
 			);
 			name = Object;
 			sourceTree = "<group>";
@@ -857,6 +870,8 @@
 			children = (
 				72CC1B5416DE3BD7006A8E44 /* M3u8Process.h */,
 				72CC1B5516DE3BD7006A8E44 /* M3u8Process.m */,
+				721E840316DF4EAD0047EE2D /* Mp4Process.h */,
+				721E840416DF4EAD0047EE2D /* Mp4Process.m */,
 			);
 			name = Download;
 			sourceTree = "<group>";
@@ -1323,6 +1338,9 @@
 				722146E416DDE40700850C03 /* M3u8Download.m in Sources */,
 				722146E716DDE62500850C03 /* M3u8TSHTTPRequest.m in Sources */,
 				72CC1B5616DE3BD7006A8E44 /* M3u8Process.m in Sources */,
+				721E840516DF4EAE0047EE2D /* Mp4Process.m in Sources */,
+				721E840816DF4F040047EE2D /* Mp4Download.m in Sources */,
+				721E840B16DF4F1E0047EE2D /* Mp4DownloadPartial.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

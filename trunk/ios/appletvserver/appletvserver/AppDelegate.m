@@ -27,6 +27,11 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 @synthesize localM3u8PathPrefix = _localM3u8PathPrefix;
 @synthesize localM3u8UrlPrefix = _localM3u8UrlPrefix;
 @synthesize m3u8Process = _m3u8Process;
+
+@synthesize localMp4PathPrefix = _localMp4PathPrefix;
+@synthesize localMp4UrlPrefix = _localMp4UrlPrefix;
+@synthesize mp4Process = _mp4Process;
+
 - (void)dealloc
 {
     [super dealloc];
@@ -54,17 +59,25 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 }
 -(void) initProcess{
     self.m3u8Process = [[M3u8Process alloc] init];
+    self.mp4Process = [[Mp4Process alloc] init];
 }
 -(void) initDocument{
     NSArray *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *outpath = [[path objectAtIndex:0] stringByAppendingFormat:@"%@",@"/temp/m3u8/"];
+    NSString *m3u8Outpath = [[path objectAtIndex:0] stringByAppendingFormat:@"%@",@"/temp/m3u8/"];
+    NSString *mp4Outpath = [[path objectAtIndex:0] stringByAppendingFormat:@"%@",@"/temp/mp4/"];
     //outpath = @"/Users/zhangwei/Desktop/m3u8/";
-    if(![[NSFileManager defaultManager] fileExistsAtPath:outpath]){
-        [[NSFileManager defaultManager] createDirectoryAtPath:outpath withIntermediateDirectories:YES attributes:nil error:nil];
+    if(![[NSFileManager defaultManager] fileExistsAtPath:m3u8Outpath]){
+        [[NSFileManager defaultManager] createDirectoryAtPath:m3u8Outpath withIntermediateDirectories:YES attributes:nil error:nil];
+    }
+    if(![[NSFileManager defaultManager] fileExistsAtPath:mp4Outpath]){
+        [[NSFileManager defaultManager] createDirectoryAtPath:mp4Outpath withIntermediateDirectories:YES attributes:nil error:nil];
     }
     self.localM3u8UrlPrefix = [@"http://" stringByAppendingFormat:@"%@:8080/appletv/temp/m3u8/",[AtvUtil getIPAddress]];
+    self.localM3u8UrlPrefix = [@"http://" stringByAppendingFormat:@"%@:8080/appletv/temp/mp4/",[AtvUtil getIPAddress]];
     NSLog(@"m3u8 url prefix:%@",self.localM3u8UrlPrefix);
-    self.localM3u8PathPrefix = outpath;
+    NSLog(@"mp4 url prefix:%@",self.localMp4UrlPrefix);
+    self.localM3u8PathPrefix = m3u8Outpath;
+    self.localMp4PathPrefix = mp4Outpath;
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
