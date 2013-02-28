@@ -23,6 +23,7 @@
 @implementation M3u8Process
 
 @synthesize m3u8Url = _m3u8Url;
+@synthesize m3u8RelativeUrl = _m3u8RelativeUrl;
 @synthesize m3u8Download = _m3u8Download;
 @synthesize m3u8String = _m3u8String;
 
@@ -31,6 +32,9 @@
     M3u8DownloadLine* maxFinishedDownloadLine = NULL;
     if(self.m3u8Url==nil||![self.m3u8Url isEqualToString:url]){
         self.m3u8Url = url;
+        NSRange lastSlahRange = [url rangeOfString:@"/" options:NSBackwardsSearch];
+        NSRange relativeRange = NSMakeRange(0,lastSlahRange.location);
+        self.m3u8RelativeUrl = [url substringWithRange:relativeRange];
         [[NSFileManager defaultManager] removeItemAtPath:[AppDele localM3u8PathPrefix] error:nil];
         [[NSFileManager defaultManager] createDirectoryAtPath:[AppDele localM3u8PathPrefix] withIntermediateDirectories:YES attributes:nil error:nil];
         ASIHTTPRequest *req = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:url]];
@@ -43,11 +47,12 @@
             NSArray* lines = [respString componentsSeparatedByCharactersInSet: [NSCharacterSet newlineCharacterSet]];
             NSMutableArray* m3u8DownloadLines = [NSMutableArray array];
             self.m3u8Download = [[M3u8Download alloc] init];
+            self.m3u8Download.m3u8Url = url;
             self.m3u8Download.m3u8DownloadLines = m3u8DownloadLines;
             int j =0;
             for(int i=0;i<[lines count];i++){
                 NSString* line = [lines objectAtIndex:i];
-                if(line!=nil&&[line rangeOfString:@"http"].location==0){
+                if(line!=nil&&[line rangeOfString:@"#"].location==NSNotFound){
                     M3u8DownloadLine* m3u8DownloadLine = [[M3u8DownloadLine alloc] init];
                     m3u8DownloadLine.originalUrl = line;
                     m3u8DownloadLine.localUrl = [[AppDele localM3u8UrlPrefix] stringByAppendingFormat:@"%i.ts",j];
@@ -57,9 +62,9 @@
                     j++;
                 }
             }
-            //        [[AppDele queue] cancelAllOperations];
-            //        [[AppDele queue] waitUntilAllOperationsAreFinished];
-            //        [[AppDele queue] go];
+            [[AppDele queue] cancelAllOperations];
+            [[AppDele queue] waitUntilAllOperationsAreFinished];
+            [[AppDele queue] go];
             for(int i=0;i<5&&i<[m3u8DownloadLines count];i++){
                 [self addAsyncM3u8TSRequest];
             }
@@ -104,7 +109,13 @@
         return;
     }
     NSLog(@"downloading m3u8 ts %@",[m3u8DownloadLine.localPath stringByReplacingOccurrencesOfString:[AppDele localM3u8PathPrefix] withString:@""]);
-    M3u8TSHTTPRequest *req = [M3u8TSHTTPRequest requestWithURL:[NSURL URLWithString:m3u8DownloadLine.originalUrl]];
+    M3u8TSHTTPRequest *req = NULL;
+    if([m3u8DownloadLine.originalUrl rangeOfString:@"http"].location==0){
+       req = [M3u8TSHTTPRequest requestWithURL:[NSURL URLWithString:m3u8DownloadLine.originalUrl]];
+    }else{
+        req = [M3u8TSHTTPRequest requestWithURL:[NSURL URLWithString:[self.m3u8RelativeUrl stringByAppendingFormat:@"/%@",m3u8DownloadLine.originalUrl]]];
+    }
+    
     req.m3u8Download = self.m3u8Download;
     req.m3u8DownloadLine = m3u8DownloadLine;
     NSString *downloadPath = m3u8DownloadLine.localPath;
@@ -127,9 +138,12 @@
     if([req isKindOfClass:[M3u8TSHTTPRequest class]]){
         M3u8TSHTTPRequest* m3u8TSReq = (M3u8TSHTTPRequest*)req;
         NSLog(@"Download finished for ts : %@",[[m3u8TSReq downloadDestinationPath] stringByReplacingOccurrencesOfString:[AppDele localM3u8PathPrefix] withString:@""]);
-        M3u8Download* m3u8Download = m3u8TSReq.m3u8Download;
         req.m3u8DownloadLine.finished = YES;
-        [self addAsyncM3u8TSRequest];
+        if([req.m3u8Download.m3u8Url isEqualToString:self.m3u8Url]){
+            [self addAsyncM3u8TSRequest];
+        }else{
+            NSLog(@"Task cancelled by another m3u8");
+        }
     }else{
         NSLog(@"Download finished for :%@",[req url]);
     }
@@ -140,6 +154,10 @@
 - (void)m3u8tsRequestWentWrong:(M3u8TSHTTPRequest *)req
 {
     NSLog(@"Download failure for ts : %@ with error: %@",[[req downloadDestinationPath] stringByReplacingOccurrencesOfString:[AppDele localM3u8PathPrefix] withString:@""], [req error]);
+    if(![req.m3u8Download.m3u8Url isEqualToString:self.m3u8Url]){
+        NSLog(@"Task cancelled by another m3u8");
+        return;
+    }
     //retry
     M3u8TSHTTPRequest *newreq = [M3u8TSHTTPRequest requestWithURL:[req originalURL]];
     newreq.m3u8Download = req.m3u8Download;
