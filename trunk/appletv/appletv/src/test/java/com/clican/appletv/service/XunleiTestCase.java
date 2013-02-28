@@ -38,10 +38,10 @@ public class XunleiTestCase extends BaseServiceTestCase {
 //		header.put("Referer", "http://61.147.76.6/iplay.html");
 //		PostResponse pr4 = tudouClient.httpGetForCookie(downloadUrl, header, null);
 //		System.out.println(pr4.getContent());
-		String m3u8Url = "http://gdl.lixian.vip.xunlei.com/download?dt=16&g=48BB0C352722E889E945BFCBAE251846CADECA9E&t=2&ui=5663595&s=587057068&v_type=-1&scn=t12&it=1361958204&cc=2044160738531415486&p=1&n=0C54EEFFE234470400&p=1&xplaybackid=3852e4c0-8098-11e2-aa95-842b2b62740d";
-		String test = "http://16.158.169.15:8080/appletv/proxy/m3u8?url="+URLEncoder.encode(m3u8Url,"utf-8");
-//		
-		PostResponse pr5 = tudouClient.httpGetForCookie(test, null, null);
-		System.out.println(pr5.getContent());
+		String m3u8Url = "http://gdl.lixian.vip.xunlei.com/download?dt=16&g=FCA52C0D243D5E306462E7A8AD3BE8ABF1BDCEEF&t=2&ui=5663595&s=197116809&v_type=-1&scn=t3&it=1362034959&cc=14016538685430137563&p=1&n=0FE0E3827C52D91C00&p=1&xplaybackid=edd5648c-814a-11e2-afad-0026b94af483";
+		String test = "http://192.168.1.103:8080/appletv/proxy/m3u8?url="+URLEncoder.encode(m3u8Url,"utf-8");
+		System.out.println(test);
+//		PostResponse pr5 = tudouClient.httpGetForCookie(test, null, null);
+//		System.out.println(pr5.getContent());
 	}
 }
