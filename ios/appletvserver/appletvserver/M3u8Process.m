@@ -59,7 +59,7 @@
                 NSString* line = [lines objectAtIndex:i];
                 if(line!=nil&&[line length]!=0&&[line rangeOfString:@"#"].location!=0){
                     NSLog(@"line:%@",line);
-                    M3u8DownloadLine* m3u8DownloadLine = [[M3u8DownloadLine alloc] init];
+                    M3u8DownloadLine* m3u8DownloadLine = [[[M3u8DownloadLine alloc] init] autorelease];
                     m3u8DownloadLine.originalUrl = line;
                     m3u8DownloadLine.localUrl = [[AppDele localM3u8UrlPrefix] stringByAppendingFormat:@"%i.ts",j];
                     m3u8DownloadLine.localPath = [[AppDele localM3u8PathPrefix] stringByAppendingFormat:@"%i.ts",j];
