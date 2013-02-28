@@ -25,6 +25,20 @@
      }
 }
 
+- (M3u8DownloadLine*) getMaxFinishedDownloadLine{
+    M3u8DownloadLine* line = NULL;
+    int start = _maxFinishedIndex;
+    for(int i=start;i<[_m3u8DownloadLines count];i++){
+        M3u8DownloadLine* temp = [_m3u8DownloadLines objectAtIndex:i];
+        if(temp.finished){
+            line = temp;
+            _maxFinishedIndex = i;
+        }else{
+            break;
+        }
+    }
+    return line;
+}
 - (void) dealloc {
     TT_RELEASE_SAFELY(_m3u8DownloadLines);
     [super dealloc];

@@ -13,6 +13,7 @@
 @synthesize originalUrl = _originalUrl;
 @synthesize localUrl = _localUrl;
 @synthesize localPath = _localPath;
+@synthesize finished = _finished;
 
 - (void) dealloc {
     TT_RELEASE_SAFELY(_originalUrl);
