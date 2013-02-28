@@ -10,9 +10,12 @@
     NSString* _originalUrl;
     NSString* _localUrl;
     NSString* _localPath;
+    BOOL _finished;
 }
 
 @property (nonatomic, copy) NSString* originalUrl;
 @property (nonatomic, copy) NSString* localUrl;
 @property (nonatomic, copy) NSString* localPath;
+@property (nonatomic, assign) BOOL finished;
+
 @end

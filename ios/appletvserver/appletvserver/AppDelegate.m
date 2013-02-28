@@ -47,6 +47,11 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 	}
 }
 
+-(void) initQueue{
+    self.queue = [[ASINetworkQueue alloc] init];
+    [self.queue setShouldCancelAllRequestsOnFailure:NO];
+    [self.queue go];
+}
 -(void) initProcess{
     self.m3u8Process = [[M3u8Process alloc] init];
 }
@@ -58,20 +63,20 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
         [[NSFileManager defaultManager] createDirectoryAtPath:outpath withIntermediateDirectories:YES attributes:nil error:nil];
     }
     self.localM3u8UrlPrefix = [@"http://" stringByAppendingFormat:@"%@:8080/appletv/temp/m3u8/",[AtvUtil getIPAddress]];
+    NSLog(@"m3u8 url prefix:%@",self.localM3u8UrlPrefix);
     self.localM3u8PathPrefix = outpath;
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [self initQueue];
     [self initDocument];
     [self initProcess];
     // Configure our logging framework.
 	// To keep things simple and fast, we're just going to log to the Xcode console.
 	[DDLog addLogger:[DDTTYLogger sharedInstance]];
     self.ipAddress = [AtvUtil getIPAddress];
-	self.queue = [[ASINetworkQueue alloc] init];
-    [self.queue setShouldCancelAllRequestsOnFailure:NO];
-    [self.queue go];
+
 	// Create server using our custom MyHTTPServer class
 	httpServer = [[HTTPServer alloc] init];
 	//httpServer.port = 80;

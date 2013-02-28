@@ -12,6 +12,7 @@
 #import "HTTPDataHeaderResponse.h"
 #import "HTTPFileResponse.h"
 #import "M3u8Download.h"
+#import "HTTPRedirectResponse.h"
 // Log levels : off, error, warn, info, verbose
 // Other flags: trace
 static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
@@ -30,7 +31,7 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
 - (NSObject<HTTPResponse> *)httpResponseForMethod:(NSString *)method URI:(NSString *)path
 {
 	HTTPLogTrace();
-	
+	NSLog(@"path:%@",path);
 	if ([path isEqualToString:@"/appletv/javascript/clican.js"]||[path isEqualToString:@"/appletv/releasenote.xml"])
 	{
 		NSString  *replaceFilePath=[[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:[@"web" stringByAppendingString:path]];
@@ -39,27 +40,22 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
         ipAddress = [ipAddress stringByAppendingString:@":8080"];
         NSLog(@"ip address=%@",ipAddress);
         replaceContent = [replaceContent stringByReplacingOccurrencesOfString:@"clican.org" withString:ipAddress];
+
 		NSData *response = [replaceContent dataUsingEncoding:NSUTF8StringEncoding];
 		return [[HTTPDataResponse alloc] initWithData:response];
 	}else if([path rangeOfString:@"/appletv/proxy/m3u8"].location!=NSNotFound){
         NSString* m3u8Url = [[self parseGetParams] objectForKey:@"url"];
-        [[NSFileManager defaultManager] removeItemAtPath:[AppDele localM3u8PathPrefix] error:nil];
-        [[NSFileManager defaultManager] createDirectoryAtPath:[AppDele localM3u8PathPrefix] withIntermediateDirectories:YES attributes:nil error:nil];
         NSLog(@"m3u8 url:%@",m3u8Url);
         NSString* localM3u8String = [[AppDele m3u8Process] doSyncRequestByM3U8Url:m3u8Url];
         if(localM3u8String!=nil){
-            NSData *response = [localM3u8String dataUsingEncoding:NSUTF8StringEncoding];
-            HTTPDataHeaderResponse* resp=[[HTTPDataHeaderResponse alloc] initWithData:response];
-            [[resp httpHeaders] setValue:@"application/octet-stream" forKey:@"Content-Type"];
-            [[resp httpHeaders] setValue:@"attachment;filename=\"1.m3u8\"" forKey:@"Content-Disposition"];
-            [[resp httpHeaders] setValue:[NSString stringWithFormat:@"%i",[response length]] forKey:@"Content-Length"];
+            NSData *data = [localM3u8String dataUsingEncoding:NSUTF8StringEncoding];
+            HTTPDataResponse* resp=[[HTTPDataResponse alloc] initWithData:data];
             return resp;
         }else{
             return nil;
         }
-        
     }else if([path rangeOfString:@"/appletv/temp/m3u8"].location!=NSNotFound){
-        NSString* localPath = [path stringByReplacingOccurrencesOfString:@"/appletv/temp/m3u8" withString:[AppDele localM3u8PathPrefix]];
+        NSString* localPath = [path stringByReplacingOccurrencesOfString:@"/appletv/temp/m3u8/" withString:[AppDele localM3u8PathPrefix]];
         NSLog(@"get m3u8 from localPath:%@",localPath);
         while(true){
             if([[NSFileManager defaultManager] fileExistsAtPath:localPath]){
