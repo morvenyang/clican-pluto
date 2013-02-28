@@ -33,8 +33,13 @@
     if(self.m3u8Url==nil||![self.m3u8Url isEqualToString:url]){
         self.m3u8Url = url;
         NSRange lastSlahRange = [url rangeOfString:@"/" options:NSBackwardsSearch];
-        NSRange relativeRange = NSMakeRange(0,lastSlahRange.location);
-        self.m3u8RelativeUrl = [url substringWithRange:relativeRange];
+        if(lastSlahRange.location!=NSNotFound){
+            NSRange relativeRange = NSMakeRange(0,lastSlahRange.location);
+            self.m3u8RelativeUrl = [url substringWithRange:relativeRange];
+        }else{
+            self.m3u8RelativeUrl = url;
+        }
+        
         [[NSFileManager defaultManager] removeItemAtPath:[AppDele localM3u8PathPrefix] error:nil];
         [[NSFileManager defaultManager] createDirectoryAtPath:[AppDele localM3u8PathPrefix] withIntermediateDirectories:YES attributes:nil error:nil];
         ASIHTTPRequest *req = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:url]];
@@ -52,7 +57,8 @@
             int j =0;
             for(int i=0;i<[lines count];i++){
                 NSString* line = [lines objectAtIndex:i];
-                if(line!=nil&&[line rangeOfString:@"#"].location==NSNotFound){
+                if(line!=nil&&[line length]!=0&&[line rangeOfString:@"#"].location!=0){
+                    NSLog(@"line:%@",line);
                     M3u8DownloadLine* m3u8DownloadLine = [[M3u8DownloadLine alloc] init];
                     m3u8DownloadLine.originalUrl = line;
                     m3u8DownloadLine.localUrl = [[AppDele localM3u8UrlPrefix] stringByAppendingFormat:@"%i.ts",j];
