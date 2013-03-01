@@ -16,7 +16,7 @@
 @property (nonatomic, copy) NSString* mp4Url;
 @property (nonatomic, retain) Mp4Download* mp4Download;
 
--(NSData*) doSyncRequestByMP4Url:(NSString*) url;
-
+-(Mp4Download*) doSyncRequestByMP4Url:(NSString*) url;
+-(void) addAsyncMp4Request;
 
 @end

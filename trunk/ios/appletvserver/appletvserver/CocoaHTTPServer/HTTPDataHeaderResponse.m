@@ -25,6 +25,34 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_OFF; // | HTTP_LOG_FLAG_TRACE;
 	return self;
 }
 
+- (id)initWithData:(NSData *)dataParam status:(NSInteger)statusParam
+{
+	if((self = [super init]))
+	{
+		HTTPLogTrace();
+		
+		offset = 0;
+		data = dataParam;
+        headers = [NSMutableDictionary dictionary];
+        status = statusParam;
+	}
+	return self;
+}
+
+- (id)initWithData:(NSData *)dataParam status:(NSInteger)statusParam length:(UInt64)lengthParam{
+    if((self = [super init]))
+	{
+		HTTPLogTrace();
+		
+		offset = 0;
+		data = dataParam;
+        headers = [NSMutableDictionary dictionary];
+        status = statusParam;
+        length = lengthParam;
+	}
+	return self;
+}
+
 - (void)dealloc
 {
 	HTTPLogTrace();
@@ -33,6 +61,9 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_OFF; // | HTTP_LOG_FLAG_TRACE;
 
 - (UInt64)contentLength
 {
+    if(length>0){
+        return length;
+    }
 	UInt64 result = (UInt64)[data length];
 	
 	HTTPLogTrace2(@"%@[%p]: contentLength - %llu", THIS_FILE, self, result);
@@ -79,5 +110,9 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_OFF; // | HTTP_LOG_FLAG_TRACE;
 
 - (NSDictionary *)httpHeaders{
     return headers;
+}
+
+- (NSInteger) status{
+    return status;
 }
 @end

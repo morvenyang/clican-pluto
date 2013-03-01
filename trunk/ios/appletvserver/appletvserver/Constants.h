@@ -14,6 +14,8 @@
 #define QQ_VIDEO_URL @"http://live.qq.com/json/ipad/cover/%@/%@.json?qq=&appver=2.0.0.2208&sysver=ios5.1.1&device=iPad&lang=zh_CN"
 #define QQ_PLAY_API @"http://vv.video.qq.com/geturl?otype=json&callback=a&qq=&appver=2.0.0.2208&sysver=ios5.1.1&device=iPad&lang=zh_CN&vid=%@"
 
+#define MP4_PARTIAL_LENGTH 1048510
+
 
 typedef enum {
     QQ_Recommand = 3,
