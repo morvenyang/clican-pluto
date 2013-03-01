@@ -104,6 +104,7 @@
 		72B83FE516CDF21A003B2839 /* FrameData.m in Sources */ = {isa = PBXBuildFile; fileRef = 72B83FDF16CDF21A003B2839 /* FrameData.m */; };
 		72B83FE616CDF21A003B2839 /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = 72B83FE116CDF21A003B2839 /* Player.m */; };
 		72B83FE716CDF21A003B2839 /* StreamInterface.m in Sources */ = {isa = PBXBuildFile; fileRef = 72B83FE316CDF21A003B2839 /* StreamInterface.m */; };
+		72B9213C16E052250090CA01 /* Mp4HTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 72B9213B16E052250090CA01 /* Mp4HTTPRequest.m */; };
 		72BB0C6A16CB513400D4291D /* VideoImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 72BB0C6916CB513400D4291D /* VideoImageView.m */; };
 		72C217C716CB6403000A56AB /* VideoItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 72C217C616CB6403000A56AB /* VideoItem.m */; };
 		72C217CA16CBB679000A56AB /* AtvUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 72C217C916CBB679000A56AB /* AtvUtil.m */; };
@@ -465,6 +466,8 @@
 		72B83FE116CDF21A003B2839 /* Player.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Player.m; sourceTree = "<group>"; };
 		72B83FE216CDF21A003B2839 /* StreamInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StreamInterface.h; sourceTree = "<group>"; };
 		72B83FE316CDF21A003B2839 /* StreamInterface.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StreamInterface.m; sourceTree = "<group>"; };
+		72B9213A16E052250090CA01 /* Mp4HTTPRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Mp4HTTPRequest.h; path = AISHTTPRequest/Mp4HTTPRequest.h; sourceTree = "<group>"; };
+		72B9213B16E052250090CA01 /* Mp4HTTPRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Mp4HTTPRequest.m; path = AISHTTPRequest/Mp4HTTPRequest.m; sourceTree = "<group>"; };
 		72BB0C6816CB513400D4291D /* VideoImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoImageView.h; sourceTree = "<group>"; };
 		72BB0C6916CB513400D4291D /* VideoImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoImageView.m; sourceTree = "<group>"; };
 		72C217C516CB6403000A56AB /* VideoItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoItem.h; sourceTree = "<group>"; };
@@ -675,6 +678,8 @@
 				7221467D16DDB21000850C03 /* ASIProgressDelegate.h */,
 				722146E516DDE62500850C03 /* M3u8TSHTTPRequest.h */,
 				722146E616DDE62500850C03 /* M3u8TSHTTPRequest.m */,
+				72B9213A16E052250090CA01 /* Mp4HTTPRequest.h */,
+				72B9213B16E052250090CA01 /* Mp4HTTPRequest.m */,
 			);
 			name = AISHTTPRequest;
 			sourceTree = "<group>";
@@ -1341,6 +1346,7 @@
 				721E840516DF4EAE0047EE2D /* Mp4Process.m in Sources */,
 				721E840816DF4F040047EE2D /* Mp4Download.m in Sources */,
 				721E840B16DF4F1E0047EE2D /* Mp4DownloadPartial.m in Sources */,
+				72B9213C16E052250090CA01 /* Mp4HTTPRequest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

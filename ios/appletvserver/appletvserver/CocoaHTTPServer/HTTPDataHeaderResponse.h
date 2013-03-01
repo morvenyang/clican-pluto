@@ -15,8 +15,11 @@
 	NSUInteger offset;
 	NSData *data;
     NSMutableDictionary* headers;
+    NSInteger status;
+    UInt64 length;
 }
 
 - (id)initWithData:(NSData *)data;
-
+- (id)initWithData:(NSData *)data status:(NSInteger)statusParam;
+- (id)initWithData:(NSData *)data status:(NSInteger)statusParam length:(UInt64)lengthParam;
 @end
