@@ -66,6 +66,8 @@
 		722146E116DDDFFA00850C03 /* HTTPDataHeaderResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 722146E016DDDFFA00850C03 /* HTTPDataHeaderResponse.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		722146E416DDE40700850C03 /* M3u8Download.m in Sources */ = {isa = PBXBuildFile; fileRef = 722146E316DDE40700850C03 /* M3u8Download.m */; };
 		722146E716DDE62500850C03 /* M3u8TSHTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 722146E616DDE62500850C03 /* M3u8TSHTTPRequest.m */; };
+		722E989716E0479A0058EE11 /* appletv_57x57.png in Resources */ = {isa = PBXBuildFile; fileRef = 722E989616E0479A0058EE11 /* appletv_57x57.png */; };
+		722E989B16E048430058EE11 /* appletv_114x114.png in Resources */ = {isa = PBXBuildFile; fileRef = 722E989A16E048430058EE11 /* appletv_114x114.png */; };
 		7233879D16CB5C890061FBDF /* QQVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7233879C16CB5C890061FBDF /* QQVideoViewController.m */; };
 		723387A016CB5DA10061FBDF /* QQVideoRequestModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7233879F16CB5DA10061FBDF /* QQVideoRequestModel.m */; };
 		7272B39D16C9FC7300E111A7 /* QQIndexRequestModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7272B39C16C9FC7300E111A7 /* QQIndexRequestModel.m */; };
@@ -407,6 +409,8 @@
 		722146E316DDE40700850C03 /* M3u8Download.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M3u8Download.m; sourceTree = "<group>"; };
 		722146E516DDE62500850C03 /* M3u8TSHTTPRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = M3u8TSHTTPRequest.h; path = AISHTTPRequest/M3u8TSHTTPRequest.h; sourceTree = "<group>"; };
 		722146E616DDE62500850C03 /* M3u8TSHTTPRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = M3u8TSHTTPRequest.m; path = AISHTTPRequest/M3u8TSHTTPRequest.m; sourceTree = "<group>"; };
+		722E989616E0479A0058EE11 /* appletv_57x57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = appletv_57x57.png; sourceTree = "<group>"; };
+		722E989A16E048430058EE11 /* appletv_114x114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = appletv_114x114.png; sourceTree = "<group>"; };
 		7233879B16CB5C890061FBDF /* QQVideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QQVideoViewController.h; sourceTree = "<group>"; };
 		7233879C16CB5C890061FBDF /* QQVideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QQVideoViewController.m; sourceTree = "<group>"; };
 		7233879E16CB5DA10061FBDF /* QQVideoRequestModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QQVideoRequestModel.h; sourceTree = "<group>"; };
@@ -837,6 +841,8 @@
 				7215346716DB2E83009D5EA7 /* Debug.xcconfig */,
 				7215346816DB2E83009D5EA7 /* Release.xcconfig */,
 				72B83F9616CDE655003B2839 /* Default.png */,
+				722E989A16E048430058EE11 /* appletv_114x114.png */,
+				722E989616E0479A0058EE11 /* appletv_57x57.png */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -1255,6 +1261,8 @@
 				7215346A16DB2E83009D5EA7 /* Debug.xcconfig in Resources */,
 				7215346B16DB2E83009D5EA7 /* Release.xcconfig in Resources */,
 				7215346E16DB481E009D5EA7 /* web in Resources */,
+				722E989716E0479A0058EE11 /* appletv_57x57.png in Resources */,
+				722E989B16E048430058EE11 /* appletv_114x114.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
