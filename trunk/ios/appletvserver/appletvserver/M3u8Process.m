@@ -85,7 +85,7 @@
             NSRange range = [self.m3u8String rangeOfString:[maxFinishedDownloadLine localUrl]];
             NSRange subRange = NSMakeRange(0,range.location+range.length);
             currentM3u8String = [self.m3u8String substringWithRange:subRange];
-            return currentM3u8String;
+            return self.m3u8String;
         } else {
             NSLog(@"Download m3u8 failure for url:%@, error:%@",url,error);
             return nil;
@@ -104,7 +104,7 @@
         NSRange range = [self.m3u8String rangeOfString:[maxFinishedDownloadLine localUrl]];
         NSRange subRange = NSMakeRange(0,range.location+range.length);
         currentM3u8String = [self.m3u8String substringWithRange:subRange];
-        return currentM3u8String;
+        return self.m3u8String;
     }
 }
 
