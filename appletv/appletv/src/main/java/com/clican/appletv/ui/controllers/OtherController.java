@@ -67,6 +67,7 @@ public class OtherController {
 		return "jstest";
 	}
 
+	@RequestMapping("/download.do")
 	public void download(HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
 		this.processRequest(request, response);
