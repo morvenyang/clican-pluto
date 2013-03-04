@@ -604,13 +604,5 @@ public class SpringProperty {
 		this.baibianLoginApi = baibianLoginApi;
 	}
 
-	public String getBaibianHtmlApi() {
-		return baibianHtmlApi;
-	}
-
-	public void setBaibianHtmlApi(String baibianHtmlApi) {
-		this.baibianHtmlApi = baibianHtmlApi;
-	}
-
 	
 }
