@@ -26,11 +26,12 @@
 @synthesize mp4Url = _mp4Url;
 @synthesize mp4Download = _mp4Download;
 
+
 -(Mp4Download*) doSyncRequestByMP4Url:(NSString*) url{
     self.mp4Url = url;
     
-//    [[NSFileManager defaultManager] removeItemAtPath:[AppDele localMp4PathPrefix] error:nil];
-//    [[NSFileManager defaultManager] createDirectoryAtPath:[AppDele localMp4PathPrefix] withIntermediateDirectories:YES attributes:nil error:nil];
+    [[NSFileManager defaultManager] removeItemAtPath:[AppDele localMp4PathPrefix] error:nil];
+    [[NSFileManager defaultManager] createDirectoryAtPath:[AppDele localMp4PathPrefix] withIntermediateDirectories:YES attributes:nil error:nil];
     
     ASIHTTPRequest *req = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:@"http://vhoth.dnion.videocdn.qq.com/flv/18/185/p00116ducjk.mp4"]];
     NSMutableDictionary* headers = [NSMutableDictionary dictionary];
@@ -60,7 +61,7 @@
             firstPartial.endPosition = endPosition;
             
             firstPartial.localPath = [[AppDele localMp4PathPrefix] stringByAppendingString:@"0.mp4"];
-            //[data writeToFile:firstPartial.localPath atomically:YES];
+            [data writeToFile:firstPartial.localPath atomically:YES];
             firstPartial.finished= YES;
             [mp4DownloadPartials addObject:firstPartial];
             for(int i=0;i<partialSize;i++){
@@ -78,9 +79,9 @@
                     break;
                 }
             }
-//            for(int i=0;i<5&&i<[mp4DownloadPartials count];i++){
-//                [self addAsyncMp4Request];
-//            }
+            for(int i=0;i<5&&i<[mp4DownloadPartials count];i++){
+                [self addAsyncMp4Request];
+            }
         } else {
             NSLog(@"The server side doesn't support HTTP Range");
             return nil;
