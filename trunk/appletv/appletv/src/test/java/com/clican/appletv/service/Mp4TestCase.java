@@ -50,7 +50,7 @@ public class Mp4TestCase extends TestCase {
 		IsoFile isoFile = new IsoFile(fc);
 		for(Box box:isoFile.getBoxes()){
 			if(box instanceof AbstractContainerBox){
-				dumpBoxSize((AbstractContainerBox)box);
+				dumpBoxSize((AbstractContainerBox)box,"");
 			}else{
 				System.out.println(box.getType() + ",size=" + box.getSize());
 			}
@@ -58,11 +58,11 @@ public class Mp4TestCase extends TestCase {
 		
 	}
 
-	private void dumpBoxSize(AbstractContainerBox parent) throws Exception {
-		System.out.println(parent.getType() + ",size=" + parent.getSize());
+	private void dumpBoxSize(AbstractContainerBox parent,String offset) throws Exception {
 		for (Box box : parent.getBoxes()) {
+			System.out.println(offset+box.getType() + ",size=" + box.getSize());
 			if (box instanceof AbstractContainerBox) {
-				this.dumpBoxSize((AbstractContainerBox) box);
+				this.dumpBoxSize((AbstractContainerBox) box,offset+"\t");
 			}
 		}
 	}
