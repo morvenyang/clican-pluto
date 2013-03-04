@@ -112,44 +112,6 @@ public class OtherController {
 		// Validate request headers for caching
 		// ---------------------------------------------------
 
-		// If-None-Match header should contain "*" or ETag. If so, then return
-		// 304.
-		String ifNoneMatch = request.getHeader("If-None-Match");
-		if (ifNoneMatch != null && matches(ifNoneMatch, eTag)) {
-			response.setHeader("ETag", eTag); // Required in 304.
-			response.sendError(HttpServletResponse.SC_NOT_MODIFIED);
-			return;
-		}
-
-		// If-Modified-Since header should be greater than LastModified. If so,
-		// then return 304.
-		// This header is ignored if any If-None-Match header is specified.
-		long ifModifiedSince = request.getDateHeader("If-Modified-Since");
-		if (ifNoneMatch == null && ifModifiedSince != -1
-				&& ifModifiedSince + 1000 > lastModified) {
-			response.setHeader("ETag", eTag); // Required in 304.
-			response.sendError(HttpServletResponse.SC_NOT_MODIFIED);
-			return;
-		}
-
-		// Validate request headers for resume
-		// ----------------------------------------------------
-
-		// If-Match header should contain "*" or ETag. If not, then return 412.
-		String ifMatch = request.getHeader("If-Match");
-		if (ifMatch != null && !matches(ifMatch, eTag)) {
-			response.sendError(HttpServletResponse.SC_PRECONDITION_FAILED);
-			return;
-		}
-
-		// If-Unmodified-Since header should be greater than LastModified. If
-		// not, then return 412.
-		long ifUnmodifiedSince = request.getDateHeader("If-Unmodified-Since");
-		if (ifUnmodifiedSince != -1 && ifUnmodifiedSince + 1000 <= lastModified) {
-			response.sendError(HttpServletResponse.SC_PRECONDITION_FAILED);
-			return;
-		}
-
 		// Validate and process range
 		// -------------------------------------------------------------
 
@@ -159,8 +121,9 @@ public class OtherController {
 
 		// Validate and process Range and If-Range headers.
 		String range = request.getHeader("Range");
-		if (range != null) {
 
+		if (range != null) {
+			System.out.println("Range=" + range);
 			// Range header should match format "bytes=n-n,n-n,n-n...". If not,
 			// then return 416.
 			if (!range.matches("^bytes=\\d*-\\d*(,\\d*-\\d*)*$")) {
@@ -170,58 +133,32 @@ public class OtherController {
 				response.sendError(HttpServletResponse.SC_REQUESTED_RANGE_NOT_SATISFIABLE);
 				return;
 			}
+			for (String part : range.substring(6).split(",")) {
+				// Assuming a file with length of 100, the following
+				// examples returns bytes at:
+				// 50-80 (50 to 80), 40- (40 to length=100), -20
+				// (length-20=80 to length=100).
+				long start = sublong(part, 0, part.indexOf("-"));
+				long end = sublong(part, part.indexOf("-") + 1, part.length());
 
-			// If-Range header should either match ETag or be greater then
-			// LastModified. If not,
-			// then return full file.
-			String ifRange = request.getHeader("If-Range");
-			if (ifRange != null && !ifRange.equals(eTag)) {
-				try {
-					long ifRangeTime = request.getDateHeader("If-Range"); // Throws
-																			// IAE
-																			// if
-																			// invalid.
-					if (ifRangeTime != -1 && ifRangeTime + 1000 < lastModified) {
-						ranges.add(full);
-					}
-				} catch (IllegalArgumentException ignore) {
-					ranges.add(full);
+				if (start == -1) {
+					start = length - end;
+					end = length - 1;
+				} else if (end == -1 || end > length - 1) {
+					end = length - 1;
 				}
+
+				// Check if Range is syntactically valid. If not, then
+				// return 416.
+				if (start > end) {
+					response.setHeader("Content-Range", "bytes */" + length); // Required
+					response.sendError(HttpServletResponse.SC_REQUESTED_RANGE_NOT_SATISFIABLE);
+					return;
+				}
+				// Add range.
+				ranges.add(new Range(start, end, length));
 			}
 
-			// If any valid If-Range header, then process each part of byte
-			// range.
-			if (ranges.isEmpty()) {
-				for (String part : range.substring(6).split(",")) {
-					// Assuming a file with length of 100, the following
-					// examples returns bytes at:
-					// 50-80 (50 to 80), 40- (40 to length=100), -20
-					// (length-20=80 to length=100).
-					long start = sublong(part, 0, part.indexOf("-"));
-					long end = sublong(part, part.indexOf("-") + 1,
-							part.length());
-
-					if (start == -1) {
-						start = length - end;
-						end = length - 1;
-					} else if (end == -1 || end > length - 1) {
-						end = length - 1;
-					}
-
-					// Check if Range is syntactically valid. If not, then
-					// return 416.
-					if (start > end) {
-						response.setHeader("Content-Range", "bytes */" + length); // Required
-																					// in
-																					// 416.
-						response.sendError(HttpServletResponse.SC_REQUESTED_RANGE_NOT_SATISFIABLE);
-						return;
-					}
-
-					// Add range.
-					ranges.add(new Range(start, end, length));
-				}
-			}
 		}
 
 		// Prepare and initialize response
@@ -251,11 +188,18 @@ public class OtherController {
 				// Return single part of file.
 				Range r = ranges.get(0);
 				response.setContentType(contentType);
+				System.out.println("Content-Range:" + "bytes " + r.start + "-"
+						+ r.end + "/" + r.total);
 				response.setHeader("Content-Range", "bytes " + r.start + "-"
 						+ r.end + "/" + r.total);
 				response.setHeader("Content-Length", String.valueOf(r.length));
 				response.setStatus(HttpServletResponse.SC_PARTIAL_CONTENT); // 206.
 				copy(input, output, r.start, r.length);
+			} else {
+				System.out.println("Content-Range:" + "all");
+				response.setContentType(contentType);
+				response.setHeader("Content-Length", String.valueOf(length));
+				copy(input, output, 0, length);
 			}
 		} finally {
 			// Gently close streams.
@@ -263,7 +207,6 @@ public class OtherController {
 			close(input);
 		}
 	}
-
 
 	/**
 	 * Returns true if the given match header matches the given value.
@@ -328,8 +271,10 @@ public class OtherController {
 			// Write partial range.
 			input.seek(start);
 			long toRead = length;
-
+			long totalRead = 0;
 			while ((read = input.read(buffer)) > 0) {
+				totalRead+=read;
+				System.out.println("total output:"+totalRead);
 				if ((toRead -= read) > 0) {
 					output.write(buffer, 0, read);
 				} else {
