@@ -126,7 +126,6 @@ http://www.springframework.org/schema/context/spring-context-2.5.xsd">
 
 		<property name="baibianChannelApi" value="${baibian.channel.api}"></property>
 		<property name="baibianLoginApi" value="${baibian.login.api}"></property>
-		<property name="baibianHtmlApi" value="${baibian.html.api}"></property>
 		
 		<property name="applePodcastUrlPattern" value="${apple.podcast.url.pattern}"></property>
 
