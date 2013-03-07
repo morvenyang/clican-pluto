@@ -39,6 +39,7 @@ public class XunleiTestCase extends BaseServiceTestCase {
 //		PostResponse pr4 = tudouClient.httpGetForCookie(downloadUrl, header, null);
 //		System.out.println(pr4.getContent());
 		String mp4Url = "http://vhoth.dnion.videocdn.qq.com/flv/18/185/p00116ducjk.mp4?vkey=CF0D8BBF9F011AC92CD418D2DD1993AA112C1AF6EC6AF9C748B17E0BDFA3A1314273F9C0905D2AF1&br=72&platform=0&fmt=mp4&level=1";
+		String test4 = "http://16.158.169.15:8080/appletv/proxy/mp4?url="+URLEncoder.encode(mp4Url,"utf-8");
 		String m3u8Url1 = "http://devimages.apple.com/iphone/samples/bipbop/gear1/prog_index.m3u8";
 		String m3u8Url2 = "http://devimages.apple.com/iphone/samples/bipbop/gear3/prog_index.m3u8";
 		String m3u8Url3 = "http://gdl.lixian.vip.xunlei.com/download?dt=16&g=FCA52C0D243D5E306462E7A8AD3BE8ABF1BDCEEF&t=2&ui=5663595&s=197116809&v_type=-1&scn=t3&it=1362055588&cc=11745147014848014333&p=1&n=048AACF5E179380000&p=1&xplaybackid=f5999992-817a-11e2-a098-842b2b62740d";
@@ -48,6 +49,7 @@ public class XunleiTestCase extends BaseServiceTestCase {
 		System.out.println(test1);
 		System.out.println(test2);
 		System.out.println(test3);
+		System.out.println(test4);
 //		PostResponse pr5 = tudouClient.httpGetForCookie(test, null, null);
 //		System.out.println(pr5.getContent());
 	}
