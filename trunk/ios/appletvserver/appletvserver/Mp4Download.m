@@ -17,32 +17,32 @@
 
 - (Mp4DownloadPartial*) getNextDownloadPartial{
     @synchronized(self) {
+        int size= [_mp4DownloadPartials count];
+        if(size>5){
+             Mp4DownloadPartial* freeBoxPartial1 = [_mp4DownloadPartials objectAtIndex:size-2];
+             Mp4DownloadPartial* freeBoxPartial2 = [_mp4DownloadPartials objectAtIndex:size-1];
+            if(!freeBoxPartial1.finished){
+                return freeBoxPartial1;
+            }
+            if(!freeBoxPartial2.finished){
+                return freeBoxPartial2;
+            }
+        }
+       
         if(_downloadIndex==0){
             _downloadIndex = 1;
         }
-        if(_downloadIndex<[_mp4DownloadPartials count]){
+        while(_downloadIndex<[_mp4DownloadPartials count]){
             Mp4DownloadPartial* next=[_mp4DownloadPartials objectAtIndex:_downloadIndex];
             _downloadIndex++;
-            return next;
-        }else{
-            return nil;
+            if(!next.finished){
+                return next;
+            }
         }
+        return nil;
     }
 }
-- (Mp4DownloadPartial*) getMaxFinishedDownloadPartial{
-    Mp4DownloadPartial* partial = NULL;
-    int start = _maxFinishedIndex;
-    for(int i=start;i<[_mp4DownloadPartials count];i++){
-        Mp4DownloadPartial* temp = [_mp4DownloadPartials objectAtIndex:i];
-        if(temp.finished){
-            partial = temp;
-            _maxFinishedIndex = i;
-        }else{
-            break;
-        }
-    }
-    return partial;
-}
+
 
 - (NSData*) getDataByStartPosition:(long) startPosition endPosition:(long) endPosition
 {

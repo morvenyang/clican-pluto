@@ -33,7 +33,7 @@
     [[NSFileManager defaultManager] removeItemAtPath:[AppDele localMp4PathPrefix] error:nil];
     [[NSFileManager defaultManager] createDirectoryAtPath:[AppDele localMp4PathPrefix] withIntermediateDirectories:YES attributes:nil error:nil];
     
-    ASIHTTPRequest *req = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:@"http://vhoth.dnion.videocdn.qq.com/flv/18/185/p00116ducjk.mp4"]];
+    ASIHTTPRequest *req = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:url]];
     NSMutableDictionary* headers = [NSMutableDictionary dictionary];
     [headers setValue:[@"bytes=0-" stringByAppendingFormat:@"%i",MP4_PARTIAL_LENGTH-1] forKey:@"Range"];
     [req setRequestHeaders:headers];
@@ -68,7 +68,7 @@
                 Mp4DownloadPartial* partial = [[[Mp4DownloadPartial alloc] init] autorelease];
                 partial.startPosition = endPosition+(i)*MP4_PARTIAL_LENGTH;
                 partial.endPosition = partial.startPosition+MP4_PARTIAL_LENGTH;
-                partial.finished = YES;
+                partial.finished = NO;
                 partial.localPath = [[AppDele localMp4PathPrefix] stringByAppendingFormat:@"%i.mp4",i+1];
                 if(partial.startPosition>totalLength){
                     break;

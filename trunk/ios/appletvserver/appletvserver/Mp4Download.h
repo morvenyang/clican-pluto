@@ -20,7 +20,6 @@
 @property (nonatomic, assign) long totalLength;
 
 - (Mp4DownloadPartial*) getNextDownloadPartial;
-- (Mp4DownloadPartial*) getMaxFinishedDownloadPartial;
 - (NSData*) getDataByStartPosition:(long) startPosition endPosition:(long) endPosition;
 
 @end
