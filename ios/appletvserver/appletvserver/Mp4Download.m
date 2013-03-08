@@ -43,10 +43,22 @@
     }
 }
 
+- (void) seekDownloadPartial:(long) position{
+    @synchronized(self) {
+        for(int i=0;i<[_mp4DownloadPartials count];i++){
+            Mp4DownloadPartial* downloadPartial=[_mp4DownloadPartials objectAtIndex:i];
+            if(downloadPartial.startPosition<=position&&downloadPartial.endPosition>position){
+                _downloadIndex=i;
+                break;
+            }
+        }
+    }
+}
 
 - (NSData*) getDataByStartPosition:(long) startPosition endPosition:(long) endPosition
 {
     BOOL hasData = false;
+    BOOL seek = YES;
     NSMutableData* data = [NSMutableData dataWithCapacity:endPosition-startPosition];
     long offsetPosition = startPosition;
     long index = offsetPosition/MP4_PARTIAL_LENGTH;
@@ -77,6 +89,10 @@
                 break;
             }else{
                 NSLog(@"The mp4 content %ld-%ld is still downloading.",startPosition,endPosition);
+                if(seek) {
+                    seek = NO;
+                    [self seekDownloadPartial:startPosition];
+                }
                 [NSThread sleepForTimeInterval:1.0f];
             }
         }
