@@ -27,7 +27,7 @@
 @synthesize m3u8Download = _m3u8Download;
 @synthesize m3u8String = _m3u8String;
 
--(NSString*) doSyncRequestByM3U8Url:(NSString*) url{
+-(NSString*) doSyncRequestByM3U8Url:(NSString*) url start:(BOOL) start{
     NSString* currentM3u8String = NULL;
     M3u8DownloadLine* maxFinishedDownloadLine = NULL;
     if(self.m3u8Url==nil||![self.m3u8Url isEqualToString:url]){
@@ -64,47 +64,33 @@
                     m3u8DownloadLine.localUrl = [[AppDele localM3u8UrlPrefix] stringByAppendingFormat:@"%i.ts",j];
                     m3u8DownloadLine.localPath = [[AppDele localM3u8PathPrefix] stringByAppendingFormat:@"%i.ts",j];
                     [m3u8DownloadLines addObject:m3u8DownloadLine];
-                    self.m3u8String = [self.m3u8String stringByReplacingOccurrencesOfString:m3u8DownloadLine.originalUrl withString:m3u8DownloadLine.localUrl];
+                    self.m3u8String = [self.m3u8String stringByReplacingOccurrencesOfString:m3u8DownloadLine.originalUrl withString:[m3u8DownloadLine.localUrl stringByAppendingFormat:@"?m3u8Url=%@",url]];
                     j++;
                 }
             }
             [[AppDele queue] cancelAllOperations];
             [[AppDele queue] waitUntilAllOperationsAreFinished];
             [[AppDele queue] go];
-            for(int i=0;i<5&&i<[m3u8DownloadLines count];i++){
-                [self addAsyncM3u8TSRequest];
+            if(start){
+                 [self start];
             }
-            while(true) {
-                maxFinishedDownloadLine = [self.m3u8Download getMaxFinishedDownloadLine];
-                if(maxFinishedDownloadLine!=NULL){
-                    break;
-                }else{
-                    [NSThread sleepForTimeInterval:1.0f];
-                }
-            }
-            NSRange range = [self.m3u8String rangeOfString:[maxFinishedDownloadLine localUrl]];
-            NSRange subRange = NSMakeRange(0,range.location+range.length);
-            currentM3u8String = [self.m3u8String substringWithRange:subRange];
             return self.m3u8String;
         } else {
             NSLog(@"Download m3u8 failure for url:%@, error:%@",url,error);
             return nil;
         }
     }else{
-        
-        while(true) {
-            maxFinishedDownloadLine = [self.m3u8Download getMaxFinishedDownloadLine];
-            if(maxFinishedDownloadLine!=NULL){
-                break;
-            }else{
-                [NSThread sleepForTimeInterval:1.0f];
-            }
-        }
-        
-        NSRange range = [self.m3u8String rangeOfString:[maxFinishedDownloadLine localUrl]];
-        NSRange subRange = NSMakeRange(0,range.location+range.length);
-        currentM3u8String = [self.m3u8String substringWithRange:subRange];
         return self.m3u8String;
+    }
+}
+
+-(void) seekDownloadLine:(NSString*) localUrl{
+    [self m3u8Download seekDownloadLine:localUrl];
+}
+
+-(void)start{
+    for(int i=0;i<5&&i<[self.m3u8Download.m3u8DownloadLines count];i++){
+        [self addAsyncM3u8TSRequest];
     }
 }
 

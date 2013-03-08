@@ -21,8 +21,9 @@
 @property (nonatomic, retain) M3u8Download* m3u8Download;
 @property (nonatomic, copy) NSString* m3u8String;
 
--(NSString*) doSyncRequestByM3U8Url:(NSString*) url;
-
+-(NSString*) doSyncRequestByM3U8Url:(NSString*) url start:(BOOL) start;
+-(void) seekDownloadLine:(NSString*) localUrl;
+-(void) start;
 -(void) addAsyncM3u8TSRequest;
 
 @end
