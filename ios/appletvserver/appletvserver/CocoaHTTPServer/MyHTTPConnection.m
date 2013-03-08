@@ -47,7 +47,7 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
     }else if([path rangeOfString:@"/appletv/proxy/m3u8"].location!=NSNotFound){
         NSString* m3u8Url = [[self parseGetParams] objectForKey:@"url"];
         NSLog(@"m3u8 url:%@",m3u8Url);
-        NSString* localM3u8String = [[AppDele m3u8Process] doSyncRequestByM3U8Url:m3u8Url];
+        NSString* localM3u8String = [[AppDele m3u8Process] doSyncRequestByM3U8Url:m3u8Url start:YES];
         if(localM3u8String!=nil){
             NSData *data = [localM3u8String dataUsingEncoding:NSUTF8StringEncoding];
             HTTPDataHeaderResponse* resp=[[HTTPDataHeaderResponse alloc] initWithData:data];
@@ -58,12 +58,24 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
         }
     }else if([path rangeOfString:@"/appletv/temp/m3u8"].location!=NSNotFound){
         NSString* localPath = [path stringByReplacingOccurrencesOfString:@"/appletv/temp/m3u8/" withString:[AppDele localM3u8PathPrefix]];
+        NSString* m3u8Url = [[self parseGetParams] objectForKey:@"m3u8Url"];
+        NSLog(@"m3u8Url=%@",m3u8Url);
+        if([[AppDele m3u8Process] m3u8Url]==nil||![[[AppDele m3u8Process] m3u8Url] isEqualToString:m3u8Url]){
+            NSLog(@"m3u8Url is changed, we must reprocess it");
+            [[AppDele m3u8Process] doSyncRequestByM3U8Url:m3u8Url start:NO];
+            [[AppDele m3u8Process] seekDownloadLine:localPath];
+        }
         NSLog(@"get m3u8 from localPath:%@",localPath);
+        BOOL seek = YES;
         while(true){
             if([[NSFileManager defaultManager] fileExistsAtPath:localPath]){
                 HTTPFileResponse* resp = [[HTTPFileResponse alloc] initWithFilePath:localPath forConnection:self];
                 return resp;
             } else {
+                if(seek){
+                    seek = NO;
+                    [[AppDele m3u8Process] seekDownloadLine:localPath];
+                }
                 NSLog(@"The ts file has not been downloaded, wait for 1 second, ts:%@",localPath);
                 [NSThread sleepForTimeInterval:1.0f];
             }
