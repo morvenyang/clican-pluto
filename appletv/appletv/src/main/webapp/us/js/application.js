@@ -730,7 +730,7 @@ var jsn = {
 	winvod : '星空宽频'
 };
 logger.init({
-	logURL : 'http://serv.ottnt.com:8580/log.xml',
+	logURL : 'http://180.153.225.136:8580/log.xml',
 	logLevel : 4
 });
 function dg(I) {
