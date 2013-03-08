@@ -3,7 +3,6 @@ var appletv = {
 	logSeverity : 'DEBUG',
 	simulate : true,
 	serverurl : 'http://127.0.0.1/appletv',
-	proxyServerUrl : 'http://127.0.0.1/appletv',
 	isUseProxyServer : function() {
 		return true;
 	},
@@ -236,10 +235,31 @@ var appletv = {
 		atv.loadURL(url);
 	},
 
-	play : function(url){
+	playM3u8 : function(url){
 		if(appletv.isUseProxyServer()) {
-			url = appletv.proxyServerUrl+"/proxy/play?url="+encodeURIComponent(url);
+			userconfig.getLocalServerIP(function(localServerIP){
+				if(localServerIP==null||localServerIP.length==0){
+					atv.loadXML(appletv.makePlayXml(url));
+				}else{
+					url = 'http://'+localServerIP+":8080/appletv/proxy/m3u8?url="+encodeURIComponent(url);
+					atv.loadXML(appletv.makePlayXml(url));
+				}
+			});
+		}else{
 			atv.loadXML(appletv.makePlayXml(url));
+		}
+	},
+	
+	playMp4 : function(url){
+		if(appletv.isUseProxyServer()) {
+			userconfig.getLocalServerIP(function(localServerIP){
+				if(localServerIP==null||localServerIP.length==0){
+					atv.loadXML(appletv.makePlayXml(url));
+				}else{
+					url = 'http://'+localServerIP+":8080/appletv/proxy/mp4?url="+encodeURIComponent(url);
+					atv.loadXML(appletv.makePlayXml(url));
+				}
+			});
 		}else{
 			atv.loadXML(appletv.makePlayXml(url));
 		}
