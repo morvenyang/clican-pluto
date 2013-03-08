@@ -21,5 +21,5 @@
 
 - (Mp4DownloadPartial*) getNextDownloadPartial;
 - (NSData*) getDataByStartPosition:(long) startPosition endPosition:(long) endPosition;
-
+- (void) seekDownloadPartial:(long) position;
 @end
