@@ -152,6 +152,7 @@ http://www.springframework.org/schema/context/spring-context-2.5.xsd">
 		<property name="taobaoLoveTagApi" value="${taobao.love.tag.api}"></property>
 		<property name="taobaoLoveApi" value="${taobao.love.api}"></property>
 		
+		<property name="userConfigJsonFile" value="${user.config.json.file}"></property>
 	</bean>
 
 	<bean id="tudouClient" class="com.clican.appletv.core.service.tudou.TudouClientImpl"
@@ -206,6 +207,10 @@ http://www.springframework.org/schema/context/spring-context-2.5.xsd">
 		<constructor-arg>
 			<value>${taobao.app.sercret}</value>
 		</constructor-arg>
+	</bean>
+	
+	<bean id="configService" class="com.clican.appletv.core.service.config.ConfigServiceImpl"
+		autowire="byName" init-method="init" destroy-method="destroy">
 	</bean>
 
 </beans>

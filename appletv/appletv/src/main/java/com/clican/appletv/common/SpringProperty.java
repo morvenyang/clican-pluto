@@ -13,6 +13,8 @@ public class SpringProperty {
 	private Integer systemProxyPort;
 	
 	private boolean systemProxyEnable;
+	
+	private String userConfigJsonFile;
 
 	private String tudouSessionid;
 
@@ -81,7 +83,6 @@ public class SpringProperty {
 	
 	private String baibianLoginApi;
 	private String baibianChannelApi;
-	private String baibianHtmlApi;
 	private String applePodcastUrlPattern;
 	
 	
@@ -602,6 +603,14 @@ public class SpringProperty {
 
 	public void setBaibianLoginApi(String baibianLoginApi) {
 		this.baibianLoginApi = baibianLoginApi;
+	}
+
+	public String getUserConfigJsonFile() {
+		return userConfigJsonFile;
+	}
+
+	public void setUserConfigJsonFile(String userConfigJsonFile) {
+		this.userConfigJsonFile = userConfigJsonFile;
 	}
 
 	
