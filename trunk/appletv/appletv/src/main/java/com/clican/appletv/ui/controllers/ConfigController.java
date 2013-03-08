@@ -45,6 +45,7 @@ public class ConfigController {
 			throws IOException {
 		String value = configService.getConfig(deviceId, key);
 		if (StringUtils.isNotEmpty(value)) {
+			response.setContentType("plan/text;charset=utf-8");
 			response.getOutputStream().write(value.getBytes("utf-8"));
 		}
 	}

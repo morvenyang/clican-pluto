@@ -48,5 +48,7 @@
 <br/>
 <input type="button" onclick="userconfig.loadConfigPage();" value="设置"/>
 <input type="button" onclick="appletv.showInputTextPage('设置本地服务器IP','本地服务器用于代理视频内容的加载,提升加载速度减少延迟卡顿现象',userconfig.saveLocalServerIP,'userconfig.saveLocalServerIP','');" value="设置IP" />
+<input type="button" onclick="appletv.playM3u8('http://localhost/m4u8')" value="play m3u8" />
+
 </body>
 </html>

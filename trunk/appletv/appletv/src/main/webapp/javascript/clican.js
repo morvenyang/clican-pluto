@@ -150,10 +150,14 @@ var appletv = {
 				if (xhr.readyState == 4) {
 					if (xhr.status == 200) {
 						if (xhr.responseText == null) {
-							gbkchar = atv.localStorage['gbk'];
+							if(!appletv.simulate){
+								gbkchar = atv.localStorage['gbk'];
+							}
 							if (!gbkchar) {
 								appletv.makeRequest(appletv.serverurl+'/template/gbk.txt', function(gbkcontent){
-									atv.localStorage['gbk'] = gbkcontent;
+									if(!appletv.simulate){
+										atv.localStorage['gbk'] = gbkcontent;
+									}
 									callback(appletv.toGBK(appletv.base64Decode(xhr.responseDataAsBase64)));
 								});
 							}else{
@@ -239,14 +243,14 @@ var appletv = {
 		if(appletv.isUseProxyServer()) {
 			userconfig.getLocalServerIP(function(localServerIP){
 				if(localServerIP==null||localServerIP.length==0){
-					atv.loadXML(appletv.makePlayXml(url));
+					appletv.loadXML(appletv.makePlayXml(url));
 				}else{
 					url = 'http://'+localServerIP+":8080/appletv/proxy/m3u8?url="+encodeURIComponent(url);
-					atv.loadXML(appletv.makePlayXml(url));
+					appletv.loadXML(appletv.makePlayXml(url));
 				}
 			});
 		}else{
-			atv.loadXML(appletv.makePlayXml(url));
+			appletv.loadXML(appletv.makePlayXml(url));
 		}
 	},
 	
@@ -254,14 +258,14 @@ var appletv = {
 		if(appletv.isUseProxyServer()) {
 			userconfig.getLocalServerIP(function(localServerIP){
 				if(localServerIP==null||localServerIP.length==0){
-					atv.loadXML(appletv.makePlayXml(url));
+					appletv.loadXML(appletv.makePlayXml(url));
 				}else{
 					url = 'http://'+localServerIP+":8080/appletv/proxy/mp4?url="+encodeURIComponent(url);
-					atv.loadXML(appletv.makePlayXml(url));
+					appletv.loadXML(appletv.makePlayXml(url));
 				}
 			});
 		}else{
-			atv.loadXML(appletv.makePlayXml(url));
+			appletv.loadXML(appletv.makePlayXml(url));
 		}
 	},
 	
@@ -269,7 +273,7 @@ var appletv = {
 		var xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><atv><body><videoPlayer id=\"play\"><httpLiveStreamingVideoAsset><mediaURL><![CDATA[";
 		xml += url;
 		xml += "]]></mediaURL></httpLiveStreamingVideoAsset></videoPlayer></body></atv>";
-		return atv.parseXML(xml);
+		return xml
 	},
 
 	makeDialog : function(message, description) {

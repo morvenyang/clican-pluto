@@ -26,7 +26,7 @@ var userconfig = {
 			url += '&key=userconfig.localServerIP';
 			appletv.makeRequest(url,function(result){
 				ip = result;
-				appletv.setValue('userconfig.localServerIP',ip);
+				//appletv.setValue('userconfig.localServerIP',ip);
 				callback(ip);
 				return;
 			});
