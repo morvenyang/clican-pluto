@@ -64,6 +64,7 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
             NSLog(@"m3u8Url is changed, we must reprocess it");
             [[AppDele m3u8Process] doSyncRequestByM3U8Url:m3u8Url start:NO];
             [[AppDele m3u8Process] seekDownloadLine:localPath];
+            [[AppDele m3u8Process] start];
         }
         NSLog(@"get m3u8 from localPath:%@",localPath);
         BOOL seek = YES;
