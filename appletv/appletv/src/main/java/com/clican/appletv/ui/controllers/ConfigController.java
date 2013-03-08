@@ -58,18 +58,20 @@ public class ConfigController {
 		JSONObject configs = json.getJSONObject("configs");
 		Map<String, String> configMap = configService.getAllConfig(deviceId);
 		Map<String, String> result = new HashMap<String, String>();
-		for (String key : configMap.keySet()) {
-			if (configs.containsKey(key)) {
-				String value = configs.getString(key);
-				if (StringUtils.isEmpty(value)) {
-					if (StringUtils.isNotEmpty(configMap.get(key))) {
-						configs.accumulate(key, configMap.get(key));
+		for (Object key : configs.keySet()) {
+			result.put((String) key, configs.getString((String) key));
+		}
+		if (configMap != null) {
+			for (String key : configMap.keySet()) {
+				if (configs.containsKey(key)) {
+					String value = configs.getString(key);
+					if (StringUtils.isEmpty(value)) {
+						if (StringUtils.isNotEmpty(configMap.get(key))) {
+							result.put(key, configMap.get(key));
+						}
 					}
 				}
 			}
-		}
-		for (Object key : configs.keySet()) {
-			result.put((String) key, configs.getString((String) key));
 		}
 		request.setAttribute("result", result);
 		return "config/config";

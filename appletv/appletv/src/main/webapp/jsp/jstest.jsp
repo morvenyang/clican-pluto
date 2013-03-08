@@ -9,6 +9,7 @@
 <script type="text/javascript" src="<%=request.getAttribute("serverurl")%>/javascript/ejs.js"></script>
 <script type="text/javascript" src="<%=request.getAttribute("serverurl")%>/javascript/taobao.js"></script>
 <script type="text/javascript" src="<%=request.getAttribute("serverurl")%>/javascript/photoPreview.js"></script>
+<script type="text/javascript" src="<%=request.getAttribute("serverurl")%>/javascript/userconfig.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 </head>
@@ -43,5 +44,9 @@
 <input type="button" onclick="appletv.loadTest();" value="测试"/>
 <input type="button" onclick="appletv.loadAlbumXml(152199347,30,1,0,'<%=request.getAttribute("serverurl")%>');" value="测试剧集详细页面"/>
 <input type="button" onclick="appletv.loadAlbumListXml(152199347,30,1,2,'<%=request.getAttribute("serverurl")%>');" value="测试剧集列表页面"/>
+
+<br/>
+<input type="button" onclick="userconfig.loadConfigPage();" value="设置"/>
+<input type="button" onclick="appletv.showInputTextPage('设置本地服务器IP','本地服务器用于代理视频内容的加载,提升加载速度减少延迟卡顿现象',userconfig.saveLocalServerIP,'userconfig.saveLocalServerIP','');" value="设置IP" />
 </body>
 </html>
