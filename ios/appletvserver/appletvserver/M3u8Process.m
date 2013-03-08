@@ -28,8 +28,6 @@
 @synthesize m3u8String = _m3u8String;
 
 -(NSString*) doSyncRequestByM3U8Url:(NSString*) url start:(BOOL) start{
-    NSString* currentM3u8String = NULL;
-    M3u8DownloadLine* maxFinishedDownloadLine = NULL;
     if(self.m3u8Url==nil||![self.m3u8Url isEqualToString:url]){
         self.m3u8Url = url;
         NSRange lastSlahRange = [url rangeOfString:@"/" options:NSBackwardsSearch];
@@ -85,7 +83,7 @@
 }
 
 -(void) seekDownloadLine:(NSString*) localUrl{
-    [self m3u8Download seekDownloadLine:localUrl];
+    [[self m3u8Download] seekDownloadLine:localUrl];
 }
 
 -(void)start{
