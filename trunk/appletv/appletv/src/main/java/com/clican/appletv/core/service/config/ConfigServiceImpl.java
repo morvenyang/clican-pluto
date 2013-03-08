@@ -84,7 +84,7 @@ public class ConfigServiceImpl implements ConfigService {
 
 	@Override
 	public void saveConfig(String deviceId, String key, String value) {
-		if (configMap.containsKey(deviceId)) {
+		if (!configMap.containsKey(deviceId)) {
 			configMap.put(deviceId, new ConcurrentHashMap<String, String>());
 		}
 		configMap.get(deviceId).put(key, value);

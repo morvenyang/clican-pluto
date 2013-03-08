@@ -13,7 +13,7 @@ var appletv = {
 		}else{
 			return atv.device.udid;
 		}
-	}
+	},
 	
 	toGBK: function (I) {
 		O = '';
