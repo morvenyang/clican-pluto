@@ -189,7 +189,7 @@ var qqClient ={
 						urlIndexStart += 7;
 			    		var urlIndexEnd = data.indexOf("\"",urlIndexStart);
 			    		var url = data.substring(urlIndexStart,urlIndexEnd);
-			    		atv.loadXML(appletv.makePlayXml(url));
+			    		appletv.loadXML(appletv.makePlayXml(url));
 					}
 				}
 	    	});
