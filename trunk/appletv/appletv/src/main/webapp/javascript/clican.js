@@ -8,6 +8,14 @@ var appletv = {
 		return true;
 	},
 	
+	getDeviceId: function(){
+		if(appletv.simulate){
+			return '1234';
+		}else{
+			return atv.device.udid;
+		}
+	}
+	
 	toGBK: function (I) {
 		O = '';
 		g = atv.localStorage['gbk'];
@@ -323,7 +331,7 @@ var appletv = {
 		if(!this.simulate) {
 			return atv.localStorage[key];
 		}else{
-			return null;
+			return '';
 		}
 	},
 	

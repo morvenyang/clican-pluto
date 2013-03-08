@@ -35,6 +35,11 @@
 							<title>淘宝</title>
 						</goldenPoster>
 						<goldenPoster id="gp6"
+							onSelect="atv.loadURL('http://clican.org/appletv/config.xml');">
+							<image>http://clican.org/appletv/image/announcements.png</image>
+							<title>设置</title>
+						</goldenPoster>
+						<goldenPoster id="gp7"
 							onSelect="atv.loadURL('http://clican.org/appletv/release.xml');">
 							<image>http://clican.org/appletv/image/announcements.png</image>
 							<title>升级公告</title>

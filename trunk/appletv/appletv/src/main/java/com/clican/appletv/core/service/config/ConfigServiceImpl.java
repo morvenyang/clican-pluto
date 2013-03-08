@@ -99,4 +99,9 @@ public class ConfigServiceImpl implements ConfigService {
 		}
 	}
 
+	@Override
+	public Map<String, String> getAllConfig(String deviceId) {
+		return configMap.get(deviceId);
+	}
+
 }
