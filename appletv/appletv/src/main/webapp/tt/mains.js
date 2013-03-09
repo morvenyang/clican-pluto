@@ -404,7 +404,7 @@ ATVUtils = {
 					subtitle : sub,
 					type : "video-asset",
 					"media-asset" : {
-						"media-url" : 'http://10.0.1.3:8080/appletv/proxy.m3u8?url='+encodeURIComponent(url),
+						"media-url" : 'http://10.0.1.7:8080/appletv/proxy.m3u8?url='+encodeURIComponent(url),
 						type : utype,
 						title : name,
 						description : desc,
@@ -418,7 +418,7 @@ ATVUtils = {
 					subtitle : sub,
 					type : "video-asset",
 					"media-asset" : {
-						"media-url" : 'http://10.0.1.3:8080/appletv/proxy.m3u8?url='+encodeURIComponent(url),
+						"media-url" : 'http://10.0.1.7:8080/appletv/proxy.m3u8?url='+encodeURIComponent(url),
 						type : utype,
 						title : name,
 						description : desc,
