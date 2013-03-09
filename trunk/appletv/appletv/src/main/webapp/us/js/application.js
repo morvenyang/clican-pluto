@@ -10,9 +10,9 @@ atv.onGenerateRequest = function(request) {
 atv.config = {
 	"doesJavaScriptLoadRoot" : true,
 	"DEBUG_LEVEL" : 4,
-	"ROOT_URL" : "http://180.153.225.136:8580/index.xml",
+	"ROOT_URL" : "http://10.0.1.5:8580/index.xml",
 };
-baseURL = 'http://180.153.225.136:8000';
+baseURL = 'http://10.0.1.5:8000';
 atv.sessionStorage['baseURL'] = baseURL;
 function makeErrorDocument(message, description) {
 	if (!message) {
