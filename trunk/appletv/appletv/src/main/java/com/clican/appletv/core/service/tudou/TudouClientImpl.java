@@ -42,6 +42,7 @@ public class TudouClientImpl extends BaseClient implements TudouClient {
 					JSONObject obj = albumArray.getJSONObject(i);
 					TudouAlbum tv = (TudouAlbum) JSONObject.toBean(obj,
 							TudouAlbum.class);
+					tv.setIsalbum(1);
 					tv.setAreaDesc(obj.getString("areas_desc"));
 					tv.setTypeDesc(obj.getString("type_desc"));
 					result.add(tv);
