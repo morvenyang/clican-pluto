@@ -1048,7 +1048,6 @@ ATVUtils = {
 		logger.debug("loadURL:" + url);
 		atv.loadURL(url);
 	},
-	atvu.loadAction('sohu.main','');
 	
 	loadAction : function(fname, vname, args, nopage) {
 		try {
