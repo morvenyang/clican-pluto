@@ -6,6 +6,8 @@
 <head>
 <script type="text/javascript" src="<%=request.getAttribute("serverurl")%>/javascript/clican.js?ver=1"></script>
 <script type="text/javascript" src="<%=request.getAttribute("serverurl")%>/javascript/qq.js?ver=2"></script>
+<script type="text/javascript" src="<%=request.getAttribute("serverurl")%>/javascript/yyets.js"></script>
+<script type="text/javascript" src="<%=request.getAttribute("serverurl")%>/javascript/jquery-1.9.1.min.js"></script>
 <script type="text/javascript" src="<%=request.getAttribute("serverurl")%>/javascript/ejs.js"></script>
 <script type="text/javascript" src="<%=request.getAttribute("serverurl")%>/javascript/taobao.js"></script>
 <script type="text/javascript" src="<%=request.getAttribute("serverurl")%>/javascript/photoPreview.js"></script>
@@ -49,6 +51,7 @@
 <input type="button" onclick="userconfig.loadConfigPage();" value="设置"/>
 <input type="button" onclick="appletv.showInputTextPage('设置本地服务器IP','本地服务器用于代理视频内容的加载,提升加载速度减少延迟卡顿现象',userconfig.saveLocalServerIP,'userconfig.saveLocalServerIP','');" value="设置IP" />
 <input type="button" onclick="appletv.playM3u8('http://localhost/m4u8')" value="play m3u8" />
-
+<br/>
+<input type="button" onclick="yyetsClient.loadIndexPage('',1,'movie');" value="人人影视"/>
 </body>
 </html>
