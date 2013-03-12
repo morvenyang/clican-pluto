@@ -388,4 +388,18 @@ var appletv = {
 		}
 	},
 	
+	findall : function(restr, data) {
+		var rss = new Array();
+		var re = new RegExp(restr, "g");
+		while (true) {
+			rs = re.exec(data);
+			if (rs == null)
+				break;
+			rs.shift();
+			rss.push(rs);
+		}
+		;
+		return rss;
+	},
+	
 };
