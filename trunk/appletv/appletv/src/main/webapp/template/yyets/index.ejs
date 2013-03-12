@@ -4,6 +4,7 @@
 <script src="<%=serverurl%>/javascript/clican.js"/>
 <script src="<%=serverurl%>/javascript/ejs.js"/>
 <script src="<%=serverurl%>/javascript/yyets.js"/>
+<script src="<%=serverurl%>/javascript/jquery-1.9.1.min.js"/>
 </head>
 <body>
 <scroller id="com.sample.movie-shelf">
@@ -19,7 +20,7 @@
 									<defaultImage>resource://Poster.png</defaultImage>
 								</moviePoster>
 							<%}else{%>
-								<moviePoster id="shelf_item_<%=channels[i]['value']%>" alwaysShowTitles="true" featured="true" onSelect="yyetsClient.loadIndexPage('',0,<%=channels[i]['value']%>);" onPlay="yyetsClient.loadIndexPage('',0,<%=channels[i]['value']%>);">
+								<moviePoster id="shelf_item_<%=channels[i]['value']%>" alwaysShowTitles="true" featured="true" onSelect="yyetsClient.loadIndexPage('',1,<%=channels[i]['value']%>);" onPlay="yyetsClient.loadIndexPage('',1,<%=channels[i]['value']%>);">
 									<title><%=channels[i]['label']%></title>
 									<defaultImage>resource://Poster.png</defaultImage>
 								</moviePoster>

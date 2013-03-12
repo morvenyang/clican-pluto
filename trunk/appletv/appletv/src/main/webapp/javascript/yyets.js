@@ -27,6 +27,7 @@ var yyetsClient = {
 				if (htmlContent == null) {
 					return;
 				}
+				var videos = [];
 				jQuery.each(jQuery(htmlContent).find("li.resli"),function(i,value){
 					var resli = jQuery(value);
 					var img = resli.find("img").attr("src");
