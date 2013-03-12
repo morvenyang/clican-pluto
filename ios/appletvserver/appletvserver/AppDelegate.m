@@ -7,6 +7,8 @@
 //
 
 #import "AppDelegate.h"
+#import "RootViewController.h"
+#import "XunLeiLoginViewController.h"
 #import "QQIndexViewController.h"
 #import "QQVideoViewController.h"
 #import "QQPlayViewController.h"
@@ -61,6 +63,10 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     self.m3u8Process = [[M3u8Process alloc] init];
     self.mp4Process = [[Mp4Process alloc] init];
 }
+-(void) initEnvironment{
+    NSHTTPCookieStorage* cookieStorage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+    [cookieStorage setCookieAcceptPolicy:NSHTTPCookieAcceptPolicyAlways];
+}
 -(void) initDocument{
     NSArray *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *m3u8Outpath = [[path objectAtIndex:0] stringByAppendingFormat:@"%@",@"/temp/m3u8/"];
@@ -85,6 +91,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     [self initQueue];
     [self initDocument];
     [self initProcess];
+    [self initEnvironment];
     // Configure our logging framework.
 	// To keep things simple and fast, we're just going to log to the Xcode console.
 	[DDLog addLogger:[DDTTYLogger sharedInstance]];
@@ -119,8 +126,12 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     TTURLMap* map = navigator.URLMap;
     [map from:@"atvserver://ffmpeg" toSharedViewController:
      [FFMpegPlayViewController class]];
+    [map from:@"atvserver://root" toSharedViewController:
+     [RootViewController class]];
     [map from:@"atvserver://main" toSharedViewController:
      [MainViewController class]];
+    [map from:@"atvserver://xunlei/login" toSharedViewController:
+     [XunLeiLoginViewController class]];
     [map from:@"atvserver://qq/index" toSharedViewController:
      [QQIndexViewController class]];
     [map from:@"atvserver://qq/video/(initWithVid:)" toSharedViewController:
@@ -128,7 +139,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     [map from:@"atvserver://qq/play/(initWithVideoItemId:)/(vid:)" toSharedViewController:
      [QQPlayViewController class]];
     if (![navigator restoreViewControllers]) {
-        [navigator openURLAction:[TTURLAction actionWithURLPath:@"atvserver://main"]];
+        [navigator openURLAction:[TTURLAction actionWithURLPath:@"atvserver://root"]];
     }
     
     return YES;

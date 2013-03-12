@@ -44,22 +44,23 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
 
         NSData *response = [replaceContent dataUsingEncoding:NSUTF8StringEncoding];
         return [[HTTPDataResponse alloc] initWithData:response];
-    }else if([path rangeOfString:@"/appletv/proxy/m3u8"].location!=NSNotFound){
+    }else if([path rangeOfString:@"/appletv/proxy.m3u8"].location!=NSNotFound){
         NSString* m3u8Url = [[self parseGetParams] objectForKey:@"url"];
         NSLog(@"m3u8 url:%@",m3u8Url);
         NSString* localM3u8String = [[AppDele m3u8Process] doSyncRequestByM3U8Url:m3u8Url start:YES];
         if(localM3u8String!=nil){
             NSData *data = [localM3u8String dataUsingEncoding:NSUTF8StringEncoding];
-            HTTPDataHeaderResponse* resp=[[HTTPDataHeaderResponse alloc] initWithData:data];
-            [[resp httpHeaders] setValue:@"audio/x-mpegurl" forKey:@"Content-Type"];
+            HTTPDataResponse* resp=[[HTTPDataResponse alloc] initWithData:data];
             return resp;
         }else{
             return nil;
         }
     }else if([path rangeOfString:@"/appletv/temp/m3u8"].location!=NSNotFound){
-        NSString* localPath = [path stringByReplacingOccurrencesOfString:@"/appletv/temp/m3u8/" withString:[AppDele localM3u8PathPrefix]];
         NSString* m3u8Url = [[self parseGetParams] objectForKey:@"m3u8Url"];
         NSLog(@"m3u8Url=%@",m3u8Url);
+        NSRange range = [path rangeOfString:@"?"];
+        path = [path substringWithRange:NSMakeRange(0, range.location)];
+        NSString* localPath = [path stringByReplacingOccurrencesOfString:@"/appletv/temp/m3u8/" withString:[AppDele localM3u8PathPrefix]];
         if([[AppDele m3u8Process] m3u8Url]==nil||![[[AppDele m3u8Process] m3u8Url] isEqualToString:m3u8Url]){
             NSLog(@"m3u8Url is changed, we must reprocess it");
             [[AppDele m3u8Process] doSyncRequestByM3U8Url:m3u8Url start:NO];
@@ -69,6 +70,9 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
         NSLog(@"get m3u8 from localPath:%@",localPath);
         BOOL seek = YES;
         while(true){
+            if(![m3u8Url isEqualToString:[AppDele m3u8Process].m3u8Url]){
+                break;
+            }
             if([[NSFileManager defaultManager] fileExistsAtPath:localPath]){
                 HTTPFileResponse* resp = [[HTTPFileResponse alloc] initWithFilePath:localPath forConnection:self];
                 return resp;
@@ -82,7 +86,7 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
             }
         }
        
-    }else if([path rangeOfString:@"/appletv/proxy/mp4"].location!=NSNotFound){
+    }else if([path rangeOfString:@"/appletv/proxy.mp4"].location!=NSNotFound){
         NSString* mp4Url = [[self parseGetParams] objectForKey:@"url"];
         NSLog(@"mp4 url:%@",mp4Url);
         Mp4Download* mp4Download = [AppDele mp4Process].mp4Download;
