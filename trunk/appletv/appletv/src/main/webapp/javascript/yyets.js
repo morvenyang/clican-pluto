@@ -22,21 +22,25 @@ var yyetsClient = {
 		loadIndexPage:function(keyword,page,channelId){
 			var url = yyetsSearchApi+"?c="+channelId+"&page="+page;
 			var channel = this.yyetsChannelMap[channelId];
-			appletv.makeRequest(url,function(htmlContent){
-				appletv.logToServer(htmlContent);
-				if (htmlContent == null) {
-					return;
-				}
-				var videos = [];
-				jQuery.each(jQuery(htmlContent).find("li.resli"),function(i,value){
-					var resli = jQuery(value);
-					var img = resli.find("img").attr("src");
-					var title = resli.find("h2.fl").find("a").text();
-					var id = resli.find("h2.fl").find("a").attr("href").replace("/resources/","");
-					video = {pic:img,id:id,title:title};
-					videos.push(video);
+			appletv.makeRequest('http://10.0.1.5/appletv/javascript/jquery-1.9.1.min.js',function(jsContent){
+				appletv.logToServer('get js content');
+				eval(jsContent);
+				appletv.makeRequest(url,function(htmlContent){
+					appletv.logToServer('get html content');
+					if (htmlContent == null) {
+						return;
+					}
+					var videos = [];
+					jQuery.each(jQuery(htmlContent).find("li.resli"),function(i,value){
+						var resli = jQuery(value);
+						var img = resli.find("img").attr("src");
+						var title = resli.find("h2.fl").find("a").text();
+						var id = resli.find("h2.fl").find("a").attr("href").replace("/resources/","");
+						video = {pic:img,id:id,title:title};
+						videos.push(video);
+					});
+	                yyetsClient.generateIndexPage(keyword,page,channel,videos);
 				});
-                yyetsClient.generateIndexPage(keyword,page,channel,videos);
 			});
 		},
 		
