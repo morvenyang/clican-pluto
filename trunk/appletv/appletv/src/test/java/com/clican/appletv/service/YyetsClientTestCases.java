@@ -13,7 +13,7 @@ public class YyetsClientTestCases extends BaseServiceTestCase {
 	}
 
 	public void testAPI() throws Exception {
-		String url = "http://ziyuan.kehuduan.rryingshi.com:20066/resources?c=movie";
+		String url = "http://ziyuan.kehuduan.rryingshi.com:20066/resources?c=movie&page=1";
 		String content = tudouClient.httpGet(url);
 		System.out.println(content);
 	}
