@@ -69,4 +69,12 @@
     return address;
 }
 
++ (NSString*)encodeURL:(NSString *)string
+{
+	NSString *newString = [NSMakeCollectable(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)string, NULL, CFSTR(":/?#[]@!$ &'()*+,;=\"<>%{}|\\^~`"), CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding))) autorelease];
+	if (newString) {
+		return newString;
+	}
+	return @"";
+}
 @end

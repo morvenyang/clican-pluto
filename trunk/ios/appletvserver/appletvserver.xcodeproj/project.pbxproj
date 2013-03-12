@@ -70,6 +70,8 @@
 		722E989B16E048430058EE11 /* appletv_114x114.png in Resources */ = {isa = PBXBuildFile; fileRef = 722E989A16E048430058EE11 /* appletv_114x114.png */; };
 		7233879D16CB5C890061FBDF /* QQVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7233879C16CB5C890061FBDF /* QQVideoViewController.m */; };
 		723387A016CB5DA10061FBDF /* QQVideoRequestModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7233879F16CB5DA10061FBDF /* QQVideoRequestModel.m */; };
+		72360C4816EED8DD00E0842B /* XunLeiLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 72360C4716EED8DD00E0842B /* XunLeiLoginViewController.m */; };
+		72360C5B16EEDDD700E0842B /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 72360C5A16EEDDD700E0842B /* RootViewController.m */; };
 		7272B39D16C9FC7300E111A7 /* QQIndexRequestModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7272B39C16C9FC7300E111A7 /* QQIndexRequestModel.m */; };
 		7272B3A016C9FD4E00E111A7 /* Video.m in Sources */ = {isa = PBXBuildFile; fileRef = 7272B39F16C9FD4E00E111A7 /* Video.m */; };
 		7272B3A716CA046400E111A7 /* VideoTableItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 7272B3A616CA046400E111A7 /* VideoTableItem.m */; };
@@ -416,6 +418,10 @@
 		7233879C16CB5C890061FBDF /* QQVideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QQVideoViewController.m; sourceTree = "<group>"; };
 		7233879E16CB5DA10061FBDF /* QQVideoRequestModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QQVideoRequestModel.h; sourceTree = "<group>"; };
 		7233879F16CB5DA10061FBDF /* QQVideoRequestModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QQVideoRequestModel.m; sourceTree = "<group>"; };
+		72360C4616EED8DD00E0842B /* XunLeiLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XunLeiLoginViewController.h; sourceTree = "<group>"; };
+		72360C4716EED8DD00E0842B /* XunLeiLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XunLeiLoginViewController.m; sourceTree = "<group>"; };
+		72360C5916EEDDD700E0842B /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
+		72360C5A16EEDDD700E0842B /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
 		7272B39B16C9FC7300E111A7 /* QQIndexRequestModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QQIndexRequestModel.h; sourceTree = "<group>"; };
 		7272B39C16C9FC7300E111A7 /* QQIndexRequestModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QQIndexRequestModel.m; sourceTree = "<group>"; };
 		7272B39E16C9FD4E00E111A7 /* Video.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Video.h; sourceTree = "<group>"; };
@@ -608,10 +614,13 @@
 		7219BBCA16C9EAD900AABA8E /* View */ = {
 			isa = PBXGroup;
 			children = (
+				72360C3C16EED88D00E0842B /* xunlei */,
 				72B83F9216CDE3EF003B2839 /* ffmpeg */,
 				72E748E816C9EE750024B8BB /* qq */,
 				7219BBCB16C9EAFA00AABA8E /* MainViewController.h */,
 				7219BBCC16C9EAFA00AABA8E /* MainViewController.m */,
+				72360C5916EEDDD700E0842B /* RootViewController.h */,
+				72360C5A16EEDDD700E0842B /* RootViewController.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -682,6 +691,15 @@
 				72B9213B16E052250090CA01 /* Mp4HTTPRequest.m */,
 			);
 			name = AISHTTPRequest;
+			sourceTree = "<group>";
+		};
+		72360C3C16EED88D00E0842B /* xunlei */ = {
+			isa = PBXGroup;
+			children = (
+				72360C4616EED8DD00E0842B /* XunLeiLoginViewController.h */,
+				72360C4716EED8DD00E0842B /* XunLeiLoginViewController.m */,
+			);
+			name = xunlei;
 			sourceTree = "<group>";
 		};
 		7272B39A16C9FC5100E111A7 /* Object */ = {
@@ -1347,6 +1365,8 @@
 				721E840816DF4F040047EE2D /* Mp4Download.m in Sources */,
 				721E840B16DF4F1E0047EE2D /* Mp4DownloadPartial.m in Sources */,
 				72B9213C16E052250090CA01 /* Mp4HTTPRequest.m in Sources */,
+				72360C4816EED8DD00E0842B /* XunLeiLoginViewController.m in Sources */,
+				72360C5B16EEDDD700E0842B /* RootViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

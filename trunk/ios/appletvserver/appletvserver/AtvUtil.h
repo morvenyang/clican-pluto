@@ -12,4 +12,5 @@
 }
 +(void)markReflect:(CALayer*)mainLayer image:(UIImage*)img;
 + (NSString*) getIPAddress;
++ (NSString*) encodeURL:(NSString *)string;
 @end
