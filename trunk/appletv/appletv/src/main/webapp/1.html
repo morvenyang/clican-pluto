@@ -1,0 +1,13 @@
+<html>
+<head>
+<script type="text/javascript" src="http://10.0.1.5/appletv/javascript/jquery-1.9.1.min.js"></script>
+</head>
+<body>
+<script type="text/javascript">
+	var htmlContent = "<ul><li>a</li><li>b</li></ul>";
+	jQuery.each(jQuery(htmlContent).find("li"),function(i,value){
+		alert(value.innerHTML);
+	});
+</script>
+</body>
+</html>

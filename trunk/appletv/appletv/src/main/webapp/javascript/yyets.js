@@ -26,25 +26,14 @@ var yyetsClient = {
 				if (htmlContent == null) {
 					return;
 				}
-                var start = d.indexOf('<ul class="boxPadd dashed">');
-                var end = d.indexOf('</ul>', start);
-                var itemstr = d.substring(start, end);
-                var itemlist = itemstr.split('<li class="clearfix">');
+				jQuery.each(jQuery(htmlContent).find("li")){
+					
+				}
+				
+				
                 var videos = [];
                 for (var i = 1; i < itemlist.length; i++) {
-                	var rs = (new RegExp('<a target="_blank" class="imglink" href="http://www.yyets.com/php/resource/(\\d+)"><img src="([^"]*)"></a>')).exec(itemlist[i]);
-                	if (!rs) {
-                		continue;
-                	}
-                	var itemid = rs[1];
-                	var imgurl = rs[2];
-                	var rsn = (new RegExp('<dt><a target="_blank" href="http://www.yyets.com/php/resource/\\d+">【([^<]*)】<strong>《([^<]*)》([^<]*)</strong></a>([^<]*)</dt>')).exec(itemlist[i]);
-                    if (!rsn) {
-                    	continue;
-                    }
-                    var name = rsn[2];
-                    var video = {pic:imageurl,id:itemid,title:name};
-                    videos.push(video);
+                	
                 }
                 yyetsClient.generateIndexPage(keyword,page,channel,videos);
 			});
