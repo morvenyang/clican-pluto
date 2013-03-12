@@ -111,9 +111,6 @@ var yyetsClient = {
                         seasons[format][1][season][1].push([title, size, link]);
                     }
                 };
-                rs = (new RegExp('<font class="f14">说明：(.*?)</font>')).exec(data);
-                if (rs) status = rs[1];
-                else status = '';
                 rs = (new RegExp('<div class="f_l_img">\\s*<a href="([^"]*.jpg)" target="_blank">')).exec(data);
                 if (rs) imgurl = rs[1];
                 else imgurl = '';
@@ -127,18 +124,6 @@ var yyetsClient = {
                 rs = (new RegExp('<li><span>地区：</span><strong>(.*?)</strong>')).exec(data);
                 if (rs) region = rs[1];
                 else region = '';
-                rs = (new RegExp('<font class="f5">制作公司：</font>(.*?)</li>')).exec(data);
-                if (rs) corp = rs[1];
-                else corp = '';
-                rs = (new RegExp('<li><span>语言：</span><strong>(.*?)</strong>')).exec(data);
-                if (rs) lang = rs[1];
-                else lang = '';
-                rs = (new RegExp('<font class="f5">上映日期：</font><label id="pubdate">(.*?)</label></li>')).exec(data);
-                if (rs) pubdate = rs[1];
-                else pubdate = '';
-                rs = (new RegExp('<li><span>英文：</span>(.*?)</li>')).exec(data);
-                if (rs) eng = rs[1];
-                else eng = '';
                 rs = (new RegExp('<li><span>IMDB：</span><a href="" target="_blank"></a>(.*?)</li>')).exec(data);
                 if (rs) imdb = rs[1];
                 else imdb = '';
@@ -152,7 +137,7 @@ var yyetsClient = {
                     desc = sh(desc.replace(/&nbsp;/g, ' '));
                 };
                 
-				var video = {'serverurl':appletv.serverurl,video:{'id':id,area:region,pic:imgurl,title:name,year:year,desc:desc},'items':items};
+				var video = {'serverurl':appletv.serverurl,video:{'id':id,type:ty,score:imdb,area:region,pic:imgurl,title:name,year:year,desc:desc},'seasons':seasons,'formats':formats};
 				var xml = new EJS({url: appletv.serverurl+'/template/yyets/video.ejs'}).render(video);
 				atv.loadAndSwapXML(atv.parseXML(xml));
 			});
