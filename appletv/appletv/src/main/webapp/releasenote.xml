@@ -5,7 +5,6 @@
 		<script src="http://10.0.1.5/appletv/javascript/ejs.js" />
 		<script src="http://10.0.1.5/appletv/javascript/qq.js" />
 		<script src="http://10.0.1.5/appletv/javascript/yyets.js" />
-		<script src="http://10.0.1.5/appletv/javascript/jquery-1.9.1.min.js" />
 	</head>
 	<body>
 		<scroller id="com.sample.movie-shelf">
