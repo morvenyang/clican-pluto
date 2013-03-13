@@ -7,7 +7,6 @@
 <script type="text/javascript" src="<%=request.getAttribute("serverurl")%>/javascript/clican.js?ver=1"></script>
 <script type="text/javascript" src="<%=request.getAttribute("serverurl")%>/javascript/qq.js?ver=2"></script>
 <script type="text/javascript" src="<%=request.getAttribute("serverurl")%>/javascript/yyets.js"></script>
-<script type="text/javascript" src="<%=request.getAttribute("serverurl")%>/javascript/htmlparse.js"></script>
 <script type="text/javascript" src="<%=request.getAttribute("serverurl")%>/javascript/ejs.js"></script>
 <script type="text/javascript" src="<%=request.getAttribute("serverurl")%>/javascript/taobao.js"></script>
 <script type="text/javascript" src="<%=request.getAttribute("serverurl")%>/javascript/photoPreview.js"></script>

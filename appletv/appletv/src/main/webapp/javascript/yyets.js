@@ -28,10 +28,17 @@ var yyetsClient = {
 					return;
 				}
 				var videos = [];
-				
+				var imgs = appletv.findall('<div class="img"><a href="/resources/\\d*" class="resources-list-resource-url"><img src="([^"]*)"',htmlContent);
+				var idAndTitles = appletv.findall('<h2 class="fl"><a href="/resources/(\\d*)" class="resources-list-resource-url">([^<]*)</a>',htmlContent);
+				for (var i = 0; i < imgs.length; i++) {
+					pic = imgs[i][0];
+                    id = idAndTitles[i][0];
+                    title = idAndTitles[i][1];
+                    var video = {"title":title,"id":id,"pic":pic};
+                    videos.push(video);
+                };
                 yyetsClient.generateIndexPage(keyword,page,channel,videos);
 			});
-			
 		},
 		
 		generateIndexPage: function(keyword,page,channel,videos){

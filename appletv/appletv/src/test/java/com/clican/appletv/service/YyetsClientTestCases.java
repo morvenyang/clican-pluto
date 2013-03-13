@@ -12,8 +12,14 @@ public class YyetsClientTestCases extends BaseServiceTestCase {
 		this.tudouClient = tudouClient;
 	}
 
-	public void testAPI() throws Exception {
+	public void testListAPI() throws Exception {
 		String url = "http://ziyuan.kehuduan.rryingshi.com:20066/resources?c=movie&page=1";
+		String content = tudouClient.httpGet(url);
+		System.out.println(content);
+	}
+	
+	public void testVideoAPI() throws Exception {
+		String url = "http://ziyuan.kehuduan.rryingshi.com:20066/resources/29088";
 		String content = tudouClient.httpGet(url);
 		System.out.println(content);
 	}
