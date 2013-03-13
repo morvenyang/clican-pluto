@@ -1,5 +1,5 @@
 var yyetsSearchApi = "http://ziyuan.kehuduan.rryingshi.com:20066/resources";
-var yyetsVideoApi = "http://ziyuan.kehuduan.rryingshi.com:20066/resources/";
+var yyetsVideoApi =  "http://ziyuan.kehuduan.rryingshi.com:20066/resources/";
 var yyetsClient = {
 		yyetsChannels:
 		[
@@ -58,11 +58,13 @@ var yyetsClient = {
 		
 		loadVideoPage: function(id){
 			//atv.loadXML(appletv.makeDialog('加载中...','Loading...'));
-			var url = yyetsVideoApi + itemid;
+			var url = yyetsVideoApi + id;
+			appletv.logToServer(url);
 			appletv.makeRequest(url,function(htmlContent){
 				if (htmlContent == null) {
 					return;
 				}
+				appletv.logToServer(htmlContent);
 				var video;
 				var title = appletv.find('<h2>(.*)</h2>',htmlContent);
 				var pic = appletv.find('<img src="(.*)" />',htmlContent);
@@ -71,9 +73,11 @@ var yyetsClient = {
 				var type = appletv.find('<li><span>类型：</span>(.*)</li>',htmlContent);
 				var dctor = appletv.find('<li><span>导演：</span>(.*)</li>',htmlContent);
 				var actor = appletv.find('<li><span>主演：</span>(.*)</li>',htmlContent);
-				var desc = appletv.find('<div class="f5">(.*|\r\n*)</div>',htmlContent);
+				start = htmlContent.indexOf('<div class="f5">');
+				end = htmlContent.indexOf('</div>',start);
+				var desc = htmlContent.substring(start+'<div class="f5">'.length,end);
 				var items = [];
-				var video = {'serverurl':appletv.serverurl,video:{'id':id,actor:actor,area:'',dctor:dctor,pic:pic,score:score,title:title,year:year,desc:desc},'items':items};
+				var video = {'serverurl':appletv.serverurl,video:{'id':id,actor:actor,area:'',type:type,dctor:dctor,pic:pic,score:score,title:title,year:year,desc:desc},'items':items};
 				var xml = new EJS({url: appletv.serverurl+'/template/yyets/video.ejs'}).render(video);
 				appletv.loadAndSwapXML(xml);
 			});

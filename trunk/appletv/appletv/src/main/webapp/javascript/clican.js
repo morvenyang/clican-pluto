@@ -402,4 +402,16 @@ var appletv = {
 		return rss;
 	},
 	
+	find : function(restr, data) {
+		var rss = new Array();
+		var re = new RegExp(restr, "g");
+		rs = re.exec(data);
+		if(rs!=null){
+			return rs[1];
+		}else{
+			return '';
+		}
+		
+	},
+	
 };
