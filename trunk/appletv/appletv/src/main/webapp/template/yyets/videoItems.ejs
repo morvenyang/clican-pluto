@@ -16,7 +16,11 @@
 			<navigation currentIndex="<%=currentIndex%>">
 				<%for(var i=0;i<seasons.length;i++){%>
 					<navigationItem id="<%=seasons[i]%>">
-						<title><![CDATA[<%=seasons[i]%>]]></title>
+						<%if(seasons[i]=='0'){%>
+							<title></title>
+						<%}else{%>
+							<title><![CDATA[第<%=seasons[i]%>季]]></title>
+						<%}%>
 					</navigationItem>
 				<%}%>
 			</navigation>
