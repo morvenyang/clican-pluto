@@ -113,7 +113,6 @@ var yyetsClient = {
 					}
 					formatseasonmap[dataformat][dataseason].push(data);
 				}
-				appletv.logToServer('size='+formatseasonmap['MP4']['3'].length);
 				var yyetsVideoCache = {'formatseasonmap':formatseasonmap,'seasons':seasons,'title':title,'pic':pic};
 				appletv.setValue('yyetsVideoCache',yyetsVideoCache);
 				var video = {'serverurl':appletv.serverurl,video:{'id':id,actor:actor,area:'',type:type,dctor:dctor,pic:pic,score:score,title:title,year:year,desc:desc},'formats':formats};
