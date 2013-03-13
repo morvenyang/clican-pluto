@@ -25,8 +25,8 @@
 					<menuSection>
 						<items>
 							<%for(var i=0;i<items.length;i++){%>
-								<oneLineMenuItem id="albumItem_<%=i%>" onSelect="">
-									<label><%=items[i]%></label>
+								<oneLineMenuItem id="albumItem_<%=i%>" onSelect="<%=items[i]['url']%>">
+									<label><![CDATA[<%=items[i]['title']%>]]></label>
 								</oneLineMenuItem>
 							<%}%>
 						</items>
