@@ -1,8 +1,8 @@
 var appletv = {
 	logEnable : true,
 	logSeverity : 'DEBUG',
-	simulate : true,
-	serverurl : 'http://127.0.0.1/appletv',
+	simulate : false,
+	serverurl : 'http://10.0.1.5/appletv',
 	isUseProxyServer : function() {
 		return true;
 	},
