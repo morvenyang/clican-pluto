@@ -22,8 +22,9 @@ var yyetsClient = {
 		loadIndexPage:function(keyword,page,channelId){
 			var url = yyetsSearchApi+"?c="+channelId+"&page="+page;
 			var channel = this.yyetsChannelMap[channelId];
-			appletv.makeRequest('http://10.0.1.5/appletv/javascript/jquery-1.9.1.min.js',function(jsContent){
+			appletv.makeRequest('http://127.0.0.1/appletv/javascript/jquery.js',function(jsContent){
 				appletv.logToServer('get js content');
+				var window = {location:'http://clican.org',document:document};
 				eval(jsContent);
 				appletv.makeRequest(url,function(htmlContent){
 					appletv.logToServer('get html content');
