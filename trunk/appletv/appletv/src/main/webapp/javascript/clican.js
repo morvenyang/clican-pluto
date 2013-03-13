@@ -416,8 +416,33 @@ var appletv = {
 	
 	substring : function(data,startstr,endstr) {
 		start = data.indexOf(startstr);
-		end = data.indexOf(endstr,start);
+		if(start<0){
+			return '';
+		}
+		end = data.indexOf(endstr,start+startstr.length);
+		if(end<0){
+			return '';
+		}
 		return data.substring(start+startstr.length,end);
+	},
+	
+	getSubValues : function(data,startstr,endstr) {
+		var values=[];
+		start = 0;
+		while(start>=0){
+			start = data.indexOf(startstr,start);
+			if(start<0){
+				break;
+			}
+			end = data.indexOf(endstr,start+startstr.length);
+			if(end<0){
+				break;
+			}
+			temp =  data.substring(start+startstr.length,end);
+			values.push(temp);
+			start = end+endstr.length;
+		}
+		return values
 	},
 	
 };

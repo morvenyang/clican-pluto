@@ -64,7 +64,7 @@ var yyetsClient = {
 				if (htmlContent == null) {
 					return;
 				}
-				appletv.logToServer(htmlContent);
+				
 				var video;
 				var title = appletv.substring(htmlContent,'<h2>','</h2>');
 				var pic = appletv.substring(htmlContent,'<img src="','"');
@@ -75,7 +75,42 @@ var yyetsClient = {
 				var actor = appletv.substring(htmlContent,'<li><span>主演：</span>','</li>');
 				var desc = appletv.substring(htmlContent,'<div class="f5">','</div>');
 				var items = [];
-				var video = {'serverurl':appletv.serverurl,video:{'id':id,actor:actor,area:'',type:type,dctor:dctor,pic:pic,score:score,title:title,year:year,desc:desc},'items':items};
+				var formatcontent = appletv.substring(htmlContent,'<div class="desc_tit">','</div>');
+				var resourceitems= appletv.getSubValues(htmlContent,'<li class="resource-item"','</li>');
+				var seasoncontent = appletv.substring(htmlContent,'<div class="season_tit">','</div>');
+				
+				
+				var formats = appletv.getSubValues(formatcontent,'data-value="','"');
+				
+				
+				index = formats.indexOf("all");
+				var formatseasonmap = {};
+				k=0;
+				if(index>=0){
+					formats.splice(index, 1);
+				}
+				var seasons = appletv.getSubValues(seasoncontent,'data-value="','"');
+				
+				
+				index = seasons.indexOf("all");
+				if(index>=0){
+					seasons.splice(index, 1);
+				}
+				for(i=0;i<formats.length;i++){
+					formatseasonmap[formats[i]] = {};
+					for(j=0;j<seasons.length;j++){
+						formatseasonmap[formats[i]][seasons[j]]=[];
+					}
+				}
+				for(i=0;i<resourceitems.length;i++){
+					resourceitem = resourceitems[i];
+					dataformat = appletv.substring(resourceitem,'data-format="','"');
+					dataseason = appletv.substring(resourceitem,'data-season="','"');
+					datafile = 'ed2k'+appletv.substring(resourceitem,'href="ed2k','"');
+					appletv.logToServer(dataformat+","+dataseason+","+datafile);
+					formatseasonmap[dataformat][dataseason].push(datafile);
+				}
+				var video = {'serverurl':appletv.serverurl,video:{'id':id,actor:actor,area:'',type:type,dctor:dctor,pic:pic,score:score,title:title,year:year,desc:desc},'formats':formats};
 				var xml = new EJS({url: appletv.serverurl+'/template/yyets/video.ejs'}).render(video);
 				appletv.loadAndSwapXML(xml);
 			});
