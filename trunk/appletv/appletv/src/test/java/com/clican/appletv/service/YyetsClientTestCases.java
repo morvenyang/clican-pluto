@@ -23,4 +23,6 @@ public class YyetsClientTestCases extends BaseServiceTestCase {
 		String content = tudouClient.httpGet(url);
 		System.out.println(content);
 	}
+	
+	
 }
