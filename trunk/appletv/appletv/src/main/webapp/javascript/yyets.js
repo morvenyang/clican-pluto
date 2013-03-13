@@ -57,7 +57,7 @@ var yyetsClient = {
 		},
 		
 		loadVideoPage: function(id){
-			atv.loadXML(appletv.makeDialog('加载中...','Loading...'));
+			//atv.loadXML(appletv.makeDialog('加载中...','Loading...'));
 			var url = yyetsVideoApi + itemid;
 			appletv.makeRequest(url,function(htmlContent){
 				if (htmlContent == null) {
@@ -75,7 +75,7 @@ var yyetsClient = {
 				var items = [];
 				var video = {'serverurl':appletv.serverurl,video:{'id':id,actor:actor,area:'',dctor:dctor,pic:pic,score:score,title:title,year:year,desc:desc},'items':items};
 				var xml = new EJS({url: appletv.serverurl+'/template/yyets/video.ejs'}).render(video);
-				atv.loadAndSwapXML(atv.parseXML(xml));
+				appletv.loadAndSwapXML(xml);
 			});
 		},
 		
