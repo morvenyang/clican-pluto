@@ -1,5 +1,5 @@
 var yyetsSearchApi = "http://ziyuan.kehuduan.rryingshi.com:20066/resources";
-var yyetsVideoApi = "http://www.yyets.com/php/resource/";
+var yyetsVideoApi = "http://ziyuan.kehuduan.rryingshi.com:20066/resources/";
 var yyetsClient = {
 		yyetsChannels:
 		[
@@ -64,6 +64,7 @@ var yyetsClient = {
 					return;
 				}
 				var video;
+				
 				var xml = new EJS({url: appletv.serverurl+'/template/yyets/video.ejs'}).render(video);
 				atv.loadAndSwapXML(atv.parseXML(xml));
 			});
