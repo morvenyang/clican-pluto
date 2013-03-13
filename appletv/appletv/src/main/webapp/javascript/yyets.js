@@ -23,20 +23,12 @@ var yyetsClient = {
 			var url = yyetsSearchApi+"?c="+channelId+"&page="+page;
 			var channel = this.yyetsChannelMap[channelId];
 			appletv.makeRequest(url,function(htmlContent){
-				appletv.logToServer('get html content');
+				appletv.logToServer(htmlContent);
 				if (htmlContent == null) {
 					return;
 				}
 				var videos = [];
-				var dom = htmlparse.HTMLParser(htmlContent);
-				htmlparse.each(htmlparse.find(dom,"li.resli"),function(i,value){
-					var resli = value;
-					var img = htmlparse.find(resli,"img").getAttribute("src");
-					var title = htmlparse.find(htmlparse.find(resli,"h2.fl"),"a").textContent;
-					var id = htmlparse.find(htmlparse.find(resli,"h2.fl"),"a").getAttribute("href").replace("/resources/","");
-					video = {pic:img,id:id,title:title};
-					videos.push(video);
-				});
+				
                 yyetsClient.generateIndexPage(keyword,page,channel,videos);
 			});
 			
