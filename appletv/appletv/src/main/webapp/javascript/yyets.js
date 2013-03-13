@@ -64,7 +64,6 @@ var yyetsClient = {
 				if (htmlContent == null) {
 					return;
 				}
-				appletv.logToServer('OK1');
 				var video;
 				var title = appletv.substring(htmlContent,'<h2>','</h2>');
 				var pic = appletv.substring(htmlContent,'<img src="','"');
@@ -107,8 +106,14 @@ var yyetsClient = {
 					dataformat = appletv.substring(resourceitem,'data-format="','"');
 					dataseason = appletv.substring(resourceitem,'data-season="','"');
 					datafile = 'ed2k'+appletv.substring(resourceitem,'href="ed2k','"');
-					formatseasonmap[dataformat][dataseason].push(datafile);
+					title = appletv.substring(datafile,"file|","|");
+					data = {"url":datafile,"title":title};
+					if(dataformat=='MP4'&&dataseason=='3'){
+						appletv.logToServer(dataformat+","+dataseason+","+title);
+					}
+					formatseasonmap[dataformat][dataseason].push(data);
 				}
+				appletv.logToServer('size='+formatseasonmap['MP4']['3'].length);
 				var yyetsVideoCache = {'formatseasonmap':formatseasonmap,'seasons':seasons,'title':title,'pic':pic};
 				appletv.setValue('yyetsVideoCache',yyetsVideoCache);
 				var video = {'serverurl':appletv.serverurl,video:{'id':id,actor:actor,area:'',type:type,dctor:dctor,pic:pic,score:score,title:title,year:year,desc:desc},'formats':formats};
@@ -138,11 +143,8 @@ var yyetsClient = {
 				var items;
 				var currentIndex=0;
 				if(season==null||season.length==0){
-					for(i=0;i<newseasons.length;i++){
-						season = newseasons[i];
-						items = seasonmap[season];
-						currentIndex=i;
-					}
+					season = newseasons[0];
+					items = seasonmap[season];
 				}
 				var video = {'serverurl':appletv.serverurl,"title":title,"pic":pic,"items":items,"seasons":newseasons,"format":format,"currentIndex":currentIndex};
 				var xml = new EJS({url: appletv.serverurl+'/template/yyets/videoItems.ejs'}).render(video);
