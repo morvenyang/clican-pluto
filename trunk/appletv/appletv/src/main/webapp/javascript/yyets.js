@@ -208,7 +208,7 @@ var yyetsClient = {
 
 	listVideosInFormat : function(format, season) {
 		appletv.getValue('yyetsVideoCache', function(yyetsVideoCache) {
-			var yvc = JSON.parse(yyetsVideoCache);
+			var yvc = yyetsVideoCache;
 			var seasons = yvc['seasons'];
 			var newseasons = [];
 
