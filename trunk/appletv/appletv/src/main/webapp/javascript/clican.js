@@ -414,4 +414,10 @@ var appletv = {
 		
 	},
 	
+	substring : function(data,startstr,endstr) {
+		start = data.indexOf(startstr);
+		end = data.indexOf(endstr,start);
+		return data.substring(start+startstr.length,end);
+	},
+	
 };

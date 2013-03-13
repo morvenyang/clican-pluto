@@ -66,16 +66,14 @@ var yyetsClient = {
 				}
 				appletv.logToServer(htmlContent);
 				var video;
-				var title = appletv.find('<h2>(.*)</h2>',htmlContent);
-				var pic = appletv.find('<img src="(.*)" />',htmlContent);
-				var score = appletv.find('<font class="point">(.*)</font>',htmlContent);
-				var year = appletv.find('<li><span>年代：</span>(.*)</li>',htmlContent);
-				var type = appletv.find('<li><span>类型：</span>(.*)</li>',htmlContent);
-				var dctor = appletv.find('<li><span>导演：</span>(.*)</li>',htmlContent);
-				var actor = appletv.find('<li><span>主演：</span>(.*)</li>',htmlContent);
-				start = htmlContent.indexOf('<div class="f5">');
-				end = htmlContent.indexOf('</div>',start);
-				var desc = htmlContent.substring(start+'<div class="f5">'.length,end);
+				var title = appletv.substring(htmlContent,'<h2>','</h2>');
+				var pic = appletv.substring(htmlContent,'<img src="','"');
+				var score = appletv.substring(htmlContent,'<font class="point">','</font>');
+				var year = appletv.substring(htmlContent,'<li><span>年代：</span>','</li>');
+				var type = 	appletv.substring(htmlContent,'<li><span>类型：</span>','</li>');
+				var dctor = appletv.substring(htmlContent,'<li><span>导演：</span>','</li>');
+				var actor = appletv.substring(htmlContent,'<li><span>主演：</span>','</li>');
+				var desc = appletv.substring(htmlContent,'<div class="f5">','</div>');
 				var items = [];
 				var video = {'serverurl':appletv.serverurl,video:{'id':id,actor:actor,area:'',type:type,dctor:dctor,pic:pic,score:score,title:title,year:year,desc:desc},'items':items};
 				var xml = new EJS({url: appletv.serverurl+'/template/yyets/video.ejs'}).render(video);
