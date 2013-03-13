@@ -9,11 +9,11 @@
 		<listByNavigation id="bbbb" onNavigate="yyetsClient.listVideosInFormat('<%=format%>',event.navigationItemId);">
 			<header>
 				<simpleHeader horizontalAlignment="left">
-					<title><![CDATA[<%=video['title']%>]]></title>
-					<image src="<%=video['pic']%>"></image>
+					<title><![CDATA[<%=title%>]]></title>
+					<image src="<%=pic%>"></image>
 				</simpleHeader>
 			</header>
-			<navigation>
+			<navigation currentIndex="<%=currentIndex%>">
 				<%for(var i=0;i<seasons.length;i++){%>
 					<navigationItem id="<%=seasons[i]%>">
 						<title><![CDATA[<%=seasons[i]%>]]></title>
@@ -25,8 +25,8 @@
 					<menuSection>
 						<items>
 							<%for(var i=0;i<items.length;i++){%>
-								<oneLineMenuItem id="albumItem_<%=i%>" onPlay="yyetsClient.playVideo('<%=items[i]['vid']%>');" onSelect="qqClient.playVideo('<%=items[i]['vid']%>');">
-									<label><%=items[i]['title']%></label>
+								<oneLineMenuItem id="albumItem_<%=i%>" onSelect="">
+									<label><%=items[i]%></label>
 								</oneLineMenuItem>
 							<%}%>
 						</items>

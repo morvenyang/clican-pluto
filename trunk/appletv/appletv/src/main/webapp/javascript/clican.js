@@ -349,7 +349,7 @@ var appletv = {
 		if(!this.simulate){
 			atv.localStorage[key] = value;
 		}else{
-			var payload = {name:key,value:value};
+			var payload = {"name":key,"value":value};
 			appletv.makePostRequest(appletv.serverurl+'/ctl/setValue.do', JSON.stringify(payload), function(result){
 				
 			});
@@ -360,11 +360,9 @@ var appletv = {
 		if(!this.simulate) {
 			callback(atv.localStorage[key]);
 		}else{
-			else{
-				appletv.makeRequest(appletv.serverurl+'/ctl/getValue.do?name='+key, function(result){
-					callback(result);
-				});
-			}
+			appletv.makeRequest(appletv.serverurl+'/ctl/getValue.do?name='+key, function(result){
+				callback(result);
+			});
 		}
 	},
 	

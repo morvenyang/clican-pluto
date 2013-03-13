@@ -53,6 +53,6 @@
 <br/>
 <input type="button" onclick="yyetsClient.loadIndexPage('',1,'movie');" value="人人影视"/>
 <input type="button" onclick="yyetsClient.loadVideoPage('11057');" value="视频"/>
-
+<input type="button" onclick="yyetsClient.listVideosInFormat('MP4','');" value="视频list"/>
 </body>
 </html>
