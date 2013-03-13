@@ -64,7 +64,16 @@ var yyetsClient = {
 					return;
 				}
 				var video;
-				
+				var title = appletv.find('<h2>(.*)</h2>',htmlContent);
+				var pic = appletv.find('<img src="(.*)" />',htmlContent);
+				var score = appletv.find('<font class="point">(.*)</font>',htmlContent);
+				var year = appletv.find('<li><span>年代：</span>(.*)</li>',htmlContent);
+				var type = appletv.find('<li><span>类型：</span>(.*)</li>',htmlContent);
+				var dctor = appletv.find('<li><span>导演：</span>(.*)</li>',htmlContent);
+				var actor = appletv.find('<li><span>主演：</span>(.*)</li>',htmlContent);
+				var desc = appletv.find('<div class="f5">(.*|\r\n*)</div>',htmlContent);
+				var items = [];
+				var video = {'serverurl':appletv.serverurl,video:{'id':id,actor:actor,area:'',dctor:dctor,pic:pic,score:score,title:title,year:year,desc:desc},'items':items};
 				var xml = new EJS({url: appletv.serverurl+'/template/yyets/video.ejs'}).render(video);
 				atv.loadAndSwapXML(atv.parseXML(xml));
 			});
