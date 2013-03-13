@@ -110,7 +110,7 @@ var yyetsClient = {
 					appletv.logToServer(dataformat+","+dataseason+","+datafile);
 					formatseasonmap[dataformat][dataseason].push(datafile);
 				}
-				var yyetsVideoCache = {'formatseasonmap':formatseasonmap,'seasons':seasons};
+				var yyetsVideoCache = {'formatseasonmap':formatseasonmap,'seasons':seasons,'title':title,'pic':pic};
 				appletv.setValue('yyetsVideoCache',yyetsVideoCache);
 				var video = {'serverurl':appletv.serverurl,video:{'id':id,actor:actor,area:'',type:type,dctor:dctor,pic:pic,score:score,title:title,year:year,desc:desc},'formats':formats};
 				var xml = new EJS({url: appletv.serverurl+'/template/yyets/video.ejs'}).render(video);
@@ -118,14 +118,19 @@ var yyetsClient = {
 			});
 		},
 		
-		listVideosInFormat:function(format){
+		listVideosInFormat:function(format,season){
 			appletv.getValue('formatseasonmap',function(yyetsVideoCache){
 				var yvc = JSON.parse(yyetsVideoCache);
 				var seasons = yvc['seasons'];
 				var formatseasonmap = yvc['formatseasonmap'];
+				var title = yvc['title'];
+				var pic = yvc['pic'];
 				var seasonmap = formatseasonmap[format];
-				var videos = seasonmap[seasons[0]];
-				
+				if(season==null||season.length==0){
+					season = seasons[0];
+				}
+				var items = seasonmap[season];
+				var video = {"title":title,"pic":pic,"items":items};
 			});
 		},
 }
