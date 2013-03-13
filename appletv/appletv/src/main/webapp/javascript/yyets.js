@@ -64,7 +64,7 @@ var yyetsClient = {
 				if (htmlContent == null) {
 					return;
 				}
-				
+				appletv.logToServer('OK1');
 				var video;
 				var title = appletv.substring(htmlContent,'<h2>','</h2>');
 				var pic = appletv.substring(htmlContent,'<img src="','"');
@@ -107,7 +107,6 @@ var yyetsClient = {
 					dataformat = appletv.substring(resourceitem,'data-format="','"');
 					dataseason = appletv.substring(resourceitem,'data-season="','"');
 					datafile = 'ed2k'+appletv.substring(resourceitem,'href="ed2k','"');
-					appletv.logToServer(dataformat+","+dataseason+","+datafile);
 					formatseasonmap[dataformat][dataseason].push(datafile);
 				}
 				var yyetsVideoCache = {'formatseasonmap':formatseasonmap,'seasons':seasons,'title':title,'pic':pic};
@@ -119,18 +118,35 @@ var yyetsClient = {
 		},
 		
 		listVideosInFormat:function(format,season){
-			appletv.getValue('formatseasonmap',function(yyetsVideoCache){
+			appletv.getValue('yyetsVideoCache',function(yyetsVideoCache){
 				var yvc = JSON.parse(yyetsVideoCache);
 				var seasons = yvc['seasons'];
+				var newseasons = [];
+				
 				var formatseasonmap = yvc['formatseasonmap'];
 				var title = yvc['title'];
 				var pic = yvc['pic'];
 				var seasonmap = formatseasonmap[format];
-				if(season==null||season.length==0){
-					season = seasons[0];
+				
+				for(i=0;i<seasons.length;i++){
+					tempseason = seasons[i];
+					if(seasonmap[tempseason].length>0){
+						newseasons.push(tempseason);
+					}
 				}
-				var items = seasonmap[season];
-				var video = {"title":title,"pic":pic,"items":items};
+				
+				var items;
+				var currentIndex=0;
+				if(season==null||season.length==0){
+					for(i=0;i<newseasons.length;i++){
+						season = newseasons[i];
+						items = seasonmap[season];
+						currentIndex=i;
+					}
+				}
+				var video = {'serverurl':appletv.serverurl,"title":title,"pic":pic,"items":items,"seasons":newseasons,"format":format,"currentIndex":currentIndex};
+				var xml = new EJS({url: appletv.serverurl+'/template/yyets/videoItems.ejs'}).render(video);
+				appletv.loadAndSwapXML(xml);
 			});
 		},
 }
