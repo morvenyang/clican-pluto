@@ -53,4 +53,20 @@ public class XunleiTestCase extends BaseServiceTestCase {
 //		PostResponse pr5 = tudouClient.httpGetForCookie(test, null, null);
 //		System.out.println(pr5.getContent());
 	}
+	
+	public void testPlay() throws Exception{
+		String url = "ed2k://|file|%E8%A1%8C%E5%B0%B8%E8%B5%B0%E8%82%89.The.Walking.Dead.S03E13.Chi_Eng.HDTVrip.720X400.mp4|203034532|CD40755A174FE5EA525208DA18DD3333|h=FCU3MZ65SO2FDBVQZ2IQPKG2TJJHKFBY|/";
+		String userid="5663595";
+		String sessionid = "75F30341DD84F450A07B5F048941BDA785F6AC3A12F9A04ADD949849CD339CC26B882B5F062969E7F71BF99995D9719814CB2E481F15545E89D85D6161F9649A";
+		String xunleiurl = "http://i.vod.xunlei.com/req_get_method_vod?url="
+		+ URLEncoder.encode(url,"utf-8") + "&video_name=%E8%A1%8C%E5%B0%B8%E8%B5%B0%E8%82%89.The.Walking.Dead.S03E13.Chi_Eng.HDTVrip.720X400.mp4" + "&platform=1&userid=" + userid
+		+ "&vip=6&sessionid=" + sessionid
+		+ "&cache=" + Calendar.getInstance().getTimeInMillis()
+		+ "&from=vlist&jsonp=XL_CLOUD_FX_INSTANCEqueryBack";
+		String refer = "http://61.147.76.6/iplay.html";
+		Map<String,String> header = new HashMap<String,String>();
+		header.put("Referer", refer);
+		PostResponse pr = tudouClient.httpGetForCookie(xunleiurl, header, null);
+		System.out.println(pr.getContent());
+	}
 }
