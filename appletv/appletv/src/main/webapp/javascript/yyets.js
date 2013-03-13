@@ -110,11 +110,22 @@ var yyetsClient = {
 					appletv.logToServer(dataformat+","+dataseason+","+datafile);
 					formatseasonmap[dataformat][dataseason].push(datafile);
 				}
+				var yyetsVideoCache = {'formatseasonmap':formatseasonmap,'seasons':seasons};
+				appletv.setValue('yyetsVideoCache',yyetsVideoCache);
 				var video = {'serverurl':appletv.serverurl,video:{'id':id,actor:actor,area:'',type:type,dctor:dctor,pic:pic,score:score,title:title,year:year,desc:desc},'formats':formats};
 				var xml = new EJS({url: appletv.serverurl+'/template/yyets/video.ejs'}).render(video);
 				appletv.loadAndSwapXML(xml);
 			});
 		},
 		
-
+		listVideosInFormat:function(format){
+			appletv.getValue('formatseasonmap',function(yyetsVideoCache){
+				var yvc = JSON.parse(yyetsVideoCache);
+				var seasons = yvc['seasons'];
+				var formatseasonmap = yvc['formatseasonmap'];
+				var seasonmap = formatseasonmap[format];
+				var videos = seasonmap[seasons[0]];
+				
+			});
+		},
 }

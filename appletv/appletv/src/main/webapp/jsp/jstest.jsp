@@ -52,5 +52,7 @@
 <input type="button" onclick="appletv.playM3u8('http://localhost/m4u8')" value="play m3u8" />
 <br/>
 <input type="button" onclick="yyetsClient.loadIndexPage('',1,'movie');" value="人人影视"/>
+<input type="button" onclick="yyetsClient.loadVideoPage('11057');" value="视频"/>
+
 </body>
 </html>
