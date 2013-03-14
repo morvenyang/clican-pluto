@@ -52,7 +52,7 @@
 			<items>
 				<%for(var i=0;i<videos.length;i++){%>
 					<%if(channel['value']==1001){%>
-						<moviePoster id="shelf_item_<%=i%>" alwaysShowTitles="true" onSelect="tudouClient.loadAlbumPage('<%=videos[i]['id']%>',<%=channel['value']%>,<%=videos[i]['album']%>);">
+						<moviePoster id="shelf_item_<%=i%>" alwaysShowTitles="true" onSelect="tudouClient.loadAlbumPage('<%=videos[i]['id']%>',<%=channel['value']%>,<%=videos[i]['album']%>,true);">
 							<title><![CDATA[<%=videos[i].title%>]]></title>
 							<image><%=videos[i].pic%></image>
 							<defaultImage>resource://Poster.png</defaultImage>
