@@ -237,6 +237,7 @@ var tudouClient = {
 	},
 
 	loadVideoPage : function(code, channelId, isalbum) {
+		appletv.showLoading();
 		var url = 'http://www.tudou.com/albumcover/' + code + '.html';
 		appletv.makeRequest(url, function(htmlContent) {
 			if (htmlContent == null) {
@@ -245,12 +246,14 @@ var tudouClient = {
 			var itemid = appletv.substring(htmlContent, 'iid: ', ',').trim();
 			itemid = itemid.substring(1, itemid.length - 1);
 			appletv.logToServer('itemid:' + itemid);
-			tudouClient.loadAlbumPage(itemid, channelId, isalbum);
+			tudouClient.loadAlbumPage(itemid, channelId, isalbum,false);
 		});
 	},
 
-	loadAlbumPage : function(itemid, channelId, isalbum) {
-		appletv.showLoading();
+	loadAlbumPage : function(itemid, channelId, isalbum,showloading) {
+		if(showloading){
+			appletv.showLoading();
+		}
 		appletv
 				.makeRequest(
 						'http://minterface.tudou.com/iteminfo?sessionid=GTR7J672EMAAA&origin=&columnid='
@@ -279,7 +282,8 @@ var tudouClient = {
 									'score' : '-',
 									'title' : album['title'],
 									'year' : album['year'],
-									'desc' : album['description']
+									'desc' : album['description'],
+									'shareurl':album['emailshareurl']
 								},
 								items : items
 							};
