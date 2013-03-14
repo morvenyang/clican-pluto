@@ -12,6 +12,7 @@
 <script type="text/javascript" src="<%=request.getAttribute("serverurl")%>/javascript/photoPreview.js"></script>
 <script type="text/javascript" src="<%=request.getAttribute("serverurl")%>/javascript/userconfig.js"></script>
 <script type="text/javascript" src="<%=request.getAttribute("serverurl")%>/javascript/xunlei.js"></script>
+<script type="text/javascript" src="<%=request.getAttribute("serverurl")%>/javascript/tudou.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 </head>
@@ -56,5 +57,8 @@
 <input type="button" onclick="yyetsClient.loadVideoPage('11057');" value="视频"/>
 <input type="button" onclick="yyetsClient.listVideosInFormat('MP4','');" value="视频list"/>
 <input type="button" onclick="xunleiClient.play('ed2k://|file|%E8%A1%8C%E5%B0%B8%E8%B5%B0%E8%82%89.The.Walking.Dead.S03E13.Chi_Eng.HDTVrip.720X400.mp4|203034532|CD40755A174FE5EA525208DA18DD3333|h=FCU3MZ65SO2FDBVQZ2IQPKG2TJJHKFBY|/');" value="播放"/>
+<br/>
+<input type="button" onclick="tudouClient.loadIndexPage('',1,30);" value="土豆电影"/>
+<input type="button" onclick="tudouClient.loadVideoPage('-ls2NGPZcA4',30,1);" value="土豆详细"/>
 </body>
 </html>
