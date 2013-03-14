@@ -4,6 +4,7 @@
 <script src="<%=serverurl%>/javascript/clican.js"/>
 <script src="<%=serverurl%>/javascript/ejs.js"/>
 <script src="<%=serverurl%>/javascript/yyets.js"/>
+<script src="<%=serverurl%>/javascript/xunlei.js"/>
 </head>
 <body>
 		<listByNavigation id="bbbb" onNavigate="yyetsClient.listVideosInFormat('<%=format%>',event.navigationItemId);">
@@ -29,7 +30,7 @@
 					<menuSection>
 						<items>
 							<%for(var i=0;i<items.length;i++){%>
-								<oneLineMenuItem id="albumItem_<%=i%>" onSelect="<%=items[i]['url']%>">
+								<oneLineMenuItem id="albumItem_<%=i%>" onSelect="xunleiClient.play('<%=items[i]['url']%>');">
 									<label><![CDATA[<%=items[i]['title']%>]]></label>
 								</oneLineMenuItem>
 							<%}%>
