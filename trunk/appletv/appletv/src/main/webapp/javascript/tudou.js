@@ -62,10 +62,15 @@ var tudouClient = {
 						var title = appletv.substring(pack,'title="','"');
 						var id = appletv.substring(pack,'<a href="','"');
 						id = appletv.substring(id,'albumcover/','.html');
+						var album = 0;
+						if(channelId==30||channelId==9){
+							album = 1;
+						}
 						var video = {
 								"title" : title,
 								"id" : id,
-								"pic" : pic
+								"pic" : pic,
+								"album":album
 							};
 						videos.push(video);
 					}
@@ -92,56 +97,15 @@ var tudouClient = {
 			appletv.loadAndSwapXML(xml);
 		},
 		
-		loadVideoPage : function(id) {
+		loadVideoPage : function(code,channelId,isalbum) {
 			// atv.loadXML(appletv.makeDialog('加载中...','Loading...'));
-			var url = 'http://www.tudou.com/albumcover/'+id+'.html';
+			var url = 'http://www.tudou.com/albumcover/'+code+'.html';
 			appletv.makeRequest(url, function(htmlContent) {
 				if (htmlContent == null) {
 					return;
 				}
-				var video;
-				
-				var title = appletv.substring(htmlContent, '<h1>', '</h1>');
-				var albumPic = appletv.substringByTag(htmlContent, '<div class="album-pic">', '"</div>','div');
-				var pic = appletv.substring(albumPic,'src="','"');
-				var score = '-';
-				var ulcontent = appletv.substring(htmlContent,'<ul class="album-txt-list">','</ul>');
-				var lis = appletv.getSubValues(ulcontent,'<li','</li>')
-				var actor = appletv.getSubValues(lis[0],'title="','"');
-				var dctor = appletv.getSubValues(lis[1],'title="','"');
-				var area = appletv.substring(lis[2],'<a','</a>');
-				area = area.substring(area.indexOf('>')+1);
-				var types = appletv.getSubValues(lis[3],'<a','</a>');
-				var type = [];
-				for(i=0;i<types.length;i++){
-					type.push(types[i].substring(types[i].indexOf('>')+1)+",");
-				}
-				var year = appletv.substring(lis[4],'<a','</a>');
-				year = year.substring(year.indexOf('>')+1);
-				
-				var desc = appletv.substring(lis[5],'<span id="albumIntroStr">','</span>');
-				
-				var items = [];
-				var video = {
-					'serverurl' : appletv.serverurl,
-					video : {
-						'id' : url,
-						actor : actor,
-						area : area,
-						type : type,
-						dctor : dctor,
-						pic : pic,
-						score : score,
-						title : title,
-						year : year,
-						desc : desc
-					},
-					items:items
-				};
-				var xml = new EJS({
-					url : appletv.serverurl + '/template/tudou/video.ejs'
-				}).render(video);
-				appletv.loadAndSwapXML(xml);
+				var itemid = appletv.substring(htmlContent,'iid: ',',').trim();
+				tudouClient.loadAlbumXml(itemid,,channelId,1,isalbum)
 			});
 		},
 		
