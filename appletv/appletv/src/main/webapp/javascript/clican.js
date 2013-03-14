@@ -3,9 +3,6 @@ var appletv = {
 	logSeverity : 'DEBUG',
 	simulate : false,
 	serverurl : 'http://127.0.0.1/appletv',
-	isUseProxyServer : function() {
-		return true;
-	},
 	
 	getDeviceId: function(){
 		if(appletv.simulate){
