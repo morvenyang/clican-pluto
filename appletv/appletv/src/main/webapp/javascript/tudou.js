@@ -245,7 +245,7 @@ var tudouClient = {
 			var itemid = appletv.substring(htmlContent, 'iid: ', ',').trim();
 			itemid = itemid.substring(1, itemid.length - 1);
 			appletv.logToServer('itemid:' + itemid);
-			tudouClient.loadAlbumXml(itemid, channelId, 1, isalbum);
+			tudouClient.loadAlbumPage(itemid, channelId, isalbum);
 		});
 	},
 
@@ -259,10 +259,10 @@ var tudouClient = {
 							var album = JSON.parse(data);
 							var albumitems = album['albumitems'];
 							var items = [];
-							for ( var i = 0; i < items.length; i++) {
+							for ( var i = 0; i < albumitems.length; i++) {
 								var item = {
 									'title' : '第' + (i + 1) + '集',
-									'id' : items[i]['itemid']
+									'id' : albumitems[i]['itemid']
 								};
 								items.push(item);
 							}
@@ -293,6 +293,8 @@ var tudouClient = {
 
 	loadItemsPage : function(itemid, channelId,st) {
 		appletv.showLoading();
+		appletv.logToServer('http://minterface.tudou.com/iteminfo?sessionid=GTR7J672EMAAA&origin=&columnid='
+								+ channelId + '&itemid=' + itemid + '&ishd=1');
 		appletv
 				.makeRequest(
 						'http://minterface.tudou.com/iteminfo?sessionid=GTR7J672EMAAA&origin=&columnid='
@@ -301,10 +303,10 @@ var tudouClient = {
 							var album = JSON.parse(data);
 							var albumitems = album['albumitems'];
 							var items = [];
-							for ( var i = 0; i < items.length; i++) {
+							for ( var i = 0; i < albumitems.length; i++) {
 								var item = {
 									'title' : '第' + (i + 1) + '集',
-									'id' : items[i]['itemid']
+									'id' : albumitems[i]['itemid']
 								};
 								items.push(item);
 							}
