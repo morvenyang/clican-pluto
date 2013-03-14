@@ -1,4 +1,9 @@
 var tudouClient = {
+		
+		loadIndexPage: function(keyword,page,channelId){
+			
+		},
+		
 		loadAlbumXml : function(itemid, channelId, hd, isalbum) {
 			atv.loadXML(appletv.makeDialog('加载中...', 'Loading...'));
 			appletv.makeRequest(
