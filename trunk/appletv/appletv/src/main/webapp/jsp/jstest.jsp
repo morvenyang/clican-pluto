@@ -11,6 +11,7 @@
 <script type="text/javascript" src="<%=request.getAttribute("serverurl")%>/javascript/taobao.js"></script>
 <script type="text/javascript" src="<%=request.getAttribute("serverurl")%>/javascript/photoPreview.js"></script>
 <script type="text/javascript" src="<%=request.getAttribute("serverurl")%>/javascript/userconfig.js"></script>
+<script type="text/javascript" src="<%=request.getAttribute("serverurl")%>/javascript/xunlei.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 </head>
@@ -54,5 +55,6 @@
 <input type="button" onclick="yyetsClient.loadIndexPage('',1,'movie');" value="人人影视"/>
 <input type="button" onclick="yyetsClient.loadVideoPage('11057');" value="视频"/>
 <input type="button" onclick="yyetsClient.listVideosInFormat('MP4','');" value="视频list"/>
+<input type="button" onclick="xunleiClient.play('');" value="播放"/>
 </body>
 </html>
