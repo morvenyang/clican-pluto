@@ -2,7 +2,7 @@ var appletv = {
 	logEnable : true,
 	logSeverity : 'DEBUG',
 	simulate : true,
-	serverurl : 'http://127.0.0.1/appletv',
+	serverurl : 'http://10.0.1.5/appletv',
 	
 	getDeviceId: function(){
 		if(appletv.simulate){
@@ -316,7 +316,11 @@ var appletv = {
 			atv.loadURL(url);
 		}
 	},
-
+	showLoading :function(){
+		if (!this.simulate) {
+			appletv.showDialog('加载中...','Loading...');
+		}
+	},
 	showDialog : function(message, description) {
 		if (this.simulate) {
 			alert(message);
