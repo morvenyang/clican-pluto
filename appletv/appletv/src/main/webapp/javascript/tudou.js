@@ -1,4 +1,4 @@
-var tudouSearchApi='http://api.tudou.com/v5/wireless.search/3/${tudou.wirelessid}/json/?type=all&pageSize=30&ip=219.142.48.73&os=5.1&ver=2.7.0.12081617&ua=%5BiPad2%2C1%5D%5B5.1.1%5D'
+var tudouSearchApi='http://api.tudou.com/v5/wireless.search/3/4f3cde4bc0a80001c0a80001000000000661570f01/json/?type=all&pageSize=30&ip=219.142.48.73&os=5.1&ver=2.7.0.12081617&ua=%5BiPad2%2C1%5D%5B5.1.1%5D'
 var tudouClient = {
 		
 	tudouChannels:
@@ -52,11 +52,12 @@ var tudouClient = {
 			var queryUrl;
 			if(channelId==1001){
 				queryUrl = tudouSearchApi+'&pageNo='+page+'&kw='+encodeURIComponent(keyword);
+				appletv.logToServer(queryUrl);
 				appletv.makeRequest(queryUrl,function(content){
 					if(content!=null&&content.length>0){
 						var wirelessSearchResult = JSON.parse(content)['wirelessSearchResult'];
 						var albumArray = wirelessSearchResult['albums'];
-						var items = wirelessSearchResult['items'];
+						var itemArray = wirelessSearchResult['items'];
 						
 						if (albumArray != null) {
 							for (i = 0; i < albumArray.length; i++) {
@@ -71,7 +72,7 @@ var tudouClient = {
 						}
 
 						if (itemArray != null) {
-							for (int i = 0; i < itemArray.length; i++) {
+							for (i = 0; i < itemArray.length; i++) {
 								var video = {
 										"title" : itemArray[i]['title'],
 										"id" :  itemArray[i]['itemid'],
