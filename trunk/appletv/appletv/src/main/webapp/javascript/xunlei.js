@@ -2,11 +2,12 @@
 var xunleiClient = {
 	
 	loadXunleiSession:function(callback){
-		appletv.makeRequest(appletv.serverurl+'/local/xunlei/getsession',function(result){
+		appletv.makeRequest(appletv.serverurl+'/ctl/xunlei/getsession.do',function(result){
 			if(result==null||result.length==0){
 				appletv.showDialog('登录过期请在本地服务器上重新登录','');
 			}else{
 				var xunleisession = JSON.parse(result);
+				callback(xunleisession);
 			}
 		});
 	},
@@ -18,13 +19,22 @@ var xunleiClient = {
 			var vip = xunleisession['vip'];
 			var name = appletv.substring(ed2kurl, "file|", "|");
 			var xunleiurl = "http://i.vod.xunlei.com/req_get_method_vod?url="
-					+ encodeURIComponent(url) + "&video_name=" +name+ "&platform=1&userid=" + userid
+					+ encodeURIComponent(ed2kurl) + "&video_name=" +name+ "&platform=1&userid=" + userid
 					+ "&vip=6&sessionid=" + sessionid
 					+ "&cache=" + new Date().getTime()
 					+ "&from=vlist&jsonp=xunleiClient.xunleicallback";
-			appletv.makeRequest(xunleiurl,function(result){
-				eval(result);
-			});
+			if(appletv.simulate){
+				appletv.makePostRequest(appletv.serverurl+"/ctl/xunlei/geturl.do",xunleiurl,function(result){
+					eval(result);
+				});
+			}else{
+				appletv.makeRequest(xunleiurl,function(result){
+					eval(result);
+				},{
+					"Referer" : "http://61.147.76.6/iplay.html"
+				});
+			}
+			
 		});
 	},
 	

@@ -136,7 +136,7 @@ var appletv = {
 		this.makeRequest(url, callback, null);
 	},
 
-	makeRequest : function(url, callback, overrideMimeType) {
+	makeRequest : function(url, callback, headers) {
 		if (!url) {
 			throw "loadURL requires a url argument";
 		}
@@ -179,6 +179,11 @@ var appletv = {
 		}
 
 		xhr.open("GET", url, true);
+		if(headers!=null){
+			for ( var key in headers) {
+				xhr.setRequestHeader(key, headers[key]);
+			}
+		}
 		xhr.send();
 		return xhr;
 	},
