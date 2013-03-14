@@ -1,7 +1,151 @@
+http://www.tudou.com/cate/ach(channel)a-2b-2c-2d-2e-2f-2g-2h-2i-2j-2k-2l-2m-2n-2o-2so1pe-2pa(page).html
 var tudouClient = {
 		
-		loadIndexPage: function(keyword,page,channelId){
+	tudouChannels:
+		[
+		 {label:"推荐",value:1000},
+		 {label:"搜索",value:1001},
+		 {label:"电视剧",value:30},
+		 {label:"电影",value:22},
+		 {label:"综艺",value:31},
+		 {label:"搞笑",value:5},
+		 {label:"热点",value:29},
+		 {label:"动画",value:9},
+		 {label:"原创",value:99},
+		 {label:"娱乐",value:1},
+		 {label:"女性",value:27},
+		 {label:"体育",value:15},
+		 {label:"汽车",value:26},
+		 {label:"科技",value:21},
+		 {label:"风尚",value:32},
+		 {label:"乐活",value:3},
+		 {label:"教育",value:25},
+		 {label:"教育",value:24}
+		],
+		
+		tudouChannelMap:
+		{
+			 "1000":{label:"推荐",value:1000},
+			 "1001":{label:"搜索",value:1001},
+			 "30":{label:"电视剧",value:30},
+			 "22":{label:"电影",value:22},
+			 "31":{label:"综艺",value:31},
+			 "5":{label:"搞笑",value:5},
+			 "29":{label:"热点",value:29},
+			 "9":{label:"动画",value:9},
+			 "99":{label:"原创",value:99},
+			 "1":{label:"娱乐",value:1},
+			 "27":{label:"女性",value:27},
+			 "15":{label:"体育",value:15},
+			 "26":{label:"汽车",value:26},
+			 "21":{label:"科技",value:21},
+			 "32":{label:"风尚",value:32},
+			 "3":{label:"乐活",value:3},
+			 "25":{label:"教育",value:25},
+			 "4":{label:"教育",value:24}
+		},
 			
+		loadIndexPage: function(keyword,page,channelId){
+			appletv.showDialog('加载中...','Loading...');
+			var channel = this.qqChannelMap[channelId];
+			var videos = [];
+			var queryUrl;
+			if(channelId==1001){
+				queryUrl=qqSearchApi+"&comment=1&cur="+page+"&query="+keyword;
+			}else{
+				queryUrl=qqChannelApi+"&page="+page+"&auto_id="+channelId+"&platform="+channel['platform'];
+			}
+			appletv.makeRequest(queryUrl,function(content){
+				if(content!=null&&content.length>0){
+					var jsonContent = content.substring("QZOutputJson=".length,content.length-1);
+					var result = JSON.parse(jsonContent);
+					if(channelId==3){
+						//推荐
+						var datas = result['data'];
+						var content;
+						var video;
+						for(var i=0;i<datas.length;i++){
+							var contents = datas[i]['contents'];
+							for(var j=0;j<contents.length;j++){
+								content = contents[j];
+								if(content['id_type']!=null&&content['id_type']=='t'){
+									continue;
+								}
+								video = {pic:content['v_pic'],id:content['id'],title:content['title'],album:true};
+								
+								videos.push(video);
+							}
+						}
+					}else if(channelId==1001){
+						var contents = result['list'];
+						for(var j=0;j<contents.length;j++){
+							content = contents[j];
+							video = {pic:content['AU'],id:content['ID'],title:content['TI'],album:true};
+							videos.push(video);
+						}
+						var queryUrl2 = qqSearchApi+"&comment=0&cur="+page+"&query="+keyword;
+						appletv.makeRequest(queryUrl2,function(content2){
+							if(content2!=null&&content2.length>0){
+								var jsonContent2 = content2.substring("QZOutputJson=".length,content2.length-1);
+								var result2 = JSON.parse(jsonContent2);
+								var contents2 = result2['list'];
+								for(var j=0;j<contents2.length;j++){
+									content2 = contents2[j];
+									var bn = content2['BN'];
+									if(bn!=null&&bn!='0'){
+										bn = '第'+bn+'集';
+									}else{
+										bn='';
+									}
+									video = {pic:content2['AU'],id:content2['ID'],title:content2['TI'],subTitle:bn,album:false};
+									videos.push(video);
+								}
+							}
+							qqClient.generateIndexPage(keyword,page,channel,videos);
+						});
+						return;
+					}else{
+						var contents;
+						if(result['video']!=null){
+							contents = result['video'];
+						}else{
+							contents = result['cover'];
+						}
+						for(var j=0;j<contents.length;j++){
+							content = contents[j];
+							if(content['id_type']!=null&&content['id_type']=='t'){
+								continue;
+							}
+							var tempPic = content['c_pic'];
+							if(tempPic==null){
+								tempPic=content['c_pic_url'];
+							}
+							video = {pic:tempPic,id:content['c_cover_id'],title:content['c_title'],album:true};
+							videos.push(video);
+						}
+					}
+					
+				} else {
+					atv.loadXML(appletv.makeDialog('加载失败',''));
+				}
+				qqClient.generateIndexPage(keyword,page,channel,videos);
+			});
+			
+		},
+		
+		generateIndexPage: function(keyword,page,channel,videos){
+			var begin= 0;
+			var end = 0;
+			if (page < 90) {
+				begin = page;
+				end = page + 9;
+			} else {
+				end = 99;
+				begin = 90;
+			}
+			var data = {'channel':channel,'keyword':keyword,'begin':begin,'end':end,'channels':qqClient.qqChannels,'serverurl':appletv.serverurl,'videos':videos};
+			var xml = new EJS({url: appletv.serverurl+'/template/tudou/index.ejs'}).render(data);
+			appletv.loadAndSwapXML(xml);
 		},
 		
 		loadAlbumXml : function(itemid, channelId, hd, isalbum) {
