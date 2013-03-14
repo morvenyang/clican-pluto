@@ -60,7 +60,7 @@
 <br/>
 <input type="button" onclick="tudouClient.loadIndexPage('',1,30);" value="土豆电影"/>
 <input type="button" onclick="tudouClient.loadVideoPage('-ls2NGPZcA4',30,1);" value="土豆详细"/>
-<input type="button" onclick="tudouClient.loadAlbumListXml(130709010,30,1,4);" value="土豆详细"/>
+<input type="button" onclick="tudouClient.loadAlbumListXml(130709010,30,4);" value="土豆详细"/>
 <input type="button" onclick="tudouClient.loadSearchPage();" value="搜索"/>
 <input type="button" onclick="tudouClient.loadIndexPage('行尸走肉',1,1001);" value="搜索hmjz"/>
 </body>
