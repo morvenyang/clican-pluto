@@ -1,3 +1,4 @@
+var tudouSearchApi='http://api.tudou.com/v5/wireless.search/3/${tudou.wirelessid}/json/?type=all&pageSize=30&ip=219.142.48.73&os=5.1&ver=2.7.0.12081617&ua=%5BiPad2%2C1%5D%5B5.1.1%5D'
 var tudouClient = {
 		
 	tudouChannels:
@@ -50,35 +51,72 @@ var tudouClient = {
 			var videos = [];
 			var queryUrl;
 			if(channelId==1001){
+				queryUrl = tudouSearchApi+'&pageNo='+page+'&kw='+encodeURIComponent(keyword);
+				appletv.makeRequest(queryUrl,function(content){
+					if(content!=null&&content.length>0){
+						var wirelessSearchResult = JSON.parse(content)['wirelessSearchResult'];
+						var albumArray = wirelessSearchResult['albums'];
+						var items = wirelessSearchResult['items'];
+						
+						if (albumArray != null) {
+							for (i = 0; i < albumArray.length; i++) {
+								var video = {
+										"title" : albumArray[i]['title'],
+										"id" :  albumArray[i]['itemid'],
+										"pic" : albumArray[i]['picurl'],
+										"album":1
+									};
+								videos.push(video);
+							}
+						}
+
+						if (itemArray != null) {
+							for (int i = 0; i < itemArray.length; i++) {
+								var video = {
+										"title" : itemArray[i]['title'],
+										"id" :  itemArray[i]['itemid'],
+										"pic" : itemArray[i]['picurl'],
+										"album":0
+									};
+								videos.push(video);
+							}
+						}
+						
+						tudouClient.generateIndexPage(keyword,page,channel,videos);
+					} else {
+						atv.loadXML(appletv.makeDialog('加载失败',''));
+					}
+				});
 			}else{
 				queryUrl="http://www.tudou.com/cate/ach"+channelId+"a-2b-2c-2d-2e-2f-2g-2h-2i-2j-2k-2l-2m-2n-2o-2so1pe-2pa"+page+".html";
-			}
-			appletv.makeRequest(queryUrl,function(content){
-				if(content!=null&&content.length>0){
-					var packs = appletv.getSubValuesByTag(content, '<div class="pack pack_album">', '</div>','div');
-					for(i=0;i<packs.length;i++){
-						var pack = packs[i];
-						var pic = appletv.substring(pack,'<img class="quic" src="','"');
-						var title = appletv.substring(pack,'title="','"');
-						var id = appletv.substring(pack,'<a href="','"');
-						id = appletv.substring(id,'albumcover/','.html');
-						var album = 0;
-						if(channelId==30||channelId==9){
-							album = 1;
+				appletv.makeRequest(queryUrl,function(content){
+					if(content!=null&&content.length>0){
+						var packs = appletv.getSubValuesByTag(content, '<div class="pack pack_album">', '</div>','div');
+						for(i=0;i<packs.length;i++){
+							var pack = packs[i];
+							var pic = appletv.substring(pack,'<img class="quic" src="','"');
+							var title = appletv.substring(pack,'title="','"');
+							var id = appletv.substring(pack,'<a href="','"');
+							id = appletv.substring(id,'albumcover/','.html');
+							var album = 0;
+							if(channelId==30||channelId==9){
+								album = 1;
+							}
+							var video = {
+									"title" : title,
+									"id" : id,
+									"pic" : pic,
+									"album":album
+								};
+							videos.push(video);
 						}
-						var video = {
-								"title" : title,
-								"id" : id,
-								"pic" : pic,
-								"album":album
-							};
-						videos.push(video);
+						tudouClient.generateIndexPage(keyword,page,channel,videos);
+					} else {
+						atv.loadXML(appletv.makeDialog('加载失败',''));
 					}
-					tudouClient.generateIndexPage(keyword,page,channel,videos);
-				} else {
-					atv.loadXML(appletv.makeDialog('加载失败',''));
-				}
-			});
+				});
+			}
+			
 			
 		},
 		
