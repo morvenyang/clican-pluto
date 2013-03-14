@@ -105,12 +105,14 @@ var tudouClient = {
 					return;
 				}
 				var itemid = appletv.substring(htmlContent,'iid: ',',').trim();
-				tudouClient.loadAlbumXml(itemid,,channelId,1,isalbum)
+				itemid = itemid.substring(1,itemid.length-1);
+				appletv.logToServer('itemid:'+itemid);
+				tudouClient.loadAlbumXml(itemid,channelId,1,isalbum);
 			});
 		},
 		
 		loadAlbumXml : function(itemid, channelId, hd, isalbum) {
-			atv.loadXML(appletv.makeDialog('加载中...', 'Loading...'));
+			//atv.loadXML(appletv.makeDialog('加载中...', 'Loading...'));
 			appletv.makeRequest(
 							'http://minterface.tudou.com/iteminfo?sessionid=GTR7J672EMAAA&origin=&columnid='
 									+ channelId
@@ -233,13 +235,13 @@ var tudouClient = {
 										+ album['picurl']
 										+ '\');\"><title>分享</title></actionButton>';
 								xml += '</items></shelfSection></sections></shelf></centerShelf></itemDetail></body></atv>';
-								atv.loadAndSwapXML(atv.parseXML(xml));
+								appletv.loadAndSwapXML(xml);
 							});
 		},
 		
 
 		loadAlbumListXml : function(itemid, channelId, hd, st) {
-			atv.loadXML(appletv.makeDialog('加载中...', 'Loading...'));
+			//atv.loadXML(appletv.makeDialog('加载中...', 'Loading...'));
 			appletv.makeRequest(
 							'http://minterface.tudou.com/iteminfo?sessionid=GTR7J672EMAAA&origin=&columnid='
 									+ channelId
