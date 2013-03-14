@@ -442,4 +442,45 @@ var appletv = {
 		return values
 	},
 	
+	getSubValuesByTag : function(data,startstr,endstr,tagName) {
+		var values=[];
+		start = 0;
+		while(start>=0){
+			start = data.indexOf(startstr,start);
+			if(start<0){
+				break;
+			}
+			offset = start+startstr.length;
+			while(true){
+				end = data.indexOf(endstr,offset);
+				if(end<0){
+					break;
+				}
+				temp =  data.substring(start+startstr.length,end);
+				a = getCount(temp,'<'+tagName+">");
+				b = getCount(temp,'</'+tagName+">");
+				if(a==b){
+					values.push(temp);
+					break;
+				}else{
+					offset = end;
+				}
+			}
+			start = end+endstr.length;
+		}
+		return values
+	},
+	
+	getCount: function(data,str){
+		var count = 0;
+		var offset = 0
+		while(offset>=0){
+			offset = data.indexOf(str,offset);
+			if(offset>=0){
+				count++;
+			}
+		}
+		return count;
+	},
+	
 };
