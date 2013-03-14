@@ -1,7 +1,7 @@
 var appletv = {
 	logEnable : true,
 	logSeverity : 'DEBUG',
-	simulate : false,
+	simulate : true,
 	serverurl : 'http://127.0.0.1/appletv',
 	
 	getDeviceId: function(){
@@ -242,30 +242,18 @@ var appletv = {
 	},
 
 	playM3u8 : function(url,proxy){
-		if(proxy) {
-			userconfig.getLocalServerIP(function(localServerIP){
-				if(localServerIP==null||localServerIP.length==0){
-					appletv.loadXML(appletv.makePlayXml(url));
-				}else{
-					url = 'http://'+localServerIP+":8080/appletv/proxy/m3u8?url="+encodeURIComponent(url);
-					appletv.loadXML(appletv.makePlayXml(url));
-				}
-			});
+		if(proxy!=null&&proxy.length>0) {
+			url = proxy+"/appletv/proxy/m3u8?url="+encodeURIComponent(url);
+			appletv.loadXML(appletv.makePlayXml(url));
 		}else{
 			appletv.loadXML(appletv.makePlayXml(url));
 		}
 	},
 	
 	playMp4 : function(url,proxy){
-		if(proxy) {
-			userconfig.getLocalServerIP(function(localServerIP){
-				if(localServerIP==null||localServerIP.length==0){
-					appletv.loadXML(appletv.makePlayXml(url));
-				}else{
-					url = 'http://'+localServerIP+":8080/appletv/proxy/mp4?url="+encodeURIComponent(url);
-					appletv.loadXML(appletv.makePlayXml(url));
-				}
-			});
+		if(proxy!=null&&proxy.length>0) {
+			url = proxy+"/appletv/proxy/mp4?url="+encodeURIComponent(url);
+			appletv.loadXML(appletv.makePlayXml(url));
 		}else{
 			appletv.loadXML(appletv.makePlayXml(url));
 		}

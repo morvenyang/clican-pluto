@@ -39,6 +39,7 @@ var xunleiClient = {
 	},
 	
 	xunleicallback:function (res) {
+		alert('xunleicallback is called');
 		try {
 			msg = res['resp']['vod_permit']['msg'];
 			if (msg == 'overdue session') {
@@ -68,6 +69,6 @@ var xunleiClient = {
 			return;
 		}
 		var m3u8url = res['resp']["vodinfo_list"]['vod_url'];
-		appletv.playM3u8(m3u8url,true);
+		appletv.playM3u8(m3u8url,appletv.serverurl);
 	}
 }
