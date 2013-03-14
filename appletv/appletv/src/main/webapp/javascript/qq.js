@@ -37,7 +37,7 @@ var qqClient ={
 		},
 		
 		loadIndexPage: function(keyword,page,channelId){
-			appletv.showDialog('加载中...','Loading...');
+			appletv.showLoading();
 			var channel = this.qqChannelMap[channelId];
 			var videos = [];
 			var queryUrl;
@@ -140,7 +140,7 @@ var qqClient ={
 		},
 		
 		loadAlbumPage: function(id){
-			atv.loadXML(appletv.makeDialog('加载中...','Loading...'));
+			appletv.showLoading();
 			var url ='http://live.qq.com/json/ipad/cover/'+id.substring(0,1)+'/'+id+'.json?qq=&appver=2.0.0.2208&sysver=ios5.1.1&device=iPad&lang=zh_CN';
 			
 			appletv.makeRequest(url,function(content){
@@ -158,7 +158,7 @@ var qqClient ={
 		},
 		
 		loadItemsPage: function(id){
-			atv.loadXML(appletv.makeDialog('加载中...','Loading...'));
+			appletv.showLoading();
 			var url ='http://live.qq.com/json/ipad/cover/'+id.substring(0,1)+'/'+id+'.json?qq=&appver=2.0.0.2208&sysver=ios5.1.1&device=iPad&lang=zh_CN';
 			
 			appletv.makeRequest(url,function(content){
@@ -189,16 +189,33 @@ var qqClient ={
 						urlIndexStart += 7;
 			    		var urlIndexEnd = data.indexOf("\"",urlIndexStart);
 			    		var url = data.substring(urlIndexStart,urlIndexEnd);
-			    		appletv.loadXML(appletv.makePlayXml(url));
+			    		appletv.playMp4(url,'');
 					}
 				}
 	    	});
 	    },
 	    
-	    loadSearchPage: function(){
-	    	var queryUrl = appletv.serverurl+'/ctl/qq/keywrodsearchlist.xml?q='
-			xml = '<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd"><plist version="1.0"><dict><key>merchant</key><string>ottnt</string><key>identifier</key><string>com.atvttvv.vweb.search</string><key>page-type</key><dict><key>template-name</key><string>search</string><key>template-parameters</key><dict><key>header</key><dict><key>type</key><string>simple-header</string><key>title</key><string>搜索</string><key>subtitle</key><string></string></dict></dict></dict><key>url</key><string>'+queryUrl+'</string></dict></plist>';
-			atv.loadPlist(xml);
-	    },
+	    loadSearchPage : function() {
+			appletv.showInputTextPage('关键字', '搜索', tudouClient.loadKeywordsPage,
+					'qqClient.loadKeywordsPage', '');
+		},
+
+		loadKeywordsPage : function(q) {
+			appletv.showLoading();
+			var queryUrl = 'http://tip.tudou.soku.com/hint?q=' + q;
+			appletv.makeRequest(queryUrl, function(result) {
+				appletv.logToServer(result);
+				var keywords = JSON.parse(result);
+				var data = {
+					keywords : keywords,
+					serverurl : appletv.serverurl
+				};
+				var xml = new EJS({
+					url : appletv.serverurl + '/template/qq/keywords.ejs'
+				}).render(data);
+				appletv.loadAndSwapXML(xml);
+			});
+		},
+		
 		
 };
