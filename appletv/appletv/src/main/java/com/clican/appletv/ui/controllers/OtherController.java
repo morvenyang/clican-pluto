@@ -83,6 +83,13 @@ public class OtherController {
 			response.getOutputStream().write(value.getBytes("utf-8"));
 		}
 	}
+	
+	@RequestMapping("/local/xunlei/getsession")
+	public void getXunleiSession(HttpServletRequest request,
+			HttpServletResponse response) throws IOException {
+		String value = "{userid:5663595,sessionid:75F30341DD84F450A07B5F048941BDA785F6AC3A12F9A04ADD949849CD339CC26B882B5F062969E7F71BF99995D9719814CB2E481F15545E89D85D6161F9649A}";
+		response.getOutputStream().write(value.getBytes("utf-8"));
+	}
 
 	private String getContent(HttpServletRequest request) throws Exception {
 		InputStream is = request.getInputStream();
