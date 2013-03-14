@@ -20,7 +20,7 @@
 									<defaultImage>resource://Poster.png</defaultImage>
 								</moviePoster>
 							<%}else{%>
-								<moviePoster id="shelf_item_<%=channels[i]['value']%>" alwaysShowTitles="true" featured="true" onSelect="tudouClient.loadIndexPage('',0,<%=channels[i]['value']%>);" onPlay="tudouClient.loadIndexPage('',0,<%=channels[i]['value']%>);">
+								<moviePoster id="shelf_item_<%=channels[i]['value']%>" alwaysShowTitles="true" featured="true" onSelect="tudouClient.loadIndexPage('',1,<%=channels[i]['value']%>);" onPlay="tudouClient.loadIndexPage('',1,<%=channels[i]['value']%>);">
 									<title><%=channels[i]['label']%></title>
 									<image><%=serverurl%>/image/tudou/channel/channel_<%=channels[i]['value']%>.png</image>
 									<defaultImage>resource://Poster.png</defaultImage>
@@ -34,7 +34,7 @@
 		<%if(channel['value']!=3){%>
 		<grid id="grid_1" columnCount="12">
 			<items>
-				<actionButton id="shelf_item_first_page" onSelect="tudouClient.loadIndexPage('<%=keyword%>',0,<%=channel['value']%>);" onPlay="tudouClient.loadIndexPage('<%=keyword%>',0,<%=channel['value']%>);">
+				<actionButton id="shelf_item_first_page" onSelect="tudouClient.loadIndexPage('<%=keyword%>',1,<%=channel['value']%>);" onPlay="tudouClient.loadIndexPage('<%=keyword%>',1,<%=channel['value']%>);">
 					<title>第一页</title>
 				</actionButton>
 				<%for(var i=begin;i<end;i++){%>
@@ -62,7 +62,7 @@
 		<%if(channel['value']!=3){%>
 		<grid id="grid_3" columnCount="12">
 			<items>
-				<actionButton id="shelf_item_first_page" onSelect="tudouClient.loadIndexPage('<%=keyword%>',0,<%=channel['value']%>);" onPlay="tudouClient.loadIndexPage('<%=keyword%>',0,<%=channel['value']%>);">
+				<actionButton id="shelf_item_first_page" onSelect="tudouClient.loadIndexPage('<%=keyword%>',1,<%=channel['value']%>);" onPlay="tudouClient.loadIndexPage('<%=keyword%>',1,<%=channel['value']%>);">
 					<title>第一页</title>
 				</actionButton>
 				<%for(var i=begin;i<end;i++){%>
