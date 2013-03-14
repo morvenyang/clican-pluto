@@ -45,34 +45,36 @@ var tudouClient = {
 		},
 			
 		loadIndexPage: function(keyword,page,channelId){
-			appletv.showDialog('加载中...','Loading...');
-			var channel = this.qqChannelMap[channelId];
+			//appletv.showDialog('加载中...','Loading...');
+			var channel = this.tudouChannelMap[channelId];
 			var videos = [];
 			var queryUrl;
 			if(channelId==1001){
-				queryUrl=qqSearchApi+"&comment=1&cur="+page+"&query="+keyword;
 			}else{
 				queryUrl="http://www.tudou.com/cate/ach"+channelId+"a-2b-2c-2d-2e-2f-2g-2h-2i-2j-2k-2l-2m-2n-2o-2so1pe-2pa"+page+".html";
 			}
 			appletv.makeRequest(queryUrl,function(content){
 				if(content!=null&&content.length>0){
 					var packs = appletv.getSubValuesByTag(content, '<div class="pack pack_album">', '</div>','div');
-					for(i=0;<packs.length;i++){
+					for(i=0;i<packs.length;i++){
 						var pack = packs[i];
-						var pic = appletv.getsubstring(pack,'<img class="quic" src="','"');
-						var title = appletv.getsubstring(pack,'title="','"');
-						var id = appletv.getsubstring(pack,'<a href="','"');
+						if(i==0){
+							appletv.logToServer(pack);
+						}
+						var pic = appletv.substring(pack,'<img class="quic" src="','"');
+						var title = appletv.substring(pack,'title="','"');
+						var id = appletv.substring(pack,'<a href="','"');
 						var video = {
 								"title" : title,
 								"id" : id,
 								"pic" : pic
 							};
-							videos.push(video);
+						videos.push(video);
 					}
+					tudouClient.generateIndexPage(keyword,page,channel,videos);
 				} else {
 					atv.loadXML(appletv.makeDialog('加载失败',''));
 				}
-				tudouClient.generateIndexPage(keyword,page,channel,videos);
 			});
 			
 		},

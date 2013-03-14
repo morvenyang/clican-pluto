@@ -451,19 +451,22 @@ var appletv = {
 				break;
 			}
 			offset = start+startstr.length;
+			//appletv.logToServer('line1,'+offset);
 			while(true){
 				end = data.indexOf(endstr,offset);
 				if(end<0){
 					break;
 				}
 				temp =  data.substring(start+startstr.length,end);
-				a = getCount(temp,'<'+tagName+">");
-				b = getCount(temp,'</'+tagName+">");
+				
+				a = appletv.getCount(temp,'<'+tagName);
+				b = appletv.getCount(temp,'</'+tagName);
+				appletv.logToServer('line2,'+(start+startstr.length)+','+end+','+a+','+b+temp);
 				if(a==b){
 					values.push(temp);
 					break;
 				}else{
-					offset = end;
+					offset = end+endstr.length;
 				}
 			}
 			start = end+endstr.length;
@@ -478,6 +481,7 @@ var appletv = {
 			offset = data.indexOf(str,offset);
 			if(offset>=0){
 				count++;
+				offset=offset+str.length;
 			}
 		}
 		return count;
