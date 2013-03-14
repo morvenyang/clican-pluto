@@ -44,7 +44,7 @@ var tudouClient = {
 		},
 			
 		loadIndexPage: function(keyword,page,channelId){
-			//appletv.showDialog('加载中...','Loading...');
+			appletv.showLoading();
 			var channel = this.tudouChannelMap[channelId];
 			var videos = [];
 			var queryUrl;
@@ -135,7 +135,6 @@ var tudouClient = {
 		},
 		
 		loadVideoPage : function(code,channelId,isalbum) {
-			atv.loadXML(appletv.makeDialog('加载中...','Loading...'));
 			var url = 'http://www.tudou.com/albumcover/'+code+'.html';
 			appletv.makeRequest(url, function(htmlContent) {
 				if (htmlContent == null) {
@@ -149,7 +148,7 @@ var tudouClient = {
 		},
 		
 		loadAlbumXml : function(itemid, channelId, hd, isalbum) {
-			atv.loadXML(appletv.makeDialog('加载中...', 'Loading...'));
+			appletv.showLoading();
 			appletv.makeRequest(
 							'http://minterface.tudou.com/iteminfo?sessionid=GTR7J672EMAAA&origin=&columnid='
 									+ channelId
@@ -278,7 +277,7 @@ var tudouClient = {
 		
 
 		loadAlbumListXml : function(itemid, channelId, hd, st) {
-			atv.loadXML(appletv.makeDialog('加载中...', 'Loading...'));
+			appletv.showLoading();
 			appletv.makeRequest(
 							'http://minterface.tudou.com/iteminfo?sessionid=GTR7J672EMAAA&origin=&columnid='
 									+ channelId
@@ -329,6 +328,7 @@ var tudouClient = {
 	    },
 	    
 	    loadKeywordsPage: function(q){
+	    	appletv.showLoading();
 	    	var queryUrl = 'http://tip.tudou.soku.com/hint?q='+q;
 	    	appletv.makeRequest(queryUrl,function(result){
 	    		appletv.logToServer(result);
