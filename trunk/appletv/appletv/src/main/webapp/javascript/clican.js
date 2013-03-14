@@ -239,8 +239,8 @@ var appletv = {
 		atv.loadURL(url);
 	},
 
-	playM3u8 : function(url){
-		if(appletv.isUseProxyServer()) {
+	playM3u8 : function(url,proxy){
+		if(proxy) {
 			userconfig.getLocalServerIP(function(localServerIP){
 				if(localServerIP==null||localServerIP.length==0){
 					appletv.loadXML(appletv.makePlayXml(url));
@@ -254,8 +254,8 @@ var appletv = {
 		}
 	},
 	
-	playMp4 : function(url){
-		if(appletv.isUseProxyServer()) {
+	playMp4 : function(url,proxy){
+		if(proxy) {
 			userconfig.getLocalServerIP(function(localServerIP){
 				if(localServerIP==null||localServerIP.length==0){
 					appletv.loadXML(appletv.makePlayXml(url));
