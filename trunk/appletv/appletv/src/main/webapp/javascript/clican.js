@@ -451,7 +451,6 @@ var appletv = {
 				break;
 			}
 			offset = start+startstr.length;
-			//appletv.logToServer('line1,'+offset);
 			while(true){
 				end = data.indexOf(endstr,offset);
 				if(end<0){
@@ -461,7 +460,6 @@ var appletv = {
 				
 				a = appletv.getCount(temp,'<'+tagName);
 				b = appletv.getCount(temp,'</'+tagName);
-				appletv.logToServer('line2,'+(start+startstr.length)+','+end+','+a+','+b+temp);
 				if(a==b){
 					values.push(temp);
 					break;
