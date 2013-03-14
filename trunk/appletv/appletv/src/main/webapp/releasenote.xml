@@ -22,7 +22,7 @@
 							<title>腾讯视频</title>
 						</goldenPoster>
 						<goldenPoster id="gp3" onSelect="yyetsClient.loadIndexPage('',1,'movie');">
-							<image>http://10.0.1.5/appletv/image/yyets/yyets.png</image>
+							<image>http://10.0.1.5/appletv/image/yyets/yyets.jpg</image>
 							<title>人人影视</title>
 						</goldenPoster>
 						<goldenPoster id="gp4"
