@@ -98,7 +98,7 @@ var tudouClient = {
 		},
 		
 		loadVideoPage : function(code,channelId,isalbum) {
-			// atv.loadXML(appletv.makeDialog('加载中...','Loading...'));
+			atv.loadXML(appletv.makeDialog('加载中...','Loading...'));
 			var url = 'http://www.tudou.com/albumcover/'+code+'.html';
 			appletv.makeRequest(url, function(htmlContent) {
 				if (htmlContent == null) {
@@ -112,7 +112,7 @@ var tudouClient = {
 		},
 		
 		loadAlbumXml : function(itemid, channelId, hd, isalbum) {
-			//atv.loadXML(appletv.makeDialog('加载中...', 'Loading...'));
+			atv.loadXML(appletv.makeDialog('加载中...', 'Loading...'));
 			appletv.makeRequest(
 							'http://minterface.tudou.com/iteminfo?sessionid=GTR7J672EMAAA&origin=&columnid='
 									+ channelId
@@ -241,7 +241,7 @@ var tudouClient = {
 		
 
 		loadAlbumListXml : function(itemid, channelId, hd, st) {
-			//atv.loadXML(appletv.makeDialog('加载中...', 'Loading...'));
+			atv.loadXML(appletv.makeDialog('加载中...', 'Loading...'));
 			appletv.makeRequest(
 							'http://minterface.tudou.com/iteminfo?sessionid=GTR7J672EMAAA&origin=&columnid='
 									+ channelId
@@ -286,4 +286,21 @@ var tudouClient = {
 								atv.loadAndSwapXML(atv.parseXML(xml));
 							});
 		},
+		
+		loadSearchPage: function(){
+	    	appletv.showInputTextPage('关键字','搜索',tudouClient.loadKeywordsPage,'tudouClient.loadKeywordsPage','');
+	    },
+	    
+	    loadKeywordsPage: function(q){
+	    	var queryUrl = 'http://tip.tudou.soku.com/hint?q='+q;
+	    	appletv.makeRequest(queryUrl,function(result){
+	    		appletv.logToServer(result);
+	    		var keywords = JSON.parse(result);
+	    		var data = {keywords:keywords,serverurl:appletv.serverurl};
+	    		var xml = new EJS({url: appletv.serverurl+'/template/tudou/keywords.ejs'}).render(data);
+				appletv.loadAndSwapXML(xml);
+	    	});
+	    },
+	    
+	    
 }

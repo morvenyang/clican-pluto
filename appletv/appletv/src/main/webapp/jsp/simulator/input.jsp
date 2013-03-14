@@ -3,10 +3,11 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<script type="text/javascript" src="<%=request.getAttribute("serverurl")%>/javascript/clican.js?ver=1"></script>
+<script type="text/javascript" src="<%=request.getAttribute("serverurl")%>/javascript/clican.js"></script>
 <script type="text/javascript" src="<%=request.getAttribute("serverurl")%>/javascript/ejs.js"></script>
 <script type="text/javascript" src="<%=request.getAttribute("serverurl")%>/javascript/taobao.js"></script>
 <script type="text/javascript" src="<%=request.getAttribute("serverurl")%>/javascript/userconfig.js"></script>
+<script type="text/javascript" src="<%=request.getAttribute("serverurl")%>/javascript/tudou.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 </head>
