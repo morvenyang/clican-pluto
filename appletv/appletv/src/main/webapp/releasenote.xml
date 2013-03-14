@@ -5,6 +5,7 @@
 		<script src="http://10.0.1.5/appletv/javascript/ejs.js" />
 		<script src="http://10.0.1.5/appletv/javascript/qq.js" />
 		<script src="http://10.0.1.5/appletv/javascript/yyets.js" />
+		<script src="http://10.0.1.5/appletv/javascript/tudou.js" />
 	</head>
 	<body>
 		<scroller id="com.sample.movie-shelf">
@@ -12,7 +13,7 @@
 				<grid id="grid_2" columnCount="3">
 					<items>
 						<goldenPoster id="gp1"
-							onSelect="atv.loadURL('http://10.0.1.5/appletv/ctl/tudou/index.xml');">
+							onSelect="tudouClient.loadIndexPage('',1,30);">
 							<image>http://10.0.1.5/appletv/image/tudou/tudou.png</image>
 							<title>土豆视频</title>
 						</goldenPoster>
