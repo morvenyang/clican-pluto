@@ -55,6 +55,6 @@
 <input type="button" onclick="yyetsClient.loadIndexPage('',1,'movie');" value="人人影视"/>
 <input type="button" onclick="yyetsClient.loadVideoPage('11057');" value="视频"/>
 <input type="button" onclick="yyetsClient.listVideosInFormat('MP4','');" value="视频list"/>
-<input type="button" onclick="xunleiClient.play('');" value="播放"/>
+<input type="button" onclick="xunleiClient.play('ed2k://|file|%E8%A1%8C%E5%B0%B8%E8%B5%B0%E8%82%89.The.Walking.Dead.S03E13.Chi_Eng.HDTVrip.720X400.mp4|203034532|CD40755A174FE5EA525208DA18DD3333|h=FCU3MZ65SO2FDBVQZ2IQPKG2TJJHKFBY|/');" value="播放"/>
 </body>
 </html>
