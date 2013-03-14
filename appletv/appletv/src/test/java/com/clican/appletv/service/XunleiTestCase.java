@@ -62,7 +62,7 @@ public class XunleiTestCase extends BaseServiceTestCase {
 		+ URLEncoder.encode(url,"utf-8") + "&video_name=%E8%A1%8C%E5%B0%B8%E8%B5%B0%E8%82%89.The.Walking.Dead.S03E13.Chi_Eng.HDTVrip.720X400.mp4" + "&platform=1&userid=" + userid
 		+ "&vip=6&sessionid=" + sessionid
 		+ "&cache=" + Calendar.getInstance().getTimeInMillis()
-		+ "&from=vlist&jsonp=XL_CLOUD_FX_INSTANCEqueryBack";
+		+ "&from=vlist&jsonp=xunleiClient.xunleicallback";
 		String refer = "http://61.147.76.6/iplay.html";
 		Map<String,String> header = new HashMap<String,String>();
 		header.put("Referer", refer);
