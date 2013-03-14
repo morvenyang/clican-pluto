@@ -68,7 +68,7 @@ var xunleiClient = {
 			appletv.showDialog('没有内容，请重试','');
 			return;
 		}
-		var m3u8url = res['resp']["vodinfo_list"]['vod_url'];
+		var m3u8url = res['resp']["vodinfo_list"][0]['vod_url'];
 		appletv.playM3u8(m3u8url,appletv.serverurl);
 	}
 }
