@@ -58,9 +58,6 @@ var tudouClient = {
 					var packs = appletv.getSubValuesByTag(content, '<div class="pack pack_album">', '</div>','div');
 					for(i=0;i<packs.length;i++){
 						var pack = packs[i];
-						if(i==0){
-							appletv.logToServer(pack);
-						}
 						var pic = appletv.substring(pack,'<img class="quic" src="','"');
 						var title = appletv.substring(pack,'title="','"');
 						var id = appletv.substring(pack,'<a href="','"');
