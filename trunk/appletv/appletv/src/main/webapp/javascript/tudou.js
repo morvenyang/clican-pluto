@@ -3,7 +3,6 @@ var tudouClient = {
 		
 	tudouChannels:
 		[
-		 {label:"推荐",value:1000},
 		 {label:"搜索",value:1001},
 		 {label:"电视剧",value:30},
 		 {label:"电影",value:22},
@@ -25,7 +24,6 @@ var tudouClient = {
 		
 		tudouChannelMap:
 		{
-			 "1000":{label:"推荐",value:1000},
 			 "1001":{label:"搜索",value:1001},
 			 "30":{label:"电视剧",value:30},
 			 "22":{label:"电影",value:22},
