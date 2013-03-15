@@ -57,11 +57,13 @@ var taobaoClient = {
 	},
 	
 	showLoginPage:function(){
-		appletv
-		.showInputTextPage(
-				'用户名\密码',
-				'请输入淘宝用户名密码,用户名和密码以\'\\\'分隔。淘宝的帐号密码直接通过HTTPS在淘宝登录获得临时令牌用于收藏相关操作,本服务器不会获取你的淘宝帐号和密码。',
-				taobaoClient.loginByUserNameAndPassword,'taobaoClient.loginByUserNameAndPassword',appletv.getValue('taobaousernameandpassword'));
+		appletv.getValue('taobaousernameandpassword',function(taobaousernameandpassword){
+			appletv
+			.showInputTextPage(
+					'用户名\密码',
+					'请输入淘宝用户名密码,用户名和密码以\'\\\'分隔。淘宝的帐号密码直接通过HTTPS在淘宝登录获得临时令牌用于收藏相关操作,本服务器不会获取你的淘宝帐号和密码。',
+					taobaoClient.loginByUserNameAndPassword,'taobaoClient.loginByUserNameAndPassword',taobaousernameandpassword);
+		});
 	},
 	
 	addToFavorite : function(id, itemtype, token) {
