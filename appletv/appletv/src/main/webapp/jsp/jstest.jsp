@@ -13,6 +13,7 @@
 <script type="text/javascript" src="<%=request.getAttribute("serverurl")%>/javascript/userconfig.js"></script>
 <script type="text/javascript" src="<%=request.getAttribute("serverurl")%>/javascript/xunlei.js"></script>
 <script type="text/javascript" src="<%=request.getAttribute("serverurl")%>/javascript/tudou.js"></script>
+<script type="text/javascript" src="<%=request.getAttribute("serverurl")%>/javascript/youku.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 </head>
@@ -63,5 +64,9 @@
 <input type="button" onclick="tudouClient.loadItemsPage('130655815',30,2);" value="土豆详细"/>
 <input type="button" onclick="tudouClient.loadSearchPage();" value="搜索"/>
 <input type="button" onclick="tudouClient.loadIndexPage('行尸走肉',1,1001);" value="搜索hmjz"/>
+
+<br/>
+<input type="button" onclick="youkuClient.loadIndexPage('',1,96);" value="优库电影"/>
+<input type="button" onclick="youkuClient.loadIndexPage('',1,97);" value="优库电视"/>
 </body>
 </html>
