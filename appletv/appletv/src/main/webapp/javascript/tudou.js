@@ -287,6 +287,9 @@ var tudouClient = {
 								},
 								items : items
 							};
+							if(isalbum==1){
+								appletv.setValue('tudouVideo',video);
+							}
 							var xml = new EJS({
 								url : appletv.serverurl
 										+ '/template/tudou/video.ejs'
@@ -295,45 +298,15 @@ var tudouClient = {
 						});
 	},
 
-	loadItemsPage : function(itemid, channelId,st) {
+	loadItemsPage : function() {
 		appletv.showLoading();
-		appletv
-				.makeRequest(
-						'http://minterface.tudou.com/iteminfo?sessionid=GTR7J672EMAAA&origin=&columnid='
-								+ channelId + '&itemid=' + itemid + '&ishd=1',
-						function(data) {
-							var album = JSON.parse(data);
-							var albumitems = album['albumitems'];
-							var items = [];
-							for ( var i = 0; i < albumitems.length; i++) {
-								var item = {
-									'title' : '第' + (i + 1) + '集',
-									'id' : albumitems[i]['vcode']
-								};
-								items.push(item);
-							}
-							var video = {
-								'serverurl' : appletv.serverurl,
-								st:st,
-								video : {
-									'id' : itemid,
-									'actor' : album['actors'],
-									'area' : album['area_desc'],
-									'dctor' : album['directors'],
-									'pic' : album['picurl'],
-									'score' : '-',
-									'title' : album['title'],
-									'year' : album['year'],
-									'desc' : album['description']
-								},
-								items : items
-							};
-							var xml = new EJS({
-								url : appletv.serverurl
-										+ '/template/tudou/videoItems.ejs'
-							}).render(video);
-							appletv.loadAndSwapXML(xml);
-						});
+		appletv.getValue('tudouVideo',function(video){
+			var xml = new EJS({
+				url : appletv.serverurl
+						+ '/template/tudou/videoItems.ejs'
+			}).render(video);
+			appletv.loadAndSwapXML(xml);
+		});
 	},
 
 	loadSearchPage : function() {
@@ -358,7 +331,7 @@ var tudouClient = {
 		});
 	},
 
-	play : function(vcode, st) {
+	play : function(vcode) {
 		var url = 'http://v.youku.com/player/getRealM3U8/vid/' + vcode + '/type/flv/sc/2/video.m3u8';
 		appletv.playM3u8(url, '');
 	},
