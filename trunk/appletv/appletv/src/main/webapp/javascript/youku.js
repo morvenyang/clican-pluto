@@ -273,13 +273,13 @@ var youkuClient = {
 			var desc;
 			if(isalbum){
 				pic = appletv.substring(htmlContent,'<li class="thumb">','</li>');
-				pic = appletv.substring(pic,'src="','"');
+				pic = appletv.substring(pic,'src=\'','\'');
 				title = appletv.substring(htmlContent,'<span class="name">','</span>');
 				area = appletv.substring(htmlContent,'<span class="area">','</span>');
 				area = appletv.getSubValues(area,'target="_blank">', '</a>');
 				year = appletv.substring(htmlContent,'<span class="pub">','</span>');
 				score = appletv.substring(htmlContent,'<em class="num">','</em>');
-				if(channleId==97){
+				if(channelId==97){
 					//电视剧
 					actor = appletv.substring(htmlContent,'<span class="actor">','</span>');
 					actor = appletv.getSubValues(actor,'target="_blank">', '</a>');
@@ -298,6 +298,7 @@ var youkuClient = {
 			}
 			if(channelId==96){
 				isalbum = false;
+				code = appletv.substring(htmlContent,'id_','.html');
 			}
 			var items = [];
 			if(isalbum){
@@ -387,5 +388,5 @@ var youkuClient = {
 		var url = 'http://v.youku.com/player/getRealM3U8/vid/' + vcode + '/type/flv/sc/2/video.m3u8';
 		appletv.playM3u8(url, '');
 	},
-	
+
 }
