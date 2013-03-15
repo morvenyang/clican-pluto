@@ -24,11 +24,7 @@ var youkuClient = {
 			value : 100,
 			album : true
 		},
-		"95" : {
-			label : "音乐",
-			value : 95,
-			album : true
-		},
+
 		"87" : {
 			label : "教育",
 			value : 87,
@@ -124,10 +120,6 @@ var youkuClient = {
 	}, {
 		label : "动漫",
 		value : 100,
-		album : true
-	}, {
-		label : "音乐",
-		value : 95,
 		album : true
 	}, {
 		label : "教育",
@@ -259,4 +251,141 @@ var youkuClient = {
 		}).render(data);
 		appletv.loadAndSwapXML(xml);
 	},
+	
+	loadVideoPage : function(code, channelId, isalbum,pic) {
+		appletv.showLoading();
+		var url;
+		if(isalbum){
+			url = 'http://www.youku.com/show_page/id_'+code+'.html';
+		}else{
+			url = 'http://v.youku.com/v_show/id_'+code+'.html';
+		}
+		appletv.makeRequest(url, function(htmlContent) {
+			if (htmlContent == null) {
+				return;
+			}
+			var actor = '-';
+			var dctor = '-';
+			var area = '-';
+			var score = '-';
+			var year = '-';
+			var shareurl = url;
+			var desc;
+			if(isalbum){
+				pic = appletv.substring(htmlContent,'<li class="thumb">','</li>');
+				pic = appletv.substring(pic,'src="','"');
+				title = appletv.substring(htmlContent,'<span class="name">','</span>');
+				area = appletv.substring(htmlContent,'<span class="area">','</span>');
+				area = appletv.getSubValues(area,'target="_blank">', '</a>');
+				year = appletv.substring(htmlContent,'<span class="pub">','</span>');
+				score = appletv.substring(htmlContent,'<em class="num">','</em>');
+				if(channleId==97){
+					//电视剧
+					actor = appletv.substring(htmlContent,'<span class="actor">','</span>');
+					actor = appletv.getSubValues(actor,'target="_blank">', '</a>');
+					desc = appletv.substring(htmlContent,'<span class="short" id="show_info_short" style="display: inline;">','</span>');
+				}else if(channelId==96){
+					//电影
+					actor = appletv.substring(htmlContent,'<span class="actor">','</span>');
+					actor = appletv.getSubValues(actor,'target="_blank">', '</a>');
+					dctor = appletv.substring(htmlContent,'<span class="director">','</span>');
+					dctor = appletv.getSubValues(dctor,'target="_blank">', '</a>');
+					desc = appletv.substring(htmlContent,'<span class="long" style="display:none;">','</span>');
+				}
+			}else{
+				title =  appletv.substring(htmlContent,'<meta name="title" content="','"');
+				desc =  appletv.substring(htmlContent,'<meta name="description" content="','"');
+			}
+			if(channelId==96){
+				isalbum = false;
+			}
+			var items = [];
+			if(isalbum){
+				var itemscontent = appletv.substringByTag(htmlContent,'<div class="items"','</div>','div');
+				var urls = appletv.getSubValues(itemscontent,'<a','</a>');
+				for(i=0;i<urls.length;i++){
+					url = urls[i];
+					var t = appletv.substring(url,'title="','"');
+					var c = appletv.substring(url,'id_','.html');
+					var item = {
+							'title' : t,
+							'id' : c
+						};
+					items.push(item);
+				}
+			}else{
+				var item = {
+						'title' : title,
+						'id' : code
+					};
+				items.push(item);
+			}
+			
+			
+			var video = {
+					'serverurl' : appletv.serverurl,
+					album : isalbum,
+					video : {
+						'id' : code,
+						'actor' : actor,
+						'area' : area,
+						'dctor' : dctor,
+						'pic' : pic,
+						'score' : score,
+						'title' : title,
+						'year' : year,
+						'desc' : desc,
+						'shareurl':shareurl
+					},
+					items : items
+				};
+				if(isalbum){
+					appletv.setValue('youkuVideo',video);
+				}
+				var xml = new EJS({
+					url : appletv.serverurl
+							+ '/template/youku/video.ejs'
+				}).render(video);
+				appletv.loadAndSwapXML(xml);
+		});
+	},
+	
+	loadItemsPage : function() {
+		appletv.showLoading();
+		appletv.getValue('youkuVideo',function(video){
+			var xml = new EJS({
+				url : appletv.serverurl
+						+ '/template/youku/videoItems.ejs'
+			}).render(video);
+			appletv.loadAndSwapXML(xml);
+		});
+	},
+	
+	loadSearchPage : function() {
+		appletv.showInputTextPage('关键字', '搜索', tudouClient.loadKeywordsPage,
+				'youkuClient.loadKeywordsPage', '');
+	},
+
+	loadKeywordsPage : function(q) {
+		appletv.showLoading();
+		var queryUrl = 'http://tip.tudou.soku.com/hint?q=' + q;
+		appletv.makeRequest(queryUrl, function(result) {
+			appletv.logToServer(result);
+			var keywords = JSON.parse(result);
+			var data = {
+				keywords : keywords,
+				serverurl : appletv.serverurl
+			};
+			var xml = new EJS({
+				url : appletv.serverurl + '/template/youku/keywords.ejs'
+			}).render(data);
+			appletv.loadAndSwapXML(xml);
+		});
+	},
+	
+	play : function(vcode) {
+		var url = 'http://v.youku.com/player/getRealM3U8/vid/' + vcode + '/type/flv/sc/2/video.m3u8';
+		appletv.playM3u8(url, '');
+	},
+	
 }

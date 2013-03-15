@@ -2,7 +2,7 @@ var appletv = {
 	logEnable : true,
 	logSeverity : 'DEBUG',
 	simulate : true,
-	serverurl : 'http://127.0.0.1/appletv',
+	serverurl : 'http://10.0.1.5/appletv',
 	
 	getDeviceId: function(){
 		if(appletv.simulate){
@@ -355,7 +355,7 @@ var appletv = {
 			callback(atv.localStorage[key]);
 		}else{
 			appletv.makeRequest(appletv.serverurl+'/ctl/getValue.do?name='+key, function(result){
-				callback(result);
+				callback(JSON.parse(result));
 			});
 		}
 	},
