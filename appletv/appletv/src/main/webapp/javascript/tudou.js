@@ -265,7 +265,7 @@ var tudouClient = {
 							for ( var i = 0; i < albumitems.length; i++) {
 								var item = {
 									'title' : '第' + (i + 1) + '集',
-									'id' : albumitems[i]['itemid']
+									'id' : albumitems[i]['vcode']
 								};
 								items.push(item);
 							}
@@ -297,8 +297,6 @@ var tudouClient = {
 
 	loadItemsPage : function(itemid, channelId,st) {
 		appletv.showLoading();
-		appletv.logToServer('http://minterface.tudou.com/iteminfo?sessionid=GTR7J672EMAAA&origin=&columnid='
-								+ channelId + '&itemid=' + itemid + '&ishd=1');
 		appletv
 				.makeRequest(
 						'http://minterface.tudou.com/iteminfo?sessionid=GTR7J672EMAAA&origin=&columnid='
@@ -310,7 +308,7 @@ var tudouClient = {
 							for ( var i = 0; i < albumitems.length; i++) {
 								var item = {
 									'title' : '第' + (i + 1) + '集',
-									'id' : albumitems[i]['itemid']
+									'id' : albumitems[i]['vcode']
 								};
 								items.push(item);
 							}
@@ -360,9 +358,8 @@ var tudouClient = {
 		});
 	},
 
-	play : function(itemid, st) {
-		var url = 'http://vr.tudou.com/v2proxy/v2.m3u8?st=' + st + '&it='
-				+ itemid;
+	play : function(vcode, st) {
+		var url = 'http://v.youku.com/player/getRealM3U8/vid/' + vcode + '/type/flv/sc/2/video.m3u8';
 		appletv.playM3u8(url, '');
 	},
 
