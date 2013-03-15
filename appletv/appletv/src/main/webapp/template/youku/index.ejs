@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<atv>
+<head>
+<script src="<%=serverurl%>/javascript/clican.js"/>
+<script src="<%=serverurl%>/javascript/ejs.js"/>
+<script src="<%=serverurl%>/javascript/youku.js"/>
+</head>
+<body>
+<scroller id="com.sample.movie-shelf">
+	<items>
+		<shelf id="menu_bar">
+			<sections>
+				<shelfSection>
+					<items>
+						<%for(var i=0;i<channels.length;i++){%>
+							<%if(channels[i]['value']==1001){%>
+								<moviePoster id="shelf_item_<%=channels[i]['value']%>" alwaysShowTitles="true" featured="true" onSelect="youkuClient.loadSearchPage();" onPlay="youkuClient.loadSearchPage();">
+									<title><%=channels[i]['label']%></title>
+									<image><%=serverurl%>/image/youku/channel/channel_<%=channels[i]['value']%>.png</image>
+									<defaultImage>resource://Poster.png</defaultImage>
+								</moviePoster>
+							<%}else{%>
+								<moviePoster id="shelf_item_<%=channels[i]['value']%>" alwaysShowTitles="true" featured="true" onSelect="youkuClient.loadIndexPage('',1,<%=channels[i]['value']%>);" onPlay="youkuClient.loadIndexPage('',1,<%=channels[i]['value']%>);">
+									<title><%=channels[i]['label']%></title>
+									<image><%=serverurl%>/image/youku/channel/channel_<%=channels[i]['value']%>.png</image>
+									<defaultImage>resource://Poster.png</defaultImage>
+								</moviePoster>
+							<%}%>
+						<%}%>
+					</items>
+				</shelfSection>
+			</sections>
+		</shelf>
+		<grid id="grid_1" columnCount="12">
+			<items>
+				<actionButton id="shelf_item_first_page" onSelect="youkuClient.loadIndexPage('<%=keyword%>',1,<%=channel['value']%>);" onPlay="youkuClient.loadIndexPage('<%=keyword%>',1,<%=channel['value']%>);">
+					<title>第一页</title>
+				</actionButton>
+				<%for(var i=begin;i<end;i++){%>
+					<actionButton id="shelf_item_<%=i%>_page" onSelect="youkuClient.loadIndexPage('<%=keyword%>',<%=i%>,<%=channel['value']%>);" onPlay="youkuClient.loadIndexPage('<%=keyword%>',<%=i%>,<%=channel['value']%>);">
+						<title><%=i+1%></title>
+					</actionButton>
+				<%}%>
+				<actionButton id="shelf_item_last_page" onSelect="youkuClient.loadIndexPage('<%=keyword%>',99,<%=channel['value']%>);" onPlay="youkuClient.loadIndexPage('<%=keyword%>',99,<%=channel['value']%>);">
+					<title>最后页</title>
+				</actionButton>
+			</items>
+		</grid>
+		<grid id="grid_2" columnCount="6">
+			<items>
+				<%for(var i=0;i<videos.length;i++){%>
+					<%if(channel['value']==1001){%>
+						<moviePoster id="shelf_item_<%=i%>" alwaysShowTitles="true" onSelect="youkuClient.loadAlbumPage('<%=videos[i]['id']%>',<%=channel['value']%>,<%=videos[i]['album']%>,true);">
+							<title><![CDATA[<%=videos[i].title%>]]></title>
+							<image><%=videos[i].pic%></image>
+							<defaultImage>resource://Poster.png</defaultImage>
+						</moviePoster>
+					<%}else{%>
+						<moviePoster id="shelf_item_<%=i%>" alwaysShowTitles="true" onSelect="youkuClient.loadVideoPage('<%=videos[i]['id']%>',<%=channel['value']%>,<%=videos[i]['album']%>);">
+							<title><![CDATA[<%=videos[i].title%>]]></title>
+							<image><%=videos[i].pic%></image>
+							<defaultImage>resource://Poster.png</defaultImage>
+						</moviePoster>
+					<%}%>
+				<%}%>
+			</items>
+		</grid>
+		<grid id="grid_3" columnCount="12">
+			<items>
+				<actionButton id="shelf_item_first_page" onSelect="youkuClient.loadIndexPage('<%=keyword%>',1,<%=channel['value']%>);" onPlay="youkuClient.loadIndexPage('<%=keyword%>',1,<%=channel['value']%>);">
+					<title>第一页</title>
+				</actionButton>
+				<%for(var i=begin;i<end;i++){%>
+					<actionButton id="shelf_item_<%=i%>_page" onSelect="youkuClient.loadIndexPage('<%=keyword%>',<%=i%>,<%=channel['value']%>);" onPlay="youkuClient.loadIndexPage('<%=keyword%>',<%=i%>,<%=channel['value']%>);">
+						<title><%=i+1%></title>
+					</actionButton>
+				<%}%>
+				<actionButton id="shelf_item_last_page" onSelect="youkuClient.loadIndexPage('<%=keyword%>',99,<%=channel['value']%>);" onPlay="youkuClient.loadIndexPage('<%=keyword%>',99,<%=channel['value']%>);">
+					<title>最后页</title>
+				</actionButton>
+			</items>
+		</grid>
+	</items>
+</scroller>
+</body>
+</atv>
