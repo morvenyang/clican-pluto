@@ -206,14 +206,15 @@ var youkuClient = {
 			}
 			appletv.makeRequest(queryUrl, function(content) {
 				if (content != null && content.length > 0) {
-					var items = appletv.getSubValuesByTag(content,
-							'<div class="items">', '</div>', 'div');
+					var itemscontent = appletv.substringByTag(content,'<div class="items">', '</div>', 'div');
+					var items = appletv.getSubValuesByTag(itemscontent,
+							'<ul class="p pv">', '</ul>', 'ul');
 					for (i = 0; i < items.length; i++) {
 						var item = items[i];
-						var pic = appletv.substring(pack,
+						var pic = appletv.substring(item,
 								'<img src="', '"');
-						var title = appletv.substring(pack, 'title="', '"');
-						var id = appletv.substring(pack, '<a href="', '"');
+						var title = appletv.substring(item, 'title="', '"');
+						var id = appletv.substring(item, '<a href="', '"');
 						id = appletv.substring(id, 'id_', '.html');
 						var video = {
 							"title" : title,
