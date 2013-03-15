@@ -7,8 +7,8 @@
 </head>
 <body>
 <itemDetail id="itemdetail">
-			<title><%=video['title']%></title>
-			<summary><%=video['desc']%></summary>
+			<title><![CDATA[<%=video['title']%>]]></title>
+			<summary><![CDATA[<%=video['desc']%>]]></summary>
 			<image style="moviePoster"><%=video['pic']%></image>
 			<table>
 				<columnDefinitions><columnDefinition width="50"><title>其他信息</title></columnDefinition><columnDefinition width="50"><title></title></columnDefinition></columnDefinitions>
@@ -24,24 +24,12 @@
 						<shelfSection>
 							<items>
 								<%if(album==1){%>
-									<actionButton id="album_1" onSelect="tudouClient.loadItemsPage('<%=video['id']%>',<%=channelId%>,2);">
-										<title>标清</title>
-									</actionButton>
-									<actionButton id="album_2" onSelect="tudouClient.loadItemsPage('<%=video['id']%>',<%=channelId%>,3);">
-										<title>高清</title>
-									</actionButton>
-									<actionButton id="album_3" onSelect="tudouClient.loadItemsPage('<%=video['id']%>',<%=channelId%>,4);">
-										<title>超清</title>
+									<actionButton id="album_3" onSelect="tudouClient.loadItemsPage();">
+										<title>剧集</title>
 									</actionButton>
 								<%}else{%>
-									<actionButton id="album_1" onSelect="tudouClient.play('<%=items[0]['id']%>',2);">
-										<title>标清</title>
-									</actionButton>
-									<actionButton id="album_2" onSelect="tudouClient.play('<%=items[0]['id']%>',2);">
-										<title>高清</title>
-									</actionButton>
-									<actionButton id="album_3" onSelect="tudouClient.play('<%=items[0]['id']%>',2);">
-										<title>超清</title>
+									<actionButton id="album_1" onSelect="tudouClient.play('<%=items[0]['id']%>');">
+										<title>播放</title>
 									</actionButton>
 								<%}%>
 								<actionButton id="album_8" onSelect="atv.loadURL('<%=serverurl%>/ctl/weibo/createStatus.xml?deviceId='+atv.device.udid+'&amp;title='+encodeURIComponent('<%=video['title']%>')+'&amp;shareURL=<%=video['shareurl']%>&amp;imageURL=<%=video['pic']%>');" onPlay="atv.loadURL('<%=serverurl%>/ctl/weibo/createStatus.xml?deviceId='+atv.device.udid+'&amp;title='+encodeURIComponent('<%=video['title']%>')+'&amp;shareURL=<%=video['shareurl']%>&amp;imageURL=<%=video['pic']%>');">

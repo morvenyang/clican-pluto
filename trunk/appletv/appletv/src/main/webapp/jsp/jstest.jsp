@@ -68,5 +68,9 @@
 <br/>
 <input type="button" onclick="youkuClient.loadIndexPage('',1,96);" value="优库电影"/>
 <input type="button" onclick="youkuClient.loadIndexPage('',1,97);" value="优库电视"/>
+<input type="button" onclick="youkuClient.loadVideoPage('z2ab3cf18a05911df97c0',96,true,'http://res.mfs.ykimg.com/050D000050D93FE997927344320DE4A1');" value="电影"/>
+<input type="button" onclick="youkuClient.loadVideoPage('zd6f6b2063ec011e2b356',97,true,'http://res.mfs.ykimg.com/050D0000512D62E49792734BB700AC33');" value="电视剧"/>
+<input type="button" onclick="youkuClient.loadItemsPage();" value="电视剧列表"/>
+
 </body>
 </html>
