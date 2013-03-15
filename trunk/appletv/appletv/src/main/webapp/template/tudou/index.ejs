@@ -31,7 +31,6 @@
 				</shelfSection>
 			</sections>
 		</shelf>
-		<%if(channel['value']!=3){%>
 		<grid id="grid_1" columnCount="12">
 			<items>
 				<actionButton id="shelf_item_first_page" onSelect="tudouClient.loadIndexPage('<%=keyword%>',1,<%=channel['value']%>);" onPlay="tudouClient.loadIndexPage('<%=keyword%>',1,<%=channel['value']%>);">
@@ -47,7 +46,6 @@
 				</actionButton>
 			</items>
 		</grid>
-		<%}%>
 		<grid id="grid_2" columnCount="6">
 			<items>
 				<%for(var i=0;i<videos.length;i++){%>
@@ -67,7 +65,6 @@
 				<%}%>
 			</items>
 		</grid>
-		<%if(channel['value']!=3){%>
 		<grid id="grid_3" columnCount="12">
 			<items>
 				<actionButton id="shelf_item_first_page" onSelect="tudouClient.loadIndexPage('<%=keyword%>',1,<%=channel['value']%>);" onPlay="tudouClient.loadIndexPage('<%=keyword%>',1,<%=channel['value']%>);">
@@ -83,7 +80,6 @@
 				</actionButton>
 			</items>
 		</grid>
-		<%}%>
 	</items>
 </scroller>
 </body>
