@@ -6,6 +6,7 @@
 		<script src="http://10.0.1.5/appletv/javascript/qq.js" />
 		<script src="http://10.0.1.5/appletv/javascript/yyets.js" />
 		<script src="http://10.0.1.5/appletv/javascript/tudou.js" />
+		<script src="http://10.0.1.5/appletv/javascript/youku.js" />
 	</head>
 	<body>
 		<scroller id="com.sample.movie-shelf">
@@ -50,6 +51,11 @@
 							<image>http://10.0.1.5/appletv/image/announcements.png</image>
 							<title>升级公告</title>
 						</goldenPoster>
+						<goldenPoster id="gp9" onSelect="youkuClient.loadIndexPage('',1,96);">
+							<image>http://10.0.1.5/appletv/image/yyets/yyets.jpg</image>
+							<title>Youku</title>
+						</goldenPoster>
+						
 					</items>
 				</grid>
 			</items>

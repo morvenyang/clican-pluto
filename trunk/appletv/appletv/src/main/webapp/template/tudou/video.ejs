@@ -27,8 +27,12 @@
 									<actionButton id="album_3" onSelect="tudouClient.loadItemsPage();">
 										<title>剧集</title>
 									</actionButton>
-								<%}else{%>
+								<%}else if(items.length==1){%>
 									<actionButton id="album_1" onSelect="tudouClient.play('<%=items[0]['id']%>');">
+										<title>播放</title>
+									</actionButton>
+								<%}else{%>
+									<actionButton id="album_1" onSelect="tudouClient.playByItemid(<%=video['id']%>);">
 										<title>播放</title>
 									</actionButton>
 								<%}%>
