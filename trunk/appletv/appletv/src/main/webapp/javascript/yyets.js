@@ -42,8 +42,15 @@ var yyetsClient = {
 	},
 
 	loadIndexPage : function(keyword, page, channelId) {
-		var url = yyetsSearchApi + "?c=" + channelId + "&page=" + page+"&s=views";
-		appletv.logToServer(url);
+		var url;
+		if (channelId == 'search') {
+			url = 'http://ziyuan.kehuduan.rryingshi.com:20066/search/resource/'
+					+ encodeURIComponent(keyword);
+		} else {
+			url = yyetsSearchApi + "?c=" + channelId + "&f=30&page=" + page
+					+ "&s=views";
+		}
+
 		var channel = this.yyetsChannelMap[channelId];
 		appletv
 				.makeRequest(
@@ -53,26 +60,44 @@ var yyetsClient = {
 								return;
 							}
 							var videos = [];
-							var imgs = appletv
-									.findall(
-											'<div class="img"><a href="/resources/\\d*" class="resources-list-resource-url"><img src="([^"]*)"',
-											htmlContent);
-							var idAndTitles = appletv
-									.findall(
-											'<h2 class="fl"><a href="/resources/(\\d*)" class="resources-list-resource-url">([^<]*)</a>',
-											htmlContent);
-							for ( var i = 0; i < imgs.length; i++) {
-								pic = imgs[i][0];
-								id = idAndTitles[i][0];
-								title = idAndTitles[i][1];
-								var video = {
-									"title" : title,
-									"id" : id,
-									"pic" : pic
-								};
-								videos.push(video);
+							if (channelId == 'search') {
+								var idAndTitles = appletv
+										.findall(
+												'<h2><a href="/resources/(\\d*)">([^<]*)</a>',
+												htmlContent);
+								for ( var i = 0; i < idAndTitles.length; i++) {
+									pic = imgs[i][0];
+									id = idAndTitles[i][0];
+									title = idAndTitles[i][1];
+									var video = {
+										"title" : title,
+										"id" : id,
+										"pic" : ''
+									};
+									videos.push(video);
+								}
+							} else {
+								var imgs = appletv
+										.findall(
+												'<div class="img"><a href="/resources/\\d*" class="resources-list-resource-url"><img src="([^"]*)"',
+												htmlContent);
+								var idAndTitles = appletv
+										.findall(
+												'<h2 class="fl"><a href="/resources/(\\d*)" class="resources-list-resource-url">([^<]*)</a>',
+												htmlContent);
+								for ( var i = 0; i < imgs.length; i++) {
+									pic = imgs[i][0];
+									id = idAndTitles[i][0];
+									title = idAndTitles[i][1];
+									var video = {
+										"title" : title,
+										"id" : id,
+										"pic" : pic
+									};
+									videos.push(video);
+								}
 							}
-							;
+
 							yyetsClient.generateIndexPage(keyword, page,
 									channel, videos);
 						});
@@ -169,7 +194,7 @@ var yyetsClient = {
 				} else {
 					datatitle = appletv.substring(datafile, "file|", "|");
 				}
-				
+
 				data = {
 					"url" : datafile,
 					"title" : decodeURIComponent(datatitle)
@@ -242,6 +267,28 @@ var yyetsClient = {
 			var xml = new EJS({
 				url : appletv.serverurl + '/template/yyets/videoItems.ejs'
 			}).render(video);
+			appletv.loadAndSwapXML(xml);
+		});
+	},
+
+	loadSearchPage : function() {
+		appletv.showInputTextPage('关键字', '搜索', tudouClient.loadKeywordsPage,
+				'yyetsClient.loadKeywordsPage', '');
+	},
+
+	loadKeywordsPage : function(q) {
+		appletv.showLoading();
+		var queryUrl = 'http://tip.tudou.soku.com/hint?q=' + q;
+		appletv.makeRequest(queryUrl, function(result) {
+			appletv.logToServer(result);
+			var keywords = JSON.parse(result);
+			var data = {
+				keywords : keywords,
+				serverurl : appletv.serverurl
+			};
+			var xml = new EJS({
+				url : appletv.serverurl + '/template/yyets/keywords.ejs'
+			}).render(data);
 			appletv.loadAndSwapXML(xml);
 		});
 	},

@@ -20,6 +20,12 @@ public class YyetsClientTestCases extends BaseServiceTestCase {
 		System.out.println(content);
 	}
 	
+	public void testSearchAPI() throws Exception{
+		String url = "http://ziyuan.kehuduan.rryingshi.com:20066/search/resource/%E8%A1%8C%E5%B0%B8%E8%B5%B0%E8%82%89";
+		String content = tudouClient.httpGet(url);
+		System.out.println(content);
+	}
+	
 	public void testVideoAPI() throws Exception {
 		String url = "http://ziyuan.kehuduan.rryingshi.com:20066/resources/11057";
 		String content = tudouClient.httpGet(url);
