@@ -63,9 +63,12 @@
 <input type="button" onclick="tudouClient.loadIndexPage('',1,30);" value="土豆电视"/>
 <input type="button" onclick="tudouClient.loadIndexPage('',1,31);" value="土豆综艺"/>
 <input type="button" onclick="tudouClient.loadIndexPage('',1,5);" value="土豆搞笑"/>
+<input type="button" onclick="tudouClient.loadIndexPage('',1,9);" value="土豆动画"/>
 <input type="button" onclick="tudouClient.loadVideoPage('http://www.tudou.com/albumcover/R_VQZQw4YKs.html',30,1);" value="土豆详细1"/>
 <input type="button" onclick="tudouClient.loadVideoPage('http://www.tudou.com/albumplay/RNSP3yYN0Co/Yj1VB4-71xo.html',31,0);" value="土豆详细2"/>
 <input type="button" onclick="tudouClient.loadVideoPage('http://www.tudou.com/programs/view/P1ExBZSGszE/',5,0);" value="土豆详细3"/>
+<input type="button" onclick="tudouClient.loadVideoPage('http://www.tudou.com/albumcover/rPLUN_vz3OY.html',9,1);" value="火影"/>
+
 
 <input type="button" onclick="tudouClient.loadItemsPage();" value="土豆详细"/>
 <input type="button" onclick="tudouClient.loadSearchPage();" value="搜索"/>

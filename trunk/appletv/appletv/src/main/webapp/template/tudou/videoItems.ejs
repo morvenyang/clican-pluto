@@ -18,9 +18,15 @@
 					<menuSection>
 						<items>
 							<%for(var i=0;i<items.length;i++){%>
-								<oneLineMenuItem id="albumItem_<%=i%>" onPlay="tudouClient.play('<%=items[i]['id']%>');" onSelect="tudouClient.play('<%=items[i]['id']%>');">
-									<label><%=items[i]['title']%></label>
-								</oneLineMenuItem>
+								<%if(items[i]['vcode']!=null&&items[i]['vcode'].length>0){%>
+									<oneLineMenuItem id="albumItem_<%=i%>" onPlay="tudouClient.play('<%=items[i]['vcode']%>');" onSelect="tudouClient.play('<%=items[i]['vcode']%>');">
+										<label><%=items[i]['title']%></label>
+									</oneLineMenuItem>
+								<%}else{%>
+									<oneLineMenuItem id="albumItem_<%=i%>" onPlay="tudouClient.playByItemid('<%=items[i]['itemid']%>');" onSelect="tudouClient.playByItemid('<%=items[i]['itemid']%>');">
+										<label><%=items[i]['title']%></label>
+									</oneLineMenuItem>
+								<%}%>
 							<%}%>
 						</items>
 					</menuSection>

@@ -270,8 +270,12 @@ var tudouClient = {
 							for ( var i = 0; i < albumitems.length; i++) {
 								var item = {
 									'title' : '第' + (i + 1) + '集',
-									'id' : albumitems[i]['vcode']
+									'vcode' : albumitems[i]['vcode'],
+									'itemid': albumitems[i]['itemid']
 								};
+								if(i==0){
+									appletv.logToServer(JSON.stringify(item));
+								}
 								items.push(item);
 							}
 							var video = {
