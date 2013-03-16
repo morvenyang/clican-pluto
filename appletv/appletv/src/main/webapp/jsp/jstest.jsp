@@ -60,8 +60,14 @@
 <input type="button" onclick="xunleiClient.play('ed2k://|file|%E8%A1%8C%E5%B0%B8%E8%B5%B0%E8%82%89.The.Walking.Dead.S03E13.Chi_Eng.HDTVrip.720X400.mp4|203034532|CD40755A174FE5EA525208DA18DD3333|h=FCU3MZ65SO2FDBVQZ2IQPKG2TJJHKFBY|/');" value="播放"/>
 <br/>
 <input type="button" onclick="tudouClient.loadIndexPage('',1,22);" value="土豆电影"/>
-<input type="button" onclick="tudouClient.loadVideoPage('kH5WrptvLb4',22,0);" value="土豆详细"/>
-<input type="button" onclick="tudouClient.loadItemsPage('130655815',30,2);" value="土豆详细"/>
+<input type="button" onclick="tudouClient.loadIndexPage('',1,30);" value="土豆电视"/>
+<input type="button" onclick="tudouClient.loadIndexPage('',1,31);" value="土豆综艺"/>
+<input type="button" onclick="tudouClient.loadIndexPage('',1,5);" value="土豆搞笑"/>
+<input type="button" onclick="tudouClient.loadVideoPage('http://www.tudou.com/albumcover/R_VQZQw4YKs.html',30,1);" value="土豆详细1"/>
+<input type="button" onclick="tudouClient.loadVideoPage('http://www.tudou.com/albumplay/RNSP3yYN0Co/Yj1VB4-71xo.html',31,0);" value="土豆详细2"/>
+<input type="button" onclick="tudouClient.loadVideoPage('http://www.tudou.com/programs/view/P1ExBZSGszE/',5,0);" value="土豆详细3"/>
+
+<input type="button" onclick="tudouClient.loadItemsPage();" value="土豆详细"/>
 <input type="button" onclick="tudouClient.loadSearchPage();" value="搜索"/>
 <input type="button" onclick="tudouClient.loadIndexPage('行尸走肉',1,1001);" value="搜索hmjz"/>
 

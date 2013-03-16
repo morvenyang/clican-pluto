@@ -175,20 +175,26 @@ var tudouClient = {
 								}
 							});
 		} else {
-			queryUrl = "http://www.tudou.com/cate/ach" + channelId
-					+ "a-2b-2c-2d-2e-2f-2g-2h-2i-2j-2k-2l-2m-2n-2o-2so1pe-2pa"
-					+ page + ".html";
+			if(channelId==30||channelId==22|channelId==9||channelId==31){
+				queryUrl = "http://www.tudou.com/cate/ach" + channelId
+				+ "a-2b-2c-2d-2e-2f-2g-2h-2i-2j-2k-2l-2m-2n-2o-2so1pe-2pa"
+				+ page + ".html";
+			}else{
+				queryUrl = "http://www.tudou.com/cate/ich" + channelId
+				+ "a-2b-2c-2d-2e-2f-2g-2h-2i-2j-2k-2l-2m-2n-2o-2so1pe-2pa"
+				+ page + ".html";
+			}
 			appletv.makeRequest(queryUrl, function(content) {
 				if (content != null && content.length > 0) {
 					var packs = appletv.getSubValuesByTag(content,
-							'<div class="pack pack_album">', '</div>', 'div');
+							'<div class="pack', '</div>', 'div');
 					for (i = 0; i < packs.length; i++) {
 						var pack = packs[i];
 						var pic = appletv.substring(pack,
-								'<img class="quic" src="', '"');
+								'<img', '>');
+						pic = appletv.substring(pic,'src="','"');
 						var title = appletv.substring(pack, 'title="', '"');
 						var id = appletv.substring(pack, '<a href="', '"');
-						id = appletv.substring(id, 'albumcover/', '.html');
 						var album = 0;
 						if (channelId == 30 || channelId == 9) {
 							album = 1;
@@ -236,9 +242,8 @@ var tudouClient = {
 		appletv.loadAndSwapXML(xml);
 	},
 
-	loadVideoPage : function(code, channelId, isalbum) {
+	loadVideoPage : function(url, channelId, isalbum) {
 		appletv.showLoading();
-		var url = 'http://www.tudou.com/albumcover/' + code + '.html';
 		appletv.makeRequest(url, function(htmlContent) {
 			if (htmlContent == null) {
 				return;
@@ -300,13 +305,18 @@ var tudouClient = {
 
 	loadItemsPage : function() {
 		appletv.showLoading();
-		appletv.getValue('tudouVideo',function(video){
-			var xml = new EJS({
-				url : appletv.serverurl
-						+ '/template/tudou/videoItems.ejs'
-			}).render(video);
-			appletv.loadAndSwapXML(xml);
-		});
+		try{
+			appletv.getValue('tudouVideo',function(video){
+				var xml = new EJS({
+					url : appletv.serverurl
+							+ '/template/tudou/videoItems.ejs'
+				}).render(video);
+				appletv.loadAndSwapXML(xml);
+			});
+		}catch(e){
+			appletv.logToServer('Error occured tudou.loadItemsPage ' + e);
+		}
+		
 	},
 
 	loadSearchPage : function() {
@@ -335,5 +345,10 @@ var tudouClient = {
 		var url = 'http://v.youku.com/player/getRealM3U8/vid/' + vcode + '/type/flv/sc/2/video.m3u8';
 		appletv.playM3u8(url, '');
 	},
+	
+	playByItemid: function(itemid){
+		var url = 'http://vr.tudou.com/v2proxy/v2.m3u8?st=4&it='+itemid;
+		appletv.playM3u8(url, '');
+	}
 
 }

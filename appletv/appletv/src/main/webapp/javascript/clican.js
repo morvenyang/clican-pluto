@@ -352,7 +352,9 @@ var appletv = {
 	
 	getValue:function(key,callback){
 		if(!this.simulate) {
-			callback(atv.localStorage[key]);
+			var value = atv.localStorage[key];
+			appletv.logToServer(JSON.stringify(value));
+			callback(value);
 		}else{
 			appletv.makeRequest(appletv.serverurl+'/ctl/getValue.do?name='+key, function(result){
 				callback(JSON.parse(result));
