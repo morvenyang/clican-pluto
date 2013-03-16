@@ -9,10 +9,10 @@
 <body>
 		<listByNavigation id="bbbb" onNavigate="yyetsClient.listVideosInFormat('<%=format%>',event.navigationItemId);">
 			<header>
-				<simpleHeader horizontalAlignment="left">
-					<title><![CDATA[<%=title%>]]></title>
+				<tumblerWithSubtitle horizontalAlignment="left">
+					<subtitle><![CDATA[<%=title%>]]></subtitle>
 					<image src="<%=pic%>"></image>
-				</simpleHeader>
+				</tumblerWithSubtitle>
 			</header>
 			<navigation currentIndex="<%=currentIndex%>">
 				<%for(var i=0;i<seasons.length;i++){%>

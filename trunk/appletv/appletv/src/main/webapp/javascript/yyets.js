@@ -42,13 +42,13 @@ var yyetsClient = {
 	},
 
 	loadIndexPage : function(keyword, page, channelId) {
-		var url = yyetsSearchApi + "?c=" + channelId + "&page=" + page;
+		var url = yyetsSearchApi + "?c=" + channelId + "&page=" + page+"&s=views";
+		appletv.logToServer(url);
 		var channel = this.yyetsChannelMap[channelId];
 		appletv
 				.makeRequest(
 						url,
 						function(htmlContent) {
-							appletv.logToServer(htmlContent);
 							if (htmlContent == null) {
 								return;
 							}
