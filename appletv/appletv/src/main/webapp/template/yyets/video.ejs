@@ -7,8 +7,8 @@
 </head>
 <body>
 <itemDetail id="itemdetail">
-			<title><%=video['title']%></title>
-			<summary><%=video['desc']%></summary>
+			<title><![CDATA[<%=video['title']%>]]></title>
+			<summary><![CDATA[<%=video['desc']%>]]></summary>
 			<image style="moviePoster"><%=video['pic']%></image>
 			<table>
 				<columnDefinitions><columnDefinition width="50"><title>其他信息</title></columnDefinition><columnDefinition width="50"><title></title></columnDefinition></columnDefinitions>
@@ -24,6 +24,8 @@
 						<shelfSection>
 							<items>
 								<%for(var i=0;i<formats.length;i++){%>
+									<%if(format[i]=='1080P'||format[i]=='720P'||format[i]=='MP4'||format[i]=='BD-720P'||format[i]=='RMVB'||format[i]=='HDTV'||format[i]=='HR-HDTV'){%>
+									<%}%>
 									<actionButton id="format_<%=i+1%>" onSelect="yyetsClient.listVideosInFormat('<%=formats[i]%>','');">
 										<title><![CDATA[<%=formats[i]%>]]></title>
 									</actionButton>
