@@ -172,7 +172,7 @@ var yyetsClient = {
 				
 				data = {
 					"url" : datafile,
-					"title" : datatitle
+					"title" : decodeURIComponent(datatitle)
 				};
 				formatseasonmap[dataformat][dataseason].push(data);
 			}
@@ -182,7 +182,7 @@ var yyetsClient = {
 				'title' : title,
 				'pic' : pic
 			};
-			appletv.setValue('yyetsVideoCache', yyetsVideoCache);
+			appletv.setValue('yyetsVideo', yyetsVideoCache);
 			var video = {
 				'serverurl' : appletv.serverurl,
 				video : {
@@ -207,7 +207,7 @@ var yyetsClient = {
 	},
 
 	listVideosInFormat : function(format, season) {
-		appletv.getValue('yyetsVideoCache', function(yyetsVideoCache) {
+		appletv.getValue('yyetsVideo', function(yyetsVideoCache) {
 			var yvc = yyetsVideoCache;
 			var seasons = yvc['seasons'];
 			var newseasons = [];
