@@ -54,10 +54,10 @@
 <input type="button" onclick="appletv.showInputTextPage('设置本地服务器IP','本地服务器用于代理视频内容的加载,提升加载速度减少延迟卡顿现象',userconfig.saveLocalServerIP,'userconfig.saveLocalServerIP','');" value="设置IP" />
 <input type="button" onclick="appletv.playM3u8('http://localhost/m4u8')" value="play m3u8" />
 <br/>
-<input type="button" onclick="yyetsClient.loadIndexPage('',1,'tv');" value="人人影视"/>
-<input type="button" onclick="yyetsClient.loadVideoPage('11057');" value="行尸走肉"/>
-<input type="button" onclick="yyetsClient.loadVideoPage('11012');" value="尼基塔"/>
-<input type="button" onclick="yyetsClient.listVideosInFormat('1080P','');" value="视频list"/>
+<input type="button" onclick="yyetsClient.loadIndexPage('',1,'tv');" target="_blank" value="人人影视"/>
+<input type="button" onclick="yyetsClient.loadVideoPage('11057');" target="_blank" value="行尸走肉"/>
+<input type="button" onclick="yyetsClient.loadVideoPage('11012');" target="_blank" value="尼基塔"/>
+<input type="button" onclick="yyetsClient.listVideosInFormat('MP4','');" target="_blank" value="视频list"/>
 
 <input type="button" onclick="xunleiClient.play('ed2k://|file|%E8%A1%8C%E5%B0%B8%E8%B5%B0%E8%82%89.The.Walking.Dead.S03E13.Chi_Eng.HDTVrip.720X400.mp4|203034532|CD40755A174FE5EA525208DA18DD3333|h=FCU3MZ65SO2FDBVQZ2IQPKG2TJJHKFBY|/');" value="播放"/>
 <br/>

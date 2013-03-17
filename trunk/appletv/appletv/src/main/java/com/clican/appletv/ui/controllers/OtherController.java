@@ -4,8 +4,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.URLEncoder;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -72,6 +70,25 @@ public class OtherController {
 			HttpServletResponse response) throws IOException {
 		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
 		return "jstest";
+	}
+
+	@RequestMapping("/showxml.xml")
+	public void showXmlPage(HttpServletRequest request,
+			HttpServletResponse response)
+			throws Exception {
+		String xml = (String)request.getSession().getAttribute("simulate.xml");
+		response.setContentType("text/xml;charset=utf-8");
+		OutputStream os = response.getOutputStream();
+		os.write(xml.getBytes("utf-8"));
+		os.close();
+	}
+	
+	@RequestMapping("/postxml.xml")
+	public void postXmlPage(HttpServletRequest request,
+			HttpServletResponse response)
+			throws Exception {
+		String xml = this.getContent(request);
+		request.getSession().setAttribute("simulate.xml", xml);
 	}
 
 	@RequestMapping("/setValue.do")
