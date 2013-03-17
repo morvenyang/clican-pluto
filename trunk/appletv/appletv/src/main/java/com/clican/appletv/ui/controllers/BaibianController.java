@@ -52,6 +52,22 @@ public class BaibianController {
 		request.setAttribute("end", end);
 		return "baibian/index";
 	}
+	
+	@RequestMapping("/baibian/video.xml")
+	public String videoPage(HttpServletRequest request,
+			HttpServletResponse response, @RequestParam("title") String title,
+			@RequestParam("imageUrl") String imageUrl,
+			@RequestParam("mediaUrl") String mediaUrl,
+			@RequestParam("id") Long id) throws IOException {
 
+		Baibian baibian = new Baibian();
+		baibian.setId(id);
+		baibian.setMediaUrl(mediaUrl);
+		baibian.setImageUrl(imageUrl);
+		baibian.setTitle(title);
+		request.setAttribute("video", baibian);
+		request.setAttribute("serverurl", springProperty.getSystemServerUrl());
+		return "baibian/video";
+	}
 	
 }

@@ -44,13 +44,5 @@ public class Baibian {
 		this.mediaUrl = mediaUrl;
 	}
 
-	public String getMediaHtmlUrl() {
-		return mediaHtmlUrl;
-	}
-
-	public void setMediaHtmlUrl(String mediaHtmlUrl) {
-		this.mediaHtmlUrl = mediaHtmlUrl;
-	}
-	
 	
 }
