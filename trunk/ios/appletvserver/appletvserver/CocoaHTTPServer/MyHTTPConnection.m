@@ -41,7 +41,7 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
         ipAddress = [ipAddress stringByAppendingString:@":8080"];
         NSLog(@"ip address=%@",ipAddress);
         replaceContent = [replaceContent stringByReplacingOccurrencesOfString:@"clican.org" withString:ipAddress];
-
+        replaceContent = [replaceContent stringByReplacingOccurrencesOfString:@"10.0.1.5" withString:ipAddress];
         NSData *response = [replaceContent dataUsingEncoding:NSUTF8StringEncoding];
         return [[HTTPDataResponse alloc] initWithData:response];
     }else if([path rangeOfString:@"/appletv/proxy.m3u8"].location!=NSNotFound){
