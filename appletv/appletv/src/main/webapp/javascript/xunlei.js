@@ -39,7 +39,7 @@ var xunleiClient = {
 	},
 	
 	xunleicallback:function (res) {
-		alert('xunleicallback is called');
+		appletv.logToServer('xunleicallback is called');
 		try {
 			msg = res['resp']['vod_permit']['msg'];
 			if (msg == 'overdue session') {

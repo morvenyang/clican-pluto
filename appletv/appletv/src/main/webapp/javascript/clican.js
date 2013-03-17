@@ -294,8 +294,10 @@ var appletv = {
 
 	loadXML : function(xml) {
 		if (this.simulate) {
-			document.documentElement.innerHTML = '<html><head></head><body><textarea rows=\"100\" cols=\"150\">'
-					+ xml + '</textarea></body></html>';
+			appletv.makePostRequest(appletv.serverurl+'/ctl/postxml.xml', xml, 
+					function(result){
+						window.open(appletv.serverurl+'/ctl/showxml.xml');
+					});
 		} else {
 			atv.loadXML(atv.parseXML(xml));
 		}
@@ -303,8 +305,10 @@ var appletv = {
 	
 	loadAndSwapXML : function(xml) {
 		if (this.simulate) {
-			document.documentElement.innerHTML = '<html><head></head><body><textarea rows=\"100\" cols=\"150\">'
-				+ xml + '</textarea></body></html>';
+			appletv.makePostRequest(appletv.serverurl+'/ctl/postxml.xml', xml, 
+					function(result){
+						window.open(appletv.serverurl+'/ctl/showxml.xml');
+					});
 		} else {
 			atv.loadAndSwapXML(atv.parseXML(xml));
 		}

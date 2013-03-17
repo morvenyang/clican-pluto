@@ -24,11 +24,11 @@
 						<shelfSection>
 							<items>
 								<%for(var i=0;i<formats.length;i++){%>
-									<%if(format[i]=='1080P'||format[i]=='720P'||format[i]=='MP4'||format[i]=='BD-720P'||format[i]=='RMVB'||format[i]=='HDTV'||format[i]=='HR-HDTV'){%>
+									<%if(formats[i]=='1080P'||formats[i]=='720P'||formats[i]=='MP4'||formats[i]=='BD-720P'||formats[i]=='RMVB'||formats[i]=='HDTV'||formats[i]=='HR-HDTV'){%>
+										<actionButton id="format_<%=i+1%>" onSelect="yyetsClient.listVideosInFormat('<%=formats[i]%>','');">
+											<title><![CDATA[<%=formats[i]%>]]></title>
+										</actionButton>
 									<%}%>
-									<actionButton id="format_<%=i+1%>" onSelect="yyetsClient.listVideosInFormat('<%=formats[i]%>','');">
-										<title><![CDATA[<%=formats[i]%>]]></title>
-									</actionButton>
 								<%}%>
 								<actionButton id="album_8" onSelect="atv.loadURL('<%=serverurl%>/ctl/weibo/createStatus.xml?deviceId='+atv.device.udid+'&amp;title='+encodeURIComponent('<%=video['title']%>')+'&amp;shareURL=http://www.yyets.com/php/resource/<%=video['id']%>&amp;imageURL=<%=video['pic']%>');">
 									<title>分享</title>
