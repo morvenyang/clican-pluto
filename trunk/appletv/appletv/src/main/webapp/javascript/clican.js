@@ -242,7 +242,7 @@ var appletv = {
 	},
 
 	playM3u8 : function(url,proxy){
-		proxy = 'http://10.0.1.3:8080';
+		proxy = appletv.serverurl;
 		if(proxy!=null&&proxy.length>0) {
 			url = proxy+"/appletv/proxy.m3u8?url="+encodeURIComponent(url);
 			appletv.loadXML(appletv.makePlayXml(url));
