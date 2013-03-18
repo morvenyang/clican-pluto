@@ -1,7 +1,7 @@
 var appletv = {
 	logEnable : true,
 	logSeverity : 'DEBUG',
-	simulate : true,
+	simulate : false,
 	//local server url
 	serverurl : 'http://local.clican.org/appletv',
 	//remote server url
