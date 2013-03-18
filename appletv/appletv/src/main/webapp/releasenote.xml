@@ -14,7 +14,7 @@
 				<grid id="grid_2" columnCount="3">
 					<items>
 						<goldenPoster id="gp0" onSelect="youkuClient.loadIndexPage('',1,96);">
-							<image>http://local.clican.org/appletv/image/yyets/yyets.jpg</image>
+							<image>http://local.clican.org/appletv/image/youku/youku.png</image>
 							<title>优库</title>
 						</goldenPoster>
 						<goldenPoster id="gp1"
