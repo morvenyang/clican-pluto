@@ -124,12 +124,11 @@ var tudouClient = {
 			value : 24
 		}
 	},
-
-	loadIndexPage : function(keyword, page, channelId) {
+	
+	loadIndexPage : function(keyword, page, channelId, queryUrl) {
 		appletv.showLoading();
 		var channel = this.tudouChannelMap[channelId];
 		var videos = [];
-		var queryUrl;
 		if (channelId == 1001) {
 			queryUrl = tudouSearchApi + '&pageNo=' + page + '&kw='
 					+ encodeURIComponent(keyword);
@@ -175,36 +174,21 @@ var tudouClient = {
 								}
 							});
 		} else {
-			if(channelId==30||channelId==22|channelId==9||channelId==31){
-				queryUrl = "http://www.tudou.com/cate/ach" + channelId
-				+ "a-2b-2c-2d-2e-2f-2g-2h-2i-2j-2k-2l-2m-2n-2o-2so1pe-2pa"
-				+ page + ".html";
+			if(queryUrl==null){
+				if(channelId==30||channelId==22|channelId==9||channelId==31){
+					queryUrl = "http://www.tudou.com/cate/ach" + channelId
+					+ "a-2b-2c-2d-2e-2f-2g-2h-2i-2j-2k-2l-2m-2n-2o-2so1pe-2pa"
+					+ page + ".html";
+				}else{
+					queryUrl = "http://www.tudou.com/cate/ich" + channelId
+					+ "a-2b-2c-2d-2e-2f-2g-2h-2i-2j-2k-2l-2m-2n-2o-2so1pe-2pa"
+					+ page + ".html";
+				}
 			}else{
-				queryUrl = "http://www.tudou.com/cate/ich" + channelId
-				+ "a-2b-2c-2d-2e-2f-2g-2h-2i-2j-2k-2l-2m-2n-2o-2so1pe-2pa"
-				+ page + ".html";
+				queryUrl = 'http://'+appletv.substring(queryUrl,'http://','2pa')+'2pa'+page+'.html';
 			}
 			appletv.makeRequest(queryUrl, function(content) {
 				if (content != null && content.length > 0) {
-					var categoryFilterContent = appletv.substringByTag(content,'<div class="category-filter category-more-filter">','</div>','div');
-					var categoryFilters = appletv.getSubValues(categoryFilterContent,'<div class="category-item','</div>');
-					
-					var categoryNames = [];
-					var categoryMap = {};
-					var category = {"categoryMap":categoryMap,"categoryNames":categoryNames};
-					for(i=0;i<categoryFilters.length;i++){
-						var categoryName = appletv.substring(categoryFilters[i],'<h3>','</h3>');
-						categoryNames.push(categoryName);
-						var categoryValues = [];
-						var categoryLis = appletv.getSubValues(categoryFilters[i],'<a','</a>');
-						for(j=0;j<categoryLis;j++){
-							var categoryLabel = appletv.substring(categoryLis[j],'>');
-							var categoryUrl = appletv.substring(categoryLis[j],'href="','"');
-							var categoryValue={"categoryLabel":categoryLabel,"categoryUrl":categoryUrl};
-							categoryValues.push(categoryValue);
-						}
-						categoryMap[categoryName] = categoryValues;
-					}
 					var packs = appletv.getSubValuesByTag(content,
 							'<div class="pack', '</div>', 'div');
 					for (i = 0; i < packs.length; i++) {
@@ -227,7 +211,7 @@ var tudouClient = {
 						videos.push(video);
 					}
 					tudouClient.generateIndexPage(keyword, page, channel,
-							videos,category);
+							videos,queryUrl);
 				} else {
 					atv.loadXML(appletv.makeDialog('加载失败', ''));
 				}
@@ -236,7 +220,7 @@ var tudouClient = {
 
 	},
 
-	generateIndexPage : function(keyword, page, channel, videos,category) {
+	generateIndexPage : function(keyword, page, channel, videos,url) {
 		var begin = 1;
 		var end = 1;
 		if (page < 90) {
@@ -253,14 +237,56 @@ var tudouClient = {
 			'end' : end,
 			'channels' : tudouClient.tudouChannels,
 			'serverurl' : appletv.serverurl,
-			'videos' : videos
+			'videos' : videos,
+			'url': url
 		};
 		var xml = new EJS({
 			url : appletv.serverurl + '/template/tudou/index.ejs'
 		}).render(data);
 		appletv.loadAndSwapXML(xml);
 	},
-
+	
+	getCategory: function(content,channelId,url){
+		var categoryFilterContent = appletv.substringByTag(content,'<div class="category-filter','</div>','div');
+		var categoryFilters = appletv.getSubValues(categoryFilterContent,'<div class="category-item','</div>');
+		
+		var categoryNames = [];
+		var categoryMap = {};
+		var category = {"categoryMap":categoryMap,"categoryNames":categoryNames,"url":url,"serverurl":appletv.serverurl,"channelId":channelId};
+		for(i=0;i<categoryFilters.length;i++){
+			appletv.logToServer(categoryFilters[i]);
+			var categoryName = appletv.substring(categoryFilters[i],'<h3>','</h3>');
+			categoryNames.push(categoryName);
+			var categoryValues = [];
+			var categoryLis = appletv.getSubValues(categoryFilters[i],'<li','</li>');
+			for(j=0;j<categoryLis.length;j++){
+				var select = false;
+				if(categoryLis[j].indexOf('class="current"')!=-1){
+					select = true
+				}
+				var categoryLabel = appletv.substring(categoryLis[j],'html">','</a>');
+				var categoryUrl = 'http://www.tudou.com/cate/'+appletv.substring(categoryLis[j],'href="','"');
+				var categoryValue={"categoryLabel":categoryLabel,"categoryUrl":categoryUrl,"select":select};
+				categoryValues.push(categoryValue);
+			}
+			categoryMap[categoryName] = categoryValues;
+		}
+		return category;
+	},
+	
+	loadCategoryPage: function(url,channelId,loading){
+		if(loading){
+			appletv.showLoading();
+		}
+		appletv.makeRequest(url, function(content) {
+			category = tudouClient.getCategory(content,channelId,url);
+			var xml = new EJS({
+				url : appletv.serverurl + '/template/tudou/category.ejs'
+			}).render(category);
+			appletv.loadAndSwapXML(xml);
+		});
+	},
+	
 	loadVideoPage : function(url, channelId, isalbum) {
 		appletv.showLoading();
 		appletv.makeRequest(url, function(htmlContent) {
@@ -316,7 +342,7 @@ var tudouClient = {
 								items : items
 							};
 							if(isalbum==1){
-								appletv.setValue('tudouVideo',video);
+								appletv.setValue('clican.tudou.video',video);
 							}
 							var xml = new EJS({
 								url : appletv.serverurl
@@ -329,7 +355,7 @@ var tudouClient = {
 	loadItemsPage : function() {
 		appletv.showLoading();
 		try{
-			appletv.getValue('tudouVideo',function(video){
+			appletv.getValue('clican.tudou.video',function(video){
 				var xml = new EJS({
 					url : appletv.serverurl
 							+ '/template/tudou/videoItems.ejs'
