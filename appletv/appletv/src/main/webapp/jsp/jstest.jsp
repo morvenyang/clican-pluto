@@ -18,7 +18,7 @@
 </head>
 <body>
 <form action="">
-		<input type="text" name="input" id="input"/> 
+		<input type="text" name="input" id="input" size="200"/> 
 		<input type="button" value="提交" onclick="eval(document.getElementById('input').value);"/>
 </form>
 <input type="button" onclick="taobaoClient.login('clicantest001','clican@001');" value="淘宝登录"/>
