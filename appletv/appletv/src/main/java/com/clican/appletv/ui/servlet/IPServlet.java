@@ -40,7 +40,12 @@ public class IPServlet extends HttpServlet {
 		String fileName = requestUrl.substring(requestUrl.lastIndexOf("/") + 1);
 		String realPath = this.getServletContext().getRealPath("WEB-INF");
 		File path = new File(realPath);
-		realPath = path.getParentFile().getAbsolutePath() + "/" + fileName;
+		if(fileName.contains("js")){
+			realPath = path.getParentFile().getAbsolutePath() + "/javascript/" + fileName;
+		}else{
+			realPath = path.getParentFile().getAbsolutePath() + "/" + fileName;
+		}
+		
 		String content = FileUtils.readFileToString(new File(realPath),"utf-8");
 		content = content.replaceAll("http://local.clican.org/appletv",
 				springProperty.getSystemServerUrl());
