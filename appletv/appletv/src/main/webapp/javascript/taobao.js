@@ -21,7 +21,7 @@ var taobaoClient = {
 
 	loginWithTokenAndTid : function() {
 		appletv.makeRequest(taobaoTokenApi, function(htmlcontent) {
-			appletv.makePostRequest(appletv.serverurl
+			appletv.makePostRequest(appletv.remoteserverurl
 					+ '/ctl/taobao/loginWithTokenAndTid.do', htmlcontent, function(
 					content) {
 				if (content == 'success') {
@@ -70,7 +70,7 @@ var taobaoClient = {
 		if (token == null || token.length == 0|| token=='null') {
 			appletv
 					.makeRequest(
-							appletv.serverurl + '/ctl/taobao/getTokenAndTid.do',
+							appletv.remoteserverurl + '/ctl/taobao/getTokenAndTid.do',
 							function(tokenAndTid) {
 								if (tokenAndTid == null
 										|| tokenAndTid.length == 0) {
@@ -111,7 +111,7 @@ var taobaoClient = {
 		if (tid ==null || tid.length==0 ||tid=='null') {
 			appletv
 					.makeRequest(
-							appletv.serverurl + '/ctl/taobao/getTokenAndTid.do',
+							appletv.remoteserverurl + '/ctl/taobao/getTokenAndTid.do',
 							function(tokenAndTid) {
 								if (tokenAndTid == null
 										|| tokenAndTid.length == 0) {
@@ -151,7 +151,7 @@ var taobaoClient = {
 		if (token == null || token.length == 0|| token=='null') {
 			appletv
 					.makeRequest(
-							appletv.serverurl + '/ctl/taobao/getTokenAndTid.do',
+							appletv.remoteserverurl + '/ctl/taobao/getTokenAndTid.do',
 							function(tokenAndTid) {
 								if (tokenAndTid == null
 										|| tokenAndTid.length == 0) {
@@ -159,7 +159,7 @@ var taobaoClient = {
 								} else {
 									appletv.makeRequest(taobaoMyFavoriteItemApi,
 											function(htmlcontent) {
-												appletv.makePostRequest(appletv.serverurl+'/ctl/taobao/favoriteItem.xml',htmlcontent,function(xmlcontent){
+												appletv.makePostRequest(appletv.remoteserverurl+'/ctl/taobao/favoriteItem.xml',htmlcontent,function(xmlcontent){
 													appletv.loadXML(xmlcontent);
 												});
 											});
@@ -169,7 +169,7 @@ var taobaoClient = {
 		} else {
 			appletv.makeRequest(taobaoMyFavoriteItemApi,
 					function(htmlcontent) {
-						appletv.makePostRequest(appletv.serverurl+'/ctl/taobao/favoriteItem.xml',htmlcontent,function(xmlcontent){
+						appletv.makePostRequest(appletv.remoteserverurl+'/ctl/taobao/favoriteItem.xml',htmlcontent,function(xmlcontent){
 							appletv.loadXML(xmlcontent);
 						});
 					});
@@ -181,7 +181,7 @@ var taobaoClient = {
 		if (token == null || token.length == 0|| token=='null') {
 			appletv
 					.makeRequest(
-							appletv.serverurl + '/ctl/taobao/getTokenAndTid.do',
+							appletv.remoteserverurl + '/ctl/taobao/getTokenAndTid.do',
 							function(tokenAndTid) {
 								if (tokenAndTid == null
 										|| tokenAndTid.length == 0) {
@@ -189,7 +189,7 @@ var taobaoClient = {
 								} else {
 									appletv.makeRequest(taobaoMyFavoriteShopApi,
 											function(htmlcontent) {
-												appletv.makePostRequest(appletv.serverurl+'/ctl/taobao/favoriteShop.xml',htmlcontent,function(xmlcontent){
+												appletv.makePostRequest(appletv.remoteserverurl+'/ctl/taobao/favoriteShop.xml',htmlcontent,function(xmlcontent){
 													appletv.loadXML(xmlcontent);
 												});
 											});
@@ -199,7 +199,7 @@ var taobaoClient = {
 		} else {
 			appletv.makeRequest(taobaoMyFavoriteShopApi,
 					function(htmlcontent) {
-						appletv.makePostRequest(appletv.serverurl+'/ctl/taobao/favoriteShop.xml',htmlcontent,function(xmlcontent){
+						appletv.makePostRequest(appletv.remoteserverurl+'/ctl/taobao/favoriteShop.xml',htmlcontent,function(xmlcontent){
 							appletv.loadXML(xmlcontent);
 						});
 					});
@@ -235,7 +235,7 @@ var taobaoClient = {
 				appletv.logToServer('load more data');
 				taobaoClient.loadLovePage(tagId, pagenum+1)
 			}else{
-				appletv.logToServer(appletv.serverurl+'/ctl/taobao/item.xml?itemId='+photoID);
+				appletv.logToServer(appletv.remoteserverurl+'/ctl/taobao/item.xml?itemId='+photoID);
 				taobaoClient.loadItemPage(photoID,'');
 			}
 		};
@@ -244,7 +244,7 @@ var taobaoClient = {
 	},
 	
 	search:function(keyword){
-		atv.loadURL(appletv.serverurl+'/ctl/taobao/itemList.xml?keyword='+encodeURIComponent(keyword));
+		atv.loadURL(appletv.remoteserverurl+'/ctl/taobao/itemList.xml?keyword='+encodeURIComponent(keyword));
 	},
 	
 	loadItemsByCategory:function(shopId,scid,scname){
@@ -280,7 +280,7 @@ var taobaoClient = {
 						}
 						index = htmlcontent.indexOf('href="',end);
 					}
-					appletv.makeRequest(appletv.serverurl+'/ctl/taobao/shopCategoryItemList.xml?scid='+scid+'&itemIds='+ids,function(xmlcontent){
+					appletv.makeRequest(appletv.remoteserverurl+'/ctl/taobao/shopCategoryItemList.xml?scid='+scid+'&itemIds='+ids,function(xmlcontent){
 						appletv.loadXML(xmlcontent);
 					});
 				});
@@ -292,21 +292,21 @@ var taobaoClient = {
 		if (token == null || token.length == 0|| token=='null') {
 			appletv
 			.makeRequest(
-					appletv.serverurl + '/ctl/taobao/getTokenAndTid.do',
+					appletv.remoteserverurl + '/ctl/taobao/getTokenAndTid.do',
 					function(tokenAndTid) {
 						if (tokenAndTid == null
 								|| tokenAndTid.length == 0) {
 							taobaoClient.showLoginPage();
 						} else {
 							appletv.makeRequest(taobaoMyCartApi, function(mycartcontent){
-								appletv.makePostRequest(appletv.serverurl+'/ctl/taobao/myCart.do',mycartcontent,function(mycardresult){
+								appletv.makePostRequest(appletv.remoteserverurl+'/ctl/taobao/myCart.do',mycartcontent,function(mycardresult){
 									if(mycardresult=='noresult'){
 										appletv.showDialog('购物车内空空如也', '请先用过购买操作把商品添加到购物车内');
 									}else{
 										appletv.makePostRequest(taobaoConfirmOrderApi+'?'+mycardresult,null, function(htmlcontent){
 											var payload ={"deviceId":appletv.getDeviceUdid(),"htmlContent":htmlcontent};
-											appletv.logToServer(appletv.serverurl+'/ctl/taobao/confirmOrder.xml');
-											appletv.makePostRequest(appletv.serverurl+'/ctl/taobao/confirmOrder.xml',JSON.stringify(payload),function(xmlcontent){
+											appletv.logToServer(appletv.remoteserverurl+'/ctl/taobao/confirmOrder.xml');
+											appletv.makePostRequest(appletv.remoteserverurl+'/ctl/taobao/confirmOrder.xml',JSON.stringify(payload),function(xmlcontent){
 												appletv.loadXML(xmlcontent);
 											});
 										});
@@ -322,14 +322,14 @@ var taobaoClient = {
 					appletv.showDialog('购物车内空空如也', '请先用过购买操作把商品添加到购物车内');
 				}else{
 					appletv.makeRequest(taobaoMyCartApi, function(mycartcontent){
-						appletv.makePostRequest(appletv.serverurl+'/ctl/taobao/myCart.do',mycartcontent,function(mycardresult){
+						appletv.makePostRequest(appletv.remoteserverurl+'/ctl/taobao/myCart.do',mycartcontent,function(mycardresult){
 							if(mycardresult=='noresult'){
 								appletv.showDialog('购物车内空空如也', '请先用过购买操作把商品添加到购物车内');
 							}else{
 								appletv.makePostRequest(taobaoConfirmOrderApi+'?'+mycardresult,null, function(htmlcontent){
 									var payload ={"deviceId":appletv.getDeviceUdid(),"htmlContent":htmlcontent};
-									appletv.logToServer(appletv.serverurl+'/ctl/taobao/confirmOrder.xml');
-									appletv.makePostRequest(appletv.serverurl+'/ctl/taobao/confirmOrder.xml',JSON.stringify(payload),function(xmlcontent){
+									appletv.logToServer(appletv.remoteserverurl+'/ctl/taobao/confirmOrder.xml');
+									appletv.makePostRequest(appletv.remoteserverurl+'/ctl/taobao/confirmOrder.xml',JSON.stringify(payload),function(xmlcontent){
 										appletv.loadXML(xmlcontent);
 									});
 								});
@@ -343,7 +343,7 @@ var taobaoClient = {
 	},
 	
 	changeAddress:function(addrId){
-		appletv.makeRequest(appletv.serverurl+'/ctl/taobao/getFareRequest.do?addrId='+addrId,function(fareRequest){
+		appletv.makeRequest(appletv.remoteserverurl+'/ctl/taobao/getFareRequest.do?addrId='+addrId,function(fareRequest){
 			if(fareRequest=='error'){
 				appletv.showDialog('结算页面过期请重新进入', '');
 			}else{
@@ -353,7 +353,7 @@ var taobaoClient = {
 				appletv.makePostRequest(taobaoGetFareApi+'?'+urlparam,null,function(fareResponse){
 					appletv.logToServer('fareResponse:'+fareResponse);
 					var payload ={"addrId":addrId,"fareResponse":fareResponse};
-					appletv.makePostRequest(appletv.serverurl+'/ctl/taobao/changeAddr.xml',JSON.stringify(payload),function(xmlcontent){
+					appletv.makePostRequest(appletv.remoteserverurl+'/ctl/taobao/changeAddr.xml',JSON.stringify(payload),function(xmlcontent){
 						appletv.loadXML(xmlcontent);
 					});
 				});
@@ -362,7 +362,7 @@ var taobaoClient = {
 	},
 	
 	submitConfirmOrder:function(){
-		appletv.makeRequest(appletv.serverurl+'/ctl/taobao/getSubmitRequest.do',function(submitRequest){
+		appletv.makeRequest(appletv.remoteserverurl+'/ctl/taobao/getSubmitRequest.do',function(submitRequest){
 			if(submitRequest==null){
 				appletv.showDialog('系统错误', '请重新进入结算页面然后重试');
 			}else if(submitRequest=='error'){
@@ -404,11 +404,11 @@ var taobaoClient = {
 				microscopedata = itemHtmlContent.substring(startIndex,endIndex);
 			}
 			if(microscopedata!=null){
-				appletv.makeRequest(appletv.serverurl+'/ctl/taobao/item.xml?itemId='+itemId+'&volume='+volume+'&microscopedata='+encodeURIComponent(microscopedata),function(xml){
+				appletv.makeRequest(appletv.remoteserverurl+'/ctl/taobao/item.xml?itemId='+itemId+'&volume='+volume+'&microscopedata='+encodeURIComponent(microscopedata),function(xml){
 					appletv.loadAndSwapXML(xml);
 				});
 			}else{
-				appletv.makeRequest(appletv.serverurl+'/ctl/taobao/item.xml?itemId='+itemId+'&volume='+volume,function(xml){
+				appletv.makeRequest(appletv.remoteserverurl+'/ctl/taobao/item.xml?itemId='+itemId+'&volume='+volume,function(xml){
 					appletv.loadAndSwapXML(xml);
 				});
 			}
