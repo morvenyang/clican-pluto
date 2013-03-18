@@ -8,8 +8,6 @@ public class Baibian {
 	
 	private String imageUrl;
 	
-	private String mediaHtmlUrl;
-	
 	private String mediaUrl;
 
 	public Long getId() {
