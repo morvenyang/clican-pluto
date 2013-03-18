@@ -44,8 +44,7 @@ public class ProxyController {
 			@RequestParam(value = "m3u8Url", required = false) String m3u8Url)
 			throws Exception {
 		String requestUrl = request.getRequestURI().toString();
-		String localPath = requestUrl.replace(
-				springProperty.getSystemServerUrl() + "/proxy/temp",
+		String localPath = requestUrl.replace("/appletv/noctl/proxy/temp",
 				springProperty.getSystemTempPath());
 		M3u8Download m3u8Download = proxyClient.getM3u8Download();
 		if (StringUtils.isEmpty(m3u8Download.getM3u8Url())
@@ -60,6 +59,7 @@ public class ProxyController {
 			if (file.exists()) {
 				response.getOutputStream().write(
 						FileUtils.readFileToByteArray(file));
+				return;
 			} else {
 				if (seek) {
 					seek = false;
