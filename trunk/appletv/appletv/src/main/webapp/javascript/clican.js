@@ -2,8 +2,8 @@ var appletv = {
 	logEnable : true,
 	logSeverity : 'DEBUG',
 	simulate : true,
-	serverurl : 'http://www.clican.org/appletv',
-	localserverurl : 'http://local.clican.org/appletv',
+	serverurl : 'http://local.clican.org/appletv',
+	remoteserverurl : 'http://www.clican.org/appletv',
 	getDeviceId: function(){
 		if(appletv.simulate){
 			return '1234';
