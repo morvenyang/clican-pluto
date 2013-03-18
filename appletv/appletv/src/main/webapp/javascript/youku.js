@@ -189,13 +189,30 @@ var youkuClient = {
 		var videos = [];
 		var queryUrl;
 		if (channelId == 1001) {
-			
 		} else {
-			if(channel.album){
-				queryUrl = 'http://www.youku.com/v_olist/c_'+channelId+'_a__s__g__r__lg__im__st__mt__tg__d_1_et_0_fv_0_fl__fc__fe__o_7_p_'+page+'.html';
+			if(queryUrl==null){
+				if(channel.album){
+					queryUrl = 'http://www.youku.com/v_olist/c_'+channelId+'_a__s__g__r__lg__im__st__mt__tg__d_1_et_0_fv_0_fl__fc__fe__o_7_p_'+page+'.html';
+				}else{
+					queryUrl = 'http://www.youku.com/v_showlist/t1c'+channelId+'g0d4p'+page+'.html'
+				}
 			}else{
-				queryUrl = 'http://www.youku.com/v_showlist/t1c'+channelId+'g0d4p'+page+'.html'
+				if(channel.album){
+					var pIndex = queryUrl.lastIndexOf('p_');
+					if(pIndex==-1){
+						pIndex = queryUrl.indexOf('.html');
+						queryUrl = queryUrl.substring(0,pIndex)+'p_'+page+'.html';
+					}
+					queryUrl = queryUrl.substring(0,pIndex)+'p_'+page+'.html';
+				}else{
+					var pIndex = queryUrl.lastIndexOf('p');
+					if(pIndex==-1){
+						pIndex = queryUrl.indexOf('.html');
+					}
+					queryUrl = queryUrl.substring(0,pIndex)+'p'+page+'.html';
+				}
 			}
+			appletv.logToServer(queryUrl);
 			appletv.makeRequest(queryUrl, function(content) {
 				if (content != null && content.length > 0) {
 					var itemscontent = appletv.substringByTag(content,'<div class="items">', '</div>', 'div');
@@ -217,7 +234,7 @@ var youkuClient = {
 						videos.push(video);
 					}
 					youkuClient.generateIndexPage(keyword, page, channel,
-							videos);
+							videos,queryUrl);
 				} else {
 					atv.loadXML(appletv.makeDialog('加载失败', ''));
 				}
@@ -227,7 +244,7 @@ var youkuClient = {
 
 	},
 
-	generateIndexPage : function(keyword, page, channel, videos) {
+	generateIndexPage : function(keyword, page, channel, videos,url) {
 		var begin = 1;
 		var end = 1;
 		if (page < 90) {
@@ -244,12 +261,57 @@ var youkuClient = {
 			'end' : end,
 			'channels' : youkuClient.youkuChannels,
 			'serverurl' : appletv.serverurl,
-			'videos' : videos
+			'videos' : videos,
+			'url' : url
 		};
 		var xml = new EJS({
 			url : appletv.serverurl + '/template/youku/index.ejs'
 		}).render(data);
 		appletv.loadAndSwapXML(xml);
+	},
+	
+	getCategory: function(content,channelId,url){
+		var channel = this.youkuChannelMap[channelId];
+		var categoryFilterContent = appletv.substringByTag(content,'<div class="filter" id="filter">','</div>','div');
+		var categoryFilters = appletv.getSubValuesByTag(categoryFilterContent,'<div class="item">','</div>','div');
+		appletv.logToServer(categoryFilterContent);
+		var categoryNames = [];
+		var categoryMap = {};
+		var category = {"categoryMap":categoryMap,"categoryNames":categoryNames,"url":url,"serverurl":appletv.serverurl,"channelId":channelId};
+		for(i=0;i<categoryFilters.length;i++){
+			var categoryName = appletv.substring(categoryFilters[i],'<label>','</label>');
+			categoryNames.push(categoryName);
+			var categoryValues = [];
+			var categoryLis = appletv.getSubValues(categoryFilters[i],'<li','</li>');
+			for(j=0;j<categoryLis.length;j++){
+				var select = false;
+				var categoryLabel;
+				if(categoryLis[j].indexOf('class="current"')!=-1){
+					select = true
+					categoryLabel = appletv.substring(categoryLis[j],'<span>','</span>');
+				}else{
+					categoryLabel = appletv.substring(categoryLis[j],'">','<');
+				}
+				var categoryUrl = 'http://www.youku.com'+appletv.substring(categoryLis[j],'href="','"');
+				var categoryValue={"categoryLabel":categoryLabel,"categoryUrl":categoryUrl,"select":select};
+				categoryValues.push(categoryValue);
+			}
+			categoryMap[categoryName] = categoryValues;
+		}
+		return category;
+	},
+	
+	loadCategoryPage: function(url,channelId,loading){
+		if(loading){
+			appletv.showLoading();
+		}
+		appletv.makeRequest(url, function(content) {
+			category = youkuClient.getCategory(content,channelId,url);
+			var xml = new EJS({
+				url : appletv.serverurl + '/template/youku/category.ejs'
+			}).render(category);
+			appletv.loadAndSwapXML(xml);
+		});
 	},
 	
 	loadVideoPage : function(code, channelId, isalbum,pic) {
@@ -363,7 +425,7 @@ var youkuClient = {
 	},
 	
 	loadSearchPage : function() {
-		appletv.showInputTextPage('关键字', '搜索', tudouClient.loadKeywordsPage,
+		appletv.showInputTextPage('关键字', '搜索', youkuClient.loadKeywordsPage,
 				'youkuClient.loadKeywordsPage', '');
 	},
 

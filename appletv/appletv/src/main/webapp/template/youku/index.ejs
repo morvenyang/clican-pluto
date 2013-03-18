@@ -33,15 +33,20 @@
 		</shelf>
 		<grid id="grid_1" columnCount="12">
 			<items>
-				<actionButton id="shelf_item_first_page" onSelect="youkuClient.loadIndexPage('<%=keyword%>',1,<%=channel['value']%>);" onPlay="youkuClient.loadIndexPage('<%=keyword%>',1,<%=channel['value']%>);">
+				<%if(channel['value']!=1001){%>
+				<actionButton id="shelf_item_category_page" onSelect="youkuClient.loadCategoryPage('<%=url%>',<%=channel['value']%>,true);" onPlay="youkuClient.loadCategoryPage('<%=url%>',<%=channel['value']%>,true);">
+					<title>筛选</title>
+				</actionButton>
+				<%}%>
+				<actionButton id="shelf_item_first_page" onSelect="youkuClient.loadIndexPage('<%=keyword%>',1,<%=channel['value']%>,'<%=url%>');" onPlay="youkuClient.loadIndexPage('<%=keyword%>',1,<%=channel['value']%>,'<%=url%>');">
 					<title>第一页</title>
 				</actionButton>
 				<%for(var i=begin;i<end;i++){%>
-					<actionButton id="shelf_item_<%=i%>_page" onSelect="youkuClient.loadIndexPage('<%=keyword%>',<%=i%>,<%=channel['value']%>);" onPlay="youkuClient.loadIndexPage('<%=keyword%>',<%=i%>,<%=channel['value']%>);">
-						<title><%=i+1%></title>
+					<actionButton id="shelf_item_<%=i%>_page" onSelect="youkuClient.loadIndexPage('<%=keyword%>',<%=i%>,<%=channel['value']%>,'<%=url%>');" onPlay="youkuClient.loadIndexPage('<%=keyword%>',<%=i%>,<%=channel['value']%>,'<%=url%>');">
+						<title><%=i%></title>
 					</actionButton>
 				<%}%>
-				<actionButton id="shelf_item_last_page" onSelect="youkuClient.loadIndexPage('<%=keyword%>',99,<%=channel['value']%>);" onPlay="youkuClient.loadIndexPage('<%=keyword%>',99,<%=channel['value']%>);">
+				<actionButton id="shelf_item_last_page" onSelect="youkuClient.loadIndexPage('<%=keyword%>',99,<%=channel['value']%>,'<%=url%>');" onPlay="youkuClient.loadIndexPage('<%=keyword%>',99,<%=channel['value']%>,'<%=url%>');">
 					<title>最后页</title>
 				</actionButton>
 			</items>
@@ -67,15 +72,20 @@
 		</grid>
 		<grid id="grid_3" columnCount="12">
 			<items>
-				<actionButton id="shelf_item_first_page" onSelect="youkuClient.loadIndexPage('<%=keyword%>',1,<%=channel['value']%>);" onPlay="youkuClient.loadIndexPage('<%=keyword%>',1,<%=channel['value']%>);">
+				<%if(channel['value']!=1001){%>
+				<actionButton id="shelf_item_category_page" onSelect="youkuClient.loadCategoryPage('<%=url%>',<%=channel['value']%>,true);" onPlay="youkuClient.loadCategoryPage('<%=url%>',<%=channel['value']%>,true);">
+					<title>筛选</title>
+				</actionButton>
+				<%}%>
+				<actionButton id="shelf_item_first_page" onSelect="youkuClient.loadIndexPage('<%=keyword%>',1,<%=channel['value']%>,'<%=url%>');" onPlay="youkuClient.loadIndexPage('<%=keyword%>',1,<%=channel['value']%>,'<%=url%>');">
 					<title>第一页</title>
 				</actionButton>
 				<%for(var i=begin;i<end;i++){%>
-					<actionButton id="shelf_item_<%=i%>_page" onSelect="youkuClient.loadIndexPage('<%=keyword%>',<%=i%>,<%=channel['value']%>);" onPlay="youkuClient.loadIndexPage('<%=keyword%>',<%=i%>,<%=channel['value']%>);">
-						<title><%=i+1%></title>
+					<actionButton id="shelf_item_<%=i%>_page" onSelect="youkuClient.loadIndexPage('<%=keyword%>',<%=i%>,<%=channel['value']%>,'<%=url%>');" onPlay="youkuClient.loadIndexPage('<%=keyword%>',<%=i%>,<%=channel['value']%>,'<%=url%>');">
+						<title><%=i%></title>
 					</actionButton>
 				<%}%>
-				<actionButton id="shelf_item_last_page" onSelect="youkuClient.loadIndexPage('<%=keyword%>',99,<%=channel['value']%>);" onPlay="youkuClient.loadIndexPage('<%=keyword%>',99,<%=channel['value']%>);">
+				<actionButton id="shelf_item_last_page" onSelect="youkuClient.loadIndexPage('<%=keyword%>',99,<%=channel['value']%>,'<%=url%>');" onPlay="youkuClient.loadIndexPage('<%=keyword%>',99,<%=channel['value']%>,'<%=url%>');">
 					<title>最后页</title>
 				</actionButton>
 			</items>
