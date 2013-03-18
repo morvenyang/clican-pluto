@@ -254,7 +254,6 @@ var tudouClient = {
 		var categoryMap = {};
 		var category = {"categoryMap":categoryMap,"categoryNames":categoryNames,"url":url,"serverurl":appletv.serverurl,"channelId":channelId};
 		for(i=0;i<categoryFilters.length;i++){
-			appletv.logToServer(categoryFilters[i]);
 			var categoryName = appletv.substring(categoryFilters[i],'<h3>','</h3>');
 			categoryNames.push(categoryName);
 			var categoryValues = [];
