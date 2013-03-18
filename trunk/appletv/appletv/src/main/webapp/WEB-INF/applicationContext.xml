@@ -218,4 +218,9 @@ http://www.springframework.org/schema/context/spring-context-2.5.xsd">
 	<bean id="localServerService" class="com.clican.appletv.core.service.localserver.LocalServerServiceImpl"
 		autowire="byName">
 	</bean>
+	
+	<bean id="proxyClient" class="com.clican.appletv.core.service.proxy.ProxyClientImpl"
+		autowire="byName">
+	</bean>
+	
 </beans>
