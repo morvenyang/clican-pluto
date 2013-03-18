@@ -37,7 +37,7 @@ public class ProxyController {
 		}
 	}
 
-	@RequestMapping("/proxy/temp/m3u8")
+	@RequestMapping("/proxy/temp/m3u8/*.ts")
 	public void playTs(HttpServletRequest request,
 			HttpServletResponse response,
 			@RequestParam(value = "m3u8Url", required = false) String m3u8Url)
