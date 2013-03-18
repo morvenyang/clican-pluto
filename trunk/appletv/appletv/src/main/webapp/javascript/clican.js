@@ -2,7 +2,9 @@ var appletv = {
 	logEnable : true,
 	logSeverity : 'DEBUG',
 	simulate : true,
+	//local server url
 	serverurl : 'http://local.clican.org/appletv',
+	//remote server url
 	remoteserverurl : 'http://www.clican.org/appletv',
 	getDeviceId: function(){
 		if(appletv.simulate){
