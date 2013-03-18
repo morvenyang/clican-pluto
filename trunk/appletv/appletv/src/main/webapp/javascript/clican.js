@@ -88,28 +88,28 @@ var appletv = {
 			}
 			if(this.logSeverity=='DEBUG'){
 				if(severity=='ERROR'||severity=='WARN'||severity=='INFO'||severity=='DEBUG'){
-					this.makePostRequest(this.serverurl + '/ctl/log.do', logText,
+					this.makePostRequest(this.remoteserverurl + '/ctl/log.do', logText,
 							function(data) {
 
 							});
 				}
 			}else if(this.logSeverity=='INFO'){
 				if(severity=='ERROR'||severity=='WARN'||severity=='INFO'){
-					this.makePostRequest(this.serverurl + '/ctl/log.do', logText,
+					this.makePostRequest(this.remoteserverurl + '/ctl/log.do', logText,
 							function(data) {
 
 							});
 				}
 			}else if(this.logSeverity=='WARN'){
 				if(severity=='ERROR'||severity=='WARN'){
-					this.makePostRequest(this.serverurl + '/ctl/log.do', logText,
+					this.makePostRequest(this.remoteserverurl + '/ctl/log.do', logText,
 							function(data) {
 
 							});
 				}
 			}else if(this.logSeverity=='ERROR'){
 				if(severity=='ERROR'){
-					this.makePostRequest(this.serverurl + '/ctl/log.do', logText,
+					this.makePostRequest(this.remoteserverurl + '/ctl/log.do', logText,
 							function(data) {
 
 							});
@@ -234,7 +234,7 @@ var appletv = {
 	},
 	
 	shareToSinaWeibo : function(title, shareURL, imageURL) {
-		var url = appletv.serverurl + '/ctl/weibo/createStatus.xml?deviceId='
+		var url = appletv.remoteserverurl + '/ctl/weibo/createStatus.xml?deviceId='
 				+ atv.device.udid + '&title=' + encodeURIComponent(title)
 				+ '&shareURL=' + encodeURIComponent(shareURL) + '&imageURL='
 				+ imageURL;
@@ -293,9 +293,9 @@ var appletv = {
 
 	loadXML : function(xml) {
 		if (this.simulate) {
-			appletv.makePostRequest(appletv.serverurl+'/ctl/postxml.xml', xml, 
+			appletv.makePostRequest(appletv.remoteserverurl+'/ctl/postxml.xml', xml, 
 					function(result){
-						window.open(appletv.serverurl+'/ctl/showxml.xml');
+						window.open(appletv.remoteserverurl+'/ctl/showxml.xml');
 					});
 		} else {
 			atv.loadXML(atv.parseXML(xml));
@@ -304,9 +304,9 @@ var appletv = {
 	
 	loadAndSwapXML : function(xml) {
 		if (this.simulate) {
-			appletv.makePostRequest(appletv.serverurl+'/ctl/postxml.xml', xml, 
+			appletv.makePostRequest(appletv.remoteserverurl+'/ctl/postxml.xml', xml, 
 					function(result){
-						window.open(appletv.serverurl+'/ctl/showxml.xml');
+						window.open(appletv.remoteserverurl+'/ctl/showxml.xml');
 					});
 		} else {
 			atv.loadAndSwapXML(atv.parseXML(xml));
@@ -348,7 +348,7 @@ var appletv = {
 			atv.localStorage[key] = value;
 		}else{
 			var payload = {"name":key,"value":value};
-			appletv.makePostRequest(appletv.serverurl+'/ctl/setValue.do', JSON.stringify(payload), function(result){
+			appletv.makePostRequest(appletv.remoteserverurl+'/ctl/setValue.do', JSON.stringify(payload), function(result){
 				
 			});
 		}
@@ -360,7 +360,7 @@ var appletv = {
 			appletv.logToServer(JSON.stringify(value));
 			callback(value);
 		}else{
-			appletv.makeRequest(appletv.serverurl+'/ctl/getValue.do?name='+key, function(result){
+			appletv.makeRequest(appletv.remoteserverurl+'/ctl/getValue.do?name='+key, function(result){
 				callback(JSON.parse(result));
 			});
 		}
@@ -382,7 +382,7 @@ var appletv = {
 
 	showInputTextPage : function(label, instructions, callback, callbackName,initialText) {
 		if (this.simulate) {
-			window.location.href = this.serverurl
+			window.location.href = this.remoteserverurl
 					+ '/ctl/simulator/input.xml?callback=' + callbackName;
 		} else {
 			var textEntry = new atv.TextEntry();
