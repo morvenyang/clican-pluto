@@ -183,11 +183,10 @@ var youkuClient = {
 		album : false
 	} ],
 	
-	loadIndexPage : function(keyword, page, channelId) {
+	loadIndexPage : function(keyword, page, channelId,queryUrl) {
 		appletv.showLoading();
 		var channel = this.youkuChannelMap[channelId];
 		var videos = [];
-		var queryUrl;
 		if (channelId == 1001) {
 		} else {
 			if(queryUrl==null){
