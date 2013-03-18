@@ -5,6 +5,8 @@ public class SpringProperty {
 	private static SpringProperty instance;
 
 	private String systemServerUrl;
+	
+	private boolean systemProxyPlay;
 
 	private Integer systemHttpconnectionTimeout;
 	
@@ -13,6 +15,8 @@ public class SpringProperty {
 	private Integer systemProxyPort;
 	
 	private boolean systemProxyEnable;
+	
+	private String systemTempPath;
 	
 	private String userConfigJsonFile;
 
@@ -611,6 +615,22 @@ public class SpringProperty {
 
 	public void setUserConfigJsonFile(String userConfigJsonFile) {
 		this.userConfigJsonFile = userConfigJsonFile;
+	}
+
+	public boolean isSystemProxyPlay() {
+		return systemProxyPlay;
+	}
+
+	public void setSystemProxyPlay(boolean systemProxyPlay) {
+		this.systemProxyPlay = systemProxyPlay;
+	}
+
+	public String getSystemTempPath() {
+		return systemTempPath;
+	}
+
+	public void setSystemTempPath(String systemTempPath) {
+		this.systemTempPath = systemTempPath;
 	}
 
 	

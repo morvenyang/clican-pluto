@@ -2,7 +2,7 @@ var appletv = {
 	logEnable : true,
 	logSeverity : 'DEBUG',
 	simulate : true,
-	serverurl : 'http://10.0.1.5/appletv',
+	serverurl : 'http://127.0.0.1/appletv',
 	
 	getDeviceId: function(){
 		if(appletv.simulate){
@@ -244,7 +244,7 @@ var appletv = {
 	playM3u8 : function(url,proxy){
 		proxy = appletv.serverurl;
 		if(proxy!=null&&proxy.length>0) {
-			url = proxy+"/appletv/proxy.m3u8?url="+encodeURIComponent(url);
+			url = proxy+"/noctl/proxy/play.m3u8?url="+encodeURIComponent(url);
 			appletv.loadXML(appletv.makePlayXml(url));
 		}else{
 			appletv.loadXML(appletv.makePlayXml(url));
@@ -253,7 +253,7 @@ var appletv = {
 	
 	playMp4 : function(url,proxy){
 		if(proxy!=null&&proxy.length>0) {
-			url = proxy+"/appletv/proxy.mp4?url="+encodeURIComponent(url);
+			url = proxy+"/noctl/proxy/play.mp4?url="+encodeURIComponent(url);
 			appletv.loadXML(appletv.makePlayXml(url));
 		}else{
 			appletv.loadXML(appletv.makePlayXml(url));
