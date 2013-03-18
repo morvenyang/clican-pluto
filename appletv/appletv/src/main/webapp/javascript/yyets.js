@@ -233,41 +233,47 @@ var yyetsClient = {
 
 	listVideosInFormat : function(format, season) {
 		appletv.getValue('yyetsVideo', function(yyetsVideoCache) {
-			var yvc = yyetsVideoCache;
-			var seasons = yvc['seasons'];
-			var newseasons = [];
+			try{
+				appletv.logToServer('2,'+JSON.stringify(yyetsVideoCache));
+				var yvc = yyetsVideoCache;
+				var seasons = yvc['seasons'];
+				var newseasons = [];
 
-			var formatseasonmap = yvc['formatseasonmap'];
-			var title = yvc['title'];
-			var pic = yvc['pic'];
-			var seasonmap = formatseasonmap[format];
+				var formatseasonmap = yvc['formatseasonmap'];
+				var title = yvc['title'];
+				var pic = yvc['pic'];
+				var seasonmap = formatseasonmap[format];
 
-			for (i = 0; i < seasons.length; i++) {
-				tempseason = seasons[i];
-				if (seasonmap[tempseason].length > 0) {
-					newseasons.push(tempseason);
+				for (i = 0; i < seasons.length; i++) {
+					tempseason = seasons[i];
+					if (seasonmap[tempseason].length > 0) {
+						newseasons.push(tempseason);
+					}
 				}
-			}
 
-			var items;
-			var currentIndex = 0;
-			if (season == null || season.length == 0) {
-				season = newseasons[0];
+				var items;
+				var currentIndex = 0;
+				if (season == null || season.length == 0) {
+					season = newseasons[0];
+				}
 				items = seasonmap[season];
+				var video = {
+					'serverurl' : appletv.serverurl,
+					"title" : title,
+					"pic" : pic,
+					"items" : items,
+					"seasons" : newseasons,
+					"format" : format,
+					"currentIndex" : currentIndex
+				};
+				var xml = new EJS({
+					url : appletv.serverurl + '/template/yyets/videoItems.ejs'
+				}).render(video);
+				appletv.loadAndSwapXML(xml);
+			}catch(e){
+				appletv.logToServer('Error occured yyets.listVideosInFormat ' + e);
 			}
-			var video = {
-				'serverurl' : appletv.serverurl,
-				"title" : title,
-				"pic" : pic,
-				"items" : items,
-				"seasons" : newseasons,
-				"format" : format,
-				"currentIndex" : currentIndex
-			};
-			var xml = new EJS({
-				url : appletv.serverurl + '/template/yyets/videoItems.ejs'
-			}).render(video);
-			appletv.loadAndSwapXML(xml);
+			
 		});
 	},
 
