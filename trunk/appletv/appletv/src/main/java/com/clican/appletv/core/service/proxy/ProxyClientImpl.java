@@ -128,6 +128,9 @@ public class ProxyClientImpl extends BaseClient implements ProxyClient {
 					FileUtils.writeByteArrayToFile(fileDownload, data);
 					FileUtils.moveFile(fileDownload, file);
 					m3u8DownloadLine.setFinished(true);
+					if (log.isDebugEnabled()) {
+						log.debug("download m3u8 ts " + new File(m3u8DownloadLine.getLocalPath()).getName());
+					}
 					if (ProxyClientImpl.this.m3u8Url.equals(m3u8Url)) {
 						addAsyncM3u8TSRequest();
 					}
@@ -150,7 +153,7 @@ public class ProxyClientImpl extends BaseClient implements ProxyClient {
 			return;
 		}
 		if (log.isDebugEnabled()) {
-			log.debug("downloading m3u8 ts " + m3u8DownloadLine.getLocalPath());
+			log.debug("downloading m3u8 ts " + new File(m3u8DownloadLine.getLocalPath()).getName());
 		}
 		Runnable task = this.getM3u8Task(m3u8DownloadLine,this.m3u8Download.getM3u8Url());
 		sendExecutor.submit(task);

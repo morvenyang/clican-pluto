@@ -33,7 +33,8 @@ public class ProxyController {
 		if (!springProperty.isSystemProxyPlay()) {
 			response.sendRedirect(url);
 		} else {
-
+			String m3u8String = proxyClient.doSyncRequestByM3U8Url(url, true);
+			response.getOutputStream().write(m3u8String.getBytes("utf-8"));
 		}
 	}
 
