@@ -4,13 +4,12 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<script type="text/javascript" src="<%=request.getAttribute("serverurl")%>/javascript/clican.js?ver=1"></script>
-<script type="text/javascript" src="<%=request.getAttribute("serverurl")%>/javascript/qq.js?ver=2"></script>
+<script type="text/javascript" src="<%=request.getAttribute("serverurl")%>/javascript/clican.js"></script>
+<script type="text/javascript" src="<%=request.getAttribute("serverurl")%>/javascript/qq.js"></script>
 <script type="text/javascript" src="<%=request.getAttribute("serverurl")%>/javascript/yyets.js"></script>
 <script type="text/javascript" src="<%=request.getAttribute("serverurl")%>/javascript/ejs.js"></script>
 <script type="text/javascript" src="<%=request.getAttribute("serverurl")%>/javascript/taobao.js"></script>
 <script type="text/javascript" src="<%=request.getAttribute("serverurl")%>/javascript/photoPreview.js"></script>
-<script type="text/javascript" src="<%=request.getAttribute("serverurl")%>/javascript/userconfig.js"></script>
 <script type="text/javascript" src="<%=request.getAttribute("serverurl")%>/javascript/xunlei.js"></script>
 <script type="text/javascript" src="<%=request.getAttribute("serverurl")%>/javascript/tudou.js"></script>
 <script type="text/javascript" src="<%=request.getAttribute("serverurl")%>/javascript/youku.js"></script>
