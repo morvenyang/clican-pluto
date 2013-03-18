@@ -2,7 +2,7 @@
 var xunleiClient = {
 	
 	loadXunleiSession:function(callback){
-		appletv.makeRequest(appletv.serverurl+'/ctl/xunlei/getsession.do',function(result){
+		appletv.makeRequest(appletv.serverurl+'/noctl/xunlei/getsession.do',function(result){
 			if(result==null||result.length==0){
 				appletv.showDialog('登录过期请在本地服务器上重新登录','');
 			}else{
@@ -24,7 +24,7 @@ var xunleiClient = {
 					+ "&cache=" + new Date().getTime()
 					+ "&from=vlist&jsonp=xunleiClient.xunleicallback";
 			if(appletv.simulate){
-				appletv.makePostRequest(appletv.serverurl+"/ctl/xunlei/geturl.do",xunleiurl,function(result){
+				appletv.makePostRequest(appletv.serverurl+"/noctl/xunlei/geturl.do",xunleiurl,function(result){
 					eval(result);
 				});
 			}else{
