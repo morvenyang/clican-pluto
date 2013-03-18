@@ -274,7 +274,6 @@ var youkuClient = {
 		var channel = this.youkuChannelMap[channelId];
 		var categoryFilterContent = appletv.substringByTag(content,'<div class="filter" id="filter">','</div>','div');
 		var categoryFilters = appletv.getSubValuesByTag(categoryFilterContent,'<div class="item">','</div>','div');
-		appletv.logToServer(categoryFilterContent);
 		var categoryNames = [];
 		var categoryMap = {};
 		var category = {"categoryMap":categoryMap,"categoryNames":categoryNames,"url":url,"serverurl":appletv.serverurl,"channelId":channelId};
