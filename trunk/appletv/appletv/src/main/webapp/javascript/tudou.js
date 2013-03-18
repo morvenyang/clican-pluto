@@ -186,6 +186,25 @@ var tudouClient = {
 			}
 			appletv.makeRequest(queryUrl, function(content) {
 				if (content != null && content.length > 0) {
+					var categoryFilterContent = appletv.substringByTag(content,'<div class="category-filter category-more-filter">','</div>','div');
+					var categoryFilters = appletv.getSubValues(categoryFilterContent,'<div class="category-item','</div>');
+					
+					var categoryNames = [];
+					var categoryMap = {};
+					var category = {"categoryMap":categoryMap,"categoryNames":categoryNames};
+					for(i=0;i<categoryFilters.length;i++){
+						var categoryName = appletv.substring(categoryFilters[i],'<h3>','</h3>');
+						categoryNames.push(categoryName);
+						var categoryValues = [];
+						var categoryLis = appletv.getSubValues(categoryFilters[i],'<a','</a>');
+						for(j=0;j<categoryLis;j++){
+							var categoryLabel = appletv.substring(categoryLis[j],'>');
+							var categoryUrl = appletv.substring(categoryLis[j],'href="','"');
+							var categoryValue={"categoryLabel":categoryLabel,"categoryUrl":categoryUrl};
+							categoryValues.push(categoryValue);
+						}
+						categoryMap[categoryName] = categoryValues;
+					}
 					var packs = appletv.getSubValuesByTag(content,
 							'<div class="pack', '</div>', 'div');
 					for (i = 0; i < packs.length; i++) {
@@ -208,7 +227,7 @@ var tudouClient = {
 						videos.push(video);
 					}
 					tudouClient.generateIndexPage(keyword, page, channel,
-							videos);
+							videos,category);
 				} else {
 					atv.loadXML(appletv.makeDialog('加载失败', ''));
 				}
@@ -217,7 +236,7 @@ var tudouClient = {
 
 	},
 
-	generateIndexPage : function(keyword, page, channel, videos) {
+	generateIndexPage : function(keyword, page, channel, videos,category) {
 		var begin = 1;
 		var end = 1;
 		if (page < 90) {
