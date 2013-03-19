@@ -12,6 +12,7 @@
 #import "HTTPServer.h"
 #import "M3u8Process.h"
 #import "Mp4Process.h"
+#import "MTAudioPlayer.h"
 #define AppDele ((AppDelegate *)[[UIApplication sharedApplication] delegate])
 
 
@@ -26,6 +27,8 @@
     NSString* _localMp4UrlPrefix;
     NSString* _localMp4PathPrefix;
     Mp4Process* _mp4Process;
+    UIBackgroundTaskIdentifier bgTask;
+    MTAudioPlayer * audioPlayer;
 }
 
 @property (nonatomic, retain) ASINetworkQueue* queue;
