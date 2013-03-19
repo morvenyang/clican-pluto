@@ -130,140 +130,151 @@ var yyetsClient = {
 
 	loadVideoPage : function(id) {
 		// atv.loadXML(appletv.makeDialog('加载中...','Loading...'));
-		var url = yyetsVideoApi + id;
-		appletv.logToServer(url);
-		appletv.makeRequest(url, function(htmlContent) {
-			if (htmlContent == null) {
-				return;
-			}
-			var video;
-			var title = appletv.substring(htmlContent, '<h2>', '</h2>');
-			var pic = appletv.substring(htmlContent, '<img src="', '"');
-			var score = appletv.substring(htmlContent, '<font class="point">',
-					'</font>');
-			var year = appletv.substring(htmlContent, '<li><span>年代：</span>',
-					'</li>');
-			var type = appletv.substring(htmlContent, '<li><span>类型：</span>',
-					'</li>');
-			var dctor = appletv.substring(htmlContent, '<li><span>导演：</span>',
-					'</li>');
-			var actor = appletv.substring(htmlContent, '<li><span>主演：</span>',
-					'</li>');
-			var desc = appletv.substring(htmlContent, '<div class="f5">',
-					'</div>');
-			var items = [];
-			var formatcontent = appletv.substring(htmlContent,
-					'<div class="desc_tit">', '</div>');
-			var resourceitems = appletv.getSubValues(htmlContent,
-					'<li class="resource-item"', '</li>');
-			var seasoncontent = appletv.substring(htmlContent,
-					'<div class="season_tit">', '</div>');
-
-			var formats = appletv.getSubValues(formatcontent, 'data-value="',
-					'"');
-
-			index = formats.indexOf("all");
-			var formatseasonmap = {};
-			k = 0;
-			if (index >= 0) {
-				formats.splice(index, 1);
-			}
-			var seasons = appletv.getSubValues(seasoncontent, 'data-value="',
-					'"');
-
-			index = seasons.indexOf("all");
-			if (index >= 0) {
-				seasons.splice(index, 1);
-			}
-			for (i = 0; i < formats.length; i++) {
-				formatseasonmap[formats[i]] = {};
-				for (j = 0; j < seasons.length; j++) {
-					formatseasonmap[formats[i]][seasons[j]] = [];
+		try{
+			var url = yyetsVideoApi + id;
+			appletv.logToServer(url);
+			appletv.makeRequest(url, function(htmlContent) {
+				if (htmlContent == null) {
+					return;
 				}
-			}
-			for (i = 0; i < resourceitems.length; i++) {
-				resourceitem = resourceitems[i];
-				dataformat = appletv.substring(resourceitem, 'data-format="',
-						'"');
-				dataseason = appletv.substring(resourceitem, 'data-season="',
-						'"');
-				datafile = 'ed2k'
-						+ appletv.substring(resourceitem, 'href="ed2k', '"');
-				if (datafile == 'ed2k') {
-					datatitle = '资源URL无法点播';
-				} else {
-					datatitle = appletv.substring(datafile, "file|", "|");
-				}
+				var video;
+				var title = appletv.substring(htmlContent, '<h2>', '</h2>');
+				var pic = appletv.substring(htmlContent, '<img src="', '"');
+				var score = appletv.substring(htmlContent, '<font class="point">',
+						'</font>');
+				var year = appletv.substring(htmlContent, '<li><span>年代：</span>',
+						'</li>');
+				var type = appletv.substring(htmlContent, '<li><span>类型：</span>',
+						'</li>');
+				var dctor = appletv.substring(htmlContent, '<li><span>导演：</span>',
+						'</li>');
+				var actor = appletv.substring(htmlContent, '<li><span>主演：</span>',
+						'</li>');
+				var desc = appletv.substring(htmlContent, '<div class="f5">',
+						'</div>');
+				var items = [];
+				var formatcontent = appletv.substring(htmlContent,
+						'<div class="desc_tit">', '</div>');
+				var resourceitems = appletv.getSubValues(htmlContent,
+						'<li class="resource-item"', '</li>');
+				var seasoncontent = appletv.substring(htmlContent,
+						'<div class="season_tit">', '</div>');
 
-				data = {
-					"url" : datafile,
-					"title" : decodeURIComponent(datatitle)
+				var formats = appletv.getSubValues(formatcontent, 'data-value="',
+						'"');
+
+				index = formats.indexOf("all");
+				var seasonformatmap = {};
+				k = 0;
+				if (index >= 0) {
+					formats.splice(index, 1);
+				}
+				var seasons = appletv.getSubValues(seasoncontent, 'data-value="',
+						'"');
+
+				index = seasons.indexOf("all");
+				if (index >= 0) {
+					seasons.splice(index, 1);
+				}
+				for (i = 0; i < seasons.length; i++) {
+					seasonformatmap[seasons[i]] = {};
+					for (j = 0; j < formats.length; j++) {
+						seasonformatmap[seasons[i]][formats[j]] = [];
+					}
+				}
+				for (i = 0; i < resourceitems.length; i++) {
+					resourceitem = resourceitems[i];
+					dataformat = appletv.substring(resourceitem, 'data-format="',
+							'"');
+					dataseason = appletv.substring(resourceitem, 'data-season="',
+							'"');
+					datafile = 'ed2k'
+							+ appletv.substring(resourceitem, 'href="ed2k', '"');
+					if (datafile == 'ed2k') {
+						datatitle = '资源URL无法点播';
+					} else {
+						datatitle = appletv.substring(datafile, "file|", "|");
+					}
+
+					data = {
+						"url" : datafile,
+						"title" : decodeURIComponent(datatitle)
+					};
+					seasonformatmap[dataseason][dataformat].push(data);
+				}
+				var yyetsVideo = {
+					'seasonformatmap' : seasonformatmap,
+					'formats' : formats,
+					'title' : title,
+					'pic' : pic
 				};
-				formatseasonmap[dataformat][dataseason].push(data);
-			}
-			var yyetsVideoCache = {
-				'formatseasonmap' : formatseasonmap,
-				'seasons' : seasons,
-				'title' : title,
-				'pic' : pic
-			};
-			appletv.setValue('yyetsVideo', yyetsVideoCache);
-			var video = {
-				'serverurl' : appletv.serverurl,
-				video : {
-					'id' : id,
-					actor : actor,
-					area : '',
-					type : type,
-					dctor : dctor,
-					pic : pic,
-					score : score,
-					title : title,
-					year : year,
-					desc : desc
-				},
-				'formats' : formats
-			};
-			var xml = new EJS({
-				url : appletv.serverurl + '/template/yyets/video.ejs'
-			}).render(video);
-			appletv.loadAndSwapXML(xml);
-		});
+				appletv.setValue('clican.yyets.video', yyetsVideo);
+				var video = {
+					'serverurl' : appletv.serverurl,
+					video : {
+						'id' : id,
+						actor : actor,
+						area : '',
+						type : type,
+						dctor : dctor,
+						pic : pic,
+						score : score,
+						title : title,
+						year : year,
+						desc : desc
+					},
+					'seasons' : seasons
+				};
+				var xml = new EJS({
+					url : appletv.serverurl + '/template/yyets/video.ejs'
+				}).render(video);
+				appletv.loadAndSwapXML(xml);
+			});
+		}catch(e){
+			appletv.logToServer('Error occured yyets.loadVideoPage ' + e);
+		}
+		
 	},
 
-	listVideosInFormat : function(format, season) {
-		appletv.getValue('yyetsVideo', function(yyetsVideoCache) {
+	listVideosInSeason : function(season, format) {
+		appletv.getValue('clican.yyets.video', function(yyetsVideo) {
 			try{
-				appletv.logToServer('2,'+JSON.stringify(yyetsVideoCache));
-				var yvc = yyetsVideoCache;
-				var seasons = yvc['seasons'];
-				var newseasons = [];
+				var yvc = yyetsVideo;
+				var formats = yvc['formats'];
+				var newformats = [];
 
-				var formatseasonmap = yvc['formatseasonmap'];
+				var seasonformatmap = yvc['seasonformatmap'];
 				var title = yvc['title'];
 				var pic = yvc['pic'];
-				var seasonmap = formatseasonmap[format];
+				var formatmap = seasonformatmap[season];
 
-				for (i = 0; i < seasons.length; i++) {
-					tempseason = seasons[i];
-					if (seasonmap[tempseason].length > 0) {
-						newseasons.push(tempseason);
+				for (i = 0; i < formats.length; i++) {
+					tempformat = formats[i];
+					if (formatmap[tempformat].length > 0) {
+						newformats.push(tempformat);
 					}
 				}
 
 				var items;
 				var currentIndex = 0;
-				if (season == null || season.length == 0) {
-					season = newseasons[0];
+				if (format == null || format.length == 0) {
+					format = newformats[0];
+				}else{
+					for(i=0;i<newformats.length;i++){
+						if(newformats[i]==format){
+							currentIndex = i;
+							break;
+						}
+					}
 				}
-				items = seasonmap[season];
+				items = formatmap[format];
 				var video = {
 					'serverurl' : appletv.serverurl,
 					"title" : title,
 					"pic" : pic,
 					"items" : items,
-					"seasons" : newseasons,
-					"format" : format,
+					"formats" : newformats,
+					"season" : season,
 					"currentIndex" : currentIndex
 				};
 				var xml = new EJS({
@@ -271,7 +282,7 @@ var yyetsClient = {
 				}).render(video);
 				appletv.loadAndSwapXML(xml);
 			}catch(e){
-				appletv.logToServer('Error occured yyets.listVideosInFormat ' + e);
+				appletv.logToServer('Error occured yyets.listVideosInSeason ' + e);
 			}
 			
 		});
