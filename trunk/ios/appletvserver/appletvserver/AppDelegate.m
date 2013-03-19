@@ -119,7 +119,6 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 	
 	[httpServer setDocumentRoot:webPath];
     [self startServer];
-    [self startDaemon];
     TTNavigator* navigator = [TTNavigator navigator];
     
     navigator.supportsShakeToReload = NO;
