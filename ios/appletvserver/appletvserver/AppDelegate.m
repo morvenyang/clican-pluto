@@ -78,8 +78,8 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     if(![[NSFileManager defaultManager] fileExistsAtPath:mp4Outpath]){
         [[NSFileManager defaultManager] createDirectoryAtPath:mp4Outpath withIntermediateDirectories:YES attributes:nil error:nil];
     }
-    self.localM3u8UrlPrefix = [@"http://" stringByAppendingFormat:@"%@:8080/appletv/temp/m3u8/",[AtvUtil getIPAddress]];
-    self.localMp4UrlPrefix = [@"http://" stringByAppendingFormat:@"%@:8080/appletv/temp/mp4/",[AtvUtil getIPAddress]];
+    self.localM3u8UrlPrefix = [@"http://" stringByAppendingFormat:@"%@:8080/appletv/noctl/proxy/temp/m3u8/",[AtvUtil getIPAddress]];
+    self.localMp4UrlPrefix = [@"http://" stringByAppendingFormat:@"%@:8080/appletv/noctl/proxy/temp/mp4/",[AtvUtil getIPAddress]];
     NSLog(@"m3u8 url prefix:%@",self.localM3u8UrlPrefix);
     NSLog(@"mp4 url prefix:%@",self.localMp4UrlPrefix);
     self.localM3u8PathPrefix = m3u8Outpath;
