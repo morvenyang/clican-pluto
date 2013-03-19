@@ -133,7 +133,9 @@ var yyetsClient = {
 		try{
 			var url = yyetsVideoApi + id;
 			appletv.logToServer(url);
+			var s1 = new Date();
 			appletv.makeRequest(url, function(htmlContent) {
+				var s2 = new Date();
 				if (htmlContent == null) {
 					return;
 				}
@@ -225,10 +227,17 @@ var yyetsClient = {
 					},
 					'seasons' : seasons
 				};
+				var s3 = new Date();
 				var xml = new EJS({
 					url : appletv.serverurl + '/template/yyets/video.ejs'
 				}).render(video);
 				appletv.loadAndSwapXML(xml);
+				var s4 = new Date();
+				var t1 = s1.getTime();
+				var t2 = s2.getTime();
+				var t3 = s3.getTime();
+				var t4 = s4.getTime();
+				appletv.logToServer((t2-t1)+','+(t3-t2)+','+(t4-t3));
 			});
 		}catch(e){
 			appletv.logToServer('Error occured yyets.loadVideoPage ' + e);
