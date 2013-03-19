@@ -19,6 +19,7 @@
 #import "MainViewController.h"
 #import "MyHTTPConnection.h"
 #import "AtvUtil.h"
+#import "MMPDeepSleepPreventer.h"
 
 static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
@@ -52,6 +53,12 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 	{
 		DDLogError(@"Error starting HTTP Server: %@", error);
 	}
+}
+
+
+-(void) startDaemon{
+    MMPDeepSleepPreventer* preventer = [[MMPDeepSleepPreventer alloc] init];
+    [preventer startPreventSleep];
 }
 
 -(void) initQueue{
@@ -92,6 +99,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     [self initDocument];
     [self initProcess];
     [self initEnvironment];
+    
     // Configure our logging framework.
 	// To keep things simple and fast, we're just going to log to the Xcode console.
 	[DDLog addLogger:[DDTTYLogger sharedInstance]];
@@ -115,7 +123,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 	
 	[httpServer setDocumentRoot:webPath];
     [self startServer];
-
+    [self startDaemon];
     TTNavigator* navigator = [TTNavigator navigator];
     
     navigator.supportsShakeToReload = NO;

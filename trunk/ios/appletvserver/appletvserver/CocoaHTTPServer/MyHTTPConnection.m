@@ -131,6 +131,10 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
             [[resp httpHeaders] setValue:contentRangeStr forKey:@"Content-Range"];
             return resp;
         }
+    }else if([path rangeOfString:@"/appletv/noctl/proxy/daemon"].location!=NSNotFound){
+        NSData *data = [@"success" dataUsingEncoding:NSUTF8StringEncoding];
+        HTTPDataResponse* resp=[[HTTPDataResponse alloc] initWithData:data];
+        return resp;
     }else{
         return [super httpResponseForMethod:method URI:path];
     }
