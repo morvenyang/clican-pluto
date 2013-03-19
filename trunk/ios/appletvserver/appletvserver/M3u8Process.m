@@ -41,6 +41,7 @@
         [[NSFileManager defaultManager] removeItemAtPath:[AppDele localM3u8PathPrefix] error:nil];
         [[NSFileManager defaultManager] createDirectoryAtPath:[AppDele localM3u8PathPrefix] withIntermediateDirectories:YES attributes:nil error:nil];
         ASIHTTPRequest *req = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:url]];
+        [req setShouldContinueWhenAppEntersBackground:YES];
         [req startSynchronous];
         NSError *error = [req error];
         if (!error) {
@@ -105,7 +106,7 @@
     }else{
         req = [M3u8TSHTTPRequest requestWithURL:[NSURL URLWithString:[self.m3u8RelativeUrl stringByAppendingFormat:@"/%@",m3u8DownloadLine.originalUrl]]];
     }
-    
+    [req setShouldContinueWhenAppEntersBackground:YES];
     req.m3u8Download = self.m3u8Download;
     req.m3u8DownloadLine = m3u8DownloadLine;
     NSString *downloadPath = m3u8DownloadLine.localPath;
@@ -150,6 +151,7 @@
     }
     //retry
     M3u8TSHTTPRequest *newreq = [M3u8TSHTTPRequest requestWithURL:[req originalURL]];
+    [newreq setShouldContinueWhenAppEntersBackground:YES];
     newreq.m3u8Download = req.m3u8Download;
     newreq.m3u8DownloadLine = req.m3u8DownloadLine;
     // The full file will be moved here if and when the request completes successfully
