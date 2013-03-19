@@ -380,7 +380,7 @@
 		EJS.INVALID_PATH = -1
 	};
 	EJS.config({
-		cache : true,
+		cache : false,
 		type : "<",
 		ext : ".ejs"
 	});
