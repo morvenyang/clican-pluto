@@ -250,11 +250,9 @@ var appletv = {
 			}
 		}
 		if(proxy!=null&&proxy.length>0) {
-			appletv.logToServer('play by proxy');
 			url = proxy+"/noctl/proxy/play.m3u8?url="+encodeURIComponent(url);
 			appletv.loadXML(appletv.makePlayXml(url));
 		}else{
-			appletv.logToServer('play by original url');
 			appletv.loadXML(appletv.makePlayXml(url));
 		}
 	},
@@ -266,11 +264,9 @@ var appletv = {
 			}
 		}
 		if(proxy!=null&&proxy.length>0) {
-			appletv.logToServer('play by proxy');
 			url = proxy+"/noctl/proxy/play.mp4?url="+encodeURIComponent(url);
 			appletv.loadXML(appletv.makePlayXml(url));
 		}else{
-			appletv.logToServer('play by original url');
 			appletv.loadXML(appletv.makePlayXml(url));
 		}
 	},
