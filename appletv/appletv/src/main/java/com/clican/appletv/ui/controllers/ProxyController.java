@@ -81,4 +81,12 @@ public class ProxyController {
 
 		}
 	}
+
+	@RequestMapping("/proxy/daemon")
+	public void daemon(HttpServletRequest request,
+			HttpServletResponse response,
+			@RequestParam(value = "url", required = false) String url)
+			throws Exception {
+		response.getOutputStream().write("success".getBytes("utf-8"));
+	}
 }
