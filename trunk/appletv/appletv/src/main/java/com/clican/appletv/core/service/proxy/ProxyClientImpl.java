@@ -44,7 +44,7 @@ public class ProxyClientImpl extends BaseClient implements ProxyClient {
 			this.m3u8Url = url;
 			int lastSlashIndex = url.lastIndexOf("/");
 			if (lastSlashIndex != 1) {
-				this.m3u8RelativeUrl = url.substring(0,lastSlashIndex);
+				this.m3u8RelativeUrl = url.substring(0, lastSlashIndex);
 			} else {
 				this.m3u8RelativeUrl = url;
 			}
@@ -71,15 +71,15 @@ public class ProxyClientImpl extends BaseClient implements ProxyClient {
 						m3u8DownloadLine.setOriginalUrl(line);
 						m3u8DownloadLine.setLocalUrl(springProperty
 								.getSystemServerUrl()
-								+ "/noctl/proxy/temp/m3u8/"
-								+ j + ".ts");
+								+ "/noctl/proxy/temp/m3u8/" + j + ".ts");
 						m3u8DownloadLine.setLocalPath(m3u8Path
 								.getAbsolutePath() + "/" + j + ".ts");
 						m3u8DownloadLines.add(m3u8DownloadLine);
-						this.m3u8String=this.m3u8String.replaceFirst(
+						this.m3u8String = this.m3u8String.replace(
 								m3u8DownloadLine.getOriginalUrl(),
 								m3u8DownloadLine.getLocalUrl() + "?m3u8Url="
-										+ URLEncoder.encode(m3u8Url,"utf-8"));
+										+ URLEncoder.encode(m3u8Url, "utf-8"));
+
 						j++;
 					}
 				}

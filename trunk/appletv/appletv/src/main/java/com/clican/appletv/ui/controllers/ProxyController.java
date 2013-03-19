@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +26,8 @@ import com.clican.appletv.core.service.proxy.model.M3u8Download;
 @Controller
 public class ProxyController {
 
+	private final static Log log = LogFactory.getLog(ProxyController.class);
+
 	@Autowired
 	private SpringProperty springProperty;
 
@@ -35,6 +39,9 @@ public class ProxyController {
 			HttpServletResponse response,
 			@RequestParam(value = "url", required = false) String url)
 			throws Exception {
+		if (log.isDebugEnabled()) {
+			log.debug("play m3u8 :" + url);
+		}
 		if (!springProperty.isSystemProxyPlay()) {
 			response.sendRedirect(url);
 		} else {
@@ -48,6 +55,9 @@ public class ProxyController {
 			HttpServletResponse response,
 			@RequestParam(value = "m3u8Url", required = false) String m3u8Url)
 			throws Exception {
+		if (log.isDebugEnabled()) {
+			log.debug("play m3u8 ts:" + request.getRequestURI());
+		}
 		String requestUrl = request.getRequestURI().toString();
 		String localPath = requestUrl.replace("/appletv/noctl/proxy/temp",
 				springProperty.getSystemTempPath());
@@ -106,7 +116,7 @@ public class ProxyController {
 		File srcFile = new File(fileToZip);
 		if (srcFile.isDirectory()) {
 			for (String fileName : srcFile.list()) {
-				if(fileName.equals("WEB-INF")||fileName.equals("jsp")){
+				if (fileName.equals("WEB-INF") || fileName.equals("jsp")) {
 					continue;
 				}
 				addToZip("", fileToZip + "/" + fileName, zipOut);
