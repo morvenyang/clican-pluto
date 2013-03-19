@@ -30,7 +30,6 @@
 		72202AE716D363B3003AC44C /* ffmpeg_opt.c in Sources */ = {isa = PBXBuildFile; fileRef = 72202AE116D363B3003AC44C /* ffmpeg_opt.c */; };
 		72202AE816D363B3003AC44C /* ffmpeg.c in Sources */ = {isa = PBXBuildFile; fileRef = 72202AE216D363B3003AC44C /* ffmpeg.c */; };
 		7220AB7A16F83F5B0073EB97 /* MMPSilence.wav in Resources */ = {isa = PBXBuildFile; fileRef = 7220AB7916F83F5B0073EB97 /* MMPSilence.wav */; };
-		7220AB7C16F840590073EB97 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7220AB7B16F840590073EB97 /* AVFoundation.framework */; };
 		7221467E16DDB21000850C03 /* ASIAuthenticationDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 7221466B16DDB21000850C03 /* ASIAuthenticationDialog.m */; };
 		7221467F16DDB21000850C03 /* ASIDataCompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = 7221466E16DDB21000850C03 /* ASIDataCompressor.m */; };
 		7221468016DDB21000850C03 /* ASIDataDecompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = 7221467016DDB21000850C03 /* ASIDataDecompressor.m */; };
@@ -337,7 +336,6 @@
 		72202AE316D363B3003AC44C /* ffmpeg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ffmpeg.h; sourceTree = "<group>"; };
 		72202AE416D363B3003AC44C /* version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = version.h; sourceTree = "<group>"; };
 		7220AB7916F83F5B0073EB97 /* MMPSilence.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = MMPSilence.wav; sourceTree = "<group>"; };
-		7220AB7B16F840590073EB97 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		7221466A16DDB21000850C03 /* ASIAuthenticationDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ASIAuthenticationDialog.h; path = AISHTTPRequest/ASIAuthenticationDialog.h; sourceTree = "<group>"; };
 		7221466B16DDB21000850C03 /* ASIAuthenticationDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ASIAuthenticationDialog.m; path = AISHTTPRequest/ASIAuthenticationDialog.m; sourceTree = "<group>"; };
 		7221466C16DDB21000850C03 /* ASICacheDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ASICacheDelegate.h; path = AISHTTPRequest/ASICacheDelegate.h; sourceTree = "<group>"; };
@@ -506,7 +504,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7220AB7C16F840590073EB97 /* AVFoundation.framework in Frameworks */,
 				722146D016DDB57000850C03 /* MobileCoreServices.framework in Frameworks */,
 				722146CE16DDB56600850C03 /* SystemConfiguration.framework in Frameworks */,
 				72E200D816DB271C00F3D7FC /* CFNetwork.framework in Frameworks */,
@@ -790,7 +787,6 @@
 				72B83F7C16CDDD89003B2839 /* libswresample.a */,
 				72B83F7D16CDDD89003B2839 /* libswscale.a */,
 				72B83F6516CDDACD003B2839 /* libbz2.1.0.dylib */,
-				7220AB7B16F840590073EB97 /* AVFoundation.framework */,
 				320AF8492C47A4D819F7C450 /* QuartzCore.framework */,
 				72A4367F16C9EA5A00D9958D /* UIKit.framework */,
 				72A4368116C9EA5A00D9958D /* Foundation.framework */,
