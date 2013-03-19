@@ -56,11 +56,11 @@ public class XunleiTestCase extends BaseServiceTestCase {
 		String m3u8Url1 = "http://devimages.apple.com/iphone/samples/bipbop/gear1/prog_index.m3u8";
 		String m3u8Url2 = "http://devimages.apple.com/iphone/samples/bipbop/gear3/prog_index.m3u8";
 		String m3u8Url3 = "http://gdl.lixian.vip.xunlei.com/download?dt=16&g=FCA52C0D243D5E306462E7A8AD3BE8ABF1BDCEEF&t=2&ui=5663595&s=197116809&v_type=-1&scn=t3&it=1362055588&cc=11745147014848014333&p=1&n=048AACF5E179380000&p=1&xplaybackid=f5999992-817a-11e2-a098-842b2b62740d";
-		String test1 = "http://192.168.1.103:8080/appletv/proxy/m3u8?url="
+		String test1 = "http://16.158.169.15:8080/appletv/noctl/proxy/play.m3u8?url="
 				+ URLEncoder.encode(m3u8Url1, "utf-8");
-		String test2 = "http://192.168.1.103:8080/appletv/proxy/m3u8?url="
+		String test2 = "http://16.158.169.15:8080/appletv/noctl/proxy/play.m3u8?url="
 				+ URLEncoder.encode(m3u8Url2, "utf-8");
-		String test3 = "http://192.168.1.103:8080/appletv/proxy/m3u8?url="
+		String test3 = "http://16.158.169.15:8080/appletv/noctl/proxy/play.m3u8?url="
 				+ URLEncoder.encode(m3u8Url3, "utf-8");
 		System.out.println(test1);
 		System.out.println(test2);
