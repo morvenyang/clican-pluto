@@ -245,7 +245,7 @@ var appletv = {
 
 	playM3u8 : function(url,proxy){
 		if(proxy==null||proxy.length==0){
-			if(appletv.serverurl!='http://local.clican.org/appletv'){
+			if(appletv.serverurl.indexOf('local')==-1){
 				proxy = appletv.serverurl;
 			}
 		}
@@ -261,7 +261,7 @@ var appletv = {
 	
 	playMp4 : function(url,proxy){
 		if(proxy==null||proxy.length==0){
-			if(appletv.serverurl!='http://local.clican.org/appletv'){
+			if(appletv.serverurl.indexOf('local')==-1){
 				proxy = appletv.serverurl;
 			}
 		}
