@@ -29,7 +29,6 @@
 		72202AE616D363B3003AC44C /* ffmpeg_filter.c in Sources */ = {isa = PBXBuildFile; fileRef = 72202AE016D363B3003AC44C /* ffmpeg_filter.c */; };
 		72202AE716D363B3003AC44C /* ffmpeg_opt.c in Sources */ = {isa = PBXBuildFile; fileRef = 72202AE116D363B3003AC44C /* ffmpeg_opt.c */; };
 		72202AE816D363B3003AC44C /* ffmpeg.c in Sources */ = {isa = PBXBuildFile; fileRef = 72202AE216D363B3003AC44C /* ffmpeg.c */; };
-		7220AB7816F83E8B0073EB97 /* MMPDeepSleepPreventer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7220AB7716F83E8B0073EB97 /* MMPDeepSleepPreventer.m */; };
 		7220AB7A16F83F5B0073EB97 /* MMPSilence.wav in Resources */ = {isa = PBXBuildFile; fileRef = 7220AB7916F83F5B0073EB97 /* MMPSilence.wav */; };
 		7220AB7C16F840590073EB97 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7220AB7B16F840590073EB97 /* AVFoundation.framework */; };
 		7221467E16DDB21000850C03 /* ASIAuthenticationDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 7221466B16DDB21000850C03 /* ASIAuthenticationDialog.m */; };
@@ -337,8 +336,6 @@
 		72202AE216D363B3003AC44C /* ffmpeg.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ffmpeg.c; sourceTree = "<group>"; };
 		72202AE316D363B3003AC44C /* ffmpeg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ffmpeg.h; sourceTree = "<group>"; };
 		72202AE416D363B3003AC44C /* version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = version.h; sourceTree = "<group>"; };
-		7220AB7616F83E8B0073EB97 /* MMPDeepSleepPreventer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMPDeepSleepPreventer.h; sourceTree = "<group>"; };
-		7220AB7716F83E8B0073EB97 /* MMPDeepSleepPreventer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMPDeepSleepPreventer.m; sourceTree = "<group>"; };
 		7220AB7916F83F5B0073EB97 /* MMPSilence.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = MMPSilence.wav; sourceTree = "<group>"; };
 		7220AB7B16F840590073EB97 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		7221466A16DDB21000850C03 /* ASIAuthenticationDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ASIAuthenticationDialog.h; path = AISHTTPRequest/ASIAuthenticationDialog.h; sourceTree = "<group>"; };
@@ -613,8 +610,6 @@
 		7215346F16DB4CAF009D5EA7 /* ext */ = {
 			isa = PBXGroup;
 			children = (
-				7220AB7616F83E8B0073EB97 /* MMPDeepSleepPreventer.h */,
-				7220AB7716F83E8B0073EB97 /* MMPDeepSleepPreventer.m */,
 				7221468616DDB42E00850C03 /* MyHTTPConnection.h */,
 				7221468716DDB42E00850C03 /* MyHTTPConnection.m */,
 			);
@@ -1380,7 +1375,6 @@
 				72B9213C16E052250090CA01 /* Mp4HTTPRequest.m in Sources */,
 				72360C4816EED8DD00E0842B /* XunLeiLoginViewController.m in Sources */,
 				72360C5B16EEDDD700E0842B /* RootViewController.m in Sources */,
-				7220AB7816F83E8B0073EB97 /* MMPDeepSleepPreventer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
