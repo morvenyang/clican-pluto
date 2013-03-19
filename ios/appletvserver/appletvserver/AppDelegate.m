@@ -19,7 +19,6 @@
 #import "MainViewController.h"
 #import "MyHTTPConnection.h"
 #import "AtvUtil.h"
-#import "MMPDeepSleepPreventer.h"
 
 static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
@@ -56,10 +55,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 }
 
 
--(void) startDaemon{
-    MMPDeepSleepPreventer* preventer = [[MMPDeepSleepPreventer alloc] init];
-    [preventer startPreventSleep];
-}
+
 
 -(void) initQueue{
     self.queue = [[ASINetworkQueue alloc] init];
