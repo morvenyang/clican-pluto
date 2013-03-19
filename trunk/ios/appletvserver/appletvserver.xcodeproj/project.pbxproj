@@ -121,6 +121,8 @@
 		72E200D916DB271C00F3D7FC /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72E200D716DB271C00F3D7FC /* Security.framework */; };
 		72E748FF16C9F04F0024B8BB /* QQIndexViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 72E748FE16C9F04F0024B8BB /* QQIndexViewController.m */; };
 		72E9C4F616D07877004B024B /* libx264.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 72E9C4F516D07877004B024B /* libx264.a */; };
+		72F7CB9B16F867FF0033A32F /* MTAudioPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 72F7CB9A16F867FF0033A32F /* MTAudioPlayer.m */; };
+		72F7CB9D16F868120033A32F /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72F7CB9C16F868120033A32F /* AVFoundation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -497,6 +499,9 @@
 		72E748FD16C9F04F0024B8BB /* QQIndexViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QQIndexViewController.h; sourceTree = "<group>"; };
 		72E748FE16C9F04F0024B8BB /* QQIndexViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QQIndexViewController.m; sourceTree = "<group>"; };
 		72E9C4F516D07877004B024B /* libx264.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libx264.a; path = appletvserver/lib/libx264.a; sourceTree = "<group>"; };
+		72F7CB9916F867FF0033A32F /* MTAudioPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MTAudioPlayer.h; path = ../../../../../mokten/CocoaHTTPServer/Samples/iPhoneHTTPServer/Classes/MTAudioPlayer.h; sourceTree = "<group>"; };
+		72F7CB9A16F867FF0033A32F /* MTAudioPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MTAudioPlayer.m; path = ../../../../../mokten/CocoaHTTPServer/Samples/iPhoneHTTPServer/Classes/MTAudioPlayer.m; sourceTree = "<group>"; };
+		72F7CB9C16F868120033A32F /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -504,6 +509,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				72F7CB9D16F868120033A32F /* AVFoundation.framework in Frameworks */,
 				722146D016DDB57000850C03 /* MobileCoreServices.framework in Frameworks */,
 				722146CE16DDB56600850C03 /* SystemConfiguration.framework in Frameworks */,
 				72E200D816DB271C00F3D7FC /* CFNetwork.framework in Frameworks */,
@@ -607,6 +613,8 @@
 		7215346F16DB4CAF009D5EA7 /* ext */ = {
 			isa = PBXGroup;
 			children = (
+				72F7CB9916F867FF0033A32F /* MTAudioPlayer.h */,
+				72F7CB9A16F867FF0033A32F /* MTAudioPlayer.m */,
 				7221468616DDB42E00850C03 /* MyHTTPConnection.h */,
 				7221468716DDB42E00850C03 /* MyHTTPConnection.m */,
 			);
@@ -787,6 +795,7 @@
 				72B83F7C16CDDD89003B2839 /* libswresample.a */,
 				72B83F7D16CDDD89003B2839 /* libswscale.a */,
 				72B83F6516CDDACD003B2839 /* libbz2.1.0.dylib */,
+				72F7CB9C16F868120033A32F /* AVFoundation.framework */,
 				320AF8492C47A4D819F7C450 /* QuartzCore.framework */,
 				72A4367F16C9EA5A00D9958D /* UIKit.framework */,
 				72A4368116C9EA5A00D9958D /* Foundation.framework */,
@@ -1371,6 +1380,7 @@
 				72B9213C16E052250090CA01 /* Mp4HTTPRequest.m in Sources */,
 				72360C4816EED8DD00E0842B /* XunLeiLoginViewController.m in Sources */,
 				72360C5B16EEDDD700E0842B /* RootViewController.m in Sources */,
+				72F7CB9B16F867FF0033A32F /* MTAudioPlayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
