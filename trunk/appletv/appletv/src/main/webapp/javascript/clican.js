@@ -674,18 +674,42 @@ var appletv = {
 	},
 	
 	loadFavoritePage:function(){
-		this.getConfig('clican.config.favorites',function(favorites){
-			var videos = [];
-			if(favorites!=null){
-				for(i=0;i<favorites.length;i++){
-					var video = {"title":favorites[i]['title'],"pic":favorites[i]['pic'],"script":appletv.decode(favorites[i]['script'])};
-					videos.push(video);
+		appletv.getValue('clican.config.favorites', function(favorites){
+			if(favorites==null){
+				appletv.getConfig('clican.config.favorites',function(favorites){
+					var videos = [];
+					if(favorites!=null){
+						for(i=0;i<favorites.length;i++){
+							var video = {"title":favorites[i]['title'],"pic":favorites[i]['pic'],"script":appletv.decode(favorites[i]['script'])};
+							videos.push(video);
+						}
+					}
+					if(videos.length==0){
+						appletv.showDialog('没有相关收藏', '');
+					}else{
+						var data = {'serverurl':appletv.serverurl,'videos':videos};
+						var xml = new EJS({url: appletv.serverurl+'/template/favorite.ejs'}).render(data);
+						appletv.loadAndSwapXML(xml);
+					}
+				});
+			}else{
+				var videos = [];
+				if(favorites!=null){
+					for(i=0;i<favorites.length;i++){
+						var video = {"title":favorites[i]['title'],"pic":favorites[i]['pic'],"script":appletv.decode(favorites[i]['script'])};
+						videos.push(video);
+					}
+				}
+				if(videos.length==0){
+					appletv.showDialog('没有相关收藏', '');
+				}else{
+					var data = {'serverurl':appletv.serverurl,'videos':videos};
+					var xml = new EJS({url: appletv.serverurl+'/template/favorite.ejs'}).render(data);
+					appletv.loadAndSwapXML(xml);
 				}
 			}
-			var data = {'serverurl':appletv.serverurl,'videos':videos};
-			var xml = new EJS({url: appletv.serverurl+'/template/favorite.ejs'}).render(data);
-			appletv.loadAndSwapXML(xml);
 		});
+		
 	},
 	
 	addToFavorite: function(title,pic,script){
