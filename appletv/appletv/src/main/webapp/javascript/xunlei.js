@@ -2,7 +2,7 @@
 var xunleiClient = {
 	
 	loadXunleiSession:function(callback){
-		appletv.makeRequest('http://16.158.169.15:8080/appletv/noctl/xunlei/getsession.do',function(result){
+		appletv.makeRequest(appletv.serverurl+'/noctl/xunlei/getsession.do',function(result){
 			appletv.logToServer(result);
 			if(result==null||result.length==0){
 				appletv.showDialog('登录过期请在本地服务器上重新登录','');
@@ -25,24 +25,27 @@ var xunleiClient = {
 			var sessionid=xunleisession['sessionid'];
 			var userid=xunleisession['userid'];
 			var vip = xunleisession['vip'];
-			var name = appletv.substring(ed2kurl, "file|", "|");
-			var xunleiurl = "http://i.vod.xunlei.com/req_get_method_vod?url="
-					+ encodeURIComponent(ed2kurl) + "&video_name=" +name+ "&platform=1&userid=" + userid
-					+ "&vip=6&sessionid=" + sessionid
-					+ "&cache=" + new Date().getTime()
-					+ "&from=vlist&jsonp=xunleiClient.xunleicallback";
-			if(appletv.simulate){
-				appletv.makePostRequest(appletv.serverurl+"/noctl/xunlei/geturl.do",xunleiurl,function(result){
-					eval(result);
-				});
+			if(sessionid==null||sessionid.length==0||userid==null||userid.length==0||vip==null||vip.length==0){
+				appletv.showDialog('登录过期请在本地服务器上重新登录','具体说明请参考http://clican.org');
 			}else{
-				appletv.makeRequest(xunleiurl,function(result){
-					eval(result);
-				},{
-					"Referer" : "http://61.147.76.6/iplay.html"
-				});
+				var name = appletv.substring(ed2kurl, "file|", "|");
+				var xunleiurl = "http://i.vod.xunlei.com/req_get_method_vod?url="
+						+ encodeURIComponent(ed2kurl) + "&video_name=" +name+ "&platform=1&userid=" + userid
+						+ "&vip="+vip+"&sessionid=" + sessionid
+						+ "&cache=" + new Date().getTime()
+						+ "&from=vlist&jsonp=xunleiClient.xunleicallback";
+				if(appletv.simulate){
+					appletv.makePostRequest(appletv.serverurl+"/noctl/xunlei/geturl.do",xunleiurl,function(result){
+						eval(result);
+					});
+				}else{
+					appletv.makeRequest(xunleiurl,function(result){
+						eval(result);
+					},{
+						"Referer" : "http://61.147.76.6/iplay.html"
+					});
+				}
 			}
-			
 		});
 	},
 	
