@@ -13,10 +13,10 @@
 	<items>
 		<grid id="grid_2" columnCount="6">
 			<items>
-				<%for(var i=0;i<favorites.length;i++){%>		
-					<moviePoster id="shelf_item_<%=i%>" alwaysShowTitles="true" onSelect="<%=favorites[i].script%>" onPlay="<%=favorites[i].script%>">
-						<title><![CDATA[<%=favorites[i].title%>]]></title>
-						<image><%=favorites[i].pic%></image>
+				<%for(var i=0;i<videos.length;i++){%>		
+					<moviePoster id="shelf_item_<%=i%>" alwaysShowTitles="true" onSelect="<%=videos[i].script%>" onPlay="<%=videos[i].script%>">
+						<title><![CDATA[<%=videos[i].title%>]]></title>
+						<image><%=videos[i].pic%></image>
 						<defaultImage>resource://Poster.png</defaultImage>
 					</moviePoster>
 				<%}%>

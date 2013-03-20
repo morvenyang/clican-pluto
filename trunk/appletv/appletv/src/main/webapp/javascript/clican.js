@@ -670,7 +670,12 @@ var appletv = {
 	
 	loadFavoritePage:function(){
 		this.getConfig('clican.config.favorites',function(favorites){
-			var data = {'serverurl':appletv.serverurl,'favorites':favorites};
+			var videos = [];
+			for(i=0;i<favorites.length;i++){
+				var video = {"title":favorites[i]['title'],"pic":favorites[i]['pic'],"script":appletv.decode(favorites[i]['script'])};
+				videos.push(video);
+			}
+			var data = {'serverurl':appletv.serverurl,'videos':videos};
 			var xml = new EJS({url: appletv.serverurl+'/template/favorite.ejs'}).render(data);
 			appletv.loadAndSwapXML(xml);
 		});
