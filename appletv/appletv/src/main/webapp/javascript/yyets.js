@@ -213,6 +213,7 @@ var yyetsClient = {
 				appletv.setValue('clican.yyets.video', yyetsVideo);
 				var video = {
 					'serverurl' : appletv.serverurl,
+					script : appletv.encode("yyetsClient.loadVideoPage("+id+");"),
 					video : {
 						'id' : id,
 						actor : actor,
