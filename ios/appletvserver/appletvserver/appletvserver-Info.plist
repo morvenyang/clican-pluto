@@ -26,8 +26,6 @@
 				<string>apple-touch-icon-ipad.png</string>
 				<string>apple-touch-icon-iphone.png</string>
 			</array>
-			<key>UIPrerenderedIcon</key>
-			<true/>
 		</dict>
 	</dict>
 	<key>CFBundleIdentifier</key>
@@ -51,8 +49,6 @@
 		<string>audio</string>
 	</array>
 	<key>UIFileSharingEnabled</key>
-	<true/>
-	<key>UIPrerenderedIcon</key>
 	<true/>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
