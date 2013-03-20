@@ -14,6 +14,10 @@
 		<string>apple-touch-icon-ipad3.png</string>
 		<string>apple-touch-icon-ipad.png</string>
 		<string>apple-touch-icon-iphone.png</string>
+		<string>57.png</string>
+		<string>114.png</string>
+		<string>72.png</string>
+		<string>144.png</string>
 	</array>
 	<key>CFBundleIcons</key>
 	<dict>
@@ -25,6 +29,10 @@
 				<string>apple-touch-icon-ipad3.png</string>
 				<string>apple-touch-icon-ipad.png</string>
 				<string>apple-touch-icon-iphone.png</string>
+				<string>57.png</string>
+				<string>114.png</string>
+				<string>72.png</string>
+				<string>144.png</string>
 			</array>
 		</dict>
 	</dict>
