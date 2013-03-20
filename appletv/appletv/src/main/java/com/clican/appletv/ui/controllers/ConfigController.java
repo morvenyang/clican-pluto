@@ -31,7 +31,7 @@ public class ConfigController {
 		JSONObject config = JSONObject.fromObject(content);
 		String deviceId = config.getString("deviceId");
 		String key = config.getString("key");
-		String value = config.getJSONObject("value").toString();
+		String value = config.get("value").toString();
 		configService.saveConfig(deviceId, key, value);
 	}
 
