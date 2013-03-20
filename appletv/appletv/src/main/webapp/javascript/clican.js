@@ -374,7 +374,7 @@ var appletv = {
 
 	playM3u8 : function(url,proxy){
 		if(proxy==null||proxy.length==0){
-			if(appletv.serverurl.indexOf('local')==-1){
+			if(appletv.serverurl.indexOf('local')<=0){
 				proxy = appletv.serverurl;
 			}
 		}
@@ -388,7 +388,7 @@ var appletv = {
 	
 	playMp4 : function(url,proxy){
 		if(proxy==null||proxy.length==0){
-			if(appletv.serverurl.indexOf('local')==-1){
+			if(appletv.serverurl.indexOf('local')<=0){
 				proxy = appletv.serverurl;
 			}
 		}
