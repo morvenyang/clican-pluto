@@ -86,7 +86,6 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
                 [NSThread sleepForTimeInterval:1.0f];
             }
         }
-       
     }else if([path rangeOfString:@"/appletv/noctl/proxy/play.mp4"].location!=NSNotFound){
         NSString* mp4Url = [[self parseGetParams] objectForKey:@"url"];
         NSLog(@"mp4 url:%@",mp4Url);
@@ -135,9 +134,33 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
             [[resp httpHeaders] setValue:contentRangeStr forKey:@"Content-Range"];
             return resp;
         }
+    }else if([path isEqualToString:@"/appletv/noctl/xunlei/getsession.do"]){
+        NSArray* cookies =[[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies];
+        NSString* sessionid = nil;
+        NSString* vip = nil;
+        NSString* userid = nil;
+        for(int i=0;i<[cookies count];i++){
+            NSHTTPCookie* cookie = [cookies objectAtIndex:i];
+            NSLog(@"%@ %@ %@",cookie.name,cookie.value,cookie.domain);
+            if([cookie.domain isEqualToString:@".xunlei.com"]){
+                if([cookie.name isEqualToString:@"userid"]){
+                    userid = cookie.value;
+                }else if([cookie.name isEqualToString:@"lsessionid"]){
+                    sessionid = cookie.value;
+                }else if([cookie.name isEqualToString:@"isvip"]){
+                    vip = cookie.value;
+                }
+            }
+        }
+        NSString* content = [NSString stringWithFormat:@"{\"sessionid\":\"%@\",\"userid\":\"%@\",\"vip\":\"%@\"}",sessionid,userid,vip];
+        NSLog(@"%@",content);
+        NSData *data = [content dataUsingEncoding:NSUTF8StringEncoding];
+        HTTPDataResponse* resp=[[HTTPDataResponse alloc] initWithData:data];
+        return resp;
     }else{
         return [super httpResponseForMethod:method URI:path];
     }
+    return nil;
 }
 
 @end
