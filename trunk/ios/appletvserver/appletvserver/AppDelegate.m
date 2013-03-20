@@ -87,7 +87,10 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 	[httpServer setConnectionClass:[MyHTTPConnection class]];
 	// Serve files from our embedded Web folder
 	NSString *webPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"web"];
-    webPath = @"/Users/zhangwei/Documents/xcodews/appletvweb/web";
+    if([[NSFileManager defaultManager] fileExistsAtPath:@"/Users/zhangwei/Documents/xcodews/appletvweb/web"]){
+        webPath = @"/Users/zhangwei/Documents/xcodews/appletvweb/web";
+    }
+    
 	DDLogInfo(@"Setting document root: %@", webPath);
 	
 	[httpServer setDocumentRoot:webPath];
