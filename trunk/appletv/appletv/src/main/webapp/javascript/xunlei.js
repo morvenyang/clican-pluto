@@ -2,22 +2,33 @@
 var xunleiClient = {
 	
 	loadXunleiSession:function(callback){
-		appletv.makeRequest(appletv.serverurl+'/noctl/xunlei/getsession.do',function(result){
-			appletv.logToServer(result);
-			if(result==null||result.length==0){
-				appletv.showDialog('登录过期请在本地服务器上重新登录','');
-			}else{
-				var xunleisession
-				try{
-					xunleisession = JSON.parse(result);
-				}catch(e){
-					appletv.showDialog('登录过期请在本地服务器上重新登录','');
+		if(appletv.serverurl.indexOf('local')==-1){
+			appletv.makeRequest(appletv.serverurl+'/noctl/xunlei/getsession.do',function(result){
+				appletv.logToServer(result);
+				if(result==null||result.length==0){
+					appletv.showDialog('登录过期请在本地服务器上重新登录','具体说明请参考http://clican.org');
+				}else{
+					var xunleisession
+					try{
+						xunleisession = JSON.parse(result);
+					}catch(e){
+						appletv.showDialog('登录过期请在本地服务器上重新登录','具体说明请参考http://clican.org');
+					}
+					if(xunleisession!=null){
+						callback(xunleisession);
+					}
 				}
-				if(xunleisession!=null){
+			});
+		}else{
+			appletv.getValue('xunleiu',function(xunlei){
+				if(xunlei==null){
+					appletv.showDialog('未侦测到本地服务器,请去TT的迅雷登录界面登录迅雷VIP帐号','你也可以通过安装本地服务器以实现迅雷登录功能,具体请参考http://clican.org');
+				}else{
+					var xunleisession = {sessionid:xunlei['sessionid'],userid:xunlei['userid'],vip:xunlei['isvip']};
 					callback(xunleisession);
 				}
-			}
-		});
+			});
+		}
 	},
 	
 	play:function(ed2kurl){
@@ -54,7 +65,7 @@ var xunleiClient = {
 		try {
 			msg = res['resp']['vod_permit']['msg'];
 			if (msg == 'overdue session') {
-				appletv.showDialog('登录过期请在本地服务器上重新登录','');
+				appletv.showDialog('登录过期请在本地服务器上重新登录','具体说明请参考http://clican.org');
 				return;
 			}
 			if (msg == 'too much share userid') {
