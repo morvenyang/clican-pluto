@@ -136,9 +136,9 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
         }
     }else if([path isEqualToString:@"/appletv/noctl/xunlei/getsession.do"]){
         NSArray* cookies =[[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies];
-        NSString* sessionid = nil;
-        NSString* vip = nil;
-        NSString* userid = nil;
+        NSString* sessionid = @"";
+        NSString* vip = @"";
+        NSString* userid = @"";
         for(int i=0;i<[cookies count];i++){
             NSHTTPCookie* cookie = [cookies objectAtIndex:i];
             NSLog(@"%@ %@ %@",cookie.name,cookie.value,cookie.domain);
