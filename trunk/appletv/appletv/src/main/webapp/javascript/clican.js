@@ -539,4 +539,63 @@ var appletv = {
 		return count;
 	},
 	
+	loadFavoritePage:function(){
+		this.getConfig('clican.config.favorites',function(favorites){
+			
+		});
+	},
+	
+	addToFavorite: function(title,pic,script){
+		var favorite = {"title":title,"pic":pic,"script":script};
+		appletv.getValue('clican.config.favorites', function(favorites){
+			if(favorites==null){
+				appletv.getConfig('clican.config.favorites', function(content){
+					favorites = content;
+					if(favorites==null){
+						favorites = [];
+					}
+					favorites.push(favorite);
+					appletv.setValue('clican.config.favorites',favorites);
+					this.saveConfig('clican.config.favorites', favorites, function(content){
+						appletv.showDialog('收藏成功', '');
+					});
+				});
+			}else{
+				favorites.push(favorite);
+				appletv.setValue('clican.config.favorites',favorites);
+				this.saveConfig('clican.config.favorites', favorites, function(content){
+					appletv.showDialog('收藏成功', '');
+				});
+			}
+		});
+	},
+	
+	delFromFavorite: function(index){
+		appletv.getValue('clican.config.favorites', function(favorites){
+			if(favorites==null){
+				appletv.showDialog('删除失败', '');
+			}
+			var favorite = favorites[index];
+			favorites.splice(index, 1);
+			appletv.setValue('clican.config.favorites',favorites);
+			appletv.saveConfig('clican.config.favorites',favorites,function(content){
+				appletv.loadFavoritePage();
+			});
+		});
+	},
+	
+	saveConfig: function(key,value,callback){
+		var config = {"deviceId":getDeviceId(),"key":key,"value":value};
+		appletv.makePostRequest(appletv.remoteserverurl+'/ctl/config/saveConfig.do', JSON.stringify(config),callback);
+	},
+	
+	getConfig: function(key,callback){
+		appletv.makeRequest(appletv.remoteserverurl+'/ctl/config/getConfig.do?deviceId='+getDeviceId()+'&key='+key,function(content){
+			if(content==null||content.length==0){
+				callback(null);
+			}else{
+				callback(JSON.parse(content));
+			}
+		});
+	}
 };
