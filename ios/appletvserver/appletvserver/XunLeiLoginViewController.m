@@ -23,11 +23,27 @@
     return self;
 }
 
+- (void)refreshAction{
+    NSURLRequest* request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://vod.xunlei.com/home.html"]];
+    [self.webView  loadRequest:request];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    TTButton* refreshButton = [TTButton buttonWithStyle:@"toolbarRoundButton:" title:@"刷新"];
+    
+    [refreshButton setFont:[UIFont systemFontOfSize:14]];
+
+    [refreshButton addTarget:self action:@selector(refreshAction) forControlEvents:UIControlEventTouchUpInside];
+    [refreshButton sizeToFit];
+    
+    UIBarButtonItem* refreshItem = [[UIBarButtonItem alloc] initWithCustomView:refreshButton];
+    
+    [self.navigationItem setLeftBarButtonItem:refreshItem animated:YES];
     NSURLRequest* request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://vod.xunlei.com/home.html"]];
     self.webView = [[[UIWebView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)] autorelease];
+    [self.webView setScalesPageToFit:YES];
     [self.webView  loadRequest:request];
     [self.view addSubview:self.webView];
 }
