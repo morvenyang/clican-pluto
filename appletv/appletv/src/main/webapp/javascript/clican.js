@@ -697,18 +697,40 @@ var appletv = {
 					if(favorites==null){
 						favorites = [];
 					}
+					var found = false;
+					for(i=0;i<favorites.length;i++){
+						if(favorites[i].script==script){
+							found = true;
+							break;
+						}
+					}
+					if(found){
+						appletv.showDialog('已经收藏,无法重复收藏', '');
+					}else{
+						favorites.push(favorite);
+						appletv.setValue('clican.config.favorites',favorites);
+						appletv.saveConfig('clican.config.favorites', favorites, function(content){
+							appletv.showDialog('收藏成功', '');
+						});
+					}
+				});
+			}else{
+				var found = false;
+				for(i=0;i<favorites.length;i++){
+					if(favorites[i].script==script){
+						found = true;
+						break;
+					}
+				}
+				if(found){
+					appletv.showDialog('已经收藏,无法重复收藏', '');
+				}else{
 					favorites.push(favorite);
 					appletv.setValue('clican.config.favorites',favorites);
 					appletv.saveConfig('clican.config.favorites', favorites, function(content){
 						appletv.showDialog('收藏成功', '');
 					});
-				});
-			}else{
-				favorites.push(favorite);
-				appletv.setValue('clican.config.favorites',favorites);
-				appletv.saveConfig('clican.config.favorites', favorites, function(content){
-					appletv.showDialog('收藏成功', '');
-				});
+				}
 			}
 		});
 	},
@@ -718,12 +740,16 @@ var appletv = {
 			if(favorites==null){
 				appletv.showDialog('删除失败', '');
 			}
-			var favorite = favorites[index];
-			favorites.splice(index, 1);
-			appletv.setValue('clican.config.favorites',favorites);
-			appletv.saveConfig('clican.config.favorites',favorites,function(content){
-				appletv.loadFavoritePage();
-			});
+			try{
+				var favorite = favorites[index];
+				favorites.splice(index, 1);
+				appletv.setValue('clican.config.favorites',favorites);
+				appletv.saveConfig('clican.config.favorites',favorites,function(content){
+					appletv.loadFavoritePage();
+				});
+			}catch(e){
+				appletv.showDialog('删除失败', '');
+			}
 		});
 	},
 	
