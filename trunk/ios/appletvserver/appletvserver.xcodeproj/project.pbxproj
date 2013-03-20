@@ -77,6 +77,9 @@
 		7272B3A016C9FD4E00E111A7 /* Video.m in Sources */ = {isa = PBXBuildFile; fileRef = 7272B39F16C9FD4E00E111A7 /* Video.m */; };
 		7272B3A716CA046400E111A7 /* VideoTableItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 7272B3A616CA046400E111A7 /* VideoTableItem.m */; };
 		7272B3AA16CA049A00E111A7 /* VideoTableItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7272B3A916CA049A00E111A7 /* VideoTableItemCell.m */; };
+		7288A2D016F9985100933D15 /* DownloadStatusViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7288A2CF16F9985100933D15 /* DownloadStatusViewController.m */; };
+		7288A2E416F9A1F100933D15 /* DownloadStatusDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 7288A2E316F9A1F100933D15 /* DownloadStatusDataSource.m */; };
+		7288A2F316F9A45400933D15 /* DownloadStatusModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7288A2F216F9A45400933D15 /* DownloadStatusModel.m */; };
 		72A4368016C9EA5A00D9958D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72A4367F16C9EA5A00D9958D /* UIKit.framework */; };
 		72A4368216C9EA5A00D9958D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72A4368116C9EA5A00D9958D /* Foundation.framework */; };
 		72A4368416C9EA5A00D9958D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72A4368316C9EA5A00D9958D /* CoreGraphics.framework */; };
@@ -435,6 +438,12 @@
 		7272B3A616CA046400E111A7 /* VideoTableItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoTableItem.m; sourceTree = "<group>"; };
 		7272B3A816CA049A00E111A7 /* VideoTableItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoTableItemCell.h; sourceTree = "<group>"; };
 		7272B3A916CA049A00E111A7 /* VideoTableItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoTableItemCell.m; sourceTree = "<group>"; };
+		7288A2CE16F9985100933D15 /* DownloadStatusViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadStatusViewController.h; sourceTree = "<group>"; };
+		7288A2CF16F9985100933D15 /* DownloadStatusViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownloadStatusViewController.m; sourceTree = "<group>"; };
+		7288A2E216F9A1F100933D15 /* DownloadStatusDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadStatusDataSource.h; sourceTree = "<group>"; };
+		7288A2E316F9A1F100933D15 /* DownloadStatusDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownloadStatusDataSource.m; sourceTree = "<group>"; };
+		7288A2F116F9A45400933D15 /* DownloadStatusModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadStatusModel.h; sourceTree = "<group>"; };
+		7288A2F216F9A45400933D15 /* DownloadStatusModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownloadStatusModel.m; sourceTree = "<group>"; };
 		72A4367B16C9EA5A00D9958D /* appletvserver.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = appletvserver.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		72A4367F16C9EA5A00D9958D /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		72A4368116C9EA5A00D9958D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -624,6 +633,7 @@
 		7219BBCA16C9EAD900AABA8E /* View */ = {
 			isa = PBXGroup;
 			children = (
+				7288A2C416F9982D00933D15 /* download */,
 				72360C3C16EED88D00E0842B /* xunlei */,
 				72B83F9216CDE3EF003B2839 /* ffmpeg */,
 				72E748E816C9EE750024B8BB /* qq */,
@@ -760,6 +770,33 @@
 			name = TableItemCell;
 			sourceTree = "<group>";
 		};
+		7288A2C416F9982D00933D15 /* download */ = {
+			isa = PBXGroup;
+			children = (
+				7288A2CE16F9985100933D15 /* DownloadStatusViewController.h */,
+				7288A2CF16F9985100933D15 /* DownloadStatusViewController.m */,
+			);
+			name = download;
+			sourceTree = "<group>";
+		};
+		7288A2D116F9989400933D15 /* download */ = {
+			isa = PBXGroup;
+			children = (
+				7288A2E216F9A1F100933D15 /* DownloadStatusDataSource.h */,
+				7288A2E316F9A1F100933D15 /* DownloadStatusDataSource.m */,
+			);
+			name = download;
+			sourceTree = "<group>";
+		};
+		7288A2F016F9A43200933D15 /* download */ = {
+			isa = PBXGroup;
+			children = (
+				7288A2F116F9A45400933D15 /* DownloadStatusModel.h */,
+				7288A2F216F9A45400933D15 /* DownloadStatusModel.m */,
+			);
+			name = download;
+			sourceTree = "<group>";
+		};
 		72A4367016C9EA5A00D9958D = {
 			isa = PBXGroup;
 			children = (
@@ -857,6 +894,7 @@
 		72A69BCB16C9F3F20099D974 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				7288A2F016F9A43200933D15 /* download */,
 				7272B39B16C9FC7300E111A7 /* QQIndexRequestModel.h */,
 				7272B39C16C9FC7300E111A7 /* QQIndexRequestModel.m */,
 				7233879E16CB5DA10061FBDF /* QQVideoRequestModel.h */,
@@ -1058,6 +1096,7 @@
 		72E748FB16C9EF430024B8BB /* Datasource */ = {
 			isa = PBXGroup;
 			children = (
+				7288A2D116F9989400933D15 /* download */,
 				72E748FC16C9EF4D0024B8BB /* qq */,
 			);
 			name = Datasource;
@@ -1381,6 +1420,9 @@
 				72360C4816EED8DD00E0842B /* XunLeiLoginViewController.m in Sources */,
 				72360C5B16EEDDD700E0842B /* RootViewController.m in Sources */,
 				72F7CBA016F86C8D0033A32F /* MTAudioPlayer.m in Sources */,
+				7288A2D016F9985100933D15 /* DownloadStatusViewController.m in Sources */,
+				7288A2E416F9A1F100933D15 /* DownloadStatusDataSource.m in Sources */,
+				7288A2F316F9A45400933D15 /* DownloadStatusModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

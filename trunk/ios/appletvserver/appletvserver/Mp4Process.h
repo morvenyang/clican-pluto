@@ -11,10 +11,12 @@
 @interface Mp4Process : NSObject{
     NSString* _mp4Url;
     Mp4Download* _mp4Download;
+    BOOL _running;
 }
 
 @property (nonatomic, copy) NSString* mp4Url;
 @property (nonatomic, retain) Mp4Download* mp4Download;
+@property (nonatomic, assign) BOOL running;
 
 -(Mp4Download*) doSyncRequestByMP4Url:(NSString*) url;
 -(void) addAsyncMp4Request;

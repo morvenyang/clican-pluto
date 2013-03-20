@@ -13,6 +13,7 @@
 #import "QQVideoViewController.h"
 #import "QQPlayViewController.h"
 #import "FFMpegPlayViewController.h"
+#import "DownloadStatusViewController.h"
 #import "HTTPServer.h"
 #import "DDLog.h"
 #import "DDTTYLogger.h"
@@ -149,6 +150,8 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
      [MainViewController class]];
     [map from:@"atvserver://xunlei/login" toSharedViewController:
      [XunLeiLoginViewController class]];
+    [map from:@"atvserver://download" toSharedViewController:
+     [DownloadStatusViewController class]];
     [map from:@"atvserver://qq/index" toSharedViewController:
      [QQIndexViewController class]];
     [map from:@"atvserver://qq/video/(initWithVid:)" toSharedViewController:

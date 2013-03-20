@@ -25,7 +25,7 @@
 
 @synthesize mp4Url = _mp4Url;
 @synthesize mp4Download = _mp4Download;
-
+@synthesize running = _running;
 
 -(Mp4Download*) doSyncRequestByMP4Url:(NSString*) url{
     self.mp4Url = url;
