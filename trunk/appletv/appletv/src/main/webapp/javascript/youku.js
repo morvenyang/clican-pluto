@@ -387,7 +387,7 @@ var youkuClient = {
 					'serverurl' : appletv.serverurl,
 					album : isalbum,
 					channelId : channelId,
-					script : appletv.encode("youkuClient.loadVideoPage('"+code+"',"+channelId+","+isalbum+",'"+pic+"');'"),
+					script : appletv.encode("youkuClient.loadVideoPage('"+code+"',"+channelId+","+isalbum+",'"+pic+"');"),
 					video : {
 						'id' : code,
 						'actor' : actor,
