@@ -368,7 +368,7 @@ var appletv = {
 		var url = appletv.remoteserverurl + '/ctl/weibo/createStatus.xml?deviceId='
 				+ atv.device.udid + '&title=' + encodeURIComponent(title)
 				+ '&shareURL=' + encodeURIComponent(shareURL) + '&imageURL='
-				+ imageURL;
+				+ encodeURIComponent(imageURL);
 		atv.loadURL(url);
 	},
 
