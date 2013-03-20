@@ -374,7 +374,7 @@ var appletv = {
 	
 	showOptionPage: function(title,desc,options){
 		try{
-			var data = {"title":title,"desc":desc,"options":options};
+			var data = {"title":title,"desc":desc,"options":options,"serverurl":appletv.serverurl};
 			var xml = new EJS({
 				url : appletv.serverurl
 						+ '/template/option.ejs'
