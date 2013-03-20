@@ -19,6 +19,7 @@
 #import "MainViewController.h"
 #import "MyHTTPConnection.h"
 #import "AtvUtil.h"
+#import "ASIHTTPRequest.h"
 
 static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
@@ -70,6 +71,19 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     NSHTTPCookieStorage* cookieStorage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
     [cookieStorage setCookieAcceptPolicy:NSHTTPCookieAcceptPolicyAlways];
 }
+
+-(void) registerLocalServer{
+    NSString* url = [NSString stringWithFormat:@"http://www.clican.org/appletv/ctl/localserver/register.do?innerIP=%@",[AtvUtil getIPAddress]];
+    ASIHTTPRequest *req = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:url]];
+    [req startSynchronous];
+    NSError *error = [req error];
+    if (!error) {
+        NSLog(@"Register local server error %@",error.description);
+    }else{
+        NSLog(@"Register local server success");
+    }
+}
+
 -(void) initDocument{
     NSArray *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *m3u8Outpath = [[path objectAtIndex:0] stringByAppendingFormat:@"%@",@"/temp/m3u8/"];
@@ -95,7 +109,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     [self initDocument];
     [self initProcess];
     [self initEnvironment];
-    
+    [self registerLocalServer];
     // Configure our logging framework.
 	// To keep things simple and fast, we're just going to log to the Xcode console.
 	[DDLog addLogger:[DDTTYLogger sharedInstance]];
