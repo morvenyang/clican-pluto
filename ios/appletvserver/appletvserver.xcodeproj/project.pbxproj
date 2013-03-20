@@ -115,12 +115,12 @@
 		72C217F116CBCCE3000A56AB /* QQPlayRequestModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 72C217F016CBCCE3000A56AB /* QQPlayRequestModel.m */; };
 		72C217F416CBCE9A000A56AB /* QQPlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 72C217F316CBCE9A000A56AB /* QQPlayViewController.m */; };
 		72C217F616CBDA8A000A56AB /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72C217F516CBDA8A000A56AB /* MediaPlayer.framework */; };
+		72C3EDF116F9F54F00821FAE /* 72.png in Resources */ = {isa = PBXBuildFile; fileRef = 72C3EDED16F9F54F00821FAE /* 72.png */; };
+		72C3EDF216F9F54F00821FAE /* 114.png in Resources */ = {isa = PBXBuildFile; fileRef = 72C3EDEE16F9F54F00821FAE /* 114.png */; };
+		72C3EDF316F9F54F00821FAE /* 57.png in Resources */ = {isa = PBXBuildFile; fileRef = 72C3EDEF16F9F54F00821FAE /* 57.png */; };
+		72C3EDF416F9F54F00821FAE /* 144.png in Resources */ = {isa = PBXBuildFile; fileRef = 72C3EDF016F9F54F00821FAE /* 144.png */; };
 		72C9088216D325580075A651 /* libfdk-aac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 72C9088116D325580075A651 /* libfdk-aac.a */; };
 		72CC1B5616DE3BD7006A8E44 /* M3u8Process.m in Sources */ = {isa = PBXBuildFile; fileRef = 72CC1B5516DE3BD7006A8E44 /* M3u8Process.m */; };
-		72CDE9CE16F9ECB300292493 /* apple-touch-icon-ipad3.png in Resources */ = {isa = PBXBuildFile; fileRef = 72CDE9CD16F9ECB300292493 /* apple-touch-icon-ipad3.png */; };
-		72CDE9D916F9ECC100292493 /* apple-touch-icon-iphone4.png in Resources */ = {isa = PBXBuildFile; fileRef = 72CDE9D816F9ECC100292493 /* apple-touch-icon-iphone4.png */; };
-		72CDE9DB16F9ED2F00292493 /* apple-touch-icon-ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 72CDE9DA16F9ED2F00292493 /* apple-touch-icon-ipad.png */; };
-		72CDE9DD16F9ED3700292493 /* apple-touch-icon-iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 72CDE9DC16F9ED3700292493 /* apple-touch-icon-iphone.png */; };
 		72E200D316DB26BF00F3D7FC /* StyleSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 72E748FA16C9EEE70024B8BB /* StyleSheet.m */; };
 		72E200D816DB271C00F3D7FC /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72E200D616DB271C00F3D7FC /* CFNetwork.framework */; };
 		72E200D916DB271C00F3D7FC /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72E200D716DB271C00F3D7FC /* Security.framework */; };
@@ -499,13 +499,13 @@
 		72C217F216CBCE9A000A56AB /* QQPlayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QQPlayViewController.h; sourceTree = "<group>"; };
 		72C217F316CBCE9A000A56AB /* QQPlayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QQPlayViewController.m; sourceTree = "<group>"; };
 		72C217F516CBDA8A000A56AB /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		72C3EDED16F9F54F00821FAE /* 72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 72.png; sourceTree = "<group>"; };
+		72C3EDEE16F9F54F00821FAE /* 114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 114.png; sourceTree = "<group>"; };
+		72C3EDEF16F9F54F00821FAE /* 57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 57.png; sourceTree = "<group>"; };
+		72C3EDF016F9F54F00821FAE /* 144.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 144.png; sourceTree = "<group>"; };
 		72C9088116D325580075A651 /* libfdk-aac.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libfdk-aac.a"; path = "appletvserver/lib/libfdk-aac.a"; sourceTree = "<group>"; };
 		72CC1B5416DE3BD7006A8E44 /* M3u8Process.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3u8Process.h; sourceTree = "<group>"; };
 		72CC1B5516DE3BD7006A8E44 /* M3u8Process.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M3u8Process.m; sourceTree = "<group>"; };
-		72CDE9CD16F9ECB300292493 /* apple-touch-icon-ipad3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "apple-touch-icon-ipad3.png"; sourceTree = "<group>"; };
-		72CDE9D816F9ECC100292493 /* apple-touch-icon-iphone4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "apple-touch-icon-iphone4.png"; sourceTree = "<group>"; };
-		72CDE9DA16F9ED2F00292493 /* apple-touch-icon-ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "apple-touch-icon-ipad.png"; sourceTree = "<group>"; };
-		72CDE9DC16F9ED3700292493 /* apple-touch-icon-iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "apple-touch-icon-iphone.png"; sourceTree = "<group>"; };
 		72E200D616DB271C00F3D7FC /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		72E200D716DB271C00F3D7FC /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		72E748F916C9EEE70024B8BB /* StyleSheet.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StyleSheet.h; sourceTree = "<group>"; };
@@ -913,10 +913,10 @@
 		72A69BD016C9F9420099D974 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				72CDE9DC16F9ED3700292493 /* apple-touch-icon-iphone.png */,
-				72CDE9D816F9ECC100292493 /* apple-touch-icon-iphone4.png */,
-				72CDE9DA16F9ED2F00292493 /* apple-touch-icon-ipad.png */,
-				72CDE9CD16F9ECB300292493 /* apple-touch-icon-ipad3.png */,
+				72C3EDED16F9F54F00821FAE /* 72.png */,
+				72C3EDEE16F9F54F00821FAE /* 114.png */,
+				72C3EDEF16F9F54F00821FAE /* 57.png */,
+				72C3EDF016F9F54F00821FAE /* 144.png */,
 				7220AB7916F83F5B0073EB97 /* MMPSilence.wav */,
 				7215346D16DB481E009D5EA7 /* web */,
 				7215346616DB2E83009D5EA7 /* Base.xcconfig */,
@@ -1344,10 +1344,10 @@
 				7215346E16DB481E009D5EA7 /* web in Resources */,
 				722E989B16E048430058EE11 /* appletv_114x114.png in Resources */,
 				7220AB7A16F83F5B0073EB97 /* MMPSilence.wav in Resources */,
-				72CDE9CE16F9ECB300292493 /* apple-touch-icon-ipad3.png in Resources */,
-				72CDE9D916F9ECC100292493 /* apple-touch-icon-iphone4.png in Resources */,
-				72CDE9DB16F9ED2F00292493 /* apple-touch-icon-ipad.png in Resources */,
-				72CDE9DD16F9ED3700292493 /* apple-touch-icon-iphone.png in Resources */,
+				72C3EDF116F9F54F00821FAE /* 72.png in Resources */,
+				72C3EDF216F9F54F00821FAE /* 114.png in Resources */,
+				72C3EDF316F9F54F00821FAE /* 57.png in Resources */,
+				72C3EDF416F9F54F00821FAE /* 144.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
