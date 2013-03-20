@@ -371,7 +371,21 @@ var appletv = {
 				+ encodeURIComponent(imageURL);
 		atv.loadURL(url);
 	},
-
+	
+	showOptionPage: function(title,desc,options){
+		try{
+			var data = {"title":title,"desc":desc,"options":options};
+			var xml = new EJS({
+				url : appletv.serverurl
+						+ '/template/option.ejs'
+			}).render(data);
+			appletv.loadAndSwapXML(xml);
+		}catch(e){
+			appletv.logToServer('Show option page error :'+e);
+		}
+		
+	},
+	
 	playM3u8 : function(url,proxy){
 		if(proxy==null||proxy.length==0){
 			if(appletv.serverurl.indexOf('local')<=0){
@@ -379,8 +393,11 @@ var appletv = {
 			}
 		}
 		if(proxy!=null&&proxy.length>0) {
+			var options = [];
+			options.push({"title":"直接播放","script":"appletv.loadXML(appletv.makePlayXml('"+url+"'));"});
 			url = proxy+"/noctl/proxy/play.m3u8?url="+encodeURIComponent(url);
-			appletv.loadXML(appletv.makePlayXml(url));
+			options.push({"title":"本地服务器代理下载播放","script":"appletv.loadXML(appletv.makePlayXml('"+url+"'));"});
+			appletv.showOptionPage('播放源选择','',options);
 		}else{
 			appletv.loadXML(appletv.makePlayXml(url));
 		}
@@ -393,8 +410,11 @@ var appletv = {
 			}
 		}
 		if(proxy!=null&&proxy.length>0) {
-			url = proxy+"/noctl/proxy/play.mp4?url="+encodeURIComponent(url);
-			appletv.loadXML(appletv.makePlayXml(url));
+			var options = [];
+			options.push({"title":"直接播放","script":"appletv.loadXML(appletv.makePlayXml('"+url+"'));"});
+			url = proxy+"/noctl/proxy/play.mp4?url="+encodeURIComponent(url);ent(url);
+			options.push({"title":"本地服务器代理下载播放","script":"appletv.loadXML(appletv.makePlayXml('"+url+"'));"});
+			appletv.showOptionPage('播放源选择','',options);
 		}else{
 			appletv.loadXML(appletv.makePlayXml(url));
 		}
