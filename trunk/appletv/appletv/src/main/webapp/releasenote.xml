@@ -13,10 +13,10 @@
 			<items>
 				<grid id="grid_2" columnCount="4">
 					<items>
-						<goldenPoster id="local" onSelect="appletv.loadLocalServerIndexPage();">
+						<!--goldenPoster id="local" onSelect="appletv.loadLocalServerIndexPage();">
 							<image>http://local.clican.org/appletv/image/youku/youku.png</image>
 							<title>本地服务器</title>
-						</goldenPoster>
+						</goldenPoster-->
 						<goldenPoster id="youku" onSelect="youkuClient.loadIndexPage('',1,96);">
 							<image>http://local.clican.org/appletv/image/youku/youku.png</image>
 							<title>优库</title>
