@@ -34,7 +34,7 @@
 										<title>高清</title>
 									</actionButton>
 								<%}%>
-								<actionButton id="album_8" onSelect="atv.loadURL('<%=serverurl%>/ctl/weibo/createStatus.xml?deviceId='+atv.device.udid+'&amp;title='+encodeURIComponent('<%=video['title']%>')+'&amp;shareURL=http://v.qq.com/cover/<%=video['id'].substring(0,1)%>/<%=video['id']%>.html&amp;imageURL=<%=video['pic']%>');" onPlay="atv.loadURL('<%=serverurl%>/ctl/weibo/createStatus.xml?deviceId='+atv.device.udid+'&amp;title='+encodeURIComponent('<%=video['title']%>')+'&amp;shareURL=http://v.qq.com/cover/<%=video['id'].substring(0,1)%>/<%=video['id']%>.html&amp;imageURL=<%=video['pic']%>');">
+								<actionButton id="album_8" onSelect="appletv.shareToSinaWeibo('<%=video['title']%>','http://v.qq.com/cover/<%=video['id'].substring(0,1)%>/<%=video['id']%>.html','<%=video['pic']%>');" onPlay="appletv.shareToSinaWeibo('<%=video['title']%>','http://v.qq.com/cover/<%=video['id'].substring(0,1)%>/<%=video['id']%>.html','<%=video['pic']%>');">
 									<title>分享</title>
 								</actionButton>
 								<actionButton id="album_9" onSelect="appletv.addToFavorite('<%=video['title']%>','<%=video['pic']%>','<%=script%>');">

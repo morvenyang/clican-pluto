@@ -34,7 +34,7 @@
 										<%}%>
 									</actionButton>
 								<%}%>
-								<actionButton id="album_8" onSelect="atv.loadURL('<%=serverurl%>/ctl/weibo/createStatus.xml?deviceId='+atv.device.udid+'&amp;title='+encodeURIComponent('<%=video['title']%>')+'&amp;shareURL=http://www.yyets.com/php/resource/<%=video['id']%>&amp;imageURL=<%=video['pic']%>');">
+								<actionButton id="album_8" onSelect="appletv.shareToSinaWeibo('<%=video['title']%>','http://www.yyets.com/php/resource/<%=video['id']%>','<%=video['pic']%>');">
 									<title>分享</title>
 								</actionButton>
 								<actionButton id="album_9" onSelect="appletv.addToFavorite('<%=video['title']%>','<%=video['pic']%>','<%=script%>');">
