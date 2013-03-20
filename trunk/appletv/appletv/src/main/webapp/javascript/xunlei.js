@@ -11,7 +11,7 @@ var xunleiClient = {
 				try{
 					xunleisession = JSON.parse(result);
 				}catch(e){
-					appletv.logToServer('parse xunlei session error');
+					appletv.showDialog('登录过期请在本地服务器上重新登录','');
 				}
 				if(xunleisession!=null){
 					callback(xunleisession);
