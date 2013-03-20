@@ -541,7 +541,9 @@ var appletv = {
 	
 	loadFavoritePage:function(){
 		this.getConfig('clican.config.favorites',function(favorites){
-			
+			var data = {'serverurl':appletv.serverurl,'favorites':favorites};
+			var xml = new EJS({url: appletv.serverurl+'/template/favorite.ejs'}).render(data);
+			appletv.loadAndSwapXML(xml);
 		});
 	},
 	
