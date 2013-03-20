@@ -1,7 +1,6 @@
 package com.clican.appletv.ui.controllers;
 
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
@@ -26,13 +25,13 @@ public class ConfigController {
 	private ConfigService configService;
 
 	@RequestMapping("/config/saveConfig.do")
-	public void saveConfig(
-			HttpServletRequest request,
-			HttpServletResponse response,
-			@RequestParam(value = "deviceId", required = false) String deviceId,
-			@RequestParam(value = "key", required = false) String key,
-			@RequestParam(value = "value", required = false) String value)
-			throws IOException {
+	public void saveConfig(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		String content = this.getContent(request);
+		JSONObject config = JSONObject.fromObject(content);
+		String deviceId = config.getString("deviceId");
+		String key = config.getString("key");
+		String value = config.getJSONObject("value").toString();
 		configService.saveConfig(deviceId, key, value);
 	}
 
@@ -42,7 +41,7 @@ public class ConfigController {
 			HttpServletResponse response,
 			@RequestParam(value = "deviceId", required = false) String deviceId,
 			@RequestParam(value = "key", required = false) String key)
-			throws IOException {
+			throws Exception {
 		String value = configService.getConfig(deviceId, key);
 		if (StringUtils.isNotEmpty(value)) {
 			response.setContentType("plan/text;charset=utf-8");
