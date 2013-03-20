@@ -26,6 +26,7 @@
 @synthesize m3u8RelativeUrl = _m3u8RelativeUrl;
 @synthesize m3u8Download = _m3u8Download;
 @synthesize m3u8String = _m3u8String;
+@synthesize running = _running;
 
 -(NSString*) doSyncRequestByM3U8Url:(NSString*) url start:(BOOL) start{
     if(self.m3u8Url==nil||![self.m3u8Url isEqualToString:url]){

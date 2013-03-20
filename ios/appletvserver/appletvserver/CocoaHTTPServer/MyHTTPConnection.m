@@ -46,6 +46,8 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
     }else if([path rangeOfString:@"/appletv/noctl/proxy/play.m3u8"].location!=NSNotFound){
         NSString* m3u8Url = [[self parseGetParams] objectForKey:@"url"];
         NSLog(@"m3u8 url:%@",m3u8Url);
+        [AppDele m3u8Process].running = YES;
+        [AppDele mp4Process].running = NO;
         NSString* localM3u8String = [[AppDele m3u8Process] doSyncRequestByM3U8Url:m3u8Url start:YES];
         if(localM3u8String!=nil){
             NSData *data = [localM3u8String dataUsingEncoding:NSUTF8StringEncoding];
@@ -88,6 +90,8 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
     }else if([path rangeOfString:@"/appletv/noctl/proxy/play.mp4"].location!=NSNotFound){
         NSString* mp4Url = [[self parseGetParams] objectForKey:@"url"];
         NSLog(@"mp4 url:%@",mp4Url);
+        [AppDele m3u8Process].running = NO;
+        [AppDele mp4Process].running = YES;
         Mp4Download* mp4Download = [AppDele mp4Process].mp4Download;
        
         if(mp4Download!=nil&&[mp4Download.mp4Url isEqualToString:mp4Url]){
@@ -131,10 +135,6 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
             [[resp httpHeaders] setValue:contentRangeStr forKey:@"Content-Range"];
             return resp;
         }
-    }else if([path rangeOfString:@"/appletv/noctl/proxy/daemon"].location!=NSNotFound){
-        NSData *data = [@"success" dataUsingEncoding:NSUTF8StringEncoding];
-        HTTPDataResponse* resp=[[HTTPDataResponse alloc] initWithData:data];
-        return resp;
     }else{
         return [super httpResponseForMethod:method URI:path];
     }
