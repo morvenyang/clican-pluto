@@ -43,8 +43,6 @@ public class LocalServerController {
 		}
 		if (StringUtils.isNotEmpty(innerIP)) {
 			response.getOutputStream().write(innerIP.getBytes("utf-8"));
-		} else {
-			response.getOutputStream().write("N/A".getBytes("utf-8"));
 		}
 	}
 }
