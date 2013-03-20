@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<atv>
+<head>
+<script src="<%=serverurl%>/javascript/clican.js"/>
+<script src="<%=serverurl%>/javascript/ejs.js"/>
+<script src="<%=serverurl%>/javascript/tudou.js"/>
+<script src="<%=serverurl%>/javascript/youku.js"/>
+<script src="<%=serverurl%>/javascript/yyets.js"/>
+<script src="<%=serverurl%>/javascript/qq.js"/>
+</head>
+<body>
+<scroller id="com.sample.movie-shelf">
+	<items>
+		<grid id="grid_2" columnCount="6">
+			<items>
+				<%for(var i=0;i<favorites.length;i++){%>		
+					<moviePoster id="shelf_item_<%=i%>" alwaysShowTitles="true" onSelect="<%=favorites[i].script%>" onPlay="<%=favorites[i].script%>">
+						<title><![CDATA[<%=favorites[i].title%>]]></title>
+						<image><%=favorites[i].pic%></image>
+						<defaultImage>resource://Poster.png</defaultImage>
+					</moviePoster>
+				<%}%>
+			</items>
+		</grid>
+	</items>
+</scroller>
+</body>
+</atv>
