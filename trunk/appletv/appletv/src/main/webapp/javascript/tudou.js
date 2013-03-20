@@ -326,6 +326,7 @@ var tudouClient = {
 								'serverurl' : appletv.serverurl,
 								album : isalbum,
 								channelId : channelId,
+								script : appletv.encode("tudouClient.loadAlbumPage('"+itemid+"',"+channelId+","+isalbum+",true);"),
 								video : {
 									'id' : itemid,
 									'actor' : album['actors'],
