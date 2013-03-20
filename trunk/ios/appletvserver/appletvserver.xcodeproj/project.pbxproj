@@ -67,7 +67,6 @@
 		722146E116DDDFFA00850C03 /* HTTPDataHeaderResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 722146E016DDDFFA00850C03 /* HTTPDataHeaderResponse.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		722146E416DDE40700850C03 /* M3u8Download.m in Sources */ = {isa = PBXBuildFile; fileRef = 722146E316DDE40700850C03 /* M3u8Download.m */; };
 		722146E716DDE62500850C03 /* M3u8TSHTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 722146E616DDE62500850C03 /* M3u8TSHTTPRequest.m */; };
-		722E989716E0479A0058EE11 /* appletv_57x57.png in Resources */ = {isa = PBXBuildFile; fileRef = 722E989616E0479A0058EE11 /* appletv_57x57.png */; };
 		722E989B16E048430058EE11 /* appletv_114x114.png in Resources */ = {isa = PBXBuildFile; fileRef = 722E989A16E048430058EE11 /* appletv_114x114.png */; };
 		7233879D16CB5C890061FBDF /* QQVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7233879C16CB5C890061FBDF /* QQVideoViewController.m */; };
 		723387A016CB5DA10061FBDF /* QQVideoRequestModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7233879F16CB5DA10061FBDF /* QQVideoRequestModel.m */; };
@@ -105,7 +104,6 @@
 		72B83F8516CDDD8A003B2839 /* libswscale.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 72B83F7D16CDDD89003B2839 /* libswscale.a */; };
 		72B83F8716CDDFA2003B2839 /* libz.1.2.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 72B83F8616CDDFA2003B2839 /* libz.1.2.5.dylib */; };
 		72B83F9516CDE40F003B2839 /* FFMpegPlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 72B83F9416CDE40F003B2839 /* FFMpegPlayViewController.m */; };
-		72B83F9716CDE655003B2839 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 72B83F9616CDE655003B2839 /* Default.png */; };
 		72B83FE416CDF21A003B2839 /* CacheBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 72B83FDD16CDF21A003B2839 /* CacheBuffer.m */; };
 		72B83FE516CDF21A003B2839 /* FrameData.m in Sources */ = {isa = PBXBuildFile; fileRef = 72B83FDF16CDF21A003B2839 /* FrameData.m */; };
 		72B83FE616CDF21A003B2839 /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = 72B83FE116CDF21A003B2839 /* Player.m */; };
@@ -119,6 +117,10 @@
 		72C217F616CBDA8A000A56AB /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72C217F516CBDA8A000A56AB /* MediaPlayer.framework */; };
 		72C9088216D325580075A651 /* libfdk-aac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 72C9088116D325580075A651 /* libfdk-aac.a */; };
 		72CC1B5616DE3BD7006A8E44 /* M3u8Process.m in Sources */ = {isa = PBXBuildFile; fileRef = 72CC1B5516DE3BD7006A8E44 /* M3u8Process.m */; };
+		72CDE9CE16F9ECB300292493 /* apple-touch-icon-ipad3.png in Resources */ = {isa = PBXBuildFile; fileRef = 72CDE9CD16F9ECB300292493 /* apple-touch-icon-ipad3.png */; };
+		72CDE9D916F9ECC100292493 /* apple-touch-icon-iphone4.png in Resources */ = {isa = PBXBuildFile; fileRef = 72CDE9D816F9ECC100292493 /* apple-touch-icon-iphone4.png */; };
+		72CDE9DB16F9ED2F00292493 /* apple-touch-icon-ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 72CDE9DA16F9ED2F00292493 /* apple-touch-icon-ipad.png */; };
+		72CDE9DD16F9ED3700292493 /* apple-touch-icon-iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 72CDE9DC16F9ED3700292493 /* apple-touch-icon-iphone.png */; };
 		72E200D316DB26BF00F3D7FC /* StyleSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 72E748FA16C9EEE70024B8BB /* StyleSheet.m */; };
 		72E200D816DB271C00F3D7FC /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72E200D616DB271C00F3D7FC /* CFNetwork.framework */; };
 		72E200D916DB271C00F3D7FC /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72E200D716DB271C00F3D7FC /* Security.framework */; };
@@ -476,7 +478,6 @@
 		72B83F8616CDDFA2003B2839 /* libz.1.2.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.5.dylib; path = usr/lib/libz.1.2.5.dylib; sourceTree = SDKROOT; };
 		72B83F9316CDE40F003B2839 /* FFMpegPlayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FFMpegPlayViewController.h; sourceTree = "<group>"; };
 		72B83F9416CDE40F003B2839 /* FFMpegPlayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FFMpegPlayViewController.m; sourceTree = "<group>"; };
-		72B83F9616CDE655003B2839 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		72B83FDC16CDF21A003B2839 /* CacheBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CacheBuffer.h; sourceTree = "<group>"; };
 		72B83FDD16CDF21A003B2839 /* CacheBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CacheBuffer.m; sourceTree = "<group>"; };
 		72B83FDE16CDF21A003B2839 /* FrameData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FrameData.h; sourceTree = "<group>"; };
@@ -501,6 +502,10 @@
 		72C9088116D325580075A651 /* libfdk-aac.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libfdk-aac.a"; path = "appletvserver/lib/libfdk-aac.a"; sourceTree = "<group>"; };
 		72CC1B5416DE3BD7006A8E44 /* M3u8Process.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3u8Process.h; sourceTree = "<group>"; };
 		72CC1B5516DE3BD7006A8E44 /* M3u8Process.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M3u8Process.m; sourceTree = "<group>"; };
+		72CDE9CD16F9ECB300292493 /* apple-touch-icon-ipad3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "apple-touch-icon-ipad3.png"; sourceTree = "<group>"; };
+		72CDE9D816F9ECC100292493 /* apple-touch-icon-iphone4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "apple-touch-icon-iphone4.png"; sourceTree = "<group>"; };
+		72CDE9DA16F9ED2F00292493 /* apple-touch-icon-ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "apple-touch-icon-ipad.png"; sourceTree = "<group>"; };
+		72CDE9DC16F9ED3700292493 /* apple-touch-icon-iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "apple-touch-icon-iphone.png"; sourceTree = "<group>"; };
 		72E200D616DB271C00F3D7FC /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		72E200D716DB271C00F3D7FC /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		72E748F916C9EEE70024B8BB /* StyleSheet.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StyleSheet.h; sourceTree = "<group>"; };
@@ -908,12 +913,15 @@
 		72A69BD016C9F9420099D974 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				72CDE9DC16F9ED3700292493 /* apple-touch-icon-iphone.png */,
+				72CDE9D816F9ECC100292493 /* apple-touch-icon-iphone4.png */,
+				72CDE9DA16F9ED2F00292493 /* apple-touch-icon-ipad.png */,
+				72CDE9CD16F9ECB300292493 /* apple-touch-icon-ipad3.png */,
 				7220AB7916F83F5B0073EB97 /* MMPSilence.wav */,
 				7215346D16DB481E009D5EA7 /* web */,
 				7215346616DB2E83009D5EA7 /* Base.xcconfig */,
 				7215346716DB2E83009D5EA7 /* Debug.xcconfig */,
 				7215346816DB2E83009D5EA7 /* Release.xcconfig */,
-				72B83F9616CDE655003B2839 /* Default.png */,
 				722E989A16E048430058EE11 /* appletv_114x114.png */,
 				722E989616E0479A0058EE11 /* appletv_57x57.png */,
 			);
@@ -1330,14 +1338,16 @@
 				72A4368A16C9EA5A00D9958D /* InfoPlist.strings in Resources */,
 				72B83F4816CDD993003B2839 /* lib in Resources */,
 				72B83F4A16CDD99E003B2839 /* include in Resources */,
-				72B83F9716CDE655003B2839 /* Default.png in Resources */,
 				7215346916DB2E83009D5EA7 /* Base.xcconfig in Resources */,
 				7215346A16DB2E83009D5EA7 /* Debug.xcconfig in Resources */,
 				7215346B16DB2E83009D5EA7 /* Release.xcconfig in Resources */,
 				7215346E16DB481E009D5EA7 /* web in Resources */,
-				722E989716E0479A0058EE11 /* appletv_57x57.png in Resources */,
 				722E989B16E048430058EE11 /* appletv_114x114.png in Resources */,
 				7220AB7A16F83F5B0073EB97 /* MMPSilence.wav in Resources */,
+				72CDE9CE16F9ECB300292493 /* apple-touch-icon-ipad3.png in Resources */,
+				72CDE9D916F9ECC100292493 /* apple-touch-icon-iphone4.png in Resources */,
+				72CDE9DB16F9ED2F00292493 /* apple-touch-icon-ipad.png in Resources */,
+				72CDE9DD16F9ED3700292493 /* apple-touch-icon-iphone.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
