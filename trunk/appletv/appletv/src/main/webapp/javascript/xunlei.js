@@ -2,12 +2,20 @@
 var xunleiClient = {
 	
 	loadXunleiSession:function(callback){
-		appletv.makeRequest(appletv.serverurl+'/noctl/xunlei/getsession.do',function(result){
+		appletv.makeRequest('http://16.158.169.15:8080/appletv/noctl/xunlei/getsession.do',function(result){
+			appletv.logToServer(result);
 			if(result==null||result.length==0){
 				appletv.showDialog('登录过期请在本地服务器上重新登录','');
 			}else{
-				var xunleisession = JSON.parse(result);
-				callback(xunleisession);
+				var xunleisession
+				try{
+					xunleisession = JSON.parse(result);
+				}catch(e){
+					appletv.logToServer('parse xunlei session error');
+				}
+				if(xunleisession!=null){
+					callback(xunleisession);
+				}
 			}
 		});
 	},
