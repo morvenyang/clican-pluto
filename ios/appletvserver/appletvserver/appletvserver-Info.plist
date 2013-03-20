@@ -10,8 +10,10 @@
 	<string>${EXECUTABLE_NAME}</string>
 	<key>CFBundleIconFiles</key>
 	<array>
-		<string>appletv_57x57.png</string>
-		<string>appletv_114x114.png</string>
+		<string>apple-touch-icon-iphone4.png</string>
+		<string>apple-touch-icon-ipad3.png</string>
+		<string>apple-touch-icon-ipad.png</string>
+		<string>apple-touch-icon-iphone.png</string>
 	</array>
 	<key>CFBundleIcons</key>
 	<dict>
@@ -19,9 +21,13 @@
 		<dict>
 			<key>CFBundleIconFiles</key>
 			<array>
-				<string>appletv_57x57.png</string>
-				<string>appletv_114x114.png</string>
+				<string>apple-touch-icon-iphone4.png</string>
+				<string>apple-touch-icon-ipad3.png</string>
+				<string>apple-touch-icon-ipad.png</string>
+				<string>apple-touch-icon-iphone.png</string>
 			</array>
+			<key>UIPrerenderedIcon</key>
+			<true/>
 		</dict>
 	</dict>
 	<key>CFBundleIdentifier</key>
@@ -45,6 +51,8 @@
 		<string>audio</string>
 	</array>
 	<key>UIFileSharingEnabled</key>
+	<true/>
+	<key>UIPrerenderedIcon</key>
 	<true/>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
