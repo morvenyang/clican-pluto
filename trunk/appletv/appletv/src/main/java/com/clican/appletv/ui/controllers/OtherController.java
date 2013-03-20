@@ -88,7 +88,8 @@ public class OtherController {
 		String content = this.getContent(request);
 		JSONObject json = JSONObject.fromObject(content);
 		String name = json.getString("name");
-		String value = json.getJSONObject("value").toString();
+		Object v = json.get("value");
+		String value = v.toString();
 		request.getSession().setAttribute(name, value);
 	}
 

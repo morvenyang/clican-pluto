@@ -502,7 +502,12 @@ var appletv = {
 			callback(value);
 		}else{
 			appletv.makeRequest(appletv.remoteserverurl+'/ctl/getValue.do?name='+key, function(result){
-				callback(JSON.parse(result));
+				if(result==null||result.length==0){
+					callback(null);
+				}else{
+					callback(JSON.parse(result));
+				}
+				
 			});
 		}
 	},
@@ -692,14 +697,14 @@ var appletv = {
 					}
 					favorites.push(favorite);
 					appletv.setValue('clican.config.favorites',favorites);
-					this.saveConfig('clican.config.favorites', favorites, function(content){
+					appletv.saveConfig('clican.config.favorites', favorites, function(content){
 						appletv.showDialog('收藏成功', '');
 					});
 				});
 			}else{
 				favorites.push(favorite);
 				appletv.setValue('clican.config.favorites',favorites);
-				this.saveConfig('clican.config.favorites', favorites, function(content){
+				appletv.saveConfig('clican.config.favorites', favorites, function(content){
 					appletv.showDialog('收藏成功', '');
 				});
 			}
@@ -721,12 +726,12 @@ var appletv = {
 	},
 	
 	saveConfig: function(key,value,callback){
-		var config = {"deviceId":getDeviceId(),"key":key,"value":value};
+		var config = {"deviceId":appletv.getDeviceId(),"key":key,"value":value};
 		appletv.makePostRequest(appletv.remoteserverurl+'/ctl/config/saveConfig.do', JSON.stringify(config),callback);
 	},
 	
 	getConfig: function(key,callback){
-		appletv.makeRequest(appletv.remoteserverurl+'/ctl/config/getConfig.do?deviceId='+getDeviceId()+'&key='+key,function(content){
+		appletv.makeRequest(appletv.remoteserverurl+'/ctl/config/getConfig.do?deviceId='+appletv.getDeviceId()+'&key='+key,function(content){
 			if(content==null||content.length==0){
 				callback(null);
 			}else{
