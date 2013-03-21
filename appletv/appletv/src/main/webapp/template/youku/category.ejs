@@ -13,15 +13,14 @@
 				<grid id="g<%=i%>" columnCount="5">
 					<items>
 						<%for(var j=0;j<categoryMap[categoryNames[i]].length;j++){%>
-						<%if(categoryMap[categoryNames[i]][j]['select']){%>
-									<actionButton id="ab_<%=i%>_<%=j%>" onPlay="" onSelect="">
-										<title><![CDATA[√<%=categoryMap[categoryNames[i]][j]['categoryLabel']%>]]></title>
-									</actionButton>
-								<%}else{%>
-									<actionButton id="ab_<%=i%>_<%=j%>" onPlay="youkuClient.loadCategoryPage('<%=categoryMap[categoryNames[i]][j]['categoryUrl']%>','<%=channelId%>',false);" onSelect="youkuClient.loadCategoryPage('<%=categoryMap[categoryNames[i]][j]['categoryUrl']%>','<%=channelId%>',false);">
-										<title><![CDATA[<%=categoryMap[categoryNames[i]][j]['categoryLabel']%>]]></title>
-									</actionButton>
-							
+							<%if(categoryMap[categoryNames[i]][j]['select']){%>
+								<actionButton id="ab_<%=i%>_<%=j%>" onPlay="" onSelect="">
+									<title><![CDATA[√<%=categoryMap[categoryNames[i]][j]['categoryLabel']%>]]></title>
+								</actionButton>
+							<%}else{%>
+								<actionButton id="ab_<%=i%>_<%=j%>" onPlay="youkuClient.loadCategoryPage('<%=categoryMap[categoryNames[i]][j]['categoryUrl']%>','<%=channelId%>',false);" onSelect="youkuClient.loadCategoryPage('<%=categoryMap[categoryNames[i]][j]['categoryUrl']%>','<%=channelId%>',false);">
+									<title><![CDATA[<%=categoryMap[categoryNames[i]][j]['categoryLabel']%>]]></title>
+								</actionButton>
 							<%}%>
 						<%}%>
 					</items>
