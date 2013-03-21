@@ -19,13 +19,13 @@ var lblClient = {
 	},
 
 	
-	loadIndexPage : function(keyword, page, channelId,queryUrl) {
+	loadIndexPage : function(keyword, page, channelId) {
 		appletv.showLoading();
 		var channel = this.lblChannelMap[channelId];
 		var videos = [];
-		if(queryUrl ==null||queryUrl.length==0){
-			queryUrl = 'http://www.longbuluo.com/'+channel['value']+'/page/'+page;
-		}
+		
+		var queryUrl = 'http://www.longbuluo.com/'+channel['value']+'/page/'+page;
+		
 		var s1 = new Date();
 		appletv.makeRequest(queryUrl, function(content) {
 			if (content != null && content.length > 0) {
@@ -42,7 +42,7 @@ var lblClient = {
 					videos.push(video);
 				}
 				lblClient.loadPics(videos, 0, function(videos){
-					lblClient.generateIndexPage(keyword, page, channel, videos,queryUrl);
+					lblClient.generateIndexPage(keyword, page, channel, videos);
 					var s2 = new Date();
 					appletv.logToServer('total:'+(s2.getTime()-s1.getTime()))
 				});
@@ -53,7 +53,7 @@ var lblClient = {
 
 	},
 
-	generateIndexPage : function(keyword, page, channel, videos,url) {
+	generateIndexPage : function(keyword, page, channel, videos) {
 		var begin = 1;
 		var end = 1;
 		if (page < 90) {
@@ -70,8 +70,7 @@ var lblClient = {
 			'end' : end,
 			'channels' : lblClient.lblChannels,
 			'serverurl' : appletv.serverurl,
-			'videos' : videos,
-			'url' : url
+			'videos' : videos
 		};
 		var xml = new EJS({
 			url : appletv.serverurl + '/template/lbl/index.ejs'

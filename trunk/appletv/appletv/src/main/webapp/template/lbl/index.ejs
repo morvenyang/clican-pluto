@@ -31,20 +31,15 @@
 		</shelf>
 		<grid id="grid_1" columnCount="12">
 			<items>
-				<%if(channel['value']!=1001){%>
-				<actionButton id="shelf_item_category_page" onSelect="lblClient.loadCategoryPage('<%=url%>','<%=channel['value']%>',true);" onPlay="lblClient.loadCategoryPage('<%=url%>','<%=channel['value']%>',true);">
-					<title>筛选</title>
-				</actionButton>
-				<%}%>
-				<actionButton id="shelf_item_first_page" onSelect="lblClient.loadIndexPage('<%=keyword%>',1,'<%=channel['value']%>','<%=url%>');" onPlay="lblClient.loadIndexPage('<%=keyword%>',1,'<%=channel['value']%>','<%=url%>');">
+				<actionButton id="shelf_item_first_page" onSelect="lblClient.loadIndexPage('<%=keyword%>',1,'<%=channel['value']%>');" onPlay="lblClient.loadIndexPage('<%=keyword%>',1,'<%=channel['value']%>');">
 					<title>第一页</title>
 				</actionButton>
 				<%for(var i=begin;i<end;i++){%>
-					<actionButton id="shelf_item_<%=i%>_page" onSelect="lblClient.loadIndexPage('<%=keyword%>',<%=i%>,'<%=channel['value']%>','<%=url%>');" onPlay="lblClient.loadIndexPage('<%=keyword%>',<%=i%>,'<%=channel['value']%>','<%=url%>');">
+					<actionButton id="shelf_item_<%=i%>_page" onSelect="lblClient.loadIndexPage('<%=keyword%>',<%=i%>,'<%=channel['value']%>');" onPlay="lblClient.loadIndexPage('<%=keyword%>',<%=i%>,'<%=channel['value']%>');">
 						<title><%=i%></title>
 					</actionButton>
 				<%}%>
-				<actionButton id="shelf_item_last_page" onSelect="lblClient.loadIndexPage('<%=keyword%>',99,'<%=channel['value']%>','<%=url%>');" onPlay="lblClient.loadIndexPage('<%=keyword%>',99,'<%=channel['value']%>','<%=url%>');">
+				<actionButton id="shelf_item_last_page" onSelect="lblClient.loadIndexPage('<%=keyword%>',99,'<%=channel['value']%>');" onPlay="lblClient.loadIndexPage('<%=keyword%>',99,'<%=channel['value']%>');">
 					<title>最后页</title>
 				</actionButton>
 			</items>
@@ -62,20 +57,15 @@
 		</grid>
 		<grid id="grid_3" columnCount="12">
 			<items>
-				<%if(channel['value']!=1001){%>
-				<actionButton id="shelf_item_category_page" onSelect="lblClient.loadCategoryPage('<%=url%>','<%=channel['value']%>',true);" onPlay="lblClient.loadCategoryPage('<%=url%>','<%=channel['value']%>',true);">
-					<title>筛选</title>
-				</actionButton>
-				<%}%>
-				<actionButton id="shelf_item_first_page" onSelect="lblClient.loadIndexPage('<%=keyword%>',1,'<%=channel['value']%>','<%=url%>');" onPlay="lblClient.loadIndexPage('<%=keyword%>',1,'<%=channel['value']%>','<%=url%>');">
+				<actionButton id="shelf_item_first_page" onSelect="lblClient.loadIndexPage('<%=keyword%>',1,'<%=channel['value']%>');" onPlay="lblClient.loadIndexPage('<%=keyword%>',1,'<%=channel['value']%>');">
 					<title>第一页</title>
 				</actionButton>
 				<%for(var i=begin;i<end;i++){%>
-					<actionButton id="shelf_item_<%=i%>_page" onSelect="lblClient.loadIndexPage('<%=keyword%>',<%=i%>,'<%=channel['value']%>','<%=url%>');" onPlay="lblClient.loadIndexPage('<%=keyword%>',<%=i%>,'<%=channel['value']%>','<%=url%>');">
+					<actionButton id="shelf_item_<%=i%>_page" onSelect="lblClient.loadIndexPage('<%=keyword%>',<%=i%>,'<%=channel['value']%>');" onPlay="lblClient.loadIndexPage('<%=keyword%>',<%=i%>,'<%=channel['value']%>');">
 						<title><%=i%></title>
 					</actionButton>
 				<%}%>
-				<actionButton id="shelf_item_last_page" onSelect="lblClient.loadIndexPage('<%=keyword%>',99,'<%=channel['value']%>','<%=url%>');" onPlay="lblClient.loadIndexPage('<%=keyword%>',99,'<%=channel['value']%>','<%=url%>');">
+				<actionButton id="shelf_item_last_page" onSelect="lblClient.loadIndexPage('<%=keyword%>',99,'<%=channel['value']%>');" onPlay="lblClient.loadIndexPage('<%=keyword%>',99,'<%=channel['value']%>');">
 					<title>最后页</title>
 				</actionButton>
 			</items>
