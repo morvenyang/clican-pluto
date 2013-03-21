@@ -181,7 +181,7 @@ var lblClient = {
 			appletv.makeRequest(url,function(content){
 				var c2 = appletv.substringByTag(content,'<span class="c_2">','</span>','span');
 				var href = appletv.substring(c2,'href="','"');
-				xunleiClient.play(href, 'title);
+				xunleiClient.play(href, title);
 			});
 		}else{
 			xunleiClient.play(url, title);
