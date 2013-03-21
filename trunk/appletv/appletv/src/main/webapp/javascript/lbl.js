@@ -91,4 +91,93 @@ var lblClient = {
 			});
 		}
 	},
+	
+	loadVideoPage : function(id) {
+		appletv.showLoading();
+		var url = id;
+		appletv.makeRequest(url, function(htmlContent) {
+			if (htmlContent == null) {
+				return;
+			}
+			var actor = '-';
+			var dctor = '-';
+			var area = '-';
+			var score = '-';
+			var year = '-';
+			var shareurl = url;
+			var desc;
+			
+			pic = appletv.substring(htmlContent,'<li class="thumb">','</li>');
+			pic = appletv.substring(pic,'src=\'','\'');
+			title = appletv.substring(htmlContent,'<span class="name">','</span>');
+			area = appletv.substring(htmlContent,'<span class="area">','</span>');
+			area = appletv.getSubValues(area,'target="_blank">', '</a>');
+			year = appletv.substring(htmlContent,'<span class="pub">','</span>');
+			score = appletv.substring(htmlContent,'<em class="num">','</em>');
+			if(channelId==97){
+				//电视剧
+				actor = appletv.substring(htmlContent,'<span class="actor">','</span>');
+				actor = appletv.getSubValues(actor,'target="_blank">', '</a>');
+				desc = appletv.substring(htmlContent,'<span class="short" id="show_info_short" style="display: inline;">','</span>');
+			}else if(channelId==96){
+				//电影
+				actor = appletv.substring(htmlContent,'<span class="actor">','</span>');
+				actor = appletv.getSubValues(actor,'target="_blank">', '</a>');
+				dctor = appletv.substring(htmlContent,'<span class="director">','</span>');
+				dctor = appletv.getSubValues(dctor,'target="_blank">', '</a>');
+				desc = appletv.substring(htmlContent,'<span class="long" style="display:none;">','</span>');
+			}
+			
+			var items = [];
+			if(isalbum){
+				var itemscontent = appletv.substringByTag(htmlContent,'<div class="items"','</div>','div');
+				var urls = appletv.getSubValues(itemscontent,'<a','</a>');
+				for(i=0;i<urls.length;i++){
+					url = urls[i];
+					var t = appletv.substring(url,'title="','"');
+					var c = appletv.substring(url,'id_','.html');
+					var item = {
+							'title' : t,
+							'id' : c
+						};
+					items.push(item);
+				}
+			}else{
+				var item = {
+						'title' : title,
+						'id' : code
+					};
+				items.push(item);
+			}
+			
+			
+			var video = {
+					'serverurl' : appletv.serverurl,
+					album : isalbum,
+					channelId : channelId,
+					script : appletv.encode("youkuClient.loadVideoPage('"+code+"',"+channelId+","+isalbum+",'"+pic+"');"),
+					video : {
+						'id' : code,
+						'actor' : actor,
+						'area' : area,
+						'dctor' : dctor,
+						'pic' : pic,
+						'score' : score,
+						'title' : title,
+						'year' : year,
+						'desc' : desc,
+						'shareurl':shareurl
+					},
+					items : items
+				};
+				if(isalbum){
+					appletv.setValue('youkuVideo',video);
+				}
+				var xml = new EJS({
+					url : appletv.serverurl
+							+ '/template/youku/video.ejs'
+				}).render(video);
+				appletv.loadAndSwapXML(xml);
+		});
+	},
 }
