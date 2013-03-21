@@ -693,6 +693,25 @@ var appletv = {
 		return count;
 	},
 	
+	getTextInTag: function(data){
+		var left = 0;
+		var right = 0;
+		var result = '';
+		var charArray = data.split('');
+		for(i=0;i<charArray.length;i++){
+			if(charArray[i]=='<'){
+				left++;
+			}else if(charArray[i]=='>'){
+				right++;
+			}else{
+				if(left==right){
+					result = result + charArray[i];
+				}
+			}
+		}
+		return result;
+	},
+	
 	loadFavoritePage:function(){
 		appletv.getValue('clican.config.favorites', function(favorites){
 			if(favorites==null){
