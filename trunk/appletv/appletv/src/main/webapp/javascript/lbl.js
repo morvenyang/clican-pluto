@@ -21,16 +21,17 @@ var lblClient = {
 	
 	loadIndexPage : function(keyword, page, channelId,queryUrl) {
 		appletv.showLoading();
-		var channel = this.tudouChannelMap[channelId];
+		var channel = this.lblChannelMap[channelId];
 		var videos = [];
 		if(queryUrl ==null||queryUrl.length==0){
 			queryUrl = 'http://www.longbuluo.com/'+channel['value']+'/page/'+page;
 		}
-		
+		var s1 = new Date();
 		appletv.makeRequest(queryUrl, function(content) {
 			if (content != null && content.length > 0) {
 				var packs = appletv.getSubValues(content,
 						'<h4>', '</h4>');
+				appletv.logToServer('packs = '+packs.length);
 				for (i = 0; i < packs.length; i++) {
 					var pack = packs[i];
 					var title = appletv.substring(pack, 'title="', '"');
@@ -43,6 +44,8 @@ var lblClient = {
 				}
 				lblClient.loadPics(videos, 0, function(videos){
 					lblClient.generateIndexPage(keyword, page, channel, videos,queryUrl);
+					var s2 = new Date();
+					appletv.logToServer('total:'+(s2.getTime()-s1.getTime()))
 				});
 			} else {
 				appletv.showDialog('加载失败','');
@@ -88,6 +91,5 @@ var lblClient = {
 				lblClient.loadPics(videos,index+1,callback);
 			});
 		}
-		
 	},
 }
