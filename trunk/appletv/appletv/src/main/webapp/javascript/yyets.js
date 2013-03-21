@@ -319,4 +319,9 @@ var yyetsClient = {
 			appletv.loadAndSwapXML(xml);
 		});
 	},
+	
+	play:function(url){
+		appletv.showLoading();
+		xunleiClient.play(url);
+	}
 }

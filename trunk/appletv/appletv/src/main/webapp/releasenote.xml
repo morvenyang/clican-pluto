@@ -7,6 +7,7 @@
 		<script src="http://local.clican.org/appletv/javascript/yyets.js" />
 		<script src="http://local.clican.org/appletv/javascript/tudou.js" />
 		<script src="http://local.clican.org/appletv/javascript/youku.js" />
+		<script src="http://local.clican.org/appletv/javascript/lbl.js" />
 	</head>
 	<body>
 		<scroller id="com.sample.movie-shelf">

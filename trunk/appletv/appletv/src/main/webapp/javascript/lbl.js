@@ -280,6 +280,7 @@ var lblClient = {
 	},
 
 	play : function(id, title) {
+		appletv.showLoading();
 		var url = id;
 		if (url.indexOf('http://kuai.xunlei.com') >= 0) {
 			appletv.makeRequest(url, function(content) {

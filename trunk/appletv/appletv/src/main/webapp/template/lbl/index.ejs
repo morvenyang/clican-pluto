@@ -16,11 +16,13 @@
 							<%if(channels[i]['value']==1001){%>
 								<moviePoster id="shelf_item_<%=channels[i]['value']%>" alwaysShowTitles="true" featured="true" onSelect="lblClient.loadSearchPage();" onPlay="lblClient.loadSearchPage();">
 									<title><%=channels[i]['label']%></title>
+									<image></image>
 									<defaultImage>resource://Poster.png</defaultImage>
 								</moviePoster>
 							<%}else{%>
 								<moviePoster id="shelf_item_<%=channels[i]['value']%>" alwaysShowTitles="true" featured="true" onSelect="lblClient.loadIndexPage('',1,'<%=channels[i]['value']%>');" onPlay="lblClient.loadIndexPage('',1,'<%=channels[i]['value']%>');">
 									<title><%=channels[i]['label']%></title>
+									<image></image>
 									<defaultImage>resource://Poster.png</defaultImage>
 								</moviePoster>
 							<%}%>

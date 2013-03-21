@@ -395,12 +395,12 @@ var appletv = {
 		if(proxy!=null&&proxy.length>0) {
 			var options = [];
 			var encodeUrl = url.replace(new RegExp('&', 'g'),'&amp;');
-			options.push({"title":"直接播放","script":"appletv.loadXML(appletv.makePlayXml('"+encodeUrl+"'));"});
+			options.push({"title":"直接播放","script":"appletv.loadAndSwapXML(appletv.makePlayXml('"+encodeUrl+"'));"});
 			url = proxy+"/noctl/proxy/play.m3u8?url="+encodeURIComponent(url);
 			options.push({"title":"本地服务器代理下载播放","script":"appletv.loadXML(appletv.makePlayXml('"+url+"'));"});
 			appletv.showOptionPage('播放源选择','',options);
 		}else{
-			appletv.loadXML(appletv.makePlayXml(url));
+			appletv.loadAndSwapXML(appletv.makePlayXml(url));
 		}
 	},
 	
@@ -413,12 +413,12 @@ var appletv = {
 		if(proxy!=null&&proxy.length>0) {
 			var options = [];
 			var encodeUrl = url.replace(new RegExp('&', 'g'),'&amp;');
-			options.push({"title":"直接播放","script":"appletv.loadXML(appletv.makePlayXml('"+encodeUrl+"'));"});
+			options.push({"title":"直接播放","script":"appletv.loadAndSwapXML(appletv.makePlayXml('"+encodeUrl+"'));"});
 			url = proxy+"/noctl/proxy/play.mp4?url="+encodeURIComponent(url);
 			options.push({"title":"本地服务器代理下载播放","script":"appletv.loadXML(appletv.makePlayXml('"+url+"'));"});
 			appletv.showOptionPage('播放源选择','',options);
 		}else{
-			appletv.loadXML(appletv.makePlayXml(url));
+			appletv.loadAndSwapXML(appletv.makePlayXml(url));
 		}
 	},
 	
