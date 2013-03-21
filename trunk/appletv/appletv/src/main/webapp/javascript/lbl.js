@@ -106,25 +106,25 @@ var lblClient = {
 			var year = '-';
 			var shareurl = url;
 			var desc;
-			var entry = appletv.substringByTag(content,'<div class="entry">','</div>','div');
+			var entry = appletv.substringByTag(htmlContent,'<div class="entry">','</div>','div');
 			
 			var ps = appletv.getSubValues(entry,'<p>','</p>');
 			desc = appletv.getTextInTag(ps[0]);
-			pic = appletv.substring(ps[1],'src=\'','\'');
-			title = appletv.substring(ps[1],'title=\'','\'');
+			pic = appletv.substring(ps[1],'src="','"');
+			title = appletv.substring(ps[1],'title="','"');
 			index1 = title.indexOf("《");
 			index2 = title.indexOf("》");
 			if(index1>=0&&index2>=0){
 				title = title.substring(index1+1,index2);
 			}
-			area = appletv.substring(ps[2],'制片国家/地区: ','<br>');
+			area = appletv.substring(ps[2],'制片国家/地区: ','<br');
 			
-			year = appletv.substring(ps[2],'上映日期: ','<br>');
-			actor = appletv.substring(ps[2],'主演: ','<br>');
-			dctor = appletv.substring(ps[2],'导演: ','<br>');
+			year = appletv.substring(ps[2],'上映日期: ','<br');
+			actor = appletv.subIndexString(ps[2],'主演: ');
+			dctor = appletv.substring(ps[2],'导演: ','<br');
 			var items = [];
 			for(i=4;i<ps.length;i++){
-				var id = appletv.substring(ps[i],'href="','"');
+				var c = appletv.substring(ps[i],'href="','"');
 				var t = appletv.substring(ps[i],'target="_blank">','</a>');
 				var item = {
 						'title' : t,
