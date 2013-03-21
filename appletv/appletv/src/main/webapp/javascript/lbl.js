@@ -182,7 +182,7 @@ var lblClient = {
 
 			var ps = appletv.getSubValues(entry, '<p>', '</p>');
 			desc = appletv.getTextInTag(ps[0]);
-			pic = appletv.substring(ps[1], 'src="', '"');
+			pic = appletv.substring(entry, 'src="', '"');
 			title = appletv.substring(htmlContent, '<h2>', '</h2>');
 			index1 = title.indexOf("《");
 			index2 = title.indexOf("》");
