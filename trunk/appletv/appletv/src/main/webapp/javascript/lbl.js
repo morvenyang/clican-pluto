@@ -128,6 +128,7 @@ var lblClient = {
 				var t = appletv.substring(ps[i],'target="_blank">','</a>');
 				var item = {
 						'title' : t,
+						'encodetitle' : encodeURIComponent(t),
 						'id' : c
 				};
 				items.push(item);
