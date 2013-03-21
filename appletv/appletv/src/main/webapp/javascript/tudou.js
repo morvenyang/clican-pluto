@@ -391,11 +391,13 @@ var tudouClient = {
 	},
 
 	play : function(vcode) {
+		appletv.showLoading();
 		var url = 'http://v.youku.com/player/getRealM3U8/vid/' + vcode + '/type/flv/sc/2/video.m3u8';
 		appletv.playM3u8(url, '');
 	},
 	
 	playByItemid: function(itemid){
+		appletv.showLoading();
 		var url = 'http://vr.tudou.com/v2proxy/v2.m3u8?st=4&it='+itemid;
 		appletv.playM3u8(url, '');
 	}

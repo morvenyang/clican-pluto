@@ -351,6 +351,7 @@ var qqClient = {
 	},
 
 	playVideo : function(id) {
+		appletv.showLoading();
 		var playDescUrl = qqPlayApi + '&vid=' + id;
 		appletv.makeRequest(playDescUrl, function(data) {
 			if (data.indexOf('ip is not authorized') != -1) {

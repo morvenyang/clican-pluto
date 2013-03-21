@@ -447,6 +447,7 @@ var youkuClient = {
 	},
 	
 	play : function(vcode) {
+		appletv.showLoading();
 		var url = 'http://v.youku.com/player/getRealM3U8/vid/' + vcode + '/type/hd2/video.m3u8';
 		appletv.playM3u8(url, '');
 	},
