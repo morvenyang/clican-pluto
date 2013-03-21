@@ -34,6 +34,10 @@
 							<image>http://local.clican.org/appletv/image/yyets/yyets.jpg</image>
 							<title>人人影视</title>
 						</goldenPoster>
+						<goldenPoster id="lbl" onSelect="lblClient.loadIndexPage('',1,'category/movie');">
+							<image>http://local.clican.org/appletv/image/lbl/lbl.png</image>
+							<title>龙部落</title>
+						</goldenPoster>
 						<goldenPoster id="baibian"
 							onSelect="atv.loadURL('http://www.clican.org/appletv/ctl/baibian/index.xml');">
 							<image>http://local.clican.org/appletv/image/baibian/baibian.png</image>
