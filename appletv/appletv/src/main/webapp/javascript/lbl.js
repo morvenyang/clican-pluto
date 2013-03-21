@@ -158,4 +158,33 @@ var lblClient = {
 				appletv.loadAndSwapXML(xml);
 		});
 	},
+	
+	loadItemsPage : function() {
+		appletv.showLoading();
+		try{
+			appletv.getValue('clican.lbl.video',function(video){
+				var xml = new EJS({
+					url : appletv.serverurl
+							+ '/template/lbl/videoItems.ejs'
+				}).render(video);
+				appletv.loadAndSwapXML(xml);
+			});
+		}catch(e){
+			appletv.logToServer('Error occured lbl.loadItemsPage ' + e);
+		}
+		
+	},
+	
+	play : function(id,title) {
+		var url = id;
+		if(url.indexOf('http://kuai.xunlei.com')>=0){
+			appletv.makeRequest(url,function(content){
+				var c2 = appletv.substringByTag(content,'<span class="c_2">','</span>','span');
+				var href = appletv.substring(c2,'href="','"');
+				xunleiClient.play(href, 'title);
+			});
+		}else{
+			xunleiClient.play(url, title);
+		}
+	},
 }
