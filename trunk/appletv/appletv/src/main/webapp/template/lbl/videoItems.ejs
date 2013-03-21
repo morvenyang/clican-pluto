@@ -18,7 +18,7 @@
 					<menuSection>
 						<items>
 							<%for(var i=0;i<items.length;i++){%>
-								<oneLineMenuItem id="albumItem_<%=i%>" onPlay="lblClient.play('<%=items[i]['id']%>','<%=items[i]['title']%>');" onSelect="lblClient.play('<%=items[i]['id']%>','<%=items[i]['title']%>');">
+								<oneLineMenuItem id="albumItem_<%=i%>" onPlay="lblClient.play('<%=items[i]['id']%>',encodeURIComponent('<%=items[i]['title']%>'));" onSelect="lblClient.play('<%=items[i]['id']%>',encodeURIComponent('<%=items[i]['title']%>'));">
 									<label><%=items[i]['title']%></label>
 								</oneLineMenuItem>
 							<%}%>

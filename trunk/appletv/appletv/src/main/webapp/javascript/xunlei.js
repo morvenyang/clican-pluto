@@ -6,13 +6,13 @@ var xunleiClient = {
 			appletv.makeRequest(appletv.serverurl+'/noctl/xunlei/getsession.do',function(result){
 				appletv.logToServer(result);
 				if(result==null||result.length==0){
-					appletv.showDialog('登录过期请在本地服务器上重新登录','具体说明请参考http://clican.org');
+					appletv.showDialog('1登录过期请在本地服务器上重新登录','具体说明请参考http://clican.org');
 				}else{
 					var xunleisession
 					try{
 						xunleisession = JSON.parse(result);
 					}catch(e){
-						appletv.showDialog('登录过期请在本地服务器上重新登录','具体说明请参考http://clican.org');
+						appletv.showDialog('2登录过期请在本地服务器上重新登录','具体说明请参考http://clican.org');
 					}
 					if(xunleisession!=null){
 						callback(xunleisession);
@@ -37,7 +37,7 @@ var xunleiClient = {
 			var userid=xunleisession['userid'];
 			var vip = xunleisession['vip'];
 			if(sessionid==null||sessionid.length==0||userid==null||userid.length==0||vip==null||vip.length==0){
-				appletv.showDialog('登录过期请在本地服务器上重新登录','具体说明请参考http://clican.org');
+				appletv.showDialog('3登录过期请在本地服务器上重新登录','具体说明请参考http://clican.org');
 			}else{
 				if(name==null||name.length==0){
 					if(url.indexOf('ed2k')>=0){
@@ -72,7 +72,7 @@ var xunleiClient = {
 		try {
 			msg = res['resp']['vod_permit']['msg'];
 			if (msg == 'overdue session') {
-				appletv.showDialog('登录过期请在本地服务器上重新登录','具体说明请参考http://clican.org');
+				appletv.showDialog('4登录过期请在本地服务器上重新登录','具体说明请参考http://clican.org');
 				return;
 			}
 			if (msg == 'too much share userid') {
