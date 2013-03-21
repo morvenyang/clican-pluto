@@ -183,7 +183,7 @@ var lblClient = {
 			var ps = appletv.getSubValues(entry, '<p>', '</p>');
 			desc = appletv.getTextInTag(ps[0]);
 			pic = appletv.substring(ps[1], 'src="', '"');
-			title = appletv.substring(ps[1], 'title="', '"');
+			title = appletv.substring(htmlContent, '<h2>', '</h2>');
 			index1 = title.indexOf("《");
 			index2 = title.indexOf("》");
 			if (index1 >= 0 && index2 >= 0) {
@@ -208,9 +208,11 @@ var lblClient = {
 			dctor = dctor.replace(':','').replace('：','').trim();
 			
 			var items = [];
-			for (i = 4; i < ps.length; i++) {
-				var c = appletv.substring(ps[i], 'href="', '"');
-				var t = appletv.substring(ps[i], 'target="_blank">', '</a>');
+			var urls = appletv.getSubValues(htmlContent,'<a href="thunder://','</a>');
+			for(i=0;i<urls.length;i++){
+				url = '<a href="thunder://'+urls[i]+'</a>'
+				var c = appletv.substring(url, 'href="', '"');
+				var t = appletv.substring(url, '>','<').trim();
 				if(c==null||c.length==0){
 					continue;
 				}
@@ -221,23 +223,55 @@ var lblClient = {
 				};
 				items.push(item);
 			}
-			var ols = appletv.substring(entry,'<ol>','</ol>');
-			if(ols!=null&&ols.length!=0){
-				var hrefs = appletv.getSubValues(ols,'<li>','</li>');
-				for (i = 0; i < hrefs.length; i++) {
-					var c =  hrefs[i];
-					var t = title +' 第'+(i+1)+'集';
-					if(c==null||c.length==0){
-						continue;
-					}
-					var item = {
-						'title' : t,
-						'encodetitle' : encodeURIComponent(t),
-						'id' : c
-					};
-					items.push(item);
+			
+			urls = appletv.getSubValues(htmlContent,'<li>thunder://','</li>');
+			for(i=0;i<urls.length;i++){
+				url = 'thunder://'+urls[i];
+				var c = url;
+				var t = title + ' 第'+(i+1)+'集';
+				if(c==null||c.length==0){
+					continue;
 				}
+				var item = {
+					'title' : t,
+					'encodetitle' : encodeURIComponent(t),
+					'id' : c
+				};
+				items.push(item);
 			}
+			
+			urls = appletv.getSubValues(htmlContent,'<a href="http://kuai.xunlei.com','</a>');
+			for(i=0;i<urls.length;i++){
+				url = '<a href="http://kuai.xunlei.com'+urls[i]+'</a>'
+				var c = appletv.substring(url, 'href="', '"');
+				var t = appletv.substring(url, '>','<').trim();
+				if(c==null||c.length==0){
+					continue;
+				}
+				var item = {
+					'title' : t,
+					'encodetitle' : encodeURIComponent(t),
+					'id' : c
+				};
+				items.push(item);
+			}
+			
+			urls = appletv.getSubValues(htmlContent,'<a href="ed2k://','</a>');
+			for(i=0;i<urls.length;i++){
+				url = '<a href="ed2k://'+urls[i]+'</a>'
+				var c = appletv.substring(url, 'href="', '"');
+				var t = appletv.substring(url, '>','<').trim();
+				if(c==null||c.length==0){
+					continue;
+				}
+				var item = {
+					'title' : t,
+					'encodetitle' : encodeURIComponent(t),
+					'id' : c
+				};
+				items.push(item);
+			}
+			
 			var video = {
 				'serverurl' : appletv.serverurl,
 				script : appletv.encode("lblClient.loadVideoPage('" + id

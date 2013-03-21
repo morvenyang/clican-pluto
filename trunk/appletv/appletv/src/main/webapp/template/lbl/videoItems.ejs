@@ -7,11 +7,10 @@
 <script src="<%=serverurl%>/javascript/xunlei.js"/>
 </head>
 <body>
-		<listScrollerSplit id="bbbb">
+		<listWithPreview id="bbbb">
 			<header>
-				<simpleHeader horizontalAlignment="left">
+				<simpleHeader horizontalAlignment="right">
 					<title><![CDATA[<%=video['title']%>]]></title>
-					<image src="<%=video['pic']%>"></image>
 				</simpleHeader>
 			</header>
 			<menu>
@@ -21,12 +20,19 @@
 							<%for(var i=0;i<items.length;i++){%>
 								<oneLineMenuItem id="albumItem_<%=i%>" onPlay="lblClient.play('<%=items[i]['id']%>','<%=items[i]['encodetitle']%>');" onSelect="lblClient.play('<%=items[i]['id']%>','<%=items[i]['encodetitle']%>');">
 									<label><%=items[i]['title']%></label>
+									<preview>
+										<longDescriptionPreview>
+									         <title><![CDATA[<%=items[i]['title']%>]]></title>
+									         <summary><![CDATA[<%=items[i]['title']%>]]></summary>
+									         <image src="<%=video['pic']%>"></image>
+									    </longDescriptionPreview>
+									</preview>
 								</oneLineMenuItem>
 							<%}%>
 						</items>
 					</menuSection>
 				</sections>
 			</menu>
-		</listScrollerSplit>
+		</listWithPreview>
 	</body>
 </atv>
