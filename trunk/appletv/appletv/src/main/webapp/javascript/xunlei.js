@@ -31,7 +31,7 @@ var xunleiClient = {
 		}
 	},
 	
-	play:function(ed2kurl){
+	play:function(url,name){
 		this.loadXunleiSession(function(xunleisession){
 			var sessionid=xunleisession['sessionid'];
 			var userid=xunleisession['userid'];
@@ -39,9 +39,16 @@ var xunleiClient = {
 			if(sessionid==null||sessionid.length==0||userid==null||userid.length==0||vip==null||vip.length==0){
 				appletv.showDialog('登录过期请在本地服务器上重新登录','具体说明请参考http://clican.org');
 			}else{
-				var name = appletv.substring(ed2kurl, "file|", "|");
+				if(name==null||name.length==0){
+					if(url.indexOf('ed2k')>=0){
+						name = appletv.substring(ed2kurl, "file|", "|");
+					}else{
+						name = 'Unknown';
+					}
+				}
+				
 				var xunleiurl = "http://i.vod.xunlei.com/req_get_method_vod?url="
-						+ encodeURIComponent(ed2kurl) + "&video_name=" +name+ "&platform=1&userid=" + userid
+						+ encodeURIComponent(url) + "&video_name=" +name+ "&platform=1&userid=" + userid
 						+ "&vip="+vip+"&sessionid=" + sessionid
 						+ "&cache=" + new Date().getTime()
 						+ "&from=vlist&jsonp=xunleiClient.xunleicallback";
