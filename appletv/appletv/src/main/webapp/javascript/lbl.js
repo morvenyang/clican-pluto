@@ -189,15 +189,31 @@ var lblClient = {
 			if (index1 >= 0 && index2 >= 0) {
 				title = title.substring(index1 + 1, index2);
 			}
-			area = appletv.substring(ps[2], '制片国家/地区: ', '<br');
-
-			year = appletv.substring(ps[2], '上映日期: ', '<br');
-			actor = appletv.subIndexString(ps[2], '主演: ');
-			dctor = appletv.substring(ps[2], '导演: ', '<br');
+			area = appletv.substring(ps[2], '制片国家/地区', '<br');
+			if(area==null||area.length==0){
+				area = appletv.substring(ps[2], '制片地区', '<br');
+			}
+			area=area.replace(':','').replace('：','').trim();
+			year = appletv.substring(ps[2], '上映日期', '<br');
+			if(year==null||year.length==0){
+				year = appletv.substring(ps[2], '出品时间', '<br');
+			}
+			year = year.replace(':','').replace('：','').trim();
+			actor = appletv.subIndexString(ps[2], '主演');
+			if(actor.indexOf('<')>=0){
+				actor=actor.substring(0,actor.indexOf('<'));
+			}
+			actor = actor.replace(':','').replace('：','').trim();
+			dctor = appletv.substring(ps[2], '导演', '<br');
+			dctor = dctor.replace(':','').replace('：','').trim();
+			
 			var items = [];
 			for (i = 4; i < ps.length; i++) {
 				var c = appletv.substring(ps[i], 'href="', '"');
 				var t = appletv.substring(ps[i], 'target="_blank">', '</a>');
+				if(c==null||c.length==0){
+					continue;
+				}
 				var item = {
 					'title' : t,
 					'encodetitle' : encodeURIComponent(t),
@@ -205,7 +221,23 @@ var lblClient = {
 				};
 				items.push(item);
 			}
-
+			var ols = appletv.substring(entry,'<ol>','</ol>');
+			if(ols!=null&&ols.length!=0){
+				var hrefs = appletv.getSubValues(ols,'<li>','</li>');
+				for (i = 0; i < hrefs.length; i++) {
+					var c =  hrefs[i];
+					var t = title +' 第'+(i+1)+'集';
+					if(c==null||c.length==0){
+						continue;
+					}
+					var item = {
+						'title' : t,
+						'encodetitle' : encodeURIComponent(t),
+						'id' : c
+					};
+					items.push(item);
+				}
+			}
 			var video = {
 				'serverurl' : appletv.serverurl,
 				script : appletv.encode("lblClient.loadVideoPage('" + id
