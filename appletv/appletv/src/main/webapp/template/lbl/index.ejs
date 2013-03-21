@@ -52,7 +52,7 @@
 		<grid id="grid_2" columnCount="6">
 			<items>
 				<%for(var i=0;i<videos.length;i++){%>	
-					<moviePoster id="shelf_item_<%=i%>" alwaysShowTitles="true" onSelect="lblClient.loadVideoPage('<%=videos[i]['id']%>',<%=channel['value']%>);">
+					<moviePoster id="shelf_item_<%=i%>" alwaysShowTitles="true" onSelect="lblClient.loadVideoPage('<%=videos[i]['id']%>');">
 						<title><![CDATA[<%=videos[i].title%>]]></title>
 						<image><%=videos[i].pic%></image>
 						<defaultImage>resource://Poster.png</defaultImage>
