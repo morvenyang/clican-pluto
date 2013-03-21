@@ -31,7 +31,6 @@ var lblClient = {
 			if (content != null && content.length > 0) {
 				var packs = appletv.getSubValues(content,
 						'<h4>', '</h4>');
-				appletv.logToServer('packs = '+packs.length);
 				for (i = 0; i < packs.length; i++) {
 					var pack = packs[i];
 					var title = appletv.substring(pack, 'title="', '"');
