@@ -106,58 +106,38 @@ var lblClient = {
 			var year = '-';
 			var shareurl = url;
 			var desc;
+			var entry = appletv.substringByTag(content,'<div class="entry">','</div>','div');
 			
-			pic = appletv.substring(htmlContent,'<li class="thumb">','</li>');
-			pic = appletv.substring(pic,'src=\'','\'');
-			title = appletv.substring(htmlContent,'<span class="name">','</span>');
-			area = appletv.substring(htmlContent,'<span class="area">','</span>');
-			area = appletv.getSubValues(area,'target="_blank">', '</a>');
-			year = appletv.substring(htmlContent,'<span class="pub">','</span>');
-			score = appletv.substring(htmlContent,'<em class="num">','</em>');
-			if(channelId==97){
-				//电视剧
-				actor = appletv.substring(htmlContent,'<span class="actor">','</span>');
-				actor = appletv.getSubValues(actor,'target="_blank">', '</a>');
-				desc = appletv.substring(htmlContent,'<span class="short" id="show_info_short" style="display: inline;">','</span>');
-			}else if(channelId==96){
-				//电影
-				actor = appletv.substring(htmlContent,'<span class="actor">','</span>');
-				actor = appletv.getSubValues(actor,'target="_blank">', '</a>');
-				dctor = appletv.substring(htmlContent,'<span class="director">','</span>');
-				dctor = appletv.getSubValues(dctor,'target="_blank">', '</a>');
-				desc = appletv.substring(htmlContent,'<span class="long" style="display:none;">','</span>');
+			var ps = appletv.getSubValues(entry,'<p>','</p>');
+			desc = appletv.getTextInTag(ps[0]);
+			pic = appletv.substring(ps[1],'src=\'','\'');
+			title = appletv.substring(ps[1],'title=\'','\'');
+			index1 = title.indexOf("《");
+			index2 = title.indexOf("》");
+			if(index1>=0&&index2>=0){
+				title = title.substring(index1+1,index2);
 			}
+			area = appletv.substring(ps[2],'制片国家/地区: ','<br>');
 			
+			year = appletv.substring(ps[2],'上映日期: ','<br>');
+			actor = appletv.substring(ps[2],'主演: ','<br>');
+			dctor = appletv.substring(ps[2],'导演: ','<br>');
 			var items = [];
-			if(isalbum){
-				var itemscontent = appletv.substringByTag(htmlContent,'<div class="items"','</div>','div');
-				var urls = appletv.getSubValues(itemscontent,'<a','</a>');
-				for(i=0;i<urls.length;i++){
-					url = urls[i];
-					var t = appletv.substring(url,'title="','"');
-					var c = appletv.substring(url,'id_','.html');
-					var item = {
-							'title' : t,
-							'id' : c
-						};
-					items.push(item);
-				}
-			}else{
+			for(i=4;i<ps.length;i++){
+				var id = appletv.substring(ps[i],'href="','"');
+				var t = appletv.substring(ps[i],'target="_blank">','</a>');
 				var item = {
-						'title' : title,
-						'id' : code
-					};
+						'title' : t,
+						'id' : c
+				};
 				items.push(item);
 			}
 			
-			
 			var video = {
 					'serverurl' : appletv.serverurl,
-					album : isalbum,
-					channelId : channelId,
-					script : appletv.encode("youkuClient.loadVideoPage('"+code+"',"+channelId+","+isalbum+",'"+pic+"');"),
+					script : appletv.encode("lblClient.loadVideoPage('"+id+"');"),
 					video : {
-						'id' : code,
+						'id' : id,
 						'actor' : actor,
 						'area' : area,
 						'dctor' : dctor,
@@ -170,12 +150,10 @@ var lblClient = {
 					},
 					items : items
 				};
-				if(isalbum){
-					appletv.setValue('youkuVideo',video);
-				}
+			appletv.setValue('clican.lbl.video',video);
 				var xml = new EJS({
 					url : appletv.serverurl
-							+ '/template/youku/video.ejs'
+							+ '/template/lbl/video.ejs'
 				}).render(video);
 				appletv.loadAndSwapXML(xml);
 		});

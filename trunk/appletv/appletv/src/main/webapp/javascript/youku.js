@@ -403,7 +403,7 @@ var youkuClient = {
 					items : items
 				};
 				if(isalbum){
-					appletv.setValue('youkuVideo',video);
+					appletv.setValue('clican.youku.video',video);
 				}
 				var xml = new EJS({
 					url : appletv.serverurl
@@ -415,7 +415,7 @@ var youkuClient = {
 	
 	loadItemsPage : function() {
 		appletv.showLoading();
-		appletv.getValue('youkuVideo',function(video){
+		appletv.getValue('clican.youku.video',function(video){
 			var xml = new EJS({
 				url : appletv.serverurl
 						+ '/template/youku/videoItems.ejs'

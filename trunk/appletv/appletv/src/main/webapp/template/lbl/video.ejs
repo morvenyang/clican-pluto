@@ -23,19 +23,9 @@
 					<sections>
 						<shelfSection>
 							<items>
-								<%if(album==1){%>
-									<actionButton id="album_3" onSelect="tudouClient.loadItemsPage();">
-										<title>剧集</title>
-									</actionButton>
-								<%}else if(items.length==1){%>
-									<actionButton id="album_1" onSelect="tudouClient.play('<%=items[0]['id']%>');">
-										<title>播放</title>
-									</actionButton>
-								<%}else{%>
-									<actionButton id="album_1" onSelect="tudouClient.playByItemid(<%=video['id']%>);">
-										<title>播放</title>
-									</actionButton>
-								<%}%>
+								<actionButton id="album_3" onSelect="lblClient.loadItemsPage();">
+									<title>剧集</title>
+								</actionButton>
 								<actionButton id="album_8" onSelect="appletv.shareToSinaWeibo('<%=video['title']%>','<%=video['shareurl']%>','<%=video['pic']%>');" onPlay="appletv.shareToSinaWeibo('<%=video['title']%>','<%=video['shareurl']%>','<%=video['pic']%>');">
 									<title>分享</title>
 								</actionButton>
