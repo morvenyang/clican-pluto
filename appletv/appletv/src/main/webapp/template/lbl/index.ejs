@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<atv>
+<head>
+<script src="<%=serverurl%>/javascript/clican.js"/>
+<script src="<%=serverurl%>/javascript/ejs.js"/>
+<script src="<%=serverurl%>/javascript/lbl.js"/>
+</head>
+<body>
+<scroller id="com.sample.movie-shelf">
+	<items>
+		<shelf id="menu_bar">
+			<sections>
+				<shelfSection>
+					<items>
+						<%for(var i=0;i<channels.length;i++){%>
+							<%if(channels[i]['value']==1001){%>
+								<moviePoster id="shelf_item_<%=channels[i]['value']%>" alwaysShowTitles="true" featured="true" onSelect="lblClient.loadSearchPage();" onPlay="lblClient.loadSearchPage();">
+									<title><%=channels[i]['label']%></title>
+									<defaultImage>resource://Poster.png</defaultImage>
+								</moviePoster>
+							<%}else{%>
+								<moviePoster id="shelf_item_<%=channels[i]['value']%>" alwaysShowTitles="true" featured="true" onSelect="lblClient.loadIndexPage('',1,<%=channels[i]['value']%>);" onPlay="lblClient.loadIndexPage('',1,<%=channels[i]['value']%>);">
+									<title><%=channels[i]['label']%></title>
+									<defaultImage>resource://Poster.png</defaultImage>
+								</moviePoster>
+							<%}%>
+						<%}%>
+					</items>
+				</shelfSection>
+			</sections>
+		</shelf>
+		<grid id="grid_1" columnCount="12">
+			<items>
+				<%if(channel['value']!=1001){%>
+				<actionButton id="shelf_item_category_page" onSelect="lblClient.loadCategoryPage('<%=url%>',<%=channel['value']%>,true);" onPlay="lblClient.loadCategoryPage('<%=url%>',<%=channel['value']%>,true);">
+					<title>筛选</title>
+				</actionButton>
+				<%}%>
+				<actionButton id="shelf_item_first_page" onSelect="lblClient.loadIndexPage('<%=keyword%>',1,<%=channel['value']%>,'<%=url%>');" onPlay="lblClient.loadIndexPage('<%=keyword%>',1,<%=channel['value']%>,'<%=url%>');">
+					<title>第一页</title>
+				</actionButton>
+				<%for(var i=begin;i<end;i++){%>
+					<actionButton id="shelf_item_<%=i%>_page" onSelect="lblClient.loadIndexPage('<%=keyword%>',<%=i%>,<%=channel['value']%>,'<%=url%>');" onPlay="lblClient.loadIndexPage('<%=keyword%>',<%=i%>,<%=channel['value']%>,'<%=url%>');">
+						<title><%=i%></title>
+					</actionButton>
+				<%}%>
+				<actionButton id="shelf_item_last_page" onSelect="lblClient.loadIndexPage('<%=keyword%>',99,<%=channel['value']%>,'<%=url%>');" onPlay="lblClient.loadIndexPage('<%=keyword%>',99,<%=channel['value']%>,'<%=url%>');">
+					<title>最后页</title>
+				</actionButton>
+			</items>
+		</grid>
+		<grid id="grid_2" columnCount="6">
+			<items>
+				<%for(var i=0;i<videos.length;i++){%>	
+					<moviePoster id="shelf_item_<%=i%>" alwaysShowTitles="true" onSelect="lblClient.loadVideoPage('<%=videos[i]['id']%>',<%=channel['value']%>);">
+						<title><![CDATA[<%=videos[i].title%>]]></title>
+						<image><%=videos[i].pic%></image>
+						<defaultImage>resource://Poster.png</defaultImage>
+					</moviePoster>
+				<%}%>
+			</items>
+		</grid>
+		<grid id="grid_3" columnCount="12">
+			<items>
+				<%if(channel['value']!=1001){%>
+				<actionButton id="shelf_item_category_page" onSelect="lblClient.loadCategoryPage('<%=url%>',<%=channel['value']%>,true);" onPlay="lblClient.loadCategoryPage('<%=url%>',<%=channel['value']%>,true);">
+					<title>筛选</title>
+				</actionButton>
+				<%}%>
+				<actionButton id="shelf_item_first_page" onSelect="lblClient.loadIndexPage('<%=keyword%>',1,<%=channel['value']%>,'<%=url%>');" onPlay="lblClient.loadIndexPage('<%=keyword%>',1,<%=channel['value']%>,'<%=url%>');">
+					<title>第一页</title>
+				</actionButton>
+				<%for(var i=begin;i<end;i++){%>
+					<actionButton id="shelf_item_<%=i%>_page" onSelect="lblClient.loadIndexPage('<%=keyword%>',<%=i%>,<%=channel['value']%>,'<%=url%>');" onPlay="lblClient.loadIndexPage('<%=keyword%>',<%=i%>,<%=channel['value']%>,'<%=url%>');">
+						<title><%=i%></title>
+					</actionButton>
+				<%}%>
+				<actionButton id="shelf_item_last_page" onSelect="lblClient.loadIndexPage('<%=keyword%>',99,<%=channel['value']%>,'<%=url%>');" onPlay="lblClient.loadIndexPage('<%=keyword%>',99,<%=channel['value']%>,'<%=url%>');">
+					<title>最后页</title>
+				</actionButton>
+			</items>
+		</grid>
+	</items>
+</scroller>
+</body>
+</atv>
