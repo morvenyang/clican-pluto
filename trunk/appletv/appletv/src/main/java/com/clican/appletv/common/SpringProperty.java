@@ -4,6 +4,8 @@ public class SpringProperty {
 
 	private static SpringProperty instance;
 
+	private String systemVersion;
+	
 	private String systemServerUrl;
 	
 	private boolean systemProxyPlay;
@@ -615,6 +617,14 @@ public class SpringProperty {
 
 	public void setUserConfigJsonFile(String userConfigJsonFile) {
 		this.userConfigJsonFile = userConfigJsonFile;
+	}
+
+	public String getSystemVersion() {
+		return systemVersion;
+	}
+
+	public void setSystemVersion(String systemVersion) {
+		this.systemVersion = systemVersion;
 	}
 
 	public boolean isSystemProxyPlay() {
