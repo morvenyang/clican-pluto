@@ -41,7 +41,7 @@
 
 - (void) videoItemDidFinishLoad:(VideoItem*) videoItem{
     
-    self.playerViewController = [[MPMoviePlayerViewController alloc] initWithContentURL:[NSURL fileURLWithPath:@"/Users/zhangwei/Desktop/1.mp4"]];
+    self.playerViewController = [[MPMoviePlayerViewController alloc] initWithContentURL:[NSURL fileURLWithPath:videoItem.mediaUrl]];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moviePlayBackDidFinish:)
                                                  name:MPMoviePlayerPlaybackDidFinishNotification object:self.playerViewController.moviePlayer];

@@ -8,8 +8,8 @@
 
 #import <Three20/Three20.h>
 
-@interface MainViewController : UIViewController{
-    UIButton* _refreshButton;
+@interface MainViewController : TTTableViewController{
+
 }
-@property (nonatomic, retain) UIButton* refreshButton;
+
 @end

@@ -6,8 +6,14 @@
 //  Copyright (c) 2013年 __MyCompanyName__. All rights reserved.
 //
 
+#import "Constants.h"
 
+@interface QQIndexViewController : TTTableViewController{
+    QQChannel _channelId;
+}
 
-@interface QQIndexViewController : TTTableViewController
+@property (nonatomic, assign) QQChannel channelId;
 
+- (id) initWithChannelId:(QQChannel) channelId;
 @end
+

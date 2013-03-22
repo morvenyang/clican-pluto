@@ -70,6 +70,7 @@
             VideoItem* videoItem = [[[VideoItem alloc] init] autorelease];
             videoItem.title = [entry objectForKey:@"tt"];
             videoItem.itemId = [entry objectForKey:@"vid"];
+            videoItem.vid = self.vid;
             [videoItemList addObject:videoItem];
         }
         video.vid = self.vid;

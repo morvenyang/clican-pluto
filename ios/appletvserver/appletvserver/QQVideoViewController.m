@@ -19,7 +19,7 @@
 @synthesize playButton = _playButton;
 @synthesize imageView = _imageView;
 @synthesize reflectImageView = _reflectImageView;
-
+@synthesize tableView = _tableView;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -76,18 +76,42 @@
     self.summaryTextLabel.text = [TTStyledText textFromXHTML:[@"" stringByAppendingFormat:@"<strong>%@</strong>\n导演:%@\n主演:%@\n年份:%@ 地区:%@",video.title,video.directors,video.actors,video.year,video.area] lineBreaks:YES URLs:NO];
     [self.summaryTextLabel sizeToFit];
     double y = self.summaryTextLabel.frame.origin.y+self.summaryTextLabel.frame.size.height;
-    y=y+10;
-    self.playButton.frame = CGRectMake(110, y, 50, 50);
-    [self.playButton setTitle:@"播放" forState:UIControlStateNormal];
-    self.playButton.backgroundColor = RGBCOLOR(256,20,147);
-    [self.playButton sizeToFit];
+    
     [scrollView addSubview:self.reflectImageView];
     [scrollView addSubview:self.summaryTextLabel];
-    [scrollView addSubview:self.playButton];
+    
+    
+    if([self.video.videoItemList count]==1){
+        y=y+10;
+        self.playButton.frame = CGRectMake(110, y, 50, 50);
+        [self.playButton setTitle:@"播放" forState:UIControlStateNormal];
+        self.playButton.backgroundColor = RGBCOLOR(256,20,147);
+        [self.playButton sizeToFit];
+        [scrollView addSubview:self.playButton];
+    }else{
+        y = y+30;
+        self.tableView = [[TTTableView alloc] initWithFrame:CGRectMake(0, y+30, frame.size.width, frame.size.height - y) style:UITableViewStylePlain];
+        self.tableView.delegate=self;
+        NSMutableArray* items = [NSMutableArray array];
+        for(int i=0;i<[self.video.videoItemList count];i++){
+            VideoItem* vi = [self.video.videoItemList objectAtIndex:i];
+            NSString* actionUrl = [NSString stringWithFormat:@"atvserver://qq/play/%@/%@",vi.itemId,self.video.vid];
+            TTTableTextItem* item = [TTTableTextItem itemWithText:vi.title URL:actionUrl];
+            NSLog(@"title:%@,url:%@",vi.title,actionUrl);
+            [items addObject:item];
+        }
+        self.tableView.dataSource = [[TTListDataSource alloc] initWithItems:items];
+        [scrollView addSubview:self.tableView];
+    }
     
     [self.view addSubview:scrollView];
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    TTListDataSource* ds = (TTListDataSource*)tableView.dataSource;
+    TTTableTextItem* item = [ds.items objectAtIndex:indexPath.item];
+    TTOpenURL(item.URL);
+}
 - (void)imageView:(TTImageView*)imageView didLoadImage:(UIImage*)image{
     if(imageView == self.imageView){
         [AtvUtil markReflect:self.reflectImageView.layer image:self.imageView.image];
@@ -98,9 +122,7 @@
     NSLog(@"Play video %@",self.video.title);
     if([self.video.videoItemList count]>0){
         VideoItem* vi = [self.video.videoItemList objectAtIndex:0];
-        NSString* actionUrl = [NSString stringWithFormat:@"atvserver://qq/play/%@/%@",vi.itemId,self.video.vid];
-        NSLog(@"playUrl:%@",actionUrl);
-        TTOpenURL(actionUrl);
+        [vi play];
     }
     
 }
@@ -141,6 +163,7 @@
     TT_RELEASE_SAFELY(_playButton);
     TT_RELEASE_SAFELY(_imageView);
     TT_RELEASE_SAFELY(_reflectImageView);
+    TT_RELEASE_SAFELY(_tableView);
     [super dealloc];
 }
 

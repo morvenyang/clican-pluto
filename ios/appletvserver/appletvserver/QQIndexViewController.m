@@ -11,6 +11,8 @@
 
 @implementation QQIndexViewController
 
+@synthesize channelId = _channelId;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -20,8 +22,16 @@
     return self;
 }
 
+- (id) initWithChannelId:(QQChannel) channelId{
+    self = [super init];
+    if(self){
+        self.channelId = channelId;
+    }
+    return self;
+}
+
 - (void)createModel {
-    QQIndexDataSource* ds = [[QQIndexDataSource alloc] initWithQQChannel:14];
+    QQIndexDataSource* ds = [[QQIndexDataSource alloc] initWithQQChannel:self.channelId];
     self.dataSource = ds;
 }
 
@@ -42,4 +52,8 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+- (void)dealloc
+{
+    [super dealloc];
+}
 @end

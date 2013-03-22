@@ -73,6 +73,7 @@
 		722FF16116FC06A500237F15 /* mztools.c in Sources */ = {isa = PBXBuildFile; fileRef = 722FF15A16FC06A500237F15 /* mztools.c */; };
 		722FF16216FC06A500237F15 /* unzip.c in Sources */ = {isa = PBXBuildFile; fileRef = 722FF15C16FC06A500237F15 /* unzip.c */; };
 		722FF16316FC06A500237F15 /* zip.c in Sources */ = {isa = PBXBuildFile; fileRef = 722FF15E16FC06A500237F15 /* zip.c */; };
+		722FF16616FC45B600237F15 /* QQChannelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 722FF16516FC45B600237F15 /* QQChannelViewController.m */; };
 		7233879D16CB5C890061FBDF /* QQVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7233879C16CB5C890061FBDF /* QQVideoViewController.m */; };
 		723387A016CB5DA10061FBDF /* QQVideoRequestModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7233879F16CB5DA10061FBDF /* QQVideoRequestModel.m */; };
 		72360C4816EED8DD00E0842B /* XunLeiLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 72360C4716EED8DD00E0842B /* XunLeiLoginViewController.m */; };
@@ -440,6 +441,8 @@
 		722FF15D16FC06A500237F15 /* unzip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = unzip.h; path = ZipArchive/minizip/unzip.h; sourceTree = "<group>"; };
 		722FF15E16FC06A500237F15 /* zip.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = zip.c; path = ZipArchive/minizip/zip.c; sourceTree = "<group>"; };
 		722FF15F16FC06A500237F15 /* zip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = zip.h; path = ZipArchive/minizip/zip.h; sourceTree = "<group>"; };
+		722FF16416FC45B600237F15 /* QQChannelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QQChannelViewController.h; sourceTree = "<group>"; };
+		722FF16516FC45B600237F15 /* QQChannelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QQChannelViewController.m; sourceTree = "<group>"; };
 		7233879B16CB5C890061FBDF /* QQVideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QQVideoViewController.h; sourceTree = "<group>"; };
 		7233879C16CB5C890061FBDF /* QQVideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QQVideoViewController.m; sourceTree = "<group>"; };
 		7233879E16CB5DA10061FBDF /* QQVideoRequestModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QQVideoRequestModel.h; sourceTree = "<group>"; };
@@ -1125,6 +1128,8 @@
 				7233879C16CB5C890061FBDF /* QQVideoViewController.m */,
 				72C217F216CBCE9A000A56AB /* QQPlayViewController.h */,
 				72C217F316CBCE9A000A56AB /* QQPlayViewController.m */,
+				722FF16416FC45B600237F15 /* QQChannelViewController.h */,
+				722FF16516FC45B600237F15 /* QQChannelViewController.m */,
 			);
 			name = qq;
 			sourceTree = "<group>";
@@ -1475,6 +1480,7 @@
 				722FF16116FC06A500237F15 /* mztools.c in Sources */,
 				722FF16216FC06A500237F15 /* unzip.c in Sources */,
 				722FF16316FC06A500237F15 /* zip.c in Sources */,
+				722FF16616FC45B600237F15 /* QQChannelViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
