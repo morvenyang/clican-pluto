@@ -19,7 +19,6 @@
 		7215346916DB2E83009D5EA7 /* Base.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 7215346616DB2E83009D5EA7 /* Base.xcconfig */; };
 		7215346A16DB2E83009D5EA7 /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 7215346716DB2E83009D5EA7 /* Debug.xcconfig */; };
 		7215346B16DB2E83009D5EA7 /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 7215346816DB2E83009D5EA7 /* Release.xcconfig */; };
-		7215346E16DB481E009D5EA7 /* web in Resources */ = {isa = PBXBuildFile; fileRef = 7215346D16DB481E009D5EA7 /* web */; };
 		7219BBCD16C9EAFA00AABA8E /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7219BBCC16C9EAFA00AABA8E /* MainViewController.m */; };
 		721E6F8B16CA1EC700307E4D /* RemoveCallbackURLJSONResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 721E6F8A16CA1EC700307E4D /* RemoveCallbackURLJSONResponse.m */; };
 		721E840516DF4EAE0047EE2D /* Mp4Process.m in Sources */ = {isa = PBXBuildFile; fileRef = 721E840416DF4EAD0047EE2D /* Mp4Process.m */; };
@@ -68,6 +67,12 @@
 		722146E416DDE40700850C03 /* M3u8Download.m in Sources */ = {isa = PBXBuildFile; fileRef = 722146E316DDE40700850C03 /* M3u8Download.m */; };
 		722146E716DDE62500850C03 /* M3u8TSHTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 722146E616DDE62500850C03 /* M3u8TSHTTPRequest.m */; };
 		722E989B16E048430058EE11 /* appletv_114x114.png in Resources */ = {isa = PBXBuildFile; fileRef = 722E989A16E048430058EE11 /* appletv_114x114.png */; };
+		722FF14116FC010000237F15 /* WebContentSync.m in Sources */ = {isa = PBXBuildFile; fileRef = 722FF14016FC010000237F15 /* WebContentSync.m */; };
+		722FF15616FC068C00237F15 /* ZipArchive.mm in Sources */ = {isa = PBXBuildFile; fileRef = 722FF15516FC068C00237F15 /* ZipArchive.mm */; };
+		722FF16016FC06A500237F15 /* ioapi.c in Sources */ = {isa = PBXBuildFile; fileRef = 722FF15816FC06A500237F15 /* ioapi.c */; };
+		722FF16116FC06A500237F15 /* mztools.c in Sources */ = {isa = PBXBuildFile; fileRef = 722FF15A16FC06A500237F15 /* mztools.c */; };
+		722FF16216FC06A500237F15 /* unzip.c in Sources */ = {isa = PBXBuildFile; fileRef = 722FF15C16FC06A500237F15 /* unzip.c */; };
+		722FF16316FC06A500237F15 /* zip.c in Sources */ = {isa = PBXBuildFile; fileRef = 722FF15E16FC06A500237F15 /* zip.c */; };
 		7233879D16CB5C890061FBDF /* QQVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7233879C16CB5C890061FBDF /* QQVideoViewController.m */; };
 		723387A016CB5DA10061FBDF /* QQVideoRequestModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7233879F16CB5DA10061FBDF /* QQVideoRequestModel.m */; };
 		72360C4816EED8DD00E0842B /* XunLeiLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 72360C4716EED8DD00E0842B /* XunLeiLoginViewController.m */; };
@@ -321,7 +326,6 @@
 		7215346616DB2E83009D5EA7 /* Base.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Base.xcconfig; sourceTree = "<group>"; };
 		7215346716DB2E83009D5EA7 /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
 		7215346816DB2E83009D5EA7 /* Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
-		7215346D16DB481E009D5EA7 /* web */ = {isa = PBXFileReference; lastKnownFileType = folder; name = web; path = ../../../../appletvweb/web; sourceTree = "<group>"; };
 		7219BBCB16C9EAFA00AABA8E /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		7219BBCC16C9EAFA00AABA8E /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		7219BBCE16C9EB6900AABA8E /* extThree20JSON.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = extThree20JSON.xcodeproj; path = ../../../../three20/src/extThree20JSON/extThree20JSON.xcodeproj; sourceTree = "<group>"; };
@@ -423,6 +427,19 @@
 		722146E616DDE62500850C03 /* M3u8TSHTTPRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = M3u8TSHTTPRequest.m; path = AISHTTPRequest/M3u8TSHTTPRequest.m; sourceTree = "<group>"; };
 		722E989616E0479A0058EE11 /* appletv_57x57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = appletv_57x57.png; sourceTree = "<group>"; };
 		722E989A16E048430058EE11 /* appletv_114x114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = appletv_114x114.png; sourceTree = "<group>"; };
+		722FF13F16FC010000237F15 /* WebContentSync.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebContentSync.h; sourceTree = "<group>"; };
+		722FF14016FC010000237F15 /* WebContentSync.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebContentSync.m; sourceTree = "<group>"; };
+		722FF15416FC068C00237F15 /* ZipArchive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZipArchive.h; path = ZipArchive/ZipArchive.h; sourceTree = "<group>"; };
+		722FF15516FC068C00237F15 /* ZipArchive.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = ZipArchive.mm; path = ZipArchive/ZipArchive.mm; sourceTree = "<group>"; };
+		722FF15716FC06A500237F15 /* crypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = crypt.h; path = ZipArchive/minizip/crypt.h; sourceTree = "<group>"; };
+		722FF15816FC06A500237F15 /* ioapi.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = ioapi.c; path = ZipArchive/minizip/ioapi.c; sourceTree = "<group>"; };
+		722FF15916FC06A500237F15 /* ioapi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ioapi.h; path = ZipArchive/minizip/ioapi.h; sourceTree = "<group>"; };
+		722FF15A16FC06A500237F15 /* mztools.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = mztools.c; path = ZipArchive/minizip/mztools.c; sourceTree = "<group>"; };
+		722FF15B16FC06A500237F15 /* mztools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mztools.h; path = ZipArchive/minizip/mztools.h; sourceTree = "<group>"; };
+		722FF15C16FC06A500237F15 /* unzip.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = unzip.c; path = ZipArchive/minizip/unzip.c; sourceTree = "<group>"; };
+		722FF15D16FC06A500237F15 /* unzip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = unzip.h; path = ZipArchive/minizip/unzip.h; sourceTree = "<group>"; };
+		722FF15E16FC06A500237F15 /* zip.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = zip.c; path = ZipArchive/minizip/zip.c; sourceTree = "<group>"; };
+		722FF15F16FC06A500237F15 /* zip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = zip.h; path = ZipArchive/minizip/zip.h; sourceTree = "<group>"; };
 		7233879B16CB5C890061FBDF /* QQVideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QQVideoViewController.h; sourceTree = "<group>"; };
 		7233879C16CB5C890061FBDF /* QQVideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QQVideoViewController.m; sourceTree = "<group>"; };
 		7233879E16CB5DA10061FBDF /* QQVideoRequestModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QQVideoRequestModel.h; sourceTree = "<group>"; };
@@ -718,6 +735,24 @@
 			name = AISHTTPRequest;
 			sourceTree = "<group>";
 		};
+		722FF15316FC066200237F15 /* ZipArchive */ = {
+			isa = PBXGroup;
+			children = (
+				722FF15716FC06A500237F15 /* crypt.h */,
+				722FF15816FC06A500237F15 /* ioapi.c */,
+				722FF15916FC06A500237F15 /* ioapi.h */,
+				722FF15A16FC06A500237F15 /* mztools.c */,
+				722FF15B16FC06A500237F15 /* mztools.h */,
+				722FF15C16FC06A500237F15 /* unzip.c */,
+				722FF15D16FC06A500237F15 /* unzip.h */,
+				722FF15E16FC06A500237F15 /* zip.c */,
+				722FF15F16FC06A500237F15 /* zip.h */,
+				722FF15416FC068C00237F15 /* ZipArchive.h */,
+				722FF15516FC068C00237F15 /* ZipArchive.mm */,
+			);
+			name = ZipArchive;
+			sourceTree = "<group>";
+		};
 		72360C3C16EED88D00E0842B /* xunlei */ = {
 			isa = PBXGroup;
 			children = (
@@ -864,6 +899,7 @@
 		72A4368516C9EA5A00D9958D /* appletvserver */ = {
 			isa = PBXGroup;
 			children = (
+				722FF15316FC066200237F15 /* ZipArchive */,
 				72CC1B4A16DE3BA3006A8E44 /* Download */,
 				7221466916DDB1B800850C03 /* AISHTTPRequest */,
 				72E2008716DB23EC00F3D7FC /* CocoaHTTPServer */,
@@ -918,7 +954,6 @@
 				72C3EDEF16F9F54F00821FAE /* 57.png */,
 				72C3EDF016F9F54F00821FAE /* 144.png */,
 				7220AB7916F83F5B0073EB97 /* MMPSilence.wav */,
-				7215346D16DB481E009D5EA7 /* web */,
 				7215346616DB2E83009D5EA7 /* Base.xcconfig */,
 				7215346716DB2E83009D5EA7 /* Debug.xcconfig */,
 				7215346816DB2E83009D5EA7 /* Release.xcconfig */,
@@ -953,6 +988,8 @@
 				72CC1B5516DE3BD7006A8E44 /* M3u8Process.m */,
 				721E840316DF4EAD0047EE2D /* Mp4Process.h */,
 				721E840416DF4EAD0047EE2D /* Mp4Process.m */,
+				722FF13F16FC010000237F15 /* WebContentSync.h */,
+				722FF14016FC010000237F15 /* WebContentSync.m */,
 			);
 			name = Download;
 			sourceTree = "<group>";
@@ -1341,7 +1378,6 @@
 				7215346916DB2E83009D5EA7 /* Base.xcconfig in Resources */,
 				7215346A16DB2E83009D5EA7 /* Debug.xcconfig in Resources */,
 				7215346B16DB2E83009D5EA7 /* Release.xcconfig in Resources */,
-				7215346E16DB481E009D5EA7 /* web in Resources */,
 				722E989B16E048430058EE11 /* appletv_114x114.png in Resources */,
 				7220AB7A16F83F5B0073EB97 /* MMPSilence.wav in Resources */,
 				72C3EDF116F9F54F00821FAE /* 72.png in Resources */,
@@ -1433,6 +1469,12 @@
 				7288A2D016F9985100933D15 /* DownloadStatusViewController.m in Sources */,
 				7288A2E416F9A1F100933D15 /* DownloadStatusDataSource.m in Sources */,
 				7288A2F316F9A45400933D15 /* DownloadStatusModel.m in Sources */,
+				722FF14116FC010000237F15 /* WebContentSync.m in Sources */,
+				722FF15616FC068C00237F15 /* ZipArchive.mm in Sources */,
+				722FF16016FC06A500237F15 /* ioapi.c in Sources */,
+				722FF16116FC06A500237F15 /* mztools.c in Sources */,
+				722FF16216FC06A500237F15 /* unzip.c in Sources */,
+				722FF16316FC06A500237F15 /* zip.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

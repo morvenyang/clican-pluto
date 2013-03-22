@@ -35,6 +35,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 @synthesize localMp4PathPrefix = _localMp4PathPrefix;
 @synthesize localMp4UrlPrefix = _localMp4UrlPrefix;
 @synthesize mp4Process = _mp4Process;
+@synthesize webContentSync = _webContentSync;
 
 - (void)dealloc
 {
@@ -71,6 +72,10 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 -(void) initEnvironment{
     NSHTTPCookieStorage* cookieStorage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
     [cookieStorage setCookieAcceptPolicy:NSHTTPCookieAcceptPolicyAlways];
+}
+-(void) initWebContent{
+    self.webContentSync = [[WebContentSync alloc] init];
+    [self.webContentSync syncWebContent];
 }
 -(void) initHttpServer{
     // Create server using our custom MyHTTPServer class
@@ -140,6 +145,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     [self initProcess];
     [self initEnvironment];
     [self registerLocalServer];
+    [self initWebContent];
     [self initHttpServer];
 
     TTNavigator* navigator = [TTNavigator navigator];

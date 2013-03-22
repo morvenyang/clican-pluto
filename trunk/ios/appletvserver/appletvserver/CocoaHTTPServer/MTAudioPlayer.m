@@ -77,6 +77,7 @@
 }
 
 - (void)dealloc {
+    [super dealloc];
     [self stop];
 }
 
