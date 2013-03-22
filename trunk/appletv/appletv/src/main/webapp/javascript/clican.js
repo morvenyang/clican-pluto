@@ -835,7 +835,7 @@ var appletv = {
 	
 	loadLocalServerIndexPage : function(){
 		appletv.showLoading();
-		appletv.makeRequest(appletv.remoteserver+'/ctl/localserver/retrive.do', function(innerIP){
+		appletv.makeRequest(appletv.remoteserverurl+'/ctl/localserver/retrive.do', function(innerIP){
 			if(innerIP!=null&&innerIP.length>0){
 				var url = 'http://'+innerIP+':8080/local.xml';
 				appletv.loadURL(url);
