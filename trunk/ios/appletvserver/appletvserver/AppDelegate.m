@@ -151,6 +151,8 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     
     navigator.supportsShakeToReload = NO;
     navigator.persistenceMode = TTNavigatorPersistenceModeNone;
+    CGRect rect = TTScreenBounds();
+    NSLog(@"width:%f height:%f",rect.size.width,rect.size.height);
     navigator.window = [[[UIWindow alloc] initWithFrame:TTScreenBounds()] autorelease];
     
     
