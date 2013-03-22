@@ -63,7 +63,6 @@
 		722146E116DDDFFA00850C03 /* HTTPDataHeaderResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 722146E016DDDFFA00850C03 /* HTTPDataHeaderResponse.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		722146E416DDE40700850C03 /* M3u8Download.m in Sources */ = {isa = PBXBuildFile; fileRef = 722146E316DDE40700850C03 /* M3u8Download.m */; };
 		722146E716DDE62500850C03 /* M3u8TSHTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 722146E616DDE62500850C03 /* M3u8TSHTTPRequest.m */; };
-		722E989B16E048430058EE11 /* appletv_114x114.png in Resources */ = {isa = PBXBuildFile; fileRef = 722E989A16E048430058EE11 /* appletv_114x114.png */; };
 		722FF14116FC010000237F15 /* WebContentSync.m in Sources */ = {isa = PBXBuildFile; fileRef = 722FF14016FC010000237F15 /* WebContentSync.m */; };
 		722FF15616FC068C00237F15 /* ZipArchive.mm in Sources */ = {isa = PBXBuildFile; fileRef = 722FF15516FC068C00237F15 /* ZipArchive.mm */; };
 		722FF16016FC06A500237F15 /* ioapi.c in Sources */ = {isa = PBXBuildFile; fileRef = 722FF15816FC06A500237F15 /* ioapi.c */; };
@@ -420,8 +419,6 @@
 		722146E316DDE40700850C03 /* M3u8Download.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M3u8Download.m; sourceTree = "<group>"; };
 		722146E516DDE62500850C03 /* M3u8TSHTTPRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = M3u8TSHTTPRequest.h; path = AISHTTPRequest/M3u8TSHTTPRequest.h; sourceTree = "<group>"; };
 		722146E616DDE62500850C03 /* M3u8TSHTTPRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = M3u8TSHTTPRequest.m; path = AISHTTPRequest/M3u8TSHTTPRequest.m; sourceTree = "<group>"; };
-		722E989616E0479A0058EE11 /* appletv_57x57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = appletv_57x57.png; sourceTree = "<group>"; };
-		722E989A16E048430058EE11 /* appletv_114x114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = appletv_114x114.png; sourceTree = "<group>"; };
 		722FF13F16FC010000237F15 /* WebContentSync.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebContentSync.h; sourceTree = "<group>"; };
 		722FF14016FC010000237F15 /* WebContentSync.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebContentSync.m; sourceTree = "<group>"; };
 		722FF15416FC068C00237F15 /* ZipArchive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZipArchive.h; path = ZipArchive/ZipArchive.h; sourceTree = "<group>"; };
@@ -951,8 +948,6 @@
 				72C3EDEF16F9F54F00821FAE /* 57.png */,
 				72C3EDF016F9F54F00821FAE /* 144.png */,
 				7220AB7916F83F5B0073EB97 /* MMPSilence.wav */,
-				722E989A16E048430058EE11 /* appletv_114x114.png */,
-				722E989616E0479A0058EE11 /* appletv_57x57.png */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -1371,7 +1366,6 @@
 				72A4368A16C9EA5A00D9958D /* InfoPlist.strings in Resources */,
 				72B83F4816CDD993003B2839 /* lib in Resources */,
 				72B83F4A16CDD99E003B2839 /* include in Resources */,
-				722E989B16E048430058EE11 /* appletv_114x114.png in Resources */,
 				7220AB7A16F83F5B0073EB97 /* MMPSilence.wav in Resources */,
 				72C3EDF116F9F54F00821FAE /* 72.png in Resources */,
 				72C3EDF216F9F54F00821FAE /* 114.png in Resources */,
