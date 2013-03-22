@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.clican.appletv.common.PostResponse;
+import com.clican.appletv.common.SpringProperty;
 import com.clican.appletv.core.service.tudou.TudouClient;
 import com.clican.appletv.core.service.tudou.TudouClientImpl;
 
@@ -22,11 +23,19 @@ public class XunleiController {
 
 	@Autowired
 	private TudouClient tudouClient;
-	
+
+	@Autowired
+	private SpringProperty springProperty;
+
 	@RequestMapping("/xunlei/getsession.do")
 	public void getXunleiSession(HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
-		String value = "{\"vip\":\"6\",\"userid\":\"5663595\",\"sessionid\":\"75F30341DD84F450A07B5F048941BDA741543D43DFE28DBA96FA9F60AF4974487886810DDFA6DBB571B29B00799E85C40C0EBD7F4351C869315ADEDABC0118B4\"}";
+		String value;
+		if (springProperty.isSystemProxyPlay()) {
+			value = "{\"vip\":\"6\",\"userid\":\"5663595\",\"sessionid\":\"75F30341DD84F450A07B5F048941BDA741543D43DFE28DBA96FA9F60AF4974487886810DDFA6DBB571B29B00799E85C40C0EBD7F4351C869315ADEDABC0118B4\"}";
+		} else {
+			value = "{\"vip\":\"\",\"userid\":\"\",\"sessionid\":\"\"}";
+		}
 		response.getOutputStream().write(value.getBytes("utf-8"));
 	}
 
@@ -41,7 +50,7 @@ public class XunleiController {
 				xunleiurl, header, null);
 		response.getOutputStream().write(pr.getContent().getBytes("utf-8"));
 	}
-	
+
 	private String getContent(HttpServletRequest request) throws Exception {
 		InputStream is = request.getInputStream();
 		ByteArrayOutputStream os = new ByteArrayOutputStream();
