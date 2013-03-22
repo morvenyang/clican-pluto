@@ -15,7 +15,7 @@
 
 -(void) syncWebContent{
     
-    ASIHTTPRequest *verreq = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:[WEB_CONTENT_SYNC_VERSION_API stringByAppendingFormat:@"?t=%f",[[NSDate new] timeIntervalSince1970]]]];
+    ASIHTTPRequest *verreq = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:[ATV_SERVER_IP stringByAppendingFormat:@"%@?t=%f",WEB_CONTENT_SYNC_VERSION_API,[[NSDate new] timeIntervalSince1970]]]];
     [verreq setShouldContinueWhenAppEntersBackground:YES];
     [verreq startSynchronous];
      NSString* version = [[verreq responseHeaders] valueForKey:@"version"];
@@ -23,7 +23,7 @@
     NSString* currentVersion = [defaults objectForKey:@"version"];
     if(currentVersion==NULL||![currentVersion isEqualToString:version]){
          NSLog(@"Current version is %@, there is new version %@ to update",currentVersion,version);
-        ASIHTTPRequest *req = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:[WEB_CONTENT_SYNC_API stringByAppendingFormat:@"?t=%f",[[NSDate new] timeIntervalSince1970]]]];
+        ASIHTTPRequest *req = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:[ATV_SERVER_IP stringByAppendingFormat:@"%@?t=%f",WEB_CONTENT_SYNC_API,[[NSDate new] timeIntervalSince1970]]]];
         [req setShouldContinueWhenAppEntersBackground:YES];
         [req startSynchronous];
         NSError *error = [req error];

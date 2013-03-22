@@ -21,7 +21,7 @@
 #import "MyHTTPConnection.h"
 #import "AtvUtil.h"
 #import "ASIHTTPRequest.h"
-
+#import "Constants.h"
 static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 @implementation AppDelegate
@@ -103,7 +103,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 }
 -(void) registerLocalServer{
-    NSString* url = [NSString stringWithFormat:@"http://www.clican.org/appletv/ctl/localserver/register.do?innerIP=%@",[AtvUtil getIPAddress]];
+    NSString* url = [NSString stringWithFormat:@"%@/ctl/localserver/register.do?innerIP=%@",ATV_SERVER_IP,[AtvUtil getIPAddress]];
     ASIHTTPRequest *req = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:url]];
     [req startSynchronous];
     NSError *error = [req error];
