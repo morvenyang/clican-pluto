@@ -50,9 +50,9 @@ public class IPServlet extends HttpServlet {
 
 		String content = FileUtils
 				.readFileToString(new File(realPath), "utf-8");
-		content = content.replaceAll("http://local.clican.org/appletv",
+		content = content.replaceAll("http://local.clican.org:?\\d*/appletv",
 				springProperty.getSystemServerUrl());
-		content = content.replaceAll("http://www.clican.org/appletv",
+		content = content.replaceAll("http://www.clican.org:?\\d*/appletv",
 				springProperty.getSystemServerUrl());
 		String ua = req.getHeader("User-Agent");
 		if (StringUtils.isNotEmpty(ua) && ua.contains("Chrome")) {
