@@ -15,7 +15,7 @@
 #define QQ_PLAY_API @"http://vv.video.qq.com/geturl?otype=json&callback=a&qq=&appver=2.0.0.2208&sysver=ios5.1.1&device=iPad&lang=zh_CN&vid=%@"
 #define WEB_CONTENT_SYNC_API @"http://www.clican.org/appletv/ctl/proxy/sync.zip"
 #define WEB_CONTENT_SYNC_VERSION_API @"http://www.clican.org/appletv/ctl/proxy/sync/version.do"
-#define MP4_PARTIAL_LENGTH 1048510
+#define MP4_PARTIAL_LENGTH 1048576
 
 
 typedef enum {
