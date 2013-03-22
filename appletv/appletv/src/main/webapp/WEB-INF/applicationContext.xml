@@ -83,6 +83,7 @@ http://www.springframework.org/schema/context/spring-context-2.5.xsd">
 	</bean>
 
 	<bean id="springProperty" class="com.clican.appletv.common.SpringProperty">
+		<property name="systemVersion" value="${system.version}"></property>
 		<property name="systemServerUrl" value="${system.server.url}"></property>
 		<property name="systemProxyPlay" value="${system.proxy.play}"></property>
 		<property name="systemHttpconnectionTimeout" value="${system.httpconnection.timeout}"></property>
