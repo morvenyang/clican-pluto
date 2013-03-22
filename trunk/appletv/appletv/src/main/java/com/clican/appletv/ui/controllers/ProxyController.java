@@ -111,6 +111,12 @@ public class ProxyController {
 		response.getOutputStream().write(os.toByteArray());
 	}
 
+	@RequestMapping("/proxy/sync/version.do")
+	public void syncVersion(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		response.addHeader("version", springProperty.getSystemVersion());
+	}
+
 	public void zipFile(String fileToZip, ZipOutputStream zipOut)
 			throws IOException {
 
