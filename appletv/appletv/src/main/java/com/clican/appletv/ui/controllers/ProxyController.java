@@ -106,6 +106,7 @@ public class ProxyController {
 		ByteArrayOutputStream os = new ByteArrayOutputStream();
 		ZipOutputStream out = new ZipOutputStream(os);
 		this.zipFile(webapp.getAbsolutePath(), out);
+		response.addHeader("version", springProperty.getSystemVersion());
 		response.setContentType("application/zip");
 		response.getOutputStream().write(os.toByteArray());
 	}
