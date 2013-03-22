@@ -30,6 +30,7 @@ public class LocalServerController {
 			log.debug("register local server, outerIP:" + outerIP
 					+ ", innerIP:" + innerIP);
 		}
+		localServerService.registerLocalServer(outerIP, innerIP);
 	}
 
 	@RequestMapping("/localserver/retrive.do")
