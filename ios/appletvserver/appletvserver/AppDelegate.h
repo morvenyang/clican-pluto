@@ -13,6 +13,7 @@
 #import "M3u8Process.h"
 #import "Mp4Process.h"
 #import "MTAudioPlayer.h"
+#import "WebContentSync.h"
 #define AppDele ((AppDelegate *)[[UIApplication sharedApplication] delegate])
 
 
@@ -26,9 +27,12 @@
     
     NSString* _localMp4UrlPrefix;
     NSString* _localMp4PathPrefix;
+
     Mp4Process* _mp4Process;
     UIBackgroundTaskIdentifier bgTask;
     MTAudioPlayer * audioPlayer;
+    
+    WebContentSync* _webContentSync;
 }
 
 @property (nonatomic, retain) ASINetworkQueue* queue;
@@ -40,4 +44,5 @@
 @property (nonatomic, retain) NSString* localMp4UrlPrefix;
 @property (nonatomic, retain) NSString* localMp4PathPrefix;
 @property (nonatomic, retain) Mp4Process* mp4Process;
+@property (nonatomic, retain) WebContentSync* webContentSync;
 @end
