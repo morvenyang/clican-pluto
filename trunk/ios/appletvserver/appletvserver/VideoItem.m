@@ -13,13 +13,7 @@
 @synthesize title=_title;
 @synthesize itemId=_itemId;
 @synthesize mediaUrl=_mediaUrl;
-@synthesize vid=_vid;
 
--(void) play{
-    NSString* actionUrl = [NSString stringWithFormat:@"atvserver://qq/play/%@/%@",self.itemId,self.vid];
-    NSLog(@"playUrl:%@",actionUrl);
-    TTOpenURL(actionUrl);
-}
 
 - (void) dealloc {
     TT_RELEASE_SAFELY(_title);

@@ -12,12 +12,10 @@
     NSString* _title;
     NSString* _itemId;
     NSString* _mediaUrl;
-    NSString* _vid;
 }
 
 @property (nonatomic, copy) NSString* title;
 @property (nonatomic, copy) NSString* itemId;
 @property (nonatomic, copy) NSString* mediaUrl;
-@property (nonatomic, copy) NSString* vid;
--(void) play;
+
 @end
