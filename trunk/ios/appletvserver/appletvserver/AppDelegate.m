@@ -227,10 +227,4 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
         bgTask = UIBackgroundTaskInvalid;
     });
 }
-
-- (void) tempServer
-{
-    audioPlayer = [[MTAudioPlayer alloc]init];
-    [audioPlayer playBackgroundAudio];
-}
 @end

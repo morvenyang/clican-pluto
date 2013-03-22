@@ -41,17 +41,19 @@
 
 - (void) videoItemDidFinishLoad:(VideoItem*) videoItem{
     
-    self.playerViewController = [[MPMoviePlayerViewController alloc] initWithContentURL:[NSURL fileURLWithPath:videoItem.mediaUrl]];
+    self.playerViewController = [[MPMoviePlayerViewController alloc] initWithContentURL:[NSURL URLWithString:videoItem.mediaUrl]];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moviePlayBackDidFinish:)
                                                  name:MPMoviePlayerPlaybackDidFinishNotification object:self.playerViewController.moviePlayer];
     
     self.playerViewController.moviePlayer.controlStyle = MPMovieControlStyleFullscreen;
     //[self.view addSubview:self.playerViewController.view];
+
+    [self presentMoviePlayerViewControllerAnimated:self.playerViewController];
     [self.playerViewController.moviePlayer prepareToPlay];
     [self.playerViewController.moviePlayer setFullscreen:YES animated:YES];
     [self.playerViewController.moviePlayer play];
-    [self presentMoviePlayerViewControllerAnimated:self.playerViewController];
+    
 }
 
 - (void)moviePlayBackDidFinish:(NSNotification*)notification {
