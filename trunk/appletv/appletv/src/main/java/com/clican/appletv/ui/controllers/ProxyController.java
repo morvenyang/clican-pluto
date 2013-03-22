@@ -100,6 +100,9 @@ public class ProxyController {
 	@RequestMapping("/proxy/sync.zip")
 	public void sync(HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
+		if(log.isDebugEnabled()){
+			log.debug("down sync version, t="+request.getParameter("t"));
+		}
 		String webinf = request.getSession().getServletContext()
 				.getRealPath("WEB-INF");
 		File webapp = new File(webinf).getParentFile();
@@ -114,6 +117,9 @@ public class ProxyController {
 	@RequestMapping("/proxy/sync/version.do")
 	public void syncVersion(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
+		if(log.isDebugEnabled()){
+			log.debug("check sync version, t="+request.getParameter("t"));
+		}
 		response.addHeader("version", springProperty.getSystemVersion());
 	}
 
