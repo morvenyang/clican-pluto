@@ -33,14 +33,20 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
 {
     HTTPLogTrace();
     NSLog(@"path:%@",path);
-    if ([path isEqualToString:@"/appletv/javascript/clican.js"]||[path isEqualToString:@"/appletv/releasenote.xml"])
+    if ([path isEqualToString:@"/appletv/javascript/clican.js"]||[path isEqualToString:@"/appletv/local.xml"])
     {
         NSString  *replaceFilePath=[[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:[@"web" stringByAppendingString:path]];
         NSString* replaceContent = [NSString stringWithContentsOfFile:replaceFilePath encoding:NSUTF8StringEncoding error:nil];
         NSString* ipAddress = [AtvUtil getIPAddress];
         ipAddress = [ipAddress stringByAppendingString:@":8080"];
         NSLog(@"ip address=%@",ipAddress);
-        replaceContent = [replaceContent stringByReplacingOccurrencesOfString:@"local.clican.org" withString:ipAddress];
+        
+        NSRange matchRange1 = [replaceContent rangeOfString:@"local.clican.org"];
+        NSRange matchRange2 = [replaceContent rangeOfString:@"/appletv"];
+        
+        NSString* matchString = [replaceContent substringWithRange:NSMakeRange(matchRange1.location, matchRange2.location-matchRange1.location)];
+        NSLog(@"matchString:%@",matchString);
+        replaceContent = [replaceContent stringByReplacingOccurrencesOfString:matchString withString:ipAddress];
         NSData *response = [replaceContent dataUsingEncoding:NSUTF8StringEncoding];
         return [[HTTPDataResponse alloc] initWithData:response];
     }else if([path rangeOfString:@"/appletv/noctl/proxy/play.m3u8"].location!=NSNotFound){
