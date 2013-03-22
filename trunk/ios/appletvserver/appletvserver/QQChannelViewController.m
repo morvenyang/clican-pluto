@@ -1,30 +1,30 @@
 //
-//  MainViewController.m
+//  QQChannelViewController.m
 //  appletvserver
 //
-//  Created by zhang wei on 13-2-12.
-//  Copyright (c) 2013年 __MyCompanyName__. All rights reserved.
+//  Created by zhang wei on 13-3-22.
+//
 //
 
-#import "MainViewController.h"
+#import "QQChannelViewController.h"
 
+@implementation QQChannelViewController
 
-@implementation MainViewController
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (id)initWithStyle:(UITableViewStyle)style
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self = [super initWithStyle:style];
     if (self) {
-        self.title = @"视频";
-        self.tabBarItem = [[[UITabBarItem alloc] initWithTitle:@"视频" image:nil tag:0] autorelease];
+        // Custom initialization
     }
     return self;
 }
 
 - (void)createModel {
     NSMutableArray* items = [NSMutableArray array];
-    TTTableTextItem* item = [TTTableTextItem itemWithText:@"QQ" URL:@"atvserver://qq/channel"];
-    [items addObject:item];
+    TTTableTextItem* item1 = [TTTableTextItem itemWithText:@"电影" URL:@"atvserver://qq/index/14"];
+    TTTableTextItem* item2 = [TTTableTextItem itemWithText:@"电视剧" URL:@"atvserver://qq/index/15"];
+    [items addObject:item1];
+    [items addObject:item2];
     TTListDataSource* ds = [[TTListDataSource alloc] initWithItems:items];
     self.dataSource = ds;
 }
@@ -50,6 +50,5 @@
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
-
 
 @end

@@ -26,7 +26,7 @@
     NSLog(@"RootViewController viewDidLoad");
     [super viewDidLoad];
     [self setTabURLs:[NSArray arrayWithObjects:
-                      @"atvserver://qq/index",
+                      @"atvserver://main",
                       @"atvserver://xunlei/login",
                       @"atvserver://download",
                       nil]];
