@@ -35,7 +35,7 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
     NSLog(@"path:%@",path);
     if ([path isEqualToString:@"/appletv/javascript/clican.js"]||[path isEqualToString:@"/appletv/local.xml"])
     {
-        NSString  *replaceFilePath=[[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:[@"web" stringByAppendingString:path]];
+        NSString  *replaceFilePath=[[AppDele localWebPathPrefix] stringByAppendingString:path];
         NSLog(@"filepath:%@",replaceFilePath);
         NSString* replaceContent = [NSString stringWithContentsOfFile:replaceFilePath encoding:NSUTF8StringEncoding error:nil];
         NSLog(@"content:%@",replaceContent);
