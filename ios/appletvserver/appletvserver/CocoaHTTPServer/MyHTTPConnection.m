@@ -45,8 +45,14 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
         
         NSRange matchRange1 = [replaceContent rangeOfString:@"local.clican.org"];
         NSRange matchRange2 = [replaceContent rangeOfString:@"/appletv"];
+        if([path isEqualToString:@"/appletv/javascript/clican.js"]){
+            NSString* userAgent = [request headerField:@"User-Agent"];
+            if([userAgent rangeOfString:@"Chrome"].location!=NSNotFound){
+                replaceContent = [replaceContent stringByReplacingOccurrencesOfString:@"simulate : false" withString:@"simulate : true"];
+            }
+        }
         
-        NSString* matchString = [replaceContent substringWithRange:NSMakeRange(matchRange1.location, matchRange2.location-matchRange1.location)];
+        NSString* matchString = [replaceContent substringWithRange:NSMakeRange(matchRange1.location, matchRange2.location-matchRange1.location-1)];
         replaceContent = [replaceContent stringByReplacingOccurrencesOfString:matchString withString:ipAddress];
         NSData *response = [replaceContent dataUsingEncoding:NSUTF8StringEncoding];
         return [[HTTPDataResponse alloc] initWithData:response];
