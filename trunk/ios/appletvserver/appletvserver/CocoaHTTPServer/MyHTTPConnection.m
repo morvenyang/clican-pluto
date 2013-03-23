@@ -47,7 +47,6 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
         NSRange matchRange2 = [replaceContent rangeOfString:@"/appletv"];
         
         NSString* matchString = [replaceContent substringWithRange:NSMakeRange(matchRange1.location, matchRange2.location-matchRange1.location)];
-        NSLog(@"matchString:%@",matchString);
         replaceContent = [replaceContent stringByReplacingOccurrencesOfString:matchString withString:ipAddress];
         NSData *response = [replaceContent dataUsingEncoding:NSUTF8StringEncoding];
         return [[HTTPDataResponse alloc] initWithData:response];
