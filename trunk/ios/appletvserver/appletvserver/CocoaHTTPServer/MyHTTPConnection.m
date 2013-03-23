@@ -36,7 +36,9 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
     if ([path isEqualToString:@"/appletv/javascript/clican.js"]||[path isEqualToString:@"/appletv/local.xml"])
     {
         NSString  *replaceFilePath=[[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:[@"web" stringByAppendingString:path]];
+        NSLog(@"filepath:%@",replaceFilePath);
         NSString* replaceContent = [NSString stringWithContentsOfFile:replaceFilePath encoding:NSUTF8StringEncoding error:nil];
+        NSLog(@"content:%@",replaceContent);
         NSString* ipAddress = [AtvUtil getIPAddress];
         ipAddress = [ipAddress stringByAppendingString:@":8080"];
         NSLog(@"ip address=%@",ipAddress);
@@ -131,8 +133,7 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
         } else {
             Mp4Download* mp4Download = [[AppDele mp4Process] doSyncRequestByMP4Url:mp4Url];
             NSData* data = [NSData dataWithContentsOfFile:[[mp4Download.mp4DownloadPartials objectAtIndex:0] localPath]];
-           
-            HTTPDataHeaderResponse* resp=[[HTTPDataHeaderResponse alloc] initWithData:data status:206];
+                       HTTPDataHeaderResponse* resp=[[HTTPDataHeaderResponse alloc] initWithData:data status:206];
             [[resp httpHeaders] setValue:@"video/mp4" forKey:@"Content-Type"];
             [[resp httpHeaders] setValue:[NSString stringWithFormat:@"%i",[data length]] forKey:@"Content-Length"];
             NSString *rangeStr = [NSString stringWithFormat:@"%i-%i", 0, [data length]-1];

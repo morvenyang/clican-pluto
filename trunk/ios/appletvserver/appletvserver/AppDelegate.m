@@ -37,7 +37,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 @synthesize localMp4UrlPrefix = _localMp4UrlPrefix;
 @synthesize mp4Process = _mp4Process;
 @synthesize webContentSync = _webContentSync;
-
+@synthesize localWebPathPrefix = _localWebPathPrefix;
 - (void)dealloc
 {
     [super dealloc];
@@ -91,13 +91,8 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 	// However, for easy testing you may want force a certain port so you can just hit the refresh button.
 	[httpServer setPort:8080];
 	[httpServer setConnectionClass:[MyHTTPConnection class]];
-	// Serve files from our embedded Web folder
-	NSString *webPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"web"];
-
-    
-	DDLogInfo(@"Setting document root: %@", webPath);
-	
-	[httpServer setDocumentRoot:webPath];
+	NSLog(@"Setting document root: %@", self.localWebPathPrefix);
+	[httpServer setDocumentRoot:self.localWebPathPrefix];
     [self startServer];
 
 }
@@ -106,7 +101,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     ASIHTTPRequest *req = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:url]];
     [req startSynchronous];
     NSError *error = [req error];
-    if (!error) {
+    if (error) {
         NSLog(@"Register local server error %@",error.description);
     }else{
         NSLog(@"Register local server success");
@@ -117,6 +112,8 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     NSArray *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *m3u8Outpath = [[path objectAtIndex:0] stringByAppendingFormat:@"%@",@"/temp/m3u8/"];
     NSString *mp4Outpath = [[path objectAtIndex:0] stringByAppendingFormat:@"%@",@"/temp/mp4/"];
+    NSString *webOutpath = [[path objectAtIndex:0] stringByAppendingFormat:@"%@",@"/web"];
+
     //outpath = @"/Users/zhangwei/Desktop/m3u8/";
     if(![[NSFileManager defaultManager] fileExistsAtPath:m3u8Outpath]){
         [[NSFileManager defaultManager] createDirectoryAtPath:m3u8Outpath withIntermediateDirectories:YES attributes:nil error:nil];
@@ -130,6 +127,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     NSLog(@"mp4 url prefix:%@",self.localMp4UrlPrefix);
     self.localM3u8PathPrefix = m3u8Outpath;
     self.localMp4PathPrefix = mp4Outpath;
+    self.localWebPathPrefix = webOutpath;
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions

@@ -27,12 +27,13 @@
     
     NSString* _localMp4UrlPrefix;
     NSString* _localMp4PathPrefix;
-
+    
     Mp4Process* _mp4Process;
     UIBackgroundTaskIdentifier bgTask;
     MTAudioPlayer * audioPlayer;
     
     WebContentSync* _webContentSync;
+    NSString* _localWebPathPrefix;
 }
 
 @property (nonatomic, retain) ASINetworkQueue* queue;
@@ -45,4 +46,5 @@
 @property (nonatomic, retain) NSString* localMp4PathPrefix;
 @property (nonatomic, retain) Mp4Process* mp4Process;
 @property (nonatomic, retain) WebContentSync* webContentSync;
+@property (nonatomic, retain) NSString* localWebPathPrefix;
 @end

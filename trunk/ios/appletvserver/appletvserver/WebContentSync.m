@@ -10,6 +10,7 @@
 #import "Constants.h"
 #import "ASIHTTPRequest.h"
 #import "ZipArchive.h"
+#import "AppDelegate.h"
 
 @implementation WebContentSync
 
@@ -33,10 +34,11 @@
             [[NSFileManager defaultManager] createFileAtPath:filePath contents:contentData attributes:nil];
             ZipArchive *zipArchive = [[ZipArchive alloc] init];
             [zipArchive UnzipOpenFile:filePath];
-            NSString *webPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"web/appletv/"];
-            [[NSFileManager defaultManager] removeItemAtPath:webPath error:nil];
-            [[NSFileManager defaultManager] createDirectoryAtPath:webPath withIntermediateDirectories:YES attributes:nil error:nil];
-            [zipArchive UnzipFileTo:webPath overWrite:YES];
+            
+            NSString* appletvPath = [[AppDele localWebPathPrefix] stringByAppendingString:@"/appletv"];
+            [[NSFileManager defaultManager] removeItemAtPath:appletvPath error:nil];
+            [[NSFileManager defaultManager] createDirectoryAtPath:appletvPath withIntermediateDirectories:YES attributes:nil error:nil];
+            [zipArchive UnzipFileTo:appletvPath overWrite:YES];
             [zipArchive UnzipCloseFile];
             [defaults setValue:version forKey:@"version"];
         }
