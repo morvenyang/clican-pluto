@@ -737,6 +737,19 @@
 			name = AISHTTPRequest;
 			sourceTree = "<group>";
 		};
+		722EEB0716FECC8400372170 /* qq */ = {
+			isa = PBXGroup;
+			children = (
+				7272B39B16C9FC7300E111A7 /* QQIndexRequestModel.h */,
+				7272B39C16C9FC7300E111A7 /* QQIndexRequestModel.m */,
+				7233879E16CB5DA10061FBDF /* QQVideoRequestModel.h */,
+				7233879F16CB5DA10061FBDF /* QQVideoRequestModel.m */,
+				72C217EF16CBCCE3000A56AB /* QQPlayRequestModel.h */,
+				72C217F016CBCCE3000A56AB /* QQPlayRequestModel.m */,
+			);
+			name = qq;
+			sourceTree = "<group>";
+		};
 		722FF15316FC066200237F15 /* ZipArchive */ = {
 			isa = PBXGroup;
 			children = (
@@ -938,13 +951,8 @@
 		72A69BCB16C9F3F20099D974 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				722EEB0716FECC8400372170 /* qq */,
 				7288A2F016F9A43200933D15 /* download */,
-				7272B39B16C9FC7300E111A7 /* QQIndexRequestModel.h */,
-				7272B39C16C9FC7300E111A7 /* QQIndexRequestModel.m */,
-				7233879E16CB5DA10061FBDF /* QQVideoRequestModel.h */,
-				7233879F16CB5DA10061FBDF /* QQVideoRequestModel.m */,
-				72C217EF16CBCCE3000A56AB /* QQPlayRequestModel.h */,
-				72C217F016CBCCE3000A56AB /* QQPlayRequestModel.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
