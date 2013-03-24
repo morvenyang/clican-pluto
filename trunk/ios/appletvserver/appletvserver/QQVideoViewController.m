@@ -90,7 +90,7 @@
         [scrollView addSubview:self.playButton];
     }else{
         y = y+30;
-        self.tableView = [[TTTableView alloc] initWithFrame:CGRectMake(0, y+30, frame.size.width, frame.size.height - y) style:UITableViewStylePlain];
+        self.tableView = [[TTTableView alloc] initWithFrame:CGRectMake(0, y, frame.size.width, frame.size.height - y -92) style:UITableViewStylePlain];
         self.tableView.delegate=self;
         NSMutableArray* items = [NSMutableArray array];
         for(int i=0;i<[self.video.videoItemList count];i++){

@@ -36,3 +36,14 @@ typedef enum {
 } QQChannel;
 
 #endif
+
+
+@interface Constants :NSObject{
+
+
+}
+
++ (NSString*) qqChannelConvertToString:(QQChannel) channel;
++ (NSArray*) qqChannelArray;
+@end
+
