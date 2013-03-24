@@ -7,7 +7,7 @@
 //
 
 #import "TudouIndexRequestModel.h"
-
+#import "AtvUtil.h"
 @implementation TudouIndexRequestModel
     
 @synthesize tudouChannel = _tudouChannel;
@@ -71,7 +71,7 @@
         
         request.cachePolicy = cachePolicy;
         
-        TTURLJSONResponse* response = [[TTURLJSONResponse alloc] init];
+        TTURLDataResponse* response = [[TTURLDataResponse alloc] init];
         request.response = response;
         TT_RELEASE_SAFELY(response);
         
@@ -92,79 +92,27 @@
     
     @try {
         
-        TTURLJSONResponse* response = request.response;
+        TTURLDataResponse* response = request.response;
         
-        NSDictionary* data = response.rootObject;
+        NSString* content = [[[NSString alloc] initWithData:[response data] encoding:NSUTF8StringEncoding] autorelease];
+        NSLog(@"content:%@" ,content);
         
-        NSLog(@"response.data:%@" ,data);
+        NSMutableArray* videos = [NSMutableArray array];
         
-        
-        NSMutableArray* videos = nil;
-        
-        
-        
-        
-        NSArray* entries=nil;
-        if(self.qqChannel==QQ_Recommand){
-            entries = [data objectForKey:@"data"];
-            videos = [NSMutableArray arrayWithCapacity:[entries count]];
-            
-            for (NSDictionary* entry in entries) {
-                NSDictionary* contents = [entry objectForKey:@"contents"];
-                for(NSDictionary* content in contents){
-                    NSString* idType = [content objectForKey:@"id_type"];
-                    if([idType isEqualToString:@"t"]){
-                        continue;
-                    }
-                    Video* video = [[Video alloc] init];
-                    video.title = [content objectForKey:@"title"];
-                    video.vid = [content objectForKey:@"id"];
-                    video.picUrl = [content objectForKey:@"v_pic"];
-                    [videos addObject:video];
-                }
-            }
-            
-        }else if(self.qqChannel == QQ_Search){
-            entries = [data objectForKey:@"list"];
-            videos = [NSMutableArray arrayWithCapacity:[entries count]];
-            for (NSDictionary* content in entries) {
-                Video* video = [[Video alloc] init];
-                video.title = [content objectForKey:@"TI"];
-                video.vid = [content objectForKey:@"ID"];
-                video.picUrl = [content objectForKey:@"AU"];
-                if(!self.searchAlbum){
-                    NSString* subTitle = [content objectForKey:@"BN"];
-                    if(subTitle!=nil&&![subTitle isEqualToString:@"0"]){
-                        subTitle=[@"" stringByAppendingFormat:@"第%@集",subTitle];
-                    }
-                    video.subTitle = subTitle;
-                }
-                [videos addObject:video];
-            }
-        }else{
-            if([data objectForKey:@"cover"]!=nil){
-                entries = [data objectForKey:@"cover"];
-            }else{
-                entries = [data objectForKey:@"video"];
-            }
-            videos = [NSMutableArray arrayWithCapacity:[entries count]];
-            for (NSDictionary* content in entries) {
-                NSString* idType = [content objectForKey:@"id_type"];
-                if([idType isEqualToString:@"t"]){
-                    continue;
-                }
-                Video* video = [[Video alloc] init];
-                video.title = [content objectForKey:@"c_title"];
-                video.vid = [content objectForKey:@"c_cover_id"];
-                if([content objectForKey:@"c_pic"]!=nil){
-                    video.picUrl = [content objectForKey:@"c_pic"];
-                }else{
-                    video.picUrl = [content objectForKey:@"c_pic_url"];
-                }
-                [videos addObject:video];
+        NSArray* packs = [AtvUtil getSubValuesByTag:@"<div class=\"pack\"" startstr:@"</div>" endstr:@"</div>" tagName:@"div"];
+        for (int i = 0; i < [packs count]; i++) {
+            NSString* pack = [packs objectAtIndex:i];
+            NSString* pic = [AtvUtil substring:pack startstr:@"<img" endstr:@">"];
+            NSString* title = [AtvUtil substring:pack startstr:@"title=\"" endstr:@"\""];
+            NSString* code = [AtvUtil substring:pack startstr:@"<a href=\"" endstr:@"\""];
+            BOOL album = FALSE;
+            if (self.tudouChannel == Tudou_DianShiJu) {
+                album = TRUE;
             }
         }
         
+        
+                
         
         
         
