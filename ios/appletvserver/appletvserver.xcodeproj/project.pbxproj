@@ -64,6 +64,7 @@
 		722146E416DDE40700850C03 /* M3u8Download.m in Sources */ = {isa = PBXBuildFile; fileRef = 722146E316DDE40700850C03 /* M3u8Download.m */; };
 		722146E716DDE62500850C03 /* M3u8TSHTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 722146E616DDE62500850C03 /* M3u8TSHTTPRequest.m */; };
 		722250DA16FEB8F700B7CEEA /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 722250D916FEB8F700B7CEEA /* Constants.m */; };
+		722EEB1416FECCF000372170 /* TudouIndexRequestModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 722EEB1316FECCF000372170 /* TudouIndexRequestModel.m */; };
 		722FF14116FC010000237F15 /* WebContentSync.m in Sources */ = {isa = PBXBuildFile; fileRef = 722FF14016FC010000237F15 /* WebContentSync.m */; };
 		722FF15616FC068C00237F15 /* ZipArchive.mm in Sources */ = {isa = PBXBuildFile; fileRef = 722FF15516FC068C00237F15 /* ZipArchive.mm */; };
 		722FF16016FC06A500237F15 /* ioapi.c in Sources */ = {isa = PBXBuildFile; fileRef = 722FF15816FC06A500237F15 /* ioapi.c */; };
@@ -424,6 +425,8 @@
 		722146E516DDE62500850C03 /* M3u8TSHTTPRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = M3u8TSHTTPRequest.h; path = AISHTTPRequest/M3u8TSHTTPRequest.h; sourceTree = "<group>"; };
 		722146E616DDE62500850C03 /* M3u8TSHTTPRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = M3u8TSHTTPRequest.m; path = AISHTTPRequest/M3u8TSHTTPRequest.m; sourceTree = "<group>"; };
 		722250D916FEB8F700B7CEEA /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
+		722EEB1216FECCF000372170 /* TudouIndexRequestModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TudouIndexRequestModel.h; sourceTree = "<group>"; };
+		722EEB1316FECCF000372170 /* TudouIndexRequestModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TudouIndexRequestModel.m; sourceTree = "<group>"; };
 		722FF13F16FC010000237F15 /* WebContentSync.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebContentSync.h; sourceTree = "<group>"; };
 		722FF14016FC010000237F15 /* WebContentSync.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebContentSync.m; sourceTree = "<group>"; };
 		722FF15416FC068C00237F15 /* ZipArchive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZipArchive.h; path = ZipArchive/ZipArchive.h; sourceTree = "<group>"; };
@@ -750,6 +753,15 @@
 			name = qq;
 			sourceTree = "<group>";
 		};
+		722EEB1116FECC9900372170 /* tudou */ = {
+			isa = PBXGroup;
+			children = (
+				722EEB1216FECCF000372170 /* TudouIndexRequestModel.h */,
+				722EEB1316FECCF000372170 /* TudouIndexRequestModel.m */,
+			);
+			name = tudou;
+			sourceTree = "<group>";
+		};
 		722FF15316FC066200237F15 /* ZipArchive */ = {
 			isa = PBXGroup;
 			children = (
@@ -951,6 +963,7 @@
 		72A69BCB16C9F3F20099D974 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				722EEB1116FECC9900372170 /* tudou */,
 				722EEB0716FECC8400372170 /* qq */,
 				7288A2F016F9A43200933D15 /* download */,
 			);
@@ -1487,6 +1500,7 @@
 				722FF16316FC06A500237F15 /* zip.c in Sources */,
 				722FF16616FC45B600237F15 /* QQChannelViewController.m in Sources */,
 				722250DA16FEB8F700B7CEEA /* Constants.m in Sources */,
+				722EEB1416FECCF000372170 /* TudouIndexRequestModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
