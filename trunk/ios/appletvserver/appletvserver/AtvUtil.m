@@ -77,4 +77,137 @@
 	}
 	return @"";
 }
+
+
++ (NSString*) subIndexString:(NSString*) data startstr:(NSString*)startstr {
+    NSRange range = [data rangeOfString:startstr];
+    if(range.location==NSNotFound){
+        return @"";
+    }else{
+        return [data substringFromIndex:range.location+range.length];
+    }
+}
+
++(NSString*)substring:(NSString*)data startstr:(NSString*)startstr endstr:(NSString*)endstr) {
+    NSRange srange = [data rangeOfString:startstr];
+    if(srange.location==NSNotFound){
+        return @"";
+    }
+    NSRange erange = [data rangeOfString:endstr options:nil range:NSMakeRange(srange.location+srange.length, [data length]-srange.length-srange.location)];
+    if(erange.location==NSNotFound){
+        return @"";
+    }
+    return [data substringWithRange:NSMakeRange(srange.location+srange.length, erange.location)];
+}
+
+
+
++ (NSString*) substringByTag:(NSString*) data startstr:(NSString*) startstr endstr:(NSString*) endstr tagName:(NSString*) tagName {
+    NSRange srange = [data rangeOfString:startstr];
+    if(srange.location==NSNotFound){
+        return @"";
+    }
+    int offset = srange.location+srange.length;
+    while(true){
+        NSRange erange = [data rangeOfString:endstr options:nil range:NSMakeRange(offset, [data length]-offset)];
+        if(erange.location==NSNotFound){
+            return @"";
+        }
+        NSString* temp = [data substringWithRange:NSMakeRange(srange.location+srange.length, erange.location-srange.location-srange.length)];
+        
+        int a = [AtvUtil getCount:temp str:[NSString stringWithFormat:@"<%@",tagName]];
+        int b = [AtvUtil getCount:temp str:[NSString stringWithFormat:@"</%@",tagName]];
+        if(a==b){
+            return temp;
+        }else{
+            offset = erange.location+erange.length;
+        }
+    }
+    return @"";
+}
+
++(NSArray*) getSubValues : (NSString*)data startstr:(NSString*)startstr endstr:(NSString*) endstr {
+    NSMutableArray* values=[NSMutableArray array];
+    int start = 0;
+    int end = 0;
+    while(start>=0){
+        NSRange srange = [data rangeOfString:startstr options:nil range:NSMakeRange(start, [data length]-start)];
+        start = srange.location;
+        if(start==NSNotFound){
+            break;
+        }
+        NSRange erange = [data rangeOfString:endstr options:nil range:NSMakeRange(srange.location+srange.length, [data length]-srange.length-srange.location)];
+        end = erange.location;
+        if(end==NSNotFound){
+            break;
+        }
+        NSString* temp = [data substringWithRange:NSMakeRange(srange.location+srange.length, erange.location-srange.location-srange.length)];
+        [values addObject:temp];
+        start = end+erange.length;
+    }
+    return values;
+}
+
+getSubValuesByTag : function(data,startstr,endstr,tagName) {
+    var values=[];
+    start = 0;
+    while(start>=0){
+        start = data.indexOf(startstr,start);
+        if(start<0){
+            break;
+        }
+        offset = start+startstr.length;
+        while(true){
+            end = data.indexOf(endstr,offset);
+            if(end<0){
+                break;
+            }
+            temp =  data.substring(start+startstr.length,end);
+            
+            a = appletv.getCount(temp,'<'+tagName);
+            b = appletv.getCount(temp,'</'+tagName);
+            if(a==b){
+                values.push(temp);
+                break;
+            }else{
+                offset = end+endstr.length;
+            }
+        }
+        start = end+endstr.length;
+    }
+    return values
+},
+
++(int) getCount:(NSString*) data str:(NSString*) str{
+    int count = 0;
+    int offset = 0;
+    while(offset>=0){
+        NSRange range = [data rangeOfString:str];
+        offset = range.location;
+        if(offset>=0){
+            count++;
+            offset=offset+range.length;
+        }
+    }
+    return count;
+}
+
+getTextInTag: function(data){
+    var left = 0;
+    var right = 0;
+    var result = '';
+    var charArray = data.split('');
+    for(i=0;i<charArray.length;i++){
+        if(charArray[i]=='<'){
+            left++;
+        }else if(charArray[i]=='>'){
+            right++;
+        }else{
+            if(left==right){
+                result = result + charArray[i];
+            }
+        }
+    }
+    return result;
+},
 @end

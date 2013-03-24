@@ -8,11 +8,18 @@
 
 #ifndef appletvserver_Constants_h
 #define appletvserver_Constants_h
-
+//qq
 #define QQ_CHANNEL_URL @"http://sns.video.qq.com/fcgi-bin/dlib/dataout?sort=2&iarea=-1&itype=-1&iyear=-1&iedition=-1&pagesize=30&itrailer=-1&otype=json&version=20000&qq=&appver=2.0.0.2208&sysver=ios5.1.1&device=iPad&lang=zh_CN&timeout=0&page=%i&auto_id=%i&platform=%i"
 #define QQ_SEARCH_URL @"http://ncgi.video.qq.com/tvideo/fcgi-bin/srh_ipad?num=30&tabid=0&plat=4&pver=2&sort=0&filter=18&otype=json&qq=&appver=2.0.0.2208&sysver=ios5.1.1&device=iPad&lang=zh_CN&comment=%i&cur=%i&query=%@"
 #define QQ_VIDEO_URL @"http://live.qq.com/json/ipad/cover/%@/%@.json?qq=&appver=2.0.0.2208&sysver=ios5.1.1&device=iPad&lang=zh_CN"
 #define QQ_PLAY_API @"http://vv.video.qq.com/geturl?otype=json&callback=a&qq=&appver=2.0.0.2208&sysver=ios5.1.1&device=iPad&lang=zh_CN&vid=%@"
+//qq
+
+
+//tudou
+
+//todou
+
 #define ATV_SERVER_IP @"http://www.clican.org:9001/appletv"
 #define WEB_CONTENT_SYNC_API @"/ctl/proxy/sync.zip"
 #define WEB_CONTENT_SYNC_VERSION_API @"/ctl/proxy/sync/version.do"
@@ -35,6 +42,10 @@ typedef enum {
     QQ_JiLuPian = 19
 } QQChannel;
 
+typedef enum {
+    Tudou_DianShiJu = 30,
+    Tudou_DianYing = 22
+} TudouChannel;
 #endif
 
 
