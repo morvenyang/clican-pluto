@@ -7,7 +7,7 @@
 //
 
 #import "QQChannelViewController.h"
-
+#import "Constants.h"
 @implementation QQChannelViewController
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -19,12 +19,15 @@
     return self;
 }
 
+
 - (void)createModel {
     NSMutableArray* items = [NSMutableArray array];
-    TTTableTextItem* item1 = [TTTableTextItem itemWithText:@"电影" URL:@"atvserver://qq/index/14"];
-    TTTableTextItem* item2 = [TTTableTextItem itemWithText:@"电视剧" URL:@"atvserver://qq/index/15"];
-    [items addObject:item1];
-    [items addObject:item2];
+    for(NSNumber* qqChannelNumber in [Constants qqChannelArray]){
+        QQChannel qqChannel = [qqChannelNumber intValue];
+        TTTableTextItem* item = [TTTableTextItem itemWithText:[Constants qqChannelConvertToString:qqChannel] URL:[@"atvserver://qq/index/" stringByAppendingFormat:@"%i",qqChannel]];
+        [items addObject:item];
+    }
+    
     TTListDataSource* ds = [[TTListDataSource alloc] initWithItems:items];
     self.dataSource = ds;
 }
