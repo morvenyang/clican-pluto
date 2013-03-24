@@ -88,7 +88,7 @@
     }
 }
 
-+(NSString*)substring:(NSString*)data startstr:(NSString*)startstr endstr:(NSString*)endstr) {
++(NSString*)substring:(NSString*)data startstr:(NSString*)startstr endstr:(NSString*)endstr {
     NSRange srange = [data rangeOfString:startstr];
     if(srange.location==NSNotFound){
         return @"";
@@ -148,35 +148,41 @@
     return values;
 }
 
-getSubValuesByTag : function(data,startstr,endstr,tagName) {
-    var values=[];
-    start = 0;
++(NSArray*) getSubValuesByTag:(NSString*)data startstr:(NSString*)startstr endstr:(NSString*)endstr tagName:(NSString*)tagName {
+    NSMutableArray* values=[NSMutableArray array];
+    int start = 0;
+    int end = 0;
     while(start>=0){
-        start = data.indexOf(startstr,start);
-        if(start<0){
+        NSRange srange = [data rangeOfString:startstr options:nil range:NSMakeRange(start, [data length]-start)];
+        start = srange.location;
+        if(start==NSNotFound){
             break;
         }
-        offset = start+startstr.length;
+        int offset = srange.location+srange.length;
         while(true){
-            end = data.indexOf(endstr,offset);
-            if(end<0){
+            NSRange erange = [data rangeOfString:endstr options:nil range:NSMakeRange(offset, [data length]-offset)];
+            end = erange.location;
+            if(end==NSNotFound){
                 break;
             }
-            temp =  data.substring(start+startstr.length,end);
+            NSString* temp = [data substringWithRange:NSMakeRange(offset, erange.location)];
             
-            a = appletv.getCount(temp,'<'+tagName);
-            b = appletv.getCount(temp,'</'+tagName);
+            
+            int a = [AtvUtil getCount:temp str:[NSString stringWithFormat:@"<%@",tagName]];
+            int b = [AtvUtil getCount:temp str:[NSString stringWithFormat:@"</%@",tagName]];
+           
+            
             if(a==b){
-                values.push(temp);
+                [values addObject:temp];
                 break;
             }else{
-                offset = end+endstr.length;
+                offset = erange.location+erange.length;
             }
         }
         start = end+endstr.length;
     }
-    return values
-},
+    return values;
+}
 
 +(int) getCount:(NSString*) data str:(NSString*) str{
     int count = 0;
@@ -192,22 +198,24 @@ getSubValuesByTag : function(data,startstr,endstr,tagName) {
     return count;
 }
 
-getTextInTag: function(data){
-    var left = 0;
-    var right = 0;
-    var result = '';
-    var charArray = data.split('');
-    for(i=0;i<charArray.length;i++){
-        if(charArray[i]=='<'){
++(NSString*) getTextInTag:(NSString*) data{
+    int left = 0;
+    int right = 0;
+    int rightIndex=0;
+    NSString* result = @"";
+    for(int i=0;i<data.length;i++){
+        unichar ch = [data characterAtIndex:i];
+        if(ch=='<'){
             left++;
-        }else if(charArray[i]=='>'){
+        }else if(ch=='>'){
             right++;
+            rightIndex = i;
         }else{
             if(left==right){
-                result = result + charArray[i];
+                result = [result stringByAppendingString:[data substringWithRange:NSMakeRange(rightIndex+1, i-rightIndex)]];
             }
         }
     }
     return result;
-},
+}
 @end
