@@ -130,6 +130,7 @@
 		72C9088216D325580075A651 /* libfdk-aac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 72C9088116D325580075A651 /* libfdk-aac.a */; };
 		72CC1B5616DE3BD7006A8E44 /* M3u8Process.m in Sources */ = {isa = PBXBuildFile; fileRef = 72CC1B5516DE3BD7006A8E44 /* M3u8Process.m */; };
 		72D5CBD2170018CB00B292BA /* AjaxCallbackRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 72D5CBD1170018CB00B292BA /* AjaxCallbackRequest.m */; };
+		72D5CBDF170027D400B292BA /* InputViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 72D5CBDE170027D400B292BA /* InputViewController.m */; };
 		72D6C56A16FC84D90048591E /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 72D6C56716FC84D90048591E /* Default-568h@2x.png */; };
 		72D6C56B16FC84D90048591E /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 72D6C56816FC84D90048591E /* Default.png */; };
 		72D6C56C16FC84D90048591E /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 72D6C56916FC84D90048591E /* Default@2x.png */; };
@@ -537,6 +538,8 @@
 		72CC1B5516DE3BD7006A8E44 /* M3u8Process.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M3u8Process.m; sourceTree = "<group>"; };
 		72D5CBD0170018CB00B292BA /* AjaxCallbackRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AjaxCallbackRequest.h; sourceTree = "<group>"; };
 		72D5CBD1170018CB00B292BA /* AjaxCallbackRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AjaxCallbackRequest.m; sourceTree = "<group>"; };
+		72D5CBDD170027D400B292BA /* InputViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputViewController.h; sourceTree = "<group>"; };
+		72D5CBDE170027D400B292BA /* InputViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InputViewController.m; sourceTree = "<group>"; };
 		72D6C56716FC84D90048591E /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		72D6C56816FC84D90048591E /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		72D6C56916FC84D90048591E /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
@@ -686,6 +689,7 @@
 		7219BBCA16C9EAD900AABA8E /* View */ = {
 			isa = PBXGroup;
 			children = (
+				72D5CBD41700275400B292BA /* atv */,
 				72D5CBD3170020E800B292BA /* qq */,
 				7288A2C416F9982D00933D15 /* download */,
 				72360C3C16EED88D00E0842B /* xunlei */,
@@ -1059,6 +1063,15 @@
 				722FF16516FC45B600237F15 /* QQChannelViewController.m */,
 			);
 			name = qq;
+			sourceTree = "<group>";
+		};
+		72D5CBD41700275400B292BA /* atv */ = {
+			isa = PBXGroup;
+			children = (
+				72D5CBDD170027D400B292BA /* InputViewController.h */,
+				72D5CBDE170027D400B292BA /* InputViewController.m */,
+			);
+			name = atv;
 			sourceTree = "<group>";
 		};
 		72DD38FC16CCEB8B0010AAC2 /* ffmpeg */ = {
@@ -1533,6 +1546,7 @@
 				722EEB1416FECCF000372170 /* TudouIndexRequestModel.m in Sources */,
 				72198F1D16FFF25100EC451B /* JSEngine.m in Sources */,
 				72D5CBD2170018CB00B292BA /* AjaxCallbackRequest.m in Sources */,
+				72D5CBDF170027D400B292BA /* InputViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

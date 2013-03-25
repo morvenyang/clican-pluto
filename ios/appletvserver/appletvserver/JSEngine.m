@@ -10,7 +10,7 @@
 #import <AddressBook/AddressBook.h>
 #import "AppDelegate.h"
 #import "AjaxCallbackRequest.h"
-
+#import "InputViewController.h"
 @implementation JSEngine
 
 
@@ -71,6 +71,23 @@ JSValueRef makePostRequest(JSContextRef ctx,
         request.httpBody = [content dataUsingEncoding:NSUTF8StringEncoding];
     }
     [request send];
+    return JSValueMakeNull(ctx);
+}
+
+JSValueRef showInpuTextPage(JSContextRef ctx,
+                           JSObjectRef function,
+                           JSObjectRef thisObject,
+                           size_t argumentCount,
+                           const JSValueRef arguments[],
+                           JSValueRef* exception){
+    JSValueRef excp = NULL;
+    NSString *label = (__bridge_transfer NSString*)JSStringCopyCFString(kCFAllocatorDefault, (JSStringRef)JSValueToStringCopy(ctx, arguments[0], &excp));
+
+    NSString *instructions = (__bridge_transfer NSString*)JSStringCopyCFString(kCFAllocatorDefault, (JSStringRef)JSValueToStringCopy(ctx, arguments[1], &excp));
+    NSString *initialText = (__bridge_transfer NSString*)JSStringCopyCFString(kCFAllocatorDefault, (JSStringRef)JSValueToStringCopy(ctx, arguments[3], &excp));
+    JSObjectRef callback = (JSObjectRef)JSValueToObject(ctx, arguments[2], &excp);
+    InputViewController* controler = [[InputViewController alloc] initWithLabel:label instruction:instructions initialText:initialText callback:callback ctx:ctx];
+    [[TTNavigator navigator].topViewController.navigationController pushViewController:controler animated:YES];
     return JSValueMakeNull(ctx);
 }
 
