@@ -272,97 +272,105 @@ var appletv = {
 		if (!url) {
 			throw "loadURL requires a url argument";
 		}
-		var xhr = new XMLHttpRequest();
+		if(appletv.simulate=='native'){
+			makeProxyRequest(url,callback,headers);
+		}else{
+			var xhr = new XMLHttpRequest();
 
-		xhr.onreadystatechange = function() {
-			try {
-				if (xhr.readyState == 4) {
-					if (xhr.status == 200) {
-						if (xhr.responseText == null) {
-							if(appletv.simulate=='atv'){
-								gbkchar = atv.localStorage['gbk'];
-							}
-							if (!gbkchar) {
-								appletv.makeRequest(appletv.serverurl+'/template/gbk.txt', function(gbkcontent){
-									if(appletv.simulate=='atv'){
-										atv.localStorage['gbk'] = gbkcontent;
-									}
+			xhr.onreadystatechange = function() {
+				try {
+					if (xhr.readyState == 4) {
+						if (xhr.status == 200) {
+							if (xhr.responseText == null) {
+								if(appletv.simulate=='atv'){
+									gbkchar = atv.localStorage['gbk'];
+								}
+								if (!gbkchar) {
+									appletv.makeRequest(appletv.serverurl+'/template/gbk.txt', function(gbkcontent){
+										if(appletv.simulate=='atv'){
+											atv.localStorage['gbk'] = gbkcontent;
+										}
+										callback(appletv.toGBK(appletv.base64Decode(xhr.responseDataAsBase64)));
+									});
+								}else{
 									callback(appletv.toGBK(appletv.base64Decode(xhr.responseDataAsBase64)));
-								});
-							}else{
-								callback(appletv.toGBK(appletv.base64Decode(xhr.responseDataAsBase64)));
+								}
+							} else {
+								callback(xhr.responseText);
 							}
 						} else {
-							callback(xhr.responseText);
+							appletv.logToServer('xhr status:' + xhr.status
+									+ ' for ' + url);
+							callback(null);
 						}
-					} else {
-						appletv.logToServer('xhr status:' + xhr.status
-								+ ' for ' + url);
-						callback(null);
 					}
+				} catch (e) {
+					appletv
+							.logToServer('makeRequest caught exception while processing request for '
+									+ url + '. Aborting. Exception: ' + e);
+					xhr.abort();
+					callback(null);
 				}
-			} catch (e) {
-				appletv
-						.logToServer('makeRequest caught exception while processing request for '
-								+ url + '. Aborting. Exception: ' + e);
-				xhr.abort();
-				callback(null);
 			}
-		}
 
-		xhr.open("GET", url, true);
-		if(headers!=null){
-			for ( var key in headers) {
-				xhr.setRequestHeader(key, headers[key]);
+			xhr.open("GET", url, true);
+			if(headers!=null){
+				for ( var key in headers) {
+					xhr.setRequestHeader(key, headers[key]);
+				}
 			}
+			xhr.send();
+			return xhr;
 		}
-		xhr.send();
-		return xhr;
 	},
 
 	makePostRequest : function(url, content, callback) {
 		if (!url) {
 			throw "loadURL requires a url argument";
 		}
-
-		var xhr = new XMLHttpRequest();
-		xhr.onreadystatechange = function() {
-			try {
-				if (xhr.readyState == 4) {
-					if (xhr.status == 200) {
-						if (xhr.responseText == null) {
-							gbkchar = atv.localStorage['gbk'];
-							if (!gbkchar) {
-								appletv.makeRequest(appletv.serverurl+'/template/gbk.txt', function(gbkcontent){
-									atv.localStorage['gbk'] = gbkcontent;
+		if(appletv.simulate=='native'){
+			makeProxyPostRequest(url,content,callback);
+		}else{
+			var xhr = new XMLHttpRequest();
+			xhr.onreadystatechange = function() {
+				try {
+					if (xhr.readyState == 4) {
+						if (xhr.status == 200) {
+							if (xhr.responseText == null) {
+								gbkchar = atv.localStorage['gbk'];
+								if (!gbkchar) {
+									appletv.makeRequest(appletv.serverurl+'/template/gbk.txt', function(gbkcontent){
+										atv.localStorage['gbk'] = gbkcontent;
+										callback(appletv.toGBK(appletv.base64Decode(xhr.responseDataAsBase64)));
+									});
+								}else{
 									callback(appletv.toGBK(appletv.base64Decode(xhr.responseDataAsBase64)));
-								});
+								}
 							}else{
-								callback(appletv.toGBK(appletv.base64Decode(xhr.responseDataAsBase64)));
+								callback(xhr.responseText);
 							}
-						}else{
-							callback(xhr.responseText);
+						} else {
+							appletv.logToServer('xhr status:' + xhr.status
+									+ ' for ' + url);
+							callback(null);
 						}
-					} else {
-						appletv.logToServer('xhr status:' + xhr.status
-								+ ' for ' + url);
-						callback(null);
 					}
+				} catch (e) {
+					appletv
+					.logToServer('makeRequest caught exception while processing request for '
+							+ url + '. Aborting. Exception: ' + e);
+					xhr.abort();
+					callback(null);
 				}
-			} catch (e) {
-				appletv
-				.logToServer('makeRequest caught exception while processing request for '
-						+ url + '. Aborting. Exception: ' + e);
-				xhr.abort();
-				callback(null);
 			}
+			xhr.open("POST", url, true);
+			if(content!=null){
+				xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			}
+			xhr.send(content);
+			return xhr;
 		}
-		xhr.open("POST", url, true);
-		if(content!=null){
-			xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-		}
-		xhr.send(content);
-		return xhr;
+		
 	},
 	
 	shareToSinaWeibo : function(title, shareURL, imageURL) {

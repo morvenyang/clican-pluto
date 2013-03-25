@@ -56,7 +56,7 @@ public class IPServlet extends HttpServlet {
 				springProperty.getSystemServerUrl());
 		String ua = req.getHeader("User-Agent");
 		if (StringUtils.isNotEmpty(ua) && ua.contains("Chrome")) {
-			content = content.replaceAll("simulate : false", "simulate : true");
+			content = content.replaceAll("simulate : 'atv'", "simulate : 'browser'");
 		}
 		resp.getOutputStream().write(content.getBytes("utf-8"));
 	}
