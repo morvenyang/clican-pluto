@@ -123,6 +123,17 @@ var qqClient = {
 			platform : 5
 		}
 	},
+	
+	loadChannelPage:function{
+		var data = {
+				'channels' : qqClient.qqChannels,
+				'serverurl' : appletv.serverurl
+			};
+		var xml = new EJS({
+			url : appletv.serverurl + '/template/qq/channel.ejs'
+		}).render(data);
+		appletv.loadAndSwapXML(xml);
+	},
 
 	loadIndexPage : function(keyword, page, channelId) {
 		appletv.showLoading();
