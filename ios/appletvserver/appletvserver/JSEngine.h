@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <JavaScriptCore/JavaScriptCore.h>
 
-@interface JSEngine : NSObject{
+@interface JSEngine : NSObject<TTURLRequestDelegate>{
     JSGlobalContextRef _JSContext;
 }
 

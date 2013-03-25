@@ -9,6 +9,8 @@
 #import "JSEngine.h"
 #import <AddressBook/AddressBook.h>
 #import "AppDelegate.h"
+#import "AjaxCallbackRequest.h"
+
 @implementation JSEngine
 
 
@@ -28,10 +30,20 @@ JSValueRef makeProxyRequest(JSContextRef ctx,
     JSValueRef excp = NULL;
     NSString *url = (__bridge_transfer NSString*)JSStringCopyCFString(kCFAllocatorDefault, (JSStringRef)JSValueToStringCopy(ctx, arguments[0], &excp));
     NSLog(@"makeRequest:%@",url);
+    
     JSObjectRef callback = (JSObjectRef)JSValueToObject(ctx, arguments[1], &excp);
-    JSValueRef args[1];
-    args[0] = JSValueMakeString(ctx,JSStringCreateWithUTF8CString("content"));
-    JSObjectCallAsFunction(ctx,callback,NULL,1,args,NULL);
+    
+    AjaxCallbackRequest* request = [AjaxCallbackRequest
+                             requestWithURL: url
+                             delegate: [AppDele jsEngine] callback:callback ctx:ctx];
+    
+    request.cachePolicy = TTURLRequestCachePolicyMemory;
+    
+    TTURLDataResponse* response = [[TTURLDataResponse alloc] init];
+    request.response = response;
+    [request send];
+    
+   
     return JSValueMakeNull(ctx);
 }
 
@@ -47,9 +59,18 @@ JSValueRef makeProxyPostRequest(JSContextRef ctx,
     NSString *content = (__bridge_transfer NSString*)JSStringCopyCFString(kCFAllocatorDefault, (JSStringRef)JSValueToStringCopy(ctx, arguments[1], &excp));
     NSLog(@"makePostRequest:%@",content);
     JSObjectRef callback = (JSObjectRef)JSValueToObject(ctx, arguments[2], &excp);
-    JSValueRef args[1];
-    args[0] = JSValueMakeString(ctx,JSStringCreateWithUTF8CString("content"));
-    JSObjectCallAsFunction(ctx,callback,NULL,1,args,NULL);
+    AjaxCallbackRequest* request = [AjaxCallbackRequest
+                                    requestWithURL: url
+                                    delegate: [AppDele jsEngine] callback:callback ctx:ctx];
+    
+    request.cachePolicy = TTURLRequestCachePolicyMemory;
+    
+    TTURLDataResponse* response = [[TTURLDataResponse alloc] init];
+    request.response = response;
+    if(content!=NULL&&content.length>0){
+        request.httpBody = [content dataUsingEncoding:NSUTF8StringEncoding];
+    }
+    [request send];
     return JSValueMakeNull(ctx);
 }
 
