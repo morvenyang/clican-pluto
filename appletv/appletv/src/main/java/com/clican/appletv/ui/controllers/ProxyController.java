@@ -149,6 +149,9 @@ public class ProxyController {
 				+ file.getName();
 		if (file.isDirectory()) {
 			for (String fileName : file.list()) {
+				if(fileName.contains(".svn")){
+					continue;
+				}
 				addToZip(filePath, srcFile + "/" + fileName, zipOut);
 			}
 		} else {
