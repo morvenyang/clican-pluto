@@ -1,0 +1,25 @@
+<atv>
+	<body>
+		<listScrollerSplit id="lsp">
+			<header>
+				<simpleHeader horizontalAlignment="left">
+					<title>频道选择</title>
+				</simpleHeader>
+			</header>
+			<menu>
+				<sections>
+					<menuSection>
+						<items>
+							<c:forEach var="channel" items="${channels}" varStatus="status">
+								<oneLineMenuItem id="channel_${status.count}" onPlay="qqClient.loadIndexPage('',0,<%=channels[i]['value']%>);" onSelect="qqClient.loadIndexPage('',0,<%=channels[i]['value']%>);">
+											<label>${channel.label}</label>
+											<image></image>
+								</oneLineMenuItem>
+							</c:forEach>
+						</items>
+					</menuSection>
+				</sections>
+			</menu>
+		</listScrollerSplit>
+	</body>
+</atv>
