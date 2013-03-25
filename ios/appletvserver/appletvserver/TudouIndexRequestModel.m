@@ -98,7 +98,7 @@
         NSLog(@"content:%@" ,content);
         
         NSMutableArray* videos = [NSMutableArray array];
-        
+        NSMutableArray* entries = [NSMutableArray array];
         NSArray* packs = [AtvUtil getSubValuesByTag:@"<div class=\"pack\"" startstr:@"</div>" endstr:@"</div>" tagName:@"div"];
         for (int i = 0; i < [packs count]; i++) {
             NSString* pack = [packs objectAtIndex:i];
