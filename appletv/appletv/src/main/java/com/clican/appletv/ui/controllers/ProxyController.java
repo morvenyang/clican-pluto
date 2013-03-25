@@ -100,8 +100,8 @@ public class ProxyController {
 	@RequestMapping("/proxy/sync.zip")
 	public void sync(HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
-		if(log.isDebugEnabled()){
-			log.debug("down sync version, t="+request.getParameter("t"));
+		if (log.isDebugEnabled()) {
+			log.debug("down sync version, t=" + request.getParameter("t"));
 		}
 		String webinf = request.getSession().getServletContext()
 				.getRealPath("WEB-INF");
@@ -117,8 +117,8 @@ public class ProxyController {
 	@RequestMapping("/proxy/sync/version.do")
 	public void syncVersion(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-		if(log.isDebugEnabled()){
-			log.debug("check sync version, t="+request.getParameter("t"));
+		if (log.isDebugEnabled()) {
+			log.debug("check sync version, t=" + request.getParameter("t"));
 		}
 		response.addHeader("version", springProperty.getSystemVersion());
 	}
@@ -129,7 +129,8 @@ public class ProxyController {
 		File srcFile = new File(fileToZip);
 		if (srcFile.isDirectory()) {
 			for (String fileName : srcFile.list()) {
-				if (fileName.equals("WEB-INF") || fileName.equals("jsp")) {
+				if (fileName.equals("WEB-INF") || fileName.equals("jsp")
+						|| fileName.contains(".svn")) {
 					continue;
 				}
 				addToZip("", fileToZip + "/" + fileName, zipOut);
