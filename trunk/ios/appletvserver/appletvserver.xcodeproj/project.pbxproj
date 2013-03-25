@@ -131,6 +131,20 @@
 		72CC1B5616DE3BD7006A8E44 /* M3u8Process.m in Sources */ = {isa = PBXBuildFile; fileRef = 72CC1B5516DE3BD7006A8E44 /* M3u8Process.m */; };
 		72D5CBD2170018CB00B292BA /* AjaxCallbackRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 72D5CBD1170018CB00B292BA /* AjaxCallbackRequest.m */; };
 		72D5CBDF170027D400B292BA /* InputViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 72D5CBDE170027D400B292BA /* InputViewController.m */; };
+		72D5CBEA1700440400B292BA /* XmlViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 72D5CBE91700440400B292BA /* XmlViewController.m */; };
+		72D5CBFF1700492200B292BA /* CXMLDocument_PrivateExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 72D5CBED1700492200B292BA /* CXMLDocument_PrivateExtensions.m */; };
+		72D5CC001700492200B292BA /* CXMLDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 72D5CBEF1700492200B292BA /* CXMLDocument.m */; };
+		72D5CC011700492200B292BA /* CXMLElement_CreationExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 72D5CBF11700492200B292BA /* CXMLElement_CreationExtensions.m */; };
+		72D5CC021700492200B292BA /* CXMLElement_ElementTreeExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 72D5CBF31700492200B292BA /* CXMLElement_ElementTreeExtensions.m */; };
+		72D5CC031700492200B292BA /* CXMLElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 72D5CBF51700492200B292BA /* CXMLElement.m */; };
+		72D5CC041700492200B292BA /* CXMLNamespaceNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 72D5CBF71700492200B292BA /* CXMLNamespaceNode.m */; };
+		72D5CC051700492200B292BA /* CXMLNode_PrivateExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 72D5CBF91700492200B292BA /* CXMLNode_PrivateExtensions.m */; };
+		72D5CC061700492200B292BA /* CXMLNode_XPathExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 72D5CBFB1700492200B292BA /* CXMLNode_XPathExtensions.m */; };
+		72D5CC071700492200B292BA /* CXMLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 72D5CBFD1700492200B292BA /* CXMLNode.m */; };
+		72D5CC0B17004AF300B292BA /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 72D5CC0A17004AF200B292BA /* libxml2.dylib */; };
+		72D5CC1217004D7600B292BA /* CTidy.m in Sources */ = {isa = PBXBuildFile; fileRef = 72D5CC0D17004D7500B292BA /* CTidy.m */; };
+		72D5CC1317004D7600B292BA /* CXMLDocument_CreationExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 72D5CC0F17004D7500B292BA /* CXMLDocument_CreationExtensions.m */; };
+		72D5CC1417004D7600B292BA /* CXMLNode_CreationExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 72D5CC1117004D7600B292BA /* CXMLNode_CreationExtensions.m */; };
 		72D6C56A16FC84D90048591E /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 72D6C56716FC84D90048591E /* Default-568h@2x.png */; };
 		72D6C56B16FC84D90048591E /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 72D6C56816FC84D90048591E /* Default.png */; };
 		72D6C56C16FC84D90048591E /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 72D6C56916FC84D90048591E /* Default@2x.png */; };
@@ -540,6 +554,34 @@
 		72D5CBD1170018CB00B292BA /* AjaxCallbackRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AjaxCallbackRequest.m; sourceTree = "<group>"; };
 		72D5CBDD170027D400B292BA /* InputViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputViewController.h; sourceTree = "<group>"; };
 		72D5CBDE170027D400B292BA /* InputViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InputViewController.m; sourceTree = "<group>"; };
+		72D5CBE81700440400B292BA /* XmlViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XmlViewController.h; sourceTree = "<group>"; };
+		72D5CBE91700440400B292BA /* XmlViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XmlViewController.m; sourceTree = "<group>"; };
+		72D5CBEC1700492200B292BA /* CXMLDocument_PrivateExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CXMLDocument_PrivateExtensions.h; path = TouchXML/CXMLDocument_PrivateExtensions.h; sourceTree = "<group>"; };
+		72D5CBED1700492200B292BA /* CXMLDocument_PrivateExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CXMLDocument_PrivateExtensions.m; path = TouchXML/CXMLDocument_PrivateExtensions.m; sourceTree = "<group>"; };
+		72D5CBEE1700492200B292BA /* CXMLDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CXMLDocument.h; path = TouchXML/CXMLDocument.h; sourceTree = "<group>"; };
+		72D5CBEF1700492200B292BA /* CXMLDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CXMLDocument.m; path = TouchXML/CXMLDocument.m; sourceTree = "<group>"; };
+		72D5CBF01700492200B292BA /* CXMLElement_CreationExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CXMLElement_CreationExtensions.h; path = TouchXML/CXMLElement_CreationExtensions.h; sourceTree = "<group>"; };
+		72D5CBF11700492200B292BA /* CXMLElement_CreationExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CXMLElement_CreationExtensions.m; path = TouchXML/CXMLElement_CreationExtensions.m; sourceTree = "<group>"; };
+		72D5CBF21700492200B292BA /* CXMLElement_ElementTreeExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CXMLElement_ElementTreeExtensions.h; path = TouchXML/CXMLElement_ElementTreeExtensions.h; sourceTree = "<group>"; };
+		72D5CBF31700492200B292BA /* CXMLElement_ElementTreeExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CXMLElement_ElementTreeExtensions.m; path = TouchXML/CXMLElement_ElementTreeExtensions.m; sourceTree = "<group>"; };
+		72D5CBF41700492200B292BA /* CXMLElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CXMLElement.h; path = TouchXML/CXMLElement.h; sourceTree = "<group>"; };
+		72D5CBF51700492200B292BA /* CXMLElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CXMLElement.m; path = TouchXML/CXMLElement.m; sourceTree = "<group>"; };
+		72D5CBF61700492200B292BA /* CXMLNamespaceNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CXMLNamespaceNode.h; path = TouchXML/CXMLNamespaceNode.h; sourceTree = "<group>"; };
+		72D5CBF71700492200B292BA /* CXMLNamespaceNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CXMLNamespaceNode.m; path = TouchXML/CXMLNamespaceNode.m; sourceTree = "<group>"; };
+		72D5CBF81700492200B292BA /* CXMLNode_PrivateExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CXMLNode_PrivateExtensions.h; path = TouchXML/CXMLNode_PrivateExtensions.h; sourceTree = "<group>"; };
+		72D5CBF91700492200B292BA /* CXMLNode_PrivateExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CXMLNode_PrivateExtensions.m; path = TouchXML/CXMLNode_PrivateExtensions.m; sourceTree = "<group>"; };
+		72D5CBFA1700492200B292BA /* CXMLNode_XPathExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CXMLNode_XPathExtensions.h; path = TouchXML/CXMLNode_XPathExtensions.h; sourceTree = "<group>"; };
+		72D5CBFB1700492200B292BA /* CXMLNode_XPathExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CXMLNode_XPathExtensions.m; path = TouchXML/CXMLNode_XPathExtensions.m; sourceTree = "<group>"; };
+		72D5CBFC1700492200B292BA /* CXMLNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CXMLNode.h; path = TouchXML/CXMLNode.h; sourceTree = "<group>"; };
+		72D5CBFD1700492200B292BA /* CXMLNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CXMLNode.m; path = TouchXML/CXMLNode.m; sourceTree = "<group>"; };
+		72D5CBFE1700492200B292BA /* TouchXML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TouchXML.h; path = TouchXML/TouchXML.h; sourceTree = "<group>"; };
+		72D5CC0A17004AF200B292BA /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
+		72D5CC0C17004D7500B292BA /* CTidy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CTidy.h; path = TouchXML/CTidy.h; sourceTree = "<group>"; };
+		72D5CC0D17004D7500B292BA /* CTidy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CTidy.m; path = TouchXML/CTidy.m; sourceTree = "<group>"; };
+		72D5CC0E17004D7500B292BA /* CXMLDocument_CreationExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CXMLDocument_CreationExtensions.h; path = TouchXML/CXMLDocument_CreationExtensions.h; sourceTree = "<group>"; };
+		72D5CC0F17004D7500B292BA /* CXMLDocument_CreationExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CXMLDocument_CreationExtensions.m; path = TouchXML/CXMLDocument_CreationExtensions.m; sourceTree = "<group>"; };
+		72D5CC1017004D7600B292BA /* CXMLNode_CreationExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CXMLNode_CreationExtensions.h; path = TouchXML/CXMLNode_CreationExtensions.h; sourceTree = "<group>"; };
+		72D5CC1117004D7600B292BA /* CXMLNode_CreationExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CXMLNode_CreationExtensions.m; path = TouchXML/CXMLNode_CreationExtensions.m; sourceTree = "<group>"; };
 		72D6C56716FC84D90048591E /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		72D6C56816FC84D90048591E /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		72D6C56916FC84D90048591E /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
@@ -560,6 +602,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				72D5CC0B17004AF300B292BA /* libxml2.dylib in Frameworks */,
 				72198F2316FFF79F00EC451B /* libicucore.dylib in Frameworks */,
 				72198F2116FFF78600EC451B /* libstdc++.dylib in Frameworks */,
 				72198F1116FFF1FF00EC451B /* libiOSJavaScriptCore.a in Frameworks */,
@@ -917,6 +960,7 @@
 		72A4367E16C9EA5A00D9958D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				72D5CC0A17004AF200B292BA /* libxml2.dylib */,
 				72198F2216FFF79F00EC451B /* libicucore.dylib */,
 				72198F2016FFF78600EC451B /* libstdc++.dylib */,
 				72198F1016FFF1FF00EC451B /* libiOSJavaScriptCore.a */,
@@ -959,6 +1003,7 @@
 		72A4368516C9EA5A00D9958D /* appletvserver */ = {
 			isa = PBXGroup;
 			children = (
+				72D5CBEB170048C500B292BA /* TouchXML */,
 				72198F0616FFF1D500EC451B /* JavaScriptCore */,
 				722FF15316FC066200237F15 /* ZipArchive */,
 				72CC1B4A16DE3BA3006A8E44 /* Download */,
@@ -1070,8 +1115,42 @@
 			children = (
 				72D5CBDD170027D400B292BA /* InputViewController.h */,
 				72D5CBDE170027D400B292BA /* InputViewController.m */,
+				72D5CBE81700440400B292BA /* XmlViewController.h */,
+				72D5CBE91700440400B292BA /* XmlViewController.m */,
 			);
 			name = atv;
+			sourceTree = "<group>";
+		};
+		72D5CBEB170048C500B292BA /* TouchXML */ = {
+			isa = PBXGroup;
+			children = (
+				72D5CC0C17004D7500B292BA /* CTidy.h */,
+				72D5CC0D17004D7500B292BA /* CTidy.m */,
+				72D5CC0E17004D7500B292BA /* CXMLDocument_CreationExtensions.h */,
+				72D5CC0F17004D7500B292BA /* CXMLDocument_CreationExtensions.m */,
+				72D5CC1017004D7600B292BA /* CXMLNode_CreationExtensions.h */,
+				72D5CC1117004D7600B292BA /* CXMLNode_CreationExtensions.m */,
+				72D5CBEC1700492200B292BA /* CXMLDocument_PrivateExtensions.h */,
+				72D5CBED1700492200B292BA /* CXMLDocument_PrivateExtensions.m */,
+				72D5CBEE1700492200B292BA /* CXMLDocument.h */,
+				72D5CBEF1700492200B292BA /* CXMLDocument.m */,
+				72D5CBF01700492200B292BA /* CXMLElement_CreationExtensions.h */,
+				72D5CBF11700492200B292BA /* CXMLElement_CreationExtensions.m */,
+				72D5CBF21700492200B292BA /* CXMLElement_ElementTreeExtensions.h */,
+				72D5CBF31700492200B292BA /* CXMLElement_ElementTreeExtensions.m */,
+				72D5CBF41700492200B292BA /* CXMLElement.h */,
+				72D5CBF51700492200B292BA /* CXMLElement.m */,
+				72D5CBF61700492200B292BA /* CXMLNamespaceNode.h */,
+				72D5CBF71700492200B292BA /* CXMLNamespaceNode.m */,
+				72D5CBF81700492200B292BA /* CXMLNode_PrivateExtensions.h */,
+				72D5CBF91700492200B292BA /* CXMLNode_PrivateExtensions.m */,
+				72D5CBFA1700492200B292BA /* CXMLNode_XPathExtensions.h */,
+				72D5CBFB1700492200B292BA /* CXMLNode_XPathExtensions.m */,
+				72D5CBFC1700492200B292BA /* CXMLNode.h */,
+				72D5CBFD1700492200B292BA /* CXMLNode.m */,
+				72D5CBFE1700492200B292BA /* TouchXML.h */,
+			);
+			name = TouchXML;
 			sourceTree = "<group>";
 		};
 		72DD38FC16CCEB8B0010AAC2 /* ffmpeg */ = {
@@ -1547,6 +1626,19 @@
 				72198F1D16FFF25100EC451B /* JSEngine.m in Sources */,
 				72D5CBD2170018CB00B292BA /* AjaxCallbackRequest.m in Sources */,
 				72D5CBDF170027D400B292BA /* InputViewController.m in Sources */,
+				72D5CBEA1700440400B292BA /* XmlViewController.m in Sources */,
+				72D5CBFF1700492200B292BA /* CXMLDocument_PrivateExtensions.m in Sources */,
+				72D5CC001700492200B292BA /* CXMLDocument.m in Sources */,
+				72D5CC011700492200B292BA /* CXMLElement_CreationExtensions.m in Sources */,
+				72D5CC021700492200B292BA /* CXMLElement_ElementTreeExtensions.m in Sources */,
+				72D5CC031700492200B292BA /* CXMLElement.m in Sources */,
+				72D5CC041700492200B292BA /* CXMLNamespaceNode.m in Sources */,
+				72D5CC051700492200B292BA /* CXMLNode_PrivateExtensions.m in Sources */,
+				72D5CC061700492200B292BA /* CXMLNode_XPathExtensions.m in Sources */,
+				72D5CC071700492200B292BA /* CXMLNode.m in Sources */,
+				72D5CC1217004D7600B292BA /* CTidy.m in Sources */,
+				72D5CC1317004D7600B292BA /* CXMLDocument_CreationExtensions.m in Sources */,
+				72D5CC1417004D7600B292BA /* CXMLNode_CreationExtensions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1634,7 +1726,10 @@
 					/Users/zhangwei/Documents/xcodews/googlecode/trunk/ios/appletvserver/appletvserver/include,
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-lxml2",
+				);
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1662,7 +1757,11 @@
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				OTHER_LDFLAGS = "-ObjC";
+				"OTHER_CFLAGS[arch=*]" = "-DNS_BLOCK_ASSERTIONS=1";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-lxml2",
+				);
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1681,6 +1780,7 @@
 					"$(BUILT_PRODUCTS_DIR)/../../three20/**",
 					"../../../../three20/Build/Products/three20/**",
 					"/Users/zhangwei/Documents/xcodews/googlecode/trunk/ios/appletvserver/appletvserver/include/**",
+					"/usr/include/libxml2/**",
 				);
 				INFOPLIST_FILE = "appletvserver/appletvserver-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
@@ -1704,6 +1804,7 @@
 					"$(BUILT_PRODUCTS_DIR)/../../three20/**",
 					"../../../../three20/Build/Products/three20/**",
 					"/Users/zhangwei/Documents/xcodews/googlecode/trunk/ios/appletvserver/appletvserver/include/**",
+					"/usr/include/libxml2/**",
 				);
 				INFOPLIST_FILE = "appletvserver/appletvserver-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
