@@ -8,7 +8,7 @@
 
 #import <Three20UI/Three20UI.h>
 
-@interface XmlViewController : TTViewController{
+@interface XmlViewController : TTViewController<UITableViewDelegate>{
     NSString* _xml;
     NSString* _type;
 }

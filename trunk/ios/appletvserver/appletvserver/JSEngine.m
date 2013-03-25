@@ -278,4 +278,29 @@ JSValueRef loadXML(JSContextRef ctx,
     [self runJS:library];
 }
 
+
+#pragma mark -
+#pragma mark TTURLRequestDelegate
+
+- (void)requestDidFinishLoad:(AjaxCallbackRequest*)request
+{
+    @try {
+        TTURLDataResponse* response = request.response;
+        
+        NSString* content = [[NSString alloc] initWithData:[response data] encoding:NSUTF8StringEncoding];
+        NSLog(@"content:%@" ,content);
+        JSValueRef args[1];
+        args[0] = JSValueMakeString(request.ctx,JSStringCreateWithUTF8CString([content UTF8String]));
+        JSObjectCallAsFunction(request.ctx,request.callback,NULL,1,args,NULL);
+    }
+    @catch (NSException *exception) {
+        TTAlert([NSString stringWithFormat:@"错误:%@",[exception name]]);
+        
+    }
+}
+
+- (void)request:(AjaxCallbackRequest*)request didFailLoadWithError:(NSError*)error {
+    NSLog(@"request:%@ didFailLoadWithError:%@", request, error);
+}
+
 @end
