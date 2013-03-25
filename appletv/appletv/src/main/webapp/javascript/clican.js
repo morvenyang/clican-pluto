@@ -557,7 +557,7 @@ var appletv = {
 	},
 
 	showInputTextPage : function(label, instructions, callback, callbackName,initialText) {
-		if (this.simulate!='atv') {
+		if (this.simulate=='browser') {
 			window.location.href = this.remoteserverurl
 					+ '/ctl/simulator/input.xml?callback=' + callbackName;
 		}else if(this.simulate=='native'){
