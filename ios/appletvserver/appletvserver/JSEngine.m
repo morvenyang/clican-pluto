@@ -31,7 +31,7 @@ JSValueRef makeSyncRequest(JSContextRef ctx,
                        JSValueRef* exception){
     JSValueRef excp = NULL;
     NSString *url = (__bridge_transfer NSString*)JSStringCopyCFString(kCFAllocatorDefault, (JSStringRef)JSValueToStringCopy(ctx, arguments[0], &excp));
-    NSLog(@"makeRequest:%@",url);
+    NSLog(@"makeSyncRequest:%@",url);
     
     ASIHTTPRequest *req = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:url]];
     [req setShouldContinueWhenAppEntersBackground:YES];
