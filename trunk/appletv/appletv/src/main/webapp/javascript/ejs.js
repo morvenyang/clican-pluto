@@ -433,18 +433,23 @@
 		}
 	};
 	EJS.request = function(path) {
-		var request = new EJS.newRequest();
-		request.open("GET", path, false);
-		try {
-			request.send(null)
-		} catch (e) {
-			return null
+		if(appletv.simulate=='native'){
+			return appletv.makeSyncRequest(path);
+		}else{
+			var request = new EJS.newRequest();
+			request.open("GET", path, false);
+			try {
+				request.send(null)
+			} catch (e) {
+				return null
+			}
+			if (request.status == 404 || request.status == 2
+					|| (request.status == 0 && request.responseText == "")) {
+				return null
+			}
+			return request.responseText
 		}
-		if (request.status == 404 || request.status == 2
-				|| (request.status == 0 && request.responseText == "")) {
-			return null
-		}
-		return request.responseText
+		
 	};
 	EJS.ajax_request = function(params) {
 		if(appletv.simulate=='native'){

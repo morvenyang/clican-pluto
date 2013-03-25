@@ -263,7 +263,15 @@ var appletv = {
 		};
 		atv.loadAndSwapPlist(plist);
 	},
-
+	
+	makeSyncRequest:function(url){
+		if(appletv.simulate=='native'){			
+			return native_makeSyncRequest(url);
+		}else{
+			return '';
+		}
+	},
+	
 	makeRequest : function(url, callback) {
 		this.makeRequest(url, callback, null);
 	},

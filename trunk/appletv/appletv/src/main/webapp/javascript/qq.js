@@ -125,16 +125,14 @@ var qqClient = {
 	},
 	
 	loadChannelPage:function(){
-		appletv.logToServer('loadChannelPage 1');
 		var data = {
 				'channels' : qqClient.qqChannels,
 				'serverurl' : appletv.serverurl
 			};
-		appletv.logToServer('loadChannelPage 2');
-		var xml = new EJS({
+		var templateEJS = new EJS({
 			url : appletv.serverurl + '/template/qq/channel.ejs'
-		}).render(data);
-		appletv.logToServer('loadChannelPage 3');
+		});	
+		var xml = templateEJS.render(data);
 		appletv.loadAndSwapXML(xml);
 	},
 
