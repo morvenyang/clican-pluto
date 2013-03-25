@@ -10,12 +10,12 @@
 				<sections>
 					<menuSection>
 						<items>
-							<c:forEach var="channel" items="${channels}" varStatus="status">
-								<oneLineMenuItem id="channel_${status.count}" onPlay="qqClient.loadIndexPage('',0,<%=channels[i]['value']%>);" onSelect="qqClient.loadIndexPage('',0,<%=channels[i]['value']%>);">
-											<label>${channel.label}</label>
-											<image></image>
+							<%for(var i=0;i<channels.length;i++){%>
+								<oneLineMenuItem id="channel_<%=i%>" onPlay="qqClient.loadIndexPage('',0,<%=channels[i]['value']%>);" onSelect="qqClient.loadIndexPage('',0,<%=channels[i]['value']%>);">
+									<label>${channel.label}</label>
+									<image></image>
 								</oneLineMenuItem>
-							</c:forEach>
+							<%}%>
 						</items>
 					</menuSection>
 				</sections>
