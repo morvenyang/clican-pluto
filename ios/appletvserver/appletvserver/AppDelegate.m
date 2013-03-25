@@ -38,6 +38,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 @synthesize mp4Process = _mp4Process;
 @synthesize webContentSync = _webContentSync;
 @synthesize localWebPathPrefix = _localWebPathPrefix;
+@synthesize jsEngine = _jsEngine;
 - (void)dealloc
 {
     [super dealloc];
@@ -59,7 +60,10 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 }
 
 
-
+-(void) initJSEngine{
+    self.jsEngine = [[JSEngine alloc] init];
+    [self.jsEngine reloadJS];
+}
 
 -(void) initQueue{
     self.queue = [[ASINetworkQueue alloc] init];
@@ -144,7 +148,8 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     [self registerLocalServer];
     [self initWebContent];
     [self initHttpServer];
-
+    [self initJSEngine];
+    
     TTNavigator* navigator = [TTNavigator navigator];
     
     navigator.supportsShakeToReload = NO;
