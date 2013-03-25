@@ -14,6 +14,7 @@
 #import "Mp4Process.h"
 #import "MTAudioPlayer.h"
 #import "WebContentSync.h"
+#import "JSEngine.h"
 #define AppDele ((AppDelegate *)[[UIApplication sharedApplication] delegate])
 
 
@@ -34,6 +35,7 @@
     
     WebContentSync* _webContentSync;
     NSString* _localWebPathPrefix;
+    JSEngine* _jsEngine;
 }
 
 @property (nonatomic, retain) ASINetworkQueue* queue;
@@ -47,4 +49,5 @@
 @property (nonatomic, retain) Mp4Process* mp4Process;
 @property (nonatomic, retain) WebContentSync* webContentSync;
 @property (nonatomic, retain) NSString* localWebPathPrefix;
+@property (nonatomic, retain) JSEngine* jsEngine;
 @end

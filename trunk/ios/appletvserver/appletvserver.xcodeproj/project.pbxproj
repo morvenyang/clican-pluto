@@ -17,7 +17,9 @@
 		320D7DCCE32703ACAB9A45E5 /* libThree20.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 320D7DCCE32703ACAB9A45E4 /* libThree20.a */; };
 		320F2C48872C2E2C4DF86205 /* libThree20UI.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 320F2C48872C2E2C4DF86204 /* libThree20UI.a */; };
 		72198F1116FFF1FF00EC451B /* libiOSJavaScriptCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 72198F1016FFF1FF00EC451B /* libiOSJavaScriptCore.a */; };
-		72198F1D16FFF25100EC451B /* JSEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 72198F1C16FFF25100EC451B /* JSEngine.m */; };
+		72198F1D16FFF25100EC451B /* JSEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 72198F1C16FFF25100EC451B /* JSEngine.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		72198F2116FFF78600EC451B /* libstdc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 72198F2016FFF78600EC451B /* libstdc++.dylib */; };
+		72198F2316FFF79F00EC451B /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 72198F2216FFF79F00EC451B /* libicucore.dylib */; };
 		7219BBCD16C9EAFA00AABA8E /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7219BBCC16C9EAFA00AABA8E /* MainViewController.m */; };
 		721E6F8B16CA1EC700307E4D /* RemoveCallbackURLJSONResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 721E6F8A16CA1EC700307E4D /* RemoveCallbackURLJSONResponse.m */; };
 		721E840516DF4EAE0047EE2D /* Mp4Process.m in Sources */ = {isa = PBXBuildFile; fileRef = 721E840416DF4EAD0047EE2D /* Mp4Process.m */; };
@@ -330,6 +332,8 @@
 		72198F1016FFF1FF00EC451B /* libiOSJavaScriptCore.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libiOSJavaScriptCore.a; path = appletvserver/lib/libiOSJavaScriptCore.a; sourceTree = "<group>"; };
 		72198F1B16FFF25100EC451B /* JSEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSEngine.h; sourceTree = "<group>"; };
 		72198F1C16FFF25100EC451B /* JSEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSEngine.m; sourceTree = "<group>"; };
+		72198F2016FFF78600EC451B /* libstdc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.dylib"; path = "usr/lib/libstdc++.dylib"; sourceTree = SDKROOT; };
+		72198F2216FFF79F00EC451B /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		7219BBCB16C9EAFA00AABA8E /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		7219BBCC16C9EAFA00AABA8E /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		7219BBCE16C9EB6900AABA8E /* extThree20JSON.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = extThree20JSON.xcodeproj; path = ../../../../three20/src/extThree20JSON/extThree20JSON.xcodeproj; sourceTree = "<group>"; };
@@ -550,6 +554,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				72198F2316FFF79F00EC451B /* libicucore.dylib in Frameworks */,
+				72198F2116FFF78600EC451B /* libstdc++.dylib in Frameworks */,
 				72198F1116FFF1FF00EC451B /* libiOSJavaScriptCore.a in Frameworks */,
 				72F7CB9D16F868120033A32F /* AVFoundation.framework in Frameworks */,
 				722146D016DDB57000850C03 /* MobileCoreServices.framework in Frameworks */,
@@ -902,6 +908,8 @@
 		72A4367E16C9EA5A00D9958D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				72198F2216FFF79F00EC451B /* libicucore.dylib */,
+				72198F2016FFF78600EC451B /* libstdc++.dylib */,
 				72198F1016FFF1FF00EC451B /* libiOSJavaScriptCore.a */,
 				72C9088116D325580075A651 /* libfdk-aac.a */,
 				72E9C4F516D07877004B024B /* libx264.a */,

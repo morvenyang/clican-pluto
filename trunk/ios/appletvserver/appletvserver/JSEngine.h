@@ -9,6 +9,13 @@
 #import <Foundation/Foundation.h>
 #import <JavaScriptCore/JavaScriptCore.h>
 
-@interface JSEngine : NSObject
+@interface JSEngine : NSObject{
+    JSGlobalContextRef _JSContext;
+}
+
+
+- (void) reloadJS;
+- (NSString *)runJS:(NSString *)aJSString;
+- (void)loadJSLibrary:(NSString*)libraryName;
 
 @end
