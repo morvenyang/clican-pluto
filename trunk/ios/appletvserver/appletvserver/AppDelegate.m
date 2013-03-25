@@ -102,7 +102,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 }
 -(void) registerLocalServer{
-    NSString* url = [NSString stringWithFormat:@"%@/ctl/localserver/register.do?innerIP=%@",ATV_SERVER_IP,[AtvUtil getIPAddress]];
+    NSString* url = [NSString stringWithFormat:@"%@/ctl/localserver/register.do?innerIP=%@",ATV_SERVER_IP,self.ipAddress];
     ASIHTTPRequest *req = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:url]];
     [req startSynchronous];
     NSError *error = [req error];
@@ -126,8 +126,8 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     if(![[NSFileManager defaultManager] fileExistsAtPath:mp4Outpath]){
         [[NSFileManager defaultManager] createDirectoryAtPath:mp4Outpath withIntermediateDirectories:YES attributes:nil error:nil];
     }
-    self.localM3u8UrlPrefix = [@"http://" stringByAppendingFormat:@"%@:8080/appletv/noctl/proxy/temp/m3u8/",[AtvUtil getIPAddress]];
-    self.localMp4UrlPrefix = [@"http://" stringByAppendingFormat:@"%@:8080/appletv/noctl/proxy/temp/mp4/",[AtvUtil getIPAddress]];
+    self.localM3u8UrlPrefix = [@"http://" stringByAppendingFormat:@"%@:8080/appletv/noctl/proxy/temp/m3u8/",self.ipAddress];
+    self.localMp4UrlPrefix = [@"http://" stringByAppendingFormat:@"%@:8080/appletv/noctl/proxy/temp/mp4/",self.ipAddress];
     NSLog(@"m3u8 url prefix:%@",self.localM3u8UrlPrefix);
     NSLog(@"mp4 url prefix:%@",self.localMp4UrlPrefix);
     self.localM3u8PathPrefix = m3u8Outpath;

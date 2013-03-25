@@ -29,7 +29,7 @@
     @try {
         TTURLDataResponse* response = request.response;
         
-        NSString* content = [[NSString alloc] initWithData:[response data] encoding:NSUTF8StringEncoding];
+        NSString* content = [[[NSString alloc] initWithData:[response data] encoding:NSUTF8StringEncoding] autorelease];
         NSLog(@"content:%@" ,content);
         JSValueRef args[1];
         args[0] = JSValueMakeString(self.ctx,JSStringCreateWithUTF8CString([content UTF8String]));

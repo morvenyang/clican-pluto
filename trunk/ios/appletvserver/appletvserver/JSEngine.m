@@ -12,6 +12,8 @@
 #import "AjaxCallbackRequest.h"
 #import "InputViewController.h"
 #import "XmlViewController.h"
+#import "Constants.h"
+#import "ASIHTTPRequest.h"
 @implementation JSEngine
 
 
@@ -20,6 +22,30 @@
 /**
  Lazily initializes and returns a JS context
  */
+
+JSValueRef makeSyncRequest(JSContextRef ctx,
+                       JSObjectRef function,
+                       JSObjectRef thisObject,
+                       size_t argumentCount,
+                       const JSValueRef arguments[],
+                       JSValueRef* exception){
+    JSValueRef excp = NULL;
+    NSString *url = (__bridge_transfer NSString*)JSStringCopyCFString(kCFAllocatorDefault, (JSStringRef)JSValueToStringCopy(ctx, arguments[0], &excp));
+    NSLog(@"makeRequest:%@",url);
+    
+    ASIHTTPRequest *req = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:url]];
+    [req setShouldContinueWhenAppEntersBackground:YES];
+    [req startSynchronous];
+    NSError *error = [req error];
+    if (!error) {
+        NSData* contentData = [req responseData];
+        NSString* content = [[NSString alloc] initWithData:contentData encoding:NSUTF8StringEncoding];
+        return JSValueMakeString(ctx, JSStringCreateWithUTF8CString([content UTF8String]));
+    }else{
+        return JSValueMakeNull(ctx);
+    }
+    
+}
 
 
 JSValueRef makeRequest(JSContextRef ctx,
@@ -65,12 +91,13 @@ JSValueRef makePostRequest(JSContextRef ctx,
                                     delegate: [AppDele jsEngine] callback:callback ctx:ctx];
     
     request.cachePolicy = TTURLRequestCachePolicyMemory;
-    
+    request.contentType=@"application/x-www-form-urlencoded";
+    request.httpMethod = @"POST";
     TTURLDataResponse* response = [[TTURLDataResponse alloc] init];
-    request.response = response;
     if(content!=NULL&&content.length>0){
         request.httpBody = [content dataUsingEncoding:NSUTF8StringEncoding];
     }
+    request.response = response;
     [request send];
     return JSValueMakeNull(ctx);
 }
@@ -161,16 +188,42 @@ JSValueRef loadXML(JSContextRef ctx,
     JSStringRef str5 = JSStringCreateWithUTF8CString("native_getValue");
     JSObjectRef func5 = JSObjectMakeFunctionWithCallback(_JSContext, str5,getValue);
     JSObjectSetProperty(_JSContext, JSContextGetGlobalObject(_JSContext), str5, func5, kJSPropertyAttributeNone, NULL);
-    JSStringRelease(str4);
+    JSStringRelease(str5);
+    
+    JSStringRef str6 = JSStringCreateWithUTF8CString("native_loadXML");
+    JSObjectRef func6 = JSObjectMakeFunctionWithCallback(_JSContext, str6,loadXML);
+    JSObjectSetProperty(_JSContext, JSContextGetGlobalObject(_JSContext), str6, func6, kJSPropertyAttributeNone, NULL);
+    JSStringRelease(str6);
+    
+    
+    JSStringRef str7 = JSStringCreateWithUTF8CString("native_makeSyncRequest");
+    JSObjectRef func7 = JSObjectMakeFunctionWithCallback(_JSContext, str7,makeSyncRequest);
+    JSObjectSetProperty(_JSContext, JSContextGetGlobalObject(_JSContext), str7, func7, kJSPropertyAttributeNone, NULL);
+    JSStringRelease(str7);
     
     NSString* jsDirectory = [[AppDele localWebPathPrefix] stringByAppendingString:@"/appletv/javascript"];
     NSArray* jsArray=[[NSFileManager defaultManager] contentsOfDirectoryAtPath:jsDirectory error:nil];
     for(int i=0;i<[jsArray count];i++){
         NSString* jsPath = [[AppDele localWebPathPrefix] stringByAppendingFormat:@"/appletv/javascript/%@",[jsArray objectAtIndex:i]];
         NSString* jsContent = [NSString stringWithContentsOfFile:jsPath encoding:NSUTF8StringEncoding error:nil];
+        
+       
+        
         if([jsPath rangeOfString:@"clican.js"].location!=NSNotFound){
+            NSString* ipAddress = [AppDele ipAddress];
+            ipAddress = [ipAddress stringByAppendingString:@":8080"];
+            NSLog(@"ip address=%@",ipAddress);
+            
+            NSRange matchRange1 = [jsContent rangeOfString:@"local.clican.org"];
+            NSRange matchRange2 = [jsContent rangeOfString:@"/appletv"];
+            
+            
+            NSString* matchString = [jsContent substringWithRange:NSMakeRange(matchRange1.location, matchRange2.location-matchRange1.location)];
+            jsContent = [jsContent stringByReplacingOccurrencesOfString:matchString withString:ipAddress];
             jsContent = [jsContent stringByReplacingOccurrencesOfString:@"simulate : 'atv'" withString:@"simulate : 'native'"];
+             jsContent = [jsContent stringByReplacingOccurrencesOfString:@"http://www.clican.org/appletv" withString:ATV_SERVER_IP];
         }
+        
         [self runJS:jsContent];
     }
     [self runJS:@"appletv.logToServer('test');"];
