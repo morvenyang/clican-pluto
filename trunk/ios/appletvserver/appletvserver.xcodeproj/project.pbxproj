@@ -686,10 +686,10 @@
 		7219BBCA16C9EAD900AABA8E /* View */ = {
 			isa = PBXGroup;
 			children = (
+				72D5CBD3170020E800B292BA /* qq */,
 				7288A2C416F9982D00933D15 /* download */,
 				72360C3C16EED88D00E0842B /* xunlei */,
 				72B83F9216CDE3EF003B2839 /* ffmpeg */,
-				72E748E816C9EE750024B8BB /* qq */,
 				7219BBCB16C9EAFA00AABA8E /* MainViewController.h */,
 				7219BBCC16C9EAFA00AABA8E /* MainViewController.m */,
 				72360C5916EEDDD700E0842B /* RootViewController.h */,
@@ -1046,6 +1046,21 @@
 			name = Download;
 			sourceTree = "<group>";
 		};
+		72D5CBD3170020E800B292BA /* qq */ = {
+			isa = PBXGroup;
+			children = (
+				72E748FD16C9F04F0024B8BB /* QQIndexViewController.h */,
+				72E748FE16C9F04F0024B8BB /* QQIndexViewController.m */,
+				7233879B16CB5C890061FBDF /* QQVideoViewController.h */,
+				7233879C16CB5C890061FBDF /* QQVideoViewController.m */,
+				72C217F216CBCE9A000A56AB /* QQPlayViewController.h */,
+				72C217F316CBCE9A000A56AB /* QQPlayViewController.m */,
+				722FF16416FC45B600237F15 /* QQChannelViewController.h */,
+				722FF16516FC45B600237F15 /* QQChannelViewController.m */,
+			);
+			name = qq;
+			sourceTree = "<group>";
+		};
 		72DD38FC16CCEB8B0010AAC2 /* ffmpeg */ = {
 			isa = PBXGroup;
 			children = (
@@ -1166,21 +1181,6 @@
 				7221469B16DDB47000850C03 /* DispatchQueueLogFormatter.m */,
 			);
 			name = Extensions;
-			sourceTree = "<group>";
-		};
-		72E748E816C9EE750024B8BB /* qq */ = {
-			isa = PBXGroup;
-			children = (
-				72E748FD16C9F04F0024B8BB /* QQIndexViewController.h */,
-				72E748FE16C9F04F0024B8BB /* QQIndexViewController.m */,
-				7233879B16CB5C890061FBDF /* QQVideoViewController.h */,
-				7233879C16CB5C890061FBDF /* QQVideoViewController.m */,
-				72C217F216CBCE9A000A56AB /* QQPlayViewController.h */,
-				72C217F316CBCE9A000A56AB /* QQPlayViewController.m */,
-				722FF16416FC45B600237F15 /* QQChannelViewController.h */,
-				722FF16516FC45B600237F15 /* QQChannelViewController.m */,
-			);
-			name = qq;
 			sourceTree = "<group>";
 		};
 		72E748F816C9EEC50024B8BB /* Style */ = {
