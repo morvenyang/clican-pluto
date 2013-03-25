@@ -11,6 +11,7 @@
 #import "AppDelegate.h"
 #import "AjaxCallbackRequest.h"
 #import "InputViewController.h"
+#import "XmlViewController.h"
 @implementation JSEngine
 
 
@@ -129,7 +130,8 @@ JSValueRef loadXML(JSContextRef ctx,
                     JSValueRef* exception){
     JSValueRef excp = NULL;
     NSString *xml = (__bridge_transfer NSString*)JSStringCopyCFString(kCFAllocatorDefault, (JSStringRef)JSValueToStringCopy(ctx, arguments[0], &excp));
-    
+    XmlViewController* controler = [[XmlViewController alloc] initWithXml:xml];
+    [[TTNavigator navigator].topViewController.navigationController pushViewController:controler animated:YES];
     return JSValueMakeNull(ctx);
 }
 
