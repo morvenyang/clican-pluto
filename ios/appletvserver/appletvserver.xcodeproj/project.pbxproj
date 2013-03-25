@@ -87,6 +87,9 @@
 		7288A2D016F9985100933D15 /* DownloadStatusViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7288A2CF16F9985100933D15 /* DownloadStatusViewController.m */; };
 		7288A2E416F9A1F100933D15 /* DownloadStatusDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 7288A2E316F9A1F100933D15 /* DownloadStatusDataSource.m */; };
 		7288A2F316F9A45400933D15 /* DownloadStatusModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7288A2F216F9A45400933D15 /* DownloadStatusModel.m */; };
+		7295A39617006FDF008C04BE /* AtvListScrollerSplit.m in Sources */ = {isa = PBXBuildFile; fileRef = 7295A39517006FDF008C04BE /* AtvListScrollerSplit.m */; };
+		7295A39917007017008C04BE /* AtvHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 7295A39817007017008C04BE /* AtvHeader.m */; };
+		7295A39C170070F1008C04BE /* AtvOneLineMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 7295A39B170070F1008C04BE /* AtvOneLineMenuItem.m */; };
 		72A4368016C9EA5A00D9958D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72A4367F16C9EA5A00D9958D /* UIKit.framework */; };
 		72A4368216C9EA5A00D9958D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72A4368116C9EA5A00D9958D /* Foundation.framework */; };
 		72A4368416C9EA5A00D9958D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72A4368316C9EA5A00D9958D /* CoreGraphics.framework */; };
@@ -490,6 +493,12 @@
 		7288A2E316F9A1F100933D15 /* DownloadStatusDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownloadStatusDataSource.m; sourceTree = "<group>"; };
 		7288A2F116F9A45400933D15 /* DownloadStatusModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadStatusModel.h; sourceTree = "<group>"; };
 		7288A2F216F9A45400933D15 /* DownloadStatusModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownloadStatusModel.m; sourceTree = "<group>"; };
+		7295A39417006FDF008C04BE /* AtvListScrollerSplit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AtvListScrollerSplit.h; sourceTree = "<group>"; };
+		7295A39517006FDF008C04BE /* AtvListScrollerSplit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AtvListScrollerSplit.m; sourceTree = "<group>"; };
+		7295A39717007017008C04BE /* AtvHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AtvHeader.h; sourceTree = "<group>"; };
+		7295A39817007017008C04BE /* AtvHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AtvHeader.m; sourceTree = "<group>"; };
+		7295A39A170070F1008C04BE /* AtvOneLineMenuItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AtvOneLineMenuItem.h; sourceTree = "<group>"; };
+		7295A39B170070F1008C04BE /* AtvOneLineMenuItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AtvOneLineMenuItem.m; sourceTree = "<group>"; };
 		72A4367B16C9EA5A00D9958D /* appletvserver.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = appletvserver.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		72A4367F16C9EA5A00D9958D /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		72A4368116C9EA5A00D9958D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -865,6 +874,7 @@
 		7272B39A16C9FC5100E111A7 /* Object */ = {
 			isa = PBXGroup;
 			children = (
+				7295A38A17006FC6008C04BE /* atv */,
 				7272B39E16C9FD4E00E111A7 /* Video.h */,
 				7272B39F16C9FD4E00E111A7 /* Video.m */,
 				72C217C516CB6403000A56AB /* VideoItem.h */,
@@ -935,6 +945,19 @@
 				7288A2F216F9A45400933D15 /* DownloadStatusModel.m */,
 			);
 			name = download;
+			sourceTree = "<group>";
+		};
+		7295A38A17006FC6008C04BE /* atv */ = {
+			isa = PBXGroup;
+			children = (
+				7295A39417006FDF008C04BE /* AtvListScrollerSplit.h */,
+				7295A39517006FDF008C04BE /* AtvListScrollerSplit.m */,
+				7295A39717007017008C04BE /* AtvHeader.h */,
+				7295A39817007017008C04BE /* AtvHeader.m */,
+				7295A39A170070F1008C04BE /* AtvOneLineMenuItem.h */,
+				7295A39B170070F1008C04BE /* AtvOneLineMenuItem.m */,
+			);
+			name = atv;
 			sourceTree = "<group>";
 		};
 		72A4367016C9EA5A00D9958D = {
@@ -1639,6 +1662,9 @@
 				72D5CC1217004D7600B292BA /* CTidy.m in Sources */,
 				72D5CC1317004D7600B292BA /* CXMLDocument_CreationExtensions.m in Sources */,
 				72D5CC1417004D7600B292BA /* CXMLNode_CreationExtensions.m in Sources */,
+				7295A39617006FDF008C04BE /* AtvListScrollerSplit.m in Sources */,
+				7295A39917007017008C04BE /* AtvHeader.m in Sources */,
+				7295A39C170070F1008C04BE /* AtvOneLineMenuItem.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
