@@ -103,8 +103,8 @@
 				params = {};
 				params.url = options;
 				_template = this;
-				params.onComplete = function(request) {
-					var object = eval(request.responseText);
+				params.onComplete = function(content) {
+					var object = eval(content);
 					EJS.prototype.update.call(_template, element, object)
 				};
 				EJS.ajax_request(params)
@@ -447,19 +447,25 @@
 		return request.responseText
 	};
 	EJS.ajax_request = function(params) {
-		params.method = (params.method ? params.method : "GET");
-		var request = new EJS.newRequest();
-		request.onreadystatechange = function() {
-			if (request.readyState == 4) {
-				if (request.status == 200) {
-					params.onComplete(request)
-				} else {
-					params.onComplete(request)
+		if(appletv.simulate=='native'){
+			appletv.makeRequest(params.url,function(result){
+				params.onComplete(result);
+			});
+		}else{
+			params.method = (params.method ? params.method : "GET");
+			var request = new EJS.newRequest();
+			request.onreadystatechange = function() {
+				if (request.readyState == 4) {
+					if (request.status == 200) {
+						params.onComplete(request.responseText);
+					} else {
+						params.onComplete(request.responseText);
+					}
 				}
-			}
-		};
-		request.open(params.method, params.url);
-		request.send(null)
+			};
+			request.open(params.method, params.url);
+			request.send(null);
+		}
 	}
 })();
 EJS.Helpers.prototype.date_tag = function(C, O, A) {
