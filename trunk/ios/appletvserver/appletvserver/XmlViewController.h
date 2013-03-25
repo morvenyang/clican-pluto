@@ -10,7 +10,10 @@
 
 @interface XmlViewController : TTViewController{
     NSString* _xml;
+    NSString* _type;
 }
 @property (nonatomic, copy) NSString* xml;
+@property (nonatomic, copy) NSString* type;
+
 -(id) initWithXml:(NSString*) xml;
 @end

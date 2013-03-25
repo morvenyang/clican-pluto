@@ -13,6 +13,7 @@
 @implementation XmlViewController
 
 @synthesize xml = _xml;
+@synthesize type = _type;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -38,8 +39,20 @@
 -(void) loadView{
     [super loadView];
     NSError *theError = NULL;
-    CXMLDocument *theXMLDocument = [[[CXMLDocument alloc] initWithXMLString:self.xml options:0 error:&theError] autorelease];
-    NSLog(@"%@", [[theXMLDocument rootElement] XMLString]);
+    CXMLDocument *document = [[[CXMLDocument alloc] initWithXMLString:self.xml options:0 error:&theError] autorelease];
+    CXMLElement* rootElement=[document rootElement];
+    CXMLElement* bodyElement = [[rootElement elementsForName:@"body"] objectAtIndex:0];
+    for(int i=0;i<[bodyElement childCount];i++){
+        CXMLNode* node = [bodyElement childAtIndex:i];
+        if([[node name] isEqualToString:@"listScrollerSplit"]){
+            CXMLNode* listScrollerSplit = node;
+            self.type = @"listScrollerSplit";
+            
+        }else{
+            
+        }
+    }
+    
 }
 - (void)viewDidLoad
 {
