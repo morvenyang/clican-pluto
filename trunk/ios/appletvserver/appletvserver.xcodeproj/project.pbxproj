@@ -129,6 +129,8 @@
 		72C3EDF416F9F54F00821FAE /* 144.png in Resources */ = {isa = PBXBuildFile; fileRef = 72C3EDF016F9F54F00821FAE /* 144.png */; };
 		72C9088216D325580075A651 /* libfdk-aac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 72C9088116D325580075A651 /* libfdk-aac.a */; };
 		72CC1B5616DE3BD7006A8E44 /* M3u8Process.m in Sources */ = {isa = PBXBuildFile; fileRef = 72CC1B5516DE3BD7006A8E44 /* M3u8Process.m */; };
+		72D5CBC61700159F00B292BA /* AjaxRequestModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 72D5CBC51700159F00B292BA /* AjaxRequestModel.m */; };
+		72D5CBD2170018CB00B292BA /* AjaxCallbackRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 72D5CBD1170018CB00B292BA /* AjaxCallbackRequest.m */; };
 		72D6C56A16FC84D90048591E /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 72D6C56716FC84D90048591E /* Default-568h@2x.png */; };
 		72D6C56B16FC84D90048591E /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 72D6C56816FC84D90048591E /* Default.png */; };
 		72D6C56C16FC84D90048591E /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 72D6C56916FC84D90048591E /* Default@2x.png */; };
@@ -534,6 +536,10 @@
 		72C9088116D325580075A651 /* libfdk-aac.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libfdk-aac.a"; path = "appletvserver/lib/libfdk-aac.a"; sourceTree = "<group>"; };
 		72CC1B5416DE3BD7006A8E44 /* M3u8Process.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3u8Process.h; sourceTree = "<group>"; };
 		72CC1B5516DE3BD7006A8E44 /* M3u8Process.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M3u8Process.m; sourceTree = "<group>"; };
+		72D5CBC41700159F00B292BA /* AjaxRequestModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AjaxRequestModel.h; sourceTree = "<group>"; };
+		72D5CBC51700159F00B292BA /* AjaxRequestModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AjaxRequestModel.m; sourceTree = "<group>"; };
+		72D5CBD0170018CB00B292BA /* AjaxCallbackRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AjaxCallbackRequest.h; sourceTree = "<group>"; };
+		72D5CBD1170018CB00B292BA /* AjaxCallbackRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AjaxCallbackRequest.m; sourceTree = "<group>"; };
 		72D6C56716FC84D90048591E /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		72D6C56816FC84D90048591E /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		72D6C56916FC84D90048591E /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
@@ -674,6 +680,8 @@
 			children = (
 				72198F1B16FFF25100EC451B /* JSEngine.h */,
 				72198F1C16FFF25100EC451B /* JSEngine.m */,
+				72D5CBD0170018CB00B292BA /* AjaxCallbackRequest.h */,
+				72D5CBD1170018CB00B292BA /* AjaxCallbackRequest.m */,
 			);
 			name = JavaScriptCore;
 			sourceTree = "<group>";
@@ -991,6 +999,8 @@
 				722EEB1116FECC9900372170 /* tudou */,
 				722EEB0716FECC8400372170 /* qq */,
 				7288A2F016F9A43200933D15 /* download */,
+				72D5CBC41700159F00B292BA /* AjaxRequestModel.h */,
+				72D5CBC51700159F00B292BA /* AjaxRequestModel.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -1527,6 +1537,8 @@
 				722250DA16FEB8F700B7CEEA /* Constants.m in Sources */,
 				722EEB1416FECCF000372170 /* TudouIndexRequestModel.m in Sources */,
 				72198F1D16FFF25100EC451B /* JSEngine.m in Sources */,
+				72D5CBC61700159F00B292BA /* AjaxRequestModel.m in Sources */,
+				72D5CBD2170018CB00B292BA /* AjaxCallbackRequest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
