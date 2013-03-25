@@ -52,7 +52,7 @@ var xunleiClient = {
 						+ "&vip="+vip+"&sessionid=" + sessionid
 						+ "&cache=" + new Date().getTime()
 						+ "&from=vlist&jsonp=xunleiClient.xunleicallback";
-				if(appletv.simulate){
+				if(appletv.simulate!='atv'){
 					appletv.makePostRequest(appletv.serverurl+"/noctl/xunlei/geturl.do",xunleiurl,function(result){
 						eval(result);
 					});
