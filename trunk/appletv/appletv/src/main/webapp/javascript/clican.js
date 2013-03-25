@@ -273,7 +273,7 @@ var appletv = {
 			throw "loadURL requires a url argument";
 		}
 		if(appletv.simulate=='native'){
-			makeProxyRequest(url,callback,headers);
+			native_makeRequest(url,callback,headers);
 		}else{
 			var xhr = new XMLHttpRequest();
 
@@ -329,7 +329,7 @@ var appletv = {
 			throw "loadURL requires a url argument";
 		}
 		if(appletv.simulate=='native'){
-			makeProxyPostRequest(url,content,callback);
+			native_makePostRequest(url,content,callback);
 		}else{
 			var xhr = new XMLHttpRequest();
 			xhr.onreadystatechange = function() {
