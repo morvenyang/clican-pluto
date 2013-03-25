@@ -53,7 +53,7 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
         if([path isEqualToString:@"/appletv/javascript/clican.js"]){
             NSString* userAgent = [request headerField:@"User-Agent"];
             if([userAgent rangeOfString:@"Chrome"].location!=NSNotFound){
-                replaceContent = [replaceContent stringByReplacingOccurrencesOfString:@"simulate : false" withString:@"simulate : true"];
+                replaceContent = [replaceContent stringByReplacingOccurrencesOfString:@"simulate : 'atv'" withString:@"simulate : 'browser'"];
             }
         }
         replaceContent = [replaceContent stringByReplacingOccurrencesOfString:@"http://www.clican.org/appletv" withString:ATV_SERVER_IP];
