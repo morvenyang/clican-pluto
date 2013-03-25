@@ -21,7 +21,7 @@
  */
 
 
-JSValueRef makeProxyRequest(JSContextRef ctx,
+JSValueRef makeRequest(JSContextRef ctx,
                                JSObjectRef function,
                                JSObjectRef thisObject,
                                size_t argumentCount,
@@ -47,7 +47,7 @@ JSValueRef makeProxyRequest(JSContextRef ctx,
     return JSValueMakeNull(ctx);
 }
 
-JSValueRef makeProxyPostRequest(JSContextRef ctx,
+JSValueRef makePostRequest(JSContextRef ctx,
                             JSObjectRef function,
                             JSObjectRef thisObject,
                             size_t argumentCount,
@@ -77,13 +77,13 @@ JSValueRef makeProxyPostRequest(JSContextRef ctx,
 - (void) reloadJS{
     _JSContext = JSGlobalContextCreate(NULL);
     
-    JSStringRef str1 = JSStringCreateWithUTF8CString("makeProxyRequest");
-    JSObjectRef func1 = JSObjectMakeFunctionWithCallback(_JSContext, str1, makeProxyRequest);
+    JSStringRef str1 = JSStringCreateWithUTF8CString("native_makeRequest");
+    JSObjectRef func1 = JSObjectMakeFunctionWithCallback(_JSContext, str1, makeRequest);
     JSObjectSetProperty(_JSContext, JSContextGetGlobalObject(_JSContext), str1, func1, kJSPropertyAttributeNone, NULL);
     JSStringRelease(str1);
     
-    JSStringRef str2 = JSStringCreateWithUTF8CString("makeProxyPostRequest");
-    JSObjectRef func2 = JSObjectMakeFunctionWithCallback(_JSContext, str2, makeProxyPostRequest);
+    JSStringRef str2 = JSStringCreateWithUTF8CString("native_makePostRequest");
+    JSObjectRef func2 = JSObjectMakeFunctionWithCallback(_JSContext, str2, makePostRequest);
     JSObjectSetProperty(_JSContext, JSContextGetGlobalObject(_JSContext), str2, func2, kJSPropertyAttributeNone, NULL);
     JSStringRelease(str2);
     
@@ -97,6 +97,7 @@ JSValueRef makeProxyPostRequest(JSContextRef ctx,
         }
         [self runJS:jsContent];
     }
+    [self runJS:@"appletv.logToServer('test');"];
 }
 /**
  Runs a string of JS in this instance's JS context and returns the result as a string
