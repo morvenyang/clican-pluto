@@ -35,12 +35,12 @@
         self.initialText = initialText;
         self.callback = callback;
         self.ctx = ctx;
-        
+        self.tableViewStyle = UITableViewStyleGrouped;
         self.textField = [[UITextField alloc] init];
         
         self.textField.font = [UIFont fontWithName:@"Microsoft YaHei" size:14];
         self.textField.textColor = RGBCOLOR(204,204,204);
-        
+        self.textField.borderStyle = UITextBorderStyleRoundedRect;
 		self.textField.autocorrectionType = UITextAutocorrectionTypeNo;
         self.textField.keyboardType = UIKeyboardTypeDefault;
 		self.textField.returnKeyType = UIReturnKeyDone;
@@ -66,7 +66,7 @@
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
-    [textField resignFirstResponder];
+    [self submitAction];
     return YES;
 }
 
@@ -91,12 +91,11 @@
 - (void)loadView
 {
     [super loadView];
-    self.submitButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.submitButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     self.submitButton.contentMode = UIViewContentModeCenter;
     [self.submitButton addTarget:self action:@selector(submitAction) forControlEvents: UIControlEventTouchUpInside];
-    self.submitButton.frame = CGRectMake(24, 27+125+80, 50, 50);
+    self.submitButton.frame = CGRectMake(25, 105 , 50, 50);
     [self.submitButton setTitle:@"提交" forState:UIControlStateNormal];
-    self.submitButton.backgroundColor = RGBCOLOR(256,20,147);
     [self.submitButton sizeToFit];
     [self.view addSubview:self.submitButton];
 }

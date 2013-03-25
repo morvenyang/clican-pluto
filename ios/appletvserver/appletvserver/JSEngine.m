@@ -104,6 +104,11 @@ JSValueRef showInpuTextPage(JSContextRef ctx,
     JSObjectSetProperty(_JSContext, JSContextGetGlobalObject(_JSContext), str2, func2, kJSPropertyAttributeNone, NULL);
     JSStringRelease(str2);
     
+    JSStringRef str3 = JSStringCreateWithUTF8CString("native_showInputTextPage");
+    JSObjectRef func3 = JSObjectMakeFunctionWithCallback(_JSContext, str3, showInpuTextPage);
+    JSObjectSetProperty(_JSContext, JSContextGetGlobalObject(_JSContext), str3, func3, kJSPropertyAttributeNone, NULL);
+    JSStringRelease(str3);
+    
     NSString* jsDirectory = [[AppDele localWebPathPrefix] stringByAppendingString:@"/appletv/javascript"];
     NSArray* jsArray=[[NSFileManager defaultManager] contentsOfDirectoryAtPath:jsDirectory error:nil];
     for(int i=0;i<[jsArray count];i++){
