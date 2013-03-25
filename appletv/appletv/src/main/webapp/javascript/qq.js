@@ -125,18 +125,15 @@ var qqClient = {
 	},
 	
 	loadChannelPage:function(){
-		try{
-			var data = {
-					'channels' : qqClient.qqChannels,
-					'serverurl' : appletv.serverurl
-				};
-			var xml = new EJS({
-				url : appletv.serverurl + '/template/qq/channel.ejs'
-			}).render(data);
-			appletv.loadAndSwapXML(xml);
-		}catch(e){
-			appletv.logToServer('error occured in qqClient.loadChannelPage'+e);
-		}
+		appletv.logToServer('loadChannelPage, url:'+appletv.serverurl + '/template/qq/channel.ejs')
+		var data = {
+				'channels' : qqClient.qqChannels,
+				'serverurl' : appletv.serverurl
+			};
+		var xml = new EJS({
+			url : appletv.serverurl + '/template/qq/channel.ejs'
+		}).render(data);
+		appletv.loadAndSwapXML(xml);
 	},
 
 	loadIndexPage : function(keyword, page, channelId) {
