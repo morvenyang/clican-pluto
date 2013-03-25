@@ -9,6 +9,7 @@
 #import "QQVideoViewController.h"
 #import "AtvUtil.h"
 #import "VideoItem.h"
+#import "AppDelegate.h"
 
 @implementation QQVideoViewController
 
@@ -119,6 +120,10 @@
 }
 
 - (void) playAction {
+    if(true){
+        [[AppDele jsEngine] runJS:@"appletv.showInputTextPage('a','b',function(content){},'','');"];
+        return;
+    }
     NSLog(@"Play video %@",self.video.title);
     if([self.video.videoItemList count]>0){
         VideoItem* vi = [self.video.videoItemList objectAtIndex:0];
