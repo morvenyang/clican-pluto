@@ -91,6 +91,48 @@ JSValueRef showInpuTextPage(JSContextRef ctx,
     return JSValueMakeNull(ctx);
 }
 
+JSValueRef getValue(JSContextRef ctx,
+                    JSObjectRef function,
+                    JSObjectRef thisObject,
+                    size_t argumentCount,
+                    const JSValueRef arguments[],
+                    JSValueRef* exception){
+    JSValueRef excp = NULL;
+    NSString *key = (__bridge_transfer NSString*)JSStringCopyCFString(kCFAllocatorDefault, (JSStringRef)JSValueToStringCopy(ctx, arguments[0], &excp));
+
+    NSString* value = [[NSUserDefaults standardUserDefaults] objectForKey:key];
+    if(value==NULL||value.length==0){
+        return JSValueMakeNull(ctx);
+    }else{
+        return JSValueMakeString(ctx, JSStringCreateWithUTF8CString([value UTF8String]));
+    }
+}
+
+JSValueRef setValue(JSContextRef ctx,
+                            JSObjectRef function,
+                            JSObjectRef thisObject,
+                            size_t argumentCount,
+                            const JSValueRef arguments[],
+                            JSValueRef* exception){
+    JSValueRef excp = NULL;
+    NSString *key = (__bridge_transfer NSString*)JSStringCopyCFString(kCFAllocatorDefault, (JSStringRef)JSValueToStringCopy(ctx, arguments[0], &excp));
+    NSString *value = (__bridge_transfer NSString*)JSStringCopyCFString(kCFAllocatorDefault, (JSStringRef)JSValueToStringCopy(ctx, arguments[1], &excp));
+    [[NSUserDefaults standardUserDefaults] setValue:value forKey:key];
+    return JSValueMakeNull(ctx);
+}
+
+JSValueRef loadXML(JSContextRef ctx,
+                    JSObjectRef function,
+                    JSObjectRef thisObject,
+                    size_t argumentCount,
+                    const JSValueRef arguments[],
+                    JSValueRef* exception){
+    JSValueRef excp = NULL;
+    NSString *xml = (__bridge_transfer NSString*)JSStringCopyCFString(kCFAllocatorDefault, (JSStringRef)JSValueToStringCopy(ctx, arguments[0], &excp));
+    
+    return JSValueMakeNull(ctx);
+}
+
 - (void) reloadJS{
     _JSContext = JSGlobalContextCreate(NULL);
     
@@ -108,6 +150,16 @@ JSValueRef showInpuTextPage(JSContextRef ctx,
     JSObjectRef func3 = JSObjectMakeFunctionWithCallback(_JSContext, str3, showInpuTextPage);
     JSObjectSetProperty(_JSContext, JSContextGetGlobalObject(_JSContext), str3, func3, kJSPropertyAttributeNone, NULL);
     JSStringRelease(str3);
+    
+    JSStringRef str4 = JSStringCreateWithUTF8CString("native_setValue");
+    JSObjectRef func4 = JSObjectMakeFunctionWithCallback(_JSContext, str4, setValue);
+    JSObjectSetProperty(_JSContext, JSContextGetGlobalObject(_JSContext), str4, func4, kJSPropertyAttributeNone, NULL);
+    JSStringRelease(str4);
+    
+    JSStringRef str5 = JSStringCreateWithUTF8CString("native_getValue");
+    JSObjectRef func5 = JSObjectMakeFunctionWithCallback(_JSContext, str5,getValue);
+    JSObjectSetProperty(_JSContext, JSContextGetGlobalObject(_JSContext), str5, func5, kJSPropertyAttributeNone, NULL);
+    JSStringRelease(str4);
     
     NSString* jsDirectory = [[AppDele localWebPathPrefix] stringByAppendingString:@"/appletv/javascript"];
     NSArray* jsArray=[[NSFileManager defaultManager] contentsOfDirectoryAtPath:jsDirectory error:nil];
