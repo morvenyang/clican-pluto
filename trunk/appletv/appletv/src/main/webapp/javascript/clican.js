@@ -561,7 +561,7 @@ var appletv = {
 			window.location.href = this.remoteserverurl
 					+ '/ctl/simulator/input.xml?callback=' + callbackName;
 		}else if(this.simulate=='native'){
-			callback(native_showInputTextPage(label,instructions,initialText));
+			native_showInputTextPage(label,instructions,callback,initialText);
 		} else {
 			var textEntry = new atv.TextEntry();
 			textEntry.type = 'emailAddress';
