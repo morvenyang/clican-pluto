@@ -483,7 +483,7 @@ var appletv = {
 						window.open(appletv.remoteserverurl+'/ctl/showxml.xml');
 					});
 		} else if(this.simulate=='native'){
-			native_loadAndSwapXML(xml);
+			native_loadXML(xml);
 		} else {
 			atv.loadAndSwapXML(atv.parseXML(xml));
 		}
@@ -518,7 +518,7 @@ var appletv = {
 		if (this.simulate=='browser') {
 			alert(message);
 		} else if(this.simulate=='native'){
-			native_loadAndSwapXML(this.makeDialog(message, description));
+			native_loadXML(this.makeDialog(message, description));
 		} else {
 			atv.loadAndSwapXML(this.makeDialog(message, description));
 		}
@@ -544,7 +544,12 @@ var appletv = {
 			appletv.logToServer(JSON.stringify(value));
 			callback(value);
 		}else if(this.simulate=='native'){
-			callback(JSON.parse(native_getValue(key)));
+			var result = native_getValue(key);
+			if(result==null||result.length==0){
+				callback(null);
+			}else{
+				callback(JSON.parse(result));
+			}
 		}else{
 			appletv.makeRequest(appletv.remoteserverurl+'/ctl/getValue.do?name='+key, function(result){
 				if(result==null||result.length==0){
