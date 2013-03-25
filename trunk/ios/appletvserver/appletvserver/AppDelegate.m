@@ -23,6 +23,7 @@
 #import "ASIHTTPRequest.h"
 #import "Constants.h"
 #import "QQChannelViewController.h"
+#import "InputViewController.h"
 static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 @implementation AppDelegate
@@ -170,6 +171,9 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
      [XunLeiLoginViewController class]];
     [map from:@"atvserver://download" toSharedViewController:
      [DownloadStatusViewController class]];
+    [map from:@"atvserver://atv/input/(initWithLabel:)/(instruction:)/(initialText:)" toSharedViewController:
+     [InputViewController class]];
+
     [map from:@"atvserver://qq/channel" toSharedViewController:[QQChannelViewController class]];
     [map from:@"atvserver://qq/index/(initWithChannelId:)" toSharedViewController:
      [QQIndexViewController class]];
