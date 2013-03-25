@@ -19,10 +19,10 @@
     ASIHTTPRequest *verreq = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:[ATV_SERVER_IP stringByAppendingFormat:@"%@?t=%f",WEB_CONTENT_SYNC_VERSION_API,[[NSDate new] timeIntervalSince1970]]]];
     [verreq setShouldContinueWhenAppEntersBackground:YES];
     [verreq startSynchronous];
-     NSString* version = [[verreq responseHeaders] valueForKey:@"version"];
+    NSString* version = [[verreq responseHeaders] valueForKey:@"version"];
     NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
     NSString* currentVersion = [defaults objectForKey:@"version"];
-    if(currentVersion==NULL||![currentVersion isEqualToString:version]){
+    if(currentVersion==NULL||![currentVersion isEqualToString:version]||true){
          NSLog(@"Current version is %@, there is new version %@ to update",currentVersion,version);
         ASIHTTPRequest *req = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:[ATV_SERVER_IP stringByAppendingFormat:@"%@?t=%f",WEB_CONTENT_SYNC_API,[[NSDate new] timeIntervalSince1970]]]];
         [req setShouldContinueWhenAppEntersBackground:YES];

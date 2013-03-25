@@ -7,7 +7,7 @@
 //
 
 #import "XmlViewController.h"
-
+#import "TouchXML.h"
 
 
 @implementation XmlViewController
@@ -35,7 +35,12 @@
     TT_RELEASE_SAFELY(_xml);
     [super dealloc];
 }
-
+-(void) loadView{
+    [super loadView];
+    NSError *theError = NULL;
+    CXMLDocument *theXMLDocument = [[[CXMLDocument alloc] initWithXMLString:self.xml options:0 error:&theError] autorelease];
+    NSLog(@"%@", [[theXMLDocument rootElement] XMLString]);
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];

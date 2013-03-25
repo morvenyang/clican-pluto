@@ -121,7 +121,7 @@
 
 - (void) playAction {
     if(true){
-        [[AppDele jsEngine] runJS:@"appletv.showInputTextPage('a','b',function(content){},'','');"];
+        [[AppDele jsEngine] runJS:@"qqClient.loadChannelPage();"];
         return;
     }
     NSLog(@"Play video %@",self.video.title);
