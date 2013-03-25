@@ -464,30 +464,36 @@ var appletv = {
 	},
 
 	loadXML : function(xml) {
-		if (this.simulate!='atv') {
+		if (this.simulate=='browser') {
 			appletv.makePostRequest(appletv.remoteserverurl+'/ctl/postxml.xml', xml, 
 					function(result){
 						window.open(appletv.remoteserverurl+'/ctl/showxml.xml');
 					});
+		} else if(this.simulate=='native'){
+			native_loadXML(xml);
 		} else {
 			atv.loadXML(atv.parseXML(xml));
 		}
 	},
 	
 	loadAndSwapXML : function(xml) {
-		if (this.simulate!='atv') {
+		if (this.simulate=='browser') {
 			appletv.makePostRequest(appletv.remoteserverurl+'/ctl/postxml.xml', xml, 
 					function(result){
 						window.open(appletv.remoteserverurl+'/ctl/showxml.xml');
 					});
+		} else if(this.simulate=='native'){
+			native_loadAndSwapXML(xml);
 		} else {
 			atv.loadAndSwapXML(atv.parseXML(xml));
 		}
 	},
 
 	loadURL : function(url) {
-		if (this.simulate!='atv') {
+		if (this.simulate=='browser') {
 			window.location.href = url;
+		} else if(this.simulate=='native'){
+			native_loadURL(url);
 		} else {
 			atv.loadURL(url);
 		}
@@ -498,8 +504,10 @@ var appletv = {
 		}
 	},
 	showDialog : function(message, description) {
-		if (this.simulate!='atv') {
+		if (this.simulate=='browser') {
 			alert(message);
+		} else if(this.simulate=='native'){
+			native_loadXML(this.makeDialog(message, description));
 		} else {
 			atv.loadXML(this.makeDialog(message, description));
 		}
@@ -507,8 +515,10 @@ var appletv = {
 	},
 	
 	showSwapDialog : function(message, description) {
-		if (this.simulate!='atv') {
+		if (this.simulate=='browser') {
 			alert(message);
+		} else if(this.simulate=='native'){
+			native_loadAndSwapXML(this.makeDialog(message, description));
 		} else {
 			atv.loadAndSwapXML(this.makeDialog(message, description));
 		}
@@ -518,6 +528,8 @@ var appletv = {
 	setValue:function(key,value){
 		if(this.simulate=='atv'){
 			atv.localStorage[key] = value;
+		}else if(this.simulate=='native'){
+			native_setValue(key, JSON.stringify(value));
 		}else{
 			var payload = {"name":key,"value":value};
 			appletv.makePostRequest(appletv.remoteserverurl+'/ctl/setValue.do', JSON.stringify(payload), function(result){
@@ -531,6 +543,8 @@ var appletv = {
 			var value = atv.localStorage[key];
 			appletv.logToServer(JSON.stringify(value));
 			callback(value);
+		}else if(this.simulate=='native'){
+			callback(JSON.parse(native_getValue(key)));
 		}else{
 			appletv.makeRequest(appletv.remoteserverurl+'/ctl/getValue.do?name='+key, function(result){
 				if(result==null||result.length==0){
@@ -538,22 +552,7 @@ var appletv = {
 				}else{
 					callback(JSON.parse(result));
 				}
-				
 			});
-		}
-	},
-	
-	setSessionValue:function(key,value){
-		if(this.simulate=='atv'){
-			atv.sessionStorage[key] = value;
-		}
-	},
-	
-	getSessionValue:function(key){
-		if(this.simulate=='atv') {
-			return atv.sessionStorage[key];
-		}else{
-			return null;
 		}
 	},
 
@@ -561,6 +560,8 @@ var appletv = {
 		if (this.simulate!='atv') {
 			window.location.href = this.remoteserverurl
 					+ '/ctl/simulator/input.xml?callback=' + callbackName;
+		}else if(this.simulate=='native'){
+			callback(native_showInputTextPage(label,instructions,initialText));
 		} else {
 			var textEntry = new atv.TextEntry();
 			textEntry.type = 'emailAddress';
