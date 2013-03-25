@@ -235,7 +235,7 @@ var qqClient = {
 				}
 
 			} else {
-				atv.loadXML(appletv.makeDialog('加载失败', ''));
+				appletv.showDialog('加载失败', '');
 			}
 			qqClient.generateIndexPage(keyword, page, channel, videos);
 		});
@@ -305,7 +305,7 @@ var qqClient = {
 			var xml = new EJS({
 				url : appletv.serverurl + '/template/qq/video.ejs'
 			}).render(video);
-			atv.loadAndSwapXML(atv.parseXML(xml));
+			appletv.loadAndSwapXML(xml);
 		});
 	},
 
@@ -346,7 +346,7 @@ var qqClient = {
 			var xml = new EJS({
 				url : appletv.serverurl + '/template/qq/videoItems.ejs'
 			}).render(video);
-			atv.loadAndSwapXML(atv.parseXML(xml));
+			appletv.loadAndSwapXML(xml);
 		});
 	},
 

@@ -170,7 +170,7 @@ var tudouClient = {
 									tudouClient.generateIndexPage(keyword,
 											page, channel, videos);
 								} else {
-									atv.loadXML(appletv.makeDialog('加载失败', ''));
+									appletv.showDialog('加载失败', '');
 								}
 							});
 		} else {
@@ -213,7 +213,7 @@ var tudouClient = {
 					tudouClient.generateIndexPage(keyword, page, channel,
 							videos,queryUrl);
 				} else {
-					atv.loadXML(appletv.makeDialog('加载失败', ''));
+					appletv.showDialog('加载失败', '');
 				}
 			});
 		}
