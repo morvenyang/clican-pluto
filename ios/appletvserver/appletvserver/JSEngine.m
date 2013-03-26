@@ -157,8 +157,19 @@ JSValueRef loadXML(JSContextRef ctx,
                     JSValueRef* exception){
     JSValueRef excp = NULL;
     NSString *xml = (__bridge_transfer NSString*)JSStringCopyCFString(kCFAllocatorDefault, (JSStringRef)JSValueToStringCopy(ctx, arguments[0], &excp));
-    XmlViewController* controler = [[XmlViewController alloc] initWithXml:xml];
-    [[TTNavigator navigator].topViewController.navigationController pushViewController:controler animated:YES];
+    UIViewController* currentController = [TTNavigator navigator].topViewController;
+    if([currentController isKindOfClass:[XmlViewController class]]){
+        XmlViewController* xmlController =(XmlViewController*)currentController;
+        if(xmlController.append){
+            [xmlController appendXml:xml];
+        }else{
+            XmlViewController* controler = [[XmlViewController alloc] initWithXml:xml];
+            [[TTNavigator navigator].topViewController.navigationController pushViewController:controler animated:YES];
+        }
+    }else{
+        XmlViewController* controler = [[XmlViewController alloc] initWithXml:xml];
+        [[TTNavigator navigator].topViewController.navigationController pushViewController:controler animated:YES];
+    }
     return JSValueMakeNull(ctx);
 }
 
