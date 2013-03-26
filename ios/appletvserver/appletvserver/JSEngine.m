@@ -13,6 +13,7 @@
 #import "InputViewController.h"
 #import "XmlViewController.h"
 #import "Constants.h"
+#import "URLDataHeaderResponse.h"
 #import "ASIHTTPRequest.h"
 @implementation JSEngine
 
@@ -29,7 +30,6 @@ JSValueRef makeSyncRequest(JSContextRef ctx,
                        size_t argumentCount,
                        const JSValueRef arguments[],
                        JSValueRef* exception){
-                       //headers.put("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.22 (KHTML, like Gecko) Chrome/25.0.1364.172 Safari/537.22");
     JSValueRef excp = NULL;
     NSString *url = (__bridge_transfer NSString*)JSStringCopyCFString(kCFAllocatorDefault, (JSStringRef)JSValueToStringCopy(ctx, arguments[0], &excp));
     NSLog(@"makeSyncRequest:%@",url);
@@ -64,10 +64,9 @@ JSValueRef makeRequest(JSContextRef ctx,
     AjaxCallbackRequest* request = [AjaxCallbackRequest
                              requestWithURL: url
                              delegate: [AppDele jsEngine] callback:callback ctx:ctx];
-    
-    request.cachePolicy = TTURLRequestCachePolicyMemory;
-    
-    TTURLDataResponse* response = [[TTURLDataResponse alloc] init];
+    request.cachePolicy = TTURLRequestCachePolicyNoCache;
+    [request.headers setValue:@"Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.22 (KHTML, like Gecko) Chrome/25.0.1364.172 Safari/537.22" forKey:@"User-Agent"];
+    URLDataHeaderResponse* response = [[URLDataHeaderResponse alloc] init];
     request.response = response;
     [request send];
     
@@ -91,10 +90,11 @@ JSValueRef makePostRequest(JSContextRef ctx,
                                     requestWithURL: url
                                     delegate: [AppDele jsEngine] callback:callback ctx:ctx];
     
-    request.cachePolicy = TTURLRequestCachePolicyMemory;
+    request.cachePolicy = TTURLRequestCachePolicyNoCache;
     request.contentType=@"application/x-www-form-urlencoded";
     request.httpMethod = @"POST";
-    TTURLDataResponse* response = [[TTURLDataResponse alloc] init];
+    [request.headers setValue:@"Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.22 (KHTML, like Gecko) Chrome/25.0.1364.172 Safari/537.22" forKey:@"User-Agent"];
+    URLDataHeaderResponse* response = [[URLDataHeaderResponse alloc] init];
     if(content!=NULL&&content.length>0){
         request.httpBody = [content dataUsingEncoding:NSUTF8StringEncoding];
     }
@@ -238,7 +238,6 @@ JSValueRef loadXML(JSContextRef ctx,
         
         [self runJS:jsContent];
     }
-    [self runJS:@"appletv.logToServer('test');"];
 }
 /**
  Runs a string of JS in this instance's JS context and returns the result as a string
@@ -297,13 +296,29 @@ JSValueRef loadXML(JSContextRef ctx,
 - (void)requestDidFinishLoad:(AjaxCallbackRequest*)request
 {
     @try {
-        TTURLDataResponse* response = request.response;
-        
-        NSString* content = [[NSString alloc] initWithData:[response data] encoding:NSUTF8StringEncoding];
+        URLDataHeaderResponse* response = request.response;
+        NSData* data = [response data];
+        NSLog(@"data length:%i",[data length]);
+        NSString* charset = [[response allHeaders] objectForKey:@"Content-Type"];
+        NSStringEncoding enc = NSUTF8StringEncoding;
+        if(charset!=nil){
+            charset = [charset uppercaseString];
+            if([charset rangeOfString:@"GBK"].location!=NSNotFound||[charset rangeOfString:@"GB2312"].location!=NSNotFound){
+                enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
+            }
+        }
+        NSString* content =[[NSString alloc] initWithData:data encoding:enc];
         NSLog(@"content:%@" ,content);
-        JSValueRef args[1];
-        args[0] = JSValueMakeString(request.ctx,JSStringCreateWithUTF8CString([content UTF8String]));
-        JSObjectCallAsFunction(request.ctx,request.callback,NULL,1,args,NULL);
+        NSLog(@"handler response for : %@",request.urlPath);
+        if(content==nil||[content length]==0){
+            JSValueRef args[1];
+            args[0] = JSValueMakeNull(request.ctx);
+            JSObjectCallAsFunction(request.ctx,request.callback,NULL,1,args,NULL);
+        }else{
+            JSValueRef args[1];
+            args[0] = JSValueMakeString(request.ctx,JSStringCreateWithUTF8CString([content UTF8String]));
+            JSObjectCallAsFunction(request.ctx,request.callback,NULL,1,args,NULL);
+        }
     }
     @catch (NSException *exception) {
         TTAlert([NSString stringWithFormat:@"错误:%@",[exception name]]);
