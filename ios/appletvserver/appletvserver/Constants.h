@@ -25,6 +25,7 @@
 #define WEB_CONTENT_SYNC_VERSION_API @"/ctl/proxy/sync/version.do"
 #define MP4_PARTIAL_LENGTH 1048576
 
+#define ALog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
 
 typedef enum {
     QQ_Recommand = 3,
