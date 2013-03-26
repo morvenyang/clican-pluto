@@ -29,6 +29,7 @@ JSValueRef makeSyncRequest(JSContextRef ctx,
                        size_t argumentCount,
                        const JSValueRef arguments[],
                        JSValueRef* exception){
+                       //headers.put("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.22 (KHTML, like Gecko) Chrome/25.0.1364.172 Safari/537.22");
     JSValueRef excp = NULL;
     NSString *url = (__bridge_transfer NSString*)JSStringCopyCFString(kCFAllocatorDefault, (JSStringRef)JSValueToStringCopy(ctx, arguments[0], &excp));
     NSLog(@"makeSyncRequest:%@",url);
