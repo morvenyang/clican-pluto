@@ -214,7 +214,7 @@ var appletv = {
 	},
 
 	logToServer : function(logText,severity) {
-		if (this.logEnable) {
+		if (this.logEnable&&this.simulate!='native') {
 			if(severity==null){
 				severity='DEBUG';
 			}

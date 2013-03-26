@@ -223,7 +223,6 @@ var youkuClient = {
 					queryUrl = queryUrl.substring(0,pIndex)+'p'+page+'.html';
 				}
 			}
-			appletv.logToServer(queryUrl);
 			appletv.makeRequest(queryUrl, function(content) {
 				if (content != null && content.length > 0) {
 					var itemscontent = appletv.substringByTag(content,'<div class="items">', '</div>', 'div');
