@@ -69,16 +69,18 @@
 
 
 - (void)setObject:(id)object {
-    self.videoTableItem = object;
-    for(int i=0;i<3;i++){
-        VideoImageView* imageView = [self.imageArray objectAtIndex:i];
-        TTStyledTextLabel* titleLabel = [self.titleArray objectAtIndex:i];
-        Video* video = [self.videoTableItem.videoList objectAtIndex:i];
-        imageView.urlPath = [video picUrl];
-        titleLabel.text = [TTStyledText textFromXHTML:[video title] lineBreaks:YES URLs:NO];
-        imageView.actionUrl=video.onSelect;
+    if(object){
+        self.videoTableItem = object;
+        for(int i=0;i<3;i++){
+            VideoImageView* imageView = [self.imageArray objectAtIndex:i];
+            TTStyledTextLabel* titleLabel = [self.titleArray objectAtIndex:i];
+            Video* video = [self.videoTableItem.videoList objectAtIndex:i];
+            imageView.urlPath = [video picUrl];
+            titleLabel.text = [TTStyledText textFromXHTML:[video title] lineBreaks:YES URLs:NO];
+            imageView.actionUrl=video.onSelect;
+        }
+        [super setObject:object];
     }
-    [super setObject:object];
 }
 
 
