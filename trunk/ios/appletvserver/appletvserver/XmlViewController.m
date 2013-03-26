@@ -64,6 +64,9 @@
 -(void) loadView{
     @try{
         [super loadView];
+        if(self.xml==nil){
+            return;
+        }
         NSError *theError = NULL;
         CXMLDocument *document = [[[CXMLDocument alloc] initWithXMLString:self.xml options:0 error:&theError] autorelease];
         CXMLElement* rootElement=[document rootElement];

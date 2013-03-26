@@ -81,6 +81,7 @@
 		72360C4816EED8DD00E0842B /* XunLeiLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 72360C4716EED8DD00E0842B /* XunLeiLoginViewController.m */; };
 		72360C5B16EEDDD700E0842B /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 72360C5A16EEDDD700E0842B /* RootViewController.m */; };
 		724024F817016B990015352A /* XmlDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 724024F717016B990015352A /* XmlDataSource.m */; };
+		724024FC170196490015352A /* URLDataHeaderResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 724024FB170196490015352A /* URLDataHeaderResponse.m */; };
 		7272B39D16C9FC7300E111A7 /* QQIndexRequestModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7272B39C16C9FC7300E111A7 /* QQIndexRequestModel.m */; };
 		7272B3A016C9FD4E00E111A7 /* Video.m in Sources */ = {isa = PBXBuildFile; fileRef = 7272B39F16C9FD4E00E111A7 /* Video.m */; };
 		7272B3A716CA046400E111A7 /* VideoTableItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 7272B3A616CA046400E111A7 /* VideoTableItem.m */; };
@@ -481,6 +482,8 @@
 		72360C5A16EEDDD700E0842B /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
 		724024F617016B990015352A /* XmlDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XmlDataSource.h; sourceTree = "<group>"; };
 		724024F717016B990015352A /* XmlDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XmlDataSource.m; sourceTree = "<group>"; };
+		724024FA170196490015352A /* URLDataHeaderResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = URLDataHeaderResponse.h; sourceTree = "<group>"; };
+		724024FB170196490015352A /* URLDataHeaderResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = URLDataHeaderResponse.m; sourceTree = "<group>"; };
 		7272B39B16C9FC7300E111A7 /* QQIndexRequestModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QQIndexRequestModel.h; sourceTree = "<group>"; };
 		7272B39C16C9FC7300E111A7 /* QQIndexRequestModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QQIndexRequestModel.m; sourceTree = "<group>"; };
 		7272B39E16C9FD4E00E111A7 /* Video.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Video.h; sourceTree = "<group>"; };
@@ -874,6 +877,15 @@
 			name = xunlei;
 			sourceTree = "<group>";
 		};
+		724024F91701962F0015352A /* HTTP */ = {
+			isa = PBXGroup;
+			children = (
+				724024FA170196490015352A /* URLDataHeaderResponse.h */,
+				724024FB170196490015352A /* URLDataHeaderResponse.m */,
+			);
+			name = HTTP;
+			sourceTree = "<group>";
+		};
 		7272B39A16C9FC5100E111A7 /* Object */ = {
 			isa = PBXGroup;
 			children = (
@@ -897,6 +909,7 @@
 		7272B3A216CA040F00E111A7 /* Three20 */ = {
 			isa = PBXGroup;
 			children = (
+				724024F91701962F0015352A /* HTTP */,
 				72BB0C6716CB510D00D4291D /* View */,
 				721E6F8816CA1E7300307E4D /* JSON */,
 				7272B3A416CA042D00E111A7 /* TableItemCell */,
@@ -1671,6 +1684,7 @@
 				7295A39917007017008C04BE /* AtvHeader.m in Sources */,
 				7295A39C170070F1008C04BE /* AtvOneLineMenuItem.m in Sources */,
 				724024F817016B990015352A /* XmlDataSource.m in Sources */,
+				724024FC170196490015352A /* URLDataHeaderResponse.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -23,8 +23,12 @@
 
 - (void)createModel {
     NSMutableArray* items = [NSMutableArray array];
-    TTTableTextItem* item = [TTTableTextItem itemWithText:@"QQ" URL:@"qqClient.loadChannelPage();"];
-    [items addObject:item];
+    TTTableTextItem* item1 = [TTTableTextItem itemWithText:@"QQ" URL:@"qqClient.loadChannelPage();"];
+    [items addObject:item1];
+    TTTableTextItem* item2 = [TTTableTextItem itemWithText:@"Youku" URL:@"youkuClient.loadChannelPage();"];
+    [items addObject:item2];
+    TTTableTextItem* item3 = [TTTableTextItem itemWithText:@"Tudou" URL:@"tudouClient.loadChannelPage();"];
+    [items addObject:item3];
     TTListDataSource* ds = [[TTListDataSource alloc] initWithItems:items];
     self.dataSource = ds;
     self.tableView.delegate =self;
