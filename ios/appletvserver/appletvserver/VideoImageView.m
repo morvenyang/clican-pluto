@@ -7,7 +7,7 @@
 //
 
 #import "VideoImageView.h"
-
+#import "AppDelegate.h"
 @implementation VideoImageView
 
 @synthesize actionUrl = _actionUrl;
@@ -18,7 +18,7 @@
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {   
-    TTOpenURL(_actionUrl);
+    [[AppDele jsEngine] runJS:_actionUrl];
 }
 
 @end

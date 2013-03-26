@@ -7,7 +7,7 @@
 //
 
 #import "MainViewController.h"
-
+#import "AppDelegate.h"
 
 @implementation MainViewController
 
@@ -23,10 +23,18 @@
 
 - (void)createModel {
     NSMutableArray* items = [NSMutableArray array];
-    TTTableTextItem* item = [TTTableTextItem itemWithText:@"QQ" URL:@"atvserver://qq/channel"];
+    TTTableTextItem* item = [TTTableTextItem itemWithText:@"QQ" URL:@"qqClient.loadChannelPage();"];
     [items addObject:item];
     TTListDataSource* ds = [[TTListDataSource alloc] initWithItems:items];
     self.dataSource = ds;
+    self.tableView.delegate =self;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    TTListDataSource* ds = (TTListDataSource*)tableView.dataSource;
+    TTTableTextItem* item = [ds.items objectAtIndex:indexPath.item];
+    NSString* script = item.URL;
+    [[AppDele jsEngine] runJS:script];
 }
 
 - (void)loadView

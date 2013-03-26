@@ -19,7 +19,7 @@
     NSString* _score;
     NSString* _year;
     NSString* _description;
-    
+    NSString* _onSelect;
     NSMutableArray* _videoItemList;
 }
 
@@ -34,7 +34,7 @@
 @property (nonatomic, copy) NSString* score;
 @property (nonatomic, copy) NSString* year;
 @property (nonatomic, copy) NSString* description;
-
+@property (nonatomic, copy) NSString* onSelect;
 @property (nonatomic, retain) NSMutableArray* videoItemList;
 
 @end

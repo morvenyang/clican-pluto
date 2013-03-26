@@ -76,7 +76,7 @@
         Video* video = [self.videoTableItem.videoList objectAtIndex:i];
         imageView.urlPath = [video picUrl];
         titleLabel.text = [TTStyledText textFromXHTML:[video title] lineBreaks:YES URLs:NO];
-        imageView.actionUrl=[NSString stringWithFormat:@"atvserver://qq/video/%@",video.vid];
+        imageView.actionUrl=video.onSelect;
     }
     [super setObject:object];
 }

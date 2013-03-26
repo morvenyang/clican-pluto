@@ -21,7 +21,7 @@
 @synthesize score = _score;
 @synthesize year = _year;
 @synthesize description = _description;
-
+@synthesize onSelect = _onSelect;
 @synthesize videoItemList = _videoItemList;
 - (void) dealloc {
     TT_RELEASE_SAFELY(_title);
@@ -34,7 +34,7 @@
     TT_RELEASE_SAFELY(_area);
     TT_RELEASE_SAFELY(_score);
     TT_RELEASE_SAFELY(_description);
-    
+    TT_RELEASE_SAFELY(_onSelect);
     TT_RELEASE_SAFELY(_videoItemList);
     [super dealloc];
 }

@@ -80,6 +80,7 @@
 		723387A016CB5DA10061FBDF /* QQVideoRequestModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7233879F16CB5DA10061FBDF /* QQVideoRequestModel.m */; };
 		72360C4816EED8DD00E0842B /* XunLeiLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 72360C4716EED8DD00E0842B /* XunLeiLoginViewController.m */; };
 		72360C5B16EEDDD700E0842B /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 72360C5A16EEDDD700E0842B /* RootViewController.m */; };
+		724024F817016B990015352A /* XmlDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 724024F717016B990015352A /* XmlDataSource.m */; };
 		7272B39D16C9FC7300E111A7 /* QQIndexRequestModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7272B39C16C9FC7300E111A7 /* QQIndexRequestModel.m */; };
 		7272B3A016C9FD4E00E111A7 /* Video.m in Sources */ = {isa = PBXBuildFile; fileRef = 7272B39F16C9FD4E00E111A7 /* Video.m */; };
 		7272B3A716CA046400E111A7 /* VideoTableItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 7272B3A616CA046400E111A7 /* VideoTableItem.m */; };
@@ -478,6 +479,8 @@
 		72360C4716EED8DD00E0842B /* XunLeiLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XunLeiLoginViewController.m; sourceTree = "<group>"; };
 		72360C5916EEDDD700E0842B /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
 		72360C5A16EEDDD700E0842B /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
+		724024F617016B990015352A /* XmlDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XmlDataSource.h; sourceTree = "<group>"; };
+		724024F717016B990015352A /* XmlDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XmlDataSource.m; sourceTree = "<group>"; };
 		7272B39B16C9FC7300E111A7 /* QQIndexRequestModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QQIndexRequestModel.h; sourceTree = "<group>"; };
 		7272B39C16C9FC7300E111A7 /* QQIndexRequestModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QQIndexRequestModel.m; sourceTree = "<group>"; };
 		7272B39E16C9FD4E00E111A7 /* Video.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Video.h; sourceTree = "<group>"; };
@@ -1312,6 +1315,8 @@
 			children = (
 				7288A2D116F9989400933D15 /* download */,
 				72E748FC16C9EF4D0024B8BB /* qq */,
+				724024F617016B990015352A /* XmlDataSource.h */,
+				724024F717016B990015352A /* XmlDataSource.m */,
 			);
 			name = Datasource;
 			sourceTree = "<group>";
@@ -1665,6 +1670,7 @@
 				7295A39617006FDF008C04BE /* AtvListScrollerSplit.m in Sources */,
 				7295A39917007017008C04BE /* AtvHeader.m in Sources */,
 				7295A39C170070F1008C04BE /* AtvOneLineMenuItem.m in Sources */,
+				724024F817016B990015352A /* XmlDataSource.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
