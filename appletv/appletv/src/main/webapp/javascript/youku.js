@@ -183,6 +183,18 @@ var youkuClient = {
 		album : false
 	} ],
 	
+	loadChannelPage:function(){
+		var data = {
+				'channels' : youkuClient.qqChannels,
+				'serverurl' : appletv.serverurl
+			};
+		var templateEJS = new EJS({
+			url : appletv.serverurl + '/template/youku/channel.ejs'
+		});	
+		var xml = templateEJS.render(data);
+		appletv.loadAndSwapXML(xml);
+	},
+	
 	loadIndexPage : function(keyword, page, channelId,queryUrl) {
 		appletv.showLoading();
 		var channel = this.youkuChannelMap[channelId];
