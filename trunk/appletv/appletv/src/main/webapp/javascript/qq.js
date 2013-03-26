@@ -257,14 +257,15 @@ var qqClient = {
 	generateIndexPage : function(keyword, page, channel, videos) {
 		var begin = 0;
 		var end = 0;
-		if (page < 90) {
+		if (page < 92) {
 			begin = page;
-			end = page + 9;
+			end = page + 7;
 		} else {
 			end = 99;
-			begin = 90;
+			begin = 92;
 		}
 		var data = {
+			'page' : page,
 			'channel' : channel,
 			'keyword' : keyword,
 			'begin' : begin,

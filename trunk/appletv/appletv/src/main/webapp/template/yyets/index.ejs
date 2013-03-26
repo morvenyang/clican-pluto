@@ -35,6 +35,9 @@
 				<actionButton id="shelf_item_first_page" onSelect="yyetsClient.loadIndexPage('<%=keyword%>',1,'<%=channel['value']%>');" onPlay="yyetsClient.loadIndexPage('<%=keyword%>',1,'<%=channel['value']%>');">
 					<title>第一页</title>
 				</actionButton>
+				<actionButton id="nextPage" onSelect="yyetsClient.loadIndexPage('<%=keyword%>',<%=page+1%>,'<%=channel['value']%>');" onPlay="yyetsClient.loadIndexPage('<%=keyword%>',<%=page+1%>,'<%=channel['value']%>');">
+					<title>下一页</title>
+				</actionButton>
 				<%for(var i=begin;i<end;i++){%>
 					<actionButton id="shelf_item_<%=i%>_page" onSelect="yyetsClient.loadIndexPage('<%=keyword%>',<%=i%>,'<%=channel['value']%>');" onPlay="yyetsClient.loadIndexPage('<%=keyword%>',<%=i%>,'<%=channel['value']%>');">
 						<title><%=i+1%></title>
@@ -58,10 +61,13 @@
 			</items>
 		</grid>
 		<%if(channel['value']!=3){%>
-		<grid id="grid_3" columnCount="12">
+		<grid id="pagingGrid" columnCount="12">
 			<items>
 				<actionButton id="shelf_item_first_page" onSelect="yyetsClient.loadIndexPage('<%=keyword%>',1,'<%=channel['value']%>');" onPlay="yyetsClient.loadIndexPage('<%=keyword%>',1,'<%=channel['value']%>');">
 					<title>第一页</title>
+				</actionButton>
+				<actionButton id="nextPage" onSelect="yyetsClient.loadIndexPage('<%=keyword%>',<%=page+1%>,'<%=channel['value']%>');" onPlay="yyetsClient.loadIndexPage('<%=keyword%>',<%=page+1%>,'<%=channel['value']%>');">
+					<title>下一页</title>
 				</actionButton>
 				<%for(var i=begin;i<end;i++){%>
 					<actionButton id="shelf_item_<%=i%>_page" onSelect="yyetsClient.loadIndexPage('<%=keyword%>',<%=i%>,'<%=channel['value']%>');" onPlay="yyetsClient.loadIndexPage('<%=keyword%>',<%=i%>,'<%=channel['value']%>');">

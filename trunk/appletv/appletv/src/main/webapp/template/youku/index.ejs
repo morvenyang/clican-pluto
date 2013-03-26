@@ -41,6 +41,9 @@
 				<actionButton id="shelf_item_first_page" onSelect="youkuClient.loadIndexPage('<%=keyword%>',1,<%=channel['value']%>,'<%=url%>');" onPlay="youkuClient.loadIndexPage('<%=keyword%>',1,<%=channel['value']%>,'<%=url%>');">
 					<title>第一页</title>
 				</actionButton>
+				<actionButton id="nextPage" onSelect="youkuClient.loadIndexPage('<%=keyword%>',<%=page+1%>,<%=channel['value']%>,'<%=url%>');" onPlay="youkuClient.loadIndexPage('<%=keyword%>',<%=page+1%>,<%=channel['value']%>,'<%=url%>');">
+					<title>下一页</title>
+				</actionButton>
 				<%for(var i=begin;i<end;i++){%>
 					<actionButton id="shelf_item_<%=i%>_page" onSelect="youkuClient.loadIndexPage('<%=keyword%>',<%=i%>,<%=channel['value']%>,'<%=url%>');" onPlay="youkuClient.loadIndexPage('<%=keyword%>',<%=i%>,<%=channel['value']%>,'<%=url%>');">
 						<title><%=i%></title>
@@ -70,7 +73,7 @@
 				<%}%>
 			</items>
 		</grid>
-		<grid id="grid_3" columnCount="12">
+		<grid id="pagingGrid" columnCount="12">
 			<items>
 				<%if(channel['value']!=1001){%>
 				<actionButton id="shelf_item_category_page" onSelect="youkuClient.loadCategoryPage('<%=url%>',<%=channel['value']%>,true);" onPlay="youkuClient.loadCategoryPage('<%=url%>',<%=channel['value']%>,true);">
@@ -79,6 +82,9 @@
 				<%}%>
 				<actionButton id="shelf_item_first_page" onSelect="youkuClient.loadIndexPage('<%=keyword%>',1,<%=channel['value']%>,'<%=url%>');" onPlay="youkuClient.loadIndexPage('<%=keyword%>',1,<%=channel['value']%>,'<%=url%>');">
 					<title>第一页</title>
+				</actionButton>
+				<actionButton id="nextPage" onSelect="youkuClient.loadIndexPage('<%=keyword%>',<%=page+1%>,<%=channel['value']%>,'<%=url%>');" onPlay="youkuClient.loadIndexPage('<%=keyword%>',<%=page+1%>,<%=channel['value']%>,'<%=url%>');">
+					<title>下一页</title>
 				</actionButton>
 				<%for(var i=begin;i<end;i++){%>
 					<actionButton id="shelf_item_<%=i%>_page" onSelect="youkuClient.loadIndexPage('<%=keyword%>',<%=i%>,<%=channel['value']%>,'<%=url%>');" onPlay="youkuClient.loadIndexPage('<%=keyword%>',<%=i%>,<%=channel['value']%>,'<%=url%>');">
