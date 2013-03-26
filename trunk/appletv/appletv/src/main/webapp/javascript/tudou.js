@@ -125,6 +125,18 @@ var tudouClient = {
 		}
 	},
 	
+	loadChannelPage:function(){
+		var data = {
+				'channels' : tudouClient.tudouChannels,
+				'serverurl' : appletv.serverurl
+			};
+		var templateEJS = new EJS({
+			url : appletv.serverurl + '/template/tudou/channel.ejs'
+		});	
+		var xml = templateEJS.render(data);
+		appletv.loadAndSwapXML(xml);
+	},
+	
 	loadIndexPage : function(keyword, page, channelId, queryUrl) {
 		appletv.showLoading();
 		var channel = this.tudouChannelMap[channelId];
