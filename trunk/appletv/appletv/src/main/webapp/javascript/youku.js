@@ -185,7 +185,7 @@ var youkuClient = {
 	
 	loadChannelPage:function(){
 		var data = {
-				'channels' : youkuClient.qqChannels,
+				'channels' : youkuClient.youkuChannels,
 				'serverurl' : appletv.serverurl
 			};
 		var templateEJS = new EJS({
