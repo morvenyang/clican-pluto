@@ -151,6 +151,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     [self initHttpServer];
     [self initJSEngine];
     
+    [[TTURLRequestQueue mainQueue] setMaxContentLength:0];
     TTNavigator* navigator = [TTNavigator navigator];
     
     navigator.supportsShakeToReload = NO;

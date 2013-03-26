@@ -101,11 +101,13 @@
                     NSMutableArray* items = [NSMutableArray array];
                     NSArray* grids = [scrollerElement nodesForXPath:@"items/grid" error:nil];
                     CXMLElement* movieGridElement = nil;
+                    CXMLElement* pagingGridElement = nil;
                     for(int i=0;i<[grids count];i++){
                         CXMLElement* item = (CXMLElement*)[grids objectAtIndex:i];
                         if([[[item attributeForName:@"id"] stringValue] isEqualToString:@"movieGrid"]){
                             movieGridElement = item;
-                            break;
+                        }else if([[[item attributeForName:@"id"] stringValue] isEqualToString:@"pagingGrid"]){
+                            pagingGridElement = item;
                         }
                     }
                     if(movieGridElement!=nil){
@@ -128,7 +130,24 @@
                             }
                             [items addObject:[VideoTableItem itemWithVideoList:cellItems]];
                         }
+                        if(pagingGridElement!=nil&&[movies count]==30){
+                            CXMLElement* nextPageElement=nil;
+                            NSArray* actionButtons = [pagingGridElement nodesForXPath:@"items/actionButton" error:nil];
+                            for(int i=0;i<[actionButtons count];i++){
+                                CXMLElement* item = (CXMLElement*)[actionButtons objectAtIndex:i];
+                                if([[[item attributeForName:@"id"] stringValue] isEqualToString:@"nextPage"]){
+                                    nextPageElement = item;
+                                }
+                            }
+                            if(nextPageElement!=nil){
+                                NSString* onSelect = [[nextPageElement attributeForName:@"onSelect"] stringValue];
+                                ALog(@"more on select:%@",onSelect);
+                                TTTableTextItem* moreItem = [TTTableTextItem itemWithText:@"更多" URL:onSelect];
+                                [items addObject:moreItem];
+                            }
+                        }
                     }
+                    
                     tableView.dataSource = [[XmlDataSource alloc] initWithItems:items];
                     tableView.delegate=self;
                     
@@ -145,9 +164,14 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     TTListDataSource* ds = (TTListDataSource*)tableView.dataSource;
-    TTTableTextItem* item = [ds.items objectAtIndex:indexPath.item];
-    NSString* script = item.URL;
-    [[AppDele jsEngine] runJS:script];
+    TTTableItem* item = [ds.items objectAtIndex:indexPath.item];
+    if([item isKindOfClass:[TTTableTextItem class]]){
+        NSString* script = ((TTTableTextItem*)item).URL;
+        [[AppDele jsEngine] runJS:script];
+    }else if([item isKindOfClass:[VideoTableItem class]]){
+        ALog(@"select VideoTableItem");
+    }
+    
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{

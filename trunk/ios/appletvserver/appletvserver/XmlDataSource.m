@@ -10,9 +10,12 @@
 #import "Video.h"
 #import "VideoTableItem.h"
 #import "VideoTableItemCell.h"
-
+#import "Constants.h"
 @implementation XmlDataSource
 
+- (void)load:(TTURLRequestCachePolicy)cachePolicy more:(BOOL)more {
+    ALog(@"load more for xml data source");
+}
 - (Class)tableView:(UITableView*)tableView cellClassForObject:(id) object {
     if ([object isKindOfClass:[VideoTableItem class]]) {
 		return [VideoTableItemCell class];
