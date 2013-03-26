@@ -46,7 +46,7 @@
 				</actionButton>
 			</items>
 		</grid>
-		<grid id="grid_2" columnCount="6">
+		<grid id="movieGrid" columnCount="6">
 			<items>
 				<%for(var i=0;i<videos.length;i++){%>	
 					<moviePoster id="shelf_item_<%=i%>" alwaysShowTitles="true" onSelect="lblClient.loadVideoPage('<%=videos[i]['id']%>');">

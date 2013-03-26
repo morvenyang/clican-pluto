@@ -46,7 +46,7 @@
 			</items>
 		</grid>
 		<%}%>
-		<grid id="grid_2" columnCount="6">
+		<grid id="movieGrid" columnCount="6">
 			<items>
 				<%for(var i=0;i<videos.length;i++){%>
 					<moviePoster id="shelf_item_<%=videos[i]['id']%>" alwaysShowTitles="true" onSelect="yyetsClient.loadVideoPage('<%=videos[i]['id']%>');" onPlay="yyetsClient.loadVideoPage('<%=videos[i]['id']%>');">
