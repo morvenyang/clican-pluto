@@ -68,12 +68,46 @@ JSValueRef makeRequest(JSContextRef ctx,
     [request.headers setValue:@"Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.22 (KHTML, like Gecko) Chrome/25.0.1364.172 Safari/537.22" forKey:@"User-Agent"];
     URLDataHeaderResponse* response = [[URLDataHeaderResponse alloc] init];
     request.response = response;
-    [request send];
+    [request sendSynchronously];
     
-   
+    [JSEngine processResponse:request];
     return JSValueMakeNull(ctx);
 }
 
++(void) processResponse:(AjaxCallbackRequest*) request{
+    @try {
+        URLDataHeaderResponse* response = request.response;
+        NSData* data = [response data];
+        NSLog(@"data length:%i",[data length]);
+        NSString* charset = [[response allHeaders] objectForKey:@"Content-Type"];
+        NSStringEncoding enc = NSUTF8StringEncoding;
+        if(charset!=nil){
+            charset = [charset uppercaseString];
+            if([charset rangeOfString:@"GBK"].location!=NSNotFound||[charset rangeOfString:@"GB2312"].location!=NSNotFound){
+                enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
+            }
+        }
+        NSString* content =[[NSString alloc] initWithData:data encoding:enc];
+        if(content==nil&&[data length]>0){
+            enc=CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
+            content = [[NSString alloc] initWithData:data encoding:enc];
+        }
+        NSLog(@"handler response for : %@",request.urlPath);
+        if(content==nil||[content length]==0){
+            JSValueRef args[1];
+            args[0] = JSValueMakeNull(request.ctx);
+            JSObjectCallAsFunction(request.ctx,request.callback,NULL,1,args,NULL);
+        }else{
+            JSValueRef args[1];
+            args[0] = JSValueMakeString(request.ctx,JSStringCreateWithUTF8CString([content UTF8String]));
+            JSObjectCallAsFunction(request.ctx,request.callback,NULL,1,args,NULL);
+        }
+    }
+    @catch (NSException *exception) {
+        TTAlert([NSString stringWithFormat:@"错误:%@",[exception name]]);
+        
+    }
+}
 JSValueRef makePostRequest(JSContextRef ctx,
                             JSObjectRef function,
                             JSObjectRef thisObject,
@@ -99,7 +133,8 @@ JSValueRef makePostRequest(JSContextRef ctx,
         request.httpBody = [content dataUsingEncoding:NSUTF8StringEncoding];
     }
     request.response = response;
-    [request send];
+    [request sendSynchronously];
+    [JSEngine processResponse:request];
     return JSValueMakeNull(ctx);
 }
 
@@ -156,22 +191,74 @@ JSValueRef loadXML(JSContextRef ctx,
                     size_t argumentCount,
                     const JSValueRef arguments[],
                     JSValueRef* exception){
-    JSValueRef excp = NULL;
-    NSString *xml = (__bridge_transfer NSString*)JSStringCopyCFString(kCFAllocatorDefault, (JSStringRef)JSValueToStringCopy(ctx, arguments[0], &excp));
-    UIViewController* currentController = [TTNavigator navigator].topViewController;
-    if([currentController isKindOfClass:[XmlViewController class]]){
-        XmlViewController* xmlController =(XmlViewController*)currentController;
-        if(xmlController.append){
-            [xmlController appendXml:xml];
+    @try {
+        JSValueRef excp = NULL;
+        NSString *xml = (__bridge_transfer NSString*)JSStringCopyCFString(kCFAllocatorDefault, (JSStringRef)JSValueToStringCopy(ctx, arguments[0], &excp));
+        if(xml==NULL||xml.length==0){
+            xml = [JSEngine getDialog:@"加载XML错误" desc:@"无法获得相关内容"];
+        }
+       
+        UIViewController* currentController = [TTNavigator navigator].topViewController;
+        if([currentController isKindOfClass:[XmlViewController class]]){
+            XmlViewController* xmlController =(XmlViewController*)currentController;
+            if(xmlController.append){
+                [xmlController appendXml:xml];
+            }else{
+                XmlViewController* controler = [[XmlViewController alloc] initWithXml:xml];
+                [[TTNavigator navigator].topViewController.navigationController pushViewController:controler animated:YES];
+            }
         }else{
             XmlViewController* controler = [[XmlViewController alloc] initWithXml:xml];
             [[TTNavigator navigator].topViewController.navigationController pushViewController:controler animated:YES];
         }
-    }else{
-        XmlViewController* controler = [[XmlViewController alloc] initWithXml:xml];
-        [[TTNavigator navigator].topViewController.navigationController pushViewController:controler animated:YES];
+
+        JSValueRef ref = JSValueMakeNull(ctx);
+        return ref;
     }
-    return JSValueMakeNull(ctx);
+    @catch (NSException *exception) {
+        NSLog(@"Error occured when load xml %@",exception);
+    }
+
+    
+}
+
+JSValueRef loadURL(JSContextRef ctx,
+                   JSObjectRef function,
+                   JSObjectRef thisObject,
+                   size_t argumentCount,
+                   const JSValueRef arguments[],
+                   JSValueRef* exception){
+    JSValueRef excp = NULL;
+    NSString *url = (__bridge_transfer NSString*)JSStringCopyCFString(kCFAllocatorDefault, (JSStringRef)JSValueToStringCopy(ctx, arguments[0], &excp));
+    @try {
+       
+        ASIHTTPRequest *req = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:url]];
+        [req setShouldContinueWhenAppEntersBackground:YES];
+        [req startSynchronous];
+        NSError *error = [req error];
+        NSString* content =nil;
+        if (!error) {
+            NSData* contentData = [req responseData];
+            content = [[NSString alloc] initWithData:contentData encoding:NSUTF8StringEncoding];
+        }else{
+            content= [JSEngine getDialog:@"加载URL错误，无法获得相关内容" desc:[NSString stringWithFormat:@"URL:%@",url]];
+        }
+        
+        XmlViewController* controler = [[XmlViewController alloc] initWithXml:content];
+        [[TTNavigator navigator].topViewController.navigationController pushViewController:controler animated:YES];
+
+        
+        JSValueRef ref = JSValueMakeNull(ctx);
+        return ref;
+    }
+    @catch (NSException *exception) {
+        NSLog(@"error occured when load url %@",exception);
+    }
+}
+
++(NSString*) getDialog:(NSString*) title desc:(NSString*) desc{
+    NSString* result = [NSString stringWithFormat:@"<?xml version=\"1.0\" encoding=\"UTF-8\"><atv><body><dialog id=\"dialog\"><title><![CDATA[%@]]></title><description><![CDATA[%@]]></description></dialog></body></atv>",title,desc];
+    return result;
 }
 
 - (void) reloadJS{
@@ -212,6 +299,11 @@ JSValueRef loadXML(JSContextRef ctx,
     JSObjectRef func7 = JSObjectMakeFunctionWithCallback(_JSContext, str7,makeSyncRequest);
     JSObjectSetProperty(_JSContext, JSContextGetGlobalObject(_JSContext), str7, func7, kJSPropertyAttributeNone, NULL);
     JSStringRelease(str7);
+    
+    JSStringRef str8 = JSStringCreateWithUTF8CString("native_loadURL");
+    JSObjectRef func8 = JSObjectMakeFunctionWithCallback(_JSContext, str8,loadURL);
+    JSObjectSetProperty(_JSContext, JSContextGetGlobalObject(_JSContext), str8, func8, kJSPropertyAttributeNone, NULL);
+    JSStringRelease(str8);
     
     NSString* jsDirectory = [[AppDele localWebPathPrefix] stringByAppendingString:@"/appletv/javascript"];
     NSArray* jsArray=[[NSFileManager defaultManager] contentsOfDirectoryAtPath:jsDirectory error:nil];
@@ -293,38 +385,7 @@ JSValueRef loadXML(JSContextRef ctx,
 #pragma mark -
 #pragma mark TTURLRequestDelegate
 
-- (void)requestDidFinishLoad:(AjaxCallbackRequest*)request
-{
-    @try {
-        URLDataHeaderResponse* response = request.response;
-        NSData* data = [response data];
-        NSLog(@"data length:%i",[data length]);
-        NSString* charset = [[response allHeaders] objectForKey:@"Content-Type"];
-        NSStringEncoding enc = NSUTF8StringEncoding;
-        if(charset!=nil){
-            charset = [charset uppercaseString];
-            if([charset rangeOfString:@"GBK"].location!=NSNotFound||[charset rangeOfString:@"GB2312"].location!=NSNotFound){
-                enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
-            }
-        }
-        NSString* content =[[NSString alloc] initWithData:data encoding:enc];
-        NSLog(@"content:%@" ,content);
-        NSLog(@"handler response for : %@",request.urlPath);
-        if(content==nil||[content length]==0){
-            JSValueRef args[1];
-            args[0] = JSValueMakeNull(request.ctx);
-            JSObjectCallAsFunction(request.ctx,request.callback,NULL,1,args,NULL);
-        }else{
-            JSValueRef args[1];
-            args[0] = JSValueMakeString(request.ctx,JSStringCreateWithUTF8CString([content UTF8String]));
-            JSObjectCallAsFunction(request.ctx,request.callback,NULL,1,args,NULL);
-        }
-    }
-    @catch (NSException *exception) {
-        TTAlert([NSString stringWithFormat:@"错误:%@",[exception name]]);
-        
-    }
-}
+
 
 - (void)request:(AjaxCallbackRequest*)request didFailLoadWithError:(NSError*)error {
     NSLog(@"request:%@ didFailLoadWithError:%@", request, error);

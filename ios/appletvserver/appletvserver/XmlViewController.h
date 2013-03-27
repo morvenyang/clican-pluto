@@ -18,6 +18,7 @@
     UIButton* _playButton;
     TTImageView* _imageView;
     UIView* _reflectImageView;
+    UIScrollView* _scrollView;
 }
 @property (nonatomic, copy) NSString* xml;
 @property (nonatomic, copy) NSString* type;
@@ -28,6 +29,7 @@
 @property (nonatomic, retain) UIButton* playButton;
 @property (nonatomic, retain) TTImageView* imageView;
 @property (nonatomic, retain) UIView* reflectImageView;
+@property (nonatomic, retain) UIScrollView* scrollView;
 
 -(id) initWithXml:(NSString*) xml;
 -(void) appendXml:(NSString*) xml;
