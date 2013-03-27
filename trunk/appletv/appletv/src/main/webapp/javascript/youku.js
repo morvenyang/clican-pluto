@@ -225,16 +225,16 @@ var youkuClient = {
 			}
 			appletv.makeRequest(queryUrl, function(content) {
 				if (content != null && content.length > 0) {
-					var itemscontent = appletv.substringByTag(content,'<div class="items">', '</div>', 'div');
+					var itemscontent = appletv.substringByDataByTag(content,'<div class="items">', '</div>', 'div');
 					var items = appletv.getSubValuesByTag(itemscontent,
 							'<ul class="p pv">', '</ul>', 'ul');
 					for (i = 0; i < items.length; i++) {
 						var item = items[i];
-						var pic = appletv.substring(item,
+						var pic = appletv.substringByData(item,
 								'<img src="', '"');
-						var title = appletv.substring(item, 'title="', '"');
-						var id = appletv.substring(item, '<a href="', '"');
-						id = appletv.substring(id, 'id_', '.html');
+						var title = appletv.substringByData(item, 'title="', '"');
+						var id = appletv.substringByData(item, '<a href="', '"');
+						id = appletv.substringByData(id, 'id_', '.html');
 						var video = {
 							"title" : title,
 							"id" : id,
@@ -283,13 +283,13 @@ var youkuClient = {
 	
 	getCategory: function(content,channelId,url){
 		var channel = this.youkuChannelMap[channelId];
-		var categoryFilterContent = appletv.substringByTag(content,'<div class="filter" id="filter">','</div>','div');
+		var categoryFilterContent = appletv.substringByDataByTag(content,'<div class="filter" id="filter">','</div>','div');
 		var categoryFilters = appletv.getSubValuesByTag(categoryFilterContent,'<div class="item">','</div>','div');
 		var categoryNames = [];
 		var categoryMap = {};
 		var category = {"categoryMap":categoryMap,"categoryNames":categoryNames,"url":url,"serverurl":appletv.serverurl,"channelId":channelId};
 		for(i=0;i<categoryFilters.length;i++){
-			var categoryName = appletv.substring(categoryFilters[i],'<label>','</label>');
+			var categoryName = appletv.substringByData(categoryFilters[i],'<label>','</label>');
 			categoryNames.push(categoryName);
 			var categoryValues = [];
 			var categoryLis = appletv.getSubValues(categoryFilters[i],'<li','</li>');
@@ -298,11 +298,11 @@ var youkuClient = {
 				var categoryLabel;
 				if(categoryLis[j].indexOf('class="current"')!=-1){
 					select = true
-					categoryLabel = appletv.substring(categoryLis[j],'<span>','</span>');
+					categoryLabel = appletv.substringByData(categoryLis[j],'<span>','</span>');
 				}else{
-					categoryLabel = appletv.substring(categoryLis[j],'">','<');
+					categoryLabel = appletv.substringByData(categoryLis[j],'">','<');
 				}
-				var categoryUrl = 'http://www.youku.com'+appletv.substring(categoryLis[j],'href="','"');
+				var categoryUrl = 'http://www.youku.com'+appletv.substringByData(categoryLis[j],'href="','"');
 				var categoryValue={"categoryLabel":categoryLabel,"categoryUrl":categoryUrl,"select":select};
 				categoryValues.push(categoryValue);
 			}
@@ -344,43 +344,43 @@ var youkuClient = {
 			var shareurl = url;
 			var desc;
 			if(isalbum){
-				pic = appletv.substring(htmlContent,'<li class="thumb">','</li>');
-				pic = appletv.substring(pic,'src=\'','\'');
-				title = appletv.substring(htmlContent,'<span class="name">','</span>');
-				area = appletv.substring(htmlContent,'<span class="area">','</span>');
+				pic = appletv.substringByData(htmlContent,'<li class="thumb">','</li>');
+				pic = appletv.substringByData(pic,'src=\'','\'');
+				title = appletv.substringByData(htmlContent,'<span class="name">','</span>');
+				area = appletv.substringByData(htmlContent,'<span class="area">','</span>');
 				area = appletv.getSubValues(area,'target="_blank">', '</a>');
-				year = appletv.substring(htmlContent,'<span class="pub">','</span>');
-				score = appletv.substring(htmlContent,'<em class="num">','</em>');
+				year = appletv.substringByData(htmlContent,'<span class="pub">','</span>');
+				score = appletv.substringByData(htmlContent,'<em class="num">','</em>');
 				if(channelId==97){
 					//电视剧
-					actor = appletv.substring(htmlContent,'<span class="actor">','</span>');
+					actor = appletv.substringByData(htmlContent,'<span class="actor">','</span>');
 					actor = appletv.getSubValues(actor,'target="_blank">', '</a>');
-					desc = appletv.substring(htmlContent,'<span class="short" id="show_info_short" style="display: inline;">','</span>');
+					desc = appletv.substringByData(htmlContent,'<span class="short" id="show_info_short" style="display: inline;">','</span>');
 				}else if(channelId==96){
 					//电影
-					actor = appletv.substring(htmlContent,'<span class="actor">','</span>');
+					actor = appletv.substringByData(htmlContent,'<span class="actor">','</span>');
 					actor = appletv.getSubValues(actor,'target="_blank">', '</a>');
-					dctor = appletv.substring(htmlContent,'<span class="director">','</span>');
+					dctor = appletv.substringByData(htmlContent,'<span class="director">','</span>');
 					dctor = appletv.getSubValues(dctor,'target="_blank">', '</a>');
-					desc = appletv.substring(htmlContent,'<span class="long" style="display:none;">','</span>');
+					desc = appletv.substringByData(htmlContent,'<span class="long" style="display:none;">','</span>');
 				}
 			}else{
-				title =  appletv.substring(htmlContent,'<meta name="title" content="','"');
-				desc =  appletv.substring(htmlContent,'<meta name="description" content="','"');
+				title =  appletv.substringByData(htmlContent,'<meta name="title" content="','"');
+				desc =  appletv.substringByData(htmlContent,'<meta name="description" content="','"');
 			}
 			desc = appletv.getTextInTag(desc);
 			if(channelId==96){
 				isalbum = false;
-				code = appletv.substring(htmlContent,'id_','.html');
+				code = appletv.substringByData(htmlContent,'id_','.html');
 			}
 			var items = [];
 			if(isalbum){
-				var itemscontent = appletv.substringByTag(htmlContent,'<div class="items"','</div>','div');
+				var itemscontent = appletv.substringByDataByTag(htmlContent,'<div class="items"','</div>','div');
 				var urls = appletv.getSubValues(itemscontent,'<a','</a>');
 				for(i=0;i<urls.length;i++){
 					url = urls[i];
-					var t = appletv.substring(url,'title="','"');
-					var c = appletv.substring(url,'id_','.html');
+					var t = appletv.substringByData(url,'title="','"');
+					var c = appletv.substringByData(url,'id_','.html');
 					var item = {
 							'title' : t,
 							'id' : c

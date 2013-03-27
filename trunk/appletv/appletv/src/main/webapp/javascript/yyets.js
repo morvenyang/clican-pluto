@@ -153,26 +153,26 @@ var yyetsClient = {
 					return;
 				}
 				var video;
-				var title = appletv.substring(htmlContent, '<h2>', '</h2>');
-				var pic = appletv.substring(htmlContent, '<img src="', '"');
-				var score = appletv.substring(htmlContent, '<font class="point">',
+				var title = appletv.substringByData(htmlContent, '<h2>', '</h2>');
+				var pic = appletv.substringByData(htmlContent, '<img src="', '"');
+				var score = appletv.substringByData(htmlContent, '<font class="point">',
 						'</font>');
-				var year = appletv.substring(htmlContent, '<li><span>年代：</span>',
+				var year = appletv.substringByData(htmlContent, '<li><span>年代：</span>',
 						'</li>');
-				var type = appletv.substring(htmlContent, '<li><span>类型：</span>',
+				var type = appletv.substringByData(htmlContent, '<li><span>类型：</span>',
 						'</li>');
-				var dctor = appletv.substring(htmlContent, '<li><span>导演：</span>',
+				var dctor = appletv.substringByData(htmlContent, '<li><span>导演：</span>',
 						'</li>');
-				var actor = appletv.substring(htmlContent, '<li><span>主演：</span>',
+				var actor = appletv.substringByData(htmlContent, '<li><span>主演：</span>',
 						'</li>');
-				var desc = appletv.substring(htmlContent, '<div class="f5">',
+				var desc = appletv.substringByData(htmlContent, '<div class="f5">',
 						'</div>');
 				var items = [];
-				var formatcontent = appletv.substring(htmlContent,
+				var formatcontent = appletv.substringByData(htmlContent,
 						'<div class="desc_tit">', '</div>');
 				var resourceitems = appletv.getSubValues(htmlContent,
 						'<li class="resource-item"', '</li>');
-				var seasoncontent = appletv.substring(htmlContent,
+				var seasoncontent = appletv.substringByData(htmlContent,
 						'<div class="season_tit">', '</div>');
 
 				var formats = appletv.getSubValues(formatcontent, 'data-value="',
@@ -199,16 +199,16 @@ var yyetsClient = {
 				}
 				for (i = 0; i < resourceitems.length; i++) {
 					resourceitem = resourceitems[i];
-					dataformat = appletv.substring(resourceitem, 'data-format="',
+					dataformat = appletv.substringByData(resourceitem, 'data-format="',
 							'"');
-					dataseason = appletv.substring(resourceitem, 'data-season="',
+					dataseason = appletv.substringByData(resourceitem, 'data-season="',
 							'"');
 					datafile = 'ed2k'
-							+ appletv.substring(resourceitem, 'href="ed2k', '"');
+							+ appletv.substringByData(resourceitem, 'href="ed2k', '"');
 					if (datafile == 'ed2k') {
 						datatitle = '资源URL无法点播';
 					} else {
-						datatitle = appletv.substring(datafile, "file|", "|");
+						datatitle = appletv.substringByData(datafile, "file|", "|");
 					}
 
 					data = {
