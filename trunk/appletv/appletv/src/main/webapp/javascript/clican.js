@@ -467,8 +467,8 @@ var appletv = {
 	        </dialog> \
 	        </body> \
 	        </atv>';
-
-		return atv.parseXML(errorXML);
+		
+		return errorXML;
 	},
 
 	loadXML : function(xml) {
@@ -517,7 +517,7 @@ var appletv = {
 		} else if(this.simulate=='native'){
 			native_loadXML(this.makeDialog(message, description));
 		} else {
-			atv.loadXML(this.makeDialog(message, description));
+			atv.loadXML(atv.parseXML(this.makeDialog(message, description)));
 		}
 
 	},
@@ -528,7 +528,7 @@ var appletv = {
 		} else if(this.simulate=='native'){
 			native_loadXML(this.makeDialog(message, description));
 		} else {
-			atv.loadAndSwapXML(this.makeDialog(message, description));
+			atv.loadAndSwapXML(atv.parseXML(this.makeDialog(message, description)));
 		}
 
 	},
