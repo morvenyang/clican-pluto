@@ -13,12 +13,14 @@
 @synthesize title=_title;
 @synthesize itemId=_itemId;
 @synthesize mediaUrl=_mediaUrl;
+@synthesize onSelect=_onSelect;
 
 
 - (void) dealloc {
     TT_RELEASE_SAFELY(_title);
     TT_RELEASE_SAFELY(_itemId);
     TT_RELEASE_SAFELY(_mediaUrl);
+    TT_RELEASE_SAFELY(_onSelect);
     [super dealloc];
 }
 

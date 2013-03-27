@@ -18,12 +18,18 @@
 #import "VideoTableItemCell.h"
 #import "XmlDataSource.h"
 #import "Constants.h"
+#import "AtvUtil.h"
 @implementation XmlViewController
 
 @synthesize xml = _xml;
 @synthesize type = _type;
 @synthesize append = _append;
 @synthesize videos = _videos;
+@synthesize summaryTextLabel = _summaryTextLabel;
+@synthesize descriptionTextLabel = _descriptionTextLabel;
+@synthesize playButton = _playButton;
+@synthesize imageView = _imageView;
+@synthesize reflectImageView = _reflectImageView;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -46,6 +52,12 @@
     TT_RELEASE_SAFELY(_xml);
     TT_RELEASE_SAFELY(_type);
     TT_RELEASE_SAFELY(_videos);
+    
+    TT_RELEASE_SAFELY(_summaryTextLabel);
+    TT_RELEASE_SAFELY(_descriptionTextLabel);
+    TT_RELEASE_SAFELY(_playButton);
+    TT_RELEASE_SAFELY(_imageView);
+    TT_RELEASE_SAFELY(_reflectImageView);
     [super dealloc];
 }
 
@@ -61,6 +73,39 @@
         }
     }
 }
+
+-(void) displayListScrollerSplit:(CXMLNode*) node{
+    CXMLElement* listScrollerSplitElement = (CXMLElement*)node;
+    self.type = @"listScrollerSplit";
+    CXMLElement* titleElement=(CXMLElement*)[listScrollerSplitElement nodeForXPath:@"header/simpleHeader/title" error:nil];
+    self.title = [titleElement stringValue];
+    
+    CGRect frame = [UIScreen mainScreen].applicationFrame;
+    UIScrollView* scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height - 92)];
+    
+    TTTableView* tableView = [[TTTableView alloc] initWithFrame:scrollView.frame style:UITableViewStylePlain];
+    tableView.delegate=self;
+    
+    NSMutableArray* items = [NSMutableArray array];
+    CXMLElement* itemsElement=(CXMLElement*)[listScrollerSplitElement nodeForXPath:@"menu/sections/menuSection/items" error:nil];
+    
+    for(int i=0;i<[itemsElement childCount];i++){
+        CXMLNode* node = [itemsElement childAtIndex:i];
+        if([[node name] isEqualToString:@"oneLineMenuItem"]){
+            CXMLElement* oneLineMenuItemElement = (CXMLElement*)node;
+            NSString* onSelect = [[oneLineMenuItemElement attributeForName:@"onSelect"] stringValue];
+            NSLog(@"onSelect=%@",onSelect);
+            CXMLElement* labelElement = (CXMLElement*)[oneLineMenuItemElement nodeForXPath:@"label" error:nil];
+            TTTableTextItem* item = [TTTableTextItem itemWithText:[labelElement stringValue] URL:onSelect];
+            [items addObject:item];
+        }
+        
+    }
+    tableView.dataSource = [[XmlDataSource alloc] initWithItems:items];
+    
+    [scrollView addSubview:tableView];
+    [self.view addSubview:scrollView];
+}
 -(void) loadView{
     @try{
         [super loadView];
@@ -74,42 +119,14 @@
         for(int i=0;i<[bodyElement childCount];i++){
             CXMLNode* node = [bodyElement childAtIndex:i];
             if([[node name] isEqualToString:@"listScrollerSplit"]){
-                CXMLElement* listScrollerSplitElement = (CXMLElement*)node;
-                self.type = @"listScrollerSplit";
-                CXMLElement* titleElement=(CXMLElement*)[listScrollerSplitElement nodeForXPath:@"header/simpleHeader/title" error:nil];
-                self.title = [titleElement stringValue];
-                
-                CGRect frame = [UIScreen mainScreen].applicationFrame;
-                UIScrollView* scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height - 92)];
-                
-                TTTableView* tableView = [[TTTableView alloc] initWithFrame:scrollView.frame style:UITableViewStylePlain];
-                tableView.delegate=self;
-                
-                NSMutableArray* items = [NSMutableArray array];
-                CXMLElement* itemsElement=(CXMLElement*)[listScrollerSplitElement nodeForXPath:@"menu/sections/menuSection/items" error:nil];
-                
-                for(int i=0;i<[itemsElement childCount];i++){
-                    CXMLNode* node = [itemsElement childAtIndex:i];
-                    if([[node name] isEqualToString:@"oneLineMenuItem"]){
-                        CXMLElement* oneLineMenuItemElement = (CXMLElement*)node;
-                        NSString* onSelect = [[oneLineMenuItemElement attributeForName:@"onSelect"] stringValue];
-                        NSLog(@"onSelect=%@",onSelect);
-                        CXMLElement* labelElement = (CXMLElement*)[oneLineMenuItemElement nodeForXPath:@"label" error:nil];
-                        TTTableTextItem* item = [TTTableTextItem itemWithText:[labelElement stringValue] URL:onSelect];
-                        [items addObject:item];
-                    }
-                    
-                }
-                tableView.dataSource = [[XmlDataSource alloc] initWithItems:items];
-                
-                [scrollView addSubview:tableView];
-                [self.view addSubview:scrollView];
-
-
-
+                [self displayListScrollerSplit:node];
                 break;
             }else if([[node name] isEqualToString:@"scroller"]){
                 [self appendVideos:node];
+                break;
+            }else if([[node name] isEqualToString:@"itemDetail"]){
+                [self displayDetail:node];
+                break;
             }
         }
     }@catch(NSException* e){
@@ -117,6 +134,105 @@
     }
 }
 
+-(void) displayDetail:(CXMLNode*) node{
+    Video* video = [[[Video alloc] init] autorelease];
+    video.title = [[node nodeForXPath:@"title" error:nil] stringValue];
+    video.description = [[node nodeForXPath:@"summary" error:nil] stringValue];
+    video.picUrl = [[node nodeForXPath:@"image" error:nil] stringValue];
+    
+    NSArray* rows = [node nodesForXPath:@"table/rows/row" error:nil];
+    for(int i=0;i<[rows count];i++){
+        CXMLNode* row = [rows objectAtIndex:i];
+        NSArray* labels = [row nodesForXPath:@"label" error:nil];
+        for(int j=0;j<[labels count];j++){
+            CXMLNode* label = [labels objectAtIndex:j];
+            NSString* labelValue = [label stringValue];
+            if(labelValue==NULL||[labelValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length==0){
+                continue;
+            }
+            NSRange range = [labelValue rangeOfString:@":"];
+            NSString* name = nil;
+            NSString* value = nil;
+            if(range.location!=NSNotFound){
+                name = [labelValue substringWithRange:NSMakeRange(0, range.location)];
+                if(range.location+1<[labelValue length]){
+                    value = [labelValue substringFromIndex:range.location+1];
+                    if([name isEqualToString:@"导演"]){
+                        video.directors = value;
+                    }else if([name isEqualToString:@"年代"]){
+                        video.year = value;
+                    }else if([name isEqualToString:@"地区"]){
+                        video.area = value;
+                    }else if([name isEqualToString:@"评分"]){
+                        video.score = value;
+                    }else if([name isEqualToString:@"主演"]){
+                        video.actors = value;
+                    }
+                }
+            }
+        }
+    }
+    
+    NSArray* actionItems = [node nodesForXPath:@"centerShelf/shelf/sections/shelfSection/items/actionButton" error:nil];
+    NSMutableArray* videoItemList = [NSMutableArray array];
+    video.videoItemList = videoItemList;
+    for(int i=0;i<[actionItems count];i++){
+         CXMLElement* actionButton = [actionItems objectAtIndex:i];
+        NSString* onSelect = [[actionButton attributeForName:@"onSelect"] stringValue];
+        NSString* title = [[actionButton nodeForXPath:@"title" error:nil] stringValue];
+        VideoItem* vi = [[[VideoItem alloc] init] autorelease];
+        vi.title = title;
+        vi.onSelect = onSelect;
+        [videoItemList addObject:vi];
+    }
+    CGRect frame = [UIScreen mainScreen].applicationFrame;
+    UIScrollView* scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height - 92)];
+    
+    
+    NSLog(@"picurl=%@",[video picUrl]);
+    self.reflectImageView = [[UIView alloc] initWithFrame:CGRectMake(10, 10 , 113, 164)];
+    
+    self.imageView = [[[TTImageView alloc] autorelease] initWithFrame:CGRectZero];
+    self.imageView.frame = CGRectMake(0, 0, 93, 124);
+    self.imageView.layer.cornerRadius = 8;
+    self.imageView.layer.masksToBounds = YES;
+    self.imageView.delegate = self;
+    self.imageView.urlPath = [video picUrl];
+    self.summaryTextLabel = [[[TTStyledTextLabel alloc] init] autorelease];
+    
+    self.summaryTextLabel.contentMode = UIViewContentModeCenter;
+    self.summaryTextLabel.frame = CGRectMake(110,10,200,164);
+    
+    
+    self.summaryTextLabel.text = [TTStyledText textFromXHTML:[@"" stringByAppendingFormat:@"<strong>%@</strong>\n导演:%@\n主演:%@\n年份:%@\n地区:%@",video.title,video.directors,video.actors,video.year,video.area] lineBreaks:YES URLs:NO];
+    [self.summaryTextLabel sizeToFit];
+    double y = self.summaryTextLabel.frame.origin.y+self.summaryTextLabel.frame.size.height;
+    y = y+30;
+    UIScrollView* descScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(10, y, frame.size.width-20, 70)];
+    self.descriptionTextLabel = [[[TTStyledTextLabel alloc] init] autorelease];
+    self.descriptionTextLabel.contentMode = UIViewContentModeCenter;
+    self.descriptionTextLabel.frame = CGRectMake(0,0,frame.size.width-20,70);
+    self.descriptionTextLabel.text=[TTStyledText textFromXHTML:[@"" stringByAppendingFormat:@"%@",video.description] lineBreaks:YES URLs:NO];
+    [self.descriptionTextLabel sizeToFit];
+    [descScrollView addSubview:self.descriptionTextLabel];
+    [scrollView addSubview:self.reflectImageView];
+    [scrollView addSubview:self.summaryTextLabel];
+    [scrollView addSubview:descScrollView];
+    y = y+ 70;
+    TTTableView* tableView = [[TTTableView alloc] initWithFrame:CGRectMake(0, y, frame.size.width, frame.size.height - y -92) style:UITableViewStylePlain];
+    tableView.delegate=self;
+    NSMutableArray* items = [NSMutableArray array];
+    for(int i=0;i<[video.videoItemList count];i++){
+        VideoItem* vi = [video.videoItemList objectAtIndex:i];
+        TTTableTextItem* item = [TTTableTextItem itemWithText:vi.title URL:vi.onSelect];
+        [items addObject:item];
+    }
+    tableView.dataSource = [[TTListDataSource alloc] initWithItems:items];
+    [scrollView addSubview:tableView];
+    
+    
+    [self.view addSubview:scrollView];
+}
 -(void) appendVideos:(CXMLNode*) node{
     if(!self.append){
         [self.videos removeAllObjects];
@@ -221,6 +337,12 @@
         return 180;
     }else{
         return 50;
+    }
+}
+
+- (void)imageView:(TTImageView*)imageView didLoadImage:(UIImage*)image{
+    if(imageView == self.imageView){
+        [AtvUtil markReflect:self.reflectImageView.layer image:self.imageView.image];
     }
 }
 
