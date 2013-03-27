@@ -31,6 +31,7 @@
 @synthesize imageView = _imageView;
 @synthesize reflectImageView = _reflectImageView;
 @synthesize scrollView = _scrollView;
+@synthesize playerViewController = _playerViewController;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -61,6 +62,7 @@
     TT_RELEASE_SAFELY(_imageView);
     TT_RELEASE_SAFELY(_reflectImageView);
     TT_RELEASE_SAFELY(_scrollView);
+    TT_RELEASE_SAFELY(_playerViewController);
     [super dealloc];
 }
 
@@ -74,6 +76,39 @@
         if([[node name] isEqualToString:@"scroller"]){
             [self appendVideos:node];
         }
+    }
+}
+-(void)playVideo:(CXMLNode*) node{
+    NSString* mediaUrl = [[node nodeForXPath:@"httpLiveStreamingVideoAsset/mediaURL" error:nil] stringValue];
+    NSLog(@"mediaUrl:%@",mediaUrl);
+    self.playerViewController = [[MPMoviePlayerViewController alloc] initWithContentURL:[NSURL URLWithString:mediaUrl]];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moviePlayBackDidFinish:)
+                                                 name:MPMoviePlayerPlaybackDidFinishNotification object:self.playerViewController.moviePlayer];
+    
+    self.playerViewController.moviePlayer.controlStyle = MPMovieControlStyleFullscreen;
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
+    
+    [self presentMoviePlayerViewControllerAnimated:self.playerViewController];
+    [self.playerViewController.moviePlayer prepareToPlay];
+    [self.playerViewController.moviePlayer setFullscreen:YES animated:YES];
+    [self.playerViewController.moviePlayer play];
+}
+- (void)moviePlayBackDidFinish:(NSNotification*)notification {
+    int reason = [[[notification userInfo] valueForKey:MPMoviePlayerPlaybackDidFinishReasonUserInfoKey] intValue];
+    if (reason == MPMovieFinishReasonUserExited) {
+        //user hit the done button
+        MPMoviePlayerController *moviePlayer = [notification object];
+        
+        [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                        name:MPMoviePlayerPlaybackDidFinishNotification
+                                                      object:moviePlayer];
+        
+        if ([moviePlayer respondsToSelector:@selector(setFullscreen:animated:)]) {
+            [moviePlayer.view removeFromSuperview];
+        }
+        [self.navigationController setNavigationBarHidden:NO animated:YES];
+        [self.navigationController popViewControllerAnimated:YES];
     }
 }
 
@@ -97,6 +132,37 @@
             NSLog(@"onSelect=%@",onSelect);
             CXMLElement* labelElement = (CXMLElement*)[oneLineMenuItemElement nodeForXPath:@"label" error:nil];
             TTTableTextItem* item = [TTTableTextItem itemWithText:[labelElement stringValue] URL:onSelect];
+            [items addObject:item];
+        }
+        
+    }
+    tableView.dataSource = [[XmlDataSource alloc] initWithItems:items];
+    
+    [self.scrollView addSubview:tableView];
+    [self.view addSubview:self.scrollView];
+}
+
+-(void) displayListByNavigation:(CXMLNode*) node{
+    CXMLElement* listScrollerSplitElement = (CXMLElement*)node;
+    self.type = @"listScrollerSplit";
+    CXMLElement* titleElement=(CXMLElement*)[listScrollerSplitElement nodeForXPath:@"header/thumblerWithSubtitle/subtitle" error:nil];
+    self.title = [titleElement stringValue];
+    
+    TTTableView* tableView = [[TTTableView alloc] initWithFrame:self.scrollView.frame style:UITableViewStylePlain];
+    tableView.delegate=self;
+    
+    NSMutableArray* items = [NSMutableArray array];
+    NSArray* menuItems =[listScrollerSplitElement nodesForXPath:@"menu/sections/menuSection/items/oneLineMenuItem" error:nil];
+    
+    for(int i=0;i<[menuItems count];i++){
+        CXMLNode* node = [menuItems objectAtIndex:i];
+        if([[node name] isEqualToString:@"oneLineMenuItem"]){
+            CXMLElement* oneLineMenuItemElement = (CXMLElement*)node;
+            NSString* onSelect = [[oneLineMenuItemElement attributeForName:@"onSelect"] stringValue];
+            NSLog(@"onSelect=%@",onSelect);
+            CXMLElement* labelElement = (CXMLElement*)[oneLineMenuItemElement nodeForXPath:@"label" error:nil];
+   
+            TTTableStyledTextItem* item = [TTTableStyledTextItem itemWithText:[TTStyledText textFromXHTML:[labelElement stringValue] lineBreaks:YES URLs:NO] URL:onSelect];
             [items addObject:item];
         }
         
@@ -133,7 +199,14 @@
             }else if([[node name] isEqualToString:@"optionDialog"]){
                 [self displayListScrollerSplit:node];
                 break;
+            }else if([[node name] isEqualToString:@"videoPlayer"]){
+                [self playVideo:node];
+                break;
+            }else if([[node name] isEqualToString:@"listByNavigation"]){
+                [self displayListByNavigation:node];
+                break;
             }
+            
         }
     }@catch(NSException* e){
         ALog(@"error occured:%@",[e description]);
@@ -261,8 +334,6 @@
     if([idStr isEqualToString:@"index"]){
         self.type = @"index";
         self.title = @"视频";
-        
-        CGRect frame = [UIScreen mainScreen].applicationFrame;
 
         
         TTTableView* tableView = [[TTTableView alloc] initWithFrame:self.scrollView.frame style:UITableViewStylePlain];
@@ -339,13 +410,17 @@
     self.append = NO;
     TTListDataSource* ds = (TTListDataSource*)tableView.dataSource;
     TTTableItem* item = [ds.items objectAtIndex:indexPath.item];
+    
     if([item isKindOfClass:[TTTableTextItem class]]){
         TTTableTextItem* tti = (TTTableTextItem*)item;
         NSString* script = tti.URL;
         if([tti.text isEqualToString:@"更多"]){
             self.append = YES;
         }
-        
+        [[AppDele jsEngine] runJS:script];
+    }else if([item isKindOfClass:[TTTableStyledTextItem class]]){
+        TTTableStyledTextItem* tti = (TTTableStyledTextItem*)item;
+        NSString* script = tti.URL;
         [[AppDele jsEngine] runJS:script];
     }else if([item isKindOfClass:[VideoTableItem class]]){
         ALog(@"select VideoTableItem");

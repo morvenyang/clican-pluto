@@ -7,6 +7,7 @@
 //
 
 #import <Three20UI/Three20UI.h>
+#import "MediaPlayer/MediaPlayer.h"
 
 @interface XmlViewController : TTViewController<UITableViewDelegate,TTImageViewDelegate>{
     NSString* _xml;
@@ -19,6 +20,7 @@
     TTImageView* _imageView;
     UIView* _reflectImageView;
     UIScrollView* _scrollView;
+    MPMoviePlayerViewController* _playerViewController;
 }
 @property (nonatomic, copy) NSString* xml;
 @property (nonatomic, copy) NSString* type;
@@ -30,7 +32,8 @@
 @property (nonatomic, retain) TTImageView* imageView;
 @property (nonatomic, retain) UIView* reflectImageView;
 @property (nonatomic, retain) UIScrollView* scrollView;
-
+@property (nonatomic, retain) MPMoviePlayerViewController* playerViewController
+;
 -(id) initWithXml:(NSString*) xml;
 -(void) appendXml:(NSString*) xml;
 @end
