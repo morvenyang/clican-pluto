@@ -144,7 +144,6 @@ var tudouClient = {
 		if (channelId == 1001) {
 			queryUrl = tudouSearchApi + '&pageNo=' + page + '&kw='
 					+ encodeURIComponent(keyword);
-			appletv.logToServer(queryUrl);
 			appletv
 					.makeRequest(
 							queryUrl,
