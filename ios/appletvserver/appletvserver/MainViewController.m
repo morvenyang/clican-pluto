@@ -29,6 +29,8 @@
     [items addObject:item2];
     TTTableTextItem* item3 = [TTTableTextItem itemWithText:@"Tudou" URL:@"tudouClient.loadChannelPage();"];
     [items addObject:item3];
+    TTTableTextItem* item4 = [TTTableTextItem itemWithText:@"Yyets" URL:@"yyetsClient.loadChannelPage();"];
+    [items addObject:item4];
     TTListDataSource* ds = [[TTListDataSource alloc] initWithItems:items];
     self.dataSource = ds;
     self.tableView.delegate =self;
