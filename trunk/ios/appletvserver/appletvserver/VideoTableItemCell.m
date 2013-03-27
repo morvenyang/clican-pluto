@@ -74,10 +74,16 @@
         for(int i=0;i<3;i++){
             VideoImageView* imageView = [self.imageArray objectAtIndex:i];
             TTStyledTextLabel* titleLabel = [self.titleArray objectAtIndex:i];
-            Video* video = [self.videoTableItem.videoList objectAtIndex:i];
-            imageView.urlPath = [video picUrl];
-            titleLabel.text = [TTStyledText textFromXHTML:[video title] lineBreaks:YES URLs:NO];
-            imageView.actionUrl=video.onSelect;
+            if([self.videoTableItem.videoList count]>i){
+                Video* video = [self.videoTableItem.videoList objectAtIndex:i];
+                imageView.urlPath = [video picUrl];
+                titleLabel.text = [TTStyledText textFromXHTML:[video title] lineBreaks:YES URLs:NO];
+                imageView.actionUrl=video.onSelect;
+            }else{
+                [imageView setHidden:YES];
+                [titleLabel setHidden:YES];
+            }
+            
         }
         [super setObject:object];
     }
