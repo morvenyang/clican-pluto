@@ -41,6 +41,18 @@ var yyetsClient = {
 		}
 	},
 
+	loadChannelPage:function(){
+		var data = {
+				'channels' : yyestClient.yyestChannels,
+				'serverurl' : appletv.serverurl
+			};
+		var templateEJS = new EJS({
+			url : appletv.serverurl + '/template/yyest/channel.ejs'
+		});	
+		var xml = templateEJS.render(data);
+		appletv.loadAndSwapXML(xml);
+	},
+	
 	loadIndexPage : function(keyword, page, channelId) {
 		var url;
 		if (channelId == 'search') {
