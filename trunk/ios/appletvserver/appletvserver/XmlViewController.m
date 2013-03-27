@@ -30,11 +30,13 @@
 @synthesize playButton = _playButton;
 @synthesize imageView = _imageView;
 @synthesize reflectImageView = _reflectImageView;
+@synthesize scrollView = _scrollView;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        
+        CGRect frame = [UIScreen mainScreen].applicationFrame;
+        self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height - 92)];
     }
     return self;
 }
@@ -58,6 +60,7 @@
     TT_RELEASE_SAFELY(_playButton);
     TT_RELEASE_SAFELY(_imageView);
     TT_RELEASE_SAFELY(_reflectImageView);
+    TT_RELEASE_SAFELY(_scrollView);
     [super dealloc];
 }
 
@@ -80,10 +83,7 @@
     CXMLElement* titleElement=(CXMLElement*)[listScrollerSplitElement nodeForXPath:@"header/simpleHeader/title" error:nil];
     self.title = [titleElement stringValue];
     
-    CGRect frame = [UIScreen mainScreen].applicationFrame;
-    UIScrollView* scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height - 92)];
-    
-    TTTableView* tableView = [[TTTableView alloc] initWithFrame:scrollView.frame style:UITableViewStylePlain];
+    TTTableView* tableView = [[TTTableView alloc] initWithFrame:self.scrollView.frame style:UITableViewStylePlain];
     tableView.delegate=self;
     
     NSMutableArray* items = [NSMutableArray array];
@@ -103,8 +103,8 @@
     }
     tableView.dataSource = [[XmlDataSource alloc] initWithItems:items];
     
-    [scrollView addSubview:tableView];
-    [self.view addSubview:scrollView];
+    [self.scrollView addSubview:tableView];
+    [self.view addSubview:self.scrollView];
 }
 -(void) loadView{
     @try{
@@ -126,6 +126,12 @@
                 break;
             }else if([[node name] isEqualToString:@"itemDetail"]){
                 [self displayDetail:node];
+                break;
+            }else if([[node name] isEqualToString:@"dialog"]){
+                [self displayDialog:node];
+                break;
+            }else if([[node name] isEqualToString:@"optionDialog"]){
+                [self displayListScrollerSplit:node];
                 break;
             }
         }
@@ -186,7 +192,7 @@
         [videoItemList addObject:vi];
     }
     CGRect frame = [UIScreen mainScreen].applicationFrame;
-    UIScrollView* scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height - 92)];
+
     
     
     NSLog(@"picurl=%@",[video picUrl]);
@@ -215,9 +221,9 @@
     self.descriptionTextLabel.text=[TTStyledText textFromXHTML:[@"" stringByAppendingFormat:@"%@",video.description] lineBreaks:YES URLs:NO];
     [self.descriptionTextLabel sizeToFit];
     [descScrollView addSubview:self.descriptionTextLabel];
-    [scrollView addSubview:self.reflectImageView];
-    [scrollView addSubview:self.summaryTextLabel];
-    [scrollView addSubview:descScrollView];
+    [self.scrollView addSubview:self.reflectImageView];
+    [self.scrollView addSubview:self.summaryTextLabel];
+    [self.scrollView addSubview:descScrollView];
     y = y+ 70;
     TTTableView* tableView = [[TTTableView alloc] initWithFrame:CGRectMake(0, y, frame.size.width, frame.size.height - y -92) style:UITableViewStylePlain];
     tableView.delegate=self;
@@ -228,15 +234,28 @@
         [items addObject:item];
     }
     tableView.dataSource = [[TTListDataSource alloc] initWithItems:items];
-    [scrollView addSubview:tableView];
+    [self.scrollView addSubview:tableView];
     
     
-    [self.view addSubview:scrollView];
+    [self.view addSubview:self.scrollView];
 }
+-(void) displayDialog:(CXMLNode*)node{
+    self.title = [[node nodeForXPath:@"title" error:nil] stringValue];
+    NSString* desc= [[node nodeForXPath:@"description" error:nil] stringValue];
+    CGRect frame = [UIScreen mainScreen].applicationFrame;
+    TTStyledTextLabel* descriptionTextLabel = [[[TTStyledTextLabel alloc] init] autorelease];
+    descriptionTextLabel.contentMode = UIViewContentModeCenter;
+    descriptionTextLabel.frame = CGRectMake(0,0,frame.size.width-20,frame.size.height - 92);
+    descriptionTextLabel.text=[TTStyledText textFromXHTML:[@"" stringByAppendingFormat:@"%@",desc] lineBreaks:YES URLs:NO];
+    [descriptionTextLabel sizeToFit];
+    [self.view addSubview:descriptionTextLabel];
+}
+
 -(void) appendVideos:(CXMLNode*) node{
     if(!self.append){
         [self.videos removeAllObjects];
     }
+    
     CXMLElement* scrollerElement = (CXMLElement*)node;
     NSString* idStr = [[scrollerElement attributeForName:@"id"] stringValue];
     if([idStr isEqualToString:@"index"]){
@@ -244,9 +263,9 @@
         self.title = @"视频";
         
         CGRect frame = [UIScreen mainScreen].applicationFrame;
-        UIScrollView* scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height - 92)];
+
         
-        TTTableView* tableView = [[TTTableView alloc] initWithFrame:scrollView.frame style:UITableViewStylePlain];
+        TTTableView* tableView = [[TTTableView alloc] initWithFrame:self.scrollView.frame style:UITableViewStylePlain];
         
         
         NSMutableArray* items = [NSMutableArray array];
@@ -306,9 +325,13 @@
         tableView.dataSource = [[XmlDataSource alloc] initWithItems:items];
        
         tableView.delegate=self;
-        
-        [scrollView addSubview:tableView];
-        [self.view addSubview:scrollView];
+        NSArray* subviws =[self.scrollView subviews];
+        for(UIView* view in subviws){
+            [view removeFromSuperview];
+        }
+        [self.scrollView addSubview:tableView];
+        [self.view addSubview:self.scrollView];
+        NSLog(@"add videos successfully");
     }
 
 }
