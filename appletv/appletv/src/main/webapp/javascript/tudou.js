@@ -196,7 +196,7 @@ var tudouClient = {
 					+ page + ".html";
 				}
 			}else{
-				queryUrl = 'http://'+appletv.substring(queryUrl,'http://','2pa')+'2pa'+page+'.html';
+				queryUrl = 'http://'+appletv.substringByData(queryUrl,'http://','2pa')+'2pa'+page+'.html';
 			}
 			appletv.makeRequest(queryUrl, function(content) {
 				if (content != null && content.length > 0) {
@@ -204,11 +204,11 @@ var tudouClient = {
 							'<div class="pack', '</div>', 'div');
 					for (i = 0; i < packs.length; i++) {
 						var pack = packs[i];
-						var pic = appletv.substring(pack,
+						var pic = appletv.substringByData(pack,
 								'<img', '>');
-						pic = appletv.substring(pic,'src="','"');
-						var title = appletv.substring(pack, 'title="', '"');
-						var id = appletv.substring(pack, '<a href="', '"');
+						pic = appletv.substringByData(pic,'src="','"');
+						var title = appletv.substringByData(pack, 'title="', '"');
+						var id = appletv.substringByData(pack, '<a href="', '"');
 						var album = 0;
 						if (channelId == 30 || channelId == 9) {
 							album = 1;
@@ -259,14 +259,14 @@ var tudouClient = {
 	},
 	
 	getCategory: function(content,channelId,url){
-		var categoryFilterContent = appletv.substringByTag(content,'<div class="category-filter','</div>','div');
+		var categoryFilterContent = appletv.substringByDataByTag(content,'<div class="category-filter','</div>','div');
 		var categoryFilters = appletv.getSubValues(categoryFilterContent,'<div class="category-item','</div>');
 		
 		var categoryNames = [];
 		var categoryMap = {};
 		var category = {"categoryMap":categoryMap,"categoryNames":categoryNames,"url":url,"serverurl":appletv.serverurl,"channelId":channelId};
 		for(i=0;i<categoryFilters.length;i++){
-			var categoryName = appletv.substring(categoryFilters[i],'<h3>','</h3>');
+			var categoryName = appletv.substringByData(categoryFilters[i],'<h3>','</h3>');
 			categoryNames.push(categoryName);
 			var categoryValues = [];
 			var categoryLis = appletv.getSubValues(categoryFilters[i],'<li','</li>');
@@ -275,8 +275,8 @@ var tudouClient = {
 				if(categoryLis[j].indexOf('class="current"')!=-1){
 					select = true
 				}
-				var categoryLabel = appletv.substring(categoryLis[j],'html">','</a>');
-				var categoryUrl = 'http://www.tudou.com/cate/'+appletv.substring(categoryLis[j],'href="','"');
+				var categoryLabel = appletv.substringByData(categoryLis[j],'html">','</a>');
+				var categoryUrl = 'http://www.tudou.com/cate/'+appletv.substringByData(categoryLis[j],'href="','"');
 				var categoryValue={"categoryLabel":categoryLabel,"categoryUrl":categoryUrl,"select":select};
 				categoryValues.push(categoryValue);
 			}
@@ -304,7 +304,7 @@ var tudouClient = {
 			if (htmlContent == null) {
 				return;
 			}
-			var itemid = appletv.substring(htmlContent, 'iid: ', ',').trim();
+			var itemid = appletv.substringByData(htmlContent, 'iid: ', ',').trim();
 			itemid = itemid.substring(1, itemid.length - 1);
 			appletv.logToServer('itemid:' + itemid);
 			tudouClient.loadAlbumPage(itemid, channelId, isalbum,false);

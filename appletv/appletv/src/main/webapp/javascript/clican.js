@@ -214,40 +214,43 @@ var appletv = {
 	},
 
 	logToServer : function(logText,severity) {
-		if (this.logEnable&&this.simulate!='native') {
-			if(severity==null){
-				severity='DEBUG';
+		if (this.logEnable) {
+			if(appletv.simulate=='native'){
+				native_logToServer(logText);
+			}else{
+				if(severity==null){
+					severity='DEBUG';
+				}
+				if(this.logSeverity=='DEBUG'){
+					if(severity=='ERROR'||severity=='WARN'||severity=='INFO'||severity=='DEBUG'){
+						this.makePostRequest(this.remoteserverurl + '/ctl/log.do', logText,
+								function(data) {
+
+								});
+					}
+				}else if(this.logSeverity=='INFO'){
+					if(severity=='ERROR'||severity=='WARN'||severity=='INFO'){
+						this.makePostRequest(this.remoteserverurl + '/ctl/log.do', logText,
+								function(data) {
+
+								});
+					}
+				}else if(this.logSeverity=='WARN'){
+					if(severity=='ERROR'||severity=='WARN'){
+						this.makePostRequest(this.remoteserverurl + '/ctl/log.do', logText,
+								function(data) {
+
+								});
+					}
+				}else if(this.logSeverity=='ERROR'){
+					if(severity=='ERROR'){
+						this.makePostRequest(this.remoteserverurl + '/ctl/log.do', logText,
+								function(data) {
+
+								});
+					}
+				}
 			}
-			if(this.logSeverity=='DEBUG'){
-				if(severity=='ERROR'||severity=='WARN'||severity=='INFO'||severity=='DEBUG'){
-					this.makePostRequest(this.remoteserverurl + '/ctl/log.do', logText,
-							function(data) {
-
-							});
-				}
-			}else if(this.logSeverity=='INFO'){
-				if(severity=='ERROR'||severity=='WARN'||severity=='INFO'){
-					this.makePostRequest(this.remoteserverurl + '/ctl/log.do', logText,
-							function(data) {
-
-							});
-				}
-			}else if(this.logSeverity=='WARN'){
-				if(severity=='ERROR'||severity=='WARN'){
-					this.makePostRequest(this.remoteserverurl + '/ctl/log.do', logText,
-							function(data) {
-
-							});
-				}
-			}else if(this.logSeverity=='ERROR'){
-				if(severity=='ERROR'){
-					this.makePostRequest(this.remoteserverurl + '/ctl/log.do', logText,
-							function(data) {
-
-							});
-				}
-			}
-			
 		}
 	},
 	playMp3 : function(mp3url) {
@@ -281,7 +284,11 @@ var appletv = {
 			throw "loadURL requires a url argument";
 		}
 		if(appletv.simulate=='native'){
-			native_makeRequest(url,callback,headers);
+			var headersstr = '';
+			if(headers){
+				headersstr=JSON.stringify(headers);
+			}
+			native_makeRequest(url,callback,headersstr);
 		}else{
 			var xhr = new XMLHttpRequest();
 
@@ -620,16 +627,16 @@ var appletv = {
 		return data.substring(start+startstr.length);
 	},
 	
-	substring : function(data,startstr,endstr) {
-		start = data.indexOf(startstr);
+	substringByData : function(content,startstr,endstr) {
+		var start = content.indexOf(startstr);
 		if(start<0){
 			return '';
-		}
-		end = data.indexOf(endstr,start+startstr.length);
+		var end = content.indexOf(endstr,start+startstr.length);
 		if(end<0){
 			return '';
 		}
-		return data.substring(start+startstr.length,end);
+		var result = content.substring(start+startstr.length,end);
+		return result;
 	},
 	
 	substringByTag : function(data,startstr,endstr,tagName) {

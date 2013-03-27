@@ -101,8 +101,8 @@ var lblClient = {
 				var packs = appletv.getSubValues(content, '<h4>', '</h4>');
 				for (i = 0; i < packs.length; i++) {
 					var pack = packs[i];
-					var title = appletv.substring(pack, 'title="', '"');
-					var id = appletv.substring(pack, '<a href="', '"');
+					var title = appletv.substringByData(pack, 'title="', '"');
+					var id = appletv.substringByData(pack, '<a href="', '"');
 					var video = {
 						"title" : title,
 						"id" : id,
@@ -156,9 +156,9 @@ var lblClient = {
 		} else {
 			var url = videos[index]['id'];
 			appletv.makeRequest(url, function(content) {
-				var entry = appletv.substringByTag(content,
+				var entry = appletv.substringByDataByTag(content,
 						'<div class="entry">', '</div>', 'div');
-				videos[index]['pic'] = appletv.substring(entry, 'src="', '"');
+				videos[index]['pic'] = appletv.substringByData(entry, 'src="', '"');
 				lblClient.loadPics(videos, index + 1, callback);
 			});
 		}
@@ -178,26 +178,26 @@ var lblClient = {
 			var year = '-';
 			var shareurl = url;
 			var desc;
-			var entry = appletv.substringByTag(htmlContent,
+			var entry = appletv.substringByDataByTag(htmlContent,
 					'<div class="entry">', '</div>', 'div');
 
 			var ps = appletv.getSubValues(entry, '<p>', '</p>');
 			desc = appletv.getTextInTag(ps[0]);
-			pic = appletv.substring(entry, 'src="', '"');
-			title = appletv.substring(htmlContent, '<h2>', '</h2>');
+			pic = appletv.substringByData(entry, 'src="', '"');
+			title = appletv.substringByData(htmlContent, '<h2>', '</h2>');
 			index1 = title.indexOf("《");
 			index2 = title.indexOf("》");
 			if (index1 >= 0 && index2 >= 0) {
 				title = title.substring(index1 + 1, index2);
 			}
-			area = appletv.substring(ps[2], '制片国家/地区', '<br');
+			area = appletv.substringByData(ps[2], '制片国家/地区', '<br');
 			if(area==null||area.length==0){
-				area = appletv.substring(ps[2], '制片地区', '<br');
+				area = appletv.substringByData(ps[2], '制片地区', '<br');
 			}
 			area=area.replace(':','').replace('：','').trim();
-			year = appletv.substring(ps[2], '上映日期', '<br');
+			year = appletv.substringByData(ps[2], '上映日期', '<br');
 			if(year==null||year.length==0){
-				year = appletv.substring(ps[2], '出品时间', '<br');
+				year = appletv.substringByData(ps[2], '出品时间', '<br');
 			}
 			year = year.replace(':','').replace('：','').trim();
 			actor = appletv.subIndexString(ps[2], '主演');
@@ -205,15 +205,15 @@ var lblClient = {
 				actor=actor.substring(0,actor.indexOf('<'));
 			}
 			actor = actor.replace(':','').replace('：','').trim();
-			dctor = appletv.substring(ps[2], '导演', '<br');
+			dctor = appletv.substringByData(ps[2], '导演', '<br');
 			dctor = dctor.replace(':','').replace('：','').trim();
 			
 			var items = [];
 			var urls = appletv.getSubValues(htmlContent,'<a href="thunder://','</a>');
 			for(i=0;i<urls.length;i++){
 				url = '<a href="thunder://'+urls[i]+'</a>'
-				var c = appletv.substring(url, 'href="', '"');
-				var t = appletv.substring(url, '>','<').trim();
+				var c = appletv.substringByData(url, 'href="', '"');
+				var t = appletv.substringByData(url, '>','<').trim();
 				if(c==null||c.length==0){
 					continue;
 				}
@@ -244,8 +244,8 @@ var lblClient = {
 			urls = appletv.getSubValues(htmlContent,'<a href="http://kuai.xunlei.com','</a>');
 			for(i=0;i<urls.length;i++){
 				url = '<a href="http://kuai.xunlei.com'+urls[i]+'</a>'
-				var c = appletv.substring(url, 'href="', '"');
-				var t = appletv.substring(url, '>','<').trim();
+				var c = appletv.substringByData(url, 'href="', '"');
+				var t = appletv.substringByData(url, '>','<').trim();
 				if(c==null||c.length==0){
 					continue;
 				}
@@ -260,8 +260,8 @@ var lblClient = {
 			urls = appletv.getSubValues(htmlContent,'<a href="ed2k://','</a>');
 			for(i=0;i<urls.length;i++){
 				url = '<a href="ed2k://'+urls[i]+'</a>'
-				var c = appletv.substring(url, 'href="', '"');
-				var t = appletv.substring(url, '>','<').trim();
+				var c = appletv.substringByData(url, 'href="', '"');
+				var t = appletv.substringByData(url, '>','<').trim();
 				if(c==null||c.length==0){
 					continue;
 				}
@@ -319,9 +319,9 @@ var lblClient = {
 		var url = id;
 		if (url.indexOf('http://kuai.xunlei.com') >= 0) {
 			appletv.makeRequest(url, function(content) {
-				var c2 = appletv.substringByTag(content, '<span class="c_2">',
+				var c2 = appletv.substringByDataByTag(content, '<span class="c_2">',
 						'</span>', 'span');
-				var href = appletv.substring(c2, 'href="', '"');
+				var href = appletv.substringByData(c2, 'href="', '"');
 				xunleiClient.play(href, title);
 			});
 		} else {
