@@ -719,6 +719,9 @@ var appletv = {
 	},
 	
 	getTextInTag: function(data){
+		if(data==null){
+			return null;
+		}
 		var left = 0;
 		var right = 0;
 		var result = '';
