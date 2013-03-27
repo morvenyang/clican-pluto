@@ -15,14 +15,26 @@
 #import "Constants.h"
 #import "URLDataHeaderResponse.h"
 #import "ASIHTTPRequest.h"
+#import "NSObject+SBJson.h"
+#import "SBJsonWriter.h"
+#import "SBJsonParser.h"
 @implementation JSEngine
 
 
 
 
-/**
- Lazily initializes and returns a JS context
- */
+JSValueRef logToServer(JSContextRef ctx,
+                           JSObjectRef function,
+                           JSObjectRef thisObject,
+                           size_t argumentCount,
+                           const JSValueRef arguments[],
+                           JSValueRef* exception){
+    JSValueRef excp = NULL;
+    NSString *log = (__bridge_transfer NSString*)JSStringCopyCFString(kCFAllocatorDefault, (JSStringRef)JSValueToStringCopy(ctx, arguments[0], &excp));
+    NSLog(@"log=%@",log);
+    
+    return JSValueMakeNull(ctx);
+}
 
 JSValueRef makeSyncRequest(JSContextRef ctx,
                        JSObjectRef function,
@@ -60,11 +72,23 @@ JSValueRef makeRequest(JSContextRef ctx,
     NSLog(@"makeRequest:%@",url);
     
     JSObjectRef callback = (JSObjectRef)JSValueToObject(ctx, arguments[1], &excp);
+    NSString *headersstr = (__bridge_transfer NSString*)JSStringCopyCFString(kCFAllocatorDefault, (JSStringRef)JSValueToStringCopy(ctx, arguments[2], &excp));
     
     AjaxCallbackRequest* request = [AjaxCallbackRequest
                              requestWithURL: url
                              delegate: [AppDele jsEngine] callback:callback ctx:ctx];
-    request.cachePolicy = TTURLRequestCachePolicyDefault;
+    if ([url rangeOfString:@"/appletv"].location!=NSNotFound) {
+        request.cachePolicy = TTURLRequestCachePolicyNoCache;
+    }else{
+        request.cachePolicy = TTURLRequestCachePolicyDefault;
+    }
+    if(headersstr!=nil){
+        SBJsonParser *parser = [[SBJsonParser alloc] init];
+        NSDictionary* jsonHeaders = [parser objectWithString:headersstr];
+        [request.headers setValuesForKeysWithDictionary:jsonHeaders];
+    }
+    
+    
     [request.headers setValue:@"Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.22 (KHTML, like Gecko) Chrome/25.0.1364.172 Safari/537.22" forKey:@"User-Agent"];
     URLDataHeaderResponse* response = [[URLDataHeaderResponse alloc] init];
     request.response = response;
@@ -304,6 +328,11 @@ JSValueRef loadURL(JSContextRef ctx,
     JSObjectRef func8 = JSObjectMakeFunctionWithCallback(_JSContext, str8,loadURL);
     JSObjectSetProperty(_JSContext, JSContextGetGlobalObject(_JSContext), str8, func8, kJSPropertyAttributeNone, NULL);
     JSStringRelease(str8);
+    
+    JSStringRef str9 = JSStringCreateWithUTF8CString("native_logToServer");
+    JSObjectRef func9 = JSObjectMakeFunctionWithCallback(_JSContext, str9,logToServer);
+    JSObjectSetProperty(_JSContext, JSContextGetGlobalObject(_JSContext), str9, func9, kJSPropertyAttributeNone, NULL);
+    JSStringRelease(str9);
     
     NSString* jsDirectory = [[AppDele localWebPathPrefix] stringByAppendingString:@"/appletv/javascript"];
     NSArray* jsArray=[[NSFileManager defaultManager] contentsOfDirectoryAtPath:jsDirectory error:nil];
