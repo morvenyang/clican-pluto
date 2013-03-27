@@ -9,9 +9,9 @@
 <script src="<%=serverurl%>/javascript/qq.js"/>
 </head>
 <body>
-<scroller id="com.sample.movie-shelf">
+<scroller id="index">
 	<items>
-		<grid id="grid_2" columnCount="6">
+		<grid id="movieGrid" columnCount="6">
 			<items>
 				<%for(var i=0;i<videos.length;i++){%>		
 					<moviePoster id="shelf_item_<%=i%>" alwaysShowTitles="true" onSelect="<%=videos[i].script%>" onPlay="<%=videos[i].script%>" onHold="appletv.delFromFavorite(<%=i%>);">
