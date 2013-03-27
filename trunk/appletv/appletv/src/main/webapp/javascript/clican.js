@@ -631,6 +631,7 @@ var appletv = {
 		var start = content.indexOf(startstr);
 		if(start<0){
 			return '';
+		}
 		var end = content.indexOf(endstr,start+startstr.length);
 		if(end<0){
 			return '';
