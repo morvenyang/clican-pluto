@@ -368,6 +368,7 @@ var youkuClient = {
 				title =  appletv.substring(htmlContent,'<meta name="title" content="','"');
 				desc =  appletv.substring(htmlContent,'<meta name="description" content="','"');
 			}
+			desc = appletv.getTextInTag(desc);
 			if(channelId==96){
 				isalbum = false;
 				code = appletv.substring(htmlContent,'id_','.html');
