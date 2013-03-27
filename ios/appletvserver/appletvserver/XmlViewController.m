@@ -51,7 +51,7 @@
 
 -(void) appendXml:(NSString*) xml{
     NSError *theError = NULL;
-    CXMLDocument *document = [[[CXMLDocument alloc] initWithXMLString:self.xml options:0 error:&theError] autorelease];
+    CXMLDocument *document = [[[CXMLDocument alloc] initWithXMLString:xml options:0 error:&theError] autorelease];
     CXMLElement* rootElement=[document rootElement];
     CXMLElement* bodyElement = [[rootElement elementsForName:@"body"] objectAtIndex:0];
     for(int i=0;i<[bodyElement childCount];i++){
@@ -104,6 +104,9 @@
                 
                 [scrollView addSubview:tableView];
                 [self.view addSubview:scrollView];
+
+
+
                 break;
             }else if([[node name] isEqualToString:@"scroller"]){
                 [self appendVideos:node];
@@ -115,6 +118,9 @@
 }
 
 -(void) appendVideos:(CXMLNode*) node{
+    if(!self.append){
+        [self.videos removeAllObjects];
+    }
     CXMLElement* scrollerElement = (CXMLElement*)node;
     NSString* idStr = [[scrollerElement attributeForName:@"id"] stringValue];
     if([idStr isEqualToString:@"index"]){
@@ -127,8 +133,7 @@
         TTTableView* tableView = [[TTTableView alloc] initWithFrame:scrollView.frame style:UITableViewStylePlain];
         
         
-        NSMutableArray* items = [NSMutableArray arrayWithArray:self.videos];
-        NSMutableArray* currentItems = [NSMutableArray array];
+        NSMutableArray* items = [NSMutableArray array];
         NSArray* grids = [scrollerElement nodesForXPath:@"items/grid" error:nil];
         CXMLElement* movieGridElement = nil;
         CXMLElement* pagingGridElement = nil;
@@ -142,28 +147,29 @@
         }
         if(movieGridElement!=nil){
             NSArray* movies = [movieGridElement nodesForXPath:@"items/moviePoster" error:nil];
-            
-            for(int i=0;i<[movies count];i=i+3){
+            for(int i=0;i<[movies count];i++){
+                CXMLElement* moviePoster = (CXMLElement*)[movies objectAtIndex:i];
+                CXMLElement* title = (CXMLElement*)[moviePoster nodeForXPath:@"title" error:nil];
+                CXMLElement* image = (CXMLElement*)[moviePoster nodeForXPath:@"image" error:nil];
+                NSString* onSelect = [[moviePoster attributeForName:@"onSelect"] stringValue];
+                
+                
+                Video* video = [[[Video alloc] init] autorelease];
+                video.title = [title stringValue];
+                video.picUrl =[image stringValue];
+                video.onSelect = onSelect;
+                [self.videos addObject:video];
+            }
+            for(int i=0;i<[self.videos count];i=i+3){
                 NSMutableArray* cellItems = [NSMutableArray array];
-                for(int j=i;j<i+3&&j<[movies count];j++){
-                    CXMLElement* moviePoster = (CXMLElement*)[movies objectAtIndex:j];
-                    CXMLElement* title = (CXMLElement*)[moviePoster nodeForXPath:@"title" error:nil];
-                    CXMLElement* image = (CXMLElement*)[moviePoster nodeForXPath:@"image" error:nil];
-                    NSString* onSelect = [[moviePoster attributeForName:@"onSelect"] stringValue];
-                    NSLog(@"onSelect=%@",onSelect);
-                    
-                    Video* video = [[[Video alloc] init] autorelease];
-                    video.title = [title stringValue];
-                    video.picUrl =[image stringValue];
-                    video.onSelect = onSelect;
+                for(int j=i;j<i+3&&j<[self.videos count];j++){
+                    Video* video = [self.videos objectAtIndex:j];
                     [cellItems addObject:video];
                 }
                 VideoTableItem* vti = [VideoTableItem itemWithVideoList:cellItems];
                 [items addObject:vti];
-                [currentItems addObject:vti];
             }
-            [self.videos addObjectsFromArray:currentItems];
-            if(pagingGridElement!=nil&&[movies count]==30){
+            if(pagingGridElement!=nil&&[movies count]>0){
                 CXMLElement* nextPageElement=nil;
                 NSArray* actionButtons = [pagingGridElement nodesForXPath:@"items/actionButton" error:nil];
                 for(int i=0;i<[actionButtons count];i++){
@@ -200,6 +206,7 @@
         if([tti.text isEqualToString:@"更多"]){
             self.append = YES;
         }
+        
         [[AppDele jsEngine] runJS:script];
     }else if([item isKindOfClass:[VideoTableItem class]]){
         ALog(@"select VideoTableItem");
