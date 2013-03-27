@@ -43,11 +43,11 @@ var yyetsClient = {
 
 	loadChannelPage:function(){
 		var data = {
-				'channels' : yyestClient.yyestChannels,
+				'channels' : yyetsClient.yyetsChannels,
 				'serverurl' : appletv.serverurl
 			};
 		var templateEJS = new EJS({
-			url : appletv.serverurl + '/template/yyest/channel.ejs'
+			url : appletv.serverurl + '/template/yyets/channel.ejs'
 		});	
 		var xml = templateEJS.render(data);
 		appletv.loadAndSwapXML(xml);
