@@ -387,7 +387,10 @@ var appletv = {
 				+ appletv.getDeviceId() + '&title=' + encodeURIComponent(title)
 				+ '&shareURL=' + encodeURIComponent(shareURL) + '&imageURL='
 				+ encodeURIComponent(imageURL);
-		appletv.loadURL(url);
+		appletv.showLoading();
+		appletv.makeRequest(url, function(content){
+			appletv.loadAndSwapXML(content);
+		});
 	},
 	
 	showOptionPage: function(title,desc,options){
