@@ -369,6 +369,7 @@ var youkuClient = {
 				desc =  appletv.substringByData(htmlContent,'<meta name="description" content="','"');
 			}
 			desc = appletv.getTextInTag(desc);
+			var script = appletv.encode("youkuClient.loadVideoPage('"+code+"',"+channelId+","+isalbum+",'"+pic+"');");
 			if(channelId==96){
 				isalbum = false;
 				code = appletv.substringByData(htmlContent,'id_','.html');
@@ -400,7 +401,7 @@ var youkuClient = {
 					'serverurl' : appletv.serverurl,
 					album : isalbum,
 					channelId : channelId,
-					script : appletv.encode("youkuClient.loadVideoPage('"+code+"',"+channelId+","+isalbum+",'"+pic+"');"),
+					script : script,
 					video : {
 						'id' : code,
 						'actor' : actor,
