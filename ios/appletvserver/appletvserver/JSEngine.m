@@ -20,7 +20,7 @@
 #import "SBJsonParser.h"
 @implementation JSEngine
 
-
+@synthesize progressHUD = _progressHUD;
 
 
 JSValueRef logToServer(JSContextRef ctx,
@@ -234,7 +234,10 @@ JSValueRef loadXML(JSContextRef ctx,
         if(xml==NULL||xml.length==0){
             xml = [JSEngine getDialog:@"加载XML错误" desc:@"无法获得相关内容"];
         }
-       
+//        if([AppDele jsEngine].progressHUD!=nil){
+//            [[AppDele jsEngine].progressHUD removeFromSuperview];
+//            [AppDele jsEngine].progressHUD = nil;
+//        }
         UIViewController* currentController = [TTNavigator navigator].topViewController;
         if([currentController isKindOfClass:[XmlViewController class]]){
             XmlViewController* xmlController =(XmlViewController*)currentController;
@@ -280,7 +283,10 @@ JSValueRef loadURL(JSContextRef ctx,
         }else{
             content= [JSEngine getDialog:@"加载URL错误，无法获得相关内容" desc:[NSString stringWithFormat:@"URL:%@",url]];
         }
-        
+//        if([AppDele jsEngine].progressHUD!=nil){
+//            [[AppDele jsEngine].progressHUD removeFromSuperview];
+//            [AppDele jsEngine].progressHUD = nil;
+//        }
         XmlViewController* controler = [[XmlViewController alloc] initWithXml:content];
         [[TTNavigator navigator].topViewController.navigationController pushViewController:controler animated:YES];
 
@@ -298,6 +304,13 @@ JSValueRef loadURL(JSContextRef ctx,
     return result;
 }
 
+-(id) init{
+    self = [super init];
+    if(self){
+        queue = dispatch_queue_create("jsQueue", NULL);  
+    }
+    return self;
+}
 - (void) reloadJS{
     _JSContext = JSGlobalContextCreate(NULL);
     
@@ -375,19 +388,28 @@ JSValueRef loadURL(JSContextRef ctx,
              jsContent = [jsContent stringByReplacingOccurrencesOfString:@"http://www.clican.org/appletv" withString:ATV_SERVER_IP];
         }
         
-        [self runJS:jsContent];
+        [self runJS:jsContent view:nil];
     }
 }
 /**
  Runs a string of JS in this instance's JS context and returns the result as a string
  */
-- (NSString *)runJS:(NSString *)aJSString
+- (NSString *)runJS:(NSString *)aJSString view:(UIView*) view
 {
     if (!aJSString) {
         NSLog(@"[JSC] JS String is empty!");
         return nil;
     }
+    if(view!=nil){
+//         self.progressHUD = [[MBProgressHUD alloc] initWithView:view];
+//         self.progressHUD.delegate = self;
+//         self.progressHUD.labelText = @"加载中...";
+//         [view addSubview:self.progressHUD];
+//         [view bringSubviewToFront:self.progressHUD];
+//         [self.progressHUD show:YES];
+     }
     
+
     
     JSStringRef scriptJS = JSStringCreateWithUTF8CString([aJSString UTF8String]);
     JSValueRef exception = NULL;
@@ -413,27 +435,21 @@ JSValueRef loadURL(JSContextRef ctx,
     }
     
     JSStringRelease(scriptJS);
-    
+
     return res;
 }
 
-/**
- Loads a JS library file from the app's bundle (without the .js extension)
- */
-- (void)loadJSLibrary:(NSString*)libraryName
-{
-    NSString *library = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:libraryName ofType:@"js"]  encoding:NSUTF8StringEncoding error:nil];
-    
-    NSLog(@"[JSC] loading library %@...", libraryName);
-    [self runJS:library];
-}
+#pragma mark -
+#pragma mark MBProgressHUDDelegate methods
 
+- (void)hudWasHidden:(MBProgressHUD *)hud {
+    // Remove HUD from screen when the HUD was hidded
+    [_progressHUD removeFromSuperview];
+    _progressHUD = nil;
+}
 
 #pragma mark -
 #pragma mark TTURLRequestDelegate
-
-
-
 - (void)request:(AjaxCallbackRequest*)request didFailLoadWithError:(NSError*)error {
     NSLog(@"request:%@ didFailLoadWithError:%@", request, error);
 }

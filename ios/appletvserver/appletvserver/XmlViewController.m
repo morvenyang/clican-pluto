@@ -414,7 +414,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     self.append = NO;
     TTListDataSource* ds = (TTListDataSource*)tableView.dataSource;
-    TTTableItem* item = [ds.items objectAtIndex:indexPath.item];
+    TTTableItem* item = [ds.items objectAtIndex:indexPath.row];
     
     if([item isKindOfClass:[TTTableTextItem class]]){
         TTTableTextItem* tti = (TTTableTextItem*)item;
@@ -422,11 +422,11 @@
         if([tti.text isEqualToString:@"更多"]){
             self.append = YES;
         }
-        [[AppDele jsEngine] runJS:script];
+        [[AppDele jsEngine] runJS:script view:self.view];
     }else if([item isKindOfClass:[TTTableStyledTextItem class]]){
         TTTableStyledTextItem* tti = (TTTableStyledTextItem*)item;
         NSString* script = tti.URL;
-        [[AppDele jsEngine] runJS:script];
+        [[AppDele jsEngine] runJS:script view:self.view];
     }else if([item isKindOfClass:[VideoTableItem class]]){
         ALog(@"select VideoTableItem");
     }
@@ -435,7 +435,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     TTListDataSource* ds = (TTListDataSource*)tableView.dataSource;
-    TTTableItem* item = [ds.items objectAtIndex:indexPath.item];
+    TTTableItem* item = [ds.items objectAtIndex:indexPath.row];
     if([item isKindOfClass:[VideoTableItem class]]){
         return 180;
     }else{

@@ -44,9 +44,10 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     TTListDataSource* ds = (TTListDataSource*)tableView.dataSource;
-    TTTableTextItem* item = [ds.items objectAtIndex:indexPath.item];
+
+    TTTableTextItem* item = [ds.items objectAtIndex:indexPath.row];
     NSString* script = item.URL;
-    [[AppDele jsEngine] runJS:script];
+    [[AppDele jsEngine] runJS:script view:self.view];
 }
 
 - (void)loadView
