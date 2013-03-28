@@ -205,14 +205,6 @@ var appletv = {
 		return unescape(O);
 	},
 	
-	getDeviceUdid : function() {
-		if(this.simulate!='atv'){
-			return '1234';
-		}else{
-			return atv.device.udid;
-		}
-	},
-
 	logToServer : function(logText,severity) {
 		if (this.logEnable) {
 			if(appletv.simulate=='native'){
@@ -434,7 +426,7 @@ var appletv = {
 				proxy = appletv.serverurl;
 			}
 		}
-		if(proxy!=null&&proxy.length>0) {
+		if(proxy!=null&&proxy.length>0&&appletv.simulate!='native') {
 			var options = [];
 			var encodeUrl = url.replace(new RegExp('&', 'g'),'&amp;');
 			options.push({"title":"直接播放","script":"appletv.loadAndSwapXML(appletv.makePlayXml('"+encodeUrl+"'));"});
