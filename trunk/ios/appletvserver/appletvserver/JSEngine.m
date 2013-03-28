@@ -117,7 +117,9 @@ JSValueRef makeRequest(JSContextRef ctx,
             content = [[NSString alloc] initWithData:data encoding:enc];
         }
         NSLog(@"handler response for : %@",request.urlPath);
+        
         if(content==nil||[content length]==0){
+            NSLog(@"response is empty");
             JSValueRef args[1];
             args[0] = JSValueMakeNull(request.ctx);
             JSObjectCallAsFunction(request.ctx,request.callback,NULL,1,args,NULL);
