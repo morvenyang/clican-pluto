@@ -92,4 +92,11 @@ public class XunleiTestCase extends BaseServiceTestCase {
 		String s = new String(Base64.decodeBase64("QUFlZDJrOi8vfGZpbGV8JUU4JUExJThDJUU1JUIwJUI4JUU4JUI1JUIwJUU4JTgyJTg5LlRoZS5XYWxraW5nLkRlYWQuJUU3JUFDJUFDJUU0JUI4JTg5JUU1JUFEJUEzJUU1JUFFJTk4JUU2JTk2JUI5JUU3JTg5JTg4JUU5JUEyJTg0JUU1JTkxJThBLVlZZVRzJUU0JUJBJUJBJUU0JUJBJUJBJUU1JUJEJUIxJUU4JUE3JTg2JUU1JThFJTlGJUU1JTg4JTlCJUU3JUJGJUJCJUU4JUFGJTkxLnJtdmJ8MTYwMjYyMjd8ZTk5OTVmMDYwZjBlOWM3YmU2OTEyZDlkNDQ3NDk5YmJ8aD1pM2tobG95aWZxeHdreGV1c3hsbmFndGtiM3BxeWxrenwvWlo=".getBytes("utf-8")),"utf-8");
 		System.out.println(s);
 	}
+	
+	public void decodeBase64() throws Exception{
+		String s1 = "eW91a3VDbGllbnQubG9hZFZpZGVvUGFnZSgnWE5EZzVNak15TlRnMCcsOTYsZmFsc2UsJ2h0dHA6Ly9yZXMubWZzLnlraW1nLmNvbS8wNTBFMDAwMDUwRDAzOEIyOTc5MjczNjY2MzBFNzg1NCcpOw==";
+		String s2 = "eW91a3VDbGllbnQubG9hZFZpZGVvUGFnZSgnemY5MmMyMDljNDhmNTExZTJiMmFjJyw5NixmYWxzZSwnaHR0cDovL3Jlcy5tZnMueWtpbWcuY29tLzA1MEUwMDAwNTBEMDM4QjI5NzkyNzM2NjYzMEU3ODU0Jyk7";
+		System.out.println(new String(Base64.decodeBase64(s1.getBytes("utf-8")),"utf-8"));
+		System.out.println(new String(Base64.decodeBase64(s2.getBytes("utf-8")),"utf-8"));
+	}
 }
