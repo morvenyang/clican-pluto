@@ -1,0 +1,25 @@
+<atv>
+	<body>
+		<listScrollerSplit id="lsp">
+			<header>
+				<simpleHeader horizontalAlignment="left">
+					<title>频道选择</title>
+				</simpleHeader>
+			</header>
+			<menu>
+				<sections>
+					<menuSection>
+						<items>
+							<%for(var i=0;i<channels.length;i++){%>
+								<oneLineMenuItem id="channel_<%=i%>" onPlay="lblClient.loadIndexPage('',1,'<%=channels[i]['value']%>');" onSelect="lblClient.loadIndexPage('',1,'<%=channels[i]['value']%>');">
+									<label><%=channels[i].label%></label>
+									<image></image>
+								</oneLineMenuItem>
+							<%}%>
+						</items>
+					</menuSection>
+				</sections>
+			</menu>
+		</listScrollerSplit>
+	</body>
+</atv>
