@@ -63,7 +63,6 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 -(void) initJSEngine{
     self.jsEngine = [[JSEngine alloc] init];
-    [self.jsEngine reloadJS];
 }
 
 -(void) initQueue{
@@ -81,7 +80,6 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 }
 -(void) initWebContent{
     self.webContentSync = [[WebContentSync alloc] init];
-    [self.webContentSync syncWebContent];
 }
 -(void) initHttpServer{
     // Create server using our custom MyHTTPServer class
@@ -212,6 +210,11 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
+    NSLog(@"App is terminated");
+    if(audioPlayer){
+        [audioPlayer stop];
+        [audioPlayer release];
+    }
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 

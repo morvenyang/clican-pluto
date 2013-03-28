@@ -7,23 +7,29 @@
 //
 
 #import "RootViewController.h"
-
+#import "AppDelegate.h"
 
 
 @implementation RootViewController
+
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+        
     }
     return self;
 }
 
+
+
+
 - (void)viewDidLoad
 {
     NSLog(@"RootViewController viewDidLoad");
+    
     [super viewDidLoad];
     [self setTabURLs:[NSArray arrayWithObjects:
                       @"atvserver://main",
@@ -31,6 +37,8 @@
                       @"atvserver://download",
                       nil]];
 }
+
+
 
 - (void)didReceiveMemoryWarning
 {
