@@ -227,7 +227,7 @@ var youkuClient = {
 				if (content != null && content.length > 0) {
 					var itemscontent = appletv.substringByTag(content,'<div class="items">', '</div>', 'div');
 					var items = appletv.getSubValuesByTag(itemscontent,
-							'<ul class="p pv">', '</ul>', 'ul');
+							'<ul class=', '</ul>', 'ul');
 					for (i = 0; i < items.length; i++) {
 						var item = items[i];
 						var pic = appletv.substringByData(item,
