@@ -331,6 +331,9 @@ public class WeiboClientImpl implements WeiboClient {
 
 	@Override
 	public String getUid(String deviceId) {
+		if(StringUtils.isEmpty(deviceId)){
+			return null;
+		}
 		String accessToken = deviceIdAccessTokenMap.get(deviceId);
 		if (StringUtils.isEmpty(accessToken)) {
 			return null;
