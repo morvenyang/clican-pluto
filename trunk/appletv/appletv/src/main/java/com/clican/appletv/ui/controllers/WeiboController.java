@@ -360,18 +360,24 @@ public class WeiboController {
 			@RequestParam(value = "imageURL", required = false) String imageURL,
 			@RequestParam(value = "feature", required = false) Integer feature,
 			@RequestParam(value = "itemId", required = false) Long itemId,
-			@RequestParam(value = "shopNick", required = false) String shopNick)
+			@RequestParam(value = "shopNick", required = false) String shopNick,
+			@RequestParam(value = "simulate", required = false) String simulate)
 			throws Exception {
 		if (log.isDebugEnabled()) {
 			log.debug("create status, title:" + title + ",shareURL:" + shareURL
 					+ ",imageURL:" + imageURL);
 		}
+		if(StringUtils.isEmpty(simulate)){
+			simulate = "atv";
+		}
+		request.getSession().setAttribute("simulate", simulate);
 		if (!isLogin(request, response)) {
 			return null;
 		}
 		Timeline timeline = new Timeline();
 		String accessToken = (String) request.getSession().getAttribute(
 				"weiboAccessToken");
+		
 		timeline.setToken(accessToken);
 		String statusContent = null;
 		if (feature != null && feature == 4) {
