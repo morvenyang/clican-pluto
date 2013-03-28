@@ -186,6 +186,9 @@
             if([[node name] isEqualToString:@"listScrollerSplit"]){
                 [self displayListScrollerSplit:node];
                 break;
+            }if([[node name] isEqualToString:@"listWithPreview"]){
+                [self displayListScrollerSplit:node];
+                break;
             }else if([[node name] isEqualToString:@"scroller"]){
                 [self appendVideos:node];
                 break;
@@ -312,15 +315,18 @@
     [self.view addSubview:self.scrollView];
 }
 -(void) displayDialog:(CXMLNode*)node{
-    self.title = [[node nodeForXPath:@"title" error:nil] stringValue];
+    NSString* title = [[node nodeForXPath:@"title" error:nil] stringValue];
+    self.title = title;
     NSString* desc= [[node nodeForXPath:@"description" error:nil] stringValue];
+    
     CGRect frame = [UIScreen mainScreen].applicationFrame;
-    TTStyledTextLabel* descriptionTextLabel = [[[TTStyledTextLabel alloc] init] autorelease];
+    UIWebView* descriptionTextLabel = [[[UIWebView alloc] init] autorelease];
     descriptionTextLabel.contentMode = UIViewContentModeCenter;
     descriptionTextLabel.frame = CGRectMake(0,0,frame.size.width-20,frame.size.height - 92);
-    descriptionTextLabel.text=[TTStyledText textFromXHTML:[@"" stringByAppendingFormat:@"%@",desc] lineBreaks:YES URLs:NO];
-    [descriptionTextLabel sizeToFit];
-    [self.view addSubview:descriptionTextLabel];
+    [descriptionTextLabel loadHTMLString:[NSString stringWithFormat:@"<h2>%@<h2/><br/><p>%@</p>",title,desc] baseURL:nil];
+    [descriptionTextLabel setScalesPageToFit:YES];
+    [self.scrollView addSubview:descriptionTextLabel];
+    [self.view addSubview:self.scrollView];
 }
 
 -(void) appendVideos:(CXMLNode*) node{
