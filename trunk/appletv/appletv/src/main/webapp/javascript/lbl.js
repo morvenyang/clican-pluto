@@ -168,7 +168,7 @@ var lblClient = {
 		} else {
 			var url = videos[index]['id'];
 			appletv.makeRequest(url, function(content) {
-				var entry = appletv.substringByDataByTag(content,
+				var entry = appletv.substringByTag(content,
 						'<div class="entry">', '</div>', 'div');
 				videos[index]['pic'] = appletv.substringByData(entry, 'src="', '"');
 				lblClient.loadPics(videos, index + 1, callback);
@@ -190,7 +190,7 @@ var lblClient = {
 			var year = '-';
 			var shareurl = url;
 			var desc;
-			var entry = appletv.substringByDataByTag(htmlContent,
+			var entry = appletv.substringByTag(htmlContent,
 					'<div class="entry">', '</div>', 'div');
 
 			var ps = appletv.getSubValues(entry, '<p>', '</p>');
@@ -331,7 +331,7 @@ var lblClient = {
 		var url = id;
 		if (url.indexOf('http://kuai.xunlei.com') >= 0) {
 			appletv.makeRequest(url, function(content) {
-				var c2 = appletv.substringByDataByTag(content, '<span class="c_2">',
+				var c2 = appletv.substringByTag(content, '<span class="c_2">',
 						'</span>', 'span');
 				var href = appletv.substringByData(c2, 'href="', '"');
 				xunleiClient.play(href, title);
