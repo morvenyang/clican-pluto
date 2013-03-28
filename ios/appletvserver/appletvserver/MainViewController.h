@@ -7,9 +7,10 @@
 //
 
 #import <Three20/Three20.h>
+#import "MBProgressHUD.h"
 
-@interface MainViewController : TTTableViewController<UITableViewDelegate>{
-
+@interface MainViewController : TTTableViewController<UITableViewDelegate,MBProgressHUDDelegate>{
+    MBProgressHUD* _progressHUD;
 }
-
+@property (nonatomic, retain) MBProgressHUD    *progressHUD;
 @end

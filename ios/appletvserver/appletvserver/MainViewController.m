@@ -11,6 +11,8 @@
 
 @implementation MainViewController
 
+@synthesize progressHUD = _progressHUD;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -46,6 +48,25 @@
 - (void)loadView
 {
     [super loadView];
+    self.progressHUD = [[[MBProgressHUD alloc] initWithView:self.view] autorelease];
+    self.progressHUD.delegate = self;
+    self.progressHUD.labelText = @"加载脚本中...";
+    [self.view addSubview:self.progressHUD];
+    [self.view bringSubviewToFront:self.progressHUD];
+    [self.progressHUD show:YES];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [self initWebContent];
+        [self initJSEngine];
+        [self.progressHUD hide:YES];
+    });
+}
+
+-(void) initWebContent{
+    [[AppDele webContentSync] syncWebContent];
+}
+
+-(void) initJSEngine{
+    [[AppDele jsEngine] reloadJS];
 }
 
 - (void)viewDidLoad
@@ -58,6 +79,16 @@
 {
     [super viewDidUnload];
     // Release any retained subviews of the main view.
+}
+
+#pragma mark -
+#pragma mark MBProgressHUDDelegate methods
+
+- (void)hudWasHidden:(MBProgressHUD *)hud {
+    // Remove HUD from screen when the HUD was hidded
+    [_progressHUD removeFromSuperview];
+    [_progressHUD release];
+    _progressHUD = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

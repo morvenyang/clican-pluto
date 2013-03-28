@@ -160,6 +160,7 @@
 		72E9C4F616D07877004B024B /* libx264.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 72E9C4F516D07877004B024B /* libx264.a */; };
 		72F7CB9D16F868120033A32F /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72F7CB9C16F868120033A32F /* AVFoundation.framework */; };
 		72F7CBA016F86C8D0033A32F /* MTAudioPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 72F7CB9F16F86C8D0033A32F /* MTAudioPlayer.m */; };
+		72FEEFCE1703DAAD00F9713E /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 72FEEFCD1703D68C00F9713E /* MBProgressHUD.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -610,6 +611,8 @@
 		72F7CB9C16F868120033A32F /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		72F7CB9E16F86C8C0033A32F /* MTAudioPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MTAudioPlayer.h; path = CocoaHTTPServer/MTAudioPlayer.h; sourceTree = "<group>"; };
 		72F7CB9F16F86C8D0033A32F /* MTAudioPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MTAudioPlayer.m; path = CocoaHTTPServer/MTAudioPlayer.m; sourceTree = "<group>"; };
+		72FEEFCC1703D68C00F9713E /* MBProgressHUD.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
+		72FEEFCD1703D68C00F9713E /* MBProgressHUD.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1042,6 +1045,7 @@
 		72A4368516C9EA5A00D9958D /* appletvserver */ = {
 			isa = PBXGroup;
 			children = (
+				72FEEFCB1703D67D00F9713E /* Utils */,
 				72D5CBEB170048C500B292BA /* TouchXML */,
 				72198F0616FFF1D500EC451B /* JavaScriptCore */,
 				722FF15316FC066200237F15 /* ZipArchive */,
@@ -1059,8 +1063,6 @@
 				72A4368F16C9EA5A00D9958D /* AppDelegate.m */,
 				72A4368616C9EA5A00D9958D /* Supporting Files */,
 				7272B3A116C9FEBA00E111A7 /* Constants.h */,
-				72C217C816CBB679000A56AB /* AtvUtil.h */,
-				72C217C916CBB679000A56AB /* AtvUtil.m */,
 				722250D916FEB8F700B7CEEA /* Constants.m */,
 			);
 			path = appletvserver;
@@ -1343,6 +1345,17 @@
 			name = qq;
 			sourceTree = "<group>";
 		};
+		72FEEFCB1703D67D00F9713E /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				72C217C816CBB679000A56AB /* AtvUtil.h */,
+				72C217C916CBB679000A56AB /* AtvUtil.m */,
+				72FEEFCC1703D68C00F9713E /* MBProgressHUD.h */,
+				72FEEFCD1703D68C00F9713E /* MBProgressHUD.m */,
+			);
+			name = Utils;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1580,6 +1593,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				72FEEFCE1703DAAD00F9713E /* MBProgressHUD.m in Sources */,
 				72E200D316DB26BF00F3D7FC /* StyleSheet.m in Sources */,
 				72A4368C16C9EA5A00D9958D /* main.m in Sources */,
 				72A4369016C9EA5A00D9958D /* AppDelegate.m in Sources */,
