@@ -10,7 +10,7 @@
 	         </c:if>
 	         <c:if test="${deviceId!=null&&fn:length(deviceId)>0}">
 	         	或直接点击链接:${weiboLoginURL}
-	         </C:if>
+	         </c:if>
 	        ]]></description>
 	    </dialog>
 </body>
