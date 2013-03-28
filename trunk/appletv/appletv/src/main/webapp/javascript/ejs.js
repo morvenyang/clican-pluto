@@ -434,7 +434,7 @@
 	};
 	EJS.request = function(path) {
 		if(appletv.simulate=='native'){
-			return appletv.makeSyncRequest(path);
+			return appletv.readLocalFile(path);
 		}else{
 			var request = new EJS.newRequest();
 			request.open("GET", path, false);
@@ -453,9 +453,7 @@
 	};
 	EJS.ajax_request = function(params) {
 		if(appletv.simulate=='native'){
-			appletv.makeRequest(params.url,function(result){
-				params.onComplete(result);
-			});
+			params.onComplete(appletv.readLocalFile(path));
 		}else{
 			params.method = (params.method ? params.method : "GET");
 			var request = new EJS.newRequest();
