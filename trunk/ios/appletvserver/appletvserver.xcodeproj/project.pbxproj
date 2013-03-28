@@ -896,24 +896,6 @@
 			name = download;
 			sourceTree = "<group>";
 		};
-		7288A2D116F9989400933D15 /* download */ = {
-			isa = PBXGroup;
-			children = (
-				7288A2E216F9A1F100933D15 /* DownloadStatusDataSource.h */,
-				7288A2E316F9A1F100933D15 /* DownloadStatusDataSource.m */,
-			);
-			name = download;
-			sourceTree = "<group>";
-		};
-		7288A2F016F9A43200933D15 /* download */ = {
-			isa = PBXGroup;
-			children = (
-				7288A2F116F9A45400933D15 /* DownloadStatusModel.h */,
-				7288A2F216F9A45400933D15 /* DownloadStatusModel.m */,
-			);
-			name = download;
-			sourceTree = "<group>";
-		};
 		7295A38A17006FC6008C04BE /* atv */ = {
 			isa = PBXGroup;
 			children = (
@@ -1030,7 +1012,8 @@
 		72A69BCB16C9F3F20099D974 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				7288A2F016F9A43200933D15 /* download */,
+				7288A2F116F9A45400933D15 /* DownloadStatusModel.h */,
+				7288A2F216F9A45400933D15 /* DownloadStatusModel.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -1258,7 +1241,8 @@
 		72E748FB16C9EF430024B8BB /* Datasource */ = {
 			isa = PBXGroup;
 			children = (
-				7288A2D116F9989400933D15 /* download */,
+				7288A2E216F9A1F100933D15 /* DownloadStatusDataSource.h */,
+				7288A2E316F9A1F100933D15 /* DownloadStatusDataSource.m */,
 				724024F617016B990015352A /* XmlDataSource.h */,
 				724024F717016B990015352A /* XmlDataSource.m */,
 			);
