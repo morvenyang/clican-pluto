@@ -8,9 +8,10 @@
 
 #import <Three20UI/Three20UI.h>
 #import "MediaPlayer/MediaPlayer.h"
-
-@interface XmlViewController : TTViewController<UITableViewDelegate,TTImageViewDelegate>{
+#import "MBProgressHUD.h"
+@interface XmlViewController : TTViewController<UITableViewDelegate,TTImageViewDelegate,MBProgressHUDDelegate>{
     NSString* _xml;
+    NSString* _script;
     NSString* _type;
     BOOL _append;
     NSMutableArray* _videos;
@@ -21,8 +22,10 @@
     UIView* _reflectImageView;
     UIScrollView* _scrollView;
     MPMoviePlayerViewController* _playerViewController;
+    MBProgressHUD* _progressHUD;
 }
 @property (nonatomic, copy) NSString* xml;
+@property (nonatomic, copy) NSString* script;
 @property (nonatomic, copy) NSString* type;
 @property (nonatomic, assign) BOOL append;
 @property (nonatomic, retain) NSMutableArray* videos;
@@ -34,6 +37,8 @@
 @property (nonatomic, retain) UIScrollView* scrollView;
 @property (nonatomic, retain) MPMoviePlayerViewController* playerViewController
 ;
+@property (nonatomic, retain) MBProgressHUD    *progressHUD;
 -(id) initWithXml:(NSString*) xml;
+-(id) initWithScript:(NSString*) script;
 -(void) appendXml:(NSString*) xml;
 @end
