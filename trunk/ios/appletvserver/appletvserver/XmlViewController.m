@@ -22,6 +22,7 @@
 @implementation XmlViewController
 
 @synthesize xml = _xml;
+@synthesize script = _script;
 @synthesize type = _type;
 @synthesize append = _append;
 @synthesize videos = _videos;
@@ -49,6 +50,14 @@
     }
     return self;
 }
+-(id) initWithScript:(NSString*) script{
+    self = [super init];
+    if(self){
+        self.videos = [NSMutableArray array];
+        self.script = script;
+    }
+    return self;
+}
 - (void)dealloc
 {
     
@@ -63,19 +72,52 @@
     TT_RELEASE_SAFELY(_reflectImageView);
     TT_RELEASE_SAFELY(_scrollView);
     TT_RELEASE_SAFELY(_playerViewController);
+    TT_RELEASE_SAFELY(_progressHUD);
     [super dealloc];
 }
 
 -(void) appendXml:(NSString*) xml{
-    NSError *theError = NULL;
-    CXMLDocument *document = [[[CXMLDocument alloc] initWithXMLString:xml options:0 error:&theError] autorelease];
-    CXMLElement* rootElement=[document rootElement];
-    CXMLElement* bodyElement = [[rootElement elementsForName:@"body"] objectAtIndex:0];
-    for(int i=0;i<[bodyElement childCount];i++){
-         CXMLNode* node = [bodyElement childAtIndex:i];
-        if([[node name] isEqualToString:@"scroller"]){
-            [self appendVideos:node];
+    if(xml==nil){
+        return;
+    }
+    @try{
+        NSError *theError = NULL;
+        CXMLDocument *document = [[[CXMLDocument alloc] initWithXMLString:xml options:0 error:&theError] autorelease];
+        CXMLElement* rootElement=[document rootElement];
+        CXMLElement* bodyElement = [[rootElement elementsForName:@"body"] objectAtIndex:0];
+        for(int i=0;i<[bodyElement childCount];i++){
+            CXMLNode* node = [bodyElement childAtIndex:i];
+            if([[node name] isEqualToString:@"listScrollerSplit"]){
+                [self displayListScrollerSplit:node];
+                break;
+            }if([[node name] isEqualToString:@"listWithPreview"]){
+                [self displayListScrollerSplit:node];
+                break;
+            }else if([[node name] isEqualToString:@"scroller"]){
+                [self appendVideos:node];
+                break;
+            }else if([[node name] isEqualToString:@"itemDetail"]){
+                [self displayDetail:node];
+                break;
+            }else if([[node name] isEqualToString:@"dialog"]){
+                [self displayDialog:node];
+                break;
+            }else if([[node name] isEqualToString:@"optionDialog"]){
+                [self displayListScrollerSplit:node];
+                break;
+            }else if([[node name] isEqualToString:@"videoPlayer"]){
+                [self playVideo:node];
+                break;
+            }else if([[node name] isEqualToString:@"listByNavigation"]){
+                [self displayListByNavigation:node];
+                break;
+            }
+            
         }
+    }@catch(NSException* e){
+        ALog(@"error occured:%@",[e description]);
+    }@finally {
+        [self.progressHUD hide:NO];
     }
 }
 -(void)playVideo:(CXMLNode*) node{
@@ -172,47 +214,14 @@
     [self.view addSubview:self.scrollView];
 }
 -(void) loadView{
-    @try{
-        [super loadView];
-        if(self.xml==nil){
-            return;
-        }
-        NSError *theError = NULL;
-        CXMLDocument *document = [[[CXMLDocument alloc] initWithXMLString:self.xml options:0 error:&theError] autorelease];
-        CXMLElement* rootElement=[document rootElement];
-        CXMLElement* bodyElement = [[rootElement elementsForName:@"body"] objectAtIndex:0];
-        for(int i=0;i<[bodyElement childCount];i++){
-            CXMLNode* node = [bodyElement childAtIndex:i];
-            if([[node name] isEqualToString:@"listScrollerSplit"]){
-                [self displayListScrollerSplit:node];
-                break;
-            }if([[node name] isEqualToString:@"listWithPreview"]){
-                [self displayListScrollerSplit:node];
-                break;
-            }else if([[node name] isEqualToString:@"scroller"]){
-                [self appendVideos:node];
-                break;
-            }else if([[node name] isEqualToString:@"itemDetail"]){
-                [self displayDetail:node];
-                break;
-            }else if([[node name] isEqualToString:@"dialog"]){
-                [self displayDialog:node];
-                break;
-            }else if([[node name] isEqualToString:@"optionDialog"]){
-                [self displayListScrollerSplit:node];
-                break;
-            }else if([[node name] isEqualToString:@"videoPlayer"]){
-                [self playVideo:node];
-                break;
-            }else if([[node name] isEqualToString:@"listByNavigation"]){
-                [self displayListByNavigation:node];
-                break;
-            }
-            
-        }
-    }@catch(NSException* e){
-        ALog(@"error occured:%@",[e description]);
-    }
+    [super loadView];
+    self.progressHUD = [[[MBProgressHUD alloc] initWithView:self.view] autorelease];
+    self.progressHUD.delegate = self;
+    self.progressHUD.labelText = @"加载中...";
+    [self.view addSubview:self.progressHUD];
+    [self.view bringSubviewToFront:self.progressHUD];
+    [self.progressHUD show:YES];
+    [self appendXml:self.xml];
 }
 
 -(void) displayDetail:(CXMLNode*) node{
@@ -422,17 +431,38 @@
         if([tti.text isEqualToString:@"更多"]){
             self.append = YES;
         }
-        [[AppDele jsEngine] runJS:script view:self.view];
+        if(self.append){
+            self.progressHUD = [[[MBProgressHUD alloc] initWithView:self.view] autorelease];
+            self.progressHUD.delegate = self;
+            self.progressHUD.labelText = @"加载中...";
+            [self.view addSubview:self.progressHUD];
+            [self.view bringSubviewToFront:self.progressHUD];
+            [self.progressHUD show:YES];
+            self.script = script;
+            [NSThread detachNewThreadSelector:@selector(runJS:) toTarget:self withObject:self];
+        }else{
+            XmlViewController* controler = [[XmlViewController alloc] autorelease];
+            [[TTNavigator navigator].topViewController.navigationController pushViewController:controler animated:YES];
+            [controler initWithScript:script];
+            [NSThread detachNewThreadSelector:@selector(runJS:) toTarget:self withObject:controler];
+        }
+        
     }else if([item isKindOfClass:[TTTableStyledTextItem class]]){
         TTTableStyledTextItem* tti = (TTTableStyledTextItem*)item;
         NSString* script = tti.URL;
-        [[AppDele jsEngine] runJS:script view:self.view];
+        //[[AppDele jsEngine] runJS:script];
+        XmlViewController* controler = [[XmlViewController alloc] autorelease];
+        [[TTNavigator navigator].topViewController.navigationController pushViewController:controler animated:YES];
+        [controler initWithScript:script];
+        [NSThread detachNewThreadSelector:@selector(runJS:) toTarget:self withObject:controler];
     }else if([item isKindOfClass:[VideoTableItem class]]){
         ALog(@"select VideoTableItem");
     }
     
 }
-
+- (void) runJS:(id)object{
+    [[AppDele jsEngine] runJS:((XmlViewController*)object).script];
+}
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     TTListDataSource* ds = (TTListDataSource*)tableView.dataSource;
     TTTableItem* item = [ds.items objectAtIndex:indexPath.row];
@@ -449,6 +479,15 @@
     }
 }
 
+#pragma mark -
+#pragma mark MBProgressHUDDelegate methods
+
+- (void)hudWasHidden:(MBProgressHUD *)hud {
+    // Remove HUD from screen when the HUD was hidded
+    [_progressHUD removeFromSuperview];
+    [_progressHUD release];
+    _progressHUD = nil;
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];

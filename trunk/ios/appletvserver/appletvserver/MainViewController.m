@@ -48,7 +48,7 @@
 
     TTTableTextItem* item = [ds.items objectAtIndex:indexPath.row];
     NSString* script = item.URL;
-    [[AppDele jsEngine] runJS:script view:self.view];
+    [[AppDele jsEngine] runJS:script];
 }
 
 - (void)loadView
@@ -78,11 +78,7 @@
     [self.view addSubview:self.progressHUD];
     [self.view bringSubviewToFront:self.progressHUD];
     [self.progressHUD show:YES];
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        [self initWebContent];
-        [self initJSEngine];
-        [self.progressHUD hide:YES];
-    });
+    
 }
 
 -(void) initWebContent{
@@ -96,7 +92,16 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+
+    [NSThread detachNewThreadSelector:@selector(afterViewLoaded:) toTarget:self withObject:nil];
+}
+
+- (void) afterViewLoaded:(id)object{
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    [self initWebContent];
+    [self initJSEngine];
+    [self.progressHUD hide:YES];
+    [pool release];
 }
 
 - (void)viewDidUnload

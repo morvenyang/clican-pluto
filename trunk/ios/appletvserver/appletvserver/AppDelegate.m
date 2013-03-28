@@ -168,6 +168,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
      [DownloadStatusViewController class]];
     [map from:@"atvserver://atv/input/(initWithLabel:)/(instruction:)/(initialText:)" toSharedViewController:
      [InputViewController class]];
+
     if (![navigator restoreViewControllers]) {
         [navigator openURLAction:[TTURLAction actionWithURLPath:@"atvserver://root"]];
     }

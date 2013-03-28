@@ -1,3 +1,4 @@
+
 //
 //  VideoImageView.m
 //  appletvserver
@@ -8,6 +9,7 @@
 
 #import "VideoImageView.h"
 #import "AppDelegate.h"
+#import "XmlViewController.h"
 @implementation VideoImageView
 
 @synthesize actionUrl = _actionUrl;
@@ -18,8 +20,15 @@
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    UIViewController* currentController = [TTNavigator navigator].topViewController;
-    [[AppDele jsEngine] runJS:_actionUrl view:currentController.view];
+    //[[AppDele jsEngine] runJS:self.actionUrl];
+    XmlViewController* controler = [[XmlViewController alloc] autorelease];
+    [[TTNavigator navigator].topViewController.navigationController pushViewController:controler animated:YES];
+    [controler initWithScript:_actionUrl];
+     [NSThread detachNewThreadSelector:@selector(runJS:) toTarget:self withObject:controler];
+    
 }
 
+- (void) runJS:(id)object{
+    [[AppDele jsEngine] runJS:((XmlViewController*)object).script];
+}
 @end

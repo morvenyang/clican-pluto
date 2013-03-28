@@ -16,9 +16,11 @@
 
 - (void)setProgress:(float)newProgress{
     self.progressHUD.progress = newProgress;
-    self.progressHUD.labelText=[NSString stringWithFormat:@"加载脚本中...%.2f%@",newProgress,@"%"];
+    self.progressHUD.labelText=[NSString stringWithFormat:@"加载脚本中...%.0f%@",newProgress*100,@"%"];
 }
-
+- (void)request:(ASIHTTPRequest *)request didReceiveBytes:(long long)bytes{
+    NSLog(@"receiver data %lld",bytes);
+}
 -(void) syncWebContent:(MBProgressHUD*) progress{
     self.progressHUD = progress;
     ASIHTTPRequest *verreq = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:[ATV_SERVER_IP stringByAppendingFormat:@"%@?t=%f",WEB_CONTENT_SYNC_VERSION_API,[[NSDate new] timeIntervalSince1970]]]];
@@ -28,7 +30,7 @@
     NSString* version = [[verreq responseHeaders] valueForKey:@"version"];
     NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
     NSString* currentVersion = [defaults objectForKey:@"version"];
-    if(currentVersion==NULL||![currentVersion isEqualToString:version]||true){
+    if(currentVersion==NULL||![currentVersion isEqualToString:version]){
          NSLog(@"Current version is %@, there is new version %@ to update",currentVersion,version);
         ASIHTTPRequest *req = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:[ATV_SERVER_IP stringByAppendingFormat:@"%@?t=%f",WEB_CONTENT_SYNC_API,[[NSDate new] timeIntervalSince1970]]]];
         [req setShouldContinueWhenAppEntersBackground:YES];
@@ -53,5 +55,11 @@
     }else{
         NSLog(@"Current version is %@, there is no need to update new version %@",currentVersion,version);
     }
+}
+
+- (void)dealloc
+{
+    TT_RELEASE_SAFELY(_progressHUD);
+    [super dealloc];
 }
 @end
