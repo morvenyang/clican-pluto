@@ -3,7 +3,7 @@
 	    <dialog id="dialog">
 	        <title><![CDATA[请通过以下URL和你的DeviceID进行新浪微博授权, 然后返回重试]]></title>
 	        <description><![CDATA[
-	        URL:http://clican.org/appletv/index.html
+	        URL:<a href="http://clican.org/appletv/index.html">http://clican.org/appletv/index.html</a>
 	        DeviceID:${deviceId}<c:if test="${deviceId==null||fn:length(deviceId)==0}">如果DeviceID没有显示请通过Clican-->Weibo进入</c:if>
 	        ]]></description>
 	    </dialog>
