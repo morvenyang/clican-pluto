@@ -151,6 +151,7 @@
 		72F7CB9D16F868120033A32F /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72F7CB9C16F868120033A32F /* AVFoundation.framework */; };
 		72F7CBA016F86C8D0033A32F /* MTAudioPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 72F7CB9F16F86C8D0033A32F /* MTAudioPlayer.m */; };
 		72FEEFCE1703DAAD00F9713E /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 72FEEFCD1703D68C00F9713E /* MBProgressHUD.m */; };
+		72FEEFF4170443A000F9713E /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72FEEFF3170443A000F9713E /* AssetsLibrary.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -584,6 +585,7 @@
 		72F7CB9F16F86C8D0033A32F /* MTAudioPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MTAudioPlayer.m; path = CocoaHTTPServer/MTAudioPlayer.m; sourceTree = "<group>"; };
 		72FEEFCC1703D68C00F9713E /* MBProgressHUD.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		72FEEFCD1703D68C00F9713E /* MBProgressHUD.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
+		72FEEFF3170443A000F9713E /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -591,6 +593,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				72FEEFF4170443A000F9713E /* AssetsLibrary.framework in Frameworks */,
 				72D5CC0B17004AF300B292BA /* libxml2.dylib in Frameworks */,
 				72198F2316FFF79F00EC451B /* libicucore.dylib in Frameworks */,
 				72198F2116FFF78600EC451B /* libstdc++.dylib in Frameworks */,
@@ -948,6 +951,7 @@
 				72B83F7C16CDDD89003B2839 /* libswresample.a */,
 				72B83F7D16CDDD89003B2839 /* libswscale.a */,
 				72B83F6516CDDACD003B2839 /* libbz2.1.0.dylib */,
+				72FEEFF3170443A000F9713E /* AssetsLibrary.framework */,
 				72F7CB9C16F868120033A32F /* AVFoundation.framework */,
 				320AF8492C47A4D819F7C450 /* QuartzCore.framework */,
 				72A4367F16C9EA5A00D9958D /* UIKit.framework */,
