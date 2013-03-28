@@ -25,14 +25,18 @@
 
 - (void)createModel {
     NSMutableArray* items = [NSMutableArray array];
-    TTTableTextItem* item1 = [TTTableTextItem itemWithText:@"QQ" URL:@"qqClient.loadChannelPage();"];
+    TTTableTextItem* item1 = [TTTableTextItem itemWithText:@"腾讯视频" URL:@"qqClient.loadChannelPage();"];
     [items addObject:item1];
-    TTTableTextItem* item2 = [TTTableTextItem itemWithText:@"Youku" URL:@"youkuClient.loadChannelPage();"];
+    TTTableTextItem* item2 = [TTTableTextItem itemWithText:@"优酷视频" URL:@"youkuClient.loadChannelPage();"];
     [items addObject:item2];
-    TTTableTextItem* item3 = [TTTableTextItem itemWithText:@"Tudou" URL:@"tudouClient.loadChannelPage();"];
+    TTTableTextItem* item3 = [TTTableTextItem itemWithText:@"土豆视频" URL:@"tudouClient.loadChannelPage();"];
     [items addObject:item3];
-    TTTableTextItem* item4 = [TTTableTextItem itemWithText:@"Yyets" URL:@"yyetsClient.loadChannelPage();"];
+    TTTableTextItem* item4 = [TTTableTextItem itemWithText:@"人人影视" URL:@"yyetsClient.loadChannelPage();"];
     [items addObject:item4];
+    TTTableTextItem* item5 = [TTTableTextItem itemWithText:@"龙部落影视" URL:@"lblClient.loadChannelPage();"];
+    [items addObject:item5];
+    TTTableTextItem* item6 = [TTTableTextItem itemWithText:@"收藏" URL:@"appletv.loadFavoritePage();"];
+    [items addObject:item6];
     TTListDataSource* ds = [[TTListDataSource alloc] initWithItems:items];
     self.dataSource = ds;
     self.tableView.delegate =self;
