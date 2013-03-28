@@ -88,6 +88,18 @@ var lblClient = {
 		}
 	},
 
+	loadChannelPage:function(){
+		var data = {
+				'channels' : lblClient.lblChannels,
+				'serverurl' : appletv.serverurl
+			};
+		var templateEJS = new EJS({
+			url : appletv.serverurl + '/template/lbl/channel.ejs'
+		});	
+		var xml = templateEJS.render(data);
+		appletv.loadAndSwapXML(xml);
+	},
+	
 	loadIndexPage : function(keyword, page, channelId) {
 		appletv.showLoading();
 		var channel = this.lblChannelMap[channelId];
