@@ -161,14 +161,17 @@ public class WeiboController {
 			}
 			return "weibo/profile";
 		} else {
-			String weiboLooginURL = springProperty.getWeiboLoginURL();
-			int start = weiboLooginURL.indexOf("redirect_uri=");
-			int end = weiboLooginURL.indexOf("&", start);
-			String replaceContent = weiboLooginURL.substring(start, end);
-			weiboLooginURL = weiboLooginURL.replace(replaceContent,
+			String weiboLoginURL = springProperty.getWeiboLoginURL();
+			int start = weiboLoginURL.indexOf("redirect_uri=");
+			int end = weiboLoginURL.indexOf("&", start);
+			String replaceContent = weiboLoginURL.substring(start, end);
+			weiboLoginURL = weiboLoginURL.replace(replaceContent,
 					"redirect_uri=" + springProperty.getWeiboRedirectURL()
 							+ "?deviceId=" + deviceId);
-			request.setAttribute("weiboLoginURL", weiboLooginURL);
+			if(log.isDebugEnabled()){
+				log.debug(weiboLoginURL);
+			}
+			request.setAttribute("weiboLoginURL", weiboLoginURL);
 			request.setAttribute("deviceId", deviceId);
 			return "weibo/checkAccessToken";
 		}
