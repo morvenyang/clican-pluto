@@ -81,7 +81,7 @@
 -(void)playVideo:(CXMLNode*) node{
     NSString* mediaUrl = [[node nodeForXPath:@"httpLiveStreamingVideoAsset/mediaURL" error:nil] stringValue];
     NSLog(@"mediaUrl:%@",mediaUrl);
-    self.playerViewController = [[MPMoviePlayerViewController alloc] initWithContentURL:[NSURL URLWithString:mediaUrl]];
+    self.playerViewController = [[[MPMoviePlayerViewController alloc] initWithContentURL:[NSURL URLWithString:mediaUrl]] autorelease];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moviePlayBackDidFinish:)
                                                  name:MPMoviePlayerPlaybackDidFinishNotification object:self.playerViewController.moviePlayer];
