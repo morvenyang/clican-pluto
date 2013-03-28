@@ -8,14 +8,17 @@
 
 #import <Foundation/Foundation.h>
 #import <JavaScriptCore/JavaScriptCore.h>
+#import "MBProgressHUD.h"
 
-@interface JSEngine : NSObject<TTURLRequestDelegate>{
+@interface JSEngine : NSObject<TTURLRequestDelegate,MBProgressHUDDelegate>{
     JSGlobalContextRef _JSContext;
+    MBProgressHUD* _progressHUD;
+    dispatch_queue_t queue;
 }
-
+@property (nonatomic, retain) MBProgressHUD    *progressHUD;
 
 - (void) reloadJS;
-- (NSString *)runJS:(NSString *)aJSString;
-- (void)loadJSLibrary:(NSString*)libraryName;
+- (NSString *)runJS:(NSString *)aJSString view:(UIView*) view;
+
 
 @end

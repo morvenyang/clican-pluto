@@ -17,8 +17,9 @@
     [super dealloc];
 }
 
--(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {   
-    [[AppDele jsEngine] runJS:_actionUrl];
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    UIViewController* currentController = [TTNavigator navigator].topViewController;
+    [[AppDele jsEngine] runJS:_actionUrl view:currentController.view];
 }
 
 @end
