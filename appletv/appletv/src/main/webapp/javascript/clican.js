@@ -9,8 +9,10 @@ var appletv = {
 	remoteserverurl : 'http://www.clican.org/appletv',
 	_keyStr : "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",
 	getDeviceId: function(){
-		if(appletv.simulate!='atv'){
+		if(appletv.simulate=='browser'){
 			return '1234';
+		}else if(appletv.simulate=='native'){
+			return native_getDeviceId();
 		}else{
 			return atv.device.udid;
 		}
