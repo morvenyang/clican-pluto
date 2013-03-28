@@ -8,15 +8,21 @@
 
 #import "WebContentSync.h"
 #import "Constants.h"
-#import "ASIHTTPRequest.h"
 #import "ZipArchive.h"
 #import "AppDelegate.h"
 
 @implementation WebContentSync
+@synthesize progressHUD = _progressHUD;
 
--(void) syncWebContent{
-    
+- (void)setProgress:(float)newProgress{
+    self.progressHUD.progress = newProgress;
+    self.progressHUD.labelText=[NSString stringWithFormat:@"加载脚本中...%.2f%@",newProgress,@"%"];
+}
+
+-(void) syncWebContent:(MBProgressHUD*) progress{
+    self.progressHUD = progress;
     ASIHTTPRequest *verreq = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:[ATV_SERVER_IP stringByAppendingFormat:@"%@?t=%f",WEB_CONTENT_SYNC_VERSION_API,[[NSDate new] timeIntervalSince1970]]]];
+    
     [verreq setShouldContinueWhenAppEntersBackground:YES];
     [verreq startSynchronous];
     NSString* version = [[verreq responseHeaders] valueForKey:@"version"];
@@ -26,6 +32,8 @@
          NSLog(@"Current version is %@, there is new version %@ to update",currentVersion,version);
         ASIHTTPRequest *req = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:[ATV_SERVER_IP stringByAppendingFormat:@"%@?t=%f",WEB_CONTENT_SYNC_API,[[NSDate new] timeIntervalSince1970]]]];
         [req setShouldContinueWhenAppEntersBackground:YES];
+        [req setDownloadProgressDelegate:self];
+        [req setShowAccurateProgress:YES];
         [req startSynchronous];
         NSError *error = [req error];
         if (!error) {
