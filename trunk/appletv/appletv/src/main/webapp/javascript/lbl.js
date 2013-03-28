@@ -121,14 +121,11 @@ var lblClient = {
 					};
 					videos.push(video);
 				}
-				lblClient.loadPics(videos, 0,
-						function(videos) {
-							lblClient.generateIndexPage(keyword, page, channel,
-									videos);
-							var s2 = new Date();
-							appletv.logToServer('total:'
-									+ (s2.getTime() - s1.getTime()))
-						});
+				lblClient.generateIndexPage(keyword, page, channel,
+						videos);
+				var s2 = new Date();
+				appletv.logToServer('total:'
+						+ (s2.getTime() - s1.getTime()))
 			} else {
 				appletv.showDialog('加载失败', '');
 			}
