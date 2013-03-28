@@ -234,10 +234,10 @@ JSValueRef loadXML(JSContextRef ctx,
         if(xml==NULL||xml.length==0){
             xml = [JSEngine getDialog:@"加载XML错误" desc:@"无法获得相关内容"];
         }
-//        if([AppDele jsEngine].progressHUD!=nil){
-//            [[AppDele jsEngine].progressHUD removeFromSuperview];
-//            [AppDele jsEngine].progressHUD = nil;
-//        }
+        if([AppDele jsEngine].progressHUD!=nil){
+            [[AppDele jsEngine].progressHUD removeFromSuperview];
+            [AppDele jsEngine].progressHUD = nil;
+        }
         UIViewController* currentController = [TTNavigator navigator].topViewController;
         if([currentController isKindOfClass:[XmlViewController class]]){
             XmlViewController* xmlController =(XmlViewController*)currentController;
@@ -283,10 +283,10 @@ JSValueRef loadURL(JSContextRef ctx,
         }else{
             content= [JSEngine getDialog:@"加载URL错误，无法获得相关内容" desc:[NSString stringWithFormat:@"URL:%@",url]];
         }
-//        if([AppDele jsEngine].progressHUD!=nil){
-//            [[AppDele jsEngine].progressHUD removeFromSuperview];
-//            [AppDele jsEngine].progressHUD = nil;
-//        }
+        if([AppDele jsEngine].progressHUD!=nil){
+            [[AppDele jsEngine].progressHUD removeFromSuperview];
+            [AppDele jsEngine].progressHUD = nil;
+        }
         XmlViewController* controler = [[XmlViewController alloc] initWithXml:content];
         [[TTNavigator navigator].topViewController.navigationController pushViewController:controler animated:YES];
 
@@ -402,11 +402,11 @@ JSValueRef loadURL(JSContextRef ctx,
     }
     if(view!=nil){
 //         self.progressHUD = [[MBProgressHUD alloc] initWithView:view];
-//         self.progressHUD.delegate = self;
 //         self.progressHUD.labelText = @"加载中...";
 //         [view addSubview:self.progressHUD];
 //         [view bringSubviewToFront:self.progressHUD];
 //         [self.progressHUD show:YES];
+        
      }
     
 
