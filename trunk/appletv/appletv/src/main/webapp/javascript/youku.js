@@ -369,10 +369,9 @@ var youkuClient = {
 				desc =  appletv.substringByData(htmlContent,'<meta name="description" content="','"');
 			}
 			desc = appletv.getTextInTag(desc);
-			var id = code;;
 			if(channelId==96){
 				isalbum = false;
-				id = appletv.substringByData(htmlContent,'id_','.html');
+				code = appletv.substringByData(htmlContent,'id_','.html');
 			}
 			var items = [];
 			if(isalbum){
@@ -391,7 +390,7 @@ var youkuClient = {
 			}else{
 				var item = {
 						'title' : title,
-						'id' : id
+						'id' : code
 					};
 				items.push(item);
 			}
@@ -403,7 +402,7 @@ var youkuClient = {
 					channelId : channelId,
 					script : appletv.encode("youkuClient.loadVideoPage('"+code+"',"+channelId+","+isalbum+",'"+pic+"');"),
 					video : {
-						'id' : id,
+						'id' : code,
 						'actor' : actor,
 						'area' : area,
 						'dctor' : dctor,
