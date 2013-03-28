@@ -259,7 +259,7 @@ var tudouClient = {
 	},
 	
 	getCategory: function(content,channelId,url){
-		var categoryFilterContent = appletv.substringByDataByTag(content,'<div class="category-filter','</div>','div');
+		var categoryFilterContent = appletv.substringByTag(content,'<div class="category-filter','</div>','div');
 		var categoryFilters = appletv.getSubValues(categoryFilterContent,'<div class="category-item','</div>');
 		
 		var categoryNames = [];

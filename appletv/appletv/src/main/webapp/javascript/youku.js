@@ -225,7 +225,7 @@ var youkuClient = {
 			}
 			appletv.makeRequest(queryUrl, function(content) {
 				if (content != null && content.length > 0) {
-					var itemscontent = appletv.substringByDataByTag(content,'<div class="items">', '</div>', 'div');
+					var itemscontent = appletv.substringByTag(content,'<div class="items">', '</div>', 'div');
 					var items = appletv.getSubValuesByTag(itemscontent,
 							'<ul class="p pv">', '</ul>', 'ul');
 					for (i = 0; i < items.length; i++) {
@@ -283,7 +283,7 @@ var youkuClient = {
 	
 	getCategory: function(content,channelId,url){
 		var channel = this.youkuChannelMap[channelId];
-		var categoryFilterContent = appletv.substringByDataByTag(content,'<div class="filter" id="filter">','</div>','div');
+		var categoryFilterContent = appletv.substringByTag(content,'<div class="filter" id="filter">','</div>','div');
 		var categoryFilters = appletv.getSubValuesByTag(categoryFilterContent,'<div class="item">','</div>','div');
 		var categoryNames = [];
 		var categoryMap = {};
@@ -375,7 +375,7 @@ var youkuClient = {
 			}
 			var items = [];
 			if(isalbum){
-				var itemscontent = appletv.substringByDataByTag(htmlContent,'<div class="items"','</div>','div');
+				var itemscontent = appletv.substringByTag(htmlContent,'<div class="items"','</div>','div');
 				var urls = appletv.getSubValues(itemscontent,'<a','</a>');
 				for(i=0;i<urls.length;i++){
 					url = urls[i];
