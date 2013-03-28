@@ -304,7 +304,7 @@ var taobaoClient = {
 										appletv.showDialog('购物车内空空如也', '请先用过购买操作把商品添加到购物车内');
 									}else{
 										appletv.makePostRequest(taobaoConfirmOrderApi+'?'+mycardresult,null, function(htmlcontent){
-											var payload ={"deviceId":appletv.getDeviceUdid(),"htmlContent":htmlcontent};
+											var payload ={"deviceId":appletv.getDeviceId(),"htmlContent":htmlcontent};
 											appletv.logToServer(appletv.remoteserverurl+'/ctl/taobao/confirmOrder.xml');
 											appletv.makePostRequest(appletv.remoteserverurl+'/ctl/taobao/confirmOrder.xml',JSON.stringify(payload),function(xmlcontent){
 												appletv.loadXML(xmlcontent);
@@ -327,7 +327,7 @@ var taobaoClient = {
 								appletv.showDialog('购物车内空空如也', '请先用过购买操作把商品添加到购物车内');
 							}else{
 								appletv.makePostRequest(taobaoConfirmOrderApi+'?'+mycardresult,null, function(htmlcontent){
-									var payload ={"deviceId":appletv.getDeviceUdid(),"htmlContent":htmlcontent};
+									var payload ={"deviceId":appletv.getDeviceId(),"htmlContent":htmlcontent};
 									appletv.logToServer(appletv.remoteserverurl+'/ctl/taobao/confirmOrder.xml');
 									appletv.makePostRequest(appletv.remoteserverurl+'/ctl/taobao/confirmOrder.xml',JSON.stringify(payload),function(xmlcontent){
 										appletv.loadXML(xmlcontent);

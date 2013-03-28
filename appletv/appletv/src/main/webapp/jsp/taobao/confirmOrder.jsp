@@ -48,7 +48,7 @@
 		</c:forEach>
 		<grid id="submit_grid" columnCount="2">
 			<items>
-				<actionButton id="submit1" onSelect="onPhotoSelection('${serverurl}/ctl/taobao/getConfirmOrder.png?deviceId='+appletv.getDeviceUdid()+'&amp;random=${tco.random}');" onPlay="onPhotoSelection('${serverurl}/ctl/taobao/getConfirmOrder.png?deviceId='+appletv.getDeviceUdid()+'&amp;random=${tco.random}');">
+				<actionButton id="submit1" onSelect="onPhotoSelection('${serverurl}/ctl/taobao/getConfirmOrder.png?deviceId='+appletv.getDeviceId()+'&amp;random=${tco.random}');" onPlay="onPhotoSelection('${serverurl}/ctl/taobao/getConfirmOrder.png?deviceId='+appletv.getDeviceId()+'&amp;random=${tco.random}');">
 					<title>详细</title>
 				</actionButton>
 				<actionButton id="submit2" onSelect="taobaoClient.submitConfirmOrder();" onPlay="taobaoClient.submitConfirmOrder();">
