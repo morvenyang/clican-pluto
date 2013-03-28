@@ -62,7 +62,7 @@
 }
 
 -(void) initWebContent{
-    [[AppDele webContentSync] syncWebContent];
+    [[AppDele webContentSync] syncWebContent:self.progressHUD];
 }
 
 -(void) initJSEngine{

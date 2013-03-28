@@ -7,10 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "MBProgressHUD.h"
+#import "ASIHTTPRequest.h"
 
-@interface WebContentSync : NSObject{
-    
+@interface WebContentSync : NSObject<ASIProgressDelegate>{
+    MBProgressHUD* _progressHUD;
 }
-
--(void) syncWebContent;
+@property (nonatomic, retain) MBProgressHUD    *progressHUD;
+-(void) syncWebContent:(MBProgressHUD*) progress;
 @end
