@@ -13,6 +13,7 @@
 @synthesize startPosition = _startPosition;
 @synthesize endPosition = _endPosition;
 @synthesize finished = _finished;
+@synthesize downloading = _downloading;
 @synthesize localPath = _localPath;
 - (void) dealloc {
     TT_RELEASE_SAFELY(_localPath);

@@ -181,6 +181,17 @@ JSValueRef showInpuTextPage(JSContextRef ctx,
     return JSValueMakeNull(ctx);
 }
 
+JSValueRef getDeviceId(JSContextRef ctx,
+                    JSObjectRef function,
+                    JSObjectRef thisObject,
+                    size_t argumentCount,
+                    const JSValueRef arguments[],
+                    JSValueRef* exception){
+    NSString* deviceId = [[UIDevice currentDevice] uniqueIdentifier];
+    NSLog(@"deviceId=%@",deviceId);
+    return JSValueMakeString(ctx, JSStringCreateWithUTF8CString([deviceId UTF8String]));
+}
+
 JSValueRef getValue(JSContextRef ctx,
                     JSObjectRef function,
                     JSObjectRef thisObject,
@@ -335,6 +346,11 @@ JSValueRef loadURL(JSContextRef ctx,
     JSObjectRef func9 = JSObjectMakeFunctionWithCallback(_JSContext, str9,logToServer);
     JSObjectSetProperty(_JSContext, JSContextGetGlobalObject(_JSContext), str9, func9, kJSPropertyAttributeNone, NULL);
     JSStringRelease(str9);
+    
+    JSStringRef str10 = JSStringCreateWithUTF8CString("native_getDeviceId");
+    JSObjectRef func10 = JSObjectMakeFunctionWithCallback(_JSContext, str10,getDeviceId);
+    JSObjectSetProperty(_JSContext, JSContextGetGlobalObject(_JSContext), str10, func10, kJSPropertyAttributeNone, NULL);
+    JSStringRelease(str10);
     
     NSString* jsDirectory = [[AppDele localWebPathPrefix] stringByAppendingString:@"/appletv/javascript"];
     NSArray* jsArray=[[NSFileManager defaultManager] contentsOfDirectoryAtPath:jsDirectory error:nil];

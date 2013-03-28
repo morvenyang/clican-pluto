@@ -12,11 +12,13 @@
     long _startPosition;
     long _endPosition;
     BOOL _finished;
+    BOOL _downloading;
     NSString* _localPath;
 }
 
 @property (nonatomic, assign) long startPosition;
 @property (nonatomic, assign) long endPosition;
 @property (nonatomic, assign) BOOL finished;
+@property (nonatomic, assign) BOOL downloading;
 @property (nonatomic, copy) NSString* localPath;
 @end

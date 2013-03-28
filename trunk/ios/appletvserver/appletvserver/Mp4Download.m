@@ -21,10 +21,12 @@
         if(size>5){
              Mp4DownloadPartial* freeBoxPartial1 = [_mp4DownloadPartials objectAtIndex:size-2];
              Mp4DownloadPartial* freeBoxPartial2 = [_mp4DownloadPartials objectAtIndex:size-1];
-            if(!freeBoxPartial1.finished){
+            if(!freeBoxPartial1.downloading){
+                freeBoxPartial1.downloading = YES;
                 return freeBoxPartial1;
             }
-            if(!freeBoxPartial2.finished){
+            if(!freeBoxPartial2.downloading){
+                freeBoxPartial2.downloading = YES;
                 return freeBoxPartial2;
             }
         }

@@ -136,7 +136,7 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
             [[resp httpHeaders] setValue:contentRangeStr forKey:@"Content-Range"];
             NSLog(@"Content-Range:%@",contentRangeStr);
             [[resp httpHeaders] setValue:[NSString stringWithFormat:@"%i",[data length]] forKey:@"Content-Length"];
-            
+            [[resp httpHeaders] setValue:@"bytes" forKey:@"Accept-Ranges"];
             return resp;
         } else {
             Mp4Download* mp4Download = [[AppDele mp4Process] doSyncRequestByMP4Url:mp4Url];

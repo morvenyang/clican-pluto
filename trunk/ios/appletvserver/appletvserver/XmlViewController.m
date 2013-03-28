@@ -95,8 +95,7 @@
     [self.playerViewController.moviePlayer play];
 }
 - (void)moviePlayBackDidFinish:(NSNotification*)notification {
-    int reason = [[[notification userInfo] valueForKey:MPMoviePlayerPlaybackDidFinishReasonUserInfoKey] intValue];
-    if (reason == MPMovieFinishReasonUserExited) {
+
         //user hit the done button
         MPMoviePlayerController *moviePlayer = [notification object];
         
@@ -109,7 +108,7 @@
         }
         [self.navigationController setNavigationBarHidden:NO animated:YES];
         [self.navigationController popViewControllerAnimated:YES];
-    }
+ 
 }
 
 -(void) displayListScrollerSplit:(CXMLNode*) node{
