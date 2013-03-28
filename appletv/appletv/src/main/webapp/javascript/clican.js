@@ -261,9 +261,9 @@ var appletv = {
 		atv.loadAndSwapPlist(plist);
 	},
 	
-	makeSyncRequest:function(url){
+	readLocalFile:function(url){
 		if(appletv.simulate=='native'){			
-			return native_makeSyncRequest(url);
+			return native_readLocalFile(url);
 		}else{
 			return '';
 		}
