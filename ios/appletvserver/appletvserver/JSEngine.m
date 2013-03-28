@@ -36,7 +36,7 @@ JSValueRef logToServer(JSContextRef ctx,
     return JSValueMakeNull(ctx);
 }
 
-JSValueRef makeSyncRequest(JSContextRef ctx,
+JSValueRef readLocalFile(JSContextRef ctx,
                        JSObjectRef function,
                        JSObjectRef thisObject,
                        size_t argumentCount,
@@ -44,20 +44,13 @@ JSValueRef makeSyncRequest(JSContextRef ctx,
                        JSValueRef* exception){
     JSValueRef excp = NULL;
     NSString *url = (__bridge_transfer NSString*)JSStringCopyCFString(kCFAllocatorDefault, (JSStringRef)JSValueToStringCopy(ctx, arguments[0], &excp));
-    NSLog(@"makeSyncRequest:%@",url);
-    
-    ASIHTTPRequest *req = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:url]];
-    [req setShouldContinueWhenAppEntersBackground:YES];
-    [req startSynchronous];
-    NSError *error = [req error];
-    if (!error) {
-        NSData* contentData = [req responseData];
-        NSString* content = [[NSString alloc] initWithData:contentData encoding:NSUTF8StringEncoding];
-        return JSValueMakeString(ctx, JSStringCreateWithUTF8CString([content UTF8String]));
-    }else{
-        return JSValueMakeNull(ctx);
-    }
-    
+    NSLog(@"http url:%@",url);
+    NSString *filePath= [url stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"http://%@:8080",[AppDele ipAddress]] withString:[AppDele localWebPathPrefix]];
+    NSRange range = [filePath rangeOfString:@"?"];
+    filePath = [filePath substringToIndex:range.location];
+    NSLog(@"filePath:%@",filePath);
+    NSString* content =[NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
+    return JSValueMakeString(ctx, JSStringCreateWithUTF8CString([content UTF8String]));
 }
 
 
@@ -345,8 +338,8 @@ JSValueRef loadURL(JSContextRef ctx,
     JSStringRelease(str6);
     
     
-    JSStringRef str7 = JSStringCreateWithUTF8CString("native_makeSyncRequest");
-    JSObjectRef func7 = JSObjectMakeFunctionWithCallback(_JSContext, str7,makeSyncRequest);
+    JSStringRef str7 = JSStringCreateWithUTF8CString("native_readLocalFile");
+    JSObjectRef func7 = JSObjectMakeFunctionWithCallback(_JSContext, str7,readLocalFile);
     JSObjectSetProperty(_JSContext, JSContextGetGlobalObject(_JSContext), str7, func7, kJSPropertyAttributeNone, NULL);
     JSStringRelease(str7);
     
