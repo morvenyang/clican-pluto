@@ -8,6 +8,9 @@
 	         <c:if test="${deviceId==null||fn:length(deviceId)==0}">
 	         	如果DeviceID没有显示请通过Clican-->Weibo进入
 	         </c:if>
+	         <c:if test="${deviceId!=null&&fn:length(deviceId)>0}">
+	         	或直接点击链接:${weiboLoginURL}
+	         </C:if>
 	        ]]></description>
 	    </dialog>
 </body>

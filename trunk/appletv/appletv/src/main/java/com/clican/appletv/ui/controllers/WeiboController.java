@@ -88,7 +88,8 @@ public class WeiboController {
 	@RequestMapping("/weibo/oaAuthCallback.do")
 	public String callback(HttpServletRequest request,
 			HttpServletResponse response,
-			@RequestParam(value = "code", required = false) String code)
+			@RequestParam(value = "code", required = false) String code,
+			@RequestParam(value = "deviceId", required = false) String deviceId)
 			throws Exception {
 		if (log.isDebugEnabled()) {
 			log.debug("code=" + code);
@@ -99,6 +100,10 @@ public class WeiboController {
 			log.debug("set access token[" + accessToken + "]");
 		}
 		request.getSession().setAttribute("accessToken", accessToken);
+		if (deviceId == null) {
+			deviceId = "";
+		}
+		request.setAttribute("deviceId", deviceId);
 		return "weibo/oaAuthCallback";
 	}
 
@@ -156,8 +161,14 @@ public class WeiboController {
 			}
 			return "weibo/profile";
 		} else {
-			request.setAttribute("weiboLoginURL",
-					springProperty.getSystemServerUrl() + "/weibo/login.do");
+			String weiboLooginURL = springProperty.getWeiboLoginURL();
+			int start = weiboLooginURL.indexOf("redirect_uri=");
+			int end = weiboLooginURL.indexOf("&", start);
+			String replaceContent = weiboLooginURL.substring(start, end);
+			weiboLooginURL = weiboLooginURL.replace(replaceContent,
+					"redirect_uri=" + springProperty.getWeiboRedirectURL()
+							+ "?deviceId=" + deviceId);
+			request.setAttribute("weiboLoginURL", weiboLooginURL);
 			request.setAttribute("deviceId", deviceId);
 			return "weibo/checkAccessToken";
 		}
