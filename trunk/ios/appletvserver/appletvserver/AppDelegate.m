@@ -9,9 +9,6 @@
 #import "AppDelegate.h"
 #import "RootViewController.h"
 #import "XunLeiLoginViewController.h"
-#import "QQIndexViewController.h"
-#import "QQVideoViewController.h"
-#import "QQPlayViewController.h"
 #import "FFMpegPlayViewController.h"
 #import "DownloadStatusViewController.h"
 #import "HTTPServer.h"
@@ -22,7 +19,6 @@
 #import "AtvUtil.h"
 #import "ASIHTTPRequest.h"
 #import "Constants.h"
-#import "QQChannelViewController.h"
 #import "InputViewController.h"
 static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
@@ -172,14 +168,6 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
      [DownloadStatusViewController class]];
     [map from:@"atvserver://atv/input/(initWithLabel:)/(instruction:)/(initialText:)" toSharedViewController:
      [InputViewController class]];
-
-    [map from:@"atvserver://qq/channel" toSharedViewController:[QQChannelViewController class]];
-    [map from:@"atvserver://qq/index/(initWithChannelId:)" toSharedViewController:
-     [QQIndexViewController class]];
-    [map from:@"atvserver://qq/video/(initWithVid:)" toSharedViewController:
-     [QQVideoViewController class]];
-    [map from:@"atvserver://qq/play/(initWithVideoItemId:)/(vid:)" toSharedViewController:
-     [QQPlayViewController class]];
     if (![navigator restoreViewControllers]) {
         [navigator openURLAction:[TTURLAction actionWithURLPath:@"atvserver://root"]];
     }
