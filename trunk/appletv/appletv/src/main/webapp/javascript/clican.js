@@ -383,7 +383,7 @@ var appletv = {
 	},
 	
 	shareToSinaWeibo : function(title, shareURL, imageURL) {
-		var url = appletv.remoteserverurl + '/ctl/weibo/createStatus.xml?deviceId='
+		var url = appletv.remoteserverurl + '/ctl/weibo/createStatus.xml?simulate='+appletv.simulate+'deviceId='
 				+ appletv.getDeviceId() + '&title=' + encodeURIComponent(title)
 				+ '&shareURL=' + encodeURIComponent(shareURL) + '&imageURL='
 				+ encodeURIComponent(imageURL);

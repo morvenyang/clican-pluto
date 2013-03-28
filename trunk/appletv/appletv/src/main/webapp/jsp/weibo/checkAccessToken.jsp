@@ -6,7 +6,7 @@
 	        URL:http://clican.org
 	        DeviceID:${deviceId}
 	        <c:if test="${deviceId==null||fn:length(deviceId)==0}">如果DeviceID没有显示请通过Clican-->Weibo进入</c:if>
-	        <c:if test="${deviceId!=null&&fn:length(deviceId)>0}">直接点击授权链接:<a href="${weiboLoginURL}">授权</a></c:if>
+	        <c:if test="${deviceId!=null&&fn:length(deviceId)>0&&simulate!=null&&simulate=='native'}">直接点击授权链接:<a href="${weiboLoginURL}">授权</a></c:if>
 	        ]]></description>
 	    </dialog>
 </body>
