@@ -16,6 +16,7 @@
 		320CC833B8AF0ACFD35E6225 /* libThree20Style.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 320CC833B8AF0ACFD35E6224 /* libThree20Style.a */; };
 		320D7DCCE32703ACAB9A45E5 /* libThree20.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 320D7DCCE32703ACAB9A45E4 /* libThree20.a */; };
 		320F2C48872C2E2C4DF86205 /* libThree20UI.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 320F2C48872C2E2C4DF86204 /* libThree20UI.a */; };
+		7205AECD170568E000595D4B /* PhotoProcess.m in Sources */ = {isa = PBXBuildFile; fileRef = 7205AECC170568E000595D4B /* PhotoProcess.m */; };
 		72198F1116FFF1FF00EC451B /* libiOSJavaScriptCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 72198F1016FFF1FF00EC451B /* libiOSJavaScriptCore.a */; };
 		72198F1D16FFF25100EC451B /* JSEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 72198F1C16FFF25100EC451B /* JSEngine.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		72198F2116FFF78600EC451B /* libstdc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 72198F2016FFF78600EC451B /* libstdc++.dylib */; };
@@ -342,6 +343,8 @@
 		320CC833B8AF0ACFD35E6220 /* Three20Style.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Three20Style.xcodeproj; path = ../../../../three20/src/Three20Style/Three20Style.xcodeproj; sourceTree = SOURCE_ROOT; };
 		320D7DCCE32703ACAB9A45E0 /* Three20.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Three20.xcodeproj; path = ../../../../three20/src/Three20/Three20.xcodeproj; sourceTree = SOURCE_ROOT; };
 		320F2C48872C2E2C4DF86200 /* Three20UI.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Three20UI.xcodeproj; path = ../../../../three20/src/Three20UI/Three20UI.xcodeproj; sourceTree = SOURCE_ROOT; };
+		7205AECB170568E000595D4B /* PhotoProcess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoProcess.h; sourceTree = "<group>"; };
+		7205AECC170568E000595D4B /* PhotoProcess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoProcess.m; sourceTree = "<group>"; };
 		72198F1016FFF1FF00EC451B /* libiOSJavaScriptCore.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libiOSJavaScriptCore.a; path = appletvserver/lib/libiOSJavaScriptCore.a; sourceTree = "<group>"; };
 		72198F1B16FFF25100EC451B /* JSEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSEngine.h; sourceTree = "<group>"; };
 		72198F1C16FFF25100EC451B /* JSEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSEngine.m; sourceTree = "<group>"; };
@@ -983,7 +986,7 @@
 				72D5CBEB170048C500B292BA /* TouchXML */,
 				72198F0616FFF1D500EC451B /* JavaScriptCore */,
 				722FF15316FC066200237F15 /* ZipArchive */,
-				72CC1B4A16DE3BA3006A8E44 /* Download */,
+				72CC1B4A16DE3BA3006A8E44 /* Process */,
 				7221466916DDB1B800850C03 /* AISHTTPRequest */,
 				72E2008716DB23EC00F3D7FC /* CocoaHTTPServer */,
 				72DD38FC16CCEB8B0010AAC2 /* ffmpeg */,
@@ -1055,7 +1058,7 @@
 			name = View;
 			sourceTree = "<group>";
 		};
-		72CC1B4A16DE3BA3006A8E44 /* Download */ = {
+		72CC1B4A16DE3BA3006A8E44 /* Process */ = {
 			isa = PBXGroup;
 			children = (
 				72CC1B5416DE3BD7006A8E44 /* M3u8Process.h */,
@@ -1064,8 +1067,10 @@
 				721E840416DF4EAD0047EE2D /* Mp4Process.m */,
 				722FF13F16FC010000237F15 /* WebContentSync.h */,
 				722FF14016FC010000237F15 /* WebContentSync.m */,
+				7205AECB170568E000595D4B /* PhotoProcess.h */,
+				7205AECC170568E000595D4B /* PhotoProcess.m */,
 			);
-			name = Download;
+			name = Process;
 			sourceTree = "<group>";
 		};
 		72D5CBD41700275400B292BA /* atv */ = {
@@ -1597,6 +1602,7 @@
 				7295A39C170070F1008C04BE /* AtvOneLineMenuItem.m in Sources */,
 				724024F817016B990015352A /* XmlDataSource.m in Sources */,
 				724024FC170196490015352A /* URLDataHeaderResponse.m in Sources */,
+				7205AECD170568E000595D4B /* PhotoProcess.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

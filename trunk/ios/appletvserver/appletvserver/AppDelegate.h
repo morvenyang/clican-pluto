@@ -12,6 +12,7 @@
 #import "HTTPServer.h"
 #import "M3u8Process.h"
 #import "Mp4Process.h"
+#import "PhotoProcess.h"
 #import "MTAudioPlayer.h"
 #import "WebContentSync.h"
 #import "JSEngine.h"
@@ -37,6 +38,8 @@
     WebContentSync* _webContentSync;
     NSString* _localWebPathPrefix;
     JSEngine* _jsEngine;
+    
+    PhotoProcess* _photoProcess;
 }
 
 @property (nonatomic, retain) ASINetworkQueue* queue;
@@ -53,4 +56,7 @@
 @property (nonatomic, retain) WebContentSync* webContentSync;
 @property (nonatomic, retain) NSString* localWebPathPrefix;
 @property (nonatomic, retain) JSEngine* jsEngine;
+@property (nonatomic, retain) PhotoProcess* photoProcess;
+
+-(void) initProcess;
 @end

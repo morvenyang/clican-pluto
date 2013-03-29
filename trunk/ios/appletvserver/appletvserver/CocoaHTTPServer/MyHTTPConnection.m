@@ -183,6 +183,17 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
         NSData *data = [content dataUsingEncoding:NSUTF8StringEncoding];
         HTTPDataResponse* resp=[[HTTPDataResponse alloc] initWithData:data];
         return resp;
+    }else if([path isEqualToString:@"/appletv/noctl/photo/list.json"]){
+        NSString* photos = [AppDele.photoProcess loadPhotos];
+        NSData *data = [photos dataUsingEncoding:NSUTF8StringEncoding];
+        HTTPDataResponse* resp=[[HTTPDataResponse alloc] initWithData:data];
+        return resp;
+    }else if([path rangeOfString:@"/appletv/noctl/photo/detail"].location!=NSNotFound){
+        NSString* idStr = [[self parseGetParams] objectForKey:@"id"];
+        NSData* data = [AppDele.photoProcess readPhoto:idStr];
+        HTTPDataResponse* resp=[[HTTPDataResponse alloc] initWithData:data];
+        return resp;
+        return nil;
     }else{
         return [super httpResponseForMethod:method URI:path];
     }
