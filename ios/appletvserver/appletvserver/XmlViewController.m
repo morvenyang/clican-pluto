@@ -100,7 +100,7 @@
                 [self displayDetail:node];
                 break;
             }else if([[node name] isEqualToString:@"dialog"]){
-                [self displayDialog:node];
+                [self performSelectorOnMainThread:@selector(displayDialog:) withObject:node waitUntilDone:YES];
                 break;
             }else if([[node name] isEqualToString:@"optionDialog"]){
                 [self displayListScrollerSplit:node];
