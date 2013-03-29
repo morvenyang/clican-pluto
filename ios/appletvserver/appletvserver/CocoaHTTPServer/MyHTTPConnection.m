@@ -61,14 +61,14 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
         return [[HTTPDataResponse alloc] initWithData:response];
     }else if([path rangeOfString:@"/appletv/noctl/proxy/play.m3u8"].location!=NSNotFound){
         NSString* m3u8Url = [[self parseGetParams] objectForKey:@"url"];
-        NSString* simulate = [[self parseGetParams] objectForKey:@"simulate"];
-        if(simulate==nil){
-            simulate = @"atv";
+        NSString* simulate = @"atv";
+        if([[self requestURI] rangeOfString:@"http://localhost:8080"].location!=NSNotFound){
+            simulate = @"native";
         }
         NSLog(@"m3u8 url:%@",m3u8Url);
         [AppDele m3u8Process].running = YES;
         [AppDele mp4Process].running = NO;
-        NSString* localM3u8String = [[AppDele m3u8Process] doSyncRequestByM3U8Url:m3u8Url start:YES];
+        NSString* localM3u8String = [[AppDele m3u8Process] doSyncRequestByM3U8Url:m3u8Url simulate:simulate start:YES];
         if(localM3u8String!=nil){
             NSData *data = [localM3u8String dataUsingEncoding:NSUTF8StringEncoding];
             HTTPDataResponse* resp=[[HTTPDataResponse alloc] initWithData:data];
@@ -79,12 +79,17 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
     }else if([path rangeOfString:@"/appletv/noctl/proxy/temp/m3u8"].location!=NSNotFound){
         NSString* m3u8Url = [[self parseGetParams] objectForKey:@"m3u8Url"];
         NSLog(@"m3u8Url=%@",m3u8Url);
+        NSString* simulate = @"atv";
+        if([[self requestURI] rangeOfString:@"http://localhost:8080"].location!=NSNotFound){
+            simulate = @"native";
+        }
         NSRange range = [path rangeOfString:@"?"];
         path = [path substringWithRange:NSMakeRange(0, range.location)];
         NSString* localPath = [path stringByReplacingOccurrencesOfString:@"/appletv/noctl/proxy/temp/m3u8" withString:[AppDele localM3u8PathPrefix]];
+       
         if([[AppDele m3u8Process] m3u8Url]==nil||![[[AppDele m3u8Process] m3u8Url] isEqualToString:m3u8Url]){
             NSLog(@"m3u8Url is changed, we must reprocess it");
-            [[AppDele m3u8Process] doSyncRequestByM3U8Url:m3u8Url start:NO];
+            [[AppDele m3u8Process] doSyncRequestByM3U8Url:m3u8Url simulate:simulate start:NO];
             [[AppDele m3u8Process] seekDownloadLine:localPath];
             [[AppDele m3u8Process] start];
         }
