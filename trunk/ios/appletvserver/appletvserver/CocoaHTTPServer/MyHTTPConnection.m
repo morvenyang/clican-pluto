@@ -61,6 +61,10 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
         return [[HTTPDataResponse alloc] initWithData:response];
     }else if([path rangeOfString:@"/appletv/noctl/proxy/play.m3u8"].location!=NSNotFound){
         NSString* m3u8Url = [[self parseGetParams] objectForKey:@"url"];
+        NSString* simulate = [[self parseGetParams] objectForKey:@"simulate"];
+        if(simulate==nil){
+            simulate = @"atv";
+        }
         NSLog(@"m3u8 url:%@",m3u8Url);
         [AppDele m3u8Process].running = YES;
         [AppDele mp4Process].running = NO;

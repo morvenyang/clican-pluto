@@ -23,6 +23,7 @@
     ASINetworkQueue* _queue;
     NSString* _ipAddress;
     NSString* _localM3u8UrlPrefix;
+    NSString* _localNativeM3u8UrlPrefix;
     NSString* _localM3u8PathPrefix;
     M3u8Process* _m3u8Process;
     
@@ -41,6 +42,8 @@
 @property (nonatomic, retain) ASINetworkQueue* queue;
 @property (nonatomic, retain) NSString* ipAddress;
 @property (nonatomic, retain) NSString* localM3u8UrlPrefix;
+@property (nonatomic, retain) NSString* localNativeM3u8UrlPrefix;
+
 @property (nonatomic, retain) NSString* localM3u8PathPrefix;
 @property (nonatomic, retain) M3u8Process* m3u8Process;
 
