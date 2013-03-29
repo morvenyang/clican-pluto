@@ -417,7 +417,7 @@ var appletv = {
 			var options = [];
 			var encodeUrl = url.replace(new RegExp('&', 'g'),'&amp;');
 			options.push({"title":"直接播放","script":"appletv.loadAndSwapXML(appletv.makePlayXml('"+encodeUrl+"'));"});
-			url = proxy+"/noctl/proxy/play.m3u8?url="+encodeURIComponent(url)+'&simulate='+appletv.simulate;
+			url = proxy+"/noctl/proxy/play.m3u8?url="+encodeURIComponent(url);
 			options.push({"title":"本地服务器代理下载播放","script":"appletv.loadAndSwapXML(appletv.makePlayXml('"+url+"'));"});
 			appletv.showOptionPage('播放源选择','',options);
 		}else{
