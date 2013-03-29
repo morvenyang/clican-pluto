@@ -17,7 +17,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.title = @"XunLei";
+        self.title = @"迅雷";
         self.tabBarItem = [[[UITabBarItem alloc] initWithTitle:@"XunLei" image:nil tag:1] autorelease];
     }
     return self;

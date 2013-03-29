@@ -8,7 +8,7 @@
 
 #import "DownloadStatusViewController.h"
 #import "DownloadStatusDataSource.h"
-
+#import "AppDelegate.h"
 
 @implementation DownloadStatusViewController
 
@@ -34,7 +34,28 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+	TTButton* cancelButton = [TTButton buttonWithStyle:@"toolbarRoundButton:" title:@"取消当前代理下载"];
+    
+    [cancelButton setFont:[UIFont systemFontOfSize:14]];
+    
+    [cancelButton addTarget:self action:@selector(cancelAction) forControlEvents:UIControlEventTouchUpInside];
+    [cancelButton sizeToFit];
+    
+    UIBarButtonItem* refreshItem = [[UIBarButtonItem alloc] initWithCustomView:cancelButton];
+    
+    [self.navigationItem setRightBarButtonItem:refreshItem animated:YES];
+}
+
+- (void)cancelAction{
+    AppDele.m3u8Process.m3u8Url=nil;
+    AppDele.mp4Process.mp4Url=nil;
+    [[AppDele queue] cancelAllOperations];
+    [[AppDele queue] waitUntilAllOperationsAreFinished];
+    [[AppDele queue] go];
+    AppDele.m3u8Process.running =NO;
+    AppDele.mp4Process.running =NO;
+    DownloadStatusDataSource* ds = [[[DownloadStatusDataSource alloc] init] autorelease];
+    self.dataSource = ds;
 }
 
 - (void)didReceiveMemoryWarning
