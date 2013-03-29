@@ -42,7 +42,12 @@ JSValueRef readLocalFile(JSContextRef ctx,
     JSValueRef excp = NULL;
     NSString *url = (__bridge_transfer NSString*)JSStringCopyCFString(kCFAllocatorDefault, (JSStringRef)JSValueToStringCopy(ctx, arguments[0], &excp));
     NSLog(@"http url:%@",url);
-    NSString *filePath= [url stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"http://%@:8080",[AppDele ipAddress]] withString:[AppDele localWebPathPrefix]];
+    NSString *filePath;
+    if([url rangeOfString:@"http://localhost:8080"].location!=NSNotFound){
+        filePath= [url stringByReplacingOccurrencesOfString:@"http://localhost:8080" withString:[AppDele localWebPathPrefix]];
+    }else{
+        filePath= [url stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"http://%@:8080",[AppDele ipAddress]] withString:[AppDele localWebPathPrefix]]; 
+    }
     NSRange range = [filePath rangeOfString:@"?"];
     filePath = [filePath substringToIndex:range.location];
     NSLog(@"filePath:%@",filePath);
