@@ -8,6 +8,7 @@
 		<script src="http://local.clican.org/appletv/javascript/tudou.js" />
 		<script src="http://local.clican.org/appletv/javascript/youku.js" />
 		<script src="http://local.clican.org/appletv/javascript/lbl.js" />
+		<script src="http://local.clican.org/appletv/javascript/myphoto.js" />
 	</head>
 	<body>
 		<scroller id="com.sample.movie-shelf">
@@ -39,6 +40,11 @@
 							onSelect="atv.loadURL('http://www.clican.org/appletv/ctl/baibian/index.xml');">
 							<image>http://local.clican.org/appletv/image/baibian/baibian.png</image>
 							<title>微电影</title>
+						</goldenPoster>
+						<goldenPoster id="photo"
+							onSelect="myPhotoClient.loadMyPhotos();">
+							<image>http://local.clican.org/appletv/image/photo.png</image>
+							<title>相册</title>
 						</goldenPoster>
 						<goldenPoster id="weibo"
 							onSelect="atv.loadURL('http://www.clican.org/appletv/ctl/weibo/checkAccessToken.xml?deviceId='+atv.device.udid);">
