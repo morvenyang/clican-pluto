@@ -2,7 +2,7 @@
 var xunleiClient = {
 	
 	loadXunleiSession:function(callback){
-		if(appletv.serverurl.indexOf('local.clican.org')==-1){
+		if(appletv.serverurl!='http://local.clican.org/appletv'){
 			appletv.makeRequest(appletv.serverurl+'/noctl/xunlei/getsession.do',function(result){
 				if(result==null||result.length==0){
 					appletv.showDialog('1登录过期请在本地服务器上重新登录','具体说明请参考http://clican.org');
