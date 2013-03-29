@@ -228,7 +228,7 @@
         }
     }
     self.formatTextLabel = [[[TTStyledTextLabel alloc] init] autorelease];
-    self.formatTextLabel.frame = CGRectMake(40+35+50,10,frame.size.width-150,32);
+    self.formatTextLabel.frame = CGRectMake(40+35+50,10,frame.size.width-250,32);
    
     self.formatTextLabel.text = [TTStyledText textFromXHTML:[@"" stringByAppendingFormat:@"<strong>%@</strong>",self.format] lineBreaks:YES URLs:NO];
     self.formatTextLabel.contentMode = UIViewContentModeCenter;
@@ -247,6 +247,7 @@
             CXMLElement* labelElement = (CXMLElement*)[oneLineMenuItemElement nodeForXPath:@"label" error:nil];
    
             TTTableStyledTextItem* item = [TTTableStyledTextItem itemWithText:[TTStyledText textFromXHTML:[labelElement stringValue] lineBreaks:YES URLs:NO] URL:onSelect];
+
             [items addObject:item];
         }
         
@@ -540,7 +541,12 @@
     if([item isKindOfClass:[VideoTableItem class]]){
         return 180;
     }else{
-        return 50;
+        if([item isKindOfClass:[TTTableStyledTextItem class]]){
+            TTTableStyledTextItem* i = (TTTableStyledTextItem*)item;
+            return [i text].height;
+        }else{
+            return 50;
+        }
     }
 }
 
