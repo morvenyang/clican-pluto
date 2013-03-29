@@ -27,6 +27,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 @synthesize queue=_queue;
 @synthesize ipAddress=_ipAddress;
 @synthesize localM3u8PathPrefix = _localM3u8PathPrefix;
+@synthesize localNativeM3u8UrlPrefix = _localNativeM3u8UrlPrefix;
 @synthesize localM3u8UrlPrefix = _localM3u8UrlPrefix;
 @synthesize m3u8Process = _m3u8Process;
 
@@ -121,6 +122,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
         [[NSFileManager defaultManager] createDirectoryAtPath:mp4Outpath withIntermediateDirectories:YES attributes:nil error:nil];
     }
     self.localM3u8UrlPrefix = [@"http://" stringByAppendingFormat:@"%@:8080/appletv/noctl/proxy/temp/m3u8/",self.ipAddress];
+    self.localNativeM3u8UrlPrefix = @"http://localhost:8080/appletv/noctl/proxy/temp/m3u8/";
     self.localMp4UrlPrefix = [@"http://" stringByAppendingFormat:@"%@:8080/appletv/noctl/proxy/temp/mp4/",self.ipAddress];
     NSLog(@"m3u8 url prefix:%@",self.localM3u8UrlPrefix);
     NSLog(@"mp4 url prefix:%@",self.localMp4UrlPrefix);
