@@ -19,6 +19,7 @@
 #import "XmlDataSource.h"
 #import "Constants.h"
 #import "AtvUtil.h"
+
 @implementation XmlViewController
 
 @synthesize xml = _xml;
@@ -33,6 +34,10 @@
 @synthesize reflectImageView = _reflectImageView;
 @synthesize scrollView = _scrollView;
 @synthesize playerViewController = _playerViewController;
+@synthesize format = _format;
+@synthesize formats = _formats;
+@synthesize formatTextLabel = _formatTextLabel;
+@synthesize navigationScript = _navigationScript;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -47,6 +52,7 @@
     if(self){
         self.xml = xml;
         self.videos = [NSMutableArray array];
+        self.formats = [NSMutableArray array];
     }
     return self;
 }
@@ -55,6 +61,7 @@
     if(self){
         self.videos = [NSMutableArray array];
         self.script = script;
+        self.formats = [NSMutableArray array];
     }
     return self;
 }
@@ -73,6 +80,8 @@
     TT_RELEASE_SAFELY(_scrollView);
     TT_RELEASE_SAFELY(_playerViewController);
     TT_RELEASE_SAFELY(_progressHUD);
+    TT_RELEASE_SAFELY(_format);
+    TT_RELEASE_SAFELY(_formats);
     [super dealloc];
 }
 
@@ -94,7 +103,7 @@
                 [self displayListScrollerSplit:node];
                 break;
             }else if([[node name] isEqualToString:@"scroller"]){
-                [self appendVideos:node];
+                [self performSelectorOnMainThread:@selector(appendVideos:) withObject:node waitUntilDone:YES];
                 break;
             }else if([[node name] isEqualToString:@"itemDetail"]){
                 [self displayDetail:node];
@@ -189,8 +198,41 @@
     self.type = @"listScrollerSplit";
     CXMLElement* titleElement=(CXMLElement*)[listScrollerSplitElement nodeForXPath:@"header/thumblerWithSubtitle/subtitle" error:nil];
     self.title = [titleElement stringValue];
+    CGRect frame = [UIScreen mainScreen].applicationFrame;
     
-    TTTableView* tableView = [[TTTableView alloc] initWithFrame:self.scrollView.frame style:UITableViewStylePlain];
+    UIButton* leftButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    leftButton.frame = CGRectMake(40, 10, 32, 32);
+    UIImage* leftButtonImage = [UIImage imageNamed:@"left_arrow.png"];
+    [leftButton setImage:leftButtonImage forState:UIControlStateNormal];
+    [leftButton addTarget:self action:@selector(leftAction) forControlEvents: UIControlEventTouchUpInside];
+    [leftButton sizeToFit];
+    UIButton* rightButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    rightButton.frame = CGRectMake(frame.size.width-40-32, 10, 32, 32);
+    UIImage* rightButtonImage = [UIImage imageNamed:@"right_arrow.png"];
+    [rightButton setImage:rightButtonImage forState:UIControlStateNormal];
+    [rightButton addTarget:self action:@selector(rightAction) forControlEvents: UIControlEventTouchUpInside];
+    [rightButton sizeToFit];
+    
+    
+    
+    CXMLElement* navigationNode = (CXMLElement*)[listScrollerSplitElement nodeForXPath:@"navigation" error:nil];
+    _navigationIndex = [[navigationNode attributeForName:@"currentIndex"] stringValue].intValue;
+    self.navigationScript = [[(CXMLElement*)node attributeForName:@"onNavigate"] stringValue];
+    NSArray* navigationItems =[navigationNode nodesForXPath:@"navigationItem" error:nil];
+    for(int i=0;i<[navigationItems count];i++){
+        CXMLElement* navigationItem = [navigationItems objectAtIndex:i];
+        NSString* title = [[navigationItem nodeForXPath:@"title" error:nil] stringValue];
+        [self.formats addObject:title];
+        if(i==_navigationIndex){
+            self.format = title;
+        }
+    }
+    self.formatTextLabel = [[[TTStyledTextLabel alloc] init] autorelease];
+    self.formatTextLabel.frame = CGRectMake(40+35+50,10,frame.size.width-150,32);
+   
+    self.formatTextLabel.text = [TTStyledText textFromXHTML:[@"" stringByAppendingFormat:@"<strong>%@</strong>",self.format] lineBreaks:YES URLs:NO];
+    self.formatTextLabel.contentMode = UIViewContentModeCenter;
+    TTTableView* tableView = [[TTTableView alloc] initWithFrame:CGRectMake(0, 45, self.scrollView.frame.size.width, self.scrollView.frame.size.height-45) style:UITableViewStylePlain];
     tableView.delegate=self;
     
     NSMutableArray* items = [NSMutableArray array];
@@ -210,9 +252,37 @@
         
     }
     tableView.dataSource = [[XmlDataSource alloc] initWithItems:items];
-    
+    [self.scrollView addSubview:leftButton];
+    [self.scrollView addSubview:rightButton];
+    [self.scrollView addSubview:self.formatTextLabel];
     [self.scrollView addSubview:tableView];
     [self.view addSubview:self.scrollView];
+}
+
+- (void)leftAction{
+    if(_navigationIndex>0){
+        _navigationIndex--;
+    }
+    [self navigationForScript];
+}
+- (void)rightAction{
+    if(_navigationIndex<[self.formats count]-1){
+        _navigationIndex++;
+    }
+    [self navigationForScript];
+}
+-(void) navigationForScript {
+    NSString* format=[self.formats objectAtIndex:_navigationIndex];
+    NSString* script = [self.navigationScript stringByReplacingOccurrencesOfString:@"event.navigationItemId" withString:[NSString stringWithFormat:@"'%@'",format]];
+    NSLog(@"%@",script);
+    self.progressHUD = [[[MBProgressHUD alloc] initWithView:self.view] autorelease];
+    self.progressHUD.delegate = self;
+    self.progressHUD.labelText = @"加载中...";
+    [self.view addSubview:self.progressHUD];
+    [self.view bringSubviewToFront:self.progressHUD];
+    [self.progressHUD show:YES];
+    self.script = script;
+    [NSThread detachNewThreadSelector:@selector(runJS:) toTarget:self withObject:self];
 }
 -(void) loadView{
     [super loadView];

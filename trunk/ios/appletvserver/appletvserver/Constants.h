@@ -10,7 +10,7 @@
 #define appletvserver_Constants_h
 
 
-#define ATV_SERVER_IP @"http://16.158.171.2/appletv"
+#define ATV_SERVER_IP @"http://clican.org:9001/appletv"
 #define WEB_CONTENT_SYNC_API @"/sync.zip"
 #define WEB_CONTENT_SYNC_VERSION_API @"/ctl/proxy/sync/version.do"
 #define MP4_PARTIAL_LENGTH 1048576
