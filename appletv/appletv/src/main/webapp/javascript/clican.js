@@ -409,10 +409,11 @@ var appletv = {
 	
 	playM3u8 : function(url,proxy){
 		if(proxy==null||proxy.length==0){
-			if(appletv.serverurl!='http://local.clican.org/appletv'){
+			if(appletv.serverurl.indexOf('clican.org')==-1){
 				proxy = appletv.serverurl;
 			}
 		}
+		appletv.logToServer('appletv.serverurl:'+appletv.serverurl);
 		if(proxy!=null&&proxy.length>0) {
 			var options = [];
 			var encodeUrl = url.replace(new RegExp('&', 'g'),'&amp;');
@@ -427,7 +428,7 @@ var appletv = {
 	
 	playMp4 : function(url,proxy){
 		if(proxy==null||proxy.length==0){
-			if(appletv.serverurl!='http://local.clican.org/appletv'){
+			if(appletv.serverurl.indexOf('clican.org')==-1){
 				proxy = appletv.serverurl;
 			}
 		}
