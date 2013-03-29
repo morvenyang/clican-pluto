@@ -17,6 +17,8 @@
 		320D7DCCE32703ACAB9A45E5 /* libThree20.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 320D7DCCE32703ACAB9A45E4 /* libThree20.a */; };
 		320F2C48872C2E2C4DF86205 /* libThree20UI.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 320F2C48872C2E2C4DF86204 /* libThree20UI.a */; };
 		7205AECD170568E000595D4B /* PhotoProcess.m in Sources */ = {isa = PBXBuildFile; fileRef = 7205AECC170568E000595D4B /* PhotoProcess.m */; };
+		7205AEE017058F8E00595D4B /* right_arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 7205AEDE17058F8D00595D4B /* right_arrow.png */; };
+		7205AEE117058F8E00595D4B /* left_arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 7205AEDF17058F8E00595D4B /* left_arrow.png */; };
 		72198F1116FFF1FF00EC451B /* libiOSJavaScriptCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 72198F1016FFF1FF00EC451B /* libiOSJavaScriptCore.a */; };
 		72198F1D16FFF25100EC451B /* JSEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 72198F1C16FFF25100EC451B /* JSEngine.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		72198F2116FFF78600EC451B /* libstdc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 72198F2016FFF78600EC451B /* libstdc++.dylib */; };
@@ -345,6 +347,8 @@
 		320F2C48872C2E2C4DF86200 /* Three20UI.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Three20UI.xcodeproj; path = ../../../../three20/src/Three20UI/Three20UI.xcodeproj; sourceTree = SOURCE_ROOT; };
 		7205AECB170568E000595D4B /* PhotoProcess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoProcess.h; sourceTree = "<group>"; };
 		7205AECC170568E000595D4B /* PhotoProcess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoProcess.m; sourceTree = "<group>"; };
+		7205AEDE17058F8D00595D4B /* right_arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = right_arrow.png; sourceTree = "<group>"; };
+		7205AEDF17058F8E00595D4B /* left_arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = left_arrow.png; sourceTree = "<group>"; };
 		72198F1016FFF1FF00EC451B /* libiOSJavaScriptCore.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libiOSJavaScriptCore.a; path = appletvserver/lib/libiOSJavaScriptCore.a; sourceTree = "<group>"; };
 		72198F1B16FFF25100EC451B /* JSEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSEngine.h; sourceTree = "<group>"; };
 		72198F1C16FFF25100EC451B /* JSEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSEngine.m; sourceTree = "<group>"; };
@@ -1028,6 +1032,8 @@
 		72A69BD016C9F9420099D974 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				7205AEDE17058F8D00595D4B /* right_arrow.png */,
+				7205AEDF17058F8E00595D4B /* left_arrow.png */,
 				72D6C56716FC84D90048591E /* Default-568h@2x.png */,
 				72D6C56816FC84D90048591E /* Default.png */,
 				72D6C56916FC84D90048591E /* Default@2x.png */,
@@ -1496,6 +1502,8 @@
 				72D6C56A16FC84D90048591E /* Default-568h@2x.png in Resources */,
 				72D6C56B16FC84D90048591E /* Default.png in Resources */,
 				72D6C56C16FC84D90048591E /* Default@2x.png in Resources */,
+				7205AEE017058F8E00595D4B /* right_arrow.png in Resources */,
+				7205AEE117058F8E00595D4B /* left_arrow.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

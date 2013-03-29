@@ -23,6 +23,11 @@
     UIScrollView* _scrollView;
     MPMoviePlayerViewController* _playerViewController;
     MBProgressHUD* _progressHUD;
+    NSMutableArray* _formats;
+    NSString* _format;
+    int _navigationIndex;
+    TTStyledTextLabel* _formatTextLabel;
+    NSString* _navigationScript;
 }
 @property (nonatomic, copy) NSString* xml;
 @property (nonatomic, copy) NSString* script;
@@ -38,6 +43,10 @@
 @property (nonatomic, retain) MPMoviePlayerViewController* playerViewController
 ;
 @property (nonatomic, retain) MBProgressHUD    *progressHUD;
+@property (nonatomic, copy) NSString* format;
+@property (nonatomic, retain) NSMutableArray* formats;
+@property (nonatomic, retain) TTStyledTextLabel* formatTextLabel;
+@property (nonatomic, copy) NSString* navigationScript;
 -(id) initWithXml:(NSString*) xml;
 -(id) initWithScript:(NSString*) script;
 -(void) appendXml:(NSString*) xml;
