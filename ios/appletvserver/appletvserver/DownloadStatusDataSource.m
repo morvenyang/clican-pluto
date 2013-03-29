@@ -14,7 +14,7 @@
 
 - (id)init{
     if ((self = [super init])) {
-        self.downloadStatusModel = [[DownloadStatusModel alloc] init];
+        self.downloadStatusModel = [[[DownloadStatusModel alloc] init] autorelease];
     }
     return self;
 }
