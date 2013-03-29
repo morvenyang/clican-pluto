@@ -32,7 +32,7 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
 - (NSObject<HTTPResponse> *)httpResponseForMethod:(NSString *)method URI:(NSString *)path
 {
     HTTPLogTrace();
-    NSLog(@"path:%@",path);
+    NSLog(@"path:%@,uri:%@",path,request.url);
     if ([path isEqualToString:@"/appletv/javascript/clican.js"]||[path isEqualToString:@"/appletv/local.xml"])
     {
         NSString  *replaceFilePath=[[AppDele localWebPathPrefix] stringByAppendingString:path];
@@ -62,7 +62,7 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
     }else if([path rangeOfString:@"/appletv/noctl/proxy/play.m3u8"].location!=NSNotFound){
         NSString* m3u8Url = [[self parseGetParams] objectForKey:@"url"];
         NSString* simulate = @"atv";
-        if([[self requestURI] rangeOfString:@"http://localhost:8080"].location!=NSNotFound){
+        if([request.url.host rangeOfString:@"localhost"].location!=NSNotFound){
             simulate = @"native";
         }
         NSLog(@"m3u8 url:%@",m3u8Url);
@@ -80,9 +80,10 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
         NSString* m3u8Url = [[self parseGetParams] objectForKey:@"m3u8Url"];
         NSLog(@"m3u8Url=%@",m3u8Url);
         NSString* simulate = @"atv";
-        if([[self requestURI] rangeOfString:@"http://localhost:8080"].location!=NSNotFound){
+        if([request.url.host rangeOfString:@"localhost"].location!=NSNotFound){
             simulate = @"native";
         }
+        
         NSRange range = [path rangeOfString:@"?"];
         path = [path substringWithRange:NSMakeRange(0, range.location)];
         NSString* localPath = [path stringByReplacingOccurrencesOfString:@"/appletv/noctl/proxy/temp/m3u8" withString:[AppDele localM3u8PathPrefix]];
