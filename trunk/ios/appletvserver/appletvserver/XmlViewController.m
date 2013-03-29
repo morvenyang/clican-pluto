@@ -106,7 +106,8 @@
                 [self displayListScrollerSplit:node];
                 break;
             }else if([[node name] isEqualToString:@"videoPlayer"]){
-                [self playVideo:node];
+                [self performSelectorOnMainThread:@selector(playVideo:) withObject:node waitUntilDone:YES];
+                break;
                 break;
             }else if([[node name] isEqualToString:@"listByNavigation"]){
                 [self displayListByNavigation:node];

@@ -69,6 +69,7 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
         [AppDele m3u8Process].running = YES;
         [AppDele mp4Process].running = NO;
         NSString* localM3u8String = [[AppDele m3u8Process] doSyncRequestByM3U8Url:m3u8Url simulate:simulate start:YES];
+        NSLog(@"%@",localM3u8String);
         if(localM3u8String!=nil){
             NSData *data = [localM3u8String dataUsingEncoding:NSUTF8StringEncoding];
             HTTPDataResponse* resp=[[HTTPDataResponse alloc] initWithData:data];
