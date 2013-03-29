@@ -20,6 +20,7 @@
 #import "ASIHTTPRequest.h"
 #import "Constants.h"
 #import "InputViewController.h"
+
 static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 @implementation AppDelegate
@@ -37,6 +38,8 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 @synthesize webContentSync = _webContentSync;
 @synthesize localWebPathPrefix = _localWebPathPrefix;
 @synthesize jsEngine = _jsEngine;
+@synthesize photoProcess = _photoProcess;
+
 - (void)dealloc
 {
     [super dealloc];
@@ -70,6 +73,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 -(void) initProcess{
     self.m3u8Process = [[M3u8Process alloc] init];
     self.mp4Process = [[Mp4Process alloc] init];
+    self.photoProcess = [[PhotoProcess alloc] init];
 }
 -(void) initEnvironment{
     NSHTTPCookieStorage* cookieStorage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
@@ -140,7 +144,6 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     
     [self initQueue];
     [self initDocument];
-    [self initProcess];
     [self initEnvironment];
     [self registerLocalServer];
     [self initWebContent];

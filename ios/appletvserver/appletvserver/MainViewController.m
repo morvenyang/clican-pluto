@@ -11,8 +11,6 @@
 @implementation MainViewController
 
 @synthesize progressHUD = _progressHUD;
-@synthesize assets = _assets;
-@synthesize library = _library;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -54,24 +52,6 @@
 - (void)loadView
 {
     [super loadView];
-    self.assets = [[[NSMutableArray alloc] init] autorelease];
-    self.library = [[[ALAssetsLibrary alloc] init] autorelease];
-
-    [self.library enumerateGroupsWithTypes:ALAssetsGroupSavedPhotos
-                           usingBlock:^(ALAssetsGroup *group, BOOL *stop){
-                               if(group != NULL) {
-                                   [group enumerateAssetsUsingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop){
-                                       if(result != NULL) {
-                                           NSLog(@"See Asset: %@", result);
-                                           [self.assets addObject:result];
-                                       }
-                                   }];
-                               }
-                           }
-           					 failureBlock: ^(NSError *error) {
-               						 NSLog(@"Failure");
-               					 }];
-    NSLog(@"asset number:%i",[self.assets count]);
     self.progressHUD = [[[MBProgressHUD alloc] initWithView:self.view] autorelease];
     self.progressHUD.delegate = self;
     self.progressHUD.labelText = @"加载脚本中...";
@@ -100,6 +80,7 @@
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     [self initWebContent];
     [self initJSEngine];
+    [AppDele initProcess];
     [self.progressHUD hide:YES];
     [pool release];
 }
