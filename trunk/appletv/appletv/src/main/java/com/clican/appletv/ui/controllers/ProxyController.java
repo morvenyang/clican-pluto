@@ -130,12 +130,12 @@ public class ProxyController {
 		if (srcFile.isDirectory()) {
 			for (String fileName : srcFile.list()) {
 				if (fileName.equals("WEB-INF") || fileName.equals("jsp")
-						|| fileName.contains(".svn")) {
+						|| fileName.contains(".svn")||fileName.equals("sync.zip")) {
 					continue;
 				}
 				addToZip("", fileToZip + "/" + fileName, zipOut);
 			}
-		} else {
+		} else{
 			addToZip("", fileToZip, zipOut);
 		}
 		zipOut.flush();
