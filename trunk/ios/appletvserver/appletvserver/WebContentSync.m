@@ -21,39 +21,46 @@
 - (void)request:(ASIHTTPRequest *)request didReceiveBytes:(long long)bytes{
     NSLog(@"receiver data %lld",bytes);
 }
--(void) syncWebContent:(MBProgressHUD*) progress{
+-(void) syncWebContent:(MBProgressHUD*) progress force:(BOOL) force{
     self.progressHUD = progress;
     ASIHTTPRequest *verreq = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:[AppDele.serverIP stringByAppendingFormat:@"%@?t=%f",WEB_CONTENT_SYNC_VERSION_API,[[NSDate new] timeIntervalSince1970]]]];
-    
+    [verreq setTimeOutSeconds:10];
     [verreq setShouldContinueWhenAppEntersBackground:YES];
     [verreq startSynchronous];
-    NSString* version = [[verreq responseHeaders] valueForKey:@"version"];
-    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
-    NSString* currentVersion = [defaults objectForKey:@"version"];
-    if(currentVersion==NULL||![currentVersion isEqualToString:version]||WEB_CONTENT_DOWNLOAD){
-         NSLog(@"Current version is %@, there is new version %@ to update",currentVersion,version);
-        ASIHTTPRequest *req = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:[AppDele.serverIP stringByAppendingFormat:@"%@?t=%f",WEB_CONTENT_SYNC_API,[[NSDate new] timeIntervalSince1970]]]];
-        [req setShouldContinueWhenAppEntersBackground:YES];
-        [req setDownloadProgressDelegate:self];
-        [req setShowAccurateProgress:YES];
-        [req startSynchronous];
-        NSError *error = [req error];
-        if (!error) {
-            NSData* contentData = [req responseData];
-            NSString* filePath = [NSTemporaryDirectory() stringByAppendingString:@"/sync.zip"];
-            [[NSFileManager defaultManager] createFileAtPath:filePath contents:contentData attributes:nil];
-            ZipArchive *zipArchive = [[ZipArchive alloc] init];
-            [zipArchive UnzipOpenFile:filePath];
-            
-            NSString* appletvPath = [[AppDele localWebPathPrefix] stringByAppendingString:@"/appletv"];
-            [[NSFileManager defaultManager] removeItemAtPath:appletvPath error:nil];
-            [[NSFileManager defaultManager] createDirectoryAtPath:appletvPath withIntermediateDirectories:YES attributes:nil error:nil];
-            [zipArchive UnzipFileTo:appletvPath overWrite:YES];
-            [zipArchive UnzipCloseFile];
-            [defaults setValue:version forKey:@"version"];
+    NSError *vererror = [verreq error];
+    if(!vererror){
+        NSString* version = [[verreq responseHeaders] valueForKey:@"version"];
+        NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+        NSString* currentVersion = [defaults objectForKey:@"version"];
+        if(force||currentVersion==NULL||![currentVersion isEqualToString:version]){
+            NSLog(@"Current version is %@, there is new version %@ to update",currentVersion,version);
+            ASIHTTPRequest *req = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:[AppDele.serverIP stringByAppendingFormat:@"%@?t=%f",WEB_CONTENT_SYNC_API,[[NSDate new] timeIntervalSince1970]]]];
+            [req setShouldContinueWhenAppEntersBackground:YES];
+            [req setDownloadProgressDelegate:self];
+            [req setShowAccurateProgress:YES];
+            [req startSynchronous];
+            NSError *error = [req error];
+            if (!error) {
+                NSData* contentData = [req responseData];
+                NSString* filePath = [NSTemporaryDirectory() stringByAppendingString:@"/sync.zip"];
+                [[NSFileManager defaultManager] createFileAtPath:filePath contents:contentData attributes:nil];
+                ZipArchive *zipArchive = [[ZipArchive alloc] init];
+                [zipArchive UnzipOpenFile:filePath];
+                
+                NSString* appletvPath = [[AppDele localWebPathPrefix] stringByAppendingString:@"/appletv"];
+                [[NSFileManager defaultManager] removeItemAtPath:appletvPath error:nil];
+                [[NSFileManager defaultManager] createDirectoryAtPath:appletvPath withIntermediateDirectories:YES attributes:nil error:nil];
+                [zipArchive UnzipFileTo:appletvPath overWrite:YES];
+                [zipArchive UnzipCloseFile];
+                [defaults setValue:version forKey:@"version"];
+            }else{
+                NSLog(@"Download sync.zip error %@",error.description);
+            }
+        }else{
+            NSLog(@"Current version is %@, there is no need to update new version %@",currentVersion,version);
         }
     }else{
-        NSLog(@"Current version is %@, there is no need to update new version %@",currentVersion,version);
+        NSLog(@"Cann't connect to ATV Server by ip:%@",AppDele.serverIP);
     }
 }
 

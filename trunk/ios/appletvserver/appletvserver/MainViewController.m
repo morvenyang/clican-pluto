@@ -61,13 +61,6 @@
     
 }
 
--(void) initWebContent{
-    [[AppDele webContentSync] syncWebContent:self.progressHUD];
-}
-
--(void) initJSEngine{
-    [[AppDele jsEngine] reloadJS];
-}
 
 - (void)viewDidLoad
 {
@@ -78,8 +71,8 @@
 
 - (void) afterViewLoaded:(id)object{
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-    [self initWebContent];
-    [self initJSEngine];
+    [[AppDele webContentSync] syncWebContent:self.progressHUD force:NO];
+    [[AppDele jsEngine] reloadJS];
     [AppDele initProcess];
     [self.progressHUD hide:YES];
     [pool release];
