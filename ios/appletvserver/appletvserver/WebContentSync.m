@@ -23,7 +23,7 @@
 }
 -(void) syncWebContent:(MBProgressHUD*) progress{
     self.progressHUD = progress;
-    ASIHTTPRequest *verreq = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:[ATV_SERVER_IP stringByAppendingFormat:@"%@?t=%f",WEB_CONTENT_SYNC_VERSION_API,[[NSDate new] timeIntervalSince1970]]]];
+    ASIHTTPRequest *verreq = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:[AppDele.serverIP stringByAppendingFormat:@"%@?t=%f",WEB_CONTENT_SYNC_VERSION_API,[[NSDate new] timeIntervalSince1970]]]];
     
     [verreq setShouldContinueWhenAppEntersBackground:YES];
     [verreq startSynchronous];
@@ -32,7 +32,7 @@
     NSString* currentVersion = [defaults objectForKey:@"version"];
     if(currentVersion==NULL||![currentVersion isEqualToString:version]||WEB_CONTENT_DOWNLOAD){
          NSLog(@"Current version is %@, there is new version %@ to update",currentVersion,version);
-        ASIHTTPRequest *req = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:[ATV_SERVER_IP stringByAppendingFormat:@"%@?t=%f",WEB_CONTENT_SYNC_API,[[NSDate new] timeIntervalSince1970]]]];
+        ASIHTTPRequest *req = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:[AppDele.serverIP stringByAppendingFormat:@"%@?t=%f",WEB_CONTENT_SYNC_API,[[NSDate new] timeIntervalSince1970]]]];
         [req setShouldContinueWhenAppEntersBackground:YES];
         [req setDownloadProgressDelegate:self];
         [req setShowAccurateProgress:YES];

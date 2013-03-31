@@ -19,6 +19,7 @@
 		7205AECD170568E000595D4B /* PhotoProcess.m in Sources */ = {isa = PBXBuildFile; fileRef = 7205AECC170568E000595D4B /* PhotoProcess.m */; };
 		7205AEE017058F8E00595D4B /* right_arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 7205AEDE17058F8D00595D4B /* right_arrow.png */; };
 		7205AEE117058F8E00595D4B /* left_arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 7205AEDF17058F8E00595D4B /* left_arrow.png */; };
+		7206AAF11707C1A80049FE0D /* ConfigViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7206AAF01707C1A80049FE0D /* ConfigViewController.m */; };
 		72198F1116FFF1FF00EC451B /* libiOSJavaScriptCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 72198F1016FFF1FF00EC451B /* libiOSJavaScriptCore.a */; };
 		72198F1D16FFF25100EC451B /* JSEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 72198F1C16FFF25100EC451B /* JSEngine.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		72198F2116FFF78600EC451B /* libstdc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 72198F2016FFF78600EC451B /* libstdc++.dylib */; };
@@ -349,6 +350,8 @@
 		7205AECC170568E000595D4B /* PhotoProcess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoProcess.m; sourceTree = "<group>"; };
 		7205AEDE17058F8D00595D4B /* right_arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = right_arrow.png; sourceTree = "<group>"; };
 		7205AEDF17058F8E00595D4B /* left_arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = left_arrow.png; sourceTree = "<group>"; };
+		7206AAEF1707C1A80049FE0D /* ConfigViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigViewController.h; sourceTree = "<group>"; };
+		7206AAF01707C1A80049FE0D /* ConfigViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigViewController.m; sourceTree = "<group>"; };
 		72198F1016FFF1FF00EC451B /* libiOSJavaScriptCore.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libiOSJavaScriptCore.a; path = appletvserver/lib/libiOSJavaScriptCore.a; sourceTree = "<group>"; };
 		72198F1B16FFF25100EC451B /* JSEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSEngine.h; sourceTree = "<group>"; };
 		72198F1C16FFF25100EC451B /* JSEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSEngine.m; sourceTree = "<group>"; };
@@ -739,6 +742,8 @@
 				7219BBCC16C9EAFA00AABA8E /* MainViewController.m */,
 				72360C5916EEDDD700E0842B /* RootViewController.h */,
 				72360C5A16EEDDD700E0842B /* RootViewController.m */,
+				7206AAEF1707C1A80049FE0D /* ConfigViewController.h */,
+				7206AAF01707C1A80049FE0D /* ConfigViewController.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -1611,6 +1616,7 @@
 				724024F817016B990015352A /* XmlDataSource.m in Sources */,
 				724024FC170196490015352A /* URLDataHeaderResponse.m in Sources */,
 				7205AECD170568E000595D4B /* PhotoProcess.m in Sources */,
+				7206AAF11707C1A80049FE0D /* ConfigViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

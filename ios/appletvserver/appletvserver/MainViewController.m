@@ -15,8 +15,8 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.title = @"视频";
-        self.tabBarItem = [[[UITabBarItem alloc] initWithTitle:@"视频" image:nil tag:0] autorelease];
+        self.title = @"首页";
+        self.tabBarItem = [[[UITabBarItem alloc] initWithTitle:@"首页" image:nil tag:0] autorelease];
     }
     return self;
 }
