@@ -1,7 +1,7 @@
 var sokuClient = {
 		
 		loadSearchPage : function() {
-			appletv.showInputTextPage('关键字', '搜索', youkuClient.loadKeywordsPage,
+			appletv.showInputTextPage('关键字', '搜索', sokuClient.loadKeywordsPage,
 					'sokuClient.loadKeywordsPage', '');
 		},
 
