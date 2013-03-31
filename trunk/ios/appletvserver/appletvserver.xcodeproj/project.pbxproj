@@ -1009,8 +1009,8 @@
 				7219BBCA16C9EAD900AABA8E /* View */,
 				72A4368E16C9EA5A00D9958D /* AppDelegate.h */,
 				72A4368F16C9EA5A00D9958D /* AppDelegate.m */,
-				72A4368616C9EA5A00D9958D /* Supporting Files */,
 				7272B3A116C9FEBA00E111A7 /* Constants.h */,
+				72A4368616C9EA5A00D9958D /* Supporting Files */,
 			);
 			path = appletvserver;
 			sourceTree = "<group>";

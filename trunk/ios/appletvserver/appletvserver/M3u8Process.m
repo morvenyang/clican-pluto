@@ -89,8 +89,8 @@
     }
 }
 
--(void) seekDownloadLine:(NSString*) localUrl{
-    [[self m3u8Download] seekDownloadLine:localUrl];
+-(void) seekDownloadLine:(NSString*) localPath{
+    [[self m3u8Download] seekDownloadLine:localPath];
 }
 
 -(void)start{
