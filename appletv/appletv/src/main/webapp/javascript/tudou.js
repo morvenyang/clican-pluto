@@ -326,7 +326,7 @@ var tudouClient = {
 							var albumitems = album['albumitems'];
 							var items = [];
 							for ( var i = 0; i < albumitems.length; i++) {
-								var t = albumitems[i]['title'];
+								var t = albumitems[i]['title']+albumitems[i]['subtitle'];
 								if(t==null||t.length==0){
 									t = '第' + (i + 1) + '集';
 								}
