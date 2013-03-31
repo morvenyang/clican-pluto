@@ -216,6 +216,38 @@ var sokuClient = {
 						appletv.playM3u8(m3u8Url,'');
 					});
 				});
+			}else if(url.indexOf('letv.com')!=-1){
+				appletv.showLoading();
+				appletv.makeRequest(url,function(content){
+					var id = appletv.substringByData(content,'mmsid:',',').trim();
+					var jsonUrl = 'http://app.m.letv.com/android/mindex.php?mod=minfo&ctl=videofile&act=index&mmsid='+id+'&videoformat=ios&pcode=010210000&version=3.3'
+					appletv.makeRequest(jsonUrl,function(jsonContent){
+						var infos = JSON.parse(jsonContent)['body']['videofile']['infos'];
+						var info = infos['mp4_1300'];
+						if(info==null){
+							info = infos['mp4_1000'];
+						}
+						if(info==null){
+							info = infos['mp4_350'];
+						}
+						if(info==null){
+							appletv.showDialog('无法从letv.com找到相关资源','');
+						}else{
+							var mainUrl = info['mainUrl'];
+							appletv.makeRequest(mainUrl,function(mediaJson){
+								var location = JSON.parse(mediaJson)['location'];
+								if(location==null){
+									appletv.showDialog('无法从letv.com找到相关资源','');
+								}else if(location.indexOf('mp4')!=-1){
+									appletv.playMp4(location,'');
+								}else{
+									appletv.playM3u8(location,'');
+								}
+							});
+						}
+						appletv.playM3u8(m3u8Url,'');
+					});
+				});
 			}else{
 				appletv.showDialog('无法播放','');
 			}
