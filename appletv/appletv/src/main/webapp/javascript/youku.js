@@ -200,6 +200,27 @@ var youkuClient = {
 		var channel = this.youkuChannelMap[channelId];
 		var videos = [];
 		if (channelId == 1001) {
+			queryUrl = 'http://www.soku.com/v?keyword='+encodeURIComponent(keyword)+'&orderfield=1&ext=2&curpage='+page;
+			appletv.makeRequest(queryUrl, function(content) {
+				if (content != null && content.length > 0) {
+					var packs = appletv.getSubValues(content,
+							'<ul class="p pv">"', '</ul>');
+					for(var i=0;i<packs.length;i++){
+						var pack = packs[i];
+						var pic = appletv.substringByData(pack,
+								'<img', '>');
+						pic = appletv.substringByData(pic,'src="','"');
+						var title = appletv.substringByData(pack, 'title="', '"');
+						var id = appletv.substringByData(pack, '<a href="', '"');
+						if(id.indexOf('http://')==-1){
+							id = 'http://www.soku.com/'+id;
+						}
+						
+					}
+				} else {
+					appletv.showDialog('加载失败', '');
+				}
+			});
 		} else {
 			if(queryUrl==null){
 				if(channel.album){
