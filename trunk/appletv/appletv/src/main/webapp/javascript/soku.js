@@ -175,7 +175,7 @@ var sokuClient = {
 				for(var i=0;i<series.length;i++){
 					var serie = series[i];
 					var title = serie['title'];
-					if(title==null){
+					if(title==null||title.trim().length==0){
 						title = '第'+(i+1)+'集';
 					}
 					var item = {"title":title,"vcode":serie['videoid'],"url":serie['url']};
