@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<atv>
+<head>
+<script src="<%=serverurl%>/javascript/clican.js"/>
+<script src="<%=serverurl%>/javascript/soku.js"/>
+<script src="<%=serverurl%>/javascript/ejs.js"/>
+</head>
+<body>
+		<listScrollerSplit id="bbbb">
+			<header>
+				<simpleHeader horizontalAlignment="left">
+					<title>搜索</title>
+					<image src=""></image>
+				</simpleHeader>
+			</header>
+			<menu>
+				<sections>
+					<menuSection>
+						<items>
+							<%for(var i=0;i<keywords.length;i++){%>
+								<oneLineMenuItem id="albumItem_<%=i%>" onSelect="sokuClient.loadIndexPage('<%=keywords[i]%>',1);">
+									<label><%=keywords[i]%></label>
+								</oneLineMenuItem>
+							<%}%>
+						</items>
+					</menuSection>
+				</sections>
+			</menu>
+		</listScrollerSplit>
+	</body>
+</atv>
