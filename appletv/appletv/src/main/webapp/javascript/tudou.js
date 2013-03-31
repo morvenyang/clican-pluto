@@ -326,14 +326,15 @@ var tudouClient = {
 							var albumitems = album['albumitems'];
 							var items = [];
 							for ( var i = 0; i < albumitems.length; i++) {
+								var t = albumitems[i]['title'];
+								if(t==null||t.length==0){
+									t = '第' + (i + 1) + '集';
+								}
 								var item = {
-									'title' : '第' + (i + 1) + '集',
+									'title' : t,
 									'vcode' : albumitems[i]['vcode'],
 									'itemid': albumitems[i]['itemid']
 								};
-								if(i==0){
-									appletv.logToServer(JSON.stringify(item));
-								}
 								items.push(item);
 							}
 							var video = {
@@ -355,7 +356,7 @@ var tudouClient = {
 								},
 								items : items
 							};
-							if(isalbum==1){
+							if(items.length>1){
 								appletv.setValue('clican.tudou.video',video);
 							}
 							var xml = new EJS({
