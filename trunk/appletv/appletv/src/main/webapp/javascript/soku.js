@@ -289,11 +289,12 @@ var sokuClient = {
 				appletv.showLoading();
 				appletv.makeRequest(url,function(content){
 					var id = appletv.substringByData(content, '"videoCenterId","', '"');
+					appletv.logToServer('id for cntv:'+id);
 					if(id==null||id.length==0){
 						appletv.showDialog('无法从cntv.cn找到相关资源','');
 					}else{
 						var m3u8url = 'http://asp.cntv.lxdns.com/hls/'+id+'/main.m3u8';
-						appletv.playm3u8(m3u8url,'');
+						appletv.playM3u8(m3u8url,'');
 					}
 				});
 			}else{
