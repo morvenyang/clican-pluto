@@ -24,7 +24,7 @@
         self.tabBarItem = [[[UITabBarItem alloc] initWithTitle:@"设置" image:nil tag:3] autorelease];
         self.serverIPField = [[[UITextField alloc] init] autorelease];
         self.serverIPField.font = [UIFont fontWithName:@"Microsoft YaHei" size:14];
-        self.serverIPField.placeholder = @"http://ip:port";
+        self.serverIPField.placeholder = ATV_SERVER_DEFAULT_IP;
         
         self.serverIPField.autocorrectionType = UITextAutocorrectionTypeNo;
         self.serverIPField.keyboardType = UIKeyboardTypeDefault;
@@ -97,10 +97,11 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
     NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
     if (textField==self.serverIPField) {
-        if(textField.text!=nil&&textField.text.length>0&&![textField.text isEqualToString:@"http://ip:port"]){
-            [defaults setValue:textField.text forKey:ATV_SERVER_IP_NAME];
-            AppDele.serverIP = textField.text;
+        if(textField.text==nil||textField.text.length==0){
+            textField.text = ATV_SERVER_DEFAULT_IP;
         }
+        [defaults setValue:textField.text forKey:ATV_SERVER_IP_NAME];
+        AppDele.serverIP = textField.text;
     }
     [textField resignFirstResponder];
     return YES;
