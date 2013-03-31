@@ -305,8 +305,10 @@ var tudouClient = {
 				return;
 			}
 			var itemid = appletv.substringByData(htmlContent, 'iid: ', ',').trim();
-			itemid = itemid.substring(1, itemid.length - 1);
 			appletv.logToServer('itemid:' + itemid);
+			if(channelId==null||channelId.length==0){
+				channelId=appletv.substringByData(htmlContent, 'cid: ', ',').trim();
+			}
 			tudouClient.loadAlbumPage(itemid, channelId, isalbum,false);
 		});
 	},
