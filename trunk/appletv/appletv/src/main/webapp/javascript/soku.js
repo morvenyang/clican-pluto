@@ -297,6 +297,8 @@ var sokuClient = {
 						appletv.playM3u8(m3u8url,'');
 					}
 				});
+			}else if(url.indexOf('tudou.com')!=-1){
+				tudouClient.loadVideoPage(url, '', false);
 			}else{
 				appletv.showDialog('无法播放','');
 			}
