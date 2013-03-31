@@ -1,5 +1,8 @@
 var lblClient = {
 	lblChannels : [ {
+		label : "搜索",
+		value : 'category/search'
+	}, {
 		label : "最新电影",
 		value : 'category/movie'
 	}, {
@@ -38,6 +41,10 @@ var lblClient = {
 	} ],
 
 	lblChannelMap : {
+		'category/search' : {
+			label : "搜索",
+			value : 'category/search'
+		},
 		'category/movie' : {
 			label : "最新电影",
 			value : 'category/movie'
@@ -322,7 +329,29 @@ var lblClient = {
 		}
 
 	},
+	
+	loadSearchPage : function() {
+		appletv.showInputTextPage('关键字', '搜索', lblClient.loadKeywordsPage,
+				'lblClient.loadKeywordsPage', '');
+	},
 
+	loadKeywordsPage : function(q) {
+		appletv.showLoading();
+		var queryUrl = 'http://tip.tudou.soku.com/hint?q=' + q;
+		appletv.makeRequest(queryUrl, function(result) {
+			appletv.logToServer(result);
+			var keywords = JSON.parse(result);
+			var data = {
+				keywords : keywords,
+				serverurl : appletv.serverurl
+			};
+			var xml = new EJS({
+				url : appletv.serverurl + '/template/lbl/keywords.ejs'
+			}).render(data);
+			appletv.loadAndSwapXML(xml);
+		});
+	},
+	
 	play : function(id, title) {
 		appletv.showLoading();
 		var url = id;
