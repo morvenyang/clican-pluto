@@ -8,6 +8,7 @@ var sokuClient = {
 		loadKeywordsPage : function(q) {
 			appletv.showLoading();
 			var queryUrl = 'http://tip.tudou.soku.com/hint?q=' + q;
+			appletv.logToServer(queryUrl);
 			appletv.makeRequest(queryUrl, function(result) {
 				appletv.logToServer(result);
 				var keywords = JSON.parse(result);
@@ -26,8 +27,10 @@ var sokuClient = {
 			var url1 = "http://api.3g.youku.com/layout/phone2/ios/search/"+encodeURIComponent(keyword)+"?pg="+page+"&pid=69b81504767483cf&pz=30";
 			var url2 = "http://api.3g.youku.com/videos/search/"+encodeURIComponent(keyword)+"?pg="+page+"&pid=69b81504767483cf&pz=30";
 			var videos = [];
+			
 			appletv.makeRequest(url1, function(jsonContent1) {
 				var results1 = JSON.parse(jsonContent1)['results'];
+				appletv.logToServer('r1:'+jsonContent1);
 				for(var i=0;i<results1.length;i++){
 					var result1 = results1[i];
 					var video = {
@@ -40,6 +43,7 @@ var sokuClient = {
 				}
 				appletv.makeRequest(url2,function(jsonContent2){
 					var results2 = JSON.parse(jsonContent2)['results'];
+					appletv.logToServer('r2:'+jsonContent2);
 					for(var i=0;i<results2.length;i++){
 						var result2 = results2[i];
 						var video = {
@@ -50,6 +54,7 @@ var sokuClient = {
 							};
 						videos.push(video);
 					}
+					sokuClient.generateIndexPage(keyword, page, videos);
 				});
 			});
 		},
