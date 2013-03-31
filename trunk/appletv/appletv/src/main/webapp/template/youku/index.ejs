@@ -4,6 +4,7 @@
 <script src="<%=serverurl%>/javascript/clican.js"/>
 <script src="<%=serverurl%>/javascript/ejs.js"/>
 <script src="<%=serverurl%>/javascript/youku.js"/>
+<script src="<%=serverurl%>/javascript/soku.js"/>
 </head>
 <body>
 <scroller id="index">
@@ -14,7 +15,7 @@
 					<items>
 						<%for(var i=0;i<channels.length;i++){%>
 							<%if(channels[i]['value']==1001){%>
-								<moviePoster id="shelf_item_<%=channels[i]['value']%>" alwaysShowTitles="true" featured="true" onSelect="youkuClient.loadSearchPage();" onPlay="youkuClient.loadSearchPage();">
+								<moviePoster id="shelf_item_<%=channels[i]['value']%>" alwaysShowTitles="true" featured="true" onSelect="sokuClient.loadSearchPage();" onPlay="sokuClient.loadSearchPage();">
 									<title><%=channels[i]['label']%></title>
 									<image><%=serverurl%>/image/youku/channel/channel_<%=channels[i]['value']%>.png</image>
 									<defaultImage>resource://Poster.png</defaultImage>
