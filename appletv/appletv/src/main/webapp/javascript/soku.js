@@ -30,7 +30,6 @@ var sokuClient = {
 			
 			appletv.makeRequest(url1, function(jsonContent1) {
 				var results1 = JSON.parse(jsonContent1)['results'];
-				appletv.logToServer('r1:'+jsonContent1);
 				for(var i=0;i<results1.length;i++){
 					var result1 = results1[i];
 					var video = {
@@ -44,7 +43,6 @@ var sokuClient = {
 				}
 				appletv.makeRequest(url2,function(jsonContent2){
 					var results2 = JSON.parse(jsonContent2)['results'];
-					appletv.logToServer('r2:'+jsonContent2);
 					for(var i=0;i<results2.length;i++){
 						var result2 = results2[i];
 						var video = {
@@ -95,7 +93,8 @@ var sokuClient = {
 			}
 
 			appletv.makeRequest(url, function(jsonContent) {
-				detail = JSON.parse(jsonContent);
+				var result = JSON.parse(jsonContent);
+				var detail = result['detail'];
 				var title;
 				var detail;
 				var actor;
@@ -107,6 +106,7 @@ var sokuClient = {
 				var script;
 				var pic;
 				var vcode;
+				var size = '1';
 				var sites = [];
 				if(album){
 					title = detail['title'];
@@ -117,6 +117,7 @@ var sokuClient = {
 					year = detail['showdate'];
 					desc = detail['desc'];
 					pic =  detail['img'];
+					size = detail['episode_total'];
 					var siteItems = detail['site_items'];
 					for(var i=0;i<siteItems.length;i++){
 						var site = {"title":siteItems[i]['title'],"id":siteItems[i]["id"]};
@@ -145,10 +146,12 @@ var sokuClient = {
 							'title' : title,
 							'year' : year,
 							'desc' : desc,
+							'size' : size,
 							'vcode' : vcode,
 						},
 						sites : sites
 					};
+					appletv.logToServer('render video page');
 					var xml = new EJS({
 						url : appletv.serverurl
 								+ '/template/soku/video.ejs'
@@ -161,12 +164,13 @@ var sokuClient = {
 			appletv.showLoading();
 			var url =  "http://api.3g.youku.com/layout/phone2/ios/searchdetail?pid=69b81504767483cf&id="+id+"&site="+site;
 			appletv.makeRequest(url, function(jsonContent) {
-				detail = JSON.parse(jsonContent);
+				var result = JSON.parse(jsonContent);
+				var detail = result['detail'];
 				var title = detail['title'];
 				var pic =  detail['img'];
 				var items = [];
 				
-				var series = detail['series']['data'];
+				var series = result['series']['data'];
 				for(var i=0;i<series.length;i++){
 					var serie = series[i];
 					var item = {"title":serie['title'],"vcode":serie['videoid'],"url":serie['url']};
@@ -183,7 +187,7 @@ var sokuClient = {
 					};
 				var xml = new EJS({
 					url : appletv.serverurl
-							+ '/template/souku/videoItems.ejs'
+							+ '/template/soku/videoItems.ejs'
 				}).render(video);
 				appletv.loadAndSwapXML(xml);
 			});

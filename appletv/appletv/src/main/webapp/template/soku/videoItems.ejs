@@ -24,7 +24,7 @@
 										<label><%=items[i]['title']%></label>
 									</oneLineMenuItem>
 								<%}else if(items[i]['url']!=null&&items[i]['url'].length>0){%>
-									<oneLineMenuItem id="albumItem_<%=i%>" onPlay="sokuClientClient.openUrl('<%=items[i]['url']%>');" onSelect="sokuClientClient.openUrl('<%=items[i]['url']%>');">
+									<oneLineMenuItem id="albumItem_<%=i%>" onPlay="sokuClient.openUrl('<%=items[i]['url']%>');" onSelect="sokuClient.openUrl('<%=items[i]['url']%>');">
 										<label><%=items[i]['title']%></label>
 									</oneLineMenuItem>
 								<%}else{%>
