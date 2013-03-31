@@ -182,13 +182,40 @@ var sokuClient = {
 				appletv.loadAndSwapXML(xml);
 			});
 		},
+		
 		openUrl : function(url){
 			if(url.indexOf('56.com')!=-1){
-				
-			}else if(url.indexOf('tudou.com')!=-1){
-				
+				appletv.showLoading();
+				appletv.makeRequest(url,function(content){
+					var id = appletv.substringByData(content,'"id":"','"');
+					var jsonUrl = 'http://vxml.56.com/mobile/'+id+'/?src=3gapi';
+					appletv.makeRequest(jsonUrl,function(jsonContent){
+						var rfiles = JSON.parse(jsonContent)['info']['rfiles'];
+						if(rfiles.length>0){
+							var url = rfiles[0]['url'];
+							appletv.playMp4(url,'');
+						}else{
+							appletv.showDialog('无法从56.com找到相关资源','');
+						}
+					});
+				});
+			}else if(url.indexOf('qq.com')!=-1){
+				appletv.makeRequest(url,function(content){
+					var s = url.lastIndexOf('/');
+					var e = url.indexOf('.html');
+					var id = url.substring(s+1,e);
+					qqClient.playVideo(id);
+				});
 			}else if(url.indexOf('sohu.com')!=-1){
-				
+				appletv.showLoading();
+				appletv.makeRequest(url,function(content){
+					var id = appletv.substringByData(content,'vid="','"');
+					var jsonUrl = 'http://api.tv.sohu.com/video/playinfo/'+id+'.json?api_key=695fe827ffeb7d74260a813025970bd5'
+					appletv.makeRequest(jsonUrl,function(jsonContent){
+						var m3u8Url = JSON.parse(jsonContent)['data']['url_high'];
+						appletv.playM3u8(m3u8Url,'');
+					});
+				});
 			}else{
 				appletv.showDialog('无法播放','');
 			}
