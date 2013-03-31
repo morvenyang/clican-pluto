@@ -541,12 +541,7 @@
     if([item isKindOfClass:[VideoTableItem class]]){
         return 180;
     }else{
-        if([item isKindOfClass:[TTTableStyledTextItem class]]){
-            TTTableStyledTextItem* i = (TTTableStyledTextItem*)item;
-            return [i text].height;
-        }else{
-            return 50;
-        }
+        return 50;
     }
 }
 

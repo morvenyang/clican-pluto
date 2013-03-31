@@ -40,6 +40,7 @@
     JSEngine* _jsEngine;
     
     PhotoProcess* _photoProcess;
+    NSString* _serverIP;
 }
 
 @property (nonatomic, retain) ASINetworkQueue* queue;
@@ -57,6 +58,6 @@
 @property (nonatomic, retain) NSString* localWebPathPrefix;
 @property (nonatomic, retain) JSEngine* jsEngine;
 @property (nonatomic, retain) PhotoProcess* photoProcess;
-
+@property (nonatomic, copy) NSString* serverIP;
 -(void) initProcess;
 @end

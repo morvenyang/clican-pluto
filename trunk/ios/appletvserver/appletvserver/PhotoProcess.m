@@ -39,7 +39,6 @@
     for (int i=0; i<[self.assets count]; i++) {
         ALAsset *asset = [self.assets objectAtIndex:i];
         NSString* url;
-        NSLog(@"%@",[[asset defaultRepresentation] UTI]);
         if([[[asset defaultRepresentation] UTI] isEqualToString:@"public.png"]){
             url = [NSString stringWithFormat:@"http://%@:8080/appletv/noctl/photo/detail.png?id=%i",AppDele.ipAddress,i];
         }else if([[[asset defaultRepresentation] UTI] isEqualToString:@"public.jpeg"]){
@@ -48,9 +47,9 @@
             url = [NSString stringWithFormat:@"http://%@:8080/appletv/noctl/photo/detail.jpg?id=%i",AppDele.ipAddress,i];
         }
         if(i==[self.assets count]-1){
-            result = [result stringByAppendingFormat:@"'%@'",url];
+            result = [result stringByAppendingFormat:@"\"%@\"",url];
         }else{
-            result = [result stringByAppendingFormat:@"'%@',",url];
+            result = [result stringByAppendingFormat:@"\"%@\",",url];
         }
     }
     result = [result stringByAppendingString:@"]"];

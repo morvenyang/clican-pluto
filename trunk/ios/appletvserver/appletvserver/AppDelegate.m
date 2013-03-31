@@ -20,6 +20,7 @@
 #import "ASIHTTPRequest.h"
 #import "Constants.h"
 #import "InputViewController.h"
+#import "ConfigViewController.h"
 
 static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
@@ -39,7 +40,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 @synthesize localWebPathPrefix = _localWebPathPrefix;
 @synthesize jsEngine = _jsEngine;
 @synthesize photoProcess = _photoProcess;
-
+@synthesize serverIP = _serverIP;
 - (void)dealloc
 {
     [super dealloc];
@@ -78,6 +79,11 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 -(void) initEnvironment{
     NSHTTPCookieStorage* cookieStorage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
     [cookieStorage setCookieAcceptPolicy:NSHTTPCookieAcceptPolicyAlways];
+    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+    self.serverIP = [defaults stringForKey: ATV_SERVER_IP_NAME];
+    if(self.serverIP==nil||self.serverIP.length==0){
+        self.serverIP = ATV_SERVER_DEFAULT_IP;
+    }
 }
 -(void) initWebContent{
     self.webContentSync = [[WebContentSync alloc] init];
@@ -101,7 +107,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 }
 -(void) registerLocalServer{
-    NSString* url = [NSString stringWithFormat:@"%@/ctl/localserver/register.do?innerIP=%@",ATV_SERVER_IP,self.ipAddress];
+    NSString* url = [NSString stringWithFormat:@"%@/appletv/ctl/localserver/register.do?innerIP=%@",AppDele.serverIP,self.ipAddress];
     ASIHTTPRequest *req = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:url]];
     [req startSynchronous];
     NSError *error = [req error];
@@ -171,6 +177,8 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
      [XunLeiLoginViewController class]];
     [map from:@"atvserver://download" toSharedViewController:
      [DownloadStatusViewController class]];
+    [map from:@"atvserver://config" toSharedViewController:
+     [ConfigViewController class]];
     [map from:@"atvserver://atv/input/(initWithLabel:)/(instruction:)/(initialText:)" toSharedViewController:
      [InputViewController class]];
 

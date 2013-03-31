@@ -35,6 +35,7 @@
                       @"atvserver://main",
                       @"atvserver://xunlei/login",
                       @"atvserver://download",
+                      @"atvserver://config",
                       nil]];
 }
 

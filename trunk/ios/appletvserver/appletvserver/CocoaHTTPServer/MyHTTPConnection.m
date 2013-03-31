@@ -56,7 +56,7 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
                 replaceContent = [replaceContent stringByReplacingOccurrencesOfString:@"simulate : 'atv'" withString:@"simulate : 'browser'"];
             }
         }
-        replaceContent = [replaceContent stringByReplacingOccurrencesOfString:@"http://www.clican.org/appletv" withString:ATV_SERVER_IP];
+        replaceContent = [replaceContent stringByReplacingOccurrencesOfString:@"http://www.clican.org" withString:AppDele.serverIP];
         NSData *response = [replaceContent dataUsingEncoding:NSUTF8StringEncoding];
         return [[HTTPDataResponse alloc] initWithData:response];
     }else if([path rangeOfString:@"/appletv/noctl/proxy/play.m3u8"].location!=NSNotFound){

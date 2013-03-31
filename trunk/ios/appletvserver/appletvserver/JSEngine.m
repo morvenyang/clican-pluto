@@ -366,7 +366,7 @@ JSValueRef loadURL(JSContextRef ctx,
             NSString* matchString = [jsContent substringWithRange:NSMakeRange(matchRange1.location, matchRange2.location-matchRange1.location)];
             jsContent = [jsContent stringByReplacingOccurrencesOfString:matchString withString:ipAddress];
             jsContent = [jsContent stringByReplacingOccurrencesOfString:@"simulate : 'atv'" withString:@"simulate : 'native'"];
-             jsContent = [jsContent stringByReplacingOccurrencesOfString:@"http://www.clican.org/appletv" withString:ATV_SERVER_IP];
+             jsContent = [jsContent stringByReplacingOccurrencesOfString:@"http://www.clican.org" withString:AppDele.serverIP];
         }
         
         [self runJS:jsContent];
