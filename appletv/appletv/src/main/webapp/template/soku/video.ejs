@@ -23,18 +23,17 @@
 					<sections>
 						<shelfSection>
 							<items>
-								<%if(album==1){%>
-									<actionButton id="album_3" onSelect="sokuClient.loadItemsPage();">
-										<title>剧集</title>
-									</actionButton>
+								<%if(album){%>
+									<%for(var i=0;i<sites.length;i++){%>
+										<actionButton id="site_<%=i%>" onSelect="sokuClient.loadItemsPage('<%=video['id']%>','<%=sites[i]['id']%>');">
+											<title><%=sites[i]['title']%></title>
+										</actionButton>
+									<%}%>
 								<%}else{%>
-									<actionButton id="album_1" onSelect="sokuClient.play(<%=video['id']%>);">
+									<actionButton id="album_1" onSelect="sokuClient.play(<%=video['vcode']%>);">
 										<title>播放</title>
 									</actionButton>
 								<%}%>
-								<actionButton id="album_8" onSelect="appletv.shareToSinaWeibo('<%=video['title']%>','<%=video['shareurl']%>','<%=video['pic']%>');" onPlay="appletv.shareToSinaWeibo('<%=video['title']%>','<%=video['shareurl']%>','<%=video['pic']%>');">
-									<title>分享</title>
-								</actionButton>
 								<actionButton id="album_9" onSelect="appletv.addToFavorite('<%=video['title']%>','<%=video['pic']%>','<%=script%>');">
 									<title>收藏</title>
 								</actionButton>
