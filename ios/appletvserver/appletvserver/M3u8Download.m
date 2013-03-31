@@ -13,11 +13,11 @@
 @synthesize m3u8DownloadLines = _m3u8DownloadLines;
 @synthesize m3u8Url = _m3u8Url;
 
--(void) seekDownloadLine:(NSString*) localUrl{
+-(void) seekDownloadLine:(NSString*) localPath{
     @synchronized(self) {
         for(int i=0;i<[_m3u8DownloadLines count];i++){
             M3u8DownloadLine* downloadLine=[_m3u8DownloadLines objectAtIndex:i];
-            if([downloadLine.localUrl isEqualToString:localUrl]){
+            if([downloadLine.localPath isEqualToString:localPath]){
                 _downloadIndex = i;
                 break;
             }

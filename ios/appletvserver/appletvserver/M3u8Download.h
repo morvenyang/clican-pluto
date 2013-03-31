@@ -18,6 +18,6 @@
 @property (nonatomic, copy) NSString* m3u8Url;
 - (M3u8DownloadLine*) getNextDownloadLine;
 - (M3u8DownloadLine*) getMaxFinishedDownloadLine;
--(void) seekDownloadLine:(NSString*) localUrl;
+-(void) seekDownloadLine:(NSString*) localPath;
 
 @end
