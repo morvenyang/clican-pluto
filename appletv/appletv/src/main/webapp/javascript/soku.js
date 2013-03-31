@@ -37,6 +37,7 @@ var sokuClient = {
 							"title" : result1['showname'],
 							"id" : result1['showid'],
 							"pic" : result1['show_vthumburl'],
+							"site" : result1['default_site'],
 							"album": true
 						};
 					videos.push(video);
@@ -50,6 +51,7 @@ var sokuClient = {
 								"title" : result2['showname'],
 								"id" : result2['showid'],
 								"pic" : result2['img'],
+								"site" : result1['default_site'],
 								"album": false
 							};
 						videos.push(video);
@@ -83,13 +85,13 @@ var sokuClient = {
 			appletv.loadAndSwapXML(xml);
 		},
 		
-		loadVideoPage : function(id,album) {
+		loadVideoPage : function(id,album,site) {
 			appletv.showLoading();
 			var url;
 			if(album){
-				url = "http://api.3g.youku.com/layout/phone2/ios/searchdetail?pid=69b81504767483cf&id="+id;
+				url = "http://api.3g.youku.com/layout/phone2/ios/searchdetail?pid=69b81504767483cf&id="+id+"&site="+site;
 			}else{
-				url = "http://api.3g.youku.com/layout/phone2_1/detail?pid=69b81504767483cf&id="+id;
+				url = "http://api.3g.youku.com/layout/phone2_1/detail?pid=69b81504767483cf&id="+id+"&site="+site;
 			}
 
 			appletv.makeRequest(url, function(jsonContent) {
