@@ -164,6 +164,7 @@ var sokuClient = {
 			appletv.showLoading();
 			var url =  "http://api.3g.youku.com/layout/phone2/ios/searchdetail?pid=69b81504767483cf&id="+id+"&site="+site;
 			appletv.makeRequest(url, function(jsonContent) {
+				appletv.logToServer(jsonContent);
 				var result = JSON.parse(jsonContent);
 				var detail = result['detail'];
 				var title = detail['title'];
@@ -173,7 +174,11 @@ var sokuClient = {
 				var series = result['series']['data'];
 				for(var i=0;i<series.length;i++){
 					var serie = series[i];
-					var item = {"title":serie['title'],"vcode":serie['videoid'],"url":serie['url']};
+					var title = serie['title'];
+					if(title==null){
+						title = '第'+(i+1)+'集';
+					}
+					var item = {"title":title,"vcode":serie['videoid'],"url":serie['url']};
 					items.push(item);
 				}
 				var video = {
