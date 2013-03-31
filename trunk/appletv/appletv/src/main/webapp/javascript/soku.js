@@ -22,7 +22,7 @@ var sokuClient = {
 			});
 		},
 		
-		loadIndexPage:function(keywrod,page){
+		loadIndexPage:function(keyword,page){
 			var url1 = "http://api.3g.youku.com/layout/phone2/ios/search/"+encodeURIComponent(keyword)+"?pg="+page+"&pid=69b81504767483cf&pz=30";
 			var url2 = "http://api.3g.youku.com/videos/search/"+encodeURIComponent(keyword)+"?pg="+page+"&pid=69b81504767483cf&pz=30";
 			var videos = [];
@@ -51,7 +51,7 @@ var sokuClient = {
 						videos.push(video);
 					}
 				});
-			}
+			});
 		},
 		
 		generateIndexPage : function(keyword, page, videos) {
@@ -172,9 +172,8 @@ var sokuClient = {
 							'pic' : pic,
 							'title' : title,
 						},
-						items: items;
+						items: items
 					};
-				
 				var xml = new EJS({
 					url : appletv.serverurl
 							+ '/template/souku/videoItems.ejs'
