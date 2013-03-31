@@ -247,6 +247,28 @@ var sokuClient = {
 						appletv.playM3u8(m3u8Url,'');
 					});
 				});
+			}else if(url.indexOf('iqiyi.com')!=-1){
+				appletv.showLoading();
+				appletv.makeRequest(url,function(content){
+					var tvId = appletv.substringByData(content, '"tvId":"', '"');
+					var videoId = appletv.substringByData(content, '"videoId":"', '"');
+					var jsUrl;
+					if(tvid==null||tvid.length==0){
+						jsUrl = 'http://cache.video.qiyi.com/m/'+videoId+'/';
+					}else{
+						jsUrl = 'http://cache.video.qiyi.com/m/'+tvId+'/'+videoId+'/';
+					}
+					appletv.makeRequest(jsUrl,function(jsContent){
+						jsonContent = jsContent.replace('var ipadUrl=','');
+						var detail = JSON.parse(jsonContent);
+						var m3u8url = detail['data']['mtl'][0]['m3u'];
+						if(m3u8url==null||m3u8url.length==0){
+							appletv.showDialog('无法从iqiyi.com找到相关资源','');
+						}else{
+							appletv.playm3u8(m3u8url,'');
+						}
+					});
+				});
 			}else{
 				appletv.showDialog('无法播放','');
 			}
