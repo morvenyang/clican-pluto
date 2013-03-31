@@ -78,7 +78,6 @@ var yyetsClient = {
 												'<h2><a href="/resources/(\\d*)">([^<]*)</a>',
 												htmlContent);
 								for ( var i = 0; i < idAndTitles.length; i++) {
-									pic = imgs[i][0];
 									id = idAndTitles[i][0];
 									title = idAndTitles[i][1];
 									var video = {
@@ -312,7 +311,7 @@ var yyetsClient = {
 	},
 
 	loadSearchPage : function() {
-		appletv.showInputTextPage('关键字', '搜索', tudouClient.loadKeywordsPage,
+		appletv.showInputTextPage('关键字', '搜索', yyetsClient.loadKeywordsPage,
 				'yyetsClient.loadKeywordsPage', '');
 	},
 
