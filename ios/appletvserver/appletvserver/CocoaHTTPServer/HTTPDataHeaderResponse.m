@@ -90,13 +90,13 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_OFF; // | HTTP_LOG_FLAG_TRACE;
 	HTTPLogTrace2(@"%@[%p]: readDataOfLength:%lu", THIS_FILE, self, (unsigned long)lengthParameter);
 	
 	NSUInteger remaining = [data length] - offset;
-	NSUInteger length = lengthParameter < remaining ? lengthParameter : remaining;
+	NSUInteger len = lengthParameter < remaining ? lengthParameter : remaining;
 	
 	void *bytes = (void *)([data bytes] + offset);
 	
-	offset += length;
+	offset += len;
 	
-	return [NSData dataWithBytesNoCopy:bytes length:length freeWhenDone:NO];
+	return [NSData dataWithBytesNoCopy:bytes length:len freeWhenDone:NO];
 }
 
 - (BOOL)isDone

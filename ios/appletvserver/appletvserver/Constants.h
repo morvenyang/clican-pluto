@@ -14,7 +14,6 @@
 #define WEB_CONTENT_SYNC_API @"/appletv/sync.zip"
 #define WEB_CONTENT_SYNC_VERSION_API @"/appletv/ctl/proxy/sync/version.do"
 #define MP4_PARTIAL_LENGTH 1048576
-#define WEB_CONTENT_DOWNLOAD YES
 #define ALog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
 
 #endif
