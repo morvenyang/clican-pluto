@@ -500,8 +500,11 @@
     if([item isKindOfClass:[TTTableTextItem class]]){
         TTTableTextItem* tti = (TTTableTextItem*)item;
         NSString* script = tti.URL;
+        BOOL search = NO;
         if([tti.text isEqualToString:@"更多"]){
             self.append = YES;
+        }else if([tti.text isEqualToString:@"搜索"]){
+            search = YES;
         }
         if(self.append){
             self.progressHUD = [[[MBProgressHUD alloc] initWithView:self.view] autorelease];
@@ -510,6 +513,9 @@
             [self.view addSubview:self.progressHUD];
             [self.view bringSubviewToFront:self.progressHUD];
             [self.progressHUD show:YES];
+            self.script = script;
+            [NSThread detachNewThreadSelector:@selector(runJS:) toTarget:self withObject:self];
+        }else if(search){
             self.script = script;
             [NSThread detachNewThreadSelector:@selector(runJS:) toTarget:self withObject:self];
         }else{
