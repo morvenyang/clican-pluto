@@ -306,7 +306,7 @@ var tudouClient = {
 			}
 			var itemid = appletv.substringByData(htmlContent, 'iid: ', ',').trim();
 			if(itemid.indexOf("'")!=-1){
-				itemid = itemid.subtring(1,itemid.length-1);
+				itemid = itemid.substring(1,itemid.length-1);
 			}
 			appletv.logToServer('itemid:' + itemid);
 			if(channelId==null||channelId.length==0){
