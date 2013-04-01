@@ -42,6 +42,8 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 @synthesize photoProcess = _photoProcess;
 @synthesize serverIP = _serverIP;
 @synthesize atvDeviceId = _atvDeviceId;
+@synthesize ipad = _ipad;
+@synthesize videoSizePerLine = _videoSizePerLine;
 - (void)dealloc
 {
     [super dealloc];
@@ -88,6 +90,15 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     self.atvDeviceId =  [defaults stringForKey: ATV_DEVICE_ID_NAME];
     if(self.atvDeviceId==nil||self.atvDeviceId.length==0){
         self.atvDeviceId = [[UIDevice currentDevice] uniqueIdentifier];
+    }
+    NSString* deviceType = [UIDevice currentDevice].model;
+    NSLog(@"deviceType = %@", deviceType);
+    if([deviceType rangeOfString:@"iPad"].location!=NSNotFound){
+        self.ipad = YES;
+        self.videoSizePerLine = 7;
+    }else{
+        self.ipad = NO;
+        self.videoSizePerLine = 3;
     }
 }
 -(void) initWebContent{

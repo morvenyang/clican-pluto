@@ -9,7 +9,8 @@
 #import "VideoTableItemCell.h"
 #import "Video.h"
 #import "VideoImageView.h"
-
+#import "Constants.h"
+#import "AppDelegate.h"
 @implementation VideoTableItemCell
 
 @synthesize videoTableItem = _videoTableItem;
@@ -27,7 +28,7 @@
     if (self) {
         self.titleArray = [[NSMutableArray array] retain];
         self.imageArray = [[NSMutableArray array] retain];
-        for(int i=0;i<3;i++){
+        for(int i=0;i<AppDele.videoSizePerLine;i++){
             VideoImageView* imageView = [[[VideoImageView alloc] autorelease] initWithFrame:CGRectZero];
             TTStyledTextLabel* titleLabel = [[[TTStyledTextLabel alloc] autorelease] init];
             [self.titleArray addObject:titleLabel];
@@ -50,7 +51,7 @@
 
 - (void)layoutSubviews {
 	[super layoutSubviews];
-    for(int i=0;i<3;i++){
+    for(int i=0;i<AppDele.videoSizePerLine;i++){
         VideoImageView* imageView = [self.imageArray objectAtIndex:i];
         TTStyledTextLabel* titleLabel = [self.titleArray objectAtIndex:i];
         imageView.frame = CGRectMake(10+103*i, 10, 93, 124);
@@ -71,7 +72,7 @@
 - (void)setObject:(id)object {
     if(object){
         self.videoTableItem = object;
-        for(int i=0;i<3;i++){
+        for(int i=0;i<AppDele.videoSizePerLine;i++){
             VideoImageView* imageView = [self.imageArray objectAtIndex:i];
             TTStyledTextLabel* titleLabel = [self.titleArray objectAtIndex:i];
             if([self.videoTableItem.videoList count]>i){
