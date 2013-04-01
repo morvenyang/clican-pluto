@@ -224,4 +224,7 @@ http://www.springframework.org/schema/context/spring-context-2.5.xsd">
 		autowire="byName">
 	</bean>
 	
+	<bean id="lblClient" class="com.clican.appletv.core.service.lbl.LblClientImpl"
+		autowire="byName">
+	</bean>
 </beans>
