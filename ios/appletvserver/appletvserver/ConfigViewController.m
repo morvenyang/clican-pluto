@@ -26,7 +26,7 @@
         self.tabBarItem = [[[UITabBarItem alloc] initWithTitle:@"设置" image:nil tag:3] autorelease];
         
         self.serverIPField = [[[UITextField alloc] init] autorelease];
-        self.serverIPField.font = [UIFont fontWithName:@"Microsoft YaHei" size:14];
+        self.serverIPField.font = [UIFont fontWithName:@"Microsoft YaHei" size:12];
         self.serverIPField.placeholder = ATV_SERVER_DEFAULT_IP;
         
         self.serverIPField.autocorrectionType = UITextAutocorrectionTypeNo;
@@ -51,7 +51,7 @@
         
         
         self.atvDeviceIdField = [[[UITextField alloc] init] autorelease];
-        self.atvDeviceIdField.font = [UIFont fontWithName:@"Microsoft YaHei" size:14];
+        self.atvDeviceIdField.font = [UIFont fontWithName:@"Microsoft YaHei" size:12];
         self.atvDeviceIdField.placeholder = AppDele.atvDeviceId;
         
         self.atvDeviceIdField.autocorrectionType = UITextAutocorrectionTypeNo;
@@ -150,7 +150,8 @@
     
     TTTableControlItem* serverIPItem = [TTTableControlItem itemWithCaption:@"服务器IP" control:self.serverIPField];
     [items addObject:serverIPItem];
-    
+    TTTableControlItem* atvDeviceIdItem = [TTTableControlItem itemWithCaption:@"ATV ID" control:self.atvDeviceIdField];
+    [items addObject:atvDeviceIdItem];
     TTTableControlItem* syncItem = [TTTableControlItem itemWithCaption:@"更新脚本" control:self.syncButton];
     [items addObject:syncItem];
     
@@ -197,8 +198,7 @@
 
     [items addObject:self.clearCacheItem];
     
-    TTTableControlItem* atvDeviceIdItem = [TTTableControlItem itemWithCaption:@"AppleTV DeviceID" control:self.atvDeviceIdField];
-    [items addObject:atvDeviceIdItem];
+    
 
     
     ConfigDataSource* ds = [[[ConfigDataSource alloc] initWithItems:items callback:self] autorelease];
