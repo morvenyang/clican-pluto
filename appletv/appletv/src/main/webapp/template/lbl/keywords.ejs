@@ -18,7 +18,7 @@
 					<menuSection>
 						<items>
 							<%for(var i=0;i<keywords.length;i++){%>
-								<oneLineMenuItem id="albumItem_<%=i%>" onSelect="lblClient.loadIndexPage('<%=keywords[i]%>',0,'category/search');">
+								<oneLineMenuItem id="albumItem_<%=i%>" onSelect="lblClient.loadIndexPage('<%=keywords[i]%>',1,'category/search');">
 									<label><%=keywords[i]%></label>
 								</oneLineMenuItem>
 							<%}%>
