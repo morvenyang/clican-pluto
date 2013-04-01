@@ -461,9 +461,10 @@
                 video.onSelect = onSelect;
                 [self.videos addObject:video];
             }
-            for(int i=0;i<[self.videos count];i=i+3){
+            
+            for(int i=0;i<[self.videos count];i=i+AppDele.videoSizePerLine){
                 NSMutableArray* cellItems = [NSMutableArray array];
-                for(int j=i;j<i+3&&j<[self.videos count];j++){
+                for(int j=i;j<i+AppDele.videoSizePerLine&&j<[self.videos count];j++){
                     Video* video = [self.videos objectAtIndex:j];
                     [cellItems addObject:video];
                 }

@@ -42,6 +42,9 @@
     PhotoProcess* _photoProcess;
     NSString* _serverIP;
     NSString* _atvDeviceId;
+    
+    BOOL _ipad;
+    int _videoSizePerLine;
 }
 
 @property (nonatomic, retain) ASINetworkQueue* queue;
@@ -61,5 +64,8 @@
 @property (nonatomic, retain) PhotoProcess* photoProcess;
 @property (nonatomic, copy) NSString* serverIP;
 @property (nonatomic, copy) NSString* atvDeviceId;
+@property (nonatomic, assign) BOOL ipad;
+@property (nonatomic, assign) int videoSizePerLine;
 -(void) initProcess;
+
 @end
