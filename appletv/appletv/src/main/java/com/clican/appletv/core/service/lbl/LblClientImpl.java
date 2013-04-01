@@ -5,8 +5,8 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.Properties;
 import java.util.Map.Entry;
+import java.util.Properties;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.htmlparser.Node;
@@ -17,19 +17,11 @@ import org.htmlparser.filters.TagNameFilter;
 import org.htmlparser.nodes.TagNode;
 import org.htmlparser.util.NodeList;
 
-import com.clican.appletv.common.SpringProperty;
 import com.clican.appletv.core.service.BaseClient;
 
 public class LblClientImpl extends BaseClient implements LblClient {
 
 	private ConcurrentHashMap<String, String> imageMap = new ConcurrentHashMap<String, String>();
-
-	private SpringProperty springProperty;
-	
-	
-	public void setSpringProperty(SpringProperty springProperty) {
-		this.springProperty = springProperty;
-	}
 
 	public void init() {
 		if (log.isInfoEnabled()) {
@@ -45,8 +37,7 @@ public class LblClientImpl extends BaseClient implements LblClient {
 			Properties props = new Properties();
 			props.load(is);
 			for (Entry<Object, Object> entry : props.entrySet()) {
-				imageMap.put((String) entry.getKey(),
-						(String) entry.getValue());
+				imageMap.put((String) entry.getKey(), (String) entry.getValue());
 			}
 			if (log.isInfoEnabled()) {
 				log.info("Load " + imageMap.size()
@@ -77,8 +68,7 @@ public class LblClientImpl extends BaseClient implements LblClient {
 			}
 			os = new FileOutputStream(springProperty.getWeiboTokenFile());
 			for (String key : imageMap.keySet()) {
-				String entry = key + "=" + imageMap.get(key)
-						+ "\n";
+				String entry = key + "=" + imageMap.get(key) + "\n";
 				os.write(entry.getBytes("utf-8"));
 			}
 			if (log.isInfoEnabled()) {
@@ -98,6 +88,7 @@ public class LblClientImpl extends BaseClient implements LblClient {
 			}
 		}
 	}
+
 	@Override
 	public String getImageUrl(String url) {
 		if (imageMap.containsKey(url)) {
