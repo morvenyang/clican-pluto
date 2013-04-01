@@ -33,9 +33,19 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
 {
     HTTPLogTrace();
     NSLog(@"path:%@,uri:%@",path,request.url);
-    if ([path isEqualToString:@"/appletv/javascript/clican.js"]||[path isEqualToString:@"/appletv/local.xml"])
+    if ([path isEqualToString:@"/appletv/javascript/clican.js"]||[path rangeOfString:@"/appletv/local.xml"].location!=NSNotFound)
     {
-        NSString  *replaceFilePath=[[AppDele localWebPathPrefix] stringByAppendingString:path];
+        NSString* realPath = path;
+        if([path rangeOfString:@"/appletv/local.xml"].location!=NSNotFound){
+            NSString* deviceId= [[self parseGetParams] objectForKey:@"deviceId"];
+            if(deviceId!=nil&&deviceId.length>0){
+                AppDele.atvDeviceId = deviceId;
+                NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+                [defaults setValue:deviceId forKey:ATV_DEVICE_ID_NAME];
+            }
+            realPath = @"/appletv/local.xml";
+        }
+        NSString  *replaceFilePath=[[AppDele localWebPathPrefix] stringByAppendingString:realPath];
         NSLog(@"filepath:%@",replaceFilePath);
         NSString* replaceContent = [NSString stringWithContentsOfFile:replaceFilePath encoding:NSUTF8StringEncoding error:nil];
         NSLog(@"content:%@",replaceContent);

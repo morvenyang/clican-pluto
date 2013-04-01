@@ -17,6 +17,7 @@
 @synthesize progressHUD = _progressHUD;
 @synthesize clearCacheButton = _clearCacheButton;
 @synthesize clearCacheItem = _clearCacheItem;
+@synthesize atvDeviceIdField = _atvDeviceIdField;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -47,6 +48,19 @@
         UIImage* clearCacheButtonImage = [UIImage imageNamed:@"sync.png"];
         [self.clearCacheButton setImage:clearCacheButtonImage forState:UIControlStateNormal];
         [self.clearCacheButton addTarget:self action:@selector(clearCacheAction) forControlEvents: UIControlEventTouchUpInside];
+        
+        
+        self.atvDeviceIdField = [[[UITextField alloc] init] autorelease];
+        self.atvDeviceIdField.font = [UIFont fontWithName:@"Microsoft YaHei" size:14];
+        self.atvDeviceIdField.placeholder = AppDele.atvDeviceId;
+        
+        self.atvDeviceIdField.autocorrectionType = UITextAutocorrectionTypeNo;
+        self.atvDeviceIdField.keyboardType = UIKeyboardTypeDefault;
+        self.atvDeviceIdField.returnKeyType = UIReturnKeyDone;
+        
+        self.atvDeviceIdField.clearButtonMode = UITextFieldViewModeAlways;
+        self.atvDeviceIdField.delegate = self;
+        [self.atvDeviceIdField setAccessibilityLabel:@"AppleTV DeviceID"];
     }
     return self;
 }
@@ -56,6 +70,8 @@
     TT_RELEASE_SAFELY(_syncButton);
     TT_RELEASE_SAFELY(_clearCacheButton);
     TT_RELEASE_SAFELY(_clearCacheItem);
+    TT_RELEASE_SAFELY(_atvDeviceIdField);
+    
     [super dealloc];
 }
 -(void)syncAction{
@@ -180,6 +196,11 @@
     self.clearCacheItem = [TTTableControlItem itemWithCaption:[NSString stringWithFormat:@"清空缓存（ %0.1f Mb）", (float)folderSize/1000/1000] control:self.clearCacheButton];
 
     [items addObject:self.clearCacheItem];
+    
+    TTTableControlItem* atvDeviceIdItem = [TTTableControlItem itemWithCaption:@"AppleTV DeviceID" control:self.atvDeviceIdField];
+    [items addObject:atvDeviceIdItem];
+
+    
     ConfigDataSource* ds = [[[ConfigDataSource alloc] initWithItems:items callback:self] autorelease];
     self.dataSource = ds;
 }
@@ -192,6 +213,12 @@
         }
         [defaults setValue:textField.text forKey:ATV_SERVER_IP_NAME];
         AppDele.serverIP = textField.text;
+    }else if(textField==self.atvDeviceIdField){
+        if(textField.text==nil||textField.text.length==0){
+            textField.text = [[UIDevice currentDevice] uniqueIdentifier];
+        }
+        [defaults setValue:textField.text forKey:ATV_DEVICE_ID_NAME];
+        AppDele.atvDeviceId = textField.text;
     }
     [textField resignFirstResponder];
     return YES;

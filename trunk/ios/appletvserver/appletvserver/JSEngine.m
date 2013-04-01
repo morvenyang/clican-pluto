@@ -182,7 +182,7 @@ JSValueRef getDeviceId(JSContextRef ctx,
                     size_t argumentCount,
                     const JSValueRef arguments[],
                     JSValueRef* exception){
-    NSString* deviceId = [[UIDevice currentDevice] uniqueIdentifier];
+    NSString* deviceId = AppDele.atvDeviceId;
     NSLog(@"deviceId=%@",deviceId);
     return JSValueMakeString(ctx, JSStringCreateWithUTF8CString([deviceId UTF8String]));
 }

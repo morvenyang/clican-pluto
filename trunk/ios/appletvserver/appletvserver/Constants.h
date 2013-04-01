@@ -10,6 +10,7 @@
 #define appletvserver_Constants_h
 
 #define ATV_SERVER_IP_NAME @"ATV_SERVER_IP_NAME"
+#define ATV_DEVICE_ID_NAME @"ATV_DEVICE_ID_NAME"
 #define ATV_SERVER_DEFAULT_IP @"http://16.158.171.2"
 #define WEB_CONTENT_SYNC_API @"/appletv/ctl/proxy/sync.zip"
 #define WEB_CONTENT_SYNC_VERSION_API @"/appletv/ctl/proxy/sync/version.do"
