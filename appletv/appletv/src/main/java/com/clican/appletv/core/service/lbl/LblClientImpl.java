@@ -18,6 +18,7 @@ import org.htmlparser.nodes.TagNode;
 import org.htmlparser.util.NodeList;
 
 import com.clican.appletv.core.service.BaseClient;
+import com.taobao.api.internal.util.StringUtils;
 
 public class LblClientImpl extends BaseClient implements LblClient {
 
@@ -127,6 +128,9 @@ public class LblClientImpl extends BaseClient implements LblClient {
 							break;
 						}
 					}
+				}
+				if (StringUtils.isEmpty(imgUrl)) {
+					return null;
 				}
 				imageMap.put(url, imgUrl);
 				return imgUrl;
