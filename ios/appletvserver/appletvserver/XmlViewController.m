@@ -106,7 +106,7 @@
                 [self performSelectorOnMainThread:@selector(appendVideos:) withObject:node waitUntilDone:YES];
                 break;
             }else if([[node name] isEqualToString:@"itemDetail"]){
-                [self displayDetail:node];
+                [self performSelectorOnMainThread:@selector(displayDetail:) withObject:node waitUntilDone:YES];
                 break;
             }else if([[node name] isEqualToString:@"dialog"]){
                 [self performSelectorOnMainThread:@selector(displayDialog:) withObject:node waitUntilDone:YES];
@@ -351,15 +351,17 @@
 
     
     
-    NSLog(@"picurl=%@",[video picUrl]);
-    self.reflectImageView = [[UIView alloc] initWithFrame:CGRectMake(10, 10 , 113, 164)];
+    
+    self.reflectImageView = [[[UIView alloc] initWithFrame:CGRectMake(10, 10 , 113, 164)]autorelease];
     
     self.imageView = [[[TTImageView alloc] autorelease] initWithFrame:CGRectZero];
-    self.imageView.frame = CGRectMake(0, 0, 93, 124);
+    self.imageView.frame = CGRectMake(10, 10, 93, 124);
     self.imageView.layer.cornerRadius = 8;
     self.imageView.layer.masksToBounds = YES;
     self.imageView.delegate = self;
+    self.imageView.request.cachePolicy = TTURLRequestCachePolicyDefault;
     self.imageView.urlPath = [video picUrl];
+    NSLog(@"picurl=%@",self.imageView.urlPath);
     self.summaryTextLabel = [[[TTStyledTextLabel alloc] init] autorelease];
     
     self.summaryTextLabel.contentMode = UIViewContentModeCenter;
@@ -369,7 +371,12 @@
     self.summaryTextLabel.text = [TTStyledText textFromXHTML:[@"" stringByAppendingFormat:@"<strong>%@</strong>\n导演:%@\n主演:%@\n年份:%@\n地区:%@",video.title,video.directors,video.actors,video.year,video.area] lineBreaks:YES URLs:NO];
     [self.summaryTextLabel sizeToFit];
     double y = self.summaryTextLabel.frame.origin.y+self.summaryTextLabel.frame.size.height;
-    y = y+30;
+    
+    if(y>170){
+        y = y+10;
+    }else{
+        y = 180;
+    }
    
     self.descriptionTextLabel = [[[TTStyledTextLabel alloc] init] autorelease];
     self.descriptionTextLabel.contentMode = UIViewContentModeCenter;

@@ -14,7 +14,7 @@
 
 @synthesize actionUrl = _actionUrl;
 
--(void)dealloc{    
+-(void)dealloc{
     [_actionUrl release];    
     [super dealloc];
 }
