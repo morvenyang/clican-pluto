@@ -127,9 +127,11 @@ var lblClient = {
 					var pack = packs[i];
 					var title = appletv.substringByData(pack, 'title="', '"');
 					var id = appletv.substringByData(pack, '<a href="', '"');
+					var pic = appletv.remoteserverurl+'/ctl/lbl/getImage.do?url='+encodeURIComponent(id);
 					var video = {
 						"title" : title,
 						"id" : id,
+						"pic" : pic
 					};
 					videos.push(video);
 				}
