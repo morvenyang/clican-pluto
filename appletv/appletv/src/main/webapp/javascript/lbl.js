@@ -111,8 +111,13 @@ var lblClient = {
 		appletv.showLoading();
 		var channel = this.lblChannelMap[channelId];
 		var videos = [];
-		var queryUrl = 'http://www.longbuluo.com/' + channel['value']
-				+ '/page/' + page;
+		var queryUrl;
+		if(channelId=='category/search'){
+			queryUrl = 'http://www.longbuluo.com/index.php?s='+encodeURIComponent(keyword)+'&submit=%E5%85%A8%E7%AB%99%E6%90%9C%E7%B4%A2'
+		}else{
+			queryUrl = 'http://www.longbuluo.com/' + channel['value']
+			+ '/page/' + page;
+		}
 
 		var s1 = new Date();
 		appletv.makeRequest(queryUrl, function(content) {
