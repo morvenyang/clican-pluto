@@ -370,28 +370,30 @@
     [self.summaryTextLabel sizeToFit];
     double y = self.summaryTextLabel.frame.origin.y+self.summaryTextLabel.frame.size.height;
     y = y+30;
-    UIScrollView* descScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(10, y, frame.size.width-20, 70)];
+   
     self.descriptionTextLabel = [[[TTStyledTextLabel alloc] init] autorelease];
     self.descriptionTextLabel.contentMode = UIViewContentModeCenter;
-    self.descriptionTextLabel.frame = CGRectMake(0,0,frame.size.width-20,70);
+    self.descriptionTextLabel.frame = CGRectMake(10, y, frame.size.width-20, 70);
     self.descriptionTextLabel.text=[TTStyledText textFromXHTML:[@"" stringByAppendingFormat:@"%@",video.description] lineBreaks:YES URLs:NO];
     [self.descriptionTextLabel sizeToFit];
-    [descScrollView addSubview:self.descriptionTextLabel];
     [self.scrollView addSubview:self.reflectImageView];
     [self.scrollView addSubview:self.summaryTextLabel];
-    [self.scrollView addSubview:descScrollView];
-    y = y+ 70;
-    TTTableView* tableView = [[TTTableView alloc] initWithFrame:CGRectMake(0, y, frame.size.width, frame.size.height - y -92) style:UITableViewStylePlain];
+    [self.scrollView addSubview:self.descriptionTextLabel];
+    y = y+ self.descriptionTextLabel.text.height;
+    TTTableView* tableView = [[TTTableView alloc] initWithFrame:CGRectMake(0, y, frame.size.width, [video.videoItemList count]*50) style:UITableViewStylePlain];
     tableView.delegate=self;
     NSMutableArray* items = [NSMutableArray array];
     for(int i=0;i<[video.videoItemList count];i++){
         VideoItem* vi = [video.videoItemList objectAtIndex:i];
         TTTableTextItem* item = [TTTableTextItem itemWithText:vi.title URL:vi.onSelect];
         [items addObject:item];
+        y = y+50;
     }
+    y = y+50;
     tableView.dataSource = [[TTListDataSource alloc] initWithItems:items];
     [self.scrollView addSubview:tableView];
-    
+    self.scrollView.contentSize =
+    CGSizeMake(frame.size.width, y);
     
     [self.view addSubview:self.scrollView];
 }
