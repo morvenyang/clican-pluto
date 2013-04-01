@@ -15,8 +15,9 @@
 #import "Constants.h"
 #import "URLDataHeaderResponse.h"
 #import "ASIHTTPRequest.h"
-#import "SBJsonWriter.h"
-#import "SBJsonParser.h"
+#import <extThree20JSON/SBJsonWriter.h>
+#import <extThree20JSON/SBJsonParser.h>
+
 @implementation JSEngine
 
 JSValueRef logToServer(JSContextRef ctx,
