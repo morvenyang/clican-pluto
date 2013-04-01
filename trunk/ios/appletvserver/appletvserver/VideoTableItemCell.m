@@ -76,6 +76,7 @@
             TTStyledTextLabel* titleLabel = [self.titleArray objectAtIndex:i];
             if([self.videoTableItem.videoList count]>i){
                 Video* video = [self.videoTableItem.videoList objectAtIndex:i];
+                imageView.defaultImage = [UIImage imageNamed:@"video_default.png"];
                 imageView.urlPath = [video picUrl];
                 titleLabel.text = [TTStyledText textFromXHTML:[video title] lineBreaks:YES URLs:NO];
                 imageView.actionUrl=video.onSelect;

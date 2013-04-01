@@ -10,8 +10,8 @@
 #define appletvserver_Constants_h
 
 #define ATV_SERVER_IP_NAME @"ATV_SERVER_IP_NAME"
-#define ATV_SERVER_DEFAULT_IP @"http://clican.org:9001"
-#define WEB_CONTENT_SYNC_API @"/appletv/sync.zip"
+#define ATV_SERVER_DEFAULT_IP @"http://16.158.171.2"
+#define WEB_CONTENT_SYNC_API @"/appletv/ctl/proxy/sync.zip"
 #define WEB_CONTENT_SYNC_VERSION_API @"/appletv/ctl/proxy/sync/version.do"
 #define MP4_PARTIAL_LENGTH 1048576
 #define ALog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)

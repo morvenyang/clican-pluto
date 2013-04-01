@@ -78,6 +78,7 @@
 		722FF16116FC06A500237F15 /* mztools.c in Sources */ = {isa = PBXBuildFile; fileRef = 722FF15A16FC06A500237F15 /* mztools.c */; };
 		722FF16216FC06A500237F15 /* unzip.c in Sources */ = {isa = PBXBuildFile; fileRef = 722FF15C16FC06A500237F15 /* unzip.c */; };
 		722FF16316FC06A500237F15 /* zip.c in Sources */ = {isa = PBXBuildFile; fileRef = 722FF15E16FC06A500237F15 /* zip.c */; };
+		7233EB5B1709354800EF342E /* video_default.png in Resources */ = {isa = PBXBuildFile; fileRef = 7233EB5A1709354800EF342E /* video_default.png */; };
 		72360C4816EED8DD00E0842B /* XunLeiLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 72360C4716EED8DD00E0842B /* XunLeiLoginViewController.m */; };
 		72360C5B16EEDDD700E0842B /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 72360C5A16EEDDD700E0842B /* RootViewController.m */; };
 		724024F817016B990015352A /* XmlDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 724024F717016B990015352A /* XmlDataSource.m */; };
@@ -471,6 +472,7 @@
 		722FF15D16FC06A500237F15 /* unzip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = unzip.h; path = ZipArchive/minizip/unzip.h; sourceTree = "<group>"; };
 		722FF15E16FC06A500237F15 /* zip.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = zip.c; path = ZipArchive/minizip/zip.c; sourceTree = "<group>"; };
 		722FF15F16FC06A500237F15 /* zip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = zip.h; path = ZipArchive/minizip/zip.h; sourceTree = "<group>"; };
+		7233EB5A1709354800EF342E /* video_default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = video_default.png; sourceTree = "<group>"; };
 		72360C4616EED8DD00E0842B /* XunLeiLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XunLeiLoginViewController.h; sourceTree = "<group>"; };
 		72360C4716EED8DD00E0842B /* XunLeiLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XunLeiLoginViewController.m; sourceTree = "<group>"; };
 		72360C5916EEDDD700E0842B /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
@@ -1039,6 +1041,7 @@
 		72A69BD016C9F9420099D974 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				7233EB5A1709354800EF342E /* video_default.png */,
 				7206AB031707CBD90049FE0D /* sync.png */,
 				7205AEDE17058F8D00595D4B /* right_arrow.png */,
 				7205AEDF17058F8E00595D4B /* left_arrow.png */,
@@ -1513,6 +1516,7 @@
 				7205AEE017058F8E00595D4B /* right_arrow.png in Resources */,
 				7205AEE117058F8E00595D4B /* left_arrow.png in Resources */,
 				7206AB041707CBD90049FE0D /* sync.png in Resources */,
+				7233EB5B1709354800EF342E /* video_default.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
