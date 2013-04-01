@@ -8,13 +8,17 @@
 
 #import <Three20UI/Three20UI.h>
 #import "MBProgressHUD.h"
-
-@interface ConfigViewController : TTTableViewController<UITextFieldDelegate,MBProgressHUDDelegate>{
+#import "ConfigDataSource.h"
+@interface ConfigViewController : TTTableViewController<UITextFieldDelegate,MBProgressHUDDelegate,UITableViewDelegate,ConfigCallback>{
     UITextField* _serverIPField;
     UIButton* _syncButton;
+    UIButton* _clearCacheButton;
     MBProgressHUD* _progressHUD;
+    TTTableControlItem* _clearCacheItem;
 }
 @property (nonatomic, retain) UITextField *serverIPField;
 @property (nonatomic, retain) UIButton *syncButton;
+@property (nonatomic, retain) UIButton *clearCacheButton;
 @property (nonatomic, retain) MBProgressHUD    *progressHUD;
+@property (nonatomic, retain) TTTableControlItem    *clearCacheItem;
 @end
