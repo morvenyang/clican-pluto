@@ -71,7 +71,7 @@ JSValueRef makeRequest(JSContextRef ctx,
     
     AjaxCallbackRequest* request = [AjaxCallbackRequest
                              requestWithURL: url
-                             delegate: [AppDele jsEngine] callback:callback ctx:ctx];
+                             delegate: nil callback:callback ctx:ctx];
     if ([url rangeOfString:@"/appletv"].location!=NSNotFound) {
         request.cachePolicy = TTURLRequestCachePolicyNoCache;
     }else{
@@ -87,8 +87,8 @@ JSValueRef makeRequest(JSContextRef ctx,
     [request.headers setValue:@"Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.22 (KHTML, like Gecko) Chrome/25.0.1364.172 Safari/537.22" forKey:@"User-Agent"];
     URLDataHeaderResponse* response = [[URLDataHeaderResponse alloc] init];
     request.response = response;
+    [TTURLRequestQueue mainQueue].suspended=NO;
     [request sendSynchronously];
-    
     [JSEngine processResponse:request];
     return JSValueMakeNull(ctx);
 }
