@@ -41,6 +41,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 @synthesize jsEngine = _jsEngine;
 @synthesize photoProcess = _photoProcess;
 @synthesize serverIP = _serverIP;
+@synthesize atvDeviceId = _atvDeviceId;
 - (void)dealloc
 {
     [super dealloc];
@@ -83,6 +84,10 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     self.serverIP = [defaults stringForKey: ATV_SERVER_IP_NAME];
     if(self.serverIP==nil||self.serverIP.length==0){
         self.serverIP = ATV_SERVER_DEFAULT_IP;
+    }
+    self.atvDeviceId =  [defaults stringForKey: ATV_DEVICE_ID_NAME];
+    if(self.atvDeviceId==nil||self.atvDeviceId.length==0){
+        self.atvDeviceId = [[UIDevice currentDevice] uniqueIdentifier];
     }
 }
 -(void) initWebContent{

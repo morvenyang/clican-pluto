@@ -15,10 +15,12 @@
     UIButton* _clearCacheButton;
     MBProgressHUD* _progressHUD;
     TTTableControlItem* _clearCacheItem;
+    UITextField* _atvDeviceIdField;
 }
 @property (nonatomic, retain) UITextField *serverIPField;
 @property (nonatomic, retain) UIButton *syncButton;
 @property (nonatomic, retain) UIButton *clearCacheButton;
 @property (nonatomic, retain) MBProgressHUD    *progressHUD;
 @property (nonatomic, retain) TTTableControlItem    *clearCacheItem;
+@property (nonatomic, retain) UITextField *atvDeviceIdField;
 @end

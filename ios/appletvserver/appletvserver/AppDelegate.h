@@ -41,6 +41,7 @@
     
     PhotoProcess* _photoProcess;
     NSString* _serverIP;
+    NSString* _atvDeviceId;
 }
 
 @property (nonatomic, retain) ASINetworkQueue* queue;
@@ -59,5 +60,6 @@
 @property (nonatomic, retain) JSEngine* jsEngine;
 @property (nonatomic, retain) PhotoProcess* photoProcess;
 @property (nonatomic, copy) NSString* serverIP;
+@property (nonatomic, copy) NSString* atvDeviceId;
 -(void) initProcess;
 @end
