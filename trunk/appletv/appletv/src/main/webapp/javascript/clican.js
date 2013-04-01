@@ -869,7 +869,7 @@ var appletv = {
 		appletv.showLoading();
 		appletv.makeRequest(appletv.remoteserverurl+'/ctl/localserver/retrive.do', function(innerIP){
 			if(innerIP!=null&&innerIP.length>0){
-				var url = 'http://'+innerIP+':8080/appletv/local.xml';
+				var url = 'http://'+innerIP+':8080/appletv/local.xml?deviceId='+appletv.getDeviceId();
 				appletv.loadURL(url);
 			}else{
 				appletv.showDialog('未侦测到本地服务器', '请去网站http://clican.org参考详细如何安装使用本地服务器.');
