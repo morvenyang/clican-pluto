@@ -24,7 +24,9 @@
 -(void) syncWebContent:(MBProgressHUD*) progress force:(BOOL) force{
     self.progressHUD = progress;
     ASIHTTPRequest *verreq = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:[AppDele.serverIP stringByAppendingFormat:@"%@?t=%f",WEB_CONTENT_SYNC_VERSION_API,[[NSDate new] timeIntervalSince1970]]]];
-    [verreq setTimeOutSeconds:10];
+    if(!force){
+        [verreq setTimeOutSeconds:60];
+    }
     [verreq setShouldContinueWhenAppEntersBackground:YES];
     [verreq startSynchronous];
     NSError *vererror = [verreq error];
@@ -60,6 +62,7 @@
             NSLog(@"Current version is %@, there is no need to update new version %@",currentVersion,version);
         }
     }else{
+        TTAlert(@"链接服务器超时，无法同步脚本，请进入设置手动同步脚本");
         NSLog(@"Cann't connect to ATV Server by ip:%@",AppDele.serverIP);
     }
 }
