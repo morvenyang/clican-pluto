@@ -103,6 +103,8 @@ public class SpringProperty {
 	private String taobaoCategoryJsonFile;
 	private String taobaoLoveTagApi;
 	private String taobaoLoveApi;
+	
+	private String lblImageMapFile;
 			
 	public SpringProperty() {
 		instance = this;
@@ -641,6 +643,14 @@ public class SpringProperty {
 
 	public void setSystemTempPath(String systemTempPath) {
 		this.systemTempPath = systemTempPath;
+	}
+
+	public String getLblImageMapFile() {
+		return lblImageMapFile;
+	}
+
+	public void setLblImageMapFile(String lblImageMapFile) {
+		this.lblImageMapFile = lblImageMapFile;
 	}
 
 	

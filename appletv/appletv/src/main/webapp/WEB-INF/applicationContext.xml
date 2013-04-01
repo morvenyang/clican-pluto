@@ -156,6 +156,8 @@ http://www.springframework.org/schema/context/spring-context-2.5.xsd">
 		<property name="taobaoLoveApi" value="${taobao.love.api}"></property>
 		
 		<property name="userConfigJsonFile" value="${user.config.json.file}"></property>
+		<property name="lblImageMapFile" value="${lbl.image.map.file}"></property>
+		
 	</bean>
 
 	<bean id="tudouClient" class="com.clican.appletv.core.service.tudou.TudouClientImpl"
@@ -225,6 +227,6 @@ http://www.springframework.org/schema/context/spring-context-2.5.xsd">
 	</bean>
 	
 	<bean id="lblClient" class="com.clican.appletv.core.service.lbl.LblClientImpl"
-		autowire="byName">
+		autowire="byName" init-method="init" destroy-method="destroy">
 	</bean>
 </beans>
