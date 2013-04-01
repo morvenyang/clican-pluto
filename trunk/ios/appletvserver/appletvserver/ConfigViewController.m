@@ -126,6 +126,8 @@
     NSLog(@"Cache size:%@",self.clearCacheItem.caption);
     
     self.clearCacheItem.caption = [NSString stringWithFormat:@"清空缓存（ %0.1f Mb）", (float)folderSize/1000/1000];
+    self.atvDeviceIdField.text = AppDele.atvDeviceId;
+    self.atvDeviceIdField.placeholder = AppDele.atvDeviceId;
     _flags.isModelDidLoadInvalid = YES;
     [self invalidateView];
 
