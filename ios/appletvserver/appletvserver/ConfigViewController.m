@@ -18,6 +18,7 @@
 @synthesize clearCacheButton = _clearCacheButton;
 @synthesize clearCacheItem = _clearCacheItem;
 @synthesize atvDeviceIdField = _atvDeviceIdField;
+@synthesize xunleiStatusItem = _xunleiStatusItem;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -71,7 +72,7 @@
     TT_RELEASE_SAFELY(_clearCacheButton);
     TT_RELEASE_SAFELY(_clearCacheItem);
     TT_RELEASE_SAFELY(_atvDeviceIdField);
-    
+    TT_RELEASE_SAFELY(_xunleiStatusItem);
     [super dealloc];
 }
 -(void)syncAction{
@@ -128,6 +129,29 @@
     self.clearCacheItem.caption = [NSString stringWithFormat:@"清空缓存（ %0.1f Mb）", (float)folderSize/1000/1000];
     self.atvDeviceIdField.text = AppDele.atvDeviceId;
     self.atvDeviceIdField.placeholder = AppDele.atvDeviceId;
+    
+    NSArray* cookies =[[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies];
+    NSString* sessionid = @"N/A";
+    NSString* vip = @"否";
+    NSString* userid = @"N/A";
+    for(int i=0;i<[cookies count];i++){
+        NSHTTPCookie* cookie = [cookies objectAtIndex:i];
+        NSLog(@"%@ %@ %@",cookie.name,cookie.value,cookie.domain);
+        if([cookie.domain isEqualToString:@".xunlei.com"]){
+            if([cookie.name isEqualToString:@"userid"]){
+                userid = cookie.value;
+            }else if([cookie.name isEqualToString:@"lsessionid"]){
+                sessionid = cookie.value;
+            }else if([cookie.name isEqualToString:@"isvip"]){
+                vip = cookie.value;
+                if([vip isEqualToString:@"6"]){
+                    vip = @"是";
+                }
+            }
+        }
+    }
+    NSString* xunleiStatus = [NSString stringWithFormat:@"%@\nsessionid:%@\nuserid:%@\nvip:%@",@"<strong>迅雷状态</strong>",sessionid,userid,vip];
+    self.xunleiStatusItem.text = [TTStyledText textFromXHTML:xunleiStatus lineBreaks:YES URLs:NO];
     _flags.isModelDidLoadInvalid = YES;
     [self invalidateView];
 
@@ -179,9 +203,9 @@
     }
     NSString* xunleiStatus = [NSString stringWithFormat:@"%@\nsessionid:%@\nuserid:%@\nvip:%@",@"<strong>迅雷状态</strong>",sessionid,userid,vip];
     
-    TTTableStyledTextItem* xunleiStatusItem = [TTTableStyledTextItem itemWithText:[TTStyledText textFromXHTML:xunleiStatus lineBreaks:YES URLs:NO] URL:nil];
+    self.xunleiStatusItem = [TTTableStyledTextItem itemWithText:[TTStyledText textFromXHTML:xunleiStatus lineBreaks:YES URLs:NO] URL:nil];
 
-    [items addObject:xunleiStatusItem];
+    [items addObject:self.xunleiStatusItem];
     
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
     NSString *path = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"/Three20/"];
