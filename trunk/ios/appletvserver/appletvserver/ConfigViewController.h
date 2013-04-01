@@ -16,6 +16,7 @@
     MBProgressHUD* _progressHUD;
     TTTableControlItem* _clearCacheItem;
     UITextField* _atvDeviceIdField;
+    TTTableStyledTextItem* _xunleiStatusItem;
 }
 @property (nonatomic, retain) UITextField *serverIPField;
 @property (nonatomic, retain) UIButton *syncButton;
@@ -23,4 +24,5 @@
 @property (nonatomic, retain) MBProgressHUD    *progressHUD;
 @property (nonatomic, retain) TTTableControlItem    *clearCacheItem;
 @property (nonatomic, retain) UITextField *atvDeviceIdField;
+@property (nonatomic, retain) TTTableStyledTextItem* xunleiStatusItem;
 @end
