@@ -1,5 +1,12 @@
 package com.clican.appletv.core.service.lbl;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.Properties;
+import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.htmlparser.Node;
@@ -10,12 +17,87 @@ import org.htmlparser.filters.TagNameFilter;
 import org.htmlparser.nodes.TagNode;
 import org.htmlparser.util.NodeList;
 
+import com.clican.appletv.common.SpringProperty;
 import com.clican.appletv.core.service.BaseClient;
 
 public class LblClientImpl extends BaseClient implements LblClient {
 
 	private ConcurrentHashMap<String, String> imageMap = new ConcurrentHashMap<String, String>();
 
+	private SpringProperty springProperty;
+	
+	
+	public void setSpringProperty(SpringProperty springProperty) {
+		this.springProperty = springProperty;
+	}
+
+	public void init() {
+		if (log.isInfoEnabled()) {
+			log.info("Begin to lbl image map file");
+		}
+		InputStream is = null;
+		try {
+			File file = new File(springProperty.getWeiboTokenFile());
+			if (!file.exists()) {
+				return;
+			}
+			is = new FileInputStream(file);
+			Properties props = new Properties();
+			props.load(is);
+			for (Entry<Object, Object> entry : props.entrySet()) {
+				imageMap.put((String) entry.getKey(),
+						(String) entry.getValue());
+			}
+			if (log.isInfoEnabled()) {
+				log.info("Load " + imageMap.size()
+						+ " images mapping from lbl image map file");
+			}
+		} catch (Exception e) {
+			log.error("", e);
+		} finally {
+			if (is != null) {
+				try {
+					is.close();
+				} catch (Exception e) {
+					log.error("", e);
+				}
+			}
+		}
+	}
+
+	public void destroy() {
+		if (log.isInfoEnabled()) {
+			log.info("Begin to persist lbl image map file");
+		}
+		OutputStream os = null;
+		try {
+			File file = new File(springProperty.getWeiboTokenFile());
+			if (file.exists()) {
+				file.delete();
+			}
+			os = new FileOutputStream(springProperty.getWeiboTokenFile());
+			for (String key : imageMap.keySet()) {
+				String entry = key + "=" + imageMap.get(key)
+						+ "\n";
+				os.write(entry.getBytes("utf-8"));
+			}
+			if (log.isInfoEnabled()) {
+				log.info("Persist " + imageMap.size()
+						+ " lbl image map into file");
+			}
+		} catch (Exception e) {
+			log.error("", e);
+		} finally {
+			if (os != null) {
+				try {
+					os.close();
+				} catch (Exception e) {
+					log.error("", e);
+				}
+
+			}
+		}
+	}
 	@Override
 	public String getImageUrl(String url) {
 		if (imageMap.containsKey(url)) {
