@@ -503,7 +503,7 @@
 		7295A39817007017008C04BE /* AtvHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AtvHeader.m; sourceTree = "<group>"; };
 		7295A39A170070F1008C04BE /* AtvOneLineMenuItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AtvOneLineMenuItem.h; sourceTree = "<group>"; };
 		7295A39B170070F1008C04BE /* AtvOneLineMenuItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AtvOneLineMenuItem.m; sourceTree = "<group>"; };
-		72A4367B16C9EA5A00D9958D /* 天王星.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "天王星.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		72A4367B16C9EA5A00D9958D /* appletvserver.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = appletvserver.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		72A4367F16C9EA5A00D9958D /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		72A4368116C9EA5A00D9958D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		72A4368316C9EA5A00D9958D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -946,7 +946,7 @@
 		72A4367C16C9EA5A00D9958D /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				72A4367B16C9EA5A00D9958D /* 天王星.app */,
+				72A4367B16C9EA5A00D9958D /* appletvserver.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1316,7 +1316,7 @@
 			);
 			name = appletvserver;
 			productName = appletvserver;
-			productReference = 72A4367B16C9EA5A00D9958D /* 天王星.app */;
+			productReference = 72A4367B16C9EA5A00D9958D /* appletvserver.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
