@@ -127,19 +127,19 @@ var lblClient = {
 					var pack = packs[i];
 					var title = appletv.substringByData(pack, 'title="', '"');
 					var id = appletv.substringByData(pack, '<a href="', '"');
-					var pic = appletv.remoteserverurl+'/ctl/lbl/getImage.do?url='+encodeURIComponent(id);
 					var video = {
 						"title" : title,
-						"id" : id,
-						"pic" : pic
+						"id" : id
 					};
 					videos.push(video);
 				}
-				lblClient.generateIndexPage(keyword, page, channel,
-						videos);
-				var s2 = new Date();
-				appletv.logToServer('total:'
-						+ (s2.getTime() - s1.getTime()))
+				lblClient.loadPics(videos, function(resultVideos){
+					lblClient.generateIndexPage(keyword, page, channel,
+							resultVideos);
+					var s2 = new Date();
+					appletv.logToServer('total:'
+							+ (s2.getTime() - s1.getTime()))
+				});
 			} else {
 				appletv.showDialog('加载失败', '');
 			}
@@ -173,18 +173,19 @@ var lblClient = {
 		appletv.loadAndSwapXML(xml);
 	},
 
-	loadPics : function(videos, index, callback) {
-		if (index == videos.length) {
-			callback(videos);
-		} else {
-			var url = videos[index]['id'];
-			appletv.makeRequest(url, function(content) {
-				var entry = appletv.substringByTag(content,
-						'<div class="entry">', '</div>', 'div');
-				videos[index]['pic'] = appletv.substringByData(entry, 'src="', '"');
-				lblClient.loadPics(videos, index + 1, callback);
-			});
+	loadPics : function(videos, callback) {
+		var urls = [];
+		for(var i=0;i<videos.length;i++){
+			urls.push(videos[i]['id']);
 		}
+
+		appletv.makePostRequest(appletv.remoteserverurl+'/ctl/lbl/getImages.json',JSON.stringify(urls), function(jsonContent) {
+			var images = JSON.parse(jsonContent);
+			for(var i=0;i<images.length;i++){
+				videos[i]['pic'] = images[i];
+			}
+			callback(videos);
+		});
 	},
 
 	loadVideoPage : function(id) {
