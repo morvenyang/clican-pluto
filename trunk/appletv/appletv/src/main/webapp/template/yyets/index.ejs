@@ -40,7 +40,7 @@
 				</actionButton>
 				<%for(var i=begin;i<end;i++){%>
 					<actionButton id="shelf_item_<%=i%>_page" onSelect="yyetsClient.loadIndexPage('<%=keyword%>',<%=i%>,'<%=channel['value']%>');" onPlay="yyetsClient.loadIndexPage('<%=keyword%>',<%=i%>,'<%=channel['value']%>');">
-						<title><%=i+1%></title>
+						<title><%=i%></title>
 					</actionButton>
 				<%}%>
 				<actionButton id="shelf_item_last_page" onSelect="yyetsClient.loadIndexPage('<%=keyword%>',99,'<%=channel['value']%>');" onPlay="yyetsClient.loadIndexPage('<%=keyword%>',99,'<%=channel['value']%>');">
@@ -71,7 +71,7 @@
 				</actionButton>
 				<%for(var i=begin;i<end;i++){%>
 					<actionButton id="shelf_item_<%=i%>_page" onSelect="yyetsClient.loadIndexPage('<%=keyword%>',<%=i%>,'<%=channel['value']%>');" onPlay="yyetsClient.loadIndexPage('<%=keyword%>',<%=i%>,'<%=channel['value']%>');">
-						<title><%=i+1%></title>
+						<title><%=i%></title>
 					</actionButton>
 				<%}%>
 				<actionButton id="shelf_item_last_page" onSelect="yyetsClient.loadIndexPage('<%=keyword%>',99,'<%=channel['value']%>');" onPlay="yyetsClient.loadIndexPage('<%=keyword%>',99,'<%=channel['value']%>');">
