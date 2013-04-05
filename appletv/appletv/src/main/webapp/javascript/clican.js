@@ -444,6 +444,20 @@ var appletv = {
 		}
 	},
 	
+	playMkv : function(url){
+		var proxy;
+		if(appletv.serverurl.indexOf('clican.org')==-1){
+			proxy = appletv.serverurl;
+		}else{
+			appletv.showDialog('MKV文件必须通过本地服务器代理转码播放');
+			return;
+		}
+		var options = [];
+		var proxyUrl = appletv.serverurl+'/noctl/mkv/play.m3u8?url='+encodeURIComponent(url);
+		options.push({"title":"本地服务器代理转码播放","script":"appletv.loadAndSwapXML(appletv.makePlayXml('"+proxyUrl+"'));"});
+		appletv.showOptionPage('播放源选择','',options);
+	},
+	
 	makePlayXml : function(url) {
 		var xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><atv><body><videoPlayer id=\"play\"><httpLiveStreamingVideoAsset><mediaURL><![CDATA[";
 		xml += url;
