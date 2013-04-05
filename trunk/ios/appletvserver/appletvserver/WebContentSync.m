@@ -21,7 +21,7 @@
 - (void)request:(ASIHTTPRequest *)request didReceiveBytes:(long long)bytes{
     NSLog(@"receiver data %lld",bytes);
 }
--(void) syncWebContent:(MBProgressHUD*) progress force:(BOOL) force{
+-(BOOL) syncWebContent:(MBProgressHUD*) progress force:(BOOL) force{
     self.progressHUD = progress;
     ASIHTTPRequest *verreq = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:[AppDele.serverIP stringByAppendingFormat:@"%@?t=%f",WEB_CONTENT_SYNC_VERSION_API,[[NSDate new] timeIntervalSince1970]]]];
     if(!force){
@@ -55,15 +55,18 @@
                 [zipArchive UnzipFileTo:appletvPath overWrite:YES];
                 [zipArchive UnzipCloseFile];
                 [defaults setValue:version forKey:@"version"];
+                return TRUE;
             }else{
                 NSLog(@"Download sync.zip error %@",error.description);
+                return FALSE;
             }
         }else{
             NSLog(@"Current version is %@, there is no need to update new version %@",currentVersion,version);
+            return TRUE;
         }
     }else{
-        TTAlert(@"链接服务器超时，无法同步脚本，请进入设置手动同步脚本");
         NSLog(@"Cann't connect to ATV Server by ip:%@",AppDele.serverIP);
+        return FALSE;
     }
 }
 

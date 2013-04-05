@@ -441,6 +441,84 @@ void av_noreturn exit_program(int ret) {
 	exit(ret);
 }
 
+void exit_thread(){
+    int i, j;
+    
+	for (i = 0; i < nb_filtergraphs; i++) {
+		avfilter_graph_free(&filtergraphs[i]->graph);
+		for (j = 0; j < filtergraphs[i]->nb_inputs; j++) {
+			av_freep(&filtergraphs[i]->inputs[j]->name);
+			av_freep(&filtergraphs[i]->inputs[j]);
+		}
+		av_freep(&filtergraphs[i]->inputs);
+		for (j = 0; j < filtergraphs[i]->nb_outputs; j++) {
+			av_freep(&filtergraphs[i]->outputs[j]->name);
+			av_freep(&filtergraphs[i]->outputs[j]);
+		}
+		av_freep(&filtergraphs[i]->outputs);
+		av_freep(&filtergraphs[i]);
+	}
+	av_freep(&filtergraphs);
+    
+	av_freep(&subtitle_out);
+    
+	/* close files */
+	for (i = 0; i < nb_output_files; i++) {
+		AVFormatContext *s = output_files[i]->ctx;
+		if (!(s->oformat->flags & AVFMT_NOFILE) && s->pb)
+			avio_close(s->pb);
+		avformat_free_context(s);
+		av_dict_free(&output_files[i]->opts);
+		av_freep(&output_files[i]);
+	}
+	for (i = 0; i < nb_output_streams; i++) {
+		AVBitStreamFilterContext *bsfc = output_streams[i]->bitstream_filters;
+		while (bsfc) {
+			AVBitStreamFilterContext *next = bsfc->next;
+			av_bitstream_filter_close(bsfc);
+			bsfc = next;
+		}
+		output_streams[i]->bitstream_filters = NULL;
+		avcodec_free_frame(&output_streams[i]->filtered_frame);
+        
+		av_freep(&output_streams[i]->forced_keyframes);
+		av_freep(&output_streams[i]->avfilter);
+		av_freep(&output_streams[i]->logfile_prefix);
+		av_freep(&output_streams[i]);
+	}
+	for (i = 0; i < nb_input_files; i++) {
+		avformat_close_input(&input_files[i]->ctx);
+		av_freep(&input_files[i]);
+	}
+	for (i = 0; i < nb_input_streams; i++) {
+		avcodec_free_frame(&input_streams[i]->decoded_frame);
+		av_dict_free(&input_streams[i]->opts);
+		free_buffer_pool(&input_streams[i]->buffer_pool);
+		avfilter_unref_bufferp(&input_streams[i]->sub2video.ref);
+		av_freep(&input_streams[i]->filters);
+		av_freep(&input_streams[i]);
+	}
+    
+	if (vstats_file)
+		fclose(vstats_file);
+	av_free(vstats_filename);
+    
+	av_freep(&input_streams);
+	av_freep(&input_files);
+	av_freep(&output_streams);
+	av_freep(&output_files);
+    
+	uninit_opts();
+    
+	avfilter_uninit();
+	avformat_network_deinit();
+    
+	if (received_sigterm) {
+		av_log(NULL, AV_LOG_INFO, "Received signal %d: terminating.\n",
+               (int) received_sigterm);
+	}
+
+}
 void assert_avoptions(AVDictionary *m) {
 	AVDictionaryEntry *t;
 	if ((t = av_dict_get(m, "", NULL, AV_DICT_IGNORE_SUFFIX))) {
@@ -3206,7 +3284,7 @@ void convert_avi_to_m3u8(const char* input,const char* output1,const char* outpu
 //			output1,"-segment_format","mpegts",output2 };
     
     char *argv[] = { "ffmpeg", "-i", input,
-        "-codec","copy","-vbsf","h264_mp4toannexb","-flags","-global_header","-map","0","-f","segment"
+        "-codec","copy","-vbsf","h264_mp4toannexb","-map","0","-f","segment"
         ,"-segment_list",
         output1,"-segment_time","30",output2 };
     
@@ -3222,6 +3300,11 @@ void convert_avi_to_mp4(const char* input,const char* output) {
 }
 
 int main_convert(int argc, char **argv) {
+    nb_output_files=0;
+    nb_input_files=0;
+    nb_output_streams=0;
+    nb_input_streams=0;
+	exit_thread();
 	OptionsContext o = { 0 };
 	int64_t ti;
 
@@ -3254,6 +3337,7 @@ int main_convert(int argc, char **argv) {
 	/* parse options */
 	parse_options(&o, argc, argv, options, opt_output_file);
 
+    av_log(NULL, AV_LOG_INFO, "input_files %i output_files %i ", nb_input_files, nb_output_files);
 	if (nb_output_files <= 0 && nb_input_files == 0) {
 		show_usage();
 		av_log(NULL, AV_LOG_WARNING,

@@ -49,6 +49,7 @@
     NSString* _localMkvM3u8PathPrefix;
     
     BOOL _ipad;
+    BOOL _simulate;
     int _videoSizePerLine;
 }
 
@@ -70,6 +71,7 @@
 @property (nonatomic, copy) NSString* serverIP;
 @property (nonatomic, copy) NSString* atvDeviceId;
 @property (nonatomic, assign) BOOL ipad;
+@property (nonatomic, assign) BOOL simulate;
 @property (nonatomic, assign) int videoSizePerLine;
 @property (nonatomic, retain) MkvProcess* mkvProcess;
 @property (nonatomic, copy) NSString* localMkvM3u8UrlPrefix;

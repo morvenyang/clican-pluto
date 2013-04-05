@@ -43,10 +43,12 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 @synthesize serverIP = _serverIP;
 @synthesize atvDeviceId = _atvDeviceId;
 @synthesize ipad = _ipad;
+@synthesize simulate = _simulate;
 @synthesize videoSizePerLine = _videoSizePerLine;
 @synthesize mkvProcess = _mkvProcess;
 @synthesize localMkvM3u8PathPrefix = _localMkvM3u8PathPrefix;
 @synthesize localMkvM3u8UrlPrefix = _localMkvM3u8UrlPrefix;
+
 - (void)dealloc
 {
     [super dealloc];
@@ -84,6 +86,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     self.mkvProcess = [[MkvProcess alloc] init];
 }
 -(void) initEnvironment{
+    self.ipAddress = [AtvUtil getIPAddress];
     NSHTTPCookieStorage* cookieStorage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
     [cookieStorage setCookieAcceptPolicy:NSHTTPCookieAcceptPolicyAlways];
     NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
@@ -104,6 +107,10 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
         self.ipad = NO;
         self.videoSizePerLine = 3;
     }
+    if ([deviceType rangeOfString:@"Simulator"].location!=NSNotFound) {
+        self.simulate = TRUE;
+    }
+    NSLog(@"Run in simulate:%d",self.simulate);
 }
 -(void) initWebContent{
     self.webContentSync = [[WebContentSync alloc] init];
@@ -128,14 +135,20 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 }
 -(void) registerLocalServer{
     NSString* url = [NSString stringWithFormat:@"%@/appletv/ctl/localserver/register.do?innerIP=%@",AppDele.serverIP,self.ipAddress];
-    ASIHTTPRequest *req = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:url]];
-    [req startSynchronous];
-    NSError *error = [req error];
-    if (error) {
-        NSLog(@"Register local server error %@",error.description);
-    }else{
-        NSLog(@"Register local server success");
+    @try {
+        ASIHTTPRequest *req = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:url]];
+        [req startSynchronous];
+        NSError *error = [req error];
+        if (error) {
+            NSLog(@"Register local server error %@",error.description);
+        }else{
+            NSLog(@"Register local server success");
+        }
     }
+    @catch (NSException *exception) {
+        NSLog(@"exception occured when register local server %@",exception);
+    }
+    
 }
 
 -(void) initDocument{
@@ -143,6 +156,9 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     NSString *m3u8Outpath = [[path objectAtIndex:0] stringByAppendingFormat:@"%@",@"/temp/m3u8/"];
     NSString *mp4Outpath = [[path objectAtIndex:0] stringByAppendingFormat:@"%@",@"/temp/mp4/"];
     NSString *mkvM3u8Outpath = [[path objectAtIndex:0] stringByAppendingFormat:@"%@",@"/temp/mkvM3u8/"];
+    if(AppDele.simulate){
+        mkvM3u8Outpath = @"/Users/zhangwei/Desktop/mkv/";
+    }
     NSString *webOutpath = [[path objectAtIndex:0] stringByAppendingFormat:@"%@",@"/web"];
 
     //outpath = @"/Users/zhangwei/Desktop/m3u8/";
@@ -159,7 +175,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     self.localM3u8PathPrefix = m3u8Outpath;
     self.localMp4PathPrefix = mp4Outpath;
     self.localWebPathPrefix = webOutpath;
-    self.localMp4PathPrefix = mkvM3u8Outpath;
+    self.localMkvM3u8PathPrefix = mkvM3u8Outpath;
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -167,11 +183,10 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     // Configure our logging framework.
 	// To keep things simple and fast, we're just going to log to the Xcode console.
 	[DDLog addLogger:[DDTTYLogger sharedInstance]];
-    self.ipAddress = [AtvUtil getIPAddress];
     
+    [self initEnvironment];
     [self initQueue];
     [self initDocument];
-    [self initEnvironment];
     [self registerLocalServer];
     [self initWebContent];
     [self initHttpServer];

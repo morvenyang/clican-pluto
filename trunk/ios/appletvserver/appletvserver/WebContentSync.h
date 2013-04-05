@@ -14,5 +14,5 @@
     MBProgressHUD* _progressHUD;
 }
 @property (nonatomic, retain) MBProgressHUD    *progressHUD;
--(void) syncWebContent:(MBProgressHUD*) progress force:(BOOL) force;
+-(BOOL) syncWebContent:(MBProgressHUD*) progress force:(BOOL) force;
 @end

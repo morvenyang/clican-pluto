@@ -209,10 +209,21 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
         NSString* m3u8Url = [AppDele.mkvProcess convertToM3u8MkvUrl:mkvUrl];
         HTTPRedirectResponse* resp = [[HTTPRedirectResponse alloc] initWithPath:m3u8Url];
         return resp;
+    }else if([path rangeOfString:@"/appletv/noctl/proxy/temp/mkvM3u8"].location!=NSNotFound){
+        NSString* fileName = [path stringByReplacingOccurrencesOfString:@"/appletv/noctl/proxy/temp/mkvM3u8/" withString:@""];
+        NSString* filePath = [AppDele.localMkvM3u8PathPrefix stringByAppendingString:fileName];
+        if(![[NSFileManager defaultManager] fileExistsAtPath:filePath]){
+            NSLog(@"The m3u8 file has not been created, wait for 1 second");
+            [NSThread sleepForTimeInterval:1.0f];
+        }
+        NSData* data = [NSData dataWithContentsOfFile:filePath];
+        HTTPDataResponse* resp=[[HTTPDataResponse alloc] initWithData:data];
+        return resp;
     }else{
         return [super httpResponseForMethod:method URI:path];
     }
     return nil;
 }
+
 
 @end
