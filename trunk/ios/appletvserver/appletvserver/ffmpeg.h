@@ -380,6 +380,7 @@ extern int qp_hist;
 extern int same_quant;
 extern int stdin_interaction;
 extern int frame_bits_per_raw_sample;
+extern int transfer_code_interrupt;
 extern AVIOContext *progress_avio;
 
 extern const AVIOInterruptCB int_cb;
@@ -405,6 +406,7 @@ int configure_filtergraph(FilterGraph *fg);
 int configure_output_filter(FilterGraph *fg, OutputFilter *ofilter, AVFilterInOut *out);
 int ist_in_filtergraph(FilterGraph *fg, InputStream *ist);
 FilterGraph *init_simple_filtergraph(InputStream *ist, OutputStream *ost);
-void convert_avi_to_mp4();
+void convert_avi_to_m3u8(const char* input,const char* output1,const char* output2);
+void convert_avi_to_mp4(const char* input,const char* output);
 
 #endif /* FFMPEG_H */

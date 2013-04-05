@@ -16,6 +16,7 @@
 #import "MTAudioPlayer.h"
 #import "WebContentSync.h"
 #import "JSEngine.h"
+#import "MkvProcess.h"
 #define AppDele ((AppDelegate *)[[UIApplication sharedApplication] delegate])
 
 
@@ -43,6 +44,10 @@
     NSString* _serverIP;
     NSString* _atvDeviceId;
     
+    MkvProcess* _mkvProcess;
+    NSString* _localMkvM3u8UrlPrefix;
+    NSString* _localMkvM3u8PathPrefix;
+    
     BOOL _ipad;
     int _videoSizePerLine;
 }
@@ -66,6 +71,9 @@
 @property (nonatomic, copy) NSString* atvDeviceId;
 @property (nonatomic, assign) BOOL ipad;
 @property (nonatomic, assign) int videoSizePerLine;
+@property (nonatomic, retain) MkvProcess* mkvProcess;
+@property (nonatomic, copy) NSString* localMkvM3u8UrlPrefix;
+@property (nonatomic, copy) NSString* localMkvM3u8PathPrefix;
 -(void) initProcess;
 
 @end

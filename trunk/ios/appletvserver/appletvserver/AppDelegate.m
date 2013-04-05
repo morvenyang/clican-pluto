@@ -44,6 +44,9 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 @synthesize atvDeviceId = _atvDeviceId;
 @synthesize ipad = _ipad;
 @synthesize videoSizePerLine = _videoSizePerLine;
+@synthesize mkvProcess = _mkvProcess;
+@synthesize localMkvM3u8PathPrefix = _localMkvM3u8PathPrefix;
+@synthesize localMkvM3u8UrlPrefix = _localMkvM3u8UrlPrefix;
 - (void)dealloc
 {
     [super dealloc];
@@ -78,6 +81,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     self.m3u8Process = [[M3u8Process alloc] init];
     self.mp4Process = [[Mp4Process alloc] init];
     self.photoProcess = [[PhotoProcess alloc] init];
+    self.mkvProcess = [[MkvProcess alloc] init];
 }
 -(void) initEnvironment{
     NSHTTPCookieStorage* cookieStorage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
@@ -138,6 +142,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     NSArray *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *m3u8Outpath = [[path objectAtIndex:0] stringByAppendingFormat:@"%@",@"/temp/m3u8/"];
     NSString *mp4Outpath = [[path objectAtIndex:0] stringByAppendingFormat:@"%@",@"/temp/mp4/"];
+    NSString *mkvM3u8Outpath = [[path objectAtIndex:0] stringByAppendingFormat:@"%@",@"/temp/mkvM3u8/"];
     NSString *webOutpath = [[path objectAtIndex:0] stringByAppendingFormat:@"%@",@"/web"];
 
     //outpath = @"/Users/zhangwei/Desktop/m3u8/";
@@ -150,11 +155,11 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     self.localM3u8UrlPrefix = [@"http://" stringByAppendingFormat:@"%@:8080/appletv/noctl/proxy/temp/m3u8/",self.ipAddress];
     self.localNativeM3u8UrlPrefix = @"http://localhost:8080/appletv/noctl/proxy/temp/m3u8/";
     self.localMp4UrlPrefix = [@"http://" stringByAppendingFormat:@"%@:8080/appletv/noctl/proxy/temp/mp4/",self.ipAddress];
-    NSLog(@"m3u8 url prefix:%@",self.localM3u8UrlPrefix);
-    NSLog(@"mp4 url prefix:%@",self.localMp4UrlPrefix);
+    self.localMkvM3u8UrlPrefix = [@"http://" stringByAppendingFormat:@"%@:8080/appletv/noctl/proxy/temp/mkvM3u8/",self.ipAddress];
     self.localM3u8PathPrefix = m3u8Outpath;
     self.localMp4PathPrefix = mp4Outpath;
     self.localWebPathPrefix = webOutpath;
+    self.localMp4PathPrefix = mkvM3u8Outpath;
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
