@@ -28,6 +28,14 @@
 @synthesize m3u8String = _m3u8String;
 @synthesize running = _running;
 
+
+-(void) dealloc{
+    TT_RELEASE_SAFELY(_m3u8Url);
+    TT_RELEASE_SAFELY(_m3u8RelativeUrl);
+    TT_RELEASE_SAFELY(_m3u8Download);
+    TT_RELEASE_SAFELY(_m3u8String);
+    [super dealloc];
+}
 -(NSString*) doSyncRequestByM3U8Url:(NSString*) url simulate:(NSString *)simulate start:(BOOL) start{
     if(self.m3u8Url==nil||![self.m3u8Url isEqualToString:url]){
         self.m3u8Url = url;
