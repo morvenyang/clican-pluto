@@ -71,13 +71,20 @@
 
 - (void) afterViewLoaded:(id)object{
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-    [[AppDele webContentSync] syncWebContent:self.progressHUD force:NO];
-    [[AppDele jsEngine] reloadJS];
+    BOOL result = [[AppDele webContentSync] syncWebContent:self.progressHUD force:NO];
+    if(result){
+        [[AppDele jsEngine] reloadJS];
+    }
     [AppDele initProcess];
     [self.progressHUD hide:YES];
+    if(!result){
+        [self performSelectorOnMainThread:@selector(showNetworkWarning) withObject:nil waitUntilDone:NO];
+    }
     [pool release];
 }
-
+-(void)showNetworkWarning{
+    TTAlert(@"加载脚本失败,请检查网络是否正常连接");
+}
 - (void)viewDidUnload
 {
     [super viewDidUnload];

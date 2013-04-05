@@ -25,21 +25,11 @@
 -(NSString*) convertToM3u8MkvUrl:(NSString*) url{
     if(self.mkvUrl==nil||![self.mkvUrl isEqualToString:url]||true){
         self.mkvUrl = url;
-        NSArray *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
         NSString *outpath = AppDele.localMkvM3u8PathPrefix;
-        
-        NSCalendar *calendar = [NSCalendar currentCalendar];
-        NSDateComponents *components = [calendar components:(NSSecondCalendarUnit) fromDate:[NSDate date]];
-        int sec = [components second];
-        
-        outpath = [NSString stringWithFormat: @"/Users/zhangwei/Desktop/mkv/%i/",sec];
-        if(![[NSFileManager defaultManager] fileExistsAtPath:outpath]){
-            [[NSFileManager defaultManager] createDirectoryAtPath:outpath withIntermediateDirectories:YES attributes:nil error:nil];
-        }
-        
-        //        NSString  *inpath=[[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:@"1.mkv"];
         NSString* inpath =url;
-        
+        if(AppDele.simulate){
+            inpath=@"/Users/zhangwei/Desktop/1.mkv";
+        }
         NSLog(@"OutPath:%@",outpath);
         NSLog(@"InPath:%@",inpath);
        
@@ -50,6 +40,10 @@
                  NSDate* start = [NSDate date];
                 @try {
                     transfer_code_interrupt = 0;
+                    if([[NSFileManager defaultManager] fileExistsAtPath:outpath]){
+                        [[NSFileManager defaultManager] removeItemAtPath:outpath error:nil];
+                    }
+                    [[NSFileManager defaultManager] createDirectoryAtPath:outpath withIntermediateDirectories:YES attributes:nil error:nil];
                     convert_avi_to_m3u8([inpath cStringUsingEncoding:NSASCIIStringEncoding],[[outpath stringByAppendingString:@"mkv.m3u8"] cStringUsingEncoding:NSASCIIStringEncoding],
                                         [[outpath stringByAppendingString:@"%04d.ts"] cStringUsingEncoding:NSASCIIStringEncoding]);
                    
