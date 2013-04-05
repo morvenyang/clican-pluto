@@ -119,7 +119,7 @@ static int current_time;
 AVIOContext *progress_avio = NULL;
 
 static uint8_t *subtitle_out;
-
+int transfer_code_interrupt = 0;
 #if HAVE_PTHREADS
 /* signal to input threads that they should exit; set by the main thread */
 static int transcoding_finished;
@@ -3056,6 +3056,10 @@ static int transcode(void) {
 #endif
 
 	while (!received_sigterm) {
+        if(transfer_code_interrupt==1){
+            transfer_code_interrupt = 0;
+            break;
+        }
 		int64_t cur_time = av_gettime();
 
 		/* if 'q' pressed, exits */
@@ -3194,12 +3198,25 @@ static void parse_cpuflags(int argc, char **argv, const OptionDef *options) {
 		opt_cpuflags(NULL, "cpuflags", argv[idx + 1]);
 }
 
-void convert_avi_to_mp4(char* input,char* output1,char* output2) {
-	char *argv[] = { "ffmpeg", "-i", "/Users/zhangwei/Desktop/3.rmvb",
-			"-vcodec","libx264","-preset","fast","-crf","28","-acodec","libfdk_aac","-ab","128k",
-			"-flags","-global_header","-map","0:0","-map","0:1","-f","segment",
-			"-segment_time","30","-segment_list",
-			output1,"-segment_format","mpegts",output2 };
+void convert_avi_to_m3u8(const char* input,const char* output1,const char* output2) {
+//	char *argv[] = { "ffmpeg", "-i", input,
+//			"-vcodec","libx264","-preset","fast","-crf","28","-acodec","libfdk_aac","-ab","128k",
+//			"-flags","-global_header","-map","0:0","-map","0:1","-f","segment",
+//			"-segment_time","30","-segment_list",
+//			output1,"-segment_format","mpegts",output2 };
+    
+    char *argv[] = { "ffmpeg", "-i", input,
+        "-codec","copy","-vbsf","h264_mp4toannexb","-flags","-global_header","-map","0","-f","segment"
+        ,"-segment_list",
+        output1,"-segment_time","30",output2 };
+    
+	int size = sizeof(argv) / sizeof(*argv);
+	main_convert(size, argv);
+}
+
+void convert_avi_to_mp4(const char* input,const char* output) {
+	char *argv[] = { "ffmpeg", "-i", input,
+        "-codec:v","copy","-codec:a","copy",output};
 	int size = sizeof(argv) / sizeof(*argv);
 	main_convert(size, argv);
 }

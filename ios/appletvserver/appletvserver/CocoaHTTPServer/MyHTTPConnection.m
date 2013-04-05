@@ -14,6 +14,7 @@
 #import "M3u8Download.h"
 #import "HTTPRedirectResponse.h"
 #import "Constants.h"
+#import "MkvProcess.h"
 // Log levels : off, error, warn, info, verbose
 // Other flags: trace
 static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
@@ -203,7 +204,11 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
         NSData* data = [AppDele.photoProcess readPhoto:idStr];
         HTTPDataResponse* resp=[[HTTPDataResponse alloc] initWithData:data];
         return resp;
-        return nil;
+    }else if([path rangeOfString:@"/appletv/noctl/mkv/play.m3u8"].location!=NSNotFound){
+        NSString* mkvUrl = [[self parseGetParams] objectForKey:@"url"];
+        NSString* m3u8Url = [AppDele.mkvProcess convertToM3u8MkvUrl:mkvUrl];
+        HTTPRedirectResponse* resp = [[HTTPRedirectResponse alloc] initWithPath:m3u8Url];
+        return resp;
     }else{
         return [super httpResponseForMethod:method URI:path];
     }
