@@ -3282,14 +3282,23 @@ void convert_avi_to_m3u8(const char* input,const char* output1,const char* outpu
 //			"-flags","-global_header","-map","0:0","-map","0:1","-f","segment",
 //			"-segment_time","30","-segment_list",
 //			output1,"-segment_format","mpegts",output2 };
+    if(cookie!=NULL){
+        char *argv[]= { "ffmpeg", "-i", input,
+            "-codec","copy","-vbsf","h264_mp4toannexb","-map","0","-f","segment"
+            ,"-segment_list",
+            output1,"-segment_time","30",output2 };
+        int size = sizeof(argv) / sizeof(*argv);
+        main_convert(size, argv);
+    }else{
+        char *argv[]= { "ffmpeg", "-i", input,
+            "-codec","copy","-vbsf","h264_mp4toannexb","-map","0","-f","segment"
+            ,"-segment_list",
+            output1,"-segment_time","30",output2 };
+        int size = sizeof(argv) / sizeof(*argv);
+        main_convert(size, argv);
+    }
     
-    char *argv[] = { "ffmpeg", "-i", input,
-        "-codec","copy","-vbsf","h264_mp4toannexb","-map","0","-f","segment"
-        ,"-segment_list",
-        output1,"-segment_time","30",output2 };
-    
-	int size = sizeof(argv) / sizeof(*argv);
-	main_convert(size, argv);
+	
 }
 
 void convert_avi_to_mp4(const char* input,const char* output) {

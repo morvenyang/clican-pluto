@@ -134,10 +134,11 @@
     NSString* sessionid = @"N/A";
     NSString* vip = @"否";
     NSString* userid = @"N/A";
+    NSString* gdriveid = @"N/A";
     for(int i=0;i<[cookies count];i++){
         NSHTTPCookie* cookie = [cookies objectAtIndex:i];
         NSLog(@"%@ %@ %@",cookie.name,cookie.value,cookie.domain);
-        if([cookie.domain isEqualToString:@".xunlei.com"]){
+        if([cookie.domain rangeOfString:@".xunlei.com"].location!=NSNotFound){
             if([cookie.name isEqualToString:@"userid"]){
                 userid = cookie.value;
             }else if([cookie.name isEqualToString:@"lsessionid"]){
@@ -147,10 +148,12 @@
                 if([vip isEqualToString:@"6"]){
                     vip = @"是";
                 }
+            }else if([cookie.name isEqualToString:@"gdriveid"]){
+                gdriveid=cookie.value;
             }
         }
     }
-    NSString* xunleiStatus = [NSString stringWithFormat:@"%@\nsessionid:%@\nuserid:%@\nvip:%@",@"<strong>迅雷状态</strong>",sessionid,userid,vip];
+    NSString* xunleiStatus = [NSString stringWithFormat:@"%@\nsessionid:%@\nuserid:%@\nvip:%@\ngdriveid:%@",@"<strong>迅雷状态</strong>",sessionid,userid,vip,gdriveid];
     self.xunleiStatusItem.text = [TTStyledText textFromXHTML:xunleiStatus lineBreaks:YES URLs:NO];
     _flags.isModelDidLoadInvalid = YES;
     [self invalidateView];
@@ -185,10 +188,11 @@
     NSString* sessionid = @"N/A";
     NSString* vip = @"否";
     NSString* userid = @"N/A";
+    NSString* gdriveid = @"N/A";
     for(int i=0;i<[cookies count];i++){
         NSHTTPCookie* cookie = [cookies objectAtIndex:i];
         NSLog(@"%@ %@ %@",cookie.name,cookie.value,cookie.domain);
-        if([cookie.domain isEqualToString:@".xunlei.com"]){
+        if([cookie.domain rangeOfString:@".xunlei.com"].location!=NSNotFound){
             if([cookie.name isEqualToString:@"userid"]){
                 userid = cookie.value;
             }else if([cookie.name isEqualToString:@"lsessionid"]){
@@ -198,10 +202,12 @@
                 if([vip isEqualToString:@"6"]){
                     vip = @"是";
                 }
+            }else if([cookie.name isEqualToString:@"gdriveid"]){
+                gdriveid=cookie.value;
             }
         }
     }
-    NSString* xunleiStatus = [NSString stringWithFormat:@"%@\nsessionid:%@\nuserid:%@\nvip:%@",@"<strong>迅雷状态</strong>",sessionid,userid,vip];
+    NSString* xunleiStatus = [NSString stringWithFormat:@"%@\nsessionid:%@\nuserid:%@\nvip:%@\ngdriveid:%@",@"<strong>迅雷状态</strong>",sessionid,userid,vip,gdriveid];
     
     self.xunleiStatusItem = [TTTableStyledTextItem itemWithText:[TTStyledText textFromXHTML:xunleiStatus lineBreaks:YES URLs:NO] URL:nil];
 

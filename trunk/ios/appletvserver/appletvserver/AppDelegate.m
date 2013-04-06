@@ -107,9 +107,9 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
         self.ipad = NO;
         self.videoSizePerLine = 3;
     }
-    if ([deviceType rangeOfString:@"Simulator"].location!=NSNotFound) {
-        self.simulate = TRUE;
-    }
+//    if ([deviceType rangeOfString:@"Simulator"].location!=NSNotFound) {
+//        self.simulate = TRUE;
+//    }
     NSLog(@"Run in simulate:%d",self.simulate);
 }
 -(void) initWebContent{
