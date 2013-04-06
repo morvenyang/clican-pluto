@@ -206,15 +206,36 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
         return resp;
     }else if([path rangeOfString:@"/appletv/noctl/mkv/play.m3u8"].location!=NSNotFound){
         NSString* mkvUrl = [[self parseGetParams] objectForKey:@"url"];
-        NSString* m3u8Url = [AppDele.mkvProcess convertToM3u8MkvUrl:mkvUrl];
-        HTTPRedirectResponse* resp = [[HTTPRedirectResponse alloc] initWithPath:m3u8Url];
+        
+        if(![mkvUrl isEqualToString:AppDele.mkvProcess.mkvUrl]){
+            [AppDele.mkvProcess convertToM3u8MkvUrl:mkvUrl];
+        }
+        NSString* filePath = [AppDele.localMkvM3u8PathPrefix stringByAppendingString:@"mkv.m3u8"];
+        NSLog(@"m3u8Path:%@",filePath);
+        while(TRUE){
+            if(![[NSFileManager defaultManager] fileExistsAtPath:filePath]){
+                NSLog(@"The m3u8 file has not been created, wait for 1 second");
+                [NSThread sleepForTimeInterval:1.0f];
+            }else{
+                [NSThread sleepForTimeInterval:3.0f];
+                break;
+            }
+        }
+        NSString* content =[NSString stringWithContentsOfURL:[NSURL fileURLWithPath:filePath] encoding:NSUTF8StringEncoding error:nil];
+        if(content!=NULL){
+            content = [content stringByReplacingOccurrencesOfString:AppDele.localMkvM3u8PathPrefix withString:AppDele.localMkvM3u8UrlPrefix];
+        }
+        NSLog(@"%@",content);
+        NSData *data = [content dataUsingEncoding:NSUTF8StringEncoding];
+        HTTPDataResponse* resp=[[HTTPDataResponse alloc] initWithData:data];
         return resp;
     }else if([path rangeOfString:@"/appletv/noctl/proxy/temp/mkvM3u8"].location!=NSNotFound){
         NSString* fileName = [path stringByReplacingOccurrencesOfString:@"/appletv/noctl/proxy/temp/mkvM3u8/" withString:@""];
         NSString* filePath = [AppDele.localMkvM3u8PathPrefix stringByAppendingString:fileName];
         if(![[NSFileManager defaultManager] fileExistsAtPath:filePath]){
-            NSLog(@"The m3u8 file has not been created, wait for 1 second");
-            [NSThread sleepForTimeInterval:1.0f];
+            NSLog(@"ts for mkv is not found %@",fileName);
+        }else{
+            NSLog(@"ts for mkv is found %@",fileName);
         }
         NSData* data = [NSData dataWithContentsOfFile:filePath];
         HTTPDataResponse* resp=[[HTTPDataResponse alloc] initWithData:data];
