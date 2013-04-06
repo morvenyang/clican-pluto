@@ -18,6 +18,6 @@
 @property (nonatomic, copy) NSString* m3u8Url;
 @property (nonatomic, assign) BOOL running;
 
--(NSString*) convertToM3u8MkvUrl:(NSString*) url;
+-(void) convertToM3u8MkvUrl:(NSString*) url;
 
 @end

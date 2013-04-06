@@ -22,12 +22,12 @@
     [super dealloc];
 }
 
--(NSString*) convertToM3u8MkvUrl:(NSString*) url{
+-(void) convertToM3u8MkvUrl:(NSString*) url{
     if(self.mkvUrl==nil||![self.mkvUrl isEqualToString:url]||true){
         self.mkvUrl = url;
         NSString *outpath = AppDele.localMkvM3u8PathPrefix;
         NSString* inpath =url;
-        if(AppDele.simulate){
+        if(AppDele.simulate||true){
             inpath=@"/Users/zhangwei/Desktop/1.mkv";
         }
         NSLog(@"OutPath:%@",outpath);
@@ -45,6 +45,7 @@
                     }
                     [[NSFileManager defaultManager] createDirectoryAtPath:outpath withIntermediateDirectories:YES attributes:nil error:nil];
                     //"gdriveid=08D39F59B366F371195050D992B72FD2;"
+                    NSLog(@"m3u8Path:%@",[outpath stringByAppendingString:@"mkv.m3u8"]);
                     convert_avi_to_m3u8([inpath cStringUsingEncoding:NSASCIIStringEncoding],[[outpath stringByAppendingString:@"mkv.m3u8"] cStringUsingEncoding:NSASCIIStringEncoding],
                                         [[outpath stringByAppendingString:@"%04d.ts"] cStringUsingEncoding:NSASCIIStringEncoding]);
                    
@@ -60,11 +61,7 @@
             
 
         });
-        return self.m3u8Url;
-    }else{
-        return self.m3u8Url;
     }
-    return nil;
 }
 
 @end

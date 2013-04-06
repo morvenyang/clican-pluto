@@ -3283,10 +3283,15 @@ void convert_avi_to_m3u8(const char* input,const char* output1,const char* outpu
 //			"-segment_time","30","-segment_list",
 //			output1,"-segment_format","mpegts",output2 };
     
-        char *argv[]= { "ffmpeg", "-i", input,
-            "-codec","copy","-vbsf","h264_mp4toannexb","-map","0","-f","segment"
-            ,"-segment_list",
-            output1,"-segment_time","30",output2 };
+//        char *argv[]= { "ffmpeg","-headers","Cookie:gdriveid=08D39F59B366F371195050D992B72FD2\r\n","-i", input,
+//            "-codec","copy","-vbsf","h264_mp4toannexb","-map","0","-f","segment"
+//            ,"-segment_list",
+//            output1,"-segment_time","30",output2 };
+    
+    char *argv[]= { "ffmpeg","-i", input,
+        "-codec","copy","-vbsf","h264_mp4toannexb","-map","0","-f","segment"
+        ,"-segment_list",
+        output1,"-segment_time","30",output2 };
         int size = sizeof(argv) / sizeof(*argv);
         main_convert(size, argv);
 
