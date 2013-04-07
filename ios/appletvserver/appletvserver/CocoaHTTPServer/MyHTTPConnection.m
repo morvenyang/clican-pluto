@@ -177,10 +177,11 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
         NSString* lxsessionid = @"";
         NSString* vip = @"";
         NSString* userid = @"";
+        NSString* gdriveid = @"";
         for(int i=0;i<[cookies count];i++){
             NSHTTPCookie* cookie = [cookies objectAtIndex:i];
             NSLog(@"%@ %@ %@",cookie.name,cookie.value,cookie.domain);
-            if([cookie.domain isEqualToString:@".xunlei.com"]){
+            if([cookie.domain rangeOfString:@".xunlei.com"].location!=NSNotFound){
                 if([cookie.name isEqualToString:@"userid"]){
                     userid = cookie.value;
                 }else if([cookie.name isEqualToString:@"lsessionid"]){
@@ -189,10 +190,12 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
                     vip = cookie.value;
                 }else if([cookie.name isEqualToString:@"lx_sessionid"]){
                     lxsessionid = cookie.value;
+                }else if([cookie.name isEqualToString:@"gdriveid"]){
+                    gdriveid = cookie.value;
                 }
             }
         }
-        NSString* content = [NSString stringWithFormat:@"{\"sessionid\":\"%@\",\"userid\":\"%@\",\"vip\":\"%@\",\"lxsessionid\":\"%@\"}",sessionid,userid,vip,lxsessionid];
+        NSString* content = [NSString stringWithFormat:@"{\"sessionid\":\"%@\",\"userid\":\"%@\",\"vip\":\"%@\",\"lxsessionid\":\"%@\",\"gdriveid\":\"%@\"}",sessionid,userid,vip,lxsessionid,gdriveid];
         NSLog(@"%@",content);
         NSData *data = [content dataUsingEncoding:NSUTF8StringEncoding];
         HTTPDataResponse* resp=[[HTTPDataResponse alloc] initWithData:data];

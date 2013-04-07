@@ -11,7 +11,7 @@
 
 #define ATV_SERVER_IP_NAME @"ATV_SERVER_IP_NAME"
 #define ATV_DEVICE_ID_NAME @"ATV_DEVICE_ID_NAME"
-#define ATV_SERVER_DEFAULT_IP @"http://16.158.171.2"
+#define ATV_SERVER_DEFAULT_IP @"http://10.0.1.8:9090"
 #define WEB_CONTENT_SYNC_API @"/appletv/ctl/proxy/sync.zip"
 #define WEB_CONTENT_SYNC_VERSION_API @"/appletv/ctl/proxy/sync/version.do"
 #define MP4_PARTIAL_LENGTH 1048576
