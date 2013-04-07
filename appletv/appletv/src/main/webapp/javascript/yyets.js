@@ -334,7 +334,7 @@ var yyetsClient = {
 	
 	play:function(url){
 		appletv.showLoading();
-		if(appletv.simulate!='native'){
+		if(appletv.simulate!='native'||true){
 			var encodeUrl = url.replace(new RegExp('&', 'g'),'&amp;');
 			var options = [];
 			options.push({"title":"迅雷云点播/迅雷云转码播放","script":"xunleiClient.play('"+encodeUrl+"');"});
