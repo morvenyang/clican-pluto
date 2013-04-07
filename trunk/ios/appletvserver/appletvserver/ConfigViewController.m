@@ -132,6 +132,7 @@
     
     NSArray* cookies =[[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies];
     NSString* sessionid = @"N/A";
+    NSString* lxsessionid = @"N/A";
     NSString* vip = @"否";
     NSString* userid = @"N/A";
     NSString* gdriveid = @"N/A";
@@ -150,10 +151,12 @@
                 }
             }else if([cookie.name isEqualToString:@"gdriveid"]){
                 gdriveid=cookie.value;
+            }else if([cookie.name isEqualToString:@"lx_sessionid"]){
+                lxsessionid = cookie.value;
             }
         }
     }
-    NSString* xunleiStatus = [NSString stringWithFormat:@"%@\nsessionid:%@\nuserid:%@\nvip:%@\ngdriveid:%@",@"<strong>迅雷状态</strong>",sessionid,userid,vip,gdriveid];
+    NSString* xunleiStatus = [NSString stringWithFormat:@"%@\nsessionid:%@\nuserid:%@\nvip:%@\ngdriveid:%@\nlxsessionid:%@",@"<strong>迅雷状态</strong>",sessionid,userid,vip,gdriveid,lxsessionid];
     self.xunleiStatusItem.text = [TTStyledText textFromXHTML:xunleiStatus lineBreaks:YES URLs:NO];
     _flags.isModelDidLoadInvalid = YES;
     [self invalidateView];
@@ -186,6 +189,7 @@
     
     NSArray* cookies =[[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies];
     NSString* sessionid = @"N/A";
+    NSString* lxsessionid = @"N/A";
     NSString* vip = @"否";
     NSString* userid = @"N/A";
     NSString* gdriveid = @"N/A";
@@ -204,10 +208,12 @@
                 }
             }else if([cookie.name isEqualToString:@"gdriveid"]){
                 gdriveid=cookie.value;
+            }else if([cookie.name isEqualToString:@"lx_sessionid"]){
+                lxsessionid = cookie.value;
             }
         }
     }
-    NSString* xunleiStatus = [NSString stringWithFormat:@"%@\nsessionid:%@\nuserid:%@\nvip:%@\ngdriveid:%@",@"<strong>迅雷状态</strong>",sessionid,userid,vip,gdriveid];
+    NSString* xunleiStatus = [NSString stringWithFormat:@"%@\nsessionid:%@\nuserid:%@\nvip:%@\ngdriveid:%@\nlxsessionid:%@",@"<strong>迅雷状态</strong>",sessionid,userid,vip,gdriveid,lxsessionid];
     
     self.xunleiStatusItem = [TTTableStyledTextItem itemWithText:[TTStyledText textFromXHTML:xunleiStatus lineBreaks:YES URLs:NO] URL:nil];
 
