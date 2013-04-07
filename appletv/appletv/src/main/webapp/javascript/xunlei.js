@@ -122,9 +122,9 @@ var xunleiClient = {
 		if(result==1){
 			var queryDownloadUrl = "http://dynamic.cloud.vip.xunlei.com/user_task?userid="+userid;
 			appletv.makeRequest(queryDownloadUrl,function(result){
-				appletv.logToServer('offline result3:'+result);
 				var startTag = '<input id="dl_url'+id+'" type="hidden" value="';
-				var downloadUrl = appletv.substringByData(startTag,'"').trim();
+				var downloadUrl = appletv.substringByData(result,startTag,'"').trim();
+				appletv.logToServer('offline download url:'+downloadUrl);
 				appletv.playMkv(downloadUrl);
 			});
 		}else{
