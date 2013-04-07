@@ -80,15 +80,6 @@ var xunleiClient = {
 				appletv.showDialog('迅雷离线下载登录过期请在本地服务器上重新登录','具体说明请参考http://clican.org');
 			}else{
 				var cookie = "userid="+userid+"; lx_sessionid="+lxsessionid+";lx_login="+userid+";gdriveid="+gdriveid+";"
-				if(name==null||name.length==0){
-					if(url.indexOf('ed2k')>=0){
-						var startstr ='file|';
-						var endstr = '|';
-						name = appletv.substringByData(url, startstr, endstr);
-					}else{
-						name = 'Unknown';
-					}
-				}
 				var random = new Date().getTime();
 				var checkUrl = "http://dynamic.cloud.vip.xunlei.com/interface/task_check?callback=xunleiClient.queryCid&url="+encodeURIComponent(url)+"&interfrom=task&random="+random+"&tcache="+random;
 				appletv.makeRequest(checkUrl,function(result){
