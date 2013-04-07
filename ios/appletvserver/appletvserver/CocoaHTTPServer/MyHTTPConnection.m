@@ -174,6 +174,7 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
     }else if([path isEqualToString:@"/appletv/noctl/xunlei/getsession.do"]){
         NSArray* cookies =[[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies];
         NSString* sessionid = @"";
+        NSString* lxsessionid = @"";
         NSString* vip = @"";
         NSString* userid = @"";
         for(int i=0;i<[cookies count];i++){
@@ -186,10 +187,12 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
                     sessionid = cookie.value;
                 }else if([cookie.name isEqualToString:@"isvip"]){
                     vip = cookie.value;
+                }else if([cookie.name isEqualToString:@"lx_sessionid"]){
+                    lxsessionid = cookie.value;
                 }
             }
         }
-        NSString* content = [NSString stringWithFormat:@"{\"sessionid\":\"%@\",\"userid\":\"%@\",\"vip\":\"%@\"}",sessionid,userid,vip];
+        NSString* content = [NSString stringWithFormat:@"{\"sessionid\":\"%@\",\"userid\":\"%@\",\"vip\":\"%@\",\"lxsessionid\":\"%@\"}",sessionid,userid,vip,lxsessionid];
         NSLog(@"%@",content);
         NSData *data = [content dataUsingEncoding:NSUTF8StringEncoding];
         HTTPDataResponse* resp=[[HTTPDataResponse alloc] initWithData:data];
@@ -224,7 +227,11 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
         NSString* content =[NSString stringWithContentsOfURL:[NSURL fileURLWithPath:filePath] encoding:NSUTF8StringEncoding error:nil];
         if(content!=NULL){
             content = [content stringByReplacingOccurrencesOfString:AppDele.localMkvM3u8PathPrefix withString:AppDele.localMkvM3u8UrlPrefix];
+            content = [content stringByReplacingOccurrencesOfString:@"#EXT-X-VERSION:3" withString:@"#EXT-X-TARGETDURATION:30\n#EXT-X-VERSION:3"];
+            content = [content stringByReplacingOccurrencesOfString:@"#EXT-X-ALLOWCACHE:1\n" withString:@""];
+            //content = [content stringByAppendingString:@"#EXT-X-ENDLIST\n"];
         }
+
         NSLog(@"%@",content);
         NSData *data = [content dataUsingEncoding:NSUTF8StringEncoding];
         HTTPDataResponse* resp=[[HTTPDataResponse alloc] initWithData:data];

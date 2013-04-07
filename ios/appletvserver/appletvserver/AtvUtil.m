@@ -71,6 +71,9 @@
 
 + (NSString*)encodeURL:(NSString *)string
 {
+    if(string==nil){
+        return nil;
+    }
 	NSString *newString = [NSMakeCollectable(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)string, NULL, CFSTR(":/?#[]@!$ &'()*+,;=\"<>%{}|\\^~`"), CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding))) autorelease];
 	if (newString) {
 		return newString;

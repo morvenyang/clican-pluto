@@ -15,7 +15,7 @@
 @synthesize m3u8Url = _m3u8Url;
 @synthesize mkvUrl = _mkvUrl;
 @synthesize running = _running;
-
+@synthesize mkvM3u8Content = _mkvM3u8Content;
 -(void) dealloc{
     TT_RELEASE_SAFELY(_m3u8Url);
     TT_RELEASE_SAFELY(_mkvUrl);
@@ -28,7 +28,7 @@
         NSString *outpath = AppDele.localMkvM3u8PathPrefix;
         NSString* inpath =url;
         if(AppDele.simulate||true){
-            inpath=@"/Users/zhangwei/Desktop/1.mkv";
+            inpath=@"/Users/zhangwei/Desktop/2.mkv";
         }
         NSLog(@"OutPath:%@",outpath);
         NSLog(@"InPath:%@",inpath);

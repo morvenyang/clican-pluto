@@ -7,7 +7,7 @@
 //
 
 #import "InputViewController.h"
-
+#import "AtvUtil.h"
 @implementation InputViewController
 
 @synthesize label = _label;
@@ -73,7 +73,7 @@
 - (void) submitAction
 {
     NSLog(@"Submit");
-    NSString* content = self.textField.text;
+    NSString* content = [AtvUtil encodeURL:self.textField.text];
     NSLog(@"content:%@" ,content);
     JSValueRef args[1];
     args[0] = JSValueMakeString(self.ctx,JSStringCreateWithUTF8CString([content UTF8String]));
