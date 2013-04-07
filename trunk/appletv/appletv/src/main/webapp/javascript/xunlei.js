@@ -74,12 +74,12 @@ var xunleiClient = {
 		this.loadXunleiSession(function(xunleisession){
 			var gdriveid=xunleisession['gdriveid'];
 			var userid=xunleisession['userid'];
-			var lx_sessionid=xunleisession['lx_sessionid'];
+			var lxsessionid=xunleisession['lxsessionid'];
 			
-			if(gdriveid==null||gdriveid.length==0||userid==null||userid.length==0||lx_sessionid==null||lx_sessionid.length==0){
+			if(gdriveid==null||gdriveid.length==0||userid==null||userid.length==0||lxsessionid==null||lxsessionid.length==0){
 				appletv.showDialog('迅雷离线下载登录过期请在本地服务器上重新登录','具体说明请参考http://clican.org');
 			}else{
-				var cookie = "userid="+userid+"; lx_sessionid="+lx_sessionid+";lx_login="+userid+";gdriveid="+gdriveid+";"
+				var cookie = "userid="+userid+"; lx_sessionid="+lxsessionid+";lx_login="+userid+";gdriveid="+gdriveid+";"
 				if(name==null||name.length==0){
 					if(url.indexOf('ed2k')>=0){
 						var startstr ='file|';
