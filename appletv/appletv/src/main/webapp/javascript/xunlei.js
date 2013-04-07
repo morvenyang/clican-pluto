@@ -110,7 +110,7 @@ var xunleiClient = {
 				result = "xunleiClient."+result.substring(0,result.length-1)+",'"+userid+"','"+cookie+"')";
 				eval(result);
 			}else{
-				appletv.showDialog('迅雷离线下载失败','未收到ret_task回调'');
+				appletv.showDialog('迅雷离线下载失败','未收到ret_task回调');
 			}
 		},{
 			"Cookie" : cookie
