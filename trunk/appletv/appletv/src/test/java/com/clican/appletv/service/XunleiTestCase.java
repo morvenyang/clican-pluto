@@ -63,7 +63,7 @@ public class XunleiTestCase extends BaseServiceTestCase {
 				+ URLEncoder.encode(m3u8Url2, "utf-8");
 		String test3 = "http://16.158.169.15:8080/appletv/noctl/proxy/play.m3u8?url="
 				+ URLEncoder.encode(m3u8Url3, "utf-8");
-		String test5 = "http://10.0.1.8:8080/appletv/noctl/mkv/play.m3u8?url="
+		String test5 = "http://16.158.169.15:8080/appletv/noctl/mkv/play.m3u8?url="
 			+ URLEncoder.encode(mkvUrl, "utf-8");
 		System.out.println(tudouClient.httpGet(m3u8Url1));
 		System.out.println(test1);
@@ -110,5 +110,18 @@ public class XunleiTestCase extends BaseServiceTestCase {
 		header.put("Cookie", "gdriveid=08D39F59B366F371195050D992B72FD2;");
 		String url ="http://vod30.t19.lixian.vip.xunlei.com:443/download?fid=emlPgw9jX5lBcmGnVJ4RgeXO+Hxq6VFcAAAAANuBvkGCNBSzd4lE4fk1okftXEb7&mid=666&threshold=150&tid=EDCDE1299DC6E43F04EFF63FACBBE88D&srcid=4&verno=1&g=DB81BE41823414B3778944E1F935A247ED5C46FB&scn=t9&i=817119D8471F0BCC3DCFDF0712D5CD4B&t=4&ui=5663595&ti=161029492610&s=1548872042&m=0&n=011559817177616C6B085F8371646561644F42D46C6531362E5603D42F2E686474171F9C6D36342D320955CA326B760000&ff=0&co=909A5217E21D287776E49561158F5D2B&cm=1&ts=1365205639";
 		tudouClient.httpGetByData(url, header, null);
+	}
+	
+	public void submitOfflineTask() throws Exception{
+		
+		Map<String, String> header = new HashMap<String, String>();
+		//header.put("Cookie", "KANKANWEBUID=cc007136178182505835004214626600; pgv_pvi=7034767790; lsessionid=75F30341DD84F450A07B5F048941BDA741543D43DFE28DBA96FA9F60AF4974487886810DDFA6DBB571B29B00799E85C40C0EBD7F4351C869315ADEDABC0118B4; luserid=5663595; active=0; blogresult=0; downbyte=757879921644; downfile=1429; isspwd=0; jumpkey=8670FCFC6D6C258573228A776251FB5D0F5F7A06F1643C7B4F7BEFB15B519C13688F08A60DB76D590CEB01B72DF60E9321144FA43E1F4E0B70FFF975EA91BBFB4F6CA0CF0D6C0972D7825325F2752C99; logintype=1; nickname=clican; onlinetime=12569983; order=2133467; safe=0; score=23872; sessionid=75F30341DD84F450A07B5F048941BDA741543D43DFE28DBA96FA9F60AF4974487886810DDFA6DBB571B29B00799E85C40C0EBD7F4351C869315ADEDABC0118B4; sex=m; upgrade=0; userid=5663595; usernewno=0; usernick=clican; usertype=0; usrname=clican; lx_sessionid=75F30341DD84F450A07B5F048941BDA741543D43DFE28DBA96FA9F60AF4974487886810DDFA6DBB571B29B00799E85C40C0EBD7F4351C869315ADEDABC0118B4; isnewer_5663595=0; lx_login=5663595; initbg_pop5663595=0; vip_is_good_number=0; rw_list_open=1; queryTime=1; __xltjbr=1365301991096; isvip=6; in_xl=0; task_nowclick=161690361218; tgshownew=1; vip_isvip=1; vip_level=6; vip_paytype=5; vip_expiredate=2013-06-08; user_type=1; dl_enable=1; dl_size=1048589; dl_num=11; dl_expire=17; lx_nf_all=page_check_all%3Dcommtask%26class_check%3D0%26page_check%3Dtask%26fl_page_id%3D0%26class_check_new%3D0%26set_tab_status%3D4; gdriveid=08D39F59B366F371195050D992B72FD2; _xltj=34a1365305532887b6c; _s34=1366181032432b1365305258874b7bhttp%3A//dynamic.cloud.vip.xunlei.com/user_task%3Fuserid%3D5663595%26st%3D4%26cache%3DSun%2520Apr%252007%25202013%252011%3A31%3A50%2520GMT+0800%2520%28%25E4%25B8%25AD%25E5%259B%25BD%25E6%25A0%2587%25E5%2587%2586%25E6%2597%25B6%25E9%2597%25B4%29; Hm_lvt_b5b854a027ebb02e3b145ae3d58ab697=1365301993,1365305251; Hm_lpvt_b5b854a027ebb02e3b145ae3d58ab697=1365305521");
+		header.put("Cookie", "userid=5663595; lx_sessionid=75F30341DD84F450A07B5F048941BDA741543D43DFE28DBA96FA9F60AF4974487886810DDFA6DBB571B29B00799E85C40C0EBD7F4351C869315ADEDABC0118B4;lx_login=5663595;gdriveid=08D39F59B366F371195050D992B72FD2;");
+		String url1 = "http://dynamic.cloud.vip.xunlei.com/interface/task_check?callback=queryCid&url=ed2k%3A%2F%2F%7Cfile%7Ccrossbow.inception.720p.mkv%7C7034822735%7C596F80CF650C1401C216817DBD312D75%7Ch%3DSYREZHO5Y3VFTP3KGHHW5PQOP72OFORC%7C%2F&interfrom=task&random=1365305929759329104.26622072&tcache=1365305972636";
+		System.out.println(tudouClient.httpGet(url1, header, null));
+		String url2 = "http://dynamic.cloud.vip.xunlei.com/interface/task_commit?callback=ret_task&uid=5663595&cid=&gcid=&size=7034822735&goldbean=0&silverbean=0&t=crossbow.inception.720p.mkv&url=ed2k%3A%2F%2F%7Cfile%7Ccrossbow.inception.720p.mkv%7C7034822735%7C596F80CF650C1401C216817DBD312D75%7Ch%3DSYREZHO5Y3VFTP3KGHHW5PQOP72OFORC%7C%2F&type=2&o_page=history&o_taskid=0&class_id=0&database=undefined&interfrom=task&time=Sun%20Apr%2007%202013%2011:36:50%20GMT+0800%20(%E4%B8%AD%E5%9B%BD%E6%A0%87%E5%87%86%E6%97%B6%E9%97%B4)&noCacheIE=1365305810274";
+		System.out.println(tudouClient.httpGet(url2, header, null));
+		String url3 = "http://dynamic.cloud.vip.xunlei.com/user_task?userid=5663595";
+		System.out.println(tudouClient.httpGet(url3, header, null));
 	}
 }

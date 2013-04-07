@@ -334,6 +334,15 @@ var yyetsClient = {
 	
 	play:function(url){
 		appletv.showLoading();
-		xunleiClient.play(url);
+		if(appletv.simulate!='native'){
+			var encodeUrl = url.replace(new RegExp('&', 'g'),'&amp;');
+			var options = [];
+			options.push({"title":"迅雷云点播/迅雷云转码播放","script":"xunleiClient.play('"+encodeUrl+"');"});
+			options.push({"title":"迅雷离线下载播放/iOS本地转码","script":"xunleiClient.offlinePlay('"+encodeUrl+"');"});
+			appletv.showOptionPage('播放源选择','',options);
+		}else{
+			//对于iPhone/iPad本地转码可以实现,但转码后的1080P和720P播放非常困难,所以禁用此功能
+			xunleiClient.play(url);
+		}
 	}
 }
