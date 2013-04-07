@@ -83,9 +83,9 @@ var xunleiClient = {
 				var random = new Date().getTime();
 				var checkUrl = "http://dynamic.cloud.vip.xunlei.com/interface/task_check?callback=queryCid&url="+encodeURIComponent(url)+"&interfrom=task&random="+random+"&tcache="+random;
 				appletv.makeRequest(checkUrl,function(result){
-					if(result.indexOf('queryCid')!=-1){
+					if(result==null||result.indexOf('queryCid')!=-1){
+						result = "xunleiClient."+result.substring(0,result.length-1)+",'"+userid+"','"+url+"','"+cookie+"')";
 						appletv.logToServer('offline result1:'+result);
-						result = "xunleiClient."+result.substring(0,result.length-1)+",'"+userid+",'"+url+"','"+cookie+"')";
 						eval(result);
 					}else{
 						appletv.showDialog('迅雷离线下载失败','未收到queryCid回调');
@@ -98,15 +98,16 @@ var xunleiClient = {
 	},
 	//queryCid('B26972E0D11A61AAFFAB04D3F50FBF631D51BFA9', '641F83D84F7C02094A5E30634A8C3DC41E23B924', '0','1125892196800765', 'crossbow.inception.720p.mkv', 0, 0, 0,'1365305929759329104.26622072','movie')
 	queryCid:function(p1,p2,p3,p4,fileName,p6,p7,p8,p9,p10,userid,url,cookie){
+		appletv.logToServer('call query cid');
 		if(fileName.indexOf('mkv')==-1&&fileName.indexOf('MKV')==-1){
 			appletv.showDialog('迅雷离线下载播放只支持MKV格式的文件','');
 			return;
 		}
 		var random = new Date().getTime();
-		var commitUrl = "http://dynamic.cloud.vip.xunlei.com/interface/task_commit?callback=ret_task&uid="+userid+"&cid=&gcid=&size=&goldbean=0&silverbean=0&t="+encodeURIComponent(fileName)+"&url="+url+"&type=2&o_page=history&o_taskid=0&class_id=0&database=undefined&interfrom=task&time="+random+"&noCacheIE="+random;
+		var commitUrl = "http://dynamic.cloud.vip.xunlei.com/interface/task_commit?callback=ret_task&uid="+userid+"&cid=&gcid=&size=&goldbean=0&silverbean=0&t="+encodeURIComponent(fileName)+"&url="+encodeURIComponent(url)+"&type=2&o_page=history&o_taskid=0&class_id=0&database=undefined&interfrom=task&time="+random+"&noCacheIE="+random;
 		appletv.makeRequest(commitUrl,function(result){
 			appletv.logToServer('offline result2:'+result);
-			if(result.indexOf('ret_task')!=-1){
+			if(result==null||result.indexOf('ret_task')!=-1){
 				result = "xunleiClient."+result.substring(0,result.length-1)+",'"+userid+"','"+cookie+"')";
 				eval(result);
 			}else{
