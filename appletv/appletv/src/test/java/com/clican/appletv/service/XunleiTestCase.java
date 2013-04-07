@@ -51,6 +51,7 @@ public class XunleiTestCase extends BaseServiceTestCase {
 		// null);
 		// System.out.println(pr4.getContent());
 		String mp4Url = "http://vhoth.dnion.videocdn.qq.com/flv/18/185/p00116ducjk.mp4?vkey=CF0D8BBF9F011AC92CD418D2DD1993AA112C1AF6EC6AF9C748B17E0BDFA3A1314273F9C0905D2AF1&br=72&platform=0&fmt=mp4&level=1";
+		String mkvUrl = "http://vod30.t19.lixian.vip.xunlei.com:443/download?fid=emlPgw9jX5lBcmGnVJ4RgeXO+Hxq6VFcAAAAANuBvkGCNBSzd4lE4fk1okftXEb7&mid=666&threshold=150&tid=EDCDE1299DC6E43F04EFF63FACBBE88D&srcid=4&verno=1&g=DB81BE41823414B3778944E1F935A247ED5C46FB&scn=t9&i=817119D8471F0BCC3DCFDF0712D5CD4B&t=4&ui=5663595&ti=161029492610&s=1548872042&m=0&n=011559817177616C6B085F8371646561644F42D46C6531362E5603D42F2E686474171F9C6D36342D320955CA326B760000&ff=0&co=909A5217E21D287776E49561158F5D2B&cm=1&ts=1365205639";
 		String test4 = "http://16.158.169.15:8080/appletv/proxy/mp4?url="
 				+ URLEncoder.encode(mp4Url, "utf-8");
 		String m3u8Url1 = "http://devimages.apple.com/iphone/samples/bipbop/gear1/prog_index.m3u8";
@@ -62,10 +63,14 @@ public class XunleiTestCase extends BaseServiceTestCase {
 				+ URLEncoder.encode(m3u8Url2, "utf-8");
 		String test3 = "http://16.158.169.15:8080/appletv/noctl/proxy/play.m3u8?url="
 				+ URLEncoder.encode(m3u8Url3, "utf-8");
+		String test5 = "http://10.0.1.8:8080/appletv/noctl/mkv/play.m3u8?url="
+			+ URLEncoder.encode(mkvUrl, "utf-8");
+		System.out.println(tudouClient.httpGet(m3u8Url1));
 		System.out.println(test1);
 		System.out.println(test2);
 		System.out.println(test3);
 		System.out.println(test4);
+		System.out.println(test5);
 		// PostResponse pr5 = tudouClient.httpGetForCookie(test, null, null);
 		// System.out.println(pr5.getContent());
 	}
@@ -98,5 +103,12 @@ public class XunleiTestCase extends BaseServiceTestCase {
 		String s2 = "eW91a3VDbGllbnQubG9hZFZpZGVvUGFnZSgnemY5MmMyMDljNDhmNTExZTJiMmFjJyw5NixmYWxzZSwnaHR0cDovL3Jlcy5tZnMueWtpbWcuY29tLzA1MEUwMDAwNTBEMDM4QjI5NzkyNzM2NjYzMEU3ODU0Jyk7";
 		System.out.println(new String(Base64.decodeBase64(s1.getBytes("utf-8")),"utf-8"));
 		System.out.println(new String(Base64.decodeBase64(s2.getBytes("utf-8")),"utf-8"));
+	}
+	
+	public void testOfflineDownload() throws Exception{
+		Map<String, String> header = new HashMap<String, String>();
+		header.put("Cookie", "gdriveid=08D39F59B366F371195050D992B72FD2;");
+		String url ="http://vod30.t19.lixian.vip.xunlei.com:443/download?fid=emlPgw9jX5lBcmGnVJ4RgeXO+Hxq6VFcAAAAANuBvkGCNBSzd4lE4fk1okftXEb7&mid=666&threshold=150&tid=EDCDE1299DC6E43F04EFF63FACBBE88D&srcid=4&verno=1&g=DB81BE41823414B3778944E1F935A247ED5C46FB&scn=t9&i=817119D8471F0BCC3DCFDF0712D5CD4B&t=4&ui=5663595&ti=161029492610&s=1548872042&m=0&n=011559817177616C6B085F8371646561644F42D46C6531362E5603D42F2E686474171F9C6D36342D320955CA326B760000&ff=0&co=909A5217E21D287776E49561158F5D2B&cm=1&ts=1365205639";
+		tudouClient.httpGetByData(url, header, null);
 	}
 }
