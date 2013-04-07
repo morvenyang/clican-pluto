@@ -31,6 +31,7 @@ var xunleiClient = {
 	},
 	//云点播
 	play:function(url,name){
+		appletv.logToServer('play by xunleiClient.play url:'+url);
 		this.loadXunleiSession(function(xunleisession){
 			var sessionid=xunleisession['sessionid'];
 			var userid=xunleisession['userid'];
@@ -70,7 +71,8 @@ var xunleiClient = {
 	},
 	
 	//云点播
-	offlinePlay:function(url,name){
+	offlinePlay:function(url){
+		appletv.logToServer('play by xunleiClient.offlinePlay url:'+url);
 		this.loadXunleiSession(function(xunleisession){
 			var gdriveid=xunleisession['gdriveid'];
 			var userid=xunleisession['userid'];
