@@ -81,11 +81,15 @@ var xunleiClient = {
 			}else{
 				var cookie = "userid="+userid+"; lx_sessionid="+lxsessionid+";lx_login="+userid+";gdriveid="+gdriveid+";"
 				var random = new Date().getTime();
-				var checkUrl = "http://dynamic.cloud.vip.xunlei.com/interface/task_check?callback=xunleiClient.queryCid&url="+encodeURIComponent(url)+"&interfrom=task&random="+random+"&tcache="+random;
+				var checkUrl = "http://dynamic.cloud.vip.xunlei.com/interface/task_check?callback=queryCid&url="+encodeURIComponent(url)+"&interfrom=task&random="+random+"&tcache="+random;
 				appletv.makeRequest(checkUrl,function(result){
-					appletv.logToServer('offline result1:'+result);
-					result = result.substring(0,result.length-1)+",'"+userid+",'"+url+"','"+cookie+"')";
-					eval(result);
+					if(result.indexOf('queryCid')!=-1){
+						appletv.logToServer('offline result1:'+result);
+						result = "xunleiClient."+result.substring(0,result.length-1)+",'"+userid+",'"+url+"','"+cookie+"')";
+						eval(result);
+					}else{
+						appletv.showDialog('迅雷离线下载失败','未收到queryCid回调');
+					}
 				},{
 					"Cookie" : cookie
 				});
@@ -99,21 +103,21 @@ var xunleiClient = {
 			return;
 		}
 		var random = new Date().getTime();
-		var commitUrl = "http://dynamic.cloud.vip.xunlei.com/interface/task_commit?callback=xunleiClient.retriveTask&uid="+userid+"&cid=&gcid=&size=&goldbean=0&silverbean=0&t="+encodeURIComponent(fileName)+"&url="+url+"&type=2&o_page=history&o_taskid=0&class_id=0&database=undefined&interfrom=task&time="+random+"&noCacheIE="+random;
+		var commitUrl = "http://dynamic.cloud.vip.xunlei.com/interface/task_commit?callback=ret_task&uid="+userid+"&cid=&gcid=&size=&goldbean=0&silverbean=0&t="+encodeURIComponent(fileName)+"&url="+url+"&type=2&o_page=history&o_taskid=0&class_id=0&database=undefined&interfrom=task&time="+random+"&noCacheIE="+random;
 		appletv.makeRequest(commitUrl,function(result){
 			appletv.logToServer('offline result2:'+result);
-			if(result.indexOf('xunleiClient.retriveTask')!=-1){
-				result = result.substring(0,result.length-1)+",'"+userid+"','"+cookie+"')";
+			if(result.indexOf('ret_task')!=-1){
+				result = "xunleiClient."+result.substring(0,result.length-1)+",'"+userid+"','"+cookie+"')";
 				eval(result);
 			}else{
-				appletv.showDialog('迅雷离线下载失败','');
+				appletv.showDialog('迅雷离线下载失败','未收到ret_task回调'');
 			}
 		},{
 			"Cookie" : cookie
 		});
 	},
 	
-	retriveTask:function(result,id,userid,cookie){
+	ret_task:function(result,id,userid,cookie){
 		if(result==1){
 			var queryDownloadUrl = "http://dynamic.cloud.vip.xunlei.com/user_task?userid="+userid;
 			appletv.makeRequest(queryDownloadUrl,function(result){
