@@ -29,7 +29,7 @@ var xunleiClient = {
 			});
 		}
 	},
-	
+	//云点播
 	play:function(url,name){
 		this.loadXunleiSession(function(xunleisession){
 			var sessionid=xunleisession['sessionid'];
@@ -67,6 +67,70 @@ var xunleiClient = {
 				}
 			}
 		});
+	},
+	
+	//云点播
+	offlinePlay:function(url,name){
+		this.loadXunleiSession(function(xunleisession){
+			var gdriveid=xunleisession['gdriveid'];
+			var userid=xunleisession['userid'];
+			var lx_sessionid=xunleisession['lx_sessionid'];
+			
+			if(gdriveid==null||gdriveid.length==0||userid==null||userid.length==0||lx_sessionid==null||lx_sessionid.length==0){
+				appletv.showDialog('迅雷离线下载登录过期请在本地服务器上重新登录','具体说明请参考http://clican.org');
+			}else{
+				var cookie = "userid="+userid+"; lx_sessionid="+lx_sessionid+";lx_login="+userid+";gdriveid="+gdriveid+";"
+				if(name==null||name.length==0){
+					if(url.indexOf('ed2k')>=0){
+						var startstr ='file|';
+						var endstr = '|';
+						name = appletv.substringByData(url, startstr, endstr);
+					}else{
+						name = 'Unknown';
+					}
+				}
+				var random = new Date().getTime();
+				var checkUrl = "http://dynamic.cloud.vip.xunlei.com/interface/task_check?callback=xunleiClient.queryCid&url="+encodeURIComponent(url)+"&interfrom=task&random="+random+"&tcache="+random;
+				appletv.makeRequest(checkUrl,function(result){
+					result = result.substring(0,result.length-1)+",'"+userid+",'"+url+"','"+cookie+"')";
+					eval(result);
+				},{
+					"Cookie" : cookie
+				});
+			}
+		});
+	},
+	//queryCid('B26972E0D11A61AAFFAB04D3F50FBF631D51BFA9', '641F83D84F7C02094A5E30634A8C3DC41E23B924', '0','1125892196800765', 'crossbow.inception.720p.mkv', 0, 0, 0,'1365305929759329104.26622072','movie')
+	queryCid:function(p1,p2,p3,p4,fileName,p6,p7,p8,p9,p10,userid,url,cookie){
+		if(fileName.indexOf('mkv')==-1&&fileName.indexOf('MKV')==-1){
+			appletv.showDialog('迅雷离线下载播放只支持MKV格式的文件','');
+			return;
+		}
+		var random = new Date().getTime();
+		var commitUrl = "http://dynamic.cloud.vip.xunlei.com/interface/task_commit?callback=xunleiClient.retriveTask&uid="+userid+"&cid=&gcid=&size=&goldbean=0&silverbean=0&t="+encodeURIComponent(fileName)+"&url="+url+"&type=2&o_page=history&o_taskid=0&class_id=0&database=undefined&interfrom=task&time="+random+"&noCacheIE="+random;
+		appletv.makeRequest(commitUrl,function(result){
+			if(result.indexOf('xunleiClient.retriveTask')!=-1){
+				result = result.substring(0,result.length-1)+",'"+userid+"','"+cookie+"')";
+				eval(result);
+			}else{
+				appletv.showDialog('迅雷离线下载失败','');
+			}
+		},{
+			"Cookie" : cookie
+		});
+	},
+	
+	retriveTask:function(result,id,userid,cookie){
+		if(result==1){
+			var queryDownloadUrl = "http://dynamic.cloud.vip.xunlei.com/user_task?userid="+userid;
+			appletv.makeRequest(queryDownloadUrl,function(result){
+				var startTag = '<input id="dl_url'+id+'" type="hidden" value="';
+				var downloadUrl = appletv.substringByData(startTag,'"').trim();
+				appletv.playMkv(downloadUrl);
+			});
+		}else{
+			appletv.showDialog('迅雷离线下载失败','');
+		}
 	},
 	
 	xunleicallback:function (res) {
