@@ -218,16 +218,22 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
         }
         NSString* filePath = [AppDele.localMkvM3u8PathPrefix stringByAppendingString:@"mkv.m3u8"];
         NSLog(@"m3u8Path:%@",filePath);
+        NSString* content=nil;
         while(TRUE){
             if(![[NSFileManager defaultManager] fileExistsAtPath:filePath]){
                 NSLog(@"The m3u8 file has not been created, wait for 1 second");
                 [NSThread sleepForTimeInterval:1.0f];
             }else{
-                [NSThread sleepForTimeInterval:3.0f];
-                break;
+                content =[NSString stringWithContentsOfURL:[NSURL fileURLWithPath:filePath] encoding:NSUTF8StringEncoding error:nil];
+                if(content!=nil&&[content rangeOfString:@"#EXTINF"].location!=NSNotFound){
+                    break;
+                }else{
+                    NSLog(@"The m3u8 file is being created, wait for 1 second");
+                    [NSThread sleepForTimeInterval:1.0f];
+                }
             }
         }
-        NSString* content =[NSString stringWithContentsOfURL:[NSURL fileURLWithPath:filePath] encoding:NSUTF8StringEncoding error:nil];
+        content =[NSString stringWithContentsOfURL:[NSURL fileURLWithPath:filePath] encoding:NSUTF8StringEncoding error:nil];
         if(content!=NULL){
             content = [content stringByReplacingOccurrencesOfString:AppDele.localMkvM3u8PathPrefix withString:AppDele.localMkvM3u8UrlPrefix];
 //            content = [content stringByReplacingOccurrencesOfString:@"#EXT-X-VERSION:3" withString:@"#EXT-X-TARGETDURATION:30\n#EXT-X-VERSION:3"];

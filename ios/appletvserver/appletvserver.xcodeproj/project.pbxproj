@@ -72,6 +72,12 @@
 		722146E116DDDFFA00850C03 /* HTTPDataHeaderResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 722146E016DDDFFA00850C03 /* HTTPDataHeaderResponse.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		722146E416DDE40700850C03 /* M3u8Download.m in Sources */ = {isa = PBXBuildFile; fileRef = 722146E316DDE40700850C03 /* M3u8Download.m */; };
 		722146E716DDE62500850C03 /* M3u8TSHTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 722146E616DDE62500850C03 /* M3u8TSHTTPRequest.m */; };
+		722B23751712C31800D3A8B4 /* SMBViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 722B23741712C31800D3A8B4 /* SMBViewController.m */; };
+		722B23781712C36400D3A8B4 /* SMBDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 722B23771712C36400D3A8B4 /* SMBDataSource.m */; };
+		722B237D1712C4D100D3A8B4 /* libsmbclient.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 722B23791712C4D100D3A8B4 /* libsmbclient.a */; };
+		722B237E1712C4D100D3A8B4 /* libtalloc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 722B237A1712C4D100D3A8B4 /* libtalloc.a */; };
+		722B237F1712C4D100D3A8B4 /* libtdb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 722B237B1712C4D100D3A8B4 /* libtdb.a */; };
+		722B23801712C4D100D3A8B4 /* libwbclient.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 722B237C1712C4D100D3A8B4 /* libwbclient.a */; };
 		722FF14116FC010000237F15 /* WebContentSync.m in Sources */ = {isa = PBXBuildFile; fileRef = 722FF14016FC010000237F15 /* WebContentSync.m */; };
 		722FF15616FC068C00237F15 /* ZipArchive.mm in Sources */ = {isa = PBXBuildFile; fileRef = 722FF15516FC068C00237F15 /* ZipArchive.mm */; };
 		722FF16016FC06A500237F15 /* ioapi.c in Sources */ = {isa = PBXBuildFile; fileRef = 722FF15816FC06A500237F15 /* ioapi.c */; };
@@ -461,6 +467,14 @@
 		722146E316DDE40700850C03 /* M3u8Download.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M3u8Download.m; sourceTree = "<group>"; };
 		722146E516DDE62500850C03 /* M3u8TSHTTPRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = M3u8TSHTTPRequest.h; path = AISHTTPRequest/M3u8TSHTTPRequest.h; sourceTree = "<group>"; };
 		722146E616DDE62500850C03 /* M3u8TSHTTPRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = M3u8TSHTTPRequest.m; path = AISHTTPRequest/M3u8TSHTTPRequest.m; sourceTree = "<group>"; };
+		722B23731712C31800D3A8B4 /* SMBViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMBViewController.h; sourceTree = "<group>"; };
+		722B23741712C31800D3A8B4 /* SMBViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMBViewController.m; sourceTree = "<group>"; };
+		722B23761712C36400D3A8B4 /* SMBDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMBDataSource.h; sourceTree = "<group>"; };
+		722B23771712C36400D3A8B4 /* SMBDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMBDataSource.m; sourceTree = "<group>"; };
+		722B23791712C4D100D3A8B4 /* libsmbclient.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsmbclient.a; path = appletvserver/lib/libsmbclient.a; sourceTree = "<group>"; };
+		722B237A1712C4D100D3A8B4 /* libtalloc.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtalloc.a; path = appletvserver/lib/libtalloc.a; sourceTree = "<group>"; };
+		722B237B1712C4D100D3A8B4 /* libtdb.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtdb.a; path = appletvserver/lib/libtdb.a; sourceTree = "<group>"; };
+		722B237C1712C4D100D3A8B4 /* libwbclient.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libwbclient.a; path = appletvserver/lib/libwbclient.a; sourceTree = "<group>"; };
 		722FF13F16FC010000237F15 /* WebContentSync.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebContentSync.h; sourceTree = "<group>"; };
 		722FF14016FC010000237F15 /* WebContentSync.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebContentSync.m; sourceTree = "<group>"; };
 		722FF15416FC068C00237F15 /* ZipArchive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZipArchive.h; path = ZipArchive/ZipArchive.h; sourceTree = "<group>"; };
@@ -613,6 +627,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				722B237D1712C4D100D3A8B4 /* libsmbclient.a in Frameworks */,
+				722B237E1712C4D100D3A8B4 /* libtalloc.a in Frameworks */,
+				722B237F1712C4D100D3A8B4 /* libtdb.a in Frameworks */,
+				722B23801712C4D100D3A8B4 /* libwbclient.a in Frameworks */,
 				72FEEFF4170443A000F9713E /* AssetsLibrary.framework in Frameworks */,
 				72D5CC0B17004AF300B292BA /* libxml2.dylib in Frameworks */,
 				72198F2316FFF79F00EC451B /* libicucore.dylib in Frameworks */,
@@ -744,6 +762,7 @@
 		7219BBCA16C9EAD900AABA8E /* View */ = {
 			isa = PBXGroup;
 			children = (
+				722B23691712C2EB00D3A8B4 /* smb */,
 				72D5CBD41700275400B292BA /* atv */,
 				7288A2C416F9982D00933D15 /* download */,
 				72360C3C16EED88D00E0842B /* xunlei */,
@@ -824,6 +843,15 @@
 				72B9213B16E052250090CA01 /* Mp4HTTPRequest.m */,
 			);
 			name = AISHTTPRequest;
+			sourceTree = "<group>";
+		};
+		722B23691712C2EB00D3A8B4 /* smb */ = {
+			isa = PBXGroup;
+			children = (
+				722B23731712C31800D3A8B4 /* SMBViewController.h */,
+				722B23741712C31800D3A8B4 /* SMBViewController.m */,
+			);
+			name = smb;
 			sourceTree = "<group>";
 		};
 		722FF15316FC066200237F15 /* ZipArchive */ = {
@@ -957,6 +985,10 @@
 		72A4367E16C9EA5A00D9958D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				722B23791712C4D100D3A8B4 /* libsmbclient.a */,
+				722B237A1712C4D100D3A8B4 /* libtalloc.a */,
+				722B237B1712C4D100D3A8B4 /* libtdb.a */,
+				722B237C1712C4D100D3A8B4 /* libwbclient.a */,
 				72D5CC0A17004AF200B292BA /* libxml2.dylib */,
 				72198F2216FFF79F00EC451B /* libicucore.dylib */,
 				72198F2016FFF78600EC451B /* libstdc++.dylib */,
@@ -1281,6 +1313,8 @@
 				724024F717016B990015352A /* XmlDataSource.m */,
 				7233EB6D1709425400EF342E /* ConfigDataSource.h */,
 				7233EB6E1709425400EF342E /* ConfigDataSource.m */,
+				722B23761712C36400D3A8B4 /* SMBDataSource.h */,
+				722B23771712C36400D3A8B4 /* SMBDataSource.m */,
 			);
 			name = Datasource;
 			sourceTree = "<group>";
@@ -1637,6 +1671,8 @@
 				7206AAF11707C1A80049FE0D /* ConfigViewController.m in Sources */,
 				7233EB6F1709425400EF342E /* ConfigDataSource.m in Sources */,
 				72E871BE170E74990063E80A /* MkvProcess.m in Sources */,
+				722B23751712C31800D3A8B4 /* SMBViewController.m in Sources */,
+				722B23781712C36400D3A8B4 /* SMBDataSource.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
