@@ -122,7 +122,7 @@ var xunleiClient = {
 	
 	ret_task:function(result,id,userid,cookie){
 		if(result==1){
-			var queryDownloadUrl = "http://dynamic.cloud.vip.xunlei.com/interface/showtask_unfresh?callback=getDownloadUrl&t="+Calendar.getInstance().getTimeInMillis()+"&type_id=4&page=1&tasknum=1&p=1&interfrom=task";
+			var queryDownloadUrl = "http://dynamic.cloud.vip.xunlei.com/interface/showtask_unfresh?callback=getDownloadUrl&t="+new Date().getTime()+"&type_id=4&page=1&tasknum=1&p=1&interfrom=task";
 			appletv.makeRequest(queryDownloadUrl,function(result){
 				if(result==null||result.indexOf('getDownloadUrl')!=-1){
 					result = "xunleiClient."+result.substring(0,result.length-1)+",'"+userid+"','"+id+"')";
@@ -137,11 +137,14 @@ var xunleiClient = {
 	},
 	
 	getDownloadUrl:function(jsonContent,userid,id){
+		appletv.logToServer('call getDownloadUrl');
 		var result = jsonContent['result'];
-		if(result!=null&&result.length>0){
-			appletv.logToServer('get download url from index page');
+		appletv.logToServer(result);
+		if(result!=null&&result=='1'){
+			appletv.logToServer('get download url from index page, id:'+id);
 			var queryDownloadUrl = "http://dynamic.cloud.vip.xunlei.com/user_task?userid="+userid;
 			appletv.makeRequest(queryDownloadUrl,function(result){
+				appletv.logToServer(result);
 				var startTag = '<input id="dl_url'+id+'" type="hidden" value="';
 				var downloadUrl = appletv.substringByData(result,startTag,'"').trim();
 				appletv.logToServer('offline download url:'+downloadUrl);
