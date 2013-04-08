@@ -3,7 +3,7 @@
 <head>
 <script src="<%=serverurl%>/javascript/clican.js"/>
 <script src="<%=serverurl%>/javascript/ejs.js"/>
-<script src="<%=serverurl%>/javascript/tudou.js"/>
+<script src="<%=serverurl%>/javascript/fivesix.js"/>
 </head>
 <body>
 <itemDetail id="itemdetail">
@@ -24,15 +24,11 @@
 						<shelfSection>
 							<items>
 								<%if(items.length>1){%>
-									<actionButton id="album_3" onSelect="tudouClient.loadItemsPage();">
+									<actionButton id="album_3" onSelect="fivesixClient.loadItemsPage();">
 										<title>剧集</title>
 									</actionButton>
-								<%}else if(items.length==1){%>
-									<actionButton id="album_1" onSelect="tudouClient.play('<%=items[0]['id']%>');">
-										<title>播放</title>
-									</actionButton>
 								<%}else{%>
-									<actionButton id="album_1" onSelect="tudouClient.playByItemid(<%=video['id']%>);">
+									<actionButton id="album_1" onSelect="fivesixClient.play('<%=items[0]['id']%>');">
 										<title>播放</title>
 									</actionButton>
 								<%}%>
