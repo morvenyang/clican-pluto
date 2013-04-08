@@ -3288,7 +3288,7 @@ void convert_avi_to_m3u8(const char* input,const char* output1,const char* outpu
 //            ,"-segment_list",
 //            output1,"-segment_time","30",output2 };
  
-    char *argv[]= { "ffmpeg","-h",cookie,"-i", input,
+    char *argv[]= { "ffmpeg","-headers",cookie,"-i", input,
         "-vcodec","copy","-vbsf","h264_mp4toannexb","-acodec","libfdk_aac","-ab","128k","-map","0:0","-map","0:1","-f","segment"
         ,"-segment_list",
         output1,"-segment_list_flags","+live","-segment_time","10",output2 };
