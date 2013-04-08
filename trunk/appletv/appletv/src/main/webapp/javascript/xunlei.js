@@ -85,7 +85,7 @@ var xunleiClient = {
 				var random = new Date().getTime();
 				var checkUrl = "http://dynamic.cloud.vip.xunlei.com/interface/task_check?callback=queryCid&url="+encodeURIComponent(url)+"&interfrom=task&random="+random+"&tcache="+random;
 				appletv.makeRequest(checkUrl,function(result){
-					if(result==null||result.indexOf('queryCid')!=-1){
+					if(result!=null&&result.indexOf('queryCid')!=-1){
 						result = "xunleiClient."+result.substring(0,result.length-1)+",'"+userid+"','"+url+"','"+cookie+"')";
 						appletv.logToServer('offline result1:'+result);
 						eval(result);
@@ -109,7 +109,7 @@ var xunleiClient = {
 		var commitUrl = "http://dynamic.cloud.vip.xunlei.com/interface/task_commit?callback=ret_task&uid="+userid+"&cid=&gcid=&size=&goldbean=0&silverbean=0&t="+encodeURIComponent(fileName)+"&url="+encodeURIComponent(url)+"&type=2&o_page=history&o_taskid=0&class_id=0&database=undefined&interfrom=task&time="+random+"&noCacheIE="+random;
 		appletv.makeRequest(commitUrl,function(result){
 			appletv.logToServer('offline result2:'+result);
-			if(result==null||result.indexOf('ret_task')!=-1){
+			if(result!=null&&result.indexOf('ret_task')!=-1){
 				result = "xunleiClient."+result.substring(0,result.length-1)+",'"+userid+"','"+cookie+"')";
 				eval(result);
 			}else{
@@ -124,7 +124,7 @@ var xunleiClient = {
 		if(result==1){
 			var queryDownloadUrl = "http://dynamic.cloud.vip.xunlei.com/interface/showtask_unfresh?callback=getDownloadUrl&t="+new Date().getTime()+"&type_id=4&page=1&tasknum=1&p=1&interfrom=task";
 			appletv.makeRequest(queryDownloadUrl,function(result){
-				if(result==null||result.indexOf('getDownloadUrl')!=-1){
+				if(result!=null&&result.indexOf('getDownloadUrl')!=-1){
 					result = "xunleiClient."+result.substring(0,result.length-1)+",'"+userid+"','"+id+"','"+cookie+"')";
 					eval(result);
 				}else{
