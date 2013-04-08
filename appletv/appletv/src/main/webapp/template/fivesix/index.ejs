@@ -19,7 +19,7 @@
 									<defaultImage>resource://Poster.png</defaultImage>
 								</moviePoster>
 							<%}else{%>
-								<moviePoster id="shelf_item_<%=channels[i]['value']%>" alwaysShowTitles="true" featured="true" onSelect="fivesixClient.loadIndexPage('',1,<%=channels[i]['value']%>);" onPlay="fivesixClient.loadIndexPage('',1,<%=channels[i]['value']%>);">
+								<moviePoster id="shelf_item_<%=channels[i]['value']%>" alwaysShowTitles="true" featured="true" onSelect="fivesixClient.loadIndexPage('',1,'<%=channels[i]['value']%>');" onPlay="fivesixClient.loadIndexPage('',1,'<%=channels[i]['value']%>');">
 									<title><%=channels[i]['label']%></title>
 									<defaultImage>resource://Poster.png</defaultImage>
 								</moviePoster>
@@ -32,22 +32,22 @@
 		<grid id="grid_1" columnCount="12">
 			<items>
 				<%if(channel['value']!='search'){%>
-				<actionButton id="shelf_item_category_page" onSelect="fivesixClient.loadCategoryPage('<%=url%>',<%=channel['value']%>,true);" onPlay="fivesixClient.loadCategoryPage('<%=url%>',<%=channel['value']%>,true);">
+				<actionButton id="shelf_item_category_page" onSelect="fivesixClient.loadCategoryPage('<%=url%>','<%=channel['value']%>',true);" onPlay="fivesixClient.loadCategoryPage('<%=url%>','<%=channel['value']%>',true);">
 					<title>筛选</title>
 				</actionButton>
 				<%}%>
-				<actionButton id="shelf_item_first_page" onSelect="fivesixClient.loadIndexPage('<%=keyword%>',1,<%=channel['value']%>,'<%=url%>');" onPlay="fivesixClient.loadIndexPage('<%=keyword%>',1,<%=channel['value']%>,'<%=url%>');">
+				<actionButton id="shelf_item_first_page" onSelect="fivesixClient.loadIndexPage('<%=keyword%>',1,'<%=channel['value']%>','<%=url%>');" onPlay="fivesixClient.loadIndexPage('<%=keyword%>',1,'<%=channel['value']%>','<%=url%>');">
 					<title>第一页</title>
 				</actionButton>
-				<actionButton id="nextPage" onSelect="fivesixClient.loadIndexPage('<%=keyword%>',<%=page+1%>,<%=channel['value']%>,'<%=url%>');" onPlay="fivesixClient.loadIndexPage('<%=keyword%>',<%=page+1%>,<%=channel['value']%>,'<%=url%>');">
+				<actionButton id="nextPage" onSelect="fivesixClient.loadIndexPage('<%=keyword%>',<%=page+1%>,'<%=channel['value']%>','<%=url%>');" onPlay="fivesixClient.loadIndexPage('<%=keyword%>',<%=page+1%>,'<%=channel['value']%>','<%=url%>');">
 					<title>下一页</title>
 				</actionButton>
 				<%for(var i=begin;i<end;i++){%>
-					<actionButton id="shelf_item_<%=i%>_page" onSelect="fivesixClient.loadIndexPage('<%=keyword%>',<%=i%>,<%=channel['value']%>,'<%=url%>');" onPlay="fivesixClient.loadIndexPage('<%=keyword%>',<%=i%>,<%=channel['value']%>,'<%=url%>');">
+					<actionButton id="shelf_item_<%=i%>_page" onSelect="fivesixClient.loadIndexPage('<%=keyword%>',<%=i%>,'<%=channel['value']%>','<%=url%>');" onPlay="fivesixClient.loadIndexPage('<%=keyword%>',<%=i%>,'<%=channel['value']%>','<%=url%>');">
 						<title><%=i%></title>
 					</actionButton>
 				<%}%>
-				<actionButton id="shelf_item_last_page" onSelect="fivesixClient.loadIndexPage('<%=keyword%>',99,<%=channel['value']%>,'<%=url%>');" onPlay="fivesixClient.loadIndexPage('<%=keyword%>',99,<%=channel['value']%>,'<%=url%>');">
+				<actionButton id="shelf_item_last_page" onSelect="fivesixClient.loadIndexPage('<%=keyword%>',99,'<%=channel['value']%>','<%=url%>');" onPlay="fivesixClient.loadIndexPage('<%=keyword%>',99,'<%=channel['value']%>','<%=url%>');">
 					<title>最后页</title>
 				</actionButton>
 			</items>
@@ -74,22 +74,22 @@
 		<grid id="pagingGrid" columnCount="12">
 			<items>
 				<%if(channel['value']!='search'){%>
-				<actionButton id="shelf_item_category_page" onSelect="fivesixClient.loadCategoryPage('<%=url%>',<%=channel['value']%>,true);" onPlay="fivesixClient.loadCategoryPage('<%=url%>',<%=channel['value']%>,true);">
+				<actionButton id="shelf_item_category_page" onSelect="fivesixClient.loadCategoryPage('<%=url%>','<%=channel['value']%>',true);" onPlay="fivesixClient.loadCategoryPage('<%=url%>','<%=channel['value']%>',true);">
 					<title>筛选</title>
 				</actionButton>
 				<%}%>
-				<actionButton id="shelf_item_first_page" onSelect="fivesixClient.loadIndexPage('<%=keyword%>',1,<%=channel['value']%>,'<%=url%>');" onPlay="fivesixClient.loadIndexPage('<%=keyword%>',1,<%=channel['value']%>,'<%=url%>');">
+				<actionButton id="shelf_item_first_page" onSelect="fivesixClient.loadIndexPage('<%=keyword%>',1,'<%=channel['value']%>','<%=url%>');" onPlay="fivesixClient.loadIndexPage('<%=keyword%>',1,'<%=channel['value']%>','<%=url%>');">
 					<title>第一页</title>
 				</actionButton>
-				<actionButton id="nextPage" onSelect="fivesixClient.loadIndexPage('<%=keyword%>',<%=page+1%>,<%=channel['value']%>,'<%=url%>');" onPlay="fivesixClient.loadIndexPage('<%=keyword%>',<%=page+1%>,<%=channel['value']%>,'<%=url%>');">
+				<actionButton id="nextPage" onSelect="fivesixClient.loadIndexPage('<%=keyword%>',<%=page+1%>,'<%=channel['value']%>','<%=url%>');" onPlay="fivesixClient.loadIndexPage('<%=keyword%>',<%=page+1%>,'<%=channel['value']%>','<%=url%>');">
 					<title>下一页</title>
 				</actionButton>
 				<%for(var i=begin;i<end;i++){%>
-					<actionButton id="shelf_item_<%=i%>_page" onSelect="fivesixClient.loadIndexPage('<%=keyword%>',<%=i%>,<%=channel['value']%>,'<%=url%>');" onPlay="fivesixClient.loadIndexPage('<%=keyword%>',<%=i%>,<%=channel['value']%>,'<%=url%>');">
+					<actionButton id="shelf_item_<%=i%>_page" onSelect="fivesixClient.loadIndexPage('<%=keyword%>',<%=i%>,'<%=channel['value']%>','<%=url%>');" onPlay="fivesixClient.loadIndexPage('<%=keyword%>',<%=i%>,'<%=channel['value']%>','<%=url%>');">
 						<title><%=i%></title>
 					</actionButton>
 				<%}%>
-				<actionButton id="shelf_item_last_page" onSelect="fivesixClient.loadIndexPage('<%=keyword%>',99,<%=channel['value']%>,'<%=url%>');" onPlay="fivesixClient.loadIndexPage('<%=keyword%>',99,<%=channel['value']%>,'<%=url%>');">
+				<actionButton id="shelf_item_last_page" onSelect="fivesixClient.loadIndexPage('<%=keyword%>',99,'<%=channel['value']%>','<%=url%>');" onPlay="fivesixClient.loadIndexPage('<%=keyword%>',99,'<%=channel['value']%>','<%=url%>');">
 					<title>最后页</title>
 				</actionButton>
 			</items>
