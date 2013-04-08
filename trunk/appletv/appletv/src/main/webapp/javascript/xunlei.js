@@ -122,6 +122,24 @@ var xunleiClient = {
 	
 	ret_task:function(result,id,userid,cookie){
 		if(result==1){
+			var queryDownloadUrl = "http://dynamic.cloud.vip.xunlei.com/interface/showtask_unfresh?callback=getDownloadUrl&t="+Calendar.getInstance().getTimeInMillis()+"&type_id=4&page=1&tasknum=1&p=1&interfrom=task";
+			appletv.makeRequest(queryDownloadUrl,function(result){
+				if(result==null||result.indexOf('getDownloadUrl')!=-1){
+					result = "xunleiClient."+result.substring(0,result.length-1)+",'"+userid+"','"+id+"')";
+					eval(result);
+				}else{
+					appletv.showDialog('迅雷离线下载失败','未收到getDownloadUrl回调');
+				}
+			});
+		}else{
+			appletv.showDialog('迅雷离线下载失败','');
+		}
+	},
+	
+	getDownloadUrl:function(jsonContent,userid,id){
+		var result = jsonContent['result'];
+		if(result!=null&&result.length>0){
+			appletv.logToServer('get download url from index page');
 			var queryDownloadUrl = "http://dynamic.cloud.vip.xunlei.com/user_task?userid="+userid;
 			appletv.makeRequest(queryDownloadUrl,function(result){
 				var startTag = '<input id="dl_url'+id+'" type="hidden" value="';
@@ -130,7 +148,19 @@ var xunleiClient = {
 				appletv.playMkv(downloadUrl);
 			});
 		}else{
-			appletv.showDialog('迅雷离线下载失败','');
+			appletv.logToServer('get download url from task');
+			var tasks = jsonContent['info']['tasks'];
+			var task;
+			for(var i=0;i<tasks.length;i++){
+				var temp = tasks[i];
+				if(temp['id']==id){
+					task = temp;
+					break;
+				}
+			}
+			var downloadUrl = task['lixian_url'];
+			appletv.logToServer('offline download url:'+downloadUrl);
+			appletv.playMkv(downloadUrl);
 		}
 	},
 	
