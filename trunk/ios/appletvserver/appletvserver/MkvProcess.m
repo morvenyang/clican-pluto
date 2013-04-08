@@ -44,7 +44,7 @@
                         [[NSFileManager defaultManager] removeItemAtPath:outpath error:nil];
                     }
                     [[NSFileManager defaultManager] createDirectoryAtPath:outpath withIntermediateDirectories:YES attributes:nil error:nil];
-                    NSString* cookie = @"gdriveid=08D39F59B366F371195050D992B72FD2;";
+                    NSString* cookie = @"Cookie:gdriveid=08D39F59B366F371195050D992B72FD2;";
                     NSLog(@"m3u8Path:%@",[outpath stringByAppendingString:@"mkv.m3u8"]);
                     convert_avi_to_m3u8([inpath cStringUsingEncoding:NSASCIIStringEncoding],[[outpath stringByAppendingString:@"mkv.m3u8"] cStringUsingEncoding:NSASCIIStringEncoding],
                                         [[outpath stringByAppendingString:@"%04d.ts"] cStringUsingEncoding:NSASCIIStringEncoding],[cookie cStringUsingEncoding:NSASCIIStringEncoding]);
