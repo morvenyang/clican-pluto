@@ -167,9 +167,11 @@ var fivesixClient = {
 					queryUrl = queryUrl.substring(0,start)+page+'.html';
 				}
 			}
+			appletv.logToServer(queryUrl);
 			appletv.makeRequest(queryUrl, function(content) {
 				if (content != null && content.length > 0) {
-					var packs = appletv.getSubValuesByTag(content,
+					var videoContent = appletv.substringByTag(content,'<div class="content tv" id="content">','</div>','div');
+					var packs = appletv.getSubValuesByTag(videoContent,
 							'<dt>', '</dt>', 'dt');
 					for (i = 0; i < packs.length; i++) {
 						var pack = packs[i];
@@ -178,7 +180,7 @@ var fivesixClient = {
 						pic = appletv.substringByData(pic,'src="','"');
 						var title = appletv.substringByData(pack, '<a target="_blank" href="', '</a>');
 						title = appletv.subIndexString(title,'>');
-						var id = appletv.substringByData(pack, '<a href="','"');
+						var id = appletv.substringByData(pack, 'href="','"');
 						var album = false;
 						if (channelId == 'dsj' || channelId == 'dy') {
 							album = true;
@@ -229,5 +231,78 @@ var fivesixClient = {
 			url : appletv.serverurl + '/template/fivesix/index.ejs'
 		}).render(data);
 		appletv.loadAndSwapXML(xml);
+	},
+	
+	loadVideoPage : function(url) {
+		appletv.showLoading();
+		appletv
+				.makeRequest(url,
+						function(htmlContent) {
+							var content = appletv.getSubValuesByTag(htmlContent,
+									'<div class="content">', '</div>', 'div')
+							var actor = '-';
+							var dctor = '-';
+							var area = '-';
+							var score = '-';
+							var year = '-';
+							var shareurl = url;
+							
+							var title = appletv.substringByData(content,'title="','"');
+							var desc = appletv.substringByData(content,'<dd class="h_2" id="videoinfo_l" style="display:none">','<a');
+							
+							dctor = appletv.substringByData(content,'导演','</dd>');
+							dctor = appletv.getSubValuesByTag(dctor,'<a','</a>','a');
+							
+							actor = appletv.substringByData(content,'演员','</dd>');
+							actor = appletv.getSubValuesByTag(dctor,'<a','</a>','a');
+							year = appletv.substringByData(content,'上映','</dd>');
+							year = appletv.subIndexString(year,'<dd>');
+							area = appletv.substringByData(content,'地区','</dd>');
+							area = appletv.subIndexString(year,'<dd>');
+							var script = appletv.encode("youkuClient.loadVideoPage('"+url+"');");
+							
+							var items = [];
+							var itemscontent = appletv.substringByTag(htmlContent,'<div id="albumVideos">','</div>','div');
+							var items = appletv.getSubValues(itemscontent,'<dl','</dl>');
+							for(i=0;i<items.length;i++){
+								var item = items[i];
+								var t = appletv.substringByData(items,'title="','"');
+								var c = appletv.substringByData(items,'href="','"');
+								c = appletv.substringByData(c,'v_','.html');
+								var item = {
+										'title' : t,
+										'id' : c
+									};
+								items.push(item);
+							}
+							
+							
+							var video = {
+									'serverurl' : appletv.serverurl,
+									channelId : channelId,
+									script : script,
+									video : {
+										'id' : code,
+										'actor' : actor,
+										'area' : area,
+										'dctor' : dctor,
+										'pic' : pic,
+										'score' : score,
+										'title' : title,
+										'year' : year,
+										'desc' : desc,
+										'shareurl':shareurl
+									},
+									items : items
+								};
+								if(isalbum){
+									appletv.setValue('clican.fivesix.video',video);
+								}
+								var xml = new EJS({
+									url : appletv.serverurl
+											+ '/template/fivesix/video.ejs'
+								}).render(video);
+								appletv.loadAndSwapXML(xml);
+						});
 	},
 }
