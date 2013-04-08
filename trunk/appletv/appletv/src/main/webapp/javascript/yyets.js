@@ -115,6 +115,10 @@ var yyetsClient = {
 	},
 
 	generateIndexPage : function(keyword, page, channel, videos) {
+		if(videos.length==0){
+			appletv.showDialog('没有相关视频','');
+			return;
+		}
 		var begin = 1;
 		var end = 1;
 		if (page < 92) {

@@ -13,6 +13,10 @@ var myPhotoClient = {
 								var photoDict = {"id":id,type:'photo',assets:[{width:1024,height:768,src:item}]};
 								photoDicts.push(photoDict);
 						}
+						if(photoDicts.length==0){
+							appletv.showDialog('没有相关照片','');
+							return;
+						}
 						var fullScreenMediaBrowser = new atv.FullScreenMediaBrowser();
 						fullScreenMediaBrowser.onItemSelection = function(photoID) {
 							
