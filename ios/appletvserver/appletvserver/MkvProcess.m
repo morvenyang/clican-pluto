@@ -30,6 +30,7 @@
         if(AppDele.simulate){
             inpath=@"/Users/zhangwei/Desktop/2.mkv";
         }
+        //inpath = @"http://10.0.1.8:9090/appletv/1.mkv";
         NSLog(@"OutPath:%@",outpath);
         NSLog(@"InPath:%@",inpath);
        
