@@ -3276,7 +3276,7 @@ static void parse_cpuflags(int argc, char **argv, const OptionDef *options) {
 		opt_cpuflags(NULL, "cpuflags", argv[idx + 1]);
 }
 
-void convert_avi_to_m3u8(const char* input,const char* output1,const char* output2) {
+void convert_avi_to_m3u8(const char* input,const char* output1,const char* output2,const char* cookie) {
 //	char *argv[] = { "ffmpeg", "-i", input,
 //			"-vcodec","libx264","-preset","fast","-crf","28","-acodec","libfdk_aac","-ab","128k",
 //			"-flags","-global_header","-map","0:0","-map","0:1","-f","segment",
@@ -3287,8 +3287,8 @@ void convert_avi_to_m3u8(const char* input,const char* output1,const char* outpu
 //            "-codec","copy","-vbsf","h264_mp4toannexb","-map","0","-f","segment"
 //            ,"-segment_list",
 //            output1,"-segment_time","30",output2 };
-    
-    char *argv[]= { "ffmpeg","-i", input,
+ 
+    char *argv[]= { "ffmpeg","-h",cookie,"-i", input,
         "-vcodec","copy","-vbsf","h264_mp4toannexb","-acodec","libfdk_aac","-ab","128k","-map","0:0","-map","0:1","-f","segment"
         ,"-segment_list",
         output1,"-segment_list_flags","+live","-segment_time","10",output2 };
