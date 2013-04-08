@@ -102,7 +102,7 @@ var xunleiClient = {
 	queryCid:function(p1,p2,p3,p4,fileName,p6,p7,p8,p9,p10,userid,url,cookie){
 		appletv.logToServer('call query cid');
 		if(fileName.indexOf('mkv')==-1&&fileName.indexOf('MKV')==-1){
-			appletv.showDialog('迅雷离线下载播放只支持MKV格式的文件','');
+			appletv.showDialog('迅雷离线下载播放只支持MKV格式的文件,当前文件名:'+fileName,'');
 			return;
 		}
 		var random = new Date().getTime();
