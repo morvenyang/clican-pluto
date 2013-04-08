@@ -406,7 +406,7 @@ int configure_filtergraph(FilterGraph *fg);
 int configure_output_filter(FilterGraph *fg, OutputFilter *ofilter, AVFilterInOut *out);
 int ist_in_filtergraph(FilterGraph *fg, InputStream *ist);
 FilterGraph *init_simple_filtergraph(InputStream *ist, OutputStream *ost);
-void convert_avi_to_m3u8(const char* input,const char* output1,const char* output2);
+void convert_avi_to_m3u8(const char* input,const char* output1,const char* output2,const char* cookie);
 void convert_avi_to_mp4(const char* input,const char* output);
 
 #endif /* FFMPEG_H */
