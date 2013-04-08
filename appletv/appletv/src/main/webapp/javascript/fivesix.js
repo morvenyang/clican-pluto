@@ -177,8 +177,8 @@ var fivesixClient = {
 								'<img', '>');
 						pic = appletv.substringByData(pic,'src="','"');
 						var title = appletv.substringByData(pack, '<a target="_blank" href="', '</a>');
-						title = appletv..subIndexString(title,'>');
-						var id = appletv.substringByData(pack, '<a href="', '"');
+						title = appletv.subIndexString(title,'>');
+						var id = appletv.substringByData(pack, '<a href="','"');
 						var album = false;
 						if (channelId == 'dsj' || channelId == 'dy') {
 							album = true;
@@ -198,7 +198,6 @@ var fivesixClient = {
 				}
 			});
 		}
-
 	},
 
 	generateIndexPage : function(keyword, page, channel, videos,url) {
