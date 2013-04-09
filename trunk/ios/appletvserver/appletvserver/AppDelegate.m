@@ -21,6 +21,7 @@
 #import "Constants.h"
 #import "InputViewController.h"
 #import "ConfigViewController.h"
+#import "TreeViewController.h"
 
 static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
@@ -96,7 +97,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     }
     self.atvDeviceId =  [defaults stringForKey: ATV_DEVICE_ID_NAME];
     if(self.atvDeviceId==nil||self.atvDeviceId.length==0){
-        self.atvDeviceId = [[UIDevice currentDevice] uniqueIdentifier];
+        self.atvDeviceId = [[UIDevice currentDevice] identifierForVendor].UUIDString;
     }
     NSString* deviceType = [UIDevice currentDevice].model;
     NSLog(@"deviceType = %@", deviceType);
@@ -213,6 +214,8 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
      [XunLeiLoginViewController class]];
     [map from:@"atvserver://download" toSharedViewController:
      [DownloadStatusViewController class]];
+    [map from:@"atvserver://smb" toSharedViewController:
+     [TreeViewController class]];
     [map from:@"atvserver://config" toSharedViewController:
      [ConfigViewController class]];
     [map from:@"atvserver://atv/input/(initWithLabel:)/(instruction:)/(initialText:)" toSharedViewController:
