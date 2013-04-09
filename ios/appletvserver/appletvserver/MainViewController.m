@@ -36,10 +36,6 @@
     [items addObject:item5];
     TTTableTextItem* item6 = [TTTableTextItem itemWithText:@"收藏" URL:@"appletv.loadFavoritePage();"];
     [items addObject:item6];
-    
-    NSString* url =@"http://vod30.t19.lixian.vip.xunlei.com:443/download?fid=emlPgw9jX5lBcmGnVJ4RgeXO+Hxq6VFcAAAAANuBvkGCNBSzd4lE4fk1okftXEb7&mid=666&threshold=150&tid=EDCDE1299DC6E43F04EFF63FACBBE88D&srcid=4&verno=1&g=DB81BE41823414B3778944E1F935A247ED5C46FB&scn=t9&i=817119D8471F0BCC3DCFDF0712D5CD4B&t=4&ui=5663595&ti=161029492610&s=1548872042&m=0&n=011559817177616C6B085F8371646561644F42D46C6531362E5603D42F2E686474171F9C6D36342D320955CA326B760000&ff=0&co=909A5217E21D287776E49561158F5D2B&cm=1&ts=1365205639";
-    TTTableTextItem* item7 = [TTTableTextItem itemWithText:@"播放" URL:[NSString stringWithFormat:@"appletv.playMkv('%@');",url]];
-    [items addObject:item7];
     TTListDataSource* ds = [[TTListDataSource alloc] initWithItems:items];
     self.dataSource = ds;
     self.tableView.delegate =self;
