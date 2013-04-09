@@ -25,12 +25,16 @@
 -(void) convertToM3u8MkvUrl:(NSString*) url{
     if(self.mkvUrl==nil||![self.mkvUrl isEqualToString:url]||true){
         self.mkvUrl = url;
-        NSString *outpath = AppDele.localMkvM3u8PathPrefix;
         NSString* inpath =url;
+        if([self.mkvUrl rangeOfString:@"smb://"].location!=NSNotFound){
+            inpath = [NSString stringWithFormat:@"http://%@:8080/appletv/noctl/proxy/smb?url=%i",AppDele.ipAddress,url];
+        }
+        NSString *outpath = AppDele.localMkvM3u8PathPrefix;
+        
         if(AppDele.simulate){
             inpath=@"/Users/zhangwei/Desktop/2.mkv";
         }
-        inpath = @"http://10.0.1.8:9090/appletv/3.mkv";
+        //inpath = @"http://10.0.1.8:9090/appletv/3.mkv";
         NSLog(@"OutPath:%@",outpath);
         NSLog(@"InPath:%@",inpath);
        

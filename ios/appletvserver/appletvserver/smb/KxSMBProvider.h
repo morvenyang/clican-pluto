@@ -113,7 +113,7 @@ typedef void (^KxSMBBlock)(id result);
 @interface KxSMBProvider : NSObject
 
 + (id) sharedSmbProvider;
-
++ (id) fetchAtPath: (NSString *) path;
 - (void) fetchAtPath: (NSString *) path block: (KxSMBBlock) block;
 - (id) fetchAtPath: (NSString *) path;
 -(void)openAuthView:(NSString*) name;

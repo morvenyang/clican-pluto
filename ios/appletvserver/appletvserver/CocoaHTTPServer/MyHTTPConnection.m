@@ -15,6 +15,7 @@
 #import "HTTPRedirectResponse.h"
 #import "Constants.h"
 #import "MkvProcess.h"
+#import "KxSMBProvider.h"
 // Log levels : off, error, warn, info, verbose
 // Other flags: trace
 static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
@@ -127,49 +128,70 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
     }else if([path rangeOfString:@"/appletv/noctl/proxy/play.mp4"].location!=NSNotFound){
         NSString* mp4Url = [[self parseGetParams] objectForKey:@"url"];
         NSLog(@"mp4 url:%@",mp4Url);
-        [AppDele m3u8Process].running = NO;
-        [AppDele mp4Process].running = YES;
-        Mp4Download* mp4Download = [AppDele mp4Process].mp4Download;
-       
-        if(mp4Download!=nil&&[mp4Download.mp4Url isEqualToString:mp4Url]){
-            NSString* range = [request headerField:@"Range"];
-            if(range==nil||[range length]==0){
-                range = @"bytes=0-";
-            }
-            
-            NSLog(@"Range:%@",range);
-            NSArray* crs = [[range stringByReplacingOccurrencesOfString:@"bytes=" withString:@""] componentsSeparatedByString:@"-"];
-            long startPosition = [(NSString*)[crs objectAtIndex:0] longLongValue];
-            long endPosition = startPosition+MP4_PARTIAL_LENGTH-1;
-            if([crs objectAtIndex:1]!=nil&&[(NSString*)[crs objectAtIndex:1] length]>0){
-                endPosition = [(NSString*)[crs objectAtIndex:1] longLongValue]+1;
-            }
-            NSLog(@"Rage:%ld-%ld",startPosition,endPosition);
-            Mp4Download* mp4Download = [AppDele mp4Process].mp4Download;
-            
-            NSData *data = [mp4Download getDataByStartPosition:startPosition endPosition:endPosition];
-            NSLog(@"data length:%i",[data length]);
+        
+        NSString* range = [request headerField:@"Range"];
+        if(range==nil||[range length]==0){
+            range = @"bytes=0-";
+        }
+        
+        NSLog(@"Range:%@",range);
+        NSArray* crs = [[range stringByReplacingOccurrencesOfString:@"bytes=" withString:@""] componentsSeparatedByString:@"-"];
+        long startPosition = [(NSString*)[crs objectAtIndex:0] longLongValue];
+        long endPosition = startPosition+MP4_PARTIAL_LENGTH-1;
+        if([crs objectAtIndex:1]!=nil&&[(NSString*)[crs objectAtIndex:1] length]>0){
+            endPosition = [(NSString*)[crs objectAtIndex:1] longLongValue];
+        }
+        if(endPosition-startPosition+1>MP4_PARTIAL_LENGTH){
+            endPosition = startPosition+MP4_PARTIAL_LENGTH-1;
+        }
+        NSLog(@"Rage:%ld-%ld",startPosition,endPosition);
+        
+        if([mp4Url rangeOfString:@"smb://"].location!=NSNotFound){
+            KxSMBItemFile* smbFile = [KxSMBProvider fetchAtPath:mp4Url];
+            [smbFile seekToFileOffset:startPosition whence:SEEK_SET];
+            NSData* data =[smbFile readDataOfLength:endPosition-startPosition+1];
+            NSLog(@"data length:%i",data.length);
             HTTPDataHeaderResponse* resp=[[HTTPDataHeaderResponse alloc] initWithData:data status:206];
-            
             [[resp httpHeaders] setValue:@"video/mp4" forKey:@"Content-Type"];
-            NSString *rangeStr = [NSString stringWithFormat:@"%ld-%ld", startPosition, startPosition+[data length]-1];
-            NSString *contentRangeStr = [NSString stringWithFormat:@"bytes %@/%ld", rangeStr, mp4Download.totalLength];
-            
-            [[resp httpHeaders] setValue:contentRangeStr forKey:@"Content-Range"];
-            NSLog(@"Content-Range:%@",contentRangeStr);
             [[resp httpHeaders] setValue:[NSString stringWithFormat:@"%i",[data length]] forKey:@"Content-Length"];
+            NSString *rangeStr = [NSString stringWithFormat:@"%ld-%ld", startPosition, startPosition+[data length]-1];
+            NSString *contentRangeStr = [NSString stringWithFormat:@"bytes %@/%ld", rangeStr, smbFile.stat.size];
+            [[resp httpHeaders] setValue:contentRangeStr forKey:@"Content-Range"];
             [[resp httpHeaders] setValue:@"bytes" forKey:@"Accept-Ranges"];
             return resp;
-        } else {
-            Mp4Download* mp4Download = [[AppDele mp4Process] doSyncRequestByMP4Url:mp4Url];
-            NSData* data = [NSData dataWithContentsOfFile:[[mp4Download.mp4DownloadPartials objectAtIndex:0] localPath]];
-                       HTTPDataHeaderResponse* resp=[[HTTPDataHeaderResponse alloc] initWithData:data status:206];
-            [[resp httpHeaders] setValue:@"video/mp4" forKey:@"Content-Type"];
-            [[resp httpHeaders] setValue:[NSString stringWithFormat:@"%i",[data length]] forKey:@"Content-Length"];
-            NSString *rangeStr = [NSString stringWithFormat:@"%i-%i", 0, [data length]-1];
-            NSString *contentRangeStr = [NSString stringWithFormat:@"bytes %@/%ld", rangeStr, mp4Download.totalLength];
-            [[resp httpHeaders] setValue:contentRangeStr forKey:@"Content-Range"];
-            return resp;
+        }else{
+            [AppDele m3u8Process].running = NO;
+            [AppDele mp4Process].running = YES;
+            Mp4Download* mp4Download = [AppDele mp4Process].mp4Download;
+            
+            if(mp4Download!=nil&&[mp4Download.mp4Url isEqualToString:mp4Url]){
+                
+                Mp4Download* mp4Download = [AppDele mp4Process].mp4Download;
+                
+                NSData *data = [mp4Download getDataByStartPosition:startPosition endPosition:endPosition];
+                NSLog(@"data length:%i",[data length]);
+                HTTPDataHeaderResponse* resp=[[HTTPDataHeaderResponse alloc] initWithData:data status:206];
+                
+                [[resp httpHeaders] setValue:@"video/mp4" forKey:@"Content-Type"];
+                NSString *rangeStr = [NSString stringWithFormat:@"%ld-%ld", startPosition, startPosition+[data length]-1];
+                NSString *contentRangeStr = [NSString stringWithFormat:@"bytes %@/%ld", rangeStr, mp4Download.totalLength];
+                
+                [[resp httpHeaders] setValue:contentRangeStr forKey:@"Content-Range"];
+                NSLog(@"Content-Range:%@",contentRangeStr);
+                [[resp httpHeaders] setValue:[NSString stringWithFormat:@"%i",[data length]] forKey:@"Content-Length"];
+                [[resp httpHeaders] setValue:@"bytes" forKey:@"Accept-Ranges"];
+                return resp;
+            } else {
+                Mp4Download* mp4Download = [[AppDele mp4Process] doSyncRequestByMP4Url:mp4Url];
+                NSData* data = [NSData dataWithContentsOfFile:[[mp4Download.mp4DownloadPartials objectAtIndex:0] localPath]];
+                HTTPDataHeaderResponse* resp=[[HTTPDataHeaderResponse alloc] initWithData:data status:206];
+                [[resp httpHeaders] setValue:@"video/mp4" forKey:@"Content-Type"];
+                [[resp httpHeaders] setValue:[NSString stringWithFormat:@"%i",[data length]] forKey:@"Content-Length"];
+                NSString *rangeStr = [NSString stringWithFormat:@"%i-%i", 0, [data length]-1];
+                NSString *contentRangeStr = [NSString stringWithFormat:@"bytes %@/%ld", rangeStr, mp4Download.totalLength];
+                [[resp httpHeaders] setValue:contentRangeStr forKey:@"Content-Range"];
+                return resp;
+            }
         }
     }else if([path isEqualToString:@"/appletv/noctl/xunlei/getsession.do"]){
         NSArray* cookies =[[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies];
@@ -251,6 +273,39 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
             NSLog(@"ts for mkv is found %@",fileName);
         }
         HTTPFileResponse* resp = [[HTTPFileResponse alloc] initWithFilePath:filePath forConnection:self];
+        return resp;
+    }else if([path rangeOfString:@"/appletv/notcl/proxy/smb"].location!=NSNotFound){
+        NSString* smbUrl = [[self parseGetParams] objectForKey:@"url"];
+        NSLog(@"smb url:%@",smbUrl);
+        
+        NSString* range = [request headerField:@"Range"];
+        if(range==nil||[range length]==0){
+            range = @"bytes=0-";
+        }
+        
+        NSLog(@"Range:%@",range);
+        NSArray* crs = [[range stringByReplacingOccurrencesOfString:@"bytes=" withString:@""] componentsSeparatedByString:@"-"];
+        long startPosition = [(NSString*)[crs objectAtIndex:0] longLongValue];
+        long endPosition = startPosition+MP4_PARTIAL_LENGTH-1;
+        if([crs objectAtIndex:1]!=nil&&[(NSString*)[crs objectAtIndex:1] length]>0){
+            endPosition = [(NSString*)[crs objectAtIndex:1] longLongValue];
+        }
+        if(endPosition-startPosition+1>MP4_PARTIAL_LENGTH){
+            endPosition = startPosition+MP4_PARTIAL_LENGTH-1;
+        }
+        
+        NSLog(@"Rage:%ld-%ld",startPosition,endPosition);
+        KxSMBItemFile* smbFile = [KxSMBProvider fetchAtPath:smbUrl];
+        [smbFile seekToFileOffset:startPosition whence:SEEK_SET];
+        NSData* data =[smbFile readDataOfLength:endPosition-startPosition+1];
+        NSLog(@"data length:%i",data.length);
+        HTTPDataHeaderResponse* resp=[[HTTPDataHeaderResponse alloc] initWithData:data status:206];
+        [[resp httpHeaders] setValue:@"video/mp4" forKey:@"Content-Type"];
+        [[resp httpHeaders] setValue:[NSString stringWithFormat:@"%i",[data length]] forKey:@"Content-Length"];
+        NSString *rangeStr = [NSString stringWithFormat:@"%ld-%ld", startPosition, startPosition+[data length]-1];
+        NSString *contentRangeStr = [NSString stringWithFormat:@"bytes %@/%ld", rangeStr, smbFile.stat.size];
+        [[resp httpHeaders] setValue:contentRangeStr forKey:@"Content-Range"];
+        [[resp httpHeaders] setValue:@"bytes" forKey:@"Accept-Ranges"];
         return resp;
     }else{
         return [super httpResponseForMethod:method URI:path];
