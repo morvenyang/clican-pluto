@@ -236,9 +236,6 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
         content =[NSString stringWithContentsOfURL:[NSURL fileURLWithPath:filePath] encoding:NSUTF8StringEncoding error:nil];
         if(content!=NULL){
             content = [content stringByReplacingOccurrencesOfString:AppDele.localMkvM3u8PathPrefix withString:AppDele.localMkvM3u8UrlPrefix];
-//            content = [content stringByReplacingOccurrencesOfString:@"#EXT-X-VERSION:3" withString:@"#EXT-X-TARGETDURATION:30\n#EXT-X-VERSION:3"];
-//            content = [content stringByReplacingOccurrencesOfString:@"#EXT-X-ALLOWCACHE:1\n" withString:@"#EXT-X-ALLOWCACHE:YES\n"];
-            //content = [content stringByAppendingString:@"#EXT-X-ENDLIST\n"];
         }
 
         NSLog(@"%@",content);

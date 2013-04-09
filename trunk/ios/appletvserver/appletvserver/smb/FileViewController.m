@@ -34,6 +34,7 @@
 
 #import "FileViewController.h"
 #import "KxSMBProvider.h"
+#import "AppDelegate.h"
 
 @interface FileViewController ()
 @end
@@ -90,7 +91,7 @@
     [self.view addSubview:_sizeLabel];
     [self.view addSubview:_dateLabel];
     NSString *filename = _smbFile.path.lastPathComponent;
-    if([filename rangeOfString:@".mkv"].location!=NSNotFound||[filename rangeOfString:@".MKV"].location!=NSNotFound||[filename rangeOfString:@".mp4"].location!=NSNotFound||[filename rangeOfString:@".MP4"].location!=NSNotFound){
+    if([filename rangeOfString:@".mkv"].location!=NSNotFound||[filename rangeOfString:@".MKV"].location!=NSNotFound||[filename rangeOfString:@".mp4"].location!=NSNotFound||[filename rangeOfString:@".MP4"].location!=NSNotFound||true){
         _downloadButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         _downloadButton.frame = CGRectMake(10, 120, 100, 30);
         _downloadButton.titleLabel.font = [UIFont boldSystemFontOfSize:16];
@@ -157,46 +158,45 @@
 
 - (void) playAction
 {
-    if (!_fileHandle) {
-        
-        NSString *folder = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
-                                                                NSUserDomainMask,
-                                                                YES) lastObject];
+    
+
         NSString *filename = _smbFile.path.lastPathComponent;
-        NSString *filepath = [folder stringByAppendingPathComponent:filename];
-        
-        NSFileManager *fm = [[NSFileManager alloc] init];
-        if ([fm fileExistsAtPath:filepath])
-            [fm removeItemAtPath:filepath error:nil];
-        [fm createFileAtPath:filepath contents:nil attributes:nil];
-        
-        NSError *error;
-        _fileHandle = [NSFileHandle fileHandleForWritingToURL:[NSURL fileURLWithPath:filepath]
-                                                        error:&error];
- 
-        if (_fileHandle) {
-        
-            [_downloadButton setTitle:@"Cancel" forState:UIControlStateNormal];
-            _downloadLabel.text = @"starting ..";
-            
-            _downloadedBytes = 0;
-            _downloadProgress.progress = 0;
-            _downloadProgress.hidden = NO;
-            _timestamp = [NSDate date];
-            
-            [self download];
-            
-        } else {
-            
-            _downloadLabel.text = [NSString stringWithFormat:@"failed: %@", error.localizedDescription];
-        }
-        
-    } else {
-        
-        [_downloadButton setTitle:@"Download" forState:UIControlStateNormal];
-        _downloadLabel.text = @"cancelled";
-        [self closeFiles];
+    NSString* url = nil;
+    if([filename rangeOfString:@"mp4"].location!=NSNotFound||[filename rangeOfString:@"MP4"].location!=NSNotFound){
+        url = [NSString stringWithFormat:@"http://%@:8080/appletv/noctl/proxy/play.mp4?url=%@",AppDele.ipAddress,[NSURL fileURLWithPath:_smbFile.path]];
+    }else{
+        url = [NSString stringWithFormat:@"http://%@:8080/appletv/noctl/mkv/play.m3u8?url=%@",AppDele.ipAddress,[NSURL fileURLWithPath:_smbFile.path]];
     }
+    self.playerViewController = [[MPMoviePlayerViewController alloc] initWithContentURL:[NSURL fileURLWithPath:url]];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moviePlayBackDidFinish:)
+                                                 name:MPMoviePlayerPlaybackDidFinishNotification object:self.playerViewController.moviePlayer];
+    
+    self.playerViewController.moviePlayer.controlStyle = MPMovieControlStyleFullscreen;
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
+    
+    [self presentMoviePlayerViewControllerAnimated:self.playerViewController];
+    [self.playerViewController.moviePlayer prepareToPlay];
+    [self.playerViewController.moviePlayer setFullscreen:YES animated:YES];
+    [self.playerViewController.moviePlayer play];
+ 
+}
+
+- (void)moviePlayBackDidFinish:(NSNotification*)notification {
+    
+    //user hit the done button
+    MPMoviePlayerController *moviePlayer = [notification object];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:MPMoviePlayerPlaybackDidFinishNotification
+                                                  object:moviePlayer];
+    
+    if ([moviePlayer respondsToSelector:@selector(setFullscreen:animated:)]) {
+        [moviePlayer.view removeFromSuperview];
+    }
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+    [self.navigationController popViewControllerAnimated:YES];
+    
 }
 
 -(void) updateDownloadStatus: (id) result
