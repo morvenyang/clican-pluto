@@ -35,7 +35,7 @@
 #import "FileViewController.h"
 #import "KxSMBProvider.h"
 #import "AppDelegate.h"
-
+#import "AtvUtil.h"
 @interface FileViewController ()
 @end
 
@@ -163,11 +163,12 @@
         NSString *filename = _smbFile.path.lastPathComponent;
     NSString* url = nil;
     if([filename rangeOfString:@"mp4"].location!=NSNotFound||[filename rangeOfString:@"MP4"].location!=NSNotFound){
-        url = [NSString stringWithFormat:@"http://%@:8080/appletv/noctl/proxy/play.mp4?url=%@",AppDele.ipAddress,[NSURL fileURLWithPath:_smbFile.path]];
+        url = [NSString stringWithFormat:@"http://%@:8080/appletv/noctl/proxy/play.mp4?url=%@",AppDele.ipAddress,[AtvUtil encodeURL:_smbFile.path]];
     }else{
-        url = [NSString stringWithFormat:@"http://%@:8080/appletv/noctl/mkv/play.m3u8?url=%@",AppDele.ipAddress,[NSURL fileURLWithPath:_smbFile.path]];
+        url = [NSString stringWithFormat:@"http://%@:8080/appletv/noctl/mkv/play.m3u8?url=%@",AppDele.ipAddress,[AtvUtil encodeURL:_smbFile.path]];
     }
-    self.playerViewController = [[MPMoviePlayerViewController alloc] initWithContentURL:[NSURL fileURLWithPath:url]];
+    NSLog(@"play:%@",url);
+    self.playerViewController = [[MPMoviePlayerViewController alloc] initWithContentURL:[NSURL URLWithString:url]];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moviePlayBackDidFinish:)
                                                  name:MPMoviePlayerPlaybackDidFinishNotification object:self.playerViewController.moviePlayer];
