@@ -86,32 +86,37 @@
     _dateLabel.opaque = NO;
     _dateLabel.backgroundColor = [UIColor clearColor];
     _dateLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    
-    _downloadButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    _downloadButton.frame = CGRectMake(10, 120, 100, 30);
-    _downloadButton.titleLabel.font = [UIFont boldSystemFontOfSize:16];
-    [_downloadButton setTitle:@"Download" forState:UIControlStateNormal];
-    [_downloadButton setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-    [_downloadButton addTarget:self action:@selector(downloadAction) forControlEvents:UIControlEventTouchUpInside];
-    
-    _downloadLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 150, W - 20, 40)];
-    _downloadLabel.font = [UIFont systemFontOfSize:14];;
-    _downloadLabel.textColor = [UIColor darkTextColor];
-    _downloadLabel.opaque = NO;
-    _downloadLabel.backgroundColor = [UIColor clearColor];
-    _downloadLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    _downloadLabel.numberOfLines = 2;
-    
-    _downloadProgress = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleDefault];
-    _downloadProgress.frame = CGRectMake(10, 190, W - 20, 30);
-    _downloadProgress.hidden = YES;
-
     [self.view addSubview:_nameLabel];
     [self.view addSubview:_sizeLabel];
     [self.view addSubview:_dateLabel];
-    [self.view addSubview:_downloadButton];
-    [self.view addSubview:_downloadLabel];
-    [self.view addSubview:_downloadProgress];    
+    NSString *filename = _smbFile.path.lastPathComponent;
+    if([filename rangeOfString:@".mkv"].location!=NSNotFound||[filename rangeOfString:@".MKV"].location!=NSNotFound||[filename rangeOfString:@".mp4"].location!=NSNotFound||[filename rangeOfString:@".MP4"].location!=NSNotFound){
+        _downloadButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        _downloadButton.frame = CGRectMake(10, 120, 100, 30);
+        _downloadButton.titleLabel.font = [UIFont boldSystemFontOfSize:16];
+        [_downloadButton setTitle:@"播放" forState:UIControlStateNormal];
+        [_downloadButton setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+        [_downloadButton addTarget:self action:@selector(playAction) forControlEvents:UIControlEventTouchUpInside];
+        
+        _downloadLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 150, W - 20, 40)];
+        _downloadLabel.font = [UIFont systemFontOfSize:14];;
+        _downloadLabel.textColor = [UIColor darkTextColor];
+        _downloadLabel.opaque = NO;
+        _downloadLabel.backgroundColor = [UIColor clearColor];
+        _downloadLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+        _downloadLabel.numberOfLines = 2;
+        
+        _downloadProgress = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleDefault];
+        _downloadProgress.frame = CGRectMake(10, 190, W - 20, 30);
+        _downloadProgress.hidden = YES;
+        [self.view addSubview:_downloadButton];
+        [self.view addSubview:_downloadLabel];
+        [self.view addSubview:_downloadProgress];
+    }
+    
+
+  
+    
 }
 
 - (void)viewDidLoad
@@ -150,7 +155,7 @@
     [_smbFile close];
 }
 
-- (void) downloadAction
+- (void) playAction
 {
     if (!_fileHandle) {
         

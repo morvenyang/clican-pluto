@@ -1,5 +1,5 @@
 //
-//  FileViewController.h
+//  SmbAuthViewController.h
 //  kxsmb project
 //  https://github.com/kolyvan/kxsmb/
 //
@@ -32,9 +32,16 @@
 */
 
 #import <UIKit/UIKit.h>
+#import "MediaPlayer/MediaPlayer.h"
 
-@class KxSMBItemFile;
+@class SmbAuthViewController;
 
-@interface FileViewController : UIViewController
-@property (readwrite, nonatomic, strong) KxSMBItemFile* smbFile;
+@interface SmbAuthViewController : UIViewController
+
+@property (readwrite, nonatomic, strong) NSString *server;
+@property (readwrite, nonatomic, strong) NSString *workgroup;
+@property (readwrite, nonatomic, strong) NSString *username;
+@property (readwrite, nonatomic, strong) NSString *password;
+
+-(id) initWithUrl:(NSString*) url;
 @end

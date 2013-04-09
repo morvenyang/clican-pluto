@@ -22,7 +22,7 @@
 #import "InputViewController.h"
 #import "ConfigViewController.h"
 #import "TreeViewController.h"
-
+#import "SmbAuthViewController.h"
 static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 @implementation AppDelegate
@@ -49,7 +49,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 @synthesize mkvProcess = _mkvProcess;
 @synthesize localMkvM3u8PathPrefix = _localMkvM3u8PathPrefix;
 @synthesize localMkvM3u8UrlPrefix = _localMkvM3u8UrlPrefix;
-
+@synthesize auth = _auth;
 - (void)dealloc
 {
     [super dealloc];
@@ -214,8 +214,12 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
      [XunLeiLoginViewController class]];
     [map from:@"atvserver://download" toSharedViewController:
      [DownloadStatusViewController class]];
+    [map from:@"atvserver://smb/(initWithUrl:)" toSharedViewController:
+     [TreeViewController class]];
     [map from:@"atvserver://smb" toSharedViewController:
      [TreeViewController class]];
+    [map from:@"atvserver://smb/auth/(initWithUrl:)" toSharedViewController:
+     [SmbAuthViewController class]];
     [map from:@"atvserver://config" toSharedViewController:
      [ConfigViewController class]];
     [map from:@"atvserver://atv/input/(initWithLabel:)/(instruction:)/(initialText:)" toSharedViewController:
@@ -281,4 +285,5 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
         bgTask = UIBackgroundTaskInvalid;
     });
 }
+
 @end

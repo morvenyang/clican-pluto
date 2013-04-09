@@ -33,7 +33,9 @@
 
 
 #import "SmbAuthViewController.h"
-
+#import "KxSMBProvider.h"
+#import "Constants.h"
+#import "AppDelegate.h"
 @interface SmbAuthViewController ()
 @end
 
@@ -49,11 +51,17 @@
 {
     self = [super initWithNibName:nil bundle:nil];
     if (self) {
-        self.title =  NSLocalizedString(@"SMB Authorization", nil);
+        self.title =  @"登录";
     }
     return self;
 }
-
+-(id) initWithUrl:(NSString*) url{
+    self = [self init];
+    if(self){
+        self.server = url;
+    }
+    return self;
+}
 - (void) loadView
 {
     CGRect frame = [[UIScreen mainScreen] applicationFrame];    
@@ -84,7 +92,7 @@
     workgroupLabel.backgroundColor = [UIColor clearColor];
     workgroupLabel.textColor = [UIColor darkTextColor];
     workgroupLabel.font = [UIFont boldSystemFontOfSize:16];
-    workgroupLabel.text = NSLocalizedString(@"Workgroup", nil);
+    workgroupLabel.text = NSLocalizedString(@"工作组", nil);
     [self.view addSubview:workgroupLabel];
     
     UILabel *usernameLabel;
@@ -92,7 +100,7 @@
     usernameLabel.backgroundColor = [UIColor clearColor];
     usernameLabel.textColor = [UIColor darkTextColor];
     usernameLabel.font = [UIFont boldSystemFontOfSize:16];
-    usernameLabel.text = NSLocalizedString(@"Username", nil);
+    usernameLabel.text = @"用户名";
     [self.view addSubview:usernameLabel];
     
     UILabel *passwordLabel;
@@ -100,7 +108,7 @@
     passwordLabel.backgroundColor = [UIColor clearColor];
     passwordLabel.textColor =  [UIColor darkTextColor];
     passwordLabel.font = [UIFont boldSystemFontOfSize:16];
-    passwordLabel.text = NSLocalizedString(@"Password", nil);    
+    passwordLabel.text = @"密码";
     [self.view addSubview:passwordLabel];
     
     _workgroupField = [[UITextField alloc] initWithFrame:CGRectMake(100, 41, W - 110, 30)];
@@ -187,7 +195,7 @@
 {
     [super viewWillAppear:animated];
     
-    _pathLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Server: %@", nil), _server];
+    _pathLabel.text = [NSString stringWithFormat:NSLocalizedString(@"服务器: %@", nil), _server];
     _workgroupField.text = _workgroup;
     _usernameField.text = _username;
     _passwordField.text = _password;
@@ -201,9 +209,7 @@
 
 - (void) cancelAction
 {
-    __strong id p = self.delegate;
-    if (p && [p respondsToSelector:@selector(couldSmbAuthViewController:done:)])
-        [p couldSmbAuthViewController:self done:NO];
+    
 }
 
 - (void) doneAction
@@ -211,10 +217,11 @@
     _workgroup = _workgroupField.text;
     _username = _usernameField.text;
     _password = _passwordField.text;
-    
-    __strong id p = self.delegate;
-    if (p && [p respondsToSelector:@selector(couldSmbAuthViewController:done:)])
-        [p couldSmbAuthViewController:self done:YES];
+    AppDele.auth = [KxSMBAuth smbAuthWorkgroup:_workgroup
+                                         username:_username
+                                         password:_password];
+    NSString* url = [NSString stringWithFormat:@"atvserver://smb/%@",_server];
+    TTOpenURL(url);
 }
 
 @end

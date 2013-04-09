@@ -156,6 +156,12 @@
 		72D6C56A16FC84D90048591E /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 72D6C56716FC84D90048591E /* Default-568h@2x.png */; };
 		72D6C56B16FC84D90048591E /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 72D6C56816FC84D90048591E /* Default.png */; };
 		72D6C56C16FC84D90048591E /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 72D6C56916FC84D90048591E /* Default@2x.png */; };
+		72DF0FFC1713A99800B01A76 /* libresolv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 72DF0FFB1713A99800B01A76 /* libresolv.dylib */; };
+		72DF10071713A9A300B01A76 /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 72DF10061713A9A300B01A76 /* libiconv.dylib */; };
+		72DF10341713AC1D00B01A76 /* FileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 72DF102F1713AC1D00B01A76 /* FileViewController.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		72DF10351713AC1D00B01A76 /* SmbAuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 72DF10311713AC1D00B01A76 /* SmbAuthViewController.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		72DF10361713AC1D00B01A76 /* TreeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 72DF10331713AC1D00B01A76 /* TreeViewController.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		72DF10391713AC2B00B01A76 /* KxSMBProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 72DF10381713AC2B00B01A76 /* KxSMBProvider.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		72E200D316DB26BF00F3D7FC /* StyleSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 72E748FA16C9EEE70024B8BB /* StyleSheet.m */; };
 		72E200D816DB271C00F3D7FC /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72E200D616DB271C00F3D7FC /* CFNetwork.framework */; };
 		72E200D916DB271C00F3D7FC /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72E200D716DB271C00F3D7FC /* Security.framework */; };
@@ -604,10 +610,16 @@
 		72D6C56716FC84D90048591E /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		72D6C56816FC84D90048591E /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		72D6C56916FC84D90048591E /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
-		72DF0FDC17139DCC00B01A76 /* KxSMBProvider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KxSMBProvider.h; sourceTree = "<group>"; };
-		72DF0FDD17139DCC00B01A76 /* KxSMBProvider.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KxSMBProvider.m; sourceTree = "<group>"; };
-		72DF0FDE17139EE900B01A76 /* TreeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TreeViewController.h; sourceTree = "<group>"; };
-		72DF0FDF17139EE900B01A76 /* TreeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TreeViewController.m; sourceTree = "<group>"; };
+		72DF0FFB1713A99800B01A76 /* libresolv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libresolv.dylib; path = usr/lib/libresolv.dylib; sourceTree = SDKROOT; };
+		72DF10061713A9A300B01A76 /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = usr/lib/libiconv.dylib; sourceTree = SDKROOT; };
+		72DF102E1713AC1D00B01A76 /* FileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FileViewController.h; path = smb/FileViewController.h; sourceTree = "<group>"; };
+		72DF102F1713AC1D00B01A76 /* FileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FileViewController.m; path = smb/FileViewController.m; sourceTree = "<group>"; };
+		72DF10301713AC1D00B01A76 /* SmbAuthViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SmbAuthViewController.h; path = smb/SmbAuthViewController.h; sourceTree = "<group>"; };
+		72DF10311713AC1D00B01A76 /* SmbAuthViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SmbAuthViewController.m; path = smb/SmbAuthViewController.m; sourceTree = "<group>"; };
+		72DF10321713AC1D00B01A76 /* TreeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TreeViewController.h; path = smb/TreeViewController.h; sourceTree = "<group>"; };
+		72DF10331713AC1D00B01A76 /* TreeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TreeViewController.m; path = smb/TreeViewController.m; sourceTree = "<group>"; };
+		72DF10371713AC2B00B01A76 /* KxSMBProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KxSMBProvider.h; path = smb/KxSMBProvider.h; sourceTree = "<group>"; };
+		72DF10381713AC2B00B01A76 /* KxSMBProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KxSMBProvider.m; path = smb/KxSMBProvider.m; sourceTree = "<group>"; };
 		72E200D616DB271C00F3D7FC /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		72E200D716DB271C00F3D7FC /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		72E748F916C9EEE70024B8BB /* StyleSheet.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StyleSheet.h; sourceTree = "<group>"; };
@@ -628,6 +640,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				72DF10071713A9A300B01A76 /* libiconv.dylib in Frameworks */,
+				72DF0FFC1713A99800B01A76 /* libresolv.dylib in Frameworks */,
 				722B237D1712C4D100D3A8B4 /* libsmbclient.a in Frameworks */,
 				722B237E1712C4D100D3A8B4 /* libtalloc.a in Frameworks */,
 				722B237F1712C4D100D3A8B4 /* libtdb.a in Frameworks */,
@@ -849,8 +863,12 @@
 		722B23691712C2EB00D3A8B4 /* smb */ = {
 			isa = PBXGroup;
 			children = (
-				72DF0FDE17139EE900B01A76 /* TreeViewController.h */,
-				72DF0FDF17139EE900B01A76 /* TreeViewController.m */,
+				72DF102E1713AC1D00B01A76 /* FileViewController.h */,
+				72DF102F1713AC1D00B01A76 /* FileViewController.m */,
+				72DF10301713AC1D00B01A76 /* SmbAuthViewController.h */,
+				72DF10311713AC1D00B01A76 /* SmbAuthViewController.m */,
+				72DF10321713AC1D00B01A76 /* TreeViewController.h */,
+				72DF10331713AC1D00B01A76 /* TreeViewController.m */,
 			);
 			name = smb;
 			sourceTree = "<group>";
@@ -966,6 +984,8 @@
 		72A4367016C9EA5A00D9958D = {
 			isa = PBXGroup;
 			children = (
+				72DF10061713A9A300B01A76 /* libiconv.dylib */,
+				72DF0FFB1713A99800B01A76 /* libresolv.dylib */,
 				72A69BD016C9F9420099D974 /* Resources */,
 				72B83F4916CDD99D003B2839 /* include */,
 				72B83F4716CDD993003B2839 /* lib */,
@@ -1198,8 +1218,8 @@
 		72DF0FD217139DBB00B01A76 /* SMB */ = {
 			isa = PBXGroup;
 			children = (
-				72DF0FDC17139DCC00B01A76 /* KxSMBProvider.h */,
-				72DF0FDD17139DCC00B01A76 /* KxSMBProvider.m */,
+				72DF10371713AC2B00B01A76 /* KxSMBProvider.h */,
+				72DF10381713AC2B00B01A76 /* KxSMBProvider.m */,
 			);
 			name = SMB;
 			sourceTree = "<group>";
@@ -1683,6 +1703,10 @@
 				7233EB6F1709425400EF342E /* ConfigDataSource.m in Sources */,
 				72E871BE170E74990063E80A /* MkvProcess.m in Sources */,
 				722B23781712C36400D3A8B4 /* SMBDataSource.m in Sources */,
+				72DF10341713AC1D00B01A76 /* FileViewController.m in Sources */,
+				72DF10351713AC1D00B01A76 /* SmbAuthViewController.m in Sources */,
+				72DF10361713AC1D00B01A76 /* TreeViewController.m in Sources */,
+				72DF10391713AC2B00B01A76 /* KxSMBProvider.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
