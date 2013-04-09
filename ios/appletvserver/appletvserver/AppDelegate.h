@@ -23,6 +23,7 @@
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>{
     HTTPServer *httpServer;
+    HTTPServer *innerHttpServer;
     ASINetworkQueue* _queue;
     NSString* _ipAddress;
     NSString* _localM3u8UrlPrefix;

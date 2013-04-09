@@ -68,6 +68,16 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 	{
 		DDLogError(@"Error starting HTTP Server: %@", error);
 	}
+    
+    NSError *error2;
+	if([innerHttpServer start:&error2])
+	{
+		DDLogInfo(@"Started HTTP Server on port %hu", [innerHttpServer listeningPort]);
+	}
+	else
+	{
+		DDLogError(@"Error starting HTTP Server: %@", error2);
+	}
 }
 
 
@@ -119,18 +129,23 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 -(void) initHttpServer{
     // Create server using our custom MyHTTPServer class
 	httpServer = [[HTTPServer alloc] init];
+    innerHttpServer = [[HTTPServer alloc] init];
 	//httpServer.port = 80;
 	// Tell the server to broadcast its presence via Bonjour.
 	// This allows browsers such as Safari to automatically discover our service.
-	[httpServer setType:@"_http._tcp."];
-	
+   	[httpServer setType:@"_http._tcp."];
+	[innerHttpServer setType:@"_http._tcp."];
 	// Normally there's no need to run our server on any specific port.
 	// Technologies like Bonjour allow clients to dynamically discover the server's port at runtime.
 	// However, for easy testing you may want force a certain port so you can just hit the refresh button.
 	[httpServer setPort:8080];
+    [innerHttpServer setPort:8081];
 	[httpServer setConnectionClass:[MyHTTPConnection class]];
+    [innerHttpServer setConnectionClass:[MyHTTPConnection class]];
+
 	NSLog(@"Setting document root: %@", self.localWebPathPrefix);
 	[httpServer setDocumentRoot:self.localWebPathPrefix];
+    [innerHttpServer setDocumentRoot:self.localWebPathPrefix];
     [self startServer];
 
 }

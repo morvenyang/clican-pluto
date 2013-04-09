@@ -9,6 +9,7 @@
 #import "MkvProcess.h"
 #import "AppDelegate.h"
 #import "ffmpeg.h"
+#import "AtvUtil.h"
 
 @implementation MkvProcess
 
@@ -27,7 +28,7 @@
         self.mkvUrl = url;
         NSString* inpath =url;
         if([self.mkvUrl rangeOfString:@"smb://"].location!=NSNotFound){
-            inpath = [NSString stringWithFormat:@"http://%@:8080/appletv/noctl/proxy/smb?url=%i",AppDele.ipAddress,url];
+            inpath = [NSString stringWithFormat:@"http://%@:8081/appletv/noctl/proxy/smb?url=%@",AppDele.ipAddress,[AtvUtil encodeURL:url]];
         }
         NSString *outpath = AppDele.localMkvM3u8PathPrefix;
         
