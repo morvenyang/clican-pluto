@@ -274,7 +274,7 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
         }
         HTTPFileResponse* resp = [[HTTPFileResponse alloc] initWithFilePath:filePath forConnection:self];
         return resp;
-    }else if([path rangeOfString:@"/appletv/notcl/proxy/smb"].location!=NSNotFound){
+    }else if([path rangeOfString:@"/appletv/noctl/proxy/smb"].location!=NSNotFound){
         NSString* smbUrl = [[self parseGetParams] objectForKey:@"url"];
         NSLog(@"smb url:%@",smbUrl);
         
@@ -286,12 +286,12 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
         NSLog(@"Range:%@",range);
         NSArray* crs = [[range stringByReplacingOccurrencesOfString:@"bytes=" withString:@""] componentsSeparatedByString:@"-"];
         long startPosition = [(NSString*)[crs objectAtIndex:0] longLongValue];
-        long endPosition = startPosition+MP4_PARTIAL_LENGTH-1;
+        long endPosition = startPosition+MP4_PARTIAL_LENGTH*10-1;
         if([crs objectAtIndex:1]!=nil&&[(NSString*)[crs objectAtIndex:1] length]>0){
             endPosition = [(NSString*)[crs objectAtIndex:1] longLongValue];
         }
-        if(endPosition-startPosition+1>MP4_PARTIAL_LENGTH){
-            endPosition = startPosition+MP4_PARTIAL_LENGTH-1;
+        if(endPosition-startPosition+1>MP4_PARTIAL_LENGTH*10){
+            endPosition = startPosition+MP4_PARTIAL_LENGTH*10-1;
         }
         
         NSLog(@"Rage:%ld-%ld",startPosition,endPosition);

@@ -158,9 +158,7 @@
 
 - (void) playAction
 {
-    
-
-        NSString *filename = _smbFile.path.lastPathComponent;
+    NSString *filename = _smbFile.path.lastPathComponent;
     NSString* url = nil;
     if([filename rangeOfString:@"mp4"].location!=NSNotFound||[filename rangeOfString:@"MP4"].location!=NSNotFound){
         url = [NSString stringWithFormat:@"http://%@:8080/appletv/noctl/proxy/play.mp4?url=%@",AppDele.ipAddress,[AtvUtil encodeURL:_smbFile.path]];
@@ -169,7 +167,6 @@
     }
     NSLog(@"play:%@",url);
     self.playerViewController = [[MPMoviePlayerViewController alloc] initWithContentURL:[NSURL URLWithString:url]];
-    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moviePlayBackDidFinish:)
                                                  name:MPMoviePlayerPlaybackDidFinishNotification object:self.playerViewController.moviePlayer];
     
@@ -180,7 +177,6 @@
     [self.playerViewController.moviePlayer prepareToPlay];
     [self.playerViewController.moviePlayer setFullscreen:YES animated:YES];
     [self.playerViewController.moviePlayer play];
- 
 }
 
 - (void)moviePlayBackDidFinish:(NSNotification*)notification {
