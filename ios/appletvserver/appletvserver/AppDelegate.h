@@ -17,6 +17,7 @@
 #import "WebContentSync.h"
 #import "JSEngine.h"
 #import "MkvProcess.h"
+#import "KxSMBProvider.h"
 #define AppDele ((AppDelegate *)[[UIApplication sharedApplication] delegate])
 
 
@@ -48,6 +49,8 @@
     NSString* _localMkvM3u8UrlPrefix;
     NSString* _localMkvM3u8PathPrefix;
     
+    KxSMBAuth* _auth;
+    
     BOOL _ipad;
     BOOL _simulate;
     int _videoSizePerLine;
@@ -76,6 +79,7 @@
 @property (nonatomic, retain) MkvProcess* mkvProcess;
 @property (nonatomic, copy) NSString* localMkvM3u8UrlPrefix;
 @property (nonatomic, copy) NSString* localMkvM3u8PathPrefix;
+@property (nonatomic, retain) KxSMBAuth* auth;
 -(void) initProcess;
 
 @end
