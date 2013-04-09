@@ -1,9 +1,9 @@
 //
-//  TreeViewController.h
+//  SmbAuthViewController.h
 //  kxsmb project
 //  https://github.com/kolyvan/kxsmb/
 //
-//  Created by Kolyvan on 27.03.13.
+//  Created by Kolyvan on 29.03.13.
 //
 
 /*
@@ -31,9 +31,20 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-
 #import <UIKit/UIKit.h>
 
-@interface TreeViewController : UIViewController
-@property (readwrite, nonatomic, strong) NSString *path;
+@class SmbAuthViewController;
+
+@protocol SmbAuthViewControllerDelegate
+@optional
+- (void) couldSmbAuthViewController: (SmbAuthViewController *) controller
+                               done: (BOOL) done;
+@end
+
+@interface SmbAuthViewController : UIViewController
+@property (readwrite, nonatomic, weak) id delegate;
+@property (readwrite, nonatomic, strong) NSString *server;
+@property (readwrite, nonatomic, strong) NSString *workgroup;
+@property (readwrite, nonatomic, strong) NSString *username;
+@property (readwrite, nonatomic, strong) NSString *password;
 @end

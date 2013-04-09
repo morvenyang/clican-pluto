@@ -24,7 +24,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.title = @"设置";
-        self.tabBarItem = [[[UITabBarItem alloc] initWithTitle:@"设置" image:nil tag:3] autorelease];
+        self.tabBarItem = [[[UITabBarItem alloc] initWithTitle:@"设置" image:nil tag:4] autorelease];
         
         self.serverIPField = [[[UITextField alloc] init] autorelease];
         self.serverIPField.font = [UIFont fontWithName:@"Microsoft YaHei" size:12];
