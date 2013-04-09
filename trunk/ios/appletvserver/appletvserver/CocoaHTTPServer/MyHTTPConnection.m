@@ -260,7 +260,7 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
             content = [content stringByReplacingOccurrencesOfString:AppDele.localMkvM3u8PathPrefix withString:AppDele.localMkvM3u8UrlPrefix];
         }
 
-        NSLog(@"%@",content);
+        //NSLog(@"%@",content);
         NSData *data = [content dataUsingEncoding:NSUTF8StringEncoding];
         HTTPDataResponse* resp=[[HTTPDataResponse alloc] initWithData:data];
         return resp;
