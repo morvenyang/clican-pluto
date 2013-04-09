@@ -7,7 +7,7 @@
 //
 
 #import "SMBDataSource.h"
-
+#import "KxSMBProvider.h"
 @implementation SMBDataSource
 
 @synthesize url = _url;

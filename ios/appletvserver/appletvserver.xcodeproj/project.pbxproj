@@ -72,7 +72,6 @@
 		722146E116DDDFFA00850C03 /* HTTPDataHeaderResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 722146E016DDDFFA00850C03 /* HTTPDataHeaderResponse.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		722146E416DDE40700850C03 /* M3u8Download.m in Sources */ = {isa = PBXBuildFile; fileRef = 722146E316DDE40700850C03 /* M3u8Download.m */; };
 		722146E716DDE62500850C03 /* M3u8TSHTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 722146E616DDE62500850C03 /* M3u8TSHTTPRequest.m */; };
-		722B23751712C31800D3A8B4 /* SMBViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 722B23741712C31800D3A8B4 /* SMBViewController.m */; };
 		722B23781712C36400D3A8B4 /* SMBDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 722B23771712C36400D3A8B4 /* SMBDataSource.m */; };
 		722B237D1712C4D100D3A8B4 /* libsmbclient.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 722B23791712C4D100D3A8B4 /* libsmbclient.a */; };
 		722B237E1712C4D100D3A8B4 /* libtalloc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 722B237A1712C4D100D3A8B4 /* libtalloc.a */; };
@@ -467,8 +466,6 @@
 		722146E316DDE40700850C03 /* M3u8Download.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M3u8Download.m; sourceTree = "<group>"; };
 		722146E516DDE62500850C03 /* M3u8TSHTTPRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = M3u8TSHTTPRequest.h; path = AISHTTPRequest/M3u8TSHTTPRequest.h; sourceTree = "<group>"; };
 		722146E616DDE62500850C03 /* M3u8TSHTTPRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = M3u8TSHTTPRequest.m; path = AISHTTPRequest/M3u8TSHTTPRequest.m; sourceTree = "<group>"; };
-		722B23731712C31800D3A8B4 /* SMBViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMBViewController.h; sourceTree = "<group>"; };
-		722B23741712C31800D3A8B4 /* SMBViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMBViewController.m; sourceTree = "<group>"; };
 		722B23761712C36400D3A8B4 /* SMBDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMBDataSource.h; sourceTree = "<group>"; };
 		722B23771712C36400D3A8B4 /* SMBDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMBDataSource.m; sourceTree = "<group>"; };
 		722B23791712C4D100D3A8B4 /* libsmbclient.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsmbclient.a; path = appletvserver/lib/libsmbclient.a; sourceTree = "<group>"; };
@@ -607,6 +604,10 @@
 		72D6C56716FC84D90048591E /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		72D6C56816FC84D90048591E /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		72D6C56916FC84D90048591E /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		72DF0FDC17139DCC00B01A76 /* KxSMBProvider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KxSMBProvider.h; sourceTree = "<group>"; };
+		72DF0FDD17139DCC00B01A76 /* KxSMBProvider.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KxSMBProvider.m; sourceTree = "<group>"; };
+		72DF0FDE17139EE900B01A76 /* TreeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TreeViewController.h; sourceTree = "<group>"; };
+		72DF0FDF17139EE900B01A76 /* TreeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TreeViewController.m; sourceTree = "<group>"; };
 		72E200D616DB271C00F3D7FC /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		72E200D716DB271C00F3D7FC /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		72E748F916C9EEE70024B8BB /* StyleSheet.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StyleSheet.h; sourceTree = "<group>"; };
@@ -848,8 +849,8 @@
 		722B23691712C2EB00D3A8B4 /* smb */ = {
 			isa = PBXGroup;
 			children = (
-				722B23731712C31800D3A8B4 /* SMBViewController.h */,
-				722B23741712C31800D3A8B4 /* SMBViewController.m */,
+				72DF0FDE17139EE900B01A76 /* TreeViewController.h */,
+				72DF0FDF17139EE900B01A76 /* TreeViewController.m */,
 			);
 			name = smb;
 			sourceTree = "<group>";
@@ -1033,6 +1034,7 @@
 		72A4368516C9EA5A00D9958D /* appletvserver */ = {
 			isa = PBXGroup;
 			children = (
+				72DF0FD217139DBB00B01A76 /* SMB */,
 				72FEEFCB1703D67D00F9713E /* Utils */,
 				72D5CBEB170048C500B292BA /* TouchXML */,
 				72198F0616FFF1D500EC451B /* JavaScriptCore */,
@@ -1191,6 +1193,15 @@
 				72B83F7416CDDC0D003B2839 /* VideoFrameExtractor.m */,
 			);
 			name = ffmpeg;
+			sourceTree = "<group>";
+		};
+		72DF0FD217139DBB00B01A76 /* SMB */ = {
+			isa = PBXGroup;
+			children = (
+				72DF0FDC17139DCC00B01A76 /* KxSMBProvider.h */,
+				72DF0FDD17139DCC00B01A76 /* KxSMBProvider.m */,
+			);
+			name = SMB;
 			sourceTree = "<group>";
 		};
 		72E2008716DB23EC00F3D7FC /* CocoaHTTPServer */ = {
@@ -1671,7 +1682,6 @@
 				7206AAF11707C1A80049FE0D /* ConfigViewController.m in Sources */,
 				7233EB6F1709425400EF342E /* ConfigDataSource.m in Sources */,
 				72E871BE170E74990063E80A /* MkvProcess.m in Sources */,
-				722B23751712C31800D3A8B4 /* SMBViewController.m in Sources */,
 				722B23781712C36400D3A8B4 /* SMBDataSource.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
