@@ -93,6 +93,8 @@
 		724587321715301900F6E839 /* FileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 72DF102F1713AC1D00B01A76 /* FileViewController.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		724587331715301900F6E839 /* SmbAuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 72DF10311713AC1D00B01A76 /* SmbAuthViewController.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		724587341715301900F6E839 /* TreeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 72DF10331713AC1D00B01A76 /* TreeViewController.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		72458736171531A900F6E839 /* libresolv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 72458735171531A900F6E839 /* libresolv.dylib */; };
+		72458738171531B700F6E839 /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 72458737171531B700F6E839 /* libiconv.dylib */; };
 		7272B3A016C9FD4E00E111A7 /* Video.m in Sources */ = {isa = PBXBuildFile; fileRef = 7272B39F16C9FD4E00E111A7 /* Video.m */; };
 		7272B3A716CA046400E111A7 /* VideoTableItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 7272B3A616CA046400E111A7 /* VideoTableItem.m */; };
 		7272B3AA16CA049A00E111A7 /* VideoTableItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7272B3A916CA049A00E111A7 /* VideoTableItemCell.m */; };
@@ -500,6 +502,8 @@
 		7245872117152FD900F6E839 /* libtalloc.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtalloc.a; path = appletvserver/lib/libtalloc.a; sourceTree = "<group>"; };
 		7245872217152FD900F6E839 /* libtdb.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtdb.a; path = appletvserver/lib/libtdb.a; sourceTree = "<group>"; };
 		7245872317152FD900F6E839 /* libwbclient.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libwbclient.a; path = appletvserver/lib/libwbclient.a; sourceTree = "<group>"; };
+		72458735171531A900F6E839 /* libresolv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libresolv.dylib; path = usr/lib/libresolv.dylib; sourceTree = SDKROOT; };
+		72458737171531B700F6E839 /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = usr/lib/libiconv.dylib; sourceTree = SDKROOT; };
 		7272B39E16C9FD4E00E111A7 /* Video.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Video.h; sourceTree = "<group>"; };
 		7272B39F16C9FD4E00E111A7 /* Video.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Video.m; sourceTree = "<group>"; };
 		7272B3A116C9FEBA00E111A7 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
@@ -636,6 +640,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				72458738171531B700F6E839 /* libiconv.dylib in Frameworks */,
+				72458736171531A900F6E839 /* libresolv.dylib in Frameworks */,
 				7245872417152FD900F6E839 /* libsmbclient.a in Frameworks */,
 				7245872517152FD900F6E839 /* libtalloc.a in Frameworks */,
 				7245872617152FD900F6E839 /* libtdb.a in Frameworks */,
@@ -998,6 +1004,8 @@
 		72A4367E16C9EA5A00D9958D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				72458737171531B700F6E839 /* libiconv.dylib */,
+				72458735171531A900F6E839 /* libresolv.dylib */,
 				7245872017152FD900F6E839 /* libsmbclient.a */,
 				7245872117152FD900F6E839 /* libtalloc.a */,
 				7245872217152FD900F6E839 /* libtdb.a */,
