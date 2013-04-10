@@ -109,11 +109,14 @@ static KxSMBError errnoToSMBErr(int err)
 + (id) smbAuthWorkgroup: (NSString *)workgroup
                username: (NSString *)username
                password: (NSString *)password
+               serverIP:(NSString *)serverIP
 {
     KxSMBAuth *auth = [[KxSMBAuth alloc] init];
     auth.workgroup = workgroup;
     auth.username = username;
     auth.password = password;
+    auth.serverIP = serverIP;
+    auth.check = YES;
     return auth;
 }
 

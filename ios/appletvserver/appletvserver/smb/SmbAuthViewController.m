@@ -41,7 +41,7 @@
 
 @implementation SmbAuthViewController {
 
-    UILabel     *_pathLabel;
+    UITextField *_pathField;
     UITextField *_workgroupField;
     UITextField *_usernameField;
     UITextField *_passwordField;
@@ -71,24 +71,17 @@
     self.view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, W, H)];
     self.view.backgroundColor = [UIColor whiteColor];
     
-    /*
-    UILabel *titleLabel;
-    titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10,10,W-20,30)];
-    titleLabel.backgroundColor = [UIColor clearColor];
-    titleLabel.textColor = [UIColor redColor];
-    titleLabel.font = [UIFont boldSystemFontOfSize:18];
-    titleLabel.text = NSLocalizedString(@"Authorization required", nil);
-    [self.view addSubview:titleLabel];
-    */
-    
-    _pathLabel = [[UILabel alloc] initWithFrame:CGRectMake(10,10,W-20,30)];
-    _pathLabel.backgroundColor = [UIColor clearColor];
-    _pathLabel.textColor = [UIColor darkTextColor];
-    _pathLabel.font = [UIFont systemFontOfSize:16];
-    [self.view addSubview:_pathLabel];
+
+    UILabel *pathLabel;
+    pathLabel = [[UILabel alloc] initWithFrame:CGRectMake(10,10,90,30)];
+    pathLabel.backgroundColor = [UIColor clearColor];
+    pathLabel.textColor = [UIColor darkTextColor];
+    pathLabel.font = [UIFont systemFontOfSize:16];
+    pathLabel.text = NSLocalizedString(@"SMB IP", nil);
+    [self.view addSubview:pathLabel];
     
     UILabel *workgroupLabel;
-    workgroupLabel = [[UILabel alloc] initWithFrame:CGRectMake(10,40,90,30)];
+    workgroupLabel = [[UILabel alloc] initWithFrame:CGRectMake(10,50,90,30)];
     workgroupLabel.backgroundColor = [UIColor clearColor];
     workgroupLabel.textColor = [UIColor darkTextColor];
     workgroupLabel.font = [UIFont boldSystemFontOfSize:16];
@@ -96,7 +89,7 @@
     [self.view addSubview:workgroupLabel];
     
     UILabel *usernameLabel;
-    usernameLabel = [[UILabel alloc] initWithFrame:CGRectMake(10,90,90,30)];
+    usernameLabel = [[UILabel alloc] initWithFrame:CGRectMake(10,100,90,30)];
     usernameLabel.backgroundColor = [UIColor clearColor];
     usernameLabel.textColor = [UIColor darkTextColor];
     usernameLabel.font = [UIFont boldSystemFontOfSize:16];
@@ -104,14 +97,32 @@
     [self.view addSubview:usernameLabel];
     
     UILabel *passwordLabel;
-    passwordLabel = [[UILabel alloc] initWithFrame:CGRectMake(10,140,90,30)];
+    passwordLabel = [[UILabel alloc] initWithFrame:CGRectMake(10,150,90,30)];
     passwordLabel.backgroundColor = [UIColor clearColor];
     passwordLabel.textColor =  [UIColor darkTextColor];
     passwordLabel.font = [UIFont boldSystemFontOfSize:16];
     passwordLabel.text = @"密码";
     [self.view addSubview:passwordLabel];
     
-    _workgroupField = [[UITextField alloc] initWithFrame:CGRectMake(100, 41, W - 110, 30)];
+    _pathField = [[UITextField alloc] initWithFrame:CGRectMake(100,10,W-110,30)];
+    _pathField.autocapitalizationType = UITextAutocapitalizationTypeNone;
+    _pathField.autocorrectionType = UITextAutocorrectionTypeNo;
+    _pathField.spellCheckingType = UITextSpellCheckingTypeNo;
+    _pathField.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    _pathField.clearButtonMode =  UITextFieldViewModeWhileEditing;
+    _pathField.textColor = [UIColor blueColor];
+    _pathField.font = [UIFont systemFontOfSize:16];
+    _pathField.borderStyle = UITextBorderStyleRoundedRect;
+    _pathField.backgroundColor = [UIColor lightGrayColor];
+    _pathField.returnKeyType = UIReturnKeyNext;
+    
+    [_pathField addTarget:self
+                        action:@selector(textFieldDoneEditing:)
+              forControlEvents:UIControlEventEditingDidEndOnExit];
+    
+    [self.view addSubview:_pathField];
+    
+    _workgroupField = [[UITextField alloc] initWithFrame:CGRectMake(100, 50, W - 110, 30)];
     _workgroupField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     _workgroupField.autocorrectionType = UITextAutocorrectionTypeNo;
     _workgroupField.spellCheckingType = UITextSpellCheckingTypeNo;
@@ -129,7 +140,7 @@
     
     [self.view addSubview:_workgroupField];
     
-    _usernameField = [[UITextField alloc] initWithFrame:CGRectMake(100, 91, W - 110, 30)];
+    _usernameField = [[UITextField alloc] initWithFrame:CGRectMake(100, 100, W - 110, 30)];
     _usernameField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     _usernameField.autocorrectionType = UITextAutocorrectionTypeNo;
     _usernameField.spellCheckingType = UITextSpellCheckingTypeNo;
@@ -147,7 +158,7 @@
     
     [self.view addSubview:_usernameField];
     
-    _passwordField = [[UITextField alloc] initWithFrame:CGRectMake(100, 141, W - 110, 30)];
+    _passwordField = [[UITextField alloc] initWithFrame:CGRectMake(100, 150, W - 110, 30)];
     _passwordField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     _passwordField.autocorrectionType = UITextAutocorrectionTypeNo;
     _passwordField.spellCheckingType = UITextSpellCheckingTypeNo;
@@ -194,8 +205,7 @@
 - (void) viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
-    _pathLabel.text = [NSString stringWithFormat:NSLocalizedString(@"服务器: %@", nil), _server];
+    _pathField.text = _server;
     _workgroupField.text = _workgroup;
     _usernameField.text = _username;
     _passwordField.text = _password;
@@ -217,9 +227,11 @@
     _workgroup = _workgroupField.text;
     _username = _usernameField.text;
     _password = _passwordField.text;
+    _server = _pathField.text;
     AppDele.auth = [KxSMBAuth smbAuthWorkgroup:_workgroup
                                          username:_username
-                                         password:_password];
+                                         password:_password
+                    serverIP:_server];
     NSString* url = [NSString stringWithFormat:@"atvserver://smb/%@",_server];
     TTOpenURL(url);
 }
