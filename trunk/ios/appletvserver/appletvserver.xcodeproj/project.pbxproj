@@ -95,6 +95,7 @@
 		724587341715301900F6E839 /* TreeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 72DF10331713AC1D00B01A76 /* TreeViewController.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		72458736171531A900F6E839 /* libresolv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 72458735171531A900F6E839 /* libresolv.dylib */; };
 		72458738171531B700F6E839 /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 72458737171531B700F6E839 /* libiconv.dylib */; };
+		7245873E17154F2C00F6E839 /* HTTPSMBResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 7245873D17154F2B00F6E839 /* HTTPSMBResponse.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		7272B3A016C9FD4E00E111A7 /* Video.m in Sources */ = {isa = PBXBuildFile; fileRef = 7272B39F16C9FD4E00E111A7 /* Video.m */; };
 		7272B3A716CA046400E111A7 /* VideoTableItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 7272B3A616CA046400E111A7 /* VideoTableItem.m */; };
 		7272B3AA16CA049A00E111A7 /* VideoTableItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7272B3A916CA049A00E111A7 /* VideoTableItemCell.m */; };
@@ -504,6 +505,8 @@
 		7245872317152FD900F6E839 /* libwbclient.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libwbclient.a; path = appletvserver/lib/libwbclient.a; sourceTree = "<group>"; };
 		72458735171531A900F6E839 /* libresolv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libresolv.dylib; path = usr/lib/libresolv.dylib; sourceTree = SDKROOT; };
 		72458737171531B700F6E839 /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = usr/lib/libiconv.dylib; sourceTree = SDKROOT; };
+		7245873C17154F2B00F6E839 /* HTTPSMBResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPSMBResponse.h; sourceTree = "<group>"; };
+		7245873D17154F2B00F6E839 /* HTTPSMBResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPSMBResponse.m; sourceTree = "<group>"; };
 		7272B39E16C9FD4E00E111A7 /* Video.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Video.h; sourceTree = "<group>"; };
 		7272B39F16C9FD4E00E111A7 /* Video.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Video.m; sourceTree = "<group>"; };
 		7272B3A116C9FEBA00E111A7 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
@@ -1271,6 +1274,8 @@
 				722146C216DDB4D100850C03 /* HTTPFileResponse.m */,
 				722146C316DDB4D100850C03 /* HTTPRedirectResponse.h */,
 				722146C416DDB4D100850C03 /* HTTPRedirectResponse.m */,
+				7245873C17154F2B00F6E839 /* HTTPSMBResponse.h */,
+				7245873D17154F2B00F6E839 /* HTTPSMBResponse.m */,
 			);
 			name = Responses;
 			sourceTree = "<group>";
@@ -1707,6 +1712,7 @@
 				7233EB6F1709425400EF342E /* ConfigDataSource.m in Sources */,
 				72E871BE170E74990063E80A /* MkvProcess.m in Sources */,
 				722B23781712C36400D3A8B4 /* SMBDataSource.m in Sources */,
+				7245873E17154F2C00F6E839 /* HTTPSMBResponse.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
