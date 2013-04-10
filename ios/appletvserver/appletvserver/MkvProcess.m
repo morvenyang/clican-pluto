@@ -28,7 +28,7 @@
         self.mkvUrl = url;
         NSString* inpath =url;
         if([self.mkvUrl rangeOfString:@"smb://"].location!=NSNotFound){
-            inpath = [NSString stringWithFormat:@"http://%@:8081/appletv/noctl/proxy/smb?url=%@",AppDele.ipAddress,[AtvUtil encodeURL:url]];
+            inpath = [NSString stringWithFormat:@"http://%@:8081/appletv/noctl/proxy/smb.mkv?url=%@",AppDele.ipAddress,[AtvUtil encodeURL:url]];
         }
         NSString *outpath = AppDele.localMkvM3u8PathPrefix;
         
