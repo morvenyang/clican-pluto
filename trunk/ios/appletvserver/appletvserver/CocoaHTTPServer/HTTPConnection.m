@@ -1188,7 +1188,7 @@ static NSMutableArray *recentNonces;
 			isRangeRequest = YES;
 		}
 	}
-	isRangeRequest = NO;
+	//isRangeRequest = NO;
 	HTTPMessage *response;
 	
 	if (!isRangeRequest)

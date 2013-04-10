@@ -18,6 +18,7 @@
 #import "JSEngine.h"
 #import "MkvProcess.h"
 #import "KxSMBProvider.h"
+#import "SMBProcess.h"
 #define AppDele ((AppDelegate *)[[UIApplication sharedApplication] delegate])
 
 
@@ -55,6 +56,8 @@
     BOOL _ipad;
     BOOL _simulate;
     int _videoSizePerLine;
+    
+    SMBProcess* _smbProcess;
 }
 
 @property (nonatomic, retain) ASINetworkQueue* queue;
@@ -81,6 +84,7 @@
 @property (nonatomic, copy) NSString* localMkvM3u8UrlPrefix;
 @property (nonatomic, copy) NSString* localMkvM3u8PathPrefix;
 @property (nonatomic, retain) KxSMBAuth* auth;
+@property (nonatomic, retain) SMBProcess* smbProcess;
 -(void) initProcess;
 
 @end

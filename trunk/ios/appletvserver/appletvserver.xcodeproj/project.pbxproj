@@ -144,6 +144,7 @@
 		72C3EDF416F9F54F00821FAE /* 144.png in Resources */ = {isa = PBXBuildFile; fileRef = 72C3EDF016F9F54F00821FAE /* 144.png */; };
 		72C9088216D325580075A651 /* libfdk-aac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 72C9088116D325580075A651 /* libfdk-aac.a */; };
 		72CC1B5616DE3BD7006A8E44 /* M3u8Process.m in Sources */ = {isa = PBXBuildFile; fileRef = 72CC1B5516DE3BD7006A8E44 /* M3u8Process.m */; };
+		72D4F5321715872D0047C762 /* SMBProcess.m in Sources */ = {isa = PBXBuildFile; fileRef = 72D4F5311715872D0047C762 /* SMBProcess.m */; };
 		72D5CBD2170018CB00B292BA /* AjaxCallbackRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 72D5CBD1170018CB00B292BA /* AjaxCallbackRequest.m */; };
 		72D5CBDF170027D400B292BA /* InputViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 72D5CBDE170027D400B292BA /* InputViewController.m */; };
 		72D5CBEA1700440400B292BA /* XmlViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 72D5CBE91700440400B292BA /* XmlViewController.m */; };
@@ -580,6 +581,8 @@
 		72C9088116D325580075A651 /* libfdk-aac.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libfdk-aac.a"; path = "appletvserver/lib/libfdk-aac.a"; sourceTree = "<group>"; };
 		72CC1B5416DE3BD7006A8E44 /* M3u8Process.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M3u8Process.h; sourceTree = "<group>"; };
 		72CC1B5516DE3BD7006A8E44 /* M3u8Process.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M3u8Process.m; sourceTree = "<group>"; };
+		72D4F5301715872D0047C762 /* SMBProcess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMBProcess.h; sourceTree = "<group>"; };
+		72D4F5311715872D0047C762 /* SMBProcess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMBProcess.m; sourceTree = "<group>"; };
 		72D5CBD0170018CB00B292BA /* AjaxCallbackRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AjaxCallbackRequest.h; sourceTree = "<group>"; };
 		72D5CBD1170018CB00B292BA /* AjaxCallbackRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AjaxCallbackRequest.m; sourceTree = "<group>"; };
 		72D5CBDD170027D400B292BA /* InputViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputViewController.h; sourceTree = "<group>"; };
@@ -1151,6 +1154,8 @@
 				7205AECC170568E000595D4B /* PhotoProcess.m */,
 				72E871BC170E74990063E80A /* MkvProcess.h */,
 				72E871BD170E74990063E80A /* MkvProcess.m */,
+				72D4F5301715872D0047C762 /* SMBProcess.h */,
+				72D4F5311715872D0047C762 /* SMBProcess.m */,
 			);
 			name = Process;
 			sourceTree = "<group>";
@@ -1713,6 +1718,7 @@
 				72E871BE170E74990063E80A /* MkvProcess.m in Sources */,
 				722B23781712C36400D3A8B4 /* SMBDataSource.m in Sources */,
 				7245873E17154F2C00F6E839 /* HTTPSMBResponse.m in Sources */,
+				72D4F5321715872D0047C762 /* SMBProcess.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

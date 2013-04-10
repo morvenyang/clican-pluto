@@ -9,16 +9,13 @@
 #import "HTTPSMBResponse.h"
 
 @implementation HTTPSMBResponse
-@synthesize smbPath = _smbPath;
-@synthesize smbFile = _smbFile;
-@synthesize headers = _headers;
--(id)initWithSmbPath:(NSString*)smbPath{
+
+-(id)initWithSmbFile:(KxSMBItemFile*)smbFile{
     self = [super init];
     if(self){
-        self.smbPath = smbPath;
-        self.smbFile = [KxSMBProvider fetchAtPath:smbPath];
-        _length = (UInt64)self.smbFile.stat.size;
-        self.headers = [NSMutableDictionary dictionary];
+        _smbFile = smbFile;
+        _length = (UInt64)_smbFile.stat.size;
+        _headers = [NSMutableDictionary dictionary];
     }
     return self;
 }
@@ -42,14 +39,14 @@
 {
     @try {
         if(_reseek){
-            [self.smbFile seekToFileOffset:_offset whence:SEEK_SET];
+            [_smbFile seekToFileOffset:_offset whence:SEEK_SET];
             _reseek = NO;
         }
         
         
         NSUInteger remaining = _length - _offset;
         NSUInteger length = lengthParameter < remaining ? lengthParameter : remaining;
-        NSData* data = [self.smbFile readDataOfLength:length];
+        NSData* data = [_smbFile readDataOfLength:length];
         _offset += length;
         return data;
     }
@@ -78,7 +75,7 @@
  * simply return them in a dictionary in this method.
  **/
 - (NSDictionary *)httpHeaders{
-    return self.headers;
+    return _headers;
 }
 
 /**
@@ -98,6 +95,6 @@
  * invoke any methods on the HTTPConnection after this method is called (as the connection may be deallocated).
  **/
 - (void)connectionDidClose{
-    [self.smbFile close];
+    
 }
 @end

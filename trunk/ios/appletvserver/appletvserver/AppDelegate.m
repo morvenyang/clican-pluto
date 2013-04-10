@@ -50,6 +50,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 @synthesize localMkvM3u8PathPrefix = _localMkvM3u8PathPrefix;
 @synthesize localMkvM3u8UrlPrefix = _localMkvM3u8UrlPrefix;
 @synthesize auth = _auth;
+@synthesize smbProcess = _smbProcess;
 - (void)dealloc
 {
     [super dealloc];
@@ -95,6 +96,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     self.mp4Process = [[Mp4Process alloc] init];
     self.photoProcess = [[PhotoProcess alloc] init];
     self.mkvProcess = [[MkvProcess alloc] init];
+    self.smbProcess = [[SMBProcess alloc] init];
 }
 -(void) initEnvironment{
     self.ipAddress = [AtvUtil getIPAddress];

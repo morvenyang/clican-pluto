@@ -149,17 +149,15 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
             NSLog(@"Rage:%ld-%ld",startPosition,endPosition);
             
             if([mp4Url rangeOfString:@"smb://"].location!=NSNotFound){
-                KxSMBItemFile* smbFile = [KxSMBProvider fetchAtPath:mp4Url];
-                [smbFile seekToFileOffset:startPosition whence:SEEK_SET];
-                NSData* data =[smbFile readDataOfLength:endPosition-startPosition+1];
-                NSLog(@"data length:%i",data.length);
-                HTTPDataHeaderResponse* resp=[[HTTPDataHeaderResponse alloc] initWithData:data status:206];
-                [[resp httpHeaders] setValue:@"video/mp4" forKey:@"Content-Type"];
-                [[resp httpHeaders] setValue:[NSString stringWithFormat:@"%i",[data length]] forKey:@"Content-Length"];
-                NSString *rangeStr = [NSString stringWithFormat:@"%ld-%ld", startPosition, startPosition+[data length]-1];
-                NSString *contentRangeStr = [NSString stringWithFormat:@"bytes %@/%ld", rangeStr, smbFile.stat.size];
-                [[resp httpHeaders] setValue:contentRangeStr forKey:@"Content-Range"];
-                [[resp httpHeaders] setValue:@"bytes" forKey:@"Accept-Ranges"];
+                NSLog(@"smb url:%@",mp4Url);
+                if(AppDele.smbProcess.smbPath==nil||![AppDele.smbProcess.smbPath isEqualToString:mp4Url]){
+                    AppDele.smbProcess.smbPath = mp4Url;
+                    if(AppDele.smbProcess.smbFile!=nil){
+                        [AppDele.smbProcess.smbFile close];
+                    }
+                    AppDele.smbProcess.smbFile = [KxSMBProvider fetchAtPath:mp4Url];
+                }
+                HTTPSMBResponse* resp=[[HTTPSMBResponse alloc] initWithSmbFile:AppDele.smbProcess.smbFile];
                 return resp;
             }else{
                 [AppDele m3u8Process].running = NO;
@@ -283,7 +281,14 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
         }else if([path rangeOfString:@"/appletv/noctl/proxy/smb"].location!=NSNotFound){
             NSString* smbUrl = [[self parseGetParams] objectForKey:@"url"];
             NSLog(@"smb url:%@",smbUrl);
-            HTTPSMBResponse* resp=[[HTTPSMBResponse alloc] initWithSmbPath:smbUrl];
+            if(AppDele.smbProcess.smbPath==nil||![AppDele.smbProcess.smbPath isEqualToString:smbUrl]){
+                AppDele.smbProcess.smbPath = smbUrl;
+                if(AppDele.smbProcess.smbFile!=nil){
+                    [AppDele.smbProcess.smbFile close];
+                }
+                AppDele.smbProcess.smbFile = [KxSMBProvider fetchAtPath:smbUrl];
+            }
+            HTTPSMBResponse* resp=[[HTTPSMBResponse alloc] initWithSmbFile:AppDele.smbProcess.smbFile];
             return resp;
         }else{
             return [super httpResponseForMethod:method URI:path];
