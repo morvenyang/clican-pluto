@@ -73,10 +73,6 @@
 		722146E416DDE40700850C03 /* M3u8Download.m in Sources */ = {isa = PBXBuildFile; fileRef = 722146E316DDE40700850C03 /* M3u8Download.m */; };
 		722146E716DDE62500850C03 /* M3u8TSHTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 722146E616DDE62500850C03 /* M3u8TSHTTPRequest.m */; };
 		722B23781712C36400D3A8B4 /* SMBDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 722B23771712C36400D3A8B4 /* SMBDataSource.m */; };
-		722B237D1712C4D100D3A8B4 /* libsmbclient.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 722B23791712C4D100D3A8B4 /* libsmbclient.a */; };
-		722B237E1712C4D100D3A8B4 /* libtalloc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 722B237A1712C4D100D3A8B4 /* libtalloc.a */; };
-		722B237F1712C4D100D3A8B4 /* libtdb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 722B237B1712C4D100D3A8B4 /* libtdb.a */; };
-		722B23801712C4D100D3A8B4 /* libwbclient.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 722B237C1712C4D100D3A8B4 /* libwbclient.a */; };
 		722FF14116FC010000237F15 /* WebContentSync.m in Sources */ = {isa = PBXBuildFile; fileRef = 722FF14016FC010000237F15 /* WebContentSync.m */; };
 		722FF15616FC068C00237F15 /* ZipArchive.mm in Sources */ = {isa = PBXBuildFile; fileRef = 722FF15516FC068C00237F15 /* ZipArchive.mm */; };
 		722FF16016FC06A500237F15 /* ioapi.c in Sources */ = {isa = PBXBuildFile; fileRef = 722FF15816FC06A500237F15 /* ioapi.c */; };
@@ -89,6 +85,14 @@
 		72360C5B16EEDDD700E0842B /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 72360C5A16EEDDD700E0842B /* RootViewController.m */; };
 		724024F817016B990015352A /* XmlDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 724024F717016B990015352A /* XmlDataSource.m */; };
 		724024FC170196490015352A /* URLDataHeaderResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 724024FB170196490015352A /* URLDataHeaderResponse.m */; };
+		7245872417152FD900F6E839 /* libsmbclient.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7245872017152FD900F6E839 /* libsmbclient.a */; };
+		7245872517152FD900F6E839 /* libtalloc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7245872117152FD900F6E839 /* libtalloc.a */; };
+		7245872617152FD900F6E839 /* libtdb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7245872217152FD900F6E839 /* libtdb.a */; };
+		7245872717152FD900F6E839 /* libwbclient.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7245872317152FD900F6E839 /* libwbclient.a */; };
+		724587311715301900F6E839 /* KxSMBProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 72DF10381713AC2B00B01A76 /* KxSMBProvider.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		724587321715301900F6E839 /* FileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 72DF102F1713AC1D00B01A76 /* FileViewController.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		724587331715301900F6E839 /* SmbAuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 72DF10311713AC1D00B01A76 /* SmbAuthViewController.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		724587341715301900F6E839 /* TreeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 72DF10331713AC1D00B01A76 /* TreeViewController.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		7272B3A016C9FD4E00E111A7 /* Video.m in Sources */ = {isa = PBXBuildFile; fileRef = 7272B39F16C9FD4E00E111A7 /* Video.m */; };
 		7272B3A716CA046400E111A7 /* VideoTableItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 7272B3A616CA046400E111A7 /* VideoTableItem.m */; };
 		7272B3AA16CA049A00E111A7 /* VideoTableItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7272B3A916CA049A00E111A7 /* VideoTableItemCell.m */; };
@@ -156,12 +160,6 @@
 		72D6C56A16FC84D90048591E /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 72D6C56716FC84D90048591E /* Default-568h@2x.png */; };
 		72D6C56B16FC84D90048591E /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 72D6C56816FC84D90048591E /* Default.png */; };
 		72D6C56C16FC84D90048591E /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 72D6C56916FC84D90048591E /* Default@2x.png */; };
-		72DF0FFC1713A99800B01A76 /* libresolv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 72DF0FFB1713A99800B01A76 /* libresolv.dylib */; };
-		72DF10071713A9A300B01A76 /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 72DF10061713A9A300B01A76 /* libiconv.dylib */; };
-		72DF10341713AC1D00B01A76 /* FileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 72DF102F1713AC1D00B01A76 /* FileViewController.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		72DF10351713AC1D00B01A76 /* SmbAuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 72DF10311713AC1D00B01A76 /* SmbAuthViewController.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		72DF10361713AC1D00B01A76 /* TreeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 72DF10331713AC1D00B01A76 /* TreeViewController.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		72DF10391713AC2B00B01A76 /* KxSMBProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 72DF10381713AC2B00B01A76 /* KxSMBProvider.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		72E200D316DB26BF00F3D7FC /* StyleSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 72E748FA16C9EEE70024B8BB /* StyleSheet.m */; };
 		72E200D816DB271C00F3D7FC /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72E200D616DB271C00F3D7FC /* CFNetwork.framework */; };
 		72E200D916DB271C00F3D7FC /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72E200D716DB271C00F3D7FC /* Security.framework */; };
@@ -474,10 +472,6 @@
 		722146E616DDE62500850C03 /* M3u8TSHTTPRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = M3u8TSHTTPRequest.m; path = AISHTTPRequest/M3u8TSHTTPRequest.m; sourceTree = "<group>"; };
 		722B23761712C36400D3A8B4 /* SMBDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMBDataSource.h; sourceTree = "<group>"; };
 		722B23771712C36400D3A8B4 /* SMBDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMBDataSource.m; sourceTree = "<group>"; };
-		722B23791712C4D100D3A8B4 /* libsmbclient.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsmbclient.a; path = appletvserver/lib/libsmbclient.a; sourceTree = "<group>"; };
-		722B237A1712C4D100D3A8B4 /* libtalloc.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtalloc.a; path = appletvserver/lib/libtalloc.a; sourceTree = "<group>"; };
-		722B237B1712C4D100D3A8B4 /* libtdb.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtdb.a; path = appletvserver/lib/libtdb.a; sourceTree = "<group>"; };
-		722B237C1712C4D100D3A8B4 /* libwbclient.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libwbclient.a; path = appletvserver/lib/libwbclient.a; sourceTree = "<group>"; };
 		722FF13F16FC010000237F15 /* WebContentSync.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebContentSync.h; sourceTree = "<group>"; };
 		722FF14016FC010000237F15 /* WebContentSync.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebContentSync.m; sourceTree = "<group>"; };
 		722FF15416FC068C00237F15 /* ZipArchive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZipArchive.h; path = ZipArchive/ZipArchive.h; sourceTree = "<group>"; };
@@ -502,6 +496,10 @@
 		724024F717016B990015352A /* XmlDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XmlDataSource.m; sourceTree = "<group>"; };
 		724024FA170196490015352A /* URLDataHeaderResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = URLDataHeaderResponse.h; sourceTree = "<group>"; };
 		724024FB170196490015352A /* URLDataHeaderResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = URLDataHeaderResponse.m; sourceTree = "<group>"; };
+		7245872017152FD900F6E839 /* libsmbclient.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsmbclient.a; path = appletvserver/lib/libsmbclient.a; sourceTree = "<group>"; };
+		7245872117152FD900F6E839 /* libtalloc.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtalloc.a; path = appletvserver/lib/libtalloc.a; sourceTree = "<group>"; };
+		7245872217152FD900F6E839 /* libtdb.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtdb.a; path = appletvserver/lib/libtdb.a; sourceTree = "<group>"; };
+		7245872317152FD900F6E839 /* libwbclient.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libwbclient.a; path = appletvserver/lib/libwbclient.a; sourceTree = "<group>"; };
 		7272B39E16C9FD4E00E111A7 /* Video.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Video.h; sourceTree = "<group>"; };
 		7272B39F16C9FD4E00E111A7 /* Video.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Video.m; sourceTree = "<group>"; };
 		7272B3A116C9FEBA00E111A7 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
@@ -610,8 +608,6 @@
 		72D6C56716FC84D90048591E /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		72D6C56816FC84D90048591E /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		72D6C56916FC84D90048591E /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
-		72DF0FFB1713A99800B01A76 /* libresolv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libresolv.dylib; path = usr/lib/libresolv.dylib; sourceTree = SDKROOT; };
-		72DF10061713A9A300B01A76 /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = usr/lib/libiconv.dylib; sourceTree = SDKROOT; };
 		72DF102E1713AC1D00B01A76 /* FileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FileViewController.h; path = smb/FileViewController.h; sourceTree = "<group>"; };
 		72DF102F1713AC1D00B01A76 /* FileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FileViewController.m; path = smb/FileViewController.m; sourceTree = "<group>"; };
 		72DF10301713AC1D00B01A76 /* SmbAuthViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SmbAuthViewController.h; path = smb/SmbAuthViewController.h; sourceTree = "<group>"; };
@@ -640,12 +636,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				72DF10071713A9A300B01A76 /* libiconv.dylib in Frameworks */,
-				72DF0FFC1713A99800B01A76 /* libresolv.dylib in Frameworks */,
-				722B237D1712C4D100D3A8B4 /* libsmbclient.a in Frameworks */,
-				722B237E1712C4D100D3A8B4 /* libtalloc.a in Frameworks */,
-				722B237F1712C4D100D3A8B4 /* libtdb.a in Frameworks */,
-				722B23801712C4D100D3A8B4 /* libwbclient.a in Frameworks */,
+				7245872417152FD900F6E839 /* libsmbclient.a in Frameworks */,
+				7245872517152FD900F6E839 /* libtalloc.a in Frameworks */,
+				7245872617152FD900F6E839 /* libtdb.a in Frameworks */,
+				7245872717152FD900F6E839 /* libwbclient.a in Frameworks */,
 				72FEEFF4170443A000F9713E /* AssetsLibrary.framework in Frameworks */,
 				72D5CC0B17004AF300B292BA /* libxml2.dylib in Frameworks */,
 				72198F2316FFF79F00EC451B /* libicucore.dylib in Frameworks */,
@@ -984,8 +978,6 @@
 		72A4367016C9EA5A00D9958D = {
 			isa = PBXGroup;
 			children = (
-				72DF10061713A9A300B01A76 /* libiconv.dylib */,
-				72DF0FFB1713A99800B01A76 /* libresolv.dylib */,
 				72A69BD016C9F9420099D974 /* Resources */,
 				72B83F4916CDD99D003B2839 /* include */,
 				72B83F4716CDD993003B2839 /* lib */,
@@ -1006,10 +998,10 @@
 		72A4367E16C9EA5A00D9958D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				722B23791712C4D100D3A8B4 /* libsmbclient.a */,
-				722B237A1712C4D100D3A8B4 /* libtalloc.a */,
-				722B237B1712C4D100D3A8B4 /* libtdb.a */,
-				722B237C1712C4D100D3A8B4 /* libwbclient.a */,
+				7245872017152FD900F6E839 /* libsmbclient.a */,
+				7245872117152FD900F6E839 /* libtalloc.a */,
+				7245872217152FD900F6E839 /* libtdb.a */,
+				7245872317152FD900F6E839 /* libwbclient.a */,
 				72D5CC0A17004AF200B292BA /* libxml2.dylib */,
 				72198F2216FFF79F00EC451B /* libicucore.dylib */,
 				72198F2016FFF78600EC451B /* libstdc++.dylib */,
@@ -1602,6 +1594,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				724587311715301900F6E839 /* KxSMBProvider.m in Sources */,
+				724587321715301900F6E839 /* FileViewController.m in Sources */,
+				724587331715301900F6E839 /* SmbAuthViewController.m in Sources */,
+				724587341715301900F6E839 /* TreeViewController.m in Sources */,
 				72FEEFCE1703DAAD00F9713E /* MBProgressHUD.m in Sources */,
 				72E200D316DB26BF00F3D7FC /* StyleSheet.m in Sources */,
 				72A4368C16C9EA5A00D9958D /* main.m in Sources */,
@@ -1703,10 +1699,6 @@
 				7233EB6F1709425400EF342E /* ConfigDataSource.m in Sources */,
 				72E871BE170E74990063E80A /* MkvProcess.m in Sources */,
 				722B23781712C36400D3A8B4 /* SMBDataSource.m in Sources */,
-				72DF10341713AC1D00B01A76 /* FileViewController.m in Sources */,
-				72DF10351713AC1D00B01A76 /* SmbAuthViewController.m in Sources */,
-				72DF10361713AC1D00B01A76 /* TreeViewController.m in Sources */,
-				72DF10391713AC2B00B01A76 /* KxSMBProvider.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
