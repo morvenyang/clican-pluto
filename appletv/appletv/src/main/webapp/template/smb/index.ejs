@@ -19,8 +19,8 @@
 						<items>
 							<%for(var i=0;i<items.length;i++){%>
 								<%if(items[i].type=='file'){%>
-									<%if(items[i].url!=null&&items[i].url.length>=0){%>
-									<oneLineMenuItem id="albumItem_<%=i%>" onSelect="appletv.play('<%=items[url]%>');">
+									<%if(items[i].url!=null&&items[i].url!=''){%>
+									<oneLineMenuItem id="albumItem_<%=i%>" onSelect="appletv.play('<%=items[i].url%>');">
 										<label><![CDATA[<%=items[i].fileName%>]]></label>
 									</oneLineMenuItem>
 									<%}else{%>
@@ -29,7 +29,7 @@
 									</oneLineMenuItem>
 									<%}%>
 								<%}else{%>
-									<oneLineMenuItem id="albumItem_<%=i%>" onSelect="smbClient.loadIndexPage('<%=items[url]%>');">
+									<oneLineMenuItem id="albumItem_<%=i%>" onSelect="smbClient.loadIndexPage('<%=items[i].url%>');">
 										<label><![CDATA[<%=items[i].fileName%> >>]]></label>
 									</oneLineMenuItem>
 								<%}%>
