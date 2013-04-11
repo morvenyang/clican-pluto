@@ -173,7 +173,8 @@ DEF_CHOOSE_FORMAT(uint64_t, channel_layout, channel_layouts, 0,
 
 FilterGraph *init_simple_filtergraph(InputStream *ist, OutputStream *ost)
 {
-    FilterGraph *fg = av_mallocz(sizeof(*fg));
+    FilterGraph *fg = NULL;
+    fg = av_mallocz(sizeof(*fg));
 
     if (!fg)
         exit_program(1);
