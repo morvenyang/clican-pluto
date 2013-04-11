@@ -23,7 +23,7 @@
     id result = [KxSMBProvider fetchAtPath:parent];
     NSString* content = nil;
     if ([result isKindOfClass:[NSArray class]]) {
-        content=@"[";
+        content=[NSString stringWithFormat:@"{\"smbPath:\"%@\",\"items\":[",parent]
         NSArray* array = (NSArray*)result;
         for(int i=0;i<array.count;i++){
             KxSMBItem* item = [array objectAtIndex:i];
@@ -49,7 +49,7 @@
                 content = [content stringByAppendingFormat:@"{\"url\":\"%@\",\"type\":\"%@\",\"fileName\":\"%@\"},",url,type,fileName];
             }
         }
-        content = [content stringByAppendingString:@"]"];
+        content = [content stringByAppendingString:@"]}"];
     } else if ([result isKindOfClass:[KxSMBItem class]]) {
         NSLog(@"error for smb resource:%@",parent);
     } else {
