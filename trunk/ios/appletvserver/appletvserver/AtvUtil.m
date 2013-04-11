@@ -81,5 +81,11 @@
 	return @"";
 }
 
-
++ (BOOL) content:(NSString *)content contains:(NSString*) contains{
+    if(content==nil){
+        return false;
+    }
+    NSRange range=[[content uppercaseString] rangeOfString:[contains uppercaseString]];
+    return range.location!=NSNotFound;
+}
 @end
