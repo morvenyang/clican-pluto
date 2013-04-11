@@ -14,4 +14,5 @@
 }
 @property (nonatomic, retain) KxSMBItemFile *smbFile;
 @property (nonatomic, retain) NSString *smbPath;
+-(NSString*)getResourcesForParent:(NSString*) parent;
 @end
