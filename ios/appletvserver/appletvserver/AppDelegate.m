@@ -123,6 +123,11 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 //    if ([deviceType rangeOfString:@"Simulator"].location!=NSNotFound) {
 //        self.simulate = TRUE;
 //    }
+    NSData *myEncodedObject = [defaults objectForKey:SMB_AUTH_NAME ];
+    if(myEncodedObject!=nil&&myEncodedObject.length>0){
+        self.auth = (KxSMBAuth *)[NSKeyedUnarchiver unarchiveObjectWithData: myEncodedObject];
+    }
+    NSLog(@"%@",self.auth);
     NSLog(@"Run in simulate:%d",self.simulate);
 }
 -(void) initWebContent{
@@ -235,7 +240,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
      [TreeViewController class]];
     [map from:@"atvserver://smb" toSharedViewController:
      [TreeViewController class]];
-    [map from:@"atvserver://smb/auth/(initWithUrl:)" toSharedViewController:
+    [map from:@"atvserver://smb/auth" toSharedViewController:
      [SmbAuthViewController class]];
     [map from:@"atvserver://config" toSharedViewController:
      [ConfigViewController class]];
