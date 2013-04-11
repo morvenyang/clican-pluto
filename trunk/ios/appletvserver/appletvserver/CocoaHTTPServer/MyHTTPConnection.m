@@ -286,7 +286,7 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
             }
             HTTPSMBResponse* resp=[[HTTPSMBResponse alloc] initWithSmbFile:AppDele.smbProcess.smbFile];
             return resp;
-        }else if([path rangeOfString:@"/appletv/noctl/smb/resouce"].location!=NSNotFound){
+        }else if([path rangeOfString:@"/appletv/noctl/smb/resource"].location!=NSNotFound){
             NSString* smbUrl = [[self parseGetParams] objectForKey:@"url"];
             NSString* content;
             if(smbUrl==nil||smbUrl.length==0){
@@ -301,7 +301,7 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
                 content = [AppDele.smbProcess getResourcesForParent:smbUrl];
             }
             
-            if(content){
+            if(content==nil){
                 content = @"{\"title\":\"无法访问smb共享\",\"description\":\"请先在设备上登录smb共享\"}";
             }
             NSData *data = [content dataUsingEncoding:NSUTF8StringEncoding];
