@@ -36,6 +36,7 @@
 #import "KxSMBProvider.h"
 #import "AppDelegate.h"
 #import "AtvUtil.h"
+#import "ffmpeg.h"
 @interface FileViewController ()
 @end
 
@@ -152,8 +153,10 @@
         [_fileHandle closeFile];
         _fileHandle = nil;
     }
-    
-    [_smbFile close];
+    if(_smbFile){
+        [_smbFile close];
+        _smbFile = nil;
+    }
 }
 
 - (void) playAction
@@ -187,13 +190,9 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:MPMoviePlayerPlaybackDidFinishNotification
                                                   object:moviePlayer];
-    
-    if ([moviePlayer respondsToSelector:@selector(setFullscreen:animated:)]) {
-        [moviePlayer.view removeFromSuperview];
-    }
     [self.navigationController setNavigationBarHidden:NO animated:YES];
     [self.navigationController popViewControllerAnimated:YES];
-    
+    transfer_code_interrupt = 1;
 }
 
 -(void) updateDownloadStatus: (id) result

@@ -39,9 +39,8 @@
 @interface SmbAuthViewController : UIViewController
 
 @property (readwrite, nonatomic, strong) NSString *server;
-@property (readwrite, nonatomic, strong) NSString *workgroup;
 @property (readwrite, nonatomic, strong) NSString *username;
 @property (readwrite, nonatomic, strong) NSString *password;
 
--(id) initWithUrl:(NSString*) url;
+
 @end

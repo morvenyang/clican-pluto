@@ -35,6 +35,7 @@
 #import "KxSMBProvider.h"
 #import "libsmbclient.h"
 #import "AppDelegate.h"
+#import "Constants.h"
 ///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -116,10 +117,30 @@ static KxSMBError errnoToSMBErr(int err)
     auth.username = username;
     auth.password = password;
     auth.serverIP = serverIP;
-    auth.check = YES;
     return auth;
 }
+-(void)encodeWithCoder:(NSCoder *)encoder
+{
+    //Encode the properties of the object
+    [encoder encodeObject:self.workgroup forKey:@"workgroup"];
+    [encoder encodeObject:self.username forKey:@"username"];
+    [encoder encodeObject:self.password forKey:@"password"];
+    [encoder encodeObject:self.serverIP forKey:@"serverIP"];
+}
 
+-(id)initWithCoder:(NSCoder *)decoder
+{
+    self = [super init];
+    if ( self != nil )
+    {
+        //decode the properties
+        self.workgroup = [decoder decodeObjectForKey:@"workgroup"];
+        self.username = [decoder decodeObjectForKey:@"username"];
+        self.password = [decoder decodeObjectForKey:@"password"];
+        self.serverIP = [decoder decodeObjectForKey:@"serverIP"];
+    }
+    return self;
+}
 @end
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -227,8 +248,8 @@ static KxSMBProvider *gSmbProvider;
     }
 }
 
--(void) openAuthView:(NSString*) server{
-    NSString* url = [NSString stringWithFormat:@"atvserver://smb/auth/%@",server];
+-(void) openAuthView{
+    NSString* url = [NSString stringWithFormat:@"atvserver://smb/auth"];
     TTOpenURL(url);
 }
 #pragma mark - class methods
@@ -693,7 +714,7 @@ static KxSMBProvider *gSmbProvider;
         _impl = nil;
         
         KxSMBProvider *provider = [KxSMBProvider sharedSmbProvider];
-        [provider dispatchAsync:^{ [p closeFile]; }];         
+        [provider dispatchSync:^{ [p closeFile]; }];
     }
 }
 
@@ -834,9 +855,10 @@ static void my_smbc_get_auth_data_fn(const char *srv,
             workgroup[0] = 0;
         
         NSLog(@"smb get auth for %s/%s -> %s/%s:%s", srv, shr, workgroup, username, password);
+
     }else{
         KxSMBProvider *provider = [KxSMBProvider sharedSmbProvider];
-        [provider performSelectorOnMainThread:@selector(openAuthView:) withObject:server waitUntilDone:YES];
+        [provider performSelectorOnMainThread:@selector(openAuthView) withObject:nil waitUntilDone:YES];
     }
 }
 

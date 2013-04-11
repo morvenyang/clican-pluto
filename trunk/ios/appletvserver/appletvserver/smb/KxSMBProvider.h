@@ -105,7 +105,6 @@ typedef void (^KxSMBBlock)(id result);
 @property (readwrite, nonatomic, strong) NSString *username;
 @property (readwrite, nonatomic, strong) NSString *password;
 @property (readwrite, nonatomic, strong) NSString *serverIP;
-@property (readwrite, nonatomic, assign) BOOL *check;
 + (id) smbAuthWorkgroup: (NSString *)workgroup
                username: (NSString *)username
                password: (NSString *)password
@@ -118,5 +117,5 @@ typedef void (^KxSMBBlock)(id result);
 + (id) fetchAtPath: (NSString *) path;
 - (void) fetchAtPath: (NSString *) path block: (KxSMBBlock) block;
 - (id) fetchAtPath: (NSString *) path;
--(void)openAuthView:(NSString*) name;
+-(void)openAuthView;
 @end
