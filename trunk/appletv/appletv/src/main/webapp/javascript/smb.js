@@ -5,12 +5,14 @@ var smbClient = {
 				url = smbUrl;
 			}
 			appletv.makeRequest(url,function(result){
+				appletv.logToServer(result);
 				var json = JSON.parse(result);
 				var title = json['title'];
 				if(title!=null){
 					appletv.showDialog(json['title'],json['description']);
 				}else{
 					var data = {
+							'serverurl': appletv.serverurl,
 							'items' : json['itmes'],
 							'smbPath' : json['smbPath']
 						};
