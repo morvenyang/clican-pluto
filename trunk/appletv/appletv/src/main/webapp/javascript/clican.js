@@ -426,6 +426,10 @@ var appletv = {
 		}
 	},
 	
+	play:function(url){
+		appletv.loadAndSwapXML(appletv.makePlayXml(url));
+	},
+	
 	playMp4 : function(url,proxy){
 		if(proxy==null||proxy.length==0){
 			if(appletv.serverurl.indexOf('clican.org')==-1){
