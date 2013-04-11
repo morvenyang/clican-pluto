@@ -1,6 +1,6 @@
 var smbClient = {
 		loadIndexPage:function(smbUrl){
-			var url = appletv.serverurl+'/notcl/smb/resource';
+			var url = appletv.serverurl+'/noctl/smb/resource';
 			if(smbUrl!=null&&smbUrl.length>0){
 				url = smbUrl;
 			}
