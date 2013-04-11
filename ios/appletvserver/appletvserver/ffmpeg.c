@@ -510,8 +510,8 @@ void exit_thread(){
     
 	uninit_opts();
     
-	avfilter_uninit();
-	avformat_network_deinit();
+	//avfilter_uninit();
+	//avformat_network_deinit();
     
 	if (received_sigterm) {
 		av_log(NULL, AV_LOG_INFO, "Received signal %d: terminating.\n",
@@ -2189,10 +2189,10 @@ static int transcode_init(void) {
 					codec->time_base.num = ist->st->r_frame_rate.den;
 					codec->time_base.den = 2 * ist->st->r_frame_rate.num;
 					codec->ticks_per_frame = 2;
-				} else if (copy_tb < 0
+				} else if ((copy_tb < 0
 						&& av_q2d(icodec->time_base) * icodec->ticks_per_frame
 								> 2 * av_q2d(ist->st->time_base)
-						&& av_q2d(ist->st->time_base) < 1.0 / 500
+						&& av_q2d(ist->st->time_base) < 1.0 / 500)
 						|| copy_tb == 0) {
 					codec->time_base = icodec->time_base;
 					codec->time_base.num *= icodec->ticks_per_frame;
@@ -2207,10 +2207,10 @@ static int transcode_init(void) {
 					&& strcmp(oc->oformat->name, "psp")
 					&& strcmp(oc->oformat->name, "ipod")
 					&& strcmp(oc->oformat->name, "f4v")) {
-				if (copy_tb < 0 && icodec->time_base.den
+				if ((copy_tb < 0 && icodec->time_base.den
 						&& av_q2d(icodec->time_base) * icodec->ticks_per_frame
 								> av_q2d(ist->st->time_base)
-						&& av_q2d(ist->st->time_base) < 1.0 / 500
+						&& av_q2d(ist->st->time_base) < 1.0 / 500)
 						|| copy_tb == 0) {
 					codec->time_base = icodec->time_base;
 					codec->time_base.num *= icodec->ticks_per_frame;

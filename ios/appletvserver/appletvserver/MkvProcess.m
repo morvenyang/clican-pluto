@@ -16,13 +16,16 @@
 @synthesize mkvUrl = _mkvUrl;
 @synthesize running = _running;
 @synthesize mkvM3u8Content = _mkvM3u8Content;
+@synthesize m3u8Path = _m3u8Path;
 -(void) dealloc{
     TT_RELEASE_SAFELY(_mkvUrl);
+    TT_RELEASE_SAFELY(_m3u8Path);
+    TT_RELEASE_SAFELY(_mkvM3u8Content);
     [super dealloc];
 }
 
--(void) convertToM3u8MkvUrl:(NSString*) url{
-    if(self.mkvUrl==nil||![self.mkvUrl isEqualToString:url]||true){
+-(NSString*) convertToM3u8MkvUrl:(NSString*) url{
+    if(self.mkvUrl==nil||![self.mkvUrl isEqualToString:url]){
         self.mkvUrl = url;
         NSString* inpath =url;
         if([self.mkvUrl rangeOfString:@"smb://"].location!=NSNotFound){
@@ -34,6 +37,10 @@
             inpath=@"/Users/zhangwei/Desktop/2.mkv";
         }
         inpath = @"/Users/zhangwei/Desktop/2.mkv";
+        NSCalendar *cal = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+        NSInteger second = [cal components:NSSecondCalendarUnit fromDate:[NSDate date]].second;
+        NSString* outputFile = [outpath stringByAppendingFormat:@"mkv%i.m3u8",second];
+        self.m3u8Path = outputFile;
         NSLog(@"OutPath:%@",outpath);
         NSLog(@"InPath:%@",inpath);
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -50,9 +57,10 @@
                     if([inpath rangeOfString:@"http://"].location!=NSNotFound){
                         cookie=@"Cookie:gdriveid=08D39F59B366F371195050D992B72FD2;\r\n";
                     }
+                    ;
                     
-                    NSLog(@"m3u8Path:%@",[outpath stringByAppendingString:@"mkv.m3u8"]);
-                    convert_avi_to_m3u8([inpath cStringUsingEncoding:NSASCIIStringEncoding],[[outpath stringByAppendingString:@"mkv.m3u8"] cStringUsingEncoding:NSASCIIStringEncoding],
+                    NSLog(@"m3u8Path:%@",outputFile);
+                    convert_avi_to_m3u8([inpath cStringUsingEncoding:NSASCIIStringEncoding],[outputFile cStringUsingEncoding:NSASCIIStringEncoding],
                                         [[outpath stringByAppendingString:@"%04d.ts"] cStringUsingEncoding:NSASCIIStringEncoding],[cookie cStringUsingEncoding:NSASCIIStringEncoding]);
                     
                 }
@@ -66,6 +74,7 @@
             }
         });
     }
+    return self.m3u8Path;
 }
 
 @end

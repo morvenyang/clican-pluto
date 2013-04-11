@@ -234,11 +234,7 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
             return resp;
         }else if([path rangeOfString:@"/appletv/noctl/mkv/play.m3u8"].location!=NSNotFound){
             NSString* mkvUrl = [[self parseGetParams] objectForKey:@"url"];
-            
-            if(![mkvUrl isEqualToString:AppDele.mkvProcess.mkvUrl]){
-                [AppDele.mkvProcess convertToM3u8MkvUrl:mkvUrl];
-            }
-            NSString* filePath = [AppDele.localMkvM3u8PathPrefix stringByAppendingString:@"mkv.m3u8"];
+            NSString* filePath=[AppDele.mkvProcess convertToM3u8MkvUrl:mkvUrl];
             NSLog(@"m3u8Path:%@",filePath);
             NSString* content=nil;
             while(TRUE){
