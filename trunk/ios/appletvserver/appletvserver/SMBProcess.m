@@ -23,7 +23,7 @@
     id result = [KxSMBProvider fetchAtPath:parent];
     NSString* content = nil;
     if ([result isKindOfClass:[NSArray class]]) {
-        content=[NSString stringWithFormat:@"{\"smbPath:\"%@\",\"items\":[",parent]
+        content=[NSString stringWithFormat:@"{\"smbPath\":\"%@\",\"items\":[",parent];
         NSArray* array = (NSArray*)result;
         for(int i=0;i<array.count;i++){
             KxSMBItem* item = [array objectAtIndex:i];
