@@ -5,13 +5,11 @@ var smbClient = {
 				url = smbUrl;
 			}
 			appletv.makeRequest(url,function(result){
-				appletv.logToServer(result);
 				var json = JSON.parse(result);
 				var title = json['title'];
 				if(title!=null){
 					appletv.showDialog(json['title'],json['description']);
 				}else{
-					appletv.logToServer(json['items'].length);
 					var data = {
 							'serverurl': appletv.serverurl,
 							'items' : json['items'],
@@ -20,7 +18,6 @@ var smbClient = {
 					var xml = new EJS({
 						url : appletv.serverurl + '/template/smb/index.ejs'
 					}).render(data);
-					appletv.logToServer(xml);
 					appletv.loadAndSwapXML(xml);
 				}
 			});
