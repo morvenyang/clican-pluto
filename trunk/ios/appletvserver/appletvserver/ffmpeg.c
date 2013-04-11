@@ -3308,6 +3308,7 @@ int main_convert(int argc, char **argv) {
     nb_input_files=0;
     nb_output_streams=0;
     nb_input_streams=0;
+    nb_filtergraphs=0;
 	exit_thread();
 	OptionsContext o = { 0 };
 	int64_t ti;
