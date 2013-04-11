@@ -37,9 +37,9 @@
             inpath=@"/Users/zhangwei/Desktop/2.mkv";
         }
         inpath = @"/Users/zhangwei/Desktop/2.mkv";
-        NSCalendar *cal = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-        NSInteger second = [cal components:NSSecondCalendarUnit fromDate:[NSDate date]].second;
-        NSString* outputFile = [outpath stringByAppendingFormat:@"mkv%i.m3u8",second];
+//        NSCalendar *cal = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+//        NSInteger second = [cal components:NSSecondCalendarUnit fromDate:[NSDate date]].second;
+        NSString* outputFile = [outpath stringByAppendingFormat:@"mkv.m3u8"];
         self.m3u8Path = outputFile;
         NSLog(@"OutPath:%@",outpath);
         NSLog(@"InPath:%@",inpath);
