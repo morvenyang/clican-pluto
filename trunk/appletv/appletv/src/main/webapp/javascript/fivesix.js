@@ -233,6 +233,49 @@ var fivesixClient = {
 		appletv.loadAndSwapXML(xml);
 	},
 	
+	getCategory: function(content,channelId,url){
+		var channel = this.fivesixChannelMap[channelId];
+		var categoryFilterContent = appletv.substringByTag(content,'<div class="filter" id="filter">','</div>','div');
+		var categoryFilters = appletv.getSubValuesByTag(categoryFilterContent,'<div class="item">','</div>','div');
+		var categoryNames = [];
+		var categoryMap = {};
+		var category = {"categoryMap":categoryMap,"categoryNames":categoryNames,"url":url,"serverurl":appletv.serverurl,"channelId":channelId};
+		for(i=0;i<categoryFilters.length;i++){
+			var categoryName = appletv.substringByData(categoryFilters[i],'<label>','</label>');
+			categoryNames.push(categoryName);
+			var categoryValues = [];
+			var categoryLis = appletv.getSubValues(categoryFilters[i],'<li','</li>');
+			for(j=0;j<categoryLis.length;j++){
+				var select = false;
+				var categoryLabel;
+				if(categoryLis[j].indexOf('class="current"')!=-1){
+					select = true
+					categoryLabel = appletv.substringByData(categoryLis[j],'<span>','</span>');
+				}else{
+					categoryLabel = appletv.substringByData(categoryLis[j],'">','<');
+				}
+				var categoryUrl = 'http://www.youku.com'+appletv.substringByData(categoryLis[j],'href="','"');
+				var categoryValue={"categoryLabel":categoryLabel,"categoryUrl":categoryUrl,"select":select};
+				categoryValues.push(categoryValue);
+			}
+			categoryMap[categoryName] = categoryValues;
+		}
+		return category;
+	},
+	
+	loadCategoryPage: function(url,channelId,loading){
+		if(loading){
+			appletv.showLoading();
+		}
+		appletv.makeRequest(url, function(content) {
+			category = fivesixClient.getCategory(content,channelId,url);
+			var xml = new EJS({
+				url : appletv.serverurl + '/template/fivesix/category.ejs'
+			}).render(category);
+			appletv.loadAndSwapXML(xml);
+		});
+	},
+	
 	loadVideoPage : function(url,pic) {
 		appletv
 				.makeRequest(url,
