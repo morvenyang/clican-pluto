@@ -67,11 +67,6 @@
                     
                     NSLog(@"m3u8Path:%@",outputFile);
                     
-                    NSDictionary *proxySettings = NSMakeCollectable([(NSDictionary *)CFNetworkCopySystemProxySettings() autorelease]);
-                    NSString* httpHost = [proxySettings valueForKey:@"HTTPProxy"];
-                    NSString* httpPort = [proxySettings valueForKey:@"HTTPPort"];
-                    NSString* proxy = [NSString stringWithFormat:@"http://%@:%@",httpHost,httpPort];
-                    setenv("http_proxy", [proxy cStringUsingEncoding:NSASCIIStringEncoding], 1);
                     convert_avi_to_m3u8([inpath cStringUsingEncoding:NSASCIIStringEncoding],[outputFile cStringUsingEncoding:NSASCIIStringEncoding],
                                         [[outpath stringByAppendingString:@"%04d.ts"] cStringUsingEncoding:NSASCIIStringEncoding],[cookie cStringUsingEncoding:NSASCIIStringEncoding]);
                     

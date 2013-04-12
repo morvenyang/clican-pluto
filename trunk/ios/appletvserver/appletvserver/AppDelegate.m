@@ -128,6 +128,15 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
         self.auth = (KxSMBAuth *)[NSKeyedUnarchiver unarchiveObjectWithData: myEncodedObject];
     }
     NSLog(@"%@",self.auth);
+    
+    NSDictionary *proxySettings = NSMakeCollectable([(NSDictionary *)CFNetworkCopySystemProxySettings() autorelease]);
+    NSString* httpHost = [proxySettings valueForKey:@"HTTPProxy"];
+    NSString* httpPort = [proxySettings valueForKey:@"HTTPPort"];
+    if(httpHost!=nil&&httpHost.length!=0&&httpPort!=nil&&httpPort.length!=0){
+        NSString* proxy = [NSString stringWithFormat:@"http://%@:%@",httpHost,httpPort];
+        setenv("http_proxy", [proxy cStringUsingEncoding:NSASCIIStringEncoding], 1);
+    }
+    
     NSLog(@"Run in simulate:%d",self.simulate);
 }
 -(void) initWebContent{
