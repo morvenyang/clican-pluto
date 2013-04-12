@@ -2,7 +2,7 @@
 <atv>
 <head>
 <script src="<%=serverurl%>/javascript/clican.js"></script>
-<script src="<%=serverurl%>/javascript/tudou.js"></script>
+<script src="<%=serverurl%>/javascript/fivesix.js"></script>
 <script src="<%=serverurl%>/javascript/ejs.js"></script>
 </head>
 <body>
@@ -13,7 +13,7 @@
 				<grid id="g<%=i%>" columnCount="5">
 					<items>
 						<%for(var j=0;j<categoryMap[categoryNames[i]].length;j++){%>
-							<actionButton id="ab_<%=i%>_<%=j%>" onPlay="tudouClient.loadCategoryPage('<%=categoryMap[categoryNames[i]][j]['categoryUrl']%>','<%=channelId%>',false);" onSelect="tudouClient.loadCategoryPage('<%=categoryMap[categoryNames[i]][j]['categoryUrl']%>','<%=channelId%>',false);">
+							<actionButton id="ab_<%=i%>_<%=j%>" onPlay="fivesixClient.loadCategoryPage('<%=categoryMap[categoryNames[i]][j]['categoryUrl']%>','<%=channelId%>',false);" onSelect="fivesixClient.loadCategoryPage('<%=categoryMap[categoryNames[i]][j]['categoryUrl']%>','<%=channelId%>',false);">
 								<%if(categoryMap[categoryNames[i]][j]['select']){%>
 									<title><![CDATA[√<%=categoryMap[categoryNames[i]][j]['categoryLabel']%>]]></title>
 								<%}else{%>
@@ -26,7 +26,7 @@
 			<%}%>
 			<grid id="sg" columnCount="1">
 				<items>
-					<actionButton id="submitButton" onPlay="tudouClient.loadIndexPage('',1,'<%=channelId%>','<%=url%>');" onSelect="tudouClient.loadIndexPage('',1,'<%=channelId%>','<%=url%>');">
+					<actionButton id="submitButton" onPlay="fivesixClient.loadIndexPage('',1,'<%=channelId%>','<%=url%>');" onSelect="fivesixClient.loadIndexPage('',1,'<%=channelId%>','<%=url%>');">
 						<title>提交</title>
 					</actionButton>
 				</items>
