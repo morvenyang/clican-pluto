@@ -108,7 +108,7 @@ public class LblClientImpl extends BaseClient implements LblClient {
 						Node node = entry.getChildren().elementAt(i);
 						if (node instanceof TagNode) {
 							TagNode pNode = (TagNode) node;
-							if (pNode.getTagName().equalsIgnoreCase("p")) {
+							if (pNode.getTagName()!=null&&pNode.getTagName().equalsIgnoreCase("p")) {
 								for (int j = 0; j < pNode.getChildren().size(); j++) {
 									Node imageNode = pNode.getChildren()
 											.elementAt(j);
