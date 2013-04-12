@@ -198,6 +198,8 @@ var fivesixClient = {
 						if(channelId=='dsj'||channelId=='dy'){
 							title = appletv.substringByData(pack, '<a target="_blank" href="', '</a>');
 							title = appletv.subIndexString(title,'>');
+						}else if(channelId=='zy'){
+							title = appletv.substringByData(pack,'alt="','"');
 						}else{
 							title = appletv.substringByData(pack,'title="','"');
 						}
