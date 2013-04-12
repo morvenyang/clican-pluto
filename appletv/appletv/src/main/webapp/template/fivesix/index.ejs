@@ -31,7 +31,7 @@
 		</shelf>
 		<grid id="grid_1" columnCount="12">
 			<items>
-				<%if(channel['value']!='search'){%>
+				<%if(channel['value']=='dsj'||channel['value']=='dy'){%>
 				<actionButton id="shelf_item_category_page" onSelect="fivesixClient.loadCategoryPage('<%=url%>','<%=channel['value']%>',true);" onPlay="fivesixClient.loadCategoryPage('<%=url%>','<%=channel['value']%>',true);">
 					<title>筛选</title>
 				</actionButton>
@@ -73,7 +73,7 @@
 		</grid>
 		<grid id="pagingGrid" columnCount="12">
 			<items>
-				<%if(channel['value']!='search'){%>
+				<%if(channel['value']=='dsj'||channel['value']=='dy'){%>
 				<actionButton id="shelf_item_category_page" onSelect="fivesixClient.loadCategoryPage('<%=url%>','<%=channel['value']%>',true);" onPlay="fivesixClient.loadCategoryPage('<%=url%>','<%=channel['value']%>',true);">
 					<title>筛选</title>
 				</actionButton>

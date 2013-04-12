@@ -75,67 +75,83 @@ var fivesixClient = {
 		},
 		"rd" : {
 			label : "热点",
-			value : "rd"
+			value : "rd",
+			url: "http://video.56.com/videolist-type-hot_dir-rd_k-_key-_v-_t-_c-2_charset-utf-8_page-1.html"
 		},
 		"yl" : {
 			label : "娱乐",
-			value : "yl"
+			value : "yl",
+			url: "http://video.56.com/videolist-type-hot_dir-yl_k-_key-_v-_t-_c-1_charset-utf-8_page-1.html"
 		},
 		"yc" : {
 			label : "原创",
-			value : "yc"
+			value : "yc",
+			url: "http://video.56.com/videolist-type-hot_dir-yc_k-_key-_v-_t-_c-3_charset-utf-8_page-1.html"
 		},
 		"zy" : {
 			label : "综艺",
-			value : "zy"
+			value : "zy",
+			url: "http://video.56.com/videolist-v-zyjm_k-_key-_type-_t-_charset-utf-8_page-1.html"
 		},
 		"yy" : {
 			label : "音乐",
-			value : "yy"
+			value : "yy",
+			url: "http://video.56.com/videolist-type-hot_dir-yy_k-_key-_v-_t-_c-41_charset-utf-8_page-1.html"
 		},
 		"gx" : {
 			label : "搞笑",
-			value : "gx"
+			value : "gx",
+			url: "http://video.56.com/videolist-type-hot_dir-gx_k-_key-_v-_t-_c-4_charset-utf-8_page-1.html"
 		},
 		"dm" : {
 			label : "动漫",
-			value : "dm"
+			value : "dm",
+			url: "http://video.56.com/videolist-type-hot_dir-dm_k-_key-_v-_t-_c-8_charset-utf-8_page-1.html"
 		},
 		"ty" : {
 			label : "体育",
-			value : "ty"
+			value : "ty",
+			url: "http://video.56.com/videolist-type-hot_dir-ty_k-_key-_v-_t-_c-14_charset-utf-8_page-1.html"
 		},
 		"yx" : {
 			label : "游戏",
-			value : "yx"
+			value : "yx",
+			url: "http://video.56.com/videolist-type-hot_dir-yx_k-_key-_v-_t-_c-26_charset-utf-8_page-1.html"
 		},
 		"nx" : {
 			label : "女性",
-			value : "nx"
+			value : "nx",
+			url: "http://video.56.com/videolist-type-hot_dir-nx_k-_key-_v-_t-_c-11_charset-utf-8_page-1.html"
 		},
 		"my" : {
 			label : "母婴",
-			value : "my"
+			value : "my",
+			url: "http://video.56.com/videolist-type-hot_dir-my_k-_key-_v-_t-_c-34_charset-utf-8_page-1.html"
 		},
 		"qc" : {
 			label : "汽车",
-			value : "qc"
+			value : "qc",
+			url: "http://video.56.com/videolist-type-hot_dir-qc_k-_key-_v-_t-_c-28_charset-utf-8_page-1.html"
 		},
 		"kj" : {
 			label : "科教",
-			value : "kj"
+			value : "kj",
+			url: "http://video.56.com/videolist-type-hot_dir-kj_k-_key-_v-_t-_c-10_charset-utf-8_page-1.html"
 		},
 		"ly" : {
 			label : "旅游",
-			value : "ly"
+			value : "ly",
+			url: "http://video.56.com/videolist-type-hot_dir-ly_k-_key-_v-_t-_c-27_charset-utf-8_page-1.html"
 		},
 		"videolist-v-mm.html" : {
 			label : "美女主播",
-			value : "videolist-v-mm.html"
+			value : "videolist-v-mm.html",
+			url: "http://video.56.com/videolist-v-mm_k-_key-_type-_t-_charset-utf-8_page-1.html"
 		},
 		"videolist-v-pm.html" : {
 			label : "微栏目",
-			value : "videolist-v-pm.html"
+			value : "videolist-v-pm.html",
+			url: "http://video.56.com/videolist-v-pm_k-_key-_type-_t-_charset-utf-8_page-1.html"
 		}
 	},
 	
