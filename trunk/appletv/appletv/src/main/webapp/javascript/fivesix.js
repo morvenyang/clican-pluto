@@ -300,7 +300,7 @@ var fivesixClient = {
 							year = appletv.substringByData(videoContent,'上映','</dd>');
 							year = appletv.subIndexString(year,'<dd>');
 							area = appletv.substringByData(videoContent,'地区','</dd>');
-							area = appletv.subIndexString(year,'<dd>');
+							area = appletv.subIndexString(area,'<dd>');
 							var script = appletv.encode("youkuClient.loadVideoPage('"+url+"');");
 							
 							var items = [];
