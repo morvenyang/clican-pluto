@@ -424,6 +424,7 @@
         [self.videos removeAllObjects];
     }
     
+    
     CXMLElement* scrollerElement = (CXMLElement*)node;
     NSString* idStr = [[scrollerElement attributeForName:@"id"] stringValue];
     if([idStr isEqualToString:@"index"]){
@@ -498,10 +499,20 @@
         }
         [self.scrollView addSubview:tableView];
         [self.view addSubview:self.scrollView];
+        
         NSLog(@"add videos successfully");
+        
+        NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:_lastLines inSection:0];
+       
+        if(tableView!=nil){
+            [tableView scrollToRowAtIndexPath:scrollIndexPath atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+        }
     }
 
 }
+
+
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     self.append = NO;
     TTListDataSource* ds = (TTListDataSource*)tableView.dataSource;
@@ -513,6 +524,7 @@
         BOOL search = NO;
         if([tti.text isEqualToString:@"更多"]){
             self.append = YES;
+            _lastLines = self.videos.count/AppDele.videoSizePerLine+self.videos.count%AppDele.videoSizePerLine-1;
         }else if([tti.text isEqualToString:@"搜索"]){
             search = YES;
         }
@@ -579,7 +591,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
 }
 
 - (void)didReceiveMemoryWarning
