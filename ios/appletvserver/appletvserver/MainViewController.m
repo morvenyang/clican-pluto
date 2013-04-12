@@ -34,8 +34,10 @@
     [items addObject:item4];
     TTTableTextItem* item5 = [TTTableTextItem itemWithText:@"龙部落影视" URL:@"lblClient.loadChannelPage();"];
     [items addObject:item5];
-    TTTableTextItem* item6 = [TTTableTextItem itemWithText:@"收藏" URL:@"appletv.loadFavoritePage();"];
+    TTTableTextItem* item6 = [TTTableTextItem itemWithText:@"56视频" URL:@"fivesixClient.loadChannelPage();"];
     [items addObject:item6];
+    TTTableTextItem* item7 = [TTTableTextItem itemWithText:@"收藏" URL:@"appletv.loadFavoritePage();"];
+    [items addObject:item7];
     TTListDataSource* ds = [[TTListDataSource alloc] initWithItems:items];
     self.dataSource = ds;
     self.tableView.delegate =self;
