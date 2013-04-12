@@ -14,7 +14,6 @@
 @implementation MkvProcess
 
 @synthesize mkvUrl = _mkvUrl;
-@synthesize running = _running;
 @synthesize mkvM3u8Content = _mkvM3u8Content;
 @synthesize m3u8Path = _m3u8Path;
 -(void) dealloc{
@@ -52,9 +51,19 @@
                     transfer_code_interrupt = 0;
                     NSString* cookie = nil;
                     if([inpath rangeOfString:@"http://"].location!=NSNotFound){
-                        cookie=@"Cookie:gdriveid=08D39F59B366F371195050D992B72FD2;\r\n";
+                        NSArray* cookies =[[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies];
+                        NSString* gdriveid = nil;
+                        for(int i=0;i<[cookies count];i++){
+                            NSHTTPCookie* cookie = [cookies objectAtIndex:i];
+                            NSLog(@"%@ %@ %@",cookie.name,cookie.value,cookie.domain);
+                            if([cookie.name isEqualToString:@"gdriveid"]){
+                                gdriveid = cookie.value;
+                                break;
+                            }
+                        }
+                        NSLog(@"gdriveid=%@",gdriveid);
+                        cookie = [NSString stringWithFormat:@"Cookie:gdriveid=%@;\r\n",gdriveid];
                     }
-                    ;
                     
                     NSLog(@"m3u8Path:%@",outputFile);
                     convert_avi_to_m3u8([inpath cStringUsingEncoding:NSASCIIStringEncoding],[outputFile cStringUsingEncoding:NSASCIIStringEncoding],

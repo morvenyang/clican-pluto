@@ -72,6 +72,7 @@
 		722146E116DDDFFA00850C03 /* HTTPDataHeaderResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 722146E016DDDFFA00850C03 /* HTTPDataHeaderResponse.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		722146E416DDE40700850C03 /* M3u8Download.m in Sources */ = {isa = PBXBuildFile; fileRef = 722146E316DDE40700850C03 /* M3u8Download.m */; };
 		722146E716DDE62500850C03 /* M3u8TSHTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 722146E616DDE62500850C03 /* M3u8TSHTTPRequest.m */; };
+		722948B71717A2C600CEF2F8 /* ProcessManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 722948B61717A2C600CEF2F8 /* ProcessManager.m */; };
 		722B23781712C36400D3A8B4 /* SMBDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 722B23771712C36400D3A8B4 /* SMBDataSource.m */; };
 		722FF14116FC010000237F15 /* WebContentSync.m in Sources */ = {isa = PBXBuildFile; fileRef = 722FF14016FC010000237F15 /* WebContentSync.m */; };
 		722FF15616FC068C00237F15 /* ZipArchive.mm in Sources */ = {isa = PBXBuildFile; fileRef = 722FF15516FC068C00237F15 /* ZipArchive.mm */; };
@@ -474,6 +475,8 @@
 		722146E316DDE40700850C03 /* M3u8Download.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M3u8Download.m; sourceTree = "<group>"; };
 		722146E516DDE62500850C03 /* M3u8TSHTTPRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = M3u8TSHTTPRequest.h; path = AISHTTPRequest/M3u8TSHTTPRequest.h; sourceTree = "<group>"; };
 		722146E616DDE62500850C03 /* M3u8TSHTTPRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = M3u8TSHTTPRequest.m; path = AISHTTPRequest/M3u8TSHTTPRequest.m; sourceTree = "<group>"; };
+		722948B51717A2C600CEF2F8 /* ProcessManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProcessManager.h; sourceTree = "<group>"; };
+		722948B61717A2C600CEF2F8 /* ProcessManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProcessManager.m; sourceTree = "<group>"; };
 		722B23761712C36400D3A8B4 /* SMBDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMBDataSource.h; sourceTree = "<group>"; };
 		722B23771712C36400D3A8B4 /* SMBDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMBDataSource.m; sourceTree = "<group>"; };
 		722FF13F16FC010000237F15 /* WebContentSync.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebContentSync.h; sourceTree = "<group>"; };
@@ -1156,6 +1159,8 @@
 				72E871BD170E74990063E80A /* MkvProcess.m */,
 				72D4F5301715872D0047C762 /* SMBProcess.h */,
 				72D4F5311715872D0047C762 /* SMBProcess.m */,
+				722948B51717A2C600CEF2F8 /* ProcessManager.h */,
+				722948B61717A2C600CEF2F8 /* ProcessManager.m */,
 			);
 			name = Process;
 			sourceTree = "<group>";
@@ -1719,6 +1724,7 @@
 				722B23781712C36400D3A8B4 /* SMBDataSource.m in Sources */,
 				7245873E17154F2C00F6E839 /* HTTPSMBResponse.m in Sources */,
 				72D4F5321715872D0047C762 /* SMBProcess.m in Sources */,
+				722948B71717A2C600CEF2F8 /* ProcessManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

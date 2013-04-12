@@ -122,7 +122,8 @@
 - (void)mp4RequestDone:(Mp4HTTPRequest *)req
 {
     NSLog(@"Download finished for ts : %@",[[req downloadDestinationPath] stringByReplacingOccurrencesOfString:[AppDele localMp4PathPrefix] withString:@""]);
-    if(![req.mp4Download.mp4Url isEqualToString:self.mp4Url]){
+    if(![req.mp4Download.mp4Url isEqualToString:self.mp4Url]||!_running){
+        self.mp4Url = nil;
         NSLog(@"Task cancelled by another mp4");
         return;
     }
@@ -155,7 +156,8 @@
 - (void)mp4RequestWentWrong:(Mp4HTTPRequest *)req
 {
     NSLog(@"Download failure for ts : %@ with error: %@",[[req downloadDestinationPath] stringByReplacingOccurrencesOfString:[AppDele localM3u8PathPrefix] withString:@""], [req error]);
-    if(![req.mp4Download.mp4Url isEqualToString:self.mp4Url]){
+    if(![req.mp4Download.mp4Url isEqualToString:self.mp4Url]||!_running){
+        self.mp4Url = nil;
         NSLog(@"Task cancelled by another m3u8");
         return;
     }

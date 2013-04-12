@@ -9,7 +9,7 @@
 #import "DownloadStatusViewController.h"
 #import "DownloadStatusDataSource.h"
 #import "AppDelegate.h"
-
+#import "ffmpeg.h"
 @implementation DownloadStatusViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -47,13 +47,15 @@
 }
 
 - (void)cancelAction{
+    AppDele.m3u8Process.running =NO;
+    AppDele.mp4Process.running =NO;
+    transfer_code_interrupt = 1;
     AppDele.m3u8Process.m3u8Url=nil;
     AppDele.mp4Process.mp4Url=nil;
+    AppDele.mkvProcess.mkvUrl = nil;
     [[AppDele queue] cancelAllOperations];
     [[AppDele queue] waitUntilAllOperationsAreFinished];
     [[AppDele queue] go];
-    AppDele.m3u8Process.running =NO;
-    AppDele.mp4Process.running =NO;
     DownloadStatusDataSource* ds = [[[DownloadStatusDataSource alloc] init] autorelease];
     self.dataSource = ds;
 }

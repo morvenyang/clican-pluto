@@ -8,7 +8,7 @@
 
 #import "DownloadStatusDataSource.h"
 #import "AppDelegate.h"
-
+#import "ffmpeg.h"
 @implementation DownloadStatusDataSource
 @synthesize downloadStatusModel = _downloadStatusModel;
 
@@ -44,6 +44,16 @@
             }else{
                 text = [NSString stringWithFormat:@"%i.ts 未下载",i];
             }
+            TTTableTextItem* item = [TTTableTextItem itemWithText:text];
+            [items addObject:item];
+        }
+    }else if(transfer_code_interrupt==0){
+        NSString* mkvOutPath = AppDele.localMkvM3u8PathPrefix;
+        NSArray* array = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:mkvOutPath error:nil];
+        for(int i=0;i<[array count];i++){
+            NSString* file = [array objectAtIndex:i];
+            NSString* fileName = file.lastPathComponent;
+            NSString* text = [NSString stringWithFormat:@"%@ 已转码",fileName];
             TTTableTextItem* item = [TTTableTextItem itemWithText:text];
             [items addObject:item];
         }
