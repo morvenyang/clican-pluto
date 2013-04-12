@@ -261,22 +261,25 @@ var fivesixClient = {
 							
 							var items = [];
 							var itemscontent = appletv.substringByTag(htmlContent,'<div id="albumVideos">','</div>','div');
-							var items = appletv.getSubValues(itemscontent,'<dl','</dl>');
-							for(var i=0;i<items.length;i++){
-								var item = items[i];
-								var t = appletv.substringByData(item,'title="','"');
-								var c = appletv.substringByData(item,'href="','"');
+							var dls = appletv.getSubValues(itemscontent,'<dl','</dl>');
+							for(var i=0;i<dls.length;i++){
+								var dl = dls[i];
+								var t = appletv.substringByData(dl,'title="','"');
+								var c = appletv.substringByData(dl,'href="','"');
 								c = appletv.substringByData(c,'v_','.html');
-								var i = {
+								var item = {
 										'title' : t,
 										'id' : c
 									};
-								items.push(i);
+								items.push(item);
 							}
-							
+							var mid = appletv.substringByData(url,'opera/','.html');
+							var playall = 'http://video.56.com/index.php?Controller=Opera&Action=GetOpera&mid='+mid+'&callback=fivesixClient.loadVideos';
+							playall=playall.replace(new RegExp('&', 'g'),'&amp;');
 							var video = {
 									'serverurl' : appletv.serverurl,
 									script : script,
+									playall : playall,
 									video : {
 										'id' : url,
 										'actor' : actor,
@@ -302,9 +305,27 @@ var fivesixClient = {
 						});
 	},
 	
-	loadItemsPage : function() {
+	loadItemsPage : function(url) {
 		appletv.showLoading();
+		appletv.makeRequest(url,function(content){
+			appletv.logToServer(content);
+			eval(content);
+		});
+	},
+	
+	loadVideos:function(videos){
+		var datas = videos['data'];
+		var items = [];
+		for(i=0;i<datas.length;i++){
+			var data = datas[i];
+			var item = {
+					'title' : data['title'],
+					'id' : data['vid']
+			};
+			items.push(item);
+		}
 		appletv.getValue('clican.fivesix.video',function(video){
+			video['items'] = items;
 			var xml = new EJS({
 				url : appletv.serverurl
 						+ '/template/fivesix/videoItems.ejs'
@@ -315,7 +336,26 @@ var fivesixClient = {
 	
 	play : function(vcode) {
 		appletv.showLoading();
-		var url = 'http://v.youku.com/player/getRealM3U8/vid/' + vcode + '/type/hd2/video.m3u8';
-		appletv.playM3u8(url, '');
+		var url = 'http://m.56.com/view/id-'+vcode+'.html';
+		appletv.makeRequest(url,function(content){
+			var vid = appletv.substringByData(content,'vid = "','"').trim();
+			var mediaUrl = 'http://vxml.56.com/mobile/'+vid+'/?src=3gapi';
+			appletv.makeRequest(mediaUrl,function(jsonContent){
+				var json = JSON.parse(jsonContent);
+				var url = json['info']['rfiles'][0]['url'];
+				appletv.playMp4(url, '');
+			});
+		});
+		
+	},
+	
+	playByVid : function(vid) {
+		appletv.showLoading();
+		var mediaUrl = 'http://vxml.56.com/mobile/'+vid+'/?src=3gapi';
+		appletv.makeRequest(mediaUrl,function(jsonContent){
+			var json = JSON.parse(jsonContent);
+			var url = json['info']['rfiles'][0]['url'];
+			appletv.playMp4(url, '');
+		});
 	},
 }
