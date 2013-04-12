@@ -144,9 +144,10 @@
         M3u8TSHTTPRequest* m3u8TSReq = (M3u8TSHTTPRequest*)req;
         NSLog(@"Download finished for ts : %@",[[m3u8TSReq downloadDestinationPath] stringByReplacingOccurrencesOfString:[AppDele localM3u8PathPrefix] withString:@""]);
         req.m3u8DownloadLine.finished = YES;
-        if([req.m3u8Download.m3u8Url isEqualToString:self.m3u8Url]){
+        if([req.m3u8Download.m3u8Url isEqualToString:self.m3u8Url]&&_running){
             [self addAsyncM3u8TSRequest];
         }else{
+            self.m3u8Url = nil;
             NSLog(@"Task cancelled by another m3u8");
         }
     }else{
@@ -159,8 +160,9 @@
 - (void)m3u8tsRequestWentWrong:(M3u8TSHTTPRequest *)req
 {
     NSLog(@"Download failure for ts : %@ with error: %@",[[req downloadDestinationPath] stringByReplacingOccurrencesOfString:[AppDele localM3u8PathPrefix] withString:@""], [req error]);
-    if(![req.m3u8Download.m3u8Url isEqualToString:self.m3u8Url]){
+    if(![req.m3u8Download.m3u8Url isEqualToString:self.m3u8Url]||!_running){
         NSLog(@"Task cancelled by another m3u8");
+        self.m3u8Url = nil;
         return;
     }
     //retry
