@@ -54,20 +54,12 @@
 		</grid>
 		<grid id="movieGrid" columnCount="6">
 			<items>
-				<%for(var i=0;i<videos.length;i++){%>
-					<%if(channel['value']=='search'){%>
-						<moviePoster id="shelf_item_<%=i%>" alwaysShowTitles="true" onSelect="fivesixClient.loadAlbumPage('<%=videos[i]['id']%>',<%=channel['value']%>,<%=videos[i]['album']%>,true);">
-							<title><![CDATA[<%=videos[i].title%>]]></title>
-							<image><%=videos[i].pic%></image>
-							<defaultImage>resource://Poster.png</defaultImage>
-						</moviePoster>
-					<%}else{%>
-						<moviePoster id="shelf_item_<%=i%>" alwaysShowTitles="true" onSelect="fivesixClient.loadVideoPage('<%=videos[i]['id']%>','<%=videos[i].pic%>');">
-							<title><![CDATA[<%=videos[i].title%>]]></title>
-							<image><%=videos[i].pic%></image>
-							<defaultImage>resource://Poster.png</defaultImage>
-						</moviePoster>
-					<%}%>
+				<%for(var i=0;i<videos.length;i++){%>	
+					<moviePoster id="shelf_item_<%=i%>" alwaysShowTitles="true" onSelect="fivesixClient.loadVideoPage('<%=videos[i]['id']%>','<%=videos[i].pic%>','<%=channel['value']%>');">
+						<title><![CDATA[<%=videos[i].title%>]]></title>
+						<image><%=videos[i].pic%></image>
+						<defaultImage>resource://Poster.png</defaultImage>
+					</moviePoster>
 				<%}%>
 			</items>
 		</grid>
