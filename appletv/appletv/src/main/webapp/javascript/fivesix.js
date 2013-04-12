@@ -301,4 +301,21 @@ var fivesixClient = {
 								appletv.loadAndSwapXML(xml);
 						});
 	},
+	
+	loadItemsPage : function() {
+		appletv.showLoading();
+		appletv.getValue('clican.fivesix.video',function(video){
+			var xml = new EJS({
+				url : appletv.serverurl
+						+ '/template/fivesix/videoItems.ejs'
+			}).render(video);
+			appletv.loadAndSwapXML(xml);
+		});
+	},
+	
+	play : function(vcode) {
+		appletv.showLoading();
+		var url = 'http://v.youku.com/player/getRealM3U8/vid/' + vcode + '/type/hd2/video.m3u8';
+		appletv.playM3u8(url, '');
+	},
 }
