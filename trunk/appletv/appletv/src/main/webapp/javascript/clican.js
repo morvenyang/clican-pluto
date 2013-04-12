@@ -713,10 +713,14 @@ var appletv = {
 				if(end<0){
 					break;
 				}
-				var ot = data.indexOf('>',start+startstr.length);
-				if(ot>=0){
-					ot = ot+1;
-					temp =  data.substring(ot,end);
+				if(startstr.indexOf('>')==-1){
+					var ot = data.indexOf('>',start+startstr.length);
+					if(ot>=0){
+						ot = ot+1;
+						temp =  data.substring(ot,end);
+					}else{
+						temp =  data.substring(start+startstr.length,end);
+					}
 				}else{
 					temp =  data.substring(start+startstr.length,end);
 				}
