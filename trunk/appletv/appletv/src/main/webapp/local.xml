@@ -9,6 +9,7 @@
 		<script src="http://local.clican.org/appletv/javascript/youku.js" />
 		<script src="http://local.clican.org/appletv/javascript/lbl.js" />
 		<script src="http://local.clican.org/appletv/javascript/myphoto.js" />
+		<script src="http://local.clican.org/appletv/javascript/smb.js" />
 	</head>
 	<body>
 		<scroller id="com.sample.movie-shelf">
@@ -60,6 +61,11 @@
 							onSelect="appletv.loadFavoritePage();">
 							<image>http://local.clican.org/appletv/image/favorite.png</image>
 							<title>收藏</title>
+						</goldenPoster>
+						<goldenPoster id="smb"
+							onSelect="smbClient.loadIndexPage('');">
+							<image>http://local.clican.org/appletv/image/smb.png</image>
+							<title>SMB共享</title>
 						</goldenPoster>
 						<goldenPoster id="announcement"
 							onSelect="atv.loadURL('http://local.clican.org/appletv/release.xml');">
