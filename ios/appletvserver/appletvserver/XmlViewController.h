@@ -28,6 +28,7 @@
     int _navigationIndex;
     TTStyledTextLabel* _formatTextLabel;
     NSString* _navigationScript;
+    int _lastLines;
 }
 @property (nonatomic, copy) NSString* xml;
 @property (nonatomic, copy) NSString* script;
