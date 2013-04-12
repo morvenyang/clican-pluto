@@ -233,56 +233,52 @@ var fivesixClient = {
 		appletv.loadAndSwapXML(xml);
 	},
 	
-	loadVideoPage : function(url) {
-		appletv.showLoading();
+	loadVideoPage : function(url,pic) {
 		appletv
 				.makeRequest(url,
 						function(htmlContent) {
-							var content = appletv.getSubValuesByTag(htmlContent,
-									'<div class="content">', '</div>', 'div')
+							var videoContent = appletv.substringByTag(htmlContent,
+									'<div class="content">', '</div>', 'div');
+							
 							var actor = '-';
 							var dctor = '-';
 							var area = '-';
 							var score = '-';
 							var year = '-';
 							var shareurl = url;
-							
-							var title = appletv.substringByData(content,'title="','"');
-							var desc = appletv.substringByData(content,'<dd class="h_2" id="videoinfo_l" style="display:none">','<a');
-							
-							dctor = appletv.substringByData(content,'导演','</dd>');
+							var title = appletv.substringByData(videoContent,'title="','"');
+							var desc = appletv.substringByData(videoContent,'<dd class="h_2" id="videoinfo_l" style="display:none">','<a');
+							dctor = appletv.substringByData(videoContent,'导演','</dd>');
 							dctor = appletv.getSubValuesByTag(dctor,'<a','</a>','a');
 							
-							actor = appletv.substringByData(content,'演员','</dd>');
-							actor = appletv.getSubValuesByTag(dctor,'<a','</a>','a');
-							year = appletv.substringByData(content,'上映','</dd>');
+							actor = appletv.substringByData(videoContent,'演员','</dd>');
+							actor = appletv.getSubValuesByTag(actor,'<a','</a>','a');
+							year = appletv.substringByData(videoContent,'上映','</dd>');
 							year = appletv.subIndexString(year,'<dd>');
-							area = appletv.substringByData(content,'地区','</dd>');
+							area = appletv.substringByData(videoContent,'地区','</dd>');
 							area = appletv.subIndexString(year,'<dd>');
 							var script = appletv.encode("youkuClient.loadVideoPage('"+url+"');");
 							
 							var items = [];
 							var itemscontent = appletv.substringByTag(htmlContent,'<div id="albumVideos">','</div>','div');
 							var items = appletv.getSubValues(itemscontent,'<dl','</dl>');
-							for(i=0;i<items.length;i++){
+							for(var i=0;i<items.length;i++){
 								var item = items[i];
-								var t = appletv.substringByData(items,'title="','"');
-								var c = appletv.substringByData(items,'href="','"');
+								var t = appletv.substringByData(item,'title="','"');
+								var c = appletv.substringByData(item,'href="','"');
 								c = appletv.substringByData(c,'v_','.html');
-								var item = {
+								var i = {
 										'title' : t,
 										'id' : c
 									};
-								items.push(item);
+								items.push(i);
 							}
-							
 							
 							var video = {
 									'serverurl' : appletv.serverurl,
-									channelId : channelId,
 									script : script,
 									video : {
-										'id' : code,
+										'id' : url,
 										'actor' : actor,
 										'area' : area,
 										'dctor' : dctor,
@@ -295,7 +291,7 @@ var fivesixClient = {
 									},
 									items : items
 								};
-								if(isalbum){
+								if(items.length>1){
 									appletv.setValue('clican.fivesix.video',video);
 								}
 								var xml = new EJS({

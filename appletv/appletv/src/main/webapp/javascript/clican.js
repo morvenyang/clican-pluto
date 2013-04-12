@@ -713,8 +713,13 @@ var appletv = {
 				if(end<0){
 					break;
 				}
-				temp =  data.substring(start+startstr.length,end);
-				
+				var ot = data.indexOf('>',start+startstr.length);
+				if(ot>=0){
+					ot = ot+1;
+					temp =  data.substring(ot,end);
+				}else{
+					temp =  data.substring(start+startstr.length,end);
+				}
 				a = appletv.getCount(temp,'<'+tagName);
 				b = appletv.getCount(temp,'</'+tagName);
 				if(a==b){
