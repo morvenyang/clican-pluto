@@ -186,7 +186,7 @@ var fivesixClient = {
 			appletv.logToServer(queryUrl);
 			appletv.makeRequest(queryUrl, function(content) {
 				if (content != null && content.length > 0) {
-					var videoContent = appletv.substringByTag(content,'<div class="content tv" id="content">','</div>','div');
+					var videoContent = appletv.substringByTag(content,'<div class="content','</div>','div');
 					var packs = appletv.getSubValuesByTag(videoContent,
 							'<dt>', '</dt>', 'dt');
 					for (i = 0; i < packs.length; i++) {
@@ -194,8 +194,13 @@ var fivesixClient = {
 						var pic = appletv.substringByData(pack,
 								'<img', '>');
 						pic = appletv.substringByData(pic,'src="','"');
-						var title = appletv.substringByData(pack, '<a target="_blank" href="', '</a>');
-						title = appletv.subIndexString(title,'>');
+						var title
+						if(channelId=='dsj'||channelId=='dy'){
+							title = appletv.substringByData(pack, '<a target="_blank" href="', '</a>');
+							title = appletv.subIndexString(title,'>');
+						}else{
+							title = appletv.substringByData(pack,'title="','"');
+						}
 						var id = appletv.substringByData(pack, 'href="','"');
 						var album = false;
 						if (channelId == 'dsj' || channelId == 'dy') {
@@ -293,49 +298,66 @@ var fivesixClient = {
 		});
 	},
 	
-	loadVideoPage : function(url,pic) {
+	loadVideoPage : function(url,pic,channelId) {
 		appletv
 				.makeRequest(url,
 						function(htmlContent) {
-							var videoContent = appletv.substringByTag(htmlContent,
-									'<div class="content">', '</div>', 'div');
-							
+							var title;
+							var desc;
 							var actor = '-';
 							var dctor = '-';
 							var area = '-';
 							var score = '-';
 							var year = '-';
 							var shareurl = url;
-							var title = appletv.substringByData(videoContent,'title="','"');
-							var desc = appletv.substringByData(videoContent,'<dd class="h_2" id="videoinfo_l" style="display:none">','<a');
-							dctor = appletv.substringByData(videoContent,'导演','</dd>');
-							dctor = appletv.getSubValuesByTag(dctor,'<a','</a>','a');
-							
-							actor = appletv.substringByData(videoContent,'演员','</dd>');
-							actor = appletv.getSubValuesByTag(actor,'<a','</a>','a');
-							year = appletv.substringByData(videoContent,'上映','</dd>');
-							year = appletv.subIndexString(year,'<dd>');
-							area = appletv.substringByData(videoContent,'地区','</dd>');
-							area = appletv.subIndexString(area,'<dd>');
-							var script = appletv.encode("youkuClient.loadVideoPage('"+url+"');");
-							
+							var script;
+							var playall;
 							var items = [];
-							var itemscontent = appletv.substringByTag(htmlContent,'<div id="albumVideos">','</div>','div');
-							var dls = appletv.getSubValues(itemscontent,'<dl','</dl>');
-							for(var i=0;i<dls.length;i++){
-								var dl = dls[i];
-								var t = appletv.substringByData(dl,'title="','"');
-								var c = appletv.substringByData(dl,'href="','"');
-								c = appletv.substringByData(c,'v_','.html');
+							if(channelId=='dsj'||channelId=='dy'){
+								var videoContent = appletv.substringByTag(htmlContent,
+										'<div class="content">', '</div>', 'div');
+								
+								
+								title = appletv.substringByData(videoContent,'title="','"');
+								desc = appletv.substringByData(videoContent,'<dd class="h_2" id="videoinfo_l" style="display:none">','<a');
+								dctor = appletv.substringByData(videoContent,'导演','</dd>');
+								dctor = appletv.getSubValuesByTag(dctor,'<a','</a>','a');
+								
+								actor = appletv.substringByData(videoContent,'演员','</dd>');
+								actor = appletv.getSubValuesByTag(actor,'<a','</a>','a');
+								year = appletv.substringByData(videoContent,'上映','</dd>');
+								year = appletv.subIndexString(year,'<dd>');
+								area = appletv.substringByData(videoContent,'地区','</dd>');
+								area = appletv.subIndexString(area,'<dd>');
+								script = appletv.encode("youkuClient.loadVideoPage('"+url+"');");
+								
+								var itemscontent = appletv.substringByTag(htmlContent,'<div id="albumVideos">','</div>','div');
+								var dls = appletv.getSubValues(itemscontent,'<dl','</dl>');
+								for(var i=0;i<dls.length;i++){
+									var dl = dls[i];
+									var t = appletv.substringByData(dl,'title="','"');
+									var c = appletv.substringByData(dl,'href="','"');
+									c = appletv.substringByData(c,'v_','.html');
+									var item = {
+											'title' : t,
+											'id' : c
+										};
+									items.push(item);
+								}
+								var mid = appletv.substringByData(url,'opera/','.html');
+								playall = 'http://video.56.com/index.php?Controller=Opera&Action=GetOpera&mid='+mid+'&callback=fivesixClient.loadVideos';
+								playall=playall.replace(new RegExp('&', 'g'),'&amp;');
+							}else{
+								title = appletv.substringByData(htmlContent,'<h1 id="vh_title">','</h1>');
+								desc = "";
+								var c = appletv.substringByData(url,'v_','.html');
 								var item = {
-										'title' : t,
+										'title' : title,
 										'id' : c
 									};
 								items.push(item);
 							}
-							var mid = appletv.substringByData(url,'opera/','.html');
-							var playall = 'http://video.56.com/index.php?Controller=Opera&Action=GetOpera&mid='+mid+'&callback=fivesixClient.loadVideos';
-							playall=playall.replace(new RegExp('&', 'g'),'&amp;');
+							
 							var video = {
 									'serverurl' : appletv.serverurl,
 									script : script,
@@ -362,6 +384,7 @@ var fivesixClient = {
 											+ '/template/fivesix/video.ejs'
 								}).render(video);
 								appletv.loadAndSwapXML(xml);
+							
 						});
 	},
 	
