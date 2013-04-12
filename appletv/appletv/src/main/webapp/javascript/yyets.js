@@ -60,7 +60,7 @@ var yyetsClient = {
 			url = 'http://ziyuan.kehuduan.rryingshi.com:20066/search/resource/'
 					+ encodeURIComponent(keyword);
 		} else {
-			url = yyetsSearchApi + "?c=" + channelId + "&f=30&page=" + page
+			url = yyetsSearchApi + "?c=" + channelId + "&page=" + page
 					+ "&s=views";
 		}
 
