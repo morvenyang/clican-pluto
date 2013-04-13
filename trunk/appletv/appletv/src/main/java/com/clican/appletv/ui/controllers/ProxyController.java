@@ -110,8 +110,10 @@ public class ProxyController {
 		ZipOutputStream out = new ZipOutputStream(os);
 		this.zipFile(webapp.getAbsolutePath(), out);
 		response.addHeader("version", springProperty.getSystemVersion());
+		byte[] data = os.toByteArray();
 		response.setContentType("application/zip");
-		response.getOutputStream().write(os.toByteArray());
+		response.setContentLength(data.length);
+		response.getOutputStream().write(data);
 	}
 
 	@RequestMapping("/proxy/sync/version.do")
