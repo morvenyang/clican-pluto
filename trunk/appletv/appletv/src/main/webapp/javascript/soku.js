@@ -46,8 +46,8 @@ var sokuClient = {
 					for(var i=0;i<results2.length;i++){
 						var result2 = results2[i];
 						var video = {
-								"title" : result2['showname'],
-								"id" : result2['showid'],
+								"title" : result2['title'],
+								"id" : result2['videoid'],
 								"pic" : result2['img'],
 								"site" : result1['default_site'],
 								"album": false
