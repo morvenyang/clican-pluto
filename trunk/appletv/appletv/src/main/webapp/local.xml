@@ -10,7 +10,7 @@
 		<script src="http://local.clican.org/appletv/javascript/lbl.js" />
 		<script src="http://local.clican.org/appletv/javascript/myphoto.js" />
 		<script src="http://local.clican.org/appletv/javascript/smb.js" />
-		<script src="http://www.clican.org/appletv/javascript/fivesix.js" />
+		<script src="http://local.clican.org/appletv/javascript/fivesix.js" />
 	</head>
 	<body>
 		<scroller id="com.sample.movie-shelf">
