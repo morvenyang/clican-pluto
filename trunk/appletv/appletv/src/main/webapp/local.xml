@@ -29,6 +29,10 @@
 							<image>http://local.clican.org/appletv/image/qq/qq.png</image>
 							<title>腾讯视频</title>
 						</goldenPoster>
+						<goldenPoster id="fivesix" onSelect="fivesixClient.loadIndexPage('',1,'dsj');">
+							<image>http://local.clican.org/appletv/image/fivesix/fivesix.png</image>
+							<title>56视频</title>
+						</goldenPoster>
 						<goldenPoster id="yyets" onSelect="yyetsClient.loadIndexPage('',1,'movie');">
 							<image>http://local.clican.org/appletv/image/yyets/yyets.jpg</image>
 							<title>人人影视</title>
