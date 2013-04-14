@@ -1,9 +1,11 @@
 var smbClient = {
 		loadIndexPage:function(smbUrl){
+			appletv.showLoading();
 			var url = appletv.serverurl+'/noctl/smb/resource';
 			if(smbUrl!=null&&smbUrl.length>0){
 				url = smbUrl;
 			}
+			
 			appletv.makeRequest(url,function(result){
 				var json = JSON.parse(result);
 				var title = json['title'];
