@@ -360,7 +360,7 @@ static int decode_interrupt_cb(void *ctx) {
 
 const AVIOInterruptCB int_cb = { decode_interrupt_cb, NULL };
 
-void av_noreturn exit_program(int ret) {
+void exit_program(int ret) {
 	int i, j;
 
 	for (i = 0; i < nb_filtergraphs; i++) {
@@ -429,16 +429,14 @@ void av_noreturn exit_program(int ret) {
 
 	uninit_opts();
 
-	avfilter_uninit();
-	avformat_network_deinit();
+	//avfilter_uninit();
+	//avformat_network_deinit();
 
 	if (received_sigterm) {
 		av_log(NULL, AV_LOG_INFO, "Received signal %d: terminating.\n",
 				(int) received_sigterm);
-		exit(255);
-	}
 
-	exit(ret);
+	}
 }
 
 void exit_thread(){
@@ -3277,7 +3275,7 @@ static void parse_cpuflags(int argc, char **argv, const OptionDef *options) {
 }
 
 void convert_avi_to_m3u8(const char* input,const char* output1,const char* output2,const char* cookie) {
-    if(cookie!=NULL){
+    if(cookie!=NULL&&0){
         const char *argv[]= { "ffmpeg","-headers",cookie,"-i", input,
             "-vcodec","copy","-vbsf","h264_mp4toannexb","-acodec","libfdk_aac","-ab","128k","-map","0:0","-map","0:1","-f","segment"
             ,"-segment_list",
