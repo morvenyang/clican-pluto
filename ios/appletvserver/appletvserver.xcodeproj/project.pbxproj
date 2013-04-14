@@ -786,6 +786,7 @@
 		7219BBCA16C9EAD900AABA8E /* View */ = {
 			isa = PBXGroup;
 			children = (
+				7288F0E01718E096007B92E5 /* config */,
 				722B23691712C2EB00D3A8B4 /* smb */,
 				72D5CBD41700275400B292BA /* atv */,
 				7288A2C416F9982D00933D15 /* download */,
@@ -795,8 +796,6 @@
 				7219BBCC16C9EAFA00AABA8E /* MainViewController.m */,
 				72360C5916EEDDD700E0842B /* RootViewController.h */,
 				72360C5A16EEDDD700E0842B /* RootViewController.m */,
-				7206AAEF1707C1A80049FE0D /* ConfigViewController.h */,
-				7206AAF01707C1A80049FE0D /* ConfigViewController.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -975,6 +974,15 @@
 				7288A2CF16F9985100933D15 /* DownloadStatusViewController.m */,
 			);
 			name = download;
+			sourceTree = "<group>";
+		};
+		7288F0E01718E096007B92E5 /* config */ = {
+			isa = PBXGroup;
+			children = (
+				7206AAEF1707C1A80049FE0D /* ConfigViewController.h */,
+				7206AAF01707C1A80049FE0D /* ConfigViewController.m */,
+			);
+			name = config;
 			sourceTree = "<group>";
 		};
 		7295A38A17006FC6008C04BE /* atv */ = {

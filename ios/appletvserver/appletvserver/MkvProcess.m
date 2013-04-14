@@ -39,13 +39,15 @@
         self.m3u8Path = outputFile;
         NSLog(@"OutPath:%@",outpath);
         NSLog(@"InPath:%@",inpath);
+        transfer_code_interrupt = 1;
+        @synchronized(AppDele.mkvProcess){
+            if([[NSFileManager defaultManager] fileExistsAtPath:outpath]){
+                [[NSFileManager defaultManager] removeItemAtPath:outpath error:nil];
+            }
+            [[NSFileManager defaultManager] createDirectoryAtPath:outpath withIntermediateDirectories:YES attributes:nil error:nil];
+        }
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            transfer_code_interrupt = 1;
             @synchronized(AppDele.mkvProcess) {
-                if([[NSFileManager defaultManager] fileExistsAtPath:outpath]){
-                    [[NSFileManager defaultManager] removeItemAtPath:outpath error:nil];
-                }
-                [[NSFileManager defaultManager] createDirectoryAtPath:outpath withIntermediateDirectories:YES attributes:nil error:nil];
                 NSDate* start = [NSDate date];
                 @try {
                     transfer_code_interrupt = 0;
