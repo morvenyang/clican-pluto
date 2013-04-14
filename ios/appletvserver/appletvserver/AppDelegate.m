@@ -109,7 +109,12 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     }
     self.atvDeviceId =  [defaults stringForKey: ATV_DEVICE_ID_NAME];
     if(self.atvDeviceId==nil||self.atvDeviceId.length==0){
-        self.atvDeviceId = [[UIDevice currentDevice] identifierForVendor].UUIDString;
+        #ifndef __IPHONE_6_0
+            self.atvDeviceId = [[UIDevice currentDevice] identifierForVendor].UUIDString;
+        #else
+            self.atvDeviceId = [[UIDevice currentDevice] uniqueIdentifier];
+        #endif
+        
     }
     NSString* deviceType = [UIDevice currentDevice].model;
     NSLog(@"deviceType = %@", deviceType);
