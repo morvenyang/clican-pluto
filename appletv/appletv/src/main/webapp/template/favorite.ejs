@@ -14,7 +14,7 @@
 		<grid id="movieGrid" columnCount="6">
 			<items>
 				<%for(var i=0;i<videos.length;i++){%>		
-					<moviePoster id="shelf_item_<%=i%>" alwaysShowTitles="true" onSelect="<%=videos[i].script%>" onPlay="<%=videos[i].script%>" onHold="appletv.delFromFavorite(<%=i%>);">
+					<moviePoster id="shelf_item_<%=i%>" alwaysShowTitles="true" onSelect="<%=videos[i].script%>" onPlay="<%=videos[i].script%>" onHoldSelect="appletv.delFromFavorite(<%=i%>);">
 						<title><![CDATA[<%=videos[i].title%>]]></title>
 						<image><%=videos[i].pic%></image>
 						<defaultImage>resource://Poster.png</defaultImage>
