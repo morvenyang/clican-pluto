@@ -43,12 +43,9 @@
             }else{
                 continue;
             }
-            if(i==array.count-1){
-                content = [content stringByAppendingFormat:@"{\"url\":\"%@\",\"type\":\"%@\",\"fileName\":\"%@\"}",url,type,fileName];
-            }else{
-                content = [content stringByAppendingFormat:@"{\"url\":\"%@\",\"type\":\"%@\",\"fileName\":\"%@\"},",url,type,fileName];
-            }
+            content = [content stringByAppendingFormat:@"{\"url\":\"%@\",\"type\":\"%@\",\"fileName\":\"%@\"},",url,type,fileName];
         }
+        content = [content substringWithRange:NSMakeRange(0, content.length-1)];
         content = [content stringByAppendingString:@"]}"];
     } else if ([result isKindOfClass:[KxSMBItem class]]) {
         NSLog(@"error for smb resource:%@",parent);
