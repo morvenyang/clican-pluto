@@ -146,7 +146,7 @@ var tuClient ={
 								actor = appletv.substringByData(playInfo,'<p>主演：','</p>');
 								actor = appletv.getTextInTag(actor);
 								year = appletv.substringByData(playInfo,'上映年代：','</b>');
-								area = appletv.substringByData(playInfo,'地区：','</p>');
+								area = appletv.substringByData(playInfo,'地区：','</b>');
 								area = appletv.subIndexString(area,'<dd>');
 								script = appletv.encode("tuClient.loadVideoPage('"+url+"');");
 								var ftpScript= appletv.substringByData(htmlContent,'<script>var GvodUrls = "','";</script>');
@@ -205,6 +205,14 @@ var tuClient ={
 		
 		play:function(url){
 			appletv.showLoading();
-			xunleiClient.play(url);
+			if(url.indexOf('.mp4')!=-1||url.indexOf('.mkv')!=-1){
+				var encodeUrl = url.replace(new RegExp('&', 'g'),'&amp;');
+				var options = [];
+				options.push({"title":"迅雷云点播/迅雷云转码播放","script":"xunleiClient.play('"+encodeUrl+"','');"});
+				options.push({"title":"迅雷离线下载播放/iOS本地转码","script":"xunleiClient.offlinePlay('"+encodeUrl+"');"});
+				appletv.showOptionPage('播放源选择','',options);
+			}else{
+				xunleiClient.play(url);
+			}
 		}
 }
