@@ -153,9 +153,6 @@ var tuClient ={
 								var ftps = ftpScript.split('###');
 								for(var i=0;i<ftps.length;i++){
 									var ftp = ftps[i];
-									if(i==0){
-										appletv.logToServer(ftp);
-									}
 									index = ftp.lastIndexOf('/');
 									var t = ftp.substring(index+1);
 									var c = ftp;
