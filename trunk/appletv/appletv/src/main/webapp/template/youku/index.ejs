@@ -17,13 +17,11 @@
 							<%if(channels[i]['value']==1001){%>
 								<moviePoster id="shelf_item_<%=channels[i]['value']%>" alwaysShowTitles="true" featured="true" onSelect="sokuClient.loadSearchPage();" onPlay="sokuClient.loadSearchPage();">
 									<title><%=channels[i]['label']%></title>
-									<image><%=serverurl%>/image/youku/channel/channel_<%=channels[i]['value']%>.png</image>
 									<defaultImage>resource://Poster.png</defaultImage>
 								</moviePoster>
 							<%}else{%>
 								<moviePoster id="shelf_item_<%=channels[i]['value']%>" alwaysShowTitles="true" featured="true" onSelect="youkuClient.loadIndexPage('',1,<%=channels[i]['value']%>);" onPlay="youkuClient.loadIndexPage('',1,<%=channels[i]['value']%>);">
 									<title><%=channels[i]['label']%></title>
-									<image><%=serverurl%>/image/youku/channel/channel_<%=channels[i]['value']%>.png</image>
 									<defaultImage>resource://Poster.png</defaultImage>
 								</moviePoster>
 							<%}%>
