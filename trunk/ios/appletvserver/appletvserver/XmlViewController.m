@@ -367,8 +367,9 @@
     self.summaryTextLabel.contentMode = UIViewContentModeCenter;
     self.summaryTextLabel.frame = CGRectMake(110,10,200,164);
     
-    
-    self.summaryTextLabel.text = [TTStyledText textFromXHTML:[@"" stringByAppendingFormat:@"<strong>%@</strong>\n导演:%@\n主演:%@\n年份:%@\n地区:%@",video.title,video.directors,video.actors,video.year,video.area] lineBreaks:YES URLs:NO];
+    NSString* summaryContent = [@"" stringByAppendingFormat:@"<strong>%@</strong>\n导演:%@\n主演:%@\n年份:%@\n地区:%@",video.title,video.directors,video.actors,video.year,video.area];
+    summaryContent = [summaryContent stringByReplacingOccurrencesOfString:@"&nbsp;" withString:@" "];
+    self.summaryTextLabel.text = [TTStyledText textFromXHTML:summaryContent lineBreaks:YES URLs:NO];
     [self.summaryTextLabel sizeToFit];
     double y = self.summaryTextLabel.frame.origin.y+self.summaryTextLabel.frame.size.height;
     
@@ -377,7 +378,11 @@
     }else{
         y = 180;
     }
-   
+    if(video.description!=nil){
+        video.description = [video.description stringByReplacingOccurrencesOfString:@"&nbsp;" withString:@" "];
+        video.description = [video.description stringByReplacingOccurrencesOfString:@"&ldquo;" withString:@"\""];
+         video.description = [video.description stringByReplacingOccurrencesOfString:@"&rdquo;" withString:@"\""];
+    }
     self.descriptionTextLabel = [[[TTStyledTextLabel alloc] init] autorelease];
     self.descriptionTextLabel.contentMode = UIViewContentModeCenter;
     self.descriptionTextLabel.frame = CGRectMake(10, y, frame.size.width-20, 70);
