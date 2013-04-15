@@ -45,6 +45,9 @@ var xunleiClient = {
 						var startstr ='file|';
 						var endstr = '|';
 						name = appletv.substringByData(url, startstr, endstr);
+					}else if(url.indexOf('ftp')>=0){
+						var startIndex = url.lastIndexOf('/');
+						name = url.substring(startIndex+1);
 					}else{
 						name = 'Unknown';
 					}
