@@ -36,6 +36,8 @@
     [items addObject:item5];
     TTTableTextItem* item6 = [TTTableTextItem itemWithText:@"56视频" URL:@"fivesixClient.loadChannelPage();"];
     [items addObject:item6];
+    TTTableTextItem* item8 = [TTTableTextItem itemWithText:@"迅播影院" URL:@"tuClient.loadChannelPage();"];
+    [items addObject:item8];
     TTTableTextItem* item7 = [TTTableTextItem itemWithText:@"收藏" URL:@"appletv.loadFavoritePage();"];
     [items addObject:item7];
     TTListDataSource* ds = [[TTListDataSource alloc] initWithItems:items];

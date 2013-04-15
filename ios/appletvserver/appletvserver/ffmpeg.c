@@ -3275,7 +3275,7 @@ static void parse_cpuflags(int argc, char **argv, const OptionDef *options) {
 }
 
 void convert_avi_to_m3u8(const char* input,const char* output1,const char* output2,const char* cookie) {
-    if(cookie!=NULL&&0){
+    if(cookie!=NULL){
         const char *argv[]= { "ffmpeg","-headers",cookie,"-i", input,
             "-vcodec","copy","-vbsf","h264_mp4toannexb","-acodec","libfdk_aac","-ab","128k","-map","0:0","-map","0:1","-f","segment"
             ,"-segment_list",
