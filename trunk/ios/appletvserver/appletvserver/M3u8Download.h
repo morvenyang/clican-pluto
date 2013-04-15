@@ -11,13 +11,11 @@
     NSMutableArray* _m3u8DownloadLines;
     NSString* _m3u8Url;
     int _downloadIndex;
-    int _maxFinishedIndex;
 }
 
 @property (nonatomic, retain) NSMutableArray* m3u8DownloadLines;
 @property (nonatomic, copy) NSString* m3u8Url;
 - (M3u8DownloadLine*) getNextDownloadLine;
-- (M3u8DownloadLine*) getMaxFinishedDownloadLine;
 -(void) seekDownloadLine:(NSString*) localPath;
 
 @end

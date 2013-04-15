@@ -253,11 +253,7 @@
         AppDele.serverIP = textField.text;
     }else if(textField==self.atvDeviceIdField){
         if(textField.text==nil||textField.text.length==0){
-            #ifndef __IPHONE_6_0
-            textField.text = [[UIDevice currentDevice] identifierForVendor].UUIDString;
-            #else
             textField.text = [[UIDevice currentDevice] uniqueIdentifier];
-            #endif
         }
         [defaults setValue:textField.text forKey:ATV_DEVICE_ID_NAME];
         AppDele.atvDeviceId = textField.text;

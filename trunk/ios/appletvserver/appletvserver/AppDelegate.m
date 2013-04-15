@@ -109,12 +109,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     }
     self.atvDeviceId =  [defaults stringForKey: ATV_DEVICE_ID_NAME];
     if(self.atvDeviceId==nil||self.atvDeviceId.length==0){
-        #ifndef __IPHONE_6_0
-            self.atvDeviceId = [[UIDevice currentDevice] identifierForVendor].UUIDString;
-        #else
-            self.atvDeviceId = [[UIDevice currentDevice] uniqueIdentifier];
-        #endif
-        
+        self.atvDeviceId = [[UIDevice currentDevice] uniqueIdentifier];
     }
     NSString* deviceType = [UIDevice currentDevice].model;
     NSLog(@"deviceType = %@", deviceType);
@@ -136,9 +131,9 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     
     NSDictionary *proxySettings = NSMakeCollectable([(NSDictionary *)CFNetworkCopySystemProxySettings() autorelease]);
     NSString* httpHost = [proxySettings valueForKey:@"HTTPProxy"];
-    NSString* httpPort = [proxySettings valueForKey:@"HTTPPort"];
-    if(httpHost!=nil&&httpHost.length!=0&&httpPort!=nil&&httpPort.length!=0){
-        NSString* proxy = [NSString stringWithFormat:@"http://%@:%@",httpHost,httpPort];
+    NSNumber* httpPort = [proxySettings valueForKey:@"HTTPPort"];
+    if(httpHost!=nil&&httpHost.length!=0&&httpPort!=nil){
+        NSString* proxy = [NSString stringWithFormat:@"http://%@:%i",httpHost,httpPort.intValue];
         setenv("http_proxy", [proxy cStringUsingEncoding:NSASCIIStringEncoding], 1);
     }
     
