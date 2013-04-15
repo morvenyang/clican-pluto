@@ -197,7 +197,7 @@ var tuClient ={
 			appletv.getValue('clican.tu.video',function(video){
 				var xml = new EJS({
 					url : appletv.serverurl
-							+ '/template/youku/videoItems.ejs'
+							+ '/template/tu/videoItems.ejs'
 				}).render(video);
 				appletv.loadAndSwapXML(xml);
 			});
