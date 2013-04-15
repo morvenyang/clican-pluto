@@ -23,12 +23,12 @@
 					<sections>
 						<shelfSection>
 							<items>
-								<%if(album==1){%>
-									<actionButton id="album_1" onSelect="youkuClient.loadItemsPage();">
+								<%if(items.length>1){%>
+									<actionButton id="album_1" onSelect="tuClient.loadItemsPage();">
 										<title>剧集</title>
 									</actionButton>
 								<%}else{%>
-									<actionButton id="album_1" onSelect="youkuClient.play('<%=items[0]['id']%>');">
+									<actionButton id="album_1" onSelect="tuClient.play('<%=items[0]['id']%>');">
 										<title>播放</title>
 									</actionButton>
 								<%}%>

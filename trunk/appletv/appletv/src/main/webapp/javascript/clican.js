@@ -820,7 +820,7 @@ var appletv = {
 				right++;
 			} else {
 				if (left == right) {
-					result = result + charArray[i];
+					result = result + charArray[i].trim();
 				}
 			}
 		}

@@ -129,10 +129,10 @@ var tuClient ={
 					.makeRequest(url,
 							function(htmlContent) {
 								var playInfo = appletv.substringByTag(htmlContent,'<div id="playinfo">','</div>','div');
-								var title = appletv.substringByIndex(playInfo,'alt="','"');
+								var title = appletv.substringByData(playInfo,'alt="','"');
 								var desc = appletv.substringByTag(htmlContent,'<div class="about_t">','</div>','div');
 								desc = appletv.getTextInTag(desc);
-								var pic = appletv.substringByIndex(playInfo,'src="','"');;
+								var pic = appletv.substringByData(playInfo,'src="','"');;
 								var actor = '-';
 								var dctor = '-';
 								var area = '-';
@@ -145,14 +145,17 @@ var tuClient ={
 						
 								actor = appletv.substringByData(playInfo,'<p>主演：','</p>');
 								actor = appletv.getTextInTag(actor);
-								year = appletv.substringByData(playInfo,'上映年代：','</p>');
+								year = appletv.substringByData(playInfo,'上映年代：','</b>');
 								area = appletv.substringByData(playInfo,'地区：','</p>');
 								area = appletv.subIndexString(area,'<dd>');
 								script = appletv.encode("tuClient.loadVideoPage('"+url+"');");
-								
-								var ftps = appletv.getSubValues(itemscontent,'<input type="checkbox" value="','"');
+								var ftpScript= appletv.substringByData(htmlContent,'<script>var GvodUrls = "','";</script>');
+								var ftps = ftpScript.split('###');
 								for(var i=0;i<ftps.length;i++){
 									var ftp = ftps[i];
+									if(i==0){
+										appletv.logToServer(ftp);
+									}
 									index = ftp.lastIndexOf('/');
 									var t = ftp.substring(index+1);
 									var c = ftp;
