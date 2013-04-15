@@ -147,7 +147,6 @@ var tuClient ={
 								actor = appletv.getTextInTag(actor);
 								year = appletv.substringByData(playInfo,'上映年代：','</b>');
 								area = appletv.substringByData(playInfo,'地区：','</b>');
-								area = appletv.subIndexString(area,'<dd>');
 								script = appletv.encode("tuClient.loadVideoPage('"+url+"');");
 								var ftpScript= appletv.substringByData(htmlContent,'<script>var GvodUrls = "','";</script>');
 								var ftps = ftpScript.split('###');
