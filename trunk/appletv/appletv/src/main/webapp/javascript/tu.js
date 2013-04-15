@@ -58,7 +58,7 @@ var tuClient ={
 			var channel = this.tuChannelMap[channelId];
 			var videos = [];
 			if (channelId == 1001) {
-				var encodeUrl = appletv.serverurl+'/ctl/util/encode.do?content='+encodeURIComponent(keyword)+'&encoding=GBK';
+				var encodeUrl = appletv.remoteserverurl+'/ctl/util/encode.do?content='+encodeURIComponent(keyword)+'&encoding=GBK';
 				appletv.makeRequest(encodeUrl,function(result){
 					queryUrl = 'http://www.2tu.cc/search.asp?searchword='+result;
 					appletv.logToServer(queryUrl);
