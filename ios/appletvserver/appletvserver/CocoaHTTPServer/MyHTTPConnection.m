@@ -136,7 +136,7 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
     
     NSRange range = [path rangeOfString:@"?"];
     path = [path substringWithRange:NSMakeRange(0, range.location)];
-    NSString* localPath = [path stringByReplacingOccurrencesOfString:@"/appletv/noctl/proxy/temp/m3u8" withString:[AppDele localM3u8PathPrefix]];
+    NSString* localPath = [path stringByReplacingOccurrencesOfString:@"/appletv/noctl/proxy/temp/m3u8/" withString:[AppDele localM3u8PathPrefix]];
     
     if([[AppDele m3u8Process] m3u8Url]==nil||![[[AppDele m3u8Process] m3u8Url] isEqualToString:m3u8Url]){
         NSLog(@"m3u8Url is changed, we must reprocess it");
