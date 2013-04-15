@@ -18,7 +18,7 @@ public class UtilController {
 			@RequestParam(value = "content", required = false) String content,
 			@RequestParam(value = "encoding", required = false) String encoding)
 			throws Exception {
-		String c = URLEncoder.encode(content, "GBK");
+		String c = URLEncoder.encode(content, encoding);
 		response.getOutputStream().write(c.getBytes());
 	}
 }
