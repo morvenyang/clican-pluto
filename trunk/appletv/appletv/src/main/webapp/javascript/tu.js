@@ -58,7 +58,35 @@ var tuClient ={
 			var channel = this.tuChannelMap[channelId];
 			var videos = [];
 			if (channelId == 1001) {
-				
+				var encodeUrl = appletv.serverurl+'/ctl/util/encode.do?content='+encodeURIComponent(keyword)+'&encoding=GBK';
+				appletv.makeRequest(encodeUrl,function(result){
+					queryUrl = 'http://www.2tu.cc/search.asp?searchword='+result;
+					appletv.logToServer(queryUrl);
+					appletv.makeRequest(queryUrl,function(content){
+						if (content != null && content.length > 0) {
+							var itemscontent = appletv.substringByData(content,'<ul class="piclist">', '</ul>');
+							var items = appletv.getSubValuesByTag(itemscontent,
+									'<li>', '</li>', 'li');
+							appletv.logToServer('items size='+items.length);
+							for (i = 0; i < items.length; i++) {
+								var item = items[i];
+								var pic = appletv.substringByData(item,
+										'<img src="', '"');
+								var title = appletv.substringByData(item, 'alt="', '"');
+								var id = 'http://www.2tu.cc'+appletv.substringByData(item, '<a href="', '"');
+								var video = {
+									"title" : title,
+									"id" : id,
+									"pic" : pic
+								};
+								videos.push(video);
+							}
+							tuClient.generateIndexPage(keyword, page, channel,videos);
+						} else {
+							appletv.showDialog('加载失败', '');
+						}
+					});
+				});
 			} else {
 				var queryUrl;
 				if(page==1){
@@ -198,6 +226,28 @@ var tuClient ={
 					url : appletv.serverurl
 							+ '/template/tu/videoItems.ejs'
 				}).render(video);
+				appletv.loadAndSwapXML(xml);
+			});
+		},
+		
+		loadSearchPage : function() {
+			appletv.showInputTextPage('关键字', '搜索', tuClient.loadKeywordsPage,
+					'tuClient.loadKeywordsPage', '');
+		},
+
+		loadKeywordsPage : function(q) {
+			appletv.showLoading();
+			var queryUrl = 'http://tip.tudou.soku.com/hint?q=' + q;
+			appletv.makeRequest(queryUrl, function(result) {
+				appletv.logToServer(result);
+				var keywords = JSON.parse(result);
+				var data = {
+					keywords : keywords,
+					serverurl : appletv.serverurl
+				};
+				var xml = new EJS({
+					url : appletv.serverurl + '/template/tu/keywords.ejs'
+				}).render(data);
 				appletv.loadAndSwapXML(xml);
 			});
 		},

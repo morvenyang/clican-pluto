@@ -29,6 +29,7 @@
 				</shelfSection>
 			</sections>
 		</shelf>
+		<%if(channel['value']!=1001){%>
 		<grid id="grid_1" columnCount="12">
 			<items>
 				<actionButton id="shelf_item_first_page" onSelect="tuClient.loadIndexPage('<%=keyword%>',1,<%=channel['value']%>);" onPlay="tuClient.loadIndexPage('<%=keyword%>',1,<%=channel['value']%>);">
@@ -47,6 +48,7 @@
 				</actionButton>
 			</items>
 		</grid>
+		<%}%>
 		<grid id="movieGrid" columnCount="6">
 			<items>
 				<%for(var i=0;i<videos.length;i++){%>
@@ -58,6 +60,7 @@
 				<%}%>
 			</items>
 		</grid>
+		<%if(channel['value']!=1001){%>
 		<grid id="pagingGrid" columnCount="12">
 			<items>
 				<actionButton id="shelf_item_first_page" onSelect="tuClient.loadIndexPage('<%=keyword%>',1,<%=channel['value']%>);" onPlay="tuClient.loadIndexPage('<%=keyword%>',1,<%=channel['value']%>);">
@@ -76,6 +79,7 @@
 				</actionButton>
 			</items>
 		</grid>
+		<%}%>
 	</items>
 </scroller>
 </body>
