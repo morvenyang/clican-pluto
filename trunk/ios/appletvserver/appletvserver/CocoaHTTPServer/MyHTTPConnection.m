@@ -162,6 +162,7 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
             [NSThread sleepForTimeInterval:1.0f];
         }
     }
+    return nil;
 }
 - (NSObject<HTTPResponse> *) handleMp4Play:(NSString*) path{
     NSString* mp4Url = [[self parseGetParams] objectForKey:@"url"];
