@@ -48,6 +48,7 @@ var xunleiClient = {
 					}else if(url.indexOf('ftp')>=0){
 						var startIndex = url.lastIndexOf('/');
 						name = url.substring(startIndex+1);
+						name = encodeURIComponent(name);
 					}else{
 						name = 'Unknown';
 					}
