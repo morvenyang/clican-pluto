@@ -6,23 +6,19 @@ var tuClient ={
 			},
 			"15" : {
 				label : "电影",
-				value : 15,
-				album : true
+				value : 15
 			},
 			"16" : {
 				label : "电视",
-				value : 16,
-				album : true
+				value : 16
 			},
 			"7" : {
 				label : "动画片",
-				value : 7,
-				album : true
+				value : 7
 			},
 			"8" : {
 				label : "综艺片",
-				value : 8,
-				album : true
+				value : 8
 			}
 		},
 		tuChannels : [ {
@@ -30,24 +26,19 @@ var tuClient ={
 			value : 1001
 		},  {
 			label : "电影",
-			value : 15,
-			album : true
+			value : 15
 		}, {
 			label : "电视",
-			value : 16,
-			album : true
+			value : 16
 		}, {
 			label : "电影",
-			value : 15,
-			album : true
+			value : 15
 		}, {
 			label : "动画片",
-			value : 7,
-			album : true
+			value : 7
 		}, {
 			label : "综艺片",
-			value : 8,
-			album : true
+			value : 8
 		}],
 		
 		loadChannelPage:function(){
@@ -133,4 +124,91 @@ var tuClient ={
 			appletv.loadAndSwapXML(xml);
 		},
 		
+		loadVideoPage : function(url) {
+			appletv
+					.makeRequest(url,
+							function(htmlContent) {
+								var playInfo = appletv.substringByTag(htmlContent,'<div id="playinfo">','</div>','div');
+								var title = appletv.substringByIndex(playInfo,'alt="','"');
+								var desc = appletv.substringByTag(htmlContent,'<div class="about_t">','</div>','div');
+								desc = appletv.getTextInTag(desc);
+								var pic = appletv.substringByIndex(playInfo,'src="','"');;
+								var actor = '-';
+								var dctor = '-';
+								var area = '-';
+								var score = '-';
+								var year = '-';
+								var shareurl = url;
+								var script;
+								var playall;
+								var items = [];
+						
+								actor = appletv.substringByData(playInfo,'<p>主演：','</p>');
+								actor = appletv.getTextInTag(actor);
+								year = appletv.substringByData(playInfo,'上映年代：','</p>');
+								area = appletv.substringByData(playInfo,'地区：','</p>');
+								area = appletv.subIndexString(area,'<dd>');
+								script = appletv.encode("tuClient.loadVideoPage('"+url+"');");
+								
+								var ftps = appletv.getSubValues(itemscontent,'<input type="checkbox" value="','"');
+								for(var i=0;i<ftps.length;i++){
+									var ftp = ftps[i];
+									index = ftp.lastIndexOf('/');
+									var t = ftp.substring(index+1);
+									var c = ftp;
+									var item = {
+											'title' : t,
+											'id' : c
+										};
+									items.push(item);
+								}
+								
+								var video = {
+										'serverurl' : appletv.serverurl,
+										script : script,
+										video : {
+											'id' : url,
+											'actor' : actor,
+											'area' : area,
+											'dctor' : dctor,
+											'pic' : pic,
+											'score' : score,
+											'title' : title,
+											'year' : year,
+											'desc' : desc,
+											'shareurl':shareurl
+										},
+										items : items
+									};
+									if(items.length>1){
+										appletv.setValue('clican.tu.video',video);
+									}
+									var xml = new EJS({
+										url : appletv.serverurl
+												+ '/template/tu/video.ejs'
+									}).render(video);
+									appletv.loadAndSwapXML(xml);
+								
+							});
+		},
+		
+		loadItemsPage : function() {
+			appletv.showLoading();
+			appletv.getValue('clican.tu.video',function(video){
+				var xml = new EJS({
+					url : appletv.serverurl
+							+ '/template/youku/videoItems.ejs'
+				}).render(video);
+				appletv.loadAndSwapXML(xml);
+			});
+		},
+		
+		play:function(url){
+			appletv.showLoading();
+			var encodeUrl = url.replace(new RegExp('&', 'g'),'&amp;');
+			var options = [];
+			options.push({"title":"迅雷云点播/迅雷云转码播放","script":"xunleiClient.play('"+encodeUrl+"','');"});
+			options.push({"title":"迅雷离线下载播放/iOS本地转码","script":"xunleiClient.offlinePlay('"+encodeUrl+"');"});
+			appletv.showOptionPage('播放源选择','',options);
+		}
 }
