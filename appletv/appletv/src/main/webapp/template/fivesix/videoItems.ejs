@@ -3,7 +3,7 @@
 <head>
 <script src="<%=serverurl%>/javascript/clican.js"/>
 <script src="<%=serverurl%>/javascript/ejs.js"/>
-<script src="<%=serverurl%>/javascript/tu.js"/>
+<script src="<%=serverurl%>/javascript/fivesix.js"/>
 </head>
 <body>
 		<listScrollerSplit id="bbbb">
@@ -18,7 +18,7 @@
 					<menuSection>
 						<items>
 							<%for(var i=0;i<items.length;i++){%>
-								<oneLineMenuItem id="albumItem_<%=i%>" onPlay="tuClient.play('<%=items[i]['id']%>');" onSelect="tuClient.play('<%=items[i]['id']%>');">
+								<oneLineMenuItem id="albumItem_<%=i%>" onPlay="fivesixClient.playByVid('<%=items[i]['id']%>');" onSelect="fivesixClient.playByVid('<%=items[i]['id']%>');">
 									<label><%=items[i]['title']%></label>
 								</oneLineMenuItem>
 							<%}%>
