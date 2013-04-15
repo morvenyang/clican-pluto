@@ -205,10 +205,6 @@ var tuClient ={
 		
 		play:function(url){
 			appletv.showLoading();
-			var encodeUrl = url.replace(new RegExp('&', 'g'),'&amp;');
-			var options = [];
-			options.push({"title":"迅雷云点播/迅雷云转码播放","script":"xunleiClient.play('"+encodeUrl+"','');"});
-			options.push({"title":"迅雷离线下载播放/iOS本地转码","script":"xunleiClient.offlinePlay('"+encodeUrl+"');"});
-			appletv.showOptionPage('播放源选择','',options);
+			xunleiClient.play(url);
 		}
 }
