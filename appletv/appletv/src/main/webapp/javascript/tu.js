@@ -43,7 +43,7 @@ var tuClient ={
 		
 		loadChannelPage:function(){
 			var data = {
-					'channels' : youkuClient.youkuChannels,
+					'channels' : tuClient.tuChannels,
 					'serverurl' : appletv.serverurl
 				};
 			var templateEJS = new EJS({
