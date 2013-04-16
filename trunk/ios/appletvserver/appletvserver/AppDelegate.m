@@ -51,6 +51,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 @synthesize localMkvM3u8UrlPrefix = _localMkvM3u8UrlPrefix;
 @synthesize auth = _auth;
 @synthesize smbProcess = _smbProcess;
+@synthesize shareWeibo = _shareWeibo;
 - (void)dealloc
 {
     [super dealloc];
