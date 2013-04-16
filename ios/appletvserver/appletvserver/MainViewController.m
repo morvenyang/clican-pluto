@@ -8,6 +8,7 @@
 
 #import "MainViewController.h"
 #import "AppDelegate.h"
+#import "IndexMenu.h"
 @implementation MainViewController
 
 @synthesize progressHUD = _progressHUD;
@@ -24,23 +25,7 @@
 - (void)createModel {
     
     NSMutableArray* items = [NSMutableArray array];
-    TTTableTextItem* item1 = [TTTableTextItem itemWithText:@"腾讯视频" URL:@"qqClient.loadChannelPage();"];
-    [items addObject:item1];
-    TTTableTextItem* item2 = [TTTableTextItem itemWithText:@"优酷视频" URL:@"youkuClient.loadChannelPage();"];
-    [items addObject:item2];
-    TTTableTextItem* item3 = [TTTableTextItem itemWithText:@"土豆视频" URL:@"tudouClient.loadChannelPage();"];
-    [items addObject:item3];
-    TTTableTextItem* item4 = [TTTableTextItem itemWithText:@"人人影视" URL:@"yyetsClient.loadChannelPage();"];
-    [items addObject:item4];
-    TTTableTextItem* item5 = [TTTableTextItem itemWithText:@"龙部落影视" URL:@"lblClient.loadChannelPage();"];
-    [items addObject:item5];
-    TTTableTextItem* item6 = [TTTableTextItem itemWithText:@"56视频" URL:@"fivesixClient.loadChannelPage();"];
-    [items addObject:item6];
-    TTTableTextItem* item8 = [TTTableTextItem itemWithText:@"迅播影院" URL:@"tuClient.loadChannelPage();"];
-    [items addObject:item8];
-    TTTableTextItem* item7 = [TTTableTextItem itemWithText:@"收藏" URL:@"appletv.loadFavoritePage();"];
-    [items addObject:item7];
-    TTListDataSource* ds = [[TTListDataSource alloc] initWithItems:items];
+    TTListDataSource* ds = [[[TTListDataSource alloc] initWithItems:items] autorelease];
     self.dataSource = ds;
     self.tableView.delegate =self;
 }
@@ -83,12 +68,29 @@
     [self.progressHUD hide:YES];
     if(!result){
         [self performSelectorOnMainThread:@selector(showNetworkWarning) withObject:nil waitUntilDone:NO];
+    }else{
+         [self performSelectorOnMainThread:@selector(showIndex) withObject:nil waitUntilDone:NO];
     }
     [pool release];
 }
 -(void)showNetworkWarning{
     TTAlert(@"加载脚本失败,请检查网络是否正常连接");
 }
+-(void)showIndex{
+    NSMutableArray* items = [NSMutableArray array];
+    NSArray* array = [AppDele.webContentSync loadLocalXml];
+    for(int i=0;i<array.count;i++){
+        IndexMenu* im = [array objectAtIndex:i];
+        TTTableTextItem* item = [TTTableTextItem itemWithText:im.title URL:im.onSelect];
+        [items addObject:item];
+    }
+    TTListDataSource* ds = [[[TTListDataSource alloc] initWithItems:items] autorelease];
+    self.dataSource = ds;
+    self.tableView.delegate =self;
+    _flags.isUpdatingView=NO;
+    [self updateView];
+}
+
 - (void)viewDidUnload
 {
     [super viewDidUnload];
