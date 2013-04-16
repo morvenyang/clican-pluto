@@ -10,6 +10,8 @@
 #import "Constants.h"
 #import "ZipArchive.h"
 #import "AppDelegate.h"
+#import "TouchXML.h"
+#import "IndexMenu.h"
 
 @implementation WebContentSync
 @synthesize progressHUD = _progressHUD;
@@ -70,6 +72,31 @@
     }
 }
 
+-(NSArray*) loadLocalXml{
+    NSString* localXmlPath = [[AppDele localWebPathPrefix] stringByAppendingString:@"/appletv/local.xml"];
+    NSError *theError = NULL;
+    CXMLDocument *document =[[CXMLDocument alloc] initWithContentsOfURL:[NSURL fileURLWithPath:localXmlPath] encoding:NSUTF8StringEncoding options:0 error:&theError];
+    CXMLElement* rootElement=[document rootElement];
+    CXMLElement* bodyElement = [[rootElement elementsForName:@"body"] objectAtIndex:0];
+    NSArray* array = [bodyElement nodesForXPath:@"scroller/items/grid/items/goldenPoster" error:nil];
+    NSMutableArray* result = [NSMutableArray array];
+    for(int i=0;i<array.count;i++){
+        CXMLNode* node = [array objectAtIndex:i];
+        if([node isKindOfClass:[CXMLElement class]]){
+            CXMLElement* gp = (CXMLElement*)node;
+            NSString* idName = [[gp attributeForName:@"id"] stringValue];
+            if([idName rangeOfString:@"native"].location!=NSNotFound){
+                NSString* onSelect = [[gp attributeForName:@"onSelect"] stringValue];
+                NSString* title = [[gp nodeForXPath:@"title" error:nil] stringValue];
+                IndexMenu* im = [[[IndexMenu alloc] init] autorelease];
+                im.title = title;
+                im.onSelect = onSelect;
+                [result addObject:im];
+            }
+        }
+    }
+    return result;
+}
 - (void)dealloc
 {
     TT_RELEASE_SAFELY(_progressHUD);

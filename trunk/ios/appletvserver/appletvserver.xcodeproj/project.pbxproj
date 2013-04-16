@@ -100,6 +100,7 @@
 		7272B3A016C9FD4E00E111A7 /* Video.m in Sources */ = {isa = PBXBuildFile; fileRef = 7272B39F16C9FD4E00E111A7 /* Video.m */; };
 		7272B3A716CA046400E111A7 /* VideoTableItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 7272B3A616CA046400E111A7 /* VideoTableItem.m */; };
 		7272B3AA16CA049A00E111A7 /* VideoTableItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7272B3A916CA049A00E111A7 /* VideoTableItemCell.m */; };
+		727861FA171CFBEC000D310D /* IndexMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 727861F9171CFBEC000D310D /* IndexMenu.m */; };
 		7288A2D016F9985100933D15 /* DownloadStatusViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7288A2CF16F9985100933D15 /* DownloadStatusViewController.m */; };
 		7288A2E416F9A1F100933D15 /* DownloadStatusDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 7288A2E316F9A1F100933D15 /* DownloadStatusDataSource.m */; };
 		7288A2F316F9A45400933D15 /* DownloadStatusModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7288A2F216F9A45400933D15 /* DownloadStatusModel.m */; };
@@ -518,6 +519,8 @@
 		7272B3A616CA046400E111A7 /* VideoTableItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoTableItem.m; sourceTree = "<group>"; };
 		7272B3A816CA049A00E111A7 /* VideoTableItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoTableItemCell.h; sourceTree = "<group>"; };
 		7272B3A916CA049A00E111A7 /* VideoTableItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoTableItemCell.m; sourceTree = "<group>"; };
+		727861F8171CFBEC000D310D /* IndexMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IndexMenu.h; sourceTree = "<group>"; };
+		727861F9171CFBEC000D310D /* IndexMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IndexMenu.m; sourceTree = "<group>"; };
 		7288A2CE16F9985100933D15 /* DownloadStatusViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadStatusViewController.h; sourceTree = "<group>"; };
 		7288A2CF16F9985100933D15 /* DownloadStatusViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownloadStatusViewController.m; sourceTree = "<group>"; };
 		7288A2E216F9A1F100933D15 /* DownloadStatusDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadStatusDataSource.h; sourceTree = "<group>"; };
@@ -933,6 +936,8 @@
 				721E840716DF4F040047EE2D /* Mp4Download.m */,
 				721E840916DF4F1E0047EE2D /* Mp4DownloadPartial.h */,
 				721E840A16DF4F1E0047EE2D /* Mp4DownloadPartial.m */,
+				727861F8171CFBEC000D310D /* IndexMenu.h */,
+				727861F9171CFBEC000D310D /* IndexMenu.m */,
 			);
 			name = Object;
 			sourceTree = "<group>";
@@ -1733,6 +1738,7 @@
 				7245873E17154F2C00F6E839 /* HTTPSMBResponse.m in Sources */,
 				72D4F5321715872D0047C762 /* SMBProcess.m in Sources */,
 				722948B71717A2C600CEF2F8 /* ProcessManager.m in Sources */,
+				727861FA171CFBEC000D310D /* IndexMenu.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

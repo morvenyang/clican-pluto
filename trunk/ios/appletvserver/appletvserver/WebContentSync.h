@@ -15,4 +15,5 @@
 }
 @property (nonatomic, retain) MBProgressHUD    *progressHUD;
 -(BOOL) syncWebContent:(MBProgressHUD*) progress force:(BOOL) force;
+-(NSArray*) loadLocalXml;
 @end
