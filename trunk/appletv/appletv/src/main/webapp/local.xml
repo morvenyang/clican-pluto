@@ -18,16 +18,16 @@
 			<items>
 				<grid id="grid_2" columnCount="4">
 					<items>
-						<goldenPoster id="youku" onSelect="youkuClient.loadIndexPage('',1,96);">
+						<goldenPoster id="native_youku" onSelect="youkuClient.loadIndexPage('',1,96);">
 							<image>http://local.clican.org/appletv/image/youku/youku.png</image>
 							<title>优库</title>
 						</goldenPoster>
-						<goldenPoster id="tudou"
+						<goldenPoster id="native_tudou"
 							onSelect="tudouClient.loadIndexPage('',1,30);">
 							<image>http://local.clican.org/appletv/image/tudou/tudou.png</image>
 							<title>土豆视频</title>
 						</goldenPoster>
-						<goldenPoster id="qq" onSelect="qqClient.loadIndexPage('',0,3);">
+						<goldenPoster id="native_qq" onSelect="qqClient.loadIndexPage('',0,3);">
 							<image>http://local.clican.org/appletv/image/qq/qq.png</image>
 							<title>腾讯视频</title>
 						</goldenPoster>
@@ -35,11 +35,11 @@
 							<image>http://local.clican.org/appletv/image/fivesix/fivesix.png</image>
 							<title>56视频</title>
 						</goldenPoster>
-						<goldenPoster id="yyets" onSelect="yyetsClient.loadIndexPage('',1,'movie');">
+						<goldenPoster id="native_yyets" onSelect="yyetsClient.loadIndexPage('',1,'movie');">
 							<image>http://local.clican.org/appletv/image/yyets/yyets.jpg</image>
 							<title>人人影视</title>
 						</goldenPoster>
-						<goldenPoster id="lbl" onSelect="lblClient.loadIndexPage('',1,'category/movie');">
+						<goldenPoster id="native_lbl" onSelect="lblClient.loadIndexPage('',1,'category/movie');">
 							<image>http://local.clican.org/appletv/image/lbl/lbl.png</image>
 							<title>龙部落</title>
 						</goldenPoster>
@@ -67,7 +67,7 @@
 							<image>http://local.clican.org/appletv/image/taobao/taobao.png</image>
 							<title>淘宝</title>
 						</goldenPoster>
-						<goldenPoster id="favorite"
+						<goldenPoster id="native_favorite"
 							onSelect="appletv.loadFavoritePage();">
 							<image>http://local.clican.org/appletv/image/favorite.png</image>
 							<title>收藏</title>
