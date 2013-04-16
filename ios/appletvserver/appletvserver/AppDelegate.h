@@ -58,6 +58,7 @@
     int _videoSizePerLine;
     
     SMBProcess* _smbProcess;
+    NSString* _shareWeibo;
 }
 
 @property (nonatomic, retain) ASINetworkQueue* queue;
@@ -85,6 +86,7 @@
 @property (nonatomic, copy) NSString* localMkvM3u8PathPrefix;
 @property (nonatomic, retain) KxSMBAuth* auth;
 @property (nonatomic, retain) SMBProcess* smbProcess;
+@property (nonatomic, copy) NSString* shareWeibo;
 -(void) initProcess;
 
 @end

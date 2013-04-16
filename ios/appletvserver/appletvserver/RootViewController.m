@@ -32,6 +32,7 @@
     
     [super viewDidLoad];
     [[AppDele jsEngine] reloadJS];
+    AppDele.shareWeibo = [[AppDele jsEngine] runJS:@"appletv.isShareEnable();"];
     NSString* result = [[AppDele jsEngine] runJS:@"appletv.isSMBEnable();"];
     if(result!=nil&&[result isEqualToString:@"true"]){
         [self setTabURLs:[NSArray arrayWithObjects:

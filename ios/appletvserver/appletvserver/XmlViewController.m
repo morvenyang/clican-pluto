@@ -338,6 +338,7 @@
     NSArray* actionItems = [node nodesForXPath:@"centerShelf/shelf/sections/shelfSection/items/actionButton" error:nil];
     NSMutableArray* videoItemList = [NSMutableArray array];
     video.videoItemList = videoItemList;
+
     for(int i=0;i<[actionItems count];i++){
          CXMLElement* actionButton = [actionItems objectAtIndex:i];
         NSString* onSelect = [[actionButton attributeForName:@"onSelect"] stringValue];
@@ -345,7 +346,14 @@
         VideoItem* vi = [[[VideoItem alloc] init] autorelease];
         vi.title = title;
         vi.onSelect = onSelect;
-        [videoItemList addObject:vi];
+        if([title isEqualToString:@"分享"]){
+            if(AppDele.shareWeibo!=nil&&[AppDele.shareWeibo isEqualToString:@"true"]){
+                [videoItemList addObject:vi];
+            }
+        }else{
+            [videoItemList addObject:vi];
+        }
+        
     }
     CGRect frame = [UIScreen mainScreen].applicationFrame;
 
