@@ -944,4 +944,8 @@ var appletv = {
 			}
 		});
 	},
+	
+	isSMBEnable:function(){
+		return "false";
+	}
 };
