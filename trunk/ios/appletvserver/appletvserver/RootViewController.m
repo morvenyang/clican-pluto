@@ -31,13 +31,24 @@
     NSLog(@"RootViewController viewDidLoad");
     
     [super viewDidLoad];
-    [self setTabURLs:[NSArray arrayWithObjects:
-                      @"atvserver://main",
-                      @"atvserver://xunlei/login",
-                      @"atvserver://download",
-                      @"atvserver://smb/auth",
-                      @"atvserver://config",
-                      nil]];
+    [[AppDele jsEngine] reloadJS];
+    NSString* result = [[AppDele jsEngine] runJS:@"appletv.isSMBEnable();"];
+    if(result!=nil&&[result isEqualToString:@"true"]){
+        [self setTabURLs:[NSArray arrayWithObjects:
+                          @"atvserver://main",
+                          @"atvserver://xunlei/login",
+                          @"atvserver://download",
+                          @"atvserver://smb/auth",
+                          @"atvserver://config",
+                          nil]];
+    }else{
+        [self setTabURLs:[NSArray arrayWithObjects:
+                          @"atvserver://main",
+                          @"atvserver://xunlei/login",
+                          @"atvserver://download",
+                          @"atvserver://config",
+                          nil]];
+    }
 }
 
 - (void)didReceiveMemoryWarning
