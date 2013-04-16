@@ -26,6 +26,8 @@ public class YoukuTestCases extends BaseServiceTestCase {
 		//System.out.println(tudouClient.httpGet(url1));
 		//System.out.println(tudouClient.httpGet(url2));
 		System.out.println(tudouClient.httpGet(url6));
+		String gbkkeyword = URLEncoder.encode("行尸走肉", "GBK");
+		System.out.println(gbkkeyword);
 	}
 
 }
