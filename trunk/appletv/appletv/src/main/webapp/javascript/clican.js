@@ -947,5 +947,9 @@ var appletv = {
 	
 	isSMBEnable:function(){
 		return "false";
+	},
+	
+	isShareEnable:function(){
+		return "false";
 	}
 };
