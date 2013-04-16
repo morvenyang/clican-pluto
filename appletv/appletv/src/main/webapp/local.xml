@@ -11,6 +11,7 @@
 		<script src="http://local.clican.org/appletv/javascript/myphoto.js" />
 		<script src="http://local.clican.org/appletv/javascript/smb.js" />
 		<script src="http://local.clican.org/appletv/javascript/fivesix.js" />
+		<script src="http://local.clican.org/appletv/javascript/tu.js" />
 	</head>
 	<body>
 		<scroller id="com.sample.movie-shelf">
@@ -41,6 +42,10 @@
 						<goldenPoster id="lbl" onSelect="lblClient.loadIndexPage('',1,'category/movie');">
 							<image>http://local.clican.org/appletv/image/lbl/lbl.png</image>
 							<title>龙部落</title>
+						</goldenPoster>
+						<goldenPoster id="tu" onSelect="tuClient.loadIndexPage('',1,15);">
+							<image>http://local.clican.org/appletv/image/tu/tu.png</image>
+							<title>迅播影院</title>
 						</goldenPoster>
 						<goldenPoster id="baibian"
 							onSelect="atv.loadURL('http://www.clican.org/appletv/ctl/baibian/index.xml');">
