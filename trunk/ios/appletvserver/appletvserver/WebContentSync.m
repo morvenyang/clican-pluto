@@ -86,11 +86,11 @@
             CXMLElement* gp = (CXMLElement*)node;
             NSString* idName = [[gp attributeForName:@"id"] stringValue];
             if([idName rangeOfString:@"native"].location!=NSNotFound){
-                NSString* onSelect = [[gp attributeForName:@"onSelect"] stringValue];
+                NSString* onPlay = [[gp attributeForName:@"onPlay"] stringValue];
                 NSString* title = [[gp nodeForXPath:@"title" error:nil] stringValue];
                 IndexMenu* im = [[[IndexMenu alloc] init] autorelease];
                 im.title = title;
-                im.onSelect = onSelect;
+                im.onPlay = onPlay;
                 [result addObject:im];
             }
         }

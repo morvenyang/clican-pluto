@@ -81,7 +81,7 @@
     NSArray* array = [AppDele.webContentSync loadLocalXml];
     for(int i=0;i<array.count;i++){
         IndexMenu* im = [array objectAtIndex:i];
-        TTTableTextItem* item = [TTTableTextItem itemWithText:im.title URL:im.onSelect];
+        TTTableTextItem* item = [TTTableTextItem itemWithText:im.title URL:im.onPlay];
         [items addObject:item];
     }
     TTListDataSource* ds = [[[TTListDataSource alloc] initWithItems:items] autorelease];
