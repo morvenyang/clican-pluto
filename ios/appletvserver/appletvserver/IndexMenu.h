@@ -10,8 +10,8 @@
 
 @interface IndexMenu : NSObject{
     NSString* _title;
-    NSString* _onSelect;
+    NSString* _onPlay;
 }
 @property (nonatomic, copy) NSString* title;
-@property (nonatomic, copy) NSString* onSelect;
+@property (nonatomic, copy) NSString* onPlay;
 @end

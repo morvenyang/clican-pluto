@@ -10,11 +10,11 @@
 
 @implementation IndexMenu
 @synthesize title = _title;
-@synthesize onSelect = _onSelect;
+@synthesize onPlay = _onPlay;
 
 -(void)dealloc{
     TT_RELEASE_SAFELY(_title);
-    TT_RELEASE_SAFELY(_onSelect);
+    TT_RELEASE_SAFELY(_onPlay);
     [super dealloc];
 }
 @end
