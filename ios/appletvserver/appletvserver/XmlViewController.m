@@ -139,7 +139,6 @@
                                                  name:MPMoviePlayerPlaybackDidFinishNotification object:self.playerViewController.moviePlayer];
     
     self.playerViewController.moviePlayer.controlStyle = MPMovieControlStyleFullscreen;
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
     
     [self presentMoviePlayerViewControllerAnimated:self.playerViewController];
     [self.playerViewController.moviePlayer prepareToPlay];
@@ -150,7 +149,6 @@
 
         //user hit the done button
         MPMoviePlayerController *moviePlayer = [notification object];
-        
         [[NSNotificationCenter defaultCenter] removeObserver:self
                                                         name:MPMoviePlayerPlaybackDidFinishNotification
                                                       object:moviePlayer];
@@ -158,9 +156,8 @@
         if ([moviePlayer respondsToSelector:@selector(setFullscreen:animated:)]) {
             [moviePlayer.view removeFromSuperview];
         }
-        [self.navigationController setNavigationBarHidden:NO animated:YES];
+       
         [self.navigationController popViewControllerAnimated:YES];
- 
 }
 
 -(void) displayListScrollerSplit:(CXMLNode*) node{
