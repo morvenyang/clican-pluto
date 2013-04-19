@@ -578,6 +578,12 @@
     TTTableItem* item = [ds.items objectAtIndex:indexPath.row];
     if([item isKindOfClass:[VideoTableItem class]]){
         return 180;
+    }else if ([item isKindOfClass:[TTTableStyledTextItem class]]){
+        TTTableStyledTextItem* sti = (TTTableStyledTextItem*)item;
+        sti.text.width = tableView.frame.size.width;
+        sti.text.font = [UIFont boldSystemFontOfSize:17];
+        CGFloat h = sti.text.height;
+        return h;
     }else{
         return 50;
     }
