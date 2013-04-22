@@ -35,6 +35,8 @@
                     url = [NSString stringWithFormat:@"http://%@:8080/appletv/noctl/proxy/play.mp4?url=%@",AppDele.ipAddress,[AtvUtil encodeURL:item.path]];
                 }else if([AtvUtil content:fileName contains:@"mkv"]){
                     url = [NSString stringWithFormat:@"http://%@:8080/appletv/noctl/mkv/play.m3u8?url=%@",AppDele.ipAddress,[AtvUtil encodeURL:item.path]];
+                }else if([AtvUtil content:fileName contains:@"mp3"]){
+                    url = [NSString stringWithFormat:@"http://%@:8080/appletv/noctl/proxy/play.mp3?url=%@",AppDele.ipAddress,[AtvUtil encodeURL:item.path]];
                 }
                 type = @"file";
             }else if([item isKindOfClass:[KxSMBItemTree class]]){
