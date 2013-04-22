@@ -164,8 +164,11 @@
 }
 
 -(void) viewWillAppear:(BOOL)animated{
-    [UIApplication sharedApplication].statusBarOrientation = UIInterfaceOrientationPortrait;
-    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
+//    [UIApplication sharedApplication].statusBarOrientation = UIInterfaceOrientationPortrait;
+//    CGRect frame = [UIApplication sharedApplication].statusBarFrame;
+//    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
+//        NSLog(@"frame=%f,%f,%f,%f",frame.origin.x,frame.origin.y,frame.size.width,frame.size.height);
+
     if(TTIsPad()){
         self.navigationController.navigationBar.frame = CGRectMake(0, 20, self.navigationController.navigationBar.frame.size.width, 44);
     }else{
@@ -173,6 +176,17 @@
     }
     
     [super viewWillAppear:animated];
+    
+}
+
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    if([UIApplication sharedApplication].statusBarOrientation != UIInterfaceOrientationPortrait){
+        [self performSelector:@selector(changeStatusBarOrientation) withObject:nil afterDelay:0.01];
+    }
+}
+-(void) changeStatusBarOrientation{
+    [UIApplication sharedApplication].statusBarOrientation = UIInterfaceOrientationPortrait;
 }
 -(void) displayListScrollerSplit:(CXMLNode*) node{
     CXMLElement* listScrollerSplitElement = (CXMLElement*)node;
