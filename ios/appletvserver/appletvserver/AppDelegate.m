@@ -112,18 +112,13 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     if(self.atvDeviceId==nil||self.atvDeviceId.length==0){
         self.atvDeviceId = [[UIDevice currentDevice] uniqueIdentifier];
     }
-    NSString* deviceType = [UIDevice currentDevice].model;
-    NSLog(@"deviceType = %@", deviceType);
-    if([deviceType rangeOfString:@"iPad"].location!=NSNotFound){
+    if(TTIsPad()){
         self.ipad = YES;
         self.videoSizePerLine = 7;
     }else{
         self.ipad = NO;
         self.videoSizePerLine = 3;
     }
-//    if ([deviceType rangeOfString:@"Simulator"].location!=NSNotFound) {
-//        self.simulate = TRUE;
-//    }
     NSData *myEncodedObject = [defaults objectForKey:SMB_AUTH_NAME ];
     if(myEncodedObject!=nil&&myEncodedObject.length>0){
         self.auth = (KxSMBAuth *)[NSKeyedUnarchiver unarchiveObjectWithData: myEncodedObject];
