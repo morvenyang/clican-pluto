@@ -52,6 +52,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 @synthesize auth = _auth;
 @synthesize smbProcess = _smbProcess;
 @synthesize shareWeibo = _shareWeibo;
+@synthesize localMp3PathPrefix = _localMp3PathPrefix;
 - (void)dealloc
 {
     [super dealloc];
@@ -184,10 +185,8 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     NSString *m3u8Outpath = [[path objectAtIndex:0] stringByAppendingFormat:@"%@",@"/temp/m3u8/"];
     NSString *mp4Outpath = [[path objectAtIndex:0] stringByAppendingFormat:@"%@",@"/temp/mp4/"];
     NSString *mkvM3u8Outpath = [[path objectAtIndex:0] stringByAppendingFormat:@"%@",@"/temp/mkvM3u8/"];
-    if(AppDele.simulate){
-        mkvM3u8Outpath = @"/Users/zhangwei/Desktop/mkv/";
-    }
     NSString *webOutpath = [[path objectAtIndex:0] stringByAppendingFormat:@"%@",@"/web"];
+    NSString *mp3Outpath = [[path objectAtIndex:0] stringByAppendingFormat:@"%@",@"/temp/mp3/"];
 
     //outpath = @"/Users/zhangwei/Desktop/m3u8/";
     if(![[NSFileManager defaultManager] fileExistsAtPath:m3u8Outpath]){
@@ -195,6 +194,9 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     }
     if(![[NSFileManager defaultManager] fileExistsAtPath:mp4Outpath]){
         [[NSFileManager defaultManager] createDirectoryAtPath:mp4Outpath withIntermediateDirectories:YES attributes:nil error:nil];
+    }
+    if(![[NSFileManager defaultManager] fileExistsAtPath:mp3Outpath]){
+        [[NSFileManager defaultManager] createDirectoryAtPath:mp3Outpath withIntermediateDirectories:YES attributes:nil error:nil];
     }
     self.localM3u8UrlPrefix = [@"http://" stringByAppendingFormat:@"%@:8080/appletv/noctl/proxy/temp/m3u8/",self.ipAddress];
     self.localNativeM3u8UrlPrefix = @"http://localhost:8080/appletv/noctl/proxy/temp/m3u8/";
@@ -204,6 +206,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     self.localMp4PathPrefix = mp4Outpath;
     self.localWebPathPrefix = webOutpath;
     self.localMkvM3u8PathPrefix = mkvM3u8Outpath;
+    self.localMp3PathPrefix = mp3Outpath;
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
