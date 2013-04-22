@@ -14,5 +14,5 @@
 + (NSString*) getIPAddress;
 + (NSString*) encodeURL:(NSString *)string;
 + (BOOL) content:(NSString *)content contains:(NSString*) contains;
-
++ (BOOL) content:(NSString *)content startWith:(NSString*) prefix;
 @end

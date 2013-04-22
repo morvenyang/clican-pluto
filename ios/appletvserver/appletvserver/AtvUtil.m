@@ -88,4 +88,12 @@
     NSRange range=[[content uppercaseString] rangeOfString:[contains uppercaseString]];
     return range.location!=NSNotFound;
 }
+
++ (BOOL) content:(NSString *)content startWith:(NSString*) prefix{
+    if(content==nil){
+        return false;
+    }
+    NSRange range=[[content uppercaseString] rangeOfString:[prefix uppercaseString]];
+    return range.location==0;
+}
 @end
