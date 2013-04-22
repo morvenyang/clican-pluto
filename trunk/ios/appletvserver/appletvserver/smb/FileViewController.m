@@ -163,8 +163,10 @@
 {
     NSString *filename = _smbFile.path.lastPathComponent;
     NSString* url = nil;
-    if([filename rangeOfString:@"mp4"].location!=NSNotFound||[filename rangeOfString:@"MP4"].location!=NSNotFound){
+    if([AtvUtil content:filename contains:@".mp4"]){
         url = [NSString stringWithFormat:@"http://%@:8080/appletv/noctl/proxy/play.mp4?url=%@",AppDele.ipAddress,[AtvUtil encodeURL:_smbFile.path]];
+    }else if([AtvUtil content:filename contains:@".mp3"]){
+        url = [NSString stringWithFormat:@"http://%@:8080/appletv/noctl/proxy/play.mp3?url=%@",AppDele.ipAddress,[AtvUtil encodeURL:_smbFile.path]];
     }else{
         url = [NSString stringWithFormat:@"http://%@:8080/appletv/noctl/mkv/play.m3u8?url=%@",AppDele.ipAddress,[AtvUtil encodeURL:_smbFile.path]];
     }
