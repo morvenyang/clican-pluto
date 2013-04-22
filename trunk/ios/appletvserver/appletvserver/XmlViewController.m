@@ -89,6 +89,7 @@
     if(xml==nil){
         return;
     }
+    
     @try{
         NSError *theError = NULL;
         CXMLDocument *document = [[[CXMLDocument alloc] initWithXMLString:xml options:0 error:&theError] autorelease];
@@ -116,7 +117,7 @@
                 break;
             }else if([[node name] isEqualToString:@"videoPlayer"]){
                 [self performSelectorOnMainThread:@selector(playVideo:) withObject:node waitUntilDone:YES];
-                break;
+                _reloadView=YES;
                 break;
             }else if([[node name] isEqualToString:@"listByNavigation"]){
                 [self displayListByNavigation:node];
@@ -131,6 +132,7 @@
     }
 }
 -(void)playVideo:(CXMLNode*) node{
+    _reloadView = YES;
     NSString* mediaUrl = [[node nodeForXPath:@"httpLiveStreamingVideoAsset/mediaURL" error:nil] stringValue];
     NSLog(@"mediaUrl:%@",mediaUrl);
     self.playerViewController = [[[MPMoviePlayerViewController alloc] initWithContentURL:[NSURL URLWithString:mediaUrl]] autorelease];
@@ -146,7 +148,7 @@
     [self.playerViewController.moviePlayer play];
 }
 - (void)moviePlayBackDidFinish:(NSNotification*)notification {
-
+        
         //user hit the done button
         MPMoviePlayerController *moviePlayer = [notification object];
         [[NSNotificationCenter defaultCenter] removeObserver:self
@@ -157,9 +159,21 @@
             [moviePlayer.view removeFromSuperview];
         }
        
-        [self.navigationController popViewControllerAnimated:YES];
+        [self.navigationController popViewControllerAnimated:NO];
+        
 }
 
+-(void) viewWillAppear:(BOOL)animated{
+    [UIApplication sharedApplication].statusBarOrientation = UIInterfaceOrientationPortrait;
+    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
+    if(TTIsPad()){
+        self.navigationController.navigationBar.frame = CGRectMake(0, 20, self.navigationController.navigationBar.frame.size.width, 44);
+    }else{
+        self.navigationController.navigationBar.frame = CGRectMake(0, 20, self.navigationController.navigationBar.frame.size.width, 44);
+    }
+    
+    [super viewWillAppear:animated];
+}
 -(void) displayListScrollerSplit:(CXMLNode*) node{
     CXMLElement* listScrollerSplitElement = (CXMLElement*)node;
     self.type = @"listScrollerSplit";
@@ -607,6 +621,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
 }
 
 - (void)didReceiveMemoryWarning
