@@ -163,15 +163,24 @@
 {
     NSString *filename = _smbFile.path.lastPathComponent;
     NSString* url = nil;
+    NSData* data =nil;
     if([AtvUtil content:filename contains:@".mp4"]){
         url = [NSString stringWithFormat:@"http://%@:8080/appletv/noctl/proxy/play.mp4?url=%@",AppDele.ipAddress,[AtvUtil encodeURL:_smbFile.path]];
     }else if([AtvUtil content:filename contains:@".mp3"]){
-        url = [NSString stringWithFormat:@"http://%@:8080/appletv/noctl/proxy/play.mp3?url=%@",AppDele.ipAddress,[AtvUtil encodeURL:_smbFile.path]];
+        NSData* data = [_smbFile readDataToEndOfFile];
+        url = [AppDele.localMp3PathPrefix stringByAppendingString:@"1.mp3"];
+        [[NSFileManager defaultManager] createFileAtPath:url contents:data attributes:nil];
     }else{
         url = [NSString stringWithFormat:@"http://%@:8080/appletv/noctl/mkv/play.m3u8?url=%@",AppDele.ipAddress,[AtvUtil encodeURL:_smbFile.path]];
     }
+    
     NSLog(@"play:%@",url);
-    self.playerViewController = [[MPMoviePlayerViewController alloc] initWithContentURL:[NSURL URLWithString:url]];
+    if([AtvUtil content:url startWith:@"http"]){
+        self.playerViewController = [[MPMoviePlayerViewController alloc] initWithContentURL:[NSURL URLWithString:url]];
+    }else{
+        self.playerViewController = [[MPMoviePlayerViewController alloc] initWithContentURL:[NSURL fileURLWithPath:url]];
+    }
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moviePlayBackDidFinish:)
                                                  name:MPMoviePlayerPlaybackDidFinishNotification object:self.playerViewController.moviePlayer];
     
