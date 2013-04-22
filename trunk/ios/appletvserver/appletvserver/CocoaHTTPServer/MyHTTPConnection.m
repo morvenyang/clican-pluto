@@ -63,7 +63,14 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
             return [self handleSmbResource:path];
         }else if([path rangeOfString:@"/appletv/noctl/proxy/play.mp3"].location!=NSNotFound){
             NSString* mp3Url = [[self parseGetParams] objectForKey:@"url"];
-            HTTPSMBResponse* resp=[[HTTPSMBResponse alloc] initWithSmbFile:[KxSMBProvider fetchAtPath:mp3Url]];
+            if(AppDele.smbProcess.smbPath==nil||![AppDele.smbProcess.smbPath isEqualToString:mp3Url]){
+                AppDele.smbProcess.smbPath = mp3Url;
+                if(AppDele.smbProcess.smbFile!=nil){
+                    [AppDele.smbProcess.smbFile close];
+                }
+                AppDele.smbProcess.smbFile = [KxSMBProvider fetchAtPath:mp3Url];
+            }
+            HTTPSMBResponse* resp=[[HTTPSMBResponse alloc] initWithSmbFile:AppDele.smbProcess.smbFile];
             return resp;
         }else{
             return [super httpResponseForMethod:method URI:path];
