@@ -1,5 +1,164 @@
 var sokuClient = {
 		
+		sokuChannels : [ {
+			label : "搜索",
+			value : 'search'
+		},{
+			label : "电影",
+			value : 'movie'
+		},{
+			label : "电视剧",
+			value : 'tv'
+		}],
+		
+		sokuChannelMap : {
+			"search" : {
+				label : "搜索",
+				value : "search"
+			},
+			"movie" : {
+				label : "电影",
+				value : "movie",
+				url: "http://www.soku.com/channel/movielist_0_0_0_1_1.html"
+			},
+			"tv" : {
+				label : "电视剧",
+				value : "tv",
+				url: "http://www.soku.com/channel/teleplaylist_0_0_0_1_1.html"
+			}
+		},
+		
+		loadChannelPage:function(){
+			var data = {
+					'channels' : sokuClient.sokuChannels,
+					'serverurl' : appletv.serverurl
+				};
+			var templateEJS = new EJS({
+				url : appletv.serverurl + '/template/soku/channel.ejs'
+			});	
+			var xml = templateEJS.render(data);
+			appletv.loadAndSwapXML(xml);
+		},
+		
+		loadIndexPage : function(keyword, page, channelId, queryUrl) {
+			appletv.showLoading();
+			var channel = this.fivesixChannelMap[channelId];
+			var videos = [];
+			if (channelId == 'search') {
+				
+			} else {
+				if(queryUrl==null){
+					queryUrl = channel['url'].replace('_1.html','_'+page+'.html');
+				}else{
+					var start = queryUrl.indexOf('_1.html');
+					if(start>=0){
+						start = start+1;
+						queryUrl = queryUrl.substring(0,start)+page+'.html';
+					}
+				}
+				appletv.logToServer(queryUrl);
+				appletv.makeRequest(queryUrl, function(content) {
+					if (content != null && content.length > 0) {
+						var videoContent = appletv.substringByTag(content,'<div class="itmes','</div>','div');
+						var packs = appletv.getSubValuesByTag(videoContent,
+								'<div class="item"', '</div>', 'div');
+						for (i = 0; i < packs.length; i++) {
+							var pack = packs[i];
+							var pic = appletv.substringByData(pack,
+									'<img', '>');
+							pic = appletv.substringByData(pic,'src="','"');
+							var title = appletv.substringByData(pack,'title="','"');
+							var id = 'http://www.soku.com/'+appletv.substringByData(pack, 'href="','"');
+							var video = {
+								"title" : title,
+								"id" : id,
+								"pic" : pic
+							};
+							videos.push(video);
+						}
+						sokuClient.generateIndexPage(keyword, page, channel,
+								videos,queryUrl);
+					} else {
+						appletv.showDialog('加载失败', '');
+					}
+				});
+			}
+		},
+
+		generateIndexPage : function(keyword, page, channel, videos,url) {
+			if(videos.length==0){
+				appletv.showDialog('没有相关视频','');
+				return;
+			}
+			var begin = 1;
+			var end = 1;
+			if (page < 92) {
+				begin = page;
+				end = page + 7;
+			} else {
+				end = 99;
+				begin = 92;
+			}
+			var data = {
+				'page' : page,
+				'channel' : channel,
+				'keyword' : keyword,
+				'begin' : begin,
+				'end' : end,
+				'channels' : sokuClient.sokuChannels,
+				'serverurl' : appletv.serverurl,
+				'videos' : videos,
+				'url': url
+			};
+			var xml = new EJS({
+				url : appletv.serverurl + '/template/soku/index.ejs'
+			}).render(data);
+			appletv.loadAndSwapXML(xml);
+		},
+		
+		getCategory: function(content,channelId,url){
+			var channel = this.sokuChannelMap[channelId];
+			var categoryFilterContent = appletv.substringByTag(content,'<div class="filter">','</div>','div');
+			var categoryFilters = appletv.getSubValuesByTag(categoryFilterContent,'<div class="item"','</div>','div');
+			appletv.logToServer(categoryFilters[1]);
+			var categoryNames = [];
+			var categoryMap = {};
+			var category = {"categoryMap":categoryMap,"categoryNames":categoryNames,"url":url,"serverurl":appletv.serverurl,"channelId":channelId};
+			for(i=0;i<categoryFilters.length;i++){
+				var categoryName = appletv.substringByData(categoryFilters[i],'<label>','</label>');
+				categoryNames.push(categoryName);
+				var categoryValues = [];
+				var categoryLis = appletv.getSubValues(categoryFilters[i],'<li','</li>');
+				for(j=0;j<categoryLis.length;j++){
+					var select = false;
+					var categoryLabel;
+					if(categoryLis[j].indexOf('class="current"')!=-1){
+						select = true
+					}
+					categoryLabel = appletv.substringByData(categoryLis[j],'<a','</a>');
+					categoryLabel = appletv.subIndexString(categoryLabel,'>');
+					var categoryUrl = 'http://www.soku.com/'+appletv.substringByData(categoryLis[j],'href="','"');
+					var categoryValue={"categoryLabel":categoryLabel,"categoryUrl":categoryUrl,"select":select};
+					categoryValues.push(categoryValue);
+				}
+				categoryMap[categoryName] = categoryValues;
+			}
+			return category;
+		},
+		
+		loadCategoryPage: function(url,channelId,loading){
+			if(loading){
+				appletv.showLoading();
+			}
+			appletv.makeRequest(url, function(content) {
+				category = fivesixClient.getCategory(content,channelId,url);
+				var xml = new EJS({
+					url : appletv.serverurl + '/template/soku/category.ejs'
+				}).render(category);
+				appletv.loadAndSwapXML(xml);
+			});
+		},
+		
 		loadSearchPage : function() {
 			appletv.showInputTextPage('关键字', '搜索', sokuClient.loadKeywordsPage,
 					'sokuClient.loadKeywordsPage', '');
