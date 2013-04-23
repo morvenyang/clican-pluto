@@ -100,7 +100,7 @@ var sokuClient = {
 							var pack = packs[i];
 							var pic = appletv.substringByData(pack,
 									'<img', '>');
-							pic = appletv.substringByData(pic,'src="','"');
+							pic = appletv.substringByData(pic,'original="','"');
 							var title = appletv.substringByData(pack,'title="','"');
 							var id = 'http://www.soku.com'+appletv.substringByData(pack, 'href="','"');
 							var video = {
@@ -303,9 +303,11 @@ var sokuClient = {
 			appletv.getValue('clican.soku.video',function(video){
 				var items = video['sites'][0]['items'];
 				for(var i =0;i<video['sites'].length;i++){
-					var site = video['sites'][i];
-					if(site['id']==site){
-						items = site['items'];
+					var s = video['sites'][i];
+					appletv.logToServer(s['id']);
+					if(s['id']==site){
+						appletv.logToServer('change items to ' +site);
+						items = s['items'];
 						break;
 					}
 				}
