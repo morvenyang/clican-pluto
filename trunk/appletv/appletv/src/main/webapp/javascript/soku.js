@@ -42,10 +42,43 @@ var sokuClient = {
 		
 		loadIndexPage : function(keyword, page, channelId, queryUrl) {
 			appletv.showLoading();
-			var channel = this.fivesixChannelMap[channelId];
+			var channel = this.sokuChannelMap[channelId];
 			var videos = [];
 			if (channelId == 'search') {
+				var url1 = "http://api.3g.youku.com/layout/phone2/ios/search/"+encodeURIComponent(keyword)+"?pg="+page+"&pid=69b81504767483cf&pz=30";
+				var url2 = "http://api.3g.youku.com/videos/search/"+encodeURIComponent(keyword)+"?pg="+page+"&pid=69b81504767483cf&pz=30";
+				var videos = [];
 				
+				appletv.makeRequest(url1, function(jsonContent1) {
+					var results1 = JSON.parse(jsonContent1)['results'];
+					for(var i=0;i<results1.length;i++){
+						var result1 = results1[i];
+						var video = {
+								"title" : result1['showname'],
+								"id" : result1['showid'],
+								"pic" : result1['show_vthumburl'],
+								"site" : result1['default_site'],
+								"album": true
+							};
+						videos.push(video);
+					}
+					appletv.makeRequest(url2,function(jsonContent2){
+						var results2 = JSON.parse(jsonContent2)['results'];
+						for(var i=0;i<results2.length;i++){
+							var result2 = results2[i];
+							var video = {
+									"title" : result2['title'],
+									"id" : result2['videoid'],
+									"pic" : result2['img'],
+									"site" : result1['default_site'],
+									"album": false
+								};
+							videos.push(video);
+						}
+						sokuClient.generateIndexPage(keyword, page, channel,
+								videos,queryUrl);
+					});
+				});
 			} else {
 				if(queryUrl==null){
 					queryUrl = channel['url'].replace('_1.html','_'+page+'.html');
@@ -58,8 +91,9 @@ var sokuClient = {
 				}
 				appletv.logToServer(queryUrl);
 				appletv.makeRequest(queryUrl, function(content) {
+					appletv.logToServer('soku callback');
 					if (content != null && content.length > 0) {
-						var videoContent = appletv.substringByTag(content,'<div class="itmes','</div>','div');
+						var videoContent = appletv.substringByTag(content,'<div class="items"','</div>','div');
 						var packs = appletv.getSubValuesByTag(videoContent,
 								'<div class="item"', '</div>', 'div');
 						for (i = 0; i < packs.length; i++) {
@@ -110,10 +144,18 @@ var sokuClient = {
 				'videos' : videos,
 				'url': url
 			};
-			var xml = new EJS({
-				url : appletv.serverurl + '/template/soku/index.ejs'
-			}).render(data);
-			appletv.loadAndSwapXML(xml);
+			if(channel['value']=='search'){
+				var xml = new EJS({
+					url : appletv.serverurl + '/template/soku/search.ejs'
+				}).render(data);
+				appletv.loadAndSwapXML(xml);
+			}else{
+				var xml = new EJS({
+					url : appletv.serverurl + '/template/soku/index.ejs'
+				}).render(data);
+				appletv.loadAndSwapXML(xml);
+			}
+			
 		},
 		
 		getCategory: function(content,channelId,url){
@@ -151,7 +193,7 @@ var sokuClient = {
 				appletv.showLoading();
 			}
 			appletv.makeRequest(url, function(content) {
-				category = fivesixClient.getCategory(content,channelId,url);
+				category = sokuClient.getCategory(content,channelId,url);
 				var xml = new EJS({
 					url : appletv.serverurl + '/template/soku/category.ejs'
 				}).render(category);
@@ -181,69 +223,65 @@ var sokuClient = {
 				appletv.loadAndSwapXML(xml);
 			});
 		},
-		
-		loadIndexPage:function(keyword,page){
-			var url1 = "http://api.3g.youku.com/layout/phone2/ios/search/"+encodeURIComponent(keyword)+"?pg="+page+"&pid=69b81504767483cf&pz=30";
-			var url2 = "http://api.3g.youku.com/videos/search/"+encodeURIComponent(keyword)+"?pg="+page+"&pid=69b81504767483cf&pz=30";
-			var videos = [];
-			
-			appletv.makeRequest(url1, function(jsonContent1) {
-				var results1 = JSON.parse(jsonContent1)['results'];
-				for(var i=0;i<results1.length;i++){
-					var result1 = results1[i];
-					var video = {
-							"title" : result1['showname'],
-							"id" : result1['showid'],
-							"pic" : result1['show_vthumburl'],
-							"site" : result1['default_site'],
-							"album": true
-						};
-					videos.push(video);
+		loadVideoPageByUrl: function(id){
+			var url = id;
+			appletv.makeRequest(url, function(htmlContent) {
+				var content = appletv.substringByTag(htmlContent,'<div class="detailinfo">','</div>','div');
+				var title = appletv.substringByData(content,'<h1>','</h1>');
+				var desc = appletv.substringByData(content,'<div class="intro">','</div>');
+				desc = appletv.substringByData(detail,'label>','<span').trim();
+				var actor = appletv.substringByData(content,'主演:','</span>');
+				actor = appletv.getTextInTag(actor);
+				var dctor = appletv.substringByData(content,'导演:','</span>');
+				dctor = appletv.getTextInTag(dctor);
+				var area = appletv.substringByData(content,'地区:','</span>');
+				area = appletv.getTextInTag(area);
+				var score =appletv.substringByData(content,'<em class="num">','</em>');
+				var year = appletv.substringByData(content,'上映时间:','</span>');
+				year = appletv.getTextInTag(year);
+				
+				var script = appletv.encode("sokuClient.loadVideoPageByUrl('"+id+"');");
+				var pic = appletv.substringByData(content,'<img','>');
+				pic = appletv.substringByData(pic,'src="','"').trim();
+				var vcode;
+				var size = 1;
+				var sites = [];
+				
+				var siteContent = appletv.substringByTag(content,'<div class="source"','</div>','div');
+				var siteSources = appletv.getSubValues(siteContent,'<li','</li>');
+				for(var i=0;i<siteSources.length;i++){
+					var stitle = appletv.substringByData(siteSources[i],'title="','"');
+					var sid = appletv.substringByData(siteSources[i],'id="','"');
+					var site = {"title":stitle,"id":sid};
+					sites.push(site);
 				}
-				appletv.makeRequest(url2,function(jsonContent2){
-					var results2 = JSON.parse(jsonContent2)['results'];
-					for(var i=0;i<results2.length;i++){
-						var result2 = results2[i];
-						var video = {
-								"title" : result2['title'],
-								"id" : result2['videoid'],
-								"pic" : result2['img'],
-								"site" : result1['default_site'],
-								"album": false
-							};
-						videos.push(video);
-					}
-					sokuClient.generateIndexPage(keyword, page, videos);
-				});
+				
+				var video = {
+						'serverurl' : appletv.serverurl,
+						album : album,
+						id: id,
+						script : script,
+						video : {
+							'id' : id,
+							'actor' : actor,
+							'area' : area,
+							'dctor' : dctor,
+							'pic' : pic,
+							'score' : score,
+							'title' : title,
+							'year' : year,
+							'desc' : desc,
+							'size' : size
+						},
+						sites : sites
+					};
+					appletv.logToServer('render video page');
+					var xml = new EJS({
+						url : appletv.serverurl
+								+ '/template/soku/video.ejs'
+					}).render(video);
+					appletv.loadAndSwapXML(xml);
 			});
-		},
-		
-		generateIndexPage : function(keyword, page, videos) {
-			if(videos.length==0){
-				appletv.showDialog('没有相关视频','');
-				return;
-			}
-			var begin = 1;
-			var end = 1;
-			if (page < 92) {
-				begin = page;
-				end = page + 7;
-			} else {
-				end = 99;
-				begin = 92;
-			}
-			var data = {
-				'page' : page,
-				'keyword' : keyword,
-				'begin' : begin,
-				'end' : end,
-				'serverurl' : appletv.serverurl,
-				'videos' : videos,
-			};
-			var xml = new EJS({
-				url : appletv.serverurl + '/template/soku/index.ejs'
-			}).render(data);
-			appletv.loadAndSwapXML(xml);
 		},
 		
 		loadVideoPage : function(id,album,site) {
