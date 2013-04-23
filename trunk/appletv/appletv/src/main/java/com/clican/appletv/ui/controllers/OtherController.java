@@ -100,6 +100,7 @@ public class OtherController {
 				request.getParameter("name"));
 		if (StringUtils.isNotEmpty(value)) {
 			response.getOutputStream().write(value.getBytes("utf-8"));
+			response.getOutputStream().flush();
 		}
 	}
 
