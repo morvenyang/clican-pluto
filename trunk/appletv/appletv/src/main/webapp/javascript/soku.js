@@ -252,15 +252,14 @@ var sokuClient = {
 					var site = {"title":stitle,"id":sid};
 					sites.push(site);
 				}
-				var sitesItems = appletv.getSubValues(htmlContent,'<div class=\'linkpanels','</div>','div');
-				appletv.logToServer('site size='+sites.length+','+sitesItems.length);
 				for(var i=0;i<sites.length;i++){
-					appletv.logToServer('site'+i);
 					var site = sites[i];
-					var siteItems = appletv.getSubValues(sitesItems[i],'<li','</li>');
+					appletv.logToServer('site='+site['id']);
+					var si = appletv.substringByTag(htmlContent,'<div class=\'linkpanels '+site['id']+'\'','</div>','div');;
+					var siteItems = appletv.getSubValues(si,'<li','</li>');
 					var items = [];
 					for(var j=0;j<siteItems.length;j++){
-						var vurl = appletv.substringByData(siteItems[j],'href="','"');
+						var vurl = appletv.substringByData(si,'href="','"');
 						var vtitle = '第'+(j+1)+'集';
 						var v = {"url":vurl,"title":vtitle};
 						items.push(v);
@@ -268,7 +267,6 @@ var sokuClient = {
 					site['items']=items;
 					size = items.length;
 				}
-				appletv.logToServer('log6');
 				var video = {
 						'serverurl' : appletv.serverurl,
 						id: id,
@@ -287,14 +285,12 @@ var sokuClient = {
 						},
 						sites : sites
 					};
-				appletv.logToServer('log7');
 					appletv.setValue('clican.soku.video',video);
 					var xml = new EJS({
 						url : appletv.serverurl
 								+ '/template/soku/video.ejs'
 					}).render(video);
 					appletv.loadAndSwapXML(xml);
-					appletv.logToServer('log8');
 			});
 		},
 		
