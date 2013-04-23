@@ -340,6 +340,11 @@
             NSRange range = [labelValue rangeOfString:@":"];
             NSString* name = nil;
             NSString* value = nil;
+            video.directors = @"-";
+            video.year = @"-";
+            video.area = @"-";
+            video.score = @"-";
+            video.actors = @"-";
             if(range.location!=NSNotFound){
                 name = [labelValue substringWithRange:NSMakeRange(0, range.location)];
                 if(range.location+1<[labelValue length]){
