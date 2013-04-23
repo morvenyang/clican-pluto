@@ -12,12 +12,17 @@
 		<script src="http://local.clican.org/appletv/javascript/smb.js" />
 		<script src="http://local.clican.org/appletv/javascript/fivesix.js" />
 		<script src="http://local.clican.org/appletv/javascript/tu.js" />
+		<script src="http://local.clican.org/appletv/javascript/soku.js" />
 	</head>
 	<body>
 		<scroller id="com.sample.movie-shelf">
 			<items>
 				<grid id="grid_2" columnCount="4">
 					<items>
+						<goldenPoster id="native_soku" onSelect="sokuClient.loadIndexPage('',1,'tv');" onPlay="sokuClient.loadChannelPage();">
+							<image>http://local.clican.org/appletv/image/youku/youku.png</image>
+							<title>优库</title>
+						</goldenPoster>
 						<goldenPoster id="native_youku" onSelect="youkuClient.loadIndexPage('',1,96);" onPlay="youkuClient.loadChannelPage();">
 							<image>http://local.clican.org/appletv/image/youku/youku.png</image>
 							<title>优库</title>
