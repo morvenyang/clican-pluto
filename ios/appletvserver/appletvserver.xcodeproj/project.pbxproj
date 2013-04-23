@@ -97,6 +97,8 @@
 		72458736171531A900F6E839 /* libresolv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 72458735171531A900F6E839 /* libresolv.dylib */; };
 		72458738171531B700F6E839 /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 72458737171531B700F6E839 /* libiconv.dylib */; };
 		7245873E17154F2C00F6E839 /* HTTPSMBResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 7245873D17154F2B00F6E839 /* HTTPSMBResponse.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		7265769A172622BF0066F492 /* DownloadProgressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 72657699172622BF0066F492 /* DownloadProgressViewController.m */; };
+		726576A61726323E0066F492 /* CricleUIView.m in Sources */ = {isa = PBXBuildFile; fileRef = 726576A51726323E0066F492 /* CricleUIView.m */; };
 		7272B3A016C9FD4E00E111A7 /* Video.m in Sources */ = {isa = PBXBuildFile; fileRef = 7272B39F16C9FD4E00E111A7 /* Video.m */; };
 		7272B3A716CA046400E111A7 /* VideoTableItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 7272B3A616CA046400E111A7 /* VideoTableItem.m */; };
 		7272B3AA16CA049A00E111A7 /* VideoTableItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7272B3A916CA049A00E111A7 /* VideoTableItemCell.m */; };
@@ -512,6 +514,10 @@
 		72458737171531B700F6E839 /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = usr/lib/libiconv.dylib; sourceTree = SDKROOT; };
 		7245873C17154F2B00F6E839 /* HTTPSMBResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPSMBResponse.h; sourceTree = "<group>"; };
 		7245873D17154F2B00F6E839 /* HTTPSMBResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPSMBResponse.m; sourceTree = "<group>"; };
+		72657698172622BF0066F492 /* DownloadProgressViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadProgressViewController.h; sourceTree = "<group>"; };
+		72657699172622BF0066F492 /* DownloadProgressViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownloadProgressViewController.m; sourceTree = "<group>"; };
+		726576A41726323E0066F492 /* CricleUIView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CricleUIView.h; sourceTree = "<group>"; };
+		726576A51726323E0066F492 /* CricleUIView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CricleUIView.m; sourceTree = "<group>"; };
 		7272B39E16C9FD4E00E111A7 /* Video.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Video.h; sourceTree = "<group>"; };
 		7272B39F16C9FD4E00E111A7 /* Video.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Video.m; sourceTree = "<group>"; };
 		7272B3A116C9FEBA00E111A7 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
@@ -977,6 +983,10 @@
 			children = (
 				7288A2CE16F9985100933D15 /* DownloadStatusViewController.h */,
 				7288A2CF16F9985100933D15 /* DownloadStatusViewController.m */,
+				72657698172622BF0066F492 /* DownloadProgressViewController.h */,
+				72657699172622BF0066F492 /* DownloadProgressViewController.m */,
+				726576A41726323E0066F492 /* CricleUIView.h */,
+				726576A51726323E0066F492 /* CricleUIView.m */,
 			);
 			name = download;
 			sourceTree = "<group>";
@@ -1739,6 +1749,8 @@
 				72D4F5321715872D0047C762 /* SMBProcess.m in Sources */,
 				722948B71717A2C600CEF2F8 /* ProcessManager.m in Sources */,
 				727861FA171CFBEC000D310D /* IndexMenu.m in Sources */,
+				7265769A172622BF0066F492 /* DownloadProgressViewController.m in Sources */,
+				726576A61726323E0066F492 /* CricleUIView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -68,9 +68,8 @@
     [self.progressHUD hide:YES];
     if(!result){
         [self performSelectorOnMainThread:@selector(showNetworkWarning) withObject:nil waitUntilDone:NO];
-    }else{
-         [self performSelectorOnMainThread:@selector(showIndex) withObject:nil waitUntilDone:NO];
     }
+    [self performSelectorOnMainThread:@selector(showIndex) withObject:nil waitUntilDone:NO];
     [pool release];
 }
 -(void)showNetworkWarning{
@@ -79,16 +78,20 @@
 -(void)showIndex{
     NSMutableArray* items = [NSMutableArray array];
     NSArray* array = [AppDele.webContentSync loadLocalXml];
-    for(int i=0;i<array.count;i++){
-        IndexMenu* im = [array objectAtIndex:i];
-        TTTableTextItem* item = [TTTableTextItem itemWithText:im.title URL:im.onPlay];
-        [items addObject:item];
+    if(array.count==0){
+        [self showNetworkWarning];
+    }else{
+        for(int i=0;i<array.count;i++){
+            IndexMenu* im = [array objectAtIndex:i];
+            TTTableTextItem* item = [TTTableTextItem itemWithText:im.title URL:im.onPlay];
+            [items addObject:item];
+        }
+        TTListDataSource* ds = [[[TTListDataSource alloc] initWithItems:items] autorelease];
+        self.dataSource = ds;
+        self.tableView.delegate =self;
+        _flags.isUpdatingView=NO;
+        [self updateView];
     }
-    TTListDataSource* ds = [[[TTListDataSource alloc] initWithItems:items] autorelease];
-    self.dataSource = ds;
-    self.tableView.delegate =self;
-    _flags.isUpdatingView=NO;
-    [self updateView];
 }
 
 - (void)viewDidUnload
