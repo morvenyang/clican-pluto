@@ -29,7 +29,7 @@
 		<grid id="movieGrid" columnCount="6">
 			<items>
 				<%for(var i=0;i<videos.length;i++){%>
-					<moviePoster id="shelf_item_<%=i%>" alwaysShowTitles="true" onSelect="sokuClient.loadVideoPageByUrl('<%=videos[i]['id']%>');">
+					<moviePoster id="shelf_item_<%=i%>" alwaysShowTitles="true" onSelect="sokuClient.loadVideoPage('<%=videos[i]['id']%>',<%=videos[i]['album']%>,'<%=videos[i]['site']%>');">
 						<title><![CDATA[<%=videos[i].title%>]]></title>
 						<image><%=videos[i].pic%></image>
 						<defaultImage>resource://Poster.png</defaultImage>

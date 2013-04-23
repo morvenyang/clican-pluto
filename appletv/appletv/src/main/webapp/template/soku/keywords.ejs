@@ -18,7 +18,7 @@
 					<menuSection>
 						<items>
 							<%for(var i=0;i<keywords.length;i++){%>
-								<oneLineMenuItem id="albumItem_<%=i%>" onSelect="sokuClient.loadIndexPage('<%=keywords[i]%>',1);">
+								<oneLineMenuItem id="albumItem_<%=i%>" onSelect="sokuClient.loadIndexPage('<%=keywords[i]%>',1,'search');">
 									<label><%=keywords[i]%></label>
 								</oneLineMenuItem>
 							<%}%>
