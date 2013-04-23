@@ -24,7 +24,7 @@
 						<shelfSection>
 							<items>
 								<%for(var i=0;i<sites.length;i++){%>
-									<actionButton id="site_<%=i%>" onSelect="sokuClient.loadItemsPageBySite('<%=video['id']%>','<%=sites[i]['id']%>');">
+									<actionButton id="site_<%=i%>" onSelect="sokuClient.loadItemsPageBySite('<%=sites[i]['id']%>');">
 										<title><%=sites[i]['title']%></title>
 									</actionButton>
 								<%}%>
