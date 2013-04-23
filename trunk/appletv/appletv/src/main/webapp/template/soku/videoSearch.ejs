@@ -23,9 +23,15 @@
 					<sections>
 						<shelfSection>
 							<items>
-								<%for(var i=0;i<sites.length;i++){%>
-									<actionButton id="site_<%=i%>" onSelect="sokuClient.loadItemsPageByUrl('<%=video['id']%>','<%=sites[i]['id']%>');">
-										<title><%=sites[i]['title']%></title>
+								<%if(album){%>
+									<%for(var i=0;i<sites.length;i++){%>
+										<actionButton id="site_<%=i%>" onSelect="sokuClient.loadItemsPage('<%=video['id']%>','<%=sites[i]['id']%>');">
+											<title><%=sites[i]['title']%></title>
+										</actionButton>
+									<%}%>
+								<%}else{%>
+									<actionButton id="album_1" onSelect="sokuClient.play('<%=video['vcode']%>');">
+										<title>播放</title>
 									</actionButton>
 								<%}%>
 								<actionButton id="album_9" onSelect="appletv.addToFavorite('<%=video['title']%>','<%=video['pic']%>','<%=script%>');">

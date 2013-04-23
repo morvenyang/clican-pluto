@@ -102,7 +102,7 @@ var sokuClient = {
 									'<img', '>');
 							pic = appletv.substringByData(pic,'src="','"');
 							var title = appletv.substringByData(pack,'title="','"');
-							var id = 'http://www.soku.com/'+appletv.substringByData(pack, 'href="','"');
+							var id = 'http://www.soku.com'+appletv.substringByData(pack, 'href="','"');
 							var video = {
 								"title" : title,
 								"id" : id,
@@ -179,7 +179,7 @@ var sokuClient = {
 					}
 					categoryLabel = appletv.substringByData(categoryLis[j],'<a','</a>');
 					categoryLabel = appletv.subIndexString(categoryLabel,'>');
-					var categoryUrl = 'http://www.soku.com/'+appletv.substringByData(categoryLis[j],'href="','"');
+					var categoryUrl = 'http://www.soku.com'+appletv.substringByData(categoryLis[j],'href="','"');
 					var categoryValue={"categoryLabel":categoryLabel,"categoryUrl":categoryUrl,"select":select};
 					categoryValues.push(categoryValue);
 				}
@@ -226,27 +226,25 @@ var sokuClient = {
 		loadVideoPageByUrl: function(id){
 			var url = id;
 			appletv.makeRequest(url, function(htmlContent) {
-				var content = appletv.substringByTag(htmlContent,'<div class="detailinfo">','</div>','div');
-				var title = appletv.substringByData(content,'<h1>','</h1>');
-				var desc = appletv.substringByData(content,'<div class="intro">','</div>');
-				desc = appletv.substringByData(detail,'label>','<span').trim();
-				var actor = appletv.substringByData(content,'主演:','</span>');
+				var detail = appletv.substringByTag(htmlContent,'<div class="detailinfo">','</div>','div');
+				var title = appletv.substringByData(detail,'<h1>','</h1>');
+				var desc = appletv.substringByData(htmlContent,'<div class="intro">','</div>');
+				desc = appletv.substringByData(desc,'label>','<span').trim();
+				var actor = appletv.substringByData(detail,'主演:','</span>');
 				actor = appletv.getTextInTag(actor);
-				var dctor = appletv.substringByData(content,'导演:','</span>');
+				var dctor = appletv.substringByData(detail,'导演:','</span>');
 				dctor = appletv.getTextInTag(dctor);
-				var area = appletv.substringByData(content,'地区:','</span>');
+				var area = appletv.substringByData(detail,'地区:','</span>');
 				area = appletv.getTextInTag(area);
-				var score =appletv.substringByData(content,'<em class="num">','</em>');
-				var year = appletv.substringByData(content,'上映时间:','</span>');
+				var score =appletv.substringByData(detail,'<em class="num">','</em>');
+				var year = appletv.substringByData(detail,'上映时间:','</span>');
 				year = appletv.getTextInTag(year);
-				
 				var script = appletv.encode("sokuClient.loadVideoPageByUrl('"+id+"');");
-				var pic = appletv.substringByData(content,'<img','>');
+				var pic = appletv.substringByData(detail,'<img','>');
 				pic = appletv.substringByData(pic,'src="','"').trim();
 				var size = 1;
 				var sites = [];
-				
-				var siteContent = appletv.substringByTag(content,'<div class="source"','</div>','div');
+				var siteContent = appletv.substringByTag(htmlContent,'<div class="source"','</div>','div');
 				var siteSources = appletv.getSubValues(siteContent,'<li','</li>');
 				for(var i=0;i<siteSources.length;i++){
 					var stitle = appletv.substringByData(siteSources[i],'title="','"');
@@ -254,8 +252,10 @@ var sokuClient = {
 					var site = {"title":stitle,"id":sid};
 					sites.push(site);
 				}
-				var sitesItems = appletv.getSubValues(htmlContent,'<div class="linkpanels','</div>','div');
+				var sitesItems = appletv.getSubValues(htmlContent,'<div class=\'linkpanels','</div>','div');
+				appletv.logToServer('site size='+sites.length+','+sitesItems.length);
 				for(var i=0;i<sites.length;i++){
+					appletv.logToServer('site'+i);
 					var site = sites[i];
 					var siteItems = appletv.getSubValues(sitesItems[i],'<li','</li>');
 					var items = [];
@@ -268,6 +268,7 @@ var sokuClient = {
 					site['items']=items;
 					size = items.length;
 				}
+				appletv.logToServer('log6');
 				var video = {
 						'serverurl' : appletv.serverurl,
 						id: id,
@@ -286,12 +287,14 @@ var sokuClient = {
 						},
 						sites : sites
 					};
+				appletv.logToServer('log7');
 					appletv.setValue('clican.soku.video',video);
 					var xml = new EJS({
 						url : appletv.serverurl
-								+ '/template/soku/videoSearch.ejs'
+								+ '/template/soku/video.ejs'
 					}).render(video);
 					appletv.loadAndSwapXML(xml);
+					appletv.logToServer('log8');
 			});
 		},
 		
@@ -306,7 +309,7 @@ var sokuClient = {
 						break;
 					}
 				}
-				var v = {"title":video['title'],'pic':video['pic'],'items':items,'serverurl':appletv.serverurl};
+				var v = {'video':video['video'],'items':items,'serverurl':appletv.serverurl};
 				var xml = new EJS({
 					url : appletv.serverurl
 							+ '/template/soku/videoItems.ejs'
@@ -387,7 +390,7 @@ var sokuClient = {
 					appletv.logToServer('render video page');
 					var xml = new EJS({
 						url : appletv.serverurl
-								+ '/template/soku/video.ejs'
+								+ '/template/soku/videoSearch.ejs'
 					}).render(video);
 					appletv.loadAndSwapXML(xml);
 			});
@@ -532,6 +535,12 @@ var sokuClient = {
 				});
 			}else if(url.indexOf('tudou.com')!=-1){
 				tudouClient.loadVideoPage(url, '', false);
+			}else if(url.indexOf('youku.com')!=-1){
+				var s = url.indexOf('id_');
+				var e = url.indexOf('.html');
+				var vcode = url.substring(s+3,e);
+				var url = 'http://v.youku.com/player/getRealM3U8/vid/' + vcode + '/type/hd2/video.m3u8';
+				appletv.playM3u8(url, '');
 			}else{
 				appletv.showDialog('无法播放','');
 			}
