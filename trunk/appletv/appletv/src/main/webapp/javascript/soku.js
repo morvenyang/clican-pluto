@@ -243,7 +243,6 @@ var sokuClient = {
 				var script = appletv.encode("sokuClient.loadVideoPageByUrl('"+id+"');");
 				var pic = appletv.substringByData(content,'<img','>');
 				pic = appletv.substringByData(pic,'src="','"').trim();
-				var vcode;
 				var size = 1;
 				var sites = [];
 				
@@ -255,10 +254,22 @@ var sokuClient = {
 					var site = {"title":stitle,"id":sid};
 					sites.push(site);
 				}
-				
+				var sitesItems = appletv.getSubValues(htmlContent,'<div class="linkpanels','</div>','div');
+				for(var i=0;i<sites.length;i++){
+					var site = sites[i];
+					var siteItems = appletv.getSubValues(sitesItems[i],'<li','</li>');
+					var items = [];
+					for(var j=0;j<siteItems.length;j++){
+						var vurl = appletv.substringByData(siteItems[j],'href="','"');
+						var vtitle = '第'+(j+1)+'集';
+						var v = {"url":vurl,"title":vtitle};
+						items.push(v);
+					}
+					site['items']=items;
+					size = items.length;
+				}
 				var video = {
 						'serverurl' : appletv.serverurl,
-						album : album,
 						id: id,
 						script : script,
 						video : {
@@ -275,13 +286,34 @@ var sokuClient = {
 						},
 						sites : sites
 					};
-					appletv.logToServer('render video page');
+					appletv.setValue('clican.soku.video',video);
 					var xml = new EJS({
 						url : appletv.serverurl
-								+ '/template/soku/video.ejs'
+								+ '/template/soku/videoSearch.ejs'
 					}).render(video);
 					appletv.loadAndSwapXML(xml);
 			});
+		},
+		
+		loadItemsPageBySite : function (site){
+			appletv.showLoading();
+			appletv.getValue('clican.soku.video',function(video){
+				var items = video['sites'][0]['items'];
+				for(var i =0;i<video['sites'].length;i++){
+					var site = video['sites'][i];
+					if(site['id']==site){
+						items = site['items'];
+						break;
+					}
+				}
+				var v = {"title":video['title'],'pic':video['pic'],'items':items,'serverurl':appletv.serverurl};
+				var xml = new EJS({
+					url : appletv.serverurl
+							+ '/template/soku/videoItems.ejs'
+				}).render(v);
+				appletv.loadAndSwapXML(xml);
+			});
+		
 		},
 		
 		loadVideoPage : function(id,album,site) {
@@ -393,7 +425,7 @@ var sokuClient = {
 					};
 				var xml = new EJS({
 					url : appletv.serverurl
-							+ '/template/soku/videoItems.ejs'
+							+ '/template/soku/videoItemsSearch.ejs'
 				}).render(video);
 				appletv.loadAndSwapXML(xml);
 			});
