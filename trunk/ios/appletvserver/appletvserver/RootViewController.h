@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface RootViewController : UITabBarController{
+#import "ConfigViewController.h"
+@interface RootViewController : UITabBarController<ScriptRefreshDelegate>{
     
 }
 

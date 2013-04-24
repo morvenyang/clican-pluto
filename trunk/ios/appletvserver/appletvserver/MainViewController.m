@@ -18,6 +18,7 @@
     if (self) {
         self.title = @"首页";
         self.tabBarItem = [[[UITabBarItem alloc] initWithTitle:@"首页" image:nil tag:0] autorelease];
+        [[AppDele scriptRefreshDelegateArray] addObject:self];
     }
     return self;
 }
@@ -91,6 +92,20 @@
         self.tableView.delegate =self;
         _flags.isUpdatingView=NO;
         [self updateView];
+    }
+}
+-(void) refreshScript{
+    NSMutableArray* items = [NSMutableArray array];
+    NSArray* array = [AppDele.webContentSync loadLocalXml];
+    if(array.count!=0){
+        for(int i=0;i<array.count;i++){
+            IndexMenu* im = [array objectAtIndex:i];
+            TTTableTextItem* item = [TTTableTextItem itemWithText:im.title URL:im.onPlay];
+            [items addObject:item];
+        }
+        TTListDataSource* ds = [[[TTListDataSource alloc] initWithItems:items] autorelease];
+        self.dataSource = ds;
+        self.tableView.delegate =self;
     }
 }
 

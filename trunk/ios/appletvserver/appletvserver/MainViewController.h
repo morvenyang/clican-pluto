@@ -8,8 +8,8 @@
 
 #import <Three20/Three20.h>
 #import "MBProgressHUD.h"
-
-@interface MainViewController : TTTableViewController<UITableViewDelegate,MBProgressHUDDelegate>{
+#import "ConfigViewController.h"
+@interface MainViewController : TTTableViewController<UITableViewDelegate,MBProgressHUDDelegate,ScriptRefreshDelegate>{
     MBProgressHUD* _progressHUD;
 
 }

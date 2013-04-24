@@ -54,6 +54,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 @synthesize smbProcess = _smbProcess;
 @synthesize shareWeibo = _shareWeibo;
 @synthesize localMp3PathPrefix = _localMp3PathPrefix;
+@synthesize scriptRefreshDelegateArray = _scriptRefreshDelegateArray;
 - (void)dealloc
 {
     [super dealloc];
@@ -102,6 +103,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     self.smbProcess = [[SMBProcess alloc] init];
 }
 -(void) initEnvironment{
+    self.scriptRefreshDelegateArray = [NSMutableArray array];
     self.ipAddress = [AtvUtil getIPAddress];
     NSHTTPCookieStorage* cookieStorage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
     [cookieStorage setCookieAcceptPolicy:NSHTTPCookieAcceptPolicyAlways];
