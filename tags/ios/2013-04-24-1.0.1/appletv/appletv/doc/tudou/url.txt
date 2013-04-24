@@ -1,1 +1,0 @@
-curl -u "clican@gmail.com:810428" 'http://api.tudou.com/v3/gw?method=item.favor.get&appKey=0b078dbd69dc3b48'
