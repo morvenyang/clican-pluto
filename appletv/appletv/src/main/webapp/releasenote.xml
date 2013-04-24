@@ -9,6 +9,8 @@
 		<script src="http://www.clican.org/appletv/javascript/youku.js" />
 		<script src="http://www.clican.org/appletv/javascript/lbl.js" />
 		<script src="http://www.clican.org/appletv/javascript/fivesix.js" />
+		<script src="http://www.clican.org/appletv/javascript/tu.js" />
+		<script src="http://www.clican.org/appletv/javascript/soku.js" />
 	</head>
 	<body>
 		<scroller id="com.sample.movie-shelf">
@@ -18,6 +20,10 @@
 						<goldenPoster id="local" onSelect="appletv.loadLocalServerIndexPage();">
 							<image>http://www.clican.org/appletv/image/local.png</image>
 							<title>本地服务器</title>
+						</goldenPoster>
+						<goldenPoster id="soku" onSelect="sokuClient.loadIndexPage('',1,'tv');" onPlay="sokuClient.loadChannelPage();">
+							<image>http://www.clican.org/appletv/image/soku/soku.png</image>
+							<title>搜库</title>
 						</goldenPoster>
 						<goldenPoster id="youku" onSelect="youkuClient.loadIndexPage('',1,96);">
 							<image>http://www.clican.org/appletv/image/youku/youku.png</image>
@@ -43,6 +49,10 @@
 						<goldenPoster id="lbl" onSelect="lblClient.loadIndexPage('',1,'category/movie');">
 							<image>http://www.clican.org/appletv/image/lbl/lbl.png</image>
 							<title>龙部落</title>
+						</goldenPoster>
+						<goldenPoster id="native_tu" onSelect="tuClient.loadIndexPage('',1,15);" onPlay="tuClient.loadChannelPage();">
+							<image>http://www.clican.org/appletv/image/tu/tu.png</image>
+							<title>迅播影院</title>
 						</goldenPoster>
 						<goldenPoster id="baibian"
 							onSelect="atv.loadURL('http://www.clican.org/appletv/ctl/baibian/index.xml');">
