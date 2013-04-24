@@ -27,7 +27,7 @@
 							<image>http://local.clican.org/appletv/image/youku/youku.png</image>
 							<title>优库</title>
 						</goldenPoster>
-						<goldenPoster id="native_tudou"
+						<goldenPoster id="tudou"
 							onSelect="tudouClient.loadIndexPage('',1,30);" onPlay="tudouClient.loadChannelPage();">
 							<image>http://local.clican.org/appletv/image/tudou/tudou.png</image>
 							<title>土豆视频</title>
