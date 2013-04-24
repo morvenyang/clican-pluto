@@ -19,7 +19,7 @@
 			<items>
 				<grid id="grid_2" columnCount="4">
 					<items>
-						<goldenPoster id="soku" onSelect="sokuClient.loadIndexPage('',1,'tv');" onPlay="sokuClient.loadChannelPage();">
+						<goldenPoster id="native_soku" onSelect="sokuClient.loadIndexPage('',1,'tv');" onPlay="sokuClient.loadChannelPage();">
 							<image>http://local.clican.org/appletv/image/soku/soku.png</image>
 							<title>搜库</title>
 						</goldenPoster>
@@ -27,7 +27,7 @@
 							<image>http://local.clican.org/appletv/image/youku/youku.png</image>
 							<title>优库</title>
 						</goldenPoster>
-						<goldenPoster id="tudou"
+						<goldenPoster id="native_tudou"
 							onSelect="tudouClient.loadIndexPage('',1,30);" onPlay="tudouClient.loadChannelPage();">
 							<image>http://local.clican.org/appletv/image/tudou/tudou.png</image>
 							<title>土豆视频</title>
@@ -44,7 +44,7 @@
 							<image>http://local.clican.org/appletv/image/yyets/yyets.jpg</image>
 							<title>人人影视</title>
 						</goldenPoster>
-						<goldenPoster id="lbl" onSelect="lblClient.loadIndexPage('',1,'category/movie');" onPlay="lblClient.loadChannelPage();">
+						<goldenPoster id="native_lbl" onSelect="lblClient.loadIndexPage('',1,'category/movie');" onPlay="lblClient.loadChannelPage();">
 							<image>http://local.clican.org/appletv/image/lbl/lbl.png</image>
 							<title>龙部落</title>
 						</goldenPoster>
