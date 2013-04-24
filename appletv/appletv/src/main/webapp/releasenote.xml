@@ -21,7 +21,7 @@
 							<image>http://www.clican.org/appletv/image/local.png</image>
 							<title>本地服务器</title>
 						</goldenPoster>
-						<goldenPoster id="soku" onSelect="sokuClient.loadIndexPage('',1,'tv');" onPlay="sokuClient.loadChannelPage();">
+						<goldenPoster id="soku" onSelect="sokuClient.loadIndexPage('',1,'tv');">
 							<image>http://www.clican.org/appletv/image/soku/soku.png</image>
 							<title>搜库</title>
 						</goldenPoster>
@@ -50,7 +50,7 @@
 							<image>http://www.clican.org/appletv/image/lbl/lbl.png</image>
 							<title>龙部落</title>
 						</goldenPoster>
-						<goldenPoster id="native_tu" onSelect="tuClient.loadIndexPage('',1,15);" onPlay="tuClient.loadChannelPage();">
+						<goldenPoster id="native_tu" onSelect="tuClient.loadIndexPage('',1,15);">
 							<image>http://www.clican.org/appletv/image/tu/tu.png</image>
 							<title>迅播影院</title>
 						</goldenPoster>
