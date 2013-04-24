@@ -156,8 +156,20 @@ var fivesixClient = {
 	},
 	
 	loadChannelPage:function(){
+		var channels = [];
+		var originalChannels = fivesixClient.fivesixChannels;
+		if(appletv.isTVAndMovieEnable()){
+			channels = originalChannels;
+		}else{
+			for(var i=0;i<originalChannels.length;i++){
+				var channel = originalChannels[i];
+				if(channel.value!='dy'&&channel.value!='dsj'){
+					channels.push(channel);
+				}
+			}
+		}
 		var data = {
-				'channels' : fivesixClient.fivesixChannels,
+				'channels' : channels,
 				'serverurl' : appletv.serverurl
 			};
 		var templateEJS = new EJS({

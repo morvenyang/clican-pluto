@@ -184,8 +184,20 @@ var youkuClient = {
 	} ],
 	
 	loadChannelPage:function(){
+		var channels = [];
+		var originalChannels = youkuClient.youkuChannels;
+		if(appletv.isTVAndMovieEnable()){
+			channels = originalChannels;
+		}else{
+			for(var i=0;i<originalChannels.length;i++){
+				var channel = originalChannels[i];
+				if(channel.value!=97&&channel.value!=96){
+					channels.push(channel);
+				}
+			}
+		}
 		var data = {
-				'channels' : youkuClient.youkuChannels,
+				'channels' : channels,
 				'serverurl' : appletv.serverurl
 			};
 		var templateEJS = new EJS({

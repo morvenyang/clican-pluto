@@ -49,9 +49,6 @@ var tudouClient = {
 	}, {
 		label : "教育",
 		value : 25
-	}, {
-		label : "教育",
-		value : 24
 	} ],
 
 	tudouChannelMap : {
@@ -118,16 +115,24 @@ var tudouClient = {
 		"25" : {
 			label : "教育",
 			value : 25
-		},
-		"4" : {
-			label : "教育",
-			value : 24
 		}
 	},
 	
 	loadChannelPage:function(){
+		var channels = [];
+		var originalChannels = tudouClient.tudouChannels;
+		if(appletv.isTVAndMovieEnable()){
+			channels = originalChannels;
+		}else{
+			for(var i=0;i<originalChannels.length;i++){
+				var channel = originalChannels[i];
+				if(channel.value!=22&&channel.value!=30){
+					channels.push(channel);
+				}
+			}
+		}
 		var data = {
-				'channels' : tudouClient.tudouChannels,
+				'channels' : channels,
 				'serverurl' : appletv.serverurl
 			};
 		var templateEJS = new EJS({
