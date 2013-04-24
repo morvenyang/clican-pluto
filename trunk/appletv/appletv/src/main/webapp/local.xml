@@ -19,10 +19,10 @@
 			<items>
 				<grid id="grid_2" columnCount="4">
 					<items>
-						<!--goldenPoster id="native_soku" onSelect="sokuClient.loadIndexPage('',1,'tv');" onPlay="sokuClient.loadChannelPage();">
+						<goldenPoster id="soku" onSelect="sokuClient.loadIndexPage('',1,'tv');" onPlay="sokuClient.loadChannelPage();">
 							<image>http://local.clican.org/appletv/image/soku/soku.png</image>
 							<title>搜库</title>
-						</goldenPoster-->
+						</goldenPoster>
 						<goldenPoster id="native_youku" onSelect="youkuClient.loadIndexPage('',1,96);" onPlay="youkuClient.loadChannelPage();">
 							<image>http://local.clican.org/appletv/image/youku/youku.png</image>
 							<title>优库</title>
@@ -44,10 +44,10 @@
 							<image>http://local.clican.org/appletv/image/yyets/yyets.jpg</image>
 							<title>人人影视</title>
 						</goldenPoster>
-						<!--goldenPoster id="native_lbl" onSelect="lblClient.loadIndexPage('',1,'category/movie');" onPlay="lblClient.loadChannelPage();">
+						<goldenPoster id="lbl" onSelect="lblClient.loadIndexPage('',1,'category/movie');" onPlay="lblClient.loadChannelPage();">
 							<image>http://local.clican.org/appletv/image/lbl/lbl.png</image>
 							<title>龙部落</title>
-						</goldenPoster-->
+						</goldenPoster>
 						<goldenPoster id="native_tu" onSelect="tuClient.loadIndexPage('',1,15);" onPlay="tuClient.loadChannelPage();">
 							<image>http://local.clican.org/appletv/image/tu/tu.png</image>
 							<title>迅播影院</title>
