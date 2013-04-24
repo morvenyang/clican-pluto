@@ -946,14 +946,14 @@ var appletv = {
 	},
 	
 	isSMBEnable:function(){
-		return false;
+		return true;
 	},
 	
 	isShareEnable:function(){
-		return false;
+		return true;
 	},
 	
 	isTVAndMovieEnable:function(){
-		return false;
+		return true;
 	}
 };
