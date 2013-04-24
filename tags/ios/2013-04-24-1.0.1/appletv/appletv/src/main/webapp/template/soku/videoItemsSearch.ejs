@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<atv>
+<head>
+<script src="<%=serverurl%>/javascript/clican.js"/>
+<script src="<%=serverurl%>/javascript/ejs.js"/>
+<script src="<%=serverurl%>/javascript/soku.js"/>
+<script src="<%=serverurl%>/javascript/qq.js"/>
+<script src="<%=serverurl%>/javascript/tudou.js"/>
+</head>
+<body>
+		<listScrollerSplit id="bbbb">
+			<header>
+				<simpleHeader horizontalAlignment="left">
+					<title><![CDATA[<%=video['title']%>]]></title>
+					<image src="<%=video['pic']%>"></image>
+				</simpleHeader>
+			</header>
+			<menu>
+				<sections>
+					<menuSection>
+						<items>
+							<%for(var i=0;i<items.length;i++){%>
+								<%if(items[i]['vcode']!=null&&items[i]['vcode'].length>0){%>
+									<oneLineMenuItem id="albumItem_<%=i%>" onPlay="sokuClient.play('<%=items[i]['vcode']%>');" onSelect="sokuClient.play('<%=items[i]['vcode']%>');">
+										<label><%=items[i]['title']%></label>
+									</oneLineMenuItem>
+								<%}else if(items[i]['url']!=null&&items[i]['url'].length>0){%>
+									<oneLineMenuItem id="albumItem_<%=i%>" onPlay="sokuClient.openUrl('<%=items[i]['url']%>');" onSelect="sokuClient.openUrl('<%=items[i]['url']%>');">
+										<label><%=items[i]['title']%></label>
+									</oneLineMenuItem>
+								<%}else{%>
+									<oneLineMenuItem id="albumItem_<%=i%>" onPlay="appletv.showDialog('无法播放','');" onSelect="appletv.showDialog('无法播放','');">
+										<label><%=items[i]['title']%></label>
+									</oneLineMenuItem>
+								<%}%>
+							<%}%>
+						</items>
+					</menuSection>
+				</sections>
+			</menu>
+		</listScrollerSplit>
+	</body>
+</atv>

@@ -1,0 +1,20 @@
+{
+    "result":"success",
+    "message":"success",
+    "data":{
+        "orders":{
+            "b_20247326864":{
+                "divisionCode":"110000",
+                "cross":false,
+                "uid":"b_20247326864",
+                "isExtraItem":false,
+                "bundles":{
+                    
+                }
+            }
+        },
+        "promos":{
+            
+        }
+    }
+}

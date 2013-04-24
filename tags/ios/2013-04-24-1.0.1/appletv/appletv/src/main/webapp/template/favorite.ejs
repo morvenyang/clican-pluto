@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<atv>
+<head>
+<script src="<%=serverurl%>/javascript/clican.js"/>
+<script src="<%=serverurl%>/javascript/ejs.js"/>
+<script src="<%=serverurl%>/javascript/tudou.js"/>
+<script src="<%=serverurl%>/javascript/youku.js"/>
+<script src="<%=serverurl%>/javascript/yyets.js"/>
+<script src="<%=serverurl%>/javascript/qq.js"/>
+</head>
+<body>
+<scroller id="index">
+	<items>
+		<grid id="movieGrid" columnCount="6">
+			<items>
+				<%for(var i=0;i<videos.length;i++){%>		
+					<moviePoster id="shelf_item_<%=i%>" alwaysShowTitles="true" onSelect="<%=videos[i].script%>" onPlay="<%=videos[i].script%>" onHoldSelect="appletv.delFromFavorite(<%=i%>);">
+						<title><![CDATA[<%=videos[i].title%>]]></title>
+						<image><%=videos[i].pic%></image>
+						<defaultImage>resource://Poster.png</defaultImage>
+					</moviePoster>
+				<%}%>
+			</items>
+		</grid>
+	</items>
+</scroller>
+</body>
+</atv>
