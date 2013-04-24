@@ -42,8 +42,20 @@ var tuClient ={
 		}],
 		
 		loadChannelPage:function(){
+			var channels = [];
+			var originalChannels = tuClient.tuChannels;
+			if(appletv.isTVAndMovieEnable()){
+				channels = originalChannels;
+			}else{
+				for(var i=0;i<originalChannels.length;i++){
+					var channel = originalChannels[i];
+					if(channel.value!=16&&channel.value!=15){
+						channels.push(channel);
+					}
+				}
+			}
 			var data = {
-					'channels' : tuClient.tuChannels,
+					'channels' : channels,
 					'serverurl' : appletv.serverurl
 				};
 			var templateEJS = new EJS({
