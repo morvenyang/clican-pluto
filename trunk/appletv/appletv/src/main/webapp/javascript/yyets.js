@@ -8,9 +8,6 @@ var yyetsClient = {
 		label : "电视剧",
 		value : "tv"
 	}, {
-		label : "纪录片",
-		value : "documentary"
-	}, {
 		label : "公开课",
 		value : "openclass"
 	}, {
@@ -27,10 +24,6 @@ var yyetsClient = {
 			label : "电影",
 			value : "movie"
 		},
-		"documentary" : {
-			label : "纪录片",
-			value : "documentary"
-		},
 		"openclass" : {
 			label : "公开课",
 			value : "openclass"
@@ -42,8 +35,20 @@ var yyetsClient = {
 	},
 
 	loadChannelPage:function(){
+		var channels = [];
+		var originalChannels = yyetsClient.yyetsChannels;
+		if(appletv.isTVAndMovieEnable()){
+			channels = originalChannels;
+		}else{
+			for(var i=0;i<originalChannels.length;i++){
+				var channel = originalChannels[i];
+				if(channel.value!='tv'&&channel.value!='movie'){
+					channels.push(channel);
+				}
+			}
+		}
 		var data = {
-				'channels' : yyetsClient.yyetsChannels,
+				'channels' : channels,
 				'serverurl' : appletv.serverurl
 			};
 		var templateEJS = new EJS({

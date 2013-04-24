@@ -125,8 +125,20 @@ var qqClient = {
 	},
 	
 	loadChannelPage:function(){
+		var channels = [];
+		var originalChannels = qqClient.qqChannels;
+		if(appletv.isTVAndMovieEnable()){
+			channels = originalChannels;
+		}else{
+			for(var i=0;i<originalChannels.length;i++){
+				var channel = originalChannels[i];
+				if(channel.value!=15&&channel.value!=14&&channel.value!=48){
+					channels.push(channel);
+				}
+			}
+		}
 		var data = {
-				'channels' : qqClient.qqChannels,
+				'channels' : channels,
 				'serverurl' : appletv.serverurl
 			};
 		var templateEJS = new EJS({
