@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<atv xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="atv.xsd">
+<head>
+<script src="http://10.0.1.5/appletv/javascript/clican.js"/>
+<script src="http://10.0.1.5/appletv/javascript/ejs.js"/>
+<script src="http://10.0.1.5/appletv/javascript/lbl.js"/>
+</head>
+<body>
+<scroller id="com.sample.movie-shelf">
+	<items>
+		<shelf id="menu_bar">
+			<sections>
+				<shelfSection>
+					<items>
+						
+							
+								<moviePoster id="shelf_item_category/movie" alwaysShowTitles="true" featured="true" onSelect="lblClient.loadIndexPage('',1,'category/movie');" onPlay="lblClient.loadIndexPage('',1,'category/movie');">
+									<title>最新电影</title>
+									<defaultImage>resource://Poster.png</defaultImage>
+								</moviePoster>
+							
+						
+							
+								<moviePoster id="shelf_item_category/television" alwaysShowTitles="true" featured="true" onSelect="lblClient.loadIndexPage('',1,'category/television');" onPlay="lblClient.loadIndexPage('',1,'category/television');">
+									<title>最新电视</title>
+									<defaultImage>resource://Poster.png</defaultImage>
+								</moviePoster>
+							
+						
+							
+								<moviePoster id="shelf_item_category/movie/zxdh" alwaysShowTitles="true" featured="true" onSelect="lblClient.loadIndexPage('',1,'category/movie/zxdh');" onPlay="lblClient.loadIndexPage('',1,'category/movie/zxdh');">
+									<title>最新动画</title>
+									<defaultImage>resource://Poster.png</defaultImage>
+								</moviePoster>
+							
+						
+							
+								<moviePoster id="shelf_item_category/video" alwaysShowTitles="true" featured="true" onSelect="lblClient.loadIndexPage('',1,'category/video');" onPlay="lblClient.loadIndexPage('',1,'category/video');">
+									<title>综艺娱乐</title>
+									<defaultImage>resource://Poster.png</defaultImage>
+								</moviePoster>
+							
+						
+							
+								<moviePoster id="shelf_item_category/movie/dldy" alwaysShowTitles="true" featured="true" onSelect="lblClient.loadIndexPage('',1,'category/movie/dldy');" onPlay="lblClient.loadIndexPage('',1,'category/movie/dldy');">
+									<title>大陆电影</title>
+									<defaultImage>resource://Poster.png</defaultImage>
+								</moviePoster>
+							
+						
+							
+								<moviePoster id="shelf_item_category/movie/gtdy" alwaysShowTitles="true" featured="true" onSelect="lblClient.loadIndexPage('',1,'category/movie/gtdy');" onPlay="lblClient.loadIndexPage('',1,'category/movie/gtdy');">
+									<title>港台电影</title>
+									<defaultImage>resource://Poster.png</defaultImage>
+								</moviePoster>
+							
+						
+							
+								<moviePoster id="shelf_item_category/movie/rhdy" alwaysShowTitles="true" featured="true" onSelect="lblClient.loadIndexPage('',1,'category/movie/rhdy');" onPlay="lblClient.loadIndexPage('',1,'category/movie/rhdy');">
+									<title>日韩电影</title>
+									<defaultImage>resource://Poster.png</defaultImage>
+								</moviePoster>
+							
+						
+							
+								<moviePoster id="shelf_item_category/movie/omdy" alwaysShowTitles="true" featured="true" onSelect="lblClient.loadIndexPage('',1,'category/movie/omdy');" onPlay="lblClient.loadIndexPage('',1,'category/movie/omdy');">
+									<title>欧美电影</title>
+									<defaultImage>resource://Poster.png</defaultImage>
+								</moviePoster>
+							
+						
+							
+								<moviePoster id="shelf_item_category/television/dljj" alwaysShowTitles="true" featured="true" onSelect="lblClient.loadIndexPage('',1,'category/television/dljj');" onPlay="lblClient.loadIndexPage('',1,'category/television/dljj');">
+									<title>大陆剧集</title>
+									<defaultImage>resource://Poster.png</defaultImage>
+								</moviePoster>
+							
+						
+							
+								<moviePoster id="shelf_item_category/television/gtjj" alwaysShowTitles="true" featured="true" onSelect="lblClient.loadIndexPage('',1,'category/television/gtjj');" onPlay="lblClient.loadIndexPage('',1,'category/television/gtjj');">
+									<title>港台剧集</title>
+									<defaultImage>resource://Poster.png</defaultImage>
+								</moviePoster>
+							
+						
+							
+								<moviePoster id="shelf_item_category/television/omjj" alwaysShowTitles="true" featured="true" onSelect="lblClient.loadIndexPage('',1,'category/television/omjj');" onPlay="lblClient.loadIndexPage('',1,'category/television/omjj');">
+									<title>欧美剧集</title>
+									<defaultImage>resource://Poster.png</defaultImage>
+								</moviePoster>
+							
+						
+							
+								<moviePoster id="shelf_item_category/television/rhjj" alwaysShowTitles="true" featured="true" onSelect="lblClient.loadIndexPage('',1,'category/television/rhjj');" onPlay="lblClient.loadIndexPage('',1,'category/television/rhjj');">
+									<title>日韩剧集</title>
+									<defaultImage>resource://Poster.png</defaultImage>
+								</moviePoster>
+							
+						
+					</items>
+				</shelfSection>
+			</sections>
+		</shelf>
+		<grid id="grid_1" columnCount="12">
+			<items>
+				<actionButton id="shelf_item_first_page" onSelect="lblClient.loadIndexPage('',1,'category/movie');" onPlay="lblClient.loadIndexPage('',1,'category/movie');">
+					<title>第一页</title>
+				</actionButton>
+				
+					<actionButton id="shelf_item_1_page" onSelect="lblClient.loadIndexPage('',1,'category/movie');" onPlay="lblClient.loadIndexPage('',1,'category/movie');">
+						<title>1</title>
+					</actionButton>
+				
+					<actionButton id="shelf_item_2_page" onSelect="lblClient.loadIndexPage('',2,'category/movie');" onPlay="lblClient.loadIndexPage('',2,'category/movie');">
+						<title>2</title>
+					</actionButton>
+				
+					<actionButton id="shelf_item_3_page" onSelect="lblClient.loadIndexPage('',3,'category/movie');" onPlay="lblClient.loadIndexPage('',3,'category/movie');">
+						<title>3</title>
+					</actionButton>
+				
+					<actionButton id="shelf_item_4_page" onSelect="lblClient.loadIndexPage('',4,'category/movie');" onPlay="lblClient.loadIndexPage('',4,'category/movie');">
+						<title>4</title>
+					</actionButton>
+				
+					<actionButton id="shelf_item_5_page" onSelect="lblClient.loadIndexPage('',5,'category/movie');" onPlay="lblClient.loadIndexPage('',5,'category/movie');">
+						<title>5</title>
+					</actionButton>
+				
+					<actionButton id="shelf_item_6_page" onSelect="lblClient.loadIndexPage('',6,'category/movie');" onPlay="lblClient.loadIndexPage('',6,'category/movie');">
+						<title>6</title>
+					</actionButton>
+				
+					<actionButton id="shelf_item_7_page" onSelect="lblClient.loadIndexPage('',7,'category/movie');" onPlay="lblClient.loadIndexPage('',7,'category/movie');">
+						<title>7</title>
+					</actionButton>
+				
+					<actionButton id="shelf_item_8_page" onSelect="lblClient.loadIndexPage('',8,'category/movie');" onPlay="lblClient.loadIndexPage('',8,'category/movie');">
+						<title>8</title>
+					</actionButton>
+				
+					<actionButton id="shelf_item_9_page" onSelect="lblClient.loadIndexPage('',9,'category/movie');" onPlay="lblClient.loadIndexPage('',9,'category/movie');">
+						<title>9</title>
+					</actionButton>
+				
+				<actionButton id="shelf_item_last_page" onSelect="lblClient.loadIndexPage('',99,'category/movie');" onPlay="lblClient.loadIndexPage('',99,'category/movie');">
+					<title>最后页</title>
+				</actionButton>
+			</items>
+		</grid>
+		<grid id="grid_2" columnCount="6">
+			<items>
+					
+					<moviePoster id="shelf_item_0" alwaysShowTitles="true" onSelect="lblClient.loadVideoPage('http://www.longbuluo.com/movie/34219.html');">
+						<title><![CDATA[《卖梦的两人》高清迅雷下载]]></title>
+						<image>http://img.lbldy.com/image/2013/03/7f5b651e4305_14334/9be9fb6fa048bbe7d2ca798f3c656c01.jpg</image>
+						<defaultImage>resource://Poster.png</defaultImage>
+					</moviePoster>
+					
+					<moviePoster id="shelf_item_1" alwaysShowTitles="true" onSelect="lblClient.loadVideoPage('http://www.longbuluo.com/movie/34190.html');">
+						<title><![CDATA[《少女洛荷》高清迅雷下载]]></title>
+						<image>http://img.lbldy.com/image/2013/03/0d93b873244f_40E/173223716201303151148292314042840208_004.jpg</image>
+						<defaultImage>resource://Poster.png</defaultImage>
+					</moviePoster>
+					
+					<moviePoster id="shelf_item_2" alwaysShowTitles="true" onSelect="lblClient.loadVideoPage('http://www.longbuluo.com/movie/34191.html');">
+						<title><![CDATA[《黄铜茶壶》高清迅雷下载]]></title>
+						<image>http://img.lbldy.com/image/2013/03/c22a36a2a57c_337/173223716201303151109462202362089555_006.jpg</image>
+						<defaultImage>resource://Poster.png</defaultImage>
+					</moviePoster>
+					
+					<moviePoster id="shelf_item_3" alwaysShowTitles="true" onSelect="lblClient.loadVideoPage('http://www.longbuluo.com/movie/26758.html');">
+						<title><![CDATA[美国传记《大河恋》高清迅雷下载]]></title>
+						<image>http://img.lbldy.com/image/2012/07/17DB862BB8CF30CE344DBDD231805E6F.jpg</image>
+						<defaultImage>resource://Poster.png</defaultImage>
+					</moviePoster>
+					
+					<moviePoster id="shelf_item_4" alwaysShowTitles="true" onSelect="lblClient.loadVideoPage('http://www.longbuluo.com/movie/17385.html');">
+						<title><![CDATA[《爱到底》高清迅雷下载]]></title>
+						<image>http://img.lbldy.com/image/2011/08/moviepic_093e64f1fd4d70995ce8dbdd2c2fa3df.jpg</image>
+						<defaultImage>resource://Poster.png</defaultImage>
+					</moviePoster>
+					
+					<moviePoster id="shelf_item_5" alwaysShowTitles="true" onSelect="lblClient.loadVideoPage('http://www.longbuluo.com/movie/17375.html');">
+						<title><![CDATA[《谍影重重1-3》高清迅雷下载]]></title>
+						<image>http://img.lbldy.com/image/2011/08/moviepic_d2c3dec154e31225efca5aed084aaaa1.jpg</image>
+						<defaultImage>resource://Poster.png</defaultImage>
+					</moviePoster>
+					
+					<moviePoster id="shelf_item_6" alwaysShowTitles="true" onSelect="lblClient.loadVideoPage('http://www.longbuluo.com/movie/15923.html');">
+						<title><![CDATA[《虎胆龙威1-4》高清迅雷下载]]></title>
+						<image>http://img.lbldy.com/image/2011/06/c6b00c8189c01b2b874c7348ef09cfe6.jpg</image>
+						<defaultImage>resource://Poster.png</defaultImage>
+					</moviePoster>
+					
+					<moviePoster id="shelf_item_7" alwaysShowTitles="true" onSelect="lblClient.loadVideoPage('http://www.longbuluo.com/movie/25118.html');">
+						<title><![CDATA[《仙女/爱上仙女的男人》高清迅雷下载]]></title>
+						<image>http://img.lbldy.com/image/2012/05/00ghderhe074.jpg</image>
+						<defaultImage>resource://Poster.png</defaultImage>
+					</moviePoster>
+					
+					<moviePoster id="shelf_item_8" alwaysShowTitles="true" onSelect="lblClient.loadVideoPage('http://www.longbuluo.com/movie/33597.html');">
+						<title><![CDATA[《觅迹寻踪》高清迅雷下载]]></title>
+						<image>http://img.lbldy.com/image/2013/02/44f0587de727_13F50/173223716201302241433053212960323534_005.jpg</image>
+						<defaultImage>resource://Poster.png</defaultImage>
+					</moviePoster>
+					
+					<moviePoster id="shelf_item_9" alwaysShowTitles="true" onSelect="lblClient.loadVideoPage('http://www.longbuluo.com/movie/33574.html');">
+						<title><![CDATA[《活跳尸/炸尸者》高清迅雷下载]]></title>
+						<image>http://img.lbldy.com/image/2013/02/dffe1fee3f22_12655/5658246920130221222109056.jpg</image>
+						<defaultImage>resource://Poster.png</defaultImage>
+					</moviePoster>
+					
+					<moviePoster id="shelf_item_10" alwaysShowTitles="true" onSelect="lblClient.loadVideoPage('http://www.longbuluo.com/movie/34192.html');">
+						<title><![CDATA[《刺杀林肯》高清迅雷下载]]></title>
+						<image>http://img.lbldy.com/image/2013/03/f9afed22fbae_24C/173223716201303150048568724445514886_001.jpg</image>
+						<defaultImage>resource://Poster.png</defaultImage>
+					</moviePoster>
+					
+					<moviePoster id="shelf_item_11" alwaysShowTitles="true" onSelect="lblClient.loadVideoPage('http://www.longbuluo.com/movie/33763.html');">
+						<title><![CDATA[《大丈夫日记》高清迅雷下载]]></title>
+						<image>http://img.lbldy.com/image/2013/03/d827dc1f5b90_130F2/yF4Td1lB.jpg</image>
+						<defaultImage>resource://Poster.png</defaultImage>
+					</moviePoster>
+					
+					<moviePoster id="shelf_item_12" alwaysShowTitles="true" onSelect="lblClient.loadVideoPage('http://www.longbuluo.com/movie/34272.html');">
+						<title><![CDATA[《熊的传说》高清迅雷下载]]></title>
+						<image>http://img.lbldy.com/image/2013/03/69f8657da4e5_141D1/00089.jpg</image>
+						<defaultImage>resource://Poster.png</defaultImage>
+					</moviePoster>
+					
+					<moviePoster id="shelf_item_13" alwaysShowTitles="true" onSelect="lblClient.loadVideoPage('http://www.longbuluo.com/movie/34193.html');">
+						<title><![CDATA[《拼贴幸福/残破》迅雷下载]]></title>
+						<image>http://img.lbldy.com/image/2013/03/77c15ade8d21_170/173223716201303141647204287268951243_004.jpg</image>
+						<defaultImage>resource://Poster.png</defaultImage>
+					</moviePoster>
+					
+					<moviePoster id="shelf_item_14" alwaysShowTitles="true" onSelect="lblClient.loadVideoPage('http://www.longbuluo.com/movie/34194.html');">
+						<title><![CDATA[《爪哇盗火线》高清迅雷下载]]></title>
+						<image>http://img.lbldy.com/image/2013/03/ded0d225a88f_99/173223716201303140814029470777403632_004.jpg</image>
+						<defaultImage>resource://Poster.png</defaultImage>
+					</moviePoster>
+				
+			</items>
+		</grid>
+		<grid id="grid_3" columnCount="12">
+			<items>
+				<actionButton id="shelf_item_first_page" onSelect="lblClient.loadIndexPage('',1,'category/movie');" onPlay="lblClient.loadIndexPage('',1,'category/movie');">
+					<title>第一页</title>
+				</actionButton>
+				
+					<actionButton id="shelf_item_1_page" onSelect="lblClient.loadIndexPage('',1,'category/movie');" onPlay="lblClient.loadIndexPage('',1,'category/movie');">
+						<title>1</title>
+					</actionButton>
+				
+					<actionButton id="shelf_item_2_page" onSelect="lblClient.loadIndexPage('',2,'category/movie');" onPlay="lblClient.loadIndexPage('',2,'category/movie');">
+						<title>2</title>
+					</actionButton>
+				
+					<actionButton id="shelf_item_3_page" onSelect="lblClient.loadIndexPage('',3,'category/movie');" onPlay="lblClient.loadIndexPage('',3,'category/movie');">
+						<title>3</title>
+					</actionButton>
+				
+					<actionButton id="shelf_item_4_page" onSelect="lblClient.loadIndexPage('',4,'category/movie');" onPlay="lblClient.loadIndexPage('',4,'category/movie');">
+						<title>4</title>
+					</actionButton>
+				
+					<actionButton id="shelf_item_5_page" onSelect="lblClient.loadIndexPage('',5,'category/movie');" onPlay="lblClient.loadIndexPage('',5,'category/movie');">
+						<title>5</title>
+					</actionButton>
+				
+					<actionButton id="shelf_item_6_page" onSelect="lblClient.loadIndexPage('',6,'category/movie');" onPlay="lblClient.loadIndexPage('',6,'category/movie');">
+						<title>6</title>
+					</actionButton>
+				
+					<actionButton id="shelf_item_7_page" onSelect="lblClient.loadIndexPage('',7,'category/movie');" onPlay="lblClient.loadIndexPage('',7,'category/movie');">
+						<title>7</title>
+					</actionButton>
+				
+					<actionButton id="shelf_item_8_page" onSelect="lblClient.loadIndexPage('',8,'category/movie');" onPlay="lblClient.loadIndexPage('',8,'category/movie');">
+						<title>8</title>
+					</actionButton>
+				
+					<actionButton id="shelf_item_9_page" onSelect="lblClient.loadIndexPage('',9,'category/movie');" onPlay="lblClient.loadIndexPage('',9,'category/movie');">
+						<title>9</title>
+					</actionButton>
+				
+				<actionButton id="shelf_item_last_page" onSelect="lblClient.loadIndexPage('',99,'category/movie');" onPlay="lblClient.loadIndexPage('',99,'category/movie');">
+					<title>最后页</title>
+				</actionButton>
+			</items>
+		</grid>
+	</items>
+</scroller>
+</body>
+</atv>

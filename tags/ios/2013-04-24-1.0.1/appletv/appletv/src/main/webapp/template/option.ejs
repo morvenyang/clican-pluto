@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<atv>
+<head>
+<script src="<%=serverurl%>/javascript/clican.js"/>
+<script src="<%=serverurl%>/javascript/ejs.js"/>
+<script src="<%=serverurl%>/javascript/xunlei.js"/>
+</head>
+  <body>
+    <optionDialog id="od">
+        <header>
+            <simpleHeader>
+                <title><%=title%></title>
+                <subtitle><%=desc%></subtitle>
+            </simpleHeader>
+        </header>
+        <menu>
+            <sections>
+                <menuSection>
+                    <items>
+                    	<%for(var i=0;i<options.length;i++){%>
+                        <oneLineMenuItem id="op_<%=i%>" onSelect="<%=options[i]['script']%>">
+                            <label><%=options[i]['title']%></label>
+                        </oneLineMenuItem>
+                        <%}%>
+                    </items>
+                </menuSection>
+            </sections>
+        </menu>
+    </optionDialog>
+  </body>
+</atv>

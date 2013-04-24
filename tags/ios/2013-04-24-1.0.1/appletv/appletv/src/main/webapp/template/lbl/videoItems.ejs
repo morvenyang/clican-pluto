@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<atv>
+<head>
+<script src="<%=serverurl%>/javascript/clican.js"/>
+<script src="<%=serverurl%>/javascript/ejs.js"/>
+<script src="<%=serverurl%>/javascript/lbl.js"/>
+<script src="<%=serverurl%>/javascript/xunlei.js"/>
+</head>
+<body>
+		<listWithPreview id="bbbb">
+			<header>
+				<simpleHeader horizontalAlignment="right">
+					<title><![CDATA[<%=video['title']%>]]></title>
+				</simpleHeader>
+			</header>
+			<menu>
+				<sections>
+					<menuSection>
+						<items>
+							<%for(var i=0;i<items.length;i++){%>
+								<oneLineMenuItem id="albumItem_<%=i%>" onPlay="lblClient.play('<%=items[i]['id']%>','<%=items[i]['encodetitle']%>');" onSelect="lblClient.play('<%=items[i]['id']%>','<%=items[i]['encodetitle']%>');">
+									<label><%=items[i]['title']%></label>
+									<preview>
+										<longDescriptionPreview>
+									         <title><![CDATA[<%=items[i]['title']%>]]></title>
+									         <summary><![CDATA[<%=items[i]['title']%>]]></summary>
+									         <image src="<%=video['pic']%>"></image>
+									    </longDescriptionPreview>
+									</preview>
+								</oneLineMenuItem>
+							<%}%>
+						</items>
+					</menuSection>
+				</sections>
+			</menu>
+		</listWithPreview>
+	</body>
+</atv>
