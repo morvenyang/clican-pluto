@@ -106,6 +106,10 @@
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     [[AppDele webContentSync] syncWebContent:self.progressHUD force:YES];
     [[AppDele jsEngine] reloadJS];
+    for(int i=0;i<[AppDele scriptRefreshDelegateArray].count;i++){
+        id<ScriptRefreshDelegate> scriptRefreshDelegate = [[AppDele scriptRefreshDelegateArray] objectAtIndex:i];
+        [scriptRefreshDelegate refreshScript];
+    }
     [self.progressHUD hide:YES];
     [pool release];
 }

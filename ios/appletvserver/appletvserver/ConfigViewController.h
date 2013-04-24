@@ -26,3 +26,10 @@
 @property (nonatomic, retain) UITextField *atvDeviceIdField;
 @property (nonatomic, retain) TTTableStyledTextItem* xunleiStatusItem;
 @end
+
+
+@protocol ScriptRefreshDelegate <NSObject>
+
+- (void)refreshScript;
+
+@end

@@ -60,6 +60,7 @@
     SMBProcess* _smbProcess;
     NSString* _shareWeibo;
     NSString* _localMp3PathPrefix;
+    NSMutableArray* _scriptRefreshDelegateArray;
 }
 
 @property (nonatomic, retain) ASINetworkQueue* queue;
@@ -89,7 +90,7 @@
 @property (nonatomic, retain) SMBProcess* smbProcess;
 @property (nonatomic, copy) NSString* shareWeibo;
 @property (nonatomic, copy) NSString* localMp3PathPrefix;
-
+@property (nonatomic, retain) NSMutableArray* scriptRefreshDelegateArray;
 -(void) initProcess;
 
 @end
