@@ -30,7 +30,7 @@ public class LblClientImpl extends BaseClient implements LblClient {
 		}
 		InputStream is = null;
 		try {
-			File file = new File(springProperty.getWeiboTokenFile());
+			File file = new File(springProperty.getLblImageMapFile());
 			if (!file.exists()) {
 				return;
 			}
@@ -63,11 +63,11 @@ public class LblClientImpl extends BaseClient implements LblClient {
 		}
 		OutputStream os = null;
 		try {
-			File file = new File(springProperty.getWeiboTokenFile());
+			File file = new File(springProperty.getLblImageMapFile());
 			if (file.exists()) {
 				file.delete();
 			}
-			os = new FileOutputStream(springProperty.getWeiboTokenFile());
+			os = new FileOutputStream(springProperty.getLblImageMapFile());
 			for (String key : imageMap.keySet()) {
 				String entry = key + "=" + imageMap.get(key) + "\n";
 				os.write(entry.getBytes("utf-8"));
