@@ -7,7 +7,7 @@ var smbClient = {
 			}
 			
 			appletv.makeRequest(url,function(result){
-				if(result==null||result.length==0){
+				if(result==null||result.length==0||result=='null'){
 					appletv.showDialog('没有相关内容','');
 					return;
 				}
