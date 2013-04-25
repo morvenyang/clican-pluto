@@ -567,7 +567,11 @@
         BOOL search = NO;
         if([tti.text isEqualToString:@"更多"]){
             self.append = YES;
-            _lastLines = self.videos.count/AppDele.videoSizePerLine+self.videos.count%AppDele.videoSizePerLine-1;
+            int remain = 1;
+            if(self.videos.count%AppDele.videoSizePerLine==0){
+                remain = 0;
+            }
+            _lastLines = self.videos.count/AppDele.videoSizePerLine+remain-1;
         }else if([tti.text isEqualToString:@"搜索"]){
             search = YES;
         }
