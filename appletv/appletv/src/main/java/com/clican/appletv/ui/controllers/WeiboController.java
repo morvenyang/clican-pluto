@@ -89,10 +89,10 @@ public class WeiboController {
 	public String callback(HttpServletRequest request,
 			HttpServletResponse response,
 			@RequestParam(value = "code", required = false) String code,
-			@RequestParam(value = "deviceId", required = false) String deviceId)
+			@RequestParam(value = "state", required = false) String deviceId)
 			throws Exception {
 		if (log.isDebugEnabled()) {
-			log.debug("code=" + code);
+			log.debug("code=" + code+",state="+deviceId);
 		}
 		String accessToken = new Oauth().getAccessTokenByCode(code)
 				.getAccessToken();
@@ -161,13 +161,7 @@ public class WeiboController {
 			}
 			return "weibo/profile";
 		} else {
-			String weiboLoginURL = springProperty.getWeiboLoginURL();
-			int start = weiboLoginURL.indexOf("redirect_uri=");
-			int end = weiboLoginURL.indexOf("&", start);
-			String replaceContent = weiboLoginURL.substring(start, end);
-			weiboLoginURL = weiboLoginURL.replace(replaceContent,
-					"redirect_uri=" + springProperty.getWeiboRedirectURL()
-							+ "?deviceId=" + deviceId);
+			String weiboLoginURL = springProperty.getWeiboLoginURL()+"&state="+deviceId;
 			if(log.isDebugEnabled()){
 				log.debug(weiboLoginURL);
 			}
