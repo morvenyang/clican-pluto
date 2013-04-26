@@ -972,6 +972,7 @@ try {
 				var name = urls[i];
 				var value = atv.localStorage[name];
 				if (value == null || value.length == 0) {
+					var url = appletv.serverurl + '/javascript/'+name;
 					var xhr = new XMLHttpRequest();
 					xhr.open("GET", url, false);
 					xhr.send();
