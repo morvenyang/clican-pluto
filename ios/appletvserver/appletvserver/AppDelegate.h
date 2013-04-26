@@ -61,6 +61,7 @@
     NSString* _shareWeibo;
     NSString* _localMp3PathPrefix;
     NSMutableArray* _scriptRefreshDelegateArray;
+    BOOL _proxy;
 }
 
 @property (nonatomic, retain) ASINetworkQueue* queue;
@@ -91,6 +92,7 @@
 @property (nonatomic, copy) NSString* shareWeibo;
 @property (nonatomic, copy) NSString* localMp3PathPrefix;
 @property (nonatomic, retain) NSMutableArray* scriptRefreshDelegateArray;
+@property (nonatomic, assign) BOOL proxy;
 -(void) initProcess;
 
 @end
