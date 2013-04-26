@@ -121,9 +121,13 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
 }
 - (NSObject<HTTPResponse> *) handleM3u8Play:(NSString*) path{
     NSString* m3u8Url = [[self parseGetParams] objectForKey:@"url"];
+    NSString* simulate = @"atv";
+    if([request.url.host rangeOfString:@"localhost"].location!=NSNotFound){
+        simulate = @"native";
+    }
     NSLog(@"m3u8 url:%@",m3u8Url);
     [ProcessManager changeRunningProcess:@"m3u8"];
-    NSString* localM3u8String = [[AppDele m3u8Process] doSyncRequestByM3U8Url:m3u8Url start:YES];
+    NSString* localM3u8String = [[AppDele m3u8Process] doSyncRequestByM3U8Url:m3u8Url simulate:simulate start:YES];
     NSLog(@"%@",localM3u8String);
     if(localM3u8String!=nil){
         NSData *data = [localM3u8String dataUsingEncoding:NSUTF8StringEncoding];
@@ -136,6 +140,10 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
 - (NSObject<HTTPResponse> *) handleProxyTempM3u8:(NSString*) path{
     NSString* m3u8Url = [[self parseGetParams] objectForKey:@"m3u8Url"];
     NSLog(@"m3u8Url=%@",m3u8Url);
+    NSString* simulate = @"atv";
+    if([request.url.host rangeOfString:@"localhost"].location!=NSNotFound){
+        simulate = @"native";
+    }
     
     NSRange range = [path rangeOfString:@"?"];
     path = [path substringWithRange:NSMakeRange(0, range.location)];
@@ -143,7 +151,7 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
     
     if([[AppDele m3u8Process] m3u8Url]==nil||![[[AppDele m3u8Process] m3u8Url] isEqualToString:m3u8Url]){
         NSLog(@"m3u8Url is changed, we must reprocess it");
-        [[AppDele m3u8Process] doSyncRequestByM3U8Url:m3u8Url start:NO];
+        [[AppDele m3u8Process] doSyncRequestByM3U8Url:m3u8Url simulate:simulate start:NO];
         [[AppDele m3u8Process] seekDownloadLine:localPath];
         [[AppDele m3u8Process] start];
     }

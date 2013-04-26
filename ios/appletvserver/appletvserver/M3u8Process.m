@@ -36,7 +36,7 @@
     TT_RELEASE_SAFELY(_m3u8String);
     [super dealloc];
 }
--(NSString*) doSyncRequestByM3U8Url:(NSString*) url start:(BOOL) start{
+-(NSString*) doSyncRequestByM3U8Url:(NSString*) url simulate:(NSString *)simulate start:(BOOL) start{
     if(self.m3u8Url==nil||![self.m3u8Url isEqualToString:url]){
         self.m3u8Url = url;
         NSRange lastSlahRange = [url rangeOfString:@"/" options:NSBackwardsSearch];
@@ -69,7 +69,11 @@
                     //NSLog(@"line:%@",line);
                     M3u8DownloadLine* m3u8DownloadLine = [[[M3u8DownloadLine alloc] init] autorelease];
                     m3u8DownloadLine.originalUrl = line;
-                    m3u8DownloadLine.localUrl = [[AppDele localM3u8UrlPrefix] stringByAppendingFormat:@"%i.ts",j];
+                    if([simulate isEqualToString:@"native"]){
+                         m3u8DownloadLine.localUrl = [[AppDele localNativeM3u8UrlPrefix] stringByAppendingFormat:@"%i.ts",j];
+                    }else{
+                        m3u8DownloadLine.localUrl = [[AppDele localM3u8UrlPrefix] stringByAppendingFormat:@"%i.ts",j];
+                    }
                     
                     m3u8DownloadLine.localPath = [[AppDele localM3u8PathPrefix] stringByAppendingFormat:@"%i.ts",j];
                     [m3u8DownloadLines addObject:m3u8DownloadLine];
