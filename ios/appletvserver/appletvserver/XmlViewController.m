@@ -98,10 +98,10 @@
         for(int i=0;i<[bodyElement childCount];i++){
             CXMLNode* node = [bodyElement childAtIndex:i];
             if([[node name] isEqualToString:@"listScrollerSplit"]){
-                [self displayListScrollerSplit:node];
+                [self performSelectorOnMainThread:@selector(displayListScrollerSplit:) withObject:node waitUntilDone:YES];
                 break;
             }if([[node name] isEqualToString:@"listWithPreview"]){
-                [self displayListScrollerSplit:node];
+                [self performSelectorOnMainThread:@selector(displayListScrollerSplit:) withObject:node waitUntilDone:YES];
                 break;
             }else if([[node name] isEqualToString:@"scroller"]){
                 [self performSelectorOnMainThread:@selector(appendVideos:) withObject:node waitUntilDone:YES];
