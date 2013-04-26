@@ -357,7 +357,12 @@ JSValueRef loadURL(JSContextRef ctx,
        
         
         if([jsPath rangeOfString:@"clican.js"].location!=NSNotFound){
-            NSString* ipAddress = @"localhost:8080";
+            NSString* ipAddress;
+            if(AppDele.proxy){
+                ipAddress= @"localhost:8080";
+            }else{
+                ipAddress= [AppDele.ipAddress stringByAppendingString:@"8080"];
+            }
             
             NSRange matchRange1 = [jsContent rangeOfString:@"local.clican.org"];
             NSRange matchRange2 = [jsContent rangeOfString:@"/appletv"];
