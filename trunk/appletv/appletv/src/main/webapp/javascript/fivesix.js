@@ -191,7 +191,7 @@ var fivesixClient = {
 			}else{
 				var start = queryUrl.indexOf('page-');
 				if(start>=0){
-					start = start+1;
+					start = start+5;
 					queryUrl = queryUrl.substring(0,start)+page+'.html';
 				}
 			}
