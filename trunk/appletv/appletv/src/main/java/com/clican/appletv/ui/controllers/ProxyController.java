@@ -34,6 +34,14 @@ public class ProxyController {
 	@Autowired
 	private ProxyClient proxyClient;
 
+	@RequestMapping("/proxy/updateVersion.do")
+	public void updateVersion(HttpServletRequest request,
+			HttpServletResponse response,
+			@RequestParam(value = "version", required = true) String version)
+			throws Exception {
+		springProperty.setSystemVersion(version);
+	}
+
 	@RequestMapping("/proxy/play.m3u8")
 	public void playM3u8(HttpServletRequest request,
 			HttpServletResponse response,
@@ -132,12 +140,14 @@ public class ProxyController {
 		if (srcFile.isDirectory()) {
 			for (String fileName : srcFile.list()) {
 				if (fileName.equals("WEB-INF") || fileName.equals("jsp")
-						|| fileName.contains(".svn")||fileName.equals("sync.zip")||fileName.endsWith(".mkv")) {
+						|| fileName.contains(".svn")
+						|| fileName.equals("sync.zip")
+						|| fileName.endsWith(".mkv")) {
 					continue;
 				}
 				addToZip("", fileToZip + "/" + fileName, zipOut);
 			}
-		} else{
+		} else {
 			addToZip("", fileToZip, zipOut);
 		}
 		zipOut.flush();
@@ -151,7 +161,7 @@ public class ProxyController {
 				+ file.getName();
 		if (file.isDirectory()) {
 			for (String fileName : file.list()) {
-				if(fileName.contains(".svn")){
+				if (fileName.contains(".svn")) {
 					continue;
 				}
 				addToZip(filePath, srcFile + "/" + fileName, zipOut);
