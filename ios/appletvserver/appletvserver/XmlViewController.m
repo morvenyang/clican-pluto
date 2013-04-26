@@ -117,7 +117,6 @@
                 break;
             }else if([[node name] isEqualToString:@"videoPlayer"]){
                 [self performSelectorOnMainThread:@selector(playVideo:) withObject:node waitUntilDone:YES];
-                _reloadView=YES;
                 break;
             }else if([[node name] isEqualToString:@"listByNavigation"]){
                 [self displayListByNavigation:node];
@@ -132,7 +131,6 @@
     }
 }
 -(void)playVideo:(CXMLNode*) node{
-    _reloadView = YES;
     NSString* mediaUrl = [[node nodeForXPath:@"httpLiveStreamingVideoAsset/mediaURL" error:nil] stringValue];
     NSLog(@"mediaUrl:%@",mediaUrl);
     self.playerViewController = [[[MPMoviePlayerViewController alloc] initWithContentURL:[NSURL URLWithString:mediaUrl]] autorelease];
