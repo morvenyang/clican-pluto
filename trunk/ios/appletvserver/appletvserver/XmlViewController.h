@@ -29,7 +29,6 @@
     TTStyledTextLabel* _formatTextLabel;
     NSString* _navigationScript;
     int _lastLines;
-    BOOL _reloadView;
 }
 @property (nonatomic, copy) NSString* xml;
 @property (nonatomic, copy) NSString* script;
