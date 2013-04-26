@@ -2,7 +2,7 @@
 
 // Set the doesJavaScriptLoadRoot to true because we are loading the root URL in onAppEntry
 atv.config = { 
-    "doesJavaScriptLoadRoot": true,
+    "doesJavaScriptLoadRoot": false,
     "DEBUG_LEVEL": 4,
     "ROOT_URL": "http://trailers.apple.com/appletv/releasenote.xml", // "http://sample-web-server/trailers/sections/trailers-navigation.xml", //  
 
