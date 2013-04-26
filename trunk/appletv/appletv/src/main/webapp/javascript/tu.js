@@ -31,9 +31,6 @@ var tuClient ={
 			label : "电视",
 			value : 16
 		}, {
-			label : "电影",
-			value : 15
-		}, {
 			label : "动画片",
 			value : 7
 		}, {
