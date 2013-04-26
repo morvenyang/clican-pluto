@@ -972,9 +972,13 @@ try {
 				var name = urls[i];
 				var value = atv.localStorage[name];
 				if (value == null || value.length == 0) {
-					eval(content);
-					atv.localStorage[name] = content;
+					var xhr = new XMLHttpRequest();
+					xhr.open("GET", url, false);
+					xhr.send();
+					value = xhr.responseText;
+					atv.localStorage[name] = value;
 				}
+				eval(value);
 			}
 		}
 	}
