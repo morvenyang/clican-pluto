@@ -1,6 +1,6 @@
 function __init() {
     return {
-        "version": 15,
+        "version": 17,
         searchmain: function (args) {
             var textEntry = new atv.TextEntry();
             textEntry.type = 'emailAddress';
@@ -235,7 +235,7 @@ function __init() {
             params.push('category=' + encodeURIComponent(category));
             params.push('format=' + encodeURIComponent(format));
             params.push('sort=' + encodeURIComponent(sort));
-            url = 'http://www.yyets.com/php/resourcelist?' + params.join('&');
+            url = 'http://www.yyets.com/resourcelist?' + params.join('&');
             atvu.ajax(url, "GET", null, null, function (d, c) {
                 if (d == null) return;
                 pos1 = d.indexOf('<ul class="boxPadd dashed">');
@@ -269,26 +269,26 @@ function __init() {
                 if (sort == 'views') st = '点击率';
                 item = '<actionButton id="yyets_item_sort" onSelect="' + act + ';" onPlay="' + act + ';"><title>排序</title><subtitle>' + st + '</subtitle></actionButton>';
                 items.push(item);
-                shelfs.push('<grid id="shelf_' + shelfs.length + '" columnCount="4"><items>' + items.join("\n") + '</items></grid>');
+                shelfs.push('<grid id="shelf_' + shelfs.length + '" columnCount="4"><items>' + items.join("") + '</items></grid>');
                 items = [];
                 for (var i = 1; i < itemlist.length; i++) {
-                    rs = (new RegExp('<a target="_blank" class="imglink" href="http://www.yyets.com/php/resource/(\\d+)"><img src="([^"]*)"></a>')).exec(itemlist[i]);
+                    rs = (new RegExp('<a target="_blank" class="imglink" href="http://www.yyets.com/resource/(\\d+)"><img src="([^"]*)"></a>')).exec(itemlist[i]);
                     if (!rs) continue;
                     itemid = rs[1];
                     imgurl = rs[2];
-                    rsn = (new RegExp('<dt><a target="_blank" href="http://www.yyets.com/php/resource/\\d+">【([^<]*)】<strong>《([^<]*)》([^<]*)</strong></a>([^<]*)</dt>')).exec(itemlist[i]);
+                    rsn = (new RegExp('<dt>\\s*<a target="_blank" href="http://www.yyets.com/resource/\\d+">【([^<]*)】<strong>《([^<]*)》([^<]*)</strong></a>([^<]*)</dt>')).exec(itemlist[i]);
                     if (!rsn) continue;
                     ty = rsn[1];
                     name = rsn[2];
                     if (rsn[3] != '') info = rsn[3];
                     else info = rsn[4];
                     act = "atvu.loadAction('yyets.entry','" + xmlchar(name) + "',['" + itemid + "','" + xmlchar(name) + "'])";
-                    acth = "atvu.saveAction('yyets.entry','" + xmlchar(name) + "',['" + itemid + "','" + xmlchar(name) + "'],'" + xmlchar(imgurl) + "','" + xmlchar("http://www.yyets.com/php/resource/" + itemid) + "')";
+                    acth = "atvu.saveAction('yyets.entry','" + xmlchar(name) + "',['" + itemid + "','" + xmlchar(name) + "'],'" + xmlchar(imgurl) + "','" + xmlchar("http://www.yyets.com/resource/" + itemid) + "')";
                     item = '<moviePoster id="shelf_item_' + items.length + '" accessibilityLabel="" alwaysShowTitles="true" onSelect="' + act + ';" onPlay="' + act + ';" onHoldSelect="' + acth + ';"><title>' + xmlchar(name) + '</title><subtitle>' + xmlchar(info) + '</subtitle><image>' + xmlchar(imgurl) + '</image><defaultImage>resource://Poster.png</defaultImage></moviePoster>';
                     items.push(item);
                 };
                 shelfs.push('<collectionDivider alignment="left" accessibilityLabel=""><title>人人影视(长按中间键加入收藏)</title></collectionDivider>');
-                shelfs.push('<grid id="shelf_' + shelfs.length + '" columnCount="7"><items>' + items.join("\n") + '</items></grid>');
+                shelfs.push('<grid id="shelf_' + shelfs.length + '" columnCount="7"><items>' + items.join("") + '</items></grid>');
                 items = [];
                 pos1 = d.indexOf('<div class="pages">');
                 pos2 = d.indexOf('</div></div>', pos1);
@@ -305,14 +305,14 @@ function __init() {
                             items.push(item);
                         }
                     };
-                    shelfs.push('<grid id="shelf_' + shelfs.length + '"><items>' + items.join("\n") + '</items></grid>');
+                    shelfs.push('<grid id="shelf_' + shelfs.length + '"><items>' + items.join("") + '</items></grid>');
                 };
-                xml = '<?xml version="1.0" encoding="UTF-8"?><atv><head><script src="' + baseURL + '/main.js" /></head><body><scroller id="com.atvttvv.yyets.list"><items>' + shelfs.join("\n") + '</items></scroller></body></atv>';
+                xml = '<?xml version="1.0" encoding="UTF-8"?><atv><head><script src="' + baseURL + '/main.js" /></head><body><scroller id="com.atvttvv.yyets.list"><items>' + shelfs.join("") + '</items></scroller></body></atv>';
                 atv.loadAndSwapXML(atv.parseXML(xml));
             });
         },
         list: function (args) {
-            url = "http://www.yyets.com/php/resourcelist";
+            url = "http://www.yyets.com/resourcelist";
             atvu.ajax(url, "GET", null, null, function (d, c) {
                 if (d == null) return;
                 pos1 = d.indexOf('<ul class="likeRes top_list2 dashed clearfix">');
@@ -339,16 +339,16 @@ function __init() {
                 shelfs.push('<grid id="shelf_' + shelfs.length + '" columnCount="5"><items>' + items.join("") + '</items></grid>');
                 items = [];
                 for (var i = 1; i < toplist.length; i++) {
-                    rs = (new RegExp('<a href="http://www.yyets.com/php/resource/(\\d+)" class="imglink" target="_blank"><img src="([^"]*)" /></a>')).exec(toplist[i]);
+                    rs = (new RegExp('<a href="http://www.yyets.com/resource/(\\d+)" class="imglink" target="_blank"><img src="([^"]*)" /></a>')).exec(toplist[i]);
                     if (!rs) continue;
                     itemid = rs[1];
                     imgurl = rs[2];
-                    rsn = (new RegExp('<div><a href="http://www.yyets.com/php/resource/\\d+" target="_blank"><strong>《([^<]*)》</strong></a></div>')).exec(toplist[i]);
+                    rsn = (new RegExp('<div><a href="http://www.yyets.com/resource/\\d+" target="_blank"><strong>《([^<]*)》</strong></a></div>')).exec(toplist[i]);
                     if (!rsn) continue;
                     name = rsn[1];
                     info = '';
                     act = "atvu.loadAction('yyets.entry','" + argw(name) + "',['" + itemid + "','" + argw(name) + "'])";
-                    acth = "atvu.saveAction('yyets.entry','" + argw(name) + "',['" + itemid + "','" + argw(name) + "'],'" + xmlchar(imgurl) + "','" + xmlchar("http://www.yyets.com/php/resource/" + itemid) + "')";
+                    acth = "atvu.saveAction('yyets.entry','" + argw(name) + "',['" + itemid + "','" + argw(name) + "'],'" + xmlchar(imgurl) + "','" + xmlchar("http://www.yyets.com/resource/" + itemid) + "')";
                     item = '<moviePoster id="shelf_item_' + items.length + '" accessibilityLabel="" alwaysShowTitles="true" onSelect="' + act + ';" onPlay="' + act + ';" onHoldSelect="' + acth + ';"><title>' + xmlchar(name) + '</title><subtitle>' + xmlchar(info) + '</subtitle><image>' + xmlchar(imgurl) + '</image><defaultImage>resource://Poster.png</defaultImage></moviePoster>';
                     items.push(item);
                 };
@@ -360,7 +360,7 @@ function __init() {
         },
         search: function (args) {
             word = args[0];
-            url = "http://www.yyets.com/php/search/index?keyword=" + encodeURIComponent(word) + "&type=resource&order=uptime";
+            url = "http://www.yyets.com/search/index?keyword=" + encodeURIComponent(word) + "&type=resource&order=uptime";
             atvu.ajax(url, "GET", null, null, function (data, cookie) {
                 if (data == null) return;
                 divs = data.split('<div class="all_search_li1 f_l">');
@@ -385,7 +385,7 @@ function __init() {
                 var items = [];
                 for (var i = 1; i < divs.length; i++) {
                     rs = (new RegExp('<span class="bnts_e18 e18add">(.*?)</span>')).exec(divs[i]);
-                    rs1 = (new RegExp('<a href="http://www.yyets.com/php/resource/(\\d+)" target="_blank"><strong class="f14 list_title">《(.*?)》(.*?)</strong>(.*?)</a>')).exec(divs[i]);
+                    rs1 = (new RegExp('<a href="http://www.yyets.com/resource/(\\d+)" target="_blank"><strong class="f14 list_title">《(.*?)》(.*?)</strong>(.*?)</a>')).exec(divs[i]);
                     if (rs) {
                         name = rs1[2];
                         itemid = rs1[1];
@@ -393,7 +393,7 @@ function __init() {
                         img = '';
                         ty = rs[1];
                         act = "atvu.loadAction('yyets.entry','" + xmlchar(name) + "',['" + itemid + "','" + xmlchar(name) + "'])";
-                        acth = "atvu.saveAction('yyets.entry','" + xmlchar(name) + "',['" + itemid + "','" + xmlchar(name) + "'],'','" + xmlchar("http://www.yyets.com/php/resource/" + itemid) + "')";
+                        acth = "atvu.saveAction('yyets.entry','" + xmlchar(name) + "',['" + itemid + "','" + xmlchar(name) + "'],'','" + xmlchar("http://www.yyets.com/resource/" + itemid) + "')";
                         item = '<twoLineEnhancedMenuItem id="list+_' + i + '" accessibilityLabel="" onSelect="' + act + '" onHoldSelect="' + acth + '"><label>' + xmlchar(name) + '</label><label2>' + ty + '</label2><rightLabel>' + xmlchar(rem) + '</rightLabel><accessories><arrow /></accessories></twoLineEnhancedMenuItem>';
                         items.push(item);
                     }
@@ -405,7 +405,7 @@ function __init() {
         entry: function (args) {
             itemid = args[0];
             name = args[1];
-            url = "http://www.yyets.com/php/resource/" + itemid;
+            url = "http://www.yyets.com/resource/" + itemid;
             atvu.ajax(url, "GET", null, null, function (data, cookie) {
                 if (data == null) return;
                 rs = atvu.findall('<li[^>]*format="([^"]*)"><a class="f_out">([^<]*)<span class="f_in"></span></a>', data);
@@ -413,7 +413,8 @@ function __init() {
                 seasons = {};
                 for (var i = 0; i < rs.length; i++) {
                     seasons[rs[i][0]] = [
-                        [], {}];
+                        [], {}
+                    ];
                     if (rs[i][0] == 'all') continue;
                     formats.push(rs[i][0]);
                 };
@@ -451,7 +452,6 @@ function __init() {
                 rs = (new RegExp('<div class="f_l_img">\\s*<a href="([^"]*.jpg)" target="_blank">')).exec(data);
                 if (rs) imgurl = rs[1];
                 else imgurl = '';
-                logger.debug(imgurl);
                 rs = (new RegExp('<li><span>年代：</span><strong>(.*?)</strong>')).exec(data);
                 if (rs) year = rs[1];
                 else year = '';
@@ -510,9 +510,10 @@ function __init() {
                 message: '请选择视频格式',
                 script: [baseURL + '/main.js'],
                 buttons: [{
-                    label: '全部',
-                    script: "atvu.loadAction('yyets.showlinks','',['" + name + "','all'],1)"
-                }]
+                        label: '全部',
+                        script: "atvu.loadAction('yyets.showlinks','',['" + name + "','all'],1)"
+                    }
+                ]
             };
             for (f in seasons) {
                 if (f == 'all') continue;
@@ -549,12 +550,13 @@ function __init() {
                 message: '请选择搜索引擎',
                 script: [baseURL + '/main.js'],
                 buttons: [{
-                    label: '电驴大全',
-                    script: "atvu.loadAction('verycd.search','',['" + name + "'],1)"
-                }, {
-                    label: '搜库',
-                    script: "atvu.loadAction('soku.search','',['" + name + "'],1)"
-                }]
+                        label: '电驴大全',
+                        script: "atvu.loadAction('verycd.search','',['" + name + "'],1)"
+                    }, {
+                        label: '搜库',
+                        script: "atvu.loadAction('soku.search','',['" + name + "'],1)"
+                    }
+                ]
             };
             atv.loadAndSwapXML(atvu.showMessage(msg));
         },
@@ -688,9 +690,9 @@ function __init() {
                         items.push(sstr);
                     }
                 }
-            };
-            if (nitems.length == 0) xml = '<?xml version="1.0" encoding="UTF-8"?><atv><head><script src="' + baseURL + '/main.js" /></head><body><listWithPreview id="com.atvttvv.yyets.entry"><header><simpleHeader><title>' + xmlchar(vname) + '</title></simpleHeader></header><preview><keyedPreview><title>' + xmlchar(vname) + '</title><summary>' + xmlchar(detail.desc) + '</summary><image>' + xmlchar(detail.imgurl) + '</image><footnote>' + xmlchar(detail.status) + '</footnote></keyedPreview></preview><menu><sections><menuSection><items id="menu_item">' + items.join("\n") + '</items></menuSection></sections></menu></listWithPreview></body></atv>';
-            else xml = '<?xml version="1.0" encoding="UTF-8"?><atv><head><script src="' + baseURL + '/main.js" /></head><body><listByNavigation id="com.atvttvv.yyets.entry" onNavigate="atvu.loadAction(\'yyets.entrynav\',\'\',[\'' + format + '\',event],1);"><header><tumblerWithSubtitle><subtitle>' + xmlchar(vname) + '</subtitle></tumblerWithSubtitle></header><navigation currentIndex="0">' + nitems.join('') + '</navigation><menu><sections><menuSection><items id="menu_item">' + items.join("\n") + '</items></menuSection></sections></menu></listByNavigation></body></atv>';
+            }; if (nitems.length == 0) xml = '<?xml version="1.0" encoding="UTF-8"?><atv><head><script src="' + baseURL + '/main.js" /></head><body><listWithPreview id="com.atvttvv.yyets.entry"><header><simpleHeader><title>' + xmlchar(vname) + '</title></simpleHeader></header><preview><keyedPreview><title>' + xmlchar(vname) + '</title><summary>' + xmlchar(detail.desc) + '</summary><image>' + xmlchar(detail.imgurl) + '</image><footnote>' + xmlchar(detail.status) + '</footnote></keyedPreview></preview><menu><sections><menuSection><items id="menu_item">' + items.join("\n") + '</items></menuSection></sections></menu></listWithPreview></body></atv>';
+            else
+                xml = '<?xml version="1.0" encoding="UTF-8"?><atv><head><script src="' + baseURL + '/main.js" /></head><body><listByNavigation id="com.atvttvv.yyets.entry" onNavigate="atvu.loadAction(\'yyets.entrynav\',\'\',[\'' + format + '\',event],1);"><header><tumblerWithSubtitle><subtitle>' + xmlchar(vname) + '</subtitle></tumblerWithSubtitle></header><navigation currentIndex="0">' + nitems.join('') + '</navigation><menu><sections><menuSection><items id="menu_item">' + items.join("\n") + '</items></menuSection></sections></menu></listByNavigation></body></atv>';
             atv.loadAndSwapXML(atv.parseXML(xml));
         },
         playurl: function (args) {
@@ -715,17 +717,18 @@ function __init() {
                 }
             };
             sword = fn.join(".");
-            logger.debug(sword);
             if (sword.length > 0 && sub == 0) {
-                surl = "http://www.yyets.com/php/search/index/?keyword=" + encodeURIComponent(sword) + "&type=subtitle";
+                surl = "http://www.yyets.com/search/index/?keyword=" + encodeURIComponent(sword) + "&type=subtitle";
                 atvu.ajax(surl, "GET", null, null, function (d, c) {
-                    rs = (new RegExp('href="http://www.yyets.com/php/subtitle/(\\d+)"')).exec(d);
+                    rs = (new RegExp('href="http://www.yyets.com/subtitle/(\\d+)"')).exec(d);
                     if (rs) {
                         sid = rs[1];
                         atvu.loadAction('xunlei.playurl', '', [url], 1);
-                    } else atvu.loadAction('xunlei.playurl', '', [url], 1);
+                    } else
+                        atvu.loadAction('xunlei.playurl', '', [url], 1);
                 });
-            } else atvu.loadAction('xunlei.playurl', '', [url], 1);
+            } else
+                atvu.loadAction('xunlei.playurl', '', [url], 1);
         },
     }
 };
