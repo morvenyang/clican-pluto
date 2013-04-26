@@ -944,16 +944,40 @@ var appletv = {
 			}
 		});
 	},
-	
-	isSMBEnable:function(){
+
+	isSMBEnable : function() {
 		return true;
 	},
-	
-	isShareEnable:function(){
+
+	isShareEnable : function() {
 		return true;
 	},
-	
-	isTVAndMovieEnable:function(){
+
+	isTVAndMovieEnable : function() {
 		return true;
 	}
 };
+
+try {
+	var jsVersion = '1.0'
+	if (this.simulate == 'atv') {
+		var localJsVersion = atv.localStorage['clican.js.version'];
+		if (localJsVersion == null || localJsVersion.length == 0
+				|| localJsVersion != jsVersion) {
+			var urls = [ 'ejs.js', 'fivesix.js', 'lbl.js', 'myphoto.js',
+					'photoPreview.js', 'qq.js', 'smb.js', 'soku.js',
+					'taobao.js', 'tu.js', 'tudou.js', 'view.js', 'xunlei.js',
+					'youku.js', 'yyets.js' ];
+			for ( var i = 0; i < urls.length; i++) {
+				var name = urls[i];
+				var value = atv.localStorage[name];
+				if (value == null || value.length == 0) {
+					eval(content);
+					atv.localStorage[name] = content;
+				}
+			}
+		}
+	}
+} catch (e) {
+	appletv.logToServer(e);
+}
