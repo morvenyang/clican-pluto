@@ -361,7 +361,7 @@ JSValueRef loadURL(JSContextRef ctx,
             if(AppDele.proxy){
                 ipAddress= @"localhost:8080";
             }else{
-                ipAddress= [AppDele.ipAddress stringByAppendingString:@"8080"];
+                ipAddress= [AppDele.ipAddress stringByAppendingString:@":8080"];
             }
             
             NSRange matchRange1 = [jsContent rangeOfString:@"local.clican.org"];
