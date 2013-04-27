@@ -150,7 +150,6 @@ var weivideoClient = {
 			var itemscontent = appletv.substringByTag(videoContent,
 					'<div class="scs-ace-content clearfix">', '</div>', 'div');
 			if(itemscontent==null||itemscontent.length==0){
-				appletv.logToServer(itemscontent);
 				var t = title;
 				var c = appletv.substringByData(videoContent, '<a class="mv-sii-play" href="/v/weishipin/', '.htm');
 				var item = {
@@ -159,7 +158,6 @@ var weivideoClient = {
 				};
 				items.push(item);
 			}else{
-				appletv.logToServer(itemscontent);
 				var ids = appletv.getSubValues(itemscontent, 'href="', '"');
 				for ( var i = 0; i < ids.length; i++) {
 					var t = '第' + (i + 1) + '集';
