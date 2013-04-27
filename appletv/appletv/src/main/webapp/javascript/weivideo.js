@@ -124,6 +124,7 @@ var weivideoClient = {
 	loadVideoPage : function(id) {
 		appletv.showLoading();
 		var url = 'http://video.weibo.com/detail/' + id;
+		appletv.logToServer(url);
 		appletv.makeRequest(url, function(htmlContent) {
 			var title;
 			var desc;
@@ -212,11 +213,22 @@ var weivideoClient = {
 			appletv.showDialog('跳转中...', '跳转到第三方视频网站');
 		}
 		var url = 'http://newvideopc.video.sina.com.cn/m/videosource.json?vid='+vid;
+		appletv.logToServer(url);
 		appletv.makeRequest(url,function(jsonContent){
 			appletv.logToServer(jsonContent);
-			var playUrl = JSON.parse(jsonContent)['result']['data'][0]['play_page_url'];
-			appletv.logToServer(playUrl);
-			sokuClient.openUrl(playUrl);
+			var data = JSON.parse(jsonContent)['result']['data'];
+			if(data.length==0){
+				url = 'http://video.weibo.com/v/weishipin/'+vid+'.htm';
+				appletv.makeRequest(url,function(htmlContent){
+					var playUrl = appletv.substringByData(htmlContent,'name="iframe1" src="','"');
+					appletv.logToServer(playUrl);
+					sokuClient.openUrl(playUrl);
+				});
+			}else{
+				var playUrl = data[0]['play_page_url'];
+				appletv.logToServer(playUrl);
+				sokuClient.openUrl(playUrl);
+			}
 		});
 	}
 }

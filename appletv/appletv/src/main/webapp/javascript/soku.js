@@ -506,8 +506,14 @@ var sokuClient = {
 			}else if(url.indexOf('iqiyi.com')!=-1){
 				appletv.showLoading();
 				appletv.makeRequest(url,function(content){
-					var tvId = appletv.substringByData(content, '"tvId":"', '"');
-					var videoId = appletv.substringByData(content, '"videoId":"', '"');
+					var tvId = appletv.substringByData(content, 'data-player-tvid="', '"');
+					if(tvId==null||tvId.length==0){
+						tvId = appletv.substringByData(content, '"tvId":"', '"');
+					}
+					var videoId = appletv.substringByData(content, 'data-player-videoid="', '"');
+					if(videoId==null||videoId.length==0){
+						videoId = appletv.substringByData(content, '"videoId":"', '"');
+					}
 					var jsUrl;
 					if(tvId==null||tvId.length==0){
 						jsUrl = 'http://cache.video.qiyi.com/m/'+videoId+'/';
