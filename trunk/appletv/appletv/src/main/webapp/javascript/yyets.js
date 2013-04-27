@@ -269,6 +269,7 @@ var yyetsClient = {
 	},
 
 	listVideosInSeason : function(season, format) {
+		appletv.showLoading();
 		appletv.getValue('clican.yyets.video', function(yyetsVideo) {
 			try{
 				var yvc = yyetsVideo;
