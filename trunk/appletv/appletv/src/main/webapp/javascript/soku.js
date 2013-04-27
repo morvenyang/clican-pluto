@@ -556,6 +556,23 @@ var sokuClient = {
 				var vcode = url.substring(s+3,e);
 				var url = 'http://v.youku.com/player/getRealM3U8/vid/' + vcode + '/type/hd2/video.m3u8';
 				appletv.playM3u8(url, '');
+			}else if(url.indexOf('funshion.com')!=-1){
+				var vid = appletv.substringByData(url,'play/','/');
+				var jsonUrl = 'http://jsonfe.funshion.com/playinfo/?mid='+vid+'&cli=iphone&ver=1.2.3.2';
+				appletv.makeRequest(jsonUrl,function(jsonContent){
+					appletv.logToServer(jsonContent);
+					var json = JSON.parse(jsonContent);
+					var m3u8Url;
+					try{
+						m3u8Url = json['data']['mpurls']['dvd']['url'];
+					}catch(e){
+						
+					}
+					if(m3u8Url==null||m3u8Url.length==0){
+						m3u8Url = json['data']['purl'];
+					}
+					appletv.playM3u8(m3u8Url, '');
+				});
 			}else{
 				appletv.showDialog('无法播放',url);
 			}

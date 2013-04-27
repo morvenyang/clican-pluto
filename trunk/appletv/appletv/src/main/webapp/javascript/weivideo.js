@@ -209,7 +209,7 @@ var weivideoClient = {
 	},
 	
 	play: function(vid){
-		if (this.simulate == 'atv') {
+		if (appletv.simulate == 'atv') {
 			appletv.showDialog('跳转中...', '跳转到第三方视频网站');
 		}
 		var url = 'http://newvideopc.video.sina.com.cn/m/videosource.json?vid='+vid;
