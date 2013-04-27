@@ -574,17 +574,22 @@ var sokuClient = {
 					appletv.playM3u8(m3u8Url, '');
 				});
 			}else if(url.indexOf('m1905.com')!=-1){
-				appletv.makeRequest('http://mapps.m1905.com/index.php/Pad/members?model=iPhone&os=ios&language=chinese/ch&network=1&ver=300/9/201302290002&did=01d0721c86d8ff7f84174ac08e715dfd560871c0&pid=68&key=0F80D95E9423828649D35EC7745DC524',function(result){
-					var vid = appletv.substringByData(url,'play/','.shtml');
-					var xmlUrl = 'http://mapps.m1905.com/index.php/Pad/video?id='+vid+'&cid=2';
-					appletv.logToServer(xmlUrl);
-					appletv.makeRequest(xmlUrl,function(xmlContent){
-						appletv.logToServer(xmlContent);
-						var m3u8Url = appletv.substringByData(xmlContent,'<item','</item>');
-						m3u8Url = appletv.substringByData(m3u8Url,'url="','"');
-						appletv.playM3u8(m3u8Url, '');
+				var vid = appletv.substringByData(url,'play/','.shtml');
+				var xmlUrl = 'http://mapps.m1905.com/index.php/Pad/video?id='+vid+'&cid=2';
+				appletv.logToServer(xmlUrl);
+				appletv.makeRequest(xmlUrl,function(xmlContent){
+					var m3u8Url = appletv.substringByData(xmlContent,'<item','</item>');
+					if(m3u8Url==null||m3u8Url.length==0){
+						appletv.showDialog('无法播放',url);
+						return;
+					}
+					m3u8Url = appletv.substringByData(m3u8Url,'url="','"');
+					appletv.playM3u8(m3u8Url, '');
+					},{
+						"Cookie":"PHPSESSID=as1vljvgb2iv9vkld02kvi1ln2",
+						"key":"0F80D95E9423828649D35EC7745DC524",
+						"did":"01d0721c86d8ff7f84174ac08e715dfd560871c0"
 					});
-				});
 			}else{
 				appletv.showDialog('无法播放',url);
 			}
