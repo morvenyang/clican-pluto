@@ -27,7 +27,7 @@ var weivideoClient = {
 		} else {
 			for ( var i = 0; i < originalChannels.length; i++) {
 				var channel = originalChannels[i];
-				if (channel.value != 'tv' && channel.value != 'movie') {
+				if (channel.value != '1' && channel.value != '4') {
 					channels.push(channel);
 				}
 			}
