@@ -1,9 +1,6 @@
 var weivideoClient = {
 	weivideoChannelMap : {
-		"search" : {
-			label : "搜索",
-			value : 'search'
-		},
+		
 		"1" : {
 			label : "电视剧",
 			value : '1'
@@ -15,9 +12,6 @@ var weivideoClient = {
 	},
 
 	weivideoChannels : [ {
-		label : "搜索",
-		value : 'search'
-	}, {
 		label : "电视剧",
 		value : '1'
 	}, {
