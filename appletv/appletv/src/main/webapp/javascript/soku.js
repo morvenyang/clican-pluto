@@ -456,10 +456,15 @@ var sokuClient = {
 				});
 			}else if(url.indexOf('qq.com')!=-1){
 				appletv.makeRequest(url,function(content){
-					var s = url.lastIndexOf('/');
-					var e = url.indexOf('.html');
-					var id = url.substring(s+1,e);
-					qqClient.playVideo(id);
+					var vid = appletv.substringByData(content,'vid:"','"');
+					if(vid!=null&&vid.length!=0){
+						qqClient.playVideo(vid);
+					}else{
+						var s = url.lastIndexOf('/');
+						var e = url.indexOf('.html');
+						vid = url.substring(s+1,e);
+						qqClient.playVideo(id);
+					}
 				});
 			}else if(url.indexOf('sohu.com')!=-1){
 				appletv.showLoading();
@@ -552,7 +557,7 @@ var sokuClient = {
 				var url = 'http://v.youku.com/player/getRealM3U8/vid/' + vcode + '/type/hd2/video.m3u8';
 				appletv.playM3u8(url, '');
 			}else{
-				appletv.showDialog('无法播放','');
+				appletv.showDialog('无法播放',url);
 			}
 		},
 		
