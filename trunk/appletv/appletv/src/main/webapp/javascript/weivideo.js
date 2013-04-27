@@ -208,7 +208,9 @@ var weivideoClient = {
 	},
 	
 	play: function(vid){
-		appletv.showLoading();
+		if (this.simulate == 'atv') {
+			appletv.showDialog('跳转中...', '跳转到第三方视频网站');
+		}
 		var url = 'http://newvideopc.video.sina.com.cn/m/videosource.json?vid='+vid;
 		appletv.makeRequest(url,function(jsonContent){
 			appletv.logToServer(jsonContent);
