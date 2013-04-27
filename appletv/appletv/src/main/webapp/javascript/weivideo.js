@@ -211,7 +211,9 @@ var weivideoClient = {
 		appletv.showLoading();
 		var url = 'http://newvideopc.video.sina.com.cn/m/videosource.json?vid='+vid;
 		appletv.makeRequest(url,function(jsonContent){
-			var playUrl = JSON.parse(jsonContent)['result']['data']['play_page_url'];
+			appletv.logToServer(jsonContent);
+			var playUrl = JSON.parse(jsonContent)['result']['data'][0]['play_page_url'];
+			appletv.logToServer(playUrl);
 			sokuClient.openUrl(playUrl);
 		});
 	}

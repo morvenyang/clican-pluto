@@ -59,6 +59,11 @@
 							<image>http://www.clican.org/appletv/image/baibian/baibian.png</image>
 							<title>微电影</title>
 						</goldenPoster>
+						<goldenPoster id="weivideo"
+							onSelect="weivideoClient.loadIndexPage('',1,'1');" onPlay="weivideoClient.loadChannelPage();">
+							<image>http://local.clican.org/appletv/image/weivideo/weivideo.png</image>
+							<title>视频集</title>
+						</goldenPoster>
 						<goldenPoster id="weibo"
 							onSelect="atv.loadURL('http://www.clican.org/appletv/ctl/weibo/checkAccessToken.xml?deviceId='+atv.device.udid);">
 							<image>http://www.clican.org/appletv/image/weibo/weibo.png</image>
