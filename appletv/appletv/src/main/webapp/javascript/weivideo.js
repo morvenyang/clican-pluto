@@ -206,4 +206,13 @@ var weivideoClient = {
 			appletv.loadAndSwapXML(xml);
 		});
 	},
+	
+	play: function(vid){
+		appletv.showLoading();
+		var url = 'http://newvideopc.video.sina.com.cn/m/videosource.json?vid='+vid;
+		appletv.makeRequest(url,function(jsonContent){
+			var playUrl = JSON.parse(jsonContent)['result']['data']['play_page_url'];
+			sokuClient.openUrl(playUrl);
+		});
+	}
 }
