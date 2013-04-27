@@ -122,8 +122,8 @@ var weivideoClient = {
 	},
 
 	loadVideoPage : function(id) {
+		appletv.showLoading();
 		var url = 'http://video.weibo.com/detail/' + id;
-		appletv.logToServer(url);
 		appletv.makeRequest(url, function(htmlContent) {
 			var title;
 			var desc;
