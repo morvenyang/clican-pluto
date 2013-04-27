@@ -60,7 +60,7 @@
 							<title>微电影</title>
 						</goldenPoster>
 						<goldenPoster id="weivideo"
-							onSelect="weivideoClient.loadIndexPage('',1,'1');" onPlay="weivideoClient.loadChannelPage();">
+							onSelect="weivideoClient.loadIndexPage('',1,'1');">
 							<image>http://local.clican.org/appletv/image/weivideo/weivideo.png</image>
 							<title>视频集</title>
 						</goldenPoster>
