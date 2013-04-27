@@ -2,8 +2,8 @@
 <atv>
 <body>
 	<dialog id="dialog">
-			<title>${promptTitle}</title>
-			<description>${promptDescription}</description>
+			<title><![CDATA[${promptTitle}]]></title>
+			<description><![CDATA[${promptDescription}]]></description>
 		</dialog>	
 </body>
 </atv>
