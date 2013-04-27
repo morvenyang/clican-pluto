@@ -1,16 +1,16 @@
-var weivideoClient{
+var weivideoClient = {
 	weivideoChannelMap : {
 		"search" : {
 			label : "搜索",
 			value : 'search'
 		},
-		"tv" : {
+		"1" : {
 			label : "电视剧",
-			value : 'tv'
+			value : '1'
 		},
-		"movie" : {
+		"4" : {
 			label : "电影",
-			value : 'movie'
+			value : '4'
 		}
 	},
 
@@ -19,10 +19,10 @@ var weivideoClient{
 		value : 'search'
 	}, {
 		label : "电视剧",
-		value : 'tv'
+		value : '1'
 	}, {
 		label : "电影",
-		value : 'movie'
+		value : '4'
 	}],
 	
 	loadChannelPage:function(){
@@ -56,13 +56,14 @@ var weivideoClient{
 		if (channelId == 1001) {
 			
 		} else {
-			var queryUrl = 'http://newvideopc.video.sina.com.cn/movie/fapi/data?uid=&q_category=1&q_region='+encodeURIComponent('全部')+'&page=1&time='+new Date().getTime();
+			var queryUrl = 'http://newvideopc.video.sina.com.cn/movie/fapi/data?uid=&q_category='+channelId+'&q_region='+encodeURIComponent('全部')+'&page=1&time='+new Date().getTime();
+			appletv.logToServer(queryUrl);
 			appletv.makeRequest(queryUrl, function(jsonContent) {
 				if (jsonContent != null && jsonContent.length > 0) {
 					var videoList = JSON.parse(jsonContent)['result']['data']['list'];
 					for (i = 0; i < videoList.length; i++) {
 						var v = videoList[i];
-						var pic = v['pic_play_page'];
+						var pic = v['pic_list'];
 						var title = v['title'];
 						var id = v['single_video_set_id'];
 						var video = {
@@ -78,7 +79,6 @@ var weivideoClient{
 					appletv.showDialog('加载失败', '');
 				}
 			});
-		
 		}
 
 	},
@@ -103,7 +103,7 @@ var weivideoClient{
 			'keyword' : keyword,
 			'begin' : begin,
 			'end' : end,
-			'channels' : youkuClient.youkuChannels,
+			'channels' : weivideoClient.weivideoChannels,
 			'serverurl' : appletv.serverurl,
 			'videos' : videos,
 		};
@@ -111,5 +111,5 @@ var weivideoClient{
 			url : appletv.serverurl + '/template/weivideo/index.ejs'
 		}).render(data);
 		appletv.loadAndSwapXML(xml);
-	},
+	}
 }
