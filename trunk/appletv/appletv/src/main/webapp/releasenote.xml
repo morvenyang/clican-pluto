@@ -11,6 +11,7 @@
 		<script src="http://www.clican.org/appletv/javascript/fivesix.js" />
 		<script src="http://www.clican.org/appletv/javascript/tu.js" />
 		<script src="http://www.clican.org/appletv/javascript/soku.js" />
+		<script src="http://www.clican.org/appletv/javascript/weivideo.js" />
 	</head>
 	<body>
 		<scroller id="com.sample.movie-shelf">
