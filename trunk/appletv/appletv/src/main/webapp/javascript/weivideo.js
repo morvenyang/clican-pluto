@@ -148,16 +148,27 @@ var weivideoClient = {
 			pic = appletv.substringByData(pic, '<img src="', '"');
 			var itemscontent = appletv.substringByTag(videoContent,
 					'<div class="scs-ace-content clearfix">', '</div>', 'div');
-			appletv.logToServer(itemscontent);
-			var ids = appletv.getSubValues(itemscontent, 'href="', '"');
-			for ( var i = 0; i < ids.length; i++) {
-				var t = '第' + (i + 1) + '集';
-				var c = appletv.substringByData(ids[i], 'weishipin/', '.htm');
+			if(itemscontent==null||itemscontent.length==0){
+				appletv.logToServer(itemscontent);
+				var t = title;
+				var c = appletv.substringByData(videoContent, '<a class="mv-sii-play" href="/v/weishipin/', '.htm');
 				var item = {
 					'title' : t,
 					'id' : c
 				};
 				items.push(item);
+			}else{
+				appletv.logToServer(itemscontent);
+				var ids = appletv.getSubValues(itemscontent, 'href="', '"');
+				for ( var i = 0; i < ids.length; i++) {
+					var t = '第' + (i + 1) + '集';
+					var c = appletv.substringByData(ids[i], 'weishipin/', '.htm');
+					var item = {
+						'title' : t,
+						'id' : c
+					};
+					items.push(item);
+				}
 			}
 			var video = {
 				'serverurl' : appletv.serverurl,
