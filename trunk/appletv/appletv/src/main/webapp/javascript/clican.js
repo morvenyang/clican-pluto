@@ -1,6 +1,8 @@
 var appletv = {
 	logEnable : false,
 	logSeverity : 'DEBUG',
+	jsVersion : '1.0.1.d',
+	ejsVersion : '1.0.0',
 	// browser,atv,native
 	simulate : 'atv',
 	// local server url
@@ -961,15 +963,14 @@ var appletv = {
 
 try {
 	if (appletv.simulate == 'atv') {
-		var jsVersion = '1.0.1.d';
 		var localJsVersion = atv.localStorage['clican.js.version'];
 		var urls = [ 'ejs.js', 'fivesix.js', 'lbl.js',
 						'myphoto.js', 'photoPreview.js', 'qq.js', 'smb.js',
 						'soku.js', 'taobao.js', 'tu.js', 'tudou.js', 'view.js',
 						'weivideo.js','xunlei.js', 'youku.js', 'yyets.js' ];
-		appletv.logToServer('localJsVersion='+localJsVersion+',jsVersion='+jsVersion);
+		appletv.logToServer('localJsVersion='+localJsVersion+',jsVersion='+appletv.jsVersion);
 		if (localJsVersion == null || localJsVersion.length == 0
-				|| localJsVersion != jsVersion) {
+				|| localJsVersion != appletv.jsVersion) {
 			appletv.logToServer('reload js');
 			for ( var i = 0; i < urls.length; i++) {
 				var name = 'clican.'+urls[i];
@@ -981,7 +982,7 @@ try {
 				atv.localStorage[name] = value;
 				eval(value);
 			}
-			atv.localStorage['clican.js.version']=jsVersion;
+			atv.localStorage['clican.js.version']=appletv.jsVersion;
 		}else{
 			for ( var i = 0; i < urls.length; i++) {
 				var name = 'clican.'+urls[i];

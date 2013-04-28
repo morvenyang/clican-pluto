@@ -435,7 +435,29 @@
 	EJS.request = function(path) {
 		if(appletv.simulate=='native'){
 			return appletv.readLocalFile(path);
-		}else{
+		} else if(appletv.simulate=='atv'){
+			var index = path.indexOf('?');
+			if(index>0){
+				path = path.substring(0,index);
+			}
+			var value = atv.localStorage[path+'?version='+appletv.ejsVersion];
+			if(value==null||value.length==0){
+				var request = new EJS.newRequest();
+				request.open("GET", path, false);
+				try {
+					request.send(null)
+				} catch (e) {
+					return null
+				}
+				if (request.status == 404 || request.status == 2
+						|| (request.status == 0 && request.responseText == "")) {
+					return null
+				}
+				value = request.responseText;
+				atv.localStorage[path+'?version='+appletv.ejsVersion] = value;
+			}
+			return value;
+		} else {
 			var request = new EJS.newRequest();
 			request.open("GET", path, false);
 			try {
@@ -454,6 +476,29 @@
 	EJS.ajax_request = function(params) {
 		if(appletv.simulate=='native'){
 			params.onComplete(appletv.readLocalFile(path));
+		}else if(appletv.simulate=='atv'){
+			var path = params.url;
+			var index = path.indexOf('?');
+			if(index>0){
+				path = path.substring(0,index);
+			}
+			var value = atv.localStorage[path+'?version='+appletv.ejsVersion];
+			if(value==null||value.length==0){
+				var request = new EJS.newRequest();
+				request.open("GET", path, false);
+				try {
+					request.send(null)
+				} catch (e) {
+					return null
+				}
+				if (request.status == 404 || request.status == 2
+						|| (request.status == 0 && request.responseText == "")) {
+					return null
+				}
+				value = request.responseText;
+				atv.localStorage[path+'?version='+appletv.ejsVersion] = value;
+			}
+			return value;
 		}else{
 			params.method = (params.method ? params.method : "GET");
 			var request = new EJS.newRequest();
