@@ -961,7 +961,7 @@ var appletv = {
 
 try {
 	if (appletv.simulate == 'atv') {
-		var jsVersion = '1.0.1';
+		var jsVersion = '1.0.1.d';
 		var localJsVersion = atv.localStorage['clican.js.version'];
 		var urls = [ 'ejs.js', 'fivesix.js', 'lbl.js',
 						'myphoto.js', 'photoPreview.js', 'qq.js', 'smb.js',
