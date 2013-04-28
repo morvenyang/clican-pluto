@@ -230,6 +230,7 @@ var sokuClient = {
 			});
 		},
 		loadVideoPageByUrl: function(id){
+			appletv.showLoading();
 			var url = id;
 			appletv.makeRequest(url, function(htmlContent) {
 				var detail = appletv.substringByTag(htmlContent,'<div class="detailinfo">','</div>','div');
