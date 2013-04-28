@@ -97,10 +97,8 @@ var sokuClient = {
 				}
 				appletv.logToServer(queryUrl);
 				appletv.makeRequest(queryUrl, function(content) {
-					appletv.logToServer('soku callback');
 					if (content != null && content.length > 0) {
-						var videoContent = appletv.substringByTag(content,'<div class="items"','</div>','div');
-						var packs = appletv.getSubValuesByTag(videoContent,
+						var packs = appletv.getSubValuesByTag(content,
 								'<div class="item"', '</div>', 'div');
 						for (i = 0; i < packs.length; i++) {
 							var pack = packs[i];
