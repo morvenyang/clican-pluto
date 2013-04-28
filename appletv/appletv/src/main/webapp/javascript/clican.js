@@ -1,5 +1,5 @@
 var appletv = {
-	logEnable : true,
+	logEnable : false,
 	logSeverity : 'DEBUG',
 	// browser,atv,native
 	simulate : 'atv',
@@ -961,25 +961,31 @@ var appletv = {
 
 try {
 	if (appletv.simulate == 'atv') {
-		var jsVersion = '1.0'
+		var jsVersion = '1.5';
 		var localJsVersion = atv.localStorage['clican.js.version'];
+		var urls = [ 'ejs.js', 'fivesix.js', 'lbl.js',
+						'myphoto.js', 'photoPreview.js', 'qq.js', 'smb.js',
+						'soku.js', 'taobao.js', 'tu.js', 'tudou.js', 'view.js',
+						'weivideo.js','xunlei.js', 'youku.js', 'yyets.js' ];
+		appletv.logToServer('localJsVersion='+localJsVersion+',jsVersion='+jsVersion);
 		if (localJsVersion == null || localJsVersion.length == 0
 				|| localJsVersion != jsVersion) {
-			var urls = [ 'ejs.js', 'fivesix.js', 'lbl.js',
-					'myphoto.js', 'photoPreview.js', 'qq.js', 'smb.js',
-					'soku.js', 'taobao.js', 'tu.js', 'tudou.js', 'view.js',
-					'weivideo.js','xunlei.js', 'youku.js', 'yyets.js' ];
+			appletv.logToServer('reload js');
+			for ( var i = 0; i < urls.length; i++) {
+				var name = urls[i];
+				var url = appletv.serverurl + '/javascript/' + name;
+				var xhr = new XMLHttpRequest();
+				xhr.open("GET", url, false);
+				xhr.send();
+				value = xhr.responseText;
+				atv.localStorage[name] = value;
+				eval(value);
+			}
+			atv.localStorage['clican.js.version']=jsVersion;
+		}else{
 			for ( var i = 0; i < urls.length; i++) {
 				var name = urls[i];
 				var value = atv.localStorage[name];
-				if (value == null || value.length == 0) {
-					var url = appletv.serverurl + '/javascript/' + name;
-					var xhr = new XMLHttpRequest();
-					xhr.open("GET", url, false);
-					xhr.send();
-					value = xhr.responseText;
-					atv.localStorage[name] = value;
-				}
 				eval(value);
 			}
 		}

@@ -236,18 +236,18 @@ var youkuClient = {
 		} else {
 			if(queryUrl==null){
 				if(channel.album){
-					queryUrl = 'http://www.youku.com/v_olist/c_'+channelId+'_a__s__g__r__lg__im__st__mt__tg__d_1_et_0_fv_0_fl__fc__fe__o_7_p_'+page+'.html';
+					queryUrl = 'http://www.youku.com/v_olist/c_'+channelId+'_a__s__g__r__lg__im__st__mt__tg__d_1_et_0_fv_0_fl__fc__fe__o_7_p_p_'+page+'.html';
 				}else{
 					queryUrl = 'http://www.youku.com/v_showlist/t1c'+channelId+'g0d4p'+page+'.html'
 				}
 			}else{
 				if(channel.album){
-					var pIndex = queryUrl.lastIndexOf('p_');
+					var pIndex = queryUrl.lastIndexOf('p_p_');
 					if(pIndex==-1){
 						pIndex = queryUrl.indexOf('.html');
-						queryUrl = queryUrl.substring(0,pIndex)+'p_'+page+'.html';
+						queryUrl = queryUrl.substring(0,pIndex)+'p_p_'+page+'.html';
 					}
-					queryUrl = queryUrl.substring(0,pIndex)+'p_'+page+'.html';
+					queryUrl = queryUrl.substring(0,pIndex)+'p_p_'+page+'.html';
 				}else{
 					var pIndex = queryUrl.lastIndexOf('p');
 					if(pIndex==-1){
@@ -256,6 +256,7 @@ var youkuClient = {
 					queryUrl = queryUrl.substring(0,pIndex)+'p'+page+'.html';
 				}
 			}
+			appletv.logToServer(queryUrl);
 			appletv.makeRequest(queryUrl, function(content) {
 				if (content != null && content.length > 0) {
 					var itemscontent = appletv.substringByTag(content,'<div class="items">', '</div>', 'div');
