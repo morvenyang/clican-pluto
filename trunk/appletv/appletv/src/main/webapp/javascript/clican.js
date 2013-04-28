@@ -972,8 +972,8 @@ try {
 				|| localJsVersion != jsVersion) {
 			appletv.logToServer('reload js');
 			for ( var i = 0; i < urls.length; i++) {
-				var name = urls[i];
-				var url = appletv.serverurl + '/javascript/' + name;
+				var name = 'clican.'+urls[i];
+				var url = appletv.serverurl + '/javascript/' + urls[i];
 				var xhr = new XMLHttpRequest();
 				xhr.open("GET", url, false);
 				xhr.send();
@@ -984,8 +984,16 @@ try {
 			atv.localStorage['clican.js.version']=jsVersion;
 		}else{
 			for ( var i = 0; i < urls.length; i++) {
-				var name = urls[i];
+				var name = 'clican.'+urls[i];
 				var value = atv.localStorage[name];
+				if(value==null||value.length==0){
+					var url = appletv.serverurl + '/javascript/' + urls[i];
+					var xhr = new XMLHttpRequest();
+					xhr.open("GET", url, false);
+					xhr.send();
+					value = xhr.responseText;
+					atv.localStorage[name] = value;
+				}
 				eval(value);
 			}
 		}
