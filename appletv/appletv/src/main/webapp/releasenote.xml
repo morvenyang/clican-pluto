@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <atv>
 	<head>
-		<script src="http://www.clican.org/appletv/javascript/clican.js" />
+		<script src="http://www.clican.org/appletv/javascript/load.js" />
 	</head>
 	<body>
 		<scroller id="com.sample.movie-shelf">
