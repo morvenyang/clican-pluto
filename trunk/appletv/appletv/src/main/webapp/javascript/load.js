@@ -1,6 +1,6 @@
 try {
 	if(atv){
-		var jsVersion = '1.0.1.h';
+		var jsVersion = '1.0.1.7';
 		var src = document
 		.evaluateXPath("descendant::script", document.rootElement)[0]
 		.getAttribute('src');
@@ -13,8 +13,8 @@ try {
 		if (localJsVersion == null || localJsVersion.length == 0
 				|| localJsVersion != jsVersion) {
 			for ( var i = 0; i < urls.length; i++) {
-				var name = 'clican.' + urls[i];
 				var url = serverurl + '/javascript/' + urls[i];
+				var name = 'clican.' + url;
 				var xhr = new XMLHttpRequest();
 				xhr.open("GET", url, false);
 				xhr.send();
@@ -25,10 +25,10 @@ try {
 			atv.localStorage['clican.js.version'] = jsVersion;
 		} else {
 			for ( var i = 0; i < urls.length; i++) {
-				var name = 'clican.' + urls[i];
+				var url = serverurl + '/javascript/' + urls[i];
+				var name = 'clican.' + url;
 				var value = atv.localStorage[name];
 				if (value == null || value.length == 0) {
-					var url = serverurl + '/javascript/' + urls[i];
 					var xhr = new XMLHttpRequest();
 					xhr.open("GET", url, false);
 					xhr.send();
