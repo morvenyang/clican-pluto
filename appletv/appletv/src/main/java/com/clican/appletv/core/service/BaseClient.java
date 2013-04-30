@@ -245,6 +245,64 @@ public class BaseClient {
 		return httpGet(url, null, null);
 	}
 
+	public PostResponse httpGetForHeader(String url,
+			Map<String, String> headers, Integer timeout) {
+		PostResponse pr = new PostResponse();
+		try {
+			HttpClient client = new HttpClient();
+			if (springProperty.isSystemProxyEnable()) {
+				client.getHostConfiguration().setProxy(
+						springProperty.getSystemProxyHost(),
+						springProperty.getSystemProxyPort());
+			}
+
+			HttpMethod httpGet = new GetMethod(url);
+
+			if (timeout != null) {
+				client.getHttpConnectionManager().getParams()
+						.setConnectionTimeout(timeout);
+				client.getHttpConnectionManager().getParams()
+						.setSoTimeout(timeout);
+			}
+			if (headers != null) {
+				for (String key : headers.keySet()) {
+					httpGet.addRequestHeader(key, headers.get(key));
+				}
+			}
+			httpGet.addRequestHeader("Accept-Encoding", "gzip");
+			int status = client.executeMethod(httpGet);
+			pr.setStatus(status);
+			if (log.isDebugEnabled()) {
+				log.debug("Status:" + status + " for url:" + url);
+			}
+			for (Header header : httpGet.getResponseHeaders()) {
+				pr.getHeaderMap().put(header.getName(), header.getValue());
+				if (header.getName().equals("Set-Cookie")) {
+					try {
+						String cookie = header.getValue().split(";")[0];
+						String cookieName = cookie.split("=")[0];
+						String cookieValue = cookie.split("=")[1];
+						pr.getCookieMap().put(cookieName, cookieValue);
+					} catch (Exception e) {
+						log.debug("Error to get cookie:" + header.getName()
+								+ "=" + header.getValue());
+					}
+				}
+			}
+			return pr;
+		} catch (Exception e) {
+			if (e instanceof org.apache.commons.httpclient.ConnectTimeoutException
+					|| e instanceof java.net.SocketException) {
+				if (log.isDebugEnabled()) {
+					log.debug("connection timeout for url:" + url);
+				}
+			} else {
+				log.error("", e);
+			}
+			return pr;
+		}
+	}
+
 	public PostResponse httpGetForCookie(String url,
 			Map<String, String> headers, Integer timeout) {
 
@@ -300,7 +358,7 @@ public class BaseClient {
 			Header contentEncodingHeader = httpGet
 					.getResponseHeader("Content-Encoding");
 			String contentType = null;
-			if(contentTypeHeader!=null){
+			if (contentTypeHeader != null) {
 				contentType = contentTypeHeader.getValue();
 			}
 			String charset = "UTF-8";
@@ -440,9 +498,8 @@ public class BaseClient {
 			while ((read = is.read(buffer)) != -1) {
 				os.write(buffer, 0, read);
 			}
-			
+
 			return os.toByteArray();
-			
 
 		} catch (Exception e) {
 			if (e instanceof org.apache.commons.httpclient.ConnectTimeoutException

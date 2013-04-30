@@ -7,6 +7,7 @@ public class PostResponse {
 
 	private String content;
 	private Map<String, String> cookieMap = new HashMap<String, String>();
+	private Map<String,String> headerMap = new HashMap<String, String>();
 	private int status;
 
 	public String getContent() {
@@ -31,6 +32,14 @@ public class PostResponse {
 
 	public void setCookieMap(Map<String, String> cookieMap) {
 		this.cookieMap = cookieMap;
+	}
+
+	public Map<String, String> getHeaderMap() {
+		return headerMap;
+	}
+
+	public void setHeaderMap(Map<String, String> headerMap) {
+		this.headerMap = headerMap;
 	}
 
 	public String getCookieString() {
