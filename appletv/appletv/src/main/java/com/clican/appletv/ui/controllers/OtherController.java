@@ -69,7 +69,11 @@ public class OtherController {
 	public void showXmlPage(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		String xml = (String) request.getSession().getAttribute("simulate.xml");
-		response.setContentType("text/xml;charset=utf-8");
+		if(xml.contains("<?xml version=\"1.0\" encoding=\"UTF-8\"?>")){
+			response.setContentType("text/xml;charset=utf-8");
+		}else{
+			response.setContentType("application/json;charset=utf-8");
+		}
 		OutputStream os = response.getOutputStream();
 		os.write(xml.getBytes("utf-8"));
 		os.close();
