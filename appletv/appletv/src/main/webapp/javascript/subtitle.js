@@ -15,6 +15,11 @@ var subTitleClient = {
 			var offsetList =[-10,-9,-8,-7,-6,-5,-4,-3,-1,0,1,2,3,4,5,6,7,8,9,10];
 			var currentIndex = parseInt(selectedOffset)+10;
 			appletv.logToServer('currentIndex:'+currentIndex);
+			if(currentIndex<0){
+				currentIndex=0;
+			}else if(currentIndex>20){
+				currentIndex=20;
+			}
 			var data = {"serverurl":appletv.serverurl,"url":url.replace(new RegExp('&', 'g'), '&amp;'),"subTitles":subTitles,"subTitlesScript":subTitlesScript,"offsetList":offsetList,"selectedOffset":selectedOffset,"currentIndex":currentIndex};
 			var xml = new EJS({
 				url : appletv.serverurl + '/template/subTitle.ejs'
