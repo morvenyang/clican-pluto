@@ -1,17 +1,17 @@
 try {
 	if(atv){
-		var jsVersion = '1.0.1.7';
+		var jsVersion = '1.0.1.a';
 		var src = document
 		.evaluateXPath("descendant::script", document.rootElement)[0]
 		.getAttribute('src');
 		var serverurl = src.substring(0, src.indexOf('/appletv'))+'/appletv';
 		var localJsVersion = atv.localStorage['clican.js.version'];
 		var urls = ['clican.js', 'ejs.js', 'fivesix.js', 'lbl.js', 'myphoto.js',
-				'photoPreview.js', 'qq.js', 'smb.js', 'soku.js', 'taobao.js',
+				'photoPreview.js', 'qq.js', 'smb.js', 'soku.js','subtitle.js', 'taobao.js',
 				'tu.js', 'tudou.js', 'view.js', 'weivideo.js', 'xunlei.js',
 				'youku.js', 'yyets.js' ];
 		if (localJsVersion == null || localJsVersion.length == 0
-				|| localJsVersion != jsVersion) {
+				|| localJsVersion != jsVersion||src.indexOf('http://10.0.1.5')!=-1) {
 			for ( var i = 0; i < urls.length; i++) {
 				var url = serverurl + '/javascript/' + urls[i];
 				var name = 'clican.' + url;

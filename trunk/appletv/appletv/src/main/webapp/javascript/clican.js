@@ -1,7 +1,7 @@
 var appletv = {
-	logEnable : false,
+	logEnable : true,
 	logSeverity : 'DEBUG',
-	ejsVersion : '1.0.1',
+	ejsVersion : '1.0.1.a',
 	// browser,atv,native
 	simulate : 'atv',
 	// local server url
@@ -269,6 +269,44 @@ var appletv = {
 		}
 	},
 
+	makeSyncRequest:function(url,headers){
+		if (!url) {
+			throw "loadURL requires a url argument";
+		}
+		if (appletv.simulate == 'native') {
+			
+		}else{
+			var xhr = new XMLHttpRequest();
+			xhr.open("GET", url, false);
+			if (headers != null) {
+				for ( var key in headers) {
+					xhr.setRequestHeader(key, headers[key]);
+				}
+			}
+			xhr.send();
+			return xhr.responseDataAsBase64;
+		}
+	},
+	
+	makeHeaderRequest: function(url,headers){
+		if (!url) {
+			throw "loadURL requires a url argument";
+		}
+		if (appletv.simulate == 'native') {
+			
+		}else{
+			var xhr = new XMLHttpRequest();
+			xhr.open("GET", url, false);
+			if (headers != null) {
+				for ( var key in headers) {
+					xhr.setRequestHeader(key, headers[key]);
+				}
+			}
+			xhr.send();
+			return xhr.getAllResponseHeaders();
+		}
+	},
+	
 	makeRequest : function(url, callback) {
 		this.makeRequest(url, callback, null);
 	},
@@ -430,31 +468,50 @@ var appletv = {
 
 	},
 
-	playM3u8 : function(url, proxy) {
+	playM3u8 : function(url, proxy, subTitles) {
 		if (proxy == null || proxy.length == 0) {
 			if (appletv.serverurl.indexOf('clican.org') == -1) {
 				proxy = appletv.serverurl;
 			}
 		}
-		appletv.logToServer('appletv.serverurl:' + appletv.serverurl);
 		if (proxy != null && proxy.length > 0) {
 			var options = [];
 			var encodeUrl = url.replace(new RegExp('&', 'g'), '&amp;');
-			options.push({
-				"title" : "直接播放",
-				"script" : "appletv.loadAndSwapXML(appletv.makePlayXml('"
-						+ encodeUrl + "'));"
-			});
+			if(subTitles!=null){
+				options.push({
+					"title" : "直接播放",
+					"script" : "appletv.makePlayPlist('"+encodeUrl+"');"
+				});
+			}else{
+				options.push({
+					"title" : "直接播放",
+					"script" : "appletv.loadAndSwapXML(appletv.makePlayXml('"
+							+ encodeUrl + "'));"
+				});
+			}
+			
 			url = proxy + "/noctl/proxy/play.m3u8?url="
 					+ encodeURIComponent(url);
-			options.push({
-				"title" : "本地服务器代理下载播放",
-				"script" : "appletv.loadAndSwapXML(appletv.makePlayXml('" + url
-						+ "'));"
-			});
+			if(subTitles!=null){
+				options.push({
+					"title" : "本地服务器代理下载播放",
+					"script" : "appletv.makePlayPlist('"+url+"');"
+				});
+			}else{
+				options.push({
+					"title" : "本地服务器代理下载播放",
+					"script" : "appletv.loadAndSwapXML(appletv.makePlayXml('" + url
+							+ "'));"
+				});
+			}
 			appletv.showOptionPage('播放源选择', '', options);
 		} else {
-			appletv.loadAndSwapXML(appletv.makePlayXml(url));
+			if(subTitles!=null){
+				appletv.makePlayPlist(url);
+			}else{
+				appletv.loadAndSwapXML(appletv.makePlayXml(url));
+			}
+			
 		}
 	},
 
@@ -489,7 +546,7 @@ var appletv = {
 		}
 	},
 
-	playMkv : function(url) {
+	playMkv : function(url,subTitles) {
 		var proxy;
 		if (appletv.serverurl.indexOf('clican.org') == -1) {
 			proxy = appletv.serverurl;
@@ -501,19 +558,42 @@ var appletv = {
 		var options = [];
 		var proxyUrl = appletv.serverurl + '/noctl/mkv/play.m3u8?url='
 				+ encodeURIComponent(url);
-		options.push({
-			"title" : "本地服务器代理转码播放",
-			"script" : "appletv.loadAndSwapXML(appletv.makePlayXml('"
-					+ proxyUrl + "'));"
-		});
+		if(subTitles!=null){
+			options.push({
+				"title" : "本地服务器代理转码播放",
+				"script" : "appletv.makePlayPlist('"
+						+ proxyUrl + "');"
+			});
+		}else{
+			options.push({
+				"title" : "本地服务器代理转码播放",
+				"script" : "appletv.loadAndSwapXML(appletv.makePlayXml('"
+						+ proxyUrl + "'));"
+			});
+		}
 		appletv.showOptionPage('播放源选择', '', options);
 	},
-
+	
 	makePlayXml : function(url) {
 		var xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><atv><body><videoPlayer id=\"play\"><httpLiveStreamingVideoAsset><mediaURL><![CDATA[";
 		xml += url;
 		xml += "]]></mediaURL></httpLiveStreamingVideoAsset></videoPlayer></body></atv>";
 		return xml
+	},
+	
+	makePlayPlist : function(url) {
+		appletv.getValue('clican.play.subTitles', function(subTitles) {
+			c = {
+				"bookmark-time" : 0,
+				subtitle : subTitles,
+				type : "video-asset",
+				"media-asset" : {
+					"media-url" : url
+				}
+			};
+			appletv.loadAndSwapPlist(c);
+		});
+
 	},
 
 	makeDialog : function(message, description) {
@@ -567,6 +647,19 @@ var appletv = {
 		}
 	},
 
+	loadAndSwapPlist : function(plist) {
+		if (this.simulate == 'browser') {
+			appletv.makePostRequest(appletv.remoteserverurl
+					+ '/ctl/postxml.xml', JSON.stringify(plist), function(result) {
+				window.open(appletv.remoteserverurl + '/ctl/showxml.xml');
+			});
+		} else if (this.simulate == 'native') {
+			native_loadPlist(JSON.stringify(plist));
+		} else {
+			atv.loadAndSwapPlist(plist);
+		}
+	},
+	
 	loadURL : function(url) {
 		if (this.simulate == 'browser') {
 			window.location.href = url;

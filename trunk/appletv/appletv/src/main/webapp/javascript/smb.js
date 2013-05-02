@@ -29,4 +29,27 @@ var smbClient = {
 			});
 		},
 		
+		play: function(url){
+			appletv.showLoading();
+			var index = url.indexOf('url=');
+			if(index>0){
+				var smbPath = url.substring(index+4);
+				var subTitleDownloadUrl = appletv.serverurl+'/noctl/subtitle/download.txt?url='+smbPath;
+				var subTitles = [];
+				subTitles.push(
+						{
+							"title" : "无字幕",
+							"url" : ""
+						});
+				subTitles.push(
+						{
+							"title" : "射手网字幕",
+							"url" : subTitleDownloadUrl
+						});
+				subTitleClient.playWithSubTitles(url,subTitles);
+			}else{
+				appletv.showDialog('无法播放','解析filePath出错');
+			}
+			
+		},
 }
