@@ -177,6 +177,7 @@ public class BaseClient {
 			while ((read = is.read(buffer)) != -1) {
 				os1.write(buffer, 0, read);
 			}
+			pr.setData(os1.toByteArray());
 			if (StringUtils.isNotEmpty(contentEncoding)
 					&& contentEncoding.equals("gzip")) {
 				os2 = new ByteArrayOutputStream();
