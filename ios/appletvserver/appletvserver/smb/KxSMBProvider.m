@@ -226,6 +226,8 @@ static KxSMBProvider *gSmbProvider;
     return gSmbProvider;
 }
 
+
+
 - (id) init
 {
     NSAssert(!gSmbProvider, @"singleton object");
@@ -253,6 +255,15 @@ static KxSMBProvider *gSmbProvider;
     TTOpenURL(url);
 }
 #pragma mark - class methods
+
++ (id) sharedSmbContext
+{
+    static dispatch_once_t onceContextToken;
+    dispatch_once(&onceContextToken, ^{
+        gSmbProvider = [[KxSMBProvider alloc] init];
+    });
+    return gSmbProvider;
+}
 
 + (SMBCCTX *) openSmbContext
 {    

@@ -33,4 +33,8 @@
         AppDele.m3u8Process.m3u8Url = nil;
     }
 }
+
++(void) stopMkv{
+    transfer_code_interrupt = 1;
+}
 @end

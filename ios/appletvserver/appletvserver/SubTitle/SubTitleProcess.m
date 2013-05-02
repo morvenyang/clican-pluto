@@ -42,7 +42,9 @@
         smbFile = [KxSMBProvider fetchAtPath:fileUrl];
         totalLength = smbFile.stat.size;
     }
-    
+    if(smbFile){
+        [smbFile close];
+    }
     [NSString stringWithFormat:@"%ld",totalLength / 3 * 2];
     NSInteger offsets[] = {4096, totalLength / 3 * 2,
         totalLength / 3,totalLength - 8192};
@@ -61,12 +63,15 @@
             data = [r responseData];
         }else{
             [smbFile seekToFileOffset:o whence:SEEK_SET];
-            data = [smbFile readDataOfLength:4096]
+            data = [smbFile readDataOfLength:4096];
+           
         }
         NSString* md5 = [AtvUtil md5:data];
         hashes= [hashes stringByAppendingFormat:@"%@;",md5];
     }
-    
+//    if(smbFile){
+//         [smbFile close];
+//    }
     hashes = [hashes substringToIndex:[hashes length]-1];
     NSLog(@"hashes=%@",hashes);
     NSString* shortName = @"1";
