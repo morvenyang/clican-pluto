@@ -20,6 +20,9 @@
 //
 + (id)dataInputStreamWithData:(NSData *)aData;
 
+//从输入流读取 short 值。
+- (int16_t)readByte;
+
 // 从输入流读取 char 值。
 - (int8_t)readChar;
 
@@ -35,4 +38,7 @@
 //从输入流读取 NSString 字符串。
 - (NSString *)readUTF;
 
+-(NSData*)readData:(int) utfLength;
+
+-(NSString*)readString:(int) utfLength dataUsingEncoding:(NSStringEncoding)encoding;
 @end

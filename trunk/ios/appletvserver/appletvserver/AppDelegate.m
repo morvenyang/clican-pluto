@@ -56,6 +56,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 @synthesize localMp3PathPrefix = _localMp3PathPrefix;
 @synthesize scriptRefreshDelegateArray = _scriptRefreshDelegateArray;
 @synthesize proxy = _proxy;
+@synthesize subTitleProcess = _subTitleProcess;
 - (void)dealloc
 {
     [super dealloc];
@@ -102,6 +103,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     self.photoProcess = [[PhotoProcess alloc] init];
     self.mkvProcess = [[MkvProcess alloc] init];
     self.smbProcess = [[SMBProcess alloc] init];
+    self.subTitleProcess = [[SubTitleProcess alloc] init];
 }
 -(void) initEnvironment{
     self.scriptRefreshDelegateArray = [NSMutableArray array];
