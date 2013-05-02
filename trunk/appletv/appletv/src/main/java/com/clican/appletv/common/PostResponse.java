@@ -9,6 +9,7 @@ public class PostResponse {
 	private Map<String, String> cookieMap = new HashMap<String, String>();
 	private Map<String,String> headerMap = new HashMap<String, String>();
 	private int status;
+	private byte[] data;
 
 	public String getContent() {
 		return content;
@@ -48,5 +49,13 @@ public class PostResponse {
 			result += key + "=" + cookieMap.get(key) + ";";
 		}
 		return result;
+	}
+
+	public byte[] getData() {
+		return data;
+	}
+
+	public void setData(byte[] data) {
+		this.data = data;
 	}
 }
