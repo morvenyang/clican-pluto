@@ -72,6 +72,8 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
             }
             HTTPSMBResponse* resp=[[HTTPSMBResponse alloc] initWithSmbFile:AppDele.smbProcess.smbFile];
             return resp;
+        }else if([path rangeOfString:@"/appletv/noctl/subtitle/download.txt"].location!=NSNotFound){
+            return [self handleSubTitle:path];
         }else{
             return [super httpResponseForMethod:method URI:path];
         }
@@ -361,5 +363,23 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
     return resp;
 }
 
+- (NSObject<HTTPResponse> *) handleSubTitle:(NSString*) path{
+    NSString* fileUrl = [[self parseGetParams] objectForKey:@"url"];
+    NSString* content;
+    
+    NSLog(@"file url:%@",fileUrl);
+    if(fileUrl!=NULL){
+        content = [AppDele.subTitleProcess downloadSubTitleByFile:fileUrl];
+    }
+    
+    if(content!=nil){
+        NSData *data = [content dataUsingEncoding:NSUTF8StringEncoding];
+        HTTPDataResponse* resp=[[HTTPDataResponse alloc] initWithData:data];
+        return resp;
+    }else{
+        HTTPDataResponse* resp=[[HTTPDataResponse alloc] initWithData:nil];
+        return resp;
+    }
+}
 
 @end

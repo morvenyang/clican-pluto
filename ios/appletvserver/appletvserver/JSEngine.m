@@ -351,6 +351,9 @@ JSValueRef loadURL(JSContextRef ctx,
     NSString* jsDirectory = [[AppDele localWebPathPrefix] stringByAppendingString:@"/appletv/javascript"];
     NSArray* jsArray=[[NSFileManager defaultManager] contentsOfDirectoryAtPath:jsDirectory error:nil];
     for(int i=0;i<[jsArray count];i++){
+        if([[jsArray objectAtIndex:i] isEqualToString:@"load.js"]){
+            continue;
+        }
         NSString* jsPath = [[AppDele localWebPathPrefix] stringByAppendingFormat:@"/appletv/javascript/%@",[jsArray objectAtIndex:i]];
         NSString* jsContent = [NSString stringWithContentsOfFile:jsPath encoding:NSUTF8StringEncoding error:nil];
         

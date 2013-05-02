@@ -19,6 +19,7 @@
 #import "MkvProcess.h"
 #import "KxSMBProvider.h"
 #import "SMBProcess.h"
+#import "SubTitleProcess.h"
 #define AppDele ((AppDelegate *)[[UIApplication sharedApplication] delegate])
 
 
@@ -62,6 +63,8 @@
     NSString* _localMp3PathPrefix;
     NSMutableArray* _scriptRefreshDelegateArray;
     BOOL _proxy;
+    
+    SubTitleProcess* _subTitleProcess;
 }
 
 @property (nonatomic, retain) ASINetworkQueue* queue;
@@ -93,6 +96,7 @@
 @property (nonatomic, copy) NSString* localMp3PathPrefix;
 @property (nonatomic, retain) NSMutableArray* scriptRefreshDelegateArray;
 @property (nonatomic, assign) BOOL proxy;
+@property (nonatomic, retain) SubTitleProcess* subTitleProcess;
 -(void) initProcess;
 
 @end

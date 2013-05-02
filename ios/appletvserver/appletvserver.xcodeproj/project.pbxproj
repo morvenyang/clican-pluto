@@ -173,6 +173,8 @@
 		72E200D916DB271C00F3D7FC /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72E200D716DB271C00F3D7FC /* Security.framework */; };
 		72E871BE170E74990063E80A /* MkvProcess.m in Sources */ = {isa = PBXBuildFile; fileRef = 72E871BD170E74990063E80A /* MkvProcess.m */; };
 		72E9C4F616D07877004B024B /* libx264.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 72E9C4F516D07877004B024B /* libx264.a */; };
+		72F1D816173204B8000344AF /* DataInputStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 72F1D815173204B8000344AF /* DataInputStream.m */; };
+		72F1D81917320518000344AF /* SubTitleProcess.m in Sources */ = {isa = PBXBuildFile; fileRef = 72F1D81817320518000344AF /* SubTitleProcess.m */; };
 		72F7CB9D16F868120033A32F /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72F7CB9C16F868120033A32F /* AVFoundation.framework */; };
 		72F7CBA016F86C8D0033A32F /* MTAudioPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 72F7CB9F16F86C8D0033A32F /* MTAudioPlayer.m */; };
 		72FEEFCE1703DAAD00F9713E /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 72FEEFCD1703D68C00F9713E /* MBProgressHUD.m */; };
@@ -645,6 +647,10 @@
 		72E871BC170E74990063E80A /* MkvProcess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MkvProcess.h; sourceTree = "<group>"; };
 		72E871BD170E74990063E80A /* MkvProcess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MkvProcess.m; sourceTree = "<group>"; };
 		72E9C4F516D07877004B024B /* libx264.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libx264.a; path = appletvserver/lib/libx264.a; sourceTree = "<group>"; };
+		72F1D814173204B8000344AF /* DataInputStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DataInputStream.h; path = SubTitle/DataInputStream.h; sourceTree = "<group>"; };
+		72F1D815173204B8000344AF /* DataInputStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DataInputStream.m; path = SubTitle/DataInputStream.m; sourceTree = "<group>"; };
+		72F1D81717320518000344AF /* SubTitleProcess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SubTitleProcess.h; path = SubTitle/SubTitleProcess.h; sourceTree = "<group>"; };
+		72F1D81817320518000344AF /* SubTitleProcess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SubTitleProcess.m; path = SubTitle/SubTitleProcess.m; sourceTree = "<group>"; };
 		72F7CB9C16F868120033A32F /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		72F7CB9E16F86C8C0033A32F /* MTAudioPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MTAudioPlayer.h; path = CocoaHTTPServer/MTAudioPlayer.h; sourceTree = "<group>"; };
 		72F7CB9F16F86C8D0033A32F /* MTAudioPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MTAudioPlayer.m; path = CocoaHTTPServer/MTAudioPlayer.m; sourceTree = "<group>"; };
@@ -1086,6 +1092,7 @@
 		72A4368516C9EA5A00D9958D /* appletvserver */ = {
 			isa = PBXGroup;
 			children = (
+				72F1D80A17320499000344AF /* SubTitle */,
 				72DF0FD217139DBB00B01A76 /* SMB */,
 				72FEEFCB1703D67D00F9713E /* Utils */,
 				72D5CBEB170048C500B292BA /* TouchXML */,
@@ -1184,6 +1191,8 @@
 				72D4F5311715872D0047C762 /* SMBProcess.m */,
 				722948B51717A2C600CEF2F8 /* ProcessManager.h */,
 				722948B61717A2C600CEF2F8 /* ProcessManager.m */,
+				72F1D81717320518000344AF /* SubTitleProcess.h */,
+				72F1D81817320518000344AF /* SubTitleProcess.m */,
 			);
 			name = Process;
 			sourceTree = "<group>";
@@ -1386,6 +1395,15 @@
 				722B23771712C36400D3A8B4 /* SMBDataSource.m */,
 			);
 			name = Datasource;
+			sourceTree = "<group>";
+		};
+		72F1D80A17320499000344AF /* SubTitle */ = {
+			isa = PBXGroup;
+			children = (
+				72F1D814173204B8000344AF /* DataInputStream.h */,
+				72F1D815173204B8000344AF /* DataInputStream.m */,
+			);
+			name = SubTitle;
 			sourceTree = "<group>";
 		};
 		72FEEFCB1703D67D00F9713E /* Utils */ = {
@@ -1751,6 +1769,8 @@
 				727861FA171CFBEC000D310D /* IndexMenu.m in Sources */,
 				7265769A172622BF0066F492 /* DownloadProgressViewController.m in Sources */,
 				726576A61726323E0066F492 /* CricleUIView.m in Sources */,
+				72F1D816173204B8000344AF /* DataInputStream.m in Sources */,
+				72F1D81917320518000344AF /* SubTitleProcess.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -59,6 +59,10 @@
     
 }
 
+- (int16_t) readByte {
+    return [self read];
+}
+
 - (int32_t)readInt {
     int32_t ch1 = [self read];
     int32_t ch2 = [self read];
@@ -94,6 +98,17 @@
 	return str;
 }
 
+-(NSData*)readData:(int) utfLength{
+    NSData *d = [data subdataWithRange:NSMakeRange(length,utfLength)];
+    length = length + utfLength;
+    return d;
+}
+
+-(NSString*)readString:(int) utfLength dataUsingEncoding:(NSStringEncoding)encoding{
+    NSData* d= [self readData:utfLength];
+    NSString *str = [[[NSString alloc] initWithData:d encoding:encoding] autorelease];
+	return str;
+}
 - (void)dealloc{
 	[data release];
 	[super dealloc];

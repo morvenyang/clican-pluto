@@ -15,4 +15,6 @@
 + (NSString*) encodeURL:(NSString *)string;
 + (BOOL) content:(NSString *)content contains:(NSString*) contains;
 + (BOOL) content:(NSString *)content startWith:(NSString*) prefix;
++ (NSString*) md5:(NSData*) data;
++ (NSData *)uncompressZippedData:(NSData *)compressedData;
 @end
