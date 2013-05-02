@@ -11,5 +11,5 @@
 @interface ProcessManager : NSObject
 
 +(void) changeRunningProcess:(NSString*) process;
-
++(void) stopMkv;
 @end
