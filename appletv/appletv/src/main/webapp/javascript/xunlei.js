@@ -207,7 +207,38 @@ var xunleiClient = {
 			appletv.showDialog('没有内容，请重试','');
 			return;
 		}
-		var m3u8url = res['resp']["vodinfo_list"][0]['vod_url'];
-		appletv.playM3u8(m3u8url,'');
+		var vodList = res['resp']["vodinfo_list"];
+		var m3u8Url = res['resp']["vodinfo_list"][vodList.length-1]['vod_url'];
+		var gcid = res['resp']['src_info']['gcid'];
+		var cid = res['resp']['src_info']['cid'];
+		var userid = res['resp']['userid'];
+		if(appletv.simulate=='native'){
+			appletv.playM3u8(m3u8Url,'');
+		}else{
+			var surl = "http://i.vod.xunlei.com/subtitle/list?gcid=" + gcid
+			+ "&cid=" + cid + "&userid=" + userid + "&t=" + new Date().getTime();
+			appletv.makeRequest(surl,function(jsonContent){
+				var subJson = JSON.parse(jsonContent);
+				var subList = subJson['sublist'];
+				var subTitles = [];
+				subTitles.push(
+						{
+							"title" : "无字幕",
+							"url" : ""
+						});
+				for(var i=0;i<subList.length;i++){
+					subTitles.push(
+							{
+								"title" : subList[i]['sname'],
+								"url" : subList[i]['surl']
+							});
+				}
+				subTitleClient.playWithSubTitles(m3u8Url,subTitles);
+			});
+		}
+	},
+	
+	selectSubtitle:function(m3u8url){
+		
 	}
 }

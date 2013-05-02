@@ -348,7 +348,11 @@ var yyetsClient = {
 		var encodeUrl = url.replace(new RegExp('&', 'g'),'&amp;');
 		var options = [];
 		options.push({"title":"迅雷云点播/迅雷云转码播放","script":"xunleiClient.play('"+encodeUrl+"','');"});
-		options.push({"title":"迅雷离线下载播放/iOS本地转码","script":"xunleiClient.offlinePlay('"+encodeUrl+"');"});
+		if(appletv.serverurl.indexOf('clican.org') == -1){
+			options.push({"title":"迅雷离线下载播放/iOS本地转码","script":"xunleiClient.offlinePlay('"+encodeUrl+"');"});
+		}else{
+			options.push({"title":"迅雷离线下载播放/iOS本地转码","script":"appletv.showDialog('该功能需要iOS本地服务器的支持','相关安装配置请参见http://clican.org');"});
+		}
 		appletv.showOptionPage('播放源选择','',options);
 	}
 }

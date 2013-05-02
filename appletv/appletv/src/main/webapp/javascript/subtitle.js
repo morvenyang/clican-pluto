@@ -28,73 +28,89 @@ var subTitleClient = {
 		},
 		
 		playWithSubTitleAndOffset : function(url,subTitleUrl,offset){
-			appletv.makeRequest(subTitleUrl,function(content){
-				var subTitles = [];
-				appletv.logToServer(content);
-				if (content.indexOf('[Script Info]') == 0
-						&& content.indexOf('[Events]') > 0) {
-					var subValues = appletv.getSubValues(content,'Dialogue: (',')');
-					for ( var i = 0; i < subValues.length; i++) {
-						fields = subValues[i][0].split(',');
-						startt = subTitleClient.subti(fields[1], '.');
-						endt = subTitleClient.subti(fields[2], '.');
-						subinfo = fields.splice(9).join(",").replace(
-								/\\n/i, '\n').replace(/{[^}]*}/g, '');
-						if (i > 0)
-							laststartt = subTitles[subTitles.length - 1][1];
-						else
-							laststartt = -1;
-						if (startt < laststartt) {
-							for ( var j = 0; j < subTitles.length; j++) {
-								laststartt = subTitles[j][1];
-								if (startt < laststartt) {
-									subTitles.splice(j, 0, [ i, startt, endt,
-											subinfo ]);
-									break;
-								}
-							}
-						} else
-							subTitles.push([ i, startt, endt, subinfo ]);
-					}
-				} else {
-					lines = content.replace(/\r/g, '').split('\n\n');
-					for ( var i = 0; i < lines.length; i++) {
-						var subline = lines[i].split('\n');
-						while (subline[0] == '')
-							subline.shift();
-						var subid = subline.shift();
-						if (!subid)
-							continue;
-						var subtime = subline.shift();
-						if (!subtime)
-							continue;
-						var sta = subtime.split('-->');
-						if (sta.length != 2)
-							continue;
-						var startt = subTitleClient.subti(sta[0]);
-						var endt = subTitleClient.subti(sta[1]);
-						var subinfo = subline.join('\n').replace(/\\n/i,
-								'\n').replace(/{[^}]*}/g, '');
-						if (i > 0)
-							laststartt = subTitles[subTitles.length - 1][1];
-						else
-							laststartt = -1;
-						if (startt < laststartt) {
-							for ( var j = 0; j < subTitles.length; j++) {
-								laststartt = subTitles[j][1];
-								if (startt < laststartt) {
-									subTitles.splice(j, 0, [ subid, startt,
-											endt, subinfo ]);
-									break;
-								}
-							}
-						} else
-							subTitles.push([ subid, startt, endt, subinfo ]);
-					}
+			if(subTitleUrl==null||subTitleUrl.length==0){
+				if(url.indexOf("/appletv/noctl")!=-1){
+					appletv.play(url);
+				}else{
+					appletv.playM3u8(url,'',null);
 				}
-				appletv.logToServer(JSON.stringify(subTitles));
-				appletv.playM3u8(url,'',subTitles);
-			});
+			}else{
+				appletv.makeRequest(subTitleUrl,function(content){
+					appletv.logToServer(content);
+					var subTitles = [];
+					if (content.indexOf('[Script Info]') == 0
+							&& content.indexOf('[Events]') > 0) {
+						var subValues = appletv.getSubValues(content,'Dialogue:','\n');
+						appletv.logToServer('dialogue size:'+subValues.length);
+						for ( var i = 0; i < subValues.length; i++) {
+							fields = subValues[i].split(',');
+							startt = subTitleClient.subti(fields[1], '.');
+							endt = subTitleClient.subti(fields[2], '.');
+							subinfo = fields.splice(9).join(",").replace(
+									/\\n/i, '\n').replace(/{[^}]*}/g, '');
+							if (i > 0)
+								laststartt = subTitles[subTitles.length - 1][1];
+							else
+								laststartt = -1;
+							if (startt < laststartt) {
+								for ( var j = 0; j < subTitles.length; j++) {
+									laststartt = subTitles[j][1];
+									if (startt < laststartt) {
+										subTitles.splice(j, 0, [ i, startt, endt,
+												subinfo ]);
+										break;
+									}
+								}
+							} else
+								subTitles.push([ i, startt, endt, subinfo ]);
+						}
+					} else {
+						lines = content.replace(/\r/g, '').split('\n\n');
+						for ( var i = 0; i < lines.length; i++) {
+							var subline = lines[i].split('\n');
+							while (subline[0] == '')
+								subline.shift();
+							var subid = subline.shift();
+							if (!subid)
+								continue;
+							var subtime = subline.shift();
+							if (!subtime)
+								continue;
+							var sta = subtime.split('-->');
+							if (sta.length != 2)
+								continue;
+							var startt = subTitleClient.subti(sta[0]);
+							var endt = subTitleClient.subti(sta[1]);
+							var subinfo = subline.join('\n').replace(/\\n/i,
+									'\n').replace(/{[^}]*}/g, '');
+							if (i > 0)
+								laststartt = subTitles[subTitles.length - 1][1];
+							else
+								laststartt = -1;
+							if (startt < laststartt) {
+								for ( var j = 0; j < subTitles.length; j++) {
+									laststartt = subTitles[j][1];
+									if (startt < laststartt) {
+										subTitles.splice(j, 0, [ subid, startt,
+												endt, subinfo ]);
+										break;
+									}
+								}
+							} else
+								subTitles.push([ subid, startt, endt, subinfo ]);
+						}
+					}
+					appletv.logToServer(JSON.stringify(subTitles));
+					appletv.setValue('clican.play.subTitles', subTitles);
+					if(url.indexOf("/appletv/noctl")!=-1){
+						//for smb resource
+						appletv.makePlayPlist(url);
+					}else{
+						//for xunlei
+						appletv.playM3u8(url,'',subTitles);
+					}
+				});
+			}
 		},
 		
 		subti : function(sts, point) {

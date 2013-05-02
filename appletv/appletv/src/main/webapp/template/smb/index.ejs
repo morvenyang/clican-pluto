@@ -18,7 +18,7 @@
 							<%for(var i=0;i<items.length;i++){%>
 								<%if(items[i].type=='file'){%>
 									<%if(items[i].url!=null&&items[i].url!=''){%>
-									<oneLineMenuItem id="albumItem_<%=i%>" onSelect="appletv.play('<%=items[i].url%>');">
+									<oneLineMenuItem id="albumItem_<%=i%>" onSelect="smbClient.play('<%=items[i].url%>');">
 										<label><![CDATA[<%=items[i].fileName%>]]></label>
 									</oneLineMenuItem>
 									<%}else{%>
