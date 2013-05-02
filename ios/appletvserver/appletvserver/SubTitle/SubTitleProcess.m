@@ -11,18 +11,20 @@
 #import "ASIFormDataRequest.h"
 #import "AtvUtil.h"
 #import "DataInputStream.h"
+#import "AppDelegate.h"
 @implementation SubTitleProcess
 
 -(NSString*) downloadSubTitleByFile:(NSString*) fileUrl{
-    ASIHTTPRequest *req = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:fileUrl]];
-    NSMutableDictionary* reqHeaders = [NSMutableDictionary dictionary];
-    [reqHeaders setValue:[@"bytes=0-" stringByAppendingFormat:@"%i",1] forKey:@"Range"];
-    [req setRequestHeaders:reqHeaders];
-    [req setShouldContinueWhenAppEntersBackground:YES];
-    [req startSynchronous];
-    NSError *error = [req error];
-    if (!error) {
-        long totalLength=0;
+    long totalLength=0;
+    KxSMBItemFile* smbFile = nil;
+    if([AtvUtil content:fileUrl startWith:@"http"]){
+        ASIHTTPRequest *req = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:fileUrl]];
+        NSMutableDictionary* reqHeaders = [NSMutableDictionary dictionary];
+        [reqHeaders setValue:[@"bytes=0-" stringByAppendingFormat:@"%i",1] forKey:@"Range"];
+        [req setRequestHeaders:reqHeaders];
+        [req setShouldContinueWhenAppEntersBackground:YES];
+        [req startSynchronous];
+        
         NSString* contentRange = [[req responseHeaders] valueForKey:@"Content-Range"];
         if(contentRange!=nil&&[contentRange rangeOfString:@"bytes"].location!=NSNotFound){
             NSMutableCharacterSet* set = [NSMutableCharacterSet new];
@@ -36,12 +38,19 @@
                 totalLength = [contentLength longLongValue];
             }
         }
-        [NSString stringWithFormat:@"%ld",totalLength / 3 * 2];
-        NSInteger offsets[] = {4096, totalLength / 3 * 2,
-            totalLength / 3,totalLength - 8192};
-        NSString* hashes = @"";
-        for(int i=0;i<4;i++){
-            long o = offsets[i];
+    }else{
+        smbFile = [KxSMBProvider fetchAtPath:fileUrl];
+        totalLength = smbFile.stat.size;
+    }
+    
+    [NSString stringWithFormat:@"%ld",totalLength / 3 * 2];
+    NSInteger offsets[] = {4096, totalLength / 3 * 2,
+        totalLength / 3,totalLength - 8192};
+    NSString* hashes = @"";
+    for(int i=0;i<4;i++){
+        long o = offsets[i];
+        NSData* data = nil;
+        if([AtvUtil content:fileUrl startWith:@"http"]){
             NSString* range = [NSString stringWithFormat:@"bytes=%ld-%ld",o,o+4096-1];
             NSMutableDictionary* headers = [NSMutableDictionary dictionary];
             [headers setObject:range forKey:@"Range"];
@@ -49,43 +58,46 @@
             [r setRequestHeaders:headers];
             [r setShouldContinueWhenAppEntersBackground:YES];
             [r startSynchronous];
-            NSData* data = [r responseData];
-            NSString* md5 = [AtvUtil md5:data];
-            hashes= [hashes stringByAppendingFormat:@"%@;",md5];
-        }
-        
-        hashes = [hashes substringToIndex:[hashes length]-1];
-        NSLog(@"hashes=%@",hashes);
-        NSString* shortName = @"1";
-        NSString* pathInfo = @"E:\\1.mkv";
-        NSData* d1 = [@"SP,aerSP,aer 1543 &e(" dataUsingEncoding:NSUTF8StringEncoding];
-        Byte d2[] = {0xd7,0x02};
-        NSData* d3 = [[@" 1.mkv" stringByAppendingFormat:@" %@",hashes] dataUsingEncoding:NSUTF8StringEncoding];
-        NSMutableData* d =[NSMutableData data];
-        [d appendData:d1];
-        [d appendBytes:d2 length:2];
-        [d appendData:d3];
-        NSString* vhash = [AtvUtil md5:d];
-        
-        
-        ASIFormDataRequest *subTitleReq = [ASIFormDataRequest requestWithURL:[NSURL URLWithString:@"http://svplayer.shooter.cn/api/subapi.php"]];
-        NSMutableDictionary* subTitleReqHeaders = [NSMutableDictionary dictionary];
-        [subTitleReqHeaders setObject:@"SPlayer Build 1543" forKey:@"User-Agent"];
-        [subTitleReq setPostValue:hashes forKey:@"filehash"];
-        [subTitleReq setPostValue:pathInfo forKey:@"pathinfo"];
-        
-        [subTitleReq setPostValue:shortName forKey:@"shortname"];
-        [subTitleReq setPostValue:vhash forKey:@"vhash"];
-        [subTitleReq setRequestHeaders:subTitleReqHeaders];
-        [subTitleReq setShouldContinueWhenAppEntersBackground:YES];
-        [subTitleReq startSynchronous];
-        NSData* data = [subTitleReq responseData];
-        if([data length]<1024){
-            return nil;
+            data = [r responseData];
         }else{
-            DataInputStream* dis = [DataInputStream dataInputStreamWithData:data];
-            return [self parsePackages:dis];
+            [smbFile seekToFileOffset:o whence:SEEK_SET];
+            data = [smbFile readDataOfLength:4096]
         }
+        NSString* md5 = [AtvUtil md5:data];
+        hashes= [hashes stringByAppendingFormat:@"%@;",md5];
+    }
+    
+    hashes = [hashes substringToIndex:[hashes length]-1];
+    NSLog(@"hashes=%@",hashes);
+    NSString* shortName = @"1";
+    NSString* pathInfo = @"E:\\1.mkv";
+    NSData* d1 = [@"SP,aerSP,aer 1543 &e(" dataUsingEncoding:NSUTF8StringEncoding];
+    Byte d2[] = {0xd7,0x02};
+    NSData* d3 = [[@" 1.mkv" stringByAppendingFormat:@" %@",hashes] dataUsingEncoding:NSUTF8StringEncoding];
+    NSMutableData* d =[NSMutableData data];
+    [d appendData:d1];
+    [d appendBytes:d2 length:2];
+    [d appendData:d3];
+    NSString* vhash = [AtvUtil md5:d];
+    
+    
+    ASIFormDataRequest *subTitleReq = [ASIFormDataRequest requestWithURL:[NSURL URLWithString:@"http://svplayer.shooter.cn/api/subapi.php"]];
+    NSMutableDictionary* subTitleReqHeaders = [NSMutableDictionary dictionary];
+    [subTitleReqHeaders setObject:@"SPlayer Build 1543" forKey:@"User-Agent"];
+    [subTitleReq setPostValue:hashes forKey:@"filehash"];
+    [subTitleReq setPostValue:pathInfo forKey:@"pathinfo"];
+    
+    [subTitleReq setPostValue:shortName forKey:@"shortname"];
+    [subTitleReq setPostValue:vhash forKey:@"vhash"];
+    [subTitleReq setRequestHeaders:subTitleReqHeaders];
+    [subTitleReq setShouldContinueWhenAppEntersBackground:YES];
+    [subTitleReq startSynchronous];
+    NSData* data = [subTitleReq responseData];
+    if([data length]<1024){
+        return nil;
+    }else{
+        DataInputStream* dis = [DataInputStream dataInputStreamWithData:data];
+        return [self parsePackages:dis];
     }
 }
 
