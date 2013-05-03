@@ -568,10 +568,27 @@ var sokuClient = {
 					}catch(e){
 						
 					}
-					if(m3u8Url==null||m3u8Url.length==0){
-						m3u8Url = json['data']['purl'];
+					try{
+						if(m3u8Url==null||m3u8Url.length==0){
+							m3u8Url = json['data']['purl'];
+						}
+					}catch(e){
+						
 					}
-					appletv.playM3u8(m3u8Url, '');
+					try{
+						if(m3u8Url==null||m3u8Url.length==0){
+							var c = json['data']['content'][json['data']['sort']];
+							appletv.logToServer(JSON.stringify(c));
+							m3u8Url = c['fsps'][0]['mpurls']['dvd']['url']
+						}
+					}catch(e){
+						
+					}
+					if(m3u8Url==null||m3u8Url.length==0){
+						appletv.showDialog('从风行获取播放地址失败', '');
+					}else{
+						appletv.playM3u8(m3u8Url, '');
+					}
 				});
 			}else if(url.indexOf('m1905.com')!=-1){
 				var vid = appletv.substringByData(url,'play/','.shtml');
