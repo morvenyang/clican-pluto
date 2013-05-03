@@ -131,6 +131,7 @@ public class ProxyController {
 			log.debug("check sync version, t=" + request.getParameter("t"));
 		}
 		response.addHeader("version", springProperty.getSystemVersion());
+		response.addHeader("clientVersion", springProperty.getSystemClientVersion());
 	}
 
 	public void zipFile(String fileToZip, ZipOutputStream zipOut)

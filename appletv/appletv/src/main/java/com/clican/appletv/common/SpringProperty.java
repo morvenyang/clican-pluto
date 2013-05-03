@@ -6,6 +6,8 @@ public class SpringProperty {
 
 	private String systemVersion;
 	
+	private String systemClientVersion;
+	
 	private String systemServerUrl;
 	
 	private boolean systemProxyPlay;
@@ -651,6 +653,14 @@ public class SpringProperty {
 
 	public void setLblImageMapFile(String lblImageMapFile) {
 		this.lblImageMapFile = lblImageMapFile;
+	}
+
+	public String getSystemClientVersion() {
+		return systemClientVersion;
+	}
+
+	public void setSystemClientVersion(String systemClientVersion) {
+		this.systemClientVersion = systemClientVersion;
 	}
 
 	
