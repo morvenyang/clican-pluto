@@ -269,44 +269,6 @@ var appletv = {
 		}
 	},
 
-	makeSyncRequest:function(url,headers){
-		if (!url) {
-			throw "loadURL requires a url argument";
-		}
-		if (appletv.simulate == 'native') {
-			
-		}else{
-			var xhr = new XMLHttpRequest();
-			xhr.open("GET", url, false);
-			if (headers != null) {
-				for ( var key in headers) {
-					xhr.setRequestHeader(key, headers[key]);
-				}
-			}
-			xhr.send();
-			return xhr.responseDataAsBase64;
-		}
-	},
-	
-	makeHeaderRequest: function(url,headers){
-		if (!url) {
-			throw "loadURL requires a url argument";
-		}
-		if (appletv.simulate == 'native') {
-			
-		}else{
-			var xhr = new XMLHttpRequest();
-			xhr.open("GET", url, false);
-			if (headers != null) {
-				for ( var key in headers) {
-					xhr.setRequestHeader(key, headers[key]);
-				}
-			}
-			xhr.send();
-			return xhr.getAllResponseHeaders();
-		}
-	},
-	
 	makeRequest : function(url, callback) {
 		this.makeRequest(url, callback, null);
 	},
