@@ -18,6 +18,7 @@
 #import "KxSMBProvider.h"
 #import "HTTPSMBResponse.h"
 #import "ProcessManager.h"
+#import "ffmpeg.h"
 // Log levels : off, error, warn, info, verbose
 // Other flags: trace
 static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
@@ -341,26 +342,36 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
     return resp;
 }
 - (NSObject<HTTPResponse> *) handleSmbResource:(NSString*) path{
-    NSString* smbUrl = [[self parseGetParams] objectForKey:@"url"];
-    NSString* content;
-    if(smbUrl==nil||smbUrl.length==0){
-        if(AppDele.auth!=nil&&AppDele.auth.serverIP!=nil){
-            smbUrl = [NSString stringWithFormat:@"smb://%@",AppDele.auth.serverIP];
-        }else{
-            
+    BOOL sleep = NO;
+    if(transfer_code_interrupt==0){
+        sleep = YES;
+    }
+    transfer_code_interrupt = 1;
+    if(sleep){
+        [NSThread sleepForTimeInterval:3.0f];
+    }
+    @synchronized(AppDele.mkvProcess) {
+        NSString* smbUrl = [[self parseGetParams] objectForKey:@"url"];
+        NSString* content;
+        if(smbUrl==nil||smbUrl.length==0){
+            if(AppDele.auth!=nil&&AppDele.auth.serverIP!=nil){
+                smbUrl = [NSString stringWithFormat:@"smb://%@",AppDele.auth.serverIP];
+            }else{
+                
+            }
         }
+        NSLog(@"smb url:%@",smbUrl);
+        if(smbUrl!=NULL){
+            content = [AppDele.smbProcess getResourcesForParent:smbUrl];
+        }
+        
+        if(content==nil){
+            content = @"{\"title\":\"无法访问smb共享\",\"description\":\"请先在设备上登录smb共享\"}";
+        }
+        NSData *data = [content dataUsingEncoding:NSUTF8StringEncoding];
+        HTTPDataResponse* resp=[[HTTPDataResponse alloc] initWithData:data];
+        return resp;
     }
-    NSLog(@"smb url:%@",smbUrl);
-    if(smbUrl!=NULL){
-        content = [AppDele.smbProcess getResourcesForParent:smbUrl];
-    }
-    
-    if(content==nil){
-        content = @"{\"title\":\"无法访问smb共享\",\"description\":\"请先在设备上登录smb共享\"}";
-    }
-    NSData *data = [content dataUsingEncoding:NSUTF8StringEncoding];
-    HTTPDataResponse* resp=[[HTTPDataResponse alloc] initWithData:data];
-    return resp;
 }
 
 - (NSObject<HTTPResponse> *) handleSubTitle:(NSString*) path{
