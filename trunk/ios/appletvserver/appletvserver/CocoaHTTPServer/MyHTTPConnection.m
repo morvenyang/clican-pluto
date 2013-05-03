@@ -347,9 +347,11 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
         sleep = YES;
     }
     transfer_code_interrupt = 1;
+    
     if(sleep){
         [NSThread sleepForTimeInterval:3.0f];
     }
+    AppDele.mkvProcess.mkvUrl=nil;
     @synchronized(AppDele.mkvProcess) {
         NSString* smbUrl = [[self parseGetParams] objectForKey:@"url"];
         NSString* content;

@@ -39,7 +39,16 @@
         self.m3u8Path = outputFile;
         NSLog(@"OutPath:%@",outpath);
         NSLog(@"InPath:%@",inpath);
+        BOOL sleep = NO;
+        if(transfer_code_interrupt==0){
+            sleep = YES;
+        }
         transfer_code_interrupt = 1;
+        
+        if(sleep){
+            [NSThread sleepForTimeInterval:3.0f];
+        }
+        
         @synchronized(AppDele.mkvProcess){
             if([[NSFileManager defaultManager] fileExistsAtPath:outpath]){
                 [[NSFileManager defaultManager] removeItemAtPath:outpath error:nil];
