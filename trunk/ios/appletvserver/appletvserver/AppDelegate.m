@@ -57,6 +57,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 @synthesize scriptRefreshDelegateArray = _scriptRefreshDelegateArray;
 @synthesize proxy = _proxy;
 @synthesize subTitleProcess = _subTitleProcess;
+@synthesize clientVersion = _clientVersion;
 - (void)dealloc
 {
     [super dealloc];

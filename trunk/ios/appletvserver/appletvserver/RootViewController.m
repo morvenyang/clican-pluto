@@ -9,7 +9,7 @@
 #import "RootViewController.h"
 #import "AppDelegate.h"
 #import "MainViewController.h"
-
+#import "Constants.h"
 @implementation RootViewController
 
 
@@ -26,24 +26,17 @@
 -(void) refreshScript{
         [[AppDele jsEngine] reloadJS];
         AppDele.shareWeibo = [[AppDele jsEngine] runJS:@"appletv.isShareEnable();"];
-        NSString* result = [[AppDele jsEngine] runJS:@"appletv.isSMBEnable();"];
-        if(result!=nil&&[result isEqualToString:@"true"]){
-            [self setTabURLs:[NSArray arrayWithObjects:
-                              @"atvserver://main",
-                              @"atvserver://xunlei/login",
-                              @"atvserver://download",
-                              @"atvserver://smb/auth",
-                              @"atvserver://config",
-                              nil]];
-        }else{
-            [self setTabURLs:[NSArray arrayWithObjects:
-                              @"atvserver://main",
-                              @"atvserver://xunlei/login",
-                              @"atvserver://download",
-                              @"atvserver://config",
-                              nil]];
-        }
-    
+    [self setTabURLs:[NSArray arrayWithObjects:
+                      @"atvserver://main",
+                      @"atvserver://xunlei/login",
+                      @"atvserver://download",
+                      @"atvserver://smb/auth",
+                      @"atvserver://config",
+                      nil]];
+    UITabBarItem* config = [self.tabBar.items objectAtIndex:4];
+    if(AppDele.clientVersion==NULL||![AppDele.clientVersion isEqualToString:ATV_CLIENT_VERSION]){
+        config.badgeValue = @"更新版本";
+    }
 }
 
 - (void)viewDidLoad
@@ -60,6 +53,10 @@
                       @"atvserver://smb/auth",
                       @"atvserver://config",
                       nil]];
+    UITabBarItem* config = [self.tabBar.items objectAtIndex:4];
+    if(AppDele.clientVersion==NULL||![AppDele.clientVersion isEqualToString:ATV_CLIENT_VERSION]){
+        config.badgeValue = @"更新版本";
+    }
 }
 
 - (void)didReceiveMemoryWarning
