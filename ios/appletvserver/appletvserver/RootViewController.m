@@ -53,10 +53,6 @@
                       @"atvserver://smb/auth",
                       @"atvserver://config",
                       nil]];
-    UITabBarItem* config = [self.tabBar.items objectAtIndex:4];
-    if(AppDele.clientVersion==NULL||![AppDele.clientVersion isEqualToString:ATV_CLIENT_VERSION]){
-        config.badgeValue = @"更新版本";
-    }
 }
 
 - (void)didReceiveMemoryWarning

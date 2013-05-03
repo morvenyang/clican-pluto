@@ -9,6 +9,8 @@
 #import "MainViewController.h"
 #import "AppDelegate.h"
 #import "IndexMenu.h"
+#import "Constants.h"
+#import "RootViewController.h"
 @implementation MainViewController
 
 @synthesize progressHUD = _progressHUD;
@@ -92,6 +94,11 @@
         self.tableView.delegate =self;
         _flags.isUpdatingView=NO;
         [self updateView];
+        RootViewController* ctl =(RootViewController*)[TTNavigator navigator].rootViewController;
+        UITabBarItem* config = [ctl.tabBar.items objectAtIndex:4];
+        if(AppDele.clientVersion==NULL||![AppDele.clientVersion isEqualToString:ATV_CLIENT_VERSION]){
+            config.badgeValue = @"更新版本";
+        }
     }
 }
 -(void) refreshScript{
