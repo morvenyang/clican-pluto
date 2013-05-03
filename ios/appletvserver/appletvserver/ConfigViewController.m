@@ -238,13 +238,23 @@
     
     self.clearCacheItem = [TTTableControlItem itemWithCaption:[NSString stringWithFormat:@"清空缓存（ %0.1f Mb）", (float)folderSize/1000/1000] control:self.clearCacheButton];
 
+    
     [items addObject:self.clearCacheItem];
     
     
+    NSString* clientVersion = @"未知";
+    if(AppDele.clientVersion!=NULL&&AppDele.clientVersion.length>0){
+        clientVersion = AppDele.clientVersion;
+    }
 
+    NSString* versionLabel = [NSString stringWithFormat:@"当前版本:%@ 最新版本:%@",ATV_CLIENT_VERSION,clientVersion];
+
+     TTTableStyledTextItem* versionItem = [TTTableStyledTextItem itemWithText:[TTStyledText textFromXHTML:versionLabel lineBreaks:YES URLs:YES] URL:@"http://clican.org/appletv/help.html"];
+    [items addObject:versionItem];
     
     ConfigDataSource* ds = [[[ConfigDataSource alloc] initWithItems:items callback:self] autorelease];
     self.dataSource = ds;
+    self.tableView.delegate =self;
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
@@ -267,11 +277,24 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if(indexPath.row==2){
+    if(indexPath.row==3){
         return 150;
     }else{
         return 60;
     }
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    TTListDataSource* ds = (TTListDataSource*)tableView.dataSource;
+    
+    TTTableItem* item = [ds.items objectAtIndex:indexPath.row];
+    if([item isKindOfClass:[TTTableLinkedItem class]]){
+        TTTableLinkedItem* linkedItem = (TTTableLinkedItem*)item;
+        if(linkedItem.URL!=nil&&linkedItem.URL.length>0){
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:linkedItem.URL]];
+        }
+    }
+
 }
 
 - (void)viewDidLoad

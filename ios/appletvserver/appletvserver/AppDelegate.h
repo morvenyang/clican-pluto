@@ -65,6 +65,7 @@
     BOOL _proxy;
     
     SubTitleProcess* _subTitleProcess;
+    NSString* _clientVersion;
 }
 
 @property (nonatomic, retain) ASINetworkQueue* queue;
@@ -97,6 +98,7 @@
 @property (nonatomic, retain) NSMutableArray* scriptRefreshDelegateArray;
 @property (nonatomic, assign) BOOL proxy;
 @property (nonatomic, retain) SubTitleProcess* subTitleProcess;
+@property (nonatomic, copy) NSString* clientVersion;
 -(void) initProcess;
 
 @end
