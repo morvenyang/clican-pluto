@@ -162,6 +162,7 @@ var tuClient ={
 		},
 		
 		loadVideoPage : function(url) {
+			appletv.showLoading();
 			appletv
 					.makeRequest(url,
 							function(htmlContent) {
