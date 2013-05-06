@@ -2,27 +2,33 @@ var weivideoClient = {
 	weivideoChannelMap : {
 		"1001" : {
 			label : "搜索",
-			value : '1001'
+			value : '1001',
+			path : ''
 		},
 		"1" : {
 			label : "电视剧",
-			value : '1'
+			value : '1',
+			path: 'tv'
 		},
 		"4" : {
 			label : "电影",
-			value : '4'
+			value : '4',
+			path : 'movie'
 		}
 	},
 
 	weivideoChannels : [ {
 		label : "搜索",
-		value : '1001'
+		value : '1001',
+		path: ''
 	}, {
 		label : "电视剧",
-		value : '1'
+		value : '1',
+		path: 'tv'
 	}, {
 		label : "电影",
-		value : '4'
+		value : '4',
+		path: 'movie'
 	} ],
 
 	loadChannelPage : function() {
@@ -49,12 +55,12 @@ var weivideoClient = {
 		appletv.loadAndSwapXML(xml);
 	},
 
-	loadIndexPage : function(keyword, page, channelId) {
+	loadIndexPage : function(keyword, page, channelId,queryUrl) {
 		appletv.showLoading();
 		var channel = this.weivideoChannelMap[channelId];
 		var videos = [];
 		if (channelId == 1001) {
-			var queryUrl = 'http://video.weibo.com/s?q='+encodeURIComponent(keyword);
+			queryUrl = 'http://video.weibo.com/s?q='+encodeURIComponent(keyword);
 			appletv.makeRequest(queryUrl,function(htmlContent){
 				if(htmlContent!=null&&htmlContent.length>0){
 					var videoList = appletv.getSubValues(htmlContent,'<div class="sc-sv-item">','</a>');
@@ -78,11 +84,13 @@ var weivideoClient = {
 				}
 			});
 		} else {
-			var queryUrl = 'http://newvideopc.video.sina.com.cn/movie/fapi/data?uid=&q_category='
+			if(queryUrl==null){
+				queryUrl = 'http://newvideopc.video.sina.com.cn/movie/fapi/data?uid=&q_category='
 					+ channelId
-					+ '&q_region='
-					+ encodeURIComponent('全部')
 					+ '&page=' + page + '&time=' + new Date().getTime();
+			} else {
+				queryUrl = queryUrl+'&page=' + page + '&time=' + new Date().getTime();
+			}
 			appletv.logToServer(queryUrl);
 			appletv
 					.makeRequest(
@@ -135,7 +143,7 @@ var weivideoClient = {
 			'end' : end,
 			'channels' : weivideoClient.weivideoChannels,
 			'serverurl' : appletv.serverurl,
-			'videos' : videos,
+			'videos' : videos
 		};
 		var xml = new EJS({
 			url : appletv.serverurl + '/template/weivideo/index.ejs'
@@ -143,6 +151,70 @@ var weivideoClient = {
 		appletv.loadAndSwapXML(xml);
 	},
 
+	getCategory: function(content,channelId,url,region,tag,year){
+		var channel = this.weivideoChannelMap[channelId];
+		var categoryFilters = appletv.getSubValuesByTag(content,'<dl>','</dl>','dl');
+		var categoryNames = [];
+		var categoryMap = {};
+		var submitUrl = 'http://newvideopc.video.sina.com.cn/movie/fapi/data?uid=&amp;q_category='
+			+ channelId+'&amp;q_tag='+tag+'&amp;q_region='+region+'&amp;q_year='+year
+		var category = {"categoryMap":categoryMap,"categoryNames":categoryNames,"url":url,"serverurl":appletv.serverurl,"channelId":channelId,"submitUrl":submitUrl};
+		for(i=0;i<categoryFilters.length;i++){
+			var categoryName = appletv.substringByData(categoryFilters[i],'<dt>','</dt>');
+			appletv.logToServer('categoryName:'+categoryName);
+			if(categoryName.indexOf('类型')!=-1||categoryName.indexOf('地区')!=-1||categoryName.indexOf('时间')!=-1){
+				categoryNames.push(categoryName);
+				var categoryValues = [];
+				var categoryLis = appletv.getSubValues(categoryFilters[i],'<a','</a>');
+				appletv.logToServer('categoryLis:'+JSON.stringify(categoryLis));
+				for(j=0;j<categoryLis.length;j++){
+					var select = false;
+					var categoryLabel;
+					if(categoryLis[j].indexOf('class="cur"')!=-1){
+						select = true
+					}
+					categoryLabel = appletv.subIndexString(categoryLis[j],'>');
+					
+					var categoryValue=null;
+					if(categoryName.indexOf('类型')!=-1){
+						categoryValue = {"categoryLabel":categoryLabel,"region":region,"year":year,"tag":categoryLabel,"select":select};
+					}else if(categoryName.indexOf('地区')!=-1){
+						categoryValue = {"categoryLabel":categoryLabel,"region":categoryLabel,"year":year,"tag":tag,"select":select};
+					}else if(categoryName.indexOf('时间'!=-1)){
+						categoryValue = {"categoryLabel":categoryLabel,"region":region,"year":categoryLabel,"tag":tag,"select":select};
+					}
+					categoryValues.push(categoryValue);
+				}
+				categoryMap[categoryName] = categoryValues;
+			}
+		}
+		return category;
+	},
+	
+	loadCategoryPage: function(channelId,region,tag,year,loading){
+		var channel = this.weivideoChannelMap[channelId];
+		var url = 'http://newvideopc.video.sina.com.cn/movie/f/'+channel['path'];
+		if(loading){
+			appletv.showLoading();
+		}
+		if(region==null||region.length==0){
+			region='全部';
+		}
+		if(tag==null||tag.length==0){
+			tag='全部';
+		}
+		if(year==null||year.length==0){
+			year='全部';
+		}
+		appletv.makeRequest(url+'?q_tag='+tag+'&q_region='+region+'&q_year='+year, function(content) {
+			category = weivideoClient.getCategory(content,channelId,url,region,tag,year);
+			var xml = new EJS({
+				url : appletv.serverurl + '/template/weivideo/category.ejs'
+			}).render(category);
+			appletv.loadAndSwapXML(xml);
+		});
+	},
+	
 	loadVideoPage : function(id) {
 		appletv.showLoading();
 		var url = 'http://video.weibo.com/detail/' + id;

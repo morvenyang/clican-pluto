@@ -29,6 +29,11 @@
 		</shelf>
 		<grid id="grid_1" columnCount="12">
 			<items>
+				<%if(channel['value']!=1001){%>
+				<actionButton id="shelf_item_category_page" onSelect="weivideoClient.loadCategoryPage(<%=channel['value']%>,'','','',true);" onPlay="youkuClient.loadCategoryPage(<%=channel['value']%>,'','','',true);">
+					<title>筛选</title>
+				</actionButton>
+				<%}%>
 				<actionButton id="shelf_item_first_page" onSelect="weivideoClient.loadIndexPage('<%=keyword%>',1,'<%=channel['value']%>');" onPlay="weivideoClient.loadIndexPage('<%=keyword%>',1,'<%=channel['value']%>');">
 					<title>第一页</title>
 				</actionButton>
@@ -58,6 +63,11 @@
 		</grid>
 		<grid id="pagingGrid" columnCount="12">
 			<items>
+				<%if(channel['value']!=1001){%>
+				<actionButton id="shelf_item_category_page" onSelect="weivideoClient.loadCategoryPage(<%=channel['value']%>,'','','',true);" onPlay="youkuClient.loadCategoryPage(<%=channel['value']%>,'','','',true);">
+					<title>筛选</title>
+				</actionButton>
+				<%}%>
 				<actionButton id="shelf_item_first_page" onSelect="weivideoClient.loadIndexPage('<%=keyword%>',1,'<%=channel['value']%>');" onPlay="weivideoClient.loadIndexPage('<%=keyword%>',1,'<%=channel['value']%>');">
 					<title>第一页</title>
 				</actionButton>
