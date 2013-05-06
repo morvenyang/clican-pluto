@@ -63,16 +63,16 @@ var weivideoClient = {
 						var pic = appletv.substringByData(v, 'src="', '"');
 						var title = appletv.substringByData(v, 'alt="', '"');
 						var id = appletv.substringByData(v, 'href="', '"');
-						id = id.repleace('/detail/','');
+						id = id.substring(id.lastIndexOf('/')+1);
 						var video = {
 							"title" : title,
 							"id" : id,
 							"pic" : pic
 						};
 						videos.push(video);
-						weivideoClient.generateIndexPage(keyword,
-								page, channel, videos);
 					}
+					weivideoClient.generateIndexPage(keyword,
+							page, channel, videos);
 				}else{
 					appletv.showDialog('加载失败', '');
 				}
@@ -169,6 +169,8 @@ var weivideoClient = {
 			pic = appletv.substringByTag(videoContent,
 					'<div class="mv-center">', '</div>', 'div');
 			pic = appletv.substringByData(pic, '<img src="', '"');
+			score = appletv.substringByData(videoContent, '<em class="mv-sii-num">', '</em>');
+			score = appletv.getTextInTag(score);
 			var itemscontent = appletv.substringByTag(videoContent,
 					'<div class="scs-ace-content clearfix">', '</div>', 'div');
 			if(itemscontent==null||itemscontent.length==0){
@@ -229,8 +231,9 @@ var weivideoClient = {
 	},
 	
 	loadSearchPage : function() {
-		appletv.showInputTextPage('关键字', '搜索', weivideo.loadKeywordsPage,
-				'weivideo.loadKeywordsPage', '');
+		appletv.logToServer('loadSearchPage');
+		appletv.showInputTextPage('关键字', '搜索', weivideoClient.loadKeywordsPage,
+				'weivideoClient.loadKeywordsPage', '');
 	},
 
 	loadKeywordsPage : function(q) {

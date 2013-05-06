@@ -9,6 +9,8 @@
 <script type="text/javascript" src="<%=request.getAttribute("serverurl")%>/javascript/userconfig.js"></script>
 <script type="text/javascript" src="<%=request.getAttribute("serverurl")%>/javascript/tudou.js"></script>
 <script type="text/javascript" src="<%=request.getAttribute("serverurl")%>/javascript/soku.js"></script>
+<script type="text/javascript" src="<%=request.getAttribute("serverurl")%>/javascript/tu.js"></script>
+<script type="text/javascript" src="<%=request.getAttribute("serverurl")%>/javascript/weivideo.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 </head>
