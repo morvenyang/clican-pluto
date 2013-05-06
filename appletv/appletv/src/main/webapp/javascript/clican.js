@@ -536,26 +536,85 @@ var appletv = {
 		appletv.showOptionPage('播放源选择', '', options);
 	},
 	
-	makePlayXml : function(url) {
-		var xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><atv><body><videoPlayer id=\"play\"><httpLiveStreamingVideoAsset><mediaURL><![CDATA[";
-		xml += url;
-		xml += "]]></mediaURL></httpLiveStreamingVideoAsset></videoPlayer></body></atv>";
-		return xml
+	makePlayXml : function(url,bookmarkTime) {
+		if(bookmarkTime==null){
+			if(appletv.simulate=='atv'){
+				ppos = atv.localStorage['playpos'];
+				if (!ppos)
+					ppos = new Array();
+				for ( var i = 0; i < ppos.length; i++) {
+					if (ppos[i][0] == url) {
+						bookmarkTime = ppos[i][1];
+						break;
+					}
+				}
+			}else{
+				bookmarkTime = 0;
+			}
+		}
+		if(bookmarkTime!=null&&bookmarkTime!=0&&appletv.isBookmarkTimeEnable()){
+			var options = [];
+			options.push({
+				"title" : "从头播放",
+				"script" : "appletv.makePlayXml('"
+						+ url + "',0);"
+			});
+			options.push({
+				"title" : "继续播放",
+				"script" : "appletv.makePlayXml('"
+						+ url + "',"+bookmarkTime+");"
+			});
+			appletv.showOptionPage('播放时间选择', '', options);
+		}else{
+			var xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><atv><body><videoPlayer id=\"play\"><httpLiveStreamingVideoAsset><mediaURL><![CDATA[";
+			xml += url;
+			xml += "]]></mediaURL><bookmarkTime>"+bookmarkTime+"</bookmarkTime></httpLiveStreamingVideoAsset></videoPlayer></body></atv>";
+			return xml
+		}
 	},
 	
-	makePlayPlist : function(url) {
-		appletv.getValue('clican.play.subTitles', function(subTitles) {
-			c = {
-				"bookmark-time" : 0,
-				subtitle : subTitles,
-				type : "video-asset",
-				"media-asset" : {
-					"media-url" : url
+	makePlayPlist : function(url,bookmarkTime) {
+		if(bookmarkTime==null){
+			if(appletv.simulate=='atv'){
+				ppos = atv.localStorage['playpos'];
+				if (!ppos)
+					ppos = new Array();
+				for ( var i = 0; i < ppos.length; i++) {
+					if (ppos[i][0] == url) {
+						bookmarkTime = ppos[i][1];
+						break;
+					}
 				}
-			};
-			appletv.loadAndSwapPlist(c);
-		});
-
+			}else{
+				bookmarkTime = 0;
+			}
+		}
+		if(bookmarkTime!=null&&bookmarkTime!=0&&appletv.isBookmarkTimeEnable()){
+			var options = [];
+			options.push({
+				"title" : "从头播放",
+				"script" : "appletv.makePlayPlist('"
+						+ url + "',0);"
+			});
+			options.push({
+				"title" : "继续播放",
+				"script" : "appletv.makePlayPlist('"
+						+ url + "',"+bookmarkTime+");"
+			});
+			appletv.showOptionPage('播放时间选择', '', options);
+		}else{
+			appletv.getValue('clican.play.subTitles', function(subTitles) {
+				c = {
+					"bookmark-time" : bookmarkTime,
+					subtitle : subTitles,
+					type : "video-asset",
+					"media-asset" : {
+						"media-url" : url
+					}
+				};
+				appletv.loadAndSwapPlist(c);
+			});
+		}
 	},
 
 	makeDialog : function(message, description) {
@@ -1011,6 +1070,10 @@ var appletv = {
 	},
 
 	isTVAndMovieEnable : function() {
+		return true;
+	},
+	
+	isBookmarkTimeEnable : function() {
 		return true;
 	}
 };
