@@ -1,5 +1,5 @@
 var appletv = {
-	logEnable : false,
+	logEnable : true,
 	logSeverity : 'DEBUG',
 	ejsVersion : '1.1.0',
 	// browser,atv,native
