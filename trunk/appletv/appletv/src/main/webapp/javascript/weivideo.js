@@ -161,12 +161,10 @@ var weivideoClient = {
 		var category = {"categoryMap":categoryMap,"categoryNames":categoryNames,"url":url,"serverurl":appletv.serverurl,"channelId":channelId,"submitUrl":submitUrl};
 		for(i=0;i<categoryFilters.length;i++){
 			var categoryName = appletv.substringByData(categoryFilters[i],'<dt>','</dt>');
-			appletv.logToServer('categoryName:'+categoryName);
 			if(categoryName.indexOf('类型')!=-1||categoryName.indexOf('地区')!=-1||categoryName.indexOf('时间')!=-1){
 				categoryNames.push(categoryName);
 				var categoryValues = [];
 				var categoryLis = appletv.getSubValues(categoryFilters[i],'<a','</a>');
-				appletv.logToServer('categoryLis:'+JSON.stringify(categoryLis));
 				for(j=0;j<categoryLis.length;j++){
 					var select = false;
 					var categoryLabel;
