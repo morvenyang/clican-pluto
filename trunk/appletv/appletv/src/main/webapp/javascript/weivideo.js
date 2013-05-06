@@ -1,6 +1,9 @@
 var weivideoClient = {
 	weivideoChannelMap : {
-		
+		"1001" : {
+			label : "搜索",
+			value : '1001'
+		},
 		"1" : {
 			label : "电视剧",
 			value : '1'
@@ -12,6 +15,9 @@ var weivideoClient = {
 	},
 
 	weivideoChannels : [ {
+		label : "搜索",
+		value : '1001'
+	}, {
 		label : "电视剧",
 		value : '1'
 	}, {
@@ -48,7 +54,29 @@ var weivideoClient = {
 		var channel = this.weivideoChannelMap[channelId];
 		var videos = [];
 		if (channelId == 1001) {
-
+			var queryUrl = 'http://video.weibo.com/s?q='+encodeURIComponent(keyword);
+			appletv.makeRequest(queryUrl,function(htmlContent){
+				if(htmlContent!=null&&htmlContent.length>0){
+					var videoList = appletv.getSubValues(htmlContent,'<div class="sc-sv-item">','</a>');
+					for (i = 0; i < videoList.length; i++) {
+						var v = videoList[i];
+						var pic = appletv.substringByData(v, 'src="', '"');
+						var title = appletv.substringByData(v, 'alt="', '"');
+						var id = appletv.substringByData(v, 'href="', '"');
+						id = id.repleace('/detail/','');
+						var video = {
+							"title" : title,
+							"id" : id,
+							"pic" : pic
+						};
+						videos.push(video);
+						weivideoClient.generateIndexPage(keyword,
+								page, channel, videos);
+					}
+				}else{
+					appletv.showDialog('加载失败', '');
+				}
+			});
 		} else {
 			var queryUrl = 'http://newvideopc.video.sina.com.cn/movie/fapi/data?uid=&q_category='
 					+ channelId
@@ -200,6 +228,27 @@ var weivideoClient = {
 		});
 	},
 	
+	loadSearchPage : function() {
+		appletv.showInputTextPage('关键字', '搜索', weivideo.loadKeywordsPage,
+				'weivideo.loadKeywordsPage', '');
+	},
+
+	loadKeywordsPage : function(q) {
+		appletv.showLoading();
+		var queryUrl = 'http://tip.tudou.soku.com/hint?q=' + q;
+		appletv.makeRequest(queryUrl, function(result) {
+			appletv.logToServer(result);
+			var keywords = JSON.parse(result);
+			var data = {
+				keywords : keywords,
+				serverurl : appletv.serverurl
+			};
+			var xml = new EJS({
+				url : appletv.serverurl + '/template/weivideo/keywords.ejs'
+			}).render(data);
+			appletv.loadAndSwapXML(xml);
+		});
+	},
 	play: function(vid){
 		if (appletv.simulate == 'atv') {
 			appletv.showDialog('跳转中...', '跳转到第三方视频网站');

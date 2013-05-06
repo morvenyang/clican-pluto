@@ -12,7 +12,7 @@
 					<items>
 						<%for(var i=0;i<channels.length;i++){%>
 							<%if(channels[i]['value']==1001){%>
-								<moviePoster id="shelf_item_<%=channels[i]['value']%>" alwaysShowTitles="true" featured="true" onSelect="sokuClient.loadSearchPage();" onPlay="sokuClient.loadSearchPage();">
+								<moviePoster id="shelf_item_<%=channels[i]['value']%>" alwaysShowTitles="true" featured="true" onSelect="weivideoClient.loadSearchPage();" onPlay="weivideoClient.loadSearchPage();">
 									<title><%=channels[i]['label']%></title>
 									<defaultImage>resource://Poster.png</defaultImage>
 								</moviePoster>
