@@ -29,6 +29,9 @@
     TTStyledTextLabel* _formatTextLabel;
     NSString* _navigationScript;
     int _lastLines;
+    TTTableView* _tableView;
+    UIView* _tableBannerView;
+    
 }
 @property (nonatomic, copy) NSString* xml;
 @property (nonatomic, copy) NSString* script;
@@ -48,6 +51,8 @@
 @property (nonatomic, retain) NSMutableArray* formats;
 @property (nonatomic, retain) TTStyledTextLabel* formatTextLabel;
 @property (nonatomic, copy) NSString* navigationScript;
+@property (nonatomic, retain) TTTableView* tableView;
+@property (nonatomic, retain) UIView* tableBannerView;
 -(id) initWithXml:(NSString*) xml;
 -(id) initWithScript:(NSString*) script;
 -(void) appendXml:(NSString*) xml;

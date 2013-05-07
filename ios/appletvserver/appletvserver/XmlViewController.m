@@ -38,6 +38,8 @@
 @synthesize formats = _formats;
 @synthesize formatTextLabel = _formatTextLabel;
 @synthesize navigationScript = _navigationScript;
+@synthesize tableBannerView = _tableBannerView;
+@synthesize tableView = _tableView;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -82,6 +84,8 @@
     TT_RELEASE_SAFELY(_progressHUD);
     TT_RELEASE_SAFELY(_format);
     TT_RELEASE_SAFELY(_formats);
+    TT_RELEASE_SAFELY(_tableView);
+    TT_RELEASE_SAFELY(_tableBannerView);
     [super dealloc];
 }
 
@@ -192,8 +196,8 @@
     CXMLElement* titleElement=(CXMLElement*)[listScrollerSplitElement nodeForXPath:@"header/simpleHeader/title" error:nil];
     self.title = [titleElement stringValue];
     
-    TTTableView* tableView = [[TTTableView alloc] initWithFrame:self.scrollView.frame style:UITableViewStylePlain];
-    tableView.delegate=self;
+    self.tableView = [[TTTableView alloc] initWithFrame:self.scrollView.frame style:UITableViewStylePlain];
+    self.tableView.delegate=self;
     
     NSMutableArray* items = [NSMutableArray array];
     CXMLElement* itemsElement=(CXMLElement*)[listScrollerSplitElement nodeForXPath:@"menu/sections/menuSection/items" error:nil];
@@ -210,9 +214,9 @@
         }
         
     }
-    tableView.dataSource = [[XmlDataSource alloc] initWithItems:items];
+    self.tableView.dataSource = [[XmlDataSource alloc] initWithItems:items];
     
-    [self.scrollView addSubview:tableView];
+    [self.scrollView addSubview:self.tableView];
     [self.view addSubview:self.scrollView];
 }
 
@@ -255,8 +259,8 @@
    
     self.formatTextLabel.text = [TTStyledText textFromXHTML:[@"" stringByAppendingFormat:@"<strong>%@</strong>",self.format] lineBreaks:YES URLs:NO];
     self.formatTextLabel.contentMode = UIViewContentModeCenter;
-    TTTableView* tableView = [[TTTableView alloc] initWithFrame:CGRectMake(0, 45, self.scrollView.frame.size.width, self.scrollView.frame.size.height-45) style:UITableViewStylePlain];
-    tableView.delegate=self;
+    self.tableView = [[TTTableView alloc] initWithFrame:CGRectMake(0, 45, self.scrollView.frame.size.width, self.scrollView.frame.size.height-45) style:UITableViewStylePlain];
+    self.tableView.delegate=self;
     
     NSMutableArray* items = [NSMutableArray array];
     NSArray* menuItems =[listScrollerSplitElement nodesForXPath:@"menu/sections/menuSection/items/oneLineMenuItem" error:nil];
@@ -275,11 +279,11 @@
         }
         
     }
-    tableView.dataSource = [[XmlDataSource alloc] initWithItems:items];
+    self.tableView.dataSource = [[XmlDataSource alloc] initWithItems:items];
     [self.scrollView addSubview:leftButton];
     [self.scrollView addSubview:rightButton];
     [self.scrollView addSubview:self.formatTextLabel];
-    [self.scrollView addSubview:tableView];
+    [self.scrollView addSubview:self.tableView];
     [self.view addSubview:self.scrollView];
 }
 
@@ -428,8 +432,8 @@
     [self.scrollView addSubview:self.summaryTextLabel];
     [self.scrollView addSubview:self.descriptionTextLabel];
     y = y+ self.descriptionTextLabel.text.height;
-    TTTableView* tableView = [[TTTableView alloc] initWithFrame:CGRectMake(0, y, frame.size.width, [video.videoItemList count]*50) style:UITableViewStylePlain];
-    tableView.delegate=self;
+    self.tableView = [[TTTableView alloc] initWithFrame:CGRectMake(0, y, frame.size.width, [video.videoItemList count]*50) style:UITableViewStylePlain];
+    self.tableView.delegate=self;
     NSMutableArray* items = [NSMutableArray array];
     for(int i=0;i<[video.videoItemList count];i++){
         VideoItem* vi = [video.videoItemList objectAtIndex:i];
@@ -438,8 +442,8 @@
         y = y+50;
     }
     y = y+50;
-    tableView.dataSource = [[TTListDataSource alloc] initWithItems:items];
-    [self.scrollView addSubview:tableView];
+    self.tableView.dataSource = [[TTListDataSource alloc] initWithItems:items];
+    [self.scrollView addSubview:self.tableView];
     self.scrollView.contentSize =
     CGSizeMake(frame.size.width, y);
     
@@ -473,7 +477,7 @@
         self.title = @"视频";
 
         
-        TTTableView* tableView = [[TTTableView alloc] initWithFrame:self.scrollView.frame style:UITableViewStylePlain];
+        self.tableView = [[TTTableView alloc] initWithFrame:self.scrollView.frame style:UITableViewStylePlain];
         
         
         NSMutableArray* items = [NSMutableArray array];
@@ -513,40 +517,48 @@
                 VideoTableItem* vti = [VideoTableItem itemWithVideoList:cellItems];
                 [items addObject:vti];
             }
-            if(pagingGridElement!=nil&&[movies count]>0){
+            if(pagingGridElement!=nil){
                 CXMLElement* nextPageElement=nil;
+                CXMLElement* categoryPageElement=nil;
                 NSArray* actionButtons = [pagingGridElement nodesForXPath:@"items/actionButton" error:nil];
                 for(int i=0;i<[actionButtons count];i++){
                     CXMLElement* item = (CXMLElement*)[actionButtons objectAtIndex:i];
                     if([[[item attributeForName:@"id"] stringValue] isEqualToString:@"nextPage"]){
                         nextPageElement = item;
+                    }else if([[[item attributeForName:@"id"] stringValue] isEqualToString:@"shelf_item_category_page"]){
+                        categoryPageElement = item;
                     }
                 }
-                if(nextPageElement!=nil){
+                if(nextPageElement!=nil&&[movies count]>0){
                     NSString* onSelect = [[nextPageElement attributeForName:@"onSelect"] stringValue];
                     ALog(@"more on select:%@",onSelect);
                     TTTableTextItem* moreItem = [TTTableTextItem itemWithText:@"更多" URL:onSelect];
                     [items addObject:moreItem];
                 }
+                if(categoryPageElement!=nil){
+                    UIBarButtonItem *categoryButtonItem = [[[UIBarButtonItem alloc] initWithTitle:@"筛选" style:UIBarButtonItemStyleBordered target:self action:@selector(categoryAction)] autorelease];
+                    self.navigationItem.rightBarButtonItem = categoryButtonItem;
+                    
+                }
             }
         }
         
-        tableView.dataSource = [[XmlDataSource alloc] initWithItems:items];
+        self.tableView.dataSource = [[XmlDataSource alloc] initWithItems:items];
        
-        tableView.delegate=self;
+        self.tableView.delegate=self;
         NSArray* subviws =[self.scrollView subviews];
         for(UIView* view in subviws){
             [view removeFromSuperview];
         }
-        [self.scrollView addSubview:tableView];
+        [self.scrollView addSubview:self.tableView];
         [self.view addSubview:self.scrollView];
         
         NSLog(@"add videos successfully");
         
         NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:_lastLines inSection:0];
        
-        if(tableView!=nil){
-            [tableView scrollToRowAtIndexPath:scrollIndexPath atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+        if(self.tableView!=nil){
+            [self.tableView scrollToRowAtIndexPath:scrollIndexPath atScrollPosition:UITableViewScrollPositionBottom animated:NO];
         }
     }
 
@@ -627,6 +639,77 @@
 - (void)imageView:(TTImageView*)imageView didLoadImage:(UIImage*)image{
     if(imageView == self.imageView){
         [AtvUtil markReflect:self.reflectImageView.layer image:self.imageView.image];
+    }
+}
+
+- (void)fadingOutViewDidStop:(NSString*)animationID finished:(NSNumber*)finished
+                     context:(void*)context {
+    UIView* view = (UIView*)context;
+    [view removeFromSuperview];
+}
+
+- (void)setTableBannerView:(UIView*)tableBannerView animated:(BOOL)animated {
+    if (tableBannerView != _tableBannerView) {
+        if (_tableBannerView) {
+            if (animated) {
+                [UIView beginAnimations:nil context:_tableBannerView];
+                [UIView setAnimationDuration:TT_TRANSITION_DURATION];
+                [UIView setAnimationDelegate:self];
+                [UIView setAnimationDidStopSelector:@selector(fadingOutViewDidStop:finished:context:)];
+                _tableBannerView.alpha = 0;
+                [UIView commitAnimations];
+            } else {
+                [_tableBannerView removeFromSuperview];
+            }
+        }
+        self.tableBannerView = tableBannerView;
+        const CGFloat bannerViewHeight = 22;
+        if (_tableBannerView) {
+            
+            self.tableView.contentInset = UIEdgeInsetsMake(0, 0, bannerViewHeight, 0);
+            self.tableView.scrollIndicatorInsets = self.tableView.contentInset;
+            
+            CGRect tableFrame = self.tableView.frame;
+            
+            _tableBannerView.frame = CGRectMake(tableFrame.origin.x,
+                                                (tableFrame.origin.y),
+                                                tableFrame.size.width, bannerViewHeight);
+            _tableBannerView.autoresizingMask = (UIViewAutoresizingFlexibleWidth
+                                                 | UIViewAutoresizingFlexibleTopMargin);
+            NSInteger tableIndex = [_tableView.superview.subviews
+                                    indexOfObject:_tableView];
+            if (NSNotFound != tableIndex) {
+                [_tableView.superview addSubview:_tableBannerView];
+            }
+            
+            if (animated) {
+                CGRect frame = _tableBannerView.frame;
+                
+                frame.size.height =0;
+                _tableBannerView.frame = frame;
+                [UIView beginAnimations:nil context:nil];
+                [UIView setAnimationDuration:TT_TRANSITION_DURATION];
+                [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
+                frame.size.height =bannerViewHeight;
+                _tableBannerView.frame = frame;
+                [UIView commitAnimations];
+            }
+            
+        } else {
+            self.tableView.contentInset = UIEdgeInsetsZero;
+            self.tableView.scrollIndicatorInsets = UIEdgeInsetsZero;
+        }
+    }
+}
+
+- (void) categoryAction {
+    if(self.tableBannerView) {
+        [self setTableBannerView:nil animated:YES];
+    } else {
+        //bannerview is adjusted by the TTTableView. it takes the full width
+        //and gets its height from TTStyleSheet
+        TTImageView *imageView = [[[TTImageView alloc] initWithFrame:CGRectZero] autorelease];
+        [self setTableBannerView:imageView animated:YES];
     }
 }
 
