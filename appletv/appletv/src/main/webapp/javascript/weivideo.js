@@ -157,7 +157,7 @@ var weivideoClient = {
 		var categoryNames = [];
 		var categoryMap = {};
 		var submitUrl = 'http://newvideopc.video.sina.com.cn/movie/fapi/data?uid=&amp;q_category='
-			+ channelId+'&amp;q_tag='+tag+'&amp;q_region='+region+'&amp;q_year='+year
+			+ channelId+'&amp;q_tag='+encodeURIComponent(tag)+'&amp;q_region='+encodeURIComponent(region)+'&amp;q_year='+encodeURIComponent(year)
 		var category = {"categoryMap":categoryMap,"categoryNames":categoryNames,"url":url,"serverurl":appletv.serverurl,"channelId":channelId,"submitUrl":submitUrl};
 		for(i=0;i<categoryFilters.length;i++){
 			var categoryName = appletv.substringByData(categoryFilters[i],'<dt>','</dt>');
