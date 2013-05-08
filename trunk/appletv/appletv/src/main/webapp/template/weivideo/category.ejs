@@ -11,7 +11,7 @@
 				<grid id="g<%=i%>" columnCount="5">
 					<items>
 						<%for(var j=0;j<categoryMap[categoryNames[i]].length;j++){%>
-							<actionButton id="ab_<%=i%>_<%=j%>" onPlay="weivideoClient.loadCategoryPage('<%=channelId%>','<%=categoryMap[categoryNames[i]][j]['region']%>','<%=categoryMap[categoryNames[i]][j]['tag']%>','<%=categoryMap[categoryNames[i]][j]['year']%>',false);" onSelect="weivideoClient.loadCategoryPage('<%=categoryMap[categoryNames[i]][j]['region']%>','<%=categoryMap[categoryNames[i]][j]['tag']%>','<%=categoryMap[categoryNames[i]][j]['year']%>',false);">
+							<actionButton id="ab_<%=i%>_<%=j%>" onPlay="weivideoClient.loadCategoryPage('<%=channelId%>','<%=categoryMap[categoryNames[i]][j]['region']%>','<%=categoryMap[categoryNames[i]][j]['tag']%>','<%=categoryMap[categoryNames[i]][j]['year']%>',false);" onSelect="weivideoClient.loadCategoryPage('<%=channelId%>','<%=categoryMap[categoryNames[i]][j]['region']%>','<%=categoryMap[categoryNames[i]][j]['tag']%>','<%=categoryMap[categoryNames[i]][j]['year']%>',false);">
 								<%if(categoryMap[categoryNames[i]][j]['select']){%>
 									<title><![CDATA[√<%=categoryMap[categoryNames[i]][j]['categoryLabel']%>]]></title>
 								<%}else{%>
