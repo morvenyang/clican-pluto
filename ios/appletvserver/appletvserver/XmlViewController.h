@@ -9,7 +9,7 @@
 #import <Three20UI/Three20UI.h>
 #import "MediaPlayer/MediaPlayer.h"
 #import "MBProgressHUD.h"
-@interface XmlViewController : TTViewController<UITableViewDelegate,TTImageViewDelegate,MBProgressHUDDelegate>{
+@interface XmlViewController : TTViewController<UITableViewDelegate,TTImageViewDelegate,MBProgressHUDDelegate,TTTabDelegate>{
     NSString* _xml;
     NSString* _script;
     NSString* _type;
@@ -31,7 +31,8 @@
     int _lastLines;
     TTTableView* _tableView;
     UIView* _tableBannerView;
-    
+    NSString* _categoryScript;
+    NSString* _submitCategoryScript;
 }
 @property (nonatomic, copy) NSString* xml;
 @property (nonatomic, copy) NSString* script;
@@ -53,6 +54,8 @@
 @property (nonatomic, copy) NSString* navigationScript;
 @property (nonatomic, retain) TTTableView* tableView;
 @property (nonatomic, retain) UIView* tableBannerView;
+@property (nonatomic, copy) NSString* categoryScript;
+@property (nonatomic, copy) NSString* submitCategoryScript;
 -(id) initWithXml:(NSString*) xml;
 -(id) initWithScript:(NSString*) script;
 -(void) appendXml:(NSString*) xml;
