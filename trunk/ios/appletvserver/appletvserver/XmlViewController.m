@@ -40,6 +40,8 @@
 @synthesize navigationScript = _navigationScript;
 @synthesize tableBannerView = _tableBannerView;
 @synthesize tableView = _tableView;
+@synthesize categoryScript = _categoryScript;
+@synthesize submitCategoryScript = _submitCategoryScript;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -86,6 +88,8 @@
     TT_RELEASE_SAFELY(_formats);
     TT_RELEASE_SAFELY(_tableView);
     TT_RELEASE_SAFELY(_tableBannerView);
+    TT_RELEASE_SAFELY(_categoryScript);
+    TT_RELEASE_SAFELY(_submitCategoryScript);
     [super dealloc];
 }
 
@@ -108,7 +112,14 @@
                 [self performSelectorOnMainThread:@selector(displayListScrollerSplit:) withObject:node waitUntilDone:YES];
                 break;
             }else if([[node name] isEqualToString:@"scroller"]){
-                [self performSelectorOnMainThread:@selector(appendVideos:) withObject:node waitUntilDone:YES];
+                
+                NSString* idStr = [[((CXMLElement*)node) attributeForName:@"id"] stringValue];
+                if([idStr isEqualToString:@"index"]){
+                     [self performSelectorOnMainThread:@selector(appendVideos:) withObject:node waitUntilDone:YES];
+                }else if([idStr isEqualToString:@"category"]){
+                    [self performSelectorOnMainThread:@selector(popupCategory:) withObject:node waitUntilDone:YES];
+                }
+               
                 break;
             }else if([[node name] isEqualToString:@"itemDetail"]){
                 [self performSelectorOnMainThread:@selector(displayDetail:) withObject:node waitUntilDone:YES];
@@ -131,9 +142,10 @@
     }@catch(NSException* e){
         ALog(@"error occured:%@",[e description]);
     }@finally {
-        [self.progressHUD hide:NO];
+        [self.progressHUD hide:YES];
     }
 }
+
 -(void)playVideo:(CXMLNode*) node{
     NSString* mediaUrl = [[node nodeForXPath:@"httpLiveStreamingVideoAsset/mediaURL" error:nil] stringValue];
     NSLog(@"mediaUrl:%@",mediaUrl);
@@ -463,7 +475,77 @@
     [self.scrollView addSubview:descriptionTextLabel];
     [self.view addSubview:self.scrollView];
 }
-
+-(void)popupCategory:(CXMLNode*) node{
+    CXMLElement* scrollerElement = (CXMLElement*)node;
+    CXMLElement* items = (CXMLElement*)[scrollerElement nodeForXPath:@"items" error:nil];
+    CGRect applicationFrame = [UIScreen mainScreen].applicationFrame;
+    CGFloat h = 0;
+    for(int i=0;i<items.childCount;i++){
+        CXMLNode* cn = [items.children objectAtIndex:i];
+        if([cn.name isEqualToString:@"collectionDivider"]){
+        
+            TTLabel* label= [[[TTLabel alloc] initWithFrame:CGRectMake(0, h, 45, 45)] autorelease];
+            label.backgroundColor=[UIColor whiteColor];
+            label.text = [[cn nodeForXPath:@"title" error:nil] stringValue];
+            label.style = [TTTextStyle styleWithColor:[UIColor blueColor] next:nil];
+            [self.scrollView addSubview:label];
+        }else if([cn.name isEqualToString:@"grid"]){
+            CXMLElement* e = (CXMLElement*)cn;
+            NSString* idStr =[[e attributeForName:@"id"] stringValue];
+            if([idStr isEqualToString:@"sg"]){
+                TTButton* submit =[TTButton buttonWithStyle:@"toolbarButton:" title:@"提交"];
+                [submit setFrame:CGRectMake(50, h+10, applicationFrame.size.width-100, 50)];
+                submit.font = [UIFont boldSystemFontOfSize:14];
+                [self.scrollView addSubview:submit];
+                CXMLElement* sg = (CXMLElement*)[e nodeForXPath:@"items/actionButton" error:nil];
+                self.submitCategoryScript = [[sg attributeForName:@"onSelect"]stringValue];
+                [submit addTarget:self action:@selector(submitCategory) forControlEvents:UIControlEventTouchUpInside];
+            }else{
+                TTTabStrip* tabStrip = [[[TTTabStrip alloc] initWithFrame:CGRectMake(50, h, applicationFrame.size.width-50, 45)] autorelease];
+                NSMutableArray* array = [NSMutableArray array];
+                NSArray* abArray = [e nodesForXPath:@"items/actionButton" error:nil];
+                TTTabItem* selected = nil;
+                for (int j=0; j<abArray.count; j++) {
+                    CXMLElement* ab = [abArray objectAtIndex:j];
+                    NSString* onSelect = [[ab attributeForName:@"onSelect"] stringValue];
+                    NSString* title = [[ab nodeForXPath:@"title" error:nil] stringValue];
+                    TTTabItem* ti = [[[TTTabItem alloc] initWithTitle:title] autorelease];
+                    ti.object = onSelect;
+                    [array addObject:ti];
+                    if([AtvUtil content:title startWith:@"√"]){
+                        selected = ti;
+                    }
+                }
+                tabStrip.tabItems = array;
+                tabStrip.delegate = self;
+                if(selected){
+                    tabStrip.selectedTabItem=selected;
+                }
+                [self.scrollView  addSubview:tabStrip];
+                h +=45;
+            }
+        }
+    }
+    [self.view addSubview:self.scrollView];
+}
+-(void)submitCategory{
+    XmlViewController* controler=(XmlViewController*)[[TTNavigator navigator].topViewController.navigationController popViewControllerAnimated:YES];
+    controler.script = self.submitCategoryScript;
+    [NSThread detachNewThreadSelector:@selector(runJS:) toTarget:self withObject:controler];
+}
+- (void)tabBar:(TTTabBar*)tabBar tabSelected:(NSInteger)selectedIndex{
+    TTTabItem* ti = [tabBar.tabItems objectAtIndex:selectedIndex];
+    if(![AtvUtil content:ti.title  startWith:@"√"]){
+        self.progressHUD = [[[MBProgressHUD alloc] initWithView:self.view] autorelease];
+        self.progressHUD.delegate = self;
+        self.progressHUD.labelText = @"加载中...";
+        [self.view addSubview:self.progressHUD];
+        [self.view bringSubviewToFront:self.progressHUD];
+        [self.progressHUD show:YES];
+        self.script = (NSString*)ti.object;
+        [NSThread detachNewThreadSelector:@selector(runJS:) toTarget:self withObject:self];
+    }
+}
 -(void) appendVideos:(CXMLNode*) node{
     if(!self.append){
         [self.videos removeAllObjects];
@@ -535,7 +617,9 @@
                     TTTableTextItem* moreItem = [TTTableTextItem itemWithText:@"更多" URL:onSelect];
                     [items addObject:moreItem];
                 }
+                //categoryPageElement = nil;
                 if(categoryPageElement!=nil){
+                    self.categoryScript = [[categoryPageElement attributeForName:@"onSelect"] stringValue];
                     UIBarButtonItem *categoryButtonItem = [[[UIBarButtonItem alloc] initWithTitle:@"筛选" style:UIBarButtonItemStyleBordered target:self action:@selector(categoryAction)] autorelease];
                     self.navigationItem.rightBarButtonItem = categoryButtonItem;
                     
@@ -642,75 +726,11 @@
     }
 }
 
-- (void)fadingOutViewDidStop:(NSString*)animationID finished:(NSNumber*)finished
-                     context:(void*)context {
-    UIView* view = (UIView*)context;
-    [view removeFromSuperview];
-}
-
-- (void)setTableBannerView:(UIView*)tableBannerView animated:(BOOL)animated {
-    if (tableBannerView != _tableBannerView) {
-        if (_tableBannerView) {
-            if (animated) {
-                [UIView beginAnimations:nil context:_tableBannerView];
-                [UIView setAnimationDuration:TT_TRANSITION_DURATION];
-                [UIView setAnimationDelegate:self];
-                [UIView setAnimationDidStopSelector:@selector(fadingOutViewDidStop:finished:context:)];
-                _tableBannerView.alpha = 0;
-                [UIView commitAnimations];
-            } else {
-                [_tableBannerView removeFromSuperview];
-            }
-        }
-        self.tableBannerView = tableBannerView;
-        const CGFloat bannerViewHeight = 22;
-        if (_tableBannerView) {
-            
-            self.tableView.contentInset = UIEdgeInsetsMake(0, 0, bannerViewHeight, 0);
-            self.tableView.scrollIndicatorInsets = self.tableView.contentInset;
-            
-            CGRect tableFrame = self.tableView.frame;
-            
-            _tableBannerView.frame = CGRectMake(tableFrame.origin.x,
-                                                (tableFrame.origin.y),
-                                                tableFrame.size.width, bannerViewHeight);
-            _tableBannerView.autoresizingMask = (UIViewAutoresizingFlexibleWidth
-                                                 | UIViewAutoresizingFlexibleTopMargin);
-            NSInteger tableIndex = [_tableView.superview.subviews
-                                    indexOfObject:_tableView];
-            if (NSNotFound != tableIndex) {
-                [_tableView.superview addSubview:_tableBannerView];
-            }
-            
-            if (animated) {
-                CGRect frame = _tableBannerView.frame;
-                
-                frame.size.height =0;
-                _tableBannerView.frame = frame;
-                [UIView beginAnimations:nil context:nil];
-                [UIView setAnimationDuration:TT_TRANSITION_DURATION];
-                [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
-                frame.size.height =bannerViewHeight;
-                _tableBannerView.frame = frame;
-                [UIView commitAnimations];
-            }
-            
-        } else {
-            self.tableView.contentInset = UIEdgeInsetsZero;
-            self.tableView.scrollIndicatorInsets = UIEdgeInsetsZero;
-        }
-    }
-}
-
 - (void) categoryAction {
-    if(self.tableBannerView) {
-        [self setTableBannerView:nil animated:YES];
-    } else {
-        //bannerview is adjusted by the TTTableView. it takes the full width
-        //and gets its height from TTStyleSheet
-        TTImageView *imageView = [[[TTImageView alloc] initWithFrame:CGRectZero] autorelease];
-        [self setTableBannerView:imageView animated:YES];
-    }
+    XmlViewController* controler = [[XmlViewController alloc] autorelease];
+    [[TTNavigator navigator].topViewController.navigationController pushViewController:controler animated:YES];
+    [controler initWithScript:self.categoryScript];
+    [NSThread detachNewThreadSelector:@selector(runJS:) toTarget:self withObject:controler];
 }
 
 #pragma mark -
