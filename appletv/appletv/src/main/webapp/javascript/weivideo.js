@@ -204,7 +204,7 @@ var weivideoClient = {
 		if(year==null||year.length==0){
 			year='全部';
 		}
-		appletv.makeRequest(url+'?q_tag='+tag+'&q_region='+region+'&q_year='+year, function(content) {
+		appletv.makeRequest(url+'?q_tag='+encodeURIComponent(tag)+'&q_region='+encodeURIComponent(region)+'&q_year='+encodeURIComponent(year), function(content) {
 			category = weivideoClient.getCategory(content,channelId,url,region,tag,year);
 			var xml = new EJS({
 				url : appletv.serverurl + '/template/weivideo/category.ejs'
