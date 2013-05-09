@@ -19,7 +19,7 @@
 #import "XmlDataSource.h"
 #import "Constants.h"
 #import "AtvUtil.h"
-
+#import "TTTabStripAddition.h"
 @implementation XmlViewController
 
 @synthesize xml = _xml;
@@ -482,14 +482,7 @@
     CGFloat h = 0;
     for(int i=0;i<items.childCount;i++){
         CXMLNode* cn = [items.children objectAtIndex:i];
-        if([cn.name isEqualToString:@"collectionDivider"]){
-        
-            TTLabel* label= [[[TTLabel alloc] initWithFrame:CGRectMake(0, h, 45, 45)] autorelease];
-            label.backgroundColor=[UIColor whiteColor];
-            label.text = [[cn nodeForXPath:@"title" error:nil] stringValue];
-            label.style = [TTTextStyle styleWithColor:[UIColor blueColor] next:nil];
-            [self.scrollView addSubview:label];
-        }else if([cn.name isEqualToString:@"grid"]){
+        if([cn.name isEqualToString:@"grid"]){
             CXMLElement* e = (CXMLElement*)cn;
             NSString* idStr =[[e attributeForName:@"id"] stringValue];
             if([idStr isEqualToString:@"sg"]){
@@ -501,10 +494,11 @@
                 self.submitCategoryScript = [[sg attributeForName:@"onSelect"]stringValue];
                 [submit addTarget:self action:@selector(submitCategory) forControlEvents:UIControlEventTouchUpInside];
             }else{
-                TTTabStrip* tabStrip = [[[TTTabStrip alloc] initWithFrame:CGRectMake(50, h, applicationFrame.size.width-50, 45)] autorelease];
+                TTTabStrip* tabStrip = [[[TTTabStrip alloc] initWithFrame:CGRectMake(0, h, applicationFrame.size.width, 45)] autorelease];
                 NSMutableArray* array = [NSMutableArray array];
                 NSArray* abArray = [e nodesForXPath:@"items/actionButton" error:nil];
                 TTTabItem* selected = nil;
+                int selectedIndex=0;
                 for (int j=0; j<abArray.count; j++) {
                     CXMLElement* ab = [abArray objectAtIndex:j];
                     NSString* onSelect = [[ab attributeForName:@"onSelect"] stringValue];
@@ -514,12 +508,13 @@
                     [array addObject:ti];
                     if([AtvUtil content:title startWith:@"√"]){
                         selected = ti;
+                        selectedIndex=j;
                     }
                 }
                 tabStrip.tabItems = array;
                 tabStrip.delegate = self;
                 if(selected){
-                    tabStrip.selectedTabItem=selected;
+                    [tabStrip selectTabIndex:selectedIndex withOffset:0];
                 }
                 [self.scrollView  addSubview:tabStrip];
                 h +=45;
