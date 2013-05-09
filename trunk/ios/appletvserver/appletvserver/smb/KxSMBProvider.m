@@ -847,7 +847,6 @@ static void my_smbc_get_auth_data_fn(const char *srv,
                                      char *password, int pwlen)
 {
 
-    NSString* server = [NSString stringWithFormat:@"%s",srv];
     KxSMBAuth *auth = AppDele.auth;
     if(auth!=nil){
         if (auth.username.length)
