@@ -121,7 +121,7 @@ var tudouClient = {
 	loadChannelPage:function(){
 		var channels = [];
 		var originalChannels = tudouClient.tudouChannels;
-		if(appletv.isTVAndMovieEnable()){
+		if(appletv.isAppleApproveCheck()){
 			channels = originalChannels;
 		}else{
 			for(var i=0;i<originalChannels.length;i++){

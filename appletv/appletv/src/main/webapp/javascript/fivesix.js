@@ -158,7 +158,7 @@ var fivesixClient = {
 	loadChannelPage:function(){
 		var channels = [];
 		var originalChannels = fivesixClient.fivesixChannels;
-		if(appletv.isTVAndMovieEnable()){
+		if(appletv.isAppleApproveCheck()){
 			channels = originalChannels;
 		}else{
 			for(var i=0;i<originalChannels.length;i++){

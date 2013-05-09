@@ -186,7 +186,7 @@ var youkuClient = {
 	loadChannelPage:function(){
 		var channels = [];
 		var originalChannels = youkuClient.youkuChannels;
-		if(appletv.isTVAndMovieEnable()){
+		if(appletv.isAppleApproveCheck()){
 			channels = originalChannels;
 		}else{
 			for(var i=0;i<originalChannels.length;i++){
