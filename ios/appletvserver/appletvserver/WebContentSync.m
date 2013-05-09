@@ -92,6 +92,9 @@
             CXMLElement* gp = (CXMLElement*)node;
             NSString* idName = [[gp attributeForName:@"id"] stringValue];
             if([idName rangeOfString:@"native"].location!=NSNotFound){
+                if(AppDele.appleApproveCheck&&[idName rangeOfString:@"approve_check"].location==NSNotFound){
+                    continue;
+                }
                 NSString* onPlay = [[gp attributeForName:@"onPlay"] stringValue];
                 NSString* title = [[gp nodeForXPath:@"title" error:nil] stringValue];
                 IndexMenu* im = [[[IndexMenu alloc] init] autorelease];

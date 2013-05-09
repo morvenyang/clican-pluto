@@ -11,9 +11,10 @@
 #import "IndexMenu.h"
 #import "Constants.h"
 #import "RootViewController.h"
+#import "ConfigViewController.h"
 @implementation MainViewController
 
-@synthesize progressHUD = _progressHUD;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -41,40 +42,15 @@
     [[AppDele jsEngine] runJS:script];
 }
 
-- (void)loadView
-{
-    [super loadView];
-    self.progressHUD = [[[MBProgressHUD alloc] initWithView:self.view] autorelease];
-    self.progressHUD.delegate = self;
-    self.progressHUD.labelText = @"加载脚本中...";
-    [self.view addSubview:self.progressHUD];
-    [self.view bringSubviewToFront:self.progressHUD];
-    [self.progressHUD show:YES];
-    
-}
+
 
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-    [NSThread detachNewThreadSelector:@selector(afterViewLoaded:) toTarget:self withObject:nil];
+    [self showIndex];
 }
 
-- (void) afterViewLoaded:(id)object{
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-    BOOL result = [[AppDele webContentSync] syncWebContent:self.progressHUD force:NO];
-    
-    [[AppDele jsEngine] reloadJS];
-    
-    [AppDele initProcess];
-    [self.progressHUD hide:YES];
-    if(!result){
-        [self performSelectorOnMainThread:@selector(showNetworkWarning) withObject:nil waitUntilDone:NO];
-    }
-    [self performSelectorOnMainThread:@selector(showIndex) withObject:nil waitUntilDone:NO];
-    [pool release];
-}
 -(void)showNetworkWarning{
     TTAlert(@"加载脚本失败,请检查网络是否正常连接");
 }
@@ -94,13 +70,9 @@
         self.tableView.delegate =self;
         _flags.isUpdatingView=NO;
         [self updateView];
-        RootViewController* ctl =(RootViewController*)[TTNavigator navigator].rootViewController;
-        UITabBarItem* config = [ctl.tabBar.items objectAtIndex:4];
-        if(AppDele.clientVersion==NULL||![AppDele.clientVersion isEqualToString:ATV_CLIENT_VERSION]){
-            config.badgeValue = @"更新版本";
-        }
     }
 }
+
 -(void) refreshScript{
     NSMutableArray* items = [NSMutableArray array];
     NSArray* array = [AppDele.webContentSync loadLocalXml];
@@ -122,15 +94,6 @@
     // Release any retained subviews of the main view.
 }
 
-#pragma mark -
-#pragma mark MBProgressHUDDelegate methods
-
-- (void)hudWasHidden:(MBProgressHUD *)hud {
-    // Remove HUD from screen when the HUD was hidded
-    [_progressHUD removeFromSuperview];
-    [_progressHUD release];
-    _progressHUD = nil;
-}
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {

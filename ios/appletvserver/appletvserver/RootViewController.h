@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MBProgressHUD.h"
 #import "ConfigViewController.h"
-@interface RootViewController : UITabBarController<ScriptRefreshDelegate>{
-    
+@interface RootViewController : UITabBarController<ScriptRefreshDelegate,MBProgressHUDDelegate>{
+    MBProgressHUD* _progressHUD;
 }
-
+@property (nonatomic, retain) MBProgressHUD    *progressHUD;
 @end
