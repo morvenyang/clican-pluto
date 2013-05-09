@@ -35,11 +35,6 @@
     if(!vererror){
         NSString* version = [[verreq responseHeaders] valueForKey:@"version"];
         AppDele.clientVersion = [[verreq responseHeaders] valueForKey:@"clientVersion"];
-        if(AppDele.clientVersion==NULL||![AppDele.clientVersion isEqualToString:ATV_CLIENT_VERSION]){
-            [UIApplication sharedApplication].applicationIconBadgeNumber=1;
-        }else{
-            [UIApplication sharedApplication].applicationIconBadgeNumber=0;
-        }
         NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
         NSString* currentVersion = [defaults objectForKey:@"version"];
         if(force||currentVersion==NULL||![currentVersion isEqualToString:version]){
