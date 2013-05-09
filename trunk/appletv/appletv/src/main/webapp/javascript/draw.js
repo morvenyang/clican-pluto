@@ -1,5 +1,6 @@
 var drawClient = {
 		makePlayerOverlay : function() {
+			appletv.logToServer('1');
 			var screenFrame = atv.device.screenFrame;
 
 			// Create the grey background color for the overlay
@@ -7,13 +8,13 @@ var drawClient = {
 			var overlay = new atv.View();
 			overlay.frame = { x: screenFrame.x, y: screenFrame.y + screenFrame.height - overlayHeight, width: screenFrame.width, height: overlayHeight };
 			overlay.backgroundColor = { red: 0.188, green: 0.188, blue: 0.188, alpha: 1 };
-
+			appletv.logToServer('2');
 			// Add a message on top of the overlay
 			var messageAttributes = {
 				pointSize: 22.0,
 				color: { red: 1, blue: 1, green: 1 }
 			};
-
+			appletv.logToServer('3');
 			var message = new atv.TextView();
 			var topPadding = overlay.frame.height * 0.35;
 			var horizontalPadding = overlay.frame.width * 0.05;
@@ -25,7 +26,7 @@ var drawClient = {
 			};
 
 			var numberOfSeconds = 0;
-
+			appletv.logToServer('4');
 			function updateMessage() {
 				message.attributedString = {
 					string: "Overlay message: This has been displayed for " + numberOfSeconds + (numberOfSeconds == 1 ? " second" : " seconds"),
@@ -35,7 +36,7 @@ var drawClient = {
 			}
 			
 			updateMessage();
-
+			appletv.logToServer('5');
 			overlay.subviews = [ message ];
 
 			// Create an image view for a network bug
@@ -50,11 +51,12 @@ var drawClient = {
 				width: bugWidth,
 				height: bugHeight
 			};
-
+			appletv.logToServer('6');
 			// Create a root view that has the fake video content with the overlay on top of it.
 			var rootView = new atv.View();
 			rootView.subviews = [ overlay, networkBug ];
-			
+			appletv.logToServer('7');
 			rootView.show();
+			appletv.logToServer('8');
 		}
 }
