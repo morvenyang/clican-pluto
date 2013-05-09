@@ -178,11 +178,6 @@
 }
 
 -(void) viewWillAppear:(BOOL)animated{
-//    [UIApplication sharedApplication].statusBarOrientation = UIInterfaceOrientationPortrait;
-//    CGRect frame = [UIApplication sharedApplication].statusBarFrame;
-//    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
-//        NSLog(@"frame=%f,%f,%f,%f",frame.origin.x,frame.origin.y,frame.size.width,frame.size.height);
-
     if(TTIsPad()){
         self.navigationController.navigationBar.frame = CGRectMake(0, 20, self.navigationController.navigationBar.frame.size.width, 44);
     }else{
@@ -391,7 +386,7 @@
         vi.title = title;
         vi.onSelect = onSelect;
         if([title isEqualToString:@"分享"]){
-            if(AppDele.shareWeibo!=nil&&[AppDele.shareWeibo isEqualToString:@"true"]){
+            if(!AppDele.appleApproveCheck){
                 [videoItemList addObject:vi];
             }
         }else{
@@ -517,8 +512,7 @@
                     [tabStrip selectTabIndex:selectedIndex withOffset:0];
                 }
                 [self.scrollView  addSubview:tabStrip];
-                h +=45;
-            }
+                h +=45;           }
         }
     }
     [self.view addSubview:self.scrollView];
