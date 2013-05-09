@@ -84,6 +84,7 @@
 		7233EB6F1709425400EF342E /* ConfigDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 7233EB6E1709425400EF342E /* ConfigDataSource.m */; };
 		72360C4816EED8DD00E0842B /* XunLeiLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 72360C4716EED8DD00E0842B /* XunLeiLoginViewController.m */; };
 		72360C5B16EEDDD700E0842B /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 72360C5A16EEDDD700E0842B /* RootViewController.m */; };
+		723B021C173B579400D6FC75 /* TTTabStripAddition.m in Sources */ = {isa = PBXBuildFile; fileRef = 723B021B173B579400D6FC75 /* TTTabStripAddition.m */; };
 		724024F817016B990015352A /* XmlDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 724024F717016B990015352A /* XmlDataSource.m */; };
 		724024FC170196490015352A /* URLDataHeaderResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 724024FB170196490015352A /* URLDataHeaderResponse.m */; };
 		7245872417152FD900F6E839 /* libsmbclient.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7245872017152FD900F6E839 /* libsmbclient.a */; };
@@ -504,6 +505,8 @@
 		72360C4716EED8DD00E0842B /* XunLeiLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XunLeiLoginViewController.m; sourceTree = "<group>"; };
 		72360C5916EEDDD700E0842B /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
 		72360C5A16EEDDD700E0842B /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
+		723B021A173B579400D6FC75 /* TTTabStripAddition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTabStripAddition.h; sourceTree = "<group>"; };
+		723B021B173B579400D6FC75 /* TTTabStripAddition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTabStripAddition.m; sourceTree = "<group>"; };
 		724024F617016B990015352A /* XmlDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XmlDataSource.h; sourceTree = "<group>"; };
 		724024F717016B990015352A /* XmlDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XmlDataSource.m; sourceTree = "<group>"; };
 		724024FA170196490015352A /* URLDataHeaderResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = URLDataHeaderResponse.h; sourceTree = "<group>"; };
@@ -923,6 +926,15 @@
 			name = xunlei;
 			sourceTree = "<group>";
 		};
+		723B0210173B576C00D6FC75 /* Additions */ = {
+			isa = PBXGroup;
+			children = (
+				723B021A173B579400D6FC75 /* TTTabStripAddition.h */,
+				723B021B173B579400D6FC75 /* TTTabStripAddition.m */,
+			);
+			name = Additions;
+			sourceTree = "<group>";
+		};
 		724024F91701962F0015352A /* HTTP */ = {
 			isa = PBXGroup;
 			children = (
@@ -957,6 +969,7 @@
 		7272B3A216CA040F00E111A7 /* Three20 */ = {
 			isa = PBXGroup;
 			children = (
+				723B0210173B576C00D6FC75 /* Additions */,
 				724024F91701962F0015352A /* HTTP */,
 				72BB0C6716CB510D00D4291D /* View */,
 				721E6F8816CA1E7300307E4D /* JSON */,
@@ -1771,6 +1784,7 @@
 				726576A61726323E0066F492 /* CricleUIView.m in Sources */,
 				72F1D816173204B8000344AF /* DataInputStream.m in Sources */,
 				72F1D81917320518000344AF /* SubTitleProcess.m in Sources */,
+				723B021C173B579400D6FC75 /* TTTabStripAddition.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
