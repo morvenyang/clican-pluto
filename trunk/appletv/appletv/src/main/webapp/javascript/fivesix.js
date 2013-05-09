@@ -163,7 +163,7 @@ var fivesixClient = {
 		}else{
 			for(var i=0;i<originalChannels.length;i++){
 				var channel = originalChannels[i];
-				if(channel.value!='dy'&&channel.value!='dsj'){
+				if(channel.value=='qc'&&channel.value=='ly'&&channel.value=='kj'){
 					channels.push(channel);
 				}
 			}

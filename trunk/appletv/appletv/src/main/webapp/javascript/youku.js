@@ -191,7 +191,7 @@ var youkuClient = {
 		}else{
 			for(var i=0;i<originalChannels.length;i++){
 				var channel = originalChannels[i];
-				if(channel.value!=97&&channel.value!=96){
+				if(channel.value==92&&channel.value==104&&channel.value==102&&channel.value==94&&channel.value==103&&channel.value==89){
 					channels.push(channel);
 				}
 			}
