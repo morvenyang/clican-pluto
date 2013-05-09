@@ -2,12 +2,17 @@
 <atv>
 	<head>
 		<script src="http://www.clican.org/appletv/javascript/load.js" />
+		<script src="http://www.clican.org/appletv/javascript/draw.js" />
 	</head>
 	<body>
 		<scroller id="com.sample.movie-shelf">
 			<items>
 				<grid id="grid_2" columnCount="4">
 					<items>
+						<goldenPoster id="local" onSelect="drwaClient.makePlayerOverlay();">
+							<image>http://www.clican.org/appletv/image/local.png</image>
+							<title>绘图</title>
+						</goldenPoster>
 						<goldenPoster id="local" onSelect="appletv.loadLocalServerIndexPage();">
 							<image>http://www.clican.org/appletv/image/local.png</image>
 							<title>本地服务器</title>
