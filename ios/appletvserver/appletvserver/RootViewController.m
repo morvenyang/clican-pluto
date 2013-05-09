@@ -10,6 +10,7 @@
 #import "AppDelegate.h"
 #import "MainViewController.h"
 #import "Constants.h"
+#import "UITabBarControllerAdditions.h"
 @implementation RootViewController
 
 
