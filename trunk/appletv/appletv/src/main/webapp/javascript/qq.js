@@ -132,7 +132,7 @@ var qqClient = {
 		}else{
 			for(var i=0;i<originalChannels.length;i++){
 				var channel = originalChannels[i];
-				if(channel.value==17||channel.value!=14||channel.value==22||channel.value==20||channel.value==37){
+				if(channel.value==17||channel.value==14||channel.value==22||channel.value==20||channel.value==37){
 					channels.push(channel);
 				}
 			}
