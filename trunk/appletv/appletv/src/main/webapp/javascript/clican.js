@@ -1065,7 +1065,7 @@ var appletv = {
 		return false;
 	},
 	
-	isAppleApproveCheck: function {
+	isAppleApproveCheck: function() {
 		return true;
 	}
 };

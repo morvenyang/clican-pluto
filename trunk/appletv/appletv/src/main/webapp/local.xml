@@ -12,7 +12,7 @@
 							<image>http://local.clican.org/appletv/image/soku/soku.png</image>
 							<title>搜库</title>
 						</goldenPoster>
-						<goldenPoster id="native_youku" onSelect="youkuClient.loadIndexPage('',1,96);" onPlay="youkuClient.loadChannelPage();">
+						<goldenPoster id="native_youku_approve_check" onSelect="youkuClient.loadIndexPage('',1,96);" onPlay="youkuClient.loadChannelPage();">
 							<image>http://local.clican.org/appletv/image/youku/youku.png</image>
 							<title>优库</title>
 						</goldenPoster>
@@ -21,15 +21,15 @@
 							<image>http://local.clican.org/appletv/image/tudou/tudou.png</image>
 							<title>土豆视频</title>
 						</goldenPoster>
-						<goldenPoster id="native_qq" onSelect="qqClient.loadIndexPage('',0,3);"  onPlay="qqClient.loadChannelPage();">
+						<goldenPoster id="native_qq_approve_check" onSelect="qqClient.loadIndexPage('',0,3);"  onPlay="qqClient.loadChannelPage();">
 							<image>http://local.clican.org/appletv/image/qq/qq.png</image>
 							<title>腾讯视频</title>
 						</goldenPoster>
-						<goldenPoster id="native_fivesix" onSelect="fivesixClient.loadIndexPage('',1,'dsj');" onPlay="fivesixClient.loadChannelPage();">
+						<goldenPoster id="native_fivesix_approve_check" onSelect="fivesixClient.loadIndexPage('',1,'dsj');" onPlay="fivesixClient.loadChannelPage();">
 							<image>http://local.clican.org/appletv/image/fivesix/fivesix.png</image>
 							<title>56视频</title>
 						</goldenPoster>
-						<goldenPoster id="native_yyets" onSelect="yyetsClient.loadIndexPage('',1,'movie');" onPlay="yyetsClient.loadChannelPage();">
+						<goldenPoster id="native_yyets_approve_check" onSelect="yyetsClient.loadIndexPage('',1,'movie');" onPlay="yyetsClient.loadChannelPage();">
 							<image>http://local.clican.org/appletv/image/yyets/yyets.jpg</image>
 							<title>人人影视</title>
 						</goldenPoster>
@@ -66,7 +66,7 @@
 							<image>http://local.clican.org/appletv/image/taobao/taobao.png</image>
 							<title>淘宝</title>
 						</goldenPoster>
-						<goldenPoster id="native_favorite"
+						<goldenPoster id="native_favorite_approve_check"
 							onSelect="appletv.loadFavoritePage();" onPlay="appletv.loadFavoritePage();">
 							<image>http://local.clican.org/appletv/image/favorite.png</image>
 							<title>收藏</title>
