@@ -59,7 +59,7 @@
     int _videoSizePerLine;
     
     SMBProcess* _smbProcess;
-    NSString* _shareWeibo;
+    BOOL* _appleApproveCheck;
     NSString* _localMp3PathPrefix;
     NSMutableArray* _scriptRefreshDelegateArray;
     BOOL _proxy;
@@ -93,7 +93,7 @@
 @property (nonatomic, copy) NSString* localMkvM3u8PathPrefix;
 @property (nonatomic, retain) KxSMBAuth* auth;
 @property (nonatomic, retain) SMBProcess* smbProcess;
-@property (nonatomic, copy) NSString* shareWeibo;
+@property (nonatomic, assign) BOOL* appleApproveCheck;
 @property (nonatomic, copy) NSString* localMp3PathPrefix;
 @property (nonatomic, retain) NSMutableArray* scriptRefreshDelegateArray;
 @property (nonatomic, assign) BOOL proxy;
