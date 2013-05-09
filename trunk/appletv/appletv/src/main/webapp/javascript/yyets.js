@@ -37,7 +37,7 @@ var yyetsClient = {
 	loadChannelPage:function(){
 		var channels = [];
 		var originalChannels = yyetsClient.yyetsChannels;
-		if(appletv.isTVAndMovieEnable()){
+		if(appletv.isAppleApproveCheck()){
 			channels = originalChannels;
 		}else{
 			for(var i=0;i<originalChannels.length;i++){

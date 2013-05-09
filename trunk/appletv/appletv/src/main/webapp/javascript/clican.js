@@ -1068,12 +1068,12 @@ var appletv = {
 	isShareEnable : function() {
 		return true;
 	},
-
-	isTVAndMovieEnable : function() {
-		return true;
-	},
 	
 	isBookmarkTimeEnable : function() {
 		return false;
+	},
+	
+	isAppleApproveCheck: function {
+		return true;
 	}
 };
