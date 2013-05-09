@@ -49,7 +49,14 @@
     }
     UITabBarItem* config = [self.tabBar.items objectAtIndex:self.tabBar.items.count-1];
     if(AppDele.clientVersion==NULL||![AppDele.clientVersion isEqualToString:ATV_CLIENT_VERSION]){
-        config.badgeValue = @"1";
+        if(!AppDele.appleApproveCheck){
+            config.badgeValue = @"1";
+            [UIApplication sharedApplication].applicationIconBadgeNumber=1;
+        }else{
+            [UIApplication sharedApplication].applicationIconBadgeNumber=0;
+        }
+    }else{
+        [UIApplication sharedApplication].applicationIconBadgeNumber=0;
     }
 }
 
@@ -112,7 +119,14 @@
     }
     UITabBarItem* config = [self.tabBar.items objectAtIndex:self.tabBar.items.count-1];
     if(AppDele.clientVersion==NULL||![AppDele.clientVersion isEqualToString:ATV_CLIENT_VERSION]){
-        config.badgeValue = @"1";
+        if(!AppDele.appleApproveCheck){
+            config.badgeValue = @"1";
+            [UIApplication sharedApplication].applicationIconBadgeNumber=1;
+        }else{
+            [UIApplication sharedApplication].applicationIconBadgeNumber=0;
+        }
+    }else{
+        [UIApplication sharedApplication].applicationIconBadgeNumber=0;
     }
 }
 -(void)showNetworkWarning{
