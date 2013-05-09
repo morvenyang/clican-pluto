@@ -1060,14 +1060,6 @@ var appletv = {
 			}
 		});
 	},
-
-	isSMBEnable : function() {
-		return true;
-	},
-
-	isShareEnable : function() {
-		return true;
-	},
 	
 	isBookmarkTimeEnable : function() {
 		return false;
