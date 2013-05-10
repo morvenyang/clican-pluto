@@ -370,7 +370,7 @@ var sokuClient = {
 					vcode = detail['videoid'];
 				}
 				
-				script = appletv.encode("sokuClient.loadVideoPage('"+id+"',"+album+",'');");
+				script = appletv.encode("sokuClient.loadVideoPage('"+id+"',"+album+",'"+site+"');");
 				var video = {
 						'serverurl' : appletv.serverurl,
 						album : album,
