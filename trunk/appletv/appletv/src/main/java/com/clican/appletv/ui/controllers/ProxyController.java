@@ -165,6 +165,9 @@ public class ProxyController {
 				if (fileName.contains(".svn")) {
 					continue;
 				}
+				if(file.getName().equals("image")&&fileName.endsWith("web")){
+					continue;
+				}
 				addToZip(filePath, srcFile + "/" + fileName, zipOut);
 			}
 		} else {
