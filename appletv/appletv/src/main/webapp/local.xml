@@ -29,7 +29,7 @@
 							<image>http://local.clican.org/appletv/image/fivesix/fivesix.png</image>
 							<title>56视频</title>
 						</goldenPoster>
-						<goldenPoster id="native_yyets_approve_check" onSelect="yyetsClient.loadIndexPage('',1,'movie');" onPlay="yyetsClient.loadChannelPage();">
+						<goldenPoster id="native_yyets" onSelect="yyetsClient.loadIndexPage('',1,'movie');" onPlay="yyetsClient.loadChannelPage();">
 							<image>http://local.clican.org/appletv/image/yyets/yyets.jpg</image>
 							<title>人人影视</title>
 						</goldenPoster>
