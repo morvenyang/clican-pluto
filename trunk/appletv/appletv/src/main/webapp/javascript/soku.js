@@ -50,9 +50,7 @@ var sokuClient = {
 				var videos = [];
 				
 				appletv.makeRequest(url1, function(jsonContent1) {
-					appletv.logToServer('s1');
 					var results1 = JSON.parse(jsonContent1)['results'];
-					appletv.logToServer('s2');
 					for(var i=0;i<results1.length;i++){
 						var result1 = results1[i];
 						var video = {
@@ -64,11 +62,8 @@ var sokuClient = {
 							};
 						videos.push(video);
 					}
-					appletv.logToServer('s3');
 					appletv.makeRequest(url2,function(jsonContent2){
-						appletv.logToServer('s4');
 						var results2 = JSON.parse(jsonContent2)['results'];
-						appletv.logToServer('s5');
 						for(var i=0;i<results2.length;i++){
 							var result2 = results2[i];
 							var video = {
@@ -80,7 +75,6 @@ var sokuClient = {
 								};
 							videos.push(video);
 						}
-						appletv.logToServer('s6');
 						sokuClient.generateIndexPage(keyword, page, channel,
 								videos,queryUrl);
 					});
