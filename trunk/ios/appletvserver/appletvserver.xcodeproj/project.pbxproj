@@ -1872,6 +1872,7 @@
 					/Users/zhangwei/Documents/xcodews/googlecode/trunk/ios/appletvserver/appletvserver/include,
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				LD_NO_PIE = YES;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lxml2",
@@ -1902,6 +1903,7 @@
 					/Users/zhangwei/Documents/xcodews/googlecode/trunk/ios/appletvserver/appletvserver/include,
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				LD_NO_PIE = YES;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				"OTHER_CFLAGS[arch=*]" = "-DNS_BLOCK_ASSERTIONS=1";
 				OTHER_LDFLAGS = (

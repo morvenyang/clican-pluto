@@ -17,4 +17,5 @@
 + (BOOL) content:(NSString *)content startWith:(NSString*) prefix;
 + (NSString*) md5:(NSData*) data;
 + (NSData *)uncompressZippedData:(NSData *)compressedData;
++ (NSString*) getUUID;
 @end
