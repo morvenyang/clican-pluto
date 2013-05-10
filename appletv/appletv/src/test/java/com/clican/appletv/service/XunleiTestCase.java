@@ -123,4 +123,10 @@ public class XunleiTestCase extends BaseServiceTestCase {
 		String url4 ="http://dynamic.cloud.vip.xunlei.com/interface/showtask_unfresh?callback=getDownloadUrl&t="+Calendar.getInstance().getTimeInMillis()+"&type_id=4&page=1&tasknum=1&p=1&interfrom=task";
 		System.out.println(tudouClient.httpGet(url4, header, null));
 	}
+	
+	public void testGetContent() throws Exception{
+		String s = "http://m3u8i.vodfile.m1905.com/movie/1209/120910E0EC0BCAB2A61FF5.m3u8";
+		Map<String, String> header = new HashMap<String, String>();
+		System.out.println(tudouClient.httpGet(s,header,null));
+	}
 }
