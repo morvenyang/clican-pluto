@@ -591,22 +591,29 @@ var sokuClient = {
 					}
 				});
 			}else if(url.indexOf('m1905.com')!=-1){
-				var vid = appletv.substringByData(url,'play/','.shtml');
-				var xmlUrl = 'http://mapps.m1905.com/index.php/Pad/video?id='+vid+'&cid=2';
-				appletv.logToServer(xmlUrl);
-				appletv.makeRequest(xmlUrl,function(xmlContent){
-					var m3u8Url = appletv.substringByData(xmlContent,'<item','</item>');
-					if(m3u8Url==null||m3u8Url.length==0){
-						appletv.showDialog('无法播放',url);
-						return;
+				appletv.makeRequest(url,function(htmlContent){
+					var iosUrl = appletv.substringByData(htmlContent,'flashvars["iosurl"] = \'','\'').trim();
+					var videotype= appletv.substringByData(htmlContent,'var videotype=\'','\'').trim();
+					if(iosUrl.indexOf('.mp4')==-1&&iosUrl.indexOf('.m3u8')==-1){
+						iosUrl = appletv.base64Decode(iosUrl);
 					}
-					m3u8Url = appletv.substringByData(m3u8Url,'url="','"');
-					appletv.playM3u8(m3u8Url, '');
-					},{
-						"Cookie":"PHPSESSID=as1vljvgb2iv9vkld02kvi1ln2",
-						"key":"0F80D95E9423828649D35EC7745DC524",
-						"did":"01d0721c86d8ff7f84174ac08e715dfd560871c0"
-					});
+					appletv.logToServer(iosUrl);
+					if(iosUrl.indexOf('.mp4')!=-1){
+						if(videotype=='vod'){
+							appletv.playMp4('http://mp4i.vodfile.m1905.com/movie'+iosUrl,'');
+						}else{
+							appletv.playMp4('http://mp4i.vodfile.m1905.com/video'+iosUrl,'');
+						}
+					}else if(iosUrl.indexOf('.m3u8')!=-1){
+						if(videotype=='vod'){
+							appletv.playM3u8('http://m3u8i.vodfile.m1905.com/movie'+iosUrl,'');
+						}else{
+							appletv.playM3u8('http://m3u8i.vodfile.m1905.com/video'+iosUrl,'');
+						}
+					}else{
+						appletv.showDialog('无法播放',iosUrl);
+					}
+				});
 			}else{
 				appletv.showDialog('无法播放',url);
 			}
