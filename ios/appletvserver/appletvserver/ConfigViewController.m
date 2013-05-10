@@ -9,7 +9,7 @@
 #import "ConfigViewController.h"
 #import "Constants.h"
 #import "AppDelegate.h"
-
+#import "AtvUtil.h"
 @implementation ConfigViewController
 
 @synthesize serverIPField = _serverIPField;
@@ -267,7 +267,7 @@
         AppDele.serverIP = textField.text;
     }else if(textField==self.atvDeviceIdField){
         if(textField.text==nil||textField.text.length==0){
-            textField.text = [[UIDevice currentDevice] uniqueIdentifier];
+            textField.text = [AtvUtil getUUID];
         }
         [defaults setValue:textField.text forKey:ATV_DEVICE_ID_NAME];
         AppDele.atvDeviceId = textField.text;

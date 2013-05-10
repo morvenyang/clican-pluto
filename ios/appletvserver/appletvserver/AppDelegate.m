@@ -118,7 +118,8 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     }
     self.atvDeviceId =  [defaults stringForKey: ATV_DEVICE_ID_NAME];
     if(self.atvDeviceId==nil||self.atvDeviceId.length==0){
-        self.atvDeviceId = [[UIDevice currentDevice] uniqueIdentifier];
+        self.atvDeviceId = [AtvUtil getUUID];
+        [defaults setValue:self.atvDeviceId forKey:ATV_DEVICE_ID_NAME];
     }
     if(TTIsPad()){
         self.ipad = YES;
