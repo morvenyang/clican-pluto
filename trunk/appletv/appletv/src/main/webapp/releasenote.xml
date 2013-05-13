@@ -9,7 +9,7 @@
 			<items>
 				<grid id="grid_2" columnCount="4">
 					<items>
-						<goldenPoster id="local" onSelect="drwaClient.makePlayerOverlay();">
+						<goldenPoster id="local" onSelect="drawClient.makePlayerOverlay();">
 							<image>http://www.clican.org/appletv/image/local.png</image>
 							<title>绘图</title>
 						</goldenPoster>
