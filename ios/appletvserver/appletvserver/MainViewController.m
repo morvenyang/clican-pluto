@@ -58,7 +58,7 @@
     NSMutableArray* items = [NSMutableArray array];
     NSArray* array = [AppDele.webContentSync loadLocalXml];
     if(array.count==0){
-        [self showNetworkWarning];
+        [self performSelectorOnMainThread:@selector(showNetworkWarning) withObject:nil waitUntilDone:NO];
     }else{
         for(int i=0;i<array.count;i++){
             IndexMenu* im = [array objectAtIndex:i];
