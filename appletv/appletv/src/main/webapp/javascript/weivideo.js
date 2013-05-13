@@ -14,6 +14,31 @@ var weivideoClient = {
 			label : "电影",
 			value : '4',
 			path : 'movie'
+		},
+		"2" : {
+			label : "动漫",
+			value : '2',
+			path: 'cartoon'
+		},
+		"3" : {
+			label : "综艺",
+			value : '3',
+			path: 'show'
+		},
+		"12" : {
+			label : "体育",
+			value : '12',
+			path: 'other/12'
+		},
+		"11" : {
+			label : "娱乐",
+			value : '11',
+			path: 'other/11'
+		},
+		"15" : {
+			label : "搞笑",
+			value : '15',
+			path: 'other/15'
 		}
 	},
 
@@ -29,6 +54,26 @@ var weivideoClient = {
 		label : "电影",
 		value : '4',
 		path: 'movie'
+	}, {
+		label : "动漫",
+		value : '2',
+		path: 'cartoon'
+	}, {
+		label : "综艺",
+		value : '3',
+		path: 'show'
+	}, {
+		label : "体育",
+		value : '12',
+		path: 'other/12'
+	}, {
+		label : "娱乐",
+		value : '11',
+		path: 'other/12'
+	}, {
+		label : "搞笑",
+		value : '15',
+		path: 'other/15'
 	} ],
 
 	loadChannelPage : function() {
@@ -85,9 +130,16 @@ var weivideoClient = {
 			});
 		} else {
 			if(queryUrl==null){
-				queryUrl = 'http://newvideopc.video.sina.com.cn/movie/fapi/data?uid=&q_category='
-					+ channelId
-					+ '&page=' + page + '&time=' + new Date().getTime();
+				if(channelId=='10'){
+					queryUrl = 'http://newvideopc.video.sina.com.cn/movie/fapi/other_data?uid=&q_category='
+						+ channelId
+						+ '&page=' + page + '&time=' + new Date().getTime();
+				}else{
+					queryUrl = 'http://newvideopc.video.sina.com.cn/movie/fapi/data?uid=&q_category='
+						+ channelId
+						+ '&page=' + page + '&time=' + new Date().getTime();
+				}
+				
 			} else {
 				queryUrl = queryUrl+'&page=' + page + '&time=' + new Date().getTime();
 			}
