@@ -548,9 +548,10 @@ var appletv = {
 						break;
 					}
 				}
-			}else{
-				bookmarkTime = 0;
 			}
+		}
+		if(bookmarkTime==null){
+			bookmarkTime = 0;
 		}
 		if(bookmarkTime!=null&&bookmarkTime!=0&&appletv.isBookmarkTimeEnable()){
 			var options = [];
@@ -585,9 +586,10 @@ var appletv = {
 						break;
 					}
 				}
-			}else{
-				bookmarkTime = 0;
 			}
+		}
+		if(bookmarkTime==null){
+			bookmarkTime = 0;
 		}
 		if(bookmarkTime!=null&&bookmarkTime!=0&&appletv.isBookmarkTimeEnable()){
 			var options = [];
