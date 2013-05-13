@@ -493,9 +493,10 @@ var sokuClient = {
 							var mainUrl = info['mainUrl'];
 							appletv.makeRequest(mainUrl,function(mediaJson){
 								var location = JSON.parse(mediaJson)['location'];
+								appletv.logToServer(location);
 								if(location==null){
 									appletv.showDialog('无法从letv.com找到相关资源','');
-								}else if(location.indexOf('mp4')!=-1){
+								}else if(location.indexOf('.mp4')!=-1){
 									appletv.playMp4(location,'');
 								}else{
 									appletv.playM3u8(location,'');
