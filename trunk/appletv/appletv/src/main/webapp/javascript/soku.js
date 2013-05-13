@@ -159,13 +159,16 @@ var sokuClient = {
 		getCategory: function(content,channelId,url){
 			var channel = this.sokuChannelMap[channelId];
 			var categoryFilterContent = appletv.substringByTag(content,'<div class="filter">','</div>','div');
-			var categoryFilters = appletv.getSubValuesByTag(categoryFilterContent,'<div class="item"','</div>','div');
+			var categoryFilters = appletv.getSubValuesByTag(categoryFilterContent,'<div class="item','</div>','div');
 			appletv.logToServer(categoryFilters[1]);
 			var categoryNames = [];
 			var categoryMap = {};
 			var category = {"categoryMap":categoryMap,"categoryNames":categoryNames,"url":url,"serverurl":appletv.serverurl,"channelId":channelId};
 			for(i=0;i<categoryFilters.length;i++){
 				var categoryName = appletv.substringByData(categoryFilters[i],'<label>','</label>');
+				if(categoryName!='类型'&&categoryName!='国家/地区'&&categoryName!='年代'){
+					continue;
+				}
 				categoryNames.push(categoryName);
 				var categoryValues = [];
 				var categoryLis = appletv.getSubValues(categoryFilters[i],'<li','</li>');
@@ -177,6 +180,7 @@ var sokuClient = {
 					}
 					categoryLabel = appletv.substringByData(categoryLis[j],'<a','</a>');
 					categoryLabel = appletv.subIndexString(categoryLabel,'>');
+					
 					var categoryUrl = 'http://www.soku.com'+appletv.substringByData(categoryLis[j],'href="','"');
 					var categoryValue={"categoryLabel":categoryLabel,"categoryUrl":categoryUrl,"select":select};
 					categoryValues.push(categoryValue);
