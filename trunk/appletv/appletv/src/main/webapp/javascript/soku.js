@@ -611,6 +611,21 @@ var sokuClient = {
 						appletv.showDialog('无法播放',iosUrl);
 					}
 				});
+			}else if(url.indexOf('pps.tv')!=-1){
+				var vcode = appletv.substringByData(url,'play_','.html');
+				if(vcode!=null&&vcode.length>0){
+					var mp4QueryUrl = 'http://dp.ugc.pps.tv/get_play_url_html.php?url_key='+vcode;
+					appletv.makeRequest(mp4QueryUrl,function(jsonContent){
+						if(jsonContent==null||jsonContent.length==0){
+							appletv.showDialog('无法播放',url);
+						}else{
+							var mp4Url = JSON.parse(jsonContent)[0]['path'];
+							appletv.playMp4(mp4Url);
+						}
+					});
+				}else{
+					appletv.showDialog('无法播放',url);
+				}
 			}else{
 				appletv.showDialog('无法播放',url);
 			}
