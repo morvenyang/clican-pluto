@@ -502,7 +502,6 @@ var sokuClient = {
 								}
 							});
 						}
-						appletv.playM3u8(m3u8Url,'');
 					});
 				});
 			}else if(url.indexOf('iqiyi.com')!=-1){
