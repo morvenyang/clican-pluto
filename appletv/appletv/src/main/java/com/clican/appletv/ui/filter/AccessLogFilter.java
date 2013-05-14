@@ -27,8 +27,8 @@ public class AccessLogFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response,
 			FilterChain chain) throws IOException, ServletException {
 		String url = ((HttpServletRequest) request).getRequestURL().toString();
-		if (log.isDebugEnabled()) {
-			log.debug(url);
+		if (log.isTraceEnabled()) {
+			log.trace(url);
 		}
 		chain.doFilter(request, response);
 	}
