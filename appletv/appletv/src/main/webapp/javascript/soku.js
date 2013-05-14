@@ -194,6 +194,7 @@ var sokuClient = {
 			if(loading){
 				appletv.showLoading();
 			}
+			appletv.logToServer('load soku category page');
 			appletv.makeRequest(url, function(content) {
 				category = sokuClient.getCategory(content,channelId,url);
 				var xml = new EJS({
