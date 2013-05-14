@@ -1064,7 +1064,7 @@ var appletv = {
 	},
 	
 	isBookmarkTimeEnable : function() {
-		return false;
+		return true;
 	},
 	
 	isAppleApproveCheck: function() {
