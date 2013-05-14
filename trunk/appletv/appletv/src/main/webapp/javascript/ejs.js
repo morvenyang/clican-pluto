@@ -443,7 +443,7 @@
 			var value = atv.localStorage[path+'?version='+appletv.ejsVersion];
 			if(value==null||value.length==0){
 				var request = new EJS.newRequest();
-				request.open("GET", path, false);
+				request.open("GET", path+'?version='+appletv.ejsVersion, false);
 				try {
 					request.send(null)
 				} catch (e) {
@@ -485,7 +485,7 @@
 			var value = atv.localStorage[path+'?version='+appletv.ejsVersion];
 			if(value==null||value.length==0){
 				var request = new EJS.newRequest();
-				request.open("GET", path, false);
+				request.open("GET", path+'?version='+appletv.ejsVersion, false);
 				try {
 					request.send(null)
 				} catch (e) {
