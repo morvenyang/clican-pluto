@@ -15,6 +15,7 @@
 						<goldenPoster id="soku" onSelect="sokuClient.loadIndexPage('',1,'tv');">
 							<image>http://www.clican.org/appletv/image/soku/soku.png</image>
 							<title>搜库</title>
+							<badgeCount>1</badgeCount>
 						</goldenPoster>
 						<goldenPoster id="youku" onSelect="youkuClient.loadIndexPage('',1,96);">
 							<image>http://www.clican.org/appletv/image/youku/youku.png</image>
@@ -54,6 +55,7 @@
 							onSelect="weivideoClient.loadIndexPage('',1,'1');">
 							<image>http://local.clican.org/appletv/image/weivideo/weivideo.png</image>
 							<title>视频集</title>
+							<badgeCount>1</badgeCount>
 						</goldenPoster>
 						<goldenPoster id="weibo"
 							onSelect="atv.loadURL('http://www.clican.org/appletv/ctl/weibo/checkAccessToken.xml?deviceId='+atv.device.udid);">

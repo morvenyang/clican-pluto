@@ -270,6 +270,22 @@ var sokuClient = {
 					site['items']=items;
 					size = items.length;
 				}
+				if(sites.length==0){
+					var singleSite = appletv.substringByTag(htmlContent,'<div class="source  source_one">','</div>','div');
+					appletv.logToServer(singleSite);
+					var siteName = appletv.substringByData(singleSite,'title="','"');
+					var siteId = appletv.substringByData(singleSite,'id="','"');
+					var site = {"title":siteName,"id":siteId};
+					sites.push(site);
+					var itemSource = appletv.substringByTag(htmlContent,'<div class="btnplay_s"','</div>','div');
+					var vurl = appletv.substringByData(itemSource,'href="','"');
+					var vtitle = '播放';
+					var v = {"url":vurl,"title":vtitle};
+					var items = [];
+					items.push(v);
+					site['items']=items;
+					size = items.length;
+				}
 				var video = {
 						'serverurl' : appletv.serverurl,
 						id: id,
@@ -310,6 +326,7 @@ var sokuClient = {
 						break;
 					}
 				}
+			
 				var v = {'video':video['video'],'items':items,'serverurl':appletv.serverurl};
 				var xml = new EJS({
 					url : appletv.serverurl
