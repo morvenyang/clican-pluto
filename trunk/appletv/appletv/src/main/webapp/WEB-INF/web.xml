@@ -48,10 +48,30 @@
 			<param-value>UTF-8</param-value>
 		</init-param>
 	</filter>
+	
+	<filter>
+		<filter-name>accessLogFilter</filter-name>
+		<filter-class>com.clican.appletv.ui.filter.AccessLogFilter</filter-class>
+	</filter>
 
 	<filter-mapping>
 		<filter-name>encodingFilter</filter-name>
 		<url-pattern>/ctl/*</url-pattern>
+	</filter-mapping>
+	
+	<filter-mapping>
+		<filter-name>accessLogFilter</filter-name>
+		<url-pattern>/javascript/*</url-pattern>
+	</filter-mapping>
+	
+	<filter-mapping>
+		<filter-name>accessLogFilter</filter-name>
+		<url-pattern>/template/*</url-pattern>
+	</filter-mapping>
+	
+	<filter-mapping>
+		<filter-name>accessLogFilter</filter-name>
+		<url-pattern>/image/*</url-pattern>
 	</filter-mapping>
 
 </web-app>
