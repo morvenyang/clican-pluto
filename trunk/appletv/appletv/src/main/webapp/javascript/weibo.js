@@ -33,7 +33,7 @@ var weiboClient = {
 	
 	share : function(feature, title, shareURL, imageURL) {
 		appletv.showLoading();
-		weiboClient.getToken(token){
+		weiboClient.getToken(function(token){
 			if(token==null||token.length==0){
 				return;
 			}
@@ -51,7 +51,6 @@ var weiboClient = {
 			appletv.makeRequest(url,function(jsonContent){
 				
 			});
-		}
-		
+		});
 	},
 }
