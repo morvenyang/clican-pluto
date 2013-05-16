@@ -692,6 +692,15 @@ var appletv = {
 			atv.loadURL(url);
 		}
 	},
+	
+	loadHTML : function(url){
+		if(appletv.simulate=='native'){
+			native_loadHTML(url);
+		}else{
+			appletv.showDialog('程序错误','ATV无法加载HTML页面')
+		}
+	},
+	
 	showLoading : function() {
 		if (this.simulate == 'atv') {
 			appletv.showDialog('加载中...', 'Loading...');

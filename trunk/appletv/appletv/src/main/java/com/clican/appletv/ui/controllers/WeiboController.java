@@ -85,6 +85,22 @@ public class WeiboController {
 		}
 	}
 
+	@RequestMapping("/weibo/getToken.do")
+	public void getToken(HttpServletRequest request,
+			HttpServletResponse response,
+			@RequestParam(value = "deviceId", required = true) String deviceId)
+			throws Exception {
+		if (log.isDebugEnabled()) {
+			log.debug("get token by deviceId:" + deviceId);
+		}
+		String accessToken = weiboClient.getAccessToken(deviceId);
+		if (StringUtils.isEmpty(accessToken)) {
+			accessToken = "";
+		}
+		String result = "{\"accessToken:\":\"" + accessToken + "\"}";
+		response.getOutputStream().write(result.getBytes("utf-8"));
+	}
+
 	@RequestMapping("/weibo/oaAuthCallback.do")
 	public String callback(HttpServletRequest request,
 			HttpServletResponse response,
@@ -92,7 +108,7 @@ public class WeiboController {
 			@RequestParam(value = "state", required = false) String deviceId)
 			throws Exception {
 		if (log.isDebugEnabled()) {
-			log.debug("code=" + code+",state="+deviceId);
+			log.debug("code=" + code + ",state=" + deviceId);
 		}
 		String accessToken = new Oauth().getAccessTokenByCode(code)
 				.getAccessToken();
@@ -161,8 +177,9 @@ public class WeiboController {
 			}
 			return "weibo/profile";
 		} else {
-			String weiboLoginURL = springProperty.getWeiboLoginURL()+"&state="+deviceId;
-			if(log.isDebugEnabled()){
+			String weiboLoginURL = springProperty.getWeiboLoginURL()
+					+ "&state=" + deviceId;
+			if (log.isDebugEnabled()) {
 				log.debug(weiboLoginURL);
 			}
 			request.setAttribute("weiboLoginURL", weiboLoginURL);
@@ -361,7 +378,7 @@ public class WeiboController {
 			log.debug("create status, title:" + title + ",shareURL:" + shareURL
 					+ ",imageURL:" + imageURL);
 		}
-		if(StringUtils.isEmpty(simulate)){
+		if (StringUtils.isEmpty(simulate)) {
 			simulate = "atv";
 		}
 		request.getSession().setAttribute("simulate", simulate);
@@ -371,7 +388,7 @@ public class WeiboController {
 		Timeline timeline = new Timeline();
 		String accessToken = (String) request.getSession().getAttribute(
 				"weiboAccessToken");
-		
+
 		timeline.setToken(accessToken);
 		String statusContent = null;
 		if (feature != null && feature == 4) {
