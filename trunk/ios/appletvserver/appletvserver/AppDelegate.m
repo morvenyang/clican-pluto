@@ -193,11 +193,12 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 -(void) initDocument{
     NSArray *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *m3u8Outpath = [[path objectAtIndex:0] stringByAppendingFormat:@"%@",@"/temp/m3u8/"];
-    NSString *mp4Outpath = [[path objectAtIndex:0] stringByAppendingFormat:@"%@",@"/temp/mp4/"];
-    NSString *mkvM3u8Outpath = [[path objectAtIndex:0] stringByAppendingFormat:@"%@",@"/temp/mkvM3u8/"];
+    NSString* tempPath = NSTemporaryDirectory();
+    NSString *m3u8Outpath = [tempPath stringByAppendingFormat:@"%@",@"/temp/m3u8/"];
+    NSString *mp4Outpath = [tempPath stringByAppendingFormat:@"%@",@"/temp/mp4/"];
+    NSString *mkvM3u8Outpath = [tempPath stringByAppendingFormat:@"%@",@"/temp/mkvM3u8/"];
     NSString *webOutpath = [[path objectAtIndex:0] stringByAppendingFormat:@"%@",@"/web"];
-    NSString *mp3Outpath = [[path objectAtIndex:0] stringByAppendingFormat:@"%@",@"/temp/mp3/"];
+    NSString *mp3Outpath = [tempPath stringByAppendingFormat:@"%@",@"/temp/mp3/"];
 
     //outpath = @"/Users/zhangwei/Desktop/m3u8/";
     if(![[NSFileManager defaultManager] fileExistsAtPath:m3u8Outpath]){

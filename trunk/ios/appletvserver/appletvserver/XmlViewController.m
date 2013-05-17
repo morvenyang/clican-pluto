@@ -538,8 +538,9 @@
 -(void) appendVideos:(CXMLNode*) node{
     if(!self.append){
         [self.videos removeAllObjects];
+        _lastLines = 0;
     }
-    
+    self.append = NO;
     
     CXMLElement* scrollerElement = (CXMLElement*)node;
     NSString* idStr = [[scrollerElement attributeForName:@"id"] stringValue];
