@@ -1,6 +1,7 @@
 var appletv = {
 	logEnable : true,
 	logSeverity : 'DEBUG',
+	appleApproveCheck : false,
 	ejsVersion : '1.1.0.31',
 	// browser,atv,native
 	simulate : 'atv',
@@ -1077,6 +1078,6 @@ var appletv = {
 	},
 	
 	isAppleApproveCheck: function() {
-		return false;
+		return appletv.appleApproveCheck;
 	}
 };
