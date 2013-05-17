@@ -250,10 +250,15 @@ var youkuClient = {
 						queryUrl = queryUrl.substring(0,pIndex)+'p_'+page+'.html';
 					}
 				}else{
+					var prefix = 'http://www.youku.com/v_showlist';
 					var pIndex = queryUrl.lastIndexOf('p');
+					if(pIndex<prefix.length){
+						pIndex = -1;
+					}
 					if(pIndex==-1){
 						pIndex = queryUrl.indexOf('.html');
 					}
+					appletv.logToServer(pIndex);
 					queryUrl = queryUrl.substring(0,pIndex)+'p'+page+'.html';
 				}
 			}
