@@ -12,15 +12,13 @@
 					<items>
 						<%for(var i=0;i<channels.length;i++){%>
 							<%if(channels[i]['value']==1001){%>
-								<moviePoster id="shelf_item_<%=channels[i]['value']%>" alwaysShowTitles="true" featured="true" onSelect="sokuClient.loadSearchPage();" onPlay="sokuClient.loadSearchPage();">
+								<actionButton id="shelf_item_<%=channels[i]['value']%>" onSelect="sokuClient.loadSearchPage();" onPlay="sokuClient.loadSearchPage();">
 									<title><%=channels[i]['label']%></title>
-									<defaultImage>resource://Poster.png</defaultImage>
-								</moviePoster>
+								</actionButton>
 							<%}else{%>
-								<moviePoster id="shelf_item_<%=channels[i]['value']%>" alwaysShowTitles="true" featured="true" onSelect="youkuClient.loadIndexPage('',1,<%=channels[i]['value']%>);" onPlay="youkuClient.loadIndexPage('',1,<%=channels[i]['value']%>);">
+								<actionButton id="shelf_item_<%=channels[i]['value']%>" onSelect="youkuClient.loadIndexPage('',1,<%=channels[i]['value']%>);" onPlay="youkuClient.loadIndexPage('',1,<%=channels[i]['value']%>);">
 									<title><%=channels[i]['label']%></title>
-									<defaultImage>resource://Poster.png</defaultImage>
-								</moviePoster>
+								</actionButton>
 							<%}%>
 						<%}%>
 					</items>
@@ -43,6 +41,9 @@
 				<%for(var i=begin;i<end;i++){%>
 					<actionButton id="shelf_item_<%=i%>_page" onSelect="youkuClient.loadIndexPage('<%=keyword%>',<%=i%>,<%=channel['value']%>,'<%=url%>');" onPlay="youkuClient.loadIndexPage('<%=keyword%>',<%=i%>,<%=channel['value']%>,'<%=url%>');">
 						<title><%=i%></title>
+						<%if(i==page){%>
+						<image>resource://Play.png</image>
+						<%}%>
 					</actionButton>
 				<%}%>
 				<actionButton id="shelf_item_last_page" onSelect="youkuClient.loadIndexPage('<%=keyword%>',99,<%=channel['value']%>,'<%=url%>');" onPlay="youkuClient.loadIndexPage('<%=keyword%>',99,<%=channel['value']%>,'<%=url%>');">
@@ -85,6 +86,9 @@
 				<%for(var i=begin;i<end;i++){%>
 					<actionButton id="shelf_item_<%=i%>_page" onSelect="youkuClient.loadIndexPage('<%=keyword%>',<%=i%>,<%=channel['value']%>,'<%=url%>');" onPlay="youkuClient.loadIndexPage('<%=keyword%>',<%=i%>,<%=channel['value']%>,'<%=url%>');">
 						<title><%=i%></title>
+						<%if(i==page){%>
+						<image>resource://Play.png</image>
+						<%}%>
 					</actionButton>
 				<%}%>
 				<actionButton id="shelf_item_last_page" onSelect="youkuClient.loadIndexPage('<%=keyword%>',99,<%=channel['value']%>,'<%=url%>');" onPlay="youkuClient.loadIndexPage('<%=keyword%>',99,<%=channel['value']%>,'<%=url%>');">

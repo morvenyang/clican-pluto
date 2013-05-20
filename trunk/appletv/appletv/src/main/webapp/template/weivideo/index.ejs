@@ -12,15 +12,13 @@
 					<items>
 						<%for(var i=0;i<channels.length;i++){%>
 							<%if(channels[i]['value']==1001){%>
-								<moviePoster id="shelf_item_<%=channels[i]['value']%>" alwaysShowTitles="true" featured="true" onSelect="weivideoClient.loadSearchPage();" onPlay="weivideoClient.loadSearchPage();">
+								<actionButton id="shelf_item_<%=channels[i]['value']%>" onSelect="weivideoClient.loadSearchPage();" onPlay="weivideoClient.loadSearchPage();">
 									<title><%=channels[i]['label']%></title>
-									<defaultImage>resource://Poster.png</defaultImage>
-								</moviePoster>
+								</actionButton>
 							<%}else{%>
-								<moviePoster id="shelf_item_<%=channels[i]['value']%>" alwaysShowTitles="true" featured="true" onSelect="weivideoClient.loadIndexPage('',1,'<%=channels[i]['value']%>');" onPlay="weivideoClient.loadIndexPage('',1,'<%=channels[i]['value']%>');">
+								<actionButton id="shelf_item_<%=channels[i]['value']%>" onSelect="weivideoClient.loadIndexPage('',1,'<%=channels[i]['value']%>');" onPlay="weivideoClient.loadIndexPage('',1,'<%=channels[i]['value']%>');">
 									<title><%=channels[i]['label']%></title>
-									<defaultImage>resource://Poster.png</defaultImage>
-								</moviePoster>
+								</actionButton>
 							<%}%>
 						<%}%>
 					</items>
@@ -43,6 +41,9 @@
 				<%for(var i=begin;i<end;i++){%>
 					<actionButton id="shelf_item_<%=i%>_page" onSelect="weivideoClient.loadIndexPage('<%=keyword%>',<%=i%>,'<%=channel['value']%>');" onPlay="weivideoClient.loadIndexPage('<%=keyword%>',<%=i%>,'<%=channel['value']%>');">
 						<title><%=i%></title>
+						<%if(i==page){%>
+						<image>resource://Play.png</image>
+						<%}%>
 					</actionButton>
 				<%}%>
 				<actionButton id="shelf_item_last_page" onSelect="weivideoClient.loadIndexPage('<%=keyword%>',99,'<%=channel['value']%>');" onPlay="weivideoClient.loadIndexPage('<%=keyword%>',99,'<%=channel['value']%>');">
@@ -77,6 +78,9 @@
 				<%for(var i=begin;i<end;i++){%>
 					<actionButton id="shelf_item_<%=i%>_page" onSelect="weivideoClient.loadIndexPage('<%=keyword%>',<%=i%>,'<%=channel['value']%>');" onPlay="weivideoClient.loadIndexPage('<%=keyword%>',<%=i%>,'<%=channel['value']%>');">
 						<title><%=i%></title>
+						<%if(i==page){%>
+						<image>resource://Play.png</image>
+						<%}%>
 					</actionButton>
 				<%}%>
 				<actionButton id="shelf_item_last_page" onSelect="weivideoClient.loadIndexPage('<%=keyword%>',99,'<%=channel['value']%>');" onPlay="weivideoClient.loadIndexPage('<%=keyword%>',99,'<%=channel['value']%>');">
