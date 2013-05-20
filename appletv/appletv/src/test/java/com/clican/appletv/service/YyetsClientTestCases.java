@@ -15,7 +15,7 @@ public class YyetsClientTestCases extends BaseServiceTestCase {
 	}
 
 	public void testListAPI() throws Exception {
-		String url = "http://ziyuan.kehuduan.rryingshi.com:20066/resources?c=tv&page=1&s=views";
+		String url = "http://ziyuan.kehuduan.rryingshi.com:20066/resources?c=tv&page=1&s=views&a="+URLEncoder.encode("美国","utf-8");
 		String content = tudouClient.httpGet(url);
 		System.out.println(content);
 	}
