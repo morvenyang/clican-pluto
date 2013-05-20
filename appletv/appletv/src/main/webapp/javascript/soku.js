@@ -263,7 +263,7 @@ var sokuClient = {
 					var siteItems = appletv.getSubValues(si,'<li','</li>');
 					var items = [];
 					for(var j=0;j<siteItems.length;j++){
-						var vurl = appletv.substringByData(si,'href="','"');
+						var vurl = appletv.substringByData(siteItems[j],'href="','"');
 						var vtitle = '第'+(j+1)+'集';
 						var v = {"url":vurl,"title":vtitle};
 						items.push(v);
