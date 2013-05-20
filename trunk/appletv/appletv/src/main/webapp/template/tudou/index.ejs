@@ -27,7 +27,7 @@
 				</shelfSection>
 			</sections>
 		</shelf>
-		<grid id="grid_1" columnCount="12">
+		<grid id="grid_1" columnCount="11">
 			<items>
 				<%if(channel['value']!=1001){%>
 				<actionButton id="shelf_item_category_page" onSelect="tudouClient.loadCategoryPage('<%=url%>',<%=channel['value']%>,true);" onPlay="tudouClient.loadCategoryPage('<%=url%>',<%=channel['value']%>,true);">
@@ -69,7 +69,7 @@
 				<%}%>
 			</items>
 		</grid>
-		<grid id="pagingGrid" columnCount="12">
+		<grid id="pagingGrid" columnCount="11">
 			<items>
 				<%if(channel['value']!=1001){%>
 				<actionButton id="shelf_item_category_page" onSelect="tudouClient.loadCategoryPage('<%=url%>',<%=channel['value']%>,true);" onPlay="tudouClient.loadCategoryPage('<%=url%>',<%=channel['value']%>,true);">
