@@ -28,7 +28,7 @@
 			</sections>
 		</shelf>
 		<%if(channel['value']!=1001){%>
-		<grid id="grid_1" columnCount="12">
+		<grid id="grid_1" columnCount="11">
 			<items>
 				<actionButton id="shelf_item_first_page" onSelect="tuClient.loadIndexPage('<%=keyword%>',1,<%=channel['value']%>);" onPlay="tuClient.loadIndexPage('<%=keyword%>',1,<%=channel['value']%>);">
 					<title>第一页</title>
@@ -59,7 +59,7 @@
 			</items>
 		</grid>
 		<%if(channel['value']!=1001){%>
-		<grid id="pagingGrid" columnCount="12">
+		<grid id="pagingGrid" columnCount="11">
 			<items>
 				<actionButton id="shelf_item_first_page" onSelect="tuClient.loadIndexPage('<%=keyword%>',1,<%=channel['value']%>);" onPlay="tuClient.loadIndexPage('<%=keyword%>',1,<%=channel['value']%>);">
 					<title>第一页</title>
