@@ -58,15 +58,16 @@ var yyetsClient = {
 		appletv.loadAndSwapXML(xml);
 	},
 	
-	loadIndexPage : function(keyword, page, channelId) {
+	loadIndexPage : function(keyword, page, channelId, url) {
 		appletv.showLoading();
-		var url;
 		if (channelId == 'search') {
 			url = 'http://ziyuan.kehuduan.rryingshi.com:20066/search/resource/'
 					+ encodeURIComponent(keyword);
 		} else {
-			url = yyetsSearchApi + "?c=" + channelId + "&page=" + page
-					+ "&s=views";
+			if(url==null){
+				url = yyetsSearchApi + "?c=" + channelId + "&a=all&k=all&page=" + page
+				+ "&s=views";
+			}
 		}
 
 		var channel = this.yyetsChannelMap[channelId];
@@ -116,11 +117,11 @@ var yyetsClient = {
 							}
 
 							yyetsClient.generateIndexPage(keyword, page,
-									channel, videos);
+									channel, videos,url);
 						});
 	},
 
-	generateIndexPage : function(keyword, page, channel, videos) {
+	generateIndexPage : function(keyword, page, channel, videos,url) {
 		if(videos.length==0){
 			appletv.showDialog('没有相关视频','');
 			return;
@@ -134,6 +135,7 @@ var yyetsClient = {
 			end = 99;
 			begin = 92;
 		}
+		url = url.replace(new RegExp('&', 'g'), '&amp;');
 		var data = {
 			'page' : page,
 			'channel' : channel,
@@ -142,19 +144,73 @@ var yyetsClient = {
 			'end' : end,
 			'channels' : yyetsClient.yyetsChannels,
 			'serverurl' : appletv.serverurl,
-			'videos' : videos
+			'videos' : videos,
+			'url' : url
 		};
 		var xml = new EJS({
 			url : appletv.serverurl + '/template/yyets/index.ejs'
 		}).render(data);
 		appletv.loadAndSwapXML(xml);
 	},
+	
+	getCategory: function(url,channelId){
+		var categoryNames = ["排序","地区","类型"];
+		var areas = ["全部","大陆","美国","香港","韩国","日本","英国","台湾","俄罗斯","其他","加拿大","印度","台湾","大陆","德国","意大利","新加坡","法国","泰国","澳大利亚","西班牙","越南"];
+		var types = ["全部","传记","体育","剧情","励志","历史","冒险","动画","悬疑","惊悚","歌舞","偶像","爱情","罪案","真人秀","纪录","青春","科幻","魔幻","丧尸","动作","幻想","战争","喜剧","恐怖","血腥","西部","制造","暴力","医务","古装","灾难","史诗","谍战","幽默","生活","讽刺","律政","枪战","社会人文","综艺","科教","心理学","法律","物理","美术","计算机","金融","音乐","童话"];
+		var categoryMap = {};
+		var categorySortValues = [];
+		var categoryAreaValues = [];
+		var categoryTypeValues = [];
+		var csort = appletv.subIndexString(url,'s=');
+		var carea = appletv.substringByData(url,'a=','&');
+		var ctype = appletv.substringByData(url,'k=','&');
+		//sort
+		categorySortValues.push({"categoryLabel":"更新日期","categoryUrl":url.replace(csort,'updated_at'),"select":csort=='updated_at'});
+		categorySortValues.push({"categoryLabel":"发布日期","categoryUrl":url.replace(csort,'publish_date'),"select":csort=='publish_date'});
+		categorySortValues.push({"categoryLabel":"排行","categoryUrl":url.replace(csort,'score'),"select":csort=='score'});
+		categorySortValues.push({"categoryLabel":"点击率","categoryUrl":url.replace(csort,'views'),"select":csort='views'});
+		categoryMap["排序"] = categorySortValues;
+		//area
+		for(var i=0;i<areas.length;i++){
+			var area = areas[i];
+			if(area=='全部'){
+				categoryAreaValues.push({"categoryLabel":"全部","categoryUrl":url.replace(carea,'all'),"select":carea=='all'});
+			}else{
+				categoryAreaValues.push({"categoryLabel":area,"categoryUrl":url.replace(carea,encodeURIComponent(area)),"select":carea==encodeURIComponent(area)});
+			}
+		}
+		categoryMap["地区"] = categoryAreaValues;
+		//type
+		for(var i=0;i<types.length;i++){
+			var type = types[i];
+			if(type=='全部'){
+				categoryTypeValues.push({"categoryLabel":"全部","categoryUrl":url.replace(ctype,'all'),"select":ctype=='all'});
+			}else{
+				categoryTypeValues.push({"categoryLabel":type,"categoryUrl":url.replace(ctype,encodeURIComponent(type)),"select":ctype==encodeURIComponent(type)});
+			}
+		}
+		categoryMap["类型"] = categoryTypeValues;
+		var category = {"categoryMap":categoryMap,"categoryNames":categoryNames,"url":url,"serverurl":appletv.serverurl,"channelId":channelId};
+		return category;
+	},
+	
+	loadCategoryPage: function(url,channelId,loading){
+		if(loading){
+			appletv.showLoading();
+		}
+		url = url.replace(new RegExp('&', 'g'), '&amp;');
+		var category = yyetsClient.getCategory(url,channelId);
+		var xml = new EJS({
+			url : appletv.serverurl + '/template/yyets/category.ejs'
+		}).render(category);
+		appletv.loadAndSwapXML(xml);
+		
+	},
 
 	loadVideoPage : function(id) {
 		appletv.showLoading();
 		try{
 			var url = yyetsVideoApi + id;
-			appletv.logToServer(url);
 			var s1 = new Date();
 			appletv.makeRequest(url, function(htmlContent) {
 				var s2 = new Date();
