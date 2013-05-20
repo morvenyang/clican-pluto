@@ -573,32 +573,42 @@ var sokuClient = {
 				appletv.playM3u8(url, '');
 			}else if(url.indexOf('funshion.com')!=-1){
 				var vid = appletv.substringByData(url,'play/','/');
+				var pos = appletv.subIndexString(url,'play/'+vid+'/');
 				var jsonUrl = 'http://jsonfe.funshion.com/playinfo/?mid='+vid+'&cli=iphone&ver=1.2.3.2';
 				appletv.makeRequest(jsonUrl,function(jsonContent){
 					appletv.logToServer(jsonContent);
 					var json = JSON.parse(jsonContent);
 					var m3u8Url;
-					try{
-						m3u8Url = json['data']['mpurls']['dvd']['url'];
-					}catch(e){
-						
-					}
-					try{
-						if(m3u8Url==null||m3u8Url.length==0){
-							m3u8Url = json['data']['purl'];
+					var mtype = json['data']['mtype'];
+					if(mtype=='tv'){
+						try{
+							if(m3u8Url==null||m3u8Url.length==0){
+								var c = json['data']['content'][json['data']['sort']];
+								appletv.logToServer(JSON.stringify(c));
+								if(pos==null||pos.length==0){
+									m3u8Url = c['fsps'][0]['mpurls']['dvd']['url'];
+								}else{
+									m3u8Url = c['fsps'][parseInt(pos)-1]['mpurls']['dvd']['url']
+								}
+							}
+						}catch(e){
+							
 						}
-					}catch(e){
-						
-					}
-					try{
-						if(m3u8Url==null||m3u8Url.length==0){
-							var c = json['data']['content'][json['data']['sort']];
-							appletv.logToServer(JSON.stringify(c));
-							m3u8Url = c['fsps'][0]['mpurls']['dvd']['url']
+					}else{
+						try{
+							m3u8Url = json['data']['mpurls']['dvd']['url'];
+						}catch(e){
+							
 						}
-					}catch(e){
-						
+						try{
+							if(m3u8Url==null||m3u8Url.length==0){
+								m3u8Url = json['data']['purl'];
+							}
+						}catch(e){
+							
+						}
 					}
+					
 					if(m3u8Url==null||m3u8Url.length==0){
 						appletv.showDialog('从风行获取播放地址失败', '');
 					}else{
