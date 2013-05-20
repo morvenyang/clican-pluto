@@ -18,6 +18,9 @@
 							<%}else{%>
 								<actionButton id="shelf_item_<%=channels[i]['value']%>" onSelect="tuClient.loadIndexPage('',1,<%=channels[i]['value']%>);" onPlay="tuClient.loadIndexPage('',1,<%=channels[i]['value']%>);">
 									<title><%=channels[i]['label']%></title>
+									<%if(channels[i]['value']==channel['value']){%>
+									<image>resource://Play.png</image>
+									<%}%>
 								</actionButton>
 							<%}%>
 						<%}%>
