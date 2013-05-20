@@ -12,17 +12,13 @@
 					<items>
 						<%for(var i=0;i<channels.length;i++){%>
 							<%if(channels[i]['value']=='category/search'){%>
-								<moviePoster id="shelf_item_<%=channels[i]['value']%>" alwaysShowTitles="true" featured="true" onSelect="lblClient.loadSearchPage();" onPlay="lblClient.loadSearchPage();">
+								<actionButton id="shelf_item_<%=channels[i]['value']%>" onSelect="lblClient.loadSearchPage();" onPlay="lblClient.loadSearchPage();">
 									<title><%=channels[i]['label']%></title>
-									<image></image>
-									<defaultImage>resource://Poster.png</defaultImage>
-								</moviePoster>
+								</actionButton>
 							<%}else{%>
-								<moviePoster id="shelf_item_<%=channels[i]['value']%>" alwaysShowTitles="true" featured="true" onSelect="lblClient.loadIndexPage('',1,'<%=channels[i]['value']%>');" onPlay="lblClient.loadIndexPage('',1,'<%=channels[i]['value']%>');">
+								<actionButton id="shelf_item_<%=channels[i]['value']%>" onSelect="lblClient.loadIndexPage('',1,'<%=channels[i]['value']%>');" onPlay="lblClient.loadIndexPage('',1,'<%=channels[i]['value']%>');">
 									<title><%=channels[i]['label']%></title>
-									<image></image>
-									<defaultImage>resource://Poster.png</defaultImage>
-								</moviePoster>
+								</actionButton>
 							<%}%>
 						<%}%>
 					</items>
@@ -40,6 +36,9 @@
 				<%for(var i=begin;i<end;i++){%>
 					<actionButton id="shelf_item_<%=i%>_page" onSelect="lblClient.loadIndexPage('<%=keyword%>',<%=i%>,'<%=channel['value']%>');" onPlay="lblClient.loadIndexPage('<%=keyword%>',<%=i%>,'<%=channel['value']%>');">
 						<title><%=i%></title>
+						<%if(i==page){%>
+						<image>resource://Play.png</image>
+						<%}%>
 					</actionButton>
 				<%}%>
 				<actionButton id="shelf_item_last_page" onSelect="lblClient.loadIndexPage('<%=keyword%>',99,'<%=channel['value']%>');" onPlay="lblClient.loadIndexPage('<%=keyword%>',99,'<%=channel['value']%>');">
@@ -69,6 +68,9 @@
 				<%for(var i=begin;i<end;i++){%>
 					<actionButton id="shelf_item_<%=i%>_page" onSelect="lblClient.loadIndexPage('<%=keyword%>',<%=i%>,'<%=channel['value']%>');" onPlay="lblClient.loadIndexPage('<%=keyword%>',<%=i%>,'<%=channel['value']%>');">
 						<title><%=i%></title>
+						<%if(i==page){%>
+						<image>resource://Play.png</image>
+						<%}%>
 					</actionButton>
 				<%}%>
 				<actionButton id="shelf_item_last_page" onSelect="lblClient.loadIndexPage('<%=keyword%>',99,'<%=channel['value']%>');" onPlay="lblClient.loadIndexPage('<%=keyword%>',99,'<%=channel['value']%>');">
