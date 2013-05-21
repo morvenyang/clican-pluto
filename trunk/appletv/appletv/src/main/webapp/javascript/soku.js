@@ -564,7 +564,32 @@ var sokuClient = {
 					}
 				});
 			}else if(url.indexOf('tudou.com')!=-1){
-				tudouClient.loadVideoPage(url, '', false);
+				appletv.showLoading();
+				appletv.makeRequest(url,function(htmlContent){
+					if (htmlContent == null) {
+						appletv.showDialog('无法从tudou.com找到相关资源','');
+						return;
+					}
+					var vcode = appletv.substringByData(htmlContent, 'vcode:', ',').trim();
+					if(vcode!=null&&vcode.indexOf("'")!=-1){
+						vcode = vcode.substring(1,vcode.length-1);
+					}
+					appletv.logToServer('vcode:' + vcode);
+					if(vcode!=null&&vcode.length>0){
+						var m3u8Url = 'http://v.youku.com/player/getRealM3U8/vid/' + vcode + '/type/hd2/video.m3u8';
+						appletv.playM3u8(m3u8Url, '');
+					}else{
+						var itemid = appletv.substringByData(htmlContent, 'iid: ', ',').trim();
+						if(itemid.indexOf("'")!=-1){
+							itemid = itemid.substring(1,itemid.length-1);
+						}
+						appletv.logToServer('itemid:' + itemid);
+						if(channelId==null||channelId.length==0){
+							channelId=appletv.substringByData(htmlContent, 'cid: ', ',').trim();
+						}
+						tudouClient.loadAlbumPage(itemid, channelId, isalbum,false);
+					}
+				});
 			}else if(url.indexOf('youku.com')!=-1){
 				var s = url.indexOf('id_');
 				var e = url.indexOf('.html');
