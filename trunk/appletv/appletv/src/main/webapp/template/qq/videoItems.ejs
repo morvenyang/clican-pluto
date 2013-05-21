@@ -4,13 +4,17 @@
 <script src="<%=serverurl%>/javascript/load.js"/>
 </head>
 <body>
-		<listScrollerSplit id="bbbb">
+		<listWithPreview id="bbbb">
 			<header>
 				<simpleHeader horizontalAlignment="left">
 					<title><%=video['title']%></title>
-					<image src="<%=video['pic']%>"></image>
 				</simpleHeader>
 			</header>
+			<preview>
+				<crossFadePreview>
+					<image><%=video['pic']%></image>
+				</crossFadePreview>
+			</preview>
 			<menu>
 				<sections>
 					<menuSection>
