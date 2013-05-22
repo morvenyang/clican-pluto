@@ -297,7 +297,7 @@ var weivideoClient = {
 					'<div class="scs-ace-content clearfix">', '</div>', 'div');
 			if(itemscontent==null||itemscontent.length==0){
 				var t = title;
-				var c = appletv.substringByData(videoContent, '<a class="mv-sii-play" href="/v/weishipin/', '.htm');
+				var c = appletv.substringByData(videoContent, 'href="/v/weishipin/', '.htm');
 				var item = {
 					'title' : t,
 					'id' : c
