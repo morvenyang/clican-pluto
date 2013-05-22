@@ -1,5 +1,5 @@
 var appletv = {
-	logEnable : false,
+	logEnable : true,
 	logSeverity : 'DEBUG',
 	appleApproveCheck : false,
 	ejsVersion : '1.1.0.345',
