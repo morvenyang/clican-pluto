@@ -515,7 +515,7 @@ var appletv = {
 		if (appletv.serverurl.indexOf('clican.org') == -1) {
 			proxy = appletv.serverurl;
 		} else {
-			appletv.showDialog('MKV文件必须通过本地服务器代理转码播放',
+			appletv.showDialog('MKV/FLV文件必须通过本地服务器代理转码播放',
 					'本地服务器配置请参考http://clican.org');
 			return;
 		}
