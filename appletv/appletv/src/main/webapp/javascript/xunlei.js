@@ -21,7 +21,11 @@ var xunleiClient = {
 		}else{
 			appletv.getValue('xunleiu',function(xunlei){
 				if(xunlei==null){
-					appletv.showDialog('未侦测到本地服务器,请去TT的迅雷登录界面登录迅雷VIP帐号','你也可以通过安装本地服务器以实现迅雷登录功能,具体请参考http://clican.org');
+					if(appletv.isFlvPlay()){
+						appletv.showDialog('未侦测到本地服务器,改版后迅雷云无法直接点播','你也可以通过安装本地服务器以实现迅雷登录和云播功能,具体请参考http://clican.org');
+					}else{
+						appletv.showDialog('未侦测到本地服务器,请去TT的迅雷登录界面登录迅雷VIP帐号','你也可以通过安装本地服务器以实现迅雷登录功能,具体请参考http://clican.org');
+					}
 				}else{
 					var xunleisession = {sessionid:xunlei['sessionid'],userid:xunlei['userid'],vip:xunlei['isvip']};
 					callback(xunleisession);
