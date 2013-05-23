@@ -2,6 +2,7 @@ var appletv = {
 	logEnable : true,
 	logSeverity : 'DEBUG',
 	appleApproveCheck : false,
+	flvPlay : true,
 	ejsVersion : '1.1.0.345',
 	// browser,atv,native
 	simulate : 'atv',
@@ -440,7 +441,7 @@ var appletv = {
 		if (proxy != null && proxy.length > 0) {
 			var options = [];
 			var encodeUrl = url.replace(new RegExp('&', 'g'), '&amp;');
-			if(subTitles!=null){
+			if(subTitles!=null&&appletv.simulate!='native'){
 				options.push({
 					"title" : "直接播放",
 					"script" : "appletv.makePlayPlist('"+encodeUrl+"');"
@@ -455,7 +456,7 @@ var appletv = {
 			
 			url = proxy + "/noctl/proxy/play.m3u8?url="
 					+ encodeURIComponent(url);
-			if(subTitles!=null){
+			if(subTitles!=null&&appletv.simulate!='native'){
 				options.push({
 					"title" : "本地服务器代理下载播放",
 					"script" : "appletv.makePlayPlist('"+url+"');"
@@ -521,7 +522,7 @@ var appletv = {
 		var options = [];
 		var proxyUrl = appletv.serverurl + '/noctl/mkv/play.m3u8?url='
 				+ encodeURIComponent(url);
-		if(subTitles!=null){
+		if(subTitles!=null&&appletv.simulate!='native'){
 			options.push({
 				"title" : "本地服务器代理转码播放",
 				"script" : "appletv.makePlayPlist('"
@@ -1079,5 +1080,9 @@ var appletv = {
 	
 	isAppleApproveCheck: function() {
 		return appletv.appleApproveCheck;
+	},
+	
+	isFlvPlay: function(){
+		return appletv.flvPlay;
 	}
 };

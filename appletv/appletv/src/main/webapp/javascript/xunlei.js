@@ -29,6 +29,7 @@ var xunleiClient = {
 			});
 		}
 	},
+	
 	//云点播
 	play:function(url,name){
 		appletv.showLoading();
@@ -53,12 +54,20 @@ var xunleiClient = {
 						name = 'Unknown';
 					}
 				}
-
-				var xunleiurl = "http://i.vod.xunlei.com/req_get_method_vod?url="
+				var xunleiurl;
+				if(appletv.isFlvPlay()){
+					xunleiurl = "http://i.vod.xunlei.com/req_get_method_vod?url="
+						+ encodeURIComponent(url) + "&video_name=" +name+ "&platform=0&userid=" + userid
+						+ "&vip="+vip+"&sessionid=" + sessionid
+						+ "&cache=" + new Date().getTime()
+						+ "&from=vlist&jsonp=xunleiClient.flvxunleicallback";
+				}else{
+					xunleiurl = "http://i.vod.xunlei.com/req_get_method_vod?url="
 						+ encodeURIComponent(url) + "&video_name=" +name+ "&platform=1&userid=" + userid
 						+ "&vip="+vip+"&sessionid=" + sessionid
 						+ "&cache=" + new Date().getTime()
 						+ "&from=vlist&jsonp=xunleiClient.xunleicallback";
+				}
 				appletv.logToServer('xunleiurl:'+xunleiurl);
 				if(appletv.simulate=='browser'){
 					appletv.makePostRequest(appletv.serverurl+"/noctl/xunlei/geturl.do",xunleiurl,function(result){
@@ -75,7 +84,7 @@ var xunleiClient = {
 		});
 	},
 	
-	//云点播
+	//离线播放
 	offlinePlay:function(url){
 		appletv.showLoading();
 		appletv.logToServer('play by xunleiClient.offlinePlay url:'+url);
@@ -176,9 +185,132 @@ var xunleiClient = {
 			appletv.playMkv(downloadUrl);
 		}
 	},
+	flvxunleicallback:function(res){
+		appletv.logToServer('flvxunleicallback is called');
+		appletv.logToServer(JSON.stringify(res));
+		try {
+			msg = res['resp']['vod_permit']['msg'];
+			if (msg == 'overdue session') {
+				appletv.showDialog('4登录过期请在本地服务器上重新登录','具体说明请参考http://clican.org');
+				return;
+			}
+			if (msg == 'too much share userid') {
+				appletv.showDialog('您的帐号因登录IP过多已被限制为不能播放，请于1天后重试，建议您尽快修改密码','');
+				return;
+			}
+		} catch (e) {
+		}
+		try {
+			if (res['resp']["trans_wait"] != 0
+					&& res['resp']["vodinfo_list"].length == 0) {
+				appletv.showDialog('改视频还未转码无法播放','');
+				return;
+			}
+		} catch (e) {
+		}
+		if (!res['resp']["vodinfo_list"]) {
+			appletv.showDialog('错误，请重试','');
+			return;
+		}
+		if (res['resp']["vodinfo_list"].length == 0) {
+			appletv.showDialog('没有内容，请重试','');
+			return;
+		}
+		var gcid = res['resp']['src_info']['gcid'];
+		var cid = res['resp']['src_info']['cid'];
+		var filename = res['resp']['src_info']['file_name'];
+		var userid = res['resp']['userid'];
+		var flvQueryUrl = 'http://i.vod.xunlei.com/vod_dl_all?userid='+userid+'&gcid='+gcid+'&filename='+encodeURIComponent(encodeURIComponent(filename))+'&t='+new Date().getTime();
+		appletv.logToServer('flvQueryUrl:'+flvQueryUrl);
+		appletv.makeRequest(flvQueryUrl,function(jsonContent){
+			var json = JSON.parse(jsonContent);
+			appletv.logToServer(jsonContent);
+			var fullHDFlvUrl = json['Full_HD']['url'];
+			var HDFlvUrl = json['HD']['url'];
+			var SDFlvUrl = json['SD']['url'];
+			var options = [];
+			if(appletv.simulate=='native'){
+				if(fullHDFlvUrl!=null&&fullHDFlvUrl.length>0){
+					options.push({
+						"title" : "超清1024",
+						"script" : "appletv.playMkv('"
+								+ fullHDFlvUrl.replace(new RegExp('&', 'g'), '&amp;') + "');"
+					});
+				}
+				if(HDFlvUrl!=null&&HDFlvUrl.length>0){
+					options.push({
+						"title" : "高清720",
+						"script" : "appletv.playMkv('"
+								+ HDFlvUrl.replace(new RegExp('&', 'g'), '&amp;') + "');"
+					});
+				}
+				if(SDFlvUrl!=null&&SDFlvUrl.length>0){
+					options.push({
+						"title" : "流畅480",
+						"script" : "appletv.playMkv('"
+								+ SDFlvUrl.replace(new RegExp('&', 'g'), '&amp;') + "');"
+					});
+				}
+				if(options.length==0){
+					appletv.showDialog('没有相关转码资源','');
+				}else{
+					appletv.showOptionPage('视频清晰度选择','',options);
+				}
+				
+			}else{
+				var surl = "http://i.vod.xunlei.com/subtitle/list?gcid=" + gcid
+				+ "&cid=" + cid + "&userid=" + userid + "&t=" + new Date().getTime();
+				appletv.makeRequest(surl,function(jsonContent){
+					var subJson = JSON.parse(jsonContent);
+					var subList = subJson['sublist'];
+					var subTitles = [];
+					subTitles.push(
+							{
+								"title" : "无字幕",
+								"url" : ""
+							});
+					for(var i=0;i<subList.length;i++){
+						subTitles.push(
+								{
+									"title" : subList[i]['sname'],
+									"url" : subList[i]['surl']
+								});
+					}
+					if(fullHDFlvUrl!=null&&fullHDFlvUrl.length>0){
+						options.push({
+							"title" : "超清1024",
+							"script" : "subTitleClient.playWithSubTitlesScript('"
+									+ fullHDFlvUrl.replace(new RegExp('&', 'g'), '&amp;') + "','"+appletv.encode(JSON.stringify(subTitles))+"');"
+						});
+					}
+					if(HDFlvUrl!=null&&HDFlvUrl.length>0){
+						options.push({
+							"title" : "高清720",
+							"script" : "subTitleClient.playWithSubTitlesScript('"
+									+ HDFlvUrl.replace(new RegExp('&', 'g'), '&amp;') + "','"+appletv.encode(JSON.stringify(subTitles))+"');"
+						});
+					}
+					if(SDFlvUrl!=null&&SDFlvUrl.length>0){
+						options.push({
+							"title" : "流畅480",
+							"script" : "subTitleClient.playWithSubTitlesScript('"
+									+ SDFlvUrl.replace(new RegExp('&', 'g'), '&amp;') + "','"+appletv.encode(JSON.stringify(subTitles))+"');"
+						});
+					}
+					if(options.length==0){
+						appletv.showDialog('没有相关转码资源','');
+					}else{
+						appletv.showOptionPage('视频清晰度选择','',options);
+					}
+				});
+			}
+			
+		});
+	},
 	
 	xunleicallback:function (res) {
 		appletv.logToServer('xunleicallback is called');
+		appletv.logToServer(JSON.stringify(res));
 		try {
 			msg = res['resp']['vod_permit']['msg'];
 			if (msg == 'overdue session') {
