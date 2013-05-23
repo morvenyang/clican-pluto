@@ -2,7 +2,7 @@ var appletv = {
 	logEnable : true,
 	logSeverity : 'DEBUG',
 	appleApproveCheck : false,
-	flvPlay : true,
+	flvPlay : false,
 	ejsVersion : '1.1.0.345',
 	// browser,atv,native
 	simulate : 'atv',
