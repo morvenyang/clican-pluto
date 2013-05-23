@@ -1,5 +1,9 @@
 var subTitleClient = {
 		
+		playWithSubTitlesScript : function(url,subTitlesScript){
+			this.playWithSubTitles(url,JSON.parse(appletv.decode(subTitlesScript)));
+		},
+		
 		playWithSubTitles : function(url,subTitles){
 			var subTitlesScript = appletv.encode(JSON.stringify(subTitles));
 			var offsetList =[-10,-9,-8,-7,-6,-5,-4,-3,-2,-1,0,1,2,3,4,5,6,7,8,9,10];
@@ -33,11 +37,14 @@ var subTitleClient = {
 				if(url.indexOf("/appletv/noctl")!=-1){
 					appletv.play(url);
 				}else{
-					appletv.playM3u8(url,'',null);
+					if(appletv.isFlvPlay()){
+						appletv.playMkv(url);
+					}else{
+						appletv.playM3u8(url);
+					}
 				}
 			}else{
 				appletv.makeRequest(subTitleUrl,function(content){
-					appletv.logToServer(content);
 					var subTitles = [];
 					if(content!=null&&content.length>0){
 						if (content.indexOf('[Script Info]') == 0
@@ -103,14 +110,19 @@ var subTitleClient = {
 							}
 						}
 					}
-					appletv.logToServer(JSON.stringify(subTitles));
 					if(url.indexOf("/appletv/noctl")!=-1&&subTitles.length>0){
 						appletv.setValue('clican.play.subTitles', subTitles);
 						//for smb resource
 						appletv.makePlayPlist(url);
 					}else{
 						//for xunlei
-						appletv.playM3u8(url,'',subTitles);
+						if(appletv.isFlvPlay()){
+							appletv.playMkv(url,'',subTitles);
+						}else{
+							appletv.playM3u8(url,'',subTitles);
+						}
+						
+						
 					}
 				});
 			}
