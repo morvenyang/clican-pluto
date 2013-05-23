@@ -143,7 +143,7 @@ public class ProxyController {
 				if (fileName.equals("WEB-INF") || fileName.equals("jsp")
 						|| fileName.contains(".svn")
 						|| fileName.equals("sync.zip")
-						|| fileName.endsWith(".mkv")) {
+						|| fileName.endsWith(".mkv")|| fileName.endsWith(".flv")) {
 					continue;
 				}
 				addToZip("", fileToZip + "/" + fileName, zipOut);
