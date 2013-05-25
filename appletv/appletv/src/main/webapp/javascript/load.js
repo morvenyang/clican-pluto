@@ -1,6 +1,6 @@
 try {
 	if(atv){
-		var jsVersion = '1.1.1.1';
+		var jsVersion = '1.1.1.2';
 		var src = document
 		.evaluateXPath("descendant::script", document.rootElement)[0]
 		.getAttribute('src');
@@ -34,7 +34,11 @@ try {
 				atv.localStorage[name] = value;
 				eval(value);
 			}
-			atv.localStorage['clican.js.version'] = jsVersion;
+			if(localEnv){
+				atv.localStorage['clican.local.js.version'] = jsVersion;
+			}else{
+				atv.localStorage['clican.remote.js.version'] = jsVersion;
+			}
 		} else {
 			for ( var i = 0; i < urls.length; i++) {
 				var url = serverurl + '/javascript/' + urls[i];
