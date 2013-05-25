@@ -1,14 +1,23 @@
 try {
 	if(atv){
-		var jsVersion = '1.1.1';
+		var jsVersion = '1.1.0.353';
 		var src = document
 		.evaluateXPath("descendant::script", document.rootElement)[0]
 		.getAttribute('src');
+		var localEnv = true;
+		if(src.indexOf('local.clican.org')!=-1||src.indexOf('www.clican.org')!=-1){
+			localEnv = false;
+		}
 		if(src.indexOf('local.clican.org')!=-1){
 			src = src.replace('local.clican.org','www.clican.org');
 		}
 		var serverurl = src.substring(0, src.indexOf('/appletv'))+'/appletv';
 		var localJsVersion = atv.localStorage['clican.js.version'];
+		if(localEnv){
+			localJsVersion = atv.localStorage['clican.local.js.version'];
+		}else{
+			localJsVersion = atv.localStorage['clican.remote.js.version'];
+		}
 		var urls = ['clican.js', 'ejs.js', 'fivesix.js', 'lbl.js', 'myphoto.js',
 				'photoPreview.js', 'qq.js', 'smb.js', 'soku.js','subtitle.js', 'taobao.js',
 				'tu.js', 'tudou.js', 'view.js', 'weivideo.js', 'xunlei.js',
@@ -16,8 +25,8 @@ try {
 		if (localJsVersion == null || localJsVersion.length == 0
 				|| localJsVersion != jsVersion) {
 			for ( var i = 0; i < urls.length; i++) {
-				var url = serverurl + '/javascript/' + urls[i]+'?version='+jsVersion;
-				var name = 'clican.' + url;
+				var url = serverurl + '/javascript/' + urls[i];
+				var name = 'clican.'+serverurl + '/javascript/' + urls[i]+'?version='+jsVersion;
 				var xhr = new XMLHttpRequest();
 				xhr.open("GET", url, false);
 				xhr.send();
@@ -28,8 +37,8 @@ try {
 			atv.localStorage['clican.js.version'] = jsVersion;
 		} else {
 			for ( var i = 0; i < urls.length; i++) {
-				var url = serverurl + '/javascript/' + urls[i]+'?version='+jsVersion;
-				var name = 'clican.' + url;
+				var url = serverurl + '/javascript/' + urls[i];
+				var name = 'clican.'+serverurl + '/javascript/' + urls[i]+'?version='+jsVersion;
 				var value = atv.localStorage[name];
 				if (value == null || value.length == 0) {
 					var xhr = new XMLHttpRequest();
@@ -41,6 +50,7 @@ try {
 				eval(value);
 			}
 		}
+		
 	}
 } catch (e) {
 	var errorXML = '<?xml version="1.0" encoding="UTF-8"?> \
