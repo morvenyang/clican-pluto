@@ -468,6 +468,13 @@ var appletv = {
 							+ "'));"
 				});
 			}
+			if(appletv.simulate=='native'){
+				options.push({
+					"title" : "本地缓存",
+					"script" : "downloadClient.downloadM3u8('" + url
+							+ "');"
+				});
+			}
 			appletv.showOptionPage('播放源选择', '', options);
 		} else {
 			if(subTitles!=null){
@@ -503,6 +510,22 @@ var appletv = {
 				"title" : "本地服务器代理下载播放",
 				"script" : "appletv.loadAndSwapXML(appletv.makePlayXml('" + url
 						+ "'));"
+			});
+			appletv.showOptionPage('播放源选择', '', options);
+		} else if(appletv.simulate == 'native'){
+			var options = [];
+			var encodeUrl = url.replace(new RegExp('&', 'g'), '&amp;');
+			options.push({
+				"title" : "直接播放",
+				"script" : "appletv.loadAndSwapXML(appletv.makePlayXml('"
+						+ encodeUrl + "'));"
+			});
+			url = proxy + "/noctl/proxy/play.mp4?url="
+					+ encodeURIComponent(url);
+			options.push({
+				"title" : "本地缓存",
+				"script" : "downloadClient.downloadMp4('" + url
+						+ "');"
 			});
 			appletv.showOptionPage('播放源选择', '', options);
 		} else {
