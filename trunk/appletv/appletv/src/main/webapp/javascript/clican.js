@@ -1,5 +1,5 @@
 var appletv = {
-	logEnable : false,
+	logEnable : true,
 	logSeverity : 'DEBUG',
 	appleApproveCheck : false,
 	flvPlay : false,
