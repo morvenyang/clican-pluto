@@ -39,7 +39,8 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
     @try {
         HTTPLogTrace();
         NSLog(@"path:%@,uri:%@",path,request.url);
-        if ([path isEqualToString:@"/appletv/javascript/clican.js"]||[path rangeOfString:@"/appletv/local.xml"].location!=NSNotFound)
+        
+        if ([AtvUtil content:path contains:@"/appletv/javascript/clican.js"]||[AtvUtil content:path contains:@"/appletv/local.xml"])
         {
             return [self handleStaticResource:path];
         }else if([path rangeOfString:@"/appletv/noctl/proxy/play.m3u8"].location!=NSNotFound){
@@ -100,7 +101,7 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
     NSString  *replaceFilePath=[[AppDele localWebPathPrefix] stringByAppendingString:realPath];
     NSLog(@"filepath:%@",replaceFilePath);
     NSString* replaceContent = [NSString stringWithContentsOfFile:replaceFilePath encoding:NSUTF8StringEncoding error:nil];
-    NSLog(@"content:%@",replaceContent);
+    //NSLog(@"content:%@",replaceContent);
     NSString* ipAddress = [AtvUtil getIPAddress];
     ipAddress = [ipAddress stringByAppendingString:@":8080"];
     NSLog(@"ip address=%@",ipAddress);
@@ -119,6 +120,7 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
         }
     }
     replaceContent = [replaceContent stringByReplacingOccurrencesOfString:@"http://www.clican.org" withString:AppDele.serverIP];
+    NSLog(@"%@",replaceContent);
     NSData *response = [replaceContent dataUsingEncoding:NSUTF8StringEncoding];
     return [[HTTPDataResponse alloc] initWithData:response];
 }
