@@ -254,7 +254,7 @@
     
     ConfigDataSource* ds = [[[ConfigDataSource alloc] initWithItems:items callback:self] autorelease];
     self.dataSource = ds;
-    self.tableView.delegate =self;
+    //self.tableView.delegate =self;
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
