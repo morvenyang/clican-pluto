@@ -29,7 +29,7 @@
 }
 
 - (void)lixianAction{
-    NSURLRequest* request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://dynamic.cloud.vip.xunlei.com/user_task"]];
+    NSURLRequest* request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://lixian.xunlei.com"]];
     [self.webView  loadRequest:request];
 }
 
