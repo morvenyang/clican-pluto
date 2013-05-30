@@ -115,10 +115,10 @@ public class XunleiTestCase extends BaseServiceTestCase {
 	public void submitOfflineTask() throws Exception{
 		
 		Map<String, String> header = new HashMap<String, String>();
-		header.put("Cookie", "userid=5663595; lx_sessionid=75F30341DD84F450A07B5F048941BDA741543D43DFE28DBA96FA9F60AF4974487886810DDFA6DBB571B29B00799E85C40C0EBD7F4351C869315ADEDABC0118B4;lx_login=5663595;gdriveid=08D39F59B366F371195050D992B72FD2;");
+		header.put("Cookie", "userid=5663595; lx_sessionid=75F30341DD84F450A07B5F048941BDA709659C2DD093430A268A8E44F814CAE573516291715E2D99EE712F23FE357CA7DF7FC9505DC1F4A413C4219F8654178D;lx_login=5663595;gdriveid=08D39F59B366F371195050D992B72FD2;");
 		String url1 = "http://dynamic.cloud.vip.xunlei.com/interface/task_check?callback=queryCid&url=ed2k%3A%2F%2F%7Cfile%7Ccrossbow.inception.720p.mkv%7C7034822735%7C596F80CF650C1401C216817DBD312D75%7Ch%3DSYREZHO5Y3VFTP3KGHHW5PQOP72OFORC%7C%2F&interfrom=task&random=1365305929759329104.26622072&tcache=1365305972636";
 		System.out.println(tudouClient.httpGet(url1, header, null));
-		String url2 = "http://dynamic.cloud.vip.xunlei.com/interface/task_commit?callback=ret_task&uid=5663595&cid=&gcid=&size=7034822735&goldbean=0&silverbean=0&t=crossbow.inception.720p.mkv&url=ed2k%3A%2F%2F%7Cfile%7Ccrossbow.inception.720p.mkv%7C7034822735%7C596F80CF650C1401C216817DBD312D75%7Ch%3DSYREZHO5Y3VFTP3KGHHW5PQOP72OFORC%7C%2F&type=2&o_page=history&o_taskid=0&class_id=0&database=undefined&interfrom=task&time=Sun%20Apr%2007%202013%2011:36:50%20GMT+0800%20(%E4%B8%AD%E5%9B%BD%E6%A0%87%E5%87%86%E6%97%B6%E9%97%B4)&noCacheIE=1365305810274";
+		String url2 = "http://dynamic.cloud.vip.xunlei.com/interface/task_commit?callback=ret_task&uid=5663595&cid=&gcid=&size=&goldbean=0&silverbean=0&t=crossbow.inception.720p.mkv&url=ed2k%3A%2F%2F%7Cfile%7Ccrossbow.inception.720p.mkv%7C7034822735%7C596F80CF650C1401C216817DBD312D75%7Ch%3DSYREZHO5Y3VFTP3KGHHW5PQOP72OFORC%7C%2F&type=2&o_page=history&o_taskid=0&class_id=0&database=undefined&interfrom=task&time=Sun%20Apr%2007%202013%2011:36:50%20GMT+0800%20(%E4%B8%AD%E5%9B%BD%E6%A0%87%E5%87%86%E6%97%B6%E9%97%B4)&noCacheIE=1365305810274";
 		System.out.println(tudouClient.httpGet(url2, header, null));
 		String url4 ="http://dynamic.cloud.vip.xunlei.com/interface/showtask_unfresh?callback=getDownloadUrl&t="+Calendar.getInstance().getTimeInMillis()+"&type_id=4&page=1&tasknum=1&p=1&interfrom=task";
 		System.out.println(tudouClient.httpGet(url4, header, null));
