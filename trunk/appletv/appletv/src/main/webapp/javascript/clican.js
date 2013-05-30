@@ -694,7 +694,26 @@ var appletv = {
 			atv.loadAndSwapXML(atv.parseXML(xml));
 		}
 	},
-
+	
+	loadAndSwapXmlPlistByUrl: function(url){
+		appletv.makeRequest(url,function(plist){
+			appletv.loadAndSwapXmlPlist(plist);
+		});
+	},
+	
+	loadAndSwapXmlPlist : function(plist) {
+		if (this.simulate == 'browser') {
+			appletv.makePostRequest(appletv.remoteserverurl
+					+ '/ctl/postxml.xml', plist, function(result) {
+				window.open(appletv.remoteserverurl + '/ctl/showxml.xml');
+			});
+		} else if (this.simulate == 'native') {
+			native_loadPlist(plist);
+		} else {
+			atv.loadAndSwapPlist(plist);
+		}
+	},
+	
 	loadAndSwapPlist : function(plist) {
 		if (this.simulate == 'browser') {
 			appletv.makePostRequest(appletv.remoteserverurl
