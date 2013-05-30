@@ -119,7 +119,7 @@ var xunleiClient = {
 		});
 	},
 	//queryCid('B26972E0D11A61AAFFAB04D3F50FBF631D51BFA9', '641F83D84F7C02094A5E30634A8C3DC41E23B924', '0','1125892196800765', 'crossbow.inception.720p.mkv', 0, 0, 0,'1365305929759329104.26622072','movie')
-	queryCid:function(p1,p2,p3,p4,fileName,p6,p7,p8,p9,p10,userid,url,cookie){
+	queryCid:function(p1,p2,p3,p4,fileName,p6,p7,p8,p9,p10,p11,userid,url,cookie){
 		appletv.logToServer('call query cid');
 		if(fileName.indexOf('mkv')==-1&&fileName.indexOf('MKV')==-1){
 			appletv.showDialog('迅雷离线下载播放只支持MKV格式的文件,当前文件名:'+fileName,'');
