@@ -20,6 +20,7 @@
 #import "KxSMBProvider.h"
 #import "SMBProcess.h"
 #import "SubTitleProcess.h"
+#import "DownloadProcess.h"
 #define AppDele ((AppDelegate *)[[UIApplication sharedApplication] delegate])
 
 
@@ -66,6 +67,8 @@
     
     SubTitleProcess* _subTitleProcess;
     NSString* _clientVersion;
+    
+    DownloadProcess* _downloadProcess;
 }
 
 @property (nonatomic, retain) ASINetworkQueue* queue;
@@ -99,6 +102,7 @@
 @property (nonatomic, assign) BOOL proxy;
 @property (nonatomic, retain) SubTitleProcess* subTitleProcess;
 @property (nonatomic, copy) NSString* clientVersion;
+@property (nonatomic, retain) DownloadProcess* downloadProcess;
 -(void) initProcess;
 
 @end
