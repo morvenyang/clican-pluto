@@ -58,6 +58,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 @synthesize proxy = _proxy;
 @synthesize subTitleProcess = _subTitleProcess;
 @synthesize clientVersion = _clientVersion;
+@synthesize downloadProcess = _downloadProcess;
 - (void)dealloc
 {
     [super dealloc];
@@ -105,6 +106,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     self.mkvProcess = [[MkvProcess alloc] init];
     self.smbProcess = [[SMBProcess alloc] init];
     self.subTitleProcess = [[SubTitleProcess alloc] init];
+    self.downloadProcess = [[DownloadProcess alloc] init];
 }
 -(void) initEnvironment{
     self.scriptRefreshDelegateArray = [NSMutableArray array];

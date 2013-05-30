@@ -82,6 +82,7 @@
 		722FF16316FC06A500237F15 /* zip.c in Sources */ = {isa = PBXBuildFile; fileRef = 722FF15E16FC06A500237F15 /* zip.c */; };
 		7233EB5B1709354800EF342E /* video_default.png in Resources */ = {isa = PBXBuildFile; fileRef = 7233EB5A1709354800EF342E /* video_default.png */; };
 		7233EB6F1709425400EF342E /* ConfigDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 7233EB6E1709425400EF342E /* ConfigDataSource.m */; };
+		7235E41D1755F13700DBC656 /* DownloadProcess.m in Sources */ = {isa = PBXBuildFile; fileRef = 7235E41C1755F13700DBC656 /* DownloadProcess.m */; };
 		72360C4816EED8DD00E0842B /* XunLeiLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 72360C4716EED8DD00E0842B /* XunLeiLoginViewController.m */; };
 		72360C5B16EEDDD700E0842B /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 72360C5A16EEDDD700E0842B /* RootViewController.m */; };
 		723B021C173B579400D6FC75 /* TTTabStripAddition.m in Sources */ = {isa = PBXBuildFile; fileRef = 723B021B173B579400D6FC75 /* TTTabStripAddition.m */; };
@@ -116,6 +117,9 @@
 		72A4368A16C9EA5A00D9958D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 72A4368816C9EA5A00D9958D /* InfoPlist.strings */; };
 		72A4368C16C9EA5A00D9958D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 72A4368B16C9EA5A00D9958D /* main.m */; };
 		72A4369016C9EA5A00D9958D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 72A4368F16C9EA5A00D9958D /* AppDelegate.m */; };
+		72A77253175728A200E789B6 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 72A77252175728A200E789B6 /* libsqlite3.0.dylib */; };
+		72A7725F175728DD00E789B6 /* DBProcess.m in Sources */ = {isa = PBXBuildFile; fileRef = 72A7725E175728DD00E789B6 /* DBProcess.m */; };
+		72A7726417572A2A00E789B6 /* OfflineRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 72A7726317572A2A00E789B6 /* OfflineRecord.m */; };
 		72B5769716CA13B80094DD58 /* libextThree20JSON+SBJSON.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7219BBD516C9EB6900AABA8E /* libextThree20JSON+SBJSON.a */; };
 		72B83F4816CDD993003B2839 /* lib in Resources */ = {isa = PBXBuildFile; fileRef = 72B83F4716CDD993003B2839 /* lib */; };
 		72B83F4A16CDD99E003B2839 /* include in Resources */ = {isa = PBXBuildFile; fileRef = 72B83F4916CDD99D003B2839 /* include */; };
@@ -501,6 +505,8 @@
 		7233EB5A1709354800EF342E /* video_default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = video_default.png; sourceTree = "<group>"; };
 		7233EB6D1709425400EF342E /* ConfigDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigDataSource.h; sourceTree = "<group>"; };
 		7233EB6E1709425400EF342E /* ConfigDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigDataSource.m; sourceTree = "<group>"; };
+		7235E41B1755F13700DBC656 /* DownloadProcess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadProcess.h; sourceTree = "<group>"; };
+		7235E41C1755F13700DBC656 /* DownloadProcess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownloadProcess.m; sourceTree = "<group>"; };
 		72360C4616EED8DD00E0842B /* XunLeiLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XunLeiLoginViewController.h; sourceTree = "<group>"; };
 		72360C4716EED8DD00E0842B /* XunLeiLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XunLeiLoginViewController.m; sourceTree = "<group>"; };
 		72360C5916EEDDD700E0842B /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
@@ -554,6 +560,11 @@
 		72A4368D16C9EA5A00D9958D /* appletvserver-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "appletvserver-Prefix.pch"; sourceTree = "<group>"; };
 		72A4368E16C9EA5A00D9958D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		72A4368F16C9EA5A00D9958D /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		72A77252175728A200E789B6 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
+		72A7725D175728DD00E789B6 /* DBProcess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBProcess.h; sourceTree = "<group>"; };
+		72A7725E175728DD00E789B6 /* DBProcess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBProcess.m; sourceTree = "<group>"; };
+		72A7726217572A2A00E789B6 /* OfflineRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OfflineRecord.h; sourceTree = "<group>"; };
+		72A7726317572A2A00E789B6 /* OfflineRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OfflineRecord.m; sourceTree = "<group>"; };
 		72B83F4716CDD993003B2839 /* lib */ = {isa = PBXFileReference; lastKnownFileType = folder; name = lib; path = appletvserver/lib; sourceTree = "<group>"; };
 		72B83F4916CDD99D003B2839 /* include */ = {isa = PBXFileReference; lastKnownFileType = folder; name = include; path = appletvserver/include; sourceTree = "<group>"; };
 		72B83F6116CDDA29003B2839 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
@@ -667,6 +678,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				72A77253175728A200E789B6 /* libsqlite3.0.dylib in Frameworks */,
 				72458738171531B700F6E839 /* libiconv.dylib in Frameworks */,
 				72458736171531A900F6E839 /* libresolv.dylib in Frameworks */,
 				7245872417152FD900F6E839 /* libsmbclient.a in Frameworks */,
@@ -947,6 +959,7 @@
 		7272B39A16C9FC5100E111A7 /* Object */ = {
 			isa = PBXGroup;
 			children = (
+				72A7726117572A0F00E789B6 /* db */,
 				7295A38A17006FC6008C04BE /* atv */,
 				7272B39E16C9FD4E00E111A7 /* Video.h */,
 				7272B39F16C9FD4E00E111A7 /* Video.m */,
@@ -1055,6 +1068,7 @@
 		72A4367E16C9EA5A00D9958D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				72A77252175728A200E789B6 /* libsqlite3.0.dylib */,
 				72458737171531B700F6E839 /* libiconv.dylib */,
 				72458735171531A900F6E839 /* libresolv.dylib */,
 				7245872017152FD900F6E839 /* libsmbclient.a */,
@@ -1169,6 +1183,15 @@
 			name = Resources;
 			sourceTree = "<group>";
 		};
+		72A7726117572A0F00E789B6 /* db */ = {
+			isa = PBXGroup;
+			children = (
+				72A7726217572A2A00E789B6 /* OfflineRecord.h */,
+				72A7726317572A2A00E789B6 /* OfflineRecord.m */,
+			);
+			name = db;
+			sourceTree = "<group>";
+		};
 		72B83F9216CDE3EF003B2839 /* ffmpeg */ = {
 			isa = PBXGroup;
 			children = (
@@ -1206,6 +1229,10 @@
 				722948B61717A2C600CEF2F8 /* ProcessManager.m */,
 				72F1D81717320518000344AF /* SubTitleProcess.h */,
 				72F1D81817320518000344AF /* SubTitleProcess.m */,
+				7235E41B1755F13700DBC656 /* DownloadProcess.h */,
+				7235E41C1755F13700DBC656 /* DownloadProcess.m */,
+				72A7725D175728DD00E789B6 /* DBProcess.h */,
+				72A7725E175728DD00E789B6 /* DBProcess.m */,
 			);
 			name = Process;
 			sourceTree = "<group>";
@@ -1785,6 +1812,9 @@
 				72F1D816173204B8000344AF /* DataInputStream.m in Sources */,
 				72F1D81917320518000344AF /* SubTitleProcess.m in Sources */,
 				723B021C173B579400D6FC75 /* TTTabStripAddition.m in Sources */,
+				7235E41D1755F13700DBC656 /* DownloadProcess.m in Sources */,
+				72A7725F175728DD00E789B6 /* DBProcess.m in Sources */,
+				72A7726417572A2A00E789B6 /* OfflineRecord.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

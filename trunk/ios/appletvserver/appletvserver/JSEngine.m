@@ -217,6 +217,30 @@ JSValueRef setValue(JSContextRef ctx,
     return JSValueMakeNull(ctx);
 }
 
+JSValueRef downloadMp4(JSContextRef ctx,
+                    JSObjectRef function,
+                    JSObjectRef thisObject,
+                    size_t argumentCount,
+                    const JSValueRef arguments[],
+                    JSValueRef* exception){
+    JSValueRef excp = NULL;
+    NSString *mp4Url = (__bridge_transfer NSString*)JSStringCopyCFString(kCFAllocatorDefault, (JSStringRef)JSValueToStringCopy(ctx, arguments[0], &excp));
+    [[AppDele downloadProcess] downloadMp4:mp4Url];
+    return JSValueMakeNull(ctx);
+}
+
+JSValueRef downloadM3u8(JSContextRef ctx,
+                       JSObjectRef function,
+                       JSObjectRef thisObject,
+                       size_t argumentCount,
+                       const JSValueRef arguments[],
+                       JSValueRef* exception){
+    JSValueRef excp = NULL;
+    NSString *m3u8Url = (__bridge_transfer NSString*)JSStringCopyCFString(kCFAllocatorDefault, (JSStringRef)JSValueToStringCopy(ctx, arguments[0], &excp));
+    [[AppDele downloadProcess] downloadM3u8:m3u8Url];
+    return JSValueMakeNull(ctx);
+}
+
 JSValueRef loadXML(JSContextRef ctx,
                     JSObjectRef function,
                     JSObjectRef thisObject,
@@ -347,6 +371,16 @@ JSValueRef loadURL(JSContextRef ctx,
     JSObjectRef func10 = JSObjectMakeFunctionWithCallback(_JSContext, str10,getDeviceId);
     JSObjectSetProperty(_JSContext, JSContextGetGlobalObject(_JSContext), str10, func10, kJSPropertyAttributeNone, NULL);
     JSStringRelease(str10);
+    
+    JSStringRef str11 = JSStringCreateWithUTF8CString("native_downloadMp4");
+    JSObjectRef func11 = JSObjectMakeFunctionWithCallback(_JSContext, str11,downloadMp4);
+    JSObjectSetProperty(_JSContext, JSContextGetGlobalObject(_JSContext), str11, func11, kJSPropertyAttributeNone, NULL);
+    JSStringRelease(str11);
+    
+    JSStringRef str12 = JSStringCreateWithUTF8CString("native_downloadM3u8");
+    JSObjectRef func12 = JSObjectMakeFunctionWithCallback(_JSContext, str12,downloadM3u8);
+    JSObjectSetProperty(_JSContext, JSContextGetGlobalObject(_JSContext), str12, func12, kJSPropertyAttributeNone, NULL);
+    JSStringRelease(str12);
     
     NSString* jsDirectory = [[AppDele localWebPathPrefix] stringByAppendingString:@"/appletv/javascript"];
     NSArray* jsArray=[[NSFileManager defaultManager] contentsOfDirectoryAtPath:jsDirectory error:nil];
