@@ -193,6 +193,11 @@ var fivesixClient = {
 				if(start>=0){
 					start = start+5;
 					queryUrl = queryUrl.substring(0,start)+page+'.html';
+				}else{
+					start = queryUrl.indexOf('.html');
+					if(start>=0){
+						queryUrl = queryUrl.substring(0,start)+'_page-'+page+'.html';
+					}
 				}
 			}
 			appletv.logToServer(queryUrl);
