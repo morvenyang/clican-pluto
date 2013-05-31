@@ -1,9 +1,9 @@
 var appletv = {
-	logEnable : true,
+	logEnable : false,
 	logSeverity : 'DEBUG',
 	appleApproveCheck : false,
 	flvPlay : false,
-	ejsVersion : '1.1.1',
+	ejsVersion : '1.1.1.4',
 	// browser,atv,native
 	simulate : 'atv',
 	// local server url
