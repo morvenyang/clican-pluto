@@ -1,5 +1,5 @@
 var appletv = {
-	logEnable : false,
+	logEnable : true,
 	logSeverity : 'DEBUG',
 	appleApproveCheck : false,
 	flvPlay : false,
@@ -695,25 +695,6 @@ var appletv = {
 		}
 	},
 	
-	loadAndSwapXmlPlistByUrl: function(url){
-		appletv.makeRequest(url,function(plist){
-			appletv.loadAndSwapXmlPlist(plist);
-		});
-	},
-	
-	loadAndSwapXmlPlist : function(plist) {
-		if (this.simulate == 'browser') {
-			appletv.makePostRequest(appletv.remoteserverurl
-					+ '/ctl/postxml.xml', plist, function(result) {
-				window.open(appletv.remoteserverurl + '/ctl/showxml.xml');
-			});
-		} else if (this.simulate == 'native') {
-			native_loadPlist(plist);
-		} else {
-			atv.loadAndSwapPlist(plist);
-		}
-	},
-	
 	loadAndSwapPlist : function(plist) {
 		if (this.simulate == 'browser') {
 			appletv.makePostRequest(appletv.remoteserverurl
@@ -1028,6 +1009,7 @@ var appletv = {
 	},
 
 	addToFavorite : function(title, pic, script) {
+		appletv.showLoading();
 		var favorite = {
 			"title" : title,
 			"pic" : pic,
