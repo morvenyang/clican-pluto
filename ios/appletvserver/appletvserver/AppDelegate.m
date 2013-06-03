@@ -221,6 +221,9 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     if(![[NSFileManager defaultManager] fileExistsAtPath:mp3Outpath]){
         [[NSFileManager defaultManager] createDirectoryAtPath:mp3Outpath withIntermediateDirectories:YES attributes:nil error:nil];
     }
+    if(![[NSFileManager defaultManager] fileExistsAtPath:localDownloadOutpath]){
+        [[NSFileManager defaultManager] createDirectoryAtPath:localDownloadOutpath withIntermediateDirectories:YES attributes:nil error:nil];
+    }
     self.localM3u8UrlPrefix = [@"http://" stringByAppendingFormat:@"%@:8080/appletv/noctl/proxy/temp/m3u8/",self.ipAddress];
     if(self.proxy){
         self.localNativeM3u8UrlPrefix = @"http://localhost:8080/appletv/noctl/proxy/temp/m3u8/";

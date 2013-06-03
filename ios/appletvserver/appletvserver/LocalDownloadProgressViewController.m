@@ -9,7 +9,6 @@
 #import "LocalDownloadProgressViewController.h"
 #import "AppDelegate.h"
 #import "OfflineRecord.h"
-#import "ConfigDataSource.h"
 
 @implementation LocalDownloadProgressViewController
 
@@ -20,6 +19,8 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.title = @"本地缓存";
+        self.autoresizesForKeyboard = YES;
+        self.variableHeightRows = YES;
     }
     return self;
 }
@@ -28,25 +29,14 @@
 #pragma mark -
 #pragma mark TTModelViewController
 - (void)createModel {
-    NSMutableArray* items = [NSMutableArray array];
-    
-    NSArray* array = [AppDele.offlineRecordProcess getAllOfflineRecord];
-    for(OfflineRecord* record in array){
-        TTTableStyledTextItem* item = [TTTableStyledTextItem itemWithText:[TTStyledText textFromXHTML:[NSString stringWithFormat:@"%ldMB/%ldMB %@",record.downloadFileSize/(1024*1024),record.fileSize/(1024*1024),record.url] lineBreaks:YES URLs:NO] URL:nil];
-        [items addObject:item];
-    }
-    
-    TTListDataSource* ds = [[[TTListDataSource alloc] initWithItems:items] autorelease];
-    self.dataSource = ds;
+    [self refreshView];
 }
 
 -(void)loadView {
     [super loadView];
     [self refreshView];
 }
-- (id<UITableViewDelegate>)createDelegate {
-    return [[[TTTableViewDragRefreshDelegate alloc] initWithController:self] autorelease];
-}
+
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     if(self.refreshTimer==nil||![self.refreshTimer isValid]){
@@ -62,8 +52,20 @@
     [self.refreshTimer invalidate];
 }
 -(void)refreshView{
-    _flags.isModelDidLoadInvalid = YES;
-    [self invalidateView];
+    NSMutableArray* items = [NSMutableArray array];
+    
+    NSArray* array = [AppDele.offlineRecordProcess getAllOfflineRecord];
+    for(OfflineRecord* record in array){
+        NSString* content = [NSString stringWithFormat:@"<strong>%ldMB/%ldMB</strong>\n%@",record.downloadFileSize/(1024*1024),record.fileSize/(1024*1024),[record.url stringByReplacingOccurrencesOfString:@"&" withString:@"&amp;"]];
+        NSLog(@"%@",record.filePath);
+        NSLog(@"%@",record.url);
+        TTTableStyledTextItem* item = [TTTableStyledTextItem itemWithText:[TTStyledText textFromXHTML:content lineBreaks:YES URLs:NO] URL:nil];
+        
+        [items addObject:item];
+    }
+    
+    TTListDataSource* ds = [[[TTListDataSource alloc] initWithItems:items] autorelease];
+    self.dataSource = ds;
 }
 - (void)viewDidLoad
 {

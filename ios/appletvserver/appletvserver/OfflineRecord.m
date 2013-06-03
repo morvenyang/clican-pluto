@@ -28,6 +28,12 @@
     TT_RELEASE_SAFELY(_filePath);
     TT_RELEASE_SAFELY(_fileType);
     TT_RELEASE_SAFELY(_url);
+    TT_RELEASE_SAFELY(_displayName);
+    TT_RELEASE_SAFELY(_request);
     [super dealloc];
+}
+
+-(NSString*) description{
+    return [NSString stringWithFormat:@"url:%@,filePath:%@",_url,_filePath];
 }
 @end
