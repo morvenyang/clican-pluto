@@ -66,6 +66,7 @@ public class IPServlet extends HttpServlet {
 				log.debug("replace atv to browser");
 			}
 			content = content.replaceAll("simulate : 'atv'", "simulate : 'browser'");
+			content = content.replaceAll("logEnable : false","logEnable : true");
 		}else{
 			if(log.isDebugEnabled()){
 				log.debug("replace nothing for non-chrome agent");
