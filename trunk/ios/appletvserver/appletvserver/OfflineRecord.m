@@ -11,10 +11,17 @@
 @implementation OfflineRecord
 
 @synthesize fileName = _fileName;
+@synthesize displayName = _displayName;
 @synthesize fileSize = _fileSize;
+@synthesize downloadFileSize = _downloadFileSize;
 @synthesize filePath = _filePath;
 @synthesize fileType = _fileType;
 @synthesize url = _url;
+@synthesize request = _request;
+
+- (void)request:(ASIHTTPRequest *)request didReceiveBytes:(long long)bytes{
+    self.downloadFileSize+=bytes;
+}
 
 - (void) dealloc {
     TT_RELEASE_SAFELY(_fileName);

@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "ASIHTTPRequest.h"
 
 @interface DownloadProcess : NSObject
 -(void) downloadMp4:(NSString*) mp4Url;

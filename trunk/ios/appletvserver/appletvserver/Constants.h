@@ -18,6 +18,8 @@
 #define MP4_PARTIAL_LENGTH 1048576
 #define ALog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
 #define SMB_AUTH_NAME @"SMB_AUTH_NAME"
+#define FILE_TYPE_MP4 @"mp4"
+#define FILE_TYPE_M3U8 @"m3u8"
 #endif
 
 @interface Constants :NSObject{

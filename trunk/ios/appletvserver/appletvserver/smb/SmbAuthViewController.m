@@ -52,7 +52,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.title =  @"共享";
-        self.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"共享" image:nil tag:3];
+        self.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"共享" image:nil tag:4];
     }
     return self;
 }

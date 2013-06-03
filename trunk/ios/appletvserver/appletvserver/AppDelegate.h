@@ -21,6 +21,7 @@
 #import "SMBProcess.h"
 #import "SubTitleProcess.h"
 #import "DownloadProcess.h"
+#import "DBProcess.h"
 #define AppDele ((AppDelegate *)[[UIApplication sharedApplication] delegate])
 
 
@@ -28,7 +29,9 @@
     HTTPServer *httpServer;
     HTTPServer *innerHttpServer;
     ASINetworkQueue* _queue;
+    ASINetworkQueue* _downloadQueue;
     NSString* _ipAddress;
+    NSString* _localDownloadPathPrefix;
     NSString* _localM3u8UrlPrefix;
     NSString* _localNativeM3u8UrlPrefix;
     NSString* _localM3u8PathPrefix;
@@ -69,9 +72,11 @@
     NSString* _clientVersion;
     
     DownloadProcess* _downloadProcess;
+    DBProcess* _dbProcess;
 }
 
 @property (nonatomic, retain) ASINetworkQueue* queue;
+@property (nonatomic, retain) ASINetworkQueue* downloadQueue;
 @property (nonatomic, retain) NSString* ipAddress;
 @property (nonatomic, retain) NSString* localM3u8UrlPrefix;
 @property (nonatomic, retain) NSString* localNativeM3u8UrlPrefix;
@@ -103,6 +108,8 @@
 @property (nonatomic, retain) SubTitleProcess* subTitleProcess;
 @property (nonatomic, copy) NSString* clientVersion;
 @property (nonatomic, retain) DownloadProcess* downloadProcess;
+@property (nonatomic, retain) DBProcess* dbProcess;
+@property (nonatomic, copy) NSString* localDownloadPathPrefix;
 -(void) initProcess;
 
 @end

@@ -15,4 +15,5 @@
 
 -(void) insertOrUpdateOffileRecord:(OfflineRecord*) offlineRecord;
 -(void) deleteOffileRecord:(OfflineRecord*) offlineRecord;
+-(NSArray*) getAllOfflineRecord;
 @end

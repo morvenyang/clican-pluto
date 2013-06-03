@@ -14,7 +14,6 @@
 @class ConfigCallback;
 
 @interface ConfigDataSource : TTListDataSource{
-    TTTableControlItem* _clearCacheItem;
     ConfigCallback* _callback;
 }
 @property (nonatomic, retain) TTTableControlItem    *clearCacheItem;
