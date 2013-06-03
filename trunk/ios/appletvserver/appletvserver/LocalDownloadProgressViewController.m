@@ -13,6 +13,8 @@
 
 @implementation LocalDownloadProgressViewController
 
+@synthesize refreshTimer = _refreshTimer;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -35,10 +37,31 @@
         [items addObject:item];
     }
     
-    ConfigDataSource* ds = [[[ConfigDataSource alloc] initWithItems:items callback:self] autorelease];
+    TTListDataSource* ds = [[[TTListDataSource alloc] initWithItems:items] autorelease];
     self.dataSource = ds;
 }
 
+-(void)loadView {
+    [super loadView];
+    [self refreshView];
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    if(self.refreshTimer==nil||![self.refreshTimer isValid]){
+        NSLog(@"start refresh timer for download progress");
+        self.refreshTimer = [NSTimer timerWithTimeInterval:3.0f target:self selector:@selector(refreshView) userInfo:nil repeats:YES];
+        [[NSRunLoop mainRunLoop] addTimer:self.refreshTimer forMode:NSRunLoopCommonModes];
+    }
+}
+
+-(void)viewDidDisappear:(BOOL)animated{
+    NSLog(@"end refresh timer for download progress");
+    [self.refreshTimer invalidate];
+}
+-(void)refreshView{
+    _flags.isModelDidLoadInvalid = YES;
+    [self invalidateView];
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -51,4 +74,8 @@
     // Dispose of any resources that can be recreated.
 }
 
+-(void)dealloc{
+    TT_RELEASE_SAFELY(_refreshTimer);
+    [super dealloc];
+}
 @end
