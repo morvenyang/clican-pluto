@@ -29,10 +29,12 @@
     [req setDownloadProgressDelegate:record];
     [req setShowAccurateProgress:YES];
     [req setDownloadDestinationPath:record.filePath];
+    [req setTemporaryFileDownloadPath:[record.filePath stringByAppendingString:@".tmp"]];
     [req setAllowResumeForFileDownloads:YES];
     [req setTimeOutSeconds:180];
     [req setDelegate:record];
-    [[AppDele downloadQueue] addOperation:req];
+    [req startAsynchronous];
+    //[[AppDele downloadQueue] addOperation:req];
 }
 -(void) downloadM3u8:(NSString*) m3u8Url{
     NSLog(@"download m3u8:%@",m3u8Url);
