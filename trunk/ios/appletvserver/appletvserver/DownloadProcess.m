@@ -32,6 +32,7 @@
     [req setTemporaryFileDownloadPath:[record.filePath stringByAppendingString:@".tmp"]];
     [req setAllowResumeForFileDownloads:YES];
     [req setTimeOutSeconds:180];
+    [req setDidReceiveResponseHeadersSelector:@selector(request:didReceiveResponseHeaders:)];
     [req setDelegate:record];
     [req startAsynchronous];
     //[[AppDele downloadQueue] addOperation:req];

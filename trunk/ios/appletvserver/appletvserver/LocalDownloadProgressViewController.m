@@ -56,7 +56,7 @@
     
     NSArray* array = [AppDele.offlineRecordProcess getAllOfflineRecord];
     for(OfflineRecord* record in array){
-        NSString* content = [NSString stringWithFormat:@"<strong>%ldMB/%ldMB</strong>\n%@",record.downloadFileSize/(1024*1024),record.fileSize/(1024*1024),[record.url stringByReplacingOccurrencesOfString:@"&" withString:@"&amp;"]];
+        NSString* content = [NSString stringWithFormat:@"<strong>%0.2fMB/%0.2fMB</strong>\n%@",record.downloadFileSize*1.0/(1024*1024),record.fileSize*1.0/(1024*1024),[record.url stringByReplacingOccurrencesOfString:@"&" withString:@"&amp;"]];
         NSLog(@"%@",record.filePath);
         NSLog(@"%@",record.url);
         TTTableStyledTextItem* item = [TTTableStyledTextItem itemWithText:[TTStyledText textFromXHTML:content lineBreaks:YES URLs:NO] URL:nil];
