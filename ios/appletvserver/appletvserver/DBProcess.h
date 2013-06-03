@@ -10,8 +10,10 @@
 #import "OfflineRecord.h"
 @interface DBProcess : NSObject{
     NSString* _database;
+    NSMutableDictionary* _offlineRecords;
 }
 @property (nonatomic, copy) NSString *database;
+@property (nonatomic, retain) NSMutableDictionary* offlineRecords;
 
 -(void) insertOrUpdateOffileRecord:(OfflineRecord*) offlineRecord;
 -(void) deleteOffileRecord:(OfflineRecord*) offlineRecord;

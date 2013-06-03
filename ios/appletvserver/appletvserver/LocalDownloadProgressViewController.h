@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LocalDownloadProgressViewController : TTTableViewController
-
+@interface LocalDownloadProgressViewController : TTTableViewController{
+    NSTimer* _refreshTimer;
+}
+@property (nonatomic, retain) NSTimer* refreshTimer;
 @end
