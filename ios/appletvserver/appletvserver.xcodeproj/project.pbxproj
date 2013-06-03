@@ -119,7 +119,7 @@
 		72A4368C16C9EA5A00D9958D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 72A4368B16C9EA5A00D9958D /* main.m */; };
 		72A4369016C9EA5A00D9958D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 72A4368F16C9EA5A00D9958D /* AppDelegate.m */; };
 		72A77253175728A200E789B6 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 72A77252175728A200E789B6 /* libsqlite3.0.dylib */; };
-		72A7725F175728DD00E789B6 /* DBProcess.m in Sources */ = {isa = PBXBuildFile; fileRef = 72A7725E175728DD00E789B6 /* DBProcess.m */; };
+		72A7725F175728DD00E789B6 /* OfflineRecordProcess.m in Sources */ = {isa = PBXBuildFile; fileRef = 72A7725E175728DD00E789B6 /* OfflineRecordProcess.m */; };
 		72A7726417572A2A00E789B6 /* OfflineRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 72A7726317572A2A00E789B6 /* OfflineRecord.m */; };
 		72B5769716CA13B80094DD58 /* libextThree20JSON+SBJSON.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7219BBD516C9EB6900AABA8E /* libextThree20JSON+SBJSON.a */; };
 		72B83F4816CDD993003B2839 /* lib in Resources */ = {isa = PBXBuildFile; fileRef = 72B83F4716CDD993003B2839 /* lib */; };
@@ -564,8 +564,8 @@
 		72A4368E16C9EA5A00D9958D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		72A4368F16C9EA5A00D9958D /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		72A77252175728A200E789B6 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
-		72A7725D175728DD00E789B6 /* DBProcess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBProcess.h; sourceTree = "<group>"; };
-		72A7725E175728DD00E789B6 /* DBProcess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBProcess.m; sourceTree = "<group>"; };
+		72A7725D175728DD00E789B6 /* OfflineRecordProcess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OfflineRecordProcess.h; sourceTree = "<group>"; };
+		72A7725E175728DD00E789B6 /* OfflineRecordProcess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OfflineRecordProcess.m; sourceTree = "<group>"; };
 		72A7726217572A2A00E789B6 /* OfflineRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OfflineRecord.h; sourceTree = "<group>"; };
 		72A7726317572A2A00E789B6 /* OfflineRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OfflineRecord.m; sourceTree = "<group>"; };
 		72B83F4716CDD993003B2839 /* lib */ = {isa = PBXFileReference; lastKnownFileType = folder; name = lib; path = appletvserver/lib; sourceTree = "<group>"; };
@@ -1236,8 +1236,8 @@
 				72F1D81817320518000344AF /* SubTitleProcess.m */,
 				7235E41B1755F13700DBC656 /* DownloadProcess.h */,
 				7235E41C1755F13700DBC656 /* DownloadProcess.m */,
-				72A7725D175728DD00E789B6 /* DBProcess.h */,
-				72A7725E175728DD00E789B6 /* DBProcess.m */,
+				72A7725D175728DD00E789B6 /* OfflineRecordProcess.h */,
+				72A7725E175728DD00E789B6 /* OfflineRecordProcess.m */,
 			);
 			name = Process;
 			sourceTree = "<group>";
@@ -1818,7 +1818,7 @@
 				72F1D81917320518000344AF /* SubTitleProcess.m in Sources */,
 				723B021C173B579400D6FC75 /* TTTabStripAddition.m in Sources */,
 				7235E41D1755F13700DBC656 /* DownloadProcess.m in Sources */,
-				72A7725F175728DD00E789B6 /* DBProcess.m in Sources */,
+				72A7725F175728DD00E789B6 /* OfflineRecordProcess.m in Sources */,
 				72A7726417572A2A00E789B6 /* OfflineRecord.m in Sources */,
 				729BB486175C45D400450ACF /* LocalDownloadProgressViewController.m in Sources */,
 			);
