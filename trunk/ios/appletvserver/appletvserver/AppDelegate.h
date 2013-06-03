@@ -21,7 +21,7 @@
 #import "SMBProcess.h"
 #import "SubTitleProcess.h"
 #import "DownloadProcess.h"
-#import "DBProcess.h"
+#import "OfflineRecordProcess.h"
 #define AppDele ((AppDelegate *)[[UIApplication sharedApplication] delegate])
 
 
@@ -72,7 +72,7 @@
     NSString* _clientVersion;
     
     DownloadProcess* _downloadProcess;
-    DBProcess* _dbProcess;
+    OfflineRecordProcess* _offlineRecordProcess;
 }
 
 @property (nonatomic, retain) ASINetworkQueue* queue;
@@ -108,7 +108,7 @@
 @property (nonatomic, retain) SubTitleProcess* subTitleProcess;
 @property (nonatomic, copy) NSString* clientVersion;
 @property (nonatomic, retain) DownloadProcess* downloadProcess;
-@property (nonatomic, retain) DBProcess* dbProcess;
+@property (nonatomic, retain) OfflineRecordProcess* offlineRecordProcess;
 @property (nonatomic, copy) NSString* localDownloadPathPrefix;
 -(void) initProcess;
 

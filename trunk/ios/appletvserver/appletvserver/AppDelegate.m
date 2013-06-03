@@ -61,7 +61,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 @synthesize subTitleProcess = _subTitleProcess;
 @synthesize clientVersion = _clientVersion;
 @synthesize downloadProcess = _downloadProcess;
-@synthesize dbProcess = _dbProcess;
+@synthesize offlineRecordProcess = _offlineRecordProcess;
 @synthesize localDownloadPathPrefix = _localDownloadPathPrefix;
 - (void)dealloc
 {
@@ -114,7 +114,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     self.smbProcess = [[[SMBProcess alloc] init] autorelease];
     self.subTitleProcess = [[[SubTitleProcess alloc] init] autorelease];
     self.downloadProcess = [[[DownloadProcess alloc] init] autorelease];
-    self.dbProcess = [[[DBProcess alloc] init] autorelease];
+    self.offlineRecordProcess = [[[OfflineRecordProcess alloc] init] autorelease];
 }
 -(void) initEnvironment{
     self.scriptRefreshDelegateArray = [NSMutableArray array];
