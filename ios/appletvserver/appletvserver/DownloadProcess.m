@@ -23,7 +23,7 @@
     record.fileName = [[AtvUtil getUUID] stringByAppendingString:@".mp4"];
     record.filePath = [AppDele.localDownloadPathPrefix stringByAppendingPathComponent:record.fileName];
     record.displayName = record.url;
-    [AppDele.dbProcess insertOrUpdateOffileRecord:record];
+    [AppDele.offlineRecordProcess insertOrUpdateOffileRecord:record];
     ASIHTTPRequest *req = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:mp4Url]];
     [req setShouldContinueWhenAppEntersBackground:YES];
     [req setDownloadProgressDelegate:self];
