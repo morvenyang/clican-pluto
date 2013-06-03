@@ -113,8 +113,6 @@
     [req setAllowResumeForFileDownloads:YES];
     [req setTimeOutSeconds:180];
     [req setDelegate:self];
-    [req setDidFinishSelector:@selector(mp4RequestDone:)];
-    [req setDidFailSelector:@selector(mp4RequestWentWrong:)];
     [[AppDele queue] addOperation:req]; //queue is an NSOperationQueue
 }
 

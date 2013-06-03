@@ -7,17 +7,24 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "ASIHTTPRequest.h"
 
-@interface OfflineRecord : NSObject{
+@interface OfflineRecord : NSObject<ASIProgressDelegate>{
     NSString* _url;
+    long _downloadFileSize;
     long _fileSize;
     NSString* _fileName;
+    NSString* _displayName;
     NSString* _filePath;
     NSString* _fileType;
+    ASIHTTPRequest* _request;
 }
 @property (nonatomic, copy) NSString* url;
 @property (nonatomic, copy) NSString* fileName;
+@property (nonatomic, copy) NSString* displayName;
 @property (nonatomic, copy) NSString* filePath;
 @property (nonatomic, copy) NSString* fileType;
+@property (nonatomic, retain) ASIHTTPRequest* request;
 @property (nonatomic, assign) long fileSize;
+@property (nonatomic, assign) long downloadFileSize;
 @end

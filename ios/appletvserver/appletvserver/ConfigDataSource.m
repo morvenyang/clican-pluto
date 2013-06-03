@@ -10,7 +10,6 @@
 #import "Constants.h"
 
 @implementation ConfigDataSource
-@synthesize clearCacheItem = _clearCacheItem;
 @synthesize callback = _callback;
 -(id) initWithItems:(NSArray *)items callback:(id) callback{
     self = [super initWithItems:items];
@@ -25,7 +24,6 @@
 }
 
 -(void) dealloc{
-    TT_RELEASE_SAFELY(_clearCacheItem);
     TT_RELEASE_SAFELY(_callback);
     [super dealloc];
 }

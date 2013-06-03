@@ -24,11 +24,13 @@
 #import "TreeViewController.h"
 #import "SmbAuthViewController.h"
 #import "DownloadProgressViewController.h"
+#import "LocalDownloadProgressViewController.h"
 static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 @implementation AppDelegate
 
 @synthesize queue=_queue;
+@synthesize downloadQueue = _downloadQueue;
 @synthesize ipAddress=_ipAddress;
 @synthesize localM3u8PathPrefix = _localM3u8PathPrefix;
 @synthesize localNativeM3u8UrlPrefix = _localNativeM3u8UrlPrefix;
@@ -59,6 +61,8 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 @synthesize subTitleProcess = _subTitleProcess;
 @synthesize clientVersion = _clientVersion;
 @synthesize downloadProcess = _downloadProcess;
+@synthesize dbProcess = _dbProcess;
+@synthesize localDownloadPathPrefix = _localDownloadPathPrefix;
 - (void)dealloc
 {
     [super dealloc];
@@ -95,18 +99,22 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 }
 
 -(void) initQueue{
-    self.queue = [[ASINetworkQueue alloc] init];
+    self.queue = [[[ASINetworkQueue alloc] init] autorelease];
+    self.downloadQueue = [[[ASINetworkQueue alloc] init] autorelease];
     [self.queue setShouldCancelAllRequestsOnFailure:NO];
     [self.queue go];
+    [self.downloadQueue setShouldCancelAllRequestsOnFailure:NO];
+    [self.downloadQueue go];
 }
 -(void) initProcess{
-    self.m3u8Process = [[M3u8Process alloc] init];
-    self.mp4Process = [[Mp4Process alloc] init];
-    self.photoProcess = [[PhotoProcess alloc] init];
-    self.mkvProcess = [[MkvProcess alloc] init];
-    self.smbProcess = [[SMBProcess alloc] init];
-    self.subTitleProcess = [[SubTitleProcess alloc] init];
-    self.downloadProcess = [[DownloadProcess alloc] init];
+    self.m3u8Process = [[[M3u8Process alloc] init] autorelease];
+    self.mp4Process = [[[Mp4Process alloc] init] autorelease];
+    self.photoProcess = [[[PhotoProcess alloc] init] autorelease];
+    self.mkvProcess = [[[MkvProcess alloc] init] autorelease];
+    self.smbProcess = [[[SMBProcess alloc] init] autorelease];
+    self.subTitleProcess = [[[SubTitleProcess alloc] init] autorelease];
+    self.downloadProcess = [[[DownloadProcess alloc] init] autorelease];
+    self.dbProcess = [[[DBProcess alloc] init] autorelease];
 }
 -(void) initEnvironment{
     self.scriptRefreshDelegateArray = [NSMutableArray array];
@@ -200,6 +208,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     NSString *mp4Outpath = [tempPath stringByAppendingFormat:@"%@",@"/temp/mp4/"];
     NSString *mkvM3u8Outpath = [tempPath stringByAppendingFormat:@"%@",@"/temp/mkvM3u8/"];
     NSString *webOutpath = [[path objectAtIndex:0] stringByAppendingFormat:@"%@",@"/web"];
+    NSString *localDownloadOutpath = [[path objectAtIndex:0] stringByAppendingFormat:@"%@",@"/download"];
     NSString *mp3Outpath = [tempPath stringByAppendingFormat:@"%@",@"/temp/mp3/"];
 
     //outpath = @"/Users/zhangwei/Desktop/m3u8/";
@@ -224,6 +233,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     self.localM3u8PathPrefix = m3u8Outpath;
     self.localMp4PathPrefix = mp4Outpath;
     self.localWebPathPrefix = webOutpath;
+    self.localDownloadPathPrefix = localDownloadOutpath;
     self.localMkvM3u8PathPrefix = mkvM3u8Outpath;
     self.localMp3PathPrefix = mp3Outpath;
 }
@@ -263,6 +273,8 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
      [XunLeiLoginViewController class]];
     [map from:@"atvserver://download" toSharedViewController:
      [DownloadProgressViewController class]];
+    [map from:@"atvserver://localdownload" toSharedViewController:
+     [LocalDownloadProgressViewController class]];
     [map from:@"atvserver://smb/(initWithUrl:)" toSharedViewController:
      [TreeViewController class]];
     [map from:@"atvserver://smb" toSharedViewController:

@@ -51,4 +51,16 @@
                                                          error:nil];
     [jsonData writeToFile:path atomically:YES];
 }
+
+-(NSArray*) getAllOfflineRecord{
+    NSString* path = [self.database stringByAppendingPathComponent:@"OfflineRecord.json"];
+    NSMutableDictionary* records = [NSMutableDictionary dictionary];
+    if([[NSFileManager defaultManager] fileExistsAtPath:path]){
+        NSString* content = [NSString stringWithContentsOfURL:[NSURL URLWithString:path] encoding:NSUTF8StringEncoding error:nil];
+        if(content!=NULL&&content.length>0){
+            records = [NSMutableDictionary dictionaryWithDictionary:[content JSONValue]];
+        }
+    }
+    return [records allValues];
+}
 @end

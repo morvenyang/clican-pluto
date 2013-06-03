@@ -100,7 +100,12 @@
     self.submitButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     self.submitButton.contentMode = UIViewContentModeCenter;
     [self.submitButton addTarget:self action:@selector(submitAction) forControlEvents: UIControlEventTouchUpInside];
-    self.submitButton.frame = CGRectMake(25, 105 , 50, 50);
+    if(TTIsPad()){
+        self.submitButton.frame = CGRectMake(42, 135 , 50, 50);
+    }else{
+        self.submitButton.frame = CGRectMake(25, 105 , 50, 50);  
+    }
+    
     [self.submitButton setTitle:@"提交" forState:UIControlStateNormal];
     [self.submitButton sizeToFit];
     [self.view addSubview:self.submitButton];
