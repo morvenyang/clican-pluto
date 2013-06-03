@@ -22,7 +22,13 @@
 - (void)request:(ASIHTTPRequest *)request didReceiveBytes:(long long)bytes{
     self.downloadFileSize+=bytes;
 }
-
+- (void)request:(ASIHTTPRequest *)request didReceiveResponseHeaders:(NSMutableDictionary *)newResponseHeaders{
+    NSString* contentLength = [newResponseHeaders valueForKey:@"Content-Length"];
+    NSLog(@"Content-Length:%@",contentLength);
+    if(contentLength!=nil&&contentLength.length>0){
+        self.fileSize = [contentLength longLongValue];
+    }
+}
 - (void) dealloc {
     TT_RELEASE_SAFELY(_fileName);
     TT_RELEASE_SAFELY(_filePath);
