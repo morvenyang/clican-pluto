@@ -9,7 +9,8 @@
 #import "LocalDownloadProgressViewController.h"
 #import "AppDelegate.h"
 #import "OfflineRecord.h"
-
+#import "OfflineRecordTableItem.h"
+#import "OfflineRecordDataSource.h"
 @implementation LocalDownloadProgressViewController
 
 @synthesize refreshTimer = _refreshTimer;
@@ -59,12 +60,13 @@
         NSString* content = [NSString stringWithFormat:@"<strong>%0.2fMB/%0.2fMB</strong>\n%@",record.downloadFileSize*1.0/(1024*1024),record.fileSize*1.0/(1024*1024),[record.url stringByReplacingOccurrencesOfString:@"&" withString:@"&amp;"]];
         NSLog(@"%@",record.filePath);
         NSLog(@"%@",record.url);
-        TTTableStyledTextItem* item = [TTTableStyledTextItem itemWithText:[TTStyledText textFromXHTML:content lineBreaks:YES URLs:NO] URL:nil];
-        
+        OfflineRecordTableItem* item = [OfflineRecordTableItem itemWithText:[TTStyledText textFromXHTML:content lineBreaks:YES URLs:YES] URL:nil];
+        item.deleteButton = [TTButton buttonWithStyle:@"toolbarRoundButton:" title:@"删除"];
+
         [items addObject:item];
     }
     
-    TTListDataSource* ds = [[[TTListDataSource alloc] initWithItems:items] autorelease];
+    OfflineRecordDataSource* ds = [[[OfflineRecordDataSource alloc] initWithItems:items] autorelease];
     self.dataSource = ds;
 }
 - (void)viewDidLoad

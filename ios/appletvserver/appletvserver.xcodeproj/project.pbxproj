@@ -181,6 +181,9 @@
 		72E9C4F616D07877004B024B /* libx264.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 72E9C4F516D07877004B024B /* libx264.a */; };
 		72F1D816173204B8000344AF /* DataInputStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 72F1D815173204B8000344AF /* DataInputStream.m */; };
 		72F1D81917320518000344AF /* SubTitleProcess.m in Sources */ = {isa = PBXBuildFile; fileRef = 72F1D81817320518000344AF /* SubTitleProcess.m */; };
+		72F53F4A175C9FB6007FFC7F /* OfflineRecordTableItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 72F53F49175C9FB6007FFC7F /* OfflineRecordTableItem.m */; };
+		72F53F56175CA0DF007FFC7F /* OfflineRecordTableItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 72F53F55175CA0DF007FFC7F /* OfflineRecordTableItemCell.m */; };
+		72F53F67175CA5B1007FFC7F /* OfflineRecordDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 72F53F66175CA5B1007FFC7F /* OfflineRecordDataSource.m */; };
 		72F7CB9D16F868120033A32F /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72F7CB9C16F868120033A32F /* AVFoundation.framework */; };
 		72F7CBA016F86C8D0033A32F /* MTAudioPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 72F7CB9F16F86C8D0033A32F /* MTAudioPlayer.m */; };
 		72FEEFCE1703DAAD00F9713E /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 72FEEFCD1703D68C00F9713E /* MBProgressHUD.m */; };
@@ -668,6 +671,12 @@
 		72F1D815173204B8000344AF /* DataInputStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DataInputStream.m; path = SubTitle/DataInputStream.m; sourceTree = "<group>"; };
 		72F1D81717320518000344AF /* SubTitleProcess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SubTitleProcess.h; path = SubTitle/SubTitleProcess.h; sourceTree = "<group>"; };
 		72F1D81817320518000344AF /* SubTitleProcess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SubTitleProcess.m; path = SubTitle/SubTitleProcess.m; sourceTree = "<group>"; };
+		72F53F48175C9FB6007FFC7F /* OfflineRecordTableItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OfflineRecordTableItem.h; sourceTree = "<group>"; };
+		72F53F49175C9FB6007FFC7F /* OfflineRecordTableItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OfflineRecordTableItem.m; sourceTree = "<group>"; };
+		72F53F54175CA0DF007FFC7F /* OfflineRecordTableItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OfflineRecordTableItemCell.h; sourceTree = "<group>"; };
+		72F53F55175CA0DF007FFC7F /* OfflineRecordTableItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OfflineRecordTableItemCell.m; sourceTree = "<group>"; };
+		72F53F65175CA5B1007FFC7F /* OfflineRecordDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OfflineRecordDataSource.h; sourceTree = "<group>"; };
+		72F53F66175CA5B1007FFC7F /* OfflineRecordDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OfflineRecordDataSource.m; sourceTree = "<group>"; };
 		72F7CB9C16F868120033A32F /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		72F7CB9E16F86C8C0033A32F /* MTAudioPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MTAudioPlayer.h; path = CocoaHTTPServer/MTAudioPlayer.h; sourceTree = "<group>"; };
 		72F7CB9F16F86C8D0033A32F /* MTAudioPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MTAudioPlayer.m; path = CocoaHTTPServer/MTAudioPlayer.m; sourceTree = "<group>"; };
@@ -1000,6 +1009,8 @@
 			children = (
 				7272B3A516CA046400E111A7 /* VideoTableItem.h */,
 				7272B3A616CA046400E111A7 /* VideoTableItem.m */,
+				72F53F48175C9FB6007FFC7F /* OfflineRecordTableItem.h */,
+				72F53F49175C9FB6007FFC7F /* OfflineRecordTableItem.m */,
 			);
 			name = TableItem;
 			sourceTree = "<group>";
@@ -1009,6 +1020,8 @@
 			children = (
 				7272B3A816CA049A00E111A7 /* VideoTableItemCell.h */,
 				7272B3A916CA049A00E111A7 /* VideoTableItemCell.m */,
+				72F53F54175CA0DF007FFC7F /* OfflineRecordTableItemCell.h */,
+				72F53F55175CA0DF007FFC7F /* OfflineRecordTableItemCell.m */,
 			);
 			name = TableItemCell;
 			sourceTree = "<group>";
@@ -1438,6 +1451,8 @@
 				7233EB6E1709425400EF342E /* ConfigDataSource.m */,
 				722B23761712C36400D3A8B4 /* SMBDataSource.h */,
 				722B23771712C36400D3A8B4 /* SMBDataSource.m */,
+				72F53F65175CA5B1007FFC7F /* OfflineRecordDataSource.h */,
+				72F53F66175CA5B1007FFC7F /* OfflineRecordDataSource.m */,
 			);
 			name = Datasource;
 			sourceTree = "<group>";
@@ -1821,6 +1836,9 @@
 				72A7725F175728DD00E789B6 /* OfflineRecordProcess.m in Sources */,
 				72A7726417572A2A00E789B6 /* OfflineRecord.m in Sources */,
 				729BB486175C45D400450ACF /* LocalDownloadProgressViewController.m in Sources */,
+				72F53F4A175C9FB6007FFC7F /* OfflineRecordTableItem.m in Sources */,
+				72F53F56175CA0DF007FFC7F /* OfflineRecordTableItemCell.m in Sources */,
+				72F53F67175CA5B1007FFC7F /* OfflineRecordDataSource.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
