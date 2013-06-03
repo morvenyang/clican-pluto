@@ -25,6 +25,7 @@
     record.displayName = record.url;
     [AppDele.offlineRecordProcess insertOrUpdateOffileRecord:record];
     ASIHTTPRequest *req = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:mp4Url]];
+    record.request = req;
     [req setShouldContinueWhenAppEntersBackground:YES];
     [req setDownloadProgressDelegate:record];
     [req setShowAccurateProgress:YES];
@@ -35,7 +36,6 @@
     [req setDidReceiveResponseHeadersSelector:@selector(request:didReceiveResponseHeaders:)];
     [req setDelegate:record];
     [req startAsynchronous];
-    //[[AppDele downloadQueue] addOperation:req];
 }
 -(void) downloadM3u8:(NSString*) m3u8Url{
     NSLog(@"download m3u8:%@",m3u8Url);
