@@ -20,7 +20,6 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.title = @"本地缓存";
-        self.tabBarItem = [[[UITabBarItem alloc] initWithTitle:@"本地缓存" image:nil tag:3] autorelease];
     }
     return self;
 }
@@ -45,8 +44,11 @@
     [super loadView];
     [self refreshView];
 }
-
+- (id<UITableViewDelegate>)createDelegate {
+    return [[[TTTableViewDragRefreshDelegate alloc] initWithController:self] autorelease];
+}
 -(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
     if(self.refreshTimer==nil||![self.refreshTimer isValid]){
         NSLog(@"start refresh timer for download progress");
         self.refreshTimer = [NSTimer timerWithTimeInterval:3.0f target:self selector:@selector(refreshView) userInfo:nil repeats:YES];
@@ -55,6 +57,7 @@
 }
 
 -(void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
     NSLog(@"end refresh timer for download progress");
     [self.refreshTimer invalidate];
 }

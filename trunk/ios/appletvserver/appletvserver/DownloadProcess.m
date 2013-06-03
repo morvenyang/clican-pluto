@@ -26,14 +26,12 @@
     [AppDele.offlineRecordProcess insertOrUpdateOffileRecord:record];
     ASIHTTPRequest *req = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:mp4Url]];
     [req setShouldContinueWhenAppEntersBackground:YES];
-    [req setDownloadProgressDelegate:self];
+    [req setDownloadProgressDelegate:record];
     [req setShowAccurateProgress:YES];
     [req setDownloadDestinationPath:record.filePath];
     [req setAllowResumeForFileDownloads:YES];
     [req setTimeOutSeconds:180];
-    [req setDelegate:self];
-    [req setDidFinishSelector:@selector(mp4RequestDone:)];
-    [req setDidFailSelector:@selector(mp4RequestWentWrong:)];
+    [req setDelegate:record];
     [[AppDele downloadQueue] addOperation:req];
 }
 -(void) downloadM3u8:(NSString*) m3u8Url{
