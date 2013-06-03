@@ -31,7 +31,7 @@
 - (void)createModel {
     NSMutableArray* items = [NSMutableArray array];
     
-    NSArray* array = [AppDele.dbProcess getAllOfflineRecord];
+    NSArray* array = [AppDele.offlineRecordProcess getAllOfflineRecord];
     for(OfflineRecord* record in array){
         TTTableStyledTextItem* item = [TTTableStyledTextItem itemWithText:[TTStyledText textFromXHTML:[NSString stringWithFormat:@"%ldMB/%ldMB %@",record.downloadFileSize/(1024*1024),record.fileSize/(1024*1024),record.url] lineBreaks:YES URLs:NO] URL:nil];
         [items addObject:item];
