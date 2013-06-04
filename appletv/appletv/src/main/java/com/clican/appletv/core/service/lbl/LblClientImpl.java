@@ -137,6 +137,7 @@ public class LblClientImpl extends BaseClient implements LblClient {
 				return imgUrl;
 			} catch (Exception e) {
 				log.error("", e);
+				imageMap.put(url, "");
 				return null;
 			}
 		}
