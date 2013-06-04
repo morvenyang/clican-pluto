@@ -12,10 +12,5 @@
     
 }
 
-- (UIColor*)assetDetailBackgroundColor;
-
-- (UIFont*) commentTitleFont;
-
-- (UIColor*) commentTitleColor;
-
+- (TTStyle*) configLabel;
 @end

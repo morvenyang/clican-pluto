@@ -36,13 +36,14 @@
         [self setTabURLs:[NSArray arrayWithObjects:
                           @"atvserver://main",
                           @"atvserver://download",
+                          @"atvserver://localdownload",
                           @"atvserver://config",
                           nil]];
     }else{
         [self setTabURLs:[NSArray arrayWithObjects:
                           @"atvserver://main",
-                          @"atvserver://xunlei/login",
                           @"atvserver://download",
+                          @"atvserver://localdownload",
                           @"atvserver://smb/auth",
                           @"atvserver://config",
                           nil]];
@@ -106,13 +107,14 @@
         [self setTabURLs:[NSArray arrayWithObjects:
                           @"atvserver://main",
                           @"atvserver://download",
+                          @"atvserver://localdownload",
                           @"atvserver://config",
                           nil]];
     }else{
         [self setTabURLs:[NSArray arrayWithObjects:
                           @"atvserver://main",
-                          @"atvserver://xunlei/login",
                           @"atvserver://download",
+                          @"atvserver://localdownload",
                           @"atvserver://smb/auth",
                           @"atvserver://config",
                           nil]];

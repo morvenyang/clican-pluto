@@ -25,7 +25,7 @@
     if (self) {
         self.title = @"设置";
         self.tabBarItem = [[[UITabBarItem alloc] initWithTitle:@"设置" image:nil tag:5] autorelease];
-        
+        self.tableViewStyle = UITableViewStyleGrouped;
         self.serverIPField = [[[UITextField alloc] init] autorelease];
         self.serverIPField.font = [UIFont fontWithName:@"Microsoft YaHei" size:12];
         self.serverIPField.placeholder = ATV_SERVER_DEFAULT_IP;
@@ -39,7 +39,6 @@
         [self.serverIPField setAccessibilityLabel:@"服务器IP"];
         
         self.syncButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        
         UIImage* syncButtonImage = [UIImage imageNamed:@"sync.png"];
         [self.syncButton setImage:syncButtonImage forState:UIControlStateNormal];
         [self.syncButton addTarget:self action:@selector(syncAction) forControlEvents: UIControlEventTouchUpInside];
@@ -183,7 +182,7 @@
 - (void)createModel {
     NSMutableArray* items = [NSMutableArray array];
     
-    
+    [items addObject:@"服务器"];
     TTTableControlItem* serverIPItem = [TTTableControlItem itemWithCaption:@"服务器IP" control:self.serverIPField];
     [items addObject:serverIPItem];
     TTTableControlItem* atvDeviceIdItem = [TTTableControlItem itemWithCaption:@"ATV ID" control:self.atvDeviceIdField];
@@ -217,10 +216,12 @@
             }
         }
     }
-    NSString* xunleiStatus = [NSString stringWithFormat:@"%@\nsessionid:%@\nuserid:%@\nvip:%@\ngdriveid:%@\nlxsessionid:%@",@"<strong>迅雷状态</strong>",sessionid,userid,vip,gdriveid,lxsessionid];
+    NSString* xunleiStatus = [NSString stringWithFormat:@"sessionid:%@\nuserid:%@\nvip:%@\ngdriveid:%@\nlxsessionid:%@",sessionid,userid,vip,gdriveid,lxsessionid];
     
-    self.xunleiStatusItem = [TTTableStyledTextItem itemWithText:[TTStyledText textFromXHTML:xunleiStatus lineBreaks:YES URLs:NO] URL:nil];
-
+    self.xunleiStatusItem = [TTTableTextItem itemWithText:xunleiStatus URL:nil];
+    [items addObject:@"迅雷"];
+    [items addObject:[TTTableTextItem itemWithText:@"迅雷云播登录" URL:@"atvserver://xunlei/login/0"]];
+    [items addObject:[TTTableTextItem itemWithText:@"迅雷离线登录" URL:@"atvserver://xunlei/login/1"]];
     [items addObject:self.xunleiStatusItem];
     
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
@@ -238,7 +239,7 @@
     
     self.clearCacheItem = [TTTableControlItem itemWithCaption:[NSString stringWithFormat:@"清空缓存（ %0.1f Mb）", (float)folderSize/1000/1000] control:self.clearCacheButton];
 
-    
+    [items addObject:@"缓存"];
     [items addObject:self.clearCacheItem];
     
     
@@ -249,10 +250,12 @@
 
     NSString* versionLabel = [NSString stringWithFormat:@"当前版本:%@ 最新版本:%@",ATV_CLIENT_VERSION,clientVersion];
 
-     TTTableStyledTextItem* versionItem = [TTTableStyledTextItem itemWithText:[TTStyledText textFromXHTML:versionLabel lineBreaks:YES URLs:YES] URL:@"http://clican.org/appletv/help.html"];
+     TTTableTextItem* versionItem = [TTTableTextItem itemWithText:versionLabel URL:@"http://clican.org/appletv/help.html"];
+    [items addObject:@"版本"];
     [items addObject:versionItem];
     
-    ConfigDataSource* ds = [[[ConfigDataSource alloc] initWithItems:items callback:self] autorelease];
+    ConfigDataSource* ds = [ConfigDataSource dataSourceWithArrays:items];
+    ds.callback = (ConfigCallback*)self;
     self.dataSource = ds;
     //self.tableView.delegate =self;
 }

@@ -25,6 +25,7 @@
 #import "SmbAuthViewController.h"
 #import "DownloadProgressViewController.h"
 #import "LocalDownloadProgressViewController.h"
+#import "StyleSheet.h"
 static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 
 @implementation AppDelegate
@@ -254,7 +255,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     [self initWebContent];
     [self initHttpServer];
     [self initJSEngine];
-    
+    [TTStyleSheet setGlobalStyleSheet:[[[StyleSheet alloc] init] autorelease]];
     [[TTURLRequestQueue mainQueue] setMaxContentLength:0];
     TTNavigator* navigator = [TTNavigator navigator];
     
@@ -272,7 +273,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
      [RootViewController class]];
     [map from:@"atvserver://main" toSharedViewController:
      [MainViewController class]];
-    [map from:@"atvserver://xunlei/login" toSharedViewController:
+    [map from:@"atvserver://xunlei/login/(initWithType:)" toSharedViewController:
      [XunLeiLoginViewController class]];
     [map from:@"atvserver://download" toSharedViewController:
      [DownloadProgressViewController class]];
