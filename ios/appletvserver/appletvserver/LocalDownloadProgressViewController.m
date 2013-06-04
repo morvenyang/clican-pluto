@@ -11,6 +11,7 @@
 #import "OfflineRecord.h"
 #import "OfflineRecordTableItem.h"
 #import "OfflineRecordDataSource.h"
+#import "TargetButton.h"
 @implementation LocalDownloadProgressViewController
 
 @synthesize refreshTimer = _refreshTimer;
@@ -61,13 +62,58 @@
         NSLog(@"%@",record.filePath);
         NSLog(@"%@",record.url);
         OfflineRecordTableItem* item = [OfflineRecordTableItem itemWithText:[TTStyledText textFromXHTML:content lineBreaks:YES URLs:YES] URL:nil];
-        item.deleteButton = [TTButton buttonWithStyle:@"toolbarRoundButton:" title:@"删除"];
-
+        item.deleteButton = [TargetButton buttonWithStyle:@"toolbarRoundButton:" title:@"删除" target:record];
+        [item.deleteButton addTarget:self action:@selector(deleteAction:) forControlEvents:UIControlEventTouchUpInside];
+        
+        if([[NSFileManager defaultManager] fileExistsAtPath:record.filePath]){
+            item.actionButton = [TargetButton buttonWithStyle:@"toolbarRoundButton:" title:@"播放" target:record];
+            [item.actionButton addTarget:self action:@selector(playAction:) forControlEvents:UIControlEventTouchUpInside];
+        }else{
+            if(record.downloading){
+                item.actionButton = [TargetButton buttonWithStyle:@"toolbarRoundButton:" title:@"暂停" target:record];
+                [item.actionButton addTarget:self action:@selector(pauseAction:) forControlEvents:UIControlEventTouchUpInside];
+            }else{
+                item.actionButton = [TargetButton buttonWithStyle:@"toolbarRoundButton:" title:@"继续" target:record];
+                [item.actionButton addTarget:self action:@selector(resumeAction:) forControlEvents:UIControlEventTouchUpInside];
+            }
+        }
         [items addObject:item];
     }
-    
     OfflineRecordDataSource* ds = [[[OfflineRecordDataSource alloc] initWithItems:items] autorelease];
     self.dataSource = ds;
+}
+
+-(void)deleteAction:(id)sender{
+    TargetButton* button = (TargetButton*)sender;
+    OfflineRecord* record = (OfflineRecord*)button.target;
+    [record.request clearDelegatesAndCancel];
+    NSFileManager* fileManager = [NSFileManager defaultManager];
+    [fileManager removeItemAtPath:[record.filePath stringByAppendingString:@".tmp"] error:nil];
+    [fileManager removeItemAtPath:record.filePath error:nil];
+    [AppDele.offlineRecordProcess deleteOffileRecord:record];
+}
+
+-(void)playAction:(id)sender{
+    TargetButton* button = (TargetButton*)sender;
+    OfflineRecord* record = (OfflineRecord*)button.target;
+    NSLog(@"play local cache file:%@",record.filePath);
+}
+
+-(void)resumeAction:(id)sender{
+    TargetButton* button = (TargetButton*)sender;
+    OfflineRecord* record = (OfflineRecord*)button.target;
+    record.downloading = YES;
+    record.downloadFileSize = 0;
+    [AppDele.downloadProcess downloadOfflineRecord:record];
+    NSLog(@"resume downloading");
+}
+
+-(void)pauseAction:(id)sender{
+    TargetButton* button = (TargetButton*)sender;
+    OfflineRecord* record = (OfflineRecord*)button.target;
+    [record.request clearDelegatesAndCancel];
+    record.downloading = NO;
+    NSLog(@"pause downloading");
 }
 - (void)viewDidLoad
 {

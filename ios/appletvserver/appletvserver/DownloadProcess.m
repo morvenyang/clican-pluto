@@ -13,7 +13,20 @@
 #import "AtvUtil.h"
 @implementation DownloadProcess
 
-
+-(void) downloadOfflineRecord:(OfflineRecord*) offlineRecord{
+    ASIHTTPRequest *req = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:offlineRecord.url]];
+    offlineRecord.request = req;
+    [req setShouldContinueWhenAppEntersBackground:YES];
+    [req setDownloadProgressDelegate:offlineRecord];
+    [req setShowAccurateProgress:YES];
+    [req setDownloadDestinationPath:offlineRecord.filePath];
+    [req setTemporaryFileDownloadPath:[offlineRecord.filePath stringByAppendingString:@".tmp"]];
+    [req setAllowResumeForFileDownloads:YES];
+    [req setTimeOutSeconds:180];
+    [req setDidReceiveResponseHeadersSelector:@selector(request:didReceiveResponseHeaders:)];
+    [req setDelegate:offlineRecord];
+    [req startAsynchronous];
+}
 
 -(void) downloadMp4:(NSString*) mp4Url{
     NSLog(@"download mp4:%@",mp4Url);
@@ -23,19 +36,9 @@
     record.fileName = [[AtvUtil getUUID] stringByAppendingString:@".mp4"];
     record.filePath = [AppDele.localDownloadPathPrefix stringByAppendingPathComponent:record.fileName];
     record.displayName = record.url;
+    record.downloading = YES;
     [AppDele.offlineRecordProcess insertOrUpdateOffileRecord:record];
-    ASIHTTPRequest *req = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:mp4Url]];
-    record.request = req;
-    [req setShouldContinueWhenAppEntersBackground:YES];
-    [req setDownloadProgressDelegate:record];
-    [req setShowAccurateProgress:YES];
-    [req setDownloadDestinationPath:record.filePath];
-    [req setTemporaryFileDownloadPath:[record.filePath stringByAppendingString:@".tmp"]];
-    [req setAllowResumeForFileDownloads:YES];
-    [req setTimeOutSeconds:180];
-    [req setDidReceiveResponseHeadersSelector:@selector(request:didReceiveResponseHeaders:)];
-    [req setDelegate:record];
-    [req startAsynchronous];
+    [self downloadOfflineRecord:record];
 }
 -(void) downloadM3u8:(NSString*) m3u8Url{
     NSLog(@"download m3u8:%@",m3u8Url);
