@@ -15,7 +15,7 @@
 @implementation LocalDownloadProgressViewController
 
 @synthesize refreshTimer = _refreshTimer;
-
+@synthesize playerViewController = _playerViewController;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -41,6 +41,12 @@
 }
 
 -(void)viewWillAppear:(BOOL)animated{
+    if(TTIsPad()){
+        self.navigationController.navigationBar.frame = CGRectMake(0, 20, self.navigationController.navigationBar.frame.size.width, 44);
+    }else{
+        self.navigationController.navigationBar.frame = CGRectMake(0, 20, self.navigationController.navigationBar.frame.size.width, 44);
+    }
+
     [super viewWillAppear:animated];
     if(self.refreshTimer==nil||![self.refreshTimer isValid]){
         NSLog(@"start refresh timer for download progress");
@@ -98,6 +104,35 @@
     TargetButton* button = (TargetButton*)sender;
     OfflineRecord* record = (OfflineRecord*)button.target;
     NSLog(@"play local cache file:%@",record.filePath);
+    
+    NSLog(@"play:%@",record.filePath);
+    self.playerViewController = [[[MPMoviePlayerViewController alloc] initWithContentURL:[NSURL fileURLWithPath:record.filePath]] autorelease];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moviePlayBackDidFinish:)
+                                                 name:MPMoviePlayerPlaybackDidFinishNotification object:self.playerViewController.moviePlayer];
+    
+    self.playerViewController.moviePlayer.controlStyle = MPMovieControlStyleFullscreen;
+    
+    [self presentMoviePlayerViewControllerAnimated:self.playerViewController];
+    [self.playerViewController.moviePlayer prepareToPlay];
+    [self.playerViewController.moviePlayer setFullscreen:YES animated:YES];
+    [self.playerViewController.moviePlayer play];
+}
+
+
+
+- (void)moviePlayBackDidFinish:(NSNotification*)notification {
+    
+    MPMoviePlayerController *moviePlayer = [notification object];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:MPMoviePlayerPlaybackDidFinishNotification
+                                                  object:moviePlayer];
+    
+    if ([moviePlayer respondsToSelector:@selector(setFullscreen:animated:)]) {
+        [moviePlayer.view removeFromSuperview];
+    }
+    
+    [self.navigationController popViewControllerAnimated:NO];
 }
 
 -(void)resumeAction:(id)sender{
@@ -130,6 +165,19 @@
 
 -(void)dealloc{
     TT_RELEASE_SAFELY(_refreshTimer);
+    TT_RELEASE_SAFELY(_playerViewController);
     [super dealloc];
+}
+
+
+
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    if([UIApplication sharedApplication].statusBarOrientation != UIInterfaceOrientationPortrait){
+        [self performSelector:@selector(changeStatusBarOrientation) withObject:nil afterDelay:0.01];
+    }
+}
+-(void) changeStatusBarOrientation{
+    [UIApplication sharedApplication].statusBarOrientation = UIInterfaceOrientationPortrait;
 }
 @end

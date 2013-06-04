@@ -212,6 +212,9 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
         }
         HTTPSMBResponse* resp=[[HTTPSMBResponse alloc] initWithSmbFile:AppDele.smbProcess.smbFile];
         return resp;
+    }else if([mp4Url rangeOfString:@"file://"].location!=NSNotFound){
+        HTTPFileResponse* resp = [[HTTPFileResponse alloc] initWithFilePath:mp4Url forConnection:self];
+        return resp;
     }else{
        [ProcessManager changeRunningProcess:@"mp4"];
         Mp4Download* mp4Download = [AppDele mp4Process].mp4Download;
