@@ -21,6 +21,7 @@
 		7205AEE117058F8E00595D4B /* left_arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 7205AEDF17058F8E00595D4B /* left_arrow.png */; };
 		7206AAF11707C1A80049FE0D /* ConfigViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7206AAF01707C1A80049FE0D /* ConfigViewController.m */; };
 		7206AB041707CBD90049FE0D /* sync.png in Resources */ = {isa = PBXBuildFile; fileRef = 7206AB031707CBD90049FE0D /* sync.png */; };
+		7210EA5B175D7C7D0016FC8E /* TargetButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 7210EA5A175D7C7D0016FC8E /* TargetButton.m */; };
 		72198F1116FFF1FF00EC451B /* libiOSJavaScriptCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 72198F1016FFF1FF00EC451B /* libiOSJavaScriptCore.a */; };
 		72198F1D16FFF25100EC451B /* JSEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 72198F1C16FFF25100EC451B /* JSEngine.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		72198F2116FFF78600EC451B /* libstdc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 72198F2016FFF78600EC451B /* libstdc++.dylib */; };
@@ -385,6 +386,8 @@
 		7206AAEF1707C1A80049FE0D /* ConfigViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigViewController.h; sourceTree = "<group>"; };
 		7206AAF01707C1A80049FE0D /* ConfigViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigViewController.m; sourceTree = "<group>"; };
 		7206AB031707CBD90049FE0D /* sync.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sync.png; sourceTree = "<group>"; };
+		7210EA59175D7C7D0016FC8E /* TargetButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TargetButton.h; sourceTree = "<group>"; };
+		7210EA5A175D7C7D0016FC8E /* TargetButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TargetButton.m; sourceTree = "<group>"; };
 		72198F1016FFF1FF00EC451B /* libiOSJavaScriptCore.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libiOSJavaScriptCore.a; path = appletvserver/lib/libiOSJavaScriptCore.a; sourceTree = "<group>"; };
 		72198F1B16FFF25100EC451B /* JSEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSEngine.h; sourceTree = "<group>"; };
 		72198F1C16FFF25100EC451B /* JSEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSEngine.m; sourceTree = "<group>"; };
@@ -803,6 +806,15 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		7210EA4F175D7C420016FC8E /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				7210EA59175D7C7D0016FC8E /* TargetButton.h */,
+				7210EA5A175D7C7D0016FC8E /* TargetButton.m */,
+			);
+			name = UI;
+			sourceTree = "<group>";
+		};
 		7215346F16DB4CAF009D5EA7 /* ext */ = {
 			isa = PBXGroup;
 			children = (
@@ -994,6 +1006,7 @@
 		7272B3A216CA040F00E111A7 /* Three20 */ = {
 			isa = PBXGroup;
 			children = (
+				7210EA4F175D7C420016FC8E /* UI */,
 				723B0210173B576C00D6FC75 /* Additions */,
 				724024F91701962F0015352A /* HTTP */,
 				72BB0C6716CB510D00D4291D /* View */,
@@ -1839,6 +1852,7 @@
 				72F53F4A175C9FB6007FFC7F /* OfflineRecordTableItem.m in Sources */,
 				72F53F56175CA0DF007FFC7F /* OfflineRecordTableItemCell.m in Sources */,
 				72F53F67175CA5B1007FFC7F /* OfflineRecordDataSource.m in Sources */,
+				7210EA5B175D7C7D0016FC8E /* TargetButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

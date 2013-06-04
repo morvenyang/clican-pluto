@@ -18,7 +18,7 @@
 @synthesize fileType = _fileType;
 @synthesize url = _url;
 @synthesize request = _request;
-
+@synthesize downloading = _downloading;
 - (void)request:(ASIHTTPRequest *)request didReceiveBytes:(long long)bytes{
     self.downloadFileSize+=bytes;
 }

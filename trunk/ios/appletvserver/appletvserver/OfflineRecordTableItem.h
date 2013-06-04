@@ -7,11 +7,11 @@
 //
 
 #import <Three20UI/Three20UI.h>
-
+#import "TargetButton.h"
 @interface OfflineRecordTableItem : TTTableStyledTextItem{
-    TTButton* _deleteButton;
-    TTButton* _actionButton;
+    TargetButton* _deleteButton;
+    TargetButton* _actionButton;
 }
-@property (nonatomic, retain) TTButton* deleteButton;
-@property (nonatomic, retain) TTButton* actionButton;
+@property (nonatomic, retain) TargetButton* deleteButton;
+@property (nonatomic, retain) TargetButton* actionButton;
 @end
