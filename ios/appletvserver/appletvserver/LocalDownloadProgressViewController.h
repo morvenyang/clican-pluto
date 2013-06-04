@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "MediaPlayer/MediaPlayer.h"
 @interface LocalDownloadProgressViewController : TTTableViewController<UITableViewDelegate>{
     NSTimer* _refreshTimer;
+    MPMoviePlayerViewController* _playerViewController;
 }
 @property (nonatomic, retain) NSTimer* refreshTimer;
+@property (nonatomic, retain) MPMoviePlayerViewController* playerViewController;
 @end
