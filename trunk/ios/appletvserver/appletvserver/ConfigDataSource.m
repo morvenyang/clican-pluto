@@ -11,12 +11,24 @@
 
 @implementation ConfigDataSource
 @synthesize callback = _callback;
--(id) initWithItems:(NSArray *)items callback:(id) callback{
-    self = [super initWithItems:items];
-    if(self){
-        self.callback = callback;
++ (ConfigDataSource*)dataSourceWithArrays:(NSArray*)array{
+    NSMutableArray* items = [NSMutableArray array];
+    NSMutableArray* sections = [NSMutableArray array];
+    NSMutableArray* section = nil;
+    for(id object in array){
+        if ([object isKindOfClass:[NSString class]] ||
+            [object isKindOfClass:[TTTableSection class]]) {
+            [sections addObject:object];
+            section = [NSMutableArray array];
+            [items addObject:section];
+            
+        } else {
+            [section addObject:object];
+        }
+        
     }
-    return self;
+    
+    return [[[self alloc] initWithItems:items sections:sections] autorelease];
 }
 - (void)load:(TTURLRequestCachePolicy)cachePolicy more:(BOOL)more {
     NSLog(@"call config callback");

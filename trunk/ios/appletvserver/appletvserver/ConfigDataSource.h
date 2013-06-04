@@ -13,10 +13,9 @@
 
 @class ConfigCallback;
 
-@interface ConfigDataSource : TTListDataSource{
+@interface ConfigDataSource : TTSectionedDataSource{
     ConfigCallback* _callback;
 }
-@property (nonatomic, retain) TTTableControlItem    *clearCacheItem;
 @property (nonatomic, retain) ConfigCallback    *callback;
--(id) initWithItems:(NSArray *)items callback:(id) callback;
++ (ConfigDataSource*)dataSourceWithArrays:(NSArray*)array;
 @end

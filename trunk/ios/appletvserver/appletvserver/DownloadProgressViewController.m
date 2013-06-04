@@ -147,21 +147,8 @@
     UIBarButtonItem* refreshItem = [[UIBarButtonItem alloc] initWithCustomView:cancelButton];
     
     [self.navigationItem setRightBarButtonItem:refreshItem animated:YES];
-    
-    TTButton* localDownloadButton = [TTButton buttonWithStyle:@"toolbarRoundButton:" title:@"本地缓存"];
-    
-    [localDownloadButton setFont:[UIFont systemFontOfSize:14]];
-    
-    [localDownloadButton addTarget:self action:@selector(localDownloadAction) forControlEvents:UIControlEventTouchUpInside];
-    [localDownloadButton sizeToFit];
-    
-    UIBarButtonItem* localDownloadItem = [[UIBarButtonItem alloc] initWithCustomView:localDownloadButton];
-    
-    [self.navigationItem setLeftBarButtonItem:localDownloadItem animated:YES];
 }
-- (void)localDownloadAction{
-    TTOpenURL(@"atvserver://localdownload");
-}
+
 - (void)cancelAction{
     AppDele.m3u8Process.running =NO;
     AppDele.mp4Process.running =NO;

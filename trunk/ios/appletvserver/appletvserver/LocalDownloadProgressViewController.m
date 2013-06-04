@@ -20,7 +20,8 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.title = @"本地缓存";
+        self.title = @"离线缓存";
+        self.tabBarItem = [[[UITabBarItem alloc] initWithTitle:@"离线缓存" image:nil tag:2] autorelease];
         self.autoresizesForKeyboard = YES;
         self.variableHeightRows = YES;
     }

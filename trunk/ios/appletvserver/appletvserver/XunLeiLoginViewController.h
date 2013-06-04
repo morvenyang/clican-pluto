@@ -10,7 +10,8 @@
 
 @interface XunLeiLoginViewController : UIViewController{
     UIWebView* _webView;
+    int _type;
 }
 @property (nonatomic, retain) UIWebView* webView;
-
+-(id)initWithType:(int) type;
 @end
