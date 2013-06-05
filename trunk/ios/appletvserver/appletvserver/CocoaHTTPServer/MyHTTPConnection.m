@@ -63,6 +63,8 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
             return [self handleProxySmb:path];
         }else if([path rangeOfString:@"/appletv/noctl/smb/resource"].location!=NSNotFound){
             return [self handleSmbResource:path];
+        }else if([path rangeOfString:@"/appletv/noctl/local/resource"].location!=NSNotFound){
+            return [self handleLocalResource];
         }else if([path rangeOfString:@"/appletv/noctl/proxy/play.mp3"].location!=NSNotFound){
             NSString* mp3Url = [[self parseGetParams] objectForKey:@"url"];
             if(AppDele.smbProcess.smbPath==nil||![AppDele.smbProcess.smbPath isEqualToString:mp3Url]){
@@ -379,6 +381,13 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
         HTTPDataResponse* resp=[[HTTPDataResponse alloc] initWithData:data];
         return resp;
     }
+}
+
+- (NSObject<HTTPResponse> *) handleLocalResource{
+        NSString* content = [AppDele.offlineRecordProcess getAllOfflineRecordByJsonFormat];
+        NSData *data = [content dataUsingEncoding:NSUTF8StringEncoding];
+        HTTPDataResponse* resp=[[HTTPDataResponse alloc] initWithData:data];
+        return resp;
 }
 
 - (NSObject<HTTPResponse> *) handleSubTitle:(NSString*) path{

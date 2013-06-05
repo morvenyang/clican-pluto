@@ -277,7 +277,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
      [XunLeiLoginViewController class]];
     [map from:@"atvserver://download" toSharedViewController:
      [DownloadProgressViewController class]];
-    [map from:@"atvserver://localdownload" toSharedViewController:
+    [map from:@"atvserver://localdownload" toModalViewController:
      [LocalDownloadProgressViewController class]];
     [map from:@"atvserver://smb/(initWithUrl:)" toSharedViewController:
      [TreeViewController class]];
