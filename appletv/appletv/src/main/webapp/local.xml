@@ -76,6 +76,11 @@
 							<image>http://local.clican.org/appletv/image/smb.png</image>
 							<title>SMB共享</title>
 						</goldenPoster>
+						<goldenPoster id="localcache"
+							onSelect="localcacheClient.loadIndexPage('');">
+							<image>http://local.clican.org/appletv/image/localcache.png</image>
+							<title>离线缓存</title>
+						</goldenPoster>
 						<goldenPoster id="announcement"
 							onSelect="atv.loadURL('http://local.clican.org/appletv/release.xml');">
 							<image>http://local.clican.org/appletv/image/announcements.png</image>
