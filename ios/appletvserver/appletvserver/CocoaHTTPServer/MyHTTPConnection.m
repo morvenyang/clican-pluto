@@ -215,7 +215,8 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
         HTTPSMBResponse* resp=[[HTTPSMBResponse alloc] initWithSmbFile:AppDele.smbProcess.smbFile];
         return resp;
     }else if([mp4Url rangeOfString:@"file://"].location!=NSNotFound){
-        HTTPFileResponse* resp = [[HTTPFileResponse alloc] initWithFilePath:mp4Url forConnection:self];
+        NSString* filePath = [mp4Url stringByReplacingOccurrencesOfString:@"file://" withString:@""];
+        HTTPFileResponse* resp = [[HTTPFileResponse alloc] initWithFilePath:filePath forConnection:self];
         return resp;
     }else{
        [ProcessManager changeRunningProcess:@"mp4"];
