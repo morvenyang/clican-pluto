@@ -57,6 +57,8 @@ public class IPServlet extends HttpServlet {
 				springProperty.getSystemServerUrl());
 		content = content.replaceAll("http://www.clican.org/appletv",
 				springProperty.getSystemServerUrl());
+		content = content.replaceAll("http://clican.org/appletv",
+				springProperty.getSystemServerUrl());
 		String ua = req.getHeader("User-Agent");
 		if(log.isDebugEnabled()){
 			log.debug("User-Agent:"+ua);
