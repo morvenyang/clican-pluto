@@ -72,12 +72,12 @@
 							<title>收藏</title>
 						</goldenPoster>
 						<goldenPoster id="smb"
-							onSelect="smbClient.loadIndexPage();">
+							onSelect="smbClient.loadIndexPage('');">
 							<image>http://local.clican.org/appletv/image/smb.png</image>
 							<title>SMB共享</title>
 						</goldenPoster>
 						<goldenPoster id="localcache"
-							onSelect="localcacheClient.loadIndexPage('');">
+							onSelect="localcacheClient.loadIndexPage();">
 							<image>http://local.clican.org/appletv/image/localcache.png</image>
 							<title>离线缓存</title>
 						</goldenPoster>
