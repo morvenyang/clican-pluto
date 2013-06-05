@@ -72,7 +72,7 @@
 							<title>收藏</title>
 						</goldenPoster>
 						<goldenPoster id="smb"
-							onSelect="smbClient.loadIndexPage('');">
+							onSelect="smbClient.loadIndexPage();">
 							<image>http://local.clican.org/appletv/image/smb.png</image>
 							<title>SMB共享</title>
 						</goldenPoster>
