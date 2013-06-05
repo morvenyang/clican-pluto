@@ -58,7 +58,7 @@
 							<badgeCount>1</badgeCount>
 						</goldenPoster>
 						<goldenPoster id="weibo"
-							onSelect="atv.loadURL('http://www.clican.org/appletv/ctl/weibo/checkAccessToken.xml?deviceId='+atv.device.udid);">
+							onSelect="atv.loadURL('http://clican.org/appletv/ctl/weibo/checkAccessToken.xml?deviceId='+atv.device.udid);">
 							<image>http://www.clican.org/appletv/image/weibo/weibo.png</image>
 							<title>新浪微博</title>
 						</goldenPoster>
