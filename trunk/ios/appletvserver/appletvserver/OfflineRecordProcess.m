@@ -50,7 +50,7 @@
         record.fileSize = [value valueForKey:@"fileSize"];
         record.displayName = [value valueForKey:@"displayName"];
         record.url = [value valueForKey:@"url"];
-        record.fileType = [[value valueForKey:@"fileType"] integerValue];
+        record.fileType = [value valueForKey:@"fileType"];
         if([[NSFileManager defaultManager] fileExistsAtPath:record.filePath]){
             NSString* fileSize = [[[NSFileManager defaultManager] attributesOfItemAtPath:record.filePath error:nil] valueForKey:@"NSFileSize"];
             record.downloadFileSize = [fileSize longLongValue];
@@ -119,9 +119,9 @@
         if([[NSFileManager defaultManager] fileExistsAtPath:record.filePath]){
             
             if([record.fileType isEqualToString:FILE_TYPE_MP4]){
-                c = [NSString stringWithFormat:@"{\"displayName:\":\"%@\",\"url\":\"http://%@:8080/appletv/noctl/proxy/play.mp4?url=%@\"}",record.displayName,AppDele.ipAddress,record.filePath];
+                c = [NSString stringWithFormat:@"{\"displayName\":\"%@\",\"url\":\"http://%@:8080/appletv/noctl/proxy/play.mp4?url=file://%@\"}",record.displayName,AppDele.ipAddress,record.filePath];
             }else{
-                c = [NSString stringWithFormat:@"{\"displayName:\":\"%@\",\"url\":\"http://%@:8080/appletv/noctl/proxy/play.m3u8?url=%@\"}",record.displayName,AppDele.ipAddress,record.filePath];
+                c = [NSString stringWithFormat:@"{\"displayName\":\"%@\",\"url\":\"http://%@:8080/appletv/noctl/proxy/play.m3u8?url=file://%@\"}",record.displayName,AppDele.ipAddress,record.filePath];
             }
             
         }else{
