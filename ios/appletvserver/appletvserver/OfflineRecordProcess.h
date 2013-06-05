@@ -18,4 +18,5 @@
 -(void) insertOrUpdateOffileRecord:(OfflineRecord*) offlineRecord;
 -(void) deleteOffileRecord:(OfflineRecord*) offlineRecord;
 -(NSArray*) getAllOfflineRecord;
+-(NSString*) getAllOfflineRecordByJsonFormat;
 @end

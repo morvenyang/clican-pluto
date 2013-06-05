@@ -8,6 +8,8 @@
 
 #import "OfflineRecordProcess.h"
 #import "SBJSON.h"
+#import "Constants.h"
+#import "AppDelegate.h"
 @implementation OfflineRecordProcess
 @synthesize database = _database;
 @synthesize offlineRecords = _offlineRecords;
@@ -49,6 +51,15 @@
         record.displayName = [value valueForKey:@"displayName"];
         record.url = [value valueForKey:@"url"];
         record.fileType = [[value valueForKey:@"fileType"] integerValue];
+        if([[NSFileManager defaultManager] fileExistsAtPath:record.filePath]){
+            NSString* fileSize = [[[NSFileManager defaultManager] attributesOfItemAtPath:record.filePath error:nil] valueForKey:@"NSFileSize"];
+            record.downloadFileSize = [fileSize longLongValue];
+            record.fileSize = record.downloadFileSize;
+        }else if([[NSFileManager defaultManager] fileExistsAtPath:[record.filePath stringByAppendingString:@".tmp"]])
+        {
+            NSString* fileSize = [[[NSFileManager defaultManager] attributesOfItemAtPath:[record.filePath stringByAppendingString:@".tmp"] error:nil] valueForKey:@"NSFileSize"];
+            record.downloadFileSize = [fileSize longLongValue];
+        }
         [records setValue:record forKey:url];
     }
     return records;
@@ -99,5 +110,27 @@
 
 -(NSArray*) getAllOfflineRecord{
     return [self.offlineRecords allValues];
+}
+-(NSString*) getAllOfflineRecordByJsonFormat{
+    
+    NSMutableArray* array = [NSMutableArray array];
+    for(OfflineRecord* record in [self.offlineRecords allValues]){
+        NSString* c;
+        if([[NSFileManager defaultManager] fileExistsAtPath:record.filePath]){
+            
+            if([record.fileType isEqualToString:FILE_TYPE_MP4]){
+                c = [NSString stringWithFormat:@"{\"displayName:\":\"%@\",\"url\":\"http://%@:8080/appletv/noctl/proxy/play.mp4?url=%@\"}",record.displayName,AppDele.ipAddress,record.filePath];
+            }else{
+                c = [NSString stringWithFormat:@"{\"displayName:\":\"%@\",\"url\":\"http://%@:8080/appletv/noctl/proxy/play.m3u8?url=%@\"}",record.displayName,AppDele.ipAddress,record.filePath];
+            }
+            
+        }else{
+            c = [NSString stringWithFormat:@"{\"displayName:\":\"%@\"}",record.displayName];
+        }
+        [array addObject:c];
+    }
+    NSString* content = [NSString stringWithFormat:@"[%@]",[array componentsJoinedByString:@","]];
+    return content;
+    
 }
 @end

@@ -26,7 +26,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.title = @"代理下载";
-        self.tabBarItem = [[[UITabBarItem alloc] initWithTitle:@"代理下载" image:nil tag:2] autorelease];
+        self.tabBarItem = [[[UITabBarItem alloc] initWithTitle:@"代理下载" image:nil tag:1] autorelease];
     }
     return self;
 }
