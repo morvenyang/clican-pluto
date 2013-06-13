@@ -10,6 +10,7 @@
 #import "SBJSON.h"
 #import "Constants.h"
 #import "AppDelegate.h"
+#import "AtvUtil.h"
 @implementation OfflineRecordProcess
 @synthesize database = _database;
 @synthesize offlineRecords = _offlineRecords;
@@ -119,9 +120,9 @@
         if([[NSFileManager defaultManager] fileExistsAtPath:record.filePath]){
             
             if([record.fileType isEqualToString:FILE_TYPE_MP4]){
-                c = [NSString stringWithFormat:@"{\"displayName\":\"%@\",\"url\":\"http://%@:8080/appletv/noctl/proxy/play.mp4?url=file://%@\"}",record.displayName,AppDele.ipAddress,record.filePath];
+                c = [NSString stringWithFormat:@"{\"displayName\":\"%@\",\"url\":\"http://%@:8080/appletv/noctl/proxy/play.mp4?url=%@\"}",record.displayName,AppDele.ipAddress,[AtvUtil encodeURL:[@"file://" stringByAppendingString:record.filePath]]];
             }else{
-                c = [NSString stringWithFormat:@"{\"displayName\":\"%@\",\"url\":\"http://%@:8080/appletv/noctl/proxy/play.m3u8?url=file://%@\"}",record.displayName,AppDele.ipAddress,record.filePath];
+                c = [NSString stringWithFormat:@"{\"displayName\":\"%@\",\"url\":\"http://%@:8080/appletv/noctl/proxy/play.m3u8?url=%@\"}",record.displayName,AppDele.ipAddress,[AtvUtil encodeURL:[@"file://" stringByAppendingString:record.filePath]]];
             }
             
         }else{

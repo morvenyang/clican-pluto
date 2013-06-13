@@ -392,7 +392,7 @@ JSValueRef loadURL(JSContextRef ctx,
         NSString* jsContent = [NSString stringWithContentsOfFile:jsPath encoding:NSUTF8StringEncoding error:nil];
         
        
-        
+        NSLog(@"load %@",[jsPath lastPathComponent]);
         if([jsPath rangeOfString:@"clican.js"].location!=NSNotFound){
             NSString* ipAddress;
             if(AppDele.proxy){

@@ -19,6 +19,7 @@
 #import "HTTPSMBResponse.h"
 #import "ProcessManager.h"
 #import "ffmpeg.h"
+#import "HTTPMediaFileResponse.h"
 // Log levels : off, error, warn, info, verbose
 // Other flags: trace
 static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
@@ -216,7 +217,10 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
         return resp;
     }else if([mp4Url rangeOfString:@"file://"].location!=NSNotFound){
         NSString* filePath = [mp4Url stringByReplacingOccurrencesOfString:@"file://" withString:@""];
-        HTTPFileResponse* resp = [[HTTPFileResponse alloc] initWithFilePath:filePath forConnection:self];
+        NSLog(@"filePath=%@",filePath);
+        HTTPMediaFileResponse* resp = [[HTTPMediaFileResponse alloc] initWithFilePath:filePath forConnection:self];
+        [[resp httpHeaders] setValue:@"video/mp4" forKey:@"Content-Type"];
+        [[resp httpHeaders] setValue:@"bytes" forKey:@"Accept-Ranges"];
         return resp;
     }else{
        [ProcessManager changeRunningProcess:@"mp4"];
