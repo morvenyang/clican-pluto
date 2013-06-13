@@ -18,7 +18,7 @@ try {
 		}else{
 			localJsVersion = atv.localStorage['clican.remote.js.version'];
 		}
-		var urls = ['clican.js', 'ejs.js', 'fivesix.js', 'lbl.js', 'myphoto.js',
+		var urls = ['clican.js', 'ejs.js', 'fivesix.js', 'lbl.js', 'localcache.js', 'myphoto.js',
 				'photoPreview.js', 'qq.js', 'smb.js', 'soku.js','subtitle.js', 'taobao.js',
 				'tu.js', 'tudou.js', 'view.js', 'weivideo.js', 'xunlei.js',
 				'youku.js', 'yyets.js' ];
