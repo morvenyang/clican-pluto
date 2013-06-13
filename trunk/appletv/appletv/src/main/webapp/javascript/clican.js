@@ -471,7 +471,7 @@ var appletv = {
 			if(appletv.simulate=='native'){
 				options.push({
 					"title" : "本地缓存",
-					"script" : "downloadClient.downloadM3u8('" + encodeUrl
+					"script" : "localcacheClient.downloadM3u8('" + encodeUrl
 							+ "');"
 				});
 			}
@@ -524,7 +524,7 @@ var appletv = {
 					+ encodeURIComponent(url);
 			options.push({
 				"title" : "本地缓存",
-				"script" : "downloadClient.downloadMp4('" + encodeUrl
+				"script" : "localcacheClient.downloadMp4('" + encodeUrl
 						+ "');"
 			});
 			appletv.showOptionPage('播放源选择', '', options);
