@@ -107,6 +107,9 @@ public class SpringProperty {
 	private String taobaoLoveApi;
 	
 	private String lblImageMapFile;
+	private String apnsTokenFile;
+	private String apnsCertFile;
+	private String apnsCertPassword;
 			
 	public SpringProperty() {
 		instance = this;
@@ -661,6 +664,30 @@ public class SpringProperty {
 
 	public void setSystemClientVersion(String systemClientVersion) {
 		this.systemClientVersion = systemClientVersion;
+	}
+
+	public String getApnsTokenFile() {
+		return apnsTokenFile;
+	}
+
+	public void setApnsTokenFile(String apnsTokenFile) {
+		this.apnsTokenFile = apnsTokenFile;
+	}
+
+	public String getApnsCertFile() {
+		return apnsCertFile;
+	}
+
+	public void setApnsCertFile(String apnsCertFile) {
+		this.apnsCertFile = apnsCertFile;
+	}
+
+	public String getApnsCertPassword() {
+		return apnsCertPassword;
+	}
+
+	public void setApnsCertPassword(String apnsCertPassword) {
+		this.apnsCertPassword = apnsCertPassword;
 	}
 
 	

@@ -160,7 +160,7 @@ http://www.springframework.org/schema/context/spring-context-2.5.xsd">
 		
 		<property name="userConfigJsonFile" value="${user.config.json.file}"></property>
 		<property name="lblImageMapFile" value="${lbl.image.map.file}"></property>
-		
+		<property name="apnsTokenFile" value="${apns.token.file}"></property>
 	</bean>
 
 	<bean id="tudouClient" class="com.clican.appletv.core.service.tudou.TudouClientImpl"
@@ -235,5 +235,9 @@ http://www.springframework.org/schema/context/spring-context-2.5.xsd">
 	
 	<bean id="subTitleClient" class="com.clican.appletv.core.service.subtitle.SubTitleClientImpl"
 		autowire="byName">
+	</bean>
+	
+	<bean id="apnsService" class="com.clican.appletv.core.service.apns.ApnsServiceImpl"
+		autowire="byName" init-method="init" destroy-method="destroy">
 	</bean>
 </beans>
