@@ -110,6 +110,7 @@ public class SpringProperty {
 	private String apnsTokenFile;
 	private String apnsCertFile;
 	private String apnsCertPassword;
+	private String apnsCertEnv;
 			
 	public SpringProperty() {
 		instance = this;
@@ -688,6 +689,14 @@ public class SpringProperty {
 
 	public void setApnsCertPassword(String apnsCertPassword) {
 		this.apnsCertPassword = apnsCertPassword;
+	}
+
+	public String getApnsCertEnv() {
+		return apnsCertEnv;
+	}
+
+	public void setApnsCertEnv(String apnsCertEnv) {
+		this.apnsCertEnv = apnsCertEnv;
 	}
 
 	
