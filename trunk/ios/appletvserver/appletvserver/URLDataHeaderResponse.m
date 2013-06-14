@@ -20,12 +20,7 @@
 
 - (NSError*)request:(TTURLRequest*)request processResponse:(NSHTTPURLResponse*)response
                data:(id)data {
-    
-    NSLog(@"status code:%i",response.statusCode);
     self.allHeaders = [NSDictionary dictionaryWithDictionary:[response allHeaderFields]];
-    for(NSString* key in [self.allHeaders keyEnumerator]){
-        NSLog(@"%@=%@",key,[self.allHeaders objectForKey:key]);
-    }
     return [super request:request processResponse:response data:data];
 }
 @end

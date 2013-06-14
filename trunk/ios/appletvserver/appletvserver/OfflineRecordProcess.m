@@ -7,7 +7,7 @@
 //
 
 #import "OfflineRecordProcess.h"
-#import "SBJSON.h"
+#import <extThree20JSON/NSString+SBJSON.h>
 #import "Constants.h"
 #import "AppDelegate.h"
 #import "AtvUtil.h"
