@@ -1,0 +1,123 @@
+package com.clican.appletv.core.service.apns;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import com.clican.appletv.common.SpringProperty;
+import com.notnoop.apns.APNS;
+import com.notnoop.apns.ApnsNotification;
+import com.notnoop.apns.ReconnectPolicy.Provided;
+
+public class ApnsServiceImpl implements ApnsService {
+
+	private final static Log log = LogFactory.getLog(ApnsServiceImpl.class);
+
+	private Map<String, String> tokenMap = new ConcurrentHashMap<String, String>();
+
+	private SpringProperty springProperty;
+
+	private com.notnoop.apns.ApnsService sendMessageService;
+
+	public void setSpringProperty(SpringProperty springProperty) {
+		this.springProperty = springProperty;
+	}
+
+	public void destroy() {
+		OutputStream os = null;
+		try {
+			String content = StringUtils.join(tokenMap.keySet(), ",");
+			os = new FileOutputStream(springProperty.getApnsTokenFile());
+			os.write(content.getBytes("utf-8"));
+		} catch (Exception e) {
+			log.error("", e);
+		} finally {
+			if (os != null) {
+				try {
+					os.close();
+				} catch (Exception e) {
+					log.error("", e);
+				}
+			}
+		}
+	}
+
+	public void init() {
+		InputStream is = null;
+		try {
+			String filePath = Thread.currentThread().getContextClassLoader().getResource(springProperty.getApnsTokenFile()).getFile();
+			File file = new File(filePath);
+			if (!file.exists()) {
+				return;
+			}
+			is = new FileInputStream(file);
+			byte[] data = new byte[is.available()];
+			is.read(data);
+			String content = new String(data, "utf-8");
+			if (StringUtils.isNotEmpty(content)) {
+				for (String value : content.split(",")) {
+					tokenMap.put(value, value);
+				}
+			}
+		} catch (Exception e) {
+			log.error("", e);
+		} finally {
+			if (is != null) {
+				try {
+					is.close();
+				} catch (Exception e) {
+					log.error("", e);
+				}
+			}
+		}
+
+		ApnsDelegateImpl delegate = new ApnsDelegateImpl();
+		if (springProperty.isSystemProxyEnable()) {
+			sendMessageService = APNS
+					.newService()
+					.withSocksProxy(springProperty.getSystemProxyHost(),
+							springProperty.getSystemProxyPort())
+					.withCert(springProperty.getApnsCertFile(),
+							springProperty.getApnsCertPassword())
+					.withProductionDestination()
+					.withReconnectPolicy(Provided.NEVER).withDelegate(delegate)
+					.build();
+		} else {
+			sendMessageService = APNS
+					.newService()
+					.withCert(springProperty.getApnsCertFile(),
+							springProperty.getApnsCertPassword())
+					.withProductionDestination()
+					.withReconnectPolicy(Provided.NEVER).withDelegate(delegate)
+					.build();
+		}
+	}
+
+	@Override
+	public void registerToken(String token) {
+		tokenMap.put(token, token);
+	}
+
+	@Override
+	public void sendMessage(String message) {
+		if (log.isInfoEnabled()) {
+			log.info("send message to " + tokenMap.size() + " devices");
+		}
+		for (String token : tokenMap.keySet()) {
+			ApnsNotification result = sendMessageService.push(token, message);
+			if (log.isDebugEnabled()) {
+				log.debug("send apns notification with result:"
+						+ result.getIdentifier());
+			}
+		}
+	}
+
+}

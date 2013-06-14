@@ -84,6 +84,11 @@
 			<artifactId>isoparser</artifactId>
 			<version>1.0-RC-15</version>
 		</dependency>
+		<dependency>
+			<groupId>com.notnoop.apns</groupId>
+			<artifactId>apns</artifactId>
+			<version>0.2.0</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>
