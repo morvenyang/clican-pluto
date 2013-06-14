@@ -76,8 +76,8 @@
 							<image>http://local.clican.org/appletv/image/smb.png</image>
 							<title>SMB共享</title>
 						</goldenPoster>
-						<goldenPoster id="native_localcache"
-							onSelect="localcacheClient.loadIndexPage();" onPlay="localcacheClient.loadIndexPage();">
+						<goldenPoster id="localcache"
+							onSelect="localcacheClient.loadIndexPage();">
 							<image>http://local.clican.org/appletv/image/localcache.png</image>
 							<title>离线缓存</title>
 						</goldenPoster>
