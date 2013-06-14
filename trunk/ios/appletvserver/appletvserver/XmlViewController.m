@@ -216,8 +216,16 @@
             NSString* onSelect = [[oneLineMenuItemElement attributeForName:@"onSelect"] stringValue];
             NSLog(@"onSelect=%@",onSelect);
             CXMLElement* labelElement = (CXMLElement*)[oneLineMenuItemElement nodeForXPath:@"label" error:nil];
-            TTTableTextItem* item = [TTTableTextItem itemWithText:[labelElement stringValue] URL:onSelect];
-            [items addObject:item];
+            NSString* labelValue = [labelElement stringValue];
+            if([AtvUtil content:labelValue startWith:@"http://"]){
+                TTTableStyledTextItem* item = [TTTableStyledTextItem itemWithText:[TTStyledText textFromXHTML:[labelElement stringValue] lineBreaks:YES URLs:YES] URL:onSelect];
+                [items addObject:item];
+            }else{
+                TTTableTextItem* item = [TTTableTextItem itemWithText:[labelElement stringValue] URL:onSelect];
+                [items addObject:item];
+            }
+            
+            
         }
         
     }

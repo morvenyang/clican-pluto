@@ -8,6 +8,7 @@
 
 #import "InputViewController.h"
 #import "AtvUtil.h"
+#import "AppDelegate.h"
 @implementation InputViewController
 
 @synthesize label = _label;
@@ -72,18 +73,7 @@
 
 - (void) submitAction
 {
-    NSLog(@"Submit");
-    NSString* content = [AtvUtil encodeURL:self.textField.text];
-    NSLog(@"content:%@" ,content);
-    @try {
-        JSValueRef args[1];
-        args[0] = JSValueMakeString(self.ctx,JSStringCreateWithUTF8CString([content UTF8String]));
-        JSObjectCallAsFunction(self.ctx,self.callback,NULL,1,args,NULL);
-    }
-    @catch (NSException *exception) {
-        NSLog(@"exception occured when invoke search %@",exception.description);
-    }
-    
+    [AppDele.jsEngine search:self.textField.text function:self.callback];
 }
 
 - (void)createModel {
