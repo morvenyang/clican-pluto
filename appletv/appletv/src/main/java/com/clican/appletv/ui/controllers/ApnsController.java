@@ -29,6 +29,6 @@ public class ApnsController {
 	public void sendMessage(HttpServletRequest request,
 			HttpServletResponse response,
 			@RequestParam(value = "message") String message) throws IOException {
-
+		apnsService.sendMessage(message);
 	}
 }

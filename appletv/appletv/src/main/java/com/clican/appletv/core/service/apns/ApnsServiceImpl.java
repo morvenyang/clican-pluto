@@ -16,6 +16,7 @@ import org.apache.commons.logging.LogFactory;
 import com.clican.appletv.common.SpringProperty;
 import com.notnoop.apns.APNS;
 import com.notnoop.apns.ApnsNotification;
+import com.notnoop.apns.PayloadBuilder;
 import com.notnoop.apns.ReconnectPolicy.Provided;
 
 public class ApnsServiceImpl implements ApnsService {
@@ -56,16 +57,15 @@ public class ApnsServiceImpl implements ApnsService {
 		InputStream is = null;
 		try {
 			File file = new File(springProperty.getApnsTokenFile());
-			if (!file.exists()) {
-				return;
-			}
-			is = new FileInputStream(file);
-			byte[] data = new byte[is.available()];
-			is.read(data);
-			String content = new String(data, "utf-8");
-			if (StringUtils.isNotEmpty(content)) {
-				for (String value : content.split(",")) {
-					tokenMap.put(value, value);
+			if (file.exists()) {
+				is = new FileInputStream(file);
+				byte[] data = new byte[is.available()];
+				is.read(data);
+				String content = new String(data, "utf-8");
+				if (StringUtils.isNotEmpty(content)) {
+					for (String value : content.split(",")) {
+						tokenMap.put(value, value);
+					}
 				}
 			}
 		} catch (Exception e) {
@@ -92,7 +92,7 @@ public class ApnsServiceImpl implements ApnsService {
 					.withDelegate(delegate).build();
 		} else {
 			sendMessageService = APNS.newService().withCert(url.getFile(), springProperty.getApnsCertPassword())
-					.withProductionDestination()
+					.withSandboxDestination()
 					.withReconnectPolicy(Provided.NEVER)
 					.withDelegate(delegate).build();
 		}
@@ -109,7 +109,11 @@ public class ApnsServiceImpl implements ApnsService {
 			log.info("send message to " + tokenMap.size() + " devices");
 		}
 		for(String token:tokenMap.keySet()){
-			ApnsNotification result = sendMessageService.push(token, message);
+			if(log.isDebugEnabled()){
+				log.debug("token:"+token);
+			}
+	        String jsonMessage = "{\"aps\":{\"alert\":\""+message+"\"}}";
+			ApnsNotification result = sendMessageService.push(token, jsonMessage);
 			if (log.isDebugEnabled()) {
 				log.debug("send apns notification with result:"
 						+ result.getIdentifier());
