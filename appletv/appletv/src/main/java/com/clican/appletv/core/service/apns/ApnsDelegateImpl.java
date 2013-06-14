@@ -11,6 +11,26 @@ public class ApnsDelegateImpl implements ApnsDelegate {
 
 	private final static Log log = LogFactory.getLog(ApnsDelegateImpl.class);
 
+	public void messageSent(ApnsNotification message, boolean resent) {
+		if (log.isDebugEnabled()) {
+			log.debug("Successfully send for receiverId:"
+					+ message.getIdentifier());
+		}
+		
+	}
+
+	public void cacheLengthExceeded(int newCacheLength) {
+		if (log.isDebugEnabled()) {
+			log.debug("Cache Length Exceeded:"+newCacheLength);
+		}
+	}
+
+	public void notificationsResent(int resendCount) {
+		if (log.isDebugEnabled()) {
+			log.debug("Resend notification:"+resendCount);
+		}
+	}
+
 	public void messageSent(ApnsNotification apnsnotification) {
 		if (log.isDebugEnabled()) {
 			log.debug("Successfully send for receiverId:"
