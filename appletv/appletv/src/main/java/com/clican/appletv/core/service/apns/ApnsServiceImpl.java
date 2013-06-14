@@ -84,17 +84,47 @@ public class ApnsServiceImpl implements ApnsService {
 		
 		ApnsDelegateImpl delegate = new ApnsDelegateImpl();
 		if (springProperty.isSystemProxyEnable()) {
-			sendMessageService = APNS.newService()
-					.withSocksProxy(springProperty.getSystemProxyHost(), springProperty.getSystemProxyPort())
-					.withCert(url.getFile(), springProperty.getApnsCertPassword())
-					.withProductionDestination()
-					.withReconnectPolicy(Provided.NEVER)
-					.withDelegate(delegate).build();
+			if(springProperty.getApnsCertEnv().equals("production")){
+				if(log.isInfoEnabled()){
+					log.info("start apns service under production env");
+				}
+				sendMessageService = APNS.newService()
+				.withSocksProxy(springProperty.getSystemProxyHost(), springProperty.getSystemProxyPort())
+				.withCert(url.getFile(), springProperty.getApnsCertPassword())
+				.withProductionDestination()
+				.withReconnectPolicy(Provided.NEVER)
+				.withDelegate(delegate).build();
+			}else{
+				if(log.isInfoEnabled()){
+					log.info("start apns service under sandbox env");
+				}
+				sendMessageService = APNS.newService()
+				.withSocksProxy(springProperty.getSystemProxyHost(), springProperty.getSystemProxyPort())
+				.withCert(url.getFile(), springProperty.getApnsCertPassword())
+				.withSandboxDestination()
+				.withReconnectPolicy(Provided.NEVER)
+				.withDelegate(delegate).build();
+			}
+			
 		} else {
-			sendMessageService = APNS.newService().withCert(url.getFile(), springProperty.getApnsCertPassword())
-					.withSandboxDestination()
-					.withReconnectPolicy(Provided.NEVER)
-					.withDelegate(delegate).build();
+			if(springProperty.getApnsCertEnv().equals("production")){
+				if(log.isInfoEnabled()){
+					log.info("start apns service under production env");
+				}
+				sendMessageService = APNS.newService().withCert(url.getFile(), springProperty.getApnsCertPassword())
+				.withProductionDestination()
+				.withReconnectPolicy(Provided.NEVER)
+				.withDelegate(delegate).build();
+			}else{
+				if(log.isInfoEnabled()){
+					log.info("start apns service under sandbox env");
+				}
+				sendMessageService = APNS.newService().withCert(url.getFile(), springProperty.getApnsCertPassword())
+				.withSandboxDestination()
+				.withReconnectPolicy(Provided.NEVER)
+				.withDelegate(delegate).build();
+			}
+			
 		}
 	}
 
