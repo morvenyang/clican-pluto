@@ -52,15 +52,32 @@
         record.displayName = [value valueForKey:@"displayName"];
         record.url = [value valueForKey:@"url"];
         record.fileType = [value valueForKey:@"fileType"];
-        if([[NSFileManager defaultManager] fileExistsAtPath:record.filePath]){
-            NSString* fileSize = [[[NSFileManager defaultManager] attributesOfItemAtPath:record.filePath error:nil] valueForKey:@"NSFileSize"];
-            record.downloadFileSize = [fileSize longLongValue];
-            record.fileSize = record.downloadFileSize;
-        }else if([[NSFileManager defaultManager] fileExistsAtPath:[record.filePath stringByAppendingString:@".tmp"]])
-        {
-            NSString* fileSize = [[[NSFileManager defaultManager] attributesOfItemAtPath:[record.filePath stringByAppendingString:@".tmp"] error:nil] valueForKey:@"NSFileSize"];
-            record.downloadFileSize = [fileSize longLongValue];
+        if([record.fileType isEqualToString:FILE_TYPE_MP4]){
+            if([[NSFileManager defaultManager] fileExistsAtPath:record.filePath]){
+                NSString* fileSize = [[[NSFileManager defaultManager] attributesOfItemAtPath:record.filePath error:nil] valueForKey:@"NSFileSize"];
+                record.downloadFileSize = [fileSize longLongValue];
+                record.fileSize = record.downloadFileSize;
+            }else if([[NSFileManager defaultManager] fileExistsAtPath:[record.filePath stringByAppendingString:@".tmp"]])
+            {
+                NSString* fileSize = [[[NSFileManager defaultManager] attributesOfItemAtPath:[record.filePath stringByAppendingString:@".tmp"] error:nil] valueForKey:@"NSFileSize"];
+                record.downloadFileSize = [fileSize longLongValue];
+            }
+        }else{
+            NSString* m3u8String = [NSString stringWithContentsOfURL:[NSURL fileURLWithPath:record.filePath] encoding:NSUTF8StringEncoding error:nil];
+            
+            NSArray* lines = [m3u8String componentsSeparatedByCharactersInSet: [NSCharacterSet newlineCharacterSet]];
+            record.fileSize=0;
+            for(int i=0;i<[lines count];i++){
+                NSString* line = [lines objectAtIndex:i];
+                if(line!=nil&&[line length]!=0&&[line rangeOfString:@"#"].location!=0){
+                    record.fileSize++;
+                    if([AtvUtil content:line startWith:[@"http://" stringByAppendingString:AppDele.ipAddress]]){
+                        record.downloadFileSize++;
+                    }
+                }
+            }
         }
+        
         [records setValue:record forKey:url];
     }
     return records;

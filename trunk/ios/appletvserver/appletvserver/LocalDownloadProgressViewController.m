@@ -12,6 +12,8 @@
 #import "OfflineRecordTableItem.h"
 #import "OfflineRecordDataSource.h"
 #import "TargetButton.h"
+#import "Constants.h"
+#import "AtvUtil.h"
 @implementation LocalDownloadProgressViewController
 
 @synthesize refreshTimer = _refreshTimer;
@@ -65,14 +67,23 @@
     
     NSArray* array = [AppDele.offlineRecordProcess getAllOfflineRecord];
     for(OfflineRecord* record in array){
-        NSString* content = [NSString stringWithFormat:@"<strong>%0.2fMB/%0.2fMB</strong>\n%@",record.downloadFileSize*1.0/(1024*1024),record.fileSize*1.0/(1024*1024),[record.url stringByReplacingOccurrencesOfString:@"&" withString:@"&amp;"]];
-        NSLog(@"%@",record.filePath);
-        NSLog(@"%@",record.url);
+        NSString* content;
+        if([record.fileType isEqualToString:FILE_TYPE_MP4]){
+            content = [NSString stringWithFormat:@"<strong>%0.2fMB/%0.2fMB</strong>\n%@",record.downloadFileSize*1.0/(1024*1024),record.fileSize*1.0/(1024*1024),[record.url stringByReplacingOccurrencesOfString:@"&" withString:@"&amp;"]];
+        }else{
+            content = [NSString stringWithFormat:@"<strong>%ld/%ld</strong>\n%@",record.downloadFileSize,record.fileSize,[record.url stringByReplacingOccurrencesOfString:@"&" withString:@"&amp;"]];
+        }
+    
         OfflineRecordTableItem* item = [OfflineRecordTableItem itemWithText:[TTStyledText textFromXHTML:content lineBreaks:YES URLs:YES] URL:nil];
-        item.deleteButton = [TargetButton buttonWithStyle:@"toolbarRoundButton:" title:@"删除" target:record];
-        [item.deleteButton addTarget:self action:@selector(deleteAction:) forControlEvents:UIControlEventTouchUpInside];
+        if(!record.downloading){
+            NSLog(@"add download button");
+            item.deleteButton = [TargetButton buttonWithStyle:@"toolbarRoundButton:" title:@"删除" target:record];
+            [item.deleteButton addTarget:self action:@selector(deleteAction:) forControlEvents:UIControlEventTouchUpInside];
+        }else{
+            item.deleteButton = nil;
+        }
         
-        if([[NSFileManager defaultManager] fileExistsAtPath:record.filePath]){
+        if(([[NSFileManager defaultManager] fileExistsAtPath:record.filePath]&&[record.fileType isEqualToString:FILE_TYPE_MP4])||([record.fileType isEqualToString:FILE_TYPE_M3U8]&&record.fileSize==record.downloadFileSize)){
             item.actionButton = [TargetButton buttonWithStyle:@"toolbarRoundButton:" title:@"播放" target:record];
             [item.actionButton addTarget:self action:@selector(playAction:) forControlEvents:UIControlEventTouchUpInside];
         }else{
@@ -94,9 +105,23 @@
     TargetButton* button = (TargetButton*)sender;
     OfflineRecord* record = (OfflineRecord*)button.target;
     [record.request clearDelegatesAndCancel];
+    record.downloading = NO;
     NSFileManager* fileManager = [NSFileManager defaultManager];
-    [fileManager removeItemAtPath:[record.filePath stringByAppendingString:@".tmp"] error:nil];
-    [fileManager removeItemAtPath:record.filePath error:nil];
+    NSError* error;
+    [fileManager removeItemAtPath:[record.filePath stringByAppendingString:@".tmp"] error:&error];
+    if(error){
+        NSLog(@"error occured to delete %@, error:%@",[record.filePath stringByAppendingString:@".tmp"],error.description);
+        error = nil;
+    }
+    [fileManager removeItemAtPath:[record.filePath stringByAppendingString:@".data"] error:&error];
+    if(error){
+        NSLog(@"error occured to delete %@, error:%@",[record.filePath stringByAppendingString:@".data"],error.description);
+        error = nil;
+    }
+    [fileManager removeItemAtPath:record.filePath error:&error];
+    if(error){
+        NSLog(@"error occured to delete %@, error:%@",record.filePath,error.description);
+    }
     [AppDele.offlineRecordProcess deleteOffileRecord:record];
 }
 
@@ -106,7 +131,12 @@
     NSLog(@"play local cache file:%@",record.filePath);
     
     NSLog(@"play:%@",record.filePath);
-    self.playerViewController = [[[MPMoviePlayerViewController alloc] initWithContentURL:[NSURL fileURLWithPath:record.filePath]] autorelease];
+    if([record.fileType isEqualToString:FILE_TYPE_MP4]){
+        self.playerViewController = [[[MPMoviePlayerViewController alloc] initWithContentURL:[NSURL fileURLWithPath:record.filePath]] autorelease];
+    }else{
+        self.playerViewController = [[[MPMoviePlayerViewController alloc] initWithContentURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@:8080/appletv/noctl/proxy/play.m3u8?url=%@",AppDele.ipAddress,[AtvUtil encodeURL:[@"file://" stringByAppendingString:record.filePath]]]]] autorelease];
+    }
+    
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moviePlayBackDidFinish:)
                                                  name:MPMoviePlayerPlaybackDidFinishNotification object:self.playerViewController.moviePlayer];
@@ -139,7 +169,9 @@
     TargetButton* button = (TargetButton*)sender;
     OfflineRecord* record = (OfflineRecord*)button.target;
     record.downloading = YES;
-    record.downloadFileSize = 0;
+    if([record.fileType isEqualToString:FILE_TYPE_MP4]){
+        record.downloadFileSize = 0;
+    }
     [AppDele.downloadProcess downloadOfflineRecord:record];
     NSLog(@"resume downloading");
 }
