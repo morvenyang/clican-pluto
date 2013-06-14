@@ -48,6 +48,8 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
             return [self handleM3u8Play:path];
         }else if([path rangeOfString:@"/appletv/noctl/proxy/temp/m3u8"].location!=NSNotFound){
             return [self handleProxyTempM3u8:path];
+        }else if([path rangeOfString:@"/appletv/noctl/local/m3u8"].location!=NSNotFound){
+            return [self handleLocalM3u8:path];
         }else if([path rangeOfString:@"/appletv/noctl/proxy/play.mp4"].location!=NSNotFound){
             return [self handleMp4Play:path];
         }else if([path isEqualToString:@"/appletv/noctl/xunlei/getsession.do"]){
@@ -129,21 +131,44 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
 }
 - (NSObject<HTTPResponse> *) handleM3u8Play:(NSString*) path{
     NSString* m3u8Url = [[self parseGetParams] objectForKey:@"url"];
-    NSString* simulate = @"atv";
-    if([request.url.host rangeOfString:@"localhost"].location!=NSNotFound){
-        simulate = @"native";
-    }
-    NSLog(@"m3u8 url:%@",m3u8Url);
-    [ProcessManager changeRunningProcess:@"m3u8"];
-    NSString* localM3u8String = [[AppDele m3u8Process] doSyncRequestByM3U8Url:m3u8Url simulate:simulate start:YES];
-    NSLog(@"%@",localM3u8String);
-    if(localM3u8String!=nil){
+    //这里处理的是网络上的m3u8 url
+    if([AtvUtil content:m3u8Url startWith:@"http://"]){
+        NSString* simulate = @"atv";
+        if([request.url.host rangeOfString:@"localhost"].location!=NSNotFound){
+            simulate = @"native";
+        }
+        NSLog(@"m3u8 url:%@",m3u8Url);
+        [ProcessManager changeRunningProcess:@"m3u8"];
+        NSString* localM3u8String = [[AppDele m3u8Process] doSyncRequestByM3U8Url:m3u8Url simulate:simulate start:YES];
+        NSLog(@"%@",localM3u8String);
+        if(localM3u8String!=nil){
+            NSData *data = [localM3u8String dataUsingEncoding:NSUTF8StringEncoding];
+            HTTPDataResponse* resp=[[HTTPDataResponse alloc] initWithData:data];
+            return resp;
+        }else{
+            return nil;
+        }
+    }else{
+        //这里处理的是离线后本地的m3u8 url
+        NSString* localM3u8String = [NSString stringWithContentsOfURL:[NSURL fileURLWithPath:[m3u8Url stringByReplacingOccurrencesOfString:@"file://" withString:@""]] encoding:NSUTF8StringEncoding error:nil];
         NSData *data = [localM3u8String dataUsingEncoding:NSUTF8StringEncoding];
         HTTPDataResponse* resp=[[HTTPDataResponse alloc] initWithData:data];
         return resp;
-    }else{
-        return nil;
     }
+    
+}
+
+- (NSObject<HTTPResponse> *) handleLocalM3u8:(NSString*) path{
+    NSString* m3u8DataPath = [[[self parseGetParams] objectForKey:@"m3u8DataPath"] stringByReplacingOccurrencesOfString:@"file://" withString:@""];
+    NSLog(@"m3u8DataPath=%@",m3u8DataPath);
+    long s = [[[self parseGetParams] objectForKey:@"s"] longLongValue];
+    long l = [[[self parseGetParams] objectForKey:@"l"] longLongValue];
+    NSFileHandle * fileHandle = [NSFileHandle fileHandleForReadingAtPath:m3u8DataPath];
+    [fileHandle seekToFileOffset:s];
+    NSData* data=[fileHandle readDataOfLength:l];
+    [fileHandle closeFile];
+    HTTPDataResponse* resp = [[HTTPDataResponse alloc] initWithData:data];
+    return resp;
 }
 - (NSObject<HTTPResponse> *) handleProxyTempM3u8:(NSString*) path{
     NSString* m3u8Url = [[self parseGetParams] objectForKey:@"m3u8Url"];
