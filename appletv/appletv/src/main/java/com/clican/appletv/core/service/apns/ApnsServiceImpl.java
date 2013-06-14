@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.URL;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -26,6 +27,7 @@ public class ApnsServiceImpl implements ApnsService {
 	private SpringProperty springProperty;
 
 	private com.notnoop.apns.ApnsService sendMessageService;
+	
 
 	public void setSpringProperty(SpringProperty springProperty) {
 		this.springProperty = springProperty;
@@ -53,8 +55,7 @@ public class ApnsServiceImpl implements ApnsService {
 	public void init() {
 		InputStream is = null;
 		try {
-			String filePath = Thread.currentThread().getContextClassLoader().getResource(springProperty.getApnsTokenFile()).getFile();
-			File file = new File(filePath);
+			File file = new File(springProperty.getApnsTokenFile());
 			if (!file.exists()) {
 				return;
 			}
@@ -78,26 +79,22 @@ public class ApnsServiceImpl implements ApnsService {
 				}
 			}
 		}
-
+		
+		URL url = Thread.currentThread().getContextClassLoader().getResource(springProperty.getApnsCertFile());
+		
 		ApnsDelegateImpl delegate = new ApnsDelegateImpl();
 		if (springProperty.isSystemProxyEnable()) {
-			sendMessageService = APNS
-					.newService()
-					.withSocksProxy(springProperty.getSystemProxyHost(),
-							springProperty.getSystemProxyPort())
-					.withCert(springProperty.getApnsCertFile(),
-							springProperty.getApnsCertPassword())
+			sendMessageService = APNS.newService()
+					.withSocksProxy(springProperty.getSystemProxyHost(), springProperty.getSystemProxyPort())
+					.withCert(url.getFile(), springProperty.getApnsCertPassword())
 					.withProductionDestination()
-					.withReconnectPolicy(Provided.NEVER).withDelegate(delegate)
-					.build();
+					.withReconnectPolicy(Provided.NEVER)
+					.withDelegate(delegate).build();
 		} else {
-			sendMessageService = APNS
-					.newService()
-					.withCert(springProperty.getApnsCertFile(),
-							springProperty.getApnsCertPassword())
+			sendMessageService = APNS.newService().withCert(url.getFile(), springProperty.getApnsCertPassword())
 					.withProductionDestination()
-					.withReconnectPolicy(Provided.NEVER).withDelegate(delegate)
-					.build();
+					.withReconnectPolicy(Provided.NEVER)
+					.withDelegate(delegate).build();
 		}
 	}
 
@@ -111,7 +108,7 @@ public class ApnsServiceImpl implements ApnsService {
 		if (log.isInfoEnabled()) {
 			log.info("send message to " + tokenMap.size() + " devices");
 		}
-		for (String token : tokenMap.keySet()) {
+		for(String token:tokenMap.keySet()){
 			ApnsNotification result = sendMessageService.push(token, message);
 			if (log.isDebugEnabled()) {
 				log.debug("send apns notification with result:"
