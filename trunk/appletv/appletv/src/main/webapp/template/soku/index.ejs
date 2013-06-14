@@ -35,21 +35,21 @@
 					<title>筛选</title>
 				</actionButton>
 				<%}%>
-				<actionButton id="shelf_item_first_page" onSelect="sokuClient.loadIndexPage('<%=keyword%>',1,'<%=channel['value']%>');" onPlay="sokuClient.loadIndexPage('<%=keyword%>',1,'<%=channel['value']%>');">
+				<actionButton id="shelf_item_first_page" onSelect="sokuClient.loadIndexPage('<%=keyword%>',1,'<%=channel['value']%>','<%=url%>');" onPlay="sokuClient.loadIndexPage('<%=keyword%>',1,'<%=channel['value']%>','<%=url%>');">
 					<title>第一页</title>
 				</actionButton>
-				<actionButton id="nextPage" onSelect="sokuClient.loadIndexPage('<%=keyword%>',<%=page+1%>,'<%=channel['value']%>');" onPlay="sokuClient.loadIndexPage('<%=keyword%>',<%=page+1%>,'<%=channel['value']%>');">
+				<actionButton id="nextPage" onSelect="sokuClient.loadIndexPage('<%=keyword%>',<%=page+1%>,'<%=channel['value']%>','<%=url%>');" onPlay="sokuClient.loadIndexPage('<%=keyword%>',<%=page+1%>,'<%=channel['value']%>','<%=url%>');">
 					<title>下一页</title>
 				</actionButton>
 				<%for(var i=begin;i<end;i++){%>
-					<actionButton id="shelf_item_<%=i%>_page" onSelect="sokuClient.loadIndexPage('<%=keyword%>',<%=i%>,'<%=channel['value']%>');" onPlay="sokuClient.loadIndexPage('<%=keyword%>',<%=i%>,'<%=channel['value']%>');">
+					<actionButton id="shelf_item_<%=i%>_page" onSelect="sokuClient.loadIndexPage('<%=keyword%>',<%=i%>,'<%=channel['value']%>','<%=url%>');" onPlay="sokuClient.loadIndexPage('<%=keyword%>',<%=i%>,'<%=channel['value']%>','<%=url%>');">
 						<title><%=i%></title>
 						<%if(i==page){%>
 						<image>resource://Play.png</image>
 						<%}%>
 					</actionButton>
 				<%}%>
-				<actionButton id="shelf_item_last_page" onSelect="sokuClient.loadIndexPage('<%=keyword%>',99,'<%=channel['value']%>');" onPlay="sokuClient.loadIndexPage('<%=keyword%>',99,'<%=channel['value']%>');">
+				<actionButton id="shelf_item_last_page" onSelect="sokuClient.loadIndexPage('<%=keyword%>',99,'<%=channel['value']%>','<%=url%>');" onPlay="sokuClient.loadIndexPage('<%=keyword%>',99,'<%=channel['value']%>','<%=url%>');">
 					<title>最后页</title>
 				</actionButton>
 			</items>
@@ -72,21 +72,21 @@
 					<title>筛选</title>
 				</actionButton>
 				<%}%>
-				<actionButton id="shelf_item_first_page" onSelect="sokuClient.loadIndexPage('<%=keyword%>',1,'<%=channel['value']%>');" onPlay="sokuClient.loadIndexPage('<%=keyword%>',1,'<%=channel['value']%>');">
+				<actionButton id="shelf_item_first_page" onSelect="sokuClient.loadIndexPage('<%=keyword%>',1,'<%=channel['value']%>','<%=url%>');" onPlay="sokuClient.loadIndexPage('<%=keyword%>',1,'<%=channel['value']%>','<%=url%>');">
 					<title>第一页</title>
 				</actionButton>
-				<actionButton id="nextPage" onSelect="sokuClient.loadIndexPage('<%=keyword%>',<%=page+1%>,'<%=channel['value']%>');" onPlay="sokuClient.loadIndexPage('<%=keyword%>',<%=page+1%>,'<%=channel['value']%>');">
+				<actionButton id="nextPage" onSelect="sokuClient.loadIndexPage('<%=keyword%>',<%=page+1%>,'<%=channel['value']%>','<%=url%>');" onPlay="sokuClient.loadIndexPage('<%=keyword%>',<%=page+1%>,'<%=channel['value']%>','<%=url%>');">
 					<title>下一页</title>
 				</actionButton>
 				<%for(var i=begin;i<end;i++){%>
-					<actionButton id="shelf_item_<%=i%>_page" onSelect="sokuClient.loadIndexPage('<%=keyword%>',<%=i%>,'<%=channel['value']%>');" onPlay="sokuClient.loadIndexPage('<%=keyword%>',<%=i%>,'<%=channel['value']%>');">
+					<actionButton id="shelf_item_<%=i%>_page" onSelect="sokuClient.loadIndexPage('<%=keyword%>',<%=i%>,'<%=channel['value']%>','<%=url%>');" onPlay="sokuClient.loadIndexPage('<%=keyword%>',<%=i%>,'<%=channel['value']%>','<%=url%>');">
 						<title><%=i%></title>
 						<%if(i==page){%>
 						<image>resource://Play.png</image>
 						<%}%>
 					</actionButton>
 				<%}%>
-				<actionButton id="shelf_item_last_page" onSelect="sokuClient.loadIndexPage('<%=keyword%>',99,'<%=channel['value']%>');" onPlay="sokuClient.loadIndexPage('<%=keyword%>',99,'<%=channel['value']%>');">
+				<actionButton id="shelf_item_last_page" onSelect="sokuClient.loadIndexPage('<%=keyword%>',99,'<%=channel['value']%>','<%=url%>');" onPlay="sokuClient.loadIndexPage('<%=keyword%>',99,'<%=channel['value']%>','<%=url%>');">
 					<title>最后页</title>
 				</actionButton>
 			</items>
