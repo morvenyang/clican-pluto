@@ -17,7 +17,7 @@
 #import "ASIHTTPRequest.h"
 #import <extThree20JSON/SBJsonWriter.h>
 #import <extThree20JSON/SBJsonParser.h>
-
+#import "AtvUtil.h"
 @implementation JSEngine
 
 JSValueRef logToServer(JSContextRef ctx,
@@ -451,7 +451,24 @@ JSValueRef loadURL(JSContextRef ctx,
 
     return res;
 }
-
+- (void)search:(NSString *)keyword function:(JSObjectRef) callback{
+    NSLog(@"Submit");
+    NSString* content = [AtvUtil encodeURL:keyword];
+    NSLog(@"content1:%@" ,content);
+    @try {
+        JSValueRef args[1];
+        NSLog(@"content2:%@" ,content);
+        JSStringRef ref = JSStringCreateWithUTF8CString([content UTF8String]);
+        NSLog(@"content3:%@" ,content);
+        args[0] = JSValueMakeString(_JSContext,ref);
+        NSLog(@"content4:%@" ,content);
+        JSObjectCallAsFunction(_JSContext,callback,NULL,1,args,NULL);
+        NSLog(@"content5:%@" ,content);
+    }
+    @catch (NSException *exception) {
+        NSLog(@"exception occured when invoke search %@",exception.description);
+    }
+}
 #pragma mark -
 #pragma mark TTURLRequestDelegate
 - (void)request:(AjaxCallbackRequest*)request didFailLoadWithError:(NSError*)error {

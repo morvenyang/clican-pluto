@@ -135,11 +135,14 @@
     for(OfflineRecord* record in [self.offlineRecords allValues]){
         NSString* c;
         if([[NSFileManager defaultManager] fileExistsAtPath:record.filePath]){
-            
             if([record.fileType isEqualToString:FILE_TYPE_MP4]){
                 c = [NSString stringWithFormat:@"{\"displayName\":\"%@\",\"url\":\"http://%@:8080/appletv/noctl/proxy/play.mp4?url=%@\"}",record.displayName,AppDele.ipAddress,[AtvUtil encodeURL:[@"file://" stringByAppendingString:record.filePath]]];
             }else{
-                c = [NSString stringWithFormat:@"{\"displayName\":\"%@\",\"url\":\"http://%@:8080/appletv/noctl/proxy/play.m3u8?url=%@\"}",record.displayName,AppDele.ipAddress,[AtvUtil encodeURL:[@"file://" stringByAppendingString:record.filePath]]];
+                if(record.fileSize==record.downloadFileSize){
+                    c = [NSString stringWithFormat:@"{\"displayName\":\"%@\",\"url\":\"http://%@:8080/appletv/noctl/proxy/play.m3u8?url=%@\"}",record.displayName,AppDele.ipAddress,[AtvUtil encodeURL:[@"file://" stringByAppendingString:record.filePath]]];
+                }else{
+                    c = [NSString stringWithFormat:@"{\"displayName:\":\"%@\"}",record.displayName];
+                }
             }
             
         }else{

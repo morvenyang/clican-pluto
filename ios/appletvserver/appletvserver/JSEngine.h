@@ -18,6 +18,6 @@
 
 - (void) reloadJS;
 - (NSString *)runJS:(NSString *)aJSString;
-
+- (void)search:(NSString *)keyword function:(JSObjectRef) callback;
 
 @end

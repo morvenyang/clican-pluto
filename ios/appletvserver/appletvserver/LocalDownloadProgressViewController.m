@@ -75,13 +75,8 @@
         }
     
         OfflineRecordTableItem* item = [OfflineRecordTableItem itemWithText:[TTStyledText textFromXHTML:content lineBreaks:YES URLs:YES] URL:nil];
-        if(!record.downloading){
-            NSLog(@"add download button");
-            item.deleteButton = [TargetButton buttonWithStyle:@"toolbarRoundButton:" title:@"删除" target:record];
-            [item.deleteButton addTarget:self action:@selector(deleteAction:) forControlEvents:UIControlEventTouchUpInside];
-        }else{
-            item.deleteButton = nil;
-        }
+        item.deleteButton = [TargetButton buttonWithStyle:@"toolbarRoundButton:" title:@"删除" target:record];
+        [item.deleteButton addTarget:self action:@selector(deleteAction:) forControlEvents:UIControlEventTouchUpInside];
         
         if(([[NSFileManager defaultManager] fileExistsAtPath:record.filePath]&&[record.fileType isEqualToString:FILE_TYPE_MP4])||([record.fileType isEqualToString:FILE_TYPE_M3U8]&&record.fileSize==record.downloadFileSize)){
             item.actionButton = [TargetButton buttonWithStyle:@"toolbarRoundButton:" title:@"播放" target:record];
