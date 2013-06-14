@@ -161,6 +161,8 @@ http://www.springframework.org/schema/context/spring-context-2.5.xsd">
 		<property name="userConfigJsonFile" value="${user.config.json.file}"></property>
 		<property name="lblImageMapFile" value="${lbl.image.map.file}"></property>
 		<property name="apnsTokenFile" value="${apns.token.file}"></property>
+		<property name="apnsCertFile" value="${apns.cert.file}"></property>
+		<property name="apnsCertPassword" value="${apns.cert.password}"></property>
 	</bean>
 
 	<bean id="tudouClient" class="com.clican.appletv.core.service.tudou.TudouClientImpl"
