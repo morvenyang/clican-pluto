@@ -417,11 +417,12 @@ public class WeiboController {
 					+ "）@微电影官方微博 @Clican 了解更多 >>>";
 		} else {
 			statusContent = "我正在Apple TV3上观看在线视频（" + title
-					+ "）@Clican 了解更多 >>>";
+					+ "） @Clican 了解更多 >>> ";
 		}
 		if (StringUtils.isNotEmpty(shareURL)) {
 			statusContent += shareURL;
 		}
+		statusContent += ", 下载《天王星》收看更多视频 App Store下载地址 https://itunes.apple.com/us/app/tian-wang-xing/id630921227?mt=8";
 		Status status = null;
 		String promptTitle = "分享成功";
 		try {
