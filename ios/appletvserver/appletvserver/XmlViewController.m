@@ -147,6 +147,10 @@
 }
 
 -(void)playVideo:(CXMLNode*) node{
+    if(![AtvUtil isWifi]&&!AppDele.ttgNetwork){
+        TTAlert(@"2G/3G下无法播放");
+        return;
+    }
     NSString* mediaUrl = [[node nodeForXPath:@"httpLiveStreamingVideoAsset/mediaURL" error:nil] stringValue];
     NSLog(@"mediaUrl:%@",mediaUrl);
     self.playerViewController = [[[MPMoviePlayerViewController alloc] initWithContentURL:[NSURL URLWithString:mediaUrl]] autorelease];

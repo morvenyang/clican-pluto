@@ -47,6 +47,11 @@
     for(int i=0;i<[lines count]&&offlineRecord.downloading;i++){
         NSString* line = [lines objectAtIndex:i];
         if(line!=nil&&[line length]!=0&&[line rangeOfString:@"#"].location!=0&&![AtvUtil content:line startWith:[@"http://" stringByAppendingString:AppDele.ipAddress]]){
+            if(![AtvUtil isWifi]&&!AppDele.ttgNetwork){
+                NSLog(@"2G/3G下无法继续download");
+                offlineRecord.downloading=FALSE;
+                break;
+            }
             NSLog(@"download %@",line);
             ASIHTTPRequest *req = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:line]];
             offlineRecord.request = req;
@@ -93,7 +98,12 @@
     record.fileName = [[AtvUtil getUUID] stringByAppendingString:@".mp4"];
     record.filePath = [AppDele.localDownloadPathPrefix stringByAppendingPathComponent:record.fileName];
     record.displayName = record.url;
-    record.downloading = YES;
+    if(![AtvUtil isWifi]&&!AppDele.ttgNetwork){
+        record.downloading = NO;
+    }else{
+        record.downloading = YES;
+    }
+    
     [AppDele.offlineRecordProcess insertOrUpdateOffileRecord:record];
     [self downloadOfflineRecord:record];
 }
@@ -105,7 +115,11 @@
     record.fileName = [[AtvUtil getUUID] stringByAppendingString:@".m3u8"];
     record.filePath = [AppDele.localDownloadPathPrefix stringByAppendingPathComponent:record.fileName];
     record.displayName = record.url;
-    record.downloading = YES;
+    if(![AtvUtil isWifi]&&!AppDele.ttgNetwork){
+        record.downloading = NO;
+    }else{
+        record.downloading = YES;
+    }
     [AppDele.offlineRecordProcess insertOrUpdateOffileRecord:record];
     ASIHTTPRequest *req = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:record.url]];
     [req setDownloadDestinationPath:record.filePath];

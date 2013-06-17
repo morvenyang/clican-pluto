@@ -108,7 +108,10 @@
 }
 
 -(void) addAsyncM3u8TSRequest{
-    
+    if(![AtvUtil isWifi]&&!AppDele.ttgNetwork){
+        NSLog(@"2G/3G网络下无法代理下载");
+        return;
+    }
     M3u8DownloadLine* m3u8DownloadLine = [self.m3u8Download getNextDownloadLine];
     if(m3u8DownloadLine==nil){
         return;

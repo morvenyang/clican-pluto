@@ -11,6 +11,7 @@
 #include <arpa/inet.h>
 #import <CommonCrypto/CommonDigest.h>
 #import "zlib.h"
+#import "Reachability.h"
 @implementation AtvUtil
 
 +(void)markReflect:(CALayer*)mainLayer image:(UIImage*)img {
@@ -206,5 +207,15 @@
     CFStringRef string = CFUUIDCreateString(NULL, theUUID);
     CFRelease(theUUID);
     return [(NSString*) string autorelease];
+}
+
++(BOOL)isWifi{
+    Reachability *reachability = [Reachability reachabilityWithHostName:@"www.sina.com.cn"];
+    NetworkStatus remoteHostStatus = [reachability currentReachabilityStatus];
+    if (remoteHostStatus == kReachableViaWiFi){
+        return YES;
+    }else{
+        return NO;
+    }
 }
 @end

@@ -73,6 +73,7 @@
     
     DownloadProcess* _downloadProcess;
     OfflineRecordProcess* _offlineRecordProcess;
+    BOOL _ttgNetwork;
 }
 
 @property (nonatomic, retain) ASINetworkQueue* queue;
@@ -110,6 +111,7 @@
 @property (nonatomic, retain) DownloadProcess* downloadProcess;
 @property (nonatomic, retain) OfflineRecordProcess* offlineRecordProcess;
 @property (nonatomic, copy) NSString* localDownloadPathPrefix;
+@property (nonatomic, assign) BOOL ttgNetwork;
 -(void) initProcess;
 
 @end

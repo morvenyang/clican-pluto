@@ -91,6 +91,10 @@
 }
 
 -(void) addAsyncMp4Request{
+    if(![AtvUtil isWifi]&&!AppDele.ttgNetwork){
+        NSLog(@"2G/3G网络下无法代理下载");
+        return;
+    }
     Mp4DownloadPartial* mp4DownloadPartial = [self.mp4Download getNextDownloadPartial];
     if(mp4DownloadPartial==nil){
         return;
