@@ -230,6 +230,10 @@ var sokuClient = {
 			appletv.showLoading();
 			var url = id;
 			appletv.makeRequest(url, function(htmlContent) {
+				if(htmlContent==null||htmlContent.length==0){
+					appletv.showDialog('无法加载相关内容','无法加载相关内容');
+					return;
+				}
 				var detail = appletv.substringByTag(htmlContent,'<div class="detailinfo">','</div>','div');
 				var title = appletv.substringByData(detail,'<h1>','</h1>');
 				var desc = appletv.substringByData(htmlContent,'<div class="intro">','</div>');
