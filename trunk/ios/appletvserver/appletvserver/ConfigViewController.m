@@ -219,10 +219,12 @@
     NSString* xunleiStatus = [NSString stringWithFormat:@"sessionid:%@\nuserid:%@\nvip:%@\ngdriveid:%@\nlxsessionid:%@",sessionid,userid,vip,gdriveid,lxsessionid];
     
     self.xunleiStatusItem = [TTTableTextItem itemWithText:xunleiStatus URL:nil];
-    [items addObject:@"迅雷"];
-    [items addObject:[TTTableTextItem itemWithText:@"迅雷云播登录" URL:@"atvserver://xunlei/login/0"]];
-    [items addObject:[TTTableTextItem itemWithText:@"迅雷离线登录" URL:@"atvserver://xunlei/login/1"]];
-    [items addObject:self.xunleiStatusItem];
+    if(!AppDele.appleApproveCheck){
+        [items addObject:@"迅雷"];
+        [items addObject:[TTTableTextItem itemWithText:@"迅雷云播登录" URL:@"atvserver://xunlei/login/0"]];
+        [items addObject:[TTTableTextItem itemWithText:@"迅雷离线登录" URL:@"atvserver://xunlei/login/1"]];
+        [items addObject:self.xunleiStatusItem];
+    }
     
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
     NSString *path = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"/Three20/"];
