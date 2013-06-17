@@ -64,6 +64,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 @synthesize downloadProcess = _downloadProcess;
 @synthesize offlineRecordProcess = _offlineRecordProcess;
 @synthesize localDownloadPathPrefix = _localDownloadPathPrefix;
+@synthesize ttgNetwork = _ttgNetwork;
 - (void)dealloc
 {
     [super dealloc];
@@ -158,6 +159,7 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
     
     NSLog(@"Run in simulate:%d",self.simulate);
     
+    self.ttgNetwork = [defaults boolForKey:TTG_NETWORK_NAME];
     [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeBadge)]; 
 }
 -(void) initWebContent{

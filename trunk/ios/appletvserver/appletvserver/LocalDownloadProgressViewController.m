@@ -161,6 +161,9 @@
 }
 
 -(void)resumeAction:(id)sender{
+    if(![AtvUtil isWifi]&&!AppDele.ttgNetwork){
+        TTAlert(@"2G/3G下无法下载");
+    }
     TargetButton* button = (TargetButton*)sender;
     OfflineRecord* record = (OfflineRecord*)button.target;
     record.downloading = YES;

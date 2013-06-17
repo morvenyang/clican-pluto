@@ -19,7 +19,6 @@
 		7205AECD170568E000595D4B /* PhotoProcess.m in Sources */ = {isa = PBXBuildFile; fileRef = 7205AECC170568E000595D4B /* PhotoProcess.m */; };
 		7205AEE017058F8E00595D4B /* right_arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 7205AEDE17058F8D00595D4B /* right_arrow.png */; };
 		7205AEE117058F8E00595D4B /* left_arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 7205AEDF17058F8E00595D4B /* left_arrow.png */; };
-		7206AAF11707C1A80049FE0D /* ConfigViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7206AAF01707C1A80049FE0D /* ConfigViewController.m */; };
 		7206AB041707CBD90049FE0D /* sync.png in Resources */ = {isa = PBXBuildFile; fileRef = 7206AB031707CBD90049FE0D /* sync.png */; };
 		7210EA5B175D7C7D0016FC8E /* TargetButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 7210EA5A175D7C7D0016FC8E /* TargetButton.m */; };
 		72198F1116FFF1FF00EC451B /* libiOSJavaScriptCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 72198F1016FFF1FF00EC451B /* libiOSJavaScriptCore.a */; };
@@ -188,6 +187,7 @@
 		72F53F67175CA5B1007FFC7F /* OfflineRecordDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 72F53F66175CA5B1007FFC7F /* OfflineRecordDataSource.m */; };
 		72F7CB9D16F868120033A32F /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72F7CB9C16F868120033A32F /* AVFoundation.framework */; };
 		72F7CBA016F86C8D0033A32F /* MTAudioPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 72F7CB9F16F86C8D0033A32F /* MTAudioPlayer.m */; };
+		72FBC8E5176EF1C2007AA7C7 /* ConfigViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 72FBC8E4176EF1C2007AA7C7 /* ConfigViewController.m */; };
 		72FEEFCE1703DAAD00F9713E /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 72FEEFCD1703D68C00F9713E /* MBProgressHUD.m */; };
 		72FEEFF4170443A000F9713E /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72FEEFF3170443A000F9713E /* AssetsLibrary.framework */; };
 /* End PBXBuildFile section */
@@ -384,8 +384,6 @@
 		7205AECC170568E000595D4B /* PhotoProcess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoProcess.m; sourceTree = "<group>"; };
 		7205AEDE17058F8D00595D4B /* right_arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = right_arrow.png; sourceTree = "<group>"; };
 		7205AEDF17058F8E00595D4B /* left_arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = left_arrow.png; sourceTree = "<group>"; };
-		7206AAEF1707C1A80049FE0D /* ConfigViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigViewController.h; sourceTree = "<group>"; };
-		7206AAF01707C1A80049FE0D /* ConfigViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigViewController.m; sourceTree = "<group>"; };
 		7206AB031707CBD90049FE0D /* sync.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sync.png; sourceTree = "<group>"; };
 		7210EA59175D7C7D0016FC8E /* TargetButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TargetButton.h; sourceTree = "<group>"; };
 		7210EA5A175D7C7D0016FC8E /* TargetButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TargetButton.m; sourceTree = "<group>"; };
@@ -686,6 +684,8 @@
 		72F7CB9C16F868120033A32F /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		72F7CB9E16F86C8C0033A32F /* MTAudioPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MTAudioPlayer.h; path = CocoaHTTPServer/MTAudioPlayer.h; sourceTree = "<group>"; };
 		72F7CB9F16F86C8D0033A32F /* MTAudioPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MTAudioPlayer.m; path = CocoaHTTPServer/MTAudioPlayer.m; sourceTree = "<group>"; };
+		72FBC8E3176EF1C2007AA7C7 /* ConfigViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigViewController.h; sourceTree = "<group>"; };
+		72FBC8E4176EF1C2007AA7C7 /* ConfigViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigViewController.m; sourceTree = "<group>"; };
 		72FEEFCC1703D68C00F9713E /* MBProgressHUD.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		72FEEFCD1703D68C00F9713E /* MBProgressHUD.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		72FEEFF3170443A000F9713E /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
@@ -843,7 +843,7 @@
 		7219BBCA16C9EAD900AABA8E /* View */ = {
 			isa = PBXGroup;
 			children = (
-				7288F0E01718E096007B92E5 /* config */,
+				72FBC8E2176EF1A6007AA7C7 /* config */,
 				722B23691712C2EB00D3A8B4 /* smb */,
 				72D5CBD41700275400B292BA /* atv */,
 				7288A2C416F9982D00933D15 /* download */,
@@ -1055,15 +1055,6 @@
 				729BB485175C45D300450ACF /* LocalDownloadProgressViewController.m */,
 			);
 			name = download;
-			sourceTree = "<group>";
-		};
-		7288F0E01718E096007B92E5 /* config */ = {
-			isa = PBXGroup;
-			children = (
-				7206AAEF1707C1A80049FE0D /* ConfigViewController.h */,
-				7206AAF01707C1A80049FE0D /* ConfigViewController.m */,
-			);
-			name = config;
 			sourceTree = "<group>";
 		};
 		7295A38A17006FC6008C04BE /* atv */ = {
@@ -1484,6 +1475,15 @@
 			name = SubTitle;
 			sourceTree = "<group>";
 		};
+		72FBC8E2176EF1A6007AA7C7 /* config */ = {
+			isa = PBXGroup;
+			children = (
+				72FBC8E3176EF1C2007AA7C7 /* ConfigViewController.h */,
+				72FBC8E4176EF1C2007AA7C7 /* ConfigViewController.m */,
+			);
+			name = config;
+			sourceTree = "<group>";
+		};
 		72FEEFCB1703D67D00F9713E /* Utils */ = {
 			isa = PBXGroup;
 			children = (
@@ -1837,7 +1837,6 @@
 				724024F817016B990015352A /* XmlDataSource.m in Sources */,
 				724024FC170196490015352A /* URLDataHeaderResponse.m in Sources */,
 				7205AECD170568E000595D4B /* PhotoProcess.m in Sources */,
-				7206AAF11707C1A80049FE0D /* ConfigViewController.m in Sources */,
 				7233EB6F1709425400EF342E /* ConfigDataSource.m in Sources */,
 				72E871BE170E74990063E80A /* MkvProcess.m in Sources */,
 				722B23781712C36400D3A8B4 /* SMBDataSource.m in Sources */,
@@ -1859,6 +1858,7 @@
 				72F53F67175CA5B1007FFC7F /* OfflineRecordDataSource.m in Sources */,
 				7210EA5B175D7C7D0016FC8E /* TargetButton.m in Sources */,
 				7226548017698CF200B1605F /* HTTPMediaFileResponse.m in Sources */,
+				72FBC8E5176EF1C2007AA7C7 /* ConfigViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

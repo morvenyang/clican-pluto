@@ -7,7 +7,8 @@
 //
 
 #import "OfflineRecord.h"
-
+#import "AtvUtil.h"
+#import "AppDelegate.h"
 @implementation OfflineRecord
 
 @synthesize fileName = _fileName;
@@ -21,6 +22,10 @@
 @synthesize downloading = _downloading;
 - (void)request:(ASIHTTPRequest *)request didReceiveBytes:(long long)bytes{
     self.downloadFileSize+=bytes;
+    if(![AtvUtil isWifi]&&!AppDele.ttgNetwork){
+        [request clearDelegatesAndCancel];
+        self.downloading = FALSE;
+    }
 }
 - (void)request:(ASIHTTPRequest *)request didReceiveResponseHeaders:(NSMutableDictionary *)newResponseHeaders{
     NSString* contentLength = [newResponseHeaders valueForKey:@"Content-Length"];

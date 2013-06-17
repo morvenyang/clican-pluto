@@ -18,4 +18,5 @@
 + (NSString*) md5:(NSData*) data;
 + (NSData *)uncompressZippedData:(NSData *)compressedData;
 + (NSString*) getUUID;
++ (BOOL) isWifi;
 @end

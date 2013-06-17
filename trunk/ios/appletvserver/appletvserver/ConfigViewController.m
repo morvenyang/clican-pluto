@@ -14,11 +14,14 @@
 
 @synthesize serverIPField = _serverIPField;
 @synthesize syncButton = _syncButton;
+@synthesize refreshIPButton = _refreshIPButton;
 @synthesize progressHUD = _progressHUD;
 @synthesize clearCacheButton = _clearCacheButton;
 @synthesize clearCacheItem = _clearCacheItem;
 @synthesize atvDeviceIdField = _atvDeviceIdField;
 @synthesize xunleiStatusItem = _xunleiStatusItem;
+@synthesize networkSwitchy = _networkSwitchy;
+@synthesize refreshIPItem = _refreshIPItem;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -42,6 +45,11 @@
         UIImage* syncButtonImage = [UIImage imageNamed:@"sync.png"];
         [self.syncButton setImage:syncButtonImage forState:UIControlStateNormal];
         [self.syncButton addTarget:self action:@selector(syncAction) forControlEvents: UIControlEventTouchUpInside];
+        
+        self.refreshIPButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        UIImage* refreshIPButtonImage = [UIImage imageNamed:@"sync.png"];
+        [self.refreshIPButton setImage:refreshIPButtonImage forState:UIControlStateNormal];
+        [self.refreshIPButton addTarget:self action:@selector(refreshIPAction) forControlEvents: UIControlEventTouchUpInside];
         
         self.clearCacheButton = [UIButton buttonWithType:UIButtonTypeCustom];
         
@@ -72,7 +80,16 @@
     TT_RELEASE_SAFELY(_clearCacheItem);
     TT_RELEASE_SAFELY(_atvDeviceIdField);
     TT_RELEASE_SAFELY(_xunleiStatusItem);
+    TT_RELEASE_SAFELY(_refreshIPButton);
+    TT_RELEASE_SAFELY(_networkSwitchy);
+    TT_RELEASE_SAFELY(_refreshIPItem);
     [super dealloc];
+}
+-(void)refreshIPAction{
+    AppDele.ipAddress = [AtvUtil getIPAddress];
+    self.refreshIPItem.caption = [NSString stringWithFormat:@"本机IP %@",AppDele.ipAddress];
+    _flags.isModelDidLoadInvalid = YES;
+    [self invalidateView];
 }
 -(void)syncAction{
     NSLog(@"sync script manually");
@@ -189,6 +206,8 @@
     [items addObject:atvDeviceIdItem];
     TTTableControlItem* syncItem = [TTTableControlItem itemWithCaption:@"更新脚本" control:self.syncButton];
     [items addObject:syncItem];
+    self.refreshIPItem = [TTTableControlItem itemWithCaption:[NSString stringWithFormat:@"本机IP %@",AppDele.ipAddress] control:self.refreshIPButton];
+    [items addObject:self.refreshIPItem];
     
     NSArray* cookies =[[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies];
     NSString* sessionid = @"N/A";
@@ -240,10 +259,14 @@
     }
     
     self.clearCacheItem = [TTTableControlItem itemWithCaption:[NSString stringWithFormat:@"清空缓存（ %0.1f Mb）", (float)folderSize/1000/1000] control:self.clearCacheButton];
-
-    [items addObject:@"缓存"];
-    [items addObject:self.clearCacheItem];
+    self.networkSwitchy = [[[UISwitch alloc] init] autorelease];
+    [self.networkSwitchy setOn:AppDele.ttgNetwork];
+    [self.networkSwitchy addTarget:self action:@selector(changeNetwork:) forControlEvents:UIControlEventValueChanged];
+    TTTableControlItem* networkItem = [TTTableControlItem itemWithCaption:@"2G/3G网络播放和下载" control:self.networkSwitchy];
     
+    [items addObject:@"网络"];
+    [items addObject:self.clearCacheItem];
+    [items addObject:networkItem];
     
     NSString* clientVersion = @"未知";
     if(AppDele.clientVersion!=NULL&&AppDele.clientVersion.length>0){
@@ -312,8 +335,12 @@
     }
 }
 
-- (id<UITableViewDelegate>)createDelegate {
-    return [[[TTTableViewDragRefreshDelegate alloc] initWithController:self] autorelease];
+- (void)changeNetwork:(id)sender
+{
+    BOOL state = [sender isOn];
+    AppDele.ttgNetwork = state;
+    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setBool:AppDele.ttgNetwork  forKey:TTG_NETWORK_NAME];
 }
 
 - (void)didReceiveMemoryWarning
