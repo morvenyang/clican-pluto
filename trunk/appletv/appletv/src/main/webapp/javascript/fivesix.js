@@ -366,6 +366,7 @@ var fivesixClient = {
 								var mid = appletv.substringByData(url,'opera/','.html');
 								playall = 'http://video.56.com/index.php?Controller=Opera&Action=GetOpera&mid='+mid+'&callback=fivesixClient.loadVideos';
 								playall=playall.replace(new RegExp('&', 'g'),'&amp;');
+								appletv.logToServer('playall:'+playall);
 							}else{
 								title = appletv.substringByData(htmlContent,'<h1 id="vh_title">','</h1>');
 								desc = "";
@@ -409,10 +410,22 @@ var fivesixClient = {
 	
 	loadItemsPage : function(url) {
 		appletv.showLoading();
-		appletv.makeRequest(url,function(content){
-			appletv.logToServer(content);
-			eval(content);
-		});
+		appletv.logToServer('url:'+url);
+		if(url==null||url.length==0){
+			appletv.getValue('clican.fivesix.video',function(video){
+				var xml = new EJS({
+					url : appletv.serverurl
+							+ '/template/fivesix/videoItems.ejs'
+				}).render(video);
+				appletv.loadAndSwapXML(xml);
+			});
+		}else{
+			appletv.makeRequest(url,function(content){
+				appletv.logToServer(content);
+				eval(content);
+			});
+		}
+		
 	},
 	
 	loadVideos:function(videos){
