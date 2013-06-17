@@ -270,6 +270,10 @@ var weivideoClient = {
 		var url = 'http://video.weibo.com/detail/' + id;
 		appletv.logToServer(url);
 		appletv.makeRequest(url, function(htmlContent) {
+			if(htmlContent==null||htmlContent.length==0){
+				appletv.showDialog('无法加载相关内容','无法加载相关内容');
+				return;
+			}
 			var title;
 			var desc;
 			var pic;

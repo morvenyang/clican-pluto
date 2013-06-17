@@ -310,7 +310,8 @@ var tudouClient = {
 	loadVideoPage : function(url, channelId, isalbum) {
 		appletv.showLoading();
 		appletv.makeRequest(url, function(htmlContent) {
-			if (htmlContent == null) {
+			if(htmlContent==null||htmlContent.length==0){
+				appletv.showDialog('无法加载相关内容','无法加载相关内容');
 				return;
 			}
 			var itemid = appletv.substringByData(htmlContent, 'iid: ', ',').trim();

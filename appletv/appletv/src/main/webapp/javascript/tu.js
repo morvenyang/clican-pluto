@@ -166,6 +166,10 @@ var tuClient ={
 			appletv
 					.makeRequest(url,
 							function(htmlContent) {
+								if(htmlContent==null||htmlContent.length==0){
+									appletv.showDialog('无法加载相关内容','无法加载相关内容');
+									return;
+								}
 								var playInfo = appletv.substringByTag(htmlContent,'<div id="playinfo">','</div>','div');
 								var title = appletv.substringByData(playInfo,'alt="','"');
 								var desc = appletv.substringByTag(htmlContent,'<div class="about_t">','</div>','div');
