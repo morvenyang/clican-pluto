@@ -36,7 +36,6 @@
         [self setTabURLs:[NSArray arrayWithObjects:
                           @"atvserver://main",
                           @"atvserver://download",
-                          @"atvserver://localdownload",
                           @"atvserver://config",
                           nil]];
     }else{
@@ -47,17 +46,6 @@
                           @"atvserver://smb/auth",
                           @"atvserver://config",
                           nil]];
-    }
-    UITabBarItem* config = [self.tabBar.items objectAtIndex:self.tabBar.items.count-1];
-    if(AppDele.clientVersion==NULL||![AppDele.clientVersion isEqualToString:ATV_CLIENT_VERSION]){
-        if(!AppDele.appleApproveCheck){
-            config.badgeValue = @"1";
-            [UIApplication sharedApplication].applicationIconBadgeNumber=1;
-        }else{
-            [UIApplication sharedApplication].applicationIconBadgeNumber=0;
-        }
-    }else{
-        [UIApplication sharedApplication].applicationIconBadgeNumber=0;
     }
 }
 
@@ -107,7 +95,6 @@
         [self setTabURLs:[NSArray arrayWithObjects:
                           @"atvserver://main",
                           @"atvserver://download",
-                          @"atvserver://localdownload",
                           @"atvserver://config",
                           nil]];
     }else{
@@ -118,17 +105,6 @@
                           @"atvserver://smb/auth",
                           @"atvserver://config",
                           nil]];
-    }
-    UITabBarItem* config = [self.tabBar.items objectAtIndex:self.tabBar.items.count-1];
-    if(AppDele.clientVersion==NULL||![AppDele.clientVersion isEqualToString:ATV_CLIENT_VERSION]){
-        if(!AppDele.appleApproveCheck){
-            config.badgeValue = @"1";
-            [UIApplication sharedApplication].applicationIconBadgeNumber=1;
-        }else{
-            [UIApplication sharedApplication].applicationIconBadgeNumber=0;
-        }
-    }else{
-        [UIApplication sharedApplication].applicationIconBadgeNumber=0;
     }
 }
 -(void)showNetworkWarning{
