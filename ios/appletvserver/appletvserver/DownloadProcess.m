@@ -58,6 +58,7 @@
             [req setTimeOutSeconds:180];
             [req setShouldContinueWhenAppEntersBackground:YES];
             [req setDownloadProgressDelegate:offlineRecord];
+            [req setShowAccurateProgress:YES];
             [req startSynchronous];
             
             NSError* error = req.error;

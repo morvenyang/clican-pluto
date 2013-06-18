@@ -35,17 +35,19 @@
     [super dealloc];
 }
 -(void)refreshView{
-    NSLog(@"refresh download progress view");
-    CGRect frame = [UIScreen mainScreen].applicationFrame;
-    int countPerLine = (int)(frame.size.width-RECT_SAPCE)/(RECT_SAPCE+RECT_SIZE);
     M3u8Process* m3u8Proess = [AppDele m3u8Process];
     Mp4Process* mp4Proess = [AppDele mp4Process];
+    CGRect frame = [UIScreen mainScreen].applicationFrame;
+    int countPerLine = (int)(frame.size.width-RECT_SAPCE)/(RECT_SAPCE+RECT_SIZE);
     CGFloat y = frame.origin.y+RECT_SAPCE;
     NSArray* subviews=self.view.subviews;
     for(UIView* subview in subviews){
         [subview removeFromSuperview];
     }
+    long tempSize = 0;
     if(m3u8Proess.running){
+        tempSize = [m3u8Proess.m3u8Download getDurationTempSize]/(1024*3);
+        [self updateTempSize:tempSize];
         for(int i=0;i<[m3u8Proess.m3u8Download.m3u8DownloadLines count];i++){
             M3u8DownloadLine* line =[m3u8Proess.m3u8Download.m3u8DownloadLines objectAtIndex:i];
             if(i%countPerLine==0&&i!=0){
@@ -62,6 +64,8 @@
             }
         }
     }else if(mp4Proess.running){
+        tempSize = [mp4Proess.mp4Download getDurationTempSize]/(1024*3);
+        [self updateTempSize:tempSize];
         for(int i=0;i<[mp4Proess.mp4Download.mp4DownloadPartials count];i++){
             Mp4DownloadPartial* partial =[mp4Proess.mp4Download.mp4DownloadPartials objectAtIndex:i];
             if(i%countPerLine==0&&i!=0){
@@ -78,6 +82,7 @@
             }
         }
     }else if(transfer_code_interrupt==0){
+        tempSize= 0;
         NSString* mkvOutPath = AppDele.localMkvM3u8PathPrefix;
         NSString* mkvM3u8File = [AppDele.localMp3PathPrefix stringByAppendingString:@"mkv.m3u8"];
         if([[NSFileManager defaultManager] fileExistsAtPath:mkvM3u8File]){
@@ -134,6 +139,17 @@
     [self.refreshTimer invalidate];
 }
 
+-(void)updateTempSize:(long)tempSize{
+    TTButton* button = [TTButton buttonWithStyle:@"toolbarRoundButton:" title:[NSString stringWithFormat:@"%ldKB/S",tempSize]];
+    
+    [button setFont:[UIFont systemFontOfSize:14]];
+    
+    [button sizeToFit];
+    
+    UIBarButtonItem* item = [[UIBarButtonItem alloc] initWithCustomView:button];
+    
+    [self.navigationItem setLeftBarButtonItem:item animated:YES];
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];

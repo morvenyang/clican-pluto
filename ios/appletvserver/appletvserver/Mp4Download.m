@@ -8,12 +8,21 @@
 
 #import "Mp4Download.h"
 #import "Constants.h"
-
+#import "AtvUtil.h"
+#import "AppDelegate.h"
 @implementation Mp4Download
 
 @synthesize mp4Url = _mp4Url;
 @synthesize mp4DownloadPartials = _mp4DownloadPartials;
 @synthesize totalLength = _totalLength;
+@synthesize tempSize = _tempSize;
+
+-(long) getDurationTempSize{
+    long temp = [AtvUtil getFolderSize:AppDele.localMp4PathPrefix];
+    long result = temp-_tempSize;
+    _tempSize = temp;
+    return result;
+}
 
 - (Mp4DownloadPartial*) getNextDownloadPartial{
     @synchronized(self) {

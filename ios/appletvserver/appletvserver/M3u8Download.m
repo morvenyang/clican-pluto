@@ -7,12 +7,21 @@
 //
 
 #import "M3u8Download.h"
-
+#import "AtvUtil.h"
+#import "AppDelegate.h"
 @implementation M3u8Download
 
 @synthesize m3u8DownloadLines = _m3u8DownloadLines;
 @synthesize m3u8Url = _m3u8Url;
+@synthesize tempSize = _tempSize;
 
+
+-(long) getDurationTempSize{
+    long temp = [AtvUtil getFolderSize:AppDele.localM3u8PathPrefix];
+    long result = temp-_tempSize;
+    _tempSize = temp;
+    return result;
+}
 -(void) seekDownloadLine:(NSString*) localPath{
     @synchronized(self) {
         for(int i=0;i<[_m3u8DownloadLines count];i++){
