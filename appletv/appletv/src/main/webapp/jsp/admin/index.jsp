@@ -6,6 +6,8 @@
 <title>管理</title>
 </head>
 <body>
-guanli
+<form action="/appletv/ctl/apns/sendMessage.do" method="post">
+		APNS消息:<input type="text" name="message" size="50"/><input type="submit" value="发送"/><br/> 
+</form>
 </body>
 </html>
