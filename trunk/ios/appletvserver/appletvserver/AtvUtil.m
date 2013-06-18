@@ -218,4 +218,25 @@
         return NO;
     }
 }
+
++(unsigned long long) getFolderSize:(NSString *)filePath{
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    unsigned long long folderSize = 0;
+    NSString* previousOne = nil;
+    if ([fileManager fileExistsAtPath:filePath]) {
+        NSEnumerator *childEnumber = [[fileManager subpathsOfDirectoryAtPath:filePath error:nil] objectEnumerator];
+        NSString *fileName;
+        while ((fileName = [childEnumber nextObject]) != nil) {
+            if(previousOne!=nil){
+                if([AtvUtil content:fileName startWith:previousOne]){
+                    NSLog(@"skip this file %@",fileName);
+                    continue;
+                }
+            }
+            NSString *childFilePath = [filePath stringByAppendingPathComponent:fileName];
+            folderSize += [fileManager attributesOfItemAtPath:childFilePath error:nil].fileSize;
+        }
+    }
+    return folderSize;
+}
 @end

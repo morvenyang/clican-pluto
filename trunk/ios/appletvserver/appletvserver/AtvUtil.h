@@ -19,4 +19,5 @@
 + (NSData *)uncompressZippedData:(NSData *)compressedData;
 + (NSString*) getUUID;
 + (BOOL) isWifi;
++ (unsigned long long) getFolderSize:(NSString*) filePath;
 @end

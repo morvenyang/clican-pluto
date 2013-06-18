@@ -14,12 +14,15 @@
     int _downloadIndex;
     int _maxFinishedIndex;
     long _totalLength;
+    long _tempSize;
 }
 @property (nonatomic, retain) NSMutableArray* mp4DownloadPartials;
 @property (nonatomic, copy) NSString* mp4Url;
 @property (nonatomic, assign) long totalLength;
+@property (atomic, assign) long tempSize;
 
 - (Mp4DownloadPartial*) getNextDownloadPartial;
 - (NSData*) getDataByStartPosition:(long) startPosition endPosition:(long) endPosition;
 - (void) seekDownloadPartial:(long) position;
+-(long) getDurationTempSize;
 @end
