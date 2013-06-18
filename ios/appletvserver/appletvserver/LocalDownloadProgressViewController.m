@@ -69,11 +69,12 @@
     for(OfflineRecord* record in array){
         NSString* content;
         if([record.fileType isEqualToString:FILE_TYPE_MP4]){
-            content = [NSString stringWithFormat:@"<strong>%0.2fMB/%0.2fMB</strong>\n%@",record.downloadFileSize*1.0/(1024*1024),record.fileSize*1.0/(1024*1024),[record.url stringByReplacingOccurrencesOfString:@"&" withString:@"&amp;"]];
+            content = [NSString stringWithFormat:@"<strong>%0.2fMB/%0.2fMB</strong> <strong>%ldKB/s</strong>\n%@",record.downloadFileSize*1.0/(1024*1024),
+                       record.fileSize*1.0/(1024*1024),record.tempSize/(1024*3),[record.url stringByReplacingOccurrencesOfString:@"&" withString:@"&amp;"]];
         }else{
-            content = [NSString stringWithFormat:@"<strong>%ld/%ld</strong>\n%@",record.downloadFileSize,record.fileSize,[record.url stringByReplacingOccurrencesOfString:@"&" withString:@"&amp;"]];
+            content = [NSString stringWithFormat:@"<strong>%ld/%ld</strong> <strong>%ldKB/s</strong>\n%@",record.downloadFileSize,record.fileSize,record.tempSize/(1024*3),[record.url stringByReplacingOccurrencesOfString:@"&" withString:@"&amp;"]];
         }
-    
+        record.tempSize = 0;
         OfflineRecordTableItem* item = [OfflineRecordTableItem itemWithText:[TTStyledText textFromXHTML:content lineBreaks:YES URLs:YES] URL:nil];
         item.deleteButton = [TargetButton buttonWithStyle:@"toolbarRoundButton:" title:@"删除" target:record];
         [item.deleteButton addTarget:self action:@selector(deleteAction:) forControlEvents:UIControlEventTouchUpInside];
