@@ -9,6 +9,7 @@
 #import "OfflineRecord.h"
 #import "AtvUtil.h"
 #import "AppDelegate.h"
+#import "Constants.h"
 @implementation OfflineRecord
 
 @synthesize fileName = _fileName;
@@ -20,8 +21,13 @@
 @synthesize url = _url;
 @synthesize request = _request;
 @synthesize downloading = _downloading;
+@synthesize tempSize = _tempSize;
+
 - (void)request:(ASIHTTPRequest *)request didReceiveBytes:(long long)bytes{
-    self.downloadFileSize+=bytes;
+    self.tempSize+=bytes;
+    if([self.fileType isEqualToString:FILE_TYPE_MP4]){
+        self.downloadFileSize+=bytes;
+    }
     if(![AtvUtil isWifi]&&!AppDele.ttgNetwork){
         [request clearDelegatesAndCancel];
         self.downloading = FALSE;

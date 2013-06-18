@@ -19,6 +19,7 @@
     NSString* _fileType;
     ASIHTTPRequest* _request;
     BOOL _downloading;
+    long _tempSize;
 }
 @property (nonatomic, copy) NSString* url;
 @property (nonatomic, copy) NSString* fileName;
@@ -29,4 +30,5 @@
 @property (nonatomic, assign) long fileSize;
 @property (nonatomic, assign) long downloadFileSize;
 @property (nonatomic, assign) BOOL downloading;
+@property (atomic, assign) long tempSize;
 @end
