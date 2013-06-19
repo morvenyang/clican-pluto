@@ -6,7 +6,7 @@
 <title>登录</title>
 </head>
 <body>
-<form action="/appletv/ctl/auth/login.do">
+<form action="/appletv/ctl/auth/login.do" method="post">
 		用户名:<input type="text" name="userName" size="50"/><br/> 
 		密&nbsp;&nbsp;&nbsp;&nbsp;码:<input type="password" name="password" size="50"/> <br/>
 		<p style="color:red">${message}</p>
