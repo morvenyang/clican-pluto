@@ -379,8 +379,8 @@ var sokuClient = {
 					size = detail['episode_total'];
 					var siteItems = detail['site_items'];
 					for(var i=0;i<siteItems.length;i++){
-						var site = {"title":siteItems[i]['title'],"id":siteItems[i]["id"]};
-						sites.push(site);
+						var s = {"title":siteItems[i]['title'],"id":siteItems[i]["id"]};
+						sites.push(s);
 					}
 				}else{
 					title = detail['title'];
@@ -388,7 +388,7 @@ var sokuClient = {
 					pic =  detail['img'];
 					vcode = detail['videoid'];
 				}
-				
+				appletv.logToServer("sokuClient.loadVideoPage('"+id+"',"+album+",'"+site+"');");
 				script = appletv.encode("sokuClient.loadVideoPage('"+id+"',"+album+",'"+site+"');");
 				var video = {
 						'serverurl' : appletv.serverurl,
