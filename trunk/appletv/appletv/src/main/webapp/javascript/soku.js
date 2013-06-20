@@ -633,7 +633,7 @@ var sokuClient = {
 					var json = JSON.parse(jsonContent);
 					var m3u8Url;
 					var mtype = json['data']['mtype'];
-					if(mtype=='tv'){
+					if(mtype=='tv'||mtype=='cartoon'){
 						try{
 							if(m3u8Url==null||m3u8Url.length==0){
 								var c = json['data']['content'][json['data']['sort']];
