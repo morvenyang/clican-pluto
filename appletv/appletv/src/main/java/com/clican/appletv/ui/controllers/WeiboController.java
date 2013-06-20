@@ -492,7 +492,7 @@ public class WeiboController {
 		timeline.setToken(accessToken);
 		String promptTitle = "转发成功";
 		try {
-			timeline.Repost(statusId.toString(), "从ATV3_Client转发微博", 3);
+			timeline.Repost(statusId.toString(), "从ATV3_Client转发微博 @Clican 了解更多, 下载《天王星》收看更多视频 App Store下载地址 https://itunes.apple.com/us/app/tian-wang-xing/id630921227?mt=8", 3);
 		} catch (WeiboException e) {
 			if (log.isDebugEnabled()) {
 				log.debug(e.getMessage());
