@@ -9,6 +9,9 @@ var sokuClient = {
 		},{
 			label : "电视剧",
 			value : 'tv'
+		},{
+			label : "综艺",
+			value : 'zy'
 		}],
 		
 		sokuChannelMap : {
@@ -25,6 +28,11 @@ var sokuClient = {
 				label : "电视剧",
 				value : "tv",
 				url: "http://www.soku.com/channel/teleplaylist_0_0_0_1_1.html"
+			},
+			"zy" : {
+				label : "综艺",
+				value : "zy",
+				url: "http://www.soku.com/channel/varietylist_0_0_0_1_1.html"
 			}
 		},
 		
@@ -237,7 +245,7 @@ var sokuClient = {
 				var detail = appletv.substringByTag(htmlContent,'<div class="detailinfo">','</div>','div');
 				var title = appletv.substringByData(detail,'<h1>','</h1>');
 				var desc = appletv.substringByData(htmlContent,'<div class="intro">','</div>');
-				desc = appletv.substringByData(desc,'label>','<span').trim();
+				desc = appletv.getTextInTag(desc).replace('显示详情','');
 				var actor = appletv.substringByData(detail,'主演:','</span>');
 				actor = appletv.getTextInTag(actor);
 				var dctor = appletv.substringByData(detail,'导演:','</span>');
@@ -268,12 +276,17 @@ var sokuClient = {
 					var items = [];
 					for(var j=0;j<siteItems.length;j++){
 						var vurl = appletv.substringByData(siteItems[j],'href="','"');
-						var vtitle = '第'+(j+1)+'集';
+						var vtitle = appletv.substringByData(siteItems[j],'title="','"');
+						if(vtitle==null||vtitle.length==0){
+							vtitle = '第'+(j+1)+'集';
+						}
 						var v = {"url":vurl,"title":vtitle};
 						items.push(v);
 					}
+					if(i==0){
+						size = items.length;
+					}
 					site['items']=items;
-					size = items.length;
 				}
 				if(sites.length==0){
 					var singleSite = appletv.substringByTag(htmlContent,'<div class="source  source_one">','</div>','div');
