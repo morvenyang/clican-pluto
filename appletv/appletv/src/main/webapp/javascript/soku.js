@@ -276,7 +276,7 @@ var sokuClient = {
 					var items = [];
 					for(var j=0;j<siteItems.length;j++){
 						var vurl = appletv.substringByData(siteItems[j],'href="','"');
-						if(vual==null||vual.length==0){
+						if(vurl==null||vurl.length==0){
 							continue;
 						}
 						var vtitle = appletv.substringByData(siteItems[j],'title="','"');
