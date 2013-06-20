@@ -111,7 +111,7 @@ public class SubTitleClientImpl extends BaseClient implements SubTitleClient {
 	private String parsePackages(DataInputStream dis) throws IOException {
 		int packageCount = dis.readByte();
 		for (int i = 0; i < packageCount; i++) {
-			int packageLength = dis.readInt();
+			dis.readInt();
 			int descLength = dis.readInt();
 			byte[] descData = new byte[descLength];
 			dis.read(descData);
@@ -119,7 +119,7 @@ public class SubTitleClientImpl extends BaseClient implements SubTitleClient {
 				log.debug("package[" + i + "] desc:"
 						+ new String(descData, "gbk"));
 			}
-			int fileDataLength = dis.readInt();
+			dis.readInt();
 			int fileCount = dis.readByte();
 			for (int j = 0; j < fileCount; j++) {
 				String fileContent = parseFiles(dis);
@@ -132,11 +132,11 @@ public class SubTitleClientImpl extends BaseClient implements SubTitleClient {
 	}
 
 	private String parseFiles(DataInputStream dis) throws IOException {
-		int filePackageLength = dis.readInt();
+		dis.readInt();
 		int fileExtNameLength = dis.readInt();
 		byte[] fileExtNameData = new byte[fileExtNameLength];
 		dis.read(fileExtNameData);
-		String fileExtName = new String(fileExtNameData, "gbk");
+
 		int fileDataLength = dis.readInt();
 		byte[] fileData = new byte[fileDataLength];
 		dis.read(fileData);
