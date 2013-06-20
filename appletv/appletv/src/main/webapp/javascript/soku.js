@@ -12,6 +12,9 @@ var sokuClient = {
 		},{
 			label : "综艺",
 			value : 'zy'
+		},{
+			label : "动漫",
+			value : 'dm'
 		}],
 		
 		sokuChannelMap : {
@@ -33,6 +36,11 @@ var sokuClient = {
 				label : "综艺",
 				value : "zy",
 				url: "http://www.soku.com/channel/varietylist_0_0_0_1_1.html"
+			},
+			"dm" : {
+				label : "动漫",
+				value : "dm",
+				url: "http://www.soku.com/channel/animelist_0_0_0_1_1.html"
 			}
 		},
 		
