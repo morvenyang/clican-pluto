@@ -21,7 +21,7 @@
 						<items>
 							<%for(var i=0;i<items.length;i++){%>
 								<oneLineMenuItem id="albumItem_<%=i%>" onPlay="sokuClient.openUrl('<%=items[i]['url']%>');" onSelect="sokuClient.openUrl('<%=items[i]['url']%>');">
-									<label><%=items[i]['title']%></label>
+									<label><![CDATA[<%=items[i]['title']%>]]></label>
 								</oneLineMenuItem>
 							<%}%>
 						</items>
