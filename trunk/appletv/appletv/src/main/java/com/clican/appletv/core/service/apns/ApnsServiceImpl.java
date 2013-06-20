@@ -16,7 +16,6 @@ import org.apache.commons.logging.LogFactory;
 import com.clican.appletv.common.SpringProperty;
 import com.notnoop.apns.APNS;
 import com.notnoop.apns.ApnsNotification;
-import com.notnoop.apns.PayloadBuilder;
 import com.notnoop.apns.ReconnectPolicy.Provided;
 
 public class ApnsServiceImpl implements ApnsService {
