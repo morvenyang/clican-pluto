@@ -22,15 +22,15 @@
 							<%for(var i=0;i<items.length;i++){%>
 								<%if(items[i]['vcode']!=null&&items[i]['vcode'].length>0){%>
 									<oneLineMenuItem id="albumItem_<%=i%>" onPlay="sokuClient.play('<%=items[i]['vcode']%>');" onSelect="sokuClient.play('<%=items[i]['vcode']%>');">
-										<label><%=items[i]['title']%></label>
+										<label><![CDATA[<%=items[i]['title']%>]]></label>
 									</oneLineMenuItem>
 								<%}else if(items[i]['url']!=null&&items[i]['url'].length>0){%>
 									<oneLineMenuItem id="albumItem_<%=i%>" onPlay="sokuClient.openUrl('<%=items[i]['url']%>');" onSelect="sokuClient.openUrl('<%=items[i]['url']%>');">
-										<label><%=items[i]['title']%></label>
+										<label><![CDATA[<%=items[i]['title']%>]]></label>
 									</oneLineMenuItem>
 								<%}else{%>
 									<oneLineMenuItem id="albumItem_<%=i%>" onPlay="appletv.showDialog('无法播放','');" onSelect="appletv.showDialog('无法播放','');">
-										<label><%=items[i]['title']%></label>
+										<label><![CDATA[<%=items[i]['title']%>]]></label>
 									</oneLineMenuItem>
 								<%}%>
 							<%}%>
