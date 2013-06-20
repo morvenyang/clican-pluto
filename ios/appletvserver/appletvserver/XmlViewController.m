@@ -348,6 +348,11 @@
     video.description = [[node nodeForXPath:@"summary" error:nil] stringValue];
     video.picUrl = [[node nodeForXPath:@"image" error:nil] stringValue];
     
+    video.directors = @"-";
+    video.year = @"-";
+    video.area = @"-";
+    video.score = @"-";
+    video.actors = @"-";
     NSArray* rows = [node nodesForXPath:@"table/rows/row" error:nil];
     for(int i=0;i<[rows count];i++){
         CXMLNode* row = [rows objectAtIndex:i];
@@ -361,11 +366,7 @@
             NSRange range = [labelValue rangeOfString:@":"];
             NSString* name = nil;
             NSString* value = nil;
-            video.directors = @"-";
-            video.year = @"-";
-            video.area = @"-";
-            video.score = @"-";
-            video.actors = @"-";
+            
             if(range.location!=NSNotFound){
                 name = [labelValue substringWithRange:NSMakeRange(0, range.location)];
                 if(range.location+1<[labelValue length]){
