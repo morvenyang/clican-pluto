@@ -94,6 +94,7 @@
 				<version>2.3</version>
 				<configuration>
 					<warName>appletv</warName>
+					<packagingExcludes>WEB-INF/classes/env.properties</packagingExcludes>
 				</configuration>
 			</plugin>
 			<plugin>
