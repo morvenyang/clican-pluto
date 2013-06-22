@@ -258,6 +258,9 @@ public class TaobaoClientImpl extends BaseClient implements TaobaoClient {
 					for (String cid : tc.getChildrenCids()) {
 						TaobaoCategory child = new TaobaoCategory();
 						ItemCat ic = catMap.get(Long.parseLong(cid));
+						if (ic == null) {
+							continue;
+						}
 						child.setTitle(ic.getName());
 						child.setId(ic.getCid());
 						tc.getChildren().add(child);
