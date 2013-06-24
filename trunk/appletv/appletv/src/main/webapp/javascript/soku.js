@@ -99,7 +99,7 @@ var sokuClient = {
 				if(queryUrl==null){
 					queryUrl = channel['url'].replace('_1.html','_'+page+'.html');
 				}else{
-					var start = queryUrl.indexOf('_1.html');
+					var start = queryUrl.lastIndexOf('_');
 					if(start>=0){
 						start = start+1;
 						queryUrl = queryUrl.substring(0,start)+page+'.html';
