@@ -8,73 +8,73 @@
 			<items>
 				<grid id="grid_2" columnCount="5">
 					<items>
-						<goldenPoster id="local" onSelect="appletv.loadLocalServerIndexPage();">
+						<moviePoster id="local" featured="true" onSelect="appletv.loadLocalServerIndexPage();">
 							<image>http://www.clican.org/appletv/image/local.png</image>
 							<title>本地服务器</title>
-						</goldenPoster>
-						<goldenPoster id="soku" onSelect="sokuClient.loadIndexPage('',1,'tv');">
+						</moviePoster>
+						<moviePoster id="soku" featured="true" onSelect="sokuClient.loadIndexPage('',1,'tv');">
 							<image>http://www.clican.org/appletv/image/soku/soku.png</image>
 							<title>搜库</title>
-						</goldenPoster>
-						<goldenPoster id="youku" onSelect="youkuClient.loadIndexPage('',1,96);">
+						</moviePoster>
+						<moviePoster id="youku" featured="true" onSelect="youkuClient.loadIndexPage('',1,96);">
 							<image>http://www.clican.org/appletv/image/youku/youku.png</image>
 							<title>优库</title>
-						</goldenPoster>
-						<goldenPoster id="tudou"
-							onSelect="tudouClient.loadIndexPage('',1,30);">
+						</moviePoster>
+						<moviePoster id="tudou"
+							featured="true" onSelect="tudouClient.loadIndexPage('',1,30);">
 							<image>http://www.clican.org/appletv/image/tudou/tudou.png</image>
 							<title>土豆视频</title>
-						</goldenPoster>
-						<goldenPoster id="qq" onSelect="qqClient.loadIndexPage('',0,3);">
+						</moviePoster>
+						<moviePoster id="qq" featured="true" onSelect="qqClient.loadIndexPage('',0,3);">
 							<image>http://www.clican.org/appletv/image/qq/qq.png</image>
 							<title>腾讯视频</title>
-						</goldenPoster>
-						<goldenPoster id="fivesix" onSelect="fivesixClient.loadIndexPage('',1,'dsj');">
+						</moviePoster>
+						<moviePoster id="fivesix" featured="true" onSelect="fivesixClient.loadIndexPage('',1,'dsj');">
 							<image>http://www.clican.org/appletv/image/fivesix/fivesix.png</image>
 							<title>56视频</title>
-						</goldenPoster>
-						<goldenPoster id="yyets" onSelect="yyetsClient.loadIndexPage('',1,'movie');">
+						</moviePoster>
+						<moviePoster id="yyets" featured="true" onSelect="yyetsClient.loadIndexPage('',1,'movie');">
 							<image>http://www.clican.org/appletv/image/yyets/yyets.png</image>
 							<title>人人影视</title>
-						</goldenPoster>
-						<goldenPoster id="lbl" onSelect="lblClient.loadIndexPage('',1,'category/movie');">
+						</moviePoster>
+						<moviePoster id="lbl" featured="true" onSelect="lblClient.loadIndexPage('',1,'category/movie');">
 							<image>http://www.clican.org/appletv/image/lbl/lbl.png</image>
 							<title>龙部落</title>
-						</goldenPoster>
-						<goldenPoster id="native_tu" onSelect="tuClient.loadIndexPage('',1,15);">
+						</moviePoster>
+						<moviePoster id="native_tu" featured="true" onSelect="tuClient.loadIndexPage('',1,15);">
 							<image>http://www.clican.org/appletv/image/tu/tu.png</image>
 							<title>迅播影院</title>
-						</goldenPoster>
-						<goldenPoster id="baibian"
-							onSelect="atv.loadURL('http://www.clican.org/appletv/ctl/baibian/index.xml');">
+						</moviePoster>
+						<moviePoster id="baibian"
+							featured="true" onSelect="atv.loadURL('http://www.clican.org/appletv/ctl/baibian/index.xml');">
 							<image>http://www.clican.org/appletv/image/baibian/baibian.png</image>
 							<title>微电影</title>
-						</goldenPoster>
-						<goldenPoster id="weivideo"
-							onSelect="weivideoClient.loadIndexPage('',1,'1');">
+						</moviePoster>
+						<moviePoster id="weivideo"
+							featured="true" onSelect="weivideoClient.loadIndexPage('',1,'1');">
 							<image>http://local.clican.org/appletv/image/weivideo/weivideo.png</image>
 							<title>微视频</title>
-						</goldenPoster>
-						<goldenPoster id="weibo"
-							onSelect="atv.loadURL('http://clican.org/appletv/ctl/weibo/checkAccessToken.xml?deviceId='+atv.device.udid);">
+						</moviePoster>
+						<moviePoster id="weibo"
+							featured="true" onSelect="atv.loadURL('http://clican.org/appletv/ctl/weibo/checkAccessToken.xml?deviceId='+atv.device.udid);">
 							<image>http://www.clican.org/appletv/image/weibo/weibo.png</image>
 							<title>新浪微博</title>
-						</goldenPoster>
-						<goldenPoster id="taobao"
-							onSelect="atv.loadURL('http://www.clican.org/appletv/ctl/taobao/index.xml');">
+						</moviePoster>
+						<moviePoster id="taobao"
+							featured="true" onSelect="atv.loadURL('http://www.clican.org/appletv/ctl/taobao/index.xml');">
 							<image>http://www.clican.org/appletv/image/taobao/taobao.png</image>
 							<title>淘宝</title>
-						</goldenPoster>
-						<goldenPoster id="favorite"
-							onSelect="appletv.loadFavoritePage();">
+						</moviePoster>
+						<moviePoster id="favorite"
+							featured="true" onSelect="appletv.loadFavoritePage();">
 							<image>http://www.clican.org/appletv/image/favorite.png</image>
 							<title>收藏</title>
-						</goldenPoster>
-						<goldenPoster id="announcement"
-							onSelect="atv.loadURL('http://www.clican.org/appletv/release.xml');">
+						</moviePoster>
+						<moviePoster id="announcement"
+							featured="true" onSelect="atv.loadURL('http://www.clican.org/appletv/release.xml');">
 							<image>http://www.clican.org/appletv/image/announcements.png</image>
 							<title>升级公告</title>
-						</goldenPoster>
+						</moviePoster>
 					</items>
 				</grid>
 			</items>
