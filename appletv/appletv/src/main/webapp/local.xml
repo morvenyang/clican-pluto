@@ -8,84 +8,84 @@
 			<items>
 				<grid id="grid_2" columnCount="5">
 					<items>
-						<sixteenByNinePoster id="native_soku" onSelect="sokuClient.loadIndexPage('',1,'tv');" onPlay="sokuClient.loadChannelPage();">
+						<goldenPoster id="native_soku" onSelect="sokuClient.loadIndexPage('',1,'tv');" onPlay="sokuClient.loadChannelPage();">
 							<image>http://local.clican.org/appletv/image/soku/soku.png</image>
 							<title>搜库</title>
-						</sixteenByNinePoster>
-						<sixteenByNinePoster id="native_youku_approve_check" onSelect="youkuClient.loadIndexPage('',1,96);" onPlay="youkuClient.loadChannelPage();">
+						</goldenPoster>
+						<goldenPoster id="native_youku_approve_check" onSelect="youkuClient.loadIndexPage('',1,96);" onPlay="youkuClient.loadChannelPage();">
 							<image>http://local.clican.org/appletv/image/youku/youku.png</image>
 							<title>优库</title>
-						</sixteenByNinePoster>
-						<sixteenByNinePoster id="native_tudou"
+						</goldenPoster>
+						<goldenPoster id="native_tudou"
 							onSelect="tudouClient.loadIndexPage('',1,30);" onPlay="tudouClient.loadChannelPage();">
 							<image>http://local.clican.org/appletv/image/tudou/tudou.png</image>
 							<title>土豆视频</title>
-						</sixteenByNinePoster>
-						<sixteenByNinePoster id="native_qq_approve_check" onSelect="qqClient.loadIndexPage('',0,3);"  onPlay="qqClient.loadChannelPage();">
+						</goldenPoster>
+						<goldenPoster id="native_qq_approve_check" onSelect="qqClient.loadIndexPage('',0,3);"  onPlay="qqClient.loadChannelPage();">
 							<image>http://local.clican.org/appletv/image/qq/qq.png</image>
 							<title>腾讯视频</title>
-						</sixteenByNinePoster>
-						<sixteenByNinePoster id="native_fivesix_approve_check" onSelect="fivesixClient.loadIndexPage('',1,'dsj');" onPlay="fivesixClient.loadChannelPage();">
+						</goldenPoster>
+						<goldenPoster id="native_fivesix_approve_check" onSelect="fivesixClient.loadIndexPage('',1,'dsj');" onPlay="fivesixClient.loadChannelPage();">
 							<image>http://local.clican.org/appletv/image/fivesix/fivesix.png</image>
 							<title>56视频</title>
-						</sixteenByNinePoster>
-						<sixteenByNinePoster id="native_yyets" onSelect="yyetsClient.loadIndexPage('',1,'movie');" onPlay="yyetsClient.loadChannelPage();">
+						</goldenPoster>
+						<goldenPoster id="native_yyets" onSelect="yyetsClient.loadIndexPage('',1,'movie');" onPlay="yyetsClient.loadChannelPage();">
 							<image>http://local.clican.org/appletv/image/yyets/yyets.png</image>
 							<title>人人影视</title>
-						</sixteenByNinePoster>
-						<sixteenByNinePoster id="native_lbl" onSelect="lblClient.loadIndexPage('',1,'category/movie');" onPlay="lblClient.loadChannelPage();">
+						</goldenPoster>
+						<goldenPoster id="native_lbl" onSelect="lblClient.loadIndexPage('',1,'category/movie');" onPlay="lblClient.loadChannelPage();">
 							<image>http://local.clican.org/appletv/image/lbl/lbl.png</image>
 							<title>龙部落</title>
-						</sixteenByNinePoster>
-						<sixteenByNinePoster id="native_tu" onSelect="tuClient.loadIndexPage('',1,15);" onPlay="tuClient.loadChannelPage();">
+						</goldenPoster>
+						<goldenPoster id="native_tu" onSelect="tuClient.loadIndexPage('',1,15);" onPlay="tuClient.loadChannelPage();">
 							<image>http://local.clican.org/appletv/image/tu/tu.png</image>
 							<title>迅播影院</title>
-						</sixteenByNinePoster>
-						<sixteenByNinePoster id="baibian"
+						</goldenPoster>
+						<goldenPoster id="baibian"
 							onSelect="atv.loadURL('http://www.clican.org/appletv/ctl/baibian/index.xml');">
 							<image>http://local.clican.org/appletv/image/baibian/baibian.png</image>
 							<title>微电影</title>
-						</sixteenByNinePoster>
-						<sixteenByNinePoster id="native_weivideo"
+						</goldenPoster>
+						<goldenPoster id="native_weivideo"
 							onSelect="weivideoClient.loadIndexPage('',1,'1');" onPlay="weivideoClient.loadChannelPage();">
 							<image>http://local.clican.org/appletv/image/weivideo/weivideo.png</image>
 							<title>视频集</title>
-						</sixteenByNinePoster>
-						<sixteenByNinePoster id="photo"
+						</goldenPoster>
+						<goldenPoster id="photo"
 							onSelect="myPhotoClient.loadMyPhotos();">
 							<image>http://local.clican.org/appletv/image/photo.png</image>
 							<title>相册</title>
-						</sixteenByNinePoster>
-						<sixteenByNinePoster id="weibo"
+						</goldenPoster>
+						<goldenPoster id="weibo"
 							onSelect="atv.loadURL('http://www.clican.org/appletv/ctl/weibo/checkAccessToken.xml?deviceId='+atv.device.udid);">
 							<image>http://local.clican.org/appletv/image/weibo/weibo.png</image>
 							<title>新浪微博</title>
-						</sixteenByNinePoster>
-						<sixteenByNinePoster id="taobao"
+						</goldenPoster>
+						<goldenPoster id="taobao"
 							onSelect="atv.loadURL('http://www.clican.org/appletv/ctl/taobao/index.xml');">
 							<image>http://local.clican.org/appletv/image/taobao/taobao.png</image>
 							<title>淘宝</title>
-						</sixteenByNinePoster>
-						<sixteenByNinePoster id="native_favorite_approve_check"
+						</goldenPoster>
+						<goldenPoster id="native_favorite_approve_check"
 							onSelect="appletv.loadFavoritePage();" onPlay="appletv.loadFavoritePage();">
 							<image>http://local.clican.org/appletv/image/favorite.png</image>
 							<title>收藏</title>
-						</sixteenByNinePoster>
-						<sixteenByNinePoster id="smb"
+						</goldenPoster>
+						<goldenPoster id="smb"
 							onSelect="smbClient.loadIndexPage('');">
 							<image>http://local.clican.org/appletv/image/smb.png</image>
 							<title>SMB共享</title>
-						</sixteenByNinePoster>
-						<sixteenByNinePoster id="localcache"
+						</goldenPoster>
+						<goldenPoster id="localcache"
 							onSelect="localcacheClient.loadIndexPage();">
 							<image>http://local.clican.org/appletv/image/localcache.png</image>
 							<title>离线缓存</title>
-						</sixteenByNinePoster>
-						<sixteenByNinePoster id="announcement"
+						</goldenPoster>
+						<goldenPoster id="announcement"
 							onSelect="atv.loadURL('http://local.clican.org/appletv/release.xml');">
 							<image>http://local.clican.org/appletv/image/announcements.png</image>
 							<title>升级公告</title>
-						</sixteenByNinePoster>
+						</goldenPoster>
 					</items>
 				</grid>
 			</items>
