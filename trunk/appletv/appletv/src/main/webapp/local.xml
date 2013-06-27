@@ -6,7 +6,7 @@
 	<body>
 		<scroller id="com.sample.movie-shelf">
 			<items>
-				<grid id="grid_2" columnCount="4">
+				<grid id="grid_2" columnCount="5">
 					<items>
 						<sixteenByNinePoster id="native_soku" onSelect="sokuClient.loadIndexPage('',1,'tv');" onPlay="sokuClient.loadChannelPage();">
 							<image>http://local.clican.org/appletv/image/soku/soku.png</image>
