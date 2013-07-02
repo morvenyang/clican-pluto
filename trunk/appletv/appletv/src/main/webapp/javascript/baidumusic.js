@@ -119,7 +119,7 @@ var baidumusicClient = {
 				for(i=0;i<itemscontents.length;i++){
 					var a =  appletv.substringByData(itemscontents[i],'<a','</a>');
 					var t = appletv.substringByData(a,'title="','"');
-					var c = appletv.substringByData(a,'href="','"');
+					var c = appletv.substringByData(a,'href="/song/','"');
 					var item = {
 							'title' : t,
 							'id' : c
@@ -165,7 +165,21 @@ var baidumusicClient = {
 			});
 		},
 		
-		play : function(url) {
+		play : function(vcode) {
 			appletv.showLoading();
+			var url = 'http://music.baidu.com/song/'+vcode+'/download?__o=%2Fsong%2F'+vcode;
+			appletv.makeRequest(url,function(htmlContent){
+				var contents = appletv.getSubValues(htmlContent,'<a data-btndata','>');
+				for(i=0;i<contents.length;i++){
+					var content = contents[i];
+					var href = appletv.substringByData(content,'href="','"');
+					if(href!=null&&href.length>0&&href.indexOf('.mp3')!=-1){
+						appletv.playMp3('http://music.baidu.com'+href);
+						return;
+					}
+				}
+				appletv.showDialog('没有相关音乐','没有相关音乐');
+			});
+			
 		},
 }
