@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<atv>
+<head>
+<script src="<%=serverurl%>/javascript/load.js"/>
+</head>
+<body>
+<scroller id="index">
+	<items>
+		<shelf id="menu_bar">
+			<sections>
+				<shelfSection>
+					<items>
+						<%for(var i=0;i<channels.length;i++){%>
+							<%if(channels[i]['value']=='search'){%>
+								<actionButton id="shelf_item_<%=channels[i]['value']%>" onSelect="baidumusicClient.loadSearchPage();" onPlay="baidumusicClient.loadSearchPage();">
+									<title><%=channels[i]['label']%></title>
+								</actionButton>
+							<%}else{%>
+								<actionButton id="shelf_item_<%=channels[i]['value']%>" onSelect="baidumusicClient.loadIndexPage('',1,'<%=channels[i]['value']%>');" onPlay="baidumusicClient.loadIndexPage('',1,'<%=channels[i]['value']%>');">
+									<title><%=channels[i]['label']%></title>
+									<%if(channels[i]['value']==channel['value']){%>
+									<image>resource://Play.png</image>
+									<%}%>
+								</actionButton>
+							<%}%>
+						<%}%>
+					</items>
+				</shelfSection>
+			</sections>
+		</shelf>
+		<grid id="grid_1" columnCount="11">
+			<items>
+				<%if(channel['value']!='search'){%>
+				<actionButton id="shelf_item_category_page" onSelect="baidumusicClient.loadCategoryPage('<%=url%>','<%=channel['value']%>',true);" onPlay="baidumusicClient.loadCategoryPage('<%=url%>','<%=channel['value']%>',true);">
+					<title>筛选</title>
+				</actionButton>
+				<%}%>
+				<actionButton id="shelf_item_first_page" onSelect="baidumusicClient.loadIndexPage('<%=keyword%>',1,'<%=channel['value']%>','<%=url%>');" onPlay="baidumusicClient.loadIndexPage('<%=keyword%>',1,'<%=channel['value']%>','<%=url%>');">
+					<title>第一页</title>
+				</actionButton>
+				<actionButton id="nextPage" onSelect="baidumusicClient.loadIndexPage('<%=keyword%>',<%=page+1%>,'<%=channel['value']%>','<%=url%>');" onPlay="baidumusicClient.loadIndexPage('<%=keyword%>',<%=page+1%>,'<%=channel['value']%>','<%=url%>');">
+					<title>下一页</title>
+				</actionButton>
+				<%for(var i=begin;i<end;i++){%>
+					<actionButton id="shelf_item_<%=i%>_page" onSelect="baidumusicClient.loadIndexPage('<%=keyword%>',<%=i%>,'<%=channel['value']%>','<%=url%>');" onPlay="baidumusicClient.loadIndexPage('<%=keyword%>',<%=i%>,'<%=channel['value']%>','<%=url%>');">
+						<title><%=i%></title>
+						<%if(i==page){%>
+						<image>resource://Play.png</image>
+						<%}%>
+					</actionButton>
+				<%}%>
+				<actionButton id="shelf_item_last_page" onSelect="baidumusicClient.loadIndexPage('<%=keyword%>',99,'<%=channel['value']%>','<%=url%>');" onPlay="baidumusicClient.loadIndexPage('<%=keyword%>',99,'<%=channel['value']%>','<%=url%>');">
+					<title>最后页</title>
+				</actionButton>
+			</items>
+		</grid>
+		<grid id="movieGrid" columnCount="6">
+			<items>
+				<%for(var i=0;i<videos.length;i++){%>
+					<moviePoster id="shelf_item_<%=i%>" alwaysShowTitles="true" onSelect="baidumusicClient.loadVideoPageByUrl('<%=videos[i]['id']%>');">
+						<title><![CDATA[<%=videos[i].title%>]]></title>
+						<image><%=videos[i].pic%></image>
+						<defaultImage>resource://Poster.png</defaultImage>
+					</moviePoster>
+				<%}%>
+			</items>
+		</grid>
+		<grid id="pagingGrid" columnCount="11">
+			<items>
+				<%if(channel['value']!='search'){%>
+				<actionButton id="shelf_item_category_page" onSelect="baidumusicClient.loadCategoryPage('<%=url%>','<%=channel['value']%>',true);" onPlay="baidumusicClient.loadCategoryPage('<%=url%>','<%=channel['value']%>',true);">
+					<title>筛选</title>
+				</actionButton>
+				<%}%>
+				<actionButton id="shelf_item_first_page" onSelect="baidumusicClient.loadIndexPage('<%=keyword%>',1,'<%=channel['value']%>','<%=url%>');" onPlay="baidumusicClient.loadIndexPage('<%=keyword%>',1,'<%=channel['value']%>','<%=url%>');">
+					<title>第一页</title>
+				</actionButton>
+				<actionButton id="nextPage" onSelect="baidumusicClient.loadIndexPage('<%=keyword%>',<%=page+1%>,'<%=channel['value']%>','<%=url%>');" onPlay="baidumusicClient.loadIndexPage('<%=keyword%>',<%=page+1%>,'<%=channel['value']%>','<%=url%>');">
+					<title>下一页</title>
+				</actionButton>
+				<%for(var i=begin;i<end;i++){%>
+					<actionButton id="shelf_item_<%=i%>_page" onSelect="baidumusicClient.loadIndexPage('<%=keyword%>',<%=i%>,'<%=channel['value']%>','<%=url%>');" onPlay="baidumusicClient.loadIndexPage('<%=keyword%>',<%=i%>,'<%=channel['value']%>','<%=url%>');">
+						<title><%=i%></title>
+						<%if(i==page){%>
+						<image>resource://Play.png</image>
+						<%}%>
+					</actionButton>
+				<%}%>
+				<actionButton id="shelf_item_last_page" onSelect="baidumusicClient.loadIndexPage('<%=keyword%>',99,'<%=channel['value']%>','<%=url%>');" onPlay="baidumusicClient.loadIndexPage('<%=keyword%>',99,'<%=channel['value']%>','<%=url%>');">
+					<title>最后页</title>
+				</actionButton>
+			</items>
+		</grid>
+	</items>
+</scroller>
+</body>
+</atv>
