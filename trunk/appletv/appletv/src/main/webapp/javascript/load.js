@@ -1,6 +1,6 @@
 try {
 	if(atv){
-		var jsVersion = '1.2.0.1';
+		var jsVersion = '1.2.0.2';
 		var src = document
 		.evaluateXPath("descendant::script", document.rootElement)[0]
 		.getAttribute('src');

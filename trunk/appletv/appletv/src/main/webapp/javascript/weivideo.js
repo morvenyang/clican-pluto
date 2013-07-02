@@ -104,6 +104,7 @@ var weivideoClient = {
 		appletv.showLoading();
 		var channel = this.weivideoChannelMap[channelId];
 		var videos = [];
+		var referUrl = null;
 		if (channelId == 1001) {
 			queryUrl = 'http://video.weibo.com/s?q='+encodeURIComponent(keyword);
 			appletv.makeRequest(queryUrl,function(htmlContent){
@@ -129,7 +130,7 @@ var weivideoClient = {
 				}
 			});
 		} else {
-			if(queryUrl==null){
+			if(queryUrl==null||queryUrl.length==0){
 				if(channelId=='10'){
 					queryUrl = 'http://newvideopc.video.sina.com.cn/movie/fapi/other_data?uid=&q_category='
 						+ channelId
@@ -141,6 +142,7 @@ var weivideoClient = {
 				}
 				
 			} else {
+				referUrl = queryUrl;
 				queryUrl = queryUrl+'&page=' + page + '&time=' + new Date().getTime();
 			}
 			appletv.logToServer(queryUrl);
@@ -164,7 +166,7 @@ var weivideoClient = {
 										videos.push(video);
 									}
 									weivideoClient.generateIndexPage(keyword,
-											page, channel, videos);
+											page, channel, videos,referUrl);
 								} else {
 									appletv.showDialog('加载失败', '');
 								}
@@ -173,7 +175,7 @@ var weivideoClient = {
 
 	},
 
-	generateIndexPage : function(keyword, page, channel, videos) {
+	generateIndexPage : function(keyword, page, channel, videos,url) {
 		if (videos.length == 0) {
 			appletv.showDialog('没有相关视频', '');
 			return;
@@ -187,8 +189,12 @@ var weivideoClient = {
 			end = 99;
 			begin = 92;
 		}
+		if(url!=null){
+			url = url.replace(new RegExp('&', 'g'), '&amp;');
+		}
 		var data = {
 			'page' : page,
+			'url' : url,
 			'channel' : channel,
 			'keyword' : keyword,
 			'begin' : begin,
