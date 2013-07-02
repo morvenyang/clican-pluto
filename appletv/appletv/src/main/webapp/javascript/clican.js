@@ -250,17 +250,7 @@ var appletv = {
 		}
 	},
 	playMp3 : function(mp3url) {
-		var plist = {
-			type : "video-asset",
-			"media-asset" : {
-				"media-url" : mp3url,
-				type : 'http-live-streaming',
-				title : 'test',
-				description : 'test',
-				length : 100
-			}
-		};
-		atv.loadAndSwapPlist(plist);
+		appletv.loadAndSwapXML(appletv.makePlayXml(mp3url));
 	},
 
 	readLocalFile : function(url) {
