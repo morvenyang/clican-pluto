@@ -1,6 +1,6 @@
 try {
 	if(atv){
-		var jsVersion = '1.2.0.2';
+		var jsVersion = '1.2.0.3';
 		var src = document
 		.evaluateXPath("descendant::script", document.rootElement)[0]
 		.getAttribute('src');
@@ -18,7 +18,7 @@ try {
 		}else{
 			localJsVersion = atv.localStorage['clican.remote.js.version'];
 		}
-		var urls = ['clican.js', 'ejs.js', 'fivesix.js', 'lbl.js', 'localcache.js', 'myphoto.js',
+		var urls = ['baidumusic.js', 'clican.js', 'ejs.js', 'fivesix.js', 'lbl.js', 'localcache.js', 'myphoto.js',
 				'photoPreview.js', 'qq.js', 'smb.js', 'soku.js','subtitle.js', 'taobao.js',
 				'tu.js', 'tudou.js', 'view.js', 'weivideo.js', 'xunlei.js',
 				'youku.js', 'yyets.js' ];
