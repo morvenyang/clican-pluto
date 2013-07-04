@@ -13,7 +13,7 @@
 				<rows>
 					<row><label><![CDATA[导演:<%=video['dctor']%>]]></label><label><![CDATA[年代:<%=video['year']%>]]></label></row>
 					<row><label><![CDATA[评分:<%=video['score']%>]]></label><label><![CDATA[地区:<%=video['area']%>]]></label></row>
-					<row><label><![CDATA[剧集:共<%=items.length%>集]]></label><label><![CDATA[主演:<%=video['actor']%>]]></label></row>
+					<row><label><![CDATA[歌曲:共<%=items.length%>首]]></label><label><![CDATA[主演:<%=video['actor']%>]]></label></row>
 				</rows>
 			</table>
 			<centerShelf>
@@ -22,7 +22,7 @@
 						<shelfSection>
 							<items>
 								<actionButton id="album_1" onSelect="baidumusicClient.loadItemsPage();">
-									<title>剧集</title>
+									<title>歌曲</title>
 								</actionButton>
 								<actionButton id="album_8" onSelect="appletv.shareToSinaWeibo('<%=video['title']%>','<%=video['shareurl']%>','<%=video['pic']%>');" onPlay="appletv.shareToSinaWeibo('<%=video['title']%>','<%=video['shareurl']%>','<%=video['pic']%>');">
 									<title>分享</title>
