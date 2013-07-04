@@ -27,11 +27,16 @@ var baidumusicClient = {
 				
 			} else {
 				if(queryUrl==null){
-					queryUrl = 'http://music.baidu.com/album/all?order=time&style=all&start=0&size=10';
+					queryUrl = 'http://music.baidu.com/album/all?order=hot&style=all&start=0&size=10';
 				}else{
 					var s = queryUrl.indexOf('start=');
-					var e = queryUrl.indexOf('&',s);
-					queryUrl = queryUrl.substring(0,s+6)+page+queryUrl.substring(e);
+					if(s==-1){
+						queryUrl = queryUrl+'&start=0&size=10';
+					}else{
+						var e = queryUrl.indexOf('&',s);
+						queryUrl = queryUrl.substring(0,s+6)+page+queryUrl.substring(e);
+					}
+					
 				}
 				appletv.logToServer(queryUrl);
 				appletv.makeRequest(queryUrl, function(content) {
@@ -94,6 +99,52 @@ var baidumusicClient = {
 				url : appletv.serverurl + '/template/baidumusic/index.ejs'
 			}).render(data);
 			appletv.loadAndSwapXML(xml);
+		},
+		
+		getCategory: function(content,url){
+			var categoryFilterContent = appletv.substringByTag(content,'<div class="select">','</div>','div');
+			var categoryFilters = appletv.getSubValuesByTag(categoryFilterContent,'<div class="by-','</div>','div');
+			appletv.logToServer(categoryFilters);
+			var categoryNames = [];
+			var categoryMap = {};
+			url = url.replace(new RegExp('&', 'g'), '&amp;');
+			var category = {"categoryMap":categoryMap,"categoryNames":categoryNames,"url":url,"serverurl":appletv.serverurl};
+			for(i=0;i<categoryFilters.length;i++){
+				var categoryName = appletv.substringByData(categoryFilters[i],'<h4>','</h4>');
+				categoryNames.push(categoryName);
+				var categoryValues = [];
+				var categoryLis = appletv.getSubValues(categoryFilters[i],'<li','</li>');
+				for(j=0;j<categoryLis.length;j++){
+					var select = false;
+					var categoryLabel;
+					if(categoryLis[j].indexOf('class="type-selected"')!=-1){
+						select = true
+					}
+					categoryLabel = appletv.substringByData(categoryLis[j],'<a','</a>');
+					categoryLabel = appletv.subIndexString(categoryLabel,'>');
+					
+					var categoryUrl = 'http://music.baidu.com'+appletv.substringByData(categoryLis[j],'href="','"');
+					categoryUrl = categoryUrl.replace(new RegExp('&', 'g'), '&amp;');
+					var categoryValue={"categoryLabel":categoryLabel,"categoryUrl":categoryUrl,"select":select};
+					categoryValues.push(categoryValue);
+				}
+				categoryMap[categoryName] = categoryValues;
+			}
+			return category;
+		},
+		
+		loadCategoryPage: function(url,loading){
+			if(loading){
+				appletv.showLoading();
+			}
+			appletv.logToServer('load baidumusic category page');
+			appletv.makeRequest(url, function(content) {
+				category = baidumusicClient.getCategory(content,url);
+				var xml = new EJS({
+					url : appletv.serverurl + '/template/baidumusic/category.ejs'
+				}).render(category);
+				appletv.loadAndSwapXML(xml);
+			});
 		},
 		
 		loadVideoPageByUrl : function(url) {
