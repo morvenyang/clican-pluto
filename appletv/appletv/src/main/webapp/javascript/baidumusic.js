@@ -169,6 +169,10 @@ var baidumusicClient = {
 			appletv.showLoading();
 			var url = 'http://music.baidu.com/song/'+vcode+'/download?__o=%2Fsong%2F'+vcode;
 			appletv.makeRequest(url,function(htmlContent){
+				if(htmlContent.indexOf('Sorry, our current licence does not allow playback in your current territory')!=-1){
+					appletv.showDialog('抱歉我们所有的版权无法在当前国家/地区被播放该音乐','Sorry, our current licence does not allow playback in your current territory');
+					return;
+				}
 				var contents = appletv.getSubValues(htmlContent,'<a data-btndata','>');
 				for(i=0;i<contents.length;i++){
 					var content = contents[i];
