@@ -27,14 +27,14 @@ var baidumusicClient = {
 				
 			} else {
 				if(queryUrl==null){
-					queryUrl = 'http://music.baidu.com/album/all?order=hot&style=all&start=0&size=10';
+					queryUrl = 'http://music.baidu.com/album/all?order=hot&style=all&start=0&size=30';
 				}else{
 					var s = queryUrl.indexOf('start=');
 					if(s==-1){
 						queryUrl = queryUrl+'&start=0&size=10';
 					}else{
 						var e = queryUrl.indexOf('&',s);
-						queryUrl = queryUrl.substring(0,s+6)+page+queryUrl.substring(e);
+						queryUrl = queryUrl.substring(0,s+6)+(page-1)*10+queryUrl.substring(e);
 					}
 					
 				}
@@ -42,7 +42,7 @@ var baidumusicClient = {
 				appletv.makeRequest(queryUrl, function(content) {
 					if (content != null && content.length > 0) {
 						var packs = appletv.getSubValuesByTag(content,
-								'<li class="clearfix c6 bb">', '</li>', 'li');
+								'<li class="clearfix c6 bb', '</li>', 'li');
 						for (i = 0; i < packs.length; i++) {
 							var pack = packs[i];
 							var pic = appletv.substringByData(pack,
