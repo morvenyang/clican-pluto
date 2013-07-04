@@ -49,7 +49,12 @@
 						<goldenPoster id="native_weivideo"
 							onSelect="weivideoClient.loadIndexPage('',1,'1');" onPlay="weivideoClient.loadChannelPage();">
 							<image>http://local.clican.org/appletv/image/weivideo/weivideo.png</image>
-							<title>视频集</title>
+							<title>微视频</title>
+						</goldenPoster>
+						<goldenPoster id="native_baidumusic"
+							onSelect="baidumusicClient.loadIndexPage('',1,'album');" onPlay="baidumusicClient.loadIndexPage('',1,'album');">
+							<image>http://local.clican.org/appletv/image/baidumusic/baidumusic.png</image>
+							<title>百度音乐</title>
 						</goldenPoster>
 						<goldenPoster id="photo"
 							onSelect="myPhotoClient.loadMyPhotos();">
