@@ -79,7 +79,7 @@
     CXMLDocument *document =[[CXMLDocument alloc] initWithContentsOfURL:[NSURL fileURLWithPath:localXmlPath] encoding:NSUTF8StringEncoding options:0 error:&theError];
     CXMLElement* rootElement=[document rootElement];
     CXMLElement* bodyElement = [[rootElement elementsForName:@"body"] objectAtIndex:0];
-    NSArray* array = [bodyElement nodesForXPath:@"scroller/items/grid/items/goldenPoster" error:nil];
+    NSArray* array = [bodyElement nodesForXPath:@"scroller/items/grid/items/moviePoster" error:nil];
     NSMutableArray* result = [NSMutableArray array];
     for(int i=0;i<array.count;i++){
         CXMLNode* node = [array objectAtIndex:i];

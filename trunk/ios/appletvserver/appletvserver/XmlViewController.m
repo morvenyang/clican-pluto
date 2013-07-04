@@ -345,6 +345,7 @@
 -(void) displayDetail:(CXMLNode*) node{
     Video* video = [[[Video alloc] init] autorelease];
     video.title = [[node nodeForXPath:@"title" error:nil] stringValue];
+    self.title = video.title;
     video.description = [[node nodeForXPath:@"summary" error:nil] stringValue];
     video.picUrl = [[node nodeForXPath:@"image" error:nil] stringValue];
     
