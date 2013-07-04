@@ -177,9 +177,12 @@ var baidumusicClient = {
 				pic = appletv.substringByData(pic,'src="','"');
 				title =  appletv.substringByData(htmlContent,'<h2 class="album-name">','</h2>');
 				desc = '';
+				if(title==null||title.length==0){
+					title = '音乐';
+				}
 				var script = appletv.encode("baidumusicClient.loadVideoPageByUrl('"+url+"');");
 				var items = [];
-				var itemscontents = appletv.getSubValuesByTag(htmlContent,'<div class="song-item">','</div>','div');
+				var itemscontents = appletv.getSubValuesByTag(htmlContent,'<div class="song-item','</div>','div');
 				for(i=0;i<itemscontents.length;i++){
 					var a =  appletv.substringByData(itemscontents[i],'<a','</a>');
 					var t = appletv.substringByData(a,'title="','"');
@@ -191,7 +194,10 @@ var baidumusicClient = {
 					items.push(item);
 				}
 				
-				
+				if(items.length==0){
+					appletv.showDialog('没有相关音乐','没有相关音乐');
+					return;
+				}
 				var video = {
 						'serverurl' : appletv.serverurl,
 						script : script,
