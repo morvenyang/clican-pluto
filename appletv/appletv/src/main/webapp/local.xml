@@ -52,7 +52,7 @@
 							<title>微视频</title>
 						</moviePoster>
 						<moviePoster id="native_baidumusic_approve_check"
-							featured="true" onSelect="baidumusicClient.loadIndexPage('',1,'album');" onPlay="weivideoClient.loadChannelPage();">
+							featured="true" onSelect="baidumusicClient.loadIndexPage('',1,'album');" onPlay="baidumusicClient.loadChannelPage();">
 							<image>http://local.clican.org/appletv/image/baidumusic/baidumusic.png</image>
 							<title>百度音乐</title>
 						</moviePoster>

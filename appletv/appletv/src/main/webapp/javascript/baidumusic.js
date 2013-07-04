@@ -37,6 +37,7 @@ var baidumusicClient = {
 			var videos = [];
 			if (channelId == 'search') {
 				queryUrl = 'http://music.baidu.com/search?key='+encodeURIComponent(keyword);
+				baidumusicClient.loadVideoPageByUrl(queryUrl);
 			} else {
 				if(queryUrl==null){
 					queryUrl = 'http://music.baidu.com/album/all?order=hot&style=all&start=0&size=30';
@@ -49,33 +50,34 @@ var baidumusicClient = {
 						queryUrl = queryUrl.substring(0,s+6)+(page-1)*10+queryUrl.substring(e);
 					}
 				}
-			}
-			appletv.logToServer(queryUrl);
-			appletv.makeRequest(queryUrl, function(content) {
-				if (content != null && content.length > 0) {
-					var packs = appletv.getSubValuesByTag(content,
-							'<li class="clearfix c6 bb', '</li>', 'li');
-					for (i = 0; i < packs.length; i++) {
-						var pack = packs[i];
-						var pic = appletv.substringByData(pack,
-								'<img', '>');
-						pic = appletv.substringByData(pic,'src="','"');
-						var detail = appletv.substringByData(pack,'<h4>','</h4>');
-						var title = appletv.substringByData(detail,'title="','"');
-						var id = 'http://music.baidu.com'+appletv.substringByData(detail, 'href="','"');
-						var video = {
-							"title" : title,
-							"id" : id,
-							"pic" : pic
-						};
-						videos.push(video);
+				appletv.logToServer(queryUrl);
+				appletv.makeRequest(queryUrl, function(content) {
+					if (content != null && content.length > 0) {
+						var packs = appletv.getSubValuesByTag(content,
+								'<li class="clearfix c6 bb', '</li>', 'li');
+						for (i = 0; i < packs.length; i++) {
+							var pack = packs[i];
+							var pic = appletv.substringByData(pack,
+									'<img', '>');
+							pic = appletv.substringByData(pic,'src="','"');
+							var detail = appletv.substringByData(pack,'<h4>','</h4>');
+							var title = appletv.substringByData(detail,'title="','"');
+							var id = 'http://music.baidu.com'+appletv.substringByData(detail, 'href="','"');
+							var video = {
+								"title" : title,
+								"id" : id,
+								"pic" : pic
+							};
+							videos.push(video);
+						}
+						baidumusicClient.generateIndexPage(keyword, page, channel,
+								videos,queryUrl);
+					} else {
+						appletv.showDialog('加载失败', '');
 					}
-					baidumusicClient.generateIndexPage(keyword, page, channel,
-							videos,queryUrl);
-				} else {
-					appletv.showDialog('加载失败', '');
-				}
-			});
+				});
+			}
+			
 		},
 
 		generateIndexPage : function(keyword, page, channel, videos,url) {
@@ -244,7 +246,7 @@ var baidumusicClient = {
 					serverurl : appletv.serverurl
 				};
 				var xml = new EJS({
-					url : appletv.serverurl + '/template/soku/keywords.ejs'
+					url : appletv.serverurl + '/template/baidumusic/keywords.ejs'
 				}).render(data);
 				appletv.loadAndSwapXML(xml);
 			});
