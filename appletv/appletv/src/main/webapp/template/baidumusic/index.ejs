@@ -31,7 +31,7 @@
 		<grid id="grid_1" columnCount="11">
 			<items>
 				<%if(channel['value']!='search'){%>
-				<actionButton id="shelf_item_category_page" onSelect="baidumusicClient.loadCategoryPage('<%=url%>','<%=channel['value']%>',true);" onPlay="baidumusicClient.loadCategoryPage('<%=url%>','<%=channel['value']%>',true);">
+				<actionButton id="shelf_item_category_page" onSelect="baidumusicClient.loadCategoryPage('<%=url%>',true);" onPlay="baidumusicClient.loadCategoryPage('<%=url%>',true);">
 					<title>筛选</title>
 				</actionButton>
 				<%}%>
@@ -68,7 +68,7 @@
 		<grid id="pagingGrid" columnCount="11">
 			<items>
 				<%if(channel['value']!='search'){%>
-				<actionButton id="shelf_item_category_page" onSelect="baidumusicClient.loadCategoryPage('<%=url%>','<%=channel['value']%>',true);" onPlay="baidumusicClient.loadCategoryPage('<%=url%>','<%=channel['value']%>',true);">
+				<actionButton id="shelf_item_category_page" onSelect="baidumusicClient.loadCategoryPage('<%=url%>',true);" onPlay="baidumusicClient.loadCategoryPage('<%=url%>',true);">
 					<title>筛选</title>
 				</actionButton>
 				<%}%>
