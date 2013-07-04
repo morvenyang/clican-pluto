@@ -55,6 +55,11 @@
 							<image>http://local.clican.org/appletv/image/weivideo/weivideo.png?t=1</image>
 							<title>微视频</title>
 						</moviePoster>
+						<moviePoster id="baidumusic"
+							featured="true" onSelect="baidumusicClient.loadIndexPage('',1,'album');" onPlay="baidumusicClient.loadIndexPage('',1,'album');">
+							<image>http://local.clican.org/appletv/image/baidumusic/baidumusic.png</image>
+							<title>百度音乐</title>
+						</moviePoster>
 						<moviePoster id="weibo"
 							featured="true" onSelect="atv.loadURL('http://clican.org/appletv/ctl/weibo/checkAccessToken.xml?deviceId='+atv.device.udid);">
 							<image>http://www.clican.org/appletv/image/weibo/weibo.png?t=1</image>
