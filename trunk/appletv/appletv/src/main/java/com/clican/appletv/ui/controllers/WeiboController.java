@@ -422,7 +422,7 @@ public class WeiboController {
 		if (StringUtils.isNotEmpty(shareURL)) {
 			statusContent += shareURL;
 		}
-		statusContent += ", 下载《天王星》收看更多视频 App Store下载地址 https://itunes.apple.com/us/app/tian-wang-xing/id630921227?mt=8";
+		statusContent += " , 下载《天王星》收看更多视频 App Store下载地址 https://itunes.apple.com/us/app/tian-wang-xing/id630921227?mt=8";
 		Status status = null;
 		String promptTitle = "分享成功";
 		try {
