@@ -47,40 +47,40 @@
 							value="#{quizAction.getQuizBySelectedContent()}" rows="10"
 							rowKeyVar="rowNumIndex" width="100%" activeClass="active-row"
 							enableContextMenu="true">
-							<rich:column>
+							<rich:column sortBy="#{quiz.season}">
 								<f:facet name="header">
 									<h:outputText value="#{messages['quizSeason']}" />
 								</f:facet>
 								<h:outputText value="#{quiz.season}" style="white-space:nowrap;" />
 							</rich:column>
-							<rich:column>
+							<rich:column sortBy="#{quiz.episode}">
 								<f:facet name="header">
 									<h:outputText value="#{messages['quizEpisode']}" />
 								</f:facet>
 								<h:outputText value="#{quiz.episode}"
 									style="white-space:nowrap;" />
 							</rich:column>
-							<rich:column>
+							<rich:column sortBy="#{quiz.template.name}">
 								<f:facet name="header">
 									<h:outputText value="#{messages['quizTemplate']}" />
 								</f:facet>
 								<h:outputText value="#{quiz.template.name}"
 									style="white-space:nowrap;" />
 							</rich:column>
-							<rich:column>
+							<rich:column sortBy="#{quiz.difficulty}">
 								<f:facet name="header">
 									<h:outputText value="#{messages['quizLevel']}" />
 								</f:facet>
 								<h:outputText value="#{quiz.difficulty}"
 									style="white-space:nowrap;" />
 							</rich:column>
-							<rich:column>
+							<rich:column sortBy="#{quiz.age}">
 								<f:facet name="header">
 									<h:outputText value="#{messages['quizAge']}" />
 								</f:facet>
 								<h:outputText value="#{quiz.age}" style="white-space:nowrap;" />
 							</rich:column>
-							<rich:column>
+							<rich:column sortBy="#{quiz.createTime}">
 								<f:facet name="header">
 									<h:outputText value="#{messages['quizCreateTime']}" />
 								</f:facet>
