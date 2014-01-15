@@ -138,6 +138,10 @@
 											<ui:include src="template/matching.xhtml" />
 											<ui:include src="template/matching_preview.xhtml" />
 										</c:if>
+										<c:if test="#{quizAction.templateIdName=='Bingo'}">
+											<ui:include src="template/bingo.xhtml" />
+											<ui:include src="template/bingo_preview.xhtml" />
+										</c:if>
 									</rich:panel>
 								</h:panelGrid>
 							</t:panelGroup>
