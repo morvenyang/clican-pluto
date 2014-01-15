@@ -38,6 +38,9 @@ public class Quiz {
 	private boolean ipad;
 	private Date createTime;
 	private Date publishTime;
+	private String backgroundImage;
+	private String frontImage;
+	
 	
 	private Set<QuizLearningPointRel> learningPointRelSet;
 
@@ -218,6 +221,24 @@ public class Quiz {
 
 	public void setLearningPointRelSet(Set<QuizLearningPointRel> learningPointRelSet) {
 		this.learningPointRelSet = learningPointRelSet;
+	}
+
+	@Column(name = "BACKGROUND_IMAGE")
+	public String getBackgroundImage() {
+		return backgroundImage;
+	}
+
+	public void setBackgroundImage(String backgroundImage) {
+		this.backgroundImage = backgroundImage;
+	}
+
+	@Column(name = "FRONT_IMAGE")
+	public String getFrontImage() {
+		return frontImage;
+	}
+
+	public void setFrontImage(String frontImage) {
+		this.frontImage = frontImage;
 	}
 
 	

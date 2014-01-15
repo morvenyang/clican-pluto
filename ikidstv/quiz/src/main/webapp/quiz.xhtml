@@ -161,6 +161,19 @@
 								<f:selectItem itemLabel="9" itemValue="9" />
 								<f:selectItem itemLabel="10" itemValue="10" />
 							</h:selectOneMenu>
+							<h:outputLabel value="#{messages['quizSelectedLearningPoint']}" />
+							<h:panelGrid columns="5" id="selectedLearningPointGrid">
+								<c:forEach var="lp" items="#{quizAction.selectedLearningPoints}">
+									<h:panelGrid columns="2">
+										<h:outputLabel value="#{lp.point}-#{lp.subPoint}" />
+										<a4j:commandLink
+											action="#{quizAction.removeLearningPoint(lp)}"
+											reRender="selectedLearningPointGrid">
+											<h:graphicImage value="/img/delete.png" />
+										</a4j:commandLink>
+									</h:panelGrid>
+								</c:forEach>
+							</h:panelGrid>
 							<h:outputLabel value="#{messages['quizLearningPoint']}" />
 							<h:panelGrid columns="3">
 								<h:selectOneMenu value="#{quizAction.learningPoint}">
@@ -182,19 +195,6 @@
 								<a4j:commandButton value="#{messages['add']}"
 									action="#{quizAction.addLearningPoint()}"
 									reRender="selectedLearningPointGrid" />
-							</h:panelGrid>
-							<h:outputLabel value="#{messages['quizSelectedLearningPoint']}" />
-							<h:panelGrid columns="5" id="selectedLearningPointGrid">
-								<c:forEach var="lp" items="#{quizAction.selectedLearningPoints}">
-									<h:panelGrid columns="2">
-										<h:outputLabel value="#{lp.point}-#{lp.subPoint}" />
-										<a4j:commandLink
-											action="#{quizAction.removeLearningPoint(lp)}"
-											reRender="selectedLearningPointGrid">
-											<h:graphicImage value="/img/delete.png" />
-										</a4j:commandLink>
-									</h:panelGrid>
-								</c:forEach>
 							</h:panelGrid>
 							<h:panelGrid columns="3">
 								<a4j:commandButton id="submitButton"
