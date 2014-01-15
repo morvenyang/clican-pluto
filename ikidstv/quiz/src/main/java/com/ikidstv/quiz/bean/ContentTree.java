@@ -14,6 +14,8 @@ public class ContentTree {
 	private boolean seasonNode;
 	private boolean episodeNode;
 	private ContentTree parent;
+	private String backgroundImage;
+	private String frontImage;
 	
 	public List<ContentTree> getSubTree() {
 		return subTree;
@@ -69,6 +71,18 @@ public class ContentTree {
 	}
 	public void setParent(ContentTree parent) {
 		this.parent = parent;
+	}
+	public String getBackgroundImage() {
+		return backgroundImage;
+	}
+	public void setBackgroundImage(String backgroundImage) {
+		this.backgroundImage = backgroundImage;
+	}
+	public String getFrontImage() {
+		return frontImage;
+	}
+	public void setFrontImage(String frontImage) {
+		this.frontImage = frontImage;
 	}
 	
 	

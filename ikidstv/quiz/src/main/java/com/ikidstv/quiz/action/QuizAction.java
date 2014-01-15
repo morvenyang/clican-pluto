@@ -97,6 +97,8 @@ public class QuizAction extends BaseAction {
 		this.selectedLearningPoints = new ArrayList<LearningPoint>();
 		this.pictures = this.getImageService().getImageByContent(
 				this.selectedContentTree.getSeasonId());
+		this.quiz.setBackgroundImage(this.selectedContentTree.getBackgroundImage());
+		this.quiz.setFrontImage(this.selectedContentTree.getFrontImage());
 		this.selectedTemplate = null;
 	}
 
@@ -170,12 +172,20 @@ public class QuizAction extends BaseAction {
 	}
 	
 	public void selectPicture(Image picture) {
-		try {
-			Method method = metadata.getClass().getMethod("setPicture" + this.pictureIndex,
-					String.class);
-			method.invoke(metadata, picture.getPath());
-		} catch (Exception e) {
-			log.error("", e);
+		if(pictureIndex==-1){
+			//background image
+			this.quiz.setBackgroundImage(picture.getPath());
+		}else if(pictureIndex==-2){
+			//front image
+			this.quiz.setFrontImage(picture.getPath());
+		}else if(pictureIndex>0){
+			try {
+				Method method = metadata.getClass().getMethod("setPicture" + this.pictureIndex,
+						String.class);
+				method.invoke(metadata, picture.getPath());
+			} catch (Exception e) {
+				log.error("", e);
+			}
 		}
 	}
 

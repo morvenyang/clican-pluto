@@ -122,8 +122,7 @@
 							<h:outputLabel value="#{messages['quizTemplate']}" />
 							<h:panelGrid id="templateSelect">
 								<a4j:commandLink
-									oncomplete="Richfaces.showModalPanel('templatePicturePanel');"
-									reRender="picturePanel">
+									oncomplete="Richfaces.showModalPanel('templatePicturePanel');">
 									<h:graphicImage value="/img/template/default.png" width="200"
 										height="200" rendered="#{quizAction.selectedTemplate==null}">
 									</h:graphicImage>
@@ -195,6 +194,32 @@
 								<a4j:commandButton value="#{messages['add']}"
 									action="#{quizAction.addLearningPoint()}"
 									reRender="selectedLearningPointGrid" />
+							</h:panelGrid>
+							<h:outputLabel value="#{messages['quizBackgroundImage']}" />
+							<h:panelGrid id="backgroundImageSelect">
+								<a4j:commandLink
+									oncomplete="Richfaces.showModalPanel('picturePanel');"
+									reRender="picturePanel" action="#{quizAction.setPictureIndex(-1)}">
+									<h:graphicImage value="/img/template/default.png" width="200"
+										height="200" rendered="#{quizAction.quiz.backgroundImage==null}">
+									</h:graphicImage>
+									<h:graphicImage value="/imageView.do?imagePath=#{quizAction.quiz.backgroundImage}" width="200"
+										height="200" rendered="#{quizAction.quiz.backgroundImage!=null}">
+									</h:graphicImage>
+								</a4j:commandLink>
+							</h:panelGrid>
+							<h:outputLabel value="#{messages['quizFrontImage']}" />
+							<h:panelGrid id="frontImageSelect">
+								<a4j:commandLink
+									oncomplete="Richfaces.showModalPanel('picturePanel');"
+									reRender="picturePanel" action="#{quizAction.setPictureIndex(-2)}">
+									<h:graphicImage value="/img/template/default.png" width="200"
+										height="200" rendered="#{quizAction.quiz.frontImage==null}">
+									</h:graphicImage>
+									<h:graphicImage value="/imageView.do?imagePath=#{quizAction.quiz.frontImage}" width="200"
+										height="200" rendered="#{quizAction.quiz.frontImage!=null}">
+									</h:graphicImage>
+								</a4j:commandLink>
 							</h:panelGrid>
 							<h:panelGrid columns="3">
 								<a4j:commandButton id="submitButton"
