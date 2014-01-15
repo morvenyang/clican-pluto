@@ -1,0 +1,287 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:a4j="http://richfaces.org/a4j">
+	<rich:panel id="quizInnerPanel"
+		style="overflow-x:auto;overflow-y:scroll;height:250px">
+		<h:panelGrid columns="4" id="bingoGrid">
+			<h:panelGrid>
+				<c:if test="#{quizAction.metadata.picture1!=null}">
+					<a4j:commandLink>
+						<h:graphicImage
+							value="/imageView.do?imagePath=#{quizAction.metadata.picture1}"
+							onclick="Richfaces.showModalPanel('picturePanel');" width="100px" height="100px"/>
+					</a4j:commandLink>
+				</c:if>
+				<c:if test="#{quizAction.metadata.picture1==null}">
+					<a4j:commandLink action="#{quizAction.setPictureIndex(1)}"
+						oncomplete="Richfaces.showModalPanel('picturePanel');"
+						reRender="picturePanel">
+						<h:graphicImage value="/img/template/default.png" width="100px" height="100px"/>
+					</a4j:commandLink>
+				</c:if>
+				<h:inputText value="#{quizAction.metadata.word1}" size="16"/>
+			</h:panelGrid>
+			<h:panelGrid>
+				<c:if test="#{quizAction.metadata.picture2!=null}">
+					<a4j:commandLink>
+						<h:graphicImage
+							value="/imageView.do?imagePath=#{quizAction.metadata.picture2}"
+							onclick="Richfaces.showModalPanel('picturePanel');" width="100px" height="100px"/>
+					</a4j:commandLink>
+				</c:if>
+				<c:if test="#{quizAction.metadata.picture2==null}">
+					<a4j:commandLink action="#{quizAction.setPictureIndex(2)}"
+						oncomplete="Richfaces.showModalPanel('picturePanel');"
+						reRender="picturePanel">
+						<h:graphicImage value="/img/template/default.png" width="100px" height="100px"/>
+					</a4j:commandLink>
+				</c:if>
+				<h:inputText value="#{quizAction.metadata.word2}" size="16"/>
+			</h:panelGrid>
+			<h:panelGrid>
+				<c:if test="#{quizAction.metadata.picture3!=null}">
+					<a4j:commandLink>
+						<h:graphicImage
+							value="/imageView.do?imagePath=#{quizAction.metadata.picture3}"
+							onclick="Richfaces.showModalPanel('picturePanel');" width="100px" height="100px"/>
+					</a4j:commandLink>
+				</c:if>
+				<c:if test="#{quizAction.metadata.picture3==null}">
+					<a4j:commandLink action="#{quizAction.setPictureIndex(3)}"
+						oncomplete="Richfaces.showModalPanel('picturePanel');"
+						reRender="picturePanel">
+						<h:graphicImage value="/img/template/default.png" width="100px" height="100px"/>
+					</a4j:commandLink>
+				</c:if>
+				<h:inputText value="#{quizAction.metadata.word3}" size="16"/>
+			</h:panelGrid>
+			<h:panelGrid>
+				<c:if test="#{quizAction.metadata.picture4!=null}">
+					<a4j:commandLink>
+						<h:graphicImage
+							value="/imageView.do?imagePath=#{quizAction.metadata.picture4}"
+							onclick="Richfaces.showModalPanel('picturePanel');" width="100px" height="100px"/>
+					</a4j:commandLink>
+				</c:if>
+				<c:if test="#{quizAction.metadata.picture4==null}">
+					<a4j:commandLink action="#{quizAction.setPictureIndex(4)}"
+						oncomplete="Richfaces.showModalPanel('picturePanel');"
+						reRender="picturePanel">
+						<h:graphicImage value="/img/template/default.png" width="100px" height="100px"/>
+					</a4j:commandLink>
+				</c:if>
+				<h:inputText value="#{quizAction.metadata.word4}" size="16"/>
+			</h:panelGrid>
+			<h:panelGrid>
+				<c:if test="#{quizAction.metadata.picture5!=null}">
+					<a4j:commandLink>
+						<h:graphicImage
+							value="/imageView.do?imagePath=#{quizAction.metadata.picture5}"
+							onclick="Richfaces.showModalPanel('picturePanel');" width="100px" height="100px"/>
+					</a4j:commandLink>
+				</c:if>
+				<c:if test="#{quizAction.metadata.picture5==null}">
+					<a4j:commandLink action="#{quizAction.setPictureIndex(5)}"
+						oncomplete="Richfaces.showModalPanel('picturePanel');"
+						reRender="picturePanel">
+						<h:graphicImage value="/img/template/default.png" width="100px" height="100px"/>
+					</a4j:commandLink>
+				</c:if>
+				<h:inputText value="#{quizAction.metadata.word5}" size="16"/>
+			</h:panelGrid>
+			<h:panelGrid>
+				<c:if test="#{quizAction.metadata.picture6!=null}">
+					<a4j:commandLink>
+						<h:graphicImage
+							value="/imageView.do?imagePath=#{quizAction.metadata.picture6}"
+							onclick="Richfaces.showModalPanel('picturePanel');" width="100px" height="100px"/>
+					</a4j:commandLink>
+				</c:if>
+				<c:if test="#{quizAction.metadata.picture6==null}">
+					<a4j:commandLink action="#{quizAction.setPictureIndex(6)}"
+						oncomplete="Richfaces.showModalPanel('picturePanel');"
+						reRender="picturePanel">
+						<h:graphicImage value="/img/template/default.png" width="100px" height="100px"/>
+					</a4j:commandLink>
+				</c:if>
+				<h:inputText value="#{quizAction.metadata.word6}" size="16"/>
+			</h:panelGrid>
+			<h:panelGrid>
+				<c:if test="#{quizAction.metadata.picture7!=null}">
+					<a4j:commandLink>
+						<h:graphicImage
+							value="/imageView.do?imagePath=#{quizAction.metadata.picture7}"
+							onclick="Richfaces.showModalPanel('picturePanel');" width="100px" height="100px"/>
+					</a4j:commandLink>
+				</c:if>
+				<c:if test="#{quizAction.metadata.picture7==null}">
+					<a4j:commandLink action="#{quizAction.setPictureIndex(7)}"
+						oncomplete="Richfaces.showModalPanel('picturePanel');"
+						reRender="picturePanel">
+						<h:graphicImage value="/img/template/default.png" width="100px" height="100px"/>
+					</a4j:commandLink>
+				</c:if>
+				<h:inputText value="#{quizAction.metadata.word7}" size="16"/>
+			</h:panelGrid>
+			<h:panelGrid>
+				<c:if test="#{quizAction.metadata.picture8!=null}">
+					<a4j:commandLink>
+						<h:graphicImage
+							value="/imageView.do?imagePath=#{quizAction.metadata.picture8}"
+							onclick="Richfaces.showModalPanel('picturePanel');" width="100px" height="100px"/>
+					</a4j:commandLink>
+				</c:if>
+				<c:if test="#{quizAction.metadata.picture8==null}">
+					<a4j:commandLink action="#{quizAction.setPictureIndex(8)}"
+						oncomplete="Richfaces.showModalPanel('picturePanel');"
+						reRender="picturePanel">
+						<h:graphicImage value="/img/template/default.png" width="100px" height="100px"/>
+					</a4j:commandLink>
+				</c:if>
+				<h:inputText value="#{quizAction.metadata.word8}" size="16"/>
+			</h:panelGrid>
+			<h:panelGrid>
+				<c:if test="#{quizAction.metadata.picture9!=null}">
+					<a4j:commandLink>
+						<h:graphicImage
+							value="/imageView.do?imagePath=#{quizAction.metadata.picture9}"
+							onclick="Richfaces.showModalPanel('picturePanel');" width="100px" height="100px"/>
+					</a4j:commandLink>
+				</c:if>
+				<c:if test="#{quizAction.metadata.picture9==null}">
+					<a4j:commandLink action="#{quizAction.setPictureIndex(9)}"
+						oncomplete="Richfaces.showModalPanel('picturePanel');"
+						reRender="picturePanel">
+						<h:graphicImage value="/img/template/default.png" width="100px" height="100px"/>
+					</a4j:commandLink>
+				</c:if>
+				<h:inputText value="#{quizAction.metadata.word9}" size="16"/>
+			</h:panelGrid>
+			<h:panelGrid>
+				<c:if test="#{quizAction.metadata.picture10!=null}">
+					<a4j:commandLink>
+						<h:graphicImage
+							value="/imageView.do?imagePath=#{quizAction.metadata.picture10}"
+							onclick="Richfaces.showModalPanel('picturePanel');" width="100px" height="100px"/>
+					</a4j:commandLink>
+				</c:if>
+				<c:if test="#{quizAction.metadata.picture10==null}">
+					<a4j:commandLink action="#{quizAction.setPictureIndex(10)}"
+						oncomplete="Richfaces.showModalPanel('picturePanel');"
+						reRender="picturePanel">
+						<h:graphicImage value="/img/template/default.png" width="100px" height="100px"/>
+					</a4j:commandLink>
+				</c:if>
+				<h:inputText value="#{quizAction.metadata.word10}" size="16"/>
+			</h:panelGrid>
+			<h:panelGrid>
+				<c:if test="#{quizAction.metadata.picture11!=null}">
+					<a4j:commandLink>
+						<h:graphicImage
+							value="/imageView.do?imagePath=#{quizAction.metadata.picture11}"
+							onclick="Richfaces.showModalPanel('picturePanel');" width="100px" height="100px"/>
+					</a4j:commandLink>
+				</c:if>
+				<c:if test="#{quizAction.metadata.picture11==null}">
+					<a4j:commandLink action="#{quizAction.setPictureIndex(11)}"
+						oncomplete="Richfaces.showModalPanel('picturePanel');"
+						reRender="picturePanel">
+						<h:graphicImage value="/img/template/default.png" width="100px" height="100px"/>
+					</a4j:commandLink>
+				</c:if>
+				<h:inputText value="#{quizAction.metadata.word11}" size="16"/>
+			</h:panelGrid>
+			<h:panelGrid>
+				<c:if test="#{quizAction.metadata.picture12!=null}">
+					<a4j:commandLink>
+						<h:graphicImage
+							value="/imageView.do?imagePath=#{quizAction.metadata.picture12}"
+							onclick="Richfaces.showModalPanel('picturePanel');" width="100px" height="100px"/>
+					</a4j:commandLink>
+				</c:if>
+				<c:if test="#{quizAction.metadata.picture12==null}">
+					<a4j:commandLink action="#{quizAction.setPictureIndex(12)}"
+						oncomplete="Richfaces.showModalPanel('picturePanel');"
+						reRender="picturePanel">
+						<h:graphicImage value="/img/template/default.png" width="100px" height="100px"/>
+					</a4j:commandLink>
+				</c:if>
+				<h:inputText value="#{quizAction.metadata.word12}" size="16"/>
+			</h:panelGrid>
+			<h:panelGrid>
+				<c:if test="#{quizAction.metadata.picture13!=null}">
+					<a4j:commandLink>
+						<h:graphicImage
+							value="/imageView.do?imagePath=#{quizAction.metadata.picture13}"
+							onclick="Richfaces.showModalPanel('picturePanel');" width="100px" height="100px"/>
+					</a4j:commandLink>
+				</c:if>
+				<c:if test="#{quizAction.metadata.picture13==null}">
+					<a4j:commandLink action="#{quizAction.setPictureIndex(13)}"
+						oncomplete="Richfaces.showModalPanel('picturePanel');"
+						reRender="picturePanel">
+						<h:graphicImage value="/img/template/default.png" width="100px" height="100px"/>
+					</a4j:commandLink>
+				</c:if>
+				<h:inputText value="#{quizAction.metadata.word13}" size="16"/>
+			</h:panelGrid>
+			<h:panelGrid>
+				<c:if test="#{quizAction.metadata.picture14!=null}">
+					<a4j:commandLink>
+						<h:graphicImage
+							value="/imageView.do?imagePath=#{quizAction.metadata.picture14}"
+							onclick="Richfaces.showModalPanel('picturePanel');" width="100px" height="100px"/>
+					</a4j:commandLink>
+				</c:if>
+				<c:if test="#{quizAction.metadata.picture14==null}">
+					<a4j:commandLink action="#{quizAction.setPictureIndex(14)}"
+						oncomplete="Richfaces.showModalPanel('picturePanel');"
+						reRender="picturePanel">
+						<h:graphicImage value="/img/template/default.png" width="100px" height="100px"/>
+					</a4j:commandLink>
+				</c:if>
+				<h:inputText value="#{quizAction.metadata.word14}" size="16"/>
+			</h:panelGrid>
+			<h:panelGrid>
+				<c:if test="#{quizAction.metadata.picture15!=null}">
+					<a4j:commandLink>
+						<h:graphicImage
+							value="/imageView.do?imagePath=#{quizAction.metadata.picture15}"
+							onclick="Richfaces.showModalPanel('picturePanel');" width="100px" height="100px"/>
+					</a4j:commandLink>
+				</c:if>
+				<c:if test="#{quizAction.metadata.picture15==null}">
+					<a4j:commandLink action="#{quizAction.setPictureIndex(15)}"
+						oncomplete="Richfaces.showModalPanel('picturePanel');"
+						reRender="picturePanel">
+						<h:graphicImage value="/img/template/default.png" width="100px" height="100px"/>
+					</a4j:commandLink>
+				</c:if>
+				<h:inputText value="#{quizAction.metadata.word15}" size="16"/>
+			</h:panelGrid>
+			<h:panelGrid>
+				<c:if test="#{quizAction.metadata.picture16!=null}">
+					<a4j:commandLink>
+						<h:graphicImage
+							value="/imageView.do?imagePath=#{quizAction.metadata.picture16}"
+							onclick="Richfaces.showModalPanel('picturePanel');" width="100px" height="100px"/>
+					</a4j:commandLink>
+				</c:if>
+				<c:if test="#{quizAction.metadata.picture16==null}">
+					<a4j:commandLink action="#{quizAction.setPictureIndex(16)}"
+						oncomplete="Richfaces.showModalPanel('picturePanel');"
+						reRender="picturePanel">
+						<h:graphicImage value="/img/template/default.png" width="100px" height="100px"/>
+					</a4j:commandLink>
+				</c:if>
+				<h:inputText value="#{quizAction.metadata.word16}" size="16"/>
+			</h:panelGrid>
+		</h:panelGrid>
+	</rich:panel>
+</ui:composition>

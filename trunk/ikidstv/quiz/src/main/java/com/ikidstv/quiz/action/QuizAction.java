@@ -20,6 +20,7 @@ import org.jboss.seam.annotations.security.Restrict;
 import com.ikidstv.quiz.bean.ContentTree;
 import com.ikidstv.quiz.bean.Identity;
 import com.ikidstv.quiz.enumeration.TemplateId;
+import com.ikidstv.quiz.model.Bingo;
 import com.ikidstv.quiz.model.Image;
 import com.ikidstv.quiz.model.LearningPoint;
 import com.ikidstv.quiz.model.Matching;
@@ -164,6 +165,8 @@ public class QuizAction extends BaseAction {
 		TemplateId templateId = template.getTemplateId();
 		if (templateId == TemplateId.Matching) {
 			this.metadata = new Matching();
+		}else if(templateId == TemplateId.Bingo){
+			this.metadata = new Bingo();
 		}
 	}
 
