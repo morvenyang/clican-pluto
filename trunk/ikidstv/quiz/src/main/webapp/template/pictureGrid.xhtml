@@ -26,7 +26,7 @@
 				<h:graphicImage value="/imageView.do?imagePath=#{picture.path}">
 					<a4j:support event="onclick"
 						action="#{quizAction.selectPicture(picture)}" ajaxSingle="true"
-						reRender="quizInnerPanel" oncomplete="Richfaces.hideModalPanel('picturePanel');"/>
+						reRender="quizForm" oncomplete="Richfaces.hideModalPanel('picturePanel');"/>
 				</h:graphicImage>
 			</rich:panel>
 			<f:facet name="footer">
