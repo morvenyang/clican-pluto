@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+        http://www.springframework.org/schema/aop 
+        http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+
+	<bean id="userService" class="com.ikidstv.quiz.service.impl.UserServiceImpl"
+		autowire="byName" />
+	<bean id="contentService" class="com.ikidstv.quiz.service.impl.ContentServiceImpl"
+		autowire="byName" />
+	<bean id="imageService" class="com.ikidstv.quiz.service.impl.ImageServiceImpl"
+		autowire="byName" />
+	<bean id="quizService" class="com.ikidstv.quiz.service.impl.QuizServiceImpl"
+		autowire="byName" />
+	<bean id="learningPointService" class="com.ikidstv.quiz.service.impl.LearningPointServiceImpl"
+		autowire="byName" />
+	<bean id="templateService" class="com.ikidstv.quiz.service.impl.TemplateServiceImpl"
+		autowire="byName" />
+</beans>

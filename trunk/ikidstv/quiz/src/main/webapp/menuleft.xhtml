@@ -1,0 +1,21 @@
+<h:form id="menuToolBarFormLeft" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:a4j="http://richfaces.org/a4j">
+	<rich:panelBar id="menuToolBar" width="200" height="#{ui.wsHeight}"
+		onitemchanged="adjustLeftMenu();">
+		<rich:menuItem submitMode="ajax"
+			rendered="#{s:hasPermission('teacher',null)}">
+			<s:link view="/quiz.xhtml" style="font-size:20px" action="#{quizAction.listQuizs()}" value="#{messages['quizList']}"/>
+		</rich:menuItem>
+		<rich:menuItem submitMode="ajax"
+			rendered="#{s:hasPermission('admin',null)}">
+			<s:link view="/image.xhtml" style="font-size:20px" action="#{imageAction.listImages()}" value="#{messages['imageLibrary']}"/>
+		</rich:menuItem>
+	</rich:panelBar>
+</h:form>
+
