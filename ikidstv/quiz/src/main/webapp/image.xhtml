@@ -42,12 +42,12 @@
 							</h:panelGroup>
 						</h:panelGrid>
 						<rich:dataGrid id="imageTable" value="#{imageAction.getImageBySelectedContent()}" var="image"
-							columns="5" elements="5">
+							columns="5" elements="25">
 							<rich:panel bodyClass="pbody">
 								<f:facet name="header">
 									<h:outputText value="#{image.name}"></h:outputText>
 								</f:facet>
-								<h:graphicImage value="/imageView.do?imagePath=#{image.path}">
+								<h:graphicImage value="/imageView.do?imagePath=#{image.path}" width="150" height="150">
 								</h:graphicImage>
 							</rich:panel>
 							<f:facet name="footer">
