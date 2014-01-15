@@ -21,6 +21,20 @@ public class ContentServiceImpl implements ContentService {
 		root.setName("iKidsTV");
 		root.setContentId("1");
 
+		ContentTree season2 = new ContentTree();
+		season2.setName("Jake and the Never Land Pirates");
+		season2.setContentId("2");
+		season2.setSeasonId("2");
+		season2.setSeasonNode(true);
+		root.getSubTree().add(season2);
+		
+		ContentTree season3 = new ContentTree();
+		season3.setName("Octonauts");
+		season3.setContentId("3");
+		season3.setSeasonId("3");
+		season3.setSeasonNode(true);
+		root.getSubTree().add(season3);
+		
 		ContentTree season = new ContentTree();
 		season.setName("Mickey Mouse Clubhouse S1");
 		season.setContentId("4");
@@ -28,20 +42,6 @@ public class ContentServiceImpl implements ContentService {
 		season.setSeasonNode(true);
 		root.getSubTree().add(season);
 		
-		ContentTree season2 = new ContentTree();
-		season.setName("Jake and the Never Land Pirates");
-		season.setContentId("2");
-		season.setSeasonId("2");
-		season.setSeasonNode(true);
-		root.getSubTree().add(season2);
-		
-		ContentTree season3 = new ContentTree();
-		season.setName("Octonauts");
-		season.setContentId("3");
-		season.setSeasonId("3");
-		season.setSeasonNode(true);
-		root.getSubTree().add(season3);
-
 		ContentTree e1 = new ContentTree();
 		e1.setName("Mickey Mouse Clubhouse S1#1");
 		e1.setContentId("5");
