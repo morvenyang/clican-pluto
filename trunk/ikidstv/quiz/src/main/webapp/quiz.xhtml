@@ -29,7 +29,8 @@
 					style="left-margin:10px;border:0;width:800px">
 					<h:panelGrid id="quizPanelGrid">
 						<h:panelGrid columns="1"
-							rendered="#{quizAction.selectedContentTree.episodeNode}" style="text-align:right;width:100%">
+							rendered="#{quizAction.selectedContentTree.episodeNode}"
+							style="text-align:right;width:100%">
 							<h:panelGroup>
 								<a4j:commandButton id="addQuiz" image="/img/new.png"
 									style="border:0;" title="#{messages['addQuiz']}"
@@ -113,32 +114,27 @@
 					<h:outputText value="#{messages['quiz']}"></h:outputText>
 				</h:panelGroup>
 			</f:facet>
-			<a4j:form id="quizForm">
+			<a4j:form id="quizForm" style="overflow-x:auto;overflow-y:scroll;height:600px">
 				<rich:messages style="color:red"></rich:messages>
 				<h:panelGrid columns="2" width="100%" columnClasses="top,top">
 					<h:panelGroup>
-						<h:panelGrid columns="2">
+						<t:panelGrid columns="2">
 							<h:outputLabel value="#{messages['quizTemplate']}" />
-							<rich:dropDownMenu id="templateDropDownMenu" style="border:1px"
-								value="#{quizAction.selectedTemplate==null?messages['quizPleaseSelectTemplate']:quizAction.selectedTemplate.name}"
-								submitMode="none" direction="bottom-right"
-								jointPoint="bottom-left">
-								<c:forEach var="template" items="#{quizAction.templates}">
-									<rich:menuItem value="#{template.name}">
-										<rich:toolTip>
-											<h:graphicImage value="/img#{template.descPicture}" />
-										</rich:toolTip>
-										<a4j:support event="onclick"
-											action="#{quizAction.selectTemplate(template)}"
-											ajaxSingle="true"
-											reRender="templateDropDownMenu,templatePanel" />
-									</rich:menuItem>
-								</c:forEach>
-							</rich:dropDownMenu>
+							<h:panelGrid id="templateSelect">
+								<a4j:commandLink
+									oncomplete="Richfaces.showModalPanel('templatePicturePanel');"
+									reRender="picturePanel">
+									<h:graphicImage value="/img/template/default.png" width="200"
+										height="200" rendered="#{quizAction.selectedTemplate==null}">
+									</h:graphicImage>
+									<h:graphicImage value="/img#{quizAction.selectedTemplate.descPicture}" width="200"
+										height="200" rendered="#{quizAction.selectedTemplate!=null}">
+									</h:graphicImage>
+								</a4j:commandLink>
+							</h:panelGrid>
 							<t:panelGroup colspan="2">
-								<h:panelGrid id="templatePanel" width="600">
-									<rich:panel rendered="#{quizAction.selectedTemplate!=null}">
-										<f:facet name="header">#{messages['quizInputTemplate']}</f:facet>
+								<h:panelGrid id="templatePanel" width="100%">
+									<rich:panel style="border:0" rendered="#{quizAction.selectedTemplate!=null}">
 										<c:if test="#{quizAction.templateIdName=='Matching'}">
 											<ui:include src="template/matching.xhtml" />
 											<ui:include src="template/matching_preview.xhtml" />
@@ -146,7 +142,6 @@
 									</rich:panel>
 								</h:panelGrid>
 							</t:panelGroup>
-							<h:outputLabel value="" />
 							<h:outputLabel value="#{messages['quizSeason']}" />
 							<h:outputLabel value="#{quizAction.quiz.season}" />
 							<h:outputLabel value="#{messages['quizEpisode']}" />
@@ -214,11 +209,12 @@
 								<h:commandButton id="cancelButton" value="#{messages['cancel']}"
 									type="reset" onclick="Richfaces.hideModalPanel('quizPanel');" />
 							</h:panelGrid>
-						</h:panelGrid>
+						</t:panelGrid>
 					</h:panelGroup>
 				</h:panelGrid>
 			</a4j:form>
 		</rich:modalPanel>
 		<ui:include src="template/pictureGrid.xhtml" />
+		<ui:include src="template/templateGrid.xhtml" />
 	</ui:define>
 </ui:composition>
