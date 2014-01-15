@@ -18,12 +18,12 @@
 		</f:facet>
 		<h:form>
 		<rich:dataGrid value="#{quizAction.pictures}" var="picture"
-			columns="3" elements="9" width="600px">
+			columns="4" elements="15" width="600px">
 			<rich:panel bodyClass="pbody">
 				<f:facet name="header">
 					<h:outputText value="#{picture.name}"></h:outputText>
 				</f:facet>
-				<h:graphicImage value="/imageView.do?imagePath=#{picture.path}">
+				<h:graphicImage value="/imageView.do?imagePath=#{picture.path}" width="150" height="150">
 					<a4j:support event="onclick"
 						action="#{quizAction.selectPicture(picture)}" ajaxSingle="true"
 						reRender="quizForm" oncomplete="Richfaces.hideModalPanel('picturePanel');"/>

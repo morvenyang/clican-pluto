@@ -7,7 +7,7 @@
 	xmlns:c="http://java.sun.com/jstl/core"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
 	xmlns:a4j="http://richfaces.org/a4j">
-	<rich:modalPanel id="previewPanel" width="800" autosized="true">
+	<rich:modalPanel id="previewPanel" autosized="true">
 		<f:facet name="controls">
 			<h:panelGroup>
 				<h:graphicImage value="/img/close.png" styleClass="hidelink"
@@ -18,8 +18,8 @@
 		</f:facet>
 		<h:panelGrid columns="2" id="previewGrid"  columnClasses="top,top">
 			<rich:dataGrid value="#{quizAction.metadata.pictures}" var="picture"
-				columns="2" elements="4" width="600px">
-				<h:graphicImage value="/imageView.do?imagePath=#{picture}" width="200" height="200">
+				columns="2" elements="4" width="300px">
+				<h:graphicImage value="/imageView.do?imagePath=#{picture}" width="150" height="150">
 				</h:graphicImage>
 			</rich:dataGrid>
 			<rich:dataList var="word" value="#{quizAction.metadata.words}">
