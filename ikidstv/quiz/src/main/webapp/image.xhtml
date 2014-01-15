@@ -1,0 +1,108 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:a4j="http://richfaces.org/a4j" template="workspace.xhtml">
+	<ui:define name="body">
+		<h:form>
+			<h:panelGrid columns="2" height="100%"
+				columnClasses="columntopLeft,columntopRight">
+				<rich:tree switchType="ajax" style="width:300px;">
+					<rich:recursiveTreeNodesAdaptor roots="#{imageAction.contentTree}"
+						var="contentNode" nodes="#{contentNode.subTree}">
+						<rich:treeNode iconLeaf="/img/tree.png" icon="/img/tree.png">
+							<h:outputLabel value="#{contentNode.name}"
+								onmouseover="this.style.cursor='hand'"
+								onmouseout="this.style.cursor='default'" style="font-size:15px">
+								<a4j:support event="onclick"
+									action="#{imageAction.selectContent(contentNode)}"
+									reRender="imageTablePanel" />
+							</h:outputLabel>
+						</rich:treeNode>
+					</rich:recursiveTreeNodesAdaptor>
+				</rich:tree>
+				<rich:panel id="imageTablePanel" style="border:0">
+					<h:panelGrid id="imagePanelGrid"
+						rendered="#{imageAction.selectedContentTree.episodeNode}">
+						<h:panelGrid columns="1" style="text-align:right;width:100%">
+							<h:panelGroup>
+								<a4j:commandButton id="addUser" image="/img/new.png"
+									style="border:0;" title="#{messages['uploadImage']}"
+									action="#{imageAction.uploadImage()}" ajaxSingle="true"
+									reRender="imagePanel"
+									oncomplete="Richfaces.showModalPanel('imagePanel');" />
+								<a4j:commandLink value="#{messages['uploadImage']}"
+									style="text-decoration:none;" ajaxSingle="true"
+									oncomplete="Richfaces.showModalPanel('imagePanel');"
+									action="#{imageAction.uploadImage()}" reRender="imagePanel" />
+							</h:panelGroup>
+						</h:panelGrid>
+						<rich:dataGrid id="imageTable" value="#{imageAction.getImageBySelectedContent()}" var="image"
+							columns="5" elements="5">
+							<rich:panel bodyClass="pbody">
+								<f:facet name="header">
+									<h:outputText value="#{image.name}"></h:outputText>
+								</f:facet>
+								<h:graphicImage value="/imageView.do?imagePath=#{image.path}">
+								</h:graphicImage>
+							</rich:panel>
+							<f:facet name="footer">
+								<rich:datascroller></rich:datascroller>
+							</f:facet>
+						</rich:dataGrid>
+					</h:panelGrid>
+				</rich:panel>
+			</h:panelGrid>
+		</h:form>
+
+		<rich:modalPanel id="imagePanel" width="300" autosized="true">
+			<f:facet name="controls">
+				<h:panelGroup>
+					<h:graphicImage value="/img/close.png" styleClass="hidelink"
+						id="imagePanelImg" style="CURSOR: hand" />
+					<rich:componentControl for="userPanel" attachTo="imagePanelImg"
+						operation="hide" event="onclick" />
+				</h:panelGroup>
+			</f:facet>
+			<f:facet name="header">
+				<h:panelGroup>
+					<h:outputText value="#{messages['imagePreview']}"></h:outputText>
+				</h:panelGroup>
+			</f:facet>
+			<a4j:form id="imageForm">
+				<rich:messages style="color:red"></rich:messages>
+				<h:panelGrid columns="2" width="100%" columnClasses="top,top">
+					<h:panelGroup>
+						<h:panelGrid columns="2">
+							<h:outputLabel value="#{messages['imageName']}" />
+							<h:inputText value="#{imageAction.image.name}" />
+							<h:outputLabel value="#{messages['imageFile']}" />
+							<rich:fileUpload
+								fileUploadListener="#{imageAction.fileUploadListener}"
+								maxFilesQuantity="1" id="upload" immediateUpload="false"
+								acceptedTypes="jpg,jpeg,png,gif" allowFlash="true"
+								noDuplicate="true" listHeight="40" listWidth="400"
+								addControlLabel="select file"
+								uploadControlLabel="#{messages['upload']}">
+								<a4j:support event="onuploadcomplete"
+									oncomplete="if(#{reportAction.uploadErrorMsg==null}){Richfaces.showModalPanel('reportParsePanel');}"
+									reRender="reportParsePanel,uploadForm" />
+							</rich:fileUpload>
+							<a4j:commandButton id="submitButton"
+								value="#{messages['submit']}"
+								action="#{imageAction.saveImage()}"
+								oncomplete="if(#{facesContext.maximumSeverity==null}) {Richfaces.hideModalPanel('imagePanel');}"
+								reRender="imageTable" />
+							<h:commandButton id="cancelButton" value="#{messages['cancel']}"
+								type="reset" onclick="Richfaces.hideModalPanel('imagePanel');" />
+						</h:panelGrid>
+					</h:panelGroup>
+				</h:panelGrid>
+			</a4j:form>
+		</rich:modalPanel>
+	</ui:define>
+</ui:composition>

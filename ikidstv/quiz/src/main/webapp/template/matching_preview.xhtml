@@ -1,0 +1,30 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:a4j="http://richfaces.org/a4j">
+	<rich:modalPanel id="previewPanel" width="800" autosized="true">
+		<f:facet name="controls">
+			<h:panelGroup>
+				<h:graphicImage value="/img/close.png" styleClass="hidelink"
+					id="previewPanelImg" style="CURSOR: hand" />
+				<rich:componentControl for="previewPanel" attachTo="previewPanelImg"
+					operation="hide" event="onclick" />
+			</h:panelGroup>
+		</f:facet>
+		<h:panelGrid columns="2" id="previewGrid"  columnClasses="top,top">
+			<rich:dataGrid value="#{quizAction.metadata.pictures}" var="picture"
+				columns="2" elements="4" width="600px">
+				<h:graphicImage value="/imageView.do?imagePath=#{picture}">
+				</h:graphicImage>
+			</rich:dataGrid>
+			<rich:dataList var="word" value="#{quizAction.metadata.words}">
+				<h:outputText value="#{word}" style="font-size:20px;" />
+			</rich:dataList>
+		</h:panelGrid>
+	</rich:modalPanel>
+</ui:composition>

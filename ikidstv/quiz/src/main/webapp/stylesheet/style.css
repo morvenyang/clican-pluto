@@ -1,0 +1,280 @@
+@charset "utf-8";
+/* CSS Document */
+html, body {
+    font-family: Tahoma, Geneva, sans-serif;
+    font-size: 12px;
+    color: #333;
+}
+
+body {
+    padding: 0;
+    margin: 0;
+    /*min-width: 900px;*/
+    /*min-height: 600px;*/
+}
+
+form {
+    padding: 0;
+    margin: 0;
+}
+
+.wrapper {
+    width: 100%;
+    height: 100%;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+.headbox {
+    width: 100%;
+    height: 60px;
+    background: url(../images/headbg.png) repeat-x;
+}
+
+.headlogo {
+    width: 450px;
+    height: 60px;
+    background: url(../images/headlogo.png) no-repeat left top;
+    float: left;
+}
+
+.headright {
+    width: 360px;
+    height: 60px;
+    background: url(../images/headright.png) no-repeat;
+    float: right;
+}
+
+.menu-bar {
+    width: 200px;
+    height: 100%;
+}
+
+/*
+default height: 623;
+win 7 + IE 9 = 623;
+win 7 + chrome = 627;
+*/
+.content {
+    width: 100%;
+    margin: 0 0;
+    padding: 0 0;
+    border: none;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+.content_td {
+    border: none;
+    border-collapse: collapse;
+    vertical-align: top;
+    height: 100%;
+}
+
+.leftmenu {
+    width: 200px;
+    height: 100%;
+    padding: 0;
+    /*position: relative;*/
+    border-left: 3px solid #bed6f8;
+}
+
+.leftmenu-toggle {
+    width: 5px;
+    height: 100%;
+    cursor: pointer;
+    background-color: #bed6f8;
+    vertical-align: middle;
+}
+
+.iworkspace {
+    overflow-x: auto;
+    border-left: 1px solid #FFF;
+}
+
+.workspace {
+    width: 100%;
+    height: 100%;
+    margin: 0 0;
+    padding: 0 0;
+    position: relative;
+}
+
+.workspace_inner {
+
+    position: relative;
+}
+
+.footer-bar {
+    width: 100%;
+}
+
+.buttonbox {
+    width: 100%;
+    height: 50px;
+    margin-top: 5px;
+}
+
+.button-s {
+    width: 55px;
+    height: 22px;
+    background: url(../img/button_s.png) no-repeat;
+    border: none;
+}
+
+.button-m {
+    width: 75px;
+    height: 22px;
+    background: url(../img/button_m.png) no-repeat;
+    border: none;
+}
+
+.warning .brief {
+    font-size: 12px;
+    color: #666;
+    padding: 15px;
+    line-height: 16px;
+}
+
+.passwdbox {
+    width: 100%;
+}
+
+.passwdbox .tbox {
+    width: 190px;
+    height: 18px;
+    line-height: 18px;
+    padding: 1px;
+    font-size: 12px;
+    background-color: #f0f8ff;
+    border: 1px solid #bbb;
+}
+
+.passwdbox td {
+    padding: 10px 0;
+}
+
+img {
+    vertical-align: middle;
+}
+
+.nowrap {
+    white-space: nowrap;
+}
+
+.title {
+    background-color: #E0EFFE;
+    font-weight: bold;
+    font-size: 12px;
+    white-space: nowrap;
+    border-right: 1px solid #8EAAE9;
+    border-bottom: 1px solid #8EAAE9;
+    width: 15%;
+}
+
+.text1 {
+    font-size: 12px;
+    valign: top;
+    text-align: left;
+    border-right: 1px solid #8EAAE9;
+    border-bottom: 1px solid #8EAAE9;
+}
+
+.noborder {
+    border: 0 solid #8EAAE9;
+    border-collapse: collapse;
+}
+
+/* Label */
+.label {
+    color: #444;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+/*序号*/
+.sequence {
+    width: 30px;
+}
+
+/* 日期时间 */
+.datetime {
+    width: 120px;
+}
+
+/* 无秒时间 */
+.datetime2 {
+    width: 100px;
+}
+
+/* 日期/时间 */
+.short-time {
+    width: 80px;
+}
+
+/* 证券代码 */
+.security {
+    width: 60px;
+    white-space: nowrap;
+}
+
+/* 证券名称 */
+.security-name {
+    width: 60px;
+    white-space: nowrap;
+}
+
+.security-type {
+    width: 40px;
+}
+
+.security-market {
+    width: 60px;
+}
+
+.user-name {
+    width: 60px;
+}
+
+.width-120 {
+    width: 120px;
+}
+
+.width-140 {
+    width: 140px;
+}
+
+.center {
+    text-align: center;
+}
+
+.scroll-y {
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.left {
+    text-align: left;
+}
+
+.right {
+    text-align: right;
+}
+
+.titlecut {
+    overflow: hidden;
+    width: 100%;
+    height: 1.2em;
+    text-overflow: ellipsis;
+    text-decoration: none;
+    color: #0D5798;
+}
+
+.authorcut {
+    overflow: hidden;
+    width: 100%;
+    height: 1.2em;
+    text-overflow: ellipsis;
+    text-decoration: none;
+}

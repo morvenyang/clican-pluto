@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:s="http://jboss.com/products/seam/taglib"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:c="http://java.sun.com/jstl/core"
+      xmlns:a4j="http://richfaces.org/a4j">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7"/>
+    <title>#{messages.systemName}</title>
+
+    <style type="text/css">
+        html, body {
+            overflow: hidden;
+        }
+    </style>
+
+    <link rel="stylesheet" href="#{contextPath}/stylesheet/style.css"/>
+    <link rel="stylesheet" href="#{contextPath}/stylesheet/theme.css"/>
+</head>
+<body>
+<div id="wrapper" class="wrapper">
+
+    <!-- Header Picture Bar -->
+    <div id="headbox" class="headbox" style="display: #{ui.showHeader}">
+        <div class="headlogo"></div>
+        <div class="headright"></div>
+    </div>
+
+    <!-- TOP MENU -->
+    <div id="menu">
+        <ui:include src="menu.xhtml"/>
+    </div>
+        <!-- Left Menu Style -->
+            <!-- CONTENT -->
+    <table id="content" class="content" cellspacing="0" cellpadding="0" border="0">
+        <tr>
+            <td id="leftmenu" width="200px" class="content_td leftmenu"
+                style="display: #{ui.showLeftMenu };">
+                <ui:include src="menuleft.xhtml"/>
+            </td>
+            <td id="leftmenu-toggle" width="5px" class="content_td leftmenu-toggle"
+                style="height: #{ui.wsHeight}px;"
+                onmouseover="this.style.backgroundColor='#6699FF';showLeftMenuTemp();"
+                onmouseout="this.style.backgroundColor='#bed6f8';"
+                onclick="toggleLeftMenu();">
+                <h:graphicImage id="minMenuImg" alt="打开/收起菜单"
+                                url="/img/menu/mini-right#{empty ui.showLeftMenu ? '-in' : ''}.gif"/>
+            </td>
+            <td class="content_td" onmouseover="hiddenLeftMenuTemp();">
+                 <ui:insert name="body"/>
+            </td>
+        </tr>
+    </table>
+
+    <div id="footer" class="footer-bar">
+        <ui:include src="footer.xhtml"/>
+    </div>
+
+</div>
+
+<!-- JavaScript脚本放页面最底部 -->
+<a4j:form>
+    <a4j:jsFunction name="updateLeftMenuShowStyle" ajaxSingle="true" limitToList="true">
+        <a4j:actionparam name="param1" assignTo="#{ui.showLeftMenu}"/>
+    </a4j:jsFunction>
+    <a4j:jsFunction name="updateHeadBoxShowStyle" ajaxSingle="true" limitToList="true">
+        <a4j:actionparam name="param1" assignTo="#{ui.showHeader}"/>
+    </a4j:jsFunction>
+    <a4j:jsFunction name="updateUI" ajaxSingle="true" immediate="true" limitToList="true">
+        <a4j:actionparam name="width" assignTo="#{ui.width}"/>
+        <a4j:actionparam name="height" assignTo="#{ui.height}"/>
+        <a4j:actionparam name="menuWidth" assignTo="#{ui.menuWidth}"/>
+        <a4j:actionparam name="wsWidth" assignTo="#{ui.wsWidth}"/>
+        <a4j:actionparam name="wsHeight" assignTo="#{ui.wsHeight}"/>
+    </a4j:jsFunction>
+</a4j:form>
+
+<script type="text/javascript" src="#{contextPath}/js/framework.js"></script>
+<script type="text/javascript">
+    var baseDir = '#{contextPath}';
+</script>
+</body>
+</html>

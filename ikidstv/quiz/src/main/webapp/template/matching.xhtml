@@ -1,0 +1,75 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:a4j="http://richfaces.org/a4j">
+	<rich:panel id="quizInnerPanel" style="overflow-x:auto;overflow-y:scroll;height:300px">
+	<h:graphicImage
+					value="/imageView.do?imagePath=#{quizAction.selectedTemplate.samplePicture}"/>
+	<h:panelGrid columns="4" id="matchingGrid">
+		<h:inputText value="#{quizAction.metadata.word1}" />
+		<c:if test="#{quizAction.metadata.picture1!=null}">
+			<a4j:commandLink>
+				<h:graphicImage
+					value="/imageView.do?imagePath=#{quizAction.metadata.picture1}" onclick="Richfaces.showModalPanel('picturePanel');" />
+			</a4j:commandLink>
+		</c:if>
+		<c:if test="#{quizAction.metadata.picture1==null}">
+			<a4j:commandLink value="#{messages['quizPleaseSelectPicture']}"
+				action="#{quizAction.setPictureIndex(1)}"
+				oncomplete="Richfaces.showModalPanel('picturePanel');"
+				reRender="picturePanel">
+			</a4j:commandLink>
+		</c:if>
+		
+		<h:inputText value="#{quizAction.metadata.word2}" />
+		<c:if test="#{quizAction.metadata.picture2!=null}">
+			<a4j:commandLink>
+				<h:graphicImage
+					value="/imageView.do?imagePath=#{quizAction.metadata.picture2}" onclick="Richfaces.showModalPanel('picturePanel');" />
+			</a4j:commandLink>
+		</c:if>
+		<c:if test="#{quizAction.metadata.picture2==null}">
+			<a4j:commandLink value="#{messages['quizPleaseSelectPicture']}"
+				action="#{quizAction.setPictureIndex(2)}"
+				oncomplete="Richfaces.showModalPanel('picturePanel');"
+				reRender="picturePanel">
+			</a4j:commandLink>
+		</c:if>
+		
+		<h:inputText value="#{quizAction.metadata.word3}" />
+		<c:if test="#{quizAction.metadata.picture3!=null}">
+			<a4j:commandLink>
+				<h:graphicImage
+					value="/imageView.do?imagePath=#{quizAction.metadata.picture3}" onclick="Richfaces.showModalPanel('picturePanel');" />
+			</a4j:commandLink>
+		</c:if>
+		<c:if test="#{quizAction.metadata.picture3==null}">
+			<a4j:commandLink value="#{messages['quizPleaseSelectPicture']}"
+				action="#{quizAction.setPictureIndex(3)}"
+				oncomplete="Richfaces.showModalPanel('picturePanel');"
+				reRender="picturePanel">
+			</a4j:commandLink>
+		</c:if>
+		
+		<h:inputText value="#{quizAction.metadata.word4}" />
+		<c:if test="#{quizAction.metadata.picture4!=null}">
+			<a4j:commandLink>
+				<h:graphicImage
+					value="/imageView.do?imagePath=#{quizAction.metadata.picture4}" onclick="Richfaces.showModalPanel('picturePanel');" />
+			</a4j:commandLink>
+		</c:if>
+		<c:if test="#{quizAction.metadata.picture4==null}">
+			<a4j:commandLink value="#{messages['quizPleaseSelectPicture']}"
+				action="#{quizAction.setPictureIndex(4)}"
+				oncomplete="Richfaces.showModalPanel('picturePanel');"
+				reRender="picturePanel">
+			</a4j:commandLink>
+		</c:if>
+	</h:panelGrid>
+	</rich:panel>
+</ui:composition>

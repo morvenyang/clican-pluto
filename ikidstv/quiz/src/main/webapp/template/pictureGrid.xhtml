@@ -1,0 +1,38 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:a4j="http://richfaces.org/a4j">
+	<rich:modalPanel id="picturePanel" width="800" autosized="true">
+		<f:facet name="controls">
+			<h:panelGroup>
+				<h:graphicImage value="/img/close.png" styleClass="hidelink"
+					id="picturePanelImg" style="CURSOR: hand" />
+				<rich:componentControl for="picturePanel" attachTo="picturePanelImg"
+					operation="hide" event="onclick" />
+			</h:panelGroup>
+		</f:facet>
+		<h:form>
+		<rich:dataGrid value="#{quizAction.pictures}" var="picture"
+			columns="3" elements="9" width="600px">
+			<rich:panel bodyClass="pbody">
+				<f:facet name="header">
+					<h:outputText value="#{picture.name}"></h:outputText>
+				</f:facet>
+				<h:graphicImage value="/imageView.do?imagePath=#{picture.path}">
+					<a4j:support event="onclick"
+						action="#{quizAction.selectPicture(picture)}" ajaxSingle="true"
+						reRender="quizInnerPanel" oncomplete="Richfaces.hideModalPanel('picturePanel');"/>
+				</h:graphicImage>
+			</rich:panel>
+			<f:facet name="footer">
+				<rich:datascroller></rich:datascroller>
+			</f:facet>
+		</rich:dataGrid>
+		</h:form>
+	</rich:modalPanel>
+</ui:composition>

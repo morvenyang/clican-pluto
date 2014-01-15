@@ -1,0 +1,119 @@
+@charset "utf-8";
+/* CSS Document */
+html, body {
+    font-family: Tahoma, Geneva, sans-serif;
+    font-size: 12px;
+    color: #333;
+    line-height: 16px;
+    height: 100%;
+}
+
+body {
+    padding: 0;
+    margin: 0;
+    height: 100%;
+}
+
+input {
+    vertical-align: middle;
+}
+
+form {
+    padding: 0px;
+    margin: 0px;
+}
+
+#loginpanel {
+    background-image: url(../img/main_bg.png);
+    background-repeat: no-repeat;
+    width: 736px;
+    height: 400px;
+    padding: 40px 32px;
+    left: 50%;
+    margin-left: -400px;
+    top: 50%;
+    margin-top: -240px;
+    position: absolute;
+}
+
+.loginmain {
+    width: 275px;
+    height: 300px;
+    margin: 45px 0 0 0;
+    float: right;
+}
+
+.loginmain .font14 {
+    font-size: 14px;
+}
+
+.loginmain .tbox {
+    width: 200px;
+    height: 22px;
+    line-height: 22px;
+    padding: 1px;
+}
+
+.loginmain td {
+    padding: 10px 8px 7px 0;
+}
+
+.btnsignin {
+    width: 70px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    padding: 0;
+    border: 0;
+    margin-right: 20px;
+    background: url(../img/btnsignin.png) no-repeat;
+}
+
+.loginmain .btnreset {
+    width: 70px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    padding: 0;
+    border: 0;
+    background: url(../img/btnreset.png) no-repeat;
+}
+
+.left {
+    text-align: left;
+    padding-left: 10px;
+}
+
+.right {
+    text-align: right;
+    padding-right: 10px;
+}
+
+.pwdSubmit {
+    width: 55px;
+    height: 22px;
+    line-height: 22px;
+    text-align: center;
+    padding: 0;
+    border: 0;
+    background: url(../img/button_s_red.png) no-repeat;
+}
+
+.pwdRet {
+    width: 55px;
+    height: 22px;
+    line-height: 22px;
+    text-align: center;
+    padding: 0;
+    border: 0;
+    background: url(../img/button_s.png) no-repeat;
+}
+
+
+.header {
+    font-size: 12px;
+    font-weight: bold;
+    color: #ff4400;
+    padding: 5px 0 5px 0;
+    border-bottom: 1px solid #f63;
+}
