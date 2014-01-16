@@ -75,6 +75,16 @@
 		<property name="version" value="${version}"></property>
 		<property name="imagePath" value="${imagePath}"></property>
 		<property name="recordingPath" value="${recordingPath}"></property>
+		<property name="templateImageWidth" value="${templateImageWidth}"></property>
+		<property name="templateImageHeight" value="${templateImageHeight}"></property>
+		<property name="backgroundImageWidth" value="${backgroundImageWidth}"></property>
+		<property name="backgroundImageHeight" value="${backgroundImageHeight}"></property>
+		<property name="frontImageWidth" value="${frontImageWidth}"></property>
+		<property name="frontImageHeight" value="${frontImageHeight}"></property>
+		<property name="smallMetaImageWidth" value="${smallMetaImageWidth}"></property>
+		<property name="smallMetaImageHeight" value="${smallMetaImageHeight}"></property>
+		<property name="bigMetaImageWidth" value="${bigMetaImageWidth}"></property>
+		<property name="bigMetaImageHeight" value="${bigMetaImageHeight}"></property>
 	</bean>
 
 </beans>
