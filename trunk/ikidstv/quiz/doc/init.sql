@@ -15,3 +15,4 @@ insert into LEARNING_POINT(POINT,SUB_POINT) VALUES('Logical','Compare');
 
 insert into TEMPLATE(ID,NAME,SAMPLE_PICTURE,DESC_PICTURE,IPHONE,IPAD) VALUES(1,'Matching','/template/matching_sample.png','/template/matching_desc.png',1,1);
 insert into TEMPLATE(ID,NAME,SAMPLE_PICTURE,DESC_PICTURE,IPHONE,IPAD) VALUES(2,'Bingo','/template/bingo_sample.png','/template/bingo_desc.png',1,1);
+insert into TEMPLATE(ID,NAME,SAMPLE_PICTURE,DESC_PICTURE,IPHONE,IPAD) VALUES(3,'MultiChoice','/template/multiChoice_sample.png','/template/multiChoice_desc.png',1,1);
