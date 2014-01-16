@@ -142,6 +142,10 @@
 											<ui:include src="template/bingo.xhtml" />
 											<ui:include src="template/bingo_preview.xhtml" />
 										</c:if>
+										<c:if test="#{quizAction.templateIdName=='Multi_Choice'}">
+											<ui:include src="template/multiChoice.xhtml" />
+											<ui:include src="template/multiChoice_preview.xhtml" />
+										</c:if>
 									</rich:panel>
 								</h:panelGrid>
 							</t:panelGroup>

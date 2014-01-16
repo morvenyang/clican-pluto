@@ -1,0 +1,23 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:a4j="http://richfaces.org/a4j">
+	<rich:panel id="quizInnerPanel"
+		style="overflow-x:auto;overflow-y:scroll;" autosized="true">
+		<h:panelGrid columns="2" id="multiChoiceGrid">
+			<h:outputLabel value="#{messages['option']}"/>
+			<h:outputLabel value="#{messages['isAnswer']}"/>
+			<h:inputText value="#{quizAction.metadata.word1}" size="34"/>
+			<h:selectBooleanCheckbox value="#{quizAction.metadata.answer1}" />
+			<h:inputText value="#{quizAction.metadata.word2}" size="34"/>
+			<h:selectBooleanCheckbox value="#{quizAction.metadata.answer2}" />
+			<h:inputText value="#{quizAction.metadata.word3}" size="34"/>
+			<h:selectBooleanCheckbox value="#{quizAction.metadata.answer3}" />
+		</h:panelGrid>
+	</rich:panel>
+</ui:composition>
