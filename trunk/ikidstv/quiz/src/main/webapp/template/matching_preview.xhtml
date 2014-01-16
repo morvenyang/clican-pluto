@@ -18,8 +18,8 @@
 		</f:facet>
 		<h:panelGrid columns="2" id="previewGrid"  columnClasses="top,top">
 			<rich:dataGrid value="#{quizAction.metadata.pictures}" var="picture"
-				columns="2" elements="4" width="300px">
-				<h:graphicImage value="/imageView.do?imagePath=#{picture}" width="150" height="150">
+				columns="2" elements="4">
+				<h:graphicImage value="/imageView.do?imagePath=#{picture}" width="#{springProperty.bigMetaImageWidth}" height="#{springProperty.bigMetaImageHeight}">
 				</h:graphicImage>
 			</rich:dataGrid>
 			<rich:dataList var="word" value="#{quizAction.metadata.words}">

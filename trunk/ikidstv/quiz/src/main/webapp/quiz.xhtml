@@ -123,11 +123,11 @@
 							<h:panelGrid id="templateSelect">
 								<a4j:commandLink
 									oncomplete="Richfaces.showModalPanel('templatePicturePanel');">
-									<h:graphicImage value="/img/template/template_place.jpg" width="200"
-										height="150" rendered="#{quizAction.selectedTemplate==null}">
+									<h:graphicImage value="/img/template/template_place.jpg" width="#{springProperty.templateImageWidth}"
+										height="#{springProperty.templateImageHeight}" rendered="#{quizAction.selectedTemplate==null}">
 									</h:graphicImage>
-									<h:graphicImage value="/img#{quizAction.selectedTemplate.descPicture}" width="200"
-										height="150" rendered="#{quizAction.selectedTemplate!=null}">
+									<h:graphicImage value="/img#{quizAction.selectedTemplate.descPicture}" width="#{springProperty.templateImageWidth}"
+										height="#{springProperty.templateImageHeight}" rendered="#{quizAction.selectedTemplate!=null}">
 									</h:graphicImage>
 								</a4j:commandLink>
 							</h:panelGrid>
@@ -204,11 +204,11 @@
 								<a4j:commandLink
 									oncomplete="Richfaces.showModalPanel('picturePanel');"
 									reRender="picturePanel" action="#{quizAction.setPictureIndex(-1)}">
-									<h:graphicImage value="/img/template/picture_place.jpg" width="200"
-										height="200" rendered="#{quizAction.quiz.backgroundImage==null}">
+									<h:graphicImage value="/img/template/picture_place.jpg" width="#{springProperty.backgroundImageWidth}"
+										height="#{springProperty.backgroundImageHeight}" rendered="#{quizAction.quiz.backgroundImage==null}">
 									</h:graphicImage>
-									<h:graphicImage value="/imageView.do?imagePath=#{quizAction.quiz.backgroundImage}" width="200"
-										height="200" rendered="#{quizAction.quiz.backgroundImage!=null}">
+									<h:graphicImage value="/imageView.do?imagePath=#{quizAction.quiz.backgroundImage}" width="#{springProperty.backgroundImageWidth}"
+										height="#{springProperty.backgroundImageHeight}" rendered="#{quizAction.quiz.backgroundImage!=null}">
 									</h:graphicImage>
 								</a4j:commandLink>
 							</h:panelGrid>
@@ -217,11 +217,11 @@
 								<a4j:commandLink
 									oncomplete="Richfaces.showModalPanel('picturePanel');"
 									reRender="picturePanel" action="#{quizAction.setPictureIndex(-2)}">
-									<h:graphicImage value="/img/template/picture_place.jpg" width="200"
-										height="200" rendered="#{quizAction.quiz.frontImage==null}">
+									<h:graphicImage value="/img/template/picture_place.jpg" width="#{springProperty.frontImageWidth}"
+										height="#{springProperty.frontImageHeight}" rendered="#{quizAction.quiz.frontImage==null}">
 									</h:graphicImage>
-									<h:graphicImage value="/imageView.do?imagePath=#{quizAction.quiz.frontImage}" width="200"
-										height="200" rendered="#{quizAction.quiz.frontImage!=null}">
+									<h:graphicImage value="/imageView.do?imagePath=#{quizAction.quiz.frontImage}" width="#{springProperty.frontImageWidth}"
+										height="#{springProperty.frontImageHeight}" rendered="#{quizAction.quiz.frontImage!=null}">
 									</h:graphicImage>
 								</a4j:commandLink>
 							</h:panelGrid>
