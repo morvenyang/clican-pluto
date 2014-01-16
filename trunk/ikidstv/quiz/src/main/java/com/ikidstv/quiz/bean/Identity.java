@@ -80,6 +80,8 @@ public class Identity extends org.jboss.seam.security.Identity {
     private String loginSmsMark;
 
     private boolean showPromptAfterLogin = true;
+    
+    private boolean ie = false;
 
     @BypassInterceptors
     public User getUser() {
@@ -338,5 +340,21 @@ public class Identity extends org.jboss.seam.security.Identity {
     public void setAutoLogin(boolean autoLogin) {
         this.autoLogin = autoLogin;
     }
+
+	public boolean isIe() {
+		return ie;
+	}
+
+	public void setIe(boolean ie) {
+		this.ie = ie;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	public static Log getLog() {
+		return log;
+	}
 
 }

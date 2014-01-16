@@ -16,16 +16,28 @@
 					operation="hide" event="onclick" />
 			</h:panelGroup>
 		</f:facet>
-		<h:panelGrid rendered="#{quizAction.quiz!=null}">
+		<h:panelGrid rendered="#{quizAction.quiz!=null and identity.ie}">
+		<div style="position:relative;background-image: url('#{contextPath}/imageView.do?imagePath=#{quizAction.quiz.backgroundImage}');filter: progid:DXImageTransform.Microsoft.AlphaImageLoader( src='#{contextPath}/imageView.do?imagePath=#{quizAction.quiz.backgroundImage}', sizingMethod='scale');height: #{springProperty.backgroundImageHeight}px; width: #{springProperty.backgroundImageWidth}px;">
+			<h:graphicImage style="position:absolute;top:185px;left:66px" value="/imageView.do?imagePath=#{quizAction.metadata.picture1}" width="152" height="111"/>
+			<h:graphicImage style="position:absolute;top:185px;left:264px" value="/imageView.do?imagePath=#{quizAction.metadata.picture2}" width="152" height="111"/>
+			<h:graphicImage style="position:absolute;top:310px;left:66px" value="/imageView.do?imagePath=#{quizAction.metadata.picture3}" width="152" height="111"/>
+			<h:graphicImage style="position:absolute;top:310px;left:264px" value="/imageView.do?imagePath=#{quizAction.metadata.picture4}" width="152" height="111"/>
+			<h:outputText value="#{quizAction.metadata.word1}" style="font-size:20px;position:absolute;top:170px;left:570px" />
+			<h:outputText value="#{quizAction.metadata.word2}" style="font-size:20px;position:absolute;top:240px;left:570px" />
+			<h:outputText value="#{quizAction.metadata.word3}" style="font-size:20px;position:absolute;top:310px;left:570px" />
+			<h:outputText value="#{quizAction.metadata.word4}" style="font-size:20px;position:absolute;top:380px;left:570px" />
+		</div>
+		</h:panelGrid>
+		<h:panelGrid rendered="#{quizAction.quiz!=null and !identity.ie}">
 		<div style="position:relative;background-image: url('#{contextPath}/imageView.do?imagePath=#{quizAction.quiz.backgroundImage}');background-size:cover;height: #{springProperty.backgroundImageHeight}px; width: #{springProperty.backgroundImageWidth}px;">
-			<h:graphicImage style="position:absolute;top:192px;left:51px" value="/imageView.do?imagePath=#{quizAction.metadata.picture1}" width="152" height="111"/>
-			<h:graphicImage style="position:absolute;top:192px;left:249px" value="/imageView.do?imagePath=#{quizAction.metadata.picture2}" width="152" height="111"/>
-			<h:graphicImage style="position:absolute;top:332px;left:51px" value="/imageView.do?imagePath=#{quizAction.metadata.picture3}" width="152" height="111"/>
-			<h:graphicImage style="position:absolute;top:332px;left:249px" value="/imageView.do?imagePath=#{quizAction.metadata.picture4}" width="152" height="111"/>
-			<h:outputText value="#{quizAction.metadata.word1}" style="font-size:20px;position:absolute;top:180px;left:500px" />
-			<h:outputText value="#{quizAction.metadata.word2}" style="font-size:20px;position:absolute;top:250px;left:500px" />
-			<h:outputText value="#{quizAction.metadata.word3}" style="font-size:20px;position:absolute;top:320px;left:500px" />
-			<h:outputText value="#{quizAction.metadata.word4}" style="font-size:20px;position:absolute;top:390px;left:500px" />
+			<h:graphicImage style="position:absolute;top:222px;left:66px" value="/imageView.do?imagePath=#{quizAction.metadata.picture1}" width="152" height="111"/>
+			<h:graphicImage style="position:absolute;top:222px;left:264px" value="/imageView.do?imagePath=#{quizAction.metadata.picture2}" width="152" height="111"/>
+			<h:graphicImage style="position:absolute;top:362px;left:66px" value="/imageView.do?imagePath=#{quizAction.metadata.picture3}" width="152" height="111"/>
+			<h:graphicImage style="position:absolute;top:362px;left:264px" value="/imageView.do?imagePath=#{quizAction.metadata.picture4}" width="152" height="111"/>
+			<h:outputText value="#{quizAction.metadata.word1}" style="font-size:20px;position:absolute;top:200px;left:570px" />
+			<h:outputText value="#{quizAction.metadata.word2}" style="font-size:20px;position:absolute;top:270px;left:570px" />
+			<h:outputText value="#{quizAction.metadata.word3}" style="font-size:20px;position:absolute;top:340px;left:570px" />
+			<h:outputText value="#{quizAction.metadata.word4}" style="font-size:20px;position:absolute;top:410px;left:570px" />
 		</div>
 		</h:panelGrid>
 	</rich:modalPanel>
