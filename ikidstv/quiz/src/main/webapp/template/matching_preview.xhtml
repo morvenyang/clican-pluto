@@ -16,6 +16,7 @@
 					operation="hide" event="onclick" />
 			</h:panelGroup>
 		</f:facet>
+		<h:panelGrid rendered="#{quizAction.quiz!=null}">
 		<div style="position:relative;background-image: url('#{contextPath}/imageView.do?imagePath=#{quizAction.quiz.backgroundImage}');background-size:cover;height: #{springProperty.backgroundImageHeight}px; width: #{springProperty.backgroundImageWidth}px;">
 			<h:graphicImage style="position:absolute;top:192px;left:51px" value="/imageView.do?imagePath=#{quizAction.metadata.picture1}" width="152" height="111"/>
 			<h:graphicImage style="position:absolute;top:192px;left:249px" value="/imageView.do?imagePath=#{quizAction.metadata.picture2}" width="152" height="111"/>
@@ -26,5 +27,6 @@
 			<h:outputText value="#{quizAction.metadata.word3}" style="font-size:20px;position:absolute;top:320px;left:500px" />
 			<h:outputText value="#{quizAction.metadata.word4}" style="font-size:20px;position:absolute;top:390px;left:500px" />
 		</div>
+		</h:panelGrid>
 	</rich:modalPanel>
 </ui:composition>

@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang.StringUtils;
 
 import com.ikidstv.quiz.bean.Constants;
 import com.ikidstv.quiz.bean.SpringProperty;
@@ -39,6 +40,9 @@ public class ImageViewServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		String imagePath = req.getParameter("imagePath");
+		if (StringUtils.isEmpty(imagePath)) {
+			return;
+		}
 		byte[] data = FileUtils.readFileToByteArray(new File(springProperty
 				.getImagePath() + "/" + imagePath));
 		resp.getOutputStream().write(data);

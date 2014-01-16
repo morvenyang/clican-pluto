@@ -16,10 +16,12 @@
 					operation="hide" event="onclick" />
 			</h:panelGroup>
 		</f:facet>
+		<h:panelGrid rendered="#{quizAction.quiz!=null}">
 		<div style="position:relative;background-image: url('#{contextPath}/imageView.do?imagePath=#{quizAction.quiz.backgroundImage}');background-size:cover;height: #{springProperty.backgroundImageHeight}px; width: #{springProperty.backgroundImageWidth}px;">
 			<h:outputLabel style="font-size:20px;position:absolute;top:250px;left:250px" value="#{quizAction.metadata.word1}"/>
 			<h:outputLabel style="font-size:20px;position:absolute;top:320px;left:250px" value="#{quizAction.metadata.word2}"/>
 			<h:outputLabel style="font-size:20px;position:absolute;top:390px;left:250px" value="#{quizAction.metadata.word3}"/>
 		</div>
+		</h:panelGrid>
 	</rich:modalPanel>
 </ui:composition>
