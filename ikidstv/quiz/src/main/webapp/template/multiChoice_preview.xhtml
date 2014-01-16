@@ -1,0 +1,25 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:a4j="http://richfaces.org/a4j">
+	<rich:modalPanel id="previewPanel" autosized="true">
+		<f:facet name="controls">
+			<h:panelGroup>
+				<h:graphicImage value="/img/close.png" styleClass="hidelink"
+					id="previewPanelImg" style="CURSOR: hand" />
+				<rich:componentControl for="previewPanel" attachTo="previewPanelImg"
+					operation="hide" event="onclick" />
+			</h:panelGroup>
+		</f:facet>
+		<div style="position:relative;background-image: url('#{contextPath}/imageView.do?imagePath=#{quizAction.quiz.backgroundImage}');background-size:cover;height: #{springProperty.backgroundImageHeight}px; width: #{springProperty.backgroundImageWidth}px;">
+			<h:outputLabel style="font-size:20px;position:absolute;top:250px;left:250px" value="#{quizAction.metadata.word1}"/>
+			<h:outputLabel style="font-size:20px;position:absolute;top:320px;left:250px" value="#{quizAction.metadata.word2}"/>
+			<h:outputLabel style="font-size:20px;position:absolute;top:390px;left:250px" value="#{quizAction.metadata.word3}"/>
+		</div>
+	</rich:modalPanel>
+</ui:composition>

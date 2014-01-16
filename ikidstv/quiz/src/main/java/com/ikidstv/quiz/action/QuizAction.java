@@ -168,7 +168,7 @@ public class QuizAction extends BaseAction {
 			this.metadata = new Matching();
 		}else if(templateId == TemplateId.Bingo){
 			this.metadata = new Bingo();
-		}else if(templateId == TemplateId.MULTI_CHOICE){
+		}else if(templateId == TemplateId.Multi_Choice){
 			this.metadata = new MultiChoice();
 		}
 	}

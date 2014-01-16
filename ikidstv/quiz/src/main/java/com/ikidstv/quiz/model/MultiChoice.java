@@ -7,6 +7,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Type;
+
 @Table(name = "MULTI_CHOICE")
 @Entity
 public class MultiChoice implements Metadata{
@@ -15,6 +17,10 @@ public class MultiChoice implements Metadata{
 	private String word1;
 	private String word2;
 	private String word3;
+	private boolean answer1;
+	private boolean answer2;
+	private boolean answer3;
+	
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -45,6 +51,30 @@ public class MultiChoice implements Metadata{
 	}
 	public void setWord3(String word3) {
 		this.word3 = word3;
+	}
+	@Column
+	@Type(type="yes_no")
+	public boolean isAnswer1() {
+		return answer1;
+	}
+	public void setAnswer1(boolean answer1) {
+		this.answer1 = answer1;
+	}
+	@Column
+	@Type(type="yes_no")
+	public boolean isAnswer2() {
+		return answer2;
+	}
+	public void setAnswer2(boolean answer2) {
+		this.answer2 = answer2;
+	}
+	@Column
+	@Type(type="yes_no")
+	public boolean isAnswer3() {
+		return answer3;
+	}
+	public void setAnswer3(boolean answer3) {
+		this.answer3 = answer3;
 	}
 	
 	
