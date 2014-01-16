@@ -3,6 +3,9 @@ package com.ikidstv.quiz.action;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.faces.context.FacesContext;
+
+import org.apache.commons.lang.StringUtils;
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
@@ -32,6 +35,12 @@ public class AuthenticatorAction extends SpringBeanAction {
 					"loginFailure");
 			return false;
 		}else{
+			String userAgent= FacesContext.getCurrentInstance().getExternalContext().getRequestHeaderMap().get("User-Agent");
+			if(StringUtils.isNotEmpty(userAgent)&&userAgent.indexOf("MSIE")!=-1){
+				identity.setIe(true);
+			}else{
+				identity.setIe(false);
+			}
 			identity.setUser(user);
 			Set<String> permissionSet = new HashSet<String>();
 			identity.setPermissionSet(permissionSet);
