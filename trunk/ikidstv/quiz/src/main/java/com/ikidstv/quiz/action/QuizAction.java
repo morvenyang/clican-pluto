@@ -25,6 +25,7 @@ import com.ikidstv.quiz.model.Image;
 import com.ikidstv.quiz.model.LearningPoint;
 import com.ikidstv.quiz.model.Matching;
 import com.ikidstv.quiz.model.Metadata;
+import com.ikidstv.quiz.model.MultiChoice;
 import com.ikidstv.quiz.model.Quiz;
 import com.ikidstv.quiz.model.QuizLearningPointRel;
 import com.ikidstv.quiz.model.Template;
@@ -167,6 +168,8 @@ public class QuizAction extends BaseAction {
 			this.metadata = new Matching();
 		}else if(templateId == TemplateId.Bingo){
 			this.metadata = new Bingo();
+		}else if(templateId == TemplateId.MULTI_CHOICE){
+			this.metadata = new MultiChoice();
 		}
 	}
 

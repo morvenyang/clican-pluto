@@ -1,10 +1,14 @@
 package com.ikidstv.quiz.model;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Table(name = "MULTI_CHOICE")
+@Entity
 public class Bingo implements Metadata{
 
 	private Long id;
