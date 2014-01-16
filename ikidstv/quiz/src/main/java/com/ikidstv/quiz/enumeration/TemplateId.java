@@ -5,11 +5,15 @@ import java.util.Map;
 
 import com.ikidstv.quiz.model.Bingo;
 import com.ikidstv.quiz.model.Matching;
+import com.ikidstv.quiz.model.MultiChoice;
 
 public enum TemplateId {
 
 	Matching(new Long[]{1L},Matching.class),
-	Bingo(new Long[]{2L},Bingo.class);
+	
+	Bingo(new Long[]{2L},Bingo.class),
+	
+	MULTI_CHOICE(new Long[]{3L},MultiChoice.class);
 	
 	private Long[] ids;
 	private Class<?> clazz;
