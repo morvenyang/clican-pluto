@@ -16,15 +16,15 @@
 					operation="hide" event="onclick" />
 			</h:panelGroup>
 		</f:facet>
-		<h:panelGrid columns="2" id="previewGrid"  columnClasses="top,top">
-			<rich:dataGrid value="#{quizAction.metadata.pictures}" var="picture"
-				columns="2" elements="4">
-				<h:graphicImage value="/imageView.do?imagePath=#{picture}" width="#{springProperty.bigMetaImageWidth}" height="#{springProperty.bigMetaImageHeight}">
-				</h:graphicImage>
-			</rich:dataGrid>
-			<rich:dataList var="word" value="#{quizAction.metadata.words}">
-				<h:outputText value="#{word}" style="font-size:20px;" />
-			</rich:dataList>
-		</h:panelGrid>
+		<div style="position:relative;background-image: url('#{contextPath}/imageView.do?imagePath=#{quizAction.quiz.backgroundImage}');background-size:cover;height: #{springProperty.backgroundImageHeight}px; width: #{springProperty.backgroundImageWidth}px;">
+			<h:graphicImage style="position:absolute;top:192px;left:51px" value="/imageView.do?imagePath=#{quizAction.metadata.picture1}" width="152" height="111"/>
+			<h:graphicImage style="position:absolute;top:192px;left:249px" value="/imageView.do?imagePath=#{quizAction.metadata.picture2}" width="152" height="111"/>
+			<h:graphicImage style="position:absolute;top:332px;left:51px" value="/imageView.do?imagePath=#{quizAction.metadata.picture3}" width="152" height="111"/>
+			<h:graphicImage style="position:absolute;top:332px;left:249px" value="/imageView.do?imagePath=#{quizAction.metadata.picture4}" width="152" height="111"/>
+			<h:outputText value="#{quizAction.metadata.word1}" style="font-size:20px;position:absolute;top:180px;left:500px" />
+			<h:outputText value="#{quizAction.metadata.word2}" style="font-size:20px;position:absolute;top:250px;left:500px" />
+			<h:outputText value="#{quizAction.metadata.word3}" style="font-size:20px;position:absolute;top:320px;left:500px" />
+			<h:outputText value="#{quizAction.metadata.word4}" style="font-size:20px;position:absolute;top:390px;left:500px" />
+		</div>
 	</rich:modalPanel>
 </ui:composition>
