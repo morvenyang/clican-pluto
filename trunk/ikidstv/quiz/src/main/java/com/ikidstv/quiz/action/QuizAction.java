@@ -19,6 +19,7 @@ import org.jboss.seam.annotations.security.Restrict;
 
 import com.ikidstv.quiz.bean.ContentTree;
 import com.ikidstv.quiz.bean.Identity;
+import com.ikidstv.quiz.enumeration.QuizStatus;
 import com.ikidstv.quiz.enumeration.TemplateId;
 import com.ikidstv.quiz.model.Bingo;
 import com.ikidstv.quiz.model.Image;
@@ -99,9 +100,16 @@ public class QuizAction extends BaseAction {
 		this.selectedLearningPoints = new ArrayList<LearningPoint>();
 		this.pictures = this.getImageService().getImageByContent(
 				this.selectedContentTree.getSeasonId());
-		this.quiz.setBackgroundImage(this.selectedContentTree.getBackgroundImage());
+		this.quiz.setBackgroundImage(this.selectedContentTree
+				.getBackgroundImage());
 		this.quiz.setFrontImage(this.selectedContentTree.getFrontImage());
 		this.selectedTemplate = null;
+	}
+
+	public void submitQuiz() {
+		this.saveQuiz();
+		this.quiz.setStatus(QuizStatus.AUDITING.getStatus());
+		this.getQuizService().updateQuiz(quiz);
 	}
 
 	public void saveQuiz() {
@@ -117,12 +125,32 @@ public class QuizAction extends BaseAction {
 		}
 		this.quiz.setLearningPointRelSet(learningPointRelSet);
 		this.quiz.setTemplate(this.selectedTemplate);
-		this.getQuizService().saveQuiz(quiz,this.metadata);
+		this.quiz.setStatus(QuizStatus.INIT.getStatus());
+		this.getQuizService().saveQuiz(quiz, this.metadata);
 		quizBySelectedContent = this.getQuizService().findQuizByUserId(
 				identity.getUser().getId(), selectedContentTree.getContentId());
 	}
+
+	public void editQuiz(Quiz quiz) {
+		this.quiz = this.getQuizService().findQuizById(quiz.getId());
+		this.selectedLearningPoints = new ArrayList<LearningPoint>();
+		this.selectedTemplate = this.quiz.getTemplate();
+		for (QuizLearningPointRel rel : this.quiz.getLearningPointRelSet()) {
+			this.selectedLearningPoints.add(rel.getLearningPoint());
+		}
+		this.metadata = this.getQuizService().getMetadataForQuiz(this.quiz);
+		this.learningPoint = learningPointTreeMap.keySet().iterator().next();
+		this.subLearningPoints = this.learningPointTreeMap
+				.get(this.learningPoint);
+	}
 	
-	public void previewQuiz(){
+	public void deleteQuiz(Quiz quiz){
+		this.getQuizService().deleteQuiz(quiz);
+		quizBySelectedContent = this.getQuizService().findQuizByUserId(
+				identity.getUser().getId(), selectedContentTree.getContentId());
+	}
+
+	public void previewQuiz() {
 		if (this.quiz.getCreateTime() == null) {
 			this.quiz.setCreateTime(new Date());
 		}
@@ -143,7 +171,7 @@ public class QuizAction extends BaseAction {
 	}
 
 	public String getTemplateIdName() {
-		if(this.selectedTemplate==null){
+		if (this.selectedTemplate == null) {
 			return null;
 		}
 		return this.selectedTemplate.getTemplateId().name();
@@ -166,28 +194,28 @@ public class QuizAction extends BaseAction {
 		TemplateId templateId = template.getTemplateId();
 		if (templateId == TemplateId.Matching) {
 			this.metadata = new Matching();
-		}else if(templateId == TemplateId.Bingo){
+		} else if (templateId == TemplateId.Bingo) {
 			this.metadata = new Bingo();
-		}else if(templateId == TemplateId.Multi_Choice){
+		} else if (templateId == TemplateId.Multi_Choice) {
 			this.metadata = new MultiChoice();
 		}
 	}
 
-	public void setPictureIndex(int index){
+	public void setPictureIndex(int index) {
 		this.pictureIndex = index;
 	}
-	
+
 	public void selectPicture(Image picture) {
-		if(pictureIndex==-1){
-			//background image
+		if (pictureIndex == -1) {
+			// background image
 			this.quiz.setBackgroundImage(picture.getPath());
-		}else if(pictureIndex==-2){
-			//front image
+		} else if (pictureIndex == -2) {
+			// front image
 			this.quiz.setFrontImage(picture.getPath());
-		}else if(pictureIndex>0){
+		} else if (pictureIndex > 0) {
 			try {
-				Method method = metadata.getClass().getMethod("setPicture" + this.pictureIndex,
-						String.class);
+				Method method = metadata.getClass().getMethod(
+						"setPicture" + this.pictureIndex, String.class);
 				method.invoke(metadata, picture.getPath());
 			} catch (Exception e) {
 				log.error("", e);
