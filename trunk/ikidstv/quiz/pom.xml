@@ -30,7 +30,7 @@
 		<dependency>
 			<groupId>com.sun.facelets</groupId>
 			<artifactId>jsf-facelets</artifactId>
-			<version>1.1.15</version>
+			<version>1.1.15.B1</version>
 		</dependency>
 		<dependency>
 			<groupId>javax.faces</groupId>
@@ -122,7 +122,7 @@
 			<version>1.1</version>
 		</dependency>
 		<dependency>
-			<groupId>aspectj</groupId>
+			<groupId>org.aspectj</groupId>
 			<artifactId>aspectjweaver</artifactId>
 			<version>1.5.4</version>
 		</dependency>
