@@ -10,6 +10,7 @@ import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import com.ikidstv.quiz.dao.QuizDao;
+import com.ikidstv.quiz.enumeration.QuizStatus;
 import com.ikidstv.quiz.enumeration.TemplateId;
 import com.ikidstv.quiz.model.Metadata;
 import com.ikidstv.quiz.model.Quiz;
@@ -19,6 +20,12 @@ public class QuizDaoImpl extends HibernateDaoSupport implements QuizDao {
 	@SuppressWarnings("unchecked")
 	public List<Quiz> findQuizByUserId(Long userId) {
 		List<Quiz> result = this.getHibernateTemplate().findByNamedParam( "from Quiz where user.id = :userId", "userId", userId);
+		return result;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Quiz> findAuditingQuiz() {
+		List<Quiz> result = this.getHibernateTemplate().findByNamedParam( "from Quiz where status = :status", "status", QuizStatus.AUDITING.getStatus());
 		return result;
 	}
 
