@@ -146,9 +146,14 @@ public class QuizAction extends BaseAction {
 		if (this.auditing) {
 			quizBySelectedContent = this.getQuizService().findAuditingQuiz();
 		} else {
-			quizBySelectedContent = this.getQuizService().findQuizByUserId(
-					identity.getUser().getId(),
-					selectedContentTree.getContentId());
+			if(selectedContentTree!=null){
+				quizBySelectedContent = this.getQuizService().findQuizByUserId(
+						identity.getUser().getId(),
+						selectedContentTree.getContentId());
+			}else{
+				quizBySelectedContent = this.getQuizService().findQuizByUserId(
+						identity.getUser().getId(),null);
+			}
 		}
 	}
 
