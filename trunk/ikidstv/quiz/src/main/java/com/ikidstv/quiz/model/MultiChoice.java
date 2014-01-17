@@ -14,6 +14,7 @@ import org.hibernate.annotations.Type;
 public class MultiChoice implements Metadata{
 
 	private Long id;
+	private String question;
 	private String word1;
 	private String word2;
 	private String word3;
@@ -75,6 +76,14 @@ public class MultiChoice implements Metadata{
 	}
 	public void setAnswer3(boolean answer3) {
 		this.answer3 = answer3;
+	}
+	
+	@Column(length=500)
+	public String getQuestion() {
+		return question;
+	}
+	public void setQuestion(String question) {
+		this.question = question;
 	}
 	
 	
