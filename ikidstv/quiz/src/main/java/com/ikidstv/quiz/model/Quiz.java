@@ -28,7 +28,8 @@ public class Quiz {
 	private String episode;
 	private Template template;
 	private Long metadataId;
-	private Integer status;
+	// 1. 未提交 2. 审核中 3. 发布 4. 审核不通过 5. 废弃
+	private Integer status = 1;
 	private boolean recording;
 	private User user;
 	private User auditUser;
