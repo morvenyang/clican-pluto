@@ -93,26 +93,21 @@
 								<f:facet name="header">
 									<h:outputText value="#{messages['quizStatus']}" />
 								</f:facet>
-								<c:if test="#{quiz.status==1}">
-									<h:outputText value="#{messages['quizStatusInit']}"
-										style="white-space:nowrap;" />
-								</c:if>
-								<c:if test="#{quiz.status==2}">
-									<h:outputText value="#{messages['quizStatusAuditing']}"
-										style="white-space:nowrap;" />
-								</c:if>
-								<c:if test="#{quiz.status==3}">
-									<h:outputText value="#{messages['quizStatusPublished']}"
-										style="white-space:nowrap;" />
-								</c:if>
-								<c:if test="#{quiz.status==4}">
-									<h:outputText value="#{messages['quizStatusRejected']}"
-										style="white-space:nowrap;" />
-								</c:if>
-								<c:if test="#{quiz.status==4}">
-									<h:outputText value="#{messages['quizStatusUnused']}"
-										style="white-space:nowrap;" />
-								</c:if>
+								<h:outputText rendered="#{quiz.status == 1}"
+									value="#{messages['quizStatusInit']}"
+									style="white-space:nowrap;" />
+								<h:outputText rendered="#{quiz.status == 2}"
+									value="#{messages['quizStatusAuditing']}"
+									style="white-space:nowrap;" />
+								<h:outputText rendered="#{quiz.status == 3}"
+									value="#{messages['quizStatusPublished']}"
+									style="white-space:nowrap;" />
+								<h:outputText rendered="#{quiz.status == 4}"
+									value="#{messages['quizStatusRejected']}"
+									style="white-space:nowrap;" />
+								<h:outputText rendered="#{quiz.status == 5}"
+									value="#{messages['quizStatusUnused']}"
+									style="white-space:nowrap;" />
 							</rich:column>
 							<rich:column>
 								<f:facet name="header">
