@@ -3,6 +3,7 @@ package com.ikidstv.quiz.model;
 import java.util.Date;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -215,7 +216,7 @@ public class Quiz {
 		this.publishTime = publishTime;
 	}
 	
-	@OneToMany(fetch=FetchType.LAZY, mappedBy="quiz")
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="quiz",cascade=CascadeType.ALL)
 	public Set<QuizLearningPointRel> getLearningPointRelSet() {
 		return learningPointRelSet;
 	}

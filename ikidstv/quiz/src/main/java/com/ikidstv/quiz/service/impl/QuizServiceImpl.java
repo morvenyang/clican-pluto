@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.ikidstv.quiz.dao.QuizDao;
+import com.ikidstv.quiz.enumeration.TemplateId;
 import com.ikidstv.quiz.model.Metadata;
 import com.ikidstv.quiz.model.Quiz;
 import com.ikidstv.quiz.service.ContentService;
@@ -36,10 +37,32 @@ public class QuizServiceImpl implements QuizService {
 		return result;
 	}
 
-	public void saveQuiz(Quiz quiz,Metadata metadata) {
+	public void saveQuiz(Quiz quiz, Metadata metadata) {
 		this.quizDao.saveMetadata(metadata);
 		quiz.setMetadataId(metadata.getId());
+		this.quizDao.deleteQuizLearningPointRel(quiz);
 		this.quizDao.saveQuiz(quiz);
+	}
+
+	public void updateQuiz(Quiz quiz) {
+		this.quizDao.saveQuiz(quiz);
+	}
+
+	public Quiz findQuizById(Long id) {
+		return this.quizDao.findQuizById(id);
+	}
+
+	public Metadata getMetadataForQuiz(Quiz quiz) {
+		TemplateId templateId = quiz.getTemplate().getTemplateId();
+		return this.quizDao.getMetadata(templateId, quiz.getMetadataId());
+	}
+
+	public void deleteQuiz(Quiz quiz) {
+		Metadata metadata = this.getMetadataForQuiz(quiz);
+		if(metadata!=null){
+			this.quizDao.deleteMetadata(metadata);
+		}
+		this.quizDao.deleteQuiz(quiz);
 	}
 
 }

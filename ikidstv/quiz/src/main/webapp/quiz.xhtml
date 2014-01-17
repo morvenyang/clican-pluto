@@ -89,6 +89,46 @@
 									<s:convertDateTime pattern="yyyy-MM-dd" />
 								</h:outputText>
 							</rich:column>
+							<rich:column sortBy="#{quiz.status}">
+								<f:facet name="header">
+									<h:outputText value="#{messages['quizStatus']}" />
+								</f:facet>
+								<c:if test="#{quiz.status==1}">
+									<h:outputText value="#{messages['quizStatusInit']}"
+										style="white-space:nowrap;" />
+								</c:if>
+								<c:if test="#{quiz.status==2}">
+									<h:outputText value="#{messages['quizStatusAuditing']}"
+										style="white-space:nowrap;" />
+								</c:if>
+								<c:if test="#{quiz.status==3}">
+									<h:outputText value="#{messages['quizStatusPublished']}"
+										style="white-space:nowrap;" />
+								</c:if>
+								<c:if test="#{quiz.status==4}">
+									<h:outputText value="#{messages['quizStatusRejected']}"
+										style="white-space:nowrap;" />
+								</c:if>
+								<c:if test="#{quiz.status==4}">
+									<h:outputText value="#{messages['quizStatusUnused']}"
+										style="white-space:nowrap;" />
+								</c:if>
+							</rich:column>
+							<rich:column>
+								<f:facet name="header">
+									<h:outputText value="#{messages['operate']}" />
+								</f:facet>
+								<h:panelGrid columns="2">
+									<a4j:commandButton value="#{messages['edit']}"
+										action="#{quizAction.editQuiz(quiz)}" ajaxSingle="true"
+										reRender="quizPanel"
+										oncomplete="Richfaces.showModalPanel('quizPanel');" />
+									<a4j:commandButton value="#{messages['delete']}"
+										action="#{quizAction.deleteQuiz(quiz)}" ajaxSingle="true"
+										onclick="var answer=confirm('#{messages['quizConfirmToDeleate']}');if(!answer) return false;"
+										reRender="quizTable" />
+								</h:panelGrid>
+							</rich:column>
 							<f:facet name="footer">
 								<rich:datascroller for="quizTable" reRender="quizTable"
 									ignoreDupResponses="false" renderIfSinglePage="true"
@@ -114,7 +154,8 @@
 					<h:outputText value="#{messages['quiz']}"></h:outputText>
 				</h:panelGroup>
 			</f:facet>
-			<a4j:form id="quizForm" style="overflow-x:auto;overflow-y:scroll;height:600px">
+			<a4j:form id="quizForm"
+				style="overflow-x:auto;overflow-y:scroll;height:600px">
 				<rich:messages style="color:red"></rich:messages>
 				<h:panelGrid columns="2" width="100%" columnClasses="top,top">
 					<h:panelGroup>
@@ -123,17 +164,23 @@
 							<h:panelGrid id="templateSelect">
 								<a4j:commandLink
 									oncomplete="Richfaces.showModalPanel('templatePicturePanel');">
-									<h:graphicImage value="/img/template/template_place.jpg" width="#{springProperty.templateImageWidth}"
-										height="#{springProperty.templateImageHeight}" rendered="#{quizAction.selectedTemplate==null}">
+									<h:graphicImage value="/img/template/template_place.jpg"
+										width="#{springProperty.templateImageWidth}"
+										height="#{springProperty.templateImageHeight}"
+										rendered="#{quizAction.selectedTemplate==null}">
 									</h:graphicImage>
-									<h:graphicImage value="/img#{quizAction.selectedTemplate.descPicture}" width="#{springProperty.templateImageWidth}"
-										height="#{springProperty.templateImageHeight}" rendered="#{quizAction.selectedTemplate!=null}">
+									<h:graphicImage
+										value="/img#{quizAction.selectedTemplate.descPicture}"
+										width="#{springProperty.templateImageWidth}"
+										height="#{springProperty.templateImageHeight}"
+										rendered="#{quizAction.selectedTemplate!=null}">
 									</h:graphicImage>
 								</a4j:commandLink>
 							</h:panelGrid>
 							<t:panelGroup colspan="2">
 								<h:panelGrid id="templatePanel" width="100%" style="border:0">
-									<rich:panel style="border:0" rendered="#{quizAction.selectedTemplate!=null}">
+									<rich:panel style="border:0"
+										rendered="#{quizAction.selectedTemplate!=null}">
 										<c:if test="#{quizAction.templateIdName=='Matching'}">
 											<ui:include src="template/matching.xhtml" />
 											<ui:include src="template/matching_preview.xhtml" />
@@ -207,12 +254,18 @@
 							<h:panelGrid id="backgroundImageSelect">
 								<a4j:commandLink
 									oncomplete="Richfaces.showModalPanel('picturePanel');"
-									reRender="picturePanel" action="#{quizAction.setPictureIndex(-1)}">
-									<h:graphicImage value="/img/template/picture_place.jpg" width="#{springProperty.backgroundImageWidth}"
-										height="#{springProperty.backgroundImageHeight}" rendered="#{quizAction.quiz.backgroundImage==null}">
+									reRender="picturePanel"
+									action="#{quizAction.setPictureIndex(-1)}">
+									<h:graphicImage value="/img/template/picture_place.jpg"
+										width="#{springProperty.backgroundImageWidth}"
+										height="#{springProperty.backgroundImageHeight}"
+										rendered="#{quizAction.quiz.backgroundImage==null}">
 									</h:graphicImage>
-									<h:graphicImage value="/imageView.do?imagePath=#{quizAction.quiz.backgroundImage}" width="#{springProperty.backgroundImageWidth}"
-										height="#{springProperty.backgroundImageHeight}" rendered="#{quizAction.quiz.backgroundImage!=null}">
+									<h:graphicImage
+										value="/imageView.do?imagePath=#{quizAction.quiz.backgroundImage}"
+										width="#{springProperty.backgroundImageWidth}"
+										height="#{springProperty.backgroundImageHeight}"
+										rendered="#{quizAction.quiz.backgroundImage!=null}">
 									</h:graphicImage>
 								</a4j:commandLink>
 							</h:panelGrid>
@@ -220,18 +273,29 @@
 							<h:panelGrid id="frontImageSelect">
 								<a4j:commandLink
 									oncomplete="Richfaces.showModalPanel('picturePanel');"
-									reRender="picturePanel" action="#{quizAction.setPictureIndex(-2)}">
-									<h:graphicImage value="/img/template/picture_place.jpg" width="#{springProperty.frontImageWidth}"
-										height="#{springProperty.frontImageHeight}" rendered="#{quizAction.quiz.frontImage==null}">
+									reRender="picturePanel"
+									action="#{quizAction.setPictureIndex(-2)}">
+									<h:graphicImage value="/img/template/picture_place.jpg"
+										width="#{springProperty.frontImageWidth}"
+										height="#{springProperty.frontImageHeight}"
+										rendered="#{quizAction.quiz.frontImage==null}">
 									</h:graphicImage>
-									<h:graphicImage value="/imageView.do?imagePath=#{quizAction.quiz.frontImage}" width="#{springProperty.frontImageWidth}"
-										height="#{springProperty.frontImageHeight}" rendered="#{quizAction.quiz.frontImage!=null}">
+									<h:graphicImage
+										value="/imageView.do?imagePath=#{quizAction.quiz.frontImage}"
+										width="#{springProperty.frontImageWidth}"
+										height="#{springProperty.frontImageHeight}"
+										rendered="#{quizAction.quiz.frontImage!=null}">
 									</h:graphicImage>
 								</a4j:commandLink>
 							</h:panelGrid>
-							<h:panelGrid columns="3">
+							<h:panelGrid columns="4">
 								<a4j:commandButton id="submitButton"
-									value="#{messages['submit']}" action="#{quizAction.saveQuiz()}"
+									value="#{messages['submit']}"
+									action="#{quizAction.submitQuiz()}"
+									oncomplete="if(#{facesContext.maximumSeverity==null}) {Richfaces.hideModalPanel('quizPanel');}"
+									reRender="quizTable" />
+								<a4j:commandButton id="saveButton" value="#{messages['save']}"
+									action="#{quizAction.saveQuiz()}"
 									oncomplete="if(#{facesContext.maximumSeverity==null}) {Richfaces.hideModalPanel('quizPanel');}"
 									reRender="quizTable" />
 								<a4j:commandButton id="previewButton"
