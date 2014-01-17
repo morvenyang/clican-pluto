@@ -30,7 +30,7 @@ public class Quiz {
 	private Template template;
 	private Long metadataId;
 	// 1. 未提交 2. 审核中 3. 发布 4. 审核不通过 5. 废弃
-	private Integer status = 1;
+	private int status = 1;
 	private boolean recording;
 	private User user;
 	private User auditUser;
@@ -122,11 +122,11 @@ public class Quiz {
 	}
 
 	@Column(name = "STATUS")
-	public Integer getStatus() {
+	public int getStatus() {
 		return status;
 	}
 
-	public void setStatus(Integer status) {
+	public void setStatus(int status) {
 		this.status = status;
 	}
 
