@@ -17,7 +17,7 @@
 			</h:panelGroup>
 		</f:facet>
 		<h:panelGrid rendered="#{quizAction.quiz!=null and identity.ie}">
-		<div style="position:relative;background-image: url('#{contextPath}/imageView.do?imagePath=#{quizAction.quiz.backgroundImage}');filter: progid:DXImageTransform.Microsoft.AlphaImageLoader( src='#{contextPath}/imageView.do?imagePath=#{quizAction.quiz.backgroundImage}', sizingMethod='scale');height: #{springProperty.backgroundImageHeight}px; width: #{springProperty.backgroundImageWidth}px;">
+		<div style="position:relative;background-image: url('#{contextPath}/imageView.do?imagePath=#{quizAction.quiz.backgroundImage}');filter: progid:DXImageTransform.Microsoft.AlphaImageLoader( src='#{contextPath}/imageView.do?imagePath=#{quizAction.quiz.backgroundImage}', sizingMethod='scale');height: 522px; width: 937px;">
 			<h:graphicImage style="position:absolute;top:185px;left:66px" value="/imageView.do?imagePath=#{quizAction.metadata.picture1}" width="152" height="111"/>
 			<h:graphicImage style="position:absolute;top:185px;left:264px" value="/imageView.do?imagePath=#{quizAction.metadata.picture2}" width="152" height="111"/>
 			<h:graphicImage style="position:absolute;top:310px;left:66px" value="/imageView.do?imagePath=#{quizAction.metadata.picture3}" width="152" height="111"/>
@@ -29,7 +29,7 @@
 		</div>
 		</h:panelGrid>
 		<h:panelGrid rendered="#{quizAction.quiz!=null and !identity.ie}">
-		<div style="position:relative;background-image: url('#{contextPath}/imageView.do?imagePath=#{quizAction.quiz.backgroundImage}');background-size:cover;height: #{springProperty.backgroundImageHeight}px; width: #{springProperty.backgroundImageWidth}px;">
+		<div style="position:relative;background-image: url('#{contextPath}/imageView.do?imagePath=#{quizAction.quiz.backgroundImage}');background-size:cover;height: 522px; width: 937px;">
 			<h:graphicImage style="position:absolute;top:222px;left:66px" value="/imageView.do?imagePath=#{quizAction.metadata.picture1}" width="152" height="111"/>
 			<h:graphicImage style="position:absolute;top:222px;left:264px" value="/imageView.do?imagePath=#{quizAction.metadata.picture2}" width="152" height="111"/>
 			<h:graphicImage style="position:absolute;top:362px;left:66px" value="/imageView.do?imagePath=#{quizAction.metadata.picture3}" width="152" height="111"/>
