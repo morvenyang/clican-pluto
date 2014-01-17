@@ -58,6 +58,8 @@ public class QuizAction extends BaseAction {
 	private Quiz quiz;
 	private Metadata metadata;
 
+	private boolean auditing = false;
+
 	@In
 	private Identity identity;
 
@@ -74,6 +76,7 @@ public class QuizAction extends BaseAction {
 			}
 		}
 		this.templates = this.getTemplateService().getAllTemplates();
+		this.auditing = false;
 	}
 
 	public void listAuditingQuizs() {
@@ -86,7 +89,9 @@ public class QuizAction extends BaseAction {
 				this.learningPointIdMap.put(lp.getId(), lp);
 			}
 		}
+		this.auditing = true;
 	}
+
 	public void selectContent(ContentTree contentTree) {
 		this.selectedContentTree = contentTree;
 		quizBySelectedContent = this.getQuizService().findQuizByUserId(
@@ -138,17 +143,22 @@ public class QuizAction extends BaseAction {
 		this.quiz.setTemplate(this.selectedTemplate);
 		this.quiz.setStatus(QuizStatus.INIT.getStatus());
 		this.getQuizService().saveQuiz(quiz, this.metadata);
-		quizBySelectedContent = this.getQuizService().findQuizByUserId(
-				identity.getUser().getId(), selectedContentTree.getContentId());
+		if (this.auditing) {
+			quizBySelectedContent = this.getQuizService().findAuditingQuiz();
+		} else {
+			quizBySelectedContent = this.getQuizService().findQuizByUserId(
+					identity.getUser().getId(),
+					selectedContentTree.getContentId());
+		}
 	}
-	
-	public void passQuiz(){
+
+	public void passQuiz() {
 		this.saveQuiz();
 		this.quiz.setStatus(QuizStatus.PUBLISHED.getStatus());
 		this.getQuizService().updateQuiz(quiz);
 	}
-	
-	public void rejectQuiz(){
+
+	public void rejectQuiz() {
 		this.saveQuiz();
 		this.quiz.setStatus(QuizStatus.REJECTED.getStatus());
 		this.getQuizService().updateQuiz(quiz);
@@ -166,12 +176,12 @@ public class QuizAction extends BaseAction {
 		this.subLearningPoints = this.learningPointTreeMap
 				.get(this.learningPoint);
 	}
-	
-	public void auditQuiz(Quiz quiz){
+
+	public void auditQuiz(Quiz quiz) {
 		this.editQuiz(quiz);
 	}
-	
-	public void deleteQuiz(Quiz quiz){
+
+	public void deleteQuiz(Quiz quiz) {
 		this.getQuizService().deleteQuiz(quiz);
 		quizBySelectedContent = this.getQuizService().findQuizByUserId(
 				identity.getUser().getId(), selectedContentTree.getContentId());
