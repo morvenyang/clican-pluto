@@ -76,6 +76,17 @@ public class QuizAction extends BaseAction {
 		this.templates = this.getTemplateService().getAllTemplates();
 	}
 
+	public void listAuditingQuizs() {
+		quizBySelectedContent = this.getQuizService().findAuditingQuiz();
+		this.learningPointTreeMap = this.getLearningPointService()
+				.getLearningPointWithTreeMap();
+		this.learningPointIdMap = new HashMap<Long, LearningPoint>();
+		for (List<LearningPoint> ps : learningPointTreeMap.values()) {
+			for (LearningPoint lp : ps) {
+				this.learningPointIdMap.put(lp.getId(), lp);
+			}
+		}
+	}
 	public void selectContent(ContentTree contentTree) {
 		this.selectedContentTree = contentTree;
 		quizBySelectedContent = this.getQuizService().findQuizByUserId(
@@ -142,6 +153,10 @@ public class QuizAction extends BaseAction {
 		this.learningPoint = learningPointTreeMap.keySet().iterator().next();
 		this.subLearningPoints = this.learningPointTreeMap
 				.get(this.learningPoint);
+	}
+	
+	public void auditQuiz(Quiz quiz){
+		this.editQuiz(quiz);
 	}
 	
 	public void deleteQuiz(Quiz quiz){

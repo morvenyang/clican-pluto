@@ -37,6 +37,10 @@ public class QuizServiceImpl implements QuizService {
 		return result;
 	}
 
+	public List<Quiz> findAuditingQuiz(){
+		return quizDao.findAuditingQuiz();
+	}
+
 	public void saveQuiz(Quiz quiz, Metadata metadata) {
 		this.quizDao.saveMetadata(metadata);
 		quiz.setMetadataId(metadata.getId());

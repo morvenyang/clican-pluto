@@ -9,6 +9,8 @@ import com.ikidstv.quiz.model.Quiz;
 public interface QuizDao {
 
 	public List<Quiz> findQuizByUserId(Long userId);
+	
+	public List<Quiz> findAuditingQuiz();
 
 	public void saveQuiz(Quiz quiz);
 
