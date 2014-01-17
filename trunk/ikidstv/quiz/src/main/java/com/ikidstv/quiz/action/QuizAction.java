@@ -141,6 +141,18 @@ public class QuizAction extends BaseAction {
 		quizBySelectedContent = this.getQuizService().findQuizByUserId(
 				identity.getUser().getId(), selectedContentTree.getContentId());
 	}
+	
+	public void passQuiz(){
+		this.saveQuiz();
+		this.quiz.setStatus(QuizStatus.PUBLISHED.getStatus());
+		this.getQuizService().updateQuiz(quiz);
+	}
+	
+	public void rejectQuiz(){
+		this.saveQuiz();
+		this.quiz.setStatus(QuizStatus.REJECTED.getStatus());
+		this.getQuizService().updateQuiz(quiz);
+	}
 
 	public void editQuiz(Quiz quiz) {
 		this.quiz = this.getQuizService().findQuizById(quiz.getId());
