@@ -7,77 +7,90 @@
 	xmlns:c="http://java.sun.com/jstl/core"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
 	xmlns:a4j="http://richfaces.org/a4j">
-	<rich:panel id="quizInnerPanel"
-		style="border:0" autosized="true">
-		<h:panelGrid columns="2" id="matchingGrid">
-			<h:panelGrid>
-				<c:if test="#{quizAction.metadata.picture1!=null}">
-					<a4j:commandLink>
-						<h:graphicImage
-							value="/imageView.do?imagePath=#{quizAction.metadata.picture1}"
-							onclick="Richfaces.showModalPanel('picturePanel');" width="#{springProperty.bigMetaImageWidth}" height="#{springProperty.bigMetaImageHeight}"/>
-					</a4j:commandLink>
-				</c:if>
-				<c:if test="#{quizAction.metadata.picture1==null}">
-					<a4j:commandLink action="#{quizAction.setPictureIndex(1)}"
-						oncomplete="Richfaces.showModalPanel('picturePanel');"
-						reRender="picturePanel">
-						<h:graphicImage value="/img/template/picture_place.jpg" width="#{springProperty.bigMetaImageWidth}" height="#{springProperty.bigMetaImageHeight}"/>
-					</a4j:commandLink>
-				</c:if>
-				<h:inputText value="#{quizAction.metadata.word1}" size="34"/>
-			</h:panelGrid>
-			<h:panelGrid>
-				<c:if test="#{quizAction.metadata.picture2!=null}">
-					<a4j:commandLink>
-						<h:graphicImage
-							value="/imageView.do?imagePath=#{quizAction.metadata.picture2}"
-							onclick="Richfaces.showModalPanel('picturePanel');" width="#{springProperty.bigMetaImageWidth}" height="#{springProperty.bigMetaImageHeight}"/>
-					</a4j:commandLink>
-				</c:if>
-				<c:if test="#{quizAction.metadata.picture2==null}">
-					<a4j:commandLink action="#{quizAction.setPictureIndex(2)}"
-						oncomplete="Richfaces.showModalPanel('picturePanel');"
-						reRender="picturePanel">
-						<h:graphicImage value="/img/template/picture_place.jpg" width="#{springProperty.bigMetaImageWidth}" height="#{springProperty.bigMetaImageHeight}"/>
-					</a4j:commandLink>
-				</c:if>
-				<h:inputText value="#{quizAction.metadata.word2}" size="34"/>
-			</h:panelGrid>
-			<h:panelGrid>
-				<c:if test="#{quizAction.metadata.picture3!=null}">
-					<a4j:commandLink>
-						<h:graphicImage
-							value="/imageView.do?imagePath=#{quizAction.metadata.picture3}"
-							onclick="Richfaces.showModalPanel('picturePanel');" width="#{springProperty.bigMetaImageWidth}" height="#{springProperty.bigMetaImageHeight}"/>
-					</a4j:commandLink>
-				</c:if>
-				<c:if test="#{quizAction.metadata.picture3==null}">
-					<a4j:commandLink action="#{quizAction.setPictureIndex(3)}"
-						oncomplete="Richfaces.showModalPanel('picturePanel');"
-						reRender="picturePanel">
-						<h:graphicImage value="/img/template/picture_place.jpg" width="#{springProperty.bigMetaImageWidth}" height="#{springProperty.bigMetaImageHeight}"/>
-					</a4j:commandLink>
-				</c:if>
-				<h:inputText value="#{quizAction.metadata.word3}" size="34"/>
-			</h:panelGrid>
-			<h:panelGrid>
-				<c:if test="#{quizAction.metadata.picture4!=null}">
-					<a4j:commandLink>
-						<h:graphicImage
-							value="/imageView.do?imagePath=#{quizAction.metadata.picture4}"
-							onclick="Richfaces.showModalPanel('picturePanel');" width="#{springProperty.bigMetaImageWidth}" height="#{springProperty.bigMetaImageHeight}"/>
-					</a4j:commandLink>
-				</c:if>
-				<c:if test="#{quizAction.metadata.picture4==null}">
-					<a4j:commandLink action="#{quizAction.setPictureIndex(4)}"
-						oncomplete="Richfaces.showModalPanel('picturePanel');"
-						reRender="picturePanel">
-						<h:graphicImage value="/img/template/picture_place.jpg" width="#{springProperty.bigMetaImageWidth}" height="#{springProperty.bigMetaImageHeight}"/>
-					</a4j:commandLink>
-				</c:if>
-				<h:inputText value="#{quizAction.metadata.word4}" size="34"/>
-			</h:panelGrid>
+	<h:panelGrid columns="2" id="matchingGrid">
+		<h:panelGrid>
+			<c:if test="#{quizAction.metadata.picture1!=null}">
+				<a4j:commandLink>
+					<h:graphicImage
+						value="/imageView.do?imagePath=#{quizAction.metadata.picture1}"
+						onclick="Richfaces.showModalPanel('picturePanel');"
+						width="#{springProperty.bigMetaImageWidth}"
+						height="#{springProperty.bigMetaImageHeight}" />
+				</a4j:commandLink>
+			</c:if>
+			<c:if test="#{quizAction.metadata.picture1==null}">
+				<a4j:commandLink action="#{quizAction.setPictureIndex(1)}"
+					oncomplete="Richfaces.showModalPanel('picturePanel');"
+					reRender="picturePanel">
+					<h:graphicImage value="/img/template/picture_place.jpg"
+						width="#{springProperty.bigMetaImageWidth}"
+						height="#{springProperty.bigMetaImageHeight}" />
+				</a4j:commandLink>
+			</c:if>
+			<h:inputText value="#{quizAction.metadata.word1}" size="34" />
 		</h:panelGrid>
-	</rich:panel>
+		<h:panelGrid>
+			<c:if test="#{quizAction.metadata.picture2!=null}">
+				<a4j:commandLink>
+					<h:graphicImage
+						value="/imageView.do?imagePath=#{quizAction.metadata.picture2}"
+						onclick="Richfaces.showModalPanel('picturePanel');"
+						width="#{springProperty.bigMetaImageWidth}"
+						height="#{springProperty.bigMetaImageHeight}" />
+				</a4j:commandLink>
+			</c:if>
+			<c:if test="#{quizAction.metadata.picture2==null}">
+				<a4j:commandLink action="#{quizAction.setPictureIndex(2)}"
+					oncomplete="Richfaces.showModalPanel('picturePanel');"
+					reRender="picturePanel">
+					<h:graphicImage value="/img/template/picture_place.jpg"
+						width="#{springProperty.bigMetaImageWidth}"
+						height="#{springProperty.bigMetaImageHeight}" />
+				</a4j:commandLink>
+			</c:if>
+			<h:inputText value="#{quizAction.metadata.word2}" size="34" />
+		</h:panelGrid>
+		<h:panelGrid>
+			<c:if test="#{quizAction.metadata.picture3!=null}">
+				<a4j:commandLink>
+					<h:graphicImage
+						value="/imageView.do?imagePath=#{quizAction.metadata.picture3}"
+						onclick="Richfaces.showModalPanel('picturePanel');"
+						width="#{springProperty.bigMetaImageWidth}"
+						height="#{springProperty.bigMetaImageHeight}" />
+				</a4j:commandLink>
+			</c:if>
+			<c:if test="#{quizAction.metadata.picture3==null}">
+				<a4j:commandLink action="#{quizAction.setPictureIndex(3)}"
+					oncomplete="Richfaces.showModalPanel('picturePanel');"
+					reRender="picturePanel">
+					<h:graphicImage value="/img/template/picture_place.jpg"
+						width="#{springProperty.bigMetaImageWidth}"
+						height="#{springProperty.bigMetaImageHeight}" />
+				</a4j:commandLink>
+			</c:if>
+			<h:inputText value="#{quizAction.metadata.word3}" size="34" />
+		</h:panelGrid>
+		<h:panelGrid>
+			<c:if test="#{quizAction.metadata.picture4!=null}">
+				<a4j:commandLink>
+					<h:graphicImage
+						value="/imageView.do?imagePath=#{quizAction.metadata.picture4}"
+						onclick="Richfaces.showModalPanel('picturePanel');"
+						width="#{springProperty.bigMetaImageWidth}"
+						height="#{springProperty.bigMetaImageHeight}" />
+				</a4j:commandLink>
+			</c:if>
+			<c:if test="#{quizAction.metadata.picture4==null}">
+				<a4j:commandLink action="#{quizAction.setPictureIndex(4)}"
+					oncomplete="Richfaces.showModalPanel('picturePanel');"
+					reRender="picturePanel">
+					<h:graphicImage value="/img/template/picture_place.jpg"
+						width="#{springProperty.bigMetaImageWidth}"
+						height="#{springProperty.bigMetaImageHeight}" />
+				</a4j:commandLink>
+			</c:if>
+			<h:inputText value="#{quizAction.metadata.word4}" size="34" />
+		</h:panelGrid>
+	</h:panelGrid>
 </ui:composition>

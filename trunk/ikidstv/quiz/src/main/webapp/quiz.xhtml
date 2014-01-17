@@ -186,26 +186,23 @@
 								width="#{springProperty.templateImageWidth}"
 								height="#{springProperty.templateImageHeight}"
 								rendered="#{quizAction.selectedTemplate!=null and s:hasPermission('admin',null)}">
-							<h:outputText rendered="#{quizAction.selectedTemplate==null and s:hasPermission('admin',null)}"/>
+								<h:outputText
+									rendered="#{quizAction.selectedTemplate==null and s:hasPermission('admin',null)}" />
 							</h:graphicImage>
-							<t:panelGroup colspan="2">
-								<h:panelGrid id="templatePanel" width="100%" style="border:0">
-									<rich:panel style="border:0"
-										rendered="#{quizAction.selectedTemplate!=null}">
-										<c:if test="#{quizAction.templateIdName=='Matching'}">
-											<ui:include src="template/matching.xhtml" />
-											<ui:include src="template/matching_preview.xhtml" />
-										</c:if>
-										<c:if test="#{quizAction.templateIdName=='Bingo'}">
-											<ui:include src="template/bingo.xhtml" />
-											<ui:include src="template/bingo_preview.xhtml" />
-										</c:if>
-										<c:if test="#{quizAction.templateIdName=='Multi_Choice'}">
-											<ui:include src="template/multiChoice.xhtml" />
-											<ui:include src="template/multiChoice_preview.xhtml" />
-										</c:if>
-									</rich:panel>
-								</h:panelGrid>
+							<t:panelGroup colspan="2"
+								rendered="#{quizAction.selectedTemplate!=null}">
+								<c:if test="#{quizAction.templateIdName=='Matching'}">
+									<ui:include src="template/matching.xhtml" />
+									<ui:include src="template/matching_preview.xhtml" />
+								</c:if>
+								<c:if test="#{quizAction.templateIdName=='Bingo'}">
+									<ui:include src="template/bingo.xhtml" />
+									<ui:include src="template/bingo_preview.xhtml" />
+								</c:if>
+								<c:if test="#{quizAction.templateIdName=='Multi_Choice'}">
+									<ui:include src="template/multiChoice.xhtml" />
+									<ui:include src="template/multiChoice_preview.xhtml" />
+								</c:if>
 							</t:panelGroup>
 							<h:outputLabel value="#{messages['quizSeason']}" />
 							<h:outputLabel value="#{quizAction.quiz.season}" />
@@ -239,7 +236,8 @@
 										<h:outputLabel value="#{lp.point}-#{lp.subPoint}" />
 										<a4j:commandLink
 											action="#{quizAction.removeLearningPoint(lp)}"
-											reRender="selectedLearningPointGrid" rendered="#{s:hasPermission('teacher',null)}">
+											reRender="selectedLearningPointGrid"
+											rendered="#{s:hasPermission('teacher',null)}">
 											<h:graphicImage value="/img/delete.png" />
 										</a4j:commandLink>
 									</h:panelGrid>
@@ -289,7 +287,8 @@
 									</h:graphicImage>
 								</a4j:commandLink>
 							</h:panelGrid>
-							<h:outputText rendered="#{quizAction.quiz.backgroundImage==null and s:hasPermission('admin',null)}"/>
+							<h:outputText
+								rendered="#{quizAction.quiz.backgroundImage==null and s:hasPermission('admin',null)}" />
 							<h:graphicImage
 								value="/imageView.do?imagePath=#{quizAction.quiz.backgroundImage}"
 								width="#{springProperty.backgroundImageWidth}"
@@ -316,7 +315,8 @@
 									</h:graphicImage>
 								</a4j:commandLink>
 							</h:panelGrid>
-							<h:outputText rendered="#{quizAction.quiz.frontImage==null and s:hasPermission('admin',null)}"/>
+							<h:outputText
+								rendered="#{quizAction.quiz.frontImage==null and s:hasPermission('admin',null)}" />
 							<h:graphicImage
 								value="/imageView.do?imagePath=#{quizAction.quiz.frontImage}"
 								width="#{springProperty.frontImageWidth}"
@@ -328,7 +328,8 @@
 									value="#{messages['submit']}"
 									action="#{quizAction.submitQuiz()}"
 									oncomplete="if(#{facesContext.maximumSeverity==null}) {Richfaces.hideModalPanel('quizPanel');}"
-									reRender="quizTable" rendered="#{s:hasPermission('teacher',null)}"/>
+									reRender="quizTable"
+									rendered="#{s:hasPermission('teacher',null)}" />
 								<a4j:commandButton id="saveButton" value="#{messages['save']}"
 									action="#{quizAction.saveQuiz()}"
 									oncomplete="if(#{facesContext.maximumSeverity==null}) {Richfaces.hideModalPanel('quizPanel');}"
@@ -336,11 +337,14 @@
 								<a4j:commandButton id="passButton" value="#{messages['pass']}"
 									action="#{quizAction.passQuiz()}"
 									oncomplete="if(#{facesContext.maximumSeverity==null}) {Richfaces.hideModalPanel('quizPanel');}"
-									reRender="quizTable" />
-								<a4j:commandButton id="rejectButton" value="#{messages['reject']}"
+									reRender="quizTable"
+									rendered="#{s:hasPermission('admin',null)}" />
+								<a4j:commandButton id="rejectButton"
+									value="#{messages['reject']}"
 									action="#{quizAction.rejectQuiz()}"
 									oncomplete="if(#{facesContext.maximumSeverity==null}) {Richfaces.hideModalPanel('quizPanel');}"
-									reRender="quizTable" />
+									reRender="quizTable"
+									rendered="#{s:hasPermission('admin',null)}" />
 								<a4j:commandButton id="previewButton"
 									value="#{messages['preview']}"
 									action="#{quizAction.previewQuiz()}"
