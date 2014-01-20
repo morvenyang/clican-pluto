@@ -147,10 +147,10 @@
 						<f:selectItem itemLabel="#{messages['userRoleTeacher']}"
 							itemValue="1" />
 					</h:selectOneMenu>
-					<h:outputLabel value="#{messages['userPassword']}" />
-					<h:inputText value="#{userAction.user.password}" />
-					<h:outputLabel value="#{messages['userConfirmedPassword']}" />
-					<h:inputText value="#{userAction.user.confirmedPassword}" />
+					<h:outputLabel value="#{messages['userPassword']}" rendered="#{userAction.user.id==null}"/>
+					<h:inputText value="#{userAction.user.password}" rendered="#{userAction.user.id==null}"/>
+					<h:outputLabel value="#{messages['userConfirmedPassword']}" rendered="#{userAction.user.id==null}"/>
+					<h:inputText value="#{userAction.user.confirmedPassword}" rendered="#{userAction.user.id==null}"/>
 					<h:panelGrid columns="5">
 						<a4j:commandButton id="saveButton" value="#{messages['save']}"
 							action="#{userAction.saveUser()}"
