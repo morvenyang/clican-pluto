@@ -104,6 +104,7 @@ public class QuizAction extends BaseAction {
 
 	public void addQuiz() {
 		this.quiz = new Quiz();
+		this.quiz.setStatus(QuizStatus.INIT.getStatus());
 		this.quiz.setUser(this.identity.getUser());
 		this.quiz.setEpisode(this.selectedContentTree.getName());
 		this.quiz.setEpisodeId(this.selectedContentTree.getEpisonId());
@@ -141,7 +142,6 @@ public class QuizAction extends BaseAction {
 		}
 		this.quiz.setLearningPointRelSet(learningPointRelSet);
 		this.quiz.setTemplate(this.selectedTemplate);
-		this.quiz.setStatus(QuizStatus.INIT.getStatus());
 		this.getQuizService().saveQuiz(quiz, this.metadata);
 		if (this.auditing) {
 			quizBySelectedContent = this.getQuizService().findAuditingQuiz();
@@ -193,18 +193,6 @@ public class QuizAction extends BaseAction {
 	}
 
 	public void previewQuiz() {
-		if (this.quiz.getCreateTime() == null) {
-			this.quiz.setCreateTime(new Date());
-		}
-		Set<QuizLearningPointRel> learningPointRelSet = new HashSet<QuizLearningPointRel>();
-		for (LearningPoint lp : this.selectedLearningPoints) {
-			QuizLearningPointRel rel = new QuizLearningPointRel();
-			rel.setLearningPoint(lp);
-			rel.setQuiz(this.quiz);
-			learningPointRelSet.add(rel);
-		}
-		this.quiz.setLearningPointRelSet(learningPointRelSet);
-		this.quiz.setTemplate(this.selectedTemplate);
 	}
 
 	public void changeLearningPoint() {
