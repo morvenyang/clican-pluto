@@ -1,5 +1,6 @@
 package com.ikidstv.quiz.action;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -35,12 +36,19 @@ public class AuthenticatorAction extends SpringBeanAction {
 					"loginFailure");
 			return false;
 		}else{
+			if(!user.isActive()){
+				statusMessages.addFromResourceBundle(StatusMessage.Severity.ERROR,
+				"loginUserDisabled");
+				return false;
+			}
 			String userAgent= FacesContext.getCurrentInstance().getExternalContext().getRequestHeaderMap().get("User-Agent");
 			if(StringUtils.isNotEmpty(userAgent)&&userAgent.indexOf("MSIE")!=-1){
 				identity.setIe(true);
 			}else{
 				identity.setIe(false);
 			}
+			user.setLoginTime(new Date());
+			this.getUserService().saveUser(user);
 			identity.setUser(user);
 			Set<String> permissionSet = new HashSet<String>();
 			identity.setPermissionSet(permissionSet);
