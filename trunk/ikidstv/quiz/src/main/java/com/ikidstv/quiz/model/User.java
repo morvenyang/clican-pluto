@@ -88,7 +88,7 @@ public class User {
 	}
 	
 	@Column(name = "ACTIVE")
-	@Type(type="yes_no")
+	@Type(type="org.hibernate.type.NumericBooleanType")
 	public boolean isActive() {
 		return active;
 	}

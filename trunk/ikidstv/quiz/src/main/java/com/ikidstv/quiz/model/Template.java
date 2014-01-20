@@ -57,7 +57,7 @@ public class Template {
 	}
 	
 	@Column(name = "IPHONE")
-	@Type(type="yes_no")
+	@Type(type="org.hibernate.type.NumericBooleanType")
 	public boolean isIphone() {
 		return iphone;
 	}
@@ -65,7 +65,7 @@ public class Template {
 		this.iphone = iphone;
 	}
 	@Column(name = "IPAD")
-	@Type(type="yes_no")
+	@Type(type="org.hibernate.type.NumericBooleanType")
 	public boolean isIpad() {
 		return ipad;
 	}

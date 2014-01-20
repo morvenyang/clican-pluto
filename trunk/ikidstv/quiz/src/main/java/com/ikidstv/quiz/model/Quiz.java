@@ -131,7 +131,7 @@ public class Quiz {
 	}
 
 	@Column(name = "RECORDING")
-	@Type(type="yes_no")
+	@Type(type="org.hibernate.type.NumericBooleanType")
 	public boolean isRecording() {
 		return recording;
 	}
@@ -179,7 +179,7 @@ public class Quiz {
 	}
 
 	@Column(name = "IPHONE")
-	@Type(type="yes_no")
+	@Type(type="org.hibernate.type.NumericBooleanType")
 	public boolean isIphone() {
 		return iphone;
 	}
@@ -189,7 +189,7 @@ public class Quiz {
 	}
 
 	@Column(name = "IPAD")
-	@Type(type="yes_no")
+	@Type(type="org.hibernate.type.NumericBooleanType")
 	public boolean isIpad() {
 		return ipad;
 	}
