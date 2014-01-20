@@ -32,6 +32,7 @@ public class UserAction extends BaseAction {
 			this.user.setCreateTime(new Date());
 		}
 		this.getUserService().saveUser(this.user);
+		users = this.getUserService().findAllUsers();
 	}
 
 	public void editUser(User user) {
@@ -40,12 +41,14 @@ public class UserAction extends BaseAction {
 	
 	public void enableUser(User user) {
 		user.setActive(true);
-		this.getUserService().saveUser(this.user);
+		this.getUserService().saveUser(user);
+		users = this.getUserService().findAllUsers();
 	}
 	
 	public void disableUser(User user) {
 		user.setActive(false);
-		this.getUserService().saveUser(this.user);
+		this.getUserService().saveUser(user);
+		users = this.getUserService().findAllUsers();
 	}
 
 	public User getUser() {

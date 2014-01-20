@@ -53,7 +53,7 @@
 							</f:facet>
 							<h:outputText value="#{user.createTime}"
 								style="white-space:nowrap;">
-								<s:convertDateTime pattern="yyyy-MM-dd" />
+								<s:convertDateTime pattern="yyyy-MM-dd HH:mm:ss" />
 							</h:outputText>
 						</rich:column>
 						<rich:column sortBy="#{user.loginTime}">
@@ -62,7 +62,7 @@
 							</f:facet>
 							<h:outputText value="#{user.loginTime}"
 								style="white-space:nowrap;">
-								<s:convertDateTime pattern="yyyy-MM-dd" />
+								<s:convertDateTime pattern="yyyy-MM-dd HH:mm:ss" />
 							</h:outputText>
 						</rich:column>
 						<rich:column sortBy="#{user.role}">
@@ -93,15 +93,18 @@
 								<a4j:commandButton value="#{messages['edit']}"
 									action="#{userAction.editUser(user)}" ajaxSingle="true"
 									reRender="userPanel"
-									oncomplete="Richfaces.showModalPanel('userPanel');" rendered="#{user.account!='admin'}"/>
+									oncomplete="Richfaces.showModalPanel('userPanel');"
+									rendered="#{user.account!='admin'}" />
 								<a4j:commandButton value="#{messages['disable']}"
 									action="#{userAction.disableUser(user)}" ajaxSingle="true"
 									onclick="var answer=confirm('#{messages['userConfirmToDisable']}');if(!answer) return false;"
-									reRender="userTable" rendered="#{user.active and user.account!='admin'}" />
+									reRender="userTable"
+									rendered="#{user.active and user.account!='admin'}" />
 								<a4j:commandButton value="#{messages['enable']}"
 									action="#{userAction.enableUser(user)}" ajaxSingle="true"
 									onclick="var answer=confirm('#{messages['userConfirmToEnable']}');if(!answer) return false;"
-									reRender="userTable" rendered="#{!user.active and user.account!='admin'}" />
+									reRender="userTable"
+									rendered="#{!user.active and user.account!='admin'}" />
 							</h:panelGrid>
 						</rich:column>
 						<f:facet name="footer">
@@ -133,13 +136,14 @@
 				<h:panelGrid columns="2" width="100%">
 					<h:outputLabel value="#{messages['userAccount']}" />
 					<h:inputText value="#{userAction.user.account}"
-						rendered="#{userAction.user.id==null}" />
+						rendered="#{userAction.user.id==null}" style="width:180px;"/>
 					<h:outputText value="#{userAction.user.account}"
 						rendered="#{userAction.user.id!=null}" />
 					<h:outputLabel value="#{messages['userRealName']}" />
-					<h:inputText value="#{userAction.user.realName}" />
+					<h:inputText value="#{userAction.user.realName}"
+						style="width:180px;" />
 					<h:outputLabel value="#{messages['userSchool']}" />
-					<h:inputText value="#{userAction.user.school}" />
+					<h:inputText value="#{userAction.user.school}" style="width:180px;" />
 					<h:outputLabel value="#{messages['userRole']}" />
 					<h:selectOneMenu value="#{userAction.user.role}">
 						<f:selectItem itemLabel="#{messages['userRoleAdmin']}"
@@ -147,10 +151,14 @@
 						<f:selectItem itemLabel="#{messages['userRoleTeacher']}"
 							itemValue="1" />
 					</h:selectOneMenu>
-					<h:outputLabel value="#{messages['userPassword']}" rendered="#{userAction.user.id==null}"/>
-					<h:inputText value="#{userAction.user.password}" rendered="#{userAction.user.id==null}"/>
-					<h:outputLabel value="#{messages['userConfirmedPassword']}" rendered="#{userAction.user.id==null}"/>
-					<h:inputText value="#{userAction.user.confirmedPassword}" rendered="#{userAction.user.id==null}"/>
+					<h:outputLabel value="#{messages['userPassword']}"
+						rendered="#{userAction.user.id==null}" />
+					<h:inputSecret value="#{userAction.user.password}"
+						rendered="#{userAction.user.id==null}" style="width:180px;"/>
+					<h:outputLabel value="#{messages['userConfirmedPassword']}"
+						rendered="#{userAction.user.id==null}" />
+					<h:inputSecret value="#{userAction.user.confirmedPassword}"
+						rendered="#{userAction.user.id==null}" style="width:180px;"/>
 					<h:panelGrid columns="5">
 						<a4j:commandButton id="saveButton" value="#{messages['save']}"
 							action="#{userAction.saveUser()}"
