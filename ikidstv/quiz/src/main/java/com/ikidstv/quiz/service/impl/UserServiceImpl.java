@@ -19,21 +19,23 @@ public class UserServiceImpl implements UserService {
 	public User login(String account, String password) {
 		String hashPassword = DigestUtils.shaHex(password);
 		User user = userDao.findUserByAccount(account);
-		if(user!=null&&user.getPassword().equals(hashPassword)){
+		if (user != null && user.getPassword().equals(hashPassword)) {
 			return user;
-		}else{
+		} else {
 			return null;
 		}
 	}
 
 	public void saveUser(User user) {
+		if (user.getId() == null) {
+			// set the password for new user, for user upate we don't change the password in db.
+			user.setPassword(DigestUtils.shaHex(user.getPassword()));
+		}
 		this.userDao.saveUser(user);
 	}
 
 	public List<User> findAllUsers() {
 		return userDao.findAllUsers();
 	}
-
-	
 
 }
