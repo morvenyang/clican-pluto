@@ -26,7 +26,7 @@
 		</rich:menuItem>
 		<rich:menuItem submitMode="ajax"
 			rendered="#{s:hasPermission('admin',null)}">
-			<s:link view="/index.xhtml" style="font-size:20px" value="#{messages['userManager']}"/>
+			<s:link view="/user.xhtml" style="font-size:20px" action="#{userAction.listUsers()}" value="#{messages['userManager']}"/>
 		</rich:menuItem>
 		<rich:menuItem submitMode="ajax"
 			rendered="#{s:hasPermission('admin',null)}">
