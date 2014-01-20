@@ -133,9 +133,14 @@
 			</f:facet>
 			<a4j:form id="userForm">
 				<h:panelGrid columns="3" width="500">
-					<h:outputLabel value="#{messages['userAccount']}" />
+					<h:panelGroup>
+						<h:outputLabel value="#{messages['userAccount']}" />
+						<h:outputText value=" *" style="color:red;" />
+					</h:panelGroup>
 					<h:inputText id="account" value="#{userAction.user.account}"
-						rendered="#{userAction.user.id==null}" style="width:180px;" required="true" requiredMessage="#{messages['userAccountRequired']}"/>
+						rendered="#{userAction.user.id==null}" style="width:180px;"
+						required="true"
+						requiredMessage="#{messages['userAccountRequired']}" />
 					<h:outputText value="#{userAction.user.account}"
 						rendered="#{userAction.user.id!=null}" />
 					<rich:message for="account" style="color:red" showDetail="false"
@@ -146,10 +151,14 @@
 					<rich:message for="realName" style="color:red" showDetail="false"
 						showSummary="true" />
 					<h:outputLabel value="#{messages['userSchool']}" />
-					<h:inputText id="school" value="#{userAction.user.school}" style="width:180px;" />
+					<h:inputText id="school" value="#{userAction.user.school}"
+						style="width:180px;" />
 					<rich:message for="school" style="color:red" showDetail="false"
 						showSummary="true" />
-					<h:outputLabel value="#{messages['userRole']}" />
+					<h:panelGroup>
+						<h:outputLabel value="#{messages['userRole']}" />
+						<h:outputText value=" *" style="color:red;" />
+					</h:panelGroup>
 					<h:selectOneMenu id="role" value="#{userAction.user.role}">
 						<f:selectItem itemLabel="#{messages['userRoleAdmin']}"
 							itemValue="2" />
@@ -158,18 +167,27 @@
 					</h:selectOneMenu>
 					<rich:message for="role" style="color:red" showDetail="false"
 						showSummary="true" />
-					<h:outputLabel value="#{messages['userPassword']}"
-						rendered="#{userAction.user.id==null}" />
+					<h:panelGroup rendered="#{userAction.user.id==null}">
+						<h:outputLabel value="#{messages['userPassword']}" />
+						<h:outputText value=" *" style="color:red;" />
+					</h:panelGroup>
 					<h:inputSecret id="password" value="#{userAction.user.password}"
-						rendered="#{userAction.user.id==null}" style="width:180px;" required="true" requiredMessage="#{messages['userPasswordRequired']}"/>
+						rendered="#{userAction.user.id==null}" style="width:180px;"
+						required="true"
+						requiredMessage="#{messages['userPasswordRequired']}" />
 					<rich:message for="password" style="color:red" showDetail="false"
 						showSummary="true" />
-					<h:outputLabel value="#{messages['userConfirmedPassword']}"
-						rendered="#{userAction.user.id==null}" />
-					<h:inputSecret id="confirmedPassword" value="#{userAction.user.confirmedPassword}"
-						rendered="#{userAction.user.id==null}" style="width:180px;" required="true" requiredMessage="#{messages['userConfirmedPasswordRequired']}" />
-					<rich:message for="confirmedPassword" style="color:red" showDetail="false"
-						showSummary="true" />
+					<h:panelGroup rendered="#{userAction.user.id==null}">
+						<h:outputLabel value="#{messages['userConfirmedPassword']}" />
+						<h:outputText value=" *" style="color:red;" />
+					</h:panelGroup>
+					<h:inputSecret id="confirmedPassword"
+						value="#{userAction.user.confirmedPassword}"
+						rendered="#{userAction.user.id==null}" style="width:180px;"
+						required="true"
+						requiredMessage="#{messages['userConfirmedPasswordRequired']}" />
+					<rich:message for="confirmedPassword" style="color:red"
+						showDetail="false" showSummary="true" />
 					<h:panelGrid columns="5">
 						<a4j:commandButton id="saveButton" value="#{messages['save']}"
 							action="#{userAction.saveUser()}"
