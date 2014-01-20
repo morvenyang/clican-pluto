@@ -93,15 +93,15 @@
 								<a4j:commandButton value="#{messages['edit']}"
 									action="#{userAction.editUser(user)}" ajaxSingle="true"
 									reRender="userPanel"
-									oncomplete="Richfaces.showModalPanel('userPanel');" />
+									oncomplete="Richfaces.showModalPanel('userPanel');" rendered="#{user.account!='admin'}"/>
 								<a4j:commandButton value="#{messages['disable']}"
 									action="#{userAction.disableUser(user)}" ajaxSingle="true"
 									onclick="var answer=confirm('#{messages['userConfirmToDisable']}');if(!answer) return false;"
-									reRender="userTable" rendered="#{user.active and user.account!='Admin'}" />
+									reRender="userTable" rendered="#{user.active and user.account!='admin'}" />
 								<a4j:commandButton value="#{messages['enable']}"
 									action="#{userAction.enableUser(user)}" ajaxSingle="true"
 									onclick="var answer=confirm('#{messages['userConfirmToEnable']}');if(!answer) return false;"
-									reRender="userTable" rendered="#{!user.active and user.account!='Admin'}" />
+									reRender="userTable" rendered="#{!user.active and user.account!='admin'}" />
 							</h:panelGrid>
 						</rich:column>
 						<f:facet name="footer">
