@@ -86,6 +86,7 @@
 		<property name="smallMetaImageHeight" value="${smallMetaImageHeight}"></property>
 		<property name="bigMetaImageWidth" value="${bigMetaImageWidth}"></property>
 		<property name="bigMetaImageHeight" value="${bigMetaImageHeight}"></property>
+		<property name="passwordMinLength" value="${passwordMinLength}"></property>
 	</bean>
 
 </beans>

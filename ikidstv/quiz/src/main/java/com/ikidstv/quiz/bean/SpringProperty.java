@@ -17,6 +17,8 @@ public class SpringProperty {
 	private int smallMetaImageHeight;
 	private int bigMetaImageWidth;
 	private int bigMetaImageHeight;
+	
+	private int passwordMinLength;
 
 	public String getVersion() {
 		return version;
@@ -128,6 +130,14 @@ public class SpringProperty {
 
 	public void setBigMetaImageHeight(int bigMetaImageHeight) {
 		this.bigMetaImageHeight = bigMetaImageHeight;
+	}
+
+	public int getPasswordMinLength() {
+		return passwordMinLength;
+	}
+
+	public void setPasswordMinLength(int passwordMinLength) {
+		this.passwordMinLength = passwordMinLength;
 	}
 	
 	
