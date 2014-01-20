@@ -1,5 +1,7 @@
 package com.ikidstv.quiz.service.impl;
 
+import java.util.List;
+
 import org.apache.commons.codec.digest.DigestUtils;
 
 import com.ikidstv.quiz.dao.UserDao;
@@ -24,8 +26,14 @@ public class UserServiceImpl implements UserService {
 		}
 	}
 
-	public static void main(String[] args) {
-		System.out.println(DigestUtils.shaHex("123456"));
+	public void saveUser(User user) {
+		this.userDao.saveUser(user);
 	}
+
+	public List<User> findAllUsers() {
+		return userDao.findAllUsers();
+	}
+
+	
 
 }
