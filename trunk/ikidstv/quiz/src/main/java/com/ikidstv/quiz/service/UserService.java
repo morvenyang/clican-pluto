@@ -8,6 +8,8 @@ public interface UserService {
 
 	public User login(String account,String password);
 	
+	public boolean checkAccountExisted(String account);
+	
 	public List<User> findAllUsers();
 	
 	public void saveUser(User user);
