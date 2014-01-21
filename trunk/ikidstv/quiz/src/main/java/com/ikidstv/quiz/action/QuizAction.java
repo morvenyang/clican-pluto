@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.jboss.seam.ScopeType;
@@ -130,31 +131,15 @@ public class QuizAction extends BaseAction {
 	}
 
 	public void submitQuiz() {
+		if (!this.submitValidate()) {
+			return;
+		}
 		this.saveQuiz();
 		this.quiz.setStatus(QuizStatus.AUDITING.getStatus());
 		this.getQuizService().updateQuiz(quiz);
 	}
 
 	public void saveQuiz() {
-		boolean validated = true;
-		if (!this.auditing) {
-			if (this.selectedTemplate == null) {
-				this.statusMessages.addToControlFromResourceBundle(
-						"templateSelect", Severity.ERROR,
-						"quizTemplateRequired");
-				validated = false;
-			}
-			if (this.selectedLearningPoints == null
-					|| this.selectedLearningPoints.size() == 0) {
-				this.statusMessages.addToControlFromResourceBundle(
-						"selectedLearningPointGrid", Severity.ERROR,
-						"quizLearningPointRequired");
-				validated = false;
-			}
-		}
-		if (!validated) {
-			return;
-		}
 		if (!this.auditing) {
 			if (this.quiz.getCreateTime() == null) {
 				this.quiz.setCreateTime(new Date());
@@ -224,6 +209,48 @@ public class QuizAction extends BaseAction {
 	}
 
 	public void previewQuiz() {
+	}
+
+	private boolean submitValidate() {
+		boolean validated=true;
+		if (this.selectedTemplate == null) {
+			this.statusMessages.addToControlFromResourceBundle(
+					"templateSelect", Severity.ERROR,
+					"quizTemplateRequired");
+			validated = false;
+		}
+		if (this.selectedLearningPoints == null
+				|| this.selectedLearningPoints.size() == 0) {
+			this.statusMessages.addToControlFromResourceBundle(
+					"selectedLearningPointGrid", Severity.ERROR,
+					"quizLearningPointRequired");
+			validated = false;
+		}
+		
+		if (this.metadata == null) {
+			this.statusMessages.addToControlFromResourceBundle(
+					"metadataMessage", Severity.ERROR, "quizSubmitValidate");
+			return false;
+		}
+		try {
+			Method[] methods = this.metadata.getClass().getMethods();
+			for (Method method : methods) {
+				if (method.getName().contains("getWord")||method.getName().contains("getPicture")) {
+					String value = (String) method.invoke(this.metadata,
+							new Object[] {});
+					if (StringUtils.isEmpty(value)) {
+						this.statusMessages.addToControlFromResourceBundle(
+								"metadataMessage", Severity.ERROR,
+								"quizSubmitValidate");
+						return false;
+					}
+				}
+			}
+		} catch (Exception e) {
+			log.error("", e);
+		}
+		return validated;
+
 	}
 
 	public void changeLearningPoint() {

@@ -193,6 +193,8 @@
 						showDetail="false" showSummary="true" />
 					<t:panelGroup colspan="3"
 						rendered="#{quizAction.selectedTemplate!=null}">
+						<h:panelGrid id="metadataMessage" columns="3">
+						<h:outputLabel value="#{messages['quizTemplateMetadata']}"/>
 						<c:if test="#{quizAction.templateIdName=='Matching'}">
 							<ui:include src="template/matching.xhtml" />
 							<ui:include src="template/matching_preview.xhtml" />
@@ -205,6 +207,9 @@
 							<ui:include src="template/multiChoice.xhtml" />
 							<ui:include src="template/multiChoice_preview.xhtml" />
 						</c:if>
+						<rich:message for="metadataMessage" style="color:red" showDetail="false"
+						showSummary="true" />
+						</h:panelGrid>
 					</t:panelGroup>
 					<h:outputLabel value="#{messages['quizSeason']}" />
 					<t:panelGroup colspan="2">
