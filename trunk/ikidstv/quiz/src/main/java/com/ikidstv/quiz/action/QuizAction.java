@@ -16,6 +16,8 @@ import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.annotations.security.Restrict;
+import org.jboss.seam.faces.FacesMessages;
+import org.jboss.seam.international.StatusMessage.Severity;
 
 import com.ikidstv.quiz.bean.ContentTree;
 import com.ikidstv.quiz.bean.Identity;
@@ -37,6 +39,10 @@ import com.ikidstv.quiz.model.Template;
 public class QuizAction extends BaseAction {
 
 	private final static Log log = LogFactory.getLog(QuizAction.class);
+
+	@In(required = true)
+	FacesMessages statusMessages;
+
 	private ContentTree contentTree;
 	private ContentTree selectedContentTree;
 	private List<Quiz> quizBySelectedContent;
@@ -130,29 +136,50 @@ public class QuizAction extends BaseAction {
 	}
 
 	public void saveQuiz() {
-		if (this.quiz.getCreateTime() == null) {
-			this.quiz.setCreateTime(new Date());
+		boolean validated = true;
+		if (!this.auditing) {
+			if (this.selectedTemplate == null) {
+				this.statusMessages.addToControlFromResourceBundle(
+						"templateSelect", Severity.ERROR,
+						"quizTemplateRequired");
+				validated=false;
+			}
+			if(this.selectedLearningPoints==null||this.selectedLearningPoints.size()==0){
+				this.statusMessages.addToControlFromResourceBundle(
+						"selectedLearningPointGrid", Severity.ERROR,
+						"quizLearningPointRequired");
+				validated=false;
+			}
 		}
-		Set<QuizLearningPointRel> learningPointRelSet = new HashSet<QuizLearningPointRel>();
-		for (LearningPoint lp : this.selectedLearningPoints) {
-			QuizLearningPointRel rel = new QuizLearningPointRel();
-			rel.setLearningPoint(lp);
-			rel.setQuiz(this.quiz);
-			learningPointRelSet.add(rel);
+		if (!validated) {
+			return;
 		}
-		this.quiz.setLearningPointRelSet(learningPointRelSet);
-		this.quiz.setTemplate(this.selectedTemplate);
+		if (!this.auditing) {
+			if (this.quiz.getCreateTime() == null) {
+				this.quiz.setCreateTime(new Date());
+			}
+			// learning points and template can be set by teacher but not admin
+			Set<QuizLearningPointRel> learningPointRelSet = new HashSet<QuizLearningPointRel>();
+			for (LearningPoint lp : this.selectedLearningPoints) {
+				QuizLearningPointRel rel = new QuizLearningPointRel();
+				rel.setLearningPoint(lp);
+				rel.setQuiz(this.quiz);
+				learningPointRelSet.add(rel);
+			}
+			this.quiz.setLearningPointRelSet(learningPointRelSet);
+			this.quiz.setTemplate(this.selectedTemplate);
+		}
 		this.getQuizService().saveQuiz(quiz, this.metadata);
 		if (this.auditing) {
 			quizBySelectedContent = this.getQuizService().findAuditingQuiz();
 		} else {
-			if(selectedContentTree!=null){
+			if (selectedContentTree != null) {
 				quizBySelectedContent = this.getQuizService().findQuizByUserId(
 						identity.getUser().getId(),
 						selectedContentTree.getContentId());
-			}else{
+			} else {
 				quizBySelectedContent = this.getQuizService().findQuizByUserId(
-						identity.getUser().getId(),null);
+						identity.getUser().getId(), null);
 			}
 		}
 	}
