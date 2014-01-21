@@ -142,13 +142,14 @@ public class QuizAction extends BaseAction {
 				this.statusMessages.addToControlFromResourceBundle(
 						"templateSelect", Severity.ERROR,
 						"quizTemplateRequired");
-				validated=false;
+				validated = false;
 			}
-			if(this.selectedLearningPoints==null||this.selectedLearningPoints.size()==0){
+			if (this.selectedLearningPoints == null
+					|| this.selectedLearningPoints.size() == 0) {
 				this.statusMessages.addToControlFromResourceBundle(
 						"selectedLearningPointGrid", Severity.ERROR,
 						"quizLearningPointRequired");
-				validated=false;
+				validated = false;
 			}
 		}
 		if (!validated) {
@@ -187,12 +188,15 @@ public class QuizAction extends BaseAction {
 	public void passQuiz() {
 		this.saveQuiz();
 		this.quiz.setStatus(QuizStatus.PUBLISHED.getStatus());
+		this.quiz.setAuditUser(identity.getUser());
+		this.quiz.setPublishTime(new Date());
 		this.getQuizService().updateQuiz(quiz);
 	}
 
 	public void rejectQuiz() {
 		this.saveQuiz();
 		this.quiz.setStatus(QuizStatus.REJECTED.getStatus());
+		this.quiz.setAuditUser(identity.getUser());
 		this.getQuizService().updateQuiz(quiz);
 	}
 
