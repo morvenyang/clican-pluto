@@ -159,203 +159,224 @@
 			</f:facet>
 			<a4j:form id="quizForm"
 				style="overflow-x:auto;overflow-y:scroll;height:600px">
-				<rich:messages style="color:red"></rich:messages>
-				<h:panelGrid columns="2" width="100%" columnClasses="top,top">
+				<t:panelGrid columns="3">
 					<h:panelGroup>
-						<t:panelGrid columns="2">
-							<h:outputLabel value="#{messages['quizTemplate']}" />
-							<h:panelGrid id="templateSelect"
-								rendered="#{s:hasPermission('teacher',null)}">
-								<a4j:commandLink
-									oncomplete="Richfaces.showModalPanel('templatePicturePanel');">
-									<h:graphicImage value="/img/template/template_place.jpg"
-										width="#{springProperty.templateImageWidth}"
-										height="#{springProperty.templateImageHeight}"
-										rendered="#{quizAction.selectedTemplate==null}">
-									</h:graphicImage>
-									<h:graphicImage
-										value="/img#{quizAction.selectedTemplate.descPicture}"
-										width="#{springProperty.templateImageWidth}"
-										height="#{springProperty.templateImageHeight}"
-										rendered="#{quizAction.selectedTemplate!=null}">
-									</h:graphicImage>
-								</a4j:commandLink>
-							</h:panelGrid>
+						<h:outputLabel value="#{messages['quizTemplate']}" />
+						<h:outputText value=" *" style="color:red;" />
+					</h:panelGroup>
+					<h:panelGrid id="templateSelect"
+						rendered="#{s:hasPermission('teacher',null)}">
+						<a4j:commandLink
+							oncomplete="Richfaces.showModalPanel('templatePicturePanel');">
+							<h:graphicImage value="/img/template/template_place.jpg"
+								width="#{springProperty.templateImageWidth}"
+								height="#{springProperty.templateImageHeight}"
+								rendered="#{quizAction.selectedTemplate==null}">
+							</h:graphicImage>
 							<h:graphicImage
 								value="/img#{quizAction.selectedTemplate.descPicture}"
 								width="#{springProperty.templateImageWidth}"
 								height="#{springProperty.templateImageHeight}"
-								rendered="#{quizAction.selectedTemplate!=null and s:hasPermission('admin',null)}">
-								<h:outputText
-									rendered="#{quizAction.selectedTemplate==null and s:hasPermission('admin',null)}" />
-							</h:graphicImage>
-							<t:panelGroup colspan="2"
 								rendered="#{quizAction.selectedTemplate!=null}">
-								<c:if test="#{quizAction.templateIdName=='Matching'}">
-									<ui:include src="template/matching.xhtml" />
-									<ui:include src="template/matching_preview.xhtml" />
-								</c:if>
-								<c:if test="#{quizAction.templateIdName=='Bingo'}">
-									<ui:include src="template/bingo.xhtml" />
-									<ui:include src="template/bingo_preview.xhtml" />
-								</c:if>
-								<c:if test="#{quizAction.templateIdName=='Multi_Choice'}">
-									<ui:include src="template/multiChoice.xhtml" />
-									<ui:include src="template/multiChoice_preview.xhtml" />
-								</c:if>
-							</t:panelGroup>
-							<h:outputLabel value="#{messages['quizSeason']}" />
-							<h:outputLabel value="#{quizAction.quiz.season}" />
-							<h:outputLabel value="#{messages['quizEpisode']}" />
-							<h:outputLabel value="#{quizAction.quiz.episode}" />
-							<h:outputLabel value="#{messages['quizAge']}" />
-							<h:inputText value="#{quizAction.quiz.age}"
-								rendered="#{s:hasPermission('teacher',null)}" />
-							<h:outputText value="#{quizAction.quiz.age}"
-								rendered="#{s:hasPermission('admin',null)}" />
-							<h:outputLabel value="#{messages['quizLevel']}" />
-							<h:selectOneMenu value="#{quizAction.quiz.difficulty}"
-								rendered="#{s:hasPermission('teacher',null)}">
-								<f:selectItem itemLabel="1" itemValue="1" />
-								<f:selectItem itemLabel="2" itemValue="2" />
-								<f:selectItem itemLabel="3" itemValue="3" />
-								<f:selectItem itemLabel="4" itemValue="4" />
-								<f:selectItem itemLabel="5" itemValue="5" />
-								<f:selectItem itemLabel="6" itemValue="6" />
-								<f:selectItem itemLabel="7" itemValue="7" />
-								<f:selectItem itemLabel="8" itemValue="8" />
-								<f:selectItem itemLabel="9" itemValue="9" />
-								<f:selectItem itemLabel="10" itemValue="10" />
-							</h:selectOneMenu>
-							<h:outputText value="#{quizAction.quiz.difficulty}"
-								rendered="#{s:hasPermission('admin',null)}" />
-							<h:outputLabel value="#{messages['quizSelectedLearningPoint']}" />
-							<h:panelGrid columns="5" id="selectedLearningPointGrid">
-								<c:forEach var="lp" items="#{quizAction.selectedLearningPoints}">
-									<h:panelGrid columns="2">
-										<h:outputLabel value="#{lp.point}-#{lp.subPoint}" />
-										<a4j:commandLink
-											action="#{quizAction.removeLearningPoint(lp)}"
-											reRender="selectedLearningPointGrid"
-											rendered="#{s:hasPermission('teacher',null)}">
-											<h:graphicImage value="/img/delete.png" />
-										</a4j:commandLink>
-									</h:panelGrid>
-								</c:forEach>
-							</h:panelGrid>
-							<h:outputLabel value="#{messages['quizLearningPoint']}"
-								rendered="#{s:hasPermission('teacher',null)}" />
-							<h:panelGrid columns="3"
-								rendered="#{s:hasPermission('teacher',null)}">
-								<h:selectOneMenu value="#{quizAction.learningPoint}">
-									<c:forEach var="lp"
-										items="#{quizAction.learningPointTreeMap.keySet()}">
-										<f:selectItem itemLabel="#{lp}" itemValue="#{lp}" />
-									</c:forEach>
-									<a4j:support event="onchange"
-										action="#{quizAction.changeLearningPoint()}"
-										reRender="subLearningPoint" ajaxSingle="true" />
-								</h:selectOneMenu>
-								<h:selectOneMenu id="subLearningPoint"
-									value="#{quizAction.learningPointId}">
-									<c:forEach var="lp" items="#{quizAction.subLearningPoints}">
-										<f:selectItem itemLabel="#{lp.subPoint}" itemValue="#{lp.id}" />
-									</c:forEach>
-									<a4j:support event="onchange" ajaxSingle="true" />
-								</h:selectOneMenu>
-								<a4j:commandButton value="#{messages['add']}"
-									action="#{quizAction.addLearningPoint()}"
-									reRender="selectedLearningPointGrid" />
-							</h:panelGrid>
-							<h:outputLabel value="#{messages['quizBackgroundImage']}" />
-							<h:panelGrid id="backgroundImageSelect"
-								rendered="#{s:hasPermission('teacher',null)}">
-								<a4j:commandLink
-									oncomplete="Richfaces.showModalPanel('picturePanel');"
-									reRender="picturePanel"
-									action="#{quizAction.setPictureIndex(-1)}">
-									<h:graphicImage value="/img/template/picture_place.jpg"
-										width="#{springProperty.backgroundImageWidth}"
-										height="#{springProperty.backgroundImageHeight}"
-										rendered="#{quizAction.quiz.backgroundImage==null}">
-									</h:graphicImage>
-									<h:graphicImage
-										value="/imageView.do?imagePath=#{quizAction.quiz.backgroundImage}"
-										width="#{springProperty.backgroundImageWidth}"
-										height="#{springProperty.backgroundImageHeight}"
-										rendered="#{quizAction.quiz.backgroundImage!=null}">
-									</h:graphicImage>
-								</a4j:commandLink>
-							</h:panelGrid>
-							<h:outputText
-								rendered="#{quizAction.quiz.backgroundImage==null and s:hasPermission('admin',null)}" />
-							<h:graphicImage
-								value="/imageView.do?imagePath=#{quizAction.quiz.backgroundImage}"
-								width="#{springProperty.backgroundImageWidth}"
-								height="#{springProperty.backgroundImageHeight}"
-								rendered="#{quizAction.quiz.backgroundImage!=null and s:hasPermission('admin',null)}">
 							</h:graphicImage>
-							<h:outputLabel value="#{messages['quizFrontImage']}" />
-							<h:panelGrid id="frontImageSelect"
-								rendered="#{s:hasPermission('teacher',null)}">
-								<a4j:commandLink
-									oncomplete="Richfaces.showModalPanel('picturePanel');"
-									reRender="picturePanel"
-									action="#{quizAction.setPictureIndex(-2)}">
-									<h:graphicImage value="/img/template/picture_place.jpg"
-										width="#{springProperty.frontImageWidth}"
-										height="#{springProperty.frontImageHeight}"
-										rendered="#{quizAction.quiz.frontImage==null}">
-									</h:graphicImage>
-									<h:graphicImage
-										value="/imageView.do?imagePath=#{quizAction.quiz.frontImage}"
-										width="#{springProperty.frontImageWidth}"
-										height="#{springProperty.frontImageHeight}"
-										rendered="#{quizAction.quiz.frontImage!=null}">
-									</h:graphicImage>
-								</a4j:commandLink>
-							</h:panelGrid>
-							<h:outputText
-								rendered="#{quizAction.quiz.frontImage==null and s:hasPermission('admin',null)}" />
-							<h:graphicImage
-								value="/imageView.do?imagePath=#{quizAction.quiz.frontImage}"
-								width="#{springProperty.frontImageWidth}"
-								height="#{springProperty.frontImageHeight}"
-								rendered="#{quizAction.quiz.frontImage!=null and s:hasPermission('admin',null)}">
-							</h:graphicImage>
-							<h:panelGrid columns="5">
-								<a4j:commandButton id="submitButton"
-									value="#{messages['submit']}"
-									action="#{quizAction.submitQuiz()}"
-									oncomplete="if(#{facesContext.maximumSeverity==null}) {Richfaces.hideModalPanel('quizPanel');}"
-									reRender="quizTable"
-									rendered="#{s:hasPermission('teacher',null)}" />
-								<a4j:commandButton id="saveButton" value="#{messages['save']}"
-									action="#{quizAction.saveQuiz()}"
-									oncomplete="if(#{facesContext.maximumSeverity==null}) {Richfaces.hideModalPanel('quizPanel');}"
-									reRender="quizTable" />
-								<a4j:commandButton id="passButton" value="#{messages['pass']}"
-									action="#{quizAction.passQuiz()}"
-									oncomplete="if(#{facesContext.maximumSeverity==null}) {Richfaces.hideModalPanel('quizPanel');}"
-									reRender="quizTable"
-									rendered="#{s:hasPermission('admin',null)}" />
-								<a4j:commandButton id="rejectButton"
-									value="#{messages['reject']}"
-									action="#{quizAction.rejectQuiz()}"
-									oncomplete="if(#{facesContext.maximumSeverity==null}) {Richfaces.hideModalPanel('quizPanel');}"
-									reRender="quizTable"
-									rendered="#{s:hasPermission('admin',null)}" />
-								<a4j:commandButton id="previewButton"
-									value="#{messages['preview']}"
-									action="#{quizAction.previewQuiz()}"
-									oncomplete="Richfaces.showModalPanel('previewPanel');"
-									reRender="previewGrid" />
-								<h:commandButton id="cancelButton" value="#{messages['cancel']}"
-									type="reset" onclick="Richfaces.hideModalPanel('quizPanel');" />
-							</h:panelGrid>
-						</t:panelGrid>
+						</a4j:commandLink>
+					</h:panelGrid>
+					<h:graphicImage
+						value="/img#{quizAction.selectedTemplate.descPicture}"
+						width="#{springProperty.templateImageWidth}"
+						height="#{springProperty.templateImageHeight}"
+						rendered="#{quizAction.selectedTemplate!=null and s:hasPermission('admin',null)}">
+					</h:graphicImage>
+					<h:outputText
+							rendered="#{quizAction.selectedTemplate==null and s:hasPermission('admin',null)}" />
+					<rich:message for="templateSelect" style="color:red"
+						showDetail="false" showSummary="true" />
+					<t:panelGroup colspan="3"
+						rendered="#{quizAction.selectedTemplate!=null}">
+						<c:if test="#{quizAction.templateIdName=='Matching'}">
+							<ui:include src="template/matching.xhtml" />
+							<ui:include src="template/matching_preview.xhtml" />
+						</c:if>
+						<c:if test="#{quizAction.templateIdName=='Bingo'}">
+							<ui:include src="template/bingo.xhtml" />
+							<ui:include src="template/bingo_preview.xhtml" />
+						</c:if>
+						<c:if test="#{quizAction.templateIdName=='Multi_Choice'}">
+							<ui:include src="template/multiChoice.xhtml" />
+							<ui:include src="template/multiChoice_preview.xhtml" />
+						</c:if>
+					</t:panelGroup>
+					<h:outputLabel value="#{messages['quizSeason']}" />
+					<t:panelGroup colspan="2">
+						<h:outputLabel value="#{quizAction.quiz.season}" />
+					</t:panelGroup>
+					<h:outputLabel value="#{messages['quizEpisode']}" />
+					<t:panelGroup colspan="2">
+						<h:outputLabel value="#{quizAction.quiz.episode}" />
+					</t:panelGroup>
+					<h:panelGroup>
+						<h:outputLabel value="#{messages['quizAge']}" />
+						<h:outputText value=" *" style="color:red;" />
 					</h:panelGroup>
-				</h:panelGrid>
+					<h:inputText id="age" value="#{quizAction.quiz.age}"
+						rendered="#{s:hasPermission('teacher',null)}" required="true"
+						requiredMessage="#{messages['quizAgeRequired']}" />
+					<h:outputText value="#{quizAction.quiz.age}"
+						rendered="#{s:hasPermission('admin',null)}" />
+					<rich:message for="age" style="color:red" showDetail="false"
+						showSummary="true" />
+					<h:panelGroup>
+						<h:outputLabel value="#{messages['quizLevel']}" />
+						<h:outputText value=" *" style="color:red;" />
+					</h:panelGroup>
+					<h:selectOneMenu id="level" value="#{quizAction.quiz.difficulty}"
+						rendered="#{s:hasPermission('teacher',null)}">
+						<f:selectItem itemLabel="1" itemValue="1" />
+						<f:selectItem itemLabel="2" itemValue="2" />
+						<f:selectItem itemLabel="3" itemValue="3" />
+						<f:selectItem itemLabel="4" itemValue="4" />
+						<f:selectItem itemLabel="5" itemValue="5" />
+						<f:selectItem itemLabel="6" itemValue="6" />
+						<f:selectItem itemLabel="7" itemValue="7" />
+						<f:selectItem itemLabel="8" itemValue="8" />
+						<f:selectItem itemLabel="9" itemValue="9" />
+						<f:selectItem itemLabel="10" itemValue="10" />
+					</h:selectOneMenu>
+					<h:outputText value="#{quizAction.quiz.difficulty}"
+						rendered="#{s:hasPermission('admin',null)}" />
+					<rich:message for="level" style="color:red" showDetail="false"
+						showSummary="true" />
+					<h:panelGroup>
+						<h:outputLabel value="#{messages['quizSelectedLearningPoint']}" />
+						<h:outputText value=" *" style="color:red;" />
+					</h:panelGroup>
+					<t:panelGroup colspan="2">
+						<h:panelGrid columns="5" id="selectedLearningPointGrid">
+							<c:forEach var="lp" items="#{quizAction.selectedLearningPoints}">
+								<h:panelGrid columns="2">
+									<h:outputLabel value="#{lp.point}-#{lp.subPoint}" />
+									<a4j:commandLink action="#{quizAction.removeLearningPoint(lp)}"
+										reRender="selectedLearningPointGrid"
+										rendered="#{s:hasPermission('teacher',null)}">
+										<h:graphicImage value="/img/delete.png" />
+									</a4j:commandLink>
+								</h:panelGrid>
+							</c:forEach>
+						</h:panelGrid>
+					</t:panelGroup>
+					<h:outputLabel value="#{messages['quizLearningPoint']}"
+							rendered="#{s:hasPermission('teacher',null)}" />
+					<t:panelGroup colspan="2">
+						<h:panelGrid columns="3"
+							rendered="#{s:hasPermission('teacher',null)}">
+							<h:selectOneMenu value="#{quizAction.learningPoint}">
+								<c:forEach var="lp"
+									items="#{quizAction.learningPointTreeMap.keySet()}">
+									<f:selectItem itemLabel="#{lp}" itemValue="#{lp}" />
+								</c:forEach>
+								<a4j:support event="onchange"
+									action="#{quizAction.changeLearningPoint()}"
+									reRender="subLearningPoint" ajaxSingle="true" />
+							</h:selectOneMenu>
+							<h:selectOneMenu id="subLearningPoint"
+								value="#{quizAction.learningPointId}">
+								<c:forEach var="lp" items="#{quizAction.subLearningPoints}">
+									<f:selectItem itemLabel="#{lp.subPoint}" itemValue="#{lp.id}" />
+								</c:forEach>
+								<a4j:support event="onchange" ajaxSingle="true" />
+							</h:selectOneMenu>
+							<a4j:commandButton value="#{messages['add']}"
+								action="#{quizAction.addLearningPoint()}"
+								reRender="selectedLearningPointGrid" />
+						</h:panelGrid>
+					</t:panelGroup>
+					<h:outputLabel value="#{messages['quizBackgroundImage']}" />
+					<t:panelGroup colspan="2">
+						<h:panelGrid id="backgroundImageSelect"
+							rendered="#{s:hasPermission('teacher',null)}">
+							<a4j:commandLink
+								oncomplete="Richfaces.showModalPanel('picturePanel');"
+								reRender="picturePanel"
+								action="#{quizAction.setPictureIndex(-1)}">
+								<h:graphicImage value="/img/template/picture_place.jpg"
+									width="#{springProperty.backgroundImageWidth}"
+									height="#{springProperty.backgroundImageHeight}"
+									rendered="#{quizAction.quiz.backgroundImage==null}">
+								</h:graphicImage>
+								<h:graphicImage
+									value="/imageView.do?imagePath=#{quizAction.quiz.backgroundImage}"
+									width="#{springProperty.backgroundImageWidth}"
+									height="#{springProperty.backgroundImageHeight}"
+									rendered="#{quizAction.quiz.backgroundImage!=null}">
+								</h:graphicImage>
+							</a4j:commandLink>
+						</h:panelGrid>
+						<h:outputText
+							rendered="#{quizAction.quiz.backgroundImage==null and s:hasPermission('admin',null)}" />
+						<h:graphicImage
+							value="/imageView.do?imagePath=#{quizAction.quiz.backgroundImage}"
+							width="#{springProperty.backgroundImageWidth}"
+							height="#{springProperty.backgroundImageHeight}"
+							rendered="#{quizAction.quiz.backgroundImage!=null and s:hasPermission('admin',null)}">
+						</h:graphicImage>
+					</t:panelGroup>
+					<h:outputLabel value="#{messages['quizFrontImage']}" />
+					<t:panelGroup colspan="2">
+						<h:panelGrid id="frontImageSelect"
+							rendered="#{s:hasPermission('teacher',null)}">
+							<a4j:commandLink
+								oncomplete="Richfaces.showModalPanel('picturePanel');"
+								reRender="picturePanel"
+								action="#{quizAction.setPictureIndex(-2)}">
+								<h:graphicImage value="/img/template/picture_place.jpg"
+									width="#{springProperty.frontImageWidth}"
+									height="#{springProperty.frontImageHeight}"
+									rendered="#{quizAction.quiz.frontImage==null}">
+								</h:graphicImage>
+								<h:graphicImage
+									value="/imageView.do?imagePath=#{quizAction.quiz.frontImage}"
+									width="#{springProperty.frontImageWidth}"
+									height="#{springProperty.frontImageHeight}"
+									rendered="#{quizAction.quiz.frontImage!=null}">
+								</h:graphicImage>
+							</a4j:commandLink>
+						</h:panelGrid>
+						<h:outputText
+							rendered="#{quizAction.quiz.frontImage==null and s:hasPermission('admin',null)}" />
+						<h:graphicImage
+							value="/imageView.do?imagePath=#{quizAction.quiz.frontImage}"
+							width="#{springProperty.frontImageWidth}"
+							height="#{springProperty.frontImageHeight}"
+							rendered="#{quizAction.quiz.frontImage!=null and s:hasPermission('admin',null)}">
+						</h:graphicImage>
+					</t:panelGroup>
+					<h:panelGrid columns="5">
+						<a4j:commandButton id="submitButton" value="#{messages['submit']}"
+							action="#{quizAction.submitQuiz()}"
+							oncomplete="if(#{facesContext.maximumSeverity==null}) {Richfaces.hideModalPanel('quizPanel');}"
+							reRender="quizTable"
+							rendered="#{s:hasPermission('teacher',null)}" />
+						<a4j:commandButton id="saveButton" value="#{messages['save']}"
+							action="#{quizAction.saveQuiz()}"
+							oncomplete="if(#{facesContext.maximumSeverity==null}) {Richfaces.hideModalPanel('quizPanel');}"
+							reRender="quizTable" />
+						<a4j:commandButton id="passButton" value="#{messages['pass']}"
+							action="#{quizAction.passQuiz()}"
+							oncomplete="if(#{facesContext.maximumSeverity==null}) {Richfaces.hideModalPanel('quizPanel');}"
+							reRender="quizTable" rendered="#{s:hasPermission('admin',null)}" />
+						<a4j:commandButton id="rejectButton" value="#{messages['reject']}"
+							action="#{quizAction.rejectQuiz()}"
+							oncomplete="if(#{facesContext.maximumSeverity==null}) {Richfaces.hideModalPanel('quizPanel');}"
+							reRender="quizTable" rendered="#{s:hasPermission('admin',null)}" />
+						<a4j:commandButton id="previewButton"
+							value="#{messages['preview']}"
+							action="#{quizAction.previewQuiz()}"
+							oncomplete="Richfaces.showModalPanel('previewPanel');"
+							reRender="previewGrid" />
+						<h:commandButton id="cancelButton" value="#{messages['cancel']}"
+							type="reset" onclick="Richfaces.hideModalPanel('quizPanel');" />
+					</h:panelGrid>
+				</t:panelGrid>
 			</a4j:form>
 		</rich:modalPanel>
 		<ui:include src="template/pictureGrid.xhtml" />
