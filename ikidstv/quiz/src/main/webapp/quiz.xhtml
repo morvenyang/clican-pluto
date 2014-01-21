@@ -188,7 +188,7 @@
 						rendered="#{quizAction.selectedTemplate!=null and s:hasPermission('admin',null)}">
 					</h:graphicImage>
 					<h:outputText
-							rendered="#{quizAction.selectedTemplate==null and s:hasPermission('admin',null)}" />
+						rendered="#{quizAction.selectedTemplate==null and s:hasPermission('admin',null)}" />
 					<rich:message for="templateSelect" style="color:red"
 						showDetail="false" showSummary="true" />
 					<t:panelGroup colspan="3"
@@ -218,9 +218,11 @@
 						<h:outputLabel value="#{messages['quizAge']}" />
 						<h:outputText value=" *" style="color:red;" />
 					</h:panelGroup>
-					<h:inputText id="age" value="#{quizAction.quiz.age}"
-						rendered="#{s:hasPermission('teacher',null)}" required="true"
-						requiredMessage="#{messages['quizAgeRequired']}" />
+					<rich:inputNumberSpinner id="age" inputSize="2"
+						value="#{quizAction.quiz.age}" step="1" minValue="1"
+						maxValue="100" required="true"
+						requiredMessage="#{messages['quizAgeRequired']}"
+						rendered="#{s:hasPermission('teacher',null) and quizAction.quiz!=null}" />
 					<h:outputText value="#{quizAction.quiz.age}"
 						rendered="#{s:hasPermission('admin',null)}" />
 					<rich:message for="age" style="color:red" showDetail="false"
@@ -250,22 +252,22 @@
 						<h:outputLabel value="#{messages['quizSelectedLearningPoint']}" />
 						<h:outputText value=" *" style="color:red;" />
 					</h:panelGroup>
-					<t:panelGroup colspan="2">
-						<h:panelGrid columns="5" id="selectedLearningPointGrid">
-							<c:forEach var="lp" items="#{quizAction.selectedLearningPoints}">
-								<h:panelGrid columns="2">
-									<h:outputLabel value="#{lp.point}-#{lp.subPoint}" />
-									<a4j:commandLink action="#{quizAction.removeLearningPoint(lp)}"
-										reRender="selectedLearningPointGrid"
-										rendered="#{s:hasPermission('teacher',null)}">
-										<h:graphicImage value="/img/delete.png" />
-									</a4j:commandLink>
-								</h:panelGrid>
-							</c:forEach>
-						</h:panelGrid>
-					</t:panelGroup>
+					<h:panelGrid columns="5" id="selectedLearningPointGrid">
+						<c:forEach var="lp" items="#{quizAction.selectedLearningPoints}">
+							<h:panelGrid columns="2">
+								<h:outputLabel value="#{lp.point}-#{lp.subPoint}" />
+								<a4j:commandLink action="#{quizAction.removeLearningPoint(lp)}"
+									reRender="selectedLearningPointGrid"
+									rendered="#{s:hasPermission('teacher',null)}">
+									<h:graphicImage value="/img/delete.png" />
+								</a4j:commandLink>
+							</h:panelGrid>
+						</c:forEach>
+					</h:panelGrid>
+					<rich:message for="selectedLearningPointGrid" style="color:red" showDetail="false"
+						showSummary="true" />
 					<h:outputLabel value="#{messages['quizLearningPoint']}"
-							rendered="#{s:hasPermission('teacher',null)}" />
+						rendered="#{s:hasPermission('teacher',null)}" />
 					<t:panelGroup colspan="2">
 						<h:panelGrid columns="3"
 							rendered="#{s:hasPermission('teacher',null)}">
@@ -350,32 +352,36 @@
 							rendered="#{quizAction.quiz.frontImage!=null and s:hasPermission('admin',null)}">
 						</h:graphicImage>
 					</t:panelGroup>
-					<h:panelGrid columns="5">
-						<a4j:commandButton id="submitButton" value="#{messages['submit']}"
-							action="#{quizAction.submitQuiz()}"
-							oncomplete="if(#{facesContext.maximumSeverity==null}) {Richfaces.hideModalPanel('quizPanel');}"
-							reRender="quizTable"
-							rendered="#{s:hasPermission('teacher',null)}" />
-						<a4j:commandButton id="saveButton" value="#{messages['save']}"
-							action="#{quizAction.saveQuiz()}"
-							oncomplete="if(#{facesContext.maximumSeverity==null}) {Richfaces.hideModalPanel('quizPanel');}"
-							reRender="quizTable" />
-						<a4j:commandButton id="passButton" value="#{messages['pass']}"
-							action="#{quizAction.passQuiz()}"
-							oncomplete="if(#{facesContext.maximumSeverity==null}) {Richfaces.hideModalPanel('quizPanel');}"
-							reRender="quizTable" rendered="#{s:hasPermission('admin',null)}" />
-						<a4j:commandButton id="rejectButton" value="#{messages['reject']}"
-							action="#{quizAction.rejectQuiz()}"
-							oncomplete="if(#{facesContext.maximumSeverity==null}) {Richfaces.hideModalPanel('quizPanel');}"
-							reRender="quizTable" rendered="#{s:hasPermission('admin',null)}" />
-						<a4j:commandButton id="previewButton"
-							value="#{messages['preview']}"
-							action="#{quizAction.previewQuiz()}"
-							oncomplete="Richfaces.showModalPanel('previewPanel');"
-							reRender="previewGrid" />
-						<h:commandButton id="cancelButton" value="#{messages['cancel']}"
-							type="reset" onclick="Richfaces.hideModalPanel('quizPanel');" />
-					</h:panelGrid>
+					<t:panelGroup colspan="3">
+						<h:panelGrid columns="5">
+							<a4j:commandButton id="submitButton"
+								value="#{messages['submit']}"
+								action="#{quizAction.submitQuiz()}"
+								oncomplete="if(#{facesContext.maximumSeverity==null}) {Richfaces.hideModalPanel('quizPanel');}"
+								reRender="quizTable"
+								rendered="#{s:hasPermission('teacher',null)}" />
+							<a4j:commandButton id="saveButton" value="#{messages['save']}"
+								action="#{quizAction.saveQuiz()}"
+								oncomplete="if(#{facesContext.maximumSeverity==null}) {Richfaces.hideModalPanel('quizPanel');}"
+								reRender="quizTable" />
+							<a4j:commandButton id="passButton" value="#{messages['pass']}"
+								action="#{quizAction.passQuiz()}"
+								oncomplete="if(#{facesContext.maximumSeverity==null}) {Richfaces.hideModalPanel('quizPanel');}"
+								reRender="quizTable" rendered="#{s:hasPermission('admin',null)}" />
+							<a4j:commandButton id="rejectButton"
+								value="#{messages['reject']}"
+								action="#{quizAction.rejectQuiz()}"
+								oncomplete="if(#{facesContext.maximumSeverity==null}) {Richfaces.hideModalPanel('quizPanel');}"
+								reRender="quizTable" rendered="#{s:hasPermission('admin',null)}" />
+							<a4j:commandButton id="previewButton"
+								value="#{messages['preview']}"
+								action="#{quizAction.previewQuiz()}"
+								oncomplete="Richfaces.showModalPanel('previewPanel');"
+								reRender="previewGrid" />
+							<h:commandButton id="cancelButton" value="#{messages['cancel']}"
+								type="reset" onclick="Richfaces.hideModalPanel('quizPanel');" />
+						</h:panelGrid>
+					</t:panelGroup>
 				</t:panelGrid>
 			</a4j:form>
 		</rich:modalPanel>
