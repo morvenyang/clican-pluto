@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.persistence.Column;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -235,7 +237,7 @@ public class QuizAction extends BaseAction {
 		try {
 			Method[] methods = this.metadata.getClass().getMethods();
 			for (Method method : methods) {
-				if (method.getName().contains("getWord")||method.getName().contains("getPicture")) {
+				if (method.isAnnotationPresent(Column.class)&&(method.getName().contains("getWord")||method.getName().contains("getPicture"))) {
 					String value = (String) method.invoke(this.metadata,
 							new Object[] {});
 					if (StringUtils.isEmpty(value)) {
