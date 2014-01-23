@@ -13,4 +13,6 @@ public interface LearningPointService {
 	public LearningPointTree getLearningPointTree();
 	
 	public void saveLearningPoint(LearningPoint learningPoint);
+	
+	public void deleteLearningPoint(LearningPoint learningPoint);
 }

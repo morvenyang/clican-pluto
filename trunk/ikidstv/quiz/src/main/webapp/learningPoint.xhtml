@@ -48,6 +48,9 @@
 									action="#{learningPointAction.editPoint(treeNode.learningPoint)}"
 									reRender="pointPanel"
 									oncomplete="Richfaces.showModalPanel('pointPanel');"></rich:menuItem>
+								<rich:menuItem value="#{messages['delete']}"
+									action="#{learningPointAction.deletePoint(treeNode.learningPoint)}"
+									reRender="learningPointTree"></rich:menuItem>
 							</rich:contextMenu>
 						</h:outputLabel>
 					</rich:treeNode>

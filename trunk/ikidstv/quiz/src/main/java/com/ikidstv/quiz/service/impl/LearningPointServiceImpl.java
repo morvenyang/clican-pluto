@@ -61,5 +61,9 @@ public class LearningPointServiceImpl implements LearningPointService {
 	public void saveLearningPoint(LearningPoint learningPoint) {
 		this.learningPointDao.saveLearningPoint(learningPoint);
 	}
+	
+	public void deleteLearningPoint(LearningPoint learningPoint){
+		this.learningPointDao.deleteLearningPoint(learningPoint);
+	}
 
 }

@@ -43,6 +43,10 @@ public class LearningPointAction extends BaseAction {
 		learningPointTree = this.getLearningPointService().getLearningPointTree();
 	}
 
+	public void deletePoint(LearningPoint learningPoint){
+		this.getLearningPointService().deleteLearningPoint(learningPoint);
+		learningPointTree = this.getLearningPointService().getLearningPointTree();
+	}
 	public LearningPointTree getLearningPointTree() {
 		return learningPointTree;
 	}
