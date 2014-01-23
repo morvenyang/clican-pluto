@@ -17,6 +17,11 @@ public class LearningPointDaoImpl extends HibernateDaoSupport implements
 
 	public void saveLearningPoint(LearningPoint learningPoint) {
 		this.getHibernateTemplate().saveOrUpdate(learningPoint);
-		
 	}
+
+	public void deleteLearningPoint(LearningPoint learningPoint) {
+		this.getHibernateTemplate().delete(learningPoint);
+	}
+	
+	
 }
