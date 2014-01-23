@@ -73,17 +73,21 @@
 				</h:panelGroup>
 			</f:facet>
 			<a4j:form id="pointForm">
-				<h:panelGrid columns="2">
+				<h:panelGrid columns="3">
 					<h:panelGroup>
 						<h:outputLabel value="#{messages['learningPointPoint']}" />
 						<h:outputText value=" *" style="color:red;" />
 					</h:panelGroup>
-					<h:inputText value="#{learningPointAction.learningPoint.point}" />
+					<h:inputText id="point" value="#{learningPointAction.learningPoint.point}" required="true" requiredMessage="#{messages['learningPointPointRequired']}"/>
+					<rich:message for="point" style="color:red" showDetail="false"
+						showSummary="true" />
 					<h:panelGroup>
 						<h:outputLabel value="#{messages['learningPointSubPoint']}" />
 						<h:outputText value=" *" style="color:red;" />
 					</h:panelGroup>
-					<h:inputText value="#{learningPointAction.learningPoint.subPoint}" />
+					<h:inputText id="subPoint" value="#{learningPointAction.learningPoint.subPoint}" required="true" requiredMessage="#{messages['learningPointSubPointRequired']}"/>
+					<rich:message for="subPoint" style="color:red" showDetail="false"
+						showSummary="true" />
 					<h:panelGrid columns="2">
 						<a4j:commandButton id="saveButton" value="#{messages['save']}"
 							action="#{learningPointAction.savePoint()}"
