@@ -15,4 +15,8 @@ public class LearningPointDaoImpl extends HibernateDaoSupport implements
 		return this.getHibernateTemplate().find("from LearningPoint");
 	}
 
+	public void saveLearningPoint(LearningPoint learningPoint) {
+		this.getHibernateTemplate().saveOrUpdate(learningPoint);
+		
+	}
 }

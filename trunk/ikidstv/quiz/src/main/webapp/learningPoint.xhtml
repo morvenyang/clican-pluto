@@ -1,0 +1,96 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:a4j="http://richfaces.org/a4j" template="workspace.xhtml">
+	<ui:define name="body">
+		<h:form>
+			<rich:tree id="learningPointTree" switchType="ajax" style="width:300px;">
+				<rich:recursiveTreeNodesAdaptor 
+					roots="#{learningPointAction.learningPointTree}" var="treeNode"
+					nodes="#{treeNode.subTree}">
+					<rich:treeNode iconLeaf="/img/tree.png" icon="/img/tree.png">
+						<h:outputLabel id="rootNode" value="#{messages['learningPoint']}"
+							onmouseover="this.style.cursor='hand'"
+							onmouseout="this.style.cursor='default'" style="font-size:15px"
+							rendered="#{treeNode.point==null}">
+							<rich:contextMenu event="oncontextmenu" attachTo="rootNode"
+								submitMode="ajax">
+								<rich:menuItem value="#{messages['add']}"
+									action="#{learningPointAction.addPoint()}"
+									reRender="pointPanel"
+									oncomplete="Richfaces.showModalPanel('pointPanel');"></rich:menuItem>
+							</rich:contextMenu>
+						</h:outputLabel>
+						<h:outputLabel id="pointNode" value="#{treeNode.point}"
+							onmouseover="this.style.cursor='hand'"
+							onmouseout="this.style.cursor='default'" style="font-size:15px"
+							rendered="#{treeNode.point!=null and treeNode.subPoint==null}">
+							<rich:contextMenu event="oncontextmenu" attachTo="pointNode"
+								submitMode="ajax">
+								<rich:menuItem value="#{messages['add']}"
+									action="#{learningPointAction.addPoint(treeNode.point)}"
+									reRender="pointPanel"
+									oncomplete="Richfaces.showModalPanel('pointPanel');"></rich:menuItem>
+							</rich:contextMenu>
+						</h:outputLabel>
+						<h:outputLabel id="subPointNode" value="#{treeNode.subPoint}"
+							onmouseover="this.style.cursor='hand'"
+							onmouseout="this.style.cursor='default'" style="font-size:15px"
+							rendered="#{treeNode.point!=null and treeNode.subPoint!=null}">
+							<rich:contextMenu event="oncontextmenu" attachTo="subPointNode"
+								submitMode="ajax">
+								<rich:menuItem value="#{messages['edit']}"
+									action="#{learningPointAction.editPoint(treeNode.learningPoint)}"
+									reRender="pointPanel"
+									oncomplete="Richfaces.showModalPanel('pointPanel');"></rich:menuItem>
+							</rich:contextMenu>
+						</h:outputLabel>
+					</rich:treeNode>
+				</rich:recursiveTreeNodesAdaptor>
+			</rich:tree>
+		</h:form>
+
+		<rich:modalPanel id="pointPanel" autosized="true">
+			<f:facet name="controls">
+				<h:panelGroup>
+					<h:graphicImage value="/img/close.png" styleClass="hidelink"
+						id="pointPanelImg" style="CURSOR: hand" />
+					<rich:componentControl for="pointPanel" attachTo="pointPanelImg"
+						operation="hide" event="onclick" />
+				</h:panelGroup>
+			</f:facet>
+			<f:facet name="header">
+				<h:panelGroup>
+					<h:outputText value="#{messages['point']}"></h:outputText>
+				</h:panelGroup>
+			</f:facet>
+			<a4j:form id="pointForm">
+				<h:panelGrid columns="2">
+					<h:panelGroup>
+						<h:outputLabel value="#{messages['learningPointPoint']}" />
+						<h:outputText value=" *" style="color:red;" />
+					</h:panelGroup>
+					<h:inputText value="#{learningPointAction.learningPoint.point}" />
+					<h:panelGroup>
+						<h:outputLabel value="#{messages['learningPointSubPoint']}" />
+						<h:outputText value=" *" style="color:red;" />
+					</h:panelGroup>
+					<h:inputText value="#{learningPointAction.learningPoint.subPoint}" />
+					<h:panelGrid columns="2">
+						<a4j:commandButton id="saveButton" value="#{messages['save']}"
+							action="#{learningPointAction.savePoint()}"
+							oncomplete="if(#{facesContext.maximumSeverity==null}) {Richfaces.hideModalPanel('pointPanel');}"
+							reRender="learningPointTree" />
+						<h:commandButton id="cancelButton" value="#{messages['cancel']}"
+							type="reset" onclick="Richfaces.hideModalPanel('pointPanel');" />
+					</h:panelGrid>
+				</h:panelGrid>
+			</a4j:form>
+		</rich:modalPanel>
+	</ui:define>
+</ui:composition>
