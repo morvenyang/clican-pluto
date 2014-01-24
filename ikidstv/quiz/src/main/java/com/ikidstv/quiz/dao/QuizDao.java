@@ -25,5 +25,7 @@ public interface QuizDao {
 	public void deleteMetadata(Metadata metadata);
 	
 	public void deleteQuizLearningPointRel(Quiz quiz);
+	
+	public List<Quiz> findPlacementQuiz();
 
 }

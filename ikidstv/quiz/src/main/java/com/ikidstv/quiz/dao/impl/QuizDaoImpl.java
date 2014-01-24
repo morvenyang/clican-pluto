@@ -19,13 +19,13 @@ public class QuizDaoImpl extends HibernateDaoSupport implements QuizDao {
 
 	@SuppressWarnings("unchecked")
 	public List<Quiz> findQuizByUserId(Long userId) {
-		List<Quiz> result = this.getHibernateTemplate().findByNamedParam( "from Quiz where user.id = :userId", "userId", userId);
+		List<Quiz> result = this.getHibernateTemplate().findByNamedParam( "from Quiz where user.id = :userId and placementTest = false", "userId", userId);
 		return result;
 	}
 	
 	@SuppressWarnings("unchecked")
 	public List<Quiz> findAuditingQuiz() {
-		List<Quiz> result = this.getHibernateTemplate().findByNamedParam( "from Quiz where status = :status", "status", QuizStatus.AUDITING.getStatus());
+		List<Quiz> result = this.getHibernateTemplate().findByNamedParam( "from Quiz where status = :status and placementTest = false", "status", QuizStatus.AUDITING.getStatus());
 		return result;
 	}
 
@@ -63,4 +63,12 @@ public class QuizDaoImpl extends HibernateDaoSupport implements QuizDao {
 			}
 		});
 	}
+
+	@SuppressWarnings("unchecked")
+	public List<Quiz> findPlacementQuiz() {
+		List<Quiz> result = this.getHibernateTemplate().find("from Quiz where placementTest = true");
+		return result;
+	}
+	
+	
 }

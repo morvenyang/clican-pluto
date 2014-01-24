@@ -119,7 +119,7 @@
 										action="#{quizAction.editQuiz(quiz)}" ajaxSingle="true"
 										reRender="quizPanel"
 										oncomplete="Richfaces.showModalPanel('quizPanel');"
-										rendered="#{s:hasPermission('teacher',null)}" />
+										rendered="#{s:hasPermission('teacher',null) and quiz.status!=3 and quiz.status!=2}" />
 									<a4j:commandButton value="#{messages['delete']}"
 										action="#{quizAction.deleteQuiz(quiz)}" ajaxSingle="true"
 										onclick="var answer=confirm('#{messages['quizConfirmToDeleate']}');if(!answer) return false;"
@@ -273,9 +273,8 @@
 						showSummary="true" />
 					<h:outputLabel value="#{messages['quizLearningPoint']}"
 						rendered="#{s:hasPermission('teacher',null)}" />
-					<t:panelGroup colspan="2">
-						<h:panelGrid columns="3"
-							rendered="#{s:hasPermission('teacher',null)}">
+					<t:panelGroup colspan="2" rendered="#{s:hasPermission('teacher',null)}">
+						<h:panelGrid columns="3">
 							<h:selectOneMenu value="#{quizAction.learningPoint}">
 								<c:forEach var="lp"
 									items="#{quizAction.learningPointTreeMap.keySet()}">

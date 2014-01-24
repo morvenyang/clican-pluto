@@ -43,6 +43,10 @@ public class QuizAction extends BaseAction {
 
 	private final static Log log = LogFactory.getLog(QuizAction.class);
 
+	private final int PAGE_TYPE_QUIZ = 1;
+	private final int PAGE_TYPE_AUDIT = 2;
+	private final int PAGE_TYPE_PLACEMENT_TEST = 3;
+
 	@In(required = true)
 	FacesMessages statusMessages;
 
@@ -67,12 +71,15 @@ public class QuizAction extends BaseAction {
 	private Quiz quiz;
 	private Metadata metadata;
 
-	private boolean auditing = false;
+	private int pageType = PAGE_TYPE_QUIZ;
+
+	private List<Quiz> placementTestQuizs;
 
 	@In
 	private Identity identity;
 
 	public void listQuizs() {
+		pageType = PAGE_TYPE_QUIZ;
 		contentTree = this.getContentService().getContentTree();
 		quizBySelectedContent = this.getQuizService().findQuizByUserId(
 				identity.getUser().getId(), null);
@@ -85,10 +92,24 @@ public class QuizAction extends BaseAction {
 			}
 		}
 		this.templates = this.getTemplateService().getAllTemplates();
-		this.auditing = false;
+	}
+
+	public void listPlacementTestQuizs() {
+		pageType = PAGE_TYPE_PLACEMENT_TEST;
+		placementTestQuizs = this.getQuizService().findPlacementQuiz();
+		this.learningPointTreeMap = this.getLearningPointService()
+				.getLearningPointWithTreeMap();
+		this.learningPointIdMap = new HashMap<Long, LearningPoint>();
+		for (List<LearningPoint> ps : learningPointTreeMap.values()) {
+			for (LearningPoint lp : ps) {
+				this.learningPointIdMap.put(lp.getId(), lp);
+			}
+		}
+		this.templates = this.getTemplateService().getAllTemplates();
 	}
 
 	public void listAuditingQuizs() {
+		pageType = PAGE_TYPE_AUDIT;
 		quizBySelectedContent = this.getQuizService().findAuditingQuiz();
 		this.learningPointTreeMap = this.getLearningPointService()
 				.getLearningPointWithTreeMap();
@@ -98,7 +119,6 @@ public class QuizAction extends BaseAction {
 				this.learningPointIdMap.put(lp.getId(), lp);
 			}
 		}
-		this.auditing = true;
 	}
 
 	public void selectContent(ContentTree contentTree) {
@@ -115,20 +135,23 @@ public class QuizAction extends BaseAction {
 		this.quiz = new Quiz();
 		this.quiz.setStatus(QuizStatus.INIT.getStatus());
 		this.quiz.setUser(this.identity.getUser());
-		this.quiz.setEpisode(this.selectedContentTree.getName());
-		this.quiz.setEpisodeId(this.selectedContentTree.getEpisonId());
-		this.quiz.setSeason(this.selectedContentTree.getParent().getName());
-		this.quiz.setSeasonId(this.selectedContentTree.getParent()
-				.getSeasonId());
-		this.learningPoint = learningPointTreeMap.keySet().iterator().next();
-		this.subLearningPoints = this.learningPointTreeMap
-				.get(this.learningPoint);
-		this.selectedLearningPoints = new ArrayList<LearningPoint>();
-		this.pictures = this.getImageService().getImageByContent(
-				this.selectedContentTree.getSeasonId());
-		this.quiz.setBackgroundImage(this.selectedContentTree
-				.getBackgroundImage());
-		this.quiz.setFrontImage(this.selectedContentTree.getFrontImage());
+		if (this.pageType == PAGE_TYPE_QUIZ) {
+			this.quiz.setEpisode(this.selectedContentTree.getName());
+			this.quiz.setEpisodeId(this.selectedContentTree.getEpisonId());
+			this.quiz.setSeason(this.selectedContentTree.getParent().getName());
+			this.quiz.setSeasonId(this.selectedContentTree.getParent()
+					.getSeasonId());
+			this.learningPoint = learningPointTreeMap.keySet().iterator()
+					.next();
+			this.subLearningPoints = this.learningPointTreeMap
+					.get(this.learningPoint);
+			this.selectedLearningPoints = new ArrayList<LearningPoint>();
+			this.pictures = this.getImageService().getImageByContent(
+					this.selectedContentTree.getSeasonId());
+			this.quiz.setBackgroundImage(this.selectedContentTree
+					.getBackgroundImage());
+			this.quiz.setFrontImage(this.selectedContentTree.getFrontImage());
+		}
 		this.selectedTemplate = null;
 	}
 
@@ -142,11 +165,16 @@ public class QuizAction extends BaseAction {
 	}
 
 	public void saveQuiz() {
-		if (!this.auditing) {
+		if (pageType != PAGE_TYPE_AUDIT) {
 			if (this.quiz.getCreateTime() == null) {
 				this.quiz.setCreateTime(new Date());
 			}
-			// learning points and template can be set by teacher but not admin
+			this.quiz.setTemplate(this.selectedTemplate);
+		}
+		
+		if (pageType != PAGE_TYPE_PLACEMENT_TEST) {
+			// learning points and template can be set by teacher but not
+			// admin
 			Set<QuizLearningPointRel> learningPointRelSet = new HashSet<QuizLearningPointRel>();
 			for (LearningPoint lp : this.selectedLearningPoints) {
 				QuizLearningPointRel rel = new QuizLearningPointRel();
@@ -155,11 +183,13 @@ public class QuizAction extends BaseAction {
 				learningPointRelSet.add(rel);
 			}
 			this.quiz.setLearningPointRelSet(learningPointRelSet);
-			this.quiz.setTemplate(this.selectedTemplate);
 		}
+		
 		this.getQuizService().saveQuiz(quiz, this.metadata);
-		if (this.auditing) {
+		if (pageType == PAGE_TYPE_AUDIT) {
 			quizBySelectedContent = this.getQuizService().findAuditingQuiz();
+		} else if (pageType == PAGE_TYPE_PLACEMENT_TEST) {
+			placementTestQuizs = this.getQuizService().findPlacementQuiz();
 		} else {
 			if (selectedContentTree != null) {
 				quizBySelectedContent = this.getQuizService().findQuizByUserId(
@@ -178,6 +208,7 @@ public class QuizAction extends BaseAction {
 		this.quiz.setAuditUser(identity.getUser());
 		this.quiz.setPublishTime(new Date());
 		this.getQuizService().updateQuiz(quiz);
+		quizBySelectedContent = this.getQuizService().findAuditingQuiz();
 	}
 
 	public void rejectQuiz() {
@@ -185,19 +216,23 @@ public class QuizAction extends BaseAction {
 		this.quiz.setStatus(QuizStatus.REJECTED.getStatus());
 		this.quiz.setAuditUser(identity.getUser());
 		this.getQuizService().updateQuiz(quiz);
+		quizBySelectedContent = this.getQuizService().findAuditingQuiz();
 	}
 
 	public void editQuiz(Quiz quiz) {
 		this.quiz = this.getQuizService().findQuizById(quiz.getId());
-		this.selectedLearningPoints = new ArrayList<LearningPoint>();
-		this.selectedTemplate = this.quiz.getTemplate();
-		for (QuizLearningPointRel rel : this.quiz.getLearningPointRelSet()) {
-			this.selectedLearningPoints.add(rel.getLearningPoint());
+		if (this.pageType != PAGE_TYPE_PLACEMENT_TEST) {
+			this.selectedLearningPoints = new ArrayList<LearningPoint>();
+			this.selectedTemplate = this.quiz.getTemplate();
+			for (QuizLearningPointRel rel : this.quiz.getLearningPointRelSet()) {
+				this.selectedLearningPoints.add(rel.getLearningPoint());
+			}
+			this.learningPoint = learningPointTreeMap.keySet().iterator()
+					.next();
+			this.subLearningPoints = this.learningPointTreeMap
+					.get(this.learningPoint);
 		}
 		this.metadata = this.getQuizService().getMetadataForQuiz(this.quiz);
-		this.learningPoint = learningPointTreeMap.keySet().iterator().next();
-		this.subLearningPoints = this.learningPointTreeMap
-				.get(this.learningPoint);
 	}
 
 	public void auditQuiz(Quiz quiz) {
@@ -206,19 +241,24 @@ public class QuizAction extends BaseAction {
 
 	public void deleteQuiz(Quiz quiz) {
 		this.getQuizService().deleteQuiz(quiz);
-		quizBySelectedContent = this.getQuizService().findQuizByUserId(
-				identity.getUser().getId(), selectedContentTree.getContentId());
+		if (this.pageType == PAGE_TYPE_QUIZ) {
+			quizBySelectedContent = this.getQuizService().findQuizByUserId(
+					identity.getUser().getId(),
+					selectedContentTree.getContentId());
+		} else {
+			placementTestQuizs = this.getQuizService().findPlacementQuiz();
+		}
+
 	}
 
 	public void previewQuiz() {
 	}
 
 	private boolean submitValidate() {
-		boolean validated=true;
+		boolean validated = true;
 		if (this.selectedTemplate == null) {
 			this.statusMessages.addToControlFromResourceBundle(
-					"templateSelect", Severity.ERROR,
-					"quizTemplateRequired");
+					"templateSelect", Severity.ERROR, "quizTemplateRequired");
 			validated = false;
 		}
 		if (this.selectedLearningPoints == null
@@ -228,7 +268,7 @@ public class QuizAction extends BaseAction {
 					"quizLearningPointRequired");
 			validated = false;
 		}
-		
+
 		if (this.metadata == null) {
 			this.statusMessages.addToControlFromResourceBundle(
 					"metadataMessage", Severity.ERROR, "quizSubmitValidate");
@@ -237,7 +277,9 @@ public class QuizAction extends BaseAction {
 		try {
 			Method[] methods = this.metadata.getClass().getMethods();
 			for (Method method : methods) {
-				if (method.isAnnotationPresent(Column.class)&&(method.getName().contains("getWord")||method.getName().contains("getPicture"))) {
+				if (method.isAnnotationPresent(Column.class)
+						&& (method.getName().contains("getWord") || method
+								.getName().contains("getPicture"))) {
 					String value = (String) method.invoke(this.metadata,
 							new Object[] {});
 					if (StringUtils.isEmpty(value)) {
@@ -401,6 +443,14 @@ public class QuizAction extends BaseAction {
 
 	public void setPictures(List<Image> pictures) {
 		this.pictures = pictures;
+	}
+
+	public List<Quiz> getPlacementTestQuizs() {
+		return placementTestQuizs;
+	}
+
+	public void setPlacementTestQuizs(List<Quiz> placementTestQuizs) {
+		this.placementTestQuizs = placementTestQuizs;
 	}
 
 }

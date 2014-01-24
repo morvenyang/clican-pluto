@@ -42,6 +42,7 @@ public class Quiz {
 	private Date publishTime;
 	private String backgroundImage;
 	private String frontImage;
+	private boolean placementTest;
 	
 	
 	private Set<QuizLearningPointRel> learningPointRelSet;
@@ -241,6 +242,16 @@ public class Quiz {
 
 	public void setFrontImage(String frontImage) {
 		this.frontImage = frontImage;
+	}
+
+	@Column(name = "PLACEMENT_TEST")
+	@Type(type="org.hibernate.type.NumericBooleanType")
+	public boolean isPlacementTest() {
+		return placementTest;
+	}
+
+	public void setPlacementTest(boolean placementTest) {
+		this.placementTest = placementTest;
 	}
 
 	
