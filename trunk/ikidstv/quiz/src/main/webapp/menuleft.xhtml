@@ -32,6 +32,10 @@
 			rendered="#{s:hasPermission('admin',null)}">
 			<s:link view="/learningPoint.xhtml" style="font-size:20px" action="#{learningPointAction.listLearningPoints()}" value="#{messages['learningPoint']}"/>
 		</rich:menuItem>
+		<rich:menuItem submitMode="ajax"
+			rendered="#{s:hasPermission('admin',null)}">
+			<s:link view="/placementTest.xhtml" style="font-size:20px" action="#{quizAction.listPlacementTestQuizs()}" value="#{messages['placementTest']}"/>
+		</rich:menuItem>
 	</rich:panelBar>
 </h:form>
 

@@ -69,4 +69,9 @@ public class QuizServiceImpl implements QuizService {
 		this.quizDao.deleteQuiz(quiz);
 	}
 
+	public List<Quiz> findPlacementQuiz() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

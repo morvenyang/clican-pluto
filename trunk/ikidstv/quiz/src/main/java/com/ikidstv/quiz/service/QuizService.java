@@ -20,4 +20,6 @@ public interface QuizService {
 	public Metadata getMetadataForQuiz(Quiz quiz);
 	
 	public void deleteQuiz(Quiz quiz);
+	
+	public List<Quiz> findPlacementQuiz();
 }
