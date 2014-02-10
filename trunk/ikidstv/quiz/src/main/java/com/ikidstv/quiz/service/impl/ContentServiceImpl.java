@@ -94,6 +94,7 @@ public class ContentServiceImpl implements ContentService {
 				seasonNode.setContentId(season.getId());
 				seasonNode.setSeasonId(season.getId());
 				seasonNode.setSeasonNode(true);
+				seasonMap.put(season.getId(), seasonNode);
 				root.getSubTree().add(seasonNode);
 			}
 			ContentTree episodeNode = new ContentTree();
