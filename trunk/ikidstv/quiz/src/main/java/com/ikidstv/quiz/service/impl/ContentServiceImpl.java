@@ -104,6 +104,7 @@ public class ContentServiceImpl implements ContentService {
 			episodeNode.setEpisonId(episode.getGuid());
 			episodeNode.setEpisodeNode(true);
 			episodeNode.setParent(seasonNode);
+			seasonNode.getSubTree().add(episodeNode);
 		}
 		return root;
 	}

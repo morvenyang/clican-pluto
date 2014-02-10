@@ -7,6 +7,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 @Table(name = "t_episode")
 @Entity
 public class Episode {
@@ -32,6 +35,7 @@ public class Episode {
 	
 	@ManyToOne
 	@JoinColumn(name="category", nullable=false)
+	@Fetch(FetchMode.JOIN)
 	public Season getSeason() {
 		return season;
 	}
