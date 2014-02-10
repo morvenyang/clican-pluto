@@ -39,7 +39,7 @@
 		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		<property name="lobHandler" ref="lobHandler" />
-		 <property name="namingStrategy" ref="namingStrategy" />
+		<property name="namingStrategy" ref="namingStrategy" />
 		<property name="packagesToScan">
 			<list>
 				<value>com.ikidstv.quiz.model</value>
@@ -55,6 +55,34 @@
 		</property>
 	</bean>
 	<bean id="namingStrategy" class="org.hibernate.cfg.ImprovedNamingStrategy" />
+
+	<bean id="smitDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		destroy-method="close">
+		<property name="driverClass" value="${smit.db.driver}" />
+		<property name="jdbcUrl" value="${smit.db.url}" />
+		<property name="user" value="${smit.db.username}" />
+		<property name="password" value="${smit.db.password}" />
+		<property name="maxPoolSize" value="10" />
+		<property name="minPoolSize" value="3" />
+		<property name="maxIdleTime" value="180" />
+	</bean>
+	<bean id="smitSessionFactory"
+		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+		<property name="dataSource" ref="smitDataSource" />
+		<property name="packagesToScan">
+			<list>
+				<value>com.ikidstv.quiz.smit.model</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<value>
+				hibernate.dialect=${smit.db.dialect}
+				hibernate.show_sql=${hibernate.showsql}
+				hibernate.hbm2ddl.auto=update
+            </value>
+		</property>
+	</bean>
+
 	<bean id="txManager"
 		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory" />
