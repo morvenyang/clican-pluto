@@ -11,6 +11,6 @@ public class ContentDaoImpl extends HibernateDaoSupport implements ContentDao {
 
 	@SuppressWarnings("unchecked")
 	public List<Episode> findAllEpisodes(){
-		return this.getHibernateTemplate().find("from Episode");
+		return this.getHibernateTemplate().find("select e from Episode e join fetch e.season");
 	}
 }

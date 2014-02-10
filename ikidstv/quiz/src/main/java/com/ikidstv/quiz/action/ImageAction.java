@@ -57,7 +57,6 @@ public class ImageAction extends SpringBeanAction {
 	}
 
 	public ContentTree getContentTree() {
-		System.out.println(this);
 		return contentTree;
 	}
 
