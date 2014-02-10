@@ -296,66 +296,6 @@
 								reRender="selectedLearningPointGrid" />
 						</h:panelGrid>
 					</t:panelGroup>
-					<h:outputLabel value="#{messages['quizBackgroundImage']}" />
-					<t:panelGroup colspan="2">
-						<h:panelGrid id="backgroundImageSelect"
-							rendered="#{s:hasPermission('teacher',null)}">
-							<a4j:commandLink
-								oncomplete="Richfaces.showModalPanel('picturePanel');"
-								reRender="picturePanel"
-								action="#{quizAction.setPictureIndex(-1)}">
-								<h:graphicImage value="/img/template/picture_place.jpg"
-									width="#{springProperty.backgroundImageWidth}"
-									height="#{springProperty.backgroundImageHeight}"
-									rendered="#{quizAction.quiz.backgroundImage==null}">
-								</h:graphicImage>
-								<h:graphicImage
-									value="/imageView.do?imagePath=#{quizAction.quiz.backgroundImage}"
-									width="#{springProperty.backgroundImageWidth}"
-									height="#{springProperty.backgroundImageHeight}"
-									rendered="#{quizAction.quiz.backgroundImage!=null}">
-								</h:graphicImage>
-							</a4j:commandLink>
-						</h:panelGrid>
-						<h:outputText
-							rendered="#{quizAction.quiz.backgroundImage==null and s:hasPermission('admin',null)}" />
-						<h:graphicImage
-							value="/imageView.do?imagePath=#{quizAction.quiz.backgroundImage}"
-							width="#{springProperty.backgroundImageWidth}"
-							height="#{springProperty.backgroundImageHeight}"
-							rendered="#{quizAction.quiz.backgroundImage!=null and s:hasPermission('admin',null)}">
-						</h:graphicImage>
-					</t:panelGroup>
-					<h:outputLabel value="#{messages['quizFrontImage']}" />
-					<t:panelGroup colspan="2">
-						<h:panelGrid id="frontImageSelect"
-							rendered="#{s:hasPermission('teacher',null)}">
-							<a4j:commandLink
-								oncomplete="Richfaces.showModalPanel('picturePanel');"
-								reRender="picturePanel"
-								action="#{quizAction.setPictureIndex(-2)}">
-								<h:graphicImage value="/img/template/picture_place.jpg"
-									width="#{springProperty.frontImageWidth}"
-									height="#{springProperty.frontImageHeight}"
-									rendered="#{quizAction.quiz.frontImage==null}">
-								</h:graphicImage>
-								<h:graphicImage
-									value="/imageView.do?imagePath=#{quizAction.quiz.frontImage}"
-									width="#{springProperty.frontImageWidth}"
-									height="#{springProperty.frontImageHeight}"
-									rendered="#{quizAction.quiz.frontImage!=null}">
-								</h:graphicImage>
-							</a4j:commandLink>
-						</h:panelGrid>
-						<h:outputText
-							rendered="#{quizAction.quiz.frontImage==null and s:hasPermission('admin',null)}" />
-						<h:graphicImage
-							value="/imageView.do?imagePath=#{quizAction.quiz.frontImage}"
-							width="#{springProperty.frontImageWidth}"
-							height="#{springProperty.frontImageHeight}"
-							rendered="#{quizAction.quiz.frontImage!=null and s:hasPermission('admin',null)}">
-						</h:graphicImage>
-					</t:panelGroup>
 					<t:panelGroup colspan="3">
 						<h:panelGrid columns="5">
 							<a4j:commandButton id="submitButton"

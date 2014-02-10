@@ -32,7 +32,7 @@ public class QuizApplication {
     @Create
     public void createApplication() {
         if (log.isInfoEnabled()) {
-            log.info("Startup IRP Application");
+            log.info("Startup Quiz Application");
         }
         springProperty = (SpringProperty) Constants.ctx.getBean("springProperty");
         contextPath = springProperty.getContextPath();

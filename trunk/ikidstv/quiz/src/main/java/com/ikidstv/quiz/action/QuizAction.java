@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -51,6 +52,7 @@ public class QuizAction extends BaseAction {
 	FacesMessages statusMessages;
 
 	private ContentTree contentTree;
+	private Map<String,ContentTree> seasonMap;
 	private ContentTree selectedContentTree;
 	private List<Quiz> quizBySelectedContent;
 
@@ -66,6 +68,8 @@ public class QuizAction extends BaseAction {
 	private List<LearningPoint> selectedLearningPoints;
 
 	private List<Image> pictures;
+	private Map<String, List<Image>> picturesByEpisodes;
+
 	private int pictureIndex;
 
 	private Quiz quiz;
@@ -74,6 +78,8 @@ public class QuizAction extends BaseAction {
 	private int pageType = PAGE_TYPE_QUIZ;
 
 	private List<Quiz> placementTestQuizs;
+	
+	private boolean folder;
 
 	@In
 	private Identity identity;
@@ -81,6 +87,10 @@ public class QuizAction extends BaseAction {
 	public void listQuizs() {
 		pageType = PAGE_TYPE_QUIZ;
 		contentTree = this.getContentService().getContentTree();
+		seasonMap = new HashMap<String,ContentTree>();
+		for(ContentTree seasonNode:contentTree.getSubTree()){
+			seasonMap.put(seasonNode.getSeasonId(), seasonNode);
+		}
 		quizBySelectedContent = this.getQuizService().findQuizByUserId(
 				identity.getUser().getId(), null);
 		this.learningPointTreeMap = this.getLearningPointService()
@@ -126,6 +136,11 @@ public class QuizAction extends BaseAction {
 		quizBySelectedContent = this.getQuizService().findQuizByUserId(
 				identity.getUser().getId(), selectedContentTree.getContentId());
 	}
+	
+	public void selectEpisode(String episodeName) {
+		this.folder = false;
+		this.pictures = this.picturesByEpisodes.get(episodeName);
+	}
 
 	public List<Quiz> getQuizBySelectedContent() {
 		return quizBySelectedContent;
@@ -146,11 +161,26 @@ public class QuizAction extends BaseAction {
 			this.subLearningPoints = this.learningPointTreeMap
 					.get(this.learningPoint);
 			this.selectedLearningPoints = new ArrayList<LearningPoint>();
-			this.pictures = this.getImageService().getImageByContent(
+			List<Image> allPictures = this.getImageService().getImageByContent(
 					this.selectedContentTree.getSeasonId());
-			this.quiz.setBackgroundImage(this.selectedContentTree
-					.getBackgroundImage());
-			this.quiz.setFrontImage(this.selectedContentTree.getFrontImage());
+			this.picturesByEpisodes = new LinkedHashMap<String, List<Image>>();
+			Map<String,String> episodeIdNameMap = new HashMap<String,String>();
+			for (ContentTree esipsodeNode : this.selectedContentTree
+					.getParent().getSubTree()) {
+				episodeIdNameMap.put(esipsodeNode.getEpisonId(), esipsodeNode.getName());
+				this.picturesByEpisodes.put(esipsodeNode.getName(),
+						new ArrayList<Image>());
+			}
+			for (Image image : allPictures) {
+				String episodeId=image.getEpisode();
+				String episodeName = episodeIdNameMap.get(episodeId);
+				if(StringUtils.isNotEmpty(episodeName)){
+					List<Image> images = this.picturesByEpisodes.get(episodeName);
+					if(images!=null){
+						images.add(image);
+					}
+				}
+			}
 		}
 		this.selectedTemplate = null;
 	}
@@ -171,7 +201,7 @@ public class QuizAction extends BaseAction {
 			}
 			this.quiz.setTemplate(this.selectedTemplate);
 		}
-		
+
 		if (pageType != PAGE_TYPE_PLACEMENT_TEST) {
 			// learning points and template can be set by teacher but not
 			// admin
@@ -184,7 +214,7 @@ public class QuizAction extends BaseAction {
 			}
 			this.quiz.setLearningPointRelSet(learningPointRelSet);
 		}
-		
+
 		this.getQuizService().saveQuiz(quiz, this.metadata);
 		if (pageType == PAGE_TYPE_AUDIT) {
 			quizBySelectedContent = this.getQuizService().findAuditingQuiz();
@@ -231,6 +261,30 @@ public class QuizAction extends BaseAction {
 					.next();
 			this.subLearningPoints = this.learningPointTreeMap
 					.get(this.learningPoint);
+			
+			if(this.pageType==PAGE_TYPE_QUIZ){
+				List<Image> allPictures = this.getImageService().getImageByContent(
+						this.quiz.getSeasonId());
+				this.picturesByEpisodes = new LinkedHashMap<String, List<Image>>();
+				Map<String,String> episodeIdNameMap = new HashMap<String,String>();
+				
+				for (ContentTree esipsodeNode : this.seasonMap.get(quiz.getSeasonId()).getSubTree()) {
+					episodeIdNameMap.put(esipsodeNode.getEpisonId(), esipsodeNode.getName());
+					this.picturesByEpisodes.put(esipsodeNode.getName(),
+							new ArrayList<Image>());
+				}
+				for (Image image : allPictures) {
+					String episodeId=image.getEpisode();
+					String episodeName = episodeIdNameMap.get(episodeId);
+					if(StringUtils.isNotEmpty(episodeName)){
+						List<Image> images = this.picturesByEpisodes.get(episodeName);
+						if(images!=null){
+							images.add(image);
+						}
+					}
+				}
+			}
+			
 		}
 		this.metadata = this.getQuizService().getMetadataForQuiz(this.quiz);
 	}
@@ -334,7 +388,12 @@ public class QuizAction extends BaseAction {
 	}
 
 	public void setPictureIndex(int index) {
+		this.folder = true;
 		this.pictureIndex = index;
+	}
+	
+	public List<String> getFolders(){
+		return new ArrayList<String>(this.picturesByEpisodes.keySet());
 	}
 
 	public void selectPicture(Image picture) {
@@ -451,6 +510,23 @@ public class QuizAction extends BaseAction {
 
 	public void setPlacementTestQuizs(List<Quiz> placementTestQuizs) {
 		this.placementTestQuizs = placementTestQuizs;
+	}
+
+	public Map<String, List<Image>> getPicturesByEpisodes() {
+		return picturesByEpisodes;
+	}
+
+	public void setPicturesByEpisodes(
+			Map<String, List<Image>> picturesByEpisodes) {
+		this.picturesByEpisodes = picturesByEpisodes;
+	}
+
+	public boolean isFolder() {
+		return folder;
+	}
+
+	public void setFolder(boolean folder) {
+		this.folder = folder;
 	}
 
 }

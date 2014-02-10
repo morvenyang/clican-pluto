@@ -10,10 +10,10 @@
 	<h:panelGrid columns="2" id="matchingGrid">
 		<h:panelGrid>
 			<c:if test="#{quizAction.metadata.picture1!=null}">
-				<a4j:commandLink>
-					<h:graphicImage
-						value="/imageView.do?imagePath=#{quizAction.metadata.picture1}"
-						onclick="Richfaces.showModalPanel('picturePanel');"
+				<a4j:commandLink action="#{quizAction.setPictureIndex(1)}"
+					oncomplete="Richfaces.showModalPanel('picturePanel');"
+					reRender="picturePanel">
+					<h:graphicImage value="/imageView.do?imagePath=#{quizAction.metadata.picture1}"
 						width="#{springProperty.bigMetaImageWidth}"
 						height="#{springProperty.bigMetaImageHeight}" />
 				</a4j:commandLink>
@@ -31,10 +31,10 @@
 		</h:panelGrid>
 		<h:panelGrid>
 			<c:if test="#{quizAction.metadata.picture2!=null}">
-				<a4j:commandLink>
-					<h:graphicImage
-						value="/imageView.do?imagePath=#{quizAction.metadata.picture2}"
-						onclick="Richfaces.showModalPanel('picturePanel');"
+				<a4j:commandLink action="#{quizAction.setPictureIndex(2)}"
+					oncomplete="Richfaces.showModalPanel('picturePanel');"
+					reRender="picturePanel">
+					<h:graphicImage value="/imageView.do?imagePath=#{quizAction.metadata.picture2}"
 						width="#{springProperty.bigMetaImageWidth}"
 						height="#{springProperty.bigMetaImageHeight}" />
 				</a4j:commandLink>
@@ -52,10 +52,10 @@
 		</h:panelGrid>
 		<h:panelGrid>
 			<c:if test="#{quizAction.metadata.picture3!=null}">
-				<a4j:commandLink>
-					<h:graphicImage
-						value="/imageView.do?imagePath=#{quizAction.metadata.picture3}"
-						onclick="Richfaces.showModalPanel('picturePanel');"
+				<a4j:commandLink action="#{quizAction.setPictureIndex(3)}"
+					oncomplete="Richfaces.showModalPanel('picturePanel');"
+					reRender="picturePanel">
+					<h:graphicImage value="/imageView.do?imagePath=#{quizAction.metadata.picture3}"
 						width="#{springProperty.bigMetaImageWidth}"
 						height="#{springProperty.bigMetaImageHeight}" />
 				</a4j:commandLink>
@@ -73,10 +73,10 @@
 		</h:panelGrid>
 		<h:panelGrid>
 			<c:if test="#{quizAction.metadata.picture4!=null}">
-				<a4j:commandLink>
-					<h:graphicImage
-						value="/imageView.do?imagePath=#{quizAction.metadata.picture4}"
-						onclick="Richfaces.showModalPanel('picturePanel');"
+				<a4j:commandLink action="#{quizAction.setPictureIndex(4)}"
+					oncomplete="Richfaces.showModalPanel('picturePanel');"
+					reRender="picturePanel">
+					<h:graphicImage value="/imageView.do?imagePath=#{quizAction.metadata.picture4}"
 						width="#{springProperty.bigMetaImageWidth}"
 						height="#{springProperty.bigMetaImageHeight}" />
 				</a4j:commandLink>
