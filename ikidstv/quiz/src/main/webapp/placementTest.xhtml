@@ -172,48 +172,6 @@
 					</h:selectOneMenu>
 					<rich:message for="level" style="color:red" showDetail="false"
 						showSummary="true" />
-					<h:outputLabel value="#{messages['quizBackgroundImage']}" />
-					<t:panelGroup colspan="2">
-						<h:panelGrid id="backgroundImageSelect">
-							<a4j:commandLink
-								oncomplete="Richfaces.showModalPanel('picturePanel');"
-								reRender="picturePanel"
-								action="#{quizAction.setPictureIndex(-1)}">
-								<h:graphicImage value="/img/template/picture_place.jpg"
-									width="#{springProperty.backgroundImageWidth}"
-									height="#{springProperty.backgroundImageHeight}"
-									rendered="#{quizAction.quiz.backgroundImage==null}">
-								</h:graphicImage>
-								<h:graphicImage
-									value="/imageView.do?imagePath=#{quizAction.quiz.backgroundImage}"
-									width="#{springProperty.backgroundImageWidth}"
-									height="#{springProperty.backgroundImageHeight}"
-									rendered="#{quizAction.quiz.backgroundImage!=null}">
-								</h:graphicImage>
-							</a4j:commandLink>
-						</h:panelGrid>
-					</t:panelGroup>
-					<h:outputLabel value="#{messages['quizFrontImage']}" />
-					<t:panelGroup colspan="2">
-						<h:panelGrid id="frontImageSelect">
-							<a4j:commandLink
-								oncomplete="Richfaces.showModalPanel('picturePanel');"
-								reRender="picturePanel"
-								action="#{quizAction.setPictureIndex(-2)}">
-								<h:graphicImage value="/img/template/picture_place.jpg"
-									width="#{springProperty.frontImageWidth}"
-									height="#{springProperty.frontImageHeight}"
-									rendered="#{quizAction.quiz.frontImage==null}">
-								</h:graphicImage>
-								<h:graphicImage
-									value="/imageView.do?imagePath=#{quizAction.quiz.frontImage}"
-									width="#{springProperty.frontImageWidth}"
-									height="#{springProperty.frontImageHeight}"
-									rendered="#{quizAction.quiz.frontImage!=null}">
-								</h:graphicImage>
-							</a4j:commandLink>
-						</h:panelGrid>
-					</t:panelGroup>
 					<t:panelGroup colspan="3">
 						<h:panelGrid columns="5">
 							<a4j:commandButton id="saveButton" value="#{messages['save']}"
