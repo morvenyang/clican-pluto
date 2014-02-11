@@ -12,7 +12,7 @@
 		<h:outputLabel value="#{messages['title']}" />
 		<h:inputText value="#{quizAction.metadata.title}" size="50"
 			rendered="#{s:hasPermission('teacher',null)}" />
-		<h:outputText value="#{quizAction.metadata.question}"
+		<h:outputText value="#{quizAction.metadata.title}"
 			rendered="#{s:hasPermission('admin',null)}" />
 	</h:panelGrid>
 	<h:panelGrid columns="2" id="multiChoiceGrid">
