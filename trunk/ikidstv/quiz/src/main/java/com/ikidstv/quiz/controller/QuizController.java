@@ -50,4 +50,29 @@ public class QuizController {
 			log.error("", e);
 		}
 	}
+	
+	@RequestMapping("/queryQuiz")
+	public void queryQuiz(
+			@RequestParam(value = "episodeId") String episodeId,
+			@RequestParam(value = "minAge") Integer minAge,
+			@RequestParam(value = "maxAge") Integer maxAge,
+			@RequestParam(value = "level") String level,
+			@RequestParam(value = "device") String device,
+			@RequestParam(value = "version") String version,
+			HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		if (log.isDebugEnabled()) {
+			log.debug("queryQuiz \n\tepisodeId:" + episodeId
+					+ "\n\tminAge" + minAge + "\n\tmaxAge" + maxAge
+					+ "\n\tlevel" + level + "\n\tdevice" + device
+					+ "\n\tversion" + version);
+		}
+		String result = quizService.findQuizByEpisode(episodeId, minAge,
+				maxAge, level, Device.convert(device), version);
+		try {
+			resp.getOutputStream().write(result.getBytes("utf-8"));
+		} catch (Exception e) {
+			log.error("", e);
+		}
+	}
 }

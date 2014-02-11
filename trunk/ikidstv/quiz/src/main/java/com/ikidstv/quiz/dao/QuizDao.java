@@ -31,5 +31,8 @@ public interface QuizDao {
 
 	public List<Quiz> findQuizBySeason(String seasonId, Integer minAge,
 			Integer maxAge, String level, Device device);
+	
+	public List<Quiz> findQuizByEpisode(String episodeId, Integer minAge,
+			Integer maxAge, String level, Device device);
 
 }
