@@ -4,6 +4,7 @@ public class SpringProperty {
 
 	private String version;
 	private String contextPath = "/quiz";
+	private String serverUrl;
 	private String imagePath;
 	private String recordingPath;
 	
@@ -138,6 +139,14 @@ public class SpringProperty {
 
 	public void setPasswordMinLength(int passwordMinLength) {
 		this.passwordMinLength = passwordMinLength;
+	}
+
+	public String getServerUrl() {
+		return serverUrl;
+	}
+
+	public void setServerUrl(String serverUrl) {
+		this.serverUrl = serverUrl;
 	}
 	
 	
