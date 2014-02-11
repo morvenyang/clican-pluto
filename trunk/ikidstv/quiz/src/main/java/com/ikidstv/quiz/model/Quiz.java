@@ -34,7 +34,7 @@ public class Quiz {
 	private boolean recording;
 	private User user;
 	private User auditUser;
-	private Integer difficulty;
+	private String level;
 	private Integer age;
 	private boolean iphone;
 	private boolean ipad;
@@ -160,14 +160,14 @@ public class Quiz {
 	public void setAuditUser(User auditUser) {
 		this.auditUser = auditUser;
 	}
-
-	@Column(name="DIFFICULTY")
-	public Integer getDifficulty() {
-		return difficulty;
+	
+	@Column(name="LEVEL")
+	public String getLevel() {
+		return level;
 	}
 
-	public void setDifficulty(Integer difficulty) {
-		this.difficulty = difficulty;
+	public void setLevel(String level) {
+		this.level = level;
 	}
 
 	@Column(name="AGE")
