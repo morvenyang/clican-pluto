@@ -102,6 +102,11 @@
 		<servlet-name>Image View Servlet</servlet-name>
 		<url-pattern>/imageView.do</url-pattern>
 	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>Image View Servlet</servlet-name>
+		<url-pattern>/recordView.do</url-pattern>
+	</servlet-mapping>
 
 	<servlet>
 		<servlet-name>Seam Resource Servlet</servlet-name>
