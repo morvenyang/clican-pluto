@@ -14,13 +14,17 @@ import org.hibernate.annotations.Type;
 public class MultiChoice implements Metadata{
 
 	private Long id;
-	private String question;
+	private String title;
+	private String titleRecord;
 	private String word1;
 	private String word2;
 	private String word3;
 	private boolean answer1;
 	private boolean answer2;
 	private boolean answer3;
+	private String record1;
+	private String record2;
+	private String record3;
 	
 	
 	@Id
@@ -77,14 +81,43 @@ public class MultiChoice implements Metadata{
 	public void setAnswer3(boolean answer3) {
 		this.answer3 = answer3;
 	}
-	
 	@Column(length=500)
-	public String getQuestion() {
-		return question;
+	public String getTitle() {
+		return title;
 	}
-	public void setQuestion(String question) {
-		this.question = question;
+	public void setTitle(String title) {
+		this.title = title;
 	}
+	@Column
+	public String getRecord1() {
+		return record1;
+	}
+	public void setRecord1(String record1) {
+		this.record1 = record1;
+	}
+	@Column
+	public String getRecord2() {
+		return record2;
+	}
+	public void setRecord2(String record2) {
+		this.record2 = record2;
+	}
+	@Column
+	public String getRecord3() {
+		return record3;
+	}
+	public void setRecord3(String record3) {
+		this.record3 = record3;
+	}
+	@Column
+	public String getTitleRecord() {
+		return titleRecord;
+	}
+	public void setTitleRecord(String titleRecord) {
+		this.titleRecord = titleRecord;
+	}
+	
+	
 	
 	
 }
