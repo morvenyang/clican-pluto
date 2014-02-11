@@ -88,9 +88,6 @@
 								noDuplicate="true" listHeight="40" listWidth="400"
 								addControlLabel="select file"
 								uploadControlLabel="#{messages['upload']}">
-								<a4j:support event="onuploadcomplete"
-									oncomplete="if(#{reportAction.uploadErrorMsg==null}){Richfaces.showModalPanel('reportParsePanel');}"
-									reRender="reportParsePanel,uploadForm" />
 							</rich:fileUpload>
 							<a4j:commandButton id="submitButton"
 								value="#{messages['submit']}"
