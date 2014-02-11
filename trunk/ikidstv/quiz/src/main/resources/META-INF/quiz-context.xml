@@ -78,7 +78,6 @@
 			<value>
 				hibernate.dialect=${smit.db.dialect}
 				hibernate.show_sql=${hibernate.showsql}
-				hibernate.hbm2ddl.auto=update
             </value>
 		</property>
 	</bean>
