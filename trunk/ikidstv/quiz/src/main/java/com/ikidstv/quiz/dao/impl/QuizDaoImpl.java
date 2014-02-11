@@ -10,6 +10,7 @@ import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import com.ikidstv.quiz.dao.QuizDao;
+import com.ikidstv.quiz.enumeration.Device;
 import com.ikidstv.quiz.enumeration.QuizStatus;
 import com.ikidstv.quiz.enumeration.TemplateId;
 import com.ikidstv.quiz.model.Metadata;
@@ -19,13 +20,17 @@ public class QuizDaoImpl extends HibernateDaoSupport implements QuizDao {
 
 	@SuppressWarnings("unchecked")
 	public List<Quiz> findQuizByUserId(Long userId) {
-		List<Quiz> result = this.getHibernateTemplate().findByNamedParam( "from Quiz where user.id = :userId and placementTest = false", "userId", userId);
+		List<Quiz> result = this.getHibernateTemplate().findByNamedParam(
+				"from Quiz where user.id = :userId and placementTest = false",
+				"userId", userId);
 		return result;
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public List<Quiz> findAuditingQuiz() {
-		List<Quiz> result = this.getHibernateTemplate().findByNamedParam( "from Quiz where status = :status and placementTest = false", "status", QuizStatus.AUDITING.getStatus());
+		List<Quiz> result = this.getHibernateTemplate().findByNamedParam(
+				"from Quiz where status = :status and placementTest = false",
+				"status", QuizStatus.AUDITING.getStatus());
 		return result;
 	}
 
@@ -38,11 +43,12 @@ public class QuizDaoImpl extends HibernateDaoSupport implements QuizDao {
 	}
 
 	public Quiz findQuizById(Long id) {
-		return (Quiz)this.getHibernateTemplate().get(Quiz.class, id);
+		return (Quiz) this.getHibernateTemplate().get(Quiz.class, id);
 	}
 
 	public Metadata getMetadata(TemplateId templateId, Long metadataId) {
-		return (Metadata)this.getHibernateTemplate().get(templateId.getClazz(), metadataId);
+		return (Metadata) this.getHibernateTemplate().get(
+				templateId.getClazz(), metadataId);
 	}
 
 	public void deleteQuiz(Quiz quiz) {
@@ -54,10 +60,11 @@ public class QuizDaoImpl extends HibernateDaoSupport implements QuizDao {
 	}
 
 	public void deleteQuizLearningPointRel(final Quiz quiz) {
-		this.getHibernateTemplate().execute(new HibernateCallback(){
+		this.getHibernateTemplate().execute(new HibernateCallback() {
 			public Object doInHibernate(Session session)
 					throws HibernateException, SQLException {
-				Query query = session.createQuery("delete QuizLearningPointRel where quiz.id = :quizId");
+				Query query = session
+						.createQuery("delete QuizLearningPointRel where quiz.id = :quizId");
 				query.setParameter("quizId", quiz.getId());
 				return query.executeUpdate();
 			}
@@ -66,9 +73,24 @@ public class QuizDaoImpl extends HibernateDaoSupport implements QuizDao {
 
 	@SuppressWarnings("unchecked")
 	public List<Quiz> findPlacementQuiz() {
-		List<Quiz> result = this.getHibernateTemplate().find("from Quiz where placementTest = true");
+		List<Quiz> result = this.getHibernateTemplate().find(
+				"from Quiz where placementTest = true");
 		return result;
 	}
-	
-	
+
+	@SuppressWarnings("unchecked")
+	public List<Quiz> findQuizBySeason(String seasonId, Integer minAge,
+			Integer maxAge, String level, Device device) {
+		String hsql = "from Quiz where seasonId = :seasonId and age>= :minAge and age<=:maxAge";
+		if (device == Device.IPhone) {
+			hsql += " and template.iphone = true";
+		} else {
+			hsql += " and template.ipad = true";
+		}
+		List<Quiz> result = this.getHibernateTemplate().findByNamedParam(hsql,
+				new String[] { "seasonId", "minAge", "maxAge" },
+				new Object[] { seasonId, minAge, maxAge });
+		return result;
+	}
+
 }
