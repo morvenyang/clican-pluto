@@ -9,8 +9,8 @@
 	xmlns:a4j="http://richfaces.org/a4j">
 	<h:panelGrid>
 	<h:panelGrid columns="2">
-		<h:outputLabel value="#{messages['question']}" />
-		<h:inputText value="#{quizAction.metadata.question}" size="50"
+		<h:outputLabel value="#{messages['title']}" />
+		<h:inputText value="#{quizAction.metadata.title}" size="50"
 			rendered="#{s:hasPermission('teacher',null)}" />
 		<h:outputText value="#{quizAction.metadata.question}"
 			rendered="#{s:hasPermission('admin',null)}" />
