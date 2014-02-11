@@ -1,5 +1,10 @@
 package com.ikidstv.quiz.action;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Date;
@@ -9,9 +14,11 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.UUID;
 
 import javax.persistence.Column;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -22,6 +29,8 @@ import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.annotations.security.Restrict;
 import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.international.StatusMessage.Severity;
+import org.richfaces.event.UploadEvent;
+import org.richfaces.model.UploadItem;
 
 import com.ikidstv.quiz.bean.ContentTree;
 import com.ikidstv.quiz.bean.Identity;
@@ -80,6 +89,10 @@ public class QuizAction extends BaseAction {
 	private List<Quiz> placementTestQuizs;
 	
 	private boolean folder;
+	
+	private String audioPropertyPath;
+	
+	private String tempAudioFilePath;
 
 	@In
 	private Identity identity;
@@ -296,9 +309,14 @@ public class QuizAction extends BaseAction {
 	public void deleteQuiz(Quiz quiz) {
 		this.getQuizService().deleteQuiz(quiz);
 		if (this.pageType == PAGE_TYPE_QUIZ) {
-			quizBySelectedContent = this.getQuizService().findQuizByUserId(
-					identity.getUser().getId(),
-					selectedContentTree.getContentId());
+			if(this.selectedContentTree==null){
+				quizBySelectedContent = this.getQuizService().findQuizByUserId(
+						identity.getUser().getId(),null);
+			}else{
+				quizBySelectedContent = this.getQuizService().findQuizByUserId(
+						identity.getUser().getId(),
+						selectedContentTree.getContentId());
+			}
 		} else {
 			placementTestQuizs = this.getQuizService().findPlacementQuiz();
 		}
@@ -414,6 +432,61 @@ public class QuizAction extends BaseAction {
 		}
 	}
 
+	public void uploadAudio(String audioPropertyPath){
+		this.audioPropertyPath = audioPropertyPath;
+		this.tempAudioFilePath = null;
+	}
+	
+	public void saveAudio(){
+		try {
+			Method method = metadata.getClass().getMethod(
+					"set"+this.audioPropertyPath, String.class);
+			method.invoke(metadata, this.tempAudioFilePath);
+		} catch (Exception e) {
+			log.error("", e);
+		}
+	}
+	public synchronized void fileUploadListener(UploadEvent event) {
+		List<UploadItem> itemList = event.getUploadItems();
+		UploadItem item = itemList.get(0);
+		File file = item.getFile();
+		InputStream is = null;
+		byte[] content = null;
+		try {
+			is = new FileInputStream(file);
+			content = new byte[is.available()];
+			is.read(content);
+		} catch (FileNotFoundException e1) {
+			log.error("", e1);
+		} catch (IOException e2) {
+			log.error("", e2);
+		} finally {
+			try {
+				if (is != null) {
+					is.close();
+				}
+			} catch (IOException e) {
+				log.error("", e);
+			}
+		}
+		String name = item.getFileName();
+		int last = name.lastIndexOf(".");
+		String suffix = name.substring(last + 1);
+		String recordingPath = UUID.randomUUID().toString() + "." + suffix;
+		String path = this.getSpringProperty().getRecordingPath() + "/"
+				+ recordingPath;
+		File recordingFile = new File(path);
+		if (!recordingFile.exists()) {
+			recordingFile.getParentFile().mkdirs();
+		}
+		try {
+			FileUtils.writeByteArrayToFile(recordingFile, content);
+		} catch (IOException e2) {
+			log.error("", e2);
+		}
+		this.tempAudioFilePath = recordingPath;
+	}
+	
 	public Quiz getQuiz() {
 		return quiz;
 	}
@@ -527,6 +600,14 @@ public class QuizAction extends BaseAction {
 
 	public void setFolder(boolean folder) {
 		this.folder = folder;
+	}
+
+	public String getAudioPropertyPath() {
+		return audioPropertyPath;
+	}
+
+	public void setAudioPropertyPath(String audioPropertyPath) {
+		this.audioPropertyPath = audioPropertyPath;
 	}
 
 }
