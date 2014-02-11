@@ -40,22 +40,28 @@ public class ImageViewServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		String imagePath = req.getParameter("imagePath");
-		if (StringUtils.isEmpty(imagePath)) {
-			return;
+		String audioPath = req.getParameter("recordPath");
+		if (StringUtils.isNotEmpty(imagePath)) {
+			byte[] data = FileUtils.readFileToByteArray(new File(springProperty
+					.getImagePath() + "/" + imagePath));
+			resp.getOutputStream().write(data);
+			if (imagePath.toLowerCase().endsWith("jpeg")) {
+				resp.setContentType("image/jpeg");
+			} else if (imagePath.toLowerCase().endsWith("png")) {
+				resp.setContentType("image/png");
+			} else if (imagePath.toLowerCase().endsWith("gif")) {
+				resp.setContentType("image/gif");
+			} else if (imagePath.toLowerCase().endsWith("jpg")) {
+				resp.setContentType("image/jpg");
+			}
+			resp.getOutputStream().flush();
+		} else if (StringUtils.isNotEmpty(audioPath)) {
+			byte[] data = FileUtils.readFileToByteArray(new File(springProperty
+					.getRecordingPath() + "/" + audioPath));
+			resp.getOutputStream().write(data);
+			resp.getOutputStream().flush();
 		}
-		byte[] data = FileUtils.readFileToByteArray(new File(springProperty
-				.getImagePath() + "/" + imagePath));
-		resp.getOutputStream().write(data);
-		if (imagePath.toLowerCase().endsWith("jpeg")) {
-			resp.setContentType("image/jpeg");
-		} else if (imagePath.toLowerCase().endsWith("png")) {
-			resp.setContentType("image/png");
-		} else if (imagePath.toLowerCase().endsWith("gif")) {
-			resp.setContentType("image/gif");
-		} else if (imagePath.toLowerCase().endsWith("jpg")) {
-			resp.setContentType("image/jpg");
-		}
-		resp.getOutputStream().flush();
+
 	}
 
 }
