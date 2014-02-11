@@ -26,4 +26,7 @@ public interface QuizService {
 
 	public String checkQuizExistence(String seasonId, Integer minAge,
 			Integer maxAge, String level, Device device, String version);
+	
+	public String findQuizByEpisode(String episodeId, Integer minAge,
+			Integer maxAge, String level, Device device,String version);
 }

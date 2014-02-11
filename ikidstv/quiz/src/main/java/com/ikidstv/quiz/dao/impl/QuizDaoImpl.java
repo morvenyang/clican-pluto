@@ -93,4 +93,19 @@ public class QuizDaoImpl extends HibernateDaoSupport implements QuizDao {
 		return result;
 	}
 
+	@SuppressWarnings("unchecked")
+	public List<Quiz> findQuizByEpisode(String episodeId, Integer minAge,
+			Integer maxAge, String level, Device device) {
+		String hsql = "from Quiz where status=3 and episodeId = :episodeId and age>= :minAge and age<=:maxAge";
+		if (device == Device.IPhone) {
+			hsql += " and template.iphone = true";
+		} else {
+			hsql += " and template.ipad = true";
+		}
+		List<Quiz> result = this.getHibernateTemplate().findByNamedParam(hsql,
+				new String[] { "episodeId", "minAge", "maxAge" },
+				new Object[] { episodeId, minAge, maxAge });
+		return result;
+	}
+
 }
