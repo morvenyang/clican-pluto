@@ -15,6 +15,7 @@ import net.sf.json.JSONArray;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.ikidstv.quiz.bean.SpringProperty;
 import com.ikidstv.quiz.dao.QuizDao;
 import com.ikidstv.quiz.enumeration.Device;
 import com.ikidstv.quiz.enumeration.TemplateId;
@@ -29,6 +30,8 @@ public class QuizServiceImpl implements QuizService {
 
 	private ContentService contentService;
 
+	private SpringProperty springProperty;
+
 	private final static Log log = LogFactory.getLog(QuizServiceImpl.class);
 
 	public void setQuizDao(QuizDao quizDao) {
@@ -37,6 +40,10 @@ public class QuizServiceImpl implements QuizService {
 
 	public void setContentService(ContentService contentService) {
 		this.contentService = contentService;
+	}
+
+	public void setSpringProperty(SpringProperty springProperty) {
+		this.springProperty = springProperty;
 	}
 
 	public List<Quiz> findQuizByUserId(Long userId, String contentId) {
@@ -102,10 +109,10 @@ public class QuizServiceImpl implements QuizService {
 	}
 
 	public String findQuizByEpisode(String episodeId, Integer minAge,
-			Integer maxAge, String level, Device device,String version) {
+			Integer maxAge, String level, Device device, String version) {
 		List<Quiz> quizList = this.quizDao.findQuizByEpisode(episodeId, minAge,
 				maxAge, level, device);
-		List<Map<String,Object>> quizObjList = new ArrayList<Map<String,Object>>();
+		List<Map<String, Object>> quizObjList = new ArrayList<Map<String, Object>>();
 		for (Quiz quiz : quizList) {
 			Map<String, Object> quizObjMap = new HashMap<String, Object>();
 			quizObjMap.put("id", quiz.getId());
@@ -121,6 +128,15 @@ public class QuizServiceImpl implements QuizService {
 						name = name.substring(0, 1).toLowerCase()
 								+ name.substring(1);
 						Object value = method.invoke(metadata, new Object[] {});
+						if (name.indexOf("record") != -1) {
+							value = springProperty.getServerUrl()
+									+ springProperty.getContextPath()
+									+ "/recordView.do?recordPath=" + value;
+						} else if (name.indexOf("picture") != -1) {
+							value = springProperty.getServerUrl()
+									+ springProperty.getContextPath()
+									+ "/imageView.do?imagePath=" + value;
+						}
 						quizObjMap.put(name, value);
 					}
 				}

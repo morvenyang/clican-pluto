@@ -101,6 +101,7 @@
 
 	<bean id="springProperty" class="com.ikidstv.quiz.bean.SpringProperty">
 		<property name="version" value="${version}"></property>
+		<property name="serverUrl" value="${serverUrl}"></property>
 		<property name="imagePath" value="${imagePath}"></property>
 		<property name="recordingPath" value="${recordingPath}"></property>
 		<property name="templateImageWidth" value="${templateImageWidth}"></property>
