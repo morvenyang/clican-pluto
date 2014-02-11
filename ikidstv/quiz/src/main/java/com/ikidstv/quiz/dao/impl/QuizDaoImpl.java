@@ -81,7 +81,7 @@ public class QuizDaoImpl extends HibernateDaoSupport implements QuizDao {
 	@SuppressWarnings("unchecked")
 	public List<Quiz> findQuizBySeason(String seasonId, Integer minAge,
 			Integer maxAge, String level, Device device) {
-		String hsql = "from Quiz where status=4 and seasonId = :seasonId and age>= :minAge and age<=:maxAge";
+		String hsql = "from Quiz where status=3 and seasonId = :seasonId and age>= :minAge and age<=:maxAge";
 		if (device == Device.IPhone) {
 			hsql += " and template.iphone = true";
 		} else {
