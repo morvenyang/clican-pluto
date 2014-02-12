@@ -174,7 +174,7 @@
 								rendered="#{quizAction.selectedTemplate==null}">
 							</h:graphicImage>
 							<h:graphicImage
-								value="/img#{quizAction.selectedTemplate.descPicture}"
+								value="/img#{quizAction.selectedTemplate.samplePicture}"
 								width="#{springProperty.templateImageWidth}"
 								height="#{springProperty.templateImageHeight}"
 								rendered="#{quizAction.selectedTemplate!=null}">
@@ -320,7 +320,7 @@
 								value="#{messages['preview']}"
 								action="#{quizAction.previewQuiz()}"
 								oncomplete="Richfaces.showModalPanel('previewPanel');"
-								reRender="previewGrid" />
+								reRender="previewGrid1,previewGrid2" />
 							<h:commandButton id="cancelButton" value="#{messages['cancel']}"
 								type="reset" onclick="Richfaces.hideModalPanel('quizPanel');" />
 						</h:panelGrid>
