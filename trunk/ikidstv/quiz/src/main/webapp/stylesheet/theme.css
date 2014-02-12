@@ -387,7 +387,6 @@ td.seam-date-hover {
     -moz-binding: url('ellipsis.xml#ellipsis');
 }
 
-/* 翻页条数字的样式 */
 .rich-datascr-inact {
     color: #007bdd;
     padding: 0 2px 0 2px;
