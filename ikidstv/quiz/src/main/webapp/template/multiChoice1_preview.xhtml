@@ -23,7 +23,7 @@
 		</f:facet>
 		<h:panelGrid id="previewGrid">
 		<div style="position:relative;background-image: url('img#{quizAction.selectedTemplate.descPicture}');height: #{springProperty.backgroundImageHeight}px; width: #{springProperty.backgroundImageWidth}px;">
-			<h:outputLabel styleClass="templateWord" style="font-family:KBPlanetEarth;top:140px;left:90px" value="#{quizAction.metadata.title}"/>
+			<h:outputLabel styleClass="templateTitle" style="top:140px;left:90px" value="#{quizAction.metadata.title}"/>
 			<h:outputLabel styleClass="templateWord" style="top:225px;left:75px" value="A:#{quizAction.metadata.word1}"/>
 			<h:outputLabel styleClass="templateWord" style="top:320px;left:360px" value="B:#{quizAction.metadata.word2}"/>
 			<h:outputLabel styleClass="templateWord" style="top:425px;left:80px" value="C:#{quizAction.metadata.word3}"/>
