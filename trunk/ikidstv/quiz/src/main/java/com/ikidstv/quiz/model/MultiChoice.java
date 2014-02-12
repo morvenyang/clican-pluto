@@ -16,6 +16,7 @@ public class MultiChoice implements Metadata{
 	private Long id;
 	private String title;
 	private String titleRecord;
+	private String titlePicture;
 	private String word1;
 	private String word2;
 	private String word3;
@@ -25,6 +26,9 @@ public class MultiChoice implements Metadata{
 	private String record1;
 	private String record2;
 	private String record3;
+	private String picture1;
+	private String picture2;
+	private String picture3;
 	
 	
 	@Id
@@ -115,6 +119,34 @@ public class MultiChoice implements Metadata{
 	}
 	public void setTitleRecord(String titleRecord) {
 		this.titleRecord = titleRecord;
+	}
+	@Column
+	public String getTitlePicture() {
+		return titlePicture;
+	}
+	public void setTitlePicture(String titlePicture) {
+		this.titlePicture = titlePicture;
+	}
+	@Column
+	public String getPicture1() {
+		return picture1;
+	}
+	public void setPicture1(String picture1) {
+		this.picture1 = picture1;
+	}
+	@Column
+	public String getPicture2() {
+		return picture2;
+	}
+	public void setPicture2(String picture2) {
+		this.picture2 = picture2;
+	}
+	@Column
+	public String getPicture3() {
+		return picture3;
+	}
+	public void setPicture3(String picture3) {
+		this.picture3 = picture3;
 	}
 	
 	

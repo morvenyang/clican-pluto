@@ -1,0 +1,102 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:a4j="http://richfaces.org/a4j">
+	<h:panelGrid id="templateGrid">
+		<h:panelGrid columns="3">
+			<h:outputLabel value="#{messages['title']}" />
+			<h:inputText value="#{quizAction.metadata.title}" size="50"
+				rendered="#{s:hasPermission('teacher',null)}" />
+			<h:outputText value="#{quizAction.metadata.title}"
+				rendered="#{s:hasPermission('admin',null)}" />
+			<a4j:commandLink action="#{quizAction.uploadAudio('TitleRecord')}"
+				oncomplete="Richfaces.showModalPanel('audioPanel');"
+				reRender="audioPanel" rendered="#{s:hasPermission('admin',null)}">
+				<h:graphicImage value="/img/template/audio_disable.png"
+					rendered="#{quizAction.metadata.titleRecord==null}" />
+				<h:graphicImage value="/img/template/audio_enable.png"
+					rendered="#{quizAction.metadata.titleRecord!=null}" />
+			</a4j:commandLink>
+			<h:graphicImage value="/img/template/audio_enable.png"
+				rendered="#{quizAction.metadata.titleRecord!=null and s:hasPermission('teacher',null)}" />
+		</h:panelGrid>
+		<h:panelGrid columns="2" id="multiChoiceGrid">
+			<h:outputLabel value="#{messages['option']}" />
+			<h:outputLabel value="#{messages['isAnswer']}" />
+			<c:if test="#{quizAction.metadata.picture1!=null}">
+				<a4j:commandLink action="#{quizAction.setPictureIndex(1)}"
+					oncomplete="Richfaces.showModalPanel('picturePanel');"
+					reRender="picturePanel">
+					<h:graphicImage value="/imageView.do?imagePath=#{quizAction.metadata.picture1}"
+						width="#{springProperty.bigMetaImageWidth}"
+						height="#{springProperty.bigMetaImageHeight}" />
+				</a4j:commandLink>
+			</c:if>
+			<c:if test="#{quizAction.metadata.picture1==null}">
+				<a4j:commandLink action="#{quizAction.setPictureIndex(1)}"
+					oncomplete="Richfaces.showModalPanel('picturePanel');"
+					reRender="picturePanel">
+					<h:graphicImage value="/img/template/picture_place.jpg"
+						width="#{springProperty.bigMetaImageWidth}"
+						height="#{springProperty.bigMetaImageHeight}" />
+				</a4j:commandLink>
+			</c:if>
+			<h:selectBooleanCheckbox value="#{quizAction.metadata.answer1}"
+				rendered="#{s:hasPermission('teacher',null)}" />
+			<h:outputText value="#{quizAction.metadata.answer1}"
+				rendered="#{s:hasPermission('admin',null)}" />
+			
+			<c:if test="#{quizAction.metadata.picture2!=null}">
+				<a4j:commandLink action="#{quizAction.setPictureIndex(2)}"
+					oncomplete="Richfaces.showModalPanel('picturePanel');"
+					reRender="picturePanel">
+					<h:graphicImage value="/imageView.do?imagePath=#{quizAction.metadata.picture2}"
+						width="#{springProperty.bigMetaImageWidth}"
+						height="#{springProperty.bigMetaImageHeight}" />
+				</a4j:commandLink>
+			</c:if>
+			<c:if test="#{quizAction.metadata.picture2==null}">
+				<a4j:commandLink action="#{quizAction.setPictureIndex(2)}"
+					oncomplete="Richfaces.showModalPanel('picturePanel');"
+					reRender="picturePanel">
+					<h:graphicImage value="/img/template/picture_place.jpg"
+						width="#{springProperty.bigMetaImageWidth}"
+						height="#{springProperty.bigMetaImageHeight}" />
+				</a4j:commandLink>
+			</c:if>
+			<h:selectBooleanCheckbox value="#{quizAction.metadata.answer2}"
+				rendered="#{s:hasPermission('teacher',null)}" />
+			<h:outputText value="#{quizAction.metadata.answer2}"
+				rendered="#{s:hasPermission('admin',null)}" />
+			
+			<c:if test="#{quizAction.metadata.picture3!=null}">
+				<a4j:commandLink action="#{quizAction.setPictureIndex(3)}"
+					oncomplete="Richfaces.showModalPanel('picturePanel');"
+					reRender="picturePanel">
+					<h:graphicImage value="/imageView.do?imagePath=#{quizAction.metadata.picture3}"
+						width="#{springProperty.bigMetaImageWidth}"
+						height="#{springProperty.bigMetaImageHeight}" />
+				</a4j:commandLink>
+			</c:if>
+			<c:if test="#{quizAction.metadata.picture3==null}">
+				<a4j:commandLink action="#{quizAction.setPictureIndex(3)}"
+					oncomplete="Richfaces.showModalPanel('picturePanel');"
+					reRender="picturePanel">
+					<h:graphicImage value="/img/template/picture_place.jpg"
+						width="#{springProperty.bigMetaImageWidth}"
+						height="#{springProperty.bigMetaImageHeight}" />
+				</a4j:commandLink>
+			</c:if>
+			<h:selectBooleanCheckbox value="#{quizAction.metadata.answer3}"
+				rendered="#{s:hasPermission('teacher',null)}" />
+			<h:outputText value="#{quizAction.metadata.answer3}"
+				rendered="#{s:hasPermission('admin',null)}" />
+			
+		</h:panelGrid>
+	</h:panelGrid>
+</ui:composition>
