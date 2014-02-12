@@ -6,6 +6,11 @@
 	src: url('../font/KBPLANETEARTH.TTF') format('truetype');
 }
 
+@font-face {
+ font-family: KBPlanetEarth;
+ src: url("../font/KBPLANETEARTH.EOT") /* EOT file for IE */
+}
+
 html, body {
     font-family: Tahoma, Geneva, sans-serif;
     font-size: 12px;
@@ -285,8 +290,15 @@ img {
     text-decoration: none;
 }
 
+.templateTitle {
+	font-size:30px;
+	font-family:KBPlanetEarth;
+	position:absolute;
+	color:#006400
+}
 .templateWord {
 	font-size:30px;
 	font-family:KBPlanetEarth;
 	position:absolute;
+	color:#ff7f50
 }
