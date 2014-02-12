@@ -400,7 +400,7 @@ public class QuizAction extends BaseAction {
 			this.metadata = new Matching();
 		} else if (templateId == TemplateId.Bingo) {
 			this.metadata = new Bingo();
-		} else if (templateId == TemplateId.Multi_Choice1) {
+		} else if (templateId == TemplateId.Multi_Choice1||templateId==TemplateId.Multi_Choice2||templateId==TemplateId.Multi_Choice3) {
 			this.metadata = new MultiChoice();
 		}
 	}

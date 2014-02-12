@@ -207,6 +207,10 @@
 							<ui:include src="template/multiChoice1.xhtml" />
 							<ui:include src="template/multiChoice1_preview.xhtml" />
 						</c:if>
+						<c:if test="#{quizAction.templateIdName=='Multi_Choice2'}">
+							<ui:include src="template/multiChoice2.xhtml" />
+							<ui:include src="template/multiChoice1_preview.xhtml" />
+						</c:if>
 						<rich:message for="metadataMessage" style="color:red" showDetail="false"
 						showSummary="true" />
 						</h:panelGrid>
