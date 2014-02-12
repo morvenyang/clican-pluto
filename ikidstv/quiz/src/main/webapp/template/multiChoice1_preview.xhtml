@@ -7,6 +7,11 @@
 	xmlns:c="http://java.sun.com/jstl/core"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
 	xmlns:a4j="http://richfaces.org/a4j">
+	<head>
+		   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+		   <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8" />
+		   <link rel="stylesheet" href="#{contextPath}/stylesheet/style.css"/>
+	</head>
 	<rich:modalPanel id="previewPanel" autosized="true" height="576" width="768">
 		<f:facet name="controls">
 			<h:panelGroup>
@@ -18,10 +23,10 @@
 		</f:facet>
 		<h:panelGrid id="previewGrid">
 		<div style="position:relative;background-image: url('img#{quizAction.selectedTemplate.descPicture}');height: #{springProperty.backgroundImageHeight}px; width: #{springProperty.backgroundImageWidth}px;">
-			<h:outputLabel style="font-size:30px;position:absolute;top:140px;left:90px" value="#{quizAction.metadata.title}"/>
-			<h:outputLabel style="font-size:30px;position:absolute;top:225px;left:75px" value="A:#{quizAction.metadata.word1}"/>
-			<h:outputLabel style="font-size:30px;position:absolute;top:320px;left:360px" value="B:#{quizAction.metadata.word2}"/>
-			<h:outputLabel style="font-size:30px;position:absolute;top:425px;left:80px" value="C:#{quizAction.metadata.word3}"/>
+			<h:outputLabel styleClass="templateWord" style="font-family:KBPlanetEarth;top:140px;left:90px" value="#{quizAction.metadata.title}"/>
+			<h:outputLabel styleClass="templateWord" style="top:225px;left:75px" value="A:#{quizAction.metadata.word1}"/>
+			<h:outputLabel styleClass="templateWord" style="top:320px;left:360px" value="B:#{quizAction.metadata.word2}"/>
+			<h:outputLabel styleClass="templateWord" style="top:425px;left:80px" value="C:#{quizAction.metadata.word3}"/>
 		</div>
 		</h:panelGrid>
 	</rich:modalPanel>
