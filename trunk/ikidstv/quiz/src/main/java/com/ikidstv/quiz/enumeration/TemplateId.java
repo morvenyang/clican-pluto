@@ -13,7 +13,11 @@ public enum TemplateId {
 	
 	Bingo(new Long[]{2L},Bingo.class),
 	
-	Multi_Choice1(new Long[]{3L},MultiChoice.class);
+	Multi_Choice1(new Long[]{3L},MultiChoice.class),
+	
+	Multi_Choice2(new Long[]{4L},MultiChoice.class),
+	
+	Multi_Choice3(new Long[]{5L},MultiChoice.class);
 	
 	private Long[] ids;
 	private Class<?> clazz;
