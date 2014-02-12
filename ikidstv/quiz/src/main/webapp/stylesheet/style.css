@@ -290,6 +290,11 @@ img {
     text-decoration: none;
 }
 
+.templatePreviewBackground{
+	position:relative;
+	height: 576px; 
+	width: 768px;
+}
 .templateTitle {
 	font-size:30px;
 	font-family:KBPlanetEarth;
@@ -302,3 +307,7 @@ img {
 	position:absolute;
 	color:#ff7f50
 }
+
+.multiChoice2Image{
+	width:239px;
+	height:253px;
