@@ -17,15 +17,15 @@
 			</h:panelGroup>
 		</f:facet>
 		<h:panelGrid id="previewGrid1" rendered="#{quizAction.quiz!=null and identity.ie}">
-			<div style="position:relative;background-image: url('#{contextPath}/imageView.do?imagePath=#{quizAction.quiz.backgroundImage}');
-		filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='#{contextPath}/imageView.do?imagePath=#{quizAction.quiz.backgroundImage}', sizingMethod='scale');height: 522px; width:937px;">
+			<div style="position:relative;background-image: url('img#{quizAction.selectedTemplate.descPicture}');
+		filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='img#{quizAction.selectedTemplate.descPicture}', sizingMethod='scale');height: #{springProperty.backgroundImageHeight}px; width:#{springProperty.backgroundImageWidth}px;">
 			<h:outputLabel style="font-size:20px;position:absolute;top:240px;left:250px" value="#{quizAction.metadata.word1}"/>
 			<h:outputLabel style="font-size:20px;position:absolute;top:305px;left:250px" value="#{quizAction.metadata.word2}"/>
 			<h:outputLabel style="font-size:20px;position:absolute;top:370px;left:250px" value="#{quizAction.metadata.word3}"/>
 		</div>
 		</h:panelGrid>
 		<h:panelGrid id="previewGrid2" rendered="#{quizAction.quiz!=null and !identity.ie}">
-		<div style="position:relative;background-image: url('#{contextPath}/imageView.do?imagePath=#{quizAction.quiz.backgroundImage}');background-size:cover;height: 522px; width: 937px;">
+		<div style="position:relative;background-image: url('img#{quizAction.selectedTemplate.descPicture}');background-size:cover;height: #{springProperty.backgroundImageHeight}px; width: #{springProperty.backgroundImageWidth}px;">
 			<h:outputLabel style="font-size:20px;position:absolute;top:260px;left:250px" value="#{quizAction.metadata.word1}"/>
 			<h:outputLabel style="font-size:20px;position:absolute;top:330px;left:250px" value="#{quizAction.metadata.word2}"/>
 			<h:outputLabel style="font-size:20px;position:absolute;top:400px;left:250px" value="#{quizAction.metadata.word3}"/>
