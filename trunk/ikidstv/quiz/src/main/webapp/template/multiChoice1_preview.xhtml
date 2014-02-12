@@ -7,7 +7,7 @@
 	xmlns:c="http://java.sun.com/jstl/core"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
 	xmlns:a4j="http://richfaces.org/a4j">
-	<rich:modalPanel id="previewPanel" autosized="true">
+	<rich:modalPanel id="previewPanel" autosized="true" height="576" width="768">
 		<f:facet name="controls">
 			<h:panelGroup>
 				<h:graphicImage value="/img/close.png" styleClass="hidelink"
@@ -17,10 +17,11 @@
 			</h:panelGroup>
 		</f:facet>
 		<h:panelGrid id="previewGrid">
-		<div style="position:relative;background-image: url('img#{quizAction.selectedTemplate.descPicture}')">
-			<h:outputLabel style="font-size:20px;position:absolute;top:260px;left:250px" value="#{quizAction.metadata.word1}"/>
-			<h:outputLabel style="font-size:20px;position:absolute;top:330px;left:250px" value="#{quizAction.metadata.word2}"/>
-			<h:outputLabel style="font-size:20px;position:absolute;top:400px;left:250px" value="#{quizAction.metadata.word3}"/>
+		<div style="position:relative;background-image: url('img#{quizAction.selectedTemplate.descPicture}');height: 576px; width: 768px;">
+			<h:outputLabel style="font-size:30px;position:absolute;top:140px;left:90px" value="#{quizAction.metadata.title}"/>
+			<h:outputLabel style="font-size:30px;position:absolute;top:225px;left:75px" value="A:#{quizAction.metadata.word1}"/>
+			<h:outputLabel style="font-size:30px;position:absolute;top:320px;left:360px" value="B:#{quizAction.metadata.word2}"/>
+			<h:outputLabel style="font-size:30px;position:absolute;top:425px;left:80px" value="C:#{quizAction.metadata.word3}"/>
 		</div>
 		</h:panelGrid>
 	</rich:modalPanel>
