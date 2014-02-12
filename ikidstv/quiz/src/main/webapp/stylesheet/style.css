@@ -311,3 +311,10 @@ img {
 .multiChoice2Image{
 	width:239px;
 	height:253px;
+}
+
+.multiChoice2PreviewImage{
+	position:absolute;
+	width:180px;
+	height:190px;
+}
