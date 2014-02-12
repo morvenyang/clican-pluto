@@ -1,5 +1,11 @@
 @charset "utf-8";
 /* CSS Document */
+
+@font-face {
+	font-family: KBPlanetEarth;
+	src: url('../font/KBPLANETEARTH.TTF') format('truetype');
+}
+
 html, body {
     font-family: Tahoma, Geneva, sans-serif;
     font-size: 12px;
@@ -277,4 +283,10 @@ img {
     height: 1.2em;
     text-overflow: ellipsis;
     text-decoration: none;
+}
+
+.templateWord {
+	font-size:30px;
+	font-family:KBPlanetEarth;
+	position:absolute;
 }
