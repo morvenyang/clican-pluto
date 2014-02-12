@@ -66,17 +66,6 @@ form {
     padding: 0;
     border: 0;
     margin-right: 20px;
-    background: url(../img/btnsignin.png) no-repeat;
-}
-
-.loginmain .btnreset {
-    width: 70px;
-    height: 30px;
-    line-height: 30px;
-    text-align: center;
-    padding: 0;
-    border: 0;
-    background: url(../img/btnreset.png) no-repeat;
 }
 
 .left {
@@ -87,26 +76,6 @@ form {
 .right {
     text-align: right;
     padding-right: 10px;
-}
-
-.pwdSubmit {
-    width: 55px;
-    height: 22px;
-    line-height: 22px;
-    text-align: center;
-    padding: 0;
-    border: 0;
-    background: url(../img/button_s_red.png) no-repeat;
-}
-
-.pwdRet {
-    width: 55px;
-    height: 22px;
-    line-height: 22px;
-    text-align: center;
-    padding: 0;
-    border: 0;
-    background: url(../img/button_s.png) no-repeat;
 }
 
 
