@@ -9,7 +9,7 @@
 	xmlns:a4j="http://richfaces.org/a4j" template="workspace.xhtml">
 	<ui:define name="body">
 		<h:form>
-			<h:panelGrid columns="2" height="100%"
+			<h:panelGrid columns="2" height="100%" width="100%"
 				columnClasses="columntopLeft,columntopRight">
 				<rich:tree rendered="#{s:hasPermission('teacher',null)}"
 					switchType="ajax" style="width:300px;">
@@ -28,7 +28,7 @@
 				</rich:tree>
 				<rich:panel id="quizTablePanel"
 					style="left-margin:10px;border:0;width:100%">
-					<h:panelGrid id="quizPanelGrid">
+					<h:panelGrid id="quizPanelGrid" style="width:100%">
 						<h:panelGrid columns="1"
 							rendered="#{quizAction.selectedContentTree.episodeNode}"
 							style="text-align:right;width:100%">
