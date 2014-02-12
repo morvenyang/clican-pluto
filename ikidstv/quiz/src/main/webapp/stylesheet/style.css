@@ -329,3 +329,14 @@ img {
 	width:290px;
 	height:241px;
 }
+
+.matchingImage{
+	width:239px;
+	height:253px;
+}
+
+.matchingPreviewImage{
+	position:absolute;
+	width:120px;
+	height:126px;
+}
