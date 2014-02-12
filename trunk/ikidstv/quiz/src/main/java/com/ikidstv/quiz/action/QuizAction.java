@@ -352,6 +352,19 @@ public class QuizAction extends BaseAction {
 				if (method.isAnnotationPresent(Column.class)
 						&& (method.getName().contains("getWord") || method
 								.getName().contains("getPicture"))) {
+					if(this.selectedTemplate.getTemplateId()==TemplateId.Multi_Choice1){
+						if(!method.getName().contains("getWord")){
+							continue;
+						}
+					}else if(this.selectedTemplate.getTemplateId()==TemplateId.Multi_Choice2){
+						if(!method.getName().contains("getPicture")){
+							continue;
+						}
+					}else if(this.selectedTemplate.getTemplateId()==TemplateId.Multi_Choice3){
+						if(!method.getName().contains("getWord")){
+							continue;
+						}
+					}
 					String value = (String) method.invoke(this.metadata,
 							new Object[] {});
 					if (StringUtils.isEmpty(value)) {
