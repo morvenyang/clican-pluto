@@ -25,78 +25,76 @@
 			<h:graphicImage value="/img/template/audio_enable.png"
 				rendered="#{quizAction.metadata.titleRecord!=null and s:hasPermission('teacher',null)}" />
 		</h:panelGrid>
-		<h:panelGrid columns="2" id="multiChoiceGrid">
-			<h:outputLabel value="#{messages['option']}" />
-			<h:outputLabel value="#{messages['isAnswer']}" />
+		<h:panelGrid columns="3" id="multiChoiceGrid">
+			<h:panelGrid>
 			<c:if test="#{quizAction.metadata.picture1!=null}">
 				<a4j:commandLink action="#{quizAction.setPictureIndex(1)}"
 					oncomplete="Richfaces.showModalPanel('picturePanel');"
 					reRender="picturePanel">
-					<h:graphicImage value="/imageView.do?imagePath=#{quizAction.metadata.picture1}"
-						width="#{springProperty.bigMetaImageWidth}"
-						height="#{springProperty.bigMetaImageHeight}" />
+					<h:graphicImage value="/imageView.do?imagePath=#{quizAction.metadata.picture1}" styleClass="multiChoice2Image"/>
 				</a4j:commandLink>
 			</c:if>
 			<c:if test="#{quizAction.metadata.picture1==null}">
 				<a4j:commandLink action="#{quizAction.setPictureIndex(1)}"
 					oncomplete="Richfaces.showModalPanel('picturePanel');"
 					reRender="picturePanel">
-					<h:graphicImage value="/img/template/picture_place.jpg"
-						width="#{springProperty.bigMetaImageWidth}"
-						height="#{springProperty.bigMetaImageHeight}" />
+					<h:graphicImage value="/img/template/picture_place.jpg" styleClass="multiChoice2Image"/>
 				</a4j:commandLink>
 			</c:if>
+			<h:panelGrid columns="2">
+			<h:outputText value="#{messages['isAnswer']}"/>
 			<h:selectBooleanCheckbox value="#{quizAction.metadata.answer1}"
 				rendered="#{s:hasPermission('teacher',null)}" />
 			<h:outputText value="#{quizAction.metadata.answer1}"
 				rendered="#{s:hasPermission('admin',null)}" />
-			
+				</h:panelGrid>
+			</h:panelGrid>
+			<h:panelGrid>
 			<c:if test="#{quizAction.metadata.picture2!=null}">
 				<a4j:commandLink action="#{quizAction.setPictureIndex(2)}"
 					oncomplete="Richfaces.showModalPanel('picturePanel');"
 					reRender="picturePanel">
-					<h:graphicImage value="/imageView.do?imagePath=#{quizAction.metadata.picture2}"
-						width="#{springProperty.bigMetaImageWidth}"
-						height="#{springProperty.bigMetaImageHeight}" />
+					<h:graphicImage value="/imageView.do?imagePath=#{quizAction.metadata.picture2}" styleClass="multiChoice2Image" />
 				</a4j:commandLink>
 			</c:if>
 			<c:if test="#{quizAction.metadata.picture2==null}">
 				<a4j:commandLink action="#{quizAction.setPictureIndex(2)}"
 					oncomplete="Richfaces.showModalPanel('picturePanel');"
 					reRender="picturePanel">
-					<h:graphicImage value="/img/template/picture_place.jpg"
-						width="#{springProperty.bigMetaImageWidth}"
-						height="#{springProperty.bigMetaImageHeight}" />
+					<h:graphicImage value="/img/template/picture_place.jpg" styleClass="multiChoice2Image" />
 				</a4j:commandLink>
 			</c:if>
+			<h:panelGrid columns="2">
+			<h:outputText value="#{messages['isAnswer']}"/>
 			<h:selectBooleanCheckbox value="#{quizAction.metadata.answer2}"
 				rendered="#{s:hasPermission('teacher',null)}" />
 			<h:outputText value="#{quizAction.metadata.answer2}"
 				rendered="#{s:hasPermission('admin',null)}" />
-			
+			</h:panelGrid>
+			</h:panelGrid>
+			<h:panelGrid>
 			<c:if test="#{quizAction.metadata.picture3!=null}">
 				<a4j:commandLink action="#{quizAction.setPictureIndex(3)}"
 					oncomplete="Richfaces.showModalPanel('picturePanel');"
 					reRender="picturePanel">
-					<h:graphicImage value="/imageView.do?imagePath=#{quizAction.metadata.picture3}"
-						width="#{springProperty.bigMetaImageWidth}"
-						height="#{springProperty.bigMetaImageHeight}" />
+					<h:graphicImage value="/imageView.do?imagePath=#{quizAction.metadata.picture3}" styleClass="multiChoice2Image" />
 				</a4j:commandLink>
 			</c:if>
 			<c:if test="#{quizAction.metadata.picture3==null}">
 				<a4j:commandLink action="#{quizAction.setPictureIndex(3)}"
 					oncomplete="Richfaces.showModalPanel('picturePanel');"
 					reRender="picturePanel">
-					<h:graphicImage value="/img/template/picture_place.jpg"
-						width="#{springProperty.bigMetaImageWidth}"
-						height="#{springProperty.bigMetaImageHeight}" />
+					<h:graphicImage value="/img/template/picture_place.jpg" styleClass="multiChoice2Image" />
 				</a4j:commandLink>
 			</c:if>
+			<h:panelGrid columns="2">
+			<h:outputText value="#{messages['isAnswer']}"/>
 			<h:selectBooleanCheckbox value="#{quizAction.metadata.answer3}"
 				rendered="#{s:hasPermission('teacher',null)}" />
 			<h:outputText value="#{quizAction.metadata.answer3}"
 				rendered="#{s:hasPermission('admin',null)}" />
-			
+			</h:panelGrid>
+			</h:panelGrid>
 		</h:panelGrid>
 	</h:panelGrid>
 </ui:composition>
