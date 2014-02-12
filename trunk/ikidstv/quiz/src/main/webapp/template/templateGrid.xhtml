@@ -23,7 +23,7 @@
 				<f:facet name="header">
 					<h:outputText value="#{template.name}"></h:outputText>
 				</f:facet>
-				<h:graphicImage width="#{springProperty.templateImageWidth/2}" height="#{springProperty.templateImageHeight/2}" value="/img#{template.descPicture}">
+				<h:graphicImage width="#{springProperty.templateImageWidth/2}" height="#{springProperty.templateImageHeight/2}" value="/img#{template.samplePicture}">
 					<a4j:support event="onclick"
 						action="#{quizAction.selectTemplate(template)}" ajaxSingle="true"
 						reRender="quizForm" oncomplete="Richfaces.hideModalPanel('templatePicturePanel');"/>
