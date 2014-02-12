@@ -79,7 +79,7 @@ public class QuizAction extends BaseAction {
 	private List<Image> pictures;
 	private Map<String, List<Image>> picturesByEpisodes;
 
-	private int pictureIndex;
+	private String picturePropertyPath;
 
 	private Quiz quiz;
 	private Metadata metadata;
@@ -420,7 +420,12 @@ public class QuizAction extends BaseAction {
 
 	public void setPictureIndex(int index) {
 		this.folder = true;
-		this.pictureIndex = index;
+		this.picturePropertyPath = "Picture"+index;
+	}
+	
+	public void uploadPicture(String picturePropertyPath){
+		this.folder = true;
+		this.picturePropertyPath = picturePropertyPath;
 	}
 	
 	public List<String> getFolders(){
@@ -428,20 +433,12 @@ public class QuizAction extends BaseAction {
 	}
 
 	public void selectPicture(Image picture) {
-		if (pictureIndex == -1) {
-			// background image
-			this.quiz.setBackgroundImage(picture.getPath());
-		} else if (pictureIndex == -2) {
-			// front image
-			this.quiz.setFrontImage(picture.getPath());
-		} else if (pictureIndex > 0) {
-			try {
-				Method method = metadata.getClass().getMethod(
-						"setPicture" + this.pictureIndex, String.class);
-				method.invoke(metadata, picture.getPath());
-			} catch (Exception e) {
-				log.error("", e);
-			}
+		try {
+			Method method = metadata.getClass().getMethod(
+					"set" + this.picturePropertyPath, String.class);
+			method.invoke(metadata, picture.getPath());
+		} catch (Exception e) {
+			log.error("", e);
 		}
 	}
 
