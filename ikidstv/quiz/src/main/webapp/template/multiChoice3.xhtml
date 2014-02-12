@@ -24,7 +24,7 @@
 			</a4j:commandLink>
 			<h:graphicImage value="/img/template/audio_enable.png"
 				rendered="#{quizAction.metadata.titleRecord!=null and s:hasPermission('teacher',null)}" />
-			<h:outputText rendered="#{quizAction.metadata.titleRecord==null or s:hasPermission('admin',null)}"/>
+			<h:outputText rendered="#{quizAction.metadata.titleRecord==null and s:hasPermission('teacher',null)}"/>
 			<h:outputLabel value="#{messages['image']}" />
 			<c:if test="#{quizAction.metadata.titlePicture!=null}">
 				<a4j:commandLink action="#{quizAction.uploadPicture('TitlePicture')}"
