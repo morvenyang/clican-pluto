@@ -14,7 +14,7 @@ import org.apache.commons.lang.StringUtils;
 import com.ikidstv.quiz.bean.Constants;
 import com.ikidstv.quiz.bean.SpringProperty;
 
-public class ImageViewServlet extends HttpServlet {
+public class ResourceServlet extends HttpServlet {
 
 	/**
 	 * 

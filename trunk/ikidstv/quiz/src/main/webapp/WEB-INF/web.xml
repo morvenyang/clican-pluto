@@ -94,18 +94,18 @@
 	</filter-mapping>
 
 	<servlet>
-		<servlet-name>Image View Servlet</servlet-name>
-		<servlet-class>com.ikidstv.quiz.servlet.ImageViewServlet</servlet-class>
+		<servlet-name>Resource Servlet</servlet-name>
+		<servlet-class>com.ikidstv.quiz.servlet.ResourceServlet</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
-		<servlet-name>Image View Servlet</servlet-name>
-		<url-pattern>/imageView.do</url-pattern>
+		<servlet-name>Resource Servlet</servlet-name>
+		<url-pattern>/image.do</url-pattern>
 	</servlet-mapping>
 	
 	<servlet-mapping>
-		<servlet-name>Image View Servlet</servlet-name>
-		<url-pattern>/recordView.do</url-pattern>
+		<servlet-name>Resource Servlet</servlet-name>
+		<url-pattern>/record.do</url-pattern>
 	</servlet-mapping>
 
 	<servlet>
