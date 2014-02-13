@@ -49,4 +49,16 @@ public abstract class Metadata {
 		return null;
 	}
 	
+	@Transient
+	public Boolean getAnswer(int index) {
+		try {
+			Method method = this.getClass().getMethod("isAnswer" + index,
+					new Class[] {});
+			return (Boolean)method.invoke(this, new Object[] {});
+		} catch (Exception e) {
+			log.error("",e);
+		}
+		return false;
+	}
+	
 }

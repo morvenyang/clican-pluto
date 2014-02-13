@@ -29,63 +29,38 @@
 			<h:outputLabel value="#{messages['option']}" />
 			<h:outputLabel value="#{messages['isAnswer']}" />
 			<h:outputLabel value="#{messages['audio']}" />
-			<h:inputText value="#{quizAction.metadata.word1}" size="50"
-				rendered="#{s:hasPermission('teacher',null)}" />
-			<h:outputText value="#{quizAction.metadata.word1}"
-				rendered="#{s:hasPermission('admin',null)}" />
-			<h:selectBooleanCheckbox value="#{quizAction.metadata.answer1}"
-				rendered="#{s:hasPermission('teacher',null)}" />
-			<h:outputText value="#{quizAction.metadata.answer1}"
-				rendered="#{s:hasPermission('admin',null)}" />
-			<a4j:commandLink action="#{quizAction.uploadAudio('Record1')}"
-				oncomplete="Richfaces.showModalPanel('audioPanel');"
-				reRender="audioPanel" rendered="#{s:hasPermission('admin',null)}">
-				<h:graphicImage value="/img/template/audio_disable.png"
-					rendered="#{quizAction.metadata.record1==null}" />
+			<c:forEach var="i" begin="1" end="3">
+				<h:inputText value="#{quizAction.metadata.word1}" size="50"
+					rendered="#{s:hasPermission('teacher',null) and i==1}" />
+				<h:inputText value="#{quizAction.metadata.word2}" size="50"
+					rendered="#{s:hasPermission('teacher',null) and i==2}" />
+				<h:inputText value="#{quizAction.metadata.word3}" size="50"
+					rendered="#{s:hasPermission('teacher',null) and i==3}" />
+
+				<h:outputText value="#{quizAction.metadata.getWord(i)}"
+					rendered="#{s:hasPermission('admin',null)}" />
+					
+				<h:selectBooleanCheckbox value="#{quizAction.metadata.answer1}"
+					rendered="#{s:hasPermission('teacher',null) and i==1}" />
+				<h:selectBooleanCheckbox value="#{quizAction.metadata.answer2}"
+					rendered="#{s:hasPermission('teacher',null) and i==2}" />
+				<h:selectBooleanCheckbox value="#{quizAction.metadata.answer3}"
+					rendered="#{s:hasPermission('teacher',null) and i==3}" />
+				<h:outputText value="#{quizAction.metadata.getAnswer(1)}"
+					rendered="#{s:hasPermission('admin',null)}" />
+				<a4j:commandLink action="#{quizAction.setAudioIndex(i)}"
+					oncomplete="Richfaces.showModalPanel('audioPanel');"
+					reRender="audioPanel" rendered="#{s:hasPermission('admin',null)}">
+					<h:graphicImage value="/img/template/audio_disable.png"
+						rendered="#{quizAction.metadata.getRecord(i)==null}" />
+					<h:graphicImage value="/img/template/audio_enable.png"
+						rendered="#{quizAction.metadata.getRecord(i)!=null}" />
+				</a4j:commandLink>
+				<h:outputText value=""
+					rendered="#{quizAction.metadata.getRecord(i)==null and s:hasPermission('teacher',null)}" />
 				<h:graphicImage value="/img/template/audio_enable.png"
-					rendered="#{quizAction.metadata.record1!=null}" />
-			</a4j:commandLink>
-			<h:outputText value="" rendered="#{quizAction.metadata.record1==null and s:hasPermission('teacher',null)}" />
-			<h:graphicImage value="/img/template/audio_enable.png"
-				rendered="#{quizAction.metadata.record1!=null and s:hasPermission('teacher',null)}" />
-			<h:inputText value="#{quizAction.metadata.word2}" size="50"
-				rendered="#{s:hasPermission('teacher',null)}" />
-			<h:outputText value="#{quizAction.metadata.word2}"
-				rendered="#{s:hasPermission('admin',null)}" />
-			<h:selectBooleanCheckbox value="#{quizAction.metadata.answer2}"
-				rendered="#{s:hasPermission('teacher',null)}" />
-			<h:outputText value="#{quizAction.metadata.answer2}"
-				rendered="#{s:hasPermission('admin',null)}" />
-			<a4j:commandLink action="#{quizAction.uploadAudio('Record2')}"
-				oncomplete="Richfaces.showModalPanel('audioPanel');"
-				reRender="audioPanel" rendered="#{s:hasPermission('admin',null)}">
-				<h:graphicImage value="/img/template/audio_disable.png"
-					rendered="#{quizAction.metadata.record2==null}" />
-				<h:graphicImage value="/img/template/audio_enable.png"
-					rendered="#{quizAction.metadata.record2!=null}" />
-			</a4j:commandLink>
-			<h:outputText value="" rendered="#{quizAction.metadata.record2==null and s:hasPermission('teacher',null)}" />
-			<h:graphicImage value="/img/template/audio_enable.png"
-				rendered="#{quizAction.metadata.record2!=null and s:hasPermission('teacher',null)}" />
-			<h:inputText value="#{quizAction.metadata.word3}" size="50"
-				rendered="#{s:hasPermission('teacher',null)}" />
-			<h:outputText value="#{quizAction.metadata.word3}"
-				rendered="#{s:hasPermission('admin',null)}" />
-			<h:selectBooleanCheckbox value="#{quizAction.metadata.answer3}"
-				rendered="#{s:hasPermission('teacher',null)}" />
-			<h:outputText value="#{quizAction.metadata.answer3}"
-				rendered="#{s:hasPermission('admin',null)}" />
-			<a4j:commandLink action="#{quizAction.uploadAudio('Record3')}"
-				oncomplete="Richfaces.showModalPanel('audioPanel');"
-				reRender="audioPanel" rendered="#{s:hasPermission('admin',null)}">
-				<h:graphicImage value="/img/template/audio_disable.png"
-					rendered="#{quizAction.metadata.record3==null}" />
-				<h:graphicImage value="/img/template/audio_enable.png"
-					rendered="#{quizAction.metadata.record3!=null}" />
-			</a4j:commandLink>
-			<h:outputText value="" rendered="#{quizAction.metadata.record3==null and s:hasPermission('teacher',null)}" />
-			<h:graphicImage value="/img/template/audio_enable.png"
-				rendered="#{quizAction.metadata.record3!=null and s:hasPermission('teacher',null)}" />
+					rendered="#{quizAction.metadata.getRecord(i)!=null and s:hasPermission('teacher',null)}" />
+			</c:forEach>
 		</h:panelGrid>
 	</h:panelGrid>
 </ui:composition>
