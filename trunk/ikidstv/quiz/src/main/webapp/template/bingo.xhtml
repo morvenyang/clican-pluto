@@ -21,7 +21,7 @@
 						</a4j:commandLink>
 					</c:if>
 					<c:if test="#{quizAction.metadata.getPicture(i)==null}">
-						<a4j:commandLink action="#{quizAction.setPictureIndex(1)}"
+						<a4j:commandLink action="#{quizAction.setPictureIndex(i)}"
 							oncomplete="Richfaces.showModalPanel('picturePanel');"
 							reRender="picturePanel">
 							<h:graphicImage value="/img/template/picture_place.jpg"
