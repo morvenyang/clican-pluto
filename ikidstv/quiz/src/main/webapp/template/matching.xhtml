@@ -7,74 +7,37 @@
 	xmlns:c="http://java.sun.com/jstl/core"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
 	xmlns:a4j="http://richfaces.org/a4j">
-	<h:panelGrid columns="2" id="matchingGrid">
-		<h:panelGrid>
-			<c:if test="#{quizAction.metadata.picture1!=null}">
-				<a4j:commandLink action="#{quizAction.setPictureIndex(1)}"
-					oncomplete="Richfaces.showModalPanel('picturePanel');"
-					reRender="picturePanel">
-					<h:graphicImage value="/image.do?imagePath=#{quizAction.metadata.picture1}" styleClass="matchingImage" />
-				</a4j:commandLink>
-			</c:if>
-			<c:if test="#{quizAction.metadata.picture1==null}">
-				<a4j:commandLink action="#{quizAction.setPictureIndex(1)}"
-					oncomplete="Richfaces.showModalPanel('picturePanel');"
-					reRender="picturePanel">
-					<h:graphicImage value="/img/template/picture_place.jpg" styleClass="matchingImage" />
-				</a4j:commandLink>
-			</c:if>
-			<h:inputText value="#{quizAction.metadata.word1}" size="34" />
-		</h:panelGrid>
-		<h:panelGrid>
-			<c:if test="#{quizAction.metadata.picture2!=null}">
-				<a4j:commandLink action="#{quizAction.setPictureIndex(2)}"
-					oncomplete="Richfaces.showModalPanel('picturePanel');"
-					reRender="picturePanel">
-					<h:graphicImage value="/image.do?imagePath=#{quizAction.metadata.picture2}" styleClass="matchingImage" />
-				</a4j:commandLink>
-			</c:if>
-			<c:if test="#{quizAction.metadata.picture2==null}">
-				<a4j:commandLink action="#{quizAction.setPictureIndex(2)}"
-					oncomplete="Richfaces.showModalPanel('picturePanel');"
-					reRender="picturePanel">
-					<h:graphicImage value="/img/template/picture_place.jpg" styleClass="matchingImage" />
-				</a4j:commandLink>
-			</c:if>
-			<h:inputText value="#{quizAction.metadata.word2}" size="34" />
-		</h:panelGrid>
-		<h:panelGrid>
-			<c:if test="#{quizAction.metadata.picture3!=null}">
-				<a4j:commandLink action="#{quizAction.setPictureIndex(3)}"
-					oncomplete="Richfaces.showModalPanel('picturePanel');"
-					reRender="picturePanel">
-					<h:graphicImage value="/image.do?imagePath=#{quizAction.metadata.picture3}" styleClass="matchingImage" />
-				</a4j:commandLink>
-			</c:if>
-			<c:if test="#{quizAction.metadata.picture3==null}">
-				<a4j:commandLink action="#{quizAction.setPictureIndex(3)}"
-					oncomplete="Richfaces.showModalPanel('picturePanel');"
-					reRender="picturePanel">
-					<h:graphicImage value="/img/template/picture_place.jpg" styleClass="matchingImage"/>
-				</a4j:commandLink>
-			</c:if>
-			<h:inputText value="#{quizAction.metadata.word3}" size="34" />
-		</h:panelGrid>
-		<h:panelGrid>
-			<c:if test="#{quizAction.metadata.picture4!=null}">
-				<a4j:commandLink action="#{quizAction.setPictureIndex(4)}"
-					oncomplete="Richfaces.showModalPanel('picturePanel');"
-					reRender="picturePanel">
-					<h:graphicImage value="/image.do?imagePath=#{quizAction.metadata.picture4}" styleClass="matchingImage" />
-				</a4j:commandLink>
-			</c:if>
-			<c:if test="#{quizAction.metadata.picture4==null}">
-				<a4j:commandLink action="#{quizAction.setPictureIndex(4)}"
-					oncomplete="Richfaces.showModalPanel('picturePanel');"
-					reRender="picturePanel">
-					<h:graphicImage value="/img/template/picture_place.jpg" styleClass="matchingImage" />
-				</a4j:commandLink>
-			</c:if>
-			<h:inputText value="#{quizAction.metadata.word4}" size="34" />
-		</h:panelGrid>
+	<h:panelGrid columns="2" id="templateGrid">
+		<c:forEach var="i" begin="1" end="4">
+			<h:panelGrid>
+				<c:if test="#{quizAction.metadata.getPicture(i)!=null}">
+					<a4j:commandLink action="#{quizAction.setPictureIndex(i)}"
+						oncomplete="Richfaces.showModalPanel('picturePanel');"
+						reRender="picturePanel">
+						<h:graphicImage
+							value="/image.do?imagePath=#{quizAction.metadata.getPicture(i)}"
+							styleClass="matchingImage" />
+					</a4j:commandLink>
+				</c:if>
+				<c:if test="#{quizAction.metadata.getPicture(i)==null}">
+					<a4j:commandLink action="#{quizAction.setPictureIndex(i)}"
+						oncomplete="Richfaces.showModalPanel('picturePanel');"
+						reRender="picturePanel">
+						<h:graphicImage value="/img/template/picture_place.jpg"
+							styleClass="matchingImage" />
+					</a4j:commandLink>
+				</c:if>
+				<h:inputText value="#{quizAction.metadata.word1}" size="34"
+					rendered="#{s:hasPermission('teacher',null) and i==1}" />
+				<h:inputText value="#{quizAction.metadata.word2}" size="34"
+					rendered="#{s:hasPermission('teacher',null) and i==2}" />
+				<h:inputText value="#{quizAction.metadata.word3}" size="34"
+					rendered="#{s:hasPermission('teacher',null) and i==3}" />
+				<h:inputText value="#{quizAction.metadata.word4}" size="34"
+					rendered="#{s:hasPermission('teacher',null) and i==4}" />
+				<h:outputText value="#{quizAction.metadata.getWord(i)}"
+							rendered="#{s:hasPermission('admin',null)}" />
+			</h:panelGrid>
+		</c:forEach>
 	</h:panelGrid>
 </ui:composition>
