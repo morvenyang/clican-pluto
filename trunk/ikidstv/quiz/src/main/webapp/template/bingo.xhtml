@@ -25,7 +25,8 @@
 						<h:graphicImage value="/img/template/picture_place.jpg" styleClass="bingoImage"/>
 					</a4j:commandLink>
 				</c:if>
-				<h:inputText value="#{quizAction.metadata.word1}" size="14"/>
+				<h:inputText value="#{quizAction.metadata.word1}" size="14" rendered="#{s:hasPermission('teacher',null)}"/>
+				<h:outputText value="#{quizAction.metadata.word1}" rendered="#{s:hasPermission('admin',null)}"/>
 			</h:panelGrid>
 			<h:panelGrid>
 				<c:if test="#{quizAction.metadata.picture2!=null}">
@@ -42,7 +43,8 @@
 						<h:graphicImage value="/img/template/picture_place.jpg" styleClass="bingoImage"/>
 					</a4j:commandLink>
 				</c:if>
-				<h:inputText value="#{quizAction.metadata.word2}" size="14"/>
+				<h:inputText value="#{quizAction.metadata.word2}" size="14" rendered="#{s:hasPermission('teacher',null)}"/>
+				<h:outputText value="#{quizAction.metadata.word2}" rendered="#{s:hasPermission('admin',null)}"/>
 			</h:panelGrid>
 			<h:panelGrid>
 				<c:if test="#{quizAction.metadata.picture3!=null}">
@@ -59,7 +61,8 @@
 						<h:graphicImage value="/img/template/picture_place.jpg" styleClass="bingoImage"/>
 					</a4j:commandLink>
 				</c:if>
-				<h:inputText value="#{quizAction.metadata.word3}" size="14"/>
+				<h:inputText value="#{quizAction.metadata.word3}" size="14" rendered="#{s:hasPermission('teacher',null)}"/>
+				<h:outputText value="#{quizAction.metadata.word3}" rendered="#{s:hasPermission('admin',null)}"/>
 			</h:panelGrid>
 			<h:panelGrid>
 				<c:if test="#{quizAction.metadata.picture4!=null}">
@@ -76,7 +79,8 @@
 						<h:graphicImage value="/img/template/picture_place.jpg" styleClass="bingoImage"/>
 					</a4j:commandLink>
 				</c:if>
-				<h:inputText value="#{quizAction.metadata.word4}" size="14"/>
+				<h:inputText value="#{quizAction.metadata.word4}" size="14" rendered="#{s:hasPermission('teacher',null)}"/>
+				<h:outputText value="#{quizAction.metadata.word4}" rendered="#{s:hasPermission('admin',null)}"/>
 			</h:panelGrid>
 			<h:panelGrid>
 				<c:if test="#{quizAction.metadata.picture5!=null}">
@@ -93,7 +97,8 @@
 						<h:graphicImage value="/img/template/picture_place.jpg" styleClass="bingoImage"/>
 					</a4j:commandLink>
 				</c:if>
-				<h:inputText value="#{quizAction.metadata.word5}" size="14"/>
+				<h:inputText value="#{quizAction.metadata.word5}" size="14" rendered="#{s:hasPermission('teacher',null)}"/>
+				<h:outputText value="#{quizAction.metadata.word5}" rendered="#{s:hasPermission('admin',null)}"/>
 			</h:panelGrid>
 			<h:panelGrid>
 				<c:if test="#{quizAction.metadata.picture6!=null}">
@@ -110,7 +115,8 @@
 						<h:graphicImage value="/img/template/picture_place.jpg" styleClass="bingoImage"/>
 					</a4j:commandLink>
 				</c:if>
-				<h:inputText value="#{quizAction.metadata.word6}" size="14"/>
+				<h:inputText value="#{quizAction.metadata.word6}" size="14" rendered="#{s:hasPermission('teacher',null)}"/>
+				<h:outputText value="#{quizAction.metadata.word6}" rendered="#{s:hasPermission('admin',null)}"/>
 			</h:panelGrid>
 			<h:panelGrid>
 				<c:if test="#{quizAction.metadata.picture7!=null}">
@@ -127,7 +133,8 @@
 						<h:graphicImage value="/img/template/picture_place.jpg" styleClass="bingoImage"/>
 					</a4j:commandLink>
 				</c:if>
-				<h:inputText value="#{quizAction.metadata.word7}" size="14"/>
+				<h:inputText value="#{quizAction.metadata.word7}" size="14" rendered="#{s:hasPermission('teacher',null)}"/>
+				<h:outputText value="#{quizAction.metadata.word7}" rendered="#{s:hasPermission('admin',null)}"/>
 			</h:panelGrid>
 			<h:panelGrid>
 				<c:if test="#{quizAction.metadata.picture8!=null}">
@@ -144,7 +151,8 @@
 						<h:graphicImage value="/img/template/picture_place.jpg" styleClass="bingoImage"/>
 					</a4j:commandLink>
 				</c:if>
-				<h:inputText value="#{quizAction.metadata.word8}" size="14"/>
+				<h:inputText value="#{quizAction.metadata.word8}" size="14" rendered="#{s:hasPermission('teacher',null)}"/>
+				<h:outputText value="#{quizAction.metadata.word8}" rendered="#{s:hasPermission('admin',null)}"/>
 			</h:panelGrid>
 			<h:panelGrid>
 				<c:if test="#{quizAction.metadata.picture9!=null}">
@@ -161,7 +169,8 @@
 						<h:graphicImage value="/img/template/picture_place.jpg" styleClass="bingoImage"/>
 					</a4j:commandLink>
 				</c:if>
-				<h:inputText value="#{quizAction.metadata.word9}" size="14"/>
+				<h:inputText value="#{quizAction.metadata.word9}" size="14" rendered="#{s:hasPermission('teacher',null)}"/>
+				<h:outputText value="#{quizAction.metadata.word9}" rendered="#{s:hasPermission('admin',null)}"/>
 			</h:panelGrid>
 			<h:panelGrid>
 				<c:if test="#{quizAction.metadata.picture10!=null}">
@@ -178,7 +187,8 @@
 						<h:graphicImage value="/img/template/picture_place.jpg" styleClass="bingoImage"/>
 					</a4j:commandLink>
 				</c:if>
-				<h:inputText value="#{quizAction.metadata.word10}" size="14"/>
+				<h:inputText value="#{quizAction.metadata.word10}" size="14" rendered="#{s:hasPermission('teacher',null)}"/>
+				<h:outputText value="#{quizAction.metadata.word10}" rendered="#{s:hasPermission('admin',null)}"/>
 			</h:panelGrid>
 			<h:panelGrid>
 				<c:if test="#{quizAction.metadata.picture11!=null}">
@@ -195,7 +205,8 @@
 						<h:graphicImage value="/img/template/picture_place.jpg" styleClass="bingoImage"/>
 					</a4j:commandLink>
 				</c:if>
-				<h:inputText value="#{quizAction.metadata.word11}" size="14"/>
+				<h:inputText value="#{quizAction.metadata.word11}" size="14" rendered="#{s:hasPermission('teacher',null)}"/>
+				<h:outputText value="#{quizAction.metadata.word11}" rendered="#{s:hasPermission('admin',null)}"/>
 			</h:panelGrid>
 			<h:panelGrid>
 				<c:if test="#{quizAction.metadata.picture12!=null}">
@@ -212,7 +223,8 @@
 						<h:graphicImage value="/img/template/picture_place.jpg" styleClass="bingoImage"/>
 					</a4j:commandLink>
 				</c:if>
-				<h:inputText value="#{quizAction.metadata.word12}" size="14"/>
+				<h:inputText value="#{quizAction.metadata.word12}" size="14" rendered="#{s:hasPermission('teacher',null)}"/>
+				<h:outputText value="#{quizAction.metadata.word12}" rendered="#{s:hasPermission('admin',null)}"/>
 			</h:panelGrid>
 			<h:panelGrid>
 				<c:if test="#{quizAction.metadata.picture13!=null}">
@@ -229,7 +241,8 @@
 						<h:graphicImage value="/img/template/picture_place.jpg" styleClass="bingoImage"/>
 					</a4j:commandLink>
 				</c:if>
-				<h:inputText value="#{quizAction.metadata.word13}" size="14"/>
+				<h:inputText value="#{quizAction.metadata.word13}" size="14" rendered="#{s:hasPermission('teacher',null)}"/>
+				<h:outputText value="#{quizAction.metadata.word13}" rendered="#{s:hasPermission('admin',null)}"/>
 			</h:panelGrid>
 			<h:panelGrid>
 				<c:if test="#{quizAction.metadata.picture14!=null}">
@@ -246,7 +259,8 @@
 						<h:graphicImage value="/img/template/picture_place.jpg" styleClass="bingoImage"/>
 					</a4j:commandLink>
 				</c:if>
-				<h:inputText value="#{quizAction.metadata.word14}" size="14"/>
+				<h:inputText value="#{quizAction.metadata.word14}" size="14" rendered="#{s:hasPermission('teacher',null)}"/>
+				<h:outputText value="#{quizAction.metadata.word14}" rendered="#{s:hasPermission('admin',null)}"/>
 			</h:panelGrid>
 			<h:panelGrid>
 				<c:if test="#{quizAction.metadata.picture15!=null}">
@@ -263,7 +277,8 @@
 						<h:graphicImage value="/img/template/picture_place.jpg" styleClass="bingoImage"/>
 					</a4j:commandLink>
 				</c:if>
-				<h:inputText value="#{quizAction.metadata.word15}" size="14"/>
+				<h:inputText value="#{quizAction.metadata.word15}" size="14" rendered="#{s:hasPermission('teacher',null)}"/>
+				<h:outputText value="#{quizAction.metadata.word15}" rendered="#{s:hasPermission('admin',null)}"/>
 			</h:panelGrid>
 			<h:panelGrid>
 				<c:if test="#{quizAction.metadata.picture16!=null}">
@@ -280,7 +295,8 @@
 						<h:graphicImage value="/img/template/picture_place.jpg" styleClass="bingoImage"/>
 					</a4j:commandLink>
 				</c:if>
-				<h:inputText value="#{quizAction.metadata.word16}" size="14"/>
+				<h:inputText value="#{quizAction.metadata.word16}" size="14" rendered="#{s:hasPermission('teacher',null)}"/>
+				<h:outputText value="#{quizAction.metadata.word16}" rendered="#{s:hasPermission('admin',null)}"/>
 			</h:panelGrid>
 		</h:panelGrid>
 	</rich:panel>
