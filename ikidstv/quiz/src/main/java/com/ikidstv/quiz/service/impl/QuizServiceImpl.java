@@ -110,6 +110,7 @@ public class QuizServiceImpl implements QuizService {
 
 	public String findQuizByEpisode(String episodeId, Integer minAge,
 			Integer maxAge, String level, Device device, String version) {
+		boolean appResource = springProperty.isAppResource();
 		List<Quiz> quizList = this.quizDao.findQuizByEpisode(episodeId, minAge,
 				maxAge, level, device);
 		List<Map<String, Object>> quizObjList = new ArrayList<Map<String, Object>>();
@@ -129,13 +130,23 @@ public class QuizServiceImpl implements QuizService {
 								+ name.substring(1);
 						Object value = method.invoke(metadata, new Object[] {});
 						if (name.indexOf("record") != -1) {
-							value = springProperty.getServerUrl()
-									+ springProperty.getContextPath()
-									+ "/recordView.do?recordPath=" + value;
+							if (appResource) {
+								value = springProperty.getServerUrl()
+										+ springProperty.getContextPath()
+										+ "/recordView.do?recordPath=" + value;
+							} else {
+								value = springProperty.getResourcePrefixUrl()
+										+ value;
+							}
 						} else if (name.indexOf("picture") != -1) {
-							value = springProperty.getServerUrl()
-									+ springProperty.getContextPath()
-									+ "/imageView.do?imagePath=" + value;
+							if (appResource) {
+								value = springProperty.getServerUrl()
+										+ springProperty.getContextPath()
+										+ "/imageView.do?imagePath=" + value;
+							} else {
+								value = springProperty.getResourcePrefixUrl()
+										+ value;
+							}
 						}
 						quizObjMap.put(name, value);
 					}
