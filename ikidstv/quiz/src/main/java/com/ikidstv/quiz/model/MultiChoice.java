@@ -11,7 +11,7 @@ import org.hibernate.annotations.Type;
 
 @Table(name = "MULTI_CHOICE")
 @Entity
-public class MultiChoice implements Metadata{
+public class MultiChoice extends Metadata{
 
 	private Long id;
 	private String title;

@@ -9,57 +9,57 @@ import javax.persistence.Table;
 
 @Table(name = "Bingo")
 @Entity
-public class Bingo implements Metadata{
+public class Bingo extends Metadata {
 
 	private Long id;
 	private String picture1;
 	private String word1;
-	private String recording1;
+	private String record1;
 	private String picture2;
 	private String word2;
-	private String recording2;
+	private String record2;
 	private String picture3;
 	private String word3;
-	private String recording3;
+	private String record3;
 	private String picture4;
 	private String word4;
-	private String recording4;
+	private String record4;
 	private String picture5;
 	private String word5;
-	private String recording5;
+	private String record5;
 	private String picture6;
 	private String word6;
-	private String recording6;
+	private String record6;
 	private String picture7;
 	private String word7;
-	private String recording7;
+	private String record7;
 	private String picture8;
 	private String word8;
-	private String recording8;
+	private String record8;
 	private String picture9;
 	private String word9;
-	private String recording9;
+	private String record9;
 	private String picture10;
 	private String word10;
-	private String recording10;
+	private String record10;
 	private String picture11;
 	private String word11;
-	private String recording11;
+	private String record11;
 	private String picture12;
 	private String word12;
-	private String recording12;
+	private String record12;
 	private String picture13;
 	private String word13;
-	private String recording13;
+	private String record13;
 	private String picture14;
 	private String word14;
-	private String recording14;
+	private String record14;
 	private String picture15;
 	private String word15;
-	private String recording15;
+	private String record15;
 	private String picture16;
 	private String word16;
-	private String recording16;
+	private String record16;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -91,12 +91,12 @@ public class Bingo implements Metadata{
 	}
 
 	@Column
-	public String getRecording1() {
-		return recording1;
+	public String getRecord1() {
+		return record1;
 	}
 
-	public void setRecording1(String recording1) {
-		this.recording1 = recording1;
+	public void setRecord1(String record1) {
+		this.record1 = record1;
 	}
 
 	@Column
@@ -118,12 +118,12 @@ public class Bingo implements Metadata{
 	}
 
 	@Column
-	public String getRecording2() {
-		return recording2;
+	public String getRecord2() {
+		return record2;
 	}
 
-	public void setRecording2(String recording2) {
-		this.recording2 = recording2;
+	public void setRecord2(String record2) {
+		this.record2 = record2;
 	}
 
 	@Column
@@ -145,12 +145,12 @@ public class Bingo implements Metadata{
 	}
 
 	@Column
-	public String getRecording3() {
-		return recording3;
+	public String getRecord3() {
+		return record3;
 	}
 
-	public void setRecording3(String recording3) {
-		this.recording3 = recording3;
+	public void setRecord3(String record3) {
+		this.record3 = record3;
 	}
 
 	@Column
@@ -172,12 +172,12 @@ public class Bingo implements Metadata{
 	}
 
 	@Column
-	public String getRecording4() {
-		return recording4;
+	public String getRecord4() {
+		return record4;
 	}
 
-	public void setRecording4(String recording4) {
-		this.recording4 = recording4;
+	public void setRecord4(String record4) {
+		this.record4 = record4;
 	}
 
 	@Column
@@ -199,12 +199,12 @@ public class Bingo implements Metadata{
 	}
 
 	@Column
-	public String getRecording5() {
-		return recording5;
+	public String getRecord5() {
+		return record5;
 	}
 
-	public void setRecording5(String recording5) {
-		this.recording5 = recording5;
+	public void setRecord5(String record5) {
+		this.record5 = record5;
 	}
 
 	@Column
@@ -226,12 +226,12 @@ public class Bingo implements Metadata{
 	}
 
 	@Column
-	public String getRecording6() {
-		return recording6;
+	public String getRecord6() {
+		return record6;
 	}
 
-	public void setRecording6(String recording6) {
-		this.recording6 = recording6;
+	public void setRecord6(String record6) {
+		this.record6 = record6;
 	}
 
 	@Column
@@ -253,12 +253,12 @@ public class Bingo implements Metadata{
 	}
 
 	@Column
-	public String getRecording7() {
-		return recording7;
+	public String getRecord7() {
+		return record7;
 	}
 
-	public void setRecording7(String recording7) {
-		this.recording7 = recording7;
+	public void setRecord7(String record7) {
+		this.record7 = record7;
 	}
 
 	@Column
@@ -280,12 +280,12 @@ public class Bingo implements Metadata{
 	}
 
 	@Column
-	public String getRecording8() {
-		return recording8;
+	public String getRecord8() {
+		return record8;
 	}
 
-	public void setRecording8(String recording8) {
-		this.recording8 = recording8;
+	public void setRecord8(String record8) {
+		this.record8 = record8;
 	}
 
 	@Column
@@ -307,12 +307,12 @@ public class Bingo implements Metadata{
 	}
 
 	@Column
-	public String getRecording9() {
-		return recording9;
+	public String getRecord9() {
+		return record9;
 	}
 
-	public void setRecording9(String recording9) {
-		this.recording9 = recording9;
+	public void setRecord9(String record9) {
+		this.record9 = record9;
 	}
 
 	@Column
@@ -334,12 +334,12 @@ public class Bingo implements Metadata{
 	}
 
 	@Column
-	public String getRecording10() {
-		return recording10;
+	public String getRecord10() {
+		return record10;
 	}
 
-	public void setRecording10(String recording10) {
-		this.recording10 = recording10;
+	public void setRecord10(String record10) {
+		this.record10 = record10;
 	}
 
 	@Column
@@ -361,12 +361,12 @@ public class Bingo implements Metadata{
 	}
 
 	@Column
-	public String getRecording11() {
-		return recording11;
+	public String getRecord11() {
+		return record11;
 	}
 
-	public void setRecording11(String recording11) {
-		this.recording11 = recording11;
+	public void setRecord11(String record11) {
+		this.record11 = record11;
 	}
 
 	@Column
@@ -388,12 +388,12 @@ public class Bingo implements Metadata{
 	}
 
 	@Column
-	public String getRecording12() {
-		return recording12;
+	public String getRecord12() {
+		return record12;
 	}
 
-	public void setRecording12(String recording12) {
-		this.recording12 = recording12;
+	public void setRecord12(String record12) {
+		this.record12 = record12;
 	}
 
 	@Column
@@ -415,12 +415,12 @@ public class Bingo implements Metadata{
 	}
 
 	@Column
-	public String getRecording13() {
-		return recording13;
+	public String getRecord13() {
+		return record13;
 	}
 
-	public void setRecording13(String recording13) {
-		this.recording13 = recording13;
+	public void setRecord13(String record13) {
+		this.record13 = record13;
 	}
 
 	@Column
@@ -442,12 +442,12 @@ public class Bingo implements Metadata{
 	}
 
 	@Column
-	public String getRecording14() {
-		return recording14;
+	public String getRecord14() {
+		return record14;
 	}
 
-	public void setRecording14(String recording14) {
-		this.recording14 = recording14;
+	public void setRecord14(String record14) {
+		this.record14 = record14;
 	}
 
 	@Column
@@ -469,12 +469,12 @@ public class Bingo implements Metadata{
 	}
 
 	@Column
-	public String getRecording15() {
-		return recording15;
+	public String getRecord15() {
+		return record15;
 	}
 
-	public void setRecording15(String recording15) {
-		this.recording15 = recording15;
+	public void setRecord15(String record15) {
+		this.record15 = record15;
 	}
 
 	@Column
@@ -496,12 +496,13 @@ public class Bingo implements Metadata{
 	}
 
 	@Column
-	public String getRecording16() {
-		return recording16;
+	public String getRecord16() {
+		return record16;
 	}
 
-	public void setRecording16(String recording16) {
-		this.recording16 = recording16;
+	public void setRecord16(String record16) {
+		this.record16 = record16;
 	}
 
+	
 }
