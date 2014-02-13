@@ -18,3 +18,5 @@ insert into template(ID,NAME,SAMPLE_PICTURE,DESC_PICTURE,IPHONE,IPAD) VALUES(2,'
 insert into template(ID,NAME,SAMPLE_PICTURE,DESC_PICTURE,IPHONE,IPAD) VALUES(3,'MultiChoice1','/template/multiChoice1_sample.jpg','/template/multiChoice1_desc.jpg',1,1);
 insert into template(ID,NAME,SAMPLE_PICTURE,DESC_PICTURE,IPHONE,IPAD) VALUES(4,'MultiChoice2','/template/multiChoice2_sample.jpg','/template/multiChoice2_desc.jpg',1,1);
 insert into template(ID,NAME,SAMPLE_PICTURE,DESC_PICTURE,IPHONE,IPAD) VALUES(5,'MultiChoice3','/template/multiChoice3_sample.jpg','/template/multiChoice3_desc.jpg',1,1);
+insert into template(ID,NAME,SAMPLE_PICTURE,DESC_PICTURE,IPHONE,IPAD) VALUES(6,'CatchItWord','/template/catchItWord_sample.jpg','/template/catchItWord_desc.jpg',1,1);
+insert into template(ID,NAME,SAMPLE_PICTURE,DESC_PICTURE,IPHONE,IPAD) VALUES(7,'CatchItSentence','/template/catchItSentence_sample.jpg','/templatecatchItSentence_desc.jpg',1,1);

@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.ikidstv.quiz.model.Bingo;
+import com.ikidstv.quiz.model.CatchIt;
 import com.ikidstv.quiz.model.Matching;
 import com.ikidstv.quiz.model.MultiChoice;
 
@@ -17,7 +18,11 @@ public enum TemplateId {
 	
 	Multi_Choice2(new Long[]{4L},MultiChoice.class),
 	
-	Multi_Choice3(new Long[]{5L},MultiChoice.class);
+	Multi_Choice3(new Long[]{5L},MultiChoice.class),
+	
+	Catch_It_Word(new Long[]{6L},CatchIt.class),
+	
+	Catch_It_Sentence(new Long[]{7L},CatchIt.class),;
 	
 	private Long[] ids;
 	private Class<?> clazz;
