@@ -13,21 +13,17 @@ import javax.persistence.Transient;
 
 @Table(name = "MATCHING")
 @Entity
-public class Matching implements Metadata {
+public class Matching extends Metadata {
 
 	private Long id;
 	private String picture1;
 	private String word1;
-	private String recording1;
 	private String picture2;
 	private String word2;
-	private String recording2;
 	private String picture3;
 	private String word3;
-	private String recording3;
 	private String picture4;
 	private String word4;
-	private String recording4;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -58,14 +54,7 @@ public class Matching implements Metadata {
 		this.word1 = word1;
 	}
 
-	@Column
-	public String getRecording1() {
-		return recording1;
-	}
 
-	public void setRecording1(String recording1) {
-		this.recording1 = recording1;
-	}
 
 	@Column
 	public String getPicture2() {
@@ -85,14 +74,7 @@ public class Matching implements Metadata {
 		this.word2 = word2;
 	}
 
-	@Column
-	public String getRecording2() {
-		return recording2;
-	}
 
-	public void setRecording2(String recording2) {
-		this.recording2 = recording2;
-	}
 
 	@Column
 	public String getPicture3() {
@@ -112,14 +94,7 @@ public class Matching implements Metadata {
 		this.word3 = word3;
 	}
 
-	@Column
-	public String getRecording3() {
-		return recording3;
-	}
 
-	public void setRecording3(String recording3) {
-		this.recording3 = recording3;
-	}
 
 	@Column
 	public String getPicture4() {
@@ -139,14 +114,7 @@ public class Matching implements Metadata {
 		this.word4 = word4;
 	}
 
-	@Column
-	public String getRecording4() {
-		return recording4;
-	}
 
-	public void setRecording4(String recording4) {
-		this.recording4 = recording4;
-	}
 
 	@Transient
 	public List<String> getPictures() {
