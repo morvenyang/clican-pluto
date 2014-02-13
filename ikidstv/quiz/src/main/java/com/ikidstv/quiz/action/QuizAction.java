@@ -442,6 +442,10 @@ public class QuizAction extends BaseAction {
 		}
 	}
 
+	public void setAudioIndex(int index) {
+		this.audioPropertyPath = "Record"+index;
+	}
+	
 	public void uploadAudio(String audioPropertyPath){
 		this.audioPropertyPath = audioPropertyPath;
 		this.tempAudioFilePath = null;
