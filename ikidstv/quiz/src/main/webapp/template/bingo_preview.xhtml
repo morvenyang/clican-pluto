@@ -7,7 +7,12 @@
 	xmlns:c="http://java.sun.com/jstl/core"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
 	xmlns:a4j="http://richfaces.org/a4j">
-	<rich:modalPanel id="previewPanel" width="800" autosized="true">
+	<head>
+		   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+		   <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8" />
+		   <link rel="stylesheet" href="#{contextPath}/stylesheet/style.css"/>
+	</head>
+	<rich:modalPanel id="previewPanel" autosized="true">
 		<f:facet name="controls">
 			<h:panelGroup>
 				<h:graphicImage value="/img/close.png" styleClass="hidelink"
@@ -16,12 +21,9 @@
 					operation="hide" event="onclick" />
 			</h:panelGroup>
 		</f:facet>
-		<h:panelGrid columns="1" id="previewGrid">
-			<h:graphicImage
-				value="/imageView.do?imagePath=#{quizAction.quiz.backgroundImage}"
-				width="200" height="200"
-				rendered="#{quizAction.quiz.backgroundImage!=null}">
-			</h:graphicImage>
+		<h:panelGrid id="previewGrid">
+		<div class="templatePreviewBackground" style="background-image: url('img#{quizAction.selectedTemplate.descPicture}');">
+		</div>
 		</h:panelGrid>
 	</rich:modalPanel>
 </ui:composition>
