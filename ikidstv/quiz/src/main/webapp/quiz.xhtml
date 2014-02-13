@@ -215,6 +215,10 @@
 							<ui:include src="template/multiChoice3.xhtml" />
 							<ui:include src="template/multiChoice3_preview.xhtml" />
 						</c:if>
+						<c:if test="#{quizAction.templateIdName=='Catch_It_Word' or quizAction.templateIdName=='Catch_It_Sentence'}">
+							<ui:include src="template/catchIt.xhtml" />
+							<ui:include src="template/catchIt_preview.xhtml" />
+						</c:if>
 						<rich:message for="metadataMessage" style="color:red" showDetail="false"
 						showSummary="true" />
 						</h:panelGrid>

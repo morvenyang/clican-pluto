@@ -37,6 +37,7 @@ import com.ikidstv.quiz.bean.Identity;
 import com.ikidstv.quiz.enumeration.QuizStatus;
 import com.ikidstv.quiz.enumeration.TemplateId;
 import com.ikidstv.quiz.model.Bingo;
+import com.ikidstv.quiz.model.CatchIt;
 import com.ikidstv.quiz.model.Image;
 import com.ikidstv.quiz.model.LearningPoint;
 import com.ikidstv.quiz.model.Matching;
@@ -415,6 +416,8 @@ public class QuizAction extends BaseAction {
 			this.metadata = new Bingo();
 		} else if (templateId == TemplateId.Multi_Choice1||templateId==TemplateId.Multi_Choice2||templateId==TemplateId.Multi_Choice3) {
 			this.metadata = new MultiChoice();
+		}else if (templateId == TemplateId.Catch_It_Sentence||templateId==TemplateId.Catch_It_Word) {
+			this.metadata = new CatchIt();
 		}
 	}
 
