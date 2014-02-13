@@ -13,7 +13,7 @@
 				<a4j:commandLink action="#{quizAction.setPictureIndex(1)}"
 					oncomplete="Richfaces.showModalPanel('picturePanel');"
 					reRender="picturePanel">
-					<h:graphicImage value="/imageView.do?imagePath=#{quizAction.metadata.picture1}" styleClass="matchingImage" />
+					<h:graphicImage value="/image.do?imagePath=#{quizAction.metadata.picture1}" styleClass="matchingImage" />
 				</a4j:commandLink>
 			</c:if>
 			<c:if test="#{quizAction.metadata.picture1==null}">
@@ -30,7 +30,7 @@
 				<a4j:commandLink action="#{quizAction.setPictureIndex(2)}"
 					oncomplete="Richfaces.showModalPanel('picturePanel');"
 					reRender="picturePanel">
-					<h:graphicImage value="/imageView.do?imagePath=#{quizAction.metadata.picture2}" styleClass="matchingImage" />
+					<h:graphicImage value="/image.do?imagePath=#{quizAction.metadata.picture2}" styleClass="matchingImage" />
 				</a4j:commandLink>
 			</c:if>
 			<c:if test="#{quizAction.metadata.picture2==null}">
@@ -47,7 +47,7 @@
 				<a4j:commandLink action="#{quizAction.setPictureIndex(3)}"
 					oncomplete="Richfaces.showModalPanel('picturePanel');"
 					reRender="picturePanel">
-					<h:graphicImage value="/imageView.do?imagePath=#{quizAction.metadata.picture3}" styleClass="matchingImage" />
+					<h:graphicImage value="/image.do?imagePath=#{quizAction.metadata.picture3}" styleClass="matchingImage" />
 				</a4j:commandLink>
 			</c:if>
 			<c:if test="#{quizAction.metadata.picture3==null}">
@@ -64,7 +64,7 @@
 				<a4j:commandLink action="#{quizAction.setPictureIndex(4)}"
 					oncomplete="Richfaces.showModalPanel('picturePanel');"
 					reRender="picturePanel">
-					<h:graphicImage value="/imageView.do?imagePath=#{quizAction.metadata.picture4}" styleClass="matchingImage" />
+					<h:graphicImage value="/image.do?imagePath=#{quizAction.metadata.picture4}" styleClass="matchingImage" />
 				</a4j:commandLink>
 			</c:if>
 			<c:if test="#{quizAction.metadata.picture4==null}">
