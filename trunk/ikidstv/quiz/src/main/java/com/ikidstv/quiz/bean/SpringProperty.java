@@ -7,6 +7,8 @@ public class SpringProperty {
 	private String serverUrl;
 	private String imagePath;
 	private String recordingPath;
+	private String resourcePrefixUrl;
+	private boolean appResource;
 	
 	private int templateImageWidth;
 	private int templateImageHeight;
@@ -147,6 +149,22 @@ public class SpringProperty {
 
 	public void setServerUrl(String serverUrl) {
 		this.serverUrl = serverUrl;
+	}
+
+	public String getResourcePrefixUrl() {
+		return resourcePrefixUrl;
+	}
+
+	public void setResourcePrefixUrl(String resourcePrefixUrl) {
+		this.resourcePrefixUrl = resourcePrefixUrl;
+	}
+
+	public boolean isAppResource() {
+		return appResource;
+	}
+
+	public void setAppResource(boolean appResource) {
+		this.appResource = appResource;
 	}
 	
 	

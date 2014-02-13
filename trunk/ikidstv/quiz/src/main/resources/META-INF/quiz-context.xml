@@ -104,6 +104,8 @@
 		<property name="serverUrl" value="${serverUrl}"></property>
 		<property name="imagePath" value="${imagePath}"></property>
 		<property name="recordingPath" value="${recordingPath}"></property>
+		<property name="appResource" value="${appResource}"></property>
+		<property name="resourcePrefixUrl" value="${resourcePrefixUrl}"></property>
 		<property name="templateImageWidth" value="${templateImageWidth}"></property>
 		<property name="templateImageHeight" value="${templateImageHeight}"></property>
 		<property name="backgroundImageWidth" value="${backgroundImageWidth}"></property>
