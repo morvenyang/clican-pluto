@@ -23,7 +23,7 @@
 				<f:facet name="header">
 					<h:outputText value="#{picture.name}"></h:outputText>
 				</f:facet>
-				<h:graphicImage value="/imageView.do?imagePath=#{picture.path}" width="150" height="150">
+				<h:graphicImage value="/image.do?imagePath=#{picture.path}" width="150" height="150">
 					<a4j:support event="onclick"
 						action="#{quizAction.selectPicture(picture)}" ajaxSingle="true"
 						reRender="quizForm" oncomplete="Richfaces.hideModalPanel('picturePanel');"/>

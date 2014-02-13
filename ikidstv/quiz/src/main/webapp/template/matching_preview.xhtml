@@ -18,10 +18,10 @@
 		</f:facet>
 		<h:panelGrid id="previewGrid">
 		<div class="templatePreviewBackground" style="background-image: url('img#{quizAction.selectedTemplate.descPicture}');">
-			<h:graphicImage styleClass="matchingPreviewImage" style="top:170px;left:500px" value="/imageView.do?imagePath=#{quizAction.metadata.picture1}"  />
-			<h:graphicImage styleClass="matchingPreviewImage" style="top:170px;left:625px" value="/imageView.do?imagePath=#{quizAction.metadata.picture2}"  />
-			<h:graphicImage styleClass="matchingPreviewImage" style="top:300px;left:500px" value="/imageView.do?imagePath=#{quizAction.metadata.picture3}"  />
-			<h:graphicImage styleClass="matchingPreviewImage" style="top:300px;left:625px" value="/imageView.do?imagePath=#{quizAction.metadata.picture4}"  />
+			<h:graphicImage styleClass="matchingPreviewImage" style="top:170px;left:500px" value="/image.do?imagePath=#{quizAction.metadata.picture1}"  />
+			<h:graphicImage styleClass="matchingPreviewImage" style="top:170px;left:625px" value="/image.do?imagePath=#{quizAction.metadata.picture2}"  />
+			<h:graphicImage styleClass="matchingPreviewImage" style="top:300px;left:500px" value="/image.do?imagePath=#{quizAction.metadata.picture3}"  />
+			<h:graphicImage styleClass="matchingPreviewImage" style="top:300px;left:625px" value="/image.do?imagePath=#{quizAction.metadata.picture4}"  />
 			<h:outputLabel styleClass="templateWord" style="top:250px;left:80px" value="#{quizAction.metadata.word1}"/>
 			<h:outputLabel styleClass="templateWord" style="top:250px;left:320px" value="#{quizAction.metadata.word2}"/>
 			<h:outputLabel styleClass="templateWord" style="top:470px;left:80px" value="#{quizAction.metadata.word3}"/>

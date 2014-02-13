@@ -24,9 +24,9 @@
 		<h:panelGrid id="previewGrid">
 		<div class="templatePreviewBackground" style="background-image: url('img#{quizAction.selectedTemplate.descPicture}');">
 			<h:outputLabel styleClass="templateTitle" style="top:140px;left:90px" value="#{quizAction.metadata.title}"/>
-			<h:graphicImage style="top:230px;left:65px" value="/imageView.do?imagePath=#{quizAction.metadata.picture1}" styleClass="multiChoice2PreviewImage" />
-			<h:graphicImage style="top:230px;left:305px" value="/imageView.do?imagePath=#{quizAction.metadata.picture2}" styleClass="multiChoice2PreviewImage" />
-			<h:graphicImage style="top:230px;left:540px" value="/imageView.do?imagePath=#{quizAction.metadata.picture3}" styleClass="multiChoice2PreviewImage" />
+			<h:graphicImage style="top:230px;left:65px" value="/image.do?imagePath=#{quizAction.metadata.picture1}" styleClass="multiChoice2PreviewImage" />
+			<h:graphicImage style="top:230px;left:305px" value="/image.do?imagePath=#{quizAction.metadata.picture2}" styleClass="multiChoice2PreviewImage" />
+			<h:graphicImage style="top:230px;left:540px" value="/image.do?imagePath=#{quizAction.metadata.picture3}" styleClass="multiChoice2PreviewImage" />
 		</div>
 		</h:panelGrid>
 	</rich:modalPanel>
