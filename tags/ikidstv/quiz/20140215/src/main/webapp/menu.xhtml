@@ -1,0 +1,35 @@
+<h:form id="menuToolBarForm" xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:s="http://jboss.com/products/seam/taglib"
+        xmlns:rich="http://richfaces.org/rich"
+        xmlns:c="http://java.sun.com/jstl/core"
+        xmlns:a4j="http://richfaces.org/a4j">
+
+<rich:toolBar id="menuToolBar" styleClass="bar" itemSeparator="line" ondblclick="toggleHeadBox();">
+
+<rich:toolBarGroup>
+    <s:link view="/index.seam" target="iworkspace" title="#{messages['backToIndex']}" style="color:#000;" value="#{messages['index']}"/>
+</rich:toolBarGroup>
+
+<rich:toolBarGroup location="right">
+    <h:panelGroup rendered="#{identity.loggedIn}">
+        <s:link view="/index.seam" action="#{identity.logout()}" value="#{messages['logout']}"
+                style="padding-right:10px;"/>
+        <h:outputText value="#{messages['welcome']}, #{identity.user.realName}!"
+                      style="padding-right:10px;" rendered="#{identity.loggedIn}"/>
+    </h:panelGroup>
+</rich:toolBarGroup>
+</rich:toolBar>
+
+<style type="text/css">
+    .item {
+        padding: 0;
+        white-space: nowrap;
+        position: relative;
+        border: 0px solid transparent;
+    }
+</style>
+</h:form>
+

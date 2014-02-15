@@ -1,0 +1,32 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:a4j="http://richfaces.org/a4j">
+	<rich:modalPanel id="previewPanel" autosized="true">
+		<f:facet name="controls">
+			<h:panelGroup>
+				<h:graphicImage value="/img/close.png" styleClass="hidelink"
+					id="previewPanelImg" style="CURSOR: hand" />
+				<rich:componentControl for="previewPanel" attachTo="previewPanelImg"
+					operation="hide" event="onclick" />
+			</h:panelGroup>
+		</f:facet>
+		<h:panelGrid id="previewGrid">
+		<div class="templatePreviewBackground" style="background-image: url('img#{quizAction.selectedTemplate.descPicture}');">
+			<h:graphicImage styleClass="matchingPreviewImage" style="top:170px;left:500px" value="/image.do?imagePath=#{quizAction.metadata.picture1}"  />
+			<h:graphicImage styleClass="matchingPreviewImage" style="top:170px;left:625px" value="/image.do?imagePath=#{quizAction.metadata.picture2}"  />
+			<h:graphicImage styleClass="matchingPreviewImage" style="top:300px;left:500px" value="/image.do?imagePath=#{quizAction.metadata.picture3}"  />
+			<h:graphicImage styleClass="matchingPreviewImage" style="top:300px;left:625px" value="/image.do?imagePath=#{quizAction.metadata.picture4}"  />
+			<h:outputLabel styleClass="templateWord" style="top:250px;left:80px" value="#{quizAction.metadata.word1}"/>
+			<h:outputLabel styleClass="templateWord" style="top:250px;left:320px" value="#{quizAction.metadata.word2}"/>
+			<h:outputLabel styleClass="templateWord" style="top:470px;left:80px" value="#{quizAction.metadata.word3}"/>
+			<h:outputLabel styleClass="templateWord" style="top:470px;left:320px" value="#{quizAction.metadata.word4}"/>
+		</div>
+		</h:panelGrid>
+	</rich:modalPanel>
+</ui:composition>

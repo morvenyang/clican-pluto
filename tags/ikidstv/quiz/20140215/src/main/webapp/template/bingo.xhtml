@@ -1,0 +1,85 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:a4j="http://richfaces.org/a4j">
+	<rich:panel id="templateGrid"
+		style="overflow-x:auto;overflow-y:scroll;height:250px">
+		<h:panelGrid columns="4" id="bingoGrid">
+			<c:forEach var="i" begin="1" end="16">
+				<h:panelGrid>
+					<c:if test="#{quizAction.metadata.getPicture(i)!=null}">
+						<a4j:commandLink>
+							<h:graphicImage
+								value="/image.do?imagePath=#{quizAction.metadata.getPicture(i)}"
+								onclick="Richfaces.showModalPanel('picturePanel');"
+								styleClass="bingoImage" />
+						</a4j:commandLink>
+					</c:if>
+					<c:if test="#{quizAction.metadata.getPicture(i)==null}">
+						<a4j:commandLink action="#{quizAction.setPictureIndex(i)}"
+							oncomplete="Richfaces.showModalPanel('picturePanel');"
+							reRender="picturePanel">
+							<h:graphicImage value="/img/template/picture_place.jpg"
+								styleClass="bingoImage" />
+						</a4j:commandLink>
+					</c:if>
+					<h:panelGrid columns="2">
+					
+						<h:inputText value="#{quizAction.metadata.word1}" size="14"
+							rendered="#{s:hasPermission('teacher',null) and i==1}" />
+						<h:inputText value="#{quizAction.metadata.word2}" size="14"
+							rendered="#{s:hasPermission('teacher',null) and i==2}" />
+						<h:inputText value="#{quizAction.metadata.word3}" size="14"
+							rendered="#{s:hasPermission('teacher',null) and i==3}" />
+						<h:inputText value="#{quizAction.metadata.word4}" size="14"
+							rendered="#{s:hasPermission('teacher',null) and i==4}" />
+						<h:inputText value="#{quizAction.metadata.word5}" size="14"
+							rendered="#{s:hasPermission('teacher',null) and i==5}" />
+						<h:inputText value="#{quizAction.metadata.word6}" size="14"
+							rendered="#{s:hasPermission('teacher',null) and i==6}" />
+						<h:inputText value="#{quizAction.metadata.word7}" size="14"
+							rendered="#{s:hasPermission('teacher',null) and i==7}" />
+						<h:inputText value="#{quizAction.metadata.word8}" size="14"
+							rendered="#{s:hasPermission('teacher',null) and i==8}" />
+						<h:inputText value="#{quizAction.metadata.word9}" size="14"
+							rendered="#{s:hasPermission('teacher',null) and i==9}" />
+						<h:inputText value="#{quizAction.metadata.word10}" size="14"
+							rendered="#{s:hasPermission('teacher',null) and i==10}" />
+						<h:inputText value="#{quizAction.metadata.word11}" size="14"
+							rendered="#{s:hasPermission('teacher',null) and i==11}" />
+						<h:inputText value="#{quizAction.metadata.word12}" size="14"
+							rendered="#{s:hasPermission('teacher',null) and i==12}" />
+						<h:inputText value="#{quizAction.metadata.word13}" size="14"
+							rendered="#{s:hasPermission('teacher',null) and i==13}" />
+						<h:inputText value="#{quizAction.metadata.word14}" size="14"
+							rendered="#{s:hasPermission('teacher',null) and i==14}" />
+						<h:inputText value="#{quizAction.metadata.word15}" size="14"
+							rendered="#{s:hasPermission('teacher',null) and i==15}" />
+						<h:inputText value="#{quizAction.metadata.word16}" size="14"
+							rendered="#{s:hasPermission('teacher',null) and i==16}" />
+							
+						<h:outputText value="#{quizAction.metadata.getWord(i)}"
+							rendered="#{s:hasPermission('admin',null)}" />
+						<a4j:commandLink action="#{quizAction.setAudioIndex(i)}"
+							oncomplete="Richfaces.showModalPanel('audioPanel');"
+							reRender="audioPanel" rendered="#{s:hasPermission('admin',null)}">
+							<h:graphicImage value="/img/template/audio_disable.png"
+								rendered="#{quizAction.metadata.getRecord(i)==null}" />
+							<h:graphicImage value="/img/template/audio_enable.png"
+								rendered="#{quizAction.metadata.getRecord(i)!=null}" />
+						</a4j:commandLink>
+						<h:outputText value=""
+							rendered="#{quizAction.metadata.getRecord(i)==null and s:hasPermission('teacher',null)}" />
+						<h:graphicImage value="/img/template/audio_enable.png"
+							rendered="#{quizAction.metadata.getRecord(i)!=null and s:hasPermission('teacher',null)}" />
+					</h:panelGrid>
+				</h:panelGrid>
+			</c:forEach>
+		</h:panelGrid>
+	</rich:panel>
+</ui:composition>

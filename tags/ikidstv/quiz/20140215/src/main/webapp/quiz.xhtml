@@ -1,0 +1,347 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:a4j="http://richfaces.org/a4j" template="workspace.xhtml">
+	<ui:define name="body">
+		<h:form>
+			<h:panelGrid columns="2" height="100%" width="100%"
+				columnClasses="columntopLeft,columntopRight">
+				<rich:tree rendered="#{s:hasPermission('teacher',null)}"
+					switchType="ajax" style="width:300px;">
+					<rich:recursiveTreeNodesAdaptor roots="#{quizAction.contentTree}"
+						var="contentNode" nodes="#{contentNode.subTree}">
+						<rich:treeNode iconLeaf="/img/tree.png" icon="/img/tree.png">
+							<h:outputLabel value="#{contentNode.name}"
+								onmouseover="this.style.cursor='hand'"
+								onmouseout="this.style.cursor='default'" style="font-size:15px">
+								<a4j:support event="onclick"
+									action="#{quizAction.selectContent(contentNode)}"
+									reRender="quizTablePanel" />
+							</h:outputLabel>
+						</rich:treeNode>
+					</rich:recursiveTreeNodesAdaptor>
+				</rich:tree>
+				<rich:panel id="quizTablePanel"
+					style="left-margin:10px;border:0;width:100%">
+					<h:panelGrid id="quizPanelGrid" style="width:100%">
+						<h:panelGrid columns="1"
+							rendered="#{quizAction.selectedContentTree.episodeNode}"
+							style="text-align:right;width:100%">
+							<h:panelGroup>
+								<a4j:commandButton id="addQuiz" image="/img/new.png"
+									style="border:0;" title="#{messages['addQuiz']}"
+									action="#{quizAction.addQuiz()}" ajaxSingle="true"
+									reRender="quizPanel"
+									oncomplete="Richfaces.showModalPanel('quizPanel');" />
+								<a4j:commandLink value="#{messages['addQuiz']}"
+									style="text-decoration:none" ajaxSingle="true"
+									oncomplete="Richfaces.showModalPanel('quizPanel');"
+									action="#{quizAction.addQuiz()}" reRender="quizPanel" />
+							</h:panelGroup>
+						</h:panelGrid>
+						<rich:dataTable id="quizTable" var="quiz"
+							value="#{quizAction.getQuizBySelectedContent()}" rows="10"
+							rowKeyVar="rowNumIndex" width="100%" activeClass="active-row"
+							enableContextMenu="true">
+							<rich:column sortBy="#{quiz.season}">
+								<f:facet name="header">
+									<h:outputText value="#{messages['quizSeason']}" />
+								</f:facet>
+								<h:outputText value="#{quiz.season}" style="white-space:nowrap;" />
+							</rich:column>
+							<rich:column sortBy="#{quiz.episode}">
+								<f:facet name="header">
+									<h:outputText value="#{messages['quizEpisode']}" />
+								</f:facet>
+								<h:outputText value="#{quiz.episode}"
+									style="white-space:nowrap;" />
+							</rich:column>
+							<rich:column sortBy="#{quiz.template.name}">
+								<f:facet name="header">
+									<h:outputText value="#{messages['quizTemplate']}" />
+								</f:facet>
+								<h:outputText value="#{quiz.template.name}"
+									style="white-space:nowrap;" />
+							</rich:column>
+							<rich:column sortBy="#{quiz.level}">
+								<f:facet name="header">
+									<h:outputText value="#{messages['quizLevel']}" />
+								</f:facet>
+								<h:outputText value="#{quiz.level}"
+									style="white-space:nowrap;" />
+							</rich:column>
+							<rich:column sortBy="#{quiz.age}">
+								<f:facet name="header">
+									<h:outputText value="#{messages['quizAge']}" />
+								</f:facet>
+								<h:outputText value="#{quiz.age}" style="white-space:nowrap;" />
+							</rich:column>
+							<rich:column sortBy="#{quiz.createTime}">
+								<f:facet name="header">
+									<h:outputText value="#{messages['quizCreateTime']}" />
+								</f:facet>
+								<h:outputText value="#{quiz.createTime}"
+									style="white-space:nowrap;">
+									<s:convertDateTime pattern="yyyy-MM-dd" />
+								</h:outputText>
+							</rich:column>
+							<rich:column sortBy="#{quiz.status}">
+								<f:facet name="header">
+									<h:outputText value="#{messages['quizStatus']}" />
+								</f:facet>
+								<h:outputText rendered="#{quiz.status == 1}"
+									value="#{messages['quizStatusInit']}"
+									style="white-space:nowrap;" />
+								<h:outputText rendered="#{quiz.status == 2}"
+									value="#{messages['quizStatusAuditing']}"
+									style="white-space:nowrap;" />
+								<h:outputText rendered="#{quiz.status == 3}"
+									value="#{messages['quizStatusPublished']}"
+									style="white-space:nowrap;" />
+								<h:outputText rendered="#{quiz.status == 4}"
+									value="#{messages['quizStatusRejected']}"
+									style="white-space:nowrap;" />
+								<h:outputText rendered="#{quiz.status == 5}"
+									value="#{messages['quizStatusUnused']}"
+									style="white-space:nowrap;" />
+							</rich:column>
+							<rich:column>
+								<f:facet name="header">
+									<h:outputText value="#{messages['operate']}" />
+								</f:facet>
+								<h:panelGrid columns="2">
+									<a4j:commandButton value="#{messages['edit']}"
+										action="#{quizAction.editQuiz(quiz)}" ajaxSingle="true"
+										reRender="quizPanel"
+										oncomplete="Richfaces.showModalPanel('quizPanel');"
+										rendered="#{s:hasPermission('teacher',null) and quiz.status!=3 and quiz.status!=2}" />
+									<a4j:commandButton value="#{messages['delete']}"
+										action="#{quizAction.deleteQuiz(quiz)}" ajaxSingle="true"
+										onclick="var answer=confirm('#{messages['quizConfirmToDeleate']}');if(!answer) return false;"
+										reRender="quizTable"
+										rendered="#{s:hasPermission('teacher',null)}" />
+									<a4j:commandButton value="#{messages['audit']}"
+										action="#{quizAction.auditQuiz(quiz)}" ajaxSingle="true"
+										reRender="quizPanel"
+										oncomplete="Richfaces.showModalPanel('quizPanel');"
+										rendered="#{s:hasPermission('admin',null)}" />
+								</h:panelGrid>
+							</rich:column>
+							<f:facet name="footer">
+								<rich:datascroller for="quizTable" reRender="quizTable"
+									ignoreDupResponses="false" renderIfSinglePage="true"
+									maxPages="10" page="1" align="left" />
+							</f:facet>
+						</rich:dataTable>
+					</h:panelGrid>
+				</rich:panel>
+			</h:panelGrid>
+		</h:form>
+
+		<rich:modalPanel id="quizPanel" width="800" autosized="true">
+			<f:facet name="controls">
+				<h:panelGroup>
+					<h:graphicImage value="/img/close.png" styleClass="hidelink"
+						id="quizPanelImg" style="CURSOR: hand" />
+					<rich:componentControl for="quizPanel" attachTo="quizPanelImg"
+						operation="hide" event="onclick" />
+				</h:panelGroup>
+			</f:facet>
+			<f:facet name="header">
+				<h:panelGroup>
+					<h:outputText value="#{messages['quiz']}"></h:outputText>
+				</h:panelGroup>
+			</f:facet>
+			<a4j:form id="quizForm"
+				style="overflow-x:auto;overflow-y:scroll;height:600px">
+				<t:panelGrid columns="3">
+					<h:panelGroup>
+						<h:outputLabel value="#{messages['quizTemplate']}" />
+						<h:outputText value=" *" style="color:red;" />
+					</h:panelGroup>
+					<h:panelGrid id="templateSelect"
+						rendered="#{s:hasPermission('teacher',null)}">
+						<a4j:commandLink
+							oncomplete="Richfaces.showModalPanel('templatePicturePanel');">
+							<h:graphicImage value="/img/template/template_place.jpg"
+								width="#{springProperty.templateImageWidth}"
+								height="#{springProperty.templateImageHeight}"
+								rendered="#{quizAction.selectedTemplate==null}">
+							</h:graphicImage>
+							<h:graphicImage
+								value="/img#{quizAction.selectedTemplate.samplePicture}"
+								width="#{springProperty.templateImageWidth}"
+								height="#{springProperty.templateImageHeight}"
+								rendered="#{quizAction.selectedTemplate!=null}">
+							</h:graphicImage>
+						</a4j:commandLink>
+					</h:panelGrid>
+					<h:graphicImage
+						value="/img#{quizAction.selectedTemplate.samplePicture}"
+						width="#{springProperty.templateImageWidth}"
+						height="#{springProperty.templateImageHeight}"
+						rendered="#{quizAction.selectedTemplate!=null and s:hasPermission('admin',null)}">
+					</h:graphicImage>
+					<h:outputText
+						rendered="#{quizAction.selectedTemplate==null and s:hasPermission('admin',null)}" />
+					<rich:message for="templateSelect" style="color:red"
+						showDetail="false" showSummary="true" />
+					<t:panelGroup colspan="3"
+						rendered="#{quizAction.selectedTemplate!=null}">
+						<h:panelGrid id="metadataMessage" columns="3">
+						<h:outputLabel value="#{messages['quizTemplateMetadata']}"/>
+						<c:if test="#{quizAction.templateIdName=='Matching'}">
+							<ui:include src="template/matching.xhtml" />
+							<ui:include src="template/matching_preview.xhtml" />
+						</c:if>
+						<c:if test="#{quizAction.templateIdName=='Bingo'}">
+							<ui:include src="template/bingo.xhtml" />
+							<ui:include src="template/bingo_preview.xhtml" />
+						</c:if>
+						<c:if test="#{quizAction.templateIdName=='Multi_Choice1'}">
+							<ui:include src="template/multiChoice1.xhtml" />
+							<ui:include src="template/multiChoice1_preview.xhtml" />
+						</c:if>
+						<c:if test="#{quizAction.templateIdName=='Multi_Choice2'}">
+							<ui:include src="template/multiChoice2.xhtml" />
+							<ui:include src="template/multiChoice2_preview.xhtml" />
+						</c:if>
+						<c:if test="#{quizAction.templateIdName=='Multi_Choice3'}">
+							<ui:include src="template/multiChoice3.xhtml" />
+							<ui:include src="template/multiChoice3_preview.xhtml" />
+						</c:if>
+						<c:if test="#{quizAction.templateIdName=='Catch_It_Word' or quizAction.templateIdName=='Catch_It_Sentence'}">
+							<ui:include src="template/catchIt.xhtml" />
+							<ui:include src="template/catchIt_preview.xhtml" />
+						</c:if>
+						<rich:message for="metadataMessage" style="color:red" showDetail="false"
+						showSummary="true" />
+						</h:panelGrid>
+					</t:panelGroup>
+					<h:outputLabel value="#{messages['quizSeason']}" />
+					<t:panelGroup colspan="2">
+						<h:outputLabel value="#{quizAction.quiz.season}" />
+					</t:panelGroup>
+					<h:outputLabel value="#{messages['quizEpisode']}" />
+					<t:panelGroup colspan="2">
+						<h:outputLabel value="#{quizAction.quiz.episode}" />
+					</t:panelGroup>
+					<h:panelGroup>
+						<h:outputLabel value="#{messages['quizAge']}" />
+						<h:outputText value=" *" style="color:red;" />
+					</h:panelGroup>
+					<rich:inputNumberSpinner id="age" inputSize="2"
+						value="#{quizAction.quiz.age}" step="1" minValue="1"
+						maxValue="100" required="true"
+						requiredMessage="#{messages['quizAgeRequired']}"
+						rendered="#{s:hasPermission('teacher',null) and quizAction.quiz!=null}" />
+					<h:outputText value="#{quizAction.quiz.age}"
+						rendered="#{s:hasPermission('admin',null)}" />
+					<rich:message for="age" style="color:red" showDetail="false"
+						showSummary="true" />
+					<h:panelGroup>
+						<h:outputLabel value="#{messages['quizLevel']}" />
+						<h:outputText value=" *" style="color:red;" />
+					</h:panelGroup>
+					<h:selectOneMenu id="level" value="#{quizAction.quiz.level}"
+						rendered="#{s:hasPermission('teacher',null)}">
+						<f:selectItem itemLabel="a1" itemValue="a1" />
+						<f:selectItem itemLabel="a2" itemValue="a2" />
+						<f:selectItem itemLabel="a3" itemValue="a3" />
+						<f:selectItem itemLabel="b1" itemValue="b1" />
+						<f:selectItem itemLabel="b2" itemValue="b2" />
+						<f:selectItem itemLabel="b3" itemValue="b3" />
+						<f:selectItem itemLabel="c1" itemValue="c1" />
+						<f:selectItem itemLabel="c2" itemValue="c2" />
+						<f:selectItem itemLabel="c3" itemValue="c3" />
+					</h:selectOneMenu>
+					<h:outputText value="#{quizAction.quiz.level}"
+						rendered="#{s:hasPermission('admin',null)}" />
+					<rich:message for="level" style="color:red" showDetail="false"
+						showSummary="true" />
+					<h:panelGroup>
+						<h:outputLabel value="#{messages['quizSelectedLearningPoint']}" />
+						<h:outputText value=" *" style="color:red;" />
+					</h:panelGroup>
+					<h:panelGrid columns="5" id="selectedLearningPointGrid">
+						<c:forEach var="lp" items="#{quizAction.selectedLearningPoints}">
+							<h:panelGrid columns="2">
+								<h:outputLabel value="#{lp.point}-#{lp.subPoint}" />
+								<a4j:commandLink action="#{quizAction.removeLearningPoint(lp)}"
+									reRender="selectedLearningPointGrid"
+									rendered="#{s:hasPermission('teacher',null)}">
+									<h:graphicImage value="/img/delete.png" />
+								</a4j:commandLink>
+							</h:panelGrid>
+						</c:forEach>
+					</h:panelGrid>
+					<rich:message for="selectedLearningPointGrid" style="color:red" showDetail="false"
+						showSummary="true" />
+					<h:outputLabel value="#{messages['quizLearningPoint']}"
+						rendered="#{s:hasPermission('teacher',null)}" />
+					<t:panelGroup colspan="2" rendered="#{s:hasPermission('teacher',null)}">
+						<h:panelGrid columns="3">
+							<h:selectOneMenu value="#{quizAction.learningPoint}">
+								<c:forEach var="lp"
+									items="#{quizAction.learningPointTreeMap.keySet()}">
+									<f:selectItem itemLabel="#{lp}" itemValue="#{lp}" />
+								</c:forEach>
+								<a4j:support event="onchange"
+									action="#{quizAction.changeLearningPoint()}"
+									reRender="subLearningPoint" ajaxSingle="true" />
+							</h:selectOneMenu>
+							<h:selectOneMenu id="subLearningPoint"
+								value="#{quizAction.learningPointId}">
+								<c:forEach var="lp" items="#{quizAction.subLearningPoints}">
+									<f:selectItem itemLabel="#{lp.subPoint}" itemValue="#{lp.id}" />
+								</c:forEach>
+								<a4j:support event="onchange" ajaxSingle="true" />
+							</h:selectOneMenu>
+							<a4j:commandButton value="#{messages['add']}"
+								action="#{quizAction.addLearningPoint()}"
+								reRender="selectedLearningPointGrid" />
+						</h:panelGrid>
+					</t:panelGroup>
+					<t:panelGroup colspan="3">
+						<h:panelGrid columns="5">
+							<a4j:commandButton id="submitButton"
+								value="#{messages['submit']}"
+								action="#{quizAction.submitQuiz()}"
+								oncomplete="if(#{facesContext.maximumSeverity==null}) {Richfaces.hideModalPanel('quizPanel');}"
+								reRender="quizTable"
+								rendered="#{s:hasPermission('teacher',null)}" />
+							<a4j:commandButton id="saveButton" value="#{messages['save']}"
+								action="#{quizAction.saveQuiz()}"
+								oncomplete="if(#{facesContext.maximumSeverity==null}) {Richfaces.hideModalPanel('quizPanel');}"
+								reRender="quizTable" />
+							<a4j:commandButton id="passButton" value="#{messages['pass']}"
+								action="#{quizAction.passQuiz()}"
+								oncomplete="if(#{facesContext.maximumSeverity==null}) {Richfaces.hideModalPanel('quizPanel');}"
+								reRender="quizTable" rendered="#{s:hasPermission('admin',null)}" />
+							<a4j:commandButton id="rejectButton"
+								value="#{messages['reject']}"
+								action="#{quizAction.rejectQuiz()}"
+								oncomplete="if(#{facesContext.maximumSeverity==null}) {Richfaces.hideModalPanel('quizPanel');}"
+								reRender="quizTable" rendered="#{s:hasPermission('admin',null)}" />
+							<a4j:commandButton id="previewButton"
+								value="#{messages['preview']}"
+								action="#{quizAction.previewQuiz()}"
+								oncomplete="Richfaces.showModalPanel('previewPanel');"
+								reRender="previewGrid" />
+							<h:commandButton id="cancelButton" value="#{messages['cancel']}"
+								type="reset" onclick="Richfaces.hideModalPanel('quizPanel');" />
+						</h:panelGrid>
+					</t:panelGroup>
+				</t:panelGrid>
+			</a4j:form>
+		</rich:modalPanel>
+		<ui:include src="template/pictureGrid.xhtml" />
+		<ui:include src="template/templateGrid.xhtml" />
+		<ui:include src="template/audioUpload.xhtml" />
+	</ui:define>
+</ui:composition>

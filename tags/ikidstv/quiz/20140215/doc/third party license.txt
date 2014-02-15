@@ -1,0 +1,13 @@
+jboss seam LGPL
+jsf-facelets http://www.opensource.org/licenses/cddl1.php
+jsf http://www.opensource.org/licenses/cddl1.php
+jstl https://jstl.java.net/license.html#/cddl
+richfaces LGPL
+commons http://www.apache.org/licenses/LICENSE-2.0.html
+c3p0 LGPL
+json-lib http://www.apache.org/licenses/LICENSE-2.0.html
+spring http://www.apache.org/licenses/LICENSE-2.0.html
+hibernate LGPL
+tomahawk http://www.apache.org/licenses/LICENSE-2.0.html
+batik http://www.apache.org/licenses/LICENSE-2.0.html
+javassist LGPL

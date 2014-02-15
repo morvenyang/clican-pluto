@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+
+	<bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:META-INF/quiz.properties
+                </value>
+			</list>
+		</property>
+		<property name="fileEncoding" value="utf-8" />
+	</bean>
+
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		destroy-method="close">
+		<property name="driverClass" value="${db.driver}" />
+		<property name="jdbcUrl" value="${db.url}" />
+		<property name="user" value="${db.username}" />
+		<property name="password" value="${db.password}" />
+		<property name="maxPoolSize" value="10" />
+		<property name="minPoolSize" value="3" />
+		<property name="maxIdleTime" value="180" />
+	</bean>
+
+	<bean id="lobHandler" class="org.springframework.jdbc.support.lob.DefaultLobHandler"
+		lazy-init="true" />
+
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="lobHandler" ref="lobHandler" />
+		<property name="namingStrategy" ref="namingStrategy" />
+		<property name="packagesToScan">
+			<list>
+				<value>com.ikidstv.quiz.model</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<value>
+				hibernate.dialect=${db.dialect}
+				hibernate.show_sql=${hibernate.showsql}
+				hibernate.format_sql=false
+				hibernate.hbm2ddl.auto=update
+            </value>
+		</property>
+	</bean>
+	<bean id="namingStrategy" class="org.hibernate.cfg.ImprovedNamingStrategy" />
+
+	<bean id="smitDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		destroy-method="close">
+		<property name="driverClass" value="${smit.db.driver}" />
+		<property name="jdbcUrl" value="${smit.db.url}" />
+		<property name="user" value="${smit.db.username}" />
+		<property name="password" value="${smit.db.password}" />
+		<property name="maxPoolSize" value="10" />
+		<property name="minPoolSize" value="3" />
+		<property name="maxIdleTime" value="180" />
+	</bean>
+	<bean id="smitSessionFactory"
+		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+		<property name="dataSource" ref="smitDataSource" />
+		<property name="packagesToScan">
+			<list>
+				<value>com.ikidstv.quiz.smit.model</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<value>
+				hibernate.dialect=${smit.db.dialect}
+				hibernate.show_sql=${hibernate.showsql}
+            </value>
+		</property>
+	</bean>
+
+	<bean id="txManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<tx:advice id="txAdvice" transaction-manager="txManager">
+		<tx:attributes>
+			<tx:method name="*" propagation="REQUIRED" />
+		</tx:attributes>
+	</tx:advice>
+
+	<aop:config>
+		<aop:pointcut id="pointcutService"
+			expression="execution (* com.ikidstv.quiz.service.impl.*.*(..))" />
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="pointcutService" />
+	</aop:config>
+
+	<bean id="springProperty" class="com.ikidstv.quiz.bean.SpringProperty">
+		<property name="version" value="${version}"></property>
+		<property name="serverUrl" value="${serverUrl}"></property>
+		<property name="imagePath" value="${imagePath}"></property>
+		<property name="recordingPath" value="${recordingPath}"></property>
+		<property name="appResource" value="${appResource}"></property>
+		<property name="resourcePrefixUrl" value="${resourcePrefixUrl}"></property>
+		<property name="templateImageWidth" value="${templateImageWidth}"></property>
+		<property name="templateImageHeight" value="${templateImageHeight}"></property>
+		<property name="backgroundImageWidth" value="${backgroundImageWidth}"></property>
+		<property name="backgroundImageHeight" value="${backgroundImageHeight}"></property>
+		<property name="smallMetaImageWidth" value="${smallMetaImageWidth}"></property>
+		<property name="smallMetaImageHeight" value="${smallMetaImageHeight}"></property>
+		<property name="bigMetaImageWidth" value="${bigMetaImageWidth}"></property>
+		<property name="bigMetaImageHeight" value="${bigMetaImageHeight}"></property>
+		<property name="passwordMinLength" value="${passwordMinLength}"></property>
+	</bean>
+
+</beans>

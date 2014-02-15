@@ -1,0 +1,160 @@
+<?xml version="1.0" ?>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	version="2.5">
+
+	<context-param>
+		<param-name>org.ajax4jsf.COMPRESS_STYLE</param-name>
+		<param-value>false</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>org.richfaces.queue.global.enabled</param-name>
+		<param-value>true</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>org.richfaces.LoadScriptStrategy</param-name>
+		<param-value>ALL</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>org.richfaces.LoadStyleStrategy</param-name>
+		<param-value>ALL</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>org.ajax4jsf.VIEW_HANDLERS</param-name>
+		<param-value>com.sun.facelets.FaceletViewHandler</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>org.richfaces.SKIN</param-name>
+		<param-value>quiz</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>org.richfaces.CONTROL_SKINNING</param-name>
+		<param-value>disable</param-value>
+	</context-param>
+
+	<!-- Facelets development mode (disable in production) -->
+
+	<context-param>
+		<param-name>facelets.DEVELOPMENT</param-name>
+		<param-value>false</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>javax.faces.DEFAULT_SUFFIX</param-name>
+		<param-value>.xhtml</param-value>
+	</context-param>
+
+	<listener>
+		<listener-class>com.ikidstv.quiz.listener.StartupListener</listener-class>
+	</listener>
+
+	<listener>
+		<listener-class>org.jboss.seam.servlet.SeamListener</listener-class>
+	</listener>
+
+	<filter>
+		<display-name>RichFaces Filter</display-name>
+		<filter-name>richfaces</filter-name>
+		<filter-class>org.ajax4jsf.Filter</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>richfaces</filter-name>
+		<servlet-name>Faces Servlet</servlet-name>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>INCLUDE</dispatcher>
+	</filter-mapping>
+
+	<filter>
+		<filter-name>Seam Filter</filter-name>
+		<filter-class>org.jboss.seam.servlet.SeamFilter</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>Seam Filter</filter-name>
+		<url-pattern>*.seam</url-pattern>
+	</filter-mapping>
+
+	<filter>
+		<filter-name>OpenSessionInViewFilter</filter-name>
+		<filter-class>
+			org.springframework.orm.hibernate3.support.OpenSessionInViewFilter</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>OpenSessionInViewFilter</filter-name>
+		<url-pattern>*.seam</url-pattern>
+	</filter-mapping>
+
+	<servlet>
+		<servlet-name>Resource Servlet</servlet-name>
+		<servlet-class>com.ikidstv.quiz.servlet.ResourceServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>Resource Servlet</servlet-name>
+		<url-pattern>/image.do</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>Resource Servlet</servlet-name>
+		<url-pattern>/record.do</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>Seam Resource Servlet</servlet-name>
+		<servlet-class>org.jboss.seam.servlet.SeamResourceServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>Seam Resource Servlet</servlet-name>
+		<url-pattern>/seam/resource/*</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>Faces Servlet</servlet-name>
+		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>Faces Servlet</servlet-name>
+		<url-pattern>*.seam</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>dispatcher</servlet-name>
+		<servlet-class>com.ikidstv.quiz.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextAttribute</param-name>
+			<param-value>org.springframework.web.context.WebApplicationContext.ROOT</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>dispatcher</servlet-name>
+		<url-pattern>*.do</url-pattern>
+	</servlet-mapping>
+
+	<security-constraint>
+		<display-name>Restrict raw XHTML Documents</display-name>
+		<web-resource-collection>
+			<web-resource-name>XHTML</web-resource-name>
+			<url-pattern>*.xhtml</url-pattern>
+		</web-resource-collection>
+		<auth-constraint />
+	</security-constraint>
+
+	<session-config>
+		<session-timeout>240</session-timeout>
+	</session-config>
+
+</web-app>

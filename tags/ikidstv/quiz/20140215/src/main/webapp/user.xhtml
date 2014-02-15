@@ -1,0 +1,203 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:a4j="http://richfaces.org/a4j" template="workspace.xhtml">
+	<ui:define name="body">
+		<h:form>
+			<rich:panel id="userTablePanel"
+				style="left-margin:10px;border:0;width:100%">
+				<h:panelGrid id="userPanelGrid" style="width:100%">
+					<h:panelGrid columns="1" style="text-align:right;width:100%">
+						<h:panelGroup>
+							<a4j:commandButton id="addUser" image="/img/new.png"
+								style="border:0;" title="#{messages['addUser']}"
+								action="#{userAction.addUser()}" ajaxSingle="true"
+								reRender="userPanel"
+								oncomplete="Richfaces.showModalPanel('userPanel');" />
+							<a4j:commandLink value="#{messages['addUser']}"
+								style="text-decoration:none" ajaxSingle="true"
+								oncomplete="Richfaces.showModalPanel('userPanel');"
+								action="#{userAction.addUser()}" reRender="userPanel" />
+						</h:panelGroup>
+					</h:panelGrid>
+					<rich:dataTable id="userTable" var="user"
+						value="#{userAction.getUsers()}" rows="10" rowKeyVar="rowNumIndex"
+						width="100%" activeClass="active-row" enableContextMenu="true">
+						<rich:column sortBy="#{user.account}">
+							<f:facet name="header">
+								<h:outputText value="#{messages['userAccount']}" />
+							</f:facet>
+							<h:outputText value="#{user.account}" style="white-space:nowrap;" />
+						</rich:column>
+						<rich:column sortBy="#{user.realName}">
+							<f:facet name="header">
+								<h:outputText value="#{messages['userRealName']}" />
+							</f:facet>
+							<h:outputText value="#{user.realName}"
+								style="white-space:nowrap;" />
+						</rich:column>
+						<rich:column sortBy="#{user.school}">
+							<f:facet name="header">
+								<h:outputText value="#{messages['userSchool']}" />
+							</f:facet>
+							<h:outputText value="#{user.school}" style="white-space:nowrap;" />
+						</rich:column>
+						<rich:column sortBy="#{user.createTime}">
+							<f:facet name="header">
+								<h:outputText value="#{messages['userCreateTime']}" />
+							</f:facet>
+							<h:outputText value="#{user.createTime}"
+								style="white-space:nowrap;">
+								<s:convertDateTime pattern="yyyy-MM-dd HH:mm:ss" />
+							</h:outputText>
+						</rich:column>
+						<rich:column sortBy="#{user.loginTime}">
+							<f:facet name="header">
+								<h:outputText value="#{messages['userLastLoginTime']}" />
+							</f:facet>
+							<h:outputText value="#{user.loginTime}"
+								style="white-space:nowrap;">
+								<s:convertDateTime pattern="yyyy-MM-dd HH:mm:ss" />
+							</h:outputText>
+						</rich:column>
+						<rich:column sortBy="#{user.role}">
+							<f:facet name="header">
+								<h:outputText value="#{messages['userRole']}" />
+							</f:facet>
+							<h:outputText value="#{messages['userRoleAdmin']}"
+								style="white-space:nowrap;" rendered="#{user.role==2}">
+							</h:outputText>
+							<h:outputText value="#{messages['userRoleTeacher']}"
+								style="white-space:nowrap;" rendered="#{user.role==1}">
+							</h:outputText>
+						</rich:column>
+						<rich:column sortBy="#{user.active}">
+							<f:facet name="header">
+								<h:outputText value="#{messages['userActive']}" />
+							</f:facet>
+							<h:outputText rendered="#{user.active}"
+								value="#{messages['yes']}" style="white-space:nowrap;" />
+							<h:outputText rendered="#{!user.active}"
+								value="#{messages['no']}" style="white-space:nowrap;" />
+						</rich:column>
+						<rich:column>
+							<f:facet name="header">
+								<h:outputText value="#{messages['operate']}" />
+							</f:facet>
+							<h:panelGrid columns="2">
+								<a4j:commandButton value="#{messages['edit']}"
+									action="#{userAction.editUser(user)}" ajaxSingle="true"
+									reRender="userPanel"
+									oncomplete="Richfaces.showModalPanel('userPanel');"
+									rendered="#{user.account!='admin'}" />
+								<a4j:commandButton value="#{messages['disable']}"
+									action="#{userAction.disableUser(user)}" ajaxSingle="true"
+									onclick="var answer=confirm('#{messages['userConfirmToDisable']}');if(!answer) return false;"
+									reRender="userTable"
+									rendered="#{user.active and user.account!='admin'}" />
+								<a4j:commandButton value="#{messages['enable']}"
+									action="#{userAction.enableUser(user)}" ajaxSingle="true"
+									onclick="var answer=confirm('#{messages['userConfirmToEnable']}');if(!answer) return false;"
+									reRender="userTable"
+									rendered="#{!user.active and user.account!='admin'}" />
+							</h:panelGrid>
+						</rich:column>
+						<f:facet name="footer">
+							<rich:datascroller for="userTable" reRender="userTable"
+								ignoreDupResponses="false" renderIfSinglePage="true"
+								maxPages="10" page="1" align="left" />
+						</f:facet>
+					</rich:dataTable>
+				</h:panelGrid>
+			</rich:panel>
+		</h:form>
+
+		<rich:modalPanel id="userPanel" autosized="true">
+			<f:facet name="controls">
+				<h:panelGroup>
+					<h:graphicImage value="/img/close.png" styleClass="hidelink"
+						id="userPanelImg" style="CURSOR: hand" />
+					<rich:componentControl for="userPanel" attachTo="userPanelImg"
+						operation="hide" event="onclick" />
+				</h:panelGroup>
+			</f:facet>
+			<f:facet name="header">
+				<h:panelGroup>
+					<h:outputText value="#{messages['user']}"></h:outputText>
+				</h:panelGroup>
+			</f:facet>
+			<a4j:form id="userForm">
+				<h:panelGrid columns="3" width="500">
+					<h:panelGroup>
+						<h:outputLabel value="#{messages['userAccount']}" />
+						<h:outputText value=" *" style="color:red;" />
+					</h:panelGroup>
+					<h:inputText id="account" value="#{userAction.user.account}"
+						rendered="#{userAction.user.id==null}" style="width:180px;"
+						required="true"
+						requiredMessage="#{messages['userAccountRequired']}" />
+					<h:outputText value="#{userAction.user.account}"
+						rendered="#{userAction.user.id!=null}" />
+					<rich:message for="account" style="color:red" showDetail="false"
+						showSummary="true" />
+					<h:outputLabel value="#{messages['userRealName']}" />
+					<h:inputText id="realName" value="#{userAction.user.realName}"
+						style="width:180px;" />
+					<rich:message for="realName" style="color:red" showDetail="false"
+						showSummary="true" />
+					<h:outputLabel value="#{messages['userSchool']}" />
+					<h:inputText id="school" value="#{userAction.user.school}"
+						style="width:180px;" />
+					<rich:message for="school" style="color:red" showDetail="false"
+						showSummary="true" />
+					<h:panelGroup>
+						<h:outputLabel value="#{messages['userRole']}" />
+						<h:outputText value=" *" style="color:red;" />
+					</h:panelGroup>
+					<h:selectOneMenu id="role" value="#{userAction.user.role}">
+						<f:selectItem itemLabel="#{messages['userRoleAdmin']}"
+							itemValue="2" />
+						<f:selectItem itemLabel="#{messages['userRoleTeacher']}"
+							itemValue="1" />
+					</h:selectOneMenu>
+					<rich:message for="role" style="color:red" showDetail="false"
+						showSummary="true" />
+					<h:panelGroup rendered="#{userAction.user.id==null}">
+						<h:outputLabel value="#{messages['userPassword']}" />
+						<h:outputText value=" *" style="color:red;" />
+					</h:panelGroup>
+					<h:inputSecret id="password" value="#{userAction.user.password}"
+						rendered="#{userAction.user.id==null}" style="width:180px;"
+						required="true"
+						requiredMessage="#{messages['userPasswordRequired']}" />
+					<rich:message for="password" style="color:red" showDetail="false"
+						showSummary="true" />
+					<h:panelGroup rendered="#{userAction.user.id==null}">
+						<h:outputLabel value="#{messages['userConfirmedPassword']}" />
+						<h:outputText value=" *" style="color:red;" />
+					</h:panelGroup>
+					<h:inputSecret id="confirmedPassword"
+						value="#{userAction.user.confirmedPassword}"
+						rendered="#{userAction.user.id==null}" style="width:180px;"
+						required="true"
+						requiredMessage="#{messages['userConfirmedPasswordRequired']}" />
+					<rich:message for="confirmedPassword" style="color:red"
+						showDetail="false" showSummary="true" />
+					<h:panelGrid columns="5">
+						<a4j:commandButton id="saveButton" value="#{messages['save']}"
+							action="#{userAction.saveUser()}"
+							oncomplete="if(#{facesContext.maximumSeverity==null}) {Richfaces.hideModalPanel('userPanel');}"
+							reRender="userTable" />
+						<h:commandButton id="cancelButton" value="#{messages['cancel']}"
+							type="reset" onclick="Richfaces.hideModalPanel('userPanel');" />
+					</h:panelGrid>
+				</h:panelGrid>
+			</a4j:form>
+		</rich:modalPanel>
+	</ui:define>
+</ui:composition>

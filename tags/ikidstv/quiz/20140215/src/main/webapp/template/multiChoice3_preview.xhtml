@@ -1,0 +1,34 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:a4j="http://richfaces.org/a4j">
+	<head>
+		   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+		   <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8" />
+		   <link rel="stylesheet" href="#{contextPath}/stylesheet/style.css"/>
+	</head>
+	<rich:modalPanel id="previewPanel" autosized="true">
+		<f:facet name="controls">
+			<h:panelGroup>
+				<h:graphicImage value="/img/close.png" styleClass="hidelink"
+					id="previewPanelImg" style="CURSOR: hand" />
+				<rich:componentControl for="previewPanel" attachTo="previewPanelImg"
+					operation="hide" event="onclick" />
+			</h:panelGroup>
+		</f:facet>
+		<h:panelGrid id="previewGrid">
+		<div class="templatePreviewBackground" style="background-image: url('img#{quizAction.selectedTemplate.descPicture}');">
+			<h:outputLabel styleClass="templateTitle" style="top:140px;left:90px" value="#{quizAction.metadata.title}"/>
+			<h:graphicImage styleClass="multiChoice3PreviewImage" style="top:205px;left:50px" value="/image.do?imagePath=#{quizAction.metadata.titlePicture}"  />
+			<h:outputLabel styleClass="templateWord" style="top:220px;left:370px" value="A:#{quizAction.metadata.word1}"/>
+			<h:outputLabel styleClass="templateWord" style="top:315px;left:370px" value="B:#{quizAction.metadata.word2}"/>
+			<h:outputLabel styleClass="templateWord" style="top:410px;left:370px" value="C:#{quizAction.metadata.word3}"/>
+		</div>
+		</h:panelGrid>
+	</rich:modalPanel>
+</ui:composition>

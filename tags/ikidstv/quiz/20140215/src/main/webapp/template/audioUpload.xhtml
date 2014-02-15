@@ -1,0 +1,44 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:a4j="http://richfaces.org/a4j">
+	<rich:modalPanel id="audioPanel" width="300" autosized="true">
+			<f:facet name="controls">
+				<h:panelGroup>
+					<h:graphicImage value="/img/close.png" styleClass="hidelink"
+						id="audioPanelImg" style="CURSOR: hand" />
+					<rich:componentControl for="audioPanel" attachTo="audioPanelImg"
+						operation="hide" event="onclick" />
+				</h:panelGroup>
+			</f:facet>
+			<a4j:form id="audioForm">
+				<rich:messages style="color:red"></rich:messages>
+				<h:panelGrid columns="2" width="100%" columnClasses="top,top">
+					<h:panelGroup>
+						<h:panelGrid columns="2">
+							<h:outputLabel value="#{messages['audioFile']}" />
+							<rich:fileUpload
+								fileUploadListener="#{quizAction.fileUploadListener}"
+								maxFilesQuantity="1" id="upload" immediateUpload="false" allowFlash="true"
+								noDuplicate="true" listHeight="40" listWidth="400"
+								addControlLabel="select file"
+								uploadControlLabel="#{messages['upload']}">
+							</rich:fileUpload>
+							<a4j:commandButton id="submitButton"
+								value="#{messages['submit']}"
+								action="#{quizAction.saveAudio()}"
+								oncomplete="if(#{facesContext.maximumSeverity==null}) {Richfaces.hideModalPanel('audioPanel');}"
+								reRender="templateGrid" />
+							<h:commandButton id="cancelButton" value="#{messages['cancel']}"
+								type="reset" onclick="Richfaces.hideModalPanel('audioPanel');" />
+						</h:panelGrid>
+					</h:panelGroup>
+				</h:panelGrid>
+			</a4j:form>
+		</rich:modalPanel>
+</ui:composition>

@@ -1,0 +1,73 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:a4j="http://richfaces.org/a4j">
+	<h:panelGrid id="templateGrid">
+		<h:panelGrid columns="3">
+			<h:outputLabel value="#{messages['title']}" />
+			<h:inputText value="#{quizAction.metadata.title}" size="50"
+				rendered="#{s:hasPermission('teacher',null)}" />
+			<h:outputText value="#{quizAction.metadata.title}"
+				rendered="#{s:hasPermission('admin',null)}" />
+			<a4j:commandLink action="#{quizAction.uploadAudio('TitleRecord')}"
+				oncomplete="Richfaces.showModalPanel('audioPanel');"
+				reRender="audioPanel" rendered="#{s:hasPermission('admin',null)}">
+				<h:graphicImage value="/img/template/audio_disable.png"
+					rendered="#{quizAction.metadata.titleRecord==null}" />
+				<h:graphicImage value="/img/template/audio_enable.png"
+					rendered="#{quizAction.metadata.titleRecord!=null}" />
+			</a4j:commandLink>
+			<h:graphicImage value="/img/template/audio_enable.png"
+				rendered="#{quizAction.metadata.titleRecord!=null and s:hasPermission('teacher',null)}" />
+		</h:panelGrid>
+		<h:panelGrid columns="2" id="multiChoiceGrid">
+			<h:outputLabel value="#{messages['correct']}" />
+			<h:outputLabel value="#{messages['wrong']}" />
+			<h:inputText value="#{quizAction.metadata.word1}" size="50"
+					rendered="#{s:hasPermission('teacher',null)}" />
+			<h:outputText value="#{quizAction.metadata.word1}"
+					rendered="#{s:hasPermission('admin',null)}" />
+			<h:inputText value="#{quizAction.metadata.word6}" size="50"
+					rendered="#{s:hasPermission('teacher',null)}" />
+			<h:outputText value="#{quizAction.metadata.word6}"
+					rendered="#{s:hasPermission('admin',null)}" />
+			<h:inputText value="#{quizAction.metadata.word2}" size="50"
+					rendered="#{s:hasPermission('teacher',null)}" />
+			<h:outputText value="#{quizAction.metadata.word2}"
+					rendered="#{s:hasPermission('admin',null)}" />
+			<h:inputText value="#{quizAction.metadata.word7}" size="50"
+					rendered="#{s:hasPermission('teacher',null)}" />
+			<h:outputText value="#{quizAction.metadata.word7}"
+					rendered="#{s:hasPermission('admin',null)}" />
+			<h:inputText value="#{quizAction.metadata.word3}" size="50"
+					rendered="#{s:hasPermission('teacher',null)}" />
+			<h:outputText value="#{quizAction.metadata.word3}"
+					rendered="#{s:hasPermission('admin',null)}" />
+			<h:inputText value="#{quizAction.metadata.word8}" size="50"
+					rendered="#{s:hasPermission('teacher',null)}" />
+			<h:outputText value="#{quizAction.metadata.word8}"
+					rendered="#{s:hasPermission('admin',null)}" />
+			<h:inputText value="#{quizAction.metadata.word4}" size="50"
+					rendered="#{s:hasPermission('teacher',null)}" />
+			<h:outputText value="#{quizAction.metadata.word4}"
+					rendered="#{s:hasPermission('admin',null)}" />
+			<h:inputText value="#{quizAction.metadata.word9}" size="50"
+					rendered="#{s:hasPermission('teacher',null)}" />
+			<h:outputText value="#{quizAction.metadata.word9}"
+					rendered="#{s:hasPermission('admin',null)}" />
+			<h:inputText value="#{quizAction.metadata.word5}" size="50"
+					rendered="#{s:hasPermission('teacher',null)}" />
+			<h:outputText value="#{quizAction.metadata.word5}"
+					rendered="#{s:hasPermission('admin',null)}" />
+			<h:inputText value="#{quizAction.metadata.word10}" size="50"
+					rendered="#{s:hasPermission('teacher',null)}" />
+			<h:outputText value="#{quizAction.metadata.word10}"
+					rendered="#{s:hasPermission('admin',null)}" />
+		</h:panelGrid>
+	</h:panelGrid>
+</ui:composition>
