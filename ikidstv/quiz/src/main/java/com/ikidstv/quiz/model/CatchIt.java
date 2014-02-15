@@ -23,6 +23,8 @@ public class CatchIt extends Metadata {
 	private String word6;
 	private String word7;
 	private String word8;
+	private String word9;
+	private String word10;
 	
 	
 	@Id
@@ -90,7 +92,20 @@ public class CatchIt extends Metadata {
 	public void setWord8(String word8) {
 		this.word8 = word8;
 	}
-	
+	@Column
+	public String getWord9() {
+		return word9;
+	}
+	public void setWord9(String word9) {
+		this.word9 = word9;
+	}
+	@Column
+	public String getWord10() {
+		return word10;
+	}
+	public void setWord10(String word10) {
+		this.word10 = word10;
+	}
 	@Column
 	public String getTitle() {
 		return title;
