@@ -21,7 +21,7 @@ public class Season {
 	public void setId(String id) {
 		this.id = id;
 	}
-	@Column(name = "name")
+	@Column(name = "en_name")
 	public String getName() {
 		return name;
 	}
