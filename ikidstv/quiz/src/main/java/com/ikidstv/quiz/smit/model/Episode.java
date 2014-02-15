@@ -25,7 +25,7 @@ public class Episode {
 	public void setGuid(String guid) {
 		this.guid = guid;
 	}
-	@Column(name = "name")
+	@Column(name = "en_name")
 	public String getName() {
 		return name;
 	}

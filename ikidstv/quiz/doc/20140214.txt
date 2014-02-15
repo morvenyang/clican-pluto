@@ -1,0 +1,5 @@
+Bingo的图片和文字无关 但是否是从后台提供还要明确下
+Catch 5个都需要声音
+word search要声音
+story telling最多6个
+声音文件格式wav
