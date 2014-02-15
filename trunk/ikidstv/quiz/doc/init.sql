@@ -1,5 +1,5 @@
-insert into quiz_user(ACCOUNT,PASSWORD,REAL_NAME,ROLE,CREATE_TIME,ACTIVE) VALUES('admin','7c4a8d09ca3762af61e59520943dc26494f8941b','admin',2,CURRENT_TIME(),1);
-insert into quiz_user(ACCOUNT,PASSWORD,REAL_NAME,ROLE,CREATE_TIME,ACTIVE) VALUES('teacher01','7c4a8d09ca3762af61e59520943dc26494f8941b','teacher01',1,CURRENT_TIME(),1);
+insert into quiz_user(ACCOUNT,PASSWORD,REAL_NAME,ROLE,ACTIVE) VALUES('admin','7c4a8d09ca3762af61e59520943dc26494f8941b','admin',2,1);
+insert into quiz_user(ACCOUNT,PASSWORD,REAL_NAME,ROLE,ACTIVE) VALUES('teacher01','7c4a8d09ca3762af61e59520943dc26494f8941b','teacher01',1,1);
 
 insert into learning_point(POINT,SUB_POINT) VALUES('English entry','Pronunciation');
 insert into learning_point(POINT,SUB_POINT) VALUES('English entry','Alphabet');
