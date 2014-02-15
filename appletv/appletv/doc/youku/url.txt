@@ -1,2 +1,0 @@
-http://api.3g.youku.com/layout/phone2_1/detail?os_ver=6%2E0%2E1&os=ios&pid=69b81504767483cf&id=cc02959c962411de83b1&ver=2%2E4%2E2&network=WiFi&operator=%E4%B8%AD%E5%9B%BD%E7%A7%BB%E5%8A%A8_46000&btype=iPhone4,1&brand=apple
-http://api.3g.youku.com/layout/phone2_1/detail?os_ver=6%2E0%2E1&os=ios&pid=69b81504767483cf&id=XNTAyMzYyMjIw&ver=2%2E4%2E2&network=WiFi&operator=%E4%B8%AD%E5%9B%BD%E7%A7%BB%E5%8A%A8_46000&btype=iPhone4,1&brand=apple
