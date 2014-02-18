@@ -426,6 +426,8 @@ public class QuizAction extends BaseAction {
 		} else if (templateId == TemplateId.Catch_It_Sentence
 				|| templateId == TemplateId.Catch_It_Word) {
 			this.metadata = new CatchIt();
+		} else if (templateId == TemplateId.Word_Search) {
+			this.metadata = new CatchIt();
 		}
 	}
 
