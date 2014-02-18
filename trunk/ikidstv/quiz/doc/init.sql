@@ -22,3 +22,4 @@ insert into template(ID,NAME,SAMPLE_PICTURE,DESC_PICTURE,IPHONE,IPAD) VALUES(6,'
 insert into template(ID,NAME,SAMPLE_PICTURE,DESC_PICTURE,IPHONE,IPAD) VALUES(7,'CatchItSentence','/template/catchItSentence_sample.jpg','/template/catchItSentence_desc.jpg',0,1);
 insert into template(ID,NAME,SAMPLE_PICTURE,DESC_PICTURE,IPHONE,IPAD) VALUES(8,'WordSearch','/template/wordSearch_sample.jpg','/template/wordSearch_desc.jpg',0,1);
 insert into template(ID,NAME,SAMPLE_PICTURE,DESC_PICTURE,IPHONE,IPAD) VALUES(9,'Sequence','/template/sequence_sample.jpg','/template/sequence_desc.jpg',0,1);
+insert into template(ID,NAME,SAMPLE_PICTURE,DESC_PICTURE,IPHONE,IPAD) VALUES(10,'FindDifference','/template/findDifference_sample.jpg','/template/findDifference_desc.jpg',0,1);

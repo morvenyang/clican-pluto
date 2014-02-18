@@ -61,4 +61,28 @@ public abstract class Metadata {
 		return false;
 	}
 	
+	@Transient
+	public Integer getX(int index) {
+		try {
+			Method method = this.getClass().getMethod("getX" + index,
+					new Class[] {});
+			return (Integer)method.invoke(this, new Object[] {});
+		} catch (Exception e) {
+			log.error("",e);
+		}
+		return null;
+	}
+	
+	@Transient
+	public Integer getY(int index) {
+		try {
+			Method method = this.getClass().getMethod("getY" + index,
+					new Class[] {});
+			return (Integer)method.invoke(this, new Object[] {});
+		} catch (Exception e) {
+			log.error("",e);
+		}
+		return null;
+	}
+	
 }

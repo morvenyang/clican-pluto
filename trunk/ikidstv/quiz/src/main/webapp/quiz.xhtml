@@ -72,8 +72,7 @@
 								<f:facet name="header">
 									<h:outputText value="#{messages['quizLevel']}" />
 								</f:facet>
-								<h:outputText value="#{quiz.level}"
-									style="white-space:nowrap;" />
+								<h:outputText value="#{quiz.level}" style="white-space:nowrap;" />
 							</rich:column>
 							<rich:column sortBy="#{quiz.age}">
 								<f:facet name="header">
@@ -194,41 +193,46 @@
 					<t:panelGroup colspan="3"
 						rendered="#{quizAction.selectedTemplate!=null}">
 						<h:panelGrid id="metadataMessage" columns="3">
-						<h:outputLabel value="#{messages['quizTemplateMetadata']}"/>
-						<c:if test="#{quizAction.templateIdName=='Matching'}">
-							<ui:include src="template/matching.xhtml" />
-							<ui:include src="template/matching_preview.xhtml" />
-						</c:if>
-						<c:if test="#{quizAction.templateIdName=='Bingo'}">
-							<ui:include src="template/bingo.xhtml" />
-							<ui:include src="template/bingo_preview.xhtml" />
-						</c:if>
-						<c:if test="#{quizAction.templateIdName=='Multi_Choice1'}">
-							<ui:include src="template/multiChoice1.xhtml" />
-							<ui:include src="template/multiChoice1_preview.xhtml" />
-						</c:if>
-						<c:if test="#{quizAction.templateIdName=='Multi_Choice2'}">
-							<ui:include src="template/multiChoice2.xhtml" />
-							<ui:include src="template/multiChoice2_preview.xhtml" />
-						</c:if>
-						<c:if test="#{quizAction.templateIdName=='Multi_Choice3'}">
-							<ui:include src="template/multiChoice3.xhtml" />
-							<ui:include src="template/multiChoice3_preview.xhtml" />
-						</c:if>
-						<c:if test="#{quizAction.templateIdName=='Catch_It_Word' or quizAction.templateIdName=='Catch_It_Sentence'}">
-							<ui:include src="template/catchIt.xhtml" />
-							<ui:include src="template/catchIt_preview.xhtml" />
-						</c:if>
-						<c:if test="#{quizAction.templateIdName=='Word_Search'}">
-							<ui:include src="template/wordSearch.xhtml" />
-							<ui:include src="template/wordSearch_preview.xhtml" />
-						</c:if>
-						<c:if test="#{quizAction.templateIdName=='Sequence'}">
-							<ui:include src="template/sequence.xhtml" />
-							<ui:include src="template/sequence_preview.xhtml" />
-						</c:if>
-						<rich:message for="metadataMessage" style="color:red" showDetail="false"
-						showSummary="true" />
+							<h:outputLabel value="#{messages['quizTemplateMetadata']}" />
+							<c:if test="#{quizAction.templateIdName=='Matching'}">
+								<ui:include src="template/matching.xhtml" />
+								<ui:include src="template/matching_preview.xhtml" />
+							</c:if>
+							<c:if test="#{quizAction.templateIdName=='Bingo'}">
+								<ui:include src="template/bingo.xhtml" />
+								<ui:include src="template/bingo_preview.xhtml" />
+							</c:if>
+							<c:if test="#{quizAction.templateIdName=='Multi_Choice1'}">
+								<ui:include src="template/multiChoice1.xhtml" />
+								<ui:include src="template/multiChoice1_preview.xhtml" />
+							</c:if>
+							<c:if test="#{quizAction.templateIdName=='Multi_Choice2'}">
+								<ui:include src="template/multiChoice2.xhtml" />
+								<ui:include src="template/multiChoice2_preview.xhtml" />
+							</c:if>
+							<c:if test="#{quizAction.templateIdName=='Multi_Choice3'}">
+								<ui:include src="template/multiChoice3.xhtml" />
+								<ui:include src="template/multiChoice3_preview.xhtml" />
+							</c:if>
+							<c:if
+								test="#{quizAction.templateIdName=='Catch_It_Word' or quizAction.templateIdName=='Catch_It_Sentence'}">
+								<ui:include src="template/catchIt.xhtml" />
+								<ui:include src="template/catchIt_preview.xhtml" />
+							</c:if>
+							<c:if test="#{quizAction.templateIdName=='Word_Search'}">
+								<ui:include src="template/wordSearch.xhtml" />
+								<ui:include src="template/wordSearch_preview.xhtml" />
+							</c:if>
+							<c:if test="#{quizAction.templateIdName=='Sequence'}">
+								<ui:include src="template/sequence.xhtml" />
+								<ui:include src="template/sequence_preview.xhtml" />
+							</c:if>
+							<c:if test="#{quizAction.templateIdName=='Find_Difference'}">
+								<ui:include src="template/findDifference.xhtml" />
+								<ui:include src="template/findDifference_preview.xhtml" />
+							</c:if>
+							<rich:message for="metadataMessage" style="color:red"
+								showDetail="false" showSummary="true" />
 						</h:panelGrid>
 					</t:panelGroup>
 					<h:outputLabel value="#{messages['quizSeason']}" />
@@ -288,11 +292,12 @@
 							</h:panelGrid>
 						</c:forEach>
 					</h:panelGrid>
-					<rich:message for="selectedLearningPointGrid" style="color:red" showDetail="false"
-						showSummary="true" />
+					<rich:message for="selectedLearningPointGrid" style="color:red"
+						showDetail="false" showSummary="true" />
 					<h:outputLabel value="#{messages['quizLearningPoint']}"
 						rendered="#{s:hasPermission('teacher',null)}" />
-					<t:panelGroup colspan="2" rendered="#{s:hasPermission('teacher',null)}">
+					<t:panelGroup colspan="2"
+						rendered="#{s:hasPermission('teacher',null)}">
 						<h:panelGrid columns="3">
 							<h:selectOneMenu value="#{quizAction.learningPoint}">
 								<c:forEach var="lp"

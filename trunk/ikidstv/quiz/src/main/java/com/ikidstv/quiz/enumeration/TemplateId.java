@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.ikidstv.quiz.model.Bingo;
 import com.ikidstv.quiz.model.CatchIt;
+import com.ikidstv.quiz.model.FindDifference;
 import com.ikidstv.quiz.model.Matching;
 import com.ikidstv.quiz.model.MultiChoice;
 import com.ikidstv.quiz.model.Sequence;
@@ -28,7 +29,9 @@ public enum TemplateId {
 	
 	Word_Search(new Long[]{8L},WordSearch.class),
 	
-	Sequence(new Long[]{9L},Sequence.class);
+	Sequence(new Long[]{9L},Sequence.class),
+	
+	Find_Difference(new Long[]{10L},FindDifference.class);
 	
 	private Long[] ids;
 	private Class<?> clazz;

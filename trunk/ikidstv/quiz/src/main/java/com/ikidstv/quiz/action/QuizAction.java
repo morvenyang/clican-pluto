@@ -38,6 +38,7 @@ import com.ikidstv.quiz.enumeration.QuizStatus;
 import com.ikidstv.quiz.enumeration.TemplateId;
 import com.ikidstv.quiz.model.Bingo;
 import com.ikidstv.quiz.model.CatchIt;
+import com.ikidstv.quiz.model.FindDifference;
 import com.ikidstv.quiz.model.Image;
 import com.ikidstv.quiz.model.LearningPoint;
 import com.ikidstv.quiz.model.Matching;
@@ -430,8 +431,10 @@ public class QuizAction extends BaseAction {
 			this.metadata = new CatchIt();
 		} else if (templateId == TemplateId.Word_Search) {
 			this.metadata = new WordSearch();
-		}else if (templateId == TemplateId.Sequence) {
+		} else if (templateId == TemplateId.Sequence) {
 			this.metadata = new Sequence();
+		} else if (templateId == TemplateId.Find_Difference) {
+			this.metadata = new FindDifference();
 		}
 	}
 

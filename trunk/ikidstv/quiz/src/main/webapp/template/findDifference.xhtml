@@ -1,0 +1,84 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:a4j="http://richfaces.org/a4j">
+	<h:panelGrid id="templateGrid">
+		<h:panelGrid columns="2">
+			<c:if test="#{quizAction.metadata.picture1!=null}">
+				<a4j:commandLink action="#{quizAction.uploadPicture('Picture1')}"
+					oncomplete="Richfaces.showModalPanel('picturePanel');"
+					reRender="picturePanel">
+					<h:graphicImage
+						value="/image.do?imagePath=#{quizAction.metadata.picture1}"
+						styleClass="findDifferenceImage" />
+				</a4j:commandLink>
+			</c:if>
+			<c:if test="#{quizAction.metadata.picture1==null}">
+				<a4j:commandLink action="#{quizAction.uploadPicture('Picture1')}"
+					oncomplete="Richfaces.showModalPanel('picturePanel');"
+					reRender="picturePanel">
+					<h:graphicImage value="/img/template/picture_place.jpg"
+						styleClass="findDifferenceImage" />
+				</a4j:commandLink>
+			</c:if>
+
+			<c:if test="#{quizAction.metadata.picture2!=null}">
+				<a4j:commandLink action="#{quizAction.uploadPicture('Picture2')}"
+					oncomplete="Richfaces.showModalPanel('picturePanel');"
+					reRender="picturePanel">
+					<h:graphicImage
+						value="/image.do?imagePath=#{quizAction.metadata.picture2}"
+						styleClass="findDifferenceImage" />
+				</a4j:commandLink>
+			</c:if>
+			<c:if test="#{quizAction.metadata.picture2==null}">
+				<a4j:commandLink action="#{quizAction.uploadPicture('Picture2')}"
+					oncomplete="Richfaces.showModalPanel('picturePanel');"
+					reRender="picturePanel">
+					<h:graphicImage value="/img/template/picture_place.jpg"
+						styleClass="findDifferenceImage" />
+				</a4j:commandLink>
+			</c:if>
+		</h:panelGrid>
+		<h:panelGrid columns="2">
+			<h:outputLabel value="#{messages['x']}" />
+			<h:outputLabel value="#{messages['y']}" />
+			<c:forEach var="i" begin="1" end="5">
+				<h:inputText value="#{quizAction.metadata.x1}" size="10"
+					rendered="#{s:hasPermission('teacher',null) and i==1}" />
+				<h:inputText value="#{quizAction.metadata.y1}" size="10"
+					rendered="#{s:hasPermission('teacher',null) and i==1}" />
+
+				<h:inputText value="#{quizAction.metadata.x2}" size="10"
+					rendered="#{s:hasPermission('teacher',null) and i==2}" />
+				<h:inputText value="#{quizAction.metadata.y2}" size="10"
+					rendered="#{s:hasPermission('teacher',null) and i==2}" />
+
+				<h:inputText value="#{quizAction.metadata.x3}" size="10"
+					rendered="#{s:hasPermission('teacher',null) and i==3}" />
+				<h:inputText value="#{quizAction.metadata.y3}" size="10"
+					rendered="#{s:hasPermission('teacher',null) and i==3}" />
+
+				<h:inputText value="#{quizAction.metadata.x4}" size="10"
+					rendered="#{s:hasPermission('teacher',null) and i==4}" />
+				<h:inputText value="#{quizAction.metadata.y4}" size="10"
+					rendered="#{s:hasPermission('teacher',null) and i==4}" />
+
+				<h:inputText value="#{quizAction.metadata.x5}" size="10"
+					rendered="#{s:hasPermission('teacher',null) and i==5}" />
+				<h:inputText value="#{quizAction.metadata.y5}" size="10"
+					rendered="#{s:hasPermission('teacher',null) and i==5}" />
+					
+				<h:outputText value="#{quizAction.metadata.getX(i)}"
+					rendered="#{s:hasPermission('admin',null)}" />
+				<h:outputText value="#{quizAction.metadata.getY(i)}"
+					rendered="#{s:hasPermission('admin',null)}" />
+			</c:forEach>
+		</h:panelGrid>
+	</h:panelGrid>
+</ui:composition>
