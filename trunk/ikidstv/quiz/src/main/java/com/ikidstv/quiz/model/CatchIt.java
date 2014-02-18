@@ -7,7 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Table(name = "CatchIt")
+@Table(name = "CATCH_IT")
 @Entity
 public class CatchIt extends Metadata {
 
