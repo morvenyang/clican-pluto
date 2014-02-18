@@ -219,6 +219,10 @@
 							<ui:include src="template/catchIt.xhtml" />
 							<ui:include src="template/catchIt_preview.xhtml" />
 						</c:if>
+						<c:if test="#{quizAction.templateIdName=='Word_Search'}">
+							<ui:include src="template/wordSearch.xhtml" />
+							<ui:include src="template/wordSearch_preview.xhtml" />
+						</c:if>
 						<rich:message for="metadataMessage" style="color:red" showDetail="false"
 						showSummary="true" />
 						</h:panelGrid>
