@@ -25,6 +25,16 @@ public class CatchIt extends Metadata {
 	private String word8;
 	private String word9;
 	private String word10;
+	private String record1;
+	private String record2;
+	private String record3;
+	private String record4;
+	private String record5;
+	private String record6;
+	private String record7;
+	private String record8;
+	private String record9;
+	private String record10;
 	
 	
 	@Id
@@ -120,6 +130,76 @@ public class CatchIt extends Metadata {
 	}
 	public void setTitleRecord(String titleRecord) {
 		this.titleRecord = titleRecord;
+	}
+	@Column
+	public String getRecord1() {
+		return record1;
+	}
+	public void setRecord1(String record1) {
+		this.record1 = record1;
+	}
+	@Column
+	public String getRecord2() {
+		return record2;
+	}
+	public void setRecord2(String record2) {
+		this.record2 = record2;
+	}
+	@Column
+	public String getRecord3() {
+		return record3;
+	}
+	public void setRecord3(String record3) {
+		this.record3 = record3;
+	}
+	@Column
+	public String getRecord4() {
+		return record4;
+	}
+	public void setRecord4(String record4) {
+		this.record4 = record4;
+	}
+	@Column
+	public String getRecord5() {
+		return record5;
+	}
+	public void setRecord5(String record5) {
+		this.record5 = record5;
+	}
+	@Column
+	public String getRecord6() {
+		return record6;
+	}
+	public void setRecord6(String record6) {
+		this.record6 = record6;
+	}
+	@Column
+	public String getRecord7() {
+		return record7;
+	}
+	public void setRecord7(String record7) {
+		this.record7 = record7;
+	}
+	@Column
+	public String getRecord8() {
+		return record8;
+	}
+	public void setRecord8(String record8) {
+		this.record8 = record8;
+	}
+	@Column
+	public String getRecord9() {
+		return record9;
+	}
+	public void setRecord9(String record9) {
+		this.record9 = record9;
+	}
+	@Column
+	public String getRecord10() {
+		return record10;
+	}
+	public void setRecord10(String record10) {
+		this.record10 = record10;
 	}
 	
 	
