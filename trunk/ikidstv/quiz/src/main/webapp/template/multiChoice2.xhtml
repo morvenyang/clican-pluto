@@ -25,7 +25,7 @@
 			<h:graphicImage value="/img/template/audio_enable.png"
 				rendered="#{quizAction.metadata.titleRecord!=null and s:hasPermission('teacher',null)}" />
 		</h:panelGrid>
-		<h:panelGrid columns="3" id="multiChoiceGrid">
+		<h:panelGrid columns="3">
 			<c:forEach var="i" begin="1" end="3">
 				<h:panelGrid>
 					<c:if test="#{quizAction.metadata.getPicture(i)!=null}">

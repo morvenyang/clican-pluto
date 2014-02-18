@@ -45,6 +45,7 @@ import com.ikidstv.quiz.model.Metadata;
 import com.ikidstv.quiz.model.MultiChoice;
 import com.ikidstv.quiz.model.Quiz;
 import com.ikidstv.quiz.model.QuizLearningPointRel;
+import com.ikidstv.quiz.model.Sequence;
 import com.ikidstv.quiz.model.Template;
 import com.ikidstv.quiz.model.WordSearch;
 
@@ -429,6 +430,8 @@ public class QuizAction extends BaseAction {
 			this.metadata = new CatchIt();
 		} else if (templateId == TemplateId.Word_Search) {
 			this.metadata = new WordSearch();
+		}else if (templateId == TemplateId.Sequence) {
+			this.metadata = new Sequence();
 		}
 	}
 
