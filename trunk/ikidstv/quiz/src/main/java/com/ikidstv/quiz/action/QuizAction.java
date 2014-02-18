@@ -62,7 +62,7 @@ public class QuizAction extends BaseAction {
 	FacesMessages statusMessages;
 
 	private ContentTree contentTree;
-	private Map<String,ContentTree> seasonMap;
+	private Map<String, ContentTree> seasonMap;
 	private ContentTree selectedContentTree;
 	private List<Quiz> quizBySelectedContent;
 
@@ -88,11 +88,11 @@ public class QuizAction extends BaseAction {
 	private int pageType = PAGE_TYPE_QUIZ;
 
 	private List<Quiz> placementTestQuizs;
-	
+
 	private boolean folder;
-	
+
 	private String audioPropertyPath;
-	
+
 	private String tempAudioFilePath;
 
 	@In
@@ -101,8 +101,8 @@ public class QuizAction extends BaseAction {
 	public void listQuizs() {
 		pageType = PAGE_TYPE_QUIZ;
 		contentTree = this.getContentService().getContentTree();
-		seasonMap = new HashMap<String,ContentTree>();
-		for(ContentTree seasonNode:contentTree.getSubTree()){
+		seasonMap = new HashMap<String, ContentTree>();
+		for (ContentTree seasonNode : contentTree.getSubTree()) {
 			seasonMap.put(seasonNode.getSeasonId(), seasonNode);
 		}
 		quizBySelectedContent = this.getQuizService().findQuizByUserId(
@@ -150,7 +150,7 @@ public class QuizAction extends BaseAction {
 		quizBySelectedContent = this.getQuizService().findQuizByUserId(
 				identity.getUser().getId(), selectedContentTree.getContentId());
 	}
-	
+
 	public void selectEpisode(String episodeName) {
 		this.folder = false;
 		this.pictures = this.picturesByEpisodes.get(episodeName);
@@ -178,19 +178,21 @@ public class QuizAction extends BaseAction {
 			List<Image> allPictures = this.getImageService().getImageByContent(
 					this.selectedContentTree.getSeasonId());
 			this.picturesByEpisodes = new LinkedHashMap<String, List<Image>>();
-			Map<String,String> episodeIdNameMap = new HashMap<String,String>();
+			Map<String, String> episodeIdNameMap = new HashMap<String, String>();
 			for (ContentTree esipsodeNode : this.selectedContentTree
 					.getParent().getSubTree()) {
-				episodeIdNameMap.put(esipsodeNode.getEpisonId(), esipsodeNode.getName());
+				episodeIdNameMap.put(esipsodeNode.getEpisonId(),
+						esipsodeNode.getName());
 				this.picturesByEpisodes.put(esipsodeNode.getName(),
 						new ArrayList<Image>());
 			}
 			for (Image image : allPictures) {
-				String episodeId=image.getEpisode();
+				String episodeId = image.getEpisode();
 				String episodeName = episodeIdNameMap.get(episodeId);
-				if(StringUtils.isNotEmpty(episodeName)){
-					List<Image> images = this.picturesByEpisodes.get(episodeName);
-					if(images!=null){
+				if (StringUtils.isNotEmpty(episodeName)) {
+					List<Image> images = this.picturesByEpisodes
+							.get(episodeName);
+					if (images != null) {
 						images.add(image);
 					}
 				}
@@ -275,30 +277,33 @@ public class QuizAction extends BaseAction {
 					.next();
 			this.subLearningPoints = this.learningPointTreeMap
 					.get(this.learningPoint);
-			
-			if(this.pageType==PAGE_TYPE_QUIZ){
-				List<Image> allPictures = this.getImageService().getImageByContent(
-						this.quiz.getSeasonId());
+
+			if (this.pageType == PAGE_TYPE_QUIZ) {
+				List<Image> allPictures = this.getImageService()
+						.getImageByContent(this.quiz.getSeasonId());
 				this.picturesByEpisodes = new LinkedHashMap<String, List<Image>>();
-				Map<String,String> episodeIdNameMap = new HashMap<String,String>();
-				
-				for (ContentTree esipsodeNode : this.seasonMap.get(quiz.getSeasonId()).getSubTree()) {
-					episodeIdNameMap.put(esipsodeNode.getEpisonId(), esipsodeNode.getName());
+				Map<String, String> episodeIdNameMap = new HashMap<String, String>();
+
+				for (ContentTree esipsodeNode : this.seasonMap.get(
+						quiz.getSeasonId()).getSubTree()) {
+					episodeIdNameMap.put(esipsodeNode.getEpisonId(),
+							esipsodeNode.getName());
 					this.picturesByEpisodes.put(esipsodeNode.getName(),
 							new ArrayList<Image>());
 				}
 				for (Image image : allPictures) {
-					String episodeId=image.getEpisode();
+					String episodeId = image.getEpisode();
 					String episodeName = episodeIdNameMap.get(episodeId);
-					if(StringUtils.isNotEmpty(episodeName)){
-						List<Image> images = this.picturesByEpisodes.get(episodeName);
-						if(images!=null){
+					if (StringUtils.isNotEmpty(episodeName)) {
+						List<Image> images = this.picturesByEpisodes
+								.get(episodeName);
+						if (images != null) {
 							images.add(image);
 						}
 					}
 				}
 			}
-			
+
 		}
 		this.metadata = this.getQuizService().getMetadataForQuiz(this.quiz);
 	}
@@ -310,10 +315,10 @@ public class QuizAction extends BaseAction {
 	public void deleteQuiz(Quiz quiz) {
 		this.getQuizService().deleteQuiz(quiz);
 		if (this.pageType == PAGE_TYPE_QUIZ) {
-			if(this.selectedContentTree==null){
+			if (this.selectedContentTree == null) {
 				quizBySelectedContent = this.getQuizService().findQuizByUserId(
-						identity.getUser().getId(),null);
-			}else{
+						identity.getUser().getId(), null);
+			} else {
 				quizBySelectedContent = this.getQuizService().findQuizByUserId(
 						identity.getUser().getId(),
 						selectedContentTree.getContentId());
@@ -353,16 +358,16 @@ public class QuizAction extends BaseAction {
 				if (method.isAnnotationPresent(Column.class)
 						&& (method.getName().contains("getWord") || method
 								.getName().contains("getPicture"))) {
-					if(this.selectedTemplate.getTemplateId()==TemplateId.Multi_Choice1){
-						if(!method.getName().contains("getWord")){
+					if (this.selectedTemplate.getTemplateId() == TemplateId.Multi_Choice1) {
+						if (!method.getName().contains("getWord")) {
 							continue;
 						}
-					}else if(this.selectedTemplate.getTemplateId()==TemplateId.Multi_Choice2){
-						if(!method.getName().contains("getPicture")){
+					} else if (this.selectedTemplate.getTemplateId() == TemplateId.Multi_Choice2) {
+						if (!method.getName().contains("getPicture")) {
 							continue;
 						}
-					}else if(this.selectedTemplate.getTemplateId()==TemplateId.Multi_Choice3){
-						if(!method.getName().contains("getWord")){
+					} else if (this.selectedTemplate.getTemplateId() == TemplateId.Multi_Choice3) {
+						if (!method.getName().contains("getWord")) {
 							continue;
 						}
 					}
@@ -414,24 +419,27 @@ public class QuizAction extends BaseAction {
 			this.metadata = new Matching();
 		} else if (templateId == TemplateId.Bingo) {
 			this.metadata = new Bingo();
-		} else if (templateId == TemplateId.Multi_Choice1||templateId==TemplateId.Multi_Choice2||templateId==TemplateId.Multi_Choice3) {
+		} else if (templateId == TemplateId.Multi_Choice1
+				|| templateId == TemplateId.Multi_Choice2
+				|| templateId == TemplateId.Multi_Choice3) {
 			this.metadata = new MultiChoice();
-		}else if (templateId == TemplateId.Catch_It_Sentence||templateId==TemplateId.Catch_It_Word) {
+		} else if (templateId == TemplateId.Catch_It_Sentence
+				|| templateId == TemplateId.Catch_It_Word) {
 			this.metadata = new CatchIt();
 		}
 	}
 
 	public void setPictureIndex(int index) {
 		this.folder = true;
-		this.picturePropertyPath = "Picture"+index;
+		this.picturePropertyPath = "Picture" + index;
 	}
-	
-	public void uploadPicture(String picturePropertyPath){
+
+	public void uploadPicture(String picturePropertyPath) {
 		this.folder = true;
 		this.picturePropertyPath = picturePropertyPath;
 	}
-	
-	public List<String> getFolders(){
+
+	public List<String> getFolders() {
 		return new ArrayList<String>(this.picturesByEpisodes.keySet());
 	}
 
@@ -446,23 +454,24 @@ public class QuizAction extends BaseAction {
 	}
 
 	public void setAudioIndex(int index) {
-		this.audioPropertyPath = "Record"+index;
+		this.audioPropertyPath = "Record" + index;
 	}
-	
-	public void uploadAudio(String audioPropertyPath){
+
+	public void uploadAudio(String audioPropertyPath) {
 		this.audioPropertyPath = audioPropertyPath;
 		this.tempAudioFilePath = null;
 	}
-	
-	public void saveAudio(){
+
+	public void saveAudio() {
 		try {
 			Method method = metadata.getClass().getMethod(
-					"set"+this.audioPropertyPath, String.class);
+					"set" + this.audioPropertyPath, String.class);
 			method.invoke(metadata, this.tempAudioFilePath);
 		} catch (Exception e) {
 			log.error("", e);
 		}
 	}
+
 	public synchronized void fileUploadListener(UploadEvent event) {
 		List<UploadItem> itemList = event.getUploadItems();
 		UploadItem item = itemList.get(0);
@@ -491,7 +500,8 @@ public class QuizAction extends BaseAction {
 		String suffix = name.substring(last + 1);
 		String recordingPath = UUID.randomUUID().toString() + "." + suffix;
 		String path = this.getSpringProperty().getRecordingPath() + "/"
-				+ recordingPath;
+				+ com.ikidstv.quiz.util.StringUtils.generateFilePathByDate()
+				+ "/" + recordingPath;
 		File recordingFile = new File(path);
 		if (!recordingFile.exists()) {
 			recordingFile.getParentFile().mkdirs();
@@ -503,7 +513,7 @@ public class QuizAction extends BaseAction {
 		}
 		this.tempAudioFilePath = recordingPath;
 	}
-	
+
 	public Quiz getQuiz() {
 		return quiz;
 	}
