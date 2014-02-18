@@ -21,6 +21,7 @@ import org.richfaces.model.UploadItem;
 
 import com.ikidstv.quiz.bean.ContentTree;
 import com.ikidstv.quiz.model.Image;
+import com.ikidstv.quiz.util.StringUtils;
 
 @Scope(ScopeType.PAGE)
 @Name("imageAction")
@@ -113,7 +114,7 @@ public class ImageAction extends SpringBeanAction {
 		int last = name.lastIndexOf(".");
 		String suffix = name.substring(last + 1);
 		String imagePath = UUID.randomUUID().toString() + "." + suffix;
-		String path = this.getSpringProperty().getImagePath() + "/"
+		String path = this.getSpringProperty().getImagePath() + "/"+StringUtils.generateFilePathByDate()+"/"
 				+ imagePath;
 		File imageFile = new File(path);
 		if (!imageFile.exists()) {
