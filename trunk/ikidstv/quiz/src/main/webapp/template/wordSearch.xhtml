@@ -9,6 +9,8 @@
 	xmlns:a4j="http://richfaces.org/a4j">
 	<h:panelGrid id="templateGrid">
 		<h:panelGrid columns="2" id="multiChoiceGrid">
+			<h:outputLabel value="#{messages['word']}" />
+			<h:outputLabel value="#{messages['audio']}" />
 			<c:forEach var="i" begin="1" end="5">
 				<h:inputText value="#{quizAction.metadata.word1}" size="50"
 					rendered="#{s:hasPermission('teacher',null) and i==1}" />
@@ -17,9 +19,9 @@
 				<h:inputText value="#{quizAction.metadata.word3}" size="50"
 					rendered="#{s:hasPermission('teacher',null) and i==3}" />
 				<h:inputText value="#{quizAction.metadata.word4}" size="50"
-					rendered="#{s:hasPermission('teacher',null) and i==3}" />
+					rendered="#{s:hasPermission('teacher',null) and i==4}" />
 				<h:inputText value="#{quizAction.metadata.word5}" size="50"
-					rendered="#{s:hasPermission('teacher',null) and i==3}" />				
+					rendered="#{s:hasPermission('teacher',null) and i==5}" />				
 				<h:outputText value="#{quizAction.metadata.getWord(i)}"
 					rendered="#{s:hasPermission('admin',null)}" />
 				<a4j:commandLink action="#{quizAction.setAudioIndex(i)}"

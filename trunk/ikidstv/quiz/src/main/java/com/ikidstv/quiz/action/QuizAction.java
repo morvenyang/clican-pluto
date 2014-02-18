@@ -46,6 +46,7 @@ import com.ikidstv.quiz.model.MultiChoice;
 import com.ikidstv.quiz.model.Quiz;
 import com.ikidstv.quiz.model.QuizLearningPointRel;
 import com.ikidstv.quiz.model.Template;
+import com.ikidstv.quiz.model.WordSearch;
 
 @Scope(ScopeType.PAGE)
 @Name("quizAction")
@@ -427,7 +428,7 @@ public class QuizAction extends BaseAction {
 				|| templateId == TemplateId.Catch_It_Word) {
 			this.metadata = new CatchIt();
 		} else if (templateId == TemplateId.Word_Search) {
-			this.metadata = new CatchIt();
+			this.metadata = new WordSearch();
 		}
 	}
 
