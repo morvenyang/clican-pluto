@@ -223,6 +223,10 @@
 							<ui:include src="template/wordSearch.xhtml" />
 							<ui:include src="template/wordSearch_preview.xhtml" />
 						</c:if>
+						<c:if test="#{quizAction.templateIdName=='Sequence'}">
+							<ui:include src="template/sequence.xhtml" />
+							<ui:include src="template/sequence_preview.xhtml" />
+						</c:if>
 						<rich:message for="metadataMessage" style="color:red" showDetail="false"
 						showSummary="true" />
 						</h:panelGrid>

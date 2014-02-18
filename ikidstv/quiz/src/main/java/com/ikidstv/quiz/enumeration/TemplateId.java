@@ -7,6 +7,7 @@ import com.ikidstv.quiz.model.Bingo;
 import com.ikidstv.quiz.model.CatchIt;
 import com.ikidstv.quiz.model.Matching;
 import com.ikidstv.quiz.model.MultiChoice;
+import com.ikidstv.quiz.model.Sequence;
 import com.ikidstv.quiz.model.WordSearch;
 
 public enum TemplateId {
@@ -25,7 +26,9 @@ public enum TemplateId {
 	
 	Catch_It_Sentence(new Long[]{7L},CatchIt.class),
 	
-	Word_Search(new Long[]{8L},WordSearch.class);
+	Word_Search(new Long[]{8L},WordSearch.class),
+	
+	Sequence(new Long[]{9L},Sequence.class);
 	
 	private Long[] ids;
 	private Class<?> clazz;
