@@ -7,7 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Table(name = "Bingo")
+@Table(name = "BINGO")
 @Entity
 public class Bingo extends Metadata {
 

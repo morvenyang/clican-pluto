@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 
-@Table(name = "Sequence")
+@Table(name = "SEQUENCE")
 @Entity
 public class Sequence extends Metadata {
 
