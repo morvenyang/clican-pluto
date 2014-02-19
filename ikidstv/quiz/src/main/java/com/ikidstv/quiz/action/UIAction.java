@@ -82,7 +82,6 @@ public class UIAction extends BaseAction{
         this.wsWidth = wsWidth;
     }
 
-    @BypassInterceptors
     public String getWsHeight() {
         return wsHeight;
     }
