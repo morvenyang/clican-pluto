@@ -6,7 +6,7 @@
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:c="http://java.sun.com/jstl/core"
 	xmlns:a4j="http://richfaces.org/a4j">
-	<rich:toolBar id="menuToolBar" styleClass="bar" itemSeparator="line">
+	<rich:toolBar id="menu" styleClass="bar" itemSeparator="line">
 		<rich:menuItem submitMode="ajax"
 			rendered="#{s:hasPermission('teacher',null)}">
 			<s:link view="/quiz.xhtml" style="font-size:20px"
@@ -47,5 +47,15 @@
 				action="#{quizAction.listPlacementTestQuizs()}"
 				value="#{messages['placementTest']}" />
 		</rich:menuItem>
+		<rich:toolBarGroup location="right">
+			<h:panelGroup rendered="#{identity.loggedIn}">
+				<s:link view="/login.seam" action="#{identity.logout()}"
+					value="#{messages['logout']}" style="padding-right:10px;" />
+				<h:outputText
+					value="#{messages['welcome']}, #{identity.user.realName}!"
+					style="padding-right:10px;" rendered="#{identity.loggedIn}" />
+			</h:panelGroup>
+		</rich:toolBarGroup>
 	</rich:toolBar>
+
 </h:form>

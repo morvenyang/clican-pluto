@@ -12,7 +12,8 @@
 			<h:panelGrid columns="2" height="100%" width="100%"
 				columnClasses="columntopLeft,columntopRight">
 				<rich:tree rendered="#{s:hasPermission('teacher',null)}"
-					switchType="ajax" style="width:300px;overflow:auto">
+					switchType="ajax"
+					style="width:300px;overflow-y:auto;overflow-x:auto;height:100%">
 					<rich:recursiveTreeNodesAdaptor roots="#{quizAction.contentTree}"
 						var="contentNode" nodes="#{contentNode.subTree}">
 						<rich:treeNode iconLeaf="/img/tree.png" icon="/img/tree.png">
@@ -356,5 +357,13 @@
 		<ui:include src="template/pictureGrid.xhtml" />
 		<ui:include src="template/templateGrid.xhtml" />
 		<ui:include src="template/audioUpload.xhtml" />
+		<script type="text/javascript">
+			    var windowHeight = jQuery(window).height();
+			    jQuery(window).height(windowHeight);
+			    var headerHeight = jQuery('#headbox').height();
+			    var menuHeight = jQuery('#menuToolBarForm').height();
+			    contentHeight = windowHeight - headerHeight - menuHeight;
+			    jQuery('.columntopLeft').height(contentHeight)
+		</script>
 	</ui:define>
 </ui:composition>
