@@ -24,20 +24,26 @@
 			</a4j:commandLink>
 			<h:graphicImage value="/img/template/audio_enable.png"
 				rendered="#{quizAction.metadata.titleRecord!=null and s:hasPermission('teacher',null)}" />
-			<h:outputText rendered="#{quizAction.metadata.titleRecord==null and s:hasPermission('teacher',null)}"/>
+			<h:outputText
+				rendered="#{quizAction.metadata.titleRecord==null and s:hasPermission('teacher',null)}" />
 			<h:outputLabel value="#{messages['image']}" />
 			<c:if test="#{quizAction.metadata.titlePicture!=null}">
-				<a4j:commandLink action="#{quizAction.uploadPicture('TitlePicture')}"
+				<a4j:commandLink
+					action="#{quizAction.uploadPicture('TitlePicture')}"
 					oncomplete="Richfaces.showModalPanel('picturePanel');"
 					reRender="picturePanel">
-					<h:graphicImage value="/image.do?imagePath=#{quizAction.metadata.titlePicture}" styleClass="multiChoice3Image"/>
+					<h:graphicImage
+						value="/image.do?imagePath=#{quizAction.metadata.titlePicture}"
+						styleClass="multiChoice3Image" />
 				</a4j:commandLink>
 			</c:if>
 			<c:if test="#{quizAction.metadata.titlePicture==null}">
-				<a4j:commandLink action="#{quizAction.uploadPicture('TitlePicture')}"
+				<a4j:commandLink
+					action="#{quizAction.uploadPicture('TitlePicture')}"
 					oncomplete="Richfaces.showModalPanel('picturePanel');"
 					reRender="picturePanel">
-					<h:graphicImage value="/img/template/picture_place.jpg" styleClass="multiChoice3Image"/>
+					<h:graphicImage value="/img/template/picture_place.jpg"
+						styleClass="multiChoice3Image" />
 				</a4j:commandLink>
 			</c:if>
 		</h:panelGrid>
@@ -55,13 +61,22 @@
 
 				<h:outputText value="#{quizAction.metadata.getWord(i)}"
 					rendered="#{s:hasPermission('admin',null)}" />
-					
-				<h:selectBooleanCheckbox value="#{quizAction.metadata.answer1}"
-					rendered="#{s:hasPermission('teacher',null) and i==1}" />
-				<h:selectBooleanCheckbox value="#{quizAction.metadata.answer2}"
-					rendered="#{s:hasPermission('teacher',null) and i==2}" />
-				<h:selectBooleanCheckbox value="#{quizAction.metadata.answer3}"
-					rendered="#{s:hasPermission('teacher',null) and i==3}" />
+
+				<h:selectBooleanCheckbox styleClass="answer1"
+					value="#{quizAction.metadata.answer1}"
+					rendered="#{s:hasPermission('teacher',null) and i==1}"
+					onchange="if(this.checked){jQuery('.answer2').attr('checked',false);jQuery('.answer3').attr('checked',false);}">
+				</h:selectBooleanCheckbox>
+				<h:selectBooleanCheckbox styleClass="answer2"
+					value="#{quizAction.metadata.answer2}"
+					rendered="#{s:hasPermission('teacher',null) and i==2}"
+					onchange="if(this.checked){jQuery('.answer1').attr('checked',false);jQuery('.answer3').attr('checked',false);}">
+				</h:selectBooleanCheckbox>
+				<h:selectBooleanCheckbox styleClass="answer3"
+					value="#{quizAction.metadata.answer3}"
+					rendered="#{s:hasPermission('teacher',null) and i==3}"
+					onchange="if(this.checked){jQuery('.answer1').attr('checked',false);jQuery('.answer2').attr('checked',false);}">
+				</h:selectBooleanCheckbox>
 				<h:outputText value="#{quizAction.metadata.getAnswer(1)}"
 					rendered="#{s:hasPermission('admin',null)}" />
 				<a4j:commandLink action="#{quizAction.setAudioIndex(i)}"
