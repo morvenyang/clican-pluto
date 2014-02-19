@@ -9,7 +9,7 @@
 	xmlns:a4j="http://richfaces.org/a4j" template="workspace.xhtml">
 	<ui:define name="body">
 		<h:form>
-			<rich:tree id="learningPointTree" switchType="ajax" style="width:300px;">
+			<rich:tree id="learningPointTree" switchType="ajax" style="width:300px;overflow-y:auto;overflow-x:auto;height:100%">
 				<rich:recursiveTreeNodesAdaptor 
 					roots="#{learningPointAction.learningPointTree}" var="treeNode"
 					nodes="#{treeNode.subTree}">
