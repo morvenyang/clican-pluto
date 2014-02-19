@@ -41,13 +41,15 @@
 									action="#{imageAction.uploadImage()}" reRender="imagePanel" />
 							</h:panelGroup>
 						</h:panelGrid>
-						<rich:dataGrid id="imageTable" value="#{imageAction.getImageBySelectedContent()}" var="image"
+						<rich:dataGrid id="imageTable"
+							value="#{imageAction.getImageBySelectedContent()}" var="image"
 							columns="5" elements="25">
 							<rich:panel bodyClass="pbody">
 								<f:facet name="header">
 									<h:outputText value="#{image.name}"></h:outputText>
 								</f:facet>
-								<h:graphicImage value="/image.do?imagePath=#{image.path}" width="150" height="150">
+								<h:graphicImage value="/image.do?imagePath=#{image.path}"
+									width="150" height="150">
 								</h:graphicImage>
 							</rich:panel>
 							<f:facet name="footer">
@@ -101,5 +103,13 @@
 				</h:panelGrid>
 			</a4j:form>
 		</rich:modalPanel>
+		<script type="text/javascript">
+			var windowHeight = jQuery(window).height();
+			jQuery(window).height(windowHeight);
+			var headerHeight = jQuery('#headbox').height();
+			var menuHeight = jQuery('#menuToolBarForm').height();
+			contentHeight = windowHeight - headerHeight - menuHeight;
+			jQuery('.columntopLeft').height(contentHeight)
+		</script>
 	</ui:define>
 </ui:composition>
