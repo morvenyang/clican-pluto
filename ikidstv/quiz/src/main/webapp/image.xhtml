@@ -11,7 +11,7 @@
 		<h:form>
 			<h:panelGrid columns="2" height="100%"
 				columnClasses="columntopLeft,columntopRight">
-				<rich:tree switchType="ajax" style="width:300px;">
+				<rich:tree switchType="ajax" style="width:300px;overflow-y:auto;overflow-x:auto;height:100%">
 					<rich:recursiveTreeNodesAdaptor roots="#{imageAction.contentTree}"
 						var="contentNode" nodes="#{contentNode.subTree}">
 						<rich:treeNode iconLeaf="/img/tree.png" icon="/img/tree.png">
