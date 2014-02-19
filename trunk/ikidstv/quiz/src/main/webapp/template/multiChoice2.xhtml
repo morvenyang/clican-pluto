@@ -47,12 +47,21 @@
 					</c:if>
 					<h:panelGrid columns="2">
 						<h:outputText value="#{messages['isAnswer']}" />
-						<h:selectBooleanCheckbox value="#{quizAction.metadata.answer1}"
-							rendered="#{s:hasPermission('teacher',null) and i==1}" />
-						<h:selectBooleanCheckbox value="#{quizAction.metadata.answer2}"
-							rendered="#{s:hasPermission('teacher',null) and i==2}" />
-						<h:selectBooleanCheckbox value="#{quizAction.metadata.answer3}"
-							rendered="#{s:hasPermission('teacher',null) and i==3}" />
+						<h:selectBooleanCheckbox styleClass="answer1"
+							value="#{quizAction.metadata.answer1}"
+							rendered="#{s:hasPermission('teacher',null) and i==1}"
+							onchange="if(this.checked){jQuery('.answer2').attr('checked',false);jQuery('.answer3').attr('checked',false);}">
+						</h:selectBooleanCheckbox>
+						<h:selectBooleanCheckbox styleClass="answer2"
+							value="#{quizAction.metadata.answer2}"
+							rendered="#{s:hasPermission('teacher',null) and i==2}"
+							onchange="if(this.checked){jQuery('.answer1').attr('checked',false);jQuery('.answer3').attr('checked',false);}">
+						</h:selectBooleanCheckbox>
+						<h:selectBooleanCheckbox styleClass="answer3"
+							value="#{quizAction.metadata.answer3}"
+							rendered="#{s:hasPermission('teacher',null) and i==3}"
+							onchange="if(this.checked){jQuery('.answer1').attr('checked',false);jQuery('.answer2').attr('checked',false);}">
+						</h:selectBooleanCheckbox>
 						<h:outputText value="#{quizAction.metadata.getAnswer(i)}"
 							rendered="#{s:hasPermission('admin',null)}" />
 					</h:panelGrid>
