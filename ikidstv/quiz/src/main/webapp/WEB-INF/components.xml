@@ -24,7 +24,7 @@
 	<security:identity authenticate-method="#{authenticator.authenticate}">
 	</security:identity>
 	<!-- 如果需要开启自动登录，请把下面这行解注释 -->
-	<security:remember-me mode="autoLogin"/>
+<!-- 	<security:remember-me mode="autoLogin"/> -->
 	
 	<event type="org.jboss.seam.notLoggedIn">
 		<action execute="#{redirect.captureCurrentView}" />
