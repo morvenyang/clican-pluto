@@ -252,6 +252,9 @@ public class QuizAction extends BaseAction {
 	}
 
 	public void passQuiz() {
+		if (!this.passValidate()) {
+			return;
+		}
 		this.saveQuiz();
 		this.quiz.setStatus(QuizStatus.PUBLISHED.getStatus());
 		this.quiz.setAuditUser(identity.getUser());
@@ -335,6 +338,34 @@ public class QuizAction extends BaseAction {
 	public void previewQuiz() {
 	}
 
+	private boolean passValidate(){
+		boolean validated = true;
+		try {
+			Method[] methods = this.metadata.getClass().getMethods();
+			for (Method method : methods) {
+				if (method.isAnnotationPresent(Column.class)) {
+					if ((method.getName().contains("Record"))){
+						String value = (String) method.invoke(this.metadata,
+								new Object[] {});
+						if (StringUtils.isEmpty(value)) {
+							validated = false;
+							break;
+						}
+					} 
+				}
+			}
+			if (!validated) {
+				this.statusMessages.addToControlFromResourceBundle(
+						"metadataMessage", Severity.ERROR,
+						"quizPassValidate");
+				return false;
+			}
+		} catch (Exception e) {
+			log.error("", e);
+		}
+		return validated;
+		
+	}
 	private boolean submitValidate() {
 		boolean validated = true;
 		if (this.selectedTemplate == null) {
@@ -357,32 +388,77 @@ public class QuizAction extends BaseAction {
 		}
 		try {
 			Method[] methods = this.metadata.getClass().getMethods();
+			boolean xyValided = true;
+			if(this.selectedTemplate.getTemplateId()==TemplateId.Find_Difference){
+				xyValided= false;
+			}
+			boolean wptValidated=true;
+			if(this.metadata instanceof MultiChoice){
+				MultiChoice mc = (MultiChoice)this.metadata;
+				int answerCount = 0;
+				if(mc.isAnswer1()){
+					answerCount++;
+				}
+				if(mc.isAnswer2()){
+					answerCount++;
+				}
+				if(mc.isAnswer3()){
+					answerCount++;
+				}
+				if(answerCount!=1){
+					this.statusMessages.addToControlFromResourceBundle(
+							"metadataMessage", Severity.ERROR,
+							"quizAnswerValidate");
+					validated = false;
+				}
+			}
+			
+			
 			for (Method method : methods) {
-				if (method.isAnnotationPresent(Column.class)
-						&& (method.getName().contains("getWord") || method
-								.getName().contains("getPicture"))) {
-					if (this.selectedTemplate.getTemplateId() == TemplateId.Multi_Choice1) {
-						if (!method.getName().contains("getWord")) {
-							continue;
+				if (method.isAnnotationPresent(Column.class)) {
+					if ((method.getName().contains("getWord") || method
+							.getName().contains("getPicture"))
+							|| method.getName().equals("getTitle")) {
+						if (this.selectedTemplate.getTemplateId() == TemplateId.Multi_Choice1) {
+							if (!method.getName().contains("getWord")) {
+								continue;
+							}
+						} else if (this.selectedTemplate.getTemplateId() == TemplateId.Multi_Choice2) {
+							if (!method.getName().contains("getPicture")) {
+								continue;
+							}
+						} else if (this.selectedTemplate.getTemplateId() == TemplateId.Multi_Choice3) {
+							if (!method.getName().contains("getWord")) {
+								continue;
+							}
 						}
-					} else if (this.selectedTemplate.getTemplateId() == TemplateId.Multi_Choice2) {
-						if (!method.getName().contains("getPicture")) {
-							continue;
+						String value = (String) method.invoke(this.metadata,
+								new Object[] {});
+						if (StringUtils.isEmpty(value)) {
+							wptValidated = false;
 						}
-					} else if (this.selectedTemplate.getTemplateId() == TemplateId.Multi_Choice3) {
-						if (!method.getName().contains("getWord")) {
-							continue;
+					} else if (method.getName().contains("getX")
+							|| method.getName().contains("getY")) {
+						Integer value = (Integer) method.invoke(this.metadata,
+								new Object[] {});
+						if (value > 0) {
+							xyValided = true;
 						}
-					}
-					String value = (String) method.invoke(this.metadata,
-							new Object[] {});
-					if (StringUtils.isEmpty(value)) {
-						this.statusMessages.addToControlFromResourceBundle(
-								"metadataMessage", Severity.ERROR,
-								"quizSubmitValidate");
-						return false;
 					}
 				}
+			}
+			
+			if (!wptValidated) {
+				this.statusMessages.addToControlFromResourceBundle(
+						"metadataMessage", Severity.ERROR,
+						"quizSubmitValidate");
+				validated=false;
+			}
+			if (!xyValided) {
+				this.statusMessages.addToControlFromResourceBundle(
+						"metadataMessage", Severity.ERROR,
+						"quizFindDifferenceValidate");
+				validated=false;
 			}
 		} catch (Exception e) {
 			log.error("", e);
