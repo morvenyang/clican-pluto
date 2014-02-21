@@ -1,0 +1,35 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:a4j="http://richfaces.org/a4j">
+	<h:panelGrid id="templateGrid">
+		<h:panelGrid columns="3">
+			<c:forEach var="i" begin="1" end="6">
+				<h:panelGrid>
+					<c:if test="#{quizAction.metadata.getPicture(i)!=null}">
+						<a4j:commandLink action="#{quizAction.setPictureIndex(i)}"
+							oncomplete="Richfaces.showModalPanel('picturePanel');"
+							reRender="picturePanel">
+							<h:graphicImage
+								value="/image.do?imagePath=#{quizAction.metadata.getPicture(i)}"
+								styleClass="multiChoice2Image" />
+						</a4j:commandLink>
+					</c:if>
+					<c:if test="#{quizAction.metadata.getPicture(i)==null}">
+						<a4j:commandLink action="#{quizAction.setPictureIndex(i)}"
+							oncomplete="Richfaces.showModalPanel('picturePanel');"
+							reRender="picturePanel">
+							<h:graphicImage value="/img/template/picture_place.jpg"
+								styleClass="multiChoice2Image" />
+						</a4j:commandLink>
+					</c:if>
+				</h:panelGrid>
+			</c:forEach>
+		</h:panelGrid>
+	</h:panelGrid>
+</ui:composition>

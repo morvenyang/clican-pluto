@@ -44,11 +44,11 @@
 		</rich:menuItem>
 		<rich:toolBarGroup location="right">
 			<h:panelGroup rendered="#{identity.loggedIn}">
-				<s:link view="/index.seam" action="#{identity.logout()}"
-					value="#{messages['logout']}" style="padding-right:10px;" />
 				<h:outputText
 					value="#{messages['welcome']}, #{identity.user.realName}!"
 					style="padding-right:10px;" rendered="#{identity.loggedIn}" />
+				<s:link view="/index.seam" action="#{identity.logout()}"
+					value="#{messages['logout']}" style="padding-right:10px;" />
 				<a4j:commandLink value="#{messages['changePassword']}"
 									action="#{userAction.changePassword()}" ajaxSingle="true"
 									reRender="changePasswordPanel"
