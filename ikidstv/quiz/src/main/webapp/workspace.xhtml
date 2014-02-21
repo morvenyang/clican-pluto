@@ -84,7 +84,7 @@ html,body {
 				<h:panelGrid columns="5">
 					<a4j:commandButton id="savePasswordButton" value="#{messages['save']}"
 						action="#{userAction.updatePassword()}"
-						oncomplete="if(#{facesContext.maximumSeverity==null}) {Richfaces.hideModalPanel('changePasswordPanel');}" />
+						oncomplete="if(#{facesContext.maximumSeverity==null}) {Richfaces.hideModalPanel('changePasswordPanel');alert('#{messages.userPasswordChangedSuccess}')}" />
 					<h:commandButton id="cancelPasswordButton" value="#{messages['cancel']}"
 						type="reset" onclick="Richfaces.hideModalPanel('changePasswordPanel');" />
 				</h:panelGrid>
