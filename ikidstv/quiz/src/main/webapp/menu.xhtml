@@ -13,11 +13,6 @@
 				action="#{quizAction.listQuizs()}" value="#{messages['quizList']}" />
 		</rich:menuItem>
 		<rich:menuItem submitMode="ajax"
-			rendered="#{s:hasPermission('teacher',null)}">
-			<s:link view="/index.xhtml" style="font-size:20px"
-				value="#{messages['setting']}" />
-		</rich:menuItem>
-		<rich:menuItem submitMode="ajax"
 			rendered="#{s:hasPermission('admin',null)}">
 			<s:link view="/image.xhtml" style="font-size:20px"
 				action="#{imageAction.listImages()}"
