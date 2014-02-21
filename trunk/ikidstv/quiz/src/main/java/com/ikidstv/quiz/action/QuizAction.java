@@ -58,9 +58,12 @@ public class QuizAction extends BaseAction {
 
 	private final static Log log = LogFactory.getLog(QuizAction.class);
 
-	private final int PAGE_TYPE_QUIZ = 1;
-	private final int PAGE_TYPE_AUDIT = 2;
-	private final int PAGE_TYPE_PLACEMENT_TEST = 3;
+	private final static int PAGE_TYPE_QUIZ = 1;
+	private final static int PAGE_TYPE_AUDIT = 2;
+	private final static int PAGE_TYPE_PLACEMENT_TEST = 3;
+
+	private final String TITLE_RECORD = "titleRecord";
+	private final String RECORD = "record";
 
 	@In(required = true)
 	FacesMessages statusMessages;
@@ -98,6 +101,10 @@ public class QuizAction extends BaseAction {
 	private String audioPropertyPath;
 
 	private String tempAudioFilePath;
+
+	private String tempTitleAudioFilePath;
+	private Map<String,String> tempAudioFilePaths;
+	private int uploadCount = 0;
 
 	@In
 	private Identity identity;
@@ -543,18 +550,39 @@ public class QuizAction extends BaseAction {
 
 	public void setAudioIndex(int index) {
 		this.audioPropertyPath = "Record" + index;
+		uploadCount = 0;
+		this.tempAudioFilePath = null;
+		this.tempTitleAudioFilePath = null;
+		this.tempAudioFilePaths = null;
 	}
 
 	public void uploadAudio(String audioPropertyPath) {
 		this.audioPropertyPath = audioPropertyPath;
+		uploadCount = 0;
 		this.tempAudioFilePath = null;
+		this.tempTitleAudioFilePath = null;
+		this.tempAudioFilePaths = null;
 	}
 
 	public void saveAudio() {
 		try {
-			Method method = metadata.getClass().getMethod(
-					"set" + this.audioPropertyPath, String.class);
-			method.invoke(metadata, this.tempAudioFilePath);
+			if (uploadCount > 1) {
+				if (StringUtils.isNotEmpty(this.tempTitleAudioFilePath)) {
+					Method method = metadata.getClass().getMethod(
+							"setTitleRecord", String.class);
+					method.invoke(metadata, this.tempTitleAudioFilePath);
+				}
+				for(String key:this.tempAudioFilePaths.keySet()){
+					Method method = metadata.getClass().getMethod(
+							"set" + key.substring(0,1).toUpperCase()+key.substring(1), String.class);
+					method.invoke(metadata, this.tempAudioFilePaths.get(key));
+				}
+			} else {
+				Method method = metadata.getClass().getMethod(
+						"set" + this.audioPropertyPath, String.class);
+				method.invoke(metadata, this.tempAudioFilePath);
+			}
+
 		} catch (Exception e) {
 			log.error("", e);
 		}
@@ -562,44 +590,63 @@ public class QuizAction extends BaseAction {
 
 	public synchronized void fileUploadListener(UploadEvent event) {
 		List<UploadItem> itemList = event.getUploadItems();
-		UploadItem item = itemList.get(0);
-		File file = item.getFile();
-		InputStream is = null;
-		byte[] content = null;
-		try {
-			is = new FileInputStream(file);
-			content = new byte[is.available()];
-			is.read(content);
-		} catch (FileNotFoundException e1) {
-			log.error("", e1);
-		} catch (IOException e2) {
-			log.error("", e2);
-		} finally {
+		uploadCount++;
+		for (int i = 0; i < itemList.size(); i++) {
+			UploadItem item = itemList.get(i);
+			File file = item.getFile();
+			InputStream is = null;
+			byte[] content = null;
 			try {
-				if (is != null) {
-					is.close();
+				is = new FileInputStream(file);
+				content = new byte[is.available()];
+				is.read(content);
+			} catch (FileNotFoundException e1) {
+				log.error("", e1);
+			} catch (IOException e2) {
+				log.error("", e2);
+			} finally {
+				try {
+					if (is != null) {
+						is.close();
+					}
+				} catch (IOException e) {
+					log.error("", e);
 				}
-			} catch (IOException e) {
-				log.error("", e);
+			}
+			String name = item.getFileName();
+			int last = name.lastIndexOf(".");
+			String suffix = name.substring(last + 1);
+			String recordingPath = UUID.randomUUID().toString() + "." + suffix;
+			String path = this.getSpringProperty().getRecordingPath()
+					+ "/"
+					+ com.ikidstv.quiz.util.StringUtils
+							.generateFilePathByDate() + "/" + recordingPath;
+			File recordingFile = new File(path);
+			if (!recordingFile.exists()) {
+				recordingFile.getParentFile().mkdirs();
+			}
+			try {
+				FileUtils.writeByteArrayToFile(recordingFile, content);
+			} catch (IOException e2) {
+				log.error("", e2);
+			}
+			if (this.uploadCount > 1) {
+				if (name.toLowerCase().contains(TITLE_RECORD.toLowerCase())) {
+					this.tempTitleAudioFilePath = recordingPath;
+				} else if (name.toLowerCase().contains(RECORD.toLowerCase())) {
+					this.tempAudioFilePaths.put(name.substring(0,last),recordingPath);
+				}
+			} else if (this.uploadCount == 1) {
+				this.tempAudioFilePaths = new HashMap<String,String>();
+				if (name.toLowerCase().contains(TITLE_RECORD.toLowerCase())) {
+					this.tempTitleAudioFilePath = recordingPath;
+				} else if (name.toLowerCase().contains(RECORD.toLowerCase())) {
+					this.tempAudioFilePaths.put(name.substring(0,last),recordingPath);
+				}
+				this.tempAudioFilePath = recordingPath;
 			}
 		}
-		String name = item.getFileName();
-		int last = name.lastIndexOf(".");
-		String suffix = name.substring(last + 1);
-		String recordingPath = UUID.randomUUID().toString() + "." + suffix;
-		String path = this.getSpringProperty().getRecordingPath() + "/"
-				+ com.ikidstv.quiz.util.StringUtils.generateFilePathByDate()
-				+ "/" + recordingPath;
-		File recordingFile = new File(path);
-		if (!recordingFile.exists()) {
-			recordingFile.getParentFile().mkdirs();
-		}
-		try {
-			FileUtils.writeByteArrayToFile(recordingFile, content);
-		} catch (IOException e2) {
-			log.error("", e2);
-		}
-		this.tempAudioFilePath = recordingPath;
+
 	}
 
 	public Quiz getQuiz() {
