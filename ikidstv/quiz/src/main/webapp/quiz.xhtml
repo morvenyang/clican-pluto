@@ -17,7 +17,7 @@
 					<rich:recursiveTreeNodesAdaptor roots="#{quizAction.contentTree}"
 						var="contentNode" nodes="#{contentNode.subTree}">
 						<rich:treeNode iconLeaf="/img/tree.png" icon="/img/tree.png">
-							<h:outputLabel value="#{contentNode.name}"
+							<h:outputLabel value="#{contentNode.name} #{contentNode.contentId}"
 								onmouseover="this.style.cursor='hand'"
 								onmouseout="this.style.cursor='default'" style="font-size:15px">
 								<a4j:support event="onclick"
