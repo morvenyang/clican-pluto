@@ -24,12 +24,9 @@ public interface QuizService {
 
 	public List<Quiz> findPlacementQuiz();
 
-	public String checkQuizExistenceForSeason(String seasonId, Integer minAge,
-			Integer maxAge, String level, Device device, String version);
+	public String checkQuizExistenceForSeason(String seasonId,String level, Device device, String version);
 	
-	public String checkQuizExistenceForEpisode(String episodeId, Integer minAge,
-			Integer maxAge, String level, Device device, String version);
+	public String checkQuizExistenceForEpisode(String episodeId, String level, Device device, String version);
 	
-	public String findQuizByEpisode(String episodeId, Integer minAge,
-			Integer maxAge, String level, Device device,String version);
+	public String findQuizByEpisode(String episodeId, String level, Device device,String version);
 }

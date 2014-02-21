@@ -79,32 +79,30 @@ public class QuizDaoImpl extends HibernateDaoSupport implements QuizDao {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<Quiz> findQuizBySeason(String seasonId, Integer minAge,
-			Integer maxAge, String level, Device device) {
-		String hsql = "from Quiz where status=3 and seasonId = :seasonId and age>= :minAge and age<=:maxAge";
+	public List<Quiz> findQuizBySeason(String seasonId,String level, Device device) {
+		String hsql = "from Quiz where status=3 and seasonId = :seasonId and level = :level";
 		if (device == Device.IPhone) {
 			hsql += " and template.iphone = true";
 		} else {
 			hsql += " and template.ipad = true";
 		}
 		List<Quiz> result = this.getHibernateTemplate().findByNamedParam(hsql,
-				new String[] { "seasonId", "minAge", "maxAge" },
-				new Object[] { seasonId, minAge, maxAge });
+				new String[] { "seasonId", level },
+				new Object[] { seasonId, level });
 		return result;
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<Quiz> findQuizByEpisode(String episodeId, Integer minAge,
-			Integer maxAge, String level, Device device) {
-		String hsql = "from Quiz where status=3 and episodeId = :episodeId and age>= :minAge and age<=:maxAge";
+	public List<Quiz> findQuizByEpisode(String episodeId, String level, Device device) {
+		String hsql = "from Quiz where status=3 and episodeId = :episodeId and level = :level";
 		if (device == Device.IPhone) {
 			hsql += " and template.iphone = true";
 		} else {
 			hsql += " and template.ipad = true";
 		}
 		List<Quiz> result = this.getHibernateTemplate().findByNamedParam(hsql,
-				new String[] { "episodeId", "minAge", "maxAge" },
-				new Object[] { episodeId, minAge, maxAge });
+				new String[] { "episodeId", "level"},
+				new Object[] { episodeId, level});
 		return result;
 	}
 

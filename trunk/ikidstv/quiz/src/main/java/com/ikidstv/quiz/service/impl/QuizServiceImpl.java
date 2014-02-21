@@ -90,10 +90,8 @@ public class QuizServiceImpl implements QuizService {
 		this.quizDao.deleteQuiz(quiz);
 	}
 
-	public String checkQuizExistenceForSeason(String seasonId, Integer minAge,
-			Integer maxAge, String level, Device device, String version) {
-		List<Quiz> quizList = this.quizDao.findQuizBySeason(seasonId, minAge,
-				maxAge, level, device);
+	public String checkQuizExistenceForSeason(String seasonId, String level, Device device, String version) {
+		List<Quiz> quizList = this.quizDao.findQuizBySeason(seasonId, level, device);
 		Set<String> episodeIds = contentService.findEpisodeIds(seasonId);
 		Map<String, Boolean> existenceMap = new HashMap<String, Boolean>();
 		for (Quiz quiz : quizList) {
@@ -108,11 +106,9 @@ public class QuizServiceImpl implements QuizService {
 		return result;
 	}
 
-	public String checkQuizExistenceForEpisode(String episodeId,
-			Integer minAge, Integer maxAge, String level, Device device,
+	public String checkQuizExistenceForEpisode(String episodeId, String level, Device device,
 			String version) {
-		List<Quiz> quizList = this.quizDao.findQuizByEpisode(episodeId, minAge,
-				maxAge, level, device);
+		List<Quiz> quizList = this.quizDao.findQuizByEpisode(episodeId, level, device);
 		String result;
 		if (quizList.size() == 0) {
 			result = "{code:0,result:[{" + episodeId + ":false}]}";
@@ -122,11 +118,9 @@ public class QuizServiceImpl implements QuizService {
 		return result;
 	}
 
-	public String findQuizByEpisode(String episodeId, Integer minAge,
-			Integer maxAge, String level, Device device, String version) {
+	public String findQuizByEpisode(String episodeId, String level, Device device, String version) {
 		boolean appResource = springProperty.isAppResource();
-		List<Quiz> quizList = this.quizDao.findQuizByEpisode(episodeId, minAge,
-				maxAge, level, device);
+		List<Quiz> quizList = this.quizDao.findQuizByEpisode(episodeId, level, device);
 		List<Map<String, Object>> quizObjList = new ArrayList<Map<String, Object>>();
 		for (Quiz quiz : quizList) {
 			Map<String, Object> quizObjMap = new HashMap<String, Object>();
