@@ -31,8 +31,6 @@ public class QuizController {
 	public void checkQuizExistence(
 			@RequestParam(value = "seasonId", required = false) String seasonId,
 			@RequestParam(value = "episodeId", required = false) String episodeId,
-			@RequestParam(value = "minAge", required = false) Integer minAge,
-			@RequestParam(value = "maxAge", required = false) Integer maxAge,
 			@RequestParam(value = "level") String level,
 			@RequestParam(value = "device") String device,
 			@RequestParam(value = "version") String version,
@@ -40,17 +38,16 @@ public class QuizController {
 			throws ServletException, IOException {
 		if (log.isDebugEnabled()) {
 			log.debug("checkQuizExistence \n\tseasonId:" + seasonId
-					+ "\n\tepisodeId" + episodeId + "\n\tminAge" + minAge
-					+ "\n\tmaxAge" + maxAge + "\n\tlevel" + level
+					+ "\n\tepisodeId" + episodeId + "\n\tlevel" + level
 					+ "\n\tdevice" + device + "\n\tversion" + version);
 		}
 		String result;
 		if (StringUtils.isNotEmpty(seasonId)) {
-			result = quizService.checkQuizExistenceForSeason(seasonId, minAge, maxAge,
-					level, Device.convert(device), version);
+			result = quizService.checkQuizExistenceForSeason(seasonId, level,
+					Device.convert(device), version);
 		} else if (StringUtils.isNotEmpty(episodeId)) {
-			result = quizService.checkQuizExistenceForEpisode(episodeId, minAge, maxAge,
-					level, Device.convert(device), version);
+			result = quizService.checkQuizExistenceForEpisode(episodeId, level,
+					Device.convert(device), version);
 		} else {
 			result = "{message:'The seasonId or episode is required.',code='200000'}";
 		}
@@ -63,20 +60,17 @@ public class QuizController {
 
 	@RequestMapping("/queryQuiz")
 	public void queryQuiz(@RequestParam(value = "episodeId") String episodeId,
-			@RequestParam(value = "minAge") Integer minAge,
-			@RequestParam(value = "maxAge") Integer maxAge,
 			@RequestParam(value = "level") String level,
 			@RequestParam(value = "device") String device,
 			@RequestParam(value = "version") String version,
 			HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		if (log.isDebugEnabled()) {
-			log.debug("queryQuiz \n\tepisodeId:" + episodeId + "\n\tminAge"
-					+ minAge + "\n\tmaxAge" + maxAge + "\n\tlevel" + level
-					+ "\n\tdevice" + device + "\n\tversion" + version);
+			log.debug("queryQuiz \n\tepisodeId:" + episodeId + "\n\tlevel"
+					+ level + "\n\tdevice" + device + "\n\tversion" + version);
 		}
-		String result = quizService.findQuizByEpisode(episodeId, minAge,
-				maxAge, level, Device.convert(device), version);
+		String result = quizService.findQuizByEpisode(episodeId, level,
+				Device.convert(device), version);
 		try {
 			resp.getOutputStream().write(result.getBytes("utf-8"));
 		} catch (Exception e) {
