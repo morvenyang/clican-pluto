@@ -28,18 +28,24 @@ public class UserServiceImpl implements UserService {
 
 	public boolean checkAccountExisted(String account) {
 		User user = userDao.findUserByAccount(account);
-		if(user!=null){
+		if (user != null) {
 			return true;
-		}else{
+		} else {
 			return false;
 		}
 	}
 
 	public void saveUser(User user) {
 		if (user.getId() == null) {
-			// set the password for new user, for user upate we don't change the password in db.
+			// set the password for new user, for user upate we don't change the
+			// password in db.
 			user.setPassword(DigestUtils.shaHex(user.getPassword()));
 		}
+		this.userDao.saveUser(user);
+	}
+
+	public void updatePassword(User user) {
+		user.setPassword(DigestUtils.shaHex(user.getPassword()));
 		this.userDao.saveUser(user);
 	}
 
