@@ -141,7 +141,7 @@ public class QuizServiceImpl implements QuizService {
 							if (appResource) {
 								value = springProperty.getServerUrl()
 										+ springProperty.getContextPath()
-										+ "/recordView.do?recordPath=" + value;
+										+ "/record.do?recordPath=" + value;
 							} else {
 								value = springProperty.getResourcePrefixUrl()
 										+ value;
@@ -150,7 +150,7 @@ public class QuizServiceImpl implements QuizService {
 							if (appResource) {
 								value = springProperty.getServerUrl()
 										+ springProperty.getContextPath()
-										+ "/imageView.do?imagePath=" + value;
+										+ "/image.do?imagePath=" + value;
 							} else {
 								value = springProperty.getResourcePrefixUrl()
 										+ value;
