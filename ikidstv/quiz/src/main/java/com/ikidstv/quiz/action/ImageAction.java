@@ -113,9 +113,8 @@ public class ImageAction extends SpringBeanAction {
 		String name = item.getFileName();
 		int last = name.lastIndexOf(".");
 		String suffix = name.substring(last + 1);
-		String imagePath = UUID.randomUUID().toString() + "." + suffix;
-		String path = this.getSpringProperty().getImagePath() + "/"+StringUtils.generateFilePathByDate()+"/"
-				+ imagePath;
+		String imagePath = StringUtils.generateFilePathByDate()+ "/" +UUID.randomUUID().toString() + "." + suffix;
+		String path = this.getSpringProperty().getImagePath() + "/" + imagePath;
 		File imageFile = new File(path);
 		if (!imageFile.exists()) {
 			imageFile.getParentFile().mkdirs();
