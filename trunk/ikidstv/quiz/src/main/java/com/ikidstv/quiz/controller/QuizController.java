@@ -6,6 +6,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Controller;
@@ -28,9 +29,10 @@ public class QuizController {
 
 	@RequestMapping("/checkQuizExistence")
 	public void checkQuizExistence(
-			@RequestParam(value = "seasonId") String seasonId,
-			@RequestParam(value = "minAge") Integer minAge,
-			@RequestParam(value = "maxAge") Integer maxAge,
+			@RequestParam(value = "seasonId", required = false) String seasonId,
+			@RequestParam(value = "episodeId", required = false) String episodeId,
+			@RequestParam(value = "minAge", required = false) Integer minAge,
+			@RequestParam(value = "maxAge", required = false) Integer maxAge,
 			@RequestParam(value = "level") String level,
 			@RequestParam(value = "device") String device,
 			@RequestParam(value = "version") String version,
@@ -38,22 +40,29 @@ public class QuizController {
 			throws ServletException, IOException {
 		if (log.isDebugEnabled()) {
 			log.debug("checkQuizExistence \n\tseasonId:" + seasonId
-					+ "\n\tminAge" + minAge + "\n\tmaxAge" + maxAge
-					+ "\n\tlevel" + level + "\n\tdevice" + device
-					+ "\n\tversion" + version);
+					+ "\n\tepisodeId" + episodeId + "\n\tminAge" + minAge
+					+ "\n\tmaxAge" + maxAge + "\n\tlevel" + level
+					+ "\n\tdevice" + device + "\n\tversion" + version);
 		}
-		String result = quizService.checkQuizExistence(seasonId, minAge,
-				maxAge, level, Device.convert(device), version);
+		String result;
+		if (StringUtils.isNotEmpty(seasonId)) {
+			result = quizService.checkQuizExistenceForSeason(seasonId, minAge, maxAge,
+					level, Device.convert(device), version);
+		} else if (StringUtils.isNotEmpty(episodeId)) {
+			result = quizService.checkQuizExistenceForEpisode(seasonId, minAge, maxAge,
+					level, Device.convert(device), version);
+		} else {
+			result = "{message:'The seasonId or episode is required.',code='200000'}";
+		}
 		try {
 			resp.getOutputStream().write(result.getBytes("utf-8"));
 		} catch (Exception e) {
 			log.error("", e);
 		}
 	}
-	
+
 	@RequestMapping("/queryQuiz")
-	public void queryQuiz(
-			@RequestParam(value = "episodeId") String episodeId,
+	public void queryQuiz(@RequestParam(value = "episodeId") String episodeId,
 			@RequestParam(value = "minAge") Integer minAge,
 			@RequestParam(value = "maxAge") Integer maxAge,
 			@RequestParam(value = "level") String level,
@@ -62,10 +71,9 @@ public class QuizController {
 			HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		if (log.isDebugEnabled()) {
-			log.debug("queryQuiz \n\tepisodeId:" + episodeId
-					+ "\n\tminAge" + minAge + "\n\tmaxAge" + maxAge
-					+ "\n\tlevel" + level + "\n\tdevice" + device
-					+ "\n\tversion" + version);
+			log.debug("queryQuiz \n\tepisodeId:" + episodeId + "\n\tminAge"
+					+ minAge + "\n\tmaxAge" + maxAge + "\n\tlevel" + level
+					+ "\n\tdevice" + device + "\n\tversion" + version);
 		}
 		String result = quizService.findQuizByEpisode(episodeId, minAge,
 				maxAge, level, Device.convert(device), version);
