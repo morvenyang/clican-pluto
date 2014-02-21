@@ -137,24 +137,28 @@ public class QuizServiceImpl implements QuizService {
 						name = name.substring(0, 1).toLowerCase()
 								+ name.substring(1);
 						Object value = method.invoke(metadata, new Object[] {});
-						if (name.indexOf("record") != -1) {
-							if (appResource) {
-								value = springProperty.getServerUrl()
-										+ springProperty.getContextPath()
-										+ "/record.do?recordPath=" + value;
-							} else {
-								value = springProperty.getResourcePrefixUrl()
-										+ value;
+						if(value!=null){
+							if (name.indexOf("record") != -1) {
+								if (appResource) {
+									value = springProperty.getServerUrl()
+											+ springProperty.getContextPath()
+											+ "/record.do?recordPath=" + value;
+								} else {
+									value = springProperty.getResourcePrefixUrl()
+											+ value;
+								}
+							} else if (name.indexOf("picture") != -1) {
+								if (appResource) {
+									value = springProperty.getServerUrl()
+											+ springProperty.getContextPath()
+											+ "/image.do?imagePath=" + value;
+								} else {
+									value = springProperty.getResourcePrefixUrl()
+											+ value;
+								}
 							}
-						} else if (name.indexOf("picture") != -1) {
-							if (appResource) {
-								value = springProperty.getServerUrl()
-										+ springProperty.getContextPath()
-										+ "/image.do?imagePath=" + value;
-							} else {
-								value = springProperty.getResourcePrefixUrl()
-										+ value;
-							}
+						}else{
+							value = "";
 						}
 						quizObjMap.put(name, value);
 					}
