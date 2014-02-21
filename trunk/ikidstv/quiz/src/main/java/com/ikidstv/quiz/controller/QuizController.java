@@ -38,8 +38,8 @@ public class QuizController {
 			throws ServletException, IOException {
 		if (log.isDebugEnabled()) {
 			log.debug("checkQuizExistence \n\tseasonId:" + seasonId
-					+ "\n\tepisodeId" + episodeId + "\n\tlevel" + level
-					+ "\n\tdevice" + device + "\n\tversion" + version);
+					+ "\n\tepisodeId:" + episodeId + "\n\tlevel:" + level
+					+ "\n\tdevice:" + device + "\n\tversion:" + version);
 		}
 		String result;
 		if (StringUtils.isNotEmpty(seasonId)) {
@@ -66,8 +66,8 @@ public class QuizController {
 			HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		if (log.isDebugEnabled()) {
-			log.debug("queryQuiz \n\tepisodeId:" + episodeId + "\n\tlevel"
-					+ level + "\n\tdevice" + device + "\n\tversion" + version);
+			log.debug("queryQuiz \n\tepisodeId:" + episodeId + "\n\tlevel:"
+					+ level + "\n\tdevice:" + device + "\n\tversion:" + version);
 		}
 		String result = quizService.findQuizByEpisode(episodeId, level,
 				Device.convert(device), version);
