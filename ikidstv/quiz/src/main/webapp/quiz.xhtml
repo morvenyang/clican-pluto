@@ -12,7 +12,7 @@
 			<h:panelGrid columns="2" height="100%" width="100%"
 				columnClasses="columntopLeft,columntopRight">
 				<rich:tree rendered="#{s:hasPermission('teacher',null)}"
-					switchType="ajax"
+					switchType="client"
 					style="width:300px;overflow-y:auto;overflow-x:auto;height:100%">
 					<rich:recursiveTreeNodesAdaptor roots="#{quizAction.contentTree}"
 						var="contentNode" nodes="#{contentNode.subTree}">
