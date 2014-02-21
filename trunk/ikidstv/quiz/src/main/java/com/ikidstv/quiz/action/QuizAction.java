@@ -47,6 +47,7 @@ import com.ikidstv.quiz.model.MultiChoice;
 import com.ikidstv.quiz.model.Quiz;
 import com.ikidstv.quiz.model.QuizLearningPointRel;
 import com.ikidstv.quiz.model.Sequence;
+import com.ikidstv.quiz.model.StoryTelling;
 import com.ikidstv.quiz.model.Template;
 import com.ikidstv.quiz.model.WordSearch;
 
@@ -338,34 +339,34 @@ public class QuizAction extends BaseAction {
 	public void previewQuiz() {
 	}
 
-	private boolean passValidate(){
+	private boolean passValidate() {
 		boolean validated = true;
 		try {
 			Method[] methods = this.metadata.getClass().getMethods();
 			for (Method method : methods) {
 				if (method.isAnnotationPresent(Column.class)) {
-					if ((method.getName().contains("Record"))){
+					if ((method.getName().contains("Record"))) {
 						String value = (String) method.invoke(this.metadata,
 								new Object[] {});
 						if (StringUtils.isEmpty(value)) {
 							validated = false;
 							break;
 						}
-					} 
+					}
 				}
 			}
 			if (!validated) {
 				this.statusMessages.addToControlFromResourceBundle(
-						"metadataMessage", Severity.ERROR,
-						"quizPassValidate");
+						"metadataMessage", Severity.ERROR, "quizPassValidate");
 				return false;
 			}
 		} catch (Exception e) {
 			log.error("", e);
 		}
 		return validated;
-		
+
 	}
+
 	private boolean submitValidate() {
 		boolean validated = true;
 		if (this.selectedTemplate == null) {
@@ -389,31 +390,30 @@ public class QuizAction extends BaseAction {
 		try {
 			Method[] methods = this.metadata.getClass().getMethods();
 			boolean xyValided = true;
-			if(this.selectedTemplate.getTemplateId()==TemplateId.Find_Difference){
-				xyValided= false;
+			if (this.selectedTemplate.getTemplateId() == TemplateId.Find_Difference) {
+				xyValided = false;
 			}
-			boolean wptValidated=true;
-			if(this.metadata instanceof MultiChoice){
-				MultiChoice mc = (MultiChoice)this.metadata;
+			boolean wptValidated = true;
+			if (this.metadata instanceof MultiChoice) {
+				MultiChoice mc = (MultiChoice) this.metadata;
 				int answerCount = 0;
-				if(mc.isAnswer1()){
+				if (mc.isAnswer1()) {
 					answerCount++;
 				}
-				if(mc.isAnswer2()){
+				if (mc.isAnswer2()) {
 					answerCount++;
 				}
-				if(mc.isAnswer3()){
+				if (mc.isAnswer3()) {
 					answerCount++;
 				}
-				if(answerCount!=1){
+				if (answerCount != 1) {
 					this.statusMessages.addToControlFromResourceBundle(
 							"metadataMessage", Severity.ERROR,
 							"quizAnswerValidate");
 					validated = false;
 				}
 			}
-			
-			
+
 			for (Method method : methods) {
 				if (method.isAnnotationPresent(Column.class)) {
 					if ((method.getName().contains("getWord") || method
@@ -434,7 +434,8 @@ public class QuizAction extends BaseAction {
 						}
 						String value = (String) method.invoke(this.metadata,
 								new Object[] {});
-						if (StringUtils.isEmpty(value)) {
+						if (StringUtils.isEmpty(value)
+								&& this.selectedTemplate.getTemplateId() != TemplateId.Story_Telling) {
 							wptValidated = false;
 						}
 					} else if (method.getName().contains("getX")
@@ -447,18 +448,18 @@ public class QuizAction extends BaseAction {
 					}
 				}
 			}
-			
+
 			if (!wptValidated) {
-				this.statusMessages.addToControlFromResourceBundle(
-						"metadataMessage", Severity.ERROR,
-						"quizSubmitValidate");
-				validated=false;
+				this.statusMessages
+						.addToControlFromResourceBundle("metadataMessage",
+								Severity.ERROR, "quizSubmitValidate");
+				validated = false;
 			}
 			if (!xyValided) {
 				this.statusMessages.addToControlFromResourceBundle(
 						"metadataMessage", Severity.ERROR,
 						"quizFindDifferenceValidate");
-				validated=false;
+				validated = false;
 			}
 		} catch (Exception e) {
 			log.error("", e);
@@ -511,6 +512,8 @@ public class QuizAction extends BaseAction {
 			this.metadata = new Sequence();
 		} else if (templateId == TemplateId.Find_Difference) {
 			this.metadata = new FindDifference();
+		} else if (templateId == TemplateId.Story_Telling) {
+			this.metadata = new StoryTelling();
 		}
 	}
 

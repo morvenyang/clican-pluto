@@ -9,6 +9,7 @@ import com.ikidstv.quiz.model.FindDifference;
 import com.ikidstv.quiz.model.Matching;
 import com.ikidstv.quiz.model.MultiChoice;
 import com.ikidstv.quiz.model.Sequence;
+import com.ikidstv.quiz.model.StoryTelling;
 import com.ikidstv.quiz.model.WordSearch;
 
 public enum TemplateId {
@@ -31,7 +32,9 @@ public enum TemplateId {
 	
 	Sequence(new Long[]{9L},Sequence.class),
 	
-	Find_Difference(new Long[]{10L},FindDifference.class);
+	Find_Difference(new Long[]{10L},FindDifference.class),
+	
+	Story_Telling(new Long[]{11L},StoryTelling.class);
 	
 	private Long[] ids;
 	private Class<?> clazz;
