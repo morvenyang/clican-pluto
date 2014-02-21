@@ -54,6 +54,10 @@
 				<h:outputText
 					value="#{messages['welcome']}, #{identity.user.realName}!"
 					style="padding-right:10px;" rendered="#{identity.loggedIn}" />
+				<a4j:commandLink value="#{messages['changePassword']}"
+									action="#{userAction.changePassword()}" ajaxSingle="true"
+									reRender="changePasswordPanel"
+									oncomplete="Richfaces.showModalPanel('changePasswordPanel');" />
 			</h:panelGroup>
 		</rich:toolBarGroup>
 	</rich:toolBar>
