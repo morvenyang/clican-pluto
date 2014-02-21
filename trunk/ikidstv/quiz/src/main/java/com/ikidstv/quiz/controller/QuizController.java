@@ -49,7 +49,7 @@ public class QuizController {
 			result = quizService.checkQuizExistenceForSeason(seasonId, minAge, maxAge,
 					level, Device.convert(device), version);
 		} else if (StringUtils.isNotEmpty(episodeId)) {
-			result = quizService.checkQuizExistenceForEpisode(seasonId, minAge, maxAge,
+			result = quizService.checkQuizExistenceForEpisode(episodeId, minAge, maxAge,
 					level, Device.convert(device), version);
 		} else {
 			result = "{message:'The seasonId or episode is required.',code='200000'}";
