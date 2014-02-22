@@ -48,6 +48,9 @@ public class ImageAction extends SpringBeanAction {
 			imageBySelectedContent = this.getImageService().getImageByContent(
 					selectedContentTree.getSeasonId(),
 					selectedContentTree.getEpisonId());
+			while(imageBySelectedContent.size()<5){
+				imageBySelectedContent.add(null);
+			}
 		} else {
 			imageBySelectedContent = new ArrayList<Image>();
 		}
@@ -85,6 +88,9 @@ public class ImageAction extends SpringBeanAction {
 		imageBySelectedContent = this.getImageService().getImageByContent(
 				selectedContentTree.getSeasonId(),
 				selectedContentTree.getEpisonId());
+		while(imageBySelectedContent.size()<5){
+			imageBySelectedContent.add(null);
+		}
 	}
 
 	public synchronized void fileUploadListener(UploadEvent event) {

@@ -95,13 +95,13 @@
 									<h:outputText value="#{messages['quizStatus']}" />
 								</f:facet>
 								<h:outputText rendered="#{quiz.status == 1}"
-									value="#{messages['quizStatusInit']}"
+									value="#{messages['quizStatusSaved']}"
 									style="white-space:nowrap;" />
 								<h:outputText rendered="#{quiz.status == 2}"
-									value="#{messages['quizStatusAuditing']}"
+									value="#{messages['quizStatusSubmitted']}"
 									style="white-space:nowrap;" />
 								<h:outputText rendered="#{quiz.status == 3}"
-									value="#{messages['quizStatusPublished']}"
+									value="#{messages['quizStatusPassed']}"
 									style="white-space:nowrap;" />
 								<h:outputText rendered="#{quiz.status == 4}"
 									value="#{messages['quizStatusRejected']}"
@@ -199,7 +199,7 @@
 					<t:panelGroup colspan="3"
 						rendered="#{quizAction.selectedTemplate!=null}">
 						<h:panelGrid id="metadataMessage" columns="3">
-							<h:outputLabel value="#{messages['quizTemplateMetadata']}" />
+							<h:outputLabel value="" />
 							<c:if test="#{quizAction.templateIdName=='Matching'}">
 								<ui:include src="template/matching.xhtml" />
 								<ui:include src="template/matching_preview.xhtml" />
@@ -257,11 +257,21 @@
 						<h:outputLabel value="#{messages['quizAge']}" />
 						<h:outputText value=" *" style="color:red;" />
 					</h:panelGroup>
-					<rich:inputNumberSpinner id="age" inputSize="2"
-						value="#{quizAction.quiz.age}" step="1" minValue="1"
-						maxValue="12" required="true"
-						requiredMessage="#{messages['quizAgeRequired']}"
-						rendered="#{s:hasPermission('teacher',null) and quizAction.quiz!=null}" />
+					<h:selectOneMenu id="age" value="#{quizAction.quiz.age}"
+						rendered="#{s:hasPermission('teacher',null)}">
+						<f:selectItem itemLabel="1" itemValue="1" />
+						<f:selectItem itemLabel="2" itemValue="2" />
+						<f:selectItem itemLabel="3" itemValue="3" />
+						<f:selectItem itemLabel="4" itemValue="4" />
+						<f:selectItem itemLabel="5" itemValue="5" />
+						<f:selectItem itemLabel="6" itemValue="6" />
+						<f:selectItem itemLabel="7" itemValue="7" />
+						<f:selectItem itemLabel="8" itemValue="8" />
+						<f:selectItem itemLabel="9" itemValue="9" />
+						<f:selectItem itemLabel="10" itemValue="10" />
+						<f:selectItem itemLabel="11" itemValue="11" />
+						<f:selectItem itemLabel="12" itemValue="12" />
+					</h:selectOneMenu>
 					<h:outputText value="#{quizAction.quiz.age}"
 						rendered="#{s:hasPermission('admin',null)}" />
 					<rich:message for="age" style="color:red" showDetail="false"
@@ -330,32 +340,37 @@
 								reRender="selectedLearningPointGrid" />
 						</h:panelGrid>
 					</t:panelGroup>
+					<t:panelGroup colspan="3"><rich:spacer width="1" height="10"/></t:panelGroup>
 					<t:panelGroup colspan="3">
 						<h:panelGrid columns="5">
-							<a4j:commandButton id="submitButton"
-								value="#{messages['submit']}"
+							<a4j:commandButton id="submitButton2" value="#{messages['submit']}"
 								action="#{quizAction.submitQuiz()}"
-								oncomplete="if(#{facesContext.maximumSeverity==null}) {var answer=confirm('#{messages['quizConfirmToSubmit']}');if(answer) {Richfaces.hideModalPanel('quizPanel');}}"
-								reRender="quizTable"
-								rendered="#{s:hasPermission('teacher',null) and (quizAction.quiz.status==1 or quizAction.quiz.status==4)}" />
+								onclick="var answer=confirm(&quot;#{messages['quizConfirmToSubmit']}&quot;);if(!answer) return false;"
+								oncomplete="if(#{facesContext.maximumSeverity==null}) {Richfaces.hideModalPanel('quizPanel');}"
+								rendered="#{s:hasPermission('teacher',null) and (quizAction.quiz.status==1 or quizAction.quiz.status==4)}"
+								reRender="quizTable" />
 							<a4j:commandButton id="saveButton1" value="#{messages['save']}"
 								action="#{quizAction.saveQuiz()}"
-								oncomplete="if(#{facesContext.maximumSeverity==null}) {var answer=confirm('#{messages['quizConfirmToSave']}');if(answer) {Richfaces.hideModalPanel('quizPanel');}}"
+								onclick="var answer=confirm('#{messages['quizConfirmToSave']}');if(!answer) return false;"
+								oncomplete="if(#{facesContext.maximumSeverity==null}) {Richfaces.hideModalPanel('quizPanel');}"
 								rendered="#{s:hasPermission('teacher',null) and (quizAction.quiz.status==1 or quizAction.quiz.status==4)}"
 								reRender="quizTable" />
 							<a4j:commandButton id="saveButton2" value="#{messages['save']}"
 								action="#{quizAction.saveQuiz()}"
-								oncomplete="if(#{facesContext.maximumSeverity==null}) {var answer=confirm('#{messages['quizConfirmToSave']}');if(answer) {Richfaces.hideModalPanel('quizPanel');}}"
+								onclick="var answer=confirm('#{messages['quizConfirmToSave']}');if(!answer) return false;"
+								oncomplete="if(#{facesContext.maximumSeverity==null}) {Richfaces.hideModalPanel('quizPanel');}"
 								rendered="#{s:hasPermission('admin',null) and quizAction.quiz.status==2}"
 								reRender="quizTable" />
 							<a4j:commandButton id="passButton" value="#{messages['pass']}"
 								action="#{quizAction.passQuiz()}"
-								oncomplete="if(#{facesContext.maximumSeverity==null}) {var answer=confirm('#{messages['quizConfirmToPass']}');if(answer) {Richfaces.hideModalPanel('quizPanel');}}"
+								onclick="var answer=confirm('#{messages['quizConfirmToPass']}');if(!answer) return false;"
+								oncomplete="if(#{facesContext.maximumSeverity==null}) {Richfaces.hideModalPanel('quizPanel')}"
 								reRender="quizTable" rendered="#{s:hasPermission('admin',null)}" />
 							<a4j:commandButton id="rejectButton"
 								value="#{messages['reject']}"
 								action="#{quizAction.rejectQuiz()}"
-								oncomplete="if(#{facesContext.maximumSeverity==null}) {var answer=confirm('#{messages['quizConfirmToReject']}');if(answer) {Richfaces.hideModalPanel('quizPanel');}}"
+								onclick="var answer=confirm('#{messages['quizConfirmToReject']}');if(!answer) return false;"
+								oncomplete="if(#{facesContext.maximumSeverity==null}) {Richfaces.hideModalPanel('quizPanel');}"
 								reRender="quizTable" rendered="#{s:hasPermission('admin',null)}" />
 							<a4j:commandButton id="previewButton"
 								value="#{messages['preview']}"
@@ -366,6 +381,7 @@
 								type="reset" onclick="{var answer=confirm('#{messages['quizConfirmToCancel']}');if(answer) {Richfaces.hideModalPanel('quizPanel');}}" />
 						</h:panelGrid>
 					</t:panelGroup>
+					<t:panelGroup colspan="3"><rich:spacer width="1" height="10"/></t:panelGroup>
 				</t:panelGrid>
 			</a4j:form>
 		</rich:modalPanel>

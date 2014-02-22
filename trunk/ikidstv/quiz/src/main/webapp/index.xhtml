@@ -13,14 +13,15 @@
 			<tr>
 				<td
 					style="text-align: center; vertical-align: middle; font-size: 30px">Welcome
-					to iKids TV Quiz system!</td>
+					to iKidsTV Quiz system!</td>
 			</tr>
+			<tr><td></td></tr>
 			<tr>
 				<td style="text-align: center; vertical-align: middle;"><s:button
-						view="/quiz.xhtml" style="font-size:30px;height:40px"
+						view="/quiz.xhtml" style="font-size:40px;height:50px"
 						action="#{quizAction.listQuizs()}" value="#{messages['enter']}"
 						rendered="#{s:hasPermission('teacher',null)}" /> <s:button
-						view="/quiz.xhtml" style="font-size:30px;height:40px"
+						view="/quiz.xhtml" style="font-size:40px;height:50px"
 						action="#{quizAction.listAuditingQuizs()}"
 						value="#{messages['enter']}"
 						rendered="#{s:hasPermission('admin',null)}" />
