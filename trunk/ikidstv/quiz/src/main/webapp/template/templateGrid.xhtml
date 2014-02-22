@@ -7,7 +7,7 @@
 	xmlns:c="http://java.sun.com/jstl/core"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
 	xmlns:a4j="http://richfaces.org/a4j">
-	<rich:modalPanel id="templatePicturePanel" autosized="true">
+	<rich:modalPanel id="templatePicturePanel" height="600" autosized="true">
 		<f:facet name="controls">
 			<h:panelGroup>
 				<h:graphicImage value="/img/close.png" styleClass="hidelink"
@@ -16,7 +16,7 @@
 					operation="hide" event="onclick" />
 			</h:panelGroup>
 		</f:facet>
-		<h:form>
+		<h:form style="overflow-x:auto;overflow-y:scroll;height:600px">
 		<rich:dataGrid value="#{quizAction.templates}" var="template"
 			columns="4" elements="16">
 			<rich:panel bodyClass="pbody">

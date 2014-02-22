@@ -9,8 +9,8 @@
 	xmlns:a4j="http://richfaces.org/a4j">
 	<h:panelGrid id="templateGrid">
 		<h:panelGrid columns="2" id="multiChoiceGrid">
-			<h:outputLabel value="#{messages['word']}" />
-			<h:outputLabel value="#{messages['audio']}" />
+			<h:outputLabel value="#{messages['words']}" />
+			<h:outputLabel value="" />
 			<c:forEach var="i" begin="1" end="5">
 				<h:inputText value="#{quizAction.metadata.word1}" size="50"
 					rendered="#{s:hasPermission('teacher',null) and i==1}" />

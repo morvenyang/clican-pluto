@@ -9,7 +9,7 @@
 	xmlns:a4j="http://richfaces.org/a4j">
 	<h:panelGrid id="templateGrid">
 		<h:panelGrid columns="3">
-			<h:outputLabel value="#{messages['title']}" />
+			<h:outputLabel value="#{messages['question']}" />
 			<h:inputText value="#{quizAction.metadata.title}" size="50"
 				rendered="#{s:hasPermission('teacher',null)}" />
 			<h:outputText value="#{quizAction.metadata.title}"
@@ -28,7 +28,7 @@
 		<h:panelGrid columns="3">
 			<h:outputLabel value="#{messages['option']}" />
 			<h:outputLabel value="#{messages['isAnswer']}" />
-			<h:outputLabel value="#{messages['audio']}" />
+			<h:outputLabel value="" />
 			<c:forEach var="i" begin="1" end="3">
 				<h:inputText value="#{quizAction.metadata.word1}" size="50"
 					rendered="#{s:hasPermission('teacher',null) and i==1}" />
