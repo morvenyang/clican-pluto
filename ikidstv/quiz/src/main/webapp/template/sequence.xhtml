@@ -7,6 +7,8 @@
 	xmlns:c="http://java.sun.com/jstl/core"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
 	xmlns:a4j="http://richfaces.org/a4j">
+	<h:panelGrid>
+	<h:outputText value="#{messages['sequencePicture']}"/>
 	<h:panelGrid columns="4" id="templateGrid">
 		<c:forEach var="i" begin="1" end="4">
 			<h:panelGrid>
@@ -53,5 +55,6 @@
 				</h:panelGrid>
 			</h:panelGrid>
 		</c:forEach>
+	</h:panelGrid>
 	</h:panelGrid>
 </ui:composition>

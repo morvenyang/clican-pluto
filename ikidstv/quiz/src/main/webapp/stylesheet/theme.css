@@ -426,3 +426,11 @@ td.seam-date-hover {
 .nowrap {
     white-space: nowrap;
 }
+
+.rich-tree-node-selected{
+	color:green;
+}
+
+.rich-tree-node-highlighted{
+	color:red;
+}

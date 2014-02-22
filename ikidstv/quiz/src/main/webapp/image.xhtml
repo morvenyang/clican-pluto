@@ -11,7 +11,8 @@
 		<h:form>
 			<h:panelGrid columns="2" height="100%"
 				columnClasses="columntopLeft,columntopRight">
-				<rich:tree switchType="client" style="width:300px;overflow-y:auto;overflow-x:auto;height:100%">
+				<rich:tree switchType="client"
+					style="width:300px;overflow-y:auto;overflow-x:auto;height:100%">
 					<rich:recursiveTreeNodesAdaptor roots="#{imageAction.contentTree}"
 						var="contentNode" nodes="#{contentNode.subTree}">
 						<rich:treeNode iconLeaf="/img/tree.png" icon="/img/tree.png">
@@ -25,9 +26,9 @@
 						</rich:treeNode>
 					</rich:recursiveTreeNodesAdaptor>
 				</rich:tree>
-				<rich:panel id="imageTablePanel" style="border:0">
+				<rich:panel id="imageTablePanel" style="border:0;width:100%;height:100%">
 					<h:panelGrid id="imagePanelGrid"
-						rendered="#{imageAction.selectedContentTree.episodeNode}">
+						rendered="#{imageAction.selectedContentTree.episodeNode}" style="width:100%;height:100%">
 						<h:panelGrid columns="1" style="text-align:right;width:100%">
 							<h:panelGroup>
 								<a4j:commandButton id="addUser" image="/img/new.png"
@@ -43,14 +44,16 @@
 						</h:panelGrid>
 						<rich:dataGrid id="imageTable"
 							value="#{imageAction.getImageBySelectedContent()}" var="image"
-							columns="5" elements="25">
-							<rich:panel bodyClass="pbody">
-								<f:facet name="header">
+							columns="5" elements="25" style="width:100%;height:100%">
+							<rich:panel bodyClass="pbody" style="border:0;text-align:center"  rendered="#{image!=null}">
+								<h:panelGrid>
+									<h:graphicImage value="/image.do?imagePath=#{image.path}"
+										width="150" height="150">
+									</h:graphicImage>
 									<h:outputText value="#{image.name}"></h:outputText>
-								</f:facet>
-								<h:graphicImage value="/image.do?imagePath=#{image.path}"
-									width="150" height="150">
-								</h:graphicImage>
+								</h:panelGrid>
+							</rich:panel>
+							<rich:panel rendered="#{image==null}" style="border:0;text-align:center;width:150px:height:150px">
 							</rich:panel>
 							<f:facet name="footer">
 								<rich:datascroller></rich:datascroller>

@@ -492,6 +492,16 @@ public class QuizAction extends BaseAction {
 		LearningPoint learningPoint = learningPointIdMap
 				.get(this.learningPointId);
 		if (learningPoint != null) {
+			if (this.selectedTemplate.getTemplateId() == TemplateId.Multi_Choice1
+					|| this.selectedTemplate.getTemplateId() == TemplateId.Multi_Choice2
+					|| this.selectedTemplate.getTemplateId() == TemplateId.Multi_Choice3) {
+				if(selectedLearningPoints.size()>=1){
+					this.statusMessages
+					.addToControlFromResourceBundle("selectedLearningPointGrid",
+							Severity.ERROR, "quizOnlyOneLearningPointSelected");
+					return;
+				}
+			}
 			selectedLearningPoints.add(learningPoint);
 		}
 	}
@@ -594,7 +604,7 @@ public class QuizAction extends BaseAction {
 			throws IOException {
 		String filePath = (String) data;
 		try {
-			String fullPath = this.getSpringProperty().getRecordingPath()+"/"
+			String fullPath = this.getSpringProperty().getRecordingPath() + "/"
 					+ filePath;
 			byte[] byteData = FileUtils.readFileToByteArray(new File(fullPath));
 			out.write(byteData);
@@ -632,9 +642,11 @@ public class QuizAction extends BaseAction {
 			int last = name.lastIndexOf(".");
 			String suffix = name.substring(last + 1);
 			String recordingPath = com.ikidstv.quiz.util.StringUtils
-			.generateFilePathByDate() + "/"+UUID.randomUUID().toString() + "." + suffix;
-			String path = this.getSpringProperty().getRecordingPath()
-					+ "/"+ recordingPath;
+					.generateFilePathByDate()
+					+ "/"
+					+ UUID.randomUUID().toString() + "." + suffix;
+			String path = this.getSpringProperty().getRecordingPath() + "/"
+					+ recordingPath;
 			File recordingFile = new File(path);
 			if (!recordingFile.exists()) {
 				recordingFile.getParentFile().mkdirs();
