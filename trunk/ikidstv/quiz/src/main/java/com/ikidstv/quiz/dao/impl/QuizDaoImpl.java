@@ -29,8 +29,8 @@ public class QuizDaoImpl extends HibernateDaoSupport implements QuizDao {
 	@SuppressWarnings("unchecked")
 	public List<Quiz> findAuditingQuiz() {
 		List<Quiz> result = this.getHibernateTemplate().findByNamedParam(
-				"from Quiz where status = :status and placementTest = false",
-				"status", QuizStatus.AUDITING.getStatus());
+				"from Quiz where (status = :status1 or status = :status2)  and placementTest = false",
+				new String[]{"status1","status2"}, new Object[]{QuizStatus.AUDITING.getStatus(),QuizStatus.PUBLISHED.getStatus()});
 		return result;
 	}
 

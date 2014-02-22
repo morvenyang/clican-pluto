@@ -13,12 +13,15 @@
 			<c:forEach var="i" begin="1" end="16">
 				<h:panelGrid>
 					<c:if test="#{quizAction.metadata.getPicture(i)!=null}">
-						<a4j:commandLink>
+						<a4j:commandLink action="#{quizAction.setPictureIndex(i)}" oncomplete="Richfaces.showModalPanel('picturePanel');"
+							reRender="picturePanel" rendered="#{s:hasPermission('teacher',null) and (quizAction.quiz.status==1 or quizAction.quiz.status==4)}">
 							<h:graphicImage
 								value="/image.do?imagePath=#{quizAction.metadata.getPicture(i)}"
-								onclick="Richfaces.showModalPanel('picturePanel');"
 								styleClass="bingoImage" />
 						</a4j:commandLink>
+						<h:graphicImage
+								value="/image.do?imagePath=#{quizAction.metadata.getPicture(i)}"
+								styleClass="bingoImage" rendered="#{s:hasPermission('admin',null) or quizAction.quiz.status==2 or quizAction.quiz.status==3}"/>
 					</c:if>
 					<c:if test="#{quizAction.metadata.getPicture(i)==null}">
 						<a4j:commandLink action="#{quizAction.setPictureIndex(i)}"
