@@ -259,7 +259,7 @@
 					</h:panelGroup>
 					<rich:inputNumberSpinner id="age" inputSize="2"
 						value="#{quizAction.quiz.age}" step="1" minValue="1"
-						maxValue="100" required="true"
+						maxValue="12" required="true"
 						requiredMessage="#{messages['quizAgeRequired']}"
 						rendered="#{s:hasPermission('teacher',null) and quizAction.quiz!=null}" />
 					<h:outputText value="#{quizAction.quiz.age}"
@@ -335,27 +335,27 @@
 							<a4j:commandButton id="submitButton"
 								value="#{messages['submit']}"
 								action="#{quizAction.submitQuiz()}"
-								oncomplete="if(#{facesContext.maximumSeverity==null}) {Richfaces.hideModalPanel('quizPanel');}"
+								oncomplete="if(#{facesContext.maximumSeverity==null}) {var answer=confirm('#{messages['quizConfirmToSubmit']}');if(answer) {Richfaces.hideModalPanel('quizPanel');}}"
 								reRender="quizTable"
 								rendered="#{s:hasPermission('teacher',null) and (quizAction.quiz.status==1 or quizAction.quiz.status==4)}" />
 							<a4j:commandButton id="saveButton1" value="#{messages['save']}"
 								action="#{quizAction.saveQuiz()}"
-								oncomplete="if(#{facesContext.maximumSeverity==null}) {Richfaces.hideModalPanel('quizPanel');}"
+								oncomplete="if(#{facesContext.maximumSeverity==null}) {var answer=confirm('#{messages['quizConfirmToSave']}');if(answer) {Richfaces.hideModalPanel('quizPanel');}}"
 								rendered="#{s:hasPermission('teacher',null) and (quizAction.quiz.status==1 or quizAction.quiz.status==4)}"
 								reRender="quizTable" />
 							<a4j:commandButton id="saveButton2" value="#{messages['save']}"
 								action="#{quizAction.saveQuiz()}"
-								oncomplete="if(#{facesContext.maximumSeverity==null}) {Richfaces.hideModalPanel('quizPanel');}"
+								oncomplete="if(#{facesContext.maximumSeverity==null}) {var answer=confirm('#{messages['quizConfirmToSave']}');if(answer) {Richfaces.hideModalPanel('quizPanel');}}"
 								rendered="#{s:hasPermission('admin',null) and quizAction.quiz.status==2}"
 								reRender="quizTable" />
 							<a4j:commandButton id="passButton" value="#{messages['pass']}"
 								action="#{quizAction.passQuiz()}"
-								oncomplete="if(#{facesContext.maximumSeverity==null}) {Richfaces.hideModalPanel('quizPanel');}"
+								oncomplete="if(#{facesContext.maximumSeverity==null}) {var answer=confirm('#{messages['quizConfirmToPass']}');if(answer) {Richfaces.hideModalPanel('quizPanel');}}"
 								reRender="quizTable" rendered="#{s:hasPermission('admin',null)}" />
 							<a4j:commandButton id="rejectButton"
 								value="#{messages['reject']}"
 								action="#{quizAction.rejectQuiz()}"
-								oncomplete="if(#{facesContext.maximumSeverity==null}) {Richfaces.hideModalPanel('quizPanel');}"
+								oncomplete="if(#{facesContext.maximumSeverity==null}) {var answer=confirm('#{messages['quizConfirmToReject']}');if(answer) {Richfaces.hideModalPanel('quizPanel');}}"
 								reRender="quizTable" rendered="#{s:hasPermission('admin',null)}" />
 							<a4j:commandButton id="previewButton"
 								value="#{messages['preview']}"
@@ -363,7 +363,7 @@
 								oncomplete="Richfaces.showModalPanel('previewPanel');"
 								reRender="previewGrid" />
 							<h:commandButton id="cancelButton" value="#{messages['cancel']}"
-								type="reset" onclick="Richfaces.hideModalPanel('quizPanel');" />
+								type="reset" onclick="{var answer=confirm('#{messages['quizConfirmToCancel']}');if(answer) {Richfaces.hideModalPanel('quizPanel');}}" />
 						</h:panelGrid>
 					</t:panelGroup>
 				</t:panelGrid>
