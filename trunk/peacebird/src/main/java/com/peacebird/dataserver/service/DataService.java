@@ -4,5 +4,5 @@ import com.peacebird.dataserver.bean.IndexBrandResult;
 
 public interface DataService {
 
-	public String getCurrentIndexResult();
+	public String getCurrentIndexResult(String[] brands);
 }

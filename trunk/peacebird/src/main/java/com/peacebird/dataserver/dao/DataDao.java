@@ -7,6 +7,6 @@ import com.peacebird.dataserver.bean.IndexBrandResult;
 
 public interface DataDao {
 
-	public List<IndexBrandResult> getIndexResult(Date date);
+	public List<IndexBrandResult> getIndexResult(Date date,String[] brands);
 
 }
