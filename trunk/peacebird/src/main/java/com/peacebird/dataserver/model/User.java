@@ -60,7 +60,13 @@ public class User {
 	public void setExpiredDays(int expiredDays) {
 		this.expiredDays = expiredDays;
 	}
-	
+	@Column
+	public int getRole() {
+		return role;
+	}
+	public void setRole(int role) {
+		this.role = role;
+	}
 	@Column(name = "ACTIVE")
 	@Type(type="org.hibernate.type.NumericBooleanType")
 	public boolean isActive() {
