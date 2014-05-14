@@ -28,7 +28,7 @@ public class DataServiceImpl implements DataService {
 		Date yesterday = DateUtils.truncate(new Date(), Calendar.DAY_OF_MONTH);
 		yesterday = DateUtils.addDays(yesterday, -1);
 		Set<String> bSet = new HashSet<String>();
-		List<BrandResult> indexBrandResults = dataDao.getIndexResult(
+		List<BrandResult> indexBrandResults = dataDao.getBrandResult(
 				yesterday, brands);
 		for (BrandResult ibr : indexBrandResults) {
 			bSet.remove(ibr.getBrand());
