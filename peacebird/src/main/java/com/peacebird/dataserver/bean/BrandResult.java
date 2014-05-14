@@ -6,6 +6,8 @@ public class BrandResult {
 
 	private String brand;
 	
+	private String channel;
+	
 	private Date date;
 	
 	private Integer dayAmount;
@@ -19,16 +21,16 @@ public class BrandResult {
 	private Double yearLike;
 	
 
-	public BrandResult(String brand, Number dayAmount) {
+	public BrandResult(String brand,String channel, Number dayAmount) {
 		this.brand = brand;
+		this.channel = channel;
 		this.dayAmount = dayAmount.intValue();
 	}
 
-	public BrandResult(String brand, Date date, Integer dayAmount) {
-		super();
+	public BrandResult(String brand, Date date, Number dayAmount) {
 		this.brand = brand;
 		this.date = date;
-		this.dayAmount = dayAmount;
+		this.dayAmount = dayAmount.intValue();
 	}
 
 	public BrandResult(String brand, Number dayAmount, Number weekAmount,
@@ -96,6 +98,14 @@ public class BrandResult {
 
 	public void setDate(Date date) {
 		this.date = date;
+	}
+
+	public String getChannel() {
+		return channel;
+	}
+
+	public void setChannel(String channel) {
+		this.channel = channel;
 	}
 
 	
