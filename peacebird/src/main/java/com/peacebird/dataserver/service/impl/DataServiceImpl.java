@@ -6,7 +6,7 @@ import java.util.List;
 
 import org.apache.commons.lang.time.DateUtils;
 
-import com.peacebird.dataserver.bean.IndexAmountResult;
+import com.peacebird.dataserver.bean.IndexBrandResult;
 import com.peacebird.dataserver.dao.DataDao;
 import com.peacebird.dataserver.service.DataService;
 
@@ -22,7 +22,7 @@ public class DataServiceImpl implements DataService {
 	public String getCurrentIndexResult() {
 		Date yesterday = DateUtils.truncate(new Date(), Calendar.DAY_OF_MONTH);
 		yesterday = DateUtils.addDays(yesterday, -1);
-		List<IndexAmountResult> indexResults = dataDao.getIndexResult(yesterday);
+		List<IndexBrandResult> indexResults = dataDao.getIndexResult(yesterday);
 		
 		return null;
 	}
