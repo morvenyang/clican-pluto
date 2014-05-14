@@ -6,10 +6,9 @@ public class IndexBrandResult {
 	
 	private Integer dayAmount;
 
-	public IndexBrandResult(String brand, Integer dayAmount) {
-		super();
+	public IndexBrandResult(String brand, Number dayAmount) {
 		this.brand = brand;
-		this.dayAmount = dayAmount;
+		this.dayAmount = dayAmount.intValue();
 	}
 
 	public String getBrand() {
