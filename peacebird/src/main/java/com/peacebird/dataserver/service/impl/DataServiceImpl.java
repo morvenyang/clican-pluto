@@ -4,9 +4,12 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import net.sf.json.JSONObject;
+
 import org.apache.commons.lang.time.DateUtils;
 
 import com.peacebird.dataserver.bean.IndexBrandResult;
+import com.peacebird.dataserver.bean.IndexResult;
 import com.peacebird.dataserver.dao.DataDao;
 import com.peacebird.dataserver.service.DataService;
 
@@ -22,9 +25,12 @@ public class DataServiceImpl implements DataService {
 	public String getCurrentIndexResult() {
 		Date yesterday = DateUtils.truncate(new Date(), Calendar.DAY_OF_MONTH);
 		yesterday = DateUtils.addDays(yesterday, -1);
-		List<IndexBrandResult> indexResults = dataDao.getIndexResult(yesterday);
-		
-		return null;
+		List<IndexBrandResult> indexBrandResults = dataDao.getIndexResult(yesterday);
+		IndexResult ir = new IndexResult();
+		ir.setBrands(indexBrandResults);
+		ir.setResult(0);
+		String result = JSONObject.fromObject(ir).toString();
+		return result;
 	}
 	
 }
