@@ -6,6 +6,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.hibernate.annotations.Type;
 
 
 @Table(name = "Users")
@@ -15,7 +18,10 @@ public class User {
 	private Long id;
 	private String userName;
 	private String password;
+	private String confirmedPassword;
 	private int expiredDays;
+	private boolean active = true;
+	private int role = 1; //1客户端 2管理员
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -40,6 +46,13 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	@Transient
+	public String getConfirmedPassword() {
+		return confirmedPassword;
+	}
+	public void setConfirmedPassword(String confirmedPassword) {
+		this.confirmedPassword = confirmedPassword;
+	}
 	@Column
 	public int getExpiredDays() {
 		return expiredDays;
@@ -48,5 +61,12 @@ public class User {
 		this.expiredDays = expiredDays;
 	}
 	
-	
+	@Column(name = "ACTIVE")
+	@Type(type="org.hibernate.type.NumericBooleanType")
+	public boolean isActive() {
+		return active;
+	}
+	public void setActive(boolean active) {
+		this.active = active;
+	}
 }
