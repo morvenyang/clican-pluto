@@ -81,8 +81,8 @@ public class UserAction extends BaseAction {
 		}
 	}
 
-	public void changePassword() {
-		this.user = identity.getUser();
+	public void changePassword(User user) {
+		this.user = user;
 	}
 
 	public void updatePassword() {

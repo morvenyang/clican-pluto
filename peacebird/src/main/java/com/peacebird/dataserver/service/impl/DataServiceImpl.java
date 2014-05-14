@@ -22,10 +22,10 @@ public class DataServiceImpl implements DataService {
 	}
 
 	@Override
-	public String getCurrentIndexResult() {
+	public String getCurrentIndexResult(String[] brands) {
 		Date yesterday = DateUtils.truncate(new Date(), Calendar.DAY_OF_MONTH);
 		yesterday = DateUtils.addDays(yesterday, -1);
-		List<IndexBrandResult> indexBrandResults = dataDao.getIndexResult(yesterday);
+		List<IndexBrandResult> indexBrandResults = dataDao.getIndexResult(yesterday,brands);
 		IndexResult ir = new IndexResult();
 		ir.setBrands(indexBrandResults);
 		ir.setResult(0);

@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import net.sf.json.JSONObject;
 
 import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Controller;
@@ -35,7 +36,7 @@ public class ClientController {
 	public void setDataService(DataService dataService) {
 		this.dataService = dataService;
 	}
-	
+
 	@RequestMapping("/login")
 	public void login(@RequestParam(value = "userName") String userName,
 			@RequestParam(value = "password") String password,
@@ -51,6 +52,7 @@ public class ClientController {
 		} else {
 			String hashPassword = DigestUtils.shaHex(password);
 			if (user.getPassword().equals(hashPassword)) {
+				req.getSession().setAttribute("user", user);
 				lr = new LoginResult(0, "登录成功", user.getExpiredDays());
 			} else {
 				lr = new LoginResult(1001, "密码错误", -1);
@@ -64,10 +66,37 @@ public class ClientController {
 			log.error("", e);
 		}
 	}
-	
+
+	private String getNotLoginResult() {
+		String notLogin = "{\"result\":1002,\"message\":\"未登录\"}";
+		return notLogin;
+	}
+
+	private String getErrorResult(int code, String message) {
+		return "{\"result\":" + code + ",\"message\":\"" + message + "\"}";
+	}
+
 	@RequestMapping("/index")
 	public void index(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		
+		User user = (User) req.getSession().getAttribute("user");
+		String result;
+		if (user == null) {
+			result = this.getNotLoginResult();
+		} else {
+			String brands = user.getBrands();
+			if (StringUtils.isEmpty(brands)) {
+				result = getErrorResult(3001, "当前用户没有可查阅的品牌,请让管理员设置品牌查阅权限");
+			} else {
+				result = this.dataService.getCurrentIndexResult(brands
+						.split(","));
+			}
+		}
+		try {
+			resp.setContentType("application/json");
+			resp.getOutputStream().write(result.getBytes("utf-8"));
+		} catch (Exception e) {
+			log.error("", e);
+		}
 	}
 }
