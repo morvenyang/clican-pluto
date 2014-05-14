@@ -28,7 +28,7 @@
 					<rich:dataTable id="userTable" var="user"
 						value="#{userAction.getUsers()}" rows="10" rowKeyVar="rowNumIndex"
 						width="100%" activeClass="active-row" enableContextMenu="true">
-						<rich:column sortBy="#{user.account}">
+						<rich:column sortBy="#{user.userName}">
 							<f:facet name="header">
 								<h:outputText value="用户名" />
 							</f:facet>
@@ -39,7 +39,6 @@
 								<h:outputText value="免登录天数" />
 							</f:facet>
 							<h:outputText value="#{user.expiredDays}" />
-							</h:outputText>
 						</rich:column>
 						<rich:column sortBy="#{user.role}">
 							<f:facet name="header">
@@ -63,11 +62,11 @@
 						</rich:column>
 						<rich:column>
 							<f:facet name="header">
-								<h:outputText value="#{messages['operate']}" />
+								<h:outputText value="操作" />
 							</f:facet>
-							<h:panelGrid columns="2">
+							<h:panelGrid columns="3">
 								<a4j:commandButton value="编辑"
-									action="#{userAction.editUser(user)}" ajaxSingle="true"
+									action="#{userAction.editUser(user)}" ajaxSingle="true" disabled="#{user.userName=='admin'}"
 									reRender="userPanel"
 									oncomplete="Richfaces.showModalPanel('userPanel');" />
 								<a4j:commandButton value="修改密码"
@@ -78,12 +77,12 @@
 									action="#{userAction.disableUser(user)}" ajaxSingle="true"
 									onclick="var answer=confirm('确认禁用该用户');if(!answer) return false;"
 									reRender="userTable"
-									rendered="#{user.active and user.account!='admin'}" />
+									rendered="#{user.active and user.userName!='admin'}" />
 								<a4j:commandButton value="激活"
 									action="#{userAction.enableUser(user)}" ajaxSingle="true"
 									onclick="var answer=confirm('确认激活该用户');if(!answer) return false;"
 									reRender="userTable"
-									rendered="#{!user.active and user.account!='admin'}" />
+									rendered="#{!user.active and user.userName!='admin'}" />
 							</h:panelGrid>
 						</rich:column>
 						<f:facet name="footer">
@@ -107,7 +106,7 @@
 			</f:facet>
 			<f:facet name="header">
 				<h:panelGroup>
-					<h:outputText value="#{messages['user']}"></h:outputText>
+					<h:outputText value="用户"></h:outputText>
 				</h:panelGroup>
 			</f:facet>
 			<a4j:form id="userForm">
@@ -117,16 +116,23 @@
 						<h:outputText value=" *" style="color:red;" />
 					</h:panelGroup>
 					<h:inputText id="userName" value="#{userAction.user.userName}"
-						rendered="#{userAction.user.id==null}" style="width:180px;"
+						disabled="#{userAction.user.id!=null}" style="width:180px;"
 						required="true"
 						requiredMessage="用户名不能为空" />
-					<h:outputText value="#{userAction.user.account}"
-						rendered="#{userAction.user.id!=null}" />
 					<rich:message for="userName" style="color:red" showDetail="false"
 						showSummary="true" />
+						
+					<h:panelGroup>
+						<h:outputLabel value="免登录天数" />
+						<h:outputText value=" *" style="color:red;" />
+					</h:panelGroup>
+					<h:inputText id="expiredDays"
+						value="#{userAction.user.expiredDays}" style="width:30px;"/>
+					<rich:message for="expiredDays" style="color:red" showDetail="false"
+						showSummary="true" />
 					
-					<h:panelGroup rendered="#{userAction.user.userName!='admin'}">
-						<h:outputLabel value="#{messages['userRole']}" />
+					<h:panelGroup>
+						<h:outputLabel value="角色" />
 						<h:outputText value=" *" style="color:red;" />
 					</h:panelGroup>
 					<h:selectOneMenu id="role" value="#{userAction.user.role}" rendered="#{userAction.user.userName!='admin'}">
@@ -137,6 +143,9 @@
 					</h:selectOneMenu>
 					<rich:message for="role" style="color:red" showDetail="false"
 						showSummary="true" rendered="#{userAction.user.userName!='admin'}"/>
+						
+					
+					
 					<h:panelGroup rendered="#{userAction.user.id==null}">
 						<h:outputLabel value="密码" />
 						<h:outputText value=" *" style="color:red;" />
@@ -158,7 +167,7 @@
 						requiredMessage="确认密码不能为空" />
 					<rich:message for="confirmedPassword" style="color:red"
 						showDetail="false" showSummary="true" />
-					<h:panelGrid columns="5">
+					<h:panelGrid columns="2">
 						<a4j:commandButton id="saveButton" value="保存"
 							action="#{userAction.saveUser()}"
 							oncomplete="if(#{facesContext.maximumSeverity==null}) {Richfaces.hideModalPanel('userPanel');}"
