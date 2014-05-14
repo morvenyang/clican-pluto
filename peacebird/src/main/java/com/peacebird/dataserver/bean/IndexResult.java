@@ -5,17 +5,17 @@ import java.util.List;
 public class IndexResult {
 
 	
-	private List<IndexBrandResult> brands;
+	private List<BrandResult> brands;
 	
 	private int result;
 	
 	private String message;
 
-	public List<IndexBrandResult> getBrands() {
+	public List<BrandResult> getBrands() {
 		return brands;
 	}
 
-	public void setBrands(List<IndexBrandResult> brands) {
+	public void setBrands(List<BrandResult> brands) {
 		this.brands = brands;
 	}
 

@@ -5,15 +5,15 @@ import java.util.List;
 
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
-import com.peacebird.dataserver.bean.IndexBrandResult;
+import com.peacebird.dataserver.bean.BrandResult;
 import com.peacebird.dataserver.dao.DataDao;
 
 public class DataDaoImpl extends HibernateDaoSupport implements DataDao {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<IndexBrandResult> getIndexResult(Date date, String[] brands) {
-		String hsql = "select new com.peacebird.dataserver.bean.IndexBrandResult(brand,sum(dayAmount)) from DayRetailChannel";
+	public List<BrandResult> getIndexResult(Date date, String[] brands) {
+		String hsql = "select new com.peacebird.dataserver.bean.BrandResult(brand,sum(dayAmount)) from DayRetailChannel";
 		String bs = "";
 		for (String brand : brands) {
 			bs += "'" + brand + "',";
