@@ -9,6 +9,8 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.web.context.ContextLoader;
 import org.springframework.web.context.ContextLoaderListener;
 
+import com.peacebird.dataserver.bean.Constants;
+
 public class StartupListener extends ContextLoaderListener implements
 		ServletContextListener {
 
@@ -18,6 +20,7 @@ public class StartupListener extends ContextLoaderListener implements
 					ServletContext servletContext) throws BeansException {
 				ApplicationContext ctx = (new ClassPathXmlApplicationContext(
 						new String[] { "classpath*:peacebird-*.xml", }));
+				Constants.ctx = ctx;
 				return ctx;
 			}
 		};

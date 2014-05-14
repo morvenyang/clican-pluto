@@ -15,6 +15,7 @@ public class User {
 	private Long id;
 	private String userName;
 	private String password;
+	private int expiredDays;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -38,6 +39,13 @@ public class User {
 	}
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	@Column
+	public int getExpiredDays() {
+		return expiredDays;
+	}
+	public void setExpiredDays(int expiredDays) {
+		this.expiredDays = expiredDays;
 	}
 	
 	

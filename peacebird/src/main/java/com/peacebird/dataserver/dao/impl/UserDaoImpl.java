@@ -1,0 +1,21 @@
+package com.peacebird.dataserver.dao.impl;
+
+import java.util.List;
+
+import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
+
+import com.peacebird.dataserver.dao.UserDao;
+import com.peacebird.dataserver.model.User;
+
+public class UserDaoImpl extends HibernateDaoSupport implements UserDao {
+
+	@SuppressWarnings("unchecked")
+	public User findUserByUserName(String userName) {
+		List<User> result = this.getHibernateTemplate().findByNamedParam(
+				"from User where userName = :userName", userName, userName);
+		if (result.size() > 0) {
+			return result.get(0);
+		}
+		return null;
+	}
+}
