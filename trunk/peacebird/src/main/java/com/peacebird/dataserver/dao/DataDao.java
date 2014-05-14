@@ -3,10 +3,10 @@ package com.peacebird.dataserver.dao;
 import java.util.Date;
 import java.util.List;
 
-import com.peacebird.dataserver.bean.IndexResult;
+import com.peacebird.dataserver.bean.IndexAmountResult;
 
 public interface DataDao {
 
-	public List<IndexResult> getIndexResult(Date date);
+	public List<IndexAmountResult> getIndexResult(Date date);
 
 }

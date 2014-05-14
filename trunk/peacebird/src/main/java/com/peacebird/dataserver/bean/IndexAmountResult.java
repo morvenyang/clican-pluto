@@ -1,12 +1,12 @@
 package com.peacebird.dataserver.bean;
 
-public class IndexResult {
+public class IndexAmountResult {
 
 	private String brand;
 	
 	private Integer dayAmount;
 
-	public IndexResult(String brand, Integer dayAmount) {
+	public IndexAmountResult(String brand, Integer dayAmount) {
 		super();
 		this.brand = brand;
 		this.dayAmount = dayAmount;
