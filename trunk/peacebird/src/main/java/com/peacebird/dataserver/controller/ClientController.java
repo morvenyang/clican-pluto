@@ -99,4 +99,23 @@ public class ClientController {
 			log.error("", e);
 		}
 	}
+
+	@RequestMapping("/brand")
+	public void brand(@RequestParam(value = "brand") String brand,
+			HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		User user = (User) req.getSession().getAttribute("user");
+		String result = null;
+		if (user == null) {
+			result = this.getNotLoginResult();
+		} else {
+			
+		}
+		try {
+			resp.setContentType("application/json");
+			resp.getOutputStream().write(result.getBytes("utf-8"));
+		} catch (Exception e) {
+			log.error("", e);
+		}
+	}
 }
