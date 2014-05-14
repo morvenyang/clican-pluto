@@ -12,6 +12,8 @@ public interface DataDao {
 	
 	public BrandResult getBrandResult(Date date,String brand);
 	
+	public List<BrandResult> getBrandResultByChannel(Date date, String brand);
+	
 	
 	public List<BrandResult> getBrandWeekResult(Date startDate,Date endDate,String brand);
 

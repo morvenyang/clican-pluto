@@ -109,7 +109,7 @@ public class ClientController {
 		if (user == null) {
 			result = this.getNotLoginResult();
 		} else {
-			
+			result = this.dataService.getBrandResult(brand);
 		}
 		try {
 			resp.setContentType("application/json");
