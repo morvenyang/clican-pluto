@@ -1,8 +1,8 @@
 package com.peacebird.dataserver.service;
 
-import com.peacebird.dataserver.bean.IndexResult;
+import com.peacebird.dataserver.bean.IndexAmountResult;
 
 public interface DataService {
 
-	public IndexResult getCurrentIndexResult();
+	public String getCurrentIndexResult();
 }
