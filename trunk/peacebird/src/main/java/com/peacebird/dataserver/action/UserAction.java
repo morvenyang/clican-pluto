@@ -2,7 +2,6 @@ package com.peacebird.dataserver.action;
 
 import java.util.List;
 
-import org.apache.commons.codec.digest.DigestUtils;
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
@@ -29,10 +28,8 @@ public class UserAction extends BaseAction {
 	@In
 	private Identity identity;
 
-	private String oldPassword;
 	private String password;
 	private String confirmedPassword;
-	private String recordOldPassword;
 
 	public void listUsers() {
 		users = this.getUserService().findAllUsers();
@@ -67,16 +64,9 @@ public class UserAction extends BaseAction {
 
 	public void changePassword() {
 		this.user = identity.getUser();
-		this.recordOldPassword = this.user.getPassword();
 	}
 
 	public void updatePassword() {
-		String hashPassword = DigestUtils.shaHex(this.oldPassword);
-		if (!hashPassword.equals(this.recordOldPassword)) {
-			this.statusMessages.addToControlFromResourceBundle("cpOldPassword",
-					Severity.ERROR, "userOldPasswordWrong");
-			return;
-		}
 		boolean validated = true;
 		// we must check the password policy
 		
@@ -118,14 +108,6 @@ public class UserAction extends BaseAction {
 
 	public List<User> getUsers() {
 		return users;
-	}
-
-	public String getOldPassword() {
-		return oldPassword;
-	}
-
-	public void setOldPassword(String oldPassword) {
-		this.oldPassword = oldPassword;
 	}
 
 	public String getPassword() {

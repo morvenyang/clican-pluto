@@ -70,7 +70,7 @@
 									reRender="userPanel"
 									oncomplete="Richfaces.showModalPanel('userPanel');" />
 								<a4j:commandButton value="修改密码"
-									action="#{userAction.editUser(user)}" ajaxSingle="true"
+									action="#{userAction.changePassword(user)}" ajaxSingle="true"
 									reRender="changePasswordPanel"
 									oncomplete="Richfaces.showModalPanel('changePasswordPanel');" />
 								<a4j:commandButton value="禁用"
@@ -195,15 +195,6 @@
 		</f:facet>
 		<a4j:form id="changePasswordForm" rendered="#{identity.loggedIn}">
 			<h:panelGrid columns="3" width="500">
-				<h:panelGroup>
-					<h:outputLabel value="旧密码" />
-					<h:outputText value=" *" style="color:red;" />
-				</h:panelGroup>
-				<h:inputSecret id="cpOldPassword" value="#{userAction.oldPassword}"
-					style="width:180px;" required="true"
-					requiredMessage="旧密码不能为空" />
-				<rich:message for="cpOldPassword" style="color:red" showDetail="false"
-					showSummary="true" />
 				<h:panelGroup>
 					<h:outputLabel value="密码" />
 					<h:outputText value=" *" style="color:red;" />
