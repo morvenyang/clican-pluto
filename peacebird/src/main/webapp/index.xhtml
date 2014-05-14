@@ -15,18 +15,6 @@
 				<td
 					style="text-align: center; vertical-align: middle; font-size: 30px">太平鸟经营日报后台系统</td>
 			</tr>
-			<tr style="height:80px"><td></td></tr>
-			<tr>
-				<td style="text-align: center; vertical-align: middle;"><s:button
-						view="/quiz.xhtml" style="font-size:40px;height:50px"
-						action="#{quizAction.listQuizs()}" value="#{messages['enter']}"
-						rendered="#{s:hasPermission('teacher',null)}" /> <s:button
-						view="/quiz.xhtml" style="font-size:40px;height:50px"
-						action="#{quizAction.listAuditingQuizs()}"
-						value="#{messages['enter']}"
-						rendered="#{s:hasPermission('admin',null)}" />
-				</td>
-			</tr>
 		</table>
 	</ui:define>
 </ui:composition>
