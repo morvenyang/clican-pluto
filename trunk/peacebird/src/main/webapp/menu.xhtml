@@ -11,7 +11,7 @@
 			rendered="#{s:hasPermission('admin',null)}">
 			<s:link view="/user.xhtml" style="font-size:20px"
 				action="#{userAction.listUsers()}"
-				value="#{messages['userControl']}" />
+				value="用户管理" />
 		</rich:menuItem>
 		<rich:toolBarGroup location="right">
 			<h:panelGroup rendered="#{identity.loggedIn}">

@@ -12,7 +12,7 @@ public class UserDaoImpl extends HibernateDaoSupport implements UserDao {
 	@SuppressWarnings("unchecked")
 	public User findUserByUserName(String userName) {
 		List<User> result = this.getHibernateTemplate().findByNamedParam(
-				"from User where userName = :userName", userName, userName);
+				"from User where userName = :userName", "userName", userName);
 		if (result.size() > 0) {
 			return result.get(0);
 		}
