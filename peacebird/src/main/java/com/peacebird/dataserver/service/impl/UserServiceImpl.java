@@ -28,6 +28,11 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void saveUser(User user) {
+		if (user.getId() == null) {
+			// set the password for new user, for user upate we don't change the
+			// password in db.
+			user.setPassword(DigestUtils.shaHex(user.getPassword()));
+		}
 		this.userDao.saveUser(user);
 	}
 
