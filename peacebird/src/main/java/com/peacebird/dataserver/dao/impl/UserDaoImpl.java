@@ -18,4 +18,14 @@ public class UserDaoImpl extends HibernateDaoSupport implements UserDao {
 		}
 		return null;
 	}
+
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<User> findAllUsers() {
+		return this.getHibernateTemplate().find("from User");
+	}
+
+	public void saveUser(User user) {
+		this.getHibernateTemplate().saveOrUpdate(user);
+	}
 }

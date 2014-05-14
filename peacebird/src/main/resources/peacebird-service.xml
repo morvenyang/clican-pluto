@@ -10,8 +10,8 @@
         http://www.springframework.org/schema/tx
         http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
 
-	<bean id="userService" class="om.peacebird.dataserver.service.impl.UserServiceImpl"
+	<bean id="userService" class="com.peacebird.dataserver.service.impl.UserServiceImpl"
 		autowire="byName" />
-	<bean id="dataService" class="om.peacebird.dataserver.service.impl.DataServiceImpl"
+	<bean id="dataService" class="com.peacebird.dataserver.service.impl.DataServiceImpl"
 		autowire="byName" />
 </beans>

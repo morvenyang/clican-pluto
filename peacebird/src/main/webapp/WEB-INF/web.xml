@@ -30,7 +30,7 @@
 
 	<context-param>
 		<param-name>org.richfaces.SKIN</param-name>
-		<param-value>quiz</param-value>
+		<param-value>peacebird</param-value>
 	</context-param>
 
 	<context-param>
