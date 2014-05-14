@@ -12,6 +12,7 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.peacebird.dataserver.bean.LoginResult;
@@ -34,7 +35,8 @@ public class ClientController {
 	public void setDataService(DataService dataService) {
 		this.dataService = dataService;
 	}
-
+	
+	@RequestMapping("/login")
 	public void login(@RequestParam(value = "userName") String userName,
 			@RequestParam(value = "password") String password,
 			HttpServletRequest req, HttpServletResponse resp)
@@ -62,5 +64,10 @@ public class ClientController {
 			log.error("", e);
 		}
 	}
-
+	
+	@RequestMapping("/index")
+	public void index(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		
+	}
 }
