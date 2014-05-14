@@ -22,6 +22,7 @@ public class User {
 	private int expiredDays;
 	private boolean active = true;
 	private int role = 1; //1客户端 2管理员
+	private String brands;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -74,5 +75,12 @@ public class User {
 	}
 	public void setActive(boolean active) {
 		this.active = active;
+	}
+	@Column
+	public String getBrands() {
+		return brands;
+	}
+	public void setBrands(String brands) {
+		this.brands = brands;
 	}
 }

@@ -1,7 +1,11 @@
 package com.peacebird.dataserver.action;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
@@ -31,12 +35,19 @@ public class UserAction extends BaseAction {
 	private String password;
 	private String confirmedPassword;
 
+	private Map<String, Boolean> brandMap;
+
 	public void listUsers() {
 		users = this.getUserService().findAllUsers();
 	}
 
 	public void addUser() {
 		this.user = new User();
+		brandMap = new HashMap<String, Boolean>();
+		brandMap.put("男装", false);
+		brandMap.put("女装", false);
+		brandMap.put("乐町", false);
+		brandMap.put("童装", false);
 	}
 
 	public void saveUser() {
@@ -50,13 +61,21 @@ public class UserAction extends BaseAction {
 				validated = false;
 			}
 			if (this.getUserService().findUserByUserName(
-					this.user.getUserName())!=null) {
+					this.user.getUserName()) != null) {
 				this.statusMessages.addToControlFromResourceBundle("userName",
 						Severity.ERROR, "userNameExisted");
 				validated = false;
 			}
 		}
 		if (validated) {
+			List<String> brands = new ArrayList<String>();
+			for (String brand : brandMap.keySet()) {
+				Boolean select = brandMap.get(brand);
+				if (select) {
+					brands.add(brand);
+				}
+			}
+			this.user.setBrands(StringUtils.join(brands, ","));
 			this.getUserService().saveUser(this.user);
 			users = this.getUserService().findAllUsers();
 		}
@@ -69,7 +88,7 @@ public class UserAction extends BaseAction {
 	public void updatePassword() {
 		boolean validated = true;
 		// we must check the password policy
-		
+
 		if (!this.getPassword().equals(this.getConfirmedPassword())) {
 			this.statusMessages.addToControlFromResourceBundle(
 					"cpPonfirmedPassword", Severity.ERROR,
@@ -84,6 +103,18 @@ public class UserAction extends BaseAction {
 
 	public void editUser(User user) {
 		this.user = user;
+		brandMap = new HashMap<String, Boolean>();
+		brandMap.put("男装", false);
+		brandMap.put("女装", false);
+		brandMap.put("乐町", false);
+		brandMap.put("童装", false);
+		if (StringUtils.isNotEmpty(this.user.getBrands())) {
+			for (String brand : this.user.getBrands().split(",")) {
+				if (brandMap.containsKey(brand)) {
+					brandMap.put(brand, true);
+				}
+			}
+		}
 	}
 
 	public void enableUser(User user) {
@@ -124,6 +155,14 @@ public class UserAction extends BaseAction {
 
 	public void setConfirmedPassword(String confirmedPassword) {
 		this.confirmedPassword = confirmedPassword;
+	}
+
+	public Map<String, Boolean> getBrandMap() {
+		return brandMap;
+	}
+
+	public void setBrandMap(Map<String, Boolean> brandMap) {
+		this.brandMap = brandMap;
 	}
 
 }

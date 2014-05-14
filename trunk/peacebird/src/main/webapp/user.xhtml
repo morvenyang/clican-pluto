@@ -130,6 +130,21 @@
 						value="#{userAction.user.expiredDays}" style="width:30px;"/>
 					<rich:message for="expiredDays" style="color:red" showDetail="false"
 						showSummary="true" />
+						
+					<h:panelGroup>
+						<h:outputLabel value="品牌" />
+					</h:panelGroup>
+					<h:panelGrid columns="20">
+						<h:outputLabel value="男装" />
+						<h:selectBooleanCheckbox value="#{userAction.brandMap['男装']}" />
+						<h:outputLabel value="女装" />
+						<h:selectBooleanCheckbox value="#{userAction.brandMap['女装']}" />
+						<h:outputLabel value="乐町" />
+						<h:selectBooleanCheckbox value="#{userAction.brandMap['乐町']}" />
+						<h:outputLabel value="童装" />
+						<h:selectBooleanCheckbox value="#{userAction.brandMap['童装']}" />
+					</h:panelGrid>
+					<h:outputText value=""/>
 					
 					<h:panelGroup>
 						<h:outputLabel value="角色" />
