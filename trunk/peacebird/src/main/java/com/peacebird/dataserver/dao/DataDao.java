@@ -7,6 +7,7 @@ import com.peacebird.dataserver.bean.BrandResult;
 import com.peacebird.dataserver.bean.ChannelResult;
 import com.peacebird.dataserver.bean.RankResult;
 import com.peacebird.dataserver.bean.RetailResult;
+import com.peacebird.dataserver.model.DayStatus;
 
 public interface DataDao {
 
@@ -31,4 +32,8 @@ public interface DataDao {
 
 	public List<RankResult> getRankResult(Date date, String brand,
 			String channel);
+
+	public DayStatus getDayStatus(Date date);
+
+	public void saveDayStatus(DayStatus dayStatus);
 }

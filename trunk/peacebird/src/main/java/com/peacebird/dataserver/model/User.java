@@ -23,6 +23,7 @@ public class User {
 	private boolean active = true;
 	private int role = 1; //1客户端 2管理员
 	private String brands;
+	private String token;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -83,4 +84,11 @@ public class User {
 	public void setBrands(String brands) {
 		this.brands = brands;
 	}
+	public String getToken() {
+		return token;
+	}
+	public void setToken(String token) {
+		this.token = token;
+	}
+	
 }
