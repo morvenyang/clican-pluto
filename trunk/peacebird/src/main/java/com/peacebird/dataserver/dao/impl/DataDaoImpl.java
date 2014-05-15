@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import com.peacebird.dataserver.bean.BrandResult;
+import com.peacebird.dataserver.bean.RetailResult;
 import com.peacebird.dataserver.dao.DataDao;
 
 public class DataDaoImpl extends HibernateDaoSupport implements DataDao {
@@ -60,4 +61,35 @@ public class DataDaoImpl extends HibernateDaoSupport implements DataDao {
 		return this.getHibernateTemplate().findByNamedParam(hsql,
 				new String[] { "brand","startDate","endDate" }, new Object[] { brand,startDate,endDate });
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<RetailResult> getRetailChannelResult(Date date, String brand) {
+		String hsql = "select new com.peacebird.dataserver.bean.RetailResult('channel',channel,sum(dayAmount)) from DayRetailChannel";
+		hsql+= "where brand = :brand and date = :date group by channel";
+		return this.getHibernateTemplate().findByNamedParam(
+				hsql, new String[] { "date", "brand" },
+				new Object[] { date, brand });
+	}
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<RetailResult> getRetailSortResult(Date date, String brand) {
+		String hsql = "select new com.peacebird.dataserver.bean.RetailResult('sort',sort,sum(dayAmount)) from DayRetailSort";
+		hsql+= "where brand = :brand and date = :date group by sort";
+		return this.getHibernateTemplate().findByNamedParam(
+				hsql, new String[] { "date", "brand" },
+				new Object[] { date, brand });
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<RetailResult> getRetailRegionResult(Date date, String brand) {
+		String hsql = "select new com.peacebird.dataserver.bean.RetailResult('region',region,sum(dayAmount)) from DayRetailRegion";
+		hsql+= "where brand = :brand and date = :date group by region";
+		return this.getHibernateTemplate().findByNamedParam(
+				hsql, new String[] { "date", "brand" },
+				new Object[] { date, brand });
+	}
+	
+	
 }

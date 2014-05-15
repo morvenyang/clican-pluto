@@ -1,5 +1,6 @@
 package com.peacebird.dataserver.service.impl;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
@@ -13,7 +14,8 @@ import org.apache.commons.lang.time.DateUtils;
 
 import com.peacebird.dataserver.bean.BrandResult;
 import com.peacebird.dataserver.bean.BrandStatResult;
-import com.peacebird.dataserver.bean.IndexResult;
+import com.peacebird.dataserver.bean.IndexStatResult;
+import com.peacebird.dataserver.bean.RetailResult;
 import com.peacebird.dataserver.dao.DataDao;
 import com.peacebird.dataserver.service.DataService;
 import com.peacebird.dataserver.util.DateJsonValueProcessor;
@@ -27,7 +29,7 @@ public class DataServiceImpl implements DataService {
 	}
 
 	@Override
-	public String getCurrentIndexResult(String[] brands) {
+	public String getIndexResult(String[] brands) {
 		Date yesterday = DateUtils.truncate(new Date(), Calendar.DAY_OF_MONTH);
 		yesterday = DateUtils.addDays(yesterday, -1);
 		Set<String> bSet = new HashSet<String>();
@@ -40,7 +42,7 @@ public class DataServiceImpl implements DataService {
 			BrandResult ibr = new BrandResult(brand, "", -1);
 			indexBrandResults.add(ibr);
 		}
-		IndexResult ir = new IndexResult();
+		IndexStatResult ir = new IndexStatResult();
 		ir.setBrands(indexBrandResults);
 		ir.setResult(0);
 		String result = JSONObject.fromObject(ir).toString();
@@ -78,4 +80,12 @@ public class DataServiceImpl implements DataService {
 		String result = JSONObject.fromObject(bsr,jsonConfig).toString();
 		return result;
 	}
+
+	@Override
+	public String getRetailResult(String brand) {
+		
+		return null;
+	}
+	
+	
 }

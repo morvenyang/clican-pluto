@@ -2,7 +2,7 @@ package com.peacebird.dataserver.bean;
 
 import java.util.List;
 
-public class IndexResult {
+public class IndexStatResult {
 
 	
 	private List<BrandResult> brands;

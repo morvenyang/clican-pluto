@@ -88,7 +88,7 @@ public class ClientController {
 			if (StringUtils.isEmpty(brands)) {
 				result = getErrorResult(3001, "当前用户没有可查阅的品牌,请让管理员设置品牌查阅权限");
 			} else {
-				result = this.dataService.getCurrentIndexResult(brands
+				result = this.dataService.getIndexResult(brands
 						.split(","));
 			}
 		}
@@ -117,5 +117,12 @@ public class ClientController {
 		} catch (Exception e) {
 			log.error("", e);
 		}
+	}
+	
+	@RequestMapping("/retail")
+	public void retail(@RequestParam(value = "brand") String brand,
+			HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		
 	}
 }
