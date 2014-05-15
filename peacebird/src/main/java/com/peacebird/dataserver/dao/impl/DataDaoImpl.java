@@ -15,6 +15,7 @@ import com.peacebird.dataserver.bean.ChannelResult;
 import com.peacebird.dataserver.bean.RankResult;
 import com.peacebird.dataserver.bean.RetailResult;
 import com.peacebird.dataserver.dao.DataDao;
+import com.peacebird.dataserver.model.DayStatus;
 
 public class DataDaoImpl extends HibernateDaoSupport implements DataDao {
 
@@ -54,9 +55,8 @@ public class DataDaoImpl extends HibernateDaoSupport implements DataDao {
 	public List<BrandResult> getBrandResultByChannel(Date date, String brand) {
 		String hsql = "select new com.peacebird.dataserver.bean.BrandResult('',channel,sum(dayAmount)) from DayRetailChannel";
 		hsql += " where date = :date and brand = :brand group by channel";
-		return this.getHibernateTemplate().findByNamedParam(
-				hsql, new String[] { "date", "brand" },
-				new Object[] { date, brand });
+		return this.getHibernateTemplate().findByNamedParam(hsql,
+				new String[] { "date", "brand" }, new Object[] { date, brand });
 	}
 
 	@SuppressWarnings("unchecked")
@@ -66,62 +66,59 @@ public class DataDaoImpl extends HibernateDaoSupport implements DataDao {
 		String hsql = "select new com.peacebird.dataserver.bean.BrandResult('',date,sum(dayAmount)) from DayRetailChannel";
 		hsql += " where brand = :brand and date>= :startDate and date<= :endDate group by date";
 		return this.getHibernateTemplate().findByNamedParam(hsql,
-				new String[] { "brand","startDate","endDate" }, new Object[] { brand,startDate,endDate });
+				new String[] { "brand", "startDate", "endDate" },
+				new Object[] { brand, startDate, endDate });
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<RetailResult> getRetailChannelResult(Date date, String brand) {
 		String hsql = "select new com.peacebird.dataserver.bean.RetailResult('channel',channel,sum(dayAmount)) from DayRetailChannel";
-		hsql+= "where brand = :brand and date = :date group by channel";
-		return this.getHibernateTemplate().findByNamedParam(
-				hsql, new String[] { "date", "brand" },
-				new Object[] { date, brand });
+		hsql += "where brand = :brand and date = :date group by channel";
+		return this.getHibernateTemplate().findByNamedParam(hsql,
+				new String[] { "date", "brand" }, new Object[] { date, brand });
 	}
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<RetailResult> getRetailSortResult(Date date, String brand) {
 		String hsql = "select new com.peacebird.dataserver.bean.RetailResult('sort',sort,sum(dayAmount)) from DayRetailSort";
-		hsql+= "where brand = :brand and date = :date group by sort";
-		return this.getHibernateTemplate().findByNamedParam(
-				hsql, new String[] { "date", "brand" },
-				new Object[] { date, brand });
+		hsql += "where brand = :brand and date = :date group by sort";
+		return this.getHibernateTemplate().findByNamedParam(hsql,
+				new String[] { "date", "brand" }, new Object[] { date, brand });
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<RetailResult> getRetailRegionResult(Date date, String brand) {
 		String hsql = "select new com.peacebird.dataserver.bean.RetailResult('region',region,sum(dayAmount)) from DayRetailRegion";
-		hsql+= "where brand = :brand and date = :date group by region";
-		return this.getHibernateTemplate().findByNamedParam(
-				hsql, new String[] { "date", "brand" },
-				new Object[] { date, brand });
+		hsql += "where brand = :brand and date = :date group by region";
+		return this.getHibernateTemplate().findByNamedParam(hsql,
+				new String[] { "date", "brand" }, new Object[] { date, brand });
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<ChannelResult> getChannelResult(Date date, String brand) {
 		String hsql = "select new com.peacebird.dataserver.bean.ChannelResult(dayAmountdocNumber,avgDocCount,avgPrice,aps,channel) from DayRetailChannelDetail";
-		hsql+= "where brand = :brand and date = :date";
-		return this.getHibernateTemplate().findByNamedParam(
-				hsql, new String[] { "date", "brand" },
-				new Object[] { date, brand });
+		hsql += "where brand = :brand and date = :date";
+		return this.getHibernateTemplate().findByNamedParam(hsql,
+				new String[] { "date", "brand" }, new Object[] { date, brand });
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<String> getAllChannelForRank(Date date, String brand) {
 		String hsql = "select channel from DayStoreAmountRank where date = :date and brand= :brand";
-		return this.getHibernateTemplate().findByNamedParam(
-				hsql, new String[] { "date", "brand" },
-				new Object[] { date, brand });
+		return this.getHibernateTemplate().findByNamedParam(hsql,
+				new String[] { "date", "brand" }, new Object[] { date, brand });
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<RankResult> getRankResult(final Date date, final String brand,
 			final String channel) {
-		return this.getHibernateTemplate().executeFind(new HibernateCallback(){
+		return this.getHibernateTemplate().executeFind(new HibernateCallback() {
 			@Override
 			public Object doInHibernate(Session session)
 					throws HibernateException, SQLException {
@@ -135,6 +132,21 @@ public class DataDaoImpl extends HibernateDaoSupport implements DataDao {
 			}
 		});
 	}
-	
-	
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public DayStatus getDayStatus(Date date) {
+		List<DayStatus> result = this.getHibernateTemplate().findByNamedParam(
+				"from DayStatus where date = :date", "date", date);
+		if (result.size() > 0) {
+			return result.get(0);
+		}
+		return null;
+	}
+
+	@Override
+	public void saveDayStatus(DayStatus dayStatus) {
+		this.getHibernateTemplate().saveOrUpdate(dayStatus);
+	}
+
 }
