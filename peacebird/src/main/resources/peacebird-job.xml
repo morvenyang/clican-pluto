@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+
+	<bean id="pushMsgInvokingJobDetail"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="concurrent" value="false" />
+		<property name="targetObject">
+			<ref bean="pushService" />
+		</property>
+		<property name="targetMethod">
+			<value>pushMsg</value>
+		</property>
+	</bean>
+
+	<bean id="pushMsgCronTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail">
+			<ref bean="pushMsgInvokingJobDetail" />
+		</property>
+		<property name="cronExpression">
+			<value>0 0/5 * * * ?</value>
+		</property>
+	</bean>
+	
+	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean"
+		destroy-method="destroy">
+		<property name="triggers">
+			<list>
+                <ref local="pushMsgCronTrigger" />
+			</list>
+		</property>
+	</bean>
+
+</beans>
