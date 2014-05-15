@@ -14,7 +14,6 @@ import org.jboss.seam.annotations.security.Restrict;
 import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.international.StatusMessage.Severity;
 
-import com.peacebird.dataserver.bean.Identity;
 import com.peacebird.dataserver.model.User;
 
 @Scope(ScopeType.PAGE)
@@ -28,9 +27,6 @@ public class UserAction extends BaseAction {
 
 	@In(required = true)
 	FacesMessages statusMessages;
-
-	@In
-	private Identity identity;
 
 	private String password;
 	private String confirmedPassword;
