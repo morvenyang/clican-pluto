@@ -2,8 +2,10 @@ package com.peacebird.dataserver.service.impl;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import net.sf.json.JSONObject;
@@ -16,6 +18,8 @@ import com.peacebird.dataserver.bean.BrandStatResult;
 import com.peacebird.dataserver.bean.ChannelResult;
 import com.peacebird.dataserver.bean.ChannelStatResult;
 import com.peacebird.dataserver.bean.IndexStatResult;
+import com.peacebird.dataserver.bean.RankResult;
+import com.peacebird.dataserver.bean.RankStatResult;
 import com.peacebird.dataserver.bean.RetailResult;
 import com.peacebird.dataserver.bean.RetailStatResult;
 import com.peacebird.dataserver.dao.DataDao;
@@ -119,4 +123,22 @@ public class DataServiceImpl implements DataService {
 		return result;
 	}
 
+	@Override
+	public String getRankResult(String brand) {
+		Date yesterday = DateUtils.truncate(new Date(), Calendar.DAY_OF_MONTH);
+		yesterday = DateUtils.addDays(yesterday, -1);
+		List<String> channels = this.dataDao.getAllChannelForRank(yesterday,
+				brand);
+		Map<String, List<RankResult>> channelMap = new HashMap<String, List<RankResult>>();
+		for (String channel : channels) {
+			List<RankResult> rankResult = this.dataDao.getRankResult(yesterday,
+					brand, channel);
+			channelMap.put(channel, rankResult);
+		}
+		RankStatResult rsr = new RankStatResult();
+		rsr.setResult(1);
+		rsr.setChannel(channelMap);
+		String result = JSONObject.fromObject(rsr).toString();
+		return result;
+	}
 }
