@@ -77,6 +77,12 @@
 	<bean id="springProperty" class="com.peacebird.dataserver.bean.SpringProperty">
 		<property name="version" value="${version}"></property>
 		<property name="serverUrl" value="${serverUrl}"></property>
+		<property name="apnsCertEnv" value="${apnsCertEnv}"></property>
+		<property name="apnsCertFile" value="${apnsCertFile}"></property>
+		<property name="apnsCertPassword" value="${apnsCertPassword}"></property>
+		<property name="systemProxyEnable" value="${systemProxyEnable}"></property>
+		<property name="systemProxyHost" value="${systemProxyHost}"></property>
+		<property name="systemProxyPort" value="${systemProxyPort}"></property>
 	</bean>
 
 </beans>
