@@ -1,12 +1,18 @@
 package com.peacebird.dataserver.dao.impl;
 
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import com.peacebird.dataserver.bean.BrandResult;
 import com.peacebird.dataserver.bean.ChannelResult;
+import com.peacebird.dataserver.bean.RankResult;
 import com.peacebird.dataserver.bean.RetailResult;
 import com.peacebird.dataserver.dao.DataDao;
 
@@ -100,6 +106,34 @@ public class DataDaoImpl extends HibernateDaoSupport implements DataDao {
 		return this.getHibernateTemplate().findByNamedParam(
 				hsql, new String[] { "date", "brand" },
 				new Object[] { date, brand });
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<String> getAllChannelForRank(Date date, String brand) {
+		String hsql = "select channel from DayStoreAmountRank where date = :date and brand= :brand";
+		return this.getHibernateTemplate().findByNamedParam(
+				hsql, new String[] { "date", "brand" },
+				new Object[] { date, brand });
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<RankResult> getRankResult(final Date date, final String brand,
+			final String channel) {
+		return this.getHibernateTemplate().executeFind(new HibernateCallback(){
+			@Override
+			public Object doInHibernate(Session session)
+					throws HibernateException, SQLException {
+				String hsql = "select channel from DayStoreAmountRank where date = :date and brand= :brand and channel = :channel order by amount desc";
+				Query query = session.createQuery(hsql);
+				query.setParameter("date", date);
+				query.setParameter("brand", brand);
+				query.setParameter("channel", channel);
+				query.setMaxResults(10);
+				return query.list();
+			}
+		});
 	}
 	
 	

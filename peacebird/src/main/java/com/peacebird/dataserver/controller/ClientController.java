@@ -136,7 +136,7 @@ public class ClientController {
 			log.error("", e);
 		}
 	}
-	
+
 	@RequestMapping("/channel")
 	public void channel(@RequestParam(value = "brand") String brand,
 			HttpServletRequest req, HttpServletResponse resp)
@@ -147,6 +147,25 @@ public class ClientController {
 			result = this.getNotLoginResult();
 		} else {
 			result = this.dataService.getChannelResult(brand);
+		}
+		try {
+			resp.setContentType("application/json");
+			resp.getOutputStream().write(result.getBytes("utf-8"));
+		} catch (Exception e) {
+			log.error("", e);
+		}
+	}
+
+	@RequestMapping("/rank")
+	public void rank(@RequestParam(value = "brand") String brand,
+			HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		User user = (User) req.getSession().getAttribute("user");
+		String result = null;
+		if (user == null) {
+			result = this.getNotLoginResult();
+		} else {
+			result = this.dataService.getRankResult(brand);
 		}
 		try {
 			resp.setContentType("application/json");

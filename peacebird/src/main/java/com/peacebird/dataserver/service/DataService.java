@@ -10,4 +10,6 @@ public interface DataService {
 	public String getRetailResult(String brand);
 	
 	public String getChannelResult(String brand);
+	
+	public String getRankResult(String brand);
 }

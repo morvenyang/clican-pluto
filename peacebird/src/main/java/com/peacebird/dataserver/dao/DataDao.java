@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.peacebird.dataserver.bean.BrandResult;
 import com.peacebird.dataserver.bean.ChannelResult;
+import com.peacebird.dataserver.bean.RankResult;
 import com.peacebird.dataserver.bean.RetailResult;
 
 public interface DataDao {
@@ -26,4 +27,8 @@ public interface DataDao {
 
 	public List<ChannelResult> getChannelResult(Date date, String brand);
 
+	public List<String> getAllChannelForRank(Date date, String brand);
+
+	public List<RankResult> getRankResult(Date date, String brand,
+			String channel);
 }
