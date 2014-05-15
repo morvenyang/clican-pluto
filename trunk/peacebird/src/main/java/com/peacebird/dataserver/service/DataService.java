@@ -8,4 +8,6 @@ public interface DataService {
 	public String getBrandResult(String brand);
 	
 	public String getRetailResult(String brand);
+	
+	public String getChannelResult(String brand);
 }

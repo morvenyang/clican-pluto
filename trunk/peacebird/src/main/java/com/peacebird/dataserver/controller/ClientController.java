@@ -88,8 +88,7 @@ public class ClientController {
 			if (StringUtils.isEmpty(brands)) {
 				result = getErrorResult(3001, "当前用户没有可查阅的品牌,请让管理员设置品牌查阅权限");
 			} else {
-				result = this.dataService.getIndexResult(brands
-						.split(","));
+				result = this.dataService.getIndexResult(brands.split(","));
 			}
 		}
 		try {
@@ -118,11 +117,42 @@ public class ClientController {
 			log.error("", e);
 		}
 	}
-	
+
 	@RequestMapping("/retail")
 	public void retail(@RequestParam(value = "brand") String brand,
 			HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		
+		User user = (User) req.getSession().getAttribute("user");
+		String result = null;
+		if (user == null) {
+			result = this.getNotLoginResult();
+		} else {
+			result = this.dataService.getRetailResult(brand);
+		}
+		try {
+			resp.setContentType("application/json");
+			resp.getOutputStream().write(result.getBytes("utf-8"));
+		} catch (Exception e) {
+			log.error("", e);
+		}
+	}
+	
+	@RequestMapping("/channel")
+	public void channel(@RequestParam(value = "brand") String brand,
+			HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		User user = (User) req.getSession().getAttribute("user");
+		String result = null;
+		if (user == null) {
+			result = this.getNotLoginResult();
+		} else {
+			result = this.dataService.getChannelResult(brand);
+		}
+		try {
+			resp.setContentType("application/json");
+			resp.getOutputStream().write(result.getBytes("utf-8"));
+		} catch (Exception e) {
+			log.error("", e);
+		}
 	}
 }

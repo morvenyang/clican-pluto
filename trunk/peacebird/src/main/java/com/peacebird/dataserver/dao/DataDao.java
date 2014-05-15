@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.peacebird.dataserver.bean.BrandResult;
+import com.peacebird.dataserver.bean.ChannelResult;
 import com.peacebird.dataserver.bean.RetailResult;
 
 public interface DataDao {
@@ -22,5 +23,7 @@ public interface DataDao {
 	public List<RetailResult> getRetailSortResult(Date date, String brand);
 
 	public List<RetailResult> getRetailRegionResult(Date date, String brand);
+
+	public List<ChannelResult> getChannelResult(Date date, String brand);
 
 }
