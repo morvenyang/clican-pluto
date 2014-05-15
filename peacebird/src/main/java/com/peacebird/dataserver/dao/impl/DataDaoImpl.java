@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import com.peacebird.dataserver.bean.BrandResult;
+import com.peacebird.dataserver.bean.ChannelResult;
 import com.peacebird.dataserver.bean.RetailResult;
 import com.peacebird.dataserver.dao.DataDao;
 
@@ -86,6 +87,16 @@ public class DataDaoImpl extends HibernateDaoSupport implements DataDao {
 	public List<RetailResult> getRetailRegionResult(Date date, String brand) {
 		String hsql = "select new com.peacebird.dataserver.bean.RetailResult('region',region,sum(dayAmount)) from DayRetailRegion";
 		hsql+= "where brand = :brand and date = :date group by region";
+		return this.getHibernateTemplate().findByNamedParam(
+				hsql, new String[] { "date", "brand" },
+				new Object[] { date, brand });
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<ChannelResult> getChannelResult(Date date, String brand) {
+		String hsql = "select new com.peacebird.dataserver.bean.ChannelResult(dayAmountdocNumber,avgDocCount,avgPrice,aps,channel) from DayRetailChannelDetail";
+		hsql+= "where brand = :brand and date = :date";
 		return this.getHibernateTemplate().findByNamedParam(
 				hsql, new String[] { "date", "brand" },
 				new Object[] { date, brand });

@@ -1,6 +1,5 @@
 package com.peacebird.dataserver.service.impl;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
@@ -14,8 +13,11 @@ import org.apache.commons.lang.time.DateUtils;
 
 import com.peacebird.dataserver.bean.BrandResult;
 import com.peacebird.dataserver.bean.BrandStatResult;
+import com.peacebird.dataserver.bean.ChannelResult;
+import com.peacebird.dataserver.bean.ChannelStatResult;
 import com.peacebird.dataserver.bean.IndexStatResult;
 import com.peacebird.dataserver.bean.RetailResult;
+import com.peacebird.dataserver.bean.RetailStatResult;
 import com.peacebird.dataserver.dao.DataDao;
 import com.peacebird.dataserver.service.DataService;
 import com.peacebird.dataserver.util.DateJsonValueProcessor;
@@ -57,7 +59,7 @@ public class DataServiceImpl implements DataService {
 		BrandResult br = this.dataDao.getBrandResult(yesterday, brand);
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(yesterday);
-		while(cal.get(Calendar.DAY_OF_WEEK)!=Calendar.MONDAY){
+		while (cal.get(Calendar.DAY_OF_WEEK) != Calendar.MONDAY) {
 			cal.add(Calendar.DAY_OF_MONTH, -1);
 		}
 		Date startDate = cal.getTime();
@@ -75,17 +77,46 @@ public class DataServiceImpl implements DataService {
 			bsr.setChannels(bcr);
 			bsr.setWeeks(bwr);
 		}
-		JsonConfig jsonConfig = new JsonConfig(); 
-		jsonConfig.registerJsonValueProcessor(Date.class, new DateJsonValueProcessor("yyyy-MM-dd"));  
-		String result = JSONObject.fromObject(bsr,jsonConfig).toString();
+		JsonConfig jsonConfig = new JsonConfig();
+		jsonConfig.registerJsonValueProcessor(Date.class,
+				new DateJsonValueProcessor("yyyy-MM-dd"));
+		String result = JSONObject.fromObject(bsr, jsonConfig).toString();
 		return result;
 	}
 
 	@Override
 	public String getRetailResult(String brand) {
-		
-		return null;
+		RetailStatResult rsr = new RetailStatResult();
+		Date yesterday = DateUtils.truncate(new Date(), Calendar.DAY_OF_MONTH);
+		yesterday = DateUtils.addDays(yesterday, -1);
+		List<RetailResult> channelRetail = this.dataDao.getRetailChannelResult(
+				yesterday, brand);
+		List<RetailResult> sortRetail = this.dataDao.getRetailSortResult(
+				yesterday, brand);
+		List<RetailResult> regionRetail = this.dataDao.getRetailRegionResult(
+				yesterday, brand);
+		rsr.setResult(0);
+		rsr.setChannelRetail(channelRetail);
+		rsr.setSortRetail(sortRetail);
+		rsr.setRegionRetail(regionRetail);
+
+		String result = JSONObject.fromObject(rsr).toString();
+		return result;
 	}
-	
-	
+
+	@Override
+	public String getChannelResult(String brand) {
+		RetailStatResult rsr = new RetailStatResult();
+		Date yesterday = DateUtils.truncate(new Date(), Calendar.DAY_OF_MONTH);
+		yesterday = DateUtils.addDays(yesterday, -1);
+		List<ChannelResult> channelResult = this.dataDao.getChannelResult(
+				yesterday, brand);
+		ChannelStatResult csr = new ChannelStatResult();
+		csr.setChannel(channelResult);
+		csr.setResult(1);
+
+		String result = JSONObject.fromObject(rsr).toString();
+		return result;
+	}
+
 }
