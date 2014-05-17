@@ -27,7 +27,7 @@
     
     for (Brand* brand in _indexListModel.brandList) {
         TTStyledText* styledText = [TTStyledText textFromXHTML:[brand.brand stringByAppendingFormat:@" %@ 万元",brand.dayAmount] lineBreaks:YES URLs:YES];
-        NSString* url = [NSString stringWithFormat:@"peacebird://retail/%@", brand.brand];
+        NSString* url = [NSString stringWithFormat:@"peacebird://brand/%@", brand.brand];
         [items addObject:[TTTableStyledTextItem itemWithText:styledText URL:url]];
     }
     
