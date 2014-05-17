@@ -5,6 +5,7 @@ public class LoginResult {
 	private int result;
 	private String message;
 	private int expiredDays;
+	private String jsessionid;
 	
 	public LoginResult(int result, String message, int expiredDays) {
 		super();
@@ -29,6 +30,12 @@ public class LoginResult {
 	}
 	public void setExpiredDays(int expiredDays) {
 		this.expiredDays = expiredDays;
+	}
+	public String getJsessionid() {
+		return jsessionid;
+	}
+	public void setJsessionid(String jsessionid) {
+		this.jsessionid = jsessionid;
 	}
 	
 	

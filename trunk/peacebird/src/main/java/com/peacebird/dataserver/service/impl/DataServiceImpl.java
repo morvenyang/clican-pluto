@@ -34,10 +34,15 @@ public class DataServiceImpl implements DataService {
 		this.dataDao = dataDao;
 	}
 
-	@Override
-	public String getIndexResult(String[] brands) {
+	private Date getYesterday(){
 		Date yesterday = DateUtils.truncate(new Date(), Calendar.DAY_OF_MONTH);
 		yesterday = DateUtils.addDays(yesterday, -1);
+		yesterday.setDate(13);
+		return yesterday;
+	}
+	@Override
+	public String getIndexResult(String[] brands) {
+		Date yesterday = getYesterday();
 		Set<String> bSet = new HashSet<String>();
 		List<BrandResult> indexBrandResults = dataDao.getBrandResult(yesterday,
 				brands);
@@ -57,10 +62,10 @@ public class DataServiceImpl implements DataService {
 
 	@Override
 	public String getBrandResult(String brand) {
-		Date yesterday = DateUtils.truncate(new Date(), Calendar.DAY_OF_MONTH);
-		yesterday = DateUtils.addDays(yesterday, -1);
+		Date yesterday = getYesterday();
 
 		BrandResult br = this.dataDao.getBrandResult(yesterday, brand);
+		br.setBrand(brand);
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(yesterday);
 		while (cal.get(Calendar.DAY_OF_WEEK) != Calendar.MONDAY) {
@@ -73,6 +78,7 @@ public class DataServiceImpl implements DataService {
 		List<BrandResult> bcr = this.dataDao.getBrandResultByChannel(yesterday,
 				brand);
 		BrandStatResult bsr = new BrandStatResult();
+		bsr.setBrand(brand);
 		bsr.setResult(0);
 		if (br == null) {
 			bsr.setMessage("当前该品牌没有昨日的数据");
@@ -91,8 +97,7 @@ public class DataServiceImpl implements DataService {
 	@Override
 	public String getRetailResult(String brand) {
 		RetailStatResult rsr = new RetailStatResult();
-		Date yesterday = DateUtils.truncate(new Date(), Calendar.DAY_OF_MONTH);
-		yesterday = DateUtils.addDays(yesterday, -1);
+		Date yesterday = getYesterday();
 		List<RetailResult> channelRetail = this.dataDao.getRetailChannelResult(
 				yesterday, brand);
 		List<RetailResult> sortRetail = this.dataDao.getRetailSortResult(
@@ -111,8 +116,7 @@ public class DataServiceImpl implements DataService {
 	@Override
 	public String getChannelResult(String brand) {
 		RetailStatResult rsr = new RetailStatResult();
-		Date yesterday = DateUtils.truncate(new Date(), Calendar.DAY_OF_MONTH);
-		yesterday = DateUtils.addDays(yesterday, -1);
+		Date yesterday = getYesterday();
 		List<ChannelResult> channelResult = this.dataDao.getChannelResult(
 				yesterday, brand);
 		ChannelStatResult csr = new ChannelStatResult();
@@ -125,8 +129,7 @@ public class DataServiceImpl implements DataService {
 
 	@Override
 	public String getRankResult(String brand) {
-		Date yesterday = DateUtils.truncate(new Date(), Calendar.DAY_OF_MONTH);
-		yesterday = DateUtils.addDays(yesterday, -1);
+		Date yesterday = getYesterday();
 		List<String> channels = this.dataDao.getAllChannelForRank(yesterday,
 				brand);
 		Map<String, List<RankResult>> channelMap = new HashMap<String, List<RankResult>>();

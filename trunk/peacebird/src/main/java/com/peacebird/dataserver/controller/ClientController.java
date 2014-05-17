@@ -58,6 +58,7 @@ public class ClientController {
 				lr = new LoginResult(1001, "密码错误", -1);
 			}
 		}
+		lr.setJsessionid(req.getSession().getId());
 		String result = JSONObject.fromObject(lr).toString();
 		try {
 			resp.setContentType("application/json");
