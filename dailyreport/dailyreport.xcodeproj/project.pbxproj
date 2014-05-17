@@ -17,6 +17,7 @@
 		320CC833B8AF0ACFD35E6225 /* libThree20Style.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 320CC833B8AF0ACFD35E6224 /* libThree20Style.a */; };
 		320D7DCCE32703ACAB9A45E5 /* libThree20.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 320D7DCCE32703ACAB9A45E4 /* libThree20.a */; };
 		320F2C48872C2E2C4DF86205 /* libThree20UI.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 320F2C48872C2E2C4DF86204 /* libThree20UI.a */; };
+		724480E319271E8A005F5BE5 /* Brand.m in Sources */ = {isa = PBXBuildFile; fileRef = 724480E219271E8A005F5BE5 /* Brand.m */; };
 		7285E3C61925AFEE0011C2D6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7285E3C51925AFEE0011C2D6 /* Foundation.framework */; };
 		7285E3C81925AFEE0011C2D6 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7285E3C71925AFEE0011C2D6 /* CoreGraphics.framework */; };
 		7285E3CA1925AFEE0011C2D6 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7285E3C91925AFEE0011C2D6 /* UIKit.framework */; };
@@ -239,6 +240,8 @@
 		320CC833B8AF0ACFD35E6220 /* Three20Style.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Three20Style.xcodeproj; path = ../three20/src/Three20Style/Three20Style.xcodeproj; sourceTree = SOURCE_ROOT; };
 		320D7DCCE32703ACAB9A45E0 /* Three20.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Three20.xcodeproj; path = ../three20/src/Three20/Three20.xcodeproj; sourceTree = SOURCE_ROOT; };
 		320F2C48872C2E2C4DF86200 /* Three20UI.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Three20UI.xcodeproj; path = ../three20/src/Three20UI/Three20UI.xcodeproj; sourceTree = SOURCE_ROOT; };
+		724480E119271E8A005F5BE5 /* Brand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Brand.h; sourceTree = "<group>"; };
+		724480E219271E8A005F5BE5 /* Brand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Brand.m; sourceTree = "<group>"; };
 		7285E3C21925AFEE0011C2D6 /* dailyreport.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = dailyreport.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7285E3C51925AFEE0011C2D6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		7285E3C71925AFEE0011C2D6 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -521,6 +524,8 @@
 			children = (
 				72EB38A119270E7200D0F225 /* User.h */,
 				72EB38A219270E7200D0F225 /* User.m */,
+				724480E119271E8A005F5BE5 /* Brand.h */,
+				724480E219271E8A005F5BE5 /* Brand.m */,
 			);
 			path = object;
 			sourceTree = "<group>";
@@ -811,6 +816,7 @@
 				72EB389E19270CCA00D0F225 /* IndexListModel.m in Sources */,
 				7285E3D61925AFEE0011C2D6 /* AppDelegate.m in Sources */,
 				7285E3D21925AFEE0011C2D6 /* main.m in Sources */,
+				724480E319271E8A005F5BE5 /* Brand.m in Sources */,
 				72EB388E1927072D00D0F225 /* IndexViewController.m in Sources */,
 				72EB38AC19270EC100D0F225 /* LoginModel.m in Sources */,
 			);

@@ -5,41 +5,47 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>F90301E3-F287-48C2-9040-72C1CA525EC6</string>
+	<string>2A011C44-78FA-4077-9C23-728C3188FD3F</string>
 	<key>IDESourceControlProjectName</key>
 	<string>dailyreport</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>626D1E7B-DA60-440B-B750-104E87A5600D</key>
-		<string>https://clican-pluto.googlecode.com/svn/trunk/ccdream</string>
+		<key>E9F05E6A-E589-4374-9DB9-5247B5ACDBAD</key>
+		<string>https://clican-pluto.googlecode.com/svn/trunk/dailyreport</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>dailyreport/dailyreport.xcodeproj/project.xcworkspace</string>
+	<string>dailyreport.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>626D1E7B-DA60-440B-B750-104E87A5600D</key>
-		<string>../../..</string>
+		<key>E9F05E6A-E589-4374-9DB9-5247B5ACDBAD</key>
+		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectRepositoryRootDictionary</key>
 	<dict>
-		<key>626D1E7B-DA60-440B-B750-104E87A5600D</key>
+		<key>E9F05E6A-E589-4374-9DB9-5247B5ACDBAD</key>
 		<string>https://clican-pluto.googlecode.com/svn</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>https://clican-pluto.googlecode.com/svn/trunk/ccdream/dailyreport/dailyreport.xcodeproj</string>
+	<string>https://clican-pluto.googlecode.com/svn/trunk/dailyreport/dailyreport.xcodeproj</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>626D1E7B-DA60-440B-B750-104E87A5600D</string>
+	<string>E9F05E6A-E589-4374-9DB9-5247B5ACDBAD</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
+			<key>IDESourceControlRepositoryBranchesRelativeLocationKey</key>
+			<string>branches</string>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.subversion</string>
+			<key>IDESourceControlRepositoryTagsRelativeLocationKey</key>
+			<string>tags</string>
+			<key>IDESourceControlRepositoryTrunkRelativeLocationKey</key>
+			<string>trunk</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>626D1E7B-DA60-440B-B750-104E87A5600D</string>
+			<string>E9F05E6A-E589-4374-9DB9-5247B5ACDBAD</string>
 			<key>IDESourceControlWCCName</key>
-			<string>xcodews</string>
+			<string>dailyreport</string>
 		</dict>
 	</array>
 </dict>
