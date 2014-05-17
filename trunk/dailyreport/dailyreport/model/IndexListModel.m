@@ -14,7 +14,7 @@
 
 - (id)init{
     if ((self = [super init])) {
-        self.brandList = [[NSMutableArray array] retain];
+        self.brandList = [NSMutableArray array];
     }
     return self;
 }
