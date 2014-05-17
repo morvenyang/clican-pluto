@@ -12,6 +12,8 @@ public class BrandStatResult {
 	private List<BrandResult> channels;
 	
 	private BrandResult brandResult;
+	
+	private String brand;
 
 	public int getResult() {
 		return result;
@@ -51,6 +53,14 @@ public class BrandStatResult {
 
 	public void setBrandResult(BrandResult brandResult) {
 		this.brandResult = brandResult;
+	}
+
+	public String getBrand() {
+		return brand;
+	}
+
+	public void setBrand(String brand) {
+		this.brand = brand;
 	}
 	
 	

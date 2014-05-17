@@ -14,7 +14,7 @@ import com.peacebird.dataserver.bean.Constants;
 import com.peacebird.dataserver.bean.SpringProperty;
 
 @Scope(ScopeType.APPLICATION)
-@Name("QuizApplication")
+@Name("peaceBirdsApplication")
 @Install(precedence = Install.APPLICATION)
 @Startup
 public class PeaceBirdApplication {
