@@ -7,7 +7,7 @@
 //
 
 #import "IndexViewController.h"
-
+#import "IndexDataSource.h"
 @interface IndexViewController ()
 
 @end
@@ -24,9 +24,7 @@
 }
 
 - (void)createModel {
-    
-    NSMutableArray* items = [NSMutableArray array];
-    TTListDataSource* ds = [[[TTListDataSource alloc] initWithItems:items] autorelease];
+    IndexDataSource* ds = [[[IndexDataSource alloc] init] autorelease];
     self.dataSource = ds;
 }
 
