@@ -30,8 +30,8 @@
 		72783BBA1929A6A10098B3A8 /* 分割线-每日收入水平分割线.png in Resources */ = {isa = PBXBuildFile; fileRef = 72783B831929A6A10098B3A8 /* 分割线-每日收入水平分割线.png */; };
 		72783BBB1929A6A10098B3A8 /* 分割线-每日收入水平分割线@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 72783B841929A6A10098B3A8 /* 分割线-每日收入水平分割线@2x.png */; };
 		72783BBC1929A6A10098B3A8 /* 单效.png in Resources */ = {isa = PBXBuildFile; fileRef = 72783B851929A6A10098B3A8 /* 单效.png */; };
-		72783BBD1929A6A10098B3A8 /* 启动页.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 72783B861929A6A10098B3A8 /* 启动页.jpg */; };
-		72783BBE1929A6A10098B3A8 /* 启动页iphone4.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 72783B871929A6A10098B3A8 /* 启动页iphone4.jpg */; };
+		72783BBD1929A6A10098B3A8 /* Default-568h@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 72783B861929A6A10098B3A8 /* Default-568h@2x.jpg */; };
+		72783BBE1929A6A10098B3A8 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 72783B871929A6A10098B3A8 /* Default.png */; };
 		72783BBF1929A6A10098B3A8 /* 图标-分享.png in Resources */ = {isa = PBXBuildFile; fileRef = 72783B881929A6A10098B3A8 /* 图标-分享.png */; };
 		72783BC01929A6A10098B3A8 /* 图标-分享@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 72783B891929A6A10098B3A8 /* 图标-分享@2x.png */; };
 		72783BC11929A6A10098B3A8 /* 图标-分页原点-正常.png in Resources */ = {isa = PBXBuildFile; fileRef = 72783B8A1929A6A10098B3A8 /* 图标-分页原点-正常.png */; };
@@ -79,6 +79,8 @@
 		72783C011929C7D70098B3A8 /* CRNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 72783BFE1929C7D70098B3A8 /* CRNavigationBar.m */; };
 		72783C021929C7D70098B3A8 /* CRNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 72783C001929C7D70098B3A8 /* CRNavigationController.m */; };
 		72783C051929CBA70098B3A8 /* CRNavigator.m in Sources */ = {isa = PBXBuildFile; fileRef = 72783C041929CBA70098B3A8 /* CRNavigator.m */; };
+		72783C111929E2E50098B3A8 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 72783C0E1929E2E50098B3A8 /* Icon.png */; };
+		72783C121929E2E50098B3A8 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 72783C0F1929E2E50098B3A8 /* Icon@2x.png */; };
 		7285E3C61925AFEE0011C2D6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7285E3C51925AFEE0011C2D6 /* Foundation.framework */; };
 		7285E3C81925AFEE0011C2D6 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7285E3C71925AFEE0011C2D6 /* CoreGraphics.framework */; };
 		7285E3CA1925AFEE0011C2D6 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7285E3C91925AFEE0011C2D6 /* UIKit.framework */; };
@@ -315,8 +317,8 @@
 		72783B831929A6A10098B3A8 /* 分割线-每日收入水平分割线.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "分割线-每日收入水平分割线.png"; sourceTree = "<group>"; };
 		72783B841929A6A10098B3A8 /* 分割线-每日收入水平分割线@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "分割线-每日收入水平分割线@2x.png"; sourceTree = "<group>"; };
 		72783B851929A6A10098B3A8 /* 单效.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "单效.png"; sourceTree = "<group>"; };
-		72783B861929A6A10098B3A8 /* 启动页.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "启动页.jpg"; sourceTree = "<group>"; };
-		72783B871929A6A10098B3A8 /* 启动页iphone4.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "启动页iphone4.jpg"; sourceTree = "<group>"; };
+		72783B861929A6A10098B3A8 /* Default-568h@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Default-568h@2x.jpg"; sourceTree = "<group>"; };
+		72783B871929A6A10098B3A8 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		72783B881929A6A10098B3A8 /* 图标-分享.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "图标-分享.png"; sourceTree = "<group>"; };
 		72783B891929A6A10098B3A8 /* 图标-分享@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "图标-分享@2x.png"; sourceTree = "<group>"; };
 		72783B8A1929A6A10098B3A8 /* 图标-分页原点-正常.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "图标-分页原点-正常.png"; sourceTree = "<group>"; };
@@ -367,6 +369,8 @@
 		72783C001929C7D70098B3A8 /* CRNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRNavigationController.m; sourceTree = "<group>"; };
 		72783C031929CBA70098B3A8 /* CRNavigator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CRNavigator.h; sourceTree = "<group>"; };
 		72783C041929CBA70098B3A8 /* CRNavigator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRNavigator.m; sourceTree = "<group>"; };
+		72783C0E1929E2E50098B3A8 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		72783C0F1929E2E50098B3A8 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
 		7285E3C21925AFEE0011C2D6 /* dailyreport.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = dailyreport.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7285E3C51925AFEE0011C2D6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		7285E3C71925AFEE0011C2D6 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -675,6 +679,8 @@
 		72EB38AD19270F3B00D0F225 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				72783C0E1929E2E50098B3A8 /* Icon.png */,
+				72783C0F1929E2E50098B3A8 /* Icon@2x.png */,
 				72783B7D1929A6A10098B3A8 /* 用户名密码背景.png */,
 				72783B7E1929A6A10098B3A8 /* 件单价.png */,
 				72783B7F1929A6A10098B3A8 /* 关键指标-分割线.png */,
@@ -684,8 +690,8 @@
 				72783B831929A6A10098B3A8 /* 分割线-每日收入水平分割线.png */,
 				72783B841929A6A10098B3A8 /* 分割线-每日收入水平分割线@2x.png */,
 				72783B851929A6A10098B3A8 /* 单效.png */,
-				72783B861929A6A10098B3A8 /* 启动页.jpg */,
-				72783B871929A6A10098B3A8 /* 启动页iphone4.jpg */,
+				72783B861929A6A10098B3A8 /* Default-568h@2x.jpg */,
+				72783B871929A6A10098B3A8 /* Default.png */,
 				72783B881929A6A10098B3A8 /* 图标-分享.png */,
 				72783B891929A6A10098B3A8 /* 图标-分享@2x.png */,
 				72783B8A1929A6A10098B3A8 /* 图标-分页原点-正常.png */,
@@ -979,6 +985,7 @@
 			files = (
 				72783BE01929A6A10098B3A8 /* 色卡-灰蓝@2x.png in Resources */,
 				72783BDA1929A6A10098B3A8 /* 票数.png in Resources */,
+				72783C111929E2E50098B3A8 /* Icon.png in Resources */,
 				72783BE51929A6A10098B3A8 /* 首页MG.png in Resources */,
 				72783BD01929A6A10098B3A8 /* 图标-零售收入@2x.png in Resources */,
 				72783BE41929A6A10098B3A8 /* 零售收入.png in Resources */,
@@ -986,7 +993,7 @@
 				72783BCF1929A6A10098B3A8 /* 图标-零售收入.png in Resources */,
 				72783BC71929A6A10098B3A8 /* 图标-小钱袋.png in Resources */,
 				72783BC01929A6A10098B3A8 /* 图标-分享@2x.png in Resources */,
-				72783BBD1929A6A10098B3A8 /* 启动页.jpg in Resources */,
+				72783BBD1929A6A10098B3A8 /* Default-568h@2x.jpg in Resources */,
 				72783BD81929A6A10098B3A8 /* 环状图阴影@2x.png in Resources */,
 				72783BC21929A6A10098B3A8 /* 图标-分页原点-正常@2x.png in Resources */,
 				320B6C86F11D9990244A9731 /* Three20.bundle in Resources */,
@@ -1017,9 +1024,10 @@
 				72783BC41929A6A10098B3A8 /* 图标-分页原点-高亮@2x.png in Resources */,
 				72783BE11929A6A10098B3A8 /* 色卡-黄色.png in Resources */,
 				72783BD11929A6A10098B3A8 /* 每日收入MG背景.png in Resources */,
+				72783C121929E2E50098B3A8 /* Icon@2x.png in Resources */,
 				72783BD91929A6A10098B3A8 /* 登录按钮.png in Resources */,
 				72783BDE1929A6A10098B3A8 /* 色卡-深绿@2x.png in Resources */,
-				72783BBE1929A6A10098B3A8 /* 启动页iphone4.jpg in Resources */,
+				72783BBE1929A6A10098B3A8 /* Default.png in Resources */,
 				72783BD71929A6A10098B3A8 /* 环状图阴影.png in Resources */,
 				72783BCB1929A6A10098B3A8 /* 图标-微信朋友圈.png in Resources */,
 				72783BCD1929A6A10098B3A8 /* 图标-日历.png in Resources */,
