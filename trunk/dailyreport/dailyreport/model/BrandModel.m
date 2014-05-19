@@ -27,7 +27,7 @@
     
     NSLog(@"load brand");
     
-    NSString* url = [BASE_URL stringByAppendingFormat:@"/brand.do?brand=%@",self.brand];
+    NSString* url = [BASE_URL stringByAppendingFormat:@"/brand.do?brand=%@",[self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     NSLog(@"jsessionid=%@",DrAppDelegate.user.sessionId);
     NSLog(@"URL:%@", url);
     

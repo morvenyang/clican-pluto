@@ -10,6 +10,7 @@
 #import "style/StyleSheet.h"
 #import "IndexViewController.h"
 #import "LoginViewController.h"
+#import "BrandViewController.h"
 #import "CRNavigator.h"
 @implementation AppDelegate
 
@@ -31,7 +32,8 @@
     [map from:@"peacebird://login" toSharedViewController:[LoginViewController class]];
     [map from:@"peacebird://index" toSharedViewController:
      [IndexViewController class]];
-    
+    [map from:@"peacebird://brand/(initWithBrand:)" toSharedViewController:
+    [BrandViewController class]];
     if (![navigator restoreViewControllers]) {
         [navigator openURLAction:[TTURLAction actionWithURLPath:@"peacebird://login"]];
     }

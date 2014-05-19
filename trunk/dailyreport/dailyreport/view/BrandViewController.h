@@ -7,7 +7,13 @@
 //
 
 #import <Three20UI/Three20UI.h>
-
-@interface BrandViewController : TTViewController
-
+#import "BrandModel.h"
+@interface BrandViewController : TTViewController<BrandDelegate>{
+    NSString* _brand;
+    BrandModel* _brandModel;
+    
+}
+@property (nonatomic, copy) NSString *brand;
+@property (nonatomic, retain) BrandModel *brandModel;
+-(id) initWithBrand:(NSString*) brand;
 @end

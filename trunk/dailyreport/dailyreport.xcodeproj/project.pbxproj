@@ -83,6 +83,7 @@
 		72783C121929E2E50098B3A8 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 72783C0F1929E2E50098B3A8 /* Icon@2x.png */; };
 		72783CA9192A09100098B3A8 /* IndexTableItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 72783CA8192A09100098B3A8 /* IndexTableItemCell.m */; };
 		72783CAC192A093E0098B3A8 /* IndexTableItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 72783CAB192A093E0098B3A8 /* IndexTableItem.m */; };
+		72783CD1192A25100098B3A8 /* LinkImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 72783CD0192A25100098B3A8 /* LinkImageView.m */; };
 		7285E3C61925AFEE0011C2D6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7285E3C51925AFEE0011C2D6 /* Foundation.framework */; };
 		7285E3C81925AFEE0011C2D6 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7285E3C71925AFEE0011C2D6 /* CoreGraphics.framework */; };
 		7285E3CA1925AFEE0011C2D6 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7285E3C91925AFEE0011C2D6 /* UIKit.framework */; };
@@ -377,6 +378,8 @@
 		72783CA8192A09100098B3A8 /* IndexTableItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IndexTableItemCell.m; sourceTree = "<group>"; };
 		72783CAA192A093E0098B3A8 /* IndexTableItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IndexTableItem.h; sourceTree = "<group>"; };
 		72783CAB192A093E0098B3A8 /* IndexTableItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IndexTableItem.m; sourceTree = "<group>"; };
+		72783CCF192A25100098B3A8 /* LinkImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LinkImageView.h; sourceTree = "<group>"; };
+		72783CD0192A25100098B3A8 /* LinkImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LinkImageView.m; sourceTree = "<group>"; };
 		7285E3C21925AFEE0011C2D6 /* dailyreport.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = dailyreport.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7285E3C51925AFEE0011C2D6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		7285E3C71925AFEE0011C2D6 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -536,6 +539,7 @@
 		72783C9B192A08DC0098B3A8 /* three20 */ = {
 			isa = PBXGroup;
 			children = (
+				72783CC5192A233D0098B3A8 /* view */,
 				72783C9C192A08DC0098B3A8 /* TableItem */,
 				72783C9D192A08DC0098B3A8 /* TableItemCell */,
 			);
@@ -558,6 +562,15 @@
 				72783CAB192A093E0098B3A8 /* IndexTableItem.m */,
 			);
 			path = TableItemCell;
+			sourceTree = "<group>";
+		};
+		72783CC5192A233D0098B3A8 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				72783CCF192A25100098B3A8 /* LinkImageView.h */,
+				72783CD0192A25100098B3A8 /* LinkImageView.m */,
+			);
+			path = view;
 			sourceTree = "<group>";
 		};
 		7285E3B91925AFEE0011C2D6 = {
@@ -1102,6 +1115,7 @@
 				72EB38A919270EAF00D0F225 /* LoginDataSource.m in Sources */,
 				72EB38A619270E8D00D0F225 /* LoginViewController.m in Sources */,
 				72EB389B19270CA900D0F225 /* IndexDataSource.m in Sources */,
+				72783CD1192A25100098B3A8 /* LinkImageView.m in Sources */,
 				72783C011929C7D70098B3A8 /* CRNavigationBar.m in Sources */,
 				72783CA9192A09100098B3A8 /* IndexTableItemCell.m in Sources */,
 				72EB38A319270E7200D0F225 /* User.m in Sources */,
