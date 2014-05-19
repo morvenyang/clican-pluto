@@ -30,7 +30,7 @@
 		72783BBA1929A6A10098B3A8 /* 分割线-每日收入水平分割线.png in Resources */ = {isa = PBXBuildFile; fileRef = 72783B831929A6A10098B3A8 /* 分割线-每日收入水平分割线.png */; };
 		72783BBB1929A6A10098B3A8 /* 分割线-每日收入水平分割线@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 72783B841929A6A10098B3A8 /* 分割线-每日收入水平分割线@2x.png */; };
 		72783BBC1929A6A10098B3A8 /* 单效.png in Resources */ = {isa = PBXBuildFile; fileRef = 72783B851929A6A10098B3A8 /* 单效.png */; };
-		72783BBD1929A6A10098B3A8 /* Default-568h@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 72783B861929A6A10098B3A8 /* Default-568h@2x.jpg */; };
+		72783BBD1929A6A10098B3A8 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 72783B861929A6A10098B3A8 /* Default-568h@2x.png */; };
 		72783BBE1929A6A10098B3A8 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 72783B871929A6A10098B3A8 /* Default.png */; };
 		72783BBF1929A6A10098B3A8 /* 图标-分享.png in Resources */ = {isa = PBXBuildFile; fileRef = 72783B881929A6A10098B3A8 /* 图标-分享.png */; };
 		72783BC01929A6A10098B3A8 /* 图标-分享@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 72783B891929A6A10098B3A8 /* 图标-分享@2x.png */; };
@@ -317,7 +317,7 @@
 		72783B831929A6A10098B3A8 /* 分割线-每日收入水平分割线.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "分割线-每日收入水平分割线.png"; sourceTree = "<group>"; };
 		72783B841929A6A10098B3A8 /* 分割线-每日收入水平分割线@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "分割线-每日收入水平分割线@2x.png"; sourceTree = "<group>"; };
 		72783B851929A6A10098B3A8 /* 单效.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "单效.png"; sourceTree = "<group>"; };
-		72783B861929A6A10098B3A8 /* Default-568h@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Default-568h@2x.jpg"; sourceTree = "<group>"; };
+		72783B861929A6A10098B3A8 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		72783B871929A6A10098B3A8 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		72783B881929A6A10098B3A8 /* 图标-分享.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "图标-分享.png"; sourceTree = "<group>"; };
 		72783B891929A6A10098B3A8 /* 图标-分享@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "图标-分享@2x.png"; sourceTree = "<group>"; };
@@ -690,7 +690,7 @@
 				72783B831929A6A10098B3A8 /* 分割线-每日收入水平分割线.png */,
 				72783B841929A6A10098B3A8 /* 分割线-每日收入水平分割线@2x.png */,
 				72783B851929A6A10098B3A8 /* 单效.png */,
-				72783B861929A6A10098B3A8 /* Default-568h@2x.jpg */,
+				72783B861929A6A10098B3A8 /* Default-568h@2x.png */,
 				72783B871929A6A10098B3A8 /* Default.png */,
 				72783B881929A6A10098B3A8 /* 图标-分享.png */,
 				72783B891929A6A10098B3A8 /* 图标-分享@2x.png */,
@@ -993,7 +993,7 @@
 				72783BCF1929A6A10098B3A8 /* 图标-零售收入.png in Resources */,
 				72783BC71929A6A10098B3A8 /* 图标-小钱袋.png in Resources */,
 				72783BC01929A6A10098B3A8 /* 图标-分享@2x.png in Resources */,
-				72783BBD1929A6A10098B3A8 /* Default-568h@2x.jpg in Resources */,
+				72783BBD1929A6A10098B3A8 /* Default-568h@2x.png in Resources */,
 				72783BD81929A6A10098B3A8 /* 环状图阴影@2x.png in Resources */,
 				72783BC21929A6A10098B3A8 /* 图标-分页原点-正常@2x.png in Resources */,
 				320B6C86F11D9990244A9731 /* Three20.bundle in Resources */,
