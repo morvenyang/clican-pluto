@@ -81,6 +81,8 @@
 		72783C051929CBA70098B3A8 /* CRNavigator.m in Sources */ = {isa = PBXBuildFile; fileRef = 72783C041929CBA70098B3A8 /* CRNavigator.m */; };
 		72783C111929E2E50098B3A8 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 72783C0E1929E2E50098B3A8 /* Icon.png */; };
 		72783C121929E2E50098B3A8 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 72783C0F1929E2E50098B3A8 /* Icon@2x.png */; };
+		72783CA9192A09100098B3A8 /* IndexTableItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 72783CA8192A09100098B3A8 /* IndexTableItemCell.m */; };
+		72783CAC192A093E0098B3A8 /* IndexTableItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 72783CAB192A093E0098B3A8 /* IndexTableItem.m */; };
 		7285E3C61925AFEE0011C2D6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7285E3C51925AFEE0011C2D6 /* Foundation.framework */; };
 		7285E3C81925AFEE0011C2D6 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7285E3C71925AFEE0011C2D6 /* CoreGraphics.framework */; };
 		7285E3CA1925AFEE0011C2D6 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7285E3C91925AFEE0011C2D6 /* UIKit.framework */; };
@@ -371,6 +373,10 @@
 		72783C041929CBA70098B3A8 /* CRNavigator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CRNavigator.m; sourceTree = "<group>"; };
 		72783C0E1929E2E50098B3A8 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		72783C0F1929E2E50098B3A8 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
+		72783CA7192A09100098B3A8 /* IndexTableItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IndexTableItemCell.h; sourceTree = "<group>"; };
+		72783CA8192A09100098B3A8 /* IndexTableItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IndexTableItemCell.m; sourceTree = "<group>"; };
+		72783CAA192A093E0098B3A8 /* IndexTableItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IndexTableItem.h; sourceTree = "<group>"; };
+		72783CAB192A093E0098B3A8 /* IndexTableItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IndexTableItem.m; sourceTree = "<group>"; };
 		7285E3C21925AFEE0011C2D6 /* dailyreport.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = dailyreport.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7285E3C51925AFEE0011C2D6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		7285E3C71925AFEE0011C2D6 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -527,6 +533,33 @@
 			path = CRNavigationController;
 			sourceTree = "<group>";
 		};
+		72783C9B192A08DC0098B3A8 /* three20 */ = {
+			isa = PBXGroup;
+			children = (
+				72783C9C192A08DC0098B3A8 /* TableItem */,
+				72783C9D192A08DC0098B3A8 /* TableItemCell */,
+			);
+			path = three20;
+			sourceTree = "<group>";
+		};
+		72783C9C192A08DC0098B3A8 /* TableItem */ = {
+			isa = PBXGroup;
+			children = (
+				72783CA7192A09100098B3A8 /* IndexTableItemCell.h */,
+				72783CA8192A09100098B3A8 /* IndexTableItemCell.m */,
+			);
+			path = TableItem;
+			sourceTree = "<group>";
+		};
+		72783C9D192A08DC0098B3A8 /* TableItemCell */ = {
+			isa = PBXGroup;
+			children = (
+				72783CAA192A093E0098B3A8 /* IndexTableItem.h */,
+				72783CAB192A093E0098B3A8 /* IndexTableItem.m */,
+			);
+			path = TableItemCell;
+			sourceTree = "<group>";
+		};
 		7285E3B91925AFEE0011C2D6 = {
 			isa = PBXGroup;
 			children = (
@@ -570,6 +603,7 @@
 		7285E3CB1925AFEE0011C2D6 /* dailyreport */ = {
 			isa = PBXGroup;
 			children = (
+				72783C9B192A08DC0098B3A8 /* three20 */,
 				72783BFC1929C7C80098B3A8 /* CRNavigationController */,
 				72EB38B4192712DC00D0F225 /* MBProgressHUD.h */,
 				72EB38B5192712DC00D0F225 /* MBProgressHUD.m */,
@@ -1069,6 +1103,7 @@
 				72EB38A619270E8D00D0F225 /* LoginViewController.m in Sources */,
 				72EB389B19270CA900D0F225 /* IndexDataSource.m in Sources */,
 				72783C011929C7D70098B3A8 /* CRNavigationBar.m in Sources */,
+				72783CA9192A09100098B3A8 /* IndexTableItemCell.m in Sources */,
 				72EB38A319270E7200D0F225 /* User.m in Sources */,
 				72EB38B6192712DC00D0F225 /* MBProgressHUD.m in Sources */,
 				72EB388A192705E800D0F225 /* StyleSheet.m in Sources */,
@@ -1078,6 +1113,7 @@
 				7285E3D21925AFEE0011C2D6 /* main.m in Sources */,
 				724480E319271E8A005F5BE5 /* Brand.m in Sources */,
 				72EB388E1927072D00D0F225 /* IndexViewController.m in Sources */,
+				72783CAC192A093E0098B3A8 /* IndexTableItem.m in Sources */,
 				72EB38AC19270EC100D0F225 /* LoginModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -22,6 +22,7 @@
     if (self) {
         self.title = @"PEACEBIRD 经营日报";
     }
+    self.variableHeightRows = YES;
     if(DEVICE_VERSION>=7.0){
         UIColor *navigationTextColor = [StyleSheet colorFromHexString:@"#323232"];
         DrAppDelegate.window.tintColor = navigationTextColor;
@@ -43,7 +44,12 @@
 
 -(void) loadView{
     [super loadView];
-    
+    self.tableView.backgroundColor =[UIColor blackColor];
+    self.tableView.delegate = self;
+    if(DEVICE_VERSION>=7.0){
+        self.tableView.separatorInset = UIEdgeInsetsZero;
+    }
+    self.tableView.separatorColor = [UIColor blackColor];
     if(DEVICE_VERSION>=7.0){
         self.navigationController.navigationBar.barTintColor=[StyleSheet colorFromHexString:@"#EAEEF2"];
     }else{
@@ -75,4 +81,8 @@
     // Release any retained subviews of the main view.
 }
 
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 109;
+}
 @end
