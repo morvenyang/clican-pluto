@@ -10,7 +10,7 @@
 #import "style/StyleSheet.h"
 #import "IndexViewController.h"
 #import "LoginViewController.h"
-
+#import "CRNavigator.h"
 @implementation AppDelegate
 
 @synthesize user=_user;
@@ -19,8 +19,13 @@
 {
     [TTStyleSheet setGlobalStyleSheet:[[[StyleSheet alloc] init] autorelease]];
     
-    TTNavigator* navigator = [TTNavigator navigator];
+    TTNavigator* navigator = [CRNavigator navigator];
+    UIColor *navigationTextColor = [UIColor whiteColor];
     
+    self.window.tintColor = navigationTextColor;
+    [[UINavigationBar appearance] setTitleTextAttributes:@{
+                                                           NSForegroundColorAttributeName : navigationTextColor
+                                                           }];
     navigator.supportsShakeToReload = NO;
     navigator.persistenceMode = TTNavigatorPersistenceModeNone;
     navigator.window = [[[UIWindow alloc] initWithFrame:TTScreenBounds()] autorelease];
@@ -30,7 +35,6 @@
     [map from:@"peacebird://login" toSharedViewController:[LoginViewController class]];
     [map from:@"peacebird://index" toSharedViewController:
      [IndexViewController class]];
-    
     
     if (![navigator restoreViewControllers]) {
         [navigator openURLAction:[TTURLAction actionWithURLPath:@"peacebird://login"]];

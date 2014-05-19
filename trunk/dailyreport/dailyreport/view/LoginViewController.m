@@ -6,6 +6,8 @@
 #import "User.h"
 #import "AppDelegate.h"
 #import "MBProgressHUD.h"
+#import "StyleSheet.h"
+#import "CRNavigationBar.h"
 
 @implementation LoginViewController
 
@@ -14,13 +16,11 @@
 @synthesize passwordField=_passwordField;
 @synthesize loginButton=_loginButton;
 @synthesize titleImageView=_titleImageView;
-
+@synthesize progressHUD = _progressHUD;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
         [[TTNavigator navigator] removeAllViewControllers];
-        
-        self.tableViewStyle = UITableViewStyleGrouped;
         
         _loginModel = [[LoginModel alloc] init];
         _loginModel.delegate = self;
@@ -39,33 +39,60 @@
 
 - (void)loadView
 {
-    self.navigationController.navigationBarHidden = YES;
+    
     [super loadView];
-    CGRect bounds = [UIScreen mainScreen].bounds;
-    //self.tableView.frame = CGRectMake(20, 125, 280, 80);
-    UIView* backgroundView = [[[UIView alloc] autorelease] initWithFrame:self.view.frame];
-    //backgroundView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"login_pageBg.png"]];
+
     
-    self.tableView.backgroundView = backgroundView;
-    self.tableView.backgroundColor = [UIColor clearColor];
-    UIImage* titleImage = [UIImage imageNamed:@"login_title.png"];
+    self.title = @"登录";
+    if(DEVICE_VERSION>=7.0){
+        self.navigationController.navigationBar.barTintColor=[UIColor blackColor];
+        self.navigationController.navigationBar.translucent=YES;
+    }else{
+        self.navigationController.navigationBar.tintColor = [UIColor blackColor];
+    }
     
-    [self.tableView setContentInset:UIEdgeInsetsMake(125+titleImage.size.height,0,0,0)];
+    self.view.backgroundColor = [StyleSheet colorFromHexString:@"#EAEEF2"];
     
+    UIImage* titleImage = [UIImage imageNamed:@"用户名密码背景.png"];
+
     
-    _titleImageView = [[TTImageView alloc] initWithFrame:CGRectMake((bounds.size.width-titleImage.size.width)/2, 110, 0, 0)];
+    CGRect bounds = self.view.frame;
+    NSLog(@"%f,%f,%f,%f",bounds.size.width,bounds.size.height,bounds.origin.x,bounds.origin.y);
+
+    NSLog(@"%f",self.navigationController.navigationBar.frame.size.height);
+ 
+    if(DEVICE_VERSION>=7.0){
+        _titleImageView = [[TTImageView alloc] initWithFrame:CGRectMake(35,135+64, 320-70, 182/2)];
+    }else{
+        _titleImageView = [[TTImageView alloc] initWithFrame:CGRectMake(35,135, 320-70, 182/2)];
+    }
+    
     _titleImageView.defaultImage = titleImage;
-    _titleImageView.contentMode = UIViewContentModeScaleToFill;
+
+    if(DEVICE_VERSION>=7.0){
+        self.usernameField.frame = CGRectMake(65,135+64, 220, 45);
+        self.passwordField.frame = CGRectMake(65,180+64, 220, 45);
+    }else{
+        self.usernameField.frame = CGRectMake(65,135, 220, 45);
+        self.passwordField.frame = CGRectMake(65,180, 220, 45);
+    }
     
     
     self.loginButton = [UIButton buttonWithType:UIButtonTypeCustom];
     
-    UIImage* loginButtonImage = [UIImage imageNamed:@"button_login.png"];
-    self.loginButton.frame = CGRectMake(24, 27+125+titleImage.size.height+80, loginButtonImage.size.width, loginButtonImage.size.height);
-    [self.loginButton setImage:[UIImage imageNamed:@"button_login.png"] forState:UIControlStateNormal];
+    UIImage* loginButtonImage = [UIImage imageNamed:@"登录按钮.png"];
+    if(DEVICE_VERSION>=7.0){
+        self.loginButton.frame = CGRectMake(35, 135+titleImage.size.height/2+28+64, 320-70, loginButtonImage.size.height/2);
+    }else{
+        self.loginButton.frame = CGRectMake(35, 135+titleImage.size.height/2+28, 320-70, loginButtonImage.size.height/2);
+    }
+    
+    [self.loginButton setImage:[UIImage imageNamed:@"login_button.png"] forState:UIControlStateNormal];
     [self.loginButton addTarget:self action:@selector(loginAction) forControlEvents: UIControlEventTouchUpInside];
     
     [self.view addSubview:_titleImageView];
+    [self.view addSubview:self.usernameField];
+    [self.view addSubview:self.passwordField];
     [self.view addSubview:self.loginButton];
 }
 
@@ -109,7 +136,7 @@
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
-    
+
     //TT_RELEASE_SAFELY(_usernameField);
     //TT_RELEASE_SAFELY(_passwordField);  
 }
@@ -122,15 +149,6 @@
 }
 
 
-#pragma mark - 
-#pragma mark TTModelViewController
-- (void)createModel {
-    self.dataSource = [LoginDataSource dataSourceWithObjects:
-                       @"",
-                       [TTTableControlItem itemWithCaption:@"用户名" control:self.usernameField],
-                       [TTTableControlItem itemWithCaption:@"密码" control:self.passwordField],
-                       nil];    
-}
 
 
 
@@ -152,16 +170,17 @@
 	{
         _usernameField = [[UITextField alloc] init];
         
-        _usernameField.font = [UIFont fontWithName:@"Microsoft YaHei" size:14];
-        _usernameField.textColor = RGBCOLOR(204,204,204);
+        _usernameField.font = [UIFont fontWithName:@"Microsoft YaHei" size:24];
+        _usernameField.textColor = [StyleSheet colorFromHexString:@"#a3a3a3"];
         _usernameField.placeholder =
-        @"用户名";
+        @"请输入用户名";
         
 		_usernameField.autocorrectionType = UITextAutocorrectionTypeNo;	
         _usernameField.keyboardType = UIKeyboardTypeDefault;	
 		_usernameField.returnKeyType = UIReturnKeyDone;
 		
-		_usernameField.clearButtonMode = UITextFieldViewModeAlways;	
+		_usernameField.clearButtonMode = UITextFieldViewModeAlways;
+        _usernameField.contentVerticalAlignment = UIControlContentHorizontalAlignmentCenter;
 		_usernameField.delegate = self;
 	}	
 	return _usernameField;
@@ -172,16 +191,16 @@
 	if (_passwordField == nil)
 	{
         _passwordField = [[UITextField alloc] init];
-        _passwordField.font = [UIFont fontWithName:@"Microsoft YaHei" size:14];
-        _passwordField.textColor = RGBCOLOR(204,204,204);
-        _passwordField.placeholder =@"密码";
+        _passwordField.font = [UIFont fontWithName:@"Microsoft YaHei" size:24];
+        _passwordField.textColor = [StyleSheet colorFromHexString:@"#a3a3a3"];        _passwordField.placeholder =@"请输入密码";
         
 		_passwordField.autocorrectionType = UITextAutocorrectionTypeNo;	
         _passwordField.keyboardType = UIKeyboardTypeDefault;	
 		_passwordField.returnKeyType = UIReturnKeyDone;
 		_passwordField.secureTextEntry = TRUE;
         
-		_passwordField.clearButtonMode = UITextFieldViewModeAlways;		
+		_passwordField.clearButtonMode = UITextFieldViewModeAlways;
+        _passwordField.contentVerticalAlignment = UIControlContentHorizontalAlignmentCenter;
 		_passwordField.delegate = self;		
 
 	}	
@@ -203,15 +222,18 @@
 
 - (void)loginStart:(User*) user
 {
-    
-    
-    
-    
+    self.progressHUD = [[[MBProgressHUD alloc] initWithView:self.view] autorelease];
+    self.progressHUD.delegate = self;
+    self.progressHUD.labelText = @"加载中...";
+    [self.view addSubview:self.progressHUD];
+    [self.view bringSubviewToFront:self.progressHUD];
+    [self.progressHUD show:YES];
+
 }
 
 - (void)loginSuccess:(User*) user
 {
-    [HUD hide:NO];
+    [self.progressHUD hide:NO];
     _loginButton.enabled = YES;
     NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
     
@@ -222,7 +244,7 @@
 }
 - (void)loginFailed:(NSError*) error message:(NSString*) message
 {
-    [HUD hide:NO];
+    [self.progressHUD hide:NO];
     _loginButton.enabled = YES;
     //-1004 connection is not available
     //-1001 timeout
@@ -244,14 +266,15 @@
 #pragma mark -
 #pragma mark MBProgressHUDDelegate methods
 
+#pragma mark -
+#pragma mark MBProgressHUDDelegate methods
+
 - (void)hudWasHidden:(MBProgressHUD *)hud {
-	NSLog(@"Hud: %@", hud);
     // Remove HUD from screen when the HUD was hidded
-    [HUD removeFromSuperview];
-    [HUD release];
+    [_progressHUD removeFromSuperview];
+    [_progressHUD release];
+    _progressHUD = nil;
 }
 
-
-#pragma mark -
 
 @end

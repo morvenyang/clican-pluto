@@ -12,19 +12,20 @@
 #import "LoginModel.h"
 #import "LoginDataSource.h"
 
-@interface LoginViewController : TTTableViewController<UITextFieldDelegate,LoginDelegate,MBProgressHUDDelegate> {
+@interface LoginViewController : UIViewController<UITextFieldDelegate,LoginDelegate,MBProgressHUDDelegate> {
     UITextField* _usernameField;
     UITextField* _passwordField;
     LoginModel* _loginModel;
     TTImageView* _titleImageView;
     UIButton* _loginButton;
-    MBProgressHUD* HUD;
+    MBProgressHUD* _progressHUD;
 }
 
 @property (nonatomic, retain) UITextField *usernameField;
 @property (nonatomic, retain) UITextField *passwordField;
 @property (nonatomic, retain) TTImageView *titleImageView;
 @property (nonatomic, retain) UIButton *loginButton;
+@property (nonatomic, retain) MBProgressHUD    *progressHUD;
 
 
 @end
