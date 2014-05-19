@@ -8,6 +8,8 @@
 
 #import "IndexViewController.h"
 #import "IndexDataSource.h"
+#import "StyleSheet.h"
+#import "AppDelegate.h"
 @interface IndexViewController ()
 
 @end
@@ -20,6 +22,14 @@
     if (self) {
         self.title = @"PEACEBIRD 经营日报";
     }
+    if(DEVICE_VERSION>=7.0){
+        UIColor *navigationTextColor = [StyleSheet colorFromHexString:@"#323232"];
+        DrAppDelegate.window.tintColor = navigationTextColor;
+        [[UINavigationBar appearance] setTitleTextAttributes:@{
+                                                               NSForegroundColorAttributeName : navigationTextColor
+                                                               }];
+    }
+    
     return self;
 }
 
@@ -28,6 +38,26 @@
     self.dataSource = ds;
 }
 
+
+
+
+-(void) loadView{
+    [super loadView];
+    
+    if(DEVICE_VERSION>=7.0){
+        self.navigationController.navigationBar.barTintColor=[StyleSheet colorFromHexString:@"#EAEEF2"];
+    }else{
+        self.navigationBarTintColor=[StyleSheet colorFromHexString:@"#EAEEF2"];
+        UILabel* label = [[[UILabel alloc] initWithFrame:CGRectZero] autorelease];
+        label.backgroundColor = [UIColor clearColor];
+        label.font =[UIFont systemFontOfSize:18];
+        label.textAlignment = NSTextAlignmentCenter;
+        label.textColor=[StyleSheet colorFromHexString:@"#323232"];
+        label.text = @"PEACEBIRD 经营日报";
+        self.navigationItem.titleView = label;
+        [label sizeToFit];
+    }
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];

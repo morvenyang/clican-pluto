@@ -9,6 +9,7 @@
 #import "StyleSheet.h"
 #import "CRNavigationBar.h"
 
+
 @implementation LoginViewController
 
 
@@ -25,6 +26,13 @@
         _loginModel = [[LoginModel alloc] init];
         _loginModel.delegate = self;
         
+    }
+    UIColor *navigationTextColor = [UIColor whiteColor];
+    if(DEVICE_VERSION>=7.0){
+        DrAppDelegate.window.tintColor = navigationTextColor;
+        [[UINavigationBar appearance] setTitleTextAttributes:@{
+                                                               NSForegroundColorAttributeName : navigationTextColor
+                                                               }];
     }
     
     return self;
@@ -46,7 +54,6 @@
     self.title = @"登录";
     if(DEVICE_VERSION>=7.0){
         self.navigationController.navigationBar.barTintColor=[UIColor blackColor];
-        self.navigationController.navigationBar.translucent=YES;
     }else{
         self.navigationController.navigationBar.tintColor = [UIColor blackColor];
     }
@@ -54,12 +61,6 @@
     self.view.backgroundColor = [StyleSheet colorFromHexString:@"#EAEEF2"];
     
     UIImage* titleImage = [UIImage imageNamed:@"用户名密码背景.png"];
-
-    
-    CGRect bounds = self.view.frame;
-    NSLog(@"%f,%f,%f,%f",bounds.size.width,bounds.size.height,bounds.origin.x,bounds.origin.y);
-
-    NSLog(@"%f",self.navigationController.navigationBar.frame.size.height);
  
     if(DEVICE_VERSION>=7.0){
         _titleImageView = [[TTImageView alloc] initWithFrame:CGRectMake(35,135+64, 320-70, 182/2)];
@@ -224,7 +225,7 @@
 {
     self.progressHUD = [[[MBProgressHUD alloc] initWithView:self.view] autorelease];
     self.progressHUD.delegate = self;
-    self.progressHUD.labelText = @"加载中...";
+    self.progressHUD.labelText = @"登录中...";
     [self.view addSubview:self.progressHUD];
     [self.view bringSubviewToFront:self.progressHUD];
     [self.progressHUD show:YES];

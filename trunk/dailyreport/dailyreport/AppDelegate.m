@@ -20,16 +20,10 @@
     [TTStyleSheet setGlobalStyleSheet:[[[StyleSheet alloc] init] autorelease]];
     
     TTNavigator* navigator = [CRNavigator navigator];
-    UIColor *navigationTextColor = [UIColor whiteColor];
     
-    self.window.tintColor = navigationTextColor;
-    [[UINavigationBar appearance] setTitleTextAttributes:@{
-                                                           NSForegroundColorAttributeName : navigationTextColor
-                                                           }];
     navigator.supportsShakeToReload = NO;
     navigator.persistenceMode = TTNavigatorPersistenceModeNone;
     navigator.window = [[[UIWindow alloc] initWithFrame:TTScreenBounds()] autorelease];
-    
     
     TTURLMap* map = navigator.URLMap;
     [map from:@"peacebird://login" toSharedViewController:[LoginViewController class]];
