@@ -27,6 +27,7 @@
         _loginModel.delegate = self;
         
     }
+    
     UIColor *navigationTextColor = [UIColor whiteColor];
     if(DEVICE_VERSION>=7.0){
         DrAppDelegate.window.tintColor = navigationTextColor;
@@ -63,19 +64,19 @@
     UIImage* titleImage = [UIImage imageNamed:@"用户名密码背景.png"];
  
     if(DEVICE_VERSION>=7.0){
-        _titleImageView = [[TTImageView alloc] initWithFrame:CGRectMake(35,135+64, 320-70, 182/2)];
+        _titleImageView = [[TTImageView alloc] initWithFrame:CGRectMake(35,60+64, 320-70, 182/2)];
     }else{
-        _titleImageView = [[TTImageView alloc] initWithFrame:CGRectMake(35,135, 320-70, 182/2)];
+        _titleImageView = [[TTImageView alloc] initWithFrame:CGRectMake(35,60, 320-70, 182/2)];
     }
     
     _titleImageView.defaultImage = titleImage;
 
     if(DEVICE_VERSION>=7.0){
-        self.usernameField.frame = CGRectMake(65,135+64, 220, 45);
-        self.passwordField.frame = CGRectMake(65,180+64, 220, 45);
+        self.usernameField.frame = CGRectMake(65,60+64, 220, 45);
+        self.passwordField.frame = CGRectMake(65,105+64, 220, 45);
     }else{
-        self.usernameField.frame = CGRectMake(65,135, 220, 45);
-        self.passwordField.frame = CGRectMake(65,180, 220, 45);
+        self.usernameField.frame = CGRectMake(65,60, 220, 45);
+        self.passwordField.frame = CGRectMake(65,105, 220, 45);
     }
     
     
@@ -83,9 +84,9 @@
     
     UIImage* loginButtonImage = [UIImage imageNamed:@"登录按钮.png"];
     if(DEVICE_VERSION>=7.0){
-        self.loginButton.frame = CGRectMake(35, 135+titleImage.size.height/2+28+64, 320-70, loginButtonImage.size.height/2);
+        self.loginButton.frame = CGRectMake(35, 60+titleImage.size.height/2+28+64, 320-70, loginButtonImage.size.height/2);
     }else{
-        self.loginButton.frame = CGRectMake(35, 135+titleImage.size.height/2+28, 320-70, loginButtonImage.size.height/2);
+        self.loginButton.frame = CGRectMake(35, 60+titleImage.size.height/2+28, 320-70, loginButtonImage.size.height/2);
     }
     
     [self.loginButton setImage:[UIImage imageNamed:@"login_button.png"] forState:UIControlStateNormal];

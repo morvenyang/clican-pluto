@@ -8,6 +8,6 @@
 
 #import <Three20UI/Three20UI.h>
 
-@interface IndexViewController : TTTableViewController
+@interface IndexViewController : TTTableViewController<UITableViewDelegate>
 
 @end

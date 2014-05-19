@@ -8,6 +8,8 @@
 
 #import "IndexDataSource.h"
 #import "Brand.h"
+#import "IndexTableItem.h"
+#import "IndexTableItemCell.h"
 
 @implementation IndexDataSource
 @synthesize indexListModel=_indexListModel;
@@ -26,9 +28,10 @@
     NSMutableArray* items = [[NSMutableArray alloc] init];
     
     for (Brand* brand in _indexListModel.brandList) {
-        TTStyledText* styledText = [TTStyledText textFromXHTML:[brand.brand stringByAppendingFormat:@" %@ 万元",brand.dayAmount] lineBreaks:YES URLs:YES];
+        TTStyledText* styledText = [TTStyledText textFromXHTML:[brand.brand stringByAppendingFormat:@"昨日零售收入 %@万元",brand.dayAmount] lineBreaks:YES URLs:YES];
         NSString* url = [NSString stringWithFormat:@"peacebird://brand/%@", brand.brand];
-        [items addObject:[TTTableStyledTextItem itemWithText:styledText URL:url]];
+        NSString* imageName = [NSString stringWithFormat:@"首页%@.png",brand.brand];
+        [items addObject:[IndexTableItem itemWithStyledText:styledText backgroundImage:imageName URL:url]];
     }
     
     if ([items count] == 0) {
@@ -41,6 +44,14 @@
     TT_RELEASE_SAFELY(items);
 }
 
+- (Class)tableView:(UITableView*)tableView cellClassForObject:(id) object {
+    if ([object isKindOfClass:[IndexTableItem class]]) {
+		return [IndexTableItemCell class];
+	} else {
+		return [super tableView:tableView cellClassForObject:object];
+	}
+	
+}
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 - (NSString*)titleForLoading:(BOOL)reloading {
