@@ -7,6 +7,7 @@
 //
 
 #import "BrandViewController.h"
+#import "StyleSheet.h"
 
 @interface BrandViewController ()
 
@@ -22,7 +23,17 @@
     }
     return self;
 }
+- (void)loadView
+{
+    
+    [super loadView];
+    
+    
+    
 
+    
+    
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];

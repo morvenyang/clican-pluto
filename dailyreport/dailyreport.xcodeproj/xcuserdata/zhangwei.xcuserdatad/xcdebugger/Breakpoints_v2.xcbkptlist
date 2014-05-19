@@ -9,13 +9,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "dailyreport/view/LoginViewController.m"
-            timestampString = "422174612.544567"
+            filePath = "dailyreport/CRNavigationController/CRNavigationBar.m"
+            timestampString = "422182779.818301"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "236"
-            endingLineNumber = "236"
-            landmarkName = "-loginSuccess:"
+            startingLineNumber = "54"
+            endingLineNumber = "54"
+            landmarkName = "-minOpacityForValue:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
