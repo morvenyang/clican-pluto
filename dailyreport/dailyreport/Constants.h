@@ -8,7 +8,7 @@
 
 #ifndef dailyreport_Constants_h
 #define dailyreport_Constants_h
-#define BASE_URL @"http://16.158.170.136:9000/peacebird"
+#define BASE_URL @"http://192.168.1.101:9000/peacebird"
 #define LAST_USER_NAME @"LAST_USER_NAME"
-
+#define DEVICE_VERSION [[[UIDevice currentDevice] systemVersion] doubleValue]
 #endif

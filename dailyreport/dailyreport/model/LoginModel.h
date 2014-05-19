@@ -3,7 +3,7 @@
 #import <Foundation/Foundation.h>
 
 @protocol LoginDelegate;
-@class User; 
+@class User;
 
 @interface LoginModel : TTURLRequestModel {
     id<LoginDelegate> _delegate;
