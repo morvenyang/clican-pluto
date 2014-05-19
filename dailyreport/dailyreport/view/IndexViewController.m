@@ -10,9 +10,7 @@
 #import "IndexDataSource.h"
 #import "StyleSheet.h"
 #import "AppDelegate.h"
-@interface IndexViewController ()
-
-@end
+#import "IndexTableItem.h"
 
 @implementation IndexViewController
 
@@ -84,5 +82,10 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 109;
+}
+
+- (void)dealloc
+{
+    [super dealloc];
 }
 @end

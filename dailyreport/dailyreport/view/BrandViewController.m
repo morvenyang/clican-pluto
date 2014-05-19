@@ -15,6 +15,16 @@
 
 @implementation BrandViewController
 
+@synthesize brand = _brand;
+@synthesize brandModel = _brandModel;
+
+-(id) initWithBrand:(NSString*) brand{
+    if ((self = [self initWithNibName:nil bundle:nil])) {
+        self.brand = brand;
+        self.brandModel = [[[BrandModel alloc] initWithBrand:self.brand delegate:self] autorelease];
+    }
+    return self;
+}
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -27,17 +37,28 @@
 {
     
     [super loadView];
-    
-    
-    
-
-    
-    
+    [self.brandModel load:TTURLRequestCachePolicyNone more:NO];
 }
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+}
+
+- (void) brandDidFinishLoad:(Brand*) brand channels:(NSArray*) channels weeks:(NSArray*) weeks{
+     NSLog(@"%@",@"加载Brand数据成功");
+}
+
+- (void) brandDidStartLoad:(NSString*) brand{
+    NSLog(@"%@",@"开始加载Brand数据");
+}
+
+- (void) brand:(NSString*)brand didFailLoadWithError:(NSError*)error{
+    if([error code]==-1004||[error code]==-1001){
+        TTAlert(@"请检查网络链接");
+    }else{
+        TTAlert([error localizedDescription]);
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -46,15 +67,11 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+- (void)dealloc
 {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    
+    TT_RELEASE_SAFELY(_brand);
+    TT_RELEASE_SAFELY(_brandModel);
+    [super dealloc];
 }
-*/
-
 @end

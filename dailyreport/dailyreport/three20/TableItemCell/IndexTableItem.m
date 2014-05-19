@@ -15,6 +15,7 @@
 + (id)itemWithStyledText:(TTStyledText*)styledText backgroundImage:(NSString*)backgroundImage URL:(NSString*)url{
     IndexTableItem* item = [[[self alloc] init] autorelease];
     item.text = styledText;
+    NSLog(@"%@",url);
     item.URL = url;
     item.backgroundImage = backgroundImage;
     return item;

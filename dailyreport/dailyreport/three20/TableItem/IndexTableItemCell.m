@@ -7,6 +7,7 @@
 //
 
 #import "IndexTableItemCell.h"
+#import "LinkImageView.h"
 
 @implementation IndexTableItemCell
 @synthesize backgroundImageView = _backgroundImageView;
@@ -21,8 +22,7 @@
     self = [super initWithStyle:style reuseIdentifier:identifier];
     if (self) {
         
-        _backgroundImageView = [[TTImageView alloc] initWithFrame:CGRectMake(7, 0, 307, 101)];
-		
+        _backgroundImageView = [[LinkImageView alloc] initWithFrame:CGRectMake(7, 0, 307, 101)];
         
         _label = [[TTStyledTextLabel alloc] init];
         self.contentView.backgroundColor = [UIColor blackColor];
@@ -68,6 +68,7 @@
     self.indexItem = object;
     NSLog(@"%@",self.indexItem.backgroundImage);
     self.backgroundImageView.urlPath=[NSString stringWithFormat:@"bundle://%@",self.indexItem.backgroundImage];
+    self.backgroundImageView.actionUrl = self.indexItem.URL;
     self.backgroundImageView.frame = CGRectMake(7, 4, 307, 101);
     [super setObject:self.indexItem.text];
 }
