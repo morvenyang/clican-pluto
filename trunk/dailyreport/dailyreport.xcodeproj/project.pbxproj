@@ -31,6 +31,7 @@
 		72623173192B168500E3F99B /* logo114.png in Resources */ = {isa = PBXBuildFile; fileRef = 72623169192B168500E3F99B /* logo114.png */; };
 		72623174192B168500E3F99B /* logo120.png in Resources */ = {isa = PBXBuildFile; fileRef = 7262316A192B168500E3F99B /* logo120.png */; };
 		72623175192B168500E3F99B /* logo1024.png in Resources */ = {isa = PBXBuildFile; fileRef = 7262316B192B168500E3F99B /* logo1024.png */; };
+		72623199192B4E7F00E3F99B /* SwitchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 72623198192B4E7F00E3F99B /* SwitchViewController.m */; };
 		72783BB41929A6A10098B3A8 /* 用户名密码背景.png in Resources */ = {isa = PBXBuildFile; fileRef = 72783B7D1929A6A10098B3A8 /* 用户名密码背景.png */; };
 		72783BB51929A6A10098B3A8 /* 件单价.png in Resources */ = {isa = PBXBuildFile; fileRef = 72783B7E1929A6A10098B3A8 /* 件单价.png */; };
 		72783BB61929A6A10098B3A8 /* 关键指标-分割线.png in Resources */ = {isa = PBXBuildFile; fileRef = 72783B7F1929A6A10098B3A8 /* 关键指标-分割线.png */; };
@@ -327,6 +328,8 @@
 		72623169192B168500E3F99B /* logo114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo114.png; sourceTree = "<group>"; };
 		7262316A192B168500E3F99B /* logo120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo120.png; sourceTree = "<group>"; };
 		7262316B192B168500E3F99B /* logo1024.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo1024.png; sourceTree = "<group>"; };
+		72623197192B4E7F00E3F99B /* SwitchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwitchViewController.h; sourceTree = "<group>"; };
+		72623198192B4E7F00E3F99B /* SwitchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SwitchViewController.m; sourceTree = "<group>"; };
 		72783B7D1929A6A10098B3A8 /* 用户名密码背景.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "用户名密码背景.png"; sourceTree = "<group>"; };
 		72783B7E1929A6A10098B3A8 /* 件单价.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "件单价.png"; sourceTree = "<group>"; };
 		72783B7F1929A6A10098B3A8 /* 关键指标-分割线.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "关键指标-分割线.png"; sourceTree = "<group>"; };
@@ -694,6 +697,8 @@
 				72EB388D1927072D00D0F225 /* IndexViewController.m */,
 				724480F0192732A8005F5BE5 /* BrandViewController.h */,
 				724480F1192732A8005F5BE5 /* BrandViewController.m */,
+				72623197192B4E7F00E3F99B /* SwitchViewController.h */,
+				72623198192B4E7F00E3F99B /* SwitchViewController.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -1142,6 +1147,7 @@
 				72783CD1192A25100098B3A8 /* LinkImageView.m in Sources */,
 				72783C011929C7D70098B3A8 /* CRNavigationBar.m in Sources */,
 				72783CA9192A09100098B3A8 /* IndexTableItemCell.m in Sources */,
+				72623199192B4E7F00E3F99B /* SwitchViewController.m in Sources */,
 				72EB38A319270E7200D0F225 /* User.m in Sources */,
 				72EB38B6192712DC00D0F225 /* MBProgressHUD.m in Sources */,
 				72EB388A192705E800D0F225 /* StyleSheet.m in Sources */,

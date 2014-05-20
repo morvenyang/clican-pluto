@@ -8,7 +8,8 @@
 
 #import <Three20UI/Three20UI.h>
 #import "BrandModel.h"
-@interface BrandViewController : UIViewController<BrandDelegate>{
+#import "SwitchViewController.h"
+@interface BrandViewController : SwitchViewController<BrandDelegate>{
     NSString* _brand;
     BrandModel* _brandModel;
     
