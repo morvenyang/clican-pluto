@@ -42,7 +42,7 @@
         
         [request setValue:[@"JSESSIONID=" stringByAppendingString:DrAppDelegate.user.sessionId]forHTTPHeaderField:@"Cookie"];
         
-        request.cachePolicy = cachePolicy;
+        request.cachePolicy = TTURLRequestCachePolicyNone;
         //request.cacheExpirationAge = TT_CACHE_EXPIRATION_AGE_NEVER;
         
         TTURLJSONResponse* response = [[TTURLJSONResponse alloc] init];
@@ -70,6 +70,7 @@
         
         NSLog(@"response.rootObject:%@" ,data);
         NSNumber* result = [data objectForKey:@"result"];
+        
         if([result intValue]==0){
             NSArray* brands = [data objectForKey:@"brands"];
             for (NSDictionary* brandDict in brands) {
@@ -78,6 +79,9 @@
                 brand.brand =[brandDict objectForKey:@"brand"];
                 [_brandList addObject:brand];
             }
+            
+            [_brandList sortUsingSelector:@selector(compare:)];
+            
             [super requestDidFinishLoad:request];
         }else{
             TTAlert([data objectForKey:@"message"]);
