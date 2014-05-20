@@ -35,7 +35,7 @@
                              requestWithURL: url
                              delegate: self];
     [request setValue:[@"JSESSIONID=" stringByAppendingString:DrAppDelegate.user.sessionId]forHTTPHeaderField:@"Cookie"];
-    request.cachePolicy = TTURLRequestCachePolicyDefault;
+    request.cachePolicy = TTURLRequestCachePolicyNone;
     
     TTURLJSONResponse* response = [[TTURLJSONResponse alloc] init];
     request.response = response;
@@ -71,7 +71,8 @@
             brand.yearAmount = [jsonBrand objectForKey:@"yearAmount"];
             brand.weekLike = [jsonBrand objectForKey:@"weekLike"];
             brand.yearLike = [jsonBrand objectForKey:@"yearLike"];
-            
+            NSLog(@"%@",[jsonBrand objectForKey:@"date"]);
+            brand.date = [dateFormatter dateFromString:[jsonBrand objectForKey:@"date"]];
             //该品牌本周的数据
             NSMutableArray* weeks = [NSMutableArray array];
             NSArray* jsonWeeks = [data objectForKey:@"weeks"];
