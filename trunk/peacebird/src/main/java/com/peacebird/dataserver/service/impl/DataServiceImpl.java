@@ -1,5 +1,6 @@
 package com.peacebird.dataserver.service.impl;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -26,6 +27,7 @@ import com.peacebird.dataserver.dao.DataDao;
 import com.peacebird.dataserver.model.DimBrand;
 import com.peacebird.dataserver.service.DataService;
 import com.peacebird.dataserver.util.DateJsonValueProcessor;
+import com.peacebird.dataserver.util.IntegerJsonValueProcessor;
 
 public class DataServiceImpl implements DataService {
 
@@ -35,12 +37,13 @@ public class DataServiceImpl implements DataService {
 		this.dataDao = dataDao;
 	}
 
-	private Date getYesterday(){
+	private Date getYesterday() {
 		Date yesterday = DateUtils.truncate(new Date(), Calendar.DAY_OF_MONTH);
 		yesterday = DateUtils.addDays(yesterday, -1);
 		yesterday.setDate(14);
 		return yesterday;
 	}
+
 	@Override
 	public String getIndexResult(String[] brands) {
 		Date yesterday = getYesterday();
@@ -66,6 +69,11 @@ public class DataServiceImpl implements DataService {
 		Date yesterday = getYesterday();
 
 		BrandResult br = this.dataDao.getBrandResult(yesterday, brand);
+		BrandStatResult bsr = new BrandStatResult();
+		if (br == null) {
+			bsr.setMessage("当前该品牌没有昨日的数据");
+			return JSONObject.fromObject(bsr).toString();
+		} 
 		br.setBrand(brand);
 		br.setDate(yesterday);
 		Calendar cal = Calendar.getInstance();
@@ -77,21 +85,35 @@ public class DataServiceImpl implements DataService {
 		Date endDate = DateUtils.addDays(startDate, 6);
 		List<BrandResult> bwr = this.dataDao.getBrandWeekResult(startDate,
 				endDate, brand);
+		List<BrandResult> finalBwr = new ArrayList<BrandResult>();
+		Map<Long,BrandResult> bMap = new HashMap<Long,BrandResult>();
+		for(BrandResult b:bwr){
+			bMap.put(b.getDate().getTime(), b);
+		}
+		Date d = startDate;
+		while (d.compareTo(endDate) <= 0) {
+			BrandResult r = bMap.get(d.getTime());
+			if(r==null){
+				r=new BrandResult("", d, null);
+			}
+			finalBwr.add(r);
+			d = DateUtils.addDays(d, 1);
+		}
+
 		List<BrandResult> bcr = this.dataDao.getBrandResultByChannel(yesterday,
 				brand);
-		BrandStatResult bsr = new BrandStatResult();
+		
 		bsr.setBrand(brand);
 		bsr.setResult(0);
-		if (br == null) {
-			bsr.setMessage("当前该品牌没有昨日的数据");
-		} else {
-			bsr.setBrandResult(br);
-			bsr.setChannels(bcr);
-			bsr.setWeeks(bwr);
-		}
+		bsr.setBrandResult(br);
+		bsr.setChannels(bcr);
+		bsr.setWeeks(finalBwr);
+		
 		JsonConfig jsonConfig = new JsonConfig();
 		jsonConfig.registerJsonValueProcessor(Date.class,
 				new DateJsonValueProcessor("yyyy-MM-dd"));
+		jsonConfig.registerJsonValueProcessor(Integer.class,
+				new IntegerJsonValueProcessor());
 		String result = JSONObject.fromObject(bsr, jsonConfig).toString();
 		return result;
 	}
@@ -151,6 +173,5 @@ public class DataServiceImpl implements DataService {
 	public List<DimBrand> getAllBrands() {
 		return this.dataDao.getAllBrands();
 	}
-	
-	
+
 }
