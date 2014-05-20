@@ -5,23 +5,22 @@ import java.util.Date;
 public class BrandResult {
 
 	private String brand;
-	
-	private String channel;
-	
-	private Date date;
-	
-	private Integer dayAmount;
-	
-	private Integer weekAmount;
-	
-	private Integer yearAmount;
-	
-	private Double weekLike;
-	
-	private Double yearLike;
-	
 
-	public BrandResult(String brand,String channel, Number dayAmount) {
+	private String channel;
+
+	private Date date;
+
+	private Integer dayAmount;
+
+	private Integer weekAmount;
+
+	private Integer yearAmount;
+
+	private Double weekLike;
+
+	private Double yearLike;
+
+	public BrandResult(String brand, String channel, Number dayAmount) {
 		this.brand = brand;
 		this.channel = channel;
 		this.dayAmount = dayAmount.intValue();
@@ -108,7 +107,4 @@ public class BrandResult {
 		this.channel = channel;
 	}
 
-	
-	
-	
 }

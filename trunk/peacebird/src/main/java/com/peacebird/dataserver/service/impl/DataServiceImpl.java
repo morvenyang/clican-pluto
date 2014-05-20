@@ -67,6 +67,7 @@ public class DataServiceImpl implements DataService {
 
 		BrandResult br = this.dataDao.getBrandResult(yesterday, brand);
 		br.setBrand(brand);
+		br.setDate(yesterday);
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(yesterday);
 		while (cal.get(Calendar.DAY_OF_WEEK) != Calendar.MONDAY) {
