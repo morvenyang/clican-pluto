@@ -54,7 +54,7 @@
             </value>
 		</property>
 	</bean>
-	<bean id="namingStrategy" class="org.hibernate.cfg.ImprovedNamingStrategy" />
+	<bean id="namingStrategy" class="com.peacebird.dataserver.util.DailyReportImprovedNamingStrategy" />
 
 
 	<bean id="txManager"
