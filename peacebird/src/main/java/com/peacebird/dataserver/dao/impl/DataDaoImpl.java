@@ -65,7 +65,7 @@ public class DataDaoImpl extends HibernateDaoSupport implements DataDao {
 	public List<BrandResult> getBrandWeekResult(Date startDate, Date endDate,
 			String brand) {
 		String hsql = "select new com.peacebird.dataserver.bean.BrandResult('',date,sum(dayAmount)) from DayRetailChannel";
-		hsql += " where brand = :brand and date>= :startDate and date<= :endDate group by date";
+		hsql += " where brand = :brand and date>= :startDate and date<= :endDate group by date order by date";
 		return this.getHibernateTemplate().findByNamedParam(hsql,
 				new String[] { "brand", "startDate", "endDate" },
 				new Object[] { brand, startDate, endDate });

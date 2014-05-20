@@ -29,7 +29,9 @@ public class BrandResult {
 	public BrandResult(String brand, Date date, Number dayAmount) {
 		this.brand = brand;
 		this.date = date;
-		this.dayAmount = dayAmount.intValue();
+		if(dayAmount!=null){
+			this.dayAmount = dayAmount.intValue();
+		}
 	}
 
 	public BrandResult(String brand, Number dayAmount, Number weekAmount,
