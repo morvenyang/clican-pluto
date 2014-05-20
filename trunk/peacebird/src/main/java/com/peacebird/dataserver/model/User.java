@@ -11,7 +11,7 @@ import javax.persistence.Transient;
 import org.hibernate.annotations.Type;
 
 
-@Table(name = "Users")
+@Table(name = "USERS")
 @Entity
 public class User {
 
