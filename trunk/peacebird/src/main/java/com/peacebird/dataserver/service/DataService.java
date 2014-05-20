@@ -1,5 +1,9 @@
 package com.peacebird.dataserver.service;
 
+import java.util.List;
+
+import com.peacebird.dataserver.model.DimBrand;
+
 
 public interface DataService {
 
@@ -12,4 +16,6 @@ public interface DataService {
 	public String getChannelResult(String brand);
 	
 	public String getRankResult(String brand);
+	
+	public List<DimBrand> getAllBrands();
 }

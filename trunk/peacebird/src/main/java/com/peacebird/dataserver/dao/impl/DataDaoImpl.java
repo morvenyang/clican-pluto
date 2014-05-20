@@ -16,6 +16,7 @@ import com.peacebird.dataserver.bean.RankResult;
 import com.peacebird.dataserver.bean.RetailResult;
 import com.peacebird.dataserver.dao.DataDao;
 import com.peacebird.dataserver.model.DayStatus;
+import com.peacebird.dataserver.model.DimBrand;
 
 public class DataDaoImpl extends HibernateDaoSupport implements DataDao {
 
@@ -147,6 +148,12 @@ public class DataDaoImpl extends HibernateDaoSupport implements DataDao {
 	@Override
 	public void saveDayStatus(DayStatus dayStatus) {
 		this.getHibernateTemplate().saveOrUpdate(dayStatus);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<DimBrand> getAllBrands() {
+		return this.getHibernateTemplate().find("from DimBrand");
 	}
 
 }
