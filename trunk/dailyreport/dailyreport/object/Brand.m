@@ -29,4 +29,30 @@
     [super dealloc];
 }
 
+-(int) getIndex{
+    if([self.brand isEqualToString:@"女装"]){
+        return 1;
+    }else if([self.brand isEqualToString:@"男装"]){
+        return 2;
+    }else if([self.brand isEqualToString:@"乐町"]){
+        return 3;
+    }else if([self.brand isEqualToString:@"赫奇"]){
+        return 4;
+    }else if([self.brand isEqualToString:@"MG"]){
+        return 5;
+    }else if([self.brand isEqualToString:@"童装"]){
+        return 6;
+    }else{
+        return 100;
+    }
+}
+-(NSComparisonResult) compare:(Brand*) otherObject{
+    if([self getIndex]<[otherObject getIndex]){
+        return NSOrderedAscending;
+    }else if([self getIndex]>[otherObject getIndex]){
+        return NSOrderedDescending;
+    }else{
+        return NSOrderedSame;
+    }
+}
 @end

@@ -48,7 +48,7 @@
 
 - (void)layoutSubviews {
 	[super layoutSubviews];
-    _label.frame = CGRectMake(20, 80, 250, 35);
+    _label.frame = CGRectMake(20, 80, 270, 35);
     if([self.indexItem.backgroundImage isEqualToString:@"首页童装.png"]){
         _label.textColor = [UIColor blackColor];
     }else{

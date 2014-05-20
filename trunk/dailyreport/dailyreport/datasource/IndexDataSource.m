@@ -28,7 +28,7 @@
     NSMutableArray* items = [[NSMutableArray alloc] init];
     
     for (Brand* brand in _indexListModel.brandList) {
-        TTStyledText* styledText = [TTStyledText textFromXHTML:[brand.brand stringByAppendingFormat:@"昨日零售收入 %@万元",brand.dayAmount] lineBreaks:YES URLs:YES];
+        TTStyledText* styledText = [TTStyledText textFromXHTML:[brand.brand stringByAppendingFormat:@"昨日零售收入 %d万元",brand.dayAmount.intValue/10000] lineBreaks:YES URLs:YES];
         NSString* url = [NSString stringWithFormat:@"peacebird://brand/%@", [brand.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
         NSString* imageName = [NSString stringWithFormat:@"首页%@.png",brand.brand];
         [items addObject:[IndexTableItem itemWithStyledText:styledText backgroundImage:imageName URL:url]];
