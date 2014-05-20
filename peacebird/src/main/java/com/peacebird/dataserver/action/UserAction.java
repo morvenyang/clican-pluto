@@ -14,6 +14,7 @@ import org.jboss.seam.annotations.security.Restrict;
 import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.international.StatusMessage.Severity;
 
+import com.peacebird.dataserver.model.DimBrand;
 import com.peacebird.dataserver.model.User;
 
 @Scope(ScopeType.PAGE)
@@ -33,17 +34,19 @@ public class UserAction extends BaseAction {
 
 	private Map<String, Boolean> brandMap;
 
+	private List<DimBrand> brands;
+
 	public void listUsers() {
 		users = this.getUserService().findAllUsers();
+		this.brands = this.getDataService().getAllBrands();
 	}
 
 	public void addUser() {
 		this.user = new User();
 		brandMap = new HashMap<String, Boolean>();
-		brandMap.put("男装", false);
-		brandMap.put("女装", false);
-		brandMap.put("乐町", false);
-		brandMap.put("童装", false);
+		for (DimBrand brand : brands) {
+			brandMap.put(brand.getName(), false);
+		}
 	}
 
 	public void saveUser() {
@@ -100,10 +103,9 @@ public class UserAction extends BaseAction {
 	public void editUser(User user) {
 		this.user = user;
 		brandMap = new HashMap<String, Boolean>();
-		brandMap.put("男装", false);
-		brandMap.put("女装", false);
-		brandMap.put("乐町", false);
-		brandMap.put("童装", false);
+		for (DimBrand brand : brands) {
+			brandMap.put(brand.getName(), false);
+		}
 		if (StringUtils.isNotEmpty(this.user.getBrands())) {
 			for (String brand : this.user.getBrands().split(",")) {
 				if (brandMap.containsKey(brand)) {
@@ -159,6 +161,14 @@ public class UserAction extends BaseAction {
 
 	public void setBrandMap(Map<String, Boolean> brandMap) {
 		this.brandMap = brandMap;
+	}
+
+	public List<DimBrand> getBrands() {
+		return brands;
+	}
+
+	public void setBrands(List<DimBrand> brands) {
+		this.brands = brands;
 	}
 
 }

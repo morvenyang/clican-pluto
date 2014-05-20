@@ -23,6 +23,7 @@ import com.peacebird.dataserver.bean.RankStatResult;
 import com.peacebird.dataserver.bean.RetailResult;
 import com.peacebird.dataserver.bean.RetailStatResult;
 import com.peacebird.dataserver.dao.DataDao;
+import com.peacebird.dataserver.model.DimBrand;
 import com.peacebird.dataserver.service.DataService;
 import com.peacebird.dataserver.util.DateJsonValueProcessor;
 
@@ -144,4 +145,11 @@ public class DataServiceImpl implements DataService {
 		String result = JSONObject.fromObject(rsr).toString();
 		return result;
 	}
+
+	@Override
+	public List<DimBrand> getAllBrands() {
+		return this.dataDao.getAllBrands();
+	}
+	
+	
 }
