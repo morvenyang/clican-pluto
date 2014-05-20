@@ -13,13 +13,14 @@
 
 @implementation BrandViewController
 
-@synthesize brand = _brand;
+
 @synthesize brandModel = _brandModel;
 
 -(id) initWithBrand:(NSString*) brand{
     if ((self = [self initWithNibName:nil bundle:nil])) {
         self.brand = brand;
         self.brandModel = [[[BrandModel alloc] initWithBrand:self.brand delegate:self] autorelease];
+        self.index = 1;
     }
     
     
@@ -34,51 +35,12 @@
     return self;
 }
 
--(void) backAction{
-    [self.navigationController popViewControllerAnimated:YES];
-}
 
-- (void)viewWillAppear:(BOOL)animated {
-    if(DEVICE_VERSION>=7.0){
-        self.navigationController.navigationBar.barTintColor=[UIColor blackColor];
-    }else{
-        self.navigationController.navigationBar.tintColor = [UIColor blackColor];
-    }
-    
-    UILabel* label = [[[UILabel alloc] initWithFrame:CGRectZero] autorelease];
-    label.backgroundColor = [UIColor clearColor];
-    label.font =[UIFont systemFontOfSize:18];
-    label.textAlignment = NSTextAlignmentCenter;
-    label.textColor=[UIColor whiteColor];
-    label.text = self.brand;
-    self.navigationItem.titleView = label;
-    [label sizeToFit];
-    
-    [super viewWillAppear:animated];
-}
 
 - (void)loadView
 {
-    
     [super loadView];
-    
-    self.title = self.brand;
-    
-    
-    UIButton* backButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [backButton setTitle:@"<" forState:UIControlStateNormal];
-    
-    [backButton addTarget:self action:@selector(backAction) forControlEvents:UIControlEventTouchUpInside];
-    //backButton.frame = CGRectMake(35, 0, 15, 20);
-    [backButton sizeToFit];
-    
-    
-    // create button item -- possible because UIButton subclasses UIView!
-    UIBarButtonItem* backItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
-    [self.navigationItem setLeftBarButtonItem:backItem animated:YES];
-    
     [self.brandModel load:TTURLRequestCachePolicyNone more:NO];
-    [super addCommonViewFromIndex:1];
 }
 - (void)viewDidLoad
 {

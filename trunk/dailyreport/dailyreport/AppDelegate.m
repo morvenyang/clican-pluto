@@ -11,6 +11,7 @@
 #import "IndexViewController.h"
 #import "LoginViewController.h"
 #import "BrandViewController.h"
+#import "KPIViewController.h"
 #import "CRNavigator.h"
 @implementation AppDelegate
 
@@ -34,6 +35,8 @@
      [IndexViewController class]];
     [map from:@"peacebird://brand/(initWithBrand:)" toSharedViewController:
     [BrandViewController class]];
+    [map from:@"peacebird://kpi/(initWithBrand:)" toSharedViewController:
+     [KPIViewController class]];
     if (![navigator restoreViewControllers]) {
         [navigator openURLAction:[TTURLAction actionWithURLPath:@"peacebird://login"]];
     }
