@@ -22,20 +22,14 @@
         self.brandModel = [[[BrandModel alloc] initWithBrand:self.brand delegate:self] autorelease];
     }
     
-    UIColor *navigationTextColor = [UIColor whiteColor];
-    if(DEVICE_VERSION>=7.0){
-        DrAppDelegate.window.tintColor = navigationTextColor;
-        [[UINavigationBar appearance] setTitleTextAttributes:@{
-                                                               NSForegroundColorAttributeName : navigationTextColor
-                                                               }];
-    }
+    
     return self;
 }
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+        
     }
     return self;
 }
@@ -43,17 +37,34 @@
 -(void) backAction{
     [self.navigationController popViewControllerAnimated:YES];
 }
-- (void)loadView
-{
-    
-    [super loadView];
-    self.title = self.brand;
+
+- (void)viewWillAppear:(BOOL)animated {
     if(DEVICE_VERSION>=7.0){
         self.navigationController.navigationBar.barTintColor=[UIColor blackColor];
     }else{
         self.navigationController.navigationBar.tintColor = [UIColor blackColor];
     }
     self.view.backgroundColor = [StyleSheet colorFromHexString:@"#EAEEF2"];
+    
+    UILabel* label = [[[UILabel alloc] initWithFrame:CGRectZero] autorelease];
+    label.backgroundColor = [UIColor clearColor];
+    label.font =[UIFont systemFontOfSize:18];
+    label.textAlignment = NSTextAlignmentCenter;
+    label.textColor=[UIColor whiteColor];
+    label.text = self.brand;
+    self.navigationItem.titleView = label;
+    [label sizeToFit];
+    
+    [super viewWillAppear:animated];
+}
+
+- (void)loadView
+{
+    
+    [super loadView];
+    self.title = self.brand;
+    
+    
     UIButton* backButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [backButton setTitle:@"<" forState:UIControlStateNormal];
     
