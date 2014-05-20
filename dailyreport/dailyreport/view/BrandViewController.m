@@ -44,7 +44,6 @@
     }else{
         self.navigationController.navigationBar.tintColor = [UIColor blackColor];
     }
-    self.view.backgroundColor = [StyleSheet colorFromHexString:@"#EAEEF2"];
     
     UILabel* label = [[[UILabel alloc] initWithFrame:CGRectZero] autorelease];
     label.backgroundColor = [UIColor clearColor];
@@ -62,6 +61,7 @@
 {
     
     [super loadView];
+    
     self.title = self.brand;
     
     
@@ -78,6 +78,7 @@
     [self.navigationItem setLeftBarButtonItem:backItem animated:YES];
     
     [self.brandModel load:TTURLRequestCachePolicyNone more:NO];
+    [super addCommonViewFromIndex:1];
 }
 - (void)viewDidLoad
 {
@@ -135,7 +136,7 @@
     [dailyView addSubview:calendarImageView];
     [dailyView addSubview:calendarLabel];
     [dailyView addSubview:retailAmountLabel];
-    [self.view addSubview:dailyView];
+    [self.contentView addSubview:dailyView];
     
     UIView* weeklyView = [[[UIView alloc] initWithFrame:CGRectMake(0, 166, 320, 109)] autorelease];
     weeklyView.backgroundColor = [UIColor whiteColor];
@@ -163,7 +164,7 @@
     }
     
     
-    [self.view addSubview:weeklyView];
+    [self.contentView addSubview:weeklyView];
     
     UIView* otherView = [[[UIView alloc] initWithFrame:CGRectMake(0, 276, 320, 157)] autorelease];
     otherView.backgroundColor = [StyleSheet colorFromHexString:@"#EDEEF0"];
@@ -224,7 +225,9 @@
     [otherView addSubview:yearSumAmount];
     [otherView addSubview:yearLike];
     [otherView addSubview:yearLikeAmount];
-    [self.view addSubview:otherView];
+    [self.contentView addSubview:otherView];
+    self.contentView.contentSize =
+    CGSizeMake(320, 432);
 }
 
 - (void) brandDidStartLoad:(NSString*) brand{
