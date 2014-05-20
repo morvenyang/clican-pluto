@@ -18,7 +18,7 @@ public class DayRetailChannelDetail {
 	private String channel;
 	private Date date;
 	private Integer docNum;
-	private Integer avgDocCount;
+	private Double avgDocCount;
 	private Integer avgDocAmount;
 	private Integer avgPrice;
 	private Integer aps;
@@ -62,10 +62,10 @@ public class DayRetailChannelDetail {
 	}
 	
 	@Column(name="r_avg_doc_count")
-	public Integer getAvgDocCount() {
+	public Double getAvgDocCount() {
 		return avgDocCount;
 	}
-	public void setAvgDocCount(Integer avgDocCount) {
+	public void setAvgDocCount(Double avgDocCount) {
 		this.avgDocCount = avgDocCount;
 	}
 	@Column(name="r_avg_doc_amount")

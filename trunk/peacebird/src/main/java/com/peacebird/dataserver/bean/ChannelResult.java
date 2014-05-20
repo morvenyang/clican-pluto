@@ -7,7 +7,7 @@ public class ChannelResult {
 	
 	private Integer docNumber;
 	
-	private Integer avgDocCount;
+	private Double avgDocCount;
 	
 	private Integer avgPrice;
 	
@@ -24,7 +24,7 @@ public class ChannelResult {
 			this.docNumber = docNumber.intValue();
 		}
 		if(avgDocCount!=null){
-			this.avgDocCount = avgDocCount.intValue();
+			this.avgDocCount = avgDocCount.doubleValue();
 		}
 		if(avgPrice!=null){
 			this.avgPrice = avgPrice.intValue();
@@ -51,11 +51,11 @@ public class ChannelResult {
 		this.docNumber = docNumber;
 	}
 
-	public Integer getAvgDocCount() {
+	public Double getAvgDocCount() {
 		return avgDocCount;
 	}
 
-	public void setAvgDocCount(Integer avgDocCount) {
+	public void setAvgDocCount(Double avgDocCount) {
 		this.avgDocCount = avgDocCount;
 	}
 
