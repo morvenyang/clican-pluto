@@ -87,6 +87,81 @@
 
 - (void) brandDidFinishLoad:(Brand*) brand channels:(NSArray*) channels weeks:(NSArray*) weeks{
      NSLog(@"%@",@"加载Brand数据成功");
+    UIView* dailyView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 166)] autorelease];
+    NSString* imageName = [NSString stringWithFormat:@"每日收入%@背景.png",self.brand];
+    dailyView.backgroundColor =[UIColor colorWithPatternImage:[UIImage imageNamed:imageName]];
+    UIImage* retailImage = [UIImage imageNamed:@"图标-零售收入.png"];
+    UIImageView* retailImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 34, 34)];
+    retailImageView.image = retailImage;
+    
+    UILabel* retailLabel = [[[UILabel alloc] initWithFrame:CGRectMake(40, 0, 120, 34)] autorelease];
+    retailLabel.text = [NSString stringWithFormat:@"零售收入(万元)"];
+    retailLabel.font = [UIFont systemFontOfSize:12];
+    retailLabel.textColor = [UIColor whiteColor];
+    retailLabel.backgroundColor = [UIColor clearColor];
+    UIImage* calendarImage =[UIImage imageNamed:@"图标-日历.png"];
+    UIImageView* calendarImageView = [[UIImageView alloc] initWithFrame:CGRectMake(160, 0, 34, 34)];
+    calendarImageView.image = calendarImage;
+    
+    UILabel* calendarLabel = [[[UILabel alloc] initWithFrame:CGRectMake(200, 0, 120, 34)] autorelease];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"MM月dd日 EEEE"];
+    calendarLabel.text = [dateFormatter stringFromDate:brand.date];
+    calendarLabel.font = [UIFont systemFontOfSize:12];
+    calendarLabel.textColor = [UIColor whiteColor];
+    calendarLabel.backgroundColor = [UIColor clearColor];
+    
+    UILabel* retailAmountLabel = [[[UILabel alloc] initWithFrame:CGRectMake(20, 50, 120, 80)] autorelease];
+    retailAmountLabel.text = [NSString stringWithFormat:@"%d",brand.dayAmount.intValue/10000];
+    if(brand.dayAmount.intValue/10000>=1000){
+        retailAmountLabel.font = [UIFont fontWithName:@"HelveticaNeue-UltraLight" size:60];
+    }else{
+        retailAmountLabel.font = [UIFont fontWithName:@"HelveticaNeue-UltraLight" size:70];
+    }
+    
+    retailAmountLabel.textColor = [UIColor whiteColor];
+    retailAmountLabel.backgroundColor = [UIColor clearColor];
+    for(int i=0;i<channels.count;i++){
+        Channel* channel = [channels objectAtIndex:i];
+        UILabel* channelLabel = [[[UILabel alloc] initWithFrame:CGRectMake(200, i*20+50, 120, 20)] autorelease];
+        channelLabel.text = [NSString stringWithFormat:@"%@: %d",channel.channel,channel.dayAmount.intValue/10000];
+        channelLabel.font = [UIFont systemFontOfSize:14];
+        channelLabel.textColor = [UIColor whiteColor];
+        channelLabel.backgroundColor = [UIColor clearColor];
+        [dailyView addSubview:channelLabel];
+    }
+    [dailyView addSubview:retailImageView];
+    [dailyView addSubview:retailLabel];
+    [dailyView addSubview:calendarImageView];
+    [dailyView addSubview:calendarLabel];
+    [dailyView addSubview:retailAmountLabel];
+    [self.view addSubview:dailyView];
+    
+    UIView* weeklyView = [[[UIView alloc] initWithFrame:CGRectMake(0, 166, 320, 109)] autorelease];
+    weeklyView.backgroundColor = [UIColor whiteColor];
+    for(int i=0;i<7;i++){
+        Brand* weekBrand = [weeks objectAtIndex:i];
+        UILabel* weekTitle = [[[UILabel alloc] initWithFrame:CGRectMake(20+(i)*40, 15, 40, 40)] autorelease];
+        [weekTitle setNumberOfLines:2];
+        weekTitle.lineBreakMode =NSLineBreakByWordWrapping;
+        NSDateFormatter *df = [[NSDateFormatter alloc] init];
+        [df setDateFormat:@"EEE\nM/dd"];
+        weekTitle.text = [df stringFromDate:weekBrand.date];
+        weekTitle.font = [UIFont systemFontOfSize:14];
+        weekTitle.textColor = [StyleSheet colorFromHexString:@"#383838"];
+        weekTitle.backgroundColor = [UIColor clearColor];
+        [weeklyView addSubview:weekTitle];
+        if(weekBrand.dayAmount==nil||weekBrand.dayAmount.intValue==-1){
+            continue;
+        }
+        UILabel* weekAmount = [[[UILabel alloc] initWithFrame:CGRectMake(20+(i)*40, 60, 40, 40)] autorelease];
+        weekAmount.text = [NSString stringWithFormat:@"%d",weekBrand.dayAmount.intValue/10000];
+        weekAmount.font = [UIFont systemFontOfSize:20];
+        weekAmount.textColor = [StyleSheet colorFromHexString:@"#F55943"];
+        weekAmount.backgroundColor = [UIColor clearColor];
+        [weeklyView addSubview:weekAmount];
+    }
+    [self.view addSubview:weeklyView];
 }
 
 - (void) brandDidStartLoad:(NSString*) brand{
