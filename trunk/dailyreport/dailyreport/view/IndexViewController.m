@@ -21,14 +21,6 @@
         self.title = @"PEACEBIRD 经营日报";
     }
     self.variableHeightRows = YES;
-    if(DEVICE_VERSION>=7.0){
-        UIColor *navigationTextColor = [StyleSheet colorFromHexString:@"#323232"];
-        DrAppDelegate.window.tintColor = navigationTextColor;
-        [[UINavigationBar appearance] setTitleTextAttributes:@{
-                                                               NSForegroundColorAttributeName : navigationTextColor
-                                                               }];
-    }
-    
     return self;
 }
 
@@ -37,8 +29,24 @@
     self.dataSource = ds;
 }
 
-
-
+- (void)viewWillAppear:(BOOL)animated {
+    if(DEVICE_VERSION>=7.0){
+        self.navigationController.navigationBar.barTintColor =[StyleSheet colorFromHexString:@"#EAEEF2"];
+    }else{
+        self.navigationBarTintColor=[StyleSheet colorFromHexString:@"#EAEEF2"];
+    }
+    
+    UILabel* label = [[[UILabel alloc] initWithFrame:CGRectZero] autorelease];
+    label.backgroundColor = [UIColor clearColor];
+    label.font =[UIFont systemFontOfSize:18];
+    label.textAlignment = NSTextAlignmentCenter;
+    label.textColor=[StyleSheet colorFromHexString:@"#323232"];
+    label.text = @"PEACEBIRD 经营日报";
+    self.navigationItem.titleView = label;
+    [label sizeToFit];
+    
+    [super viewWillAppear:animated];
+}
 
 -(void) loadView{
     [super loadView];
@@ -48,19 +56,7 @@
         self.tableView.separatorInset = UIEdgeInsetsZero;
     }
     self.tableView.separatorColor = [UIColor blackColor];
-    if(DEVICE_VERSION>=7.0){
-        self.navigationController.navigationBar.barTintColor=[StyleSheet colorFromHexString:@"#EAEEF2"];
-    }else{
-        self.navigationBarTintColor=[StyleSheet colorFromHexString:@"#EAEEF2"];
-        UILabel* label = [[[UILabel alloc] initWithFrame:CGRectZero] autorelease];
-        label.backgroundColor = [UIColor clearColor];
-        label.font =[UIFont systemFontOfSize:18];
-        label.textAlignment = NSTextAlignmentCenter;
-        label.textColor=[StyleSheet colorFromHexString:@"#323232"];
-        label.text = @"PEACEBIRD 经营日报";
-        self.navigationItem.titleView = label;
-        [label sizeToFit];
-    }
+    
 }
 - (void)viewDidLoad
 {

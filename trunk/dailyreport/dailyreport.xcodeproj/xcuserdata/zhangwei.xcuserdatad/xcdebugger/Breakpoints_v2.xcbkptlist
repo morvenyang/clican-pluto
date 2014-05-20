@@ -9,13 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "dailyreport/three20/TableItem/IndexTableItemCell.m"
-            timestampString = "422192753.686867"
+            filePath = "dailyreport/view/BrandViewController.m"
+            timestampString = "422256947.616745"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "17"
-            endingLineNumber = "17"
-            landmarkName = "+tableView:rowHeightForObject:"
+            startingLineNumber = "64"
+            endingLineNumber = "64"
+            landmarkName = "-loadView"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
