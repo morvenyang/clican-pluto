@@ -8,10 +8,8 @@
 
 #import "BrandViewController.h"
 #import "StyleSheet.h"
+#import "AppDelegate.h"
 
-@interface BrandViewController ()
-
-@end
 
 @implementation BrandViewController
 
@@ -23,6 +21,14 @@
         self.brand = brand;
         self.brandModel = [[[BrandModel alloc] initWithBrand:self.brand delegate:self] autorelease];
     }
+    
+    UIColor *navigationTextColor = [UIColor whiteColor];
+    if(DEVICE_VERSION>=7.0){
+        DrAppDelegate.window.tintColor = navigationTextColor;
+        [[UINavigationBar appearance] setTitleTextAttributes:@{
+                                                               NSForegroundColorAttributeName : navigationTextColor
+                                                               }];
+    }
     return self;
 }
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -33,10 +39,33 @@
     }
     return self;
 }
+
+-(void) backAction{
+    [self.navigationController popViewControllerAnimated:YES];
+}
 - (void)loadView
 {
     
     [super loadView];
+    self.title = self.brand;
+    if(DEVICE_VERSION>=7.0){
+        self.navigationController.navigationBar.barTintColor=[UIColor blackColor];
+    }else{
+        self.navigationController.navigationBar.tintColor = [UIColor blackColor];
+    }
+    self.view.backgroundColor = [StyleSheet colorFromHexString:@"#EAEEF2"];
+    UIButton* backButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [backButton setTitle:@"<" forState:UIControlStateNormal];
+    
+    [backButton addTarget:self action:@selector(backAction) forControlEvents:UIControlEventTouchUpInside];
+    //backButton.frame = CGRectMake(35, 0, 15, 20);
+    [backButton sizeToFit];
+    
+    
+    // create button item -- possible because UIButton subclasses UIView!
+    UIBarButtonItem* backItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
+    [self.navigationItem setLeftBarButtonItem:backItem animated:YES];
+    
     [self.brandModel load:TTURLRequestCachePolicyNone more:NO];
 }
 - (void)viewDidLoad
