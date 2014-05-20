@@ -9,8 +9,13 @@
 #import <UIKit/UIKit.h>
 
 @interface SwitchViewController : UIViewController{
+    NSString* _brand;
     UIScrollView* _contentView;
+    int _index;
 }
 @property (nonatomic, retain) UIScrollView *contentView;
--(void)addCommonViewFromIndex:(int)index;
+@property (nonatomic, copy) NSString *brand;
+@property (nonatomic, assign) int index;
+
+-(void) backAction;
 @end
