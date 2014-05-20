@@ -38,7 +38,7 @@ public class DataServiceImpl implements DataService {
 	private Date getYesterday(){
 		Date yesterday = DateUtils.truncate(new Date(), Calendar.DAY_OF_MONTH);
 		yesterday = DateUtils.addDays(yesterday, -1);
-		yesterday.setDate(13);
+		yesterday.setDate(14);
 		return yesterday;
 	}
 	@Override
