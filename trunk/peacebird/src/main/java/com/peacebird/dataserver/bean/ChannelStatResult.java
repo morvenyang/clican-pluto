@@ -1,5 +1,6 @@
 package com.peacebird.dataserver.bean;
 
+import java.util.Date;
 import java.util.List;
 
 public class ChannelStatResult {
@@ -9,6 +10,8 @@ public class ChannelStatResult {
 	private int result;
 	
 	private String message;
+	
+	private Date date;
 
 	public List<ChannelResult> getChannel() {
 		return channel;
@@ -32,6 +35,14 @@ public class ChannelStatResult {
 
 	public void setMessage(String message) {
 		this.message = message;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
 	}
 	
 	
