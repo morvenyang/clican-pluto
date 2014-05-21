@@ -89,7 +89,7 @@
         self.loginButton.frame = CGRectMake(35, 60+titleImage.size.height/2+28, 320-70, loginButtonImage.size.height/2);
     }
     
-    [self.loginButton setImage:[UIImage imageNamed:@"login_button.png"] forState:UIControlStateNormal];
+    [self.loginButton setImage:[UIImage imageNamed:@"登录按钮.png"] forState:UIControlStateNormal];
     [self.loginButton addTarget:self action:@selector(loginAction) forControlEvents: UIControlEventTouchUpInside];
     
     [self.view addSubview:_titleImageView];

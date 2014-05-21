@@ -7,7 +7,7 @@
 //
 
 #import "SwitchViewController.h"
-
+#import "StyleSheet.h"
 
 
 @implementation SwitchViewController
@@ -38,10 +38,6 @@
             TTOpenURL(url);
         }
     }
-}
-
--(void)addCommonViewFromIndex{
-    
 }
 
 - (void)loadView
@@ -137,15 +133,25 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+-(UIImageView*) createImageViewFromNamedImage:(NSString*) imageName frame:(CGRect) frame{
+    UIImage* image =[UIImage imageNamed:imageName];
+    UIImageView* imageView = [[UIImageView alloc] initWithFrame:frame];
+    imageView.image = image;
+    return imageView;
 }
-*/
+
+-(UILabel*) createLabel:(NSString*) text frame:(CGRect) frame textColor:(NSString*) textColor font:(int) font backgroundColor:(NSString*) backgroundColor{
+    UILabel* label = [[[UILabel alloc] initWithFrame:frame] autorelease];
+    label.text = text;
+    label.font = [UIFont systemFontOfSize:font];
+    label.textColor = [StyleSheet colorFromHexString:textColor];
+    if(backgroundColor==nil){
+        label.backgroundColor = [UIColor clearColor];
+    }else{
+        label.backgroundColor = [StyleSheet colorFromHexString:backgroundColor];
+    }
+    
+    return label;
+}
 
 @end

@@ -18,4 +18,7 @@
 @property (nonatomic, assign) int index;
 
 -(void) backAction;
+-(UIImageView*) createImageViewFromNamedImage:(NSString*) imageName frame:(CGRect) frame;
+
+-(UILabel*) createLabel:(NSString*) text frame:(CGRect) frame textColor:(NSString*) textColor font:(int) font backgroundColor:(NSString*) backgroundColor;
 @end
