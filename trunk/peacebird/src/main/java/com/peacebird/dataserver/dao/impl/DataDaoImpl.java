@@ -101,8 +101,8 @@ public class DataDaoImpl extends HibernateDaoSupport implements DataDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<ChannelResult> getChannelResult(Date date, String brand) {
-		String hsql = "select new com.peacebird.dataserver.bean.ChannelResult(dayAmountdocNumber,avgDocCount,avgPrice,aps,channel) from DayRetailChannelDetail";
-		hsql += " where brand = :brand and date = :date";
+		String hsql = "select new com.peacebird.dataserver.bean.ChannelResult(c.dayAmount,cd.docNum,cd.avgDocCount,cd.avgPrice,cd.aps,cd.channel) from DayRetailChannelDetail cd,DayRetailChannel c";
+		hsql += " where cd.brand = :brand and cd.date = :date and cd.channel=c.channel and cd.brand=c.brand and cd.date=c.date";
 		return this.getHibernateTemplate().findByNamedParam(hsql,
 				new String[] { "date", "brand" }, new Object[] { date, brand });
 	}

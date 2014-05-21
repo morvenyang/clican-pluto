@@ -139,7 +139,6 @@ public class DataServiceImpl implements DataService {
 
 	@Override
 	public String getChannelResult(String brand) {
-		RetailStatResult rsr = new RetailStatResult();
 		Date yesterday = getYesterday();
 		List<ChannelResult> channelResult = this.dataDao.getChannelResult(
 				yesterday, brand);
@@ -147,7 +146,7 @@ public class DataServiceImpl implements DataService {
 		csr.setChannel(channelResult);
 		csr.setResult(1);
 
-		String result = JSONObject.fromObject(rsr).toString();
+		String result = JSONObject.fromObject(csr).toString();
 		return result;
 	}
 
