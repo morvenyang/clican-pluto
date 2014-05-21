@@ -17,6 +17,9 @@
 		320CC833B8AF0ACFD35E6225 /* libThree20Style.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 320CC833B8AF0ACFD35E6224 /* libThree20Style.a */; };
 		320D7DCCE32703ACAB9A45E5 /* libThree20.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 320D7DCCE32703ACAB9A45E4 /* libThree20.a */; };
 		320F2C48872C2E2C4DF86205 /* libThree20UI.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 320F2C48872C2E2C4DF86204 /* libThree20UI.a */; };
+		722D42BC192C3A2E00350244 /* KPIModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 722D42BB192C3A2E00350244 /* KPIModel.m */; };
+		722D42C8192C449A00350244 /* 图标-关键指标.png in Resources */ = {isa = PBXBuildFile; fileRef = 722D42C6192C449A00350244 /* 图标-关键指标.png */; };
+		722D42C9192C449A00350244 /* 图标-关键指标@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 722D42C7192C449A00350244 /* 图标-关键指标@2x.png */; };
 		724480E319271E8A005F5BE5 /* Brand.m in Sources */ = {isa = PBXBuildFile; fileRef = 724480E219271E8A005F5BE5 /* Brand.m */; };
 		724480EF19273167005F5BE5 /* Channel.m in Sources */ = {isa = PBXBuildFile; fileRef = 724480EE19273167005F5BE5 /* Channel.m */; };
 		724480F2192732A8005F5BE5 /* BrandViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 724480F1192732A8005F5BE5 /* BrandViewController.m */; };
@@ -311,6 +314,10 @@
 		320CC833B8AF0ACFD35E6220 /* Three20Style.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Three20Style.xcodeproj; path = ../three20/src/Three20Style/Three20Style.xcodeproj; sourceTree = SOURCE_ROOT; };
 		320D7DCCE32703ACAB9A45E0 /* Three20.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Three20.xcodeproj; path = ../three20/src/Three20/Three20.xcodeproj; sourceTree = SOURCE_ROOT; };
 		320F2C48872C2E2C4DF86200 /* Three20UI.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Three20UI.xcodeproj; path = ../three20/src/Three20UI/Three20UI.xcodeproj; sourceTree = SOURCE_ROOT; };
+		722D42BA192C3A2E00350244 /* KPIModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KPIModel.h; sourceTree = "<group>"; };
+		722D42BB192C3A2E00350244 /* KPIModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KPIModel.m; sourceTree = "<group>"; };
+		722D42C6192C449A00350244 /* 图标-关键指标.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "图标-关键指标.png"; sourceTree = "<group>"; };
+		722D42C7192C449A00350244 /* 图标-关键指标@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "图标-关键指标@2x.png"; sourceTree = "<group>"; };
 		724480E119271E8A005F5BE5 /* Brand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Brand.h; sourceTree = "<group>"; };
 		724480E219271E8A005F5BE5 /* Brand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Brand.m; sourceTree = "<group>"; };
 		724480ED19273167005F5BE5 /* Channel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Channel.h; sourceTree = "<group>"; };
@@ -728,6 +735,8 @@
 				72EB389D19270CCA00D0F225 /* IndexListModel.m */,
 				724480F3192732E2005F5BE5 /* BrandModel.h */,
 				724480F4192732E2005F5BE5 /* BrandModel.m */,
+				722D42BA192C3A2E00350244 /* KPIModel.h */,
+				722D42BB192C3A2E00350244 /* KPIModel.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -748,6 +757,8 @@
 		72EB38AD19270F3B00D0F225 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				722D42C6192C449A00350244 /* 图标-关键指标.png */,
+				722D42C7192C449A00350244 /* 图标-关键指标@2x.png */,
 				72623162192B168500E3F99B /* Default.png */,
 				72623163192B168500E3F99B /* Default~iphone.png */,
 				72623164192B168500E3F99B /* Default-568h@2x.png */,
@@ -1090,6 +1101,7 @@
 				72783BBB1929A6A10098B3A8 /* 分割线-每日收入水平分割线@2x.png in Resources */,
 				72783BE91929A6A10098B3A8 /* 首页童装.png in Resources */,
 				72783BB61929A6A10098B3A8 /* 关键指标-分割线.png in Resources */,
+				722D42C9192C449A00350244 /* 图标-关键指标@2x.png in Resources */,
 				72783BCA1929A6A10098B3A8 /* 图标-微信好友@2x.png in Resources */,
 				72783BBA1929A6A10098B3A8 /* 分割线-每日收入水平分割线.png in Resources */,
 				72783BE71929A6A10098B3A8 /* 首页女装.png in Resources */,
@@ -1122,6 +1134,7 @@
 				72783BD41929A6A10098B3A8 /* 每日收入男装背景.png in Resources */,
 				72783BC51929A6A10098B3A8 /* 图标-小衣服.png in Resources */,
 				72783BE61929A6A10098B3A8 /* 首页乐町.png in Resources */,
+				722D42C8192C449A00350244 /* 图标-关键指标.png in Resources */,
 				72783BBF1929A6A10098B3A8 /* 图标-分享.png in Resources */,
 				72783BCE1929A6A10098B3A8 /* 图标-日历@2x.png in Resources */,
 			);
@@ -1160,6 +1173,7 @@
 				72783C021929C7D70098B3A8 /* CRNavigationController.m in Sources */,
 				7285E3D61925AFEE0011C2D6 /* AppDelegate.m in Sources */,
 				7285E3D21925AFEE0011C2D6 /* main.m in Sources */,
+				722D42BC192C3A2E00350244 /* KPIModel.m in Sources */,
 				724480E319271E8A005F5BE5 /* Brand.m in Sources */,
 				72EB388E1927072D00D0F225 /* IndexViewController.m in Sources */,
 				72783CAC192A093E0098B3A8 /* IndexTableItem.m in Sources */,
