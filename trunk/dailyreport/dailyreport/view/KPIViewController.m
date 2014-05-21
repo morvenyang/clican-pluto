@@ -71,26 +71,20 @@
     UIView* dailyView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 34)] autorelease];
     NSString* imageName = [NSString stringWithFormat:@"每日收入%@背景.png",self.brand];
     dailyView.backgroundColor =[UIColor colorWithPatternImage:[UIImage imageNamed:imageName]];
-    UIImage* retailImage = [UIImage imageNamed:@"图标-关键指标.png"];
-    UIImageView* retailImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 34, 34)];
-    retailImageView.image = retailImage;
+
+    UIImageView* retailImageView = [self createImageViewFromNamedImage:@"图标-关键指标.png" frame:CGRectMake(0, 0, 34, 34)];
+
     
-    UILabel* retailLabel = [[[UILabel alloc] initWithFrame:CGRectMake(40, 0, 120, 34)] autorelease];
-    retailLabel.text = [NSString stringWithFormat:@"关键指标"];
-    retailLabel.font = [UIFont systemFontOfSize:12];
-    retailLabel.textColor = [UIColor whiteColor];
-    retailLabel.backgroundColor = [UIColor clearColor];
-    UIImage* calendarImage =[UIImage imageNamed:@"图标-日历.png"];
-    UIImageView* calendarImageView = [[UIImageView alloc] initWithFrame:CGRectMake(160, 0, 34, 34)];
-    calendarImageView.image = calendarImage;
+    UILabel* retailLabel = [self createLabel:@"关键指标" frame:CGRectMake(40, 0, 120, 34) textColor:@"#ffffff" font:12 backgroundColor:nil];
     
-    UILabel* calendarLabel = [[[UILabel alloc] initWithFrame:CGRectMake(200, 0, 120, 34)] autorelease];
+
+    UIImageView* calendarImageView = [self createImageViewFromNamedImage:@"图标-日历.png" frame:CGRectMake(160, 0, 34, 34)];
+    
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"MM月dd日 EEEE"];
-    calendarLabel.text = [dateFormatter stringFromDate:date];
-    calendarLabel.font = [UIFont systemFontOfSize:12];
-    calendarLabel.textColor = [UIColor whiteColor];
-    calendarLabel.backgroundColor = [UIColor clearColor];
+    
+    UILabel* calendarLabel = [self createLabel:[dateFormatter stringFromDate:date] frame:CGRectMake(200, 0, 120, 34) textColor:@"#ffffff" font:12 backgroundColor:nil];
+    
     [dailyView addSubview:retailImageView];
     [dailyView addSubview:retailLabel];
     [dailyView addSubview:calendarImageView];

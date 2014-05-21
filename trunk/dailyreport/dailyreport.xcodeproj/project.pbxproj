@@ -20,6 +20,9 @@
 		722D42BC192C3A2E00350244 /* KPIModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 722D42BB192C3A2E00350244 /* KPIModel.m */; };
 		722D42C8192C449A00350244 /* 图标-关键指标.png in Resources */ = {isa = PBXBuildFile; fileRef = 722D42C6192C449A00350244 /* 图标-关键指标.png */; };
 		722D42C9192C449A00350244 /* 图标-关键指标@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 722D42C7192C449A00350244 /* 图标-关键指标@2x.png */; };
+		722D42E7192C89F800350244 /* Retail.m in Sources */ = {isa = PBXBuildFile; fileRef = 722D42E6192C89F800350244 /* Retail.m */; };
+		722D42F3192C8AB600350244 /* RetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 722D42F2192C8AB600350244 /* RetailModel.m */; };
+		722D42F6192C8D6800350244 /* RetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 722D42F5192C8D6800350244 /* RetailViewController.m */; };
 		724480E319271E8A005F5BE5 /* Brand.m in Sources */ = {isa = PBXBuildFile; fileRef = 724480E219271E8A005F5BE5 /* Brand.m */; };
 		724480EF19273167005F5BE5 /* Channel.m in Sources */ = {isa = PBXBuildFile; fileRef = 724480EE19273167005F5BE5 /* Channel.m */; };
 		724480F2192732A8005F5BE5 /* BrandViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 724480F1192732A8005F5BE5 /* BrandViewController.m */; };
@@ -318,6 +321,12 @@
 		722D42BB192C3A2E00350244 /* KPIModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KPIModel.m; sourceTree = "<group>"; };
 		722D42C6192C449A00350244 /* 图标-关键指标.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "图标-关键指标.png"; sourceTree = "<group>"; };
 		722D42C7192C449A00350244 /* 图标-关键指标@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "图标-关键指标@2x.png"; sourceTree = "<group>"; };
+		722D42E5192C89F800350244 /* Retail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Retail.h; path = ../model/Retail.h; sourceTree = "<group>"; };
+		722D42E6192C89F800350244 /* Retail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Retail.m; path = ../model/Retail.m; sourceTree = "<group>"; };
+		722D42F1192C8AB600350244 /* RetailModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RetailModel.h; sourceTree = "<group>"; };
+		722D42F2192C8AB600350244 /* RetailModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RetailModel.m; sourceTree = "<group>"; };
+		722D42F4192C8D6800350244 /* RetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RetailViewController.h; sourceTree = "<group>"; };
+		722D42F5192C8D6800350244 /* RetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RetailViewController.m; sourceTree = "<group>"; };
 		724480E119271E8A005F5BE5 /* Brand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Brand.h; sourceTree = "<group>"; };
 		724480E219271E8A005F5BE5 /* Brand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Brand.m; sourceTree = "<group>"; };
 		724480ED19273167005F5BE5 /* Channel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Channel.h; sourceTree = "<group>"; };
@@ -711,6 +720,8 @@
 				72623198192B4E7F00E3F99B /* SwitchViewController.m */,
 				726231A2192B745A00E3F99B /* KPIViewController.h */,
 				726231A3192B745A00E3F99B /* KPIViewController.m */,
+				722D42F4192C8D6800350244 /* RetailViewController.h */,
+				722D42F5192C8D6800350244 /* RetailViewController.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -737,6 +748,8 @@
 				724480F4192732E2005F5BE5 /* BrandModel.m */,
 				722D42BA192C3A2E00350244 /* KPIModel.h */,
 				722D42BB192C3A2E00350244 /* KPIModel.m */,
+				722D42F1192C8AB600350244 /* RetailModel.h */,
+				722D42F2192C8AB600350244 /* RetailModel.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -744,6 +757,8 @@
 		72EB38A019270E4C00D0F225 /* object */ = {
 			isa = PBXGroup;
 			children = (
+				722D42E5192C89F800350244 /* Retail.h */,
+				722D42E6192C89F800350244 /* Retail.m */,
 				72EB38A119270E7200D0F225 /* User.h */,
 				72EB38A219270E7200D0F225 /* User.m */,
 				724480E119271E8A005F5BE5 /* Brand.h */,
@@ -1167,9 +1182,12 @@
 				72783CA9192A09100098B3A8 /* IndexTableItemCell.m in Sources */,
 				72623199192B4E7F00E3F99B /* SwitchViewController.m in Sources */,
 				72EB38A319270E7200D0F225 /* User.m in Sources */,
+				722D42F3192C8AB600350244 /* RetailModel.m in Sources */,
 				72EB38B6192712DC00D0F225 /* MBProgressHUD.m in Sources */,
 				72EB388A192705E800D0F225 /* StyleSheet.m in Sources */,
+				722D42F6192C8D6800350244 /* RetailViewController.m in Sources */,
 				72EB389E19270CCA00D0F225 /* IndexListModel.m in Sources */,
+				722D42E7192C89F800350244 /* Retail.m in Sources */,
 				72783C021929C7D70098B3A8 /* CRNavigationController.m in Sources */,
 				7285E3D61925AFEE0011C2D6 /* AppDelegate.m in Sources */,
 				7285E3D21925AFEE0011C2D6 /* main.m in Sources */,
