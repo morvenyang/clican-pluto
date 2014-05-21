@@ -143,10 +143,21 @@ public class DataServiceImpl implements DataService {
 		List<ChannelResult> channelResult = this.dataDao.getChannelResult(
 				yesterday, brand);
 		ChannelStatResult csr = new ChannelStatResult();
+		if(channelResult.size()==0){
+			csr.setResult(1);
+			csr.setMessage("没有相关渠道数据");
+			csr.setDate(yesterday);
+			return JSONObject.fromObject(csr).toString();
+		}
 		csr.setChannel(channelResult);
-		csr.setResult(1);
-
-		String result = JSONObject.fromObject(csr).toString();
+		csr.setResult(0);
+		csr.setDate(yesterday);
+		JsonConfig jsonConfig = new JsonConfig();
+		jsonConfig.registerJsonValueProcessor(Date.class,
+				new DateJsonValueProcessor("yyyy-MM-dd"));
+		jsonConfig.registerJsonValueProcessor(Integer.class,
+				new IntegerJsonValueProcessor());
+		String result = JSONObject.fromObject(csr, jsonConfig).toString();
 		return result;
 	}
 
@@ -162,7 +173,7 @@ public class DataServiceImpl implements DataService {
 			channelMap.put(channel, rankResult);
 		}
 		RankStatResult rsr = new RankStatResult();
-		rsr.setResult(1);
+		rsr.setResult(0);
 		rsr.setChannel(channelMap);
 		String result = JSONObject.fromObject(rsr).toString();
 		return result;
