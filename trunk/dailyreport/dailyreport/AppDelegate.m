@@ -12,6 +12,7 @@
 #import "LoginViewController.h"
 #import "BrandViewController.h"
 #import "KPIViewController.h"
+#import "RetailViewController.h"
 #import "CRNavigator.h"
 @implementation AppDelegate
 
@@ -37,6 +38,8 @@
     [BrandViewController class]];
     [map from:@"peacebird://kpi/(initWithBrand:)" toSharedViewController:
      [KPIViewController class]];
+    [map from:@"peacebird://retail/(initWithBrand:)" toSharedViewController:
+     [RetailViewController class]];
     if (![navigator restoreViewControllers]) {
         [navigator openURLAction:[TTURLAction actionWithURLPath:@"peacebird://login"]];
     }

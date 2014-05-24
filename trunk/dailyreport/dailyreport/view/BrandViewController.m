@@ -212,8 +212,7 @@
 
 - (void)dealloc
 {
-    
-    TT_RELEASE_SAFELY(_brand);
+    _brandModel.delegate = nil;
     TT_RELEASE_SAFELY(_brandModel);
     [super dealloc];
 }
