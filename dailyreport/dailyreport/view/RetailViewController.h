@@ -7,7 +7,16 @@
 //
 
 #import "SwitchViewController.h"
+#import "RetailModel.h"
+#import "PieChartView.h"
 
-@interface RetailViewController : SwitchViewController
+@interface RetailViewController : SwitchViewController<RetailDelegate,PieChartViewDelegate,
+PieChartViewDataSource>{
+    RetailModel* _retailModel;
+    PieChartView* _pieChartView;
+}
 
+@property (nonatomic, retain) RetailModel *retailModel;
+@property (nonatomic, retain) PieChartView *pieChartView;
+-(id) initWithBrand:(NSString*) brand;
 @end

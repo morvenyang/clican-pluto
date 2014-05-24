@@ -17,6 +17,7 @@
 		320CC833B8AF0ACFD35E6225 /* libThree20Style.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 320CC833B8AF0ACFD35E6224 /* libThree20Style.a */; };
 		320D7DCCE32703ACAB9A45E5 /* libThree20.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 320D7DCCE32703ACAB9A45E4 /* libThree20.a */; };
 		320F2C48872C2E2C4DF86205 /* libThree20UI.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 320F2C48872C2E2C4DF86204 /* libThree20UI.a */; };
+		720D6082193156AF004C7781 /* PieChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 720D6081193156AF004C7781 /* PieChartView.m */; };
 		722D42BC192C3A2E00350244 /* KPIModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 722D42BB192C3A2E00350244 /* KPIModel.m */; };
 		722D42C8192C449A00350244 /* 图标-关键指标.png in Resources */ = {isa = PBXBuildFile; fileRef = 722D42C6192C449A00350244 /* 图标-关键指标.png */; };
 		722D42C9192C449A00350244 /* 图标-关键指标@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 722D42C7192C449A00350244 /* 图标-关键指标@2x.png */; };
@@ -317,6 +318,8 @@
 		320CC833B8AF0ACFD35E6220 /* Three20Style.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Three20Style.xcodeproj; path = ../three20/src/Three20Style/Three20Style.xcodeproj; sourceTree = SOURCE_ROOT; };
 		320D7DCCE32703ACAB9A45E0 /* Three20.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Three20.xcodeproj; path = ../three20/src/Three20/Three20.xcodeproj; sourceTree = SOURCE_ROOT; };
 		320F2C48872C2E2C4DF86200 /* Three20UI.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Three20UI.xcodeproj; path = ../three20/src/Three20UI/Three20UI.xcodeproj; sourceTree = SOURCE_ROOT; };
+		720D6080193156AF004C7781 /* PieChartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PieChartView.h; sourceTree = "<group>"; };
+		720D6081193156AF004C7781 /* PieChartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PieChartView.m; sourceTree = "<group>"; };
 		722D42BA192C3A2E00350244 /* KPIModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KPIModel.h; sourceTree = "<group>"; };
 		722D42BB192C3A2E00350244 /* KPIModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KPIModel.m; sourceTree = "<group>"; };
 		722D42C6192C449A00350244 /* 图标-关键指标.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "图标-关键指标.png"; sourceTree = "<group>"; };
@@ -557,6 +560,15 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		720D607619315691004C7781 /* chart */ = {
+			isa = PBXGroup;
+			children = (
+				720D6080193156AF004C7781 /* PieChartView.h */,
+				720D6081193156AF004C7781 /* PieChartView.m */,
+			);
+			path = chart;
+			sourceTree = "<group>";
+		};
 		72783BFC1929C7C80098B3A8 /* CRNavigationController */ = {
 			isa = PBXGroup;
 			children = (
@@ -650,6 +662,7 @@
 		7285E3CB1925AFEE0011C2D6 /* dailyreport */ = {
 			isa = PBXGroup;
 			children = (
+				720D607619315691004C7781 /* chart */,
 				72783C9B192A08DC0098B3A8 /* three20 */,
 				72783BFC1929C7C80098B3A8 /* CRNavigationController */,
 				72EB38B4192712DC00D0F225 /* MBProgressHUD.h */,
@@ -1182,6 +1195,7 @@
 				72783CA9192A09100098B3A8 /* IndexTableItemCell.m in Sources */,
 				72623199192B4E7F00E3F99B /* SwitchViewController.m in Sources */,
 				72EB38A319270E7200D0F225 /* User.m in Sources */,
+				720D6082193156AF004C7781 /* PieChartView.m in Sources */,
 				722D42F3192C8AB600350244 /* RetailModel.m in Sources */,
 				72EB38B6192712DC00D0F225 /* MBProgressHUD.m in Sources */,
 				72EB388A192705E800D0F225 /* StyleSheet.m in Sources */,

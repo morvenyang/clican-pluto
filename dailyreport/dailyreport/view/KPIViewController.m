@@ -159,6 +159,21 @@
     }
 }
 
+
+- (void)dealloc
+{
+    _kpiModel.delegate = nil;
+    TT_RELEASE_SAFELY(_kpiModel);
+    TT_RELEASE_SAFELY(_channelLables);
+    TT_RELEASE_SAFELY(_channels);
+    TT_RELEASE_SAFELY(_dayAmountLabel);
+    TT_RELEASE_SAFELY(_docNumberLabel);
+    TT_RELEASE_SAFELY(_avgDocCountLabel);
+    TT_RELEASE_SAFELY(_avgPriceLabel);
+    TT_RELEASE_SAFELY(_apsLabel);
+    [super dealloc];
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

@@ -29,12 +29,18 @@
         if(self.index==1){
             NSString* url = [NSString stringWithFormat:@"peacebird://kpi/%@", [self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
             TTOpenURL(url);
+        }else if(self.index==2){
+            NSString* url = [NSString stringWithFormat:@"peacebird://retail/%@", [self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+            TTOpenURL(url);
         }
     }
     
     if(recognize.direction ==UISwipeGestureRecognizerDirectionRight){
         if(self.index==2){
             NSString* url = [NSString stringWithFormat:@"peacebird://brand/%@", [self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+            TTOpenURL(url);
+        }else if(self.index==3){
+            NSString* url = [NSString stringWithFormat:@"peacebird://kpi/%@", [self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
             TTOpenURL(url);
         }
     }
@@ -152,6 +158,14 @@
     }
     
     return label;
+}
+
+- (void)dealloc
+{
+    
+    TT_RELEASE_SAFELY(_brand);
+    TT_RELEASE_SAFELY(_contentView);
+    [super dealloc];
 }
 
 @end
