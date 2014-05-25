@@ -8,9 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "User.h"
+#import "WXApi.h"
 #define DrAppDelegate ((AppDelegate *)[[UIApplication sharedApplication] delegate])
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>{
+@interface AppDelegate : UIResponder <UIApplicationDelegate,WXApiDelegate>{
     User* _user;
 }
 
