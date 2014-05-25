@@ -1,5 +1,6 @@
 package com.peacebird.dataserver.bean;
 
+import java.util.Date;
 import java.util.List;
 
 public class RetailStatResult {
@@ -10,6 +11,7 @@ public class RetailStatResult {
 	private Integer totalChannelAmount = 0;
 	private Integer totalSortAmount = 0;
 	private Integer totalRegionAmount = 0;
+	private Date date;
 
 	private int result;
 	private String message;
@@ -85,6 +87,14 @@ public class RetailStatResult {
 
 	public void setMessage(String message) {
 		this.message = message;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
 	}
 
 }

@@ -157,8 +157,8 @@ public class ClientController {
 		}
 	}
 
-	@RequestMapping("/rank")
-	public void rank(@RequestParam(value = "brand") String brand,
+	@RequestMapping("/storeRank")
+	public void storeRank(@RequestParam(value = "brand") String brand,
 			HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		User user = (User) req.getSession().getAttribute("user");
@@ -166,7 +166,7 @@ public class ClientController {
 		if (user == null) {
 			result = this.getNotLoginResult();
 		} else {
-			result = this.dataService.getRankResult(brand);
+			result = this.dataService.getStoreRankResult(brand);
 		}
 		try {
 			resp.setContentType("application/json");
