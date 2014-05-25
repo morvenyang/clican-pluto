@@ -17,6 +17,6 @@
 	<bean id="pushService" class="com.peacebird.dataserver.service.impl.PushServiceImpl"
 		autowire="byName" />
 	<bean id="apnsService" class="com.peacebird.dataserver.apns.ApnsServiceImpl"
-		autowire="byName">
+		autowire="byName" init-method="init" destroy-method="destroy">
 	</bean>
 </beans>
