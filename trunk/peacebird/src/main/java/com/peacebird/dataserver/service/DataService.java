@@ -15,7 +15,7 @@ public interface DataService {
 	
 	public String getChannelResult(String brand);
 	
-	public String getRankResult(String brand);
+	public String getStoreRankResult(String brand);
 	
 	public List<DimBrand> getAllBrands();
 }

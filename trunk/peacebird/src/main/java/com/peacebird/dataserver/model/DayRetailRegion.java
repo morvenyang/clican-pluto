@@ -34,7 +34,7 @@ public class DayRetailRegion {
 	public void setBrand(String brand) {
 		this.brand = brand;
 	}
-	@Column(name="r_region")
+	@Column(name="s_region")
 	public String getRegion() {
 		return region;
 	}

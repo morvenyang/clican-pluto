@@ -132,8 +132,15 @@ public class DataServiceImpl implements DataService {
 		rsr.setChannelRetail(channelRetail);
 		rsr.setSortRetail(sortRetail);
 		rsr.setRegionRetail(regionRetail);
+		rsr.setDate(yesterday);
 
-		String result = JSONObject.fromObject(rsr).toString();
+		JsonConfig jsonConfig = new JsonConfig();
+		jsonConfig.registerJsonValueProcessor(Date.class,
+				new DateJsonValueProcessor("yyyy-MM-dd"));
+		jsonConfig.registerJsonValueProcessor(Integer.class,
+				new IntegerJsonValueProcessor());
+		
+		String result = JSONObject.fromObject(rsr,jsonConfig).toString();
 		return result;
 	}
 
@@ -162,7 +169,7 @@ public class DataServiceImpl implements DataService {
 	}
 
 	@Override
-	public String getRankResult(String brand) {
+	public String getStoreRankResult(String brand) {
 		Date yesterday = getYesterday();
 		List<String> channels = this.dataDao.getAllChannelForRank(yesterday,
 				brand);
