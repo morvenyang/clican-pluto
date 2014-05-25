@@ -13,9 +13,11 @@
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate,WXApiDelegate>{
     User* _user;
+    NSString* _token;
 }
 
 @property (nonatomic, retain) User* user;
+@property (nonatomic, copy) NSString* token;
 @property (strong, nonatomic) UIWindow *window;
 
 @end

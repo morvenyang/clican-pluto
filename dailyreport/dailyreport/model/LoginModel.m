@@ -38,7 +38,7 @@
     _user.password = password;
     
     
-    NSString* url= [BASE_URL stringByAppendingFormat:@"/login.do?userName=%@&password=%@",_user.username,_user.password];
+    NSString* url= [BASE_URL stringByAppendingFormat:@"/login.do?userName=%@&password=%@&token=%@",_user.username,_user.password,DrAppDelegate.token];
     NSLog(@"URL:%@", url);
     
     TTURLRequest *request=[TTURLRequest requestWithURL:url delegate:self];
