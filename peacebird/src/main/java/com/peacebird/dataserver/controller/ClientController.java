@@ -40,6 +40,7 @@ public class ClientController {
 	@RequestMapping("/login")
 	public void login(@RequestParam(value = "userName") String userName,
 			@RequestParam(value = "password") String password,
+			@RequestParam(value = "token", required = false) String token,
 			HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		if (log.isDebugEnabled()) {
@@ -53,6 +54,10 @@ public class ClientController {
 			String hashPassword = DigestUtils.shaHex(password);
 			if (user.getPassword().equals(hashPassword)) {
 				req.getSession().setAttribute("user", user);
+				if (StringUtils.isNotEmpty(token)) {
+					user.setToken(token);
+					userService.saveUser(user);
+				}
 				lr = new LoginResult(0, "登录成功", user.getExpiredDays());
 			} else {
 				lr = new LoginResult(1001, "密码错误", -1);
