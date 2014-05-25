@@ -21,7 +21,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     [application setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
-    
+    [WXApi registerApp:@"123"];
     [TTStyleSheet setGlobalStyleSheet:[[[StyleSheet alloc] init] autorelease]];
     
     TTNavigator* navigator = [CRNavigator navigator];
@@ -47,6 +47,17 @@
     return YES;
 }
 
+-(BOOL) application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation{
+    return [WXApi handleOpenURL:url delegate:self];
+}
+
+-(BOOL) application:(UIApplication *)application handleOpenURL:(NSURL *)url{
+    return [WXApi handleOpenURL:url delegate:self];
+}
+
+-(void)onReq:(BaseReq *)req{
+    
+}
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
