@@ -15,4 +15,5 @@
 - (TTStyle*) configLabel;
 
 +(UIColor*) colorFromHexString:(NSString*)hexString;
++(UIColor*) getColorForIndex:(int) index;
 @end

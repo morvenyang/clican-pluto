@@ -139,9 +139,31 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (UIImage *) createImageWithColor: (UIColor *) color
+{
+    CGRect rect=CGRectMake(0.0f, 0.0f, 1.0f, 1.0f);
+    UIGraphicsBeginImageContext(rect.size);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextSetFillColorWithColor(context, [color CGColor]);
+    CGContextFillRect(context, rect);
+    
+    UIImage *theImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return theImage;
+}
+
+-(UIImageView*) createImageViewFromColor:(UIColor*) color frame:(CGRect) frame{
+    UIImage* image =[self createImageWithColor:color];
+    UIImageView* imageView = [[UIImageView alloc] initWithFrame:frame];
+    
+    imageView.image = image;
+    return imageView;
+}
+
 -(UIImageView*) createImageViewFromNamedImage:(NSString*) imageName frame:(CGRect) frame{
     UIImage* image =[UIImage imageNamed:imageName];
     UIImageView* imageView = [[UIImageView alloc] initWithFrame:frame];
+    
     imageView.image = image;
     return imageView;
 }
