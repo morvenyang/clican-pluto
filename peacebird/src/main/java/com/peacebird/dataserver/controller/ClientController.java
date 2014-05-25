@@ -44,7 +44,7 @@ public class ClientController {
 			HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		if (log.isDebugEnabled()) {
-			log.debug("userName=" + userName + " login");
+			log.debug("userName=" + userName + " login with token="+token);
 		}
 		LoginResult lr = null;
 		User user = userService.findUserByUserName(userName);
