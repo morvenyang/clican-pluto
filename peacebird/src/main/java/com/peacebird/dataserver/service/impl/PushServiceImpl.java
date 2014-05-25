@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -45,14 +46,17 @@ public class PushServiceImpl implements PushService {
 		Date yesterday = DateUtils.truncate(new Date(), Calendar.DAY_OF_MONTH);
 		yesterday = DateUtils.addDays(yesterday, -1);
 		DayStatus ds = dataDao.getDayStatus(yesterday);
-		if (ds != null && ds.getStatus() != 0) {
+		if (true) {
 			SimpleDateFormat sdf = new SimpleDateFormat("mm月dd日");
 			String msg = sdf.format(yesterday) + "数据已生成，请查阅";
 			log.info("push message[" + msg + "]");
 			List<String> tokens = this.userDao.findAllActiveToken();
 			for (String token : tokens) {
 				try {
-					apnsService.sendMessage(msg, token);
+					if(StringUtils.isNotEmpty(token)){
+						log.info("push message[" + msg + "] to token ["+token+"]");
+						apnsService.sendMessage(msg, token);
+					}
 				} catch (Exception e) {
 					log.error("", e);
 				}
