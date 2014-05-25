@@ -36,7 +36,6 @@
 - (int)numberOfSlicesInPieChartView:(PieChartView *)pieChartView;
 - (int)pieChartView:(PieChartView *)pieChartView valueForSliceAtIndex:(NSUInteger)index;
 - (UIColor *)pieChartView:(PieChartView *)pieChartView colorForSliceAtIndex:(NSUInteger)index;
--(int) totalAmount;
 @optional
 - (NSString*)pieChartView:(PieChartView *)pieChartView titleForSliceAtIndex:(NSUInteger)index;
 

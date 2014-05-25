@@ -95,7 +95,7 @@
     yOffset=yOffset+font1.pointSize;
     
     CGContextSetFillColorWithColor(context, [StyleSheet colorFromHexString:@"#ff6501"].CGColor);
-    NSString* s2 = [NSString stringWithFormat:@"%d",sum];
+    NSString* s2 = [NSString stringWithFormat:@"%d",sum/10000];
     CGRect textRect2 = CGRectMake(0, yOffset, rect.size.width, font2.pointSize);
     [s2 drawInRect: textRect2
           withFont: font2

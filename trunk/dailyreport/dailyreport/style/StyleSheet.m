@@ -24,5 +24,30 @@
     [scanner scanHexInt:&rgbValue];
     return [UIColor colorWithRed:((rgbValue&0xFF0000)>>16)/255.0 green:((rgbValue&0xFF00)>>8)/255.0 blue:(rgbValue&0xFF)/255.0 alpha:1.0];
 }
-
++(UIColor*) getColorForIndex:(int) index{
+    if(index==0){
+        return [UIColor redColor];
+    }else if(index==1){
+        return [UIColor blueColor];
+    }else if(index==2){
+        return [UIColor yellowColor];
+    }
+    else if(index==3){
+        return [UIColor greenColor];
+    }
+    else if(index==4){
+        return [UIColor cyanColor];
+    }
+    else if(index==5){
+        return [UIColor orangeColor];
+    }
+    else if(index==6){
+        return [UIColor blueColor];
+    }
+    else if(index==7){
+        return [UIColor brownColor];
+    }else{
+        return [UIColor blackColor];
+    }
+}
 @end
