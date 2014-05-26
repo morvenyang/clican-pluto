@@ -5,7 +5,7 @@ public class ChannelResult {
 	
 	private Integer dayAmount;
 	
-	private Double docNumber;
+	private Integer docNumber;
 	
 	private Double avgDocCount;
 	
@@ -21,7 +21,7 @@ public class ChannelResult {
 			this.dayAmount = dayAmount.intValue();
 		}
 		if(docNumber!=null){
-			this.docNumber = docNumber.doubleValue();
+			this.docNumber = docNumber.intValue();
 		}
 		if(avgDocCount!=null){
 			this.avgDocCount = avgDocCount.doubleValue();
@@ -43,11 +43,11 @@ public class ChannelResult {
 		this.dayAmount = dayAmount;
 	}
 
-	public Double getDocNumber() {
+	public Integer getDocNumber() {
 		return docNumber;
 	}
 
-	public void setDocNumber(Double docNumber) {
+	public void setDocNumber(Integer docNumber) {
 		this.docNumber = docNumber;
 	}
 
