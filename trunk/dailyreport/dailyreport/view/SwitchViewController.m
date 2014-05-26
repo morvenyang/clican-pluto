@@ -32,6 +32,9 @@
         }else if(self.index==2){
             NSString* url = [NSString stringWithFormat:@"peacebird://retail/%@", [self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
             TTOpenURL(url);
+        }else if(self.index==3){
+            NSString* url = [NSString stringWithFormat:@"peacebird://storeRank/%@", [self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+            TTOpenURL(url);
         }
     }
     
@@ -41,6 +44,9 @@
             TTOpenURL(url);
         }else if(self.index==3){
             NSString* url = [NSString stringWithFormat:@"peacebird://kpi/%@", [self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+            TTOpenURL(url);
+        }else if(self.index==4){
+            NSString* url = [NSString stringWithFormat:@"peacebird://retail/%@", [self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
             TTOpenURL(url);
         }
     }
@@ -173,6 +179,21 @@
     label.text = text;
     label.font = [UIFont systemFontOfSize:font];
     label.textColor = [StyleSheet colorFromHexString:textColor];
+    if(backgroundColor==nil){
+        label.backgroundColor = [UIColor clearColor];
+    }else{
+        label.backgroundColor = [StyleSheet colorFromHexString:backgroundColor];
+    }
+    
+    return label;
+}
+
+-(UILabel*) createLabel:(NSString*) text frame:(CGRect) frame textColor:(NSString*) textColor font:(int) font backgroundColor:(NSString*) backgroundColor textAlignment:(NSTextAlignment) textAlignment{
+    UILabel* label = [[[UILabel alloc] initWithFrame:frame] autorelease];
+    label.text = text;
+    label.font = [UIFont systemFontOfSize:font];
+    label.textColor = [StyleSheet colorFromHexString:textColor];
+    label.textAlignment =textAlignment;
     if(backgroundColor==nil){
         label.backgroundColor = [UIColor clearColor];
     }else{

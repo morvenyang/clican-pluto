@@ -116,12 +116,12 @@
     [self.contentView addSubview:[self createImageViewFromNamedImage:@"关键指标-分割线.png" frame:CGRectMake(0,157,320,3)]];
     [self.contentView addSubview:[self createImageViewFromNamedImage:@"票数.png" frame:CGRectMake(20,174,24,24)]];
     [self.contentView addSubview:[self createLabel:@"票数" frame:CGRectMake(50,160,100,49) textColor:@"#4a4a4a" font:18 backgroundColor:nil]];
-    self.docNumberLabel =[self createLabel:[NSString stringWithFormat:@"%d",channel.docNumber.intValue] frame:CGRectMake(200,160,100,49) textColor:@"#7f7f7f" font:18 backgroundColor:nil];
+    self.docNumberLabel =[self createLabel:[NSString stringWithFormat:@"%0.2f",channel.docNumber.doubleValue] frame:CGRectMake(200,160,100,49) textColor:@"#7f7f7f" font:18 backgroundColor:nil];
     [self.contentView addSubview:self.docNumberLabel];
     [self.contentView addSubview:[self createImageViewFromNamedImage:@"关键指标-分割线.png" frame:CGRectMake(0,217,320,3)]];
     [self.contentView addSubview:[self createImageViewFromNamedImage:@"附加.png" frame:CGRectMake(20,234,24,24)]];
     [self.contentView addSubview:[self createLabel:@"附加" frame:CGRectMake(50,220,100,49) textColor:@"#4a4a4a" font:18 backgroundColor:nil]];
-    self.avgDocCountLabel =[self createLabel:[NSString stringWithFormat:@"%d",channel.avgDocCount.intValue] frame:CGRectMake(200,220,100,49) textColor:@"#7f7f7f" font:18 backgroundColor:nil];
+    self.avgDocCountLabel =[self createLabel:[NSString stringWithFormat:@"%0.2f",channel.avgDocCount.doubleValue] frame:CGRectMake(200,220,100,49) textColor:@"#7f7f7f" font:18 backgroundColor:nil];
     [self.contentView addSubview:self.avgDocCountLabel];
     [self.contentView addSubview:[self createImageViewFromNamedImage:@"关键指标-分割线.png" frame:CGRectMake(0,277,320,3)]];
     [self.contentView addSubview:[self createImageViewFromNamedImage:@"件单价.png" frame:CGRectMake(20,294,24,24)]];
