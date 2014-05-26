@@ -136,6 +136,23 @@ public class DataDaoImpl extends HibernateDaoSupport implements DataDao {
 
 	@SuppressWarnings("unchecked")
 	@Override
+	public List<RankResult> getAllRankResult(final Date date, final String brand) {
+		return this.getHibernateTemplate().executeFind(new HibernateCallback() {
+			@Override
+			public Object doInHibernate(Session session)
+					throws HibernateException, SQLException {
+				String hsql = "select new com.peacebird.dataserver.bean.RankResult(name,amount) from DayStoreAmountRank where date = :date and brand= :brand order by amount desc";
+				Query query = session.createQuery(hsql);
+				query.setParameter("date", date);
+				query.setParameter("brand", brand);
+				query.setMaxResults(10);
+				return query.list();
+			}
+		});
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
 	public DayStatus getDayStatus(Date date) {
 		List<DayStatus> result = this.getHibernateTemplate().findByNamedParam(
 				"from DayStatus where date = :date and push!=1", "date", date);
