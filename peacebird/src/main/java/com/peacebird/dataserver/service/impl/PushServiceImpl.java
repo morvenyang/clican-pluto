@@ -46,8 +46,11 @@ public class PushServiceImpl implements PushService {
 		Date yesterday = DateUtils.truncate(new Date(), Calendar.DAY_OF_MONTH);
 		yesterday = DateUtils.addDays(yesterday, -1);
 		DayStatus ds = dataDao.getDayStatus(yesterday);
+		SimpleDateFormat sdf = new SimpleDateFormat("MM月dd日");
 		if (ds != null && ds.getStatus().intValue() != 0) {
-			SimpleDateFormat sdf = new SimpleDateFormat("MM月dd日");
+			if(log.isInfoEnabled()){
+				log.info("Find DayStatus for "+sdf.format(yesterday)+",");
+			}
 			String msg = sdf.format(yesterday) + "数据已生成，请查阅";
 			log.info("push message[" + msg + "]");
 			List<String> tokens = this.userDao.findAllActiveToken();
