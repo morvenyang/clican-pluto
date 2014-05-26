@@ -8,9 +8,10 @@
 
 #import <Three20Network/Three20Network.h>
 #import "Retail.h"
+#import "BaseModel.h"
 @protocol RetailDelegate;
 
-@interface RetailModel : TTURLRequestModel{
+@interface RetailModel : BaseModel{
     NSString* _brand;
     id<RetailDelegate> _delegate;
 }

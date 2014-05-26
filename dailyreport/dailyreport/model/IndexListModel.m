@@ -31,7 +31,7 @@
     
     NSLog(@"load index data");
     
-    if (!self.isLoading) {
+
         NSString* url = [BASE_URL stringByAppendingString:@"/index.do"];
         
         NSLog(@"URL:%@", url);
@@ -51,8 +51,7 @@
         
         [request send];
         
-        //}
-    }
+
     
 }
 #pragma mark -
@@ -84,7 +83,12 @@
             
             [super requestDidFinishLoad:request];
         }else{
-            TTAlert([data objectForKey:@"message"]);
+            if(result.intValue==1002){
+                //not login
+                [self tryAutoLogin];
+            }else{
+                TTAlert([data objectForKey:@"message"]);
+            }
         }
     }
     @catch (NSException *exception) {

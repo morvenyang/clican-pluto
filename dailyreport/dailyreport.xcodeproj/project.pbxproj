@@ -116,6 +116,7 @@
 		72AD8603193305D9004CAE5F /* Rank.m in Sources */ = {isa = PBXBuildFile; fileRef = 72AD8602193305D9004CAE5F /* Rank.m */; };
 		72AD8606193309AF004CAE5F /* ChannelRank.m in Sources */ = {isa = PBXBuildFile; fileRef = 72AD8605193309AF004CAE5F /* ChannelRank.m */; };
 		72AD860919330B45004CAE5F /* StoreRankViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 72AD860819330B45004CAE5F /* StoreRankViewController.m */; };
+		72AD860C193358B6004CAE5F /* BaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 72AD860B193358B6004CAE5F /* BaseModel.m */; };
 		72EB388A192705E800D0F225 /* StyleSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 72EB3889192705E800D0F225 /* StyleSheet.m */; };
 		72EB388E1927072D00D0F225 /* IndexViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 72EB388D1927072D00D0F225 /* IndexViewController.m */; };
 		72EB389B19270CA900D0F225 /* IndexDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 72EB389A19270CA900D0F225 /* IndexDataSource.m */; };
@@ -449,6 +450,8 @@
 		72AD8605193309AF004CAE5F /* ChannelRank.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChannelRank.m; sourceTree = "<group>"; };
 		72AD860719330B45004CAE5F /* StoreRankViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoreRankViewController.h; sourceTree = "<group>"; };
 		72AD860819330B45004CAE5F /* StoreRankViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoreRankViewController.m; sourceTree = "<group>"; };
+		72AD860A193358B6004CAE5F /* BaseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseModel.h; sourceTree = "<group>"; };
+		72AD860B193358B6004CAE5F /* BaseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseModel.m; sourceTree = "<group>"; };
 		72EB3888192705E800D0F225 /* StyleSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StyleSheet.h; sourceTree = "<group>"; };
 		72EB3889192705E800D0F225 /* StyleSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StyleSheet.m; sourceTree = "<group>"; };
 		72EB388C1927072D00D0F225 /* IndexViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IndexViewController.h; sourceTree = "<group>"; };
@@ -795,6 +798,8 @@
 				722D42F2192C8AB600350244 /* RetailModel.m */,
 				72AD85FE193305AB004CAE5F /* StoreRankModel.h */,
 				72AD85FF193305AB004CAE5F /* StoreRankModel.m */,
+				72AD860A193358B6004CAE5F /* BaseModel.h */,
+				72AD860B193358B6004CAE5F /* BaseModel.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -1222,6 +1227,7 @@
 				72783C051929CBA70098B3A8 /* CRNavigator.m in Sources */,
 				724480F5192732E2005F5BE5 /* BrandModel.m in Sources */,
 				724480F2192732A8005F5BE5 /* BrandViewController.m in Sources */,
+				72AD860C193358B6004CAE5F /* BaseModel.m in Sources */,
 				72AD8606193309AF004CAE5F /* ChannelRank.m in Sources */,
 				724480EF19273167005F5BE5 /* Channel.m in Sources */,
 				72EB38A919270EAF00D0F225 /* LoginDataSource.m in Sources */,

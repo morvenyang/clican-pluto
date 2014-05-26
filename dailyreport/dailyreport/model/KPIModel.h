@@ -9,9 +9,10 @@
 #import <Three20Network/Three20Network.h>
 #import "Brand.h"
 #import "Channel.h"
+#import "BaseModel.h"
 @protocol KPIDelegate;
 
-@interface KPIModel : TTURLRequestModel{
+@interface KPIModel : BaseModel{
     NSString* _brand;
     id<KPIDelegate> _delegate;
 }

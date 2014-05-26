@@ -9,10 +9,10 @@
 #import <Three20Network/Three20Network.h>
 #import "Brand.h"
 #import "Channel.h"
-
+#import "BaseModel.h"
 @protocol BrandDelegate;
 
-@interface BrandModel : TTURLRequestModel{
+@interface BrandModel : BaseModel{
     NSString* _brand;
     id<BrandDelegate> _delegate;
 }

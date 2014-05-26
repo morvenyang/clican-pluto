@@ -130,7 +130,7 @@
     NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
     
     self.usernameField.text = [defaults stringForKey: LAST_USER_NAME];
-    
+    self.passwordField.text = [defaults stringForKey: LAST_PASSWORD];
 }
 
 - (void)viewDidUnload
@@ -240,6 +240,7 @@
     NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
     
     [defaults setObject:user.username forKey:LAST_USER_NAME];
+    [defaults setObject:user.password forKey:LAST_PASSWORD];
     [[TTNavigator navigator] removeAllViewControllers];
     DrAppDelegate.user = user;
     TTOpenURL(@"peacebird://index");

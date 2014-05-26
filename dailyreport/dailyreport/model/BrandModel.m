@@ -94,7 +94,12 @@
             }
             [self.delegate brandDidFinishLoad:brand channels:channels weeks:weeks];
         }else{
-            TTAlert([data objectForKey:@"message"]);
+            if(result.intValue==1002){
+                //not login
+                [self tryAutoLogin];
+            }else{
+                TTAlert([data objectForKey:@"message"]);
+            }
         }
         
         
