@@ -198,7 +198,6 @@ public class DataServiceImpl implements DataService {
 		Date yesterday = getYesterday();
 		List<String> channels = this.dataDao.getAllChannelForRank(yesterday,
 				brand);
-		Map<String, List<RankResult>> channelMap = new HashMap<String, List<RankResult>>();
 		List<ChannelRankResult> crrList = new ArrayList<ChannelRankResult>();
 		for (String channel : channels) {
 			List<RankResult> rankResult = this.dataDao.getRankResult(yesterday,
@@ -212,7 +211,12 @@ public class DataServiceImpl implements DataService {
 		rsr.setResult(0);
 		rsr.setDate(yesterday);
 		rsr.setChannels(crrList);
-		String result = JSONObject.fromObject(rsr).toString();
+		JsonConfig jsonConfig = new JsonConfig();
+		jsonConfig.registerJsonValueProcessor(Date.class,
+				new DateJsonValueProcessor("yyyy-MM-dd"));
+		jsonConfig.registerJsonValueProcessor(Integer.class,
+				new IntegerJsonValueProcessor());
+		String result = JSONObject.fromObject(rsr,jsonConfig).toString();
 		return result;
 	}
 
