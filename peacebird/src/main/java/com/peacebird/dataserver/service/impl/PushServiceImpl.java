@@ -46,21 +46,24 @@ public class PushServiceImpl implements PushService {
 		Date yesterday = DateUtils.truncate(new Date(), Calendar.DAY_OF_MONTH);
 		yesterday = DateUtils.addDays(yesterday, -1);
 		DayStatus ds = dataDao.getDayStatus(yesterday);
-		if (true) {
-			SimpleDateFormat sdf = new SimpleDateFormat("mm月dd日");
+		if (ds != null && ds.getStatus().intValue() != 0) {
+			SimpleDateFormat sdf = new SimpleDateFormat("MM月dd日");
 			String msg = sdf.format(yesterday) + "数据已生成，请查阅";
 			log.info("push message[" + msg + "]");
 			List<String> tokens = this.userDao.findAllActiveToken();
 			for (String token : tokens) {
 				try {
-					if(StringUtils.isNotEmpty(token)){
-						log.info("push message[" + msg + "] to token ["+token+"]");
+					if (StringUtils.isNotEmpty(token)) {
+						log.info("push message[" + msg + "] to token [" + token
+								+ "]");
 						apnsService.sendMessage(msg, token);
 					}
 				} catch (Exception e) {
 					log.error("", e);
 				}
 			}
+			ds.setPush(1);
+			dataDao.saveDayStatus(ds);
 		} else {
 			log.warn("The DayStatus is not ready, we can't push messsage");
 		}
