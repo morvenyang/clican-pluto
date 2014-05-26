@@ -13,6 +13,8 @@ public class SpringProperty {
 	private String systemProxyHost;
 	private int systemProxyPort;
 	
+	private String yesterday;
+	
 
 	public String getVersion() {
 		return version;
@@ -76,6 +78,14 @@ public class SpringProperty {
 
 	public void setApnsCertFile(String apnsCertFile) {
 		this.apnsCertFile = apnsCertFile;
+	}
+
+	public String getYesterday() {
+		return yesterday;
+	}
+
+	public void setYesterday(String yesterday) {
+		this.yesterday = yesterday;
 	}
 	
 	

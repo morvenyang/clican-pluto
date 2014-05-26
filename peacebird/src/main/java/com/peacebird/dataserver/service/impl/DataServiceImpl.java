@@ -1,5 +1,6 @@
 package com.peacebird.dataserver.service.impl;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -12,7 +13,10 @@ import java.util.Set;
 import net.sf.json.JSONObject;
 import net.sf.json.JsonConfig;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import com.peacebird.dataserver.bean.BrandResult;
 import com.peacebird.dataserver.bean.BrandStatResult;
@@ -23,6 +27,7 @@ import com.peacebird.dataserver.bean.RankResult;
 import com.peacebird.dataserver.bean.RankStatResult;
 import com.peacebird.dataserver.bean.RetailResult;
 import com.peacebird.dataserver.bean.RetailStatResult;
+import com.peacebird.dataserver.bean.SpringProperty;
 import com.peacebird.dataserver.dao.DataDao;
 import com.peacebird.dataserver.model.DimBrand;
 import com.peacebird.dataserver.service.DataService;
@@ -31,16 +36,35 @@ import com.peacebird.dataserver.util.IntegerJsonValueProcessor;
 
 public class DataServiceImpl implements DataService {
 
+	private final static Log log = LogFactory.getLog(DataServiceImpl.class);
+
 	private DataDao dataDao;
+
+	private SpringProperty springProperty;
 
 	public void setDataDao(DataDao dataDao) {
 		this.dataDao = dataDao;
 	}
 
+	public void setSpringProperty(SpringProperty springProperty) {
+		this.springProperty = springProperty;
+	}
+
 	private Date getYesterday() {
-		Date yesterday = DateUtils.truncate(new Date(), Calendar.DAY_OF_MONTH);
-		yesterday = DateUtils.addDays(yesterday, -1);
-		yesterday.setDate(14);
+
+		Date yesterday = null;
+		try {
+			SimpleDateFormat sdf = new SimpleDateFormat();
+			if (StringUtils.isNotEmpty(springProperty.getYesterday())) {
+				yesterday = sdf.parse(springProperty.getYesterday());
+			} else {
+				yesterday = DateUtils.addDays(
+						DateUtils.truncate(new Date(), Calendar.DAY_OF_MONTH),
+						-1);
+			}
+		} catch (Exception e) {
+			log.error("", e);
+		}
 		return yesterday;
 	}
 
@@ -73,7 +97,7 @@ public class DataServiceImpl implements DataService {
 		if (br == null) {
 			bsr.setMessage("当前该品牌没有昨日的数据");
 			return JSONObject.fromObject(bsr).toString();
-		} 
+		}
 		br.setBrand(brand);
 		br.setDate(yesterday);
 		Calendar cal = Calendar.getInstance();
@@ -86,15 +110,15 @@ public class DataServiceImpl implements DataService {
 		List<BrandResult> bwr = this.dataDao.getBrandWeekResult(startDate,
 				endDate, brand);
 		List<BrandResult> finalBwr = new ArrayList<BrandResult>();
-		Map<Long,BrandResult> bMap = new HashMap<Long,BrandResult>();
-		for(BrandResult b:bwr){
+		Map<Long, BrandResult> bMap = new HashMap<Long, BrandResult>();
+		for (BrandResult b : bwr) {
 			bMap.put(b.getDate().getTime(), b);
 		}
 		Date d = startDate;
 		while (d.compareTo(endDate) <= 0) {
 			BrandResult r = bMap.get(d.getTime());
-			if(r==null){
-				r=new BrandResult("", d, null);
+			if (r == null) {
+				r = new BrandResult("", d, null);
 			}
 			finalBwr.add(r);
 			d = DateUtils.addDays(d, 1);
@@ -102,13 +126,13 @@ public class DataServiceImpl implements DataService {
 
 		List<BrandResult> bcr = this.dataDao.getBrandResultByChannel(yesterday,
 				brand);
-		
+
 		bsr.setBrand(brand);
 		bsr.setResult(0);
 		bsr.setBrandResult(br);
 		bsr.setChannels(bcr);
 		bsr.setWeeks(finalBwr);
-		
+
 		JsonConfig jsonConfig = new JsonConfig();
 		jsonConfig.registerJsonValueProcessor(Date.class,
 				new DateJsonValueProcessor("yyyy-MM-dd"));
@@ -139,8 +163,8 @@ public class DataServiceImpl implements DataService {
 				new DateJsonValueProcessor("yyyy-MM-dd"));
 		jsonConfig.registerJsonValueProcessor(Integer.class,
 				new IntegerJsonValueProcessor());
-		
-		String result = JSONObject.fromObject(rsr,jsonConfig).toString();
+
+		String result = JSONObject.fromObject(rsr, jsonConfig).toString();
 		return result;
 	}
 
@@ -150,7 +174,7 @@ public class DataServiceImpl implements DataService {
 		List<ChannelResult> channelResult = this.dataDao.getChannelResult(
 				yesterday, brand);
 		ChannelStatResult csr = new ChannelStatResult();
-		if(channelResult.size()==0){
+		if (channelResult.size() == 0) {
 			csr.setResult(1);
 			csr.setMessage("没有相关渠道数据");
 			csr.setDate(yesterday);
