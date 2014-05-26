@@ -54,7 +54,7 @@ public class DataServiceImpl implements DataService {
 
 		Date yesterday = null;
 		try {
-			SimpleDateFormat sdf = new SimpleDateFormat();
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			if (StringUtils.isNotEmpty(springProperty.getYesterday())) {
 				yesterday = sdf.parse(springProperty.getYesterday());
 			} else {
