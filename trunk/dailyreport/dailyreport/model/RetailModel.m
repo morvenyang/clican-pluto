@@ -90,7 +90,13 @@
             NSDate* date =  [dateFormatter dateFromString:[data objectForKey:@"date"]];
             [self.delegate brandDidFinishLoad:channels sorts:sorts regions:regions date:date];
         }else{
-            TTAlert([data objectForKey:@"message"]);
+            if(result.intValue==1002){
+                //not login
+                [self tryAutoLogin];
+            }else{
+                TTAlert([data objectForKey:@"message"]);
+            }
+            
         }
         
         

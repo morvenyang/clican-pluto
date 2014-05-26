@@ -8,9 +8,10 @@
 
 #import <Three20Network/Three20Network.h>
 #import "Rank.h"
+#import "BaseModel.h"
 @protocol StoreRankDelegate;
 
-@interface StoreRankModel : TTURLRequestModel{
+@interface StoreRankModel : BaseModel{
     NSString* _brand;
     id<StoreRankDelegate> _delegate;
 }

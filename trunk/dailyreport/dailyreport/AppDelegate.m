@@ -24,7 +24,8 @@
 {
     [[UIApplication sharedApplication] registerForRemoteNotificationTypes:
      (UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
-    
+    self.user = [[[User alloc] init] autorelease];
+    self.user.sessionId = @"";
     [application setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
     [WXApi registerApp:@"123"];
     [TTStyleSheet setGlobalStyleSheet:[[[StyleSheet alloc] init] autorelease]];
@@ -49,7 +50,7 @@
      [StoreRankViewController class]];
     
     if (![navigator restoreViewControllers]) {
-        [navigator openURLAction:[TTURLAction actionWithURLPath:@"peacebird://login"]];
+        [navigator openURLAction:[TTURLAction actionWithURLPath:@"peacebird://index"]];
     }
     
     return YES;

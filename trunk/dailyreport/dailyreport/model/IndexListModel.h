@@ -7,8 +7,8 @@
 //
 
 #import <Three20Network/Three20Network.h>
-
-@interface IndexListModel : TTURLRequestModel{
+#import "BaseModel.h"
+@interface IndexListModel : BaseModel{
     NSMutableArray* _brandList;
 }
 @property (nonatomic, retain) NSMutableArray* brandList;
