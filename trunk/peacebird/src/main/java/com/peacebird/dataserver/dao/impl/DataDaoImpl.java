@@ -110,7 +110,7 @@ public class DataDaoImpl extends HibernateDaoSupport implements DataDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<String> getAllChannelForRank(Date date, String brand) {
-		String hsql = "select channel from DayStoreAmountRank where date = :date and brand= :brand";
+		String hsql = "select distinct channel from DayStoreAmountRank where date = :date and brand= :brand";
 		return this.getHibernateTemplate().findByNamedParam(hsql,
 				new String[] { "date", "brand" }, new Object[] { date, brand });
 	}
@@ -123,7 +123,7 @@ public class DataDaoImpl extends HibernateDaoSupport implements DataDao {
 			@Override
 			public Object doInHibernate(Session session)
 					throws HibernateException, SQLException {
-				String hsql = "select channel from DayStoreAmountRank where date = :date and brand= :brand and channel = :channel order by amount desc";
+				String hsql = "select new com.peacebird.dataserver.bean.RankResult(name,amount) from DayStoreAmountRank where date = :date and brand= :brand and channel = :channel order by rank";
 				Query query = session.createQuery(hsql);
 				query.setParameter("date", date);
 				query.setParameter("brand", brand);
