@@ -33,6 +33,8 @@ public interface DataDao {
 
 	public List<RankResult> getRankResult(Date date, String brand,
 			String channel);
+	
+	public List<RankResult> getAllRankResult(Date date, String brand);
 
 	public DayStatus getDayStatus(Date date);
 
