@@ -17,7 +17,7 @@ public class DayRetailChannelDetail {
 	private String brand;
 	private String channel;
 	private Date date;
-	private Double docNum;
+	private Integer docNum;
 	private Double avgDocCount;
 	private Integer avgDocAmount;
 	private Integer avgPrice;
@@ -54,10 +54,10 @@ public class DayRetailChannelDetail {
 		this.date = date;
 	}
 	@Column(name="r_doc_num")
-	public Double getDocNum() {
+	public Integer getDocNum() {
 		return docNum;
 	}
-	public void setDocNum(Double docNum) {
+	public void setDocNum(Integer docNum) {
 		this.docNum = docNum;
 	}
 	
