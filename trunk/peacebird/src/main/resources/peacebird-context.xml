@@ -83,6 +83,7 @@
 		<property name="systemProxyEnable" value="${systemProxyEnable}"></property>
 		<property name="systemProxyHost" value="${systemProxyHost}"></property>
 		<property name="systemProxyPort" value="${systemProxyPort}"></property>
+		<property name="yesterday" value="${yesterday}"></property>
 	</bean>
 
 </beans>
