@@ -20,6 +20,7 @@ import org.apache.commons.logging.LogFactory;
 
 import com.peacebird.dataserver.bean.BrandResult;
 import com.peacebird.dataserver.bean.BrandStatResult;
+import com.peacebird.dataserver.bean.ChannelRankResult;
 import com.peacebird.dataserver.bean.ChannelResult;
 import com.peacebird.dataserver.bean.ChannelStatResult;
 import com.peacebird.dataserver.bean.IndexStatResult;
@@ -198,14 +199,19 @@ public class DataServiceImpl implements DataService {
 		List<String> channels = this.dataDao.getAllChannelForRank(yesterday,
 				brand);
 		Map<String, List<RankResult>> channelMap = new HashMap<String, List<RankResult>>();
+		List<ChannelRankResult> crrList = new ArrayList<ChannelRankResult>();
 		for (String channel : channels) {
 			List<RankResult> rankResult = this.dataDao.getRankResult(yesterday,
 					brand, channel);
-			channelMap.put(channel, rankResult);
+			ChannelRankResult crr = new ChannelRankResult();
+			crr.setChannel(channel);
+			crr.setRanks(rankResult);
+			crrList.add(crr);
 		}
 		RankStatResult rsr = new RankStatResult();
 		rsr.setResult(0);
-		rsr.setChannel(channelMap);
+		rsr.setDate(yesterday);
+		rsr.setChannels(crrList);
 		String result = JSONObject.fromObject(rsr).toString();
 		return result;
 	}
