@@ -42,7 +42,7 @@
         return [UIColor orangeColor];
     }
     else if(index==6){
-        return [UIColor blueColor];
+        return [UIColor lightGrayColor];
     }
     else if(index==7){
         return [UIColor brownColor];

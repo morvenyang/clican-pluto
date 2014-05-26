@@ -84,7 +84,7 @@
     [dailyView addSubview:calendarImageView];
     [dailyView addSubview:calendarLabel];
     
-    CGFloat width = 320.0/[channels count];
+    CGFloat width = 320.0/3;
     int index = 0;
     NSMutableArray* tabs = [NSMutableArray array];
     [tabs addObject:@"店铺性质"];
@@ -203,6 +203,7 @@
 - (void)dealloc
 {
     _retailModel.delegate = nil;
+    TT_RELEASE_SAFELY(_retailModel);
     TT_RELEASE_SAFELY(_pieChartView);
     TT_RELEASE_SAFELY(_tabLables);
     TT_RELEASE_SAFELY(_channels);

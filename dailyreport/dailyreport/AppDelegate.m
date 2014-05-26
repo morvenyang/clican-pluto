@@ -13,6 +13,7 @@
 #import "BrandViewController.h"
 #import "KPIViewController.h"
 #import "RetailViewController.h"
+#import "StoreRankViewController.h"
 #import "CRNavigator.h"
 @implementation AppDelegate
 
@@ -21,6 +22,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:
+     (UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
+    
     [application setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
     [WXApi registerApp:@"123"];
     [TTStyleSheet setGlobalStyleSheet:[[[StyleSheet alloc] init] autorelease]];
@@ -41,6 +45,9 @@
      [KPIViewController class]];
     [map from:@"peacebird://retail/(initWithBrand:)" toSharedViewController:
      [RetailViewController class]];
+    [map from:@"peacebird://storeRank/(initWithBrand:)" toSharedViewController:
+     [StoreRankViewController class]];
+    
     if (![navigator restoreViewControllers]) {
         [navigator openURLAction:[TTURLAction actionWithURLPath:@"peacebird://login"]];
     }

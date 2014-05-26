@@ -112,6 +112,10 @@
 		7285E3E11925AFEE0011C2D6 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7285E3C91925AFEE0011C2D6 /* UIKit.framework */; };
 		7285E3E91925AFEE0011C2D6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7285E3E71925AFEE0011C2D6 /* InfoPlist.strings */; };
 		7285E3EB1925AFEE0011C2D6 /* dailyreportTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7285E3EA1925AFEE0011C2D6 /* dailyreportTests.m */; };
+		72AD8600193305AB004CAE5F /* StoreRankModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 72AD85FF193305AB004CAE5F /* StoreRankModel.m */; };
+		72AD8603193305D9004CAE5F /* Rank.m in Sources */ = {isa = PBXBuildFile; fileRef = 72AD8602193305D9004CAE5F /* Rank.m */; };
+		72AD8606193309AF004CAE5F /* ChannelRank.m in Sources */ = {isa = PBXBuildFile; fileRef = 72AD8605193309AF004CAE5F /* ChannelRank.m */; };
+		72AD860919330B45004CAE5F /* StoreRankViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 72AD860819330B45004CAE5F /* StoreRankViewController.m */; };
 		72EB388A192705E800D0F225 /* StyleSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 72EB3889192705E800D0F225 /* StyleSheet.m */; };
 		72EB388E1927072D00D0F225 /* IndexViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 72EB388D1927072D00D0F225 /* IndexViewController.m */; };
 		72EB389B19270CA900D0F225 /* IndexDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 72EB389A19270CA900D0F225 /* IndexDataSource.m */; };
@@ -437,6 +441,14 @@
 		7285E3E61925AFEE0011C2D6 /* dailyreportTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "dailyreportTests-Info.plist"; sourceTree = "<group>"; };
 		7285E3E81925AFEE0011C2D6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		7285E3EA1925AFEE0011C2D6 /* dailyreportTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = dailyreportTests.m; sourceTree = "<group>"; };
+		72AD85FE193305AB004CAE5F /* StoreRankModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoreRankModel.h; sourceTree = "<group>"; };
+		72AD85FF193305AB004CAE5F /* StoreRankModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoreRankModel.m; sourceTree = "<group>"; };
+		72AD8601193305D9004CAE5F /* Rank.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Rank.h; sourceTree = "<group>"; };
+		72AD8602193305D9004CAE5F /* Rank.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Rank.m; sourceTree = "<group>"; };
+		72AD8604193309AF004CAE5F /* ChannelRank.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChannelRank.h; sourceTree = "<group>"; };
+		72AD8605193309AF004CAE5F /* ChannelRank.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChannelRank.m; sourceTree = "<group>"; };
+		72AD860719330B45004CAE5F /* StoreRankViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoreRankViewController.h; sourceTree = "<group>"; };
+		72AD860819330B45004CAE5F /* StoreRankViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoreRankViewController.m; sourceTree = "<group>"; };
 		72EB3888192705E800D0F225 /* StyleSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StyleSheet.h; sourceTree = "<group>"; };
 		72EB3889192705E800D0F225 /* StyleSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StyleSheet.m; sourceTree = "<group>"; };
 		72EB388C1927072D00D0F225 /* IndexViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IndexViewController.h; sourceTree = "<group>"; };
@@ -751,6 +763,8 @@
 				726231A3192B745A00E3F99B /* KPIViewController.m */,
 				722D42F4192C8D6800350244 /* RetailViewController.h */,
 				722D42F5192C8D6800350244 /* RetailViewController.m */,
+				72AD860719330B45004CAE5F /* StoreRankViewController.h */,
+				72AD860819330B45004CAE5F /* StoreRankViewController.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -779,6 +793,8 @@
 				722D42BB192C3A2E00350244 /* KPIModel.m */,
 				722D42F1192C8AB600350244 /* RetailModel.h */,
 				722D42F2192C8AB600350244 /* RetailModel.m */,
+				72AD85FE193305AB004CAE5F /* StoreRankModel.h */,
+				72AD85FF193305AB004CAE5F /* StoreRankModel.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -794,6 +810,10 @@
 				724480E219271E8A005F5BE5 /* Brand.m */,
 				724480ED19273167005F5BE5 /* Channel.h */,
 				724480EE19273167005F5BE5 /* Channel.m */,
+				72AD8601193305D9004CAE5F /* Rank.h */,
+				72AD8602193305D9004CAE5F /* Rank.m */,
+				72AD8604193309AF004CAE5F /* ChannelRank.h */,
+				72AD8605193309AF004CAE5F /* ChannelRank.m */,
 			);
 			path = object;
 			sourceTree = "<group>";
@@ -1202,17 +1222,21 @@
 				72783C051929CBA70098B3A8 /* CRNavigator.m in Sources */,
 				724480F5192732E2005F5BE5 /* BrandModel.m in Sources */,
 				724480F2192732A8005F5BE5 /* BrandViewController.m in Sources */,
+				72AD8606193309AF004CAE5F /* ChannelRank.m in Sources */,
 				724480EF19273167005F5BE5 /* Channel.m in Sources */,
 				72EB38A919270EAF00D0F225 /* LoginDataSource.m in Sources */,
 				72EB38A619270E8D00D0F225 /* LoginViewController.m in Sources */,
 				72EB389B19270CA900D0F225 /* IndexDataSource.m in Sources */,
 				72783CD1192A25100098B3A8 /* LinkImageView.m in Sources */,
+				72AD8600193305AB004CAE5F /* StoreRankModel.m in Sources */,
 				72783C011929C7D70098B3A8 /* CRNavigationBar.m in Sources */,
 				72783CA9192A09100098B3A8 /* IndexTableItemCell.m in Sources */,
+				72AD860919330B45004CAE5F /* StoreRankViewController.m in Sources */,
 				72623199192B4E7F00E3F99B /* SwitchViewController.m in Sources */,
 				72EB38A319270E7200D0F225 /* User.m in Sources */,
 				720D6082193156AF004C7781 /* PieChartView.m in Sources */,
 				722D42F3192C8AB600350244 /* RetailModel.m in Sources */,
+				72AD8603193305D9004CAE5F /* Rank.m in Sources */,
 				72EB38B6192712DC00D0F225 /* MBProgressHUD.m in Sources */,
 				72EB388A192705E800D0F225 /* StyleSheet.m in Sources */,
 				722D42F6192C8D6800350244 /* RetailViewController.m in Sources */,
@@ -1408,7 +1432,7 @@
 					"$(PROJECT_DIR)/dailyreport/weixin",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "92D48AB2-201C-4EB8-B061-FDE368E2962B";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1429,7 +1453,7 @@
 					"$(PROJECT_DIR)/dailyreport/weixin",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "92D48AB2-201C-4EB8-B061-FDE368E2962B";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
