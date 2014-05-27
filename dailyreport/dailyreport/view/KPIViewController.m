@@ -108,7 +108,13 @@
             index++;
         }
     }
-    Channel* channel = [channels objectAtIndex:0];
+    Channel* channel = nil;
+    if(channels.count>0){
+       channel  = [channels objectAtIndex:0];
+    }else{
+        channel = [[[Channel alloc] init] autorelease];
+    }
+    
     [self.contentView addSubview:[self createImageViewFromNamedImage:@"零售收入.png" frame:CGRectMake(20,114,24,24)]];
     [self.contentView addSubview:[self createLabel:@"零售收入" frame:CGRectMake(50,100,100,49) textColor:@"#4a4a4a" font:18 backgroundColor:nil]];
     self.dayAmountLabel =[self createLabel:[NSString stringWithFormat:@"%d 万元",channel.dayAmount.intValue/10000] frame:CGRectMake(200,100,100,49) textColor:@"#7f7f7f" font:18 backgroundColor:nil];
@@ -134,6 +140,7 @@
     self.apsLabel =[self createLabel:[NSString stringWithFormat:@"%d 元",channel.aps.intValue] frame:CGRectMake(200,340,100,49) textColor:@"#7f7f7f" font:18 backgroundColor:nil];
     [self.contentView addSubview:self.apsLabel];
     [self.contentView addSubview:[self createImageViewFromNamedImage:@"关键指标-背景花纹.png" frame:CGRectMake(0,397,320,7)]];
+    
     [self.contentView addSubview:dailyView];
     self.contentView.contentSize =
     CGSizeMake(320, 404);

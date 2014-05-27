@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>${PRODUCT_NAME}</string>
+	<string>PB日报</string>
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
 	<key>CFBundleIcons</key>
@@ -20,7 +20,6 @@
 				<string>logo120</string>
 				<string>logo114</string>
 				<string>logo57</string>
-				<string>Icon</string>
 			</array>
 		</dict>
 	</dict>
@@ -31,7 +30,7 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>${PRODUCT_NAME}</string>
+	<string>PB日报</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
@@ -43,9 +42,11 @@
 		<dict>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>PBRB</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>peacebirddailyreport</string>
+				<string>wx489983fd6835c0e8</string>
 			</array>
 		</dict>
 	</array>

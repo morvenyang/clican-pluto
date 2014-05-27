@@ -8,7 +8,7 @@
 
 #ifndef dailyreport_Constants_h
 #define dailyreport_Constants_h
-#define BASE_URL @"http://192.168.1.100:9000/peacebird"
+#define BASE_URL @"http://183.136.134.136:8080/peacebird"
 #define LAST_USER_NAME @"LAST_USER_NAME"
 #define LAST_PASSWORD @"LAST_PASSWORD"
 #define DEVICE_TOKEN @"DEVICE_TOKEN"

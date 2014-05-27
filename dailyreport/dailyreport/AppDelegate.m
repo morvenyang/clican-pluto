@@ -27,7 +27,7 @@
     self.user = [[[User alloc] init] autorelease];
     self.user.sessionId = @"";
     [application setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
-    [WXApi registerApp:@"123"];
+    [WXApi registerApp:@"wx489983fd6835c0e8"];
     [TTStyleSheet setGlobalStyleSheet:[[[StyleSheet alloc] init] autorelease]];
     
     TTNavigator* navigator = [CRNavigator navigator];
@@ -64,9 +64,6 @@
     return [WXApi handleOpenURL:url delegate:self];
 }
 
--(void)onReq:(BaseReq *)req{
-    
-}
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -123,6 +120,24 @@
                                               otherButtonTitles:nil];
         [alert show];
         [alert release];
+    }
+}
+
+-(void) onReq:(BaseReq*)req
+{
+    NSLog(@"Ignore weixin request");
+}
+
+-(void) onResp:(BaseResp*)resp
+{
+    if([resp isKindOfClass:[SendMessageToWXResp class]])
+    {
+        if(resp.errCode==0){
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享成功" message:@"" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            [alert show];
+            [alert release];
+        }
+        
     }
 }
 
