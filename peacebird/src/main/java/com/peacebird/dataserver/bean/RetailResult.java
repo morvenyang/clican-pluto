@@ -11,7 +11,9 @@ public class RetailResult {
 	public RetailResult(String type, String name, Number dayAmount) {
 		this.type = type;
 		this.name = name;
-		this.dayAmount = dayAmount.intValue();
+		if(dayAmount!=null){
+			this.dayAmount = dayAmount.intValue();
+		}
 	}
 
 	public String getType() {

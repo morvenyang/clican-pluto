@@ -23,13 +23,15 @@ public class BrandResult {
 	public BrandResult(String brand, String channel, Number dayAmount) {
 		this.brand = brand;
 		this.channel = channel;
-		this.dayAmount = dayAmount.intValue();
+		if (dayAmount != null) {
+			this.dayAmount = dayAmount.intValue();
+		}
 	}
 
 	public BrandResult(String brand, Date date, Number dayAmount) {
 		this.brand = brand;
 		this.date = date;
-		if(dayAmount!=null){
+		if (dayAmount != null) {
 			this.dayAmount = dayAmount.intValue();
 		}
 	}
@@ -38,11 +40,21 @@ public class BrandResult {
 			Number yearAmount, Number weekLike, Number yearLike) {
 		super();
 		this.brand = brand;
-		this.dayAmount = dayAmount.intValue();
-		this.weekAmount = weekAmount.intValue();
-		this.yearAmount = yearAmount.intValue();
-		this.weekLike = weekLike.doubleValue();
-		this.yearLike = yearLike.doubleValue();
+		if (dayAmount != null) {
+			this.dayAmount = dayAmount.intValue();
+		}
+		if (weekAmount != null) {
+			this.weekAmount = weekAmount.intValue();
+		}
+		if (yearAmount != null) {
+			this.yearAmount = yearAmount.intValue();
+		}
+		if (weekLike != null) {
+			this.weekLike = weekLike.doubleValue();
+		}
+		if (yearLike != null) {
+			this.yearLike = yearLike.doubleValue();
+		}
 	}
 
 	public String getBrand() {

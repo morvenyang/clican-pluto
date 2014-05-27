@@ -2,7 +2,6 @@ package com.peacebird.dataserver.bean;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 public class RankStatResult {
 
