@@ -8,7 +8,7 @@
 
 #import "SwitchViewController.h"
 #import "StyleSheet.h"
-
+#import "WXApi.h"
 
 @implementation SwitchViewController
 
@@ -97,6 +97,12 @@
         [paginationView addSubview:v];
     }
     [self.view addSubview:paginationView];
+    UIButton* shareButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    UIImage* shareImage= [UIImage imageNamed:@"图标-分享.png"];
+    [shareButton setImage:shareImage forState:UIControlStateNormal];
+    shareButton.frame = CGRectMake(280, y, 30, 30);
+    [shareButton addTarget:self action:@selector(sendImageContent) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:shareButton];
 }
 - (void)viewDidLoad
 {
@@ -201,6 +207,44 @@
     }
     
     return label;
+}
+
+-(UIImage*)screenShot{
+    CGImageRef UIGetScreenImage();
+    CGImageRef img = UIGetScreenImage();
+    UIImage* saveImage= [UIImage imageWithCGImage:img];
+    return saveImage;
+}
+
+- (UIImage *)imageWithImage:(UIImage *)image scaledToSize:(CGSize)newSize {
+    //UIGraphicsBeginImageContext(newSize);
+    // In next line, pass 0.0 to use the current device's pixel scaling factor (and thus account for Retina resolution).
+    // Pass 1.0 to force exact pixel size.
+    UIGraphicsBeginImageContextWithOptions(newSize, NO, 0.0);
+    [image drawInRect:CGRectMake(0, 0, newSize.width, newSize.height)];
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return newImage;
+}
+
+- (void) sendImageContent
+{
+    WXMediaMessage *message = [WXMediaMessage message];
+    UIImage* screenShot =[self screenShot];
+    UIImage *thumbImage = [self imageWithImage:screenShot scaledToSize:CGSizeMake(32,64)];
+    [message setThumbImage:thumbImage];
+    
+    WXImageObject *ext = [WXImageObject object];
+    ext.imageData = UIImagePNGRepresentation(screenShot);
+    NSLog(@"%i",ext.imageData.length/1024);
+    message.mediaObject = ext;
+    
+    SendMessageToWXReq* req = [[[SendMessageToWXReq alloc] init]autorelease];
+    req.bText = NO;
+    req.message = message;
+    req.scene = WXSceneSession;
+    
+    [WXApi sendReq:req];
 }
 
 - (void)dealloc
