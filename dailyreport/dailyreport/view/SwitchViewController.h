@@ -7,16 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "SwipeScrollView.h"
 @interface SwitchViewController : UIViewController{
     NSString* _brand;
-    UIScrollView* _contentView;
+    SwipeScrollView* _contentView;
     int _index;
     UIView* _shareView;
     UIView* _backgroundShareView;
     UIImage* _preScreenShot;
+    BOOL _swiping;
+    CGFloat _swipeStartPoint;
+    CGFloat _swipeEndPoint;
 }
-@property (nonatomic, retain) UIScrollView *contentView;
+@property (nonatomic, retain) SwipeScrollView *contentView;
 @property (nonatomic, copy) NSString *brand;
 @property (nonatomic, assign) int index;
 @property (nonatomic, retain) UIView *shareView;
