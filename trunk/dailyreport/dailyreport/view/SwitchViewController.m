@@ -15,6 +15,9 @@
 @synthesize contentView = _contentView;
 @synthesize brand = _brand;
 @synthesize index = _index;
+@synthesize shareView = _shareView;
+@synthesize backgroundShareView = _backgroundShareView;
+@synthesize preScreenShot = _preScreenShot;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -101,8 +104,38 @@
     UIImage* shareImage= [UIImage imageNamed:@"图标-分享.png"];
     [shareButton setImage:shareImage forState:UIControlStateNormal];
     shareButton.frame = CGRectMake(280, y, 30, 30);
-    [shareButton addTarget:self action:@selector(sendImageContent) forControlEvents:UIControlEventTouchUpInside];
+    [shareButton addTarget:self action:@selector(showShareView) forControlEvents:UIControlEventTouchUpInside];
+    
+    y = frame.size.height-200-offset;
+    self.backgroundShareView =[[UIView alloc] initWithFrame:frame];
+    self.shareView = [[UIView alloc] initWithFrame:CGRectMake(0, y, 320, 200)];
+    self.shareView.backgroundColor = [StyleSheet colorFromHexString:@"#edeef0"];
+
+    UIButton* cancelButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    cancelButton.frame =CGRectMake(50, 150, 220, 40);
+    UIImage* cancelImage= [UIImage imageNamed:@"分享取消按钮.png"];
+    [cancelButton setImage:cancelImage forState:UIControlStateNormal];
+    [cancelButton addTarget:self action:@selector(hideShareView) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIButton* shareSessionButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    shareSessionButton.frame =CGRectMake(40, 30, 80, 80);
+    UIImage* shareSessionImage= [UIImage imageNamed:@"图标-微信好友.png"];
+    [shareSessionButton setImage:shareSessionImage forState:UIControlStateNormal];
+    [shareSessionButton addTarget:self action:@selector(sendSessionImageContent) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIButton* shareTimelineButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    shareTimelineButton.frame =CGRectMake(200, 30, 80, 80);
+    UIImage* shareTimelineImage= [UIImage imageNamed:@"图标-微信朋友圈.png"];
+    [shareTimelineButton setImage:shareTimelineImage forState:UIControlStateNormal];
+    [shareTimelineButton addTarget:self action:@selector(sendTimelineImageContent) forControlEvents:UIControlEventTouchUpInside];
+    [self.shareView addSubview:cancelButton];
+
+    [self.shareView addSubview:shareSessionButton];
+    [self.shareView addSubview:shareTimelineButton];
+    [self.shareView addSubview:cancelButton];
+    [self.backgroundShareView addSubview:self.shareView];
     [self.view addSubview:shareButton];
+
 }
 - (void)viewDidLoad
 {
@@ -227,10 +260,30 @@
     return newImage;
 }
 
-- (void) sendImageContent
+-(void) hideShareView{
+    [UIView animateWithDuration:0.25f animations:^{
+        self.shareView.alpha = 0;
+        [self.shareView layoutIfNeeded];
+        
+    } completion:^(BOOL finished) {
+        [self.backgroundShareView removeFromSuperview];
+    }];
+}
+-(void) showShareView{
+    self.preScreenShot =[self screenShot];
+    [self.view addSubview:self.backgroundShareView];
+    self.shareView.alpha = 0;
+    self.backgroundShareView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.3f];
+    [UIView animateWithDuration:0.25f animations:^{
+        self.shareView.alpha = 1;
+        [self.shareView layoutIfNeeded];
+    }];
+}
+- (void) sendSessionImageContent
 {
+    [self hideShareView];
     WXMediaMessage *message = [WXMediaMessage message];
-    UIImage* screenShot =[self screenShot];
+    UIImage* screenShot =self.preScreenShot;
     UIImage *thumbImage = [self imageWithImage:screenShot scaledToSize:CGSizeMake(32,64)];
     [message setThumbImage:thumbImage];
     
@@ -246,12 +299,34 @@
     
     [WXApi sendReq:req];
 }
-
+- (void) sendTimelineImageContent
+{
+    [self hideShareView];
+    WXMediaMessage *message = [WXMediaMessage message];
+    UIImage* screenShot =self.preScreenShot;
+    UIImage *thumbImage = [self imageWithImage:screenShot scaledToSize:CGSizeMake(32,64)];
+    [message setThumbImage:thumbImage];
+    
+    WXImageObject *ext = [WXImageObject object];
+    ext.imageData = UIImagePNGRepresentation(screenShot);
+    NSLog(@"%i",ext.imageData.length/1024);
+    message.mediaObject = ext;
+    
+    SendMessageToWXReq* req = [[[SendMessageToWXReq alloc] init]autorelease];
+    req.bText = NO;
+    req.message = message;
+    req.scene = WXSceneTimeline;
+    
+    [WXApi sendReq:req];
+}
 - (void)dealloc
 {
     
     TT_RELEASE_SAFELY(_brand);
     TT_RELEASE_SAFELY(_contentView);
+    TT_RELEASE_SAFELY(_shareView);
+    TT_RELEASE_SAFELY(_backgroundShareView);
+    TT_RELEASE_SAFELY(_preScreenShot);
     [super dealloc];
 }
 
