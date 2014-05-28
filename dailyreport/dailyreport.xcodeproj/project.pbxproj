@@ -589,6 +589,13 @@
 			path = chart;
 			sourceTree = "<group>";
 		};
+		724F4F2D1935A06C0079F9A0 /* hy */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = hy;
+			sourceTree = "<group>";
+		};
 		725AFEB019317A9B003BD9F3 /* weixin */ = {
 			isa = PBXGroup;
 			children = (
@@ -692,6 +699,7 @@
 		7285E3CB1925AFEE0011C2D6 /* dailyreport */ = {
 			isa = PBXGroup;
 			children = (
+				724F4F2D1935A06C0079F9A0 /* hy */,
 				725AFEB019317A9B003BD9F3 /* weixin */,
 				720D607619315691004C7781 /* chart */,
 				72783C9B192A08DC0098B3A8 /* three20 */,
@@ -1380,7 +1388,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
-				PROVISIONING_PROFILE = "2AB7F9F3-A01C-4055-A7AE-909AFD9EF949";
+				PROVISIONING_PROFILE = "157067F9-19A8-49E7-B3D9-26A618C9074E";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -1420,7 +1428,7 @@
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_LDFLAGS = "-ObjC";
-				PROVISIONING_PROFILE = "2AB7F9F3-A01C-4055-A7AE-909AFD9EF949";
+				PROVISIONING_PROFILE = "157067F9-19A8-49E7-B3D9-26A618C9074E";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1442,7 +1450,7 @@
 					"$(PROJECT_DIR)/dailyreport/weixin",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "2AB7F9F3-A01C-4055-A7AE-909AFD9EF949";
+				PROVISIONING_PROFILE = "157067F9-19A8-49E7-B3D9-26A618C9074E";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1463,7 +1471,7 @@
 					"$(PROJECT_DIR)/dailyreport/weixin",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "2AB7F9F3-A01C-4055-A7AE-909AFD9EF949";
+				PROVISIONING_PROFILE = "157067F9-19A8-49E7-B3D9-26A618C9074E";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

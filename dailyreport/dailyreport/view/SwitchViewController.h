@@ -12,11 +12,16 @@
     NSString* _brand;
     UIScrollView* _contentView;
     int _index;
+    UIView* _shareView;
+    UIView* _backgroundShareView;
+    UIImage* _preScreenShot;
 }
 @property (nonatomic, retain) UIScrollView *contentView;
 @property (nonatomic, copy) NSString *brand;
 @property (nonatomic, assign) int index;
-
+@property (nonatomic, retain) UIView *shareView;
+@property (nonatomic, retain) UIView *backgroundShareView;
+@property (nonatomic, retain) UIImage *preScreenShot;
 -(void) backAction;
 -(UIImageView*) createImageViewFromNamedImage:(NSString*) imageName frame:(CGRect) frame;
 -(UIImageView*) createImageViewFromColor:(UIColor*) color frame:(CGRect) frame;
