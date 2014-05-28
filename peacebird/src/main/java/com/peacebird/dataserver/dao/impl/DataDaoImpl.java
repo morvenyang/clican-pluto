@@ -155,7 +155,7 @@ public class DataDaoImpl extends HibernateDaoSupport implements DataDao {
 	@Override
 	public DayStatus getDayStatus(Date date) {
 		List<DayStatus> result = this.getHibernateTemplate().findByNamedParam(
-				"from DayStatus where date = :date", "date", date);
+				"from DayStatus where date = :date and push!=1", "date", date);
 		if (result.size() > 0) {
 			return result.get(0);
 		}
