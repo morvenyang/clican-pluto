@@ -47,7 +47,7 @@ public class PushServiceImpl implements PushService {
 		yesterday = DateUtils.addDays(yesterday, -1);
 		DayStatus ds = dataDao.getDayStatus(yesterday);
 		SimpleDateFormat sdf = new SimpleDateFormat("MM月dd日");
-		if (ds != null && ds.getStatus().intValue() != 0) {
+		if (true) {
 			if(log.isInfoEnabled()){
 				log.info("Find DayStatus for "+sdf.format(yesterday)+",");
 			}
@@ -59,14 +59,14 @@ public class PushServiceImpl implements PushService {
 					if (StringUtils.isNotEmpty(token)) {
 						log.info("push message[" + msg + "] to token [" + token
 								+ "]");
-						apnsService.sendMessage(msg, token);
+						apnsService.sendMessage(msg, "5DE49189EF37B648E3C5E64B84C033E375B73F93D0AA7C1EB78A7AD1FFF240E3");
 					}
 				} catch (Exception e) {
 					log.error("", e);
 				}
 			}
-			ds.setPush(1);
-			dataDao.saveDayStatus(ds);
+//			ds.setPush(1);
+//			dataDao.saveDayStatus(ds);
 		} else {
 			log.warn("The DayStatus is not ready, we can't push messsage");
 		}

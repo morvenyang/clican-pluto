@@ -143,6 +143,14 @@ public class ClientController {
 		}
 	}
 
+	/**
+	 * kpiView
+	 * @param brand
+	 * @param req
+	 * @param resp
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	@RequestMapping("/channel")
 	public void channel(@RequestParam(value = "brand") String brand,
 			HttpServletRequest req, HttpServletResponse resp)
