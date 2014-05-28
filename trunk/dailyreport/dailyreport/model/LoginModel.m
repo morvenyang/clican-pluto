@@ -86,6 +86,7 @@
         NSNumber* result = [data objectForKey:@"result"];
         if([result intValue]==0){
             _user.sessionId = [data objectForKey:@"jsessionid"];
+            _user.expiredDays = [data objectForKey:@"expiredDays"];
             if ([_delegate respondsToSelector:@selector(loginSuccess:)]) {
                 [_delegate loginSuccess:_user];
             }
