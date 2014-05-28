@@ -51,6 +51,14 @@
 								style="white-space:nowrap;" rendered="#{user.role==1}">
 							</h:outputText>
 						</rich:column>
+						<rich:column sortBy="#{user.token}">
+							<f:facet name="header">
+								<h:outputText value="Token" />
+							</f:facet>
+							<h:outputText value="#{user.token}"
+								style="white-space:nowrap;">
+							</h:outputText>
+						</rich:column>
 						<rich:column sortBy="#{user.active}">
 							<f:facet name="header">
 								<h:outputText value="状态" />

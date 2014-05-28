@@ -73,6 +73,9 @@ public class DataServiceImpl implements DataService {
 	public String getIndexResult(String[] brands) {
 		Date yesterday = getYesterday();
 		Set<String> bSet = new HashSet<String>();
+		for(String brand:brands){
+			bSet.add(brand);
+		}
 		List<BrandResult> indexBrandResults = dataDao.getBrandResult(yesterday,
 				brands);
 		for (BrandResult ibr : indexBrandResults) {
@@ -175,12 +178,6 @@ public class DataServiceImpl implements DataService {
 		List<ChannelResult> channelResult = this.dataDao.getChannelResult(
 				yesterday, brand);
 		ChannelStatResult csr = new ChannelStatResult();
-		if (channelResult.size() == 0) {
-			csr.setResult(1);
-			csr.setMessage("没有相关渠道数据");
-			csr.setDate(yesterday);
-			return JSONObject.fromObject(csr).toString();
-		}
 		csr.setChannel(channelResult);
 		csr.setResult(0);
 		csr.setDate(yesterday);
