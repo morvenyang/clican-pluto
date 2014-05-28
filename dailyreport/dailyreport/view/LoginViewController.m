@@ -241,6 +241,12 @@
     
     [defaults setObject:user.username forKey:LAST_USER_NAME];
     [defaults setObject:user.password forKey:LAST_PASSWORD];
+    NSDate* now = [NSDate date];
+    NSDateFormatter* dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+    [dateFormatter setTimeStyle:NSDateFormatterFullStyle];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    
+    [defaults setObject:[dateFormatter stringFromDate:now] forKey:LAST_LOGIN_DATE];
     [[TTNavigator navigator] removeAllViewControllers];
     DrAppDelegate.user = user;
     TTOpenURL(@"peacebird://index");

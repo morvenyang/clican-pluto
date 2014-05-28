@@ -43,9 +43,27 @@
     NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
     [defaults setObject:user.username forKey:LAST_USER_NAME];
     [defaults setObject:user.password forKey:LAST_PASSWORD];
-    DrAppDelegate.user = user;
+    NSString* lastLoginDateStr = [defaults objectForKey:LAST_LOGIN_DATE];
+    
 
-    [self load:TTURLRequestCachePolicyNone more:NO];
+    if(lastLoginDateStr==nil||lastLoginDateStr.length==0||user.expiredDays<=0){
+        TTOpenURL(@"peacebird://login");
+    }else{
+        NSDateFormatter* dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+        [dateFormatter setTimeStyle:NSDateFormatterFullStyle];
+        [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+        NSDate* lastLoginDate= [dateFormatter dateFromString:lastLoginDateStr];
+        NSDate* now = [NSDate date];
+        NSDate* expiredDate = [lastLoginDate dateByAddingTimeInterval:60*60*24*user.expiredDays.intValue];
+        if([expiredDate compare:now]==NSOrderedDescending){
+            DrAppDelegate.user = user;
+            [self load:TTURLRequestCachePolicyNone more:NO];
+        }else{
+            TTOpenURL(@"peacebird://login");
+        }
+    }
+    
+
 }
 
 - (void)loginFailed:(NSError*) error message:(NSString*) message
