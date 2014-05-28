@@ -26,34 +26,6 @@
     }
     return self;
 }
--(void)handleSwipeFrom:(UISwipeGestureRecognizer*)recognize{
-    NSLog(@"switch left or right");
-    if(recognize.direction ==UISwipeGestureRecognizerDirectionLeft){
-        if(self.index==1){
-            NSString* url = [NSString stringWithFormat:@"peacebird://kpi/%@", [self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-            TTOpenURL(url);
-        }else if(self.index==2){
-            NSString* url = [NSString stringWithFormat:@"peacebird://retail/%@", [self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-            TTOpenURL(url);
-        }else if(self.index==3){
-            NSString* url = [NSString stringWithFormat:@"peacebird://storeRank/%@", [self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-            TTOpenURL(url);
-        }
-    }
-    
-    if(recognize.direction ==UISwipeGestureRecognizerDirectionRight){
-        if(self.index==2){
-            NSString* url = [NSString stringWithFormat:@"peacebird://brand/%@", [self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-            TTOpenURL(url);
-        }else if(self.index==3){
-            NSString* url = [NSString stringWithFormat:@"peacebird://kpi/%@", [self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-            TTOpenURL(url);
-        }else if(self.index==4){
-            NSString* url = [NSString stringWithFormat:@"peacebird://retail/%@", [self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-            TTOpenURL(url);
-        }
-    }
-}
 
 - (void)loadView
 {
@@ -79,8 +51,9 @@
     if(DEVICE_VERSION<7.0){
         offset= 64;
     }
-    self.contentView = [[[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height-offset-30)] autorelease];
-    
+    self.contentView = [[[SwipeScrollView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height-offset-30)] autorelease];
+    self.contentView.index = self.index;
+    self.contentView.brand = self.brand;
     self.contentView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:self.contentView];
     
@@ -140,18 +113,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    UISwipeGestureRecognizer* recognizer;
-    recognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeFrom:)];
-    
-    [recognizer setDirection:(UISwipeGestureRecognizerDirectionLeft)];
-    [[self view] addGestureRecognizer:recognizer];
-    [recognizer release];
-    
-    recognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeFrom:)];
-    
-    [recognizer setDirection:(UISwipeGestureRecognizerDirectionRight)];
-    [[self view] addGestureRecognizer:recognizer];
-    [recognizer release];
     // Do any additional setup after loading the view.
 }
 

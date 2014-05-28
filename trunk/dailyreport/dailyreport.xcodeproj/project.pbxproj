@@ -28,6 +28,7 @@
 		724480EF19273167005F5BE5 /* Channel.m in Sources */ = {isa = PBXBuildFile; fileRef = 724480EE19273167005F5BE5 /* Channel.m */; };
 		724480F2192732A8005F5BE5 /* BrandViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 724480F1192732A8005F5BE5 /* BrandViewController.m */; };
 		724480F5192732E2005F5BE5 /* BrandModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 724480F4192732E2005F5BE5 /* BrandModel.m */; };
+		724F4F3F1935B7890079F9A0 /* SwipeScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 724F4F3E1935B7890079F9A0 /* SwipeScrollView.m */; };
 		725AFEBF19317C42003BD9F3 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 725AFEBE19317C42003BD9F3 /* libWeChatSDK.a */; };
 		7262316C192B168500E3F99B /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 72623162192B168500E3F99B /* Default.png */; };
 		7262316D192B168500E3F99B /* Default~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 72623163192B168500E3F99B /* Default~iphone.png */; };
@@ -344,6 +345,8 @@
 		724480F1192732A8005F5BE5 /* BrandViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrandViewController.m; sourceTree = "<group>"; };
 		724480F3192732E2005F5BE5 /* BrandModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrandModel.h; sourceTree = "<group>"; };
 		724480F4192732E2005F5BE5 /* BrandModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrandModel.m; sourceTree = "<group>"; };
+		724F4F3D1935B7890079F9A0 /* SwipeScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwipeScrollView.h; sourceTree = "<group>"; };
+		724F4F3E1935B7890079F9A0 /* SwipeScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SwipeScrollView.m; sourceTree = "<group>"; };
 		725AFEBA19317AB5003BD9F3 /* WXApi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
 		725AFEBB19317AB5003BD9F3 /* WXApiObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
 		725AFEBE19317C42003BD9F3 /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libWeChatSDK.a; path = dailyreport/weixin/libWeChatSDK.a; sourceTree = "<group>"; };
@@ -776,6 +779,8 @@
 				722D42F5192C8D6800350244 /* RetailViewController.m */,
 				72AD860719330B45004CAE5F /* StoreRankViewController.h */,
 				72AD860819330B45004CAE5F /* StoreRankViewController.m */,
+				724F4F3D1935B7890079F9A0 /* SwipeScrollView.h */,
+				724F4F3E1935B7890079F9A0 /* SwipeScrollView.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -1246,6 +1251,7 @@
 				72783C011929C7D70098B3A8 /* CRNavigationBar.m in Sources */,
 				72783CA9192A09100098B3A8 /* IndexTableItemCell.m in Sources */,
 				72AD860919330B45004CAE5F /* StoreRankViewController.m in Sources */,
+				724F4F3F1935B7890079F9A0 /* SwipeScrollView.m in Sources */,
 				72623199192B4E7F00E3F99B /* SwitchViewController.m in Sources */,
 				72EB38A319270E7200D0F225 /* User.m in Sources */,
 				720D6082193156AF004C7781 /* PieChartView.m in Sources */,
@@ -1363,8 +1369,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: fang jie (5AHEE5FVM6)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: fang jie (5AHEE5FVM6)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: fang jie (FY5N67HLSC)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: fang jie (FY5N67HLSC)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -1385,10 +1391,10 @@
 					"$(BUILT_PRODUCTS_DIR)/../../three20",
 					../three20/Build/Products/three20,
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
-				PROVISIONING_PROFILE = "157067F9-19A8-49E7-B3D9-26A618C9074E";
+				PROVISIONING_PROFILE = "AB4600E9-98F8-42B6-BA6C-D1F9DEB52930";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -1410,8 +1416,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: fang jie (5AHEE5FVM6)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: fang jie (5AHEE5FVM6)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: fang jie (FY5N67HLSC)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: fang jie (FY5N67HLSC)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1426,9 +1432,9 @@
 					"$(BUILT_PRODUCTS_DIR)/../../three20",
 					../three20/Build/Products/three20,
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				OTHER_LDFLAGS = "-ObjC";
-				PROVISIONING_PROFILE = "157067F9-19A8-49E7-B3D9-26A618C9074E";
+				PROVISIONING_PROFILE = "AB4600E9-98F8-42B6-BA6C-D1F9DEB52930";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1437,12 +1443,12 @@
 		7285E3EF1925AFEE0011C2D6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: fang jie (5AHEE5FVM6)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: fang jie (5AHEE5FVM6)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: fang jie (FY5N67HLSC)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: fang jie (FY5N67HLSC)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "dailyreport/dailyreport-Prefix.pch";
 				INFOPLIST_FILE = "dailyreport/dailyreport-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1450,7 +1456,7 @@
 					"$(PROJECT_DIR)/dailyreport/weixin",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "157067F9-19A8-49E7-B3D9-26A618C9074E";
+				PROVISIONING_PROFILE = "AB4600E9-98F8-42B6-BA6C-D1F9DEB52930";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1458,12 +1464,12 @@
 		7285E3F01925AFEE0011C2D6 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: fang jie (5AHEE5FVM6)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: fang jie (5AHEE5FVM6)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: fang jie (FY5N67HLSC)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: fang jie (FY5N67HLSC)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "dailyreport/dailyreport-Prefix.pch";
 				INFOPLIST_FILE = "dailyreport/dailyreport-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1471,7 +1477,7 @@
 					"$(PROJECT_DIR)/dailyreport/weixin",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "157067F9-19A8-49E7-B3D9-26A618C9074E";
+				PROVISIONING_PROFILE = "AB4600E9-98F8-42B6-BA6C-D1F9DEB52930";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
