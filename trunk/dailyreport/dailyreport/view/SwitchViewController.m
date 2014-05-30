@@ -95,16 +95,20 @@
     UIImage* shareSessionImage= [UIImage imageNamed:@"图标-微信好友.png"];
     [shareSessionButton setImage:shareSessionImage forState:UIControlStateNormal];
     [shareSessionButton addTarget:self action:@selector(sendSessionImageContent) forControlEvents:UIControlEventTouchUpInside];
-    
+    UILabel* shareSessionLabel = [self createLabel:@"微信好友" frame:CGRectMake(40, 110, 80, 20) textColor:@"#849484" font:14 backgroundColor:nil textAlignment:NSTextAlignmentCenter];
+
     UIButton* shareTimelineButton = [UIButton buttonWithType:UIButtonTypeCustom];
     shareTimelineButton.frame =CGRectMake(200, 30, 80, 80);
     UIImage* shareTimelineImage= [UIImage imageNamed:@"图标-微信朋友圈.png"];
     [shareTimelineButton setImage:shareTimelineImage forState:UIControlStateNormal];
     [shareTimelineButton addTarget:self action:@selector(sendTimelineImageContent) forControlEvents:UIControlEventTouchUpInside];
+    UILabel* shareTimelineLabel = [self createLabel:@"微信朋友圈" frame:CGRectMake(200, 110, 80, 20) textColor:@"#849484" font:14 backgroundColor:nil textAlignment:NSTextAlignmentCenter];
     [self.shareView addSubview:cancelButton];
 
     [self.shareView addSubview:shareSessionButton];
     [self.shareView addSubview:shareTimelineButton];
+    [self.shareView addSubview:shareSessionLabel];
+    [self.shareView addSubview:shareTimelineLabel];
     [self.shareView addSubview:cancelButton];
     [self.backgroundShareView addSubview:self.shareView];
     [self.view addSubview:shareButton];
