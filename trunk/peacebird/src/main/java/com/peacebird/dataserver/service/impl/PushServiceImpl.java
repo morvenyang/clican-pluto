@@ -47,29 +47,45 @@ public class PushServiceImpl implements PushService {
 		yesterday = DateUtils.addDays(yesterday, -1);
 		DayStatus ds = dataDao.getDayStatus(yesterday);
 		SimpleDateFormat sdf = new SimpleDateFormat("MM月dd日");
-		if (ds != null && ds.getStatus().intValue() != 0) {
-			if(log.isInfoEnabled()){
-				log.info("Find DayStatus for "+sdf.format(yesterday)+",");
-			}
-			String msg = sdf.format(yesterday) + "数据已生成，请查阅";
-			log.info("push message[" + msg + "]");
-			List<String> tokens = this.userDao.findAllActiveToken();
-			for (String token : tokens) {
-				try {
-					if (StringUtils.isNotEmpty(token)) {
-						log.info("push message[" + msg + "] to token [" + token
-								+ "]");
-						apnsService.sendMessage(msg, token);
-					}
-				} catch (Exception e) {
-					log.error("", e);
+		if (ds != null) {
+			if (ds.getPush() != null && ds.getPush().intValue() == 1) {
+				if (log.isDebugEnabled()) {
+					log.debug("The message has been pushed");
+					return;
 				}
 			}
-			ds.setPush(1);
-			dataDao.saveDayStatus(ds);
+			if (ds.getStatus() != null && ds.getStatus().intValue() != 0) {
+				if (log.isInfoEnabled()) {
+					log.info("Find DayStatus for " + sdf.format(yesterday)
+							+ ",");
+				}
+				String msg = sdf.format(yesterday) + "数据已生成，请查阅";
+				log.info("push message[" + msg + "]");
+				List<String> tokens = this.userDao.findAllActiveToken();
+				for (String token : tokens) {
+					try {
+						if (StringUtils.isNotEmpty(token)) {
+							log.info("push message[" + msg + "] to token ["
+									+ token + "]");
+							apnsService.sendMessage(msg, token);
+						}
+					} catch (Exception e) {
+						log.error("", e);
+					}
+				}
+				ds.setPush(1);
+				dataDao.saveDayStatus(ds);
+			} else {
+				if (log.isInfoEnabled()) {
+					log.info("The DayStatus is not ready, we can't push message ["
+							+ sdf.format(yesterday) + "]");
+				}
+			}
 		} else {
-			log.warn("The DayStatus is not ready, we can't push messsage");
+			log.warn("The DayStatus is not existed, we can't push message ["
+					+ sdf.format(yesterday) + "]");
 		}
+
 	}
 
 }
