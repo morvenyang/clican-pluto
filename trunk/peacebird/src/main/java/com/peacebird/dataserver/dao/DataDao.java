@@ -12,6 +12,8 @@ import com.peacebird.dataserver.model.DimBrand;
 
 public interface DataDao {
 
+	public Date getPreviousDate();
+	
 	public List<BrandResult> getBrandResult(Date date, String[] brands);
 
 	public BrandResult getBrandResult(Date date, String brand);

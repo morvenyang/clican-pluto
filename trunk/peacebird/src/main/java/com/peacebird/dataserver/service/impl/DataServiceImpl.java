@@ -43,6 +43,7 @@ public class DataServiceImpl implements DataService {
 
 	private SpringProperty springProperty;
 
+
 	public void setDataDao(DataDao dataDao) {
 		this.dataDao = dataDao;
 	}
@@ -52,16 +53,17 @@ public class DataServiceImpl implements DataService {
 	}
 
 	private Date getYesterday() {
-
 		Date yesterday = null;
 		try {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			if (StringUtils.isNotEmpty(springProperty.getYesterday())) {
 				yesterday = sdf.parse(springProperty.getYesterday());
 			} else {
-				yesterday = DateUtils.addDays(
-						DateUtils.truncate(new Date(), Calendar.DAY_OF_MONTH),
-						-1);
+				yesterday = this.dataDao.getPreviousDate();
+				if (yesterday == null) {
+					yesterday = DateUtils.addDays(DateUtils.truncate(
+							new Date(), Calendar.DAY_OF_MONTH), -1);
+				}
 			}
 		} catch (Exception e) {
 			log.error("", e);
@@ -73,7 +75,7 @@ public class DataServiceImpl implements DataService {
 	public String getIndexResult(String[] brands) {
 		Date yesterday = getYesterday();
 		Set<String> bSet = new HashSet<String>();
-		for(String brand:brands){
+		for (String brand : brands) {
 			bSet.add(brand);
 		}
 		List<BrandResult> indexBrandResults = dataDao.getBrandResult(yesterday,
@@ -196,12 +198,13 @@ public class DataServiceImpl implements DataService {
 		List<String> channels = this.dataDao.getAllChannelForRank(yesterday,
 				brand);
 		List<ChannelRankResult> crrList = new ArrayList<ChannelRankResult>();
-		List<RankResult> allRankResult = this.dataDao.getAllRankResult(yesterday, brand);
+		List<RankResult> allRankResult = this.dataDao.getAllRankResult(
+				yesterday, brand);
 		ChannelRankResult acrr = new ChannelRankResult();
 		acrr.setChannel("全部");
 		acrr.setRanks(allRankResult);
 		crrList.add(acrr);
-		
+
 		for (String channel : channels) {
 			List<RankResult> rankResult = this.dataDao.getRankResult(yesterday,
 					brand, channel);
@@ -219,7 +222,7 @@ public class DataServiceImpl implements DataService {
 				new DateJsonValueProcessor("yyyy-MM-dd"));
 		jsonConfig.registerJsonValueProcessor(Integer.class,
 				new IntegerJsonValueProcessor());
-		String result = JSONObject.fromObject(rsr,jsonConfig).toString();
+		String result = JSONObject.fromObject(rsr, jsonConfig).toString();
 		return result;
 	}
 

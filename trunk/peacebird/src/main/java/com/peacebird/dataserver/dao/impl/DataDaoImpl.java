@@ -1,9 +1,11 @@
 package com.peacebird.dataserver.dao.impl;
 
 import java.sql.SQLException;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang.time.DateUtils;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -19,6 +21,19 @@ import com.peacebird.dataserver.model.DayStatus;
 import com.peacebird.dataserver.model.DimBrand;
 
 public class DataDaoImpl extends HibernateDaoSupport implements DataDao {
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public Date getPreviousDate() {
+		String hsql = "select max(date) from DayRetailChannel";
+		List<Date> result = this.getHibernateTemplate().find(hsql);
+		if(result.size()!=0){
+			Date date = result.get(0);
+			return DateUtils.truncate(date, Calendar.DAY_OF_MONTH);
+		}else{
+			return null;
+		}
+	}
 
 	@SuppressWarnings("unchecked")
 	@Override
