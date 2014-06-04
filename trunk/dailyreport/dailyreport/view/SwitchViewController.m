@@ -32,17 +32,9 @@
     
     [super loadView];
     self.title = self.brand;
-    UIButton* backButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [backButton setTitle:@"<" forState:UIControlStateNormal];
-    
-    [backButton addTarget:self action:@selector(backAction) forControlEvents:UIControlEventTouchUpInside];
-    //backButton.frame = CGRectMake(35, 0, 15, 20);
-    [backButton sizeToFit];
-    
-    
-    // create button item -- possible because UIButton subclasses UIView!
-    UIBarButtonItem* backItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
-    [self.navigationItem setLeftBarButtonItem:backItem animated:YES];
+    UIBarButtonItem* backButton = [[[UIBarButtonItem alloc] initWithTitle:@"\U000025C0\U0000FE0E" style:UIBarButtonItemStylePlain target:self action:@selector(backAction)] autorelease];
+
+    [self.navigationItem setLeftBarButtonItem:backButton animated:YES];
     
     CGRect frame = [[UIScreen mainScreen] bounds];
     NSLog(@"%f",frame.size.height);
@@ -235,14 +227,19 @@
     }];
 }
 -(void) showShareView{
-    self.preScreenShot =[self screenShot];
-    [self.view addSubview:self.backgroundShareView];
-    self.shareView.alpha = 0;
-    self.backgroundShareView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.3f];
-    [UIView animateWithDuration:0.25f animations:^{
-        self.shareView.alpha = 1;
-        [self.shareView layoutIfNeeded];
-    }];
+    if(![WXApi isWXAppInstalled]){
+        TTAlertNoTitle(@"本设备还未安装微信,无法使用微信分享功能");
+    }else{
+        self.preScreenShot =[self screenShot];
+        [self.view addSubview:self.backgroundShareView];
+        self.shareView.alpha = 0;
+        self.backgroundShareView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.3f];
+        [UIView animateWithDuration:0.25f animations:^{
+            self.shareView.alpha = 1;
+            [self.shareView layoutIfNeeded];
+        }];
+    }
+    
 }
 - (void) sendSessionImageContent
 {
