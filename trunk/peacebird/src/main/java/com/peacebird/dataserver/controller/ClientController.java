@@ -44,23 +44,27 @@ public class ClientController {
 			HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		if (log.isDebugEnabled()) {
-			log.debug("userName=" + userName + " login with token="+token);
+			log.debug("userName=" + userName + " login with token=" + token);
 		}
 		LoginResult lr = null;
 		User user = userService.findUserByUserName(userName);
 		if (user == null) {
 			lr = new LoginResult(1000, "用户名不存在", -1);
 		} else {
-			String hashPassword = DigestUtils.shaHex(password);
-			if (user.getPassword().equals(hashPassword)) {
-				req.getSession().setAttribute("user", user);
-				if (StringUtils.isNotEmpty(token)) {
-					user.setToken(token);
-					userService.saveUser(user);
-				}
-				lr = new LoginResult(0, "登录成功", user.getExpiredDays());
+			if (!user.isActive()) {
+				lr = new LoginResult(1002, "该用户被禁用,请联系管理员激活该用户", -1);
 			} else {
-				lr = new LoginResult(1001, "密码错误", -1);
+				String hashPassword = DigestUtils.shaHex(password);
+				if (user.getPassword().equals(hashPassword)) {
+					req.getSession().setAttribute("user", user);
+					if (StringUtils.isNotEmpty(token)) {
+						user.setToken(token);
+						userService.saveUser(user);
+					}
+					lr = new LoginResult(0, "登录成功", user.getExpiredDays());
+				} else {
+					lr = new LoginResult(1001, "密码错误", -1);
+				}
 			}
 		}
 		lr.setJsessionid(req.getSession().getId());
@@ -145,6 +149,7 @@ public class ClientController {
 
 	/**
 	 * kpiView
+	 * 
 	 * @param brand
 	 * @param req
 	 * @param resp
