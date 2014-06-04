@@ -18,6 +18,7 @@
 		320D7DCCE32703ACAB9A45E5 /* libThree20.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 320D7DCCE32703ACAB9A45E4 /* libThree20.a */; };
 		320F2C48872C2E2C4DF86205 /* libThree20UI.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 320F2C48872C2E2C4DF86204 /* libThree20UI.a */; };
 		720D6082193156AF004C7781 /* PieChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 720D6081193156AF004C7781 /* PieChartView.m */; };
+		721DB4CB1938C1F50075F392 /* logout.png in Resources */ = {isa = PBXBuildFile; fileRef = 721DB4CA1938C1F50075F392 /* logout.png */; };
 		722D42BC192C3A2E00350244 /* KPIModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 722D42BB192C3A2E00350244 /* KPIModel.m */; };
 		722D42C8192C449A00350244 /* 图标-关键指标.png in Resources */ = {isa = PBXBuildFile; fileRef = 722D42C6192C449A00350244 /* 图标-关键指标.png */; };
 		722D42C9192C449A00350244 /* 图标-关键指标@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 722D42C7192C449A00350244 /* 图标-关键指标@2x.png */; };
@@ -327,6 +328,7 @@
 		320F2C48872C2E2C4DF86200 /* Three20UI.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Three20UI.xcodeproj; path = ../three20/src/Three20UI/Three20UI.xcodeproj; sourceTree = SOURCE_ROOT; };
 		720D6080193156AF004C7781 /* PieChartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PieChartView.h; sourceTree = "<group>"; };
 		720D6081193156AF004C7781 /* PieChartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PieChartView.m; sourceTree = "<group>"; };
+		721DB4CA1938C1F50075F392 /* logout.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logout.png; sourceTree = "<group>"; };
 		722D42BA192C3A2E00350244 /* KPIModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KPIModel.h; sourceTree = "<group>"; };
 		722D42BB192C3A2E00350244 /* KPIModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KPIModel.m; sourceTree = "<group>"; };
 		722D42C6192C449A00350244 /* 图标-关键指标.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "图标-关键指标.png"; sourceTree = "<group>"; };
@@ -839,6 +841,7 @@
 		72EB38AD19270F3B00D0F225 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				721DB4CA1938C1F50075F392 /* logout.png */,
 				722D42C6192C449A00350244 /* 图标-关键指标.png */,
 				722D42C7192C449A00350244 /* 图标-关键指标@2x.png */,
 				72623162192B168500E3F99B /* Default.png */,
@@ -1198,6 +1201,7 @@
 				72783BC91929A6A10098B3A8 /* 图标-微信好友.png in Resources */,
 				7285E3D81925AFEE0011C2D6 /* Images.xcassets in Resources */,
 				72783BC41929A6A10098B3A8 /* 图标-分页原点-高亮@2x.png in Resources */,
+				721DB4CB1938C1F50075F392 /* logout.png in Resources */,
 				72783BE11929A6A10098B3A8 /* 色卡-黄色.png in Resources */,
 				72783BD11929A6A10098B3A8 /* 每日收入MG公司背景.png in Resources */,
 				72783BD91929A6A10098B3A8 /* 登录按钮.png in Resources */,
@@ -1391,10 +1395,10 @@
 					"$(BUILT_PRODUCTS_DIR)/../../three20",
 					../three20/Build/Products/three20,
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
-				PROVISIONING_PROFILE = "41869062-BE72-4138-8C7B-B5EBD607160E";
+				PROVISIONING_PROFILE = "0EE7663F-53BE-4159-807F-E90B4F3A868A";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -1432,9 +1436,9 @@
 					"$(BUILT_PRODUCTS_DIR)/../../three20",
 					../three20/Build/Products/three20,
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_LDFLAGS = "-ObjC";
-				PROVISIONING_PROFILE = "41869062-BE72-4138-8C7B-B5EBD607160E";
+				PROVISIONING_PROFILE = "0EE7663F-53BE-4159-807F-E90B4F3A868A";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1448,7 +1452,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "dailyreport/dailyreport-Prefix.pch";
 				INFOPLIST_FILE = "dailyreport/dailyreport-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1456,7 +1460,7 @@
 					"$(PROJECT_DIR)/dailyreport/weixin",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "41869062-BE72-4138-8C7B-B5EBD607160E";
+				PROVISIONING_PROFILE = "0EE7663F-53BE-4159-807F-E90B4F3A868A";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1469,7 +1473,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "dailyreport/dailyreport-Prefix.pch";
 				INFOPLIST_FILE = "dailyreport/dailyreport-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1477,7 +1481,7 @@
 					"$(PROJECT_DIR)/dailyreport/weixin",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "41869062-BE72-4138-8C7B-B5EBD607160E";
+				PROVISIONING_PROFILE = "0EE7663F-53BE-4159-807F-E90B4F3A868A";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
