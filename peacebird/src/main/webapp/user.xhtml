@@ -118,7 +118,7 @@
 				</h:panelGroup>
 			</f:facet>
 			<a4j:form id="userForm">
-				<h:panelGrid columns="3" width="500">
+				<h:panelGrid columns="3" width="600">
 					<h:panelGroup>
 						<h:outputLabel value="用户名" />
 						<h:outputText value=" *" style="color:red;" />
@@ -174,7 +174,7 @@
 						required="true"
 						requiredMessage="密码不能为空" />
 					<rich:message for="password" style="color:red" showDetail="false"
-						showSummary="true" />
+						showSummary="true" rendered="#{userAction.user.id==null}"/>
 					<h:panelGroup rendered="#{userAction.user.id==null}">
 						<h:outputLabel value="确认密码" />
 						<h:outputText value=" *" style="color:red;" />
@@ -185,7 +185,7 @@
 						required="true"
 						requiredMessage="确认密码不能为空" />
 					<rich:message for="confirmedPassword" style="color:red"
-						showDetail="false" showSummary="true" />
+						showDetail="false" showSummary="true" rendered="#{userAction.user.id==null}"/>
 					<h:panelGrid columns="2">
 						<a4j:commandButton id="saveButton" value="保存"
 							action="#{userAction.saveUser()}"
