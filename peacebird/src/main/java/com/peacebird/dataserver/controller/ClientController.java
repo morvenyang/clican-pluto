@@ -78,6 +78,9 @@ public class ClientController {
 	}
 
 	private String getNotLoginResult() {
+		if (log.isDebugEnabled()) {
+			log.debug("The user is not logined");
+		}
 		String notLogin = "{\"result\":1002,\"message\":\"未登录\"}";
 		return notLogin;
 	}
@@ -89,6 +92,9 @@ public class ClientController {
 	@RequestMapping("/index")
 	public void index(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
+		if (log.isDebugEnabled()) {
+			log.debug("access index page");
+		}
 		User user = (User) req.getSession().getAttribute("user");
 		String result;
 		if (user == null) {
@@ -96,8 +102,16 @@ public class ClientController {
 		} else {
 			String brands = user.getBrands();
 			if (StringUtils.isEmpty(brands)) {
+				if (log.isDebugEnabled()) {
+					log.debug("There is no avaliable brands for user["
+							+ user.getUserName() + "]");
+				}
 				result = getErrorResult(3001, "当前用户没有可查阅的品牌,请让管理员设置品牌查阅权限");
 			} else {
+				if (log.isDebugEnabled()) {
+					log.debug("There are brands [" + brands + "] for user["
+							+ user.getUserName() + "]");
+				}
 				result = this.dataService.getIndexResult(brands.split(","));
 			}
 		}
@@ -113,6 +127,9 @@ public class ClientController {
 	public void brand(@RequestParam(value = "brand") String brand,
 			HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
+		if (log.isDebugEnabled()) {
+			log.debug("access brand page");
+		}
 		User user = (User) req.getSession().getAttribute("user");
 		String result = null;
 		if (user == null) {
@@ -132,6 +149,9 @@ public class ClientController {
 	public void retail(@RequestParam(value = "brand") String brand,
 			HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
+		if (log.isDebugEnabled()) {
+			log.debug("access retail page");
+		}
 		User user = (User) req.getSession().getAttribute("user");
 		String result = null;
 		if (user == null) {
@@ -160,6 +180,9 @@ public class ClientController {
 	public void channel(@RequestParam(value = "brand") String brand,
 			HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
+		if (log.isDebugEnabled()) {
+			log.debug("access channel page");
+		}
 		User user = (User) req.getSession().getAttribute("user");
 		String result = null;
 		if (user == null) {
@@ -179,6 +202,9 @@ public class ClientController {
 	public void storeRank(@RequestParam(value = "brand") String brand,
 			HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
+		if (log.isDebugEnabled()) {
+			log.debug("access store rank page");
+		}
 		User user = (User) req.getSession().getAttribute("user");
 		String result = null;
 		if (user == null) {
