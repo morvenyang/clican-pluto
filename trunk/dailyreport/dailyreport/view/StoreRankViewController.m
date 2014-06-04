@@ -78,7 +78,7 @@
         int index = 0;
         
         for(ChannelRank* channelRank in channels){
-            UILabel* channelLabel = [self createLabel:channelRank.channel frame:CGRectMake(0+index*width, 34, width, 50) textColor:@"#636363" font:30 backgroundColor:@"#ffffff"];
+            UILabel* channelLabel = [self createLabel:channelRank.channel frame:CGRectMake(0+index*width, 34, width, 50) textColor:@"#636363" font:20 backgroundColor:@"#ffffff"];
             UITapGestureRecognizer* recognizer = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickChannelLabel:)] autorelease];
             channelLabel.userInteractionEnabled = YES;
             [channelLabel addGestureRecognizer:recognizer];

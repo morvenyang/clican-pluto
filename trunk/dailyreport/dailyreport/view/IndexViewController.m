@@ -57,6 +57,26 @@
     }
     self.tableView.separatorColor = [UIColor blackColor];
     
+    UIButton* logoutButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [logoutButton setImage:[UIImage imageNamed:@"logout.png"] forState:UIControlStateNormal];
+    
+    [logoutButton addTarget:self action:@selector(logoutAction) forControlEvents:UIControlEventTouchUpInside];
+
+    [logoutButton sizeToFit];
+    
+    UIBarButtonItem* logoutItem = [[UIBarButtonItem alloc] initWithCustomView:logoutButton];
+    [self.navigationItem setRightBarButtonItem:logoutItem animated:YES];
+    
+}
+
+-(void)logoutAction{
+    [[TTNavigator navigator] removeAllViewControllers];
+    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+    [defaults removeObjectForKey:LAST_USER_NAME];
+    [defaults removeObjectForKey:LAST_PASSWORD];
+    [defaults removeObjectForKey:LAST_LOGIN_DATE];
+    
+    TTOpenURL(@"peacebird://login");
 }
 - (void)viewDidLoad
 {
