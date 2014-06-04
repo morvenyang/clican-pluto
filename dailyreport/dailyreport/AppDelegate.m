@@ -50,7 +50,14 @@
      [StoreRankViewController class]];
     
     if (![navigator restoreViewControllers]) {
-        [navigator openURLAction:[TTURLAction actionWithURLPath:@"peacebird://index"]];
+        NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+        NSString* userName = [defaults objectForKey:LAST_USER_NAME];
+        if(userName==nil||userName.length==0){
+                    [navigator openURLAction:[TTURLAction actionWithURLPath:@"peacebird://login"]];
+        }else{
+                    [navigator openURLAction:[TTURLAction actionWithURLPath:@"peacebird://index"]];
+        }
+
     }
     
     return YES;
