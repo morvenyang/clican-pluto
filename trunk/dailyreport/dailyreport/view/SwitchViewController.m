@@ -46,7 +46,7 @@
     self.contentView = [[[SwipeScrollView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height-offset-30)] autorelease];
     self.contentView.index = self.index;
     self.contentView.brand = self.brand;
-    self.contentView.backgroundColor = [UIColor clearColor];
+    self.contentView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.contentView];
     
     UIImage* lightImage= [UIImage imageNamed:@"图标-分页原点-正常.png"];
@@ -200,10 +200,15 @@
 }
 
 -(UIImage*)screenShot{
-    UIWindow* screenWindow = [[UIApplication sharedApplication] keyWindow];
-    UIGraphicsBeginImageContext(screenWindow.frame.size);
-    [screenWindow.layer renderInContext:UIGraphicsGetCurrentContext()];
+    UIGraphicsBeginImageContext(self.contentView.contentSize);
+    CGPoint savedContentOffset = self.contentView.contentOffset;
+    CGRect savedFrame = self.contentView.frame;
+    self.contentView.contentOffset = CGPointZero;
+    self.contentView.frame = CGRectMake(0,0, self.contentView.contentSize.width, self.contentView.contentSize.height);
+    [self.contentView.layer renderInContext:UIGraphicsGetCurrentContext()];
     UIImage* viewImage = UIGraphicsGetImageFromCurrentImageContext();
+    self.contentView.contentOffset = savedContentOffset;
+    self.contentView.frame = savedFrame;
     UIGraphicsEndImageContext();
     return viewImage;
 }
@@ -247,7 +252,7 @@
 {
     [self hideShareView];
     WXMediaMessage *message = [WXMediaMessage message];
-    UIImage* screenShot =self.preScreenShot;
+    UIImage* screenShot = self.preScreenShot;
     UIImage *thumbImage = [self imageWithImage:screenShot scaledToSize:CGSizeMake(32,64)];
     [message setThumbImage:thumbImage];
     
