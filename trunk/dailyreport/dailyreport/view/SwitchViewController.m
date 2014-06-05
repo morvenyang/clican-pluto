@@ -200,10 +200,12 @@
 }
 
 -(UIImage*)screenShot{
-    CGImageRef UIGetScreenImage();
-    CGImageRef img = UIGetScreenImage();
-    UIImage* saveImage= [UIImage imageWithCGImage:img];
-    return saveImage;
+    UIWindow* screenWindow = [[UIApplication sharedApplication] keyWindow];
+    UIGraphicsBeginImageContext(screenWindow.frame.size);
+    [screenWindow.layer renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage* viewImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return viewImage;
 }
 
 - (UIImage *)imageWithImage:(UIImage *)image scaledToSize:(CGSize)newSize {
