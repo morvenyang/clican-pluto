@@ -13,10 +13,13 @@ public class ApnsDelegateImpl implements ApnsDelegate {
 
 	public void messageSent(ApnsNotification message, boolean resent) {
 		if (log.isDebugEnabled()) {
-			log.debug("Successfully send for receiverId:"
-					+ message.getIdentifier());
+			if(message!=null){
+				log.debug("Successfully send for receiverId:"
+						+ message.getIdentifier());
+			}else{
+				log.debug("Successfully send");
+			}
 		}
-		
 	}
 
 	public void cacheLengthExceeded(int newCacheLength) {
@@ -33,16 +36,25 @@ public class ApnsDelegateImpl implements ApnsDelegate {
 
 	public void messageSent(ApnsNotification apnsnotification) {
 		if (log.isDebugEnabled()) {
-			log.debug("Successfully send for receiverId:"
-					+ apnsnotification.getIdentifier());
+			if(apnsnotification!=null){
+				log.debug("Successfully send for receiverId:"
+						+ apnsnotification.getIdentifier());
+			}else{
+				log.debug("Successfully send");
+			}
+			
 		}
 	}
 
 	public void messageSendFailed(ApnsNotification apnsnotification,
 			Throwable throwable) {
 		if (log.isDebugEnabled()) {
-			log.debug("Failure send for receiverId:"
-					+ apnsnotification.getIdentifier());
+			if(apnsnotification!=null){
+				log.debug("Failure send for receiverId:"
+						+ apnsnotification.getIdentifier());
+			}else{
+				log.debug("Failure send");
+			}
 		}
 	}
 
