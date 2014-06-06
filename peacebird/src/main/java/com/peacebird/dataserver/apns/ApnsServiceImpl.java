@@ -43,7 +43,8 @@ public class ApnsServiceImpl implements ApnsService {
 						.withCert(url.getFile(),
 								springProperty.getApnsCertPassword())
 						.withProductionDestination()
-						.withReconnectPolicy(Provided.NEVER)
+						.withReconnectPolicy(Provided.EVERY_NOTIFICATION)
+						.withNoErrorDetection()
 						.withDelegate(delegate).build();
 			} else {
 				if (log.isInfoEnabled()) {
@@ -56,7 +57,8 @@ public class ApnsServiceImpl implements ApnsService {
 						.withCert(url.getFile(),
 								springProperty.getApnsCertPassword())
 						.withSandboxDestination()
-						.withReconnectPolicy(Provided.NEVER)
+						.withReconnectPolicy(Provided.EVERY_NOTIFICATION)
+						.withNoErrorDetection()
 						.withDelegate(delegate).build();
 			}
 
@@ -70,7 +72,8 @@ public class ApnsServiceImpl implements ApnsService {
 						.withCert(url.getFile(),
 								springProperty.getApnsCertPassword())
 						.withProductionDestination()
-						.withReconnectPolicy(Provided.NEVER)
+						.withReconnectPolicy(Provided.EVERY_NOTIFICATION)
+						.withNoErrorDetection()
 						.withDelegate(delegate).build();
 			} else {
 				if (log.isInfoEnabled()) {
@@ -81,7 +84,8 @@ public class ApnsServiceImpl implements ApnsService {
 						.withCert(url.getFile(),
 								springProperty.getApnsCertPassword())
 						.withSandboxDestination()
-						.withReconnectPolicy(Provided.NEVER)
+						.withReconnectPolicy(Provided.EVERY_NOTIFICATION)
+						.withNoErrorDetection()
 						.withDelegate(delegate).build();
 			}
 
