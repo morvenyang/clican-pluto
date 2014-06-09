@@ -3,7 +3,9 @@ package com.peacebird.dataserver.service.impl;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
@@ -62,7 +64,8 @@ public class PushServiceImpl implements PushService {
 				String msg = sdf.format(yesterday) + "数据已生成，请查阅";
 				log.info("push message[" + msg + "]");
 				List<String> tokens = this.userDao.findAllActiveToken();
-				for (String token : tokens) {
+				Set<String> singleTokens = new HashSet<String>(tokens);
+				for (String token : singleTokens) {
 					try {
 						if (StringUtils.isNotEmpty(token)) {
 							log.info("push message[" + msg + "] to token ["
