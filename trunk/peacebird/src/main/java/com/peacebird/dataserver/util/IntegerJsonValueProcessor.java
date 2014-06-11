@@ -18,7 +18,7 @@ public class IntegerJsonValueProcessor implements JsonValueProcessor {
 	
 	private Object process(Object value) {
 		if (value == null) {
-			return "0";
+			return "";
 		}
 		return ""+((Integer)value).intValue();
 	}
