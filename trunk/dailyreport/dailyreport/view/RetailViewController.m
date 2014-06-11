@@ -12,12 +12,12 @@
 @implementation RetailViewController
 
 @synthesize retailModel = _retailModel;
-@synthesize pieChartView = _pieChartView;
+@synthesize webPieChartView = _webPieChartView;
+@synthesize selectedData = _selectedData;
 @synthesize tabLables = _tabLables;
 @synthesize channels = _channels;
 @synthesize sorts = _sorts;
 @synthesize regions = _regions;
-@synthesize selectedData = _selectedData;
 @synthesize tableViews = _tableViews;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -33,9 +33,9 @@
         self.brand = brand;
         self.retailModel = [[[RetailModel alloc] initWithBrand:self.brand delegate:self] autorelease];
         
-        self.pieChartView = [[PieChartView alloc] initWithFrame:CGRectMake(35,120,250,250)];
-        self.pieChartView.delegate = self;
-        self.pieChartView.datasource = self;
+        self.webPieChartView = [[UIWebView alloc] initWithFrame:CGRectMake(0,80,320,400)];
+        self.webPieChartView.scalesPageToFit=YES;
+        self.webPieChartView.userInteractionEnabled =NO;
         self.tabLables = [NSMutableArray array];
         self.tableViews =[NSMutableArray array];
         self.index = 3;
@@ -108,11 +108,7 @@
     [self.contentView addSubview:dailyView];
     
     self.selectedData = self.channels;
-    [self updateTab];
-    if([self.selectedData count]>0){
-        [self.contentView addSubview:self.pieChartView];
-        [self.pieChartView reloadData];
-    }
+    [self updateTab:@"channel"];
 }
 
 -(void)clickChannelLabel:(UIGestureRecognizer*)gestureRecognizer{
@@ -124,46 +120,23 @@
     tabLabel.textColor = [StyleSheet colorFromHexString:@"#636363"];
     tabLabel.backgroundColor =[StyleSheet colorFromHexString:@"#ffffff"];
     if([tabLabel.text isEqualToString:@"店铺性质"]){
+        [self updateTab:@"channel"];
         self.selectedData = self.channels;
     }else if([tabLabel.text isEqualToString:@"店铺形态"]){
+        [self updateTab:@"sort"];
         self.selectedData = self.sorts;
     }else if([tabLabel.text isEqualToString:@"管理形式"]){
+        [self updateTab:@"region"];
         self.selectedData = self.regions;
     }
-    [self updateTab];
+    
 }
 
--(void) updateTab{
-    int index = 0;
-    int sum = 0;
-    [self.pieChartView reloadData];
-    for(Retail* retail in self.selectedData){
-        sum+=retail.dayAmount.intValue;
-    }
-    for(UIView* view in self.tableViews){
-        [view removeFromSuperview];
-    }
-    [self.tableViews removeAllObjects];
-    for (Retail* retail in self.selectedData){
-        UIImageView* imageView =[self createImageViewFromColor:[StyleSheet getColorForIndex:index] frame:CGRectMake(10, 390+index*50, 20, 20)];
-        [self.tableViews addObject:imageView];
-        [self.contentView addSubview:imageView];
-        
-        UILabel* nameLabel =[self createLabel:retail.name frame:CGRectMake(40, 390+index*50, 120, 20) textColor:@"#5f5f5f" font:18 backgroundColor:nil];
-        [self.tableViews addObject:nameLabel];
-        [self.contentView addSubview:nameLabel];
-
-        UILabel* percentLabel = [self createLabel:[NSString stringWithFormat:@"%0.1f%@",retail.dayAmount.intValue*1.0/sum*100,@"%"] frame:CGRectMake(170, 390+index*50, 70, 20) textColor:@"#5f5f5f" font:18 backgroundColor:nil];
-        [self.tableViews addObject:percentLabel];
-        [self.contentView addSubview:percentLabel];
-        
-        UILabel* amountLabel =[self createLabel:[NSString stringWithFormat:@"%i万元",retail.dayAmount.intValue/10000] frame:CGRectMake(240, 390+index*50, 80, 20) textColor:@"#5f5f5f" font:18 backgroundColor:nil];
-        [self.tableViews addObject:amountLabel];
-        [self.contentView addSubview:amountLabel];
-        index++;
-    }
+-(void) updateTab:(NSString*) type{
+    [self.contentView addSubview:self.webPieChartView];
+    [self.webPieChartView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/retailChart.do?brand=%@&type=%@",BASE_URL,[self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],type]]]];
     self.contentView.contentSize =
-    CGSizeMake(320, 390+self.selectedData.count*50);
+    CGSizeMake(320, 390+self.selectedData.count*30);
 }
 - (void) brandDidStartLoad:(NSString*) brand{
     NSLog(@"%@",@"开始加载Brand数据");
@@ -177,34 +150,13 @@
     }
 }
 
-#pragma mark -    PieChartViewDelegate
--(CGFloat)centerCircleRadius
-{
-    return 75.0;
-}
-#pragma mark - PieChartViewDataSource
--(int)numberOfSlicesInPieChartView:(PieChartView *)pieChartView
-{
-    return [self.selectedData count];
-}
--(UIColor *)pieChartView:(PieChartView *)pieChartView colorForSliceAtIndex:(NSUInteger)index
-{
-    return [StyleSheet getColorForIndex:index];
-}
--(int)pieChartView:(PieChartView *)pieChartView valueForSliceAtIndex:(NSUInteger)index
-{
-    Retail* retail = [self.selectedData objectAtIndex:index];
-    return retail.dayAmount.intValue;
-}
-
-#pragma mark -
 
 
 - (void)dealloc
 {
     _retailModel.delegate = nil;
     TT_RELEASE_SAFELY(_retailModel);
-    TT_RELEASE_SAFELY(_pieChartView);
+    TT_RELEASE_SAFELY(_webPieChartView);
     TT_RELEASE_SAFELY(_tabLables);
     TT_RELEASE_SAFELY(_channels);
     TT_RELEASE_SAFELY(_sorts);

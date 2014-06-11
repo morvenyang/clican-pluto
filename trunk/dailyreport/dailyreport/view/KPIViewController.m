@@ -80,7 +80,7 @@
 
     UIImageView* calendarImageView = [self createImageViewFromNamedImage:@"图标-日历.png" frame:CGRectMake(160, 0, 34, 34)];
     
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
     [dateFormatter setDateFormat:@"MM月dd日 EEEE"];
     
     UILabel* calendarLabel = [self createLabel:[dateFormatter stringFromDate:date] frame:CGRectMake(200, 0, 120, 34) textColor:@"#ffffff" font:12 backgroundColor:nil];

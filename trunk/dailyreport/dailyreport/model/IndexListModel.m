@@ -11,7 +11,8 @@
 #import "Brand.h"
 @implementation IndexListModel
 @synthesize brandList = _brandList;
-
+@synthesize yesterday = _yesterday;
+@synthesize date = _date;
 - (id)init{
     if ((self = [super init])) {
         self.brandList = [NSMutableArray array];
@@ -21,6 +22,7 @@
 
 - (void) dealloc {
     TT_RELEASE_SAFELY(_brandList);
+    TT_RELEASE_SAFELY(_date);
     [super dealloc];
 }
 #pragma mark -
@@ -71,6 +73,11 @@
         NSNumber* result = [data objectForKey:@"result"];
         
         if([result intValue]==0){
+            self.yesterday = [[data objectForKey:@"yesterday"] boolValue];
+            NSDateFormatter* dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+            [dateFormatter setTimeStyle:NSDateFormatterFullStyle];
+            [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+            self.date = [dateFormatter dateFromString:[data objectForKey:@"date"]];
             NSArray* brands = [data objectForKey:@"brands"];
             for (NSDictionary* brandDict in brands) {
                 Brand* brand = [[Brand alloc] init];

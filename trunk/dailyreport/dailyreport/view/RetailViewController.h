@@ -10,10 +10,9 @@
 #import "RetailModel.h"
 #import "PieChartView.h"
 
-@interface RetailViewController : SwitchViewController<RetailDelegate,PieChartViewDelegate,
-PieChartViewDataSource>{
+@interface RetailViewController : SwitchViewController<RetailDelegate>{
     RetailModel* _retailModel;
-    PieChartView* _pieChartView;
+    UIWebView* _webPieChartView;
     NSMutableArray* _tabLables;
     NSArray* _channels;
     NSArray* _sorts;
@@ -23,7 +22,7 @@ PieChartViewDataSource>{
 }
 
 @property (nonatomic, retain) RetailModel *retailModel;
-@property (nonatomic, retain) PieChartView *pieChartView;
+@property (nonatomic, retain) UIWebView *webPieChartView;
 @property (nonatomic, retain) NSMutableArray *tabLables;
 @property (nonatomic, retain) NSArray *channels;
 @property (nonatomic, retain) NSArray *sorts;

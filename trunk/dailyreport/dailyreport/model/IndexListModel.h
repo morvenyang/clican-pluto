@@ -10,6 +10,10 @@
 #import "BaseModel.h"
 @interface IndexListModel : BaseModel{
     NSMutableArray* _brandList;
+    BOOL _yesterday;
+    NSDate* _date;
 }
 @property (nonatomic, retain) NSMutableArray* brandList;
+@property (nonatomic, assign) BOOL yesterday;
+@property (nonatomic, retain) NSDate* date;
 @end
