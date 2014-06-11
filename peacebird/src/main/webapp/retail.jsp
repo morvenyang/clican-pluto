@@ -1,0 +1,44 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="/peacebird/amcharts/amcharts.js" type="text/javascript"></script>
+<script src="/peacebird/amcharts/pie.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="chartdiv" style="width:1024px; height:<%=request.getAttribute("height")%>px;"></div>
+<script type="text/javascript">
+var chart = AmCharts.makeChart("chartdiv", {
+    "type": "pie",
+	"theme": "none",
+	"marginLeft": 0,
+	"marginRight": 0,
+    "legend": {
+        "markerType": "square",
+        "position": "bottom",
+		"maxColumns":1,
+		"marginLeft": 50,
+		"autoMargins": false,
+		"fontSize":40,
+		"markerLabelGap":50,
+		"valueText":"[[value]]万元 [[percents]]%",
+		"valueWidth": 350,
+		"markerSize":40
+    },
+    "radius":250,
+    "dataProvider": <%=request.getAttribute("dataProvider")%>,
+    "valueField": "dayAmount",
+    "fontSize": 20,
+    "titleField": "name",
+    "startEffect": "elastic",
+    "startDuration": 2,
+    "labelRadius": 15,
+    "innerRadius": "50%",
+    "depth3D": 15,
+    "angle": 20
+});
+</script>
+</body>
+</html>
