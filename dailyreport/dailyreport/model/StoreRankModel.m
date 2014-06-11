@@ -80,6 +80,7 @@
                     Rank* r = [[[Rank alloc] init] autorelease];
                     r.name =[jsonRank objectForKey:@"name"];
                     r.dayAmount =[jsonRank objectForKey:@"amount"];
+                    r.rate =[jsonRank objectForKey:@"rate"];
                     [ranks addObject:r];
                 }
             }

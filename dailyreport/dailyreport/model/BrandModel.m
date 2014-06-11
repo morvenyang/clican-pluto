@@ -69,6 +69,7 @@
             brand.dayAmount = [jsonBrand objectForKey:@"dayAmount"];
             brand.weekAmount = [jsonBrand objectForKey:@"weekAmount"];
             brand.yearAmount = [jsonBrand objectForKey:@"yearAmount"];
+            brand.dayLike = [jsonBrand objectForKey:@"dayLike"];
             brand.weekLike = [jsonBrand objectForKey:@"weekLike"];
             brand.yearLike = [jsonBrand objectForKey:@"yearLike"];
             NSLog(@"%@",[jsonBrand objectForKey:@"date"]);

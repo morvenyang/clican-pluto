@@ -11,9 +11,10 @@
 @interface Rank : NSObject{
     NSString *_name;
     NSNumber* _dayAmount;
+    NSNumber* _rate;
 }
 
 @property (nonatomic, copy) NSString* name;
 @property (nonatomic, retain) NSNumber* dayAmount;
-
+@property (nonatomic, retain) NSNumber* rate;
 @end

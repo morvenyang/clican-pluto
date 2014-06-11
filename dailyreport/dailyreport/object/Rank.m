@@ -12,10 +12,11 @@
 
 @synthesize name = _name;
 @synthesize dayAmount = _dayAmount;
-
+@synthesize rate = _rate;
 - (void) dealloc {
     TT_RELEASE_SAFELY(_name);
     TT_RELEASE_SAFELY(_dayAmount);
+    TT_RELEASE_SAFELY(_rate);
     [super dealloc];
 }
 
