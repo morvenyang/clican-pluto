@@ -169,20 +169,28 @@ public class ClientController {
 			log.error("", e);
 		}
 	}
-	
+
 	@RequestMapping("/retailChart")
 	public void retailChart(@RequestParam(value = "brand") String brand,
-			@RequestParam(value = "type") String type,
-			HttpServletRequest req, HttpServletResponse resp)
-			throws ServletException, IOException {
+			@RequestParam(value = "type") String type, HttpServletRequest req,
+			HttpServletResponse resp) throws ServletException, IOException {
 		if (log.isDebugEnabled()) {
 			log.debug("access retail chart page");
 		}
-		List<RetailResult> result =this.dataService.getRetailChartResult(brand,type);
-		String dataProvider = JSONArray.fromObject(result).toString();;
+		List<RetailResult> result = this.dataService.getRetailChartResult(
+				brand, type);
+		Integer total = 0;
+		for (RetailResult rr : result) {
+			if (rr.getDayAmount() != null) {
+				total += rr.getDayAmount();
+			}
+		}
+		String dataProvider = JSONArray.fromObject(result).toString();
+		;
 		try {
 			req.setAttribute("dataProvider", dataProvider);
-			req.setAttribute("height", 500+result.size()*80);
+			req.setAttribute("height", 500 + result.size() * 80);
+			req.setAttribute("total", total);
 			req.getRequestDispatcher("/retail.jsp").forward(req, resp);
 		} catch (Exception e) {
 			log.error("", e);
