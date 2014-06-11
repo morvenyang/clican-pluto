@@ -9,6 +9,10 @@
 </head>
 <body>
 <div id="chartdiv" style="width:1024px; height:<%=request.getAttribute("height")%>px;"></div>
+<div id="total" style="text-align:center;position:absolute;top:240px;left:450px">
+<span style="color:#5f5f5f;font-size:30px">总零售收入</span><br/>
+<span style="color:#ff6501;font-size:40px"><%=request.getAttribute("total") %></span><br/>
+<span style="color:#5f5f5f;font-size:30px">万元</span></div>
 <script type="text/javascript">
 var chart = AmCharts.makeChart("chartdiv", {
     "type": "pie",
@@ -27,7 +31,7 @@ var chart = AmCharts.makeChart("chartdiv", {
 		"valueWidth": 350,
 		"markerSize":40
     },
-    "radius":250,
+    "radius":300,
     "dataProvider": <%=request.getAttribute("dataProvider")%>,
     "valueField": "dayAmount",
     "fontSize": 20,
