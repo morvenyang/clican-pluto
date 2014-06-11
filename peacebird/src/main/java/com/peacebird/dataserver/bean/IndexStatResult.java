@@ -1,5 +1,6 @@
 package com.peacebird.dataserver.bean;
 
+import java.util.Date;
 import java.util.List;
 
 public class IndexStatResult {
@@ -8,6 +9,10 @@ public class IndexStatResult {
 	private List<BrandResult> brands;
 	
 	private int result;
+	
+	private Date date;
+	
+	private boolean yesterday;
 	
 	private String message;
 
@@ -33,6 +38,22 @@ public class IndexStatResult {
 
 	public void setMessage(String message) {
 		this.message = message;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+	public boolean isYesterday() {
+		return yesterday;
+	}
+
+	public void setYesterday(boolean yesterday) {
+		this.yesterday = yesterday;
 	}
 	
 	
