@@ -9,7 +9,7 @@
 </head>
 <body>
 <div id="chartdiv" style="width:1024px; height:<%=request.getAttribute("height")%>px;"></div>
-<div id="total" style="text-align:center;position:absolute;top:240px;left:450px">
+<div id="total" style="text-align:center;position:absolute;top:260px;left:450px">
 <span style="color:#5f5f5f;font-size:30px">总零售收入</span><br/>
 <span style="color:#ff6501;font-size:40px"><%=request.getAttribute("total") %></span><br/>
 <span style="color:#5f5f5f;font-size:30px">万元</span></div>

@@ -127,9 +127,8 @@ public class DataDaoImpl extends HibernateDaoSupport implements DataDao {
 		List<ChannelResult> r2=this.getHibernateTemplate().findByNamedParam(hsql2,
 				new String[] { "date", "brand" }, new Object[] { date, brand });
 		List<ChannelResult> all = new ArrayList<ChannelResult>();
-		
-		all.addAll(r1);
 		all.addAll(r2);
+		all.addAll(r1);
 		return all;
 	}
 
@@ -149,7 +148,7 @@ public class DataDaoImpl extends HibernateDaoSupport implements DataDao {
 			@Override
 			public Object doInHibernate(Session session)
 					throws HibernateException, SQLException {
-				String hsql = "select new com.peacebird.dataserver.bean.RankResult(name,amount) from DayStoreAmountRank where date = :date and brand= :brand and channel = :channel order by rank";
+				String hsql = "select new com.peacebird.dataserver.bean.RankResult(name,amount,rate) from DayStoreAmountRank where date = :date and brand= :brand and channel = :channel order by rank";
 				Query query = session.createQuery(hsql);
 				query.setParameter("date", date);
 				query.setParameter("brand", brand);
@@ -167,7 +166,7 @@ public class DataDaoImpl extends HibernateDaoSupport implements DataDao {
 			@Override
 			public Object doInHibernate(Session session)
 					throws HibernateException, SQLException {
-				String hsql = "select new com.peacebird.dataserver.bean.RankResult(name,amount) from DayStoreAmountRank where date = :date and brand= :brand order by amount desc";
+				String hsql = "select new com.peacebird.dataserver.bean.RankResult(name,amount,rate) from DayStoreAmountRank where date = :date and brand= :brand order by amount desc";
 				Query query = session.createQuery(hsql);
 				query.setParameter("date", date);
 				query.setParameter("brand", brand);

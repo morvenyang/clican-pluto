@@ -189,7 +189,7 @@ public class ClientController {
 		;
 		try {
 			req.setAttribute("dataProvider", dataProvider);
-			req.setAttribute("height", 500 + result.size() * 80);
+			req.setAttribute("height", 600 + result.size() * 80);
 			req.setAttribute("total", total);
 			req.getRequestDispatcher("/retail.jsp").forward(req, resp);
 		} catch (Exception e) {
