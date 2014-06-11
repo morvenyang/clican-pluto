@@ -93,9 +93,10 @@
         }
     }
     [self.contentView addSubview:dailyView];
-    [self.contentView addSubview:[self createLabel:@"排名" frame:CGRectMake(0, 90, 50, 40) textColor:@"#ffffff" font:18 backgroundColor:@"#8f8f8f" textAlignment:NSTextAlignmentCenter]];
-    [self.contentView addSubview:[self createLabel:@"店铺名称" frame:CGRectMake(52, 90, 166, 40) textColor:@"#ffffff" font:18 backgroundColor:@"#8f8f8f" textAlignment:NSTextAlignmentCenter]];
-    [self.contentView addSubview:[self createLabel:@"销售(万元)" frame:CGRectMake(220, 90, 100, 40) textColor:@"#ffffff" font:18 backgroundColor:@"#8f8f8f" textAlignment:NSTextAlignmentCenter]];
+    [self.contentView addSubview:[self createLabel:@"排名" frame:CGRectMake(0, 90, 50, 40) textColor:@"#ffffff" font:12 backgroundColor:@"#8f8f8f" textAlignment:NSTextAlignmentCenter]];
+    [self.contentView addSubview:[self createLabel:@"店铺名称" frame:CGRectMake(52, 90, 126, 40) textColor:@"#ffffff" font:12 backgroundColor:@"#8f8f8f" textAlignment:NSTextAlignmentCenter]];
+    [self.contentView addSubview:[self createLabel:@"零售额(万元)" frame:CGRectMake(180, 90, 69, 40) textColor:@"#ffffff" font:12 backgroundColor:@"#8f8f8f" textAlignment:NSTextAlignmentCenter]];
+    [self.contentView addSubview:[self createLabel:@"零售占比" frame:CGRectMake(251, 90,69, 40) textColor:@"#ffffff" font:12 backgroundColor:@"#8f8f8f" textAlignment:NSTextAlignmentCenter]];
     if(self.channels.count>0){
         [self updateChannel:[self.channels objectAtIndex:0]];
     }
@@ -127,14 +128,18 @@
     [self.tableViews removeAllObjects];
     for(int i=0;i<channel.ranks.count;i++){
         Rank* rank = [channel.ranks objectAtIndex:i];
-        UILabel* label =[self createLabel:[NSString stringWithFormat:@"%i",i+1] frame:CGRectMake(0, 130+i*42, 50, 40) textColor:@"#6a6a6a" font:18 backgroundColor:@"#f3f3f3" textAlignment:NSTextAlignmentCenter];
+        UILabel* label =[self createLabel:[NSString stringWithFormat:@"%i",i+1] frame:CGRectMake(0, 130+i*42, 50, 40) textColor:@"#6a6a6a" font:12 backgroundColor:@"#f3f3f3" textAlignment:NSTextAlignmentCenter];
         [self.tableViews addObject:label];
         [self.contentView addSubview:label];
-        label =[self createLabel:rank.name frame:CGRectMake(52, 130+i*42, 166, 40) textColor:@"#6a6a6a" font:14 backgroundColor:@"#f3f3f3" textAlignment:NSTextAlignmentCenter];
+        label =[self createLabel:rank.name frame:CGRectMake(52, 130+i*42, 126, 40) textColor:@"#6a6a6a" font:10 backgroundColor:@"#f3f3f3" textAlignment:NSTextAlignmentCenter];
         [self.contentView addSubview:label];
         [self.tableViews addObject:label];
         
-        label =[self createLabel:[NSString stringWithFormat:@"%0.1f", rank.dayAmount.intValue/10000.0] frame:CGRectMake(220, 130+i*42, 100, 40) textColor:@"#6a6a6a" font:18 backgroundColor:@"#f3f3f3" textAlignment:NSTextAlignmentCenter];
+        label =[self createLabel:[NSString stringWithFormat:@"%0.1f", rank.dayAmount.intValue/10000.0] frame:CGRectMake(180, 130+i*42, 69, 40) textColor:@"#6a6a6a" font:12 backgroundColor:@"#f3f3f3" textAlignment:NSTextAlignmentCenter];
+        [self.contentView addSubview:label];
+        [self.tableViews addObject:label];
+        
+        label =[self createLabel:[NSString stringWithFormat:@"%0.1f%@", rank.rate.doubleValue*100,@"%"] frame:CGRectMake(251, 130+i*42,69, 40) textColor:@"#6a6a6a" font:12 backgroundColor:@"#f3f3f3" textAlignment:NSTextAlignmentCenter];
         [self.contentView addSubview:label];
         [self.tableViews addObject:label];
     }

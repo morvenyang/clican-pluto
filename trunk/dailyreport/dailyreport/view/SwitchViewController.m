@@ -29,13 +29,19 @@
 
 - (void)loadView
 {
-    
+
     [super loadView];
     self.title = self.brand;
     UIBarButtonItem* backButton = [[[UIBarButtonItem alloc] initWithTitle:@"\U000025C0\U0000FE0E" style:UIBarButtonItemStylePlain target:self action:@selector(backAction)] autorelease];
 
     [self.navigationItem setLeftBarButtonItem:backButton animated:YES];
-    
+
+    UIButton* shareButtonImage = [UIButton buttonWithType:UIButtonTypeCustom];
+    shareButtonImage.frame =CGRectMake(0, 0, 40, 40);
+    [shareButtonImage setImage:[UIImage imageNamed:@"图标-分享.png"] forState:UIControlStateNormal];
+    [shareButtonImage addTarget:self action:@selector(showShareView) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem* shareButton = [[[UIBarButtonItem alloc] initWithCustomView:shareButtonImage] autorelease];
+    [self.navigationItem setRightBarButtonItem:shareButton animated:YES];
     CGRect frame = [[UIScreen mainScreen] bounds];
     NSLog(@"%f",frame.size.height);
     self.view.backgroundColor = [UIColor whiteColor];
@@ -65,11 +71,7 @@
         [paginationView addSubview:v];
     }
     [self.view addSubview:paginationView];
-    UIButton* shareButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    UIImage* shareImage= [UIImage imageNamed:@"图标-分享.png"];
-    [shareButton setImage:shareImage forState:UIControlStateNormal];
-    shareButton.frame = CGRectMake(280, y, 30, 30);
-    [shareButton addTarget:self action:@selector(showShareView) forControlEvents:UIControlEventTouchUpInside];
+    
     
     y = frame.size.height-200-offset;
     self.backgroundShareView =[[UIView alloc] initWithFrame:frame];
@@ -103,8 +105,6 @@
     [self.shareView addSubview:shareTimelineLabel];
     [self.shareView addSubview:cancelButton];
     [self.backgroundShareView addSubview:self.shareView];
-    [self.view addSubview:shareButton];
-
 }
 - (void)viewDidLoad
 {
@@ -131,7 +131,7 @@
     label.text = self.brand;
     self.navigationItem.titleView = label;
     [label sizeToFit];
-    
+    [self.contentView setContentOffset:CGPointZero animated:NO];
     [super viewWillAppear:animated];
 }
 
@@ -187,6 +187,24 @@
 -(UILabel*) createLabel:(NSString*) text frame:(CGRect) frame textColor:(NSString*) textColor font:(int) font backgroundColor:(NSString*) backgroundColor textAlignment:(NSTextAlignment) textAlignment{
     UILabel* label = [[[UILabel alloc] initWithFrame:frame] autorelease];
     label.text = text;
+    label.font = [UIFont systemFontOfSize:font];
+    label.textColor = [StyleSheet colorFromHexString:textColor];
+    label.textAlignment =textAlignment;
+    if(backgroundColor==nil){
+        label.backgroundColor = [UIColor clearColor];
+    }else{
+        label.backgroundColor = [StyleSheet colorFromHexString:backgroundColor];
+    }
+    
+    return label;
+}
+
+-(UILabel*) createDecimalLabel:(NSNumber*) number frame:(CGRect) frame textColor:(NSString*) textColor font:(int) font backgroundColor:(NSString*) backgroundColor textAlignment:(NSTextAlignment) textAlignment{
+    UILabel* label = [[[UILabel alloc] initWithFrame:frame] autorelease];
+    NSNumberFormatter* formatter = [[[NSNumberFormatter alloc]init] autorelease];
+    formatter.numberStyle = NSNumberFormatterDecimalStyle;
+    
+    label.text = [formatter stringFromNumber:number];
     label.font = [UIFont systemFontOfSize:font];
     label.textColor = [StyleSheet colorFromHexString:textColor];
     label.textAlignment =textAlignment;

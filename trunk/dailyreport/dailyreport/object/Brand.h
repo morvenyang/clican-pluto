@@ -14,6 +14,7 @@
     NSNumber* _dayAmount;
     NSNumber* _weekAmount;
     NSNumber* _yearAmount;
+    NSNumber* _dayLike;
     NSNumber* _weekLike;
     NSNumber* _yearLike;
 }
@@ -22,6 +23,7 @@
 @property (nonatomic, retain) NSNumber* dayAmount;
 @property (nonatomic, retain) NSNumber* weekAmount;
 @property (nonatomic, retain) NSNumber* yearAmount;
+@property (nonatomic, retain) NSNumber* dayLike;
 @property (nonatomic, retain) NSNumber* weekLike;
 @property (nonatomic, retain) NSNumber* yearLike;
 
