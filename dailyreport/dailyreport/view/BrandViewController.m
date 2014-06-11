@@ -67,7 +67,7 @@
     calendarImageView.image = calendarImage;
     
     UILabel* calendarLabel = [[[UILabel alloc] initWithFrame:CGRectMake(200, 0, 120, 34)] autorelease];
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
     [dateFormatter setDateFormat:@"MM月dd日 EEEE"];
     calendarLabel.text = [dateFormatter stringFromDate:brand.date];
     calendarLabel.font = [UIFont systemFontOfSize:12];
