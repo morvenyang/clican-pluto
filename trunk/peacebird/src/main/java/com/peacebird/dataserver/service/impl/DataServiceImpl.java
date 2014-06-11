@@ -3,6 +3,7 @@ package com.peacebird.dataserver.service.impl;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -90,7 +91,15 @@ public class DataServiceImpl implements DataService {
 		IndexStatResult ir = new IndexStatResult();
 		ir.setBrands(indexBrandResults);
 		ir.setResult(0);
-		String result = JSONObject.fromObject(ir).toString();
+		ir.setDate(yesterday);
+		Date realYesterday = DateUtils.addDays(DateUtils.truncate(new Date(), Calendar.DAY_OF_MONTH), -1);
+		ir.setYesterday(realYesterday.equals(yesterday));
+		JsonConfig jsonConfig = new JsonConfig();
+		jsonConfig.registerJsonValueProcessor(Date.class,
+				new DateJsonValueProcessor("yyyy-MM-dd"));
+		jsonConfig.registerJsonValueProcessor(Integer.class,
+				new IntegerJsonValueProcessor());
+		String result = JSONObject.fromObject(ir,jsonConfig).toString();
 		return result;
 	}
 
@@ -132,7 +141,7 @@ public class DataServiceImpl implements DataService {
 
 		List<BrandResult> bcr = this.dataDao.getBrandResultByChannel(yesterday,
 				brand);
-
+		Collections.sort(bcr);
 		bsr.setBrand(brand);
 		bsr.setResult(0);
 		bsr.setBrandResult(br);
