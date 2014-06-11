@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import net.sf.json.JsonConfig;
 
@@ -92,14 +91,15 @@ public class DataServiceImpl implements DataService {
 		ir.setBrands(indexBrandResults);
 		ir.setResult(0);
 		ir.setDate(yesterday);
-		Date realYesterday = DateUtils.addDays(DateUtils.truncate(new Date(), Calendar.DAY_OF_MONTH), -1);
+		Date realYesterday = DateUtils.addDays(
+				DateUtils.truncate(new Date(), Calendar.DAY_OF_MONTH), -1);
 		ir.setYesterday(realYesterday.equals(yesterday));
 		JsonConfig jsonConfig = new JsonConfig();
 		jsonConfig.registerJsonValueProcessor(Date.class,
 				new DateJsonValueProcessor("yyyy-MM-dd"));
 		jsonConfig.registerJsonValueProcessor(Integer.class,
 				new IntegerJsonValueProcessor());
-		String result = JSONObject.fromObject(ir,jsonConfig).toString();
+		String result = JSONObject.fromObject(ir, jsonConfig).toString();
 		return result;
 	}
 
@@ -141,6 +141,37 @@ public class DataServiceImpl implements DataService {
 
 		List<BrandResult> bcr = this.dataDao.getBrandResultByChannel(yesterday,
 				brand);
+		Double lastDayAmount = 0.0;
+		Double lastWeekAmount = 0.0;
+		Double lastYearAmount = 0.0;
+
+		for (BrandResult b : bcr) {
+			if (b.getDayLike() !=null && b.getDayLike() != 0) {
+				lastDayAmount += b.getDayAmount() / b.getDayLike();
+			} else {
+				lastDayAmount += b.getDayAmount();
+			}
+			if (b.getWeekLike() !=null && b.getWeekLike() != 0) {
+				lastWeekAmount += b.getDayAmount() / b.getWeekLike();
+			} else {
+				lastWeekAmount += b.getDayAmount();
+			}
+			if (b.getYearLike() !=null && b.getYearLike() != 0) {
+				lastYearAmount += b.getDayAmount() / b.getYearLike();
+			} else {
+				lastYearAmount += b.getDayAmount();
+			}
+		}
+		if(br.getDayAmount()!=null&&lastDayAmount!=0){
+			br.setDayLike(br.getDayAmount()/lastDayAmount);
+		}
+		if(br.getWeekAmount()!=null&&lastWeekAmount!=0){
+			br.setWeekLike(br.getDayAmount()/lastWeekAmount);
+		}
+		if(br.getYearAmount()!=null&&lastYearAmount!=0){
+			br.setYearLike(br.getDayAmount()/lastYearAmount);
+		}
+		
 		Collections.sort(bcr);
 		bsr.setBrand(brand);
 		bsr.setResult(0);
@@ -194,9 +225,9 @@ public class DataServiceImpl implements DataService {
 		} else if (type.equals("region")) {
 			list = this.dataDao.getRetailRegionResult(yesterday, brand);
 		}
-		for(RetailResult rr:list){
-			if(rr.getDayAmount()!=null){
-				rr.setDayAmount(rr.getDayAmount()/10000);
+		for (RetailResult rr : list) {
+			if (rr.getDayAmount() != null) {
+				rr.setDayAmount(rr.getDayAmount() / 10000);
 			}
 		}
 		return list;

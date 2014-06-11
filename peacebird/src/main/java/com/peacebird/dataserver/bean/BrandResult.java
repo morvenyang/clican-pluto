@@ -19,12 +19,31 @@ public class BrandResult implements Comparable<BrandResult> {
 	private Double weekLike;
 
 	private Double yearLike;
+	
+	private Double dayLike;
 
 	public BrandResult(String brand, String channel, Number dayAmount) {
 		this.brand = brand;
 		this.channel = channel;
 		if (dayAmount != null) {
 			this.dayAmount = dayAmount.intValue();
+		}
+	}
+	
+	public BrandResult(String brand, String channel, Number dayAmount,Number dayLike,Number weekLike,Number yearLike) {
+		this.brand = brand;
+		this.channel = channel;
+		if (dayAmount != null) {
+			this.dayAmount = dayAmount.intValue();
+		}
+		if (dayLike != null) {
+			this.dayLike = dayLike.doubleValue();
+		}
+		if (weekLike != null) {
+			this.weekLike = weekLike.doubleValue();
+		}
+		if (yearLike != null) {
+			this.yearLike = yearLike.doubleValue();
 		}
 	}
 
@@ -37,7 +56,7 @@ public class BrandResult implements Comparable<BrandResult> {
 	}
 
 	public BrandResult(String brand, Number dayAmount, Number weekAmount,
-			Number yearAmount, Number weekLike, Number yearLike) {
+			Number yearAmount) {
 		super();
 		this.brand = brand;
 		if (dayAmount != null) {
@@ -48,6 +67,9 @@ public class BrandResult implements Comparable<BrandResult> {
 		}
 		if (yearAmount != null) {
 			this.yearAmount = yearAmount.intValue();
+		}
+		if (dayLike != null) {
+			this.dayLike = dayLike.doubleValue();
 		}
 		if (weekLike != null) {
 			this.weekLike = weekLike.doubleValue();
@@ -103,6 +125,14 @@ public class BrandResult implements Comparable<BrandResult> {
 
 	public void setYearLike(Double yearLike) {
 		this.yearLike = yearLike;
+	}
+
+	public Double getDayLike() {
+		return dayLike;
+	}
+
+	public void setDayLike(Double dayLike) {
+		this.dayLike = dayLike;
 	}
 
 	public Date getDate() {

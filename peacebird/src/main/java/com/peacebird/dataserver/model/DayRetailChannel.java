@@ -22,6 +22,7 @@ public class DayRetailChannel {
 	private Integer dayAmount;
 	private Integer weekAmount;
 	private Integer yearAmount;
+	private Double dayLike;
 	private Double weekLike;
 	private Double yearLike;
 	
@@ -96,6 +97,13 @@ public class DayRetailChannel {
 	}
 	public void setYearLike(Double yearLike) {
 		this.yearLike = yearLike;
+	}
+	@Column(name="r_day_like")
+	public Double getDayLike() {
+		return dayLike;
+	}
+	public void setDayLike(Double dayLike) {
+		this.dayLike = dayLike;
 	}
 	
 	
