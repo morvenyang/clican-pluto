@@ -83,25 +83,16 @@
     UIImage* cancelImage= [UIImage imageNamed:@"分享取消按钮.png"];
     [cancelButton setImage:cancelImage forState:UIControlStateNormal];
     [cancelButton addTarget:self action:@selector(hideShareView) forControlEvents:UIControlEventTouchUpInside];
-    
-    UIButton* shareSessionButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    shareSessionButton.frame =CGRectMake(40, 30, 80, 80);
-    UIImage* shareSessionImage= [UIImage imageNamed:@"图标-微信好友.png"];
-    [shareSessionButton setImage:shareSessionImage forState:UIControlStateNormal];
-    [shareSessionButton addTarget:self action:@selector(sendSessionImageContent) forControlEvents:UIControlEventTouchUpInside];
-    UILabel* shareSessionLabel = [self createLabel:@"微信好友" frame:CGRectMake(40, 110, 80, 20) textColor:@"#849484" font:14 backgroundColor:nil textAlignment:NSTextAlignmentCenter];
 
     UIButton* shareTimelineButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    shareTimelineButton.frame =CGRectMake(200, 30, 80, 80);
+    shareTimelineButton.frame =CGRectMake(120, 30, 80, 80);
     UIImage* shareTimelineImage= [UIImage imageNamed:@"图标-微信朋友圈.png"];
     [shareTimelineButton setImage:shareTimelineImage forState:UIControlStateNormal];
     [shareTimelineButton addTarget:self action:@selector(sendTimelineImageContent) forControlEvents:UIControlEventTouchUpInside];
-    UILabel* shareTimelineLabel = [self createLabel:@"微信朋友圈" frame:CGRectMake(200, 110, 80, 20) textColor:@"#849484" font:14 backgroundColor:nil textAlignment:NSTextAlignmentCenter];
+    UILabel* shareTimelineLabel = [self createLabel:@"微信朋友圈" frame:CGRectMake(120, 110, 80, 20) textColor:@"#849484" font:14 backgroundColor:nil textAlignment:NSTextAlignmentCenter];
     [self.shareView addSubview:cancelButton];
 
-    [self.shareView addSubview:shareSessionButton];
     [self.shareView addSubview:shareTimelineButton];
-    [self.shareView addSubview:shareSessionLabel];
     [self.shareView addSubview:shareTimelineLabel];
     [self.shareView addSubview:cancelButton];
     [self.backgroundShareView addSubview:self.shareView];
@@ -298,7 +289,7 @@
     ext.imageData = UIImagePNGRepresentation(screenShot);
     NSLog(@"%i",ext.imageData.length/1024);
     message.mediaObject = ext;
-    
+    message.title = @"PB日报";
     SendMessageToWXReq* req = [[[SendMessageToWXReq alloc] init]autorelease];
     req.bText = NO;
     req.message = message;
