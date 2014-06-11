@@ -19,6 +19,7 @@ public class DayStoreAmountRank {
 	private Date date;
 	private Integer amount;
 	private Integer rank;
+	private Double rate;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -81,6 +82,14 @@ public class DayStoreAmountRank {
 
 	public void setRank(Integer rank) {
 		this.rank = rank;
+	}
+	
+	@Column(name = "r_rate")
+	public Double getRate() {
+		return rate;
+	}
+	public void setRate(Double rate) {
+		this.rate = rate;
 	}
 
 }

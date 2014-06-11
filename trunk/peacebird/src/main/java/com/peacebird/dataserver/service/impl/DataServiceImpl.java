@@ -194,8 +194,10 @@ public class DataServiceImpl implements DataService {
 		Date yesterday = getYesterday();
 		List<RetailResult> channelRetail = this.dataDao.getRetailChannelResult(
 				yesterday, brand);
+		Collections.sort(channelRetail);
 		List<RetailResult> sortRetail = this.dataDao.getRetailSortResult(
 				yesterday, brand);
+		Collections.sort(sortRetail);
 		List<RetailResult> regionRetail = this.dataDao.getRetailRegionResult(
 				yesterday, brand);
 		rsr.setResult(0);
@@ -225,6 +227,7 @@ public class DataServiceImpl implements DataService {
 		} else if (type.equals("region")) {
 			list = this.dataDao.getRetailRegionResult(yesterday, brand);
 		}
+		Collections.sort(list);
 		for (RetailResult rr : list) {
 			if (rr.getDayAmount() != null) {
 				rr.setDayAmount(rr.getDayAmount() / 10000);
