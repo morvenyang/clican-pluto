@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import net.sf.json.JsonConfig;
 
@@ -42,7 +43,6 @@ public class DataServiceImpl implements DataService {
 	private DataDao dataDao;
 
 	private SpringProperty springProperty;
-
 
 	public void setDataDao(DataDao dataDao) {
 		this.dataDao = dataDao;
@@ -172,6 +172,25 @@ public class DataServiceImpl implements DataService {
 
 		String result = JSONObject.fromObject(rsr, jsonConfig).toString();
 		return result;
+	}
+
+	@Override
+	public List<RetailResult> getRetailChartResult(String brand, String type) {
+		Date yesterday = getYesterday();
+		List<RetailResult> list = null;
+		if (type.equals("channel")) {
+			list = this.dataDao.getRetailChannelResult(yesterday, brand);
+		} else if (type.equals("sort")) {
+			list = this.dataDao.getRetailSortResult(yesterday, brand);
+		} else if (type.equals("region")) {
+			list = this.dataDao.getRetailRegionResult(yesterday, brand);
+		}
+		for(RetailResult rr:list){
+			if(rr.getDayAmount()!=null){
+				rr.setDayAmount(rr.getDayAmount()/10000);
+			}
+		}
+		return list;
 	}
 
 	@Override

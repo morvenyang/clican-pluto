@@ -1,11 +1,13 @@
 package com.peacebird.dataserver.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import org.apache.commons.codec.digest.DigestUtils;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.peacebird.dataserver.bean.LoginResult;
+import com.peacebird.dataserver.bean.RetailResult;
 import com.peacebird.dataserver.model.User;
 import com.peacebird.dataserver.service.DataService;
 import com.peacebird.dataserver.service.UserService;
@@ -162,6 +165,25 @@ public class ClientController {
 		try {
 			resp.setContentType("application/json");
 			resp.getOutputStream().write(result.getBytes("utf-8"));
+		} catch (Exception e) {
+			log.error("", e);
+		}
+	}
+	
+	@RequestMapping("/retailChart")
+	public void retailChart(@RequestParam(value = "brand") String brand,
+			@RequestParam(value = "type") String type,
+			HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		if (log.isDebugEnabled()) {
+			log.debug("access retail chart page");
+		}
+		List<RetailResult> result =this.dataService.getRetailChartResult(brand,type);
+		String dataProvider = JSONArray.fromObject(result).toString();;
+		try {
+			req.setAttribute("dataProvider", dataProvider);
+			req.setAttribute("height", 500+result.size()*80);
+			req.getRequestDispatcher("/retail.jsp").forward(req, resp);
 		} catch (Exception e) {
 			log.error("", e);
 		}
