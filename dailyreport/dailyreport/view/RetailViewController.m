@@ -9,6 +9,7 @@
 #import "RetailViewController.h"
 #import "StyleSheet.h"
 #import "Retail.h"
+#import "CannotCancelUISwipeGestureRecognizer.h"
 @implementation RetailViewController
 
 @synthesize retailModel = _retailModel;
@@ -35,7 +36,13 @@
         
         self.webPieChartView = [[UIWebView alloc] initWithFrame:CGRectMake(0,80,320,400)];
         self.webPieChartView.scalesPageToFit=YES;
-        self.webPieChartView.userInteractionEnabled =NO;
+        self.webPieChartView.userInteractionEnabled =YES;
+        CannotCancelUISwipeGestureRecognizer* swipeGestureRight = [[[CannotCancelUISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleGesture:)] autorelease];
+        swipeGestureRight.direction = UISwipeGestureRecognizerDirectionRight;
+        CannotCancelUISwipeGestureRecognizer* swipeGestureLeft = [[[CannotCancelUISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleGesture:)] autorelease];
+        swipeGestureLeft.direction = UISwipeGestureRecognizerDirectionLeft;
+        [self.webPieChartView.scrollView addGestureRecognizer:swipeGestureLeft];
+        [self.webPieChartView.scrollView addGestureRecognizer:swipeGestureRight];
         self.tabLables = [NSMutableArray array];
         self.tableViews =[NSMutableArray array];
         self.index = 3;
@@ -43,6 +50,41 @@
     return self;
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+}
+-(void)handleGesture:(UISwipeGestureRecognizer*)gestureRecognizer{
+    UISwipeGestureRecognizerDirection direction =gestureRecognizer.direction;
+    if(direction==UISwipeGestureRecognizerDirectionLeft){
+        NSLog(@"left");
+        if(self.index==1){
+            NSString* url = [NSString stringWithFormat:@"peacebird://kpi/%@", [self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+            TTOpenURL(url);
+        }else if(self.index==2){
+            NSString* url = [NSString stringWithFormat:@"peacebird://retail/%@", [self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+            TTOpenURL(url);
+        }else if(self.index==3){
+            NSString* url = [NSString stringWithFormat:@"peacebird://storeRank/%@", [self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+            TTOpenURL(url);
+        }
+        return;
+    }
+    if(direction==UISwipeGestureRecognizerDirectionRight){
+        NSLog(@"right");
+        if(self.index==2){
+            NSString* url = [NSString stringWithFormat:@"peacebird://brand/%@", [self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+            TTOpenURL(url);
+        }else if(self.index==3){
+            NSString* url = [NSString stringWithFormat:@"peacebird://kpi/%@", [self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+            TTOpenURL(url);
+        }else if(self.index==4){
+            NSString* url = [NSString stringWithFormat:@"peacebird://retail/%@", [self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+            TTOpenURL(url);
+        }
+        return;
+    }
+}
 - (void)loadView
 {
     [super loadView];

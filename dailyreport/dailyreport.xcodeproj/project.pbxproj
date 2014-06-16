@@ -18,6 +18,7 @@
 		320D7DCCE32703ACAB9A45E5 /* libThree20.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 320D7DCCE32703ACAB9A45E4 /* libThree20.a */; };
 		320F2C48872C2E2C4DF86205 /* libThree20UI.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 320F2C48872C2E2C4DF86204 /* libThree20UI.a */; };
 		720D6082193156AF004C7781 /* PieChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 720D6081193156AF004C7781 /* PieChartView.m */; };
+		72138B83194EB53D009918BD /* CannotCancelUISwipeGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 72138B82194EB53D009918BD /* CannotCancelUISwipeGestureRecognizer.m */; };
 		721DB4CB1938C1F50075F392 /* logout.png in Resources */ = {isa = PBXBuildFile; fileRef = 721DB4CA1938C1F50075F392 /* logout.png */; };
 		722D42BC192C3A2E00350244 /* KPIModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 722D42BB192C3A2E00350244 /* KPIModel.m */; };
 		722D42C8192C449A00350244 /* 图标-关键指标.png in Resources */ = {isa = PBXBuildFile; fileRef = 722D42C6192C449A00350244 /* 图标-关键指标.png */; };
@@ -329,6 +330,8 @@
 		320F2C48872C2E2C4DF86200 /* Three20UI.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Three20UI.xcodeproj; path = ../three20/src/Three20UI/Three20UI.xcodeproj; sourceTree = SOURCE_ROOT; };
 		720D6080193156AF004C7781 /* PieChartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PieChartView.h; sourceTree = "<group>"; };
 		720D6081193156AF004C7781 /* PieChartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PieChartView.m; sourceTree = "<group>"; };
+		72138B81194EB53D009918BD /* CannotCancelUISwipeGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CannotCancelUISwipeGestureRecognizer.h; sourceTree = "<group>"; };
+		72138B82194EB53D009918BD /* CannotCancelUISwipeGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CannotCancelUISwipeGestureRecognizer.m; sourceTree = "<group>"; };
 		721DB4CA1938C1F50075F392 /* logout.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logout.png; sourceTree = "<group>"; };
 		722D42BA192C3A2E00350244 /* KPIModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KPIModel.h; sourceTree = "<group>"; };
 		722D42BB192C3A2E00350244 /* KPIModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KPIModel.m; sourceTree = "<group>"; };
@@ -785,6 +788,8 @@
 				72AD860819330B45004CAE5F /* StoreRankViewController.m */,
 				724F4F3D1935B7890079F9A0 /* SwipeScrollView.h */,
 				724F4F3E1935B7890079F9A0 /* SwipeScrollView.m */,
+				72138B81194EB53D009918BD /* CannotCancelUISwipeGestureRecognizer.h */,
+				72138B82194EB53D009918BD /* CannotCancelUISwipeGestureRecognizer.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -1271,6 +1276,7 @@
 				72EB389E19270CCA00D0F225 /* IndexListModel.m in Sources */,
 				722D42E7192C89F800350244 /* Retail.m in Sources */,
 				72783C021929C7D70098B3A8 /* CRNavigationController.m in Sources */,
+				72138B83194EB53D009918BD /* CannotCancelUISwipeGestureRecognizer.m in Sources */,
 				7285E3D61925AFEE0011C2D6 /* AppDelegate.m in Sources */,
 				7285E3D21925AFEE0011C2D6 /* main.m in Sources */,
 				722D42BC192C3A2E00350244 /* KPIModel.m in Sources */,
@@ -1402,7 +1408,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
-				PROVISIONING_PROFILE = "019F19D1-0DDB-4EAB-A0D8-073AFA95B3BA";
+				PROVISIONING_PROFILE = "D3F4A318-A3B1-4A14-9D9D-88DCDC4FB766";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -1442,7 +1448,7 @@
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_LDFLAGS = "-ObjC";
-				PROVISIONING_PROFILE = "019F19D1-0DDB-4EAB-A0D8-073AFA95B3BA";
+				PROVISIONING_PROFILE = "D3F4A318-A3B1-4A14-9D9D-88DCDC4FB766";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1464,7 +1470,7 @@
 					"$(PROJECT_DIR)/dailyreport/weixin",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "019F19D1-0DDB-4EAB-A0D8-073AFA95B3BA";
+				PROVISIONING_PROFILE = "D3F4A318-A3B1-4A14-9D9D-88DCDC4FB766";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1485,7 +1491,7 @@
 					"$(PROJECT_DIR)/dailyreport/weixin",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "019F19D1-0DDB-4EAB-A0D8-073AFA95B3BA";
+				PROVISIONING_PROFILE = "D3F4A318-A3B1-4A14-9D9D-88DCDC4FB766";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

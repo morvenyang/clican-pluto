@@ -9,7 +9,6 @@
 #import "SwitchViewController.h"
 #import "RetailModel.h"
 #import "PieChartView.h"
-
 @interface RetailViewController : SwitchViewController<RetailDelegate>{
     RetailModel* _retailModel;
     UIWebView* _webPieChartView;
