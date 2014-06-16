@@ -13,12 +13,14 @@
 <span style="color:#5f5f5f;font-size:30px">总零售收入</span><br/>
 <span style="color:#ff6501;font-size:40px"><%=request.getAttribute("total") %></span><br/>
 <span style="color:#5f5f5f;font-size:30px">万元</span></div>
+
 <script type="text/javascript">
 var chart = AmCharts.makeChart("chartdiv", {
     "type": "pie",
 	"theme": "none",
 	"marginLeft": 0,
 	"marginRight": 0,
+	"startRadius": "20%",
     "legend": {
         "markerType": "square",
         "position": "bottom",
