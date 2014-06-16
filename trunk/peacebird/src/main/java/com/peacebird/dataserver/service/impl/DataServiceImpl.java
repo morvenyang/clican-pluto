@@ -200,16 +200,6 @@ public class DataServiceImpl implements DataService {
 		Collections.sort(sortRetail);
 		List<RetailResult> regionRetail = this.dataDao.getRetailRegionResult(
 				yesterday, brand);
-		double total = 0;
-		for (RetailResult rr : regionRetail) {
-			if (rr.getDayAmount() != null) {
-				rr.setDayAmount(rr.getDayAmount() / 10000);
-			}
-			total+=rr.getDayAmount();
-		}
-		for (RetailResult rr : regionRetail) {
-			rr.setPercent(rr.getDayAmount()/total);
-		}
 		rsr.setResult(0);
 		rsr.setChannelRetail(channelRetail);
 		rsr.setSortRetail(sortRetail);
@@ -245,8 +235,10 @@ public class DataServiceImpl implements DataService {
 			}
 			total+=rr.getDayAmount();
 		}
-		for (RetailResult rr : list) {
-			rr.setPercent(rr.getDayAmount()/total);
+		if(total!=0){
+			for (RetailResult rr : list) {
+				rr.setPercent(rr.getDayAmount()/total);
+			}
 		}
 		return list;
 	}
