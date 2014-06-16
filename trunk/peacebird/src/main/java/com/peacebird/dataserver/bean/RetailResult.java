@@ -113,7 +113,6 @@ public class RetailResult implements Comparable<RetailResult> {
 				p = " " + p;
 			}
 			String description = da + "万元" + p;
-			System.out.println(description);
 			return description;
 		} else {
 			return "";
