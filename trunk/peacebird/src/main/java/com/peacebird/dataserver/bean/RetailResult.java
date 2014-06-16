@@ -8,6 +8,8 @@ public class RetailResult implements Comparable<RetailResult> {
 
 	private Integer dayAmount;
 
+	private Double percent;
+
 	public RetailResult(String type, String name, Number dayAmount) {
 		this.type = type;
 		this.name = name;
@@ -92,6 +94,29 @@ public class RetailResult implements Comparable<RetailResult> {
 			return -1;
 		} else {
 			return 0;
+		}
+	}
+
+	public Double getPercent() {
+		return percent;
+	}
+
+	public void setPercent(Double percent) {
+		this.percent = percent;
+	}
+
+	public String getDescription() {
+		if (percent != null) {
+			String da = dayAmount + "";
+			String p = String.format("%.1f", this.percent * 100) + "%";
+			while (p.length() < 7) {
+				p = " " + p;
+			}
+			String description = da + "万元" + p;
+			System.out.println(description);
+			return description;
+		} else {
+			return "";
 		}
 	}
 
