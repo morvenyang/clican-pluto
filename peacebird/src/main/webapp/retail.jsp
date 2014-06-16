@@ -6,6 +6,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script src="/peacebird/amcharts/amcharts.js" type="text/javascript"></script>
 <script src="/peacebird/amcharts/pie.js" type="text/javascript"></script>
+<style type="text/css">
+text{
+white-space: pre;
+}
+</style>
 </head>
 <body>
 <div id="chartdiv" style="width:1024px; height:<%=request.getAttribute("height")%>px;"></div>
@@ -21,6 +26,7 @@ var chart = AmCharts.makeChart("chartdiv", {
 	"marginLeft": 0,
 	"marginRight": 0,
 	"startRadius": "20%",
+	"fontFamily": "Courier",
     "legend": {
         "markerType": "square",
         "position": "bottom",
@@ -29,7 +35,7 @@ var chart = AmCharts.makeChart("chartdiv", {
 		"autoMargins": false,
 		"fontSize":40,
 		"markerLabelGap":50,
-		"valueText":"[[value]]万元 [[percents]]%",
+		"valueText":"[[description]]",
 		"valueWidth": 350,
 		"markerSize":40
     },
@@ -38,6 +44,7 @@ var chart = AmCharts.makeChart("chartdiv", {
     "valueField": "dayAmount",
     "fontSize": 20,
     "titleField": "name",
+    "descriptionField":"description",
     "startEffect": "elastic",
     "startDuration": 2,
     "labelRadius": 15,
