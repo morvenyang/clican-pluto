@@ -50,7 +50,8 @@ var chart = AmCharts.makeChart("chartdiv", {
     "labelRadius": 15,
     "innerRadius": "50%",
     "depth3D": 15,
-    "angle": 20
+    "angle": 20,
+    "colors":["#999180","#e4df54","#f5cc69","#f89c4a","#a096df","#ba96df","#d54b4b","#f0729b","#83b5d5","#3fbbfb","#74d9c7","#8cde43"] 
 });
 </script>
 </body>
