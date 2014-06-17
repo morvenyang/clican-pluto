@@ -12,7 +12,6 @@
 @interface BrandViewController : SwitchViewController<BrandDelegate>{
 
     BrandModel* _brandModel;
-    
 }
 
 @property (nonatomic, retain) BrandModel *brandModel;

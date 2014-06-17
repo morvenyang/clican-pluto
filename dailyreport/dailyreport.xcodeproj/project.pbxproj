@@ -19,6 +19,7 @@
 		320F2C48872C2E2C4DF86205 /* libThree20UI.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 320F2C48872C2E2C4DF86204 /* libThree20UI.a */; };
 		720D6082193156AF004C7781 /* PieChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 720D6081193156AF004C7781 /* PieChartView.m */; };
 		72138B83194EB53D009918BD /* CannotCancelUISwipeGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 72138B82194EB53D009918BD /* CannotCancelUISwipeGestureRecognizer.m */; };
+		72138B85194EEAF5009918BD /* 首次进入提示.png in Resources */ = {isa = PBXBuildFile; fileRef = 72138B84194EEAF5009918BD /* 首次进入提示.png */; };
 		721DB4CB1938C1F50075F392 /* logout.png in Resources */ = {isa = PBXBuildFile; fileRef = 721DB4CA1938C1F50075F392 /* logout.png */; };
 		722D42BC192C3A2E00350244 /* KPIModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 722D42BB192C3A2E00350244 /* KPIModel.m */; };
 		722D42C8192C449A00350244 /* 图标-关键指标.png in Resources */ = {isa = PBXBuildFile; fileRef = 722D42C6192C449A00350244 /* 图标-关键指标.png */; };
@@ -332,6 +333,7 @@
 		720D6081193156AF004C7781 /* PieChartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PieChartView.m; sourceTree = "<group>"; };
 		72138B81194EB53D009918BD /* CannotCancelUISwipeGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CannotCancelUISwipeGestureRecognizer.h; sourceTree = "<group>"; };
 		72138B82194EB53D009918BD /* CannotCancelUISwipeGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CannotCancelUISwipeGestureRecognizer.m; sourceTree = "<group>"; };
+		72138B84194EEAF5009918BD /* 首次进入提示.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "首次进入提示.png"; sourceTree = "<group>"; };
 		721DB4CA1938C1F50075F392 /* logout.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logout.png; sourceTree = "<group>"; };
 		722D42BA192C3A2E00350244 /* KPIModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KPIModel.h; sourceTree = "<group>"; };
 		722D42BB192C3A2E00350244 /* KPIModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KPIModel.m; sourceTree = "<group>"; };
@@ -848,6 +850,7 @@
 		72EB38AD19270F3B00D0F225 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				72138B84194EEAF5009918BD /* 首次进入提示.png */,
 				72E8F0981940366D004A2330 /* iTunesArtwork */,
 				721DB4CA1938C1F50075F392 /* logout.png */,
 				722D42C6192C449A00350244 /* 图标-关键指标.png */,
@@ -1179,6 +1182,7 @@
 				72783BC21929A6A10098B3A8 /* 图标-分页原点-正常@2x.png in Resources */,
 				320B6C86F11D9990244A9731 /* Three20.bundle in Resources */,
 				72783BDD1929A6A10098B3A8 /* 色卡-深绿.png in Resources */,
+				72138B85194EEAF5009918BD /* 首次进入提示.png in Resources */,
 				72783BB71929A6A10098B3A8 /* 关键指标-背景花纹.png in Resources */,
 				72623174192B168500E3F99B /* logo120.png in Resources */,
 				72783BD51929A6A10098B3A8 /* 每日收入童装背景.png in Resources */,
@@ -1408,7 +1412,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
-				PROVISIONING_PROFILE = "D3F4A318-A3B1-4A14-9D9D-88DCDC4FB766";
+				PROVISIONING_PROFILE = "57476632-8976-4114-AFD2-E52CD0754BDB";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -1448,7 +1452,7 @@
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_LDFLAGS = "-ObjC";
-				PROVISIONING_PROFILE = "D3F4A318-A3B1-4A14-9D9D-88DCDC4FB766";
+				PROVISIONING_PROFILE = "57476632-8976-4114-AFD2-E52CD0754BDB";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1470,7 +1474,7 @@
 					"$(PROJECT_DIR)/dailyreport/weixin",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "D3F4A318-A3B1-4A14-9D9D-88DCDC4FB766";
+				PROVISIONING_PROFILE = "57476632-8976-4114-AFD2-E52CD0754BDB";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1491,7 +1495,7 @@
 					"$(PROJECT_DIR)/dailyreport/weixin",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "D3F4A318-A3B1-4A14-9D9D-88DCDC4FB766";
+				PROVISIONING_PROFILE = "57476632-8976-4114-AFD2-E52CD0754BDB";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

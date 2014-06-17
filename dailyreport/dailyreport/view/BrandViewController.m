@@ -42,6 +42,13 @@
     [super loadView];
     [self.brandModel load:TTURLRequestCachePolicyNone more:NO];
 }
+-(void)closePrompt:(id)sender{
+    UIButton* promptImage = (UIButton*)sender;
+    [promptImage removeFromSuperview];
+    
+    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:VERSION forKey:FIRST_ACCESS_VERSION];
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -194,6 +201,16 @@
     [self.contentView addSubview:otherView];
     self.contentView.contentSize =
     CGSizeMake(320, 432);
+    
+    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+    NSString* firstAccessVersion = [defaults objectForKey:FIRST_ACCESS_VERSION];
+    if(firstAccessVersion==nil||![firstAccessVersion isEqualToString:VERSION]){
+        UIButton* promptImage = [UIButton buttonWithType:UIButtonTypeCustom];
+        promptImage.frame =self.contentView.frame;        [promptImage setImage:[UIImage imageNamed:@"首次进入提示.png"] forState:UIControlStateNormal];
+        [promptImage addTarget:self action:@selector(closePrompt:) forControlEvents:UIControlEventTouchUpInside];
+        promptImage.backgroundColor =[UIColor colorWithRed:0 green:0 blue:0 alpha:0.3f];
+        [self.contentView addSubview:promptImage];
+    }
 }
 
 - (void) brandDidStartLoad:(NSString*) brand{

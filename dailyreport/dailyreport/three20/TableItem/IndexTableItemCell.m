@@ -8,6 +8,7 @@
 
 #import "IndexTableItemCell.h"
 #import "LinkImageView.h"
+#import "StyleSheet.h"
 
 @implementation IndexTableItemCell
 @synthesize backgroundImageView = _backgroundImageView;
@@ -48,13 +49,13 @@
 
 - (void)layoutSubviews {
 	[super layoutSubviews];
-    _label.frame = CGRectMake(20, 80, 270, 35);
+    _label.frame = CGRectMake(250, 40, 70, 30);
     if([self.indexItem.backgroundImage isEqualToString:@"首页童装.png"]){
-        _label.textColor = [UIColor blackColor];
+        _label.textColor = [StyleSheet colorFromHexString:@"#505050"];
     }else{
-        _label.textColor = [UIColor whiteColor];
+        _label.textColor = [StyleSheet colorFromHexString:@"#ffffff"];
     }
-    _label.font = [UIFont boldSystemFontOfSize:18];
+    _label.font = [UIFont boldSystemFontOfSize:24];
     _label.contentMode = UIViewContentModeCenter;
     _label.backgroundColor = [UIColor clearColor];
 }

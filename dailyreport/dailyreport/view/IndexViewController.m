@@ -58,8 +58,9 @@
     self.tableView.separatorColor = [UIColor blackColor];
     
     UIButton* logoutButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [logoutButton setImage:[UIImage imageNamed:@"logout.png"] forState:UIControlStateNormal];
-    
+    [logoutButton setTitle:@"Exit" forState:UIControlStateNormal];
+    [logoutButton setTitleColor:[StyleSheet colorFromHexString:@"#323232"] forState:UIControlStateNormal];
+    logoutButton.frame =CGRectMake(0, 0, 25, 20);
     [logoutButton addTarget:self action:@selector(logoutAction) forControlEvents:UIControlEventTouchUpInside];
 
     [logoutButton sizeToFit];
