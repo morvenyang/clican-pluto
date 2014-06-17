@@ -252,6 +252,7 @@ public class DataServiceImpl implements DataService {
 		Date yesterday = getYesterday(date);
 		List<ChannelResult> channelResult = this.dataDao.getChannelResult(
 				yesterday, brand);
+		Collections.sort(channelResult);
 		ChannelStatResult csr = new ChannelStatResult();
 		csr.setChannel(channelResult);
 		csr.setResult(0);
