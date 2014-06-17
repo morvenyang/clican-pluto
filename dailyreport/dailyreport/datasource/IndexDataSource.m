@@ -28,7 +28,13 @@
     NSMutableArray* items = [[NSMutableArray alloc] init];
     
     for (Brand* brand in _indexListModel.brandList) {
-        TTStyledText* styledText = [TTStyledText textFromXHTML:[NSString stringWithFormat:@"%d",brand.dayAmount.intValue/10000] lineBreaks:YES URLs:YES];
+        
+        NSNumberFormatter* formatter = [[[NSNumberFormatter alloc]init] autorelease];
+        formatter.numberStyle = NSNumberFormatterDecimalStyle;
+        
+        NSString* text = [formatter stringFromNumber:[NSNumber numberWithInt:brand.dayAmount.intValue/10000]];
+        
+        TTStyledText* styledText = [TTStyledText textFromXHTML:text lineBreaks:YES URLs:YES];
         NSString* url = [NSString stringWithFormat:@"peacebird://brand/%@", [brand.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
 
         NSString* imageName = [NSString stringWithFormat:@"首页%@.png",brand.brand];

@@ -89,7 +89,7 @@
     UIImage* shareTimelineImage= [UIImage imageNamed:@"图标-微信朋友圈.png"];
     [shareTimelineButton setImage:shareTimelineImage forState:UIControlStateNormal];
     [shareTimelineButton addTarget:self action:@selector(sendTimelineImageContent) forControlEvents:UIControlEventTouchUpInside];
-    UILabel* shareTimelineLabel = [self createLabel:@"微信朋友圈" frame:CGRectMake(120, 110, 80, 20) textColor:@"#849484" font:14 backgroundColor:nil textAlignment:NSTextAlignmentCenter];
+    UILabel* shareTimelineLabel = [self createLabel:@"微信好友" frame:CGRectMake(120, 110, 80, 20) textColor:@"#849484" font:14 backgroundColor:nil textAlignment:NSTextAlignmentCenter];
     [self.shareView addSubview:cancelButton];
 
     [self.shareView addSubview:shareTimelineButton];
@@ -310,8 +310,11 @@
     UIImage *thumbImage = [self imageWithImage:screenShot scaledToSize:CGSizeMake(32,64)];
     [message setThumbImage:thumbImage];
     
+    UIImage* resizedScreenShot = screenShot;
+    CGRect frame = [[UIScreen mainScreen] bounds];
+   resizedScreenShot =[self imageWithImage:resizedScreenShot scaledToSize:CGSizeMake(320,frame.size.height)];
     WXImageObject *ext = [WXImageObject object];
-    ext.imageData = UIImagePNGRepresentation(screenShot);
+    ext.imageData = UIImagePNGRepresentation(resizedScreenShot);
     NSLog(@"%i",ext.imageData.length/1024);
     message.mediaObject = ext;
     message.title = @"PB日报";
