@@ -27,6 +27,7 @@ var chart = AmCharts.makeChart("chartdiv", {
 	"marginRight": 0,
 	"startRadius": "20%",
 	"fontFamily": "Courier",
+	"labelText": "[[title]]",
     "legend": {
         "markerType": "square",
         "position": "bottom",
@@ -42,7 +43,7 @@ var chart = AmCharts.makeChart("chartdiv", {
     "radius":300,
     "dataProvider": <%=request.getAttribute("dataProvider")%>,
     "valueField": "dayAmount",
-    "fontSize": 20,
+    "fontSize": 40,
     "titleField": "name",
     "descriptionField":"description",
     "startEffect": "elastic",

@@ -272,12 +272,13 @@ public class DataServiceImpl implements DataService {
 		List<String> channels = this.dataDao.getAllChannelForRank(yesterday,
 				brand);
 		List<ChannelRankResult> crrList = new ArrayList<ChannelRankResult>();
+		Collections.sort(crrList);
 		List<RankResult> allRankResult = this.dataDao.getAllRankResult(
 				yesterday, brand);
 		ChannelRankResult acrr = new ChannelRankResult();
 		acrr.setChannel("全部");
 		acrr.setRanks(allRankResult);
-		crrList.add(acrr);
+		crrList.add(0,acrr);
 
 		for (String channel : channels) {
 			List<RankResult> rankResult = this.dataDao.getRankResult(yesterday,
