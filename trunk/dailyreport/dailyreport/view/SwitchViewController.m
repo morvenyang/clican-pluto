@@ -9,7 +9,7 @@
 #import "SwitchViewController.h"
 #import "StyleSheet.h"
 #import "WXApi.h"
-
+#import "AppDelegate.h"
 @implementation SwitchViewController
 
 @synthesize contentView = _contentView;
@@ -39,7 +39,7 @@
     UIButton* shareButtonImage = [UIButton buttonWithType:UIButtonTypeCustom];
     shareButtonImage.frame =CGRectMake(0, 0, 40, 40);
     [shareButtonImage setImage:[UIImage imageNamed:@"图标-分享.png"] forState:UIControlStateNormal];
-    [shareButtonImage addTarget:self action:@selector(showShareView) forControlEvents:UIControlEventTouchUpInside];
+    [shareButtonImage addTarget:self action:@selector(showShareView:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem* shareButton = [[[UIBarButtonItem alloc] initWithCustomView:shareButtonImage] autorelease];
     [self.navigationItem setRightBarButtonItem:shareButton animated:YES];
     CGRect frame = [[UIScreen mainScreen] bounds];
@@ -242,7 +242,32 @@
         [self.backgroundShareView removeFromSuperview];
     }];
 }
--(void) showShareView{
+-(void)openCalendar:(id)sender{
+//    UIButton* b = (UIButton*)sender;
+//    PMCalendarController* pmCC = [[[PMCalendarController alloc] init] autorelease];
+//    pmCC.delegate = self;
+//    pmCC.mondayFirstDayOfWeek = YES;
+//    
+//    [pmCC presentCalendarFromView:b
+//         permittedArrowDirections:PMCalendarArrowDirectionAny
+//                         animated:YES];
+}
+
+#pragma mark PMCalendarControllerDelegate methods
+
+- (void)calendarController:(PMCalendarController *)calendarController didChangePeriod:(PMPeriod *)newPeriod
+{
+    NSDate* date = newPeriod.startDate;
+    DrAppDelegate.user.date = date;
+    [calendarController dismissCalendarAnimated:YES];
+    [self changeDateAndReload];
+}
+-(void)changeDateAndReload{
+    
+}
+-(void) showShareView:(id)sender{
+    
+    
     if(![WXApi isWXAppInstalled]){
         TTAlertNoTitle(@"本设备还未安装微信,无法使用微信分享功能");
     }else{

@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "SwipeScrollView.h"
-@interface SwitchViewController : UIViewController{
+#import "PMCalendar.h"
+@interface SwitchViewController : UIViewController<PMCalendarControllerDelegate>{
     NSString* _brand;
     SwipeScrollView* _contentView;
     int _index;
@@ -31,4 +32,6 @@
 -(UILabel*) createLabel:(NSString*) text frame:(CGRect) frame textColor:(NSString*) textColor font:(int) font backgroundColor:(NSString*) backgroundColor;
 -(UILabel*) createLabel:(NSString*) text frame:(CGRect) frame textColor:(NSString*) textColor font:(int) font backgroundColor:(NSString*) backgroundColor textAlignment:(NSTextAlignment) textAlignment;
 -(UILabel*) createDecimalLabel:(NSNumber*) number frame:(CGRect) frame textColor:(NSString*) textColor font:(int) font backgroundColor:(NSString*) backgroundColor textAlignment:(NSTextAlignment) textAlignment;
+-(void)openCalendar:(id)sender;
+-(void)changeDateAndReload;
 @end

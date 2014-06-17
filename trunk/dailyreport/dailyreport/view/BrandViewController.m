@@ -42,6 +42,10 @@
     [super loadView];
     [self.brandModel load:TTURLRequestCachePolicyNone more:NO];
 }
+
+-(void)changeDateAndReload{
+    [self.brandModel load:TTURLRequestCachePolicyNone more:NO];
+}
 -(void)closePrompt:(id)sender{
     UIButton* promptImage = (UIButton*)sender;
     [promptImage removeFromSuperview];
@@ -69,9 +73,14 @@
     retailLabel.font = [UIFont systemFontOfSize:12];
     retailLabel.textColor = [UIColor whiteColor];
     retailLabel.backgroundColor = [UIColor clearColor];
-    UIImage* calendarImage =[UIImage imageNamed:@"图标-日历.png"];
-    UIImageView* calendarImageView = [[UIImageView alloc] initWithFrame:CGRectMake(160, 0, 34, 34)];
-    calendarImageView.image = calendarImage;
+    
+    UIButton* calendarButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    calendarButton.frame =CGRectMake(160, 0, 34, 34);
+    [calendarButton setImage:[UIImage imageNamed:@"图标-日历.png"] forState:UIControlStateNormal];
+    [calendarButton addTarget:self action:@selector(openCalendar:) forControlEvents:UIControlEventTouchUpInside];
+    
+    
+    
     
     UILabel* calendarLabel = [[[UILabel alloc] initWithFrame:CGRectMake(200, 0, 120, 34)] autorelease];
     NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
@@ -103,7 +112,7 @@
     [dailyView addSubview:retailImageView];
     [dailyView addSubview:retailLabel];
     [dailyView addSubview:retailLikeLabel];
-    [dailyView addSubview:calendarImageView];
+    [dailyView addSubview:calendarButton];
     [dailyView addSubview:calendarLabel];
     [dailyView addSubview:retailAmountLabel];
     [self.contentView addSubview:dailyView];

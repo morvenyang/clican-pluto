@@ -31,6 +31,13 @@
     NSLog(@"load brand");
     
     NSString* url = [BASE_URL stringByAppendingFormat:@"/storeRank.do?brand=%@",[self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    if(DrAppDelegate.user.date!=nil){
+        NSDateFormatter* dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+        [dateFormatter setTimeStyle:NSDateFormatterFullStyle];
+        [dateFormatter setDateFormat:@"yyyyMMdd"];
+        NSString* strDate = [dateFormatter stringFromDate:DrAppDelegate.user.date];
+        url = [url stringByAppendingFormat:@"&date=%@",strDate];
+    }
     NSLog(@"jsessionid=%@",DrAppDelegate.user.sessionId);
     NSLog(@"URL:%@", url);
     
