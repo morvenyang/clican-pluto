@@ -1,35 +1,34 @@
 package com.peacebird.dataserver.bean;
 
-public class ChannelResult implements Comparable<ChannelResult>{
+public class ChannelResult implements Comparable<ChannelResult> {
 
-	
 	private Integer dayAmount;
-	
+
 	private Integer docNumber;
-	
+
 	private Double avgDocCount;
-	
+
 	private Integer avgPrice;
-	
+
 	private Integer aps;
-	
+
 	private String channel;
 
 	public ChannelResult(Number dayAmount, Number docNumber,
 			Number avgDocCount, Number avgPrice, Number aps, String channel) {
-		if(dayAmount!=null){
+		if (dayAmount != null) {
 			this.dayAmount = dayAmount.intValue();
 		}
-		if(docNumber!=null){
+		if (docNumber != null) {
 			this.docNumber = docNumber.intValue();
 		}
-		if(avgDocCount!=null){
+		if (avgDocCount != null) {
 			this.avgDocCount = avgDocCount.doubleValue();
 		}
-		if(avgPrice!=null){
+		if (avgPrice != null) {
 			this.avgPrice = avgPrice.intValue();
 		}
-		if(aps!=null){
+		if (aps != null) {
 			this.aps = aps.intValue();
 		}
 		this.channel = channel;
@@ -82,9 +81,11 @@ public class ChannelResult implements Comparable<ChannelResult>{
 	public void setChannel(String channel) {
 		this.channel = channel;
 	}
-	
+
 	private int getIndex() {
-		if (channel.equals("自营") || channel.equals("直营")) {
+		if (channel.equals("全部")) {
+			return 0;
+		} else if (channel.equals("自营") || channel.equals("直营")) {
 			return 1;
 		} else if (channel.equals("加盟")) {
 			return 2;
@@ -112,5 +113,5 @@ public class ChannelResult implements Comparable<ChannelResult>{
 			return 0;
 		}
 	}
-	
+
 }
