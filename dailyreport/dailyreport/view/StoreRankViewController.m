@@ -42,6 +42,10 @@
     [self.storeRankModel load:TTURLRequestCachePolicyNone more:NO];
 }
 
+-(void)changeDateAndReload{
+    [self.storeRankModel load:TTURLRequestCachePolicyNone more:NO];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -61,7 +65,10 @@
     UILabel* retailLabel = [self createLabel:@"店铺排名" frame:CGRectMake(40, 0, 120, 34) textColor:@"#ffffff" font:12 backgroundColor:nil];
     
     
-    UIImageView* calendarImageView = [self createImageViewFromNamedImage:@"图标-日历.png" frame:CGRectMake(160, 0, 34, 34)];
+    UIButton* calendarButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    calendarButton.frame =CGRectMake(160, 0, 34, 34);
+    [calendarButton setImage:[UIImage imageNamed:@"图标-日历.png"] forState:UIControlStateNormal];
+    [calendarButton addTarget:self action:@selector(openCalendar:) forControlEvents:UIControlEventTouchUpInside];
     
     NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
     [dateFormatter setDateFormat:@"MM月dd日 EEEE"];
@@ -70,7 +77,7 @@
     
     [dailyView addSubview:retailImageView];
     [dailyView addSubview:retailLabel];
-    [dailyView addSubview:calendarImageView];
+    [dailyView addSubview:calendarButton];
     [dailyView addSubview:calendarLabel];
     
     if([channels count]!=0){

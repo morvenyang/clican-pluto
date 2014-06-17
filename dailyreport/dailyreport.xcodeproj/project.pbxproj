@@ -27,6 +27,13 @@
 		722D42E7192C89F800350244 /* Retail.m in Sources */ = {isa = PBXBuildFile; fileRef = 722D42E6192C89F800350244 /* Retail.m */; };
 		722D42F3192C8AB600350244 /* RetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 722D42F2192C8AB600350244 /* RetailModel.m */; };
 		722D42F6192C8D6800350244 /* RetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 722D42F5192C8D6800350244 /* RetailViewController.m */; };
+		7237939719500AC900B336FD /* NSDate+Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 7237938919500AC900B336FD /* NSDate+Helpers.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		7237939819500AC900B336FD /* PMCalendarBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7237938B19500AC900B336FD /* PMCalendarBackgroundView.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		7237939919500AC900B336FD /* PMCalendarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7237938E19500AC900B336FD /* PMCalendarController.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		7237939A19500AC900B336FD /* PMCalendarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7237939119500AC900B336FD /* PMCalendarView.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		7237939B19500AC900B336FD /* PMDimmingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7237939319500AC900B336FD /* PMDimmingView.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		7237939C19500AC900B336FD /* PMPeriod.m in Sources */ = {isa = PBXBuildFile; fileRef = 7237939519500AC900B336FD /* PMPeriod.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		7237939F19500C9A00B336FD /* PMSelectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7237939E19500C9A00B336FD /* PMSelectionView.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		724480E319271E8A005F5BE5 /* Brand.m in Sources */ = {isa = PBXBuildFile; fileRef = 724480E219271E8A005F5BE5 /* Brand.m */; };
 		724480EF19273167005F5BE5 /* Channel.m in Sources */ = {isa = PBXBuildFile; fileRef = 724480EE19273167005F5BE5 /* Channel.m */; };
 		724480F2192732A8005F5BE5 /* BrandViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 724480F1192732A8005F5BE5 /* BrandViewController.m */; };
@@ -345,6 +352,23 @@
 		722D42F2192C8AB600350244 /* RetailModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RetailModel.m; sourceTree = "<group>"; };
 		722D42F4192C8D6800350244 /* RetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RetailViewController.h; sourceTree = "<group>"; };
 		722D42F5192C8D6800350244 /* RetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RetailViewController.m; sourceTree = "<group>"; };
+		7237938819500AC900B336FD /* NSDate+Helpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Helpers.h"; sourceTree = "<group>"; };
+		7237938919500AC900B336FD /* NSDate+Helpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Helpers.m"; sourceTree = "<group>"; };
+		7237938A19500AC900B336FD /* PMCalendarBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMCalendarBackgroundView.h; sourceTree = "<group>"; };
+		7237938B19500AC900B336FD /* PMCalendarBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMCalendarBackgroundView.m; sourceTree = "<group>"; };
+		7237938C19500AC900B336FD /* PMCalendarConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMCalendarConstants.h; sourceTree = "<group>"; };
+		7237938D19500AC900B336FD /* PMCalendarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMCalendarController.h; sourceTree = "<group>"; };
+		7237938E19500AC900B336FD /* PMCalendarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMCalendarController.m; sourceTree = "<group>"; };
+		7237938F19500AC900B336FD /* PMCalendarHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMCalendarHelpers.h; sourceTree = "<group>"; };
+		7237939019500AC900B336FD /* PMCalendarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMCalendarView.h; sourceTree = "<group>"; };
+		7237939119500AC900B336FD /* PMCalendarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMCalendarView.m; sourceTree = "<group>"; };
+		7237939219500AC900B336FD /* PMDimmingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMDimmingView.h; sourceTree = "<group>"; };
+		7237939319500AC900B336FD /* PMDimmingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMDimmingView.m; sourceTree = "<group>"; };
+		7237939419500AC900B336FD /* PMPeriod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMPeriod.h; sourceTree = "<group>"; };
+		7237939519500AC900B336FD /* PMPeriod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMPeriod.m; sourceTree = "<group>"; };
+		7237939619500AC900B336FD /* PMSelectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMSelectionView.h; sourceTree = "<group>"; };
+		7237939D19500ADA00B336FD /* PMCalendar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMCalendar.h; sourceTree = "<group>"; };
+		7237939E19500C9A00B336FD /* PMSelectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMSelectionView.m; sourceTree = "<group>"; };
 		724480E119271E8A005F5BE5 /* Brand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Brand.h; sourceTree = "<group>"; };
 		724480E219271E8A005F5BE5 /* Brand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Brand.m; sourceTree = "<group>"; };
 		724480ED19273167005F5BE5 /* Channel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Channel.h; sourceTree = "<group>"; };
@@ -601,6 +625,30 @@
 			path = chart;
 			sourceTree = "<group>";
 		};
+		7237937E19500AA900B336FD /* calendar */ = {
+			isa = PBXGroup;
+			children = (
+				7237939E19500C9A00B336FD /* PMSelectionView.m */,
+				7237939D19500ADA00B336FD /* PMCalendar.h */,
+				7237938819500AC900B336FD /* NSDate+Helpers.h */,
+				7237938919500AC900B336FD /* NSDate+Helpers.m */,
+				7237938A19500AC900B336FD /* PMCalendarBackgroundView.h */,
+				7237938B19500AC900B336FD /* PMCalendarBackgroundView.m */,
+				7237938C19500AC900B336FD /* PMCalendarConstants.h */,
+				7237938D19500AC900B336FD /* PMCalendarController.h */,
+				7237938E19500AC900B336FD /* PMCalendarController.m */,
+				7237938F19500AC900B336FD /* PMCalendarHelpers.h */,
+				7237939019500AC900B336FD /* PMCalendarView.h */,
+				7237939119500AC900B336FD /* PMCalendarView.m */,
+				7237939219500AC900B336FD /* PMDimmingView.h */,
+				7237939319500AC900B336FD /* PMDimmingView.m */,
+				7237939419500AC900B336FD /* PMPeriod.h */,
+				7237939519500AC900B336FD /* PMPeriod.m */,
+				7237939619500AC900B336FD /* PMSelectionView.h */,
+			);
+			path = calendar;
+			sourceTree = "<group>";
+		};
 		724F4F2D1935A06C0079F9A0 /* hy */ = {
 			isa = PBXGroup;
 			children = (
@@ -711,6 +759,7 @@
 		7285E3CB1925AFEE0011C2D6 /* dailyreport */ = {
 			isa = PBXGroup;
 			children = (
+				7237937E19500AA900B336FD /* calendar */,
 				724F4F2D1935A06C0079F9A0 /* hy */,
 				725AFEB019317A9B003BD9F3 /* weixin */,
 				720D607619315691004C7781 /* chart */,
@@ -1261,7 +1310,9 @@
 				72AD8606193309AF004CAE5F /* ChannelRank.m in Sources */,
 				724480EF19273167005F5BE5 /* Channel.m in Sources */,
 				72EB38A919270EAF00D0F225 /* LoginDataSource.m in Sources */,
+				7237939B19500AC900B336FD /* PMDimmingView.m in Sources */,
 				72EB38A619270E8D00D0F225 /* LoginViewController.m in Sources */,
+				7237939C19500AC900B336FD /* PMPeriod.m in Sources */,
 				72EB389B19270CA900D0F225 /* IndexDataSource.m in Sources */,
 				72783CD1192A25100098B3A8 /* LinkImageView.m in Sources */,
 				72AD8600193305AB004CAE5F /* StoreRankModel.m in Sources */,
@@ -1270,10 +1321,13 @@
 				72AD860919330B45004CAE5F /* StoreRankViewController.m in Sources */,
 				724F4F3F1935B7890079F9A0 /* SwipeScrollView.m in Sources */,
 				72623199192B4E7F00E3F99B /* SwitchViewController.m in Sources */,
+				7237939719500AC900B336FD /* NSDate+Helpers.m in Sources */,
 				72EB38A319270E7200D0F225 /* User.m in Sources */,
+				7237939819500AC900B336FD /* PMCalendarBackgroundView.m in Sources */,
 				720D6082193156AF004C7781 /* PieChartView.m in Sources */,
 				722D42F3192C8AB600350244 /* RetailModel.m in Sources */,
 				72AD8603193305D9004CAE5F /* Rank.m in Sources */,
+				7237939F19500C9A00B336FD /* PMSelectionView.m in Sources */,
 				72EB38B6192712DC00D0F225 /* MBProgressHUD.m in Sources */,
 				72EB388A192705E800D0F225 /* StyleSheet.m in Sources */,
 				722D42F6192C8D6800350244 /* RetailViewController.m in Sources */,
@@ -1283,9 +1337,11 @@
 				72138B83194EB53D009918BD /* CannotCancelUISwipeGestureRecognizer.m in Sources */,
 				7285E3D61925AFEE0011C2D6 /* AppDelegate.m in Sources */,
 				7285E3D21925AFEE0011C2D6 /* main.m in Sources */,
+				7237939A19500AC900B336FD /* PMCalendarView.m in Sources */,
 				722D42BC192C3A2E00350244 /* KPIModel.m in Sources */,
 				724480E319271E8A005F5BE5 /* Brand.m in Sources */,
 				72EB388E1927072D00D0F225 /* IndexViewController.m in Sources */,
+				7237939919500AC900B336FD /* PMCalendarController.m in Sources */,
 				72783CAC192A093E0098B3A8 /* IndexTableItem.m in Sources */,
 				72EB38AC19270EC100D0F225 /* LoginModel.m in Sources */,
 				726231A4192B745A00E3F99B /* KPIViewController.m in Sources */,

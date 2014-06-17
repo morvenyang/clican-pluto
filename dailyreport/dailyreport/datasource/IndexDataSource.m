@@ -45,7 +45,7 @@
     if(!_indexListModel.yesterday){
         NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
         [dateFormatter setDateFormat:@"MM月dd日 EEEE"];
-        TTAlert([NSString stringWithFormat:@"昨日数据未生成,当前数据未%@数据",[dateFormatter stringFromDate:_indexListModel.date]]);
+        TTAlert([NSString stringWithFormat:@"昨日数据未生成,当前数据为%@数据",[dateFormatter stringFromDate:_indexListModel.date]]);
     }
     TT_RELEASE_SAFELY(items);
 }

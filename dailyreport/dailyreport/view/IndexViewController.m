@@ -76,7 +76,7 @@
     [defaults removeObjectForKey:LAST_USER_NAME];
     [defaults removeObjectForKey:LAST_PASSWORD];
     [defaults removeObjectForKey:LAST_LOGIN_DATE];
-    
+    DrAppDelegate.user.date = nil;
     TTOpenURL(@"peacebird://login");
 }
 - (void)viewDidLoad
