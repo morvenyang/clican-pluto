@@ -52,7 +52,10 @@ public class DataServiceImpl implements DataService {
 		this.springProperty = springProperty;
 	}
 
-	private Date getYesterday() {
+	private Date getYesterday(Date date) {
+		if(date!=null){
+			return date;
+		}
 		Date yesterday = null;
 		try {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -73,7 +76,7 @@ public class DataServiceImpl implements DataService {
 
 	@Override
 	public String getIndexResult(String[] brands) {
-		Date yesterday = getYesterday();
+		Date yesterday = getYesterday(null);
 		Set<String> bSet = new HashSet<String>();
 		for (String brand : brands) {
 			bSet.add(brand);
@@ -104,8 +107,8 @@ public class DataServiceImpl implements DataService {
 	}
 
 	@Override
-	public String getBrandResult(String brand) {
-		Date yesterday = getYesterday();
+	public String getBrandResult(String brand, Date date) {
+		Date yesterday = getYesterday(date);
 
 		BrandResult br = this.dataDao.getBrandResult(yesterday, brand);
 		BrandStatResult bsr = new BrandStatResult();
@@ -146,32 +149,32 @@ public class DataServiceImpl implements DataService {
 		Double lastYearAmount = 0.0;
 
 		for (BrandResult b : bcr) {
-			if (b.getDayLike() !=null && b.getDayLike() != 0) {
+			if (b.getDayLike() != null && b.getDayLike() != 0) {
 				lastDayAmount += b.getDayAmount() / b.getDayLike();
 			} else {
 				lastDayAmount += b.getDayAmount();
 			}
-			if (b.getWeekLike() !=null && b.getWeekLike() != 0) {
+			if (b.getWeekLike() != null && b.getWeekLike() != 0) {
 				lastWeekAmount += b.getDayAmount() / b.getWeekLike();
 			} else {
 				lastWeekAmount += b.getDayAmount();
 			}
-			if (b.getYearLike() !=null && b.getYearLike() != 0) {
+			if (b.getYearLike() != null && b.getYearLike() != 0) {
 				lastYearAmount += b.getDayAmount() / b.getYearLike();
 			} else {
 				lastYearAmount += b.getDayAmount();
 			}
 		}
-		if(br.getDayAmount()!=null&&lastDayAmount!=0){
-			br.setDayLike(br.getDayAmount()/lastDayAmount);
+		if (br.getDayAmount() != null && lastDayAmount != 0) {
+			br.setDayLike(br.getDayAmount() / lastDayAmount);
 		}
-		if(br.getWeekAmount()!=null&&lastWeekAmount!=0){
-			br.setWeekLike(br.getDayAmount()/lastWeekAmount);
+		if (br.getWeekAmount() != null && lastWeekAmount != 0) {
+			br.setWeekLike(br.getDayAmount() / lastWeekAmount);
 		}
-		if(br.getYearAmount()!=null&&lastYearAmount!=0){
-			br.setYearLike(br.getDayAmount()/lastYearAmount);
+		if (br.getYearAmount() != null && lastYearAmount != 0) {
+			br.setYearLike(br.getDayAmount() / lastYearAmount);
 		}
-		
+
 		Collections.sort(bcr);
 		bsr.setBrand(brand);
 		bsr.setResult(0);
@@ -189,9 +192,9 @@ public class DataServiceImpl implements DataService {
 	}
 
 	@Override
-	public String getRetailResult(String brand) {
+	public String getRetailResult(String brand, Date date) {
 		RetailStatResult rsr = new RetailStatResult();
-		Date yesterday = getYesterday();
+		Date yesterday = getYesterday(date);
 		List<RetailResult> channelRetail = this.dataDao.getRetailChannelResult(
 				yesterday, brand);
 		Collections.sort(channelRetail);
@@ -217,8 +220,9 @@ public class DataServiceImpl implements DataService {
 	}
 
 	@Override
-	public List<RetailResult> getRetailChartResult(String brand, String type) {
-		Date yesterday = getYesterday();
+	public List<RetailResult> getRetailChartResult(String brand, String type,
+			Date date) {
+		Date yesterday = getYesterday(date);
 		List<RetailResult> list = null;
 		if (type.equals("channel")) {
 			list = this.dataDao.getRetailChannelResult(yesterday, brand);
@@ -233,19 +237,19 @@ public class DataServiceImpl implements DataService {
 			if (rr.getDayAmount() != null) {
 				rr.setDayAmount(rr.getDayAmount() / 10000);
 			}
-			total+=rr.getDayAmount();
+			total += rr.getDayAmount();
 		}
-		if(total!=0){
+		if (total != 0) {
 			for (RetailResult rr : list) {
-				rr.setPercent(rr.getDayAmount()/total);
+				rr.setPercent(rr.getDayAmount() / total);
 			}
 		}
 		return list;
 	}
 
 	@Override
-	public String getChannelResult(String brand) {
-		Date yesterday = getYesterday();
+	public String getChannelResult(String brand, Date date) {
+		Date yesterday = getYesterday(date);
 		List<ChannelResult> channelResult = this.dataDao.getChannelResult(
 				yesterday, brand);
 		ChannelStatResult csr = new ChannelStatResult();
@@ -262,8 +266,8 @@ public class DataServiceImpl implements DataService {
 	}
 
 	@Override
-	public String getStoreRankResult(String brand) {
-		Date yesterday = getYesterday();
+	public String getStoreRankResult(String brand, Date date) {
+		Date yesterday = getYesterday(date);
 		List<String> channels = this.dataDao.getAllChannelForRank(yesterday,
 				brand);
 		List<ChannelRankResult> crrList = new ArrayList<ChannelRankResult>();

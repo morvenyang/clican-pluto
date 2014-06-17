@@ -1,6 +1,8 @@
 package com.peacebird.dataserver.controller;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -128,6 +130,7 @@ public class ClientController {
 
 	@RequestMapping("/brand")
 	public void brand(@RequestParam(value = "brand") String brand,
+			@RequestParam(value = "date", required = false) String date,
 			HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		if (log.isDebugEnabled()) {
@@ -138,7 +141,7 @@ public class ClientController {
 		if (user == null) {
 			result = this.getNotLoginResult();
 		} else {
-			result = this.dataService.getBrandResult(brand);
+			result = this.dataService.getBrandResult(brand,getDate(date));
 		}
 		try {
 			resp.setContentType("application/json");
@@ -150,6 +153,7 @@ public class ClientController {
 
 	@RequestMapping("/retail")
 	public void retail(@RequestParam(value = "brand") String brand,
+			@RequestParam(value = "date", required = false) String date,
 			HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		if (log.isDebugEnabled()) {
@@ -160,7 +164,7 @@ public class ClientController {
 		if (user == null) {
 			result = this.getNotLoginResult();
 		} else {
-			result = this.dataService.getRetailResult(brand);
+			result = this.dataService.getRetailResult(brand,getDate(date));
 		}
 		try {
 			resp.setContentType("application/json");
@@ -172,13 +176,15 @@ public class ClientController {
 
 	@RequestMapping("/retailChart")
 	public void retailChart(@RequestParam(value = "brand") String brand,
-			@RequestParam(value = "type") String type, HttpServletRequest req,
+			@RequestParam(value = "type") String type,
+			@RequestParam(value = "date", required = false) String date,
+			HttpServletRequest req,
 			HttpServletResponse resp) throws ServletException, IOException {
 		if (log.isDebugEnabled()) {
 			log.debug("access retail chart page");
 		}
 		List<RetailResult> result = this.dataService.getRetailChartResult(
-				brand, type);
+				brand, type,getDate(date));
 		Integer total = 0;
 		for (RetailResult rr : result) {
 			if (rr.getDayAmount() != null) {
@@ -208,6 +214,7 @@ public class ClientController {
 	 */
 	@RequestMapping("/channel")
 	public void channel(@RequestParam(value = "brand") String brand,
+			@RequestParam(value = "date", required = false) String date,
 			HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		if (log.isDebugEnabled()) {
@@ -218,7 +225,7 @@ public class ClientController {
 		if (user == null) {
 			result = this.getNotLoginResult();
 		} else {
-			result = this.dataService.getChannelResult(brand);
+			result = this.dataService.getChannelResult(brand,getDate(date));
 		}
 		try {
 			resp.setContentType("application/json");
@@ -230,6 +237,7 @@ public class ClientController {
 
 	@RequestMapping("/storeRank")
 	public void storeRank(@RequestParam(value = "brand") String brand,
+			@RequestParam(value = "date", required = false) String date,
 			HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		if (log.isDebugEnabled()) {
@@ -240,7 +248,7 @@ public class ClientController {
 		if (user == null) {
 			result = this.getNotLoginResult();
 		} else {
-			result = this.dataService.getStoreRankResult(brand);
+			result = this.dataService.getStoreRankResult(brand,getDate(date));
 		}
 		try {
 			resp.setContentType("application/json");
@@ -248,5 +256,18 @@ public class ClientController {
 		} catch (Exception e) {
 			log.error("", e);
 		}
+	}
+
+	private Date getDate(String strDate) {
+		if (StringUtils.isEmpty(strDate)) {
+			return null;
+		}
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+		try {
+			return sdf.parse(strDate);
+		} catch (Exception e) {
+			log.error("", e);
+		}
+		return null;
 	}
 }
