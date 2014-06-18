@@ -85,16 +85,16 @@
     [cancelButton setImage:cancelImage forState:UIControlStateNormal];
     [cancelButton addTarget:self action:@selector(hideShareView) forControlEvents:UIControlEventTouchUpInside];
 
-    UIButton* shareTimelineButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    shareTimelineButton.frame =CGRectMake(120, 30, 80, 80);
-    UIImage* shareTimelineImage= [UIImage imageNamed:@"图标-微信朋友圈.png"];
-    [shareTimelineButton setImage:shareTimelineImage forState:UIControlStateNormal];
-    [shareTimelineButton addTarget:self action:@selector(sendTimelineImageContent) forControlEvents:UIControlEventTouchUpInside];
-    UILabel* shareTimelineLabel = [self createLabel:@"微信好友" frame:CGRectMake(120, 110, 80, 20) textColor:@"#849484" font:14 backgroundColor:nil textAlignment:NSTextAlignmentCenter];
+    UIButton* wxButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    wxButton.frame =CGRectMake(120, 30, 80, 80);
+    UIImage* wxImage= [UIImage imageNamed:@"图标-微信好友.png"];
+    [wxButton setImage:wxImage forState:UIControlStateNormal];
+    [wxButton addTarget:self action:@selector(sendWXContent) forControlEvents:UIControlEventTouchUpInside];
+    UILabel* wxLabel = [self createLabel:@"微信好友" frame:CGRectMake(120, 110, 80, 20) textColor:@"#849484" font:14 backgroundColor:nil textAlignment:NSTextAlignmentCenter];
     [self.shareView addSubview:cancelButton];
 
-    [self.shareView addSubview:shareTimelineButton];
-    [self.shareView addSubview:shareTimelineLabel];
+    [self.shareView addSubview:wxButton];
+    [self.shareView addSubview:wxLabel];
     [self.shareView addSubview:cancelButton];
     [self.backgroundShareView addSubview:self.shareView];
 }
@@ -290,27 +290,8 @@
     }
     
 }
-- (void) sendSessionImageContent
-{
-    [self hideShareView];
-    WXMediaMessage *message = [WXMediaMessage message];
-    UIImage* screenShot = self.preScreenShot;
-    UIImage *thumbImage = [self imageWithImage:screenShot scaledToSize:CGSizeMake(32,64)];
-    [message setThumbImage:thumbImage];
-    
-    WXImageObject *ext = [WXImageObject object];
-    ext.imageData = UIImagePNGRepresentation(screenShot);
-    NSLog(@"%i",ext.imageData.length/1024);
-    message.mediaObject = ext;
-    
-    SendMessageToWXReq* req = [[[SendMessageToWXReq alloc] init]autorelease];
-    req.bText = NO;
-    req.message = message;
-    req.scene = WXSceneSession;
-    
-    [WXApi sendReq:req];
-}
-- (void) sendTimelineImageContent
+
+- (void) sendWXContent
 {
     [self hideShareView];
     WXMediaMessage *message = [WXMediaMessage message];
@@ -329,7 +310,7 @@
     SendMessageToWXReq* req = [[[SendMessageToWXReq alloc] init]autorelease];
     req.bText = NO;
     req.message = message;
-    req.scene = WXSceneTimeline;
+    req.scene = WXSceneSession;
     
     [WXApi sendReq:req];
 }
