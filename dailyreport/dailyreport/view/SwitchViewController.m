@@ -18,6 +18,7 @@
 @synthesize shareView = _shareView;
 @synthesize backgroundShareView = _backgroundShareView;
 @synthesize preScreenShot = _preScreenShot;
+@synthesize selectedDate = _selectedDate;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -123,6 +124,10 @@
     self.navigationItem.titleView = label;
     [label sizeToFit];
     [self.contentView setContentOffset:CGPointZero animated:NO];
+    if(self.selectedDate!=nil&&![self.selectedDate isEqualToDate:DrAppDelegate.user.date]){
+        NSLog(@"当前页面时间和选择的时间不同，重新加载该页面数据");
+        [self changeDateAndReload];
+    }
     [super viewWillAppear:animated];
 }
 
@@ -243,14 +248,13 @@
     }];
 }
 -(void)openCalendar:(id)sender{
-//    UIButton* b = (UIButton*)sender;
-//    PMCalendarController* pmCC = [[[PMCalendarController alloc] init] autorelease];
-//    pmCC.delegate = self;
-//    pmCC.mondayFirstDayOfWeek = YES;
-//    
-//    [pmCC presentCalendarFromView:b
-//         permittedArrowDirections:PMCalendarArrowDirectionAny
-//                         animated:YES];
+    UIButton* b = (UIButton*)sender;
+    PMCalendarController* pmCC = [[[PMCalendarController alloc] init] autorelease];
+    pmCC.delegate = self;
+    pmCC.mondayFirstDayOfWeek = YES;
+    [pmCC presentCalendarFromView:b
+    permittedArrowDirections:PMCalendarArrowDirectionAny
+                        animated:YES];
 }
 
 #pragma mark PMCalendarControllerDelegate methods
@@ -263,7 +267,9 @@
     [self changeDateAndReload];
 }
 -(void)changeDateAndReload{
-    
+    for(UIView* view in [self.contentView subviews]){
+        [view removeFromSuperview];
+    }
 }
 -(void) showShareView:(id)sender{
     
@@ -333,6 +339,7 @@
     TT_RELEASE_SAFELY(_shareView);
     TT_RELEASE_SAFELY(_backgroundShareView);
     TT_RELEASE_SAFELY(_preScreenShot);
+    TT_RELEASE_SAFELY(_selectedDate);
     [super dealloc];
 }
 

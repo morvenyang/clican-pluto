@@ -44,6 +44,7 @@
 }
 
 -(void)changeDateAndReload{
+    [super changeDateAndReload];
     [self.brandModel load:TTURLRequestCachePolicyNone more:NO];
 }
 -(void)closePrompt:(id)sender{
@@ -61,6 +62,7 @@
 
 - (void) brandDidFinishLoad:(Brand*) brand channels:(NSArray*) channels weeks:(NSArray*) weeks{
      NSLog(@"%@",@"加载Brand数据成功");
+    self.selectedDate = brand.date;
     UIView* dailyView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 166)] autorelease];
     NSString* imageName = [NSString stringWithFormat:@"每日收入%@背景.png",self.brand];
     dailyView.backgroundColor =[UIColor colorWithPatternImage:[UIImage imageNamed:imageName]];
