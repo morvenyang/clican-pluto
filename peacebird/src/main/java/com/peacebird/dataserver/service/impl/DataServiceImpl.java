@@ -30,6 +30,7 @@ import com.peacebird.dataserver.bean.RankStatResult;
 import com.peacebird.dataserver.bean.RetailResult;
 import com.peacebird.dataserver.bean.RetailStatResult;
 import com.peacebird.dataserver.bean.SpringProperty;
+import com.peacebird.dataserver.bean.comp.ChannelComparator;
 import com.peacebird.dataserver.dao.DataDao;
 import com.peacebird.dataserver.model.DimBrand;
 import com.peacebird.dataserver.service.DataService;
@@ -53,7 +54,7 @@ public class DataServiceImpl implements DataService {
 	}
 
 	private Date getYesterday(Date date) {
-		if(date!=null){
+		if (date != null) {
 			return date;
 		}
 		Date yesterday = null;
@@ -271,14 +272,15 @@ public class DataServiceImpl implements DataService {
 		Date yesterday = getYesterday(date);
 		List<String> channels = this.dataDao.getAllChannelForRank(yesterday,
 				brand);
+		Collections.sort(channels, new ChannelComparator());
 		List<ChannelRankResult> crrList = new ArrayList<ChannelRankResult>();
-		Collections.sort(crrList);
+
 		List<RankResult> allRankResult = this.dataDao.getAllRankResult(
 				yesterday, brand);
 		ChannelRankResult acrr = new ChannelRankResult();
 		acrr.setChannel("全部");
 		acrr.setRanks(allRankResult);
-		crrList.add(0,acrr);
+		crrList.add(0, acrr);
 
 		for (String channel : channels) {
 			List<RankResult> rankResult = this.dataDao.getRankResult(yesterday,
