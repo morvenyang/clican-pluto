@@ -190,7 +190,7 @@
 				<artifactId>maven-war-plugin</artifactId>
 				<version>2.4</version>
 				<configuration>
-					<warName>pearcbird</warName>
+					<warName>peacebird</warName>
 				</configuration>
 			</plugin>
 			<plugin>
