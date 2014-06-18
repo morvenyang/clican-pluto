@@ -19,6 +19,7 @@
     BOOL _swiping;
     CGFloat _swipeStartPoint;
     CGFloat _swipeEndPoint;
+    NSDate* _selectedDate;
 }
 @property (nonatomic, retain) SwipeScrollView *contentView;
 @property (nonatomic, copy) NSString *brand;
@@ -26,6 +27,7 @@
 @property (nonatomic, retain) UIView *shareView;
 @property (nonatomic, retain) UIView *backgroundShareView;
 @property (nonatomic, retain) UIImage *preScreenShot;
+@property (nonatomic, retain) NSDate *selectedDate;
 -(void) backAction;
 -(UIImageView*) createImageViewFromNamedImage:(NSString*) imageName frame:(CGRect) frame;
 -(UIImageView*) createImageViewFromColor:(UIColor*) color frame:(CGRect) frame;

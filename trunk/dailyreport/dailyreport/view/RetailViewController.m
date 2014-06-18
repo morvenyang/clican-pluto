@@ -50,10 +50,7 @@
     return self;
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    
-}
+
 -(void)handleGesture:(UISwipeGestureRecognizer*)gestureRecognizer{
     UISwipeGestureRecognizerDirection direction =gestureRecognizer.direction;
     if(direction==UISwipeGestureRecognizerDirectionLeft){
@@ -92,6 +89,7 @@
 }
 
 -(void)changeDateAndReload{
+    [super changeDateAndReload];
     [self.retailModel load:TTURLRequestCachePolicyNone more:NO];
 }
 - (void)viewDidLoad
@@ -102,7 +100,7 @@
 
 - (void) brandDidFinishLoad:(NSArray*) channels sorts:(NSArray*) sorts regions:(NSArray*) regions date:(NSDate*) date{
     NSLog(@"%@",@"加载Brand Retail数据成功");
-    
+    self.selectedDate = date;
     self.channels = channels;
     self.regions = regions;
     self.sorts = sorts;

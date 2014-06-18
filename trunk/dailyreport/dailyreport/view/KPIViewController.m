@@ -42,6 +42,7 @@
     [self.kpiModel load:TTURLRequestCachePolicyNone more:NO];
 }
 -(void)changeDateAndReload{
+    [super changeDateAndReload];
     [self.kpiModel load:TTURLRequestCachePolicyNone more:NO];
 }
 - (void)viewDidLoad
@@ -69,6 +70,7 @@
 }
 - (void) brandDidFinishLoad:(NSArray*) channels date:(NSDate*) date{
     NSLog(@"%@",@"加载Brand KPI数据成功");
+    self.selectedDate = date;
     self.channels = channels;
     UIView* dailyView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 34)] autorelease];
     NSString* imageName = [NSString stringWithFormat:@"每日收入%@背景.png",self.brand];
