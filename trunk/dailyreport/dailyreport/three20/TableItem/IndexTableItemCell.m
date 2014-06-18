@@ -49,7 +49,7 @@
 
 - (void)layoutSubviews {
 	[super layoutSubviews];
-    _label.frame = CGRectMake(250, 40, 70, 30);
+    _label.frame = CGRectMake(200, 40, 70, 30);
     _label.font = [UIFont fontWithName:@"HelveticaNeue-UltraLight" size:30];
 
     if([self.indexItem.backgroundImage isEqualToString:@"首页童装.png"]){
@@ -57,7 +57,8 @@
     }else{
         _label.textColor = [StyleSheet colorFromHexString:@"#ffffff"];
     }
-    _label.contentMode = UIViewContentModeCenter;
+    _label.contentMode = UIViewContentModeRight;
+    _label.textAlignment = NSTextAlignmentRight;
     _label.backgroundColor = [UIColor clearColor];
 }
 

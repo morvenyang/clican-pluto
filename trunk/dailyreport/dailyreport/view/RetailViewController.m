@@ -110,7 +110,7 @@
     NSString* imageName = [NSString stringWithFormat:@"每日收入%@背景.png",self.brand];
     dailyView.backgroundColor =[UIColor colorWithPatternImage:[UIImage imageNamed:imageName]];
     
-    UIImageView* retailImageView = [self createImageViewFromNamedImage:@"图标-零售收入.png" frame:CGRectMake(0, 0, 34, 34)];
+    UIImageView* retailImageView = [self createImageViewFromNamedImage:@"图标-小钱袋.png" frame:CGRectMake(0, 0, 34, 34)];
     
     
     UILabel* retailLabel = [self createLabel:@"零售额明细" frame:CGRectMake(40, 0, 120, 34) textColor:@"#ffffff" font:12 backgroundColor:nil];
