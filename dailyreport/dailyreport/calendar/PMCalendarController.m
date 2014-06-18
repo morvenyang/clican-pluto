@@ -60,7 +60,7 @@ NSString *kPMCalendarRedrawNotification = @"kPMCalendarRedrawNotification";
 
 #pragma mark - object initializers -
 
-- (void) initializeWithSize:(CGSize) size
+- (void) initializeWithSize:(CGSize) size date:(NSDate*)date
 {
     self.calendarArrowDirection = PMCalendarArrowDirectionUnknown;
     
@@ -84,7 +84,7 @@ NSString *kPMCalendarRedrawNotification = @"kPMCalendarRedrawNotification";
                                                                         , innerPadding.width
                                                                         , innerPadding.height)];
     self.digitsView.delegate = self;
-    self.digitsView.period = [PMPeriod oneDayPeriodWithDate:[NSDate date]];    
+    self.digitsView.period = [PMPeriod oneDayPeriodWithDate:date];
 
     [self.calendarView addSubview:self.digitsView];
     [self.mainView addSubview:self.calendarView];
@@ -100,7 +100,7 @@ NSString *kPMCalendarRedrawNotification = @"kPMCalendarRedrawNotification";
         return nil;
     }
     
-    [self initializeWithSize: size];
+    [self initializeWithSize: size date:[NSDate date]];
     
     return self;
 }
@@ -110,6 +110,14 @@ NSString *kPMCalendarRedrawNotification = @"kPMCalendarRedrawNotification";
     return [self initWithSize: defaultSize];
 }
 
+- (id) initWithDate:(NSDate*) date{
+    if (!(self = [super init]))
+    {
+        return nil;
+    }
+    [self initializeWithSize: defaultSize date:date];
+    return self;
+}
 #pragma mark - rotation handling -
 
 - (void)didRotate:(NSNotification *) notice
@@ -418,7 +426,7 @@ NSString *kPMCalendarRedrawNotification = @"kPMCalendarRedrawNotification";
 {
     if ([self.delegate respondsToSelector:@selector(calendarController:didChangePeriod:)])
     {
-        [self.delegate calendarController:self didChangePeriod:[newPeriod normalizedPeriod]];
+        [self.delegate calendarController:self didChangePeriod:newPeriod];
     }
 }
 

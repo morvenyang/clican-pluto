@@ -249,8 +249,9 @@
 }
 -(void)openCalendar:(id)sender{
     UIButton* b = (UIButton*)sender;
-    PMCalendarController* pmCC = [[[PMCalendarController alloc] init] autorelease];
+    PMCalendarController* pmCC = [[[PMCalendarController alloc] initWithDate:self.selectedDate] autorelease];
     pmCC.delegate = self;
+    pmCC.allowsPeriodSelection = NO;
     pmCC.mondayFirstDayOfWeek = YES;
     [pmCC presentCalendarFromView:b
     permittedArrowDirections:PMCalendarArrowDirectionAny
@@ -265,6 +266,7 @@
     DrAppDelegate.user.date = date;
     [calendarController dismissCalendarAnimated:YES];
     [self changeDateAndReload];
+    
 }
 -(void)changeDateAndReload{
     for(UIView* view in [self.contentView subviews]){

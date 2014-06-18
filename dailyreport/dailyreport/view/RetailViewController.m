@@ -10,6 +10,7 @@
 #import "StyleSheet.h"
 #import "Retail.h"
 #import "CannotCancelUISwipeGestureRecognizer.h"
+#import "AppDelegate.h"
 @implementation RetailViewController
 
 @synthesize retailModel = _retailModel;
@@ -180,7 +181,16 @@
 
 -(void) updateTab:(NSString*) type{
     [self.contentView addSubview:self.webPieChartView];
-    [self.webPieChartView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/retailChart.do?brand=%@&type=%@",BASE_URL,[self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],type]]]];
+    NSString* url =[NSString stringWithFormat:@"%@/retailChart.do?brand=%@&type=%@",BASE_URL,[self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],type];
+    if(DrAppDelegate.user.date!=nil){
+        NSDateFormatter* dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+        [dateFormatter setTimeStyle:NSDateFormatterFullStyle];
+        [dateFormatter setDateFormat:@"yyyyMMdd"];
+        NSString* strDate = [dateFormatter stringFromDate:DrAppDelegate.user.date];
+        url = [url stringByAppendingFormat:@"&date=%@",strDate];
+    }
+    
+    [self.webPieChartView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]];
     self.contentView.contentSize =
     CGSizeMake(320, 390+self.selectedData.count*30);
 }
