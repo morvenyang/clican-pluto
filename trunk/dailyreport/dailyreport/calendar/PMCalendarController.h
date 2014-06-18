@@ -108,6 +108,7 @@
  */
 @property (nonatomic, assign) CGSize size;
 
+- (id) initWithDate:(NSDate*) date;
 @end
 
 
