@@ -102,7 +102,7 @@
     
     retailAmountLabel.textColor = [UIColor whiteColor];
     retailAmountLabel.backgroundColor = [UIColor clearColor];
-    
+    retailAmountLabel.textAlignment = NSTextAlignmentCenter;
     UILabel* retailLikeLabel = [self createLabel:[NSString stringWithFormat:@"%0.1f%@",brand.dayLike.floatValue*100,@"%"] frame:CGRectMake(40, 130, 120, 30) textColor:@"#ffffff" font:20 backgroundColor:nil];
     for(int i=0;i<channels.count;i++){
         Channel* channel = [channels objectAtIndex:i];
