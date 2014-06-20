@@ -1,5 +1,8 @@
 package com.peacebird.dataserver.bean;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class RetailResult implements Comparable<RetailResult> {
 
 	private String type;// channel, sort, region
@@ -9,6 +12,7 @@ public class RetailResult implements Comparable<RetailResult> {
 	private Integer dayAmount;
 
 	private Double percent;
+	
 
 	public RetailResult(String type, String name, Number dayAmount) {
 		this.type = type;
@@ -105,6 +109,27 @@ public class RetailResult implements Comparable<RetailResult> {
 		this.percent = percent;
 	}
 
+	public Map<String, Object> getLabel() {
+		Map<String,Object> label = new HashMap<String,Object>();
+		label.put("align", "center");
+		return label;
+	}
+
+
+
+	public String getLineBreakLabel(){
+		if(this.name==null){
+			return this.name;
+		}
+		String result = "";
+		int index = 0;
+		while(this.name.length()>index+4){
+			result += this.name.substring(index,index+4)+"\n";
+			index+=4;
+		}
+		result+=this.name.substring(index);
+		return result;
+	}
 	public String getDescription() {
 		if (percent != null) {
 			String da = dayAmount + "";
