@@ -49,8 +49,8 @@
 
 - (void)layoutSubviews {
 	[super layoutSubviews];
-    _label.frame = CGRectMake(200, 40, 70, 30);
-    _label.font = [UIFont fontWithName:@"HelveticaNeue-UltraLight" size:30];
+    _label.frame = CGRectMake(180, 30, 120, 40);
+    _label.font = [UIFont fontWithName:@"HelveticaNeue-UltraLight" size:40];
 
     if([self.indexItem.backgroundImage isEqualToString:@"首页童装.png"]){
         _label.textColor = [StyleSheet colorFromHexString:@"#505050"];

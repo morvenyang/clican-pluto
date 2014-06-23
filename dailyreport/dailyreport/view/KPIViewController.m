@@ -55,7 +55,7 @@
     Channel* channel = nil;
     for(UILabel* l in self.channelLables){
         l.textColor = [UIColor whiteColor];
-        l.backgroundColor = [UIColor blackColor];
+        l.backgroundColor = [StyleSheet colorFromHexString:@"#bdbdbd"];
     }
     channelLabel.textColor = [StyleSheet colorFromHexString:@"#636363"];
     channelLabel.backgroundColor =[StyleSheet colorFromHexString:@"#ffffff"];
@@ -108,7 +108,7 @@
             channelLabel.textAlignment = NSTextAlignmentCenter;
             if(index!=0){
                 channelLabel.textColor = [UIColor whiteColor];
-                channelLabel.backgroundColor = [UIColor blackColor];
+                channelLabel.backgroundColor = [StyleSheet colorFromHexString:@"#bdbdbd"];
             }
             [self.contentView addSubview:channelLabel];
             [self.channelLables addObject:channelLabel];
@@ -124,12 +124,14 @@
     
     [self.contentView addSubview:[self createImageViewFromNamedImage:@"零售收入.png" frame:CGRectMake(20,114,24,24)]];
     [self.contentView addSubview:[self createLabel:@"零售额" frame:CGRectMake(50,100,100,49) textColor:@"#4a4a4a" font:18 backgroundColor:nil]];
-    self.dayAmountLabel =[self createLabel:[NSString stringWithFormat:@"%d 万元",channel.dayAmount.intValue/10000] frame:CGRectMake(200,100,100,49) textColor:@"#7f7f7f" font:18 backgroundColor:nil];
+    [self.contentView addSubview:[self createDecimalLabel:[NSNumber numberWithInt:channel.dayAmount.intValue/10000] unit:@"万元" frame:CGRectMake(200,100,100,49) textColor:@"#7f7f7f" font:18 backgroundColor:nil textAlignment:NSTextAlignmentLeft]];
+
+
     [self.contentView addSubview:self.dayAmountLabel];
     [self.contentView addSubview:[self createImageViewFromNamedImage:@"关键指标-分割线.png" frame:CGRectMake(0,157,320,3)]];
     [self.contentView addSubview:[self createImageViewFromNamedImage:@"票数.png" frame:CGRectMake(20,174,24,24)]];
     [self.contentView addSubview:[self createLabel:@"票数" frame:CGRectMake(50,160,100,49) textColor:@"#4a4a4a" font:18 backgroundColor:nil]];
-    self.docNumberLabel =[self createLabel:[NSString stringWithFormat:@"%d",channel.docNumber.intValue] frame:CGRectMake(200,160,100,49) textColor:@"#7f7f7f" font:18 backgroundColor:nil];
+    self.docNumberLabel =[self createDecimalLabel:[NSNumber numberWithInt:channel.docNumber.intValue] frame:CGRectMake(200,160,100,49) textColor:@"#7f7f7f" font:18 backgroundColor:nil textAlignment:NSTextAlignmentLeft];
     [self.contentView addSubview:self.docNumberLabel];
     [self.contentView addSubview:[self createImageViewFromNamedImage:@"关键指标-分割线.png" frame:CGRectMake(0,217,320,3)]];
     [self.contentView addSubview:[self createImageViewFromNamedImage:@"附加.png" frame:CGRectMake(20,234,24,24)]];
@@ -139,12 +141,12 @@
     [self.contentView addSubview:[self createImageViewFromNamedImage:@"关键指标-分割线.png" frame:CGRectMake(0,277,320,3)]];
     [self.contentView addSubview:[self createImageViewFromNamedImage:@"件单价.png" frame:CGRectMake(20,294,24,24)]];
     [self.contentView addSubview:[self createLabel:@"件单价" frame:CGRectMake(50,280,100,49) textColor:@"#4a4a4a" font:18 backgroundColor:nil]];
-    self.avgPriceLabel =[self createLabel:[NSString stringWithFormat:@"%d 元",channel.avgPrice.intValue] frame:CGRectMake(200,280,100,49) textColor:@"#7f7f7f" font:18 backgroundColor:nil];
+    self.avgPriceLabel =[self createDecimalLabel:[NSNumber numberWithInt:channel.avgPrice.intValue] unit:@"元" frame:CGRectMake(200,280,100,49) textColor:@"#7f7f7f" font:18 backgroundColor:nil textAlignment:NSTextAlignmentLeft];
     [self.contentView addSubview:self.avgPriceLabel];
     [self.contentView addSubview:[self createImageViewFromNamedImage:@"关键指标-分割线.png" frame:CGRectMake(0,337,320,3)]];
     [self.contentView addSubview:[self createImageViewFromNamedImage:@"单效.png" frame:CGRectMake(20,356,24,24)]];
     [self.contentView addSubview:[self createLabel:@"坪效" frame:CGRectMake(50,340,100,49) textColor:@"#4a4a4a" font:18 backgroundColor:nil]];
-    self.apsLabel =[self createLabel:[NSString stringWithFormat:@"%d 元",channel.aps.intValue] frame:CGRectMake(200,340,100,49) textColor:@"#7f7f7f" font:18 backgroundColor:nil];
+    self.apsLabel =[self createDecimalLabel:[NSNumber numberWithInt:channel.aps.intValue] unit:@"元" frame:CGRectMake(200,340,100,49) textColor:@"#7f7f7f" font:18 backgroundColor:nil textAlignment:NSTextAlignmentLeft];
     [self.contentView addSubview:self.apsLabel];
     [self.contentView addSubview:[self createImageViewFromNamedImage:@"关键指标-背景花纹.png" frame:CGRectMake(0,397,320,7)]];
     
@@ -154,11 +156,18 @@
 }
 
 -(void) updateChannel:(Channel*) channel{
-    self.dayAmountLabel.text =[NSString stringWithFormat:@"%d 万元",channel.dayAmount.intValue/10000];
-    self.docNumberLabel.text = [NSString stringWithFormat:@"%d",channel.docNumber.intValue];
+    NSNumberFormatter* formatter = [[[NSNumberFormatter alloc]init] autorelease];
+    formatter.numberStyle = NSNumberFormatterDecimalStyle;
+    
+    self.dayAmountLabel.text = [NSString stringWithFormat:@"%@ %@",[formatter stringFromNumber:[NSNumber numberWithInt:channel.dayAmount.intValue/10000]],@"万元"];
+    
+    self.docNumberLabel.text =
+    [NSString stringWithFormat:@"%@",[formatter stringFromNumber:[NSNumber numberWithInt:channel.docNumber.intValue]]];
+
     self.avgDocCountLabel.text = [NSString stringWithFormat:@"%0.1f",channel.avgDocCount.doubleValue];
-    self.avgPriceLabel.text = [NSString stringWithFormat:@"%d 元",channel.avgPrice.intValue];
-    self.apsLabel.text = [NSString stringWithFormat:@"%d 元",channel.aps.intValue];
+    self.avgPriceLabel.text =[NSString stringWithFormat:@"%@ %@",[formatter stringFromNumber:[NSNumber numberWithInt:channel.avgPrice.intValue]],@"元"];
+    
+    self.apsLabel.text = [NSString stringWithFormat:@"%@ %@",[formatter stringFromNumber:[NSNumber numberWithInt:channel.aps.intValue]],@"元"];
 }
 
 - (void) brandDidStartLoad:(NSString*) brand{

@@ -75,9 +75,11 @@
             brand.brand = [jsonBrand objectForKey:@"brand"];
             brand.dayAmount = [jsonBrand objectForKey:@"dayAmount"];
             brand.weekAmount = [jsonBrand objectForKey:@"weekAmount"];
+            brand.monthAmount = [jsonBrand objectForKey:@"monthAmount"];
             brand.yearAmount = [jsonBrand objectForKey:@"yearAmount"];
             brand.dayLike = [jsonBrand objectForKey:@"dayLike"];
             brand.weekLike = [jsonBrand objectForKey:@"weekLike"];
+            brand.monthLike = [jsonBrand objectForKey:@"monthLike"];
             brand.yearLike = [jsonBrand objectForKey:@"yearLike"];
             NSLog(@"%@",[jsonBrand objectForKey:@"date"]);
             brand.date = [dateFormatter dateFromString:[jsonBrand objectForKey:@"date"]];

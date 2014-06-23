@@ -94,7 +94,7 @@
             channelLabel.textAlignment = NSTextAlignmentCenter;
             if(index!=0){
                 channelLabel.textColor = [UIColor whiteColor];
-                channelLabel.backgroundColor = [UIColor blackColor];
+                channelLabel.backgroundColor = [StyleSheet colorFromHexString:@"#bdbdbd"];
             }
             [self.contentView addSubview:channelLabel];
             [self.channelLables addObject:channelLabel];
@@ -116,7 +116,7 @@
     ChannelRank* channel = nil;
     for(UILabel* l in self.channelLables){
         l.textColor = [UIColor whiteColor];
-        l.backgroundColor = [UIColor blackColor];
+        l.backgroundColor = [StyleSheet colorFromHexString:@"#bdbdbd"];
     }
     channelLabel.textColor = [StyleSheet colorFromHexString:@"#636363"];
     channelLabel.backgroundColor =[StyleSheet colorFromHexString:@"#ffffff"];
@@ -140,7 +140,7 @@
         UILabel* label =[self createLabel:[NSString stringWithFormat:@"%i",i+1] frame:CGRectMake(0, 130+i*42, 50, 40) textColor:@"#6a6a6a" font:12 backgroundColor:@"#f3f3f3" textAlignment:NSTextAlignmentCenter];
         [self.tableViews addObject:label];
         [self.contentView addSubview:label];
-        label =[self createLabel:rank.name frame:CGRectMake(52, 130+i*42, 166, 40) textColor:@"#6a6a6a" font:10 backgroundColor:@"#f3f3f3" textAlignment:NSTextAlignmentCenter];
+        label =[self createLabel:rank.name frame:CGRectMake(52, 130+i*42, 166, 40) textColor:@"#6a6a6a" font:14 backgroundColor:@"#f3f3f3" textAlignment:NSTextAlignmentCenter];
         [self.contentView addSubview:label];
         [self.tableViews addObject:label];
         
