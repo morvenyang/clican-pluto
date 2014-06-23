@@ -124,8 +124,7 @@
     
     [self.contentView addSubview:[self createImageViewFromNamedImage:@"零售收入.png" frame:CGRectMake(20,114,24,24)]];
     [self.contentView addSubview:[self createLabel:@"零售额" frame:CGRectMake(50,100,100,49) textColor:@"#4a4a4a" font:18 backgroundColor:nil]];
-    [self.contentView addSubview:[self createDecimalLabel:[NSNumber numberWithInt:channel.dayAmount.intValue/10000] unit:@"万元" frame:CGRectMake(200,100,100,49) textColor:@"#7f7f7f" font:18 backgroundColor:nil textAlignment:NSTextAlignmentLeft]];
-
+    self.dayAmountLabel =[self createDecimalLabel:[NSNumber numberWithInt:channel.dayAmount.intValue/10000] unit:@"万元" frame:CGRectMake(200,100,100,49) textColor:@"#7f7f7f" font:18 backgroundColor:nil textAlignment:NSTextAlignmentLeft];
 
     [self.contentView addSubview:self.dayAmountLabel];
     [self.contentView addSubview:[self createImageViewFromNamedImage:@"关键指标-分割线.png" frame:CGRectMake(0,157,320,3)]];
