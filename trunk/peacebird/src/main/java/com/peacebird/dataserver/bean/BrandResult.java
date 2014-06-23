@@ -11,12 +11,16 @@ public class BrandResult implements Comparable<BrandResult> {
 	private Date date;
 
 	private Long dayAmount;
+	
+	private Long monthAmount;
 
 	private Long weekAmount;
 
 	private Long yearAmount;
 
 	private Double weekLike;
+	
+	private Double monthLike;
 
 	private Double yearLike;
 	
@@ -30,7 +34,7 @@ public class BrandResult implements Comparable<BrandResult> {
 		}
 	}
 	
-	public BrandResult(String brand, String channel, Number dayAmount,Number dayLike,Number weekLike,Number yearLike) {
+	public BrandResult(String brand, String channel, Number dayAmount,Number dayLike,Number weekLike,Number monthLike,Number yearLike) {
 		this.brand = brand;
 		this.channel = channel;
 		if (dayAmount != null) {
@@ -41,6 +45,9 @@ public class BrandResult implements Comparable<BrandResult> {
 		}
 		if (weekLike != null) {
 			this.weekLike = weekLike.doubleValue();
+		}
+		if (monthLike != null) {
+			this.monthLike = monthLike.doubleValue();
 		}
 		if (yearLike != null) {
 			this.yearLike = yearLike.doubleValue();
@@ -55,7 +62,7 @@ public class BrandResult implements Comparable<BrandResult> {
 		}
 	}
 
-	public BrandResult(String brand, Number dayAmount, Number weekAmount,
+	public BrandResult(String brand, Number dayAmount, Number weekAmount,Number monthAmount,
 			Number yearAmount) {
 		super();
 		this.brand = brand;
@@ -65,17 +72,11 @@ public class BrandResult implements Comparable<BrandResult> {
 		if (weekAmount != null) {
 			this.weekAmount = weekAmount.longValue();
 		}
+		if (monthAmount != null) {
+			this.monthAmount = monthAmount.longValue();
+		}
 		if (yearAmount != null) {
 			this.yearAmount = yearAmount.longValue();
-		}
-		if (dayLike != null) {
-			this.dayLike = dayLike.doubleValue();
-		}
-		if (weekLike != null) {
-			this.weekLike = weekLike.doubleValue();
-		}
-		if (yearLike != null) {
-			this.yearLike = yearLike.doubleValue();
 		}
 	}
 
@@ -149,6 +150,22 @@ public class BrandResult implements Comparable<BrandResult> {
 
 	public void setChannel(String channel) {
 		this.channel = channel;
+	}
+
+	public Long getMonthAmount() {
+		return monthAmount;
+	}
+
+	public void setMonthAmount(Long monthAmount) {
+		this.monthAmount = monthAmount;
+	}
+
+	public Double getMonthLike() {
+		return monthLike;
+	}
+
+	public void setMonthLike(Double monthLike) {
+		this.monthLike = monthLike;
 	}
 
 	private int getIndex() {

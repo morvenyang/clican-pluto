@@ -147,8 +147,9 @@ public class DataServiceImpl implements DataService {
 				brand);
 		Double lastDayAmount = 0.0;
 		Double lastWeekAmount = 0.0;
+		Double lastMonthAmount = 0.0;
 		Double lastYearAmount = 0.0;
-
+		
 		for (BrandResult b : bcr) {
 			if (b.getDayLike() != null && b.getDayLike() != 0) {
 				lastDayAmount += b.getDayAmount() / b.getDayLike();
@@ -159,6 +160,11 @@ public class DataServiceImpl implements DataService {
 				lastWeekAmount += b.getDayAmount() / b.getWeekLike();
 			} else {
 				lastWeekAmount += b.getDayAmount();
+			}
+			if (b.getMonthLike() != null && b.getMonthLike() != 0) {
+				lastMonthAmount += b.getDayAmount() / b.getMonthLike();
+			} else {
+				lastMonthAmount += b.getDayAmount();
 			}
 			if (b.getYearLike() != null && b.getYearLike() != 0) {
 				lastYearAmount += b.getDayAmount() / b.getYearLike();
@@ -171,6 +177,9 @@ public class DataServiceImpl implements DataService {
 		}
 		if (br.getWeekAmount() != null && lastWeekAmount != 0) {
 			br.setWeekLike(br.getDayAmount() / lastWeekAmount);
+		}
+		if (br.getMonthAmount() != null && lastMonthAmount != 0) {
+			br.setMonthLike(br.getDayAmount() / lastMonthAmount);
 		}
 		if (br.getYearAmount() != null && lastYearAmount != 0) {
 			br.setYearLike(br.getDayAmount() / lastYearAmount);

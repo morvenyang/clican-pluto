@@ -20,10 +20,12 @@ public class DayRetailChannel {
 	private Date date;
 	private Long dayTarget;
 	private Long dayAmount;
+	private Long monthAmount;
 	private Long weekAmount;
 	private Long yearAmount;
 	private Double dayLike;
 	private Double weekLike;
+	private Double monthLike;
 	private Double yearLike;
 	
 	@Id
@@ -104,6 +106,20 @@ public class DayRetailChannel {
 	}
 	public void setDayLike(Double dayLike) {
 		this.dayLike = dayLike;
+	}
+	@Column(name="r_month_amount")
+	public Long getMonthAmount() {
+		return monthAmount;
+	}
+	public void setMonthAmount(Long monthAmount) {
+		this.monthAmount = monthAmount;
+	}
+	@Column(name="r_month_like")
+	public Double getMonthLike() {
+		return monthLike;
+	}
+	public void setMonthLike(Double monthLike) {
+		this.monthLike = monthLike;
 	}
 	
 	
