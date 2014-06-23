@@ -28,6 +28,8 @@ var chart = AmCharts.makeChart("chartdiv", {
 	"startRadius": "20%",
 	"fontFamily": "Courier",
 	"labelText": "[[lineBreakLabel]]",
+	"balloon":{"fillColor":"#fffabd"},
+	"balloonText":"[[description]]",
     "legend": {
         "markerType": "square",
         "position": "bottom",
