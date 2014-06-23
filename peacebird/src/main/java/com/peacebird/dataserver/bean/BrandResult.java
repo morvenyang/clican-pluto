@@ -10,11 +10,11 @@ public class BrandResult implements Comparable<BrandResult> {
 
 	private Date date;
 
-	private Integer dayAmount;
+	private Long dayAmount;
 
-	private Integer weekAmount;
+	private Long weekAmount;
 
-	private Integer yearAmount;
+	private Long yearAmount;
 
 	private Double weekLike;
 
@@ -26,7 +26,7 @@ public class BrandResult implements Comparable<BrandResult> {
 		this.brand = brand;
 		this.channel = channel;
 		if (dayAmount != null) {
-			this.dayAmount = dayAmount.intValue();
+			this.dayAmount = dayAmount.longValue();
 		}
 	}
 	
@@ -34,7 +34,7 @@ public class BrandResult implements Comparable<BrandResult> {
 		this.brand = brand;
 		this.channel = channel;
 		if (dayAmount != null) {
-			this.dayAmount = dayAmount.intValue();
+			this.dayAmount = dayAmount.longValue();
 		}
 		if (dayLike != null) {
 			this.dayLike = dayLike.doubleValue();
@@ -51,7 +51,7 @@ public class BrandResult implements Comparable<BrandResult> {
 		this.brand = brand;
 		this.date = date;
 		if (dayAmount != null) {
-			this.dayAmount = dayAmount.intValue();
+			this.dayAmount = dayAmount.longValue();
 		}
 	}
 
@@ -60,13 +60,13 @@ public class BrandResult implements Comparable<BrandResult> {
 		super();
 		this.brand = brand;
 		if (dayAmount != null) {
-			this.dayAmount = dayAmount.intValue();
+			this.dayAmount = dayAmount.longValue();
 		}
 		if (weekAmount != null) {
-			this.weekAmount = weekAmount.intValue();
+			this.weekAmount = weekAmount.longValue();
 		}
 		if (yearAmount != null) {
-			this.yearAmount = yearAmount.intValue();
+			this.yearAmount = yearAmount.longValue();
 		}
 		if (dayLike != null) {
 			this.dayLike = dayLike.doubleValue();
@@ -87,27 +87,27 @@ public class BrandResult implements Comparable<BrandResult> {
 		this.brand = brand;
 	}
 
-	public Integer getDayAmount() {
+	public Long getDayAmount() {
 		return dayAmount;
 	}
 
-	public void setDayAmount(Integer dayAmount) {
+	public void setDayAmount(Long dayAmount) {
 		this.dayAmount = dayAmount;
 	}
 
-	public Integer getWeekAmount() {
+	public Long getWeekAmount() {
 		return weekAmount;
 	}
 
-	public void setWeekAmount(Integer weekAmount) {
+	public void setWeekAmount(Long weekAmount) {
 		this.weekAmount = weekAmount;
 	}
 
-	public Integer getYearAmount() {
+	public Long getYearAmount() {
 		return yearAmount;
 	}
 
-	public void setYearAmount(Integer yearAmount) {
+	public void setYearAmount(Long yearAmount) {
 		this.yearAmount = yearAmount;
 	}
 

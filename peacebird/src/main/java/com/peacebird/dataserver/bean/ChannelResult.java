@@ -2,7 +2,7 @@ package com.peacebird.dataserver.bean;
 
 public class ChannelResult implements Comparable<ChannelResult> {
 
-	private Integer dayAmount;
+	private Long dayAmount;
 
 	private Integer docNumber;
 
@@ -17,7 +17,7 @@ public class ChannelResult implements Comparable<ChannelResult> {
 	public ChannelResult(Number dayAmount, Number docNumber,
 			Number avgDocCount, Number avgPrice, Number aps, String channel) {
 		if (dayAmount != null) {
-			this.dayAmount = dayAmount.intValue();
+			this.dayAmount = dayAmount.longValue();
 		}
 		if (docNumber != null) {
 			this.docNumber = docNumber.intValue();
@@ -34,11 +34,11 @@ public class ChannelResult implements Comparable<ChannelResult> {
 		this.channel = channel;
 	}
 
-	public Integer getDayAmount() {
+	public Long getDayAmount() {
 		return dayAmount;
 	}
 
-	public void setDayAmount(Integer dayAmount) {
+	public void setDayAmount(Long dayAmount) {
 		this.dayAmount = dayAmount;
 	}
 

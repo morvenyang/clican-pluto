@@ -18,10 +18,10 @@ public class DayRetailChannel {
 	private String brand;
 	private String channel;
 	private Date date;
-	private Integer dayTarget;
-	private Integer dayAmount;
-	private Integer weekAmount;
-	private Integer yearAmount;
+	private Long dayTarget;
+	private Long dayAmount;
+	private Long weekAmount;
+	private Long yearAmount;
 	private Double dayLike;
 	private Double weekLike;
 	private Double yearLike;
@@ -57,31 +57,31 @@ public class DayRetailChannel {
 		this.date = date;
 	}
 	@Column(name="r_day_target")
-	public Integer getDayTarget() {
+	public Long getDayTarget() {
 		return dayTarget;
 	}
-	public void setDayTarget(Integer dayTarget) {
+	public void setDayTarget(Long dayTarget) {
 		this.dayTarget = dayTarget;
 	}
 	@Column(name="r_day_amount")
-	public Integer getDayAmount() {
+	public Long getDayAmount() {
 		return dayAmount;
 	}
-	public void setDayAmount(Integer dayAmount) {
+	public void setDayAmount(Long dayAmount) {
 		this.dayAmount = dayAmount;
 	}
 	@Column(name="r_week_amount")
-	public Integer getWeekAmount() {
+	public Long getWeekAmount() {
 		return weekAmount;
 	}
-	public void setWeekAmount(Integer weekAmount) {
+	public void setWeekAmount(Long weekAmount) {
 		this.weekAmount = weekAmount;
 	}
 	@Column(name="r_year_amount")
-	public Integer getYearAmount() {
+	public Long getYearAmount() {
 		return yearAmount;
 	}
-	public void setYearAmount(Integer yearAmount) {
+	public void setYearAmount(Long yearAmount) {
 		this.yearAmount = yearAmount;
 	}
 	@Column(name="r_week_like")
