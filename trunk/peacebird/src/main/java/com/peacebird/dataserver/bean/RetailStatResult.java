@@ -8,9 +8,9 @@ public class RetailStatResult {
 	private List<RetailResult> channelRetail;
 	private List<RetailResult> sortRetail;
 	private List<RetailResult> regionRetail;
-	private Integer totalChannelAmount = 0;
-	private Integer totalSortAmount = 0;
-	private Integer totalRegionAmount = 0;
+	private Long totalChannelAmount = 0L;
+	private Long totalSortAmount = 0L;
+	private Long totalRegionAmount = 0L;
 	private Date date;
 
 	private int result;
@@ -49,27 +49,27 @@ public class RetailStatResult {
 		}
 	}
 
-	public Integer getTotalChannelAmount() {
+	public Long getTotalChannelAmount() {
 		return totalChannelAmount;
 	}
 
-	public void setTotalChannelAmount(Integer totalChannelAmount) {
+	public void setTotalChannelAmount(Long totalChannelAmount) {
 		this.totalChannelAmount = totalChannelAmount;
 	}
 
-	public Integer getTotalSortAmount() {
+	public Long getTotalSortAmount() {
 		return totalSortAmount;
 	}
 
-	public void setTotalSortAmount(Integer totalSortAmount) {
+	public void setTotalSortAmount(Long totalSortAmount) {
 		this.totalSortAmount = totalSortAmount;
 	}
 
-	public Integer getTotalRegionAmount() {
+	public Long getTotalRegionAmount() {
 		return totalRegionAmount;
 	}
 
-	public void setTotalRegionAmount(Integer totalRegionAmount) {
+	public void setTotalRegionAmount(Long totalRegionAmount) {
 		this.totalRegionAmount = totalRegionAmount;
 	}
 

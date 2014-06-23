@@ -185,7 +185,7 @@ public class ClientController {
 		}
 		List<RetailResult> result = this.dataService.getRetailChartResult(
 				brand, type,getDate(date));
-		Integer total = 0;
+		Long total = 0L;
 		for (RetailResult rr : result) {
 			if (rr.getDayAmount() != null) {
 				total += rr.getDayAmount();

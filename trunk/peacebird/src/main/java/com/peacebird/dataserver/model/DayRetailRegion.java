@@ -16,7 +16,7 @@ public class DayRetailRegion {
 	private String brand;
 	private String region;
 	private Date date;
-	private Integer dayAmount;
+	private Long dayAmount;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -49,10 +49,10 @@ public class DayRetailRegion {
 		this.date = date;
 	}
 	@Column(name="r_day_amount")
-	public Integer getDayAmount() {
+	public Long getDayAmount() {
 		return dayAmount;
 	}
-	public void setDayAmount(Integer dayAmount) {
+	public void setDayAmount(Long dayAmount) {
 		this.dayAmount = dayAmount;
 	}
 	

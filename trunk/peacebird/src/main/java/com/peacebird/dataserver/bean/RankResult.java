@@ -3,10 +3,10 @@ package com.peacebird.dataserver.bean;
 public class RankResult {
 
 	private String name;
-	private Integer amount;
+	private Long amount;
 	private Double rate;
 	
-	public RankResult(String name, Integer amount,Double rate) {
+	public RankResult(String name, Long amount,Double rate) {
 		this.name = name;
 		this.amount = amount;
 		this.rate = rate;
@@ -17,10 +17,10 @@ public class RankResult {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public Integer getAmount() {
+	public Long getAmount() {
 		return amount;
 	}
-	public void setAmount(Integer amount) {
+	public void setAmount(Long amount) {
 		this.amount = amount;
 	}
 	public Double getRate() {
