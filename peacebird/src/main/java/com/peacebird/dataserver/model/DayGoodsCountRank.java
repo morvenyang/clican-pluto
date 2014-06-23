@@ -22,7 +22,7 @@ public class DayGoodsCountRank {
 	private String line;
 	private String wave;
 	private Integer count;
-	private Integer amount;
+	private Long amount;
 	private Integer rank;
 	
 	@Id
@@ -84,10 +84,10 @@ public class DayGoodsCountRank {
 		this.count = count;
 	}
 	@Column(name="r_amount")
-	public Integer getAmount() {
+	public Long getAmount() {
 		return amount;
 	}
-	public void setAmount(Integer amount) {
+	public void setAmount(Long amount) {
 		this.amount = amount;
 	}
 	@Column(name="rank")
