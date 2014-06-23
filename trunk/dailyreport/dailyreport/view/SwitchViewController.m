@@ -30,13 +30,13 @@
 
 - (void)loadView
 {
-
+    
     [super loadView];
     self.title = self.brand;
     UIBarButtonItem* backButton = [[[UIBarButtonItem alloc] initWithTitle:@"\U000025C0\U0000FE0E" style:UIBarButtonItemStylePlain target:self action:@selector(backAction)] autorelease];
-
+    
     [self.navigationItem setLeftBarButtonItem:backButton animated:YES];
-
+    
     UIButton* shareButtonImage = [UIButton buttonWithType:UIButtonTypeCustom];
     shareButtonImage.frame =CGRectMake(0, 0, 40, 40);
     [shareButtonImage setImage:[UIImage imageNamed:@"图标-分享.png"] forState:UIControlStateNormal];
@@ -58,7 +58,7 @@
     
     UIImage* lightImage= [UIImage imageNamed:@"图标-分页原点-正常.png"];
     UIImage* highLightImage= [UIImage imageNamed:@"图标-分页原点-高亮.png"];
-
+    
     CGFloat y = frame.size.height-30-offset;
     UIView* paginationView = [[[UIView alloc] initWithFrame:CGRectMake(130, y, 60, 30)] autorelease];
     paginationView.backgroundColor = [UIColor whiteColor];
@@ -78,13 +78,13 @@
     self.backgroundShareView =[[UIView alloc] initWithFrame:frame];
     self.shareView = [[UIView alloc] initWithFrame:CGRectMake(0, y, 320, 200)];
     self.shareView.backgroundColor = [StyleSheet colorFromHexString:@"#edeef0"];
-
+    
     UIButton* cancelButton = [UIButton buttonWithType:UIButtonTypeCustom];
     cancelButton.frame =CGRectMake(50, 150, 220, 40);
     UIImage* cancelImage= [UIImage imageNamed:@"分享取消按钮.png"];
     [cancelButton setImage:cancelImage forState:UIControlStateNormal];
     [cancelButton addTarget:self action:@selector(hideShareView) forControlEvents:UIControlEventTouchUpInside];
-
+    
     UIButton* wxButton = [UIButton buttonWithType:UIButtonTypeCustom];
     wxButton.frame =CGRectMake(120, 30, 80, 80);
     UIImage* wxImage= [UIImage imageNamed:@"图标-微信好友.png"];
@@ -92,7 +92,7 @@
     [wxButton addTarget:self action:@selector(sendWXContent) forControlEvents:UIControlEventTouchUpInside];
     UILabel* wxLabel = [self createLabel:@"微信好友" frame:CGRectMake(120, 110, 80, 20) textColor:@"#849484" font:14 backgroundColor:nil textAlignment:NSTextAlignmentCenter];
     [self.shareView addSubview:cancelButton];
-
+    
     [self.shareView addSubview:wxButton];
     [self.shareView addSubview:wxLabel];
     [self.shareView addSubview:cancelButton];
@@ -194,7 +194,24 @@
     
     return label;
 }
-
+-(UILabel*) createDecimalLabel:(NSNumber*) number
+                          unit:(NSString*) unit frame:(CGRect)  frame textColor:(NSString*) textColor font:(int) font backgroundColor:(NSString*) backgroundColor textAlignment:(NSTextAlignment) textAlignment{
+    UILabel* label = [[[UILabel alloc] initWithFrame:frame] autorelease];
+    NSNumberFormatter* formatter = [[[NSNumberFormatter alloc]init] autorelease];
+    formatter.numberStyle = NSNumberFormatterDecimalStyle;
+    
+    label.text = [NSString stringWithFormat:@"%@ %@",[formatter stringFromNumber:number],unit];
+    label.font = [UIFont systemFontOfSize:font];
+    label.textColor = [StyleSheet colorFromHexString:textColor];
+    label.textAlignment =textAlignment;
+    if(backgroundColor==nil){
+        label.backgroundColor = [UIColor clearColor];
+    }else{
+        label.backgroundColor = [StyleSheet colorFromHexString:backgroundColor];
+    }
+    
+    return label;
+}
 -(UILabel*) createDecimalLabel:(NSNumber*) number frame:(CGRect) frame textColor:(NSString*) textColor font:(int) font backgroundColor:(NSString*) backgroundColor textAlignment:(NSTextAlignment) textAlignment{
     UILabel* label = [[[UILabel alloc] initWithFrame:frame] autorelease];
     NSNumberFormatter* formatter = [[[NSNumberFormatter alloc]init] autorelease];
@@ -214,17 +231,58 @@
 }
 
 -(UIImage*)screenShot{
-    UIGraphicsBeginImageContext(self.contentView.contentSize);
-    CGPoint savedContentOffset = self.contentView.contentOffset;
-    CGRect savedFrame = self.contentView.frame;
-    self.contentView.contentOffset = CGPointZero;
-    self.contentView.frame = CGRectMake(0,0, self.contentView.contentSize.width, self.contentView.contentSize.height);
-    [self.contentView.layer renderInContext:UIGraphicsGetCurrentContext()];
-    UIImage* viewImage = UIGraphicsGetImageFromCurrentImageContext();
-    self.contentView.contentOffset = savedContentOffset;
-    self.contentView.frame = savedFrame;
+    
+    CGSize imageSize = [[UIScreen mainScreen] bounds].size;
+    if (NULL != UIGraphicsBeginImageContextWithOptions)
+        UIGraphicsBeginImageContextWithOptions(imageSize, NO, 0);
+    else
+        UIGraphicsBeginImageContext(imageSize);
+    
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    
+    // Iterate over every window from back to front
+    for (UIWindow *window in [[UIApplication sharedApplication] windows])
+    {
+        if (![window respondsToSelector:@selector(screen)] || [window screen] == [UIScreen mainScreen])
+        {
+            // -renderInContext: renders in the coordinate space of the layer,
+            // so we must first apply the layer's geometry to the graphics context
+            CGContextSaveGState(context);
+            // Center the context around the window's anchor point
+            CGContextTranslateCTM(context, [window center].x, [window center].y);
+            // Apply the window's transform about the anchor point
+            CGContextConcatCTM(context, [window transform]);
+            // Offset by the portion of the bounds left of and above the anchor point
+            CGContextTranslateCTM(context,
+                                  -[window bounds].size.width * [[window layer] anchorPoint].x,
+                                  -[window bounds].size.height * [[window layer] anchorPoint].y);
+            
+            // Render the layer hierarchy to the current context
+            [[window layer] renderInContext:context];
+            
+            // Restore the context
+            CGContextRestoreGState(context);
+        }
+    }
+    
+    // Retrieve the screenshot image
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    
     UIGraphicsEndImageContext();
-    return viewImage;
+    
+    
+    return image;
+//    UIGraphicsBeginImageContext(self.contentView.contentSize);
+//    CGPoint savedContentOffset = self.contentView.contentOffset;
+//    CGRect savedFrame = self.contentView.frame;
+//    self.contentView.contentOffset = CGPointZero;
+//    self.contentView.frame = CGRectMake(0,0, self.contentView.contentSize.width, self.contentView.contentSize.height);
+//    [self.contentView.layer renderInContext:UIGraphicsGetCurrentContext()];
+//    UIImage* viewImage = UIGraphicsGetImageFromCurrentImageContext();
+//    self.contentView.contentOffset = savedContentOffset;
+//    self.contentView.frame = savedFrame;
+//    UIGraphicsEndImageContext();
+//    return viewImage;
 }
 
 - (UIImage *)imageWithImage:(UIImage *)image scaledToSize:(CGSize)newSize {
@@ -254,8 +312,8 @@
     pmCC.allowsPeriodSelection = NO;
     pmCC.mondayFirstDayOfWeek = YES;
     [pmCC presentCalendarFromView:b
-    permittedArrowDirections:PMCalendarArrowDirectionAny
-                        animated:YES];
+         permittedArrowDirections:PMCalendarArrowDirectionAny
+                         animated:YES];
 }
 
 #pragma mark PMCalendarControllerDelegate methods
@@ -301,7 +359,7 @@
     
     UIImage* resizedScreenShot = screenShot;
     CGRect frame = [[UIScreen mainScreen] bounds];
-   resizedScreenShot =[self imageWithImage:resizedScreenShot scaledToSize:CGSizeMake(320,frame.size.height)];
+    resizedScreenShot =[self imageWithImage:resizedScreenShot scaledToSize:CGSizeMake(320,frame.size.height)];
     WXImageObject *ext = [WXImageObject object];
     ext.imageData = UIImagePNGRepresentation(resizedScreenShot);
     NSLog(@"%i",ext.imageData.length/1024);
