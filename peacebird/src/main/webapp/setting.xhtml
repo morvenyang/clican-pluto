@@ -1,0 +1,26 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:a4j="http://richfaces.org/a4j" template="workspace.xhtml">
+
+	<ui:define name="body">
+		<rich:panel>
+			<h:form>
+				<h:panelGrid columns="2">
+					<h:outputLabel value="当前数据日期" />
+					<rich:calendar value="#{settingAction.currentDate}"
+						datePattern="yyyy-MM-dd" showApplyButton="true" cellWidth="24px"
+						cellHeight="22px" style="width:200px" />
+					<a4j:commandButton id="save" value="保存"
+						action="#{settingAction.save()}"
+						oncomplete="if(#{facesContext.maximumSeverity==null}) {Richfaces.hideModalPanel('changePasswordPanel');}" />
+				</h:panelGrid>
+			</h:form>
+		</rich:panel>
+	</ui:define>
+</ui:composition>
