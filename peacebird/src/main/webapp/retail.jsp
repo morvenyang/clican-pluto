@@ -28,7 +28,7 @@ var chart = AmCharts.makeChart("chartdiv", {
 	"startRadius": "20%",
 	"fontFamily": "Courier",
 	"labelText": "[[lineBreakLabel]]",
-	"balloon":{"fillColor":"#fffabd"},
+	"balloon":{"fillColor":"#fffabd","fillAlpha":"1.0","fontSize":35},
 	"balloonText":"[[description]]",
     "legend": {
         "markerType": "square",
@@ -45,7 +45,7 @@ var chart = AmCharts.makeChart("chartdiv", {
     "radius":300,
     "dataProvider": <%=request.getAttribute("dataProvider")%>,
     "valueField": "dayAmount",
-    "fontSize": 30,
+    "fontSize": 40,
     "titleField": "name",
     "descriptionField":"description",
     "startEffect": "elastic",

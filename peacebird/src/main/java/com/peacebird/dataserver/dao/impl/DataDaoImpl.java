@@ -55,7 +55,7 @@ public class DataDaoImpl extends HibernateDaoSupport implements DataDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	public BrandResult getBrandResult(Date date, String brand) {
-		String hsql = "select new com.peacebird.dataserver.bean.BrandResult('',sum(dayAmount),sum(weekAmount),sum(yearAmount)) from DayRetailChannel";
+		String hsql = "select new com.peacebird.dataserver.bean.BrandResult('',sum(dayAmount),sum(weekAmount),sum(monthAmount),sum(yearAmount)) from DayRetailChannel";
 		hsql += " where date = :date and brand = :brand";
 		List<BrandResult> brs = this.getHibernateTemplate().findByNamedParam(
 				hsql, new String[] { "date", "brand" },
@@ -70,7 +70,7 @@ public class DataDaoImpl extends HibernateDaoSupport implements DataDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<BrandResult> getBrandResultByChannel(Date date, String brand) {
-		String hsql = "select new com.peacebird.dataserver.bean.BrandResult('',channel,dayAmount,dayLike,weekLike,yearLike) from DayRetailChannel";
+		String hsql = "select new com.peacebird.dataserver.bean.BrandResult('',channel,dayAmount,dayLike,weekLike,monthLike,yearLike) from DayRetailChannel";
 		hsql += " where date = :date and brand = :brand";
 		return this.getHibernateTemplate().findByNamedParam(hsql,
 				new String[] { "date", "brand" }, new Object[] { date, brand });
