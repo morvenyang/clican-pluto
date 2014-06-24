@@ -108,6 +108,94 @@ public class DataServiceImpl implements DataService {
 	}
 
 	@Override
+	public String getBrandResultForApple(String brand, Date date) {
+		Date yesterday = getYesterday(date);
+
+		BrandResult br = this.dataDao.getBrandResult(yesterday, brand);
+		BrandStatResult bsr = new BrandStatResult();
+		if (br == null) {
+			bsr.setMessage("当前该品牌没有昨日的数据");
+			return JSONObject.fromObject(bsr).toString();
+		}
+		br.setBrand(brand);
+		br.setDate(yesterday);
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(yesterday);
+		while (cal.get(Calendar.DAY_OF_WEEK) != Calendar.MONDAY) {
+			cal.add(Calendar.DAY_OF_MONTH, -1);
+		}
+		Date startDate = cal.getTime();
+		Date endDate = DateUtils.addDays(startDate, 6);
+		List<BrandResult> bwr = this.dataDao.getBrandWeekResult(startDate,
+				endDate, brand);
+		List<BrandResult> finalBwr = new ArrayList<BrandResult>();
+		Map<Long, BrandResult> bMap = new HashMap<Long, BrandResult>();
+		for (BrandResult b : bwr) {
+			bMap.put(b.getDate().getTime(), b);
+		}
+		Date d = startDate;
+		while (d.compareTo(endDate) <= 0) {
+			BrandResult r = bMap.get(d.getTime());
+			if (r == null) {
+				r = new BrandResult("", d, null);
+			}
+			finalBwr.add(r);
+			d = DateUtils.addDays(d, 1);
+		}
+
+		List<BrandResult> bcr = this.dataDao.getBrandResultByChannel(yesterday,
+				brand);
+		Double lastDayAmount = 0.0;
+		Double lastWeekAmount = 0.0;
+		Double lastMonthAmount = 0.0;
+		Double lastYearAmount = 0.0;
+		for (BrandResult b : bcr) {
+			if(b.getPerDayAmount()!=null){
+				lastDayAmount+=b.getPerDayAmount();
+			}
+			if(b.getPerWeekAmount()!=null){
+				lastWeekAmount+=b.getPerWeekAmount();
+			}
+			if(b.getPerMonthAmount()!=null){
+				lastMonthAmount+=b.getPerMonthAmount();
+			}
+			if(b.getPerYearAmount()!=null){
+				lastYearAmount+=b.getPerYearAmount();
+			}
+		}
+		if (br.getDayAmount() != null && lastDayAmount != 0) {
+			br.setDayLike(br.getDayAmount() / lastDayAmount);
+		}
+		if (br.getWeekAmount() != null && lastWeekAmount != 0) {
+			br.setWeekLike(br.getDayAmount() / lastWeekAmount);
+		}
+		if (br.getMonthAmount() != null && lastMonthAmount != 0) {
+			br.setMonthLike(br.getDayAmount() / lastMonthAmount);
+		}
+		if (br.getYearAmount() != null && lastYearAmount != 0) {
+			br.setYearLike(br.getDayAmount() / lastYearAmount);
+		}
+
+		Collections.sort(bcr);
+		bsr.setBrand(brand);
+		bsr.setResult(0);
+		bsr.setBrandResult(br);
+		bsr.setChannels(bcr);
+		for(BrandResult fbwr:finalBwr){
+			fbwr.setDayAmount(null);
+		}
+		bsr.setWeeks(finalBwr);
+
+		JsonConfig jsonConfig = new JsonConfig();
+		jsonConfig.registerJsonValueProcessor(Date.class,
+				new DateJsonValueProcessor("yyyy-MM-dd"));
+		jsonConfig.registerJsonValueProcessor(Integer.class,
+				new IntegerJsonValueProcessor());
+		String result = JSONObject.fromObject(bsr, jsonConfig).toString();
+		return result;
+	}
+
+	@Override
 	public String getBrandResult(String brand, Date date) {
 		Date yesterday = getYesterday(date);
 
