@@ -17,6 +17,14 @@ public class BrandResult implements Comparable<BrandResult> {
 	private Long weekAmount;
 
 	private Long yearAmount;
+	
+	private Long perDayAmount;
+	
+	private Long perWeekAmount;
+	
+	private Long perMonthAmount;
+	
+	private Long perYearAmount;
 
 	private Double weekLike;
 	
@@ -34,7 +42,7 @@ public class BrandResult implements Comparable<BrandResult> {
 		}
 	}
 	
-	public BrandResult(String brand, String channel, Number dayAmount,Number dayLike,Number weekLike,Number monthLike,Number yearLike) {
+	public BrandResult(String brand, String channel, Number dayAmount,Number dayLike,Number weekLike,Number monthLike,Number yearLike,Number perDayAmount,Number perWeekAmount,Number perMonthAmount,Number perYearAmount) {
 		this.brand = brand;
 		this.channel = channel;
 		if (dayAmount != null) {
@@ -51,6 +59,19 @@ public class BrandResult implements Comparable<BrandResult> {
 		}
 		if (yearLike != null) {
 			this.yearLike = yearLike.doubleValue();
+		}
+		
+		if (perDayAmount != null) {
+			this.perDayAmount = perDayAmount.longValue();
+		}
+		if (perWeekAmount != null) {
+			this.perWeekAmount = perWeekAmount.longValue();
+		}
+		if (perMonthAmount != null) {
+			this.perMonthAmount = perMonthAmount.longValue();
+		}
+		if (perYearAmount != null) {
+			this.perYearAmount = perYearAmount.longValue();
 		}
 	}
 
@@ -166,6 +187,38 @@ public class BrandResult implements Comparable<BrandResult> {
 
 	public void setMonthLike(Double monthLike) {
 		this.monthLike = monthLike;
+	}
+
+	public Long getPerDayAmount() {
+		return perDayAmount;
+	}
+
+	public void setPerDayAmount(Long perDayAmount) {
+		this.perDayAmount = perDayAmount;
+	}
+
+	public Long getPerWeekAmount() {
+		return perWeekAmount;
+	}
+
+	public void setPerWeekAmount(Long perWeekAmount) {
+		this.perWeekAmount = perWeekAmount;
+	}
+
+	public Long getPerMonthAmount() {
+		return perMonthAmount;
+	}
+
+	public void setPerMonthAmount(Long perMonthAmount) {
+		this.perMonthAmount = perMonthAmount;
+	}
+
+	public Long getPerYearAmount() {
+		return perYearAmount;
+	}
+
+	public void setPerYearAmount(Long perYearAmount) {
+		this.perYearAmount = perYearAmount;
 	}
 
 	private int getIndex() {

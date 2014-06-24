@@ -28,6 +28,11 @@ public class DayRetailChannel {
 	private Double monthLike;
 	private Double yearLike;
 	
+	private Long perDayAmount;
+	private Long perMonthAmount;
+	private Long perWeekAmount;
+	private Long perYearAmount;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "ID")
@@ -120,6 +125,35 @@ public class DayRetailChannel {
 	}
 	public void setMonthLike(Double monthLike) {
 		this.monthLike = monthLike;
+	}
+	
+	@Column(name="r_preday_amount")
+	public Long getPerDayAmount() {
+		return perDayAmount;
+	}
+	public void setPerDayAmount(Long perDayAmount) {
+		this.perDayAmount = perDayAmount;
+	}
+	@Column(name="r_premonth_amount")
+	public Long getPerMonthAmount() {
+		return perMonthAmount;
+	}
+	public void setPerMonthAmount(Long perMonthAmount) {
+		this.perMonthAmount = perMonthAmount;
+	}
+	@Column(name="r_preweek_amount")
+	public Long getPerWeekAmount() {
+		return perWeekAmount;
+	}
+	public void setPerWeekAmount(Long perWeekAmount) {
+		this.perWeekAmount = perWeekAmount;
+	}
+	@Column(name="r_preyear_amount")
+	public Long getPerYearAmount() {
+		return perYearAmount;
+	}
+	public void setPerYearAmount(Long perYearAmount) {
+		this.perYearAmount = perYearAmount;
 	}
 	
 	
