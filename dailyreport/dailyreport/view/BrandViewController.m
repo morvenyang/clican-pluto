@@ -91,10 +91,13 @@
     calendarLabel.font = [UIFont systemFontOfSize:12];
     calendarLabel.textColor = [UIColor whiteColor];
     calendarLabel.backgroundColor = [UIColor clearColor];
-    
-    UILabel* retailAmountLabel = [[[UILabel alloc] initWithFrame:CGRectMake(10, 30, 140, 80)] autorelease];
-    retailAmountLabel.text = [NSString stringWithFormat:@"%d",brand.dayAmount.intValue/10000];
-    if(brand.dayAmount.intValue/10000>=1000){
+    NSNumberFormatter* formatter = [[[NSNumberFormatter alloc]init] autorelease];
+    formatter.numberStyle = NSNumberFormatterDecimalStyle;
+    UILabel* retailAmountLabel =[[[UILabel alloc] initWithFrame:CGRectMake(0, 30, 160, 80)] autorelease];
+    retailAmountLabel.text =[formatter stringFromNumber:[NSNumber numberWithInt:brand.dayAmount.intValue/10000]];
+    if(retailAmountLabel.text.length>5){
+        retailAmountLabel.font = [UIFont fontWithName:@"HelveticaNeue-UltraLight" size:50];
+    }else if(retailAmountLabel.text.length>4){
         retailAmountLabel.font = [UIFont fontWithName:@"HelveticaNeue-UltraLight" size:60];
     }else{
         retailAmountLabel.font = [UIFont fontWithName:@"HelveticaNeue-UltraLight" size:70];
@@ -143,6 +146,13 @@
             continue;
         }
         UILabel* weekAmount= [self createDecimalLabel:[NSNumber numberWithInt:weekBrand.dayAmount.intValue/10000] frame:CGRectMake(20+(i)*40, 60, 40, 40) textColor:@"#F55943" font:14 backgroundColor:nil textAlignment:NSTextAlignmentCenter];
+        if(weekAmount.text.length>5){
+            weekAmount.font = [UIFont systemFontOfSize:12];
+        }else if(weekAmount.text.length>4){
+            weekAmount.font = [UIFont systemFontOfSize:14];
+        }else{
+            weekAmount.font = [UIFont systemFontOfSize:16];
+        }
         [weeklyView addSubview:weekAmount];
     }
     
