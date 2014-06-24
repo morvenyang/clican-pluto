@@ -13,6 +13,8 @@ public interface DataService {
 	
 	public String getBrandResult(String brand,Date date);
 	
+	public String getBrandResultForApple(String brand,Date date);
+	
 	public String getRetailResult(String brand,Date date);
 	
 	public List<RetailResult> getRetailChartResult(String brand,String type,Date date);

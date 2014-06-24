@@ -141,7 +141,12 @@ public class ClientController {
 		if (user == null) {
 			result = this.getNotLoginResult();
 		} else {
-			result = this.dataService.getBrandResult(brand,getDate(date));
+			if (user.getUserName().equals("test01")) {
+				result = this.dataService.getBrandResultForApple(brand,
+						getDate(date));
+			} else {
+				result = this.dataService.getBrandResult(brand, getDate(date));
+			}
 		}
 		try {
 			resp.setContentType("application/json");
@@ -164,7 +169,7 @@ public class ClientController {
 		if (user == null) {
 			result = this.getNotLoginResult();
 		} else {
-			result = this.dataService.getRetailResult(brand,getDate(date));
+			result = this.dataService.getRetailResult(brand, getDate(date));
 		}
 		try {
 			resp.setContentType("application/json");
@@ -178,13 +183,13 @@ public class ClientController {
 	public void retailChart(@RequestParam(value = "brand") String brand,
 			@RequestParam(value = "type") String type,
 			@RequestParam(value = "date", required = false) String date,
-			HttpServletRequest req,
-			HttpServletResponse resp) throws ServletException, IOException {
+			HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
 		if (log.isDebugEnabled()) {
 			log.debug("access retail chart page");
 		}
 		List<RetailResult> result = this.dataService.getRetailChartResult(
-				brand, type,getDate(date));
+				brand, type, getDate(date));
 		Long total = 0L;
 		for (RetailResult rr : result) {
 			if (rr.getDayAmount() != null) {
@@ -196,7 +201,7 @@ public class ClientController {
 		try {
 			req.setAttribute("dataProvider", dataProvider);
 			req.setAttribute("height", 600 + result.size() * 80);
-			req.setAttribute("top", 260 + result.size()*5);
+			req.setAttribute("top", 260 + result.size() * 5);
 			req.setAttribute("total", total);
 			req.getRequestDispatcher("/retail.jsp").forward(req, resp);
 		} catch (Exception e) {
@@ -226,7 +231,7 @@ public class ClientController {
 		if (user == null) {
 			result = this.getNotLoginResult();
 		} else {
-			result = this.dataService.getChannelResult(brand,getDate(date));
+			result = this.dataService.getChannelResult(brand, getDate(date));
 		}
 		try {
 			resp.setContentType("application/json");
@@ -249,7 +254,7 @@ public class ClientController {
 		if (user == null) {
 			result = this.getNotLoginResult();
 		} else {
-			result = this.dataService.getStoreRankResult(brand,getDate(date));
+			result = this.dataService.getStoreRankResult(brand, getDate(date));
 		}
 		try {
 			resp.setContentType("application/json");
