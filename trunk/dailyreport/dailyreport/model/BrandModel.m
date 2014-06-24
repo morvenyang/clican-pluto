@@ -89,12 +89,7 @@
             for (NSDictionary* jsonWeek in jsonWeeks) {
                 Brand* weekBrand = [[[Brand alloc] init]autorelease];
                 weekBrand.date = [dateFormatter dateFromString:[jsonWeek objectForKey:@"date"]];
-                NSString* da =[jsonWeek objectForKey:@"dayAmount"];
-                if(da!=nil&&da.length>0){
-                    weekBrand.dayAmount = [jsonWeek objectForKey:@"dayAmount"];
-                }else{
-                    weekBrand.dayAmount = nil;
-                }
+                weekBrand.dayAmount = [jsonWeek objectForKey:@"dayAmount"];
                 [weeks addObject:weekBrand];
             }
             
