@@ -95,7 +95,8 @@ public class ClientController {
 	}
 
 	@RequestMapping("/index")
-	public void index(HttpServletRequest req, HttpServletResponse resp)
+	public void index(HttpServletRequest req, HttpServletResponse resp,
+			@RequestParam(value = "date", required = false) String date)
 			throws ServletException, IOException {
 		if (log.isDebugEnabled()) {
 			log.debug("access index page");
@@ -117,7 +118,7 @@ public class ClientController {
 					log.debug("There are brands [" + brands + "] for user["
 							+ user.getUserName() + "]");
 				}
-				result = this.dataService.getIndexResult(brands.split(","));
+				result = this.dataService.getIndexResult(brands.split(","),this.getDate(date));
 			}
 		}
 		try {

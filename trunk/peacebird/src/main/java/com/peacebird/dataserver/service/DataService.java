@@ -9,7 +9,7 @@ import com.peacebird.dataserver.model.DimBrand;
 
 public interface DataService {
 
-	public String getIndexResult(String[] brands);
+	public String getIndexResult(String[] brands,Date date);
 	
 	public String getBrandResult(String brand,Date date);
 	
