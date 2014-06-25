@@ -76,8 +76,8 @@ public class DataServiceImpl implements DataService {
 	}
 
 	@Override
-	public String getIndexResult(String[] brands) {
-		Date yesterday = getYesterday(null);
+	public String getIndexResult(String[] brands,Date date) {
+		Date yesterday = getYesterday(date);
 		Set<String> bSet = new HashSet<String>();
 		for (String brand : brands) {
 			bSet.add(brand);
