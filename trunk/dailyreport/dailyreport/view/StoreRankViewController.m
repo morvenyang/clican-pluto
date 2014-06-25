@@ -148,7 +148,7 @@
         [self.contentView addSubview:label];
         [self.tableViews addObject:label];
         
-        label =[self createLabel:[NSString stringWithFormat:@"%0.1f%@", rank.rate.doubleValue*100,@"%"] frame:CGRectMake(271, 130+i*42,49, 40) textColor:@"#6a6a6a" font:12 backgroundColor:@"#f3f3f3" textAlignment:NSTextAlignmentCenter];
+        label =[self createLabel:[NSString stringWithFormat:@"%0.2f%@", rank.rate.doubleValue*100,@"%"] frame:CGRectMake(271, 130+i*42,49, 40) textColor:@"#6a6a6a" font:12 backgroundColor:@"#f3f3f3" textAlignment:NSTextAlignmentCenter];
         [self.contentView addSubview:label];
         [self.tableViews addObject:label];
     }
