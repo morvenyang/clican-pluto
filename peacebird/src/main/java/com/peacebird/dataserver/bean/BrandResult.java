@@ -42,23 +42,20 @@ public class BrandResult implements Comparable<BrandResult> {
 		}
 	}
 	
-	public BrandResult(String brand, String channel, Number dayAmount,Number dayLike,Number weekLike,Number monthLike,Number yearLike,Number perDayAmount,Number perWeekAmount,Number perMonthAmount,Number perYearAmount) {
+	public BrandResult(String brand, String channel, Number dayAmount,Number weekAmount,Number monthAmount,Number yearAmount,Number perDayAmount,Number perWeekAmount,Number perMonthAmount,Number perYearAmount) {
 		this.brand = brand;
 		this.channel = channel;
 		if (dayAmount != null) {
 			this.dayAmount = dayAmount.longValue();
 		}
-		if (dayLike != null) {
-			this.dayLike = dayLike.doubleValue();
+		if (weekAmount != null) {
+			this.weekAmount = weekAmount.longValue();
 		}
-		if (weekLike != null) {
-			this.weekLike = weekLike.doubleValue();
+		if (monthAmount != null) {
+			this.monthAmount = monthAmount.longValue();
 		}
-		if (monthLike != null) {
-			this.monthLike = monthLike.doubleValue();
-		}
-		if (yearLike != null) {
-			this.yearLike = yearLike.doubleValue();
+		if (yearAmount != null) {
+			this.yearAmount = yearAmount.longValue();
 		}
 		
 		if (perDayAmount != null) {
