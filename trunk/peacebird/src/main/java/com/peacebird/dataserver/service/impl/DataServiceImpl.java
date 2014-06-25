@@ -234,34 +234,50 @@ public class DataServiceImpl implements DataService {
 		List<BrandResult> bcr = this.dataDao.getBrandResultByChannel(yesterday,
 				brand);
 		Double lastDayAmount = 0.0;
+		Double dayAmount = 0.0;
 		Double lastWeekAmount = 0.0;
+		Double weekAmount = 0.0;
 		Double lastMonthAmount = 0.0;
+		Double monthAmount = 0.0;
 		Double lastYearAmount = 0.0;
+		Double yearAmount = 0.0;
 		for (BrandResult b : bcr) {
 			if(b.getPerDayAmount()!=null){
 				lastDayAmount+=b.getPerDayAmount();
 			}
+			if(b.getDayAmount()!=null){
+				dayAmount+=b.getDayAmount();
+			}
 			if(b.getPerWeekAmount()!=null){
 				lastWeekAmount+=b.getPerWeekAmount();
+			}
+			if(b.getWeekAmount()!=null){
+				weekAmount+=b.getWeekAmount();
 			}
 			if(b.getPerMonthAmount()!=null){
 				lastMonthAmount+=b.getPerMonthAmount();
 			}
+			if(b.getMonthAmount()!=null){
+				monthAmount+=b.getMonthAmount();
+			}
 			if(b.getPerYearAmount()!=null){
 				lastYearAmount+=b.getPerYearAmount();
 			}
+			if(b.getYearAmount()!=null){
+				yearAmount+=b.getYearAmount();
+			}
 		}
 		if (br.getDayAmount() != null && lastDayAmount != 0) {
-			br.setDayLike(br.getDayAmount() / lastDayAmount);
+			br.setDayLike(dayAmount / lastDayAmount-1);
 		}
 		if (br.getWeekAmount() != null && lastWeekAmount != 0) {
-			br.setWeekLike(br.getDayAmount() / lastWeekAmount);
+			br.setWeekLike(weekAmount / lastWeekAmount-1);
 		}
 		if (br.getMonthAmount() != null && lastMonthAmount != 0) {
-			br.setMonthLike(br.getDayAmount() / lastMonthAmount);
+			br.setMonthLike(monthAmount / lastMonthAmount-1);
 		}
 		if (br.getYearAmount() != null && lastYearAmount != 0) {
-			br.setYearLike(br.getDayAmount() / lastYearAmount);
+			br.setYearLike(yearAmount / lastYearAmount-1);
 		}
 
 		Collections.sort(bcr);
