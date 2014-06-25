@@ -130,7 +130,7 @@
     weeklyView.backgroundColor = [UIColor whiteColor];
     for(int i=0;i<7;i++){
         Brand* weekBrand = [weeks objectAtIndex:i];
-        UILabel* weekTitle = [[[UILabel alloc] initWithFrame:CGRectMake(20+(i)*40, 15, 40, 40)] autorelease];
+        UILabel* weekTitle = [[[UILabel alloc] initWithFrame:CGRectMake(2+(i)*45, 15, 45, 40)] autorelease];
         [weekTitle setNumberOfLines:2];
         weekTitle.lineBreakMode =NSLineBreakByWordWrapping;
         NSDateFormatter *df = [[NSDateFormatter alloc] init];
@@ -145,14 +145,7 @@
         if(weekBrand.dayAmount==nil||weekBrand.dayAmount.intValue==-1){
             continue;
         }
-        UILabel* weekAmount= [self createDecimalLabel:[NSNumber numberWithInt:weekBrand.dayAmount.intValue/10000] frame:CGRectMake(20+(i)*40, 60, 40, 40) textColor:@"#F55943" font:14 backgroundColor:nil textAlignment:NSTextAlignmentCenter];
-        if(weekAmount.text.length>5){
-            weekAmount.font = [UIFont systemFontOfSize:12];
-        }else if(weekAmount.text.length>4){
-            weekAmount.font = [UIFont systemFontOfSize:14];
-        }else{
-            weekAmount.font = [UIFont systemFontOfSize:16];
-        }
+        UILabel* weekAmount= [self createDecimalLabel:[NSNumber numberWithInt:weekBrand.dayAmount.intValue/10000] frame:CGRectMake(2+(i)*45, 60, 45, 40) textColor:@"#F55943" font:15 backgroundColor:nil textAlignment:NSTextAlignmentCenter];
         [weeklyView addSubview:weekAmount];
     }
     

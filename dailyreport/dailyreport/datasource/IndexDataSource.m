@@ -13,9 +13,11 @@
 
 @implementation IndexDataSource
 @synthesize indexListModel=_indexListModel;
+@synthesize alert = _alert;
 - (id)init{
     if ((self = [super init])) {
         self.indexListModel = [[[IndexListModel alloc] init] autorelease];
+        self.alert = YES;
     }
     return self;
 }
@@ -48,11 +50,12 @@
     
     self.items = items;
     NSLog(@"count=%i",[self.items count]);
-    if(!_indexListModel.yesterday){
+    if(!_indexListModel.yesterday&&self.alert){
         NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
         [dateFormatter setDateFormat:@"MM月dd日 EEEE"];
         TTAlert([NSString stringWithFormat:@"昨日数据未生成,当前数据为%@数据",[dateFormatter stringFromDate:_indexListModel.date]]);
     }
+    self.alert = NO;
     TT_RELEASE_SAFELY(items);
 }
 

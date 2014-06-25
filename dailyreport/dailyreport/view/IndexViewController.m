@@ -44,7 +44,10 @@
     label.text = @"PEACEBIRD 经营日报";
     self.navigationItem.titleView = label;
     [label sizeToFit];
-    
+    if(DrAppDelegate.user.date!=nil){
+        NSLog(@"当前页面时间和选择的时间不同，重新加载该页面数据");
+        [self reload];
+    }
     [super viewWillAppear:animated];
 }
 
@@ -82,7 +85,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
 }
 
 

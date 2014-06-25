@@ -35,7 +35,13 @@
     
 
         NSString* url = [BASE_URL stringByAppendingString:@"/index.do"];
-        
+    if(DrAppDelegate.user.date!=nil){
+        NSDateFormatter* dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+        [dateFormatter setTimeStyle:NSDateFormatterFullStyle];
+        [dateFormatter setDateFormat:@"yyyyMMdd"];
+        NSString* strDate = [dateFormatter stringFromDate:DrAppDelegate.user.date];
+        url = [url stringByAppendingFormat:@"?date=%@",strDate];
+    }
         NSLog(@"URL:%@", url);
         
         TTURLRequest* request = [TTURLRequest
@@ -63,7 +69,7 @@
 {
     
     @try {
-        
+        [_brandList removeAllObjects];
         TTURLJSONResponse* response = request.response;
         TTDASSERT([response.rootObject isKindOfClass:[NSDictionary class]]);
         
