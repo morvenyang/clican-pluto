@@ -9,6 +9,7 @@
     NSString* _sessionId;
     NSNumber* _expiredDays;
     NSDate* _date;
+    NSDate* _oldDate;
 }
 
 @property (nonatomic, copy) NSString* username;
@@ -16,4 +17,5 @@
 @property (nonatomic, copy) NSString* sessionId;
 @property (nonatomic, retain) NSNumber* expiredDays;
 @property (nonatomic, retain) NSDate* date;
+@property (nonatomic, retain) NSDate* oldDate;
 @end

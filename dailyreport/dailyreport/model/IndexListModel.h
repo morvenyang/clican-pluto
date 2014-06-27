@@ -8,6 +8,7 @@
 
 #import <Three20Network/Three20Network.h>
 #import "BaseModel.h"
+#import "IndexViewController.h"
 @interface IndexListModel : BaseModel{
     NSMutableArray* _brandList;
     BOOL _yesterday;
