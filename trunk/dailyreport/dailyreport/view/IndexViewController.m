@@ -100,7 +100,7 @@
     logoutButton.titleEdgeInsets = UIEdgeInsetsMake(0, 45, 0, 0);
     [logoutButton setTitle:@"Exit" forState:UIControlStateNormal];
     [logoutButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    logoutButton.frame =CGRectMake(0, 8, 137, 48);
+    logoutButton.frame =CGRectMake(0, 55, 137, 48);
     logoutButton.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     logoutButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     [logoutButton addTarget:self action:@selector(logoutAction) forControlEvents:UIControlEventTouchUpInside];
@@ -112,7 +112,7 @@
     [calendarButton setTitle:@"选择日期" forState:UIControlStateNormal];
     [calendarButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
 
-    calendarButton.frame =CGRectMake(0, 55, 137, 47);
+    calendarButton.frame =CGRectMake(0, 8, 137, 47);
     calendarButton.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     calendarButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     [calendarButton addTarget:self action:@selector(openCalendar:) forControlEvents:UIControlEventTouchUpInside];
