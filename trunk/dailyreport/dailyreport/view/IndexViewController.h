@@ -7,7 +7,13 @@
 //
 
 #import <Three20UI/Three20UI.h>
-
-@interface IndexViewController : TTTableViewController<UITableViewDelegate>
-
+#import "PMCalendar.h"
+@interface IndexViewController : TTTableViewController<UITableViewDelegate,PMCalendarControllerDelegate>{
+    UIView* _configView;
+    UIView* _backgroundView;
+    UIButton* _configButton;
+}
+@property (nonatomic, retain) UIView *configView;
+@property (nonatomic, retain) UIView *backgroundView;
+@property (nonatomic, retain) UIButton *configButton;
 @end

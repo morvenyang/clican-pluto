@@ -128,7 +128,7 @@
     
     [dailyView addSubview:retailImageView];
     [dailyView addSubview:retailLabel];
-    [dailyView addSubview:calendarButton];
+    //[dailyView addSubview:calendarButton];
     [dailyView addSubview:calendarLabel];
     
     CGFloat width = 320.0/3;

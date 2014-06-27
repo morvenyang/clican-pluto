@@ -94,7 +94,7 @@
     
     [dailyView addSubview:retailImageView];
     [dailyView addSubview:retailLabel];
-    [dailyView addSubview:calendarButton];
+    //[dailyView addSubview:calendarButton];
     [dailyView addSubview:calendarLabel];
     if([channels count]!=0){
         CGFloat width = 320.0/[channels count];
