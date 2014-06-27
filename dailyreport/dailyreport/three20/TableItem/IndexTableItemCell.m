@@ -49,6 +49,7 @@
 
 - (void)layoutSubviews {
 	[super layoutSubviews];
+    _label.userInteractionEnabled = NO;
     _label.frame = CGRectMake(180, 30, 120, 40);
     _label.font = [UIFont fontWithName:@"HelveticaNeue-UltraLight" size:40];
 

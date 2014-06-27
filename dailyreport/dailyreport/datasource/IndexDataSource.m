@@ -10,7 +10,7 @@
 #import "Brand.h"
 #import "IndexTableItem.h"
 #import "IndexTableItemCell.h"
-
+#import "AppDelegate.h"
 @implementation IndexDataSource
 @synthesize indexListModel=_indexListModel;
 @synthesize alert = _alert;
@@ -42,14 +42,15 @@
         NSString* imageName = [NSString stringWithFormat:@"首页%@.png",brand.brand];
         [items addObject:[IndexTableItem itemWithStyledText:styledText backgroundImage:imageName URL:url]];
     }
-    
     if ([items count] == 0) {
         [items addObject:[TTTableTextItem itemWithText:@"没有可查看的品牌数据"]];
     }
     
     
     self.items = items;
+    
     NSLog(@"count=%i",[self.items count]);
+    DrAppDelegate.user.date =_indexListModel.date;
     if(!_indexListModel.yesterday&&self.alert){
         NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
         [dateFormatter setDateFormat:@"MM月dd日 EEEE"];

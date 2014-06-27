@@ -121,7 +121,7 @@
     [dailyView addSubview:retailImageView];
     [dailyView addSubview:retailLabel];
     [dailyView addSubview:retailLikeLabel];
-    [dailyView addSubview:calendarButton];
+    //[dailyView addSubview:calendarButton];
     [dailyView addSubview:calendarLabel];
     [dailyView addSubview:retailAmountLabel];
     [self.contentView addSubview:dailyView];
