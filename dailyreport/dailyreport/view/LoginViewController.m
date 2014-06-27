@@ -130,7 +130,7 @@
     NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
     
     self.usernameField.text = [defaults stringForKey: LAST_USER_NAME];
-    self.passwordField.text = [defaults stringForKey: LAST_PASSWORD];
+    //self.passwordField.text = [defaults stringForKey: LAST_PASSWORD];
 }
 
 - (void)viewDidUnload

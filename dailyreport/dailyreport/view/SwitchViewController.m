@@ -311,6 +311,7 @@
     pmCC.delegate = self;
     pmCC.allowsPeriodSelection = NO;
     pmCC.mondayFirstDayOfWeek = YES;
+   
     [pmCC presentCalendarFromView:b
          permittedArrowDirections:PMCalendarArrowDirectionAny
                          animated:YES];
