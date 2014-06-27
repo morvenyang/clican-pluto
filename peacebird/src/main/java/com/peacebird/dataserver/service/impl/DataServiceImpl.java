@@ -32,6 +32,7 @@ import com.peacebird.dataserver.bean.RetailStatResult;
 import com.peacebird.dataserver.bean.SpringProperty;
 import com.peacebird.dataserver.bean.comp.ChannelComparator;
 import com.peacebird.dataserver.dao.DataDao;
+import com.peacebird.dataserver.model.DayStatus;
 import com.peacebird.dataserver.model.DimBrand;
 import com.peacebird.dataserver.service.DataService;
 import com.peacebird.dataserver.util.DateJsonValueProcessor;
@@ -75,8 +76,20 @@ public class DataServiceImpl implements DataService {
 		return yesterday;
 	}
 
+	private String getErrorResult(int code, String message) {
+		return "{\"result\":" + code + ",\"message\":\"" + message + "\"}";
+	}
+
 	@Override
-	public String getIndexResult(String[] brands,Date date) {
+	public String getIndexResult(String[] brands, Date date) {
+		if(date!=null){
+			DayStatus ds = dataDao.getDayStatus(date);
+			if (ds == null || ds.getStatus() == null || ds.getStatus() == 0) {
+				SimpleDateFormat sdf = new SimpleDateFormat("MM月dd日");
+				return this.getErrorResult(3002, sdf.format(date)
+						+ "没有相关数据,请重新选择日期");
+			}
+		}
 		Date yesterday = getYesterday(date);
 		Set<String> bSet = new HashSet<String>();
 		for (String brand : brands) {
@@ -150,17 +163,17 @@ public class DataServiceImpl implements DataService {
 		Double lastMonthAmount = 0.0;
 		Double lastYearAmount = 0.0;
 		for (BrandResult b : bcr) {
-			if(b.getPerDayAmount()!=null){
-				lastDayAmount+=b.getPerDayAmount();
+			if (b.getPerDayAmount() != null) {
+				lastDayAmount += b.getPerDayAmount();
 			}
-			if(b.getPerWeekAmount()!=null){
-				lastWeekAmount+=b.getPerWeekAmount();
+			if (b.getPerWeekAmount() != null) {
+				lastWeekAmount += b.getPerWeekAmount();
 			}
-			if(b.getPerMonthAmount()!=null){
-				lastMonthAmount+=b.getPerMonthAmount();
+			if (b.getPerMonthAmount() != null) {
+				lastMonthAmount += b.getPerMonthAmount();
 			}
-			if(b.getPerYearAmount()!=null){
-				lastYearAmount+=b.getPerYearAmount();
+			if (b.getPerYearAmount() != null) {
+				lastYearAmount += b.getPerYearAmount();
 			}
 		}
 		if (br.getDayAmount() != null && lastDayAmount != 0) {
@@ -181,7 +194,7 @@ public class DataServiceImpl implements DataService {
 		bsr.setResult(0);
 		bsr.setBrandResult(br);
 		bsr.setChannels(bcr);
-		for(BrandResult fbwr:finalBwr){
+		for (BrandResult fbwr : finalBwr) {
 			fbwr.setDayAmount(null);
 		}
 		bsr.setWeeks(finalBwr);
@@ -242,42 +255,42 @@ public class DataServiceImpl implements DataService {
 		Double lastYearAmount = 0.0;
 		Double yearAmount = 0.0;
 		for (BrandResult b : bcr) {
-			if(b.getPerDayAmount()!=null){
-				lastDayAmount+=b.getPerDayAmount();
+			if (b.getPerDayAmount() != null) {
+				lastDayAmount += b.getPerDayAmount();
 			}
-			if(b.getDayAmount()!=null){
-				dayAmount+=b.getDayAmount();
+			if (b.getDayAmount() != null) {
+				dayAmount += b.getDayAmount();
 			}
-			if(b.getPerWeekAmount()!=null){
-				lastWeekAmount+=b.getPerWeekAmount();
+			if (b.getPerWeekAmount() != null) {
+				lastWeekAmount += b.getPerWeekAmount();
 			}
-			if(b.getWeekAmount()!=null){
-				weekAmount+=b.getWeekAmount();
+			if (b.getWeekAmount() != null) {
+				weekAmount += b.getWeekAmount();
 			}
-			if(b.getPerMonthAmount()!=null){
-				lastMonthAmount+=b.getPerMonthAmount();
+			if (b.getPerMonthAmount() != null) {
+				lastMonthAmount += b.getPerMonthAmount();
 			}
-			if(b.getMonthAmount()!=null){
-				monthAmount+=b.getMonthAmount();
+			if (b.getMonthAmount() != null) {
+				monthAmount += b.getMonthAmount();
 			}
-			if(b.getPerYearAmount()!=null){
-				lastYearAmount+=b.getPerYearAmount();
+			if (b.getPerYearAmount() != null) {
+				lastYearAmount += b.getPerYearAmount();
 			}
-			if(b.getYearAmount()!=null){
-				yearAmount+=b.getYearAmount();
+			if (b.getYearAmount() != null) {
+				yearAmount += b.getYearAmount();
 			}
 		}
 		if (br.getDayAmount() != null && lastDayAmount != 0) {
-			br.setDayLike(dayAmount / lastDayAmount-1);
+			br.setDayLike(dayAmount / lastDayAmount - 1);
 		}
 		if (br.getWeekAmount() != null && lastWeekAmount != 0) {
-			br.setWeekLike(weekAmount / lastWeekAmount-1);
+			br.setWeekLike(weekAmount / lastWeekAmount - 1);
 		}
 		if (br.getMonthAmount() != null && lastMonthAmount != 0) {
-			br.setMonthLike(monthAmount / lastMonthAmount-1);
+			br.setMonthLike(monthAmount / lastMonthAmount - 1);
 		}
 		if (br.getYearAmount() != null && lastYearAmount != 0) {
-			br.setYearLike(yearAmount / lastYearAmount-1);
+			br.setYearLike(yearAmount / lastYearAmount - 1);
 		}
 
 		Collections.sort(bcr);
