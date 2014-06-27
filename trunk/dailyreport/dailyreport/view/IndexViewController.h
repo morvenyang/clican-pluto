@@ -16,4 +16,7 @@
 @property (nonatomic, retain) UIView *configView;
 @property (nonatomic, retain) UIView *backgroundView;
 @property (nonatomic, retain) UIButton *configButton;
+@property (nonatomic, retain) NSDate *oldDate;
+
+-(void)updateDate;
 @end

@@ -17,7 +17,6 @@
 @synthesize configView = _configView;
 @synthesize backgroundView = _backgroundView;
 @synthesize configButton = _configButton;
-
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -42,8 +41,7 @@
 
     [super viewWillAppear:animated];
 }
-- (void)updateView{
-    [super updateView];
+-(void)updateDate{
     UILabel* label = [[[UILabel alloc] initWithFrame:CGRectZero] autorelease];
     label.backgroundColor = [UIColor clearColor];
     label.font =[UIFont systemFontOfSize:18];
@@ -57,10 +55,10 @@
     }else{
         label.text = [dateFormatter stringFromDate:[[NSDate date] dateByAddingDays:-1]];
     }
-    
     self.navigationItem.titleView = label;
     [label sizeToFit];
 }
+
 -(void) loadView{
     [super loadView];
     
@@ -198,18 +196,17 @@
 - (void)calendarController:(PMCalendarController *)calendarController didChangePeriod:(PMPeriod *)newPeriod
 {
     NSDate* date = newPeriod.startDate;
+    DrAppDelegate.user.oldDate = DrAppDelegate.user.date;
     DrAppDelegate.user.date = date;
     [calendarController dismissCalendarAnimated:YES];
-    NSDateFormatter* dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
-    [dateFormatter setTimeStyle:NSDateFormatterFullStyle];
-    [dateFormatter setDateFormat:@"MM月dd日 EEE"];
-    ((UILabel*)self.navigationItem.titleView).text=[dateFormatter stringFromDate:DrAppDelegate.user.date];
-    [((UILabel*)self.navigationItem.titleView) sizeToFit];
     [self reload];
 }
 
 - (void)dealloc
 {
+    TT_RELEASE_SAFELY(_configView);
+    TT_RELEASE_SAFELY(_backgroundView);
+    TT_RELEASE_SAFELY(_configButton);
     [super dealloc];
 }
 @end

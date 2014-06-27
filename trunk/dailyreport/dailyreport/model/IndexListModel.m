@@ -93,13 +93,17 @@
             }
             
             [_brandList sortUsingSelector:@selector(compare:)];
-            
+            IndexViewController* index = (IndexViewController*)[TTNavigator navigator].visibleViewController;
+            [index updateDate];
             [super requestDidFinishLoad:request];
         }else{
             if(result.intValue==1002){
                 //not login
                 [self tryAutoLogin];
             }else{
+                DrAppDelegate.user.date = DrAppDelegate.user.oldDate;
+                IndexViewController* index = (IndexViewController*)[TTNavigator navigator].visibleViewController;
+                [index updateDate];
                 TTAlert([data objectForKey:@"message"]);
             }
         }
