@@ -373,7 +373,7 @@ public class DataServiceImpl implements DataService {
 		List<RetailResult> dataProvider = this.getRetailChartResult(brand, type, date);
 		RetailChartResult rcr = new RetailChartResult();
 		rcr.setDataProvider(dataProvider);
-		rcr.setHeight(600 + dataProvider.size() * 80);
+		rcr.setHeight(700 + dataProvider.size() * 80);
 		rcr.setTop( 260 +  dataProvider.size() * 5);
 		
 		Long total = 0L;
@@ -384,6 +384,7 @@ public class DataServiceImpl implements DataService {
 		}
 		rcr.setDate(yesterday);
 		rcr.setTotal(total);
+		rcr.setCount(dataProvider.size());
 		JsonConfig jsonConfig = new JsonConfig();
 		jsonConfig.registerJsonValueProcessor(Date.class,
 				new DateJsonValueProcessor("yyyy-MM-dd"));
