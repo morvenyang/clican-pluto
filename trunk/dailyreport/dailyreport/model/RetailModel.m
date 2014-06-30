@@ -23,12 +23,12 @@
     return self;
 }
 
-- (void)load:(TTURLRequestCachePolicy)cachePolicy more:(BOOL)more
+- (void)load:(NSString*) type policy:(TTURLRequestCachePolicy)cachePolicy more:(BOOL)more
 {
     
     NSLog(@"load brand");
     
-    NSString* url = [BASE_URL stringByAppendingFormat:@"/retail.do?brand=%@",[self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    NSString* url = [BASE_URL stringByAppendingFormat:@"/retailChartJson.do?brand=%@&type=%@",[self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],type];
     if(DrAppDelegate.user.date!=nil){
         NSDateFormatter* dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
         [dateFormatter setTimeStyle:NSDateFormatterFullStyle];
@@ -70,32 +70,13 @@
         NSLog(@"response.rootObject:%@" ,data);
         NSNumber* result = [data objectForKey:@"result"];
         if([result intValue]==0){
-            NSMutableArray* channels = [NSMutableArray array];
-            NSMutableArray* sorts = [NSMutableArray array];
-            NSMutableArray* regions = [NSMutableArray array];
-            NSArray* jsonChannels = [data objectForKey:@"channelRetail"];
-            NSArray* jsonSorts = [data objectForKey:@"sortRetail"];
-            NSArray* jsonRegions = [data objectForKey:@"regionRetail"];
-            for (NSDictionary* jsonChannel in jsonChannels) {
-                Retail* r = [[[Retail alloc] init] autorelease];
-                r.name =[jsonChannel objectForKey:@"name"];
-                r.dayAmount =[jsonChannel objectForKey:@"dayAmount"];
-                [channels addObject:r];
-            }
-            for (NSDictionary* jsonSort in jsonSorts) {
-                Retail* r = [[[Retail alloc] init] autorelease];
-                r.name =[jsonSort objectForKey:@"name"];
-                r.dayAmount =[jsonSort objectForKey:@"dayAmount"];
-                [sorts addObject:r];
-            }
-            for (NSDictionary* jsonRegion in jsonRegions) {
-                Retail* r = [[[Retail alloc] init] autorelease];
-                r.name =[jsonRegion objectForKey:@"name"];
-                r.dayAmount =[jsonRegion objectForKey:@"dayAmount"];
-                [regions addObject:r];
-            }
             NSDate* date =  [dateFormatter dateFromString:[data objectForKey:@"date"]];
-            [self.delegate brandDidFinishLoad:channels sorts:sorts regions:regions date:date];
+            NSString* dataProvider = [[[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:[data objectForKey:@"dataProvider"] options:NSJSONWritingPrettyPrinted error:nil] encoding:NSUTF8StringEncoding] autorelease];
+            NSNumber* top = [data objectForKey:@"top"];
+            NSNumber* height = [data objectForKey:@"height"];
+            NSNumber* count = [data objectForKey:@"count"];
+            NSNumber* total = [data objectForKey:@"total"];
+            [self.delegate brandDidFinishLoad:dataProvider height:[height intValue] top:[top intValue] count:[count intValue] total:[total intValue] date:date];
         }else{
             if(result.intValue==1002){
                 //not login
