@@ -20,12 +20,12 @@
 @property (nonatomic, copy)     NSString*       brand;
 
 - (id)initWithBrand:(NSString*)brand delegate:(id) delegate;
-
+- (void)load:(NSString*) type policy:(TTURLRequestCachePolicy)cachePolicy more:(BOOL)more;
 @end
 
 @protocol RetailDelegate <NSObject>
 
-- (void) brandDidFinishLoad:(NSArray*) channels sorts:(NSArray*) sorts regions:(NSArray*) regions date:(NSDate*) date;
+- (void) brandDidFinishLoad:(NSString*)dataProvider height:(int)height top:(int)top count:(int) count total:(long)total date:(NSDate*) date;
 
 - (void) brandDidStartLoad:(NSString*) brand;
 

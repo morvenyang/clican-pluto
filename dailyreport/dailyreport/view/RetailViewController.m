@@ -15,12 +15,10 @@
 
 @synthesize retailModel = _retailModel;
 @synthesize webPieChartView = _webPieChartView;
-@synthesize selectedData = _selectedData;
 @synthesize tabLables = _tabLables;
-@synthesize channels = _channels;
-@synthesize sorts = _sorts;
-@synthesize regions = _regions;
 @synthesize tableViews = _tableViews;
+@synthesize type =_type;
+@synthesize calendarLabel = _calendarLabel;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -33,6 +31,7 @@
 -(id) initWithBrand:(NSString*) brand{
     if ((self = [self initWithNibName:nil bundle:nil])) {
         self.brand = brand;
+        self.type = @"channel";
         self.retailModel = [[[RetailModel alloc] initWithBrand:self.brand delegate:self] autorelease];
         
         self.webPieChartView = [[UIWebView alloc] initWithFrame:CGRectMake(0,80,320,400)];
@@ -86,26 +85,6 @@
 - (void)loadView
 {
     [super loadView];
-    [self.retailModel load:TTURLRequestCachePolicyNone more:NO];
-}
-
--(void)changeDateAndReload{
-    [super changeDateAndReload];
-    [self.retailModel load:TTURLRequestCachePolicyNone more:NO];
-}
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
-}
-
-- (void) brandDidFinishLoad:(NSArray*) channels sorts:(NSArray*) sorts regions:(NSArray*) regions date:(NSDate*) date{
-    NSLog(@"%@",@"加载Brand Retail数据成功");
-    self.selectedDate = date;
-    self.channels = channels;
-    self.regions = regions;
-    self.sorts = sorts;
-    
     UIView* dailyView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 34)] autorelease];
     NSString* imageName = [NSString stringWithFormat:@"每日收入%@背景.png",self.brand];
     dailyView.backgroundColor =[UIColor colorWithPatternImage:[UIImage imageNamed:imageName]];
@@ -121,15 +100,14 @@
     [calendarButton setImage:[UIImage imageNamed:@"图标-日历.png"] forState:UIControlStateNormal];
     [calendarButton addTarget:self action:@selector(openCalendar:) forControlEvents:UIControlEventTouchUpInside];
     
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"MM月dd日 EEEE"];
     
-    UILabel* calendarLabel = [self createLabel:[dateFormatter stringFromDate:date] frame:CGRectMake(200, 0, 120, 34) textColor:@"#ffffff" font:12 backgroundColor:nil];
+    
+    self.calendarLabel = [self createLabel:@"" frame:CGRectMake(200, 0, 120, 34) textColor:@"#ffffff" font:12 backgroundColor:nil];
     
     [dailyView addSubview:retailImageView];
     [dailyView addSubview:retailLabel];
     //[dailyView addSubview:calendarButton];
-    [dailyView addSubview:calendarLabel];
+    [dailyView addSubview:self.calendarLabel];
     
     CGFloat width = 320.0/3;
     int index = 0;
@@ -153,9 +131,51 @@
     }
     
     [self.contentView addSubview:dailyView];
+    [self.retailModel load:self.type policy:TTURLRequestCachePolicyNone more:NO];
+}
+
+-(void)changeDateAndReload{
+    [super changeDateAndReload];
+    [self.retailModel load:self.type policy:TTURLRequestCachePolicyNone more:NO];
+}
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    // Do any additional setup after loading the view.
+}
+
+- (void) brandDidFinishLoad:(NSString*)dataProvider height:(int)height top:(int)top count:(int) count total:(long)total date:(NSDate*) date{
+    NSLog(@"%@",@"加载Brand Retail数据成功");
+    self.selectedDate = date;
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"MM月dd日 EEEE"];
+    self.calendarLabel.text =[dateFormatter stringFromDate:date];
     
-    self.selectedData = self.channels;
-    [self updateTab:@"channel"];
+    
+    [self.contentView addSubview:self.webPieChartView];
+    NSString* htmlPath = [[NSBundle mainBundle] pathForResource:@"retail" ofType:@"html" inDirectory:nil];
+    NSString* html = [NSString stringWithContentsOfFile:htmlPath encoding:NSUTF8StringEncoding error:nil];
+
+    html=[html stringByReplacingOccurrencesOfString:@"$dataProvider" withString:dataProvider];
+    
+    html=[html stringByReplacingOccurrencesOfString:@"$top" withString:[NSString stringWithFormat:@"%i",top]];
+    html=[html stringByReplacingOccurrencesOfString:@"$height" withString:[NSString stringWithFormat:@"%i",height]];
+    html=[html stringByReplacingOccurrencesOfString:@"$total" withString:[NSString stringWithFormat:@"%li",total]];
+    html=[html stringByReplacingOccurrencesOfString:@"$count" withString:[NSString stringWithFormat:@"%i",count]];
+    
+    [self.webPieChartView loadHTMLString:html baseURL:[NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/",[[NSBundle mainBundle] bundlePath]]]];
+    NSString* url =[NSString stringWithFormat:@"%@/retailChart.do?brand=%@&type=%@",BASE_URL,[self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],self.type];
+    if(DrAppDelegate.user.date!=nil){
+        NSDateFormatter* dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+        [dateFormatter setTimeStyle:NSDateFormatterFullStyle];
+        [dateFormatter setDateFormat:@"yyyyMMdd"];
+        NSString* strDate = [dateFormatter stringFromDate:DrAppDelegate.user.date];
+        url = [url stringByAppendingFormat:@"&date=%@",strDate];
+    }
+    
+    [self.webPieChartView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]];
+    self.contentView.contentSize =
+    CGSizeMake(320, 390+count*30);
 }
 
 -(void)clickChannelLabel:(UIGestureRecognizer*)gestureRecognizer{
@@ -167,33 +187,16 @@
     tabLabel.textColor = [StyleSheet colorFromHexString:@"#636363"];
     tabLabel.backgroundColor =[StyleSheet colorFromHexString:@"#ffffff"];
     if([tabLabel.text isEqualToString:@"店铺性质"]){
-        [self updateTab:@"channel"];
-        self.selectedData = self.channels;
+        self.type = @"channel";
     }else if([tabLabel.text isEqualToString:@"店铺形态"]){
-        [self updateTab:@"sort"];
-        self.selectedData = self.sorts;
+        self.type = @"sort";
     }else if([tabLabel.text isEqualToString:@"管理形式"]){
-        [self updateTab:@"region"];
-        self.selectedData = self.regions;
+        self.type = @"region";
     }
-    
+    [self.retailModel load:self.type policy:TTURLRequestCachePolicyNone more:NO];
 }
 
--(void) updateTab:(NSString*) type{
-    [self.contentView addSubview:self.webPieChartView];
-    NSString* url =[NSString stringWithFormat:@"%@/retailChart.do?brand=%@&type=%@",BASE_URL,[self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],type];
-    if(DrAppDelegate.user.date!=nil){
-        NSDateFormatter* dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
-        [dateFormatter setTimeStyle:NSDateFormatterFullStyle];
-        [dateFormatter setDateFormat:@"yyyyMMdd"];
-        NSString* strDate = [dateFormatter stringFromDate:DrAppDelegate.user.date];
-        url = [url stringByAppendingFormat:@"&date=%@",strDate];
-    }
-    
-    [self.webPieChartView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]];
-    self.contentView.contentSize =
-    CGSizeMake(320, 390+self.selectedData.count*30);
-}
+
 - (void) brandDidStartLoad:(NSString*) brand{
     NSLog(@"%@",@"开始加载Brand数据");
 }
@@ -214,10 +217,9 @@
     TT_RELEASE_SAFELY(_retailModel);
     TT_RELEASE_SAFELY(_webPieChartView);
     TT_RELEASE_SAFELY(_tabLables);
-    TT_RELEASE_SAFELY(_channels);
-    TT_RELEASE_SAFELY(_sorts);
-    TT_RELEASE_SAFELY(_regions);
     TT_RELEASE_SAFELY(_tableViews);
+    TT_RELEASE_SAFELY(_calendarLabel);
+    TT_RELEASE_SAFELY(_type);
     [super dealloc];
 }
 
