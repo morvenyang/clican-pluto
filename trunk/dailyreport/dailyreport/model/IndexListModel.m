@@ -47,7 +47,8 @@
         TTURLRequest* request = [TTURLRequest
                                  requestWithURL: url
                                  delegate: self];
-        
+        request.timeoutInterval = DrAppDelegate.user.timeoutInterval;
+
         [request setValue:[@"JSESSIONID=" stringByAppendingString:DrAppDelegate.user.sessionId]forHTTPHeaderField:@"Cookie"];
         
         request.cachePolicy = TTURLRequestCachePolicyNone;

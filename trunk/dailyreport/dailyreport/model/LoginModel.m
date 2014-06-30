@@ -48,7 +48,7 @@
     NSLog(@"URL:%@", url);
     
     TTURLRequest *request=[TTURLRequest requestWithURL:url delegate:self];
-    request.timeoutInterval = 10;
+    request.timeoutInterval = 15;
     request.cachePolicy = TTURLRequestCachePolicyNone;
     
     
@@ -87,6 +87,8 @@
         if([result intValue]==0){
             _user.sessionId = [data objectForKey:@"jsessionid"];
             _user.expiredDays = [data objectForKey:@"expiredDays"];
+            NSNumber* timeoutInterval = [data objectForKey:@"timeoutInterval"];
+            _user.timeoutInterval =timeoutInterval.intValue;
             if ([_delegate respondsToSelector:@selector(loginSuccess:)]) {
                 [_delegate loginSuccess:_user];
             }
