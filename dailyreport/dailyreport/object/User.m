@@ -11,7 +11,16 @@
 @synthesize expiredDays = _expiredDays;
 @synthesize date = _date;
 @synthesize oldDate = _oldDate;
+@synthesize timeoutInterval = _timeoutInterval;
 ///////////////////////////////////////////////////////////////////////////////////////////////////
+-(id)init{
+    self = [super init];
+    if(self){
+        self.timeoutInterval = 60;
+        return self;
+    }
+    return nil;
+}
 - (void) dealloc {
     TT_RELEASE_SAFELY(_username);
     TT_RELEASE_SAFELY(_password);

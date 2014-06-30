@@ -10,6 +10,7 @@
     NSNumber* _expiredDays;
     NSDate* _date;
     NSDate* _oldDate;
+    int _timeoutInterval;
 }
 
 @property (nonatomic, copy) NSString* username;
@@ -18,4 +19,5 @@
 @property (nonatomic, retain) NSNumber* expiredDays;
 @property (nonatomic, retain) NSDate* date;
 @property (nonatomic, retain) NSDate* oldDate;
+@property (nonatomic, assign) int timeoutInterval;
 @end
