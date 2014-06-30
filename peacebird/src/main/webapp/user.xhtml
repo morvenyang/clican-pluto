@@ -40,6 +40,12 @@
 							</f:facet>
 							<h:outputText value="#{user.expiredDays}" />
 						</rich:column>
+						<rich:column sortBy="#{user.timeoutInterval}">
+							<f:facet name="header">
+								<h:outputText value="客户端超时(秒)" />
+							</f:facet>
+							<h:outputText value="#{user.timeoutInterval}" />
+						</rich:column>
 						<rich:column sortBy="#{user.role}">
 							<f:facet name="header">
 								<h:outputText value="角色" />
@@ -137,6 +143,15 @@
 					<h:inputText id="expiredDays"
 						value="#{userAction.user.expiredDays}" style="width:30px;"/>
 					<rich:message for="expiredDays" style="color:red" showDetail="false"
+						showSummary="true" />
+						
+					<h:panelGroup>
+						<h:outputLabel value="客户端超时(秒)" />
+						<h:outputText value=" *" style="color:red;" />
+					</h:panelGroup>
+					<h:inputText id="timeoutInterval"
+						value="#{userAction.user.timeoutInterval}" style="width:30px;"/>
+					<rich:message for="timeoutInterval" style="color:red" showDetail="false"
 						showSummary="true" />
 						
 					<h:panelGroup>

@@ -24,6 +24,7 @@ public class User {
 	private int role = 1; //1客户端 2管理员
 	private String brands;
 	private String token;
+	private Integer timeoutInterval=60;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -84,11 +85,19 @@ public class User {
 	public void setBrands(String brands) {
 		this.brands = brands;
 	}
+	@Column
 	public String getToken() {
 		return token;
 	}
 	public void setToken(String token) {
 		this.token = token;
+	}
+	@Column
+	public Integer getTimeoutInterval() {
+		return timeoutInterval;
+	}
+	public void setTimeoutInterval(Integer timeoutInterval) {
+		this.timeoutInterval = timeoutInterval;
 	}
 	
 }

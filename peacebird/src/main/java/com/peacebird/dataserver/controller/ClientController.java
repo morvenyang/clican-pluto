@@ -54,10 +54,10 @@ public class ClientController {
 		LoginResult lr = null;
 		User user = userService.findUserByUserName(userName);
 		if (user == null) {
-			lr = new LoginResult(1000, "用户名不存在", -1);
+			lr = new LoginResult(1000, "用户名不存在", -1,60);
 		} else {
 			if (!user.isActive()) {
-				lr = new LoginResult(1002, "该用户被禁用,请联系管理员激活该用户", -1);
+				lr = new LoginResult(1002, "该用户被禁用,请联系管理员激活该用户", -1,60);
 			} else {
 				String hashPassword = DigestUtils.shaHex(password);
 				if (user.getPassword().equals(hashPassword)) {
@@ -66,9 +66,14 @@ public class ClientController {
 						user.setToken(token);
 						userService.saveUser(user);
 					}
-					lr = new LoginResult(0, "登录成功", user.getExpiredDays());
+					if(user.getTimeoutInterval()==null){
+						lr = new LoginResult(0, "登录成功", user.getExpiredDays(),60);
+					}else{
+						lr = new LoginResult(0, "登录成功", user.getExpiredDays(),user.getTimeoutInterval());
+					}
+					
 				} else {
-					lr = new LoginResult(1001, "密码错误", -1);
+					lr = new LoginResult(1001, "密码错误", -1,60);
 				}
 			}
 		}
