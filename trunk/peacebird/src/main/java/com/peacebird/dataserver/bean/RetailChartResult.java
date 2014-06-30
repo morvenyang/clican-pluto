@@ -14,6 +14,8 @@ public class RetailChartResult {
 	private long total;
 	
 	private Date date;
+	
+	private int count;
 
 	public List<RetailResult> getDataProvider() {
 		return dataProvider;
@@ -53,6 +55,14 @@ public class RetailChartResult {
 
 	public void setDate(Date date) {
 		this.date = date;
+	}
+
+	public int getCount() {
+		return count;
+	}
+
+	public void setCount(int count) {
+		this.count = count;
 	}
 	
 	
