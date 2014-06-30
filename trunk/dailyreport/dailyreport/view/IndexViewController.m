@@ -51,9 +51,9 @@
     [dateFormatter setTimeStyle:NSDateFormatterFullStyle];
     [dateFormatter setDateFormat:@"MM月dd日 EEE"];
     if(DrAppDelegate.user.date!=nil){
-        label.text = [dateFormatter stringFromDate:DrAppDelegate.user.date];
+        label.text = [NSString stringWithFormat:@"%@%@",@"   ",[dateFormatter stringFromDate:DrAppDelegate.user.date]];
     }else{
-        label.text = [dateFormatter stringFromDate:[[NSDate date] dateByAddingDays:-1]];
+        label.text = [NSString stringWithFormat:@"%@%@",@"   ",[dateFormatter stringFromDate:[[NSDate date] dateByAddingDays:-1]]];
     }
     self.navigationItem.titleView = label;
     [label sizeToFit];
@@ -91,9 +91,9 @@
     [titleButton setTitle:@"经营日报" forState:UIControlStateNormal];
     [titleButton setTitleColor:[StyleSheet colorFromHexString:@"#323232"] forState:UIControlStateNormal];
     titleButton.frame =CGRectMake(0, 0, 55, 20);
+    titleButton.contentEdgeInsets=UIEdgeInsetsMake(0, 3, 0, 0);
     [titleButton sizeToFit];
     UIBarButtonItem* titleItem = [[UIBarButtonItem alloc] initWithCustomView:titleButton];
-    
     [self.navigationItem setLeftBarButtonItem:titleItem];
 
     UIButton* logoutButton = [UIButton buttonWithType:UIButtonTypeCustom];
