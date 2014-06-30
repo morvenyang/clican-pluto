@@ -27,6 +27,7 @@ import com.peacebird.dataserver.bean.ChannelStatResult;
 import com.peacebird.dataserver.bean.IndexStatResult;
 import com.peacebird.dataserver.bean.RankResult;
 import com.peacebird.dataserver.bean.RankStatResult;
+import com.peacebird.dataserver.bean.RetailChartResult;
 import com.peacebird.dataserver.bean.RetailResult;
 import com.peacebird.dataserver.bean.RetailStatResult;
 import com.peacebird.dataserver.bean.SpringProperty;
@@ -363,6 +364,34 @@ public class DataServiceImpl implements DataService {
 			}
 		}
 		return list;
+	}
+
+	@Override
+	public String getRetailChartResultForJson(String brand, String type,
+			Date date) {
+		Date yesterday = getYesterday(date);
+		List<RetailResult> dataProvider = this.getRetailChartResult(brand, type, date);
+		RetailChartResult rcr = new RetailChartResult();
+		rcr.setDataProvider(dataProvider);
+		rcr.setHeight(600 + dataProvider.size() * 80);
+		rcr.setTop( 260 +  dataProvider.size() * 5);
+		
+		Long total = 0L;
+		for (RetailResult rr : dataProvider) {
+			if (rr.getDayAmount() != null) {
+				total += rr.getDayAmount();
+			}
+		}
+		rcr.setDate(yesterday);
+		rcr.setTotal(total);
+		JsonConfig jsonConfig = new JsonConfig();
+		jsonConfig.registerJsonValueProcessor(Date.class,
+				new DateJsonValueProcessor("yyyy-MM-dd"));
+		jsonConfig.registerJsonValueProcessor(Integer.class,
+				new IntegerJsonValueProcessor());
+
+		String result = JSONObject.fromObject(rcr, jsonConfig).toString();
+		return result;
 	}
 
 	@Override

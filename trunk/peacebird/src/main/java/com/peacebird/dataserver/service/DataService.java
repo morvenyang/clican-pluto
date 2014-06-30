@@ -19,6 +19,8 @@ public interface DataService {
 	
 	public List<RetailResult> getRetailChartResult(String brand,String type,Date date);
 	
+	public String getRetailChartResultForJson(String brand,String type,Date date);
+	
 	public String getChannelResult(String brand,Date date);
 	
 	public String getStoreRankResult(String brand,Date date);
