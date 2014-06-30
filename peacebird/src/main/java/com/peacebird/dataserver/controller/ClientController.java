@@ -118,7 +118,8 @@ public class ClientController {
 					log.debug("There are brands [" + brands + "] for user["
 							+ user.getUserName() + "]");
 				}
-				result = this.dataService.getIndexResult(brands.split(","),this.getDate(date));
+				result = this.dataService.getIndexResult(brands.split(","),
+						this.getDate(date));
 			}
 		}
 		try {
@@ -205,6 +206,31 @@ public class ClientController {
 			req.setAttribute("top", 260 + result.size() * 5);
 			req.setAttribute("total", total);
 			req.getRequestDispatcher("/retail.jsp").forward(req, resp);
+		} catch (Exception e) {
+			log.error("", e);
+		}
+	}
+
+	@RequestMapping("/retailChartJson")
+	public void retailChartJson(@RequestParam(value = "brand") String brand,
+			@RequestParam(value = "type") String type,
+			@RequestParam(value = "date", required = false) String date,
+			HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		if (log.isDebugEnabled()) {
+			log.debug("access retail chart json page");
+		}
+		User user = (User) req.getSession().getAttribute("user");
+		String result = null;
+		if (user == null) {
+			result = this.getNotLoginResult();
+		} else {
+			result = this.dataService.getRetailChartResultForJson(brand, type,
+					getDate(date));
+		}
+		try {
+			resp.setContentType("application/json");
+			resp.getOutputStream().write(result.getBytes("utf-8"));
 		} catch (Exception e) {
 			log.error("", e);
 		}
