@@ -46,6 +46,7 @@ public class ClientController {
 	public void login(@RequestParam(value = "userName") String userName,
 			@RequestParam(value = "password") String password,
 			@RequestParam(value = "token", required = false) String token,
+			@RequestParam(value = "version", required = false) String version,
 			HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		if (log.isDebugEnabled()) {
@@ -101,7 +102,8 @@ public class ClientController {
 
 	@RequestMapping("/index")
 	public void index(HttpServletRequest req, HttpServletResponse resp,
-			@RequestParam(value = "date", required = false) String date)
+			@RequestParam(value = "date", required = false) String date,
+			@RequestParam(value = "version", required = false) String version)
 			throws ServletException, IOException {
 		if (log.isDebugEnabled()) {
 			log.debug("access index page");
@@ -138,6 +140,7 @@ public class ClientController {
 	@RequestMapping("/brand")
 	public void brand(@RequestParam(value = "brand") String brand,
 			@RequestParam(value = "date", required = false) String date,
+			@RequestParam(value = "version", required = false) String version,
 			HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		if (log.isDebugEnabled()) {
@@ -166,6 +169,7 @@ public class ClientController {
 	@RequestMapping("/retail")
 	public void retail(@RequestParam(value = "brand") String brand,
 			@RequestParam(value = "date", required = false) String date,
+			@RequestParam(value = "version", required = false) String version,
 			HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		if (log.isDebugEnabled()) {
@@ -190,6 +194,7 @@ public class ClientController {
 	public void retailChart(@RequestParam(value = "brand") String brand,
 			@RequestParam(value = "type") String type,
 			@RequestParam(value = "date", required = false) String date,
+			@RequestParam(value = "version", required = false) String version,
 			HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		if (log.isDebugEnabled()) {
@@ -220,6 +225,7 @@ public class ClientController {
 	public void retailChartJson(@RequestParam(value = "brand") String brand,
 			@RequestParam(value = "type") String type,
 			@RequestParam(value = "date", required = false) String date,
+			@RequestParam(value = "version", required = false) String version,
 			HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		if (log.isDebugEnabled()) {
@@ -253,6 +259,7 @@ public class ClientController {
 	@RequestMapping("/channel")
 	public void channel(@RequestParam(value = "brand") String brand,
 			@RequestParam(value = "date", required = false) String date,
+			@RequestParam(value = "version", required = false) String version,
 			HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		if (log.isDebugEnabled()) {
@@ -276,6 +283,7 @@ public class ClientController {
 	@RequestMapping("/storeRank")
 	public void storeRank(@RequestParam(value = "brand") String brand,
 			@RequestParam(value = "date", required = false) String date,
+			@RequestParam(value = "version", required = false) String version,
 			HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		if (log.isDebugEnabled()) {
