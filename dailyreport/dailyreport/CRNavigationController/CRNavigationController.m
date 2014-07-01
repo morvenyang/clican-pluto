@@ -16,7 +16,11 @@
 @implementation CRNavigationController
 
 - (id)init {
-    self = [super initWithNavigationBarClass:[CRNavigationBar class] toolbarClass:nil];
+    #ifdef __IPHONE_6_0
+        self = [super initWithNavigationBarClass:[CRNavigationBar class] toolbarClass:nil];
+    #else
+        self = [super init];
+    #endif
     if(self) {
         // Custom initialization here, if needed.
     }
@@ -24,7 +28,11 @@
 }
 
 - (id)initWithRootViewController:(UIViewController *)rootViewController {
-    self = [super initWithNavigationBarClass:[CRNavigationBar class] toolbarClass:nil];
+    #ifdef __IPHONE_6_0
+        self = [super initWithNavigationBarClass:[CRNavigationBar class] toolbarClass:nil];
+    #else
+        self = [super init];
+    #endif
     if(self) {
         self.viewControllers = @[rootViewController];
     }
@@ -32,7 +40,9 @@
     return self;
 }
 
+#ifdef __IPHONE_6_0
 - (UIStatusBarStyle)preferredStatusBarStyle {
     return UIStatusBarStyleLightContent;
 }
+#endif
 @end

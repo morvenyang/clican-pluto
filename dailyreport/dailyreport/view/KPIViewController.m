@@ -105,7 +105,7 @@
             UITapGestureRecognizer* recognizer = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickChannelLabel:)] autorelease];
             channelLabel.userInteractionEnabled = YES;
             [channelLabel addGestureRecognizer:recognizer];
-            channelLabel.textAlignment = NSTextAlignmentCenter;
+            channelLabel.textAlignment = [self getAlignment:ALIGN_CENTER];
             if(index!=0){
                 channelLabel.textColor = [UIColor whiteColor];
                 channelLabel.backgroundColor = [StyleSheet colorFromHexString:@"#bdbdbd"];
@@ -124,28 +124,28 @@
     
     [self.contentView addSubview:[self createImageViewFromNamedImage:@"零售收入.png" frame:CGRectMake(20,114,24,24)]];
     [self.contentView addSubview:[self createLabel:@"零售额" frame:CGRectMake(50,100,100,49) textColor:@"#4a4a4a" font:18 backgroundColor:nil]];
-    self.dayAmountLabel =[self createDecimalLabel:[NSNumber numberWithInt:channel.dayAmount.intValue/10000] unit:@"万元" frame:CGRectMake(200,100,100,49) textColor:@"#7f7f7f" font:18 backgroundColor:nil textAlignment:NSTextAlignmentLeft];
+    self.dayAmountLabel =[self createDecimalLabel:[NSNumber numberWithInt:channel.dayAmount.intValue/10000] unit:@"万元" frame:CGRectMake(200,100,100,49) textColor:@"#7f7f7f" font:18 backgroundColor:nil textAlignment:ALIGN_LEFT];
 
     [self.contentView addSubview:self.dayAmountLabel];
     [self.contentView addSubview:[self createImageViewFromNamedImage:@"关键指标-分割线.png" frame:CGRectMake(0,157,320,3)]];
     [self.contentView addSubview:[self createImageViewFromNamedImage:@"票数.png" frame:CGRectMake(20,174,24,24)]];
     [self.contentView addSubview:[self createLabel:@"票数" frame:CGRectMake(50,160,100,49) textColor:@"#4a4a4a" font:18 backgroundColor:nil]];
-    self.docNumberLabel =[self createDecimalLabel:[NSNumber numberWithInt:channel.docNumber.intValue] frame:CGRectMake(200,160,100,49) textColor:@"#7f7f7f" font:18 backgroundColor:nil textAlignment:NSTextAlignmentLeft];
+    self.docNumberLabel =[self createDecimalLabel:[NSNumber numberWithInt:channel.docNumber.intValue] frame:CGRectMake(200,160,100,49) textColor:@"#7f7f7f" font:18 backgroundColor:nil textAlignment:ALIGN_LEFT];
     [self.contentView addSubview:self.docNumberLabel];
     [self.contentView addSubview:[self createImageViewFromNamedImage:@"关键指标-分割线.png" frame:CGRectMake(0,217,320,3)]];
     [self.contentView addSubview:[self createImageViewFromNamedImage:@"附加.png" frame:CGRectMake(20,234,24,24)]];
     [self.contentView addSubview:[self createLabel:@"附加" frame:CGRectMake(50,220,100,49) textColor:@"#4a4a4a" font:18 backgroundColor:nil]];
-    self.avgDocCountLabel =[self createLabel:[NSString stringWithFormat:@"%0.1f",channel.avgDocCount.doubleValue] frame:CGRectMake(200,220,100,49) textColor:@"#7f7f7f" font:18 backgroundColor:nil];
+    self.avgDocCountLabel =[self createLabel:[NSString stringWithFormat:@"%0.1f",channel.avgDocCount.doubleValue] frame:CGRectMake(200,220,100,49) textColor:@"#7f7f7f" font:18 backgroundColor:nil textAlignment:ALIGN_LEFT];
     [self.contentView addSubview:self.avgDocCountLabel];
     [self.contentView addSubview:[self createImageViewFromNamedImage:@"关键指标-分割线.png" frame:CGRectMake(0,277,320,3)]];
     [self.contentView addSubview:[self createImageViewFromNamedImage:@"件单价.png" frame:CGRectMake(20,294,24,24)]];
     [self.contentView addSubview:[self createLabel:@"件单价" frame:CGRectMake(50,280,100,49) textColor:@"#4a4a4a" font:18 backgroundColor:nil]];
-    self.avgPriceLabel =[self createDecimalLabel:[NSNumber numberWithInt:channel.avgPrice.intValue] unit:@"元" frame:CGRectMake(200,280,100,49) textColor:@"#7f7f7f" font:18 backgroundColor:nil textAlignment:NSTextAlignmentLeft];
+    self.avgPriceLabel =[self createDecimalLabel:[NSNumber numberWithInt:channel.avgPrice.intValue] unit:@"元" frame:CGRectMake(200,280,100,49) textColor:@"#7f7f7f" font:18 backgroundColor:nil textAlignment:ALIGN_LEFT];
     [self.contentView addSubview:self.avgPriceLabel];
     [self.contentView addSubview:[self createImageViewFromNamedImage:@"关键指标-分割线.png" frame:CGRectMake(0,337,320,3)]];
     [self.contentView addSubview:[self createImageViewFromNamedImage:@"单效.png" frame:CGRectMake(20,356,24,24)]];
     [self.contentView addSubview:[self createLabel:@"坪效" frame:CGRectMake(50,340,100,49) textColor:@"#4a4a4a" font:18 backgroundColor:nil]];
-    self.apsLabel =[self createDecimalLabel:[NSNumber numberWithInt:channel.aps.intValue] unit:@"元" frame:CGRectMake(200,340,100,49) textColor:@"#7f7f7f" font:18 backgroundColor:nil textAlignment:NSTextAlignmentLeft];
+    self.apsLabel =[self createDecimalLabel:[NSNumber numberWithInt:channel.aps.intValue] unit:@"元" frame:CGRectMake(200,340,100,49) textColor:@"#7f7f7f" font:18 backgroundColor:nil textAlignment:ALIGN_LEFT];
     [self.contentView addSubview:self.apsLabel];
     [self.contentView addSubview:[self createImageViewFromNamedImage:@"关键指标-背景花纹.png" frame:CGRectMake(0,397,320,7)]];
     

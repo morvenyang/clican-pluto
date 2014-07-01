@@ -17,7 +17,6 @@
 		320CC833B8AF0ACFD35E6225 /* libThree20Style.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 320CC833B8AF0ACFD35E6224 /* libThree20Style.a */; };
 		320D7DCCE32703ACAB9A45E5 /* libThree20.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 320D7DCCE32703ACAB9A45E4 /* libThree20.a */; };
 		320F2C48872C2E2C4DF86205 /* libThree20UI.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 320F2C48872C2E2C4DF86204 /* libThree20UI.a */; };
-		720D6082193156AF004C7781 /* PieChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 720D6081193156AF004C7781 /* PieChartView.m */; };
 		72138B83194EB53D009918BD /* CannotCancelUISwipeGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 72138B82194EB53D009918BD /* CannotCancelUISwipeGestureRecognizer.m */; };
 		72138B85194EEAF5009918BD /* 首次进入提示.png in Resources */ = {isa = PBXBuildFile; fileRef = 72138B84194EEAF5009918BD /* 首次进入提示.png */; };
 		721DB4CB1938C1F50075F392 /* logout.png in Resources */ = {isa = PBXBuildFile; fileRef = 721DB4CA1938C1F50075F392 /* logout.png */; };
@@ -443,8 +442,6 @@
 		320CC833B8AF0ACFD35E6220 /* Three20Style.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Three20Style.xcodeproj; path = ../three20/src/Three20Style/Three20Style.xcodeproj; sourceTree = SOURCE_ROOT; };
 		320D7DCCE32703ACAB9A45E0 /* Three20.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Three20.xcodeproj; path = ../three20/src/Three20/Three20.xcodeproj; sourceTree = SOURCE_ROOT; };
 		320F2C48872C2E2C4DF86200 /* Three20UI.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Three20UI.xcodeproj; path = ../three20/src/Three20UI/Three20UI.xcodeproj; sourceTree = SOURCE_ROOT; };
-		720D6080193156AF004C7781 /* PieChartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PieChartView.h; sourceTree = "<group>"; };
-		720D6081193156AF004C7781 /* PieChartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PieChartView.m; sourceTree = "<group>"; };
 		72138B81194EB53D009918BD /* CannotCancelUISwipeGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CannotCancelUISwipeGestureRecognizer.h; sourceTree = "<group>"; };
 		72138B82194EB53D009918BD /* CannotCancelUISwipeGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CannotCancelUISwipeGestureRecognizer.m; sourceTree = "<group>"; };
 		72138B84194EEAF5009918BD /* 首次进入提示.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "首次进入提示.png"; sourceTree = "<group>"; };
@@ -833,8 +830,6 @@
 		720D607619315691004C7781 /* chart */ = {
 			isa = PBXGroup;
 			children = (
-				720D6080193156AF004C7781 /* PieChartView.h */,
-				720D6081193156AF004C7781 /* PieChartView.m */,
 			);
 			path = chart;
 			sourceTree = "<group>";
@@ -1811,7 +1806,6 @@
 				723A4CED19613A7500E0C236 /* light.js in Sources */,
 				723A4CAA19613A7500E0C236 /* mt.js in Sources */,
 				723A4CB119613A7500E0C236 /* rw.js in Sources */,
-				720D6082193156AF004C7781 /* PieChartView.m in Sources */,
 				723A4CEA19613A7500E0C236 /* black.js in Sources */,
 				723A4CAE19613A7500E0C236 /* pt.js in Sources */,
 				722D42F3192C8AB600350244 /* RetailModel.m in Sources */,

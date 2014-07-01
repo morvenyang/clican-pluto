@@ -34,7 +34,9 @@
     [super loadView];
     self.title = self.brand;
     UIBarButtonItem* backButton = [[[UIBarButtonItem alloc] initWithTitle:@"\U000025C0\U0000FE0E" style:UIBarButtonItemStylePlain target:self action:@selector(backAction)] autorelease];
-    
+    if(DEVICE_VERSION<6.0){
+        backButton.title = @"<";
+    }
     [self.navigationItem setLeftBarButtonItem:backButton animated:YES];
     
     UIButton* shareButtonImage = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -90,7 +92,7 @@
     UIImage* wxImage= [UIImage imageNamed:@"图标-微信好友.png"];
     [wxButton setImage:wxImage forState:UIControlStateNormal];
     [wxButton addTarget:self action:@selector(sendWXContent) forControlEvents:UIControlEventTouchUpInside];
-    UILabel* wxLabel = [self createLabel:@"微信好友" frame:CGRectMake(120, 110, 80, 20) textColor:@"#849484" font:14 backgroundColor:nil textAlignment:NSTextAlignmentCenter];
+    UILabel* wxLabel = [self createLabel:@"微信好友" frame:CGRectMake(120, 110, 80, 20) textColor:@"#849484" font:14 backgroundColor:nil textAlignment:ALIGN_CENTER];
     [self.shareView addSubview:cancelButton];
     
     [self.shareView addSubview:wxButton];
@@ -109,16 +111,20 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    #ifdef __IPHONE_7_0
     if(DEVICE_VERSION>=7.0){
         self.navigationController.navigationBar.barTintColor=[UIColor blackColor];
     }else{
         self.navigationController.navigationBar.tintColor = [UIColor blackColor];
     }
+    #else
+        self.navigationController.navigationBar.tintColor = [UIColor blackColor];
+    #endif
     
     UILabel* label = [[[UILabel alloc] initWithFrame:CGRectZero] autorelease];
     label.backgroundColor = [UIColor clearColor];
     label.font =[UIFont systemFontOfSize:18];
-    label.textAlignment = NSTextAlignmentCenter;
+    label.textAlignment = [self getAlignment:ALIGN_CENTER];
     label.textColor=[UIColor whiteColor];
     label.text = self.brand;
     self.navigationItem.titleView = label;
@@ -165,7 +171,27 @@
     imageView.image = image;
     return imageView;
 }
-
+#ifdef __IPHONE_6_0
+-(NSTextAlignment) getAlignment:(int)textAlignment{
+    if(textAlignment==ALIGN_LEFT){
+        return NSTextAlignmentLeft;
+    }else if(textAlignment==ALIGN_CENTER){
+        return NSTextAlignmentCenter;
+    }else{
+        return NSTextAlignmentRight;
+    }
+}
+#else
+-(UITextAlignment) getAlignment:(int)textAlignment{
+    if(textAlignment==ALIGN_LEFT){
+        return UITextAlignmentLeft;
+    }else if(textAlignment==ALIGN_CENTER){
+        return UITextAlignmentCenter;
+    }else{
+        return UITextAlignmentRight;
+    }
+}
+#endif
 -(UILabel*) createLabel:(NSString*) text frame:(CGRect) frame textColor:(NSString*) textColor font:(int) font backgroundColor:(NSString*) backgroundColor{
     UILabel* label = [[[UILabel alloc] initWithFrame:frame] autorelease];
     label.text = text;
@@ -180,12 +206,12 @@
     return label;
 }
 
--(UILabel*) createLabel:(NSString*) text frame:(CGRect) frame textColor:(NSString*) textColor font:(int) font backgroundColor:(NSString*) backgroundColor textAlignment:(NSTextAlignment) textAlignment{
+-(UILabel*) createLabel:(NSString*) text frame:(CGRect) frame textColor:(NSString*) textColor font:(int) font backgroundColor:(NSString*) backgroundColor textAlignment:(int) textAlignment{
     UILabel* label = [[[UILabel alloc] initWithFrame:frame] autorelease];
     label.text = text;
     label.font = [UIFont systemFontOfSize:font];
     label.textColor = [StyleSheet colorFromHexString:textColor];
-    label.textAlignment =textAlignment;
+    label.textAlignment =[self getAlignment:textAlignment];
     if(backgroundColor==nil){
         label.backgroundColor = [UIColor clearColor];
     }else{
@@ -195,7 +221,7 @@
     return label;
 }
 -(UILabel*) createDecimalLabel:(NSNumber*) number
-                          unit:(NSString*) unit frame:(CGRect)  frame textColor:(NSString*) textColor font:(int) font backgroundColor:(NSString*) backgroundColor textAlignment:(NSTextAlignment) textAlignment{
+                          unit:(NSString*) unit frame:(CGRect)  frame textColor:(NSString*) textColor font:(int) font backgroundColor:(NSString*) backgroundColor textAlignment:(int) textAlignment{
     UILabel* label = [[[UILabel alloc] initWithFrame:frame] autorelease];
     NSNumberFormatter* formatter = [[[NSNumberFormatter alloc]init] autorelease];
     formatter.numberStyle = NSNumberFormatterDecimalStyle;
@@ -203,7 +229,7 @@
     label.text = [NSString stringWithFormat:@"%@ %@",[formatter stringFromNumber:number],unit];
     label.font = [UIFont systemFontOfSize:font];
     label.textColor = [StyleSheet colorFromHexString:textColor];
-    label.textAlignment =textAlignment;
+    label.textAlignment =[self getAlignment:textAlignment];
     if(backgroundColor==nil){
         label.backgroundColor = [UIColor clearColor];
     }else{
@@ -212,7 +238,7 @@
     
     return label;
 }
--(UILabel*) createDecimalLabel:(NSNumber*) number frame:(CGRect) frame textColor:(NSString*) textColor font:(int) font backgroundColor:(NSString*) backgroundColor textAlignment:(NSTextAlignment) textAlignment{
+-(UILabel*) createDecimalLabel:(NSNumber*) number frame:(CGRect) frame textColor:(NSString*) textColor font:(int) font backgroundColor:(NSString*) backgroundColor textAlignment:(int) textAlignment{
     UILabel* label = [[[UILabel alloc] initWithFrame:frame] autorelease];
     NSNumberFormatter* formatter = [[[NSNumberFormatter alloc]init] autorelease];
     formatter.numberStyle = NSNumberFormatterDecimalStyle;
@@ -220,7 +246,7 @@
     label.text = [formatter stringFromNumber:number];
     label.font = [UIFont systemFontOfSize:font];
     label.textColor = [StyleSheet colorFromHexString:textColor];
-    label.textAlignment =textAlignment;
+    label.textAlignment =[self getAlignment:textAlignment];
     if(backgroundColor==nil){
         label.backgroundColor = [UIColor clearColor];
     }else{

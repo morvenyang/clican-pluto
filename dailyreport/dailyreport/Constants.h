@@ -16,4 +16,7 @@
 #define DEVICE_TOKEN @"DEVICE_TOKEN"
 #define VERSION @"1.0"
 #define DEVICE_VERSION [[[UIDevice currentDevice] systemVersion] doubleValue]
+#define ALIGN_LEFT 1
+#define ALIGN_CENTER 2
+#define ALIGN_RIGHT 3
 #endif

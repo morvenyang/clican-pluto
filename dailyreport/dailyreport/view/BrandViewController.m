@@ -105,7 +105,7 @@
     
     retailAmountLabel.textColor = [UIColor whiteColor];
     retailAmountLabel.backgroundColor = [UIColor clearColor];
-    retailAmountLabel.textAlignment = NSTextAlignmentCenter;
+    retailAmountLabel.textAlignment = [self getAlignment:ALIGN_CENTER];
     NSString* retailLikeText =[NSString stringWithFormat:@"%0.1f%@",brand.dayLike.floatValue*100,@"%"];
     if(brand.dayLike.floatValue>0){
         retailLikeText = [NSString stringWithFormat:@"+%@",retailLikeText];
@@ -113,8 +113,8 @@
     UILabel* retailLikeLabel = [self createLabel:retailLikeText frame:CGRectMake(40, 130, 120, 30) textColor:@"#ffffff" font:20 backgroundColor:nil];
     for(int i=0;i<channels.count;i++){
         Channel* channel = [channels objectAtIndex:i];
-        UILabel* channelLabel=[self createLabel:channel.channel frame:CGRectMake(200, i*20+50, 90, 20) textColor:@"#ffffff" font:14 backgroundColor:nil textAlignment:NSTextAlignmentLeft];
-        UILabel* channelValue=[self createDecimalLabel:[NSNumber numberWithInt:channel.dayAmount.intValue/10000] frame:CGRectMake(200, i*20+50, 90, 20) textColor:@"#ffffff" font:14 backgroundColor:nil textAlignment:NSTextAlignmentRight];
+        UILabel* channelLabel=[self createLabel:channel.channel frame:CGRectMake(200, i*20+50, 90, 20) textColor:@"#ffffff" font:14 backgroundColor:nil textAlignment:ALIGN_LEFT];
+        UILabel* channelValue=[self createDecimalLabel:[NSNumber numberWithInt:channel.dayAmount.intValue/10000] frame:CGRectMake(200, i*20+50, 90, 20) textColor:@"#ffffff" font:14 backgroundColor:nil textAlignment:ALIGN_RIGHT];
         [dailyView addSubview:channelLabel];
         [dailyView addSubview:channelValue];
     }
@@ -132,7 +132,11 @@
         Brand* weekBrand = [weeks objectAtIndex:i];
         UILabel* weekTitle = [[[UILabel alloc] initWithFrame:CGRectMake(2+(i)*45, 15, 45, 40)] autorelease];
         [weekTitle setNumberOfLines:2];
-        weekTitle.lineBreakMode =NSLineBreakByWordWrapping;
+        #ifdef __IPHONE_6_0
+            weekTitle.lineBreakMode =NSLineBreakByWordWrapping;
+        #else
+            weekTitle.lineBreakMode =UILineBreakModeWordWrap;
+        #endif
         NSDateFormatter *df = [[NSDateFormatter alloc] init];
         [df setDateFormat:@"M/dd\nEEE"];
         weekTitle.text = [df stringFromDate:weekBrand.date];
@@ -140,12 +144,12 @@
         weekTitle.font = [UIFont systemFontOfSize:14];
         weekTitle.textColor = [StyleSheet colorFromHexString:@"#383838"];
         weekTitle.backgroundColor = [UIColor clearColor];
-        weekTitle.textAlignment = NSTextAlignmentCenter;
+        weekTitle.textAlignment = [self getAlignment:ALIGN_CENTER];
         [weeklyView addSubview:weekTitle];
         if(weekBrand.dayAmount==nil||weekBrand.dayAmount.intValue==-1){
             continue;
         }
-        UILabel* weekAmount= [self createDecimalLabel:[NSNumber numberWithInt:weekBrand.dayAmount.intValue/10000] frame:CGRectMake(2+(i)*45, 60, 45, 40) textColor:@"#F55943" font:15 backgroundColor:nil textAlignment:NSTextAlignmentCenter];
+        UILabel* weekAmount= [self createDecimalLabel:[NSNumber numberWithInt:weekBrand.dayAmount.intValue/10000] frame:CGRectMake(2+(i)*45, 60, 45, 40) textColor:@"#F55943" font:15 backgroundColor:nil textAlignment:ALIGN_CENTER];
         [weeklyView addSubview:weekAmount];
     }
     
@@ -167,7 +171,7 @@
     weekLike.textColor = [StyleSheet colorFromHexString:@"#919191"];
     weekLike.backgroundColor = [UIColor clearColor];
     
-    UILabel* weekSumAmount =[self createDecimalLabel:[NSNumber numberWithInt:brand.weekAmount.intValue/10000] frame:CGRectMake(12, 35, 148, 40) textColor:@"#494949" font:32 backgroundColor:nil textAlignment:NSTextAlignmentLeft];
+    UILabel* weekSumAmount =[self createDecimalLabel:[NSNumber numberWithInt:brand.weekAmount.intValue/10000] frame:CGRectMake(12, 35, 148, 40) textColor:@"#494949" font:32 backgroundColor:nil textAlignment:ALIGN_LEFT];
     
     UILabel* weekLikeAmount = [[[UILabel alloc] initWithFrame:CGRectMake(12+160, 35, 148, 40)] autorelease];
     weekLikeAmount.text = [NSString stringWithFormat:@"%0.1f%@",brand.weekLike.floatValue*100,@"%"];
@@ -187,7 +191,7 @@
     monthLike.textColor = [StyleSheet colorFromHexString:@"#919191"];
     monthLike.backgroundColor = [UIColor clearColor];
     
-    UILabel* monthSumAmount =[self createDecimalLabel:[NSNumber numberWithInt:brand.monthAmount.intValue/10000] frame:CGRectMake(12, 105, 148, 40) textColor:@"#494949" font:32 backgroundColor:nil textAlignment:NSTextAlignmentLeft];
+    UILabel* monthSumAmount =[self createDecimalLabel:[NSNumber numberWithInt:brand.monthAmount.intValue/10000] frame:CGRectMake(12, 105, 148, 40) textColor:@"#494949" font:32 backgroundColor:nil textAlignment:ALIGN_LEFT];
     
     UILabel* monthLikeAmount = [[[UILabel alloc] initWithFrame:CGRectMake(12+160, 105, 148, 40)] autorelease];
     monthLikeAmount.text = [NSString stringWithFormat:@"%0.1f%@",brand.monthLike.floatValue*100,@"%"];
@@ -208,7 +212,7 @@
     yearLike.textColor = [StyleSheet colorFromHexString:@"#919191"];
     yearLike.backgroundColor = [UIColor clearColor];
     
-    UILabel* yearSumAmount =[self createDecimalLabel:[NSNumber numberWithInt:brand.yearAmount.intValue/10000] frame:CGRectMake(12, 175, 148, 40) textColor:@"#494949" font:32 backgroundColor:nil textAlignment:NSTextAlignmentLeft];
+    UILabel* yearSumAmount =[self createDecimalLabel:[NSNumber numberWithInt:brand.yearAmount.intValue/10000] frame:CGRectMake(12, 175, 148, 40) textColor:@"#494949" font:32 backgroundColor:nil textAlignment:ALIGN_LEFT];
         
     UILabel* yearLikeAmount = [[[UILabel alloc] initWithFrame:CGRectMake(12+160, 175, 148, 40)] autorelease];
     yearLikeAmount.text = [NSString stringWithFormat:@"%0.1f%@",brand.yearLike.floatValue*100,@"%"];

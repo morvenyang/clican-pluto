@@ -28,13 +28,17 @@
         
     }
     
-    UIColor *navigationTextColor = [UIColor whiteColor];
-    if(DEVICE_VERSION>=7.0){
+    
+    #ifdef __IPHONE_7_0
+        if(DEVICE_VERSION>=7.0){
+        UIColor *navigationTextColor = [UIColor whiteColor];
         DrAppDelegate.window.tintColor = navigationTextColor;
         [[UINavigationBar appearance] setTitleTextAttributes:@{
-                                                               NSForegroundColorAttributeName : navigationTextColor
-                                                               }];
-    }
+                         NSForegroundColorAttributeName : navigationTextColor
+         }];
+        }
+    #endif
+
     
     return self;
 }
@@ -53,11 +57,16 @@
 
     
     self.title = @"登录";
-    if(DEVICE_VERSION>=7.0){
-        self.navigationController.navigationBar.barTintColor=[UIColor blackColor];
-    }else{
+    #ifdef __IPHONE_7_0
+        if(DEVICE_VERSION>=7.0){
+            self.navigationController.navigationBar.barTintColor=[UIColor blackColor];
+        }else{
+            self.navigationController.navigationBar.tintColor = [UIColor blackColor];
+        }
+    #else
         self.navigationController.navigationBar.tintColor = [UIColor blackColor];
-    }
+    #endif
+
     
     self.view.backgroundColor = [StyleSheet colorFromHexString:@"#EAEEF2"];
     
