@@ -28,7 +28,7 @@
     
     NSLog(@"load brand");
     
-    NSString* url = [BASE_URL stringByAppendingFormat:@"/channel.do?brand=%@",[self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    NSString* url = [BASE_URL stringByAppendingFormat:@"/channel.do?brand=%@&version=%@",[self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],VERSION];
     if(DrAppDelegate.user.date!=nil){
         NSDateFormatter* dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
         [dateFormatter setTimeStyle:NSDateFormatterFullStyle];

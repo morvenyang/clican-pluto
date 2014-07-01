@@ -34,7 +34,8 @@
     NSLog(@"load index data");
     
 
-        NSString* url = [BASE_URL stringByAppendingString:@"/index.do"];
+    NSString* url = [BASE_URL stringByAppendingFormat:@"/index.do?version=%@",VERSION];
+
     if(DrAppDelegate.user.date!=nil){
         NSDateFormatter* dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
         [dateFormatter setTimeStyle:NSDateFormatterFullStyle];

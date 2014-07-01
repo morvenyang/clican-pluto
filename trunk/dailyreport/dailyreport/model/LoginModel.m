@@ -40,9 +40,9 @@
     
     NSString* url= nil;
     if(DrAppDelegate.token!=nil){
-        url = [BASE_URL stringByAppendingFormat:@"/login.do?userName=%@&password=%@&token=%@",_user.username,_user.password,DrAppDelegate.token];
+        url = [BASE_URL stringByAppendingFormat:@"/login.do?userName=%@&password=%@&token=%@&version=%@",_user.username,_user.password,DrAppDelegate.token,VERSION];
     }else{
-        url = [BASE_URL stringByAppendingFormat:@"/login.do?userName=%@&password=%@",_user.username,_user.password];
+        url = [BASE_URL stringByAppendingFormat:@"/login.do?userName=%@&password=%@&version=%@",_user.username,_user.password,VERSION];
     }
     
     NSLog(@"URL:%@", url);

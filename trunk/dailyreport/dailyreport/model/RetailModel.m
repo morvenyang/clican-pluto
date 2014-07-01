@@ -28,7 +28,7 @@
     
     NSLog(@"load brand");
     
-    NSString* url = [BASE_URL stringByAppendingFormat:@"/retailChartJson.do?brand=%@&type=%@",[self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],type];
+    NSString* url = [BASE_URL stringByAppendingFormat:@"/retailChartJson.do?brand=%@&type=%@&version=%@",[self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],type,VERSION];
     if(DrAppDelegate.user.date!=nil){
         NSDateFormatter* dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
         [dateFormatter setTimeStyle:NSDateFormatterFullStyle];
