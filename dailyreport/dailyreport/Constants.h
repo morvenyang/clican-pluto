@@ -14,7 +14,7 @@
 #define LAST_LOGIN_DATE @"LAST_LOGIN_DATE"
 #define FIRST_ACCESS_VERSION @"FIRST_ACCESS_VERSION"
 #define DEVICE_TOKEN @"DEVICE_TOKEN"
-#define VERSION @"1.0"
+#define VERSION [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"]
 #define DEVICE_VERSION [[[UIDevice currentDevice] systemVersion] doubleValue]
 #define ALIGN_LEFT 1
 #define ALIGN_CENTER 2
