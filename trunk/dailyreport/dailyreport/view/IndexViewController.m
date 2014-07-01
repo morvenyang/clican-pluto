@@ -33,11 +33,15 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    if(DEVICE_VERSION>=7.0){
-        self.navigationController.navigationBar.barTintColor =[StyleSheet colorFromHexString:@"#EAEEF2"];
-    }else{
+    #ifdef __IPHONE_7_0
+        if(DEVICE_VERSION>=7.0){
+            self.navigationController.navigationBar.barTintColor =[StyleSheet colorFromHexString:@"#EAEEF2"];
+        }else{
+            self.navigationBarTintColor=[StyleSheet colorFromHexString:@"#EAEEF2"];
+        }
+    #else
         self.navigationBarTintColor=[StyleSheet colorFromHexString:@"#EAEEF2"];
-    }
+    #endif
 
     [super viewWillAppear:animated];
 }
@@ -45,7 +49,7 @@
     UILabel* label = [[[UILabel alloc] initWithFrame:CGRectZero] autorelease];
     label.backgroundColor = [UIColor clearColor];
     label.font =[UIFont systemFontOfSize:18];
-    label.textAlignment = NSTextAlignmentCenter;
+    label.textAlignment = [self getAlignment:ALIGN_CENTER];
     label.textColor=[StyleSheet colorFromHexString:@"#323232"];
     NSDateFormatter* dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
     [dateFormatter setTimeStyle:NSDateFormatterFullStyle];
@@ -64,9 +68,13 @@
     
     self.tableView.backgroundColor =[UIColor blackColor];
     self.tableView.delegate = self;
+
+    #ifdef __IPHONE_7_0
     if(DEVICE_VERSION>=7.0){
         self.tableView.separatorInset = UIEdgeInsetsZero;
     }
+    #endif
+
     self.tableView.separatorColor = [UIColor blackColor];
     CGRect frame = [[UIScreen mainScreen] bounds];
     self.backgroundView =[[UIView alloc] initWithFrame:frame];
@@ -202,6 +210,27 @@
     [self reload];
 }
 
+#ifdef __IPHONE_6_0
+-(NSTextAlignment) getAlignment:(int)textAlignment{
+    if(textAlignment==ALIGN_LEFT){
+        return NSTextAlignmentLeft;
+    }else if(textAlignment==ALIGN_CENTER){
+        return NSTextAlignmentCenter;
+    }else{
+        return NSTextAlignmentRight;
+    }
+}
+#else
+-(UITextAlignment) getAlignment:(int)textAlignment{
+    if(textAlignment==ALIGN_LEFT){
+        return UITextAlignmentLeft;
+    }else if(textAlignment==ALIGN_CENTER){
+        return UITextAlignmentCenter;
+    }else{
+        return UITextAlignmentRight;
+    }
+}
+#endif
 - (void)dealloc
 {
     TT_RELEASE_SAFELY(_configView);

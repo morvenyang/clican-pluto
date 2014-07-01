@@ -120,7 +120,7 @@
         UITapGestureRecognizer* recognizer = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickChannelLabel:)] autorelease];
         tabLabel.userInteractionEnabled = YES;
         [tabLabel addGestureRecognizer:recognizer];
-        tabLabel.textAlignment = NSTextAlignmentCenter;
+        tabLabel.textAlignment = [self getAlignment:ALIGN_CENTER];
         if(index!=0){
             tabLabel.textColor = [UIColor whiteColor];
             tabLabel.backgroundColor = [StyleSheet colorFromHexString:@"#bdbdbd"];

@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "SwipeScrollView.h"
 #import "PMCalendar.h"
+#import "Constants.h"
 @interface SwitchViewController : UIViewController<PMCalendarControllerDelegate>{
     NSString* _brand;
     SwipeScrollView* _contentView;
@@ -34,9 +35,14 @@
 -(UIImageView*) createImageViewFromNamedImage:(NSString*) imageName frame:(CGRect) frame;
 -(UIImageView*) createImageViewFromColor:(UIColor*) color frame:(CGRect) frame;
 -(UILabel*) createLabel:(NSString*) text frame:(CGRect) frame textColor:(NSString*) textColor font:(int) font backgroundColor:(NSString*) backgroundColor;
--(UILabel*) createLabel:(NSString*) text frame:(CGRect) frame textColor:(NSString*) textColor font:(int) font backgroundColor:(NSString*) backgroundColor textAlignment:(NSTextAlignment) textAlignment;
--(UILabel*) createDecimalLabel:(NSNumber*) number frame:(CGRect) frame textColor:(NSString*) textColor font:(int) font backgroundColor:(NSString*) backgroundColor textAlignment:(NSTextAlignment) textAlignment;
--(UILabel*) createDecimalLabel:(NSNumber*) number unit:(NSString*) unit frame:(CGRect) frame textColor:(NSString*) textColor font:(int) font backgroundColor:(NSString*) backgroundColor textAlignment:(NSTextAlignment) textAlignment;
+-(UILabel*) createLabel:(NSString*) text frame:(CGRect) frame textColor:(NSString*) textColor font:(int) font backgroundColor:(NSString*) backgroundColor textAlignment:(int) textAlignment;
+-(UILabel*) createDecimalLabel:(NSNumber*) number frame:(CGRect) frame textColor:(NSString*) textColor font:(int) font backgroundColor:(NSString*) backgroundColor textAlignment:(int) textAlignment;
+-(UILabel*) createDecimalLabel:(NSNumber*) number unit:(NSString*) unit frame:(CGRect) frame textColor:(NSString*) textColor font:(int) font backgroundColor:(NSString*) backgroundColor textAlignment:(int) textAlignment;
+#ifdef __IPHONE_6_0
+-(NSTextAlignment) getAlignment:(int)textAlignment;
+#else
+-(UITextAlignment) getAlignment:(int)textAlignment;
+#endif
 -(void)openCalendar:(id)sender;
 -(void)changeDateAndReload;
 @end

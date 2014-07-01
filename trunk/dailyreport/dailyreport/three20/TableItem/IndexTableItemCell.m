@@ -59,7 +59,7 @@
         _label.textColor = [StyleSheet colorFromHexString:@"#ffffff"];
     }
     _label.contentMode = UIViewContentModeRight;
-    _label.textAlignment = NSTextAlignmentRight;
+    //_label.textAlignment = NSTextAlignmentRight;
     _label.backgroundColor = [UIColor clearColor];
 }
 
