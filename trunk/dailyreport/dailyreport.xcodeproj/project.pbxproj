@@ -30,6 +30,13 @@
 		722D42F3192C8AB600350244 /* RetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 722D42F2192C8AB600350244 /* RetailModel.m */; };
 		722D42F6192C8D6800350244 /* RetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 722D42F5192C8D6800350244 /* RetailViewController.m */; };
 		722D6B311963D31200036D38 /* web in Resources */ = {isa = PBXBuildFile; fileRef = 722D6B301963D31200036D38 /* web */; };
+		722D6B371963DDB400036D38 /* KKGestureLockView.m in Sources */ = {isa = PBXBuildFile; fileRef = 722D6B341963DDB400036D38 /* KKGestureLockView.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		722D6B381963DDB400036D38 /* KKViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 722D6B361963DDB400036D38 /* KKViewController.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		722D6B3E1963DDBF00036D38 /* gesture_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 722D6B391963DDBF00036D38 /* gesture_background.png */; };
+		722D6B3F1963DDBF00036D38 /* gesture_node_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 722D6B3A1963DDBF00036D38 /* gesture_node_normal.png */; };
+		722D6B401963DDBF00036D38 /* gesture_node_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 722D6B3B1963DDBF00036D38 /* gesture_node_normal@2x.png */; };
+		722D6B411963DDBF00036D38 /* gesture_node_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 722D6B3C1963DDBF00036D38 /* gesture_node_selected.png */; };
+		722D6B421963DDBF00036D38 /* gesture_node_selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 722D6B3D1963DDBF00036D38 /* gesture_node_selected@2x.png */; };
 		7237939719500AC900B336FD /* NSDate+Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 7237938919500AC900B336FD /* NSDate+Helpers.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		7237939819500AC900B336FD /* PMCalendarBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7237938B19500AC900B336FD /* PMCalendarBackgroundView.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		7237939919500AC900B336FD /* PMCalendarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7237938E19500AC900B336FD /* PMCalendarController.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
@@ -357,6 +364,15 @@
 		722D42F4192C8D6800350244 /* RetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RetailViewController.h; sourceTree = "<group>"; };
 		722D42F5192C8D6800350244 /* RetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RetailViewController.m; sourceTree = "<group>"; };
 		722D6B301963D31200036D38 /* web */ = {isa = PBXFileReference; lastKnownFileType = folder; path = web; sourceTree = "<group>"; };
+		722D6B331963DDB400036D38 /* KKGestureLockView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KKGestureLockView.h; sourceTree = "<group>"; };
+		722D6B341963DDB400036D38 /* KKGestureLockView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KKGestureLockView.m; sourceTree = "<group>"; };
+		722D6B351963DDB400036D38 /* KKViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KKViewController.h; sourceTree = "<group>"; };
+		722D6B361963DDB400036D38 /* KKViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KKViewController.m; sourceTree = "<group>"; };
+		722D6B391963DDBF00036D38 /* gesture_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gesture_background.png; sourceTree = "<group>"; };
+		722D6B3A1963DDBF00036D38 /* gesture_node_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gesture_node_normal.png; sourceTree = "<group>"; };
+		722D6B3B1963DDBF00036D38 /* gesture_node_normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gesture_node_normal@2x.png"; sourceTree = "<group>"; };
+		722D6B3C1963DDBF00036D38 /* gesture_node_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gesture_node_selected.png; sourceTree = "<group>"; };
+		722D6B3D1963DDBF00036D38 /* gesture_node_selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gesture_node_selected@2x.png"; sourceTree = "<group>"; };
 		7237938819500AC900B336FD /* NSDate+Helpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Helpers.h"; sourceTree = "<group>"; };
 		7237938919500AC900B336FD /* NSDate+Helpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Helpers.m"; sourceTree = "<group>"; };
 		7237938A19500AC900B336FD /* PMCalendarBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMCalendarBackgroundView.h; sourceTree = "<group>"; };
@@ -628,6 +644,17 @@
 			path = chart;
 			sourceTree = "<group>";
 		};
+		722D6B321963DDB400036D38 /* KKGestureLock */ = {
+			isa = PBXGroup;
+			children = (
+				722D6B331963DDB400036D38 /* KKGestureLockView.h */,
+				722D6B341963DDB400036D38 /* KKGestureLockView.m */,
+				722D6B351963DDB400036D38 /* KKViewController.h */,
+				722D6B361963DDB400036D38 /* KKViewController.m */,
+			);
+			path = KKGestureLock;
+			sourceTree = "<group>";
+		};
 		7237937E19500AA900B336FD /* calendar */ = {
 			isa = PBXGroup;
 			children = (
@@ -762,6 +789,7 @@
 		7285E3CB1925AFEE0011C2D6 /* dailyreport */ = {
 			isa = PBXGroup;
 			children = (
+				722D6B321963DDB400036D38 /* KKGestureLock */,
 				7237937E19500AA900B336FD /* calendar */,
 				724F4F2D1935A06C0079F9A0 /* hy */,
 				725AFEB019317A9B003BD9F3 /* weixin */,
@@ -903,6 +931,11 @@
 			isa = PBXGroup;
 			children = (
 				722D6B301963D31200036D38 /* web */,
+				722D6B391963DDBF00036D38 /* gesture_background.png */,
+				722D6B3A1963DDBF00036D38 /* gesture_node_normal.png */,
+				722D6B3B1963DDBF00036D38 /* gesture_node_normal@2x.png */,
+				722D6B3C1963DDBF00036D38 /* gesture_node_selected.png */,
+				722D6B3D1963DDBF00036D38 /* gesture_node_selected@2x.png */,
 				7222FA47195D16E9003AC6F4 /* downarrow.png */,
 				7222FA48195D16E9003AC6F4 /* menu.png */,
 				7222FA49195D16E9003AC6F4 /* uparrow.png */,
@@ -1226,6 +1259,7 @@
 				7262316D192B168500E3F99B /* Default~iphone.png in Resources */,
 				72783BE51929A6A10098B3A8 /* 首页MG公司.png in Resources */,
 				72623173192B168500E3F99B /* logo114.png in Resources */,
+				722D6B421963DDBF00036D38 /* gesture_node_selected@2x.png in Resources */,
 				72783BD01929A6A10098B3A8 /* 图标-零售收入@2x.png in Resources */,
 				72783BE41929A6A10098B3A8 /* 零售收入.png in Resources */,
 				72783BC81929A6A10098B3A8 /* 图标-小钱袋@2x.png in Resources */,
@@ -1237,6 +1271,7 @@
 				72623172192B168500E3F99B /* logo80.png in Resources */,
 				72783BC21929A6A10098B3A8 /* 图标-分页原点-正常@2x.png in Resources */,
 				320B6C86F11D9990244A9731 /* Three20.bundle in Resources */,
+				722D6B411963DDBF00036D38 /* gesture_node_selected.png in Resources */,
 				72783BDD1929A6A10098B3A8 /* 色卡-深绿.png in Resources */,
 				7222FA4B195D16E9003AC6F4 /* menu.png in Resources */,
 				72138B85194EEAF5009918BD /* 首次进入提示.png in Resources */,
@@ -1256,6 +1291,7 @@
 				7262316F192B168500E3F99B /* logo29.png in Resources */,
 				72783BBB1929A6A10098B3A8 /* 分割线-每日收入水平分割线@2x.png in Resources */,
 				72783BE91929A6A10098B3A8 /* 首页童装.png in Resources */,
+				722D6B3E1963DDBF00036D38 /* gesture_background.png in Resources */,
 				72783BB61929A6A10098B3A8 /* 关键指标-分割线.png in Resources */,
 				722D42C9192C449A00350244 /* 图标-关键指标@2x.png in Resources */,
 				72783BCA1929A6A10098B3A8 /* 图标-微信好友@2x.png in Resources */,
@@ -1273,6 +1309,7 @@
 				7285E3D81925AFEE0011C2D6 /* Images.xcassets in Resources */,
 				72783BC41929A6A10098B3A8 /* 图标-分页原点-高亮@2x.png in Resources */,
 				721DB4CB1938C1F50075F392 /* logout.png in Resources */,
+				722D6B401963DDBF00036D38 /* gesture_node_normal@2x.png in Resources */,
 				72783BE11929A6A10098B3A8 /* 色卡-黄色.png in Resources */,
 				72783BD11929A6A10098B3A8 /* 每日收入MG公司背景.png in Resources */,
 				72783BD91929A6A10098B3A8 /* 登录按钮.png in Resources */,
@@ -1292,6 +1329,7 @@
 				72783BC11929A6A10098B3A8 /* 图标-分页原点-正常.png in Resources */,
 				72783BD41929A6A10098B3A8 /* 每日收入男装背景.png in Resources */,
 				72783BC51929A6A10098B3A8 /* 图标-小衣服.png in Resources */,
+				722D6B3F1963DDBF00036D38 /* gesture_node_normal.png in Resources */,
 				72783BE61929A6A10098B3A8 /* 首页乐町.png in Resources */,
 				722D42C8192C449A00350244 /* 图标-关键指标.png in Resources */,
 				72783BBF1929A6A10098B3A8 /* 图标-分享.png in Resources */,
@@ -1331,6 +1369,7 @@
 				72783CA9192A09100098B3A8 /* IndexTableItemCell.m in Sources */,
 				72AD860919330B45004CAE5F /* StoreRankViewController.m in Sources */,
 				724F4F3F1935B7890079F9A0 /* SwipeScrollView.m in Sources */,
+				722D6B371963DDB400036D38 /* KKGestureLockView.m in Sources */,
 				72623199192B4E7F00E3F99B /* SwitchViewController.m in Sources */,
 				7237939719500AC900B336FD /* NSDate+Helpers.m in Sources */,
 				72EB38A319270E7200D0F225 /* User.m in Sources */,
@@ -1351,6 +1390,7 @@
 				722D42BC192C3A2E00350244 /* KPIModel.m in Sources */,
 				724480E319271E8A005F5BE5 /* Brand.m in Sources */,
 				72EB388E1927072D00D0F225 /* IndexViewController.m in Sources */,
+				722D6B381963DDB400036D38 /* KKViewController.m in Sources */,
 				7237939919500AC900B336FD /* PMCalendarController.m in Sources */,
 				72783CAC192A093E0098B3A8 /* IndexTableItem.m in Sources */,
 				72EB38AC19270EC100D0F225 /* LoginModel.m in Sources */,
