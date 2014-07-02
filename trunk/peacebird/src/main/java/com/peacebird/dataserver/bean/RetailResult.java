@@ -63,8 +63,10 @@ public class RetailResult implements Comparable<RetailResult> {
 				return 5;
 			} else if (name.equals("其他")) {
 				return 6;
+			} else if (name.equals("电商")) {
+				return 7;
 			} else {
-				return 6;
+				return 8;
 			}
 		} else if (type.equals("sort")) {
 			if (name == null) {
