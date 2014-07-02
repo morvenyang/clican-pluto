@@ -123,7 +123,7 @@
         tabLabel.textAlignment = [self getAlignment:ALIGN_CENTER];
         if(index!=0){
             tabLabel.textColor = [UIColor whiteColor];
-            tabLabel.backgroundColor = [StyleSheet colorFromHexString:@"#bdbdbd"];
+            tabLabel.backgroundColor = [StyleSheet colorFromHexString:TAB_COLOR];
         }
         [self.contentView addSubview:tabLabel];
         [self.tabLables addObject:tabLabel];
@@ -173,7 +173,7 @@
     UILabel* tabLabel = (UILabel*)gestureRecognizer.view;
     for(UILabel* l in self.tabLables){
         l.textColor = [UIColor whiteColor];
-        l.backgroundColor = [StyleSheet colorFromHexString:@"#bdbdbd"];
+        l.backgroundColor = [StyleSheet colorFromHexString:TAB_COLOR];
     }
     tabLabel.textColor = [StyleSheet colorFromHexString:@"#636363"];
     tabLabel.backgroundColor =[StyleSheet colorFromHexString:@"#ffffff"];

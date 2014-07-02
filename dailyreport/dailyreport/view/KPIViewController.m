@@ -55,7 +55,7 @@
     Channel* channel = nil;
     for(UILabel* l in self.channelLables){
         l.textColor = [UIColor whiteColor];
-        l.backgroundColor = [StyleSheet colorFromHexString:@"#bdbdbd"];
+        l.backgroundColor = [StyleSheet colorFromHexString:TAB_COLOR];
     }
     channelLabel.textColor = [StyleSheet colorFromHexString:@"#636363"];
     channelLabel.backgroundColor =[StyleSheet colorFromHexString:@"#ffffff"];
@@ -108,7 +108,7 @@
             channelLabel.textAlignment = [self getAlignment:ALIGN_CENTER];
             if(index!=0){
                 channelLabel.textColor = [UIColor whiteColor];
-                channelLabel.backgroundColor = [StyleSheet colorFromHexString:@"#bdbdbd"];
+                channelLabel.backgroundColor = [StyleSheet colorFromHexString:TAB_COLOR];
             }
             [self.contentView addSubview:channelLabel];
             [self.channelLables addObject:channelLabel];

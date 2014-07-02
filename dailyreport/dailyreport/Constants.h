@@ -19,4 +19,7 @@
 #define ALIGN_LEFT 1
 #define ALIGN_CENTER 2
 #define ALIGN_RIGHT 3
+
+#define TAB_COLOR @"#8f8f8f"
+#define STORE_RANK_TABLE_HEAD_COLOR @"#bdbdbd"
 #endif
