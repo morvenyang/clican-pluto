@@ -156,67 +156,67 @@
     
     [self.contentView addSubview:weeklyView];
     
-    UIView* otherView = [[[UIView alloc] initWithFrame:CGRectMake(0, 276, 320, 227)] autorelease];
+    UIView* otherView = [[[UIView alloc] initWithFrame:CGRectMake(0, 276, 320, 198)] autorelease];
     otherView.backgroundColor = [StyleSheet colorFromHexString:@"#EDEEF0"];
     
-    UILabel* weekSum = [[[UILabel alloc] initWithFrame:CGRectMake(12, 12, 60, 20)] autorelease];
+    UILabel* weekSum = [[[UILabel alloc] initWithFrame:CGRectMake(12, 11, 60, 18)] autorelease];
     weekSum.text = @"周累计";
-    weekSum.font = [UIFont systemFontOfSize:20];
+    weekSum.font = [UIFont systemFontOfSize:18];
     weekSum.textColor = [StyleSheet colorFromHexString:@"#919191"];
     weekSum.backgroundColor = [UIColor clearColor];
     
-    UILabel* weekLike = [[[UILabel alloc] initWithFrame:CGRectMake(12+160, 12, 60, 20)] autorelease];
+    UILabel* weekLike = [[[UILabel alloc] initWithFrame:CGRectMake(12+160, 11, 60, 18)] autorelease];
     weekLike.text = @"周同比";
-    weekLike.font = [UIFont systemFontOfSize:20];
+    weekLike.font = [UIFont systemFontOfSize:18];
     weekLike.textColor = [StyleSheet colorFromHexString:@"#919191"];
     weekLike.backgroundColor = [UIColor clearColor];
     
-    UILabel* weekSumAmount =[self createDecimalLabel:[NSNumber numberWithInt:brand.weekAmount.intValue/10000] frame:CGRectMake(12, 35, 148, 40) textColor:@"#494949" font:32 backgroundColor:nil textAlignment:ALIGN_LEFT];
+    UILabel* weekSumAmount =[self createDecimalLabel:[NSNumber numberWithInt:brand.weekAmount.intValue/10000] frame:CGRectMake(12, 31, 148, 37) textColor:@"#494949" font:30 backgroundColor:nil textAlignment:ALIGN_LEFT];
     
-    UILabel* weekLikeAmount = [[[UILabel alloc] initWithFrame:CGRectMake(12+160, 35, 148, 40)] autorelease];
+    UILabel* weekLikeAmount = [[[UILabel alloc] initWithFrame:CGRectMake(12+160, 31, 148, 37)] autorelease];
     weekLikeAmount.text = [NSString stringWithFormat:@"%0.1f%@",brand.weekLike.floatValue*100,@"%"];
-    weekLikeAmount.font = [UIFont systemFontOfSize:32];
+    weekLikeAmount.font = [UIFont systemFontOfSize:30];
     weekLikeAmount.textColor = [StyleSheet colorFromHexString:@"#494949"];
     weekLikeAmount.backgroundColor = [UIColor clearColor];
     
-    UILabel* monthSum = [[[UILabel alloc] initWithFrame:CGRectMake(12, 82, 60, 20)] autorelease];
+    UILabel* monthSum = [[[UILabel alloc] initWithFrame:CGRectMake(12, 74, 60, 18)] autorelease];
     monthSum.text = @"月累计";
-    monthSum.font = [UIFont systemFontOfSize:20];
+    monthSum.font = [UIFont systemFontOfSize:18];
     monthSum.textColor = [StyleSheet colorFromHexString:@"#919191"];
     monthSum.backgroundColor = [UIColor clearColor];
     
-    UILabel* monthLike = [[[UILabel alloc] initWithFrame:CGRectMake(12+160, 82, 60, 20)] autorelease];
+    UILabel* monthLike = [[[UILabel alloc] initWithFrame:CGRectMake(12+160, 74, 60, 18)] autorelease];
     monthLike.text = @"月同比";
-    monthLike.font = [UIFont systemFontOfSize:20];
+    monthLike.font = [UIFont systemFontOfSize:18];
     monthLike.textColor = [StyleSheet colorFromHexString:@"#919191"];
     monthLike.backgroundColor = [UIColor clearColor];
     
-    UILabel* monthSumAmount =[self createDecimalLabel:[NSNumber numberWithInt:brand.monthAmount.intValue/10000] frame:CGRectMake(12, 105, 148, 40) textColor:@"#494949" font:32 backgroundColor:nil textAlignment:ALIGN_LEFT];
+    UILabel* monthSumAmount =[self createDecimalLabel:[NSNumber numberWithInt:brand.monthAmount.intValue/10000] frame:CGRectMake(12, 94, 148, 38) textColor:@"#494949" font:30 backgroundColor:nil textAlignment:ALIGN_LEFT];
     
-    UILabel* monthLikeAmount = [[[UILabel alloc] initWithFrame:CGRectMake(12+160, 105, 148, 40)] autorelease];
+    UILabel* monthLikeAmount = [[[UILabel alloc] initWithFrame:CGRectMake(12+160, 94, 148, 38)] autorelease];
     monthLikeAmount.text = [NSString stringWithFormat:@"%0.1f%@",brand.monthLike.floatValue*100,@"%"];
-    monthLikeAmount.font = [UIFont systemFontOfSize:32];
+    monthLikeAmount.font = [UIFont systemFontOfSize:30];
     monthLikeAmount.textColor = [StyleSheet colorFromHexString:@"#494949"];
     monthLikeAmount.backgroundColor = [UIColor clearColor];
     
     
-    UILabel* yearSum = [[[UILabel alloc] initWithFrame:CGRectMake(12, 152, 60, 20)] autorelease];
+    UILabel* yearSum = [[[UILabel alloc] initWithFrame:CGRectMake(12, 138, 60, 18)] autorelease];
     yearSum.text = @"年累计";
-    yearSum.font = [UIFont systemFontOfSize:20];
+    yearSum.font = [UIFont systemFontOfSize:18];
     yearSum.textColor = [StyleSheet colorFromHexString:@"#919191"];
     yearSum.backgroundColor = [UIColor clearColor];
     
-    UILabel* yearLike = [[[UILabel alloc] initWithFrame:CGRectMake(12+160, 152, 60, 20)] autorelease];
+    UILabel* yearLike = [[[UILabel alloc] initWithFrame:CGRectMake(12+160, 138, 60, 18)] autorelease];
     yearLike.text = @"年同比";
-    yearLike.font = [UIFont systemFontOfSize:20];
+    yearLike.font = [UIFont systemFontOfSize:18];
     yearLike.textColor = [StyleSheet colorFromHexString:@"#919191"];
     yearLike.backgroundColor = [UIColor clearColor];
     
-    UILabel* yearSumAmount =[self createDecimalLabel:[NSNumber numberWithInt:brand.yearAmount.intValue/10000] frame:CGRectMake(12, 175, 148, 40) textColor:@"#494949" font:32 backgroundColor:nil textAlignment:ALIGN_LEFT];
+    UILabel* yearSumAmount =[self createDecimalLabel:[NSNumber numberWithInt:brand.yearAmount.intValue/10000] frame:CGRectMake(12, 158, 148, 38) textColor:@"#494949" font:30 backgroundColor:nil textAlignment:ALIGN_LEFT];
         
-    UILabel* yearLikeAmount = [[[UILabel alloc] initWithFrame:CGRectMake(12+160, 175, 148, 40)] autorelease];
+    UILabel* yearLikeAmount = [[[UILabel alloc] initWithFrame:CGRectMake(12+160, 158, 148, 38)] autorelease];
     yearLikeAmount.text = [NSString stringWithFormat:@"%0.1f%@",brand.yearLike.floatValue*100,@"%"];
-    yearLikeAmount.font = [UIFont systemFontOfSize:32];
+    yearLikeAmount.font = [UIFont systemFontOfSize:30];
     yearLikeAmount.textColor = [StyleSheet colorFromHexString:@"#494949"];
     yearLikeAmount.backgroundColor = [UIColor clearColor];
     [otherView addSubview:weekSum];
@@ -235,7 +235,7 @@
     [otherView addSubview:yearLikeAmount];
     [self.contentView addSubview:otherView];
     self.contentView.contentSize =
-    CGSizeMake(320, 502);
+    CGSizeMake(320, 474);
     
     NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
     NSString* firstAccessVersion = [defaults objectForKey:FIRST_ACCESS_VERSION];
