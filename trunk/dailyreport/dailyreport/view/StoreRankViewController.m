@@ -10,6 +10,10 @@
 #import "ChannelRank.h"
 #import "Rank.h"
 #import "StyleSheet.h"
+
+#define ROW_HEIGHT 34
+#define ROW_CONTENT_HEIGHT 32
+
 @implementation StoreRankViewController
 
 @synthesize storeRankModel = _storeRankModel;
@@ -94,7 +98,7 @@
             channelLabel.textAlignment = [self getAlignment:ALIGN_CENTER];
             if(index!=0){
                 channelLabel.textColor = [UIColor whiteColor];
-                channelLabel.backgroundColor = [StyleSheet colorFromHexString:@"#bdbdbd"];
+                channelLabel.backgroundColor = [StyleSheet colorFromHexString:TAB_COLOR];
             }
             [self.contentView addSubview:channelLabel];
             [self.channelLables addObject:channelLabel];
@@ -102,10 +106,10 @@
         }
     }
     [self.contentView addSubview:dailyView];
-    [self.contentView addSubview:[self createLabel:@"排名" frame:CGRectMake(0, 90, 50, 40) textColor:@"#ffffff" font:12 backgroundColor:@"#8f8f8f" textAlignment:ALIGN_CENTER]];
-    [self.contentView addSubview:[self createLabel:@"店铺名称" frame:CGRectMake(52, 90, 166, 40) textColor:@"#ffffff" font:12 backgroundColor:@"#8f8f8f" textAlignment:ALIGN_CENTER]];
-    [self.contentView addSubview:[self createLabel:@"零售额" frame:CGRectMake(220, 90, 49, 40) textColor:@"#ffffff" font:12 backgroundColor:@"#8f8f8f" textAlignment:ALIGN_CENTER]];
-    [self.contentView addSubview:[self createLabel:@"占比" frame:CGRectMake(271, 90,49, 40) textColor:@"#ffffff" font:12 backgroundColor:@"#8f8f8f" textAlignment:ALIGN_CENTER]];
+    [self.contentView addSubview:[self createLabel:@"＃" frame:CGRectMake(0, 90, 30, 40) textColor:@"#ffffff" font:12 backgroundColor:STORE_RANK_TABLE_HEAD_COLOR textAlignment:ALIGN_CENTER]];
+    [self.contentView addSubview:[self createLabel:@"店铺名称" frame:CGRectMake(32, 90, 186, 40) textColor:@"#ffffff" font:12 backgroundColor:STORE_RANK_TABLE_HEAD_COLOR textAlignment:ALIGN_CENTER]];
+    [self.contentView addSubview:[self createLabel:@"零售额" frame:CGRectMake(220, 90, 49, 40) textColor:@"#ffffff" font:12 backgroundColor:STORE_RANK_TABLE_HEAD_COLOR textAlignment:ALIGN_CENTER]];
+    [self.contentView addSubview:[self createLabel:@"占比" frame:CGRectMake(271, 90,49, 40) textColor:@"#ffffff" font:12 backgroundColor:STORE_RANK_TABLE_HEAD_COLOR textAlignment:ALIGN_CENTER]];
     if(self.channels.count>0){
         [self updateChannel:[self.channels objectAtIndex:0]];
     }
@@ -116,7 +120,7 @@
     ChannelRank* channel = nil;
     for(UILabel* l in self.channelLables){
         l.textColor = [UIColor whiteColor];
-        l.backgroundColor = [StyleSheet colorFromHexString:@"#bdbdbd"];
+        l.backgroundColor = [StyleSheet colorFromHexString:TAB_COLOR];
     }
     channelLabel.textColor = [StyleSheet colorFromHexString:@"#636363"];
     channelLabel.backgroundColor =[StyleSheet colorFromHexString:@"#ffffff"];
@@ -137,24 +141,24 @@
     [self.tableViews removeAllObjects];
     for(int i=0;i<channel.ranks.count;i++){
         Rank* rank = [channel.ranks objectAtIndex:i];
-        UILabel* label =[self createLabel:[NSString stringWithFormat:@"%i",i+1] frame:CGRectMake(0, 130+i*42, 50, 40) textColor:@"#6a6a6a" font:12 backgroundColor:@"#f3f3f3" textAlignment:ALIGN_CENTER];
+        UILabel* label =[self createLabel:[NSString stringWithFormat:@"%i",i+1] frame:CGRectMake(0, 130+i*ROW_HEIGHT, 30, ROW_CONTENT_HEIGHT) textColor:@"#6a6a6a" font:12 backgroundColor:@"#f3f3f3" textAlignment:ALIGN_CENTER];
         [self.tableViews addObject:label];
         [self.contentView addSubview:label];
-        label =[self createLabel:rank.name frame:CGRectMake(52, 130+i*42, 166, 40) textColor:@"#6a6a6a" font:14 backgroundColor:@"#f3f3f3" textAlignment:ALIGN_CENTER];
-        [self.contentView addSubview:label];
-        [self.tableViews addObject:label];
-        
-        label =[self createLabel:[NSString stringWithFormat:@"%0.1f", rank.dayAmount.intValue/10000.0] frame:CGRectMake(220, 130+i*42, 49, 40) textColor:@"#6a6a6a" font:12 backgroundColor:@"#f3f3f3" textAlignment:ALIGN_CENTER];
+        label =[self createLabel:rank.name frame:CGRectMake(32, 130+i*ROW_HEIGHT, 186, ROW_CONTENT_HEIGHT) textColor:@"#6a6a6a" font:14 backgroundColor:@"#f3f3f3" textAlignment:ALIGN_CENTER];
         [self.contentView addSubview:label];
         [self.tableViews addObject:label];
         
-        label =[self createLabel:[NSString stringWithFormat:@"%0.2f%@", rank.rate.doubleValue*100,@"%"] frame:CGRectMake(271, 130+i*42,49, 40) textColor:@"#6a6a6a" font:12 backgroundColor:@"#f3f3f3" textAlignment:ALIGN_CENTER];
+        label =[self createLabel:[NSString stringWithFormat:@"%0.1f", rank.dayAmount.intValue/10000.0] frame:CGRectMake(220, 130+i*ROW_HEIGHT, 49, ROW_CONTENT_HEIGHT) textColor:@"#6a6a6a" font:12 backgroundColor:@"#f3f3f3" textAlignment:ALIGN_CENTER];
+        [self.contentView addSubview:label];
+        [self.tableViews addObject:label];
+        
+        label =[self createLabel:[NSString stringWithFormat:@"%0.2f%@", rank.rate.doubleValue*100,@"%"] frame:CGRectMake(271, 130+i*ROW_HEIGHT,49, ROW_CONTENT_HEIGHT) textColor:@"#6a6a6a" font:12 backgroundColor:@"#f3f3f3" textAlignment:ALIGN_CENTER];
         [self.contentView addSubview:label];
         [self.tableViews addObject:label];
     }
     
     self.contentView.contentSize =
-    CGSizeMake(320, 130+channel.ranks.count*42);
+    CGSizeMake(320, 130+channel.ranks.count*ROW_HEIGHT);
 }
 
 - (void) brandDidStartLoad:(NSString*) brand{
