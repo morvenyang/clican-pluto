@@ -41,7 +41,7 @@
         [dateFormatter setTimeStyle:NSDateFormatterFullStyle];
         [dateFormatter setDateFormat:@"yyyyMMdd"];
         NSString* strDate = [dateFormatter stringFromDate:DrAppDelegate.user.date];
-        url = [url stringByAppendingFormat:@"?date=%@",strDate];
+        url = [url stringByAppendingFormat:@"&date=%@",strDate];
     }
         NSLog(@"URL:%@", url);
         
@@ -49,7 +49,10 @@
                                  requestWithURL: url
                                  delegate: self];
         request.timeoutInterval = DrAppDelegate.user.timeoutInterval;
-
+        if(DrAppDelegate.user.sessionId==nil||DrAppDelegate.user.sessionId.length==0){
+            [self tryAutoLogin];
+            return;
+        }
         [request setValue:[@"JSESSIONID=" stringByAppendingString:DrAppDelegate.user.sessionId]forHTTPHeaderField:@"Cookie"];
         
         request.cachePolicy = TTURLRequestCachePolicyNone;

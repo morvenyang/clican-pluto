@@ -54,7 +54,10 @@
     if(!_indexListModel.yesterday&&self.alert){
         NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
         [dateFormatter setDateFormat:@"MM月dd日 EEEE"];
+        IndexViewController* index = (IndexViewController*)[TTNavigator navigator].visibleViewController;
+        [index updateDate];
         TTAlert([NSString stringWithFormat:@"昨日数据未生成,当前数据为%@数据",[dateFormatter stringFromDate:_indexListModel.date]]);
+        
     }
     self.alert = NO;
     TT_RELEASE_SAFELY(items);
@@ -76,7 +79,7 @@
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 - (NSString*)titleForEmpty {
-    return @"没有可查看的品牌数据";
+    return @"";
 }
 
 
