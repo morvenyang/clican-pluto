@@ -14,6 +14,7 @@
 #import "KPIViewController.h"
 #import "RetailViewController.h"
 #import "StoreRankViewController.h"
+#import "KKViewController.h"
 #import "CRNavigator.h"
 @implementation AppDelegate
 
@@ -48,7 +49,9 @@
      [RetailViewController class]];
     [map from:@"peacebird://storeRank/(initWithBrand:)" toSharedViewController:
      [StoreRankViewController class]];
-    
+    [map from:@"peacebird://gestureLock" toSharedViewController:
+     [KKViewController class]];
+
     if (![navigator restoreViewControllers]) {
         NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
         NSString* userName = [defaults objectForKey:LAST_USER_NAME];
