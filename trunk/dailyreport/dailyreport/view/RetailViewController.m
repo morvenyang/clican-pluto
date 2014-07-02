@@ -114,7 +114,7 @@
     NSMutableArray* tabs = [NSMutableArray array];
     [tabs addObject:@"店铺性质"];
     [tabs addObject:@"店铺形态"];
-    [tabs addObject:@"管理形式"];
+    [tabs addObject:@"管理部门"];
     for(NSString* tab in tabs){
         UILabel* tabLabel = [self createLabel:tab frame:CGRectMake(0+index*width, 34, width, 50) textColor:@"#636363" font:20 backgroundColor:@"#ffffff"];
         UITapGestureRecognizer* recognizer = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickChannelLabel:)] autorelease];
@@ -153,7 +153,7 @@
     
     
     [self.contentView addSubview:self.webPieChartView];
-    NSString* htmlPath = [[NSBundle mainBundle] pathForResource:@"retail" ofType:@"html" inDirectory:nil];
+    NSString* htmlPath = [[NSBundle mainBundle] pathForResource:@"retail" ofType:@"html" inDirectory:@"web"];
     NSString* html = [NSString stringWithContentsOfFile:htmlPath encoding:NSUTF8StringEncoding error:nil];
 
     html=[html stringByReplacingOccurrencesOfString:@"$dataProvider" withString:dataProvider];
@@ -162,18 +162,9 @@
     html=[html stringByReplacingOccurrencesOfString:@"$height" withString:[NSString stringWithFormat:@"%i",height]];
     html=[html stringByReplacingOccurrencesOfString:@"$total" withString:[NSString stringWithFormat:@"%li",total]];
     html=[html stringByReplacingOccurrencesOfString:@"$count" withString:[NSString stringWithFormat:@"%i",count]];
-    
-    [self.webPieChartView loadHTMLString:html baseURL:[NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/",[[NSBundle mainBundle] bundlePath]]]];
-    NSString* url =[NSString stringWithFormat:@"%@/retailChart.do?brand=%@&type=%@",BASE_URL,[self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],self.type];
-    if(DrAppDelegate.user.date!=nil){
-        NSDateFormatter* dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
-        [dateFormatter setTimeStyle:NSDateFormatterFullStyle];
-        [dateFormatter setDateFormat:@"yyyyMMdd"];
-        NSString* strDate = [dateFormatter stringFromDate:DrAppDelegate.user.date];
-        url = [url stringByAppendingFormat:@"&date=%@",strDate];
-    }
-    
-    [self.webPieChartView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]];
+    NSLog(@"%@",html);
+    NSLog(@"%@",[NSString stringWithFormat:@"%@/web/",[[NSBundle mainBundle] bundlePath]]);
+    [self.webPieChartView loadHTMLString:html baseURL:[NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/web/",[[NSBundle mainBundle] bundlePath]]]];
     self.contentView.contentSize =
     CGSizeMake(320, 390+count*30);
 }
@@ -190,7 +181,7 @@
         self.type = @"channel";
     }else if([tabLabel.text isEqualToString:@"店铺形态"]){
         self.type = @"sort";
-    }else if([tabLabel.text isEqualToString:@"管理形式"]){
+    }else if([tabLabel.text isEqualToString:@"管理部门"]){
         self.type = @"region";
     }
     [self.retailModel load:self.type policy:TTURLRequestCachePolicyNone more:NO];
