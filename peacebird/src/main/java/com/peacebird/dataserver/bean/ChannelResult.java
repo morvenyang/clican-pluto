@@ -97,8 +97,10 @@ public class ChannelResult implements Comparable<ChannelResult> {
 			return 5;
 		} else if (channel.equals("其他")) {
 			return 6;
+		} else if (channel.equals("电商")) {
+			return 7;
 		} else {
-			return 6;
+			return 8;
 		}
 	}
 
