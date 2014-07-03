@@ -24,6 +24,7 @@ import com.peacebird.dataserver.bean.BrandStatResult;
 import com.peacebird.dataserver.bean.ChannelRankResult;
 import com.peacebird.dataserver.bean.ChannelResult;
 import com.peacebird.dataserver.bean.ChannelStatResult;
+import com.peacebird.dataserver.bean.Constants;
 import com.peacebird.dataserver.bean.IndexStatResult;
 import com.peacebird.dataserver.bean.RankResult;
 import com.peacebird.dataserver.bean.RankStatResult;
@@ -256,6 +257,10 @@ public class DataServiceImpl implements DataService {
 		Double lastYearAmount = 0.0;
 		Double yearAmount = 0.0;
 		for (BrandResult b : bcr) {
+			if(b.getChannel().equals(Constants.B2C)){
+				//统计数据不包括电商的
+				continue;
+			}
 			if (b.getPerDayAmount() != null) {
 				lastDayAmount += b.getPerDayAmount();
 			}

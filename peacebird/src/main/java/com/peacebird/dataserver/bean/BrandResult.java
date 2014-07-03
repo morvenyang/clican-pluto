@@ -235,7 +235,7 @@ public class BrandResult implements Comparable<BrandResult> {
 		} else if (channel.equals("其他")) {
 			return 6;
 		} else if (channel.equals("电商")) {
-			return 7;
+			return 100;
 		} else {
 			return 8;
 		}
