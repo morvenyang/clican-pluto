@@ -80,7 +80,9 @@
                 channel.dayAmount =[jsonChannel objectForKey:@"dayAmount"];
                 channel.docNumber =[jsonChannel objectForKey:@"docNumber"];
                 channel.avgDocCount =[jsonChannel objectForKey:@"avgDocCount"];
+                channel.avgDocAmount =[jsonChannel objectForKey:@"avgDocAmount"];
                 channel.avgPrice =[jsonChannel objectForKey:@"avgPrice"];
+                
                 channel.aps =[jsonChannel objectForKey:@"aps"];
                 [channels addObject:channel];
             }
