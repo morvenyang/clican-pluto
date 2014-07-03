@@ -64,6 +64,9 @@
         }else if(self.index==3){
             NSString* url = [NSString stringWithFormat:@"peacebird://storeRank/%@", [self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
             TTOpenURL(url);
+        }else if(self.index==4){
+            NSString* url = [NSString stringWithFormat:@"peacebird://b2cKpi/%@", [self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+            TTOpenURL(url);
         }
         return;
     }
@@ -77,6 +80,9 @@
             TTOpenURL(url);
         }else if(self.index==4){
             NSString* url = [NSString stringWithFormat:@"peacebird://retail/%@", [self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+            TTOpenURL(url);
+        }else if(self.index==5){
+            NSString* url = [NSString stringWithFormat:@"peacebird://storeRank/%@", [self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
             TTOpenURL(url);
         }
         return;

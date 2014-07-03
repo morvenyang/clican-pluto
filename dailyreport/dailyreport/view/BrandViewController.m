@@ -111,10 +111,15 @@
         retailLikeText = [NSString stringWithFormat:@"+%@",retailLikeText];
     }
     UILabel* retailLikeLabel = [self createLabel:retailLikeText frame:CGRectMake(40, 130, 120, 30) textColor:@"#ffffff" font:20 backgroundColor:nil];
+    CGFloat offset = 0;
     for(int i=0;i<channels.count;i++){
         Channel* channel = [channels objectAtIndex:i];
-        UILabel* channelLabel=[self createLabel:channel.channel frame:CGRectMake(200, i*20+50, 90, 20) textColor:@"#ffffff" font:14 backgroundColor:nil textAlignment:ALIGN_LEFT];
-        UILabel* channelValue=[self createDecimalLabel:[NSNumber numberWithInt:channel.dayAmount.intValue/10000] frame:CGRectMake(200, i*20+50, 90, 20) textColor:@"#ffffff" font:14 backgroundColor:nil textAlignment:ALIGN_RIGHT];
+        if([channel.channel isEqualToString:@"电商"]){
+            offset = 8;
+            [dailyView addSubview:[self createImageViewFromNamedImage:@"line.png" frame:CGRectMake(200, i*20+50+3, 90, 2)]];
+        }
+        UILabel* channelLabel=[self createLabel:channel.channel frame:CGRectMake(200, i*20+50+offset, 90, 20) textColor:@"#ffffff" font:14 backgroundColor:nil textAlignment:ALIGN_LEFT];
+        UILabel* channelValue=[self createDecimalLabel:[NSNumber numberWithInt:channel.dayAmount.intValue/10000] frame:CGRectMake(200, i*20+50+offset, 90, 20) textColor:@"#ffffff" font:14 backgroundColor:nil textAlignment:ALIGN_RIGHT];
         [dailyView addSubview:channelLabel];
         [dailyView addSubview:channelValue];
     }
