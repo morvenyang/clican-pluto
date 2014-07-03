@@ -13,6 +13,7 @@
     NSNumber* _dayAmount;
     NSNumber* _docNumber;
     NSNumber* _avgDocCount;
+    NSNumber* _avgDocAmount;
     NSNumber* _avgPrice;
     NSNumber* _aps;
 }
@@ -20,6 +21,7 @@
 @property (nonatomic, retain) NSNumber* dayAmount;
 @property (nonatomic, retain) NSNumber* docNumber;
 @property (nonatomic, retain) NSNumber* avgDocCount;
+@property (nonatomic, retain) NSNumber* avgDocAmount;
 @property (nonatomic, retain) NSNumber* avgPrice;
 @property (nonatomic, retain) NSNumber* aps;
 @end

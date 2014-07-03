@@ -15,7 +15,7 @@
     UILabel* _dayAmountLabel;
     UILabel* _docNumberLabel;
     UILabel* _avgDocCountLabel;
-    UILabel* _avgPriceLabel;
+    UILabel* _avgDocAmountLabel;
     UILabel* _apsLabel;
 }
 
@@ -25,7 +25,7 @@
 @property (nonatomic, retain) UILabel *dayAmountLabel;
 @property (nonatomic, retain) UILabel *docNumberLabel;
 @property (nonatomic, retain) UILabel *avgDocCountLabel;
-@property (nonatomic, retain) UILabel *avgPriceLabel;
+@property (nonatomic, retain) UILabel *avgDocAmountLabel;
 @property (nonatomic, retain) UILabel *apsLabel;
 -(id) initWithBrand:(NSString*) brand;
 @end

@@ -14,7 +14,7 @@
 @synthesize dayAmountLabel = _dayAmountLabel;
 @synthesize docNumberLabel = _docNumberLabel;
 @synthesize avgDocCountLabel=_avgDocCountLabel;
-@synthesize avgPriceLabel = _avgPriceLabel;
+@synthesize avgDocAmountLabel = _avgDocAmountLabel;
 @synthesize apsLabel = _apsLabel;
 @synthesize channelLables = _channelLables;
 -(id) initWithBrand:(NSString*) brand{
@@ -149,8 +149,8 @@
     [self.contentView addSubview:[self createImageViewFromNamedImage:@"关键指标-分割线.png" frame:CGRectMake(0,277,320,3)]];
     [self.contentView addSubview:[self createImageViewFromNamedImage:@"件单价.png" frame:CGRectMake(20,294,24,24)]];
     [self.contentView addSubview:[self createLabel:@"件单价" frame:CGRectMake(50,280,100,49) textColor:@"#4a4a4a" font:18 backgroundColor:nil]];
-    self.avgPriceLabel =[self createDecimalLabel:[NSNumber numberWithInt:channel.avgPrice.intValue] unit:@"元" frame:CGRectMake(200,280,100,49) textColor:@"#7f7f7f" font:18 backgroundColor:nil textAlignment:ALIGN_LEFT];
-    [self.contentView addSubview:self.avgPriceLabel];
+    self.avgDocAmountLabel =[self createDecimalLabel:[NSNumber numberWithInt:channel.avgDocAmount.intValue] unit:@"元" frame:CGRectMake(200,280,100,49) textColor:@"#7f7f7f" font:18 backgroundColor:nil textAlignment:ALIGN_LEFT];
+    [self.contentView addSubview:self.avgDocAmountLabel];
     [self.contentView addSubview:[self createImageViewFromNamedImage:@"关键指标-分割线.png" frame:CGRectMake(0,337,320,3)]];
     [self.contentView addSubview:[self createImageViewFromNamedImage:@"单效.png" frame:CGRectMake(20,356,24,24)]];
     [self.contentView addSubview:[self createLabel:@"坪效" frame:CGRectMake(50,340,100,49) textColor:@"#4a4a4a" font:18 backgroundColor:nil]];
@@ -173,7 +173,7 @@
     [NSString stringWithFormat:@"%@",[formatter stringFromNumber:[NSNumber numberWithInt:channel.docNumber.intValue]]];
 
     self.avgDocCountLabel.text = [NSString stringWithFormat:@"%0.1f",channel.avgDocCount.doubleValue];
-    self.avgPriceLabel.text =[NSString stringWithFormat:@"%@ %@",[formatter stringFromNumber:[NSNumber numberWithInt:channel.avgPrice.intValue]],@"元"];
+    self.avgDocAmountLabel.text =[NSString stringWithFormat:@"%@ %@",[formatter stringFromNumber:[NSNumber numberWithInt:channel.avgDocAmount.intValue]],@"元"];
     
     self.apsLabel.text = [NSString stringWithFormat:@"%@ %@",[formatter stringFromNumber:[NSNumber numberWithInt:channel.aps.intValue]],@"元"];
 }
@@ -200,7 +200,7 @@
     TT_RELEASE_SAFELY(_dayAmountLabel);
     TT_RELEASE_SAFELY(_docNumberLabel);
     TT_RELEASE_SAFELY(_avgDocCountLabel);
-    TT_RELEASE_SAFELY(_avgPriceLabel);
+    TT_RELEASE_SAFELY(_avgDocAmountLabel);
     TT_RELEASE_SAFELY(_apsLabel);
     [super dealloc];
 }
