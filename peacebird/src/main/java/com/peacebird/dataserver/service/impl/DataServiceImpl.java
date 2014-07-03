@@ -379,7 +379,7 @@ public class DataServiceImpl implements DataService {
 		RetailChartResult rcr = new RetailChartResult();
 		rcr.setDataProvider(dataProvider);
 		rcr.setHeight(700 + dataProvider.size() * 80);
-		rcr.setTop( 260 +  dataProvider.size() * 5);
+		rcr.setTop( 300 +  dataProvider.size() * 5);
 		
 		Long total = 0L;
 		for (RetailResult rr : dataProvider) {
