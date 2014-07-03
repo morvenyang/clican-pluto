@@ -115,8 +115,8 @@
     for(int i=0;i<channels.count;i++){
         Channel* channel = [channels objectAtIndex:i];
         if([channel.channel isEqualToString:@"电商"]){
-            offset = 8;
-            [dailyView addSubview:[self createImageViewFromNamedImage:@"line.png" frame:CGRectMake(200, i*20+50+3, 90, 2)]];
+            offset = 5;
+            [dailyView addSubview:[self createImageViewFromNamedImage:@"line.png" frame:CGRectMake(200, i*20+50+3, 90, 0.5)]];
         }
         UILabel* channelLabel=[self createLabel:channel.channel frame:CGRectMake(200, i*20+50+offset, 90, 20) textColor:@"#ffffff" font:14 backgroundColor:nil textAlignment:ALIGN_LEFT];
         UILabel* channelValue=[self createDecimalLabel:[NSNumber numberWithInt:channel.dayAmount.intValue/10000] frame:CGRectMake(200, i*20+50+offset, 90, 20) textColor:@"#ffffff" font:14 backgroundColor:nil textAlignment:ALIGN_RIGHT];
