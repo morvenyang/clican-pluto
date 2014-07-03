@@ -96,11 +96,20 @@
     [dailyView addSubview:retailLabel];
     //[dailyView addSubview:calendarButton];
     [dailyView addSubview:calendarLabel];
-    if([channels count]!=0){
-        CGFloat width = 320.0/[channels count];
+    NSMutableArray* ca = [NSMutableArray array];
+    for(Channel* channel in channels){
+        if(![channel.channel isEqualToString:@"电商"]){
+            [ca addObject:channel];
+        }
+    }
+    if([ca count]!=0){
+        CGFloat width = 320.0/[ca count];
         int index = 0;
         
-        for(Channel* channel in channels){
+        for(Channel* channel in ca){
+            if([channel.channel isEqualToString:@"电商"]){
+                continue;
+            }
             UILabel* channelLabel = [self createLabel:channel.channel frame:CGRectMake(0+index*width, 34, width, 50) textColor:@"#636363" font:20 backgroundColor:@"#ffffff"];
             UITapGestureRecognizer* recognizer = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickChannelLabel:)] autorelease];
             channelLabel.userInteractionEnabled = YES;
@@ -116,8 +125,8 @@
         }
     }
     Channel* channel = nil;
-    if(channels.count>0){
-       channel  = [channels objectAtIndex:0];
+    if(ca.count>0){
+       channel  = [ca objectAtIndex:0];
     }else{
         channel = [[[Channel alloc] init] autorelease];
     }

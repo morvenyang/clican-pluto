@@ -44,6 +44,8 @@
 		7237939B19500AC900B336FD /* PMDimmingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7237939319500AC900B336FD /* PMDimmingView.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		7237939C19500AC900B336FD /* PMPeriod.m in Sources */ = {isa = PBXBuildFile; fileRef = 7237939519500AC900B336FD /* PMPeriod.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		7237939F19500C9A00B336FD /* PMSelectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7237939E19500C9A00B336FD /* PMSelectionView.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		723C6C1F1964F3C700F67689 /* B2CKPIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 723C6C1E1964F3C700F67689 /* B2CKPIViewController.m */; };
+		723C6C2A1965045E00F67689 /* line.png in Resources */ = {isa = PBXBuildFile; fileRef = 723C6C291965045E00F67689 /* line.png */; };
 		724480E319271E8A005F5BE5 /* Brand.m in Sources */ = {isa = PBXBuildFile; fileRef = 724480E219271E8A005F5BE5 /* Brand.m */; };
 		724480EF19273167005F5BE5 /* Channel.m in Sources */ = {isa = PBXBuildFile; fileRef = 724480EE19273167005F5BE5 /* Channel.m */; };
 		724480F2192732A8005F5BE5 /* BrandViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 724480F1192732A8005F5BE5 /* BrandViewController.m */; };
@@ -390,6 +392,9 @@
 		7237939619500AC900B336FD /* PMSelectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMSelectionView.h; sourceTree = "<group>"; };
 		7237939D19500ADA00B336FD /* PMCalendar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMCalendar.h; sourceTree = "<group>"; };
 		7237939E19500C9A00B336FD /* PMSelectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMSelectionView.m; sourceTree = "<group>"; };
+		723C6C1D1964F3C700F67689 /* B2CKPIViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = B2CKPIViewController.h; sourceTree = "<group>"; };
+		723C6C1E1964F3C700F67689 /* B2CKPIViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = B2CKPIViewController.m; sourceTree = "<group>"; };
+		723C6C291965045E00F67689 /* line.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = line.png; sourceTree = "<group>"; };
 		724480E119271E8A005F5BE5 /* Brand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Brand.h; sourceTree = "<group>"; };
 		724480E219271E8A005F5BE5 /* Brand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Brand.m; sourceTree = "<group>"; };
 		724480ED19273167005F5BE5 /* Channel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Channel.h; sourceTree = "<group>"; };
@@ -872,6 +877,8 @@
 				724F4F3E1935B7890079F9A0 /* SwipeScrollView.m */,
 				72138B81194EB53D009918BD /* CannotCancelUISwipeGestureRecognizer.h */,
 				72138B82194EB53D009918BD /* CannotCancelUISwipeGestureRecognizer.m */,
+				723C6C1D1964F3C700F67689 /* B2CKPIViewController.h */,
+				723C6C1E1964F3C700F67689 /* B2CKPIViewController.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -941,6 +948,7 @@
 				7222FA49195D16E9003AC6F4 /* uparrow.png */,
 				72138B84194EEAF5009918BD /* 首次进入提示.png */,
 				72E8F0981940366D004A2330 /* iTunesArtwork */,
+				723C6C291965045E00F67689 /* line.png */,
 				721DB4CA1938C1F50075F392 /* logout.png */,
 				722D42C6192C449A00350244 /* 图标-关键指标.png */,
 				722D42C7192C449A00350244 /* 图标-关键指标@2x.png */,
@@ -1283,6 +1291,7 @@
 				7285E3D01925AFEE0011C2D6 /* InfoPlist.strings in Resources */,
 				72783BC61929A6A10098B3A8 /* 图标-小衣服@2x.png in Resources */,
 				72E8F0991940366D004A2330 /* iTunesArtwork in Resources */,
+				723C6C2A1965045E00F67689 /* line.png in Resources */,
 				72623175192B168500E3F99B /* logo1024.png in Resources */,
 				72783BBC1929A6A10098B3A8 /* 单效.png in Resources */,
 				72783BC31929A6A10098B3A8 /* 图标-分页原点-高亮.png in Resources */,
@@ -1395,6 +1404,7 @@
 				72783CAC192A093E0098B3A8 /* IndexTableItem.m in Sources */,
 				72EB38AC19270EC100D0F225 /* LoginModel.m in Sources */,
 				726231A4192B745A00E3F99B /* KPIViewController.m in Sources */,
+				723C6C1F1964F3C700F67689 /* B2CKPIViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
