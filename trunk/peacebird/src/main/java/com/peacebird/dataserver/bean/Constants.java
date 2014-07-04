@@ -6,5 +6,5 @@ public class Constants {
 
 	public static ApplicationContext ctx = null;
 	
-	public final static String B2C = "B2C";
+	public final static String B2C = "电商";
 }
