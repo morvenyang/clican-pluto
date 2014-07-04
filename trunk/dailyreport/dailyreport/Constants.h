@@ -22,4 +22,5 @@
 
 #define TAB_COLOR @"#8f8f8f"
 #define STORE_RANK_TABLE_HEAD_COLOR @"#bdbdbd"
+#define GESTURE_PASSWORD @"GESTURE_PASSWORD"
 #endif

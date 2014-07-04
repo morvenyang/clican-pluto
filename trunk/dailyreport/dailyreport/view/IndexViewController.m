@@ -144,6 +144,12 @@
     DrAppDelegate.user.date = nil;
     TTOpenURL(@"peacebird://login");
 }
+-(void)openGestureLockViewAction{
+    [[TTNavigator navigator] removeAllViewControllers];
+    [self hideConfig];
+    TTOpenURL(@"peacebird://gestureLock/setting");
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
