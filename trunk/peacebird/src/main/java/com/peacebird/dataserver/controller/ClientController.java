@@ -42,6 +42,34 @@ public class ClientController {
 		this.dataService = dataService;
 	}
 
+	@RequestMapping("/checkSession")
+	public void checkSession(
+			@RequestParam(value = "version", required = false) String version,
+			HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		if (log.isDebugEnabled()) {
+			log.debug("access check session page");
+		}
+		User user = (User) req.getSession().getAttribute("user");
+		String result;
+		if (user == null) {
+			result = this.getNotLoginResult();
+		} else {
+			user = this.userService.findUserByUserName(user.getUserName());
+			if (user.getExpiredDays() > 0) {
+				result = "{\"result\":0,\"message\":\"已登录\"}";
+			} else {
+				result = this.getNotLoginResult();
+			}
+		}
+		try {
+			resp.setContentType("application/json");
+			resp.getOutputStream().write(result.getBytes("utf-8"));
+		} catch (Exception e) {
+			log.error("", e);
+		}
+	}
+
 	@RequestMapping("/login")
 	public void login(@RequestParam(value = "userName") String userName,
 			@RequestParam(value = "password") String password,
@@ -55,10 +83,10 @@ public class ClientController {
 		LoginResult lr = null;
 		User user = userService.findUserByUserName(userName);
 		if (user == null) {
-			lr = new LoginResult(1000, "用户名不存在", -1,60);
+			lr = new LoginResult(1000, "用户名不存在", -1, 60);
 		} else {
 			if (!user.isActive()) {
-				lr = new LoginResult(1002, "该用户被禁用,请联系管理员激活该用户", -1,60);
+				lr = new LoginResult(1002, "该用户被禁用,请联系管理员激活该用户", -1, 60);
 			} else {
 				String hashPassword = DigestUtils.shaHex(password);
 				if (user.getPassword().equals(hashPassword)) {
@@ -67,14 +95,16 @@ public class ClientController {
 						user.setToken(token);
 						userService.saveUser(user);
 					}
-					if(user.getTimeoutInterval()==null){
-						lr = new LoginResult(0, "登录成功", user.getExpiredDays(),60);
-					}else{
-						lr = new LoginResult(0, "登录成功", user.getExpiredDays(),user.getTimeoutInterval());
+					if (user.getTimeoutInterval() == null) {
+						lr = new LoginResult(0, "登录成功", user.getExpiredDays(),
+								60);
+					} else {
+						lr = new LoginResult(0, "登录成功", user.getExpiredDays(),
+								user.getTimeoutInterval());
 					}
-					
+
 				} else {
-					lr = new LoginResult(1001, "密码错误", -1,60);
+					lr = new LoginResult(1001, "密码错误", -1, 60);
 				}
 			}
 		}
