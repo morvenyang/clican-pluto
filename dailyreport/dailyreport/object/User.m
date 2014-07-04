@@ -12,6 +12,7 @@
 @synthesize date = _date;
 @synthesize oldDate = _oldDate;
 @synthesize timeoutInterval = _timeoutInterval;
+@synthesize showGestureLock = _showGestureLock;
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 -(id)init{
     self = [super init];

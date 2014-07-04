@@ -28,6 +28,7 @@
      (UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
     self.user = [[[User alloc] init] autorelease];
     self.user.sessionId = @"";
+    self.user.showGestureLock =NO;
     [application setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
     [WXApi registerApp:@"wx489983fd6835c0e8"];
     [TTStyleSheet setGlobalStyleSheet:[[[StyleSheet alloc] init] autorelease]];
@@ -52,16 +53,22 @@
      [StoreRankViewController class]];
     [map from:@"peacebird://b2cKpi/(initWithBrand:)" toSharedViewController:
      [B2CKPIViewController class]];
-    [map from:@"peacebird://gestureLock" toSharedViewController:
+    [map from:@"peacebird://gestureLock/(initWithType:)" toSharedViewController:
      [KKViewController class]];
 
     if (![navigator restoreViewControllers]) {
         NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
         NSString* userName = [defaults objectForKey:LAST_USER_NAME];
+        NSString* gesturePassword = [defaults objectForKey:GESTURE_PASSWORD];
         if(userName==nil||userName.length==0){
                     [navigator openURLAction:[TTURLAction actionWithURLPath:@"peacebird://login"]];
         }else{
-                    [navigator openURLAction:[TTURLAction actionWithURLPath:@"peacebird://index"]];
+            if(self.user.showGestureLock&&gesturePassword!=nil&&gesturePassword.length!=0){
+                [navigator openURLAction:[TTURLAction actionWithURLPath:@"peacebird://gestureLock/unlock"]];
+            }else{
+                [navigator openURLAction:[TTURLAction actionWithURLPath:@"peacebird://index"]];
+            }
+            
         }
 
     }
@@ -85,13 +92,18 @@
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
-    // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    self.user.showGestureLock = NO;
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
-    // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+   
+    NSString* gesturePassword = [defaults objectForKey:GESTURE_PASSWORD];
+    if(self.user.showGestureLock&&gesturePassword!=nil&&gesturePassword.length!=0){
+        [[TTNavigator navigator] removeAllViewControllers];
+        TTOpenURL(@"peacebird://gestureLock/unlock");
+    }
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application

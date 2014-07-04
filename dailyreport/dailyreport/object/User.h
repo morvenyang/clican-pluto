@@ -11,6 +11,7 @@
     NSDate* _date;
     NSDate* _oldDate;
     int _timeoutInterval;
+    BOOL _showGestureLock;
 }
 
 @property (nonatomic, copy) NSString* username;
@@ -20,4 +21,5 @@
 @property (nonatomic, retain) NSDate* date;
 @property (nonatomic, retain) NSDate* oldDate;
 @property (nonatomic, assign) int timeoutInterval;
+@property (nonatomic, assign) BOOL showGestureLock;
 @end
