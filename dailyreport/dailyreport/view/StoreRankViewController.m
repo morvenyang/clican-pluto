@@ -89,9 +89,18 @@
     if([channels count]!=0){
         CGFloat width = 320.0/[channels count];
         int index = 0;
-        
+        CGFloat t = 0;
         for(ChannelRank* channelRank in channels){
-            UILabel* channelLabel = [self createLabel:channelRank.channel frame:CGRectMake(0+index*width, 34, width, 50) textColor:@"#636363" font:20 backgroundColor:@"#ffffff"];
+            CGFloat x = index*width;
+            CGFloat realWidth = width-0.5;
+            if(index!=0){
+                x =x +0.5;
+            }
+            if(index==[channels count]-1){
+                realWidth = 320.0-t;
+            }
+            t+=width;
+            UILabel* channelLabel = [self createLabel:channelRank.channel frame:CGRectMake(x, 34, realWidth, 50) textColor:@"#636363" font:20 backgroundColor:@"#ffffff"];
             UITapGestureRecognizer* recognizer = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickChannelLabel:)] autorelease];
             channelLabel.userInteractionEnabled = YES;
             [channelLabel addGestureRecognizer:recognizer];

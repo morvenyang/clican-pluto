@@ -9,14 +9,17 @@
 #import <UIKit/UIKit.h>
 #import "User.h"
 #import "WXApi.h"
+#import "LoginModel.h"
 #define DrAppDelegate ((AppDelegate *)[[UIApplication sharedApplication] delegate])
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate,WXApiDelegate>{
+@interface AppDelegate : UIResponder <UIApplicationDelegate,WXApiDelegate,CheckSessionDelegate>{
     User* _user;
     NSString* _token;
+    LoginModel* _loginModel;
 }
 
 @property (nonatomic, retain) User* user;
+@property (nonatomic, retain) LoginModel* loginModel;
 @property (nonatomic, copy) NSString* token;
 @property (strong, nonatomic) UIWindow *window;
 
