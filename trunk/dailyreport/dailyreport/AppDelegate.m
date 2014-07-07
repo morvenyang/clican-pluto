@@ -21,7 +21,7 @@
 
 @synthesize user=_user;
 @synthesize token = _token;
-
+@synthesize loginModel = _loginModel;
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     [[UIApplication sharedApplication] registerForRemoteNotificationTypes:
@@ -29,6 +29,8 @@
     self.user = [[[User alloc] init] autorelease];
     self.user.sessionId = @"";
     self.user.showGestureLock =NO;
+    self.loginModel = [[[LoginModel alloc] init] autorelease];
+    self.loginModel.checkSessionDelegate = self;
     [application setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
     [WXApi registerApp:@"wx489983fd6835c0e8"];
     [TTStyleSheet setGlobalStyleSheet:[[[StyleSheet alloc] init] autorelease]];
@@ -103,6 +105,8 @@
     if(self.user.showGestureLock&&gesturePassword!=nil&&gesturePassword.length!=0){
         [[TTNavigator navigator] removeAllViewControllers];
         TTOpenURL(@"peacebird://gestureLock/unlock");
+    }else{
+        [self.loginModel checkSession];
     }
 }
 
@@ -163,6 +167,12 @@
             [alert release];
         }
         
+    }
+}
+
+- (void)checkSessionResult:(BOOL) result{
+    if(!result){
+        TTOpenURL(@"peacebird://login");
     }
 }
 

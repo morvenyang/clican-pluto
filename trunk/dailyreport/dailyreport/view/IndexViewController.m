@@ -128,7 +128,7 @@
     
     
     [self.configView addSubview:calendarButton];
-    [self.configView addSubview:logoutButton];
+    //[self.configView addSubview:logoutButton];
     [self.backgroundView addSubview:self.configView];
     UITapGestureRecognizer* singleFingerTap = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideConfig)] autorelease];
     

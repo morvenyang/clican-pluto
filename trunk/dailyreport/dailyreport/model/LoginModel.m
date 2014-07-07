@@ -8,7 +8,7 @@
 
 @synthesize user = _user;
 @synthesize delegate = _delegate;
-
+@synthesize checkSessionDelegate = _checkSessionDelegate;
 
 - (id)init
 {
@@ -24,6 +24,7 @@
 - (void)dealloc {
     TT_RELEASE_SAFELY(_user);
     TT_RELEASE_SAFELY(_delegate);
+    TT_RELEASE_SAFELY(_checkSessionDelegate);
     [super dealloc];
 }
 
@@ -59,6 +60,23 @@
     [request send];
 }
 
+- (void)checkSession{
+  
+    NSString* url= [BASE_URL stringByAppendingFormat:@"/checkSession.do?version=%@",VERSION];
+    
+    NSLog(@"URL:%@", url);
+    
+    TTURLRequest *request=[TTURLRequest requestWithURL:url delegate:self];
+    request.timeoutInterval = 15;
+    request.cachePolicy = TTURLRequestCachePolicyNone;
+    
+    
+    TTURLJSONResponse* response = [[TTURLJSONResponse alloc] init];
+    request.response = response;
+    TT_RELEASE_SAFELY(response);
+    
+    [request send];
+}
 #pragma mark -
 #pragma mark TTURLRequestDelegate
 
@@ -71,7 +89,10 @@
 - (void)request:(TTURLRequest*)request didFailLoadWithError:(NSError*)error {  
     if ([_delegate respondsToSelector:@selector(loginFailed:message:)]) {
         [_delegate loginFailed:error message:nil];
-    }   
+    }
+    if ([_checkSessionDelegate respondsToSelector:@selector(checkSessionResult:)]) {
+        [_checkSessionDelegate checkSessionResult:NO];
+    }
     [super request:request didFailLoadWithError:error];
 }
 
@@ -85,17 +106,27 @@
         NSLog(@"response.rootObject:%@",data);
         NSNumber* result = [data objectForKey:@"result"];
         if([result intValue]==0){
-            _user.sessionId = [data objectForKey:@"jsessionid"];
-            _user.expiredDays = [data objectForKey:@"expiredDays"];
-            NSNumber* timeoutInterval = [data objectForKey:@"timeoutInterval"];
-            _user.timeoutInterval =timeoutInterval.intValue;
-            if ([_delegate respondsToSelector:@selector(loginSuccess:)]) {
-                [_delegate loginSuccess:_user];
+            if(_delegate!=nil){
+                _user.sessionId = [data objectForKey:@"jsessionid"];
+                _user.expiredDays = [data objectForKey:@"expiredDays"];
+                NSNumber* timeoutInterval = [data objectForKey:@"timeoutInterval"];
+                _user.timeoutInterval =timeoutInterval.intValue;
+                if ([_delegate respondsToSelector:@selector(loginSuccess:)]) {
+                    [_delegate loginSuccess:_user];
+                }
+            }else{
+                if ([_checkSessionDelegate respondsToSelector:@selector(checkSessionResult:)]) {
+                    [_checkSessionDelegate checkSessionResult:YES];
+                }
             }
+            
         }else{
             NSString* message =[data objectForKey:@"message"];
             if ([_delegate respondsToSelector:@selector(loginFailed:message:)]) {
                 [_delegate loginFailed:nil message:message];
+            }
+            if ([_checkSessionDelegate respondsToSelector:@selector(checkSessionResult:)]) {
+                [_checkSessionDelegate checkSessionResult:NO];
             }
         }
     }

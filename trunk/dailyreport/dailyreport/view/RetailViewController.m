@@ -117,12 +117,22 @@
     
     CGFloat width = 320.0/3;
     int index = 0;
+    CGFloat t = 0;
     NSMutableArray* tabs = [NSMutableArray array];
     [tabs addObject:@"店铺性质"];
     [tabs addObject:@"店铺形态"];
     [tabs addObject:@"管理部门"];
     for(NSString* tab in tabs){
-        UILabel* tabLabel = [self createLabel:tab frame:CGRectMake(0+index*width, 34, width, 50) textColor:@"#636363" font:20 backgroundColor:@"#ffffff"];
+        CGFloat x = index*width;
+        CGFloat realWidth = width-0.5;
+        if(index!=0){
+            x =x +0.5;
+        }
+        if(index==[tabs count]-1){
+            realWidth = 320.0-t;
+        }
+        t+=width;
+        UILabel* tabLabel = [self createLabel:tab frame:CGRectMake(x, 34, realWidth, 50) textColor:@"#636363" font:20 backgroundColor:@"#ffffff"];
         UITapGestureRecognizer* recognizer = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickChannelLabel:)] autorelease];
         tabLabel.userInteractionEnabled = YES;
         [tabLabel addGestureRecognizer:recognizer];
