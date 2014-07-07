@@ -80,7 +80,7 @@
     self.backgroundView =[[UIView alloc] initWithFrame:frame];
     self.configView = [[UIView alloc] initWithFrame:CGRectMake(170, 60, 137, 102)];
     
-    UIImageView* configBackgroundImage =[[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 137, 102)] autorelease];
+    UIImageView* configBackgroundImage =[[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 136.5, 54.5)] autorelease];
     configBackgroundImage.contentMode = UIViewContentModeScaleToFill;
     configBackgroundImage.image =[UIImage imageNamed:@"menu.png"];
     [self.configView addSubview:configBackgroundImage];
