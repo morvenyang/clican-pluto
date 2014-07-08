@@ -30,7 +30,6 @@ import com.peacebird.dataserver.bean.RankResult;
 import com.peacebird.dataserver.bean.RankStatResult;
 import com.peacebird.dataserver.bean.RetailChartResult;
 import com.peacebird.dataserver.bean.RetailResult;
-import com.peacebird.dataserver.bean.RetailStatResult;
 import com.peacebird.dataserver.bean.SpringProperty;
 import com.peacebird.dataserver.bean.comp.ChannelComparator;
 import com.peacebird.dataserver.dao.DataDao;
@@ -315,33 +314,7 @@ public class DataServiceImpl implements DataService {
 		return result;
 	}
 
-	@Override
-	public String getRetailResult(String brand, Date date) {
-		RetailStatResult rsr = new RetailStatResult();
-		Date yesterday = getYesterday(date);
-		List<RetailResult> channelRetail = this.dataDao.getRetailChannelResult(
-				yesterday, brand);
-		Collections.sort(channelRetail);
-		List<RetailResult> sortRetail = this.dataDao.getRetailSortResult(
-				yesterday, brand);
-		Collections.sort(sortRetail);
-		List<RetailResult> regionRetail = this.dataDao.getRetailRegionResult(
-				yesterday, brand);
-		rsr.setResult(0);
-		rsr.setChannelRetail(channelRetail);
-		rsr.setSortRetail(sortRetail);
-		rsr.setRegionRetail(regionRetail);
-		rsr.setDate(yesterday);
-
-		JsonConfig jsonConfig = new JsonConfig();
-		jsonConfig.registerJsonValueProcessor(Date.class,
-				new DateJsonValueProcessor("yyyy-MM-dd"));
-		jsonConfig.registerJsonValueProcessor(Integer.class,
-				new IntegerJsonValueProcessor());
-
-		String result = JSONObject.fromObject(rsr, jsonConfig).toString();
-		return result;
-	}
+	
 
 	@Override
 	public List<RetailResult> getRetailChartResult(String brand, String type,
@@ -381,14 +354,20 @@ public class DataServiceImpl implements DataService {
 		rcr.setHeight(700 + dataProvider.size() * 80);
 		rcr.setTop( 300 +  dataProvider.size() * 5);
 		
-		Long total = 0L;
+		double total = 0;
 		for (RetailResult rr : dataProvider) {
 			if (rr.getDayAmount() != null) {
 				total += rr.getDayAmount();
+				if(rr.getDayAmount()>1){
+					rr.setDayAmount((double)rr.getDayAmount().intValue());
+				}else{
+					int intValue =(int)(rr.getDayAmount()*10);
+					rr.setDayAmount(intValue/10.0);
+				}
 			}
 		}
 		rcr.setDate(yesterday);
-		rcr.setTotal(total);
+		rcr.setTotal((long)total);
 		rcr.setCount(dataProvider.size());
 		JsonConfig jsonConfig = new JsonConfig();
 		jsonConfig.registerJsonValueProcessor(Date.class,

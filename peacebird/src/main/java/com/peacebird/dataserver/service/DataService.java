@@ -15,8 +15,6 @@ public interface DataService {
 	
 	public String getBrandResultForApple(String brand,Date date);
 	
-	public String getRetailResult(String brand,Date date);
-	
 	public List<RetailResult> getRetailChartResult(String brand,String type,Date date);
 	
 	public String getRetailChartResultForJson(String brand,String type,Date date);
