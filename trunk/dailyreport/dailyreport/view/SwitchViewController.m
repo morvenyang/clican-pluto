@@ -33,11 +33,27 @@
     
     [super loadView];
     self.title = self.brand;
-    UIBarButtonItem* backButton = [[[UIBarButtonItem alloc] initWithTitle:@"\U000025C0\U0000FE0E" style:UIBarButtonItemStylePlain target:self action:@selector(backAction)] autorelease];
-    if(DEVICE_VERSION<6.0){
-        backButton.title = @"<";
+    
+    UIButton* backButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [backButton setImage:[UIImage imageNamed:@"back.png"] forState:UIControlStateNormal];
+    
+    backButton.frame =CGRectMake(0, 0, 40, 40);
+
+    [backButton addTarget:self action:@selector(backAction) forControlEvents:UIControlEventTouchUpInside];
+    #ifdef __IPHONE_7_0
+    if(DEVICE_VERSION>=7.0){
+        backButton.contentEdgeInsets=UIEdgeInsetsMake(0, -30, 0, 0);
     }
-    [self.navigationItem setLeftBarButtonItem:backButton animated:YES];
+    #endif
+    #ifdef __IPHONE_6_0
+        if(DEVICE_VERSION<7.0){
+            backButton.contentEdgeInsets=UIEdgeInsetsMake(0, -10, 0, 0);
+        }
+    #endif
+
+    UIBarButtonItem* backButtonItem = [[[UIBarButtonItem alloc] initWithCustomView:backButton] autorelease];
+
+    [self.navigationItem setLeftBarButtonItem:backButtonItem animated:YES];
     
     UIButton* shareButtonImage = [UIButton buttonWithType:UIButtonTypeCustom];
     shareButtonImage.frame =CGRectMake(0, 0, 40, 40);
