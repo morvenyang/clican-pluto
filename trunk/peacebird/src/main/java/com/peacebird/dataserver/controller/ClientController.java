@@ -196,29 +196,7 @@ public class ClientController {
 		}
 	}
 
-	@RequestMapping("/retail")
-	public void retail(@RequestParam(value = "brand") String brand,
-			@RequestParam(value = "date", required = false) String date,
-			@RequestParam(value = "version", required = false) String version,
-			HttpServletRequest req, HttpServletResponse resp)
-			throws ServletException, IOException {
-		if (log.isDebugEnabled()) {
-			log.debug("access retail page");
-		}
-		User user = (User) req.getSession().getAttribute("user");
-		String result = null;
-		if (user == null) {
-			result = this.getNotLoginResult();
-		} else {
-			result = this.dataService.getRetailResult(brand, getDate(date));
-		}
-		try {
-			resp.setContentType("application/json");
-			resp.getOutputStream().write(result.getBytes("utf-8"));
-		} catch (Exception e) {
-			log.error("", e);
-		}
-	}
+	
 
 	@RequestMapping("/retailChart")
 	public void retailChart(@RequestParam(value = "brand") String brand,
@@ -232,7 +210,7 @@ public class ClientController {
 		}
 		List<RetailResult> result = this.dataService.getRetailChartResult(
 				brand, type, getDate(date));
-		Long total = 0L;
+		double total = 0;
 		for (RetailResult rr : result) {
 			if (rr.getDayAmount() != null) {
 				total += rr.getDayAmount();

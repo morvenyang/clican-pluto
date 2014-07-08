@@ -9,7 +9,7 @@ public class RetailResult implements Comparable<RetailResult> {
 
 	private String name;
 
-	private Long dayAmount;
+	private Double dayAmount;
 
 	private Double percent;
 	
@@ -18,7 +18,7 @@ public class RetailResult implements Comparable<RetailResult> {
 		this.type = type;
 		this.name = name;
 		if (dayAmount != null) {
-			this.dayAmount = dayAmount.longValue();
+			this.dayAmount = dayAmount.doubleValue();
 		}
 	}
 
@@ -38,11 +38,11 @@ public class RetailResult implements Comparable<RetailResult> {
 		this.name = name;
 	}
 
-	public Long getDayAmount() {
+	public Double getDayAmount() {
 		return dayAmount;
 	}
 
-	public void setDayAmount(Long dayAmount) {
+	public void setDayAmount(Double dayAmount) {
 		this.dayAmount = dayAmount;
 	}
 
