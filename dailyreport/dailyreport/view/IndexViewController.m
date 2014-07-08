@@ -92,7 +92,7 @@
     [self.configButton addTarget:self action:@selector(showConfig:) forControlEvents:UIControlEventTouchUpInside];
     
     
-    UIBarButtonItem* configItem = [[UIBarButtonItem alloc] initWithCustomView:self.configButton];
+    UIBarButtonItem* configItem = [[[UIBarButtonItem alloc] initWithCustomView:self.configButton] autorelease];
     [self.navigationItem setRightBarButtonItem:configItem animated:YES];
     
     UIButton* titleButton = [UIButton buttonWithType:UIButtonTypeCustom];

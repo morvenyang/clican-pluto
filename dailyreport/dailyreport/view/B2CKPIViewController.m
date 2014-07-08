@@ -100,8 +100,8 @@
     [self.contentView addSubview:[self createImageViewFromNamedImage:@"关键指标-分割线.png" frame:CGRectMake(0,227,320,3)]];
     [self.contentView addSubview:[self createImageViewFromNamedImage:@"件单价.png" frame:CGRectMake(20,244,24,24)]];
     [self.contentView addSubview:[self createLabel:@"件单价" frame:CGRectMake(50,230,100,49) textColor:@"#4a4a4a" font:18 backgroundColor:nil]];
-    UILabel* avgDocAmountLabel =[self createDecimalLabel:[NSNumber numberWithInt:channel.avgDocAmount.intValue] unit:@"元" frame:CGRectMake(200,230,100,49) textColor:@"#7f7f7f" font:18 backgroundColor:nil textAlignment:ALIGN_LEFT];
-    [self.contentView addSubview:avgDocAmountLabel];
+    UILabel* avgPriceLabel =[self createDecimalLabel:[NSNumber numberWithInt:channel.avgPrice.intValue] unit:@"元" frame:CGRectMake(200,230,100,49) textColor:@"#7f7f7f" font:18 backgroundColor:nil textAlignment:ALIGN_LEFT];
+    [self.contentView addSubview:avgPriceLabel];
     [self.contentView addSubview:[self createImageViewFromNamedImage:@"关键指标-分割线.png" frame:CGRectMake(0,287,320,3)]];
     [self.contentView addSubview:[self createImageViewFromNamedImage:@"单效.png" frame:CGRectMake(20,306,24,24)]];
     [self.contentView addSubview:[self createLabel:@"坪效" frame:CGRectMake(50,290,100,49) textColor:@"#4a4a4a" font:18 backgroundColor:nil]];
