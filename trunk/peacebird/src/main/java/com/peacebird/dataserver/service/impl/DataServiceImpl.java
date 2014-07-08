@@ -358,12 +358,6 @@ public class DataServiceImpl implements DataService {
 		for (RetailResult rr : dataProvider) {
 			if (rr.getDayAmount() != null) {
 				total += rr.getDayAmount();
-				if(rr.getDayAmount()>1){
-					rr.setDayAmount((double)rr.getDayAmount().intValue());
-				}else{
-					int intValue =(int)(rr.getDayAmount()*10);
-					rr.setDayAmount(intValue/10.0);
-				}
 			}
 		}
 		rcr.setDate(yesterday);
