@@ -34,7 +34,17 @@
         NSNumberFormatter* formatter = [[[NSNumberFormatter alloc]init] autorelease];
         formatter.numberStyle = NSNumberFormatterDecimalStyle;
         
-        NSString* text = [NSString stringWithFormat:@"<span style=\"text-align:right\">%@</span>",[formatter stringFromNumber:[NSNumber numberWithInt:brand.dayAmount.intValue/10000]]];
+        NSString* strValue = nil;
+        if(brand.dayAmount.intValue>10000){
+            [formatter setMinimumFractionDigits:0];
+            [formatter setMaximumFractionDigits:0];
+            strValue=[formatter stringFromNumber:[NSNumber numberWithDouble:brand.dayAmount.doubleValue/10000]];
+        }else{
+            [formatter setMinimumFractionDigits:2];
+            [formatter setMaximumFractionDigits:2];
+            strValue=[formatter stringFromNumber:[NSNumber numberWithDouble:brand.dayAmount.doubleValue/10000]];
+        }
+        NSString* text = [NSString stringWithFormat:@"<span style=\"text-align:right\">%@</span>",strValue];
         
         TTStyledText* styledText = [TTStyledText textFromXHTML:text lineBreaks:YES URLs:YES];
         NSString* url = [NSString stringWithFormat:@"peacebird://brand/%@", [brand.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
