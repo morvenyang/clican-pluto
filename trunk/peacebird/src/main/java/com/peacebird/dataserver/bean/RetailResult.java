@@ -138,7 +138,7 @@ public class RetailResult implements Comparable<RetailResult> {
 			if(this.dayAmount>=1){
 				da = String.format("%.0f", this.dayAmount);
 			}else{
-				da = String.format("%.1f", this.dayAmount);
+				da = String.format("%.2f", this.dayAmount);
 			}
 			String p = String.format("%.1f", this.percent * 100) + "%";
 			while (p.length() < 7) {
