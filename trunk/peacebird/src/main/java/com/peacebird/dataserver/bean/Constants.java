@@ -7,4 +7,6 @@ public class Constants {
 	public static ApplicationContext ctx = null;
 	
 	public final static String B2C = "电商";
+	
+	public final static String MAGIC = "魔法";
 }
