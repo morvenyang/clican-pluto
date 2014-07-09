@@ -101,18 +101,18 @@ public class DataDaoImpl extends HibernateDaoSupport implements DataDao {
 	@Override
 	public List<RetailResult> getRetailSortResult(Date date, String brand) {
 		String hsql = "select new com.peacebird.dataserver.bean.RetailResult('sort',sort,sum(dayAmount)) from DayRetailSort";
-		hsql += " where brand = :brand and date = :date group by sort";
+		hsql += " where brand = :brand and date = :date and sort!=: sort group by sort";
 		return this.getHibernateTemplate().findByNamedParam(hsql,
-				new String[] { "date", "brand" }, new Object[] { date, brand });
+				new String[] { "date", "brand","sort" }, new Object[] { date, brand,Constants.B2C });
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<RetailResult> getRetailRegionResult(Date date, String brand) {
 		String hsql = "select new com.peacebird.dataserver.bean.RetailResult('region',region,sum(dayAmount)) from DayRetailRegion";
-		hsql += " where brand = :brand and date = :date group by region";
+		hsql += " where brand = :brand and date = :date and region != :region group by region";
 		return this.getHibernateTemplate().findByNamedParam(hsql,
-				new String[] { "date", "brand" }, new Object[] { date, brand });
+				new String[] { "date", "brand","region" }, new Object[] { date, brand,Constants.B2C });
 	}
 
 	@SuppressWarnings("unchecked")
@@ -138,7 +138,7 @@ public class DataDaoImpl extends HibernateDaoSupport implements DataDao {
 	public List<String> getAllChannelForRank(Date date, String brand) {
 		String hsql = "select distinct channel from DayStoreAmountRank where date = :date and brand= :brand and channel != :channel";
 		return this.getHibernateTemplate().findByNamedParam(hsql,
-				new String[] { "date", "brand","channel" }, new Object[] { date, brand,Constants.MAGIC });
+				new String[] { "date", "brand","channel" }, new Object[] { date, brand,Constants.B2C });
 	}
 
 	@SuppressWarnings("unchecked")

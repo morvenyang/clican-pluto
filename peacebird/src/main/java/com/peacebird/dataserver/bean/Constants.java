@@ -8,5 +8,4 @@ public class Constants {
 	
 	public final static String B2C = "电商";
 	
-	public final static String MAGIC = "魔法";
 }
