@@ -101,7 +101,7 @@ public class DataDaoImpl extends HibernateDaoSupport implements DataDao {
 	@Override
 	public List<RetailResult> getRetailSortResult(Date date, String brand) {
 		String hsql = "select new com.peacebird.dataserver.bean.RetailResult('sort',sort,sum(dayAmount)) from DayRetailSort";
-		hsql += " where brand = :brand and date = :date and sort!=: sort group by sort";
+		hsql += " where brand = :brand and date = :date and sort!= :sort group by sort";
 		return this.getHibernateTemplate().findByNamedParam(hsql,
 				new String[] { "date", "brand","sort" }, new Object[] { date, brand,Constants.B2C });
 	}
