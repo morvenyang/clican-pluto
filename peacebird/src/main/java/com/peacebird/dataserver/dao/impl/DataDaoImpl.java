@@ -48,9 +48,9 @@ public class DataDaoImpl extends HibernateDaoSupport implements DataDao {
 		if (bs.endsWith(",")) {
 			bs = bs.substring(0, bs.length() - 1);
 		}
-		hsql += " where date = :date and brand in (" + bs + ") group by brand";
+		hsql += " where date = :date and channel!= :channel and brand in (" + bs + ") group by brand";
 		return this.getHibernateTemplate().findByNamedParam(hsql,
-				new String[] { "date" }, new Object[] { date });
+				new String[] { "date","channel" }, new Object[] { date,Constants.B2C });
 	}
 
 	@SuppressWarnings("unchecked")
