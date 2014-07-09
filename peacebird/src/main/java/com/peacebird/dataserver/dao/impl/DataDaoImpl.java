@@ -136,9 +136,9 @@ public class DataDaoImpl extends HibernateDaoSupport implements DataDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<String> getAllChannelForRank(Date date, String brand) {
-		String hsql = "select distinct channel from DayStoreAmountRank where date = :date and brand= :brand";
+		String hsql = "select distinct channel from DayStoreAmountRank where date = :date and brand= :brand and channel != :channel";
 		return this.getHibernateTemplate().findByNamedParam(hsql,
-				new String[] { "date", "brand" }, new Object[] { date, brand });
+				new String[] { "date", "brand","channel" }, new Object[] { date, brand,Constants.MAGIC });
 	}
 
 	@SuppressWarnings("unchecked")
