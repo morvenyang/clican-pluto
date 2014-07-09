@@ -143,7 +143,7 @@
     
     [self.contentView addSubview:[self createImageViewFromNamedImage:@"零售收入.png" frame:CGRectMake(20,114,24,24)]];
     [self.contentView addSubview:[self createLabel:@"零售额" frame:CGRectMake(50,100,100,49) textColor:@"#4a4a4a" font:18 backgroundColor:nil]];
-    self.dayAmountLabel =[self createDecimalLabel:[NSNumber numberWithInt:channel.dayAmount.intValue/10000] unit:@"万元" frame:CGRectMake(200,100,100,49) textColor:@"#7f7f7f" font:18 backgroundColor:nil textAlignment:ALIGN_LEFT];
+    self.dayAmountLabel =[self createDecimalLabel:[NSNumber numberWithDouble:channel.dayAmount.doubleValue/10000] unit:@"万元" frame:CGRectMake(200,100,100,49) textColor:@"#7f7f7f" font:18 backgroundColor:nil textAlignment:ALIGN_LEFT];
 
     [self.contentView addSubview:self.dayAmountLabel];
     [self.contentView addSubview:[self createImageViewFromNamedImage:@"关键指标-分割线.png" frame:CGRectMake(0,157,320,3)]];
@@ -174,10 +174,22 @@
 }
 
 -(void) updateChannel:(Channel*) channel{
+    NSNumberFormatter* formatter1 = [[[NSNumberFormatter alloc]init] autorelease];
+    formatter1.numberStyle = NSNumberFormatterDecimalStyle;
+    
     NSNumberFormatter* formatter = [[[NSNumberFormatter alloc]init] autorelease];
     formatter.numberStyle = NSNumberFormatterDecimalStyle;
     
-    self.dayAmountLabel.text = [NSString stringWithFormat:@"%@ %@",[formatter stringFromNumber:[NSNumber numberWithInt:channel.dayAmount.intValue/10000]],@"万元"];
+    if(channel.dayAmount.doubleValue>=10000){
+        [formatter1 setMinimumFractionDigits:0];
+        [formatter1 setMaximumFractionDigits:0];
+        self.dayAmountLabel.text = [NSString stringWithFormat:@"%@ %@",[formatter1 stringFromNumber:[NSNumber numberWithDouble:channel.dayAmount.doubleValue/10000]],@"万元"];
+    }else{
+        [formatter1 setMinimumFractionDigits:2];
+        [formatter1 setMaximumFractionDigits:2];
+        self.dayAmountLabel.text = [NSString stringWithFormat:@"%@ %@",[formatter1 stringFromNumber:[NSNumber numberWithDouble:channel.dayAmount.doubleValue/10000]],@"万元"];
+    }
+    
     
     self.docNumberLabel.text =
     [NSString stringWithFormat:@"%@",[formatter stringFromNumber:[NSNumber numberWithInt:channel.docNumber.intValue]]];

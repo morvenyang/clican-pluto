@@ -93,8 +93,7 @@
     calendarLabel.backgroundColor = [UIColor clearColor];
     NSNumberFormatter* formatter = [[[NSNumberFormatter alloc]init] autorelease];
     formatter.numberStyle = NSNumberFormatterDecimalStyle;
-    UILabel* retailAmountLabel =[[[UILabel alloc] initWithFrame:CGRectMake(0, 30, 160, 80)] autorelease];
-    retailAmountLabel.text =[formatter stringFromNumber:[NSNumber numberWithInt:brand.dayAmount.intValue/10000]];
+    UILabel* retailAmountLabel =[self createDecimalLabel:[NSNumber numberWithDouble:brand.dayAmount.doubleValue/10000] frame:CGRectMake(0, 30, 160, 80) textColor:@"#ffffff" font:50 backgroundColor:nil textAlignment:ALIGN_CENTER];
     if(retailAmountLabel.text.length>5){
         retailAmountLabel.font = [UIFont fontWithName:@"HelveticaNeue-UltraLight" size:50];
     }else if(retailAmountLabel.text.length>4){
@@ -103,9 +102,7 @@
         retailAmountLabel.font = [UIFont fontWithName:@"HelveticaNeue-UltraLight" size:70];
     }
     
-    retailAmountLabel.textColor = [UIColor whiteColor];
-    retailAmountLabel.backgroundColor = [UIColor clearColor];
-    retailAmountLabel.textAlignment = [self getAlignment:ALIGN_CENTER];
+    
     NSString* retailLikeText =[NSString stringWithFormat:@"%0.1f%@",brand.dayLike.floatValue*100,@"%"];
     if(brand.dayLike.floatValue>0){
         retailLikeText = [NSString stringWithFormat:@"+%@",retailLikeText];
@@ -119,7 +116,7 @@
             [dailyView addSubview:[self createImageViewFromNamedImage:@"line.png" frame:CGRectMake(200, i*20+50+3, 90, 1.5)]];
         }
         UILabel* channelLabel=[self createLabel:channel.channel frame:CGRectMake(200, i*20+50+offset, 90, 20) textColor:@"#ffffff" font:14 backgroundColor:nil textAlignment:ALIGN_LEFT];
-        UILabel* channelValue=[self createDecimalLabel:[NSNumber numberWithInt:channel.dayAmount.intValue/10000] frame:CGRectMake(200, i*20+50+offset, 90, 20) textColor:@"#ffffff" font:14 backgroundColor:nil textAlignment:ALIGN_RIGHT];
+        UILabel* channelValue=[self createDecimalLabel:[NSNumber numberWithDouble:channel.dayAmount.doubleValue/10000] frame:CGRectMake(200, i*20+50+offset, 90, 20) textColor:@"#ffffff" font:14 backgroundColor:nil textAlignment:ALIGN_RIGHT];
         [dailyView addSubview:channelLabel];
         [dailyView addSubview:channelValue];
     }
@@ -154,7 +151,7 @@
         if(weekBrand.dayAmount==nil||weekBrand.dayAmount.intValue==-1){
             continue;
         }
-        UILabel* weekAmount= [self createDecimalLabel:[NSNumber numberWithInt:weekBrand.dayAmount.intValue/10000] frame:CGRectMake(2+(i)*45, 60, 45, 40) textColor:@"#F55943" font:15 backgroundColor:nil textAlignment:ALIGN_CENTER];
+        UILabel* weekAmount= [self createDecimalLabel:[NSNumber numberWithDouble:weekBrand.dayAmount.doubleValue/10000] frame:CGRectMake(2+(i)*45, 60, 45, 40) textColor:@"#F55943" font:15 backgroundColor:nil textAlignment:ALIGN_CENTER];
         [weeklyView addSubview:weekAmount];
     }
     
@@ -176,7 +173,7 @@
     weekLike.textColor = [StyleSheet colorFromHexString:@"#919191"];
     weekLike.backgroundColor = [UIColor clearColor];
     
-    UILabel* weekSumAmount =[self createDecimalLabel:[NSNumber numberWithInt:brand.weekAmount.intValue/10000] frame:CGRectMake(12, 31, 148, 37) textColor:@"#494949" font:30 backgroundColor:nil textAlignment:ALIGN_LEFT];
+    UILabel* weekSumAmount =[self createDecimalLabel:[NSNumber numberWithDouble:brand.weekAmount.doubleValue/10000] frame:CGRectMake(12, 31, 148, 37) textColor:@"#494949" font:30 backgroundColor:nil textAlignment:ALIGN_LEFT];
     
     UILabel* weekLikeAmount = [[[UILabel alloc] initWithFrame:CGRectMake(12+160, 31, 148, 37)] autorelease];
     weekLikeAmount.text = [NSString stringWithFormat:@"%0.1f%@",brand.weekLike.floatValue*100,@"%"];
@@ -196,7 +193,7 @@
     monthLike.textColor = [StyleSheet colorFromHexString:@"#919191"];
     monthLike.backgroundColor = [UIColor clearColor];
     
-    UILabel* monthSumAmount =[self createDecimalLabel:[NSNumber numberWithInt:brand.monthAmount.intValue/10000] frame:CGRectMake(12, 94, 148, 38) textColor:@"#494949" font:30 backgroundColor:nil textAlignment:ALIGN_LEFT];
+    UILabel* monthSumAmount =[self createDecimalLabel:[NSNumber numberWithDouble:brand.monthAmount.doubleValue/10000] frame:CGRectMake(12, 94, 148, 38) textColor:@"#494949" font:30 backgroundColor:nil textAlignment:ALIGN_LEFT];
     
     UILabel* monthLikeAmount = [[[UILabel alloc] initWithFrame:CGRectMake(12+160, 94, 148, 38)] autorelease];
     monthLikeAmount.text = [NSString stringWithFormat:@"%0.1f%@",brand.monthLike.floatValue*100,@"%"];
@@ -217,7 +214,7 @@
     yearLike.textColor = [StyleSheet colorFromHexString:@"#919191"];
     yearLike.backgroundColor = [UIColor clearColor];
     
-    UILabel* yearSumAmount =[self createDecimalLabel:[NSNumber numberWithInt:brand.yearAmount.intValue/10000] frame:CGRectMake(12, 158, 148, 38) textColor:@"#494949" font:30 backgroundColor:nil textAlignment:ALIGN_LEFT];
+    UILabel* yearSumAmount =[self createDecimalLabel:[NSNumber numberWithDouble:brand.yearAmount.doubleValue/10000] frame:CGRectMake(12, 158, 148, 38) textColor:@"#494949" font:30 backgroundColor:nil textAlignment:ALIGN_LEFT];
         
     UILabel* yearLikeAmount = [[[UILabel alloc] initWithFrame:CGRectMake(12+160, 158, 148, 38)] autorelease];
     yearLikeAmount.text = [NSString stringWithFormat:@"%0.1f%@",brand.yearLike.floatValue*100,@"%"];

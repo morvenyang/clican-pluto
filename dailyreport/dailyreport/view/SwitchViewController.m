@@ -241,7 +241,13 @@
     UILabel* label = [[[UILabel alloc] initWithFrame:frame] autorelease];
     NSNumberFormatter* formatter = [[[NSNumberFormatter alloc]init] autorelease];
     formatter.numberStyle = NSNumberFormatterDecimalStyle;
-    
+    if(number.doubleValue<1&&number.doubleValue!=0){
+        [formatter setMaximumFractionDigits:2];
+        [formatter setMinimumFractionDigits:2];
+    }else{
+        [formatter setMaximumFractionDigits:0];
+        [formatter setMinimumFractionDigits:0];
+    }
     label.text = [NSString stringWithFormat:@"%@ %@",[formatter stringFromNumber:number],unit];
     label.font = [UIFont systemFontOfSize:font];
     label.textColor = [StyleSheet colorFromHexString:textColor];
@@ -258,7 +264,13 @@
     UILabel* label = [[[UILabel alloc] initWithFrame:frame] autorelease];
     NSNumberFormatter* formatter = [[[NSNumberFormatter alloc]init] autorelease];
     formatter.numberStyle = NSNumberFormatterDecimalStyle;
-    
+    if(number.doubleValue<1&&number.doubleValue!=0){
+        [formatter setMaximumFractionDigits:2];
+        [formatter setMinimumFractionDigits:2];
+    }else{
+        [formatter setMaximumFractionDigits:0];
+        [formatter setMinimumFractionDigits:0];
+    }
     label.text = [formatter stringFromNumber:number];
     label.font = [UIFont systemFontOfSize:font];
     label.textColor = [StyleSheet colorFromHexString:textColor];
