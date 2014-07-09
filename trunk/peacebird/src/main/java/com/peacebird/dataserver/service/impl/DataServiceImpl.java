@@ -361,7 +361,7 @@ public class DataServiceImpl implements DataService {
 			}
 		}
 		rcr.setDate(yesterday);
-		rcr.setTotal((long)total);
+		rcr.setTotal(Math.round(total));
 		rcr.setCount(dataProvider.size());
 		JsonConfig jsonConfig = new JsonConfig();
 		jsonConfig.registerJsonValueProcessor(Date.class,
@@ -432,5 +432,5 @@ public class DataServiceImpl implements DataService {
 	public List<DimBrand> getAllBrands() {
 		return this.dataDao.getAllBrands();
 	}
-
+	
 }
