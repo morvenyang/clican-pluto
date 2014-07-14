@@ -222,7 +222,7 @@ public class ClientController {
 			req.setAttribute("dataProvider", dataProvider);
 			req.setAttribute("height", 640 + result.size() * 80);
 			req.setAttribute("top", 260 + result.size() * 5);
-			req.setAttribute("total", Math.round(total));
+			req.setAttribute("total", (int)total);
 			req.getRequestDispatcher("/retail.jsp").forward(req, resp);
 		} catch (Exception e) {
 			log.error("", e);
