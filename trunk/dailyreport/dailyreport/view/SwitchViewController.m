@@ -241,7 +241,7 @@
     UILabel* label = [[[UILabel alloc] initWithFrame:frame] autorelease];
     NSNumberFormatter* formatter = [[[NSNumberFormatter alloc]init] autorelease];
     formatter.numberStyle = NSNumberFormatterDecimalStyle;
-    if(number.doubleValue<1&&number.doubleValue!=0){
+    if(number.doubleValue>-1&&number.doubleValue<1&&number.doubleValue!=0){
         [formatter setMaximumFractionDigits:2];
         [formatter setMinimumFractionDigits:2];
     }else{
@@ -264,7 +264,7 @@
     UILabel* label = [[[UILabel alloc] initWithFrame:frame] autorelease];
     NSNumberFormatter* formatter = [[[NSNumberFormatter alloc]init] autorelease];
     formatter.numberStyle = NSNumberFormatterDecimalStyle;
-    if(number.doubleValue<1&&number.doubleValue!=0){
+    if(number.doubleValue>-1&&number.doubleValue<1&&number.doubleValue!=0){
         [formatter setMaximumFractionDigits:2];
         [formatter setMinimumFractionDigits:2];
     }else{
