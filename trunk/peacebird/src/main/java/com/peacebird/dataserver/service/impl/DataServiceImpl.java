@@ -83,7 +83,7 @@ public class DataServiceImpl implements DataService {
 
 	@Override
 	public String getIndexResult(String[] brands, Date date) {
-		if(date!=null){
+		if (date != null) {
 			DayStatus ds = dataDao.getDayStatus(date);
 			if (ds == null || ds.getStatus() == null || ds.getStatus() == 0) {
 				SimpleDateFormat sdf = new SimpleDateFormat("MM月dd日");
@@ -256,8 +256,8 @@ public class DataServiceImpl implements DataService {
 		Double lastYearAmount = 0.0;
 		Double yearAmount = 0.0;
 		for (BrandResult b : bcr) {
-			if(b.getChannel().equals(Constants.B2C)){
-				//统计数据不包括电商的
+			if (b.getChannel().equals(Constants.B2C)) {
+				// 统计数据不包括电商的
 				continue;
 			}
 			if (b.getPerDayAmount() != null) {
@@ -314,7 +314,15 @@ public class DataServiceImpl implements DataService {
 		return result;
 	}
 
-	
+	private List<RetailResult> filteZero(List<RetailResult> source) {
+		List<RetailResult> result = new ArrayList<RetailResult>();
+		for (RetailResult rr : source) {
+			if (rr.getDayAmount() / 10000 != 0) {
+				result.add(rr);
+			}
+		}
+		return result;
+	}
 
 	@Override
 	public List<RetailResult> getRetailChartResult(String brand, String type,
@@ -328,6 +336,7 @@ public class DataServiceImpl implements DataService {
 		} else if (type.equals("region")) {
 			list = this.dataDao.getRetailRegionResult(yesterday, brand);
 		}
+		list = filteZero(list);
 		Collections.sort(list);
 		double total = 0;
 		for (RetailResult rr : list) {
@@ -348,12 +357,13 @@ public class DataServiceImpl implements DataService {
 	public String getRetailChartResultForJson(String brand, String type,
 			Date date) {
 		Date yesterday = getYesterday(date);
-		List<RetailResult> dataProvider = this.getRetailChartResult(brand, type, date);
+		List<RetailResult> dataProvider = this.getRetailChartResult(brand,
+				type, date);
 		RetailChartResult rcr = new RetailChartResult();
 		rcr.setDataProvider(dataProvider);
 		rcr.setHeight(700 + dataProvider.size() * 80);
-		rcr.setTop( 300 +  dataProvider.size() * 5);
-		
+		rcr.setTop(300 + dataProvider.size() * 5);
+
 		double total = 0;
 		for (RetailResult rr : dataProvider) {
 			if (rr.getDayAmount() != null) {
@@ -432,5 +442,5 @@ public class DataServiceImpl implements DataService {
 	public List<DimBrand> getAllBrands() {
 		return this.dataDao.getAllBrands();
 	}
-	
+
 }
