@@ -101,6 +101,9 @@
                 Channel* channel = [[[Channel alloc] init] autorelease];
                 channel.channel = [jsonChannel objectForKey:@"channel"];
                 channel.dayAmount =[jsonChannel objectForKey:@"dayAmount"];
+                if(![channel.channel isEqualToString:@"电商"]&&channel.dayAmount.intValue==0){
+                    continue;
+                }
                 [channels addObject:channel];
             }
             [self.delegate brandDidFinishLoad:brand channels:channels weeks:weeks];
