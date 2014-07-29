@@ -26,12 +26,13 @@ import com.peacebird.dataserver.bean.ChannelResult;
 import com.peacebird.dataserver.bean.ChannelStatResult;
 import com.peacebird.dataserver.bean.Constants;
 import com.peacebird.dataserver.bean.GoodRankResult;
+import com.peacebird.dataserver.bean.GoodRankStatResult;
 import com.peacebird.dataserver.bean.IndexStatResult;
-import com.peacebird.dataserver.bean.StoreRankStatResult;
 import com.peacebird.dataserver.bean.RetailChartResult;
 import com.peacebird.dataserver.bean.RetailResult;
 import com.peacebird.dataserver.bean.SpringProperty;
 import com.peacebird.dataserver.bean.StoreRankResult;
+import com.peacebird.dataserver.bean.StoreRankStatResult;
 import com.peacebird.dataserver.bean.comp.ChannelComparator;
 import com.peacebird.dataserver.dao.DataDao;
 import com.peacebird.dataserver.model.DayStatus;
@@ -444,7 +445,20 @@ public class DataServiceImpl implements DataService {
 		Date yesterday = getYesterday(date);
 		List<GoodRankResult> rankResult = this.dataDao.getGoodRankResult(yesterday,
 				brand);
-		return null;
+		for(GoodRankResult grr:rankResult){
+		}
+		GoodRankStatResult grsr = new GoodRankStatResult();
+		grsr.setDate(yesterday);
+		grsr.setResult(0);
+		grsr.setGoods(rankResult);
+		
+		JsonConfig jsonConfig = new JsonConfig();
+		jsonConfig.registerJsonValueProcessor(Date.class,
+				new DateJsonValueProcessor("yyyy-MM-dd"));
+		jsonConfig.registerJsonValueProcessor(Integer.class,
+				new IntegerJsonValueProcessor());
+		String result = JSONObject.fromObject(grsr, jsonConfig).toString();
+		return result;
 	}
 
 	@Override
