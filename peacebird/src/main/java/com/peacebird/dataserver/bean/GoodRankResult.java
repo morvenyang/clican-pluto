@@ -9,11 +9,20 @@ public class GoodRankResult {
 	private String imageLinkMin;
 	
 	
-	public GoodRankResult(String name, Long amount, Integer count,
+	public GoodRankResult(String name) {
+		super();
+		this.name = name;
+	}
+
+	public GoodRankResult(String name, Number amount, Number count,
 			String imageLink, String imageLinkMin) {
 		this.name = name;
-		this.amount = amount;
-		this.count = count;
+		if(amount!=null){
+			this.amount = amount.longValue();
+		}
+		if(count!=null){
+			this.count = count.intValue();
+		}
 		this.imageLink = imageLink;
 		this.imageLinkMin = imageLinkMin;
 	}

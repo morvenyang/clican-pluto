@@ -177,13 +177,24 @@ public class DataDaoImpl extends HibernateDaoSupport implements DataDao {
 			}
 		});
 	}
-
+	
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<GoodRankResult> getGoodRankResult(Date date, String brand) {
-		String hsql = "select new com.peacebird.dataserver.bean.GoodRankResult(name,amount,count,imageLink,imageLinkMin) from DayGoodsCountRank where date = :date and brand= :brand and channel != :channel";
-		return this.getHibernateTemplate().findByNamedParam(hsql,
-				new String[] { "date", "brand","channel" }, new Object[] { date, brand,Constants.B2C });
+	public List<GoodRankResult> getGoodRankResult(final Date date, final String brand) {
+		
+		return this.getHibernateTemplate().executeFind(new HibernateCallback() {
+			@Override
+			public Object doInHibernate(Session session)
+					throws HibernateException, SQLException {
+				String hsql = "select new com.peacebird.dataserver.bean.GoodRankResult(r.name,r.amount,r.count,r.imageLink,r.imageLinkMin) from DayGoodsCountRank r where r.date = :date and r.brand= :brand order by r.rank";
+				Query query = session.createQuery(hsql);
+				query.setParameter("date", date);
+				query.setParameter("brand", brand);
+				query.setMaxResults(10);
+				return query.list();
+			}
+		});
+	
 	}
 
 	@SuppressWarnings("unchecked")
