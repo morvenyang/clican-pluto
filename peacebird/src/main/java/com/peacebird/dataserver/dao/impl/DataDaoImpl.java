@@ -143,7 +143,7 @@ public class DataDaoImpl extends HibernateDaoSupport implements DataDao {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<StoreRankResult> getRankResult(final Date date, final String brand,
+	public List<StoreRankResult> getStoreRankResult(final Date date, final String brand,
 			final String channel) {
 		return this.getHibernateTemplate().executeFind(new HibernateCallback() {
 			@Override
@@ -162,7 +162,7 @@ public class DataDaoImpl extends HibernateDaoSupport implements DataDao {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<StoreRankResult> getAllRankResult(final Date date, final String brand) {
+	public List<StoreRankResult> getAllStoreRankResult(final Date date, final String brand) {
 		return this.getHibernateTemplate().executeFind(new HibernateCallback() {
 			@Override
 			public Object doInHibernate(Session session)

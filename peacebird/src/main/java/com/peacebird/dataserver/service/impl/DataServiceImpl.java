@@ -410,7 +410,7 @@ public class DataServiceImpl implements DataService {
 		Collections.sort(channels, new ChannelComparator());
 		List<ChannelRankResult> crrList = new ArrayList<ChannelRankResult>();
 
-		List<StoreRankResult> allRankResult = this.dataDao.getAllRankResult(
+		List<StoreRankResult> allRankResult = this.dataDao.getAllStoreRankResult(
 				yesterday, brand);
 		ChannelRankResult acrr = new ChannelRankResult();
 		acrr.setChannel("全部");
@@ -418,7 +418,7 @@ public class DataServiceImpl implements DataService {
 		crrList.add(0, acrr);
 
 		for (String channel : channels) {
-			List<StoreRankResult> rankResult = this.dataDao.getRankResult(yesterday,
+			List<StoreRankResult> rankResult = this.dataDao.getStoreRankResult(yesterday,
 					brand, channel);
 			ChannelRankResult crr = new ChannelRankResult();
 			crr.setChannel(channel);
