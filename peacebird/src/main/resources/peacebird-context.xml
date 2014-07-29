@@ -84,6 +84,7 @@
 		<property name="systemProxyHost" value="${systemProxyHost}"></property>
 		<property name="systemProxyPort" value="${systemProxyPort}"></property>
 		<property name="yesterday" value="${yesterday}"></property>
+		<property name="imageUrlPrefix" value="${imageUrlPrefix}"></property>
 	</bean>
 
 </beans>
