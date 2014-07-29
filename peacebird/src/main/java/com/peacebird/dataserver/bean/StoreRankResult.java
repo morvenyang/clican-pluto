@@ -1,12 +1,12 @@
 package com.peacebird.dataserver.bean;
 
-public class RankResult {
+public class StoreRankResult {
 
 	private String name;
 	private Long amount;
 	private Double rate;
 	
-	public RankResult(String name, Long amount,Double rate) {
+	public StoreRankResult(String name, Long amount,Double rate) {
 		this.name = name;
 		this.amount = amount;
 		this.rate = rate;

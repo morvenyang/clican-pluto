@@ -26,7 +26,7 @@ import com.peacebird.dataserver.bean.ChannelResult;
 import com.peacebird.dataserver.bean.ChannelStatResult;
 import com.peacebird.dataserver.bean.Constants;
 import com.peacebird.dataserver.bean.IndexStatResult;
-import com.peacebird.dataserver.bean.RankResult;
+import com.peacebird.dataserver.bean.StoreRankResult;
 import com.peacebird.dataserver.bean.RankStatResult;
 import com.peacebird.dataserver.bean.RetailChartResult;
 import com.peacebird.dataserver.bean.RetailResult;
@@ -410,7 +410,7 @@ public class DataServiceImpl implements DataService {
 		Collections.sort(channels, new ChannelComparator());
 		List<ChannelRankResult> crrList = new ArrayList<ChannelRankResult>();
 
-		List<RankResult> allRankResult = this.dataDao.getAllRankResult(
+		List<StoreRankResult> allRankResult = this.dataDao.getAllRankResult(
 				yesterday, brand);
 		ChannelRankResult acrr = new ChannelRankResult();
 		acrr.setChannel("全部");
@@ -418,7 +418,7 @@ public class DataServiceImpl implements DataService {
 		crrList.add(0, acrr);
 
 		for (String channel : channels) {
-			List<RankResult> rankResult = this.dataDao.getRankResult(yesterday,
+			List<StoreRankResult> rankResult = this.dataDao.getRankResult(yesterday,
 					brand, channel);
 			ChannelRankResult crr = new ChannelRankResult();
 			crr.setChannel(channel);
@@ -436,6 +436,11 @@ public class DataServiceImpl implements DataService {
 				new IntegerJsonValueProcessor());
 		String result = JSONObject.fromObject(rsr, jsonConfig).toString();
 		return result;
+	}
+
+	@Override
+	public String getGoodRankResult(String brand, Date date) {
+		return null;
 	}
 
 	@Override

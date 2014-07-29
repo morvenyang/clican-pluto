@@ -311,6 +311,30 @@ public class ClientController {
 			log.error("", e);
 		}
 	}
+	
+	@RequestMapping("/goodRank")
+	public void goodRank(@RequestParam(value = "brand") String brand,
+			@RequestParam(value = "date", required = false) String date,
+			@RequestParam(value = "version", required = false) String version,
+			HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		if (log.isDebugEnabled()) {
+			log.debug("access good rank page");
+		}
+		User user = (User) req.getSession().getAttribute("user");
+		String result = null;
+		if (user == null) {
+			result = this.getNotLoginResult();
+		} else {
+			result = this.dataService.getStoreRankResult(brand, getDate(date));
+		}
+		try {
+			resp.setContentType("application/json");
+			resp.getOutputStream().write(result.getBytes("utf-8"));
+		} catch (Exception e) {
+			log.error("", e);
+		}
+	}
 
 	private Date getDate(String strDate) {
 		if (StringUtils.isEmpty(strDate)) {

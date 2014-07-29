@@ -23,5 +23,7 @@ public interface DataService {
 	
 	public String getStoreRankResult(String brand,Date date);
 	
+	public String getGoodRankResult(String brand,Date date);
+	
 	public List<DimBrand> getAllBrands();
 }
