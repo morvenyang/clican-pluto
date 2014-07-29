@@ -4,15 +4,15 @@ import java.util.List;
 
 public class ChannelRankResult{
 	
-	private List<RankResult> ranks;
+	private List<StoreRankResult> ranks;
 	
 	private String channel;
 
-	public List<RankResult> getRanks() {
+	public List<StoreRankResult> getRanks() {
 		return ranks;
 	}
 
-	public void setRanks(List<RankResult> ranks) {
+	public void setRanks(List<StoreRankResult> ranks) {
 		this.ranks = ranks;
 	}
 

@@ -16,7 +16,7 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import com.peacebird.dataserver.bean.BrandResult;
 import com.peacebird.dataserver.bean.ChannelResult;
 import com.peacebird.dataserver.bean.Constants;
-import com.peacebird.dataserver.bean.RankResult;
+import com.peacebird.dataserver.bean.StoreRankResult;
 import com.peacebird.dataserver.bean.RetailResult;
 import com.peacebird.dataserver.dao.DataDao;
 import com.peacebird.dataserver.model.DayStatus;
@@ -143,7 +143,7 @@ public class DataDaoImpl extends HibernateDaoSupport implements DataDao {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<RankResult> getRankResult(final Date date, final String brand,
+	public List<StoreRankResult> getRankResult(final Date date, final String brand,
 			final String channel) {
 		return this.getHibernateTemplate().executeFind(new HibernateCallback() {
 			@Override
@@ -162,7 +162,7 @@ public class DataDaoImpl extends HibernateDaoSupport implements DataDao {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<RankResult> getAllRankResult(final Date date, final String brand) {
+	public List<StoreRankResult> getAllRankResult(final Date date, final String brand) {
 		return this.getHibernateTemplate().executeFind(new HibernateCallback() {
 			@Override
 			public Object doInHibernate(Session session)
