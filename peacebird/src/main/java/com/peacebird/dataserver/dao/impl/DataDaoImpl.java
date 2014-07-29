@@ -16,6 +16,7 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import com.peacebird.dataserver.bean.BrandResult;
 import com.peacebird.dataserver.bean.ChannelResult;
 import com.peacebird.dataserver.bean.Constants;
+import com.peacebird.dataserver.bean.GoodRankResult;
 import com.peacebird.dataserver.bean.StoreRankResult;
 import com.peacebird.dataserver.bean.RetailResult;
 import com.peacebird.dataserver.dao.DataDao;
@@ -149,7 +150,7 @@ public class DataDaoImpl extends HibernateDaoSupport implements DataDao {
 			@Override
 			public Object doInHibernate(Session session)
 					throws HibernateException, SQLException {
-				String hsql = "select new com.peacebird.dataserver.bean.RankResult(name,amount,rate) from DayStoreAmountRank where date = :date and brand= :brand and channel = :channel order by rank";
+				String hsql = "select new com.peacebird.dataserver.bean.StoreRankResult(name,amount,rate) from DayStoreAmountRank where date = :date and brand= :brand and channel = :channel order by rank";
 				Query query = session.createQuery(hsql);
 				query.setParameter("date", date);
 				query.setParameter("brand", brand);
@@ -167,7 +168,7 @@ public class DataDaoImpl extends HibernateDaoSupport implements DataDao {
 			@Override
 			public Object doInHibernate(Session session)
 					throws HibernateException, SQLException {
-				String hsql = "select new com.peacebird.dataserver.bean.RankResult(name,amount,rate) from DayStoreAmountRank where date = :date and brand= :brand order by amount desc";
+				String hsql = "select new com.peacebird.dataserver.bean.StoreRankResult(name,amount,rate) from DayStoreAmountRank where date = :date and brand= :brand order by amount desc";
 				Query query = session.createQuery(hsql);
 				query.setParameter("date", date);
 				query.setParameter("brand", brand);
@@ -175,6 +176,14 @@ public class DataDaoImpl extends HibernateDaoSupport implements DataDao {
 				return query.list();
 			}
 		});
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<GoodRankResult> getGoodRankResult(Date date, String brand) {
+		String hsql = "select new com.peacebird.dataserver.bean.GoodRankResult(name,amount,count) from DayGoodsCountRank where date = :date and brand= :brand and channel != :channel";
+		return this.getHibernateTemplate().findByNamedParam(hsql,
+				new String[] { "date", "brand","channel" }, new Object[] { date, brand,Constants.B2C });
 	}
 
 	@SuppressWarnings("unchecked")

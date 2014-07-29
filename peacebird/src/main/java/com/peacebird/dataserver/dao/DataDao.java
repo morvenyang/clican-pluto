@@ -5,8 +5,9 @@ import java.util.List;
 
 import com.peacebird.dataserver.bean.BrandResult;
 import com.peacebird.dataserver.bean.ChannelResult;
-import com.peacebird.dataserver.bean.StoreRankResult;
+import com.peacebird.dataserver.bean.GoodRankResult;
 import com.peacebird.dataserver.bean.RetailResult;
+import com.peacebird.dataserver.bean.StoreRankResult;
 import com.peacebird.dataserver.model.DayStatus;
 import com.peacebird.dataserver.model.DimBrand;
 
@@ -37,6 +38,8 @@ public interface DataDao {
 			String channel);
 	
 	public List<StoreRankResult> getAllStoreRankResult(Date date, String brand);
+	
+	public List<GoodRankResult> getGoodRankResult(Date date, String brand);
 
 	public DayStatus getDayStatus(Date date);
 

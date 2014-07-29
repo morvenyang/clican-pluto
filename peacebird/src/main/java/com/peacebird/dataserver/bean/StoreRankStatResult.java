@@ -3,7 +3,7 @@ package com.peacebird.dataserver.bean;
 import java.util.Date;
 import java.util.List;
 
-public class RankStatResult {
+public class StoreRankStatResult {
 
 	private List<ChannelRankResult> channels;
 	
