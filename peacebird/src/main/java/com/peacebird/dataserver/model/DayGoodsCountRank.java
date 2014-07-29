@@ -99,14 +99,14 @@ public class DayGoodsCountRank {
 	public void setRank(Integer rank) {
 		this.rank = rank;
 	}
-	@Column(name = "g_img_link")
+	@Column(name = "g_imglink")
 	public String getImageLink() {
 		return imageLink;
 	}
 	public void setImageLink(String imageLink) {
 		this.imageLink = imageLink;
 	}
-	@Column(name = "g_img_link_min")
+	@Column(name = "g_imglink_min")
 	public String getImageLinkMin() {
 		return imageLinkMin;
 	}
