@@ -326,7 +326,7 @@ public class ClientController {
 		if (user == null) {
 			result = this.getNotLoginResult();
 		} else {
-			result = this.dataService.getStoreRankResult(brand, getDate(date));
+			result = this.dataService.getGoodRankResult(brand, getDate(date));
 		}
 		try {
 			resp.setContentType("application/json");
