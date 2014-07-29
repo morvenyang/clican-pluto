@@ -25,12 +25,13 @@ import com.peacebird.dataserver.bean.ChannelRankResult;
 import com.peacebird.dataserver.bean.ChannelResult;
 import com.peacebird.dataserver.bean.ChannelStatResult;
 import com.peacebird.dataserver.bean.Constants;
+import com.peacebird.dataserver.bean.GoodRankResult;
 import com.peacebird.dataserver.bean.IndexStatResult;
-import com.peacebird.dataserver.bean.StoreRankResult;
-import com.peacebird.dataserver.bean.RankStatResult;
+import com.peacebird.dataserver.bean.StoreRankStatResult;
 import com.peacebird.dataserver.bean.RetailChartResult;
 import com.peacebird.dataserver.bean.RetailResult;
 import com.peacebird.dataserver.bean.SpringProperty;
+import com.peacebird.dataserver.bean.StoreRankResult;
 import com.peacebird.dataserver.bean.comp.ChannelComparator;
 import com.peacebird.dataserver.dao.DataDao;
 import com.peacebird.dataserver.model.DayStatus;
@@ -425,7 +426,7 @@ public class DataServiceImpl implements DataService {
 			crr.setRanks(rankResult);
 			crrList.add(crr);
 		}
-		RankStatResult rsr = new RankStatResult();
+		StoreRankStatResult rsr = new StoreRankStatResult();
 		rsr.setResult(0);
 		rsr.setDate(yesterday);
 		rsr.setChannels(crrList);
@@ -440,6 +441,9 @@ public class DataServiceImpl implements DataService {
 
 	@Override
 	public String getGoodRankResult(String brand, Date date) {
+		Date yesterday = getYesterday(date);
+		List<GoodRankResult> rankResult = this.dataDao.getGoodRankResult(yesterday,
+				brand);
 		return null;
 	}
 
