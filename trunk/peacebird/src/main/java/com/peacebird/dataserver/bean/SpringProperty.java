@@ -14,6 +14,7 @@ public class SpringProperty {
 	private int systemProxyPort;
 	
 	private String yesterday;
+	private String imageUrlPrefix;
 	
 
 	public String getVersion() {
@@ -86,6 +87,14 @@ public class SpringProperty {
 
 	public void setYesterday(String yesterday) {
 		this.yesterday = yesterday;
+	}
+
+	public String getImageUrlPrefix() {
+		return imageUrlPrefix;
+	}
+
+	public void setImageUrlPrefix(String imageUrlPrefix) {
+		this.imageUrlPrefix = imageUrlPrefix;
 	}
 	
 	

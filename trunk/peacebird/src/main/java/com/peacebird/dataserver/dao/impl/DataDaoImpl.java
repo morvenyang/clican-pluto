@@ -181,7 +181,7 @@ public class DataDaoImpl extends HibernateDaoSupport implements DataDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<GoodRankResult> getGoodRankResult(Date date, String brand) {
-		String hsql = "select new com.peacebird.dataserver.bean.GoodRankResult(name,amount,count) from DayGoodsCountRank where date = :date and brand= :brand and channel != :channel";
+		String hsql = "select new com.peacebird.dataserver.bean.GoodRankResult(name,amount,count,imageLink,imageLinkMin) from DayGoodsCountRank where date = :date and brand= :brand and channel != :channel";
 		return this.getHibernateTemplate().findByNamedParam(hsql,
 				new String[] { "date", "brand","channel" }, new Object[] { date, brand,Constants.B2C });
 	}

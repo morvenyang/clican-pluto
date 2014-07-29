@@ -335,7 +335,7 @@ public class ClientController {
 			log.error("", e);
 		}
 	}
-
+	
 	private Date getDate(String strDate) {
 		if (StringUtils.isEmpty(strDate)) {
 			return null;
