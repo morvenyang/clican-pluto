@@ -446,6 +446,8 @@ public class DataServiceImpl implements DataService {
 		List<GoodRankResult> rankResult = this.dataDao.getGoodRankResult(yesterday,
 				brand);
 		for(GoodRankResult grr:rankResult){
+			grr.setImageLink(springProperty.getImageUrlPrefix()+grr.getImageLink());
+			grr.setImageLinkMin(springProperty.getImageUrlPrefix()+grr.getImageLinkMin());
 		}
 		GoodRankStatResult grsr = new GoodRankStatResult();
 		grsr.setDate(yesterday);

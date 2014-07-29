@@ -24,6 +24,8 @@ public class DayGoodsCountRank {
 	private Integer count;
 	private Long amount;
 	private Integer rank;
+	private String imageLink;
+	private String imageLinkMin;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -97,6 +99,19 @@ public class DayGoodsCountRank {
 	public void setRank(Integer rank) {
 		this.rank = rank;
 	}
-	
+	@Column(name = "g_img_link")
+	public String getImageLink() {
+		return imageLink;
+	}
+	public void setImageLink(String imageLink) {
+		this.imageLink = imageLink;
+	}
+	@Column(name = "g_img_link_min")
+	public String getImageLinkMin() {
+		return imageLinkMin;
+	}
+	public void setImageLinkMin(String imageLinkMin) {
+		this.imageLinkMin = imageLinkMin;
+	}
 	
 }

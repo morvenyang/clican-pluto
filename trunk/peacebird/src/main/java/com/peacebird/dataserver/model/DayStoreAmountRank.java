@@ -20,8 +20,7 @@ public class DayStoreAmountRank {
 	private Long amount;
 	private Integer rank;
 	private Double rate;
-	private String imageLink;
-	private String imageLinkMin;
+
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -94,19 +93,4 @@ public class DayStoreAmountRank {
 		this.rate = rate;
 	}
 	
-	@Column(name = "g_img_link")
-	public String getImageLink() {
-		return imageLink;
-	}
-	public void setImageLink(String imageLink) {
-		this.imageLink = imageLink;
-	}
-	@Column(name = "g_img_link_min")
-	public String getImageLinkMin() {
-		return imageLinkMin;
-	}
-	public void setImageLinkMin(String imageLinkMin) {
-		this.imageLinkMin = imageLinkMin;
-	}
-
 }
