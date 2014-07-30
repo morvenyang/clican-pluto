@@ -7,7 +7,9 @@ public class GoodRankResult {
 	private Integer count;
 	private String imageLink;
 	private String imageLinkMin;
-	
+	private String season;
+	private String line;
+	private String wave;
 	
 	public GoodRankResult(String name) {
 		super();
@@ -15,7 +17,7 @@ public class GoodRankResult {
 	}
 
 	public GoodRankResult(String name, Number amount, Number count,
-			String imageLink, String imageLinkMin) {
+			String imageLink, String imageLinkMin,String season,String line,String wave) {
 		this.name = name;
 		if(amount!=null){
 			this.amount = amount.longValue();
@@ -25,6 +27,9 @@ public class GoodRankResult {
 		}
 		this.imageLink = imageLink;
 		this.imageLinkMin = imageLinkMin;
+		this.season = season;
+		this.line = line;
+		this.wave = wave;
 	}
 	
 	public String getName() {
@@ -56,6 +61,30 @@ public class GoodRankResult {
 	}
 	public void setImageLinkMin(String imageLinkMin) {
 		this.imageLinkMin = imageLinkMin;
+	}
+
+	public String getSeason() {
+		return season;
+	}
+
+	public void setSeason(String season) {
+		this.season = season;
+	}
+
+	public String getLine() {
+		return line;
+	}
+
+	public void setLine(String line) {
+		this.line = line;
+	}
+
+	public String getWave() {
+		return wave;
+	}
+
+	public void setWave(String wave) {
+		this.wave = wave;
 	}
 	
 	
