@@ -203,12 +203,7 @@ public class ClientController {
 		if (user == null) {
 			result = this.getNotLoginResult();
 		} else {
-			if (user.getUserName().equals("test01")) {
-				result = this.dataService.getBrandResultForApple(brand,
-						getDate(date));
-			} else {
-				result = this.dataService.getBrandResult(brand, getDate(date));
-			}
+			result = this.dataService.getBrandResult(brand, getDate(date));
 		}
 		try {
 			resp.setContentType("application/json");
