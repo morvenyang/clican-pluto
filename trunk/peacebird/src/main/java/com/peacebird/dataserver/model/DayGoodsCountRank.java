@@ -23,7 +23,8 @@ public class DayGoodsCountRank {
 	private String wave;
 	private Integer count;
 	private Long amount;
-	private Integer rank;
+	private String year;
+	private String rank;
 	private String imageLink;
 	private String imageLinkMin;
 	
@@ -93,10 +94,10 @@ public class DayGoodsCountRank {
 		this.amount = amount;
 	}
 	@Column(name="rank")
-	public Integer getRank() {
+	public String getRank() {
 		return rank;
 	}
-	public void setRank(Integer rank) {
+	public void setRank(String rank) {
 		this.rank = rank;
 	}
 	@Column(name = "g_imglink")
@@ -112,6 +113,13 @@ public class DayGoodsCountRank {
 	}
 	public void setImageLinkMin(String imageLinkMin) {
 		this.imageLinkMin = imageLinkMin;
+	}
+	@Column(name = "g_year")
+	public String getYear() {
+		return year;
+	}
+	public void setYear(String year) {
+		this.year = year;
 	}
 	
 }
