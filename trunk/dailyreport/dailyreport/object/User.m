@@ -13,6 +13,7 @@
 @synthesize oldDate = _oldDate;
 @synthesize timeoutInterval = _timeoutInterval;
 @synthesize showGestureLock = _showGestureLock;
+@synthesize goods = _goods;
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 -(id)init{
     self = [super init];
@@ -29,6 +30,8 @@
     TT_RELEASE_SAFELY(_expiredDays);
     TT_RELEASE_SAFELY(_date);
     TT_RELEASE_SAFELY(_oldDate);
+    TT_RELEASE_SAFELY(_goods);
+    TT_RELEASE_SAFELY(_goodDate);
     [super dealloc];
 }
 

@@ -136,6 +136,10 @@
 		7285E3E11925AFEE0011C2D6 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7285E3C91925AFEE0011C2D6 /* UIKit.framework */; };
 		7285E3E91925AFEE0011C2D6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7285E3E71925AFEE0011C2D6 /* InfoPlist.strings */; };
 		7285E3EB1925AFEE0011C2D6 /* dailyreportTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7285E3EA1925AFEE0011C2D6 /* dailyreportTests.m */; };
+		729271F11988B66B00BCF33A /* GoodRank.m in Sources */ = {isa = PBXBuildFile; fileRef = 729271F01988B66B00BCF33A /* GoodRank.m */; };
+		729271FD1988B73200BCF33A /* GoodRankModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 729271FC1988B73200BCF33A /* GoodRankModel.m */; };
+		729272001988B8E000BCF33A /* GoodRankViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 729271FF1988B8E000BCF33A /* GoodRankViewController.m */; };
+		7292720B1988C95100BCF33A /* GoodViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7292720A1988C95100BCF33A /* GoodViewController.m */; };
 		72AD8600193305AB004CAE5F /* StoreRankModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 72AD85FF193305AB004CAE5F /* StoreRankModel.m */; };
 		72AD8603193305D9004CAE5F /* Rank.m in Sources */ = {isa = PBXBuildFile; fileRef = 72AD8602193305D9004CAE5F /* Rank.m */; };
 		72AD8606193309AF004CAE5F /* ChannelRank.m in Sources */ = {isa = PBXBuildFile; fileRef = 72AD8605193309AF004CAE5F /* ChannelRank.m */; };
@@ -505,6 +509,14 @@
 		7285E3E61925AFEE0011C2D6 /* dailyreportTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "dailyreportTests-Info.plist"; sourceTree = "<group>"; };
 		7285E3E81925AFEE0011C2D6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		7285E3EA1925AFEE0011C2D6 /* dailyreportTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = dailyreportTests.m; sourceTree = "<group>"; };
+		729271EF1988B66B00BCF33A /* GoodRank.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodRank.h; sourceTree = "<group>"; };
+		729271F01988B66B00BCF33A /* GoodRank.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodRank.m; sourceTree = "<group>"; };
+		729271FB1988B73200BCF33A /* GoodRankModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodRankModel.h; sourceTree = "<group>"; };
+		729271FC1988B73200BCF33A /* GoodRankModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodRankModel.m; sourceTree = "<group>"; };
+		729271FE1988B8E000BCF33A /* GoodRankViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodRankViewController.h; sourceTree = "<group>"; };
+		729271FF1988B8E000BCF33A /* GoodRankViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodRankViewController.m; sourceTree = "<group>"; };
+		729272091988C95100BCF33A /* GoodViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodViewController.h; sourceTree = "<group>"; };
+		7292720A1988C95100BCF33A /* GoodViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodViewController.m; sourceTree = "<group>"; };
 		72AD85FE193305AB004CAE5F /* StoreRankModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoreRankModel.h; sourceTree = "<group>"; };
 		72AD85FF193305AB004CAE5F /* StoreRankModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoreRankModel.m; sourceTree = "<group>"; };
 		72AD8601193305D9004CAE5F /* Rank.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Rank.h; sourceTree = "<group>"; };
@@ -881,6 +893,10 @@
 				72138B82194EB53D009918BD /* CannotCancelUISwipeGestureRecognizer.m */,
 				723C6C1D1964F3C700F67689 /* B2CKPIViewController.h */,
 				723C6C1E1964F3C700F67689 /* B2CKPIViewController.m */,
+				729271FE1988B8E000BCF33A /* GoodRankViewController.h */,
+				729271FF1988B8E000BCF33A /* GoodRankViewController.m */,
+				729272091988C95100BCF33A /* GoodViewController.h */,
+				7292720A1988C95100BCF33A /* GoodViewController.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -913,6 +929,8 @@
 				72AD85FF193305AB004CAE5F /* StoreRankModel.m */,
 				72AD860A193358B6004CAE5F /* BaseModel.h */,
 				72AD860B193358B6004CAE5F /* BaseModel.m */,
+				729271FB1988B73200BCF33A /* GoodRankModel.h */,
+				729271FC1988B73200BCF33A /* GoodRankModel.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -932,6 +950,8 @@
 				72AD8602193305D9004CAE5F /* Rank.m */,
 				72AD8604193309AF004CAE5F /* ChannelRank.h */,
 				72AD8605193309AF004CAE5F /* ChannelRank.m */,
+				729271EF1988B66B00BCF33A /* GoodRank.h */,
+				729271F01988B66B00BCF33A /* GoodRank.m */,
 			);
 			path = object;
 			sourceTree = "<group>";
@@ -1372,11 +1392,13 @@
 				72AD8606193309AF004CAE5F /* ChannelRank.m in Sources */,
 				724480EF19273167005F5BE5 /* Channel.m in Sources */,
 				72EB38A919270EAF00D0F225 /* LoginDataSource.m in Sources */,
+				7292720B1988C95100BCF33A /* GoodViewController.m in Sources */,
 				7237939B19500AC900B336FD /* PMDimmingView.m in Sources */,
 				72EB38A619270E8D00D0F225 /* LoginViewController.m in Sources */,
 				7237939C19500AC900B336FD /* PMPeriod.m in Sources */,
 				72EB389B19270CA900D0F225 /* IndexDataSource.m in Sources */,
 				72783CD1192A25100098B3A8 /* LinkImageView.m in Sources */,
+				729271F11988B66B00BCF33A /* GoodRank.m in Sources */,
 				72AD8600193305AB004CAE5F /* StoreRankModel.m in Sources */,
 				72783C011929C7D70098B3A8 /* CRNavigationBar.m in Sources */,
 				72783CA9192A09100098B3A8 /* IndexTableItemCell.m in Sources */,
@@ -1392,11 +1414,13 @@
 				7237939F19500C9A00B336FD /* PMSelectionView.m in Sources */,
 				72EB38B6192712DC00D0F225 /* MBProgressHUD.m in Sources */,
 				72EB388A192705E800D0F225 /* StyleSheet.m in Sources */,
+				729271FD1988B73200BCF33A /* GoodRankModel.m in Sources */,
 				722D42F6192C8D6800350244 /* RetailViewController.m in Sources */,
 				72EB389E19270CCA00D0F225 /* IndexListModel.m in Sources */,
 				722D42E7192C89F800350244 /* Retail.m in Sources */,
 				72783C021929C7D70098B3A8 /* CRNavigationController.m in Sources */,
 				72138B83194EB53D009918BD /* CannotCancelUISwipeGestureRecognizer.m in Sources */,
+				729272001988B8E000BCF33A /* GoodRankViewController.m in Sources */,
 				7285E3D61925AFEE0011C2D6 /* AppDelegate.m in Sources */,
 				7285E3D21925AFEE0011C2D6 /* main.m in Sources */,
 				7237939A19500AC900B336FD /* PMCalendarView.m in Sources */,
@@ -1532,7 +1556,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
-				PROVISIONING_PROFILE = "C17E14FC-0D79-4712-B85E-4B31660C70BC";
+				PROVISIONING_PROFILE = "958D8879-D9E8-46D1-A358-0CB8A784CA60";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -1572,7 +1596,7 @@
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_LDFLAGS = "-ObjC";
-				PROVISIONING_PROFILE = "C17E14FC-0D79-4712-B85E-4B31660C70BC";
+				PROVISIONING_PROFILE = "958D8879-D9E8-46D1-A358-0CB8A784CA60";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1594,7 +1618,7 @@
 					"$(PROJECT_DIR)/dailyreport/weixin",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "C17E14FC-0D79-4712-B85E-4B31660C70BC";
+				PROVISIONING_PROFILE = "958D8879-D9E8-46D1-A358-0CB8A784CA60";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1615,7 +1639,7 @@
 					"$(PROJECT_DIR)/dailyreport/weixin",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "C17E14FC-0D79-4712-B85E-4B31660C70BC";
+				PROVISIONING_PROFILE = "958D8879-D9E8-46D1-A358-0CB8A784CA60";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

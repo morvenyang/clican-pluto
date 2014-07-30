@@ -78,9 +78,9 @@
     UIImage* highLightImage= [UIImage imageNamed:@"图标-分页原点-高亮.png"];
     
     CGFloat y = frame.size.height-30-offset;
-    UIView* paginationView = [[[UIView alloc] initWithFrame:CGRectMake(120, y, 80, 30)] autorelease];
+    UIView* paginationView = [[[UIView alloc] initWithFrame:CGRectMake(112, y, 96, 30)] autorelease];
     paginationView.backgroundColor = [UIColor whiteColor];
-    for(int i=1;i<=5;i++){
+    for(int i=1;i<=6;i++){
         UIImageView* v = [[[UIImageView alloc] initWithFrame:CGRectMake(16*(i-1), 10, 6, 6)] autorelease];
         if(i==self.index){
             v.image = highLightImage;

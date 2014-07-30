@@ -12,6 +12,8 @@
     NSDate* _oldDate;
     int _timeoutInterval;
     BOOL _showGestureLock;
+    NSMutableArray* _goods;
+    NSDate* goodDate;
 }
 
 @property (nonatomic, copy) NSString* username;
@@ -22,4 +24,6 @@
 @property (nonatomic, retain) NSDate* oldDate;
 @property (nonatomic, assign) int timeoutInterval;
 @property (nonatomic, assign) BOOL showGestureLock;
+@property (nonatomic, retain) NSMutableArray* goods;
+@property (nonatomic, retain) NSDate* goodDate;
 @end
