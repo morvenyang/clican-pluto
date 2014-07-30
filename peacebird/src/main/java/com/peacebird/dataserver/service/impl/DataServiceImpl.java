@@ -1,5 +1,6 @@
 package com.peacebird.dataserver.service.impl;
 
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -412,16 +413,16 @@ public class DataServiceImpl implements DataService {
 		Collections.sort(channels, new ChannelComparator());
 		List<ChannelRankResult> crrList = new ArrayList<ChannelRankResult>();
 
-		List<StoreRankResult> allRankResult = this.dataDao.getAllStoreRankResult(
-				yesterday, brand);
+		List<StoreRankResult> allRankResult = this.dataDao
+				.getAllStoreRankResult(yesterday, brand);
 		ChannelRankResult acrr = new ChannelRankResult();
 		acrr.setChannel("全部");
 		acrr.setRanks(allRankResult);
 		crrList.add(0, acrr);
 
 		for (String channel : channels) {
-			List<StoreRankResult> rankResult = this.dataDao.getStoreRankResult(yesterday,
-					brand, channel);
+			List<StoreRankResult> rankResult = this.dataDao.getStoreRankResult(
+					yesterday, brand, channel);
 			ChannelRankResult crr = new ChannelRankResult();
 			crr.setChannel(channel);
 			crr.setRanks(rankResult);
@@ -443,17 +444,26 @@ public class DataServiceImpl implements DataService {
 	@Override
 	public String getGoodRankResult(String brand, Date date) {
 		Date yesterday = getYesterday(date);
-		List<GoodRankResult> rankResult = this.dataDao.getGoodRankResult(yesterday,
-				brand);
-		for(GoodRankResult grr:rankResult){
-			grr.setImageLink(springProperty.getImageUrlPrefix()+grr.getImageLink());
-			grr.setImageLinkMin(springProperty.getImageUrlPrefix()+grr.getImageLinkMin());
+		List<GoodRankResult> rankResult = this.dataDao.getGoodRankResult(
+				yesterday, brand);
+		try {
+			for (GoodRankResult grr : rankResult) {
+				grr.setImageLink(springProperty.getServerUrl()
+						+ "/peacebird/goodImage.do?path="
+						+ URLEncoder.encode(grr.getImageLink(), "utf-8"));
+				grr.setImageLinkMin(springProperty.getServerUrl()
+						+ "/peacebird/goodImage.do?path="
+						+ URLEncoder.encode(grr.getImageLinkMin(), "utf-8"));
+			}
+		} catch (Exception e) {
+			log.error("", e);
 		}
+
 		GoodRankStatResult grsr = new GoodRankStatResult();
 		grsr.setDate(yesterday);
 		grsr.setResult(0);
 		grsr.setGoods(rankResult);
-		
+
 		JsonConfig jsonConfig = new JsonConfig();
 		jsonConfig.registerJsonValueProcessor(Date.class,
 				new DateJsonValueProcessor("yyyy-MM-dd"));
