@@ -1,5 +1,6 @@
 package com.peacebird.dataserver.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -13,6 +14,7 @@ import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -22,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.peacebird.dataserver.bean.LoginResult;
 import com.peacebird.dataserver.bean.RetailResult;
+import com.peacebird.dataserver.bean.SpringProperty;
 import com.peacebird.dataserver.model.User;
 import com.peacebird.dataserver.service.DataService;
 import com.peacebird.dataserver.service.UserService;
@@ -33,6 +36,7 @@ public class ClientController {
 
 	private UserService userService;
 	private DataService dataService;
+	private SpringProperty springProperty;
 
 	public void setUserService(UserService userService) {
 		this.userService = userService;
@@ -40,6 +44,24 @@ public class ClientController {
 
 	public void setDataService(DataService dataService) {
 		this.dataService = dataService;
+	}
+
+	public SpringProperty getSpringProperty() {
+		return springProperty;
+	}
+
+	public void setSpringProperty(SpringProperty springProperty) {
+		this.springProperty = springProperty;
+	}
+
+	@RequestMapping("/goodImage")
+	public void goodImage(
+			@RequestParam(value = "path", required = true) String path,
+			HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		byte[] data = FileUtils.readFileToByteArray(new File(springProperty
+				.getImageUrlPrefix() + path));
+		resp.getOutputStream().write(data);
 	}
 
 	@RequestMapping("/checkSession")
@@ -196,8 +218,6 @@ public class ClientController {
 		}
 	}
 
-	
-
 	@RequestMapping("/retailChart")
 	public void retailChart(@RequestParam(value = "brand") String brand,
 			@RequestParam(value = "type") String type,
@@ -222,7 +242,7 @@ public class ClientController {
 			req.setAttribute("dataProvider", dataProvider);
 			req.setAttribute("height", 640 + result.size() * 80);
 			req.setAttribute("top", 260 + result.size() * 5);
-			req.setAttribute("total", (int)total);
+			req.setAttribute("total", (int) total);
 			req.getRequestDispatcher("/retail.jsp").forward(req, resp);
 		} catch (Exception e) {
 			log.error("", e);
@@ -311,7 +331,7 @@ public class ClientController {
 			log.error("", e);
 		}
 	}
-	
+
 	@RequestMapping("/goodRank")
 	public void goodRank(@RequestParam(value = "brand") String brand,
 			@RequestParam(value = "date", required = false) String date,
@@ -335,7 +355,7 @@ public class ClientController {
 			log.error("", e);
 		}
 	}
-	
+
 	private Date getDate(String strDate) {
 		if (StringUtils.isEmpty(strDate)) {
 			return null;
