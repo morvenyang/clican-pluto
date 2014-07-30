@@ -17,7 +17,7 @@
     NSString* _season;
     NSString* _line;
     NSString* _wave;
-    NSNumber* _year;
+    NSString* _year;
 }
 @property (nonatomic, copy) NSString* name;
 @property (nonatomic, retain) NSNumber* amount;
@@ -27,5 +27,5 @@
 @property (nonatomic, copy) NSString* season;
 @property (nonatomic, copy) NSString* line;
 @property (nonatomic, copy) NSString* wave;
-@property (nonatomic, retain) NSNumber* year;
+@property (nonatomic, copy) NSString* year;
 @end

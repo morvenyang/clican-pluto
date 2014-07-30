@@ -69,27 +69,18 @@
         offset= 64;
     }
     self.contentView = [[[SwipeScrollView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height-offset-30)] autorelease];
+    if([self conformsToProtocol:@protocol(GoodSwitchDelegate)]){
+        self.contentView.goodSwitchDelegate = (id<GoodSwitchDelegate>)self;
+    }
     self.contentView.index = self.index;
     self.contentView.brand = self.brand;
     self.contentView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.contentView];
     
-    UIImage* lightImage= [UIImage imageNamed:@"图标-分页原点-正常.png"];
-    UIImage* highLightImage= [UIImage imageNamed:@"图标-分页原点-高亮.png"];
+
     
     CGFloat y = frame.size.height-30-offset;
-    UIView* paginationView = [[[UIView alloc] initWithFrame:CGRectMake(112, y, 96, 30)] autorelease];
-    paginationView.backgroundColor = [UIColor whiteColor];
-    for(int i=1;i<=6;i++){
-        UIImageView* v = [[[UIImageView alloc] initWithFrame:CGRectMake(16*(i-1), 10, 6, 6)] autorelease];
-        if(i==self.index){
-            v.image = highLightImage;
-        }else{
-            v.image = lightImage;
-        }
-        [paginationView addSubview:v];
-    }
-    [self.view addSubview:paginationView];
+    [self.view addSubview:[self createPaginationView:y]];
     
     
     y = frame.size.height-200-offset;
@@ -115,6 +106,22 @@
     [self.shareView addSubview:wxLabel];
     [self.shareView addSubview:cancelButton];
     [self.backgroundShareView addSubview:self.shareView];
+}
+-(UIView*) createPaginationView:(int)y{
+    UIView* paginationView = [[[UIView alloc] initWithFrame:CGRectMake(112, y, 96, 30)] autorelease];
+    UIImage* lightImage= [UIImage imageNamed:@"图标-分页原点-正常.png"];
+    UIImage* highLightImage= [UIImage imageNamed:@"图标-分页原点-高亮.png"];
+    paginationView.backgroundColor = [UIColor whiteColor];
+    for(int i=1;i<=6;i++){
+        UIImageView* v = [[[UIImageView alloc] initWithFrame:CGRectMake(16*(i-1), 10, 6, 6)] autorelease];
+        if(i==self.index){
+            v.image = highLightImage;
+        }else{
+            v.image = lightImage;
+        }
+        [paginationView addSubview:v];
+    }
+    return paginationView;
 }
 - (void)viewDidLoad
 {
@@ -429,7 +436,7 @@
 }
 - (void)dealloc
 {
-    
+    self.contentView.goodSwitchDelegate = nil;
     TT_RELEASE_SAFELY(_brand);
     TT_RELEASE_SAFELY(_contentView);
     TT_RELEASE_SAFELY(_shareView);

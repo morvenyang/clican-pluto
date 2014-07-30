@@ -7,7 +7,7 @@
 //
 
 #import "SwipeScrollView.h"
-
+#import "AppDelegate.h"
 @implementation SwipeScrollView
 @synthesize brand = _brand;
 @synthesize index = _index;
@@ -59,11 +59,19 @@
                 NSString* url = [NSString stringWithFormat:@"peacebird://storeRank/%@", [self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
                 TTOpenURL(url);
             }else if(self.index==4){
-                NSString* url = [NSString stringWithFormat:@"peacebird://b2cKpi/%@", [self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-                TTOpenURL(url);
-            }else if(self.index==5){
                 NSString* url = [NSString stringWithFormat:@"peacebird://goodRank/%@", [self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
                 TTOpenURL(url);
+            }else if(self.index==5){
+                NSString* url = [NSString stringWithFormat:@"peacebird://b2cKpi/%@", [self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+                TTOpenURL(url);
+            }else if(self.index==-1){
+                
+                int goodIndex = DrAppDelegate.user.goodIndex;
+                if(goodIndex<DrAppDelegate.user.goods.count-1){
+                    goodIndex++;
+                    DrAppDelegate.user.goodIndex=goodIndex;
+                    [self.goodSwitchDelegate switchGood];
+                }
             }
             return;
         }
@@ -82,8 +90,17 @@
                 NSString* url = [NSString stringWithFormat:@"peacebird://storeRank/%@", [self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
                 TTOpenURL(url);
             }else if(self.index==6){
-                NSString* url = [NSString stringWithFormat:@"peacebird://b2cKpi/%@", [self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+                NSString* url = [NSString stringWithFormat:@"peacebird://goodRank/%@", [self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
                 TTOpenURL(url);
+            }else if(self.index==-1){
+                int goodIndex = DrAppDelegate.user.goodIndex;
+                
+                if(goodIndex>0){
+                    goodIndex--;
+                    DrAppDelegate.user.goodIndex=goodIndex;
+                    [self.goodSwitchDelegate switchGood];
+                }
+                
             }
             return;
         }

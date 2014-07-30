@@ -11,8 +11,8 @@
 #import "GoodRank.h"
 
 @implementation GoodViewController
-@synthesize goodIndex = _goodIndex;
 @synthesize dyviews = _dyviews;
+@synthesize pointImageViews = _pointImageViews;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -22,11 +22,12 @@
     return self;
 }
 
--(id) initWithBrand:(NSString*) brand index:(int)index{
+-(id) initWithBrand:(NSString*) brand{
     if ((self = [self initWithNibName:nil bundle:nil])) {
         self.brand = brand;
-        self.goodIndex = index;
+        self.index=-1;
         self.dyviews = [NSMutableArray array];
+        self.pointImageViews =[NSMutableArray array];
     }
     return self;
 }
@@ -73,12 +74,24 @@
     for(UIView* view in self.dyviews){
         [view removeFromSuperview];
     }
-    GoodRank* gr = [DrAppDelegate.user.goods objectAtIndex:self.goodIndex];
+    int i = 0;
+    UIImage* lightImage= [UIImage imageNamed:@"图标-分页原点-正常.png"];
+    UIImage* highLightImage= [UIImage imageNamed:@"图标-分页原点-高亮.png"];
+    for(UIImageView* view in self.pointImageViews){
+        if(i==DrAppDelegate.user.goodIndex){
+            view.image =highLightImage;
+        }else{
+            view.image =lightImage;
+        }
+        i++;
+        
+    }
+    GoodRank* gr = [DrAppDelegate.user.goods objectAtIndex:DrAppDelegate.user.goodIndex];
     UIView* view = nil;
     view =[self createLabel:[NSString stringWithFormat:@"品名: %@",gr.name] frame:CGRectMake(10, 36, 150, 20) textColor:@"#000000" font:12 backgroundColor:nil];
     [self.contentView addSubview:view];
     [self.dyviews addObject:view];
-    view =[self createLabel:[NSString stringWithFormat:@"排行: %i",self.goodIndex+1] frame:CGRectMake(260, 36, 40, 20) textColor:@"#000000" font:12 backgroundColor:nil];
+    view =[self createLabel:[NSString stringWithFormat:@"排行: %i",DrAppDelegate.user.goodIndex+1] frame:CGRectMake(260, 36, 40, 20) textColor:@"#000000" font:12 backgroundColor:nil];
     [self.contentView addSubview:view];
     [self.dyviews addObject:view];
     
@@ -96,43 +109,61 @@
     [self.contentView addSubview:view];
     [self.dyviews addObject:view];
     
-    view =[self createLabel:gr.line frame:CGRectMake(220, 360, 50, 20) textColor:@"#000000" font:15 backgroundColor:nil];
+    view =[self createLabel:gr.line frame:CGRectMake(220, 360,100, 20) textColor:@"#000000" font:15 backgroundColor:nil];
     [self.contentView addSubview:view];
     [self.dyviews addObject:view];
     
-    view =[self createLabel:@"年份" frame:CGRectMake(20, 380, 50, 20) textColor:@"#000000" font:15 backgroundColor:nil];
+    view =[self createLabel:@"年份" frame:CGRectMake(20, 380, 100, 20) textColor:@"#000000" font:15 backgroundColor:nil];
     [self.contentView addSubview:view];
     [self.dyviews addObject:view];
     
-    view =[self createLabel:[NSString stringWithFormat:@"%i",gr.year.intValue] frame:CGRectMake(220, 380, 50, 20) textColor:@"#000000" font:15 backgroundColor:nil];
+    view =[self createLabel:gr.year frame:CGRectMake(220, 380, 100, 20) textColor:@"#000000" font:15 backgroundColor:nil];
     [self.contentView addSubview:view];
     [self.dyviews addObject:view];
     
-    view =[self createLabel:@"季节" frame:CGRectMake(20, 400, 50, 20) textColor:@"#000000" font:15 backgroundColor:nil];
+    view =[self createLabel:@"季节" frame:CGRectMake(20, 400, 100, 20) textColor:@"#000000" font:15 backgroundColor:nil];
     [self.contentView addSubview:view];
     [self.dyviews addObject:view];
     
-    view =[self createLabel:gr.season frame:CGRectMake(220, 400, 50, 20) textColor:@"#000000" font:15 backgroundColor:nil];
+    view =[self createLabel:gr.season frame:CGRectMake(220, 400, 100, 20) textColor:@"#000000" font:15 backgroundColor:nil];
     [self.contentView addSubview:view];
     [self.dyviews addObject:view];
     
-    view =[self createLabel:@"波段" frame:CGRectMake(20, 420, 50, 20) textColor:@"#000000" font:15 backgroundColor:nil];
+    view =[self createLabel:@"波段" frame:CGRectMake(20, 420, 100, 20) textColor:@"#000000" font:15 backgroundColor:nil];
     [self.contentView addSubview:view];
     [self.dyviews addObject:view];
     
-    view =[self createLabel:gr.wave frame:CGRectMake(220, 420, 50, 20) textColor:@"#000000" font:15 backgroundColor:nil];
+    view =[self createLabel:gr.wave frame:CGRectMake(220, 420, 100, 20) textColor:@"#000000" font:15 backgroundColor:nil];
     [self.contentView addSubview:view];
     [self.dyviews addObject:view];
     
-    view =[self createLabel:@"件数" frame:CGRectMake(20, 440, 50, 20) textColor:@"#000000" font:15 backgroundColor:nil];
+    view =[self createLabel:@"件数" frame:CGRectMake(20, 440, 100, 20) textColor:@"#000000" font:15 backgroundColor:nil];
     [self.contentView addSubview:view];
     [self.dyviews addObject:view];
     
-    view =[self createLabel:[NSString stringWithFormat:@"%i",gr.count.intValue] frame:CGRectMake(220, 440, 50, 20) textColor:@"#000000" font:15 backgroundColor:nil];
+    view =[self createLabel:[NSString stringWithFormat:@"%i",gr.count.intValue] frame:CGRectMake(220, 440, 100, 20) textColor:@"#000000" font:15 backgroundColor:nil];
     [self.contentView addSubview:view];
     [self.dyviews addObject:view];
     self.contentView.contentSize =
     CGSizeMake(320, 460);
+}
+
+-(UIView*) createPaginationView:(int)y{
+    UIView* paginationView = [[[UIView alloc] initWithFrame:CGRectMake((320-16*DrAppDelegate.user.goods.count)/2, y, 16*DrAppDelegate.user.goods.count, 30)] autorelease];
+    UIImage* lightImage= [UIImage imageNamed:@"图标-分页原点-正常.png"];
+    UIImage* highLightImage= [UIImage imageNamed:@"图标-分页原点-高亮.png"];
+    paginationView.backgroundColor = [UIColor whiteColor];
+    for(int i=1;i<=DrAppDelegate.user.goods.count;i++){
+        UIImageView* v = [[[UIImageView alloc] initWithFrame:CGRectMake(16*(i-1), 10, 6, 6)] autorelease];
+        if(i==DrAppDelegate.user.goodIndex){
+            v.image = highLightImage;
+        }else{
+            v.image = lightImage;
+        }
+        [self.pointImageViews addObject:v];
+        [paginationView addSubview:v];
+    }
+    return paginationView;
 }
 - (void)viewDidLoad
 {

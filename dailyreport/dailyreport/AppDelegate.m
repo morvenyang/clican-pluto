@@ -57,7 +57,7 @@
      [StoreRankViewController class]];
     [map from:@"peacebird://goodRank/(initWithBrand:)" toSharedViewController:
      [GoodRankViewController class]];
-    [map from:@"peacebird://good/(initWithBrand:)/(index:)" toSharedViewController:
+    [map from:@"peacebird://good/(initWithBrand:)" toSharedViewController:
      [GoodViewController class]];
     [map from:@"peacebird://b2cKpi/(initWithBrand:)" toSharedViewController:
      [B2CKPIViewController class]];
