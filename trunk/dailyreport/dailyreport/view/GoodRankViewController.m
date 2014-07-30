@@ -27,7 +27,7 @@
     if ((self = [self initWithNibName:nil bundle:nil])) {
         self.brand = brand;
         self.goodRankModel = [[[GoodRankModel alloc] initWithBrand:self.brand delegate:self] autorelease];
-        self.index = 6;
+        self.index = 5;
 
     }
     return self;
@@ -42,8 +42,9 @@
         GoodRank* gr = [self.goods objectAtIndex:index];
         DrAppDelegate.user.goods = self.goods;
         DrAppDelegate.user.goodDate = self.selectedDate;
+        DrAppDelegate.user.goodIndex = index;
         NSLog(@"good %@ is selected",gr.name);
-        NSString* url = [NSString stringWithFormat:@"peacebird://good/%@/%i", [self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],index];
+        NSString* url = [NSString stringWithFormat:@"peacebird://good/%@", [self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
         TTOpenURL(url);
     }
 }
@@ -111,7 +112,7 @@
         
         label =[self createLabel:rank.name frame:CGRectMake(66, 76+i*ROW_HEIGHT, 192, ROW_CONTENT_HEIGHT) textColor:@"#6a6a6a" font:12 backgroundColor:@"#f3f3f3" textAlignment:ALIGN_CENTER];
         [self.contentView addSubview:label];
-        label=[self createDecimalLabel:[NSNumber numberWithDouble:rank.count.doubleValue/10000] unit:@"万" frame:CGRectMake(260, 76+i*ROW_HEIGHT,60, ROW_CONTENT_HEIGHT) textColor:@"#6a6a6a" font:12 backgroundColor:@"#f3f3f3" textAlignment:ALIGN_CENTER];
+        label=[self createDecimalLabel:[NSNumber numberWithInt:rank.count.intValue]  frame:CGRectMake(260, 76+i*ROW_HEIGHT,60, ROW_CONTENT_HEIGHT) textColor:@"#6a6a6a" font:12 backgroundColor:@"#f3f3f3" textAlignment:ALIGN_CENTER];
         [self.contentView addSubview:label];
     }
     

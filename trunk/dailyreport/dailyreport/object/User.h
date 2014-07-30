@@ -14,6 +14,7 @@
     BOOL _showGestureLock;
     NSMutableArray* _goods;
     NSDate* goodDate;
+    int _goodIndex;
 }
 
 @property (nonatomic, copy) NSString* username;
@@ -26,4 +27,5 @@
 @property (nonatomic, assign) BOOL showGestureLock;
 @property (nonatomic, retain) NSMutableArray* goods;
 @property (nonatomic, retain) NSDate* goodDate;
+@property (nonatomic, assign) int goodIndex;
 @end

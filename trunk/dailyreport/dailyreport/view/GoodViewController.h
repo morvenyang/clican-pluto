@@ -8,11 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "SwitchViewController.h"
-
-@interface GoodViewController : SwitchViewController{
-    int _goodIndex;
+#import "SwipeScrollView.h"
+@interface GoodViewController : SwitchViewController<GoodSwitchDelegate>{
     NSMutableArray* _dyviews;
+    NSMutableArray* _pointImageViews;
 }
-@property (nonatomic, assign) int goodIndex;
 @property (nonatomic, retain) NSMutableArray* dyviews;
+@property (nonatomic, retain) NSMutableArray* pointImageViews;
 @end
+

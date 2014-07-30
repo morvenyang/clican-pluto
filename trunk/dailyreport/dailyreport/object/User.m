@@ -14,6 +14,7 @@
 @synthesize timeoutInterval = _timeoutInterval;
 @synthesize showGestureLock = _showGestureLock;
 @synthesize goods = _goods;
+@synthesize goodIndex =_goodIndex;
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 -(id)init{
     self = [super init];
