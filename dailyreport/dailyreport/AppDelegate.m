@@ -42,7 +42,7 @@
     navigator.supportsShakeToReload = NO;
     navigator.persistenceMode = TTNavigatorPersistenceModeNone;
     navigator.window = [[[UIWindow alloc] initWithFrame:TTScreenBounds()] autorelease];
-    
+    [[TTURLCache sharedCache] removeAll:YES];
     TTURLMap* map = navigator.URLMap;
     [map from:@"peacebird://login" toSharedViewController:[LoginViewController class]];
     [map from:@"peacebird://index" toSharedViewController:
@@ -57,7 +57,7 @@
      [StoreRankViewController class]];
     [map from:@"peacebird://goodRank/(initWithBrand:)" toSharedViewController:
      [GoodRankViewController class]];
-    [map from:@"peacebird://good/(initWithBrand:)" toSharedViewController:
+    [map from:@"peacebird://good/(initWithBrand:)/(index:)" toSharedViewController:
      [GoodViewController class]];
     [map from:@"peacebird://b2cKpi/(initWithBrand:)" toSharedViewController:
      [B2CKPIViewController class]];

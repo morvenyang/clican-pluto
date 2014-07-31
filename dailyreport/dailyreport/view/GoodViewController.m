@@ -22,7 +22,7 @@
     return self;
 }
 
--(id) initWithBrand:(NSString*) brand{
+-(id) initWithBrand:(NSString*) brand index:(int)index{
     if ((self = [self initWithNibName:nil bundle:nil])) {
         self.brand = brand;
         self.index=-1;
@@ -87,67 +87,48 @@
         
     }
     GoodRank* gr = [DrAppDelegate.user.goods objectAtIndex:DrAppDelegate.user.goodIndex];
-    UIView* view = nil;
-    view =[self createLabel:[NSString stringWithFormat:@"品名: %@",gr.name] frame:CGRectMake(10, 36, 150, 20) textColor:@"#000000" font:12 backgroundColor:nil];
-    [self.contentView addSubview:view];
-    [self.dyviews addObject:view];
-    view =[self createLabel:[NSString stringWithFormat:@"排行: %i",DrAppDelegate.user.goodIndex+1] frame:CGRectMake(260, 36, 40, 20) textColor:@"#000000" font:12 backgroundColor:nil];
-    [self.contentView addSubview:view];
-    [self.dyviews addObject:view];
-    
-    TTImageView* imageView = [[[TTImageView alloc] initWithFrame:CGRectMake(20, 60, 280, 280)] autorelease];
+
+    TTImageView* imageView = [[[TTImageView alloc] initWithFrame:CGRectMake(10, 44, 300, 450)] autorelease];
     imageView.urlPath = gr.imageLink;
     
     [self.contentView addSubview:imageView];
     [self.dyviews addObject:imageView];
     
-    view =[self createLabel:@"商品信息" frame:CGRectMake(10, 340, 150, 20) textColor:@"#000000" font:12 backgroundColor:nil];
-    [self.contentView addSubview:view];
-    [self.dyviews addObject:view];
     
-    view =[self createLabel:@"系列" frame:CGRectMake(20, 360, 50, 20) textColor:@"#000000" font:15 backgroundColor:nil];
-    [self.contentView addSubview:view];
-    [self.dyviews addObject:view];
     
-    view =[self createLabel:gr.line frame:CGRectMake(220, 360,100, 20) textColor:@"#000000" font:15 backgroundColor:nil];
-    [self.contentView addSubview:view];
-    [self.dyviews addObject:view];
-    
-    view =[self createLabel:@"年份" frame:CGRectMake(20, 380, 100, 20) textColor:@"#000000" font:15 backgroundColor:nil];
-    [self.contentView addSubview:view];
-    [self.dyviews addObject:view];
-    
-    view =[self createLabel:gr.year frame:CGRectMake(220, 380, 100, 20) textColor:@"#000000" font:15 backgroundColor:nil];
-    [self.contentView addSubview:view];
-    [self.dyviews addObject:view];
-    
-    view =[self createLabel:@"季节" frame:CGRectMake(20, 400, 100, 20) textColor:@"#000000" font:15 backgroundColor:nil];
-    [self.contentView addSubview:view];
-    [self.dyviews addObject:view];
-    
-    view =[self createLabel:gr.season frame:CGRectMake(220, 400, 100, 20) textColor:@"#000000" font:15 backgroundColor:nil];
-    [self.contentView addSubview:view];
-    [self.dyviews addObject:view];
-    
-    view =[self createLabel:@"波段" frame:CGRectMake(20, 420, 100, 20) textColor:@"#000000" font:15 backgroundColor:nil];
-    [self.contentView addSubview:view];
-    [self.dyviews addObject:view];
-    
-    view =[self createLabel:gr.wave frame:CGRectMake(220, 420, 100, 20) textColor:@"#000000" font:15 backgroundColor:nil];
-    [self.contentView addSubview:view];
-    [self.dyviews addObject:view];
-    
-    view =[self createLabel:@"件数" frame:CGRectMake(20, 440, 100, 20) textColor:@"#000000" font:15 backgroundColor:nil];
-    [self.contentView addSubview:view];
-    [self.dyviews addObject:view];
-    
-    view =[self createLabel:[NSString stringWithFormat:@"%i",gr.count.intValue] frame:CGRectMake(220, 440, 100, 20) textColor:@"#000000" font:15 backgroundColor:nil];
-    [self.contentView addSubview:view];
-    [self.dyviews addObject:view];
+
+    UIView* footView =[self createFootView:gr];
+    [self.contentView addSubview:footView];
+    [self.dyviews addObject:footView];
     self.contentView.contentSize =
     CGSizeMake(320, 460);
 }
 
+-(UIView*) createFootView:(GoodRank*) gr{
+    
+    
+    UIView* footView = [[[UIView alloc] initWithFrame:CGRectMake(10, 494-80, 300, 80)] autorelease];
+    footView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6f];
+    UIView* view = nil;
+    
+    view =[self createLabel:[NSString stringWithFormat:@"%i",DrAppDelegate.user.goodIndex+1] frame:CGRectMake(10, 0, 60, 20) textColor:@"#ffffff" font:16 backgroundColor:nil];
+    [footView addSubview:view];
+
+    
+    view =[self createDecimalLabel:[NSNumber numberWithDouble:gr.amount.doubleValue/10000] unit:@"万元" frame:CGRectMake(120, 0, 60, 20) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_CENTER];
+    [footView addSubview:view];
+
+    
+    view =[self createDecimalLabel:[NSNumber numberWithInt:gr.count.intValue] unit:@"件" frame:CGRectMake(220, 0, 80, 20) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_CENTER];
+    [footView addSubview:view];
+    
+    view =[self createLabel:gr.name frame:CGRectMake(10, 20, 100, 20) textColor:@"#ffffff" font:16 backgroundColor:nil];
+    [footView addSubview:view];
+    
+    view =[self createLabel:[NSString stringWithFormat:@"%@ %@ %@",gr.year,gr.season,gr.line] frame:CGRectMake(10, 40, 200, 20) textColor:@"#ffffff" font:16 backgroundColor:nil];
+    [footView addSubview:view];
+    return footView;
+}
 -(UIView*) createPaginationView:(int)y{
     UIView* paginationView = [[[UIView alloc] initWithFrame:CGRectMake((320-16*DrAppDelegate.user.goods.count)/2, y, 16*DrAppDelegate.user.goods.count, 30)] autorelease];
     UIImage* lightImage= [UIImage imageNamed:@"图标-分页原点-正常.png"];
@@ -181,6 +162,7 @@
 {
 
     TT_RELEASE_SAFELY(_dyviews);
+    TT_RELEASE_SAFELY(_pointImageViews);
     [super dealloc];
 }
 
