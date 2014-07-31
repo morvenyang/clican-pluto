@@ -8,8 +8,9 @@
 
 #import "GoodRankViewController.h"
 #import "AppDelegate.h"
-#define ROW_HEIGHT 34
-#define ROW_CONTENT_HEIGHT 32
+#import "StyleSheet.h"
+#define ROW_HEIGHT 40
+#define ROW_CONTENT_HEIGHT 38
 
 @implementation GoodRankViewController
 
@@ -44,7 +45,7 @@
         DrAppDelegate.user.goodDate = self.selectedDate;
         DrAppDelegate.user.goodIndex = index;
         NSLog(@"good %@ is selected",gr.name);
-        NSString* url = [NSString stringWithFormat:@"peacebird://good/%@", [self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+        NSString* url = [NSString stringWithFormat:@"peacebird://good/%@/%i", [self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],index];
         TTOpenURL(url);
     }
 }
@@ -93,31 +94,29 @@
     
     [self.contentView addSubview:dailyView];
     [self.contentView addSubview:[self createLabel:@"＃" frame:CGRectMake(0, 36, 30, 40) textColor:@"#ffffff" font:12 backgroundColor:STORE_RANK_TABLE_HEAD_COLOR textAlignment:ALIGN_CENTER]];
-    [self.contentView addSubview:[self createLabel:@"图片" frame:CGRectMake(32, 36, 32, 40) textColor:@"#ffffff" font:12 backgroundColor:STORE_RANK_TABLE_HEAD_COLOR textAlignment:ALIGN_CENTER]];
-    [self.contentView addSubview:[self createLabel:@"品名" frame:CGRectMake(66, 36, 192, 40) textColor:@"#ffffff" font:12 backgroundColor:STORE_RANK_TABLE_HEAD_COLOR textAlignment:ALIGN_CENTER]];
+    [self.contentView addSubview:[self createLabel:@"图片" frame:CGRectMake(32, 36, 38, 40) textColor:@"#ffffff" font:12 backgroundColor:STORE_RANK_TABLE_HEAD_COLOR textAlignment:ALIGN_CENTER]];
+    [self.contentView addSubview:[self createLabel:@"品名" frame:CGRectMake(72, 36, 186, 40) textColor:@"#ffffff" font:12 backgroundColor:STORE_RANK_TABLE_HEAD_COLOR textAlignment:ALIGN_CENTER]];
     [self.contentView addSubview:[self createLabel:@"件数" frame:CGRectMake(260, 36,60, 40) textColor:@"#ffffff" font:12 backgroundColor:STORE_RANK_TABLE_HEAD_COLOR textAlignment:ALIGN_CENTER]];
    
     for(int i=0;i<goods.count;i++){
         GoodRank* rank = [goods objectAtIndex:i];
-        UILabel* label =[self createLabel:[NSString stringWithFormat:@"%i",i+1] frame:CGRectMake(0, 76+i*ROW_HEIGHT, 30, ROW_CONTENT_HEIGHT) textColor:@"#6a6a6a" font:12 backgroundColor:@"#f3f3f3" textAlignment:ALIGN_CENTER];
+        UILabel* label =[self createLabel:[NSString stringWithFormat:@"%i",i+1] frame:CGRectMake(0, 76+i*ROW_HEIGHT, 30, ROW_CONTENT_HEIGHT) textColor:@"#6a6a6a" font:16 backgroundColor:@"#f3f3f3" textAlignment:ALIGN_CENTER];
 
         [self.contentView addSubview:label];
         
-        TTImageView* imageView = [[[TTImageView alloc] initWithFrame:CGRectMake(32, 76+i*ROW_HEIGHT, 32, ROW_CONTENT_HEIGHT)] autorelease];
+        TTImageView* imageView = [[[TTImageView alloc] initWithFrame:CGRectMake(32, 76+i*ROW_HEIGHT, ROW_CONTENT_HEIGHT, ROW_CONTENT_HEIGHT)] autorelease];
         imageView.urlPath = rank.imageLinkMin;
-        
-        
         [self.contentView addSubview:imageView];
 
         
-        label =[self createLabel:rank.name frame:CGRectMake(66, 76+i*ROW_HEIGHT, 192, ROW_CONTENT_HEIGHT) textColor:@"#6a6a6a" font:12 backgroundColor:@"#f3f3f3" textAlignment:ALIGN_CENTER];
+        label =[self createLabel:rank.name frame:CGRectMake(72, 76+i*ROW_HEIGHT, 186, ROW_CONTENT_HEIGHT) textColor:@"#6a6a6a" font:16 backgroundColor:@"#f3f3f3" textAlignment:ALIGN_CENTER];
         [self.contentView addSubview:label];
-        label=[self createDecimalLabel:[NSNumber numberWithInt:rank.count.intValue]  frame:CGRectMake(260, 76+i*ROW_HEIGHT,60, ROW_CONTENT_HEIGHT) textColor:@"#6a6a6a" font:12 backgroundColor:@"#f3f3f3" textAlignment:ALIGN_CENTER];
+        label=[self createDecimalLabel:[NSNumber numberWithInt:rank.count.intValue]  frame:CGRectMake(260, 76+i*ROW_HEIGHT,60, ROW_CONTENT_HEIGHT) textColor:@"#6a6a6a" font:16 backgroundColor:@"#f3f3f3" textAlignment:ALIGN_CENTER];
         [self.contentView addSubview:label];
     }
     
     self.contentView.contentSize =
-    CGSizeMake(320, 130+goods.count*ROW_HEIGHT);
+    CGSizeMake(320, 76+goods.count*ROW_HEIGHT);
 }
 - (void)viewDidLoad
 {
