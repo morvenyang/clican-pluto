@@ -11,7 +11,7 @@
 @implementation SwipeScrollView
 @synthesize brand = _brand;
 @synthesize index = _index;
-
+@synthesize goodSwitchDelegate = _goodSwitchDelegate;
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -47,6 +47,9 @@
         _swipeEndPoint=[[touches anyObject] locationInView:self].x;
         CGFloat swipeDistance = _swipeEndPoint - _swipeStartPoint;
         NSLog(@"swipeDistance=%f",swipeDistance);
+        if(swipeDistance==320){
+            return;
+        }
         // Swipe to left
         if (swipeDistance < -30.f) {
             if(self.index==1){
@@ -121,7 +124,6 @@
 }
 - (void)dealloc
 {
-    
     TT_RELEASE_SAFELY(_brand);
     [super dealloc];
 }

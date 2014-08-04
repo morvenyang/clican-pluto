@@ -115,10 +115,10 @@
         }
     }
     [self.contentView addSubview:dailyView];
-    [self.contentView addSubview:[self createLabel:@"＃" frame:CGRectMake(0, 90, 30, 40) textColor:@"#ffffff" font:12 backgroundColor:STORE_RANK_TABLE_HEAD_COLOR textAlignment:ALIGN_CENTER]];
-    [self.contentView addSubview:[self createLabel:@"店铺名称" frame:CGRectMake(32, 90, 186, 40) textColor:@"#ffffff" font:12 backgroundColor:STORE_RANK_TABLE_HEAD_COLOR textAlignment:ALIGN_CENTER]];
-    [self.contentView addSubview:[self createLabel:@"零售额" frame:CGRectMake(220, 90, 49, 40) textColor:@"#ffffff" font:12 backgroundColor:STORE_RANK_TABLE_HEAD_COLOR textAlignment:ALIGN_CENTER]];
-    [self.contentView addSubview:[self createLabel:@"占比" frame:CGRectMake(271, 90,49, 40) textColor:@"#ffffff" font:12 backgroundColor:STORE_RANK_TABLE_HEAD_COLOR textAlignment:ALIGN_CENTER]];
+    [self.contentView addSubview:[self createLabel:@"＃" frame:CGRectMake(0, 90, 30, 40) textColor:@"#ffffff" font:14 backgroundColor:STORE_RANK_TABLE_HEAD_COLOR textAlignment:ALIGN_CENTER]];
+    [self.contentView addSubview:[self createLabel:@"店铺名称" frame:CGRectMake(32, 90, 186, 40) textColor:@"#ffffff" font:14 backgroundColor:STORE_RANK_TABLE_HEAD_COLOR textAlignment:ALIGN_CENTER]];
+    [self.contentView addSubview:[self createLabel:@"零售额" frame:CGRectMake(220, 90, 49, 40) textColor:@"#ffffff" font:14 backgroundColor:STORE_RANK_TABLE_HEAD_COLOR textAlignment:ALIGN_CENTER]];
+    [self.contentView addSubview:[self createLabel:@"占比" frame:CGRectMake(271, 90,49, 40) textColor:@"#ffffff" font:14 backgroundColor:STORE_RANK_TABLE_HEAD_COLOR textAlignment:ALIGN_CENTER]];
     if(self.channels.count>0){
         [self updateChannel:[self.channels objectAtIndex:0]];
     }

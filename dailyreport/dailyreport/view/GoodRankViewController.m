@@ -55,6 +55,9 @@
     UITapGestureRecognizer* recognizer = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(selectRow:)] autorelease];
     [self.contentView addGestureRecognizer:recognizer];
     [self.goodRankModel load:TTURLRequestCachePolicyNone more:NO];
+    if(IS_IPHONE5){
+        self.contentView.scrollEnabled=NO;
+    }
 }
 
 -(void)changeDateAndReload{
@@ -93,10 +96,10 @@
     
     
     [self.contentView addSubview:dailyView];
-    [self.contentView addSubview:[self createLabel:@"＃" frame:CGRectMake(0, 36, 30, 40) textColor:@"#ffffff" font:12 backgroundColor:STORE_RANK_TABLE_HEAD_COLOR textAlignment:ALIGN_CENTER]];
-    [self.contentView addSubview:[self createLabel:@"图片" frame:CGRectMake(32, 36, 38, 40) textColor:@"#ffffff" font:12 backgroundColor:STORE_RANK_TABLE_HEAD_COLOR textAlignment:ALIGN_CENTER]];
-    [self.contentView addSubview:[self createLabel:@"品名" frame:CGRectMake(72, 36, 186, 40) textColor:@"#ffffff" font:12 backgroundColor:STORE_RANK_TABLE_HEAD_COLOR textAlignment:ALIGN_CENTER]];
-    [self.contentView addSubview:[self createLabel:@"件数" frame:CGRectMake(260, 36,60, 40) textColor:@"#ffffff" font:12 backgroundColor:STORE_RANK_TABLE_HEAD_COLOR textAlignment:ALIGN_CENTER]];
+    [self.contentView addSubview:[self createLabel:@"＃" frame:CGRectMake(0, 36, 30, 40) textColor:@"#ffffff" font:14 backgroundColor:STORE_RANK_TABLE_HEAD_COLOR textAlignment:ALIGN_CENTER]];
+    [self.contentView addSubview:[self createLabel:@"图片" frame:CGRectMake(32, 36, 38, 40) textColor:@"#ffffff" font:14 backgroundColor:STORE_RANK_TABLE_HEAD_COLOR textAlignment:ALIGN_CENTER]];
+    [self.contentView addSubview:[self createLabel:@"品名" frame:CGRectMake(72, 36, 186, 40) textColor:@"#ffffff" font:14 backgroundColor:STORE_RANK_TABLE_HEAD_COLOR textAlignment:ALIGN_CENTER]];
+    [self.contentView addSubview:[self createLabel:@"件数" frame:CGRectMake(260, 36,60, 40) textColor:@"#ffffff" font:14 backgroundColor:STORE_RANK_TABLE_HEAD_COLOR textAlignment:ALIGN_CENTER]];
    
     for(int i=0;i<goods.count;i++){
         GoodRank* rank = [goods objectAtIndex:i];
