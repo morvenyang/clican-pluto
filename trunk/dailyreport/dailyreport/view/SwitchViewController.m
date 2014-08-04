@@ -38,7 +38,7 @@
     [backButton setImage:[UIImage imageNamed:@"back.png"] forState:UIControlStateNormal];
     
     backButton.frame =CGRectMake(0, 0, 40, 40);
-
+    
     [backButton addTarget:self action:@selector(backAction) forControlEvents:UIControlEventTouchUpInside];
     #ifdef __IPHONE_7_0
     if(DEVICE_VERSION>=7.0){
@@ -69,9 +69,7 @@
         offset= 64;
     }
     self.contentView = [[[SwipeScrollView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height-offset-30)] autorelease];
-    if([self conformsToProtocol:@protocol(GoodSwitchDelegate)]){
-        self.contentView.goodSwitchDelegate = (id<GoodSwitchDelegate>)self;
-    }
+    NSLog(@"%f",self.contentView.frame.size.height);
     self.contentView.index = self.index;
     self.contentView.brand = self.brand;
     self.contentView.backgroundColor = [UIColor whiteColor];
@@ -436,7 +434,6 @@
 }
 - (void)dealloc
 {
-    self.contentView.goodSwitchDelegate = nil;
     TT_RELEASE_SAFELY(_brand);
     TT_RELEASE_SAFELY(_contentView);
     TT_RELEASE_SAFELY(_shareView);

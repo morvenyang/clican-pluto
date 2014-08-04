@@ -9,6 +9,7 @@
 #import "GoodViewController.h"
 #import "AppDelegate.h"
 #import "GoodRank.h"
+#import "CRNavigator.h"
 
 @implementation GoodViewController
 @synthesize dyviews = _dyviews;
@@ -33,13 +34,15 @@
 }
 
 -(void) backAction{
-    NSString* url = [NSString stringWithFormat:@"peacebird://goodRank/%@", [self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    NSString* url = [NSString  stringWithFormat:@"peacebird://goodRank/%@", [self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     TTOpenURL(url);
+
 }
 
 - (void)loadView
 {
     [super loadView];
+    self.contentView.goodSwitchDelegate = self;
     UIView* dailyView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 34)] autorelease];
     NSString* imageName = [NSString stringWithFormat:@"每日收入%@背景.png",self.brand];
     dailyView.backgroundColor =[UIColor colorWithPatternImage:[UIImage imageNamed:imageName]];
@@ -88,7 +91,7 @@
     }
     GoodRank* gr = [DrAppDelegate.user.goods objectAtIndex:DrAppDelegate.user.goodIndex];
 
-    TTImageView* imageView = [[[TTImageView alloc] initWithFrame:CGRectMake(10, 44, 300, 450)] autorelease];
+    TTImageView* imageView = [[[TTImageView alloc] initWithFrame:CGRectMake(10, 44, 300, 430)] autorelease];
     imageView.urlPath = gr.imageLink;
     
     [self.contentView addSubview:imageView];
@@ -101,17 +104,22 @@
     [self.contentView addSubview:footView];
     [self.dyviews addObject:footView];
     self.contentView.contentSize =
-    CGSizeMake(320, 460);
+    CGSizeMake(320, 474);
+    if(IS_IPHONE5){
+        self.contentView.scrollEnabled=NO;
+    }
 }
 
 -(UIView*) createFootView:(GoodRank*) gr{
     
     
-    UIView* footView = [[[UIView alloc] initWithFrame:CGRectMake(10, 494-80, 300, 80)] autorelease];
+    UIView* footView = [[[UIView alloc] initWithFrame:CGRectMake(10, 474-80, 300, 80)] autorelease];
+    NSLog(@"%f",self.contentView.frame.size.height);
+    NSLog(@"%f",footView.frame.size.height);
     footView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6f];
     UIView* view = nil;
     
-    view =[self createLabel:[NSString stringWithFormat:@"%i",DrAppDelegate.user.goodIndex+1] frame:CGRectMake(10, 0, 60, 20) textColor:@"#ffffff" font:16 backgroundColor:nil];
+    view =[self createLabel:[NSString stringWithFormat:@"排名: %i",DrAppDelegate.user.goodIndex+1] frame:CGRectMake(10, 0, 100, 20) textColor:@"#ffffff" font:16 backgroundColor:nil];
     [footView addSubview:view];
 
     
@@ -125,7 +133,7 @@
     view =[self createLabel:gr.name frame:CGRectMake(10, 20, 100, 20) textColor:@"#ffffff" font:16 backgroundColor:nil];
     [footView addSubview:view];
     
-    view =[self createLabel:[NSString stringWithFormat:@"%@ %@ %@",gr.year,gr.season,gr.line] frame:CGRectMake(10, 40, 200, 20) textColor:@"#ffffff" font:16 backgroundColor:nil];
+    view =[self createLabel:[NSString stringWithFormat:@"%@ %@ %@ %@",gr.year,gr.season,gr.line,gr.wave] frame:CGRectMake(10, 40, 200, 20) textColor:@"#ffffff" font:16 backgroundColor:nil];
     [footView addSubview:view];
     return footView;
 }
@@ -160,7 +168,7 @@
 
 - (void)dealloc
 {
-
+    self.contentView.goodSwitchDelegate = nil;
     TT_RELEASE_SAFELY(_dyviews);
     TT_RELEASE_SAFELY(_pointImageViews);
     [super dealloc];
