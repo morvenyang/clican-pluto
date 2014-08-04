@@ -113,27 +113,38 @@
 -(UIView*) createFootView:(GoodRank*) gr{
     
     
-    UIView* footView = [[[UIView alloc] initWithFrame:CGRectMake(10, 474-80, 300, 80)] autorelease];
+    UIView* footView = [[[UIView alloc] initWithFrame:CGRectMake(10, 474-100, 300, 100)] autorelease];
     NSLog(@"%f",self.contentView.frame.size.height);
     NSLog(@"%f",footView.frame.size.height);
     footView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6f];
     UIView* view = nil;
     
-    view =[self createLabel:[NSString stringWithFormat:@"排名: %i",DrAppDelegate.user.goodIndex+1] frame:CGRectMake(10, 0, 100, 20) textColor:@"#ffffff" font:16 backgroundColor:nil];
+    view =[self createLabel:[NSString stringWithFormat:@"No. %i",DrAppDelegate.user.goodIndex+1] frame:CGRectMake(10, 0, 100, 30) textColor:@"#ff6501" font:25 backgroundColor:nil];
     [footView addSubview:view];
 
-    
-    view =[self createDecimalLabel:[NSNumber numberWithDouble:gr.amount.doubleValue/10000] unit:@"万元" frame:CGRectMake(120, 0, 60, 20) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_CENTER];
+    view =[self createLabel:[NSString stringWithFormat:@"品名: %@",gr.name] frame:CGRectMake(10, 30, 200, 20) textColor:@"#ffffff" font:16 backgroundColor:nil];
     [footView addSubview:view];
+    
 
     
-    view =[self createDecimalLabel:[NSNumber numberWithInt:gr.count.intValue] unit:@"件" frame:CGRectMake(220, 0, 80, 20) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_CENTER];
+    view =[self createLabel:@"件数:" frame:CGRectMake(210, 30, 40, 20) textColor:@"#ffffff" font:16 backgroundColor:nil];
     [footView addSubview:view];
     
-    view =[self createLabel:gr.name frame:CGRectMake(10, 20, 100, 20) textColor:@"#ffffff" font:16 backgroundColor:nil];
+    view =[self createDecimalLabel:[NSNumber numberWithInt:gr.count.intValue] frame:CGRectMake(251, 30, 70, 20) textColor:@"#ff6501" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT];
     [footView addSubview:view];
     
-    view =[self createLabel:[NSString stringWithFormat:@"%@ %@ %@ %@",gr.year,gr.season,gr.line,gr.wave] frame:CGRectMake(10, 40, 200, 20) textColor:@"#ffffff" font:16 backgroundColor:nil];
+    view =[self createLabel:[NSString stringWithFormat:@"系列: %@",gr.line] frame:CGRectMake(10, 50, 200, 20) textColor:@"#ffffff" font:16 backgroundColor:nil];
+    [footView addSubview:view];
+    
+    view =[self createLabel:[NSString stringWithFormat:@"年份: %@",gr.year] frame:CGRectMake(210, 50, 90, 20) textColor:@"#ffffff" font:16 backgroundColor:nil];
+    [footView addSubview:view];
+    
+
+    
+    view =[self createLabel:[NSString stringWithFormat:@"波段: %@",gr.wave] frame:CGRectMake(10, 70, 200, 20) textColor:@"#ffffff" font:16 backgroundColor:nil];
+    [footView addSubview:view];
+    
+    view =[self createLabel:[NSString stringWithFormat:@"季节: %@",gr.season] frame:CGRectMake(210, 70, 90, 20) textColor:@"#ffffff" font:16 backgroundColor:nil];
     [footView addSubview:view];
     return footView;
 }
