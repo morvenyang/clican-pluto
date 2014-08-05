@@ -116,7 +116,7 @@
     UIView* footView = [[[UIView alloc] initWithFrame:CGRectMake(10, 474-100, 300, 100)] autorelease];
     NSLog(@"%f",self.contentView.frame.size.height);
     NSLog(@"%f",footView.frame.size.height);
-    footView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6f];
+    footView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.3f];
     UIView* view = nil;
     
     view =[self createLabel:[NSString stringWithFormat:@"No. %i",DrAppDelegate.user.goodIndex+1] frame:CGRectMake(10, 0, 100, 30) textColor:@"#ff6501" font:25 backgroundColor:nil];
