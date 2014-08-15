@@ -128,6 +128,7 @@
 }
 
 -(void) backAction{
+    [[TTNavigator navigator] removeAllViewControllers];
     TTOpenURL(@"peacebird://index");
 }
 
