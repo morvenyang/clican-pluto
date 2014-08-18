@@ -114,7 +114,14 @@ public class DataServiceImpl implements DataService {
 		ir.setDate(yesterday);
 		Date realYesterday = DateUtils.addDays(
 				DateUtils.truncate(new Date(), Calendar.DAY_OF_MONTH), -1);
-		ir.setYesterday(realYesterday.equals(yesterday));
+		DayStatus ds = dataDao.getDayStatus(realYesterday);
+		if (ds != null && ds.getStatus() != null
+				&& ds.getStatus().intValue() != 0) {
+			ir.setYesterday(true);
+		} else {
+			ir.setYesterday(false);
+		}
+
 		JsonConfig jsonConfig = new JsonConfig();
 		jsonConfig.registerJsonValueProcessor(Date.class,
 				new DateJsonValueProcessor("yyyy-MM-dd"));
@@ -360,25 +367,25 @@ public class DataServiceImpl implements DataService {
 				yesterday, brand);
 		try {
 			for (GoodRankResult grr : rankResult) {
-				if(StringUtils.isNotEmpty(grr.getImageLink())){
+				if (StringUtils.isNotEmpty(grr.getImageLink())) {
 					grr.setImageLink(springProperty.getServerUrl()
 							+ "/peacebird/goodImage.do?path="
 							+ URLEncoder.encode(grr.getImageLink(), "utf-8"));
-				}else{
+				} else {
 					grr.setImageLink(springProperty.getServerUrl()
 							+ "/peacebird/goodImage.do?path="
 							+ URLEncoder.encode("nogoods.gif", "utf-8"));
 				}
-				if(StringUtils.isNotEmpty(grr.getImageLinkMin())){
+				if (StringUtils.isNotEmpty(grr.getImageLinkMin())) {
 					grr.setImageLinkMin(springProperty.getServerUrl()
 							+ "/peacebird/goodImage.do?path="
 							+ URLEncoder.encode(grr.getImageLinkMin(), "utf-8"));
-				}else{
+				} else {
 					grr.setImageLinkMin(springProperty.getServerUrl()
 							+ "/peacebird/goodImage.do?path="
 							+ URLEncoder.encode("nogoods_min.jpg", "utf-8"));
 				}
-				
+
 			}
 		} catch (Exception e) {
 			log.error("", e);
