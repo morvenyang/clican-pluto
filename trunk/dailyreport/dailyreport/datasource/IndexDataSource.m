@@ -13,11 +13,10 @@
 #import "AppDelegate.h"
 @implementation IndexDataSource
 @synthesize indexListModel=_indexListModel;
-@synthesize alert = _alert;
+
 - (id)init{
     if ((self = [super init])) {
         self.indexListModel = [[[IndexListModel alloc] init] autorelease];
-        self.alert = YES;
     }
     return self;
 }
@@ -60,8 +59,25 @@
     self.items = items;
     
     NSLog(@"count=%i",[self.items count]);
+    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+    NSDateFormatter *todayDateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+    [todayDateFormatter setDateFormat:@"yyyy/MM/dd"];
+    NSString* yesterdayStr = [todayDateFormatter stringFromDate:[[NSDate date] dateByAddingDays:-1]];
+    NSString* selectDateStr = nil;
+    if(DrAppDelegate.user.date==nil){
+         selectDateStr = [todayDateFormatter stringFromDate:DrAppDelegate.user.date];
+    }
+
+    NSString* lastAlertDateStr = [defaults objectForKey:LAST_ALERT_DATE_STR];
+    bool alert = false;
+    if(lastAlertDateStr==nil||![lastAlertDateStr isEqualToString:yesterdayStr]){
+        if(selectDateStr==nil||[selectDateStr isEqualToString:yesterdayStr])
+        alert = true;
+    }
+
     DrAppDelegate.user.date =_indexListModel.date;
-    if(!_indexListModel.yesterday&&self.alert){
+    if(!_indexListModel.yesterday&&alert){
+        [defaults setObject:yesterdayStr forKey:LAST_ALERT_DATE_STR];
         NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
         [dateFormatter setDateFormat:@"MM月dd日 EEEE"];
         IndexViewController* index = (IndexViewController*)[TTNavigator navigator].visibleViewController;
@@ -69,7 +85,6 @@
         TTAlert([NSString stringWithFormat:@"昨日数据未生成,当前数据为%@数据",[dateFormatter stringFromDate:_indexListModel.date]]);
         
     }
-    self.alert = NO;
     TT_RELEASE_SAFELY(items);
 }
 
