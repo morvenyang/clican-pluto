@@ -11,8 +11,6 @@
 
 @interface IndexDataSource : TTListDataSource{
     IndexListModel* _indexListModel;
-    BOOL _alert;
 }
 @property (nonatomic,retain) IndexListModel* indexListModel;
-@property (nonatomic,assign) BOOL alert;
 @end
