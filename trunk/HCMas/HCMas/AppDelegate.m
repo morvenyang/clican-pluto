@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "IndexViewController.h"
 #import "StyleSheet.h"
+#import "Constants.h"
 @implementation AppDelegate
 @synthesize user= _user;
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
