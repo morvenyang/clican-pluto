@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>5836186A-2B6C-4792-8F28-DB2718117349</string>
+	<key>IDESourceControlProjectName</key>
+	<string>HCMas</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>732AED92-01C3-4F8D-9A5D-A5A45A0AF147</key>
+		<string>https://60.191.25.170:6443/Gildata/InvestmentPdt/trunk/Sources/apple/Gildata/Gildata/Documents/xcodews</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>HCMas/HCMas.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>732AED92-01C3-4F8D-9A5D-A5A45A0AF147</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectRepositoryRootDictionary</key>
+	<dict>
+		<key>732AED92-01C3-4F8D-9A5D-A5A45A0AF147</key>
+		<string>https://60.191.25.170:6443/Gildata/InvestmentPdt</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://60.191.25.170:6443/Gildata/InvestmentPdt/trunk/Sources/apple/Gildata/Gildata/Documents/xcodews/HCMas/HCMas.xcodeproj</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>732AED92-01C3-4F8D-9A5D-A5A45A0AF147</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.subversion</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>732AED92-01C3-4F8D-9A5D-A5A45A0AF147</string>
+			<key>IDESourceControlWCCName</key>
+			<string>xcodews</string>
+		</dict>
+	</array>
+</dict>
+</plist>
