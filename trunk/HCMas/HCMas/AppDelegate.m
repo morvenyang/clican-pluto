@@ -7,15 +7,30 @@
 //
 
 #import "AppDelegate.h"
-
+#import "IndexViewController.h"
+#import "StyleSheet.h"
 @implementation AppDelegate
-
+@synthesize user= _user;
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
-    self.window.backgroundColor = [UIColor whiteColor];
-    [self.window makeKeyAndVisible];
+    self.user = [[[User alloc] init] autorelease];
+    self.user.sessionId = @"";
+    [application setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
+    [TTStyleSheet setGlobalStyleSheet:[[[StyleSheet alloc] init] autorelease]];
+    
+    TTNavigator* navigator = [TTNavigator navigator];
+    
+    navigator.supportsShakeToReload = NO;
+    navigator.persistenceMode = TTNavigatorPersistenceModeNone;
+    navigator.window = [[[UIWindow alloc] initWithFrame:TTScreenBounds()] autorelease];
+    [[TTURLCache sharedCache] removeAll:YES];
+    TTURLMap* map = navigator.URLMap;
+    [map from:@"hcmas://index" toSharedViewController:[IndexViewController class]];
+    
+    if (![navigator restoreViewControllers]) {
+        [navigator openURLAction:[TTURLAction actionWithURLPath:@"hcmas://index"]];
+    }
+    
     return YES;
 }
 
