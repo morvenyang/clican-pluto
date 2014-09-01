@@ -10,12 +10,15 @@
 #import "StyleSheet.h"
 #import "Constants.h"
 @implementation IndexViewController
-
+@synthesize imageIndex = _imageIndex;
+@synthesize pointImageViews = _pointImageViews;
+@synthesize topImageView = _topImageView;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+        self.imageIndex = 1;
+        self.pointImageViews = [NSMutableArray array];
     }
     return self;
 }
@@ -28,7 +31,68 @@
     [self.view addSubview:[self createImageViewFromNamedImage:@"title_logo_v15.png" frame:CGRectMake(2, 24, 24, 26)]];
     [self.view addSubview:[self createLabel:@"华测自动化检测与预警系统" frame:CGRectMake(27, 20, 200, 30) textColor:@"#ffffff" font:15 backgroundColor:nil textAlignment:ALIGN_LEFT]];
     [self.view addSubview:[self createImageViewFromNamedImage:@"clear.png" frame:CGRectMake(290, 24, 26, 26)]];
+    self.topImageView = [self createImageViewFromNamedImage:@"default_pic_1.jpg" frame:CGRectMake(0, 50, 320, 130)];
+    [self.view addSubview:self.topImageView];
+    
+    UISwipeGestureRecognizer* swipeGestureRight = [[[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(switchImage:)] autorelease];
+    swipeGestureRight.direction = UISwipeGestureRecognizerDirectionRight;
+    
+    UISwipeGestureRecognizer* swipeGestureLeft = [[[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(switchImage:)] autorelease];
+    swipeGestureLeft.direction = UISwipeGestureRecognizerDirectionLeft;
+    self.topImageView.userInteractionEnabled =YES;
+    [self.topImageView addGestureRecognizer:swipeGestureLeft];
+    [self.topImageView addGestureRecognizer:swipeGestureRight];
+    NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+    [dateFormatter setDateFormat:@"yyyy年MM月dd日 EEEE"];
+    
+    [self.view addSubview:[self createLabel:[dateFormatter stringFromDate:[NSDate date]] frame:CGRectMake(10, 180, 150, 20) textColor:@"#ffffff" font:12 backgroundColor:nil textAlignment:ALIGN_LEFT]];
+    
+    [self.view addSubview:[self createPaginationView:180]];
 }
+
+    
+-(void)switchImage:(UISwipeGestureRecognizer*)gestureRecognizer{
+    UISwipeGestureRecognizerDirection direction =gestureRecognizer.direction;
+    if(direction==UISwipeGestureRecognizerDirectionLeft){
+        if(self.imageIndex<4){
+            self.imageIndex=self.imageIndex+1;
+        }
+    }else if(direction==UISwipeGestureRecognizerDirectionRight){
+        if(self.imageIndex>1){
+            self.imageIndex=self.imageIndex-1;
+        }
+    }
+    self.topImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"default_pic_%i.jpg",self.imageIndex]];
+    int i = 1;
+    UIImage* lightImage= [UIImage imageNamed:@"img_ratio.png"];
+    UIImage* highLightImage= [UIImage imageNamed:@"img_ratio_selected.png"];
+    for(UIImageView* view in self.pointImageViews){
+        if(i==self.imageIndex){
+            view.image =highLightImage;
+        }else{
+            view.image =lightImage;
+        }
+        i++;
+    }
+}
+-(UIView*) createPaginationView:(int)y{
+    UIView* paginationView = [[[UIView alloc] initWithFrame:CGRectMake(250, y, 16*4, 20)] autorelease];
+    UIImage* lightImage= [UIImage imageNamed:@"img_ratio.png"];
+    UIImage* highLightImage= [UIImage imageNamed:@"img_ratio_selected.png"];
+    paginationView.backgroundColor = [UIColor clearColor];
+    for(int i=1;i<=4;i++){
+        UIImageView* v = [[[UIImageView alloc] initWithFrame:CGRectMake(16*(i-1), 5, 6, 6)] autorelease];
+        if(i==self.imageIndex){
+            v.image = highLightImage;
+        }else{
+            v.image = lightImage;
+        }
+        [self.pointImageViews addObject:v];
+        [paginationView addSubview:v];
+    }
+    return paginationView;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];

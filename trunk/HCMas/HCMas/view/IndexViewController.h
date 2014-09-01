@@ -8,6 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@interface IndexViewController : UIViewController
-
+@interface IndexViewController : UIViewController{
+    int _imageIndex;
+    NSMutableArray* _pointImageViews;
+    UIImageView* _topImageView;
+}
+@property (nonatomic, assign) int imageIndex;
+@property (nonatomic, retain) NSMutableArray* pointImageViews;
+@property (nonatomic, retain) UIImageView* topImageView;
 @end
