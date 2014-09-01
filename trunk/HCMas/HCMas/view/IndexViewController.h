@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface IndexViewController : UIViewController{
+@interface IndexViewController : UIViewController<UITableViewDelegate>{
     int _imageIndex;
     NSMutableArray* _pointImageViews;
     UIImageView* _topImageView;
