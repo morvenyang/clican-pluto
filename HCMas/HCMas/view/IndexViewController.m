@@ -12,6 +12,8 @@
 @implementation IndexViewController
 @synthesize imageIndex = _imageIndex;
 @synthesize pointImageViews = _pointImageViews;
+@synthesize menuBgImageViews= _menuBgImageViews;
+@synthesize menuButtonViews = _menuButtonViews;
 @synthesize topImageView = _topImageView;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -19,6 +21,8 @@
     if (self) {
         self.imageIndex = 1;
         self.pointImageViews = [NSMutableArray array];
+        self.menuBgImageViews =[NSMutableArray array];
+        self.menuButtonViews =[NSMutableArray array];
     }
     return self;
 }
@@ -48,6 +52,7 @@
     [self.view addSubview:[self createLabel:[dateFormatter stringFromDate:[NSDate date]] frame:CGRectMake(10, 180, 150, 20) textColor:@"#ffffff" font:12 backgroundColor:nil textAlignment:ALIGN_LEFT]];
     
     [self.view addSubview:[self createPaginationView:180]];
+    [self.view addSubview:[self createMenuView]];
 }
 
     
@@ -75,6 +80,7 @@
         i++;
     }
 }
+
 -(UIView*) createPaginationView:(int)y{
     UIView* paginationView = [[[UIView alloc] initWithFrame:CGRectMake(250, y, 16*4, 20)] autorelease];
     UIImage* lightImage= [UIImage imageNamed:@"img_ratio.png"];
@@ -92,7 +98,50 @@
     }
     return paginationView;
 }
-
+-(void)selectMenu:(id*)sender{
+    UIButton* buttonView = (UIButton*)sender;
+    int index = [self.menuButtonViews indexOfObject:buttonView];
+    for(int i=0;i<self.menuBgImageViews.count;i++){
+        UIImageView* bgImageView = [self.menuBgImageViews objectAtIndex:i];
+        if(i==index){
+            bgImageView.image = [UIImage imageNamed:@"bg_press.png"];
+        }else{
+            bgImageView.image = [UIImage imageNamed:@"bg_nopress.png"];
+        }
+    }
+}
+-(UIView*)createMenuView{
+    UIScrollView* menuView = [[[UIScrollView alloc] initWithFrame:CGRectMake(0, 200, 320, 130)] autorelease];
+    NSArray* imageArray = [NSArray arrayWithObjects:@"logo_xtgl.png",@"logo_ksw.png",@"logo_zxgt.png",@"logo_dqwd.png",@"logo_dqsd.png",@"logo_dqyl.png",@"logo_fs.png",@"logo_fx.png",@"logo_yl.png",@"logo_bmwy.png",@"logo_jrx.png",@"logo_nbwy.png",@"logo_sl.png",@"logo_tyl.png",@"logo_thsl.png",@"logo_lf.png",@"logo_rxwy.png",@"logo_wd.png", nil];
+    NSArray* nameArray = [NSArray arrayWithObjects:@"系统设置",@"库水位",@"干滩",@"大气温度",@"大气湿度",@"大气气压",@"风速",@"风向",@"雨量",@"表面位移",@"浸润线",@"内部位移",@"滲流",@"土压力",@"土壤含水率",@"裂缝",@"柔性位移",@"土壤温度", nil];
+    
+    
+    for(int i=0;i<imageArray.count;i++){
+        int yoffset = 0;
+        int xoffset = 0;
+        if(i>=imageArray.count/2){
+            yoffset = 62;
+            xoffset =-imageArray.count/2;
+        }
+        
+        NSString* image =[imageArray objectAtIndex:i];
+        NSString* name =[nameArray objectAtIndex:i];
+        UIButton* buttonView = [[UIButton alloc] initWithFrame:CGRectMake(16+(i+xoffset)*72, 5+yoffset, 40, 40)];
+        [buttonView setImage:[UIImage imageNamed:image] forState:UIControlStateNormal];
+        [buttonView addTarget:self action:@selector(selectMenu:) forControlEvents:UIControlEventTouchUpInside];
+        UIImageView* bgImageView = [self createImageViewFromNamedImage:@"bg_nopress.png" frame:CGRectMake(1+(i+xoffset)*72, 0+yoffset, 70, 60)];
+        [self.menuBgImageViews addObject:bgImageView];
+        [self.menuButtonViews addObject:buttonView];
+        [menuView addSubview:bgImageView];
+        [menuView addSubview:buttonView];
+        [menuView addSubview:[self createLabel:name frame:CGRectMake(2+(i+xoffset)*72, 45+yoffset, 70, 12) textColor:@"#000000" font:12 backgroundColor:nil textAlignment:ALIGN_CENTER]];
+    }
+    
+    
+    menuView.contentSize =
+    CGSizeMake(imageArray.count/2*72+2, 130);
+    return menuView;
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
