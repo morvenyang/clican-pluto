@@ -16,7 +16,30 @@
                           next: nil];
     return style;
 }
-
+- (TTStyle*) settingRow1{
+    TTStyle* style = [TTTextStyle styleWithFont: [UIFont boldSystemFontOfSize:16]
+                                          color: [UIColor whiteColor]
+                                           next: nil];
+    return style;
+}
+- (TTStyle*) settingRow2{
+    TTStyle* style = [TTTextStyle styleWithFont: [UIFont boldSystemFontOfSize:12]
+                                          color: [UIColor blackColor]
+                                           next: nil];
+    return style;
+}
+- (TTStyle*) settingRow3{
+    TTStyle* style = [TTTextStyle styleWithFont: [UIFont boldSystemFontOfSize:11]
+                                          color: [UIColor whiteColor]
+                                           next: nil];
+    return style;
+}
+- (TTStyle*) settingRowBg{
+    TTStyle* style = [TTTextStyle
+                                          styleWithColor: [UIColor blueColor]
+                                           next: nil];
+    return style;
+}
 +(UIColor*) colorFromHexString:(NSString*)hexString{
     unsigned rgbValue = 0;
     NSScanner* scanner = [NSScanner scannerWithString:hexString];

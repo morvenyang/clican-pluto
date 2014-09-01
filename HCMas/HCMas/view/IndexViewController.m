@@ -53,6 +53,7 @@
     
     [self.view addSubview:[self createPaginationView:180]];
     [self.view addSubview:[self createMenuView]];
+    [self.view addSubview:[self createSettingView]];
 }
 
     
@@ -100,7 +101,7 @@
 }
 -(void)selectMenu:(id*)sender{
     UIButton* buttonView = (UIButton*)sender;
-    int index = [self.menuButtonViews indexOfObject:buttonView];
+    long index = [self.menuButtonViews indexOfObject:buttonView];
     for(int i=0;i<self.menuBgImageViews.count;i++){
         UIImageView* bgImageView = [self.menuBgImageViews objectAtIndex:i];
         if(i==index){
@@ -118,7 +119,7 @@
     
     for(int i=0;i<imageArray.count;i++){
         int yoffset = 0;
-        int xoffset = 0;
+        long xoffset = 0;
         if(i>=imageArray.count/2){
             yoffset = 62;
             xoffset =-imageArray.count/2;
@@ -142,6 +143,64 @@
     CGSizeMake(imageArray.count/2*72+2, 130);
     return menuView;
 }
+
+-(UIView*)createSettingView{
+    CGFloat height = 480;
+    if(IS_IPHONE5){
+        height=568;
+    }
+    UIScrollView* settingView = [[[UIScrollView alloc] initWithFrame:CGRectMake(0, 330, 320, height-330-30)] autorelease];
+    settingView.contentSize = CGSizeMake(320, 400);
+    TTTableView* tableView = [[[TTTableView alloc] initWithFrame:CGRectMake(0, 0, 320, 400)] autorelease];
+    tableView.scrollEnabled=NO;
+
+    TTSectionedDataSource* ds = [TTSectionedDataSource dataSourceWithObjects:
+        @"设置",
+        [self createTableItemByTitle:@"服务地址" subTitle:@"请正确填写服务端地址" action:nil],
+        [self createTableItemByTitle:@"工程项目" subTitle:@"请勾选需要查看的工程" action:nil],
+        [self createTableItemByTitle:@"更新频率" subTitle:@"设置刷新周期(秒)" action:nil],
+        @"报警模式",
+        [self createTableItemByTitle:@"报警开/关" subTitle:@"请勾选是否开启报警" action:nil],
+        [self createTableItemByTitle:@"情景模式" subTitle:@"报警情景模式" action:nil],
+        @"关于",
+        [TTTableStyledTextItem itemWithText:[TTStyledText textFromXHTML:[NSString stringWithFormat:@"<span class=\"settingRow3\">软件名称:华测自动化监测与预警系统（手机版）</span><br/><span class=\"settingRow3\">版本:1.0</span><br/><span class=\"settingRow3\">版权:上海华测导航技术有限公司</span><br/><span class=\"settingRow3\">网址:www.huace.cn</span>"] lineBreaks:YES URLs:YES]],
+                                 nil];
+    tableView.dataSource = ds;
+    tableView.delegate = self;
+    tableView.backgroundColor = [UIColor blackColor];
+    #ifdef __IPHONE_7_0
+    if(DEVICE_VERSION>=7.0){
+        tableView.separatorInset = UIEdgeInsetsZero;
+    }
+    #endif
+    tableView.separatorColor = [UIColor blackColor];
+    tableView.sectionIndexBackgroundColor=[UIColor blackColor];
+    [settingView addSubview:tableView];
+    return settingView;
+}
+-(TTTableStyledTextItem*)createTableItemByTitle:(NSString*) title subTitle:(NSString*) subTitle action:(SEL)action{
+    TTTableStyledTextItem* item=[TTTableStyledTextItem itemWithText:[TTStyledText textFromXHTML:[NSString stringWithFormat:@"<span class=\"settingRow1\">%@</span><br/><span class=\"settingRow2\">%@</span>",title,subTitle] lineBreaks:YES URLs:YES]];
+    item.delegate = self;
+    item.selector = action;
+    return item;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if(indexPath.row==0&&indexPath.section==2){
+        return 100;
+    }else{
+        return 50;
+    }
+}
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if([cell isKindOfClass:[TTStyledTextTableItemCell class]]){
+        TTStyledTextTableItemCell* itemCell = (TTStyledTextTableItemCell*)cell;
+        itemCell.label.backgroundColor = [UIColor clearColor];
+        itemCell.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"main_background.png"]];
+    }
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -216,6 +275,15 @@
     
     imageView.image = image;
     return imageView;
+}
+
+- (void)dealloc
+{
+    TT_RELEASE_SAFELY(_pointImageViews);
+    TT_RELEASE_SAFELY(_topImageView);
+    TT_RELEASE_SAFELY(_menuBgImageViews);
+    TT_RELEASE_SAFELY(_menuButtonViews);
+    [super dealloc];
 }
 
 @end

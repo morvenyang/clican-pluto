@@ -13,7 +13,10 @@
 }
 
 - (TTStyle*) configLabel;
-
+- (TTStyle*) settingRow1;
+- (TTStyle*) settingRow2;
+- (TTStyle*) settingRow3;
+- (TTStyle*) settingRowBg;
 +(UIColor*) colorFromHexString:(NSString*)hexString;
 +(UIColor*) getColorForIndex:(int) index;
 @end
