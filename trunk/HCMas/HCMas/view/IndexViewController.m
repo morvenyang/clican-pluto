@@ -60,6 +60,7 @@
     [self.view addSubview:[self createPaginationView:180]];
     [self.view addSubview:[self createMenuView]];
     [self.view addSubview:[self createSettingView]];
+    [self.view addSubview:[self createFooterView]];
     self.backgroundShadowView = [[[UIView alloc] initWithFrame:frame] autorelease];
     
 
@@ -78,6 +79,9 @@
     self.settingKey = BASE_URL_NAME;
     self.settingName = @"服务地址";
     [self showSettingPopupView];
+}
+-(void)showLoginPopupView{
+    
 }
 -(void)showSettingPopupView{
     [self.view addSubview:self.backgroundShadowView];
@@ -284,6 +288,23 @@
     tableView.sectionIndexBackgroundColor=[UIColor blackColor];
     [settingView addSubview:tableView];
     return settingView;
+}
+
+-(UIView*)createFooterView{
+    CGFloat height = 480;
+    if(IS_IPHONE5){
+        height=568;
+    }
+    UIView* footerView = [[[UIView alloc] initWithFrame:CGRectMake(0, height-30, 320, 30)] autorelease];
+    footerView.backgroundColor = [StyleSheet colorFromHexString:@"#000080"];
+    [footerView addSubview:[self createLabel:@"请登录" frame:CGRectMake(10,0,100,30) textColor:@"#ff0000" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
+    UIButton* loginButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [loginButton setImage:[UIImage imageNamed:@"blue_button.png"] forState:UIControlStateNormal];
+    [loginButton addTarget:self action:@selector(showLoginPopupView) forControlEvents:UIControlEventTouchUpInside];
+    loginButton.frame = CGRectMake(230, 1, 70, 28);
+    [footerView addSubview:loginButton];
+    [footerView addSubview:[self createLabel:@"登录" frame:CGRectMake(230,1,70,28) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_CENTER]];
+    return footerView;
 }
 -(TTTableStyledTextItem*)createTableItemByTitle:(NSString*) title subTitle:(NSString*) subTitle action:(SEL)action{
     TTTableStyledTextItem* item=[TTTableStyledTextItem itemWithText:[TTStyledText textFromXHTML:[NSString stringWithFormat:@"<span class=\"settingRow1\">%@</span><br/><span class=\"settingRow2\">%@</span>",title,subTitle] lineBreaks:YES URLs:NO]];
