@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "User.h"
+
+#define HCMasAppDelegate ((AppDelegate *)[[UIApplication sharedApplication] delegate])
+
 @interface AppDelegate : UIResponder <UIApplicationDelegate>{
     User* _user;
 }

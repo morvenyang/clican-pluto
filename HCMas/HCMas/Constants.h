@@ -8,7 +8,9 @@
 
 #ifndef HCMas_Constants_h
 #define HCMas_Constants_h
-#define BASE_URL @"http://bi.pbwear.com/peacebird"
+#define BASE_URL_NAME @"BASE_URL_NAME"
+#define UPDATE_FREQUENCY_NAME @"UPDATE_FREQUENCY_NAME"
+#define PROJECT_NAME @"PROJECT_NAME"
 #define LAST_USER_NAME @"LAST_USER_NAME"
 #define LAST_PASSWORD @"LAST_PASSWORD"
 #define LAST_LOGIN_DATE @"LAST_LOGIN_DATE"

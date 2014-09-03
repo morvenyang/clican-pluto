@@ -15,6 +15,12 @@
 @synthesize menuBgImageViews= _menuBgImageViews;
 @synthesize menuButtonViews = _menuButtonViews;
 @synthesize topImageView = _topImageView;
+@synthesize backgroundShadowView = _backgroundShadowView;
+@synthesize popupView = _popupView;
+@synthesize popupTextField = _popupTextField;
+@synthesize settingKey = _settingKey;
+@synthesize settingName = _settingName;
+@synthesize projectPicker = _projectPicker;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -54,9 +60,110 @@
     [self.view addSubview:[self createPaginationView:180]];
     [self.view addSubview:[self createMenuView]];
     [self.view addSubview:[self createSettingView]];
-}
-
+    self.backgroundShadowView = [[[UIView alloc] initWithFrame:frame] autorelease];
     
+
+}
+-(void)showProjectSettingPopupView{
+    self.settingKey = PROJECT_NAME;
+    self.settingName = @"请选择工程";
+    [self showSettingPopupView];
+}
+-(void)showFrequencySettingPopupView{
+    self.settingKey =UPDATE_FREQUENCY_NAME;
+    self.settingName = @"更新频率";
+    [self showSettingPopupView];
+}
+-(void)showServerSettingPopupView{
+    self.settingKey = BASE_URL_NAME;
+    self.settingName = @"服务地址";
+    [self showSettingPopupView];
+}
+-(void)showSettingPopupView{
+    [self.view addSubview:self.backgroundShadowView];
+    CGFloat height = 480;
+    if(IS_IPHONE5){
+        height=568;
+    }
+    CGFloat popupViewHeight = 200;
+    if([self.settingKey isEqual:PROJECT_NAME]){
+        popupViewHeight = 300;
+    }
+    CGFloat heightOffset = 0;
+    self.popupView = [[[UIView alloc] initWithFrame:CGRectMake(30, (568-popupViewHeight)/2, 260, popupViewHeight)] autorelease];
+    self.popupView.layer.masksToBounds=YES;
+    self.popupView.layer.cornerRadius =6;
+    self.popupView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6f];
+
+    [self.popupView addSubview:[self createLabel:self.settingName frame:CGRectMake(20, 0, 220, 60) textColor:@"#ffffff" font:24 backgroundColor:nil textAlignment:ALIGN_LEFT]];
+    if([self.settingKey isEqual:PROJECT_NAME]){
+        heightOffset = 140+70;
+        self.projectPicker = [[[UIPickerView alloc] initWithFrame:CGRectMake(20, 70, 220, 140)] autorelease];
+        self.projectPicker.dataSource = self;
+        self.projectPicker.delegate = self;
+        self.projectPicker.layer.masksToBounds=YES;
+        self.projectPicker.layer.cornerRadius =6;
+        self.projectPicker.backgroundColor = [UIColor colorWithWhite:15 alpha:0.7];
+
+        [self.popupView addSubview:self.projectPicker];
+    }else{
+        heightOffset = 30+70;
+        self.popupTextField = [[UITextField alloc] initWithFrame:CGRectMake(20, 70, 220, 30)];
+        self.popupTextField.backgroundColor = [UIColor whiteColor];
+        self.popupTextField.layer.borderWidth=1;
+        self.popupTextField.layer.borderColor= [[StyleSheet colorFromHexString:@"#ff8040"] CGColor];
+        self.popupTextField.font = [UIFont fontWithName:@"Microsoft YaHei" size:24];
+        self.popupTextField.textColor = [StyleSheet colorFromHexString:@"#a3a3a3"];
+        
+        self.popupTextField.autocorrectionType = UITextAutocorrectionTypeNo;
+        self.popupTextField.keyboardType = UIKeyboardTypeDefault;
+        self.popupTextField.returnKeyType = UIReturnKeyDone;
+        
+        self.popupTextField.clearButtonMode = UITextFieldViewModeAlways;
+        self.popupTextField.contentVerticalAlignment = UIControlContentHorizontalAlignmentCenter;
+        self.popupTextField.text = [self getValueByKey:self.settingKey];
+        [self.popupView addSubview:self.popupTextField];
+    }
+    
+    UIButton* saveButton = [UIButton buttonWithType:UIButtonTypeCustom];
+
+    [saveButton setImage:[UIImage imageNamed:@"blue_button.png"] forState:UIControlStateNormal];
+    [saveButton addTarget:self action:@selector(saveSetting) forControlEvents:UIControlEventTouchUpInside];
+    [saveButton addSubview:[self createLabel:@"确定" frame:CGRectMake(0, 0, 70, 30) textColor:@"#ffffff" font:22 backgroundColor:nil textAlignment:ALIGN_CENTER]];
+    saveButton.frame = CGRectMake(20, heightOffset+40, 70, 30);
+    UIButton* cancelButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [cancelButton setImage:[UIImage imageNamed:@"blue_button_dark.png"] forState:UIControlStateNormal];
+    [cancelButton addTarget:self action:@selector(cancelSetting) forControlEvents:UIControlEventTouchUpInside];
+    [cancelButton addSubview:[self createLabel:@"取消" frame:CGRectMake(0, 0, 70, 30) textColor:@"#ffffff" font:22 backgroundColor:nil textAlignment:ALIGN_CENTER]];
+    cancelButton.frame = CGRectMake(170, heightOffset+40, 70, 30);
+    [self.popupView addSubview:saveButton];
+    [self.popupView addSubview:cancelButton];
+    [self.backgroundShadowView addSubview:self.popupView];
+    self.backgroundShadowView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.3f];
+    [UIView animateWithDuration:0.25f animations:^{
+        self.popupView.alpha = 1;
+        [self.popupView layoutIfNeeded];
+    }];
+}
+-(void)saveSetting{
+    if([self.settingKey isEqual:PROJECT_NAME]){
+        NSInteger rowIndex = [self.projectPicker numberOfRowsInComponent:1];
+        [self setValue:@"1" byKey:self.settingKey];
+    }else{
+        [self setValue:[self.popupTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] byKey:self.settingKey];
+    }
+
+    [self cancelSetting];
+}
+-(void)cancelSetting{
+    [UIView animateWithDuration:0.25f animations:^{
+        self.popupView.alpha = 0;
+        [self.popupView layoutIfNeeded];
+    } completion:^(BOOL finished) {
+        [self.popupView removeFromSuperview];
+        [self.backgroundShadowView removeFromSuperview];
+    }];
+}
 -(void)switchImage:(UISwipeGestureRecognizer*)gestureRecognizer{
     UISwipeGestureRecognizerDirection direction =gestureRecognizer.direction;
     if(direction==UISwipeGestureRecognizerDirectionLeft){
@@ -156,9 +263,9 @@
 
     TTSectionedDataSource* ds = [TTSectionedDataSource dataSourceWithObjects:
         @"设置",
-        [self createTableItemByTitle:@"服务地址" subTitle:@"请正确填写服务端地址" action:nil],
-        [self createTableItemByTitle:@"工程项目" subTitle:@"请勾选需要查看的工程" action:nil],
-        [self createTableItemByTitle:@"更新频率" subTitle:@"设置刷新周期(秒)" action:nil],
+        [self createTableItemByTitle:@"服务地址" subTitle:@"请正确填写服务端地址" action:@selector(showServerSettingPopupView)],
+        [self createTableItemByTitle:@"工程项目" subTitle:@"请勾选需要查看的工程" action:@selector(showProjectSettingPopupView)],
+        [self createTableItemByTitle:@"更新频率" subTitle:@"设置刷新周期(秒)" action:@selector(showFrequencySettingPopupView)],
         @"报警模式",
         [self createTableItemByTitle:@"报警开/关" subTitle:@"请勾选是否开启报警" action:nil],
         [self createTableItemByTitle:@"情景模式" subTitle:@"报警情景模式" action:nil],
@@ -179,9 +286,7 @@
     return settingView;
 }
 -(TTTableStyledTextItem*)createTableItemByTitle:(NSString*) title subTitle:(NSString*) subTitle action:(SEL)action{
-    TTTableStyledTextItem* item=[TTTableStyledTextItem itemWithText:[TTStyledText textFromXHTML:[NSString stringWithFormat:@"<span class=\"settingRow1\">%@</span><br/><span class=\"settingRow2\">%@</span>",title,subTitle] lineBreaks:YES URLs:YES]];
-    item.delegate = self;
-    item.selector = action;
+    TTTableStyledTextItem* item=[TTTableStyledTextItem itemWithText:[TTStyledText textFromXHTML:[NSString stringWithFormat:@"<span class=\"settingRow1\">%@</span><br/><span class=\"settingRow2\">%@</span>",title,subTitle] lineBreaks:YES URLs:NO]];
     return item;
 }
 
@@ -190,6 +295,16 @@
         return 100;
     }else{
         return 50;
+    }
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if(indexPath.row==0&&indexPath.section==0){
+        [self showServerSettingPopupView];
+    }else if(indexPath.row==1&&indexPath.section==0){
+        [self showProjectSettingPopupView];
+    }else if(indexPath.row==2&&indexPath.section==0){
+        [self showFrequencySettingPopupView];
     }
 }
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
@@ -201,6 +316,17 @@
     }
 }
 
+
+
+-(NSString*)getValueByKey:(NSString*)key{
+    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+    return [defaults objectForKey:key];
+}
+
+-(void)setValue:(NSString*)value byKey:(NSString*)key{
+    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:value forKey:key];
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -275,6 +401,24 @@
     
     imageView.image = image;
     return imageView;
+}
+
+// returns the number of 'columns' to display.
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView{
+    return 1;
+}
+
+// returns the # of rows in each component..
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component{
+    return 2;
+}
+
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component{
+    if(row==1){
+        return @"1";
+    }else{
+        return @"2";
+    }
 }
 
 - (void)dealloc
