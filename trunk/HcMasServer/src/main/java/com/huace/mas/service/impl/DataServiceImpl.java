@@ -307,21 +307,126 @@ public class DataServiceImpl implements DataService {
 			if (dbKpi == null) {
 				continue;
 			}
-			int order = springProperty.getOrderMap().get(kpi.getClass().getSimpleName());
+			int order = springProperty.getOrderMap().get(
+					kpi.getClass().getSimpleName());
 			kpi.setV1(dbKpi.getV1());
 			kpi.setDacTime(dbKpi.getDacTime());
 			if (kpi instanceof Surface) {
 				((Surface) kpi).setV2(((Surface) dbKpi).getV2());
 				((Surface) kpi).setV3(((Surface) dbKpi).getV3());
-			}
-			if (kpi instanceof Inner) {
+				Surface s = (Surface) kpi;
+				s.setDis_x(s.getV1() - s.getInit_x());
+				s.setDis_y(s.getV2() - s.getInit_y());
+				s.setDis_h(s.getV3() - s.getInit_h());
+				// 数据越大告警越大
+				if (s.getDis_x() >= s.getRed_x()) {
+					s.setAlertGrade_x(3);
+				} else if (s.getDis_x() < s.getRed_x()
+						&& kpi.getV1() >= s.getOrange_x()) {
+					s.setAlertGrade_x(2);
+				} else if (s.getDis_x() < s.getOrange_x()
+						&& kpi.getV1() >= s.getYellow_x()) {
+					s.setAlertGrade_x(1);
+				} else {
+					s.setAlertGrade_x(0);
+				}
+
+				if (s.getDis_y() >= s.getRed_y()) {
+					s.setAlertGrade_y(3);
+				} else if (s.getDis_y() < s.getRed_y()
+						&& kpi.getV1() >= s.getOrange_y()) {
+					s.setAlertGrade_y(2);
+				} else if (s.getDis_y() < s.getOrange_y()
+						&& kpi.getV1() >= s.getYellow_y()) {
+					s.setAlertGrade_y(1);
+				} else {
+					s.setAlertGrade_y(0);
+				}
+
+				if (s.getDis_h() >= s.getRed_h()) {
+					s.setAlertGrade_h(3);
+				} else if (s.getDis_h() < s.getRed_h()
+						&& kpi.getV1() >= s.getOrange_h()) {
+					s.setAlertGrade_h(2);
+				} else if (s.getDis_h() < s.getOrange_h()
+						&& kpi.getV1() >= s.getYellow_h()) {
+					s.setAlertGrade_h(1);
+				} else {
+					s.setAlertGrade_h(0);
+				}
+
+				s.setAlertGrade(s.getAlertGrade_x());
+				if (s.getAlertGrade_y() > s.getAlertGrade()) {
+					s.setAlertGrade(s.getAlertGrade_y());
+				}
+				if (s.getAlertGrade_h() > s.getAlertGrade()) {
+					s.setAlertGrade(s.getAlertGrade_h());
+				}
+			} else if (kpi instanceof Inner) {
 				((Inner) kpi).setV2(((Inner) dbKpi).getV2());
-				((Inner) kpi).setV3(((Inner) dbKpi).getV3());
+
+				Inner s = (Inner) kpi;
+				s.setDis_x(s.getV1() - s.getInit_x());
+				s.setDis_y(s.getV2() - s.getInit_y());
+				// 数据越大告警越大
+				if (s.getDis_x() >= s.getRed_x()) {
+					s.setAlertGrade_x(3);
+				} else if (s.getDis_x() < s.getRed_x()
+						&& kpi.getV1() >= s.getOrange_x()) {
+					s.setAlertGrade_x(2);
+				} else if (s.getDis_x() < s.getOrange_x()
+						&& kpi.getV1() >= s.getYellow_x()) {
+					s.setAlertGrade_x(1);
+				} else {
+					s.setAlertGrade_x(0);
+				}
+
+				if (s.getDis_y() >= s.getRed_y()) {
+					s.setAlertGrade_y(3);
+				} else if (s.getDis_y() < s.getRed_y()
+						&& kpi.getV1() >= s.getOrange_y()) {
+					s.setAlertGrade_y(2);
+				} else if (s.getDis_y() < s.getOrange_y()
+						&& kpi.getV1() >= s.getYellow_y()) {
+					s.setAlertGrade_y(1);
+				} else {
+					s.setAlertGrade_y(0);
+				}
+
+				s.setAlertGrade(s.getAlertGrade_x());
+				if (s.getAlertGrade_y() > s.getAlertGrade()) {
+					s.setAlertGrade(s.getAlertGrade_y());
+				}
+			} else if (kpi instanceof Saturation || kpi instanceof DryBeach) {
+				// 数据越小告警越大
+				if (kpi.getV1() <= kpi.getRed_value()) {
+					kpi.setAlertGrade(3);
+				} else if (kpi.getV1() > kpi.getRed_value()
+						&& kpi.getV1() <= kpi.getOrange_value()) {
+					kpi.setAlertGrade(2);
+				} else if (kpi.getV1() > kpi.getOrange_value()
+						&& kpi.getV1() <= kpi.getYellow_value()) {
+					kpi.setAlertGrade(1);
+				} else {
+					kpi.setAlertGrade(0);
+				}
+			} else {
+				// 数据越大告警越大
+				if (kpi.getV1() >= kpi.getRed_value()) {
+					kpi.setAlertGrade(3);
+				} else if (kpi.getV1() < kpi.getRed_value()
+						&& kpi.getV1() >= kpi.getOrange_value()) {
+					kpi.setAlertGrade(2);
+				} else if (kpi.getV1() < kpi.getOrange_value()
+						&& kpi.getV1() >= kpi.getYellow_value()) {
+					kpi.setAlertGrade(1);
+				} else {
+					kpi.setAlertGrade(0);
+				}
 			}
 			result.get(order).add(kpi);
 		}
 
-		
 		return result;
 	}
 

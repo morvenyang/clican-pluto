@@ -1,6 +1,5 @@
 package com.huace.mas.dao.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
