@@ -13,10 +13,25 @@ import org.dom4j.io.SAXReader;
 
 import com.huace.mas.bean.SpringProperty;
 import com.huace.mas.dao.DataDao;
+import com.huace.mas.entity.Dqsd;
+import com.huace.mas.entity.Dqwd;
+import com.huace.mas.entity.Dqyl;
+import com.huace.mas.entity.DryBeach;
+import com.huace.mas.entity.Fs;
+import com.huace.mas.entity.Fx;
+import com.huace.mas.entity.Inner;
 import com.huace.mas.entity.Kpi;
+import com.huace.mas.entity.Lf;
 import com.huace.mas.entity.Project;
+import com.huace.mas.entity.Rainfall;
 import com.huace.mas.entity.Reservoir;
+import com.huace.mas.entity.Rxwy;
+import com.huace.mas.entity.Saturation;
+import com.huace.mas.entity.SeeFlow;
 import com.huace.mas.entity.Surface;
+import com.huace.mas.entity.Thsl;
+import com.huace.mas.entity.Tyl;
+import com.huace.mas.entity.Wd;
 import com.huace.mas.service.DataService;
 
 public class DataServiceImpl implements DataService {
@@ -44,9 +59,10 @@ public class DataServiceImpl implements DataService {
 		return dataDao.findAllProjects();
 	}
 
-	public void init(){
+	public void init() {
 		this.checkAndRefresh();
 	}
+
 	@SuppressWarnings("unchecked")
 	private synchronized void checkAndRefresh() {
 		SAXReader reader = new SAXReader();
@@ -84,11 +100,119 @@ public class DataServiceImpl implements DataService {
 						surface.setOrange_y(getDouble(type
 								.elementText("orange_y")));
 						surface.setRed_y(getDouble(type.elementText("red_y")));
+					}else if (typeName.equals("Inner")) {
+						Inner inner = new Inner();
+						kpi = inner;
+						kpi.set__type("Inner:#Shhc.Mass.ClassLibrary.entity");
+						inner.setInit_x(getDouble(type.elementText("init_x")));
+						inner.setYellow_x(getDouble(type
+								.elementText("yellow_x")));
+						inner.setOrange_x(getDouble(type
+								.elementText("orange_x")));
+						inner.setRed_x(getDouble(type.elementText("red_x")));
+
+						inner.setInit_y(getDouble(type.elementText("init_y")));
+						inner.setYellow_y(getDouble(type
+								.elementText("yellow_y")));
+						inner.setOrange_y(getDouble(type
+								.elementText("orange_y")));
+						inner.setRed_y(getDouble(type.elementText("red_y")));
+
+						inner.setInit_y(getDouble(type.elementText("init_y")));
+						inner.setYellow_y(getDouble(type
+								.elementText("yellow_y")));
+						inner.setOrange_y(getDouble(type
+								.elementText("orange_y")));
+						inner.setRed_y(getDouble(type.elementText("red_y")));
 					} else if (typeName.equals("Reservoir")) {
 						Reservoir reservoir = new Reservoir();
 						kpi = reservoir;
 						kpi.set__type("Reservoir:#Shhc.Mass.ClassLibrary.entity");
 						reservoir.setDamElevation(getDouble(type
+								.elementText("damElevation")));
+					} else if (typeName.equals("Saturation")) {
+						Saturation saturation = new Saturation();
+						kpi = saturation;
+						kpi.set__type("Saturation:#Shhc.Mass.ClassLibrary.entity");
+						saturation.setDamElevation(getDouble(type
+								.elementText("damElevation")));
+					} else if (typeName.equals("Rainfall")) {
+						Rainfall rainfall = new Rainfall();
+						kpi = rainfall;
+						kpi.set__type("Rainfall:#Shhc.Mass.ClassLibrary.entity");
+						rainfall.setDamElevation(getDouble(type
+								.elementText("damElevation")));
+					} else if (typeName.equals("SeeFlow")) {
+						SeeFlow seeFlow = new SeeFlow();
+						kpi = seeFlow;
+						kpi.set__type("SeeFlow:#Shhc.Mass.ClassLibrary.entity");
+						seeFlow.setDamElevation(getDouble(type
+								.elementText("damElevation")));
+					} else if (typeName.equals("DryBeach")) {
+						DryBeach dryBeach = new DryBeach();
+						kpi = dryBeach;
+						kpi.set__type("DryBeach:#Shhc.Mass.ClassLibrary.entity");
+						dryBeach.setDamElevation(getDouble(type
+								.elementText("damElevation")));
+					} else if (typeName.equals("Tyl")) {
+						Tyl tyl = new Tyl();
+						kpi = tyl;
+						kpi.set__type("Tyl:#Shhc.Mass.ClassLibrary.entity");
+						tyl.setDamElevation(getDouble(type
+								.elementText("damElevation")));
+					} else if (typeName.equals("Rxwy")) {
+						Rxwy rxwy = new Rxwy();
+						kpi = rxwy;
+						kpi.set__type("Rxwy:#Shhc.Mass.ClassLibrary.entity");
+						rxwy.setDamElevation(getDouble(type
+								.elementText("damElevation")));
+					} else if (typeName.equals("Lf")) {
+						Lf lf = new Lf();
+						kpi = lf;
+						kpi.set__type("Lf:#Shhc.Mass.ClassLibrary.entity");
+						lf.setDamElevation(getDouble(type
+								.elementText("damElevation")));
+					} else if (typeName.equals("Wd")) {
+						Wd wd = new Wd();
+						kpi = wd;
+						kpi.set__type("Wd:#Shhc.Mass.ClassLibrary.entity");
+						wd.setDamElevation(getDouble(type
+								.elementText("damElevation")));
+					} else if (typeName.equals("Thsl")) {
+						Thsl thsl = new Thsl();
+						kpi = thsl;
+						kpi.set__type("Thsl:#Shhc.Mass.ClassLibrary.entity");
+						thsl.setDamElevation(getDouble(type
+								.elementText("damElevation")));
+					} else if (typeName.equals("Dqwd")) {
+						Dqwd dqwd = new Dqwd();
+						kpi = dqwd;
+						kpi.set__type("Dqwd:#Shhc.Mass.ClassLibrary.entity");
+						dqwd.setDamElevation(getDouble(type
+								.elementText("damElevation")));
+					} else if (typeName.equals("Dqsd")) {
+						Dqsd dqsd = new Dqsd();
+						kpi = dqsd;
+						kpi.set__type("Dqsd:#Shhc.Mass.ClassLibrary.entity");
+						dqsd.setDamElevation(getDouble(type
+								.elementText("damElevation")));
+					} else if (typeName.equals("Dqyl")) {
+						Dqyl dqyl = new Dqyl();
+						kpi = dqyl;
+						kpi.set__type("Dqyl:#Shhc.Mass.ClassLibrary.entity");
+						dqyl.setDamElevation(getDouble(type
+								.elementText("damElevation")));
+					} else if (typeName.equals("Fs")) {
+						Fs fs = new Fs();
+						kpi = fs;
+						kpi.set__type("Fs:#Shhc.Mass.ClassLibrary.entity");
+						fs.setDamElevation(getDouble(type
+								.elementText("damElevation")));
+					} else if (typeName.equals("Fx")) {
+						Fx fx = new Fx();
+						kpi = fx;
+						kpi.set__type("Fx:#Shhc.Mass.ClassLibrary.entity");
+						fx.setDamElevation(getDouble(type
 								.elementText("damElevation")));
 					}
 					kpi.setAlert(getBoolean("isAlert"));
