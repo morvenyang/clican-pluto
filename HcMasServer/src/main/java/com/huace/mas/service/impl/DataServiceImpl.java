@@ -109,6 +109,18 @@ public class DataServiceImpl implements DataService {
 						surface.setOrange_y(getDouble(type
 								.elementText("orange_y")));
 						surface.setRed_y(getDouble(type.elementText("red_y")));
+					} else if (typeName.equals("Reservoir")) {
+						Reservoir reservoir = new Reservoir();
+						kpi = reservoir;
+						kpi.set__type("Reservoir:#Shhc.Mass.ClassLibrary.entity");
+						reservoir.setDamElevation(getDouble(type
+								.elementText("damElevation")));
+					} else if (typeName.equals("Saturation")) {
+						Saturation saturation = new Saturation();
+						kpi = saturation;
+						kpi.set__type("Saturation:#Shhc.Mass.ClassLibrary.entity");
+						saturation.setDamElevation(getDouble(type
+								.elementText("damElevation")));
 					} else if (typeName.equals("Inner")) {
 						Inner inner = new Inner();
 						kpi = inner;
@@ -133,18 +145,6 @@ public class DataServiceImpl implements DataService {
 						inner.setOrange_y(getDouble(type
 								.elementText("orange_y")));
 						inner.setRed_y(getDouble(type.elementText("red_y")));
-					} else if (typeName.equals("Reservoir")) {
-						Reservoir reservoir = new Reservoir();
-						kpi = reservoir;
-						kpi.set__type("Reservoir:#Shhc.Mass.ClassLibrary.entity");
-						reservoir.setDamElevation(getDouble(type
-								.elementText("damElevation")));
-					} else if (typeName.equals("Saturation")) {
-						Saturation saturation = new Saturation();
-						kpi = saturation;
-						kpi.set__type("Saturation:#Shhc.Mass.ClassLibrary.entity");
-						saturation.setDamElevation(getDouble(type
-								.elementText("damElevation")));
 					} else if (typeName.equals("Rainfall")) {
 						Rainfall rainfall = new Rainfall();
 						kpi = rainfall;
@@ -224,15 +224,15 @@ public class DataServiceImpl implements DataService {
 						fx.setDamElevation(getDouble(type
 								.elementText("damElevation")));
 					}
-					kpi.setAlert(getBoolean("isAlert"));
-					kpi.setDeviceID(type.elementText("deviceID"));
+					kpi.setAlert(getBoolean(type.elementText("isAlert")));
+					kpi.setDeviceID(getInteger(type.elementText("deviceID")));
 					kpi.setPointName(type.elementText("pointName"));
 					kpi.setProjectName(type.elementText("projectName"));
 					if (!projectTypeMapping.containsKey(kpi.getProjectName())) {
 						projectTypeMapping.put(kpi.getProjectName(),
 								new ArrayList<Kpi>());
 					}
-					projectTypeMapping.get(kpi.getPointName()).add(kpi);
+					projectTypeMapping.get(kpi.getProjectName()).add(kpi);
 				}
 				this.alertConfigLastModifiyTime = file.lastModified();
 				this.alertConfigSize = file.length();
@@ -243,7 +243,6 @@ public class DataServiceImpl implements DataService {
 		return new HashMap<String, List<Kpi>>(this.projectTypeMapping);
 	}
 
-	@SuppressWarnings("unused")
 	private List<Kpi> cloneKpis(List<Kpi> kpis) {
 		List<Kpi> clonedKpis = new ArrayList<Kpi>();
 		try {
@@ -272,6 +271,14 @@ public class DataServiceImpl implements DataService {
 		}
 	}
 
+	private Integer getInteger(String s) {
+		if (StringUtils.isEmpty(s)) {
+			return -1;
+		} else {
+			return Integer.parseInt(s);
+		}
+	}
+
 	@Override
 	public List<String> getTypesForProject(Long projectID) {
 		// TODO Auto-generated method stub
@@ -279,13 +286,43 @@ public class DataServiceImpl implements DataService {
 	}
 
 	@Override
-	public List<Kpi> getKpisForProject(Long projectID) {
+	public List<List<Object>> getKpisForProject(Long projectID) {
 		Map<String, List<Kpi>> data = checkAndRefresh();
 		Project project = dataDao.getProjectByID(projectID);
+		if (project == null) {
+			return new ArrayList<List<Object>>();
+		}
 		List<Kpi> kpis = data.get(project.getProjectName());
 		List<Kpi> clonedKpis = this.cloneKpis(kpis);
+		List<List<Object>> result = new ArrayList<List<Object>>();
+		List<Object> projects = new ArrayList<Object>();
+		projects.add(project);
+		result.add(projects);
+		for (int i = 0; i < springProperty.getOrderMap().size(); i++) {
+			result.add(new ArrayList<Object>());
+		}
+		for (Kpi kpi : clonedKpis) {
+			Kpi dbKpi = this.dataDao.queryDataByDeviceID(kpi.getDeviceID(),
+					kpi.getClass());
+			if (dbKpi == null) {
+				continue;
+			}
+			int order = springProperty.getOrderMap().get(kpi.getClass().getSimpleName());
+			kpi.setV1(dbKpi.getV1());
+			kpi.setDacTime(dbKpi.getDacTime());
+			if (kpi instanceof Surface) {
+				((Surface) kpi).setV2(((Surface) dbKpi).getV2());
+				((Surface) kpi).setV3(((Surface) dbKpi).getV3());
+			}
+			if (kpi instanceof Inner) {
+				((Inner) kpi).setV2(((Inner) dbKpi).getV2());
+				((Inner) kpi).setV3(((Inner) dbKpi).getV3());
+			}
+			result.get(order).add(kpi);
+		}
+
 		
-		return null;
+		return result;
 	}
 
 }

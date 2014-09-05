@@ -1,5 +1,8 @@
 package com.huace.mas.bean;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class SpringProperty {
 
 	
@@ -12,6 +15,8 @@ public class SpringProperty {
 	private int systemProxyPort;
 	
 	private String alertConfigXmlPath;
+	
+	private Map<String,Integer> orderMap = new HashMap<String,Integer>();
 
 	public boolean isSystemProxyEnable() {
 		return systemProxyEnable;
@@ -67,6 +72,23 @@ public class SpringProperty {
 
 	public void setAlertConfigXmlPath(String alertConfigXmlPath) {
 		this.alertConfigXmlPath = alertConfigXmlPath;
+	}
+
+	public Map<String, Integer> getOrderMap() {
+		return orderMap;
+	}
+
+	public void setOrderMap(Map<String, Integer> orderMap) {
+		this.orderMap = orderMap;
+	}
+
+	public void setOrderMapStr(String orderMapStr) {
+		String[] maps = orderMapStr.split(";");
+		for(String map:maps){
+			String key = map.split(":")[0];
+			String value = map.split(":")[1];
+			this.orderMap.put(key, Integer.parseInt(value));
+		}
 	}
 
 	
