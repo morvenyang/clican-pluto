@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -71,7 +72,7 @@ public class DataServiceImpl implements DataService {
 
 	@SuppressWarnings("unchecked")
 	private synchronized Map<String, List<Kpi>> checkAndRefresh() {
-		
+
 		File file = new File(springProperty.getAlertConfigXmlPath());
 		if (file.lastModified() != this.alertConfigLastModifiyTime
 				|| file.length() != alertConfigSize) {
@@ -242,6 +243,19 @@ public class DataServiceImpl implements DataService {
 		return new HashMap<String, List<Kpi>>(this.projectTypeMapping);
 	}
 
+	@SuppressWarnings("unused")
+	private List<Kpi> cloneKpis(List<Kpi> kpis) {
+		List<Kpi> clonedKpis = new ArrayList<Kpi>();
+		try {
+			for (Kpi kpi : kpis) {
+				clonedKpis.add((Kpi) BeanUtils.cloneBean(kpi));
+			}
+		} catch (Exception e) {
+			log.error("", e);
+		}
+		return clonedKpis;
+	}
+
 	private Double getDouble(String s) {
 		if (StringUtils.isEmpty(s)) {
 			return 0.0;
@@ -261,6 +275,16 @@ public class DataServiceImpl implements DataService {
 	@Override
 	public List<String> getTypesForProject(Long projectID) {
 		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Kpi> getKpisForProject(Long projectID) {
+		Map<String, List<Kpi>> data = checkAndRefresh();
+		Project project = dataDao.getProjectByID(projectID);
+		List<Kpi> kpis = data.get(project.getProjectName());
+		List<Kpi> clonedKpis = this.cloneKpis(kpis);
+		
 		return null;
 	}
 

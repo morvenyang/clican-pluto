@@ -18,4 +18,16 @@ public class DataDaoImpl extends JdbcDaoSupport implements DataDao {
 		return projects;
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public Project getProjectByID(Long projectID) {
+		List<Project> projects = this.getJdbcTemplate().query(
+				"SELECT * FROM PR_Project where UseYn=1 and ProjectID=?",new Object[]{projectID}, new BeanPropertyRowMapper(Project.class));
+		if(projects.size()>0){
+			return projects.get(0);
+		}else{
+			return null;
+		}
+	}
+
 }
