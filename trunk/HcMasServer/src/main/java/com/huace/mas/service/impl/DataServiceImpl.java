@@ -3,8 +3,10 @@ package com.huace.mas.service.impl;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.commons.beanutils.BeanUtils;
@@ -67,15 +69,15 @@ public class DataServiceImpl implements DataService {
 		Map<String, List<Kpi>> pMap = this.checkAndRefresh();
 		List<Project> result = new ArrayList<Project>();
 		for (Project p : projects) {
-			List<Kpi> kpis = pMap.get(p);
+			List<Kpi> kpis = pMap.get(p.getProjectName());
 			if (kpis == null || kpis.size() == 0) {
 				continue;
 			}
-			List<String> ks = new ArrayList<String>();
+			Set<String> ks = new HashSet<String>();
 			for (Kpi k : kpis) {
 				ks.add(k.getClass().getSimpleName());
 			}
-			p.setKpis(ks);
+			p.setKpis(new ArrayList<String>(ks));
 			result.add(p);
 		}
 		return result;
