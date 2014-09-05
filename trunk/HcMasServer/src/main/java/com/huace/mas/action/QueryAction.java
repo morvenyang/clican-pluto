@@ -2,6 +2,7 @@ package com.huace.mas.action;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.json.JSONArray;
+import net.sf.json.JsonConfig;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -16,6 +18,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.huace.mas.bean.DateJsonValueProcessor;
+import com.huace.mas.entity.Kpi;
 import com.huace.mas.entity.Project;
 import com.huace.mas.entity.User;
 import com.huace.mas.service.DataService;
@@ -59,10 +63,9 @@ public class QueryAction {
 			}
 		}
 	}
-	
+
 	@RequestMapping("/2")
-	public void projectInfo(
-			HttpServletRequest req, HttpServletResponse resp)
+	public void projectInfo(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		List<Project> projects = dataService.findAllProjects();
 		JSONArray jsonObject = JSONArray.fromObject(projects);
@@ -78,16 +81,23 @@ public class QueryAction {
 			}
 		}
 	}
-	
+
 	@RequestMapping("/3")
 	public void data(
-			@RequestParam(value = "projectID", required = true) String projectID,
+			@RequestParam(value = "projectID", required = true) Long projectID,
 			HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
+		log.warn("ProjectID="+projectID);
+		projectID=1L;
+		List<List<Object>> result = dataService.getKpisForProject(projectID);
+		JsonConfig jsonConfig = new JsonConfig();
+		jsonConfig.registerJsonValueProcessor(Date.class,
+				new DateJsonValueProcessor("yyyy-MM-dd hh:mm:ss"));
+		JSONArray jsonObject = JSONArray.fromObject(result, jsonConfig);
 		OutputStream os = null;
 		try {
 			os = resp.getOutputStream();
-			os.write("[]".getBytes("utf-8"));
+			os.write(jsonObject.toString().getBytes("utf-8"));
 		} finally {
 			try {
 				os.close();

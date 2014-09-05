@@ -51,6 +51,7 @@
 	
 		<bean id="springProperty" class="com.huace.mas.bean.SpringProperty">
 		<property name="alertConfigXmlPath" value="${catalina.home}/conf/alertconfig.xml"></property>
+		<property name="orderMapStr" value="${orderMap}"></property>
 	</bean>
 
 

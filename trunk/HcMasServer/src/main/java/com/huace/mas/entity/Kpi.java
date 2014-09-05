@@ -8,11 +8,11 @@ public abstract class Kpi {
 	
 	private boolean isAlert;
 	
-	private String alertGrade;
+	private int alertGrade;
 	
 	private Date dacTime;
 	
-	private String deviceID;
+	private int deviceID;
 	
 	private String pointName;
 	
@@ -25,7 +25,7 @@ public abstract class Kpi {
 	private double orange_value;
 	
 	private double v1;
-
+	
 	public String get__type() {
 		return __type;
 	}
@@ -34,11 +34,11 @@ public abstract class Kpi {
 		this.__type = __type;
 	}
 
-	public String getAlertGrade() {
+	public int getAlertGrade() {
 		return alertGrade;
 	}
 
-	public void setAlertGrade(String alertGrade) {
+	public void setAlertGrade(int alertGrade) {
 		this.alertGrade = alertGrade;
 	}
 
@@ -50,11 +50,11 @@ public abstract class Kpi {
 		this.dacTime = dacTime;
 	}
 
-	public String getDeviceID() {
+	public int getDeviceID() {
 		return deviceID;
 	}
 
-	public void setDeviceID(String deviceID) {
+	public void setDeviceID(int deviceID) {
 		this.deviceID = deviceID;
 	}
 
