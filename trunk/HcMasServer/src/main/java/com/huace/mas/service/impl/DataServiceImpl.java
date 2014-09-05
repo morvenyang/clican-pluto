@@ -1,7 +1,11 @@
 package com.huace.mas.service.impl;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -46,6 +50,8 @@ public class DataServiceImpl implements DataService {
 
 	private long alertConfigSize = 0;
 
+	private Map<String, List<Kpi>> projectTypeMapping = new ConcurrentHashMap<String, List<Kpi>>();
+
 	public void setDataDao(DataDao dataDao) {
 		this.dataDao = dataDao;
 	}
@@ -64,15 +70,17 @@ public class DataServiceImpl implements DataService {
 	}
 
 	@SuppressWarnings("unchecked")
-	private synchronized void checkAndRefresh() {
-		SAXReader reader = new SAXReader();
+	private synchronized Map<String, List<Kpi>> checkAndRefresh() {
+		
 		File file = new File(springProperty.getAlertConfigXmlPath());
 		if (file.lastModified() != this.alertConfigLastModifiyTime
 				|| file.length() != alertConfigSize) {
 			Document doc = null;
+			SAXReader reader = new SAXReader();
 			try {
 				doc = reader.read(file);
 				List<Element> types = doc.getRootElement().elements("anyType");
+				projectTypeMapping.clear();
 				for (Element type : types) {
 					Kpi kpi = null;
 					String typeName = type.elementText("typeName");
@@ -100,7 +108,7 @@ public class DataServiceImpl implements DataService {
 						surface.setOrange_y(getDouble(type
 								.elementText("orange_y")));
 						surface.setRed_y(getDouble(type.elementText("red_y")));
-					}else if (typeName.equals("Inner")) {
+					} else if (typeName.equals("Inner")) {
 						Inner inner = new Inner();
 						kpi = inner;
 						kpi.set__type("Inner:#Shhc.Mass.ClassLibrary.entity");
@@ -219,11 +227,19 @@ public class DataServiceImpl implements DataService {
 					kpi.setDeviceID(type.elementText("deviceID"));
 					kpi.setPointName(type.elementText("pointName"));
 					kpi.setProjectName(type.elementText("projectName"));
+					if (!projectTypeMapping.containsKey(kpi.getProjectName())) {
+						projectTypeMapping.put(kpi.getProjectName(),
+								new ArrayList<Kpi>());
+					}
+					projectTypeMapping.get(kpi.getPointName()).add(kpi);
 				}
+				this.alertConfigLastModifiyTime = file.lastModified();
+				this.alertConfigSize = file.length();
 			} catch (DocumentException e) {
 				log.error("", e);
 			}
 		}
+		return new HashMap<String, List<Kpi>>(this.projectTypeMapping);
 	}
 
 	private Double getDouble(String s) {
