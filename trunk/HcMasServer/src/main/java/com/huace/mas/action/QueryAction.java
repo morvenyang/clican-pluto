@@ -81,6 +81,7 @@ public class QueryAction {
 	
 	@RequestMapping("/3")
 	public void data(
+			@RequestParam(value = "projectID", required = true) String projectID,
 			HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		OutputStream os = null;
