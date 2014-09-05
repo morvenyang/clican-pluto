@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.huace.mas.bean.DateJsonValueProcessor;
-import com.huace.mas.entity.Kpi;
 import com.huace.mas.entity.Project;
 import com.huace.mas.entity.User;
 import com.huace.mas.service.DataService;
@@ -87,8 +86,6 @@ public class QueryAction {
 			@RequestParam(value = "projectID", required = true) Long projectID,
 			HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		log.warn("ProjectID="+projectID);
-		projectID=1L;
 		List<List<Object>> result = dataService.getKpisForProject(projectID);
 		JsonConfig jsonConfig = new JsonConfig();
 		jsonConfig.registerJsonValueProcessor(Date.class,
