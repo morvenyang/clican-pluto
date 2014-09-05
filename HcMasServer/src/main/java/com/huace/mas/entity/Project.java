@@ -1,6 +1,7 @@
 package com.huace.mas.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
 
 public class Project implements Serializable{
@@ -15,6 +16,8 @@ public class Project implements Serializable{
 	private String projectName;//工程名称
 	
 	private String __type="Project:#Shhc.Mass.ClassLibrary.entity";
+	
+	private List<String> kpis;
 	
 	public String get__type() {
 		return __type;
@@ -33,6 +36,12 @@ public class Project implements Serializable{
 	}
 	public void setProjectName(String projectName) {
 		this.projectName = projectName;
+	}
+	public List<String> getKpis() {
+		return kpis;
+	}
+	public void setKpis(List<String> kpis) {
+		this.kpis = kpis;
 	}
 	
 	
