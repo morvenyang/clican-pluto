@@ -63,7 +63,22 @@ public class DataServiceImpl implements DataService {
 
 	@Override
 	public List<Project> findAllProjects() {
-		return dataDao.findAllProjects();
+		List<Project> projects = dataDao.findAllProjects();
+		Map<String, List<Kpi>> pMap = this.checkAndRefresh();
+		List<Project> result = new ArrayList<Project>();
+		for (Project p : projects) {
+			List<Kpi> kpis = pMap.get(p);
+			if (kpis == null || kpis.size() == 0) {
+				continue;
+			}
+			List<String> ks = new ArrayList<String>();
+			for (Kpi k : kpis) {
+				ks.add(k.getClass().getSimpleName());
+			}
+			p.setKpis(ks);
+			result.add(p);
+		}
+		return result;
 	}
 
 	public void init() {
