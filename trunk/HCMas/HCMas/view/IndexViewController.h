@@ -10,12 +10,12 @@
 #import "LoginModel.h"
 #import "MBProgressHUD.h"
 #import "ProjectModel.h"
-@interface IndexViewController : UIViewController<UITableViewDelegate,UIPickerViewDataSource,UIPickerViewDelegate,LoginDelegate,MBProgressHUDDelegate,UITextFieldDelegate,ProjectDelegate>{
+#import "KpiModel.h"
+@interface IndexViewController : UIViewController<UITableViewDelegate,UIPickerViewDataSource,UIPickerViewDelegate,LoginDelegate,MBProgressHUDDelegate,UITextFieldDelegate,ProjectDelegate,KpiDelegate>{
     int _imageIndex;
     NSMutableArray* _pointImageViews;
     UIImageView* _topImageView;
     NSMutableArray* _menuBgImageViews;
-    NSMutableArray* _menuButtonViews;
     UIView* _backgroundShadowView;
     UIView* _popupView;
     UITextField* _popupTextField;
@@ -31,6 +31,10 @@
     NSArray* _projects;
     ProjectModel* _projectModel;
     UIView* _menuView;
+    KpiModel* _kpiModel;
+    NSDictionary* _kpis;
+    UIView* _footView;
+    UIView* _dataView;
 }
 @property (nonatomic, assign) int imageIndex;
 @property (nonatomic, retain) NSMutableArray* pointImageViews;
@@ -50,5 +54,7 @@
 @property (nonatomic, retain) MBProgressHUD    *progressHUD;
 @property (nonatomic, retain) NSArray    *projects;
 @property (nonatomic, retain) UIView    *menuView;
-
+@property (nonatomic, retain) NSDictionary    *kpis;
+@property (nonatomic, retain) UIView    *footView;
+@property (nonatomic, retain) UIView    *dataView;
 @end

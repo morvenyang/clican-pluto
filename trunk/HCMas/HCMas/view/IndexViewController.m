@@ -10,11 +10,12 @@
 #import "StyleSheet.h"
 #import "Constants.h"
 #import "AppDelegate.h"
+#import "MenuButton.h"
 @implementation IndexViewController
 @synthesize imageIndex = _imageIndex;
 @synthesize pointImageViews = _pointImageViews;
 @synthesize menuBgImageViews= _menuBgImageViews;
-@synthesize menuButtonViews = _menuButtonViews;
+
 @synthesize topImageView = _topImageView;
 @synthesize backgroundShadowView = _backgroundShadowView;
 @synthesize popupView = _popupView;
@@ -28,6 +29,10 @@
 @synthesize footLabel = _footLabel;
 @synthesize progressHUD = _progressHUD;
 @synthesize projects = _projects;
+@synthesize menuView = _menuView;
+@synthesize kpis = _kpis;
+@synthesize footView = _footView;
+@synthesize dataView = _dataView;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -42,6 +47,9 @@
         
         _projectModel = [[ProjectModel alloc] init];
         _projectModel.delegate = self;
+        
+        _kpiModel = [[KpiModel alloc] init];
+        _kpiModel.delegate = self;
     }
     return self;
 }
@@ -79,8 +87,10 @@
     [self.view addSubview:[self createPaginationView:height+158]];
     self.menuView = [self createMenuView:height+178];
     [self.view addSubview:self.menuView];
-    [self.view addSubview:[self createSettingView:height+308]];
-    [self.view addSubview:[self createFooterView]];
+    self.dataView = [self createSettingView:height+308];
+    [self.view addSubview:self.dataView];
+    self.footView =[self createFooterView];
+    [self.view addSubview:self.footView];
     self.backgroundShadowView = [[[UIView alloc] initWithFrame:frame] autorelease];
     
 
@@ -313,22 +323,40 @@
     return paginationView;
 }
 -(void)selectMenu:(id*)sender{
-    UIButton* buttonView = (UIButton*)sender;
-    long index = [self.menuButtonViews indexOfObject:buttonView];
+    [self.dataView removeFromSuperview];
+    [self.footView removeFromSuperview];
+    MenuButton* buttonView = (MenuButton*)sender;
+    NSString* kpiType = buttonView.type;
+    CGFloat height = 0;
+    #ifdef __IPHONE_7_0
+    if(DEVICE_VERSION>=7.0){
+        height = 22;
+    }
+    #endif
+    if([kpiType isEqualToString:SYSTEM_CONFIG]){
+        self.dataView=[self createSettingView:height+308];
+        [self.view addSubview:self.dataView];
+        self.footView =[self createFooterView];
+        [self.view addSubview:self.footView];
+    }else{
+        NSLog(@"select menu");
+    }
+    long index = [self.menuBgImageViews indexOfObject:buttonView];
     for(int i=0;i<self.menuBgImageViews.count;i++){
-        UIImageView* bgImageView = [self.menuBgImageViews objectAtIndex:i];
+        MenuButton* bgImageView = [self.menuBgImageViews objectAtIndex:i];
         if(i==index){
-            bgImageView.image = [UIImage imageNamed:@"bg_press.png"];
+            [bgImageView setImage:[UIImage imageNamed:@"bg_press.png"] forState:UIControlStateNormal];
         }else{
-            bgImageView.image = [UIImage imageNamed:@"bg_nopress.png"];
+             [bgImageView setImage:[UIImage imageNamed:@"bg_nopress.png"] forState:UIControlStateNormal];
         }
     }
+    NSArray* kpiArray = [self.kpis objectForKey:kpiType];
 }
 -(UIView*)createMenuView:(int)y{
     UIScrollView* menuView = [[[UIScrollView alloc] initWithFrame:CGRectMake(0, y, 320, 130)] autorelease];
     NSArray* imageArray = [NSArray arrayWithObjects:@"logo_xtgl.png",@"logo_ksw.png",@"logo_zxgt.png",@"logo_dqwd.png",@"logo_dqsd.png",@"logo_dqyl.png",@"logo_fs.png",@"logo_fx.png",@"logo_yl.png",@"logo_bmwy.png",@"logo_jrx.png",@"logo_nbwy.png",@"logo_sl.png",@"logo_tyl.png",@"logo_thsl.png",@"logo_lf.png",@"logo_rxwy.png",@"logo_wd.png", nil];
     NSArray* nameArray = [NSArray arrayWithObjects:@"系统设置",@"库水位",@"干滩",@"大气温度",@"大气湿度",@"大气气压",@"风速",@"风向",@"雨量",@"表面位移",@"浸润线",@"内部位移",@"滲流",@"土压力",@"土壤含水率",@"裂缝",@"柔性位移",@"土壤温度", nil];
-    NSArray* kpiTypeArray = [NSArray arrayWithObjects:@"系统设置",@"Reservoir",@"DryBeach",@"Dqwd",@"Dqsd",@"Dqyl",@"Fs",@"Fx",@"Rainfall",@"Surface",@"Saturation",@"Inner",@"SeeFlow",@"Tyl",@"Thsl",@"Lf",@"Rxwy",@"Wd", nil];
+    NSArray* kpiTypeArray = [NSArray arrayWithObjects:SYSTEM_CONFIG,@"Reservoir",@"DryBeach",@"Dqwd",@"Dqsd",@"Dqyl",@"Fs",@"Fx",@"Rainfall",@"Surface",@"Saturation",@"Inner",@"SeeFlow",@"Tyl",@"Thsl",@"Lf",@"Rxwy",@"Wd", nil];
     
     int usedCount = 0;
     for(int i=0;i<imageArray.count;i++){
@@ -338,22 +366,24 @@
             yoffset = 62;
             xoffset =-imageArray.count/2;
         }
+         NSString* kpiType = [kpiTypeArray objectAtIndex:i];
         if (i!=0) {
-            NSString* kpi =[kpiTypeArray objectAtIndex:i];
-            if(![HCMasAppDelegate.user.selectedProject.kpis containsObject:kpi]){
+            if(![HCMasAppDelegate.user.selectedProject.kpis containsObject:kpiType]){
                 continue;
             }
         }
         NSString* image =[imageArray objectAtIndex:i];
         NSString* name =[nameArray objectAtIndex:i];
-        UIButton* buttonView = [[UIButton alloc] initWithFrame:CGRectMake(16+(usedCount+xoffset)*72, 5+yoffset, 40, 40)];
-        [buttonView setImage:[UIImage imageNamed:image] forState:UIControlStateNormal];
-        [buttonView addTarget:self action:@selector(selectMenu:) forControlEvents:UIControlEventTouchUpInside];
-        UIImageView* bgImageView = [self createImageViewFromNamedImage:@"bg_nopress.png" frame:CGRectMake(1+(usedCount+xoffset)*72, 0+yoffset, 70, 60)];
+        UIImageView* imageView=[self createImageViewFromNamedImage:image frame:CGRectMake(16+(usedCount+xoffset)*72, 5+yoffset, 40, 40)];
+        
+        MenuButton* bgImageView = [[MenuButton alloc] initWithFrame:CGRectMake(1+(usedCount+xoffset)*72, 0+yoffset, 70, 60)];
+        bgImageView.type = kpiType;
+        [bgImageView setImage:[UIImage imageNamed:@"bg_nopress.png"] forState:UIControlStateNormal];
+        [bgImageView addTarget:self action:@selector(selectMenu:) forControlEvents:UIControlEventTouchUpInside];
+        
         [self.menuBgImageViews addObject:bgImageView];
-        [self.menuButtonViews addObject:buttonView];
         [menuView addSubview:bgImageView];
-        [menuView addSubview:buttonView];
+        [menuView addSubview:imageView];
         [menuView addSubview:[self createLabel:name frame:CGRectMake(2+(usedCount+xoffset)*72, 45+yoffset, 70, 12) textColor:@"#000000" font:12 backgroundColor:nil textAlignment:ALIGN_CENTER]];
         usedCount++;
     }
@@ -415,6 +445,9 @@
     UIView* footerView = [[[UIView alloc] initWithFrame:CGRectMake(0, height-30, 320, 30)] autorelease];
     footerView.backgroundColor = [StyleSheet colorFromHexString:@"#000080"];
     self.footLabel =[self createLabel:@"请登录" frame:CGRectMake(10,0,100,30) textColor:@"#ff0000" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT];
+    if(HCMasAppDelegate.user.username!=nil&&HCMasAppDelegate.user.username.length>0){
+        self.footLabel.text =HCMasAppDelegate.user.username;
+    }
     [footerView addSubview:self.footLabel];
     UIButton* loginButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [loginButton setImage:[UIImage imageNamed:@"blue_button.png"] forState:UIControlStateNormal];
@@ -575,6 +608,7 @@
 - (void)loginSuccess:(User*) user
 {
     [self.progressHUD hide:NO];
+    HCMasAppDelegate.user = user;
     self.footLabel.text = user.username;
     [_projectModel loadProjects];
 }
@@ -638,6 +672,34 @@
     [self.view addSubview:self.menuView];
 }
 - (void)loadProjectFailed:(NSError*) error message:(NSString*) message{
+    [self.progressHUD hide:NO];
+    //-1004 connection is not available
+    //-1001 timeout
+    if([error code]==-1004||[error code]==-1001){
+        TTAlert(@"请检查网络链接");
+    }else{
+        if(message){
+            TTAlert(message);
+        }else{
+            TTAlert([error localizedDescription]);
+        }
+    }
+}
+#pragma mark -
+#pragma mark KpiDelegate methods
+- (void)loadKpiStart{
+    self.progressHUD = [[[MBProgressHUD alloc] initWithView:self.view] autorelease];
+    self.progressHUD.delegate = self;
+    self.progressHUD.labelText = @"加载数据...";
+    [self.view addSubview:self.progressHUD];
+    [self.view bringSubviewToFront:self.progressHUD];
+    [self.progressHUD show:YES];
+}
+- (void)loadKpiSuccess:(NSDictionary*) kpis{
+    [self.progressHUD hide:NO];
+    self.kpis = kpis;
+}
+- (void)loadKpiFailed:(NSError*) error message:(NSString*) message{
     [self.progressHUD hide:NO];
     //-1004 connection is not available
     //-1001 timeout

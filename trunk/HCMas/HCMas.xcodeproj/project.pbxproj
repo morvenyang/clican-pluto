@@ -99,6 +99,9 @@
 		72F124F019BA9A4000B0F676 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 72F124EF19BA9A4000B0F676 /* MBProgressHUD.m */; };
 		72F124F319BAA72F00B0F676 /* ProjectModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 72F124F219BAA72F00B0F676 /* ProjectModel.m */; };
 		72F124F619BAA74600B0F676 /* Project.m in Sources */ = {isa = PBXBuildFile; fileRef = 72F124F519BAA74600B0F676 /* Project.m */; };
+		72F124F919BABA6C00B0F676 /* KpiModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 72F124F819BABA6C00B0F676 /* KpiModel.m */; };
+		72F124FC19BABA8000B0F676 /* Kpi.m in Sources */ = {isa = PBXBuildFile; fileRef = 72F124FB19BABA8000B0F676 /* Kpi.m */; };
+		72F1250819BAC2F600B0F676 /* MenuButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 72F1250719BAC2F600B0F676 /* MenuButton.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -391,6 +394,12 @@
 		72F124F219BAA72F00B0F676 /* ProjectModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProjectModel.m; sourceTree = "<group>"; };
 		72F124F419BAA74600B0F676 /* Project.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Project.h; sourceTree = "<group>"; };
 		72F124F519BAA74600B0F676 /* Project.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Project.m; sourceTree = "<group>"; };
+		72F124F719BABA6C00B0F676 /* KpiModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KpiModel.h; sourceTree = "<group>"; };
+		72F124F819BABA6C00B0F676 /* KpiModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KpiModel.m; sourceTree = "<group>"; };
+		72F124FA19BABA8000B0F676 /* Kpi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Kpi.h; sourceTree = "<group>"; };
+		72F124FB19BABA8000B0F676 /* Kpi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Kpi.m; sourceTree = "<group>"; };
+		72F1250619BAC2F600B0F676 /* MenuButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuButton.h; sourceTree = "<group>"; };
+		72F1250719BAC2F600B0F676 /* MenuButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuButton.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -542,6 +551,7 @@
 		7233DF3719B0193C00F0664E /* HCMas */ = {
 			isa = PBXGroup;
 			children = (
+				72F1250519BAC2E500B0F676 /* control */,
 				7233E1CC19B03EF000F0664E /* datasource */,
 				7233E1CD19B03EF000F0664E /* model */,
 				7233E1CE19B03EF000F0664E /* object */,
@@ -602,6 +612,8 @@
 				72F124DB19BA96D000B0F676 /* LoginModel.m */,
 				72F124F119BAA72F00B0F676 /* ProjectModel.h */,
 				72F124F219BAA72F00B0F676 /* ProjectModel.m */,
+				72F124F719BABA6C00B0F676 /* KpiModel.h */,
+				72F124F819BABA6C00B0F676 /* KpiModel.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -613,6 +625,8 @@
 				7233E1E919B03F2A00F0664E /* User.m */,
 				72F124F419BAA74600B0F676 /* Project.h */,
 				72F124F519BAA74600B0F676 /* Project.m */,
+				72F124FA19BABA8000B0F676 /* Kpi.h */,
+				72F124FB19BABA8000B0F676 /* Kpi.m */,
 			);
 			path = object;
 			sourceTree = "<group>";
@@ -704,6 +718,15 @@
 			);
 			name = resources;
 			path = HCMas/resources;
+			sourceTree = "<group>";
+		};
+		72F1250519BAC2E500B0F676 /* control */ = {
+			isa = PBXGroup;
+			children = (
+				72F1250619BAC2F600B0F676 /* MenuButton.h */,
+				72F1250719BAC2F600B0F676 /* MenuButton.m */,
+			);
+			path = control;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1029,12 +1052,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				72F124FC19BABA8000B0F676 /* Kpi.m in Sources */,
+				72F124F919BABA6C00B0F676 /* KpiModel.m in Sources */,
 				7233E1EA19B03F2A00F0664E /* User.m in Sources */,
 				72F124F319BAA72F00B0F676 /* ProjectModel.m in Sources */,
 				7233DF4219B0193C00F0664E /* AppDelegate.m in Sources */,
 				72F124F619BAA74600B0F676 /* Project.m in Sources */,
 				7233E1E719B03F1900F0664E /* StyleSheet.m in Sources */,
 				7233DF3E19B0193C00F0664E /* main.m in Sources */,
+				72F1250819BAC2F600B0F676 /* MenuButton.m in Sources */,
 				7233E1E419B03F0700F0664E /* IndexViewController.m in Sources */,
 				72F124DC19BA96D000B0F676 /* LoginModel.m in Sources */,
 				72F124F019BA9A4000B0F676 /* MBProgressHUD.m in Sources */,

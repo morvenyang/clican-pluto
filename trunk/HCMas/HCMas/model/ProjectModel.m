@@ -24,7 +24,7 @@
     
     NSString* prefixUrl = [defaults valueForKey:BASE_URL_NAME];
     if (prefixUrl==nil||prefixUrl.length==0) {
-        [_delegate loadFailed:nil message:@"请先设置正确的服务器地址"];
+        [_delegate loadProjectFailed:nil message:@"请先设置正确的服务器地址"];
     }
     
     url = [prefixUrl stringByAppendingFormat:@"/2.ashx"];
