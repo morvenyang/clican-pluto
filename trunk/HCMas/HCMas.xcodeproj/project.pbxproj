@@ -97,6 +97,8 @@
 		724553AF19B04A0100760BF2 /* yellow.png in Resources */ = {isa = PBXBuildFile; fileRef = 7245537919B04A0100760BF2 /* yellow.png */; };
 		72F124DC19BA96D000B0F676 /* LoginModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 72F124DB19BA96D000B0F676 /* LoginModel.m */; };
 		72F124F019BA9A4000B0F676 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 72F124EF19BA9A4000B0F676 /* MBProgressHUD.m */; };
+		72F124F319BAA72F00B0F676 /* ProjectModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 72F124F219BAA72F00B0F676 /* ProjectModel.m */; };
+		72F124F619BAA74600B0F676 /* Project.m in Sources */ = {isa = PBXBuildFile; fileRef = 72F124F519BAA74600B0F676 /* Project.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -385,6 +387,10 @@
 		72F124DB19BA96D000B0F676 /* LoginModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginModel.m; sourceTree = "<group>"; };
 		72F124EE19BA9A4000B0F676 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		72F124EF19BA9A4000B0F676 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
+		72F124F119BAA72F00B0F676 /* ProjectModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectModel.h; sourceTree = "<group>"; };
+		72F124F219BAA72F00B0F676 /* ProjectModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProjectModel.m; sourceTree = "<group>"; };
+		72F124F419BAA74600B0F676 /* Project.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Project.h; sourceTree = "<group>"; };
+		72F124F519BAA74600B0F676 /* Project.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Project.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -594,6 +600,8 @@
 			children = (
 				72F124DA19BA96D000B0F676 /* LoginModel.h */,
 				72F124DB19BA96D000B0F676 /* LoginModel.m */,
+				72F124F119BAA72F00B0F676 /* ProjectModel.h */,
+				72F124F219BAA72F00B0F676 /* ProjectModel.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -603,6 +611,8 @@
 			children = (
 				7233E1E819B03F2A00F0664E /* User.h */,
 				7233E1E919B03F2A00F0664E /* User.m */,
+				72F124F419BAA74600B0F676 /* Project.h */,
+				72F124F519BAA74600B0F676 /* Project.m */,
 			);
 			path = object;
 			sourceTree = "<group>";
@@ -1020,7 +1030,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				7233E1EA19B03F2A00F0664E /* User.m in Sources */,
+				72F124F319BAA72F00B0F676 /* ProjectModel.m in Sources */,
 				7233DF4219B0193C00F0664E /* AppDelegate.m in Sources */,
+				72F124F619BAA74600B0F676 /* Project.m in Sources */,
 				7233E1E719B03F1900F0664E /* StyleSheet.m in Sources */,
 				7233DF3E19B0193C00F0664E /* main.m in Sources */,
 				7233E1E419B03F0700F0664E /* IndexViewController.m in Sources */,
