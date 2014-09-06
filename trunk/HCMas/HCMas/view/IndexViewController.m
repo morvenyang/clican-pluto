@@ -255,6 +255,7 @@
         Project* project = (Project*)[self.projects objectAtIndex:rowIndex];
         HCMasAppDelegate.user.selectedProject = project;
         [self setValue:[NSString stringWithFormat:@"%i",rowIndex] byKey:PROJECT_NAME];
+        [_kpiModel loadKpiByProjectId:HCMasAppDelegate.user.selectedProject.projectId];
     }else if([self.settingKey isEqualToString:LOGIN]){
          [self setValue:[self.userNameTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] byKey:LAST_USER_NAME];
         [self setValue:[self.passwordTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] byKey:LAST_PASSWORD];
@@ -324,7 +325,9 @@
 }
 -(void)selectMenu:(id*)sender{
     [self.dataView removeFromSuperview];
-    [self.footView removeFromSuperview];
+    if(self.footView){
+        [self.footView removeFromSuperview];
+    }
     MenuButton* buttonView = (MenuButton*)sender;
     NSString* kpiType = buttonView.type;
     CGFloat height = 0;
@@ -339,7 +342,10 @@
         self.footView =[self createFooterView];
         [self.view addSubview:self.footView];
     }else{
-        NSLog(@"select menu");
+        NSArray* kpiArray = [self.kpis objectForKey:kpiType];
+        self.dataView=[self createDataView:kpiType kpis:kpiArray y:height+308];
+        [self.view addSubview:self.dataView];
+        self.footView = nil;
     }
     long index = [self.menuBgImageViews indexOfObject:buttonView];
     for(int i=0;i<self.menuBgImageViews.count;i++){
@@ -350,7 +356,73 @@
              [bgImageView setImage:[UIImage imageNamed:@"bg_nopress.png"] forState:UIControlStateNormal];
         }
     }
-    NSArray* kpiArray = [self.kpis objectForKey:kpiType];
+    
+}
+-(UIView*)createDataView:(NSString*)kpiType kpis:(NSArray*)kpis y:(int)y{
+    CGFloat height = 480;
+    if(IS_IPHONE5){
+        height=568;
+    }
+    CGFloat rowHeight = 20;
+    UIScrollView* dataView = [[[UIScrollView alloc] initWithFrame:CGRectMake(0, y, 320, height-y)] autorelease];
+    dataView.contentSize = CGSizeMake(320, rowHeight*(kpis.count+1));
+    [dataView setBackgroundColor:[UIColor grayColor]];
+    UIView* pointNameView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, 60, rowHeight*(kpis.count+1))] autorelease];
+    UIScrollView* rightDataView = [[[UIScrollView alloc] initWithFrame:CGRectMake(60, 0,260, rowHeight*(kpis.count+1))] autorelease];
+    
+    [dataView addSubview:pointNameView];
+    [dataView addSubview:rightDataView];
+    [pointNameView addSubview:[self createLabel:@"点名" frame:CGRectMake(1, 0, 59, 20) textColor:@"#000000" font:16 backgroundColor:@"#ffc90e" textAlignment:ALIGN_CENTER]];
+    [rightDataView addSubview:[self createLabel:@"时间" frame:CGRectMake(1, 0, 59, 20) textColor:@"#000000" font:16 backgroundColor:@"#ffc90e" textAlignment:ALIGN_CENTER]];
+    [rightDataView addSubview:[self createLabel:@"状态" frame:CGRectMake(61, 0, 59, 20) textColor:@"#000000" font:16 backgroundColor:@"#ffc90e" textAlignment:ALIGN_CENTER]];
+    if([kpiType isEqualToString:@"Surface"]){
+        [rightDataView addSubview:[self createLabel:@"Dx(mm)" frame:CGRectMake(121, 0, 59, 20) textColor:@"#000000" font:16 backgroundColor:@"#ffc90e" textAlignment:ALIGN_CENTER]];
+        [rightDataView addSubview:[self createLabel:@"Dy(mm)" frame:CGRectMake(181, 0, 59, 20) textColor:@"#000000" font:16 backgroundColor:@"#ffc90e" textAlignment:ALIGN_CENTER]];
+        [rightDataView addSubview:[self createLabel:@"Dh(mm)" frame:CGRectMake(241, 0, 59, 20) textColor:@"#000000" font:16 backgroundColor:@"#ffc90e" textAlignment:ALIGN_CENTER]];
+        rightDataView.contentSize = CGSizeMake(320, 300);
+    }
+    NSDateFormatter* dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+    [dateFormatter setDateFormat:@"HH:mm:ss"];
+    for(int i=0;i<kpis.count;i++){
+        Kpi* kpi = [kpis objectAtIndex:i];
+        [pointNameView addSubview:[self createLabel:kpi.pointName frame:CGRectMake(1, rowHeight*(i+1), 59, rowHeight) textColor:@"#000000" font:12 backgroundColor:@"#ffffff" textAlignment:ALIGN_CENTER]];
+       [rightDataView addSubview:[self createLabel:[dateFormatter stringFromDate:kpi.dacTime] frame:CGRectMake(1, rowHeight*(i+1), 59, rowHeight) textColor:@"#000000" font:12 backgroundColor:@"#ffffff" textAlignment:ALIGN_CENTER]];
+        NSString* imageName=nil;
+        if(kpi.alertGrade.intValue==0){
+            imageName = @"on.jpg";
+        }else if(kpi.alertGrade.intValue==1){
+            imageName = @"yellow.png";
+        }else if(kpi.alertGrade.intValue==2){
+            imageName = @"orange.png";
+        }else if(kpi.alertGrade.intValue==3){
+            imageName = @"red.png";
+        }
+        UIView* imageBgView= [[[UIView alloc] initWithFrame:CGRectMake(61, rowHeight*(i+1), 59, rowHeight)] autorelease];
+        imageBgView.backgroundColor = [UIColor whiteColor];
+        [rightDataView addSubview:imageBgView];
+        [rightDataView addSubview:[self createImageViewFromNamedImage:imageName frame:CGRectMake(61+(59-rowHeight)/2, rowHeight*(i+1), rowHeight, rowHeight)]];
+        
+        [rightDataView addSubview:[self createLabel:[NSString stringWithFormat:@"%@",kpi.v1] frame:CGRectMake(121, rowHeight*(i+1), 59, 20) textColor:[self getTextColorByGrade:kpi.alertGrade_x.intValue] font:12 backgroundColor:@"#ffffff" textAlignment:ALIGN_CENTER]];
+        
+        [rightDataView addSubview:[self createLabel:[NSString stringWithFormat:@"%@",kpi.v2] frame:CGRectMake(181, rowHeight*(i+1), 59, 20) textColor:[self getTextColorByGrade:kpi.alertGrade_y.intValue] font:12 backgroundColor:@"#ffffff" textAlignment:ALIGN_CENTER]];
+        
+        [rightDataView addSubview:[self createLabel:[NSString stringWithFormat:@"%@",kpi.v1] frame:CGRectMake(241, rowHeight*(i+1), 59, 20) textColor:[self getTextColorByGrade:kpi.alertGrade_h.intValue] font:12 backgroundColor:@"#ffffff" textAlignment:ALIGN_CENTER]];
+    }
+    return dataView;
+}
+
+-(NSString*) getTextColorByGrade:(int)grade{
+    if(grade==0){
+        return @"#000000";
+    }else if(grade==1){
+        return @"#00ff00";
+    }else if(grade==2){
+        return @"#ffff00";
+    }else if(grade==3){
+        return @"#ff0000";
+    }else{
+        return @"#000000";
+    }
 }
 -(UIView*)createMenuView:(int)y{
     UIScrollView* menuView = [[[UIScrollView alloc] initWithFrame:CGRectMake(0, y, 320, 130)] autorelease];
@@ -660,6 +732,7 @@
             di = 0;
         }
         HCMasAppDelegate.user.selectedProject = [self.projects objectAtIndex:di];
+        [_kpiModel loadKpiByProjectId:HCMasAppDelegate.user.selectedProject.projectId];
     }
     CGFloat height = 0;
     #ifdef __IPHONE_7_0
