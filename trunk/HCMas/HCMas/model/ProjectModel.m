@@ -47,11 +47,11 @@
 #pragma mark TTURLRequestDelegate
 
 - (void)requestDidStartLoad:(TTURLRequest*)request {
-    [_delegate loadStart];
+    [_delegate loadProjectStart];
     [super requestDidStartLoad:request];
 }
 - (void)request:(TTURLRequest*)request didFailLoadWithError:(NSError*)error {
-    [_delegate loadFailed:error message:nil];
+    [_delegate loadProjectFailed:error message:nil];
     [super request:request didFailLoadWithError:error];
 }
 
@@ -68,12 +68,14 @@
                 project.projectId= [p valueForKey:@"id"];
                 project.projectName = [p valueForKey:@"projectName"];
                 [projects addObject:project];
+                project.kpis = [p valueForKey:@"kpis"];
             }
-            [_delegate loadSuccess:projects];
+            
+            [_delegate loadProjectSuccess:projects];
         }
     }
     @catch (NSException *exception) {
-        [_delegate loadFailed:nil message:[exception description]];
+        [_delegate loadProjectFailed:nil message:[exception description]];
     }
     @finally {
         [super requestDidFinishLoad:request];

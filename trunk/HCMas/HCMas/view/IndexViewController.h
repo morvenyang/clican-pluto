@@ -30,6 +30,7 @@
     MBProgressHUD* _progressHUD;
     NSArray* _projects;
     ProjectModel* _projectModel;
+    UIView* _menuView;
 }
 @property (nonatomic, assign) int imageIndex;
 @property (nonatomic, retain) NSMutableArray* pointImageViews;
@@ -48,4 +49,6 @@
 @property (nonatomic, retain) UILabel* footLabel;
 @property (nonatomic, retain) MBProgressHUD    *progressHUD;
 @property (nonatomic, retain) NSArray    *projects;
+@property (nonatomic, retain) UIView    *menuView;
+
 @end

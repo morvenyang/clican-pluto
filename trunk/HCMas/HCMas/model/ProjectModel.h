@@ -19,8 +19,8 @@
 
 @protocol ProjectDelegate <NSObject>
 
-- (void)loadStart;
-- (void)loadSuccess:(NSArray*) projects;
-- (void)loadFailed:(NSError*) error message:(NSString*) message;
+- (void)loadProjectStart;
+- (void)loadProjectSuccess:(NSArray*) projects;
+- (void)loadProjectFailed:(NSError*) error message:(NSString*) message;
 
 @end
