@@ -12,6 +12,7 @@
 #import "Constants.h"
 @implementation AppDelegate
 @synthesize user= _user;
+@synthesize token = _token;
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.user = [[[User alloc] init] autorelease];

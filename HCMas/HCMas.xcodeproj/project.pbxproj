@@ -95,6 +95,8 @@
 		724553AD19B04A0100760BF2 /* title_logo_v15.png in Resources */ = {isa = PBXBuildFile; fileRef = 7245537719B04A0100760BF2 /* title_logo_v15.png */; };
 		724553AE19B04A0100760BF2 /* title_logo.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7245537819B04A0100760BF2 /* title_logo.jpg */; };
 		724553AF19B04A0100760BF2 /* yellow.png in Resources */ = {isa = PBXBuildFile; fileRef = 7245537919B04A0100760BF2 /* yellow.png */; };
+		72F124DC19BA96D000B0F676 /* LoginModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 72F124DB19BA96D000B0F676 /* LoginModel.m */; };
+		72F124F019BA9A4000B0F676 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 72F124EF19BA9A4000B0F676 /* MBProgressHUD.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -379,6 +381,10 @@
 		7245537819B04A0100760BF2 /* title_logo.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = title_logo.jpg; sourceTree = "<group>"; };
 		7245537919B04A0100760BF2 /* yellow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = yellow.png; sourceTree = "<group>"; };
 		724553DB19B0567800760BF2 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		72F124DA19BA96D000B0F676 /* LoginModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginModel.h; sourceTree = "<group>"; };
+		72F124DB19BA96D000B0F676 /* LoginModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginModel.m; sourceTree = "<group>"; };
+		72F124EE19BA9A4000B0F676 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
+		72F124EF19BA9A4000B0F676 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -537,6 +543,8 @@
 				7233E1D019B03EF000F0664E /* view */,
 				7233DF4019B0193C00F0664E /* AppDelegate.h */,
 				7233DF4119B0193C00F0664E /* AppDelegate.m */,
+				72F124EE19BA9A4000B0F676 /* MBProgressHUD.h */,
+				72F124EF19BA9A4000B0F676 /* MBProgressHUD.m */,
 				724553DB19B0567800760BF2 /* Constants.h */,
 				7233DF4319B0193C00F0664E /* Images.xcassets */,
 				7233DF3819B0193C00F0664E /* Supporting Files */,
@@ -584,6 +592,8 @@
 		7233E1CD19B03EF000F0664E /* model */ = {
 			isa = PBXGroup;
 			children = (
+				72F124DA19BA96D000B0F676 /* LoginModel.h */,
+				72F124DB19BA96D000B0F676 /* LoginModel.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -1014,6 +1024,8 @@
 				7233E1E719B03F1900F0664E /* StyleSheet.m in Sources */,
 				7233DF3E19B0193C00F0664E /* main.m in Sources */,
 				7233E1E419B03F0700F0664E /* IndexViewController.m in Sources */,
+				72F124DC19BA96D000B0F676 /* LoginModel.m in Sources */,
+				72F124F019BA9A4000B0F676 /* MBProgressHUD.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
