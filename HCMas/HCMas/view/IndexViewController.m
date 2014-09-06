@@ -11,6 +11,7 @@
 #import "Constants.h"
 #import "AppDelegate.h"
 #import "MenuButton.h"
+#import "KpiButton.h"
 @implementation IndexViewController
 @synthesize imageIndex = _imageIndex;
 @synthesize pointImageViews = _pointImageViews;
@@ -158,6 +159,60 @@
     [cancelButton addSubview:[self createLabel:@"取消" frame:CGRectMake(0, 0, 70, 30) textColor:@"#ffffff" font:22 backgroundColor:nil textAlignment:ALIGN_CENTER]];
     cancelButton.frame = CGRectMake(170, 240, 70, 30);
     [self.popupView addSubview:saveButton];
+    [self.popupView addSubview:cancelButton];
+    [self.backgroundShadowView addSubview:self.popupView];
+    self.backgroundShadowView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.3f];
+    [UIView animateWithDuration:0.25f animations:^{
+        self.popupView.alpha = 1;
+        [self.popupView layoutIfNeeded];
+    }];
+}
+-(void)showDetailKpi:(id*)sender{
+    KpiButton* kpiButton = (KpiButton*)sender;
+    Kpi* kpi = kpiButton.kpi;
+    CGFloat height = 480;
+    if(IS_IPHONE5){
+        height=568;
+    }
+    [self.view addSubview:self.backgroundShadowView];
+    CGFloat popupViewHeight = 240;
+    self.popupView = [[[UIView alloc] initWithFrame:CGRectMake(30, (height-popupViewHeight)/2, 260, popupViewHeight)] autorelease];
+    self.popupView.layer.masksToBounds=YES;
+    self.popupView.layer.cornerRadius =6;
+    self.popupView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6f];
+    
+    [self.popupView addSubview:[self createLabel:@"点名:" frame:CGRectMake(10, 0, 80, 40) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
+
+    
+    [self.popupView addSubview:[self createLabel:kpi.pointName frame:CGRectMake(100, 0, 100, 40) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
+    
+    [self.popupView addSubview:[self createLabel:@"时间:" frame:CGRectMake(10, 40, 80, 40) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
+    
+    NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+    [dateFormatter setDateFormat:@"hh:mm:ss"];
+    [self.popupView addSubview:[self createLabel:[dateFormatter stringFromDate:kpi.dacTime] frame:CGRectMake(100, 40, 10, 40) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
+    if([kpi.type isEqualToString:@"Surface"]){
+        [self.popupView addSubview:[self createLabel:@"Dx:" frame:CGRectMake(10, 80, 80, 40) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
+        
+        [self.popupView addSubview:[self createLabel:[NSString stringWithFormat:@"%@",kpi.dis_x] frame:CGRectMake(100, 80, 100, 40) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
+        [self.popupView addSubview:[self createImageViewFromNamedImage:[self getImageNameByGrade:kpi.alertGrade_x.intValue] frame:CGRectMake(200, 90, 20, 20) ]];
+        
+        [self.popupView addSubview:[self createLabel:@"Dy:" frame:CGRectMake(10, 120, 80, 40) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
+        
+        [self.popupView addSubview:[self createLabel:[NSString stringWithFormat:@"%@",kpi.dis_y] frame:CGRectMake(100, 120, 100, 40) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
+        [self.popupView addSubview:[self createImageViewFromNamedImage:[self getImageNameByGrade:kpi.alertGrade_y.intValue] frame:CGRectMake(200, 130, 20, 20) ]];
+        
+        [self.popupView addSubview:[self createLabel:@"Dh:" frame:CGRectMake(10, 160, 80, 40) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
+        
+        [self.popupView addSubview:[self createLabel:[NSString stringWithFormat:@"%@",kpi.dis_h] frame:CGRectMake(100, 160, 100, 40) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
+        [self.popupView addSubview:[self createImageViewFromNamedImage:[self getImageNameByGrade:kpi.alertGrade_h.intValue] frame:CGRectMake(200, 170, 20, 20) ]];
+    }
+    
+    UIButton* cancelButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [cancelButton setImage:[UIImage imageNamed:@"blue_button_dark.png"] forState:UIControlStateNormal];
+    [cancelButton addTarget:self action:@selector(cancelSetting) forControlEvents:UIControlEventTouchUpInside];
+    [cancelButton addSubview:[self createLabel:@"返回" frame:CGRectMake(0, 0, 70, 30) textColor:@"#ffffff" font:22 backgroundColor:nil textAlignment:ALIGN_CENTER]];
+    cancelButton.frame = CGRectMake(95, popupViewHeight-40, 70, 30);
     [self.popupView addSubview:cancelButton];
     [self.backgroundShadowView addSubview:self.popupView];
     self.backgroundShadowView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.3f];
@@ -387,20 +442,15 @@
         Kpi* kpi = [kpis objectAtIndex:i];
         [pointNameView addSubview:[self createLabel:kpi.pointName frame:CGRectMake(1, rowHeight*(i+1), 59, rowHeight) textColor:@"#000000" font:12 backgroundColor:@"#ffffff" textAlignment:ALIGN_CENTER]];
        [rightDataView addSubview:[self createLabel:[dateFormatter stringFromDate:kpi.dacTime] frame:CGRectMake(1, rowHeight*(i+1), 59, rowHeight) textColor:@"#000000" font:12 backgroundColor:@"#ffffff" textAlignment:ALIGN_CENTER]];
-        NSString* imageName=nil;
-        if(kpi.alertGrade.intValue==0){
-            imageName = @"on.jpg";
-        }else if(kpi.alertGrade.intValue==1){
-            imageName = @"yellow.png";
-        }else if(kpi.alertGrade.intValue==2){
-            imageName = @"orange.png";
-        }else if(kpi.alertGrade.intValue==3){
-            imageName = @"red.png";
-        }
-        UIView* imageBgView= [[[UIView alloc] initWithFrame:CGRectMake(61, rowHeight*(i+1), 59, rowHeight)] autorelease];
-        imageBgView.backgroundColor = [UIColor whiteColor];
+        
+        KpiButton* imageBgView = [KpiButton buttonWithType:UIButtonTypeCustom];
+        imageBgView.kpi = kpi;
+        [imageBgView addTarget:self action:@selector(showDetailKpi:) forControlEvents:UIControlEventTouchUpInside];
+        imageBgView.backgroundColor=[UIColor whiteColor];
+        imageBgView.frame=CGRectMake(61, rowHeight*(i+1), 59, rowHeight);
+
         [rightDataView addSubview:imageBgView];
-        [rightDataView addSubview:[self createImageViewFromNamedImage:imageName frame:CGRectMake(61+(59-rowHeight)/2, rowHeight*(i+1), rowHeight, rowHeight)]];
+        [rightDataView addSubview:[self createImageViewFromNamedImage:[self getImageNameByGrade:kpi.alertGrade.intValue] frame:CGRectMake(61+(59-rowHeight)/2, rowHeight*(i+1), rowHeight, rowHeight)]];
         
         [rightDataView addSubview:[self createLabel:[NSString stringWithFormat:@"%@",kpi.v1] frame:CGRectMake(121, rowHeight*(i+1), 59, 20) textColor:[self getTextColorByGrade:kpi.alertGrade_x.intValue] font:12 backgroundColor:@"#ffffff" textAlignment:ALIGN_CENTER]];
         
@@ -410,7 +460,21 @@
     }
     return dataView;
 }
-
+-(NSString*) getImageNameByGrade:(int)grade{
+    NSString* imageName=nil;
+    if(grade==0){
+        imageName = @"on.jpg";
+    }else if(grade==1){
+        imageName = @"yellow.png";
+    }else if(grade==2){
+        imageName = @"orange.png";
+    }else if(grade==3){
+        imageName = @"red.png";
+    }else{
+        imageName = @"on.jpg";
+    }
+    return imageName;
+}
 -(NSString*) getTextColorByGrade:(int)grade{
     if(grade==0){
         return @"#000000";
