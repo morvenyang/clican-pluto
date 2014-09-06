@@ -47,11 +47,17 @@
     self.navigationController.navigationBarHidden = YES;
     self.view.backgroundColor = [UIColor whiteColor];
     CGRect frame = [[UIScreen mainScreen] bounds];
-    [self.view addSubview:[self createImageViewFromNamedImage:@"main_background.png" frame:CGRectMake(0, 22, 320, frame.size.height-22)]];
-    [self.view addSubview:[self createImageViewFromNamedImage:@"title_logo_v15.png" frame:CGRectMake(2, 24, 24, 26)]];
-    [self.view addSubview:[self createLabel:@"华测自动化检测与预警系统" frame:CGRectMake(27, 20, 200, 30) textColor:@"#ffffff" font:15 backgroundColor:nil textAlignment:ALIGN_LEFT]];
-    [self.view addSubview:[self createImageViewFromNamedImage:@"clear.png" frame:CGRectMake(290, 24, 26, 26)]];
-    self.topImageView = [self createImageViewFromNamedImage:@"default_pic_1.jpg" frame:CGRectMake(0, 50, 320, 130)];
+    CGFloat height = 0;
+    #ifdef __IPHONE_7_0
+    if(DEVICE_VERSION>=7.0){
+        height = 22;
+    }
+    #endif
+    [self.view addSubview:[self createImageViewFromNamedImage:@"main_background.png" frame:CGRectMake(0, height, 320, frame.size.height-height)]];
+    [self.view addSubview:[self createImageViewFromNamedImage:@"title_logo_v15.png" frame:CGRectMake(2, 2+height, 24, 26)]];
+    [self.view addSubview:[self createLabel:@"华测自动化检测与预警系统" frame:CGRectMake(27, height-2, 200, 30) textColor:@"#ffffff" font:15 backgroundColor:nil textAlignment:ALIGN_LEFT]];
+    [self.view addSubview:[self createImageViewFromNamedImage:@"clear.png" frame:CGRectMake(290, 2+height, 26, 26)]];
+    self.topImageView = [self createImageViewFromNamedImage:@"default_pic_1.jpg" frame:CGRectMake(0, height+28, 320, 130)];
     [self.view addSubview:self.topImageView];
     
     UISwipeGestureRecognizer* swipeGestureRight = [[[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(switchImage:)] autorelease];
@@ -65,11 +71,11 @@
     NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
     [dateFormatter setDateFormat:@"yyyy年MM月dd日 EEEE"];
     
-    [self.view addSubview:[self createLabel:[dateFormatter stringFromDate:[NSDate date]] frame:CGRectMake(10, 180, 150, 20) textColor:@"#ffffff" font:12 backgroundColor:nil textAlignment:ALIGN_LEFT]];
+    [self.view addSubview:[self createLabel:[dateFormatter stringFromDate:[NSDate date]] frame:CGRectMake(10, height+158, 150, 20) textColor:@"#ffffff" font:12 backgroundColor:nil textAlignment:ALIGN_LEFT]];
     
-    [self.view addSubview:[self createPaginationView:180]];
-    [self.view addSubview:[self createMenuView]];
-    [self.view addSubview:[self createSettingView]];
+    [self.view addSubview:[self createPaginationView:height+158]];
+    [self.view addSubview:[self createMenuView:height+178]];
+    [self.view addSubview:[self createSettingView:height+308]];
     [self.view addSubview:[self createFooterView]];
     self.backgroundShadowView = [[[UIView alloc] initWithFrame:frame] autorelease];
     
@@ -97,29 +103,29 @@
         height=568;
     }
     [self.view addSubview:self.backgroundShadowView];
-    CGFloat popupViewHeight = 350;
+    CGFloat popupViewHeight = 280;
     self.popupView = [[[UIView alloc] initWithFrame:CGRectMake(30, (height-popupViewHeight)/2, 260, popupViewHeight)] autorelease];
     self.popupView.layer.masksToBounds=YES;
     self.popupView.layer.cornerRadius =6;
     self.popupView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6f];
     [self.popupView addSubview:[self createLabel:@"帐号" frame:CGRectMake(20, 0, 220, 60) textColor:@"#ffffff" font:24 backgroundColor:nil textAlignment:ALIGN_LEFT]];
-    self.userNameTextField =[self createTextFieldWithFrame:CGRectMake(20, 70, 220, 30) defaultValue:[self getValueByKey:LAST_USER_NAME]];
+    self.userNameTextField =[self createTextFieldWithFrame:CGRectMake(20, 60, 220, 30) defaultValue:[self getValueByKey:LAST_USER_NAME] security:NO];
     [self.popupView addSubview:self.userNameTextField];
     
-    [self.popupView addSubview:[self createLabel:@"密码" frame:CGRectMake(20, 110, 220, 60) textColor:@"#ffffff" font:24 backgroundColor:nil textAlignment:ALIGN_LEFT]];
+    [self.popupView addSubview:[self createLabel:@"密码" frame:CGRectMake(20, 90, 220, 60) textColor:@"#ffffff" font:24 backgroundColor:nil textAlignment:ALIGN_LEFT]];
     NSString* rb = [self getValueByKey:REMEMBER_PASSWORD];
     if(rb!=nil&&[rb isEqualToString:@"true"]){
-        self.passwordTextField =[self createTextFieldWithFrame:CGRectMake(20, 180, 220, 30) defaultValue:[self getValueByKey:LAST_PASSWORD]];
+        self.passwordTextField =[self createTextFieldWithFrame:CGRectMake(20, 150, 220, 30) defaultValue:[self getValueByKey:LAST_PASSWORD] security:YES];
     }else{
-        self.passwordTextField =[self createTextFieldWithFrame:CGRectMake(20, 180, 220, 30) defaultValue:nil];
+        self.passwordTextField =[self createTextFieldWithFrame:CGRectMake(20, 150, 220, 30) defaultValue:nil security:YES];
     }
     
     [self.popupView addSubview:self.passwordTextField];
     
-    [self.popupView addSubview:[self createLabel:@"记住密码" frame:CGRectMake(20, 220, 120, 60) textColor:@"#ffffff" font:24 backgroundColor:nil textAlignment:ALIGN_LEFT]];
-    self.rememberPasswordSwitch = [[[UISwitch alloc] initWithFrame:CGRectMake(150, 235, 80, 40)] autorelease];
+    [self.popupView addSubview:[self createLabel:@"记住密码" frame:CGRectMake(20, 180, 120, 60) textColor:@"#ffffff" font:24 backgroundColor:nil textAlignment:ALIGN_LEFT]];
+    self.rememberPasswordSwitch = [[[UISwitch alloc] initWithFrame:CGRectMake(150, 195, 80, 40)] autorelease];
     if(rb!=nil&&[rb isEqualToString:@"true"]){
-        self.rememberPasswordSwitch.enabled =YES;
+        self.rememberPasswordSwitch.on =YES;
     }
     [self.popupView addSubview:self.rememberPasswordSwitch];
     UIButton* saveButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -127,12 +133,12 @@
     [saveButton setImage:[UIImage imageNamed:@"blue_button.png"] forState:UIControlStateNormal];
     [saveButton addTarget:self action:@selector(saveSetting) forControlEvents:UIControlEventTouchUpInside];
     [saveButton addSubview:[self createLabel:@"登录" frame:CGRectMake(0, 0, 70, 30) textColor:@"#ffffff" font:22 backgroundColor:nil textAlignment:ALIGN_CENTER]];
-    saveButton.frame = CGRectMake(20, 260+40, 70, 30);
+    saveButton.frame = CGRectMake(20, 240, 70, 30);
     UIButton* cancelButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [cancelButton setImage:[UIImage imageNamed:@"blue_button_dark.png"] forState:UIControlStateNormal];
     [cancelButton addTarget:self action:@selector(cancelSetting) forControlEvents:UIControlEventTouchUpInside];
     [cancelButton addSubview:[self createLabel:@"取消" frame:CGRectMake(0, 0, 70, 30) textColor:@"#ffffff" font:22 backgroundColor:nil textAlignment:ALIGN_CENTER]];
-    cancelButton.frame = CGRectMake(170, 260+40, 70, 30);
+    cancelButton.frame = CGRectMake(170, 240, 70, 30);
     [self.popupView addSubview:saveButton];
     [self.popupView addSubview:cancelButton];
     [self.backgroundShadowView addSubview:self.popupView];
@@ -172,7 +178,7 @@
         [self.popupView addSubview:self.projectPicker];
     }else{
         heightOffset = 30+70;
-        self.popupTextField =[self createTextFieldWithFrame:CGRectMake(20, 70, 220, 30) defaultValue:[self getValueByKey:self.settingKey]];
+        self.popupTextField =[self createTextFieldWithFrame:CGRectMake(20, 70, 220, 30) defaultValue:[self getValueByKey:self.settingKey] security:NO];
         [self.popupView addSubview:self.popupTextField];
     }
     
@@ -196,7 +202,7 @@
         [self.popupView layoutIfNeeded];
     }];
 }
--(UITextField*) createTextFieldWithFrame:(CGRect)frame defaultValue:(NSString*) defaultValue{
+-(UITextField*) createTextFieldWithFrame:(CGRect)frame defaultValue:(NSString*) defaultValue security:(BOOL)security{
     UITextField* field = [[UITextField alloc] initWithFrame:frame];
     field.backgroundColor = [UIColor whiteColor];
     field.layer.borderWidth=1;
@@ -211,6 +217,7 @@
     field.clearButtonMode = UITextFieldViewModeAlways;
     field.contentVerticalAlignment = UIControlContentHorizontalAlignmentCenter;
     field.text = defaultValue;
+    field.secureTextEntry = security;
     field.delegate = self;
     return field;
 }
@@ -226,7 +233,7 @@
     }else if([self.settingKey isEqualToString:LOGIN]){
          [self setValue:[self.userNameTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] byKey:LAST_USER_NAME];
         [self setValue:[self.passwordTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] byKey:LAST_PASSWORD];
-        if(self.rememberPasswordSwitch.enabled){
+        if(self.rememberPasswordSwitch.on){
             [self setValue:@"true" byKey:REMEMBER_PASSWORD];
         }else{
             [self setValue:@"false" byKey:REMEMBER_PASSWORD];
@@ -302,8 +309,8 @@
         }
     }
 }
--(UIView*)createMenuView{
-    UIScrollView* menuView = [[[UIScrollView alloc] initWithFrame:CGRectMake(0, 200, 320, 130)] autorelease];
+-(UIView*)createMenuView:(int)y{
+    UIScrollView* menuView = [[[UIScrollView alloc] initWithFrame:CGRectMake(0, y, 320, 130)] autorelease];
     NSArray* imageArray = [NSArray arrayWithObjects:@"logo_xtgl.png",@"logo_ksw.png",@"logo_zxgt.png",@"logo_dqwd.png",@"logo_dqsd.png",@"logo_dqyl.png",@"logo_fs.png",@"logo_fx.png",@"logo_yl.png",@"logo_bmwy.png",@"logo_jrx.png",@"logo_nbwy.png",@"logo_sl.png",@"logo_tyl.png",@"logo_thsl.png",@"logo_lf.png",@"logo_rxwy.png",@"logo_wd.png", nil];
     NSArray* nameArray = [NSArray arrayWithObjects:@"系统设置",@"库水位",@"干滩",@"大气温度",@"大气湿度",@"大气气压",@"风速",@"风向",@"雨量",@"表面位移",@"浸润线",@"内部位移",@"滲流",@"土压力",@"土壤含水率",@"裂缝",@"柔性位移",@"土壤温度", nil];
     
@@ -335,12 +342,12 @@
     return menuView;
 }
 
--(UIView*)createSettingView{
+-(UIView*)createSettingView:(int)y{
     CGFloat height = 480;
     if(IS_IPHONE5){
         height=568;
     }
-    UIScrollView* settingView = [[[UIScrollView alloc] initWithFrame:CGRectMake(0, 330, 320, height-330-30)] autorelease];
+    UIScrollView* settingView = [[[UIScrollView alloc] initWithFrame:CGRectMake(0, y, 320, height-y-30)] autorelease];
     settingView.contentSize = CGSizeMake(320, 400);
     TTTableView* tableView = [[[TTTableView alloc] initWithFrame:CGRectMake(0, 0, 320, 400)] autorelease];
     tableView.scrollEnabled=NO;
@@ -376,6 +383,13 @@
     if(IS_IPHONE5){
         height=568;
     }
+    height = height-22;
+    #ifdef __IPHONE_7_0
+    if(DEVICE_VERSION>=7.0){
+        height = height+22;
+    }
+    #endif
+    
     UIView* footerView = [[[UIView alloc] initWithFrame:CGRectMake(0, height-30, 320, 30)] autorelease];
     footerView.backgroundColor = [StyleSheet colorFromHexString:@"#000080"];
     self.footLabel =[self createLabel:@"请登录" frame:CGRectMake(10,0,100,30) textColor:@"#ff0000" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT];
