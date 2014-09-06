@@ -21,6 +21,10 @@
 @synthesize settingKey = _settingKey;
 @synthesize settingName = _settingName;
 @synthesize projectPicker = _projectPicker;
+@synthesize userNameTextField = _userNameTextField;
+@synthesize passwordTextField = _passwordTextField;
+@synthesize rememberPasswordSwitch = _rememberPasswordSwitch;
+@synthesize footLabel = _footLabel;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -81,7 +85,56 @@
     [self showSettingPopupView];
 }
 -(void)showLoginPopupView{
+    self.settingKey = LOGIN;
+    CGFloat height = 480;
+    if(IS_IPHONE5){
+        height=568;
+    }
+    [self.view addSubview:self.backgroundShadowView];
+    CGFloat popupViewHeight = 350;
+    self.popupView = [[[UIView alloc] initWithFrame:CGRectMake(30, (height-popupViewHeight)/2, 260, popupViewHeight)] autorelease];
+    self.popupView.layer.masksToBounds=YES;
+    self.popupView.layer.cornerRadius =6;
+    self.popupView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6f];
+    [self.popupView addSubview:[self createLabel:@"帐号" frame:CGRectMake(20, 0, 220, 60) textColor:@"#ffffff" font:24 backgroundColor:nil textAlignment:ALIGN_LEFT]];
+    self.userNameTextField =[self createTextFieldWithFrame:CGRectMake(20, 70, 220, 30) defaultValue:[self getValueByKey:LAST_USER_NAME]];
+    [self.popupView addSubview:self.userNameTextField];
     
+    [self.popupView addSubview:[self createLabel:@"密码" frame:CGRectMake(20, 110, 220, 60) textColor:@"#ffffff" font:24 backgroundColor:nil textAlignment:ALIGN_LEFT]];
+    NSString* rb = [self getValueByKey:REMEMBER_PASSWORD];
+    if(rb!=nil&&[rb isEqualToString:@"true"]){
+        self.passwordTextField =[self createTextFieldWithFrame:CGRectMake(20, 180, 220, 30) defaultValue:[self getValueByKey:LAST_PASSWORD]];
+    }else{
+        self.passwordTextField =[self createTextFieldWithFrame:CGRectMake(20, 180, 220, 30) defaultValue:nil];
+    }
+    
+    [self.popupView addSubview:self.passwordTextField];
+    
+    [self.popupView addSubview:[self createLabel:@"记住密码" frame:CGRectMake(20, 220, 120, 60) textColor:@"#ffffff" font:24 backgroundColor:nil textAlignment:ALIGN_LEFT]];
+    self.rememberPasswordSwitch = [[[UISwitch alloc] initWithFrame:CGRectMake(150, 235, 80, 40)] autorelease];
+    if(rb!=nil&&[rb isEqualToString:@"true"]){
+        self.rememberPasswordSwitch.enabled =YES;
+    }
+    [self.popupView addSubview:self.rememberPasswordSwitch];
+    UIButton* saveButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    
+    [saveButton setImage:[UIImage imageNamed:@"blue_button.png"] forState:UIControlStateNormal];
+    [saveButton addTarget:self action:@selector(saveSetting) forControlEvents:UIControlEventTouchUpInside];
+    [saveButton addSubview:[self createLabel:@"登录" frame:CGRectMake(0, 0, 70, 30) textColor:@"#ffffff" font:22 backgroundColor:nil textAlignment:ALIGN_CENTER]];
+    saveButton.frame = CGRectMake(20, 260+40, 70, 30);
+    UIButton* cancelButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [cancelButton setImage:[UIImage imageNamed:@"blue_button_dark.png"] forState:UIControlStateNormal];
+    [cancelButton addTarget:self action:@selector(cancelSetting) forControlEvents:UIControlEventTouchUpInside];
+    [cancelButton addSubview:[self createLabel:@"取消" frame:CGRectMake(0, 0, 70, 30) textColor:@"#ffffff" font:22 backgroundColor:nil textAlignment:ALIGN_CENTER]];
+    cancelButton.frame = CGRectMake(170, 260+40, 70, 30);
+    [self.popupView addSubview:saveButton];
+    [self.popupView addSubview:cancelButton];
+    [self.backgroundShadowView addSubview:self.popupView];
+    self.backgroundShadowView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.3f];
+    [UIView animateWithDuration:0.25f animations:^{
+        self.popupView.alpha = 1;
+        [self.popupView layoutIfNeeded];
+    }];
 }
 -(void)showSettingPopupView{
     [self.view addSubview:self.backgroundShadowView];
@@ -94,7 +147,7 @@
         popupViewHeight = 300;
     }
     CGFloat heightOffset = 0;
-    self.popupView = [[[UIView alloc] initWithFrame:CGRectMake(30, (568-popupViewHeight)/2, 260, popupViewHeight)] autorelease];
+    self.popupView = [[[UIView alloc] initWithFrame:CGRectMake(30, (height-popupViewHeight)/2, 260, popupViewHeight)] autorelease];
     self.popupView.layer.masksToBounds=YES;
     self.popupView.layer.cornerRadius =6;
     self.popupView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6f];
@@ -112,20 +165,7 @@
         [self.popupView addSubview:self.projectPicker];
     }else{
         heightOffset = 30+70;
-        self.popupTextField = [[UITextField alloc] initWithFrame:CGRectMake(20, 70, 220, 30)];
-        self.popupTextField.backgroundColor = [UIColor whiteColor];
-        self.popupTextField.layer.borderWidth=1;
-        self.popupTextField.layer.borderColor= [[StyleSheet colorFromHexString:@"#ff8040"] CGColor];
-        self.popupTextField.font = [UIFont fontWithName:@"Microsoft YaHei" size:24];
-        self.popupTextField.textColor = [StyleSheet colorFromHexString:@"#a3a3a3"];
-        
-        self.popupTextField.autocorrectionType = UITextAutocorrectionTypeNo;
-        self.popupTextField.keyboardType = UIKeyboardTypeDefault;
-        self.popupTextField.returnKeyType = UIReturnKeyDone;
-        
-        self.popupTextField.clearButtonMode = UITextFieldViewModeAlways;
-        self.popupTextField.contentVerticalAlignment = UIControlContentHorizontalAlignmentCenter;
-        self.popupTextField.text = [self getValueByKey:self.settingKey];
+        self.popupTextField =[self createTextFieldWithFrame:CGRectMake(20, 70, 220, 30) defaultValue:[self getValueByKey:self.settingKey]];
         [self.popupView addSubview:self.popupTextField];
     }
     
@@ -149,10 +189,36 @@
         [self.popupView layoutIfNeeded];
     }];
 }
+-(UITextField*) createTextFieldWithFrame:(CGRect)frame defaultValue:(NSString*) defaultValue{
+    UITextField* field = [[UITextField alloc] initWithFrame:frame];
+    field.backgroundColor = [UIColor whiteColor];
+    field.layer.borderWidth=1;
+    field.layer.borderColor= [[StyleSheet colorFromHexString:@"#ff8040"] CGColor];
+    field.font = [UIFont fontWithName:@"Microsoft YaHei" size:24];
+    field.textColor = [StyleSheet colorFromHexString:@"#a3a3a3"];
+    
+    field.autocorrectionType = UITextAutocorrectionTypeNo;
+    field.keyboardType = UIKeyboardTypeDefault;
+    field.returnKeyType = UIReturnKeyDone;
+    
+    field.clearButtonMode = UITextFieldViewModeAlways;
+    field.contentVerticalAlignment = UIControlContentHorizontalAlignmentCenter;
+    field.text = defaultValue;
+    return field;
+}
 -(void)saveSetting{
-    if([self.settingKey isEqual:PROJECT_NAME]){
+    if([self.settingKey isEqualToString:PROJECT_NAME]){
         NSInteger rowIndex = [self.projectPicker numberOfRowsInComponent:1];
         [self setValue:@"1" byKey:self.settingKey];
+    }else if([self.settingKey isEqualToString:LOGIN]){
+         [self setValue:[self.userNameTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] byKey:LAST_USER_NAME];
+        [self setValue:[self.passwordTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] byKey:LAST_PASSWORD];
+        if(self.rememberPasswordSwitch.enabled){
+            [self setValue:@"true" byKey:REMEMBER_PASSWORD];
+        }else{
+            [self setValue:@"false" byKey:REMEMBER_PASSWORD];
+        }
+        
     }else{
         [self setValue:[self.popupTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] byKey:self.settingKey];
     }
@@ -297,7 +363,8 @@
     }
     UIView* footerView = [[[UIView alloc] initWithFrame:CGRectMake(0, height-30, 320, 30)] autorelease];
     footerView.backgroundColor = [StyleSheet colorFromHexString:@"#000080"];
-    [footerView addSubview:[self createLabel:@"请登录" frame:CGRectMake(10,0,100,30) textColor:@"#ff0000" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
+    self.footLabel =[self createLabel:@"请登录" frame:CGRectMake(10,0,100,30) textColor:@"#ff0000" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT];
+    [footerView addSubview:self.footLabel];
     UIButton* loginButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [loginButton setImage:[UIImage imageNamed:@"blue_button.png"] forState:UIControlStateNormal];
     [loginButton addTarget:self action:@selector(showLoginPopupView) forControlEvents:UIControlEventTouchUpInside];
