@@ -9,6 +9,7 @@
 #import "IndexViewController.h"
 #import "StyleSheet.h"
 #import "Constants.h"
+#import "AppDelegate.h"
 @implementation IndexViewController
 @synthesize imageIndex = _imageIndex;
 @synthesize pointImageViews = _pointImageViews;
@@ -25,6 +26,7 @@
 @synthesize passwordTextField = _passwordTextField;
 @synthesize rememberPasswordSwitch = _rememberPasswordSwitch;
 @synthesize footLabel = _footLabel;
+@synthesize progressHUD = _progressHUD;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -33,6 +35,10 @@
         self.pointImageViews = [NSMutableArray array];
         self.menuBgImageViews =[NSMutableArray array];
         self.menuButtonViews =[NSMutableArray array];
+        
+        _loginModel = [[LoginModel alloc] init];
+        _loginModel.delegate = self;
+        
     }
     return self;
 }
@@ -156,6 +162,7 @@
     if([self.settingKey isEqual:PROJECT_NAME]){
         heightOffset = 140+70;
         self.projectPicker = [[[UIPickerView alloc] initWithFrame:CGRectMake(20, 70, 220, 140)] autorelease];
+        self.projectPicker = [[[UIPickerView alloc] initWithFrame:CGRectMake(20, 70, 220, 140)] autorelease];
         self.projectPicker.dataSource = self;
         self.projectPicker.delegate = self;
         self.projectPicker.layer.masksToBounds=YES;
@@ -204,8 +211,14 @@
     field.clearButtonMode = UITextFieldViewModeAlways;
     field.contentVerticalAlignment = UIControlContentHorizontalAlignmentCenter;
     field.text = defaultValue;
+    field.delegate = self;
     return field;
 }
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField; {
+    return [textField resignFirstResponder];
+}
+
 -(void)saveSetting{
     if([self.settingKey isEqualToString:PROJECT_NAME]){
         NSInteger rowIndex = [self.projectPicker numberOfRowsInComponent:1];
@@ -219,6 +232,7 @@
             [self setValue:@"false" byKey:REMEMBER_PASSWORD];
         }
         
+        [_loginModel login:self.userNameTextField.text password:self.passwordTextField.text];
     }else{
         [self setValue:[self.popupTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] byKey:self.settingKey];
     }
@@ -348,10 +362,11 @@
     #ifdef __IPHONE_7_0
     if(DEVICE_VERSION>=7.0){
         tableView.separatorInset = UIEdgeInsetsZero;
+        tableView.sectionIndexBackgroundColor=[UIColor blackColor];
     }
     #endif
     tableView.separatorColor = [UIColor blackColor];
-    tableView.sectionIndexBackgroundColor=[UIColor blackColor];
+
     [settingView addSubview:tableView];
     return settingView;
 }
@@ -507,6 +522,58 @@
     }else{
         return @"2";
     }
+}
+
+
+#pragma mark -
+#pragma mark LoginDelegate
+
+- (void)loginStart:(User*) user
+{
+    self.progressHUD = [[[MBProgressHUD alloc] initWithView:self.view] autorelease];
+    self.progressHUD.delegate = self;
+    self.progressHUD.labelText = @"登录中...";
+    [self.view addSubview:self.progressHUD];
+    [self.view bringSubviewToFront:self.progressHUD];
+    [self.progressHUD show:YES];
+    
+}
+
+- (void)loginSuccess:(User*) user
+{
+    [self.progressHUD hide:NO];
+    self.footLabel.text = user.username;
+}
+- (void)loginFailed:(NSError*) error message:(NSString*) message
+{
+    [self.progressHUD hide:NO];
+    //-1004 connection is not available
+    //-1001 timeout
+    if([error code]==-1004||[error code]==-1001){
+        TTAlert(@"请检查网络链接");
+    }else{
+        if(message){
+            TTAlert(message);
+        }else{
+            TTAlert([error localizedDescription]);
+        }
+    }
+    
+}
+
+
+
+#pragma mark -
+#pragma mark MBProgressHUDDelegate methods
+
+#pragma mark -
+#pragma mark MBProgressHUDDelegate methods
+
+- (void)hudWasHidden:(MBProgressHUD *)hud {
+    // Remove HUD from screen when the HUD was hidded
+    [_progressHUD removeFromSuperview];
+    [_progressHUD release];
+    _progressHUD = nil;
 }
 
 - (void)dealloc

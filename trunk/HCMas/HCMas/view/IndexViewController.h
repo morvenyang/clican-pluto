@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface IndexViewController : UIViewController<UITableViewDelegate,UIPickerViewDataSource,UIPickerViewDelegate>{
+#import "LoginModel.h"
+#import "MBProgressHUD.h"
+@interface IndexViewController : UIViewController<UITableViewDelegate,UIPickerViewDataSource,UIPickerViewDelegate,LoginDelegate,MBProgressHUDDelegate,UITextFieldDelegate>{
     int _imageIndex;
     NSMutableArray* _pointImageViews;
     UIImageView* _topImageView;
@@ -24,6 +25,8 @@
     NSString* _settingName;
     UIPickerView* _projectPicker;
     UILabel* _footLabel;
+    LoginModel* _loginModel;
+    MBProgressHUD* _progressHUD;
 }
 @property (nonatomic, assign) int imageIndex;
 @property (nonatomic, retain) NSMutableArray* pointImageViews;
@@ -35,9 +38,10 @@
 @property (nonatomic, retain) UITextField* popupTextField;
 @property (nonatomic, copy) NSString* settingKey;
 @property (nonatomic, copy) NSString* settingName;
-@property (nonatomic, copy) UIPickerView* projectPicker;
+@property (nonatomic, retain) UIPickerView* projectPicker;
 @property (nonatomic, retain) UITextField* userNameTextField;
 @property (nonatomic, retain) UITextField* passwordTextField;
 @property (nonatomic, retain) UISwitch* rememberPasswordSwitch;
 @property (nonatomic, retain) UILabel* footLabel;
+@property (nonatomic, retain) MBProgressHUD    *progressHUD;
 @end
