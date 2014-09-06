@@ -61,7 +61,7 @@
         NSArray* data = response.rootObject;
         NSLog(@"response.rootObject:%@",data);
 
-        NSDictionary* result = [NSDictionary dictionary];
+        NSMutableDictionary* result = [NSMutableDictionary dictionary];
         if(data.count>0){
             NSDateFormatter* dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
             [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
@@ -84,6 +84,13 @@
                     kpi.v1 =[kpiDict objectForKey:@"v1"];
                     kpi.v2 =[kpiDict objectForKey:@"v2"];
                     kpi.v3 =[kpiDict objectForKey:@"v3"];
+                    kpi.alertGrade =[kpiDict objectForKey:@"alertGrade"];
+                    kpi.alertGrade_x =[kpiDict objectForKey:@"alertGrade_x"];
+                    kpi.alertGrade_y =[kpiDict objectForKey:@"alertGrade_y"];
+                    kpi.alertGrade_h =[kpiDict objectForKey:@"alertGrade_h"];
+                    kpi.dis_x =[kpiDict objectForKey:@"dis_x"];
+                    kpi.dis_y =[kpiDict objectForKey:@"dis_y"];
+                    kpi.dis_h =[kpiDict objectForKey:@"dis_h"];
                     kpi.dacTime = [dateFormatter dateFromString:[kpiDict objectForKey:@"dacTime"]];
                     [resultArray addObject:kpi];
                 }

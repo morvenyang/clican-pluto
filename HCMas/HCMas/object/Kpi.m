@@ -15,6 +15,13 @@
 @synthesize type = _type;
 @synthesize dacTime = _dacTime;
 @synthesize pointName = _pointName;
+@synthesize alertGrade = _alertGrade;
+@synthesize alertGrade_x = _alertGrade_x;
+@synthesize alertGrade_y = _alertGrade_y;
+@synthesize alertGrade_h = _alertGrade_h;
+@synthesize dis_x = _dis_x;
+@synthesize dis_h = _dis_h;
+@synthesize dis_y = _dis_y;
 -(id)init{
     self = [super init];
     if(self){
@@ -29,6 +36,13 @@
     TT_RELEASE_SAFELY(_type);
     TT_RELEASE_SAFELY(_dacTime);
     TT_RELEASE_SAFELY(_pointName);
+    TT_RELEASE_SAFELY(_alertGrade);
+    TT_RELEASE_SAFELY(_alertGrade_x);
+    TT_RELEASE_SAFELY(_alertGrade_y);
+    TT_RELEASE_SAFELY(_alertGrade_h);
+    TT_RELEASE_SAFELY(_dis_x);
+    TT_RELEASE_SAFELY(_dis_h);
+    TT_RELEASE_SAFELY(_dis_y);
     [super dealloc];
 }
 @end

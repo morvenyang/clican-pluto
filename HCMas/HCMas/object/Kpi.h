@@ -15,6 +15,13 @@
     NSNumber* _v3;
     NSDate* _dacTime;
     NSString* _pointName;
+    NSNumber* _alertGrade;
+    NSNumber* _alertGrade_x;
+    NSNumber* _alertGrade_y;
+    NSNumber* _alertGrade_h;
+    NSNumber* _dis_x;
+    NSNumber* _dis_y;
+    NSNumber* _dis_h;
 }
 @property (nonatomic, retain) NSNumber* v1;
 @property (nonatomic, retain) NSNumber* v2;
@@ -22,4 +29,11 @@
 @property (nonatomic, copy) NSString* type;
 @property (nonatomic, retain) NSDate* dacTime;
 @property (nonatomic, copy) NSString* pointName;
+@property (nonatomic, retain) NSNumber* alertGrade;
+@property (nonatomic, retain) NSNumber* alertGrade_x;
+@property (nonatomic, retain) NSNumber* alertGrade_y;
+@property (nonatomic, retain) NSNumber* alertGrade_h;
+@property (nonatomic, retain) NSNumber* dis_x;
+@property (nonatomic, retain) NSNumber* dis_y;
+@property (nonatomic, retain) NSNumber* dis_h;
 @end
