@@ -77,7 +77,8 @@
     [self.view addSubview:[self createLabel:[dateFormatter stringFromDate:[NSDate date]] frame:CGRectMake(10, height+158, 150, 20) textColor:@"#ffffff" font:12 backgroundColor:nil textAlignment:ALIGN_LEFT]];
     
     [self.view addSubview:[self createPaginationView:height+158]];
-    [self.view addSubview:[self createMenuView:height+178]];
+    self.menuView = [self createMenuView:height+178];
+    [self.view addSubview:self.menuView];
     [self.view addSubview:[self createSettingView:height+308]];
     [self.view addSubview:[self createFooterView]];
     self.backgroundShadowView = [[[UIView alloc] initWithFrame:frame] autorelease];
@@ -181,7 +182,12 @@
         self.projectPicker.layer.masksToBounds=YES;
         self.projectPicker.layer.cornerRadius =6;
         self.projectPicker.backgroundColor = [UIColor colorWithWhite:15 alpha:0.7];
-
+        NSString* defaultIndex = [self getValueByKey:PROJECT_NAME];
+        int di = defaultIndex.intValue;
+        if(di>=self.projects.count){
+            di = 0;
+        }
+        [self.projectPicker selectRow:di inComponent:0 animated:NO];
         [self.popupView addSubview:self.projectPicker];
     }else{
         heightOffset = 30+70;
@@ -238,6 +244,7 @@
         NSInteger rowIndex = [self.projectPicker selectedRowInComponent:0];
         Project* project = (Project*)[self.projects objectAtIndex:rowIndex];
         HCMasAppDelegate.user.selectedProject = project;
+        [self setValue:[NSString stringWithFormat:@"%i",rowIndex] byKey:PROJECT_NAME];
     }else if([self.settingKey isEqualToString:LOGIN]){
          [self setValue:[self.userNameTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] byKey:LAST_USER_NAME];
         [self setValue:[self.passwordTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] byKey:LAST_PASSWORD];
@@ -321,27 +328,34 @@
     UIScrollView* menuView = [[[UIScrollView alloc] initWithFrame:CGRectMake(0, y, 320, 130)] autorelease];
     NSArray* imageArray = [NSArray arrayWithObjects:@"logo_xtgl.png",@"logo_ksw.png",@"logo_zxgt.png",@"logo_dqwd.png",@"logo_dqsd.png",@"logo_dqyl.png",@"logo_fs.png",@"logo_fx.png",@"logo_yl.png",@"logo_bmwy.png",@"logo_jrx.png",@"logo_nbwy.png",@"logo_sl.png",@"logo_tyl.png",@"logo_thsl.png",@"logo_lf.png",@"logo_rxwy.png",@"logo_wd.png", nil];
     NSArray* nameArray = [NSArray arrayWithObjects:@"系统设置",@"库水位",@"干滩",@"大气温度",@"大气湿度",@"大气气压",@"风速",@"风向",@"雨量",@"表面位移",@"浸润线",@"内部位移",@"滲流",@"土压力",@"土壤含水率",@"裂缝",@"柔性位移",@"土壤温度", nil];
+    NSArray* kpiTypeArray = [NSArray arrayWithObjects:@"系统设置",@"Reservoir",@"DryBeach",@"Dqwd",@"Dqsd",@"Dqyl",@"Fs",@"Fx",@"Rainfall",@"Surface",@"Saturation",@"Inner",@"SeeFlow",@"Tyl",@"Thsl",@"Lf",@"Rxwy",@"Wd", nil];
     
-    
+    int usedCount = 0;
     for(int i=0;i<imageArray.count;i++){
         int yoffset = 0;
         long xoffset = 0;
-        if(i>=imageArray.count/2){
+        if(usedCount>=imageArray.count/2){
             yoffset = 62;
             xoffset =-imageArray.count/2;
         }
-        
+        if (i!=0) {
+            NSString* kpi =[kpiTypeArray objectAtIndex:i];
+            if(![HCMasAppDelegate.user.selectedProject.kpis containsObject:kpi]){
+                continue;
+            }
+        }
         NSString* image =[imageArray objectAtIndex:i];
         NSString* name =[nameArray objectAtIndex:i];
-        UIButton* buttonView = [[UIButton alloc] initWithFrame:CGRectMake(16+(i+xoffset)*72, 5+yoffset, 40, 40)];
+        UIButton* buttonView = [[UIButton alloc] initWithFrame:CGRectMake(16+(usedCount+xoffset)*72, 5+yoffset, 40, 40)];
         [buttonView setImage:[UIImage imageNamed:image] forState:UIControlStateNormal];
         [buttonView addTarget:self action:@selector(selectMenu:) forControlEvents:UIControlEventTouchUpInside];
-        UIImageView* bgImageView = [self createImageViewFromNamedImage:@"bg_nopress.png" frame:CGRectMake(1+(i+xoffset)*72, 0+yoffset, 70, 60)];
+        UIImageView* bgImageView = [self createImageViewFromNamedImage:@"bg_nopress.png" frame:CGRectMake(1+(usedCount+xoffset)*72, 0+yoffset, 70, 60)];
         [self.menuBgImageViews addObject:bgImageView];
         [self.menuButtonViews addObject:buttonView];
         [menuView addSubview:bgImageView];
         [menuView addSubview:buttonView];
-        [menuView addSubview:[self createLabel:name frame:CGRectMake(2+(i+xoffset)*72, 45+yoffset, 70, 12) textColor:@"#000000" font:12 backgroundColor:nil textAlignment:ALIGN_CENTER]];
+        [menuView addSubview:[self createLabel:name frame:CGRectMake(2+(usedCount+xoffset)*72, 45+yoffset, 70, 12) textColor:@"#000000" font:12 backgroundColor:nil textAlignment:ALIGN_CENTER]];
+        usedCount++;
     }
     
     
@@ -594,7 +608,7 @@
 
 #pragma mark -
 #pragma mark ProjectDelegate methods
-- (void)loadStart{
+- (void)loadProjectStart{
     self.progressHUD = [[[MBProgressHUD alloc] initWithView:self.view] autorelease];
     self.progressHUD.delegate = self;
     self.progressHUD.labelText = @"加载项目...";
@@ -602,11 +616,28 @@
     [self.view bringSubviewToFront:self.progressHUD];
     [self.progressHUD show:YES];
 }
-- (void)loadSuccess:(NSArray*) projects{
+- (void)loadProjectSuccess:(NSArray*) projects{
     [self.progressHUD hide:NO];
     self.projects = projects;
+    if(self.projects!=nil&&self.projects.count>0){
+        NSString* defaultIndex = [self getValueByKey:PROJECT_NAME];
+        int di = defaultIndex.intValue;
+        if(di>=self.projects.count){
+            di = 0;
+        }
+        HCMasAppDelegate.user.selectedProject = [self.projects objectAtIndex:di];
+    }
+    CGFloat height = 0;
+    #ifdef __IPHONE_7_0
+    if(DEVICE_VERSION>=7.0){
+        height = 22;
+    }
+    #endif
+    [self.menuView removeFromSuperview];
+    self.menuView = [self createMenuView:height+178];
+    [self.view addSubview:self.menuView];
 }
-- (void)loadFailed:(NSError*) error message:(NSString*) message{
+- (void)loadProjectFailed:(NSError*) error message:(NSString*) message{
     [self.progressHUD hide:NO];
     //-1004 connection is not available
     //-1001 timeout

@@ -11,7 +11,9 @@
 @interface Project : NSObject{
     NSNumber *_projectId;
     NSString *_projectName;
+    NSArray *_kpis;
 }
 @property (nonatomic, retain) NSNumber* projectId;
 @property (nonatomic, copy) NSString* projectName;
+@property (nonatomic, retain) NSArray* kpis;
 @end

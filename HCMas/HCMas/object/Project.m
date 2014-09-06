@@ -11,7 +11,7 @@
 @implementation Project
 @synthesize projectName = _projectName;
 @synthesize projectId = _projectId;
-
+@synthesize kpis = kpis;
 -(id)init{
     self = [super init];
     if(self){
@@ -22,6 +22,7 @@
 - (void) dealloc {
     TT_RELEASE_SAFELY(_projectId);
     TT_RELEASE_SAFELY(_projectName);
+    TT_RELEASE_SAFELY(_kpis);
     [super dealloc];
 }
 @end
