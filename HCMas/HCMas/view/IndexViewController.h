@@ -9,7 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "LoginModel.h"
 #import "MBProgressHUD.h"
-@interface IndexViewController : UIViewController<UITableViewDelegate,UIPickerViewDataSource,UIPickerViewDelegate,LoginDelegate,MBProgressHUDDelegate,UITextFieldDelegate>{
+#import "ProjectModel.h"
+@interface IndexViewController : UIViewController<UITableViewDelegate,UIPickerViewDataSource,UIPickerViewDelegate,LoginDelegate,MBProgressHUDDelegate,UITextFieldDelegate,ProjectDelegate>{
     int _imageIndex;
     NSMutableArray* _pointImageViews;
     UIImageView* _topImageView;
@@ -27,6 +28,8 @@
     UILabel* _footLabel;
     LoginModel* _loginModel;
     MBProgressHUD* _progressHUD;
+    NSArray* _projects;
+    ProjectModel* _projectModel;
 }
 @property (nonatomic, assign) int imageIndex;
 @property (nonatomic, retain) NSMutableArray* pointImageViews;
@@ -44,4 +47,5 @@
 @property (nonatomic, retain) UISwitch* rememberPasswordSwitch;
 @property (nonatomic, retain) UILabel* footLabel;
 @property (nonatomic, retain) MBProgressHUD    *progressHUD;
+@property (nonatomic, retain) NSArray    *projects;
 @end

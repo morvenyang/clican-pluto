@@ -27,6 +27,7 @@
 @synthesize rememberPasswordSwitch = _rememberPasswordSwitch;
 @synthesize footLabel = _footLabel;
 @synthesize progressHUD = _progressHUD;
+@synthesize projects = _projects;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -39,6 +40,8 @@
         _loginModel = [[LoginModel alloc] init];
         _loginModel.delegate = self;
         
+        _projectModel = [[ProjectModel alloc] init];
+        _projectModel.delegate = self;
     }
     return self;
 }
@@ -82,6 +85,10 @@
 
 }
 -(void)showProjectSettingPopupView{
+    if(self.projects==nil||self.projects.count==0){
+        TTAlert(@"没有可选择的工程");
+        return;
+    }
     self.settingKey = PROJECT_NAME;
     self.settingName = @"请选择工程";
     [self showSettingPopupView];
@@ -228,8 +235,9 @@
 
 -(void)saveSetting{
     if([self.settingKey isEqualToString:PROJECT_NAME]){
-        NSInteger rowIndex = [self.projectPicker numberOfRowsInComponent:1];
-        [self setValue:@"1" byKey:self.settingKey];
+        NSInteger rowIndex = [self.projectPicker selectedRowInComponent:0];
+        Project* project = (Project*)[self.projects objectAtIndex:rowIndex];
+        HCMasAppDelegate.user.selectedProject = project;
     }else if([self.settingKey isEqualToString:LOGIN]){
          [self setValue:[self.userNameTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] byKey:LAST_USER_NAME];
         [self setValue:[self.passwordTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] byKey:LAST_PASSWORD];
@@ -527,15 +535,12 @@
 
 // returns the # of rows in each component..
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component{
-    return 2;
+    return self.projects.count;
 }
 
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component{
-    if(row==1){
-        return @"1";
-    }else{
-        return @"2";
-    }
+    Project* project = (Project*) [self.projects objectAtIndex:row];
+    return project.projectName;
 }
 
 
@@ -557,6 +562,7 @@
 {
     [self.progressHUD hide:NO];
     self.footLabel.text = user.username;
+    [_projectModel loadProjects];
 }
 - (void)loginFailed:(NSError*) error message:(NSString*) message
 {
@@ -579,10 +585,6 @@
 
 #pragma mark -
 #pragma mark MBProgressHUDDelegate methods
-
-#pragma mark -
-#pragma mark MBProgressHUDDelegate methods
-
 - (void)hudWasHidden:(MBProgressHUD *)hud {
     // Remove HUD from screen when the HUD was hidded
     [_progressHUD removeFromSuperview];
@@ -590,6 +592,34 @@
     _progressHUD = nil;
 }
 
+#pragma mark -
+#pragma mark ProjectDelegate methods
+- (void)loadStart{
+    self.progressHUD = [[[MBProgressHUD alloc] initWithView:self.view] autorelease];
+    self.progressHUD.delegate = self;
+    self.progressHUD.labelText = @"加载项目...";
+    [self.view addSubview:self.progressHUD];
+    [self.view bringSubviewToFront:self.progressHUD];
+    [self.progressHUD show:YES];
+}
+- (void)loadSuccess:(NSArray*) projects{
+    [self.progressHUD hide:NO];
+    self.projects = projects;
+}
+- (void)loadFailed:(NSError*) error message:(NSString*) message{
+    [self.progressHUD hide:NO];
+    //-1004 connection is not available
+    //-1001 timeout
+    if([error code]==-1004||[error code]==-1001){
+        TTAlert(@"请检查网络链接");
+    }else{
+        if(message){
+            TTAlert(message);
+        }else{
+            TTAlert([error localizedDescription]);
+        }
+    }
+}
 - (void)dealloc
 {
     TT_RELEASE_SAFELY(_pointImageViews);
