@@ -17,9 +17,13 @@
     UIView* _backgroundShadowView;
     UIView* _popupView;
     UITextField* _popupTextField;
+    UITextField* _userNameTextField;
+    UITextField* _passwordTextField;
+    UISwitch* _rememberPasswordSwitch;
     NSString* _settingKey;
     NSString* _settingName;
     UIPickerView* _projectPicker;
+    UILabel* _footLabel;
 }
 @property (nonatomic, assign) int imageIndex;
 @property (nonatomic, retain) NSMutableArray* pointImageViews;
@@ -32,4 +36,8 @@
 @property (nonatomic, copy) NSString* settingKey;
 @property (nonatomic, copy) NSString* settingName;
 @property (nonatomic, copy) UIPickerView* projectPicker;
+@property (nonatomic, retain) UITextField* userNameTextField;
+@property (nonatomic, retain) UITextField* passwordTextField;
+@property (nonatomic, retain) UISwitch* rememberPasswordSwitch;
+@property (nonatomic, retain) UILabel* footLabel;
 @end
