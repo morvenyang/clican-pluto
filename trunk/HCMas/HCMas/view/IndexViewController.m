@@ -190,8 +190,9 @@
     
     NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
     [dateFormatter setDateFormat:@"hh:mm:ss"];
-    [self.popupView addSubview:[self createLabel:[dateFormatter stringFromDate:kpi.dacTime] frame:CGRectMake(100, 40, 10, 40) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
-    if([kpi.type isEqualToString:@"Surface"]){
+    [self.popupView addSubview:[self createLabel:[dateFormatter stringFromDate:kpi.dacTime] frame:CGRectMake(100, 40, 100, 40) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
+    NSString* kpiType = kpi.type;
+    if([kpiType isEqualToString:@"Surface"]){
         [self.popupView addSubview:[self createLabel:@"Dx:" frame:CGRectMake(10, 80, 80, 40) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
         
         [self.popupView addSubview:[self createLabel:[NSString stringWithFormat:@"%@",kpi.dis_x] frame:CGRectMake(100, 80, 100, 40) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
@@ -206,6 +207,53 @@
         
         [self.popupView addSubview:[self createLabel:[NSString stringWithFormat:@"%@",kpi.dis_h] frame:CGRectMake(100, 160, 100, 40) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
         [self.popupView addSubview:[self createImageViewFromNamedImage:[self getImageNameByGrade:kpi.alertGrade_h.intValue] frame:CGRectMake(200, 170, 20, 20) ]];
+    }else if([kpiType isEqualToString:@"Inner"]){
+        [self.popupView addSubview:[self createLabel:@"Dx:" frame:CGRectMake(10, 80, 80, 40) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
+        
+        [self.popupView addSubview:[self createLabel:[NSString stringWithFormat:@"%@",kpi.dis_x] frame:CGRectMake(100, 80, 100, 40) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
+        [self.popupView addSubview:[self createImageViewFromNamedImage:[self getImageNameByGrade:kpi.alertGrade_x.intValue] frame:CGRectMake(200, 90, 20, 20) ]];
+        
+        [self.popupView addSubview:[self createLabel:@"Dy:" frame:CGRectMake(10, 120, 80, 40) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
+        
+        [self.popupView addSubview:[self createLabel:[NSString stringWithFormat:@"%@",kpi.dis_y] frame:CGRectMake(100, 120, 100, 40) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
+        [self.popupView addSubview:[self createImageViewFromNamedImage:[self getImageNameByGrade:kpi.alertGrade_y.intValue] frame:CGRectMake(200, 130, 20, 20) ]];
+    }else{
+        UILabel* valueLabel =[self createLabel:@"" frame:CGRectMake(10, 80, 80, 40) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT];
+        if([kpiType isEqualToString:@"Reservoir"]){
+            valueLabel.text = @"水位高程(m)";
+        }else if([kpiType isEqualToString:@"Saturation"]){
+            valueLabel.text = @"水位高程(m)";
+        }else if([kpiType isEqualToString:@"Rainfall"]){
+            valueLabel.text = @"降雨量(mm)";
+        }else if([kpiType isEqualToString:@"SeeFlow"]){
+            valueLabel.text = @"流速(m/s)";
+        }else if([kpiType isEqualToString:@"DryBeach"]){
+            valueLabel.text = @"干滩长度(m)";
+        }else if([kpiType isEqualToString:@"Tyl"]){
+            valueLabel.text = @"压力(Mpa)";
+        }else if([kpiType isEqualToString:@"Rxwy"]){
+            valueLabel.text = @"位移(m)";
+        }else if([kpiType isEqualToString:@"Lf"]){
+            valueLabel.text = @"裂缝(m)";
+        }else if([kpiType isEqualToString:@"Wd"]){
+            valueLabel.text = @"温度(℃)";
+        }else if([kpiType isEqualToString:@"Thsl"]){
+            valueLabel.text = @"土含水率(%)";
+        }else if([kpiType isEqualToString:@"Dqwd"]){
+            valueLabel.text = @"温度(℃)";
+        }else if([kpiType isEqualToString:@"Dqsd"]){
+            valueLabel.text = @"湿度(%)";
+        }else if([kpiType isEqualToString:@"Dqyl"]){
+            valueLabel.text = @"气压(Mpa)";
+        }else if([kpiType isEqualToString:@"Fx"]){
+            valueLabel.text = @"风向(°)";
+        }else if([kpiType isEqualToString:@"Fs"]){
+            valueLabel.text = @"风速(m/s)";
+        }
+        [self.popupView addSubview:valueLabel];
+        
+        [self.popupView addSubview:[self createLabel:[NSString stringWithFormat:@"%@",kpi.v1] frame:CGRectMake(100, 80, 100, 40) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
+        [self.popupView addSubview:[self createImageViewFromNamedImage:[self getImageNameByGrade:kpi.alertGrade.intValue] frame:CGRectMake(200, 90, 20, 20) ]];
     }
     
     UIButton* cancelButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -434,13 +482,53 @@
         [rightDataView addSubview:[self createLabel:@"Dx(mm)" frame:CGRectMake(121, 0, 59, 20) textColor:@"#000000" font:16 backgroundColor:@"#ffc90e" textAlignment:ALIGN_CENTER]];
         [rightDataView addSubview:[self createLabel:@"Dy(mm)" frame:CGRectMake(181, 0, 59, 20) textColor:@"#000000" font:16 backgroundColor:@"#ffc90e" textAlignment:ALIGN_CENTER]];
         [rightDataView addSubview:[self createLabel:@"Dh(mm)" frame:CGRectMake(241, 0, 59, 20) textColor:@"#000000" font:16 backgroundColor:@"#ffc90e" textAlignment:ALIGN_CENTER]];
-        rightDataView.contentSize = CGSizeMake(320, 300);
+            rightDataView.contentSize = CGSizeMake(320, 300);
+
+    }else if([kpiType isEqualToString:@"Inner"]){
+        [rightDataView addSubview:[self createLabel:@"Dx(mm)" frame:CGRectMake(121, 0, 69, 20) textColor:@"#000000" font:16 backgroundColor:@"#ffc90e" textAlignment:ALIGN_CENTER]];
+        [rightDataView addSubview:[self createLabel:@"Dy(mm)" frame:CGRectMake(191, 0, 69, 20) textColor:@"#000000" font:16 backgroundColor:@"#ffc90e" textAlignment:ALIGN_CENTER]];
+    }else{
+        UILabel* valueLabel =[self createLabel:@"水位高程(m)" frame:CGRectMake(121, 0, 138, 20) textColor:@"#000000" font:16 backgroundColor:@"#ffc90e" textAlignment:ALIGN_CENTER];
+        if([kpiType isEqualToString:@"Reservoir"]){
+            valueLabel.text = @"水位高程(m)";
+        }else if([kpiType isEqualToString:@"Saturation"]){
+            valueLabel.text = @"水位高程(m)";
+        }else if([kpiType isEqualToString:@"Rainfall"]){
+            valueLabel.text = @"降雨量(mm)";
+        }else if([kpiType isEqualToString:@"SeeFlow"]){
+            valueLabel.text = @"流速(m/s)";
+        }else if([kpiType isEqualToString:@"DryBeach"]){
+            valueLabel.text = @"干滩长度(m)";
+        }else if([kpiType isEqualToString:@"Tyl"]){
+            valueLabel.text = @"压力(Mpa)";
+        }else if([kpiType isEqualToString:@"Rxwy"]){
+            valueLabel.text = @"位移(m)";
+        }else if([kpiType isEqualToString:@"Lf"]){
+            valueLabel.text = @"裂缝(m)";
+        }else if([kpiType isEqualToString:@"Wd"]){
+            valueLabel.text = @"温度(℃)";
+        }else if([kpiType isEqualToString:@"Thsl"]){
+            valueLabel.text = @"土含水率(%)";
+        }else if([kpiType isEqualToString:@"Dqwd"]){
+            valueLabel.text = @"温度(℃)";
+        }else if([kpiType isEqualToString:@"Dqsd"]){
+            valueLabel.text = @"湿度(%)";
+        }else if([kpiType isEqualToString:@"Dqyl"]){
+            valueLabel.text = @"气压(Mpa)";
+        }else if([kpiType isEqualToString:@"Fx"]){
+            valueLabel.text = @"风向(°)";
+        }else if([kpiType isEqualToString:@"Fs"]){
+            valueLabel.text = @"风速(m/s)";
+        }
+        [rightDataView addSubview:valueLabel];
     }
     NSDateFormatter* dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
     [dateFormatter setDateFormat:@"HH:mm:ss"];
     for(int i=0;i<kpis.count;i++){
         Kpi* kpi = [kpis objectAtIndex:i];
+        
         [pointNameView addSubview:[self createLabel:kpi.pointName frame:CGRectMake(1, rowHeight*(i+1), 59, rowHeight) textColor:@"#000000" font:12 backgroundColor:@"#ffffff" textAlignment:ALIGN_CENTER]];
+
        [rightDataView addSubview:[self createLabel:[dateFormatter stringFromDate:kpi.dacTime] frame:CGRectMake(1, rowHeight*(i+1), 59, rowHeight) textColor:@"#000000" font:12 backgroundColor:@"#ffffff" textAlignment:ALIGN_CENTER]];
         
         KpiButton* imageBgView = [KpiButton buttonWithType:UIButtonTypeCustom];
@@ -451,12 +539,20 @@
 
         [rightDataView addSubview:imageBgView];
         [rightDataView addSubview:[self createImageViewFromNamedImage:[self getImageNameByGrade:kpi.alertGrade.intValue] frame:CGRectMake(61+(59-rowHeight)/2, rowHeight*(i+1), rowHeight, rowHeight)]];
+        if([kpiType isEqualToString:@"Surface"]){
+            [rightDataView addSubview:[self createLabel:[NSString stringWithFormat:@"%@",kpi.v1] frame:CGRectMake(121, rowHeight*(i+1), 59, 20) textColor:[self getTextColorByGrade:kpi.alertGrade_x.intValue] font:12 backgroundColor:@"#ffffff" textAlignment:ALIGN_CENTER]];
+            
+            [rightDataView addSubview:[self createLabel:[NSString stringWithFormat:@"%@",kpi.v2] frame:CGRectMake(181, rowHeight*(i+1), 59, 20) textColor:[self getTextColorByGrade:kpi.alertGrade_y.intValue] font:12 backgroundColor:@"#ffffff" textAlignment:ALIGN_CENTER]];
+            [rightDataView addSubview:[self createLabel:[NSString stringWithFormat:@"%@",kpi.v1] frame:CGRectMake(241, rowHeight*(i+1), 59, 20) textColor:[self getTextColorByGrade:kpi.alertGrade_h.intValue] font:12 backgroundColor:@"#ffffff" textAlignment:ALIGN_CENTER]];
+
+        }else if([kpiType isEqualToString:@"Inner"]){
+            [rightDataView addSubview:[self createLabel:[NSString stringWithFormat:@"%@",kpi.v1] frame:CGRectMake(121, rowHeight*(i+1), 69, 20) textColor:[self getTextColorByGrade:kpi.alertGrade_x.intValue] font:12 backgroundColor:@"#ffffff" textAlignment:ALIGN_CENTER]];
+            
+            [rightDataView addSubview:[self createLabel:[NSString stringWithFormat:@"%@",kpi.v2] frame:CGRectMake(191, rowHeight*(i+1), 69, 20) textColor:[self getTextColorByGrade:kpi.alertGrade_y.intValue] font:12 backgroundColor:@"#ffffff" textAlignment:ALIGN_CENTER]];
+        }else{
+            [rightDataView addSubview:[self createLabel:[NSString stringWithFormat:@"%@",kpi.v1] frame:CGRectMake(121, rowHeight*(i+1), 138, 20) textColor:[self getTextColorByGrade:kpi.alertGrade_x.intValue] font:12 backgroundColor:@"#ffffff" textAlignment:ALIGN_CENTER]];
+        }
         
-        [rightDataView addSubview:[self createLabel:[NSString stringWithFormat:@"%@",kpi.v1] frame:CGRectMake(121, rowHeight*(i+1), 59, 20) textColor:[self getTextColorByGrade:kpi.alertGrade_x.intValue] font:12 backgroundColor:@"#ffffff" textAlignment:ALIGN_CENTER]];
-        
-        [rightDataView addSubview:[self createLabel:[NSString stringWithFormat:@"%@",kpi.v2] frame:CGRectMake(181, rowHeight*(i+1), 59, 20) textColor:[self getTextColorByGrade:kpi.alertGrade_y.intValue] font:12 backgroundColor:@"#ffffff" textAlignment:ALIGN_CENTER]];
-        
-        [rightDataView addSubview:[self createLabel:[NSString stringWithFormat:@"%@",kpi.v1] frame:CGRectMake(241, rowHeight*(i+1), 59, 20) textColor:[self getTextColorByGrade:kpi.alertGrade_h.intValue] font:12 backgroundColor:@"#ffffff" textAlignment:ALIGN_CENTER]];
     }
     return dataView;
 }
