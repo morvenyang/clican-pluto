@@ -332,9 +332,15 @@ public class DataServiceImpl implements DataService {
 				((Surface) kpi).setV2(((Surface) dbKpi).getV2());
 				((Surface) kpi).setV3(((Surface) dbKpi).getV3());
 				Surface s = (Surface) kpi;
-				s.setDis_x(s.getV1() - s.getInit_x());
-				s.setDis_y(s.getV2() - s.getInit_y());
-				s.setDis_h(s.getV3() - s.getInit_h());
+				if(s.getV1()!=null){
+					s.setDis_x(s.getV1() - s.getInit_x());
+				}
+				if(s.getV2()!=null){
+					s.setDis_y(s.getV2() - s.getInit_y());
+				}
+				if(s.getV3()!=null){
+					s.setDis_h(s.getV3() - s.getInit_h());
+				}
 				// 数据越大告警越大
 				if (s.getDis_x() >= s.getRed_x()) {
 					s.setAlertGrade_x(3);
@@ -348,28 +354,32 @@ public class DataServiceImpl implements DataService {
 					s.setAlertGrade_x(0);
 				}
 
-				if (s.getDis_y() >= s.getRed_y()) {
-					s.setAlertGrade_y(3);
-				} else if (s.getDis_y() < s.getRed_y()
-						&& kpi.getV1() >= s.getOrange_y()) {
-					s.setAlertGrade_y(2);
-				} else if (s.getDis_y() < s.getOrange_y()
-						&& kpi.getV1() >= s.getYellow_y()) {
-					s.setAlertGrade_y(1);
-				} else {
-					s.setAlertGrade_y(0);
+				if(s.getDis_y()!=null){
+					if (s.getDis_y() >= s.getRed_y()) {
+						s.setAlertGrade_y(3);
+					} else if (s.getDis_y() < s.getRed_y()
+							&& kpi.getV1() >= s.getOrange_y()) {
+						s.setAlertGrade_y(2);
+					} else if (s.getDis_y() < s.getOrange_y()
+							&& kpi.getV1() >= s.getYellow_y()) {
+						s.setAlertGrade_y(1);
+					} else {
+						s.setAlertGrade_y(0);
+					}
 				}
-
-				if (s.getDis_h() >= s.getRed_h()) {
-					s.setAlertGrade_h(3);
-				} else if (s.getDis_h() < s.getRed_h()
-						&& kpi.getV1() >= s.getOrange_h()) {
-					s.setAlertGrade_h(2);
-				} else if (s.getDis_h() < s.getOrange_h()
-						&& kpi.getV1() >= s.getYellow_h()) {
-					s.setAlertGrade_h(1);
-				} else {
-					s.setAlertGrade_h(0);
+				
+				if(s.getDis_h()!=null){
+					if (s.getDis_h() >= s.getRed_h()) {
+						s.setAlertGrade_h(3);
+					} else if (s.getDis_h() < s.getRed_h()
+							&& kpi.getV1() >= s.getOrange_h()) {
+						s.setAlertGrade_h(2);
+					} else if (s.getDis_h() < s.getOrange_h()
+							&& kpi.getV1() >= s.getYellow_h()) {
+						s.setAlertGrade_h(1);
+					} else {
+						s.setAlertGrade_h(0);
+					}
 				}
 
 				s.setAlertGrade(s.getAlertGrade_x());
@@ -383,32 +393,42 @@ public class DataServiceImpl implements DataService {
 				((Inner) kpi).setV2(((Inner) dbKpi).getV2());
 
 				Inner s = (Inner) kpi;
-				s.setDis_x(s.getV1() - s.getInit_x());
-				s.setDis_y(s.getV2() - s.getInit_y());
+				if(s.getV1()!=null){
+					s.setDis_x(s.getV1() - s.getInit_x());
+				}
+				if(s.getV2()!=null){
+					s.setDis_y(s.getV2() - s.getInit_y());
+				}
+				
 				// 数据越大告警越大
-				if (s.getDis_x() >= s.getRed_x()) {
-					s.setAlertGrade_x(3);
-				} else if (s.getDis_x() < s.getRed_x()
-						&& kpi.getV1() >= s.getOrange_x()) {
-					s.setAlertGrade_x(2);
-				} else if (s.getDis_x() < s.getOrange_x()
-						&& kpi.getV1() >= s.getYellow_x()) {
-					s.setAlertGrade_x(1);
-				} else {
-					s.setAlertGrade_x(0);
+				if(s.getDis_x()!=null){
+					if (s.getDis_x() >= s.getRed_x()) {
+						s.setAlertGrade_x(3);
+					} else if (s.getDis_x() < s.getRed_x()
+							&& kpi.getV1() >= s.getOrange_x()) {
+						s.setAlertGrade_x(2);
+					} else if (s.getDis_x() < s.getOrange_x()
+							&& kpi.getV1() >= s.getYellow_x()) {
+						s.setAlertGrade_x(1);
+					} else {
+						s.setAlertGrade_x(0);
+					}
+				}
+				if(s.getDis_y()!=null){
+					if (s.getDis_y() >= s.getRed_y()) {
+						s.setAlertGrade_y(3);
+					} else if (s.getDis_y() < s.getRed_y()
+							&& kpi.getV1() >= s.getOrange_y()) {
+						s.setAlertGrade_y(2);
+					} else if (s.getDis_y() < s.getOrange_y()
+							&& kpi.getV1() >= s.getYellow_y()) {
+						s.setAlertGrade_y(1);
+					} else {
+						s.setAlertGrade_y(0);
+					}
 				}
 
-				if (s.getDis_y() >= s.getRed_y()) {
-					s.setAlertGrade_y(3);
-				} else if (s.getDis_y() < s.getRed_y()
-						&& kpi.getV1() >= s.getOrange_y()) {
-					s.setAlertGrade_y(2);
-				} else if (s.getDis_y() < s.getOrange_y()
-						&& kpi.getV1() >= s.getYellow_y()) {
-					s.setAlertGrade_y(1);
-				} else {
-					s.setAlertGrade_y(0);
-				}
+				
 
 				s.setAlertGrade(s.getAlertGrade_x());
 				if (s.getAlertGrade_y() > s.getAlertGrade()) {

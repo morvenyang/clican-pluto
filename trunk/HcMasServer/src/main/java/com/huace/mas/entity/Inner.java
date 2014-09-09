@@ -9,8 +9,7 @@ public class Inner extends Kpi implements Serializable {
 	 */
 	private static final long serialVersionUID = 5088103690731636195L;
 	
-	private double v2;//y方向值
-	private double v3;//h方向值
+	private Double v2;//y方向值
 	//x 初始值和相关等级值
 	private double init_x ;
 	private double yellow_x ;
@@ -35,21 +34,15 @@ public class Inner extends Kpi implements Serializable {
 	private int alertGrade_h;
 	
 	//x,y,h方向位移差值
-	private double dis_x;//x方向差值
-	private double dis_y;//y方向差值
-	private double dis_h;//y方向差值
-	public double getV2() {
+	private Double dis_x;//x方向差值
+	private Double dis_y;//y方向差值
+	public Double getV2() {
 		return v2;
 	}
-	public void setV2(double v2) {
+	public void setV2(Double v2) {
 		this.v2 = v2;
 	}
-	public double getV3() {
-		return v3;
-	}
-	public void setV3(double v3) {
-		this.v3 = v3;
-	}
+	
 	public double getInit_x() {
 		return init_x;
 	}
@@ -140,23 +133,17 @@ public class Inner extends Kpi implements Serializable {
 	public void setAlertGrade_h(int alertGrade_h) {
 		this.alertGrade_h = alertGrade_h;
 	}
-	public double getDis_x() {
+	public Double getDis_x() {
 		return dis_x;
 	}
-	public void setDis_x(double dis_x) {
+	public void setDis_x(Double dis_x) {
 		this.dis_x = dis_x;
 	}
-	public double getDis_y() {
+	public Double getDis_y() {
 		return dis_y;
 	}
-	public void setDis_y(double dis_y) {
+	public void setDis_y(Double dis_y) {
 		this.dis_y = dis_y;
-	}
-	public double getDis_h() {
-		return dis_h;
-	}
-	public void setDis_h(double dis_h) {
-		this.dis_h = dis_h;
 	}
 	
 }
