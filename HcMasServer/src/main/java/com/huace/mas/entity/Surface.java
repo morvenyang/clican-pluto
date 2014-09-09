@@ -8,8 +8,8 @@ public class Surface extends Kpi implements Serializable{
 	 */
 	private static final long serialVersionUID = 7280487808419986522L;
 	
-	private double v2;//y方向值
-	private double v3;//h方向值
+	private Double v2;//y方向值
+	private Double v3;//h方向值
 	//x 初始值和相关等级值
 	private double init_x ;
 	private double yellow_x ;
@@ -34,9 +34,9 @@ public class Surface extends Kpi implements Serializable{
 	private int alertGrade_h;
 	
 	//x,y,h方向位移差值
-	private double dis_x;//x方向差值
-	private double dis_y;//y方向差值
-	private double dis_h;//y方向差值
+	private Double dis_x;//x方向差值
+	private Double dis_y;//y方向差值
+	private Double dis_h;//y方向差值
 	
 	
 	
@@ -60,22 +60,22 @@ public class Surface extends Kpi implements Serializable{
 		alertGrade_h = alertGradeH;
 	}
 	
-	public double getDis_x() {
+	public Double getDis_x() {
 		return dis_x;
 	}
-	public void setDis_x(double disX) {
+	public void setDis_x(Double disX) {
 		dis_x = disX;
 	}
-	public double getDis_y() {
+	public Double getDis_y() {
 		return dis_y;
 	}
-	public void setDis_y(double disY) {
+	public void setDis_y(Double disY) {
 		dis_y = disY;
 	}
-	public double getDis_h() {
+	public Double getDis_h() {
 		return dis_h;
 	}
-	public void setDis_h(double disH) {
+	public void setDis_h(Double disH) {
 		dis_h = disH;
 	}
 	public double getInit_x() {
@@ -150,16 +150,16 @@ public class Surface extends Kpi implements Serializable{
 	public void setRed_h(double redH) {
 		red_h = redH;
 	}
-	public double getV2() {
+	public Double getV2() {
 		return v2;
 	}
-	public void setV2(double v2) {
+	public void setV2(Double v2) {
 		this.v2 = v2;
 	}
-	public double getV3() {
+	public Double getV3() {
 		return v3;
 	}
-	public void setV3(double v3) {
+	public void setV3(Double v3) {
 		this.v3 = v3;
 	}
 

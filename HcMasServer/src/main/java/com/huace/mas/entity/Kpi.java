@@ -24,7 +24,7 @@ public abstract class Kpi {
 	
 	private double orange_value;
 	
-	private double v1;
+	private Double v1;
 	
 	public String get__type() {
 		return __type;
@@ -98,11 +98,11 @@ public abstract class Kpi {
 		this.orange_value = orange_value;
 	}
 
-	public double getV1() {
+	public Double getV1() {
 		return v1;
 	}
 
-	public void setV1(double v1) {
+	public void setV1(Double v1) {
 		this.v1 = v1;
 	}
 	
