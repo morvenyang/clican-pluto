@@ -525,6 +525,7 @@ public class DataServiceImpl implements DataService {
 				}
 			}
 			result.get(order).add(kpi);
+			
 		}
 
 		return result;
