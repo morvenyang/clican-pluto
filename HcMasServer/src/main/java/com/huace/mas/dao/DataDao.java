@@ -1,5 +1,6 @@
 package com.huace.mas.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import com.huace.mas.entity.Kpi;
@@ -13,5 +14,8 @@ public interface DataDao {
 	
 	@SuppressWarnings("rawtypes")
 	public Kpi queryDataByDeviceID(Integer deviceID,Class clazz);
+	
+	@SuppressWarnings("rawtypes")
+	public List<Kpi> queryHistData(Integer deviceID,Class clazz,Date start,Date end);
 
 }

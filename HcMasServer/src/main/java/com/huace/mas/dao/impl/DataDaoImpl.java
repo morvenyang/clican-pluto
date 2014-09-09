@@ -1,5 +1,6 @@
 package com.huace.mas.dao.impl;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -124,6 +125,62 @@ public class DataDaoImpl extends JdbcDaoSupport implements DataDao {
 		} else {
 			return null;
 		}
+	}
+	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@Override
+	public List<Kpi> queryHistData(Integer deviceID, Class clazz, Date start,
+			Date end) {
+		String sql = "SELECT TOP 1 * FROM  ";
+		String tableName = null;
+		if (clazz.equals(Surface.class)) {
+			tableName = "SURF_DeviceDataHist";
+		} else if (clazz.equals(Inner.class)) {
+			tableName = "INMV_DeviceDataHist";
+		} else if (clazz.equals(Reservoir.class)) {
+			tableName = "WATL_DeviceDataHist";
+		} else if (clazz.equals(Saturation.class)) {
+			tableName = "PHRL_DeviceDataHist";
+		} else if (clazz.equals(Rainfall.class)) {
+			tableName = "RAIN_DeviceDataHist";
+		} else if (clazz.equals(SeeFlow.class)) {
+			tableName = "VAD_DeviceDataHist";
+		} else if (clazz.equals(DryBeach.class)) {
+			tableName = "MBCH_DeviceDataHist";
+		} else if (clazz.equals(Tyl.class)) {
+			tableName = "EARTHPRESSURE_DeviceDataHist";
+		} else if (clazz.equals(Rxwy.class)) {
+			tableName = "RXWY_DeviceDataHist";
+		} else if (clazz.equals(Lf.class)) {
+			tableName = "CREVICE_DeviceDataHist";
+		} else if (clazz.equals(Wd.class)) {
+			tableName = "WD_DeviceDataHist";
+		} else if (clazz.equals(Thsl.class)) {
+			tableName = "HYFROUS_DeviceDataHist";
+		} else if (clazz.equals(Dqwd.class)) {
+			tableName = "ATEMPERATRURE_DeviceDataHist";
+		} else if (clazz.equals(Dqsd.class)) {
+			tableName = "AHU_DeviceDataHist";
+		} else if (clazz.equals(Dqyl.class)) {
+			tableName = "APRESS_DeviceDataHist";
+		} else if (clazz.equals(Fs.class)) {
+			tableName = "WINDS_DeviceDataHist";
+		} else if (clazz.equals(Fx.class)) {
+			tableName = "WINDD_DeviceDataHist";
+		}
+		if (!tables.contains(tableName.toUpperCase())) {
+			return null;
+		}
+		sql += tableName;
+		if (clazz.equals(Inner.class)) {
+			sql += " WHERE DeviceInnerID = ? AND DacTime >=? and DacTime<=? order by DacTime desc";
+		} else {
+			sql += " WHERE DeviceID = ? AND DacTime >=? and DacTime<=? order by DacTime desc";
+		}
+
+		List<Kpi> kpis = this.getJdbcTemplate().query(sql,
+				new Object[] { deviceID,start,end}, new BeanPropertyRowMapper(clazz));
+		return kpis;
 	}
 
 }
