@@ -2,6 +2,7 @@ package com.huace.mas.action;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -86,6 +87,42 @@ public class QueryAction {
 			@RequestParam(value = "projectID", required = true) Long projectID,
 			HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
+		List<List<Object>> result = dataService.getKpisForProject(projectID);
+		JsonConfig jsonConfig = new JsonConfig();
+		jsonConfig.registerJsonValueProcessor(Date.class,
+				new DateJsonValueProcessor("yyyy-MM-dd hh:mm:ss"));
+		JSONArray jsonObject = JSONArray.fromObject(result, jsonConfig);
+		OutputStream os = null;
+		try {
+			os = resp.getOutputStream();
+			os.write(jsonObject.toString().getBytes("utf-8"));
+		} finally {
+			try {
+				os.close();
+			} catch (Exception e) {
+				log.error("", e);
+			}
+		}
+	}
+	
+	@RequestMapping("/4")
+	public void histData(
+			@RequestParam(value = "projectID", required = true) Long projectID,
+			@RequestParam(value = "kpiType", required = true) String kpiType,
+			@RequestParam(value = "pointName", required = true) String pointName,
+			@RequestParam(value = "startDate", required = true) String startDate,
+			@RequestParam(value = "endDate", required = true) String endDate,
+			HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+		Date start = null;
+		Date end = null;
+		try{
+			start = sdf.parse(startDate);
+			end =sdf.parse(endDate);
+		}catch(Exception e){
+			log.error("",e);
+		}
 		List<List<Object>> result = dataService.getKpisForProject(projectID);
 		JsonConfig jsonConfig = new JsonConfig();
 		jsonConfig.registerJsonValueProcessor(Date.class,

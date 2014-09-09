@@ -2,6 +2,7 @@ package com.huace.mas.service.impl;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -18,6 +19,7 @@ import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
+import com.huace.mas.bean.KpiData;
 import com.huace.mas.bean.SpringProperty;
 import com.huace.mas.dao.DataDao;
 import com.huace.mas.entity.Dqsd;
@@ -303,6 +305,69 @@ public class DataServiceImpl implements DataService {
 	}
 
 	@Override
+	public List<KpiData> queryKpiData(Long projectID, String kpiType,
+			String pointName, Date start, Date end) {
+		Kpi kpi = null;
+
+		Map<String, List<Kpi>> data = checkAndRefresh();
+		Project project = dataDao.getProjectByID(projectID);
+		if (project == null) {
+			return new ArrayList<KpiData>();
+		}
+		List<Kpi> kpis = data.get(project.getProjectName());
+		for (Kpi k : kpis) {
+			if (k.get__type().equals(kpiType)
+					&& k.getPointName().equals(pointName)) {
+				kpi = k;
+				break;
+			}
+		}
+		if (kpi == null) {
+			return new ArrayList<KpiData>();
+		}
+		List<KpiData> result = new ArrayList<KpiData>();
+		try {
+			List<Kpi> kpiDatas = this.dataDao.queryHistData(kpi.getDeviceID(),
+					Class.forName("com.huace.mas.entity." + kpiType), start,
+					end);
+			for (Kpi k : kpiDatas) {
+				KpiData kd = new KpiData();
+				kd.setDacTime(k.getDacTime());
+				if (kpi instanceof Surface) {
+					if (((Surface) k).getV1() != null) {
+						kd.setV1(((Surface) k).getV1()
+								- ((Surface) kpi).getInit_x());
+					}
+					if (((Surface) k).getV2() != null) {
+						kd.setV2(((Surface) k).getV2()
+								- ((Surface) kpi).getInit_y());
+					}
+					if (((Surface) k).getV3() != null) {
+						kd.setV3(((Surface) k).getV3()
+								- ((Surface) kpi).getInit_h());
+					}
+				} else if (kpi instanceof Inner) {
+					if (((Inner) k).getV1() != null) {
+						kd.setV1(((Inner) k).getV1()
+								- ((Inner) kpi).getInit_x());
+					}
+					if (((Inner) k).getV2() != null) {
+						kd.setV2(((Inner) k).getV2()
+								- ((Inner) kpi).getInit_y());
+					}
+				} else {
+					kd.setV1(k.getV1());
+				}
+				result.add(kd);
+			}
+		} catch (Exception e) {
+			log.error("", e);
+		}
+
+		return result;
+	}
+
+	@Override
 	public List<List<Object>> getKpisForProject(Long projectID) {
 		Map<String, List<Kpi>> data = checkAndRefresh();
 		Project project = dataDao.getProjectByID(projectID);
@@ -332,13 +397,13 @@ public class DataServiceImpl implements DataService {
 				((Surface) kpi).setV2(((Surface) dbKpi).getV2());
 				((Surface) kpi).setV3(((Surface) dbKpi).getV3());
 				Surface s = (Surface) kpi;
-				if(s.getV1()!=null){
+				if (s.getV1() != null) {
 					s.setDis_x(s.getV1() - s.getInit_x());
 				}
-				if(s.getV2()!=null){
+				if (s.getV2() != null) {
 					s.setDis_y(s.getV2() - s.getInit_y());
 				}
-				if(s.getV3()!=null){
+				if (s.getV3() != null) {
 					s.setDis_h(s.getV3() - s.getInit_h());
 				}
 				// 数据越大告警越大
@@ -354,7 +419,7 @@ public class DataServiceImpl implements DataService {
 					s.setAlertGrade_x(0);
 				}
 
-				if(s.getDis_y()!=null){
+				if (s.getDis_y() != null) {
 					if (s.getDis_y() >= s.getRed_y()) {
 						s.setAlertGrade_y(3);
 					} else if (s.getDis_y() < s.getRed_y()
@@ -367,8 +432,8 @@ public class DataServiceImpl implements DataService {
 						s.setAlertGrade_y(0);
 					}
 				}
-				
-				if(s.getDis_h()!=null){
+
+				if (s.getDis_h() != null) {
 					if (s.getDis_h() >= s.getRed_h()) {
 						s.setAlertGrade_h(3);
 					} else if (s.getDis_h() < s.getRed_h()
@@ -393,15 +458,15 @@ public class DataServiceImpl implements DataService {
 				((Inner) kpi).setV2(((Inner) dbKpi).getV2());
 
 				Inner s = (Inner) kpi;
-				if(s.getV1()!=null){
+				if (s.getV1() != null) {
 					s.setDis_x(s.getV1() - s.getInit_x());
 				}
-				if(s.getV2()!=null){
+				if (s.getV2() != null) {
 					s.setDis_y(s.getV2() - s.getInit_y());
 				}
-				
+
 				// 数据越大告警越大
-				if(s.getDis_x()!=null){
+				if (s.getDis_x() != null) {
 					if (s.getDis_x() >= s.getRed_x()) {
 						s.setAlertGrade_x(3);
 					} else if (s.getDis_x() < s.getRed_x()
@@ -414,7 +479,7 @@ public class DataServiceImpl implements DataService {
 						s.setAlertGrade_x(0);
 					}
 				}
-				if(s.getDis_y()!=null){
+				if (s.getDis_y() != null) {
 					if (s.getDis_y() >= s.getRed_y()) {
 						s.setAlertGrade_y(3);
 					} else if (s.getDis_y() < s.getRed_y()
@@ -427,8 +492,6 @@ public class DataServiceImpl implements DataService {
 						s.setAlertGrade_y(0);
 					}
 				}
-
-				
 
 				s.setAlertGrade(s.getAlertGrade_x());
 				if (s.getAlertGrade_y() > s.getAlertGrade()) {
