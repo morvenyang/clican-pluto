@@ -13,5 +13,5 @@
 	<bean id="userDao" class="com.huace.mas.dao.impl.UserDaoImpl"
 		autowire="byName" />
 	<bean id="dataDao" class="com.huace.mas.dao.impl.DataDaoImpl"
-		autowire="byName" />
+		autowire="byName" init-method="init"/>
 </beans>

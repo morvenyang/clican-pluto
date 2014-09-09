@@ -1,6 +1,8 @@
 package com.huace.mas.dao.impl;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
@@ -28,22 +30,36 @@ import com.huace.mas.entity.Wd;
 
 public class DataDaoImpl extends JdbcDaoSupport implements DataDao {
 
+	private Set<String> tables = new HashSet<String>();
+
+	@SuppressWarnings("unchecked")
+	public void init() {
+		List<String> ts = this.getJdbcTemplate().queryForList(
+				"SELECT name FROM sys.Tables", String.class);
+		for (String t : ts) {
+			tables.add(t.toUpperCase());
+		}
+
+	}
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Project> findAllProjects() {
-		List<Project> projects = this.getJdbcTemplate().query(
-				"SELECT ProjectID as id,ProjectName FROM PR_Project where UseYn=1",
-				new BeanPropertyRowMapper(Project.class));
+		List<Project> projects = this
+				.getJdbcTemplate()
+				.query("SELECT ProjectID as id,ProjectName FROM PR_Project where UseYn=1",
+						new BeanPropertyRowMapper(Project.class));
 		return projects;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public Project getProjectByID(Long projectID) {
-		List<Project> projects = this.getJdbcTemplate().query(
-				"SELECT ProjectID as id,ProjectName FROM PR_Project where UseYn=1 and ProjectID=?",
-				new Object[] { projectID },
-				new BeanPropertyRowMapper(Project.class));
+		List<Project> projects = this
+				.getJdbcTemplate()
+				.query("SELECT ProjectID as id,ProjectName FROM PR_Project where UseYn=1 and ProjectID=?",
+						new Object[] { projectID },
+						new BeanPropertyRowMapper(Project.class));
 		if (projects.size() > 0) {
 			return projects.get(0);
 		} else {
@@ -55,52 +71,57 @@ public class DataDaoImpl extends JdbcDaoSupport implements DataDao {
 	@Override
 	public Kpi queryDataByDeviceID(Integer deviceID, Class clazz) {
 		String sql = "SELECT TOP 1 * FROM  ";
+		String tableName = null;
 		if (clazz.equals(Surface.class)) {
-			sql += "SURF_DeviceData ";
+			tableName = "SURF_DeviceData";
 		} else if (clazz.equals(Inner.class)) {
-			sql += "INMV_DeviceData ";
+			tableName = "INMV_DeviceData";
 		} else if (clazz.equals(Reservoir.class)) {
-			sql += "WATL_DeviceData ";
+			tableName = "WATL_DeviceData";
 		} else if (clazz.equals(Saturation.class)) {
-			sql += "PHRL_DeviceData ";
+			tableName = "PHRL_DeviceData";
 		} else if (clazz.equals(Rainfall.class)) {
-			sql += "RAIN_DeviceData ";
+			tableName = "RAIN_DeviceData";
 		} else if (clazz.equals(SeeFlow.class)) {
-			sql += "VAD_DeviceData ";
+			tableName = "VAD_DeviceData";
 		} else if (clazz.equals(DryBeach.class)) {
-			sql += "MBCH_DeviceData ";
+			tableName = "MBCH_DeviceData";
 		} else if (clazz.equals(Tyl.class)) {
-			sql += "EARTHPRESSURE_DeviceData ";
+			tableName = "EARTHPRESSURE_DeviceData";
 		} else if (clazz.equals(Rxwy.class)) {
-			sql += "RXWY_DeviceData ";
+			tableName = "RXWY_DeviceData";
 		} else if (clazz.equals(Lf.class)) {
-			sql += "CREVICE_DeviceData ";
+			tableName = "CREVICE_DeviceData";
 		} else if (clazz.equals(Wd.class)) {
-			sql += "WD_DeviceData ";
+			tableName = "WD_DeviceData";
 		} else if (clazz.equals(Thsl.class)) {
-			sql += "HYFROUS_DeviceData ";
+			tableName = "HYFROUS_DeviceData";
 		} else if (clazz.equals(Dqwd.class)) {
-			return null;
+			tableName = "ATEMPERATRURE_DeviceData";
 		} else if (clazz.equals(Dqsd.class)) {
-			return null;
+			tableName = "AHU_DeviceData";
 		} else if (clazz.equals(Dqyl.class)) {
-			return null;
+			tableName = "APRESS_DeviceData";
 		} else if (clazz.equals(Fs.class)) {
-			return null;
+			tableName = "WINDS_DeviceData";
 		} else if (clazz.equals(Fx.class)) {
+			tableName = "WINDD_DeviceData";
+		}
+		if (!tables.contains(tableName.toUpperCase())) {
 			return null;
 		}
+		sql += tableName;
 		if (clazz.equals(Inner.class)) {
-			sql += "WHERE DeviceInnerID = ? order by DacTime desc";
-		}else{
-			sql += "WHERE DeviceID = ? order by DacTime desc";
+			sql += " WHERE DeviceInnerID = ? order by DacTime desc";
+		} else {
+			sql += " WHERE DeviceID = ? order by DacTime desc";
 		}
-		
+
 		List<Kpi> kpis = this.getJdbcTemplate().query(sql,
 				new Object[] { deviceID }, new BeanPropertyRowMapper(clazz));
-		if(kpis.size()>0){
+		if (kpis.size() > 0) {
 			return kpis.get(0);
-		}else{
+		} else {
 			return null;
 		}
 	}
