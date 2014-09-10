@@ -62,26 +62,10 @@
         TTURLJSONResponse* response = request.response;
         NSArray* data = response.rootObject;
         NSLog(@"response.rootObject:%@",data);
-        
-        NSMutableArray* result = [NSMutableArray array];
         if(data.count>0){
-            NSDateFormatter* dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
-            [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-            
-            NSArray* kpis = data;
-            for(int i=1;i<kpis.count;i++){
-                NSDictionary* kpiDict = [kpis objectAtIndex:i];
-                Kpi* kpi = [[[Kpi alloc] init] autorelease];
-                kpi.v1 =[kpiDict objectForKey:@"v1"];
-                kpi.v2 =[kpiDict objectForKey:@"v2"];
-                kpi.v3 =[kpiDict objectForKey:@"v3"];
-                kpi.dacTime = [dateFormatter dateFromString:[kpiDict objectForKey:@"dacTime"]];
-                [result addObject:kpi];
-            }
-            
-            [_delegate loadKpiHistorySuccess:result];
+            [_delegate loadKpiHistorySuccess:data];
         }else{
-            TTAlert(@"没有相关历史数据");
+            [_delegate loadKpiHistoryFailed:nil message:@"没有相关历史数据"];
         }
     }
     @catch (NSException *exception) {

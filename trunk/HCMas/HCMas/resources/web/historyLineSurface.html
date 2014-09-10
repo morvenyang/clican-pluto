@@ -11,14 +11,14 @@ white-space: pre;
 </style>
 </head>
 <body>
-<div id="chartdiv" style="width:$widthpx; height:$heightpx;"></div>
+<div id="chartdiv" style="width:$widthpx; height:$heightpx"></div>
 <script type="text/javascript">
 var chart = AmCharts.makeChart("chartdiv", {
     "type": "serial",
     "theme": "none",
     "dataProvider":$dataProvider,
 	"legend": {
-        "data":[{title: "v1", color: "#FF6600"},{title: "v2", color: "#FCD202"},{title: "v3", color: "#B0DE09"}]
+        "data":[{title: "Dx", color: "#FF6600"},{title: "Dy", color: "#FCD202"},{title: "Dh", color: "#B0DE09"}]
     },
 	"valueAxes": [{
         "id":"v1",
@@ -72,7 +72,6 @@ var chart = AmCharts.makeChart("chartdiv", {
         "valueField": "v3",
 		"fillAlphas": 0
     }],
-	"balloonText":"aaaaa",
     "categoryField": "dacTime",
     "categoryAxis": {
         "parseDates": true,
