@@ -554,13 +554,25 @@
 
     }
     self.pointNameButton.frame = CGRectMake(5, 0, 90, 20);
+    self.pointNameButton.layer.masksToBounds=YES;
+    self.pointNameButton.layer.cornerRadius=6;
+    self.pointNameButton.layer.borderWidth = 1;
+    self.pointNameButton.layer.borderColor = [UIColor blackColor].CGColor;
     [self.pointNameButton addTarget:self action:@selector(showPointNamePopupView) forControlEvents:UIControlEventTouchUpInside];
     DateButton* startDateButton = [DateButton buttonWithType:UIButtonTypeCustom];
+    startDateButton.layer.masksToBounds=YES;
+    startDateButton.layer.cornerRadius=6;
+    startDateButton.layer.borderWidth = 1;
+    startDateButton.layer.borderColor = [UIColor blackColor].CGColor;
     startDateButton.type = @"start";
     [startDateButton setTitle:@"<开始>" forState:UIControlStateNormal];
     startDateButton.frame = CGRectMake(95, 0, 70, 20);
     [startDateButton addTarget:self action:@selector(openCalendar:) forControlEvents:UIControlEventTouchUpInside];
     DateButton* endDateButton = [DateButton buttonWithType:UIButtonTypeCustom];
+    endDateButton.layer.masksToBounds=YES;
+    endDateButton.layer.cornerRadius=6;
+    endDateButton.layer.borderWidth = 1;
+    endDateButton.layer.borderColor = [UIColor blackColor].CGColor;
     endDateButton.type = @"end";
     [endDateButton setTitle:@"<结束>" forState:UIControlStateNormal];
     endDateButton.frame = CGRectMake(165, 0, 70, 20);
