@@ -41,6 +41,9 @@
     NSString* _kpiType;
     NSDate* _startDate;
     NSDate* _endDate;
+    NSString* _pointName;
+    NSArray* _pointNames;
+    UIButton* _pointNameButton;
 }
 @property (nonatomic, assign) int imageIndex;
 @property (nonatomic, retain) NSMutableArray* pointImageViews;
@@ -67,4 +70,7 @@
 @property (nonatomic, copy) NSString    *kpiType;
 @property (nonatomic, retain) NSDate    *startDate;
 @property (nonatomic, retain) NSDate    *endDate;
+@property (nonatomic, retain) NSString    *pointName;
+@property (nonatomic, retain) NSArray    *pointNames;
+@property (nonatomic, retain) UIButton    *pointNameButton;
 @end
