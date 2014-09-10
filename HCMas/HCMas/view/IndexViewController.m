@@ -232,7 +232,7 @@
         }
        
     }else{
-        UILabel* valueLabel =[self createLabel:@"" frame:CGRectMake(10, 80, 80, 40) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT];
+        UILabel* valueLabel =[self createLabel:@"" frame:CGRectMake(10, 80, 100, 40) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT];
         if([kpiType isEqualToString:@"Reservoir"]){
             valueLabel.text = @"水位高程(m)";
         }else if([kpiType isEqualToString:@"Saturation"]){
@@ -244,25 +244,25 @@
         }else if([kpiType isEqualToString:@"DryBeach"]){
             valueLabel.text = @"干滩长度(m)";
         }else if([kpiType isEqualToString:@"Tyl"]){
-            valueLabel.text = @"压力(Mpa)";
+            valueLabel.text = @"压力";
         }else if([kpiType isEqualToString:@"Rxwy"]){
-            valueLabel.text = @"位移(m)";
+            valueLabel.text = @"柔性位移";
         }else if([kpiType isEqualToString:@"Lf"]){
-            valueLabel.text = @"裂缝(m)";
+            valueLabel.text = @"裂缝";
         }else if([kpiType isEqualToString:@"Wd"]){
-            valueLabel.text = @"温度(℃)";
+            valueLabel.text = @"温度";
         }else if([kpiType isEqualToString:@"Thsl"]){
-            valueLabel.text = @"土含水率(%)";
+            valueLabel.text = @"土含水率";
         }else if([kpiType isEqualToString:@"Dqwd"]){
-            valueLabel.text = @"温度(℃)";
+            valueLabel.text = @"大气温度";
         }else if([kpiType isEqualToString:@"Dqsd"]){
-            valueLabel.text = @"湿度(%)";
+            valueLabel.text = @"大气湿度";
         }else if([kpiType isEqualToString:@"Dqyl"]){
-            valueLabel.text = @"气压(Mpa)";
+            valueLabel.text = @"大气压力";
         }else if([kpiType isEqualToString:@"Fx"]){
-            valueLabel.text = @"风向(°)";
+            valueLabel.text = @"风向";
         }else if([kpiType isEqualToString:@"Fs"]){
-            valueLabel.text = @"风速(m/s)";
+            valueLabel.text = @"风速";
         }
         [self.popupView addSubview:valueLabel];
         
@@ -666,7 +666,6 @@
         [self createTableItemByTitle:@"更新频率" subTitle:@"设置刷新周期(秒)" action:@selector(showFrequencySettingPopupView)],
         @"报警模式",
         [self createTableItemByTitle:@"报警开/关" subTitle:@"请勾选是否开启报警" action:nil],
-        [self createTableItemByTitle:@"情景模式" subTitle:@"报警情景模式" action:nil],
         @"关于",
         [TTTableStyledTextItem itemWithText:[TTStyledText textFromXHTML:[NSString stringWithFormat:@"<span class=\"settingRow3\">软件名称:华测自动化监测与预警系统（手机版）</span><br/><span class=\"settingRow3\">版本:1.0</span><br/><span class=\"settingRow3\">版权:上海华测导航技术有限公司</span><br/><span class=\"settingRow3\">网址:www.huace.cn</span>"] lineBreaks:YES URLs:YES]],
                                  nil];
