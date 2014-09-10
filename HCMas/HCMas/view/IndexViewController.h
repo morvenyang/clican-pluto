@@ -13,7 +13,8 @@
 #import "KpiModel.h"
 #import "SwipeScrollView.h"
 #import "PMCalendar.h"
-@interface IndexViewController : UIViewController<UITableViewDelegate,UIPickerViewDataSource,UIPickerViewDelegate,LoginDelegate,MBProgressHUDDelegate,UITextFieldDelegate,ProjectDelegate,KpiDelegate,SwitchDataDelegate,PMCalendarControllerDelegate>{
+#import "KpiHistoryModel.h"
+@interface IndexViewController : UIViewController<UITableViewDelegate,UIPickerViewDataSource,UIPickerViewDelegate,LoginDelegate,MBProgressHUDDelegate,UITextFieldDelegate,ProjectDelegate,KpiDelegate,SwitchDataDelegate,PMCalendarControllerDelegate,KpiHistoryDelegate>{
     int _imageIndex;
     NSMutableArray* _pointImageViews;
     UIImageView* _topImageView;
@@ -34,6 +35,7 @@
     ProjectModel* _projectModel;
     UIView* _menuView;
     KpiModel* _kpiModel;
+    KpiHistoryModel* _kpiHistoryModel;
     NSDictionary* _kpis;
     UIView* _footView;
     UIView* _dataView;

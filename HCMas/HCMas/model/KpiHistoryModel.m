@@ -80,10 +80,12 @@
             }
             
             [_delegate loadKpiHistorySuccess:result];
+        }else{
+            TTAlert(@"没有相关历史数据");
         }
     }
     @catch (NSException *exception) {
-        [_delegate loadProjectFailed:nil message:[exception description]];
+        [_delegate loadKpiHistoryFailed:nil message:[exception description]];
     }
     @finally {
         [super requestDidFinishLoad:request];
