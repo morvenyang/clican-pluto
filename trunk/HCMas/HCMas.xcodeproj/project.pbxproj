@@ -96,6 +96,8 @@
 		724553AE19B04A0100760BF2 /* title_logo.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7245537819B04A0100760BF2 /* title_logo.jpg */; };
 		724553AF19B04A0100760BF2 /* yellow.png in Resources */ = {isa = PBXBuildFile; fileRef = 7245537919B04A0100760BF2 /* yellow.png */; };
 		72D1D0D319BFF73900E68511 /* SwipeScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 72D1D0D219BFF73900E68511 /* SwipeScrollView.m */; };
+		72D1D0EF19C006CF00E68511 /* KpiHistoryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 72D1D0EE19C006CF00E68511 /* KpiHistoryModel.m */; };
+		72D1D0F119C00C3000E68511 /* calendar.png in Resources */ = {isa = PBXBuildFile; fileRef = 72D1D0F019C00C3000E68511 /* calendar.png */; };
 		72F124DC19BA96D000B0F676 /* LoginModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 72F124DB19BA96D000B0F676 /* LoginModel.m */; };
 		72F124F019BA9A4000B0F676 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 72F124EF19BA9A4000B0F676 /* MBProgressHUD.m */; };
 		72F124F319BAA72F00B0F676 /* ProjectModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 72F124F219BAA72F00B0F676 /* ProjectModel.m */; };
@@ -390,6 +392,9 @@
 		724553DB19B0567800760BF2 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		72D1D0D119BFF73900E68511 /* SwipeScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwipeScrollView.h; sourceTree = "<group>"; };
 		72D1D0D219BFF73900E68511 /* SwipeScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SwipeScrollView.m; sourceTree = "<group>"; };
+		72D1D0ED19C006CF00E68511 /* KpiHistoryModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KpiHistoryModel.h; sourceTree = "<group>"; };
+		72D1D0EE19C006CF00E68511 /* KpiHistoryModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KpiHistoryModel.m; sourceTree = "<group>"; };
+		72D1D0F019C00C3000E68511 /* calendar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = calendar.png; sourceTree = "<group>"; };
 		72F124DA19BA96D000B0F676 /* LoginModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginModel.h; sourceTree = "<group>"; };
 		72F124DB19BA96D000B0F676 /* LoginModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginModel.m; sourceTree = "<group>"; };
 		72F124EE19BA9A4000B0F676 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
@@ -620,6 +625,8 @@
 				72F124F219BAA72F00B0F676 /* ProjectModel.m */,
 				72F124F719BABA6C00B0F676 /* KpiModel.h */,
 				72F124F819BABA6C00B0F676 /* KpiModel.m */,
+				72D1D0ED19C006CF00E68511 /* KpiHistoryModel.h */,
+				72D1D0EE19C006CF00E68511 /* KpiHistoryModel.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -658,6 +665,7 @@
 		7245533619B0499C00760BF2 /* resources */ = {
 			isa = PBXGroup;
 			children = (
+				72D1D0F019C00C3000E68511 /* calendar.png */,
 				72273CB419B442D3002B318D /* icon29.png */,
 				72273CB519B442D3002B318D /* icon57.png */,
 				72273CB619B442D3002B318D /* icon58.png */,
@@ -1033,6 +1041,7 @@
 				724553AA19B04A0100760BF2 /* splash_003.jpg in Resources */,
 				7245539119B04A0100760BF2 /* logo_dqyl.png in Resources */,
 				724553A219B04A0100760BF2 /* main_background.png in Resources */,
+				72D1D0F119C00C3000E68511 /* calendar.png in Resources */,
 				7233DF4419B0193C00F0664E /* Images.xcassets in Resources */,
 				724553A519B04A0100760BF2 /* orange.png in Resources */,
 				7245538C19B04A0100760BF2 /* left_arrow.jpg in Resources */,
@@ -1071,6 +1080,7 @@
 				72F124F619BAA74600B0F676 /* Project.m in Sources */,
 				7233E1E719B03F1900F0664E /* StyleSheet.m in Sources */,
 				7233DF3E19B0193C00F0664E /* main.m in Sources */,
+				72D1D0EF19C006CF00E68511 /* KpiHistoryModel.m in Sources */,
 				72F1250819BAC2F600B0F676 /* MenuButton.m in Sources */,
 				7233E1E419B03F0700F0664E /* IndexViewController.m in Sources */,
 				72F124DC19BA96D000B0F676 /* LoginModel.m in Sources */,

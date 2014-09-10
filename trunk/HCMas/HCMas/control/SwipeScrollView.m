@@ -9,7 +9,7 @@
 #import "SwipeScrollView.h"
 #import "AppDelegate.h"
 @implementation SwipeScrollView
-
+@synthesize switchDataDelegate = _switchDataDelegate;
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -52,6 +52,7 @@
         NSLog(@"width=%f,right=%f",self.contentSize.width,self.contentOffset.x);
         if (swipeDistance <= -10.f) {
             if(self.contentOffset.x>=50||self.contentOffset.x==0){
+                [self.switchDataDelegate displayHistory];
                 NSLog(@"swipe left");
             }else{
                  NSLog(@"not swipe left");
@@ -60,6 +61,8 @@
         }
         // Swipe to right
         else if (swipeDistance >= 10.f) {
+            [self.switchDataDelegate displayCurrent];
+            NSLog(@"swipe right");
             return;
         }
         _swiping = NO;
