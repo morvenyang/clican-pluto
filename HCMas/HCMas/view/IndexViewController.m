@@ -40,6 +40,9 @@
 @synthesize kpiType = _kpiType;
 @synthesize startDate = _startDate;
 @synthesize endDate = _endDate;
+@synthesize pointName = _pointName;
+@synthesize pointNames = _pointNames;
+@synthesize pointNameButton = _pointNameButton;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -100,6 +103,22 @@
     self.backgroundShadowView = [[[UIView alloc] initWithFrame:frame] autorelease];
     
 
+}
+-(void)showPointNamePopupView{
+    NSArray* kpiArray = [self.kpis objectForKey:self.kpiType];
+    NSMutableArray* pns = [NSMutableArray array];
+    for(Kpi* kpi in kpiArray){
+        [pns addObject:kpi.pointName];
+    }
+    
+    if(pns.count==0){
+        TTAlert(@"没有可选择的点名");
+        return;
+    }
+    self.pointNames = pns;
+    self.settingKey = POINT_NAME;
+    self.settingName = @"请选择点名";
+    [self showSettingPopupView];
 }
 -(void)showProjectSettingPopupView{
     if(self.projects==nil||self.projects.count==0){
@@ -298,7 +317,7 @@
         height=568;
     }
     CGFloat popupViewHeight = 200;
-    if([self.settingKey isEqual:PROJECT_NAME]){
+    if([self.settingKey isEqual:PROJECT_NAME]||[self.settingKey isEqual:POINT_NAME]){
         popupViewHeight = 300;
     }
     CGFloat heightOffset = 0;
@@ -308,7 +327,7 @@
     self.popupView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6f];
 
     [self.popupView addSubview:[self createLabel:self.settingName frame:CGRectMake(20, 0, 220, 60) textColor:@"#ffffff" font:24 backgroundColor:nil textAlignment:ALIGN_LEFT]];
-    if([self.settingKey isEqual:PROJECT_NAME]){
+    if([self.settingKey isEqual:PROJECT_NAME]||[self.settingKey isEqual:POINT_NAME]){
         heightOffset = 140+70;
         self.projectPicker = [[[UIPickerView alloc] initWithFrame:CGRectMake(20, 70, 220, 140)] autorelease];
         self.projectPicker = [[[UIPickerView alloc] initWithFrame:CGRectMake(20, 70, 220, 140)] autorelease];
@@ -317,12 +336,21 @@
         self.projectPicker.layer.masksToBounds=YES;
         self.projectPicker.layer.cornerRadius =6;
         self.projectPicker.backgroundColor = [UIColor colorWithWhite:15 alpha:0.7];
-        NSString* defaultIndex = [self getValueByKey:PROJECT_NAME];
-        int di = defaultIndex.intValue;
-        if(di>=self.projects.count){
-            di = 0;
+        if([self.settingKey isEqual:PROJECT_NAME]){
+            NSString* defaultIndex = [self getValueByKey:PROJECT_NAME];
+            int di = defaultIndex.intValue;
+            if(di>=self.projects.count){
+                di = 0;
+            }
+            [self.projectPicker selectRow:di inComponent:0 animated:NO];
+        }else{
+            int di = [self.pointNames indexOfObject:self.pointName];
+            if(di<0&&di>=self.pointNames.count){
+                di = 0;
+            }
+            [self.projectPicker selectRow:di inComponent:0 animated:NO];
         }
-        [self.projectPicker selectRow:di inComponent:0 animated:NO];
+        
         [self.popupView addSubview:self.projectPicker];
     }else{
         heightOffset = 30+70;
@@ -381,6 +409,10 @@
         HCMasAppDelegate.user.selectedProject = project;
         [self setValue:[NSString stringWithFormat:@"%i",rowIndex] byKey:PROJECT_NAME];
         [_kpiModel loadKpiByProjectId:HCMasAppDelegate.user.selectedProject.projectId];
+    }else if([self.settingKey isEqualToString:POINT_NAME]){
+        NSInteger rowIndex = [self.projectPicker selectedRowInComponent:0];
+        self.pointName = (NSString*)[self.pointNames objectAtIndex:rowIndex];
+        [self.pointNameButton setTitle:self.pointName forState:UIControlStateNormal];
     }else if([self.settingKey isEqualToString:LOGIN]){
          [self setValue:[self.userNameTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] byKey:LAST_USER_NAME];
         [self setValue:[self.passwordTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] byKey:LAST_PASSWORD];
@@ -497,9 +529,9 @@
     }
     SwipeScrollView* dataView = [[[SwipeScrollView alloc] initWithFrame:CGRectMake(0, y, 320, height-y)] autorelease];
     dataView.switchDataDelegate = self;
-    UIButton* pointNameButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [pointNameButton setTitle:@"<点名>" forState:UIControlStateNormal];
-    pointNameButton.frame = CGRectMake(10, 0, 70, 20);
+    self.pointNameButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.pointNameButton setTitle:@"<点名>" forState:UIControlStateNormal];
+    self.pointNameButton.frame = CGRectMake(10, 0, 70, 20);
     DateButton* startDateButton = [DateButton buttonWithType:UIButtonTypeCustom];
     startDateButton.type = @"start";
     [startDateButton setTitle:@"<开始>" forState:UIControlStateNormal];
@@ -516,7 +548,7 @@
     searchButton.layer.cornerRadius = 6;
     searchButton.layer.masksToBounds = YES;
     searchButton.layer.backgroundColor = [UIColor orangeColor].CGColor;
-    [dataView addSubview:pointNameButton];
+    [dataView addSubview:self.pointNameButton];
     [dataView addSubview:startDateButton];
     [dataView addSubview:endDateButton];
     [dataView addSubview:searchButton];
@@ -1030,9 +1062,7 @@
     self.dataHistoryView=[self createDataHistoryView:height+308];
     [self.view addSubview:self.dataHistoryView];
 }
--(void)openPointNameList:(id)sender{
-    
-}
+
 -(void)openCalendar:(id)sender{
     DateButton* button = (DateButton*)sender;
     NSDate* date =[NSDate date];
