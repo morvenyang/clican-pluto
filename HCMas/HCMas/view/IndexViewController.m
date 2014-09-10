@@ -344,8 +344,12 @@
             }
             [self.projectPicker selectRow:di inComponent:0 animated:NO];
         }else{
-            int di = [self.pointNames indexOfObject:self.pointName];
-            if(di<0&&di>=self.pointNames.count){
+
+            int di = 0;
+            if(self.pointName!=nil){
+                di =[self.pointNames indexOfObject:self.pointName];
+            }
+            if(di<0||di>=self.pointNames.count){
                 di = 0;
             }
             [self.projectPicker selectRow:di inComponent:0 animated:NO];
@@ -531,20 +535,21 @@
     dataView.switchDataDelegate = self;
     self.pointNameButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.pointNameButton setTitle:@"<点名>" forState:UIControlStateNormal];
-    self.pointNameButton.frame = CGRectMake(10, 0, 70, 20);
+    self.pointNameButton.frame = CGRectMake(5, 0, 90, 20);
+    [self.pointNameButton addTarget:self action:@selector(showPointNamePopupView) forControlEvents:UIControlEventTouchUpInside];
     DateButton* startDateButton = [DateButton buttonWithType:UIButtonTypeCustom];
     startDateButton.type = @"start";
     [startDateButton setTitle:@"<开始>" forState:UIControlStateNormal];
-    startDateButton.frame = CGRectMake(80, 0, 70, 20);
+    startDateButton.frame = CGRectMake(95, 0, 70, 20);
     [startDateButton addTarget:self action:@selector(openCalendar:) forControlEvents:UIControlEventTouchUpInside];
     DateButton* endDateButton = [DateButton buttonWithType:UIButtonTypeCustom];
     endDateButton.type = @"end";
     [endDateButton setTitle:@"<结束>" forState:UIControlStateNormal];
-    endDateButton.frame = CGRectMake(150, 0, 70, 20);
+    endDateButton.frame = CGRectMake(165, 0, 70, 20);
     [endDateButton addTarget:self action:@selector(openCalendar:) forControlEvents:UIControlEventTouchUpInside];
     UIButton* searchButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [searchButton setTitle:@"查询" forState:UIControlStateNormal];
-    searchButton.frame = CGRectMake(240, 0, 70, 20);
+    searchButton.frame = CGRectMake(250, 0, 60, 20);
     searchButton.layer.cornerRadius = 6;
     searchButton.layer.masksToBounds = YES;
     searchButton.layer.backgroundColor = [UIColor orangeColor].CGColor;
