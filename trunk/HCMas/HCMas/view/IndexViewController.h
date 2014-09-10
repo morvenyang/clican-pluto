@@ -12,7 +12,8 @@
 #import "ProjectModel.h"
 #import "KpiModel.h"
 #import "SwipeScrollView.h"
-@interface IndexViewController : UIViewController<UITableViewDelegate,UIPickerViewDataSource,UIPickerViewDelegate,LoginDelegate,MBProgressHUDDelegate,UITextFieldDelegate,ProjectDelegate,KpiDelegate,SwitchDataDelegate>{
+#import "PMCalendar.h"
+@interface IndexViewController : UIViewController<UITableViewDelegate,UIPickerViewDataSource,UIPickerViewDelegate,LoginDelegate,MBProgressHUDDelegate,UITextFieldDelegate,ProjectDelegate,KpiDelegate,SwitchDataDelegate,PMCalendarControllerDelegate>{
     int _imageIndex;
     NSMutableArray* _pointImageViews;
     UIImageView* _topImageView;
@@ -38,6 +39,8 @@
     UIView* _dataView;
     UIView* _dataHistoryView;
     NSString* _kpiType;
+    NSDate* _startDate;
+    NSDate* _endDate;
 }
 @property (nonatomic, assign) int imageIndex;
 @property (nonatomic, retain) NSMutableArray* pointImageViews;
@@ -62,4 +65,6 @@
 @property (nonatomic, retain) UIView    *dataView;
 @property (nonatomic, retain) UIView    *dataHistoryView;
 @property (nonatomic, copy) NSString    *kpiType;
+@property (nonatomic, retain) NSDate    *startDate;
+@property (nonatomic, retain) NSDate    *endDate;
 @end
