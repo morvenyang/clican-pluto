@@ -1133,7 +1133,25 @@
 }
 - (void)loadKpiHistorySuccess:(NSArray*) kpis{
     [self.progressHUD hide:NO];
-    TTAlert(@"LOAD KPI HISTORY");
+    UIWebView* webPieChartView = [[[UIWebView alloc] initWithFrame:CGRectMake(0,0,320,self.dataView.frame.size.height)] autorelease];
+    webPieChartView.scalesPageToFit=YES;
+    webPieChartView.userInteractionEnabled =NO;
+    
+    NSString* dataProvider = [[[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:kpis options:NSJSONWritingPrettyPrinted error:nil] encoding:NSUTF8StringEncoding] autorelease];
+    NSString* fileName = @"historyLineOther";
+    if([self.kpiType isEqualToString:@"Surface"]){
+        fileName= @"historyLineSurface";
+    }else if([self.kpiType isEqualToString:@"Inner"]){
+        fileName= @"historyLineInner";
+    }
+    NSString* htmlPath = [[NSBundle mainBundle] pathForResource:@"fileName" ofType:@"html" inDirectory:@"web"];
+    NSString* html = [NSString stringWithContentsOfFile:htmlPath encoding:NSUTF8StringEncoding error:nil];
+    
+    html=[html stringByReplacingOccurrencesOfString:@"$dataProvider" withString:dataProvider];
+    
+    NSLog(@"%@",html);
+    NSLog(@"%@",[NSString stringWithFormat:@"%@/web/",[[NSBundle mainBundle] bundlePath]]);
+    [webPieChartView loadHTMLString:html baseURL:[NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/web/",[[NSBundle mainBundle] bundlePath]]]];
 }
 - (void)loadKpiHistoryFailed:(NSError*) error message:(NSString*) message{
     [self.progressHUD hide:NO];

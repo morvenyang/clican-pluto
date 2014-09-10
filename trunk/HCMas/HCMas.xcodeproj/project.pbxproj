@@ -106,6 +106,7 @@
 		72D1D11119C011A200E68511 /* PMPeriod.m in Sources */ = {isa = PBXBuildFile; fileRef = 72D1D10919C011A200E68511 /* PMPeriod.m */; };
 		72D1D11219C011A200E68511 /* PMSelectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 72D1D10B19C011A200E68511 /* PMSelectionView.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		72D1D11D19C0166E00E68511 /* DateButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 72D1D11C19C0166E00E68511 /* DateButton.m */; };
+		72D1D1FD19C0419100E68511 /* web in Resources */ = {isa = PBXBuildFile; fileRef = 72D1D1FC19C0419100E68511 /* web */; };
 		72F124DC19BA96D000B0F676 /* LoginModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 72F124DB19BA96D000B0F676 /* LoginModel.m */; };
 		72F124F019BA9A4000B0F676 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 72F124EF19BA9A4000B0F676 /* MBProgressHUD.m */; };
 		72F124F319BAA72F00B0F676 /* ProjectModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 72F124F219BAA72F00B0F676 /* ProjectModel.m */; };
@@ -422,6 +423,7 @@
 		72D1D10B19C011A200E68511 /* PMSelectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMSelectionView.m; sourceTree = "<group>"; };
 		72D1D11B19C0166E00E68511 /* DateButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DateButton.h; sourceTree = "<group>"; };
 		72D1D11C19C0166E00E68511 /* DateButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DateButton.m; sourceTree = "<group>"; };
+		72D1D1FC19C0419100E68511 /* web */ = {isa = PBXFileReference; lastKnownFileType = folder; path = web; sourceTree = "<group>"; };
 		72F124DA19BA96D000B0F676 /* LoginModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginModel.h; sourceTree = "<group>"; };
 		72F124DB19BA96D000B0F676 /* LoginModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginModel.m; sourceTree = "<group>"; };
 		72F124EE19BA9A4000B0F676 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
@@ -693,6 +695,7 @@
 		7245533619B0499C00760BF2 /* resources */ = {
 			isa = PBXGroup;
 			children = (
+				72D1D1FC19C0419100E68511 /* web */,
 				72D1D0F019C00C3000E68511 /* calendar.png */,
 				72273CB419B442D3002B318D /* icon29.png */,
 				72273CB519B442D3002B318D /* icon57.png */,
@@ -1049,6 +1052,7 @@
 				7245539419B04A0100760BF2 /* logo_gcgl.png in Resources */,
 				7245539619B04A0100760BF2 /* logo_ksw.png in Resources */,
 				7245537B19B04A0100760BF2 /* arrow_right.png in Resources */,
+				72D1D1FD19C0419100E68511 /* web in Resources */,
 				72273CA119B4404B002B318D /* Default.png in Resources */,
 				7245539719B04A0100760BF2 /* logo_lf.png in Resources */,
 				7245539D19B04A0100760BF2 /* logo_tyl.png in Resources */,
