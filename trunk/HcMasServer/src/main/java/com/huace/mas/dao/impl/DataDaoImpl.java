@@ -131,7 +131,7 @@ public class DataDaoImpl extends JdbcDaoSupport implements DataDao {
 	@Override
 	public List<Kpi> queryHistData(Integer deviceID, Class clazz, Date start,
 			Date end) {
-		String sql = "SELECT TOP 1 * FROM  ";
+		String sql = "SELECT * FROM  ";
 		String tableName = null;
 		if (clazz.equals(Surface.class)) {
 			tableName = "SURF_DeviceDataHist";
@@ -173,9 +173,9 @@ public class DataDaoImpl extends JdbcDaoSupport implements DataDao {
 		}
 		sql += tableName;
 		if (clazz.equals(Inner.class)) {
-			sql += " WHERE DeviceInnerID = ? AND DacTime >=? and DacTime<=? order by DacTime desc";
+			sql += " WHERE DeviceInnerID = ? AND DacTime >=? and DacTime<=? order by DacTime asc";
 		} else {
-			sql += " WHERE DeviceID = ? AND DacTime >=? and DacTime<=? order by DacTime desc";
+			sql += " WHERE DeviceID = ? AND DacTime >=? and DacTime<=? order by DacTime asc";
 		}
 
 		List<Kpi> kpis = this.getJdbcTemplate().query(sql,

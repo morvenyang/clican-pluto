@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="amcharts/amcharts.js" type="text/javascript"></script>
+<script src="amcharts/serial.js" type="text/javascript"></script>
+<style type="text/css">
+text{
+white-space: pre;
+}
+</style>
+</head>
+<body>
+<div id="chartdiv" style="width:$widthpx; height:$heightpx;"></div>
+<script type="text/javascript">
+var chart = AmCharts.makeChart("chartdiv", {
+    "type": "serial",
+    "theme": "none",
+    "dataProvider":$dataProvider,
+	"legend": {
+        "data":[{title: "v1", color: "#FF6600"},{title: "v2", color: "#FCD202"},{title: "v3", color: "#B0DE09"}]
+    },
+	"valueAxes": [{
+        "id":"v1",
+        "axisColor": "#FF6600",
+        "axisThickness": 2,
+        "gridAlpha": 0,
+        "axisAlpha": 1,
+        "position": "left"
+    }],
+    "graphs": [{
+        "valueAxis": "v1",
+        "lineColor": "#FF6600",
+        "bullet": "round",
+        "bulletBorderThickness": 1,
+        "hideBulletsCount": 30,
+        "title": "red line",
+        "valueField": "v1",
+		"fillAlphas": 0
+    }],
+	"balloonText":"aaaaa",
+    "categoryField": "dacTime",
+    "categoryAxis": {
+        "parseDates": true,
+		"minPeriod":"hh",
+        "axisColor": "#DADADA",
+        "minorGridEnabled": false
+    }
+});
+</script>
+</body>
+</html>

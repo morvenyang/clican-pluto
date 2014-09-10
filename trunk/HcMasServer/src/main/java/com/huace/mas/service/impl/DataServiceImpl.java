@@ -243,6 +243,11 @@ public class DataServiceImpl implements DataService {
 						fx.setDamElevation(getDouble(type
 								.elementText("damElevation")));
 					}
+					kpi.setYellow_value(getDouble(type
+							.elementText("yellow_x")));
+					kpi.setOrange_value(getDouble(type
+							.elementText("orange_x")));
+					kpi.setRed_value(getDouble(type.elementText("red_x")));
 					kpi.setAlert(getBoolean(type.elementText("isAlert")));
 					kpi.setDeviceID(getInteger(type.elementText("deviceID")));
 					kpi.setPointName(type.elementText("pointName"));
@@ -316,7 +321,7 @@ public class DataServiceImpl implements DataService {
 		}
 		List<Kpi> kpis = data.get(project.getProjectName());
 		for (Kpi k : kpis) {
-			if (k.get__type().equals(kpiType)
+			if (k.get__type().startsWith(kpiType)
 					&& k.getPointName().equals(pointName)) {
 				kpi = k;
 				break;
