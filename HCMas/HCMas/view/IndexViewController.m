@@ -12,7 +12,8 @@
 #import "AppDelegate.h"
 #import "MenuButton.h"
 #import "KpiButton.h"
-#import "SwipeScrollView.h"
+
+
 @implementation IndexViewController
 @synthesize imageIndex = _imageIndex;
 @synthesize pointImageViews = _pointImageViews;
@@ -35,6 +36,8 @@
 @synthesize kpis = _kpis;
 @synthesize footView = _footView;
 @synthesize dataView = _dataView;
+@synthesize dataHistoryView = _dataHistoryView;
+@synthesize kpiType = _kpiType;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -448,8 +451,13 @@
     if(self.footView){
         [self.footView removeFromSuperview];
     }
+    if(self.dataHistoryView){
+        [self.dataHistoryView removeFromSuperview];
+        self.dataHistoryView = nil;
+    }
     MenuButton* buttonView = (MenuButton*)sender;
     NSString* kpiType = buttonView.type;
+    self.kpiType = kpiType;
     CGFloat height = 0;
     #ifdef __IPHONE_7_0
     if(DEVICE_VERSION>=7.0){
@@ -463,7 +471,7 @@
         [self.view addSubview:self.footView];
     }else{
         NSArray* kpiArray = [self.kpis objectForKey:kpiType];
-        self.dataView=[self createDataView:kpiType kpis:kpiArray y:height+308];
+        self.dataView=[self createDataView:kpiArray y:height+308];
         [self.view addSubview:self.dataView];
         self.footView = nil;
     }
@@ -478,7 +486,37 @@
     }
     
 }
--(UIView*)createDataView:(NSString*)kpiType kpis:(NSArray*)kpis y:(int)y{
+-(UIView*)createDataHistoryView:(int)y{
+    CGFloat height = 480;
+    if(IS_IPHONE5){
+        height=568;
+    }
+    SwipeScrollView* dataView = [[[SwipeScrollView alloc] initWithFrame:CGRectMake(0, y, 320, height-y)] autorelease];
+    dataView.switchDataDelegate = self;
+    UIButton* pointNameButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [pointNameButton setTitle:@"<点名>" forState:UIControlStateNormal];
+    pointNameButton.frame = CGRectMake(10, 0, 70, 20);
+    UIButton* startDateButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [startDateButton setTitle:@"<开始>" forState:UIControlStateNormal];
+    startDateButton.frame = CGRectMake(80, 0, 70, 20);
+    
+    UIButton* endDateButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [endDateButton setTitle:@"<结束>" forState:UIControlStateNormal];
+    endDateButton.frame = CGRectMake(150, 0, 70, 20);
+    
+    UIButton* searchButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [searchButton setTitle:@"查询" forState:UIControlStateNormal];
+    searchButton.frame = CGRectMake(240, 0, 70, 20);
+    searchButton.layer.cornerRadius = 6;
+    searchButton.layer.masksToBounds = YES;
+    searchButton.layer.backgroundColor = [UIColor orangeColor].CGColor;
+    [dataView addSubview:pointNameButton];
+    [dataView addSubview:startDateButton];
+    [dataView addSubview:endDateButton];
+    [dataView addSubview:searchButton];
+    return dataView;
+}
+-(UIView*)createDataView:(NSArray*)kpis y:(int)y{
     
     CGFloat height = 480;
     if(IS_IPHONE5){
@@ -486,57 +524,58 @@
     }
     CGFloat rowHeight = 20;
     SwipeScrollView* dataView = [[[SwipeScrollView alloc] initWithFrame:CGRectMake(0, y, 320, height-y)] autorelease];
+    dataView.switchDataDelegate = self;
     dataView.contentSize = CGSizeMake(320, rowHeight*(kpis.count+1));
     [dataView setBackgroundColor:[UIColor grayColor]];
     UIView* pointNameView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, 80, rowHeight*(kpis.count+1))] autorelease];
     SwipeScrollView* rightDataView = [[[SwipeScrollView alloc] initWithFrame:CGRectMake(80, 0,240, rowHeight*(kpis.count+1))] autorelease];
-
+    rightDataView.switchDataDelegate = self;
     [dataView addSubview:pointNameView];
     [dataView addSubview:rightDataView];
     
     [pointNameView addSubview:[self createLabel:@"点名" frame:CGRectMake(1, 0, 79, 20) textColor:@"#000000" font:16 backgroundColor:@"#ffc90e" textAlignment:ALIGN_CENTER]];
     [rightDataView addSubview:[self createLabel:@"时间" frame:CGRectMake(1, 0, 59, 20) textColor:@"#000000" font:16 backgroundColor:@"#ffc90e" textAlignment:ALIGN_CENTER]];
     [rightDataView addSubview:[self createLabel:@"状态" frame:CGRectMake(61, 0, 59, 20) textColor:@"#000000" font:16 backgroundColor:@"#ffc90e" textAlignment:ALIGN_CENTER]];
-    if([kpiType isEqualToString:@"Surface"]){
+    if([self.kpiType isEqualToString:@"Surface"]){
         [rightDataView addSubview:[self createLabel:@"Dx(mm)" frame:CGRectMake(121, 0, 59, 20) textColor:@"#000000" font:16 backgroundColor:@"#ffc90e" textAlignment:ALIGN_CENTER]];
         [rightDataView addSubview:[self createLabel:@"Dy(mm)" frame:CGRectMake(181, 0, 59, 20) textColor:@"#000000" font:16 backgroundColor:@"#ffc90e" textAlignment:ALIGN_CENTER]];
         [rightDataView addSubview:[self createLabel:@"Dh(mm)" frame:CGRectMake(241, 0, 59, 20) textColor:@"#000000" font:16 backgroundColor:@"#ffc90e" textAlignment:ALIGN_CENTER]];
             rightDataView.contentSize = CGSizeMake(300, rowHeight*(kpis.count+1));
 
-    }else if([kpiType isEqualToString:@"Inner"]){
+    }else if([self.kpiType isEqualToString:@"Inner"]){
         [rightDataView addSubview:[self createLabel:@"Dx(mm)" frame:CGRectMake(121, 0, 59, 20) textColor:@"#000000" font:16 backgroundColor:@"#ffc90e" textAlignment:ALIGN_CENTER]];
         [rightDataView addSubview:[self createLabel:@"Dy(mm)" frame:CGRectMake(181, 0, 59, 20) textColor:@"#000000" font:16 backgroundColor:@"#ffc90e" textAlignment:ALIGN_CENTER]];
     }else{
         UILabel* valueLabel =[self createLabel:@"水位高程(m)" frame:CGRectMake(121, 0, 118, 20) textColor:@"#000000" font:16 backgroundColor:@"#ffc90e" textAlignment:ALIGN_CENTER];
-        if([kpiType isEqualToString:@"Reservoir"]){
+        if([self.kpiType isEqualToString:@"Reservoir"]){
             valueLabel.text = @"水位高程(m)";
-        }else if([kpiType isEqualToString:@"Saturation"]){
+        }else if([self.kpiType isEqualToString:@"Saturation"]){
             valueLabel.text = @"水位高程(m)";
-        }else if([kpiType isEqualToString:@"Rainfall"]){
+        }else if([self.kpiType isEqualToString:@"Rainfall"]){
             valueLabel.text = @"降雨量(mm)";
-        }else if([kpiType isEqualToString:@"SeeFlow"]){
+        }else if([self.kpiType isEqualToString:@"SeeFlow"]){
             valueLabel.text = @"流速(m/s)";
-        }else if([kpiType isEqualToString:@"DryBeach"]){
+        }else if([self.kpiType isEqualToString:@"DryBeach"]){
             valueLabel.text = @"干滩长度(m)";
-        }else if([kpiType isEqualToString:@"Tyl"]){
+        }else if([self.kpiType isEqualToString:@"Tyl"]){
             valueLabel.text = @"压力(Mpa)";
-        }else if([kpiType isEqualToString:@"Rxwy"]){
+        }else if([self.kpiType isEqualToString:@"Rxwy"]){
             valueLabel.text = @"位移(m)";
-        }else if([kpiType isEqualToString:@"Lf"]){
+        }else if([self.kpiType isEqualToString:@"Lf"]){
             valueLabel.text = @"裂缝(m)";
-        }else if([kpiType isEqualToString:@"Wd"]){
+        }else if([self.kpiType isEqualToString:@"Wd"]){
             valueLabel.text = @"温度(℃)";
-        }else if([kpiType isEqualToString:@"Thsl"]){
+        }else if([self.kpiType isEqualToString:@"Thsl"]){
             valueLabel.text = @"土含水率(%)";
-        }else if([kpiType isEqualToString:@"Dqwd"]){
+        }else if([self.kpiType isEqualToString:@"Dqwd"]){
             valueLabel.text = @"温度(℃)";
-        }else if([kpiType isEqualToString:@"Dqsd"]){
+        }else if([self.kpiType isEqualToString:@"Dqsd"]){
             valueLabel.text = @"湿度(%)";
-        }else if([kpiType isEqualToString:@"Dqyl"]){
+        }else if([self.kpiType isEqualToString:@"Dqyl"]){
             valueLabel.text = @"气压(Mpa)";
-        }else if([kpiType isEqualToString:@"Fx"]){
+        }else if([self.kpiType isEqualToString:@"Fx"]){
             valueLabel.text = @"风向(°)";
-        }else if([kpiType isEqualToString:@"Fs"]){
+        }else if([self.kpiType isEqualToString:@"Fs"]){
             valueLabel.text = @"风速(m/s)";
         }
         [rightDataView addSubview:valueLabel];
@@ -563,13 +602,13 @@
             [rightDataView addSubview:[self createImageViewFromNamedImage:[self getImageNameByGrade:kpi.alertGrade.intValue] frame:CGRectMake(61+(59-rowHeight)/2, rowHeight*(i+1), rowHeight, rowHeight)]];
         }
         
-        if([kpiType isEqualToString:@"Surface"]){
+        if([self.kpiType isEqualToString:@"Surface"]){
             [rightDataView addSubview:[self createLabel:[NSString stringWithFormat:@"%@",kpi.v1] frame:CGRectMake(121, rowHeight*(i+1), 59, 20) textColor:[self getTextColorByGrade:kpi.alertGrade_x.intValue] font:12 backgroundColor:@"#ffffff" textAlignment:ALIGN_CENTER]];
             
             [rightDataView addSubview:[self createLabel:[NSString stringWithFormat:@"%@",kpi.v2] frame:CGRectMake(181, rowHeight*(i+1), 59, 20) textColor:[self getTextColorByGrade:kpi.alertGrade_y.intValue] font:12 backgroundColor:@"#ffffff" textAlignment:ALIGN_CENTER]];
             [rightDataView addSubview:[self createLabel:[NSString stringWithFormat:@"%@",kpi.v1] frame:CGRectMake(241, rowHeight*(i+1), 59, 20) textColor:[self getTextColorByGrade:kpi.alertGrade_h.intValue] font:12 backgroundColor:@"#ffffff" textAlignment:ALIGN_CENTER]];
 
-        }else if([kpiType isEqualToString:@"Inner"]){
+        }else if([self.kpiType isEqualToString:@"Inner"]){
             [rightDataView addSubview:[self createLabel:[NSString stringWithFormat:@"%@",kpi.v1] frame:CGRectMake(121, rowHeight*(i+1), 59, 20) textColor:[self getTextColorByGrade:kpi.alertGrade_x.intValue] font:12 backgroundColor:@"#ffffff" textAlignment:ALIGN_CENTER]];
             
             [rightDataView addSubview:[self createLabel:[NSString stringWithFormat:@"%@",kpi.v2] frame:CGRectMake(181, rowHeight*(i+1), 59, 20) textColor:[self getTextColorByGrade:kpi.alertGrade_y.intValue] font:12 backgroundColor:@"#ffffff" textAlignment:ALIGN_CENTER]];
@@ -966,6 +1005,24 @@
             TTAlert([error localizedDescription]);
         }
     }
+}
+#pragma mark -
+#pragma mark SwitchDataDelegate methods
+- (void) displayCurrent{
+    if(self.dataView){
+        [self.view addSubview:self.dataView];
+    }
+}
+- (void) displayHistory{
+    [self.dataView removeFromSuperview];
+    CGFloat height = 0;
+    #ifdef __IPHONE_7_0
+    if(DEVICE_VERSION>=7.0){
+        height = 22;
+    }
+    #endif
+    self.dataHistoryView=[self createDataHistoryView:height+308];
+    [self.view addSubview:self.dataHistoryView];
 }
 - (void)dealloc
 {

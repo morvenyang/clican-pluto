@@ -11,7 +11,8 @@
 #import "MBProgressHUD.h"
 #import "ProjectModel.h"
 #import "KpiModel.h"
-@interface IndexViewController : UIViewController<UITableViewDelegate,UIPickerViewDataSource,UIPickerViewDelegate,LoginDelegate,MBProgressHUDDelegate,UITextFieldDelegate,ProjectDelegate,KpiDelegate>{
+#import "SwipeScrollView.h"
+@interface IndexViewController : UIViewController<UITableViewDelegate,UIPickerViewDataSource,UIPickerViewDelegate,LoginDelegate,MBProgressHUDDelegate,UITextFieldDelegate,ProjectDelegate,KpiDelegate,SwitchDataDelegate>{
     int _imageIndex;
     NSMutableArray* _pointImageViews;
     UIImageView* _topImageView;
@@ -35,6 +36,8 @@
     NSDictionary* _kpis;
     UIView* _footView;
     UIView* _dataView;
+    UIView* _dataHistoryView;
+    NSString* _kpiType;
 }
 @property (nonatomic, assign) int imageIndex;
 @property (nonatomic, retain) NSMutableArray* pointImageViews;
@@ -57,4 +60,6 @@
 @property (nonatomic, retain) NSDictionary    *kpis;
 @property (nonatomic, retain) UIView    *footView;
 @property (nonatomic, retain) UIView    *dataView;
+@property (nonatomic, retain) UIView    *dataHistoryView;
+@property (nonatomic, copy) NSString    *kpiType;
 @end

@@ -7,11 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@protocol SwitchDataDelegate;
 @interface SwipeScrollView : UIScrollView{
     BOOL _swiping;
     CGFloat _swipeStartPoint;
     CGFloat _swipeEndPoint;
+    id<SwitchDataDelegate> _switchDataDelegate;
 }
+@property (nonatomic, assign) id<SwitchDataDelegate> switchDataDelegate;
+@end
 
+@protocol SwitchDataDelegate <NSObject>
+- (void) displayCurrent;
+- (void) displayHistory;
 @end
