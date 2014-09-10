@@ -60,6 +60,9 @@
         
         _kpiModel = [[KpiModel alloc] init];
         _kpiModel.delegate = self;
+        
+        _kpiHistoryModel = [[KpiHistoryModel alloc] init];
+        _kpiHistoryModel.delegate = self;
     }
     return self;
 }
@@ -442,6 +445,9 @@
         [self.backgroundShadowView removeFromSuperview];
     }];
 }
+-(void)doSearch{
+    [_kpiHistoryModel loadHistoryKpiByProjectId:HCMasAppDelegate.user.selectedProject.projectId kpiType:self.kpiType pointName:self.pointName startDate:self.startDate endDate:self.endDate];
+}
 -(void)switchImage:(UISwipeGestureRecognizer*)gestureRecognizer{
     UISwipeGestureRecognizerDirection direction =gestureRecognizer.direction;
     if(direction==UISwipeGestureRecognizerDirectionLeft){
@@ -550,6 +556,7 @@
     UIButton* searchButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [searchButton setTitle:@"查询" forState:UIControlStateNormal];
     searchButton.frame = CGRectMake(250, 0, 60, 20);
+    [searchButton addTarget:self action:@selector(doSearch) forControlEvents:UIControlEventTouchUpInside];
     searchButton.layer.cornerRadius = 6;
     searchButton.layer.masksToBounds = YES;
     searchButton.layer.backgroundColor = [UIColor orangeColor].CGColor;
@@ -917,12 +924,21 @@
 
 // returns the # of rows in each component..
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component{
-    return self.projects.count;
+    if([self.settingName isEqualToString:PROJECT_NAME]){
+        return self.projects.count;
+    }else{
+        return self.pointNames.count;
+    }
 }
 
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component{
-    Project* project = (Project*) [self.projects objectAtIndex:row];
-    return project.projectName;
+     if([self.settingName isEqualToString:PROJECT_NAME]){
+         Project* project = (Project*) [self.projects objectAtIndex:row];
+         return project.projectName;
+     }else{
+         NSString* pointName = (NSString*) [self.pointNames objectAtIndex:row];
+         return pointName;
+     }
 }
 
 
@@ -1105,6 +1121,34 @@
     [calendarController dismissCalendarAnimated:YES];
 }
 
+#pragma mark -
+#pragma mark KpiHistoryDelegate methods
+- (void)loadKpiHistoryStart{
+    self.progressHUD = [[[MBProgressHUD alloc] initWithView:self.view] autorelease];
+    self.progressHUD.delegate = self;
+    self.progressHUD.labelText = @"加载数据...";
+    [self.view addSubview:self.progressHUD];
+    [self.view bringSubviewToFront:self.progressHUD];
+    [self.progressHUD show:YES];
+}
+- (void)loadKpiHistorySuccess:(NSArray*) kpis{
+    [self.progressHUD hide:NO];
+    TTAlert(@"LOAD KPI HISTORY");
+}
+- (void)loadKpiHistoryFailed:(NSError*) error message:(NSString*) message{
+    [self.progressHUD hide:NO];
+    //-1004 connection is not available
+    //-1001 timeout
+    if([error code]==-1004||[error code]==-1001){
+        TTAlert(@"请检查网络链接");
+    }else{
+        if(message){
+            TTAlert(message);
+        }else{
+            TTAlert([error localizedDescription]);
+        }
+    }
+}
 - (void)dealloc
 {
     TT_RELEASE_SAFELY(_pointImageViews);
