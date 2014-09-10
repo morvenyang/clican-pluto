@@ -1187,7 +1187,6 @@
     NSLog(@"%@",html);
     NSLog(@"%@",[NSString stringWithFormat:@"%@/web/",[[NSBundle mainBundle] bundlePath]]);
     [self.webPieChartView loadHTMLString:html baseURL:[NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/web/",[[NSBundle mainBundle] bundlePath]]]];
-    //[webPieChartView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://192.168.1.100:9000/hcmas/web/1.html"]]];
     [scrollView addSubview:self.webPieChartView];
     [self.dataHistoryView addSubview:scrollView];
     scrollView.contentSize = CGSizeMake(width/2, self.dataHistoryView.frame.size.height-20);
