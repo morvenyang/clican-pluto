@@ -13,6 +13,7 @@
 #import "MenuButton.h"
 #import "KpiButton.h"
 #import "DateButton.h"
+#import "PointNameButton.h"
 
 @implementation IndexViewController
 @synthesize imageIndex = _imageIndex;
@@ -43,6 +44,7 @@
 @synthesize pointName = _pointName;
 @synthesize pointNames = _pointNames;
 @synthesize pointNameButton = _pointNameButton;
+@synthesize webPieChartView = _webPieChartView;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -446,6 +448,11 @@
     }];
 }
 -(void)doSearch{
+//    NSDateFormatter* dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+//    [dateFormatter setDateFormat:@"yyyyMMdd"];
+//    self.pointName=@"Surface-1";
+//    self.startDate = [dateFormatter dateFromString:@"20140115"];
+//    self.endDate = [dateFormatter dateFromString:@"20140131"];
     [_kpiHistoryModel loadHistoryKpiByProjectId:HCMasAppDelegate.user.selectedProject.projectId kpiType:self.kpiType pointName:self.pointName startDate:self.startDate endDate:self.endDate];
 }
 -(void)switchImage:(UISwipeGestureRecognizer*)gestureRecognizer{
@@ -501,6 +508,7 @@
     }
     self.startDate = nil;
     self.endDate = nil;
+    self.pointName = nil;
     MenuButton* buttonView = (MenuButton*)sender;
     NSString* kpiType = buttonView.type;
     self.kpiType = kpiType;
@@ -537,10 +545,14 @@
     if(IS_IPHONE5){
         height=568;
     }
-    SwipeScrollView* dataView = [[[SwipeScrollView alloc] initWithFrame:CGRectMake(0, y, 320, height-y)] autorelease];
-    dataView.switchDataDelegate = self;
+    UIScrollView* dataView = [[[UIScrollView alloc] initWithFrame:CGRectMake(0, y, 320, height-y)] autorelease];
     self.pointNameButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.pointNameButton setTitle:@"<点名>" forState:UIControlStateNormal];
+    if(self.pointName!=nil){
+        [self.pointNameButton setTitle:self.pointName forState:UIControlStateNormal];
+    }else{
+        [self.pointNameButton setTitle:@"<点名>" forState:UIControlStateNormal];
+
+    }
     self.pointNameButton.frame = CGRectMake(5, 0, 90, 20);
     [self.pointNameButton addTarget:self action:@selector(showPointNamePopupView) forControlEvents:UIControlEventTouchUpInside];
     DateButton* startDateButton = [DateButton buttonWithType:UIButtonTypeCustom];
@@ -573,16 +585,13 @@
         height=568;
     }
     CGFloat rowHeight = 20;
-    SwipeScrollView* dataView = [[[SwipeScrollView alloc] initWithFrame:CGRectMake(0, y, 320, height-y)] autorelease];
-    dataView.switchDataDelegate = self;
+    UIScrollView* dataView = [[[UIScrollView alloc] initWithFrame:CGRectMake(0, y, 320, height-y)] autorelease];
     dataView.contentSize = CGSizeMake(320, rowHeight*(kpis.count+1));
     [dataView setBackgroundColor:[UIColor grayColor]];
     UIView* pointNameView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, 80, rowHeight*(kpis.count+1))] autorelease];
-    SwipeScrollView* rightDataView = [[[SwipeScrollView alloc] initWithFrame:CGRectMake(80, 0,240, rowHeight*(kpis.count+1))] autorelease];
-    rightDataView.switchDataDelegate = self;
+    UIScrollView* rightDataView = [[[UIScrollView alloc] initWithFrame:CGRectMake(80, 0,240, rowHeight*(kpis.count+1))] autorelease];
     [dataView addSubview:pointNameView];
     [dataView addSubview:rightDataView];
-    
     [pointNameView addSubview:[self createLabel:@"点名" frame:CGRectMake(1, 0, 79, 20) textColor:@"#000000" font:16 backgroundColor:@"#ffc90e" textAlignment:ALIGN_CENTER]];
     [rightDataView addSubview:[self createLabel:@"时间" frame:CGRectMake(1, 0, 59, 20) textColor:@"#000000" font:16 backgroundColor:@"#ffc90e" textAlignment:ALIGN_CENTER]];
     [rightDataView addSubview:[self createLabel:@"状态" frame:CGRectMake(61, 0, 59, 20) textColor:@"#000000" font:16 backgroundColor:@"#ffc90e" textAlignment:ALIGN_CENTER]];
@@ -635,7 +644,16 @@
     for(int i=0;i<kpis.count;i++){
         Kpi* kpi = [kpis objectAtIndex:i];
         
-        [pointNameView addSubview:[self createLabel:kpi.pointName frame:CGRectMake(1, rowHeight*(i+1), 79, rowHeight) textColor:@"#000000" font:12 backgroundColor:@"#ffffff" textAlignment:ALIGN_CENTER]];
+        PointNameButton* pointNameButton = [PointNameButton buttonWithType:UIButtonTypeCustom];
+        [pointNameButton setTitle:kpi.pointName forState:UIControlStateNormal];
+        pointNameButton.pointName = kpi.pointName;
+        [pointNameButton addTarget:self action:@selector(displayHistory:) forControlEvents:UIControlEventTouchUpInside];
+        pointNameButton.backgroundColor=[UIColor whiteColor];
+        [pointNameButton.titleLabel setFont:[UIFont systemFontOfSize: 12]];
+        [pointNameButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentCenter];
+        [pointNameButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        pointNameButton.frame=CGRectMake(1, rowHeight*(i+1), 79, rowHeight);
+        [pointNameView addSubview:pointNameButton];
 
        [rightDataView addSubview:[self createLabel:[dateFormatter stringFromDate:kpi.dacTime] frame:CGRectMake(1, rowHeight*(i+1), 59, rowHeight) textColor:@"#000000" font:12 backgroundColor:@"#ffffff" textAlignment:ALIGN_CENTER]];
         
@@ -1065,14 +1083,17 @@
         }
     }
 }
-#pragma mark -
-#pragma mark SwitchDataDelegate methods
+-(void)doNothing{
+    
+}
 - (void) displayCurrent{
     if(self.dataView){
         [self.view addSubview:self.dataView];
     }
 }
-- (void) displayHistory{
+- (void) displayHistory:(id)sender{
+    PointNameButton* button = (PointNameButton*)sender;
+    self.pointName = button.pointName;
     [self.dataView removeFromSuperview];
     CGFloat height = 0;
     #ifdef __IPHONE_7_0
@@ -1133,25 +1154,43 @@
 }
 - (void)loadKpiHistorySuccess:(NSArray*) kpis{
     [self.progressHUD hide:NO];
-    UIWebView* webPieChartView = [[[UIWebView alloc] initWithFrame:CGRectMake(0,0,320,self.dataView.frame.size.height)] autorelease];
-    webPieChartView.scalesPageToFit=YES;
-    webPieChartView.userInteractionEnabled =NO;
-    
-    NSString* dataProvider = [[[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:kpis options:NSJSONWritingPrettyPrinted error:nil] encoding:NSUTF8StringEncoding] autorelease];
+    int width = 0;
     NSString* fileName = @"historyLineOther";
     if([self.kpiType isEqualToString:@"Surface"]){
         fileName= @"historyLineSurface";
+        width = 300+kpis.count*50;
     }else if([self.kpiType isEqualToString:@"Inner"]){
         fileName= @"historyLineInner";
+        width = 200+kpis.count*50;
+    }else{
+        width = 100+kpis.count*50;
     }
-    NSString* htmlPath = [[NSBundle mainBundle] pathForResource:@"fileName" ofType:@"html" inDirectory:@"web"];
+    if(width<900){
+        width = 900;
+    }
+    UIScrollView* scrollView = [[[UIScrollView alloc] initWithFrame:CGRectMake(0,20,320,self.dataHistoryView.frame.size.height-20)] autorelease];
+    if(self.webPieChartView){
+        [self.webPieChartView removeFromSuperview];
+    }
+    self.webPieChartView = [[[UIWebView alloc] initWithFrame:CGRectMake(0,0,width/2,self.dataHistoryView.frame.size.height-20)] autorelease];
+    self.webPieChartView.scalesPageToFit=YES;
+    self.webPieChartView.userInteractionEnabled =NO;
+    
+    NSString* dataProvider = [[[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:kpis options:NSJSONWritingPrettyPrinted error:nil] encoding:NSUTF8StringEncoding] autorelease];
+    
+    NSString* htmlPath = [[NSBundle mainBundle] pathForResource:fileName ofType:@"html" inDirectory:@"web"];
     NSString* html = [NSString stringWithContentsOfFile:htmlPath encoding:NSUTF8StringEncoding error:nil];
     
     html=[html stringByReplacingOccurrencesOfString:@"$dataProvider" withString:dataProvider];
-    
+    html=[html stringByReplacingOccurrencesOfString:@"$width" withString:[NSString stringWithFormat:@"%i",width]];
+    html=[html stringByReplacingOccurrencesOfString:@"$height" withString:[NSString stringWithFormat:@"%.0f",(self.dataHistoryView.frame.size.height-20)*2]];
     NSLog(@"%@",html);
     NSLog(@"%@",[NSString stringWithFormat:@"%@/web/",[[NSBundle mainBundle] bundlePath]]);
-    [webPieChartView loadHTMLString:html baseURL:[NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/web/",[[NSBundle mainBundle] bundlePath]]]];
+    [self.webPieChartView loadHTMLString:html baseURL:[NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/web/",[[NSBundle mainBundle] bundlePath]]]];
+    //[webPieChartView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://192.168.1.100:9000/hcmas/web/1.html"]]];
+    [scrollView addSubview:self.webPieChartView];
+    [self.dataHistoryView addSubview:scrollView];
+    scrollView.contentSize = CGSizeMake(width/2, self.dataHistoryView.frame.size.height-20);
 }
 - (void)loadKpiHistoryFailed:(NSError*) error message:(NSString*) message{
     [self.progressHUD hide:NO];

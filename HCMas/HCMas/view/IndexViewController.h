@@ -11,10 +11,9 @@
 #import "MBProgressHUD.h"
 #import "ProjectModel.h"
 #import "KpiModel.h"
-#import "SwipeScrollView.h"
 #import "PMCalendar.h"
 #import "KpiHistoryModel.h"
-@interface IndexViewController : UIViewController<UITableViewDelegate,UIPickerViewDataSource,UIPickerViewDelegate,LoginDelegate,MBProgressHUDDelegate,UITextFieldDelegate,ProjectDelegate,KpiDelegate,SwitchDataDelegate,PMCalendarControllerDelegate,KpiHistoryDelegate>{
+@interface IndexViewController : UIViewController<UITableViewDelegate,UIPickerViewDataSource,UIPickerViewDelegate,LoginDelegate,MBProgressHUDDelegate,UITextFieldDelegate,ProjectDelegate,KpiDelegate,PMCalendarControllerDelegate,KpiHistoryDelegate>{
     int _imageIndex;
     NSMutableArray* _pointImageViews;
     UIImageView* _topImageView;
@@ -46,6 +45,7 @@
     NSString* _pointName;
     NSArray* _pointNames;
     UIButton* _pointNameButton;
+    UIWebView* _webPieChartView;
 }
 @property (nonatomic, assign) int imageIndex;
 @property (nonatomic, retain) NSMutableArray* pointImageViews;
@@ -75,4 +75,5 @@
 @property (nonatomic, retain) NSString    *pointName;
 @property (nonatomic, retain) NSArray    *pointNames;
 @property (nonatomic, retain) UIButton    *pointNameButton;
+@property (nonatomic, retain) UIWebView    *webPieChartView;
 @end

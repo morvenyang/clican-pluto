@@ -32,7 +32,10 @@
 
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event{
     NSLog(@"touch cancelled");
-    [self doSwipe:touches];
+    NSLog(@"touch count=%i",touches.count);
+    if(touches.count>1){
+        [self doSwipe:touches];
+    }
 }
 // Tells the receiver when one or more fingers associated
 //   with an event move within a view or window.
@@ -50,19 +53,13 @@
         }
         // Swipe to left
         NSLog(@"width=%f,right=%f",self.contentSize.width,self.contentOffset.x);
-        if (swipeDistance <= -10.f) {
-            if(self.contentOffset.x>=50||self.contentOffset.x==0){
-                [self.switchDataDelegate displayHistory];
-                NSLog(@"swipe left");
-            }else{
-                 NSLog(@"not swipe left");
-            }
+        if (swipeDistance <= -30.f) {
+            [self.switchDataDelegate displayHistory];
             return;
         }
         // Swipe to right
-        else if (swipeDistance >= 10.f) {
+        else if (swipeDistance >= 30.f) {
             [self.switchDataDelegate displayCurrent];
-            NSLog(@"swipe right");
             return;
         }
         _swiping = NO;
@@ -70,8 +67,12 @@
 }
 // Tells the receiver when one or more fingers are raised from a view or window.
 -(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
-    [self doSwipe:touches];
-    [super touchesEnded:touches withEvent:event];
+    NSLog(@"touch count=%i",touches.count);
+    if(touches.count>1){
+        [self doSwipe:touches];
+    }else{
+        [super touchesEnded:touches withEvent:event];
+    }
 }
 
 - (BOOL)touchesShouldBegin:(NSSet *)touches withEvent:(UIEvent *)event inContentView:(UIView *)view{

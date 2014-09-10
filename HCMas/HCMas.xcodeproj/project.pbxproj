@@ -107,6 +107,7 @@
 		72D1D11219C011A200E68511 /* PMSelectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 72D1D10B19C011A200E68511 /* PMSelectionView.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		72D1D11D19C0166E00E68511 /* DateButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 72D1D11C19C0166E00E68511 /* DateButton.m */; };
 		72D1D1FD19C0419100E68511 /* web in Resources */ = {isa = PBXBuildFile; fileRef = 72D1D1FC19C0419100E68511 /* web */; };
+		72D1D20019C06B3F00E68511 /* PointNameButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 72D1D1FF19C06B3F00E68511 /* PointNameButton.m */; };
 		72F124DC19BA96D000B0F676 /* LoginModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 72F124DB19BA96D000B0F676 /* LoginModel.m */; };
 		72F124F019BA9A4000B0F676 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 72F124EF19BA9A4000B0F676 /* MBProgressHUD.m */; };
 		72F124F319BAA72F00B0F676 /* ProjectModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 72F124F219BAA72F00B0F676 /* ProjectModel.m */; };
@@ -424,6 +425,8 @@
 		72D1D11B19C0166E00E68511 /* DateButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DateButton.h; sourceTree = "<group>"; };
 		72D1D11C19C0166E00E68511 /* DateButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DateButton.m; sourceTree = "<group>"; };
 		72D1D1FC19C0419100E68511 /* web */ = {isa = PBXFileReference; lastKnownFileType = folder; path = web; sourceTree = "<group>"; };
+		72D1D1FE19C06B3F00E68511 /* PointNameButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PointNameButton.h; sourceTree = "<group>"; };
+		72D1D1FF19C06B3F00E68511 /* PointNameButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PointNameButton.m; sourceTree = "<group>"; };
 		72F124DA19BA96D000B0F676 /* LoginModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginModel.h; sourceTree = "<group>"; };
 		72F124DB19BA96D000B0F676 /* LoginModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginModel.m; sourceTree = "<group>"; };
 		72F124EE19BA9A4000B0F676 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
@@ -800,6 +803,8 @@
 				72F1250A19BADA8D00B0F676 /* KpiButton.m */,
 				72D1D11B19C0166E00E68511 /* DateButton.h */,
 				72D1D11C19C0166E00E68511 /* DateButton.m */,
+				72D1D1FE19C06B3F00E68511 /* PointNameButton.h */,
+				72D1D1FF19C06B3F00E68511 /* PointNameButton.m */,
 			);
 			path = control;
 			sourceTree = "<group>";
@@ -1140,6 +1145,7 @@
 				72D1D11019C011A200E68511 /* PMDimmingView.m in Sources */,
 				7233E1E719B03F1900F0664E /* StyleSheet.m in Sources */,
 				72D1D11D19C0166E00E68511 /* DateButton.m in Sources */,
+				72D1D20019C06B3F00E68511 /* PointNameButton.m in Sources */,
 				72D1D10C19C011A200E68511 /* NSDate+Helpers.m in Sources */,
 				7233DF3E19B0193C00F0664E /* main.m in Sources */,
 				72D1D0EF19C006CF00E68511 /* KpiHistoryModel.m in Sources */,
