@@ -68,7 +68,6 @@
     [self.view addSubview:[self createImageViewFromNamedImage:@"main_background.png" frame:CGRectMake(0, height, 320, frame.size.height-height)]];
     [self.view addSubview:[self createImageViewFromNamedImage:@"title_logo_v15.png" frame:CGRectMake(2, 2+height, 24, 26)]];
     [self.view addSubview:[self createLabel:@"华测自动化检测与预警系统" frame:CGRectMake(27, height-2, 200, 30) textColor:@"#ffffff" font:15 backgroundColor:nil textAlignment:ALIGN_LEFT]];
-    [self.view addSubview:[self createImageViewFromNamedImage:@"clear.png" frame:CGRectMake(290, 2+height, 26, 26)]];
     self.topImageView = [self createImageViewFromNamedImage:@"default_pic_1.jpg" frame:CGRectMake(0, height+28, 320, 130)];
     [self.view addSubview:self.topImageView];
     
