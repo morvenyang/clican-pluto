@@ -98,6 +98,14 @@
 		72D1D0D319BFF73900E68511 /* SwipeScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 72D1D0D219BFF73900E68511 /* SwipeScrollView.m */; };
 		72D1D0EF19C006CF00E68511 /* KpiHistoryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 72D1D0EE19C006CF00E68511 /* KpiHistoryModel.m */; };
 		72D1D0F119C00C3000E68511 /* calendar.png in Resources */ = {isa = PBXBuildFile; fileRef = 72D1D0F019C00C3000E68511 /* calendar.png */; };
+		72D1D10C19C011A200E68511 /* NSDate+Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 72D1D0FC19C011A200E68511 /* NSDate+Helpers.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		72D1D10D19C011A200E68511 /* PMCalendarBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 72D1D0FF19C011A200E68511 /* PMCalendarBackgroundView.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		72D1D10E19C011A200E68511 /* PMCalendarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 72D1D10219C011A200E68511 /* PMCalendarController.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		72D1D10F19C011A200E68511 /* PMCalendarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 72D1D10519C011A200E68511 /* PMCalendarView.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		72D1D11019C011A200E68511 /* PMDimmingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 72D1D10719C011A200E68511 /* PMDimmingView.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		72D1D11119C011A200E68511 /* PMPeriod.m in Sources */ = {isa = PBXBuildFile; fileRef = 72D1D10919C011A200E68511 /* PMPeriod.m */; };
+		72D1D11219C011A200E68511 /* PMSelectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 72D1D10B19C011A200E68511 /* PMSelectionView.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		72D1D11D19C0166E00E68511 /* DateButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 72D1D11C19C0166E00E68511 /* DateButton.m */; };
 		72F124DC19BA96D000B0F676 /* LoginModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 72F124DB19BA96D000B0F676 /* LoginModel.m */; };
 		72F124F019BA9A4000B0F676 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 72F124EF19BA9A4000B0F676 /* MBProgressHUD.m */; };
 		72F124F319BAA72F00B0F676 /* ProjectModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 72F124F219BAA72F00B0F676 /* ProjectModel.m */; };
@@ -395,6 +403,25 @@
 		72D1D0ED19C006CF00E68511 /* KpiHistoryModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KpiHistoryModel.h; sourceTree = "<group>"; };
 		72D1D0EE19C006CF00E68511 /* KpiHistoryModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KpiHistoryModel.m; sourceTree = "<group>"; };
 		72D1D0F019C00C3000E68511 /* calendar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = calendar.png; sourceTree = "<group>"; };
+		72D1D0FB19C011A200E68511 /* NSDate+Helpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Helpers.h"; sourceTree = "<group>"; };
+		72D1D0FC19C011A200E68511 /* NSDate+Helpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Helpers.m"; sourceTree = "<group>"; };
+		72D1D0FD19C011A200E68511 /* PMCalendar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMCalendar.h; sourceTree = "<group>"; };
+		72D1D0FE19C011A200E68511 /* PMCalendarBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMCalendarBackgroundView.h; sourceTree = "<group>"; };
+		72D1D0FF19C011A200E68511 /* PMCalendarBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMCalendarBackgroundView.m; sourceTree = "<group>"; };
+		72D1D10019C011A200E68511 /* PMCalendarConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMCalendarConstants.h; sourceTree = "<group>"; };
+		72D1D10119C011A200E68511 /* PMCalendarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMCalendarController.h; sourceTree = "<group>"; };
+		72D1D10219C011A200E68511 /* PMCalendarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMCalendarController.m; sourceTree = "<group>"; };
+		72D1D10319C011A200E68511 /* PMCalendarHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMCalendarHelpers.h; sourceTree = "<group>"; };
+		72D1D10419C011A200E68511 /* PMCalendarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMCalendarView.h; sourceTree = "<group>"; };
+		72D1D10519C011A200E68511 /* PMCalendarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMCalendarView.m; sourceTree = "<group>"; };
+		72D1D10619C011A200E68511 /* PMDimmingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMDimmingView.h; sourceTree = "<group>"; };
+		72D1D10719C011A200E68511 /* PMDimmingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMDimmingView.m; sourceTree = "<group>"; };
+		72D1D10819C011A200E68511 /* PMPeriod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMPeriod.h; sourceTree = "<group>"; };
+		72D1D10919C011A200E68511 /* PMPeriod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMPeriod.m; sourceTree = "<group>"; };
+		72D1D10A19C011A200E68511 /* PMSelectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMSelectionView.h; sourceTree = "<group>"; };
+		72D1D10B19C011A200E68511 /* PMSelectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMSelectionView.m; sourceTree = "<group>"; };
+		72D1D11B19C0166E00E68511 /* DateButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DateButton.h; sourceTree = "<group>"; };
+		72D1D11C19C0166E00E68511 /* DateButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DateButton.m; sourceTree = "<group>"; };
 		72F124DA19BA96D000B0F676 /* LoginModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginModel.h; sourceTree = "<group>"; };
 		72F124DB19BA96D000B0F676 /* LoginModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginModel.m; sourceTree = "<group>"; };
 		72F124EE19BA9A4000B0F676 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
@@ -562,6 +589,7 @@
 		7233DF3719B0193C00F0664E /* HCMas */ = {
 			isa = PBXGroup;
 			children = (
+				72D1D0FA19C0118C00E68511 /* calendar */,
 				72F1250519BAC2E500B0F676 /* control */,
 				7233E1CC19B03EF000F0664E /* datasource */,
 				7233E1CD19B03EF000F0664E /* model */,
@@ -734,6 +762,30 @@
 			path = HCMas/resources;
 			sourceTree = "<group>";
 		};
+		72D1D0FA19C0118C00E68511 /* calendar */ = {
+			isa = PBXGroup;
+			children = (
+				72D1D0FB19C011A200E68511 /* NSDate+Helpers.h */,
+				72D1D0FC19C011A200E68511 /* NSDate+Helpers.m */,
+				72D1D0FD19C011A200E68511 /* PMCalendar.h */,
+				72D1D0FE19C011A200E68511 /* PMCalendarBackgroundView.h */,
+				72D1D0FF19C011A200E68511 /* PMCalendarBackgroundView.m */,
+				72D1D10019C011A200E68511 /* PMCalendarConstants.h */,
+				72D1D10119C011A200E68511 /* PMCalendarController.h */,
+				72D1D10219C011A200E68511 /* PMCalendarController.m */,
+				72D1D10319C011A200E68511 /* PMCalendarHelpers.h */,
+				72D1D10419C011A200E68511 /* PMCalendarView.h */,
+				72D1D10519C011A200E68511 /* PMCalendarView.m */,
+				72D1D10619C011A200E68511 /* PMDimmingView.h */,
+				72D1D10719C011A200E68511 /* PMDimmingView.m */,
+				72D1D10819C011A200E68511 /* PMPeriod.h */,
+				72D1D10919C011A200E68511 /* PMPeriod.m */,
+				72D1D10A19C011A200E68511 /* PMSelectionView.h */,
+				72D1D10B19C011A200E68511 /* PMSelectionView.m */,
+			);
+			path = calendar;
+			sourceTree = "<group>";
+		};
 		72F1250519BAC2E500B0F676 /* control */ = {
 			isa = PBXGroup;
 			children = (
@@ -743,6 +795,8 @@
 				72F1250719BAC2F600B0F676 /* MenuButton.m */,
 				72F1250919BADA8D00B0F676 /* KpiButton.h */,
 				72F1250A19BADA8D00B0F676 /* KpiButton.m */,
+				72D1D11B19C0166E00E68511 /* DateButton.h */,
+				72D1D11C19C0166E00E68511 /* DateButton.m */,
 			);
 			path = control;
 			sourceTree = "<group>";
@@ -1077,13 +1131,21 @@
 				72F1250B19BADA8D00B0F676 /* KpiButton.m in Sources */,
 				72F124F319BAA72F00B0F676 /* ProjectModel.m in Sources */,
 				7233DF4219B0193C00F0664E /* AppDelegate.m in Sources */,
+				72D1D11119C011A200E68511 /* PMPeriod.m in Sources */,
 				72F124F619BAA74600B0F676 /* Project.m in Sources */,
+				72D1D11019C011A200E68511 /* PMDimmingView.m in Sources */,
 				7233E1E719B03F1900F0664E /* StyleSheet.m in Sources */,
+				72D1D11D19C0166E00E68511 /* DateButton.m in Sources */,
+				72D1D10C19C011A200E68511 /* NSDate+Helpers.m in Sources */,
 				7233DF3E19B0193C00F0664E /* main.m in Sources */,
 				72D1D0EF19C006CF00E68511 /* KpiHistoryModel.m in Sources */,
 				72F1250819BAC2F600B0F676 /* MenuButton.m in Sources */,
+				72D1D10F19C011A200E68511 /* PMCalendarView.m in Sources */,
+				72D1D10E19C011A200E68511 /* PMCalendarController.m in Sources */,
+				72D1D11219C011A200E68511 /* PMSelectionView.m in Sources */,
 				7233E1E419B03F0700F0664E /* IndexViewController.m in Sources */,
 				72F124DC19BA96D000B0F676 /* LoginModel.m in Sources */,
+				72D1D10D19C011A200E68511 /* PMCalendarBackgroundView.m in Sources */,
 				72D1D0D319BFF73900E68511 /* SwipeScrollView.m in Sources */,
 				72F124F019BA9A4000B0F676 /* MBProgressHUD.m in Sources */,
 			);

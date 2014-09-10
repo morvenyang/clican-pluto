@@ -12,7 +12,7 @@
 #import "AppDelegate.h"
 #import "MenuButton.h"
 #import "KpiButton.h"
-
+#import "DateButton.h"
 
 @implementation IndexViewController
 @synthesize imageIndex = _imageIndex;
@@ -38,6 +38,8 @@
 @synthesize dataView = _dataView;
 @synthesize dataHistoryView = _dataHistoryView;
 @synthesize kpiType = _kpiType;
+@synthesize startDate = _startDate;
+@synthesize endDate = _endDate;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -455,6 +457,8 @@
         [self.dataHistoryView removeFromSuperview];
         self.dataHistoryView = nil;
     }
+    self.startDate = nil;
+    self.endDate = nil;
     MenuButton* buttonView = (MenuButton*)sender;
     NSString* kpiType = buttonView.type;
     self.kpiType = kpiType;
@@ -496,14 +500,16 @@
     UIButton* pointNameButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [pointNameButton setTitle:@"<点名>" forState:UIControlStateNormal];
     pointNameButton.frame = CGRectMake(10, 0, 70, 20);
-    UIButton* startDateButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    DateButton* startDateButton = [DateButton buttonWithType:UIButtonTypeCustom];
+    startDateButton.type = @"start";
     [startDateButton setTitle:@"<开始>" forState:UIControlStateNormal];
     startDateButton.frame = CGRectMake(80, 0, 70, 20);
-    
-    UIButton* endDateButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [startDateButton addTarget:self action:@selector(openCalendar:) forControlEvents:UIControlEventTouchUpInside];
+    DateButton* endDateButton = [DateButton buttonWithType:UIButtonTypeCustom];
+    endDateButton.type = @"end";
     [endDateButton setTitle:@"<结束>" forState:UIControlStateNormal];
     endDateButton.frame = CGRectMake(150, 0, 70, 20);
-    
+    [endDateButton addTarget:self action:@selector(openCalendar:) forControlEvents:UIControlEventTouchUpInside];
     UIButton* searchButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [searchButton setTitle:@"查询" forState:UIControlStateNormal];
     searchButton.frame = CGRectMake(240, 0, 70, 20);
@@ -1024,6 +1030,46 @@
     self.dataHistoryView=[self createDataHistoryView:height+308];
     [self.view addSubview:self.dataHistoryView];
 }
+-(void)openPointNameList:(id)sender{
+    
+}
+-(void)openCalendar:(id)sender{
+    DateButton* button = (DateButton*)sender;
+    NSDate* date =[NSDate date];
+    if([button.type isEqualToString:@"start"]){
+        if(self.startDate!=nil){
+            date=self.startDate;
+        }
+    }else{
+        if(self.endDate!=nil){
+            date=self.endDate;
+        }
+    }
+    PMCalendarController* pmCC = [[[PMCalendarController alloc] initWithDate:date] autorelease];
+    pmCC.delegate = self;
+    pmCC.allowsPeriodSelection = NO;
+    pmCC.mondayFirstDayOfWeek = YES;
+    
+    [pmCC presentCalendarFromView:button
+         permittedArrowDirections:PMCalendarArrowDirectionDown
+                         animated:YES];
+}
+- (void)calendarController:(PMCalendarController *)calendarController didChangePeriod:(PMPeriod *)newPeriod
+{
+    DateButton* button = (DateButton*)calendarController.anchorView;
+    
+    NSDate* date = newPeriod.startDate;
+    NSDateFormatter* dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+    [dateFormatter setDateFormat:@"MM/dd"];
+    [button setTitle:[dateFormatter stringFromDate:date] forState:UIControlStateNormal];
+    if([button.type isEqualToString:@"start"]){
+        self.startDate = date;
+    }else{
+        self.endDate = date;
+    }
+    [calendarController dismissCalendarAnimated:YES];
+}
+
 - (void)dealloc
 {
     TT_RELEASE_SAFELY(_pointImageViews);
