@@ -954,7 +954,7 @@
 
 // returns the # of rows in each component..
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component{
-    if([self.settingName isEqualToString:PROJECT_NAME]){
+    if([self.settingKey isEqualToString:PROJECT_NAME]){
         return self.projects.count;
     }else{
         return self.pointNames.count;
@@ -962,7 +962,7 @@
 }
 
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component{
-     if([self.settingName isEqualToString:PROJECT_NAME]){
+     if([self.settingKey isEqualToString:PROJECT_NAME]){
          Project* project = (Project*) [self.projects objectAtIndex:row];
          return project.projectName;
      }else{
