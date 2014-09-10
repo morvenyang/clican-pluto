@@ -12,6 +12,7 @@
 #import "AppDelegate.h"
 #import "MenuButton.h"
 #import "KpiButton.h"
+#import "SwipeScrollView.h"
 @implementation IndexViewController
 @synthesize imageIndex = _imageIndex;
 @synthesize pointImageViews = _pointImageViews;
@@ -478,16 +479,17 @@
     
 }
 -(UIView*)createDataView:(NSString*)kpiType kpis:(NSArray*)kpis y:(int)y{
+    
     CGFloat height = 480;
     if(IS_IPHONE5){
         height=568;
     }
     CGFloat rowHeight = 20;
-    UIScrollView* dataView = [[[UIScrollView alloc] initWithFrame:CGRectMake(0, y, 320, height-y)] autorelease];
+    SwipeScrollView* dataView = [[[SwipeScrollView alloc] initWithFrame:CGRectMake(0, y, 320, height-y)] autorelease];
     dataView.contentSize = CGSizeMake(320, rowHeight*(kpis.count+1));
     [dataView setBackgroundColor:[UIColor grayColor]];
     UIView* pointNameView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, 80, rowHeight*(kpis.count+1))] autorelease];
-    UIScrollView* rightDataView = [[[UIScrollView alloc] initWithFrame:CGRectMake(80, 0,240, rowHeight*(kpis.count+1))] autorelease];
+    SwipeScrollView* rightDataView = [[[SwipeScrollView alloc] initWithFrame:CGRectMake(80, 0,240, rowHeight*(kpis.count+1))] autorelease];
 
     [dataView addSubview:pointNameView];
     [dataView addSubview:rightDataView];

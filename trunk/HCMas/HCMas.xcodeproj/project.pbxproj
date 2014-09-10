@@ -95,6 +95,7 @@
 		724553AD19B04A0100760BF2 /* title_logo_v15.png in Resources */ = {isa = PBXBuildFile; fileRef = 7245537719B04A0100760BF2 /* title_logo_v15.png */; };
 		724553AE19B04A0100760BF2 /* title_logo.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7245537819B04A0100760BF2 /* title_logo.jpg */; };
 		724553AF19B04A0100760BF2 /* yellow.png in Resources */ = {isa = PBXBuildFile; fileRef = 7245537919B04A0100760BF2 /* yellow.png */; };
+		72D1D0D319BFF73900E68511 /* SwipeScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 72D1D0D219BFF73900E68511 /* SwipeScrollView.m */; };
 		72F124DC19BA96D000B0F676 /* LoginModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 72F124DB19BA96D000B0F676 /* LoginModel.m */; };
 		72F124F019BA9A4000B0F676 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 72F124EF19BA9A4000B0F676 /* MBProgressHUD.m */; };
 		72F124F319BAA72F00B0F676 /* ProjectModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 72F124F219BAA72F00B0F676 /* ProjectModel.m */; };
@@ -387,6 +388,8 @@
 		7245537819B04A0100760BF2 /* title_logo.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = title_logo.jpg; sourceTree = "<group>"; };
 		7245537919B04A0100760BF2 /* yellow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = yellow.png; sourceTree = "<group>"; };
 		724553DB19B0567800760BF2 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		72D1D0D119BFF73900E68511 /* SwipeScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwipeScrollView.h; sourceTree = "<group>"; };
+		72D1D0D219BFF73900E68511 /* SwipeScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SwipeScrollView.m; sourceTree = "<group>"; };
 		72F124DA19BA96D000B0F676 /* LoginModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginModel.h; sourceTree = "<group>"; };
 		72F124DB19BA96D000B0F676 /* LoginModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginModel.m; sourceTree = "<group>"; };
 		72F124EE19BA9A4000B0F676 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
@@ -726,6 +729,8 @@
 		72F1250519BAC2E500B0F676 /* control */ = {
 			isa = PBXGroup;
 			children = (
+				72D1D0D119BFF73900E68511 /* SwipeScrollView.h */,
+				72D1D0D219BFF73900E68511 /* SwipeScrollView.m */,
 				72F1250619BAC2F600B0F676 /* MenuButton.h */,
 				72F1250719BAC2F600B0F676 /* MenuButton.m */,
 				72F1250919BADA8D00B0F676 /* KpiButton.h */,
@@ -1069,6 +1074,7 @@
 				72F1250819BAC2F600B0F676 /* MenuButton.m in Sources */,
 				7233E1E419B03F0700F0664E /* IndexViewController.m in Sources */,
 				72F124DC19BA96D000B0F676 /* LoginModel.m in Sources */,
+				72D1D0D319BFF73900E68511 /* SwipeScrollView.m in Sources */,
 				72F124F019BA9A4000B0F676 /* MBProgressHUD.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
