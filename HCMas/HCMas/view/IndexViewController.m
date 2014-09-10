@@ -654,8 +654,8 @@
         height=568;
     }
     UIScrollView* settingView = [[[UIScrollView alloc] initWithFrame:CGRectMake(0, y, 320, height-y-30)] autorelease];
-    settingView.contentSize = CGSizeMake(320, 400);
-    TTTableView* tableView = [[[TTTableView alloc] initWithFrame:CGRectMake(0, 0, 320, 400)] autorelease];
+    settingView.contentSize = CGSizeMake(320, 245);
+    TTTableView* tableView = [[[TTTableView alloc] initWithFrame:CGRectMake(0, 0, 320, 245)] autorelease];
     tableView.scrollEnabled=NO;
 
     TTSectionedDataSource* ds = [TTSectionedDataSource dataSourceWithObjects:
@@ -663,8 +663,6 @@
         [self createTableItemByTitle:@"服务地址" subTitle:@"请正确填写服务端地址" action:@selector(showServerSettingPopupView)],
         [self createTableItemByTitle:@"工程项目" subTitle:@"请勾选需要查看的工程" action:@selector(showProjectSettingPopupView)],
         [self createTableItemByTitle:@"更新频率" subTitle:@"设置刷新周期(秒)" action:@selector(showFrequencySettingPopupView)],
-        @"报警模式",
-        [self createTableItemByTitle:@"报警开/关" subTitle:@"请勾选是否开启报警" action:nil],
         @"关于",
         [TTTableStyledTextItem itemWithText:[TTStyledText textFromXHTML:[NSString stringWithFormat:@"<span class=\"settingRow3\">软件名称:华测自动化监测与预警系统（手机版）</span><br/><span class=\"settingRow3\">版本:1.0</span><br/><span class=\"settingRow3\">版权:上海华测导航技术有限公司</span><br/><span class=\"settingRow3\">网址:www.huace.cn</span>"] lineBreaks:YES URLs:YES]],
                                  nil];
