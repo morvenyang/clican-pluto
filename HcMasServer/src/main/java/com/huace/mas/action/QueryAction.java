@@ -127,7 +127,7 @@ public class QueryAction {
 		List<KpiData> result = dataService.queryKpiData(projectID, kpiType, pointName, start, end);
 		JsonConfig jsonConfig = new JsonConfig();
 		jsonConfig.registerJsonValueProcessor(Date.class,
-				new DateJsonValueProcessor("yyyy-MM-dd HH:mm:ss"));
+				new DateJsonValueProcessor("yyyy/MM/dd HH:mm:ss"));
 		JSONArray jsonObject = JSONArray.fromObject(result, jsonConfig);
 		OutputStream os = null;
 		try {
