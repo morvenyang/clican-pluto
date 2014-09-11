@@ -13,7 +13,10 @@
 #import "KpiModel.h"
 #import "PMCalendar.h"
 #import "KpiHistoryModel.h"
-@interface IndexViewController : UIViewController<UITableViewDelegate,UIPickerViewDataSource,UIPickerViewDelegate,LoginDelegate,MBProgressHUDDelegate,UITextFieldDelegate,ProjectDelegate,KpiDelegate,PMCalendarControllerDelegate,KpiHistoryDelegate>{
+#import "AppDelegate.h"
+@interface IndexViewController : UIViewController<UITableViewDelegate,UIPickerViewDataSource,UIPickerViewDelegate,LoginDelegate,MBProgressHUDDelegate,UITextFieldDelegate,ProjectDelegate,KpiDelegate,PMCalendarControllerDelegate,KpiHistoryDelegate,RefreshDelegate>{
+    BOOL _current;
+    BOOL _popup;
     int _imageIndex;
     NSMutableArray* _pointImageViews;
     UIImageView* _topImageView;

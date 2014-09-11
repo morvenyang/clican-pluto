@@ -197,6 +197,7 @@
     }];
 }
 -(void)showDetailKpi:(id*)sender{
+    _popup = YES;
     KpiButton* kpiButton = (KpiButton*)sender;
     Kpi* kpi = kpiButton.kpi;
     CGFloat height = 480;
@@ -316,6 +317,7 @@
     }];
 }
 -(void)showSettingPopupView{
+    _popup = YES;
     [self.view addSubview:self.backgroundShadowView];
     CGFloat height = 480;
     if(IS_IPHONE5){
@@ -433,18 +435,24 @@
         
         [_loginModel login:self.userNameTextField.text password:self.passwordTextField.text];
     }else{
+        if([self.settingKey isEqualToString:UPDATE_FREQUENCY_NAME]){
+            [HCMasAppDelegate startTimer];
+        }
         [self setValue:[self.popupTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] byKey:self.settingKey];
+        
     }
 
     [self cancelSetting];
 }
 -(void)cancelSetting{
+    
     [UIView animateWithDuration:0.25f animations:^{
         self.popupView.alpha = 0;
         [self.popupView layoutIfNeeded];
     } completion:^(BOOL finished) {
         [self.popupView removeFromSuperview];
         [self.backgroundShadowView removeFromSuperview];
+        _popup=NO;
     }];
 }
 -(void)doSearch{
@@ -506,6 +514,7 @@
         [self.dataHistoryView removeFromSuperview];
         self.dataHistoryView = nil;
     }
+    _current =YES;
     self.startDate = nil;
     self.endDate = nil;
     self.pointName = nil;
@@ -871,6 +880,7 @@
     NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
     [defaults setObject:value forKey:key];
 }
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -992,6 +1002,7 @@
     HCMasAppDelegate.user = user;
     self.footLabel.text = user.username;
     [_projectModel loadProjects];
+    [HCMasAppDelegate startTimer];
 }
 - (void)loginFailed:(NSError*) error message:(NSString*) message
 {
@@ -1080,6 +1091,19 @@
 - (void)loadKpiSuccess:(NSDictionary*) kpis{
     [self.progressHUD hide:NO];
     self.kpis = kpis;
+    if(_current&&self.dataView!=nil&&![self.kpiType isEqualToString:SYSTEM_CONFIG]&&!_popup){
+        NSLog(@"refresh current kpi");
+        NSArray* kpiArray = [self.kpis objectForKey:self.kpiType];
+        [self.dataView removeFromSuperview];
+        CGFloat height = 0;
+        #ifdef __IPHONE_7_0
+        if(DEVICE_VERSION>=7.0){
+            height = 22;
+        }
+        #endif
+        self.dataView=[self createDataView:kpiArray y:height+308];
+        [self.view addSubview:self.dataView];
+    }
 }
 - (void)loadKpiFailed:(NSError*) error message:(NSString*) message{
     [self.progressHUD hide:NO];
@@ -1095,15 +1119,16 @@
         }
     }
 }
--(void)doNothing{
-    
-}
+
 - (void) displayCurrent{
+    _current =YES;
     if(self.dataView){
         [self.view addSubview:self.dataView];
     }
 }
+
 - (void) displayHistory:(id)sender{
+    _current = NO;
     PointNameButton* button = (PointNameButton*)sender;
     self.pointName = button.pointName;
     [self.dataView removeFromSuperview];
@@ -1215,6 +1240,27 @@
         }else{
             TTAlert([error localizedDescription]);
         }
+    }
+}
+#pragma mark -
+#pragma mark RefreshDelegate methods
+-(void)refresh{
+    if([self.kpiType isEqualToString:SYSTEM_CONFIG]){
+        NSLog(@"At system config page, not refresh");
+        return;
+    }
+    if(!_current){
+        NSLog(@"At history page, not refresh");
+        return;
+    }
+    if(_popup){
+        NSLog(@"At popup page, not refresh");
+        return;
+    }
+
+    NSLog(@"Reload current kpi from server");
+    if(HCMasAppDelegate.user.selectedProject!=nil){
+            [_kpiModel loadKpiByProjectId:HCMasAppDelegate.user.selectedProject.projectId];
     }
 }
 - (void)dealloc
