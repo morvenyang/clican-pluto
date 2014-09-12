@@ -739,7 +739,7 @@
 -(UIView*)createMenuView:(int)y{
     UIScrollView* menuView = [[[UIScrollView alloc] initWithFrame:CGRectMake(0, y, 320, 130)] autorelease];
     NSArray* imageArray = [NSArray arrayWithObjects:@"logo_xtgl.png",@"logo_ksw.png",@"logo_zxgt.png",@"logo_dqwd.png",@"logo_dqsd.png",@"logo_dqyl.png",@"logo_fs.png",@"logo_fx.png",@"logo_yl.png",@"logo_bmwy.png",@"logo_jrx.png",@"logo_nbwy.png",@"logo_sl.png",@"logo_tyl.png",@"logo_thsl.png",@"logo_lf.png",@"logo_rxwy.png",@"logo_wd.png", nil];
-    NSArray* nameArray = [NSArray arrayWithObjects:@"系统设置",@"库水位",@"干滩",@"大气温度",@"大气湿度",@"大气气压",@"风速",@"风向",@"雨量",@"表面位移",@"浸润线",@"内部位移",@"滲流",@"土压力",@"土壤含水率",@"裂缝",@"柔性位移",@"土壤温度", nil];
+
     NSArray* kpiTypeArray = [NSArray arrayWithObjects:SYSTEM_CONFIG,@"Reservoir",@"DryBeach",@"Dqwd",@"Dqsd",@"Dqyl",@"Fs",@"Fx",@"Rainfall",@"Surface",@"Saturation",@"Inner",@"SeeFlow",@"Tyl",@"Thsl",@"Lf",@"Rxwy",@"Wd", nil];
     
     int usedCount = 0;
@@ -751,13 +751,24 @@
             xoffset =-imageArray.count/2;
         }
          NSString* kpiType = [kpiTypeArray objectAtIndex:i];
+        NSUInteger index = 0;
         if (i!=0) {
-            if(![HCMasAppDelegate.user.selectedProject.kpis containsObject:kpiType]){
+            if(HCMasAppDelegate.user==nil||HCMasAppDelegate.user.selectedProject==nil){
+                continue;
+            }
+            index = [HCMasAppDelegate.user.selectedProject.kpis indexOfObject:kpiType];
+            if (index==NSNotFound) {
                 continue;
             }
         }
         NSString* image =[imageArray objectAtIndex:i];
-        NSString* name =[nameArray objectAtIndex:i];
+        NSString* name = nil;
+        
+        if(i==0){
+            name = @"系统设置";
+        }else{
+            name =[HCMasAppDelegate.user.selectedProject.kpiNames objectAtIndex:index];
+        }
         UIImageView* imageView=[self createImageViewFromNamedImage:image frame:CGRectMake(16+(usedCount+xoffset)*72, 5+yoffset, 40, 40)];
         
         MenuButton* bgImageView = [[MenuButton alloc] initWithFrame:CGRectMake(1+(usedCount+xoffset)*72, 0+yoffset, 70, 60)];

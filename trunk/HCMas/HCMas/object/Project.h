@@ -12,8 +12,10 @@
     NSNumber *_projectId;
     NSString *_projectName;
     NSArray *_kpis;
+    NSArray *_kpiNames;
 }
 @property (nonatomic, retain) NSNumber* projectId;
 @property (nonatomic, copy) NSString* projectName;
 @property (nonatomic, retain) NSArray* kpis;
+@property (nonatomic, retain) NSArray* kpiNames;
 @end

@@ -12,6 +12,7 @@
 @synthesize projectName = _projectName;
 @synthesize projectId = _projectId;
 @synthesize kpis = kpis;
+@synthesize kpiNames = _kpiNames;
 -(id)init{
     self = [super init];
     if(self){
