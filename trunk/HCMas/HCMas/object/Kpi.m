@@ -22,6 +22,8 @@
 @synthesize dis_x = _dis_x;
 @synthesize dis_h = _dis_h;
 @synthesize dis_y = _dis_y;
+@synthesize d2 = _d2;
+@synthesize d3 = _d3;
 -(id)init{
     self = [super init];
     if(self){
@@ -43,6 +45,8 @@
     TT_RELEASE_SAFELY(_dis_x);
     TT_RELEASE_SAFELY(_dis_h);
     TT_RELEASE_SAFELY(_dis_y);
+    TT_RELEASE_SAFELY(_d2);
+    TT_RELEASE_SAFELY(_d3);
     [super dealloc];
 }
 @end
