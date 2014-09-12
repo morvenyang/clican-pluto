@@ -19,6 +19,8 @@ public class Project implements Serializable{
 	
 	private List<String> kpis;
 	
+	private List<String> kpiNames;
+	
 	public String get__type() {
 		return __type;
 	}
@@ -42,6 +44,12 @@ public class Project implements Serializable{
 	}
 	public void setKpis(List<String> kpis) {
 		this.kpis = kpis;
+	}
+	public List<String> getKpiNames() {
+		return kpiNames;
+	}
+	public void setKpiNames(List<String> kpiNames) {
+		this.kpiNames = kpiNames;
 	}
 	
 	

@@ -17,6 +17,7 @@ public class SpringProperty {
 	private String alertConfigXmlPath;
 	
 	private Map<String,Integer> orderMap = new HashMap<String,Integer>();
+	private Map<String,String> kpiMap = new HashMap<String,String>();
 
 	public boolean isSystemProxyEnable() {
 		return systemProxyEnable;
@@ -91,5 +92,21 @@ public class SpringProperty {
 		}
 	}
 
+	public Map<String, String> getKpiMap() {
+		return kpiMap;
+	}
+
+	public void setKpiMap(Map<String, String> kpiMap) {
+		this.kpiMap = kpiMap;
+	}
+	
+	public void setKpiMapStr(String orderMapStr) {
+		String[] maps = orderMapStr.split(";");
+		for(String map:maps){
+			String key = map.split(":")[0];
+			String value = map.split(":")[1];
+			this.kpiMap.put(key, value);
+		}
+	}
 	
 }
