@@ -4,10 +4,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.commons.beanutils.BeanUtils;
@@ -68,18 +66,17 @@ public class DataServiceImpl implements DataService {
 	@Override
 	public List<Project> findAllProjects() {
 		List<Project> projects = dataDao.findAllProjects();
-		Map<String, List<Kpi>> pMap = this.checkAndRefresh();
 		List<Project> result = new ArrayList<Project>();
+		Map<String, String> kpiMap = springProperty.getKpiMap();
+		List<String> kpis = new ArrayList<String>();
+		List<String> kpiNames = new ArrayList<String>();
+		for (String kpi : kpiMap.keySet()) {
+			kpis.add(kpi);
+			kpiNames.add(kpiMap.get(kpi));
+		}
 		for (Project p : projects) {
-			List<Kpi> kpis = pMap.get(p.getProjectName());
-			if (kpis == null || kpis.size() == 0) {
-				continue;
-			}
-			Set<String> ks = new HashSet<String>();
-			for (Kpi k : kpis) {
-				ks.add(k.getClass().getSimpleName());
-			}
-			p.setKpis(new ArrayList<String>(ks));
+			p.setKpis(kpis);
+			p.setKpiNames(kpiNames);
 			result.add(p);
 		}
 		return result;
@@ -243,10 +240,8 @@ public class DataServiceImpl implements DataService {
 						fx.setDamElevation(getDouble(type
 								.elementText("damElevation")));
 					}
-					kpi.setYellow_value(getDouble(type
-							.elementText("yellow_x")));
-					kpi.setOrange_value(getDouble(type
-							.elementText("orange_x")));
+					kpi.setYellow_value(getDouble(type.elementText("yellow_x")));
+					kpi.setOrange_value(getDouble(type.elementText("orange_x")));
 					kpi.setRed_value(getDouble(type.elementText("red_x")));
 					kpi.setAlert(getBoolean(type.elementText("isAlert")));
 					kpi.setDeviceID(getInteger(type.elementText("deviceID")));
@@ -530,7 +525,7 @@ public class DataServiceImpl implements DataService {
 				}
 			}
 			result.get(order).add(kpi);
-			
+
 		}
 
 		return result;
