@@ -14,4 +14,9 @@
 		autowire="byName" />
 	<bean id="dataService" class="com.huace.mas.service.impl.DataServiceImpl"
 		autowire="byName" init-method="init"/>
+	<bean id="pushService" class="com.huace.mas.service.impl.PushServiceImpl"
+		autowire="byName"/>
+	<bean id="apnsService" class="com.huace.mas.apns.ApnsServiceImpl"
+		autowire="byName" init-method="init" destroy-method="destroy">
+	</bean>
 </beans>
