@@ -11,6 +11,11 @@ public class KpiData {
 	private Double v2;
 	
 	private Double v3;
+	
+	private Double d2;
+	
+	private Double d3;
+	
 
 	public Date getDacTime() {
 		return dacTime;
@@ -43,6 +48,24 @@ public class KpiData {
 	public void setV3(Double v3) {
 		this.v3 = v3;
 	}
+
+	public Double getD2() {
+		return d2;
+	}
+
+	public void setD2(Double d2) {
+		this.d2 = d2;
+	}
+
+	public Double getD3() {
+		return d3;
+	}
+
+	public void setD3(Double d3) {
+		this.d3 = d3;
+	}
+	
+	
 
 	
 }

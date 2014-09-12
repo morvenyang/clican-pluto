@@ -346,6 +346,10 @@ public class DataServiceImpl implements DataService {
 						kd.setV3(((Surface) k).getV3()
 								- ((Surface) kpi).getInit_h());
 					}
+					kd.setD2(Math.sqrt(kd.getV1() * kd.getV1() + kd.getV2()
+							* kd.getV2()));
+					kd.setD3(Math.sqrt(kd.getV1() * kd.getV1() + kd.getV2()
+							* kd.getV2()+kd.getV3()*kd.getV3()));
 				} else if (kpi instanceof Inner) {
 					if (((Inner) k).getV1() != null) {
 						kd.setV1(((Inner) k).getV1()
