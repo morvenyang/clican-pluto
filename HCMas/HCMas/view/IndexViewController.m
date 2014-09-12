@@ -692,15 +692,15 @@
         }
         
         if([self.kpiType isEqualToString:@"Surface"]){
-            [rightDataView addSubview:[self createLabel:[NSString stringWithFormat:@"%@",kpi.v1] frame:CGRectMake(121, rowHeight*(i+1), 59, 20) textColor:[self getTextColorByGrade:kpi.alertGrade_x.intValue] font:12 backgroundColor:@"#ffffff" textAlignment:ALIGN_CENTER]];
+            [rightDataView addSubview:[self createLabel:[NSString stringWithFormat:@"%@",kpi.dis_x] frame:CGRectMake(121, rowHeight*(i+1), 59, 20) textColor:[self getTextColorByGrade:kpi.alertGrade_x.intValue] font:12 backgroundColor:@"#ffffff" textAlignment:ALIGN_CENTER]];
             
-            [rightDataView addSubview:[self createLabel:[NSString stringWithFormat:@"%@",kpi.v2] frame:CGRectMake(181, rowHeight*(i+1), 59, 20) textColor:[self getTextColorByGrade:kpi.alertGrade_y.intValue] font:12 backgroundColor:@"#ffffff" textAlignment:ALIGN_CENTER]];
-            [rightDataView addSubview:[self createLabel:[NSString stringWithFormat:@"%@",kpi.v1] frame:CGRectMake(241, rowHeight*(i+1), 59, 20) textColor:[self getTextColorByGrade:kpi.alertGrade_h.intValue] font:12 backgroundColor:@"#ffffff" textAlignment:ALIGN_CENTER]];
+            [rightDataView addSubview:[self createLabel:[NSString stringWithFormat:@"%@",kpi.dis_y] frame:CGRectMake(181, rowHeight*(i+1), 59, 20) textColor:[self getTextColorByGrade:kpi.alertGrade_y.intValue] font:12 backgroundColor:@"#ffffff" textAlignment:ALIGN_CENTER]];
+            [rightDataView addSubview:[self createLabel:[NSString stringWithFormat:@"%@",kpi.dis_h] frame:CGRectMake(241, rowHeight*(i+1), 59, 20) textColor:[self getTextColorByGrade:kpi.alertGrade_h.intValue] font:12 backgroundColor:@"#ffffff" textAlignment:ALIGN_CENTER]];
 
         }else if([self.kpiType isEqualToString:@"Inner"]){
-            [rightDataView addSubview:[self createLabel:[NSString stringWithFormat:@"%@",kpi.v1] frame:CGRectMake(121, rowHeight*(i+1), 59, 20) textColor:[self getTextColorByGrade:kpi.alertGrade_x.intValue] font:12 backgroundColor:@"#ffffff" textAlignment:ALIGN_CENTER]];
+            [rightDataView addSubview:[self createLabel:[NSString stringWithFormat:@"%@",kpi.dis_x] frame:CGRectMake(121, rowHeight*(i+1), 59, 20) textColor:[self getTextColorByGrade:kpi.alertGrade_x.intValue] font:12 backgroundColor:@"#ffffff" textAlignment:ALIGN_CENTER]];
             
-            [rightDataView addSubview:[self createLabel:[NSString stringWithFormat:@"%@",kpi.v2] frame:CGRectMake(181, rowHeight*(i+1), 59, 20) textColor:[self getTextColorByGrade:kpi.alertGrade_y.intValue] font:12 backgroundColor:@"#ffffff" textAlignment:ALIGN_CENTER]];
+            [rightDataView addSubview:[self createLabel:[NSString stringWithFormat:@"%@",kpi.dis_y] frame:CGRectMake(181, rowHeight*(i+1), 59, 20) textColor:[self getTextColorByGrade:kpi.alertGrade_y.intValue] font:12 backgroundColor:@"#ffffff" textAlignment:ALIGN_CENTER]];
         }else{
             [rightDataView addSubview:[self createLabel:[NSString stringWithFormat:@"%@",kpi.v1] frame:CGRectMake(121, rowHeight*(i+1), 118, 20) textColor:[self getTextColorByGrade:kpi.alertGrade_x.intValue] font:12 backgroundColor:@"#ffffff" textAlignment:ALIGN_CENTER]];
         }

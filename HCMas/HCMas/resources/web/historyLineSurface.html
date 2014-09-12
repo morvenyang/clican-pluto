@@ -18,7 +18,7 @@ var chart = AmCharts.makeChart("chartdiv", {
     "theme": "none",
     "dataProvider":$dataProvider,
 	"legend": {
-        "data":[{title: "Dx", color: "#FF6600"},{title: "Dy", color: "#FCD202"},{title: "Dh", color: "#B0DE09"}]
+        "data":[{title: "Dx", color: "#FF6600"},{title: "Dy", color: "#FCD202"},{title: "Dh", color: "#B0DE09"},{title: "D2", color: "#74D9C7"},{title: "D3", color: "#3FBBFB"}]
     },
 	"valueAxes": [{
         "id":"v1",
@@ -43,7 +43,24 @@ var chart = AmCharts.makeChart("chartdiv", {
         "offset": 200,
         "axisAlpha": 1,
         "position": "left"
-    }],
+    }, {
+        "id":"2d",
+        "axisColor": "#74D9C7",
+        "axisThickness": 2,
+        "gridAlpha": 0,
+        "offset": 300,
+        "axisAlpha": 1,
+        "position": "left"
+    }, {
+        "id":"3d",
+        "axisColor": "#3FBBFB",
+        "axisThickness": 2,
+        "gridAlpha": 0,
+        "offset": 400,
+        "axisAlpha": 1,
+        "position": "left"
+                  }
+                  ],
     "graphs": [{
         "valueAxis": "v1",
         "lineColor": "#FF6600",
@@ -71,7 +88,25 @@ var chart = AmCharts.makeChart("chartdiv", {
         "title": "green line",
         "valueField": "v3",
 		"fillAlphas": 0
-    }],
+               }, {
+               "valueAxis": "2d",
+               "lineColor": "#74D9C7",
+               "bullet": "triangleUp",
+               "bulletBorderThickness": 1,
+               "hideBulletsCount": 30,
+               "title": "green line",
+               "valueField": "d2",
+               "fillAlphas": 0
+               }, {
+               "valueAxis": "3d",
+               "lineColor": "#3FBBFB",
+               "bullet": "triangleUp",
+               "bulletBorderThickness": 1,
+               "hideBulletsCount": 30,
+               "title": "green line",
+               "valueField": "d3",
+               "fillAlphas": 0
+               }],
     "categoryField": "dacTime",
     "categoryAxis": {
         "parseDates": true,
