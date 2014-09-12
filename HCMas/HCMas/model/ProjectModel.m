@@ -69,6 +69,7 @@
                 project.projectName = [p valueForKey:@"projectName"];
                 [projects addObject:project];
                 project.kpis = [p valueForKey:@"kpis"];
+                project.kpiNames =[p valueForKey:@"kpiNames"];
             }
             
             [_delegate loadProjectSuccess:projects];
