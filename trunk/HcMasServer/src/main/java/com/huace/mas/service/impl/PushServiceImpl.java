@@ -258,7 +258,7 @@ public class PushServiceImpl implements PushService {
 				if (dbKpi.getAlertGrade() > 0 && kpi.isAlert()) {
 					String kpiType = dbKpi.getClass().getSimpleName();
 					String message = springProperty.getKpiMap().get(kpiType)
-							+ "在(" + dbKpi.getPointName() + ")达到";
+							+ "在(" + kpi.getPointName() + ")达到";
 					if (dbKpi.getAlertGrade() == 1) {
 						message += "黄色";
 					} else if (dbKpi.getAlertGrade() == 2) {
