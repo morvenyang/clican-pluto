@@ -12,6 +12,7 @@ import org.apache.commons.logging.LogFactory;
 
 import com.huace.mas.apns.ApnsService;
 import com.huace.mas.bean.SpringProperty;
+import com.huace.mas.bean.Token;
 import com.huace.mas.dao.DataDao;
 import com.huace.mas.dao.UserDao;
 import com.huace.mas.service.PushService;
@@ -26,7 +27,7 @@ public class PushServiceImpl implements PushService {
 
 	private ApnsService apnsService;
 
-	private Map<String, String> tokens;
+	private Map<String, Token> tokens;
 
 	private SpringProperty springProperty;
 
@@ -48,21 +49,24 @@ public class PushServiceImpl implements PushService {
 
 	@SuppressWarnings("unchecked")
 	public void init() {
+		tokens = new HashMap<String, Token>();
 		try {
 			File file = new File(springProperty.getTokenFile());
 			if (file.exists()) {
 				String str = new String(FileUtils.readFileToByteArray(new File(
 						springProperty.getTokenFile())), "utf-8");
-				tokens = new HashMap<String,String>(JSONObject.fromObject(str));
+				Map<String, JSONObject> map = new HashMap<String, JSONObject>(
+						JSONObject.fromObject(str));
+				for (String userName : map.keySet()) {
+					JSONObject jsonObj = map.get(userName);
+					Token t = (Token) JSONObject.toBean(jsonObj, Token.class);
+					tokens.put(userName, t);
+				}
 			} else {
 				file.getParentFile().mkdirs();
 			}
 		} catch (Exception e) {
 			log.error("", e);
-		}finally{
-			if(tokens==null){
-				tokens = new HashMap<String,String>();
-			}
 		}
 	}
 
@@ -75,8 +79,13 @@ public class PushServiceImpl implements PushService {
 	}
 
 	@Override
-	public synchronized void registerToken(String userName, String token) {
-		tokens.put(userName, token);
+	public synchronized void registerToken(String userName, String token,
+			Long projectID) {
+		Token t = new Token();
+		t.setUserName(userName);
+		t.setToken(token);
+		t.setProjectID(projectID);
+		tokens.put(userName, t);
 		try {
 			FileUtils.writeByteArrayToFile(
 					new File(springProperty.getTokenFile()), JSONObject

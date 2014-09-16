@@ -33,6 +33,8 @@ public class QueryAction {
 
 	private final static Log log = LogFactory.getLog(QueryAction.class);
 
+	private final static String USER_NAME = "USER_NAME";
+	private final static String TOKEN = "TOKEN";
 	private UserService userService;
 
 	private DataService dataService;
@@ -60,8 +62,10 @@ public class QueryAction {
 			throws ServletException, IOException {
 		List<User> users = userService.findUserByNameAndPassword(userName,
 				passWord);
-		if (users.size() == 1&&StringUtils.isNotEmpty(token)) {
-			pushService.registerToken(userName, token);
+
+		if (users.size() > 0) {
+			req.getSession().setAttribute(USER_NAME, userName);
+			req.getSession().setAttribute(TOKEN, token);
 		}
 		JSONArray jsonObject = JSONArray.fromObject(users);
 		OutputStream os = null;
@@ -107,6 +111,12 @@ public class QueryAction {
 		JSONArray jsonObject = JSONArray.fromObject(result, jsonConfig);
 		OutputStream os = null;
 		try {
+			String userName = (String) req.getSession().getAttribute(USER_NAME);
+			String token = (String) req.getSession().getAttribute(TOKEN);
+			if (StringUtils.isNotEmpty(userName)
+					&& StringUtils.isNotEmpty(token)) {
+				pushService.registerToken(userName, token, projectID);
+			}
 			os = resp.getOutputStream();
 			os.write(jsonObject.toString().getBytes("utf-8"));
 		} finally {

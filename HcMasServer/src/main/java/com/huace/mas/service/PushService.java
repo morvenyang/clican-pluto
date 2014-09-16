@@ -4,5 +4,5 @@ public interface PushService {
 
 	public void pushMsg();
 
-	public void registerToken(String userName,String token);
+	public void registerToken(String userName,String token,Long projectID);
 }
