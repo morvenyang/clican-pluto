@@ -88,23 +88,25 @@ public class PushServiceImpl implements PushService {
 		if (log.isInfoEnabled()) {
 			log.info("start push message");
 		}
-		Map<String, String> messages = this.generateMessages();
+		Map<String, List<String>> messages = this.generateMessages();
 		for (String token : messages.keySet()) {
-			String message = messages.get(token);
-			try {
-				if (log.isInfoEnabled()) {
-					log.info("push message[" + message + "] to token [" + token
-							+ "]");
+			List<String> ms = messages.get(token);
+			for (String message : ms) {
+				try {
+					if (log.isInfoEnabled()) {
+						log.info("push message[" + message + "] to token ["
+								+ token + "]");
+					}
+					apnsService.sendMessage(message, token);
+				} catch (Exception e) {
+					log.error("", e);
 				}
-				apnsService.sendMessage(message, token);
-			} catch (Exception e) {
-				log.error("", e);
 			}
 		}
 	}
 
-	private Map<String, String> generateMessages() {
-		Map<String, String> messages = new HashMap<String, String>();
+	private Map<String, List<String>> generateMessages() {
+		Map<String, List<String>> messages = new HashMap<String, List<String>>();
 		Map<String, List<Kpi>> data = dataService.checkAndRefresh();
 		List<Project> projects = dataDao.findAllProjects();
 		Map<Long, List<String>> projectTokenMap = new HashMap<Long, List<String>>();
@@ -278,7 +280,10 @@ public class PushServiceImpl implements PushService {
 						}
 						kpi.setLastAlertTime(new Date());
 						for (String t : ts) {
-							messages.put(t, message);
+							if (!messages.containsKey(t)) {
+								messages.put(t, new ArrayList<String>());
+							}
+							messages.get(t).add(message);
 						}
 					} else {
 						if (log.isDebugEnabled()) {
