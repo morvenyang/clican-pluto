@@ -47,6 +47,7 @@ public class QueryAction {
 	public void login(
 			@RequestParam(value = "userName", required = true) String userName,
 			@RequestParam(value = "passWord", required = true) String passWord,
+			@RequestParam(value = "token", required = true) String token,
 			HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		List<User> users = userService.findUserByNameAndPassword(userName,
