@@ -87,7 +87,7 @@ public class DataServiceImpl implements DataService {
 	}
 
 	@SuppressWarnings("unchecked")
-	private synchronized Map<String, List<Kpi>> checkAndRefresh() {
+	public synchronized Map<String, List<Kpi>> checkAndRefresh() {
 
 		File file = new File(springProperty.getAlertConfigXmlPath());
 		if (file.lastModified() != this.alertConfigLastModifiyTime
@@ -298,11 +298,7 @@ public class DataServiceImpl implements DataService {
 		}
 	}
 
-	@Override
-	public List<String> getTypesForProject(Long projectID) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 
 	@Override
 	public List<KpiData> queryKpiData(Long projectID, String kpiType,
