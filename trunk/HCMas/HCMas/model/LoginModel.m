@@ -89,6 +89,8 @@
         NSLog(@"response.rootObject:%@",data);
         
         if(data.count>0){
+            NSDictionary* user = [data objectAtIndex:0];
+            _user.sessionId = [user objectForKey:@"jsessionid"];
             if ([_delegate respondsToSelector:@selector(loginSuccess:)]) {
                 [_delegate loginSuccess:_user];
             }
