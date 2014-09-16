@@ -26,6 +26,8 @@ public abstract class Kpi {
 	
 	private Double v1;
 	
+	private Date lastAlertTime;
+	
 	public String get__type() {
 		return __type;
 	}
@@ -111,5 +113,13 @@ public abstract class Kpi {
 	}
 	public void setAlert(boolean isAlert) {
 		this.isAlert = isAlert;
+	}
+
+	public Date getLastAlertTime() {
+		return lastAlertTime;
+	}
+
+	public void setLastAlertTime(Date lastAlertTime) {
+		this.lastAlertTime = lastAlertTime;
 	}
 }
