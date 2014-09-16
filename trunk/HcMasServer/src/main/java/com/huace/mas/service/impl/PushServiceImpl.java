@@ -71,6 +71,7 @@ public class PushServiceImpl implements PushService {
 		if (log.isInfoEnabled()) {
 			log.info("start push message");
 		}
+		
 	}
 
 	@Override
