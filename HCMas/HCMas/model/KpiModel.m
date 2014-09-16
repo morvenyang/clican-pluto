@@ -8,6 +8,7 @@
 
 #import "KpiModel.h"
 #import "Constants.h"
+#import "AppDelegate.h"
 @implementation KpiModel
 @synthesize delegate = _delegate;
 - (id)init
@@ -33,6 +34,9 @@
     TTURLRequest *request=[TTURLRequest requestWithURL:url delegate:self];
     request.timeoutInterval = 15;
     request.cachePolicy = TTURLRequestCachePolicyNone;
+    if(HCMasAppDelegate.user.sessionId!=nil){
+        [request setValue:[@"JSESSIONID=" stringByAppendingString:HCMasAppDelegate.user.sessionId]forHTTPHeaderField:@"Cookie"];
+    }
     
     
     TTURLJSONResponse* response = [[TTURLJSONResponse alloc] init];
@@ -100,7 +104,7 @@
         }
     }
     @catch (NSException *exception) {
-        [_delegate loadProjectFailed:nil message:[exception description]];
+        [_delegate loadKpiFailed:nil message:[exception description]];
     }
     @finally {
         [super requestDidFinishLoad:request];

@@ -18,6 +18,8 @@
 @synthesize refreshDelegate = _refreshDelegate;
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:
+     (UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
     self.user = [[[User alloc] init] autorelease];
     self.user.sessionId = @"";
     [application setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
@@ -100,4 +102,35 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+- (void)application:(UIApplication *)app didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    
+    NSMutableString *token = [NSMutableString stringWithCapacity:([deviceToken length] * 2)];
+    const unsigned char *dataBuffer = [deviceToken bytes];
+    
+    for (int i = 0; i < [deviceToken length]; ++i)
+    {
+        [token appendFormat:@"%02X", (unsigned int)dataBuffer[ i ]];
+    }
+    NSLog(@"My token is:%@", token);
+    self.token = token;
+}
+
+- (void)application:(UIApplication *)app didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
+    NSString *error_str = [NSString stringWithFormat: @"%@", error];
+    NSLog(@"Failed to get token, error:%@", error_str);
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
+{
+    if ([[userInfo objectForKey:@"aps"] objectForKey:@"alert"] != nil)
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"通知"
+                                                        message:[[userInfo objectForKey:@"aps"] objectForKey:@"alert"]
+                                                       delegate:self
+                                              cancelButtonTitle:@"确定"
+                                              otherButtonTitles:nil];
+        [alert show];
+        [alert release];
+    }
+}
 @end
