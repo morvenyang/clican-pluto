@@ -304,6 +304,10 @@ public class PushServiceImpl implements PushService {
 		t.setUserName(userName);
 		t.setToken(token);
 		t.setProjectID(projectID);
+		Token old = tokens.get(userName);
+		if (old != null && old.equals(t)) {
+			return;
+		}
 		tokens.put(userName, t);
 		try {
 			FileUtils.writeByteArrayToFile(
