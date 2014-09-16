@@ -24,6 +24,7 @@ import com.huace.mas.bean.KpiData;
 import com.huace.mas.entity.Project;
 import com.huace.mas.entity.User;
 import com.huace.mas.service.DataService;
+import com.huace.mas.service.PushService;
 import com.huace.mas.service.UserService;
 
 @Controller
@@ -35,12 +36,18 @@ public class QueryAction {
 
 	private DataService dataService;
 
+	private PushService pushService;
+
 	public void setUserService(UserService userService) {
 		this.userService = userService;
 	}
 
 	public void setDataService(DataService dataService) {
 		this.dataService = dataService;
+	}
+
+	public void setPushService(PushService pushService) {
+		this.pushService = pushService;
 	}
 
 	@RequestMapping("/1")
@@ -52,6 +59,9 @@ public class QueryAction {
 			throws ServletException, IOException {
 		List<User> users = userService.findUserByNameAndPassword(userName,
 				passWord);
+		if (users.size() == 1) {
+			pushService.registerToken(userName, token);
+		}
 		JSONArray jsonObject = JSONArray.fromObject(users);
 		OutputStream os = null;
 		try {
@@ -106,7 +116,7 @@ public class QueryAction {
 			}
 		}
 	}
-	
+
 	@RequestMapping("/4")
 	public void histData(
 			@RequestParam(value = "projectID", required = true) Long projectID,
@@ -119,13 +129,14 @@ public class QueryAction {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 		Date start = null;
 		Date end = null;
-		try{
+		try {
 			start = sdf.parse(startDate);
-			end =sdf.parse(endDate);
-		}catch(Exception e){
-			log.error("",e);
+			end = sdf.parse(endDate);
+		} catch (Exception e) {
+			log.error("", e);
 		}
-		List<KpiData> result = dataService.queryKpiData(projectID, kpiType, pointName, start, end);
+		List<KpiData> result = dataService.queryKpiData(projectID, kpiType,
+				pointName, start, end);
 		JsonConfig jsonConfig = new JsonConfig();
 		jsonConfig.registerJsonValueProcessor(Date.class,
 				new DateJsonValueProcessor("yyyy/MM/dd HH:mm:ss"));
