@@ -298,8 +298,6 @@ public class DataServiceImpl implements DataService {
 		}
 	}
 
-	
-
 	@Override
 	public List<KpiData> queryKpiData(Long projectID, String kpiType,
 			String pointName, Date start, Date end) {
@@ -345,7 +343,7 @@ public class DataServiceImpl implements DataService {
 					kd.setD2(Math.sqrt(kd.getV1() * kd.getV1() + kd.getV2()
 							* kd.getV2()));
 					kd.setD3(Math.sqrt(kd.getV1() * kd.getV1() + kd.getV2()
-							* kd.getV2()+kd.getV3()*kd.getV3()));
+							* kd.getV2() + kd.getV3() * kd.getV3()));
 				} else if (kpi instanceof Inner) {
 					if (((Inner) k).getV1() != null) {
 						kd.setV1(((Inner) k).getV1()
@@ -375,6 +373,9 @@ public class DataServiceImpl implements DataService {
 			return new ArrayList<List<Object>>();
 		}
 		List<Kpi> kpis = data.get(project.getProjectName());
+		if (kpis == null || kpis.size() == 0) {
+			return new ArrayList<List<Object>>();
+		}
 		List<Kpi> clonedKpis = this.cloneKpis(kpis);
 		List<List<Object>> result = new ArrayList<List<Object>>();
 		List<Object> projects = new ArrayList<Object>();
