@@ -16,6 +16,8 @@ public class SpringProperty {
 	
 	private String alertConfigXmlPath;
 	
+	private String tokenFile;
+	
 	private Map<String,Integer> orderMap = new HashMap<String,Integer>();
 	private Map<String,String> kpiMap = new HashMap<String,String>();
 
@@ -107,6 +109,14 @@ public class SpringProperty {
 			String value = map.split(":")[1];
 			this.kpiMap.put(key, value);
 		}
+	}
+
+	public String getTokenFile() {
+		return tokenFile;
+	}
+
+	public void setTokenFile(String tokenFile) {
+		this.tokenFile = tokenFile;
 	}
 	
 }

@@ -1,9 +1,17 @@
 package com.huace.mas.service.impl;
 
+import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
+
+import net.sf.json.JSONObject;
+
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.huace.mas.apns.ApnsService;
+import com.huace.mas.bean.SpringProperty;
 import com.huace.mas.dao.DataDao;
 import com.huace.mas.dao.UserDao;
 import com.huace.mas.service.PushService;
@@ -18,6 +26,10 @@ public class PushServiceImpl implements PushService {
 
 	private ApnsService apnsService;
 
+	private Map<String, String> tokens;
+
+	private SpringProperty springProperty;
+
 	public void setDataDao(DataDao dataDao) {
 		this.dataDao = dataDao;
 	}
@@ -30,11 +42,45 @@ public class PushServiceImpl implements PushService {
 		this.apnsService = apnsService;
 	}
 
+	public void setSpringProperty(SpringProperty springProperty) {
+		this.springProperty = springProperty;
+	}
+
+	@SuppressWarnings("unchecked")
+	public void init() {
+		tokens = new HashMap<String, String>();
+		try {
+			File file = new File(springProperty.getTokenFile());
+			if (file.exists()) {
+				String str = new String(FileUtils.readFileToByteArray(new File(
+						springProperty.getTokenFile())), "utf-8");
+				tokens = JSONObject.fromObject(str);
+			} else {
+				file.getParentFile().mkdirs();
+			}
+		} catch (Exception e) {
+			log.error("", e);
+		}
+	}
+
 	@Override
 	public void pushMsg() {
 		if (log.isInfoEnabled()) {
 			log.info("start push message");
 		}
+	}
+
+	@Override
+	public synchronized void registerToken(String userName, String token) {
+		tokens.put(userName, token);
+		try {
+			FileUtils.writeByteArrayToFile(
+					new File(springProperty.getTokenFile()), JSONObject
+							.fromObject(tokens).toString().getBytes("utf-8"));
+		} catch (Exception e) {
+			log.error("", e);
+		}
+
 	}
 
 }
