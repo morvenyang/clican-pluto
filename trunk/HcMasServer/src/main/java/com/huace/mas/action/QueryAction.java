@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import net.sf.json.JSONArray;
 import net.sf.json.JsonConfig;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Controller;
@@ -59,7 +60,7 @@ public class QueryAction {
 			throws ServletException, IOException {
 		List<User> users = userService.findUserByNameAndPassword(userName,
 				passWord);
-		if (users.size() == 1) {
+		if (users.size() == 1&&StringUtils.isNotEmpty(token)) {
 			pushService.registerToken(userName, token);
 		}
 		JSONArray jsonObject = JSONArray.fromObject(users);

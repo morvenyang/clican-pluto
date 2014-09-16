@@ -48,18 +48,21 @@ public class PushServiceImpl implements PushService {
 
 	@SuppressWarnings("unchecked")
 	public void init() {
-		tokens = new HashMap<String, String>();
 		try {
 			File file = new File(springProperty.getTokenFile());
 			if (file.exists()) {
 				String str = new String(FileUtils.readFileToByteArray(new File(
 						springProperty.getTokenFile())), "utf-8");
-				tokens = JSONObject.fromObject(str);
+				tokens = new HashMap<String,String>(JSONObject.fromObject(str));
 			} else {
 				file.getParentFile().mkdirs();
 			}
 		} catch (Exception e) {
 			log.error("", e);
+		}finally{
+			if(tokens==null){
+				tokens = new HashMap<String,String>();
+			}
 		}
 	}
 
