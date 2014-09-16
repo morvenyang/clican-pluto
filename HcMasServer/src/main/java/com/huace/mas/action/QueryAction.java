@@ -68,7 +68,7 @@ public class QueryAction {
 			req.getSession().setAttribute(TOKEN, token);
 		}
 		for(User user:users){
-			user.setJessionid(req.getSession().getId());
+			user.setJsessionid(req.getSession().getId());
 		}
 		JSONArray jsonObject = JSONArray.fromObject(users);
 		OutputStream os = null;

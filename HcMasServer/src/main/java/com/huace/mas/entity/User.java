@@ -14,7 +14,7 @@ public class User implements Serializable{
 	private String pwd ;//用户密码
 	private String realName ;//用户真名
 	private String callPhoneNo ;//用户手机号
-	private String jessionid;
+	private String jsessionid;
 	
 	public int getUserID() {
 		return userID;
@@ -49,12 +49,13 @@ public class User implements Serializable{
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-	public String getJessionid() {
-		return jessionid;
+	public String getJsessionid() {
+		return jsessionid;
 	}
-	public void setJessionid(String jessionid) {
-		this.jessionid = jessionid;
+	public void setJsessionid(String jsessionid) {
+		this.jsessionid = jsessionid;
 	}
+	
 	
 	
 
