@@ -260,7 +260,7 @@ public class PushServiceImpl implements PushService {
 				if (dbKpi.getAlertGrade() > 0 && kpi.isAlert()) {
 					String kpiType = dbKpi.getClass().getSimpleName();
 					String message = springProperty.getKpiMap().get(kpiType)
-							+ "(" + kpi.getPointName() + ")达到";
+							+ "监测点有";
 					if (dbKpi.getAlertGrade() == 1) {
 						message += "黄色";
 					} else if (dbKpi.getAlertGrade() == 2) {
@@ -268,7 +268,7 @@ public class PushServiceImpl implements PushService {
 					} else if (dbKpi.getAlertGrade() == 3) {
 						message += "红色";
 					}
-					message += "预警";
+					message += "异常预警";
 					if (log.isDebugEnabled()) {
 						log.debug(sequence + "-产生KPI告警:" + message);
 					}
