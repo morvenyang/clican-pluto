@@ -1,7 +1,7 @@
 
 
 #import <Foundation/Foundation.h>
-
+#import <Three20Network/Three20Network.h>
 @protocol LoginDelegate;
 @class User;
 
