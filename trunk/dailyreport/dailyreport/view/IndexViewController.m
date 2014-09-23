@@ -68,12 +68,13 @@
     
     self.tableView.backgroundColor =[UIColor blackColor];
     self.tableView.delegate = self;
-
-    #ifdef __IPHONE_7_0
-    if(DEVICE_VERSION>=7.0){
-        self.tableView.separatorInset = UIEdgeInsetsZero;
+    
+    if([self.tableView respondsToSelector:@selector(setSeparatorInset:)]){
+        [self.tableView setSeparatorInset:UIEdgeInsetsZero];
     }
-    #endif
+    if([self.tableView respondsToSelector:@selector(setLayoutMargins:)]){
+        [self.tableView setLayoutMargins:UIEdgeInsetsZero];
+    }
 
     self.tableView.separatorColor = [UIColor blackColor];
     CGRect frame = [[UIScreen mainScreen] bounds];

@@ -82,8 +82,8 @@
     
     
     y = frame.size.height-200-offset;
-    self.backgroundShareView =[[UIView alloc] initWithFrame:frame];
-    self.shareView = [[UIView alloc] initWithFrame:CGRectMake(0, y, 320, 200)];
+    self.backgroundShareView =[[[UIView alloc] initWithFrame:frame] autorelease];
+    self.shareView = [[[UIView alloc] initWithFrame:CGRectMake(0, y, 320, 200)] autorelease];
     self.shareView.backgroundColor = [StyleSheet colorFromHexString:@"#edeef0"];
     
     UIButton* cancelButton = [UIButton buttonWithType:UIButtonTypeCustom];
