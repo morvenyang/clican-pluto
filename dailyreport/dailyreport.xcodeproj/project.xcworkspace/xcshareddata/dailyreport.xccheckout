@@ -5,11 +5,13 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>2A011C44-78FA-4077-9C23-728C3188FD3F</string>
+	<string>1A3A1010-CF98-4008-B709-CA47FCBB8F4C</string>
 	<key>IDESourceControlProjectName</key>
 	<string>dailyreport</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
+		<key>732AED92-01C3-4F8D-9A5D-A5A45A0AF147</key>
+		<string>https://60.191.25.170:6443/Gildata/InvestmentPdt/trunk/Sources/apple/Gildata/Gildata/Documents/xcodews</string>
 		<key>E9F05E6A-E589-4374-9DB9-5247B5ACDBAD</key>
 		<string>https://clican-pluto.googlecode.com/svn/trunk/dailyreport</string>
 	</dict>
@@ -17,20 +19,24 @@
 	<string>dailyreport.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
+		<key>732AED92-01C3-4F8D-9A5D-A5A45A0AF147</key>
+		<string>../../..</string>
 		<key>E9F05E6A-E589-4374-9DB9-5247B5ACDBAD</key>
 		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectRepositoryRootDictionary</key>
 	<dict>
+		<key>732AED92-01C3-4F8D-9A5D-A5A45A0AF147</key>
+		<string>https://60.191.25.170:6443/Gildata/InvestmentPdt</string>
 		<key>E9F05E6A-E589-4374-9DB9-5247B5ACDBAD</key>
 		<string>https://clican-pluto.googlecode.com/svn</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>https://clican-pluto.googlecode.com/svn/trunk/dailyreport/dailyreport.xcodeproj</string>
+	<string>https://60.191.25.170:6443/Gildata/InvestmentPdt/trunk/Sources/apple/Gildata/Gildata/Documents/xcodews/dailyreport/dailyreport.xcodeproj</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>E9F05E6A-E589-4374-9DB9-5247B5ACDBAD</string>
+	<string>732AED92-01C3-4F8D-9A5D-A5A45A0AF147</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
@@ -46,6 +52,14 @@
 			<string>E9F05E6A-E589-4374-9DB9-5247B5ACDBAD</string>
 			<key>IDESourceControlWCCName</key>
 			<string>dailyreport</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.subversion</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>732AED92-01C3-4F8D-9A5D-A5A45A0AF147</string>
+			<key>IDESourceControlWCCName</key>
+			<string>xcodews</string>
 		</dict>
 	</array>
 </dict>

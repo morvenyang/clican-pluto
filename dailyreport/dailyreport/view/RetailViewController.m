@@ -33,7 +33,7 @@
         self.type = @"channel";
         self.retailModel = [[[RetailModel alloc] initWithBrand:self.brand delegate:self] autorelease];
         
-        self.webPieChartView = [[UIWebView alloc] initWithFrame:CGRectMake(0,80,320,400)];
+        self.webPieChartView = [[[UIWebView alloc] initWithFrame:CGRectMake(0,80,320,400)] autorelease];
         self.webPieChartView.scalesPageToFit=YES;
         self.webPieChartView.userInteractionEnabled =YES;
         CannotCancelUISwipeGestureRecognizer* swipeGestureRight = [[[CannotCancelUISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleGesture:)] autorelease];

@@ -22,7 +22,12 @@
     
     self = [super initWithStyle:style reuseIdentifier:identifier];
     if (self) {
-        
+        if([self respondsToSelector:@selector(setSeparatorInset:)]){
+            [self setSeparatorInset:UIEdgeInsetsZero];
+        }
+        if([self respondsToSelector:@selector(setLayoutMargins:)]){
+            [self setLayoutMargins:UIEdgeInsetsZero];
+        }
         _backgroundImageView = [[LinkImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 112)];
         
         _label = [[TTStyledTextLabel alloc] init];
