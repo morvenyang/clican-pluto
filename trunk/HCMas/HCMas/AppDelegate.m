@@ -18,8 +18,14 @@
 @synthesize refreshDelegate = _refreshDelegate;
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:
-     (UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
+    if([[UIApplication sharedApplication] respondsToSelector:@selector(registerUserNotificationSettings:)]){
+        [[UIApplication sharedApplication] registerUserNotificationSettings:
+         [UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeSound | UIUserNotificationTypeAlert) categories:nil]];
+    }else{
+        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:
+         (UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
+    }
+
     self.user = [[[User alloc] init] autorelease];
     self.user.sessionId = @"";
     [application setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
