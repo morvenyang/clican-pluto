@@ -810,12 +810,12 @@
     tableView.dataSource = ds;
     tableView.delegate = self;
     tableView.backgroundColor = [UIColor blackColor];
-    #ifdef __IPHONE_7_0
-    if(DEVICE_VERSION>=7.0){
-        tableView.separatorInset = UIEdgeInsetsZero;
-        tableView.sectionIndexBackgroundColor=[UIColor blackColor];
+    if([tableView respondsToSelector:@selector(setSeparatorInset:)]){
+        [tableView setSeparatorInset:UIEdgeInsetsZero];
     }
-    #endif
+    if([tableView respondsToSelector:@selector(setLayoutMargins:)]){
+        [tableView setLayoutMargins:UIEdgeInsetsZero];
+    }
     tableView.separatorColor = [UIColor blackColor];
 
     [settingView addSubview:tableView];
@@ -875,7 +875,12 @@
 {
     if([cell isKindOfClass:[TTStyledTextTableItemCell class]]){
         TTStyledTextTableItemCell* itemCell = (TTStyledTextTableItemCell*)cell;
-        itemCell.label.backgroundColor = [UIColor clearColor];
+        if([itemCell respondsToSelector:@selector(setSeparatorInset:)]){
+            [itemCell setSeparatorInset:UIEdgeInsetsZero];
+        }
+        if([itemCell respondsToSelector:@selector(setLayoutMargins:)]){
+            [itemCell setLayoutMargins:UIEdgeInsetsZero];
+        }        itemCell.label.backgroundColor = [UIColor clearColor];
         itemCell.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"main_background.png"]];
     }
 }
@@ -1202,7 +1207,7 @@
 }
 - (void)loadKpiHistorySuccess:(NSArray*) kpis{
     [self.progressHUD hide:NO];
-    int width = 0;
+    long width = 0;
     NSString* fileName = @"historyLineOther";
     if([self.kpiType isEqualToString:@"Surface"]){
         fileName= @"historyLineSurface";
