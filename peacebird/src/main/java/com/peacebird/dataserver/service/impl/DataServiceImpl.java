@@ -368,22 +368,32 @@ public class DataServiceImpl implements DataService {
 		try {
 			for (GoodRankResult grr : rankResult) {
 				if (StringUtils.isNotEmpty(grr.getImageLink())) {
-					grr.setImageLink(springProperty.getServerUrl()
-							+ "/peacebird/goodImage.do?path="
-							+ URLEncoder.encode(grr.getImageLink(), "utf-8"));
+					if(!grr.getImageLink().startsWith("http")){
+						grr.setImageLink(springProperty.getServerUrl()
+								+ "/peacebird/goodImage.do?path="
+								+ URLEncoder.encode(grr.getImageLink(), "utf-8"));
+					}
 				} else {
-					grr.setImageLink(springProperty.getServerUrl()
-							+ "/peacebird/goodImage.do?path="
-							+ URLEncoder.encode("nogoods.gif", "utf-8"));
+					if(!grr.getImageLink().startsWith("http")){
+						grr.setImageLink(springProperty.getServerUrl()
+								+ "/peacebird/goodImage.do?path="
+								+ URLEncoder.encode("nogoods.gif", "utf-8"));
+					}
+					
 				}
 				if (StringUtils.isNotEmpty(grr.getImageLinkMin())) {
-					grr.setImageLinkMin(springProperty.getServerUrl()
-							+ "/peacebird/goodImage.do?path="
-							+ URLEncoder.encode(grr.getImageLinkMin(), "utf-8"));
+					if(!grr.getImageLinkMin().startsWith("http")){
+						grr.setImageLinkMin(springProperty.getServerUrl()
+								+ "/peacebird/goodImage.do?path="
+								+ URLEncoder.encode(grr.getImageLinkMin(), "utf-8"));
+					}
+					
 				} else {
-					grr.setImageLinkMin(springProperty.getServerUrl()
-							+ "/peacebird/goodImage.do?path="
-							+ URLEncoder.encode("nogoods_min.jpg", "utf-8"));
+					if(!grr.getImageLinkMin().startsWith("http")){
+						grr.setImageLinkMin(springProperty.getServerUrl()
+								+ "/peacebird/goodImage.do?path="
+								+ URLEncoder.encode("nogoods_min.jpg", "utf-8"));
+					}
 				}
 
 			}
