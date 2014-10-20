@@ -33,7 +33,7 @@ public class BrandResult implements Comparable<BrandResult> {
 	private Double yearLike;
 	
 	private Double dayLike;
-
+	
 	public BrandResult(String brand, String channel, Number dayAmount) {
 		this.brand = brand;
 		this.channel = channel;

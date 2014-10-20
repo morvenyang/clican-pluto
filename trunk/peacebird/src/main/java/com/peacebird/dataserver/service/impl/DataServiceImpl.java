@@ -20,6 +20,7 @@ import org.apache.commons.lang.time.DateUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.peacebird.dataserver.bean.BrandLineChartResult;
 import com.peacebird.dataserver.bean.BrandResult;
 import com.peacebird.dataserver.bean.BrandStatResult;
 import com.peacebird.dataserver.bean.ChannelRankResult;
@@ -227,6 +228,9 @@ public class DataServiceImpl implements DataService {
 		bsr.setChannels(bcr);
 		bsr.setWeeks(finalBwr);
 
+		//daily line chart
+		List<BrandLineChartResult> dailyLineChart=this.dataDao.getBrandLineChartDayResult(yesterday, brand, 8);
+		bsr.setDailyLineChart(dailyLineChart);
 		JsonConfig jsonConfig = new JsonConfig();
 		jsonConfig.registerJsonValueProcessor(Date.class,
 				new DateJsonValueProcessor("yyyy-MM-dd"));

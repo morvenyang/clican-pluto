@@ -3,6 +3,7 @@ package com.peacebird.dataserver.dao.impl;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -13,6 +14,7 @@ import org.hibernate.Session;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
+import com.peacebird.dataserver.bean.BrandLineChartResult;
 import com.peacebird.dataserver.bean.BrandResult;
 import com.peacebird.dataserver.bean.ChannelResult;
 import com.peacebird.dataserver.bean.Constants;
@@ -36,6 +38,43 @@ public class DataDaoImpl extends HibernateDaoSupport implements DataDao {
 		}else{
 			return null;
 		}
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<BrandLineChartResult> getBrandLineChartDayResult(final Date date,final String brand,final int days) {
+		List<BrandLineChartResult> result=this.getHibernateTemplate().executeFind(new HibernateCallback(){
+			@Override
+			public Object doInHibernate(Session session)
+					throws HibernateException, SQLException {
+				String hsql = "select new com.peacebird.dataserver.bean.BrandLineChartResult(sum(dayAmount),date) from DayRetailChannel";
+				hsql += " where date <= :date and brand = :brand and channel!=:channel group by date order by date desc";
+				Query query = session.createQuery(hsql);
+				query.setParameter("date", date);
+				query.setParameter("brand", brand);
+				query.setParameter("channel", Constants.B2C);
+				query.setMaxResults(days);
+				return query.list();
+			}
+			
+		});
+		Collections.sort(result);
+		return result;
+	}
+
+	@Override
+	public List<BrandLineChartResult> getBrandLineChartWeekResult(Date date,String brand,int weeks) {
+		return null;
+	}
+
+	@Override
+	public List<BrandLineChartResult> getBrandLineChartMonthResult(Date date,String brand,int months) {
+		return null;
+	}
+
+	@Override
+	public List<BrandLineChartResult> getBrandLineChartYearResult(Date date,String brand,int years) {
+		return null;
 	}
 
 	@SuppressWarnings("unchecked")
