@@ -10,33 +10,39 @@
 	<string>dailyreport</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
+		<key>084c1b98-d6c6-0bf6-17f4-9fa91a389573++9699</key>
+		<string>https://clican-pluto.googlecode.com/svn/trunk/dailyreport</string>
 		<key>732AED92-01C3-4F8D-9A5D-A5A45A0AF147</key>
 		<string>https://60.191.25.170:6443/Gildata/InvestmentPdt/trunk/Sources/apple/Gildata/Gildata/Documents/xcodews</string>
 		<key>E9F05E6A-E589-4374-9DB9-5247B5ACDBAD</key>
 		<string>https://clican-pluto.googlecode.com/svn/trunk/dailyreport</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>dailyreport.xcodeproj/project.xcworkspace</string>
+	<string>dailyreport.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>732AED92-01C3-4F8D-9A5D-A5A45A0AF147</key>
-		<string>../../..</string>
-		<key>E9F05E6A-E589-4374-9DB9-5247B5ACDBAD</key>
+		<key>084c1b98-d6c6-0bf6-17f4-9fa91a389573++9699</key>
 		<string>../..</string>
+		<key>732AED92-01C3-4F8D-9A5D-A5A45A0AF147</key>
+		<string>../../../xcodews</string>
+		<key>E9F05E6A-E589-4374-9DB9-5247B5ACDBAD</key>
+		<string>../../..</string>
 	</dict>
 	<key>IDESourceControlProjectRepositoryRootDictionary</key>
 	<dict>
+		<key>084c1b98-d6c6-0bf6-17f4-9fa91a389573++9699</key>
+		<string>https://clican-pluto.googlecode.com/svn</string>
 		<key>732AED92-01C3-4F8D-9A5D-A5A45A0AF147</key>
 		<string>https://60.191.25.170:6443/Gildata/InvestmentPdt</string>
 		<key>E9F05E6A-E589-4374-9DB9-5247B5ACDBAD</key>
 		<string>https://clican-pluto.googlecode.com/svn</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>https://60.191.25.170:6443/Gildata/InvestmentPdt/trunk/Sources/apple/Gildata/Gildata/Documents/xcodews/dailyreport/dailyreport.xcodeproj</string>
+	<string>https://clican-pluto.googlecode.com/svn/trunk/dailyreport/dailyreport.xcodeproj</string>
 	<key>IDESourceControlProjectVersion</key>
-	<integer>110</integer>
+	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>732AED92-01C3-4F8D-9A5D-A5A45A0AF147</string>
+	<string>084c1b98-d6c6-0bf6-17f4-9fa91a389573++9699</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
@@ -50,6 +56,14 @@
 			<string>trunk</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
 			<string>E9F05E6A-E589-4374-9DB9-5247B5ACDBAD</string>
+			<key>IDESourceControlWCCName</key>
+			<string></string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.subversion</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>084c1b98-d6c6-0bf6-17f4-9fa91a389573++9699</string>
 			<key>IDESourceControlWCCName</key>
 			<string>dailyreport</string>
 		</dict>

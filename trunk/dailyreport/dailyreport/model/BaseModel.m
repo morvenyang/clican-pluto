@@ -9,7 +9,7 @@
 #import "BaseModel.h"
 #import "User.h"
 #import "AppDelegate.h"
-
+#import "IndexListModel.h"
 @implementation BaseModel
 
 @synthesize loginModel = _loginModel;
@@ -57,7 +57,13 @@
         NSDate* expiredDate = [lastLoginDate dateByAddingTimeInterval:60*60*24*user.expiredDays.intValue];
         if([expiredDate compare:now]==NSOrderedDescending){
             DrAppDelegate.user = user;
-            [self load:TTURLRequestCachePolicyNone more:NO];
+            if([self isKindOfClass:[IndexListModel class]]){
+                [[TTNavigator navigator] removeAllViewControllers];
+                TTOpenURL(@"peacebird://gestureLock/unlock");
+            }else{
+                [self load:TTURLRequestCachePolicyNone more:NO];
+            }
+            
         }else{
             TTOpenURL(@"peacebird://login");
         }

@@ -37,8 +37,7 @@
     
     _user.username = username;
     _user.password = password;
-    
-    
+
     NSString* url= nil;
     if(DrAppDelegate.token!=nil){
         url = [BASE_URL stringByAppendingFormat:@"/login.do?userName=%@&password=%@&token=%@&version=%@",_user.username,_user.password,DrAppDelegate.token,VERSION];
@@ -111,6 +110,7 @@
                 _user.expiredDays = [data objectForKey:@"expiredDays"];
                 NSNumber* timeoutInterval = [data objectForKey:@"timeoutInterval"];
                 _user.timeoutInterval =timeoutInterval.intValue;
+                
                 if ([_delegate respondsToSelector:@selector(loginSuccess:)]) {
                     [_delegate loginSuccess:_user];
                 }
