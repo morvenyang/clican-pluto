@@ -51,6 +51,33 @@
     
     [self.view addSubview:self.lockView];
     [self.view addSubview:self.titleLabel];
+    [self addFootButtons];
+}
+
+
+-(void)addFootButtons{
+    UIButton* forgetButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [forgetButton setTitle:@"忘记手势密码" forState:UIControlStateNormal];
+    [forgetButton addTarget:self action:@selector(forget) forControlEvents:UIControlEventTouchUpInside];
+    [forgetButton.titleLabel setFont:[UIFont systemFontOfSize:12]];
+    forgetButton.frame = CGRectMake(30, self.view.frame.size.height-50, 120, 20);
+    UIButton* changeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [changeButton setTitle:@"用其他账户登录" forState:UIControlStateNormal];
+    [changeButton addTarget:self action:@selector(change) forControlEvents:UIControlEventTouchUpInside];
+    [changeButton.titleLabel setFont:[UIFont systemFontOfSize:12]];
+    changeButton.frame = CGRectMake(self.view.frame.size.width-150, self.view.frame.size.height-50, 120, 20);
+    [self.view addSubview:forgetButton];
+    [self.view addSubview:changeButton];
+}
+
+-(void)forget{
+    TTOpenURL(@"peacebird://login");
+}
+
+-(void)change{
+    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+    [defaults removeObjectForKey:LAST_USER_NAME];
+    TTOpenURL(@"peacebird://login");
 }
 
 -(void)viewDidLoad{
