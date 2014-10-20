@@ -365,6 +365,7 @@
         [self.backgroundShareView removeFromSuperview];
     }];
 }
+
 -(void)openCalendar:(id)sender{
     UIButton* b = (UIButton*)sender;
     PMCalendarController* pmCC = [[[PMCalendarController alloc] initWithDate:self.selectedDate] autorelease];

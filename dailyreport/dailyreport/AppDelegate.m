@@ -72,16 +72,11 @@
     if (![navigator restoreViewControllers]) {
         NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
         NSString* userName = [defaults objectForKey:LAST_USER_NAME];
-        NSString* gesturePassword = [defaults objectForKey:GESTURE_PASSWORD];
+        //第一次打开应用直接显示登录页面
         if(userName==nil||userName.length==0){
                     [navigator openURLAction:[TTURLAction actionWithURLPath:@"peacebird://login"]];
         }else{
-            if(self.user.showGestureLock&&gesturePassword!=nil&&gesturePassword.length!=0){
-                [navigator openURLAction:[TTURLAction actionWithURLPath:@"peacebird://gestureLock/unlock"]];
-            }else{
-                [navigator openURLAction:[TTURLAction actionWithURLPath:@"peacebird://index"]];
-            }
-            
+            [navigator openURLAction:[TTURLAction actionWithURLPath:@"peacebird://index"]];
         }
 
     }
@@ -105,7 +100,7 @@
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
-    self.user.showGestureLock = NO;
+    self.user.showGestureLock = YES;
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application

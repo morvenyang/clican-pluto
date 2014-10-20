@@ -124,7 +124,7 @@
     calendarButton.frame =CGRectMake(0, 8, 137, 47);
     calendarButton.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     calendarButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-    [calendarButton addTarget:self action:@selector(openCalendar:) forControlEvents:UIControlEventTouchUpInside];
+    [calendarButton addTarget:self action:@selector(openGestureSetting:) forControlEvents:UIControlEventTouchUpInside];
 
     
     
@@ -191,6 +191,10 @@
         self.configView.alpha = 1;
         [self.configView layoutIfNeeded];
     }];
+}
+-(void)openGestureSetting:(id)sender{
+    [self hideConfig];
+    TTOpenURL(@"peacebird://gestureLock/setting");
 }
 -(void)openCalendar:(id)sender{
     NSDate* date = DrAppDelegate.user.date;
