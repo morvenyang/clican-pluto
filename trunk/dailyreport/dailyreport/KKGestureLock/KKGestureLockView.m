@@ -91,7 +91,6 @@ const static CGFloat kTrackedLocationInvalidInContentView = -1.0;
     self.trackedLocationInContentView = CGPointMake(kTrackedLocationInvalidInContentView, kTrackedLocationInvalidInContentView);
 }
 
-
 #pragma mark -
 #pragma mark UIView Overrides
 - (id)initWithFrame:(CGRect)frame{
