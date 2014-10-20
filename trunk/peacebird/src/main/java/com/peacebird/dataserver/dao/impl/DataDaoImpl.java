@@ -47,7 +47,7 @@ public class DataDaoImpl extends HibernateDaoSupport implements DataDao {
 			@Override
 			public Object doInHibernate(Session session)
 					throws HibernateException, SQLException {
-				String hsql = "select new com.peacebird.dataserver.bean.BrandLineChartResult(sum(dayAmount),date) from DayRetailChannel";
+				String hsql = "select new com.peacebird.dataserver.bean.BrandLineChartResult(sum(dayAmount),sum(perDayAmount),date) from DayRetailChannel";
 				hsql += " where date <= :date and brand = :brand and channel!=:channel group by date order by date desc";
 				Query query = session.createQuery(hsql);
 				query.setParameter("date", date);
