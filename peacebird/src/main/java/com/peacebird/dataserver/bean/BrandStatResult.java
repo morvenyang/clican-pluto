@@ -14,6 +14,8 @@ public class BrandStatResult {
 	private BrandResult brandResult;
 	
 	private String brand;
+	
+	private List<BrandLineChartResult> dailyLineChart;
 
 	public int getResult() {
 		return result;
@@ -62,7 +64,13 @@ public class BrandStatResult {
 	public void setBrand(String brand) {
 		this.brand = brand;
 	}
-	
+	public List<BrandLineChartResult> getDailyLineChart() {
+		return dailyLineChart;
+	}
+
+	public void setDailyLineChart(List<BrandLineChartResult> dailyLineChart) {
+		this.dailyLineChart = dailyLineChart;
+	}
 	
 
 }
