@@ -71,7 +71,7 @@
     CGFloat diff= SCREEN_HEIGHT/12;
     self.view.backgroundColor = [StyleSheet colorFromHexString:@"#EAEEF2"];
     
-    UIImage* titleImage = [UIImage imageNamed:@"用户名密码背景.png"];
+    UIImage* titleImage = [UIImage imageNamed:@"用户名密码背景"];
     if(DEVICE_VERSION>=7.0){
         _titleImageView = [[TTImageView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-titleImage.size.width)/2,64+topOffset, titleImage.size.width, titleImage.size.height)];
     }else{
@@ -91,7 +91,7 @@
     
     self.loginButton = [UIButton buttonWithType:UIButtonTypeCustom];
     
-    UIImage* loginButtonImage = [UIImage imageNamed:@"登录按钮.png"];
+    UIImage* loginButtonImage = [UIImage imageNamed:@"登录按钮"];
     
     if(DEVICE_VERSION>=7.0){
         self.loginButton.frame = CGRectMake((SCREEN_WIDTH-loginButtonImage.size.width)/2, topOffset+titleImage.size.height+diff+64, loginButtonImage.size.width, loginButtonImage.size.height);
