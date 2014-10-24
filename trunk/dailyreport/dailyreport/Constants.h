@@ -16,6 +16,8 @@
 #define DEVICE_TOKEN @"DEVICE_TOKEN"
 #define VERSION [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"]
 #define DEVICE_VERSION [[[UIDevice currentDevice] systemVersion] doubleValue]
+#define SCREEN_WIDTH [[UIScreen mainScreen] bounds].size.width
+#define SCREEN_HEIGHT [[UIScreen mainScreen] bounds].size.height
 #define ALIGN_LEFT 1
 #define ALIGN_CENTER 2
 #define ALIGN_RIGHT 3
