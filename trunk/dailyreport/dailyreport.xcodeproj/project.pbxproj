@@ -158,6 +158,9 @@
 		72F60BB719F9EE6100223A7D /* Default-667h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 72F60BB619F9EE6100223A7D /* Default-667h@2x.png */; };
 		72F60BDF19F9FBD800223A7D /* 登录按钮@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 72F60BDE19F9FBD800223A7D /* 登录按钮@2x.png */; };
 		72F60BEA19F9FE8900223A7D /* 用户名密码背景@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 72F60BE919F9FE8900223A7D /* 用户名密码背景@2x.png */; };
+		72F60BEC19FA277000223A7D /* menu@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 72F60BEB19FA277000223A7D /* menu@2x.png */; };
+		72F60BEF19FA28BF00223A7D /* downarrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 72F60BED19FA28BF00223A7D /* downarrow@2x.png */; };
+		72F60BF019FA28BF00223A7D /* uparrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 72F60BEE19FA28BF00223A7D /* uparrow@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -553,6 +556,9 @@
 		72F60BB619F9EE6100223A7D /* Default-667h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-667h@2x.png"; sourceTree = "<group>"; };
 		72F60BDE19F9FBD800223A7D /* 登录按钮@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "登录按钮@2x.png"; sourceTree = "<group>"; };
 		72F60BE919F9FE8900223A7D /* 用户名密码背景@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "用户名密码背景@2x.png"; sourceTree = "<group>"; };
+		72F60BEB19FA277000223A7D /* menu@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu@2x.png"; sourceTree = "<group>"; };
+		72F60BED19FA28BF00223A7D /* downarrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "downarrow@2x.png"; sourceTree = "<group>"; };
+		72F60BEE19FA28BF00223A7D /* uparrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "uparrow@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -965,6 +971,9 @@
 		72EB38AD19270F3B00D0F225 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				72F60BED19FA28BF00223A7D /* downarrow@2x.png */,
+				72F60BEE19FA28BF00223A7D /* uparrow@2x.png */,
+				72F60BEB19FA277000223A7D /* menu@2x.png */,
 				72F60BE919F9FE8900223A7D /* 用户名密码背景@2x.png */,
 				72F60BDE19F9FBD800223A7D /* 登录按钮@2x.png */,
 				72F60BB619F9EE6100223A7D /* Default-667h@2x.png */,
@@ -1303,7 +1312,9 @@
 				72783BD01929A6A10098B3A8 /* 图标-零售收入@2x.png in Resources */,
 				72783BE41929A6A10098B3A8 /* 零售收入.png in Resources */,
 				72783BC81929A6A10098B3A8 /* 图标-小钱袋@2x.png in Resources */,
+				72F60BEC19FA277000223A7D /* menu@2x.png in Resources */,
 				72783BCF1929A6A10098B3A8 /* 图标-零售收入.png in Resources */,
+				72F60BF019FA28BF00223A7D /* uparrow@2x.png in Resources */,
 				72783BC71929A6A10098B3A8 /* 图标-小钱袋.png in Resources */,
 				72783BC01929A6A10098B3A8 /* 图标-分享@2x.png in Resources */,
 				7262316C192B168500E3F99B /* Default.png in Resources */,
@@ -1354,6 +1365,7 @@
 				72F60BB719F9EE6100223A7D /* Default-667h@2x.png in Resources */,
 				721DB4CB1938C1F50075F392 /* logout.png in Resources */,
 				7233F539196A7AF100BA0A78 /* back.png in Resources */,
+				72F60BEF19FA28BF00223A7D /* downarrow@2x.png in Resources */,
 				722D6B401963DDBF00036D38 /* gesture_node_normal@2x.png in Resources */,
 				72783BE11929A6A10098B3A8 /* 色卡-黄色.png in Resources */,
 				72783BD11929A6A10098B3A8 /* 每日收入MG公司背景.png in Resources */,
