@@ -66,36 +66,37 @@
     #else
         self.navigationController.navigationBar.tintColor = [UIColor blackColor];
     #endif
-
-    
+    NSLog(@"%f",SCREEN_WIDTH);
+    CGFloat topOffset = SCREEN_HEIGHT/5;
+    CGFloat diff= SCREEN_HEIGHT/12;
     self.view.backgroundColor = [StyleSheet colorFromHexString:@"#EAEEF2"];
     
     UIImage* titleImage = [UIImage imageNamed:@"用户名密码背景.png"];
- 
     if(DEVICE_VERSION>=7.0){
-        _titleImageView = [[TTImageView alloc] initWithFrame:CGRectMake(35,60+64, 320-70, 182/2)];
+        _titleImageView = [[TTImageView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-titleImage.size.width)/2,64+topOffset, titleImage.size.width, titleImage.size.height)];
     }else{
-        _titleImageView = [[TTImageView alloc] initWithFrame:CGRectMake(35,60, 320-70, 182/2)];
+        _titleImageView = [[TTImageView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-titleImage.size.width)/2,topOffset, titleImage.size.width, titleImage.size.height)];
     }
     
     _titleImageView.defaultImage = titleImage;
 
     if(DEVICE_VERSION>=7.0){
-        self.usernameField.frame = CGRectMake(65,60+64, 220, 45);
-        self.passwordField.frame = CGRectMake(65,105+64, 220, 45);
+        self.usernameField.frame = CGRectMake((SCREEN_WIDTH-titleImage.size.width)/2+40,topOffset+64, titleImage.size.width-40, titleImage.size.height/2);
+        self.passwordField.frame = CGRectMake((SCREEN_WIDTH-titleImage.size.width)/2+40,topOffset+titleImage.size.height/2+64, titleImage.size.width-40, titleImage.size.height/2);
     }else{
-        self.usernameField.frame = CGRectMake(65,60, 220, 45);
-        self.passwordField.frame = CGRectMake(65,105, 220, 45);
+        self.usernameField.frame = CGRectMake((SCREEN_WIDTH-titleImage.size.width)/2+40,topOffset, titleImage.size.width-40, titleImage.size.height/2);
+        self.passwordField.frame = CGRectMake((SCREEN_WIDTH-titleImage.size.width)/2+40,topOffset+titleImage.size.height/2, titleImage.size.width-40, titleImage.size.height/2);
     }
     
     
     self.loginButton = [UIButton buttonWithType:UIButtonTypeCustom];
     
     UIImage* loginButtonImage = [UIImage imageNamed:@"登录按钮.png"];
+    
     if(DEVICE_VERSION>=7.0){
-        self.loginButton.frame = CGRectMake(35, 60+titleImage.size.height/2+28+64, 320-70, loginButtonImage.size.height/2);
+        self.loginButton.frame = CGRectMake((SCREEN_WIDTH-loginButtonImage.size.width)/2, topOffset+titleImage.size.height+diff+64, loginButtonImage.size.width, loginButtonImage.size.height);
     }else{
-        self.loginButton.frame = CGRectMake(35, 60+titleImage.size.height/2+28, 320-70, loginButtonImage.size.height/2);
+        self.loginButton.frame = CGRectMake((SCREEN_WIDTH-loginButtonImage.size.width)/2, topOffset+titleImage.size.height+diff, loginButtonImage.size.width, loginButtonImage.size.height);
     }
     
     [self.loginButton setImage:[UIImage imageNamed:@"登录按钮.png"] forState:UIControlStateNormal];
