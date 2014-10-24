@@ -79,19 +79,20 @@
     self.tableView.separatorColor = [UIColor blackColor];
     CGRect frame = [[UIScreen mainScreen] bounds];
     self.backgroundView =[[UIView alloc] initWithFrame:frame];
-    self.configView = [[UIView alloc] initWithFrame:CGRectMake(170, 60, 137, 102)];
     
-    UIImageView* configBackgroundImage =[[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 136.5, 54.5)] autorelease];
+    UIImage* menuImage =[UIImage imageNamed:@"menu"];
+    UIImage* downarrowImage =[UIImage imageNamed:@"downarrow.png"];
+    UIImageView* configBackgroundImage =[[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, menuImage.size.width, menuImage.size.height)] autorelease];
     configBackgroundImage.contentMode = UIViewContentModeScaleToFill;
-    configBackgroundImage.image =[UIImage imageNamed:@"menu.png"];
+    configBackgroundImage.image =menuImage;
+    self.configView = [[UIView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-menuImage.size.width-10, 60, menuImage.size.width, menuImage.size.height)];
     [self.configView addSubview:configBackgroundImage];
     
     self.configButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.configButton setImage:[UIImage imageNamed:@"downarrow.png"] forState:UIControlStateNormal];
+    [self.configButton setImage:downarrowImage forState:UIControlStateNormal];
 
-    self.configButton.frame =CGRectMake(0, 0, 23, 23);
+    self.configButton.frame =CGRectMake(0, 0, downarrowImage.size.width, downarrowImage.size.height);
     [self.configButton addTarget:self action:@selector(showConfig:) forControlEvents:UIControlEventTouchUpInside];
-    
     
     UIBarButtonItem* configItem = [[[UIBarButtonItem alloc] initWithCustomView:self.configButton] autorelease];
     [self.navigationItem setRightBarButtonItem:configItem animated:YES];
@@ -121,7 +122,7 @@
     [calendarButton setTitle:@"选择日期" forState:UIControlStateNormal];
     [calendarButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
 
-    calendarButton.frame =CGRectMake(0, 8, 137, 47);
+    calendarButton.frame =CGRectMake(0, 8, menuImage.size.width, menuImage.size.height-8);
     calendarButton.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     calendarButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     [calendarButton addTarget:self action:@selector(openGestureSetting:) forControlEvents:UIControlEventTouchUpInside];
