@@ -81,7 +81,7 @@
     self.backgroundView =[[UIView alloc] initWithFrame:frame];
     
     UIImage* menuImage =[UIImage imageNamed:@"menu"];
-    UIImage* downarrowImage =[UIImage imageNamed:@"downarrow.png"];
+    UIImage* downarrowImage =[UIImage imageNamed:@"downarrow"];
     UIImageView* configBackgroundImage =[[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, menuImage.size.width, menuImage.size.height)] autorelease];
     configBackgroundImage.contentMode = UIViewContentModeScaleToFill;
     configBackgroundImage.image =menuImage;
@@ -183,7 +183,7 @@
     }];
 }
 -(void)showConfig:(id)sender{
-    [self.configButton setImage:[UIImage imageNamed:@"uparrow.png"] forState:UIControlStateNormal];
+    [self.configButton setImage:[UIImage imageNamed:@"uparrow"] forState:UIControlStateNormal];
 
     [[UIApplication sharedApplication].keyWindow addSubview:self.backgroundView];
     self.configView.alpha = 0;
