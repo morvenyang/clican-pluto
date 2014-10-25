@@ -45,7 +45,7 @@
 - (void) brandDidFinishLoad:(NSArray*) channels date:(NSDate*) date{
     NSLog(@"%@",@"加载Brand KPI数据成功");
     self.selectedDate = date;
-    UIView* dailyView = [self createDailyView:@"图标-关键指标.png" label:@"电商指标"];
+    UIView* dailyView = [self createDailyView:@"图标-关键指标" label:@"电商指标"];
     
     Channel* channel = nil;
     for (Channel* c in channels ) {

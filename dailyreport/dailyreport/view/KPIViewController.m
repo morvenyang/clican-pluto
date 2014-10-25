@@ -73,7 +73,7 @@
     self.selectedDate = date;
     self.channels = channels;
 
-    UIView* dailyView =[self createDailyView:@"图标-关键指标.png" label:@"关键指标"];
+    UIView* dailyView =[self createDailyView:@"图标-关键指标" label:@"关键指标"];
     
     NSMutableArray* ca = [NSMutableArray array];
     for(Channel* channel in channels){

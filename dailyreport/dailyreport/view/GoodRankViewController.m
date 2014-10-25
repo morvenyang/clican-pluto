@@ -69,7 +69,7 @@
     NSLog(@"%@",@"加载Brand Good Rank数据成功");
     self.selectedDate = date;
     self.goods = goods;
-    UIView* dailyView =  [self createDailyView:@"图标-零售收入.png" label:@"商品排名"];
+    UIView* dailyView =  [self createDailyView:@"图标-零售收入" label:@"商品排名"];
     
     
     

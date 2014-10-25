@@ -61,7 +61,7 @@
     NSLog(@"%@",@"加载Brand Store Rank数据成功");
     self.selectedDate = date;
     self.channels = channels;
-    UIView* dailyView = [self createDailyView:@"图标-零售收入.png" label:@"店铺排名"];
+    UIView* dailyView = [self createDailyView:@"图标-零售收入" label:@"店铺排名"];
     
     
     if([channels count]!=0){

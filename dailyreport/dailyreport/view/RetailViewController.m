@@ -67,7 +67,7 @@
 - (void)loadView
 {
     [super loadView];
-    UIView* dailyView = [self createDailyView:@"图标-小钱袋.png" label:@"零售额明细"];
+    UIView* dailyView = [self createDailyView:@"图标-小钱袋" label:@"零售额明细"];
     
     CGFloat width = 320.0/3;
     int index = 0;
