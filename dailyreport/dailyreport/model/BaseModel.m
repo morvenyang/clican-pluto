@@ -58,12 +58,18 @@
         if([expiredDate compare:now]==NSOrderedDescending){
             DrAppDelegate.user = user;
             if([self isKindOfClass:[IndexListModel class]]){
-                [[TTNavigator navigator] removeAllViewControllers];
-                TTOpenURL(@"peacebird://gestureLock/unlock");
+                NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+                
+                NSString* gesturePassword = [defaults objectForKey:GESTURE_PASSWORD];
+                if(gesturePassword!=nil&&gesturePassword.length!=0){
+                    [[TTNavigator navigator] removeAllViewControllers];
+                    TTOpenURL(@"peacebird://gestureLock/unlock");
+                }else{
+                    [self load:TTURLRequestCachePolicyNone more:NO];
+                }
             }else{
                 [self load:TTURLRequestCachePolicyNone more:NO];
             }
-            
         }else{
             TTOpenURL(@"peacebird://login");
         }

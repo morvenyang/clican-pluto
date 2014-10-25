@@ -15,6 +15,7 @@
 @synthesize showGestureLock = _showGestureLock;
 @synthesize goods = _goods;
 @synthesize goodIndex =_goodIndex;
+@synthesize goodDate = _goodDate;
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 -(id)init{
     self = [super init];
