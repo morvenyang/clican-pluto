@@ -207,9 +207,9 @@
     if(SCREEN_WIDTH==320){
         labelFontSize = 12;
     }else if(SCREEN_WIDTH==375){
-        labelFontSize = 13;
-    }else{
         labelFontSize = 14;
+    }else{
+        labelFontSize = 16;
     }
     UIImage* iconImage = [UIImage imageNamed:iconName];
     UIView* dailyView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, iconImage.size.height)] autorelease];
