@@ -63,46 +63,70 @@
 - (void) brandDidFinishLoad:(Brand*) brand channels:(NSArray*) channels weeks:(NSArray*) weeks{
      NSLog(@"%@",@"加载Brand数据成功");
     self.selectedDate = brand.date;
-    
+    int labelFontSize = 12;
+    int channelFontSize = 14;
+    NSLog(@"%f",SCREEN_WIDTH);
+    if(SCREEN_WIDTH==320){
+        labelFontSize = 12;
+        channelFontSize = 14;
+    }else if(SCREEN_WIDTH==375){
+        labelFontSize = 13;
+        channelFontSize = 15;
+    }else{
+        labelFontSize = 14;
+        channelFontSize = 16;
+    }
 
     UIView* dailyView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH,SCREEN_HEIGHT/3)] autorelease];
     dailyView.backgroundColor =[StyleSheet colorFromHexString:[[[NSBundle mainBundle] infoDictionary] objectForKey:[NSString stringWithFormat:@"%@背景",self.brand]]];
     UIImage* retailImage = [UIImage imageNamed:@"图标-零售收入"];
-    UIImageView* retailImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 34, 34)];
+    UIImageView* retailImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, retailImage.size.width, retailImage.size.height)];
     retailImageView.image = retailImage;
     
-    UILabel* retailLabel = [[[UILabel alloc] initWithFrame:CGRectMake(40, 0, 120, 34)] autorelease];
+    UILabel* retailLabel = [[[UILabel alloc] initWithFrame:CGRectMake(40, 0, 120, retailImage.size.height)] autorelease];
     retailLabel.text = [NSString stringWithFormat:@"零售额(万元)"];
-    retailLabel.font = [UIFont systemFontOfSize:12];
+    retailLabel.font = [UIFont systemFontOfSize:labelFontSize];
     retailLabel.textColor = [UIColor whiteColor];
     retailLabel.backgroundColor = [UIColor clearColor];
     
-    UIButton* calendarButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    calendarButton.frame =CGRectMake(160, 0, 34, 34);
-    [calendarButton setImage:[UIImage imageNamed:@"图标-日历.png"] forState:UIControlStateNormal];
-    [calendarButton addTarget:self action:@selector(openCalendar:) forControlEvents:UIControlEventTouchUpInside];
-    
-    
-    
-    
-    UILabel* calendarLabel = [[[UILabel alloc] initWithFrame:CGRectMake(200, 0, 120, 34)] autorelease];
+    UILabel* calendarLabel = [[[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-120, 0, 120, retailImage.size.height)] autorelease];
     NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
     [dateFormatter setDateFormat:@"MM月dd日 EEEE"];
     calendarLabel.text = [dateFormatter stringFromDate:brand.date];
-    calendarLabel.font = [UIFont systemFontOfSize:12];
+    calendarLabel.font = [UIFont systemFontOfSize:labelFontSize];
     calendarLabel.textColor = [UIColor whiteColor];
     calendarLabel.backgroundColor = [UIColor clearColor];
     NSNumberFormatter* formatter = [[[NSNumberFormatter alloc]init] autorelease];
     formatter.numberStyle = NSNumberFormatterDecimalStyle;
     UILabel* retailAmountLabel =[self createDecimalLabel:[NSNumber numberWithDouble:brand.dayAmount.doubleValue/10000] frame:CGRectMake(0, 30, 160, 80) textColor:@"#ffffff" font:50 backgroundColor:nil textAlignment:ALIGN_CENTER];
-    if(retailAmountLabel.text.length>5){
-        retailAmountLabel.font = [UIFont fontWithName:@"HelveticaNeue-UltraLight" size:50];
-    }else if(retailAmountLabel.text.length>4){
-        retailAmountLabel.font = [UIFont fontWithName:@"HelveticaNeue-UltraLight" size:60];
-    }else{
-        retailAmountLabel.font = [UIFont fontWithName:@"HelveticaNeue-UltraLight" size:70];
-    }
     
+    
+    
+    if(SCREEN_WIDTH==320){
+        if(retailAmountLabel.text.length>5){
+            retailAmountLabel.font = [UIFont fontWithName:@"HelveticaNeue-UltraLight" size:50];
+        }else if(retailAmountLabel.text.length>4){
+            retailAmountLabel.font = [UIFont fontWithName:@"HelveticaNeue-UltraLight" size:60];
+        }else{
+            retailAmountLabel.font = [UIFont fontWithName:@"HelveticaNeue-UltraLight" size:70];
+        }
+    }else if(SCREEN_WIDTH==350){
+        if(retailAmountLabel.text.length>5){
+            retailAmountLabel.font = [UIFont fontWithName:@"HelveticaNeue-UltraLight" size:60];
+        }else if(retailAmountLabel.text.length>4){
+            retailAmountLabel.font = [UIFont fontWithName:@"HelveticaNeue-UltraLight" size:70];
+        }else{
+            retailAmountLabel.font = [UIFont fontWithName:@"HelveticaNeue-UltraLight" size:80];
+        }
+    }else{
+        if(retailAmountLabel.text.length>5){
+            retailAmountLabel.font = [UIFont fontWithName:@"HelveticaNeue-UltraLight" size:70];
+        }else if(retailAmountLabel.text.length>4){
+            retailAmountLabel.font = [UIFont fontWithName:@"HelveticaNeue-UltraLight" size:80];
+        }else{
+            retailAmountLabel.font = [UIFont fontWithName:@"HelveticaNeue-UltraLight" size:90];
+        }
+    }
     
     NSString* retailLikeText =[NSString stringWithFormat:@"%0.1f%@",brand.dayLike.floatValue*100,@"%"];
     if(brand.dayLike.floatValue>0){
@@ -110,21 +134,21 @@
     }
     UILabel* retailLikeLabel = [self createLabel:retailLikeText frame:CGRectMake(40, 130, 120, 30) textColor:@"#ffffff" font:20 backgroundColor:nil];
     CGFloat offset = 0;
+    
     for(int i=0;i<channels.count;i++){
         Channel* channel = [channels objectAtIndex:i];
         if([channel.channel isEqualToString:@"电商"]){
             offset = 5;
-            [dailyView addSubview:[self createImageViewFromNamedImage:@"line.png" frame:CGRectMake(200, i*20+50+3, 90, 1.5)]];
+            [dailyView addSubview:[self createImageViewFromNamedImage:@"line.png" frame:CGRectMake(SCREEN_WIDTH*5/8, i*20+50+3, SCREEN_WIDTH*3/8-30, 1.5)]];
         }
-        UILabel* channelLabel=[self createLabel:channel.channel frame:CGRectMake(200, i*20+50+offset, 90, 20) textColor:@"#ffffff" font:14 backgroundColor:nil textAlignment:ALIGN_LEFT];
-        UILabel* channelValue=[self createDecimalLabel:[NSNumber numberWithDouble:channel.dayAmount.doubleValue/10000] frame:CGRectMake(200, i*20+50+offset, 90, 20) textColor:@"#ffffff" font:14 backgroundColor:nil textAlignment:ALIGN_RIGHT];
+        UILabel* channelLabel=[self createLabel:channel.channel frame:CGRectMake(SCREEN_WIDTH*5/8, i*20+50+offset, SCREEN_WIDTH*3/8-30, 20) textColor:@"#ffffff" font:channelFontSize backgroundColor:nil textAlignment:ALIGN_LEFT];
+        UILabel* channelValue=[self createDecimalLabel:[NSNumber numberWithDouble:channel.dayAmount.doubleValue/10000] frame:CGRectMake(SCREEN_WIDTH*5/8, i*20+50+offset, SCREEN_WIDTH*3/8-30, 20) textColor:@"#ffffff" font:channelFontSize backgroundColor:nil textAlignment:ALIGN_RIGHT];
         [dailyView addSubview:channelLabel];
         [dailyView addSubview:channelValue];
     }
     [dailyView addSubview:retailImageView];
     [dailyView addSubview:retailLabel];
     [dailyView addSubview:retailLikeLabel];
-    //[dailyView addSubview:calendarButton];
     [dailyView addSubview:calendarLabel];
     [dailyView addSubview:retailAmountLabel];
     [self.contentView addSubview:dailyView];
