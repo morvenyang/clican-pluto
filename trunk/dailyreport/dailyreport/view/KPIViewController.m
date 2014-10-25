@@ -174,7 +174,7 @@
     hOffset+=7;
     [self.contentView addSubview:dailyView];
     self.contentView.contentSize =
-    CGSizeMake(320, hOffset);
+    CGSizeMake(SCREEN_WIDTH, hOffset);
 }
 
 -(void) updateChannel:(Channel*) channel{

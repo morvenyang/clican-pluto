@@ -31,16 +31,6 @@
         self.brand = brand;
         self.type = @"channel";
         self.retailModel = [[[RetailModel alloc] initWithBrand:self.brand delegate:self] autorelease];
-        
-        self.webPieChartView = [[[UIWebView alloc] initWithFrame:CGRectMake(0,80,320,400)] autorelease];
-        self.webPieChartView.scalesPageToFit=YES;
-        self.webPieChartView.userInteractionEnabled =YES;
-        CannotCancelUISwipeGestureRecognizer* swipeGestureRight = [[[CannotCancelUISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleGesture:)] autorelease];
-        swipeGestureRight.direction = UISwipeGestureRecognizerDirectionRight;
-        CannotCancelUISwipeGestureRecognizer* swipeGestureLeft = [[[CannotCancelUISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleGesture:)] autorelease];
-        swipeGestureLeft.direction = UISwipeGestureRecognizerDirectionLeft;
-        [self.webPieChartView.scrollView addGestureRecognizer:swipeGestureLeft];
-        [self.webPieChartView.scrollView addGestureRecognizer:swipeGestureRight];
         self.tabLables = [NSMutableArray array];
         self.tableViews =[NSMutableArray array];
         self.index = 3;
@@ -68,8 +58,20 @@
 {
     [super loadView];
     UIView* dailyView = [self createDailyView:@"图标-小钱袋" label:@"零售额明细"];
-    
-    CGFloat width = 320.0/3;
+    int channelFontSize = 20;
+    int labelFontSize =18;
+    NSLog(@"%f",SCREEN_WIDTH);
+    if(SCREEN_WIDTH==320){
+        channelFontSize = 20;
+        labelFontSize =18;
+    }else if(SCREEN_WIDTH==375){
+        channelFontSize = 22;
+        labelFontSize =20;
+    }else{
+        channelFontSize = 24;
+        labelFontSize =22;
+    }
+    CGFloat width = SCREEN_WIDTH/3;
     int index = 0;
     CGFloat t = 0;
     NSMutableArray* tabs = [NSMutableArray array];
@@ -83,10 +85,10 @@
             x =x +0.5;
         }
         if(index==[tabs count]-1){
-            realWidth = 320.0-t;
+            realWidth = SCREEN_WIDTH-t;
         }
         t+=width;
-        UILabel* tabLabel = [self createLabel:tab frame:CGRectMake(x, 34, realWidth, 50) textColor:@"#636363" font:20 backgroundColor:@"#ffffff"];
+        UILabel* tabLabel = [self createLabel:tab frame:CGRectMake(x, dailyView.frame.size.height, realWidth, SCREEN_HEIGHT*5/48) textColor:@"#636363" font:channelFontSize backgroundColor:@"#ffffff"];
         UITapGestureRecognizer* recognizer = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickChannelLabel:)] autorelease];
         tabLabel.userInteractionEnabled = YES;
         [tabLabel addGestureRecognizer:recognizer];
@@ -101,6 +103,16 @@
     }
     
     [self.contentView addSubview:dailyView];
+    
+    self.webPieChartView = [[[UIWebView alloc] initWithFrame:CGRectMake(0,SCREEN_HEIGHT*5/48+dailyView.frame.size.height,SCREEN_WIDTH,SCREEN_HEIGHT-SCREEN_HEIGHT*5/48-dailyView.frame.size.height)] autorelease];
+    self.webPieChartView.scalesPageToFit=YES;
+    self.webPieChartView.userInteractionEnabled =YES;
+    CannotCancelUISwipeGestureRecognizer* swipeGestureRight = [[[CannotCancelUISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleGesture:)] autorelease];
+    swipeGestureRight.direction = UISwipeGestureRecognizerDirectionRight;
+    CannotCancelUISwipeGestureRecognizer* swipeGestureLeft = [[[CannotCancelUISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleGesture:)] autorelease];
+    swipeGestureLeft.direction = UISwipeGestureRecognizerDirectionLeft;
+    [self.webPieChartView.scrollView addGestureRecognizer:swipeGestureLeft];
+    [self.webPieChartView.scrollView addGestureRecognizer:swipeGestureRight];
     [self.retailModel load:self.type policy:TTURLRequestCachePolicyNone more:NO];
 }
 
@@ -136,7 +148,7 @@
     NSLog(@"%@",[NSString stringWithFormat:@"%@/web/",[[NSBundle mainBundle] bundlePath]]);
     [self.webPieChartView loadHTMLString:html baseURL:[NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/web/",[[NSBundle mainBundle] bundlePath]]]];
     self.contentView.contentSize =
-    CGSizeMake(320, 390+count*30);
+    CGSizeMake(SCREEN_WIDTH, 390+count*30);
 }
 
 -(void)clickChannelLabel:(UIGestureRecognizer*)gestureRecognizer{
