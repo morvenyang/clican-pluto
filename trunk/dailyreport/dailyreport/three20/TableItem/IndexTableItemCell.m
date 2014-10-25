@@ -76,7 +76,7 @@
     self.indexItem = object;
     NSLog(@"%@",self.indexItem.backgroundImage);
     UIImage* image = [UIImage imageNamed:self.indexItem.backgroundImage];
-    self.backgroundImageView.image = image;
+    self.backgroundImageView.defaultImage = image;
     NSLog(@"%f",image.size.height);
     self.backgroundImageView.actionUrl = self.indexItem.URL;
     self.backgroundImageView.frame = CGRectMake(0, 4, SCREEN_WIDTH, image.size.height);
