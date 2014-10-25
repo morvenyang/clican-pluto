@@ -45,30 +45,7 @@
 - (void) brandDidFinishLoad:(NSArray*) channels date:(NSDate*) date{
     NSLog(@"%@",@"加载Brand KPI数据成功");
     self.selectedDate = date;
-    UIView* dailyView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 34)] autorelease];
-    NSString* imageName = [NSString stringWithFormat:@"每日收入%@背景.png",self.brand];
-    dailyView.backgroundColor =[UIColor colorWithPatternImage:[UIImage imageNamed:imageName]];
-    
-    UIImageView* retailImageView = [self createImageViewFromNamedImage:@"图标-关键指标.png" frame:CGRectMake(0, 0, 34, 34)];
-    
-    
-    UILabel* retailLabel = [self createLabel:@"电商指标" frame:CGRectMake(40, 0, 120, 34) textColor:@"#ffffff" font:12 backgroundColor:nil];
-    
-    
-    UIButton* calendarButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    calendarButton.frame =CGRectMake(160, 0, 34, 34);
-    [calendarButton setImage:[UIImage imageNamed:@"图标-日历.png"] forState:UIControlStateNormal];
-    [calendarButton addTarget:self action:@selector(openCalendar:) forControlEvents:UIControlEventTouchUpInside];
-    
-    NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
-    [dateFormatter setDateFormat:@"MM月dd日 EEEE"];
-    
-    UILabel* calendarLabel = [self createLabel:[dateFormatter stringFromDate:date] frame:CGRectMake(200, 0, 120, 34) textColor:@"#ffffff" font:12 backgroundColor:nil];
-    
-    [dailyView addSubview:retailImageView];
-    [dailyView addSubview:retailLabel];
-    //[dailyView addSubview:calendarButton];
-    [dailyView addSubview:calendarLabel];
+    UIView* dailyView = [self createDailyView:@"图标-关键指标.png" label:@"电商指标"];
     
     Channel* channel = nil;
     for (Channel* c in channels ) {

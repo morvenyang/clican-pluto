@@ -22,6 +22,7 @@
     CGFloat _swipeEndPoint;
     NSDate* _selectedDate;
     PMPeriod* _initPeriod;
+    UILabel* _calendarLabel;
 }
 @property (nonatomic, retain) SwipeScrollView *contentView;
 @property (nonatomic, copy) NSString *brand;
@@ -31,13 +32,16 @@
 @property (nonatomic, retain) UIImage *preScreenShot;
 @property (nonatomic, retain) NSDate *selectedDate;
 @property (nonatomic, retain) PMPeriod *initPeriod;
+@property (nonatomic, retain) UILabel *calendarLabel;
 -(void) backAction;
 -(UIImageView*) createImageViewFromNamedImage:(NSString*) imageName frame:(CGRect) frame;
 -(UIImageView*) createImageViewFromColor:(UIColor*) color frame:(CGRect) frame;
+-(UIImageView*) createImageViewFromImage:(UIImage*) image frame:(CGRect) frame;
 -(UILabel*) createLabel:(NSString*) text frame:(CGRect) frame textColor:(NSString*) textColor font:(int) font backgroundColor:(NSString*) backgroundColor;
 -(UILabel*) createLabel:(NSString*) text frame:(CGRect) frame textColor:(NSString*) textColor font:(int) font backgroundColor:(NSString*) backgroundColor textAlignment:(int) textAlignment;
 -(UILabel*) createDecimalLabel:(NSNumber*) number frame:(CGRect) frame textColor:(NSString*) textColor font:(int) font backgroundColor:(NSString*) backgroundColor textAlignment:(int) textAlignment;
 -(UILabel*) createDecimalLabel:(NSNumber*) number unit:(NSString*) unit frame:(CGRect) frame textColor:(NSString*) textColor font:(int) font backgroundColor:(NSString*) backgroundColor textAlignment:(int) textAlignment;
+-(UIView*) createDailyView:(NSString*) iconName label:(NSString*)label;
 #ifdef __IPHONE_6_0
 -(NSTextAlignment) getAlignment:(int)textAlignment;
 #else

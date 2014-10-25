@@ -17,7 +17,6 @@
 @synthesize tabLables = _tabLables;
 @synthesize tableViews = _tableViews;
 @synthesize type =_type;
-@synthesize calendarLabel = _calendarLabel;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -68,29 +67,7 @@
 - (void)loadView
 {
     [super loadView];
-    UIView* dailyView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 34)] autorelease];
-    NSString* imageName = [NSString stringWithFormat:@"每日收入%@背景.png",self.brand];
-    dailyView.backgroundColor =[UIColor colorWithPatternImage:[UIImage imageNamed:imageName]];
-    
-    UIImageView* retailImageView = [self createImageViewFromNamedImage:@"图标-小钱袋.png" frame:CGRectMake(0, 0, 34, 34)];
-    
-    
-    UILabel* retailLabel = [self createLabel:@"零售额明细" frame:CGRectMake(40, 0, 120, 34) textColor:@"#ffffff" font:12 backgroundColor:nil];
-    
-    
-    UIButton* calendarButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    calendarButton.frame =CGRectMake(160, 0, 34, 34);
-    [calendarButton setImage:[UIImage imageNamed:@"图标-日历.png"] forState:UIControlStateNormal];
-    [calendarButton addTarget:self action:@selector(openCalendar:) forControlEvents:UIControlEventTouchUpInside];
-    
-    
-    
-    self.calendarLabel = [self createLabel:@"" frame:CGRectMake(200, 0, 120, 34) textColor:@"#ffffff" font:12 backgroundColor:nil];
-    
-    [dailyView addSubview:retailImageView];
-    [dailyView addSubview:retailLabel];
-    //[dailyView addSubview:calendarButton];
-    [dailyView addSubview:self.calendarLabel];
+    UIView* dailyView = [self createDailyView:@"图标-小钱袋.png" label:@"零售额明细"];
     
     CGFloat width = 320.0/3;
     int index = 0;
@@ -201,7 +178,6 @@
     TT_RELEASE_SAFELY(_webPieChartView);
     TT_RELEASE_SAFELY(_tabLables);
     TT_RELEASE_SAFELY(_tableViews);
-    TT_RELEASE_SAFELY(_calendarLabel);
     TT_RELEASE_SAFELY(_type);
     [super dealloc];
 }

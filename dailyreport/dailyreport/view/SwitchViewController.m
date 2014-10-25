@@ -19,6 +19,7 @@
 @synthesize backgroundShareView = _backgroundShareView;
 @synthesize preScreenShot = _preScreenShot;
 @synthesize selectedDate = _selectedDate;
+@synthesize calendarLabel = _calendarLabel;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -188,11 +189,39 @@
 
 -(UIImageView*) createImageViewFromNamedImage:(NSString*) imageName frame:(CGRect) frame{
     UIImage* image =[UIImage imageNamed:imageName];
-    UIImageView* imageView = [[UIImageView alloc] initWithFrame:frame];
+    UIImageView* imageView = [[[UIImageView alloc] initWithFrame:frame] autorelease];
     
     imageView.image = image;
     return imageView;
 }
+
+-(UIImageView*) createImageViewFromImage:(UIImage*) image frame:(CGRect) frame{
+    UIImageView* imageView = [[[UIImageView alloc] initWithFrame:frame] autorelease];
+    
+    imageView.image = image;
+    return imageView;
+}
+-(UIView*) createDailyView:(NSString*) iconName label:(NSString*)label{
+    UIImage* iconImage = [UIImage imageNamed:iconName];
+    UIView* dailyView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, iconImage.size.height)] autorelease];
+    dailyView.backgroundColor =[StyleSheet colorFromHexString:[[[NSBundle mainBundle] infoDictionary] objectForKey:[NSString stringWithFormat:@"%@背景",self.brand]]];
+    UIImageView* retailImageView = [self createImageViewFromImage:iconImage frame:CGRectMake(0, 0, iconImage.size.width, iconImage.size.height)];
+    UILabel* retailLabel = [self createLabel:label frame:CGRectMake(40, 0, 120, iconImage.size.height) textColor:@"#ffffff" font:12 backgroundColor:nil];
+    NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+    [dateFormatter setDateFormat:@"MM月dd日 EEEE"];
+    
+    NSString* dateStr = @"";
+    if(self.selectedDate!=nil){
+        dateStr =[dateFormatter stringFromDate:self.selectedDate];
+    }
+    self.calendarLabel = [self createLabel:dateStr frame:CGRectMake(SCREEN_WIDTH-120, 0, 120, iconImage.size.height) textColor:@"#ffffff" font:12 backgroundColor:nil];
+    
+    [dailyView addSubview:retailImageView];
+    [dailyView addSubview:retailLabel];
+    [dailyView addSubview:self.calendarLabel];
+    return dailyView;
+}
+
 #ifdef __IPHONE_6_0
 -(NSTextAlignment) getAlignment:(int)textAlignment{
     if(textAlignment==ALIGN_LEFT){
@@ -442,6 +471,7 @@
     TT_RELEASE_SAFELY(_backgroundShareView);
     TT_RELEASE_SAFELY(_preScreenShot);
     TT_RELEASE_SAFELY(_selectedDate);
+    TT_RELEASE_SAFELY(_calendarLabel);
     [super dealloc];
 }
 
