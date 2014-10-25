@@ -12,11 +12,12 @@
     UIView* _configView;
     UIView* _backgroundView;
     UIButton* _configButton;
+    CGFloat _rowHeight;
 }
 @property (nonatomic, retain) UIView *configView;
 @property (nonatomic, retain) UIView *backgroundView;
 @property (nonatomic, retain) UIButton *configButton;
 @property (nonatomic, retain) NSDate *oldDate;
-
+@property (nonatomic, assign) CGFloat rowHeight;
 -(void)updateDate;
 @end

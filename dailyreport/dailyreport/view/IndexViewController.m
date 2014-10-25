@@ -24,6 +24,7 @@
         
     }
     self.variableHeightRows = YES;
+    self.rowHeight = [UIImage imageNamed:@"首页女装"].size.height;
     return self;
 }
 
@@ -170,7 +171,7 @@
 
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 120;
+    return self.rowHeight+8;
 }
 -(void)hideConfig{
     [self.configButton setImage:[UIImage imageNamed:@"downarrow.png"] forState:UIControlStateNormal];
