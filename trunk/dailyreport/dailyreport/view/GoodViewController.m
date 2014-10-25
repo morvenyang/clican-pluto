@@ -43,30 +43,8 @@
 {
     [super loadView];
     self.contentView.goodSwitchDelegate = self;
-    UIView* dailyView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 34)] autorelease];
-    NSString* imageName = [NSString stringWithFormat:@"每日收入%@背景.png",self.brand];
-    dailyView.backgroundColor =[UIColor colorWithPatternImage:[UIImage imageNamed:imageName]];
+    UIView* dailyView = [self createDailyView:@"图标-零售收入.png" label:@"商品信息"];
     
-    UIImageView* retailImageView = [self createImageViewFromNamedImage:@"图标-零售收入.png" frame:CGRectMake(0, 0, 34, 34)];
-    
-    
-    UILabel* retailLabel = [self createLabel:@"商品信息" frame:CGRectMake(40, 0, 120, 34) textColor:@"#ffffff" font:12 backgroundColor:nil];
-    
-    
-    UIButton* calendarButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    calendarButton.frame =CGRectMake(160, 0, 34, 34);
-    [calendarButton setImage:[UIImage imageNamed:@"图标-日历.png"] forState:UIControlStateNormal];
-    [calendarButton addTarget:self action:@selector(openCalendar:) forControlEvents:UIControlEventTouchUpInside];
-    
-    NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
-    [dateFormatter setDateFormat:@"MM月dd日 EEEE"];
-    
-    UILabel* calendarLabel = [self createLabel:[dateFormatter stringFromDate:DrAppDelegate.user.goodDate] frame:CGRectMake(200, 0, 120, 34) textColor:@"#ffffff" font:12 backgroundColor:nil];
-    
-    [dailyView addSubview:retailImageView];
-    [dailyView addSubview:retailLabel];
-    //[dailyView addSubview:calendarButton];
-    [dailyView addSubview:calendarLabel];
     
     
     [self.contentView addSubview:dailyView];

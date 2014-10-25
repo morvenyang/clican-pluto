@@ -47,6 +47,18 @@
 	</array>
 	<key>UIStatusBarHidden</key>
 	<true/>
+	<key>女装背景</key>
+	<string>#E5006E</string>
+	<key>男装背景</key>
+	<string>#17387A</string>
+	<key>童装背景</key>
+	<string>#F7D800</string>
+	<key>乐町背景</key>
+	<string>#F08DBA</string>
+	<key>赫奇背景</key>
+	<string>#8BACD8</string>
+	<key>MG公司背景</key>
+	<string>#E51D9B</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

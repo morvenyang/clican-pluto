@@ -59,13 +59,40 @@
     [super viewDidLoad];
     
 }
-
+-(NSString *)hexValuesFromUIColor:(UIColor *)color {
+    
+    if (!color) {
+        return nil;
+    }
+    
+    if (color == [UIColor whiteColor]) {
+        // Special case, as white doesn't fall into the RGB color space
+        return @"ffffff";
+    }
+    
+    CGFloat red;
+    CGFloat blue;
+    CGFloat green;
+    CGFloat alpha;
+    
+    [color getRed:&red green:&green blue:&blue alpha:&alpha];
+    
+    int redDec = (int)(red * 255);
+    int greenDec = (int)(green * 255);
+    int blueDec = (int)(blue * 255);
+    
+    NSString *returnString = [NSString stringWithFormat:@"%02x%02x%02x", (unsigned int)redDec, (unsigned int)greenDec, (unsigned int)blueDec];
+    
+    return returnString;
+    
+}
 - (void) brandDidFinishLoad:(Brand*) brand channels:(NSArray*) channels weeks:(NSArray*) weeks{
      NSLog(@"%@",@"加载Brand数据成功");
     self.selectedDate = brand.date;
-    UIView* dailyView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 166)] autorelease];
-    NSString* imageName = [NSString stringWithFormat:@"每日收入%@背景.png",self.brand];
-    dailyView.backgroundColor =[UIColor colorWithPatternImage:[UIImage imageNamed:imageName]];
+    
+
+    UIView* dailyView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH,SCREEN_HEIGHT/3)] autorelease];
+    dailyView.backgroundColor =[StyleSheet colorFromHexString:[[[NSBundle mainBundle] infoDictionary] objectForKey:[NSString stringWithFormat:@"%@背景",self.brand]]];
     UIImage* retailImage = [UIImage imageNamed:@"图标-零售收入.png"];
     UIImageView* retailImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 34, 34)];
     retailImageView.image = retailImage;
