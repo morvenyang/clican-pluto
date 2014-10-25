@@ -7,18 +7,18 @@
     {
       "idiom" : "iphone",
       "scale" : "2x",
-      "filename" : "首页赫奇-1.png"
+      "filename" : "首次进入提示-1.png"
     },
     {
       "idiom" : "iphone",
-      "filename" : "首页赫奇-3.png",
+      "filename" : "首次进入提示-2.png",
       "subtype" : "retina4",
       "scale" : "2x"
     },
     {
       "idiom" : "iphone",
       "scale" : "3x",
-      "filename" : "首页赫奇-2.png"
+      "filename" : "首次进入提示-3.png"
     }
   ],
   "info" : {
