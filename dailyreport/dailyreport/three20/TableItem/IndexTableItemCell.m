@@ -14,10 +14,6 @@
 @synthesize backgroundImageView = _backgroundImageView;
 @synthesize indexItem = _indexItem;
 
-+ (CGFloat)tableView:(UITableView*)tableView rowHeightForObject:(id)object {
-    return 112;
-}
-
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString*)identifier {
     
     self = [super initWithStyle:style reuseIdentifier:identifier];
@@ -28,7 +24,7 @@
         if([self respondsToSelector:@selector(setLayoutMargins:)]){
             [self setLayoutMargins:UIEdgeInsetsZero];
         }
-        _backgroundImageView = [[LinkImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 112)];
+        _backgroundImageView = [[LinkImageView alloc] initWithFrame:CGRectMake(0, 4, SCREEN_WIDTH, 0)];
         
         _label = [[TTStyledTextLabel alloc] init];
         self.contentView.backgroundColor = [UIColor blackColor];
@@ -83,7 +79,7 @@
     NSLog(@"%@",self.indexItem.backgroundImage);
     self.backgroundImageView.urlPath=[NSString stringWithFormat:@"bundle://%@",self.indexItem.backgroundImage];
     self.backgroundImageView.actionUrl = self.indexItem.URL;
-    self.backgroundImageView.frame = CGRectMake(0, 4, 320, 112);
+    self.backgroundImageView.frame = CGRectMake(0, 4, SCREEN_WIDTH, 112);
     [super setObject:self.indexItem.text];
 }
 
