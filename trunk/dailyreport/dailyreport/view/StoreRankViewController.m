@@ -62,10 +62,22 @@
     self.selectedDate = date;
     self.channels = channels;
     UIView* dailyView = [self createDailyView:@"图标-零售收入" label:@"店铺排名"];
-    
+    int channelFontSize = 20;
+    int labelFontSize =14;
+    NSLog(@"%f",SCREEN_WIDTH);
+    if(SCREEN_WIDTH==320){
+        channelFontSize = 20;
+        labelFontSize =16;
+    }else if(SCREEN_WIDTH==375){
+        channelFontSize = 22;
+        labelFontSize =18;
+    }else{
+        channelFontSize = 24;
+        labelFontSize =22;
+    }
     
     if([channels count]!=0){
-        CGFloat width = 320.0/[channels count];
+        CGFloat width = SCREEN_WIDTH/[channels count];
         int index = 0;
         CGFloat t = 0;
         for(ChannelRank* channelRank in channels){
@@ -75,10 +87,10 @@
                 x =x +0.5;
             }
             if(index==[channels count]-1){
-                realWidth = 320.0-t;
+                realWidth = SCREEN_WIDTH-t;
             }
             t+=width;
-            UILabel* channelLabel = [self createLabel:channelRank.channel frame:CGRectMake(x, 34, realWidth, 50) textColor:@"#636363" font:20 backgroundColor:@"#ffffff"];
+            UILabel* channelLabel = [self createLabel:channelRank.channel frame:CGRectMake(x, dailyView.frame.size.height, realWidth, SCREEN_HEIGHT*5/48) textColor:@"#636363" font:channelFontSize backgroundColor:@"#ffffff"];
             UITapGestureRecognizer* recognizer = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickChannelLabel:)] autorelease];
             channelLabel.userInteractionEnabled = YES;
             [channelLabel addGestureRecognizer:recognizer];
@@ -93,10 +105,15 @@
         }
     }
     [self.contentView addSubview:dailyView];
-    [self.contentView addSubview:[self createLabel:@"＃" frame:CGRectMake(0, 90, 30, 40) textColor:@"#ffffff" font:14 backgroundColor:STORE_RANK_TABLE_HEAD_COLOR textAlignment:ALIGN_CENTER]];
-    [self.contentView addSubview:[self createLabel:@"店铺名称" frame:CGRectMake(32, 90, 186, 40) textColor:@"#ffffff" font:14 backgroundColor:STORE_RANK_TABLE_HEAD_COLOR textAlignment:ALIGN_CENTER]];
-    [self.contentView addSubview:[self createLabel:@"零售额" frame:CGRectMake(220, 90, 49, 40) textColor:@"#ffffff" font:14 backgroundColor:STORE_RANK_TABLE_HEAD_COLOR textAlignment:ALIGN_CENTER]];
-    [self.contentView addSubview:[self createLabel:@"占比" frame:CGRectMake(271, 90,49, 40) textColor:@"#ffffff" font:14 backgroundColor:STORE_RANK_TABLE_HEAD_COLOR textAlignment:ALIGN_CENTER]];
+    CGFloat wOffset = 0;
+    CGFloat hOffset = SCREEN_HEIGHT*6/48+dailyView.frame.size.height;
+    [self.contentView addSubview:[self createLabel:@"＃" frame:CGRectMake(0, hOffset, SCREEN_WIDTH*3/32, SCREEN_HEIGHT*40/480) textColor:@"#ffffff" font:labelFontSize backgroundColor:STORE_RANK_TABLE_HEAD_COLOR textAlignment:ALIGN_CENTER]];
+    wOffset+=SCREEN_WIDTH*3/32+2;
+    [self.contentView addSubview:[self createLabel:@"店铺名称" frame:CGRectMake(wOffset, hOffset, SCREEN_WIDTH*186/320, SCREEN_HEIGHT*40/480) textColor:@"#ffffff" font:labelFontSize backgroundColor:STORE_RANK_TABLE_HEAD_COLOR textAlignment:ALIGN_CENTER]];
+    wOffset+=SCREEN_WIDTH*186/320+2;
+    [self.contentView addSubview:[self createLabel:@"零售额" frame:CGRectMake(wOffset, hOffset, SCREEN_WIDTH*49/320, SCREEN_HEIGHT*40/480) textColor:@"#ffffff" font:labelFontSize backgroundColor:STORE_RANK_TABLE_HEAD_COLOR textAlignment:ALIGN_CENTER]];
+    wOffset+=SCREEN_WIDTH*49/320+2;
+    [self.contentView addSubview:[self createLabel:@"占比" frame:CGRectMake(wOffset, hOffset,SCREEN_WIDTH-wOffset, SCREEN_HEIGHT*40/480) textColor:@"#ffffff" font:labelFontSize backgroundColor:STORE_RANK_TABLE_HEAD_COLOR textAlignment:ALIGN_CENTER]];
     if(self.channels.count>0){
         [self updateChannel:[self.channels objectAtIndex:0]];
     }
