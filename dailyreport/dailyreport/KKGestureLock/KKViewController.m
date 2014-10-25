@@ -26,8 +26,7 @@
 -(void)loadView{
     [super loadView];
     self.navigationController.navigationBarHidden =YES;
-    self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 100, 320, 20)];
-    self.titleLabel.textAlignment =
+    self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT/4, SCREEN_WIDTH, 20)];
     
     #ifdef __IPHONE_6_0
     self.titleLabel.textAlignment =NSTextAlignmentCenter;
@@ -39,6 +38,8 @@
     }else{
         self.titleLabel.text = @"请设置手势密码";
     }
+    self.titleLabel.font =[UIFont systemFontOfSize:12];
+    self.titleLabel.textColor = [UIColor whiteColor];
     self.lockView = [[KKGestureLockView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Do any additional setup after loading the view, typically from a nib.
     self.view.backgroundColor = [UIColor clearColor];
@@ -47,7 +48,7 @@
     self.lockView.lineColor = [[UIColor orangeColor] colorWithAlphaComponent:0.5];
     self.lockView.lineWidth = 12;
     self.lockView.delegate = self;
-    self.lockView.contentInsets = UIEdgeInsetsMake(150, 20, 100, 20);
+    self.lockView.contentInsets = UIEdgeInsetsMake(SCREEN_HEIGHT/3, 20, 100, 20);
     
     [self.view addSubview:self.lockView];
     [self.view addSubview:self.titleLabel];
