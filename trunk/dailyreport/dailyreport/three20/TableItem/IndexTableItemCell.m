@@ -51,8 +51,11 @@
 - (void)layoutSubviews {
 	[super layoutSubviews];
     _label.userInteractionEnabled = NO;
-    _label.frame = CGRectMake(180, 30, 120, 40);
+    NSLog(@"%f",self.backgroundImageView.frame.size.height);
     _label.font = [UIFont fontWithName:@"HelveticaNeue-UltraLight" size:40];
+ 
+    _label.frame = CGRectMake(SCREEN_WIDTH*9/16, (self.backgroundImageView.frame.size.height-_label.font.lineHeight)/2, SCREEN_WIDTH*7/16-20,_label.font.lineHeight );
+
 
     if([self.indexItem.backgroundImage isEqualToString:@"首页童装.png"]){
         _label.textColor = [StyleSheet colorFromHexString:@"#505050"];
@@ -60,12 +63,7 @@
         _label.textColor = [StyleSheet colorFromHexString:@"#ffffff"];
     }
     _label.contentMode = UIViewContentModeRight;
-    #ifdef __IPHONE_6_0
-        _label.textAlignment = NSTextAlignmentRight;
-    #else
-        _label.textAlignment = UITextAlignmentRight;
-    #endif
-    
+    _label.textAlignment = NSTextAlignmentRight;
     _label.backgroundColor = [UIColor clearColor];
 }
 
@@ -77,9 +75,11 @@
 - (void)setObject:(id)object {
     self.indexItem = object;
     NSLog(@"%@",self.indexItem.backgroundImage);
-    self.backgroundImageView.urlPath=[NSString stringWithFormat:@"bundle://%@",self.indexItem.backgroundImage];
+    UIImage* image = [UIImage imageNamed:self.indexItem.backgroundImage];
+    self.backgroundImageView.image = image;
+    NSLog(@"%f",image.size.height);
     self.backgroundImageView.actionUrl = self.indexItem.URL;
-    self.backgroundImageView.frame = CGRectMake(0, 4, SCREEN_WIDTH, 112);
+    self.backgroundImageView.frame = CGRectMake(0, 4, SCREEN_WIDTH, image.size.height);
     [super setObject:self.indexItem.text];
 }
 

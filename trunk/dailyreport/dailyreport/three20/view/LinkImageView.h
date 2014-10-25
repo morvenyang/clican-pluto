@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LinkImageView : TTImageView{
+@interface LinkImageView : UIImageView{
     NSString* _actionUrl;
 }
 
