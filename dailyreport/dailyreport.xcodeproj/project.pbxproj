@@ -19,6 +19,8 @@
 		320F2C48872C2E2C4DF86205 /* libThree20UI.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 320F2C48872C2E2C4DF86204 /* libThree20UI.a */; };
 		72138B83194EB53D009918BD /* CannotCancelUISwipeGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 72138B82194EB53D009918BD /* CannotCancelUISwipeGestureRecognizer.m */; };
 		72138B85194EEAF5009918BD /* 首次进入提示.png in Resources */ = {isa = PBXBuildFile; fileRef = 72138B84194EEAF5009918BD /* 首次进入提示.png */; };
+		721633E619FB33E800F1B978 /* Default-667h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 721633E419FB33E800F1B978 /* Default-667h@2x.png */; };
+		721633E719FB33E800F1B978 /* Default-1104h@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 721633E519FB33E800F1B978 /* Default-1104h@3x.png */; };
 		721DB4CB1938C1F50075F392 /* logout.png in Resources */ = {isa = PBXBuildFile; fileRef = 721DB4CA1938C1F50075F392 /* logout.png */; };
 		7222FA4A195D16E9003AC6F4 /* downarrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 7222FA47195D16E9003AC6F4 /* downarrow.png */; };
 		7222FA4B195D16E9003AC6F4 /* menu.png in Resources */ = {isa = PBXBuildFile; fileRef = 7222FA48195D16E9003AC6F4 /* menu.png */; };
@@ -155,7 +157,6 @@
 		72EB38A919270EAF00D0F225 /* LoginDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 72EB38A819270EAF00D0F225 /* LoginDataSource.m */; };
 		72EB38AC19270EC100D0F225 /* LoginModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 72EB38AB19270EC100D0F225 /* LoginModel.m */; };
 		72EB38B6192712DC00D0F225 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 72EB38B5192712DC00D0F225 /* MBProgressHUD.m */; };
-		72F60BB719F9EE6100223A7D /* Default-667h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 72F60BB619F9EE6100223A7D /* Default-667h@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -357,6 +358,8 @@
 		72138B81194EB53D009918BD /* CannotCancelUISwipeGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CannotCancelUISwipeGestureRecognizer.h; sourceTree = "<group>"; };
 		72138B82194EB53D009918BD /* CannotCancelUISwipeGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CannotCancelUISwipeGestureRecognizer.m; sourceTree = "<group>"; };
 		72138B84194EEAF5009918BD /* 首次进入提示.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "首次进入提示.png"; sourceTree = "<group>"; };
+		721633E419FB33E800F1B978 /* Default-667h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-667h@2x.png"; sourceTree = "<group>"; };
+		721633E519FB33E800F1B978 /* Default-1104h@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-1104h@3x.png"; sourceTree = "<group>"; };
 		721DB4CA1938C1F50075F392 /* logout.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logout.png; sourceTree = "<group>"; };
 		7222FA47195D16E9003AC6F4 /* downarrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = downarrow.png; sourceTree = "<group>"; };
 		7222FA48195D16E9003AC6F4 /* menu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu.png; sourceTree = "<group>"; };
@@ -548,7 +551,6 @@
 		72EB38AB19270EC100D0F225 /* LoginModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginModel.m; sourceTree = "<group>"; };
 		72EB38B4192712DC00D0F225 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		72EB38B5192712DC00D0F225 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
-		72F60BB619F9EE6100223A7D /* Default-667h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-667h@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -961,8 +963,9 @@
 		72EB38AD19270F3B00D0F225 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				72F60BB619F9EE6100223A7D /* Default-667h@2x.png */,
+				721633E419FB33E800F1B978 /* Default-667h@2x.png */,
 				7233F538196A7AF100BA0A78 /* back.png */,
+				721633E519FB33E800F1B978 /* Default-1104h@3x.png */,
 				722D6B301963D31200036D38 /* web */,
 				722D6B391963DDBF00036D38 /* gesture_background.png */,
 				722D6B3A1963DDBF00036D38 /* gesture_node_normal.png */,
@@ -1343,7 +1346,7 @@
 				72783BC91929A6A10098B3A8 /* 图标-微信好友.png in Resources */,
 				7285E3D81925AFEE0011C2D6 /* Images.xcassets in Resources */,
 				72783BC41929A6A10098B3A8 /* 图标-分页原点-高亮@2x.png in Resources */,
-				72F60BB719F9EE6100223A7D /* Default-667h@2x.png in Resources */,
+				721633E619FB33E800F1B978 /* Default-667h@2x.png in Resources */,
 				721DB4CB1938C1F50075F392 /* logout.png in Resources */,
 				7233F539196A7AF100BA0A78 /* back.png in Resources */,
 				722D6B401963DDBF00036D38 /* gesture_node_normal@2x.png in Resources */,
@@ -1358,6 +1361,7 @@
 				722D6B311963D31200036D38 /* web in Resources */,
 				72783BB41929A6A10098B3A8 /* 用户名密码背景.png in Resources */,
 				7222FA4A195D16E9003AC6F4 /* downarrow.png in Resources */,
+				721633E719FB33E800F1B978 /* Default-1104h@3x.png in Resources */,
 				72783BD61929A6A10098B3A8 /* 每日收入赫奇背景.png in Resources */,
 				72783BDC1929A6A10098B3A8 /* 色卡-洋红@2x.png in Resources */,
 				72783BEA1929A6A10098B3A8 /* 首页赫奇.png in Resources */,
