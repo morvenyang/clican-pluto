@@ -202,11 +202,20 @@
     return imageView;
 }
 -(UIView*) createDailyView:(NSString*) iconName label:(NSString*)label{
+    int labelFontSize = 12;
+    NSLog(@"%f",SCREEN_WIDTH);
+    if(SCREEN_WIDTH==320){
+        labelFontSize = 12;
+    }else if(SCREEN_WIDTH==375){
+        labelFontSize = 13;
+    }else{
+        labelFontSize = 14;
+    }
     UIImage* iconImage = [UIImage imageNamed:iconName];
     UIView* dailyView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, iconImage.size.height)] autorelease];
     dailyView.backgroundColor =[StyleSheet colorFromHexString:[[[NSBundle mainBundle] infoDictionary] objectForKey:[NSString stringWithFormat:@"%@背景",self.brand]]];
     UIImageView* retailImageView = [self createImageViewFromImage:iconImage frame:CGRectMake(0, 0, iconImage.size.width, iconImage.size.height)];
-    UILabel* retailLabel = [self createLabel:label frame:CGRectMake(40, 0, 120, iconImage.size.height) textColor:@"#ffffff" font:12 backgroundColor:nil];
+    UILabel* retailLabel = [self createLabel:label frame:CGRectMake(40, 0, 120, iconImage.size.height) textColor:@"#ffffff" font:labelFontSize backgroundColor:nil];
     NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
     [dateFormatter setDateFormat:@"MM月dd日 EEEE"];
     
@@ -214,7 +223,7 @@
     if(self.selectedDate!=nil){
         dateStr =[dateFormatter stringFromDate:self.selectedDate];
     }
-    self.calendarLabel = [self createLabel:dateStr frame:CGRectMake(SCREEN_WIDTH-120, 0, 120, iconImage.size.height) textColor:@"#ffffff" font:12 backgroundColor:nil];
+    self.calendarLabel = [self createLabel:dateStr frame:CGRectMake(SCREEN_WIDTH-120, 0, 120, iconImage.size.height) textColor:@"#ffffff" font:labelFontSize backgroundColor:nil];
     
     [dailyView addSubview:retailImageView];
     [dailyView addSubview:retailLabel];
