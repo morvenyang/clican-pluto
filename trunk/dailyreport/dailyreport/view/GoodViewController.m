@@ -43,7 +43,7 @@
 {
     [super loadView];
     self.contentView.goodSwitchDelegate = self;
-    UIView* dailyView = [self createDailyView:@"图标-零售收入.png" label:@"商品信息"];
+    UIView* dailyView = [self createDailyView:@"图标-零售收入" label:@"商品信息"];
     
     
     
