@@ -70,11 +70,11 @@
         labelFontSize = 12;
         channelFontSize = 14;
     }else if(SCREEN_WIDTH==375){
-        labelFontSize = 13;
-        channelFontSize = 15;
-    }else{
         labelFontSize = 14;
         channelFontSize = 16;
+    }else{
+        labelFontSize = 16;
+        channelFontSize = 18;
     }
 
     UIView* dailyView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH,SCREEN_HEIGHT/3)] autorelease];
@@ -89,13 +89,14 @@
     retailLabel.textColor = [UIColor whiteColor];
     retailLabel.backgroundColor = [UIColor clearColor];
     
-    UILabel* calendarLabel = [[[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-120, 0, 120, retailImage.size.height)] autorelease];
+    UILabel* calendarLabel = [[[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-150, 0, 120, retailImage.size.height)] autorelease];
     NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
     [dateFormatter setDateFormat:@"MM月dd日 EEEE"];
     calendarLabel.text = [dateFormatter stringFromDate:brand.date];
     calendarLabel.font = [UIFont systemFontOfSize:labelFontSize];
     calendarLabel.textColor = [UIColor whiteColor];
     calendarLabel.backgroundColor = [UIColor clearColor];
+    calendarLabel.textAlignment = NSTextAlignmentRight;
     NSNumberFormatter* formatter = [[[NSNumberFormatter alloc]init] autorelease];
     formatter.numberStyle = NSNumberFormatterDecimalStyle;
     UILabel* retailAmountLabel =[self createDecimalLabel:[NSNumber numberWithDouble:brand.dayAmount.doubleValue/10000] frame:CGRectMake(0, 30, 160, 80) textColor:@"#ffffff" font:50 backgroundColor:nil textAlignment:ALIGN_CENTER];
