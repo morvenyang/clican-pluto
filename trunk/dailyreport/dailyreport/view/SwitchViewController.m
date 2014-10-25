@@ -195,6 +195,14 @@
     return imageView;
 }
 
+-(UIImageView*) createImageViewFromNamedImage:(NSString*) imageName point:(CGPoint) point{
+    UIImage* image =[UIImage imageNamed:imageName];
+    UIImageView* imageView = [[[UIImageView alloc] initWithFrame:CGRectMake(point.x, point.y, image.size.width, image.size.height)] autorelease];
+    
+    imageView.image = image;
+    return imageView;
+}
+
 -(UIImageView*) createImageViewFromImage:(UIImage*) image frame:(CGRect) frame{
     UIImageView* imageView = [[[UIImageView alloc] initWithFrame:frame] autorelease];
     
