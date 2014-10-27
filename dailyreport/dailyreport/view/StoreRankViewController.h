@@ -14,6 +14,7 @@
     NSMutableArray* _channelLables;
     NSArray* _channels;
     NSMutableArray* _tableViews;
+    CGFloat _tableOffset;
 }
 @property (nonatomic, retain) StoreRankModel *storeRankModel;
 @property (nonatomic, retain) NSMutableArray *channelLables;

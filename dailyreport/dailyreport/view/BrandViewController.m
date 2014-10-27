@@ -89,7 +89,7 @@
     retailLabel.textColor = [UIColor whiteColor];
     retailLabel.backgroundColor = [UIColor clearColor];
     
-    UILabel* calendarLabel = [[[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-150, 0, 120, retailImage.size.height)] autorelease];
+    UILabel* calendarLabel = [[[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/2, 0, SCREEN_WIDTH/2-30, retailImage.size.height)] autorelease];
     NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
     [dateFormatter setDateFormat:@"MM月dd日 EEEE"];
     calendarLabel.text = [dateFormatter stringFromDate:brand.date];
@@ -99,7 +99,7 @@
     calendarLabel.textAlignment = NSTextAlignmentRight;
     NSNumberFormatter* formatter = [[[NSNumberFormatter alloc]init] autorelease];
     formatter.numberStyle = NSNumberFormatterDecimalStyle;
-    UILabel* retailAmountLabel =[self createDecimalLabel:[NSNumber numberWithDouble:brand.dayAmount.doubleValue/10000] frame:CGRectMake(0, 30, 160, 80) textColor:@"#ffffff" font:50 backgroundColor:nil textAlignment:ALIGN_CENTER];
+    UILabel* retailAmountLabel =[self createDecimalLabel:[NSNumber numberWithDouble:brand.dayAmount.doubleValue/10000] frame:CGRectMake(0, 30, SCREEN_WIDTH/2, 80) textColor:@"#ffffff" font:50 backgroundColor:nil textAlignment:ALIGN_CENTER];
     
     
     
@@ -113,19 +113,19 @@
         }
     }else if(SCREEN_WIDTH==350){
         if(retailAmountLabel.text.length>5){
+            retailAmountLabel.font = [UIFont fontWithName:@"HelveticaNeue-UltraLight" size:55];
+        }else if(retailAmountLabel.text.length>4){
+            retailAmountLabel.font = [UIFont fontWithName:@"HelveticaNeue-UltraLight" size:60];
+        }else{
+            retailAmountLabel.font = [UIFont fontWithName:@"HelveticaNeue-UltraLight" size:65];
+        }
+    }else{
+        if(retailAmountLabel.text.length>5){
             retailAmountLabel.font = [UIFont fontWithName:@"HelveticaNeue-UltraLight" size:60];
         }else if(retailAmountLabel.text.length>4){
             retailAmountLabel.font = [UIFont fontWithName:@"HelveticaNeue-UltraLight" size:70];
         }else{
             retailAmountLabel.font = [UIFont fontWithName:@"HelveticaNeue-UltraLight" size:80];
-        }
-    }else{
-        if(retailAmountLabel.text.length>5){
-            retailAmountLabel.font = [UIFont fontWithName:@"HelveticaNeue-UltraLight" size:70];
-        }else if(retailAmountLabel.text.length>4){
-            retailAmountLabel.font = [UIFont fontWithName:@"HelveticaNeue-UltraLight" size:80];
-        }else{
-            retailAmountLabel.font = [UIFont fontWithName:@"HelveticaNeue-UltraLight" size:90];
         }
     }
     
@@ -133,7 +133,7 @@
     if(brand.dayLike.floatValue>0){
         retailLikeText = [NSString stringWithFormat:@"+%@",retailLikeText];
     }
-    UILabel* retailLikeLabel = [self createLabel:retailLikeText frame:CGRectMake(40, 130, 120, 30) textColor:@"#ffffff" font:20 backgroundColor:nil];
+    UILabel* retailLikeLabel = [self createLabel:retailLikeText frame:CGRectMake(40, 130, SCREEN_WIDTH/2-40, 30) textColor:@"#ffffff" font:20 backgroundColor:nil];
     CGFloat offset = 0;
     
     for(int i=0;i<channels.count;i++){

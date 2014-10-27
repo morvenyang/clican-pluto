@@ -231,8 +231,8 @@
     if(self.selectedDate!=nil){
         dateStr =[dateFormatter stringFromDate:self.selectedDate];
     }
-    self.calendarLabel = [self createLabel:dateStr frame:CGRectMake(SCREEN_WIDTH-120, 0, 120, iconImage.size.height) textColor:@"#ffffff" font:labelFontSize backgroundColor:nil];
-    
+    self.calendarLabel = [self createLabel:dateStr frame:CGRectMake(SCREEN_WIDTH/2, 0, SCREEN_WIDTH/2-30, iconImage.size.height) textColor:@"#ffffff" font:labelFontSize backgroundColor:nil];
+    self.calendarLabel.textAlignment = NSTextAlignmentRight;
     [dailyView addSubview:retailImageView];
     [dailyView addSubview:retailLabel];
     [dailyView addSubview:self.calendarLabel];
