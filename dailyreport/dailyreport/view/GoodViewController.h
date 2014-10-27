@@ -12,6 +12,7 @@
 @interface GoodViewController : SwitchViewController<GoodSwitchDelegate>{
     NSMutableArray* _dyviews;
     NSMutableArray* _pointImageViews;
+    CGFloat _footOffset;
 }
 @property (nonatomic, retain) NSMutableArray* dyviews;
 @property (nonatomic, retain) NSMutableArray* pointImageViews;

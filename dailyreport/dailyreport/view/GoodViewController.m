@@ -48,6 +48,7 @@
     
     
     [self.contentView addSubview:dailyView];
+    _footOffset =dailyView.frame.size.height+10;
     [self switchGood];
 }
 
@@ -69,7 +70,7 @@
     }
     GoodRank* gr = [DrAppDelegate.user.goods objectAtIndex:DrAppDelegate.user.goodIndex];
 
-    TTImageView* imageView = [[[TTImageView alloc] initWithFrame:CGRectMake(10, 44, 300, 430)] autorelease];
+    TTImageView* imageView = [[[TTImageView alloc] initWithFrame:CGRectMake(10,_footOffset , SCREEN_WIDTH-20, (SCREEN_WIDTH-20)*4/3)] autorelease];
     imageView.urlPath = gr.imageLink;
     
     [self.contentView addSubview:imageView];
@@ -78,51 +79,64 @@
     
     
 
-    UIView* footView =[self createFootView:gr];
+    UIView* footView =[self createFootView:gr y:_footOffset+(SCREEN_WIDTH-20)*4/3-SCREEN_HEIGHT*100/480];
     [self.contentView addSubview:footView];
     [self.dyviews addObject:footView];
     self.contentView.contentSize =
-    CGSizeMake(320, 474);
-    if(IS_IPHONE5){
+    CGSizeMake(SCREEN_WIDTH, _footOffset+(SCREEN_WIDTH-20)*4/3);
+    if(SCREEN_WIDTH!=320){
         self.contentView.scrollEnabled=NO;
     }
 }
 
--(UIView*) createFootView:(GoodRank*) gr{
+-(UIView*) createFootView:(GoodRank*) gr y:(CGFloat)y{
     
     
-    UIView* footView = [[[UIView alloc] initWithFrame:CGRectMake(10, 474-100, 300, 100)] autorelease];
+    UIView* footView = [[[UIView alloc] initWithFrame:CGRectMake(10, y, SCREEN_WIDTH-20, SCREEN_HEIGHT*100/480)] autorelease];
     NSLog(@"%f",self.contentView.frame.size.height);
     NSLog(@"%f",footView.frame.size.height);
     footView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.3f];
     UIView* view = nil;
-    
-    view =[self createLabel:[NSString stringWithFormat:@"No. %i",DrAppDelegate.user.goodIndex+1] frame:CGRectMake(10, 0, 100, 30) textColor:@"#ff6501" font:25 backgroundColor:nil];
+    int labelFontSize =16;
+    int noLabelFontSize = 25;
+    NSLog(@"%f",SCREEN_WIDTH);
+    if(SCREEN_WIDTH==320){
+        labelFontSize =16;
+        noLabelFontSize = 25;
+    }else if(SCREEN_WIDTH==375){
+        labelFontSize =18;
+        noLabelFontSize = 28;
+    }else{
+        labelFontSize =20;
+        noLabelFontSize = 31;
+    }
+    CGFloat hOffset = 0;
+    view =[self createLabel:[NSString stringWithFormat:@"No. %i",DrAppDelegate.user.goodIndex+1] frame:CGRectMake(10, 0, SCREEN_WIDTH*100/320, SCREEN_HEIGHT*30/480) textColor:@"#ff6501" font:noLabelFontSize backgroundColor:nil];
     [footView addSubview:view];
+    hOffset+=SCREEN_HEIGHT*30/480;
+    view =[self createLabel:[NSString stringWithFormat:@"品名: %@",gr.name] frame:CGRectMake(10, hOffset, SCREEN_WIDTH*200/320, SCREEN_HEIGHT*20/480) textColor:@"#ffffff" font:labelFontSize backgroundColor:nil];
+    [footView addSubview:view];
+    
 
-    view =[self createLabel:[NSString stringWithFormat:@"品名: %@",gr.name] frame:CGRectMake(10, 30, 200, 20) textColor:@"#ffffff" font:16 backgroundColor:nil];
+    
+    view =[self createLabel:@"件数:" frame:CGRectMake(SCREEN_WIDTH*210/320, hOffset, SCREEN_WIDTH*40/320, SCREEN_HEIGHT*20/480) textColor:@"#ffffff" font:labelFontSize backgroundColor:nil];
+    [footView addSubview:view];
+    
+    view =[self createDecimalLabel:[NSNumber numberWithInt:gr.count.intValue] frame:CGRectMake(SCREEN_WIDTH*251/320, hOffset, SCREEN_WIDTH*70/320, SCREEN_HEIGHT*20/480) textColor:@"#ff6501" font:labelFontSize backgroundColor:nil textAlignment:ALIGN_LEFT];
+    [footView addSubview:view];
+    hOffset+=SCREEN_HEIGHT*20/480;
+    view =[self createLabel:[NSString stringWithFormat:@"系列: %@",gr.line] frame:CGRectMake(10, hOffset, SCREEN_WIDTH*200/320, SCREEN_HEIGHT*20/480) textColor:@"#ffffff" font:labelFontSize backgroundColor:nil];
+    [footView addSubview:view];
+    
+    view =[self createLabel:[NSString stringWithFormat:@"年份: %@",gr.year] frame:CGRectMake(SCREEN_WIDTH*210/320, hOffset, SCREEN_WIDTH*90/320, SCREEN_HEIGHT*20/480) textColor:@"#ffffff" font:labelFontSize backgroundColor:nil];
     [footView addSubview:view];
     
 
-    
-    view =[self createLabel:@"件数:" frame:CGRectMake(210, 30, 40, 20) textColor:@"#ffffff" font:16 backgroundColor:nil];
+    hOffset+=SCREEN_HEIGHT*20/480;
+    view =[self createLabel:[NSString stringWithFormat:@"波段: %@",gr.wave] frame:CGRectMake(10, hOffset, SCREEN_WIDTH*200/320, 20) textColor:@"#ffffff" font:labelFontSize backgroundColor:nil];
     [footView addSubview:view];
     
-    view =[self createDecimalLabel:[NSNumber numberWithInt:gr.count.intValue] frame:CGRectMake(251, 30, 70, 20) textColor:@"#ff6501" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT];
-    [footView addSubview:view];
-    
-    view =[self createLabel:[NSString stringWithFormat:@"系列: %@",gr.line] frame:CGRectMake(10, 50, 200, 20) textColor:@"#ffffff" font:16 backgroundColor:nil];
-    [footView addSubview:view];
-    
-    view =[self createLabel:[NSString stringWithFormat:@"年份: %@",gr.year] frame:CGRectMake(210, 50, 90, 20) textColor:@"#ffffff" font:16 backgroundColor:nil];
-    [footView addSubview:view];
-    
-
-    
-    view =[self createLabel:[NSString stringWithFormat:@"波段: %@",gr.wave] frame:CGRectMake(10, 70, 200, 20) textColor:@"#ffffff" font:16 backgroundColor:nil];
-    [footView addSubview:view];
-    
-    view =[self createLabel:[NSString stringWithFormat:@"季节: %@",gr.season] frame:CGRectMake(210, 70, 90, 20) textColor:@"#ffffff" font:16 backgroundColor:nil];
+    view =[self createLabel:[NSString stringWithFormat:@"季节: %@",gr.season] frame:CGRectMake(SCREEN_WIDTH*210/320, hOffset, SCREEN_WIDTH*90/320, 20) textColor:@"#ffffff" font:labelFontSize backgroundColor:nil];
     [footView addSubview:view];
     return footView;
 }
