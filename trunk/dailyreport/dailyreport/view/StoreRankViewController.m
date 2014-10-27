@@ -11,8 +11,7 @@
 #import "Rank.h"
 #import "StyleSheet.h"
 
-#define ROW_HEIGHT 34
-#define ROW_CONTENT_HEIGHT 32
+
 
 @implementation StoreRankViewController
 
@@ -73,7 +72,7 @@
         labelFontSize =18;
     }else{
         channelFontSize = 24;
-        labelFontSize =22;
+        labelFontSize =20;
     }
     
     if([channels count]!=0){
@@ -114,6 +113,8 @@
     [self.contentView addSubview:[self createLabel:@"零售额" frame:CGRectMake(wOffset, hOffset, SCREEN_WIDTH*49/320, SCREEN_HEIGHT*40/480) textColor:@"#ffffff" font:labelFontSize backgroundColor:STORE_RANK_TABLE_HEAD_COLOR textAlignment:ALIGN_CENTER]];
     wOffset+=SCREEN_WIDTH*49/320+2;
     [self.contentView addSubview:[self createLabel:@"占比" frame:CGRectMake(wOffset, hOffset,SCREEN_WIDTH-wOffset, SCREEN_HEIGHT*40/480) textColor:@"#ffffff" font:labelFontSize backgroundColor:STORE_RANK_TABLE_HEAD_COLOR textAlignment:ALIGN_CENTER]];
+    hOffset += SCREEN_HEIGHT*40/480;
+    _tableOffset = hOffset;
     if(self.channels.count>0){
         [self updateChannel:[self.channels objectAtIndex:0]];
     }
@@ -142,27 +143,49 @@
     for(UIView* view in self.tableViews){
         [view removeFromSuperview];
     }
+    CGFloat ROW_HEIGHT = 34;
+    CGFloat ROW_CONTENT_HEIGHT=32;
+    int labelFont = 12;
+    if (SCREEN_WIDTH==320){
+        ROW_HEIGHT =34;
+        ROW_CONTENT_HEIGHT =32;
+        labelFont = 12;
+    }else if (SCREEN_WIDTH==375){
+        ROW_HEIGHT= 38;
+        ROW_CONTENT_HEIGHT= 36;
+        labelFont = 13;
+    }else{
+        ROW_HEIGHT =40;
+        ROW_CONTENT_HEIGHT =38;
+        labelFont = 14;
+    }
+
+
     [self.tableViews removeAllObjects];
     for(int i=0;i<channel.ranks.count;i++){
+        CGFloat wOffset = 0;
         Rank* rank = [channel.ranks objectAtIndex:i];
-        UILabel* label =[self createLabel:[NSString stringWithFormat:@"%i",i+1] frame:CGRectMake(0, 130+i*ROW_HEIGHT, 30, ROW_CONTENT_HEIGHT) textColor:@"#6a6a6a" font:12 backgroundColor:@"#f3f3f3" textAlignment:ALIGN_CENTER];
+        UILabel* label =[self createLabel:[NSString stringWithFormat:@"%i",i+1] frame:CGRectMake(0, _tableOffset+i*ROW_HEIGHT, SCREEN_WIDTH*3/32, ROW_CONTENT_HEIGHT) textColor:@"#6a6a6a" font:labelFont backgroundColor:@"#f3f3f3" textAlignment:ALIGN_CENTER];
+        wOffset+=SCREEN_WIDTH*3/32+2;
         [self.tableViews addObject:label];
         [self.contentView addSubview:label];
-        label =[self createLabel:rank.name frame:CGRectMake(32, 130+i*ROW_HEIGHT, 186, ROW_CONTENT_HEIGHT) textColor:@"#6a6a6a" font:14 backgroundColor:@"#f3f3f3" textAlignment:ALIGN_CENTER];
-        [self.contentView addSubview:label];
-        [self.tableViews addObject:label];
-        
-        label =[self createLabel:[NSString stringWithFormat:@"%0.2f", rank.dayAmount.intValue/10000.0] frame:CGRectMake(220, 130+i*ROW_HEIGHT, 49, ROW_CONTENT_HEIGHT) textColor:@"#6a6a6a" font:12 backgroundColor:@"#f3f3f3" textAlignment:ALIGN_CENTER];
+        label =[self createLabel:rank.name frame:CGRectMake(wOffset, _tableOffset+i*ROW_HEIGHT, SCREEN_WIDTH*186/320, ROW_CONTENT_HEIGHT) textColor:@"#6a6a6a" font:labelFont backgroundColor:@"#f3f3f3" textAlignment:ALIGN_CENTER];
+        wOffset+=SCREEN_WIDTH*186/320+2;
         [self.contentView addSubview:label];
         [self.tableViews addObject:label];
         
-        label =[self createLabel:[NSString stringWithFormat:@"%0.2f%@", rank.rate.doubleValue*100,@"%"] frame:CGRectMake(271, 130+i*ROW_HEIGHT,49, ROW_CONTENT_HEIGHT) textColor:@"#6a6a6a" font:12 backgroundColor:@"#f3f3f3" textAlignment:ALIGN_CENTER];
+        label =[self createLabel:[NSString stringWithFormat:@"%0.2f", rank.dayAmount.intValue/10000.0] frame:CGRectMake(wOffset, _tableOffset+i*ROW_HEIGHT, SCREEN_WIDTH*49/320, ROW_CONTENT_HEIGHT) textColor:@"#6a6a6a" font:labelFont backgroundColor:@"#f3f3f3" textAlignment:ALIGN_CENTER];
+        wOffset+=SCREEN_WIDTH*49/320+2;
+        [self.contentView addSubview:label];
+        [self.tableViews addObject:label];
+        
+        label =[self createLabel:[NSString stringWithFormat:@"%0.2f%@", rank.rate.doubleValue*100,@"%"] frame:CGRectMake(wOffset, _tableOffset+i*ROW_HEIGHT,SCREEN_WIDTH-wOffset, ROW_CONTENT_HEIGHT) textColor:@"#6a6a6a" font:labelFont backgroundColor:@"#f3f3f3" textAlignment:ALIGN_CENTER];
         [self.contentView addSubview:label];
         [self.tableViews addObject:label];
     }
     
     self.contentView.contentSize =
-    CGSizeMake(320, 130+channel.ranks.count*ROW_HEIGHT);
+    CGSizeMake(SCREEN_WIDTH, _tableOffset+channel.ranks.count*ROW_HEIGHT);
 }
 
 - (void) brandDidStartLoad:(NSString*) brand{
