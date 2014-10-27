@@ -11,6 +11,7 @@
 @interface GoodRankViewController : SwitchViewController{
     GoodRankModel* _goodRankModel;
     NSMutableArray* _goods;
+    CGFloat _tableOffset;
 }
 @property (nonatomic, retain) GoodRankModel *goodRankModel;
 @property (nonatomic, retain) NSMutableArray *goods;

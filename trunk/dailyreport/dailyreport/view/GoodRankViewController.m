@@ -9,8 +9,7 @@
 #import "GoodRankViewController.h"
 #import "AppDelegate.h"
 #import "StyleSheet.h"
-#define ROW_HEIGHT 40
-#define ROW_CONTENT_HEIGHT 38
+
 
 @implementation GoodRankViewController
 
@@ -37,8 +36,19 @@
     CGPoint location = [gestureRecognizer locationInView:self.contentView];
     NSLog(@"location y:%f",location.y);
     CGFloat y = location.y;
-    if(y>=76&&y<=76+ROW_HEIGHT*self.goods.count){
-        int index = (y-76)/ROW_HEIGHT;
+    CGFloat ROW_HEIGHT = 34;
+    NSLog(@"%f",SCREEN_WIDTH);
+    if(SCREEN_WIDTH==320){
+        ROW_HEIGHT =40;
+    }else if(SCREEN_WIDTH==375){
+        ROW_HEIGHT =42;
+    }else{
+        ROW_HEIGHT =44;
+
+    }
+
+    if(y>=_tableOffset&&y<=_tableOffset+ROW_HEIGHT*self.goods.count){
+        int index = (y-_tableOffset)/ROW_HEIGHT;
         NSLog(@"%i row is seelcted",index);
         GoodRank* gr = [self.goods objectAtIndex:index];
         DrAppDelegate.user.goods = self.goods;
@@ -72,32 +82,58 @@
     UIView* dailyView =  [self createDailyView:@"图标-零售收入" label:@"商品排名"];
     
     
-    
+    CGFloat ROW_HEIGHT = 34;
+    CGFloat ROW_CONTENT_HEIGHT=32;
+    int labelFontSize =14;
+    NSLog(@"%f",SCREEN_WIDTH);
+    if(SCREEN_WIDTH==320){
+        labelFontSize =16;
+        ROW_HEIGHT =40;
+        ROW_CONTENT_HEIGHT =38;
+    }else if(SCREEN_WIDTH==375){
+        labelFontSize =18;
+        ROW_HEIGHT =42;
+        ROW_CONTENT_HEIGHT =40;
+    }else{
+        labelFontSize =20;
+        ROW_HEIGHT =44;
+        ROW_CONTENT_HEIGHT =42;
+    }
+    CGFloat wOffset = 0;
+    CGFloat hOffset = dailyView.frame.size.height+2;
     [self.contentView addSubview:dailyView];
-    [self.contentView addSubview:[self createLabel:@"＃" frame:CGRectMake(0, 36, 30, 40) textColor:@"#ffffff" font:14 backgroundColor:STORE_RANK_TABLE_HEAD_COLOR textAlignment:ALIGN_CENTER]];
-    [self.contentView addSubview:[self createLabel:@"图片" frame:CGRectMake(32, 36, 38, 40) textColor:@"#ffffff" font:14 backgroundColor:STORE_RANK_TABLE_HEAD_COLOR textAlignment:ALIGN_CENTER]];
-    [self.contentView addSubview:[self createLabel:@"品名" frame:CGRectMake(72, 36, 186, 40) textColor:@"#ffffff" font:14 backgroundColor:STORE_RANK_TABLE_HEAD_COLOR textAlignment:ALIGN_CENTER]];
-    [self.contentView addSubview:[self createLabel:@"件数" frame:CGRectMake(260, 36,60, 40) textColor:@"#ffffff" font:14 backgroundColor:STORE_RANK_TABLE_HEAD_COLOR textAlignment:ALIGN_CENTER]];
+    [self.contentView addSubview:[self createLabel:@"＃" frame:CGRectMake(0, hOffset, SCREEN_WIDTH*30/320, SCREEN_HEIGHT*30/480) textColor:@"#ffffff" font:labelFontSize backgroundColor:STORE_RANK_TABLE_HEAD_COLOR textAlignment:ALIGN_CENTER]];
+    wOffset+=SCREEN_WIDTH*30/320+2;
+    [self.contentView addSubview:[self createLabel:@"图片" frame:CGRectMake(wOffset, hOffset,ROW_CONTENT_HEIGHT, SCREEN_HEIGHT*30/480) textColor:@"#ffffff" font:labelFontSize backgroundColor:STORE_RANK_TABLE_HEAD_COLOR textAlignment:ALIGN_CENTER]];
+    wOffset+=ROW_CONTENT_HEIGHT+2;
+    [self.contentView addSubview:[self createLabel:@"品名" frame:CGRectMake(wOffset, hOffset, SCREEN_WIDTH*186/320, SCREEN_HEIGHT*30/480) textColor:@"#ffffff" font:labelFontSize backgroundColor:STORE_RANK_TABLE_HEAD_COLOR textAlignment:ALIGN_CENTER]];
+     wOffset+=SCREEN_WIDTH*186/320+2;
+    [self.contentView addSubview:[self createLabel:@"件数" frame:CGRectMake(wOffset, hOffset,SCREEN_WIDTH-wOffset, SCREEN_HEIGHT*30/480) textColor:@"#ffffff" font:labelFontSize backgroundColor:STORE_RANK_TABLE_HEAD_COLOR textAlignment:ALIGN_CENTER]];
    
+    hOffset+=SCREEN_HEIGHT*30/480;
+    
+    _tableOffset = hOffset;
     for(int i=0;i<goods.count;i++){
+        wOffset=0;
         GoodRank* rank = [goods objectAtIndex:i];
-        UILabel* label =[self createLabel:[NSString stringWithFormat:@"%i",i+1] frame:CGRectMake(0, 76+i*ROW_HEIGHT, 30, ROW_CONTENT_HEIGHT) textColor:@"#6a6a6a" font:16 backgroundColor:@"#f3f3f3" textAlignment:ALIGN_CENTER];
-
+        UILabel* label =[self createLabel:[NSString stringWithFormat:@"%i",i+1] frame:CGRectMake(0, hOffset+i*ROW_HEIGHT, SCREEN_WIDTH*30/320, ROW_CONTENT_HEIGHT) textColor:@"#6a6a6a" font:labelFontSize+2 backgroundColor:@"#f3f3f3" textAlignment:ALIGN_CENTER];
+        wOffset+=SCREEN_WIDTH*30/320+2;
         [self.contentView addSubview:label];
         
-        TTImageView* imageView = [[[TTImageView alloc] initWithFrame:CGRectMake(32, 76+i*ROW_HEIGHT, ROW_CONTENT_HEIGHT, ROW_CONTENT_HEIGHT)] autorelease];
+        TTImageView* imageView = [[[TTImageView alloc] initWithFrame:CGRectMake(wOffset, hOffset+i*ROW_HEIGHT, ROW_CONTENT_HEIGHT, ROW_CONTENT_HEIGHT)] autorelease];
         imageView.urlPath = rank.imageLinkMin;
         [self.contentView addSubview:imageView];
-
+        wOffset+=ROW_CONTENT_HEIGHT+2;
         
-        label =[self createLabel:rank.name frame:CGRectMake(72, 76+i*ROW_HEIGHT, 186, ROW_CONTENT_HEIGHT) textColor:@"#6a6a6a" font:16 backgroundColor:@"#f3f3f3" textAlignment:ALIGN_CENTER];
+        label =[self createLabel:rank.name frame:CGRectMake(wOffset, hOffset+i*ROW_HEIGHT, SCREEN_WIDTH*186/320, ROW_CONTENT_HEIGHT) textColor:@"#6a6a6a" font:labelFontSize+2 backgroundColor:@"#f3f3f3" textAlignment:ALIGN_CENTER];
         [self.contentView addSubview:label];
-        label=[self createDecimalLabel:[NSNumber numberWithInt:rank.count.intValue]  frame:CGRectMake(260, 76+i*ROW_HEIGHT,60, ROW_CONTENT_HEIGHT) textColor:@"#6a6a6a" font:16 backgroundColor:@"#f3f3f3" textAlignment:ALIGN_CENTER];
+        wOffset+=SCREEN_WIDTH*186/320+2;
+        label=[self createDecimalLabel:[NSNumber numberWithInt:rank.count.intValue]  frame:CGRectMake(wOffset, hOffset+i*ROW_HEIGHT,SCREEN_WIDTH-hOffset, ROW_CONTENT_HEIGHT) textColor:@"#6a6a6a" font:labelFontSize+2 backgroundColor:@"#f3f3f3" textAlignment:ALIGN_CENTER];
         [self.contentView addSubview:label];
     }
     
     self.contentView.contentSize =
-    CGSizeMake(320, 76+goods.count*ROW_HEIGHT);
+    CGSizeMake(SCREEN_WIDTH, hOffset+goods.count*ROW_HEIGHT);
 }
 - (void)viewDidLoad
 {
