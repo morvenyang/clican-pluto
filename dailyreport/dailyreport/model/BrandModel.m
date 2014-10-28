@@ -84,15 +84,8 @@
             brand.yearLike = [jsonBrand objectForKey:@"yearLike"];
             NSLog(@"%@",[jsonBrand objectForKey:@"date"]);
             brand.date = [dateFormatter dateFromString:[jsonBrand objectForKey:@"date"]];
-            //该品牌本周的数据
-            NSMutableArray* weeks = [NSMutableArray array];
-            NSArray* jsonWeeks = [data objectForKey:@"weeks"];
-            for (NSDictionary* jsonWeek in jsonWeeks) {
-                Brand* weekBrand = [[[Brand alloc] init]autorelease];
-                weekBrand.date = [dateFormatter dateFromString:[jsonWeek objectForKey:@"date"]];
-                weekBrand.dayAmount = [jsonWeek objectForKey:@"dayAmount"];
-                [weeks addObject:weekBrand];
-            }
+            
+            NSString* dailyLineChart =[[[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:[data objectForKey:@"dailyLineChart"] options:NSJSONWritingPrettyPrinted error:nil] encoding:NSUTF8StringEncoding] autorelease];
             
             //该品牌渠道的数据
             NSMutableArray* channels = [NSMutableArray array];
@@ -106,7 +99,7 @@
                 }
                 [channels addObject:channel];
             }
-            [self.delegate brandDidFinishLoad:brand channels:channels weeks:weeks];
+            [self.delegate brandDidFinishLoad:brand channels:channels dailyLineChart:dailyLineChart];
         }else{
             if(result.intValue==1002){
                 //not login
