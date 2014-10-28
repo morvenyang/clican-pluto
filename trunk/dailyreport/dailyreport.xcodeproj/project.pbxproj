@@ -94,24 +94,10 @@
 		72783BCE1929A6A10098B3A8 /* 图标-日历@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 72783B971929A6A10098B3A8 /* 图标-日历@2x.png */; };
 		72783BCF1929A6A10098B3A8 /* 图标-零售收入.png in Resources */ = {isa = PBXBuildFile; fileRef = 72783B981929A6A10098B3A8 /* 图标-零售收入.png */; };
 		72783BD01929A6A10098B3A8 /* 图标-零售收入@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 72783B991929A6A10098B3A8 /* 图标-零售收入@2x.png */; };
-		72783BD11929A6A10098B3A8 /* 每日收入MG公司背景.png in Resources */ = {isa = PBXBuildFile; fileRef = 72783B9A1929A6A10098B3A8 /* 每日收入MG公司背景.png */; };
-		72783BD21929A6A10098B3A8 /* 每日收入乐町背景.png in Resources */ = {isa = PBXBuildFile; fileRef = 72783B9B1929A6A10098B3A8 /* 每日收入乐町背景.png */; };
-		72783BD31929A6A10098B3A8 /* 每日收入女装背景.png in Resources */ = {isa = PBXBuildFile; fileRef = 72783B9C1929A6A10098B3A8 /* 每日收入女装背景.png */; };
-		72783BD41929A6A10098B3A8 /* 每日收入男装背景.png in Resources */ = {isa = PBXBuildFile; fileRef = 72783B9D1929A6A10098B3A8 /* 每日收入男装背景.png */; };
-		72783BD51929A6A10098B3A8 /* 每日收入童装背景.png in Resources */ = {isa = PBXBuildFile; fileRef = 72783B9E1929A6A10098B3A8 /* 每日收入童装背景.png */; };
-		72783BD61929A6A10098B3A8 /* 每日收入赫奇背景.png in Resources */ = {isa = PBXBuildFile; fileRef = 72783B9F1929A6A10098B3A8 /* 每日收入赫奇背景.png */; };
 		72783BD71929A6A10098B3A8 /* 环状图阴影.png in Resources */ = {isa = PBXBuildFile; fileRef = 72783BA01929A6A10098B3A8 /* 环状图阴影.png */; };
 		72783BD81929A6A10098B3A8 /* 环状图阴影@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 72783BA11929A6A10098B3A8 /* 环状图阴影@2x.png */; };
 		72783BD91929A6A10098B3A8 /* 登录按钮.png in Resources */ = {isa = PBXBuildFile; fileRef = 72783BA21929A6A10098B3A8 /* 登录按钮.png */; };
 		72783BDA1929A6A10098B3A8 /* 票数.png in Resources */ = {isa = PBXBuildFile; fileRef = 72783BA31929A6A10098B3A8 /* 票数.png */; };
-		72783BDB1929A6A10098B3A8 /* 色卡-洋红.png in Resources */ = {isa = PBXBuildFile; fileRef = 72783BA41929A6A10098B3A8 /* 色卡-洋红.png */; };
-		72783BDC1929A6A10098B3A8 /* 色卡-洋红@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 72783BA51929A6A10098B3A8 /* 色卡-洋红@2x.png */; };
-		72783BDD1929A6A10098B3A8 /* 色卡-深绿.png in Resources */ = {isa = PBXBuildFile; fileRef = 72783BA61929A6A10098B3A8 /* 色卡-深绿.png */; };
-		72783BDE1929A6A10098B3A8 /* 色卡-深绿@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 72783BA71929A6A10098B3A8 /* 色卡-深绿@2x.png */; };
-		72783BDF1929A6A10098B3A8 /* 色卡-灰蓝.png in Resources */ = {isa = PBXBuildFile; fileRef = 72783BA81929A6A10098B3A8 /* 色卡-灰蓝.png */; };
-		72783BE01929A6A10098B3A8 /* 色卡-灰蓝@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 72783BA91929A6A10098B3A8 /* 色卡-灰蓝@2x.png */; };
-		72783BE11929A6A10098B3A8 /* 色卡-黄色.png in Resources */ = {isa = PBXBuildFile; fileRef = 72783BAA1929A6A10098B3A8 /* 色卡-黄色.png */; };
-		72783BE21929A6A10098B3A8 /* 色卡-黄色@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 72783BAB1929A6A10098B3A8 /* 色卡-黄色@2x.png */; };
 		72783BE31929A6A10098B3A8 /* 附加.png in Resources */ = {isa = PBXBuildFile; fileRef = 72783BAC1929A6A10098B3A8 /* 附加.png */; };
 		72783BE41929A6A10098B3A8 /* 零售收入.png in Resources */ = {isa = PBXBuildFile; fileRef = 72783BAD1929A6A10098B3A8 /* 零售收入.png */; };
 		72783BE51929A6A10098B3A8 /* 首页MG公司.png in Resources */ = {isa = PBXBuildFile; fileRef = 72783BAE1929A6A10098B3A8 /* 首页MG公司.png */; };
@@ -459,24 +445,10 @@
 		72783B971929A6A10098B3A8 /* 图标-日历@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "图标-日历@2x.png"; sourceTree = "<group>"; };
 		72783B981929A6A10098B3A8 /* 图标-零售收入.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "图标-零售收入.png"; sourceTree = "<group>"; };
 		72783B991929A6A10098B3A8 /* 图标-零售收入@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "图标-零售收入@2x.png"; sourceTree = "<group>"; };
-		72783B9A1929A6A10098B3A8 /* 每日收入MG公司背景.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "每日收入MG公司背景.png"; sourceTree = "<group>"; };
-		72783B9B1929A6A10098B3A8 /* 每日收入乐町背景.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "每日收入乐町背景.png"; sourceTree = "<group>"; };
-		72783B9C1929A6A10098B3A8 /* 每日收入女装背景.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "每日收入女装背景.png"; sourceTree = "<group>"; };
-		72783B9D1929A6A10098B3A8 /* 每日收入男装背景.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "每日收入男装背景.png"; sourceTree = "<group>"; };
-		72783B9E1929A6A10098B3A8 /* 每日收入童装背景.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "每日收入童装背景.png"; sourceTree = "<group>"; };
-		72783B9F1929A6A10098B3A8 /* 每日收入赫奇背景.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "每日收入赫奇背景.png"; sourceTree = "<group>"; };
 		72783BA01929A6A10098B3A8 /* 环状图阴影.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "环状图阴影.png"; sourceTree = "<group>"; };
 		72783BA11929A6A10098B3A8 /* 环状图阴影@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "环状图阴影@2x.png"; sourceTree = "<group>"; };
 		72783BA21929A6A10098B3A8 /* 登录按钮.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "登录按钮.png"; sourceTree = "<group>"; };
 		72783BA31929A6A10098B3A8 /* 票数.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "票数.png"; sourceTree = "<group>"; };
-		72783BA41929A6A10098B3A8 /* 色卡-洋红.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "色卡-洋红.png"; sourceTree = "<group>"; };
-		72783BA51929A6A10098B3A8 /* 色卡-洋红@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "色卡-洋红@2x.png"; sourceTree = "<group>"; };
-		72783BA61929A6A10098B3A8 /* 色卡-深绿.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "色卡-深绿.png"; sourceTree = "<group>"; };
-		72783BA71929A6A10098B3A8 /* 色卡-深绿@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "色卡-深绿@2x.png"; sourceTree = "<group>"; };
-		72783BA81929A6A10098B3A8 /* 色卡-灰蓝.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "色卡-灰蓝.png"; sourceTree = "<group>"; };
-		72783BA91929A6A10098B3A8 /* 色卡-灰蓝@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "色卡-灰蓝@2x.png"; sourceTree = "<group>"; };
-		72783BAA1929A6A10098B3A8 /* 色卡-黄色.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "色卡-黄色.png"; sourceTree = "<group>"; };
-		72783BAB1929A6A10098B3A8 /* 色卡-黄色@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "色卡-黄色@2x.png"; sourceTree = "<group>"; };
 		72783BAC1929A6A10098B3A8 /* 附加.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "附加.png"; sourceTree = "<group>"; };
 		72783BAD1929A6A10098B3A8 /* 零售收入.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "零售收入.png"; sourceTree = "<group>"; };
 		72783BAE1929A6A10098B3A8 /* 首页MG公司.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "首页MG公司.png"; sourceTree = "<group>"; };
@@ -1018,24 +990,10 @@
 				72783B971929A6A10098B3A8 /* 图标-日历@2x.png */,
 				72783B981929A6A10098B3A8 /* 图标-零售收入.png */,
 				72783B991929A6A10098B3A8 /* 图标-零售收入@2x.png */,
-				72783B9A1929A6A10098B3A8 /* 每日收入MG公司背景.png */,
-				72783B9B1929A6A10098B3A8 /* 每日收入乐町背景.png */,
-				72783B9C1929A6A10098B3A8 /* 每日收入女装背景.png */,
-				72783B9D1929A6A10098B3A8 /* 每日收入男装背景.png */,
-				72783B9E1929A6A10098B3A8 /* 每日收入童装背景.png */,
-				72783B9F1929A6A10098B3A8 /* 每日收入赫奇背景.png */,
 				72783BA01929A6A10098B3A8 /* 环状图阴影.png */,
 				72783BA11929A6A10098B3A8 /* 环状图阴影@2x.png */,
 				72783BA21929A6A10098B3A8 /* 登录按钮.png */,
 				72783BA31929A6A10098B3A8 /* 票数.png */,
-				72783BA41929A6A10098B3A8 /* 色卡-洋红.png */,
-				72783BA51929A6A10098B3A8 /* 色卡-洋红@2x.png */,
-				72783BA61929A6A10098B3A8 /* 色卡-深绿.png */,
-				72783BA71929A6A10098B3A8 /* 色卡-深绿@2x.png */,
-				72783BA81929A6A10098B3A8 /* 色卡-灰蓝.png */,
-				72783BA91929A6A10098B3A8 /* 色卡-灰蓝@2x.png */,
-				72783BAA1929A6A10098B3A8 /* 色卡-黄色.png */,
-				72783BAB1929A6A10098B3A8 /* 色卡-黄色@2x.png */,
 				72783BAC1929A6A10098B3A8 /* 附加.png */,
 				72783BAD1929A6A10098B3A8 /* 零售收入.png */,
 				72783BAE1929A6A10098B3A8 /* 首页MG公司.png */,
@@ -1291,7 +1249,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				72783BE01929A6A10098B3A8 /* 色卡-灰蓝@2x.png in Resources */,
 				72783BDA1929A6A10098B3A8 /* 票数.png in Resources */,
 				7262316D192B168500E3F99B /* Default~iphone.png in Resources */,
 				72783BE51929A6A10098B3A8 /* 首页MG公司.png in Resources */,
@@ -1309,12 +1266,10 @@
 				72783BC21929A6A10098B3A8 /* 图标-分页原点-正常@2x.png in Resources */,
 				320B6C86F11D9990244A9731 /* Three20.bundle in Resources */,
 				722D6B411963DDBF00036D38 /* gesture_node_selected.png in Resources */,
-				72783BDD1929A6A10098B3A8 /* 色卡-深绿.png in Resources */,
 				7222FA4B195D16E9003AC6F4 /* menu.png in Resources */,
 				72138B85194EEAF5009918BD /* 首次进入提示.png in Resources */,
 				72783BB71929A6A10098B3A8 /* 关键指标-背景花纹.png in Resources */,
 				72623174192B168500E3F99B /* logo120.png in Resources */,
-				72783BD51929A6A10098B3A8 /* 每日收入童装背景.png in Resources */,
 				7222FA4C195D16E9003AC6F4 /* uparrow.png in Resources */,
 				7262316E192B168500E3F99B /* Default-568h@2x.png in Resources */,
 				7285E3D01925AFEE0011C2D6 /* InfoPlist.strings in Resources */,
@@ -1335,13 +1290,8 @@
 				72783BCA1929A6A10098B3A8 /* 图标-微信好友@2x.png in Resources */,
 				72783BBA1929A6A10098B3A8 /* 分割线-每日收入水平分割线.png in Resources */,
 				72783BE71929A6A10098B3A8 /* 首页女装.png in Resources */,
-				72783BD31929A6A10098B3A8 /* 每日收入女装背景.png in Resources */,
 				72783BE31929A6A10098B3A8 /* 附加.png in Resources */,
-				72783BD21929A6A10098B3A8 /* 每日收入乐町背景.png in Resources */,
 				72783BB91929A6A10098B3A8 /* 分享取消按钮@2x.png in Resources */,
-				72783BDB1929A6A10098B3A8 /* 色卡-洋红.png in Resources */,
-				72783BDF1929A6A10098B3A8 /* 色卡-灰蓝.png in Resources */,
-				72783BE21929A6A10098B3A8 /* 色卡-黄色@2x.png in Resources */,
 				72783BE81929A6A10098B3A8 /* 首页男装.png in Resources */,
 				72783BC91929A6A10098B3A8 /* 图标-微信好友.png in Resources */,
 				7285E3D81925AFEE0011C2D6 /* Images.xcassets in Resources */,
@@ -1350,10 +1300,7 @@
 				721DB4CB1938C1F50075F392 /* logout.png in Resources */,
 				7233F539196A7AF100BA0A78 /* back.png in Resources */,
 				722D6B401963DDBF00036D38 /* gesture_node_normal@2x.png in Resources */,
-				72783BE11929A6A10098B3A8 /* 色卡-黄色.png in Resources */,
-				72783BD11929A6A10098B3A8 /* 每日收入MG公司背景.png in Resources */,
 				72783BD91929A6A10098B3A8 /* 登录按钮.png in Resources */,
-				72783BDE1929A6A10098B3A8 /* 色卡-深绿@2x.png in Resources */,
 				72783BD71929A6A10098B3A8 /* 环状图阴影.png in Resources */,
 				72783BCB1929A6A10098B3A8 /* 图标-微信朋友圈.png in Resources */,
 				72783BCD1929A6A10098B3A8 /* 图标-日历.png in Resources */,
@@ -1362,13 +1309,10 @@
 				72783BB41929A6A10098B3A8 /* 用户名密码背景.png in Resources */,
 				7222FA4A195D16E9003AC6F4 /* downarrow.png in Resources */,
 				721633E719FB33E800F1B978 /* Default-1104h@3x.png in Resources */,
-				72783BD61929A6A10098B3A8 /* 每日收入赫奇背景.png in Resources */,
-				72783BDC1929A6A10098B3A8 /* 色卡-洋红@2x.png in Resources */,
 				72783BEA1929A6A10098B3A8 /* 首页赫奇.png in Resources */,
 				72783BB81929A6A10098B3A8 /* 分享取消按钮.png in Resources */,
 				72783BCC1929A6A10098B3A8 /* 图标-微信朋友圈@2x.png in Resources */,
 				72783BC11929A6A10098B3A8 /* 图标-分页原点-正常.png in Resources */,
-				72783BD41929A6A10098B3A8 /* 每日收入男装背景.png in Resources */,
 				72783BC51929A6A10098B3A8 /* 图标-小衣服.png in Resources */,
 				722D6B3F1963DDBF00036D38 /* gesture_node_normal.png in Resources */,
 				72783BE61929A6A10098B3A8 /* 首页乐町.png in Resources */,
