@@ -5,70 +5,115 @@
 <script src="/peacebird/amcharts/amcharts.js" type="text/javascript"></script>
 <script src="/peacebird/amcharts/serial.js" type="text/javascript"></script>
 <style type="text/css">
-text{
-white-space: pre;
+text {
+	white-space: pre;
 }
 </style>
 </head>
 <body>
-<div id="chartdiv" style="width:1024px; height:800px;"></div>
-<script type="text/javascript">
-var chart = AmCharts.makeChart("chartdiv", {
-    "type": "serial",
-	"theme": "none",
-	"autoMargins": false,
-	"marginLeft":80,
-	"marginRight":100,
-	"marginTop":10,
-	"marginBottom":26,
-    "dataProvider": [{"amount":435.6256,"date":"2014-06-25","like":100.92236209192352,"preAmount":216.8129},{"amount":474.2284,"date":"2014-06-26","like":100.84696267866877,"preAmount":236.1143},{"amount":601.2441,"date":"2014-06-27","like":100.66747412824357,"preAmount":299.6221},{"amount":789.4589,"date":"2014-06-28","like":100.50793755611403,"preAmount":393.7295},{"amount":844.2718,"date":"2014-06-29","like":100.4749060813861,"preAmount":421.1359},{"amount":579.1637,"date":"2014-06-30","like":100.69300950614016,"preAmount":288.5819},{"amount":443.6054,"date":"2014-07-01","like":100.90578602526148,"preAmount":220.8027},{"amount":397.8981,"date":"2014-07-02","like":101.01031022621471,"preAmount":197.9491}],
-    "valueAxes": [{
-    	"id":"v1",
-    	"title":"零售额(万元)",
-        "axisAlpha": 0,
-        "position": "left",
-        "gridThickness":0,
-        "minimum":0
-    },{
-    	"id":"v2",
-    	"title":"同比",
-        "axisAlpha": 0,
-        "position": "right",
-        "unit":"%",
-        "gridThickness":0
-        }],
-    "startDuration": 1,
-    "graphs": [{
-        "balloonText": "<span style='font-size:13px;'>[[category]] [[title]] :<b>[[value]]万元</b> [[additional]]</span>",
-        "fillAlphas": 1,
-        "title": "零售额",
-        "type": "column",
-        "valueField": "amount",
-        "valueAxis":"v1",
-        "precision":2
-    }, {
-        "balloonText": "<span style='font-size:13px;'>[[category]] [[title]] :<b>[[value]]%</b> [[additional]]</span>",
-        "bullet": "round",
-        "lineThickness": 3,
-		"bulletSize": 7,
-		"bulletBorderAlpha": 1,
-		"bulletColor": "#FFFFFF",
-		"useLineColorForBulletBorder": true,
-		"bulletBorderThickness": 3,
-		"fillAlphas": 0,
-		"lineAlpha": 1,
-        "title": "同比",
-        "valueField": "like",
-        "valueAxis":"v2",
-        "precision":2
-    }],
-    "categoryField": "date",
-    "categoryAxis": {
-        "gridPosition": "start",
-		"axisAlpha":0,
-		"tickLength":0
-    }
-});
-</script>
+	<div id="chartdiv" style="width: 1024px; height: 800px;"></div>
+	<script type="text/javascript">
+		var chart = AmCharts
+				.makeChart(
+						"chartdiv",
+						{
+							"type" : "serial",
+							"theme" : "none",
+							"autoMargins" : false,
+							"marginLeft" : 80,
+							"marginRight" : 100,
+							"marginTop" : 10,
+							"marginBottom" : 26,
+							"dataProvider" : [ {
+								"amount" : 435.6256,
+								"date" : "2014-06-25",
+								"like" : 22.3,
+								"preAmount" : 216.8129
+							}, {
+								"amount" : 474.2284,
+								"date" : "2014-06-26",
+								"like" : 25.4,
+								"preAmount" : 236.1143
+							}, {
+								"amount" : 601.2441,
+								"date" : "2014-06-27",
+								"like" : 19.32,
+								"preAmount" : 299.6221
+							}, {
+								"amount" : 789.4589,
+								"date" : "2014-06-28",
+								"like" : 100.50793755611403,
+								"preAmount" : 393.7295
+							}, {
+								"amount" : 844.2718,
+								"date" : "2014-06-29",
+								"like" : 16.12,
+								"preAmount" : 421.1359
+							}, {
+								"amount" : 579.1637,
+								"date" : "2014-06-30",
+								"like" : 100.69300950614016,
+								"preAmount" : 288.5819
+							}, {
+								"amount" : 443.6054,
+								"date" : "2014-07-01",
+								"like" : 25.43,
+								"preAmount" : 220.8027
+							}, {
+								"amount" : 397.8981,
+								"date" : "2014-07-02",
+								"like" : 22.33,
+								"preAmount" : 197.9491
+							} ],
+							"valueAxes" : [ {
+								"id" : "v1",
+								"title" : "零售额(万元)",
+								"axisAlpha" : 0,
+								"position" : "left",
+								"gridThickness" : 0,
+								"minimum" : 0
+							}, {
+								"id" : "v2",
+								"title" : "同比",
+								"axisAlpha" : 0,
+								"position" : "right",
+								"unit" : "%",
+								"gridThickness" : 0
+							} ],
+							"startDuration" : 1,
+							"graphs" : [
+									{
+										"balloonText" : "<span style='font-size:13px;'>[[category]] [[title]] :<b>[[value]]万元</b> [[additional]]</span>",
+										"fillAlphas" : 1,
+										"title" : "零售额",
+										"type" : "column",
+										"valueField" : "amount",
+										"valueAxis" : "v1",
+										"precision" : 2
+									},
+									{
+										"balloonText" : "<span style='font-size:13px;'>[[category]] [[title]] :<b>[[value]]%</b> [[additional]]</span>",
+										"bullet" : "round",
+										"lineThickness" : 3,
+										"bulletSize" : 7,
+										"bulletBorderAlpha" : 1,
+										"bulletColor" : "#FFFFFF",
+										"useLineColorForBulletBorder" : true,
+										"bulletBorderThickness" : 3,
+										"fillAlphas" : 0,
+										"lineAlpha" : 1,
+										"title" : "同比",
+										"valueField" : "like",
+										"valueAxis" : "v2",
+										"precision" : 2
+									} ],
+							"categoryField" : "date",
+							"categoryAxis" : {
+								"gridPosition" : "start",
+								"axisAlpha" : 0,
+								"tickLength" : 0
+							}
+						});
+	</script>
 </body>
 </html>
