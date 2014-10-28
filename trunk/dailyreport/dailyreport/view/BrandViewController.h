@@ -12,8 +12,10 @@
 @interface BrandViewController : SwitchViewController<BrandDelegate>{
 
     BrandModel* _brandModel;
+    UIWebView* _webLineChartView;
 }
 
 @property (nonatomic, retain) BrandModel *brandModel;
+@property (nonatomic, retain) UIWebView *webLineChartView;
 -(id) initWithBrand:(NSString*) brand;
 @end
