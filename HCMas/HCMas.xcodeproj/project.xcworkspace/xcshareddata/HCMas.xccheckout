@@ -10,22 +10,28 @@
 	<string>HCMas</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
+		<key>084c1b98-d6c6-0bf6-17f4-9fa91a389573++442</key>
+		<string>https://clican-pluto.googlecode.com/svn/trunk/HCMas</string>
 		<key>732AED92-01C3-4F8D-9A5D-A5A45A0AF147</key>
 		<string>https://60.191.25.170:6443/Gildata/InvestmentPdt/trunk/Sources/apple/Gildata/Gildata/Documents/xcodews</string>
 		<key>D0FB97E8-EA83-498C-9A4C-AC8D751154F6</key>
 		<string>https://clican-pluto.googlecode.com/svn/trunk/HCMas</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>HCMas.xcodeproj/project.xcworkspace</string>
+	<string>HCMas.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>732AED92-01C3-4F8D-9A5D-A5A45A0AF147</key>
-		<string>../../..</string>
-		<key>D0FB97E8-EA83-498C-9A4C-AC8D751154F6</key>
+		<key>084c1b98-d6c6-0bf6-17f4-9fa91a389573++442</key>
 		<string>../..</string>
+		<key>732AED92-01C3-4F8D-9A5D-A5A45A0AF147</key>
+		<string>../../../xcodews</string>
+		<key>D0FB97E8-EA83-498C-9A4C-AC8D751154F6</key>
+		<string>../../..</string>
 	</dict>
 	<key>IDESourceControlProjectRepositoryRootDictionary</key>
 	<dict>
+		<key>084c1b98-d6c6-0bf6-17f4-9fa91a389573++442</key>
+		<string>https://clican-pluto.googlecode.com/svn</string>
 		<key>732AED92-01C3-4F8D-9A5D-A5A45A0AF147</key>
 		<string>https://60.191.25.170:6443/Gildata/InvestmentPdt</string>
 		<key>D0FB97E8-EA83-498C-9A4C-AC8D751154F6</key>
@@ -34,9 +40,9 @@
 	<key>IDESourceControlProjectURL</key>
 	<string>https://clican-pluto.googlecode.com/svn/trunk/HCMas/HCMas.xcodeproj</string>
 	<key>IDESourceControlProjectVersion</key>
-	<integer>110</integer>
+	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>732AED92-01C3-4F8D-9A5D-A5A45A0AF147</string>
+	<string>084c1b98-d6c6-0bf6-17f4-9fa91a389573++442</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
@@ -50,6 +56,14 @@
 			<string>trunk</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
 			<string>D0FB97E8-EA83-498C-9A4C-AC8D751154F6</string>
+			<key>IDESourceControlWCCName</key>
+			<string></string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.subversion</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>084c1b98-d6c6-0bf6-17f4-9fa91a389573++442</string>
 			<key>IDESourceControlWCCName</key>
 			<string>HCMas</string>
 		</dict>
