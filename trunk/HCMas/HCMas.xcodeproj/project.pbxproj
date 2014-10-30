@@ -864,6 +864,9 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = HC;
 				TargetAttributes = {
+					7233DF2D19B0193C00F0664E = {
+						DevelopmentTeam = BX34U48MLV;
+					};
 					7233DF4819B0193C00F0664E = {
 						TestTargetID = 7233DF2D19B0193C00F0664E;
 					};
@@ -1324,11 +1327,14 @@
 		7233DF5B19B0193C00F0664E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HCMas/HCMas-Prefix.pch";
 				INFOPLIST_FILE = "HCMas/HCMas-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1336,11 +1342,14 @@
 		7233DF5C19B0193C00F0664E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HCMas/HCMas-Prefix.pch";
 				INFOPLIST_FILE = "HCMas/HCMas-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
