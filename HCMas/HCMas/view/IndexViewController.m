@@ -352,7 +352,7 @@
             [self.projectPicker selectRow:di inComponent:0 animated:NO];
         }else{
 
-            int di = 0;
+            long di = 0;
             if(self.pointName!=nil){
                 di =[self.pointNames indexOfObject:self.pointName];
             }
@@ -418,7 +418,7 @@
         NSInteger rowIndex = [self.projectPicker selectedRowInComponent:0];
         Project* project = (Project*)[self.projects objectAtIndex:rowIndex];
         HCMasAppDelegate.user.selectedProject = project;
-        [self setValue:[NSString stringWithFormat:@"%i",rowIndex] byKey:PROJECT_NAME];
+        [self setValue:[NSString stringWithFormat:@"%li",rowIndex] byKey:PROJECT_NAME];
         [_kpiModel loadKpiByProjectId:HCMasAppDelegate.user.selectedProject.projectId];
     }else if([self.settingKey isEqualToString:POINT_NAME]){
         NSInteger rowIndex = [self.projectPicker selectedRowInComponent:0];
