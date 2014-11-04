@@ -18,7 +18,7 @@ var chart = AmCharts.makeChart("chartdiv", {
     "theme": "none",
     "dataProvider":$dataProvider,
 	"legend": {
-        "data":[{title: "v1", color: "#FF6600"},{title: "v2", color: "#FCD202"}]
+        "data":[{title: "Dx", color: "#FF6600"},{title: "Dy", color: "#FCD202"}]
     },
 	"valueAxes": [{
         "id":"v1",
@@ -55,7 +55,6 @@ var chart = AmCharts.makeChart("chartdiv", {
         "valueField": "v2",
 		"fillAlphas": 0
     }],
-	"balloonText":"aaaaa",
     "categoryField": "dacTime",
     "categoryAxis": {
         "parseDates": true,
