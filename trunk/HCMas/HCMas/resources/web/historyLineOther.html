@@ -18,7 +18,8 @@ var chart = AmCharts.makeChart("chartdiv", {
     "theme": "none",
     "dataProvider":$dataProvider,
 	"legend": {
-        "data":[{title: "value", color: "#FF6600"}]
+		"useGraphSettings": true,
+    	"valueText":""
     },
 	"valueAxes": [{
         "id":"v1",
@@ -36,9 +37,18 @@ var chart = AmCharts.makeChart("chartdiv", {
         "hideBulletsCount": 30,
         "title": "red line",
         "valueField": "v1",
-		"fillAlphas": 0
+		"fillAlphas": 0,
+		"balloonText": "[[value]]$unit"
     }],
     "categoryField": "dacTime",
+    "chartCursor": {
+        "cursorPosition": "mouse",
+        "pan":true,
+        "bulletsEnabled":true,
+        "categoryBalloonDateFormat":"MMM-DD HH:MM",
+        "valueLineBalloonEnabled":false
+    },
+    "panEventsEnabled":false,
     "categoryAxis": {
         "parseDates": true,
 		"minPeriod":"hh",

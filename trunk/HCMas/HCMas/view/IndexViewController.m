@@ -74,11 +74,11 @@
     self.view.backgroundColor = [UIColor whiteColor];
     CGRect frame = [[UIScreen mainScreen] bounds];
     CGFloat height = 0;
-    #ifdef __IPHONE_7_0
+
     if(DEVICE_VERSION>=7.0){
         height = 22;
     }
-    #endif
+
     [self.view addSubview:[self createImageViewFromNamedImage:@"main_background.png" frame:CGRectMake(0, height, 320, frame.size.height-height)]];
     [self.view addSubview:[self createImageViewFromNamedImage:@"title_logo_v15.png" frame:CGRectMake(2, 2+height, 24, 26)]];
     [self.view addSubview:[self createLabel:@"华测自动化检测与预警系统" frame:CGRectMake(27, height-2, 200, 30) textColor:@"#ffffff" font:15 backgroundColor:nil textAlignment:ALIGN_LEFT]];
@@ -522,11 +522,11 @@
     NSString* kpiType = buttonView.type;
     self.kpiType = kpiType;
     CGFloat height = 0;
-    #ifdef __IPHONE_7_0
+
     if(DEVICE_VERSION>=7.0){
         height = 22;
     }
-    #endif
+
     if([kpiType isEqualToString:SYSTEM_CONFIG]){
         self.dataView=[self createSettingView:height+308];
         [self.view addSubview:self.dataView];
@@ -708,6 +708,42 @@
     }
     return dataView;
 }
+
+-(NSString*)getUnitForKpiType:(NSString*)kt{
+    if([kt isEqualToString:@"Reservoir"]){
+        return @"m";
+    }else if([kt  isEqualToString:@"Saturation"]){
+        return @"m";
+    }else if([kt isEqualToString:@"Rainfall"]){
+        return @"mm";
+    }else if([kt isEqualToString:@"SeeFlow"]){
+        return @"m/s";
+    }else if([kt isEqualToString:@"DryBeach"]){
+        return @"m";
+    }else if([kt isEqualToString:@"Tyl"]){
+        return @"Mpa";
+    }else if([kt isEqualToString:@"Rxwy"]){
+        return @"m";
+    }else if([kt isEqualToString:@"Lf"]){
+        return @"m";
+    }else if([kt isEqualToString:@"Wd"]){
+        return @"℃";
+    }else if([kt isEqualToString:@"Thsl"]){
+        return @"%";
+    }else if([kt isEqualToString:@"Dqwd"]){
+        return @"℃";
+    }else if([kt isEqualToString:@"Dqsd"]){
+        return @"%";
+    }else if([kt isEqualToString:@"Dqyl"]){
+        return @"Mpa";
+    }else if([kt isEqualToString:@"Fx"]){
+        return @"°";
+    }else if([kt isEqualToString:@"Fs"]){
+        return @"m/s";
+    }else{
+        return @"";
+    }
+}
 -(NSString*) getImageNameByGrade:(int)grade{
     NSString* imageName=nil;
     if(grade==0){
@@ -795,8 +831,8 @@
         height=568;
     }
     UIScrollView* settingView = [[[UIScrollView alloc] initWithFrame:CGRectMake(0, y, 320, height-y-30)] autorelease];
-    settingView.contentSize = CGSizeMake(320, 245);
-    TTTableView* tableView = [[[TTTableView alloc] initWithFrame:CGRectMake(0, 0, 320, 245)] autorelease];
+    settingView.contentSize = CGSizeMake(320, 255);
+    TTTableView* tableView = [[[TTTableView alloc] initWithFrame:CGRectMake(0, 0, 320, 255)] autorelease];
     tableView.scrollEnabled=NO;
 
     TTSectionedDataSource* ds = [TTSectionedDataSource dataSourceWithObjects:
@@ -828,11 +864,11 @@
         height=568;
     }
     height = height-22;
-    #ifdef __IPHONE_7_0
+
     if(DEVICE_VERSION>=7.0){
         height = height+22;
     }
-    #endif
+
     
     UIView* footerView = [[[UIView alloc] initWithFrame:CGRectMake(0, height-30, 320, 30)] autorelease];
     footerView.backgroundColor = [StyleSheet colorFromHexString:@"#000080"];
@@ -1071,11 +1107,11 @@
         [_kpiModel loadKpiByProjectId:HCMasAppDelegate.user.selectedProject.projectId];
     }
     CGFloat height = 0;
-    #ifdef __IPHONE_7_0
+
     if(DEVICE_VERSION>=7.0){
         height = 22;
     }
-    #endif
+
     [self.menuView removeFromSuperview];
     self.menuView = [self createMenuView:height+178];
     [self.view addSubview:self.menuView];
@@ -1112,11 +1148,11 @@
         NSArray* kpiArray = [self.kpis objectForKey:self.kpiType];
         [self.dataView removeFromSuperview];
         CGFloat height = 0;
-        #ifdef __IPHONE_7_0
+  
         if(DEVICE_VERSION>=7.0){
             height = 22;
         }
-        #endif
+
         self.dataView=[self createDataView:kpiArray y:height+308];
         [self.view addSubview:self.dataView];
     }
@@ -1149,11 +1185,11 @@
     self.pointName = button.pointName;
     [self.dataView removeFromSuperview];
     CGFloat height = 0;
-    #ifdef __IPHONE_7_0
+
     if(DEVICE_VERSION>=7.0){
         height = 22;
     }
-    #endif
+
     self.dataHistoryView=[self createDataHistoryView:height+308];
     [self.view addSubview:self.dataHistoryView];
 }
@@ -1227,7 +1263,7 @@
     }
     self.webPieChartView = [[[UIWebView alloc] initWithFrame:CGRectMake(0,0,width/2,self.dataHistoryView.frame.size.height-20)] autorelease];
     self.webPieChartView.scalesPageToFit=YES;
-    self.webPieChartView.userInteractionEnabled =NO;
+    self.webPieChartView.userInteractionEnabled =YES;
     
     NSString* dataProvider = [[[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:kpis options:NSJSONWritingPrettyPrinted error:nil] encoding:NSUTF8StringEncoding] autorelease];
     
@@ -1235,8 +1271,9 @@
     NSString* html = [NSString stringWithContentsOfFile:htmlPath encoding:NSUTF8StringEncoding error:nil];
     
     html=[html stringByReplacingOccurrencesOfString:@"$dataProvider" withString:dataProvider];
-    html=[html stringByReplacingOccurrencesOfString:@"$width" withString:[NSString stringWithFormat:@"%i",width]];
+    html=[html stringByReplacingOccurrencesOfString:@"$width" withString:[NSString stringWithFormat:@"%li",width]];
     html=[html stringByReplacingOccurrencesOfString:@"$height" withString:[NSString stringWithFormat:@"%.0f",(self.dataHistoryView.frame.size.height-20)*2]];
+    html=[html stringByReplacingOccurrencesOfString:@"$unit" withString:[self getUnitForKpiType:self.kpiType]];
     NSLog(@"%@",html);
     NSLog(@"%@",[NSString stringWithFormat:@"%@/web/",[[NSBundle mainBundle] bundlePath]]);
     [self.webPieChartView loadHTMLString:html baseURL:[NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/web/",[[NSBundle mainBundle] bundlePath]]]];
