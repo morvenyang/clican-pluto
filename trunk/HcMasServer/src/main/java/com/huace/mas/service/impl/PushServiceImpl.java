@@ -131,6 +131,9 @@ public class PushServiceImpl implements PushService {
 		for (Project project : projects) {
 			List<Kpi> kpis = data.get(project.getProjectName());
 			List<String> ts = projectTokenMap.get((long) project.getId());
+			if (ts == null) {
+				continue;
+			}
 			for (Kpi kpi : kpis) {
 				Kpi dbKpi = this.dataDao.queryDataByDeviceID(kpi.getDeviceID(),
 						kpi.getClass());
@@ -321,13 +324,13 @@ public class PushServiceImpl implements PushService {
 		t.setProjectID(projectID);
 		List<Token> oldTokens = tokens.get(userName);
 		if (oldTokens != null) {
-			for(Token oldToken:oldTokens){
-				if(oldToken.getToken().contains(token)){
+			for (Token oldToken : oldTokens) {
+				if (oldToken.getToken().contains(token)) {
 					return;
 				}
 			}
 		}
-		if(!tokens.containsKey(userName)){
+		if (!tokens.containsKey(userName)) {
 			tokens.put(userName, new ArrayList<Token>());
 		}
 		tokens.get(userName).add(t);
