@@ -5,21 +5,22 @@
 <script src="amcharts/amcharts.js" type="text/javascript"></script>
 <script src="amcharts/serial.js" type="text/javascript"></script>
 <style type="text/css">
-text{
-white-space: pre;
+text {
+	white-space: pre;
 }
 </style>
 </head>
 <body>
-<div id="chartdiv" style="width:$widthpx; height:$heightpx"></div>
-<script type="text/javascript">
+	<div id="chartdiv" style="width:$widthpx; height:$heightpx;"></div>
+	<script type="text/javascript">
 var chart = AmCharts.makeChart("chartdiv", {
     "type": "serial",
     "theme": "none",
     "dataProvider":$dataProvider,
-	"legend": {
-        "data":[{title: "Dx", color: "#FF6600"},{title: "Dy", color: "#FCD202"},{title: "Dh", color: "#B0DE09"},{title: "D2", color: "#74D9C7"},{title: "D3", color: "#3FBBFB"}]
-    },
+    "legend": {
+    	"useGraphSettings": true,
+    	"valueText":""
+        },
 	"valueAxes": [{
         "id":"v1",
         "axisColor": "#FF6600",
@@ -64,50 +65,65 @@ var chart = AmCharts.makeChart("chartdiv", {
     "graphs": [{
         "valueAxis": "v1",
         "lineColor": "#FF6600",
-        "bullet": "round",
+        "bullet": "square",
         "bulletBorderThickness": 1,
         "hideBulletsCount": 30,
-        "title": "red line",
+        "title": "Dx",
         "valueField": "v1",
-		"fillAlphas": 0
+		"fillAlphas": 0,
+		"balloonText": "Dx:[[value]]mm"
     }, {
         "valueAxis": "v2",
         "lineColor": "#FCD202",
         "bullet": "square",
         "bulletBorderThickness": 1,
         "hideBulletsCount": 30,
-        "title": "yellow line",
+        "title": "Dy",
         "valueField": "v2",
-		"fillAlphas": 0
+		"fillAlphas": 0,
+		"balloonText": "Dy:[[value]]mm"
     }, {
         "valueAxis": "v3",
         "lineColor": "#B0DE09",
-        "bullet": "triangleUp",
+        "bullet": "square",
         "bulletBorderThickness": 1,
         "hideBulletsCount": 30,
-        "title": "green line",
+        "title": "Dh",
         "valueField": "v3",
-		"fillAlphas": 0
+		"fillAlphas": 0,
+		"balloonText": "Dh:[[value]]mm"
                }, {
+            	   
                "valueAxis": "2d",
                "lineColor": "#74D9C7",
-               "bullet": "triangleUp",
+               "bullet": "square",
                "bulletBorderThickness": 1,
                "hideBulletsCount": 30,
-               "title": "green line",
+               "title": "D2",
                "valueField": "d2",
-               "fillAlphas": 0
+               "fillAlphas": 0,
+       		   "balloonText": "D2:[[value]]mm"
                }, {
                "valueAxis": "3d",
                "lineColor": "#3FBBFB",
-               "bullet": "triangleUp",
+               "bullet": "square",
                "bulletBorderThickness": 1,
                "hideBulletsCount": 30,
-               "title": "green line",
+               "title": "D3",
                "valueField": "d3",
-               "fillAlphas": 0
+               "fillAlphas": 0,
+       		   "balloonText": "D3:[[value]]mm"
                }],
     "categoryField": "dacTime",
+    "chartCursor": {
+        "cursorPosition": "mouse",
+        "pan":true,
+        "bulletsEnabled":true,
+        "adjustment":-1,
+        "categoryBalloonDateFormat":"MMM-DD HH:MM",
+        "valueLineBalloonEnabled":false
+    },
+    "panEventsEnabled":false,
     "categoryAxis": {
         "parseDates": true,
 		"minPeriod":"hh",

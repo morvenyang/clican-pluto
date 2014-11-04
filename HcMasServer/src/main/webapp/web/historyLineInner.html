@@ -18,7 +18,8 @@ var chart = AmCharts.makeChart("chartdiv", {
     "theme": "none",
     "dataProvider":$dataProvider,
 	"legend": {
-        "data":[{title: "Dx", color: "#FF6600"},{title: "Dy", color: "#FCD202"}]
+		"useGraphSettings": true,
+    	"valueText":""
     },
 	"valueAxes": [{
         "id":"v1",
@@ -42,20 +43,31 @@ var chart = AmCharts.makeChart("chartdiv", {
         "bullet": "round",
         "bulletBorderThickness": 1,
         "hideBulletsCount": 30,
-        "title": "red line",
+        "title": "Dx",
         "valueField": "v1",
-		"fillAlphas": 0
+		"fillAlphas": 0,
+		"balloonText": "Dx:[[value]]mm"
     }, {
         "valueAxis": "v2",
         "lineColor": "#FCD202",
         "bullet": "square",
         "bulletBorderThickness": 1,
         "hideBulletsCount": 30,
-        "title": "yellow line",
+        "title": "Dy",
         "valueField": "v2",
-		"fillAlphas": 0
+		"fillAlphas": 0,
+		"balloonText": "Dy:[[value]]mm"
     }],
     "categoryField": "dacTime",
+    "chartCursor": {
+        "cursorPosition": "mouse",
+        "pan":true,
+        "bulletsEnabled":true,
+        "adjustment":-1,
+        "categoryBalloonDateFormat":"MMM-DD HH:MM",
+        "valueLineBalloonEnabled":false
+    },
+    "panEventsEnabled":false,
     "categoryAxis": {
         "parseDates": true,
 		"minPeriod":"hh",
