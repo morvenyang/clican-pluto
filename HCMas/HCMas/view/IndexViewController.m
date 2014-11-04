@@ -455,6 +455,7 @@
         _popup=NO;
     }];
 }
+
 -(void)doSearch{
 //    NSDateFormatter* dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
 //    [dateFormatter setDateFormat:@"yyyyMMdd"];
@@ -562,7 +563,7 @@
         [self.pointNameButton setTitle:@"<点名>" forState:UIControlStateNormal];
 
     }
-    self.pointNameButton.frame = CGRectMake(5, 0, 90, 20);
+    self.pointNameButton.frame = CGRectMake(5, 0, 80, 20);
     self.pointNameButton.layer.masksToBounds=YES;
     self.pointNameButton.layer.cornerRadius=6;
     self.pointNameButton.layer.borderWidth = 1;
@@ -575,7 +576,7 @@
     startDateButton.layer.borderColor = [UIColor blackColor].CGColor;
     startDateButton.type = @"start";
     [startDateButton setTitle:@"<开始>" forState:UIControlStateNormal];
-    startDateButton.frame = CGRectMake(95, 0, 70, 20);
+    startDateButton.frame = CGRectMake(85, 0, 60, 20);
     [startDateButton addTarget:self action:@selector(openCalendar:) forControlEvents:UIControlEventTouchUpInside];
     DateButton* endDateButton = [DateButton buttonWithType:UIButtonTypeCustom];
     endDateButton.layer.masksToBounds=YES;
@@ -584,19 +585,29 @@
     endDateButton.layer.borderColor = [UIColor blackColor].CGColor;
     endDateButton.type = @"end";
     [endDateButton setTitle:@"<结束>" forState:UIControlStateNormal];
-    endDateButton.frame = CGRectMake(165, 0, 70, 20);
+    endDateButton.frame = CGRectMake(145, 0, 60, 20);
     [endDateButton addTarget:self action:@selector(openCalendar:) forControlEvents:UIControlEventTouchUpInside];
     UIButton* searchButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [searchButton setTitle:@"查询" forState:UIControlStateNormal];
-    searchButton.frame = CGRectMake(250, 0, 60, 20);
+    searchButton.frame = CGRectMake(220, 0, 45, 20);
     [searchButton addTarget:self action:@selector(doSearch) forControlEvents:UIControlEventTouchUpInside];
     searchButton.layer.cornerRadius = 6;
     searchButton.layer.masksToBounds = YES;
     searchButton.layer.backgroundColor = [UIColor orangeColor].CGColor;
+    
+    UIButton* chartButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [chartButton setTitle:@"全屏" forState:UIControlStateNormal];
+    chartButton.frame = CGRectMake(270, 0, 45, 20);
+    [chartButton addTarget:self action:@selector(openChart) forControlEvents:UIControlEventTouchUpInside];
+    chartButton.layer.cornerRadius = 6;
+    chartButton.layer.masksToBounds = YES;
+    chartButton.layer.backgroundColor = [UIColor orangeColor].CGColor;
+    
     [dataView addSubview:self.pointNameButton];
     [dataView addSubview:startDateButton];
     [dataView addSubview:endDateButton];
     [dataView addSubview:searchButton];
+    [dataView addSubview:chartButton];
     return dataView;
 }
 -(UIView*)createDataView:(NSArray*)kpis y:(int)y{
@@ -1193,7 +1204,13 @@
     self.dataHistoryView=[self createDataHistoryView:height+308];
     [self.view addSubview:self.dataHistoryView];
 }
+-(void)openChart{
 
+    NSDateFormatter* dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+    [dateFormatter setDateFormat:@"yyyyMMdd"];
+    NSString* action = [NSString stringWithFormat:@"hcmas://chart/%@/%@/%@/%@",self.kpiType,self.pointName,[dateFormatter stringFromDate:self.startDate],[dateFormatter stringFromDate:self.endDate]];
+    TTOpenURL(action);
+}
 -(void)openCalendar:(id)sender{
     DateButton* button = (DateButton*)sender;
     NSDate* date =[NSDate date];
@@ -1274,6 +1291,8 @@
     html=[html stringByReplacingOccurrencesOfString:@"$width" withString:[NSString stringWithFormat:@"%li",width]];
     html=[html stringByReplacingOccurrencesOfString:@"$height" withString:[NSString stringWithFormat:@"%.0f",(self.dataHistoryView.frame.size.height-20)*2]];
     html=[html stringByReplacingOccurrencesOfString:@"$unit" withString:[self getUnitForKpiType:self.kpiType]];
+ 
+
     NSLog(@"%@",html);
     NSLog(@"%@",[NSString stringWithFormat:@"%@/web/",[[NSBundle mainBundle] bundlePath]]);
     [self.webPieChartView loadHTMLString:html baseURL:[NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/web/",[[NSBundle mainBundle] bundlePath]]]];

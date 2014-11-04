@@ -49,6 +49,7 @@
     NSArray* _pointNames;
     UIButton* _pointNameButton;
     UIWebView* _webPieChartView;
+
 }
 @property (nonatomic, assign) int imageIndex;
 @property (nonatomic, retain) NSMutableArray* pointImageViews;
