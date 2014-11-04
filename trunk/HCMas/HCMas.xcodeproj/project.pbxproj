@@ -108,6 +108,7 @@
 		72D1D11D19C0166E00E68511 /* DateButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 72D1D11C19C0166E00E68511 /* DateButton.m */; };
 		72D1D1FD19C0419100E68511 /* web in Resources */ = {isa = PBXBuildFile; fileRef = 72D1D1FC19C0419100E68511 /* web */; };
 		72D1D20019C06B3F00E68511 /* PointNameButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 72D1D1FF19C06B3F00E68511 /* PointNameButton.m */; };
+		72E6568F1A08ACD500300E19 /* ChartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 72E6568E1A08ACD500300E19 /* ChartViewController.m */; };
 		72F124DC19BA96D000B0F676 /* LoginModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 72F124DB19BA96D000B0F676 /* LoginModel.m */; };
 		72F124F019BA9A4000B0F676 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 72F124EF19BA9A4000B0F676 /* MBProgressHUD.m */; };
 		72F124F319BAA72F00B0F676 /* ProjectModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 72F124F219BAA72F00B0F676 /* ProjectModel.m */; };
@@ -427,6 +428,8 @@
 		72D1D1FC19C0419100E68511 /* web */ = {isa = PBXFileReference; lastKnownFileType = folder; path = web; sourceTree = "<group>"; };
 		72D1D1FE19C06B3F00E68511 /* PointNameButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PointNameButton.h; sourceTree = "<group>"; };
 		72D1D1FF19C06B3F00E68511 /* PointNameButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PointNameButton.m; sourceTree = "<group>"; };
+		72E6568D1A08ACD500300E19 /* ChartViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChartViewController.h; sourceTree = "<group>"; };
+		72E6568E1A08ACD500300E19 /* ChartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChartViewController.m; sourceTree = "<group>"; };
 		72F124DA19BA96D000B0F676 /* LoginModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginModel.h; sourceTree = "<group>"; };
 		72F124DB19BA96D000B0F676 /* LoginModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginModel.m; sourceTree = "<group>"; };
 		72F124EE19BA9A4000B0F676 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
@@ -691,6 +694,8 @@
 			children = (
 				7233E1E219B03F0700F0664E /* IndexViewController.h */,
 				7233E1E319B03F0700F0664E /* IndexViewController.m */,
+				72E6568D1A08ACD500300E19 /* ChartViewController.h */,
+				72E6568E1A08ACD500300E19 /* ChartViewController.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -1152,6 +1157,7 @@
 				72D1D10C19C011A200E68511 /* NSDate+Helpers.m in Sources */,
 				7233DF3E19B0193C00F0664E /* main.m in Sources */,
 				72D1D0EF19C006CF00E68511 /* KpiHistoryModel.m in Sources */,
+				72E6568F1A08ACD500300E19 /* ChartViewController.m in Sources */,
 				72F1250819BAC2F600B0F676 /* MenuButton.m in Sources */,
 				72D1D10F19C011A200E68511 /* PMCalendarView.m in Sources */,
 				72D1D10E19C011A200E68511 /* PMCalendarController.m in Sources */,
