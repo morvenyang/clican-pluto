@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import org.apache.commons.io.FileUtils;
@@ -38,7 +39,7 @@ public class PushServiceImpl implements PushService {
 
 	private DataService dataService;
 
-	private Map<String, Token> tokens;
+	private Map<String, List<Token>> tokens;
 
 	private SpringProperty springProperty;
 
@@ -62,18 +63,25 @@ public class PushServiceImpl implements PushService {
 
 	@SuppressWarnings("unchecked")
 	public void init() {
-		tokens = new ConcurrentHashMap<String, Token>();
+		tokens = new ConcurrentHashMap<String, List<Token>>();
 		try {
 			File file = new File(springProperty.getTokenFile());
 			if (file.exists()) {
 				String str = new String(FileUtils.readFileToByteArray(new File(
 						springProperty.getTokenFile())), "utf-8");
-				Map<String, JSONObject> map = new HashMap<String, JSONObject>(
+				Map<String, JSONArray> map = new HashMap<String, JSONArray>(
 						JSONObject.fromObject(str));
 				for (String userName : map.keySet()) {
-					JSONObject jsonObj = map.get(userName);
-					Token t = (Token) JSONObject.toBean(jsonObj, Token.class);
-					tokens.put(userName, t);
+					JSONArray jsonArray = map.get(userName);
+					if (!tokens.containsKey(userName)) {
+						tokens.put(userName, new ArrayList<Token>());
+					}
+					for (Object obj : jsonArray) {
+						JSONObject jsonObj = (JSONObject) obj;
+						Token t = (Token) JSONObject.toBean(jsonObj,
+								Token.class);
+						tokens.get(userName).add(t);
+					}
 				}
 			} else {
 				file.getParentFile().mkdirs();
@@ -111,11 +119,14 @@ public class PushServiceImpl implements PushService {
 		List<Project> projects = dataDao.findAllProjects();
 		Map<Long, List<String>> projectTokenMap = new HashMap<Long, List<String>>();
 		for (String userName : tokens.keySet()) {
-			Token t = tokens.get(userName);
-			if (!projectTokenMap.containsKey(t.getProjectID())) {
-				projectTokenMap.put(t.getProjectID(), new ArrayList<String>());
+			List<Token> ts = tokens.get(userName);
+			for (Token t : ts) {
+				if (!projectTokenMap.containsKey(t.getProjectID())) {
+					projectTokenMap.put(t.getProjectID(),
+							new ArrayList<String>());
+				}
+				projectTokenMap.get(t.getProjectID()).add(t.getToken());
 			}
-			projectTokenMap.get(t.getProjectID()).add(t.getToken());
 		}
 		for (Project project : projects) {
 			List<Kpi> kpis = data.get(project.getProjectName());
@@ -300,15 +311,26 @@ public class PushServiceImpl implements PushService {
 	@Override
 	public synchronized void registerToken(String userName, String token,
 			Long projectID) {
+		if (log.isDebugEnabled()) {
+			log.debug("register token[" + token + "] for user [" + userName
+					+ "]");
+		}
 		Token t = new Token();
 		t.setUserName(userName);
 		t.setToken(token);
 		t.setProjectID(projectID);
-		Token old = tokens.get(userName);
-		if (old != null && old.equals(t)) {
-			return;
+		List<Token> oldTokens = tokens.get(userName);
+		if (oldTokens != null) {
+			for(Token oldToken:oldTokens){
+				if(oldToken.getToken().contains(token)){
+					return;
+				}
+			}
 		}
-		tokens.put(userName, t);
+		if(!tokens.containsKey(userName)){
+			tokens.put(userName, new ArrayList<Token>());
+		}
+		tokens.get(userName).add(t);
 		try {
 			FileUtils.writeByteArrayToFile(
 					new File(springProperty.getTokenFile()), JSONObject
