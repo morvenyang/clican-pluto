@@ -418,7 +418,7 @@
         NSInteger rowIndex = [self.projectPicker selectedRowInComponent:0];
         Project* project = (Project*)[self.projects objectAtIndex:rowIndex];
         HCMasAppDelegate.user.selectedProject = project;
-        [self setValue:[NSString stringWithFormat:@"%li",rowIndex] byKey:PROJECT_NAME];
+        [self setValue:[NSString stringWithFormat:@"%i",rowIndex] byKey:PROJECT_NAME];
         [_kpiModel loadKpiByProjectId:HCMasAppDelegate.user.selectedProject.projectId];
     }else if([self.settingKey isEqualToString:POINT_NAME]){
         NSInteger rowIndex = [self.projectPicker selectedRowInComponent:0];
@@ -462,6 +462,10 @@
 //    self.pointName=@"Surface-1";
 //    self.startDate = [dateFormatter dateFromString:@"20140115"];
 //    self.endDate = [dateFormatter dateFromString:@"20140131"];
+    if(self.startDate==nil||self.endDate==nil){
+        TTAlert(@"请线选择时间");
+        return;
+    }
     [_kpiHistoryModel loadHistoryKpiByProjectId:HCMasAppDelegate.user.selectedProject.projectId kpiType:self.kpiType pointName:self.pointName startDate:self.startDate endDate:self.endDate];
 }
 -(void)switchImage:(UISwipeGestureRecognizer*)gestureRecognizer{
@@ -1194,6 +1198,8 @@
     _current = NO;
     PointNameButton* button = (PointNameButton*)sender;
     self.pointName = button.pointName;
+    self.startDate = nil;
+    self.endDate = nil;
     [self.dataView removeFromSuperview];
     CGFloat height = 0;
 
@@ -1205,7 +1211,10 @@
     [self.view addSubview:self.dataHistoryView];
 }
 -(void)openChart{
-
+    if(self.startDate==nil||self.endDate==nil){
+        TTAlert(@"请线选择时间");
+        return;
+    }
     NSDateFormatter* dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
     [dateFormatter setDateFormat:@"yyyyMMdd"];
     NSString* action = [NSString stringWithFormat:@"hcmas://chart/%@/%@/%@/%@",self.kpiType,self.pointName,[dateFormatter stringFromDate:self.startDate],[dateFormatter stringFromDate:self.endDate]];
