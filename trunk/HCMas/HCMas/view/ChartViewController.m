@@ -36,6 +36,13 @@
 }
 -(void)loadView{
     [super loadView];
+
+    NSDateFormatter* dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+    [dateFormatter setDateFormat:@"yyyyMMdd"];
+    [_kpiHistoryModel loadHistoryKpiByProjectId:HCMasAppDelegate.user.selectedProject.projectId kpiType:self.kpiType pointName:self.pointName startDate:[dateFormatter dateFromString:self.startTime] endDate:[dateFormatter dateFromString:self.endTime]];
+    
+}
+-(void)viewWillAppear:(BOOL)animated{
     self.navigationController.navigationBarHidden = NO;
     [[UIApplication sharedApplication] setStatusBarOrientation:UIInterfaceOrientationLandscapeLeft];
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
@@ -46,14 +53,7 @@
     //对navigationController.view 进行强制旋转
     self.navigationController.view.transform = CGAffineTransformMakeRotation(arch);
     self.navigationController.view.bounds = CGRectMake(0, 0, SCREEN_HEIGHT, SCREEN_WIDTH);
-    NSDateFormatter* dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
-    [dateFormatter setDateFormat:@"yyyyMMdd"];
 
-   self.pointName=@"Surface-1";
-    self.startTime = @"20140115";
-    self.endTime = @"20140131";
-    [_kpiHistoryModel loadHistoryKpiByProjectId:HCMasAppDelegate.user.selectedProject.projectId kpiType:self.kpiType pointName:self.pointName startDate:[dateFormatter dateFromString:self.startTime] endDate:[dateFormatter dateFromString:self.endTime]];
-    
 }
 -(void)viewWillDisappear:(BOOL)animated{
     self.navigationController.navigationBarHidden = YES;
@@ -167,15 +167,15 @@
         }
     }
 }
--(NSUInteger)supportedInterfaceOrientations{
-    return UIInterfaceOrientationMaskLandscapeLeft;
-}
--(UIInterfaceOrientation)preferredInterfaceOrientationForPresentation{
-    return UIInterfaceOrientationLandscapeLeft;
-}
--(BOOL)shouldAutorotate{
-    return YES;
-}
+//-(NSUInteger)supportedInterfaceOrientations{
+//    return UIInterfaceOrientationMaskLandscapeLeft;
+//}
+//-(UIInterfaceOrientation)preferredInterfaceOrientationForPresentation{
+//    return UIInterfaceOrientationLandscapeLeft;
+//}
+//-(BOOL)shouldAutorotate{
+//    return YES;
+//}
 - (void)dealloc
 {
     TT_RELEASE_SAFELY(_pointName);
