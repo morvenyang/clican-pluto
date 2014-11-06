@@ -58,6 +58,7 @@
 -(void)viewWillDisappear:(BOOL)animated{
     self.navigationController.navigationBarHidden = YES;
 
+    [[UIApplication sharedApplication] setStatusBarHidden:NO];
         //计算旋转角度
         float arch=0;
         
@@ -120,8 +121,8 @@
     }else{
         width = 100+kpis.count*50;
     }
-    if(width<900){
-        width = 900;
+    if(width<1500){
+        width = 1500;
     }
     NSLog(@"%f,%f",SCREEN_WIDTH,SCREEN_HEIGHT);
     long height = SCREEN_WIDTH;
