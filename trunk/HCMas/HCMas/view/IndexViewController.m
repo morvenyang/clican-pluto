@@ -846,8 +846,8 @@
         height=568;
     }
     UIScrollView* settingView = [[[UIScrollView alloc] initWithFrame:CGRectMake(0, y, 320, height-y-30)] autorelease];
-    settingView.contentSize = CGSizeMake(320, 245);
-    TTTableView* tableView = [[[TTTableView alloc] initWithFrame:CGRectMake(0, 0, 320, 245)] autorelease];
+    settingView.contentSize = CGSizeMake(320, 255);
+    TTTableView* tableView = [[[TTTableView alloc] initWithFrame:CGRectMake(0, 0, 320, 255)] autorelease];
     tableView.scrollEnabled=NO;
 
     TTSectionedDataSource* ds = [TTSectionedDataSource dataSourceWithObjects:
