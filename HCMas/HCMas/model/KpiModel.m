@@ -95,6 +95,9 @@
                     kpi.dis_x =[kpiDict objectForKey:@"dis_x"];
                     kpi.dis_y =[kpiDict objectForKey:@"dis_y"];
                     kpi.dis_h =[kpiDict objectForKey:@"dis_h"];
+                    kpi.todayChangeValue =[kpiDict objectForKey:@"todayChangeValue"];
+                    kpi.yesterdayChangeValue =[kpiDict objectForKey:@"yesterdayChangeValue"];
+                    kpi.weekChangeValue =[kpiDict objectForKey:@"weekChangeValue"];
                     kpi.dacTime = [dateFormatter dateFromString:[kpiDict objectForKey:@"dacTime"]];
                     [resultArray addObject:kpi];
                 }

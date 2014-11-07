@@ -24,6 +24,9 @@
     NSNumber* _dis_h;
     NSNumber* _d2;
     NSNumber* _d3;
+    NSNumber* _todayChangeValue;
+    NSNumber* _yesterdayChangeValue;
+    NSNumber* _weekChangeValue;
 }
 @property (nonatomic, retain) NSNumber* v1;
 @property (nonatomic, retain) NSNumber* v2;
@@ -40,4 +43,7 @@
 @property (nonatomic, retain) NSNumber* dis_h;
 @property (nonatomic, retain) NSNumber* d2;
 @property (nonatomic, retain) NSNumber* d3;
+@property (nonatomic, retain) NSNumber* todayChangeValue;
+@property (nonatomic, retain) NSNumber* yesterdayChangeValue;
+@property (nonatomic, retain) NSNumber* weekChangeValue;
 @end
