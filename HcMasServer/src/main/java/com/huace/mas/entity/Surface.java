@@ -38,7 +38,9 @@ public class Surface extends Kpi implements Serializable{
 	private Double dis_y;//y方向差值
 	private Double dis_h;//y方向差值
 	
-	
+	private double todayChangeValue;
+	private double yesterdayChangeValue;
+	private double weekChangeValue;
 	
 	
 	public int getAlertGrade_x() {
@@ -161,6 +163,24 @@ public class Surface extends Kpi implements Serializable{
 	}
 	public void setV3(Double v3) {
 		this.v3 = v3;
+	}
+	public double getTodayChangeValue() {
+		return todayChangeValue;
+	}
+	public void setTodayChangeValue(double todayChangeValue) {
+		this.todayChangeValue = todayChangeValue;
+	}
+	public double getYesterdayChangeValue() {
+		return yesterdayChangeValue;
+	}
+	public void setYesterdayChangeValue(double yesterdayChangeValue) {
+		this.yesterdayChangeValue = yesterdayChangeValue;
+	}
+	public double getWeekChangeValue() {
+		return weekChangeValue;
+	}
+	public void setWeekChangeValue(double weekChangeValue) {
+		this.weekChangeValue = weekChangeValue;
 	}
 
 	

@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.huace.mas.bean.DateJsonValueProcessor;
 import com.huace.mas.bean.KpiData;
+import com.huace.mas.bean.SpringProperty;
 import com.huace.mas.entity.Project;
 import com.huace.mas.entity.User;
 import com.huace.mas.service.DataService;
@@ -41,6 +42,8 @@ public class QueryAction {
 
 	private PushService pushService;
 
+	private SpringProperty springProperty;
+
 	public void setUserService(UserService userService) {
 		this.userService = userService;
 	}
@@ -51,6 +54,10 @@ public class QueryAction {
 
 	public void setPushService(PushService pushService) {
 		this.pushService = pushService;
+	}
+
+	public void setSpringProperty(SpringProperty springProperty) {
+		this.springProperty = springProperty;
 	}
 
 	@RequestMapping("/1")
@@ -67,8 +74,9 @@ public class QueryAction {
 			req.getSession().setAttribute(USER_NAME, userName);
 			req.getSession().setAttribute(TOKEN, token);
 		}
-		for(User user:users){
+		for (User user : users) {
 			user.setJsessionid(req.getSession().getId());
+			user.setProjectName(springProperty.getProjectName());
 		}
 		JSONArray jsonObject = JSONArray.fromObject(users);
 		OutputStream os = null;

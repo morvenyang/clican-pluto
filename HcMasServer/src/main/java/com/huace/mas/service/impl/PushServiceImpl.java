@@ -13,6 +13,7 @@ import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -273,6 +274,9 @@ public class PushServiceImpl implements PushService {
 				}
 				if (dbKpi.getAlertGrade() > 0 && kpi.isAlert()) {
 					String kpiType = dbKpi.getClass().getSimpleName();
+					if(StringUtils.isEmpty( springProperty.getKpiMap().get(kpiType))){
+						continue;
+					}
 					String message = springProperty.getKpiMap().get(kpiType)
 							+ "监测点有";
 					if (dbKpi.getAlertGrade() == 1) {

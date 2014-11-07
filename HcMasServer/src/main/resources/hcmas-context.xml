@@ -60,6 +60,7 @@
 		<property name="systemProxyHost" value="${systemProxyHost}"></property>
 		<property name="systemProxyPort" value="${systemProxyPort}"></property>
 		<property name="tokenFile" value="${catalina.home}/token.txt"></property>
+		<property name="projectName" value="${projectName}"/>
 	</bean>
 
 

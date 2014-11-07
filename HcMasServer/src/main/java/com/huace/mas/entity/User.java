@@ -15,6 +15,7 @@ public class User implements Serializable{
 	private String realName ;//用户真名
 	private String callPhoneNo ;//用户手机号
 	private String jsessionid;
+	private String projectName;
 	
 	public int getUserID() {
 		return userID;
@@ -54,6 +55,12 @@ public class User implements Serializable{
 	}
 	public void setJsessionid(String jsessionid) {
 		this.jsessionid = jsessionid;
+	}
+	public String getProjectName() {
+		return projectName;
+	}
+	public void setProjectName(String projectName) {
+		this.projectName = projectName;
 	}
 	
 	
