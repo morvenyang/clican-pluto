@@ -16,6 +16,10 @@ public class KpiData {
 	
 	private Double d3;
 	
+	private Double todayChangeValue;
+	private Double yesterdayChangeValue;
+	private Double weekChangeValue;
+	
 
 	public Date getDacTime() {
 		return dacTime;
@@ -63,6 +67,30 @@ public class KpiData {
 
 	public void setD3(Double d3) {
 		this.d3 = d3;
+	}
+
+	public Double getTodayChangeValue() {
+		return todayChangeValue;
+	}
+
+	public void setTodayChangeValue(Double todayChangeValue) {
+		this.todayChangeValue = todayChangeValue;
+	}
+
+	public Double getYesterdayChangeValue() {
+		return yesterdayChangeValue;
+	}
+
+	public void setYesterdayChangeValue(Double yesterdayChangeValue) {
+		this.yesterdayChangeValue = yesterdayChangeValue;
+	}
+
+	public Double getWeekChangeValue() {
+		return weekChangeValue;
+	}
+
+	public void setWeekChangeValue(Double weekChangeValue) {
+		this.weekChangeValue = weekChangeValue;
 	}
 	
 	
