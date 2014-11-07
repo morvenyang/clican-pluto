@@ -1,24 +1,21 @@
 package com.huace.mas.bean;
 
-import java.util.Calendar;
 import java.util.Date;
-
-import org.apache.commons.lang.time.DateUtils;
 
 public class DiffData {
 
 	private Double oneDayData;
-	
+
 	private Double twoDayData;
-	
+
 	private Double sevenDayData;
-	
+
 	private String deviceID;
-	
+
 	private Date today;
-	
-	public DiffData(Date today){
-		this.today =today;
+
+	public DiffData(Date today) {
+		this.today = today;
 	}
 
 	public Double getOneDayData() {
@@ -60,8 +57,8 @@ public class DiffData {
 	public void setToday(Date today) {
 		this.today = today;
 	}
-	
-	public boolean isSameToday(Date today){
+
+	public boolean isSameToday(Date today) {
 		return this.today.equals(today);
 	}
 }
