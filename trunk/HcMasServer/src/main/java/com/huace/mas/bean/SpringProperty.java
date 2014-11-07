@@ -18,6 +18,8 @@ public class SpringProperty {
 	
 	private String tokenFile;
 	
+	private String projectName;
+	
 	private Map<String,Integer> orderMap = new HashMap<String,Integer>();
 	private Map<String,String> kpiMap = new HashMap<String,String>();
 
@@ -117,6 +119,14 @@ public class SpringProperty {
 
 	public void setTokenFile(String tokenFile) {
 		this.tokenFile = tokenFile;
+	}
+
+	public String getProjectName() {
+		return projectName;
+	}
+
+	public void setProjectName(String projectName) {
+		this.projectName = projectName;
 	}
 	
 }
