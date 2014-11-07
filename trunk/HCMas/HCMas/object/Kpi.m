@@ -24,6 +24,9 @@
 @synthesize dis_y = _dis_y;
 @synthesize d2 = _d2;
 @synthesize d3 = _d3;
+@synthesize todayChangeValue;
+@synthesize weekChangeValue;
+@synthesize yesterdayChangeValue;
 -(id)init{
     self = [super init];
     if(self){
