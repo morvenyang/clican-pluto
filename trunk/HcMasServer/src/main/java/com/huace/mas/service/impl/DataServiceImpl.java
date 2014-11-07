@@ -2,6 +2,7 @@ package com.huace.mas.service.impl;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.time.DateUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.dom4j.Document;
@@ -17,6 +19,7 @@ import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
+import com.huace.mas.bean.DiffData;
 import com.huace.mas.bean.KpiData;
 import com.huace.mas.bean.SpringProperty;
 import com.huace.mas.dao.DataDao;
@@ -52,6 +55,8 @@ public class DataServiceImpl implements DataService {
 	private long alertConfigLastModifiyTime = 0;
 
 	private long alertConfigSize = 0;
+
+	private Map<Integer, DiffData> diffMap = new ConcurrentHashMap<Integer, DiffData>();
 
 	private Map<String, List<Kpi>> projectTypeMapping = new ConcurrentHashMap<String, List<Kpi>>();
 
@@ -455,6 +460,20 @@ public class DataServiceImpl implements DataService {
 				if (s.getAlertGrade_h() > s.getAlertGrade()) {
 					s.setAlertGrade(s.getAlertGrade_h());
 				}
+
+				s.setD2(Math.sqrt(s.getV1() * s.getV1() + s.getV2() * s.getV2()));
+				s.setD3(Math.sqrt(s.getV1() * s.getV1() + s.getV2() * s.getV2()
+						+ s.getV3() * s.getV3()));
+				DiffData diffData = diffMap.get(kpi.getDeviceID());
+				if (diffData == null || !diffData.isSameToday(s.getDacTime())) {
+					diffData = this.getDiffData(s, DateUtils.truncate(
+							s.getDacTime(), Calendar.DAY_OF_MONTH));
+					diffMap.put(kpi.getDeviceID(), diffData);
+				}
+				s.setTodayChangeValue(s.getD3() - diffData.getOneDayData());
+				s.setYesterdayChangeValue(diffData.getOneDayData()
+						- diffData.getTwoDayData());
+				s.setWeekChangeValue(s.getD3() - diffData.getSevenDayData());
 			} else if (kpi instanceof Inner) {
 				((Inner) kpi).setV2(((Inner) dbKpi).getV2());
 
@@ -532,4 +551,50 @@ public class DataServiceImpl implements DataService {
 		return result;
 	}
 
+	private Double getD3(Surface s) {
+		return Math.sqrt(s.getV1() * s.getV1() + s.getV2() * s.getV2()
+				+ s.getV3() * s.getV3());
+	}
+
+	private DiffData getDiffData(Surface surface, Date today) {
+		Date end = today;
+		Date start = DateUtils.addDays(today, -7);
+		DiffData diffData = new DiffData(today);
+		List<Kpi> kpis = this.dataDao.queryHistData(surface.getDeviceID(),
+				surface.getClass(), start, end);
+		for (Kpi dbKpi : kpis) {
+			Date d = dbKpi.getDacTime();
+			if (d.compareTo(DateUtils.addDays(today, -1)) > 0) {
+				// 昨天的数据
+				if (diffData.getOneDayData() == null) {
+					diffData.setOneDayData(getD3((Surface) dbKpi));
+				}
+			}
+			if (d.compareTo(DateUtils.addDays(today, -2)) > 0
+					&& d.compareTo(DateUtils.addDays(today, -1)) < 0) {
+				// 前天的数据
+				if (diffData.getTwoDayData() == null) {
+					diffData.setTwoDayData(getD3((Surface) dbKpi));
+				}
+			}
+			if (d.compareTo(DateUtils.addDays(today, -7)) > 0
+					&& d.compareTo(DateUtils.addDays(today, -6)) < 0) {
+				// 7天前的数据
+				if (diffData.getSevenDayData() == null) {
+					diffData.setSevenDayData(getD3((Surface) dbKpi));
+				}
+			}
+
+		}
+		if (diffData.getOneDayData() == null) {
+			diffData.setOneDayData(0.0);
+		}
+		if (diffData.getTwoDayData() == null) {
+			diffData.setTwoDayData(0.0);
+		}
+		if (diffData.getSevenDayData() == null) {
+			diffData.setSevenDayData(0.0);
+		}
+		return diffData;
+	}
 }

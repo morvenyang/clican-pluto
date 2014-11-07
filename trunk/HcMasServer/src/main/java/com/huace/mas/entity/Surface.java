@@ -42,6 +42,9 @@ public class Surface extends Kpi implements Serializable{
 	private double yesterdayChangeValue;
 	private double weekChangeValue;
 	
+	private Double d2;
+	private Double d3;
+	
 	
 	public int getAlertGrade_x() {
 		return alertGrade_x;
@@ -181,6 +184,18 @@ public class Surface extends Kpi implements Serializable{
 	}
 	public void setWeekChangeValue(double weekChangeValue) {
 		this.weekChangeValue = weekChangeValue;
+	}
+	public Double getD2() {
+		return d2;
+	}
+	public void setD2(Double d2) {
+		this.d2 = d2;
+	}
+	public Double getD3() {
+		return d3;
+	}
+	public void setD3(Double d3) {
+		this.d3 = d3;
 	}
 
 	
