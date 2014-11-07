@@ -49,7 +49,7 @@
     NSArray* _pointNames;
     UIButton* _pointNameButton;
     UIWebView* _webPieChartView;
-
+    UILabel* _headlLabel;
 }
 @property (nonatomic, assign) int imageIndex;
 @property (nonatomic, retain) NSMutableArray* pointImageViews;
@@ -80,4 +80,5 @@
 @property (nonatomic, retain) NSArray    *pointNames;
 @property (nonatomic, retain) UIButton    *pointNameButton;
 @property (nonatomic, retain) UIWebView    *webPieChartView;
+@property (nonatomic, retain) UILabel    *headLabel;
 @end
