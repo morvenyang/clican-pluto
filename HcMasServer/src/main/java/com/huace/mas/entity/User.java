@@ -15,7 +15,8 @@ public class User implements Serializable{
 	private String realName ;//用户真名
 	private String callPhoneNo ;//用户手机号
 	private String jsessionid;
-	private String projectName;
+	private String appName;
+	private String copyRight;
 	
 	public int getUserID() {
 		return userID;
@@ -56,11 +57,18 @@ public class User implements Serializable{
 	public void setJsessionid(String jsessionid) {
 		this.jsessionid = jsessionid;
 	}
-	public String getProjectName() {
-		return projectName;
+	
+	public String getAppName() {
+		return appName;
 	}
-	public void setProjectName(String projectName) {
-		this.projectName = projectName;
+	public void setAppName(String appName) {
+		this.appName = appName;
+	}
+	public String getCopyRight() {
+		return copyRight;
+	}
+	public void setCopyRight(String copyRight) {
+		this.copyRight = copyRight;
 	}
 	
 	

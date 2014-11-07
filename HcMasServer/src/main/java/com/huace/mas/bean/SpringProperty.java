@@ -18,8 +18,8 @@ public class SpringProperty {
 	
 	private String tokenFile;
 	
-	private String projectName;
-	
+	private String appName;
+	private String copyRight;
 	private Map<String,Integer> orderMap = new HashMap<String,Integer>();
 	private Map<String,String> kpiMap = new HashMap<String,String>();
 
@@ -121,12 +121,22 @@ public class SpringProperty {
 		this.tokenFile = tokenFile;
 	}
 
-	public String getProjectName() {
-		return projectName;
+	
+
+	public String getAppName() {
+		return appName;
 	}
 
-	public void setProjectName(String projectName) {
-		this.projectName = projectName;
+	public void setAppName(String appName) {
+		this.appName = appName;
+	}
+
+	public String getCopyRight() {
+		return copyRight;
+	}
+
+	public void setCopyRight(String copyRight) {
+		this.copyRight = copyRight;
 	}
 	
 }

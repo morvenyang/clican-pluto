@@ -76,7 +76,8 @@ public class QueryAction {
 		}
 		for (User user : users) {
 			user.setJsessionid(req.getSession().getId());
-			user.setProjectName(springProperty.getProjectName());
+			user.setAppName(springProperty.getAppName());
+			user.setCopyRight(springProperty.getCopyRight());
 		}
 		JSONArray jsonObject = JSONArray.fromObject(users);
 		OutputStream os = null;
