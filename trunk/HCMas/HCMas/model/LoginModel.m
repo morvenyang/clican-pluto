@@ -91,6 +91,8 @@
         if(data.count>0){
             NSDictionary* user = [data objectAtIndex:0];
             _user.sessionId = [user objectForKey:@"jsessionid"];
+            _user.appName = [user objectForKey:@"appName"];
+            _user.cr = [user objectForKey:@"copyRight"];
             if ([_delegate respondsToSelector:@selector(loginSuccess:)]) {
                 [_delegate loginSuccess:_user];
             }

@@ -20,6 +20,8 @@
 #define LAST_LOGIN_DATE @"LAST_LOGIN_DATE"
 #define FIRST_ACCESS_VERSION @"FIRST_ACCESS_VERSION"
 #define DEVICE_TOKEN @"DEVICE_TOKEN"
+#define COPY_RIGHT @"COPY_RIGHT"
+#define APP_NAME @"APP_NAME"
 #define VERSION [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"]
 #define DEVICE_VERSION [[[UIDevice currentDevice] systemVersion] doubleValue]
 #define ALIGN_LEFT 1

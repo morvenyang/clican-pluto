@@ -45,6 +45,7 @@
 @synthesize pointNames = _pointNames;
 @synthesize pointNameButton = _pointNameButton;
 @synthesize webPieChartView = _webPieChartView;
+@synthesize headLabel = _headlLabel;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -81,7 +82,12 @@
 
     [self.view addSubview:[self createImageViewFromNamedImage:@"main_background.png" frame:CGRectMake(0, height, 320, frame.size.height-height)]];
     [self.view addSubview:[self createImageViewFromNamedImage:@"title_logo_v15.png" frame:CGRectMake(2, 2+height, 24, 26)]];
-    [self.view addSubview:[self createLabel:@"华测自动化检测与预警系统" frame:CGRectMake(27, height-2, 200, 30) textColor:@"#ffffff" font:15 backgroundColor:nil textAlignment:ALIGN_LEFT]];
+    NSString* appName = [self getValueByKey:APP_NAME];
+    if(appName==nil||[appName length]==0){
+        appName =@"变形监测与预警系统";
+    }
+    self.headLabel =[self createLabel:appName frame:CGRectMake(27, height-2, 200, 30) textColor:@"#ffffff" font:15 backgroundColor:nil textAlignment:ALIGN_LEFT];
+    [self.view addSubview:self.headLabel];
     self.topImageView = [self createImageViewFromNamedImage:@"default_pic_1.jpg" frame:CGRectMake(0, height+28, 320, 130)];
     [self.view addSubview:self.topImageView];
     
@@ -211,58 +217,78 @@
     self.popupView.layer.cornerRadius =6;
     self.popupView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6f];
     
-    [self.popupView addSubview:[self createLabel:@"点名:" frame:CGRectMake(10, 0, 80, 40) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
+    [self.popupView addSubview:[self createLabel:@"点名:" frame:CGRectMake(10, 0, 80, 20) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
 
     
-    [self.popupView addSubview:[self createLabel:kpi.pointName frame:CGRectMake(100, 0, 100, 40) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
+    [self.popupView addSubview:[self createLabel:kpi.pointName frame:CGRectMake(100, 0, 100, 20) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
     
-    [self.popupView addSubview:[self createLabel:@"时间:" frame:CGRectMake(10, 40, 80, 40) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
+    [self.popupView addSubview:[self createLabel:@"时间:" frame:CGRectMake(10, 20, 80, 20) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
     
     NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
     [dateFormatter setDateFormat:@"hh:mm:ss"];
-    [self.popupView addSubview:[self createLabel:[dateFormatter stringFromDate:kpi.dacTime] frame:CGRectMake(100, 40, 100, 40) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
+    NSNumberFormatter* formatter = [[[NSNumberFormatter alloc]init] autorelease];
+    [formatter setMinimumIntegerDigits:1];
+    [formatter setMaximumFractionDigits:2];
+    [formatter setMinimumFractionDigits:0];
+    [self.popupView addSubview:[self createLabel:[dateFormatter stringFromDate:kpi.dacTime] frame:CGRectMake(100, 20, 100, 20) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
     NSString* kpiType = kpi.type;
     if([kpiType isEqualToString:@"Surface"]){
-        [self.popupView addSubview:[self createLabel:@"Dx:" frame:CGRectMake(10, 80, 80, 40) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
+        [self.popupView addSubview:[self createLabel:@"D3:" frame:CGRectMake(10, 40, 80, 20) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
         
-        [self.popupView addSubview:[self createLabel:[NSString stringWithFormat:@"%@",kpi.dis_x] frame:CGRectMake(100, 80, 100, 40) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
+        [self.popupView addSubview:[self createLabel:[formatter stringFromNumber:kpi.d3] frame:CGRectMake(100, 40, 100, 20) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
+        
+        [self.popupView addSubview:[self createLabel:@"今日变化:" frame:CGRectMake(10, 60, 80, 20) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
+        
+        [self.popupView addSubview:[self createLabel:[formatter stringFromNumber:kpi.todayChangeValue] frame:CGRectMake(100, 60, 100, 20) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
+        
+        [self.popupView addSubview:[self createLabel:@"昨日变化:" frame:CGRectMake(10, 80, 80, 20) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
+        
+        [self.popupView addSubview:[self createLabel:[formatter stringFromNumber:kpi.yesterdayChangeValue] frame:CGRectMake(100, 80, 100, 20) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
+        
+        [self.popupView addSubview:[self createLabel:@"一周变化:" frame:CGRectMake(10, 100, 80, 20) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
+        
+        [self.popupView addSubview:[self createLabel:[formatter stringFromNumber:kpi.weekChangeValue] frame:CGRectMake(100, 100, 100, 20) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
+        
+        [self.popupView addSubview:[self createLabel:@"Dx:" frame:CGRectMake(10, 120, 80, 20) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
+        
+        [self.popupView addSubview:[self createLabel:[NSString stringWithFormat:@"%@",kpi.dis_x] frame:CGRectMake(100, 120, 100, 20) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
         if(kpi.alertGrade_x.intValue>0){
-            [self.popupView addSubview:[self createImageViewFromNamedImage:[self getImageNameByGrade:kpi.alertGrade_x.intValue] frame:CGRectMake(200, 90, 20, 20) ]];
+            [self.popupView addSubview:[self createImageViewFromNamedImage:[self getImageNameByGrade:kpi.alertGrade_x.intValue] frame:CGRectMake(200, 120, 20, 20) ]];
         }
         
         
-        [self.popupView addSubview:[self createLabel:@"Dy:" frame:CGRectMake(10, 120, 80, 40) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
+        [self.popupView addSubview:[self createLabel:@"Dy:" frame:CGRectMake(10, 140, 80, 20) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
         
-        [self.popupView addSubview:[self createLabel:[NSString stringWithFormat:@"%@",kpi.dis_y] frame:CGRectMake(100, 120, 100, 40) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
+        [self.popupView addSubview:[self createLabel:[NSString stringWithFormat:@"%@",kpi.dis_y] frame:CGRectMake(100, 140, 100, 20) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
         if(kpi.alertGrade_y.intValue>0){
-            [self.popupView addSubview:[self createImageViewFromNamedImage:[self getImageNameByGrade:kpi.alertGrade_y.intValue] frame:CGRectMake(200, 130, 20, 20) ]];
+            [self.popupView addSubview:[self createImageViewFromNamedImage:[self getImageNameByGrade:kpi.alertGrade_y.intValue] frame:CGRectMake(200, 140, 20, 20) ]];
         }
         
-        [self.popupView addSubview:[self createLabel:@"Dh:" frame:CGRectMake(10, 160, 80, 40) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
+        [self.popupView addSubview:[self createLabel:@"Dh:" frame:CGRectMake(10, 160, 80, 20) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
         
-        [self.popupView addSubview:[self createLabel:[NSString stringWithFormat:@"%@",kpi.dis_h] frame:CGRectMake(100, 160, 100, 40) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
+        [self.popupView addSubview:[self createLabel:[NSString stringWithFormat:@"%@",kpi.dis_h] frame:CGRectMake(100, 160, 100, 20) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
         if(kpi.alertGrade_h.intValue>0){
-            [self.popupView addSubview:[self createImageViewFromNamedImage:[self getImageNameByGrade:kpi.alertGrade_h.intValue] frame:CGRectMake(200, 170, 20, 20) ]];
+            [self.popupView addSubview:[self createImageViewFromNamedImage:[self getImageNameByGrade:kpi.alertGrade_h.intValue] frame:CGRectMake(200, 160, 20, 20) ]];
         }
         
     }else if([kpiType isEqualToString:@"Inner"]){
-        [self.popupView addSubview:[self createLabel:@"Dx:" frame:CGRectMake(10, 80, 80, 40) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
+        [self.popupView addSubview:[self createLabel:@"Dx:" frame:CGRectMake(10, 40, 80, 20) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
         
-        [self.popupView addSubview:[self createLabel:[NSString stringWithFormat:@"%@",kpi.dis_x] frame:CGRectMake(100, 80, 100, 40) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
+        [self.popupView addSubview:[self createLabel:[NSString stringWithFormat:@"%@",kpi.dis_x] frame:CGRectMake(100, 40, 100, 20) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
         if(kpi.alertGrade_x.intValue>0){
-                    [self.popupView addSubview:[self createImageViewFromNamedImage:[self getImageNameByGrade:kpi.alertGrade_x.intValue] frame:CGRectMake(200, 90, 20, 20) ]];
+                    [self.popupView addSubview:[self createImageViewFromNamedImage:[self getImageNameByGrade:kpi.alertGrade_x.intValue] frame:CGRectMake(200, 40, 20, 20) ]];
         }
 
 
-        [self.popupView addSubview:[self createLabel:@"Dy:" frame:CGRectMake(10, 120, 80, 40) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
+        [self.popupView addSubview:[self createLabel:@"Dy:" frame:CGRectMake(10, 60, 80, 20) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
         
-        [self.popupView addSubview:[self createLabel:[NSString stringWithFormat:@"%@",kpi.dis_y] frame:CGRectMake(100, 120, 100, 40) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
+        [self.popupView addSubview:[self createLabel:[NSString stringWithFormat:@"%@",kpi.dis_y] frame:CGRectMake(100, 60, 100, 20) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
         if(kpi.alertGrade_y.intValue>0){
-             [self.popupView addSubview:[self createImageViewFromNamedImage:[self getImageNameByGrade:kpi.alertGrade_y.intValue] frame:CGRectMake(200, 130, 20, 20) ]];
+             [self.popupView addSubview:[self createImageViewFromNamedImage:[self getImageNameByGrade:kpi.alertGrade_y.intValue] frame:CGRectMake(200, 60, 20, 20) ]];
         }
        
     }else{
-        UILabel* valueLabel =[self createLabel:@"" frame:CGRectMake(10, 80, 100, 40) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT];
+        UILabel* valueLabel =[self createLabel:@"" frame:CGRectMake(10, 40, 100, 20) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT];
         if([kpiType isEqualToString:@"Reservoir"]){
             valueLabel.text = @"水位高程(m)";
         }else if([kpiType isEqualToString:@"Saturation"]){
@@ -296,9 +322,9 @@
         }
         [self.popupView addSubview:valueLabel];
         
-        [self.popupView addSubview:[self createLabel:[NSString stringWithFormat:@"%@",kpi.v1] frame:CGRectMake(100, 80, 100, 40) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
+        [self.popupView addSubview:[self createLabel:[NSString stringWithFormat:@"%@",kpi.v1] frame:CGRectMake(100, 40, 100, 20) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
         if(kpi.alertGrade.intValue>0){
-            [self.popupView addSubview:[self createImageViewFromNamedImage:[self getImageNameByGrade:kpi.alertGrade.intValue] frame:CGRectMake(200, 90, 20, 20) ]];
+            [self.popupView addSubview:[self createImageViewFromNamedImage:[self getImageNameByGrade:kpi.alertGrade.intValue] frame:CGRectMake(200, 40, 20, 20) ]];
         }
         
     }
@@ -862,18 +888,26 @@
     settingView.contentSize = CGSizeMake(320, 255);
     TTTableView* tableView = [[[TTTableView alloc] initWithFrame:CGRectMake(0, 0, 320, 255)] autorelease];
     tableView.scrollEnabled=NO;
-
+    NSString* copyRight = [self getValueByKey:COPY_RIGHT];
+    NSString* appName = [self getValueByKey:APP_NAME];
+    if(copyRight==nil||[copyRight length]==0){
+        copyRight = @"上海华测导航技术有限公司";
+    }
+    if(appName==nil||[appName length]==0){
+        appName = @"变形监测与预警系统";
+    }
     TTSectionedDataSource* ds = [TTSectionedDataSource dataSourceWithObjects:
         @"设置",
         [self createTableItemByTitle:@"服务地址" subTitle:@"请正确填写服务端地址" action:@selector(showServerSettingPopupView)],
         [self createTableItemByTitle:@"工程项目" subTitle:@"请勾选需要查看的工程" action:@selector(showProjectSettingPopupView)],
         [self createTableItemByTitle:@"更新频率" subTitle:@"设置刷新周期(秒)" action:@selector(showFrequencySettingPopupView)],
         @"关于",
-        [TTTableStyledTextItem itemWithText:[TTStyledText textFromXHTML:[NSString stringWithFormat:@"<span class=\"settingRow3\">软件名称:华测自动化监测与预警系统（手机版）</span><br/><span class=\"settingRow3\">版本:1.0</span><br/><span class=\"settingRow3\">版权:上海华测导航技术有限公司</span><br/><span class=\"settingRow3\">网址:www.huace.cn</span>"] lineBreaks:YES URLs:YES]],
+        [TTTableStyledTextItem itemWithText:[TTStyledText textFromXHTML:[NSString stringWithFormat:@"<span class=\"settingRow3\">软件名称:%@</span><br/><span class=\"settingRow3\">版本:1.0</span><br/><span class=\"settingRow3\">版权:%@</span>",appName,copyRight] lineBreaks:YES URLs:YES]],
                                  nil];
     tableView.dataSource = ds;
     tableView.delegate = self;
     tableView.backgroundColor = [UIColor blackColor];
+    
     if([tableView respondsToSelector:@selector(setSeparatorInset:)]){
         [tableView setSeparatorInset:UIEdgeInsetsZero];
     }
@@ -1081,6 +1115,20 @@
     [self.progressHUD hide:NO];
     HCMasAppDelegate.user = user;
     self.footLabel.text = user.username;
+    [self setValue:user.appName byKey:APP_NAME];
+    [self setValue:user.cr byKey:COPY_RIGHT];
+    if([self.kpiType isEqualToString:SYSTEM_CONFIG]){
+        CGFloat height = 0;
+        if(DEVICE_VERSION>=7.0){
+            height = 22;
+        }
+        if(self.dataView){
+            [self.dataView removeFromSuperview];
+        }
+        self.dataView = [self createSettingView:height+308];
+        [self.view addSubview:self.dataView];
+    }
+    self.headLabel.text = user.appName;
     [_projectModel loadProjects];
     [HCMasAppDelegate startTimer];
 }
