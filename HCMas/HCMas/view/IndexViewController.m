@@ -537,9 +537,14 @@
     return paginationView;
 }
 -(void)selectMenu:(id*)sender{
-    [self.dataView removeFromSuperview];
+    if(self.dataView){
+        [self.dataView removeFromSuperview];
+        self.dataView = nil;
+    }
+    
     if(self.footView){
         [self.footView removeFromSuperview];
+        self.footView = nil;
     }
     if(self.dataHistoryView){
         [self.dataHistoryView removeFromSuperview];
@@ -1117,17 +1122,18 @@
     self.footLabel.text = user.username;
     [self setValue:user.appName byKey:APP_NAME];
     [self setValue:user.cr byKey:COPY_RIGHT];
-    if([self.kpiType isEqualToString:SYSTEM_CONFIG]){
-        CGFloat height = 0;
-        if(DEVICE_VERSION>=7.0){
-            height = 22;
-        }
-        if(self.dataView){
-            [self.dataView removeFromSuperview];
-        }
-        self.dataView = [self createSettingView:height+308];
-        [self.view addSubview:self.dataView];
-    }
+//    if([self.kpiType isEqualToString:SYSTEM_CONFIG]){
+//        CGFloat height = 0;
+//        if(DEVICE_VERSION>=7.0){
+//            height = 22;
+//        }
+//        if(self.dataView){
+//            [self.dataView removeFromSuperview];
+//            self.dataView = nil;
+//        }
+//        self.dataView = [self createSettingView:height+308];
+//        [self.view addSubview:self.dataView];
+//    }
     self.headLabel.text = user.appName;
     [_projectModel loadProjects];
     [HCMasAppDelegate startTimer];
