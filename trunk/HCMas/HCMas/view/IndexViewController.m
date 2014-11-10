@@ -217,12 +217,12 @@
     self.popupView.layer.cornerRadius =6;
     self.popupView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6f];
     
-    [self.popupView addSubview:[self createLabel:@"点名:" frame:CGRectMake(10, 0, 80, 20) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
+    [self.popupView addSubview:[self createLabel:@"点名:" frame:CGRectMake(10, 0, 120, 20) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
 
     
-    [self.popupView addSubview:[self createLabel:kpi.pointName frame:CGRectMake(100, 0, 100, 20) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
+    [self.popupView addSubview:[self createLabel:kpi.pointName frame:CGRectMake(140, 0, 100, 20) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
     
-    [self.popupView addSubview:[self createLabel:@"时间:" frame:CGRectMake(10, 20, 80, 20) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
+    [self.popupView addSubview:[self createLabel:@"时间:" frame:CGRectMake(10, 20, 120, 20) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
     
     NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
     [dateFormatter setDateFormat:@"hh:mm:ss"];
@@ -230,65 +230,65 @@
     [formatter setMinimumIntegerDigits:1];
     [formatter setMaximumFractionDigits:2];
     [formatter setMinimumFractionDigits:0];
-    [self.popupView addSubview:[self createLabel:[dateFormatter stringFromDate:kpi.dacTime] frame:CGRectMake(100, 20, 100, 20) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
+    [self.popupView addSubview:[self createLabel:[dateFormatter stringFromDate:kpi.dacTime] frame:CGRectMake(140, 20, 100, 20) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
     NSString* kpiType = kpi.type;
     if([kpiType isEqualToString:@"Surface"]){
-        [self.popupView addSubview:[self createLabel:@"D3:" frame:CGRectMake(10, 40, 80, 20) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
+        [self.popupView addSubview:[self createLabel:@"3D:" frame:CGRectMake(10, 40, 120, 20) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
         
-        [self.popupView addSubview:[self createLabel:[formatter stringFromNumber:kpi.d3] frame:CGRectMake(100, 40, 100, 20) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
+        [self.popupView addSubview:[self createLabel:[formatter stringFromNumber:kpi.d3] frame:CGRectMake(140, 40, 100, 20) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
         
-        [self.popupView addSubview:[self createLabel:@"今日变化:" frame:CGRectMake(10, 60, 80, 20) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
+        [self.popupView addSubview:[self createLabel:@"今日变化量:" frame:CGRectMake(10, 60, 120, 20) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
         
-        [self.popupView addSubview:[self createLabel:[formatter stringFromNumber:kpi.todayChangeValue] frame:CGRectMake(100, 60, 100, 20) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
+        [self.popupView addSubview:[self createLabel:[formatter stringFromNumber:kpi.todayChangeValue] frame:CGRectMake(140, 60, 100, 20) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
         
-        [self.popupView addSubview:[self createLabel:@"昨日变化:" frame:CGRectMake(10, 80, 80, 20) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
+        [self.popupView addSubview:[self createLabel:@"昨日变化量:" frame:CGRectMake(10, 80, 120, 20) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
         
-        [self.popupView addSubview:[self createLabel:[formatter stringFromNumber:kpi.yesterdayChangeValue] frame:CGRectMake(100, 80, 100, 20) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
+        [self.popupView addSubview:[self createLabel:[formatter stringFromNumber:kpi.yesterdayChangeValue] frame:CGRectMake(140, 80, 100, 20) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
         
-        [self.popupView addSubview:[self createLabel:@"一周变化:" frame:CGRectMake(10, 100, 80, 20) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
+        [self.popupView addSubview:[self createLabel:@"最近七天变化量:" frame:CGRectMake(10, 100, 120, 20) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
         
-        [self.popupView addSubview:[self createLabel:[formatter stringFromNumber:kpi.weekChangeValue] frame:CGRectMake(100, 100, 100, 20) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
+        [self.popupView addSubview:[self createLabel:[formatter stringFromNumber:kpi.weekChangeValue] frame:CGRectMake(140, 100, 100, 20) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
         
-        [self.popupView addSubview:[self createLabel:@"Dx:" frame:CGRectMake(10, 120, 80, 20) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
+        [self.popupView addSubview:[self createLabel:@"X:" frame:CGRectMake(10, 120, 120, 20) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
         
-        [self.popupView addSubview:[self createLabel:[NSString stringWithFormat:@"%@",kpi.dis_x] frame:CGRectMake(100, 120, 100, 20) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
+        [self.popupView addSubview:[self createLabel:[NSString stringWithFormat:@"%@",kpi.dis_x] frame:CGRectMake(140, 120, 100, 20) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
         if(kpi.alertGrade_x.intValue>0){
             [self.popupView addSubview:[self createImageViewFromNamedImage:[self getImageNameByGrade:kpi.alertGrade_x.intValue] frame:CGRectMake(200, 120, 20, 20) ]];
         }
         
         
-        [self.popupView addSubview:[self createLabel:@"Dy:" frame:CGRectMake(10, 140, 80, 20) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
+        [self.popupView addSubview:[self createLabel:@"Y:" frame:CGRectMake(10, 140, 120, 20) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
         
-        [self.popupView addSubview:[self createLabel:[NSString stringWithFormat:@"%@",kpi.dis_y] frame:CGRectMake(100, 140, 100, 20) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
+        [self.popupView addSubview:[self createLabel:[NSString stringWithFormat:@"%@",kpi.dis_y] frame:CGRectMake(140, 140, 100, 20) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
         if(kpi.alertGrade_y.intValue>0){
             [self.popupView addSubview:[self createImageViewFromNamedImage:[self getImageNameByGrade:kpi.alertGrade_y.intValue] frame:CGRectMake(200, 140, 20, 20) ]];
         }
         
-        [self.popupView addSubview:[self createLabel:@"Dh:" frame:CGRectMake(10, 160, 80, 20) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
+        [self.popupView addSubview:[self createLabel:@"Z:" frame:CGRectMake(10, 160, 120, 20) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
         
-        [self.popupView addSubview:[self createLabel:[NSString stringWithFormat:@"%@",kpi.dis_h] frame:CGRectMake(100, 160, 100, 20) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
+        [self.popupView addSubview:[self createLabel:[NSString stringWithFormat:@"%@",kpi.dis_h] frame:CGRectMake(140, 160, 100, 20) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
         if(kpi.alertGrade_h.intValue>0){
             [self.popupView addSubview:[self createImageViewFromNamedImage:[self getImageNameByGrade:kpi.alertGrade_h.intValue] frame:CGRectMake(200, 160, 20, 20) ]];
         }
         
     }else if([kpiType isEqualToString:@"Inner"]){
-        [self.popupView addSubview:[self createLabel:@"Dx:" frame:CGRectMake(10, 40, 80, 20) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
+        [self.popupView addSubview:[self createLabel:@"X:" frame:CGRectMake(10, 40, 120, 20) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
         
-        [self.popupView addSubview:[self createLabel:[NSString stringWithFormat:@"%@",kpi.dis_x] frame:CGRectMake(100, 40, 100, 20) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
+        [self.popupView addSubview:[self createLabel:[NSString stringWithFormat:@"%@",kpi.dis_x] frame:CGRectMake(140, 40, 100, 20) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
         if(kpi.alertGrade_x.intValue>0){
                     [self.popupView addSubview:[self createImageViewFromNamedImage:[self getImageNameByGrade:kpi.alertGrade_x.intValue] frame:CGRectMake(200, 40, 20, 20) ]];
         }
 
 
-        [self.popupView addSubview:[self createLabel:@"Dy:" frame:CGRectMake(10, 60, 80, 20) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
+        [self.popupView addSubview:[self createLabel:@"Y:" frame:CGRectMake(10, 60, 120, 20) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
         
-        [self.popupView addSubview:[self createLabel:[NSString stringWithFormat:@"%@",kpi.dis_y] frame:CGRectMake(100, 60, 100, 20) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
+        [self.popupView addSubview:[self createLabel:[NSString stringWithFormat:@"%@",kpi.dis_y] frame:CGRectMake(140, 60, 100, 20) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
         if(kpi.alertGrade_y.intValue>0){
              [self.popupView addSubview:[self createImageViewFromNamedImage:[self getImageNameByGrade:kpi.alertGrade_y.intValue] frame:CGRectMake(200, 60, 20, 20) ]];
         }
        
     }else{
-        UILabel* valueLabel =[self createLabel:@"" frame:CGRectMake(10, 40, 100, 20) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT];
+        UILabel* valueLabel =[self createLabel:@"" frame:CGRectMake(10, 40, 120, 20) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT];
         if([kpiType isEqualToString:@"Reservoir"]){
             valueLabel.text = @"水位高程(m)";
         }else if([kpiType isEqualToString:@"Saturation"]){
@@ -322,7 +322,7 @@
         }
         [self.popupView addSubview:valueLabel];
         
-        [self.popupView addSubview:[self createLabel:[NSString stringWithFormat:@"%@",kpi.v1] frame:CGRectMake(100, 40, 100, 20) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
+        [self.popupView addSubview:[self createLabel:[NSString stringWithFormat:@"%@",kpi.v1] frame:CGRectMake(140, 40, 100, 20) textColor:@"#ffffff" font:16 backgroundColor:nil textAlignment:ALIGN_LEFT]];
         if(kpi.alertGrade.intValue>0){
             [self.popupView addSubview:[self createImageViewFromNamedImage:[self getImageNameByGrade:kpi.alertGrade.intValue] frame:CGRectMake(200, 40, 20, 20) ]];
         }
@@ -658,18 +658,18 @@
     [rightDataView addSubview:[self createLabel:@"时间" frame:CGRectMake(1, 0, 59, 20) textColor:@"#000000" font:16 backgroundColor:@"#ffc90e" textAlignment:ALIGN_CENTER]];
     [rightDataView addSubview:[self createLabel:@"状态" frame:CGRectMake(61, 0, 59, 20) textColor:@"#000000" font:16 backgroundColor:@"#ffc90e" textAlignment:ALIGN_CENTER]];
     if([self.kpiType isEqualToString:@"Surface"]){
-        [rightDataView addSubview:[self createLabel:@"D3(mm)" frame:CGRectMake(121, 0, 59, 20) textColor:@"#000000" font:16 backgroundColor:@"#ffc90e" textAlignment:ALIGN_CENTER]];
-        [rightDataView addSubview:[self createLabel:@"今日变化(mm)" frame:CGRectMake(181, 0, 119, 20) textColor:@"#000000" font:16 backgroundColor:@"#ffc90e" textAlignment:ALIGN_CENTER]];
-        [rightDataView addSubview:[self createLabel:@"昨日变化(mm)" frame:CGRectMake(301, 0, 119, 20) textColor:@"#000000" font:16 backgroundColor:@"#ffc90e" textAlignment:ALIGN_CENTER]];
-        [rightDataView addSubview:[self createLabel:@"一周变化(mm)" frame:CGRectMake(421, 0, 119, 20) textColor:@"#000000" font:16 backgroundColor:@"#ffc90e" textAlignment:ALIGN_CENTER]];
-        [rightDataView addSubview:[self createLabel:@"Dx(mm)" frame:CGRectMake(541, 0, 59, 20) textColor:@"#000000" font:16 backgroundColor:@"#ffc90e" textAlignment:ALIGN_CENTER]];
-        [rightDataView addSubview:[self createLabel:@"Dy(mm)" frame:CGRectMake(601, 0, 59, 20) textColor:@"#000000" font:16 backgroundColor:@"#ffc90e" textAlignment:ALIGN_CENTER]];
-        [rightDataView addSubview:[self createLabel:@"Dh(mm)" frame:CGRectMake(661, 0, 59, 20) textColor:@"#000000" font:16 backgroundColor:@"#ffc90e" textAlignment:ALIGN_CENTER]];
-        rightDataView.contentSize = CGSizeMake(720, rowHeight*(kpis.count+1));
+        [rightDataView addSubview:[self createLabel:@"3D(mm)" frame:CGRectMake(121, 0, 59, 20) textColor:@"#000000" font:16 backgroundColor:@"#ffc90e" textAlignment:ALIGN_CENTER]];
+        [rightDataView addSubview:[self createLabel:@"今日变化量(mm)" frame:CGRectMake(181, 0, 119, 20) textColor:@"#000000" font:16 backgroundColor:@"#ffc90e" textAlignment:ALIGN_CENTER]];
+        [rightDataView addSubview:[self createLabel:@"昨日变化量(mm)" frame:CGRectMake(301, 0, 119, 20) textColor:@"#000000" font:16 backgroundColor:@"#ffc90e" textAlignment:ALIGN_CENTER]];
+        [rightDataView addSubview:[self createLabel:@"最近七天变化量(mm)" frame:CGRectMake(421, 0, 159, 20) textColor:@"#000000" font:16 backgroundColor:@"#ffc90e" textAlignment:ALIGN_CENTER]];
+        [rightDataView addSubview:[self createLabel:@"X(mm)" frame:CGRectMake(581, 0, 59, 20) textColor:@"#000000" font:16 backgroundColor:@"#ffc90e" textAlignment:ALIGN_CENTER]];
+        [rightDataView addSubview:[self createLabel:@"Y(mm)" frame:CGRectMake(641, 0, 59, 20) textColor:@"#000000" font:16 backgroundColor:@"#ffc90e" textAlignment:ALIGN_CENTER]];
+        [rightDataView addSubview:[self createLabel:@"Z(mm)" frame:CGRectMake(701, 0, 59, 20) textColor:@"#000000" font:16 backgroundColor:@"#ffc90e" textAlignment:ALIGN_CENTER]];
+        rightDataView.contentSize = CGSizeMake(760, rowHeight*(kpis.count+1));
 
     }else if([self.kpiType isEqualToString:@"Inner"]){
-        [rightDataView addSubview:[self createLabel:@"Dx(mm)" frame:CGRectMake(121, 0, 59, 20) textColor:@"#000000" font:16 backgroundColor:@"#ffc90e" textAlignment:ALIGN_CENTER]];
-        [rightDataView addSubview:[self createLabel:@"Dy(mm)" frame:CGRectMake(181, 0, 59, 20) textColor:@"#000000" font:16 backgroundColor:@"#ffc90e" textAlignment:ALIGN_CENTER]];
+        [rightDataView addSubview:[self createLabel:@"X(mm)" frame:CGRectMake(121, 0, 59, 20) textColor:@"#000000" font:16 backgroundColor:@"#ffc90e" textAlignment:ALIGN_CENTER]];
+        [rightDataView addSubview:[self createLabel:@"Y(mm)" frame:CGRectMake(181, 0, 59, 20) textColor:@"#000000" font:16 backgroundColor:@"#ffc90e" textAlignment:ALIGN_CENTER]];
     }else{
         UILabel* valueLabel =[self createLabel:@"水位高程(m)" frame:CGRectMake(121, 0, 118, 20) textColor:@"#000000" font:16 backgroundColor:@"#ffc90e" textAlignment:ALIGN_CENTER];
         if([self.kpiType isEqualToString:@"Reservoir"]){
@@ -744,12 +744,12 @@
             
             [rightDataView addSubview:[self createLabel:[formatter stringFromNumber:kpi.todayChangeValue] frame:CGRectMake(181, rowHeight*(i+1), 119, 20) textColor:@"#000000" font:12 backgroundColor:@"#ffffff" textAlignment:ALIGN_CENTER]];
             [rightDataView addSubview:[self createLabel:[formatter stringFromNumber:kpi.yesterdayChangeValue] frame:CGRectMake(301, rowHeight*(i+1), 119, 20) textColor:@"#000000" font:12 backgroundColor:@"#ffffff" textAlignment:ALIGN_CENTER]];
-            [rightDataView addSubview:[self createLabel:[formatter stringFromNumber:kpi.weekChangeValue] frame:CGRectMake(421, rowHeight*(i+1), 119, 20) textColor:@"#000000" font:12 backgroundColor:@"#ffffff" textAlignment:ALIGN_CENTER]];
+            [rightDataView addSubview:[self createLabel:[formatter stringFromNumber:kpi.weekChangeValue] frame:CGRectMake(421, rowHeight*(i+1), 159, 20) textColor:@"#000000" font:12 backgroundColor:@"#ffffff" textAlignment:ALIGN_CENTER]];
             
-            [rightDataView addSubview:[self createLabel:[formatter stringFromNumber:kpi.dis_x] frame:CGRectMake(541, rowHeight*(i+1), 59, 20) textColor:[self getTextColorByGrade:kpi.alertGrade_x.intValue] font:12 backgroundColor:@"#ffffff" textAlignment:ALIGN_CENTER]];
+            [rightDataView addSubview:[self createLabel:[formatter stringFromNumber:kpi.dis_x] frame:CGRectMake(581, rowHeight*(i+1), 59, 20) textColor:[self getTextColorByGrade:kpi.alertGrade_x.intValue] font:12 backgroundColor:@"#ffffff" textAlignment:ALIGN_CENTER]];
             
-            [rightDataView addSubview:[self createLabel:[formatter stringFromNumber:kpi.dis_y] frame:CGRectMake(601, rowHeight*(i+1), 59, 20) textColor:[self getTextColorByGrade:kpi.alertGrade_y.intValue] font:12 backgroundColor:@"#ffffff" textAlignment:ALIGN_CENTER]];
-            [rightDataView addSubview:[self createLabel:[formatter stringFromNumber:kpi.dis_h] frame:CGRectMake(661, rowHeight*(i+1), 59, 20) textColor:[self getTextColorByGrade:kpi.alertGrade_h.intValue] font:12 backgroundColor:@"#ffffff" textAlignment:ALIGN_CENTER]];
+            [rightDataView addSubview:[self createLabel:[formatter stringFromNumber:kpi.dis_y] frame:CGRectMake(641, rowHeight*(i+1), 59, 20) textColor:[self getTextColorByGrade:kpi.alertGrade_y.intValue] font:12 backgroundColor:@"#ffffff" textAlignment:ALIGN_CENTER]];
+            [rightDataView addSubview:[self createLabel:[formatter stringFromNumber:kpi.dis_h] frame:CGRectMake(701, rowHeight*(i+1), 59, 20) textColor:[self getTextColorByGrade:kpi.alertGrade_h.intValue] font:12 backgroundColor:@"#ffffff" textAlignment:ALIGN_CENTER]];
 
         }else if([self.kpiType isEqualToString:@"Inner"]){
             [rightDataView addSubview:[self createLabel:[formatter stringFromNumber:kpi.dis_x] frame:CGRectMake(121, rowHeight*(i+1), 59, 20) textColor:[self getTextColorByGrade:kpi.alertGrade_x.intValue] font:12 backgroundColor:@"#ffffff" textAlignment:ALIGN_CENTER]];
