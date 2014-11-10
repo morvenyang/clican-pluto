@@ -11,7 +11,7 @@ text {
 </style>
 </head>
 <body>
-	<div id="chartdiv" style="width: $ widthpx; height: $ heightpx;"></div>
+	<div id="chartdiv" style="width: $widthpx; height: $heightpx;"></div>
 	<script type="text/javascript">
 		var chart = AmCharts.makeChart("chartdiv", {
 			"type" : "serial",
@@ -41,7 +41,8 @@ text {
 				"id" : "v1",
 				"axisColor" : "#FF6600",
 				"axisThickness" : 2,
-				"gridAlpha" : 200,
+				"gridAlpha" : 0,
+				"offset" : 200,
 				"axisAlpha" : 1,
 				"position" : "left"
 			}, {
