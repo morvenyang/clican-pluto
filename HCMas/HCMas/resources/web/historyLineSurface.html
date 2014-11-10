@@ -11,7 +11,7 @@ text {
 </style>
 </head>
 <body>
-	<div id="chartdiv" style="width: $ widthpx; height: $ heightpx;"></div>
+	<div id="chartdiv" style="width: $widthpx; height: $heightpx;"></div>
 	<script type="text/javascript">
 		var chart = AmCharts.makeChart("chartdiv", {
 			"type" : "serial",
@@ -41,7 +41,8 @@ text {
 				"id" : "v1",
 				"axisColor" : "#FF6600",
 				"axisThickness" : 2,
-				"gridAlpha" : 200,
+				"gridAlpha" : 0,
+				"offset" : 200,
 				"axisAlpha" : 1,
 				"position" : "left"
 			}, {
@@ -67,50 +68,50 @@ text {
 				"bullet" : "square",
 				"bulletBorderThickness" : 1,
 				"hideBulletsCount" : 30,
-				"title" : "D3",
+				"title" : "3D",
 				"valueField" : "d3",
 				"fillAlphas" : 0,
-				"balloonText" : "D3:[[value]]mm"
+				"balloonText" : "3D:[[value]]mm"
 			}, {
 				"valueAxis" : "2d",
 				"lineColor" : "#74D9C7",
 				"bullet" : "square",
 				"bulletBorderThickness" : 1,
 				"hideBulletsCount" : 30,
-				"title" : "D2",
+				"title" : "2D",
 				"valueField" : "d2",
 				"fillAlphas" : 0,
-				"balloonText" : "D2:[[value]]mm"
+				"balloonText" : "2D:[[value]]mm"
 			}, {
 				"valueAxis" : "v1",
 				"lineColor" : "#FF6600",
 				"bullet" : "square",
 				"bulletBorderThickness" : 1,
 				"hideBulletsCount" : 30,
-				"title" : "Dx",
+				"title" : "X",
 				"valueField" : "v1",
 				"fillAlphas" : 0,
-				"balloonText" : "Dx:[[value]]mm"
+				"balloonText" : "X:[[value]]mm"
 			}, {
 				"valueAxis" : "v2",
 				"lineColor" : "#FCD202",
 				"bullet" : "square",
 				"bulletBorderThickness" : 1,
 				"hideBulletsCount" : 30,
-				"title" : "Dy",
+				"title" : "Y",
 				"valueField" : "v2",
 				"fillAlphas" : 0,
-				"balloonText" : "Dy:[[value]]mm"
+				"balloonText" : "Y:[[value]]mm"
 			}, {
 				"valueAxis" : "v3",
 				"lineColor" : "#B0DE09",
 				"bullet" : "square",
 				"bulletBorderThickness" : 1,
 				"hideBulletsCount" : 30,
-				"title" : "Dh",
+				"title" : "Z",
 				"valueField" : "v3",
 				"fillAlphas" : 0,
-				"balloonText" : "Dh:[[value]]mm"
+				"balloonText" : "Z:[[value]]mm"
 			} ],
 			"categoryField" : "dacTime",
 			"chartCursor" : {

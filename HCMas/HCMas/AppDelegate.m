@@ -122,7 +122,9 @@
     NSLog(@"My token is:%@", token);
     self.token = token;
 }
-
+-(void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings{
+    [application registerForRemoteNotifications];
+}
 - (void)application:(UIApplication *)app didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
     NSString *error_str = [NSString stringWithFormat: @"%@", error];
     NSLog(@"Failed to get token, error:%@", error_str);
