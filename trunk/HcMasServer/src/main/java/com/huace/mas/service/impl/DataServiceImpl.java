@@ -468,7 +468,9 @@ public class DataServiceImpl implements DataService {
 					diffData = this.getDiffData(s, DateUtils.truncate(
 							s.getDacTime(), Calendar.DAY_OF_MONTH));
 					diffMap.put(kpi.getDeviceID(), diffData);
+					s.setDiffData(diffData);
 				}
+				
 				s.setTodayChangeValue(getDiff(s,diffData,1));
 				s.setYesterdayChangeValue(getDiff(s,diffData,2));
 				s.setWeekChangeValue(getDiff(s,diffData,7));

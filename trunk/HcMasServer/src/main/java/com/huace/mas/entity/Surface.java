@@ -2,6 +2,8 @@ package com.huace.mas.entity;
 
 import java.io.Serializable;
 
+import com.huace.mas.bean.DiffData;
+
 public class Surface extends Kpi implements Serializable{
 	/**
 	 * 
@@ -44,6 +46,7 @@ public class Surface extends Kpi implements Serializable{
 	
 	private Double d2;
 	private Double d3;
+	private DiffData diffData;
 	
 	
 	public int getAlertGrade_x() {
@@ -196,6 +199,12 @@ public class Surface extends Kpi implements Serializable{
 	}
 	public void setD3(Double d3) {
 		this.d3 = d3;
+	}
+	public DiffData getDiffData() {
+		return diffData;
+	}
+	public void setDiffData(DiffData diffData) {
+		this.diffData = diffData;
 	}
 
 	
