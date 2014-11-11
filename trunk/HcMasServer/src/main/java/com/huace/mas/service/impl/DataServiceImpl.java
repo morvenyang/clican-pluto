@@ -124,12 +124,12 @@ public class DataServiceImpl implements DataService {
 								.elementText("orange_y")));
 						surface.setRed_y(getDouble(type.elementText("red_y")));
 
-						surface.setInit_y(getDouble(type.elementText("init_y")));
-						surface.setYellow_y(getDouble(type
-								.elementText("yellow_y")));
-						surface.setOrange_y(getDouble(type
-								.elementText("orange_y")));
-						surface.setRed_y(getDouble(type.elementText("red_y")));
+						surface.setInit_h(getDouble(type.elementText("init_h")));
+						surface.setYellow_h(getDouble(type
+								.elementText("yellow_h")));
+						surface.setOrange_h(getDouble(type
+								.elementText("orange_h")));
+						surface.setRed_h(getDouble(type.elementText("red_h")));
 					} else if (typeName.equals("Reservoir")) {
 						Reservoir reservoir = new Reservoir();
 						kpi = reservoir;
@@ -462,8 +462,7 @@ public class DataServiceImpl implements DataService {
 				}
 
 				s.setD2(Math.sqrt(s.getDis_x() * s.getDis_x() + s.getDis_y() * s.getDis_y()));
-				s.setD3(Math.sqrt(s.getDis_x() * s.getDis_x() + s.getDis_y() * s.getDis_y()
-						+ s.getDis_h()) * s.getDis_h());
+				s.setD3(Math.sqrt(s.getDis_x() * s.getDis_x() + s.getDis_y() * s.getDis_y() + s.getDis_h() * s.getDis_h()));
 				DiffData diffData = diffMap.get(kpi.getDeviceID());
 				if (diffData == null || !diffData.isSameToday(s.getDacTime())) {
 					diffData = this.getDiffData(s, DateUtils.truncate(
