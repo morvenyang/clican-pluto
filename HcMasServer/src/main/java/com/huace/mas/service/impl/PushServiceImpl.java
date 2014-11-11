@@ -86,6 +86,7 @@ public class PushServiceImpl implements PushService {
 			} else {
 				file.getParentFile().mkdirs();
 			}
+			this.generateMessages(false);
 		} catch (Exception e) {
 			log.error("", e);
 		}
@@ -96,7 +97,7 @@ public class PushServiceImpl implements PushService {
 		if (log.isInfoEnabled()) {
 			log.info("start push message");
 		}
-		Map<String, List<String>> messages = this.generateMessages();
+		Map<String, List<String>> messages = this.generateMessages(true);
 		for (String token : messages.keySet()) {
 			List<String> ms = messages.get(token);
 			for (String message : ms) {
@@ -113,7 +114,7 @@ public class PushServiceImpl implements PushService {
 		}
 	}
 
-	private Map<String, List<String>> generateMessages() {
+	private Map<String, List<String>> generateMessages(boolean send) {
 		Map<String, List<String>> messages = new HashMap<String, List<String>>();
 		Map<String, List<Kpi>> data = dataService.checkAndRefresh();
 		List<Project> projects = dataDao.findAllProjects();
@@ -271,7 +272,7 @@ public class PushServiceImpl implements PushService {
 						dbKpi.setAlertGrade(0);
 					}
 				}
-				if (dbKpi.getAlertGrade() > 0 && kpi.isAlert()) {
+				if (dbKpi.getAlertGrade() > 0 && kpi.isAlert()&&send) {
 					String kpiType = dbKpi.getClass().getSimpleName();
 					if (StringUtils.isEmpty(springProperty.getKpiMap().get(
 							kpiType))) {
@@ -295,7 +296,6 @@ public class PushServiceImpl implements PushService {
 							log.debug(sequence
 									+ "-This is new alert message, we shall send it");
 						}
-						kpi.setLastAlertTime(dbKpi.getDacTime());
 						for (String t : ts) {
 							if (!messages.containsKey(t)) {
 								messages.put(t, new ArrayList<String>());
@@ -308,8 +308,8 @@ public class PushServiceImpl implements PushService {
 									+ "-This is old alert message, we don't send it");
 						}
 					}
-
 				}
+				kpi.setLastAlertTime(dbKpi.getDacTime());
 			}
 		}
 		return messages;
