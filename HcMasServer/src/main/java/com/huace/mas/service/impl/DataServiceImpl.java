@@ -461,9 +461,9 @@ public class DataServiceImpl implements DataService {
 					s.setAlertGrade(s.getAlertGrade_h());
 				}
 
-				s.setD2(Math.sqrt(s.getV1() * s.getV1() + s.getV2() * s.getV2()));
-				s.setD3(Math.sqrt(s.getV1() * s.getV1() + s.getV2() * s.getV2()
-						+ s.getV3() * s.getV3()));
+				s.setD2(Math.sqrt(s.getDis_x() * s.getDis_x() + s.getDis_y() * s.getDis_y()));
+				s.setD3(Math.sqrt(s.getDis_x() * s.getDis_x() + s.getDis_y() * s.getDis_y()
+						+ s.getDis_h()) * s.getDis_h());
 				DiffData diffData = diffMap.get(kpi.getDeviceID());
 				if (diffData == null || !diffData.isSameToday(s.getDacTime())) {
 					diffData = this.getDiffData(s, DateUtils.truncate(
