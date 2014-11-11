@@ -2,7 +2,6 @@ package com.huace.mas.service.impl;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -274,29 +273,29 @@ public class PushServiceImpl implements PushService {
 				}
 				if (dbKpi.getAlertGrade() > 0 && kpi.isAlert()) {
 					String kpiType = dbKpi.getClass().getSimpleName();
-					if(StringUtils.isEmpty( springProperty.getKpiMap().get(kpiType))){
+					if (StringUtils.isEmpty(springProperty.getKpiMap().get(
+							kpiType))) {
 						continue;
 					}
-					String message = springProperty.getKpiMap().get(kpiType)
-							+ "监测点有";
+					String message = springProperty.getKpiMap().get(kpiType);
 					if (dbKpi.getAlertGrade() == 1) {
-						message += "黄色";
+						message += "【黄色】";
 					} else if (dbKpi.getAlertGrade() == 2) {
-						message += "橙色";
+						message += "【橙色】";
 					} else if (dbKpi.getAlertGrade() == 3) {
-						message += "红色";
+						message += "【红色】";
 					}
-					message += "异常预警";
 					if (log.isDebugEnabled()) {
-						log.debug(sequence + "-产生KPI告警:" + message);
+						log.debug(sequence + "-Alert message:" + message);
 					}
 					if (kpi.getLastAlertTime() == null
 							|| dbKpi.getDacTime().compareTo(
 									kpi.getLastAlertTime()) > 0) {
 						if (log.isDebugEnabled()) {
-							log.debug(sequence + "-该告警为新告警需要发送");
+							log.debug(sequence
+									+ "-This is new alert message, we shall send it");
 						}
-						kpi.setLastAlertTime(new Date());
+						kpi.setLastAlertTime(dbKpi.getDacTime());
 						for (String t : ts) {
 							if (!messages.containsKey(t)) {
 								messages.put(t, new ArrayList<String>());
@@ -305,7 +304,8 @@ public class PushServiceImpl implements PushService {
 						}
 					} else {
 						if (log.isDebugEnabled()) {
-							log.debug(sequence + "-该告警不需要发送");
+							log.debug(sequence
+									+ "-This is old alert message, we don't send it");
 						}
 					}
 
