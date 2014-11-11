@@ -134,7 +134,7 @@
 {
     if ([[userInfo objectForKey:@"aps"] objectForKey:@"alert"] != nil)
     {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"通知"
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"报警通知"
                                                         message:[[userInfo objectForKey:@"aps"] objectForKey:@"alert"]
                                                        delegate:self
                                               cancelButtonTitle:@"确定"
