@@ -470,10 +470,9 @@ public class DataServiceImpl implements DataService {
 							s.getDacTime(), Calendar.DAY_OF_MONTH));
 					diffMap.put(kpi.getDeviceID(), diffData);
 				}
-				s.setTodayChangeValue(s.getD3() - diffData.getOneDayData());
-				s.setYesterdayChangeValue(diffData.getOneDayData()
-						- diffData.getTwoDayData());
-				s.setWeekChangeValue(s.getD3() - diffData.getSevenDayData());
+				s.setTodayChangeValue(getDiff(s,diffData,1));
+				s.setYesterdayChangeValue(getDiff(s,diffData,2));
+				s.setWeekChangeValue(getDiff(s,diffData,7));
 			} else if (kpi instanceof Inner) {
 				((Inner) kpi).setV2(((Inner) dbKpi).getV2());
 
@@ -551,9 +550,32 @@ public class DataServiceImpl implements DataService {
 		return result;
 	}
 
-	private Double getD3(Surface s) {
-		return Math.sqrt(s.getV1() * s.getV1() + s.getV2() * s.getV2()
-				+ s.getV3() * s.getV3());
+	private Double getDiff(Surface surface, DiffData diffData,int type) {
+		if(type==1){
+			return Math.sqrt((surface.getV1() - diffData.getV1Today())
+					* (surface.getV1() - diffData.getV1Today())
+					+ (surface.getV2() - diffData.getV2Today())
+					* (surface.getV2() - diffData.getV2Today())
+					+ (surface.getV3() - diffData.getV3Today())
+					* (surface.getV3() - diffData.getV3Today()));
+		}else if(type==2){
+			return Math.sqrt((surface.getV1() - diffData.getV1Yesterday())
+					* (surface.getV1() - diffData.getV1Yesterday())
+					+ (surface.getV2() - diffData.getV2Yesterday())
+					* (surface.getV2() - diffData.getV2Yesterday())
+					+ (surface.getV3() - diffData.getV3Yesterday())
+					* (surface.getV3() - diffData.getV3Yesterday()));
+		}else if(type==7){
+			return Math.sqrt((surface.getV1() - diffData.getV1Week())
+					* (surface.getV1() - diffData.getV1Week())
+					+ (surface.getV2() - diffData.getV2Week())
+					* (surface.getV2() - diffData.getV2Week())
+					+ (surface.getV3() - diffData.getV3Week())
+					* (surface.getV3() - diffData.getV3Week()));
+		}else{
+			return 0.0;
+		}
+		
 	}
 
 	private DiffData getDiffData(Surface surface, Date today) {
@@ -564,36 +586,28 @@ public class DataServiceImpl implements DataService {
 				surface.getClass(), start, end);
 		for (Kpi dbKpi : kpis) {
 			Date d = dbKpi.getDacTime();
+			Surface dbSurface = (Surface) dbKpi;
 			if (d.compareTo(DateUtils.addDays(today, -1)) > 0) {
 				// 昨天的数据
-				if (diffData.getOneDayData() == null) {
-					diffData.setOneDayData(getD3((Surface) dbKpi));
-				}
+				diffData.setV1Today(dbSurface.getV1());
+				diffData.setV2Today(dbSurface.getV2());
+				diffData.setV3Today(dbSurface.getV3());
 			}
 			if (d.compareTo(DateUtils.addDays(today, -2)) > 0
 					&& d.compareTo(DateUtils.addDays(today, -1)) < 0) {
 				// 前天的数据
-				if (diffData.getTwoDayData() == null) {
-					diffData.setTwoDayData(getD3((Surface) dbKpi));
-				}
+				diffData.setV1Yesterday(dbSurface.getV1());
+				diffData.setV2Yesterday(dbSurface.getV2());
+				diffData.setV3Yesterday(dbSurface.getV3());
 			}
 			if (d.compareTo(DateUtils.addDays(today, -7)) > 0
 					&& d.compareTo(DateUtils.addDays(today, -6)) < 0) {
 				// 7天前的数据
-				if (diffData.getSevenDayData() == null) {
-					diffData.setSevenDayData(getD3((Surface) dbKpi));
-				}
+				diffData.setV1Week(dbSurface.getV1());
+				diffData.setV2Week(dbSurface.getV2());
+				diffData.setV3Week(dbSurface.getV3());
 			}
 
-		}
-		if (diffData.getOneDayData() == null) {
-			diffData.setOneDayData(0.0);
-		}
-		if (diffData.getTwoDayData() == null) {
-			diffData.setTwoDayData(0.0);
-		}
-		if (diffData.getSevenDayData() == null) {
-			diffData.setSevenDayData(0.0);
 		}
 		return diffData;
 	}
