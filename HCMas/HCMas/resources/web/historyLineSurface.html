@@ -14,12 +14,14 @@ text {
 	<div id="chartdiv" style="width: $widthpx; height: $heightpx;"></div>
 	<script type="text/javascript">
 		var chart = AmCharts.makeChart("chartdiv", {
+                           
 			"type" : "serial",
 			"theme" : "none",
 			"dataProvider" : $dataProvider,
 			"legend" : {
 				"useGraphSettings" : true,
-				"valueText" : ""
+				"valueText" : "",
+                "position":"left"
 			},
 			"valueAxes" : [ {
 				"id" : "3d",
