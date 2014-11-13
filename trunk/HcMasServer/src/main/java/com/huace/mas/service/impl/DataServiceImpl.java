@@ -559,12 +559,12 @@ public class DataServiceImpl implements DataService {
 					+ (surface.getV3() - diffData.getV3Today())
 					* (surface.getV3() - diffData.getV3Today()));
 		}else if(type==2){
-			return Math.sqrt((surface.getV1() - diffData.getV1Yesterday())
-					* (surface.getV1() - diffData.getV1Yesterday())
-					+ (surface.getV2() - diffData.getV2Yesterday())
-					* (surface.getV2() - diffData.getV2Yesterday())
-					+ (surface.getV3() - diffData.getV3Yesterday())
-					* (surface.getV3() - diffData.getV3Yesterday()));
+			return Math.sqrt((diffData.getV1Today()- diffData.getV1Yesterday())
+					* (diffData.getV1Today() - diffData.getV1Yesterday())
+					+ (diffData.getV2Today() - diffData.getV2Yesterday())
+					* (diffData.getV2Today() - diffData.getV2Yesterday())
+					+ (diffData.getV3Today() - diffData.getV3Yesterday())
+					* (diffData.getV3Today() - diffData.getV3Yesterday()));
 		}else if(type==7){
 			return Math.sqrt((surface.getV1() - diffData.getV1Week())
 					* (surface.getV1() - diffData.getV1Week())
