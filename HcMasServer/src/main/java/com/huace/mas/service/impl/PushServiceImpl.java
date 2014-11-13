@@ -2,6 +2,7 @@ package com.huace.mas.service.impl;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,6 +45,8 @@ public class PushServiceImpl implements PushService {
 	private SpringProperty springProperty;
 
 	private AtomicLong alertSequence = new AtomicLong(1);
+
+	private Map<String, Map<String, Date>> alertMap = new HashMap<String, Map<String, Date>>();
 
 	public void setDataDao(DataDao dataDao) {
 		this.dataDao = dataDao;
@@ -272,7 +275,7 @@ public class PushServiceImpl implements PushService {
 						dbKpi.setAlertGrade(0);
 					}
 				}
-				if (dbKpi.getAlertGrade() > 0 && kpi.isAlert()&&send) {
+				if (dbKpi.getAlertGrade() > 0 && kpi.isAlert() && send) {
 					String kpiType = dbKpi.getClass().getSimpleName();
 					if (StringUtils.isEmpty(springProperty.getKpiMap().get(
 							kpiType))) {
@@ -289,9 +292,15 @@ public class PushServiceImpl implements PushService {
 					if (log.isDebugEnabled()) {
 						log.debug(sequence + "-Alert message:" + message);
 					}
-					if (kpi.getLastAlertTime() == null
-							|| dbKpi.getDacTime().compareTo(
-									kpi.getLastAlertTime()) > 0) {
+					Map<String, Date> deviceAlertMap = alertMap.get(project
+							.getProjectName());
+					Date lastAlertTime = null;
+					if (deviceAlertMap != null) {
+						lastAlertTime = deviceAlertMap.get(kpi.getClass()
+								.getSimpleName() + "-" + kpi.getDeviceID());
+					}
+					if (lastAlertTime == null
+							|| dbKpi.getDacTime().compareTo(lastAlertTime) > 0) {
 						if (log.isDebugEnabled()) {
 							log.debug(sequence
 									+ "-This is new alert message, we shall send it");
@@ -309,7 +318,13 @@ public class PushServiceImpl implements PushService {
 						}
 					}
 				}
-				kpi.setLastAlertTime(dbKpi.getDacTime());
+				if (!alertMap.containsKey(project.getProjectName())) {
+					alertMap.put(project.getProjectName(),
+							new HashMap<String, Date>());
+				}
+				alertMap.get(project.getProjectName()).put(
+						kpi.getClass().getSimpleName() + "-"
+								+ kpi.getDeviceID(), dbKpi.getDacTime());
 			}
 		}
 		return messages;
