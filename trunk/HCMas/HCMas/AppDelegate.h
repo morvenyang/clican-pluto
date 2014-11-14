@@ -17,14 +17,14 @@
     User* _user;
     NSString* _token;
     NSTimer* _timer;
-
+    NSArray* kpis;
 }
 @property (nonatomic, retain) User* user;
 @property (nonatomic, retain) NSTimer* timer;
 @property (strong, nonatomic) UIWindow *window;
 @property(nonatomic,assign) id<RefreshDelegate> refreshDelegate;
 @property (nonatomic, copy) NSString* token;
-
+@property (nonatomic, retain) NSArray* kpis;
 -(void)startTimer;
 @end
 @protocol RefreshDelegate <NSObject>

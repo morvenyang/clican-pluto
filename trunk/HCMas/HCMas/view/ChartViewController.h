@@ -8,18 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "KpiHistoryModel.h"
-@interface ChartViewController : UIViewController<KpiHistoryDelegate>{
-    NSString* _kpiType;
-    NSString* _pointName;
-    NSString* _startTime;
-    NSString* _endTime;
-    KpiHistoryModel* _kpiHistoryModel;
+@interface ChartViewController : UIViewController{
     UIWebView* _webPieChartView;
+    NSString* _kpiType;
 }
-@property (nonatomic, retain) NSString* kpiType;
-@property (nonatomic, retain) NSString* pointName;
-@property (nonatomic, retain) NSString* startTime;
-@property (nonatomic, retain) NSString* endTime;
+
+@property(nonatomic,copy)NSString* kpiType;
+
 @property (nonatomic, retain) UIWebView    *webPieChartView;
--(id) initWithKpiType:(NSString*)kpiType pointName:(NSString*)pointName startTime:(NSString*)startTime endTime:(NSString*)endTime;
+-(id) initWithKpiType:(NSString*)kpiType;
 @end
