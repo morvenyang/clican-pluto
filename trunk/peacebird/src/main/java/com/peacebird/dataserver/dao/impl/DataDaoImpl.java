@@ -248,7 +248,7 @@ public class DataDaoImpl extends HibernateDaoSupport implements DataDao {
 	@Override
 	public List<DataRetailsNoRetail> getDataRetailsNoRetail(Date date,
 			String brand) {
-		String hsql = "from DataRetailsNoRetail where date = :date and brand= :brand and type = :type";
+		String hsql = "from DataRetailsNoRetail where date = :date and brand= :brand";
 		return this.getHibernateTemplate().findByNamedParam(hsql,
 				new String[] { "date", "brand" }, new Object[] { date, brand });
 	}
