@@ -27,6 +27,7 @@ public class DayGoodsCountRank {
 	private String rank;
 	private String imageLink;
 	private String imageLinkMin;
+	private String colorName;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -120,6 +121,14 @@ public class DayGoodsCountRank {
 	}
 	public void setYear(String year) {
 		this.year = year;
+	}
+	
+	@Column(name = "g_colorname")
+	public String getColorName() {
+		return colorName;
+	}
+	public void setColorName(String colorName) {
+		this.colorName = colorName;
 	}
 	
 }
