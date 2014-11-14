@@ -492,6 +492,7 @@
         TTAlert(@"请线选择时间");
         return;
     }
+    _doSearch = TRUE;
     [_kpiHistoryModel loadHistoryKpiByProjectId:HCMasAppDelegate.user.selectedProject.projectId kpiType:self.kpiType pointName:self.pointName startDate:self.startDate endDate:self.endDate];
 }
 -(void)switchImage:(UISwipeGestureRecognizer*)gestureRecognizer{
@@ -928,7 +929,7 @@
         [self createTableItemByTitle:@"工程项目" subTitle:@"请勾选需要查看的工程" action:@selector(showProjectSettingPopupView)],
         [self createTableItemByTitle:@"更新频率" subTitle:@"设置刷新周期(秒)" action:@selector(showFrequencySettingPopupView)],
         @"关于",
-        [TTTableStyledTextItem itemWithText:[TTStyledText textFromXHTML:[NSString stringWithFormat:@"<span class=\"settingRow3\">软件名称:%@</span><br/><span class=\"settingRow3\">版本:1.0</span><br/><span class=\"settingRow3\">版权:%@</span>",appName,copyRight] lineBreaks:YES URLs:YES]],
+        [TTTableStyledTextItem itemWithText:[TTStyledText textFromXHTML:[NSString stringWithFormat:@"<span class=\"settingRow3\">软件名称:%@</span><br/><span class=\"settingRow3\">版本:%@</span><br/><span class=\"settingRow3\">版权:%@</span>",appName,VERSION,copyRight] lineBreaks:YES URLs:YES]],
                                  nil];
     tableView.dataSource = ds;
     tableView.delegate = self;
@@ -1305,8 +1306,9 @@
     }
     NSDateFormatter* dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
     [dateFormatter setDateFormat:@"yyyyMMdd"];
-    NSString* action = [NSString stringWithFormat:@"hcmas://chart/%@/%@/%@/%@",self.kpiType,self.pointName,[dateFormatter stringFromDate:self.startDate],[dateFormatter stringFromDate:self.endDate]];
-    TTOpenURL(action);
+    _doSearch = false;
+    [_kpiHistoryModel loadHistoryKpiByProjectId:HCMasAppDelegate.user.selectedProject.projectId kpiType:self.kpiType pointName:self.pointName startDate:self.startDate endDate:self.endDate];
+
 }
 -(void)openCalendar:(id)sender{
     DateButton* button = (DateButton*)sender;
@@ -1357,45 +1359,52 @@
 }
 - (void)loadKpiHistorySuccess:(NSArray*) kpis{
     [self.progressHUD hide:NO];
-    long width = 0;
-    NSString* fileName = @"historyLineOther";
-    if([self.kpiType isEqualToString:@"Surface"]){
-        fileName= @"historyLineSurface";
-        width = 300+kpis.count*50;
-    }else if([self.kpiType isEqualToString:@"Inner"]){
-        fileName= @"historyLineInner";
-        width = 200+kpis.count*50;
+    if(_doSearch){
+        long width = 0;
+        NSString* fileName = @"historyLineOther";
+        if([self.kpiType isEqualToString:@"Surface"]){
+            fileName= @"historyLineSurface";
+            width = 300+kpis.count*50;
+        }else if([self.kpiType isEqualToString:@"Inner"]){
+            fileName= @"historyLineInner";
+            width = 200+kpis.count*50;
+        }else{
+            width = 100+kpis.count*50;
+        }
+        if(width<900){
+            width = 900;
+        }
+        UIScrollView* scrollView = [[[UIScrollView alloc] initWithFrame:CGRectMake(0,20,320,self.dataHistoryView.frame.size.height-20)] autorelease];
+        if(self.webPieChartView){
+            [self.webPieChartView removeFromSuperview];
+        }
+        self.webPieChartView = [[[UIWebView alloc] initWithFrame:CGRectMake(0,0,width/2,self.dataHistoryView.frame.size.height-20)] autorelease];
+        self.webPieChartView.scalesPageToFit=YES;
+        self.webPieChartView.userInteractionEnabled =YES;
+        
+        NSString* dataProvider = [[[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:kpis options:NSJSONWritingPrettyPrinted error:nil] encoding:NSUTF8StringEncoding] autorelease];
+        
+        NSString* htmlPath = [[NSBundle mainBundle] pathForResource:fileName ofType:@"html" inDirectory:@"web"];
+        NSString* html = [NSString stringWithContentsOfFile:htmlPath encoding:NSUTF8StringEncoding error:nil];
+        
+        html=[html stringByReplacingOccurrencesOfString:@"$dataProvider" withString:dataProvider];
+        html=[html stringByReplacingOccurrencesOfString:@"$width" withString:[NSString stringWithFormat:@"%li",width]];
+        html=[html stringByReplacingOccurrencesOfString:@"$height" withString:[NSString stringWithFormat:@"%.0f",(self.dataHistoryView.frame.size.height-20)*2]];
+        html=[html stringByReplacingOccurrencesOfString:@"$unit" withString:[self getUnitForKpiType:self.kpiType]];
+        
+        
+        NSLog(@"%@",html);
+        NSLog(@"%@",[NSString stringWithFormat:@"%@/web/",[[NSBundle mainBundle] bundlePath]]);
+        [self.webPieChartView loadHTMLString:html baseURL:[NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/web/",[[NSBundle mainBundle] bundlePath]]]];
+        [scrollView addSubview:self.webPieChartView];
+        [self.dataHistoryView addSubview:scrollView];
+        scrollView.contentSize = CGSizeMake(width/2, self.dataHistoryView.frame.size.height-20);
     }else{
-        width = 100+kpis.count*50;
+        HCMasAppDelegate.kpis = kpis;
+        NSString* action = [NSString stringWithFormat:@"hcmas://chart/%@",self.kpiType];
+        TTOpenURL(action);
     }
-    if(width<900){
-        width = 900;
-    }
-    UIScrollView* scrollView = [[[UIScrollView alloc] initWithFrame:CGRectMake(0,20,320,self.dataHistoryView.frame.size.height-20)] autorelease];
-    if(self.webPieChartView){
-        [self.webPieChartView removeFromSuperview];
-    }
-    self.webPieChartView = [[[UIWebView alloc] initWithFrame:CGRectMake(0,0,width/2,self.dataHistoryView.frame.size.height-20)] autorelease];
-    self.webPieChartView.scalesPageToFit=YES;
-    self.webPieChartView.userInteractionEnabled =YES;
     
-    NSString* dataProvider = [[[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:kpis options:NSJSONWritingPrettyPrinted error:nil] encoding:NSUTF8StringEncoding] autorelease];
-    
-    NSString* htmlPath = [[NSBundle mainBundle] pathForResource:fileName ofType:@"html" inDirectory:@"web"];
-    NSString* html = [NSString stringWithContentsOfFile:htmlPath encoding:NSUTF8StringEncoding error:nil];
-    
-    html=[html stringByReplacingOccurrencesOfString:@"$dataProvider" withString:dataProvider];
-    html=[html stringByReplacingOccurrencesOfString:@"$width" withString:[NSString stringWithFormat:@"%li",width]];
-    html=[html stringByReplacingOccurrencesOfString:@"$height" withString:[NSString stringWithFormat:@"%.0f",(self.dataHistoryView.frame.size.height-20)*2]];
-    html=[html stringByReplacingOccurrencesOfString:@"$unit" withString:[self getUnitForKpiType:self.kpiType]];
- 
-
-    NSLog(@"%@",html);
-    NSLog(@"%@",[NSString stringWithFormat:@"%@/web/",[[NSBundle mainBundle] bundlePath]]);
-    [self.webPieChartView loadHTMLString:html baseURL:[NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/web/",[[NSBundle mainBundle] bundlePath]]]];
-    [scrollView addSubview:self.webPieChartView];
-    [self.dataHistoryView addSubview:scrollView];
-    scrollView.contentSize = CGSizeMake(width/2, self.dataHistoryView.frame.size.height-20);
 }
 - (void)loadKpiHistoryFailed:(NSError*) error message:(NSString*) message{
     [self.progressHUD hide:NO];

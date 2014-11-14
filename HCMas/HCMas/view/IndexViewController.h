@@ -50,6 +50,7 @@
     UIButton* _pointNameButton;
     UIWebView* _webPieChartView;
     UILabel* _headlLabel;
+    BOOL _doSearch;
 }
 @property (nonatomic, assign) int imageIndex;
 @property (nonatomic, retain) NSMutableArray* pointImageViews;

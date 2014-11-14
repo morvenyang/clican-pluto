@@ -17,7 +17,7 @@
 @synthesize token = _token;
 @synthesize timer = _timer;
 @synthesize refreshDelegate = _refreshDelegate;
-
+@synthesize kpis = kpis;
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     if([[UIApplication sharedApplication] respondsToSelector:@selector(registerUserNotificationSettings:)]){
@@ -41,7 +41,7 @@
     [[TTURLCache sharedCache] removeAll:YES];
     TTURLMap* map = navigator.URLMap;
     [map from:@"hcmas://index" toSharedViewController:[IndexViewController class]];
-    [map from:@"hcmas://chart/(initWithKpiType:)/(pointName:)/(startTime:)/(endTime:)" toSharedViewController:[ChartViewController class]];
+    [map from:@"hcmas://chart/(initWithKpiType:)" toSharedViewController:[ChartViewController class]];
     if (![navigator restoreViewControllers]) {
         IndexViewController* index= (IndexViewController*)[navigator openURLAction:[TTURLAction actionWithURLPath:@"hcmas://index"]];
         self.refreshDelegate = index;
