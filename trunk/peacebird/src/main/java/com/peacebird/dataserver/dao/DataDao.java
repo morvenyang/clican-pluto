@@ -33,7 +33,7 @@ public interface DataDao {
 	public List<String> getAllChannelForRank(Date date, String brand);
 
 	public List<StoreRankResult> getStoreRankResult(Date date, String brand,
-			String channel);
+			String channel,String order);
 	
 	public List<StoreRankResult> getAllStoreRankResult(Date date, String brand);
 	
