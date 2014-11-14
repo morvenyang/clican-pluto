@@ -25,5 +25,7 @@ public interface DataService {
 	
 	public String getDataRetailStoreSumResult(String brand,Date date);
 	
+	public String getDataRetailsNoRetailResult(String brand,Date date);
+	
 	public List<DimBrand> getAllBrands();
 }
