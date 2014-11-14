@@ -15,6 +15,9 @@ public class DataRetailChannel {
 
 	private Long id;
 	
+	/**
+	 * days, weeks, months
+	 */
 	private String dateType;
 	
 	private String dateValue;
