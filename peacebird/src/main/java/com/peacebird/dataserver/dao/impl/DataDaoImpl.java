@@ -123,7 +123,7 @@ public class DataDaoImpl extends HibernateDaoSupport implements DataDao {
 		String hsql1 = "select new com.peacebird.dataserver.bean.ChannelResult(c.amount,cd.docNum,cd.avgDocCount,cd.avgPrice,cd.avgDocAmount,cd.aps,cd.channel) from DayRetailChannelDetail cd, DataRetailChannel c";
 		hsql1 += " where cd.brand = :brand and cd.date = :date and cd.channel=c.channel and cd.brand=c.brand and cd.date=c.date";
 		
-		String hsql2 = "select new com.peacebird.dataserver.bean.ChannelResult(sum(c.amount),sum(cd.docNum),avg(cd.avgDocCount),avg(cd.avgPrice),avg(cd.avgDocAmount),avg(cd.aps),'全部') from DataRetailChannel cd, DayRetailChannel c";
+		String hsql2 = "select new com.peacebird.dataserver.bean.ChannelResult(sum(c.amount),sum(cd.docNum),avg(cd.avgDocCount),avg(cd.avgPrice),avg(cd.avgDocAmount),avg(cd.aps),'全部') from DayRetailChannelDetail cd, DataRetailChannel c";
 		hsql2 += " where cd.brand = :brand and cd.date = :date and cd.channel!='Total' and cd.channel=c.channel and cd.brand=c.brand and cd.date=c.date and c.channel!= :channel group by cd.brand";
 		List<ChannelResult> r1=this.getHibernateTemplate().findByNamedParam(hsql1,
 				new String[] { "date", "brand" }, new Object[] { date, brand });
