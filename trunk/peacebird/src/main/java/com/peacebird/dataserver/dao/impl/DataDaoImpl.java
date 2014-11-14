@@ -30,7 +30,7 @@ public class DataDaoImpl extends HibernateDaoSupport implements DataDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	public Date getPreviousDate() {
-		String hsql = "select max(date) from DayRetailChannel";
+		String hsql = "select max(date) from DataRetailChannel where dateType='days'";
 		List<Date> result = this.getHibernateTemplate().find(hsql);
 		if(result.size()!=0){
 			Date date = result.get(0);
@@ -42,17 +42,18 @@ public class DataDaoImpl extends HibernateDaoSupport implements DataDao {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<BrandLineChartResult> getBrandLineChartDayResult(final Date date,final String brand,final int days) {
+	public List<BrandLineChartResult> getBrandLineChartDayResult(final Date date,final String brand,final String dateType,final int days) {
 		List<BrandLineChartResult> result=this.getHibernateTemplate().executeFind(new HibernateCallback(){
 			@Override
 			public Object doInHibernate(Session session)
 					throws HibernateException, SQLException {
-				String hsql = "select new com.peacebird.dataserver.bean.BrandLineChartResult(sum(dayAmount),sum(perDayAmount),date) from DayRetailChannel";
-				hsql += " where date <= :date and brand = :brand and channel!=:channel group by date order by date desc";
+				String hsql = "select new com.peacebird.dataserver.bean.BrandLineChartResult(sum(amount),sum(preAmount),date) from DataRetailChannel";
+				hsql += " where date <= :date and brand = :brand and channel!=:channel and dateType=:dateType group by date order by date desc";
 				Query query = session.createQuery(hsql);
 				query.setParameter("date", date);
 				query.setParameter("brand", brand);
 				query.setParameter("channel", Constants.B2C);
+				query.setParameter("dateType", dateType);
 				query.setMaxResults(days);
 				return query.list();
 			}
@@ -62,25 +63,11 @@ public class DataDaoImpl extends HibernateDaoSupport implements DataDao {
 		return result;
 	}
 
-	@Override
-	public List<BrandLineChartResult> getBrandLineChartWeekResult(Date date,String brand,int weeks) {
-		return null;
-	}
-
-	@Override
-	public List<BrandLineChartResult> getBrandLineChartMonthResult(Date date,String brand,int months) {
-		return null;
-	}
-
-	@Override
-	public List<BrandLineChartResult> getBrandLineChartYearResult(Date date,String brand,int years) {
-		return null;
-	}
-
+	
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<BrandResult> getBrandResult(Date date, String[] brands) {
-		String hsql = "select new com.peacebird.dataserver.bean.BrandResult(brand,'',sum(dayAmount)) from DayRetailChannel";
+		String hsql = "select new com.peacebird.dataserver.bean.BrandResult(brand,'',sum(amount)) from DataRetailChannel";
 		String bs = "";
 		for (String brand : brands) {
 			bs += "'" + brand + "',";
@@ -93,25 +80,11 @@ public class DataDaoImpl extends HibernateDaoSupport implements DataDao {
 				new String[] { "date","channel" }, new Object[] { date,Constants.B2C });
 	}
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public BrandResult getBrandResult(Date date, String brand) {
-		String hsql = "select new com.peacebird.dataserver.bean.BrandResult('',sum(dayAmount),sum(weekAmount),sum(monthAmount),sum(yearAmount)) from DayRetailChannel";
-		hsql += " where date = :date and brand = :brand and channel!=:channel";
-		List<BrandResult> brs = this.getHibernateTemplate().findByNamedParam(
-				hsql, new String[] { "date", "brand","channel" },
-				new Object[] { date, brand,Constants.B2C });
-		if (brs.size() > 0) {
-			return brs.get(0);
-		} else {
-			return null;
-		}
-	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<BrandResult> getBrandResultByChannel(Date date, String brand) {
-		String hsql = "select new com.peacebird.dataserver.bean.BrandResult('',channel,dayAmount,weekAmount,monthAmount,yearAmount,perDayAmount,perWeekAmount,perMonthAmount,perYearAmount) from DayRetailChannel";
+		String hsql = "select new com.peacebird.dataserver.bean.BrandResult('',channel,amount) from DataRetailChannel";
 		hsql += " where date = :date and brand = :brand";
 		return this.getHibernateTemplate().findByNamedParam(hsql,
 				new String[] { "date", "brand" }, new Object[] { date, brand });
@@ -119,19 +92,8 @@ public class DataDaoImpl extends HibernateDaoSupport implements DataDao {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<BrandResult> getBrandWeekResult(Date startDate, Date endDate,
-			String brand) {
-		String hsql = "select new com.peacebird.dataserver.bean.BrandResult('',date,sum(dayAmount)) from DayRetailChannel";
-		hsql += " where brand = :brand and date>= :startDate and date<= :endDate and channel!= :channel group by date order by date";
-		return this.getHibernateTemplate().findByNamedParam(hsql,
-				new String[] { "brand", "startDate", "endDate","channel" },
-				new Object[] { brand, startDate, endDate,Constants.B2C });
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
 	public List<RetailResult> getRetailChannelResult(Date date, String brand) {
-		String hsql = "select new com.peacebird.dataserver.bean.RetailResult('channel',channel,sum(dayAmount)) from DayRetailChannel";
+		String hsql = "select new com.peacebird.dataserver.bean.RetailResult('channel',channel,sum(amount)) from DataRetailChannel";
 		hsql += " where brand = :brand and date = :date and channel!=:channel group by channel";
 		return this.getHibernateTemplate().findByNamedParam(hsql,
 				new String[] { "date", "brand","channel" }, new Object[] { date, brand,Constants.B2C });
@@ -158,10 +120,10 @@ public class DataDaoImpl extends HibernateDaoSupport implements DataDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<ChannelResult> getChannelResult(Date date, String brand) {
-		String hsql1 = "select new com.peacebird.dataserver.bean.ChannelResult(c.dayAmount,cd.docNum,cd.avgDocCount,cd.avgPrice,cd.avgDocAmount,cd.aps,cd.channel) from DayRetailChannelDetail cd, DayRetailChannel c";
+		String hsql1 = "select new com.peacebird.dataserver.bean.ChannelResult(c.amount,cd.docNum,cd.avgDocCount,cd.avgPrice,cd.avgDocAmount,cd.aps,cd.channel) from DayRetailChannelDetail cd, DataRetailChannel c";
 		hsql1 += " where cd.brand = :brand and cd.date = :date and cd.channel=c.channel and cd.brand=c.brand and cd.date=c.date";
 		
-		String hsql2 = "select new com.peacebird.dataserver.bean.ChannelResult(sum(c.dayAmount),sum(cd.docNum),avg(cd.avgDocCount),avg(cd.avgPrice),avg(cd.avgDocAmount),avg(cd.aps),'全部') from DayRetailChannelDetail cd, DayRetailChannel c";
+		String hsql2 = "select new com.peacebird.dataserver.bean.ChannelResult(sum(c.amount),sum(cd.docNum),avg(cd.avgDocCount),avg(cd.avgPrice),avg(cd.avgDocAmount),avg(cd.aps),'全部') from DataRetailChannel cd, DayRetailChannel c";
 		hsql2 += " where cd.brand = :brand and cd.date = :date and cd.channel!='Total' and cd.channel=c.channel and cd.brand=c.brand and cd.date=c.date and c.channel!= :channel group by cd.brand";
 		List<ChannelResult> r1=this.getHibernateTemplate().findByNamedParam(hsql1,
 				new String[] { "date", "brand" }, new Object[] { date, brand });

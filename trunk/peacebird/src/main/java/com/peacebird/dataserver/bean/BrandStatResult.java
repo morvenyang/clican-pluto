@@ -8,7 +8,6 @@ public class BrandStatResult {
 	
 	private String message;
 	
-	private List<BrandResult> weeks;
 	private List<BrandResult> channels;
 	
 	private BrandResult brandResult;
@@ -16,6 +15,9 @@ public class BrandStatResult {
 	private String brand;
 	
 	private List<BrandLineChartResult> dailyLineChart;
+	private List<BrandLineChartResult> weeklyLineChart;
+	private List<BrandLineChartResult> monthlyLineChart;
+	private List<BrandLineChartResult> yearlyLineChart;
 
 	public int getResult() {
 		return result;
@@ -31,14 +33,6 @@ public class BrandStatResult {
 
 	public void setMessage(String message) {
 		this.message = message;
-	}
-
-	public List<BrandResult> getWeeks() {
-		return weeks;
-	}
-
-	public void setWeeks(List<BrandResult> weeks) {
-		this.weeks = weeks;
 	}
 
 	public List<BrandResult> getChannels() {
@@ -70,6 +64,30 @@ public class BrandStatResult {
 
 	public void setDailyLineChart(List<BrandLineChartResult> dailyLineChart) {
 		this.dailyLineChart = dailyLineChart;
+	}
+
+	public List<BrandLineChartResult> getWeeklyLineChart() {
+		return weeklyLineChart;
+	}
+
+	public void setWeeklyLineChart(List<BrandLineChartResult> weeklyLineChart) {
+		this.weeklyLineChart = weeklyLineChart;
+	}
+
+	public List<BrandLineChartResult> getMonthlyLineChart() {
+		return monthlyLineChart;
+	}
+
+	public void setMonthlyLineChart(List<BrandLineChartResult> monthlyLineChart) {
+		this.monthlyLineChart = monthlyLineChart;
+	}
+
+	public List<BrandLineChartResult> getYearlyLineChart() {
+		return yearlyLineChart;
+	}
+
+	public void setYearlyLineChart(List<BrandLineChartResult> yearlyLineChart) {
+		this.yearlyLineChart = yearlyLineChart;
 	}
 	
 

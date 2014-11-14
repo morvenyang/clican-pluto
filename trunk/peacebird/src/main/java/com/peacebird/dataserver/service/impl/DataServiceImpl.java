@@ -6,10 +6,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import net.sf.json.JSONObject;
@@ -136,89 +134,19 @@ public class DataServiceImpl implements DataService {
 	public String getBrandResult(String brand, Date date) {
 		Date yesterday = getYesterday(date);
 
-		BrandResult br = this.dataDao.getBrandResult(yesterday, brand);
 		BrandStatResult bsr = new BrandStatResult();
-		if (br == null) {
-			bsr.setMessage("当前该品牌没有昨日的数据");
-			return JSONObject.fromObject(bsr).toString();
-		}
+		BrandResult br = new BrandResult(brand,"",0);
 		br.setBrand(brand);
 		br.setDate(yesterday);
-		Calendar cal = Calendar.getInstance();
-		cal.setTime(yesterday);
-		while (cal.get(Calendar.DAY_OF_WEEK) != Calendar.MONDAY) {
-			cal.add(Calendar.DAY_OF_MONTH, -1);
-		}
-		Date startDate = cal.getTime();
-		Date endDate = DateUtils.addDays(startDate, 6);
-		List<BrandResult> bwr = this.dataDao.getBrandWeekResult(startDate,
-				endDate, brand);
-		List<BrandResult> finalBwr = new ArrayList<BrandResult>();
-		Map<Long, BrandResult> bMap = new HashMap<Long, BrandResult>();
-		for (BrandResult b : bwr) {
-			bMap.put(b.getDate().getTime(), b);
-		}
-		Date d = startDate;
-		while (d.compareTo(endDate) <= 0) {
-			BrandResult r = bMap.get(d.getTime());
-			if (r == null) {
-				r = new BrandResult("", d, null);
-			}
-			finalBwr.add(r);
-			d = DateUtils.addDays(d, 1);
-		}
-
+		
 		List<BrandResult> bcr = this.dataDao.getBrandResultByChannel(yesterday,
 				brand);
-		Double lastDayAmount = 0.0;
-		Double dayAmount = 0.0;
-		Double lastWeekAmount = 0.0;
-		Double weekAmount = 0.0;
-		Double lastMonthAmount = 0.0;
-		Double monthAmount = 0.0;
-		Double lastYearAmount = 0.0;
-		Double yearAmount = 0.0;
 		for (BrandResult b : bcr) {
 			if (b.getChannel().equals(Constants.B2C)) {
 				// 统计数据不包括电商的
 				continue;
 			}
-			if (b.getPerDayAmount() != null) {
-				lastDayAmount += b.getPerDayAmount();
-			}
-			if (b.getDayAmount() != null) {
-				dayAmount += b.getDayAmount();
-			}
-			if (b.getPerWeekAmount() != null) {
-				lastWeekAmount += b.getPerWeekAmount();
-			}
-			if (b.getWeekAmount() != null) {
-				weekAmount += b.getWeekAmount();
-			}
-			if (b.getPerMonthAmount() != null) {
-				lastMonthAmount += b.getPerMonthAmount();
-			}
-			if (b.getMonthAmount() != null) {
-				monthAmount += b.getMonthAmount();
-			}
-			if (b.getPerYearAmount() != null) {
-				lastYearAmount += b.getPerYearAmount();
-			}
-			if (b.getYearAmount() != null) {
-				yearAmount += b.getYearAmount();
-			}
-		}
-		if (br.getDayAmount() != null && lastDayAmount != 0) {
-			br.setDayLike(dayAmount / lastDayAmount - 1);
-		}
-		if (br.getWeekAmount() != null && lastWeekAmount != 0) {
-			br.setWeekLike(weekAmount / lastWeekAmount - 1);
-		}
-		if (br.getMonthAmount() != null && lastMonthAmount != 0) {
-			br.setMonthLike(monthAmount / lastMonthAmount - 1);
-		}
-		if (br.getYearAmount() != null && lastYearAmount != 0) {
-			br.setYearLike(yearAmount / lastYearAmount - 1);
+			br.setDayAmount(b.getDayAmount()+br.getDayAmount());
 		}
 
 		Collections.sort(bcr);
@@ -226,11 +154,30 @@ public class DataServiceImpl implements DataService {
 		bsr.setResult(0);
 		bsr.setBrandResult(br);
 		bsr.setChannels(bcr);
-		bsr.setWeeks(finalBwr);
 
-		//daily line chart
-		List<BrandLineChartResult> dailyLineChart=this.dataDao.getBrandLineChartDayResult(yesterday, brand, 8);
+		// daily line chart
+		List<BrandLineChartResult> dailyLineChart = this.dataDao
+				.getBrandLineChartDayResult(yesterday, brand, "days", 8);
 		bsr.setDailyLineChart(dailyLineChart);
+
+		List<BrandLineChartResult> weeklyLineChart = this.dataDao
+				.getBrandLineChartDayResult(
+						this.getCalendarDate(yesterday, Calendar.WEEK_OF_MONTH),
+						brand, "weeks", 8);
+		bsr.setWeeklyLineChart(weeklyLineChart);
+
+		List<BrandLineChartResult> monthLineChart = this.dataDao
+				.getBrandLineChartDayResult(
+						this.getCalendarDate(yesterday, Calendar.MONTH), brand,
+						"months", 12);
+		bsr.setMonthlyLineChart(monthLineChart);
+
+		List<BrandLineChartResult> yearLineChart = this.dataDao
+				.getBrandLineChartDayResult(
+						this.getCalendarDate(yesterday, Calendar.YEAR), brand,
+						"years", 3);
+		bsr.setYearlyLineChart(yearLineChart);
+
 		JsonConfig jsonConfig = new JsonConfig();
 		jsonConfig.registerJsonValueProcessor(Date.class,
 				new DateJsonValueProcessor("yyyy-MM-dd"));
@@ -414,6 +361,23 @@ public class DataServiceImpl implements DataService {
 				new IntegerJsonValueProcessor());
 		String result = JSONObject.fromObject(grsr, jsonConfig).toString();
 		return result;
+	}
+
+	private Date getCalendarDate(Date date, int calendar) {
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(date);
+		if (calendar == Calendar.WEEK_OF_MONTH) {
+			while (cal.get(Calendar.DAY_OF_WEEK) != Calendar.MONDAY) {
+				cal.add(Calendar.DAY_OF_MONTH, -1);
+			}
+			return cal.getTime();
+		} else if (calendar == Calendar.MONTH) {
+			return DateUtils.truncate(cal, Calendar.MONTH).getTime();
+		} else if (calendar == Calendar.YEAR) {
+			return DateUtils.truncate(cal, Calendar.YEAR).getTime();
+		} else {
+			return null;
+		}
 	}
 
 	@Override
