@@ -38,7 +38,7 @@ public class DataRetailsNoRetail {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	@Column(name = "d_date")
+	@Column(name = "m_date")
 	public Date getDate() {
 		return date;
 	}
