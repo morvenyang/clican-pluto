@@ -306,6 +306,7 @@ public class ClientController {
 	@RequestMapping("/storeRank")
 	public void storeRank(@RequestParam(value = "brand") String brand,
 			@RequestParam(value = "date", required = false) String date,
+			@RequestParam(value = "order", required = false) String order,
 			@RequestParam(value = "version", required = false) String version,
 			HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
@@ -317,7 +318,10 @@ public class ClientController {
 		if (user == null) {
 			result = this.getNotLoginResult();
 		} else {
-			result = this.dataService.getStoreRankResult(brand, getDate(date));
+			if(StringUtils.isEmpty(order)){
+				order = "desc";
+			}
+			result = this.dataService.getStoreRankResult(brand, getDate(date),order);
 		}
 		try {
 			resp.setContentType("application/json");

@@ -276,7 +276,7 @@ public class DataServiceImpl implements DataService {
 	}
 
 	@Override
-	public String getStoreRankResult(String brand, Date date) {
+	public String getStoreRankResult(String brand, Date date,String order) {
 		Date yesterday = getYesterday(date);
 		List<String> channels = this.dataDao.getAllChannelForRank(yesterday,
 				brand);
@@ -292,7 +292,7 @@ public class DataServiceImpl implements DataService {
 
 		for (String channel : channels) {
 			List<StoreRankResult> rankResult = this.dataDao.getStoreRankResult(
-					yesterday, brand, channel);
+					yesterday, brand, channel,order);
 			ChannelRankResult crr = new ChannelRankResult();
 			crr.setChannel(channel);
 			crr.setRanks(rankResult);
