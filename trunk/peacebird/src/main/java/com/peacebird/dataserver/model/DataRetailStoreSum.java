@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Table(name = "DATA_RETAIL_STORESUM")
 @Entity
@@ -30,6 +31,7 @@ public class DataRetailStoreSum implements Comparable<DataRetailStoreSum> {
 	private Long union;
 
 	private Date writeTime;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "ID")
@@ -113,6 +115,7 @@ public class DataRetailStoreSum implements Comparable<DataRetailStoreSum> {
 		this.writeTime = writeTime;
 	}
 
+	@Transient
 	private int getIndex() {
 		if (type.equals("期初")) {
 			return 0;
@@ -133,6 +136,7 @@ public class DataRetailStoreSum implements Comparable<DataRetailStoreSum> {
 		}
 	}
 
+	@Transient
 	@Override
 	public int compareTo(DataRetailStoreSum o) {
 		int diff = this.getIndex() - o.getIndex();
