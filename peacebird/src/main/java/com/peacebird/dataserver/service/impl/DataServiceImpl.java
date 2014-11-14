@@ -25,6 +25,7 @@ import com.peacebird.dataserver.bean.ChannelRankResult;
 import com.peacebird.dataserver.bean.ChannelResult;
 import com.peacebird.dataserver.bean.ChannelStatResult;
 import com.peacebird.dataserver.bean.Constants;
+import com.peacebird.dataserver.bean.DataRetailStoreSumResult;
 import com.peacebird.dataserver.bean.GoodRankResult;
 import com.peacebird.dataserver.bean.GoodRankStatResult;
 import com.peacebird.dataserver.bean.IndexStatResult;
@@ -35,6 +36,7 @@ import com.peacebird.dataserver.bean.StoreRankResult;
 import com.peacebird.dataserver.bean.StoreRankStatResult;
 import com.peacebird.dataserver.bean.comp.ChannelComparator;
 import com.peacebird.dataserver.dao.DataDao;
+import com.peacebird.dataserver.model.DataRetailStoreSum;
 import com.peacebird.dataserver.model.DayStatus;
 import com.peacebird.dataserver.model.DimBrand;
 import com.peacebird.dataserver.service.DataService;
@@ -135,10 +137,10 @@ public class DataServiceImpl implements DataService {
 		Date yesterday = getYesterday(date);
 
 		BrandStatResult bsr = new BrandStatResult();
-		BrandResult br = new BrandResult(brand,"",0);
+		BrandResult br = new BrandResult(brand, "", 0);
 		br.setBrand(brand);
 		br.setDate(yesterday);
-		
+
 		List<BrandResult> bcr = this.dataDao.getBrandResultByChannel(yesterday,
 				brand);
 		for (BrandResult b : bcr) {
@@ -146,7 +148,7 @@ public class DataServiceImpl implements DataService {
 				// 统计数据不包括电商的
 				continue;
 			}
-			br.setDayAmount(b.getDayAmount()+br.getDayAmount());
+			br.setDayAmount(b.getDayAmount() + br.getDayAmount());
 		}
 
 		Collections.sort(bcr);
@@ -276,7 +278,7 @@ public class DataServiceImpl implements DataService {
 	}
 
 	@Override
-	public String getStoreRankResult(String brand, Date date,String order) {
+	public String getStoreRankResult(String brand, Date date, String order) {
 		Date yesterday = getYesterday(date);
 		List<String> channels = this.dataDao.getAllChannelForRank(yesterday,
 				brand);
@@ -292,7 +294,7 @@ public class DataServiceImpl implements DataService {
 
 		for (String channel : channels) {
 			List<StoreRankResult> rankResult = this.dataDao.getStoreRankResult(
-					yesterday, brand, channel,order);
+					yesterday, brand, channel, order);
 			ChannelRankResult crr = new ChannelRankResult();
 			crr.setChannel(channel);
 			crr.setRanks(rankResult);
@@ -360,6 +362,32 @@ public class DataServiceImpl implements DataService {
 		jsonConfig.registerJsonValueProcessor(Integer.class,
 				new IntegerJsonValueProcessor());
 		String result = JSONObject.fromObject(grsr, jsonConfig).toString();
+		return result;
+	}
+
+	@Override
+	public String getDataRetailStoreSumResult(String brand, Date date) {
+		Date yesterday = getYesterday(date);
+		List<DataRetailStoreSum> monthlySums = this.dataDao
+				.getDataRetailStoreSum(yesterday, brand, "months");
+		
+		List<DataRetailStoreSum> yearlySums = this.dataDao
+		.getDataRetailStoreSum(yesterday, brand, "years");
+		
+		Collections.sort(monthlySums);
+		Collections.sort(yearlySums);
+		
+		DataRetailStoreSumResult drssr = new DataRetailStoreSumResult();
+		drssr.setDate(yesterday);
+		drssr.setResult(0);
+		drssr.setMonthlySums(monthlySums);
+		drssr.setYearlySums(yearlySums);
+		JsonConfig jsonConfig = new JsonConfig();
+		jsonConfig.registerJsonValueProcessor(Date.class,
+				new DateJsonValueProcessor("yyyy-MM-dd"));
+		jsonConfig.registerJsonValueProcessor(Integer.class,
+				new IntegerJsonValueProcessor());
+		String result = JSONObject.fromObject(drssr, jsonConfig).toString();
 		return result;
 	}
 

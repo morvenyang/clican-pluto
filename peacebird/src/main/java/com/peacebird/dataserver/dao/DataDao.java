@@ -9,6 +9,7 @@ import com.peacebird.dataserver.bean.ChannelResult;
 import com.peacebird.dataserver.bean.GoodRankResult;
 import com.peacebird.dataserver.bean.RetailResult;
 import com.peacebird.dataserver.bean.StoreRankResult;
+import com.peacebird.dataserver.model.DataRetailStoreSum;
 import com.peacebird.dataserver.model.DayStatus;
 import com.peacebird.dataserver.model.DimBrand;
 
@@ -44,4 +45,6 @@ public interface DataDao {
 	public void saveDayStatus(DayStatus dayStatus);
 
 	public List<DimBrand> getAllBrands();
+	
+	public List<DataRetailStoreSum> getDataRetailStoreSum(Date date,String brand,String type);
 }
