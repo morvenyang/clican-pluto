@@ -23,6 +23,7 @@ import com.peacebird.dataserver.bean.RetailResult;
 import com.peacebird.dataserver.bean.StoreRankResult;
 import com.peacebird.dataserver.dao.DataDao;
 import com.peacebird.dataserver.model.DataRetailStoreSum;
+import com.peacebird.dataserver.model.DataRetailsNoRetail;
 import com.peacebird.dataserver.model.DayStatus;
 import com.peacebird.dataserver.model.DimBrand;
 
@@ -241,6 +242,15 @@ public class DataDaoImpl extends HibernateDaoSupport implements DataDao {
 		return this.getHibernateTemplate().findByNamedParam(hsql,
 				new String[] { "date", "brand", "type" },
 				new Object[] { date, brand, type });
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<DataRetailsNoRetail> getDataRetailsNoRetail(Date date,
+			String brand) {
+		String hsql = "from DataRetailsNoRetail where date = :date and brand= :brand and type = :type";
+		return this.getHibernateTemplate().findByNamedParam(hsql,
+				new String[] { "date", "brand" }, new Object[] { date, brand });
 	}
 
 }

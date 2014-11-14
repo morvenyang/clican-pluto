@@ -26,6 +26,7 @@ import com.peacebird.dataserver.bean.ChannelResult;
 import com.peacebird.dataserver.bean.ChannelStatResult;
 import com.peacebird.dataserver.bean.Constants;
 import com.peacebird.dataserver.bean.DataRetailStoreSumResult;
+import com.peacebird.dataserver.bean.DataRetailsNoRetailResult;
 import com.peacebird.dataserver.bean.GoodRankResult;
 import com.peacebird.dataserver.bean.GoodRankStatResult;
 import com.peacebird.dataserver.bean.IndexStatResult;
@@ -37,6 +38,7 @@ import com.peacebird.dataserver.bean.StoreRankStatResult;
 import com.peacebird.dataserver.bean.comp.ChannelComparator;
 import com.peacebird.dataserver.dao.DataDao;
 import com.peacebird.dataserver.model.DataRetailStoreSum;
+import com.peacebird.dataserver.model.DataRetailsNoRetail;
 import com.peacebird.dataserver.model.DayStatus;
 import com.peacebird.dataserver.model.DimBrand;
 import com.peacebird.dataserver.service.DataService;
@@ -382,6 +384,25 @@ public class DataServiceImpl implements DataService {
 		drssr.setResult(0);
 		drssr.setMonthlySums(monthlySums);
 		drssr.setYearlySums(yearlySums);
+		JsonConfig jsonConfig = new JsonConfig();
+		jsonConfig.registerJsonValueProcessor(Date.class,
+				new DateJsonValueProcessor("yyyy-MM-dd"));
+		jsonConfig.registerJsonValueProcessor(Integer.class,
+				new IntegerJsonValueProcessor());
+		String result = JSONObject.fromObject(drssr, jsonConfig).toString();
+		return result;
+	}
+
+	@Override
+	public String getDataRetailsNoRetailResult(String brand, Date date) {
+		Date yesterday = getYesterday(date);
+		List<DataRetailsNoRetail> noRetails = this.dataDao
+				.getDataRetailsNoRetail(yesterday, brand);
+		
+		DataRetailsNoRetailResult drssr = new DataRetailsNoRetailResult();
+		drssr.setDate(yesterday);
+		drssr.setResult(0);
+		drssr.setNoRetails(noRetails);
 		JsonConfig jsonConfig = new JsonConfig();
 		jsonConfig.registerJsonValueProcessor(Date.class,
 				new DateJsonValueProcessor("yyyy-MM-dd"));
