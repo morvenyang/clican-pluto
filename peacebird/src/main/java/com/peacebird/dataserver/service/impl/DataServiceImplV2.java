@@ -171,7 +171,7 @@ public class DataServiceImplV2 implements DataServiceV2 {
 		List<BrandLineChartResult> dailyLineChart = this.dataDaoV2
 				.getBrandLineChartDayResult(yesterday, brand, "days", 8);
 		bsr.setDailyLineChart(dailyLineChart);
-
+		setLineChartColor(dailyLineChart,brand);
 		List<BrandLineChartResult> weeklyLineChart = this.dataDaoV2
 				.getBrandLineChartDayResult(
 						this.getCalendarDate(yesterday, Calendar.WEEK_OF_MONTH),
@@ -199,6 +199,27 @@ public class DataServiceImplV2 implements DataServiceV2 {
 		return result;
 	}
 
+	private void setLineChartColor(List<BrandLineChartResult> lineCharts,String brand){
+		String color = "#E5006E";
+		if(brand.equals("女装")){
+			color = "#E5006E";
+		}else if(brand.equals("男装")){
+			color = "#17387A";
+		}else if(brand.equals("乐町")){
+			color = "#F08DBA";
+		}else if(brand.equals("童装")){
+			color = "#F7D800";
+		}else if(brand.equals("赫奇")){
+			color = "#8BACDB";
+		}else if(brand.equals("MG公司")){
+			color = "#E51D98";
+		}else if(brand.equals("电商")){
+			color = "#17387A";
+		}
+		for(BrandLineChartResult lc:lineCharts){
+			lc.setColor(color);
+		}
+	}
 	private List<RetailResult> filteZero(List<RetailResult> source) {
 		List<RetailResult> result = new ArrayList<RetailResult>();
 		for (RetailResult rr : source) {
