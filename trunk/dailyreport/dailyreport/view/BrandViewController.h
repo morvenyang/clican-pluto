@@ -13,9 +13,18 @@
 
     BrandModel* _brandModel;
     UIWebView* _webLineChartView;
+    NSString* _dailyLineChart;
+    NSString* _weeklyLineChart;
+    NSString* _monthlyLineChart;
+    NSString* _yearlyLineChart;
 }
 
 @property (nonatomic, retain) BrandModel *brandModel;
 @property (nonatomic, retain) UIWebView *webLineChartView;
+@property (nonatomic, copy) NSString *dailyLineChart;
+@property (nonatomic, copy) NSString *weeklyLineChart;
+@property (nonatomic, copy) NSString *monthlyLineChart;
+@property (nonatomic, copy) NSString *yearlyLineChart;
+
 -(id) initWithBrand:(NSString*) brand;
 @end

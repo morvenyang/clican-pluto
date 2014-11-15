@@ -17,6 +17,10 @@
 @synthesize brandModel = _brandModel;
 @synthesize webLineChartView = _webLineChartView;
 
+@synthesize dailyLineChart = _dailyLineChart;
+@synthesize weeklyLineChart = _weeklyLineChart;
+@synthesize monthlyLineChart = _monthlyLineChart;
+@synthesize yearlyLineChart = _yearlyLineChart;
 -(id) initWithBrand:(NSString*) brand{
     if ((self = [self initWithNibName:nil bundle:nil])) {
         self.brand = brand;
@@ -70,9 +74,14 @@
     
 }
 
-- (void) brandDidFinishLoad:(Brand*) brand channels:(NSArray*) channels dailyLineChart:(NSString*)dailyLineChart{
+- (void) brandDidFinishLoad:(Brand*) brand channels:(NSArray*) channels dailyLineChart:(NSString*)dailyLineChart weeklyLineChart:(NSString*)weeklyLineChart monthlyLineChart:(NSString*)monthlyLineChart yearlyLineChart:(NSString*)yearlyLineChart{
      NSLog(@"%@",@"加载Brand数据成功");
     self.selectedDate = brand.date;
+    self.dailyLineChart = dailyLineChart;
+    self.weeklyLineChart = weeklyLineChart;
+    self.monthlyLineChart = monthlyLineChart;
+    self.yearlyLineChart = yearlyLineChart;
+    
     int labelFontSize = 12;
     int channelFontSize = 14;
     NSLog(@"%f",SCREEN_WIDTH);
@@ -219,6 +228,11 @@
     _brandModel.delegate = nil;
     TT_RELEASE_SAFELY(_brandModel);
     TT_RELEASE_SAFELY(_webLineChartView);
+    
+    TT_RELEASE_SAFELY(_dailyLineChart);
+    TT_RELEASE_SAFELY(_weeklyLineChart);
+    TT_RELEASE_SAFELY(_monthlyLineChart);
+    TT_RELEASE_SAFELY(_yearlyLineChart);
     [super dealloc];
 }
 @end

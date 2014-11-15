@@ -13,25 +13,11 @@
 @synthesize brand = _brand;
 @synthesize date = _date;
 @synthesize dayAmount = _dayAmount;
-@synthesize weekAmount = _weekAmount;
-@synthesize monthAmount = _monthAmount;
-@synthesize yearAmount = _yearAmount;
-@synthesize dayLike = _dayLike;
-@synthesize weekLike = _weekLike;
-@synthesize monthLike = _monthLike;
-@synthesize yearLike = _yearLike;
 
 - (void) dealloc {
     TT_RELEASE_SAFELY(_brand);
     TT_RELEASE_SAFELY(_date);
     TT_RELEASE_SAFELY(_dayAmount);
-    TT_RELEASE_SAFELY(_weekAmount);
-    TT_RELEASE_SAFELY(_monthAmount);
-    TT_RELEASE_SAFELY(_yearAmount);
-    TT_RELEASE_SAFELY(_dayLike);
-    TT_RELEASE_SAFELY(_weekLike);
-    TT_RELEASE_SAFELY(_monthLike);
-    TT_RELEASE_SAFELY(_yearLike);
     [super dealloc];
 }
 
