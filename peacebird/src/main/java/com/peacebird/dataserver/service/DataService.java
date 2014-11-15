@@ -19,13 +19,9 @@ public interface DataService {
 	
 	public String getChannelResult(String brand,Date date);
 	
-	public String getStoreRankResult(String brand,Date date,String order);
+	public String getStoreRankResult(String brand,Date date);
 	
 	public String getGoodRankResult(String brand,Date date);
-	
-	public String getDataRetailStoreSumResult(String brand,Date date);
-	
-	public String getDataRetailsNoRetailResult(String brand,Date date);
 	
 	public List<DimBrand> getAllBrands();
 }
