@@ -12,6 +12,27 @@ public class BrandResult implements Comparable<BrandResult> {
 
 	private Long dayAmount;
 	
+	private Long monthAmount;
+
+	private Long weekAmount;
+
+	private Long yearAmount;
+	
+	private Long perDayAmount;
+	
+	private Long perWeekAmount;
+	
+	private Long perMonthAmount;
+	
+	private Long perYearAmount;
+
+	private Double weekLike;
+	
+	private Double monthLike;
+
+	private Double yearLike;
+	
+	private Double dayLike;
 	
 	public BrandResult(String brand, String channel, Number dayAmount) {
 		this.brand = brand;
@@ -21,6 +42,62 @@ public class BrandResult implements Comparable<BrandResult> {
 		}
 	}
 	
+	public BrandResult(String brand, String channel, Number dayAmount,Number weekAmount,Number monthAmount,Number yearAmount,Number perDayAmount,Number perWeekAmount,Number perMonthAmount,Number perYearAmount) {
+		this.brand = brand;
+		this.channel = channel;
+		if (dayAmount != null) {
+			this.dayAmount = dayAmount.longValue();
+		}
+		if (weekAmount != null) {
+			this.weekAmount = weekAmount.longValue();
+		}
+		if (monthAmount != null) {
+			this.monthAmount = monthAmount.longValue();
+		}
+		if (yearAmount != null) {
+			this.yearAmount = yearAmount.longValue();
+		}
+		
+		if (perDayAmount != null) {
+			this.perDayAmount = perDayAmount.longValue();
+		}
+		if (perWeekAmount != null) {
+			this.perWeekAmount = perWeekAmount.longValue();
+		}
+		if (perMonthAmount != null) {
+			this.perMonthAmount = perMonthAmount.longValue();
+		}
+		if (perYearAmount != null) {
+			this.perYearAmount = perYearAmount.longValue();
+		}
+	}
+
+	public BrandResult(String brand, Date date, Number dayAmount) {
+		this.brand = brand;
+		this.date = date;
+		if (dayAmount != null) {
+			this.dayAmount = dayAmount.longValue();
+		}
+	}
+
+	public BrandResult(String brand, Number dayAmount, Number weekAmount,Number monthAmount,
+			Number yearAmount) {
+		super();
+		this.brand = brand;
+		if (dayAmount != null) {
+			this.dayAmount = dayAmount.longValue();
+		}
+		if (weekAmount != null) {
+			this.weekAmount = weekAmount.longValue();
+		}
+		if (monthAmount != null) {
+			this.monthAmount = monthAmount.longValue();
+		}
+		if (yearAmount != null) {
+			this.yearAmount = yearAmount.longValue();
+		}
+	}
+
 	public String getBrand() {
 		return brand;
 	}
@@ -37,7 +114,45 @@ public class BrandResult implements Comparable<BrandResult> {
 		this.dayAmount = dayAmount;
 	}
 
-	
+	public Long getWeekAmount() {
+		return weekAmount;
+	}
+
+	public void setWeekAmount(Long weekAmount) {
+		this.weekAmount = weekAmount;
+	}
+
+	public Long getYearAmount() {
+		return yearAmount;
+	}
+
+	public void setYearAmount(Long yearAmount) {
+		this.yearAmount = yearAmount;
+	}
+
+	public Double getWeekLike() {
+		return weekLike;
+	}
+
+	public void setWeekLike(Double weekLike) {
+		this.weekLike = weekLike;
+	}
+
+	public Double getYearLike() {
+		return yearLike;
+	}
+
+	public void setYearLike(Double yearLike) {
+		this.yearLike = yearLike;
+	}
+
+	public Double getDayLike() {
+		return dayLike;
+	}
+
+	public void setDayLike(Double dayLike) {
+		this.dayLike = dayLike;
+	}
 
 	public Date getDate() {
 		return date;
@@ -53,6 +168,54 @@ public class BrandResult implements Comparable<BrandResult> {
 
 	public void setChannel(String channel) {
 		this.channel = channel;
+	}
+
+	public Long getMonthAmount() {
+		return monthAmount;
+	}
+
+	public void setMonthAmount(Long monthAmount) {
+		this.monthAmount = monthAmount;
+	}
+
+	public Double getMonthLike() {
+		return monthLike;
+	}
+
+	public void setMonthLike(Double monthLike) {
+		this.monthLike = monthLike;
+	}
+
+	public Long getPerDayAmount() {
+		return perDayAmount;
+	}
+
+	public void setPerDayAmount(Long perDayAmount) {
+		this.perDayAmount = perDayAmount;
+	}
+
+	public Long getPerWeekAmount() {
+		return perWeekAmount;
+	}
+
+	public void setPerWeekAmount(Long perWeekAmount) {
+		this.perWeekAmount = perWeekAmount;
+	}
+
+	public Long getPerMonthAmount() {
+		return perMonthAmount;
+	}
+
+	public void setPerMonthAmount(Long perMonthAmount) {
+		this.perMonthAmount = perMonthAmount;
+	}
+
+	public Long getPerYearAmount() {
+		return perYearAmount;
+	}
+
+	public void setPerYearAmount(Long perYearAmount) {
+		this.perYearAmount = perYearAmount;
 	}
 
 	private int getIndex() {
