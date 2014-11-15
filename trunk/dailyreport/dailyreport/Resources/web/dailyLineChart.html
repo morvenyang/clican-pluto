@@ -11,7 +11,7 @@ text {
 </style>
 </head>
 <body>
-	<div id="chartdiv" style="width: 1024px; height: 600px;"></div>
+	<div id="chartdiv" style="width: $widthpx; height: $heightpx;"></div>
 	<script type="text/javascript">
 		var chart = AmCharts
 				.makeChart(
@@ -44,6 +44,9 @@ text {
 							"graphs" : [
 									{
 										"balloonText" : "<span style='font-size:13px;'>[[category]] [[title]] :<b>[[value]]万元</b> [[additional]]</span>",
+										"lineAlpha":0,
+										"colorField":"color",
+										"alphaField": "alpha",
 										"fillAlphas" : 1,
 										"title" : "零售额",
 										"type" : "column",
