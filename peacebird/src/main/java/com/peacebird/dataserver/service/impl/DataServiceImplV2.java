@@ -143,7 +143,7 @@ public class DataServiceImplV2 implements DataServiceV2 {
 		BrandResult br = new BrandResult(brand, "", 0);
 		br.setBrand(brand);
 		br.setDate(yesterday);
-
+		Double lastDayAmount = 0.0;
 		List<BrandResult> bcr = this.dataDaoV2.getBrandResultByChannel(yesterday,
 				brand);
 		for (BrandResult b : bcr) {
@@ -151,9 +151,16 @@ public class DataServiceImplV2 implements DataServiceV2 {
 				// 统计数据不包括电商的
 				continue;
 			}
-			br.setDayAmount(b.getDayAmount() + br.getDayAmount());
+			if (b.getPerDayAmount() != null) {
+				lastDayAmount+=b.getPerDayAmount();
+			}
+			if(b.getDayAmount()!=null){
+				br.setDayAmount(b.getDayAmount() + br.getDayAmount());
+			}
 		}
-
+		if(lastDayAmount!=0){
+			br.setDayLike(br.getDayAmount() / lastDayAmount - 1);
+		}
 		Collections.sort(bcr);
 		bsr.setBrand(brand);
 		bsr.setResult(0);
