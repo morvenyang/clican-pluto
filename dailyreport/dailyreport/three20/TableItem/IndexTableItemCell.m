@@ -65,6 +65,14 @@
     _label.contentMode = UIViewContentModeRight;
     _label.textAlignment = NSTextAlignmentRight;
     _label.backgroundColor = [UIColor clearColor];
+    
+//    CABasicAnimation *animation = [CABasicAnimation  animationWithKeyPath:@"transform"];
+//    animation.toValue = [NSValue valueWithCATransform3D:CATransform3DMakeRotation(3.1415,0 , 1.0, 0)];
+//    animation.duration =3.0;
+//    animation.cumulative =YES;
+//    animation.repeatCount=2;
+//    
+//    [self.contentView.layer addAnimation:animation forKey:@"animation"];
 }
 
 

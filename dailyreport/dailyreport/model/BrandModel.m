@@ -75,17 +75,17 @@
             Brand* brand = [[[Brand alloc] init] autorelease];
             brand.brand = [jsonBrand objectForKey:@"brand"];
             brand.dayAmount = [jsonBrand objectForKey:@"dayAmount"];
-            brand.weekAmount = [jsonBrand objectForKey:@"weekAmount"];
-            brand.monthAmount = [jsonBrand objectForKey:@"monthAmount"];
-            brand.yearAmount = [jsonBrand objectForKey:@"yearAmount"];
-            brand.dayLike = [jsonBrand objectForKey:@"dayLike"];
-            brand.weekLike = [jsonBrand objectForKey:@"weekLike"];
-            brand.monthLike = [jsonBrand objectForKey:@"monthLike"];
-            brand.yearLike = [jsonBrand objectForKey:@"yearLike"];
+            brand.dayLike =[jsonBrand objectForKey:@"dayLike"];
             NSLog(@"%@",[jsonBrand objectForKey:@"date"]);
             brand.date = [dateFormatter dateFromString:[jsonBrand objectForKey:@"date"]];
             
             NSString* dailyLineChart =[[[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:[data objectForKey:@"dailyLineChart"] options:NSJSONWritingPrettyPrinted error:nil] encoding:NSUTF8StringEncoding] autorelease];
+            
+            NSString* weeklyLineChart =[[[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:[data objectForKey:@"weeklyLineChart"] options:NSJSONWritingPrettyPrinted error:nil] encoding:NSUTF8StringEncoding] autorelease];
+            
+            NSString* monthlyLineChart =[[[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:[data objectForKey:@"monthlyLineChart"] options:NSJSONWritingPrettyPrinted error:nil] encoding:NSUTF8StringEncoding] autorelease];
+            
+            NSString* yearlyLineChart =[[[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:[data objectForKey:@"yearlyLineChart"] options:NSJSONWritingPrettyPrinted error:nil] encoding:NSUTF8StringEncoding] autorelease];
             
             //该品牌渠道的数据
             NSMutableArray* channels = [NSMutableArray array];
@@ -94,12 +94,13 @@
                 Channel* channel = [[[Channel alloc] init] autorelease];
                 channel.channel = [jsonChannel objectForKey:@"channel"];
                 channel.dayAmount =[jsonChannel objectForKey:@"dayAmount"];
+                
                 if(![channel.channel isEqualToString:@"电商"]&&channel.dayAmount.intValue==0){
                     continue;
                 }
                 [channels addObject:channel];
             }
-            [self.delegate brandDidFinishLoad:brand channels:channels dailyLineChart:dailyLineChart];
+            [self.delegate brandDidFinishLoad:brand channels:channels dailyLineChart:dailyLineChart weeklyLineChart:weeklyLineChart monthlyLineChart:monthlyLineChart yearlyLineChart:yearlyLineChart];
         }else{
             if(result.intValue==1002){
                 //not login

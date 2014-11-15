@@ -21,7 +21,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.5</string>
+	<string>2.0</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
@@ -38,30 +38,30 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>1.5</string>
+	<string>2.0</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>MG公司背景</key>
+	<string>#E51D9B</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>
 	</array>
 	<key>UIStatusBarHidden</key>
 	<true/>
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+	</array>
+	<key>乐町背景</key>
+	<string>#F08DBA</string>
 	<key>女装背景</key>
 	<string>#E5006E</string>
 	<key>男装背景</key>
 	<string>#17387A</string>
 	<key>童装背景</key>
 	<string>#F7D800</string>
-	<key>乐町背景</key>
-	<string>#F08DBA</string>
 	<key>赫奇背景</key>
 	<string>#8BACD8</string>
-	<key>MG公司背景</key>
-	<string>#E51D9B</string>
-	<key>UISupportedInterfaceOrientations</key>
-	<array>
-		<string>UIInterfaceOrientationPortrait</string>
-	</array>
 </dict>
 </plist>

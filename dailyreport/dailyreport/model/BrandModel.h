@@ -25,7 +25,7 @@
 
 @protocol BrandDelegate <NSObject>
 
-- (void) brandDidFinishLoad:(Brand*) brand channels:(NSArray*) channels dailyLineChart:(NSString*)dailyLineChart;
+- (void) brandDidFinishLoad:(Brand*) brand channels:(NSArray*) channels dailyLineChart:(NSString*)dailyLineChart weeklyLineChart:(NSString*)weeklyLineChart monthlyLineChart:(NSString*)monthlyLineChart yearlyLineChart:(NSString*)yearlyLineChart;
 
 - (void) brandDidStartLoad:(NSString*) brand;
 
