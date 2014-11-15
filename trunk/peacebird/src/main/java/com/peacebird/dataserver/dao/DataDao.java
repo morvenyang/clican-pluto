@@ -9,8 +9,6 @@ import com.peacebird.dataserver.bean.ChannelResult;
 import com.peacebird.dataserver.bean.GoodRankResult;
 import com.peacebird.dataserver.bean.RetailResult;
 import com.peacebird.dataserver.bean.StoreRankResult;
-import com.peacebird.dataserver.model.DataRetailStoreSum;
-import com.peacebird.dataserver.model.DataRetailsNoRetail;
 import com.peacebird.dataserver.model.DayStatus;
 import com.peacebird.dataserver.model.DimBrand;
 
@@ -18,11 +16,22 @@ public interface DataDao {
 
 	public Date getPreviousDate();
 	
-	public List<BrandLineChartResult> getBrandLineChartDayResult(Date date,String brand,String dateType,int days);
+	public List<BrandLineChartResult> getBrandLineChartDayResult(Date date,String brand,int days);
+	
+	public List<BrandLineChartResult> getBrandLineChartWeekResult(Date date,String brand,int weeks);
+	
+	public List<BrandLineChartResult> getBrandLineChartMonthResult(Date date,String brand,int months);
+	
+	public List<BrandLineChartResult> getBrandLineChartYearResult(Date date,String brand,int years);
 	
 	public List<BrandResult> getBrandResult(Date date, String[] brands);
 
+	public BrandResult getBrandResult(Date date, String brand);
+
 	public List<BrandResult> getBrandResultByChannel(Date date, String brand);
+
+	public List<BrandResult> getBrandWeekResult(Date startDate, Date endDate,
+			String brand);
 
 	public List<RetailResult> getRetailChannelResult(Date date, String brand);
 
@@ -35,7 +44,7 @@ public interface DataDao {
 	public List<String> getAllChannelForRank(Date date, String brand);
 
 	public List<StoreRankResult> getStoreRankResult(Date date, String brand,
-			String channel,String order);
+			String channel);
 	
 	public List<StoreRankResult> getAllStoreRankResult(Date date, String brand);
 	
@@ -46,8 +55,4 @@ public interface DataDao {
 	public void saveDayStatus(DayStatus dayStatus);
 
 	public List<DimBrand> getAllBrands();
-	
-	public List<DataRetailStoreSum> getDataRetailStoreSum(Date date,String brand,String type);
-	
-	public List<DataRetailsNoRetail> getDataRetailsNoRetail(Date date,String brand);
 }

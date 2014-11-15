@@ -365,10 +365,8 @@ public class ClientController {
 				result = this.dataServiceV2.getStoreRankResult(brand, getDate(date),
 						order);
 			}else{
-				result = this.dataService.getStoreRankResult(brand, getDate(date),
-						order);
+				result = this.dataService.getStoreRankResult(brand, getDate(date));
 			}
-			
 		}
 		try {
 			resp.setContentType("application/json");

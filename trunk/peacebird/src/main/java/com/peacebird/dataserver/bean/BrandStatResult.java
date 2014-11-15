@@ -13,6 +13,7 @@ public class BrandStatResult {
 	private BrandResult brandResult;
 	
 	private String brand;
+	private List<BrandResult> weeks;
 	
 	private List<BrandLineChartResult> dailyLineChart;
 	private List<BrandLineChartResult> weeklyLineChart;
@@ -88,6 +89,14 @@ public class BrandStatResult {
 
 	public void setYearlyLineChart(List<BrandLineChartResult> yearlyLineChart) {
 		this.yearlyLineChart = yearlyLineChart;
+	}
+
+	public List<BrandResult> getWeeks() {
+		return weeks;
+	}
+
+	public void setWeeks(List<BrandResult> weeks) {
+		this.weeks = weeks;
 	}
 	
 
