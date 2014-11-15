@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="amcharts/amcharts.js" type="text/javascript"></script>
+<script src="amcharts/serial.js" type="text/javascript"></script>
+<style type="text/css">
+text {
+	white-space: pre;
+}
+</style>
+</head>
+<body>
+	<div id="chartdiv" style="width: 1024px; height: 600px;"></div>
+	<script type="text/javascript">
+		var chart = AmCharts
+				.makeChart(
+						"chartdiv",
+						{
+							"type" : "serial",
+							"theme" : "none",
+							"autoMargins" : false,
+							"marginLeft" : 80,
+							"marginRight" : 100,
+							"marginTop" : 10,
+							"marginBottom" : 26,
+							"dataProvider" : $dataProvider,
+							"valueAxes" : [ {
+								"id" : "v1",
+								"title" : "零售额(万元)",
+								"axisAlpha" : 0,
+								"position" : "left",
+								"gridThickness" : 0,
+								"minimum" : 0
+							}, {
+								"id" : "v2",
+								"title" : "同比",
+								"axisAlpha" : 0,
+								"position" : "right",
+								"unit" : "%",
+								"gridThickness" : 0
+							} ],
+							"startDuration" : 1,
+							"graphs" : [
+									{
+										"balloonText" : "<span style='font-size:13px;'>[[category]] [[title]] :<b>[[value]]万元</b> [[additional]]</span>",
+										"fillAlphas" : 1,
+										"title" : "零售额",
+										"type" : "column",
+										"valueField" : "amount",
+										"valueAxis" : "v1",
+										"precision" : 2
+									},
+									{
+										"balloonText" : "<span style='font-size:13px;'>[[category]] [[title]] :<b>[[value]]%</b> [[additional]]</span>",
+										"bullet" : "round",
+										"lineThickness" : 3,
+										"bulletSize" : 7,
+										"bulletBorderAlpha" : 1,
+										"bulletColor" : "#FFFFFF",
+										"useLineColorForBulletBorder" : true,
+										"bulletBorderThickness" : 3,
+										"fillAlphas" : 0,
+										"lineAlpha" : 1,
+										"title" : "同比",
+										"valueField" : "like",
+										"valueAxis" : "v2",
+										"precision" : 2
+									} ],
+							"categoryField" : "date",
+							"categoryAxis" : {
+								"gridPosition" : "start",
+								"axisAlpha" : 0,
+								"tickLength" : 0
+							}
+						});
+	</script>
+</body>
+</html>
