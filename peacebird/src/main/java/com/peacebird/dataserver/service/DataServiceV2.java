@@ -1,0 +1,30 @@
+package com.peacebird.dataserver.service;
+
+import java.util.Date;
+import java.util.List;
+
+import com.peacebird.dataserver.bean.RetailResult;
+import com.peacebird.dataserver.model.DimBrand;
+
+public interface DataServiceV2 {
+
+	public String getIndexResult(String[] brands,Date date);
+	
+	public String getBrandResult(String brand,Date date);
+	
+	public List<RetailResult> getRetailChartResult(String brand,String type,Date date);
+	
+	public String getRetailChartResultForJson(String brand,String type,Date date);
+	
+	public String getChannelResult(String brand,Date date);
+	
+	public String getStoreRankResult(String brand,Date date,String order);
+	
+	public String getGoodRankResult(String brand,Date date);
+	
+	public String getDataRetailStoreSumResult(String brand,Date date);
+	
+	public String getDataRetailsNoRetailResult(String brand,Date date);
+	
+	public List<DimBrand> getAllBrands();
+}
