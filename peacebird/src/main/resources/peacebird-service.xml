@@ -14,6 +14,8 @@
 		autowire="byName" />
 	<bean id="dataService" class="com.peacebird.dataserver.service.impl.DataServiceImpl"
 		autowire="byName" />
+	<bean id="dataServiceV2" class="com.peacebird.dataserver.service.impl.DataServiceImplV2"
+		autowire="byName" />
 	<bean id="pushService" class="com.peacebird.dataserver.service.impl.PushServiceImpl"
 		autowire="byName" />
 	<bean id="apnsService" class="com.peacebird.dataserver.apns.ApnsServiceImpl"

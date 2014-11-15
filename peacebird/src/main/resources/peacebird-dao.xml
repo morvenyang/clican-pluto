@@ -14,4 +14,6 @@
 		autowire="byName" />
 	<bean id="dataDao" class="com.peacebird.dataserver.dao.impl.DataDaoImpl"
 		autowire="byName" />
+	<bean id="dataDaoV2" class="com.peacebird.dataserver.dao.impl.DataDaoImplV2"
+		autowire="byName" />	
 </beans>
