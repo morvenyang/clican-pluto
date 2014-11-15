@@ -27,6 +27,7 @@ import com.peacebird.dataserver.bean.RetailResult;
 import com.peacebird.dataserver.bean.SpringProperty;
 import com.peacebird.dataserver.model.User;
 import com.peacebird.dataserver.service.DataService;
+import com.peacebird.dataserver.service.DataServiceV2;
 import com.peacebird.dataserver.service.UserService;
 
 @Controller
@@ -36,10 +37,15 @@ public class ClientController {
 
 	private UserService userService;
 	private DataService dataService;
+	private DataServiceV2 dataServiceV2;
 	private SpringProperty springProperty;
 
 	public void setUserService(UserService userService) {
 		this.userService = userService;
+	}
+
+	public void setDataServiceV2(DataServiceV2 dataServiceV2) {
+		this.dataServiceV2 = dataServiceV2;
 	}
 
 	public void setDataService(DataService dataService) {
@@ -52,6 +58,14 @@ public class ClientController {
 
 	public void setSpringProperty(SpringProperty springProperty) {
 		this.springProperty = springProperty;
+	}
+
+	private boolean isV2(String version) {
+		if (StringUtils.isNotEmpty(version) && version.startsWith("2.")) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	@RequestMapping("/goodImage")
@@ -177,8 +191,14 @@ public class ClientController {
 					log.debug("There are brands [" + brands + "] for user["
 							+ user.getUserName() + "]");
 				}
-				result = this.dataService.getIndexResult(brands.split(","),
-						this.getDate(date));
+				if(isV2(version)){
+					result = this.dataServiceV2.getIndexResult(brands.split(","),
+							this.getDate(date));
+				}else{
+					result = this.dataService.getIndexResult(brands.split(","),
+							this.getDate(date));
+				}
+				
 			}
 		}
 		try {
@@ -203,7 +223,11 @@ public class ClientController {
 		if (user == null) {
 			result = this.getNotLoginResult();
 		} else {
-			result = this.dataService.getBrandResult(brand, getDate(date));
+			if(isV2(version)){
+				result = this.dataServiceV2.getBrandResult(brand, getDate(date));
+			}else{
+				result = this.dataService.getBrandResult(brand, getDate(date));
+			}
 		}
 		try {
 			resp.setContentType("application/json");
@@ -223,8 +247,14 @@ public class ClientController {
 		if (log.isDebugEnabled()) {
 			log.debug("access retail chart page");
 		}
-		List<RetailResult> result = this.dataService.getRetailChartResult(
-				brand, type, getDate(date));
+		List<RetailResult> result;
+		if(isV2(version)){
+			result = this.dataServiceV2.getRetailChartResult(
+					brand, type, getDate(date));
+		}else{
+			result = this.dataService.getRetailChartResult(
+					brand, type, getDate(date));
+		}
 		double total = 0;
 		for (RetailResult rr : result) {
 			if (rr.getDayAmount() != null) {
@@ -259,8 +289,13 @@ public class ClientController {
 		if (user == null) {
 			result = this.getNotLoginResult();
 		} else {
-			result = this.dataService.getRetailChartResultForJson(brand, type,
-					getDate(date));
+			if(isV2(version)){
+				result = this.dataServiceV2.getRetailChartResultForJson(brand, type,
+						getDate(date));
+			}else{
+				result = this.dataService.getRetailChartResultForJson(brand, type,
+						getDate(date));
+			}
 		}
 		try {
 			resp.setContentType("application/json");
@@ -293,7 +328,12 @@ public class ClientController {
 		if (user == null) {
 			result = this.getNotLoginResult();
 		} else {
-			result = this.dataService.getChannelResult(brand, getDate(date));
+			if(isV2(version)){
+				result = this.dataServiceV2.getChannelResult(brand, getDate(date));
+			}else{
+				result = this.dataService.getChannelResult(brand, getDate(date));
+			}
+			
 		}
 		try {
 			resp.setContentType("application/json");
@@ -321,8 +361,14 @@ public class ClientController {
 			if (StringUtils.isEmpty(order)) {
 				order = "desc";
 			}
-			result = this.dataService.getStoreRankResult(brand, getDate(date),
-					order);
+			if(isV2(version)){
+				result = this.dataServiceV2.getStoreRankResult(brand, getDate(date),
+						order);
+			}else{
+				result = this.dataService.getStoreRankResult(brand, getDate(date),
+						order);
+			}
+			
 		}
 		try {
 			resp.setContentType("application/json");
@@ -346,7 +392,12 @@ public class ClientController {
 		if (user == null) {
 			result = this.getNotLoginResult();
 		} else {
-			result = this.dataService.getGoodRankResult(brand, getDate(date));
+			if(isV2(version)){
+				result = this.dataServiceV2.getGoodRankResult(brand, getDate(date));
+			}else{
+				result = this.dataService.getGoodRankResult(brand, getDate(date));
+			}
+			
 		}
 		try {
 			resp.setContentType("application/json");
@@ -370,7 +421,7 @@ public class ClientController {
 		if (user == null) {
 			result = this.getNotLoginResult();
 		} else {
-			result = this.dataService.getDataRetailStoreSumResult(brand,
+			result = this.dataServiceV2.getDataRetailStoreSumResult(brand,
 					this.getDate(date));
 		}
 		try {
@@ -395,7 +446,7 @@ public class ClientController {
 		if (user == null) {
 			result = this.getNotLoginResult();
 		} else {
-			result = this.dataService.getDataRetailsNoRetailResult(brand,
+			result = this.dataServiceV2.getDataRetailsNoRetailResult(brand,
 					this.getDate(date));
 		}
 		try {
