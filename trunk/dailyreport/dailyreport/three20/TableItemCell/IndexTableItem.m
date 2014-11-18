@@ -11,12 +11,14 @@
 @implementation IndexTableItem
 
 @synthesize backgroundImage = _backgroundImage;
-
-+ (id)itemWithStyledText:(TTStyledText*)styledText backgroundImage:(NSString*)backgroundImage URL:(NSString*)url{
+@synthesize index = _index;
++ (id)itemWithStyledText:(TTStyledText*)styledText backgroundImage:(NSString*)backgroundImage URL:(NSString*)url index:(int)index brand:(NSString*) brand{
     IndexTableItem* item = [[[self alloc] init] autorelease];
     item.text = styledText;
     NSLog(@"%@",url);
     item.URL = url;
+    item.index = index;
+    item.brand = brand;
     item.backgroundImage = backgroundImage;
     return item;
 }
