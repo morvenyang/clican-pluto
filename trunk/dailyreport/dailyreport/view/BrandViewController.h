@@ -9,7 +9,7 @@
 #import <Three20UI/Three20UI.h>
 #import "BrandModel.h"
 #import "SwitchViewController.h"
-@interface BrandViewController : SwitchViewController<BrandDelegate>{
+@interface BrandViewController : SwitchViewController<BrandDelegate,UIWebViewDelegate>{
 
     BrandModel* _brandModel;
     UIWebView* _webLineChartView;
