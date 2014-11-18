@@ -143,6 +143,10 @@
 		72EB38A919270EAF00D0F225 /* LoginDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 72EB38A819270EAF00D0F225 /* LoginDataSource.m */; };
 		72EB38AC19270EC100D0F225 /* LoginModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 72EB38AB19270EC100D0F225 /* LoginModel.m */; };
 		72EB38B6192712DC00D0F225 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 72EB38B5192712DC00D0F225 /* MBProgressHUD.m */; };
+		72F94E201A1B1BAF00515377 /* libiOSJavaScriptCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 72F94E1E1A1B179500515377 /* libiOSJavaScriptCore.a */; };
+		72F94E221A1B1BBC00515377 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 72F94E211A1B1BBC00515377 /* libxml2.dylib */; };
+		72F94E241A1B1C8400515377 /* libstdc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 72F94E231A1B1C8400515377 /* libstdc++.dylib */; };
+		72F94E261A1B1C8B00515377 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 72F94E251A1B1C8B00515377 /* libicucore.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -523,6 +527,19 @@
 		72EB38AB19270EC100D0F225 /* LoginModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginModel.m; sourceTree = "<group>"; };
 		72EB38B4192712DC00D0F225 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		72EB38B5192712DC00D0F225 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
+		72F94E151A1B172A00515377 /* JavaScript.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JavaScript.h; path = javascriptcore/JavaScript.h; sourceTree = "<group>"; };
+		72F94E161A1B172A00515377 /* JavaScriptCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JavaScriptCore.h; path = javascriptcore/JavaScriptCore.h; sourceTree = "<group>"; };
+		72F94E171A1B172A00515377 /* JSBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSBase.h; path = javascriptcore/JSBase.h; sourceTree = "<group>"; };
+		72F94E181A1B172A00515377 /* JSContextRef.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSContextRef.h; path = javascriptcore/JSContextRef.h; sourceTree = "<group>"; };
+		72F94E191A1B172A00515377 /* JSObjectRef.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSObjectRef.h; path = javascriptcore/JSObjectRef.h; sourceTree = "<group>"; };
+		72F94E1A1A1B172A00515377 /* JSStringRef.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSStringRef.h; path = javascriptcore/JSStringRef.h; sourceTree = "<group>"; };
+		72F94E1B1A1B172A00515377 /* JSStringRefCF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSStringRefCF.h; path = javascriptcore/JSStringRefCF.h; sourceTree = "<group>"; };
+		72F94E1C1A1B172A00515377 /* JSValueRef.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSValueRef.h; path = javascriptcore/JSValueRef.h; sourceTree = "<group>"; };
+		72F94E1D1A1B172A00515377 /* WebKitAvailability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebKitAvailability.h; path = javascriptcore/WebKitAvailability.h; sourceTree = "<group>"; };
+		72F94E1E1A1B179500515377 /* libiOSJavaScriptCore.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libiOSJavaScriptCore.a; path = dailyreport/javascriptcore/libiOSJavaScriptCore.a; sourceTree = "<group>"; };
+		72F94E211A1B1BBC00515377 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
+		72F94E231A1B1C8400515377 /* libstdc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.dylib"; path = "usr/lib/libstdc++.dylib"; sourceTree = SDKROOT; };
+		72F94E251A1B1C8B00515377 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -530,6 +547,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				72F94E261A1B1C8B00515377 /* libicucore.dylib in Frameworks */,
+				72F94E241A1B1C8400515377 /* libstdc++.dylib in Frameworks */,
+				72F94E221A1B1BBC00515377 /* libxml2.dylib in Frameworks */,
+				72F94E201A1B1BAF00515377 /* libiOSJavaScriptCore.a in Frameworks */,
 				725AFEBF19317C42003BD9F3 /* libWeChatSDK.a in Frameworks */,
 				3206A0F794A6D7A3F259DBF5 /* libextThree20JSON+SBJSON.a in Frameworks */,
 				3201088596B4756681693705 /* libThree20UICommon.a in Frameworks */,
@@ -763,6 +784,10 @@
 		7285E3C41925AFEE0011C2D6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				72F94E251A1B1C8B00515377 /* libicucore.dylib */,
+				72F94E231A1B1C8400515377 /* libstdc++.dylib */,
+				72F94E211A1B1BBC00515377 /* libxml2.dylib */,
+				72F94E1E1A1B179500515377 /* libiOSJavaScriptCore.a */,
 				725AFEBE19317C42003BD9F3 /* libWeChatSDK.a */,
 				3206A0F794A6D7A3F259DBF0 /* extThree20JSON.xcodeproj */,
 				3201088596B4756681693700 /* Three20UICommon.xcodeproj */,
@@ -784,6 +809,7 @@
 		7285E3CB1925AFEE0011C2D6 /* dailyreport */ = {
 			isa = PBXGroup;
 			children = (
+				72F94E141A1B170600515377 /* javascriptcore */,
 				722D6B321963DDB400036D38 /* KKGestureLock */,
 				7237937E19500AA900B336FD /* calendar */,
 				724F4F2D1935A06C0079F9A0 /* hy */,
@@ -1005,6 +1031,22 @@
 			);
 			name = Resources;
 			path = dailyreport/Resources;
+			sourceTree = "<group>";
+		};
+		72F94E141A1B170600515377 /* javascriptcore */ = {
+			isa = PBXGroup;
+			children = (
+				72F94E151A1B172A00515377 /* JavaScript.h */,
+				72F94E161A1B172A00515377 /* JavaScriptCore.h */,
+				72F94E171A1B172A00515377 /* JSBase.h */,
+				72F94E181A1B172A00515377 /* JSContextRef.h */,
+				72F94E191A1B172A00515377 /* JSObjectRef.h */,
+				72F94E1A1A1B172A00515377 /* JSStringRef.h */,
+				72F94E1B1A1B172A00515377 /* JSStringRefCF.h */,
+				72F94E1C1A1B172A00515377 /* JSValueRef.h */,
+				72F94E1D1A1B172A00515377 /* WebKitAvailability.h */,
+			);
+			name = javascriptcore;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1507,7 +1549,10 @@
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				ONLY_ACTIVE_ARCH = YES;
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-lxml2",
+				);
 				PROVISIONING_PROFILE = "ED08FF2C-0BE9-4BD1-BDE2-9BE81D703925";
 				SDKROOT = iphoneos;
 			};
@@ -1547,7 +1592,10 @@
 					../three20/Build/Products/three20,
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-lxml2",
+				);
 				PROVISIONING_PROFILE = "ED08FF2C-0BE9-4BD1-BDE2-9BE81D703925";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -1569,7 +1617,9 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/weixin",
+					"$(PROJECT_DIR)/dailyreport/javascriptcore",
 				);
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "ED08FF2C-0BE9-4BD1-BDE2-9BE81D703925";
 				WRAPPER_EXTENSION = app;
@@ -1591,7 +1641,9 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/weixin",
+					"$(PROJECT_DIR)/dailyreport/javascriptcore",
 				);
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "ED08FF2C-0BE9-4BD1-BDE2-9BE81D703925";
 				WRAPPER_EXTENSION = app;
