@@ -10,6 +10,7 @@
 #import "StyleSheet.h"
 #import "AppDelegate.h"
 #import "CannotCancelUISwipeGestureRecognizer.h"
+#import <JavaScriptCore/JavaScriptCore.h>
 
 @implementation BrandViewController
 
@@ -177,6 +178,7 @@
     self.webLineChartView = [[[UIWebView alloc] initWithFrame:CGRectMake(0,dailyView.frame.size.height,SCREEN_WIDTH,SCREEN_HEIGHT-dailyView.frame.size.height)] autorelease];
     self.webLineChartView.scalesPageToFit=YES;
     self.webLineChartView.userInteractionEnabled =YES;
+    self.webLineChartView.delegate = self;
     CannotCancelUISwipeGestureRecognizer* swipeGestureLeft = [[[CannotCancelUISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleGesture:)] autorelease];
     swipeGestureLeft.direction = UISwipeGestureRecognizerDirectionLeft;
     [self.webLineChartView.scrollView addGestureRecognizer:swipeGestureLeft];
@@ -205,6 +207,18 @@
         promptImage.backgroundColor =[UIColor colorWithRed:0 green:0 blue:0 alpha:0.3f];
         [self.contentView addSubview:promptImage];
     }
+}
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView{
+    JSContext* context = [webView valueForKeyPath:@"documentView.webView.mainFrame.javaScriptContext"];
+    context[@"nativeClickGraphItem"]=^(NSString* date){
+        [self nativeClickGraphItem:date];
+    };
+    
+}
+
+-(void) nativeClickGraphItem:(NSString*) date{
+    NSLog(@"%@",date);
 }
 
 - (void) brandDidStartLoad:(NSString*) brand{
