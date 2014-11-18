@@ -25,13 +25,10 @@
             [self setLayoutMargins:UIEdgeInsetsZero];
         }
         _backgroundImageView = [[LinkImageView alloc] initWithFrame:CGRectMake(0, 4, SCREEN_WIDTH, 0)];
-        
+        _backgroundImageView.backgroundColor = [UIColor blackColor];
         _label = [[TTStyledTextLabel alloc] init];
-        self.contentView.backgroundColor = [UIColor blackColor];
-        
-        [self.contentView addSubview:self.backgroundImageView];
-        [self.contentView addSubview:_label];
-        
+
+        _animation = TRUE;
         
         self.selectionStyle = UITableViewCellSelectionStyleNone;
     }
@@ -66,15 +63,30 @@
     _label.textAlignment = NSTextAlignmentRight;
     _label.backgroundColor = [UIColor clearColor];
     
-//    CABasicAnimation *animation = [CABasicAnimation  animationWithKeyPath:@"transform"];
-//    animation.toValue = [NSValue valueWithCATransform3D:CATransform3DMakeRotation(3.1415,0 , 1.0, 0)];
-//    animation.duration =3.0;
-//    animation.cumulative =YES;
-//    animation.repeatCount=2;
-//    
-//    [self.contentView.layer addAnimation:animation forKey:@"animation"];
+    self.contentView.backgroundColor = [UIColor blackColor];
+    
+    if(_animation){
+        _animation= NO;
+        [NSTimer scheduledTimerWithTimeInterval:self.indexItem.index/4.0 target:self selector:@selector(doAnimation) userInfo:nil repeats:NO];
+    }else{
+        [self.contentView addSubview:self.backgroundImageView];
+        [self.backgroundImageView addSubview:_label];
+    }
+
+    
 }
 
+-(void)doAnimation{
+    [self.contentView addSubview:self.backgroundImageView];
+    [self.backgroundImageView addSubview:_label];
+    CABasicAnimation *animation = [CABasicAnimation  animationWithKeyPath:@"transform"];
+    animation.fromValue = [NSValue valueWithCATransform3D:CATransform3DMakeRotation(-3.1415,1.0 ,0, 0)];
+    animation.duration =0.25;
+    animation.cumulative =YES;
+    animation.repeatCount=1;
+    
+    [self.backgroundImageView.layer addAnimation:animation forKey:@"animation"];
+}
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // TTTableViewCell
@@ -88,6 +100,7 @@
     NSLog(@"%f",image.size.height);
     self.backgroundImageView.actionUrl = self.indexItem.URL;
     self.backgroundImageView.frame = CGRectMake(0, 4, SCREEN_WIDTH, image.size.height);
+    
     [super setObject:self.indexItem.text];
 }
 

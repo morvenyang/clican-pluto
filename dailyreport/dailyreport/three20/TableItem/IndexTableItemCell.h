@@ -13,6 +13,7 @@
 @interface IndexTableItemCell : TTStyledTextTableCell{
     LinkImageView* _backgroundImageView;
     IndexTableItem* _indexItem;
+    BOOL _animation;
 }
 
 @property (nonatomic, retain) IndexTableItem* indexItem;

@@ -187,7 +187,9 @@
     NSString* html = [NSString stringWithContentsOfFile:htmlPath encoding:NSUTF8StringEncoding error:nil];
     
     html=[html stringByReplacingOccurrencesOfString:@"$dataProvider" withString:dailyLineChart];
+    html=[html stringByReplacingOccurrencesOfString:@"$width" withString:@"1000"];
     
+    html=[html stringByReplacingOccurrencesOfString:@"$height" withString:@"600"];
 
     NSLog(@"%@",html);
     NSLog(@"%@",[NSString stringWithFormat:@"%@/web/",[[NSBundle mainBundle] bundlePath]]);
