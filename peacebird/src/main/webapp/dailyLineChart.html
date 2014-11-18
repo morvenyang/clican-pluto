@@ -111,6 +111,10 @@ text {
 								"tickLength" : 0
 							}
 						});
+		chart.addListener("clickGraphItem",clickGraphItem);
+		function clickGraphItem(event) {
+			   console.log(event.item.category);
+		}
 	</script>
 </body>
 </html>
