@@ -59,6 +59,25 @@ public class QueryAction {
 	public void setSpringProperty(SpringProperty springProperty) {
 		this.springProperty = springProperty;
 	}
+	
+	@RequestMapping("/0")
+	public void init(
+			HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		String projectServerConf = springProperty.getProjectServerConf();
+		JSONArray jsonObject = JSONArray.fromObject(projectServerConf);
+		OutputStream os = null;
+		try {
+			os = resp.getOutputStream();
+			os.write(jsonObject.toString().getBytes("utf-8"));
+		} finally {
+			try {
+				os.close();
+			} catch (Exception e) {
+				log.error("", e);
+			}
+		}
+	}
 
 	@RequestMapping("/1")
 	public void login(
