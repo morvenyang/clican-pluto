@@ -3,14 +3,17 @@ package com.huace.mas.action;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 import net.sf.json.JsonConfig;
 
 import org.apache.commons.lang.StringUtils;
@@ -65,11 +68,24 @@ public class QueryAction {
 			HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		String projectServerConf = springProperty.getProjectServerConf();
-		JSONArray jsonObject = JSONArray.fromObject(projectServerConf);
+		JSONArray jsonArray = JSONArray.fromObject(projectServerConf);
+		
+		Map<String, String> kpiMap = springProperty.getKpiMap();
+		List<String> kpis = new ArrayList<String>();
+		List<String> kpiNames = new ArrayList<String>();
+		for (String kpi : kpiMap.keySet()) {
+			kpis.add(kpi);
+			kpiNames.add(kpiMap.get(kpi));
+		}
+		for (int i =0;i<jsonArray.size();i++) {
+			JSONObject jobj = jsonArray.getJSONObject(i);
+			jobj.put("kpis", JSONArray.fromObject(kpis));
+			jobj.put("kpiNames", JSONArray.fromObject(kpiNames));
+		}
 		OutputStream os = null;
 		try {
 			os = resp.getOutputStream();
-			os.write(jsonObject.toString().getBytes("utf-8"));
+			os.write(jsonArray.toString().getBytes("utf-8"));
 		} finally {
 			try {
 				os.close();
