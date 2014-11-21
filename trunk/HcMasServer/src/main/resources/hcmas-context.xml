@@ -31,7 +31,7 @@
 		<property name="minPoolSize" value="3" />
 		<property name="maxIdleTime" value="180" />
 	</bean>
-	
+
 	<bean id="txManager"
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource" />
@@ -48,8 +48,8 @@
 			expression="execution (* com.huace.mas.service.impl.*.*(..))" />
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="pointcutService" />
 	</aop:config>
-	
-		<bean id="springProperty" class="com.huace.mas.bean.SpringProperty">
+
+	<bean id="springProperty" class="com.huace.mas.bean.SpringProperty">
 		<property name="alertConfigXmlPath" value="${catalina.home}/conf/alertconfig.xml"></property>
 		<property name="orderMapStr" value="${orderMap}"></property>
 		<property name="kpiMapStr" value="${kpiMap}"></property>
@@ -60,8 +60,9 @@
 		<property name="systemProxyHost" value="${systemProxyHost}"></property>
 		<property name="systemProxyPort" value="${systemProxyPort}"></property>
 		<property name="tokenFile" value="${catalina.home}/token.txt"></property>
-		<property name="appName" value="${appName}"/>
-		<property name="copyRight" value="${copyRight}"/>
+		<property name="appName" value="${appName}" />
+		<property name="copyRight" value="${copyRight}" />
+		<property name="projectServerConf" value="${projectServerConf}" />
 	</bean>
 
 

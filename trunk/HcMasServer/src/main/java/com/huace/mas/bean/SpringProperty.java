@@ -20,6 +20,7 @@ public class SpringProperty {
 	
 	private String appName;
 	private String copyRight;
+	private String projectServerConf;
 	private Map<String,Integer> orderMap = new HashMap<String,Integer>();
 	private Map<String,String> kpiMap = new HashMap<String,String>();
 
@@ -137,6 +138,14 @@ public class SpringProperty {
 
 	public void setCopyRight(String copyRight) {
 		this.copyRight = copyRight;
+	}
+
+	public String getProjectServerConf() {
+		return projectServerConf;
+	}
+
+	public void setProjectServerConf(String projectServerConf) {
+		this.projectServerConf = projectServerConf;
 	}
 	
 }
