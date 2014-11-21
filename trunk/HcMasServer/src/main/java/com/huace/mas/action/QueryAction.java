@@ -132,7 +132,7 @@ public class QueryAction {
 
 	@RequestMapping("/3")
 	public void data(
-			@RequestParam(value = "projectID", required = true) Long projectID,
+			@RequestParam(value = "projectID", required = false) Long projectID,
 			HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		List<List<Object>> result = dataService.getKpisForProject(projectID);
@@ -161,7 +161,7 @@ public class QueryAction {
 
 	@RequestMapping("/4")
 	public void histData(
-			@RequestParam(value = "projectID", required = true) Long projectID,
+			@RequestParam(value = "projectID", required = false) Long projectID,
 			@RequestParam(value = "kpiType", required = true) String kpiType,
 			@RequestParam(value = "pointName", required = true) String pointName,
 			@RequestParam(value = "startDate", required = true) String startDate,
