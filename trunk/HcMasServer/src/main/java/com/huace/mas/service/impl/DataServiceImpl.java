@@ -396,7 +396,11 @@ public class DataServiceImpl implements DataService {
 			for (List<Kpi> ks : data.values()) {
 				kpis.addAll(ks);
 			}
-			projects.add(dataDao.findAllProjects());
+			List<Project> pjs = dataDao.findAllProjects();
+			if(pjs.size()==0){
+				return new ArrayList<List<Object>>();
+			}
+			projects.add(pjs.get(0));
 		}
 		if (kpis == null || kpis.size() == 0) {
 			return new ArrayList<List<Object>>();
