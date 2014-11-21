@@ -11,8 +11,10 @@
 @implementation Project
 @synthesize projectName = _projectName;
 @synthesize projectId = _projectId;
-@synthesize kpis = kpis;
+@synthesize kpis = _kpis;
 @synthesize kpiNames = _kpiNames;
+@synthesize serverConfig = _serverConfig;
+@synthesize serverUrl = _serverUrl;
 -(id)init{
     self = [super init];
     if(self){
@@ -22,8 +24,10 @@
 }
 - (void) dealloc {
     TT_RELEASE_SAFELY(_projectId);
+    TT_RELEASE_SAFELY(_serverUrl);
     TT_RELEASE_SAFELY(_projectName);
     TT_RELEASE_SAFELY(_kpis);
+    TT_RELEASE_SAFELY(_kpiNames);
     [super dealloc];
 }
 @end

@@ -14,7 +14,8 @@
 #import "PMCalendar.h"
 #import "KpiHistoryModel.h"
 #import "AppDelegate.h"
-@interface IndexViewController : UIViewController<UITableViewDelegate,UIPickerViewDataSource,UIPickerViewDelegate,LoginDelegate,MBProgressHUDDelegate,UITextFieldDelegate,ProjectDelegate,KpiDelegate,PMCalendarControllerDelegate,KpiHistoryDelegate,RefreshDelegate>{
+#import "InitModel.h"
+@interface IndexViewController : UIViewController<UITableViewDelegate,UIPickerViewDataSource,UIPickerViewDelegate,LoginDelegate,MBProgressHUDDelegate,UITextFieldDelegate,ProjectDelegate,KpiDelegate,PMCalendarControllerDelegate,KpiHistoryDelegate,RefreshDelegate,InitDelegate>{
     BOOL _current;
     BOOL _popup;
     int _imageIndex;
@@ -38,6 +39,7 @@
     UIView* _menuView;
     KpiModel* _kpiModel;
     KpiHistoryModel* _kpiHistoryModel;
+    InitModel* _initModel;
     NSDictionary* _kpis;
     UIView* _footView;
     UIView* _dataView;

@@ -8,6 +8,7 @@
 
 #ifndef HCMas_Constants_h
 #define HCMas_Constants_h
+#define INIT_URL @"http://192.168.1.100:9000/hcmas/0.ashx"
 #define LOGIN @"LOGIN"
 #define BASE_URL_NAME @"BASE_URL_NAME"
 #define SYSTEM_CONFIG @"SYSTEM_CONFIG"

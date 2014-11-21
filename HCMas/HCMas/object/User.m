@@ -8,7 +8,6 @@
 @synthesize username   = _username;
 @synthesize password   = _password;
 @synthesize sessionId   = _sessionId;
-@synthesize selectedProject = _selectedProject;
 @synthesize appName = _appName;
 @synthesize cr = _cr;
 -(id)init{
@@ -22,7 +21,6 @@
     TT_RELEASE_SAFELY(_username);
     TT_RELEASE_SAFELY(_password);
     TT_RELEASE_SAFELY(_sessionId);
-    TT_RELEASE_SAFELY(_selectedProject);
     TT_RELEASE_SAFELY(_appName);
     TT_RELEASE_SAFELY(_cr);
     [super dealloc];

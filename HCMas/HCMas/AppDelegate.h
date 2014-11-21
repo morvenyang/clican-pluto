@@ -15,11 +15,13 @@
 @protocol RefreshDelegate;
 @interface AppDelegate : UIResponder <UIApplicationDelegate>{
     User* _user;
+    Project* _selectedProject;
     NSString* _token;
     NSTimer* _timer;
     NSArray* kpis;
 }
 @property (nonatomic, retain) User* user;
+@property (nonatomic, retain) Project* selectedProject;
 @property (nonatomic, retain) NSTimer* timer;
 @property (strong, nonatomic) UIWindow *window;
 @property(nonatomic,assign) id<RefreshDelegate> refreshDelegate;

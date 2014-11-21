@@ -27,7 +27,7 @@
         [_delegate loadKpiFailed:nil message:@"请先设置正确的服务器地址"];
     }
     
-    url = [prefixUrl stringByAppendingFormat:@"/3.ashx?projectID=%@",projectId];
+    url = [prefixUrl stringByAppendingFormat:@"/3.ashx"];
     
     NSLog(@"URL:%@", url);
     

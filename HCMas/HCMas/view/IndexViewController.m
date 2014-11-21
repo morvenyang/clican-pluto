@@ -66,11 +66,15 @@
         
         _kpiHistoryModel = [[KpiHistoryModel alloc] init];
         _kpiHistoryModel.delegate = self;
+        
+        _initModel = [[InitModel alloc] init];
+        _initModel.delegate = self;
     }
     return self;
 }
 -(void)loadView{
     [super loadView];
+    
     self.navigationController.navigationBarHidden = YES;
     self.view.backgroundColor = [UIColor whiteColor];
     CGRect frame = [[UIScreen mainScreen] bounds];
@@ -113,7 +117,7 @@
     [self.view addSubview:self.footView];
     self.backgroundShadowView = [[[UIView alloc] initWithFrame:frame] autorelease];
     
-
+    [_initModel loadInitData];
 }
 -(void)showPointNamePopupView{
     NSArray* kpiArray = [self.kpis objectForKey:self.kpiType];
@@ -443,9 +447,10 @@
     if([self.settingKey isEqualToString:PROJECT_NAME]){
         NSInteger rowIndex = [self.projectPicker selectedRowInComponent:0];
         Project* project = (Project*)[self.projects objectAtIndex:rowIndex];
-        HCMasAppDelegate.user.selectedProject = project;
-        [self setValue:[NSString stringWithFormat:@"%i",rowIndex] byKey:PROJECT_NAME];
-        [_kpiModel loadKpiByProjectId:HCMasAppDelegate.user.selectedProject.projectId];
+        HCMasAppDelegate.selectedProject = project;
+        [self setValue:[NSString stringWithFormat:@"%li",rowIndex] byKey:PROJECT_NAME];
+        [self setValue:HCMasAppDelegate.selectedProject.serverUrl byKey:BASE_URL_NAME];
+        [_kpiModel loadKpiByProjectId:HCMasAppDelegate.selectedProject.projectId];
     }else if([self.settingKey isEqualToString:POINT_NAME]){
         NSInteger rowIndex = [self.projectPicker selectedRowInComponent:0];
         self.pointName = (NSString*)[self.pointNames objectAtIndex:rowIndex];
@@ -493,7 +498,7 @@
         return;
     }
     _doSearch = TRUE;
-    [_kpiHistoryModel loadHistoryKpiByProjectId:HCMasAppDelegate.user.selectedProject.projectId kpiType:self.kpiType pointName:self.pointName startDate:self.startDate endDate:self.endDate];
+    [_kpiHistoryModel loadHistoryKpiByProjectId:HCMasAppDelegate.selectedProject.projectId kpiType:self.kpiType pointName:self.pointName startDate:self.startDate endDate:self.endDate];
 }
 -(void)switchImage:(UISwipeGestureRecognizer*)gestureRecognizer{
     UISwipeGestureRecognizerDirection direction =gestureRecognizer.direction;
@@ -870,10 +875,10 @@
          NSString* kpiType = [kpiTypeArray objectAtIndex:i];
         NSUInteger index = 0;
         if (i!=0) {
-            if(HCMasAppDelegate.user==nil||HCMasAppDelegate.user.selectedProject==nil){
+            if(HCMasAppDelegate.user==nil||HCMasAppDelegate.selectedProject==nil){
                 continue;
             }
-            index = [HCMasAppDelegate.user.selectedProject.kpis indexOfObject:kpiType];
+            index = [HCMasAppDelegate.selectedProject.kpis indexOfObject:kpiType];
             if (index==NSNotFound) {
                 continue;
             }
@@ -884,7 +889,7 @@
         if(i==0){
             name = @"系统设置";
         }else{
-            name =[HCMasAppDelegate.user.selectedProject.kpiNames objectAtIndex:index];
+            name =[HCMasAppDelegate.selectedProject.kpiNames objectAtIndex:index];
         }
         UIImageView* imageView=[self createImageViewFromNamedImage:image frame:CGRectMake(16+(usedCount+xoffset)*72, 5+yoffset, 40, 40)];
         
@@ -911,9 +916,15 @@
     if(IS_IPHONE5){
         height=568;
     }
+
     UIScrollView* settingView = [[[UIScrollView alloc] initWithFrame:CGRectMake(0, y, 320, height-y-30)] autorelease];
-    settingView.contentSize = CGSizeMake(320, 255);
-    TTTableView* tableView = [[[TTTableView alloc] initWithFrame:CGRectMake(0, 0, 320, 255)] autorelease];
+    CGFloat contentHeight = 255;
+    if(HCMasAppDelegate.selectedProject==nil||!HCMasAppDelegate.selectedProject.serverConfig){
+        contentHeight = contentHeight - 50;
+    }
+    
+    settingView.contentSize = CGSizeMake(320, contentHeight);
+    TTTableView* tableView = [[[TTTableView alloc] initWithFrame:CGRectMake(0, 0, 320, contentHeight)] autorelease];
     tableView.scrollEnabled=NO;
     NSString* copyRight = [self getValueByKey:COPY_RIGHT];
     NSString* appName = [self getValueByKey:APP_NAME];
@@ -923,14 +934,26 @@
     if(appName==nil||[appName length]==0){
         appName = @"变形监测与预警系统";
     }
-    TTSectionedDataSource* ds = [TTSectionedDataSource dataSourceWithObjects:
-        @"设置",
-        [self createTableItemByTitle:@"服务地址" subTitle:@"请正确填写服务端地址" action:@selector(showServerSettingPopupView)],
-        [self createTableItemByTitle:@"工程项目" subTitle:@"请勾选需要查看的工程" action:@selector(showProjectSettingPopupView)],
-        [self createTableItemByTitle:@"更新频率" subTitle:@"设置刷新周期(秒)" action:@selector(showFrequencySettingPopupView)],
-        @"关于",
-        [TTTableStyledTextItem itemWithText:[TTStyledText textFromXHTML:[NSString stringWithFormat:@"<span class=\"settingRow3\">软件名称:%@</span><br/><span class=\"settingRow3\">版本:%@</span><br/><span class=\"settingRow3\">版权:%@</span>",appName,VERSION,copyRight] lineBreaks:YES URLs:YES]],
-                                 nil];
+    TTSectionedDataSource* ds = nil;
+    if(HCMasAppDelegate.selectedProject!=nil&&HCMasAppDelegate.selectedProject.serverConfig){
+        ds = [TTSectionedDataSource dataSourceWithObjects:
+                                     @"设置",
+                                     [self createTableItemByTitle:@"服务地址" subTitle:@"请正确填写服务端地址" action:@selector(showServerSettingPopupView)],
+                                     [self createTableItemByTitle:@"工程项目" subTitle:@"请勾选需要查看的工程" action:@selector(showProjectSettingPopupView)],
+                                     [self createTableItemByTitle:@"更新频率" subTitle:@"设置刷新周期(秒)" action:@selector(showFrequencySettingPopupView)],
+                                     @"关于",
+                                     [TTTableStyledTextItem itemWithText:[TTStyledText textFromXHTML:[NSString stringWithFormat:@"<span class=\"settingRow3\">软件名称:%@</span><br/><span class=\"settingRow3\">版本:%@</span><br/><span class=\"settingRow3\">版权:%@</span>",appName,VERSION,copyRight] lineBreaks:YES URLs:YES]],
+                                     nil];
+    }else{
+        ds = [TTSectionedDataSource dataSourceWithObjects:
+              @"设置",
+              [self createTableItemByTitle:@"工程项目" subTitle:@"请勾选需要查看的工程" action:@selector(showProjectSettingPopupView)],
+              [self createTableItemByTitle:@"更新频率" subTitle:@"设置刷新周期(秒)" action:@selector(showFrequencySettingPopupView)],
+              @"关于",
+              [TTTableStyledTextItem itemWithText:[TTStyledText textFromXHTML:[NSString stringWithFormat:@"<span class=\"settingRow3\">软件名称:%@</span><br/><span class=\"settingRow3\">版本:%@</span><br/><span class=\"settingRow3\">版权:%@</span>",appName,VERSION,copyRight] lineBreaks:YES URLs:YES]],
+              nil];
+    }
+    
     tableView.dataSource = ds;
     tableView.delegate = self;
     tableView.backgroundColor = [UIColor blackColor];
@@ -988,11 +1011,15 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    if(indexPath.row==0&&indexPath.section==0){
+    int row =indexPath.row;
+    if(HCMasAppDelegate.selectedProject==nil||!HCMasAppDelegate.selectedProject.serverConfig){
+        row++;
+    }
+    if(row==0&&indexPath.section==0){
         [self showServerSettingPopupView];
-    }else if(indexPath.row==1&&indexPath.section==0){
+    }else if(row==1&&indexPath.section==0){
         [self showProjectSettingPopupView];
-    }else if(indexPath.row==2&&indexPath.section==0){
+    }else if(row==2&&indexPath.section==0){
         [self showFrequencySettingPopupView];
     }
 }
@@ -1140,6 +1167,7 @@
 - (void)loginSuccess:(User*) user
 {
     [self.progressHUD hide:NO];
+    
     HCMasAppDelegate.user = user;
     self.footLabel.text = user.username;
     [self setValue:user.appName byKey:APP_NAME];
@@ -1157,7 +1185,17 @@
 //        [self.view addSubview:self.dataView];
 //    }
     self.headLabel.text = user.appName;
-    [_projectModel loadProjects];
+    CGFloat height = 0;
+    
+    if(DEVICE_VERSION>=7.0){
+        height = 22;
+    }
+
+    [self.menuView removeFromSuperview];
+    self.menuView = [self createMenuView:height+178];
+    [self.view addSubview:self.menuView];
+    
+    [_kpiModel loadKpiByProjectId:HCMasAppDelegate.selectedProject.projectId];
     [HCMasAppDelegate startTimer];
 }
 - (void)loginFailed:(NSError*) error message:(NSString*) message
@@ -1207,8 +1245,8 @@
         if(di>=self.projects.count){
             di = 0;
         }
-        HCMasAppDelegate.user.selectedProject = [self.projects objectAtIndex:di];
-        [_kpiModel loadKpiByProjectId:HCMasAppDelegate.user.selectedProject.projectId];
+        HCMasAppDelegate.selectedProject = [self.projects objectAtIndex:di];
+        [_kpiModel loadKpiByProjectId:HCMasAppDelegate.selectedProject.projectId];
     }
     CGFloat height = 0;
 
@@ -1307,7 +1345,7 @@
     NSDateFormatter* dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
     [dateFormatter setDateFormat:@"yyyyMMdd"];
     _doSearch = false;
-    [_kpiHistoryModel loadHistoryKpiByProjectId:HCMasAppDelegate.user.selectedProject.projectId kpiType:self.kpiType pointName:self.pointName startDate:self.startDate endDate:self.endDate];
+    [_kpiHistoryModel loadHistoryKpiByProjectId:HCMasAppDelegate.selectedProject.projectId kpiType:self.kpiType pointName:self.pointName startDate:self.startDate endDate:self.endDate];
 
 }
 -(void)openCalendar:(id)sender{
@@ -1420,6 +1458,47 @@
         }
     }
 }
+
+- (void)initStart{
+    self.progressHUD = [[[MBProgressHUD alloc] initWithView:self.view] autorelease];
+    self.progressHUD.delegate = self;
+    self.progressHUD.labelText = @"初始化数据...";
+    [self.view addSubview:self.progressHUD];
+    [self.view bringSubviewToFront:self.progressHUD];
+    [self.progressHUD show:YES];
+}
+- (void)initSuccess:(NSArray*) projects{
+    [self.progressHUD hide:NO];
+    self.projects = projects;
+    if(self.projects!=nil&&self.projects.count>0){
+        NSString* defaultIndex = [self getValueByKey:PROJECT_NAME];
+        int di = defaultIndex.intValue;
+        if(di>=self.projects.count){
+            di = 0;
+        }
+        Project* p =[self.projects objectAtIndex:di];
+        NSLog(@"%@", p.projectName);
+        HCMasAppDelegate.selectedProject = [self.projects objectAtIndex:di];
+        [self setValue:HCMasAppDelegate.selectedProject.serverUrl byKey:BASE_URL_NAME];
+    }else{
+        TTAlert(@"服务器端初始化数据配置错误");
+    }
+    
+}
+- (void)initFailed:(NSError*) error message:(NSString*) message{
+    [self.progressHUD hide:NO];
+    //-1004 connection is not available
+    //-1001 timeout
+    if([error code]==-1004||[error code]==-1001){
+        TTAlert(@"请检查网络链接");
+    }else{
+        if(message){
+            TTAlert(message);
+        }else{
+            TTAlert([error localizedDescription]);
+        }
+    }
+}
 #pragma mark -
 #pragma mark RefreshDelegate methods
 -(void)refresh{
@@ -1437,8 +1516,8 @@
     }
 
     NSLog(@"Reload current kpi from server");
-    if(HCMasAppDelegate.user.selectedProject!=nil){
-            [_kpiModel loadKpiByProjectId:HCMasAppDelegate.user.selectedProject.projectId];
+    if(HCMasAppDelegate.selectedProject!=nil){
+            [_kpiModel loadKpiByProjectId:HCMasAppDelegate.selectedProject.projectId];
     }
 }
 - (void)dealloc

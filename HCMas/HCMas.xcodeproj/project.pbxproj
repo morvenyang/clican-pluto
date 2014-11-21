@@ -95,6 +95,7 @@
 		724553AD19B04A0100760BF2 /* title_logo_v15.png in Resources */ = {isa = PBXBuildFile; fileRef = 7245537719B04A0100760BF2 /* title_logo_v15.png */; };
 		724553AE19B04A0100760BF2 /* title_logo.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7245537819B04A0100760BF2 /* title_logo.jpg */; };
 		724553AF19B04A0100760BF2 /* yellow.png in Resources */ = {isa = PBXBuildFile; fileRef = 7245537919B04A0100760BF2 /* yellow.png */; };
+		724B62FB1A1ED22500730153 /* InitModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 724B62FA1A1ED22500730153 /* InitModel.m */; };
 		72D1D0D319BFF73900E68511 /* SwipeScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 72D1D0D219BFF73900E68511 /* SwipeScrollView.m */; };
 		72D1D0EF19C006CF00E68511 /* KpiHistoryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 72D1D0EE19C006CF00E68511 /* KpiHistoryModel.m */; };
 		72D1D0F119C00C3000E68511 /* calendar.png in Resources */ = {isa = PBXBuildFile; fileRef = 72D1D0F019C00C3000E68511 /* calendar.png */; };
@@ -401,6 +402,8 @@
 		7245537819B04A0100760BF2 /* title_logo.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = title_logo.jpg; sourceTree = "<group>"; };
 		7245537919B04A0100760BF2 /* yellow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = yellow.png; sourceTree = "<group>"; };
 		724553DB19B0567800760BF2 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		724B62F91A1ED22500730153 /* InitModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InitModel.h; sourceTree = "<group>"; };
+		724B62FA1A1ED22500730153 /* InitModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InitModel.m; sourceTree = "<group>"; };
 		72D1D0D119BFF73900E68511 /* SwipeScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwipeScrollView.h; sourceTree = "<group>"; };
 		72D1D0D219BFF73900E68511 /* SwipeScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SwipeScrollView.m; sourceTree = "<group>"; };
 		72D1D0ED19C006CF00E68511 /* KpiHistoryModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KpiHistoryModel.h; sourceTree = "<group>"; };
@@ -663,6 +666,8 @@
 				72F124F819BABA6C00B0F676 /* KpiModel.m */,
 				72D1D0ED19C006CF00E68511 /* KpiHistoryModel.h */,
 				72D1D0EE19C006CF00E68511 /* KpiHistoryModel.m */,
+				724B62F91A1ED22500730153 /* InitModel.h */,
+				724B62FA1A1ED22500730153 /* InitModel.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -1153,6 +1158,7 @@
 				72D1D11019C011A200E68511 /* PMDimmingView.m in Sources */,
 				7233E1E719B03F1900F0664E /* StyleSheet.m in Sources */,
 				72D1D11D19C0166E00E68511 /* DateButton.m in Sources */,
+				724B62FB1A1ED22500730153 /* InitModel.m in Sources */,
 				72D1D20019C06B3F00E68511 /* PointNameButton.m in Sources */,
 				72D1D10C19C011A200E68511 /* NSDate+Helpers.m in Sources */,
 				7233DF3E19B0193C00F0664E /* main.m in Sources */,
