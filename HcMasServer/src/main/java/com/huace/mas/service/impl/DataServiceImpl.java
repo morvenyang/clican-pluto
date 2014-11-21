@@ -307,13 +307,20 @@ public class DataServiceImpl implements DataService {
 	public List<KpiData> queryKpiData(Long projectID, String kpiType,
 			String pointName, Date start, Date end) {
 		Kpi kpi = null;
-
+		List<Kpi> kpis = null;
 		Map<String, List<Kpi>> data = checkAndRefresh();
-		Project project = dataDao.getProjectByID(projectID);
-		if (project == null) {
-			return new ArrayList<KpiData>();
+		if (projectID != null) {
+			Project project = dataDao.getProjectByID(projectID);
+			if (project == null) {
+				return new ArrayList<KpiData>();
+			}
+			kpis = data.get(project.getProjectName());
+		} else {
+			kpis = new ArrayList<Kpi>();
+			for (List<Kpi> ks : data.values()) {
+				kpis.addAll(ks);
+			}
 		}
-		List<Kpi> kpis = data.get(project.getProjectName());
 		for (Kpi k : kpis) {
 			if (k.get__type().startsWith(kpiType)
 					&& k.getPointName().equals(pointName)) {
@@ -373,19 +380,29 @@ public class DataServiceImpl implements DataService {
 	@Override
 	public List<List<Object>> getKpisForProject(Long projectID) {
 		Map<String, List<Kpi>> data = checkAndRefresh();
-		Project project = dataDao.getProjectByID(projectID);
-		if (project == null) {
-			return new ArrayList<List<Object>>();
+		List<Kpi> kpis = null;
+		List<List<Object>> result = new ArrayList<List<Object>>();
+		List<Object> projects = new ArrayList<Object>();
+		result.add(projects);
+		if (projectID != null) {
+			Project project = dataDao.getProjectByID(projectID);
+			if (project == null) {
+				return new ArrayList<List<Object>>();
+			}
+			kpis = data.get(project.getProjectName());
+			projects.add(project);
+		} else {
+			kpis = new ArrayList<Kpi>();
+			for (List<Kpi> ks : data.values()) {
+				kpis.addAll(ks);
+			}
+			projects.add(dataDao.findAllProjects());
 		}
-		List<Kpi> kpis = data.get(project.getProjectName());
 		if (kpis == null || kpis.size() == 0) {
 			return new ArrayList<List<Object>>();
 		}
 		List<Kpi> clonedKpis = this.cloneKpis(kpis);
-		List<List<Object>> result = new ArrayList<List<Object>>();
-		List<Object> projects = new ArrayList<Object>();
-		projects.add(project);
-		result.add(projects);
+
 		for (int i = 0; i < springProperty.getOrderMap().size(); i++) {
 			result.add(new ArrayList<Object>());
 		}
@@ -461,8 +478,10 @@ public class DataServiceImpl implements DataService {
 					s.setAlertGrade(s.getAlertGrade_h());
 				}
 
-				s.setD2(Math.sqrt(s.getDis_x() * s.getDis_x() + s.getDis_y() * s.getDis_y()));
-				s.setD3(Math.sqrt(s.getDis_x() * s.getDis_x() + s.getDis_y() * s.getDis_y() + s.getDis_h() * s.getDis_h()));
+				s.setD2(Math.sqrt(s.getDis_x() * s.getDis_x() + s.getDis_y()
+						* s.getDis_y()));
+				s.setD3(Math.sqrt(s.getDis_x() * s.getDis_x() + s.getDis_y()
+						* s.getDis_y() + s.getDis_h() * s.getDis_h()));
 				DiffData diffData = diffMap.get(kpi.getDeviceID());
 				if (diffData == null || !diffData.isSameToday(s.getDacTime())) {
 					diffData = this.getDiffData(s, DateUtils.truncate(
@@ -470,9 +489,9 @@ public class DataServiceImpl implements DataService {
 					diffMap.put(kpi.getDeviceID(), diffData);
 				}
 				s.setDiffData(diffData);
-				s.setTodayChangeValue(getDiff(s,diffData,1));
-				s.setYesterdayChangeValue(getDiff(s,diffData,2));
-				s.setWeekChangeValue(getDiff(s,diffData,7));
+				s.setTodayChangeValue(getDiff(s, diffData, 1));
+				s.setYesterdayChangeValue(getDiff(s, diffData, 2));
+				s.setWeekChangeValue(getDiff(s, diffData, 7));
 			} else if (kpi instanceof Inner) {
 				((Inner) kpi).setV2(((Inner) dbKpi).getV2());
 
@@ -550,32 +569,38 @@ public class DataServiceImpl implements DataService {
 		return result;
 	}
 
-	private Double getDiff(Surface surface, DiffData diffData,int type) {
-		if(type==1){
+	private Double getDiff(Surface surface, DiffData diffData, int type) {
+		if (type == 1) {
 			return Math.sqrt((surface.getV1() - diffData.getV1Today())
 					* (surface.getV1() - diffData.getV1Today())
 					+ (surface.getV2() - diffData.getV2Today())
 					* (surface.getV2() - diffData.getV2Today())
 					+ (surface.getV3() - diffData.getV3Today())
 					* (surface.getV3() - diffData.getV3Today()));
-		}else if(type==2){
-			return Math.sqrt((diffData.getV1Today()- diffData.getV1Yesterday())
-					* (diffData.getV1Today() - diffData.getV1Yesterday())
-					+ (diffData.getV2Today() - diffData.getV2Yesterday())
-					* (diffData.getV2Today() - diffData.getV2Yesterday())
-					+ (diffData.getV3Today() - diffData.getV3Yesterday())
-					* (diffData.getV3Today() - diffData.getV3Yesterday()));
-		}else if(type==7){
+		} else if (type == 2) {
+			return Math
+					.sqrt((diffData.getV1Today() - diffData.getV1Yesterday())
+							* (diffData.getV1Today() - diffData
+									.getV1Yesterday())
+							+ (diffData.getV2Today() - diffData
+									.getV2Yesterday())
+							* (diffData.getV2Today() - diffData
+									.getV2Yesterday())
+							+ (diffData.getV3Today() - diffData
+									.getV3Yesterday())
+							* (diffData.getV3Today() - diffData
+									.getV3Yesterday()));
+		} else if (type == 7) {
 			return Math.sqrt((surface.getV1() - diffData.getV1Week())
 					* (surface.getV1() - diffData.getV1Week())
 					+ (surface.getV2() - diffData.getV2Week())
 					* (surface.getV2() - diffData.getV2Week())
 					+ (surface.getV3() - diffData.getV3Week())
 					* (surface.getV3() - diffData.getV3Week()));
-		}else{
+		} else {
 			return 0.0;
 		}
-		
+
 	}
 
 	private DiffData getDiffData(Surface surface, Date today) {
