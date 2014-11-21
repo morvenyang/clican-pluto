@@ -18,6 +18,7 @@
 @synthesize timer = _timer;
 @synthesize refreshDelegate = _refreshDelegate;
 @synthesize kpis = kpis;
+@synthesize selectedProject = _selectedProject;
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     if([[UIApplication sharedApplication] respondsToSelector:@selector(registerUserNotificationSettings:)]){

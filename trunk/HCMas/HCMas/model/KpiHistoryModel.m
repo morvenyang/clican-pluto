@@ -28,7 +28,7 @@
     }
     NSDateFormatter* dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
     [dateFormatter setDateFormat:@"yyyyMMdd"];
-    url = [prefixUrl stringByAppendingFormat:@"/4.ashx?projectID=%@&kpiType=%@&pointName=%@&startDate=%@&endDate=%@",projectId,kpiType,pointName,[dateFormatter stringFromDate:startDate],[dateFormatter stringFromDate:endDate]];
+    url = [prefixUrl stringByAppendingFormat:@"/4.ashx?kpiType=%@&pointName=%@&startDate=%@&endDate=%@",kpiType,pointName,[dateFormatter stringFromDate:startDate],[dateFormatter stringFromDate:endDate]];
     
     NSLog(@"URL:%@", url);
     
