@@ -37,7 +37,7 @@ public Date getPreviousDate();
 	public List<StoreRankResult> getStoreRankResult(Date date, String brand,
 			String channel,String order);
 	
-	public List<StoreRankResult> getAllStoreRankResult(Date date, String brand);
+	public List<StoreRankResult> getAllStoreRankResult(Date date, String brand,String order);
 	
 	public List<GoodRankResult> getGoodRankResult(Date date, String brand);
 
