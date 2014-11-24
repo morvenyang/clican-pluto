@@ -317,10 +317,13 @@ public class DataServiceImplV2 implements DataServiceV2 {
 		List<ChannelRankResult> crrList = new ArrayList<ChannelRankResult>();
 
 		List<StoreRankResult> allRankResult = this.dataDaoV2
-				.getAllStoreRankResult(yesterday, brand);
+				.getAllStoreRankResult(yesterday, brand,"desc");
+		List<StoreRankResult> allReverseRankResult = this.dataDaoV2
+		.getAllStoreRankResult(yesterday, brand,"asc");
 		ChannelRankResult acrr = new ChannelRankResult();
 		acrr.setChannel("全部");
 		acrr.setRanks(allRankResult);
+		acrr.setReverseRanks(allReverseRankResult);
 		crrList.add(0, acrr);
 
 		for (String channel : channels) {
