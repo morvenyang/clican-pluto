@@ -7,7 +7,6 @@
 //
 
 #import "StoreRankViewController.h"
-#import "ChannelRank.h"
 #import "Rank.h"
 #import "StyleSheet.h"
 
@@ -19,6 +18,7 @@
 @synthesize channelLables = _channelLables;
 @synthesize channels = _channels;
 @synthesize tableViews = _tableViews;
+@synthesize selectedChanngelRank = _selectedChanngelRank;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -35,6 +35,7 @@
         self.channelLables = [NSMutableArray array];
         self.tableViews =[NSMutableArray array];
         self.index = 4;
+        self.order = @"asc";
     }
     return self;
 }
@@ -76,7 +77,8 @@
     }
     
     if([channels count]!=0){
-        CGFloat width = SCREEN_WIDTH/[channels count];
+        
+        CGFloat width = SCREEN_WIDTH*2/3/[channels count];
         int index = 0;
         CGFloat t = 0;
         for(ChannelRank* channelRank in channels){
@@ -86,7 +88,7 @@
                 x =x +0.5;
             }
             if(index==[channels count]-1){
-                realWidth = SCREEN_WIDTH-t;
+                realWidth = SCREEN_WIDTH*2/3-t;
             }
             t+=width;
             UILabel* channelLabel = [self createLabel:channelRank.channel frame:CGRectMake(x, dailyView.frame.size.height, realWidth, SCREEN_HEIGHT*5/48) textColor:@"#636363" font:channelFontSize backgroundColor:@"#ffffff"];
@@ -102,6 +104,24 @@
             [self.channelLables addObject:channelLabel];
             index++;
         }
+        
+        self.topLabel = [self createLabel:@"前10" frame:CGRectMake(SCREEN_WIDTH*2/3+10, dailyView.frame.size.height+SCREEN_HEIGHT*1/48, (SCREEN_WIDTH*1/3-20)/2, SCREEN_HEIGHT*3/48) textColor:@"#636363" font:channelFontSize-5 backgroundColor:@"#ffffff"];
+        UITapGestureRecognizer* orderRecognizer1 = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickOrderLabel:)] autorelease];
+        self.topLabel.userInteractionEnabled = YES;
+        [self.topLabel addGestureRecognizer:orderRecognizer1];
+        self.topLabel.textAlignment = [self getAlignment:ALIGN_CENTER];
+        self.topLabel.textColor = [UIColor whiteColor];
+        self.topLabel.backgroundColor = [StyleSheet colorFromHexString:TAB_COLOR];
+        [self.contentView addSubview:self.topLabel];
+        
+        self.bottomLabel = [self createLabel:@"后10" frame:CGRectMake(SCREEN_WIDTH*2/3+10+(SCREEN_WIDTH*1/3-20)/2, dailyView.frame.size.height+SCREEN_HEIGHT*1/48, (SCREEN_WIDTH*1/3-20)/2, SCREEN_HEIGHT*3/48) textColor:@"#636363" font:channelFontSize-5 backgroundColor:@"#ffffff"];
+        UITapGestureRecognizer* orderRecognizer2 = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickOrderLabel:)] autorelease];
+        self.bottomLabel.userInteractionEnabled = YES;
+        [self.bottomLabel addGestureRecognizer:orderRecognizer2];
+        self.bottomLabel.textAlignment = [self getAlignment:ALIGN_CENTER];
+        
+        [self.contentView addSubview:self.bottomLabel];
+        
     }
     [self.contentView addSubview:dailyView];
     CGFloat wOffset = 0;
@@ -120,9 +140,27 @@
     }
     
 }
+-(void)clickOrderLabel:(UIGestureRecognizer*)gestureRecognizer{
+    UILabel* orderLabel = (UILabel*)gestureRecognizer.view;
+    
+    if(orderLabel == self.bottomLabel){
+        self.bottomLabel.textColor =[UIColor whiteColor];
+        self.bottomLabel.backgroundColor =[StyleSheet colorFromHexString:TAB_COLOR];
+        self.topLabel.textColor = [StyleSheet colorFromHexString:@"#636363"];
+        self.topLabel.backgroundColor =[StyleSheet colorFromHexString:@"#ffffff"];
+        self.order = @"desc";
+    }else{
+        self.topLabel.textColor =[UIColor whiteColor];
+        self.topLabel.backgroundColor =[StyleSheet colorFromHexString:TAB_COLOR];
+        self.bottomLabel.textColor = [StyleSheet colorFromHexString:@"#636363"];
+        self.bottomLabel.backgroundColor =[StyleSheet colorFromHexString:@"#ffffff"];
+        self.order = @"asc";
+    }
+    [self updateChannel:self.selectedChanngelRank];
+}
 -(void)clickChannelLabel:(UIGestureRecognizer*)gestureRecognizer{
     UILabel* channelLabel = (UILabel*)gestureRecognizer.view;
-    ChannelRank* channel = nil;
+
     for(UILabel* l in self.channelLables){
         l.textColor = [UIColor whiteColor];
         l.backgroundColor = [StyleSheet colorFromHexString:TAB_COLOR];
@@ -131,18 +169,19 @@
     channelLabel.backgroundColor =[StyleSheet colorFromHexString:@"#ffffff"];
     for(ChannelRank* c in self.channels){
         if([c.channel isEqualToString:channelLabel.text]){
-            channel = c;
+            self.selectedChanngelRank = c;
             break;
         }
     }
  
-    [self updateChannel:channel];
+    [self updateChannel:self.selectedChanngelRank];
 }
 
 -(void) updateChannel:(ChannelRank*) channel{
     for(UIView* view in self.tableViews){
         [view removeFromSuperview];
     }
+    self.selectedChanngelRank = channel;
     CGFloat ROW_HEIGHT = 34;
     CGFloat ROW_CONTENT_HEIGHT=32;
     int labelFont = 12;
@@ -162,9 +201,15 @@
 
 
     [self.tableViews removeAllObjects];
-    for(int i=0;i<channel.ranks.count;i++){
+    NSArray* ranks = nil;
+    if([self.order isEqualToString:@"asc"]){
+        ranks = channel.ranks;
+    }else{
+        ranks = channel.reverseRanks;
+    }
+    for(int i=0;i<ranks.count;i++){
         CGFloat wOffset = 0;
-        Rank* rank = [channel.ranks objectAtIndex:i];
+        Rank* rank = [ranks objectAtIndex:i];
         UILabel* label =[self createLabel:[NSString stringWithFormat:@"%i",i+1] frame:CGRectMake(0, _tableOffset+i*ROW_HEIGHT, SCREEN_WIDTH*3/32, ROW_CONTENT_HEIGHT) textColor:@"#6a6a6a" font:labelFont backgroundColor:@"#f3f3f3" textAlignment:ALIGN_CENTER];
         wOffset+=SCREEN_WIDTH*3/32+2;
         [self.tableViews addObject:label];
