@@ -309,7 +309,7 @@ public class DataServiceImplV2 implements DataServiceV2 {
 	}
 
 	@Override
-	public String getStoreRankResult(String brand, Date date, String order) {
+	public String getStoreRankResult(String brand, Date date) {
 		Date yesterday = getYesterday(date);
 		List<String> channels = this.dataDaoV2.getAllChannelForRank(yesterday,
 				brand);
@@ -325,10 +325,13 @@ public class DataServiceImplV2 implements DataServiceV2 {
 
 		for (String channel : channels) {
 			List<StoreRankResult> rankResult = this.dataDaoV2.getStoreRankResult(
-					yesterday, brand, channel, order);
+					yesterday, brand, channel,"asc");
+			List<StoreRankResult> reverseRankResult = this.dataDaoV2.getStoreRankResult(
+					yesterday, brand, channel,"desc");
 			ChannelRankResult crr = new ChannelRankResult();
 			crr.setChannel(channel);
 			crr.setRanks(rankResult);
+			crr.setReverseRanks(reverseRankResult);
 			crrList.add(crr);
 		}
 		StoreRankStatResult rsr = new StoreRankStatResult();

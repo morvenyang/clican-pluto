@@ -6,6 +6,8 @@ public class ChannelRankResult{
 	
 	private List<StoreRankResult> ranks;
 	
+	private List<StoreRankResult> reverseRanks;
+	
 	private String channel;
 
 	public List<StoreRankResult> getRanks() {
@@ -22,6 +24,14 @@ public class ChannelRankResult{
 
 	public void setChannel(String channel) {
 		this.channel = channel;
+	}
+
+	public List<StoreRankResult> getReverseRanks() {
+		return reverseRanks;
+	}
+
+	public void setReverseRanks(List<StoreRankResult> reverseRanks) {
+		this.reverseRanks = reverseRanks;
 	}
 	
 }

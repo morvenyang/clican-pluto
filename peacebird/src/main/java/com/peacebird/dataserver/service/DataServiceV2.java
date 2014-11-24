@@ -18,7 +18,7 @@ public interface DataServiceV2 {
 	
 	public String getChannelResult(String brand,Date date);
 	
-	public String getStoreRankResult(String brand,Date date,String order);
+	public String getStoreRankResult(String brand,Date date);
 	
 	public String getGoodRankResult(String brand,Date date);
 	
