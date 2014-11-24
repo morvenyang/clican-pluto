@@ -12,10 +12,12 @@
 
 @synthesize channel = _channel;
 @synthesize ranks = _ranks;
+@synthesize reverseRanks = _reverseRanks;
 
 - (void) dealloc {
     TT_RELEASE_SAFELY(_channel);
     TT_RELEASE_SAFELY(_ranks);
+    TT_RELEASE_SAFELY(_reverseRanks);
     [super dealloc];
 }
 

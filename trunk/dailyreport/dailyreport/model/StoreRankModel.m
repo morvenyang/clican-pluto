@@ -80,7 +80,9 @@
                 [channelRanks addObject:cr];
                 NSString* channel = [jsonChannel objectForKey:@"channel"];
                 NSMutableArray* ranks = [NSMutableArray array];
+                NSMutableArray* reverseRanks = [NSMutableArray array];
                 cr.ranks = ranks;
+                cr.reverseRanks = reverseRanks;
                 cr.channel = channel;
 
                 NSArray* jsonRanks = [jsonChannel objectForKey:@"ranks"];
@@ -90,6 +92,15 @@
                     r.dayAmount =[jsonRank objectForKey:@"amount"];
                     r.rate =[jsonRank objectForKey:@"rate"];
                     [ranks addObject:r];
+                }
+                
+                NSArray* jsonReverseRanks = [jsonChannel objectForKey:@"reverseRanks"];
+                for(NSDictionary* jsonReverseRank in jsonReverseRanks){
+                    Rank* r = [[[Rank alloc] init] autorelease];
+                    r.name =[jsonReverseRank objectForKey:@"name"];
+                    r.dayAmount =[jsonReverseRank objectForKey:@"amount"];
+                    r.rate =[jsonReverseRank objectForKey:@"rate"];
+                    [reverseRanks addObject:r];
                 }
             }
             NSDate* date =  [dateFormatter dateFromString:[data objectForKey:@"date"]];

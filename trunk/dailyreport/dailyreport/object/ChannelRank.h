@@ -11,8 +11,9 @@
 @interface ChannelRank : NSObject{
     NSString* _channel;
     NSArray* _ranks;
- 
+    NSArray* _reverseRanks;
 }
 @property (nonatomic, copy) NSString* channel;
 @property (nonatomic, retain) NSArray* ranks;
+@property (nonatomic, retain) NSArray* reverseRanks;
 @end
