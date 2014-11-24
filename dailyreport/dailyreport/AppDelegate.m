@@ -19,6 +19,7 @@
 #import "GoodRankViewController.h"
 #import "GoodViewController.h"
 #import "StoreSumController.h"
+#import "NoRetailsController.h"
 #import "CRNavigator.h"
 @implementation AppDelegate
 
@@ -69,6 +70,8 @@
      [B2CKPIViewController class]];
     [map from:@"peacebird://storeSum/(initWithBrand:)" toSharedViewController:
      [StoreSumController class]];
+    [map from:@"peacebird://noRetails/(initWithBrand:)" toSharedViewController:
+     [NoRetailsController class]];
     [map from:@"peacebird://gestureLock/(initWithType:)" toSharedViewController:
      [KKViewController class]];
 

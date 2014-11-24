@@ -46,7 +46,7 @@
 }
 
 - (void) brandDidFinishLoad:(NSArray*) monthlySums yearlySums:(NSArray *)yearlySums date:(NSDate *)date {
-    NSLog(@"%@",@"加载Brand KPI数据成功");
+    NSLog(@"%@",@"加载Store sum数据成功");
     self.selectedDate = date;
     self.monthlySums = monthlySums;
     self.yearlySums = yearlySums;
@@ -222,6 +222,11 @@
 {
     _storeSumModel.delegate = nil;
     TT_RELEASE_SAFELY(_storeSumModel);
+    TT_RELEASE_SAFELY(_typeLabels);
+    TT_RELEASE_SAFELY(_tableViews);
+    TT_RELEASE_SAFELY(_monthlySums);
+    TT_RELEASE_SAFELY(_monthlySums);
+    
     [super dealloc];
 }
 @end

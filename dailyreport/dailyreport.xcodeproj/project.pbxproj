@@ -56,6 +56,8 @@
 		724B4EC91A233CE200378077 /* StoreSum.m in Sources */ = {isa = PBXBuildFile; fileRef = 724B4EC81A233CE200378077 /* StoreSum.m */; };
 		724B4ED51A233E3C00378077 /* StoreSumModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 724B4ED41A233E3C00378077 /* StoreSumModel.m */; };
 		724B4ED81A23409200378077 /* StoreSumController.m in Sources */ = {isa = PBXBuildFile; fileRef = 724B4ED71A23409200378077 /* StoreSumController.m */; };
+		724B4EDB1A235C7400378077 /* NoRetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 724B4EDA1A235C7400378077 /* NoRetailModel.m */; };
+		724B4EDE1A235D9C00378077 /* NoRetailsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 724B4EDD1A235D9C00378077 /* NoRetailsController.m */; };
 		724F4F3F1935B7890079F9A0 /* SwipeScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 724F4F3E1935B7890079F9A0 /* SwipeScrollView.m */; };
 		725AFEBF19317C42003BD9F3 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 725AFEBE19317C42003BD9F3 /* libWeChatSDK.a */; };
 		7262316C192B168500E3F99B /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 72623162192B168500E3F99B /* Default.png */; };
@@ -412,6 +414,10 @@
 		724B4ED41A233E3C00378077 /* StoreSumModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoreSumModel.m; sourceTree = "<group>"; };
 		724B4ED61A23409200378077 /* StoreSumController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoreSumController.h; sourceTree = "<group>"; };
 		724B4ED71A23409200378077 /* StoreSumController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoreSumController.m; sourceTree = "<group>"; };
+		724B4ED91A235C7400378077 /* NoRetailModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoRetailModel.h; sourceTree = "<group>"; };
+		724B4EDA1A235C7400378077 /* NoRetailModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoRetailModel.m; sourceTree = "<group>"; };
+		724B4EDC1A235D9C00378077 /* NoRetailsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoRetailsController.h; sourceTree = "<group>"; };
+		724B4EDD1A235D9C00378077 /* NoRetailsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoRetailsController.m; sourceTree = "<group>"; };
 		724F4F3D1935B7890079F9A0 /* SwipeScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwipeScrollView.h; sourceTree = "<group>"; };
 		724F4F3E1935B7890079F9A0 /* SwipeScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SwipeScrollView.m; sourceTree = "<group>"; };
 		725AFEBA19317AB5003BD9F3 /* WXApi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
@@ -910,6 +916,8 @@
 				7292720A1988C95100BCF33A /* GoodViewController.m */,
 				724B4ED61A23409200378077 /* StoreSumController.h */,
 				724B4ED71A23409200378077 /* StoreSumController.m */,
+				724B4EDC1A235D9C00378077 /* NoRetailsController.h */,
+				724B4EDD1A235D9C00378077 /* NoRetailsController.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -946,6 +954,8 @@
 				729271FC1988B73200BCF33A /* GoodRankModel.m */,
 				724B4ED31A233E3C00378077 /* StoreSumModel.h */,
 				724B4ED41A233E3C00378077 /* StoreSumModel.m */,
+				724B4ED91A235C7400378077 /* NoRetailModel.h */,
+				724B4EDA1A235C7400378077 /* NoRetailModel.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -1395,6 +1405,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				72783C051929CBA70098B3A8 /* CRNavigator.m in Sources */,
+				724B4EDB1A235C7400378077 /* NoRetailModel.m in Sources */,
 				724B4EC91A233CE200378077 /* StoreSum.m in Sources */,
 				724480F5192732E2005F5BE5 /* BrandModel.m in Sources */,
 				724480F2192732A8005F5BE5 /* BrandViewController.m in Sources */,
@@ -1413,6 +1424,7 @@
 				72AD8600193305AB004CAE5F /* StoreRankModel.m in Sources */,
 				72783C011929C7D70098B3A8 /* CRNavigationBar.m in Sources */,
 				72783CA9192A09100098B3A8 /* IndexTableItemCell.m in Sources */,
+				724B4EDE1A235D9C00378077 /* NoRetailsController.m in Sources */,
 				72AD860919330B45004CAE5F /* StoreRankViewController.m in Sources */,
 				724F4F3F1935B7890079F9A0 /* SwipeScrollView.m in Sources */,
 				722D6B371963DDB400036D38 /* KKGestureLockView.m in Sources */,
