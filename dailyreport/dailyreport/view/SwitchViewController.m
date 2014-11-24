@@ -107,11 +107,12 @@
     [self.backgroundShareView addSubview:self.shareView];
 }
 -(UIView*) createPaginationView:(int)y{
-    UIView* paginationView = [[[UIView alloc] initWithFrame:CGRectMake(112, y, 96, 30)] autorelease];
+    int c = 7;
+    UIView* paginationView = [[[UIView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/2-16*7/2, y, 16*7, 30)] autorelease];
     UIImage* lightImage= [UIImage imageNamed:@"图标-分页原点-正常.png"];
     UIImage* highLightImage= [UIImage imageNamed:@"图标-分页原点-高亮.png"];
     paginationView.backgroundColor = [UIColor whiteColor];
-    for(int i=1;i<=6;i++){
+    for(int i=1;i<=c;i++){
         UIImageView* v = [[[UIImageView alloc] initWithFrame:CGRectMake(16*(i-1), 10, 6, 6)] autorelease];
         if(i==self.index){
             v.image = highLightImage;

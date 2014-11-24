@@ -53,6 +53,9 @@
 		724480EF19273167005F5BE5 /* Channel.m in Sources */ = {isa = PBXBuildFile; fileRef = 724480EE19273167005F5BE5 /* Channel.m */; };
 		724480F2192732A8005F5BE5 /* BrandViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 724480F1192732A8005F5BE5 /* BrandViewController.m */; };
 		724480F5192732E2005F5BE5 /* BrandModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 724480F4192732E2005F5BE5 /* BrandModel.m */; };
+		724B4EC91A233CE200378077 /* StoreSum.m in Sources */ = {isa = PBXBuildFile; fileRef = 724B4EC81A233CE200378077 /* StoreSum.m */; };
+		724B4ED51A233E3C00378077 /* StoreSumModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 724B4ED41A233E3C00378077 /* StoreSumModel.m */; };
+		724B4ED81A23409200378077 /* StoreSumController.m in Sources */ = {isa = PBXBuildFile; fileRef = 724B4ED71A23409200378077 /* StoreSumController.m */; };
 		724F4F3F1935B7890079F9A0 /* SwipeScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 724F4F3E1935B7890079F9A0 /* SwipeScrollView.m */; };
 		725AFEBF19317C42003BD9F3 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 725AFEBE19317C42003BD9F3 /* libWeChatSDK.a */; };
 		7262316C192B168500E3F99B /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 72623162192B168500E3F99B /* Default.png */; };
@@ -403,6 +406,12 @@
 		724480F1192732A8005F5BE5 /* BrandViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrandViewController.m; sourceTree = "<group>"; };
 		724480F3192732E2005F5BE5 /* BrandModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrandModel.h; sourceTree = "<group>"; };
 		724480F4192732E2005F5BE5 /* BrandModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrandModel.m; sourceTree = "<group>"; };
+		724B4EC71A233CE200378077 /* StoreSum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoreSum.h; sourceTree = "<group>"; };
+		724B4EC81A233CE200378077 /* StoreSum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoreSum.m; sourceTree = "<group>"; };
+		724B4ED31A233E3C00378077 /* StoreSumModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoreSumModel.h; sourceTree = "<group>"; };
+		724B4ED41A233E3C00378077 /* StoreSumModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoreSumModel.m; sourceTree = "<group>"; };
+		724B4ED61A23409200378077 /* StoreSumController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoreSumController.h; sourceTree = "<group>"; };
+		724B4ED71A23409200378077 /* StoreSumController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoreSumController.m; sourceTree = "<group>"; };
 		724F4F3D1935B7890079F9A0 /* SwipeScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwipeScrollView.h; sourceTree = "<group>"; };
 		724F4F3E1935B7890079F9A0 /* SwipeScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SwipeScrollView.m; sourceTree = "<group>"; };
 		725AFEBA19317AB5003BD9F3 /* WXApi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
@@ -899,6 +908,8 @@
 				729271FF1988B8E000BCF33A /* GoodRankViewController.m */,
 				729272091988C95100BCF33A /* GoodViewController.h */,
 				7292720A1988C95100BCF33A /* GoodViewController.m */,
+				724B4ED61A23409200378077 /* StoreSumController.h */,
+				724B4ED71A23409200378077 /* StoreSumController.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -933,6 +944,8 @@
 				72AD860B193358B6004CAE5F /* BaseModel.m */,
 				729271FB1988B73200BCF33A /* GoodRankModel.h */,
 				729271FC1988B73200BCF33A /* GoodRankModel.m */,
+				724B4ED31A233E3C00378077 /* StoreSumModel.h */,
+				724B4ED41A233E3C00378077 /* StoreSumModel.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -954,6 +967,8 @@
 				72AD8605193309AF004CAE5F /* ChannelRank.m */,
 				729271EF1988B66B00BCF33A /* GoodRank.h */,
 				729271F01988B66B00BCF33A /* GoodRank.m */,
+				724B4EC71A233CE200378077 /* StoreSum.h */,
+				724B4EC81A233CE200378077 /* StoreSum.m */,
 			);
 			path = object;
 			sourceTree = "<group>";
@@ -1380,6 +1395,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				72783C051929CBA70098B3A8 /* CRNavigator.m in Sources */,
+				724B4EC91A233CE200378077 /* StoreSum.m in Sources */,
 				724480F5192732E2005F5BE5 /* BrandModel.m in Sources */,
 				724480F2192732A8005F5BE5 /* BrandViewController.m in Sources */,
 				72AD860C193358B6004CAE5F /* BaseModel.m in Sources */,
@@ -1387,6 +1403,7 @@
 				724480EF19273167005F5BE5 /* Channel.m in Sources */,
 				72EB38A919270EAF00D0F225 /* LoginDataSource.m in Sources */,
 				7292720B1988C95100BCF33A /* GoodViewController.m in Sources */,
+				724B4ED51A233E3C00378077 /* StoreSumModel.m in Sources */,
 				7237939B19500AC900B336FD /* PMDimmingView.m in Sources */,
 				72EB38A619270E8D00D0F225 /* LoginViewController.m in Sources */,
 				7237939C19500AC900B336FD /* PMPeriod.m in Sources */,
@@ -1413,6 +1430,7 @@
 				72EB389E19270CCA00D0F225 /* IndexListModel.m in Sources */,
 				722D42E7192C89F800350244 /* Retail.m in Sources */,
 				72783C021929C7D70098B3A8 /* CRNavigationController.m in Sources */,
+				724B4ED81A23409200378077 /* StoreSumController.m in Sources */,
 				72138B83194EB53D009918BD /* CannotCancelUISwipeGestureRecognizer.m in Sources */,
 				729272001988B8E000BCF33A /* GoodRankViewController.m in Sources */,
 				7285E3D61925AFEE0011C2D6 /* AppDelegate.m in Sources */,

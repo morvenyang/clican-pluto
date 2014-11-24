@@ -176,10 +176,10 @@
     UIBezierPath* backArrowPath = [UIBezierPath bezierPath];
     [backArrowPath moveToPoint: CGPointMake(hDiff / 2 - 6
                                             , headerHeight / 2)];
-    [backArrowPath addLineToPoint: CGPointMake(6 + hDiff / 2 - 6
-                                               , headerHeight / 2 + 4)];
-    [backArrowPath addLineToPoint: CGPointMake( 6 + hDiff / 2 - 6
-                                               ,  headerHeight / 2 - 4)];
+    [backArrowPath addLineToPoint: CGPointMake(6 + hDiff / 2 - 0
+                                               , headerHeight / 2 + 6)];
+    [backArrowPath addLineToPoint: CGPointMake( 6 + hDiff / 2 - 0
+                                               ,  headerHeight / 2 - 6)];
     [backArrowPath addLineToPoint: CGPointMake( hDiff / 2 - 6
                                                ,  headerHeight / 2)];
     [backArrowPath closePath];
@@ -191,10 +191,10 @@
     UIBezierPath* forwardArrowPath = [UIBezierPath bezierPath];
     [forwardArrowPath moveToPoint: CGPointMake( width - hDiff / 2 + 6
                                                ,  headerHeight / 2)];
-    [forwardArrowPath addLineToPoint: CGPointMake( -6 + width - hDiff / 2 + 6
-                                                  , headerHeight / 2 + 4)];
-    [forwardArrowPath addLineToPoint: CGPointMake(-6 + width - hDiff / 2 + 6
-                                                   , headerHeight / 2 - 4)];
+    [forwardArrowPath addLineToPoint: CGPointMake( -6 + width - hDiff / 2 + 0
+                                                  , headerHeight / 2 + 6)];
+    [forwardArrowPath addLineToPoint: CGPointMake(-6 + width - hDiff / 2 + 0
+                                                   , headerHeight / 2 - 6)];
     [forwardArrowPath addLineToPoint: CGPointMake( width - hDiff / 2 + 6
                                                   , headerHeight / 2)];
     [forwardArrowPath closePath];
