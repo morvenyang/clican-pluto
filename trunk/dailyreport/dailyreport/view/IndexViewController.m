@@ -126,7 +126,7 @@
     calendarButton.frame =CGRectMake(0, 8, menuImage.size.width, menuImage.size.height-8);
     calendarButton.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     calendarButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-    [calendarButton addTarget:self action:@selector(openGestureSetting:) forControlEvents:UIControlEventTouchUpInside];
+    [calendarButton addTarget:self action:@selector(openCalendar:) forControlEvents:UIControlEventTouchUpInside];
 
     
     

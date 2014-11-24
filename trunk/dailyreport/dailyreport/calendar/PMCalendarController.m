@@ -15,7 +15,7 @@
 #import "PMCalendarHelpers.h"
 #import "PMDimmingView.h"
 
-static CGSize defaultSize = (CGSize){260, 200};
+static CGSize defaultSize = (CGSize){300, 240};
 CGSize arrowSize = (CGSize){18, 11};
 CGSize outerPadding = (CGSize){0, 0}; // TBD
 NSString *kPMCalendarRedrawNotification = @"kPMCalendarRedrawNotification";
