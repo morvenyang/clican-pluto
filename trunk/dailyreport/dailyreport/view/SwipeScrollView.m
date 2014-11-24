@@ -70,6 +70,9 @@
             }else if(self.index==6){
                 NSString* url = [NSString stringWithFormat:@"peacebird://storeSum/%@", [self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
                 TTOpenURL(url);
+            }else if(self.index==7){
+                NSString* url = [NSString stringWithFormat:@"peacebird://noRetails/%@", [self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+                TTOpenURL(url);
             }else if(self.index==-1){
                 
                 int goodIndex = DrAppDelegate.user.goodIndex;
@@ -100,6 +103,9 @@
                 TTOpenURL(url);
             }else if(self.index==7){
                 NSString* url = [NSString stringWithFormat:@"peacebird://b2cKpi/%@", [self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+                TTOpenURL(url);
+            }else if(self.index==8){
+                NSString* url = [NSString stringWithFormat:@"peacebird://storeSum/%@", [self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
                 TTOpenURL(url);
             }else if(self.index==-1){
                 int goodIndex = DrAppDelegate.user.goodIndex;
