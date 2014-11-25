@@ -48,7 +48,7 @@
 - (void)layoutSubviews {
 	[super layoutSubviews];
     _label.userInteractionEnabled = NO;
-    NSLog(@"%f",self.backgroundImageView.frame.size.height);
+
     _label.font = [UIFont fontWithName:@"HelveticaNeue-UltraLight" size:40];
  
     _label.frame = CGRectMake(SCREEN_WIDTH*9/16, (self.backgroundImageView.frame.size.height-_label.font.lineHeight)/2, SCREEN_WIDTH*7/16-20,_label.font.lineHeight );
