@@ -25,7 +25,9 @@
         
         _loginModel = [[LoginModel alloc] init];
         _loginModel.delegate = self;
-        
+    #ifdef __IPHONE_7_0
+        self.edgesForExtendedLayout = UIRectEdgeNone;
+    #endif
     }
     
     
@@ -43,18 +45,14 @@
     return self;
 }
 
-- (id)init {
-    if ((self = [self initWithNibName:nil bundle:nil])) {
-    }
-    return self;
-}
+
 
 
 - (void)loadView
 {
     
     [super loadView];
-
+    
     
     self.title = @"登录";
     #ifdef __IPHONE_7_0
@@ -72,34 +70,21 @@
     self.view.backgroundColor = [StyleSheet colorFromHexString:@"#EAEEF2"];
     
     UIImage* titleImage = [UIImage imageNamed:@"用户名密码背景"];
-    if(DEVICE_VERSION>=7.0){
-        _titleImageView = [[TTImageView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-titleImage.size.width)/2,64+topOffset, titleImage.size.width, titleImage.size.height)];
-    }else{
-        _titleImageView = [[TTImageView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-titleImage.size.width)/2,topOffset, titleImage.size.width, titleImage.size.height)];
-    }
+     _titleImageView = [[TTImageView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-titleImage.size.width)/2,topOffset, titleImage.size.width, titleImage.size.height)];
     
     _titleImageView.defaultImage = titleImage;
 
-    if(DEVICE_VERSION>=7.0){
-        self.usernameField.frame = CGRectMake((SCREEN_WIDTH-titleImage.size.width)/2+40,topOffset+64, titleImage.size.width-40, titleImage.size.height/2);
-        self.passwordField.frame = CGRectMake((SCREEN_WIDTH-titleImage.size.width)/2+40,topOffset+titleImage.size.height/2+64, titleImage.size.width-40, titleImage.size.height/2);
-    }else{
-        self.usernameField.frame = CGRectMake((SCREEN_WIDTH-titleImage.size.width)/2+40,topOffset, titleImage.size.width-40, titleImage.size.height/2);
-        self.passwordField.frame = CGRectMake((SCREEN_WIDTH-titleImage.size.width)/2+40,topOffset+titleImage.size.height/2, titleImage.size.width-40, titleImage.size.height/2);
-    }
+    self.usernameField.frame = CGRectMake((SCREEN_WIDTH-titleImage.size.width)/2+40,topOffset, titleImage.size.width-40, titleImage.size.height/2);
+    self.passwordField.frame = CGRectMake((SCREEN_WIDTH-titleImage.size.width)/2+40,topOffset+titleImage.size.height/2, titleImage.size.width-40, titleImage.size.height/2);
     
     
     self.loginButton = [UIButton buttonWithType:UIButtonTypeCustom];
     
     UIImage* loginButtonImage = [UIImage imageNamed:@"登录按钮"];
     
-    if(DEVICE_VERSION>=7.0){
-        self.loginButton.frame = CGRectMake((SCREEN_WIDTH-loginButtonImage.size.width)/2, topOffset+titleImage.size.height+diff+64, loginButtonImage.size.width, loginButtonImage.size.height);
-    }else{
-        self.loginButton.frame = CGRectMake((SCREEN_WIDTH-loginButtonImage.size.width)/2, topOffset+titleImage.size.height+diff, loginButtonImage.size.width, loginButtonImage.size.height);
-    }
+    self.loginButton.frame = CGRectMake((SCREEN_WIDTH-loginButtonImage.size.width)/2, topOffset+titleImage.size.height+diff, loginButtonImage.size.width, loginButtonImage.size.height);
     
-    [self.loginButton setImage:[UIImage imageNamed:@"登录按钮.png"] forState:UIControlStateNormal];
+    [self.loginButton setImage:loginButtonImage forState:UIControlStateNormal];
     [self.loginButton addTarget:self action:@selector(loginAction) forControlEvents: UIControlEventTouchUpInside];
     
     [self.view addSubview:_titleImageView];

@@ -24,6 +24,7 @@
     NSDate* _selectedDate;
     PMPeriod* _initPeriod;
     UILabel* _calendarLabel;
+    CGFloat _yOffset;
 }
 @property (nonatomic, retain) SwipeScrollView *contentView;
 @property (nonatomic, copy) NSString *brand;
