@@ -10,6 +10,7 @@
 #import "StyleSheet.h"
 #import "WXApi.h"
 #import "AppDelegate.h"
+
 @implementation SwitchViewController
 
 @synthesize contentView = _contentView;
@@ -34,7 +35,9 @@
     
     [super loadView];
     self.title = self.brand;
-    
+    #ifdef __IPHONE_7_0
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+    #endif
     UIButton* backButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [backButton setImage:[UIImage imageNamed:@"back.png"] forState:UIControlStateNormal];
     
@@ -108,7 +111,7 @@
     UIImage* mailImage= [UIImage imageNamed:@"图标-微信好友"];
     mailButton.frame =CGRectMake(wOffset, 30, mailImage.size.width, mailImage.size.height);
     [mailButton setImage:mailImage forState:UIControlStateNormal];
-    [mailButton addTarget:self action:@selector(sendWXContent) forControlEvents:UIControlEventTouchUpInside];
+    [mailButton addTarget:self action:@selector(sendMailContent) forControlEvents:UIControlEventTouchUpInside];
     UILabel* mailLabel = [self createLabel:@"邮件分享" frame:CGRectMake(wOffset, 40+mailImage.size.height, mailImage.size.width, 20*SCREEN_WIDTH/320) textColor:@"#849484" font:14 backgroundColor:nil textAlignment:ALIGN_CENTER];
     wOffset+=mailImage.size.width+space*2;
     
@@ -474,7 +477,18 @@
             [self.shareView layoutIfNeeded];
     }];
 }
-
+- (void) sendMailContent{
+    MFMailComposeViewController* mailController = [[[MFMailComposeViewController alloc] init] autorelease];
+    mailController.mailComposeDelegate = self;
+    [mailController setSubject:@"PB日报"];
+    
+    
+    [mailController addAttachmentData:UIImagePNGRepresentation(self.preScreenShot) mimeType:@"image/png" fileName:@"PB日报.png"];
+    [self presentViewController:mailController animated:NO completion:nil];
+}
+- (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error {
+    [self dismissViewControllerAnimated:NO completion:nil];
+}
 - (void) sendWXContent
 {
     [self hideShareView];
