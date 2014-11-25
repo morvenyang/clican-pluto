@@ -89,7 +89,7 @@
     
     
     
-    y = frame.size.height-200-_yOffset;
+    y = frame.size.height-200*SCREEN_WIDTH/320-_yOffset;
     self.backgroundShareView =[[[UIView alloc] initWithFrame:frame] autorelease];
     self.shareView = [[[UIView alloc] initWithFrame:CGRectMake(0, y, SCREEN_WIDTH, 200*SCREEN_WIDTH/320)] autorelease];
     self.shareView.backgroundColor = [StyleSheet colorFromHexString:@"#edeef0"];
