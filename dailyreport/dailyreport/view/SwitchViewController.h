@@ -10,7 +10,8 @@
 #import "SwipeScrollView.h"
 #import "PMCalendar.h"
 #import "Constants.h"
-@interface SwitchViewController : UIViewController<PMCalendarControllerDelegate>{
+#import <MessageUI/MessageUI.h>
+@interface SwitchViewController : UIViewController<PMCalendarControllerDelegate,MFMailComposeViewControllerDelegate>{
     NSString* _brand;
     SwipeScrollView* _contentView;
     int _index;

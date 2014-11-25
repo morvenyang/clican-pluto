@@ -60,6 +60,7 @@
 		724B4EDE1A235D9C00378077 /* NoRetailsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 724B4EDD1A235D9C00378077 /* NoRetailsController.m */; };
 		724F4F3F1935B7890079F9A0 /* SwipeScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 724F4F3E1935B7890079F9A0 /* SwipeScrollView.m */; };
 		725AFEBF19317C42003BD9F3 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 725AFEBE19317C42003BD9F3 /* libWeChatSDK.a */; };
+		725B9FAE1A243BDE00939AD4 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 725B9FAD1A243BDE00939AD4 /* MessageUI.framework */; };
 		7262316C192B168500E3F99B /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 72623162192B168500E3F99B /* Default.png */; };
 		7262316D192B168500E3F99B /* Default~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 72623163192B168500E3F99B /* Default~iphone.png */; };
 		7262316E192B168500E3F99B /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 72623164192B168500E3F99B /* Default-568h@2x.png */; };
@@ -419,6 +420,7 @@
 		725AFEBA19317AB5003BD9F3 /* WXApi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
 		725AFEBB19317AB5003BD9F3 /* WXApiObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
 		725AFEBE19317C42003BD9F3 /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libWeChatSDK.a; path = dailyreport/weixin/libWeChatSDK.a; sourceTree = "<group>"; };
+		725B9FAD1A243BDE00939AD4 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		72623162192B168500E3F99B /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		72623163192B168500E3F99B /* Default~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default~iphone.png"; sourceTree = "<group>"; };
 		72623164192B168500E3F99B /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
@@ -554,6 +556,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				725B9FAE1A243BDE00939AD4 /* MessageUI.framework in Frameworks */,
 				72F94E261A1B1C8B00515377 /* libicucore.dylib in Frameworks */,
 				72F94E241A1B1C8400515377 /* libstdc++.dylib in Frameworks */,
 				72F94E221A1B1BBC00515377 /* libxml2.dylib in Frameworks */,
@@ -791,6 +794,7 @@
 		7285E3C41925AFEE0011C2D6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				725B9FAD1A243BDE00939AD4 /* MessageUI.framework */,
 				72F94E251A1B1C8B00515377 /* libicucore.dylib */,
 				72F94E231A1B1C8400515377 /* libstdc++.dylib */,
 				72F94E211A1B1BBC00515377 /* libxml2.dylib */,
