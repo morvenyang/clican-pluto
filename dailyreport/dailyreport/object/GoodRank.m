@@ -18,6 +18,7 @@
 @synthesize line = _line;
 @synthesize wave = _wave;
 @synthesize year = _year;
+@synthesize colorName = _colorName;
 - (void) dealloc {
     TT_RELEASE_SAFELY(_name);
     TT_RELEASE_SAFELY(_amount);
@@ -28,6 +29,7 @@
     TT_RELEASE_SAFELY(_line);
     TT_RELEASE_SAFELY(_wave);
     TT_RELEASE_SAFELY(_year);
+    TT_RELEASE_SAFELY(_colorName);
     [super dealloc];
 }
 

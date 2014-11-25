@@ -18,6 +18,7 @@
     NSString* _line;
     NSString* _wave;
     NSString* _year;
+    NSString* _colorName;
 }
 @property (nonatomic, copy) NSString* name;
 @property (nonatomic, retain) NSNumber* amount;
@@ -28,4 +29,5 @@
 @property (nonatomic, copy) NSString* line;
 @property (nonatomic, copy) NSString* wave;
 @property (nonatomic, copy) NSString* year;
+@property (nonatomic, copy) NSString* colorName;
 @end

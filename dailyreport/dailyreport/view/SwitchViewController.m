@@ -84,23 +84,47 @@
     
     y = frame.size.height-200-offset;
     self.backgroundShareView =[[[UIView alloc] initWithFrame:frame] autorelease];
-    self.shareView = [[[UIView alloc] initWithFrame:CGRectMake(0, y, 320, 200)] autorelease];
+    self.shareView = [[[UIView alloc] initWithFrame:CGRectMake(0, y, SCREEN_WIDTH, 200*SCREEN_WIDTH/320)] autorelease];
     self.shareView.backgroundColor = [StyleSheet colorFromHexString:@"#edeef0"];
     
     UIButton* cancelButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    cancelButton.frame =CGRectMake(50, 150, 220, 40);
-    UIImage* cancelImage= [UIImage imageNamed:@"分享取消按钮.png"];
+    
+    UIImage* cancelImage= [UIImage imageNamed:@"分享取消按钮"];
+    cancelButton.frame =CGRectMake((SCREEN_WIDTH-cancelImage.size.width)/2, self.shareView.frame.size.height-cancelImage.size.height-20, cancelImage.size.width, cancelImage.size.height);
     [cancelButton setImage:cancelImage forState:UIControlStateNormal];
     [cancelButton addTarget:self action:@selector(hideShareView) forControlEvents:UIControlEventTouchUpInside];
     
+    UIButton* switchButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    UIImage* switchImage= [UIImage imageNamed:@"图标-微信好友"];
+    CGFloat space =(SCREEN_WIDTH-switchImage.size.width*3)/6;
+    CGFloat wOffset = 0;
+    switchButton.frame =CGRectMake(space, 30, switchImage.size.width,switchImage.size.height);
+    [switchButton setImage:switchImage forState:UIControlStateNormal];
+    [switchButton addTarget:self action:@selector(sendWXContent) forControlEvents:UIControlEventTouchUpInside];
+    UILabel* switchLabel = [self createLabel:@"切换报表" frame:CGRectMake(space, 40+switchImage.size.height, switchImage.size.width, 20*SCREEN_WIDTH/320) textColor:@"#849484" font:14 backgroundColor:nil textAlignment:ALIGN_CENTER];
+    wOffset+=switchImage.size.width+space*3;
+    
+    UIButton* mailButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    UIImage* mailImage= [UIImage imageNamed:@"图标-微信好友"];
+    mailButton.frame =CGRectMake(wOffset, 30, mailImage.size.width, mailImage.size.height);
+    [mailButton setImage:mailImage forState:UIControlStateNormal];
+    [mailButton addTarget:self action:@selector(sendWXContent) forControlEvents:UIControlEventTouchUpInside];
+    UILabel* mailLabel = [self createLabel:@"邮件分享" frame:CGRectMake(wOffset, 40+mailImage.size.height, mailImage.size.width, 20*SCREEN_WIDTH/320) textColor:@"#849484" font:14 backgroundColor:nil textAlignment:ALIGN_CENTER];
+    wOffset+=mailImage.size.width+space*2;
+    
     UIButton* wxButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    wxButton.frame =CGRectMake(120, 30, 80, 80);
-    UIImage* wxImage= [UIImage imageNamed:@"图标-微信好友.png"];
+    UIImage* wxImage= [UIImage imageNamed:@"图标-微信好友"];
+    wxButton.frame =CGRectMake(wOffset, 30, wxImage.size.width, wxImage.size.height);
     [wxButton setImage:wxImage forState:UIControlStateNormal];
     [wxButton addTarget:self action:@selector(sendWXContent) forControlEvents:UIControlEventTouchUpInside];
-    UILabel* wxLabel = [self createLabel:@"微信好友" frame:CGRectMake(120, 110, 80, 20) textColor:@"#849484" font:14 backgroundColor:nil textAlignment:ALIGN_CENTER];
-    [self.shareView addSubview:cancelButton];
+    UILabel* wxLabel = [self createLabel:@"微信好友" frame:CGRectMake(wOffset, 40+wxImage.size.height, wxImage.size.width, 20*SCREEN_WIDTH/320) textColor:@"#849484" font:14 backgroundColor:nil textAlignment:ALIGN_CENTER];
+
     
+    [self.shareView addSubview:cancelButton];
+    [self.shareView addSubview:switchButton];
+    [self.shareView addSubview:switchLabel];
+    [self.shareView addSubview:mailButton];
+    [self.shareView addSubview:mailLabel];
     [self.shareView addSubview:wxButton];
     [self.shareView addSubview:wxLabel];
     [self.shareView addSubview:cancelButton];
@@ -441,26 +465,23 @@
     }
 }
 -(void) showShareView:(id)sender{
-    
-    
-    if(![WXApi isWXAppInstalled]){
-        TTAlertNoTitle(@"本设备还未安装微信,无法使用微信分享功能");
-    }else{
-        self.preScreenShot =[self screenShot];
-        [self.view addSubview:self.backgroundShareView];
-        self.shareView.alpha = 0;
-        self.backgroundShareView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.3f];
+    self.preScreenShot =[self screenShot];
+    [self.view addSubview:self.backgroundShareView];
+    self.shareView.alpha = 0;
+    self.backgroundShareView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.3f];
         [UIView animateWithDuration:0.25f animations:^{
             self.shareView.alpha = 1;
             [self.shareView layoutIfNeeded];
-        }];
-    }
-    
+    }];
 }
 
 - (void) sendWXContent
 {
     [self hideShareView];
+    if(![WXApi isWXAppInstalled]){
+        TTAlertNoTitle(@"本设备还未安装微信,无法使用微信分享功能");
+        return;
+    }
     WXMediaMessage *message = [WXMediaMessage message];
     UIImage* screenShot =self.preScreenShot;
     UIImage *thumbImage = [self imageWithImage:screenShot scaledToSize:CGSizeMake(32,64)];

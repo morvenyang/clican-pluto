@@ -54,7 +54,9 @@
     [self.view addSubview:self.titleLabel];
     [self addFootButtons];
 }
-
+-(void)viewWillAppear:(BOOL)animated{
+    self.time = 1;
+}
 
 -(void)addFootButtons{
     UIButton* forgetButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -101,9 +103,24 @@
     NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
     if([self.type isEqualToString:@"unlock"]){
         NSString* gesturePassword = [defaults objectForKey:GESTURE_PASSWORD];
-        if(![passcode isEqualToString:gesturePassword]){
-            self.titleLabel.text = @"手势密码错误,请重新输入";
+        if(self.time>5){
+            self.titleLabel.text = @"超过最大重试次数，请选择忘记手势密码或重新登录";
             self.titleLabel.textColor = [UIColor redColor];
+        }
+        if(![passcode isEqualToString:gesturePassword]){
+            if(self.time==5){
+                self.titleLabel.text = @"手势密码错误，请选择忘记手势密码或重新登录";
+                self.titleLabel.textColor = [UIColor redColor];
+                self.time++;
+                NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+                [defaults removeObjectForKey:GESTURE_PASSWORD];
+            }else{
+                self.titleLabel.text = [NSString stringWithFormat:@"手势密码错误，还可以输入%i次",5-self.time];
+                self.titleLabel.textColor = [UIColor redColor];
+                self.time++;
+            }
+            
+            
         }else{
             self.navigationController.navigationBarHidden= NO;
             TTOpenURL(@"peacebird://index");

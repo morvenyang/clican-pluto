@@ -77,13 +77,15 @@
     }
 
     DrAppDelegate.user.date =_indexListModel.date;
-    if(!_indexListModel.yesterday&&alert){
+    if(!_indexListModel.yesterday){
         [defaults setObject:yesterdayStr forKey:LAST_ALERT_DATE_STR];
         NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
         [dateFormatter setDateFormat:@"MM月dd日 EEEE"];
         IndexViewController* index = (IndexViewController*)[TTNavigator navigator].visibleViewController;
         [index updateDate];
-        TTAlert([NSString stringWithFormat:@"昨日数据未生成,当前数据为%@数据",[dateFormatter stringFromDate:_indexListModel.date]]);
+        if(alert){
+            TTAlert([NSString stringWithFormat:@"昨日数据未生成,当前数据为%@数据",[dateFormatter stringFromDate:_indexListModel.date]]);
+        }
         
     }
     TT_RELEASE_SAFELY(items);
