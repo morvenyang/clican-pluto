@@ -48,7 +48,7 @@
         TTStyledText* styledText = [TTStyledText textFromXHTML:text lineBreaks:YES URLs:YES];
         NSString* url = [NSString stringWithFormat:@"peacebird://brand/%@", [brand.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
 
-        NSString* imageName = [NSString stringWithFormat:@"首页%@.png",brand.brand];
+        NSString* imageName = [NSString stringWithFormat:@"首页%@",brand.brand];
         [items addObject:[IndexTableItem itemWithStyledText:styledText backgroundImage:imageName URL:url index:i brand:brand.brand]];
         i++;
     }
