@@ -82,7 +82,7 @@
         if(userName==nil||userName.length==0){
                     [navigator openURLAction:[TTURLAction actionWithURLPath:@"peacebird://login"]];
         }else{
-            [navigator openURLAction:[TTURLAction actionWithURLPath:@"peacebird://index"]];
+            [navigator openURLAction:[TTURLAction actionWithURLPath:@"peacebird://login"]];
         }
 
     }

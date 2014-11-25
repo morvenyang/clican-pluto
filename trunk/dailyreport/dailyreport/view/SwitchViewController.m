@@ -25,7 +25,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+        _yOffset= 64.0;
     }
     return self;
 }
@@ -68,11 +68,9 @@
     CGRect frame = [[UIScreen mainScreen] bounds];
     NSLog(@"%f",frame.size.height);
     self.view.backgroundColor = [UIColor whiteColor];
-    int offset = 0;
-    if(DEVICE_VERSION<7.0){
-        offset= 64;
-    }
-    self.contentView = [[[SwipeScrollView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height-offset-30)] autorelease];
+
+    
+    self.contentView = [[[SwipeScrollView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height-_yOffset-30)] autorelease];
     NSLog(@"%f",self.contentView.frame.size.height);
     self.contentView.index = self.index;
     self.contentView.brand = self.brand;
@@ -81,11 +79,11 @@
     
 
     
-    CGFloat y = frame.size.height-30-offset;
+    CGFloat y = frame.size.height-30-_yOffset;
     [self.view addSubview:[self createPaginationView:y]];
     
     
-    y = frame.size.height-200-offset;
+    y = frame.size.height-200-_yOffset;
     self.backgroundShareView =[[[UIView alloc] initWithFrame:frame] autorelease];
     self.shareView = [[[UIView alloc] initWithFrame:CGRectMake(0, y, SCREEN_WIDTH, 200*SCREEN_WIDTH/320)] autorelease];
     self.shareView.backgroundColor = [StyleSheet colorFromHexString:@"#edeef0"];
