@@ -52,4 +52,5 @@
 #endif
 -(void)openCalendar:(id)sender;
 -(void)changeDateAndReload;
+-(void)hideShareView;
 @end
