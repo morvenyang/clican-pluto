@@ -106,8 +106,10 @@
     wOffset+=SCREEN_WIDTH*30/320+2;
     [self.contentView addSubview:[self createLabel:@"图片" frame:CGRectMake(wOffset, hOffset,ROW_CONTENT_HEIGHT, SCREEN_HEIGHT*30/480) textColor:@"#ffffff" font:labelFontSize backgroundColor:STORE_RANK_TABLE_HEAD_COLOR textAlignment:ALIGN_CENTER]];
     wOffset+=ROW_CONTENT_HEIGHT+2;
-    [self.contentView addSubview:[self createLabel:@"品名" frame:CGRectMake(wOffset, hOffset, SCREEN_WIDTH*186/320, SCREEN_HEIGHT*30/480) textColor:@"#ffffff" font:labelFontSize backgroundColor:STORE_RANK_TABLE_HEAD_COLOR textAlignment:ALIGN_CENTER]];
-     wOffset+=SCREEN_WIDTH*186/320+2;
+    [self.contentView addSubview:[self createLabel:@"品名" frame:CGRectMake(wOffset, hOffset, SCREEN_WIDTH*144/320, SCREEN_HEIGHT*30/480) textColor:@"#ffffff" font:labelFontSize backgroundColor:STORE_RANK_TABLE_HEAD_COLOR textAlignment:ALIGN_CENTER]];
+     wOffset+=SCREEN_WIDTH*144/320+2;
+    [self.contentView addSubview:[self createLabel:@"颜色" frame:CGRectMake(wOffset, hOffset, SCREEN_WIDTH*40/320, SCREEN_HEIGHT*30/480) textColor:@"#ffffff" font:labelFontSize backgroundColor:STORE_RANK_TABLE_HEAD_COLOR textAlignment:ALIGN_CENTER]];
+    wOffset+=SCREEN_WIDTH*40/320+2;
     [self.contentView addSubview:[self createLabel:@"件数" frame:CGRectMake(wOffset, hOffset,SCREEN_WIDTH-wOffset, SCREEN_HEIGHT*30/480) textColor:@"#ffffff" font:labelFontSize backgroundColor:STORE_RANK_TABLE_HEAD_COLOR textAlignment:ALIGN_CENTER]];
    
     hOffset+=SCREEN_HEIGHT*30/480;
@@ -125,9 +127,13 @@
         [self.contentView addSubview:imageView];
         wOffset+=ROW_CONTENT_HEIGHT+2;
         
-        label =[self createLabel:rank.name frame:CGRectMake(wOffset, hOffset+i*ROW_HEIGHT, SCREEN_WIDTH*186/320, ROW_CONTENT_HEIGHT) textColor:@"#6a6a6a" font:labelFontSize+2 backgroundColor:@"#f3f3f3" textAlignment:ALIGN_CENTER];
+        label =[self createLabel:rank.name frame:CGRectMake(wOffset, hOffset+i*ROW_HEIGHT, SCREEN_WIDTH*144/320, ROW_CONTENT_HEIGHT) textColor:@"#6a6a6a" font:labelFontSize+2 backgroundColor:@"#f3f3f3" textAlignment:ALIGN_CENTER];
         [self.contentView addSubview:label];
-        wOffset+=SCREEN_WIDTH*186/320+2;
+        wOffset+=SCREEN_WIDTH*144/320+2;
+        
+        label =[self createLabel:rank.colorName frame:CGRectMake(wOffset, hOffset+i*ROW_HEIGHT, SCREEN_WIDTH*40/320, ROW_CONTENT_HEIGHT) textColor:@"#6a6a6a" font:labelFontSize+2 backgroundColor:@"#f3f3f3" textAlignment:ALIGN_CENTER];
+        [self.contentView addSubview:label];
+        wOffset+=SCREEN_WIDTH*40/320+2;
         label=[self createDecimalLabel:[NSNumber numberWithInt:rank.count.intValue]  frame:CGRectMake(wOffset, hOffset+i*ROW_HEIGHT,SCREEN_WIDTH-wOffset, ROW_CONTENT_HEIGHT) textColor:@"#6a6a6a" font:labelFontSize+2 backgroundColor:@"#f3f3f3" textAlignment:ALIGN_CENTER];
         [self.contentView addSubview:label];
     }

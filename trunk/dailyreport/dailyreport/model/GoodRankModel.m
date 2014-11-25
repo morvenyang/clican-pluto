@@ -86,6 +86,7 @@
                 gr.line = [good objectForKey:@"line"];
                 gr.wave = [good objectForKey:@"wave"];
                 gr.year = [good objectForKey:@"year"];
+                gr.colorName = [good objectForKey:@"colorName"];
             }
             NSDate* date =  [dateFormatter dateFromString:[data objectForKey:@"date"]];
             [self.delegate brandDidFinishLoad:goods date:date];

@@ -77,7 +77,6 @@
 		72783BB61929A6A10098B3A8 /* 关键指标-分割线.png in Resources */ = {isa = PBXBuildFile; fileRef = 72783B7F1929A6A10098B3A8 /* 关键指标-分割线.png */; };
 		72783BB71929A6A10098B3A8 /* 关键指标-背景花纹.png in Resources */ = {isa = PBXBuildFile; fileRef = 72783B801929A6A10098B3A8 /* 关键指标-背景花纹.png */; };
 		72783BB81929A6A10098B3A8 /* 分享取消按钮.png in Resources */ = {isa = PBXBuildFile; fileRef = 72783B811929A6A10098B3A8 /* 分享取消按钮.png */; };
-		72783BB91929A6A10098B3A8 /* 分享取消按钮@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 72783B821929A6A10098B3A8 /* 分享取消按钮@2x.png */; };
 		72783BBA1929A6A10098B3A8 /* 分割线-每日收入水平分割线.png in Resources */ = {isa = PBXBuildFile; fileRef = 72783B831929A6A10098B3A8 /* 分割线-每日收入水平分割线.png */; };
 		72783BBB1929A6A10098B3A8 /* 分割线-每日收入水平分割线@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 72783B841929A6A10098B3A8 /* 分割线-每日收入水平分割线@2x.png */; };
 		72783BBC1929A6A10098B3A8 /* 单效.png in Resources */ = {isa = PBXBuildFile; fileRef = 72783B851929A6A10098B3A8 /* 单效.png */; };
@@ -91,10 +90,7 @@
 		72783BC61929A6A10098B3A8 /* 图标-小衣服@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 72783B8F1929A6A10098B3A8 /* 图标-小衣服@2x.png */; };
 		72783BC71929A6A10098B3A8 /* 图标-小钱袋.png in Resources */ = {isa = PBXBuildFile; fileRef = 72783B901929A6A10098B3A8 /* 图标-小钱袋.png */; };
 		72783BC81929A6A10098B3A8 /* 图标-小钱袋@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 72783B911929A6A10098B3A8 /* 图标-小钱袋@2x.png */; };
-		72783BC91929A6A10098B3A8 /* 图标-微信好友.png in Resources */ = {isa = PBXBuildFile; fileRef = 72783B921929A6A10098B3A8 /* 图标-微信好友.png */; };
 		72783BCA1929A6A10098B3A8 /* 图标-微信好友@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 72783B931929A6A10098B3A8 /* 图标-微信好友@2x.png */; };
-		72783BCB1929A6A10098B3A8 /* 图标-微信朋友圈.png in Resources */ = {isa = PBXBuildFile; fileRef = 72783B941929A6A10098B3A8 /* 图标-微信朋友圈.png */; };
-		72783BCC1929A6A10098B3A8 /* 图标-微信朋友圈@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 72783B951929A6A10098B3A8 /* 图标-微信朋友圈@2x.png */; };
 		72783BCD1929A6A10098B3A8 /* 图标-日历.png in Resources */ = {isa = PBXBuildFile; fileRef = 72783B961929A6A10098B3A8 /* 图标-日历.png */; };
 		72783BCE1929A6A10098B3A8 /* 图标-日历@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 72783B971929A6A10098B3A8 /* 图标-日历@2x.png */; };
 		72783BCF1929A6A10098B3A8 /* 图标-零售收入.png in Resources */ = {isa = PBXBuildFile; fileRef = 72783B981929A6A10098B3A8 /* 图标-零售收入.png */; };
@@ -442,7 +438,6 @@
 		72783B7F1929A6A10098B3A8 /* 关键指标-分割线.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "关键指标-分割线.png"; sourceTree = "<group>"; };
 		72783B801929A6A10098B3A8 /* 关键指标-背景花纹.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "关键指标-背景花纹.png"; sourceTree = "<group>"; };
 		72783B811929A6A10098B3A8 /* 分享取消按钮.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "分享取消按钮.png"; sourceTree = "<group>"; };
-		72783B821929A6A10098B3A8 /* 分享取消按钮@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "分享取消按钮@2x.png"; sourceTree = "<group>"; };
 		72783B831929A6A10098B3A8 /* 分割线-每日收入水平分割线.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "分割线-每日收入水平分割线.png"; sourceTree = "<group>"; };
 		72783B841929A6A10098B3A8 /* 分割线-每日收入水平分割线@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "分割线-每日收入水平分割线@2x.png"; sourceTree = "<group>"; };
 		72783B851929A6A10098B3A8 /* 单效.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "单效.png"; sourceTree = "<group>"; };
@@ -456,10 +451,7 @@
 		72783B8F1929A6A10098B3A8 /* 图标-小衣服@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "图标-小衣服@2x.png"; sourceTree = "<group>"; };
 		72783B901929A6A10098B3A8 /* 图标-小钱袋.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "图标-小钱袋.png"; sourceTree = "<group>"; };
 		72783B911929A6A10098B3A8 /* 图标-小钱袋@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "图标-小钱袋@2x.png"; sourceTree = "<group>"; };
-		72783B921929A6A10098B3A8 /* 图标-微信好友.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "图标-微信好友.png"; sourceTree = "<group>"; };
 		72783B931929A6A10098B3A8 /* 图标-微信好友@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "图标-微信好友@2x.png"; sourceTree = "<group>"; };
-		72783B941929A6A10098B3A8 /* 图标-微信朋友圈.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "图标-微信朋友圈.png"; sourceTree = "<group>"; };
-		72783B951929A6A10098B3A8 /* 图标-微信朋友圈@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "图标-微信朋友圈@2x.png"; sourceTree = "<group>"; };
 		72783B961929A6A10098B3A8 /* 图标-日历.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "图标-日历.png"; sourceTree = "<group>"; };
 		72783B971929A6A10098B3A8 /* 图标-日历@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "图标-日历@2x.png"; sourceTree = "<group>"; };
 		72783B981929A6A10098B3A8 /* 图标-零售收入.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "图标-零售收入.png"; sourceTree = "<group>"; };
@@ -1019,7 +1011,6 @@
 				72783B7F1929A6A10098B3A8 /* 关键指标-分割线.png */,
 				72783B801929A6A10098B3A8 /* 关键指标-背景花纹.png */,
 				72783B811929A6A10098B3A8 /* 分享取消按钮.png */,
-				72783B821929A6A10098B3A8 /* 分享取消按钮@2x.png */,
 				72783B831929A6A10098B3A8 /* 分割线-每日收入水平分割线.png */,
 				72783B841929A6A10098B3A8 /* 分割线-每日收入水平分割线@2x.png */,
 				72783B851929A6A10098B3A8 /* 单效.png */,
@@ -1033,10 +1024,7 @@
 				72783B8F1929A6A10098B3A8 /* 图标-小衣服@2x.png */,
 				72783B901929A6A10098B3A8 /* 图标-小钱袋.png */,
 				72783B911929A6A10098B3A8 /* 图标-小钱袋@2x.png */,
-				72783B921929A6A10098B3A8 /* 图标-微信好友.png */,
 				72783B931929A6A10098B3A8 /* 图标-微信好友@2x.png */,
-				72783B941929A6A10098B3A8 /* 图标-微信朋友圈.png */,
-				72783B951929A6A10098B3A8 /* 图标-微信朋友圈@2x.png */,
 				72783B961929A6A10098B3A8 /* 图标-日历.png */,
 				72783B971929A6A10098B3A8 /* 图标-日历@2x.png */,
 				72783B981929A6A10098B3A8 /* 图标-零售收入.png */,
@@ -1358,9 +1346,7 @@
 				72783BBA1929A6A10098B3A8 /* 分割线-每日收入水平分割线.png in Resources */,
 				72783BE71929A6A10098B3A8 /* 首页女装.png in Resources */,
 				72783BE31929A6A10098B3A8 /* 附加.png in Resources */,
-				72783BB91929A6A10098B3A8 /* 分享取消按钮@2x.png in Resources */,
 				72783BE81929A6A10098B3A8 /* 首页男装.png in Resources */,
-				72783BC91929A6A10098B3A8 /* 图标-微信好友.png in Resources */,
 				7285E3D81925AFEE0011C2D6 /* Images.xcassets in Resources */,
 				72783BC41929A6A10098B3A8 /* 图标-分页原点-高亮@2x.png in Resources */,
 				721633E619FB33E800F1B978 /* Default-667h@2x.png in Resources */,
@@ -1369,7 +1355,6 @@
 				722D6B401963DDBF00036D38 /* gesture_node_normal@2x.png in Resources */,
 				72783BD91929A6A10098B3A8 /* 登录按钮.png in Resources */,
 				72783BD71929A6A10098B3A8 /* 环状图阴影.png in Resources */,
-				72783BCB1929A6A10098B3A8 /* 图标-微信朋友圈.png in Resources */,
 				72783BCD1929A6A10098B3A8 /* 图标-日历.png in Resources */,
 				72623170192B168500E3F99B /* logo57.png in Resources */,
 				722D6B311963D31200036D38 /* web in Resources */,
@@ -1378,7 +1363,6 @@
 				721633E719FB33E800F1B978 /* Default-1104h@3x.png in Resources */,
 				72783BEA1929A6A10098B3A8 /* 首页赫奇.png in Resources */,
 				72783BB81929A6A10098B3A8 /* 分享取消按钮.png in Resources */,
-				72783BCC1929A6A10098B3A8 /* 图标-微信朋友圈@2x.png in Resources */,
 				72783BC11929A6A10098B3A8 /* 图标-分页原点-正常.png in Resources */,
 				72783BC51929A6A10098B3A8 /* 图标-小衣服.png in Resources */,
 				722D6B3F1963DDBF00036D38 /* gesture_node_normal.png in Resources */,
