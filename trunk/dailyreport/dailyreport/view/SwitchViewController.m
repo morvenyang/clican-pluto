@@ -10,7 +10,6 @@
 #import "StyleSheet.h"
 #import "WXApi.h"
 #import "AppDelegate.h"
-
 @implementation SwitchViewController
 
 @synthesize contentView = _contentView;
@@ -59,12 +58,16 @@
 
     [self.navigationItem setLeftBarButtonItem:backButtonItem animated:YES];
     
+    
     UIButton* shareButtonImage = [UIButton buttonWithType:UIButtonTypeCustom];
     shareButtonImage.frame =CGRectMake(0, 0, 40, 40);
     [shareButtonImage setImage:[UIImage imageNamed:@"图标-分享.png"] forState:UIControlStateNormal];
     [shareButtonImage addTarget:self action:@selector(showShareView:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem* shareButton = [[[UIBarButtonItem alloc] initWithCustomView:shareButtonImage] autorelease];
-    [self.navigationItem setRightBarButtonItem:shareButton animated:YES];
+    if(self.index!=-2){
+        [self.navigationItem setRightBarButtonItem:shareButton animated:YES];
+    }
+    
     CGRect frame = [[UIScreen mainScreen] bounds];
     NSLog(@"%f",frame.size.height);
     self.view.backgroundColor = [UIColor whiteColor];
@@ -80,7 +83,10 @@
 
     
     CGFloat y = frame.size.height-30-_yOffset;
-    [self.view addSubview:[self createPaginationView:y]];
+    if(self.index!=-2){
+        [self.view addSubview:[self createPaginationView:y]];
+    }
+    
     
     
     y = frame.size.height-200-_yOffset;
@@ -101,7 +107,7 @@
     CGFloat wOffset = 0;
     switchButton.frame =CGRectMake(space, 30, switchImage.size.width,switchImage.size.height);
     [switchButton setImage:switchImage forState:UIControlStateNormal];
-    [switchButton addTarget:self action:@selector(sendWXContent) forControlEvents:UIControlEventTouchUpInside];
+    [switchButton addTarget:self action:@selector(openPBNavigationView) forControlEvents:UIControlEventTouchUpInside];
     UILabel* switchLabel = [self createLabel:@"切换报表" frame:CGRectMake(space, 40+switchImage.size.height, switchImage.size.width, 20*SCREEN_WIDTH/320) textColor:@"#849484" font:14 backgroundColor:nil textAlignment:ALIGN_CENTER];
     wOffset+=switchImage.size.width+space*3;
     
@@ -486,6 +492,9 @@
 }
 - (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error {
     [self dismissViewControllerAnimated:NO completion:nil];
+}
+- (void) openPBNavigationView{
+    TTOpenURL([NSString stringWithFormat:@"peacebird://pbNavigation/%@/%i",[self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],self.index]);
 }
 - (void) sendWXContent
 {

@@ -36,7 +36,6 @@
 -(void) backAction{
     NSString* url = [NSString  stringWithFormat:@"peacebird://goodRank/%@", [self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     TTOpenURL(url);
-
 }
 
 - (void)loadView

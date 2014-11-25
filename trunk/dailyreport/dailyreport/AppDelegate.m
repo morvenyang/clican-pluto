@@ -20,6 +20,7 @@
 #import "GoodViewController.h"
 #import "StoreSumController.h"
 #import "NoRetailsController.h"
+#import "PBNavigationViewController.h"
 #import "CRNavigator.h"
 @implementation AppDelegate
 
@@ -74,6 +75,9 @@
      [NoRetailsController class]];
     [map from:@"peacebird://gestureLock/(initWithType:)" toSharedViewController:
      [KKViewController class]];
+    [map from:@"peacebird://pbNavigation/(initWithBrand:)/(backIndex:)" toSharedViewController:
+     [PBNavigationViewController class]];
+    
 
     if (![navigator restoreViewControllers]) {
         NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];

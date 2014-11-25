@@ -25,6 +25,7 @@
 		7222FA4A195D16E9003AC6F4 /* downarrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 7222FA47195D16E9003AC6F4 /* downarrow.png */; };
 		7222FA4B195D16E9003AC6F4 /* menu.png in Resources */ = {isa = PBXBuildFile; fileRef = 7222FA48195D16E9003AC6F4 /* menu.png */; };
 		7222FA4C195D16E9003AC6F4 /* uparrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 7222FA49195D16E9003AC6F4 /* uparrow.png */; };
+		7223C5B11A249284002B6D05 /* PBNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7223C5B01A249284002B6D05 /* PBNavigationViewController.m */; };
 		722D42BC192C3A2E00350244 /* KPIModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 722D42BB192C3A2E00350244 /* KPIModel.m */; };
 		722D42C8192C449A00350244 /* 图标-关键指标.png in Resources */ = {isa = PBXBuildFile; fileRef = 722D42C6192C449A00350244 /* 图标-关键指标.png */; };
 		722D42C9192C449A00350244 /* 图标-关键指标@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 722D42C7192C449A00350244 /* 图标-关键指标@2x.png */; };
@@ -356,6 +357,8 @@
 		7222FA47195D16E9003AC6F4 /* downarrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = downarrow.png; sourceTree = "<group>"; };
 		7222FA48195D16E9003AC6F4 /* menu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu.png; sourceTree = "<group>"; };
 		7222FA49195D16E9003AC6F4 /* uparrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = uparrow.png; sourceTree = "<group>"; };
+		7223C5AF1A249284002B6D05 /* PBNavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBNavigationViewController.h; sourceTree = "<group>"; };
+		7223C5B01A249284002B6D05 /* PBNavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBNavigationViewController.m; sourceTree = "<group>"; };
 		722D42BA192C3A2E00350244 /* KPIModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KPIModel.h; sourceTree = "<group>"; };
 		722D42BB192C3A2E00350244 /* KPIModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KPIModel.m; sourceTree = "<group>"; };
 		722D42C6192C449A00350244 /* 图标-关键指标.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "图标-关键指标.png"; sourceTree = "<group>"; };
@@ -914,6 +917,8 @@
 				724B4ED71A23409200378077 /* StoreSumController.m */,
 				724B4EDC1A235D9C00378077 /* NoRetailsController.h */,
 				724B4EDD1A235D9C00378077 /* NoRetailsController.m */,
+				7223C5AF1A249284002B6D05 /* PBNavigationViewController.h */,
+				7223C5B01A249284002B6D05 /* PBNavigationViewController.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -1442,6 +1447,7 @@
 				722D6B381963DDB400036D38 /* KKViewController.m in Sources */,
 				7237939919500AC900B336FD /* PMCalendarController.m in Sources */,
 				72783CAC192A093E0098B3A8 /* IndexTableItem.m in Sources */,
+				7223C5B11A249284002B6D05 /* PBNavigationViewController.m in Sources */,
 				72EB38AC19270EC100D0F225 /* LoginModel.m in Sources */,
 				726231A4192B745A00E3F99B /* KPIViewController.m in Sources */,
 				723C6C1F1964F3C700F67689 /* B2CKPIViewController.m in Sources */,
