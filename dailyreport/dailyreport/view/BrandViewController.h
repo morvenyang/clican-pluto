@@ -17,6 +17,10 @@
     NSString* _weeklyLineChart;
     NSString* _monthlyLineChart;
     NSString* _yearlyLineChart;
+    UIButton* _dailyButton;
+    UIButton* _weeklyButton;
+    UIButton* _monthlyButton;
+    UIButton* _yearlyButton;
 }
 
 @property (nonatomic, retain) BrandModel *brandModel;
@@ -25,6 +29,9 @@
 @property (nonatomic, copy) NSString *weeklyLineChart;
 @property (nonatomic, copy) NSString *monthlyLineChart;
 @property (nonatomic, copy) NSString *yearlyLineChart;
-
+@property (nonatomic, retain) UIButton *dailyButton;
+@property (nonatomic, retain) UIButton *weeklyButton;
+@property (nonatomic, retain) UIButton *monthlyButton;
+@property (nonatomic, retain) UIButton *yearlyButton;
 -(id) initWithBrand:(NSString*) brand;
 @end

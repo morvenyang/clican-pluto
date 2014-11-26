@@ -22,6 +22,11 @@
 @synthesize weeklyLineChart = _weeklyLineChart;
 @synthesize monthlyLineChart = _monthlyLineChart;
 @synthesize yearlyLineChart = _yearlyLineChart;
+
+@synthesize dailyButton = _dailyButton;
+@synthesize weeklyButton = _weeklyButton;
+@synthesize monthlyButton = _monthlyButton;
+@synthesize yearlyButton = _yearlyButton;
 -(id) initWithBrand:(NSString*) brand{
     if ((self = [self initWithNibName:nil bundle:nil])) {
         self.brand = brand;
@@ -175,7 +180,44 @@
     [self.contentView addSubview:dailyView];
     
     
-    self.webLineChartView = [[[UIWebView alloc] initWithFrame:CGRectMake(0,dailyView.frame.size.height,SCREEN_WIDTH,SCREEN_HEIGHT-dailyView.frame.size.height)] autorelease];
+    UIImage* dayImage = [UIImage imageNamed:@"天"];
+    CGFloat space = (SCREEN_WIDTH-dayImage.size.width*4)/12;
+    CGFloat wOffset = space;
+    CGFloat periodHeight = dayImage.size.height*3;
+    CGFloat yOffset = dailyView.frame.size.height;
+    self.dailyButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.dailyButton setImage:[UIImage imageNamed:@"天"] forState:UIControlStateNormal];
+    [self.dailyButton addTarget:self action:@selector(changePeriod:) forControlEvents:UIControlEventTouchUpInside];
+    self.dailyButton.frame = CGRectMake(wOffset, yOffset+periodHeight/6, dayImage.size.width, dayImage.size.height);
+    [self.contentView addSubview:self.dailyButton];
+    [self.contentView addSubview:[self createLabel:@"天" frame:CGRectMake(wOffset+dayImage.size.width+3, yOffset+periodHeight/6, dayImage.size.width, dayImage.size.height) textColor:@"#000000" font:labelFontSize backgroundColor:nil]];
+    
+    wOffset+=space*3+dayImage.size.width;
+    self.weeklyButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.weeklyButton setImage:[UIImage imageNamed:@"天"] forState:UIControlStateNormal];
+    [self.weeklyButton addTarget:self action:@selector(changePeriod:) forControlEvents:UIControlEventTouchUpInside];
+    self.weeklyButton.frame = CGRectMake(wOffset, yOffset+periodHeight/6, dayImage.size.width, dayImage.size.height);
+    [self.contentView addSubview:self.weeklyButton];
+    [self.contentView addSubview:[self createLabel:@"周" frame:CGRectMake(wOffset+dayImage.size.width+3, yOffset+periodHeight/6, dayImage.size.width, dayImage.size.height) textColor:@"#000000" font:labelFontSize backgroundColor:nil]];
+
+    
+    wOffset+=space*3+dayImage.size.width;
+    self.monthlyButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.monthlyButton setImage:[UIImage imageNamed:@"天"] forState:UIControlStateNormal];
+    [self.monthlyButton addTarget:self action:@selector(changePeriod:) forControlEvents:UIControlEventTouchUpInside];
+    self.monthlyButton.frame = CGRectMake(wOffset, yOffset+periodHeight/6, dayImage.size.width, dayImage.size.height);
+    [self.contentView addSubview:self.monthlyButton];
+    [self.contentView addSubview:[self createLabel:@"月" frame:CGRectMake(wOffset+dayImage.size.width+3, yOffset+periodHeight/6, dayImage.size.width, dayImage.size.height) textColor:@"#000000" font:labelFontSize backgroundColor:nil]];
+    
+    wOffset+=space*3+dayImage.size.width;
+    self.yearlyButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.yearlyButton setImage:[UIImage imageNamed:@"天"] forState:UIControlStateNormal];
+    [self.yearlyButton addTarget:self action:@selector(changePeriod:) forControlEvents:UIControlEventTouchUpInside];
+    self.yearlyButton.frame = CGRectMake(wOffset, yOffset+periodHeight/6, dayImage.size.width, dayImage.size.height);
+    [self.contentView addSubview:self.yearlyButton];
+    [self.contentView addSubview:[self createLabel:@"年" frame:CGRectMake(wOffset+dayImage.size.width+3, yOffset+periodHeight/6, dayImage.size.width, dayImage.size.height) textColor:@"#000000" font:labelFontSize backgroundColor:nil]];
+    yOffset+=periodHeight;
+    self.webLineChartView = [[[UIWebView alloc] initWithFrame:CGRectMake(0,yOffset,SCREEN_WIDTH,SCREEN_HEIGHT-yOffset)] autorelease];
     self.webLineChartView.scalesPageToFit=YES;
     self.webLineChartView.userInteractionEnabled =YES;
     self.webLineChartView.delegate = self;
@@ -183,20 +225,9 @@
     swipeGestureLeft.direction = UISwipeGestureRecognizerDirectionLeft;
     [self.webLineChartView.scrollView addGestureRecognizer:swipeGestureLeft];
 
-
     [self.contentView addSubview:self.webLineChartView];
-    NSString* htmlPath = [[NSBundle mainBundle] pathForResource:@"dailyLineChart" ofType:@"html" inDirectory:@"web"];
-    NSString* html = [NSString stringWithContentsOfFile:htmlPath encoding:NSUTF8StringEncoding error:nil];
-    
-    html=[html stringByReplacingOccurrencesOfString:@"$dataProvider" withString:dailyLineChart];
-    html=[html stringByReplacingOccurrencesOfString:@"$width" withString:@"1000"];
-    
-    html=[html stringByReplacingOccurrencesOfString:@"$height" withString:@"600"];
+    [self generateLikeChart:self.dailyLineChart];
 
-    NSLog(@"%@",html);
-    NSLog(@"%@",[NSString stringWithFormat:@"%@/web/",[[NSBundle mainBundle] bundlePath]]);
-    [self.webLineChartView loadHTMLString:html baseURL:[NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/web/",[[NSBundle mainBundle] bundlePath]]]];
-   
     
     NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
     NSString* firstAccessVersion = [defaults objectForKey:FIRST_ACCESS_VERSION];
@@ -208,7 +239,32 @@
         [self.contentView addSubview:promptImage];
     }
 }
+-(void)generateLikeChart:(NSString*)dataProvider{
+    NSString* htmlPath = [[NSBundle mainBundle] pathForResource:@"dailyLineChart" ofType:@"html" inDirectory:@"web"];
+    NSString* html = [NSString stringWithContentsOfFile:htmlPath encoding:NSUTF8StringEncoding error:nil];
+    
+    html=[html stringByReplacingOccurrencesOfString:@"$dataProvider" withString:dataProvider];
+    html=[html stringByReplacingOccurrencesOfString:@"$width" withString:@"1000"];
+    
+    html=[html stringByReplacingOccurrencesOfString:@"$height" withString:@"600"];
+    
+    NSLog(@"%@",html);
+    NSLog(@"%@",[NSString stringWithFormat:@"%@/web/",[[NSBundle mainBundle] bundlePath]]);
+    [self.webLineChartView loadHTMLString:html baseURL:[NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/web/",[[NSBundle mainBundle] bundlePath]]]];
+}
 
+-(void)changePeriod:(id)sender{
+    UIButton* button = (UIButton*)sender;
+    if(button==self.dailyButton){
+        [self generateLikeChart:self.dailyLineChart];
+    }else if(button==self.weeklyButton){
+        [self generateLikeChart:self.weeklyLineChart];
+    }else if(button==self.monthlyButton){
+        [self generateLikeChart:self.monthlyLineChart];
+    }else if(button==self.yearlyButton){
+        [self generateLikeChart:self.yearlyLineChart];
+    }
+}
 - (void)webViewDidFinishLoad:(UIWebView *)webView{
     JSContext* context = [webView valueForKeyPath:@"documentView.webView.mainFrame.javaScriptContext"];
     context[@"nativeClickGraphItem"]=^(NSString* date){
@@ -249,6 +305,11 @@
     TT_RELEASE_SAFELY(_weeklyLineChart);
     TT_RELEASE_SAFELY(_monthlyLineChart);
     TT_RELEASE_SAFELY(_yearlyLineChart);
+    
+    TT_RELEASE_SAFELY(_dailyButton);
+    TT_RELEASE_SAFELY(_weeklyButton);
+    TT_RELEASE_SAFELY(_monthlyButton);
+    TT_RELEASE_SAFELY(_yearlyButton);
     [super dealloc];
 }
 @end
