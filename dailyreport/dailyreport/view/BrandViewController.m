@@ -22,11 +22,13 @@
 @synthesize weeklyLineChart = _weeklyLineChart;
 @synthesize monthlyLineChart = _monthlyLineChart;
 @synthesize yearlyLineChart = _yearlyLineChart;
+@synthesize lineChart = _lineChart;
 
 @synthesize dailyButton = _dailyButton;
 @synthesize weeklyButton = _weeklyButton;
 @synthesize monthlyButton = _monthlyButton;
 @synthesize yearlyButton = _yearlyButton;
+@synthesize infoView = _infoView;
 -(id) initWithBrand:(NSString*) brand{
     if ((self = [self initWithNibName:nil bundle:nil])) {
         self.brand = brand;
@@ -87,7 +89,7 @@
     self.weeklyLineChart = weeklyLineChart;
     self.monthlyLineChart = monthlyLineChart;
     self.yearlyLineChart = yearlyLineChart;
-    
+    self.lineChart = self.dailyLineChart;
     int labelFontSize = 12;
     int channelFontSize = 14;
     NSLog(@"%f",SCREEN_WIDTH);
@@ -217,7 +219,9 @@
     [self.contentView addSubview:self.yearlyButton];
     [self.contentView addSubview:[self createLabel:@"年" frame:CGRectMake(wOffset+dayImage.size.width+3, yOffset+periodHeight/6, dayImage.size.width, dayImage.size.height) textColor:@"#000000" font:labelFontSize backgroundColor:nil]];
     yOffset+=periodHeight;
-    self.webLineChartView = [[[UIWebView alloc] initWithFrame:CGRectMake(0,yOffset,SCREEN_WIDTH,SCREEN_HEIGHT-yOffset)] autorelease];
+    _chartYOffset = yOffset;
+    CGFloat infoHeight = SCREEN_HEIGHT/10;
+    self.webLineChartView = [[[UIWebView alloc] initWithFrame:CGRectMake(0,_chartYOffset+infoHeight,SCREEN_WIDTH,SCREEN_HEIGHT-_chartYOffset-infoHeight)] autorelease];
     self.webLineChartView.scalesPageToFit=YES;
     self.webLineChartView.userInteractionEnabled =YES;
     self.webLineChartView.delegate = self;
@@ -226,7 +230,8 @@
     [self.webLineChartView.scrollView addGestureRecognizer:swipeGestureLeft];
 
     [self.contentView addSubview:self.webLineChartView];
-    [self generateLikeChart:self.dailyLineChart];
+    [self generateInfoView:self.lineChart index:0];
+    [self generateLikeChart:self.lineChart];
 
     
     NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
@@ -238,6 +243,35 @@
         promptImage.backgroundColor =[UIColor colorWithRed:0 green:0 blue:0 alpha:0.3f];
         [self.contentView addSubview:promptImage];
     }
+}
+
+-(void)generateInfoView:(NSString*)dataProvider index:(int) index{
+    if(self.infoView){
+        [self.infoView removeFromSuperview];
+    }
+    CGFloat infoHeight =SCREEN_HEIGHT/10;
+    self.infoView = [[UIView alloc] initWithFrame:CGRectMake(0, _chartYOffset, SCREEN_WIDTH, infoHeight)];
+
+    [self.contentView addSubview:self.infoView];
+    NSArray* jsonArray = [NSJSONSerialization JSONObjectWithData:[dataProvider dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingMutableContainers error:nil];
+    NSDictionary* jsonObj = [jsonArray objectAtIndex:index];
+    NSString* fullDateStr = [jsonObj objectForKey:@"fullDateStr"];
+    NSNumber* amount =[jsonObj objectForKey:@"amount"];
+    NSNumber* like =[jsonObj objectForKey:@"like"];
+    NSString* color = [[[NSBundle mainBundle] infoDictionary] objectForKey:[NSString stringWithFormat:@"%@背景",self.brand]];
+    [self.infoView addSubview:[self createLabel:fullDateStr frame:CGRectMake(10, 0, SCREEN_WIDTH/2-10, infoHeight) textColor:@"#000000" font:12 backgroundColor:nil]];
+    CGFloat wOffset =SCREEN_WIDTH/2;
+    [self.infoView addSubview:[self createLabel:@"收入" frame:CGRectMake(wOffset, 0, 25*SCREEN_WIDTH/320, infoHeight) textColor:@"#000000" font:12 backgroundColor:nil]];
+    wOffset+=25*SCREEN_WIDTH/320;
+    [self.infoView addSubview:[self createDecimalLabel:amount frame:CGRectMake(wOffset, 0, 50*SCREEN_WIDTH/320, infoHeight) textColor:color font:18 backgroundColor:nil textAlignment:ALIGN_LEFT]];
+    wOffset+=50*SCREEN_WIDTH/320;
+    [self.infoView addSubview:[self createLabel:@"同比" frame:CGRectMake(wOffset, 0, 25*SCREEN_WIDTH/320, infoHeight) textColor:@"#000000" font:12 backgroundColor:nil]];
+    wOffset+=25*SCREEN_WIDTH/320;
+    UILabel* label = [self createDecimalLabel:like unit:@"%" frame:CGRectMake(wOffset, 0, 60*SCREEN_WIDTH/320, infoHeight) textColor:color font:18 backgroundColor:nil textAlignment:ALIGN_LEFT];
+    if(like.floatValue>0){
+        label.text = [NSString stringWithFormat:@"+%@",label.text];
+    }
+    [self.infoView addSubview:label];
 }
 -(void)generateLikeChart:(NSString*)dataProvider{
     NSString* htmlPath = [[NSBundle mainBundle] pathForResource:@"dailyLineChart" ofType:@"html" inDirectory:@"web"];
@@ -256,25 +290,28 @@
 -(void)changePeriod:(id)sender{
     UIButton* button = (UIButton*)sender;
     if(button==self.dailyButton){
-        [self generateLikeChart:self.dailyLineChart];
+        self.lineChart=self.dailyLineChart;
     }else if(button==self.weeklyButton){
-        [self generateLikeChart:self.weeklyLineChart];
+        self.lineChart=self.weeklyLineChart;
     }else if(button==self.monthlyButton){
-        [self generateLikeChart:self.monthlyLineChart];
+        self.lineChart=self.monthlyLineChart;
     }else if(button==self.yearlyButton){
-        [self generateLikeChart:self.yearlyLineChart];
+        self.lineChart=self.yearlyLineChart;
     }
+    [self generateInfoView:self.lineChart index:0];
+    [self generateLikeChart:self.lineChart];
 }
 - (void)webViewDidFinishLoad:(UIWebView *)webView{
     JSContext* context = [webView valueForKeyPath:@"documentView.webView.mainFrame.javaScriptContext"];
-    context[@"nativeClickGraphItem"]=^(NSString* date){
-        [self nativeClickGraphItem:date];
+    context[@"nativeClickGraphItem"]=^(int index){
+        [self nativeClickGraphItem:index];
     };
     
 }
 
--(void) nativeClickGraphItem:(NSString*) date{
-    NSLog(@"%@",date);
+-(void) nativeClickGraphItem:(int) index{
+    NSLog(@"%i",index);
+    [self generateInfoView:self.lineChart index:index];
 }
 
 - (void) brandDidStartLoad:(NSString*) brand{
@@ -310,6 +347,7 @@
     TT_RELEASE_SAFELY(_weeklyButton);
     TT_RELEASE_SAFELY(_monthlyButton);
     TT_RELEASE_SAFELY(_yearlyButton);
+    TT_RELEASE_SAFELY(_infoView);
     [super dealloc];
 }
 @end

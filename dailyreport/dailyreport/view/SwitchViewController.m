@@ -332,7 +332,7 @@
         [formatter setMaximumFractionDigits:0];
         [formatter setMinimumFractionDigits:0];
     }
-    label.text = [NSString stringWithFormat:@"%@ %@",[formatter stringFromNumber:number],unit];
+    label.text = [NSString stringWithFormat:@"%@%@",[formatter stringFromNumber:number],unit];
     label.font = [UIFont systemFontOfSize:font];
     label.textColor = [StyleSheet colorFromHexString:textColor];
     label.textAlignment =[self getAlignment:textAlignment];
