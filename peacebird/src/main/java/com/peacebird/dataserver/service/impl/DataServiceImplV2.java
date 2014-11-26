@@ -219,17 +219,33 @@ public class DataServiceImplV2 implements DataServiceV2 {
 			color = "#17387A";
 		}
 		SimpleDateFormat sdf =null;
+		SimpleDateFormat fsdf = null;
+		SimpleDateFormat fsdf2 = null;
 		if(type==Calendar.DAY_OF_MONTH){
 			sdf = new SimpleDateFormat("MM-dd\nEEEE",Locale.SIMPLIFIED_CHINESE);
+			fsdf = new SimpleDateFormat("yyyy年MM月dd日 EEEE",Locale.SIMPLIFIED_CHINESE);
 		}else if(type==Calendar.WEEK_OF_MONTH){
 			sdf = new SimpleDateFormat("MM-dd\n'W'w",Locale.SIMPLIFIED_CHINESE);
+			fsdf = new SimpleDateFormat("'W'w MM.dd-",Locale.SIMPLIFIED_CHINESE);
+			fsdf2 = new SimpleDateFormat("MM.dd",Locale.SIMPLIFIED_CHINESE);
 		}else if(type==Calendar.MONTH){
 			sdf = new SimpleDateFormat("M月",Locale.SIMPLIFIED_CHINESE);
+			fsdf = new SimpleDateFormat("yyyy年MM月",Locale.SIMPLIFIED_CHINESE);
 		}else if(type==Calendar.YEAR){
 			sdf = new SimpleDateFormat("yyyy",Locale.SIMPLIFIED_CHINESE);
+			fsdf = new SimpleDateFormat("yyyy年",Locale.SIMPLIFIED_CHINESE);
 		}
 		for(BrandLineChartResult lc:lineCharts){
 			lc.setDateStr(sdf.format(lc.getDate()));
+			lc.setFullDateStr(fsdf.format(lc.getDate()));
+			if(type==Calendar.WEEK_OF_MONTH){
+				String half = fsdf2.format(DateUtils.addDays(lc.getDate(), 6));
+				lc.setFullDateStr(lc.getFullDateStr()+half);
+			}
+			if(type==Calendar.DAY_OF_MONTH){
+				lc.setDateStr(lc.getDateStr().replace("星期", "周"));
+				lc.setFullDateStr(lc.getFullDateStr().replace("星期", "周"));
+			}
 			if(type==Calendar.DAY_OF_MONTH&&lc.getDate().compareTo(firstDayOfThisWeek)<0){
 				lc.setColor("grey");
 			}else{
