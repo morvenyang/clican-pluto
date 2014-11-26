@@ -126,7 +126,13 @@ public class DataServiceImplV2 implements DataServiceV2 {
 		} else {
 			ir.setYesterday(false);
 		}
-
+		List<Date> availableDates = dataDaoV2.getAvailableDates(realYesterday);
+		List<String> ads = new ArrayList<String>();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		for(Date ad:availableDates){
+			ads.add(sdf.format(ad));
+		}
+		ir.setAvailableDates(ads);
 		JsonConfig jsonConfig = new JsonConfig();
 		jsonConfig.registerJsonValueProcessor(Date.class,
 				new DateJsonValueProcessor("yyyy-MM-dd"));

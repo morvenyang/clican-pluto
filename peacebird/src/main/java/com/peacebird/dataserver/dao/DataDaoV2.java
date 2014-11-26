@@ -42,6 +42,8 @@ public Date getPreviousDate();
 	public List<GoodRankResult> getGoodRankResult(Date date, String brand);
 
 	public DayStatus getDayStatus(Date date);
+	
+	public List<Date> getAvailableDates(Date date);
 
 	public void saveDayStatus(DayStatus dayStatus);
 
