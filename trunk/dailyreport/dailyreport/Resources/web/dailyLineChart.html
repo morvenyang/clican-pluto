@@ -23,7 +23,7 @@ text {
 							"marginLeft" : 80,
 							"marginRight" : 100,
 							"marginTop" : 10,
-							"marginBottom" : 26,
+							"marginBottom" : 60,
 							"dataProvider" : $dataProvider,
 							"valueAxes" : [ {
 								"id" : "v1",
@@ -70,11 +70,12 @@ text {
 										"valueAxis" : "v2",
 										"precision" : 2
 									} ],
-							"categoryField" : "date",
+							"categoryField" : "dateStr",
 							"categoryAxis" : {
 								"gridPosition" : "start",
 								"axisAlpha" : 0,
-								"tickLength" : 0
+								"tickLength" : 0,
+                                "fontSize":20
 							}
 						});
 		chart.addListener("clickGraphItem",clickGraphItem);
