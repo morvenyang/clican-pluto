@@ -220,7 +220,7 @@
     [self.contentView addSubview:[self createLabel:@"年" frame:CGRectMake(wOffset+dayImage.size.width+3, yOffset+periodHeight/6, dayImage.size.width, dayImage.size.height) textColor:@"#000000" font:labelFontSize backgroundColor:nil]];
     yOffset+=periodHeight;
     _chartYOffset = yOffset;
-    CGFloat infoHeight = SCREEN_HEIGHT/10;
+    CGFloat infoHeight = SCREEN_HEIGHT/12;
     self.webLineChartView = [[[UIWebView alloc] initWithFrame:CGRectMake(0,_chartYOffset+infoHeight,SCREEN_WIDTH,SCREEN_HEIGHT/2)] autorelease];
     self.webLineChartView.scalesPageToFit=YES;
     self.webLineChartView.userInteractionEnabled =YES;
@@ -249,7 +249,20 @@
     if(self.infoView){
         [self.infoView removeFromSuperview];
     }
-    CGFloat infoHeight =SCREEN_HEIGHT/10;
+    int labelFontSize = 12;
+    int amountFontSize = 18;
+    NSLog(@"%f",SCREEN_WIDTH);
+    if(SCREEN_WIDTH==320){
+        labelFontSize = 12;
+        amountFontSize = 21;
+    }else if(SCREEN_WIDTH==375){
+        labelFontSize = 14;
+        amountFontSize = 24;
+    }else{
+        labelFontSize = 16;
+        amountFontSize = 27;
+    }
+    CGFloat infoHeight =SCREEN_HEIGHT/12;
     self.infoView = [[UIView alloc] initWithFrame:CGRectMake(0, _chartYOffset, SCREEN_WIDTH, infoHeight)];
 
     [self.contentView addSubview:self.infoView];
@@ -271,15 +284,15 @@
         amountWidth = 90;
     }
     NSString* color = [[[NSBundle mainBundle] infoDictionary] objectForKey:[NSString stringWithFormat:@"%@背景",self.brand]];
-    [self.infoView addSubview:[self createLabel:fullDateStr frame:CGRectMake(10, 0, SCREEN_WIDTH/2-leftOffset, infoHeight) textColor:@"#000000" font:12 backgroundColor:nil]];
+    [self.infoView addSubview:[self createLabel:fullDateStr frame:CGRectMake(10, 0, SCREEN_WIDTH/2-leftOffset, infoHeight) textColor:@"#000000" font:labelFontSize backgroundColor:nil]];
     CGFloat wOffset =SCREEN_WIDTH/2-leftOffset;
-    [self.infoView addSubview:[self createLabel:@"收入" frame:CGRectMake(wOffset, 0, 25*SCREEN_WIDTH/320, infoHeight) textColor:@"#000000" font:12 backgroundColor:nil]];
+    [self.infoView addSubview:[self createLabel:@"收入" frame:CGRectMake(wOffset, 0, 25*SCREEN_WIDTH/320, infoHeight) textColor:@"#000000" font:labelFontSize backgroundColor:nil]];
     wOffset+=25*SCREEN_WIDTH/320;
-    [self.infoView addSubview:[self createDecimalLabel:amount frame:CGRectMake(wOffset, 0, amountWidth*SCREEN_WIDTH/320, infoHeight) textColor:color font:18 backgroundColor:nil textAlignment:ALIGN_LEFT]];
+    [self.infoView addSubview:[self createDecimalLabel:amount frame:CGRectMake(wOffset, 0, amountWidth*SCREEN_WIDTH/320, infoHeight) textColor:color font:amountFontSize backgroundColor:nil textAlignment:ALIGN_LEFT]];
     wOffset+=amountWidth*SCREEN_WIDTH/320;
-    [self.infoView addSubview:[self createLabel:@"同比" frame:CGRectMake(wOffset, 0, 25*SCREEN_WIDTH/320, infoHeight) textColor:@"#000000" font:12 backgroundColor:nil]];
+    [self.infoView addSubview:[self createLabel:@"同比" frame:CGRectMake(wOffset, 0, 25*SCREEN_WIDTH/320, infoHeight) textColor:@"#000000" font:labelFontSize backgroundColor:nil]];
     wOffset+=25*SCREEN_WIDTH/320;
-    UILabel* label = [self createDecimalLabel:like unit:@"%" frame:CGRectMake(wOffset, 0, 60*SCREEN_WIDTH/320, infoHeight) textColor:color font:18 backgroundColor:nil textAlignment:ALIGN_LEFT];
+    UILabel* label = [self createDecimalLabel:like unit:@"%" frame:CGRectMake(wOffset, 0, 60*SCREEN_WIDTH/320, infoHeight) textColor:color font:amountFontSize backgroundColor:nil textAlignment:ALIGN_LEFT];
     if(like.floatValue>0){
         label.text = [NSString stringWithFormat:@"+%@",label.text];
     }
@@ -292,16 +305,21 @@
     html=[html stringByReplacingOccurrencesOfString:@"$dataProvider" withString:dataProvider];
     html=[html stringByReplacingOccurrencesOfString:@"$width" withString:@"1000"];
     CGFloat h = SCREEN_HEIGHT;
+    
     html=[html stringByReplacingOccurrencesOfString:@"$height" withString:[NSString stringWithFormat:@"%.0f",h]];
-    html=[html stringByReplacingOccurrencesOfString:@"$top" withString:@"10"];
+    
     CGFloat bottom = 130;
+    CGFloat top = 10;
     if(SCREEN_HEIGHT == 568){
-       bottom = 90;
+        bottom = 90;
     }else if(SCREEN_HEIGHT==667){
         bottom = 120;
     }else if(SCREEN_HEIGHT==736){
         bottom = 120;
+        top = -10;
     }
+    html=[html stringByReplacingOccurrencesOfString:@"$top" withString:[NSString stringWithFormat:@"%.0f",top]];
+    
 
     html=[html stringByReplacingOccurrencesOfString:@"$bottom" withString:[NSString stringWithFormat:@"%.0f",bottom]];
     
