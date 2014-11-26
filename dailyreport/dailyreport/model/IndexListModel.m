@@ -88,6 +88,13 @@
             NSDateFormatter* dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
             [dateFormatter setTimeStyle:NSDateFormatterFullStyle];
             [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+            NSArray* avaliableDates=[data objectForKey:@"availableDates"];
+            NSMutableArray* ads = [NSMutableArray array];
+            for(NSString* avaliableDate in avaliableDates){
+                NSDate* d =[dateFormatter dateFromString:avaliableDate];
+                [ads addObject:d];
+            }
+            DrAppDelegate.user.availableDates = ads;
             self.date = [dateFormatter dateFromString:[data objectForKey:@"date"]];
             NSArray* brands = [data objectForKey:@"brands"];
             for (NSDictionary* brandDict in brands) {
