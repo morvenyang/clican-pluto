@@ -52,7 +52,6 @@
         NSLog(@"%i row is seelcted",index);
         GoodRank* gr = [self.goods objectAtIndex:index];
         DrAppDelegate.user.goods = self.goods;
-        DrAppDelegate.user.goodDate = self.selectedDate;
         DrAppDelegate.user.goodIndex = index;
         NSLog(@"good %@ is selected",gr.name);
         NSString* url = [NSString stringWithFormat:@"peacebird://good/%@/%i", [self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],index];

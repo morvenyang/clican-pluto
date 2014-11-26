@@ -15,7 +15,7 @@
 @synthesize showGestureLock = _showGestureLock;
 @synthesize goods = _goods;
 @synthesize goodIndex =_goodIndex;
-@synthesize goodDate = _goodDate;
+@synthesize availableDates = _availableDates;
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 -(id)init{
     self = [super init];
@@ -33,7 +33,7 @@
     TT_RELEASE_SAFELY(_date);
     TT_RELEASE_SAFELY(_oldDate);
     TT_RELEASE_SAFELY(_goods);
-    TT_RELEASE_SAFELY(_goodDate);
+    TT_RELEASE_SAFELY(_availableDates);
     [super dealloc];
 }
 

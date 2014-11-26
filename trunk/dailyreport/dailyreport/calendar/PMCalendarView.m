@@ -11,13 +11,13 @@
 #import "PMCalendarConstants.h"
 #import "NSDate+Helpers.h"
 #import "PMSelectionView.h"
-
+#import "AppDelegate.h"
 @interface PMDaysView : UIView
 
 @property (nonatomic, strong) UIFont *font;
 @property (nonatomic, strong) NSDate *currentDate;
 @property (nonatomic, assign) BOOL mondayFirstDayOfWeek;
-
+@property (nonatomic, retain) PMCalendarView* calendarView;
 @end
 
 @interface PMCalendarView ()
@@ -96,6 +96,7 @@
     [self addSubview:self.selectionView];
 
     self.daysView = [[PMDaysView alloc] initWithFrame:self.bounds];
+    self.daysView.calendarView = self;
     [self addSubview:self.daysView];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -553,7 +554,7 @@
 @synthesize font;
 @synthesize currentDate = _currentDate;
 @synthesize mondayFirstDayOfWeek = _mondayFirstDayOfWeek;
-
+@synthesize calendarView = _calendarView;
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -603,6 +604,17 @@
                   withFont: self.font
              lineBreakMode: UILineBreakModeWordWrap
                  alignment: UITextAlignmentCenter];
+        [[UIColor grayColor] setFill];
+        CGPoint p = CGPointMake(rect.origin.x+rect.size.width/2, rect.origin.y+rect.size.height/2);
+        NSDate* d = [_calendarView dateForPoint:p];
+        NSLog(@"%i",DrAppDelegate.user.availableDates.count);
+        if(![DrAppDelegate.user.availableDates containsObject:d]){
+            [@"x" drawInRect: rect
+                    withFont: self.font
+               lineBreakMode: UILineBreakModeWordWrap
+                   alignment: UITextAlignmentCenter];
+        }
+        
         CGContextRestoreGState(context);
     };
     
