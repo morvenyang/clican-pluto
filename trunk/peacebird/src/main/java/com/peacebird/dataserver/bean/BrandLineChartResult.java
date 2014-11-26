@@ -54,7 +54,7 @@ public class BrandLineChartResult implements Comparable<BrandLineChartResult>{
 		if(preAmount==null||amount==null){
 			return null;
 		}
-		return (amount/(preAmount)-1)*100;
+		return (amount/preAmount-1)*100;
 	}
 
 	@Override
