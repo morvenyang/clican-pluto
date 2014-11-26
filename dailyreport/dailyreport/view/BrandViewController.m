@@ -221,7 +221,7 @@
     yOffset+=periodHeight;
     _chartYOffset = yOffset;
     CGFloat infoHeight = SCREEN_HEIGHT/10;
-    self.webLineChartView = [[[UIWebView alloc] initWithFrame:CGRectMake(0,_chartYOffset+infoHeight,SCREEN_WIDTH,SCREEN_HEIGHT-_chartYOffset-infoHeight)] autorelease];
+    self.webLineChartView = [[[UIWebView alloc] initWithFrame:CGRectMake(0,_chartYOffset+infoHeight,SCREEN_WIDTH,SCREEN_HEIGHT/2)] autorelease];
     self.webLineChartView.scalesPageToFit=YES;
     self.webLineChartView.userInteractionEnabled =YES;
     self.webLineChartView.delegate = self;
@@ -233,7 +233,7 @@
     [self generateInfoView:self.lineChart index:0];
     [self generateLikeChart:self.lineChart];
 
-    
+    //self.contentView.contentSize = CGSizeMake(SCREEN_WIDTH, 1000);
     NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
     NSString* firstAccessVersion = [defaults objectForKey:FIRST_ACCESS_VERSION];
     if(firstAccessVersion==nil||![firstAccessVersion isEqualToString:VERSION]){
@@ -258,13 +258,25 @@
     NSString* fullDateStr = [jsonObj objectForKey:@"fullDateStr"];
     NSNumber* amount =[jsonObj objectForKey:@"amount"];
     NSNumber* like =[jsonObj objectForKey:@"like"];
+    CGFloat leftOffset = 0;
+    CGFloat amountWidth = 50;
+    if([dataProvider isEqualToString:self.weeklyLineChart]){
+        leftOffset = 30;
+        amountWidth = 60;
+    }else if([dataProvider isEqualToString:self.monthlyLineChart]){
+        leftOffset = 50;
+        amountWidth = 80;
+    }else if([dataProvider isEqualToString:self.yearlyLineChart]){
+        leftOffset = 70;
+        amountWidth = 90;
+    }
     NSString* color = [[[NSBundle mainBundle] infoDictionary] objectForKey:[NSString stringWithFormat:@"%@背景",self.brand]];
-    [self.infoView addSubview:[self createLabel:fullDateStr frame:CGRectMake(10, 0, SCREEN_WIDTH/2-10, infoHeight) textColor:@"#000000" font:12 backgroundColor:nil]];
-    CGFloat wOffset =SCREEN_WIDTH/2;
+    [self.infoView addSubview:[self createLabel:fullDateStr frame:CGRectMake(10, 0, SCREEN_WIDTH/2-leftOffset, infoHeight) textColor:@"#000000" font:12 backgroundColor:nil]];
+    CGFloat wOffset =SCREEN_WIDTH/2-leftOffset;
     [self.infoView addSubview:[self createLabel:@"收入" frame:CGRectMake(wOffset, 0, 25*SCREEN_WIDTH/320, infoHeight) textColor:@"#000000" font:12 backgroundColor:nil]];
     wOffset+=25*SCREEN_WIDTH/320;
-    [self.infoView addSubview:[self createDecimalLabel:amount frame:CGRectMake(wOffset, 0, 50*SCREEN_WIDTH/320, infoHeight) textColor:color font:18 backgroundColor:nil textAlignment:ALIGN_LEFT]];
-    wOffset+=50*SCREEN_WIDTH/320;
+    [self.infoView addSubview:[self createDecimalLabel:amount frame:CGRectMake(wOffset, 0, amountWidth*SCREEN_WIDTH/320, infoHeight) textColor:color font:18 backgroundColor:nil textAlignment:ALIGN_LEFT]];
+    wOffset+=amountWidth*SCREEN_WIDTH/320;
     [self.infoView addSubview:[self createLabel:@"同比" frame:CGRectMake(wOffset, 0, 25*SCREEN_WIDTH/320, infoHeight) textColor:@"#000000" font:12 backgroundColor:nil]];
     wOffset+=25*SCREEN_WIDTH/320;
     UILabel* label = [self createDecimalLabel:like unit:@"%" frame:CGRectMake(wOffset, 0, 60*SCREEN_WIDTH/320, infoHeight) textColor:color font:18 backgroundColor:nil textAlignment:ALIGN_LEFT];
@@ -279,8 +291,19 @@
     
     html=[html stringByReplacingOccurrencesOfString:@"$dataProvider" withString:dataProvider];
     html=[html stringByReplacingOccurrencesOfString:@"$width" withString:@"1000"];
-    
-    html=[html stringByReplacingOccurrencesOfString:@"$height" withString:@"600"];
+    CGFloat h = SCREEN_HEIGHT;
+    html=[html stringByReplacingOccurrencesOfString:@"$height" withString:[NSString stringWithFormat:@"%.0f",h]];
+    html=[html stringByReplacingOccurrencesOfString:@"$top" withString:@"10"];
+    CGFloat bottom = 130;
+    if(SCREEN_HEIGHT == 568){
+       bottom = 90;
+    }else if(SCREEN_HEIGHT==667){
+        bottom = 120;
+    }else if(SCREEN_HEIGHT==736){
+        bottom = 120;
+    }
+
+    html=[html stringByReplacingOccurrencesOfString:@"$bottom" withString:[NSString stringWithFormat:@"%.0f",bottom]];
     
     NSLog(@"%@",html);
     NSLog(@"%@",[NSString stringWithFormat:@"%@/web/",[[NSBundle mainBundle] bundlePath]]);
