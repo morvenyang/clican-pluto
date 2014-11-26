@@ -11,6 +11,8 @@ public class BrandLineChartResult implements Comparable<BrandLineChartResult>{
 	private Date date;
 	
 	private String color;
+	
+	private String dateStr;
 
 	public BrandLineChartResult(Number amount, Number preAmount,Date date) {
 		super();
@@ -66,6 +68,14 @@ public class BrandLineChartResult implements Comparable<BrandLineChartResult>{
 
 	public void setColor(String color) {
 		this.color = color;
+	}
+
+	public String getDateStr() {
+		return dateStr;
+	}
+
+	public void setDateStr(String dateStr) {
+		this.dateStr = dateStr;
 	}
 
 

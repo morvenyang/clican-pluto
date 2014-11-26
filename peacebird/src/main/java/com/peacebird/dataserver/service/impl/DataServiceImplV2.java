@@ -8,6 +8,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 
 import net.sf.json.JSONObject;
@@ -167,29 +168,30 @@ public class DataServiceImplV2 implements DataServiceV2 {
 		bsr.setBrandResult(br);
 		bsr.setChannels(bcr);
 
+		Date firstDayOfThisWeek = getCalendarDate(yesterday,Calendar.WEEK_OF_MONTH);
 		// daily line chart
 		List<BrandLineChartResult> dailyLineChart = this.dataDaoV2
 				.getBrandLineChartDayResult(yesterday, brand, "days", 8);
 		bsr.setDailyLineChart(dailyLineChart);
-		setLineChartColor(dailyLineChart,brand);
+		setLineChartColorAndDateStr(dailyLineChart,brand,Calendar.DAY_OF_MONTH,firstDayOfThisWeek);
 		List<BrandLineChartResult> weeklyLineChart = this.dataDaoV2
 				.getBrandLineChartDayResult(
 						this.getCalendarDate(yesterday, Calendar.WEEK_OF_MONTH),
 						brand, "weeks", 8);
 		bsr.setWeeklyLineChart(weeklyLineChart);
-
+		setLineChartColorAndDateStr(weeklyLineChart,brand,Calendar.WEEK_OF_MONTH,null);
 		List<BrandLineChartResult> monthLineChart = this.dataDaoV2
 				.getBrandLineChartDayResult(
 						this.getCalendarDate(yesterday, Calendar.MONTH), brand,
 						"months", 12);
 		bsr.setMonthlyLineChart(monthLineChart);
-
+		setLineChartColorAndDateStr(monthLineChart,brand,Calendar.MONTH,null);
 		List<BrandLineChartResult> yearLineChart = this.dataDaoV2
 				.getBrandLineChartDayResult(
 						this.getCalendarDate(yesterday, Calendar.YEAR), brand,
 						"years", 3);
 		bsr.setYearlyLineChart(yearLineChart);
-
+		setLineChartColorAndDateStr(yearLineChart,brand,Calendar.YEAR,null);
 		JsonConfig jsonConfig = new JsonConfig();
 		jsonConfig.registerJsonValueProcessor(Date.class,
 				new DateJsonValueProcessor("yyyy-MM-dd"));
@@ -199,7 +201,7 @@ public class DataServiceImplV2 implements DataServiceV2 {
 		return result;
 	}
 
-	private void setLineChartColor(List<BrandLineChartResult> lineCharts,String brand){
+	private void setLineChartColorAndDateStr(List<BrandLineChartResult> lineCharts,String brand,int type,Date firstDayOfThisWeek){
 		String color = "#E5006E";
 		if(brand.equals("女装")){
 			color = "#E5006E";
@@ -216,10 +218,27 @@ public class DataServiceImplV2 implements DataServiceV2 {
 		}else if(brand.equals("电商")){
 			color = "#17387A";
 		}
+		SimpleDateFormat sdf =null;
+		if(type==Calendar.DAY_OF_MONTH){
+			sdf = new SimpleDateFormat("MM-dd\nEEEE",Locale.SIMPLIFIED_CHINESE);
+		}else if(type==Calendar.WEEK_OF_MONTH){
+			sdf = new SimpleDateFormat("MM-dd\n'W'w",Locale.SIMPLIFIED_CHINESE);
+		}else if(type==Calendar.MONTH){
+			sdf = new SimpleDateFormat("M月",Locale.SIMPLIFIED_CHINESE);
+		}else if(type==Calendar.YEAR){
+			sdf = new SimpleDateFormat("yyyy",Locale.SIMPLIFIED_CHINESE);
+		}
 		for(BrandLineChartResult lc:lineCharts){
-			lc.setColor(color);
+			lc.setDateStr(sdf.format(lc.getDate()));
+			if(type==Calendar.DAY_OF_MONTH&&lc.getDate().compareTo(firstDayOfThisWeek)<0){
+				lc.setColor("grey");
+			}else{
+				lc.setColor(color);
+			}
 		}
 	}
+	
+	
 	private List<RetailResult> filteZero(List<RetailResult> source) {
 		List<RetailResult> result = new ArrayList<RetailResult>();
 		for (RetailResult rr : source) {
