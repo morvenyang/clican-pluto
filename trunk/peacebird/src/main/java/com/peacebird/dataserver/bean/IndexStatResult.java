@@ -15,6 +15,8 @@ public class IndexStatResult {
 	private boolean yesterday;
 	
 	private String message;
+	
+	private List<String> availableDates;
 
 	public List<BrandResult> getBrands() {
 		return brands;
@@ -55,6 +57,16 @@ public class IndexStatResult {
 	public void setYesterday(boolean yesterday) {
 		this.yesterday = yesterday;
 	}
+
+	public List<String> getAvailableDates() {
+		return availableDates;
+	}
+
+	public void setAvailableDates(List<String> availableDates) {
+		this.availableDates = availableDates;
+	}
+
+	
 	
 	
 }
