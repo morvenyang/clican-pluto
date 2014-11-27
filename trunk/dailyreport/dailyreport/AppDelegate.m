@@ -29,13 +29,15 @@
 @synthesize loginModel = _loginModel;
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    if([[UIApplication sharedApplication] respondsToSelector:@selector(registerUserNotificationSettings:)]){
+    #ifdef __IPHONE_8_0
         [[UIApplication sharedApplication] registerUserNotificationSettings:
          [UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeSound | UIUserNotificationTypeAlert) categories:nil]];
-    }else{
+    #endif
+    #ifndef __IPHONE_8_0
         [[UIApplication sharedApplication] registerForRemoteNotificationTypes:
          (UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
-    }
+    #endif
+
     self.user = [[[User alloc] init] autorelease];
     self.user.sessionId = @"";
     self.user.showGestureLock =NO;
@@ -148,10 +150,11 @@
     NSLog(@"My token is:%@", token);
     self.token = token;
 }
+#ifdef __IPHONE_8_0
 -(void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings{
     [application registerForRemoteNotifications];
 }
-
+#endif
 - (void)application:(UIApplication *)app didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
     NSString *error_str = [NSString stringWithFormat: @"%@", error];
     NSLog(@"Failed to get token, error:%@", error_str);
