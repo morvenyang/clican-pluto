@@ -30,8 +30,13 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     #ifdef __IPHONE_8_0
+    if([[UIApplication sharedApplication] respondsToSelector:@selector(registerUserNotificationSettings:)]){
         [[UIApplication sharedApplication] registerUserNotificationSettings:
          [UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeSound | UIUserNotificationTypeAlert) categories:nil]];
+    }else{
+        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:
+         (UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
+    }
     #endif
     #ifndef __IPHONE_8_0
         [[UIApplication sharedApplication] registerForRemoteNotificationTypes:
