@@ -50,7 +50,7 @@
     self.selectedDate = date;
     self.monthlySums = monthlySums;
     self.yearlySums = yearlySums;
-    UIView* dailyView = [self createDailyView:@"图标-拓展统计" label:@"拓展统计-数量"];
+    UIView* dailyView = [self createDailyView:@"图标-零售收入" label:@"拓展统计-数量"];
     
     [self.contentView addSubview:dailyView];
     int channelFontSize = 20;

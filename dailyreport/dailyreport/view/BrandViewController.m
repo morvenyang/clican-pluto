@@ -289,11 +289,15 @@
     CGFloat wOffset =SCREEN_WIDTH/2-leftOffset;
     [self.infoView addSubview:[self createLabel:@"收入" frame:CGRectMake(wOffset, 0, 25*SCREEN_WIDTH/320, infoHeight) textColor:@"#000000" font:labelFontSize backgroundColor:nil]];
     wOffset+=25*SCREEN_WIDTH/320;
-    [self.infoView addSubview:[self createDecimalLabel:amount frame:CGRectMake(wOffset, 0, amountWidth*SCREEN_WIDTH/320, infoHeight) textColor:color font:amountFontSize backgroundColor:nil textAlignment:ALIGN_LEFT]];
-    wOffset+=amountWidth*SCREEN_WIDTH/320;
+    UILabel* amountLabel=[self createDecimalLabel:amount frame:CGRectMake(wOffset, 0, amountWidth*SCREEN_WIDTH/320, infoHeight) textColor:color font:amountFontSize backgroundColor:nil textAlignment:ALIGN_LEFT];
+    CGSize amountSize =[amountLabel.text sizeWithFont:amountLabel.font];
+    amountLabel.frame = CGRectMake(wOffset, 0,amountSize.width, infoHeight);
+    [self.infoView addSubview:amountLabel];
+    
+    wOffset+=amountSize.width+5;
     [self.infoView addSubview:[self createLabel:@"同比" frame:CGRectMake(wOffset, 0, 25*SCREEN_WIDTH/320, infoHeight) textColor:@"#000000" font:labelFontSize backgroundColor:nil]];
     wOffset+=25*SCREEN_WIDTH/320;
-    UILabel* label = [self createDecimalLabel:like unit:@"%" frame:CGRectMake(wOffset, 0, 60*SCREEN_WIDTH/320, infoHeight) textColor:color font:amountFontSize backgroundColor:nil textAlignment:ALIGN_LEFT];
+    UILabel* label = [self createDecimalLabel:like unit:@"%" frame:CGRectMake(wOffset, 0, SCREEN_WIDTH-wOffset, infoHeight) textColor:color font:amountFontSize backgroundColor:nil textAlignment:ALIGN_LEFT];
     if(like.floatValue>0){
         label.text = [NSString stringWithFormat:@"+%@",label.text];
     }
