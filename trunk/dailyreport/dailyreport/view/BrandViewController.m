@@ -11,7 +11,6 @@
 #import "AppDelegate.h"
 #import "CannotCancelUISwipeGestureRecognizer.h"
 #import <JavaScriptCore/JavaScriptCore.h>
-
 @implementation BrandViewController
 
 
