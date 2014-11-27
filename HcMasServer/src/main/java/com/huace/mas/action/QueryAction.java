@@ -6,7 +6,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -70,15 +69,18 @@ public class QueryAction {
 		String projectServerConf = springProperty.getProjectServerConf();
 		JSONArray jsonArray = JSONArray.fromObject(projectServerConf);
 		
-		Map<String, String> kpiMap = springProperty.getKpiMap();
-		List<String> kpis = new ArrayList<String>();
-		List<String> kpiNames = new ArrayList<String>();
-		for (String kpi : kpiMap.keySet()) {
-			kpis.add(kpi);
-			kpiNames.add(kpiMap.get(kpi));
-		}
 		for (int i =0;i<jsonArray.size();i++) {
 			JSONObject jobj = jsonArray.getJSONObject(i);
+			String kpiMapStr = jobj.getString("kpiMap");
+			List<String> kpis = new ArrayList<String>();
+			List<String> kpiNames = new ArrayList<String>();
+			String[] maps = kpiMapStr.split(";");
+			for(String map:maps){
+				String key = map.split(":")[0];
+				String value = map.split(":")[1];
+				kpis.add(key);
+				kpiNames.add(value);
+			}
 			jobj.put("kpis", JSONArray.fromObject(kpis));
 			jobj.put("kpiNames", JSONArray.fromObject(kpiNames));
 		}
