@@ -50,6 +50,7 @@
 		7237939F19500C9A00B336FD /* PMSelectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7237939E19500C9A00B336FD /* PMSelectionView.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		723C6C1F1964F3C700F67689 /* B2CKPIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 723C6C1E1964F3C700F67689 /* B2CKPIViewController.m */; };
 		723C6C2A1965045E00F67689 /* line.png in Resources */ = {isa = PBXBuildFile; fileRef = 723C6C291965045E00F67689 /* line.png */; };
+		72436C411A26BA4C009F5E7C /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72436C241A26B72B009F5E7C /* JavaScriptCore.framework */; };
 		724480E319271E8A005F5BE5 /* Brand.m in Sources */ = {isa = PBXBuildFile; fileRef = 724480E219271E8A005F5BE5 /* Brand.m */; };
 		724480EF19273167005F5BE5 /* Channel.m in Sources */ = {isa = PBXBuildFile; fileRef = 724480EE19273167005F5BE5 /* Channel.m */; };
 		724480F2192732A8005F5BE5 /* BrandViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 724480F1192732A8005F5BE5 /* BrandViewController.m */; };
@@ -123,11 +124,6 @@
 		7285E3D21925AFEE0011C2D6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7285E3D11925AFEE0011C2D6 /* main.m */; };
 		7285E3D61925AFEE0011C2D6 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7285E3D51925AFEE0011C2D6 /* AppDelegate.m */; };
 		7285E3D81925AFEE0011C2D6 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7285E3D71925AFEE0011C2D6 /* Images.xcassets */; };
-		7285E3DF1925AFEE0011C2D6 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7285E3DE1925AFEE0011C2D6 /* XCTest.framework */; };
-		7285E3E01925AFEE0011C2D6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7285E3C51925AFEE0011C2D6 /* Foundation.framework */; };
-		7285E3E11925AFEE0011C2D6 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7285E3C91925AFEE0011C2D6 /* UIKit.framework */; };
-		7285E3E91925AFEE0011C2D6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7285E3E71925AFEE0011C2D6 /* InfoPlist.strings */; };
-		7285E3EB1925AFEE0011C2D6 /* dailyreportTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7285E3EA1925AFEE0011C2D6 /* dailyreportTests.m */; };
 		729271F11988B66B00BCF33A /* GoodRank.m in Sources */ = {isa = PBXBuildFile; fileRef = 729271F01988B66B00BCF33A /* GoodRank.m */; };
 		729271FD1988B73200BCF33A /* GoodRankModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 729271FC1988B73200BCF33A /* GoodRankModel.m */; };
 		729272001988B8E000BCF33A /* GoodRankViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 729271FF1988B8E000BCF33A /* GoodRankViewController.m */; };
@@ -147,7 +143,6 @@
 		72EB38A919270EAF00D0F225 /* LoginDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 72EB38A819270EAF00D0F225 /* LoginDataSource.m */; };
 		72EB38AC19270EC100D0F225 /* LoginModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 72EB38AB19270EC100D0F225 /* LoginModel.m */; };
 		72EB38B6192712DC00D0F225 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 72EB38B5192712DC00D0F225 /* MBProgressHUD.m */; };
-		72F94E201A1B1BAF00515377 /* libiOSJavaScriptCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 72F94E1E1A1B179500515377 /* libiOSJavaScriptCore.a */; };
 		72F94E221A1B1BBC00515377 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 72F94E211A1B1BBC00515377 /* libxml2.dylib */; };
 		72F94E241A1B1C8400515377 /* libstdc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 72F94E231A1B1C8400515377 /* libstdc++.dylib */; };
 		72F94E261A1B1C8B00515377 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 72F94E251A1B1C8B00515377 /* libicucore.dylib */; };
@@ -265,13 +260,6 @@
 			proxyType = 2;
 			remoteGlobalIDString = BEF31F3A0F352DF5000DE5D2;
 			remoteInfo = Three20UI;
-		};
-		7285E3E21925AFEE0011C2D6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7285E3BA1925AFEE0011C2D6 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 7285E3C11925AFEE0011C2D6;
-			remoteInfo = dailyreport;
 		};
 		72EB386E1927051700D0F225 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -401,6 +389,7 @@
 		723C6C1D1964F3C700F67689 /* B2CKPIViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = B2CKPIViewController.h; sourceTree = "<group>"; };
 		723C6C1E1964F3C700F67689 /* B2CKPIViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = B2CKPIViewController.m; sourceTree = "<group>"; };
 		723C6C291965045E00F67689 /* line.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = line.png; sourceTree = "<group>"; };
+		72436C241A26B72B009F5E7C /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		724480E119271E8A005F5BE5 /* Brand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Brand.h; sourceTree = "<group>"; };
 		724480E219271E8A005F5BE5 /* Brand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Brand.m; sourceTree = "<group>"; };
 		724480ED19273167005F5BE5 /* Channel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Channel.h; sourceTree = "<group>"; };
@@ -498,8 +487,6 @@
 		7285E3D41925AFEE0011C2D6 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		7285E3D51925AFEE0011C2D6 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		7285E3D71925AFEE0011C2D6 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		7285E3DD1925AFEE0011C2D6 /* dailyreportTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = dailyreportTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		7285E3DE1925AFEE0011C2D6 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		7285E3E61925AFEE0011C2D6 /* dailyreportTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "dailyreportTests-Info.plist"; sourceTree = "<group>"; };
 		7285E3E81925AFEE0011C2D6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		7285E3EA1925AFEE0011C2D6 /* dailyreportTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = dailyreportTests.m; sourceTree = "<group>"; };
@@ -541,16 +528,6 @@
 		72EB38AB19270EC100D0F225 /* LoginModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginModel.m; sourceTree = "<group>"; };
 		72EB38B4192712DC00D0F225 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		72EB38B5192712DC00D0F225 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
-		72F94E151A1B172A00515377 /* JavaScript.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JavaScript.h; path = javascriptcore/JavaScript.h; sourceTree = "<group>"; };
-		72F94E161A1B172A00515377 /* JavaScriptCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JavaScriptCore.h; path = javascriptcore/JavaScriptCore.h; sourceTree = "<group>"; };
-		72F94E171A1B172A00515377 /* JSBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSBase.h; path = javascriptcore/JSBase.h; sourceTree = "<group>"; };
-		72F94E181A1B172A00515377 /* JSContextRef.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSContextRef.h; path = javascriptcore/JSContextRef.h; sourceTree = "<group>"; };
-		72F94E191A1B172A00515377 /* JSObjectRef.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSObjectRef.h; path = javascriptcore/JSObjectRef.h; sourceTree = "<group>"; };
-		72F94E1A1A1B172A00515377 /* JSStringRef.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSStringRef.h; path = javascriptcore/JSStringRef.h; sourceTree = "<group>"; };
-		72F94E1B1A1B172A00515377 /* JSStringRefCF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSStringRefCF.h; path = javascriptcore/JSStringRefCF.h; sourceTree = "<group>"; };
-		72F94E1C1A1B172A00515377 /* JSValueRef.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSValueRef.h; path = javascriptcore/JSValueRef.h; sourceTree = "<group>"; };
-		72F94E1D1A1B172A00515377 /* WebKitAvailability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebKitAvailability.h; path = javascriptcore/WebKitAvailability.h; sourceTree = "<group>"; };
-		72F94E1E1A1B179500515377 /* libiOSJavaScriptCore.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libiOSJavaScriptCore.a; path = dailyreport/javascriptcore/libiOSJavaScriptCore.a; sourceTree = "<group>"; };
 		72F94E211A1B1BBC00515377 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		72F94E231A1B1C8400515377 /* libstdc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.dylib"; path = "usr/lib/libstdc++.dylib"; sourceTree = SDKROOT; };
 		72F94E251A1B1C8B00515377 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
@@ -561,11 +538,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				72436C411A26BA4C009F5E7C /* JavaScriptCore.framework in Frameworks */,
 				725B9FAE1A243BDE00939AD4 /* MessageUI.framework in Frameworks */,
 				72F94E261A1B1C8B00515377 /* libicucore.dylib in Frameworks */,
 				72F94E241A1B1C8400515377 /* libstdc++.dylib in Frameworks */,
 				72F94E221A1B1BBC00515377 /* libxml2.dylib in Frameworks */,
-				72F94E201A1B1BAF00515377 /* libiOSJavaScriptCore.a in Frameworks */,
 				725AFEBF19317C42003BD9F3 /* libWeChatSDK.a in Frameworks */,
 				3206A0F794A6D7A3F259DBF5 /* libextThree20JSON+SBJSON.a in Frameworks */,
 				3201088596B4756681693705 /* libThree20UICommon.a in Frameworks */,
@@ -579,16 +556,6 @@
 				7285E3C81925AFEE0011C2D6 /* CoreGraphics.framework in Frameworks */,
 				7285E3CA1925AFEE0011C2D6 /* UIKit.framework in Frameworks */,
 				7285E3C61925AFEE0011C2D6 /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		7285E3DA1925AFEE0011C2D6 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				7285E3DF1925AFEE0011C2D6 /* XCTest.framework in Frameworks */,
-				7285E3E11925AFEE0011C2D6 /* UIKit.framework in Frameworks */,
-				7285E3E01925AFEE0011C2D6 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -791,7 +758,6 @@
 			isa = PBXGroup;
 			children = (
 				7285E3C21925AFEE0011C2D6 /* dailyreport.app */,
-				7285E3DD1925AFEE0011C2D6 /* dailyreportTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -799,11 +765,11 @@
 		7285E3C41925AFEE0011C2D6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				72436C241A26B72B009F5E7C /* JavaScriptCore.framework */,
 				725B9FAD1A243BDE00939AD4 /* MessageUI.framework */,
 				72F94E251A1B1C8B00515377 /* libicucore.dylib */,
 				72F94E231A1B1C8400515377 /* libstdc++.dylib */,
 				72F94E211A1B1BBC00515377 /* libxml2.dylib */,
-				72F94E1E1A1B179500515377 /* libiOSJavaScriptCore.a */,
 				725AFEBE19317C42003BD9F3 /* libWeChatSDK.a */,
 				3206A0F794A6D7A3F259DBF0 /* extThree20JSON.xcodeproj */,
 				3201088596B4756681693700 /* Three20UICommon.xcodeproj */,
@@ -817,7 +783,6 @@
 				7285E3C51925AFEE0011C2D6 /* Foundation.framework */,
 				7285E3C71925AFEE0011C2D6 /* CoreGraphics.framework */,
 				7285E3C91925AFEE0011C2D6 /* UIKit.framework */,
-				7285E3DE1925AFEE0011C2D6 /* XCTest.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -825,7 +790,6 @@
 		7285E3CB1925AFEE0011C2D6 /* dailyreport */ = {
 			isa = PBXGroup;
 			children = (
-				72F94E141A1B170600515377 /* javascriptcore */,
 				722D6B321963DDB400036D38 /* KKGestureLock */,
 				7237937E19500AA900B336FD /* calendar */,
 				724F4F2D1935A06C0079F9A0 /* hy */,
@@ -1058,22 +1022,6 @@
 			path = dailyreport/Resources;
 			sourceTree = "<group>";
 		};
-		72F94E141A1B170600515377 /* javascriptcore */ = {
-			isa = PBXGroup;
-			children = (
-				72F94E151A1B172A00515377 /* JavaScript.h */,
-				72F94E161A1B172A00515377 /* JavaScriptCore.h */,
-				72F94E171A1B172A00515377 /* JSBase.h */,
-				72F94E181A1B172A00515377 /* JSContextRef.h */,
-				72F94E191A1B172A00515377 /* JSObjectRef.h */,
-				72F94E1A1A1B172A00515377 /* JSStringRef.h */,
-				72F94E1B1A1B172A00515377 /* JSStringRefCF.h */,
-				72F94E1C1A1B172A00515377 /* JSValueRef.h */,
-				72F94E1D1A1B172A00515377 /* WebKitAvailability.h */,
-			);
-			name = javascriptcore;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1102,24 +1050,6 @@
 			productReference = 7285E3C21925AFEE0011C2D6 /* dailyreport.app */;
 			productType = "com.apple.product-type.application";
 		};
-		7285E3DC1925AFEE0011C2D6 /* dailyreportTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 7285E3F11925AFEE0011C2D6 /* Build configuration list for PBXNativeTarget "dailyreportTests" */;
-			buildPhases = (
-				7285E3D91925AFEE0011C2D6 /* Sources */,
-				7285E3DA1925AFEE0011C2D6 /* Frameworks */,
-				7285E3DB1925AFEE0011C2D6 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				7285E3E31925AFEE0011C2D6 /* PBXTargetDependency */,
-			);
-			name = dailyreportTests;
-			productName = dailyreportTests;
-			productReference = 7285E3DD1925AFEE0011C2D6 /* dailyreportTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -1131,9 +1061,6 @@
 				TargetAttributes = {
 					7285E3C11925AFEE0011C2D6 = {
 						DevelopmentTeam = FY5N67HLSC;
-					};
-					7285E3DC1925AFEE0011C2D6 = {
-						TestTargetID = 7285E3C11925AFEE0011C2D6;
 					};
 				};
 			};
@@ -1184,7 +1111,6 @@
 			projectRoot = "";
 			targets = (
 				7285E3C11925AFEE0011C2D6 /* dailyreport */,
-				7285E3DC1925AFEE0011C2D6 /* dailyreportTests */,
 			);
 		};
 /* End PBXProject section */
@@ -1386,14 +1312,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7285E3DB1925AFEE0011C2D6 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				7285E3E91925AFEE0011C2D6 /* InfoPlist.strings in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -1458,14 +1376,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7285E3D91925AFEE0011C2D6 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				7285E3EB1925AFEE0011C2D6 /* dailyreportTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -1508,11 +1418,6 @@
 			isa = PBXTargetDependency;
 			name = Three20UI;
 			targetProxy = 320F2C48872C2E2C4DF86202 /* PBXContainerItemProxy */;
-		};
-		7285E3E31925AFEE0011C2D6 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 7285E3C11925AFEE0011C2D6 /* dailyreport */;
-			targetProxy = 7285E3E21925AFEE0011C2D6 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1644,8 +1549,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/weixin",
-					"$(PROJECT_DIR)/dailyreport/javascriptcore",
+					"$(PROJECT_DIR)/dailyreport/weixin",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1668,53 +1572,12 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/weixin",
-					"$(PROJECT_DIR)/dailyreport/javascriptcore",
+					"$(PROJECT_DIR)/dailyreport/weixin",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "ED08FF2C-0BE9-4BD1-BDE2-9BE81D703925";
 				WRAPPER_EXTENSION = app;
-			};
-			name = Release;
-		};
-		7285E3F21925AFEE0011C2D6 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/dailyreport.app/dailyreport";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "dailyreport/dailyreport-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "dailyreportTests/dailyreportTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Debug;
-		};
-		7285E3F31925AFEE0011C2D6 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/dailyreport.app/dailyreport";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "dailyreport/dailyreport-Prefix.pch";
-				INFOPLIST_FILE = "dailyreportTests/dailyreportTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
 			};
 			name = Release;
 		};
@@ -1735,15 +1598,6 @@
 			buildConfigurations = (
 				7285E3EF1925AFEE0011C2D6 /* Debug */,
 				7285E3F01925AFEE0011C2D6 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		7285E3F11925AFEE0011C2D6 /* Build configuration list for PBXNativeTarget "dailyreportTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				7285E3F21925AFEE0011C2D6 /* Debug */,
-				7285E3F31925AFEE0011C2D6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

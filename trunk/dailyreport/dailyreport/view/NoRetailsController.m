@@ -45,7 +45,7 @@
     NSLog(@"%@",@"加载No Retail数据成功");
     self.selectedDate = date;
     
-    UIView* dailyView = [self createDailyView:@"图标-未上传店铺" label:@"未上传店铺"];
+    UIView* dailyView = [self createDailyView:@"图标-零售收入" label:@"未上传店铺"];
     
     [self.contentView addSubview:dailyView];
     int channelFontSize = 20;
