@@ -229,17 +229,17 @@ public class DataServiceImplV2 implements DataServiceV2 {
 		SimpleDateFormat fsdf2 = null;
 		if(type==Calendar.DAY_OF_MONTH){
 			sdf = new SimpleDateFormat("MM-dd\nEEEE",Locale.SIMPLIFIED_CHINESE);
-			fsdf = new SimpleDateFormat("yyyy年MM月dd日 EEEE",Locale.SIMPLIFIED_CHINESE);
+			fsdf = new SimpleDateFormat("yy年MM月dd日 EEEE",Locale.SIMPLIFIED_CHINESE);
 		}else if(type==Calendar.WEEK_OF_MONTH){
 			sdf = new SimpleDateFormat("MM-dd\n'W'w",Locale.SIMPLIFIED_CHINESE);
 			fsdf = new SimpleDateFormat("'W'w MM.dd-",Locale.SIMPLIFIED_CHINESE);
 			fsdf2 = new SimpleDateFormat("MM.dd",Locale.SIMPLIFIED_CHINESE);
 		}else if(type==Calendar.MONTH){
 			sdf = new SimpleDateFormat("M月",Locale.SIMPLIFIED_CHINESE);
-			fsdf = new SimpleDateFormat("yyyy年MM月",Locale.SIMPLIFIED_CHINESE);
+			fsdf = new SimpleDateFormat("yy年MM月",Locale.SIMPLIFIED_CHINESE);
 		}else if(type==Calendar.YEAR){
 			sdf = new SimpleDateFormat("yyyy",Locale.SIMPLIFIED_CHINESE);
-			fsdf = new SimpleDateFormat("yyyy年",Locale.SIMPLIFIED_CHINESE);
+			fsdf = new SimpleDateFormat("yy年",Locale.SIMPLIFIED_CHINESE);
 		}
 		for(BrandLineChartResult lc:lineCharts){
 			lc.setDateStr(sdf.format(lc.getDate()));
