@@ -86,7 +86,7 @@
     UIImageView* configBackgroundImage =[[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, menuImage.size.width, menuImage.size.height)] autorelease];
     configBackgroundImage.contentMode = UIViewContentModeScaleToFill;
     configBackgroundImage.image =menuImage;
-    self.configView = [[UIView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-menuImage.size.width-10, 60, menuImage.size.width, menuImage.size.height)];
+    self.configView = [[UIView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-menuImage.size.width-10, 60, menuImage.size.width, menuImage.size.height*2)];
     [self.configView addSubview:configBackgroundImage];
     
     self.configButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -128,10 +128,19 @@
     calendarButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     [calendarButton addTarget:self action:@selector(openCalendar:) forControlEvents:UIControlEventTouchUpInside];
 
+    UIButton* gestureButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    gestureButton.titleEdgeInsets = UIEdgeInsetsMake(0, 45, 0, 0);
+    [gestureButton setTitle:@"手势密码" forState:UIControlStateNormal];
+    [gestureButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    
+    gestureButton.frame =CGRectMake(0, 8+menuImage.size.height, menuImage.size.width, menuImage.size.height-8);
+    gestureButton.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+    gestureButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    [gestureButton addTarget:self action:@selector(openGestureLockViewAction) forControlEvents:UIControlEventTouchUpInside];
     
     
     [self.configView addSubview:calendarButton];
-    //[self.configView addSubview:logoutButton];
+    [self.configView addSubview:gestureButton];
     [self.backgroundView addSubview:self.configView];
     UITapGestureRecognizer* singleFingerTap = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideConfig)] autorelease];
     

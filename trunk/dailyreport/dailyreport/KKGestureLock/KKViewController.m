@@ -128,6 +128,7 @@
     }else{
         if(self.time==1){
             self.password = passcode;
+            self.titleLabel.text = @"请再次设置以确认手势密码";
             self.time =2;
         }else{
             self.confirmedPassword = passcode;
