@@ -19,6 +19,23 @@ public class GoodRankResult {
 	}
 
 	public GoodRankResult(String name, Number amount, Number count,
+			String imageLink, String imageLinkMin,String season,String line,String wave,String year) {
+		this.name = name;
+		if(amount!=null){
+			this.amount = amount.longValue();
+		}
+		if(count!=null){
+			this.count = count.intValue();
+		}
+		this.imageLink = imageLink;
+		this.imageLinkMin = imageLinkMin;
+		this.season = season;
+		this.line = line;
+		this.wave = wave;
+		this.year = year;
+	}
+	
+	public GoodRankResult(String name, Number amount, Number count,
 			String imageLink, String imageLinkMin,String season,String line,String wave,String year,String colorName) {
 		this.name = name;
 		if(amount!=null){
