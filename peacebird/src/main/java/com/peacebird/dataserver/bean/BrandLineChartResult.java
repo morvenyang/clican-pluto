@@ -2,27 +2,27 @@ package com.peacebird.dataserver.bean;
 
 import java.util.Date;
 
-public class BrandLineChartResult implements Comparable<BrandLineChartResult>{
-	
+public class BrandLineChartResult implements Comparable<BrandLineChartResult> {
+
 	private Double amount;
-	
+
 	private Double preAmount;
-	
+
 	private Date date;
-	
+
 	private String color;
-	
+
 	private String dateStr;
-	
+
 	private String fullDateStr;
 
-	public BrandLineChartResult(Number amount, Number preAmount,Date date) {
+	public BrandLineChartResult(Number amount, Number preAmount, Date date) {
 		super();
-		if(amount!=null){
-			this.amount = amount.doubleValue()/10000;
+		if (amount != null) {
+			this.amount = amount.doubleValue() / 10000;
 		}
-		if(preAmount!=null){
-			this.preAmount = preAmount.doubleValue()/10000;
+		if (preAmount != null) {
+			this.preAmount = preAmount.doubleValue() / 10000;
 		}
 		this.date = date;
 	}
@@ -34,7 +34,6 @@ public class BrandLineChartResult implements Comparable<BrandLineChartResult>{
 	public void setAmount(Double amount) {
 		this.amount = amount;
 	}
-
 
 	public Double getPreAmount() {
 		return preAmount;
@@ -51,12 +50,12 @@ public class BrandLineChartResult implements Comparable<BrandLineChartResult>{
 	public void setDate(Date date) {
 		this.date = date;
 	}
-	
-	public Double getLike(){
-		if(preAmount==null||amount==null){
+
+	public Double getLike() {
+		if (preAmount == null || amount == null) {
 			return null;
 		}
-		return (amount/preAmount-1)*100;
+		return (amount / preAmount - 1) * 100;
 	}
 
 	@Override
@@ -88,5 +87,19 @@ public class BrandLineChartResult implements Comparable<BrandLineChartResult>{
 		this.fullDateStr = fullDateStr;
 	}
 
+	public String getBallonValue() {
+		String da;
+		if (amount >= 1) {
+			da = String.format("%.0f", amount);
+		} else {
+			da = String.format("%.2f", amount);
+		}
+		String p = String.format("%.1f", getLike()) + "%";
+		while (p.length() < 7) {
+			p = " " + p;
+		}
+		String description = da + "万元" + p;
+		return description;
+	}
 
 }
