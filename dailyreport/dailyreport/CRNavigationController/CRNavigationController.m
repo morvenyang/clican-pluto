@@ -40,7 +40,7 @@
     return self;
 }
 
-#ifdef __IPHONE_6_0
+#ifdef __IPHONE_7_0
 - (UIStatusBarStyle)preferredStatusBarStyle {
     return UIStatusBarStyleLightContent;
 }

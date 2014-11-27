@@ -10,7 +10,9 @@
 #import "StyleSheet.h"
 #import "AppDelegate.h"
 #import "CannotCancelUISwipeGestureRecognizer.h"
+#ifdef __IPHONE_7_0
 #import <JavaScriptCore/JavaScriptCore.h>
+#endif
 @implementation BrandViewController
 
 
@@ -342,11 +344,12 @@
     [self generateLikeChart:self.lineChart];
 }
 - (void)webViewDidFinishLoad:(UIWebView *)webView{
+    #ifdef __IPHONE_7_0
     JSContext* context = [webView valueForKeyPath:@"documentView.webView.mainFrame.javaScriptContext"];
     context[@"nativeClickGraphItem"]=^(int index){
         [self nativeClickGraphItem:index];
     };
-    
+    #endif
 }
 
 -(void) nativeClickGraphItem:(int) index{
