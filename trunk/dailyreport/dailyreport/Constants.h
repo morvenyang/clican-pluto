@@ -22,7 +22,10 @@
 #define ALIGN_CENTER 2
 #define ALIGN_RIGHT 3
 #define LAST_ALERT_DATE_STR @"LAST_ALERT_DATE_STR"
+#define IS_IPHONE4 [UIScreen mainScreen].bounds.size.height==480
 #define IS_IPHONE5 [UIScreen mainScreen].bounds.size.height==568
+#define IS_IPHONE6 [UIScreen mainScreen].bounds.size.height==667
+#define IS_IPHONE6_PLUS [UIScreen mainScreen].bounds.size.height==736
 
 #define TAB_COLOR @"#8f8f8f"
 #define STORE_RANK_TABLE_HEAD_COLOR @"#bdbdbd"

@@ -180,7 +180,7 @@
 
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return self.rowHeight;
+    return self.rowHeight+0.5;
 }
 -(void)hideConfig{
     [self.configButton setImage:[UIImage imageNamed:@"downarrow.png"] forState:UIControlStateNormal];
