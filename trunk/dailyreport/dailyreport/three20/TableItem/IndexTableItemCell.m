@@ -24,7 +24,7 @@
         if([self respondsToSelector:@selector(setLayoutMargins:)]){
             [self setLayoutMargins:UIEdgeInsetsZero];
         }
-        _backgroundImageView = [[LinkImageView alloc] initWithFrame:CGRectMake(0, 4, SCREEN_WIDTH, 0)];
+        _backgroundImageView = [[LinkImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 0)];
         _backgroundImageView.backgroundColor = [UIColor blackColor];
         _label = [[TTStyledTextLabel alloc] init];
 
@@ -99,7 +99,7 @@
     self.backgroundImageView.defaultImage = image;
     NSLog(@"%f",image.size.height);
     self.backgroundImageView.actionUrl = self.indexItem.URL;
-    self.backgroundImageView.frame = CGRectMake(0, 4, SCREEN_WIDTH, image.size.height);
+    self.backgroundImageView.frame = CGRectMake(0, 0, SCREEN_WIDTH, image.size.height);
     
     [super setObject:self.indexItem.text];
 }

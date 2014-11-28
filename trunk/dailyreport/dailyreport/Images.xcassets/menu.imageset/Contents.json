@@ -7,11 +7,11 @@
     {
       "idiom" : "iphone",
       "scale" : "2x",
-      "filename" : "menu-1.png"
+      "filename" : "menu@2x-1.png"
     },
     {
       "idiom" : "iphone",
-      "filename" : "menu-2.png",
+      "filename" : "menu@2x.png",
       "subtype" : "retina4",
       "scale" : "2x"
     },

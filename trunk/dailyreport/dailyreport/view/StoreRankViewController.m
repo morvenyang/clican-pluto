@@ -126,11 +126,9 @@
     CGFloat hOffset = SCREEN_HEIGHT*6/48+dailyView.frame.size.height;
     [self.contentView addSubview:[self createLabel:@"＃" frame:CGRectMake(0, hOffset, SCREEN_WIDTH*3/32, SCREEN_HEIGHT*30/480) textColor:@"#ffffff" font:labelFontSize backgroundColor:STORE_RANK_TABLE_HEAD_COLOR textAlignment:ALIGN_CENTER]];
     wOffset+=SCREEN_WIDTH*3/32+2;
-    [self.contentView addSubview:[self createLabel:@"店铺名称" frame:CGRectMake(wOffset, hOffset, SCREEN_WIDTH*186/320, SCREEN_HEIGHT*30/480) textColor:@"#ffffff" font:labelFontSize backgroundColor:STORE_RANK_TABLE_HEAD_COLOR textAlignment:ALIGN_CENTER]];
-    wOffset+=SCREEN_WIDTH*186/320+2;
-    [self.contentView addSubview:[self createLabel:@"零售额" frame:CGRectMake(wOffset, hOffset, SCREEN_WIDTH*49/320, SCREEN_HEIGHT*30/480) textColor:@"#ffffff" font:labelFontSize backgroundColor:STORE_RANK_TABLE_HEAD_COLOR textAlignment:ALIGN_CENTER]];
-    wOffset+=SCREEN_WIDTH*49/320+2;
-    [self.contentView addSubview:[self createLabel:@"占比" frame:CGRectMake(wOffset, hOffset,SCREEN_WIDTH-wOffset, SCREEN_HEIGHT*30/480) textColor:@"#ffffff" font:labelFontSize backgroundColor:STORE_RANK_TABLE_HEAD_COLOR textAlignment:ALIGN_CENTER]];
+    [self.contentView addSubview:[self createLabel:@"店铺名称" frame:CGRectMake(wOffset, hOffset, SCREEN_WIDTH*220/320, SCREEN_HEIGHT*30/480) textColor:@"#ffffff" font:labelFontSize backgroundColor:STORE_RANK_TABLE_HEAD_COLOR textAlignment:ALIGN_CENTER]];
+    wOffset+=SCREEN_WIDTH*220/320+2;
+    [self.contentView addSubview:[self createLabel:@"零售额" frame:CGRectMake(wOffset, hOffset, SCREEN_WIDTH-wOffset, SCREEN_HEIGHT*30/480) textColor:@"#ffffff" font:labelFontSize backgroundColor:STORE_RANK_TABLE_HEAD_COLOR textAlignment:ALIGN_CENTER]];
     hOffset += SCREEN_HEIGHT*30/480;
     _tableOffset = hOffset;
     if(self.channels.count>0){
@@ -212,17 +210,13 @@
         wOffset+=SCREEN_WIDTH*3/32+2;
         [self.tableViews addObject:label];
         [self.contentView addSubview:label];
-        label =[self createLabel:rank.name frame:CGRectMake(wOffset, _tableOffset+i*ROW_HEIGHT, SCREEN_WIDTH*186/320, ROW_CONTENT_HEIGHT) textColor:@"#6a6a6a" font:labelFont backgroundColor:@"#f3f3f3" textAlignment:ALIGN_CENTER];
-        wOffset+=SCREEN_WIDTH*186/320+2;
+        label =[self createLabel:rank.name frame:CGRectMake(wOffset, _tableOffset+i*ROW_HEIGHT, SCREEN_WIDTH*220/320, ROW_CONTENT_HEIGHT) textColor:@"#6a6a6a" font:labelFont backgroundColor:@"#f3f3f3" textAlignment:ALIGN_CENTER];
+        wOffset+=SCREEN_WIDTH*220/320+2;
         [self.contentView addSubview:label];
         [self.tableViews addObject:label];
         
-        label =[self createLabel:[NSString stringWithFormat:@"%0.2f", rank.dayAmount.intValue/10000.0] frame:CGRectMake(wOffset, _tableOffset+i*ROW_HEIGHT, SCREEN_WIDTH*49/320, ROW_CONTENT_HEIGHT) textColor:@"#6a6a6a" font:labelFont backgroundColor:@"#f3f3f3" textAlignment:ALIGN_CENTER];
+        label =[self createLabel:[NSString stringWithFormat:@"%0.2f", rank.dayAmount.intValue/10000.0] frame:CGRectMake(wOffset, _tableOffset+i*ROW_HEIGHT, SCREEN_WIDTH-wOffset, ROW_CONTENT_HEIGHT) textColor:@"#6a6a6a" font:labelFont backgroundColor:@"#f3f3f3" textAlignment:ALIGN_CENTER];
         wOffset+=SCREEN_WIDTH*49/320+2;
-        [self.contentView addSubview:label];
-        [self.tableViews addObject:label];
-        
-        label =[self createLabel:[NSString stringWithFormat:@"%0.2f%@", rank.rate.doubleValue*100,@"%"] frame:CGRectMake(wOffset, _tableOffset+i*ROW_HEIGHT,SCREEN_WIDTH-wOffset, ROW_CONTENT_HEIGHT) textColor:@"#6a6a6a" font:labelFont backgroundColor:@"#f3f3f3" textAlignment:ALIGN_CENTER];
         [self.contentView addSubview:label];
         [self.tableViews addObject:label];
     }

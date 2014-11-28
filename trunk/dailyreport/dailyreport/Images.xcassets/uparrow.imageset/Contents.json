@@ -7,11 +7,11 @@
     {
       "idiom" : "iphone",
       "scale" : "2x",
-      "filename" : "uparrow-1.png"
+      "filename" : "uparrow@2x-1.png"
     },
     {
       "idiom" : "iphone",
-      "filename" : "uparrow-2.png",
+      "filename" : "uparrow@2x.png",
       "subtype" : "retina4",
       "scale" : "2x"
     },

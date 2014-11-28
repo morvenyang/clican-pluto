@@ -94,18 +94,22 @@
     int labelFontSize = 12;
     int channelFontSize = 14;
     NSLog(@"%f",SCREEN_WIDTH);
+    CGFloat dailyViewHeight =SCREEN_HEIGHT/3;
     if(SCREEN_WIDTH==320){
         labelFontSize = 12;
         channelFontSize = 14;
     }else if(SCREEN_WIDTH==375){
         labelFontSize = 14;
         channelFontSize = 16;
+        dailyViewHeight = dailyViewHeight-40;
     }else{
         labelFontSize = 16;
         channelFontSize = 18;
+        dailyViewHeight = dailyViewHeight-60;
     }
-
-    UIView* dailyView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH,SCREEN_HEIGHT/3)] autorelease];
+    
+    
+    UIView* dailyView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH,dailyViewHeight)] autorelease];
     dailyView.backgroundColor =[StyleSheet colorFromHexString:[[[NSBundle mainBundle] infoDictionary] objectForKey:[NSString stringWithFormat:@"%@背景",self.brand]]];
     UIImage* retailImage = [UIImage imageNamed:@"图标-零售收入"];
     UIImageView* retailImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, retailImage.size.width, retailImage.size.height)];
@@ -161,7 +165,7 @@
     if(brand.dayLike.floatValue>0){
         retailLikeText = [NSString stringWithFormat:@"+%@",retailLikeText];
     }
-    UILabel* retailLikeLabel = [self createLabel:retailLikeText frame:CGRectMake(40, 130, SCREEN_WIDTH/2-40, 30) textColor:@"#ffffff" font:20 backgroundColor:nil];
+    UILabel* retailLikeLabel = [self createLabel:retailLikeText frame:CGRectMake(40, 130, SCREEN_WIDTH/2-40, 30) textColor:@"#ffffff" font:labelFontSize+8 backgroundColor:nil];
     CGFloat offset = 0;
     
     for(int i=0;i<channels.count;i++){
@@ -272,7 +276,7 @@
     NSString* fullDateStr = [jsonObj objectForKey:@"fullDateStr"];
     NSNumber* amount =[jsonObj objectForKey:@"amount"];
     NSNumber* like =[jsonObj objectForKey:@"like"];
-    CGFloat leftOffset = 0;
+    CGFloat leftOffset = 30;
     CGFloat amountWidth = 50;
     if([dataProvider isEqualToString:self.weeklyLineChart]){
         leftOffset = 30;
@@ -310,19 +314,21 @@
     html=[html stringByReplacingOccurrencesOfString:@"$dataProvider" withString:dataProvider];
     html=[html stringByReplacingOccurrencesOfString:@"$width" withString:@"1000"];
     CGFloat h = SCREEN_HEIGHT;
-    
-    html=[html stringByReplacingOccurrencesOfString:@"$height" withString:[NSString stringWithFormat:@"%.0f",h]];
-    
     CGFloat bottom = 130;
     CGFloat top = 10;
     if(SCREEN_HEIGHT == 568){
         bottom = 90;
     }else if(SCREEN_HEIGHT==667){
         bottom = 120;
+        h+=120;
     }else if(SCREEN_HEIGHT==736){
         bottom = 120;
+        h+=180;
         top = -10;
     }
+    html=[html stringByReplacingOccurrencesOfString:@"$height" withString:[NSString stringWithFormat:@"%.0f",h]];
+    
+    
     html=[html stringByReplacingOccurrencesOfString:@"$top" withString:[NSString stringWithFormat:@"%.0f",top]];
     
 

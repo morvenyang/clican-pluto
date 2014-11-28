@@ -86,7 +86,7 @@
     UIImageView* configBackgroundImage =[[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, menuImage.size.width, menuImage.size.height)] autorelease];
     configBackgroundImage.contentMode = UIViewContentModeScaleToFill;
     configBackgroundImage.image =menuImage;
-    self.configView = [[UIView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-menuImage.size.width-10, 60, menuImage.size.width, menuImage.size.height*2)];
+    self.configView = [[UIView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-menuImage.size.width-10, 60, menuImage.size.width, menuImage.size.height)];
     [self.configView addSubview:configBackgroundImage];
     
     self.configButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -117,23 +117,23 @@
     [logoutButton addTarget:self action:@selector(logoutAction) forControlEvents:UIControlEventTouchUpInside];
 
 
-    
+    CGFloat buttonOffset = 12;
     UIButton* calendarButton = [UIButton buttonWithType:UIButtonTypeCustom];
     calendarButton.titleEdgeInsets = UIEdgeInsetsMake(0, 45, 0, 0);
     [calendarButton setTitle:@"选择日期" forState:UIControlStateNormal];
     [calendarButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
 
-    calendarButton.frame =CGRectMake(0, 8, menuImage.size.width, menuImage.size.height-8);
+    calendarButton.frame =CGRectMake(0, buttonOffset, menuImage.size.width, (menuImage.size.height-buttonOffset)/2);
     calendarButton.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     calendarButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     [calendarButton addTarget:self action:@selector(openCalendar:) forControlEvents:UIControlEventTouchUpInside];
-
+    
     UIButton* gestureButton = [UIButton buttonWithType:UIButtonTypeCustom];
     gestureButton.titleEdgeInsets = UIEdgeInsetsMake(0, 45, 0, 0);
     [gestureButton setTitle:@"手势密码" forState:UIControlStateNormal];
     [gestureButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     
-    gestureButton.frame =CGRectMake(0, 8+menuImage.size.height, menuImage.size.width, menuImage.size.height-8);
+    gestureButton.frame =CGRectMake(0, buttonOffset+(menuImage.size.height-buttonOffset)/2, menuImage.size.width, (menuImage.size.height-buttonOffset)/2);
     gestureButton.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     gestureButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     [gestureButton addTarget:self action:@selector(openGestureLockViewAction) forControlEvents:UIControlEventTouchUpInside];
@@ -180,7 +180,7 @@
 
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return self.rowHeight+8;
+    return self.rowHeight;
 }
 -(void)hideConfig{
     [self.configButton setImage:[UIImage imageNamed:@"downarrow.png"] forState:UIControlStateNormal];

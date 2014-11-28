@@ -28,12 +28,14 @@
         return 2;
     }else if([self.brand isEqualToString:@"乐町"]){
         return 3;
-    }else if([self.brand isEqualToString:@"赫奇"]){
-        return 4;
-    }else if([self.brand isEqualToString:@"MG"]){
-        return 5;
     }else if([self.brand isEqualToString:@"童装"]){
+        return 4;
+    }else if([self.brand isEqualToString:@"赫奇"]){
+        return 5;
+    }else if([self.brand isEqualToString:@"MG公司"]){
         return 6;
+    }else if([self.brand isEqualToString:@"电商"]){
+        return 7;
     }else{
         return 100;
     }
