@@ -100,7 +100,7 @@
     cancelButton.frame =CGRectMake((SCREEN_WIDTH-cancelImage.size.width)/2, self.shareView.frame.size.height-cancelImage.size.height-20, cancelImage.size.width, cancelImage.size.height);
     [cancelButton setImage:cancelImage forState:UIControlStateNormal];
     [cancelButton addTarget:self action:@selector(hideShareView) forControlEvents:UIControlEventTouchUpInside];
-    
+    int labelFont = [self getFont:14 ip6Offset:2 ip6pOffset:2];
     UIButton* switchButton = [UIButton buttonWithType:UIButtonTypeCustom];
     UIImage* switchImage= [UIImage imageNamed:@"图标-切换报表"];
     CGFloat space =(SCREEN_WIDTH-switchImage.size.width*3)/6;
@@ -108,7 +108,7 @@
     switchButton.frame =CGRectMake(space, 30, switchImage.size.width,switchImage.size.height);
     [switchButton setImage:switchImage forState:UIControlStateNormal];
     [switchButton addTarget:self action:@selector(openPBNavigationView) forControlEvents:UIControlEventTouchUpInside];
-    UILabel* switchLabel = [self createLabel:@"切换报表" frame:CGRectMake(space-20, 40+switchImage.size.height, switchImage.size.width+40, 20*SCREEN_WIDTH/320) textColor:@"#849484" font:14 backgroundColor:nil textAlignment:ALIGN_CENTER];
+    UILabel* switchLabel = [self createLabel:@"切换报表" frame:CGRectMake(space-20, 40+switchImage.size.height, switchImage.size.width+40, 20*SCREEN_WIDTH/320) textColor:@"#849484" font:labelFont backgroundColor:nil textAlignment:ALIGN_CENTER];
     wOffset+=switchImage.size.width+space*3;
     
     UIButton* mailButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -116,7 +116,7 @@
     mailButton.frame =CGRectMake(wOffset, 30, mailImage.size.width, mailImage.size.height);
     [mailButton setImage:mailImage forState:UIControlStateNormal];
     [mailButton addTarget:self action:@selector(sendMailContent) forControlEvents:UIControlEventTouchUpInside];
-    UILabel* mailLabel = [self createLabel:@"邮件分享" frame:CGRectMake(wOffset-20, 40+mailImage.size.height, mailImage.size.width+40, 20*SCREEN_WIDTH/320) textColor:@"#849484" font:14 backgroundColor:nil textAlignment:ALIGN_CENTER];
+    UILabel* mailLabel = [self createLabel:@"邮件分享" frame:CGRectMake(wOffset-20, 40+mailImage.size.height, mailImage.size.width+40, 20*SCREEN_WIDTH/320) textColor:@"#849484" font:labelFont backgroundColor:nil textAlignment:ALIGN_CENTER];
     wOffset+=mailImage.size.width+space*2;
     
     UIButton* wxButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -124,7 +124,7 @@
     wxButton.frame =CGRectMake(wOffset, 30, wxImage.size.width, wxImage.size.height);
     [wxButton setImage:wxImage forState:UIControlStateNormal];
     [wxButton addTarget:self action:@selector(sendWXContent) forControlEvents:UIControlEventTouchUpInside];
-    UILabel* wxLabel = [self createLabel:@"微信好友" frame:CGRectMake(wOffset-20, 40+wxImage.size.height, wxImage.size.width+40, 20*SCREEN_WIDTH/320) textColor:@"#849484" font:14 backgroundColor:nil textAlignment:ALIGN_CENTER];
+    UILabel* wxLabel = [self createLabel:@"微信好友" frame:CGRectMake(wOffset-20, 40+wxImage.size.height, wxImage.size.width+40, 20*SCREEN_WIDTH/320) textColor:@"#849484" font:labelFont backgroundColor:nil textAlignment:ALIGN_CENTER];
 
     
     [self.shareView addSubview:cancelButton];
@@ -242,15 +242,7 @@
     return imageView;
 }
 -(UIView*) createDailyView:(NSString*) iconName label:(NSString*)label{
-    int labelFontSize = 12;
-    NSLog(@"%f",SCREEN_WIDTH);
-    if(SCREEN_WIDTH==320){
-        labelFontSize = 12;
-    }else if(SCREEN_WIDTH==375){
-        labelFontSize = 14;
-    }else{
-        labelFontSize = 16;
-    }
+    int labelFontSize = [self getFont:12 ip6Offset:2 ip6pOffset:4];
     UIImage* iconImage = [UIImage imageNamed:iconName];
     UIView* dailyView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, iconImage.size.height)] autorelease];
     dailyView.backgroundColor =[StyleSheet colorFromHexString:[[[NSBundle mainBundle] infoDictionary] objectForKey:[NSString stringWithFormat:@"%@背景",self.brand]]];
@@ -522,6 +514,17 @@
     req.scene = WXSceneSession;
     
     [WXApi sendReq:req];
+}
+-(int) getFont:(int) defaultFont ip6Offset:(int)ip6Offset ip6pOffset:(int)ip6pOffset{
+    if(IS_IPHONE4||IS_IPHONE5){
+        return defaultFont;
+    }else if(IS_IPHONE6){
+        return ip6Offset+defaultFont;
+    }else if(IS_IPHONE6_PLUS){
+        return ip6pOffset+defaultFont;
+    }else{
+        return defaultFont;
+    }
 }
 - (void)dealloc
 {

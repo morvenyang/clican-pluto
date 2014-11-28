@@ -91,20 +91,13 @@
     self.monthlyLineChart = monthlyLineChart;
     self.yearlyLineChart = yearlyLineChart;
     self.lineChart = self.dailyLineChart;
-    int labelFontSize = 12;
-    int channelFontSize = 14;
+    int labelFontSize = [self getFont:12 ip6Offset:2 ip6pOffset:4];
+    int channelFontSize = [self getFont:14 ip6Offset:2 ip6pOffset:4];
     NSLog(@"%f",SCREEN_WIDTH);
     CGFloat dailyViewHeight =SCREEN_HEIGHT/3;
-    if(SCREEN_WIDTH==320){
-        labelFontSize = 12;
-        channelFontSize = 14;
-    }else if(SCREEN_WIDTH==375){
-        labelFontSize = 14;
-        channelFontSize = 16;
+    if(IS_IPHONE6){
         dailyViewHeight = dailyViewHeight-40;
-    }else{
-        labelFontSize = 16;
-        channelFontSize = 18;
+    }else if(IS_IPHONE6_PLUS){
         dailyViewHeight = dailyViewHeight-60;
     }
     
@@ -135,7 +128,7 @@
     
     
     
-    if(SCREEN_WIDTH==320){
+    if(IS_IPHONE4||IS_IPHONE5){
         if(retailAmountLabel.text.length>5){
             retailAmountLabel.font = [UIFont fontWithName:@"HelveticaNeue-UltraLight" size:50];
         }else if(retailAmountLabel.text.length>4){
@@ -143,7 +136,7 @@
         }else{
             retailAmountLabel.font = [UIFont fontWithName:@"HelveticaNeue-UltraLight" size:70];
         }
-    }else if(SCREEN_WIDTH==350){
+    }else if(IS_IPHONE6){
         if(retailAmountLabel.text.length>5){
             retailAmountLabel.font = [UIFont fontWithName:@"HelveticaNeue-UltraLight" size:55];
         }else if(retailAmountLabel.text.length>4){
@@ -255,19 +248,9 @@
     if(self.infoView){
         [self.infoView removeFromSuperview];
     }
-    int labelFontSize = 12;
-    int amountFontSize = 18;
-    NSLog(@"%f",SCREEN_WIDTH);
-    if(SCREEN_WIDTH==320){
-        labelFontSize = 12;
-        amountFontSize = 21;
-    }else if(SCREEN_WIDTH==375){
-        labelFontSize = 14;
-        amountFontSize = 24;
-    }else{
-        labelFontSize = 16;
-        amountFontSize = 27;
-    }
+    int labelFontSize = [self getFont:12 ip6Offset:2 ip6pOffset:4];
+    int amountFontSize = [self getFont:21 ip6Offset:3 ip6pOffset:6];
+   
     CGFloat infoHeight =SCREEN_HEIGHT/12;
     self.infoView = [[UIView alloc] initWithFrame:CGRectMake(0, _chartYOffset, SCREEN_WIDTH, infoHeight)];
 
@@ -317,12 +300,12 @@
     CGFloat h = SCREEN_HEIGHT;
     CGFloat bottom = 130;
     CGFloat top = 10;
-    if(SCREEN_HEIGHT == 568){
+    if(IS_IPHONE5){
         bottom = 90;
-    }else if(SCREEN_HEIGHT==667){
+    }else if(IS_IPHONE6){
         bottom = 120;
         h+=120;
-    }else if(SCREEN_HEIGHT==736){
+    }else if(IS_IPHONE6_PLUS){
         bottom = 120;
         h+=180;
         top = -10;

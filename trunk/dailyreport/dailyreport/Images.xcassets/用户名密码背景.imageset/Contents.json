@@ -1,24 +1,18 @@
 {
   "images" : [
     {
-      "idiom" : "iphone",
+      "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "idiom" : "iphone",
+      "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "用户名密码背景@2x.png"
+      "filename" : "用户名密码背景.png"
     },
     {
-      "idiom" : "iphone",
-      "filename" : "用户名密码背景@2x-1.png",
-      "subtype" : "retina4",
-      "scale" : "2x"
-    },
-    {
-      "idiom" : "iphone",
+      "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "用户名密码背景-3.png"
+      "filename" : "用户名密码背景-1.png"
     }
   ],
   "info" : {

@@ -81,7 +81,7 @@
     self.loginButton = [UIButton buttonWithType:UIButtonTypeCustom];
     
     UIImage* loginButtonImage = [UIImage imageNamed:@"登录按钮"];
-    
+    NSLog(@"%f %f",loginButtonImage.size.width,loginButtonImage.size.height);
     self.loginButton.frame = CGRectMake((SCREEN_WIDTH-loginButtonImage.size.width)/2, topOffset+titleImage.size.height+diff, loginButtonImage.size.width, loginButtonImage.size.height);
     
     [self.loginButton setImage:loginButtonImage forState:UIControlStateNormal];
