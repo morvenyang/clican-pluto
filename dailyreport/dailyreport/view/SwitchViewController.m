@@ -61,7 +61,7 @@
     
     UIButton* shareButtonImage = [UIButton buttonWithType:UIButtonTypeCustom];
     shareButtonImage.frame =CGRectMake(0, 0, 40, 40);
-    [shareButtonImage setImage:[UIImage imageNamed:@"图标-分享.png"] forState:UIControlStateNormal];
+    [shareButtonImage setImage:[UIImage imageNamed:@"图标-分享"] forState:UIControlStateNormal];
     [shareButtonImage addTarget:self action:@selector(showShareView:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem* shareButton = [[[UIBarButtonItem alloc] initWithCustomView:shareButtonImage] autorelease];
     if(self.index!=-2){
@@ -102,21 +102,21 @@
     [cancelButton addTarget:self action:@selector(hideShareView) forControlEvents:UIControlEventTouchUpInside];
     
     UIButton* switchButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    UIImage* switchImage= [UIImage imageNamed:@"图标-微信好友"];
+    UIImage* switchImage= [UIImage imageNamed:@"图标-切换报表"];
     CGFloat space =(SCREEN_WIDTH-switchImage.size.width*3)/6;
     CGFloat wOffset = 0;
     switchButton.frame =CGRectMake(space, 30, switchImage.size.width,switchImage.size.height);
     [switchButton setImage:switchImage forState:UIControlStateNormal];
     [switchButton addTarget:self action:@selector(openPBNavigationView) forControlEvents:UIControlEventTouchUpInside];
-    UILabel* switchLabel = [self createLabel:@"切换报表" frame:CGRectMake(space, 40+switchImage.size.height, switchImage.size.width, 20*SCREEN_WIDTH/320) textColor:@"#849484" font:14 backgroundColor:nil textAlignment:ALIGN_CENTER];
+    UILabel* switchLabel = [self createLabel:@"切换报表" frame:CGRectMake(space-20, 40+switchImage.size.height, switchImage.size.width+40, 20*SCREEN_WIDTH/320) textColor:@"#849484" font:14 backgroundColor:nil textAlignment:ALIGN_CENTER];
     wOffset+=switchImage.size.width+space*3;
     
     UIButton* mailButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    UIImage* mailImage= [UIImage imageNamed:@"图标-微信好友"];
+    UIImage* mailImage= [UIImage imageNamed:@"图标-邮件分享"];
     mailButton.frame =CGRectMake(wOffset, 30, mailImage.size.width, mailImage.size.height);
     [mailButton setImage:mailImage forState:UIControlStateNormal];
     [mailButton addTarget:self action:@selector(sendMailContent) forControlEvents:UIControlEventTouchUpInside];
-    UILabel* mailLabel = [self createLabel:@"邮件分享" frame:CGRectMake(wOffset, 40+mailImage.size.height, mailImage.size.width, 20*SCREEN_WIDTH/320) textColor:@"#849484" font:14 backgroundColor:nil textAlignment:ALIGN_CENTER];
+    UILabel* mailLabel = [self createLabel:@"邮件分享" frame:CGRectMake(wOffset-20, 40+mailImage.size.height, mailImage.size.width+40, 20*SCREEN_WIDTH/320) textColor:@"#849484" font:14 backgroundColor:nil textAlignment:ALIGN_CENTER];
     wOffset+=mailImage.size.width+space*2;
     
     UIButton* wxButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -124,7 +124,7 @@
     wxButton.frame =CGRectMake(wOffset, 30, wxImage.size.width, wxImage.size.height);
     [wxButton setImage:wxImage forState:UIControlStateNormal];
     [wxButton addTarget:self action:@selector(sendWXContent) forControlEvents:UIControlEventTouchUpInside];
-    UILabel* wxLabel = [self createLabel:@"微信好友" frame:CGRectMake(wOffset, 40+wxImage.size.height, wxImage.size.width, 20*SCREEN_WIDTH/320) textColor:@"#849484" font:14 backgroundColor:nil textAlignment:ALIGN_CENTER];
+    UILabel* wxLabel = [self createLabel:@"微信好友" frame:CGRectMake(wOffset-20, 40+wxImage.size.height, wxImage.size.width+40, 20*SCREEN_WIDTH/320) textColor:@"#849484" font:14 backgroundColor:nil textAlignment:ALIGN_CENTER];
 
     
     [self.shareView addSubview:cancelButton];
