@@ -43,8 +43,8 @@
     self.lockView = [[KKGestureLockView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Do any additional setup after loading the view, typically from a nib.
     self.view.backgroundColor = [UIColor clearColor];
-    self.lockView.normalGestureNodeImage = [UIImage imageNamed:@"gesture_node_normal.png"];
-    self.lockView.selectedGestureNodeImage = [UIImage imageNamed:@"gesture_node_selected.png"];
+    self.lockView.normalGestureNodeImage = [UIImage imageNamed:@"gesture_node_normal"];
+    self.lockView.selectedGestureNodeImage = [UIImage imageNamed:@"gesture_node_selected"];
     self.lockView.lineColor = [[UIColor orangeColor] colorWithAlphaComponent:0.5];
     self.lockView.lineWidth = 12;
     self.lockView.delegate = self;

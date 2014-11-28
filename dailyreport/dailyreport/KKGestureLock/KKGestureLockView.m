@@ -67,7 +67,7 @@ const static CGFloat kTrackedLocationInvalidInContentView = -1.0;
     self.backgroundColor = [UIColor clearColor];
     UIImageView* backgroundImage =[[UIImageView alloc] initWithFrame:self.bounds];
     backgroundImage.contentMode = UIViewContentModeScaleToFill;
-    backgroundImage.image =[UIImage imageNamed:@"gesture_background.png"];
+    backgroundImage.image =[UIImage imageNamed:@"gesture_background"];
     backgroundImage.alpha = 0.8;
     [self addSubview:backgroundImage];
     self.lineColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];

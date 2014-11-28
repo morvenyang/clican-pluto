@@ -20,30 +20,34 @@ text {
 							"type" : "serial",
 							"theme" : "none",
 							"autoMargins" : false,
-							"marginLeft" : 80,
-							"marginRight" : 100,
+							"marginLeft" : 100,
+							"marginRight" : 40,
 							"marginTop" : $top,
 							"marginBottom" : $bottom,
 							"dataProvider" : $dataProvider,
+                           "balloon":{"fillColor":"#fffabd","fillAlpha":"1.0","fontSize":35},
 							"valueAxes" : [ {
 								"id" : "v1",
 								"title" : "零售额(万元)",
 								"axisAlpha" : 0,
 								"position" : "left",
 								"gridThickness" : 0,
-								"minimum" : 0
+								"minimum" : 0,
+                                "fontSize":20,
+                                "titleFontSize":20
 							}, {
 								"id" : "v2",
-								"title" : "同比",
+								"title" : "",
 								"axisAlpha" : 0,
 								"position" : "right",
 								"unit" : "%",
-								"gridThickness" : 0
+								"gridThickness" : 0,
+                                "labelsEnabled":false
 							} ],
 							"startDuration" : 1,
 							"graphs" : [
 									{
-										"balloonText" : "<span style='font-size:13px;'>[[category]] [[title]] :<b>[[value]]万元</b> [[additional]]</span>",
+										"balloonText" : "<span style='font-size:20px;'>[[ballonValue]]</span>",
 										"lineAlpha":0,
 										"colorField":"color",
 										"alphaField": "alpha",
@@ -52,13 +56,14 @@ text {
 										"type" : "column",
 										"valueField" : "amount",
 										"valueAxis" : "v1",
-										"precision" : 2
+										"precision" : 2,
+                                       "balloon":{"fillColor":"#fffabd","fillAlpha":"1.0","fontSize":35}
 									},
 									{
-										"balloonText" : "<span style='font-size:13px;'>[[category]] [[title]] :<b>[[value]]%</b> [[additional]]</span>",
+                                        "balloonText" : "<span style='font-size:20px;'>[[ballonValue]]</span>",
 										"bullet" : "round",
-										"lineThickness" : 3,
-										"bulletSize" : 7,
+										"lineThickness" : 6,
+										"bulletSize" : 10,
 										"bulletBorderAlpha" : 1,
 										"bulletColor" : "#FFFFFF",
 										"useLineColorForBulletBorder" : true,
