@@ -53,4 +53,5 @@
 -(void)openCalendar:(id)sender;
 -(void)changeDateAndReload;
 -(void)hideShareView;
+-(int) getFont:(int) defaultFont ip6Offset:(int)ip6Offset ip6pOffset:(int)ip6pOffset;
 @end
