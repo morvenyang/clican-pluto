@@ -235,9 +235,10 @@
     [self.webLineChartView.scrollView addGestureRecognizer:swipeGestureLeft];
 
     [self.contentView addSubview:self.webLineChartView];
-    [self generateInfoView:self.lineChart index:0];
-    [self generateLikeChart:self.lineChart];
-
+    if(self.lineChart!=nil&&![self.lineChart isEqualToString:@"[\n\n]"]){
+        [self generateInfoView:self.lineChart index:0];
+        [self generateLikeChart:self.lineChart];
+    }
     //self.contentView.contentSize = CGSizeMake(SCREEN_WIDTH, 1000);
     NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
     NSString* firstAccessVersion = [defaults objectForKey:FIRST_ACCESS_VERSION];
