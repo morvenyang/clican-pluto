@@ -30,4 +30,6 @@
 #define TAB_COLOR @"#8f8f8f"
 #define STORE_RANK_TABLE_HEAD_COLOR @"#bdbdbd"
 #define GESTURE_PASSWORD @"GESTURE_PASSWORD"
+#define GUIDE_IMAGE_COUNT 3
+#define GUIDE_FLAG @"GUIDE_FLAG"
 #endif

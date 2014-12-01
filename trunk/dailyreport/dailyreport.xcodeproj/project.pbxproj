@@ -134,6 +134,7 @@
 		72AD860919330B45004CAE5F /* StoreRankViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 72AD860819330B45004CAE5F /* StoreRankViewController.m */; };
 		72AD860C193358B6004CAE5F /* BaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 72AD860B193358B6004CAE5F /* BaseModel.m */; };
 		72E5E4571A2C669C002AA20B /* PasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 72E5E4561A2C669C002AA20B /* PasswordViewController.m */; };
+		72E5E4631A2C8B93002AA20B /* GuideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 72E5E4621A2C8B93002AA20B /* GuideViewController.m */; };
 		72E8F0991940366D004A2330 /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = 72E8F0981940366D004A2330 /* iTunesArtwork */; };
 		72EB388A192705E800D0F225 /* StyleSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 72EB3889192705E800D0F225 /* StyleSheet.m */; };
 		72EB388E1927072D00D0F225 /* IndexViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 72EB388D1927072D00D0F225 /* IndexViewController.m */; };
@@ -511,6 +512,8 @@
 		72AD860B193358B6004CAE5F /* BaseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseModel.m; sourceTree = "<group>"; };
 		72E5E4551A2C669C002AA20B /* PasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PasswordViewController.h; sourceTree = "<group>"; };
 		72E5E4561A2C669C002AA20B /* PasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PasswordViewController.m; sourceTree = "<group>"; };
+		72E5E4611A2C8B93002AA20B /* GuideViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuideViewController.h; sourceTree = "<group>"; };
+		72E5E4621A2C8B93002AA20B /* GuideViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuideViewController.m; sourceTree = "<group>"; };
 		72E8F0981940366D004A2330 /* iTunesArtwork */ = {isa = PBXFileReference; lastKnownFileType = file; path = iTunesArtwork; sourceTree = "<group>"; };
 		72EB3888192705E800D0F225 /* StyleSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StyleSheet.h; sourceTree = "<group>"; };
 		72EB3889192705E800D0F225 /* StyleSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StyleSheet.m; sourceTree = "<group>"; };
@@ -890,6 +893,8 @@
 				7223C5B01A249284002B6D05 /* PBNavigationViewController.m */,
 				72E5E4551A2C669C002AA20B /* PasswordViewController.h */,
 				72E5E4561A2C669C002AA20B /* PasswordViewController.m */,
+				72E5E4611A2C8B93002AA20B /* GuideViewController.h */,
+				72E5E4621A2C8B93002AA20B /* GuideViewController.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -1353,6 +1358,7 @@
 				72EB38A319270E7200D0F225 /* User.m in Sources */,
 				7237939819500AC900B336FD /* PMCalendarBackgroundView.m in Sources */,
 				722D42F3192C8AB600350244 /* RetailModel.m in Sources */,
+				72E5E4631A2C8B93002AA20B /* GuideViewController.m in Sources */,
 				72AD8603193305D9004CAE5F /* Rank.m in Sources */,
 				7237939F19500C9A00B336FD /* PMSelectionView.m in Sources */,
 				72EB38B6192712DC00D0F225 /* MBProgressHUD.m in Sources */,
