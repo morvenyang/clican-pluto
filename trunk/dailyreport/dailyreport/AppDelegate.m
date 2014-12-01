@@ -95,6 +95,7 @@
         NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
         NSString* userName = [defaults objectForKey:LAST_USER_NAME];
         NSString* guideFlag = [defaults objectForKey:GUIDE_FLAG];
+        guideFlag=@"false";
         if (guideFlag!=nil&&[guideFlag isEqualToString:@"false"]) {
             //第一次打开应用直接显示登录页面
             if(userName==nil||userName.length==0){
