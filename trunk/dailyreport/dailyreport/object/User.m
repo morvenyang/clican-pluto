@@ -16,6 +16,7 @@
 @synthesize goods = _goods;
 @synthesize goodIndex =_goodIndex;
 @synthesize availableDates = _availableDates;
+@synthesize reset = _reset;
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 -(id)init{
     self = [super init];

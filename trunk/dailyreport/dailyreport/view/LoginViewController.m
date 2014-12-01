@@ -244,7 +244,17 @@
     [defaults setObject:[dateFormatter stringFromDate:now] forKey:LAST_LOGIN_DATE];
     [[TTNavigator navigator] removeAllViewControllers];
     DrAppDelegate.user = user;
-    TTOpenURL(@"peacebird://index");
+    if(user.reset){
+        TTOpenURL(@"peacebird://password/reset");
+    }else{
+        NSString* gesturePassword = [defaults objectForKey:GESTURE_PASSWORD];
+        if(gesturePassword==nil||gesturePassword.length==0){
+            TTOpenURL(@"peacebird://gestureLock/setting");
+        }else{
+            TTOpenURL(@"peacebird://index");
+        }
+    }
+    
 }
 - (void)loginFailed:(NSError*) error message:(NSString*) message
 {
