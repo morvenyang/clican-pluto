@@ -22,6 +22,7 @@
 #import "NoRetailsController.h"
 #import "PBNavigationViewController.h"
 #import "PasswordViewController.h"
+#import "GuideViewController.h"
 #import "CRNavigator.h"
 @implementation AppDelegate
 
@@ -87,16 +88,22 @@
      [PasswordViewController class]];
     [map from:@"peacebird://pbNavigation/(initWithBrand:)/(backIndex:)" toSharedViewController:
      [PBNavigationViewController class]];
-    
+    [map from:@"peacebird://guide" toSharedViewController:
+     [GuideViewController class]];
 
     if (![navigator restoreViewControllers]) {
         NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
         NSString* userName = [defaults objectForKey:LAST_USER_NAME];
-        //第一次打开应用直接显示登录页面
-        if(userName==nil||userName.length==0){
-                    [navigator openURLAction:[TTURLAction actionWithURLPath:@"peacebird://login"]];
+        NSString* guideFlag = [defaults objectForKey:GUIDE_FLAG];
+        if (guideFlag!=nil&&[guideFlag isEqualToString:@"false"]) {
+            //第一次打开应用直接显示登录页面
+            if(userName==nil||userName.length==0){
+                [navigator openURLAction:[TTURLAction actionWithURLPath:@"peacebird://login"]];
+            }else{
+                [navigator openURLAction:[TTURLAction actionWithURLPath:@"peacebird://index"]];
+            }
         }else{
-            [navigator openURLAction:[TTURLAction actionWithURLPath:@"peacebird://index"]];
+            [navigator openURLAction:[TTURLAction actionWithURLPath:@"peacebird://guide"]];
         }
 
     }
