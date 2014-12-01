@@ -105,19 +105,22 @@
             index++;
         }
         
-        self.topLabel = [self createLabel:@"前10" frame:CGRectMake(SCREEN_WIDTH*2/3+10, dailyView.frame.size.height+SCREEN_HEIGHT*1/48, (SCREEN_WIDTH*1/3-20)/2, SCREEN_HEIGHT*3/48) textColor:@"#ffffff" font:channelFontSize-5 backgroundColor:TAB_COLOR];
+        self.topLabel = [self createLabel:@"前10" frame:CGRectMake(SCREEN_WIDTH*2/3+10, dailyView.frame.size.height+SCREEN_HEIGHT*1/48, (SCREEN_WIDTH*1/3-20)/2, SCREEN_HEIGHT*3/48) textColor:@"#636363" font:channelFontSize-5 backgroundColor:@"#ffffff"];
         UITapGestureRecognizer* orderRecognizer1 = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickOrderLabel:)] autorelease];
         self.topLabel.userInteractionEnabled = YES;
         [self.topLabel addGestureRecognizer:orderRecognizer1];
         self.topLabel.textAlignment = [self getAlignment:ALIGN_CENTER];
+        self.topLabel.layer.borderWidth = 0.5;
+        self.topLabel.layer.borderColor = [UIColor blackColor].CGColor;
         [self.contentView addSubview:self.topLabel];
         
-        self.bottomLabel = [self createLabel:@"后10" frame:CGRectMake(SCREEN_WIDTH*2/3+10+(SCREEN_WIDTH*1/3-20)/2, dailyView.frame.size.height+SCREEN_HEIGHT*1/48, (SCREEN_WIDTH*1/3-20)/2, SCREEN_HEIGHT*3/48) textColor:@"#636363" font:channelFontSize-5 backgroundColor:@"#ffffff"];
+        self.bottomLabel = [self createLabel:@"后10" frame:CGRectMake(SCREEN_WIDTH*2/3+10+(SCREEN_WIDTH*1/3-20)/2, dailyView.frame.size.height+SCREEN_HEIGHT*1/48, (SCREEN_WIDTH*1/3-20)/2, SCREEN_HEIGHT*3/48) textColor:@"#ffffff" font:channelFontSize-5 backgroundColor:TAB_COLOR];
         UITapGestureRecognizer* orderRecognizer2 = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickOrderLabel:)] autorelease];
         self.bottomLabel.userInteractionEnabled = YES;
         [self.bottomLabel addGestureRecognizer:orderRecognizer2];
         self.bottomLabel.textAlignment = [self getAlignment:ALIGN_CENTER];
-        
+        self.bottomLabel.layer.borderWidth = 0.5;
+        self.bottomLabel.layer.borderColor = [UIColor blackColor].CGColor;
         [self.contentView addSubview:self.bottomLabel];
         
     }
@@ -140,16 +143,17 @@
     UILabel* orderLabel = (UILabel*)gestureRecognizer.view;
     
     if(orderLabel == self.bottomLabel){
-        self.bottomLabel.textColor =[UIColor whiteColor];
-        self.bottomLabel.backgroundColor =[StyleSheet colorFromHexString:TAB_COLOR];
-        self.topLabel.textColor = [StyleSheet colorFromHexString:@"#636363"];
-        self.topLabel.backgroundColor =[StyleSheet colorFromHexString:@"#ffffff"];
-        self.order = @"desc";
-    }else{
         self.topLabel.textColor =[UIColor whiteColor];
         self.topLabel.backgroundColor =[StyleSheet colorFromHexString:TAB_COLOR];
         self.bottomLabel.textColor = [StyleSheet colorFromHexString:@"#636363"];
         self.bottomLabel.backgroundColor =[StyleSheet colorFromHexString:@"#ffffff"];
+        self.order = @"desc";
+    }else{
+        self.bottomLabel.textColor =[UIColor whiteColor];
+        self.bottomLabel.backgroundColor =[StyleSheet colorFromHexString:TAB_COLOR];
+        self.topLabel.textColor = [StyleSheet colorFromHexString:@"#636363"];
+        self.topLabel.backgroundColor =[StyleSheet colorFromHexString:@"#ffffff"];
+        
         self.order = @"asc";
     }
     [self updateChannel:self.selectedChanngelRank];

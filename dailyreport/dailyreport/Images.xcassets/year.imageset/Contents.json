@@ -7,18 +7,17 @@
     {
       "idiom" : "iphone",
       "scale" : "2x",
-      "filename" : "天.png"
+      "filename" : "year@2x_44x44.png"
     },
     {
       "idiom" : "iphone",
-      "filename" : "天-1.png",
+      "filename" : "year@2x.png",
       "subtype" : "retina4",
       "scale" : "2x"
     },
     {
       "idiom" : "iphone",
-      "scale" : "3x",
-      "filename" : "天-2.png"
+      "scale" : "3x"
     }
   ],
   "info" : {
