@@ -15,6 +15,7 @@
     NSMutableArray* _goods;
     int _goodIndex;
     NSMutableArray* _availableDates;
+    BOOL _reset;
 }
 
 @property (nonatomic, copy) NSString* username;
@@ -28,4 +29,5 @@
 @property (nonatomic, retain) NSMutableArray* goods;
 @property (nonatomic, assign) int goodIndex;
 @property (nonatomic, retain) NSMutableArray* availableDates;
+@property (nonatomic, assign) BOOL reset;
 @end

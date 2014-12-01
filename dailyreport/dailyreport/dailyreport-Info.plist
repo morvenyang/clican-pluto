@@ -65,5 +65,7 @@
 	<string>#8BACD8</string>
 	<key>电商背景</key>
 	<string>#D71515</string>
+	<key>guideImage</key>
+	<integer>3</integer>
 </dict>
 </plist>
