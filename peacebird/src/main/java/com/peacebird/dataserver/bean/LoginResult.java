@@ -7,13 +7,15 @@ public class LoginResult {
 	private int expiredDays;
 	private String jsessionid;
 	private int timeoutInterval;
+	private boolean reset;
 	
-	public LoginResult(int result, String message, int expiredDays,int timeoutInterval) {
+	public LoginResult(int result, String message, int expiredDays,int timeoutInterval,boolean reset) {
 		super();
 		this.result = result;
 		this.message = message;
 		this.expiredDays = expiredDays;
 		this.timeoutInterval = timeoutInterval;
+		this.reset = reset;
 	}
 	public int getResult() {
 		return result;
@@ -44,6 +46,12 @@ public class LoginResult {
 	}
 	public void setTimeoutInterval(int timeoutInterval) {
 		this.timeoutInterval = timeoutInterval;
+	}
+	public boolean isReset() {
+		return reset;
+	}
+	public void setReset(boolean reset) {
+		this.reset = reset;
 	}
 	
 	

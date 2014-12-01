@@ -119,10 +119,10 @@ public class ClientController {
 		LoginResult lr = null;
 		User user = userService.findUserByUserName(userName);
 		if (user == null) {
-			lr = new LoginResult(1000, "用户名不存在", -1, 60);
+			lr = new LoginResult(1000, "用户名不存在", -1, 60,false);
 		} else {
 			if (!user.isActive()) {
-				lr = new LoginResult(1002, "该用户被禁用,请联系管理员激活该用户", -1, 60);
+				lr = new LoginResult(1002, "该用户被禁用,请联系管理员激活该用户", -1, 60,false);
 			} else {
 				String hashPassword = DigestUtils.shaHex(password);
 				if (user.getPassword().equals(hashPassword)) {
@@ -133,19 +133,52 @@ public class ClientController {
 					}
 					if (user.getTimeoutInterval() == null) {
 						lr = new LoginResult(0, "登录成功", user.getExpiredDays(),
-								60);
+								60,user.isReset());
 					} else {
 						lr = new LoginResult(0, "登录成功", user.getExpiredDays(),
-								user.getTimeoutInterval());
+								user.getTimeoutInterval(),user.isReset());
 					}
 
 				} else {
-					lr = new LoginResult(1001, "密码错误", -1, 60);
+					lr = new LoginResult(1001, "密码错误", -1, 60,false);
 				}
 			}
 		}
 		lr.setJsessionid(req.getSession().getId());
 		String result = JSONObject.fromObject(lr).toString();
+		try {
+			resp.setContentType("application/json");
+			resp.getOutputStream().write(result.getBytes("utf-8"));
+		} catch (Exception e) {
+			log.error("", e);
+		}
+	}
+
+	@RequestMapping("/changePassword")
+	public void changePassword(
+			@RequestParam(value = "userName", required = true) String userName,
+			@RequestParam(value = "password", required = true) String password,
+			@RequestParam(value = "oldPassword", required = true) String oldPassword,
+			@RequestParam(value = "version", required = false) String version,
+			HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		if (log.isDebugEnabled()) {
+			log.debug("userName=" + userName + " change password");
+		}
+		String result = null;
+		User user = userService.findUserByUserName(userName);
+		if (user == null) {
+			result = this.getErrorResult(1001, "该用户不存在");
+		} else {
+			String hashPassword = DigestUtils.shaHex(oldPassword);
+			if (user.getPassword().equals(hashPassword)) {
+				user.setPassword(DigestUtils.shaHex(password));
+				userService.saveUser(user);
+				result = this.getErrorResult(0, "密码修改成功");
+			} else {
+				result = this.getErrorResult(0, "旧密码错误");
+			}
+		}
 		try {
 			resp.setContentType("application/json");
 			resp.getOutputStream().write(result.getBytes("utf-8"));
@@ -191,14 +224,14 @@ public class ClientController {
 					log.debug("There are brands [" + brands + "] for user["
 							+ user.getUserName() + "]");
 				}
-				if(isV2(version)){
-					result = this.dataServiceV2.getIndexResult(brands.split(","),
-							this.getDate(date));
-				}else{
+				if (isV2(version)) {
+					result = this.dataServiceV2.getIndexResult(
+							brands.split(","), this.getDate(date));
+				} else {
 					result = this.dataService.getIndexResult(brands.split(","),
 							this.getDate(date));
 				}
-				
+
 			}
 		}
 		try {
@@ -223,9 +256,10 @@ public class ClientController {
 		if (user == null) {
 			result = this.getNotLoginResult();
 		} else {
-			if(isV2(version)){
-				result = this.dataServiceV2.getBrandResult(brand, getDate(date));
-			}else{
+			if (isV2(version)) {
+				result = this.dataServiceV2
+						.getBrandResult(brand, getDate(date));
+			} else {
 				result = this.dataService.getBrandResult(brand, getDate(date));
 			}
 		}
@@ -248,12 +282,12 @@ public class ClientController {
 			log.debug("access retail chart page");
 		}
 		List<RetailResult> result;
-		if(isV2(version)){
-			result = this.dataServiceV2.getRetailChartResult(
-					brand, type, getDate(date));
-		}else{
-			result = this.dataService.getRetailChartResult(
-					brand, type, getDate(date));
+		if (isV2(version)) {
+			result = this.dataServiceV2.getRetailChartResult(brand, type,
+					getDate(date));
+		} else {
+			result = this.dataService.getRetailChartResult(brand, type,
+					getDate(date));
 		}
 		double total = 0;
 		for (RetailResult rr : result) {
@@ -289,12 +323,12 @@ public class ClientController {
 		if (user == null) {
 			result = this.getNotLoginResult();
 		} else {
-			if(isV2(version)){
-				result = this.dataServiceV2.getRetailChartResultForJson(brand, type,
-						getDate(date));
-			}else{
-				result = this.dataService.getRetailChartResultForJson(brand, type,
-						getDate(date));
+			if (isV2(version)) {
+				result = this.dataServiceV2.getRetailChartResultForJson(brand,
+						type, getDate(date));
+			} else {
+				result = this.dataService.getRetailChartResultForJson(brand,
+						type, getDate(date));
 			}
 		}
 		try {
@@ -328,12 +362,14 @@ public class ClientController {
 		if (user == null) {
 			result = this.getNotLoginResult();
 		} else {
-			if(isV2(version)){
-				result = this.dataServiceV2.getChannelResult(brand, getDate(date));
-			}else{
-				result = this.dataService.getChannelResult(brand, getDate(date));
+			if (isV2(version)) {
+				result = this.dataServiceV2.getChannelResult(brand,
+						getDate(date));
+			} else {
+				result = this.dataService
+						.getChannelResult(brand, getDate(date));
 			}
-			
+
 		}
 		try {
 			resp.setContentType("application/json");
@@ -357,11 +393,13 @@ public class ClientController {
 		if (user == null) {
 			result = this.getNotLoginResult();
 		} else {
-			
-			if(isV2(version)){
-				result = this.dataServiceV2.getStoreRankResult(brand, getDate(date));
-			}else{
-				result = this.dataService.getStoreRankResult(brand, getDate(date));
+
+			if (isV2(version)) {
+				result = this.dataServiceV2.getStoreRankResult(brand,
+						getDate(date));
+			} else {
+				result = this.dataService.getStoreRankResult(brand,
+						getDate(date));
 			}
 		}
 		try {
@@ -386,12 +424,14 @@ public class ClientController {
 		if (user == null) {
 			result = this.getNotLoginResult();
 		} else {
-			if(isV2(version)){
-				result = this.dataServiceV2.getGoodRankResult(brand, getDate(date));
-			}else{
-				result = this.dataService.getGoodRankResult(brand, getDate(date));
+			if (isV2(version)) {
+				result = this.dataServiceV2.getGoodRankResult(brand,
+						getDate(date));
+			} else {
+				result = this.dataService.getGoodRankResult(brand,
+						getDate(date));
 			}
-			
+
 		}
 		try {
 			resp.setContentType("application/json");
