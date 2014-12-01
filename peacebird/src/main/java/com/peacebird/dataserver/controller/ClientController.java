@@ -173,6 +173,7 @@ public class ClientController {
 			String hashPassword = DigestUtils.shaHex(oldPassword);
 			if (user.getPassword().equals(hashPassword)) {
 				user.setPassword(DigestUtils.shaHex(password));
+				user.setReset(false);
 				userService.saveUser(user);
 				result = this.getErrorResult(0, "密码修改成功");
 			} else {
