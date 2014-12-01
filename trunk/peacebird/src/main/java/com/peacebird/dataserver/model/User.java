@@ -25,6 +25,7 @@ public class User {
 	private String brands;
 	private String token;
 	private Integer timeoutInterval=60;
+	private boolean reset = false;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -98,6 +99,14 @@ public class User {
 	}
 	public void setTimeoutInterval(Integer timeoutInterval) {
 		this.timeoutInterval = timeoutInterval;
+	}
+	@Column(name = "RESET")
+	@Type(type="org.hibernate.type.NumericBooleanType")
+	public boolean isReset() {
+		return reset;
+	}
+	public void setReset(boolean reset) {
+		this.reset = reset;
 	}
 	
 }
