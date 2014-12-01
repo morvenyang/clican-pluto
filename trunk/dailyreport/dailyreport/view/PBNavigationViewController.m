@@ -7,13 +7,14 @@
 //
 
 #import "PBNavigationViewController.h"
-
+#import "StyleSheet.h"
 @implementation PBNavigationViewController
 @synthesize  backIndex = _backIndex;
 -(id) initWithBrand:(NSString*) brand backIndex:(int)backIndex{
     if ((self = [self initWithNibName:nil bundle:nil])) {
         self.brand = brand;
         self.backIndex = backIndex;
+        self.index=-2;
     }
     return self;
 }
@@ -28,14 +29,31 @@
 - (void)loadView
 {
     [super loadView];
-    for(int i=0;i<8;i++){
+    
+    CGFloat width = SCREEN_WIDTH/3;
+    CGFloat height = (SCREEN_HEIGHT-64)/3;
+    [self.contentView addSubview:[self createImageViewFromColor:[StyleSheet colorFromHexString:@"#b3b3b3"] frame:CGRectMake(width, 0, 0.5, SCREEN_HEIGHT-64)]];
+    
+    [self.contentView addSubview:[self createImageViewFromColor:[StyleSheet colorFromHexString:@"#b3b3b3"] frame:CGRectMake(width*2, 0, 0.5, SCREEN_HEIGHT-64)]];
+    [self.contentView addSubview:[self createImageViewFromColor:[StyleSheet colorFromHexString:@"#b3b3b3"] frame:CGRectMake(0, height, SCREEN_WIDTH, 0.5)]];
+    [self.contentView addSubview:[self createImageViewFromColor:[StyleSheet colorFromHexString:@"#b3b3b3"] frame:CGRectMake(0, height*2, SCREEN_WIDTH, 0.5)]];
+    NSArray* names = [NSArray arrayWithObjects:@"零售总览",@"关键指标",@"零售结构分析",@"店铺排名",@"商品排名",@"电商",@"拓展统计",@"未上传店铺", nil];
+    int labelFont = [self getFont:16 ip6Offset:2 ip6pOffset:2];
+    for(int i=0;i<names.count;i++){
+        NSString* name = [names objectAtIndex:i];
+        UIView* v = [[[UIView alloc] initWithFrame:CGRectMake(width*(i%3), (i/3)*height, width, height)] autorelease];
         UIButton* button =[UIButton buttonWithType:UIButtonTypeCustom];
-        [button setTitle:[NSString stringWithFormat:@"%i",(i+1)] forState:UIControlStateNormal];
-        [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [button setTitle:[NSString stringWithFormat:@"%i",i+1] forState:UIControlStateNormal];
+        UIImage* image =[UIImage imageNamed:[NSString stringWithFormat:@"大图标-%@",name]];
+        [button setImage:image forState:UIControlStateNormal];
         [button addTarget:self action:@selector(onButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-        button.frame = CGRectMake(SCREEN_WIDTH*(i%3)/3, (i/3)*SCREEN_HEIGHT/3, SCREEN_WIDTH/3, SCREEN_HEIGHT/3);
-        NSLog(@"%f %f %f %f",button.frame.origin.x,button.frame.origin.y,button.frame.size.width,button.frame.size.height);
-        [self.contentView addSubview:button];
+        button.frame = CGRectMake((v.frame.size.width-image.size.width)/2, (v.frame.size.height-image.size.height)/3, image.size.width, image.size.height);
+        
+        UILabel* label = [self createLabel:name frame:CGRectMake(0, (v.frame.size.height-image.size.height)/3+image.size.height, v.frame.size.width,  (v.frame.size.height-image.size.height)*2/3) textColor:@"#000000" font:labelFont backgroundColor:nil textAlignment:ALIGN_CENTER];
+
+        [v addSubview:button];
+        [v addSubview:label];
+        [self.contentView addSubview:v];
     }
 }
 

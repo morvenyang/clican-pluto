@@ -18,6 +18,7 @@ text {
 						"chartdiv",
 						{
 							"type" : "serial",
+                            "startEffort":"easeInSine",
 							"theme" : "none",
 							"autoMargins" : false,
 							"marginLeft" : 130,
@@ -25,7 +26,6 @@ text {
 							"marginTop" : $top,
 							"marginBottom" : $bottom,
 							"dataProvider" : $dataProvider,
-                           "balloon":{"fillColor":"#fffabd","fillAlpha":"1.0","fontSize":35},
 							"valueAxes" : [ {
 								"id" : "v1",
 								"title" : "零售额(万元)",
@@ -44,10 +44,10 @@ text {
 								"gridThickness" : 0,
                                 "labelsEnabled":false
 							} ],
-							"startDuration" : 1,
+							"startDuration" : 0.6,
 							"graphs" : [
 									{
-										"balloonText" : "<span style='font-size:20px;'>[[ballonValue]]</span>",
+										"showBalloon":false,
 										"lineAlpha":0,
 										"colorField":"color",
 										"alphaField": "alpha",
@@ -56,11 +56,10 @@ text {
 										"type" : "column",
 										"valueField" : "amount",
 										"valueAxis" : "v1",
-										"precision" : 2,
-                                       "balloon":{"fillColor":"#fffabd","fillAlpha":"1.0","fontSize":35}
+										"precision" : 2
 									},
 									{
-                                        "balloonText" : "<span style='font-size:20px;'>[[ballonValue]]</span>",
+                                        "showBalloon":false,
 										"bullet" : "round",
 										"lineThickness" : 6,
 										"bulletSize" : 10,

@@ -24,6 +24,7 @@
     CGFloat _chartYOffset;
     UIView* _infoView;
     NSString* _lineChart;
+    UIImageView* _periodImageView;
 }
 
 @property (nonatomic, retain) BrandModel *brandModel;
@@ -38,5 +39,6 @@
 @property (nonatomic, retain) UIButton *monthlyButton;
 @property (nonatomic, retain) UIButton *yearlyButton;
 @property (nonatomic, retain) UIView *infoView;
+@property (nonatomic, retain) UIImageView *periodImageView;
 -(id) initWithBrand:(NSString*) brand;
 @end

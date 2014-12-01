@@ -67,7 +67,7 @@
     
     if(_animation){
         _animation= NO;
-        [NSTimer scheduledTimerWithTimeInterval:self.indexItem.index/4.0 target:self selector:@selector(doAnimation) userInfo:nil repeats:NO];
+        [NSTimer scheduledTimerWithTimeInterval:self.indexItem.index/8.0 target:self selector:@selector(doAnimation) userInfo:nil repeats:NO];
     }else{
         [self.contentView addSubview:self.backgroundImageView];
         [self.backgroundImageView addSubview:_label];
@@ -81,7 +81,7 @@
     [self.backgroundImageView addSubview:_label];
     CABasicAnimation *animation = [CABasicAnimation  animationWithKeyPath:@"transform"];
     animation.fromValue = [NSValue valueWithCATransform3D:CATransform3DMakeRotation(-3.1415,1.0 ,0, 0)];
-    animation.duration =0.25;
+    animation.duration =0.125;
     animation.cumulative =YES;
     animation.repeatCount=1;
     
