@@ -74,19 +74,9 @@
     self.channels = channels;
 
     UIView* dailyView =[self createDailyView:@"图标-关键指标" label:@"关键指标"];
-    int channelFontSize = 20;
-    int labelFontSize =18;
-    NSLog(@"%f",SCREEN_WIDTH);
-    if(SCREEN_WIDTH==320){
-        channelFontSize = 20;
-        labelFontSize =18;
-    }else if(SCREEN_WIDTH==375){
-        channelFontSize = 22;
-        labelFontSize =20;
-    }else{
-        channelFontSize = 24;
-        labelFontSize =22;
-    }
+    int channelFontSize = [self getFont:20 ip6Offset:2 ip6pOffset:4];
+    int labelFontSize =[self getFont:18 ip6Offset:2 ip6pOffset:4];
+    
     NSMutableArray* ca = [NSMutableArray array];
     for(Channel* channel in channels){
         if(![channel.channel isEqualToString:@"电商"]){
@@ -135,6 +125,11 @@
     
     UIImage* labelImage = [UIImage imageNamed:@"零售收入"];
     CGFloat rowImageHeight = labelImage.size.height;
+    if(IS_IPHONE6){
+        rowImageHeight = rowImageHeight*1.2;
+    }else if(IS_IPHONE6_PLUS){
+        rowImageHeight = rowImageHeight*3;
+    }
     CGFloat rowHeight = rowImageHeight*2;
     [self.contentView addSubview:[self createImageViewFromNamedImage:@"零售收入" point:CGPointMake(20,hOffset+rowImageHeight/2)]];
     [self.contentView addSubview:[self createLabel:@"零售额" frame:CGRectMake(50,hOffset,100,rowHeight) textColor:@"#4a4a4a" font:labelFontSize backgroundColor:nil]];

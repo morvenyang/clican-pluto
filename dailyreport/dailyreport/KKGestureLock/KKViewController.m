@@ -38,7 +38,13 @@
     }else{
         self.titleLabel.text = @"请设置手势密码";
     }
-    self.titleLabel.font =[UIFont systemFontOfSize:12];
+    int fontSize = 12;
+    if(IS_IPHONE6){
+        fontSize = 14;
+    }else if (IS_IPHONE6_PLUS){
+        fontSize = 16;
+    }
+    self.titleLabel.font =[UIFont systemFontOfSize:fontSize];
     self.titleLabel.textColor = [UIColor whiteColor];
     self.lockView = [[KKGestureLockView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Do any additional setup after loading the view, typically from a nib.
@@ -59,15 +65,21 @@
 }
 
 -(void)addFootButtons{
+    int fontSize = 12;
+    if(IS_IPHONE6){
+        fontSize = 14;
+    }else if (IS_IPHONE6_PLUS){
+        fontSize = 16;
+    }
     UIButton* forgetButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [forgetButton setTitle:@"忘记手势密码" forState:UIControlStateNormal];
     [forgetButton addTarget:self action:@selector(forget) forControlEvents:UIControlEventTouchUpInside];
-    [forgetButton.titleLabel setFont:[UIFont systemFontOfSize:12]];
+    [forgetButton.titleLabel setFont:[UIFont systemFontOfSize:fontSize]];
     forgetButton.frame = CGRectMake(30, self.view.frame.size.height-50, 120, 20);
     UIButton* changeButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [changeButton setTitle:@"用其他账户登录" forState:UIControlStateNormal];
     [changeButton addTarget:self action:@selector(change) forControlEvents:UIControlEventTouchUpInside];
-    [changeButton.titleLabel setFont:[UIFont systemFontOfSize:12]];
+    [changeButton.titleLabel setFont:[UIFont systemFontOfSize:fontSize]];
     changeButton.frame = CGRectMake(self.view.frame.size.width-150, self.view.frame.size.height-50, 120, 20);
     [self.view addSubview:forgetButton];
     [self.view addSubview:changeButton];
@@ -106,25 +118,26 @@
         if(self.time>5){
             self.titleLabel.text = @"超过最大重试次数，请选择忘记手势密码或重新登录";
             self.titleLabel.textColor = [UIColor redColor];
-        }
-        if(![passcode isEqualToString:gesturePassword]){
-            if(self.time==5){
-                self.titleLabel.text = @"手势密码错误，请选择忘记手势密码或重新登录";
-                self.titleLabel.textColor = [UIColor redColor];
-                self.time++;
-                NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
-                [defaults removeObjectForKey:GESTURE_PASSWORD];
-            }else{
-                self.titleLabel.text = [NSString stringWithFormat:@"手势密码错误，还可以输入%i次",5-self.time];
-                self.titleLabel.textColor = [UIColor redColor];
-                self.time++;
-            }
-            
-            
         }else{
-            self.navigationController.navigationBarHidden= NO;
-            TTOpenURL(@"peacebird://index");
+            if(![passcode isEqualToString:gesturePassword]){
+                if(self.time==5){
+                    self.titleLabel.text = @"手势密码错误，请选择忘记手势密码或重新登录";
+                    self.titleLabel.textColor = [UIColor redColor];
+                    self.time++;
+                    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+                    [defaults removeObjectForKey:GESTURE_PASSWORD];
+                }else{
+                    self.titleLabel.text = [NSString stringWithFormat:@"手势密码错误，还可以输入%i次",5-self.time];
+                    self.titleLabel.textColor = [UIColor redColor];
+                    self.time++;
+                }
+
+            }else{
+                self.navigationController.navigationBarHidden= NO;
+                TTOpenURL(@"peacebird://index");
+            }
         }
+        
     }else{
         if(self.time==1){
             self.password = passcode;

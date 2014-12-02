@@ -14,8 +14,8 @@
 #import "PMCalendarConstants.h"
 #import "PMCalendarHelpers.h"
 #import "PMDimmingView.h"
-
-static CGSize defaultSize = (CGSize){300, 240};
+#import "Constants.h"
+CGSize defaultSize = (CGSize){300/320, 240};
 CGSize arrowSize = (CGSize){18, 11};
 CGSize outerPadding = (CGSize){0, 0}; // TBD
 NSString *kPMCalendarRedrawNotification = @"kPMCalendarRedrawNotification";
@@ -62,6 +62,7 @@ NSString *kPMCalendarRedrawNotification = @"kPMCalendarRedrawNotification";
 
 - (void) initializeWithSize:(CGSize) size date:(NSDate*)date
 {
+    defaultSize = (CGSize){SCREEN_WIDTH*300/320, SCREEN_WIDTH*240/320};
     self.calendarArrowDirection = PMCalendarArrowDirectionUnknown;
     
     CGRect calendarRect = CGRectMake(0, 0, size.width, size.height);

@@ -17,7 +17,8 @@
     },
     {
       "idiom" : "iphone",
-      "scale" : "3x"
+      "scale" : "3x",
+      "filename" : "day_arrow@3x.png"
     }
   ],
   "info" : {

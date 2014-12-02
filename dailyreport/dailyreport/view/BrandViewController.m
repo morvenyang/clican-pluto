@@ -240,6 +240,8 @@
     if(self.lineChart!=nil&&![self.lineChart isEqualToString:@"[\n\n]"]){
         [self generateInfoView:self.lineChart index:0];
         [self generateLikeChart:self.lineChart];
+    }else{
+        TTAlert(@"没有相关图标数据");
     }
     //self.contentView.contentSize = CGSizeMake(SCREEN_WIDTH, 1000);
     NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
@@ -316,7 +318,7 @@
         h+=120;
     }else if(IS_IPHONE6_PLUS){
         bottom = 120;
-        h+=180;
+        h+=60;
         top = -10;
     }
     html=[html stringByReplacingOccurrencesOfString:@"$height" withString:[NSString stringWithFormat:@"%.0f",h]];
@@ -347,8 +349,13 @@
         self.lineChart=self.yearlyLineChart;
         self.periodImageView.image = [UIImage imageNamed:@"year_arrow"];
     }
-    [self generateInfoView:self.lineChart index:0];
-    [self generateLikeChart:self.lineChart];
+    if(self.lineChart!=nil&&![self.lineChart isEqualToString:@"[\n\n]"]){
+        [self generateInfoView:self.lineChart index:0];
+        [self generateLikeChart:self.lineChart];
+    }else{
+        TTAlert(@"没有相关图标数据");
+    }
+    
 }
 - (void)webViewDidFinishLoad:(UIWebView *)webView{
     #ifdef __IPHONE_7_0
