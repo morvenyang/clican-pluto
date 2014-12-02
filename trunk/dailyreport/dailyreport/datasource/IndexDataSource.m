@@ -34,7 +34,7 @@
         formatter.numberStyle = NSNumberFormatterDecimalStyle;
         
         NSString* strValue = nil;
-        if(brand.dayAmount.intValue>10000){
+        if(brand.dayAmount.intValue>10000||brand.dayAmount.intValue==0){
             [formatter setMinimumFractionDigits:0];
             [formatter setMaximumFractionDigits:0];
             strValue=[formatter stringFromNumber:[NSNumber numberWithDouble:brand.dayAmount.doubleValue/10000]];

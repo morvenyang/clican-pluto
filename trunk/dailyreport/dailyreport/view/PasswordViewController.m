@@ -64,23 +64,27 @@
     NSLog(@"%f",SCREEN_WIDTH);
     CGFloat topOffset = SCREEN_HEIGHT/5;
     CGFloat diff= SCREEN_HEIGHT/12;
+    CGFloat inputOffset = 40;
+    if(IS_IPHONE6_PLUS){
+        inputOffset = 60;
+    }
     self.view.backgroundColor = [StyleSheet colorFromHexString:@"#EAEEF2"];
     
-    UIImage* titleImage = [UIImage imageNamed:@"用户名密码背景"];
+    UIImage* titleImage = [UIImage imageNamed:@"密码修改背景"];
     _titleImageView = [[TTImageView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-titleImage.size.width)/2,topOffset, titleImage.size.width, titleImage.size.height)];
     
     _titleImageView.defaultImage = titleImage;
     
-    self.oldPasswordField.frame = CGRectMake((SCREEN_WIDTH-titleImage.size.width)/2+40,topOffset, titleImage.size.width-40, titleImage.size.height/2);
-    self.passwordField.frame = CGRectMake((SCREEN_WIDTH-titleImage.size.width)/2+40,topOffset+titleImage.size.height/2, titleImage.size.width-40, titleImage.size.height/2);
+    self.oldPasswordField.frame = CGRectMake((SCREEN_WIDTH-titleImage.size.width)/2+inputOffset,topOffset, titleImage.size.width-inputOffset, titleImage.size.height/3);
+    self.passwordField.frame = CGRectMake((SCREEN_WIDTH-titleImage.size.width)/2+inputOffset,topOffset+titleImage.size.height/3, titleImage.size.width-inputOffset, titleImage.size.height/3);
     
-    self.confirmPasswordField.frame = CGRectMake((SCREEN_WIDTH-titleImage.size.width)/2+40,topOffset+titleImage.size.height, titleImage.size.width-40, titleImage.size.height/2);
+    self.confirmPasswordField.frame = CGRectMake((SCREEN_WIDTH-titleImage.size.width)/2+inputOffset,topOffset+titleImage.size.height*2/3, titleImage.size.width-inputOffset, titleImage.size.height/3);
     
     self.submitButton = [UIButton buttonWithType:UIButtonTypeCustom];
     
-    UIImage* submitButtonImage = [UIImage imageNamed:@"登录按钮"];
+    UIImage* submitButtonImage = [UIImage imageNamed:@"确认按钮"];
 
-    self.submitButton.frame = CGRectMake((SCREEN_WIDTH/2-submitButtonImage.size.width/2)/2, topOffset+titleImage.size.height+diff, submitButtonImage.size.width/2, submitButtonImage.size.height);
+    self.submitButton.frame = CGRectMake((SCREEN_WIDTH-submitButtonImage.size.width)/2, topOffset+titleImage.size.height+diff, submitButtonImage.size.width, submitButtonImage.size.height);
     
     [self.submitButton setImage:submitButtonImage forState:UIControlStateNormal];
     [self.submitButton addTarget:self action:@selector(submitAction) forControlEvents: UIControlEventTouchUpInside];
@@ -88,9 +92,9 @@
     
     UIButton* cancelButton = [UIButton buttonWithType:UIButtonTypeCustom];
     
-    UIImage* cancelButtonImage = [UIImage imageNamed:@"登录按钮"];
+    UIImage* cancelButtonImage = [UIImage imageNamed:@"取消按钮"];
 
-    cancelButton.frame = CGRectMake((SCREEN_WIDTH/2-cancelButtonImage.size.width/2)/2+SCREEN_WIDTH/2, topOffset+titleImage.size.height+diff, cancelButtonImage.size.width/2, cancelButtonImage.size.height);
+    cancelButton.frame = CGRectMake((SCREEN_WIDTH-cancelButtonImage.size.width)/2, topOffset+titleImage.size.height+diff+submitButtonImage.size.height+20, cancelButtonImage.size.width, cancelButtonImage.size.height);
     
     [cancelButton setImage:cancelButtonImage forState:UIControlStateNormal];
     [cancelButton addTarget:self action:@selector(cancelAction) forControlEvents: UIControlEventTouchUpInside];

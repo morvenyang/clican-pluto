@@ -1,0 +1,28 @@
+{
+  "images" : [
+    {
+      "idiom" : "iphone",
+      "scale" : "1x"
+    },
+    {
+      "idiom" : "iphone",
+      "scale" : "2x",
+      "filename" : "大图标-未上传店铺@2x-1.png"
+    },
+    {
+      "idiom" : "iphone",
+      "filename" : "大图标-未上传店铺@2x.png",
+      "subtype" : "retina4",
+      "scale" : "2x"
+    },
+    {
+      "idiom" : "iphone",
+      "scale" : "3x",
+      "filename" : "大图标-未上传店铺@3x.png"
+    }
+  ],
+  "info" : {
+    "version" : 1,
+    "author" : "xcode"
+  }
+}

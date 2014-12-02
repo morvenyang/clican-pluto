@@ -117,7 +117,8 @@
     [logoutButton addTarget:self action:@selector(logoutAction) forControlEvents:UIControlEventTouchUpInside];
 
 
-    CGFloat buttonOffset = 12;
+    CGFloat buttonOffset = 4;
+ 
     UIButton* calendarButton = [UIButton buttonWithType:UIButtonTypeCustom];
     calendarButton.titleEdgeInsets = UIEdgeInsetsMake(0, 45, 0, 0);
     [calendarButton setTitle:@"选择日期" forState:UIControlStateNormal];
@@ -133,14 +134,25 @@
     [gestureButton setTitle:@"手势密码" forState:UIControlStateNormal];
     [gestureButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     
-    gestureButton.frame =CGRectMake(0, buttonOffset+(menuImage.size.height-buttonOffset)/2, menuImage.size.width, (menuImage.size.height-buttonOffset)/2);
+    gestureButton.frame =CGRectMake(0, buttonOffset+(menuImage.size.height-buttonOffset)/3, menuImage.size.width, (menuImage.size.height-buttonOffset)/3);
     gestureButton.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     gestureButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     [gestureButton addTarget:self action:@selector(openGestureLockViewAction) forControlEvents:UIControlEventTouchUpInside];
     
+    UIButton* passwordButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    passwordButton.titleEdgeInsets = UIEdgeInsetsMake(0, 45, 0, 0);
+    [passwordButton setTitle:@"修改密码" forState:UIControlStateNormal];
+    [passwordButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    
+    passwordButton.frame =CGRectMake(0, buttonOffset+(menuImage.size.height-buttonOffset)*2/3, menuImage.size.width, (menuImage.size.height-buttonOffset)/3);
+    passwordButton.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+    passwordButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    [passwordButton addTarget:self action:@selector(openPasswordViewAction) forControlEvents:UIControlEventTouchUpInside];
+    
     
     [self.configView addSubview:calendarButton];
     [self.configView addSubview:gestureButton];
+    [self.configView addSubview:passwordButton];
     [self.backgroundView addSubview:self.configView];
     UITapGestureRecognizer* singleFingerTap = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideConfig)] autorelease];
     
@@ -160,6 +172,12 @@
     [[TTNavigator navigator] removeAllViewControllers];
     [self hideConfig];
     TTOpenURL(@"peacebird://gestureLock/setting");
+}
+
+-(void)openPasswordViewAction{
+    [[TTNavigator navigator] removeAllViewControllers];
+    [self hideConfig];
+    TTOpenURL(@"peacebird://password/change");
 }
 
 - (void)viewDidLoad
