@@ -264,7 +264,7 @@ public class DataServiceImplV2 implements DataServiceV2 {
 	private List<RetailResult> filteZero(List<RetailResult> source) {
 		List<RetailResult> result = new ArrayList<RetailResult>();
 		for (RetailResult rr : source) {
-			if (rr.getDayAmount() / 10000 != 0) {
+			if (rr.getDayAmount()!=null&&rr.getDayAmount() / 10000 != 0) {
 				result.add(rr);
 			}
 		}
