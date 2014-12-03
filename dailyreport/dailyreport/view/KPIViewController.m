@@ -125,14 +125,16 @@
     
     UIImage* labelImage = [UIImage imageNamed:@"零售收入"];
     CGFloat rowImageHeight = labelImage.size.height;
+    CGFloat labelOffset = 50;
     if(IS_IPHONE6){
         rowImageHeight = rowImageHeight*1.2;
-    }else if(IS_IPHONE6_PLUS){
-        rowImageHeight = rowImageHeight*3;
+    }
+    if(IS_IPHONE6_PLUS){
+        labelOffset = 70;
     }
     CGFloat rowHeight = rowImageHeight*2;
     [self.contentView addSubview:[self createImageViewFromNamedImage:@"零售收入" point:CGPointMake(20,hOffset+rowImageHeight/2)]];
-    [self.contentView addSubview:[self createLabel:@"零售额" frame:CGRectMake(50,hOffset,100,rowHeight) textColor:@"#4a4a4a" font:labelFontSize backgroundColor:nil]];
+    [self.contentView addSubview:[self createLabel:@"零售额" frame:CGRectMake(labelOffset,hOffset,100,rowHeight) textColor:@"#4a4a4a" font:labelFontSize backgroundColor:nil]];
     self.dayAmountLabel =[self createDecimalLabel:[NSNumber numberWithDouble:channel.dayAmount.doubleValue/10000] unit:@"万元" frame:CGRectMake(SCREEN_WIDTH*11/16,hOffset,SCREEN_WIDTH*5/16,rowHeight) textColor:@"#7f7f7f" font:labelFontSize backgroundColor:nil textAlignment:ALIGN_LEFT];
 
     [self.contentView addSubview:self.dayAmountLabel];
@@ -140,28 +142,28 @@
     [self.contentView addSubview:[self createImageViewFromNamedImage:@"关键指标-分割线" frame:CGRectMake(0,hOffset,SCREEN_WIDTH,3)]];
     hOffset+=3;
     [self.contentView addSubview:[self createImageViewFromNamedImage:@"票数" point:CGPointMake(20,hOffset+rowImageHeight/2)]];
-    [self.contentView addSubview:[self createLabel:@"票数" frame:CGRectMake(50,hOffset,100,rowHeight) textColor:@"#4a4a4a" font:labelFontSize backgroundColor:nil]];
+    [self.contentView addSubview:[self createLabel:@"票数" frame:CGRectMake(labelOffset,hOffset,100,rowHeight) textColor:@"#4a4a4a" font:labelFontSize backgroundColor:nil]];
     self.docNumberLabel =[self createDecimalLabel:[NSNumber numberWithInt:channel.docNumber.intValue] frame:CGRectMake(SCREEN_WIDTH*11/16,hOffset,SCREEN_WIDTH*5/16,rowHeight) textColor:@"#7f7f7f" font:labelFontSize backgroundColor:nil textAlignment:ALIGN_LEFT];
     [self.contentView addSubview:self.docNumberLabel];
     hOffset+=rowHeight;
     [self.contentView addSubview:[self createImageViewFromNamedImage:@"关键指标-分割线" frame:CGRectMake(0,hOffset,SCREEN_WIDTH,3)]];
     hOffset+=3;
     [self.contentView addSubview:[self createImageViewFromNamedImage:@"附加" point:CGPointMake(20,hOffset+rowImageHeight/2)]];
-    [self.contentView addSubview:[self createLabel:@"附加" frame:CGRectMake(50,hOffset,100,rowHeight)  textColor:@"#4a4a4a" font:18 backgroundColor:nil]];
+    [self.contentView addSubview:[self createLabel:@"附加" frame:CGRectMake(labelOffset,hOffset,100,rowHeight)  textColor:@"#4a4a4a" font:18 backgroundColor:nil]];
     self.avgDocCountLabel =[self createLabel:[NSString stringWithFormat:@"%0.1f",channel.avgDocCount.doubleValue] frame:CGRectMake(SCREEN_WIDTH*11/16,hOffset,SCREEN_WIDTH*5/16,rowHeight) textColor:@"#7f7f7f" font:labelFontSize backgroundColor:nil textAlignment:ALIGN_LEFT];
     [self.contentView addSubview:self.avgDocCountLabel];
     hOffset+=rowHeight;
     [self.contentView addSubview:[self createImageViewFromNamedImage:@"关键指标-分割线" frame:CGRectMake(0,hOffset,SCREEN_WIDTH,3)]];
      hOffset+=3;
     [self.contentView addSubview:[self createImageViewFromNamedImage:@"件单价" point:CGPointMake(20,hOffset+rowImageHeight/2)]];
-    [self.contentView addSubview:[self createLabel:@"件单价" frame:CGRectMake(50,hOffset,100,rowHeight) textColor:@"#4a4a4a" font:labelFontSize backgroundColor:nil]];
+    [self.contentView addSubview:[self createLabel:@"件单价" frame:CGRectMake(labelOffset,hOffset,100,rowHeight) textColor:@"#4a4a4a" font:labelFontSize backgroundColor:nil]];
     self.avgPriceLabel =[self createDecimalLabel:[NSNumber numberWithInt:channel.avgPrice.intValue] unit:@"元" frame:CGRectMake(SCREEN_WIDTH*11/16,hOffset,SCREEN_WIDTH*5/16,rowHeight) textColor:@"#7f7f7f" font:18 backgroundColor:nil textAlignment:ALIGN_LEFT];
     [self.contentView addSubview:self.avgPriceLabel];
     hOffset+=rowHeight;
     [self.contentView addSubview:[self createImageViewFromNamedImage:@"关键指标-分割线" frame:CGRectMake(0,hOffset,SCREEN_WIDTH,3)]];
     hOffset+=3;
     [self.contentView addSubview:[self createImageViewFromNamedImage:@"单效" point:CGPointMake(20,hOffset+rowImageHeight/2)]];
-    [self.contentView addSubview:[self createLabel:@"坪效" frame:CGRectMake(50,hOffset,100,rowHeight)  textColor:@"#4a4a4a" font:labelFontSize backgroundColor:nil]];
+    [self.contentView addSubview:[self createLabel:@"坪效" frame:CGRectMake(labelOffset,hOffset,100,rowHeight)  textColor:@"#4a4a4a" font:labelFontSize backgroundColor:nil]];
     self.apsLabel =[self createDecimalLabel:[NSNumber numberWithInt:channel.aps.intValue] unit:@"元" frame:CGRectMake(SCREEN_WIDTH*11/16,hOffset,SCREEN_WIDTH*5/16,rowHeight)textColor:@"#7f7f7f" font:labelFontSize backgroundColor:nil textAlignment:ALIGN_LEFT];
     [self.contentView addSubview:self.apsLabel];
     hOffset+=rowHeight;

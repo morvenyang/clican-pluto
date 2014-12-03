@@ -67,15 +67,19 @@
     NSLog(@"%f",SCREEN_WIDTH);
     CGFloat topOffset = SCREEN_HEIGHT/5;
     CGFloat diff= SCREEN_HEIGHT/12;
+    CGFloat labelOffset = 40;
+    if(IS_IPHONE6_PLUS){
+        labelOffset = 60;
+    }
     self.view.backgroundColor = [StyleSheet colorFromHexString:@"#EAEEF2"];
     
     UIImage* titleImage = [UIImage imageNamed:@"用户名密码背景"];
      _titleImageView = [[TTImageView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-titleImage.size.width)/2,topOffset, titleImage.size.width, titleImage.size.height)];
     
     _titleImageView.defaultImage = titleImage;
-
-    self.usernameField.frame = CGRectMake((SCREEN_WIDTH-titleImage.size.width)/2+40,topOffset, titleImage.size.width-40, titleImage.size.height/2);
-    self.passwordField.frame = CGRectMake((SCREEN_WIDTH-titleImage.size.width)/2+40,topOffset+titleImage.size.height/2, titleImage.size.width-40, titleImage.size.height/2);
+    
+    self.usernameField.frame = CGRectMake((SCREEN_WIDTH-titleImage.size.width)/2+labelOffset,topOffset, titleImage.size.width-labelOffset, titleImage.size.height/2);
+    self.passwordField.frame = CGRectMake((SCREEN_WIDTH-titleImage.size.width)/2+labelOffset,topOffset+titleImage.size.height/2, titleImage.size.width-labelOffset, titleImage.size.height/2);
     
     
     self.loginButton = [UIButton buttonWithType:UIButtonTypeCustom];
