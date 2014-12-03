@@ -110,7 +110,7 @@ public class DataServiceImplV2 implements DataServiceV2 {
 			bSet.remove(ibr.getBrand());
 		}
 		for (String brand : bSet) {
-			BrandResult ibr = new BrandResult(brand, "", -1);
+			BrandResult ibr = new BrandResult(brand, "", 0);
 			indexBrandResults.add(ibr);
 		}
 		IndexStatResult ir = new IndexStatResult();
