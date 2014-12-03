@@ -224,6 +224,7 @@ public class DataDaoImplV2 extends HibernateDaoSupport implements DataDaoV2 {
 		return null;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Date> getAvailableDates(final Date date) {
 		return this.getHibernateTemplate().executeFind(new HibernateCallback() {
