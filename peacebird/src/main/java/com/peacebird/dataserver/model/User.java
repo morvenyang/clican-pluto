@@ -25,7 +25,7 @@ public class User {
 	private String brands;
 	private String token;
 	private Integer timeoutInterval=60;
-	private boolean reset = false;
+	private boolean reset = true;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
