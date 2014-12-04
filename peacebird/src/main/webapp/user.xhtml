@@ -201,6 +201,11 @@
 						requiredMessage="确认密码不能为空" />
 					<rich:message for="confirmedPassword" style="color:red"
 						showDetail="false" showSummary="true" rendered="#{userAction.user.id==null}"/>
+					<h:panelGroup>
+						<h:outputLabel value="要求用户重置密码" />
+					</h:panelGroup>
+					<h:selectBooleanCheckbox value="#{userAction.user.reset}" />
+					<h:outputText value=""/>
 					<h:panelGrid columns="2">
 						<a4j:commandButton id="saveButton" value="保存"
 							action="#{userAction.saveUser()}"
