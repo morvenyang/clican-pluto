@@ -88,7 +88,7 @@
                 realWidth = SCREEN_WIDTH-t;
             }
             t+=width;
-            UILabel* typeLabel = [self createLabel:type frame:CGRectMake(x, dailyView.frame.size.height, realWidth, SCREEN_HEIGHT*5/48) textColor:@"#636363" font:channelFontSize backgroundColor:@"#ffffff"];
+            UILabel* typeLabel = [self createLabel:type frame:CGRectMake(x, dailyView.frame.size.height, realWidth, SCREEN_HEIGHT*4.6/48) textColor:@"#636363" font:channelFontSize backgroundColor:@"#ffffff"];
             UITapGestureRecognizer* recognizer = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickTypeLabel:)] autorelease];
             typeLabel.userInteractionEnabled = YES;
             [typeLabel addGestureRecognizer:recognizer];

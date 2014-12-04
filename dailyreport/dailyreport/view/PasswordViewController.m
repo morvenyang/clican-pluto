@@ -160,7 +160,19 @@
 #pragma mark Actions;
 - (void) submitAction
 {
-    
+
+    if(_oldPasswordField.text==nil||_oldPasswordField.text.length==0){
+        TTAlert(@"请输入旧密码");
+        return;
+    }
+    if(_passwordField.text==nil||_passwordField.text.length==0){
+        TTAlert(@"请再次输入新密码");
+        return;
+    }
+    if([_oldPasswordField.text isEqualToString:_passwordField.text]){
+        TTAlert(@"新旧密码不能相同");
+        return;
+    }
     NSString* password= _passwordField.text;
     NSString* confirmPassword = _confirmPasswordField.text;
     if(password!=nil&&confirmPassword!=nil&&[password isEqualToString:confirmPassword]){
@@ -169,7 +181,8 @@
         
         [_loginModel changePassword:[defaults valueForKey:LAST_USER_NAME] password:_passwordField.text oldPassword:_oldPasswordField.text];
     }else{
-        TTAlert(@"2次密码输入不一致");
+        TTAlert(@"两次输入的密码不一致");
+        return;
     }
     
 }

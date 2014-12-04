@@ -60,8 +60,20 @@
 -(void)onButtonClick:(id)sender{
     UIButton* button = (UIButton*)sender;
     int index = button.titleLabel.text.intValue;
-    NSString* backUrl = [self getBackUrl:index];
-    [(SwitchViewController*)TTOpenURL(backUrl) hideShareView];
+    [[TTNavigator navigator] removeAllViewControllers];
+    for(int i=1;i<=index;i++){
+        NSString* url = [self getBackUrl:i];
+        if(i!=index){
+            [[TTNavigator navigator] openURLAction:
+             [[TTURLAction actionWithURLPath:url]
+              applyAnimated:NO]];
+        }else{
+            [[TTNavigator navigator] openURLAction:
+             [[TTURLAction actionWithURLPath:url]
+              applyAnimated:YES]];
+        }
+        
+    }
 }
 
 -(NSString*) getBackUrl:(int)index{

@@ -86,6 +86,8 @@
 }
 
 -(void)forget{
+    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+    [defaults removeObjectForKey:GESTURE_PASSWORD];
     TTOpenURL(@"peacebird://login");
 }
 
