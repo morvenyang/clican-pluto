@@ -225,10 +225,10 @@
     [self.contentView addSubview:self.yearlyButton];
     NSLog(@"%f",wOffset+dayImage.size.width);
     [self.contentView addSubview:[self createLabel:@"年" frame:CGRectMake(wOffset+dayImage.size.width+3, yOffset+periodHeight/6, dayImage.size.width, dayImage.size.height) textColor:@"#000000" font:labelFontSize backgroundColor:nil]];
-    yOffset+=periodHeight;
+    yOffset+=periodHeight*2/3;
     _chartYOffset = yOffset;
     CGFloat infoHeight = SCREEN_HEIGHT/12;
-    self.webLineChartView = [[[UIWebView alloc] initWithFrame:CGRectMake(0,_chartYOffset+infoHeight,SCREEN_WIDTH,SCREEN_HEIGHT/2)] autorelease];
+    self.webLineChartView = [[[UIWebView alloc] initWithFrame:CGRectMake(0,_chartYOffset+infoHeight,SCREEN_WIDTH,SCREEN_HEIGHT-64-30-_chartYOffset-infoHeight)] autorelease];
     self.webLineChartView.scalesPageToFit=YES;
     self.webLineChartView.userInteractionEnabled =YES;
     self.webLineChartView.delegate = self;
@@ -309,15 +309,16 @@
     html=[html stringByReplacingOccurrencesOfString:@"$dataProvider" withString:dataProvider];
     html=[html stringByReplacingOccurrencesOfString:@"$width" withString:@"1000"];
     CGFloat h = SCREEN_HEIGHT;
-    CGFloat bottom = 130;
+    CGFloat bottom = 70;
     CGFloat top = 10;
     if(IS_IPHONE5){
-        bottom = 90;
+        h+=10;
+        bottom = 70;
     }else if(IS_IPHONE6){
-        bottom = 120;
+        bottom = 70;
         h+=120;
     }else if(IS_IPHONE6_PLUS){
-        bottom = 120;
+        bottom = 60;
         h+=60;
         top = -10;
     }
