@@ -241,7 +241,8 @@ public class DataServiceImplV2 implements DataServiceV2 {
 			sdf = new SimpleDateFormat("yyyy",Locale.SIMPLIFIED_CHINESE);
 			fsdf = new SimpleDateFormat("yy年",Locale.SIMPLIFIED_CHINESE);
 		}
-		for(BrandLineChartResult lc:lineCharts){
+		for(int i =0;i<lineCharts.size();i++){
+			BrandLineChartResult lc=lineCharts.get(i);
 			lc.setDateStr(sdf.format(lc.getDate()));
 			lc.setFullDateStr(fsdf.format(lc.getDate()));
 			if(type==Calendar.WEEK_OF_MONTH){
@@ -253,9 +254,14 @@ public class DataServiceImplV2 implements DataServiceV2 {
 				lc.setFullDateStr(lc.getFullDateStr().replace("星期", "周"));
 			}
 			if(type==Calendar.DAY_OF_MONTH&&lc.getDate().compareTo(firstDayOfThisWeek)<0){
-				lc.setColor("grey");
+				lc.setColor("#DEDEDE");
 			}else{
-				lc.setColor(color);
+				if(i==lineCharts.size()-1){
+					lc.setColor(color);
+				}else{
+					lc.setColor("#DEDEDE");
+				}
+				
 			}
 		}
 	}
