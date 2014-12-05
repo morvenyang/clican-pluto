@@ -67,12 +67,12 @@
 
 
     
-    UILabel* typeLabel = [self createLabel:@"    店铺名称" frame:CGRectMake(0, dailyView.frame.size.height, SCREEN_WIDTH, SCREEN_HEIGHT*5/48) textColor:@"#ffffff" font:channelFontSize backgroundColor:TAB_COLOR];
+    UILabel* typeLabel = [self createLabel:@"    店铺名称" frame:CGRectMake(0, dailyView.frame.size.height, SCREEN_WIDTH, [self getTabHeight]) textColor:@"#ffffff" font:channelFontSize backgroundColor:TAB_COLOR];
    
     typeLabel.textAlignment = [self getAlignment:ALIGN_LEFT];
         [self.contentView addSubview:typeLabel];
     
-    _tableOffset = SCREEN_HEIGHT*5/48+dailyView.frame.size.height;;
+    _tableOffset = [self getTabHeight]+dailyView.frame.size.height;;
     
     
     CGFloat ROW_HEIGHT = 54;

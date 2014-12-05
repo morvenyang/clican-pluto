@@ -88,7 +88,7 @@
             realWidth = SCREEN_WIDTH-t;
         }
         t+=width;
-        UILabel* tabLabel = [self createLabel:tab frame:CGRectMake(x, dailyView.frame.size.height, realWidth, SCREEN_HEIGHT*5/48) textColor:@"#636363" font:channelFontSize backgroundColor:@"#ffffff"];
+        UILabel* tabLabel = [self createLabel:tab frame:CGRectMake(x, dailyView.frame.size.height, realWidth, [self getTabHeight]) textColor:@"#636363" font:channelFontSize backgroundColor:@"#ffffff"];
         UITapGestureRecognizer* recognizer = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickChannelLabel:)] autorelease];
         tabLabel.userInteractionEnabled = YES;
         [tabLabel addGestureRecognizer:recognizer];

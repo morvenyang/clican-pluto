@@ -50,6 +50,7 @@
 #else
 -(UITextAlignment) getAlignment:(int)textAlignment;
 #endif
+-(CGFloat) getTabHeight;
 -(void)openCalendar:(id)sender;
 -(void)changeDateAndReload;
 -(void)hideShareView;
