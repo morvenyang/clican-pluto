@@ -101,7 +101,7 @@
                 realWidth = SCREEN_WIDTH-t;
             }
             t+=width;
-            UILabel* channelLabel = [self createLabel:channel.channel frame:CGRectMake(x, dailyView.frame.size.height, realWidth, SCREEN_HEIGHT*5/48) textColor:@"#636363" font:channelFontSize backgroundColor:@"#ffffff"];
+            UILabel* channelLabel = [self createLabel:channel.channel frame:CGRectMake(x, dailyView.frame.size.height, realWidth, [self getTabHeight]) textColor:@"#636363" font:channelFontSize backgroundColor:@"#ffffff"];
             UITapGestureRecognizer* recognizer = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickChannelLabel:)] autorelease];
             channelLabel.userInteractionEnabled = YES;
             [channelLabel addGestureRecognizer:recognizer];
@@ -121,7 +121,7 @@
     }else{
         channel = [[[Channel alloc] init] autorelease];
     }
-    CGFloat hOffset = dailyView.frame.size.height+SCREEN_HEIGHT*7/48;
+    CGFloat hOffset = dailyView.frame.size.height+SCREEN_HEIGHT*2/48+[self getTabHeight];
     
     UIImage* labelImage = [UIImage imageNamed:@"零售收入"];
     CGFloat rowImageHeight = labelImage.size.height;

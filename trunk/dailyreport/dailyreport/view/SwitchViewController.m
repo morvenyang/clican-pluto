@@ -248,10 +248,14 @@
 -(UIView*) createDailyView:(NSString*) iconName label:(NSString*)label{
     int labelFontSize = [self getFont:12 ip6Offset:2 ip6pOffset:4];
     UIImage* iconImage = [UIImage imageNamed:iconName];
-    UIView* dailyView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, iconImage.size.height)] autorelease];
+    CGFloat dailyViewHeight =iconImage.size.height;
+    if(IS_IPHONE6||IS_IPHONE6_PLUS){
+        dailyViewHeight =dailyViewHeight*1.3;
+    }
+    UIView* dailyView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, dailyViewHeight)] autorelease];
     dailyView.backgroundColor =[StyleSheet colorFromHexString:[[[NSBundle mainBundle] infoDictionary] objectForKey:[NSString stringWithFormat:@"%@背景",self.brand]]];
-    UIImageView* retailImageView = [self createImageViewFromImage:iconImage frame:CGRectMake(0, 0, iconImage.size.width, iconImage.size.height)];
-    UILabel* retailLabel = [self createLabel:label frame:CGRectMake(40, 0, 120, iconImage.size.height) textColor:@"#ffffff" font:labelFontSize backgroundColor:nil];
+    UIImageView* retailImageView = [self createImageViewFromImage:iconImage frame:CGRectMake(0, (dailyViewHeight-iconImage.size.height)/2, iconImage.size.width, iconImage.size.height)];
+    UILabel* retailLabel = [self createLabel:label frame:CGRectMake(40, (dailyViewHeight-iconImage.size.height)/2, 120, iconImage.size.height) textColor:@"#ffffff" font:labelFontSize backgroundColor:nil];
     NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
     [dateFormatter setDateFormat:@"MM月dd日 EEEE"];
     
@@ -259,12 +263,22 @@
     if(self.selectedDate!=nil){
         dateStr =[dateFormatter stringFromDate:self.selectedDate];
     }
-    self.calendarLabel = [self createLabel:dateStr frame:CGRectMake(SCREEN_WIDTH/2, 0, SCREEN_WIDTH/2-30, iconImage.size.height) textColor:@"#ffffff" font:labelFontSize backgroundColor:nil];
+    self.calendarLabel = [self createLabel:dateStr frame:CGRectMake(SCREEN_WIDTH/2, (dailyViewHeight-iconImage.size.height)/2, SCREEN_WIDTH/2-30, iconImage.size.height) textColor:@"#ffffff" font:labelFontSize backgroundColor:nil];
     self.calendarLabel.textAlignment = NSTextAlignmentRight;
     [dailyView addSubview:retailImageView];
     [dailyView addSubview:retailLabel];
     [dailyView addSubview:self.calendarLabel];
     return dailyView;
+}
+
+-(CGFloat) getTabHeight{
+    if (IS_IPHONE4||IS_IPHONE5) {
+        return 50;
+    }else if(IS_IPHONE6){
+        return 45;
+    }else{
+        return 45;
+    }
 }
 
 #ifdef __IPHONE_6_0

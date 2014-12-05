@@ -88,7 +88,7 @@
                 realWidth = SCREEN_WIDTH-t;
             }
             t+=width;
-            UILabel* typeLabel = [self createLabel:type frame:CGRectMake(x, dailyView.frame.size.height, realWidth, SCREEN_HEIGHT*4.6/48) textColor:@"#636363" font:channelFontSize backgroundColor:@"#ffffff"];
+            UILabel* typeLabel = [self createLabel:type frame:CGRectMake(x, dailyView.frame.size.height, realWidth, [self getTabHeight]) textColor:@"#636363" font:channelFontSize backgroundColor:@"#ffffff"];
             UITapGestureRecognizer* recognizer = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickTypeLabel:)] autorelease];
             typeLabel.userInteractionEnabled = YES;
             [typeLabel addGestureRecognizer:recognizer];
@@ -104,7 +104,7 @@
     }
     
     CGFloat wOffset = 0;
-    CGFloat hOffset = SCREEN_HEIGHT*6/48+dailyView.frame.size.height;
+    CGFloat hOffset = SCREEN_HEIGHT*2/48+dailyView.frame.size.height+[self getTabHeight];
     [self.contentView addSubview:[self createLabel:@"" frame:CGRectMake(0, hOffset, SCREEN_WIDTH*4/14, SCREEN_HEIGHT*30/480) textColor:@"#ffffff" font:labelFontSize backgroundColor:STORE_RANK_TABLE_HEAD_COLOR textAlignment:ALIGN_CENTER]];
     wOffset+=SCREEN_WIDTH*4/14+2;
     [self.contentView addSubview:[self createLabel:@"合计" frame:CGRectMake(wOffset, hOffset, SCREEN_WIDTH*2/14, SCREEN_HEIGHT*30/480) textColor:@"#ffffff" font:labelFontSize backgroundColor:STORE_RANK_TABLE_HEAD_COLOR textAlignment:ALIGN_CENTER]];

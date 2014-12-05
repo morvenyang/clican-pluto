@@ -91,7 +91,7 @@
                 realWidth = SCREEN_WIDTH*2/3-t;
             }
             t+=width;
-            UILabel* channelLabel = [self createLabel:channelRank.channel frame:CGRectMake(x, dailyView.frame.size.height, realWidth, SCREEN_HEIGHT*5/48) textColor:@"#636363" font:channelFontSize backgroundColor:@"#ffffff"];
+            UILabel* channelLabel = [self createLabel:channelRank.channel frame:CGRectMake(x, dailyView.frame.size.height, realWidth, [self getTabHeight]) textColor:@"#636363" font:channelFontSize backgroundColor:@"#ffffff"];
             UITapGestureRecognizer* recognizer = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickChannelLabel:)] autorelease];
             channelLabel.userInteractionEnabled = YES;
             [channelLabel addGestureRecognizer:recognizer];
@@ -105,7 +105,7 @@
             index++;
         }
         
-        self.topLabel = [self createLabel:@"前10" frame:CGRectMake(SCREEN_WIDTH*2/3+10, dailyView.frame.size.height+SCREEN_HEIGHT*1/48, (SCREEN_WIDTH*1/3-20)/2, SCREEN_HEIGHT*3/48) textColor:@"#636363" font:channelFontSize-5 backgroundColor:@"#ffffff"];
+        self.topLabel = [self createLabel:@"前10" frame:CGRectMake(SCREEN_WIDTH*2/3+10, dailyView.frame.size.height+[self getTabHeight]/6, (SCREEN_WIDTH*1/3-20)/2, [self getTabHeight]*2/3) textColor:@"#636363" font:channelFontSize-5 backgroundColor:@"#ffffff"];
         UITapGestureRecognizer* orderRecognizer1 = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickOrderLabel:)] autorelease];
         self.topLabel.userInteractionEnabled = YES;
         [self.topLabel addGestureRecognizer:orderRecognizer1];
@@ -114,7 +114,7 @@
         self.topLabel.layer.borderColor = [UIColor blackColor].CGColor;
         [self.contentView addSubview:self.topLabel];
         
-        self.bottomLabel = [self createLabel:@"后10" frame:CGRectMake(SCREEN_WIDTH*2/3+10+(SCREEN_WIDTH*1/3-20)/2, dailyView.frame.size.height+SCREEN_HEIGHT*1/48, (SCREEN_WIDTH*1/3-20)/2, SCREEN_HEIGHT*3/48) textColor:@"#ffffff" font:channelFontSize-5 backgroundColor:TAB_COLOR];
+        self.bottomLabel = [self createLabel:@"后10" frame:CGRectMake(SCREEN_WIDTH*2/3+10+(SCREEN_WIDTH*1/3-20)/2, dailyView.frame.size.height+[self getTabHeight]/6, (SCREEN_WIDTH*1/3-20)/2, [self getTabHeight]*2/3) textColor:@"#ffffff" font:channelFontSize-5 backgroundColor:TAB_COLOR];
         UITapGestureRecognizer* orderRecognizer2 = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickOrderLabel:)] autorelease];
         self.bottomLabel.userInteractionEnabled = YES;
         [self.bottomLabel addGestureRecognizer:orderRecognizer2];
@@ -126,7 +126,7 @@
     }
     [self.contentView addSubview:dailyView];
     CGFloat wOffset = 0;
-    CGFloat hOffset = SCREEN_HEIGHT*6/48+dailyView.frame.size.height;
+    CGFloat hOffset = SCREEN_HEIGHT*2/48+dailyView.frame.size.height+[self getTabHeight];
     [self.contentView addSubview:[self createLabel:@"＃" frame:CGRectMake(0, hOffset, SCREEN_WIDTH*3/32, SCREEN_HEIGHT*30/480) textColor:@"#ffffff" font:labelFontSize backgroundColor:STORE_RANK_TABLE_HEAD_COLOR textAlignment:ALIGN_CENTER]];
     wOffset+=SCREEN_WIDTH*3/32+2;
     [self.contentView addSubview:[self createLabel:@"店铺名称" frame:CGRectMake(wOffset, hOffset, SCREEN_WIDTH*220/320, SCREEN_HEIGHT*30/480) textColor:@"#ffffff" font:labelFontSize backgroundColor:STORE_RANK_TABLE_HEAD_COLOR textAlignment:ALIGN_CENTER]];
