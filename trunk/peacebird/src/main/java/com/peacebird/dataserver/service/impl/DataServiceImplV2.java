@@ -172,7 +172,9 @@ public class DataServiceImplV2 implements DataServiceV2 {
 		bsr.setBrand(brand);
 		bsr.setResult(0);
 		bsr.setBrandResult(br);
-		bsr.setChannels(bcr);
+		if(!brand.equals(Constants.B2C)){
+			bsr.setChannels(bcr);
+		}
 
 		Date firstDayOfThisWeek = getCalendarDate(yesterday,Calendar.WEEK_OF_MONTH);
 		// daily line chart

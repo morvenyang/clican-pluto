@@ -140,7 +140,9 @@ public class DataDaoImplV2 extends HibernateDaoSupport implements DataDaoV2 {
 				hsql2, new String[] { "date", "brand", "channel" },
 				new Object[] { date, brand, Constants.B2C });
 		List<ChannelResult> all = new ArrayList<ChannelResult>();
-		all.addAll(r2);
+		if(!brand.equals(Constants.B2C)){
+			all.addAll(r2);
+		}
 		all.addAll(r1);
 		return all;
 	}
