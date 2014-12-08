@@ -186,7 +186,8 @@
 
 - (void)dealloc
 {
-
+    _retailModel.delegate = nil;
+    TT_RELEASE_SAFELY(_retailModel);
     TT_RELEASE_SAFELY(_webPieChartView);
     TT_RELEASE_SAFELY(_tabLables);
     TT_RELEASE_SAFELY(_tableViews);

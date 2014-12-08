@@ -8,6 +8,7 @@
 
 #import "PBNavigationViewController.h"
 #import "StyleSheet.h"
+#import "AppDelegate.h"
 @implementation PBNavigationViewController
 @synthesize  backIndex = _backIndex;
 -(id) initWithBrand:(NSString*) brand backIndex:(int)backIndex{
@@ -62,24 +63,11 @@
     int index = button.titleLabel.text.intValue;
     [[TTNavigator navigator] removeAllViewControllers];
     
-    TTOpenURL([self getBackUrl:index]);
-    if(true){
-        return;
-    }
-    NSString* parentURL = nil;
     for(int i=1;i<=index;i++){
         NSString* url = [self getBackUrl:i];
-        if(i!=index){
-            [[TTNavigator navigator] openURLAction:
-             [[[[TTURLAction actionWithURLPath:url]
-              applyAnimated:NO] applyParentURLPath:parentURL] applyWithDelay:NO]];
-        }else{
-            [[TTNavigator navigator] openURLAction:
-             [[[TTURLAction actionWithURLPath:url]
-              applyAnimated:YES] applyParentURLPath:parentURL]];
-        }
-        
-        parentURL = url;
+        [[TTNavigator navigator] openURLAction:
+         [[TTURLAction actionWithURLPath:url]
+          applyAnimated:NO]];
     }
 }
 
