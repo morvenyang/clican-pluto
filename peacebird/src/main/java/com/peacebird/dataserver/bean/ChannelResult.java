@@ -9,7 +9,7 @@ public class ChannelResult implements Comparable<ChannelResult> {
 	private Double avgDocCount;
 
 	private Integer avgPrice;
-	
+
 	private Integer avgDocAmount;
 
 	private Integer aps;
@@ -17,7 +17,8 @@ public class ChannelResult implements Comparable<ChannelResult> {
 	private String channel;
 
 	public ChannelResult(Number dayAmount, Number docNumber,
-			Number avgDocCount, Number avgPrice,Number avgDocAmount, Number aps, String channel) {
+			Number avgDocCount, Number avgPrice, Number avgDocAmount,
+			Number aps, String channel) {
 		if (dayAmount != null) {
 			this.dayAmount = dayAmount.longValue();
 		}
@@ -112,6 +113,18 @@ public class ChannelResult implements Comparable<ChannelResult> {
 			return 6;
 		} else if (channel.equals("电商")) {
 			return 100;
+		} else if (channel.equals("女装")) {
+			return 1;
+		} else if (channel.equals("男装")) {
+			return 2;
+		} else if (channel.equals("了町")) {
+			return 3;
+		} else if (channel.equals("童装")) {
+			return 4;
+		} else if (channel.equals("赫奇")) {
+			return 5;
+		} else if (channel.equals("MG")) {
+			return 6;
 		} else {
 			return 8;
 		}
