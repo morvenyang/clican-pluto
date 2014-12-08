@@ -224,7 +224,7 @@ public class DataServiceImplV2 implements DataServiceV2 {
 		}else if(brand.equals("MG公司")){
 			color = "#E51D98";
 		}else if(brand.equals("电商")){
-			color = "#17387A";
+			color = "#D71515";
 		}
 		SimpleDateFormat sdf =null;
 		SimpleDateFormat fsdf = null;
