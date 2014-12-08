@@ -29,6 +29,7 @@
 @synthesize user=_user;
 @synthesize token = _token;
 @synthesize loginModel = _loginModel;
+@synthesize navigation = _navigation;
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     #ifdef __IPHONE_8_0

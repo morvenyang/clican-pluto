@@ -16,11 +16,12 @@
     User* _user;
     NSString* _token;
     LoginModel* _loginModel;
+    BOOL _navigation;
 }
 
 @property (nonatomic, retain) User* user;
 @property (nonatomic, retain) LoginModel* loginModel;
 @property (nonatomic, copy) NSString* token;
 @property (strong, nonatomic) UIWindow *window;
-
+@property (nonatomic, assign) BOOL navigation;
 @end
