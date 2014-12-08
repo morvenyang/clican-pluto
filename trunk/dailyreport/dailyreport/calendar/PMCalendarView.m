@@ -12,6 +12,7 @@
 #import "NSDate+Helpers.h"
 #import "PMSelectionView.h"
 #import "AppDelegate.h"
+#import "StyleSheet.h"
 @interface PMDaysView : UIView
 
 @property (nonatomic, strong) UIFont *font;
@@ -600,20 +601,21 @@
 //        [UIColorMakeRGBA(arc4random()%255, arc4random()%255, arc4random()%255, 0.3) setFill];// \  Digits position
 //        CGContextFillRect(context, rect);                                                    // /      debug
         [color setFill];
-        [string drawInRect: rect 
-                  withFont: self.font
-             lineBreakMode: UILineBreakModeWordWrap
-                 alignment: UITextAlignmentCenter];
-        [[UIColor grayColor] setFill];
+        
         CGPoint p = CGPointMake(rect.origin.x+rect.size.width/2, rect.origin.y+rect.size.height/2);
         NSDate* d = [_calendarView dateForPoint:p];
         NSLog(@"%i",DrAppDelegate.user.availableDates.count);
         if(![DrAppDelegate.user.availableDates containsObject:d]){
-            [@"x" drawInRect: rect
-                    withFont: self.font
-               lineBreakMode: UILineBreakModeWordWrap
-                   alignment: UITextAlignmentCenter];
+            [[StyleSheet colorFromHexString:@"#646464"] setFill];
+        }else{
+            [[UIColor whiteColor] setFill];
         }
+        
+        [string drawInRect: rect 
+                  withFont: self.font
+             lineBreakMode: UILineBreakModeWordWrap
+                 alignment: UITextAlignmentCenter];
+        
         
         CGContextRestoreGState(context);
     };
