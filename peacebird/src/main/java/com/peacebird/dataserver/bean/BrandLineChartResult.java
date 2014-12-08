@@ -52,9 +52,10 @@ public class BrandLineChartResult implements Comparable<BrandLineChartResult> {
 	}
 
 	public Double getLike() {
-		if (preAmount == null || amount == null) {
-			return null;
+		if (preAmount == null || amount == null || preAmount == 0) {
+			return 0.0;
 		}
+
 		return (amount / preAmount - 1) * 100;
 	}
 
