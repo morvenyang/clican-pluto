@@ -143,6 +143,9 @@
 }
 -(UIView*) createPaginationView:(int)y{
     int c = 8;
+    if([self.brand isEqualToString:@"电商"]){
+        c=2;
+    }
     UIView* paginationView = [[[UIView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/2-16*c/2, y, 16*c, 30)] autorelease];
     UIImage* lightImage= [UIImage imageNamed:@"图标-分页原点-正常.png"];
     UIImage* highLightImage= [UIImage imageNamed:@"图标-分页原点-高亮.png"];

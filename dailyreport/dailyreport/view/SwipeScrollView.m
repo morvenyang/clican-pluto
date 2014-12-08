@@ -45,10 +45,6 @@
 -(void)doSwipe:(NSSet*)touches{
     NSLog(@"swipe=%hhd",_swiping);
     if (_swiping){
-        CATransition *animation = [CATransition animation];
-        animation.duration = 3;
-        animation.timingFunction = UIViewAnimationCurveEaseInOut;
-        animation.type = kCATransitionReveal;
         _swipeEndPoint=[[touches anyObject] locationInView:self].x;
         CGFloat swipeDistance = _swipeEndPoint - _swipeStartPoint;
         NSLog(@"swipeDistance=%f",swipeDistance);
@@ -57,7 +53,11 @@
         }
         // Swipe to left
         if (swipeDistance < -30.f) {
-            animation.subtype = kCATransitionFromLeft;
+            if([self.brand isEqualToString:@"电商"]){
+                if (self.index>1) {
+                    return;
+                }
+            }
             if(self.index==1){
                 NSString* url = [NSString stringWithFormat:@"peacebird://kpi/%@", [self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
                 TTOpenURL(url);
@@ -92,7 +92,6 @@
         }
         // Swipe to right
         else if (swipeDistance > 30.f) {
-            animation.subtype = kCATransitionFromRight;
             if(self.index==2){
                 NSString* url = [NSString stringWithFormat:@"peacebird://brand/%@", [self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
                 TTOpenURL(url);

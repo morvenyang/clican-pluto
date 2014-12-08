@@ -140,7 +140,7 @@
     return footView;
 }
 -(UIView*) createPaginationView:(int)y{
-    UIView* paginationView = [[[UIView alloc] initWithFrame:CGRectMake((320-16*DrAppDelegate.user.goods.count)/2, y, 16*DrAppDelegate.user.goods.count, 30)] autorelease];
+    UIView* paginationView = [[[UIView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-16*DrAppDelegate.user.goods.count)/2, y, 16*DrAppDelegate.user.goods.count, 30)] autorelease];
     UIImage* lightImage= [UIImage imageNamed:@"图标-分页原点-正常.png"];
     UIImage* highLightImage= [UIImage imageNamed:@"图标-分页原点-高亮.png"];
     paginationView.backgroundColor = [UIColor whiteColor];

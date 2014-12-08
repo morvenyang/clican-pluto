@@ -43,8 +43,12 @@
     #else
         self.navigationBarTintColor=[StyleSheet colorFromHexString:@"#EAEEF2"];
     #endif
-
+    
     [super viewWillAppear:animated];
+}
+- (void)viewDidDisappear:(BOOL)animated {
+    [self hideConfig];
+    [super viewDidDisappear:animated];
 }
 -(void)updateDate{
     UILabel* label = [[[UILabel alloc] initWithFrame:CGRectZero] autorelease];

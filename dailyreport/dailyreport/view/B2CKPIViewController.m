@@ -55,10 +55,10 @@
         }
     }
     [self.contentView addSubview:dailyView];
-    if(channel==nil){
-        TTAlert(@"没有相关电商指标数据");
-        return;
-    }
+//    if(channel==nil){
+//        TTAlert(@"没有相关电商指标数据");
+//        return;
+//    }
     
     CGFloat hOffset = dailyView.frame.size.height;
     int labelFontSize =[self getFont:18 ip6Offset:2 ip6pOffset:4];
@@ -87,7 +87,7 @@
     [self.contentView addSubview:[self createImageViewFromNamedImage:@"关键指标-分割线" frame:CGRectMake(0,hOffset,SCREEN_WIDTH,3)]];
     hOffset+=3;
     [self.contentView addSubview:[self createImageViewFromNamedImage:@"附加" point:CGPointMake(20,hOffset+rowImageHeight/2)]];
-    [self.contentView addSubview:[self createLabel:@"附加" frame:CGRectMake(labelOffset,hOffset,100,rowHeight)  textColor:@"#4a4a4a" font:18 backgroundColor:nil]];
+    [self.contentView addSubview:[self createLabel:@"附加" frame:CGRectMake(labelOffset,hOffset,100,rowHeight)  textColor:@"#4a4a4a" font:labelFontSize backgroundColor:nil]];
     [self.contentView addSubview:[self createLabel:[NSString stringWithFormat:@"%0.1f",channel.avgDocCount.doubleValue] frame:CGRectMake(SCREEN_WIDTH*11/16,hOffset,SCREEN_WIDTH*5/16,rowHeight) textColor:@"#7f7f7f" font:labelFontSize backgroundColor:nil textAlignment:ALIGN_LEFT]];
     hOffset+=rowHeight;
     [self.contentView addSubview:[self createImageViewFromNamedImage:@"关键指标-分割线" frame:CGRectMake(0,hOffset,SCREEN_WIDTH,3)]];

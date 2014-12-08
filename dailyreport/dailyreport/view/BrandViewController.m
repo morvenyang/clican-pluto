@@ -271,29 +271,19 @@
     NSString* fullDateStr = [jsonObj objectForKey:@"fullDateStr"];
     NSNumber* amount =[jsonObj objectForKey:@"amount"];
     NSNumber* like =[jsonObj objectForKey:@"like"];
-    CGFloat leftOffset = 30;
-    CGFloat amountWidth = 50;
-    if([dataProvider isEqualToString:self.weeklyLineChart]){
-        leftOffset = 30;
-        amountWidth = 60;
-    }else if([dataProvider isEqualToString:self.monthlyLineChart]){
-        leftOffset = 50;
-        amountWidth = 80;
-    }else if([dataProvider isEqualToString:self.yearlyLineChart]){
-        leftOffset = 70;
-        amountWidth = 90;
-    }
+    CGFloat leftOffset = 50;
+
+    
     NSString* color = [[[NSBundle mainBundle] infoDictionary] objectForKey:[NSString stringWithFormat:@"%@背景",self.brand]];
     [self.infoView addSubview:[self createLabel:fullDateStr frame:CGRectMake(10, 0, SCREEN_WIDTH/2-leftOffset, infoHeight) textColor:@"#000000" font:labelFontSize backgroundColor:nil]];
     CGFloat wOffset =SCREEN_WIDTH/2-leftOffset;
     [self.infoView addSubview:[self createLabel:@"收入" frame:CGRectMake(wOffset, 0, 25*SCREEN_WIDTH/320, infoHeight) textColor:@"#000000" font:labelFontSize backgroundColor:nil]];
     wOffset+=25*SCREEN_WIDTH/320;
-    UILabel* amountLabel=[self createDecimalLabel:amount frame:CGRectMake(wOffset, 0, amountWidth*SCREEN_WIDTH/320, infoHeight) textColor:color font:amountFontSize backgroundColor:nil textAlignment:ALIGN_LEFT];
-    CGSize amountSize =[amountLabel.text sizeWithFont:amountLabel.font];
-    amountLabel.frame = CGRectMake(wOffset, 0,amountSize.width, infoHeight);
+    UILabel* amountLabel=[self createDecimalLabel:amount frame:CGRectMake(wOffset, 0, 70*SCREEN_WIDTH/320, infoHeight) textColor:color font:amountFontSize backgroundColor:nil textAlignment:ALIGN_LEFT];
+    
     [self.infoView addSubview:amountLabel];
     
-    wOffset+=amountSize.width+5;
+    wOffset+=70*SCREEN_WIDTH/320;
     [self.infoView addSubview:[self createLabel:@"同比" frame:CGRectMake(wOffset, 0, 25*SCREEN_WIDTH/320, infoHeight) textColor:@"#000000" font:labelFontSize backgroundColor:nil]];
     wOffset+=25*SCREEN_WIDTH/320;
     UILabel* label = [self createDecimalLabel:like unit:@"%" frame:CGRectMake(wOffset, 0, SCREEN_WIDTH-wOffset, infoHeight) textColor:color font:amountFontSize backgroundColor:nil textAlignment:ALIGN_LEFT];

@@ -166,6 +166,10 @@
         return;
     }
     if(_passwordField.text==nil||_passwordField.text.length==0){
+        TTAlert(@"新密码不能为空");
+        return;
+    }
+    if(_confirmPasswordField.text==nil||_confirmPasswordField.text.length==0){
         TTAlert(@"请再次输入新密码");
         return;
     }
