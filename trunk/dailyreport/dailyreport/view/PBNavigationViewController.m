@@ -65,9 +65,9 @@
     
     for(int i=1;i<=index;i++){
         NSString* url = [self getBackUrl:i];
+        TTURLAction* action=[TTURLAction actionWithURLPath:url];
         [[TTNavigator navigator] openURLAction:
-         [[TTURLAction actionWithURLPath:url]
-          applyAnimated:NO]];
+        [action applyAnimated:NO]];
     }
 }
 

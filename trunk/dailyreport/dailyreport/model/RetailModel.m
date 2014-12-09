@@ -68,7 +68,7 @@
         NSDateFormatter* dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
         [dateFormatter setTimeStyle:NSDateFormatterFullStyle];
         [dateFormatter setDateFormat:@"yyyy-MM-dd"];
-        NSLog(@"response.rootObject:%@" ,data);
+        //NSLog(@"response.rootObject:%@" ,data);
         NSNumber* result = [data objectForKey:@"result"];
         if([result intValue]==0){
             NSDate* date =  [dateFormatter dateFromString:[data objectForKey:@"date"]];
