@@ -73,7 +73,7 @@
         NSNumber* result = [data objectForKey:@"result"];
         if([result intValue]==0){
             NSArray* monthlySums = [data objectForKey:@"monthlySums"];
-            NSArray* yearlySums = [data objectForKey:@"monthlySums"];
+            NSArray* yearlySums = [data objectForKey:@"yearlySums"];
             NSMutableArray* ms = [NSMutableArray array];
             NSMutableArray* ys = [NSMutableArray array];
             for (NSDictionary* m in monthlySums) {

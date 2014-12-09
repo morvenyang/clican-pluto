@@ -211,7 +211,7 @@
         _oldPasswordField.font = [UIFont fontWithName:@"Microsoft YaHei" size:24];
         _oldPasswordField.textColor = [StyleSheet colorFromHexString:@"#a3a3a3"];
         _oldPasswordField.placeholder =
-        @"请输入旧密码";
+        @"当前密码";
         
         _oldPasswordField.autocorrectionType = UITextAutocorrectionTypeNo;
         _oldPasswordField.keyboardType = UIKeyboardTypeDefault;
@@ -231,7 +231,7 @@
     {
         _passwordField = [[UITextField alloc] init];
         _passwordField.font = [UIFont fontWithName:@"Microsoft YaHei" size:24];
-        _passwordField.textColor = [StyleSheet colorFromHexString:@"#a3a3a3"];        _passwordField.placeholder =@"请输入密码";
+        _passwordField.textColor = [StyleSheet colorFromHexString:@"#a3a3a3"];        _passwordField.placeholder =@"新密码";
         
         _passwordField.autocorrectionType = UITextAutocorrectionTypeNo;
         _passwordField.keyboardType = UIKeyboardTypeDefault;
@@ -257,7 +257,7 @@
         _confirmPasswordField.font = [UIFont fontWithName:@"Microsoft YaHei" size:24];
         _confirmPasswordField.textColor = [StyleSheet colorFromHexString:@"#a3a3a3"];
         _confirmPasswordField.placeholder =
-        @"请再次输入密码";
+        @"确认新密码";
         
         _confirmPasswordField.autocorrectionType = UITextAutocorrectionTypeNo;
         _confirmPasswordField.keyboardType = UIKeyboardTypeDefault;
