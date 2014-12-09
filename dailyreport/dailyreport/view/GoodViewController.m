@@ -68,8 +68,11 @@
         
     }
     GoodRank* gr = [DrAppDelegate.user.goods objectAtIndex:DrAppDelegate.user.goodIndex];
-
-    TTImageView* imageView = [[[TTImageView alloc] initWithFrame:CGRectMake(10,_footOffset , SCREEN_WIDTH-20, (SCREEN_WIDTH-20)*4/3)] autorelease];
+    CGFloat ratio = 16.0/11;
+    if(IS_IPHONE4){
+        ratio = 16.0/12;
+    }
+    TTImageView* imageView = [[[TTImageView alloc] initWithFrame:CGRectMake(10,_footOffset , SCREEN_WIDTH-20, (SCREEN_WIDTH-20)*ratio)] autorelease];
     imageView.urlPath = gr.imageLink;
     
     [self.contentView addSubview:imageView];
@@ -78,11 +81,11 @@
     
     
 
-    UIView* footView =[self createFootView:gr y:_footOffset+(SCREEN_WIDTH-20)*4/3-SCREEN_HEIGHT*100/480];
+    UIView* footView =[self createFootView:gr y:_footOffset+(SCREEN_WIDTH-20)*ratio-SCREEN_HEIGHT*100/480];
     [self.contentView addSubview:footView];
     [self.dyviews addObject:footView];
     self.contentView.contentSize =
-    CGSizeMake(SCREEN_WIDTH, _footOffset+(SCREEN_WIDTH-20)*4/3);
+    CGSizeMake(SCREEN_WIDTH, _footOffset+(SCREEN_WIDTH-20)*ratio);
     if(SCREEN_WIDTH!=320){
         self.contentView.scrollEnabled=NO;
     }
