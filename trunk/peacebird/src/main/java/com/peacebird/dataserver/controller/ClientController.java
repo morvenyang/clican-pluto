@@ -177,7 +177,7 @@ public class ClientController {
 				userService.saveUser(user);
 				result = this.getErrorResult(0, "密码修改成功");
 			} else {
-				result = this.getErrorResult(0, "旧密码有误");
+				result = this.getErrorResult(1002, "旧密码有误");
 			}
 		}
 		try {
