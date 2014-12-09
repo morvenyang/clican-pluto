@@ -7,9 +7,6 @@
 //
 
 #import "KKViewController.h"
-@interface KKViewController ()
-
-@end
 
 @implementation KKViewController
 
@@ -48,7 +45,7 @@
     self.titleLabel.textColor = [UIColor whiteColor];
     self.lockView = [[KKGestureLockView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Do any additional setup after loading the view, typically from a nib.
-    self.view.backgroundColor = [UIColor clearColor];
+    self.view.backgroundColor = [UIColor blackColor];
     self.lockView.normalGestureNodeImage = [UIImage imageNamed:@"gesture_node_normal"];
     self.lockView.selectedGestureNodeImage = [UIImage imageNamed:@"gesture_node_selected"];
     self.lockView.lineColor = [[UIColor orangeColor] colorWithAlphaComponent:0.5];
@@ -61,6 +58,7 @@
     [self addFootButtons];
 }
 -(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
     self.time = 1;
 }
 
@@ -99,7 +97,7 @@
 
 -(void)viewDidLoad{
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor clearColor];
+    self.view.backgroundColor = [UIColor blackColor];
 }
 - (void)didReceiveMemoryWarning
 {

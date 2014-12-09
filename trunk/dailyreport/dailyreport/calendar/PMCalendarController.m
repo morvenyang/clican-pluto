@@ -15,13 +15,13 @@
 #import "PMCalendarHelpers.h"
 #import "PMDimmingView.h"
 #import "Constants.h"
-static CGSize defaultSize = (CGSize){300, 240};
+
 CGSize arrowSize = (CGSize){18, 11};
 CGSize outerPadding = (CGSize){0, 0}; // TBD
 NSString *kPMCalendarRedrawNotification = @"kPMCalendarRedrawNotification";
 
 @interface PMCalendarController ()
-
+@property (nonatomic, assign) CGSize defaultSize;
 @property (nonatomic, strong) UIView *mainView;
 @property (nonatomic, strong) UIView *anchorView;
 @property (nonatomic, assign) PMCalendarArrowDirection savedPermittedArrowDirections;
@@ -37,6 +37,7 @@ NSString *kPMCalendarRedrawNotification = @"kPMCalendarRedrawNotification";
 
 @implementation PMCalendarController
 
+@synthesize defaultSize = _defaultSize;
 @synthesize position = _position;
 @synthesize delegate = _delegate;
 
@@ -62,7 +63,6 @@ NSString *kPMCalendarRedrawNotification = @"kPMCalendarRedrawNotification";
 
 - (void) initializeWithSize:(CGSize) size date:(NSDate*)date
 {
-    defaultSize = (CGSize){SCREEN_WIDTH*300/320, SCREEN_WIDTH*240/320};
     self.calendarArrowDirection = PMCalendarArrowDirectionUnknown;
     
     CGRect calendarRect = CGRectMake(0, 0, size.width, size.height);
@@ -108,7 +108,7 @@ NSString *kPMCalendarRedrawNotification = @"kPMCalendarRedrawNotification";
 
 - (id) init
 {
-    return [self initWithSize: defaultSize];
+    return [self initWithSize: (CGSize){SCREEN_WIDTH*310/320, SCREEN_WIDTH*250/320}];
 }
 
 - (id) initWithDate:(NSDate*) date{
@@ -116,7 +116,7 @@ NSString *kPMCalendarRedrawNotification = @"kPMCalendarRedrawNotification";
     {
         return nil;
     }
-    [self initializeWithSize: defaultSize date:date];
+    [self initializeWithSize: (CGSize){SCREEN_WIDTH*310/320, SCREEN_WIDTH*250/320} date:date];
     return self;
 }
 #pragma mark - rotation handling -
@@ -308,6 +308,7 @@ NSString *kPMCalendarRedrawNotification = @"kPMCalendarRedrawNotification";
     [view addSubview:self.view];
 
     CGRect rectInAppWindow = [self.view convertRect:rect fromView:view];
+    rectInAppWindow.origin=CGPointMake(rectInAppWindow.origin.x, rectInAppWindow.origin.y+20);
     [self adjustCalendarPositionForPermittedArrowDirections:arrowDirections
                                           arrowPointsToRect:rectInAppWindow];
 

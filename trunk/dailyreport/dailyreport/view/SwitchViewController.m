@@ -20,11 +20,15 @@
 @synthesize preScreenShot = _preScreenShot;
 @synthesize selectedDate = _selectedDate;
 @synthesize calendarLabel = _calendarLabel;
+@synthesize direction = _direction;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         _yOffset= 64.0;
+        self.modalPresentationStyle = UIModalPresentationCustom;
+        self.transitioningDelegate = self;
+        self.modalPresentationCapturesStatusBarAppearance=YES;
     }
     return self;
 }
@@ -33,51 +37,58 @@
 {
     
     [super loadView];
-    self.title = self.brand;
+    self.navigationController.navigationBarHidden=YES;
+    UIView* barView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, _yOffset)] autorelease];
+    barView.backgroundColor = [UIColor blackColor];
+    [barView addSubview:[self createLabel:self.brand frame:CGRectMake(0, 20, SCREEN_WIDTH, 44) textColor:@"#ffffff" font:18 backgroundColor:nil textAlignment:ALIGN_CENTER]];
     #ifdef __IPHONE_7_0
     self.edgesForExtendedLayout = UIRectEdgeNone;
     #endif
     UIButton* backButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [backButton setImage:[UIImage imageNamed:@"back.png"] forState:UIControlStateNormal];
     
-    backButton.frame =CGRectMake(0, 0, 40, 40);
+    backButton.frame =CGRectMake(10, 20, 40, 40);
     
     [backButton addTarget:self action:@selector(backAction) forControlEvents:UIControlEventTouchUpInside];
-    #ifdef __IPHONE_7_0
-    if(DEVICE_VERSION>=7.0){
-        backButton.contentEdgeInsets=UIEdgeInsetsMake(0, -30, 0, 0);
-    }
-    #endif
-    #ifdef __IPHONE_6_0
-        if(DEVICE_VERSION<7.0){
-            backButton.contentEdgeInsets=UIEdgeInsetsMake(0, -10, 0, 0);
-        }
-    #endif
-
-    UIBarButtonItem* backButtonItem = [[[UIBarButtonItem alloc] initWithCustomView:backButton] autorelease];
-
-    [self.navigationItem setLeftBarButtonItem:backButtonItem animated:YES];
+    
+    [barView addSubview:backButton];
+//    #ifdef __IPHONE_7_0
+//    if(DEVICE_VERSION>=7.0){
+//        backButton.contentEdgeInsets=UIEdgeInsetsMake(0, -30, 0, 0);
+//    }
+//    #endif
+//    #ifdef __IPHONE_6_0
+//        if(DEVICE_VERSION<7.0){
+//            backButton.contentEdgeInsets=UIEdgeInsetsMake(0, -10, 0, 0);
+//        }
+//    #endif
+//
+//    UIBarButtonItem* backButtonItem = [[[UIBarButtonItem alloc] initWithCustomView:backButton] autorelease];
+//
+//    [self.navigationItem setLeftBarButtonItem:backButtonItem animated:YES];
     
     
     UIButton* shareButtonImage = [UIButton buttonWithType:UIButtonTypeCustom];
-    shareButtonImage.frame =CGRectMake(0, 0, 40, 40);
+    shareButtonImage.frame =CGRectMake(SCREEN_WIDTH-50, 20, 40, 40);
     [shareButtonImage setImage:[UIImage imageNamed:@"图标-分享"] forState:UIControlStateNormal];
     [shareButtonImage addTarget:self action:@selector(showShareView:) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem* shareButton = [[[UIBarButtonItem alloc] initWithCustomView:shareButtonImage] autorelease];
-    if(self.index!=-2){
-        [self.navigationItem setRightBarButtonItem:shareButton animated:YES];
-    }
+    [barView addSubview:shareButtonImage];
     
+//    UIBarButtonItem* shareButton = [[[UIBarButtonItem alloc] initWithCustomView:shareButtonImage] autorelease];
+//    if(self.index!=-2){
+//        [self.navigationItem setRightBarButtonItem:shareButton animated:YES];
+//    }
+    [self.view addSubview:barView];
     CGRect frame = [[UIScreen mainScreen] bounds];
     NSLog(@"%f",frame.size.height);
     self.view.backgroundColor = [UIColor whiteColor];
 
     if(self.index!=-2){
-        self.contentView = [[[SwipeScrollView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height-_yOffset-30)] autorelease];
+        self.contentView = [[[SwipeScrollView alloc] initWithFrame:CGRectMake(0, _yOffset, frame.size.width, frame.size.height-_yOffset-30)] autorelease];
     }else{
-        self.contentView = [[[SwipeScrollView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height-_yOffset)] autorelease];
+        self.contentView = [[[SwipeScrollView alloc] initWithFrame:CGRectMake(0, _yOffset, frame.size.width, frame.size.height-_yOffset)] autorelease];
     }
-    
+    self.contentView.previous = self;
     NSLog(@"%f",self.contentView.frame.size.height);
     self.contentView.index = self.index;
     self.contentView.brand = self.brand;
@@ -86,14 +97,14 @@
     
 
     
-    CGFloat y = frame.size.height-30-_yOffset;
+    CGFloat y = SCREEN_HEIGHT-30;
     if(self.index!=-2){
         [self.view addSubview:[self createPaginationView:y]];
     }
     
     
     
-    y = frame.size.height-200*SCREEN_WIDTH/320-_yOffset;
+    y = SCREEN_HEIGHT-200*SCREEN_WIDTH/320;
     self.backgroundShareView =[[[UIView alloc] initWithFrame:frame] autorelease];
     self.shareView = [[[UIView alloc] initWithFrame:CGRectMake(0, y, SCREEN_WIDTH, 200*SCREEN_WIDTH/320)] autorelease];
     self.shareView.backgroundColor = [StyleSheet colorFromHexString:@"#edeef0"];
@@ -173,29 +184,29 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    #ifdef __IPHONE_7_0
-    if(DEVICE_VERSION>=7.0){
-        self.navigationController.navigationBar.barTintColor=[UIColor blackColor];
-    }else{
-        self.navigationController.navigationBar.tintColor = [UIColor blackColor];
-    }
-    #else
-        self.navigationController.navigationBar.tintColor = [UIColor blackColor];
-    #endif
-    
-    UILabel* label = [[[UILabel alloc] initWithFrame:CGRectZero] autorelease];
-    label.backgroundColor = [UIColor clearColor];
-    label.font =[UIFont systemFontOfSize:18];
-    label.textAlignment = [self getAlignment:ALIGN_CENTER];
-    label.textColor=[UIColor whiteColor];
-    label.text = self.brand;
-    self.navigationItem.titleView = label;
-    [label sizeToFit];
+//    #ifdef __IPHONE_7_0
+//    if(DEVICE_VERSION>=7.0){
+//        self.navigationController.navigationBar.barTintColor=[UIColor blackColor];
+//    }else{
+//        self.navigationController.navigationBar.tintColor = [UIColor blackColor];
+//    }
+//    #else
+//        self.navigationController.navigationBar.tintColor = [UIColor blackColor];
+//    #endif
+//    
+//    UILabel* label = [[[UILabel alloc] initWithFrame:CGRectZero] autorelease];
+//    label.backgroundColor = [UIColor clearColor];
+//    label.font =[UIFont systemFontOfSize:18];
+//    label.textAlignment = [self getAlignment:ALIGN_CENTER];
+//    label.textColor=[UIColor whiteColor];
+//    label.text = [self.brand stringByAppendingFormat:@"%i",self.index];
+//    self.navigationItem.titleView = label;
+//    [label sizeToFit];
     [self.contentView setContentOffset:CGPointZero animated:NO];
-    if(self.selectedDate!=nil&&![self.selectedDate isEqualToDate:DrAppDelegate.user.date]){
-        NSLog(@"当前页面时间和选择的时间不同，重新加载该页面数据");
-        [self changeDateAndReload];
-    }
+//    if(self.selectedDate!=nil&&![self.selectedDate isEqualToDate:DrAppDelegate.user.date]){
+//        NSLog(@"当前页面时间和选择的时间不同，重新加载该页面数据");
+//        [self changeDateAndReload];
+//    }
     [super viewWillAppear:animated];
 }
 
@@ -495,13 +506,18 @@
     }];
 }
 - (void) sendMailContent{
-    MFMailComposeViewController* mailController = [[[MFMailComposeViewController alloc] init] autorelease];
-    mailController.mailComposeDelegate = self;
-    [mailController setSubject:@"PB日报"];
+    if ([MFMailComposeViewController canSendMail]) {
+        MFMailComposeViewController* mailController = [[[MFMailComposeViewController alloc] init] autorelease];
+        mailController.mailComposeDelegate = self;
+        [mailController setSubject:@"PB日报"];
+        
+        
+        [mailController addAttachmentData:UIImagePNGRepresentation(self.preScreenShot) mimeType:@"image/png" fileName:@"PB日报.png"];
+        [self presentViewController:mailController animated:NO completion:nil];
+    }else{
+        TTAlert(@"请先设置邮箱");
+    }
     
-    
-    [mailController addAttachmentData:UIImagePNGRepresentation(self.preScreenShot) mimeType:@"image/png" fileName:@"PB日报.png"];
-    [self presentViewController:mailController animated:NO completion:nil];
 }
 - (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error {
     [self dismissViewControllerAnimated:NO completion:nil];
@@ -558,5 +574,64 @@
     TT_RELEASE_SAFELY(_calendarLabel);
     [super dealloc];
 }
+
+#pragma mark - UIViewControllerTransitioningDelegate Methods
+
+- (id <UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
+    return self;
+}
+
+- (id <UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed {
+    return self;
+}
+
+- (id <UIViewControllerInteractiveTransitioning>)interactionControllerForPresentation:(id <UIViewControllerAnimatedTransitioning>)animator {
+    return nil;
+}
+
+- (id <UIViewControllerInteractiveTransitioning>)interactionControllerForDismissal:(id <UIViewControllerAnimatedTransitioning>)animator {
+    return nil;
+}
+
+#pragma mark - UIViewControllerAnimatedTransitioning Methods
+
+- (void)animationEnded:(BOOL)transitionCompleted {
+    
+}
+
+- (NSTimeInterval)transitionDuration:(id <UIViewControllerContextTransitioning>)transitionContext {
+    // Used only in non-interactive transitions, despite the documentation
+    return 0.3f;
+}
+
+- (void)animateTransition:(id <UIViewControllerContextTransitioning>)transitionContext {
+    UIViewController *fromViewController = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
+    SwitchViewController *toViewController = (SwitchViewController*)[transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
+    
+    CGRect endFrame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+
+  
+        // The order of these matters – determines the view hierarchy order.
+    
+    [transitionContext.containerView addSubview:fromViewController.view];
+    [transitionContext.containerView addSubview:toViewController.view];
+    CGRect startFrame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+    if([self.direction isEqualToString:@"left"]){
+        startFrame.origin.x=SCREEN_WIDTH;
+    }else{
+        startFrame.origin.x=-SCREEN_WIDTH;
+    }
+        toViewController.view.frame = startFrame;
+
+   
+        [UIView animateWithDuration:[self transitionDuration:transitionContext] animations:^{
+            toViewController.view.frame = endFrame;
+        } completion:^(BOOL finished) {
+            [transitionContext completeTransition:YES];
+        }];
+
+    
+}
+
 
 @end
