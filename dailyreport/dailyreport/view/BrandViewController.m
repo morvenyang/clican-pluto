@@ -187,7 +187,7 @@
     CGFloat periodHeight = dayImage.size.height*3;
     CGFloat yOffset = dailyView.frame.size.height;
     self.dailyButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.dailyButton setImage:[UIImage imageNamed:@"day"] forState:UIControlStateNormal];
+    [self.dailyButton setImage:[UIImage imageNamed:@"day_01"] forState:UIControlStateNormal];
     [self.dailyButton addTarget:self action:@selector(changePeriod:) forControlEvents:UIControlEventTouchUpInside];
     self.dailyButton.frame = CGRectMake(wOffset, yOffset+periodHeight/6, dayImage.size.width, dayImage.size.height);
     [self.contentView addSubview:self.dailyButton];
@@ -238,7 +238,7 @@
 
     [self.contentView addSubview:self.webLineChartView];
     if(self.lineChart!=nil&&![self.lineChart isEqualToString:@"[\n\n]"]){
-        [self generateInfoView:self.lineChart index:0];
+        [self generateInfoView:self.lineChart index:-1];
         [self generateLikeChart:self.lineChart];
     }else{
         TTAlert(@"没有相关图标数据");
@@ -267,6 +267,9 @@
 
     [self.contentView addSubview:self.infoView];
     NSArray* jsonArray = [NSJSONSerialization JSONObjectWithData:[dataProvider dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingMutableContainers error:nil];
+    if(index==-1){
+        index= jsonArray.count-1;
+    }
     NSDictionary* jsonObj = [jsonArray objectAtIndex:index];
     NSString* fullDateStr = [jsonObj objectForKey:@"fullDateStr"];
     NSNumber* amount =[jsonObj objectForKey:@"amount"];
@@ -327,21 +330,30 @@
 
 -(void)changePeriod:(id)sender{
     UIButton* button = (UIButton*)sender;
+    [self.dailyButton setImage:[UIImage imageNamed:@"day"] forState:UIControlStateNormal];
+    [self.weeklyButton setImage:[UIImage imageNamed:@"week"] forState:UIControlStateNormal];
+    [self.monthlyButton setImage:[UIImage imageNamed:@"month"] forState:UIControlStateNormal];
+    [self.yearlyButton setImage:[UIImage imageNamed:@"year"] forState:UIControlStateNormal];
     if(button==self.dailyButton){
         self.lineChart=self.dailyLineChart;
         self.periodImageView.image = [UIImage imageNamed:@"day_arrow"];
+        [self.dailyButton setImage:[UIImage imageNamed:@"day_01"] forState:UIControlStateNormal];
     }else if(button==self.weeklyButton){
         self.lineChart=self.weeklyLineChart;
         self.periodImageView.image = [UIImage imageNamed:@"week_arrow"];
+        [self.weeklyButton setImage:[UIImage imageNamed:@"week_01"] forState:UIControlStateNormal];
+        
     }else if(button==self.monthlyButton){
         self.lineChart=self.monthlyLineChart;
         self.periodImageView.image = [UIImage imageNamed:@"month_arrow"];
+        [self.monthlyButton setImage:[UIImage imageNamed:@"month_01"] forState:UIControlStateNormal];
     }else if(button==self.yearlyButton){
         self.lineChart=self.yearlyLineChart;
         self.periodImageView.image = [UIImage imageNamed:@"year_arrow"];
+        [self.yearlyButton setImage:[UIImage imageNamed:@"year_01"] forState:UIControlStateNormal];
     }
     if(self.lineChart!=nil&&![self.lineChart isEqualToString:@"[\n\n]"]){
-        [self generateInfoView:self.lineChart index:0];
+        [self generateInfoView:self.lineChart index:-1];
         [self generateLikeChart:self.lineChart];
     }else{
         TTAlert(@"没有相关图标数据");

@@ -40,5 +40,6 @@
 @property (nonatomic, retain) UIButton *yearlyButton;
 @property (nonatomic, retain) UIView *infoView;
 @property (nonatomic, retain) UIImageView *periodImageView;
+
 -(id) initWithBrand:(NSString*) brand;
 @end
