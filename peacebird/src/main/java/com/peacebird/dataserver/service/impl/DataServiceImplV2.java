@@ -256,12 +256,12 @@ public class DataServiceImplV2 implements DataServiceV2 {
 				lc.setFullDateStr(lc.getFullDateStr().replace("星期", "周"));
 			}
 			if(type==Calendar.DAY_OF_MONTH&&lc.getDate().compareTo(firstDayOfThisWeek)<0){
-				lc.setColor("#DEDEDE");
+				lc.setColor("#BEBEBE");
 			}else{
 				if(i==lineCharts.size()-1){
 					lc.setColor(color);
 				}else{
-					lc.setColor("#DEDEDE");
+					lc.setColor("#BEBEBE");
 				}
 				
 			}
