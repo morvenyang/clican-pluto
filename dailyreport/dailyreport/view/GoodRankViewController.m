@@ -91,12 +91,12 @@
         ROW_CONTENT_HEIGHT =38;
     }else if(SCREEN_WIDTH==375){
         labelFontSize =18;
-        ROW_HEIGHT =42;
-        ROW_CONTENT_HEIGHT =40;
+        ROW_HEIGHT =46;
+        ROW_CONTENT_HEIGHT =44;
     }else{
         labelFontSize =20;
-        ROW_HEIGHT =44;
-        ROW_CONTENT_HEIGHT =42;
+        ROW_HEIGHT =48;
+        ROW_CONTENT_HEIGHT =46;
     }
     CGFloat wOffset = 0;
     CGFloat hOffset = dailyView.frame.size.height+2;

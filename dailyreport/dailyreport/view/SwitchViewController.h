@@ -11,7 +11,8 @@
 #import "PMCalendar.h"
 #import "Constants.h"
 #import <MessageUI/MessageUI.h>
-@interface SwitchViewController : UIViewController<PMCalendarControllerDelegate,MFMailComposeViewControllerDelegate>{
+@interface SwitchViewController : UIViewController<PMCalendarControllerDelegate,MFMailComposeViewControllerDelegate,
+    UIViewControllerTransitioningDelegate,UIViewControllerAnimatedTransitioning>{
     NSString* _brand;
     SwipeScrollView* _contentView;
     int _index;
@@ -25,6 +26,8 @@
     PMPeriod* _initPeriod;
     UILabel* _calendarLabel;
     CGFloat _yOffset;
+    NSString* _direction;
+    UIViewController* _previous;
 }
 @property (nonatomic, retain) SwipeScrollView *contentView;
 @property (nonatomic, copy) NSString *brand;
@@ -35,6 +38,8 @@
 @property (nonatomic, retain) NSDate *selectedDate;
 @property (nonatomic, retain) PMPeriod *initPeriod;
 @property (nonatomic, retain) UILabel *calendarLabel;
+@property (nonatomic, copy) NSString *direction;
+@property (nonatomic, retain) UIViewController*  previous;
 -(void) backAction;
 -(UIImageView*) createImageViewFromNamedImage:(NSString*) imageName frame:(CGRect) frame;
 -(UIImageView*) createImageViewFromNamedImage:(NSString*) imageName point:(CGPoint) point;

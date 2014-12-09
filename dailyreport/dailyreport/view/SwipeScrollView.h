@@ -15,11 +15,13 @@
     NSString* _brand;
     int _index;
     id<GoodSwitchDelegate> _goodSwitchDelegate;
+    UIViewController* _previous;
 }
 
 @property (nonatomic, copy) NSString *brand;
 @property (nonatomic, assign) int index;
 @property (nonatomic, assign) id<GoodSwitchDelegate> goodSwitchDelegate;
+@property (nonatomic, retain) UIViewController*  previous;
 @end
 
 @protocol GoodSwitchDelegate <NSObject>

@@ -150,11 +150,11 @@
     }else if (SCREEN_WIDTH==375){
         ROW_HEIGHT= 38;
         ROW_CONTENT_HEIGHT= 36;
-        labelFont = 13;
+        labelFont = 14;
     }else{
         ROW_HEIGHT =40;
         ROW_CONTENT_HEIGHT =38;
-        labelFont = 14;
+        labelFont = 16;
     }
     
     
@@ -168,7 +168,7 @@
     for(int i=0;i<storeSums.count;i++){
         CGFloat wOffset = 0;
         StoreSum* s = [storeSums objectAtIndex:i];
-        UILabel* label =[self createLabel:s.sumType frame:CGRectMake(0, _tableOffset+i*ROW_HEIGHT, SCREEN_WIDTH*4/14, ROW_CONTENT_HEIGHT) textColor:@"#6a6a6a" font:labelFont backgroundColor:@"#f3f3f3" textAlignment:ALIGN_CENTER];
+        UILabel* label =[self createLabel:s.sumType frame:CGRectMake(0, _tableOffset+i*ROW_HEIGHT, SCREEN_WIDTH*4/14, ROW_CONTENT_HEIGHT) textColor:@"#6a6a6a" font:labelFont+6 backgroundColor:@"#f3f3f3" textAlignment:ALIGN_CENTER];
         wOffset+=SCREEN_WIDTH*4/14+2;
         [self.tableViews addObject:label];
         [self.contentView addSubview:label];

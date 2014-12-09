@@ -63,7 +63,7 @@
     self.channels = channels;
     UIView* dailyView = [self createDailyView:@"图标-零售收入" label:@"店铺排名"];
     int channelFontSize = 20;
-    int labelFontSize =14;
+    int labelFontSize =16;
     NSLog(@"%f",SCREEN_WIDTH);
     if(SCREEN_WIDTH==320){
         channelFontSize = 20;
@@ -184,19 +184,19 @@
     self.selectedChanngelRank = channel;
     CGFloat ROW_HEIGHT = 34;
     CGFloat ROW_CONTENT_HEIGHT=32;
-    int labelFont = 12;
+    int labelFont = 18;
     if (SCREEN_WIDTH==320){
         ROW_HEIGHT =34;
         ROW_CONTENT_HEIGHT =32;
-        labelFont = 12;
+        labelFont = 18;
     }else if (SCREEN_WIDTH==375){
         ROW_HEIGHT= 38;
         ROW_CONTENT_HEIGHT= 36;
-        labelFont = 13;
+        labelFont = 20;
     }else{
         ROW_HEIGHT =40;
         ROW_CONTENT_HEIGHT =38;
-        labelFont = 14;
+        labelFont = 22;
     }
 
 

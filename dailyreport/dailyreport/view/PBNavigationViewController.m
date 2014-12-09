@@ -62,14 +62,14 @@
     UIButton* button = (UIButton*)sender;
     int index = button.titleLabel.text.intValue;
     [[TTNavigator navigator] removeAllViewControllers];
-    
-    for(int i=1;i<=index;i++){
-        NSString* url = [self getBackUrl:i];
-        
-        TTURLAction* action=[TTURLAction actionWithURLPath:url];
-        [[TTNavigator navigator] openURLAction:
-        [action applyAnimated:NO]];
-    }
+    TTOpenURL([self getBackUrl:index]);
+//    for(int i=1;i<=index;i++){
+//        NSString* url = [self getBackUrl:i];
+//        
+//        TTURLAction* action=[TTURLAction actionWithURLPath:url];
+//        [[TTNavigator navigator] openURLAction:
+//        [action applyAnimated:NO]];
+//    }
 }
 
 -(NSString*) getBackUrl:(int)index{

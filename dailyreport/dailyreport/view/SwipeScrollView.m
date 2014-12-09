@@ -8,10 +8,12 @@
 
 #import "SwipeScrollView.h"
 #import "AppDelegate.h"
+#import "SwitchViewController.h"
 @implementation SwipeScrollView
 @synthesize brand = _brand;
 @synthesize index = _index;
 @synthesize goodSwitchDelegate = _goodSwitchDelegate;
+@synthesize previous = _previous;
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -51,34 +53,31 @@
         if(swipeDistance==320){
             return;
         }
+        NSString* url=nil;
+        NSString* direction = nil;
         // Swipe to left
         if (swipeDistance < -30.f) {
+            direction=@"left";
             if([self.brand isEqualToString:@"电商"]){
                 if (self.index>1) {
                     return;
                 }
             }
             if(self.index==1){
-                NSString* url = [NSString stringWithFormat:@"peacebird://kpi/%@", [self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-                TTOpenURL(url);
+               url = [NSString stringWithFormat:@"peacebird://kpi/%@", [self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+   
             }else if(self.index==2){
-                NSString* url = [NSString stringWithFormat:@"peacebird://retail/%@", [self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-                TTOpenURL(url);
+                url = [NSString stringWithFormat:@"peacebird://retail/%@", [self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
             }else if(self.index==3){
-                NSString* url = [NSString stringWithFormat:@"peacebird://storeRank/%@", [self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-                TTOpenURL(url);
+                url = [NSString stringWithFormat:@"peacebird://storeRank/%@", [self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
             }else if(self.index==4){
-                NSString* url = [NSString stringWithFormat:@"peacebird://goodRank/%@", [self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-                TTOpenURL(url);
+                url = [NSString stringWithFormat:@"peacebird://goodRank/%@", [self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
             }else if(self.index==5){
-                NSString* url = [NSString stringWithFormat:@"peacebird://b2cKpi/%@", [self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-                TTOpenURL(url);
+                url = [NSString stringWithFormat:@"peacebird://b2cKpi/%@", [self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
             }else if(self.index==6){
-                NSString* url = [NSString stringWithFormat:@"peacebird://storeSum/%@", [self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-                TTOpenURL(url);
+                url = [NSString stringWithFormat:@"peacebird://storeSum/%@", [self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
             }else if(self.index==7){
-                NSString* url = [NSString stringWithFormat:@"peacebird://noRetails/%@", [self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-                TTOpenURL(url);
+                url = [NSString stringWithFormat:@"peacebird://noRetails/%@", [self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
             }else if(self.index==-1){
                 
                 int goodIndex = DrAppDelegate.user.goodIndex;
@@ -86,33 +85,29 @@
                     goodIndex++;
                     DrAppDelegate.user.goodIndex=goodIndex;
                     [self.goodSwitchDelegate switchGood];
+                    return;
                 }
+                
             }
-            return;
         }
         // Swipe to right
         else if (swipeDistance > 30.f) {
+            direction=@"right";
             if(self.index==2){
-                NSString* url = [NSString stringWithFormat:@"peacebird://brand/%@", [self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-                TTOpenURL(url);
+                url = [NSString stringWithFormat:@"peacebird://brand/%@", [self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
             }else if(self.index==3){
-                NSString* url = [NSString stringWithFormat:@"peacebird://kpi/%@", [self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-                TTOpenURL(url);
+                url = [NSString stringWithFormat:@"peacebird://kpi/%@", [self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+
             }else if(self.index==4){
-                NSString* url = [NSString stringWithFormat:@"peacebird://retail/%@", [self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-                TTOpenURL(url);
+                url = [NSString stringWithFormat:@"peacebird://retail/%@", [self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
             }else if(self.index==5){
-                NSString* url = [NSString stringWithFormat:@"peacebird://storeRank/%@", [self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-                TTOpenURL(url);
+                url = [NSString stringWithFormat:@"peacebird://storeRank/%@", [self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
             }else if(self.index==6){
-                NSString* url = [NSString stringWithFormat:@"peacebird://goodRank/%@", [self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-                TTOpenURL(url);
+                url = [NSString stringWithFormat:@"peacebird://goodRank/%@", [self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
             }else if(self.index==7){
-                NSString* url = [NSString stringWithFormat:@"peacebird://b2cKpi/%@", [self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-                TTOpenURL(url);
+                url = [NSString stringWithFormat:@"peacebird://b2cKpi/%@", [self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
             }else if(self.index==8){
-                NSString* url = [NSString stringWithFormat:@"peacebird://storeSum/%@", [self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-                TTOpenURL(url);
+                url = [NSString stringWithFormat:@"peacebird://storeSum/%@", [self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
             }else if(self.index==-1){
                 int goodIndex = DrAppDelegate.user.goodIndex;
                 
@@ -120,13 +115,24 @@
                     goodIndex--;
                     DrAppDelegate.user.goodIndex=goodIndex;
                     [self.goodSwitchDelegate switchGood];
+                    return;
                 }
                 
+                
             }
-            return;
+
+        }
+        if(url){
+            SwitchViewController* vc=       (SwitchViewController*) [[TTNavigator navigator] viewControllerForURL:url];
+            if(vc){
+                vc.direction = direction;
+                vc.previous = self.previous;
+                [self.previous presentViewController:vc animated:YES completion:nil];
+            }
+        }else{
+            _swiping = NO;
         }
         
-        _swiping = NO;
     }
 }
 // Tells the receiver when one or more fingers are raised from a view or window.
@@ -146,4 +152,6 @@
     TT_RELEASE_SAFELY(_brand);
     [super dealloc];
 }
+
+
 @end

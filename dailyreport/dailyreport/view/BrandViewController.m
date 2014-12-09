@@ -248,7 +248,10 @@
     NSString* firstAccessVersion = [defaults objectForKey:FIRST_ACCESS_VERSION];
     if(firstAccessVersion==nil||![firstAccessVersion isEqualToString:VERSION]){
         UIButton* promptImage = [UIButton buttonWithType:UIButtonTypeCustom];
-        promptImage.frame =self.contentView.frame;        [promptImage setImage:[UIImage imageNamed:@"首次进入提示"] forState:UIControlStateNormal];
+        UIImage* image =[UIImage imageNamed:@"首次进入提示"];
+        
+        [promptImage setImage:image forState:UIControlStateNormal];
+        promptImage.frame =self.contentView.frame;
         [promptImage addTarget:self action:@selector(closePrompt:) forControlEvents:UIControlEventTouchUpInside];
         promptImage.backgroundColor =[UIColor colorWithRed:0 green:0 blue:0 alpha:0.3f];
         [self.contentView addSubview:promptImage];
@@ -260,7 +263,7 @@
         [self.infoView removeFromSuperview];
     }
     int labelFontSize = [self getFont:12 ip6Offset:2 ip6pOffset:4];
-    int amountFontSize = [self getFont:21 ip6Offset:3 ip6pOffset:6];
+    int amountFontSize = [self getFont:19 ip6Offset:3 ip6pOffset:6];
    
     CGFloat infoHeight =SCREEN_HEIGHT/12;
     self.infoView = [[UIView alloc] initWithFrame:CGRectMake(0, _chartYOffset, SCREEN_WIDTH, infoHeight)];
@@ -274,7 +277,7 @@
     NSString* fullDateStr = [jsonObj objectForKey:@"fullDateStr"];
     NSNumber* amount =[jsonObj objectForKey:@"amount"];
     NSNumber* like =[jsonObj objectForKey:@"like"];
-    CGFloat leftOffset = 50;
+    CGFloat leftOffset = 30;
 
     
     NSString* color = [[[NSBundle mainBundle] infoDictionary] objectForKey:[NSString stringWithFormat:@"%@背景",self.brand]];
@@ -282,11 +285,11 @@
     CGFloat wOffset =SCREEN_WIDTH/2-leftOffset;
     [self.infoView addSubview:[self createLabel:@"收入" frame:CGRectMake(wOffset, 0, 25*SCREEN_WIDTH/320, infoHeight) textColor:@"#000000" font:labelFontSize backgroundColor:nil]];
     wOffset+=25*SCREEN_WIDTH/320;
-    UILabel* amountLabel=[self createDecimalLabel:amount frame:CGRectMake(wOffset, 0, 70*SCREEN_WIDTH/320, infoHeight) textColor:color font:amountFontSize backgroundColor:nil textAlignment:ALIGN_LEFT];
+    UILabel* amountLabel=[self createDecimalLabel:amount frame:CGRectMake(wOffset, 0, 72*SCREEN_WIDTH/320, infoHeight) textColor:color font:amountFontSize backgroundColor:nil textAlignment:ALIGN_LEFT];
     
     [self.infoView addSubview:amountLabel];
     
-    wOffset+=70*SCREEN_WIDTH/320;
+    wOffset+=72*SCREEN_WIDTH/320;
     [self.infoView addSubview:[self createLabel:@"同比" frame:CGRectMake(wOffset, 0, 25*SCREEN_WIDTH/320, infoHeight) textColor:@"#000000" font:labelFontSize backgroundColor:nil]];
     wOffset+=25*SCREEN_WIDTH/320;
     UILabel* label = [self createDecimalLabel:like unit:@"%" frame:CGRectMake(wOffset, 0, SCREEN_WIDTH-wOffset, infoHeight) textColor:color font:amountFontSize backgroundColor:nil textAlignment:ALIGN_LEFT];

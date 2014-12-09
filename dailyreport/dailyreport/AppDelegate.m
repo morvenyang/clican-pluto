@@ -65,29 +65,29 @@
     [map from:@"peacebird://login" toSharedViewController:[LoginViewController class]];
     [map from:@"peacebird://index" toSharedViewController:
      [IndexViewController class]];
-    [map from:@"peacebird://brand/(initWithBrand:)" toSharedViewController:
+    [map from:@"peacebird://brand/(initWithBrand:)" toModalViewController:
     [BrandViewController class]];
-    [map from:@"peacebird://kpi/(initWithBrand:)" toSharedViewController:
+    [map from:@"peacebird://kpi/(initWithBrand:)" toModalViewController:
      [KPIViewController class]];
-    [map from:@"peacebird://retail/(initWithBrand:)" toSharedViewController:
+    [map from:@"peacebird://retail/(initWithBrand:)" toModalViewController:
      [RetailViewController class]];
-    [map from:@"peacebird://storeRank/(initWithBrand:)" toSharedViewController:
+    [map from:@"peacebird://storeRank/(initWithBrand:)" toModalViewController:
      [StoreRankViewController class]];
-    [map from:@"peacebird://goodRank/(initWithBrand:)" toSharedViewController:
+    [map from:@"peacebird://goodRank/(initWithBrand:)" toModalViewController:
      [GoodRankViewController class]];
-    [map from:@"peacebird://good/(initWithBrand:)/(index:)" toSharedViewController:
+    [map from:@"peacebird://good/(initWithBrand:)/(index:)" toModalViewController:
      [GoodViewController class]];
-    [map from:@"peacebird://b2cKpi/(initWithBrand:)" toSharedViewController:
+    [map from:@"peacebird://b2cKpi/(initWithBrand:)" toModalViewController:
      [B2CKPIViewController class]];
-    [map from:@"peacebird://storeSum/(initWithBrand:)" toSharedViewController:
+    [map from:@"peacebird://storeSum/(initWithBrand:)" toModalViewController:
      [StoreSumController class]];
-    [map from:@"peacebird://noRetails/(initWithBrand:)" toSharedViewController:
+    [map from:@"peacebird://noRetails/(initWithBrand:)" toModalViewController:
      [NoRetailsController class]];
     [map from:@"peacebird://gestureLock/(initWithType:)" toSharedViewController:
      [KKViewController class]];
     [map from:@"peacebird://password/(initWithType:)" toSharedViewController:
      [PasswordViewController class]];
-    [map from:@"peacebird://pbNavigation/(initWithBrand:)/(backIndex:)" toSharedViewController:
+    [map from:@"peacebird://pbNavigation/(initWithBrand:)/(backIndex:)" toModalViewController:
      [PBNavigationViewController class]];
     [map from:@"peacebird://guide" toSharedViewController:
      [GuideViewController class]];

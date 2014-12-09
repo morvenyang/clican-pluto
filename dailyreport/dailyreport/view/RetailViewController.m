@@ -41,17 +41,22 @@
 
 -(void)handleGesture:(UISwipeGestureRecognizer*)gestureRecognizer{
     UISwipeGestureRecognizerDirection direction =gestureRecognizer.direction;
+    NSString* url = nil;
+    NSString* d = nil;
     if(direction==UISwipeGestureRecognizerDirectionLeft){
         NSLog(@"left");
-        NSString* url = [NSString stringWithFormat:@"peacebird://storeRank/%@", [self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-        TTOpenURL(url);
-        return;
+       url = [NSString stringWithFormat:@"peacebird://storeRank/%@", [self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+       d =@"left";
     }
     if(direction==UISwipeGestureRecognizerDirectionRight){
         NSLog(@"right");
-        NSString* url = [NSString stringWithFormat:@"peacebird://kpi/%@", [self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-        TTOpenURL(url);
-        return;
+        url = [NSString stringWithFormat:@"peacebird://kpi/%@", [self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+        d =@"right";
+    }
+    SwitchViewController* vc=       (SwitchViewController*) [[TTNavigator navigator] viewControllerForURL:url];
+    if(vc){
+        vc.direction = d;
+        [self presentViewController:vc animated:YES completion:nil];
     }
 }
 - (void)loadView

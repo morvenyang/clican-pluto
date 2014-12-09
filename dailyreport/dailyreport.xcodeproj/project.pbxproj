@@ -18,7 +18,6 @@
 		320D7DCCE32703ACAB9A45E5 /* libThree20.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 320D7DCCE32703ACAB9A45E4 /* libThree20.a */; };
 		320F2C48872C2E2C4DF86205 /* libThree20UI.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 320F2C48872C2E2C4DF86204 /* libThree20UI.a */; };
 		72138B83194EB53D009918BD /* CannotCancelUISwipeGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 72138B82194EB53D009918BD /* CannotCancelUISwipeGestureRecognizer.m */; };
-		72138B85194EEAF5009918BD /* 首次进入提示.png in Resources */ = {isa = PBXBuildFile; fileRef = 72138B84194EEAF5009918BD /* 首次进入提示.png */; };
 		721633E619FB33E800F1B978 /* Default-667h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 721633E419FB33E800F1B978 /* Default-667h@2x.png */; };
 		721633E719FB33E800F1B978 /* Default-1104h@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 721633E519FB33E800F1B978 /* Default-1104h@3x.png */; };
 		721DB4CB1938C1F50075F392 /* logout.png in Resources */ = {isa = PBXBuildFile; fileRef = 721DB4CA1938C1F50075F392 /* logout.png */; };
@@ -341,7 +340,6 @@
 		320F2C48872C2E2C4DF86200 /* Three20UI.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Three20UI.xcodeproj; path = ../three20/src/Three20UI/Three20UI.xcodeproj; sourceTree = SOURCE_ROOT; };
 		72138B81194EB53D009918BD /* CannotCancelUISwipeGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CannotCancelUISwipeGestureRecognizer.h; sourceTree = "<group>"; };
 		72138B82194EB53D009918BD /* CannotCancelUISwipeGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CannotCancelUISwipeGestureRecognizer.m; sourceTree = "<group>"; };
-		72138B84194EEAF5009918BD /* 首次进入提示.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "首次进入提示.png"; sourceTree = "<group>"; };
 		721633E419FB33E800F1B978 /* Default-667h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-667h@2x.png"; sourceTree = "<group>"; };
 		721633E519FB33E800F1B978 /* Default-1104h@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-1104h@3x.png"; sourceTree = "<group>"; };
 		721DB4CA1938C1F50075F392 /* logout.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logout.png; sourceTree = "<group>"; };
@@ -976,7 +974,6 @@
 				7222FA47195D16E9003AC6F4 /* downarrow.png */,
 				7222FA48195D16E9003AC6F4 /* menu.png */,
 				7222FA49195D16E9003AC6F4 /* uparrow.png */,
-				72138B84194EEAF5009918BD /* 首次进入提示.png */,
 				72E8F0981940366D004A2330 /* iTunesArtwork */,
 				723C6C291965045E00F67689 /* line.png */,
 				721DB4CA1938C1F50075F392 /* logout.png */,
@@ -1270,7 +1267,6 @@
 				320B6C86F11D9990244A9731 /* Three20.bundle in Resources */,
 				722D6B411963DDBF00036D38 /* gesture_node_selected.png in Resources */,
 				7222FA4B195D16E9003AC6F4 /* menu.png in Resources */,
-				72138B85194EEAF5009918BD /* 首次进入提示.png in Resources */,
 				72783BB71929A6A10098B3A8 /* 关键指标-背景花纹.png in Resources */,
 				7249612A1A25745100DBC1FF /* 天.png in Resources */,
 				72623174192B168500E3F99B /* logo120.png in Resources */,
