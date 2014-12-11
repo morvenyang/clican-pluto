@@ -27,6 +27,7 @@ import com.peacebird.dataserver.bean.ChannelResult;
 import com.peacebird.dataserver.bean.ChannelStatResult;
 import com.peacebird.dataserver.bean.Constants;
 import com.peacebird.dataserver.bean.DataRetailStoreSumResult;
+import com.peacebird.dataserver.bean.DataRetailsChannelNoRetailResult;
 import com.peacebird.dataserver.bean.DataRetailsNoRetailResult;
 import com.peacebird.dataserver.bean.GoodRankResult;
 import com.peacebird.dataserver.bean.GoodRankStatResult;
@@ -47,7 +48,6 @@ import com.peacebird.dataserver.util.DateJsonValueProcessor;
 import com.peacebird.dataserver.util.IntegerJsonValueProcessor;
 
 public class DataServiceImplV2 implements DataServiceV2 {
-
 
 	private final static Log log = LogFactory.getLog(DataServiceImpl.class);
 
@@ -104,8 +104,8 @@ public class DataServiceImplV2 implements DataServiceV2 {
 		for (String brand : brands) {
 			bSet.add(brand);
 		}
-		List<BrandResult> indexBrandResults = dataDaoV2.getBrandResult(yesterday,
-				brands);
+		List<BrandResult> indexBrandResults = dataDaoV2.getBrandResult(
+				yesterday, brands);
 		for (BrandResult ibr : indexBrandResults) {
 			bSet.remove(ibr.getBrand());
 		}
@@ -129,7 +129,7 @@ public class DataServiceImplV2 implements DataServiceV2 {
 		List<Date> availableDates = dataDaoV2.getAvailableDates(realYesterday);
 		List<String> ads = new ArrayList<String>();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		for(Date ad:availableDates){
+		for (Date ad : availableDates) {
 			ads.add(sdf.format(ad));
 		}
 		ir.setAvailableDates(ads);
@@ -151,55 +151,58 @@ public class DataServiceImplV2 implements DataServiceV2 {
 		br.setBrand(brand);
 		br.setDate(yesterday);
 		Double lastDayAmount = 0.0;
-		List<BrandResult> bcr = this.dataDaoV2.getBrandResultByChannel(yesterday,
-				brand);
+		List<BrandResult> bcr = this.dataDaoV2.getBrandResultByChannel(
+				yesterday, brand);
 		for (BrandResult b : bcr) {
 			if (b.getChannel().equals(Constants.B2C)) {
 				// 统计数据不包括电商的
 				continue;
 			}
 			if (b.getPerDayAmount() != null) {
-				lastDayAmount+=b.getPerDayAmount();
+				lastDayAmount += b.getPerDayAmount();
 			}
-			if(b.getDayAmount()!=null){
+			if (b.getDayAmount() != null) {
 				br.setDayAmount(b.getDayAmount() + br.getDayAmount());
 			}
 		}
-		if(lastDayAmount!=0){
+		if (lastDayAmount != 0) {
 			br.setDayLike(br.getDayAmount() / lastDayAmount - 1);
 		}
 		Collections.sort(bcr);
 		bsr.setBrand(brand);
 		bsr.setResult(0);
 		bsr.setBrandResult(br);
-		if(!brand.equals(Constants.B2C)){
+		if (!brand.equals(Constants.B2C)) {
 			bsr.setChannels(bcr);
 		}
 
-		Date firstDayOfThisWeek = getCalendarDate(yesterday,Calendar.WEEK_OF_MONTH);
+		Date firstDayOfThisWeek = getCalendarDate(yesterday,
+				Calendar.WEEK_OF_MONTH);
 		// daily line chart
 		List<BrandLineChartResult> dailyLineChart = this.dataDaoV2
 				.getBrandLineChartDayResult(yesterday, brand, "days", 8);
 		bsr.setDailyLineChart(dailyLineChart);
-		setLineChartColorAndDateStr(dailyLineChart,brand,Calendar.DAY_OF_MONTH,firstDayOfThisWeek);
+		setLineChartColorAndDateStr(dailyLineChart, brand,
+				Calendar.DAY_OF_MONTH, firstDayOfThisWeek);
 		List<BrandLineChartResult> weeklyLineChart = this.dataDaoV2
 				.getBrandLineChartDayResult(
 						this.getCalendarDate(yesterday, Calendar.WEEK_OF_MONTH),
 						brand, "weeks", 8);
 		bsr.setWeeklyLineChart(weeklyLineChart);
-		setLineChartColorAndDateStr(weeklyLineChart,brand,Calendar.WEEK_OF_MONTH,null);
+		setLineChartColorAndDateStr(weeklyLineChart, brand,
+				Calendar.WEEK_OF_MONTH, null);
 		List<BrandLineChartResult> monthLineChart = this.dataDaoV2
 				.getBrandLineChartDayResult(
 						this.getCalendarDate(yesterday, Calendar.MONTH), brand,
 						"months", 12);
 		bsr.setMonthlyLineChart(monthLineChart);
-		setLineChartColorAndDateStr(monthLineChart,brand,Calendar.MONTH,null);
+		setLineChartColorAndDateStr(monthLineChart, brand, Calendar.MONTH, null);
 		List<BrandLineChartResult> yearLineChart = this.dataDaoV2
 				.getBrandLineChartDayResult(
 						this.getCalendarDate(yesterday, Calendar.YEAR), brand,
 						"years", 3);
 		bsr.setYearlyLineChart(yearLineChart);
-		setLineChartColorAndDateStr(yearLineChart,brand,Calendar.YEAR,null);
+		setLineChartColorAndDateStr(yearLineChart, brand, Calendar.YEAR, null);
 		JsonConfig jsonConfig = new JsonConfig();
 		jsonConfig.registerJsonValueProcessor(Date.class,
 				new DateJsonValueProcessor("yyyy-MM-dd"));
@@ -209,65 +212,68 @@ public class DataServiceImplV2 implements DataServiceV2 {
 		return result;
 	}
 
-	private void setLineChartColorAndDateStr(List<BrandLineChartResult> lineCharts,String brand,int type,Date firstDayOfThisWeek){
+	private void setLineChartColorAndDateStr(
+			List<BrandLineChartResult> lineCharts, String brand, int type,
+			Date firstDayOfThisWeek) {
 		String color = "#E5006E";
-		if(brand.equals("女装")){
+		if (brand.equals("女装")) {
 			color = "#E5006E";
-		}else if(brand.equals("男装")){
+		} else if (brand.equals("男装")) {
 			color = "#17387A";
-		}else if(brand.equals("乐町")){
+		} else if (brand.equals("乐町")) {
 			color = "#F08DBA";
-		}else if(brand.equals("童装")){
+		} else if (brand.equals("童装")) {
 			color = "#F7D800";
-		}else if(brand.equals("赫奇")){
+		} else if (brand.equals("赫奇")) {
 			color = "#8BACDB";
-		}else if(brand.equals("MG公司")){
+		} else if (brand.equals("MG公司")) {
 			color = "#E51D98";
-		}else if(brand.equals("电商")){
+		} else if (brand.equals("电商")) {
 			color = "#D71515";
 		}
-		SimpleDateFormat sdf =null;
+		SimpleDateFormat sdf = null;
 		SimpleDateFormat fsdf = null;
 		SimpleDateFormat fsdf2 = null;
-		if(type==Calendar.DAY_OF_MONTH){
-			sdf = new SimpleDateFormat("MM-dd\nEEEE",Locale.SIMPLIFIED_CHINESE);
-			fsdf = new SimpleDateFormat("yy年MM月dd日 EEEE",Locale.SIMPLIFIED_CHINESE);
-		}else if(type==Calendar.WEEK_OF_MONTH){
-			sdf = new SimpleDateFormat("MM-dd\n'W'w",Locale.SIMPLIFIED_CHINESE);
-			fsdf = new SimpleDateFormat("'W'w MM.dd-",Locale.SIMPLIFIED_CHINESE);
-			fsdf2 = new SimpleDateFormat("MM.dd",Locale.SIMPLIFIED_CHINESE);
-		}else if(type==Calendar.MONTH){
-			sdf = new SimpleDateFormat("M月",Locale.SIMPLIFIED_CHINESE);
-			fsdf = new SimpleDateFormat("yy年MM月",Locale.SIMPLIFIED_CHINESE);
-		}else if(type==Calendar.YEAR){
-			sdf = new SimpleDateFormat("yyyy",Locale.SIMPLIFIED_CHINESE);
-			fsdf = new SimpleDateFormat("yy年",Locale.SIMPLIFIED_CHINESE);
+		if (type == Calendar.DAY_OF_MONTH) {
+			sdf = new SimpleDateFormat("MM-dd\nEEEE", Locale.SIMPLIFIED_CHINESE);
+			fsdf = new SimpleDateFormat("yy年MM月dd日 EEEE",
+					Locale.SIMPLIFIED_CHINESE);
+		} else if (type == Calendar.WEEK_OF_MONTH) {
+			sdf = new SimpleDateFormat("MM-dd\n'W'w", Locale.SIMPLIFIED_CHINESE);
+			fsdf = new SimpleDateFormat("'W'w MM.dd-",
+					Locale.SIMPLIFIED_CHINESE);
+			fsdf2 = new SimpleDateFormat("MM.dd", Locale.SIMPLIFIED_CHINESE);
+		} else if (type == Calendar.MONTH) {
+			sdf = new SimpleDateFormat("M月", Locale.SIMPLIFIED_CHINESE);
+			fsdf = new SimpleDateFormat("yy年MM月", Locale.SIMPLIFIED_CHINESE);
+		} else if (type == Calendar.YEAR) {
+			sdf = new SimpleDateFormat("yyyy", Locale.SIMPLIFIED_CHINESE);
+			fsdf = new SimpleDateFormat("yy年", Locale.SIMPLIFIED_CHINESE);
 		}
-		for(int i =0;i<lineCharts.size();i++){
-			BrandLineChartResult lc=lineCharts.get(i);
+		for (int i = 0; i < lineCharts.size(); i++) {
+			BrandLineChartResult lc = lineCharts.get(i);
 			lc.setDateStr(sdf.format(lc.getDate()));
 			lc.setFullDateStr(fsdf.format(lc.getDate()));
-			if(type==Calendar.WEEK_OF_MONTH){
+			if (type == Calendar.WEEK_OF_MONTH) {
 				String half = fsdf2.format(DateUtils.addDays(lc.getDate(), 6));
-				lc.setFullDateStr(lc.getFullDateStr()+half);
+				lc.setFullDateStr(lc.getFullDateStr() + half);
 			}
-			if(type==Calendar.DAY_OF_MONTH){
+			if (type == Calendar.DAY_OF_MONTH) {
 				lc.setDateStr(lc.getDateStr().replace("星期", "周"));
 				lc.setFullDateStr(lc.getFullDateStr().replace("星期", "周"));
 			}
-			if(i==lineCharts.size()-1){
+			if (i == lineCharts.size() - 1) {
 				lc.setColor(color);
-			}else{
+			} else {
 				lc.setColor("#BEBEBE");
 			}
 		}
 	}
-	
-	
+
 	private List<RetailResult> filteZero(List<RetailResult> source) {
 		List<RetailResult> result = new ArrayList<RetailResult>();
 		for (RetailResult rr : source) {
-			if (rr.getDayAmount()!=null&&rr.getDayAmount() / 10000 != 0) {
+			if (rr.getDayAmount() != null && rr.getDayAmount() / 10000 != 0) {
 				result.add(rr);
 			}
 		}
@@ -361,9 +367,9 @@ public class DataServiceImplV2 implements DataServiceV2 {
 		List<ChannelRankResult> crrList = new ArrayList<ChannelRankResult>();
 
 		List<StoreRankResult> allRankResult = this.dataDaoV2
-				.getAllStoreRankResult(yesterday, brand,"desc");
+				.getAllStoreRankResult(yesterday, brand, "desc");
 		List<StoreRankResult> allReverseRankResult = this.dataDaoV2
-		.getAllStoreRankResult(yesterday, brand,"asc");
+				.getAllStoreRankResult(yesterday, brand, "asc");
 		ChannelRankResult acrr = new ChannelRankResult();
 		acrr.setChannel("全部");
 		acrr.setRanks(allRankResult);
@@ -371,10 +377,10 @@ public class DataServiceImplV2 implements DataServiceV2 {
 		crrList.add(0, acrr);
 
 		for (String channel : channels) {
-			List<StoreRankResult> rankResult = this.dataDaoV2.getStoreRankResult(
-					yesterday, brand, channel,"asc");
-			List<StoreRankResult> reverseRankResult = this.dataDaoV2.getStoreRankResult(
-					yesterday, brand, channel,"desc");
+			List<StoreRankResult> rankResult = this.dataDaoV2
+					.getStoreRankResult(yesterday, brand, channel, "asc");
+			List<StoreRankResult> reverseRankResult = this.dataDaoV2
+					.getStoreRankResult(yesterday, brand, channel, "desc");
 			ChannelRankResult crr = new ChannelRankResult();
 			crr.setChannel(channel);
 			crr.setRanks(rankResult);
@@ -451,13 +457,13 @@ public class DataServiceImplV2 implements DataServiceV2 {
 		Date yesterday = getYesterday(date);
 		List<DataRetailStoreSum> monthlySums = this.dataDaoV2
 				.getDataRetailStoreSum(yesterday, brand, "months");
-		
+
 		List<DataRetailStoreSum> yearlySums = this.dataDaoV2
-		.getDataRetailStoreSum(yesterday, brand, "years");
-		
+				.getDataRetailStoreSum(yesterday, brand, "years");
+
 		Collections.sort(monthlySums);
 		Collections.sort(yearlySums);
-		
+
 		DataRetailStoreSumResult drssr = new DataRetailStoreSumResult();
 		drssr.setDate(yesterday);
 		drssr.setResult(0);
@@ -477,11 +483,26 @@ public class DataServiceImplV2 implements DataServiceV2 {
 		Date yesterday = getYesterday(date);
 		List<DataRetailsNoRetail> noRetails = this.dataDaoV2
 				.getDataRetailsNoRetail(yesterday, brand);
-		
+		Collections.sort(noRetails);
 		DataRetailsNoRetailResult drssr = new DataRetailsNoRetailResult();
 		drssr.setDate(yesterday);
 		drssr.setResult(0);
-		drssr.setNoRetails(noRetails);
+		drssr.setNoRetails(new ArrayList<DataRetailsChannelNoRetailResult>());
+		DataRetailsChannelNoRetailResult all = new DataRetailsChannelNoRetailResult();
+		all.setChannel("全部");
+		all.setNoRetails(noRetails);
+		drssr.getNoRetails().add(all);
+		DataRetailsChannelNoRetailResult r = null;
+		for (DataRetailsNoRetail drnr : noRetails) {
+			if(StringUtils.isNotEmpty(drnr.getChannel())){
+				if (r == null || !r.getChannel().equals(drnr.getChannel())) {
+					r = new DataRetailsChannelNoRetailResult();
+					r.setNoRetails(new ArrayList<DataRetailsNoRetail>());
+					drssr.getNoRetails().add(r);
+				}
+				r.getNoRetails().add(drnr);
+			}
+		}
 		JsonConfig jsonConfig = new JsonConfig();
 		jsonConfig.registerJsonValueProcessor(Date.class,
 				new DateJsonValueProcessor("yyyy-MM-dd"));
@@ -512,6 +533,5 @@ public class DataServiceImplV2 implements DataServiceV2 {
 	public List<DimBrand> getAllBrands() {
 		return this.dataDaoV2.getAllBrands();
 	}
-
 
 }
