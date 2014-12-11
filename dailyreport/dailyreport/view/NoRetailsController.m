@@ -9,9 +9,13 @@
 #import "NoRetailsController.h"
 #import "StyleSheet.h"
 #import "AppDelegate.h"
+#import "NoRetails.h"
+#import "Store.h"
 @implementation NoRetailsController
 @synthesize noRetailModel = _noRetailModel;
-
+@synthesize channelLables = _channelLables;
+@synthesize noRetails = _noRetails;
+@synthesize tableViews = _tableViews;
 -(id) initWithBrand:(NSString*) brand{
     if ((self = [self initWithNibName:nil bundle:nil])) {
         self.brand = brand;
@@ -44,7 +48,7 @@
 - (void) brandDidFinishLoad:(NSArray*) nrs date:(NSDate *)date {
     NSLog(@"%@",@"加载No Retail数据成功");
     self.selectedDate = date;
-    
+    self.noRetails = nrs;
     UIView* dailyView = [self createDailyView:@"图标-零售收入" label:@"未上传店铺"];
     
     [self.contentView addSubview:dailyView];
@@ -63,18 +67,73 @@
     }
     
 
+    CGFloat t = 0;
+    if([nrs count]!=0){
+        CGFloat width = SCREEN_WIDTH/[nrs count];
+        int index = 0;
+        for(NoRetails* noRetails in nrs){
+            CGFloat x = index*width;
+            CGFloat realWidth = width-0.5;
+            if(index!=0){
+                x =x +0.5;
+            }
+            if(index==[nrs count]-1){
+                realWidth = SCREEN_WIDTH-t;
+            }
+            t+=width;
+            UILabel* channelLabel = [self createLabel:noRetails.channel frame:CGRectMake(x, dailyView.frame.size.height, realWidth, [self getTabHeight]) textColor:@"#636363" font:channelFontSize backgroundColor:@"#ffffff"];
+            UITapGestureRecognizer* recognizer = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickChannelLabel:)] autorelease];
+            channelLabel.userInteractionEnabled = YES;
+            [channelLabel addGestureRecognizer:recognizer];
+            channelLabel.textAlignment = [self getAlignment:ALIGN_CENTER];
+            if(index!=0){
+                channelLabel.textColor = [UIColor whiteColor];
+                channelLabel.backgroundColor = [StyleSheet colorFromHexString:TAB_COLOR];
+            }
+            [self.contentView addSubview:channelLabel];
+            [self.channelLables addObject:channelLabel];
+            index++;
+        }
+    }
     
 
+    CGFloat wOffset = 0;
+    CGFloat hOffset = SCREEN_HEIGHT*2/48+dailyView.frame.size.height+[self getTabHeight];
+    NoRetails* noRetails = [nrs objectAtIndex:0];
+    [self.contentView addSubview:[self createLabel:@"店铺编号" frame:CGRectMake(0, hOffset, SCREEN_WIDTH*1/4, SCREEN_HEIGHT*30/480) textColor:@"#ffffff" font:labelFontSize backgroundColor:STORE_RANK_TABLE_HEAD_COLOR textAlignment:ALIGN_CENTER]];
+    wOffset+=SCREEN_WIDTH*1/4+2;
+    [self.contentView addSubview:[self createLabel:[NSString stringWithFormat:@"店铺名称 %i家", noRetails.stores.count] frame:CGRectMake(wOffset, hOffset, SCREEN_WIDTH-wOffset, SCREEN_HEIGHT*30/480) textColor:@"#ffffff" font:labelFontSize backgroundColor:STORE_RANK_TABLE_HEAD_COLOR textAlignment:ALIGN_CENTER]];
+    hOffset += SCREEN_HEIGHT*30/480;
+    _tableOffset = hOffset;
+    [self updateChannel:noRetails];
+}
 
+
+-(void)clickChannelLabel:(UIGestureRecognizer*)gestureRecognizer{
+    UILabel* channelLabel = (UILabel*)gestureRecognizer.view;
     
-    UILabel* typeLabel = [self createLabel:@"    店铺名称" frame:CGRectMake(0, dailyView.frame.size.height, SCREEN_WIDTH, [self getTabHeight]) textColor:@"#ffffff" font:channelFontSize backgroundColor:TAB_COLOR];
+    for(UILabel* l in self.channelLables){
+        l.textColor = [UIColor whiteColor];
+        l.backgroundColor = [StyleSheet colorFromHexString:TAB_COLOR];
+    }
+    channelLabel.textColor = [StyleSheet colorFromHexString:@"#636363"];
+    channelLabel.backgroundColor =[StyleSheet colorFromHexString:@"#ffffff"];
+    for(NoRetails* nr in self.noRetails){
+        if([nr.channel isEqualToString:channelLabel.text]){
+             [self updateChannel:nr];
+            break;
+        }
+    }
+    
    
-    typeLabel.textAlignment = [self getAlignment:ALIGN_LEFT];
-        [self.contentView addSubview:typeLabel];
+}
+
+-(void) updateChannel:(NoRetails*) noRetails{
+    for(UIView* view in self.tableViews){
+        [view removeFromSuperview];
+    }
     
-    _tableOffset = [self getTabHeight]+dailyView.frame.size.height;;
-    
-    
+    [self.tableViews removeAllObjects];
     CGFloat ROW_HEIGHT = 54;
     CGFloat ROW_CONTENT_HEIGHT=52;
     int labelFont = 20;
@@ -92,19 +151,21 @@
         labelFont = 22;
     }
     
-    
-    for(int i=0;i<nrs.count;i++){
-        NSString* storeName = [nrs objectAtIndex:i];
-        UILabel* label =[self createLabel:[NSString stringWithFormat:@"    %@",storeName] frame:CGRectMake(0, _tableOffset+i*ROW_HEIGHT, SCREEN_WIDTH, ROW_CONTENT_HEIGHT) textColor:@"#6a6a6a" font:labelFont backgroundColor:@"#f3f3f3" textAlignment:ALIGN_LEFT];
+    for(int i=0;i<noRetails.stores.count;i++){
+        Store* store = [noRetails.stores objectAtIndex:i];
+        CGFloat wOffset=0;
+        UILabel* label =[self createLabel:store.storeCode frame:CGRectMake(0, _tableOffset+i*ROW_HEIGHT, SCREEN_WIDTH*1/4, ROW_CONTENT_HEIGHT) textColor:@"#6a6a6a" font:labelFont-3 backgroundColor:@"#f3f3f3" textAlignment:ALIGN_CENTER];
+        [self.tableViews addObject:label];
+        [self.contentView addSubview:label];
+        wOffset+=SCREEN_WIDTH*1/4+2;
+        label =[self createLabel:store.storeName frame:CGRectMake(wOffset, _tableOffset+i*ROW_HEIGHT, SCREEN_WIDTH-wOffset, ROW_CONTENT_HEIGHT) textColor:@"#6a6a6a" font:labelFont backgroundColor:@"#f3f3f3" textAlignment:ALIGN_CENTER];
+        [self.tableViews addObject:label];
         [self.contentView addSubview:label];
     }
     
     self.contentView.contentSize =
-    CGSizeMake(SCREEN_WIDTH, _tableOffset+nrs.count*ROW_HEIGHT);
+    CGSizeMake(SCREEN_WIDTH, _tableOffset+noRetails.stores.count*ROW_HEIGHT);
 }
-
-
-
 
 
 - (void)viewDidLoad
@@ -134,7 +195,9 @@
 {
     _noRetailModel.delegate = nil;
     TT_RELEASE_SAFELY(_noRetailModel);
-    
+    TT_RELEASE_SAFELY(_channelLables);
+    TT_RELEASE_SAFELY(_tableViews);
+    TT_RELEASE_SAFELY(_noRetails);
     [super dealloc];
 }
 @end

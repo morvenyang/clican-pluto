@@ -17,6 +17,8 @@
 		320CC833B8AF0ACFD35E6225 /* libThree20Style.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 320CC833B8AF0ACFD35E6224 /* libThree20Style.a */; };
 		320D7DCCE32703ACAB9A45E5 /* libThree20.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 320D7DCCE32703ACAB9A45E4 /* libThree20.a */; };
 		320F2C48872C2E2C4DF86205 /* libThree20UI.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 320F2C48872C2E2C4DF86204 /* libThree20UI.a */; };
+		720ACA491A39AF260030FC1C /* NoRetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 720ACA481A39AF260030FC1C /* NoRetails.m */; };
+		720ACA551A39B03C0030FC1C /* Store.m in Sources */ = {isa = PBXBuildFile; fileRef = 720ACA541A39B03C0030FC1C /* Store.m */; };
 		72138B83194EB53D009918BD /* CannotCancelUISwipeGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 72138B82194EB53D009918BD /* CannotCancelUISwipeGestureRecognizer.m */; };
 		721633E619FB33E800F1B978 /* Default-667h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 721633E419FB33E800F1B978 /* Default-667h@2x.png */; };
 		721633E719FB33E800F1B978 /* Default-1104h@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 721633E519FB33E800F1B978 /* Default-1104h@3x.png */; };
@@ -338,6 +340,10 @@
 		320CC833B8AF0ACFD35E6220 /* Three20Style.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Three20Style.xcodeproj; path = ../three20/src/Three20Style/Three20Style.xcodeproj; sourceTree = SOURCE_ROOT; };
 		320D7DCCE32703ACAB9A45E0 /* Three20.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Three20.xcodeproj; path = ../three20/src/Three20/Three20.xcodeproj; sourceTree = SOURCE_ROOT; };
 		320F2C48872C2E2C4DF86200 /* Three20UI.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Three20UI.xcodeproj; path = ../three20/src/Three20UI/Three20UI.xcodeproj; sourceTree = SOURCE_ROOT; };
+		720ACA471A39AF260030FC1C /* NoRetails.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoRetails.h; sourceTree = "<group>"; };
+		720ACA481A39AF260030FC1C /* NoRetails.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoRetails.m; sourceTree = "<group>"; };
+		720ACA531A39B03C0030FC1C /* Store.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Store.h; sourceTree = "<group>"; };
+		720ACA541A39B03C0030FC1C /* Store.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Store.m; sourceTree = "<group>"; };
 		72138B81194EB53D009918BD /* CannotCancelUISwipeGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CannotCancelUISwipeGestureRecognizer.h; sourceTree = "<group>"; };
 		72138B82194EB53D009918BD /* CannotCancelUISwipeGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CannotCancelUISwipeGestureRecognizer.m; sourceTree = "<group>"; };
 		721633E419FB33E800F1B978 /* Default-667h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-667h@2x.png"; sourceTree = "<group>"; };
@@ -954,6 +960,10 @@
 				729271F01988B66B00BCF33A /* GoodRank.m */,
 				724B4EC71A233CE200378077 /* StoreSum.h */,
 				724B4EC81A233CE200378077 /* StoreSum.m */,
+				720ACA471A39AF260030FC1C /* NoRetails.h */,
+				720ACA481A39AF260030FC1C /* NoRetails.m */,
+				720ACA531A39B03C0030FC1C /* Store.h */,
+				720ACA541A39B03C0030FC1C /* Store.m */,
 			);
 			path = object;
 			sourceTree = "<group>";
@@ -1341,6 +1351,7 @@
 				7237939C19500AC900B336FD /* PMPeriod.m in Sources */,
 				72EB389B19270CA900D0F225 /* IndexDataSource.m in Sources */,
 				72783CD1192A25100098B3A8 /* LinkImageView.m in Sources */,
+				720ACA491A39AF260030FC1C /* NoRetails.m in Sources */,
 				729271F11988B66B00BCF33A /* GoodRank.m in Sources */,
 				72AD8600193305AB004CAE5F /* StoreRankModel.m in Sources */,
 				72783C011929C7D70098B3A8 /* CRNavigationBar.m in Sources */,
@@ -1359,6 +1370,7 @@
 				7237939F19500C9A00B336FD /* PMSelectionView.m in Sources */,
 				72EB38B6192712DC00D0F225 /* MBProgressHUD.m in Sources */,
 				72EB388A192705E800D0F225 /* StyleSheet.m in Sources */,
+				720ACA551A39B03C0030FC1C /* Store.m in Sources */,
 				729271FD1988B73200BCF33A /* GoodRankModel.m in Sources */,
 				72E5E4571A2C669C002AA20B /* PasswordViewController.m in Sources */,
 				722D42F6192C8D6800350244 /* RetailViewController.m in Sources */,
