@@ -27,7 +27,7 @@
     UILabel* _calendarLabel;
     CGFloat _yOffset;
     NSString* _direction;
-    UIViewController* _previous;
+ 
 }
 @property (nonatomic, retain) SwipeScrollView *contentView;
 @property (nonatomic, copy) NSString *brand;
@@ -39,7 +39,7 @@
 @property (nonatomic, retain) PMPeriod *initPeriod;
 @property (nonatomic, retain) UILabel *calendarLabel;
 @property (nonatomic, copy) NSString *direction;
-@property (nonatomic, retain) UIViewController*  previous;
+
 -(void) backAction;
 -(UIImageView*) createImageViewFromNamedImage:(NSString*) imageName frame:(CGRect) frame;
 -(UIImageView*) createImageViewFromNamedImage:(NSString*) imageName point:(CGPoint) point;

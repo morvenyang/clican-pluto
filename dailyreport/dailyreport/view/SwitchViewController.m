@@ -88,7 +88,7 @@
     }else{
         self.contentView = [[[SwipeScrollView alloc] initWithFrame:CGRectMake(0, _yOffset, frame.size.width, frame.size.height-_yOffset)] autorelease];
     }
-    self.contentView.previous = self;
+    //self.contentView.previous = self;
     NSLog(@"%f",self.contentView.frame.size.height);
     self.contentView.index = self.index;
     self.contentView.brand = self.brand;
@@ -565,13 +565,17 @@
 }
 - (void)dealloc
 {
+    _contentView.previous = nil;
     TT_RELEASE_SAFELY(_brand);
     TT_RELEASE_SAFELY(_contentView);
     TT_RELEASE_SAFELY(_shareView);
     TT_RELEASE_SAFELY(_backgroundShareView);
     TT_RELEASE_SAFELY(_preScreenShot);
     TT_RELEASE_SAFELY(_selectedDate);
+    TT_RELEASE_SAFELY(_initPeriod);
+    
     TT_RELEASE_SAFELY(_calendarLabel);
+    TT_RELEASE_SAFELY(_direction);
     [super dealloc];
 }
 
