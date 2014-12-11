@@ -56,7 +56,7 @@
     [TTStyleSheet setGlobalStyleSheet:[[[StyleSheet alloc] init] autorelease]];
     
     TTNavigator* navigator = [CRNavigator navigator];
-    
+    [[TTURLCache sharedCache] removeAll:YES];
     navigator.supportsShakeToReload = NO;
     navigator.persistenceMode = TTNavigatorPersistenceModeNone;
     navigator.window = [[[UIWindow alloc] initWithFrame:TTScreenBounds()] autorelease];

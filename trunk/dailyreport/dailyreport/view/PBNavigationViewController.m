@@ -39,6 +39,9 @@
     [self.contentView addSubview:[self createImageViewFromColor:[StyleSheet colorFromHexString:@"#b3b3b3"] frame:CGRectMake(0, height, SCREEN_WIDTH, 0.5)]];
     [self.contentView addSubview:[self createImageViewFromColor:[StyleSheet colorFromHexString:@"#b3b3b3"] frame:CGRectMake(0, height*2, SCREEN_WIDTH, 0.5)]];
     NSArray* names = [NSArray arrayWithObjects:@"零售总览",@"关键指标",@"零售结构分析",@"店铺排名",@"商品排名",@"拓展统计",@"未上传店铺", @"电商",nil];
+    if([self.brand isEqualToString:@"电商"]){
+        names = [NSArray arrayWithObjects:@"零售总览",@"关键指标",nil];
+    }
     int labelFont = [self getFont:16 ip6Offset:2 ip6pOffset:2];
     for(int i=0;i<names.count;i++){
         NSString* name = [names objectAtIndex:i];

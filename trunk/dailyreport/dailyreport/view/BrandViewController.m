@@ -241,7 +241,7 @@
         [self generateInfoView:self.lineChart index:-1];
         [self generateLikeChart:self.lineChart];
     }else{
-        TTAlert(@"没有相关图标数据");
+        TTAlert(@"没有相关图表数据");
     }
     //self.contentView.contentSize = CGSizeMake(SCREEN_WIDTH, 1000);
     NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
@@ -360,7 +360,7 @@
         [self generateInfoView:self.lineChart index:-1];
         [self generateLikeChart:self.lineChart];
     }else{
-        TTAlert(@"没有相关图标数据");
+        TTAlert(@"没有相关图表数据");
     }
     
 }
