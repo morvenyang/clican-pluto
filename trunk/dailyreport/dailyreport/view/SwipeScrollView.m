@@ -9,6 +9,8 @@
 #import "SwipeScrollView.h"
 #import "AppDelegate.h"
 #import "SwitchViewController.h"
+#import "CRNavigator.h"
+#import "CRNavigationController.h"
 @implementation SwipeScrollView
 @synthesize brand = _brand;
 @synthesize index = _index;
@@ -123,12 +125,7 @@
 
         }
         if(url){
-            SwitchViewController* vc=       (SwitchViewController*) [[TTNavigator navigator] viewControllerForURL:url];
-            if(vc){
-                vc.direction = direction;
-                vc.previous = self.previous;
-                [self.previous presentViewController:vc animated:YES completion:nil];
-            }
+            TTOpenURL(url);
         }else{
             _swiping = NO;
         }
@@ -150,6 +147,8 @@
 - (void)dealloc
 {
     TT_RELEASE_SAFELY(_brand);
+    TT_RELEASE_SAFELY(_previous);
+    TT_RELEASE_SAFELY(_goodSwitchDelegate);
     [super dealloc];
 }
 

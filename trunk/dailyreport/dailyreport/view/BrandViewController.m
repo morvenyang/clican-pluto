@@ -251,7 +251,7 @@
         UIImage* image =[UIImage imageNamed:@"首次进入提示"];
         
         [promptImage setImage:image forState:UIControlStateNormal];
-        promptImage.frame =self.contentView.frame;
+        promptImage.frame =CGRectMake(0, 0, SCREEN_WIDTH,SCREEN_HEIGHT);
         [promptImage addTarget:self action:@selector(closePrompt:) forControlEvents:UIControlEventTouchUpInside];
         promptImage.backgroundColor =[UIColor colorWithRed:0 green:0 blue:0 alpha:0.3f];
         [self.contentView addSubview:promptImage];
