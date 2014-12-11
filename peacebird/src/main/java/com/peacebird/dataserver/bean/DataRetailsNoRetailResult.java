@@ -3,11 +3,9 @@ package com.peacebird.dataserver.bean;
 import java.util.Date;
 import java.util.List;
 
-import com.peacebird.dataserver.model.DataRetailsNoRetail;
-
 public class DataRetailsNoRetailResult {
 
-	private List<DataRetailsNoRetail> noRetails;
+	private List<DataRetailsChannelNoRetailResult> noRetails;
 
 	private int result;
 
@@ -15,11 +13,11 @@ public class DataRetailsNoRetailResult {
 
 	private Date date;
 
-	public List<DataRetailsNoRetail> getNoRetails() {
+	public List<DataRetailsChannelNoRetailResult> getNoRetails() {
 		return noRetails;
 	}
 
-	public void setNoRetails(List<DataRetailsNoRetail> noRetails) {
+	public void setNoRetails(List<DataRetailsChannelNoRetailResult> noRetails) {
 		this.noRetails = noRetails;
 	}
 
