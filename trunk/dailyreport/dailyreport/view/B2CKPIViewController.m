@@ -17,7 +17,7 @@
     if ((self = [self initWithNibName:nil bundle:nil])) {
         self.brand = brand;
         self.kpiModel = [[[KPIModel alloc] initWithBrand:self.brand delegate:self] autorelease];
-        self.index = 6;
+        self.index = 8;
     }
     return self;
 }

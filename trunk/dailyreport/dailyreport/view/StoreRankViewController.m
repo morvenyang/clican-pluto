@@ -105,7 +105,7 @@
             index++;
         }
         
-        self.topLabel = [self createLabel:@"前10" frame:CGRectMake(SCREEN_WIDTH*2/3+10, dailyView.frame.size.height+[self getTabHeight]/6, (SCREEN_WIDTH*1/3-20)/2, [self getTabHeight]*2/3) textColor:@"#636363" font:channelFontSize-5 backgroundColor:@"#ffffff"];
+        self.topLabel = [self createLabel:@"前10" frame:CGRectMake(SCREEN_WIDTH*2/3+10, dailyView.frame.size.height+[self getTabHeight]/6, (SCREEN_WIDTH*1/3-20)/2, [self getTabHeight]*2/3) textColor:@"#ffffff" font:channelFontSize-5 backgroundColor:[[[NSBundle mainBundle] infoDictionary] objectForKey:[NSString stringWithFormat:@"%@背景",self.brand]]];
         UITapGestureRecognizer* orderRecognizer1 = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickOrderLabel:)] autorelease];
         self.topLabel.userInteractionEnabled = YES;
         [self.topLabel addGestureRecognizer:orderRecognizer1];
@@ -145,14 +145,14 @@
     if(orderLabel == self.bottomLabel){
         self.topLabel.textColor =[UIColor whiteColor];
         self.topLabel.backgroundColor =[StyleSheet colorFromHexString:TAB_COLOR];
-        self.bottomLabel.textColor = [StyleSheet colorFromHexString:@"#636363"];
-        self.bottomLabel.backgroundColor =[StyleSheet colorFromHexString:@"#ffffff"];
+        self.bottomLabel.textColor = [StyleSheet colorFromHexString:@"#ffffff"];
+        self.bottomLabel.backgroundColor =[StyleSheet colorFromHexString:[[[NSBundle mainBundle] infoDictionary] objectForKey:[NSString stringWithFormat:@"%@背景",self.brand]]];
         self.order = @"desc";
     }else{
         self.bottomLabel.textColor =[UIColor whiteColor];
         self.bottomLabel.backgroundColor =[StyleSheet colorFromHexString:TAB_COLOR];
-        self.topLabel.textColor = [StyleSheet colorFromHexString:@"#636363"];
-        self.topLabel.backgroundColor =[StyleSheet colorFromHexString:@"#ffffff"];
+        self.topLabel.textColor = [StyleSheet colorFromHexString:@"#ffffff"];
+        self.topLabel.backgroundColor =[StyleSheet colorFromHexString:[[[NSBundle mainBundle] infoDictionary] objectForKey:[NSString stringWithFormat:@"%@背景",self.brand]]];
         
         self.order = @"asc";
     }

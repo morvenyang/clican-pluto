@@ -19,7 +19,7 @@
     if ((self = [self initWithNibName:nil bundle:nil])) {
         self.brand = brand;
         self.storeSumModel = [[[StoreSumModel alloc] initWithBrand:self.brand delegate:self] autorelease];
-        self.index = 7;
+        self.index = 6;
         self.typeLabels = [NSMutableArray array];
     }
     return self;
@@ -168,6 +168,12 @@
     for(int i=0;i<storeSums.count;i++){
         CGFloat wOffset = 0;
         StoreSum* s = [storeSums objectAtIndex:i];
+        if([s.sumType isEqualToString:@"技开"]){
+            [self.contentView addSubview:[self createImageViewFromColor:[StyleSheet colorFromHexString:STORE_RANK_TABLE_HEAD_COLOR] frame:CGRectMake(0, _tableOffset+i*ROW_HEIGHT-2, SCREEN_WIDTH, 2)]];
+        }
+        if([s.sumType isEqualToString:@"技闭"]){
+            [self.contentView addSubview:[self createImageViewFromColor:[StyleSheet colorFromHexString:STORE_RANK_TABLE_HEAD_COLOR] frame:CGRectMake(0, _tableOffset+(i+1)*ROW_HEIGHT-2, SCREEN_WIDTH, 2)]];
+        }
         UILabel* label =[self createLabel:s.sumType frame:CGRectMake(0, _tableOffset+i*ROW_HEIGHT, SCREEN_WIDTH*4/14, ROW_CONTENT_HEIGHT) textColor:@"#6a6a6a" font:labelFont+6 backgroundColor:@"#f3f3f3" textAlignment:ALIGN_CENTER];
         wOffset+=SCREEN_WIDTH*4/14+2;
         [self.tableViews addObject:label];

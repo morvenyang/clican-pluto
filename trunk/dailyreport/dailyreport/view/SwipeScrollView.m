@@ -11,6 +11,7 @@
 #import "SwitchViewController.h"
 #import "CRNavigator.h"
 #import "CRNavigationController.h"
+#import "SwitchViewController.h"
 @implementation SwipeScrollView
 @synthesize brand = _brand;
 @synthesize index = _index;
@@ -75,11 +76,11 @@
             }else if(self.index==4){
                 url = [NSString stringWithFormat:@"peacebird://goodRank/%@", [self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
             }else if(self.index==5){
-                url = [NSString stringWithFormat:@"peacebird://b2cKpi/%@", [self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-            }else if(self.index==6){
                 url = [NSString stringWithFormat:@"peacebird://storeSum/%@", [self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-            }else if(self.index==7){
+            }else if(self.index==6){
                 url = [NSString stringWithFormat:@"peacebird://noRetails/%@", [self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+            }else if(self.index==7){
+                url = [NSString stringWithFormat:@"peacebird://b2cKpi/%@", [self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
             }else if(self.index==-1){
                 
                 int goodIndex = DrAppDelegate.user.goodIndex;
@@ -107,9 +108,9 @@
             }else if(self.index==6){
                 url = [NSString stringWithFormat:@"peacebird://goodRank/%@", [self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
             }else if(self.index==7){
-                url = [NSString stringWithFormat:@"peacebird://b2cKpi/%@", [self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-            }else if(self.index==8){
                 url = [NSString stringWithFormat:@"peacebird://storeSum/%@", [self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+            }else if(self.index==8){
+                url = [NSString stringWithFormat:@"peacebird://noRetails/%@", [self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
             }else if(self.index==-1){
                 int goodIndex = DrAppDelegate.user.goodIndex;
                 
@@ -125,7 +126,11 @@
 
         }
         if(url){
-            TTOpenURL(url);
+            TTURLAction* action=[TTURLAction actionWithURLPath:url];
+            SwitchViewController* svc=(SwitchViewController*)[[TTNavigator navigator] openURLAction:
+                                  [action applyAnimated:NO]];
+            
+            svc.direction = direction;
         }else{
             _swiping = NO;
         }

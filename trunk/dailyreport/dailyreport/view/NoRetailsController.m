@@ -16,7 +16,7 @@
     if ((self = [self initWithNibName:nil bundle:nil])) {
         self.brand = brand;
         self.noRetailModel = [[[NoRetailModel alloc] initWithBrand:self.brand delegate:self] autorelease];
-        self.index = 8;
+        self.index = 7;
     }
     return self;
 }

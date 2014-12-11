@@ -26,9 +26,8 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         _yOffset= 64.0;
-        self.modalPresentationStyle = UIModalPresentationCustom;
-        self.transitioningDelegate = self;
-        self.modalPresentationCapturesStatusBarAppearance=YES;
+        self.direction = @"left";
+
     }
     return self;
 }
@@ -37,56 +36,51 @@
 {
     
     [super loadView];
-    self.navigationController.navigationBarHidden=YES;
-    UIView* barView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, _yOffset)] autorelease];
-    barView.backgroundColor = [UIColor blackColor];
-    [barView addSubview:[self createLabel:self.brand frame:CGRectMake(0, 20, SCREEN_WIDTH, 44) textColor:@"#ffffff" font:18 backgroundColor:nil textAlignment:ALIGN_CENTER]];
     #ifdef __IPHONE_7_0
     self.edgesForExtendedLayout = UIRectEdgeNone;
     #endif
     UIButton* backButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [backButton setImage:[UIImage imageNamed:@"back.png"] forState:UIControlStateNormal];
     
-    backButton.frame =CGRectMake(10, 20, 40, 40);
+    backButton.frame =CGRectMake(10, 0, 40, 40);
     
     [backButton addTarget:self action:@selector(backAction) forControlEvents:UIControlEventTouchUpInside];
     
-    [barView addSubview:backButton];
-//    #ifdef __IPHONE_7_0
-//    if(DEVICE_VERSION>=7.0){
-//        backButton.contentEdgeInsets=UIEdgeInsetsMake(0, -30, 0, 0);
-//    }
-//    #endif
-//    #ifdef __IPHONE_6_0
-//        if(DEVICE_VERSION<7.0){
-//            backButton.contentEdgeInsets=UIEdgeInsetsMake(0, -10, 0, 0);
-//        }
-//    #endif
-//
-//    UIBarButtonItem* backButtonItem = [[[UIBarButtonItem alloc] initWithCustomView:backButton] autorelease];
-//
-//    [self.navigationItem setLeftBarButtonItem:backButtonItem animated:YES];
+    #ifdef __IPHONE_7_0
+    if(DEVICE_VERSION>=7.0){
+        backButton.contentEdgeInsets=UIEdgeInsetsMake(0, -30, 0, 0);
+    }
+    #endif
+    #ifdef __IPHONE_6_0
+        if(DEVICE_VERSION<7.0){
+            backButton.contentEdgeInsets=UIEdgeInsetsMake(0, -10, 0, 0);
+        }
+    #endif
+
+    UIBarButtonItem* backButtonItem = [[[UIBarButtonItem alloc] initWithCustomView:backButton] autorelease];
+
+    [self.navigationItem setLeftBarButtonItem:backButtonItem animated:YES];
     
     
     UIButton* shareButtonImage = [UIButton buttonWithType:UIButtonTypeCustom];
-    shareButtonImage.frame =CGRectMake(SCREEN_WIDTH-50, 20, 40, 40);
+    shareButtonImage.frame =CGRectMake(SCREEN_WIDTH-50, 0, 40, 40);
     [shareButtonImage setImage:[UIImage imageNamed:@"图标-分享"] forState:UIControlStateNormal];
     [shareButtonImage addTarget:self action:@selector(showShareView:) forControlEvents:UIControlEventTouchUpInside];
-    [barView addSubview:shareButtonImage];
+
     
-//    UIBarButtonItem* shareButton = [[[UIBarButtonItem alloc] initWithCustomView:shareButtonImage] autorelease];
-//    if(self.index!=-2){
-//        [self.navigationItem setRightBarButtonItem:shareButton animated:YES];
-//    }
-    [self.view addSubview:barView];
+    UIBarButtonItem* shareButton = [[[UIBarButtonItem alloc] initWithCustomView:shareButtonImage] autorelease];
+    if(self.index!=-2){
+        [self.navigationItem setRightBarButtonItem:shareButton animated:YES];
+    }
+
     CGRect frame = [[UIScreen mainScreen] bounds];
     NSLog(@"%f",frame.size.height);
     self.view.backgroundColor = [UIColor whiteColor];
 
     if(self.index!=-2){
-        self.contentView = [[[SwipeScrollView alloc] initWithFrame:CGRectMake(0, _yOffset, frame.size.width, frame.size.height-_yOffset-30)] autorelease];
+        self.contentView = [[[SwipeScrollView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height-_yOffset-30)] autorelease];
     }else{
-        self.contentView = [[[SwipeScrollView alloc] initWithFrame:CGRectMake(0, _yOffset, frame.size.width, frame.size.height-_yOffset)] autorelease];
+        self.contentView = [[[SwipeScrollView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height-_yOffset)] autorelease];
     }
     //self.contentView.previous = self;
     NSLog(@"%f",self.contentView.frame.size.height);
@@ -97,14 +91,14 @@
     
 
     
-    CGFloat y = SCREEN_HEIGHT-30;
+    CGFloat y = SCREEN_HEIGHT-30-_yOffset;
     if(self.index!=-2){
         [self.view addSubview:[self createPaginationView:y]];
     }
     
     
     
-    y = SCREEN_HEIGHT-200*SCREEN_WIDTH/320;
+    y = SCREEN_HEIGHT-200*SCREEN_WIDTH/320-_yOffset;
     self.backgroundShareView =[[[UIView alloc] initWithFrame:frame] autorelease];
     self.shareView = [[[UIView alloc] initWithFrame:CGRectMake(0, y, SCREEN_WIDTH, 200*SCREEN_WIDTH/320)] autorelease];
     self.shareView.backgroundColor = [StyleSheet colorFromHexString:@"#edeef0"];
@@ -151,6 +145,7 @@
     [self.shareView addSubview:wxLabel];
     [self.shareView addSubview:cancelButton];
     [self.backgroundShareView addSubview:self.shareView];
+    
 }
 -(UIView*) createPaginationView:(int)y{
     int c = 8;
@@ -172,11 +167,7 @@
     }
     return paginationView;
 }
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
-}
+
 
 -(void) backAction{
     [[TTNavigator navigator] removeAllViewControllers];
@@ -184,31 +175,55 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-//    #ifdef __IPHONE_7_0
-//    if(DEVICE_VERSION>=7.0){
-//        self.navigationController.navigationBar.barTintColor=[UIColor blackColor];
-//    }else{
-//        self.navigationController.navigationBar.tintColor = [UIColor blackColor];
-//    }
-//    #else
-//        self.navigationController.navigationBar.tintColor = [UIColor blackColor];
-//    #endif
-//    
-//    UILabel* label = [[[UILabel alloc] initWithFrame:CGRectZero] autorelease];
-//    label.backgroundColor = [UIColor clearColor];
-//    label.font =[UIFont systemFontOfSize:18];
-//    label.textAlignment = [self getAlignment:ALIGN_CENTER];
-//    label.textColor=[UIColor whiteColor];
-//    label.text = [self.brand stringByAppendingFormat:@"%i",self.index];
-//    self.navigationItem.titleView = label;
-//    [label sizeToFit];
+    #ifdef __IPHONE_7_0
+    if(DEVICE_VERSION>=7.0){
+        self.navigationController.navigationBar.barTintColor=[UIColor blackColor];
+    }else{
+        self.navigationController.navigationBar.tintColor = [UIColor blackColor];
+    }
+    #else
+        self.navigationController.navigationBar.tintColor = [UIColor blackColor];
+    #endif
+
+    UILabel* label = [[[UILabel alloc] initWithFrame:CGRectZero] autorelease];
+    label.backgroundColor = [UIColor clearColor];
+    label.font =[UIFont systemFontOfSize:18];
+    label.textAlignment = [self getAlignment:ALIGN_CENTER];
+    label.textColor=[UIColor whiteColor];
+    label.text = self.brand;
+    self.navigationItem.titleView = label;
+    [label sizeToFit];
     [self.contentView setContentOffset:CGPointZero animated:NO];
-//    if(self.selectedDate!=nil&&![self.selectedDate isEqualToDate:DrAppDelegate.user.date]){
-//        NSLog(@"当前页面时间和选择的时间不同，重新加载该页面数据");
-//        [self changeDateAndReload];
-//    }
+    
+
     [super viewWillAppear:animated];
+    [self turnpage];
 }
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:NO];
+}
+-(void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+}
+-(void)turnpage{
+    CABasicAnimation *animation = [CABasicAnimation  animationWithKeyPath:@"position"];
+    if([self.direction isEqualToString:@"left"]){
+        animation.fromValue = [NSValue valueWithCGPoint:CGPointMake(1.5*SCREEN_WIDTH, SCREEN_HEIGHT/2+20)];
+    }else{
+        animation.fromValue = [NSValue valueWithCGPoint:CGPointMake(-SCREEN_WIDTH/2, SCREEN_HEIGHT/2+20)];
+    }
+    
+
+    animation.duration =0.5;
+    animation.cumulative =NO;
+    animation.repeatCount=1;
+    
+    [self.view.layer addAnimation:animation forKey:@"animation"];
+
+}
+
 
 - (void)didReceiveMemoryWarning
 {

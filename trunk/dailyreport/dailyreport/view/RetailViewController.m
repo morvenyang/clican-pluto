@@ -53,8 +53,11 @@
         url = [NSString stringWithFormat:@"peacebird://kpi/%@", [self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
         d =@"right";
     }
+    TTURLAction* action=[TTURLAction actionWithURLPath:url];
+    SwitchViewController* svc=(SwitchViewController*)[[TTNavigator navigator] openURLAction:
+                                                      [action applyAnimated:NO]];
     
-    TTOpenURL(url);
+    svc.direction = d;
 }
 - (void)loadView
 {
