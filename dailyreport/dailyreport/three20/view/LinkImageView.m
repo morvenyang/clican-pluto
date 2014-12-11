@@ -7,7 +7,7 @@
 //
 
 #import "LinkImageView.h"
-
+#import "SwitchViewController.h"
 @implementation LinkImageView
 
 @synthesize actionUrl = _actionUrl;
@@ -19,7 +19,11 @@
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     NSLog(@"%@",_actionUrl);
-    TTOpenURL(_actionUrl);
+    
+    TTURLAction* action=[TTURLAction actionWithURLPath:_actionUrl];
+    SwitchViewController* svc=(SwitchViewController*)[[TTNavigator navigator] openURLAction:
+                                                      [action applyAnimated:NO]];
+    svc.direction=@"left";
 }
 
 

@@ -77,6 +77,11 @@ text {
 						});
 		chart.addListener("clickGraphItem",clickGraphItem);
 		function clickGraphItem(event) {
+            for(i=0;i<chart.dataProvider.length;i++){
+                chart.dataProvider[i].color="#BEBEBE";
+            }
+            chart.dataProvider[event.index].color="$brandColor";
+            chart.validateData();
 			   nativeClickGraphItem(event.item.index);
 		}
 	</script>
