@@ -113,12 +113,10 @@ text {
 						});
 		chart.addListener("clickGraphItem",clickGraphItem);
 		function clickGraphItem(event) {
-			   console.log(event);
-			   var i =0;
 			   for(i=0;i<event.graph.data.length;i++){
-				   chart.dataProvider[i].color = "grey";
+				   chart.dataProvider[i].color = "#BEBEBE";
 			   }
-			   chart.dataProvider[event.index].color = "blue";
+			   chart.dataProvider[event.index].color = "$brandColor";
 			   chart.validateData();
 		}
 	</script>
