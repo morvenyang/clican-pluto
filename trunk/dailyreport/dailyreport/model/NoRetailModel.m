@@ -9,6 +9,8 @@
 #import "NoRetailModel.h"
 #import "Constants.h"
 #import "AppDelegate.h"
+#import "NoRetails.h"
+#import "Store.h"
 @implementation NoRetailModel
 
 @synthesize brand = _brand;
@@ -75,8 +77,18 @@
             NSMutableArray* nrs = [NSMutableArray array];
 
             for (NSDictionary* n in noRetails) {
-                NSString* storeName = [n objectForKey:@"storeName"];
-                [nrs addObject:storeName];
+                NoRetails* ns = [[[NoRetails alloc] init] autorelease];
+                [nrs addObject:ns];
+                ns.channel = [n objectForKey:@"channel"];
+                NSMutableArray* ss = [NSMutableArray array];
+                ns.stores = ss;
+                NSArray* stores = [n objectForKey:@"stores"];
+                for(NSDictionary* store in stores){
+                    Store* s = [[[Store alloc] init] autorelease];
+                    s.storeName = [store objectForKey:@"storeName"];
+                    s.storeCode = [store objectForKey:@"storeCode"];
+                    [ss addObject:s];
+                }
             }
             NSDate* date =  [dateFormatter dateFromString:[data objectForKey:@"date"]];
             [self.delegate brandDidFinishLoad:nrs date:date];

@@ -11,7 +11,13 @@
 @interface NoRetailsController : SwitchViewController<NoRetailDelegate>{
     NoRetailModel* _noRetailModel;
     CGFloat _tableOffset;
+    NSMutableArray* _channelLables;
+    NSArray* _noRetails;
+    NSMutableArray* _tableViews;
 }
 @property (nonatomic, retain) NoRetailModel *noRetailModel;
+@property (nonatomic, retain) NSMutableArray *channelLables;
+@property (nonatomic, retain) NSArray *noRetails;
+@property (nonatomic, retain) NSMutableArray* tableViews;
 -(id) initWithBrand:(NSString*) brand;
 @end
