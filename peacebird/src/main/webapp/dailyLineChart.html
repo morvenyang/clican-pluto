@@ -79,7 +79,7 @@ text {
 									{
 										"balloonText" : "<span style='font-size:13px;'>[[category]] [[title]] :<b>[[value]]万元</b> [[additional]]</span>",
 										"fillAlphas" : 1,
-										"lineAlpha":0,
+										"lineAlpha":1,
 										"colorField":"color",
 										"alphaField": "alpha",
 										"title" : "零售额",
@@ -113,7 +113,13 @@ text {
 						});
 		chart.addListener("clickGraphItem",clickGraphItem);
 		function clickGraphItem(event) {
-			   console.log(event.item.index);
+			   console.log(event);
+			   var i =0;
+			   for(i=0;i<event.graph.data.length;i++){
+				   chart.dataProvider[i].color = "grey";
+			   }
+			   chart.dataProvider[event.index].color = "blue";
+			   chart.validateData();
 		}
 	</script>
 </body>
