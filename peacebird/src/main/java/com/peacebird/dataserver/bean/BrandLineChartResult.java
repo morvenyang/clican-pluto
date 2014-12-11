@@ -56,7 +56,8 @@ public class BrandLineChartResult implements Comparable<BrandLineChartResult> {
 			return 0.0;
 		}
 
-		return (amount / preAmount - 1) * 100;
+		Double like = (amount / preAmount - 1) * 100;
+		return new Double(like.intValue());
 	}
 
 	@Override
