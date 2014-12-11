@@ -44,7 +44,7 @@
                              delegate: self];
     request.timeoutInterval = DrAppDelegate.user.timeoutInterval;
     [request setValue:[@"JSESSIONID=" stringByAppendingString:DrAppDelegate.user.sessionId]forHTTPHeaderField:@"Cookie"];
-    request.cachePolicy = TTURLRequestCachePolicyNone;
+    request.cachePolicy = TTURLRequestCachePolicyDefault;
     
     TTURLJSONResponse* response = [[TTURLJSONResponse alloc] init];
     request.response = response;

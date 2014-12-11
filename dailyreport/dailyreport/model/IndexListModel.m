@@ -55,7 +55,7 @@
         }
         [request setValue:[@"JSESSIONID=" stringByAppendingString:DrAppDelegate.user.sessionId]forHTTPHeaderField:@"Cookie"];
         
-        request.cachePolicy = TTURLRequestCachePolicyNone;
+        request.cachePolicy = TTURLRequestCachePolicyDefault;
         //request.cacheExpirationAge = TT_CACHE_EXPIRATION_AGE_NEVER;
         
         TTURLJSONResponse* response = [[TTURLJSONResponse alloc] init];
