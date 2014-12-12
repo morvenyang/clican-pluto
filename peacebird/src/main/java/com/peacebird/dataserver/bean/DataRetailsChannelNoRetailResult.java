@@ -8,7 +8,7 @@ public class DataRetailsChannelNoRetailResult {
 
 	private String channel;
 	
-	private List<DataRetailsNoRetail> noRetails;
+	private List<DataRetailsNoRetail> stores;
 
 	public String getChannel() {
 		return channel;
@@ -18,13 +18,15 @@ public class DataRetailsChannelNoRetailResult {
 		this.channel = channel;
 	}
 
-	public List<DataRetailsNoRetail> getNoRetails() {
-		return noRetails;
+	public List<DataRetailsNoRetail> getStores() {
+		return stores;
 	}
 
-	public void setNoRetails(List<DataRetailsNoRetail> noRetails) {
-		this.noRetails = noRetails;
+	public void setStores(List<DataRetailsNoRetail> stores) {
+		this.stores = stores;
 	}
+
+	
 	
 	
 }

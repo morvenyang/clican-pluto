@@ -490,17 +490,17 @@ public class DataServiceImplV2 implements DataServiceV2 {
 		drssr.setNoRetails(new ArrayList<DataRetailsChannelNoRetailResult>());
 		DataRetailsChannelNoRetailResult all = new DataRetailsChannelNoRetailResult();
 		all.setChannel("全部");
-		all.setNoRetails(noRetails);
+		all.setStores(noRetails);
 		drssr.getNoRetails().add(all);
 		DataRetailsChannelNoRetailResult r = null;
 		for (DataRetailsNoRetail drnr : noRetails) {
 			if(StringUtils.isNotEmpty(drnr.getChannel())){
 				if (r == null || !r.getChannel().equals(drnr.getChannel())) {
 					r = new DataRetailsChannelNoRetailResult();
-					r.setNoRetails(new ArrayList<DataRetailsNoRetail>());
+					r.setStores(new ArrayList<DataRetailsNoRetail>());
 					drssr.getNoRetails().add(r);
 				}
-				r.getNoRetails().add(drnr);
+				r.getStores().add(drnr);
 			}
 		}
 		JsonConfig jsonConfig = new JsonConfig();
