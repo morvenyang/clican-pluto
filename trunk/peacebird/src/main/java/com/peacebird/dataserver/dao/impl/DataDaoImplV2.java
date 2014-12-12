@@ -258,9 +258,9 @@ public class DataDaoImplV2 extends HibernateDaoSupport implements DataDaoV2 {
 	@Override
 	public List<DataRetailStoreSum> getDataRetailStoreSum(Date date,
 			String brand, String type) {
-		String hsql = "from DataRetailStoreSum where date = :date and type = :type";
+		String hsql = "from DataRetailStoreSum where date = :date and type = :type and brand = :brand";
 		return this.getHibernateTemplate().findByNamedParam(hsql,
-				new String[] { "date", "type" }, new Object[] { date, type });
+				new String[] { "date", "type" , "brand"}, new Object[] { date, type, brand });
 	}
 
 	@SuppressWarnings("unchecked")
