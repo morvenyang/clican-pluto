@@ -99,6 +99,9 @@
     
     y = SCREEN_HEIGHT-200*SCREEN_WIDTH/320-_yOffset;
     self.backgroundShareView =[[[UIView alloc] initWithFrame:frame] autorelease];
+    UIView* cancelView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, y)];
+    UITapGestureRecognizer* tapCancelView = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideShareView)] autorelease];
+    [cancelView addGestureRecognizer:tapCancelView];
     self.shareView = [[[UIView alloc] initWithFrame:CGRectMake(0, y, SCREEN_WIDTH, 200*SCREEN_WIDTH/320)] autorelease];
     self.shareView.backgroundColor = [StyleSheet colorFromHexString:@"#edeef0"];
     
@@ -144,6 +147,7 @@
     [self.shareView addSubview:wxLabel];
     [self.shareView addSubview:cancelButton];
     [self.backgroundShareView addSubview:self.shareView];
+    [self.backgroundShareView addSubview:cancelView];
     
 }
 -(UIView*) createPaginationView:(int)y{
