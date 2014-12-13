@@ -263,7 +263,7 @@
         [self.infoView removeFromSuperview];
     }
     int labelFontSize = [self getFont:12 ip6Offset:2 ip6pOffset:4];
-    int amountFontSize = [self getFont:19 ip6Offset:3 ip6pOffset:6];
+    int amountFontSize = [self getFont:19 ip6Offset:3 ip6pOffset:3];
    
     CGFloat infoHeight =SCREEN_HEIGHT/12;
     self.infoView = [[UIView alloc] initWithFrame:CGRectMake(0, _chartYOffset, SCREEN_WIDTH, infoHeight)];

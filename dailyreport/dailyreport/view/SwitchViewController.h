@@ -11,8 +11,7 @@
 #import "PMCalendar.h"
 #import "Constants.h"
 #import <MessageUI/MessageUI.h>
-@interface SwitchViewController : UIViewController<PMCalendarControllerDelegate,MFMailComposeViewControllerDelegate,
-    UIViewControllerTransitioningDelegate,UIViewControllerAnimatedTransitioning>{
+@interface SwitchViewController : UIViewController<PMCalendarControllerDelegate,MFMailComposeViewControllerDelegate>{
     NSString* _brand;
     SwipeScrollView* _contentView;
     int _index;
