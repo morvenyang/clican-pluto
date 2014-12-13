@@ -31,6 +31,8 @@ public class DataRetailStoreSum implements Comparable<DataRetailStoreSum> {
 	private Long union;
 
 	private Date writeTime;
+	
+	private String brand;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -115,6 +117,15 @@ public class DataRetailStoreSum implements Comparable<DataRetailStoreSum> {
 		this.writeTime = writeTime;
 	}
 
+	@Column(name = "d_brand")
+	public String getBrand() {
+		return brand;
+	}
+
+	public void setBrand(String brand) {
+		this.brand = brand;
+	}
+
 	@Transient
 	private int getIndex() {
 		if (type.equals("期初")) {
@@ -125,9 +136,9 @@ public class DataRetailStoreSum implements Comparable<DataRetailStoreSum> {
 			return 2;
 		} else if (type.equals("期末")) {
 			return 3;
-		} else if (type.equals("技开")) {
+		} else if (type.equals("技术开店")) {
 			return 4;
-		} else if (type.equals("技闭")) {
+		} else if (type.equals("技术关店")) {
 			return 5;
 		} else if (type.equals("净增长")) {
 			return 6;
