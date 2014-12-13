@@ -20,6 +20,7 @@
     if ((self = [self initWithNibName:nil bundle:nil])) {
         self.brand = brand;
         self.noRetailModel = [[[NoRetailModel alloc] initWithBrand:self.brand delegate:self] autorelease];
+        self.channelLables=[NSMutableArray array];
         self.index = 7;
     }
     return self;
@@ -100,8 +101,8 @@
     CGFloat wOffset = 0;
     CGFloat hOffset = SCREEN_HEIGHT*2/48+dailyView.frame.size.height+[self getTabHeight];
     NoRetails* noRetails = [nrs objectAtIndex:0];
-    [self.contentView addSubview:[self createLabel:@"店铺编号" frame:CGRectMake(0, hOffset, SCREEN_WIDTH*1/4, SCREEN_HEIGHT*30/480) textColor:@"#ffffff" font:labelFontSize backgroundColor:STORE_RANK_TABLE_HEAD_COLOR textAlignment:ALIGN_CENTER]];
-    wOffset+=SCREEN_WIDTH*1/4+2;
+    [self.contentView addSubview:[self createLabel:@"店铺编号" frame:CGRectMake(0, hOffset, SCREEN_WIDTH*82/320, SCREEN_HEIGHT*30/480) textColor:@"#ffffff" font:labelFontSize backgroundColor:STORE_RANK_TABLE_HEAD_COLOR textAlignment:ALIGN_CENTER]];
+    wOffset+=SCREEN_WIDTH*82/320+2;
     [self.contentView addSubview:[self createLabel:[NSString stringWithFormat:@"店铺名称 %i家", noRetails.stores.count] frame:CGRectMake(wOffset, hOffset, SCREEN_WIDTH-wOffset, SCREEN_HEIGHT*30/480) textColor:@"#ffffff" font:labelFontSize backgroundColor:STORE_RANK_TABLE_HEAD_COLOR textAlignment:ALIGN_CENTER]];
     hOffset += SCREEN_HEIGHT*30/480;
     _tableOffset = hOffset;
@@ -154,10 +155,10 @@
     for(int i=0;i<noRetails.stores.count;i++){
         Store* store = [noRetails.stores objectAtIndex:i];
         CGFloat wOffset=0;
-        UILabel* label =[self createLabel:store.storeCode frame:CGRectMake(0, _tableOffset+i*ROW_HEIGHT, SCREEN_WIDTH*1/4, ROW_CONTENT_HEIGHT) textColor:@"#6a6a6a" font:labelFont-3 backgroundColor:@"#f3f3f3" textAlignment:ALIGN_CENTER];
+        UILabel* label =[self createLabel:store.storeCode frame:CGRectMake(0, _tableOffset+i*ROW_HEIGHT, SCREEN_WIDTH*82/320, ROW_CONTENT_HEIGHT) textColor:@"#6a6a6a" font:labelFont-3 backgroundColor:@"#f3f3f3" textAlignment:ALIGN_CENTER];
         [self.tableViews addObject:label];
         [self.contentView addSubview:label];
-        wOffset+=SCREEN_WIDTH*1/4+2;
+        wOffset+=SCREEN_WIDTH*82/320+2;
         label =[self createLabel:store.storeName frame:CGRectMake(wOffset, _tableOffset+i*ROW_HEIGHT, SCREEN_WIDTH-wOffset, ROW_CONTENT_HEIGHT) textColor:@"#6a6a6a" font:labelFont backgroundColor:@"#f3f3f3" textAlignment:ALIGN_CENTER];
         [self.tableViews addObject:label];
         [self.contentView addSubview:label];

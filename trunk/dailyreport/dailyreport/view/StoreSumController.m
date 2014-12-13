@@ -168,10 +168,10 @@
     for(int i=0;i<storeSums.count;i++){
         CGFloat wOffset = 0;
         StoreSum* s = [storeSums objectAtIndex:i];
-        if([s.sumType isEqualToString:@"技开"]){
+        if([s.sumType isEqualToString:@"技术开店"]){
             [self.contentView addSubview:[self createImageViewFromColor:[StyleSheet colorFromHexString:STORE_RANK_TABLE_HEAD_COLOR] frame:CGRectMake(0, _tableOffset+i*ROW_HEIGHT-2, SCREEN_WIDTH, 2)]];
         }
-        if([s.sumType isEqualToString:@"技闭"]){
+        if([s.sumType isEqualToString:@"技术关店"]){
             [self.contentView addSubview:[self createImageViewFromColor:[StyleSheet colorFromHexString:STORE_RANK_TABLE_HEAD_COLOR] frame:CGRectMake(0, _tableOffset+(i+1)*ROW_HEIGHT-2, SCREEN_WIDTH, 2)]];
         }
         UILabel* label =[self createLabel:s.sumType frame:CGRectMake(0, _tableOffset+i*ROW_HEIGHT, SCREEN_WIDTH*4/14, ROW_CONTENT_HEIGHT) textColor:@"#6a6a6a" font:labelFont+6 backgroundColor:@"#f3f3f3" textAlignment:ALIGN_CENTER];
