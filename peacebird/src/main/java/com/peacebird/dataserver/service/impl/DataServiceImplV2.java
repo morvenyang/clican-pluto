@@ -498,6 +498,7 @@ public class DataServiceImplV2 implements DataServiceV2 {
 				if (r == null || !r.getChannel().equals(drnr.getChannel())) {
 					r = new DataRetailsChannelNoRetailResult();
 					r.setStores(new ArrayList<DataRetailsNoRetail>());
+					r.setChannel(drnr.getChannel());
 					drssr.getNoRetails().add(r);
 				}
 				r.getStores().add(drnr);
