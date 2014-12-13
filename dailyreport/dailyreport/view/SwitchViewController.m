@@ -82,7 +82,6 @@
     }else{
         self.contentView = [[[SwipeScrollView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height-_yOffset)] autorelease];
     }
-    //self.contentView.previous = self;
     NSLog(@"%f",self.contentView.frame.size.height);
     self.contentView.index = self.index;
     self.contentView.brand = self.brand;
@@ -449,17 +448,6 @@
     
     
     return image;
-//    UIGraphicsBeginImageContext(self.contentView.contentSize);
-//    CGPoint savedContentOffset = self.contentView.contentOffset;
-//    CGRect savedFrame = self.contentView.frame;
-//    self.contentView.contentOffset = CGPointZero;
-//    self.contentView.frame = CGRectMake(0,0, self.contentView.contentSize.width, self.contentView.contentSize.height);
-//    [self.contentView.layer renderInContext:UIGraphicsGetCurrentContext()];
-//    UIImage* viewImage = UIGraphicsGetImageFromCurrentImageContext();
-//    self.contentView.contentOffset = savedContentOffset;
-//    self.contentView.frame = savedFrame;
-//    UIGraphicsEndImageContext();
-//    return viewImage;
 }
 
 - (UIImage *)imageWithImage:(UIImage *)image scaledToSize:(CGSize)newSize {
@@ -580,7 +568,6 @@
 }
 - (void)dealloc
 {
-    _contentView.previous = nil;
     TT_RELEASE_SAFELY(_brand);
     TT_RELEASE_SAFELY(_contentView);
     TT_RELEASE_SAFELY(_shareView);
