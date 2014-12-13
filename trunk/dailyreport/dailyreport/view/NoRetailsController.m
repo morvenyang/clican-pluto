@@ -16,11 +16,13 @@
 @synthesize channelLables = _channelLables;
 @synthesize noRetails = _noRetails;
 @synthesize tableViews = _tableViews;
+@synthesize storeNameLabel = _storeNameLabel;
 -(id) initWithBrand:(NSString*) brand{
     if ((self = [self initWithNibName:nil bundle:nil])) {
         self.brand = brand;
         self.noRetailModel = [[[NoRetailModel alloc] initWithBrand:self.brand delegate:self] autorelease];
         self.channelLables=[NSMutableArray array];
+        self.tableViews = [NSMutableArray array];
         self.index = 7;
     }
     return self;
@@ -103,7 +105,8 @@
     NoRetails* noRetails = [nrs objectAtIndex:0];
     [self.contentView addSubview:[self createLabel:@"店铺编号" frame:CGRectMake(0, hOffset, SCREEN_WIDTH*82/320, SCREEN_HEIGHT*30/480) textColor:@"#ffffff" font:labelFontSize backgroundColor:STORE_RANK_TABLE_HEAD_COLOR textAlignment:ALIGN_CENTER]];
     wOffset+=SCREEN_WIDTH*82/320+2;
-    [self.contentView addSubview:[self createLabel:[NSString stringWithFormat:@"店铺名称 %i家", noRetails.stores.count] frame:CGRectMake(wOffset, hOffset, SCREEN_WIDTH-wOffset, SCREEN_HEIGHT*30/480) textColor:@"#ffffff" font:labelFontSize backgroundColor:STORE_RANK_TABLE_HEAD_COLOR textAlignment:ALIGN_CENTER]];
+    self.storeNameLabel =[self createLabel:[NSString stringWithFormat:@"店铺名称 %i家", noRetails.stores.count] frame:CGRectMake(wOffset, hOffset, SCREEN_WIDTH-wOffset, SCREEN_HEIGHT*30/480) textColor:@"#ffffff" font:labelFontSize backgroundColor:STORE_RANK_TABLE_HEAD_COLOR textAlignment:ALIGN_CENTER];
+    [self.contentView addSubview:self.storeNameLabel];
     hOffset += SCREEN_HEIGHT*30/480;
     _tableOffset = hOffset;
     [self updateChannel:noRetails];
@@ -135,6 +138,7 @@
     }
     
     [self.tableViews removeAllObjects];
+    self.storeNameLabel.text =[NSString stringWithFormat:@"店铺名称 %i家", noRetails.stores.count];
     CGFloat ROW_HEIGHT = 54;
     CGFloat ROW_CONTENT_HEIGHT=52;
     int labelFont = 20;
@@ -199,6 +203,7 @@
     TT_RELEASE_SAFELY(_channelLables);
     TT_RELEASE_SAFELY(_tableViews);
     TT_RELEASE_SAFELY(_noRetails);
+    TT_RELEASE_SAFELY(_storeNameLabel);
     [super dealloc];
 }
 @end

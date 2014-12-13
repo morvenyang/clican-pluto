@@ -14,10 +14,12 @@
     NSMutableArray* _channelLables;
     NSArray* _noRetails;
     NSMutableArray* _tableViews;
+    UILabel* _storeNameLabel;
 }
 @property (nonatomic, retain) NoRetailModel *noRetailModel;
 @property (nonatomic, retain) NSMutableArray *channelLables;
 @property (nonatomic, retain) NSArray *noRetails;
 @property (nonatomic, retain) NSMutableArray* tableViews;
+@property (nonatomic, retain) UILabel* storeNameLabel;
 -(id) initWithBrand:(NSString*) brand;
 @end
