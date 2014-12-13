@@ -16,7 +16,6 @@
 @synthesize brand = _brand;
 @synthesize index = _index;
 @synthesize goodSwitchDelegate = _goodSwitchDelegate;
-@synthesize previous = _previous;
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -152,7 +151,6 @@
 - (void)dealloc
 {
     TT_RELEASE_SAFELY(_brand);
-    TT_RELEASE_SAFELY(_previous);
     TT_RELEASE_SAFELY(_goodSwitchDelegate);
     [super dealloc];
 }
