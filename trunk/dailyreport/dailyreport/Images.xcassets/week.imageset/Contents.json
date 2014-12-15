@@ -1,22 +1,16 @@
 {
   "images" : [
     {
-      "idiom" : "iphone",
+      "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "idiom" : "iphone",
+      "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "week@2x_44x44.png"
+      "filename" : "week@2x.png"
     },
     {
-      "idiom" : "iphone",
-      "filename" : "week@2x.png",
-      "subtype" : "retina4",
-      "scale" : "2x"
-    },
-    {
-      "idiom" : "iphone",
+      "idiom" : "universal",
       "scale" : "3x",
       "filename" : "week@3x.png"
     }

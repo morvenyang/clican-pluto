@@ -185,12 +185,14 @@
     
     
     UIImage* dayImage = [UIImage imageNamed:@"day"];
+    CGSize scaleSize = CGSizeMake(dayImage.size.width*1.5, dayImage.size.height*1.5);
     CGFloat space = (SCREEN_WIDTH-dayImage.size.width*1.5*4)/12;
     CGFloat wOffset = space;
     CGFloat periodHeight = dayImage.size.height*3;
     CGFloat yOffset = dailyView.frame.size.height;
     self.dailyButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.dailyButton setImage:[UIImage imageNamed:@"day_01"] forState:UIControlStateNormal];
+    [self.dailyButton setImage:[self imageWithImage:[UIImage imageNamed:@"day_01"] scaledToSize:scaleSize] forState:UIControlStateNormal];
+
     [self.dailyButton addTarget:self action:@selector(changePeriod:) forControlEvents:UIControlEventTouchUpInside];
     self.dailyButton.frame = CGRectMake(wOffset, yOffset+periodHeight/12, dayImage.size.width*1.5, dayImage.size.height*1.5);
     [self.contentView addSubview:self.dailyButton];
@@ -203,7 +205,7 @@
     
     wOffset+=space*3+dayImage.size.width*1.5;
     self.weeklyButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.weeklyButton setImage:[UIImage imageNamed:@"week"] forState:UIControlStateNormal];
+    [self.weeklyButton setImage:[self imageWithImage:[UIImage imageNamed:@"week"] scaledToSize:scaleSize] forState:UIControlStateNormal];
     [self.weeklyButton addTarget:self action:@selector(changePeriod:) forControlEvents:UIControlEventTouchUpInside];
     self.weeklyButton.frame = CGRectMake(wOffset, yOffset+periodHeight/12, dayImage.size.width*1.5, dayImage.size.height*1.5);
     [self.contentView addSubview:self.weeklyButton];
@@ -213,7 +215,7 @@
     
     wOffset+=space*3+dayImage.size.width*1.5;
     self.monthlyButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.monthlyButton setImage:[UIImage imageNamed:@"month"] forState:UIControlStateNormal];
+    [self.monthlyButton setImage:[self imageWithImage:[UIImage imageNamed:@"month"] scaledToSize:scaleSize] forState:UIControlStateNormal];
     [self.monthlyButton addTarget:self action:@selector(changePeriod:) forControlEvents:UIControlEventTouchUpInside];
     self.monthlyButton.frame = CGRectMake(wOffset, yOffset+periodHeight/12, dayImage.size.width*1.5, dayImage.size.height*1.5);
     [self.contentView addSubview:self.monthlyButton];
@@ -222,7 +224,7 @@
     
     wOffset+=space*3+dayImage.size.width*1.5;
     self.yearlyButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.yearlyButton setImage:[UIImage imageNamed:@"year"] forState:UIControlStateNormal];
+    [self.yearlyButton setImage:[self imageWithImage:[UIImage imageNamed:@"year"] scaledToSize:scaleSize] forState:UIControlStateNormal];
     [self.yearlyButton addTarget:self action:@selector(changePeriod:) forControlEvents:UIControlEventTouchUpInside];
     self.yearlyButton.frame = CGRectMake(wOffset, yOffset+periodHeight/12, dayImage.size.width*1.5, dayImage.size.height*1.5);
     [self.contentView addSubview:self.yearlyButton];
@@ -337,27 +339,29 @@
 
 -(void)changePeriod:(id)sender{
     UIButton* button = (UIButton*)sender;
-    [self.dailyButton setImage:[UIImage imageNamed:@"day"] forState:UIControlStateNormal];
-    [self.weeklyButton setImage:[UIImage imageNamed:@"week"] forState:UIControlStateNormal];
-    [self.monthlyButton setImage:[UIImage imageNamed:@"month"] forState:UIControlStateNormal];
-    [self.yearlyButton setImage:[UIImage imageNamed:@"year"] forState:UIControlStateNormal];
+    UIImage* dayImage = [UIImage imageNamed:@"day"];
+    CGSize scaleSize = CGSizeMake(dayImage.size.width*1.5, dayImage.size.height*1.5);
+    [self.dailyButton setImage:[self imageWithImage:[UIImage imageNamed:@"day"] scaledToSize:scaleSize] forState:UIControlStateNormal];
+    [self.weeklyButton setImage:[self imageWithImage:[UIImage imageNamed:@"week"] scaledToSize:scaleSize] forState:UIControlStateNormal];
+    [self.monthlyButton setImage:[self imageWithImage:[UIImage imageNamed:@"month"] scaledToSize:scaleSize] forState:UIControlStateNormal];
+    [self.yearlyButton setImage:[self imageWithImage:[UIImage imageNamed:@"year"] scaledToSize:scaleSize] forState:UIControlStateNormal];
     if(button==self.dailyButton){
         self.lineChart=self.dailyLineChart;
         self.periodImageView.image = [UIImage imageNamed:@"day_arrow"];
-        [self.dailyButton setImage:[UIImage imageNamed:@"day_01"] forState:UIControlStateNormal];
+        [self.dailyButton setImage:[self imageWithImage:[UIImage imageNamed:@"day_01"] scaledToSize:scaleSize] forState:UIControlStateNormal];
     }else if(button==self.weeklyButton){
         self.lineChart=self.weeklyLineChart;
         self.periodImageView.image = [UIImage imageNamed:@"week_arrow"];
-        [self.weeklyButton setImage:[UIImage imageNamed:@"week_01"] forState:UIControlStateNormal];
+        [self.weeklyButton setImage:[self imageWithImage:[UIImage imageNamed:@"week_01"] scaledToSize:scaleSize] forState:UIControlStateNormal];
         
     }else if(button==self.monthlyButton){
         self.lineChart=self.monthlyLineChart;
         self.periodImageView.image = [UIImage imageNamed:@"month_arrow"];
-        [self.monthlyButton setImage:[UIImage imageNamed:@"month_01"] forState:UIControlStateNormal];
+        [self.monthlyButton setImage:[self imageWithImage:[UIImage imageNamed:@"month_01"] scaledToSize:scaleSize] forState:UIControlStateNormal];
     }else if(button==self.yearlyButton){
         self.lineChart=self.yearlyLineChart;
         self.periodImageView.image = [UIImage imageNamed:@"year_arrow"];
-        [self.yearlyButton setImage:[UIImage imageNamed:@"year_01"] forState:UIControlStateNormal];
+        [self.yearlyButton setImage:[self imageWithImage:[UIImage imageNamed:@"year_01"] scaledToSize:scaleSize] forState:UIControlStateNormal];
     }
     if(self.lineChart!=nil&&![self.lineChart isEqualToString:@"[\n\n]"]){
         [self generateInfoView:self.lineChart index:-1];
