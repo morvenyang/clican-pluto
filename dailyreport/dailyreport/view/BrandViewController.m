@@ -185,49 +185,49 @@
     
     
     UIImage* dayImage = [UIImage imageNamed:@"day"];
-    CGFloat space = (SCREEN_WIDTH-dayImage.size.width*4)/12;
+    CGFloat space = (SCREEN_WIDTH-dayImage.size.width*1.5*4)/12;
     CGFloat wOffset = space;
     CGFloat periodHeight = dayImage.size.height*3;
     CGFloat yOffset = dailyView.frame.size.height;
     self.dailyButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.dailyButton setImage:[UIImage imageNamed:@"day_01"] forState:UIControlStateNormal];
     [self.dailyButton addTarget:self action:@selector(changePeriod:) forControlEvents:UIControlEventTouchUpInside];
-    self.dailyButton.frame = CGRectMake(wOffset, yOffset+periodHeight/6, dayImage.size.width, dayImage.size.height);
+    self.dailyButton.frame = CGRectMake(wOffset, yOffset+periodHeight/12, dayImage.size.width*1.5, dayImage.size.height*1.5);
     [self.contentView addSubview:self.dailyButton];
     NSLog(@"%f",wOffset+dayImage.size.width);
-    [self.contentView addSubview:[self createLabel:@"天" frame:CGRectMake(wOffset+dayImage.size.width+3, yOffset+periodHeight/6, dayImage.size.width, dayImage.size.height) textColor:@"#000000" font:labelFontSize backgroundColor:nil]];
+    [self.contentView addSubview:[self createLabel:@"天" frame:CGRectMake(wOffset+dayImage.size.width*1.5+3, yOffset+periodHeight/6, dayImage.size.width, dayImage.size.height) textColor:@"#000000" font:labelFontSize backgroundColor:nil]];
     
     UIImage* dayArrow = [UIImage imageNamed:@"day_arrow"];
     self.periodImageView =[self createImageViewFromImage:dayArrow frame:CGRectMake(0, yOffset+periodHeight/3+dayImage.size.height, SCREEN_WIDTH, dayArrow.size.height)];
     [self.contentView addSubview:self.periodImageView];
     
-    wOffset+=space*3+dayImage.size.width;
+    wOffset+=space*3+dayImage.size.width*1.5;
     self.weeklyButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.weeklyButton setImage:[UIImage imageNamed:@"week"] forState:UIControlStateNormal];
     [self.weeklyButton addTarget:self action:@selector(changePeriod:) forControlEvents:UIControlEventTouchUpInside];
-    self.weeklyButton.frame = CGRectMake(wOffset, yOffset+periodHeight/6, dayImage.size.width, dayImage.size.height);
+    self.weeklyButton.frame = CGRectMake(wOffset, yOffset+periodHeight/12, dayImage.size.width*1.5, dayImage.size.height*1.5);
     [self.contentView addSubview:self.weeklyButton];
     NSLog(@"%f",wOffset+dayImage.size.width);
-    [self.contentView addSubview:[self createLabel:@"周" frame:CGRectMake(wOffset+dayImage.size.width+3, yOffset+periodHeight/6, dayImage.size.width, dayImage.size.height) textColor:@"#000000" font:labelFontSize backgroundColor:nil]];
+    [self.contentView addSubview:[self createLabel:@"周" frame:CGRectMake(wOffset+dayImage.size.width*1.5+3, yOffset+periodHeight/6, dayImage.size.width, dayImage.size.height) textColor:@"#000000" font:labelFontSize backgroundColor:nil]];
     
     
-    wOffset+=space*3+dayImage.size.width;
+    wOffset+=space*3+dayImage.size.width*1.5;
     self.monthlyButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.monthlyButton setImage:[UIImage imageNamed:@"month"] forState:UIControlStateNormal];
     [self.monthlyButton addTarget:self action:@selector(changePeriod:) forControlEvents:UIControlEventTouchUpInside];
-    self.monthlyButton.frame = CGRectMake(wOffset, yOffset+periodHeight/6, dayImage.size.width, dayImage.size.height);
+    self.monthlyButton.frame = CGRectMake(wOffset, yOffset+periodHeight/12, dayImage.size.width*1.5, dayImage.size.height*1.5);
     [self.contentView addSubview:self.monthlyButton];
     NSLog(@"%f",wOffset+dayImage.size.width);
-    [self.contentView addSubview:[self createLabel:@"月" frame:CGRectMake(wOffset+dayImage.size.width+3, yOffset+periodHeight/6, dayImage.size.width, dayImage.size.height) textColor:@"#000000" font:labelFontSize backgroundColor:nil]];
+    [self.contentView addSubview:[self createLabel:@"月" frame:CGRectMake(wOffset+dayImage.size.width*1.5+3, yOffset+periodHeight/6, dayImage.size.width, dayImage.size.height) textColor:@"#000000" font:labelFontSize backgroundColor:nil]];
     
-    wOffset+=space*3+dayImage.size.width;
+    wOffset+=space*3+dayImage.size.width*1.5;
     self.yearlyButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.yearlyButton setImage:[UIImage imageNamed:@"year"] forState:UIControlStateNormal];
     [self.yearlyButton addTarget:self action:@selector(changePeriod:) forControlEvents:UIControlEventTouchUpInside];
-    self.yearlyButton.frame = CGRectMake(wOffset, yOffset+periodHeight/6, dayImage.size.width, dayImage.size.height);
+    self.yearlyButton.frame = CGRectMake(wOffset, yOffset+periodHeight/12, dayImage.size.width*1.5, dayImage.size.height*1.5);
     [self.contentView addSubview:self.yearlyButton];
     NSLog(@"%f",wOffset+dayImage.size.width);
-    [self.contentView addSubview:[self createLabel:@"年" frame:CGRectMake(wOffset+dayImage.size.width+3, yOffset+periodHeight/6, dayImage.size.width, dayImage.size.height) textColor:@"#000000" font:labelFontSize backgroundColor:nil]];
+    [self.contentView addSubview:[self createLabel:@"年" frame:CGRectMake(wOffset+dayImage.size.width*1.5+3, yOffset+periodHeight/6, dayImage.size.width, dayImage.size.height) textColor:@"#000000" font:labelFontSize backgroundColor:nil]];
     yOffset+=periodHeight*2/3;
     _chartYOffset = yOffset;
     CGFloat infoHeight = SCREEN_HEIGHT/12;

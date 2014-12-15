@@ -125,7 +125,6 @@
 
         }
         if(url){
-
             TTOpenURL(url);
         }else{
             _swiping = NO;
@@ -133,6 +132,8 @@
         
     }
 }
+
+
 // Tells the receiver when one or more fingers are raised from a view or window.
 -(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
     [self doSwipe:touches];
