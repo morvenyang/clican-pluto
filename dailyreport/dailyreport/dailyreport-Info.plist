@@ -38,7 +38,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>2.0</string>
+	<string>2.0.1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>MG公司背景</key>
@@ -53,19 +53,19 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
+	<key>guideImage</key>
+	<integer>3</integer>
 	<key>乐町背景</key>
 	<string>#F08DBA</string>
 	<key>女装背景</key>
 	<string>#E5006E</string>
+	<key>电商背景</key>
+	<string>#D71515</string>
 	<key>男装背景</key>
 	<string>#17387A</string>
 	<key>童装背景</key>
 	<string>#F7D800</string>
 	<key>赫奇背景</key>
 	<string>#8BACD8</string>
-	<key>电商背景</key>
-	<string>#D71515</string>
-	<key>guideImage</key>
-	<integer>3</integer>
 </dict>
 </plist>
