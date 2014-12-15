@@ -32,6 +32,7 @@
 @synthesize navigation = _navigation;
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    
     #ifdef __IPHONE_8_0
     if([[UIApplication sharedApplication] respondsToSelector:@selector(registerUserNotificationSettings:)]){
         [[UIApplication sharedApplication] registerUserNotificationSettings:

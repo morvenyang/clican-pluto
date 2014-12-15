@@ -61,12 +61,14 @@
 - (void)loadView
 {
     [super loadView];
+
     UITapGestureRecognizer* recognizer = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(selectRow:)] autorelease];
     [self.contentView addGestureRecognizer:recognizer];
     [self.goodRankModel load:TTURLRequestCachePolicyNone more:NO];
     if(IS_IPHONE5){
         self.contentView.scrollEnabled=NO;
     }
+    
 }
 
 -(void)changeDateAndReload{

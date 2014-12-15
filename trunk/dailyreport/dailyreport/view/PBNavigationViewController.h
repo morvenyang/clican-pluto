@@ -10,7 +10,9 @@
 
 @interface PBNavigationViewController : SwitchViewController{
     int _backIndex;
+
 }
 @property (nonatomic, assign) int backIndex;
+
 -(id) initWithBrand:(NSString*) brand backIndex:(int)backIndex;
 @end

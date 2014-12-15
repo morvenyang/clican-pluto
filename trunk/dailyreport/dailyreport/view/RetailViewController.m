@@ -53,15 +53,15 @@
         url = [NSString stringWithFormat:@"peacebird://kpi/%@", [self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
         d =@"right";
     }
-    TTURLAction* action=[TTURLAction actionWithURLPath:url];
-    SwitchViewController* svc=(SwitchViewController*)[[TTNavigator navigator] openURLAction:
-                                                      [action applyAnimated:NO]];
-    
-    svc.direction = d;
+
+
+    TTOpenURL(url);
 }
 - (void)loadView
 {
     [super loadView];
+    
+        
     UIView* dailyView = [self createDailyView:@"图标-小钱袋" label:@"零售额明细"];
     int channelFontSize = 20;
     int labelFontSize =18;

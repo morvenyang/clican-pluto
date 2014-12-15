@@ -125,11 +125,8 @@
 
         }
         if(url){
-            TTURLAction* action=[TTURLAction actionWithURLPath:url];
-            SwitchViewController* svc=(SwitchViewController*)[[TTNavigator navigator] openURLAction:
-                                  [action applyAnimated:NO]];
-            
-            svc.direction = direction;
+
+            TTOpenURL(url);
         }else{
             _swiping = NO;
         }
