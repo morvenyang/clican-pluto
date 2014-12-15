@@ -19,6 +19,9 @@
 		320F2C48872C2E2C4DF86205 /* libThree20UI.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 320F2C48872C2E2C4DF86204 /* libThree20UI.a */; };
 		720ACA491A39AF260030FC1C /* NoRetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 720ACA481A39AF260030FC1C /* NoRetails.m */; };
 		720ACA551A39B03C0030FC1C /* Store.m in Sources */ = {isa = PBXBuildFile; fileRef = 720ACA541A39B03C0030FC1C /* Store.m */; };
+		720F45A71A3F10100019216D /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 720F45A61A3F10100019216D /* libsqlite3.0.dylib */; };
+		720F45A91A3F101E0019216D /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 720F45A81A3F101E0019216D /* libz.dylib */; };
+		720F45AB1A3F10290019216D /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 720F45AA1A3F10280019216D /* SystemConfiguration.framework */; };
 		72138B83194EB53D009918BD /* CannotCancelUISwipeGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 72138B82194EB53D009918BD /* CannotCancelUISwipeGestureRecognizer.m */; };
 		721633E619FB33E800F1B978 /* Default-667h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 721633E419FB33E800F1B978 /* Default-667h@2x.png */; };
 		721633E719FB33E800F1B978 /* Default-1104h@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 721633E519FB33E800F1B978 /* Default-1104h@3x.png */; };
@@ -344,6 +347,9 @@
 		720ACA481A39AF260030FC1C /* NoRetails.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoRetails.m; sourceTree = "<group>"; };
 		720ACA531A39B03C0030FC1C /* Store.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Store.h; sourceTree = "<group>"; };
 		720ACA541A39B03C0030FC1C /* Store.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Store.m; sourceTree = "<group>"; };
+		720F45A61A3F10100019216D /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
+		720F45A81A3F101E0019216D /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		720F45AA1A3F10280019216D /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		72138B81194EB53D009918BD /* CannotCancelUISwipeGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CannotCancelUISwipeGestureRecognizer.h; sourceTree = "<group>"; };
 		72138B82194EB53D009918BD /* CannotCancelUISwipeGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CannotCancelUISwipeGestureRecognizer.m; sourceTree = "<group>"; };
 		721633E419FB33E800F1B978 /* Default-667h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-667h@2x.png"; sourceTree = "<group>"; };
@@ -548,6 +554,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				720F45AB1A3F10290019216D /* SystemConfiguration.framework in Frameworks */,
+				720F45A91A3F101E0019216D /* libz.dylib in Frameworks */,
+				720F45A71A3F10100019216D /* libsqlite3.0.dylib in Frameworks */,
 				72436C411A26BA4C009F5E7C /* JavaScriptCore.framework in Frameworks */,
 				725B9FAE1A243BDE00939AD4 /* MessageUI.framework in Frameworks */,
 				72F94E261A1B1C8B00515377 /* libicucore.dylib in Frameworks */,
@@ -775,6 +784,9 @@
 		7285E3C41925AFEE0011C2D6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				720F45AA1A3F10280019216D /* SystemConfiguration.framework */,
+				720F45A81A3F101E0019216D /* libz.dylib */,
+				720F45A61A3F10100019216D /* libsqlite3.0.dylib */,
 				72436C241A26B72B009F5E7C /* JavaScriptCore.framework */,
 				725B9FAD1A243BDE00939AD4 /* MessageUI.framework */,
 				72F94E251A1B1C8B00515377 /* libicucore.dylib */,
@@ -1500,7 +1512,7 @@
 					"$(BUILT_PRODUCTS_DIR)/../../three20",
 					../three20/Build/Products/three20,
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1.1;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -1544,7 +1556,7 @@
 					"$(BUILT_PRODUCTS_DIR)/../../three20",
 					../three20/Build/Products/three20,
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1.1;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lxml2",
@@ -1558,6 +1570,7 @@
 		7285E3EF1925AFEE0011C2D6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: fang jie (FY5N67HLSC)";
@@ -1581,6 +1594,7 @@
 		7285E3F01925AFEE0011C2D6 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: fang jie (FY5N67HLSC)";
