@@ -142,20 +142,20 @@
     
     [self.tableViews removeAllObjects];
     self.storeNameLabel.text =[NSString stringWithFormat:@"店铺名称 %i家", noRetails.stores.count];
-    CGFloat ROW_HEIGHT = 54;
-    CGFloat ROW_CONTENT_HEIGHT=52;
-    int labelFont = 20;
+    CGFloat ROW_HEIGHT = 34;
+    CGFloat ROW_CONTENT_HEIGHT=32;
+    int labelFont = 18;
     if (SCREEN_WIDTH==320){
-        ROW_HEIGHT =54;
-        ROW_CONTENT_HEIGHT =52;
-        labelFont = 20;
+        ROW_HEIGHT =34;
+        ROW_CONTENT_HEIGHT =32;
+        labelFont = 18;
     }else if (SCREEN_WIDTH==375){
-        ROW_HEIGHT= 58;
-        ROW_CONTENT_HEIGHT= 56;
-        labelFont = 21;
+        ROW_HEIGHT= 38;
+        ROW_CONTENT_HEIGHT= 36;
+        labelFont = 20;
     }else{
-        ROW_HEIGHT =60;
-        ROW_CONTENT_HEIGHT =58;
+        ROW_HEIGHT =40;
+        ROW_CONTENT_HEIGHT =38;
         labelFont = 22;
     }
     
