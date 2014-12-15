@@ -41,9 +41,9 @@
     if(SCREEN_WIDTH==320){
         ROW_HEIGHT =40;
     }else if(SCREEN_WIDTH==375){
-        ROW_HEIGHT =42;
+        ROW_HEIGHT =46;
     }else{
-        ROW_HEIGHT =44;
+        ROW_HEIGHT =48;
 
     }
 

@@ -71,6 +71,7 @@
 //    TTURLAction* action=[[TTURLAction actionWithURLPath: [self getBackUrl:index]] applyAnimated: YES];
 //
 //    [[TTNavigator navigator] openURLAction:action];
+    //TTOpenURL([self getBackUrl:index]);
     if(index==1){
         TTOpenURL([self getBackUrl:1]);
     }else if(index==2){
@@ -88,8 +89,8 @@
     }else{
         [[TTNavigator navigator] openURLs:[self getBackUrl:1],[self getBackUrl:2],[self getBackUrl:3],[self getBackUrl:4],[self getBackUrl:5],[self getBackUrl:6],[self getBackUrl:7],[self getBackUrl:8],nil];
     }
-    
-    
+//
+//    
 }
 
 -(NSString*) getBackUrl:(int)index{
