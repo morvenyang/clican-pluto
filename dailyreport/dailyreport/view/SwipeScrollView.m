@@ -125,7 +125,20 @@
 
         }
         if(url){
-            TTOpenURL(url);
+            
+            TTURLAction * urlAction = [TTURLAction actionWithURLPath:url];
+            [urlAction applyAnimated:NO];
+            
+            CATransition * transition = [CATransition animation];
+            transition.duration = 0.4f;
+            transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+            transition.type = kCATransitionReveal;
+            transition.subtype = kCATransitionFromLeft;
+            UINavigationController* nc =[[TTNavigator navigator] topViewController].navigationController;
+            [nc.view.layer addAnimation:transition forKey:nil];
+            [[TTNavigator navigator] openURLAction:urlAction];
+            
+            //TTOpenURL(url);
         }else{
             _swiping = NO;
         }
