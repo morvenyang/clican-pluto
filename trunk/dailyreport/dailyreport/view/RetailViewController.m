@@ -54,14 +54,32 @@
         d =@"right";
     }
 
-
     TTOpenURL(url);
 }
+
+
 - (void)loadView
 {
     [super loadView];
     
-        
+    
+    
+    [self.retailModel load:self.type policy:TTURLRequestCachePolicyNone more:NO];
+}
+
+-(void)changeDateAndReload{
+    [super changeDateAndReload];
+    [self.retailModel load:self.type policy:TTURLRequestCachePolicyNone more:NO];
+}
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    // Do any additional setup after loading the view.
+}
+
+- (void) brandDidFinishLoad:(NSString*)dataProvider height:(int)height top:(int)top count:(int) count total:(long)total date:(NSDate*) date{
+    NSLog(@"%@",@"加载Brand Retail数据成功");
+    self.selectedDate = date;
     UIView* dailyView = [self createDailyView:@"图标-小钱袋" label:@"零售额明细"];
     int channelFontSize = 20;
     int labelFontSize =18;
@@ -118,22 +136,7 @@
     swipeGestureLeft.direction = UISwipeGestureRecognizerDirectionLeft;
     [self.webPieChartView.scrollView addGestureRecognizer:swipeGestureLeft];
     [self.webPieChartView.scrollView addGestureRecognizer:swipeGestureRight];
-    [self.retailModel load:self.type policy:TTURLRequestCachePolicyNone more:NO];
-}
-
--(void)changeDateAndReload{
-    [super changeDateAndReload];
-    [self.retailModel load:self.type policy:TTURLRequestCachePolicyNone more:NO];
-}
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
-}
-
-- (void) brandDidFinishLoad:(NSString*)dataProvider height:(int)height top:(int)top count:(int) count total:(long)total date:(NSDate*) date{
-    NSLog(@"%@",@"加载Brand Retail数据成功");
-    self.selectedDate = date;
+    
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"MM月dd日 EEEE"];
     self.calendarLabel.text =[dateFormatter stringFromDate:date];

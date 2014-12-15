@@ -68,10 +68,9 @@
     UIButton* button = (UIButton*)sender;
     int index = button.titleLabel.text.intValue;
     [[TTNavigator navigator] removeAllViewControllers];
-
-
-
-    
+//    TTURLAction* action=[[TTURLAction actionWithURLPath: [self getBackUrl:index]] applyAnimated: YES];
+//
+//    [[TTNavigator navigator] openURLAction:action];
     if(index==1){
         TTOpenURL([self getBackUrl:1]);
     }else if(index==2){
