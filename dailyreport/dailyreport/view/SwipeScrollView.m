@@ -125,7 +125,7 @@
 
         }
         if(url){
-            
+            //[[TTNavigator navigator] removeAllViewControllers];
             TTURLAction * urlAction = [TTURLAction actionWithURLPath:url];
             [urlAction applyAnimated:NO];
             
@@ -133,7 +133,12 @@
             transition.duration = 0.4f;
             transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
             transition.type = kCATransitionReveal;
-            transition.subtype = kCATransitionFromLeft;
+            if([direction isEqualToString:@"left"]){
+                transition.subtype = kCATransitionFromRight;
+            }else{
+                transition.subtype = kCATransitionFromLeft;
+            }
+            
             UINavigationController* nc =[[TTNavigator navigator] topViewController].navigationController;
             [nc.view.layer addAnimation:transition forKey:nil];
             [[TTNavigator navigator] openURLAction:urlAction];

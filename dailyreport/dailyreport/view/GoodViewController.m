@@ -50,7 +50,13 @@
     _footOffset =dailyView.frame.size.height+10;
     [self switchGood];
 }
-
+-(NSString*) getScaleUrl:(NSString*)url{
+    url = [url stringByReplacingOccurrencesOfString:[[url lastPathComponent] stringByAppendingString:@"/"] withString:@""];
+    url = [url stringByReplacingOccurrencesOfString:[[url lastPathComponent] stringByAppendingString:@"/"] withString:@""];
+    NSString* result = [url stringByAppendingString:@"440/640/"];
+    NSLog(@"%@",result);
+    return result;
+}
 -(void)switchGood{
     for(UIView* view in self.dyviews){
         [view removeFromSuperview];
@@ -74,7 +80,7 @@
     }
     TTImageView* imageView = [[[TTImageView alloc] initWithFrame:CGRectMake(10,_footOffset , SCREEN_WIDTH-20, (SCREEN_WIDTH-20)*ratio)] autorelease];
     imageView.urlPath = gr.imageLink;
-    
+    NSLog(@"%f %f",imageView.frame.size.width,imageView.frame.size.height);
     [self.contentView addSubview:imageView];
     [self.dyviews addObject:imageView];
     

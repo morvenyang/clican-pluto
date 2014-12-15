@@ -53,8 +53,24 @@
         url = [NSString stringWithFormat:@"peacebird://kpi/%@", [self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
         d =@"right";
     }
-
-    TTOpenURL(url);
+    //[[TTNavigator navigator] removeAllViewControllers];
+    TTURLAction * urlAction = [TTURLAction actionWithURLPath:url];
+    [urlAction applyAnimated:NO];
+    
+    CATransition * transition = [CATransition animation];
+    transition.duration = 0.4f;
+    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    transition.type = kCATransitionReveal;
+    if([d isEqualToString:@"left"]){
+        transition.subtype = kCATransitionFromRight;
+    }else{
+        transition.subtype = kCATransitionFromLeft;
+    }
+    
+    UINavigationController* nc =[[TTNavigator navigator] topViewController].navigationController;
+    [nc.view.layer addAnimation:transition forKey:nil];
+    [[TTNavigator navigator] openURLAction:urlAction];
+    //TTOpenURL(url);
 }
 
 
