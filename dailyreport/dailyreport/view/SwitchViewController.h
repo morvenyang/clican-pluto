@@ -40,6 +40,7 @@
 @property (nonatomic, copy) NSString *direction;
 
 -(void) backAction;
+- (UIImage *)imageWithImage:(UIImage *)image scaledToSize:(CGSize)newSize;
 -(SwitchViewController*)openNextUrl:(NSString*)url;
 -(UIImageView*) createImageViewFromNamedImage:(NSString*) imageName frame:(CGRect) frame;
 -(UIImageView*) createImageViewFromNamedImage:(NSString*) imageName point:(CGPoint) point;
