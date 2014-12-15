@@ -16,6 +16,8 @@ public class SpringProperty {
 	private String yesterday;
 	private String imageUrlPrefix;
 	
+	private boolean mockValue = true;
+	
 
 	public String getVersion() {
 		return version;
@@ -95,6 +97,14 @@ public class SpringProperty {
 
 	public void setImageUrlPrefix(String imageUrlPrefix) {
 		this.imageUrlPrefix = imageUrlPrefix;
+	}
+
+	public boolean isMockValue() {
+		return mockValue;
+	}
+
+	public void setMockValue(boolean mockValue) {
+		this.mockValue = mockValue;
 	}
 	
 	

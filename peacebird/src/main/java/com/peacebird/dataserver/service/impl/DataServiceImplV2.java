@@ -107,6 +107,9 @@ public class DataServiceImplV2 implements DataServiceV2 {
 		List<BrandResult> indexBrandResults = dataDaoV2.getBrandResult(
 				yesterday, brands);
 		for (BrandResult ibr : indexBrandResults) {
+			if(springProperty.isMockValue()){
+				ibr.setDayAmount(10000L);
+			}
 			bSet.remove(ibr.getBrand());
 		}
 		for (String brand : bSet) {
@@ -154,6 +157,9 @@ public class DataServiceImplV2 implements DataServiceV2 {
 		List<BrandResult> bcr = this.dataDaoV2.getBrandResultByChannel(
 				yesterday, brand);
 		for (BrandResult b : bcr) {
+			if(springProperty.isMockValue()){
+				b.setDayAmount(10000L);
+			}
 			if (b.getChannel().equals(Constants.B2C)) {
 				// 统计数据不包括电商的
 				continue;
@@ -252,6 +258,10 @@ public class DataServiceImplV2 implements DataServiceV2 {
 		}
 		for (int i = 0; i < lineCharts.size(); i++) {
 			BrandLineChartResult lc = lineCharts.get(i);
+			if(springProperty.isMockValue()){
+				lc.setAmount(new Double(i*100000L+1));
+				lc.setPreAmount(new Double(i*500000L+1));
+			}
 			lc.setDateStr(sdf.format(lc.getDate()));
 			lc.setFullDateStr(fsdf.format(lc.getDate()));
 			if (type == Calendar.WEEK_OF_MONTH) {
