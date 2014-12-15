@@ -11,6 +11,7 @@
 #import "AppDelegate.h"
 @implementation PBNavigationViewController
 @synthesize  backIndex = _backIndex;
+
 -(id) initWithBrand:(NSString*) brand backIndex:(int)backIndex{
     if ((self = [self initWithNibName:nil bundle:nil])) {
         self.brand = brand;
@@ -61,18 +62,35 @@
     }
 }
 
+
+
 -(void)onButtonClick:(id)sender{
     UIButton* button = (UIButton*)sender;
     int index = button.titleLabel.text.intValue;
     [[TTNavigator navigator] removeAllViewControllers];
-    for(int i=1;i<=index;i++){
-        NSString* url = [self getBackUrl:i];
-        
-        TTURLAction* action=[TTURLAction actionWithURLPath:url];
-        UIViewController* vc=[[TTNavigator navigator] openURLAction:
-        [action applyAnimated:NO]];
-        NSLog(@"%@",vc.parentViewController);
+
+
+
+    
+    if(index==1){
+        TTOpenURL([self getBackUrl:1]);
+    }else if(index==2){
+        [[TTNavigator navigator] openURLs:[self getBackUrl:1],[self getBackUrl:2],nil];
+    }else if(index==3){
+        [[TTNavigator navigator] openURLs:[self getBackUrl:1],[self getBackUrl:2],[self getBackUrl:3],nil];
+    }else if(index==4){
+        [[TTNavigator navigator] openURLs:[self getBackUrl:1],[self getBackUrl:2],[self getBackUrl:3],[self getBackUrl:4],nil];
+    }else if(index==5){
+        [[TTNavigator navigator] openURLs:[self getBackUrl:1],[self getBackUrl:2],[self getBackUrl:3],[self getBackUrl:4],[self getBackUrl:5],nil];
+    }else if(index==6){
+        [[TTNavigator navigator] openURLs:[self getBackUrl:1],[self getBackUrl:2],[self getBackUrl:3],[self getBackUrl:4],[self getBackUrl:5],[self getBackUrl:6],nil];
+    }else if(index==7){
+         [[TTNavigator navigator] openURLs:[self getBackUrl:1],[self getBackUrl:2],[self getBackUrl:3],[self getBackUrl:4],[self getBackUrl:5],[self getBackUrl:6],[self getBackUrl:7],nil];
+    }else{
+        [[TTNavigator navigator] openURLs:[self getBackUrl:1],[self getBackUrl:2],[self getBackUrl:3],[self getBackUrl:4],[self getBackUrl:5],[self getBackUrl:6],[self getBackUrl:7],[self getBackUrl:8],nil];
     }
+    
+    
 }
 
 -(NSString*) getBackUrl:(int)index{

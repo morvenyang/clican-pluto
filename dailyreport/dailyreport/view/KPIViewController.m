@@ -8,6 +8,7 @@
 
 #import "KPIViewController.h"
 #import "StyleSheet.h"
+#import "AppDelegate.h"
 @implementation KPIViewController
 @synthesize kpiModel = _kpiModel;
 @synthesize channels = _channels;
@@ -39,7 +40,10 @@
 - (void)loadView
 {
     [super loadView];
-    [self.kpiModel load:TTURLRequestCachePolicyNone more:NO];
+
+        [self.kpiModel load:TTURLRequestCachePolicyNone more:NO];
+    
+    
 }
 -(void)changeDateAndReload{
     [super changeDateAndReload];

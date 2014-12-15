@@ -7,7 +7,7 @@
 //
 
 #import "B2CKPIViewController.h"
-
+#import "AppDelegate.h"
 
 
 @implementation B2CKPIViewController
@@ -34,7 +34,10 @@
 - (void)loadView
 {
     [super loadView];
-    [self.kpiModel load:TTURLRequestCachePolicyNone more:NO];
+
+        [self.kpiModel load:TTURLRequestCachePolicyNone more:NO];
+    
+    
 }
 
 -(void)changeDateAndReload{

@@ -200,7 +200,7 @@
     
 
     [super viewWillAppear:animated];
-    [self turnpage];
+    //[self turnpage];
 }
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:NO];
@@ -208,7 +208,38 @@
 -(void)viewDidLoad
 {
     [super viewDidLoad];
+
     
+    
+}
+
+-(NSString*) getBackUrl:(int)index{
+    NSString* backUrl = @"";
+    if(index==1){
+        backUrl = [NSString stringWithFormat:@"peacebird://brand/%@", [self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    }else if(index==2){
+        backUrl = [NSString stringWithFormat:@"peacebird://kpi/%@", [self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    }else if(index==3){
+        backUrl = [NSString stringWithFormat:@"peacebird://retail/%@", [self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    }else if(index==4){
+        backUrl = [NSString stringWithFormat:@"peacebird://storeRank/%@", [self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    }else if(index==5){
+        backUrl = [NSString stringWithFormat:@"peacebird://goodRank/%@", [self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    }else if(index==6){
+        backUrl = [NSString stringWithFormat:@"peacebird://storeSum/%@", [self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    }else if(index==7){
+        backUrl = [NSString stringWithFormat:@"peacebird://noRetails/%@", [self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    }else if(index==8){
+        backUrl = [NSString stringWithFormat:@"peacebird://b2cKpi/%@", [self.brand stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    }
+    return backUrl;
+}
+
+-(SwitchViewController*)openNextUrl:(NSString*)url{
+    TTURLAction* action=[TTURLAction actionWithURLPath:url];
+    SwitchViewController* vc=(SwitchViewController*)[[TTNavigator navigator] openURLAction:
+                               [action applyAnimated:NO]];
+    return vc;
 }
 -(void)turnpage{
     CABasicAnimation *animation = [CABasicAnimation  animationWithKeyPath:@"position"];

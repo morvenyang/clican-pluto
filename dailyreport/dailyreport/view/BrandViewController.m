@@ -64,7 +64,10 @@
 - (void)loadView
 {
     [super loadView];
-    [self.brandModel load:TTURLRequestCachePolicyNone more:NO];
+
+        [self.brandModel load:TTURLRequestCachePolicyNone more:NO];
+    
+    
 }
 
 -(void)changeDateAndReload{

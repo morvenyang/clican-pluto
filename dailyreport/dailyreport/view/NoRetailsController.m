@@ -40,7 +40,10 @@
 - (void)loadView
 {
     [super loadView];
+    
     [self.noRetailModel load:TTURLRequestCachePolicyNone more:NO];
+    
+    
 }
 
 -(void)changeDateAndReload{

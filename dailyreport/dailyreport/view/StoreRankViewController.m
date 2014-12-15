@@ -9,7 +9,7 @@
 #import "StoreRankViewController.h"
 #import "Rank.h"
 #import "StyleSheet.h"
-
+#import "AppDelegate.h"
 
 
 @implementation StoreRankViewController
@@ -43,7 +43,10 @@
 - (void)loadView
 {
     [super loadView];
-    [self.storeRankModel load:TTURLRequestCachePolicyNone more:NO];
+
+        [self.storeRankModel load:TTURLRequestCachePolicyNone more:NO];
+    
+    
 }
 
 -(void)changeDateAndReload{
