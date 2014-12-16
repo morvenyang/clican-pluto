@@ -16,7 +16,7 @@ public class SpringProperty {
 	private String yesterday;
 	private String imageUrlPrefix;
 	
-	private boolean mockValue = true;
+	private boolean mockValue = false;
 	
 
 	public String getVersion() {
