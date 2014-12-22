@@ -57,6 +57,13 @@
 								style="white-space:nowrap;" rendered="#{user.role==1}">
 							</h:outputText>
 						</rich:column>
+						<rich:column sortBy="#{user.tel}">
+							<f:facet name="header">
+								<h:outputText value="电话" />
+							</f:facet>
+							<h:outputText value="#{user.tel}" style="white-space:nowrap;">
+							</h:outputText>
+						</rich:column>
 						<rich:column sortBy="#{user.token}">
 							<f:facet name="header">
 								<h:outputText value="Token" />
@@ -177,7 +184,6 @@
 					</h:selectOneMenu>
 					<rich:message for="role" style="color:red" showDetail="false"
 						showSummary="true" rendered="#{userAction.user.userName!='admin'}"/>
-						
 					
 					
 					<h:panelGroup rendered="#{userAction.user.id==null}">
@@ -206,6 +212,21 @@
 					</h:panelGroup>
 					<h:selectBooleanCheckbox value="#{userAction.user.reset}" />
 					<h:outputText value=""/>
+					
+					<h:panelGroup>
+						<h:outputLabel value="电话" />
+					</h:panelGroup>
+					<h:inputText id="tel"
+						value="#{userAction.user.tel}" style="width:200px;"/>
+					<h:outputText value=""/>
+					
+					<h:panelGroup>
+						<h:outputLabel value="备注" />
+					</h:panelGroup>
+					<h:inputTextarea id="remark"
+						value="#{userAction.user.remark}" style="width:200px;"/>
+					<h:outputText value=""/>
+						
 					<h:panelGrid columns="2">
 						<a4j:commandButton id="saveButton" value="保存"
 							action="#{userAction.saveUser()}"
