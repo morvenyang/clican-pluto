@@ -26,6 +26,8 @@ public class User {
 	private String token;
 	private Integer timeoutInterval=60;
 	private boolean reset = true;
+	private String remark;
+	private String tel;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -107,6 +109,20 @@ public class User {
 	}
 	public void setReset(boolean reset) {
 		this.reset = reset;
+	}
+	@Column
+	public String getRemark() {
+		return remark;
+	}
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+	@Column
+	public String getTel() {
+		return tel;
+	}
+	public void setTel(String tel) {
+		this.tel = tel;
 	}
 	
 }
