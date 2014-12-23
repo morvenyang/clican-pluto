@@ -188,11 +188,16 @@ public class DataDaoImplV2 extends HibernateDaoSupport implements DataDaoV2 {
 			@Override
 			public Object doInHibernate(Session session)
 					throws HibernateException, SQLException {
-				String hsql = "select new com.peacebird.dataserver.bean.StoreRankResult(name,amount,rate) from DayStoreAmountRank where date = :date and brand= :brand and type='front' order by amount "
+				String hsql = "select new com.peacebird.dataserver.bean.StoreRankResult(name,amount,rate) from DayStoreAmountRank where date = :date and brand= :brand and type=:type order by amount "
 						+ order;
 				Query query = session.createQuery(hsql);
 				query.setParameter("date", date);
 				query.setParameter("brand", brand);
+				if(order.equals("asc")){
+					query.setParameter("type", "last");
+				}else{
+					query.setParameter("type", "front");
+				}
 				query.setMaxResults(10);
 				return query.list();
 			}
