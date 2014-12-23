@@ -164,12 +164,16 @@ public class DataDaoImplV2 extends HibernateDaoSupport implements DataDaoV2 {
 			@Override
 			public Object doInHibernate(Session session)
 					throws HibernateException, SQLException {
-				String hsql = "select new com.peacebird.dataserver.bean.StoreRankResult(name,amount,rate) from DayStoreAmountRank where date = :date and brand= :brand and channel = :channel order by rank "
-						+ order;
+				String hsql = "select new com.peacebird.dataserver.bean.StoreRankResult(name,amount,rate) from DayStoreAmountRank where date = :date and brand= :brand and channel = :channel and type=:type order by rank "+order;
 				Query query = session.createQuery(hsql);
 				query.setParameter("date", date);
 				query.setParameter("brand", brand);
 				query.setParameter("channel", channel);
+				if(order.equals("asc")){
+					query.setParameter("type", "front");
+				}else{
+					query.setParameter("type", "last");
+				}
 				query.setMaxResults(10);
 				return query.list();
 			}
@@ -184,7 +188,7 @@ public class DataDaoImplV2 extends HibernateDaoSupport implements DataDaoV2 {
 			@Override
 			public Object doInHibernate(Session session)
 					throws HibernateException, SQLException {
-				String hsql = "select new com.peacebird.dataserver.bean.StoreRankResult(name,amount,rate) from DayStoreAmountRank where date = :date and brand= :brand order by amount "
+				String hsql = "select new com.peacebird.dataserver.bean.StoreRankResult(name,amount,rate) from DayStoreAmountRank where date = :date and brand= :brand and type='front' order by amount "
 						+ order;
 				Query query = session.createQuery(hsql);
 				query.setParameter("date", date);
