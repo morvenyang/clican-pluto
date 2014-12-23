@@ -20,6 +20,7 @@ public class DayStoreAmountRank {
 	private Long amount;
 	private Integer rank;
 	private Double rate;
+	private String type;
 
 
 	@Id
@@ -91,6 +92,13 @@ public class DayStoreAmountRank {
 	}
 	public void setRate(Double rate) {
 		this.rate = rate;
+	}
+	@Column(name = "d_type")
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
 	}
 	
 }
