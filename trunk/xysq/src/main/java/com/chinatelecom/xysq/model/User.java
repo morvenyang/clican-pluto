@@ -1,9 +1,11 @@
 package com.chinatelecom.xysq.model;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import org.hibernate.annotations.Parameter;
@@ -11,6 +13,8 @@ import org.hibernate.annotations.Type;
 
 import com.chinatelecom.xysq.enumeration.Role;
 
+@Table(name = "USERS")
+@Entity
 public class User {
 
 	
