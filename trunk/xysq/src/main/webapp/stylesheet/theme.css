@@ -1,0 +1,436 @@
+a:active, a:link, a:visited {
+    color: #0D5798;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #8CAFCD;
+    text-decoration: none;
+}
+
+select {
+    height: 20px;
+}
+
+input[type='text'] {
+    height: 16px;
+    line-height: 16px;
+}
+
+input[type='text'], textarea {
+    border: 1px solid #BBBBBB;
+    font-size: 12px;
+}
+
+button[type="button"], button[type="reset"], button[type="submit"],
+input[type="submit"], input[type="button"] {
+    margin: 0;
+    text-align: center;
+    height: 20px;
+    cursor: pointer;
+    border: 1px outset #AECDF7;
+    background: #F2F7FF url("../img/button_bg.png") repeat-x top left;
+    padding: 1px 12px;
+    box-shadow: 1px 1px 1px #AECDF7;
+    -moz-box-shadow: 1px 1px 1px #AECDF7;
+    -webkit-box-shadow: 1px 1px 1px #AECDF7;
+    /**overflow:visible;*/
+    /*overflow: visible;*/
+    /*_width: 0;  *//* For IE 6 *//*;*/
+    /*width: auto;*/
+}
+
+button[type="button"]:active, button[type="reset"]:active, button[type="submit"]:active,
+input[type="submit"]:active, input[type="button"]:active {
+    border: 1px inset #AECDF7;
+    box-shadow: inset 1px 1px 1px #AECDF7;
+    -moz-box-shadow: inset 1px 1px 1px #AECDF7;
+    -webkit-box-shadow: inset 1px 1px 1px #AECDF7;
+}
+
+input[type='reset'] {
+    margin: 0;
+    text-align: center;
+    height: 20px;
+    cursor: pointer;
+    border: 1px outset #CCCCCC;
+    background: #F7F7F7 url("../img/button_reset_bg.png") repeat-x top left;
+    padding: 1px 12px;
+    box-shadow: 1px 1px 1px #CCCCCC;
+    -moz-box-shadow: 1px 1px 1px #CCCCCC;
+    -webkit-box-shadow: 1px 1px 1px #CCCCCC;
+    /**overflow:visible;*/
+    /*overflow: visible;*/
+    /*_width: 0;  *//* For IE 6 *//*;*/
+    /*width: auto;*/
+}
+
+input[type='reset']:active {
+    border: 1px inset #CCCCCC;
+    box-shadow: inset 1px 1px 1px #CCCCCC;
+    -moz-box-shadow: inset 1px 1px 1px #CCCCCC;
+    -webkit-box-shadow: inset 1px 1px 1px #CCCCCC;
+}
+
+.tableControl, .actionButtons {
+    width: 100%;
+}
+
+.tableControl {
+    text-align: right;
+}
+
+.footer {
+    text-align: center;
+    font-size: 12px;
+    margin-left: 2%;
+    width: 96%;
+}
+
+h1 {
+    font-family: Arial, sans-serif;
+    color: #578BB8;
+    font-size: 1.6em;
+    margin-top: 0;
+}
+
+.bar {
+    /*margin-top: 5px;*/
+}
+
+.columnHeader:hover {
+    color: #FF6600;
+}
+
+.message {
+    border: 0px solid #FFCC00;
+    padding: 0px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    background-color: #F0F8FF;
+    font-size: 12px;
+}
+
+.name {
+    vertical-align: top;
+    font-weight: bold;
+    width: 150px;
+    float: left;
+    padding: 5px;
+    margin-top: 3px;
+    clear: left;
+    font-size: 15px;
+}
+
+.value {
+    float: left;
+    padding: 5px;
+    margin-top: 3px;
+    font-size: 15px;
+}
+
+.description {
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.error {
+    margin-left: 20px;
+    margin-top: 5px;
+    float: left;
+    padding: 5px;
+    border: 1px solid red;
+}
+
+.errors {
+    color: red;
+}
+
+.errors input {
+    border: 1px solid red;
+}
+
+.errors textarea {
+    border: 1px solid red;
+}
+
+.required {
+    color: red;
+    padding-left: 2px;
+}
+
+/* date picker style */
+div.seam-date {
+    margin-top: 5px;
+    border: 1px solid #AAAAAA;
+    background-color: #FFFFFF;
+    color: #505050;
+    font-family: Tahoma, Arial, Helvetica, sans-serif;
+    font-size: 12px;
+}
+
+table.seam-date td {
+    font-family: Tahoma, Arial, Helvetica, sans-serif;
+    font-size: 12px;
+}
+
+.seam-date-monthNames {
+    width: 70px;
+    border: 1px solid #dddddd;
+    border-right: 3px solid #444444;
+    border-bottom: 3px solid #444444;
+    background-color: #ffffff;
+    font-size: 12px;
+    cursor: pointer;
+    font-family: Tahoma, Arial, Helvetica, sans-serif;
+    font-weight: normal;
+}
+
+a.seam-date-monthNameLink, a.seam-date-monthNameLink:visited {
+    text-align: center;
+    display: block;
+    color: #555555;
+}
+
+a.seam-date-monthNameLink:hover {
+    background-color: #CCCCCC;
+    color: red;
+}
+
+.seam-date-years {
+    height: 10em;
+    overflow: auto;
+    width: 60px;
+    border: 1px solid #dddddd;
+    border-right: 3px solid #444444;
+    border-bottom: 3px solid #444444;
+    background-color: #ffffff;
+    font-size: 12px;
+    cursor: pointer;
+    font-family: Tahoma, Arial, Helvetica, sans-serif;
+    font-weight: normal;
+}
+
+a.seam-date-yearLink, a.seam-date-yearLink:visited {
+    text-align: center;
+    display: block;
+    color: #555555;
+}
+
+a.seam-date-yearLink:hover {
+    background-color: #CCCCCC;
+    color: red;
+}
+
+tr.seam-date-header {
+    padding: 2px 0px 2px 0px;
+}
+
+td.seam-date-header {
+    padding: 0px 8px 0px 8px;
+    text-align: center;
+    color: gray;
+    font-family: Tahoma, Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+td.seam-date-header-prevMonth {
+    background-image: url("../img/cal-prev.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    padding: 0px 2px 0px 2px;
+    width: 17px;
+    height: 16px;
+    margin-left: 2px;
+}
+
+td.seam-date-header-nextMonth {
+    background-image: url("../img/cal-next.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    padding: 0px 2px 0px 2px;
+    width: 17px;
+    height: 16px;
+    margin-right: 2px;
+}
+
+tr.seam-date-headerDays {
+    color: white;
+    font-weight: normal;
+}
+
+tr.seam-date-headerDays>td {
+    background-color: #CCCCCC;
+    border: 1px solid #AAAAAA;
+    color: white;
+    text-align: center;
+    width: 26px;
+}
+
+tr.seam-date-footer {
+    background-color: white;
+    color: #505050;
+    font-weight: bold;
+}
+
+tr.seam-date-footer>td {
+    text-align: center;
+}
+
+td.seam-date-inMonth {
+    background-color: white;
+    color: black;
+    font-weight: normal;
+    cursor: pointer;
+    border: 1px solid #ece9d8;
+}
+
+td.seam-date-outMonth {
+    background-color: white;
+    color: #999999;
+    font-weight: normal;
+    cursor: pointer;
+    border: 1px solid #ece9d8;
+}
+
+td.seam-date-selected {
+    background-color: #CCCCCC;
+    border: 1px solid #AAAAAA;
+    color: black;
+    font-weight: normal;
+}
+
+td.seam-date-dayOff-inMonth {
+    background-color: #efefef;
+    color: black;
+    font-weight: normal;
+    cursor: pointer;
+    border: 1px solid #ece9d8;
+}
+
+td.seam-date-dayOff-outMonth {
+    background-color: #efefef;
+    color: #999999;
+    font-weight: normal;
+    cursor: pointer;
+    border: 1px solid #ece9d8;
+}
+
+td.seam-date-hover {
+    background-color: #CCCCCC;
+    border: 1px solid #AAAAAA;
+    cursor: pointer;
+    color: red;
+}
+
+.rich-table-subheadercell {
+    color: #222222;
+}
+
+.rich-panelbar-header {
+    color: #222222;
+}
+
+.rich-spinner-input {
+    border: none !important;
+}
+
+.rich-panelbar-header, .rich-panelbar-header-act{
+    height: 18px;
+    line-height: 18px;
+}
+
+.rich-panelbar-content {
+    padding: 2px !important;
+}
+
+.even-row {
+    background-color: #FDFFFE;
+}
+
+.odd-row {
+    background-color: #f2f7ff;
+}
+
+.top {
+    vertical-align: top;
+}
+
+.columntop {
+    vertical-align: top;
+    width: 50%;
+}
+
+.columntopLeft {
+    vertical-align: top;
+    width: 20%;
+}
+
+.columntopRight {
+    vertical-align: top;
+    width: 80%;
+}
+
+.active-row {
+    background-color: #FFEBDA;
+}
+
+.selected-row {
+    cursor: pointer;
+    background-color: #99CCFF;
+}
+
+.ellipsis {
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    -moz-binding: url('ellipsis.xml#ellipsis');
+}
+
+.rich-datascr-inact {
+    color: #007bdd;
+    padding: 0 2px 0 2px;
+}
+
+.rich-table {
+    border: 1px solid silver;
+}
+
+.rich-table-cell {
+    /*border-top-color: #ece9d8;*/
+    /*border-bottom-color: #ece9d8;*/
+    padding: 0 2px;
+    height: 25px;
+    border-top: none;
+    border-bottom: none;
+    /*border-left-color: #ece9d8;*/
+    border-right-color: #ece9d8;
+    border-spacing: 0;
+    border-collapse: collapse;
+}
+
+.rich-table-subheadercell {
+    border-bottom: 1px solid #CCC;
+    border-right: 1px solid #ece9d8;
+    border-spacing: 0;
+    border-collapse: collapse;
+}
+
+.rich-subtable-firstrow {
+    border-top:  1px solid #CCC;
+}
+
+.irpRichCalendar{
+	width:210px;
+}
+.nowrap {
+    white-space: nowrap;
+}
+
+.rich-tree-node-selected{
+	color:green;
+}
+
+.rich-tree-node-highlighted{
+	color:red;
+}
