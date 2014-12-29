@@ -24,6 +24,7 @@ public class User {
 	private String confirmedPassword;
 	private boolean active = true;
 	private Role role;
+	private String msisdn;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -74,6 +75,13 @@ public class User {
 	}
 	public void setRole(Role role) {
 		this.role = role;
+	}
+	@Column
+	public String getMsisdn() {
+		return msisdn;
+	}
+	public void setMsisdn(String msisdn) {
+		this.msisdn = msisdn;
 	}
 	
 	
