@@ -54,7 +54,7 @@
             </value>
 		</property>
 	</bean>
-	<bean id="namingStrategy" class="com.chinatelecom.xysq.util.ImprovedNamingStrategy" />
+	<bean id="namingStrategy" class="com.chinatelecom.xysq.hibernate.ImprovedNamingStrategy" />
 
 
 	<bean id="txManager"
