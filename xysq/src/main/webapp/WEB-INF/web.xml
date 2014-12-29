@@ -51,7 +51,7 @@
 	</context-param>
 
 	<listener>
-		<listener-class>com.peacebird.dataserver.listener.StartupListener</listener-class>
+		<listener-class>com.chinatelecom.xysq.listener.StartupListener</listener-class>
 	</listener>
 
 	<listener>
