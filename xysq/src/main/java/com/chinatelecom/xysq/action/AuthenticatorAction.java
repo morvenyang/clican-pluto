@@ -1,5 +1,8 @@
 package com.chinatelecom.xysq.action;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.apache.commons.codec.digest.DigestUtils;
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.In;
@@ -37,6 +40,9 @@ public class AuthenticatorAction extends BaseAction {
 				return false;
 			}
 			identity.setUser(user);
+			Set<String> permissionSet = new HashSet<String>();
+			identity.setPermissionSet(permissionSet);
+			permissionSet.add(user.getRole().name());
 			return true;
 		}
 	}

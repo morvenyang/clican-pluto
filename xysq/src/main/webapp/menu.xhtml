@@ -8,7 +8,7 @@
 	xmlns:a4j="http://richfaces.org/a4j">
 	<rich:toolBar id="menu" styleClass="bar" itemSeparator="line">
 		<rich:menuItem submitMode="ajax"
-			rendered="#{s:hasRole('admin')}">
+			rendered="#{s:hasPermission('ADMIN',null)}">
 			<s:link view="/user.xhtml" style="font-size:20px"
 				action="#{userAction.listUsers()}"
 				value="用户管理" />

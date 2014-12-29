@@ -151,7 +151,6 @@ public class Identity extends org.jboss.seam.security.Identity {
    
 
 
-
     @Override
     public boolean isLoggedIn(boolean attemptLogin) {
         if (attemptLogin) {
