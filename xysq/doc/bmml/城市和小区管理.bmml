@@ -124,12 +124,13 @@
     </control>
     <control controlID="24" controlTypeID="com.balsamiq.mockups::Label" x="1030" y="434" w="59" h="-1" measuredW="52" measuredH="21" zOrder="24" locked="false" isInGroup="-1">
       <controlProperties>
-        <text>%u4FBF%u6C11%u670D%u52A1</text>
+        <text>%u5185%u90E8%u6A21%u5757</text>
       </controlProperties>
     </control>
-    <control controlID="25" controlTypeID="com.balsamiq.mockups::ComboBox" x="1122" y="432" w="95" h="-1" measuredW="62" measuredH="24" zOrder="25" locked="false" isInGroup="-1">
+    <control controlID="25" controlTypeID="com.balsamiq.mockups::ComboBox" x="1122" y="432" w="95" h="-1" measuredW="82" measuredH="24" zOrder="25" locked="false" isInGroup="-1">
       <controlProperties>
-        <text>%u6A21%u57571</text>
+        <state>closed</state>
+        <text>%u5C0F%u533A%u516C%u544A%0A%u4E1A%u4E3B%u987B%u77E5%0A%u8054%u7CFB%u6211%u4EEC%0A%u5C0F%u533A%u632A%u8F66%0A%u5BBD%u5E26%u63D0%u9192</text>
       </controlProperties>
     </control>
     <control controlID="26" controlTypeID="com.balsamiq.mockups::Button" x="690" y="20" w="-1" h="-1" measuredW="74" measuredH="27" zOrder="26" locked="false" isInGroup="-1">
@@ -140,6 +141,16 @@
     <control controlID="27" controlTypeID="com.balsamiq.mockups::Button" x="774" y="20" w="-1" h="-1" measuredW="74" measuredH="27" zOrder="27" locked="false" isInGroup="-1">
       <controlProperties>
         <text>%u53D1%u5E03%u987B%u77E5</text>
+      </controlProperties>
+    </control>
+    <control controlID="28" controlTypeID="com.balsamiq.mockups::Label" x="1030" y="463" w="59" h="-1" measuredW="52" measuredH="21" zOrder="28" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%u5546%u5BB6%u8BE6%u60C5</text>
+      </controlProperties>
+    </control>
+    <control controlID="29" controlTypeID="com.balsamiq.mockups::ComboBox" x="1122" y="463" w="95" h="-1" measuredW="62" measuredH="24" zOrder="29" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%u5546%u5BB61</text>
       </controlProperties>
     </control>
   </controls>
