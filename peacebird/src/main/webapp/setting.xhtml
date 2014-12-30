@@ -16,6 +16,8 @@
 					<rich:calendar value="#{settingAction.currentDate}"
 						datePattern="yyyy-MM-dd" showApplyButton="true" cellWidth="24px"
 						cellHeight="22px" style="width:200px" />
+					<h:outputLabel value="最新客户端版本" />
+					<h:inputText value="#{settingAction.clientVersion}" style="width:145px" />
 					<a4j:commandButton id="save" value="保存"
 						action="#{settingAction.save()}"
 						oncomplete="if(#{facesContext.maximumSeverity==null}) {Richfaces.hideModalPanel('changePasswordPanel');}" />
