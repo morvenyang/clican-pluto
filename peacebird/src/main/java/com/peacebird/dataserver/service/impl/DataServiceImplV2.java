@@ -120,6 +120,7 @@ public class DataServiceImplV2 implements DataServiceV2 {
 		ir.setBrands(indexBrandResults);
 		ir.setResult(0);
 		ir.setDate(yesterday);
+		ir.setClientVersion(springProperty.getClientVersion());
 		Date realYesterday = DateUtils.addDays(
 				DateUtils.truncate(new Date(), Calendar.DAY_OF_MONTH), -1);
 		DayStatus ds = dataDaoV2.getDayStatus(realYesterday);
