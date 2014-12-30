@@ -19,6 +19,8 @@ public class SettingAction extends BaseAction {
 	private final static Log log = LogFactory.getLog(SettingAction.class);
 
 	private Date currentDate;
+	
+	private String clientVersion;
 
 	public void load() {
 		if (StringUtils.isNotEmpty(this.getSpringProperty().getYesterday())) {
@@ -30,6 +32,7 @@ public class SettingAction extends BaseAction {
 				log.error("", e);
 			}
 		}
+		clientVersion = this.getSpringProperty().getClientVersion();
 	}
 
 	public void save() {
@@ -39,6 +42,7 @@ public class SettingAction extends BaseAction {
 		} else {
 			this.getSpringProperty().setYesterday(null);
 		}
+		this.getSpringProperty().setClientVersion(clientVersion);
 	}
 
 	public Date getCurrentDate() {
@@ -47,6 +51,14 @@ public class SettingAction extends BaseAction {
 
 	public void setCurrentDate(Date currentDate) {
 		this.currentDate = currentDate;
+	}
+
+	public String getClientVersion() {
+		return clientVersion;
+	}
+
+	public void setClientVersion(String clientVersion) {
+		this.clientVersion = clientVersion;
 	}
 
 }
