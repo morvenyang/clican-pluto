@@ -1,0 +1,34 @@
+<mockup version="1.0" skin="sketch" fontFace="Balsamiq Sans" measuredW="1306" measuredH="420" mockupW="1219" mockupH="320">
+  <controls>
+    <control controlID="0" controlTypeID="com.balsamiq.mockups::FieldSet" x="713" y="100" w="593" h="320" measuredW="200" measuredH="170" zOrder="0" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%u5C0F%u533A%u516C%u544A</text>
+      </controlProperties>
+    </control>
+    <control controlID="1" controlTypeID="com.balsamiq.mockups::TextInput" x="798" y="126" w="439" h="-1" measuredW="79" measuredH="26" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="2" controlTypeID="com.balsamiq.mockups::Label" x="757" y="129" w="-1" h="-1" measuredW="26" measuredH="21" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%u6807%u9898</text>
+      </controlProperties>
+    </control>
+    <control controlID="3" controlTypeID="com.balsamiq.mockups::Label" x="757" y="167" w="-1" h="-1" measuredW="26" measuredH="21" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%u5185%u5BB9</text>
+      </controlProperties>
+    </control>
+    <control controlID="6" controlTypeID="com.balsamiq.mockups::TextArea" x="758" y="201" w="479" h="174" measuredW="200" measuredH="140" zOrder="4" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="7" controlTypeID="com.balsamiq.mockups::DataGrid" x="87" y="103" w="570" h="149" measuredW="143" measuredH="81" zOrder="5" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%5B%20%5D%2C%u6807%u9898%2C%20%20%20%u64CD%u4F5C%0A%5B%20%5D%2C%u516C%u544A1%2C%20%u7F16%u8F91%20%u5220%u9664%0A%5B%20%5D%2C%u516C%u544A2%2C%20%u7F16%u8F91%20%u5220%u9664%0A%7B10L%2C65L%2C%20%2025%7D</text>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>
