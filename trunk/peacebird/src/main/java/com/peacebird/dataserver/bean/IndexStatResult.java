@@ -17,6 +17,8 @@ public class IndexStatResult {
 	private String message;
 	
 	private List<String> availableDates;
+	
+	private String clientVersion;
 
 	public List<BrandResult> getBrands() {
 		return brands;
@@ -64,6 +66,14 @@ public class IndexStatResult {
 
 	public void setAvailableDates(List<String> availableDates) {
 		this.availableDates = availableDates;
+	}
+
+	public String getClientVersion() {
+		return clientVersion;
+	}
+
+	public void setClientVersion(String clientVersion) {
+		this.clientVersion = clientVersion;
 	}
 
 	
