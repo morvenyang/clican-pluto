@@ -1,0 +1,14 @@
+<mockup version="1.0" skin="sketch" fontFace="Balsamiq Sans" measuredW="794" measuredH="248" mockupW="708" mockupH="191">
+  <controls>
+    <control controlID="0" controlTypeID="com.balsamiq.mockups::DataGrid" x="86" y="99" w="708" h="149" measuredW="247" measuredH="81" zOrder="0" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%u624B%u673A%u53F7%2C%u5230%u671F%u65F6%u95F4%2C%20%20%20%u64CD%u4F5C%0A13933333333%2C%202014-12-31%2C%20%u7F16%u8F91%20%u5220%u9664%0A13922222222%2C2015-1-5%2C%20%u7F16%u8F91%20%u5220%u9664%0A%7B45L%2C%200R%2C%2055%7D</text>
+      </controlProperties>
+    </control>
+    <control controlID="1" controlTypeID="com.balsamiq.mockups::Button" x="711" y="57" w="-1" h="-1" measuredW="74" measuredH="27" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%u5BFC%u5165%u6570%u636E</text>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>

@@ -1,0 +1,99 @@
+<mockup version="1.0" skin="sketch" fontFace="Balsamiq Sans" measuredW="1015" measuredH="341" mockupW="955" mockupH="321">
+  <controls>
+    <control controlID="0" controlTypeID="com.balsamiq.mockups::DataGrid" x="60" y="20" w="-1" h="-1" measuredW="330" measuredH="179" zOrder="0" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%u7528%u6237%u540D%2C%20%u89D2%u8272%2C%20%u72B6%u6001%2C%20%u64CD%u4F5C%0AGiacomo%20Guilizzoni%5CrFounder%20%26%20CEO%2C%20%u7CFB%u7EDF%u7BA1%u7406%u5458%2C%20%u6FC0%u6D3B%2C%20%u7F16%u8F91%0AMarco%20Botton%5CrTuttofare%2C%20%u5C0F%u533A%u7BA1%u7406%u5458%2C%u6FC0%u6D3B%20%2C%20%u7F16%u8F91%20%u505C%u7528%0AMariah%20Maclachlan%5CrBetter%20Half%2C%20%20%u5C0F%u533A%u7BA1%u7406%u5458%2C%u6FC0%u6D3B%20%2C%20%u7F16%u8F91%20%u505C%u7528%0AValerie%20Liberty%5CrHead%20Chef%2C%20%u5C0F%u533A%u7BA1%u7406%u5458%2C%20%u6FC0%u6D3B%2C%20%u7F16%u8F91%20%u505C%u7528%0AGuido%20Jack%20Guilizzoni%2C%20%u5C0F%u533A%u7BA1%u7406%u5458%2C%20%u6FC0%u6D3B%2C%20%u7F16%u8F91%20%u505C%u7528%0A%7B65L%2C%200R%2C%2035%2C%200C%7D</text>
+      </controlProperties>
+    </control>
+    <control controlID="1" controlTypeID="com.balsamiq.mockups::FieldSet" x="451" y="21" w="564" h="320" measuredW="200" measuredH="170" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%u7BA1%u7406%u5458%u7F16%u8F91</text>
+      </controlProperties>
+    </control>
+    <control controlID="3" controlTypeID="com.balsamiq.mockups::Label" x="480" y="70" w="59" h="-1" measuredW="26" measuredH="21" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%u89D2%u8272</text>
+      </controlProperties>
+    </control>
+    <control controlID="4" controlTypeID="com.balsamiq.mockups::ComboBox" x="624" y="68" w="-1" h="-1" measuredW="95" measuredH="24" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%u7CFB%u7EDF%u7BA1%u7406%u5458</text>
+      </controlProperties>
+    </control>
+    <control controlID="5" controlTypeID="com.balsamiq.mockups::Label" x="480" y="99" w="59" h="-1" measuredW="26" measuredH="21" zOrder="4" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%u5BC6%u7801</text>
+      </controlProperties>
+    </control>
+    <control controlID="6" controlTypeID="com.balsamiq.mockups::TextInput" x="624" y="97" w="95" h="-1" measuredW="79" measuredH="26" zOrder="5" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="7" controlTypeID="com.balsamiq.mockups::Label" x="480" y="128" w="59" h="-1" measuredW="52" measuredH="21" zOrder="6" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%u786E%u8BA4%u5BC6%u7801</text>
+      </controlProperties>
+    </control>
+    <control controlID="8" controlTypeID="com.balsamiq.mockups::TextInput" x="624" y="125" w="95" h="-1" measuredW="79" measuredH="26" zOrder="7" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="9" controlTypeID="com.balsamiq.mockups::Label" x="480" y="159" w="59" h="-1" measuredW="39" measuredH="21" zOrder="8" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%u624B%u673A%u53F7</text>
+      </controlProperties>
+    </control>
+    <control controlID="10" controlTypeID="com.balsamiq.mockups::TextInput" x="624" y="156" w="95" h="-1" measuredW="79" measuredH="26" zOrder="9" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="11" controlTypeID="com.balsamiq.mockups::Label" x="480" y="191" w="59" h="-1" measuredW="52" measuredH="21" zOrder="10" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%u5173%u8054%u5C0F%u533A</text>
+      </controlProperties>
+    </control>
+    <control controlID="13" controlTypeID="com.balsamiq.mockups::ComboBox" x="624" y="189" w="95" h="-1" measuredW="56" measuredH="24" zOrder="11" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%u7701%u5E02</text>
+      </controlProperties>
+    </control>
+    <control controlID="15" controlTypeID="com.balsamiq.mockups::Button" x="918" y="188" w="-1" h="-1" measuredW="48" measuredH="27" zOrder="12" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%u6DFB%u52A0</text>
+      </controlProperties>
+    </control>
+    <control controlID="17" controlTypeID="com.balsamiq.mockups::Label" x="480" y="227" w="59" h="-1" measuredW="35" measuredH="21" zOrder="13" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%u5C0F%u533AA</text>
+      </controlProperties>
+    </control>
+    <control controlID="18" controlTypeID="com.balsamiq.mockups::Label" x="565" y="227" w="59" h="-1" measuredW="34" measuredH="21" zOrder="14" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%u5C0F%u533AB</text>
+      </controlProperties>
+    </control>
+    <control controlID="22" controlTypeID="com.balsamiq.mockups::Button" x="521" y="224" w="29" h="27" measuredW="29" measuredH="27" zOrder="15" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>x</text>
+      </controlProperties>
+    </control>
+    <control controlID="23" controlTypeID="com.balsamiq.mockups::Button" x="609" y="224" w="-1" h="-1" measuredW="29" measuredH="27" zOrder="16" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>x</text>
+      </controlProperties>
+    </control>
+    <control controlID="24" controlTypeID="com.balsamiq.mockups::ComboBox" x="719" y="189" w="95" h="-1" measuredW="88" measuredH="24" zOrder="17" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%u57CE%u5E02/%u533A%u53BF</text>
+      </controlProperties>
+    </control>
+    <control controlID="25" controlTypeID="com.balsamiq.mockups::ComboBox" x="814" y="189" w="95" h="-1" measuredW="65" measuredH="24" zOrder="18" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%u5C0F%u533AA</text>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>
