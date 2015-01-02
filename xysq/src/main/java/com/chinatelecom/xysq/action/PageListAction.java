@@ -9,12 +9,9 @@ import com.chinatelecom.xysq.bean.PageListDataModel;
  * 
  */
 public abstract class PageListAction<T> extends BaseAction {
-    /**
-     * 当前页码，跟dataSroller的page属性绑定
-     */
-    protected int scrollerPage = 1;
-
-    protected int pages = 0;
+	public final static int PAGE_SIZE = 25;
+    
+    protected int page = 1;
 
     protected List<Integer> scrollerPageList;
 
@@ -23,16 +20,17 @@ public abstract class PageListAction<T> extends BaseAction {
      */
     protected PageListDataModel<T> defaultDataModel;
 
-   
+    public int getPage() {
+		return page;
+	}
 
-    public int getScrollerPage() {
-        return scrollerPage;
-    }
-
-    public void setScrollerPage(int scrollerPage) {
-        this.scrollerPage = scrollerPage;
-    }
-
+	public void setPage(int page) {
+		this.page = page;
+	}
+	
+	public int getPageSize(){
+		return PAGE_SIZE;
+	}
     public abstract PageListDataModel<T> getDefaultDataModel();
 
 }

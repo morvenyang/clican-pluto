@@ -81,7 +81,7 @@ public abstract class PageListDataModel<T> extends DataModel {
             startRow = 0;
         } // invoke method on enclosing class
         if (pageQueryResult == null) {
-            pageQueryResult = fetchPage(startRow, getPageSize());
+            pageQueryResult = fetchPageByRowIndex(startRow, getPageSize());
         }
         return pageQueryResult;
     }
@@ -96,7 +96,7 @@ public abstract class PageListDataModel<T> extends DataModel {
           // we should still get back a DataPage object with the dataset size
           // in it
         if (pageQueryResult == null) {
-            pageQueryResult = fetchPage(rowIndex, getPageSize());
+            pageQueryResult = fetchPageByRowIndex(rowIndex, getPageSize());
         }
         int datasetSize = pageQueryResult.getMaxCount();
         int startRow = (pageQueryResult.getPage()-1)*pageQueryResult.getPageSize();
@@ -106,10 +106,10 @@ public abstract class PageListDataModel<T> extends DataModel {
             throw new IllegalArgumentException(" Invalid rowIndex ");
         }
         if (rowIndex < startRow) {
-            pageQueryResult = fetchPage(rowIndex, getPageSize());
+            pageQueryResult = fetchPageByRowIndex(rowIndex, getPageSize());
             startRow = (pageQueryResult.getPage()-1)*pageQueryResult.getPageSize();
         } else if (rowIndex >= endRow) {
-            pageQueryResult = fetchPage(rowIndex, getPageSize());
+            pageQueryResult = fetchPageByRowIndex(rowIndex, getPageSize());
             startRow = (pageQueryResult.getPage()-1)*pageQueryResult.getPageSize();
         }
         if (pageQueryResult.size() == 0 || pageQueryResult.size() < rowIndex) {
@@ -141,10 +141,13 @@ public abstract class PageListDataModel<T> extends DataModel {
         }
     }
 
+    public PageList<T> fetchPageByRowIndex(int startRow, int pageSize){
+    	return this.fetchPage(startRow/pageSize,pageSize);
+    }
     /**
      * 受管bean必须实现此方法
      */
-    public abstract PageList<T> fetchPage(int startRow, int pageSize);
+    public abstract PageList<T> fetchPage(int page, int pageSize);
 
     /**
      * 进行删除等操作后会立即改变列表项并且返回列表页的，请调用此方法，用于刷新列表。

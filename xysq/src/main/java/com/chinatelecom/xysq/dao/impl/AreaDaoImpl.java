@@ -25,25 +25,27 @@ public class AreaDaoImpl extends BaseDao implements
 	@Override
 	public PageList<Community> findCommunityByArea(final Area area,
 			final int page, final int pageSize) {
-		return (PageList<Community>)this.getHibernateTemplate().executeFind(new HibernateCallback() {
-			@Override
-			public Object doInHibernate(Session session)
-					throws HibernateException, SQLException {
-				String hsql = "from Community where city.fullName like :areaName";
-				Query query = session.createQuery(hsql);
-				query.setParameter("areaName", area.getFullName() + "%");
-				query.setFirstResult((page-1) * pageSize);
-				query.setMaxResults(pageSize);
-				List<Community> list = query.list();
-				
-				Query queryCount = session.createQuery("select count(*) from Community where city.fullName like :areaName");
-				queryCount.setParameter("areaName", area.getFullName() + "%");
-				Integer count = (Integer)queryCount.uniqueResult();
-				return new PageList<Community>(list, page,pageSize,count,new Community());
-			}
-		});
-	}
+		return (PageList<Community>) this.getHibernateTemplate().executeFind(
+				new HibernateCallback() {
+					@Override
+					public Object doInHibernate(Session session)
+							throws HibernateException, SQLException {
+						String hsql = "from Community where city.fullName like :areaName";
+						Query query = session.createQuery(hsql);
+						query.setParameter("areaName", area.getFullName() + "%");
+						query.setFirstResult((page - 1) * pageSize);
+						query.setMaxResults(pageSize);
+						List<Community> list = query.list();
 
-	
+						Query queryCount = session
+								.createQuery("select count(*) from Community where city.fullName like :areaName");
+						queryCount.setParameter("areaName", area.getFullName()
+								+ "%");
+						Integer count = (Integer) queryCount.uniqueResult();
+						return new PageList<Community>(list, page, pageSize,
+								count, new Community());
+					}
+				});
+	}
 
 }
