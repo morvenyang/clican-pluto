@@ -28,7 +28,6 @@ import com.chinatelecom.xysq.model.Community;
 @Restrict(value = "#{identity.isLoggedIn(true)}")
 public class AreaAction extends PageListAction<Community> {
 
-	
 	private List<Area> areaTrees;
 
 	private PageListDataModel<Community> communitiesBySelectedNode;
@@ -38,8 +37,8 @@ public class AreaAction extends PageListAction<Community> {
 		this.areaTrees = this.getAreaService().getAreaTrees();
 		final Area area;
 		if (this.areaTrees.size() != 0) {
-			area  = this.areaTrees.get(0);
-			
+			area = this.areaTrees.get(0);
+
 		} else {
 			area = null;
 		}
@@ -47,17 +46,20 @@ public class AreaAction extends PageListAction<Community> {
 				this.getPageSize()) {
 			@Override
 			public PageList<Community> fetchPage(int page, int pageSize) {
-				if(area!=null){
-					return  getAreaService().findCommunityByArea(
-							area, page, PAGE_SIZE);
-				}else{
-					return new EmptyPageList<Community>(page,PAGE_SIZE);
+				if (area != null) {
+					return getAreaService().findCommunityByArea(area, page,
+							PAGE_SIZE);
+				} else {
+					return new EmptyPageList<Community>(page, PAGE_SIZE);
 				}
 			}
 		};
 	}
-	
+
 	public synchronized void importExcel(UploadEvent event) {
+		if (log.isDebugEnabled()) {
+			log.debug("import excel");
+		}
 		List<UploadItem> itemList = event.getUploadItems();
 		UploadItem item = itemList.get(0);
 		File excelFile = item.getFile();
@@ -77,7 +79,7 @@ public class AreaAction extends PageListAction<Community> {
 				String area2 = row.getCell(2).getStringCellValue();
 				String area3 = row.getCell(3).getStringCellValue();
 				String community = row.getCell(4).getStringCellValue();
-				
+
 			}
 		} catch (IOException e) {
 			log.error("", e);
@@ -90,6 +92,12 @@ public class AreaAction extends PageListAction<Community> {
 				}
 
 			}
+		}
+	}
+
+	public void saveImportExcel() {
+		if (log.isDebugEnabled()) {
+			log.debug("save import excel");
 		}
 	}
 
