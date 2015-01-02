@@ -5,14 +5,16 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.poifs.filesystem.POIFSFileSystem;
+import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
@@ -35,8 +37,12 @@ public class AreaAction extends PageListAction<Community> {
 	private List<Area> areaTrees;
 
 	private PageListDataModel<Community> communitiesBySelectedNode;
-	
+
 	private Area selectedArea;
+
+	private List<String> areaFullNames;
+
+	private Map<String, List<Community>> communityMap;
 
 	public void listAreaTrees() {
 		this.page = 1;
@@ -49,15 +55,19 @@ public class AreaAction extends PageListAction<Community> {
 		}
 		this.refresh();
 	}
-	
-	private void refresh(){
+
+	public void selectArea(Area area){
+		this.selectedArea = area;
+		this.refresh();
+	}
+	private void refresh() {
 		communitiesBySelectedNode = new PageListDataModel<Community>(
 				this.getPageSize()) {
 			@Override
 			public PageList<Community> fetchPage(int page, int pageSize) {
 				if (selectedArea != null) {
-					return getAreaService().findCommunityByArea(selectedArea, page,
-							PAGE_SIZE);
+					return getAreaService().findCommunityByArea(selectedArea,
+							page, PAGE_SIZE);
 				} else {
 					return new EmptyPageList<Community>(page, PAGE_SIZE);
 				}
@@ -75,62 +85,97 @@ public class AreaAction extends PageListAction<Community> {
 		FileInputStream fis = null;
 		try {
 			fis = new FileInputStream(excelFile);
-			POIFSFileSystem fs = new POIFSFileSystem(fis);
-			HSSFWorkbook wb = new HSSFWorkbook(fs);
-			HSSFSheet sheet = wb.getSheetAt(0);
+			XSSFWorkbook wb = new XSSFWorkbook(fis);
+			XSSFSheet sheet = wb.getSheetAt(0);
 			int i = 1;
-			List<String> areaFullNames = new ArrayList<String>();
-			Map<String, List<Community>> communityMap = new HashMap<String, List<Community>>();
+			areaFullNames = new ArrayList<String>();
+			Set<String> areaFullNameSet = new HashSet<String>();
+			communityMap = new HashMap<String, List<Community>>();
 			while (true) {
 				Row row = sheet.getRow(i);
 				if (row == null) {
 					break;
 				}
-				String area1 = row.getCell(1).getStringCellValue();
-				if (StringUtils.isNotEmpty(area1)) {
-					area1 = area1.trim();
+				Cell cell = null;
+				cell = row.getCell(1);
+				String area1 = null;
+				if (cell != null) {
+					area1 = row.getCell(1).getStringCellValue();
+					if (StringUtils.isNotEmpty(area1)) {
+						area1 = area1.trim();
+					}
 				}
 
-				String area2 = row.getCell(2).getStringCellValue();
-				if (StringUtils.isNotEmpty(area2)) {
-					area2 = area2.trim();
+				cell = row.getCell(2);
+				String area2 = null;
+				if (cell != null) {
+					area2 = row.getCell(2).getStringCellValue();
+					if (StringUtils.isNotEmpty(area2)) {
+						area2 = area2.trim();
+					}
 				}
-				String area3 = row.getCell(3).getStringCellValue();
-				if (StringUtils.isNotEmpty(area3)) {
-					area3 = area3.trim();
-				}
-				String community = row.getCell(4).getStringCellValue();
-				if (StringUtils.isNotEmpty(community)) {
-					community = community.trim();
-				}
-				String detailAddress = row.getCell(5).getStringCellValue();
-				if (StringUtils.isNotEmpty(detailAddress)) {
-					detailAddress = detailAddress.trim();
-				}
-				areaFullNames.add(area1);
-				String areaFullName = area1;
-				if (StringUtils.isNotEmpty(area2)) {
-					areaFullNames.add(area1 + "/" + area2);
-					areaFullName = area1 + "/" + area2;
+
+				cell = row.getCell(3);
+				String area3 = null;
+				if (cell != null) {
+					area3 = row.getCell(3).getStringCellValue();
 					if (StringUtils.isNotEmpty(area3)) {
-						areaFullNames.add(area1 + "/" + area2 + "/" + area3);
+						area3 = area3.trim();
+					}
+				}
+
+				cell = row.getCell(4);
+				String community = null;
+				if (cell != null) {
+					community = row.getCell(4).getStringCellValue();
+					if (StringUtils.isNotEmpty(community)) {
+						community = community.trim();
+					}
+				}
+
+				cell = row.getCell(5);
+				String detailAddress = null;
+				if (cell != null) {
+					detailAddress = row.getCell(5).getStringCellValue();
+					if (StringUtils.isNotEmpty(detailAddress)) {
+						detailAddress = detailAddress.trim();
+					}
+				}
+
+				String areaFullName = area1;
+				if (!areaFullNameSet.contains(areaFullName)) {
+					areaFullNames.add(areaFullName);
+					areaFullNameSet.add(areaFullName);
+				}
+				if (StringUtils.isNotEmpty(area2)) {
+					areaFullName = area1 + "/" + area2;
+					if (!areaFullNameSet.contains(areaFullName)) {
+						areaFullNames.add(areaFullName);
+						areaFullNameSet.add(areaFullName);
+					}
+					if (StringUtils.isNotEmpty(area3)) {
 						areaFullName = area1 + "/" + area2 + "/" + area3;
+						if (!areaFullNameSet.contains(areaFullName)) {
+							areaFullNames.add(areaFullName);
+							areaFullNameSet.add(areaFullName);
+						}
 					}
 				}
 				if (StringUtils.isNotEmpty(community)) {
 					if (!communityMap.containsKey(areaFullName)) {
-						communityMap.put(areaFullName, new ArrayList<Community>());
+						communityMap.put(areaFullName,
+								new ArrayList<Community>());
 					}
-					List<Community> communityList = communityMap.get(areaFullName);
+					List<Community> communityList = communityMap
+							.get(areaFullName);
 					Community c = new Community();
 					c.setName(community);
 					c.setDetailAddress(detailAddress);
 					communityList.add(c);
 				}
+				i++;
 			}
-			Map<String,Area> areaMap = this.getAreaService().mergeAreas(areaFullNames);
-			getAreaService().mergeCommunities(communityMap,areaMap);
-			refresh();
+
 		} catch (IOException e) {
 			log.error("", e);
 		} finally {
@@ -149,6 +194,10 @@ public class AreaAction extends PageListAction<Community> {
 		if (log.isDebugEnabled()) {
 			log.debug("save import excel");
 		}
+		Map<String, Area> areaMap = this.getAreaService().mergeAreas(
+				areaFullNames);
+		getAreaService().mergeCommunities(communityMap, areaMap);
+		refresh();
 	}
 
 	@BypassInterceptors

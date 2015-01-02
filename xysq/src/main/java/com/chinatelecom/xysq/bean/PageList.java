@@ -23,9 +23,11 @@ public class PageList<T> extends ArrayList<T> {
 			if (i >= (page - 1) * pageSize && i < page * pageSize
 					&& j < list.size()) {
 				this.add(list.get(j));
+				j++;
 			} else {
 				this.add(mockObject);
 			}
+			
 		}
 	}
 

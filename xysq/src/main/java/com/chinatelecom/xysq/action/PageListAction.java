@@ -10,7 +10,7 @@ import com.chinatelecom.xysq.bean.PageListDataModel;
  */
 public abstract class PageListAction<T> extends BaseAction {
 	
-	public final static int PAGE_SIZE = 25;
+	public final static int PAGE_SIZE = 10;
     
     protected int page = 1;
 
@@ -22,11 +22,11 @@ public abstract class PageListAction<T> extends BaseAction {
     protected PageListDataModel<T> defaultDataModel;
 
     public int getPage() {
-		return getDefaultDataModel().getRowIndex()/PAGE_SIZE;
+		return getDefaultDataModel().getRowIndex()/PAGE_SIZE+1;
 	}
 
 	public void setPage(int page) {
-		getDefaultDataModel().setRowIndex(page*PAGE_SIZE);
+		getDefaultDataModel().setRowIndex((page-1)*PAGE_SIZE);
 	}
 	
 	public int getPageSize(){
