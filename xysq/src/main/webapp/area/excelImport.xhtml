@@ -1,0 +1,45 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:a4j="http://richfaces.org/a4j">
+	<rich:modalPanel id="importExcelPanel" width="300" autosized="true">
+		<f:facet name="controls">
+			<h:panelGroup>
+				<h:graphicImage value="/img/close.png" styleClass="hidelink"
+					id="importExcelPanelImg" style="CURSOR: hand" />
+				<rich:componentControl for="importExcelPanel"
+					attachTo="importExcelPanelImg" operation="hide" event="onclick" />
+			</h:panelGroup>
+		</f:facet>
+		<a4j:form id="importExcelForm">
+			<rich:messages style="color:red"></rich:messages>
+			<h:panelGrid columns="2" width="100%" columnClasses="top,top">
+				<h:panelGroup>
+					<h:panelGrid columns="2">
+						<h:outputLabel value="Excel" />
+						<rich:fileUpload fileUploadListener="#{areaAction.importExcel}"
+							maxFilesQuantity="1" acceptedTypes="xls,xlsx" id="upload"
+							immediateUpload="false" allowFlash="true" noDuplicate="true"
+							listHeight="100" listWidth="400" addControlLabel="文件"
+							uploadControlLabel="上传">
+							<f:facet name="label">
+								<h:outputText value="{_KB}KB from {KB}KB uploaded --- {mm}:{ss}" />
+							</f:facet>
+						</rich:fileUpload>
+						<a4j:commandButton id="submitButton" value="上传"
+							action="#{areaAction.saveImportExcel()}"
+							oncomplete="if(#{facesContext.maximumSeverity==null}) {Richfaces.hideModalPanel('importExcelPanel');}"
+							reRender="#{reRenders}" />
+						<h:commandButton id="cancelButton" value="取消" type="reset"
+							onclick="Richfaces.hideModalPanel('importExcelPanel');" />
+					</h:panelGrid>
+				</h:panelGroup>
+			</h:panelGrid>
+		</a4j:form>
+	</rich:modalPanel>
+</ui:composition>

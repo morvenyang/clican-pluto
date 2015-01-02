@@ -47,7 +47,7 @@
 									style="border:0;" value="导入城市和小区数据"
 									action="#{areaAction.import()}" ajaxSingle="true"
 									reRender="noticePanel"
-									oncomplete="Richfaces.showModalPanel('importPanel');" />
+									oncomplete="Richfaces.showModalPanel('importExcelPanel');" />
 							</h:panelGroup>
 						</h:panelGrid>
 						<rich:dataTable id="areaTable" var="community"
@@ -103,14 +103,9 @@
 			</h:panelGrid>
 		</h:form>
 
-		<ui:include src="quizPanel.xhtml" />
-		<ui:include src="quizRejectPanel.xhtml" />
-		<ui:include src="template/preview.xhtml" />
-		<ui:include src="template/pictureGrid.xhtml" />
-		<ui:include src="template/templateGrid.xhtml" />
-		<ui:include src="template/audioUpload.xhtml" />
-		<ui:include src="template/importExcel.xhtml" />
-		<ui:include src="template/imageUpload.xhtml" />
+		
+								
+		<ui:include src="excelImport.xhtml" />
 		<script type="text/javascript">
 			    var windowHeight = jQuery(window).height();
 			    jQuery(window).height(windowHeight);
