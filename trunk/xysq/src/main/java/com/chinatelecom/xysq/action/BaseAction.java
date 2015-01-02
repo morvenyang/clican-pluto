@@ -45,4 +45,7 @@ public class BaseAction {
 		this.page = page;
 	}
 	
+	public int getPageSize(){
+		return PAGE_SIZE;
+	}
 }

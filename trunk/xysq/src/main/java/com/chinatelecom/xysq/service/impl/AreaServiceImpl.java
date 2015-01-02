@@ -2,7 +2,7 @@ package com.chinatelecom.xysq.service.impl;
 
 import java.util.List;
 
-import com.chinatelecom.xysq.bean.PagingList;
+import com.chinatelecom.xysq.bean.PageList;
 import com.chinatelecom.xysq.dao.AreaDao;
 import com.chinatelecom.xysq.model.Area;
 import com.chinatelecom.xysq.model.Community;
@@ -22,7 +22,7 @@ public class AreaServiceImpl implements AreaService {
 	}
 
 	@Override
-	public PagingList<Community> findCommunityByArea(Area area, int page,
+	public PageList<Community> findCommunityByArea(Area area, int page,
 			int pageSize) {
 		return areaDao.findCommunityByArea(area, page,pageSize);
 	}

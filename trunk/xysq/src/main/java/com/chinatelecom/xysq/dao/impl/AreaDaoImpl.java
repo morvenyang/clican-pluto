@@ -8,7 +8,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.springframework.orm.hibernate3.HibernateCallback;
 
-import com.chinatelecom.xysq.bean.PagingList;
+import com.chinatelecom.xysq.bean.PageList;
 import com.chinatelecom.xysq.model.Area;
 import com.chinatelecom.xysq.model.Community;
 
@@ -23,9 +23,9 @@ public class AreaDaoImpl extends BaseDao implements
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public PagingList<Community> findCommunityByArea(final Area area,
+	public PageList<Community> findCommunityByArea(final Area area,
 			final int page, final int pageSize) {
-		return (PagingList<Community>)this.getHibernateTemplate().executeFind(new HibernateCallback() {
+		return (PageList<Community>)this.getHibernateTemplate().executeFind(new HibernateCallback() {
 			@Override
 			public Object doInHibernate(Session session)
 					throws HibernateException, SQLException {
@@ -39,7 +39,7 @@ public class AreaDaoImpl extends BaseDao implements
 				Query queryCount = session.createQuery("select count(*) from Community where city.fullName like :areaName");
 				queryCount.setParameter("areaName", area.getFullName() + "%");
 				Integer count = (Integer)queryCount.uniqueResult();
-				return new PagingList<Community>(list, page,pageSize,count,new Community());
+				return new PageList<Community>(list, page,pageSize,count,new Community());
 			}
 		});
 	}

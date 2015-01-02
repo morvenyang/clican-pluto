@@ -3,7 +3,7 @@ package com.chinatelecom.xysq.bean;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PagingList<T> extends ArrayList<T> {
+public class PageList<T> extends ArrayList<T> {
 
 	/**
 	 * 
@@ -13,7 +13,7 @@ public class PagingList<T> extends ArrayList<T> {
 	private int page;
 	private int pageSize;
 
-	public PagingList(List<T> list, int page, int pageSize, int maxCount,
+	public PageList(List<T> list, int page, int pageSize, int maxCount,
 			T mockObject) {
 		this.page = page;
 		this.pageSize = pageSize;
