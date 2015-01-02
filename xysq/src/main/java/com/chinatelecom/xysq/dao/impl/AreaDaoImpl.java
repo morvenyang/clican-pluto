@@ -1,6 +1,7 @@
 package com.chinatelecom.xysq.dao.impl;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.HibernateException;
@@ -46,6 +47,30 @@ public class AreaDaoImpl extends BaseDao implements
 								count, new Community());
 					}
 				});
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Area> getAreasByFullNames(List<String> fullNames) {
+		List<Area> areas = new ArrayList<Area>();
+		List<List<String>> pagedFullNames = this.getInIds(fullNames);
+		String hsql = "from Area where fullName in (:fullNames)";
+		for (List<String> fns : pagedFullNames) {
+			List<Area> as = this.getHibernateTemplate().findByNamedParam(hsql,
+					"fullNames", fns);
+			areas.addAll(as);
+		}
+		return areas;
+	}
+
+	@Override
+	public void saveArea(Area area) {
+		this.getHibernateTemplate().save(area);
+	}
+
+	@Override
+	public void saveCommunity(Community community) {
+		this.getHibernateTemplate().save(community);
 	}
 
 }
