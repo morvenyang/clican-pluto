@@ -7,7 +7,7 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import com.chinatelecom.xysq.dao.UserDao;
 import com.chinatelecom.xysq.model.User;
 
-public class UserDaoImpl extends HibernateDaoSupport implements UserDao {
+public class UserDaoImpl extends BaseDao implements UserDao {
 
 	@SuppressWarnings("unchecked")
 	public User findUserByUserName(String userName) {
