@@ -4,6 +4,8 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.jboss.seam.security.Identity;
 
 import com.chinatelecom.xysq.bean.Constants;
@@ -14,7 +16,7 @@ import com.chinatelecom.xysq.service.UserService;
 public class BaseAction {
 
 	
-	
+	protected final Log log = LogFactory.getLog(this.getClass());
 	
 	
 	protected Identity getIdentity() {

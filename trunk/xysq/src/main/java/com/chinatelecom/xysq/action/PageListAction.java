@@ -9,6 +9,7 @@ import com.chinatelecom.xysq.bean.PageListDataModel;
  * 
  */
 public abstract class PageListAction<T> extends BaseAction {
+	
 	public final static int PAGE_SIZE = 25;
     
     protected int page = 1;
