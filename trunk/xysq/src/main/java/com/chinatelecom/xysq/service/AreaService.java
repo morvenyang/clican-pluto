@@ -9,7 +9,7 @@ import com.chinatelecom.xysq.model.Community;
 public interface AreaService {
 
 	public List<Area> getAreaTrees();
-	
+
 	public PageList<Community> findCommunityByArea(Area area, int page,
 			int pageSize);
 }
