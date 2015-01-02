@@ -45,7 +45,7 @@
 									oncomplete="Richfaces.showModalPanel('noticePanel');" />
 								<a4j:commandButton
 									style="border:1;" value="导入城市和小区数据" ajaxSingle="true"
-									reRender="noticePanel"
+									reRender="importExcelPanel"
 									oncomplete="Richfaces.showModalPanel('importExcelPanel');" />
 							</h:panelGroup>
 						</h:panelGrid>
@@ -53,7 +53,7 @@
 							value="#{areaAction.communitiesBySelectedNode}" rows="#{areaAction.pageSize}"
 							rowKeyVar="rowNumIndex" width="100%" activeClass="active-row"
 							enableContextMenu="true">
-							<rich:column sortBy="#{community.id}">
+							<rich:column>
 								<f:facet name="header">
 									<h:outputText value="Id" />
 								</f:facet>

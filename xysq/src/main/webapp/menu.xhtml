@@ -19,6 +19,12 @@
 				action="#{areaAction.listAreaTrees()}"
 				value="城市和小区管理" />
 		</rich:menuItem>
+		<rich:menuItem submitMode="ajax"
+			rendered="#{s:hasPermission('ADMIN',null)}">
+			<s:link view="/broadbandRemind/broadbandRemind.xhtml" style="font-size:20px"
+				action="#{broadbandRemindAction.listBroadbandReminds()}"
+				value="宽带提醒" />
+		</rich:menuItem>
 		<rich:toolBarGroup location="right">
 			<h:panelGroup rendered="#{identity.loggedIn}">
 				<h:outputText
