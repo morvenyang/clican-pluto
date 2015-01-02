@@ -1,0 +1,66 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:a4j="http://richfaces.org/a4j" template="workspace.xhtml">
+	<ui:define name="body">
+		<h:form>
+			<rich:panel id="broadbandRemindTablePanel"
+				style="left-margin:10px;border:0;width:100%">
+				<h:panelGrid id="userPanelGrid" style="width:100%">
+					<h:panelGrid columns="1" style="text-align:right;width:100%">
+						<h:panelGroup>
+							<a4j:commandButton style="border:1;" value="导入宽带提醒数据"
+								ajaxSingle="true" reRender="importExcelPanel"
+								oncomplete="Richfaces.showModalPanel('importExcelPanel');" />
+						</h:panelGroup>
+					</h:panelGrid>
+					<rich:dataTable id="broadbandRemindTable" var="broadbandRemind"
+						value="#{broadbandRemindAction.broadbandRemindDataModel}"
+						rows="#{broadbandRemindAction.pageSize}" rowKeyVar="rowNumIndex"
+						width="100%" activeClass="active-row" enableContextMenu="true">
+						<rich:column>
+							<f:facet name="header">
+								<h:outputText value="Id" />
+							</f:facet>
+							<h:outputText value="#{broadbandRemind.id}"
+								style="white-space:nowrap;" />
+						</rich:column>
+						<rich:column>
+							<f:facet name="header">
+								<h:outputText value="手机号" />
+							</f:facet>
+							<h:outputText value="#{broadbandRemind.msisidn}"
+								style="white-space:nowrap;" />
+						</rich:column>
+						<rich:column>
+							<f:facet name="header">
+								<h:outputText value="宽带号" />
+							</f:facet>
+							<h:outputText value="#{broadbandRemind.broadBandId}"
+								style="white-space:nowrap;" />
+						</rich:column>
+						<rich:column>
+							<f:facet name="header">
+								<h:outputText value="用户名" />
+							</f:facet>
+							<h:outputText value="#{broadbandRemind.userName}"
+								style="white-space:nowrap;" />
+						</rich:column>
+						<f:facet name="footer">
+							<rich:datascroller for="broadbandRemindTable"
+								reRender="broadbandRemindTable" ignoreDupResponses="false"
+								renderIfSinglePage="true" maxPages="10"
+								page="#{broadbandRemindAction.page}" align="left" />
+						</f:facet>
+					</rich:dataTable>
+				</h:panelGrid>
+			</rich:panel>
+		</h:form>
+		<ui:include src="excelImport.xhtml" />
+	</ui:define>
+</ui:composition>

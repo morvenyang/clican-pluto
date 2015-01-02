@@ -11,14 +11,13 @@ import org.jboss.seam.security.Identity;
 import com.chinatelecom.xysq.bean.Constants;
 import com.chinatelecom.xysq.bean.SpringProperty;
 import com.chinatelecom.xysq.service.AreaService;
+import com.chinatelecom.xysq.service.BroadbandRemindService;
 import com.chinatelecom.xysq.service.UserService;
 
 public class BaseAction {
 
-	
 	protected final Log log = LogFactory.getLog(this.getClass());
-	
-	
+
 	protected Identity getIdentity() {
 		HttpSession session = ((HttpServletRequest) FacesContext
 				.getCurrentInstance().getExternalContext().getRequest())
@@ -35,9 +34,13 @@ public class BaseAction {
 	protected UserService getUserService() {
 		return (UserService) Constants.ctx.getBean("userService");
 	}
+
 	protected AreaService getAreaService() {
 		return (AreaService) Constants.ctx.getBean("areaService");
 	}
 
-	
+	protected BroadbandRemindService getBroadbandRemindService() {
+		return (BroadbandRemindService) Constants.ctx.getBean("broadbandRemindService");
+	}
+
 }
