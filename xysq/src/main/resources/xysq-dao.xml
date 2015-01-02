@@ -12,5 +12,6 @@
 
 	<bean id="userDao" class="com.chinatelecom.xysq.dao.impl.UserDaoImpl"
 		autowire="byName" />
-		
+	<bean id="areaDao" class="com.chinatelecom.xysq.dao.impl.AreaDaoImpl"
+		autowire="byName" />	
 </beans>
