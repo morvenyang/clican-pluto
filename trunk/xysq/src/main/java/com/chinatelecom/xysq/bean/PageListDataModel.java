@@ -28,7 +28,7 @@ public abstract class PageListDataModel<T> extends DataModel {
 
         this.pageSize = pageSize;
 
-        this.rowIndex = -1;
+        this.rowIndex = 0;
 
         this.pageQueryResult = null;
 

@@ -12,5 +12,11 @@ public interface AreaDao {
 
 	public PageList<Community> findCommunityByArea(Area area, int page,
 			int pageSize);
+	
+	public List<Area> getAreasByFullNames(List<String> fullNames);
+	
+	public void saveArea(Area area);
+	
+	public void saveCommunity(Community community);
 
 }

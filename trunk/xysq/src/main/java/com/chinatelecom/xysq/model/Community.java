@@ -25,6 +25,8 @@ public class Community {
 	
 	private String name;
 	
+	private String pinyin;
+	
 	private String detailAddress;
 	
 	private Area city;
@@ -49,6 +51,15 @@ public class Community {
 	public void setName(String name) {
 		this.name = name;
 	}
+	@Column
+	public String getPinyin() {
+		return pinyin;
+	}
+
+	public void setPinyin(String pinyin) {
+		this.pinyin = pinyin;
+	}
+
 	@Column(length=500)
 	public String getDetailAddress() {
 		return detailAddress;

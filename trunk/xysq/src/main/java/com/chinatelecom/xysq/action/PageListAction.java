@@ -22,11 +22,11 @@ public abstract class PageListAction<T> extends BaseAction {
     protected PageListDataModel<T> defaultDataModel;
 
     public int getPage() {
-		return page;
+		return getDefaultDataModel().getRowIndex()/PAGE_SIZE;
 	}
 
 	public void setPage(int page) {
-		this.page = page;
+		getDefaultDataModel().setRowIndex(page*PAGE_SIZE);
 	}
 	
 	public int getPageSize(){
