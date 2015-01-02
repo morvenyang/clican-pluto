@@ -34,18 +34,17 @@
 						<h:panelGrid columns="4" style="text-align:right;width:100%">
 							<h:panelGroup>
 								<a4j:commandButton
-									style="border:0;" value="发布公告"
+									style="border:1;" value="发布公告"
 									action="#{areaAction.publicAnnouncement()}" ajaxSingle="true"
 									reRender="announcementPanel"
 									oncomplete="Richfaces.showModalPanel('announcementPanel');" />
 								<a4j:commandButton
-									style="border:0;" value="发布须知"
+									style="border:1;" value="发布须知"
 									action="#{areaAction.publicNotice()}" ajaxSingle="true"
 									reRender="noticePanel"
 									oncomplete="Richfaces.showModalPanel('noticePanel');" />
 								<a4j:commandButton
-									style="border:0;" value="导入城市和小区数据"
-									action="#{areaAction.import()}" ajaxSingle="true"
+									style="border:1;" value="导入城市和小区数据" ajaxSingle="true"
 									reRender="noticePanel"
 									oncomplete="Richfaces.showModalPanel('importExcelPanel');" />
 							</h:panelGroup>
@@ -90,7 +89,7 @@
 							<f:facet name="footer">
 								<h:panelGrid columns="2">
 									<h:outputText
-										value="Total: #{areaAction.communitiesBySelectedNode.size()}" />
+										value="Total: #{areaAction.communitiesBySelectedNode.rowCount}" />
 									<rich:datascroller for="areaTable" reRender="areaTable"
 										ignoreDupResponses="false" renderIfSinglePage="true"
 										maxPages="10" page="#{areaAction.page}" align="left" ajaxSingle="true">
