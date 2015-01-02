@@ -27,8 +27,6 @@ public class Community {
 	
 	private String detailAddress;
 	
-	private Area region;
-	
 	private Area city;
 	
 	private Set<AdminCommunityRel> adminCommunityRelSet;
@@ -58,17 +56,6 @@ public class Community {
 
 	public void setDetailAddress(String detailAddress) {
 		this.detailAddress = detailAddress;
-	}
-
-	@ManyToOne
-	@JoinColumn(name = "REGION_ID", nullable = true)
-	@Fetch(FetchMode.JOIN)
-	public Area getRegion() {
-		return region;
-	}
-
-	public void setRegion(Area region) {
-		this.region = region;
 	}
 
 	@ManyToOne

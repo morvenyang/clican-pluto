@@ -29,11 +29,11 @@ public class Area {
 	
 	private String pinyin;
 	
+	private String fullName;
+	
 	private Area parent;
 	
 	private List<Area> children;
-	
-	private Set<Community> regionCommunitySet;
 	
 	private Set<Community> cityComminitySet;
 	
@@ -98,15 +98,15 @@ public class Area {
 	public void setPinyin(String pinyin) {
 		this.pinyin = pinyin;
 	}
-	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "region", cascade = CascadeType.REMOVE)
-	public Set<Community> getRegionCommunitySet() {
-		return regionCommunitySet;
+	@Column(length=500)
+	public String getFullName() {
+		return fullName;
 	}
 
-	public void setRegionCommunitySet(Set<Community> regionCommunitySet) {
-		this.regionCommunitySet = regionCommunitySet;
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
 	}
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "city", cascade = CascadeType.REMOVE)
 	public Set<Community> getCityComminitySet() {
 		return cityComminitySet;

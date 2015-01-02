@@ -13,6 +13,10 @@ import com.chinatelecom.xysq.service.UserService;
 
 public class BaseAction {
 
+	public final static int PAGE_SIZE = 25;
+	
+	protected int page;
+	
 	protected Identity getIdentity() {
 		HttpSession session = ((HttpServletRequest) FacesContext
 				.getCurrentInstance().getExternalContext().getRequest())
@@ -31,6 +35,14 @@ public class BaseAction {
 	}
 	protected AreaService getAreaService() {
 		return (AreaService) Constants.ctx.getBean("areaService");
+	}
+
+	public int getPage() {
+		return page;
+	}
+
+	public void setPage(int page) {
+		this.page = page;
 	}
 	
 }
