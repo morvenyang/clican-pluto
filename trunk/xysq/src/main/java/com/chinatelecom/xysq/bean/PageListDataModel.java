@@ -56,6 +56,9 @@ public abstract class PageListDataModel<T> extends DataModel {
      * 指定的“当前行“在DataSet中.请注意，UIData组件会重复调用这个方法通过getRowData获取使用表中的对象！
      */
     public void setRowIndex(int index) {
+    	if(index==-1){
+    		return;
+    	}
         rowIndex = index;
     }
 
@@ -142,7 +145,7 @@ public abstract class PageListDataModel<T> extends DataModel {
     }
 
     public PageList<T> fetchPageByRowIndex(int startRow, int pageSize){
-    	return this.fetchPage(startRow/pageSize,pageSize);
+    	return this.fetchPage(startRow/pageSize+1,pageSize);
     }
     /**
      * 受管bean必须实现此方法

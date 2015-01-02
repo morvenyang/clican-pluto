@@ -1,6 +1,8 @@
 package com.chinatelecom.xysq.service.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -42,6 +44,8 @@ public class AreaServiceImpl implements AreaService {
 		for (String fullName : fullNames) {
 			if (!areaMap.containsKey(fullName)) {
 				Area area = new Area();
+				area.setCityComminitySet(new HashSet<Community>());
+				area.setChildren(new ArrayList<Area>());
 				area.setFullName(fullName);
 				if (fullName.indexOf("/") != -1) {
 					area.setName(StringUtils.substringAfterLast(fullName, "/"));
@@ -52,6 +56,8 @@ public class AreaServiceImpl implements AreaService {
 				} else {
 					area.setName(fullName);
 				}
+				int level = StringUtils.countMatches(fullName, "/")+1;
+				area.setLevel(level);
 				area.setPinyin(PinyinHelper.getShortPinyin(area.getName()));
 				areaDao.saveArea(area);
 				areaMap.put(area.getFullName(), area);
@@ -72,8 +78,10 @@ public class AreaServiceImpl implements AreaService {
 		for (String areaFullName : communityMap.keySet()) {
 			Area area = areaMap.get(areaFullName);
 			Map<String, Community> communities = new HashMap<String, Community>();
-			for (Community c : area.getCityComminitySet()) {
-				communities.put(c.getName(), c);
+			if(area.getCityComminitySet()!=null){
+				for (Community c : area.getCityComminitySet()) {
+					communities.put(c.getName(), c);
+				}
 			}
 			for (Community c : communityMap.get(areaFullName)) {
 				Community mergeC = communities.get(c.getName());
