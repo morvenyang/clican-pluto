@@ -1,10 +1,15 @@
 package com.chinatelecom.xysq.model;
 
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -25,7 +30,7 @@ public class User {
 	private boolean active = true;
 	private Role role;
 	private String msisdn;
-	
+	private Set<AdminCommunityRel> adminCommunityRelSet;
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "ID")
@@ -83,6 +88,15 @@ public class User {
 	public void setMsisdn(String msisdn) {
 		this.msisdn = msisdn;
 	}
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "admin", cascade = CascadeType.REMOVE)
+	public Set<AdminCommunityRel> getAdminCommunityRelSet() {
+		return adminCommunityRelSet;
+	}
+	public void setAdminCommunityRelSet(Set<AdminCommunityRel> adminCommunityRelSet) {
+		this.adminCommunityRelSet = adminCommunityRelSet;
+	}
+	
+	
 	
 	
 }

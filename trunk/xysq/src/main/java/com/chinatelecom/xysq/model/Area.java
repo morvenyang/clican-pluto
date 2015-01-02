@@ -1,6 +1,7 @@
 package com.chinatelecom.xysq.model;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -31,6 +32,10 @@ public class Area {
 	private Area parent;
 	
 	private List<Area> children;
+	
+	private Set<Community> regionCommunitySet;
+	
+	private Set<Community> cityComminitySet;
 	
 	// start from level 1
 	private int level=1;
@@ -92,6 +97,23 @@ public class Area {
 
 	public void setPinyin(String pinyin) {
 		this.pinyin = pinyin;
+	}
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "region", cascade = CascadeType.REMOVE)
+	public Set<Community> getRegionCommunitySet() {
+		return regionCommunitySet;
+	}
+
+	public void setRegionCommunitySet(Set<Community> regionCommunitySet) {
+		this.regionCommunitySet = regionCommunitySet;
+	}
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "city", cascade = CascadeType.REMOVE)
+	public Set<Community> getCityComminitySet() {
+		return cityComminitySet;
+	}
+
+	public void setCityComminitySet(Set<Community> cityComminitySet) {
+		this.cityComminitySet = cityComminitySet;
 	}
 	
 }
