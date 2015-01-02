@@ -12,5 +12,6 @@
 
 	<bean id="userService" class="com.chinatelecom.xysq.service.impl.UserServiceImpl"
 		autowire="byName" />
-	
+	<bean id="areaService" class="com.chinatelecom.xysq.service.impl.AreaServiceImpl"
+		autowire="byName" />
 </beans>

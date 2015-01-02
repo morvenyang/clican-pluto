@@ -8,6 +8,7 @@ import org.jboss.seam.security.Identity;
 
 import com.chinatelecom.xysq.bean.Constants;
 import com.chinatelecom.xysq.bean.SpringProperty;
+import com.chinatelecom.xysq.service.AreaService;
 import com.chinatelecom.xysq.service.UserService;
 
 public class BaseAction {
@@ -28,6 +29,8 @@ public class BaseAction {
 	protected UserService getUserService() {
 		return (UserService) Constants.ctx.getBean("userService");
 	}
-	
+	protected AreaService getAreaService() {
+		return (AreaService) Constants.ctx.getBean("areaService");
+	}
 	
 }

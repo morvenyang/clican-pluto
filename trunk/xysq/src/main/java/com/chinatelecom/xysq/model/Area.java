@@ -1,6 +1,6 @@
 package com.chinatelecom.xysq.model;
 
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Fetch;
@@ -25,9 +26,11 @@ public class Area {
 	
 	private String name;
 	
+	private String pinyin;
+	
 	private Area parent;
 	
-	private Set<Area> children;
+	private List<Area> children;
 	
 	// start from level 1
 	private int level=1;
@@ -64,11 +67,12 @@ public class Area {
 	}
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "parent", cascade = CascadeType.REMOVE)
-	public Set<Area> getChildren() {
+	@OrderBy("pinyin")
+	public List<Area> getChildren() {
 		return children;
 	}
 
-	public void setChildren(Set<Area> children) {
+	public void setChildren(List<Area> children) {
 		this.children = children;
 	}
 	
@@ -79,6 +83,15 @@ public class Area {
 
 	public void setLevel(int level) {
 		this.level = level;
+	}
+
+	@Column
+	public String getPinyin() {
+		return pinyin;
+	}
+
+	public void setPinyin(String pinyin) {
+		this.pinyin = pinyin;
 	}
 	
 }

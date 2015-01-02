@@ -1,0 +1,129 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:a4j="http://richfaces.org/a4j" template="workspace.xhtml">
+	<ui:define name="body">
+		<h:form>
+			<h:panelGrid columns="2" height="100%" width="100%"
+				columnClasses="columntopLeft,columntopRight">
+				<rich:tree switchType="client"
+					style="width:300px;overflow-y:auto;overflow-x:auto;height:100%">
+					<rich:recursiveTreeNodesAdaptor roots="#{areaAction.areaTrees}"
+						var="area" nodes="#{area.children}">
+						<rich:treeNode iconLeaf="/img/tree.png" icon="/img/tree.png">
+							<h:outputLabel value="#{area.name}"
+								onmouseover="this.style.cursor='hand'"
+								onmouseout="this.style.cursor='default'" style="font-size:15px">
+								<a4j:support event="onclick"
+									action="#{areaAction.selectArea(area)}"
+									reRender="areaTablePanel" />
+							</h:outputLabel>
+						</rich:treeNode>
+					</rich:recursiveTreeNodesAdaptor>
+				</rich:tree>
+				<rich:panel id="areaTablePanel"
+					style="left-margin:10px;border:0;width:100%">
+					<rich:messages style="color:red" showDetail="false"
+						showSummary="true" />
+					<h:panelGrid id="areaPanelGrid" style="width:100%">
+						<h:panelGrid columns="4" style="text-align:right;width:100%">
+							<h:panelGroup>
+								<a4j:commandButton
+									style="border:0;" value="发布公告"
+									action="#{areaAction.publicAnnouncement()}" ajaxSingle="true"
+									reRender="announcementPanel"
+									oncomplete="Richfaces.showModalPanel('announcementPanel');" />
+								<a4j:commandButton
+									style="border:0;" value="发布须知"
+									action="#{areaAction.publicNotice()}" ajaxSingle="true"
+									reRender="noticePanel"
+									oncomplete="Richfaces.showModalPanel('noticePanel');" />
+								<a4j:commandButton
+									style="border:0;" value="导入城市和小区数据"
+									action="#{areaAction.import()}" ajaxSingle="true"
+									reRender="noticePanel"
+									oncomplete="Richfaces.showModalPanel('importPanel');" />
+							</h:panelGroup>
+						</h:panelGrid>
+						<rich:dataTable id="areaTable" var="community"
+							value="#{areaAction.communitiesBySelectedNode}" rows="25"
+							rowKeyVar="rowNumIndex" width="100%" activeClass="active-row"
+							enableContextMenu="true">
+							<rich:column sortBy="#{community.id}">
+								<f:facet name="header">
+									<h:outputText value="Id" />
+								</f:facet>
+								<h:outputText value="#{community.id}" style="white-space:nowrap;" />
+							</rich:column>
+							<rich:column>
+								<f:facet name="header">
+									<h:outputText value="城市" />
+								</f:facet>
+								<h:outputText value="#{community.city.name}" style="white-space:nowrap;" />
+							</rich:column>
+							<rich:column>
+								<f:facet name="header">
+									<h:outputText value="地区" />
+								</f:facet>
+								<h:outputText value="#{community.region.name}" style="white-space:nowrap;" />
+							</rich:column>
+							<rich:column>
+								<f:facet name="header">
+									<h:outputText value="小区" />
+								</f:facet>
+								<h:outputText value="#{community.name}" style="white-space:nowrap;" />
+							</rich:column>
+							<rich:column>
+								<f:facet name="header">
+									<h:outputText value="操作" />
+								</f:facet>
+								<h:panelGrid columns="5">
+									<a4j:commandButton value="编辑"
+										action="#{areaAction.editCommunity(community)}" ajaxSingle="true"
+										reRender="communityPanel"
+										oncomplete="Richfaces.showModalPanel('communityPanel');" />
+									<a4j:commandButton value="删除"
+										action="#{areaAction.deleteCommunity(community)}" ajaxSingle="true"
+										onclick="var answer=confirm('确认删除该小区?');if(!answer) return false;"
+										reRender="areaTable" />
+								</h:panelGrid>
+							</rich:column>
+							<f:facet name="footer">
+								<h:panelGrid columns="2">
+									<h:outputText
+										value="Total: #{areaAction.communitiesBySelectedNode.size()}" />
+									<rich:datascroller for="areaTable" reRender="areaTable"
+										ignoreDupResponses="false" renderIfSinglePage="true"
+										maxPages="10" page="1" align="left" ajaxSingle="true">
+									</rich:datascroller>
+								</h:panelGrid>
+							</f:facet>
+						</rich:dataTable>
+					</h:panelGrid>
+				</rich:panel>
+			</h:panelGrid>
+		</h:form>
+
+		<ui:include src="quizPanel.xhtml" />
+		<ui:include src="quizRejectPanel.xhtml" />
+		<ui:include src="template/preview.xhtml" />
+		<ui:include src="template/pictureGrid.xhtml" />
+		<ui:include src="template/templateGrid.xhtml" />
+		<ui:include src="template/audioUpload.xhtml" />
+		<ui:include src="template/importExcel.xhtml" />
+		<ui:include src="template/imageUpload.xhtml" />
+		<script type="text/javascript">
+			    var windowHeight = jQuery(window).height();
+			    jQuery(window).height(windowHeight);
+			    var headerHeight = jQuery('#headbox').height();
+			    var menuHeight = jQuery('#menuToolBarForm').height();
+			    contentHeight = windowHeight - headerHeight - menuHeight;
+			    jQuery('.columntopLeft').height(contentHeight)
+		</script>
+	</ui:define>
+</ui:composition>
