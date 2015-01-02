@@ -51,7 +51,7 @@
 							</h:panelGroup>
 						</h:panelGrid>
 						<rich:dataTable id="areaTable" var="community"
-							value="#{areaAction.communitiesBySelectedNode}" rows="25"
+							value="#{areaAction.communitiesBySelectedNode}" rows="#{areaAction.pageSize}"
 							rowKeyVar="rowNumIndex" width="100%" activeClass="active-row"
 							enableContextMenu="true">
 							<rich:column sortBy="#{community.id}">
@@ -93,7 +93,7 @@
 										value="Total: #{areaAction.communitiesBySelectedNode.size()}" />
 									<rich:datascroller for="areaTable" reRender="areaTable"
 										ignoreDupResponses="false" renderIfSinglePage="true"
-										maxPages="10" page="1" align="left" ajaxSingle="true">
+										maxPages="10" page="#{reportAction.scrollerPage}" align="left" ajaxSingle="true">
 									</rich:datascroller>
 								</h:panelGrid>
 							</f:facet>
