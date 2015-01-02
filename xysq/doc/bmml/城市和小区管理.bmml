@@ -153,5 +153,15 @@
         <text>%u5546%u5BB61</text>
       </controlProperties>
     </control>
+    <control controlID="30" controlTypeID="com.balsamiq.mockups::Label" x="692" y="261" w="59" h="-1" measuredW="26" measuredH="21" zOrder="30" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%u5730%u5740</text>
+      </controlProperties>
+    </control>
+    <control controlID="31" controlTypeID="com.balsamiq.mockups::TextInput" x="836" y="259" w="95" h="-1" measuredW="79" measuredH="26" zOrder="31" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text/>
+      </controlProperties>
+    </control>
   </controls>
 </mockup>
