@@ -30,6 +30,7 @@
 @synthesize token = _token;
 @synthesize loginModel = _loginModel;
 @synthesize navigation = _navigation;
+@synthesize latestClientVersion = _latestClientVersion;
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     

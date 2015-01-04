@@ -70,10 +70,19 @@
     }
 
     NSString* lastAlertDateStr = [defaults objectForKey:LAST_ALERT_DATE_STR];
-    bool alert = false;
+    NSString* lastAlertVersionStr = [defaults objectForKey:LAST_ALERT_VERSION_STR];
+    bool alertDate = false;
+    bool alertVersion = false;
     if(lastAlertDateStr==nil||![lastAlertDateStr isEqualToString:yesterdayStr]){
         if(selectDateStr==nil||[selectDateStr isEqualToString:yesterdayStr])
-        alert = true;
+        alertDate = true;
+    }
+    if(DrAppDelegate.latestClientVersion!=nil&&![DrAppDelegate.latestClientVersion isEqualToString:VERSION]){
+        if(lastAlertVersionStr==nil||![lastAlertVersionStr isEqualToString:yesterdayStr]){
+            alertVersion = true;
+            [defaults setObject:DrAppDelegate.latestClientVersion forKey:LAST_ALERT_VERSION_STR];
+        }
+        [defaults setObject:yesterdayStr forKey:LAST_ALERT_VERSION_STR];
     }
 
     DrAppDelegate.user.date =_indexListModel.date;
@@ -83,14 +92,29 @@
         [dateFormatter setDateFormat:@"MM月dd日 EEEE"];
         IndexViewController* index = (IndexViewController*)[TTNavigator navigator].visibleViewController;
         [index updateDate];
-        if(alert){
+        if(alertDate){
             TTAlert([NSString stringWithFormat:@"昨日数据未生成,当前数据为%@数据",[dateFormatter stringFromDate:_indexListModel.date]]);
+        }
+        if(alertVersion){
+            UIAlertView* alert = [[[UIAlertView alloc] initWithTitle:nil
+                                                             message:@"PB-日报已有新版本,请更新"
+                                                            delegate:self
+                                                   cancelButtonTitle: @"更新"
+                                                   otherButtonTitles:@"取消",nil] autorelease];
+
+            [alert show];
         }
         
     }
     TT_RELEASE_SAFELY(items);
 }
-
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if(buttonIndex==0){
+        TTOpenURL(@"https://itunes.apple.com/us/app/pb-ri-bao/id888870654");
+    }else{
+        [alertView dismissWithClickedButtonIndex:0 animated:YES];
+    }
+}
 - (Class)tableView:(UITableView*)tableView cellClassForObject:(id) object {
     if ([object isKindOfClass:[IndexTableItem class]]) {
 		return [IndexTableItemCell class];
