@@ -1,0 +1,178 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:a4j="http://richfaces.org/a4j" template="workspace.xhtml">
+	<ui:define name="body">
+		<h:form>
+			<rich:panel id="posterTablePanel"
+				style="left-margin:10px;border:0;width:100%">
+				<h:panelGrid id="posterPanelGrid" style="width:100%">
+					<h:panelGrid columns="1" style="text-align:right;width:100%">
+						<h:panelGroup>
+							<a4j:commandButton id="addPoster" style="border:0;" value="添加海报"
+								action="#{posterAction.addPoster()}" ajaxSingle="true"
+								reRender="posterPanel"
+								oncomplete="Richfaces.showModalPanel('posterPanel');" />
+						</h:panelGroup>
+					</h:panelGrid>
+					<rich:dataTable id="posterTable" var="poster"
+						value="#{posterAction.posterDataModel}" rows="10"
+						rowKeyVar="rowNumIndex" width="100%" activeClass="active-row"
+						enableContextMenu="true">
+						<rich:column>
+							<f:facet name="header">
+								<h:outputText value="海报" />
+							</f:facet>
+							<h:outputText value="#{poster.name}" style="white-space:nowrap;" />
+						</rich:column>
+						<rich:column>
+							<f:facet name="header">
+								<h:outputText value="类型" />
+							</f:facet>
+							<h:outputText value="#{poster.type.label}"
+								style="white-space:nowrap;" />
+						</rich:column>
+						<rich:column>
+							<f:facet name="header">
+								<h:outputText value="内容" />
+							</f:facet>
+							<h:outputText value="#{poster.html5Link}"
+								style="white-space:nowrap;" rendered="#{poster.type.value==1}" />
+							<h:outputText value="#{poster.innerModule.label}"
+								style="white-space:nowrap;" rendered="#{poster.type.value==2}" />
+							<h:outputText value="#{poster.store.name}"
+								style="white-space:nowrap;" rendered="#{poster.type.value==3}" />
+						</rich:column>
+						<rich:column>
+							<f:facet name="header">
+								<h:outputText value="全局" />
+							</f:facet>
+							<h:outputText rendered="#{poster.global}" value="是"
+								style="white-space:nowrap;" />
+							<h:outputText rendered="#{!poster.global}" value="否"
+								style="white-space:nowrap;" />
+						</rich:column>
+						<rich:column>
+							<f:facet name="header">
+								<h:outputText value="提交人" />
+							</f:facet>
+							<h:outputText value="#{poster.owner.userName}"
+								style="white-space:nowrap;" />
+						</rich:column>
+						<rich:column>
+							<f:facet name="header">
+								<h:outputText value="操作" />
+							</f:facet>
+							<h:panelGrid columns="3">
+								<a4j:commandButton value="编辑"
+									action="#{posterAction.editPoster(poster)}" ajaxSingle="true"
+									reRender="posterPanel"
+									oncomplete="Richfaces.showModalPanel('posterPanel');" />
+								<a4j:commandButton value="删除"
+									action="#{posterAction.delete(poster)}" ajaxSingle="true"
+									onclick="var answer=confirm('确认删除该海报?');if(!answer) return false;"
+									reRender="posterTable" />
+							</h:panelGrid>
+						</rich:column>
+						<f:facet name="footer">
+							<rich:datascroller for="posterTable" reRender="posterTable"
+								ignoreDupResponses="false" renderIfSinglePage="true"
+								maxPages="10" page="#{posterAction.page}" align="left" />
+						</f:facet>
+					</rich:dataTable>
+				</h:panelGrid>
+			</rich:panel>
+		</h:form>
+
+		<rich:modalPanel id="posterPanel" autosized="true">
+			<f:facet name="controls">
+				<h:panelGroup>
+					<h:graphicImage value="/img/close.png" styleClass="hidelink"
+						id="posterPanelImg" style="CURSOR: hand" />
+					<rich:componentControl for="posterPanel" attachTo="posterPanelImg"
+						operation="hide" event="onclick" />
+				</h:panelGroup>
+			</f:facet>
+			<f:facet name="header">
+				<h:panelGroup>
+					<h:outputText value="海报"></h:outputText>
+				</h:panelGroup>
+			</f:facet>
+			<a4j:form id="posterForm">
+				<h:panelGrid columns="3" width="600">
+					<h:panelGroup>
+						<h:outputLabel value="海报名称" />
+						<h:outputText value=" *" style="color:red;" />
+					</h:panelGroup>
+					<h:inputText id="name" value="#{posterAction.poster.name}"
+						style="width:180px;" required="true" requiredMessage="海报名称不能为空" />
+					<rich:message for="name" style="color:red" showDetail="false"
+						showSummary="true" />
+
+					<h:panelGroup>
+						<h:outputLabel value="图片" />
+						<h:outputText value=" *" style="color:red;" />
+					</h:panelGroup>
+					<h:panelGroup id="imageGroup">
+						<h:graphicImage
+							value="/image.do?imagePath=#{posterAction.poster.image.path}"
+							style="width:200px;height:200px"
+							rendered="#{posterAction.poster.image!=null}" />
+						<rich:fileUpload fileUploadListener="#{posterAction.uploadImage}"
+							maxFilesQuantity="1" acceptedTypes="png,jpg,jpeg,gif"
+							immediateUpload="true" allowFlash="true" noDuplicate="true"
+							addControlLabel="File" uploadControlLabel="Upload"
+							reRender="imageGroup">
+							<f:facet name="label">
+								<h:outputText value="{_KB}KB from {KB}KB uploaded --- {mm}:{ss}" />
+							</f:facet>
+						</rich:fileUpload>
+					</h:panelGroup>
+					<h:outputText value="" />
+
+					<h:outputLabel value="海报类型" />
+					<h:selectOneMenu value="#{posterAction.poster.type}">
+						<s:selectItems value="#{posterAction.posterTypes}" var="item"
+							label="#{item.label}" />
+						<s:convertEnum />
+					</h:selectOneMenu>
+					
+					<h:panelGroup>
+						<h:outputLabel value="#{posterAction.poster.type.label}"/>
+						<h:outputText value=" *" style="color:red;" />
+					</h:panelGroup>
+					<h:panelGroup>
+						<h:inputText id="html5" value="#{posterAction.poster.html5}"
+						style="width:180px;" required="true" requiredMessage="HTML5链接不能为空" rendered="#{posterAction.poster.type.value==1}"/>
+						<rich:message for="html5" style="color:red" showDetail="false"
+						showSummary="true" rendered="#{posterAction.poster.type.value==1}"/>
+						<h:selectOneMenu value="#{posterAction.poster.innerModule}" rendered="#{posterAction.poster.type.value==2}">
+							<s:selectItems value="#{posterAction.innerModules}" var="item"
+							label="#{item.label}" />
+							<s:convertEnum />
+						</h:selectOneMenu>
+						<h:selectOneMenu value="#{posterAction.poster.storeId}" rendered="#{posterAction.poster.type.value==3}">
+							<c:forEach var="store"  items="#{posterAction.stores}">
+								<f:selectItem itemLabel="#{store.name}" itemValue="#{storeId}" />
+							</c:forEach>
+						</h:selectOneMenu>
+					</h:panelGroup>
+					
+					<h:panelGrid columns="2">
+						<a4j:commandButton id="saveButton" value="保存"
+							action="#{posterAction.savePoster()}"
+							oncomplete="if(#{facesContext.maximumSeverity==null}) {Richfaces.hideModalPanel('posterPanel');}"
+							reRender="posterTable" />
+						<h:commandButton id="cancelButton" value="取消" type="reset"
+							onclick="Richfaces.hideModalPanel('posterPanel');" />
+					</h:panelGrid>
+				</h:panelGrid>
+			</a4j:form>
+		</rich:modalPanel>
+	</ui:define>
+</ui:composition>

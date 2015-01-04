@@ -1,13 +1,50 @@
 package com.chinatelecom.xysq.controller;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import java.io.File;
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.chinatelecom.xysq.bean.SpringProperty;
 
 @Controller
 public class ClientController {
 
-	private final static Log log = LogFactory.getLog(ClientController.class);
+	private SpringProperty springProperty;
 
-	
+	public void setSpringProperty(SpringProperty springProperty) {
+		this.springProperty = springProperty;
+	}
+
+	@RequestMapping("/image")
+	public void image(@RequestParam(value = "imagePath") String imagePath,
+			HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		if (StringUtils.isNotEmpty(imagePath)) {
+			File file = (new File(springProperty.getImageUrlPrefix() + "/"
+					+ imagePath));
+			byte[] data = FileUtils.readFileToByteArray(file);
+			resp.setHeader("Content-Disposition", "attachment; filename="
+					+ file.getName());
+			if (imagePath.toLowerCase().endsWith("jpeg")) {
+				resp.setContentType("image/jpeg");
+			} else if (imagePath.toLowerCase().endsWith("png")) {
+				resp.setContentType("image/png");
+			} else if (imagePath.toLowerCase().endsWith("gif")) {
+				resp.setContentType("image/gif");
+			} else if (imagePath.toLowerCase().endsWith("jpg")) {
+				resp.setContentType("image/jpg");
+			}
+			resp.getOutputStream().write(data);
+			resp.getOutputStream().flush();
+		}
+	}
 }

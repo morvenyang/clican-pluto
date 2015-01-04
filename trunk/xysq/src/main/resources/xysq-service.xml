@@ -16,4 +16,6 @@
 		autowire="byName" />
 	<bean id="broadbandRemindService" class="com.chinatelecom.xysq.service.impl.BroadbandRemindServiceImpl"
 		autowire="byName" />
+	<bean id="storeService" class="com.chinatelecom.xysq.service.impl.StoreServiceImpl"
+		autowire="byName" />
 </beans>

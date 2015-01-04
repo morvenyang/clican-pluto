@@ -1,5 +1,6 @@
 package com.chinatelecom.xysq.model;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -12,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Fetch;
@@ -32,7 +34,10 @@ public class Community {
 	private Area city;
 	
 	private Set<AdminCommunityRel> adminCommunityRelSet;
+	
+	private List<PosterCommunityRel> posterCommunityRelList;
 
+	private Set<StoreCommunityRel> storeCommunityRelSet;
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "ID")
@@ -87,6 +92,26 @@ public class Community {
 
 	public void setAdminCommunityRelSet(Set<AdminCommunityRel> adminCommunityRelSet) {
 		this.adminCommunityRelSet = adminCommunityRelSet;
+	}
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "community", cascade = CascadeType.REMOVE)
+	@OrderBy("index")
+	public List<PosterCommunityRel> getPosterCommunityRelList() {
+		return posterCommunityRelList;
+	}
+
+	public void setPosterCommunityRelList(
+			List<PosterCommunityRel> posterCommunityRelList) {
+		this.posterCommunityRelList = posterCommunityRelList;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "community", cascade = CascadeType.REMOVE)
+	public Set<StoreCommunityRel> getStoreCommunityRelSet() {
+		return storeCommunityRelSet;
+	}
+
+	public void setStoreCommunityRelSet(Set<StoreCommunityRel> storeCommunityRelSet) {
+		this.storeCommunityRelSet = storeCommunityRelSet;
 	}
 	
 	
