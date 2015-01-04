@@ -15,5 +15,7 @@
 	<bean id="areaDao" class="com.chinatelecom.xysq.dao.impl.AreaDaoImpl"
 		autowire="byName" />
 	<bean id="broadbandRemindDao" class="com.chinatelecom.xysq.dao.impl.BroadbandRemindDaoImpl"
+		autowire="byName" />
+	<bean id="storeDao" class="com.chinatelecom.xysq.dao.impl.StoreDaoImpl"
 		autowire="byName" />	
 </beans>

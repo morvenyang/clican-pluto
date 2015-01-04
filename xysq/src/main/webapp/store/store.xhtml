@@ -1,0 +1,155 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:a4j="http://richfaces.org/a4j" template="../workspace.xhtml">
+	<ui:define name="body">
+		<h:form>
+			<rich:panel id="storeTablePanel"
+				style="left-margin:10px;border:0;width:100%">
+				<h:panelGrid id="storePanelGrid" style="width:100%">
+					<h:panelGrid columns="1" style="text-align:right;width:100%">
+						<h:panelGroup>
+							<a4j:commandButton id="addStore" style="border:0;" value="添加商家"
+								action="#{storeAction.addStore()}" ajaxSingle="true"
+								reRender="storePanel"
+								oncomplete="Richfaces.showModalPanel('storePanel');" />
+						</h:panelGroup>
+					</h:panelGrid>
+					<rich:dataTable id="storeTable" var="store"
+						value="#{storeAction.storeDataModel}" rows="10"
+						rowKeyVar="rowNumIndex" width="100%" activeClass="active-row"
+						enableContextMenu="true">
+						<rich:column>
+							<f:facet name="header">
+								<h:outputText value="商家" />
+							</f:facet>
+							<h:outputText value="#{store.name}" style="white-space:nowrap;" />
+						</rich:column>
+						<rich:column>
+							<f:facet name="header">
+								<h:outputText value="提交人" />
+							</f:facet>
+							<h:outputText value="#{store.owner.userName}"
+								style="white-space:nowrap;" />
+						</rich:column>
+						<rich:column>
+							<f:facet name="header">
+								<h:outputText value="操作" />
+							</f:facet>
+							<h:panelGrid columns="3">
+								<a4j:commandButton value="编辑"
+									action="#{storeAction.editStore(store)}" ajaxSingle="true"
+									reRender="storePanel"
+									oncomplete="Richfaces.showModalPanel('storePanel');" />
+								<a4j:commandButton value="删除"
+									action="#{storeAction.deleteStore(store)}" ajaxSingle="true"
+									onclick="var answer=confirm('确认删除该商家?');if(!answer) return false;"
+									reRender="storeTable" />
+							</h:panelGrid>
+						</rich:column>
+						<f:facet name="footer">
+							<rich:datascroller for="storeTable" reRender="storeTable"
+								ignoreDupResponses="false" renderIfSinglePage="true"
+								maxPages="10" page="#{storeAction.page}" align="left" />
+						</f:facet>
+					</rich:dataTable>
+				</h:panelGrid>
+			</rich:panel>
+		</h:form>
+
+		<rich:modalPanel id="storePanel" autosized="true">
+			<f:facet name="controls">
+				<h:panelGroup>
+					<h:graphicImage value="/img/close.png" styleClass="hidelink"
+						id="storePanelImg" style="CURSOR: hand" />
+					<rich:componentControl for="storePanel" attachTo="storePanelImg"
+						operation="hide" event="onclick" />
+				</h:panelGroup>
+			</f:facet>
+			<f:facet name="header">
+				<h:panelGroup>
+					<h:outputText value="商家详情"></h:outputText>
+				</h:panelGroup>
+			</f:facet>
+			<a4j:form id="storeForm">
+				<t:panelGrid columns="3" width="600">
+					<h:panelGroup>
+						<h:outputLabel value="名称" />
+						<h:outputText value=" *" style="color:red;" />
+					</h:panelGroup>
+					<h:inputText id="name" value="#{storeAction.store.name}"
+						style="width:480px;" required="true" requiredMessage="名称不能为空" />
+					<rich:message for="name" style="color:red" showDetail="false"
+						showSummary="true" />
+
+					<h:panelGroup>
+						<h:outputLabel value="地址" />
+						<h:outputText value=" *" style="color:red;" />
+					</h:panelGroup>
+
+					<h:inputText id="address" value="#{storeAction.store.address}"
+						style="width:480px;" required="true" requiredMessage="地址不能为空" />
+					<rich:message for="address" style="color:red" showDetail="false"
+						showSummary="true" />
+
+					<h:panelGroup>
+						<h:outputLabel value="电话" />
+						<h:outputText value=" *" style="color:red;" />
+					</h:panelGroup>
+
+					<h:inputText id="tel" value="#{storeAction.store.tel}"
+						style="width:480px;" required="true" requiredMessage="电话不能为空" />
+					<rich:message for="tel" style="color:red" showDetail="false"
+						showSummary="true" />
+
+					<h:outputLabel value="图片" />
+					<rich:fileUpload id="imageUpload"
+						fileUploadListener="#{storeAction.uploadImage}"
+						maxFilesQuantity="1" acceptedTypes="png,jpg,jpeg,gif"
+						immediateUpload="true" allowFlash="false" noDuplicate="true"
+						addControlLabel="File" uploadControlLabel="Upload"
+						listHeight="0px" autoclear="true">
+						<f:facet name="label">
+							<h:outputText value="{_KB}KB from {KB}KB uploaded --- {mm}:{ss}" />
+						</f:facet>
+						<a4j:support event="onfileuploadcomplete"
+							reRender="imageGroup,imageUpload" ajaxSingle="true" />
+					</rich:fileUpload>
+					<h:outputText value="" />
+					<t:panelGroup id="imageGroup" colspan="3">
+						<h:panelGrid columns="3">
+							<c:forEach var="image" items="#{storeAction.store.images}">
+								<h:panelGrid>
+									<h:graphicImage value="/image.do?imagePath=#{image.path}"
+										style="width:150px;height:150px" />
+									<a4j:commandButton image="/img/delete.png" title="删除"
+										action="#{storeAction.deleteImage(image)}" ajaxSingle="true"
+										reRender="imageGroup"></a4j:commandButton>
+								</h:panelGrid>
+							</c:forEach>
+						</h:panelGrid>
+					</t:panelGroup>
+
+					<h:outputLabel value="描述" />
+					<h:inputTextarea value="#{storeAction.store.description}"
+						style="width:480px;" />
+					<h:outputText value="" />
+					
+					<h:panelGrid columns="2">
+						<a4j:commandButton id="saveButton" value="保存"
+							action="#{storeAction.saveStore()}"
+							oncomplete="if(#{facesContext.maximumSeverity==null}) {Richfaces.hideModalPanel('storePanel');}"
+							reRender="storeTable" />
+						<h:commandButton id="cancelButton" value="取消" type="reset"
+							onclick="Richfaces.hideModalPanel('storePanel');" />
+					</h:panelGrid>
+				</t:panelGrid>
+			</a4j:form>
+		</rich:modalPanel>
+	</ui:define>
+</ui:composition>

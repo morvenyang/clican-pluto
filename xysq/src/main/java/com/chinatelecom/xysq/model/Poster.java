@@ -1,13 +1,19 @@
 package com.chinatelecom.xysq.model;
 
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
@@ -17,15 +23,16 @@ import org.hibernate.annotations.Type;
 import com.chinatelecom.xysq.enumeration.InnerModule;
 import com.chinatelecom.xysq.enumeration.PosterType;
 
-
 @Table(name = "POSTER")
 @Entity
 public class Poster {
 
 	private Long id;
 
-	private Community community;
-	
+	private String name;
+
+	private Set<PosterCommunityRel> posterCommunityRelSet;
+
 	private Image image;
 
 	private PosterType type;
@@ -35,6 +42,12 @@ public class Poster {
 	private InnerModule innerModule;
 
 	private Store store;
+
+	private Long storeId;
+
+	private boolean global;
+
+	private User owner;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -47,15 +60,23 @@ public class Poster {
 		this.id = id;
 	}
 
-	@ManyToOne
-	@JoinColumn(name = "COMMUNITY_ID", nullable = true)
-	@Fetch(FetchMode.JOIN)
-	public Community getCommunity() {
-		return community;
+	@Column
+	public String getName() {
+		return name;
 	}
 
-	public void setCommunity(Community community) {
-		this.community = community;
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "poster", cascade = CascadeType.REMOVE)
+	public Set<PosterCommunityRel> getPosterCommunityRelSet() {
+		return posterCommunityRelSet;
+	}
+
+	public void setPosterCommunityRelSet(
+			Set<PosterCommunityRel> posterCommunityRelSet) {
+		this.posterCommunityRelSet = posterCommunityRelSet;
 	}
 
 	@ManyToOne
@@ -68,6 +89,7 @@ public class Poster {
 	public void setImage(Image image) {
 		this.image = image;
 	}
+
 	@Column(name = "TYPE")
 	@Type(type = "com.chinatelecom.xysq.hibernate.EnumerationType", parameters = { @Parameter(name = "enumClass", value = "com.chinatelecom.xysq.enumeration.PosterType") })
 	public PosterType getType() {
@@ -86,7 +108,7 @@ public class Poster {
 	public void setHtml5Link(String html5Link) {
 		this.html5Link = html5Link;
 	}
-	
+
 	@Column(name = "INNER_MODULE")
 	@Type(type = "com.chinatelecom.xysq.hibernate.EnumerationType", parameters = { @Parameter(name = "enumClass", value = "com.chinatelecom.xysq.enumeration.InnerModule") })
 	public InnerModule getInnerModule() {
@@ -107,8 +129,35 @@ public class Poster {
 	public void setStore(Store store) {
 		this.store = store;
 	}
-	
-	
 
-	
+	@Column(name = "GLOBAL")
+	@Type(type = "org.hibernate.type.NumericBooleanType")
+	public boolean isGlobal() {
+		return global;
+	}
+
+	public void setGlobal(boolean global) {
+		this.global = global;
+	}
+
+	@ManyToOne
+	@JoinColumn(name = "OWNER_ID", nullable = true)
+	@Fetch(FetchMode.JOIN)
+	public User getOwner() {
+		return owner;
+	}
+
+	public void setOwner(User owner) {
+		this.owner = owner;
+	}
+
+	@Transient
+	public Long getStoreId() {
+		return storeId;
+	}
+
+	public void setStoreId(Long storeId) {
+		this.storeId = storeId;
+	}
+
 }
