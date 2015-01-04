@@ -9,7 +9,7 @@
 #import <Three20UI/Three20UI.h>
 #import "IndexListModel.h"
 
-@interface IndexDataSource : TTListDataSource{
+@interface IndexDataSource : TTListDataSource<UIAlertViewDelegate>{
     IndexListModel* _indexListModel;
 }
 @property (nonatomic,retain) IndexListModel* indexListModel;

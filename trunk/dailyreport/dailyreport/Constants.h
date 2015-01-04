@@ -8,7 +8,7 @@
 
 #ifndef dailyreport_Constants_h
 #define dailyreport_Constants_h
-#define BASE_URL @"http://bi.pbwear.com/peacebird"
+#define BASE_URL @"http://192.168.1.100:9000/peacebird"
 #define LAST_USER_NAME @"LAST_USER_NAME"
 #define LAST_PASSWORD @"LAST_PASSWORD"
 #define LAST_LOGIN_DATE @"LAST_LOGIN_DATE"
@@ -22,6 +22,7 @@
 #define ALIGN_CENTER 2
 #define ALIGN_RIGHT 3
 #define LAST_ALERT_DATE_STR @"LAST_ALERT_DATE_STR"
+#define LAST_ALERT_VERSION_STR @"LAST_ALERT_VERSION_STR"
 #define IS_IPHONE4 [UIScreen mainScreen].bounds.size.height==480
 #define IS_IPHONE5 [UIScreen mainScreen].bounds.size.height==568
 #define IS_IPHONE6 [UIScreen mainScreen].bounds.size.height==667

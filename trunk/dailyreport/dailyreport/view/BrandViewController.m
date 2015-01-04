@@ -310,6 +310,12 @@
     html=[html stringByReplacingOccurrencesOfString:@"$dataProvider" withString:dataProvider];
     html=[html stringByReplacingOccurrencesOfString:@"$width" withString:@"1000"];
     html=[html stringByReplacingOccurrencesOfString:@"$brandColor" withString:[[[NSBundle mainBundle] infoDictionary] objectForKey:[NSString stringWithFormat:@"%@背景",self.brand]]];
+    if(self.lineChart==self.yearlyLineChart){
+         html=[html stringByReplacingOccurrencesOfString:@"$lineHidden" withString:@"true"];
+    }else{
+         html=[html stringByReplacingOccurrencesOfString:@"$lineHidden" withString:@"false"];
+    }
+   
     CGFloat h = SCREEN_HEIGHT;
     CGFloat bottom = 70;
     CGFloat top = 10;
@@ -318,10 +324,10 @@
         bottom = 70;
     }else if(IS_IPHONE6){
         bottom = 70;
-        h+=120;
+        h+=100;
     }else if(IS_IPHONE6_PLUS){
         bottom = 60;
-        h+=60;
+        h+=30;
         top = -10;
     }
     html=[html stringByReplacingOccurrencesOfString:@"$height" withString:[NSString stringWithFormat:@"%.0f",h]];

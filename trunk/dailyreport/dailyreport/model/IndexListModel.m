@@ -55,7 +55,7 @@
         }
         [request setValue:[@"JSESSIONID=" stringByAppendingString:DrAppDelegate.user.sessionId]forHTTPHeaderField:@"Cookie"];
         
-        request.cachePolicy = TTURLRequestCachePolicyDefault;
+        request.cachePolicy = TTURLRequestCachePolicyNone;
         //request.cacheExpirationAge = TT_CACHE_EXPIRATION_AGE_NEVER;
         
         TTURLJSONResponse* response = [[TTURLJSONResponse alloc] init];
@@ -95,6 +95,7 @@
                 [ads addObject:d];
             }
             DrAppDelegate.user.availableDates = ads;
+            DrAppDelegate.latestClientVersion = [data objectForKey:@"clientVersion"];
             self.date = [dateFormatter dateFromString:[data objectForKey:@"date"]];
             NSArray* brands = [data objectForKey:@"brands"];
             for (NSDictionary* brandDict in brands) {

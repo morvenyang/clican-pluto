@@ -17,6 +17,7 @@
     NSString* _token;
     LoginModel* _loginModel;
     BOOL _navigation;
+    NSString* _latestClientVersion;
 
 }
 
@@ -25,5 +26,5 @@
 @property (nonatomic, copy) NSString* token;
 @property (strong, nonatomic) UIWindow *window;
 @property (nonatomic, assign) BOOL navigation;
-
+@property (nonatomic, copy) NSString* latestClientVersion;
 @end
