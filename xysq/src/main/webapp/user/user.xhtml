@@ -142,6 +142,16 @@
 						showDetail="false" showSummary="true" rendered="#{userAction.user.id==null}"/>
 					
 					<h:panelGroup>
+						<h:outputLabel value="角色" />
+					</h:panelGroup>
+					<h:selectOneMenu value="#{userAction.user.role}">
+						<s:selectItems value="#{userAction.roles}" var="role"
+							label="#{role.label}" />
+						<s:convertEnum />
+					</h:selectOneMenu>
+					<h:outputText value=""/>
+					
+					<h:panelGroup>
 						<h:outputLabel value="手机号" />
 					</h:panelGroup>
 					<h:inputText id="tel"

@@ -10,6 +10,7 @@ import org.jboss.seam.annotations.security.Restrict;
 import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.international.StatusMessage.Severity;
 
+import com.chinatelecom.xysq.enumeration.Role;
 import com.chinatelecom.xysq.model.User;
 
 @Scope(ScopeType.PAGE)
@@ -26,8 +27,11 @@ public class UserAction extends BaseAction {
 
 	private String password;
 	private String confirmedPassword;
+	
+	private List<Role> roles;
 
 	public void listUsers() {
+		roles = Role.getAdminRoles();
 		users = this.getUserService().findAllUsers();
 	}
 
@@ -118,6 +122,14 @@ public class UserAction extends BaseAction {
 
 	public void setConfirmedPassword(String confirmedPassword) {
 		this.confirmedPassword = confirmedPassword;
+	}
+
+	public List<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(List<Role> roles) {
+		this.roles = roles;
 	}
 
 }

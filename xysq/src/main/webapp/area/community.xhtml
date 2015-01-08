@@ -50,11 +50,18 @@
 				usingSuggestObjects="true"
 				suggestionAction="#{areaAction.autoCompleteAdmins}"
 				var="admin" id="suggestion" for="adminName" fetchValue="#{admin.name}"
-				onobjectchange="selectAreaAdmin(#{rich:component('suggestion')}.getSelectedItems().pluck('id'))">
+				onobjectchange="checkSelectAreaAdmin(#{rich:component('suggestion')}.getSelectedItems().pluck('id'))">
 				<h:column>
 					<h:outputText value="#{admin.name}" />
 				</h:column>
 			</rich:suggestionbox>
+			<script>
+				function checkSelectAreaAdmin(adminId){
+					if(adminId!=null&amp;&amp;adminId.length>0){
+						selectAreaAdmin(adminId);
+					}
+				}
+			</script>
 			<a4j:jsFunction name="selectAreaAdmin" reRender="selectedAdmins" action="#{areaAction.selectAdmin()}" ajaxSingle="true">
 				<a4j:actionparam name="param1" assignTo="#{areaAction.selectedAdminId}" />
 			</a4j:jsFunction>
@@ -62,19 +69,19 @@
 			<h:panelGrid columns="10" id="selectedAdmins">
 				<c:forEach var="admin" items="#{areaAction.selectedAdmins}">
 					<h:outputText value="#{admin.userName}" />
-					<a4j:commandButton id="saveButton" image="/img/delete.png"
-					action="#{areaAction.deleteAdmin(admin)}"
-					reRender="selectedAdmins" />
+					<a4j:commandButton image="/img/delete.png"
+					action="#{areaAction.unselectAdmin(admin)}"
+					reRender="selectedAdmins" ajaxSingle="true"/>
 				</c:forEach>
 			</h:panelGrid>
 			<h:outputLabel value=""/>
 			<h:outputLabel value=""/>
 			<h:panelGrid columns="2">
-				<a4j:commandButton id="saveButton" value="保存"
+				<a4j:commandButton value="保存"
 					action="#{areaAction.saveCommunity()}"
 					oncomplete="if(#{facesContext.maximumSeverity==null}) {Richfaces.hideModalPanel('communityPanel');}"
 					reRender="communityTable" />
-				<h:commandButton id="cancelButton" value="取消" type="reset"
+				<h:commandButton value="取消" type="reset"
 					onclick="Richfaces.hideModalPanel('communityPanel');" />
 			</h:panelGrid>
 		</h:panelGrid>

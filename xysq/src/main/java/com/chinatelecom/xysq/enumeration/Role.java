@@ -1,5 +1,8 @@
 package com.chinatelecom.xysq.enumeration;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public enum Role implements LabelAndValue{
 
 	ADMIN(1,"系统管理员"),
@@ -27,5 +30,11 @@ public enum Role implements LabelAndValue{
 		return value;
 	}
 	
+	public static List<Role> getAdminRoles(){
+		List<Role> roles = new ArrayList<Role>();
+		roles.add(ADMIN);
+		roles.add(AREA_ADMIN);
+		return roles;
+	}
 	
 }
