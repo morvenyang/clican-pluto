@@ -1,6 +1,7 @@
 package com.chinatelecom.xysq.dao.impl;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.HibernateException;
@@ -54,6 +55,28 @@ public class BroadbandRemindDaoImpl extends BaseDao implements
 	public BroadbandRemind findBroadbandRemindById(Long id) {
 		return (BroadbandRemind) this.getHibernateTemplate().get(
 				BroadbandRemind.class, id);
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<BroadbandRemind> findBroadbandRemindByMsisdns(
+			List<String> msisdns) {
+		final List<List<String>> inIds = this.getInIds(msisdns);
+		
+		return this.getHibernateTemplate().executeFind(new HibernateCallback(){
+			@Override
+			public Object doInHibernate(Session session)
+					throws HibernateException, SQLException {
+				List<BroadbandRemind> result = new ArrayList<BroadbandRemind>();
+				for(List<String> ids : inIds){
+					Query query = session.createQuery("from BroadbandRemind where msisdn in (:msisdns)");
+					query.setParameterList("msisdns", ids);
+					List<BroadbandRemind> list = query.list();
+					result.addAll(list);
+				}
+				return result;
+			}
+		});
 	}
 
 }
