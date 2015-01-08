@@ -117,6 +117,10 @@ public class AreaAction extends PageListAction<Community> {
 		User user = this.getUserService().findUserById(this.selectedAdminId);
 		this.selectedAdmins.add(user);
 	}
+	
+	public void unselectAdmin(User user) {
+		this.selectedAdmins.remove(user);
+	}
 
 	public synchronized void importExcel(UploadEvent event) {
 		if (log.isDebugEnabled()) {
