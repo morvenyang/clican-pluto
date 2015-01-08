@@ -34,4 +34,11 @@ public class UserDaoImpl extends HibernateDaoSupport implements UserDao {
 	public List<String> findAllActiveToken() {
 		return this.getHibernateTemplate().find("select token from User where active = true and role=1 and token is not null");
 	}
+
+	@Override
+	public void deleteUser(User user) {
+		this.getHibernateTemplate().delete(user);
+	}
+	
+	
 }

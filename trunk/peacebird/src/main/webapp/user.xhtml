@@ -104,6 +104,11 @@
 									onclick="var answer=confirm('确认激活该用户');if(!answer) return false;"
 									reRender="userTable"
 									rendered="#{!user.active and user.userName!='admin'}" />
+								<a4j:commandButton value="删除"
+									action="#{userAction.deleteUser(user)}" ajaxSingle="true"
+									onclick="var answer=confirm('确认删除该用户');if(!answer) return false;"
+									reRender="userTable"
+									rendered="#{!user.active and user.userName!='admin'}" />
 							</h:panelGrid>
 						</rich:column>
 						<f:facet name="footer">
