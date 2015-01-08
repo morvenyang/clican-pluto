@@ -35,10 +35,20 @@ public class UserAction extends BaseAction {
 	private Map<String, Boolean> brandMap;
 
 	private List<DimBrand> brands;
+	
+	private String keyword;
 
 	public void listUsers() {
 		users = this.getUserService().findAllUsers();
 		this.brands = this.getDataService().getAllBrands();
+	}
+	
+	public void searchUsers(){
+		if(StringUtils.isEmpty(keyword)){
+			users = this.getUserService().findAllUsers();
+		}else{
+			users = this.getUserService().findUsers(keyword);
+		}
 	}
 
 	public void addUser() {
@@ -174,6 +184,14 @@ public class UserAction extends BaseAction {
 
 	public void setBrands(List<DimBrand> brands) {
 		this.brands = brands;
+	}
+
+	public String getKeyword() {
+		return keyword;
+	}
+
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
 	}
 
 }

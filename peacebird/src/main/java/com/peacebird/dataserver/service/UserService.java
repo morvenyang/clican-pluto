@@ -15,4 +15,6 @@ public interface UserService {
 	public void updatePassword(User user);
 	
 	public void deleteUser(User user);
+	
+	public List<User> findUsers(String keyword);
 }
