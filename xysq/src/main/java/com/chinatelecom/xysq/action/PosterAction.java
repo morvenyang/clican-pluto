@@ -24,7 +24,7 @@ public class PosterAction extends PageListAction<Poster> {
 	private List<Area> areaTrees;
 
 	private Poster poster;
-	
+
 	private List<PosterType> posterTypes;
 
 	public void listPosters() {
@@ -42,24 +42,30 @@ public class PosterAction extends PageListAction<Poster> {
 		};
 	}
 
-	public void addPoster(){
+	public void addPoster() {
 		this.poster = new Poster();
 		this.poster.setType(PosterType.HTML5);
 	}
-	
-	public List<Store> autoCompleteStores(Object suggest){
-		List<Store> stores = this.getStoreService().findStores(this.getIdentity().getUser().getId(), (String)suggest);
-		return stores;
+
+	public List<Store> autoCompleteStores(Object suggest) {
+		try {
+			List<Store> stores = this.getStoreService().findStores(
+					this.getIdentity().getUser().getId(), (String) suggest);
+			return stores;
+		} catch (Exception e) {
+			log.error("", e);
+		}
+		return null;
 	}
-	
-	public void editPoster(Poster poster){
+
+	public void editPoster(Poster poster) {
 		this.poster = this.getPosterService().findPosterById(poster.getId());
 	}
-	
-	public void savePoster(){
+
+	public void savePoster() {
 		this.getPosterService().savePoster(poster);
 	}
-	
+
 	public PageListDataModel<Poster> getPosterDataModel() {
 		return posterDataModel;
 	}
@@ -96,6 +102,5 @@ public class PosterAction extends PageListAction<Poster> {
 	public PageListDataModel<Poster> getDefaultDataModel() {
 		return posterDataModel;
 	}
-	
-	
+
 }
