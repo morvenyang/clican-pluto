@@ -48,7 +48,12 @@ public class BroadbandRemindAction extends PageListAction<BroadbandRemind> {
 	}
 
 	private String getCellString(Cell cell) {
-		String value = cell.getStringCellValue();
+		String value;
+		if(cell.getCellType()==Cell.CELL_TYPE_NUMERIC){
+			value = cell.getNumericCellValue()+"";
+		}else{
+			value = cell.getStringCellValue();
+		}
 		if (StringUtils.isNotEmpty(value)) {
 			return value.trim();
 		} else {
@@ -73,7 +78,7 @@ public class BroadbandRemindAction extends PageListAction<BroadbandRemind> {
 			fis = new FileInputStream(excelFile);
 			XSSFWorkbook wb = new XSSFWorkbook(fis);
 			XSSFSheet sheet = wb.getSheetAt(0);
-			int i = 1;
+			int i = 0;
 			bbrList = new ArrayList<BroadbandRemind>();
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			while (true) {
@@ -82,16 +87,16 @@ public class BroadbandRemindAction extends PageListAction<BroadbandRemind> {
 				if (row == null) {
 					break;
 				}
-				String msisdn = this.getCellString(row.getCell(1));
-				String broadBandId = this.getCellString(row.getCell(2));
-				String userName = this.getCellString(row.getCell(3));
-				String expiredDateStr = this.getCellString(row.getCell(4));
+				String msisdn = this.getCellString(row.getCell(0));
+				String broadBandId = this.getCellString(row.getCell(1));
+				String userName = this.getCellString(row.getCell(2));
+				String expiredDateStr = this.getCellString(row.getCell(3));
 				if(StringUtils.isEmpty(msisdn)||StringUtils.isEmpty(expiredDateStr)){
 					continue;
 				}
 				Date expiredDate = sdf.parse(expiredDateStr);
 				BroadbandRemind bbr = new BroadbandRemind();
-				bbr.setMsisidn(msisdn);
+				bbr.setMsisdn(msisdn);
 				bbr.setBroadBandId(broadBandId);
 				bbr.setUserName(userName);
 				bbr.setExpiredDate(expiredDate);
