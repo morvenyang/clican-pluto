@@ -1,5 +1,6 @@
 package com.chinatelecom.xysq.action;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.jboss.seam.ScopeType;
@@ -9,6 +10,7 @@ import org.jboss.seam.annotations.security.Restrict;
 
 import com.chinatelecom.xysq.bean.PageList;
 import com.chinatelecom.xysq.bean.PageListDataModel;
+import com.chinatelecom.xysq.bean.PlainStore;
 import com.chinatelecom.xysq.enumeration.PosterType;
 import com.chinatelecom.xysq.model.Area;
 import com.chinatelecom.xysq.model.Poster;
@@ -47,11 +49,16 @@ public class PosterAction extends PageListAction<Poster> {
 		this.poster.setType(PosterType.HTML5);
 	}
 
-	public List<Store> autoCompleteStores(Object suggest) {
+	public List<PlainStore> autoCompleteStores(Object suggest) {
 		try {
 			List<Store> stores = this.getStoreService().findStores(
 					this.getIdentity().getUser().getId(), (String) suggest);
-			return stores;
+			List<PlainStore> plainStores = new ArrayList<PlainStore>();
+			for(Store store:stores){
+				PlainStore ps = new PlainStore(store.getId(),store.getName(),store.getPinyin(),store.getShortPinyin());
+				plainStores.add(ps);
+			}
+			return plainStores;
 		} catch (Exception e) {
 			log.error("", e);
 		}
