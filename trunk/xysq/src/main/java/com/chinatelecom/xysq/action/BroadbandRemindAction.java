@@ -50,7 +50,7 @@ public class BroadbandRemindAction extends PageListAction<BroadbandRemind> {
 	private String getCellString(Cell cell) {
 		String value;
 		if(cell.getCellType()==Cell.CELL_TYPE_NUMERIC){
-			value = cell.getNumericCellValue()+"";
+			value = ((long)cell.getNumericCellValue())+"";
 		}else{
 			value = cell.getStringCellValue();
 		}
