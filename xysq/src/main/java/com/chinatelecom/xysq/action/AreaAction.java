@@ -26,8 +26,11 @@ import org.richfaces.model.UploadItem;
 import com.chinatelecom.xysq.bean.EmptyPageList;
 import com.chinatelecom.xysq.bean.PageList;
 import com.chinatelecom.xysq.bean.PageListDataModel;
+import com.chinatelecom.xysq.bean.SuggestionBean;
+import com.chinatelecom.xysq.model.AdminCommunityRel;
 import com.chinatelecom.xysq.model.Area;
 import com.chinatelecom.xysq.model.Community;
+import com.chinatelecom.xysq.model.User;
 
 @Scope(ScopeType.PAGE)
 @Name("areaAction")
@@ -44,6 +47,12 @@ public class AreaAction extends PageListAction<Community> {
 
 	private Map<String, List<Community>> communityMap;
 
+	private Community community;
+
+	private Long selectedAdminId;
+
+	private List<User> selectedAdmins;
+
 	public void listAreaTrees() {
 		this.page = 1;
 		this.areaTrees = this.getAreaService().getAreaTrees();
@@ -56,10 +65,11 @@ public class AreaAction extends PageListAction<Community> {
 		this.refresh();
 	}
 
-	public void selectArea(Area area){
+	public void selectArea(Area area) {
 		this.selectedArea = area;
 		this.refresh();
 	}
+
 	private void refresh() {
 		communitiesBySelectedNode = new PageListDataModel<Community>(
 				this.getPageSize()) {
@@ -73,6 +83,39 @@ public class AreaAction extends PageListAction<Community> {
 				}
 			}
 		};
+	}
+
+	public void addCommunity() {
+		this.community = new Community();
+		this.selectedAdmins = new ArrayList<User>();
+	}
+
+	public void editCommunity(Community community) {
+		this.community = this.getAreaService().findCommunityById(
+				community.getId());
+		this.selectedAdmins = new ArrayList<User>();
+		for (AdminCommunityRel adminCommunityRel : this.community
+				.getAdminCommunityRelSet()) {
+			this.selectedAdmins.add(adminCommunityRel.getAdmin());
+		}
+	}
+
+	public List<SuggestionBean> autoCompleteAdmins(Object suggest) {
+		List<User> users = this.getUserService()
+				.findAreaAdmin((String) suggest);
+		List<SuggestionBean> suggestionBeans = new ArrayList<SuggestionBean>();
+		for (User user : users) {
+			SuggestionBean ps = new SuggestionBean(user.getId(),
+					user.getUserName());
+			suggestionBeans.add(ps);
+		}
+		return suggestionBeans;
+
+	}
+
+	public void selectAdmin() {
+		User user = this.getUserService().findUserById(this.selectedAdminId);
+		this.selectedAdmins.add(user);
 	}
 
 	public synchronized void importExcel(UploadEvent event) {
@@ -218,9 +261,33 @@ public class AreaAction extends PageListAction<Community> {
 		this.communitiesBySelectedNode = communitiesBySelectedNode;
 	}
 
+	public Community getCommunity() {
+		return community;
+	}
+
+	public void setCommunity(Community community) {
+		this.community = community;
+	}
+
 	@Override
 	public PageListDataModel<Community> getDefaultDataModel() {
 		return communitiesBySelectedNode;
+	}
+
+	public Long getSelectedAdminId() {
+		return selectedAdminId;
+	}
+
+	public void setSelectedAdminId(Long selectedAdminId) {
+		this.selectedAdminId = selectedAdminId;
+	}
+
+	public List<User> getSelectedAdmins() {
+		return selectedAdmins;
+	}
+
+	public void setSelectedAdmins(List<User> selectedAdmins) {
+		this.selectedAdmins = selectedAdmins;
 	}
 
 }

@@ -13,4 +13,8 @@ public interface UserService {
 	public void saveUser(User user);
 	
 	public void updatePassword(User user);
+	
+	public User findUserById(Long id);
+	
+	public List<User> findAreaAdmin(final String keyword);
 }

@@ -1,0 +1,82 @@
+<rich:modalPanel xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:a4j="http://richfaces.org/a4j" id="communityPanel"
+	autosized="true">
+	<f:facet name="controls">
+		<h:panelGroup>
+			<h:graphicImage value="/img/close.png" styleClass="hidelink"
+				id="communityPanelImg" style="CURSOR: hand" />
+			<rich:componentControl for="communityPanel"
+				attachTo="communityPanelImg" operation="hide" event="onclick" />
+		</h:panelGroup>
+	</f:facet>
+	<f:facet name="header">
+		<h:panelGroup>
+			<h:outputText value="用户"></h:outputText>
+		</h:panelGroup>
+	</f:facet>
+	<a4j:form id="communityForm">
+		<h:panelGrid columns="3" width="600">
+			<h:panelGroup>
+				<h:outputLabel value="小区名" />
+				<h:outputText value=" *" style="color:red;" />
+			</h:panelGroup>
+			<h:inputText id="communityName" value="#{areaAction.community.name}"
+				style="width:180px;" required="true" requiredMessage="小区名不能为空" />
+			<rich:message for="communityName" style="color:red"
+				showDetail="false" showSummary="true" />
+
+			<h:panelGroup>
+				<h:outputLabel value="地址" />
+				<h:outputText value=" *" style="color:red;" />
+			</h:panelGroup>
+			<h:inputText id="communityDetailAddress"
+				value="#{areaAction.community.detailAddress}" style="width:180px;"
+				required="true" requiredMessage="地址不能为空" />
+			<rich:message for="communityDetailAddress" style="color:red"
+				showDetail="false" showSummary="true" />
+
+			<h:panelGroup>
+				<h:outputLabel value="小区管理员" />
+			</h:panelGroup>
+			<h:inputText id="adminName" />
+			<rich:suggestionbox height="200" width="200"
+				usingSuggestObjects="true"
+				suggestionAction="#{areaAction.autoCompleteAdmins}"
+				var="admin" id="suggestion"
+				onobjectchange="selectAreaAdmin(#{rich:component('suggestion')}.getSelectedItems().pluck('id'))">
+				<h:column>
+					<h:outputText value="#{admin.userName}" />
+				</h:column>
+			</rich:suggestionbox>
+			<a4j:jsFunction name="selectAreaAdmin" reRender="selectedAdmins" action="#{areaAction.selectAdmin()}" ajaxSingle="true">
+				<a4j:actionparam name="param1" assignTo="#{areaAction.selectedAdminId}" />
+			</a4j:jsFunction>
+			<h:outputLabel value=""/>
+			<h:panelGrid columns="10" id="selectedAdmins">
+				<c:forEach var="admin" items="#{areaAction.selectedAdmins}">
+					<h:outputText value="#{admin.userName}" />
+					<a4j:commandButton id="saveButton" image="/img/delete.png"
+					action="#{areaAction.deleteAdmin(admin)}"
+					reRender="selectedAdmins" />
+				</c:forEach>
+			</h:panelGrid>
+			<h:outputLabel value=""/>
+			<h:outputLabel value=""/>
+			<h:panelGrid columns="2">
+				<a4j:commandButton id="saveButton" value="保存"
+					action="#{areaAction.saveCommunity()}"
+					oncomplete="if(#{facesContext.maximumSeverity==null}) {Richfaces.hideModalPanel('communityPanel');}"
+					reRender="communityTable" />
+				<h:commandButton id="cancelButton" value="取消" type="reset"
+					onclick="Richfaces.hideModalPanel('communityPanel');" />
+			</h:panelGrid>
+		</h:panelGrid>
+	</a4j:form>
+</rich:modalPanel>

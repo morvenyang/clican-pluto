@@ -97,4 +97,9 @@ public class AreaServiceImpl implements AreaService {
 		}
 	}
 
+	@Override
+	public Community findCommunityById(Long id) {
+		return this.areaDao.findCommunityById(id);
+	}
+
 }

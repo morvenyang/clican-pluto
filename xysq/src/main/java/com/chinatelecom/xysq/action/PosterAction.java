@@ -13,7 +13,7 @@ import org.jboss.seam.international.StatusMessage.Severity;
 
 import com.chinatelecom.xysq.bean.PageList;
 import com.chinatelecom.xysq.bean.PageListDataModel;
-import com.chinatelecom.xysq.bean.PlainStore;
+import com.chinatelecom.xysq.bean.SuggestionBean;
 import com.chinatelecom.xysq.enumeration.InnerModule;
 import com.chinatelecom.xysq.enumeration.PosterType;
 import com.chinatelecom.xysq.model.Area;
@@ -64,21 +64,17 @@ public class PosterAction extends PageListAction<Poster> {
 		this.poster.setType(PosterType.HTML5);
 	}
 
-	public List<PlainStore> autoCompleteStores(Object suggest) {
-		try {
-			List<Store> stores = this.getStoreService().findStores(
-					this.getIdentity().getUser().getId(), (String) suggest);
-			List<PlainStore> plainStores = new ArrayList<PlainStore>();
-			for (Store store : stores) {
-				PlainStore ps = new PlainStore(store.getId(), store.getName(),
-						store.getPinyin(), store.getShortPinyin());
-				plainStores.add(ps);
-			}
-			return plainStores;
-		} catch (Exception e) {
-			log.error("", e);
+	public List<SuggestionBean> autoCompleteStores(Object suggest) {
+		List<Store> stores = this.getStoreService().findStores(
+				this.getIdentity().getUser().getId(), (String) suggest);
+		List<SuggestionBean> suggestionBeans = new ArrayList<SuggestionBean>();
+		for (Store store : stores) {
+			SuggestionBean ps = new SuggestionBean(store.getId(),
+					store.getName());
+			suggestionBeans.add(ps);
 		}
-		return null;
+		return suggestionBeans;
+
 	}
 
 	public void editPoster(Poster poster) {

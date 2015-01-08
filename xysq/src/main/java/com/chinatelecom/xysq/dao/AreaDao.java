@@ -18,5 +18,7 @@ public interface AreaDao {
 	public void saveArea(Area area);
 	
 	public void saveCommunity(Community community);
+	
+	public Community findCommunityById(Long id);
 
 }

@@ -42,4 +42,14 @@ public class UserServiceImpl implements UserService {
 		this.userDao.saveUser(user);
 	}
 
+	@Override
+	public User findUserById(Long id) {
+		return userDao.findUserById(id);
+	}
+
+	@Override
+	public List<User> findAreaAdmin(String keyword) {
+		return userDao.findAreaAdmin(keyword);
+	}
+
 }

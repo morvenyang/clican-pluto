@@ -34,7 +34,7 @@
 						<a4j:commandButton id="submitButton" value="上传"
 							action="#{areaAction.saveImportExcel()}"
 							oncomplete="if(#{facesContext.maximumSeverity==null}) {Richfaces.hideModalPanel('importExcelPanel');}"
-							reRender="#{reRenders}" />
+							reRender="communityTable" />
 						<h:commandButton id="cancelButton" value="取消" type="reset"
 							onclick="Richfaces.hideModalPanel('importExcelPanel');" />
 					</h:panelGrid>
