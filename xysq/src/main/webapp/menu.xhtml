@@ -9,7 +9,7 @@
 	<rich:toolBar id="menu" styleClass="bar" itemSeparator="line">
 		<rich:menuItem submitMode="ajax"
 			rendered="#{s:hasPermission('ADMIN',null)}">
-			<s:link view="/user.xhtml" style="font-size:20px"
+			<s:link view="/user/user.xhtml" style="font-size:20px"
 				action="#{userAction.listUsers()}"
 				value="管理员管理" />
 		</rich:menuItem>
