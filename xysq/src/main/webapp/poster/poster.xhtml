@@ -163,11 +163,13 @@
 								label="#{item.label}" />
 							<s:convertEnum />
 						</h:selectOneMenu>
-						<h:inputText id="posterStore" value="#{posterAction.poster.store}"
-							rendered="#{posterAction.poster.type.value==3}" />
+						<h:inputText id="posterStore"
+							value="#{posterAction.poster.store.name}" />
 						<rich:suggestionbox height="200" width="200"
 							usingSuggestObjects="true"
-							suggestionAction="#{posterAction.autoCompleteStores}" var="store" ajaxSingle="true" for="posterStore" fetchValue="#{store}">
+							suggestionAction="#{posterAction.autoCompleteStores}" var="store"
+							for="posterStore" fetchValue="#{store.name}" id="suggestion"
+							tokens=",">
 							<h:column>
 								<h:outputText value="#{store.name}" />
 							</h:column>
