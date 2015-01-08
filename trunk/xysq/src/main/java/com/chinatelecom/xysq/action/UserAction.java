@@ -1,8 +1,6 @@
 package com.chinatelecom.xysq.action;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.In;
@@ -29,8 +27,6 @@ public class UserAction extends BaseAction {
 	private String password;
 	private String confirmedPassword;
 
-	private Map<String, Boolean> brandMap;
-
 	public void listUsers() {
 		users = this.getUserService().findAllUsers();
 	}
@@ -44,26 +40,18 @@ public class UserAction extends BaseAction {
 		if (this.user.getId() == null) {
 			if (!this.user.getPassword().equals(
 					this.user.getConfirmedPassword())) {
-				this.statusMessages.addToControlFromResourceBundle(
-						"confirmedPassword", Severity.ERROR,
-						"userPasswordSameWithConfirmedPassword");
+				this.statusMessages.addToControl("confirmedPassword",
+						Severity.ERROR, "确认密码错误");
 				validated = false;
 			}
 			if (this.getUserService().findUserByUserName(
 					this.user.getUserName()) != null) {
-				this.statusMessages.addToControlFromResourceBundle("userName",
-						Severity.ERROR, "userNameExisted");
+				this.statusMessages.addToControl("userName", Severity.ERROR,
+						"用户名已存在");
 				validated = false;
 			}
 		}
 		if (validated) {
-			List<String> brands = new ArrayList<String>();
-			for (String brand : brandMap.keySet()) {
-				Boolean select = brandMap.get(brand);
-				if (select) {
-					brands.add(brand);
-				}
-			}
 			this.getUserService().saveUser(this.user);
 			users = this.getUserService().findAllUsers();
 		}
@@ -78,9 +66,8 @@ public class UserAction extends BaseAction {
 		// we must check the password policy
 
 		if (!this.getPassword().equals(this.getConfirmedPassword())) {
-			this.statusMessages.addToControlFromResourceBundle(
-					"cpPonfirmedPassword", Severity.ERROR,
-					"userPasswordSameWithConfirmedPassword");
+			this.statusMessages.addToControl("cpPonfirmedPassword",
+					Severity.ERROR, "确认密码错误");
 			validated = false;
 		}
 		if (validated) {

@@ -49,10 +49,10 @@
 			<rich:suggestionbox height="200" width="200"
 				usingSuggestObjects="true"
 				suggestionAction="#{areaAction.autoCompleteAdmins}"
-				var="admin" id="suggestion"
+				var="admin" id="suggestion" for="adminName" fetchValue="#{admin.name}"
 				onobjectchange="selectAreaAdmin(#{rich:component('suggestion')}.getSelectedItems().pluck('id'))">
 				<h:column>
-					<h:outputText value="#{admin.userName}" />
+					<h:outputText value="#{admin.name}" />
 				</h:column>
 			</rich:suggestionbox>
 			<a4j:jsFunction name="selectAreaAdmin" reRender="selectedAdmins" action="#{areaAction.selectAdmin()}" ajaxSingle="true">
