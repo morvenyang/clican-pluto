@@ -15,7 +15,7 @@ public class BroadbandRemind {
 
 	private Long id;
 	
-	private String msisidn;
+	private String msisdn;
 	
 	private Date expiredDate;
 	
@@ -33,14 +33,15 @@ public class BroadbandRemind {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	@Column
-	public String getMsisidn() {
-		return msisidn;
+	
+	public String getMsisdn() {
+		return msisdn;
 	}
 
-	public void setMsisidn(String msisidn) {
-		this.msisidn = msisidn;
+	public void setMsisdn(String msisdn) {
+		this.msisdn = msisdn;
 	}
+
 	@Column
 	public Date getExpiredDate() {
 		return expiredDate;

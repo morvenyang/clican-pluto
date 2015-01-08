@@ -29,21 +29,21 @@ public class BroadbandRemindServiceImpl implements BroadbandRemindService {
 	public void saveBoradbandReminds(List<BroadbandRemind> bbrList) {
 		List<String> msisdns = new ArrayList<String>();
 		for (BroadbandRemind bbr : bbrList) {
-			msisdns.add(bbr.getMsisidn());
+			msisdns.add(bbr.getMsisdn());
 		}
 		List<BroadbandRemind> bbrInDb = this.broadbandRemindDao
 				.findBroadbandRemindByMsisdns(msisdns);
 		Map<String, BroadbandRemind> bbrMap = new HashMap<String, BroadbandRemind>();
 		for (BroadbandRemind bbr : bbrInDb) {
-			bbrMap.put(bbr.getMsisidn(), bbr);
+			bbrMap.put(bbr.getMsisdn(), bbr);
 		}
 		Set<String> processed = new HashSet<String>();
 		for (BroadbandRemind bbr : bbrList) {
-			if (processed.contains((bbr.getMsisidn()))) {
+			if (processed.contains((bbr.getMsisdn()))) {
 				continue;
 			}
-			if (bbrMap.containsKey(bbr.getMsisidn())) {
-				BroadbandRemind bbrDb = bbrMap.get(bbr.getMsisidn());
+			if (bbrMap.containsKey(bbr.getMsisdn())) {
+				BroadbandRemind bbrDb = bbrMap.get(bbr.getMsisdn());
 				bbrDb.setExpiredDate(bbr.getExpiredDate());
 				bbrDb.setUserName(bbr.getUserName());
 				bbrDb.setBroadBandId(bbr.getBroadBandId());
@@ -51,7 +51,7 @@ public class BroadbandRemindServiceImpl implements BroadbandRemindService {
 			} else {
 				this.broadbandRemindDao.save(bbr);
 			}
-			processed.add(bbr.getMsisidn());
+			processed.add(bbr.getMsisdn());
 		}
 	}
 
