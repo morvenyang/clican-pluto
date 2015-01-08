@@ -6,7 +6,7 @@
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:c="http://java.sun.com/jstl/core"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:a4j="http://richfaces.org/a4j" template="workspace.xhtml">
+	xmlns:a4j="http://richfaces.org/a4j" template="../workspace.xhtml">
 	<ui:define name="body">
 		<h:form>
 			<rich:panel id="posterTablePanel"
@@ -137,32 +137,44 @@
 
 					<h:outputLabel value="海报类型" />
 					<h:selectOneMenu value="#{posterAction.poster.type}">
+						<a4j:support event="onchange"
+							reRender="posterTypeLabel,posterTypeValue" ajaxSingle="true" />
 						<s:selectItems value="#{posterAction.posterTypes}" var="item"
 							label="#{item.label}" />
 						<s:convertEnum />
 					</h:selectOneMenu>
-					
-					<h:panelGroup>
-						<h:outputLabel value="#{posterAction.poster.type.label}"/>
+					<h:outputText value="" />
+
+					<h:panelGroup id="posterTypeLabel">
+						<h:outputLabel value="#{posterAction.poster.type.label}" />
 						<h:outputText value=" *" style="color:red;" />
 					</h:panelGroup>
-					<h:panelGroup>
-						<h:inputText id="html5" value="#{posterAction.poster.html5}"
-						style="width:180px;" required="true" requiredMessage="HTML5链接不能为空" rendered="#{posterAction.poster.type.value==1}"/>
+					<h:panelGroup id="posterTypeValue">
+						<h:inputText id="html5" value="#{posterAction.poster.html5Link}"
+							style="width:180px;" required="true"
+							requiredMessage="HTML5链接不能为空"
+							rendered="#{posterAction.poster.type.value==1}" />
 						<rich:message for="html5" style="color:red" showDetail="false"
-						showSummary="true" rendered="#{posterAction.poster.type.value==1}"/>
-						<h:selectOneMenu value="#{posterAction.poster.innerModule}" rendered="#{posterAction.poster.type.value==2}">
+							showSummary="true"
+							rendered="#{posterAction.poster.type.value==1}" />
+						<h:selectOneMenu value="#{posterAction.poster.innerModule}"
+							rendered="#{posterAction.poster.type.value==2}">
 							<s:selectItems value="#{posterAction.innerModules}" var="item"
-							label="#{item.label}" />
+								label="#{item.label}" />
 							<s:convertEnum />
 						</h:selectOneMenu>
-						<h:selectOneMenu value="#{posterAction.poster.storeId}" rendered="#{posterAction.poster.type.value==3}">
-							<c:forEach var="store"  items="#{posterAction.stores}">
-								<f:selectItem itemLabel="#{store.name}" itemValue="#{storeId}" />
-							</c:forEach>
-						</h:selectOneMenu>
+						<h:inputText id="posterStore" value="#{posterAction.poster.store}"
+							rendered="#{posterAction.poster.type.value==3}" />
+						<rich:suggestionbox height="200" width="200"
+							usingSuggestObjects="true"
+							suggestionAction="#{posterAction.autoCompleteStores}" var="store" for="posterStore" fetchValue="#{store}">
+							<h:column>
+								<h:outputText value="#{store.name}" />
+							</h:column>
+						</rich:suggestionbox>
 					</h:panelGroup>
-					
+					<h:outputText value="" />
+
 					<h:panelGrid columns="2">
 						<a4j:commandButton id="saveButton" value="保存"
 							action="#{posterAction.savePoster()}"

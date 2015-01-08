@@ -1,6 +1,7 @@
 package com.chinatelecom.xysq.service.impl;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import com.chinatelecom.xysq.bean.PageList;
@@ -21,6 +22,11 @@ public class StoreServiceImpl implements StoreService {
 	@Override
 	public PageList<Store> findStoreByOwner(User owner, int page, int pageSize) {
 		return storeDao.findStoreByOwner(owner, page, pageSize);
+	}
+
+	@Override
+	public List<Store> findStores(Long ownerId, String keyword) {
+		return storeDao.findStores(ownerId, keyword);
 	}
 
 	@Override

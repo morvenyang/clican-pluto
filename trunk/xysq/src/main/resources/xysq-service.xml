@@ -18,4 +18,6 @@
 		autowire="byName" />
 	<bean id="storeService" class="com.chinatelecom.xysq.service.impl.StoreServiceImpl"
 		autowire="byName" />
+	<bean id="posterService" class="com.chinatelecom.xysq.service.impl.PosterServiceImpl"
+		autowire="byName" />
 </beans>

@@ -42,6 +42,33 @@ public class StoreDaoImpl extends BaseDao implements StoreDao {
 				});
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Store> findStores(final Long ownerId, final String keyword) {
+		return (List<Store>) this.getHibernateTemplate().executeFind(
+				new HibernateCallback() {
+					@Override
+					public Object doInHibernate(Session session)
+							throws HibernateException, SQLException {
+						String hsql = null;
+						if (ownerId == null) {
+							hsql = "from Store where name like :keyword";
+						} else {
+							hsql = "from Store where owner.id= :ownerId and name like :keyword";
+						}
+
+						Query query = session.createQuery(hsql);
+						query.setParameter("keyword", "%" + keyword + "%");
+						if (ownerId != null) {
+							query.setParameter("ownerId", ownerId);
+						}
+						query.setMaxResults(20);
+						List<Store> list = query.list();
+						return list;
+					}
+				});
+	}
+
 	@Override
 	public Store findStoreById(Long id) {
 		return (Store) this.getHibernateTemplate().get(Store.class, id);
@@ -58,21 +85,21 @@ public class StoreDaoImpl extends BaseDao implements StoreDao {
 	}
 
 	@Override
-	public void deleteStoreImage(final Store store,final Set<Long> notInImageIds) {
+	public void deleteStoreImage(final Store store,
+			final Set<Long> notInImageIds) {
 		this.getHibernateTemplate().execute(new HibernateCallback() {
 			@Override
 			public Object doInHibernate(Session session)
 					throws HibernateException, SQLException {
 				String hsql;
-				if(notInImageIds!=null&&notInImageIds.size()>0){
-					hsql="delete from Image where store.id = :storeId and id not in (:ids)";
-				}else{
-					hsql="delete from Image where store.id = :storeId";
+				if (notInImageIds != null && notInImageIds.size() > 0) {
+					hsql = "delete from Image where store.id = :storeId and id not in (:ids)";
+				} else {
+					hsql = "delete from Image where store.id = :storeId";
 				}
-				Query query = session
-						.createQuery(hsql);
+				Query query = session.createQuery(hsql);
 				query.setParameter("storeId", store.getId());
-				if(notInImageIds!=null&&notInImageIds.size()>0){
+				if (notInImageIds != null && notInImageIds.size() > 0) {
 					query.setParameterList("ids", notInImageIds);
 				}
 				return query.executeUpdate();

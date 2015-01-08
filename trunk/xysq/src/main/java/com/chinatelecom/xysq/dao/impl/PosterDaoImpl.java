@@ -12,6 +12,7 @@ import com.chinatelecom.xysq.bean.PageList;
 import com.chinatelecom.xysq.dao.PosterDao;
 import com.chinatelecom.xysq.model.BroadbandRemind;
 import com.chinatelecom.xysq.model.Poster;
+import com.chinatelecom.xysq.model.User;
 
 public class PosterDaoImpl extends BaseDao implements PosterDao {
 
@@ -22,7 +23,7 @@ public class PosterDaoImpl extends BaseDao implements PosterDao {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public PageList<Poster> findPoster(final int page,final int pageSize) {
+	public PageList<Poster> findPoster(final int page, final int pageSize) {
 		return (PageList<Poster>) this.getHibernateTemplate().executeFind(
 				new HibernateCallback() {
 					@Override
@@ -32,15 +33,51 @@ public class PosterDaoImpl extends BaseDao implements PosterDao {
 						Query query = session.createQuery(hsql);
 						query.setFirstResult((page - 1) * pageSize);
 						query.setMaxResults(pageSize);
-						List<BroadbandRemind> list = query.list();
+						List<Poster> list = query.list();
 
 						Query queryCount = session
 								.createQuery("select count(*) from Poster");
 						Long count = (Long) queryCount.uniqueResult();
-						return new PageList<BroadbandRemind>(list, page, pageSize,
-								count.intValue(), new BroadbandRemind());
+						return new PageList<Poster>(list, page, pageSize, count
+								.intValue(), new Poster());
 					}
 				});
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public PageList<Poster> findPosterByOwner(final User owner, final int page,
+			final int pageSize) {
+		return (PageList<Poster>) this.getHibernateTemplate().executeFind(
+				new HibernateCallback() {
+					@Override
+					public Object doInHibernate(Session session)
+							throws HibernateException, SQLException {
+						String hsql = "from Poster where owner.id = :ownerId";
+						Query query = session.createQuery(hsql);
+						query.setParameter("ownerId", owner.getId());
+						query.setFirstResult((page - 1) * pageSize);
+						query.setMaxResults(pageSize);
+						List<Poster> list = query.list();
+
+						Query queryCount = session
+								.createQuery("select count(*) from Poster where owner.id= :ownerId");
+						queryCount.setParameter("ownerId", owner.getId());
+						Long count = (Long) queryCount.uniqueResult();
+						return new PageList<Poster>(list, page, pageSize, count
+								.intValue(), new Poster());
+					}
+				});
+	}
+
+	@Override
+	public void savePoster(Poster poster) {
+		this.getHibernateTemplate().saveOrUpdate(poster);
+	}
+
+	@Override
+	public void deletePoster(Poster poster) {
+		this.getHibernateTemplate().delete(poster);
 	}
 
 }
