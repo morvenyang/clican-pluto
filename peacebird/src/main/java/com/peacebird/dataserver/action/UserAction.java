@@ -129,6 +129,7 @@ public class UserAction extends BaseAction {
 	
 	public void deleteUser(User user){
 		this.getUserService().deleteUser(user);
+		users = this.getUserService().findAllUsers();
 	}
 
 	public User getUser() {
