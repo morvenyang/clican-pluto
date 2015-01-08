@@ -11,5 +11,9 @@ public interface UserDao {
 	public List<User> findAllUsers();
 
 	public void saveUser(User user);
+	
+	public User findUserById(Long id);
+	
+	public List<User> findAreaAdmin(String keyword);
 
 }

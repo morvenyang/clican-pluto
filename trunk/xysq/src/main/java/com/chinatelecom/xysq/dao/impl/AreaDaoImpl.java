@@ -33,7 +33,8 @@ public class AreaDaoImpl extends BaseDao implements
 							throws HibernateException, SQLException {
 						String hsql = "from Community where city.fullName like :areaFullNameLike or city.fullName = :areaFullName order by pinyin";
 						Query query = session.createQuery(hsql);
-						query.setParameter("areaFullNameLike", area.getFullName() + "/%");
+						query.setParameter("areaFullNameLike",
+								area.getFullName() + "/%");
 						query.setParameter("areaFullName", area.getFullName());
 						query.setFirstResult((page - 1) * pageSize);
 						query.setMaxResults(pageSize);
@@ -41,8 +42,10 @@ public class AreaDaoImpl extends BaseDao implements
 
 						Query queryCount = session
 								.createQuery("select count(*) from Community where city.fullName like :areaFullNameLike or city.fullName = :areaFullName");
-						queryCount.setParameter("areaFullNameLike", area.getFullName() + "/%");
-						queryCount.setParameter("areaFullName", area.getFullName());
+						queryCount.setParameter("areaFullNameLike",
+								area.getFullName() + "/%");
+						queryCount.setParameter("areaFullName",
+								area.getFullName());
 						Long count = (Long) queryCount.uniqueResult();
 						return new PageList<Community>(list, page, pageSize,
 								count.intValue(), new Community());
@@ -72,6 +75,11 @@ public class AreaDaoImpl extends BaseDao implements
 	@Override
 	public void saveCommunity(Community community) {
 		this.getHibernateTemplate().save(community);
+	}
+
+	@Override
+	public Community findCommunityById(Long id) {
+		return (Community) this.getHibernateTemplate().get(Community.class, id);
 	}
 
 }

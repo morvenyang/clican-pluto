@@ -13,10 +13,13 @@ public interface AreaService {
 
 	public PageList<Community> findCommunityByArea(Area area, int page,
 			int pageSize);
-	
-	public Map<String,Area> mergeAreas(List<String> fullNames);
-	
+
+	public Map<String, Area> mergeAreas(List<String> fullNames);
+
 	public void saveCommunity(Community community);
-	
-	public void mergeCommunities(Map<String, List<Community>> communityMap,Map<String,Area> areaMap);
+
+	public void mergeCommunities(Map<String, List<Community>> communityMap,
+			Map<String, Area> areaMap);
+
+	public Community findCommunityById(Long id);
 }
