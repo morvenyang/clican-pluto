@@ -25,6 +25,12 @@ public class UserDaoImpl extends HibernateDaoSupport implements UserDao {
 		return this.getHibernateTemplate().find("from User");
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<User> findUsers(String keyword) {
+		return this.getHibernateTemplate().findByNamedParam("from User where userName like :keyword or tel like :keyword","keyword","%"+keyword+"%");
+	}
+
 	public void saveUser(User user) {
 		this.getHibernateTemplate().saveOrUpdate(user);
 	}

@@ -47,4 +47,9 @@ public class UserServiceImpl implements UserService {
 		this.userDao.deleteUser(user);
 	}
 
+	@Override
+	public List<User> findUsers(String keyword) {
+		return this.userDao.findUsers(keyword);
+	}
+
 }

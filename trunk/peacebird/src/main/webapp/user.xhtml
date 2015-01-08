@@ -11,16 +11,22 @@
 		<h:form>
 			<rich:panel id="userTablePanel"
 				style="left-margin:10px;border:0;width:100%">
-				<h:panelGrid id="userPanelGrid" style="width:100%">
+				
+				<h:panelGrid id="userPanelGrid" style="text-align:left;width:100%">
+					<h:panelGrid columns="3">
+					<h:outputLabel value="关键字"></h:outputLabel>
+					<h:inputText value="#{userAction.keyword}" />
+					<a4j:commandButton style="border:0;" value="搜索"
+						action="#{userAction.searchUsers}" reRender="userTable" />
+					</h:panelGrid>
 					<h:panelGrid columns="1" style="text-align:right;width:100%">
 						<h:panelGroup>
 							<a4j:commandButton id="addUser" image="/img/new.png"
-								style="border:0;" title="添加用户"
-								action="#{userAction.addUser()}" ajaxSingle="true"
-								reRender="userPanel"
+								style="border:0;" title="添加用户" action="#{userAction.addUser()}"
+								ajaxSingle="true" reRender="userPanel"
 								oncomplete="Richfaces.showModalPanel('userPanel');" />
-							<a4j:commandLink value="添加用户"
-								style="text-decoration:none" ajaxSingle="true"
+							<a4j:commandLink value="添加用户" style="text-decoration:none"
+								ajaxSingle="true"
 								oncomplete="Richfaces.showModalPanel('userPanel');"
 								action="#{userAction.addUser()}" reRender="userPanel" />
 						</h:panelGroup>
@@ -32,7 +38,8 @@
 							<f:facet name="header">
 								<h:outputText value="用户名" />
 							</f:facet>
-							<h:outputText value="#{user.userName}" style="white-space:nowrap;" />
+							<h:outputText value="#{user.userName}"
+								style="white-space:nowrap;" />
 						</rich:column>
 						<rich:column sortBy="#{user.expiredDays}">
 							<f:facet name="header">
@@ -50,11 +57,11 @@
 							<f:facet name="header">
 								<h:outputText value="角色" />
 							</f:facet>
-							<h:outputText value="管理员"
-								style="white-space:nowrap;" rendered="#{user.role==2}">
+							<h:outputText value="管理员" style="white-space:nowrap;"
+								rendered="#{user.role==2}">
 							</h:outputText>
-							<h:outputText value="客户端"
-								style="white-space:nowrap;" rendered="#{user.role==1}">
+							<h:outputText value="客户端" style="white-space:nowrap;"
+								rendered="#{user.role==1}">
 							</h:outputText>
 						</rich:column>
 						<rich:column sortBy="#{user.tel}">
@@ -68,18 +75,17 @@
 							<f:facet name="header">
 								<h:outputText value="Token" />
 							</f:facet>
-							<h:outputText value="#{user.token}"
-								style="white-space:nowrap;">
+							<h:outputText value="#{user.token}" style="white-space:nowrap;">
 							</h:outputText>
 						</rich:column>
 						<rich:column sortBy="#{user.active}">
 							<f:facet name="header">
 								<h:outputText value="状态" />
 							</f:facet>
-							<h:outputText rendered="#{user.active}"
-								value="激活" style="white-space:nowrap;" />
-							<h:outputText rendered="#{!user.active}"
-								value="禁用" style="white-space:nowrap;" />
+							<h:outputText rendered="#{user.active}" value="激活"
+								style="white-space:nowrap;" />
+							<h:outputText rendered="#{!user.active}" value="禁用"
+								style="white-space:nowrap;" />
 						</rich:column>
 						<rich:column>
 							<f:facet name="header">
@@ -87,8 +93,8 @@
 							</f:facet>
 							<h:panelGrid columns="4">
 								<a4j:commandButton value="编辑"
-									action="#{userAction.editUser(user)}" ajaxSingle="true" disabled="#{user.userName=='admin'}"
-									reRender="userPanel"
+									action="#{userAction.editUser(user)}" ajaxSingle="true"
+									disabled="#{user.userName=='admin'}" reRender="userPanel"
 									oncomplete="Richfaces.showModalPanel('userPanel');" />
 								<a4j:commandButton value="修改密码"
 									action="#{userAction.changePassword(user)}" ajaxSingle="true"
@@ -107,8 +113,7 @@
 								<a4j:commandButton value="删除"
 									action="#{userAction.deleteUser(user)}" ajaxSingle="true"
 									onclick="var answer=confirm('确认删除该用户');if(!answer) return false;"
-									reRender="userTable"
-									rendered="#{user.userName!='admin'}" />
+									reRender="userTable" rendered="#{user.userName!='admin'}" />
 							</h:panelGrid>
 						</rich:column>
 						<f:facet name="footer">
@@ -143,64 +148,62 @@
 					</h:panelGroup>
 					<h:inputText id="userName" value="#{userAction.user.userName}"
 						disabled="#{userAction.user.id!=null}" style="width:180px;"
-						required="true"
-						requiredMessage="用户名不能为空" />
+						required="true" requiredMessage="用户名不能为空" />
 					<rich:message for="userName" style="color:red" showDetail="false"
 						showSummary="true" />
-						
+
 					<h:panelGroup>
 						<h:outputLabel value="免登录天数" />
 						<h:outputText value=" *" style="color:red;" />
 					</h:panelGroup>
 					<h:inputText id="expiredDays"
-						value="#{userAction.user.expiredDays}" style="width:30px;"/>
-					<rich:message for="expiredDays" style="color:red" showDetail="false"
-						showSummary="true" />
-						
+						value="#{userAction.user.expiredDays}" style="width:30px;" />
+					<rich:message for="expiredDays" style="color:red"
+						showDetail="false" showSummary="true" />
+
 					<h:panelGroup>
 						<h:outputLabel value="客户端超时(秒)" />
 						<h:outputText value=" *" style="color:red;" />
 					</h:panelGroup>
 					<h:inputText id="timeoutInterval"
-						value="#{userAction.user.timeoutInterval}" style="width:30px;"/>
-					<rich:message for="timeoutInterval" style="color:red" showDetail="false"
-						showSummary="true" />
-						
+						value="#{userAction.user.timeoutInterval}" style="width:30px;" />
+					<rich:message for="timeoutInterval" style="color:red"
+						showDetail="false" showSummary="true" />
+
 					<h:panelGroup>
 						<h:outputLabel value="品牌" />
 					</h:panelGroup>
 					<h:panelGrid columns="20">
 						<c:forEach items="#{userAction.brands}" var="brand">
 							<h:outputLabel value="#{brand.name}" />
-							<h:selectBooleanCheckbox value="#{userAction.brandMap[brand.name]}" />
+							<h:selectBooleanCheckbox
+								value="#{userAction.brandMap[brand.name]}" />
 						</c:forEach>
 					</h:panelGrid>
-					<h:outputText value=""/>
-					
+					<h:outputText value="" />
+
 					<h:panelGroup>
 						<h:outputLabel value="角色" />
 						<h:outputText value=" *" style="color:red;" />
 					</h:panelGroup>
-					<h:selectOneMenu id="role" value="#{userAction.user.role}" rendered="#{userAction.user.userName!='admin'}">
-						<f:selectItem itemLabel="管理员"
-							itemValue="2" />
-						<f:selectItem itemLabel="客户端"
-							itemValue="1" />
+					<h:selectOneMenu id="role" value="#{userAction.user.role}"
+						rendered="#{userAction.user.userName!='admin'}">
+						<f:selectItem itemLabel="管理员" itemValue="2" />
+						<f:selectItem itemLabel="客户端" itemValue="1" />
 					</h:selectOneMenu>
 					<rich:message for="role" style="color:red" showDetail="false"
-						showSummary="true" rendered="#{userAction.user.userName!='admin'}"/>
-					
-					
+						showSummary="true" rendered="#{userAction.user.userName!='admin'}" />
+
+
 					<h:panelGroup rendered="#{userAction.user.id==null}">
 						<h:outputLabel value="密码" />
 						<h:outputText value=" *" style="color:red;" />
 					</h:panelGroup>
 					<h:inputSecret id="password" value="#{userAction.user.password}"
 						rendered="#{userAction.user.id==null}" style="width:180px;"
-						required="true"
-						requiredMessage="密码不能为空" />
+						required="true" requiredMessage="密码不能为空" />
 					<rich:message for="password" style="color:red" showDetail="false"
-						showSummary="true" rendered="#{userAction.user.id==null}"/>
+						showSummary="true" rendered="#{userAction.user.id==null}" />
 					<h:panelGroup rendered="#{userAction.user.id==null}">
 						<h:outputLabel value="确认密码" />
 						<h:outputText value=" *" style="color:red;" />
@@ -208,86 +211,84 @@
 					<h:inputSecret id="confirmedPassword"
 						value="#{userAction.user.confirmedPassword}"
 						rendered="#{userAction.user.id==null}" style="width:180px;"
-						required="true"
-						requiredMessage="确认密码不能为空" />
+						required="true" requiredMessage="确认密码不能为空" />
 					<rich:message for="confirmedPassword" style="color:red"
-						showDetail="false" showSummary="true" rendered="#{userAction.user.id==null}"/>
+						showDetail="false" showSummary="true"
+						rendered="#{userAction.user.id==null}" />
 					<h:panelGroup>
 						<h:outputLabel value="要求用户重置密码" />
 					</h:panelGroup>
 					<h:selectBooleanCheckbox value="#{userAction.user.reset}" />
-					<h:outputText value=""/>
-					
+					<h:outputText value="" />
+
 					<h:panelGroup>
 						<h:outputLabel value="电话" />
 					</h:panelGroup>
-					<h:inputText id="tel"
-						value="#{userAction.user.tel}" style="width:200px;"/>
-					<h:outputText value=""/>
-					
+					<h:inputText id="tel" value="#{userAction.user.tel}"
+						style="width:200px;" />
+					<h:outputText value="" />
+
 					<h:panelGroup>
 						<h:outputLabel value="备注" />
 					</h:panelGroup>
-					<h:inputTextarea id="remark"
-						value="#{userAction.user.remark}" style="width:200px;"/>
-					<h:outputText value=""/>
-						
+					<h:inputTextarea id="remark" value="#{userAction.user.remark}"
+						style="width:200px;" />
+					<h:outputText value="" />
+
 					<h:panelGrid columns="2">
 						<a4j:commandButton id="saveButton" value="保存"
 							action="#{userAction.saveUser()}"
 							oncomplete="if(#{facesContext.maximumSeverity==null}) {Richfaces.hideModalPanel('userPanel');}"
 							reRender="userTable" />
-						<h:commandButton id="cancelButton" value="取消"
-							type="reset" onclick="Richfaces.hideModalPanel('userPanel');" />
+						<h:commandButton id="cancelButton" value="取消" type="reset"
+							onclick="Richfaces.hideModalPanel('userPanel');" />
 					</h:panelGrid>
 				</h:panelGrid>
 			</a4j:form>
 		</rich:modalPanel>
-		
+
 		<rich:modalPanel id="changePasswordPanel" autosized="true">
-		<f:facet name="controls">
-			<h:panelGroup>
-				<h:graphicImage value="/img/close.png" styleClass="hidelink"
-					id="changePasswordPanelImg" style="CURSOR: hand" />
-				<rich:componentControl for="changePasswordPanel"
-					attachTo="changePasswordPanelImg" operation="hide" event="onclick" />
-			</h:panelGroup>
-		</f:facet>
-		<f:facet name="header">
-			<h:panelGroup>
-				<h:outputText value="修改密码"></h:outputText>
-			</h:panelGroup>
-		</f:facet>
-		<a4j:form id="changePasswordForm" rendered="#{identity.loggedIn}">
-			<h:panelGrid columns="3" width="500">
+			<f:facet name="controls">
 				<h:panelGroup>
-					<h:outputLabel value="密码" />
-					<h:outputText value=" *" style="color:red;" />
+					<h:graphicImage value="/img/close.png" styleClass="hidelink"
+						id="changePasswordPanelImg" style="CURSOR: hand" />
+					<rich:componentControl for="changePasswordPanel"
+						attachTo="changePasswordPanelImg" operation="hide" event="onclick" />
 				</h:panelGroup>
-				<h:inputSecret id="cpPassword" value="#{userAction.password}"
-					style="width:180px;" required="true"
-					requiredMessage="密码不能为空" />
-				<rich:message for="cpPassword" style="color:red" showDetail="false"
-					showSummary="true" />
+			</f:facet>
+			<f:facet name="header">
 				<h:panelGroup>
-					<h:outputLabel value="确认密码" />
-					<h:outputText value=" *" style="color:red;" />
+					<h:outputText value="修改密码"></h:outputText>
 				</h:panelGroup>
-				<h:inputSecret id="cpConfirmedPassword"
-					value="#{userAction.confirmedPassword}" style="width:180px;"
-					required="true"
-					requiredMessage="确认密码不能为空" />
-				<rich:message for="cpConfirmedPassword" style="color:red"
-					showDetail="false" showSummary="true" />
-				<h:panelGrid columns="5">
-					<a4j:commandButton id="savePasswordButton" value="保存"
-						action="#{userAction.updatePassword()}"
-						oncomplete="if(#{facesContext.maximumSeverity==null}) {Richfaces.hideModalPanel('changePasswordPanel');alert('密码修改成功')}" />
-					<h:commandButton id="cancelPasswordButton" value="取消"
-						type="reset" onclick="Richfaces.hideModalPanel('changePasswordPanel');" />
+			</f:facet>
+			<a4j:form id="changePasswordForm" rendered="#{identity.loggedIn}">
+				<h:panelGrid columns="3" width="500">
+					<h:panelGroup>
+						<h:outputLabel value="密码" />
+						<h:outputText value=" *" style="color:red;" />
+					</h:panelGroup>
+					<h:inputSecret id="cpPassword" value="#{userAction.password}"
+						style="width:180px;" required="true" requiredMessage="密码不能为空" />
+					<rich:message for="cpPassword" style="color:red" showDetail="false"
+						showSummary="true" />
+					<h:panelGroup>
+						<h:outputLabel value="确认密码" />
+						<h:outputText value=" *" style="color:red;" />
+					</h:panelGroup>
+					<h:inputSecret id="cpConfirmedPassword"
+						value="#{userAction.confirmedPassword}" style="width:180px;"
+						required="true" requiredMessage="确认密码不能为空" />
+					<rich:message for="cpConfirmedPassword" style="color:red"
+						showDetail="false" showSummary="true" />
+					<h:panelGrid columns="5">
+						<a4j:commandButton id="savePasswordButton" value="保存"
+							action="#{userAction.updatePassword()}"
+							oncomplete="if(#{facesContext.maximumSeverity==null}) {Richfaces.hideModalPanel('changePasswordPanel');alert('密码修改成功')}" />
+						<h:commandButton id="cancelPasswordButton" value="取消" type="reset"
+							onclick="Richfaces.hideModalPanel('changePasswordPanel');" />
+					</h:panelGrid>
 				</h:panelGrid>
-			</h:panelGrid>
-		</a4j:form>
-	</rich:modalPanel>
+			</a4j:form>
+		</rich:modalPanel>
 	</ui:define>
 </ui:composition>
