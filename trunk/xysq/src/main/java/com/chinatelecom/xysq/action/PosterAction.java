@@ -4,13 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.jboss.seam.ScopeType;
+import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.annotations.security.Restrict;
+import org.jboss.seam.faces.FacesMessages;
+import org.jboss.seam.international.StatusMessage.Severity;
 
 import com.chinatelecom.xysq.bean.PageList;
 import com.chinatelecom.xysq.bean.PageListDataModel;
 import com.chinatelecom.xysq.bean.PlainStore;
+import com.chinatelecom.xysq.enumeration.InnerModule;
 import com.chinatelecom.xysq.enumeration.PosterType;
 import com.chinatelecom.xysq.model.Area;
 import com.chinatelecom.xysq.model.Poster;
@@ -21,6 +25,9 @@ import com.chinatelecom.xysq.model.Store;
 @Restrict(value = "#{identity.isLoggedIn(true)}")
 public class PosterAction extends PageListAction<Poster> {
 
+	@In(required = true)
+	FacesMessages statusMessages;
+
 	private PageListDataModel<Poster> posterDataModel;
 
 	private List<Area> areaTrees;
@@ -29,8 +36,15 @@ public class PosterAction extends PageListAction<Poster> {
 
 	private List<PosterType> posterTypes;
 
+	private List<InnerModule> innerModules;
+
+	private Long selectedStoreId;
+
+	private String selectedStoreName;
+
 	public void listPosters() {
 		posterTypes = PosterType.getPosterTypes();
+		innerModules = InnerModule.getInnerModules();
 		this.refresh();
 	}
 
@@ -46,6 +60,7 @@ public class PosterAction extends PageListAction<Poster> {
 
 	public void addPoster() {
 		this.poster = new Poster();
+		this.poster.setOwner(this.getIdentity().getUser());
 		this.poster.setType(PosterType.HTML5);
 	}
 
@@ -54,8 +69,9 @@ public class PosterAction extends PageListAction<Poster> {
 			List<Store> stores = this.getStoreService().findStores(
 					this.getIdentity().getUser().getId(), (String) suggest);
 			List<PlainStore> plainStores = new ArrayList<PlainStore>();
-			for(Store store:stores){
-				PlainStore ps = new PlainStore(store.getId(),store.getName(),store.getPinyin(),store.getShortPinyin());
+			for (Store store : stores) {
+				PlainStore ps = new PlainStore(store.getId(), store.getName(),
+						store.getPinyin(), store.getShortPinyin());
 				plainStores.add(ps);
 			}
 			return plainStores;
@@ -67,10 +83,32 @@ public class PosterAction extends PageListAction<Poster> {
 
 	public void editPoster(Poster poster) {
 		this.poster = this.getPosterService().findPosterById(poster.getId());
+		if (this.poster.getType() == PosterType.STORE_DETAIL) {
+			this.selectedStoreId = this.poster.getStore().getId();
+			this.selectedStoreName = this.poster.getStore().getName();
+		}
 	}
 
 	public void savePoster() {
+		if (poster.getType() == PosterType.STORE_DETAIL) {
+			if (this.selectedStoreId == null) {
+				this.statusMessages.addToControl("posterStoreName",
+						Severity.ERROR, "请选择正确的商家");
+				return;
+			} else {
+				Store store = this.getStoreService().findStoreById(
+						this.selectedStoreId);
+				if (store == null) {
+					this.statusMessages.addToControl("posterStoreName",
+							Severity.ERROR, "请选择正确的商家");
+					return;
+				}
+
+				poster.setStore(store);
+			}
+		}
 		this.getPosterService().savePoster(poster);
+		this.refresh();
 	}
 
 	public PageListDataModel<Poster> getPosterDataModel() {
@@ -108,6 +146,30 @@ public class PosterAction extends PageListAction<Poster> {
 	@Override
 	public PageListDataModel<Poster> getDefaultDataModel() {
 		return posterDataModel;
+	}
+
+	public Long getSelectedStoreId() {
+		return selectedStoreId;
+	}
+
+	public void setSelectedStoreId(Long selectedStoreId) {
+		this.selectedStoreId = selectedStoreId;
+	}
+
+	public String getSelectedStoreName() {
+		return selectedStoreName;
+	}
+
+	public void setSelectedStoreName(String selectedStoreName) {
+		this.selectedStoreName = selectedStoreName;
+	}
+
+	public List<InnerModule> getInnerModules() {
+		return innerModules;
+	}
+
+	public void setInnerModules(List<InnerModule> innerModules) {
+		this.innerModules = innerModules;
 	}
 
 }

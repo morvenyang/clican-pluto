@@ -113,28 +113,9 @@
 						style="width:180px;" required="true" requiredMessage="海报名称不能为空" />
 					<rich:message for="name" style="color:red" showDetail="false"
 						showSummary="true" />
-
-					<h:panelGroup>
-						<h:outputLabel value="图片" />
-						<h:outputText value=" *" style="color:red;" />
-					</h:panelGroup>
-					<h:panelGroup id="imageGroup">
-						<h:graphicImage
-							value="/image.do?imagePath=#{posterAction.poster.image.path}"
-							style="width:200px;height:200px"
-							rendered="#{posterAction.poster.image!=null}" />
-						<rich:fileUpload fileUploadListener="#{posterAction.uploadImage}"
-							maxFilesQuantity="1" acceptedTypes="png,jpg,jpeg,gif"
-							immediateUpload="true" allowFlash="true" noDuplicate="true"
-							addControlLabel="File" uploadControlLabel="Upload"
-							reRender="imageGroup">
-							<f:facet name="label">
-								<h:outputText value="{_KB}KB from {KB}KB uploaded --- {mm}:{ss}" />
-							</f:facet>
-						</rich:fileUpload>
-					</h:panelGroup>
+					<h:outputLabel value="全局" />
+					<h:selectBooleanCheckbox  value="#{posterAction.poster.global}" />
 					<h:outputText value="" />
-
 					<h:outputLabel value="海报类型" />
 					<h:selectOneMenu value="#{posterAction.poster.type}">
 						<a4j:support event="onchange"
@@ -163,17 +144,26 @@
 								label="#{item.label}" />
 							<s:convertEnum />
 						</h:selectOneMenu>
-						<h:inputText id="posterStore"
-							value="#{posterAction.poster.store.name}" />
+						<h:inputText id="posterStoreName"
+							value="#{posterAction.selectedStoreName}" rendered="#{posterAction.poster.type.value==3}"/>
+						<rich:message for="posterStoreName" style="color:red" showDetail="false"
+							showSummary="true"
+							rendered="#{posterAction.poster.type.value==3}" />
+						<h:inputHidden id="posterStoreId"
+							value="#{posterAction.selectedStoreId}" rendered="#{posterAction.poster.type.value==3}"/>
 						<rich:suggestionbox height="200" width="200"
 							usingSuggestObjects="true"
 							suggestionAction="#{posterAction.autoCompleteStores}" var="store"
-							for="posterStore" fetchValue="#{store.name}" id="suggestion"
-							tokens=",">
+							for="posterStoreName" fetchValue="#{store.name}" id="suggestion" onobjectchange="setStoreId(#{rich:element('posterStoreId')}, #{rich:component('suggestion')})">
 							<h:column>
 								<h:outputText value="#{store.name}" />
 							</h:column>
 						</rich:suggestionbox>
+						<script>
+						function setStoreId(posterStoreHidden, sgcomponent){
+							jQuery(posterStoreHidden).val(sgcomponent.getSelectedItems().pluck('id'));
+			            }
+						</script>
 					</h:panelGroup>
 					<h:outputText value="" />
 

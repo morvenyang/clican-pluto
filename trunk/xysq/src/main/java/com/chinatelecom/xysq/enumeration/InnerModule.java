@@ -1,5 +1,8 @@
 package com.chinatelecom.xysq.enumeration;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public enum InnerModule implements LabelAndValue {
 
 	ANNOUNCEMENT(1, "小区公告"),
@@ -29,5 +32,13 @@ public enum InnerModule implements LabelAndValue {
 	@Override
 	public int getValue() {
 		return value;
+	}
+	
+	public static List<InnerModule> getInnerModules(){
+		List<InnerModule> innerModules = new ArrayList<InnerModule>();
+		for(InnerModule member:values()){
+			innerModules.add(member);
+		}
+		return innerModules;
 	}
 }
