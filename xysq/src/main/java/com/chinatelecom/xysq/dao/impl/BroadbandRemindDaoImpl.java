@@ -17,9 +17,10 @@ public class BroadbandRemindDaoImpl extends BaseDao implements
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public PageList<BroadbandRemind> findBroadbandRemind(final int page, final int pageSize) {
-		return (PageList<BroadbandRemind>) this.getHibernateTemplate().executeFind(
-				new HibernateCallback() {
+	public PageList<BroadbandRemind> findBroadbandRemind(final int page,
+			final int pageSize) {
+		return (PageList<BroadbandRemind>) this.getHibernateTemplate()
+				.executeFind(new HibernateCallback() {
 					@Override
 					public Object doInHibernate(Session session)
 							throws HibernateException, SQLException {
@@ -32,10 +33,27 @@ public class BroadbandRemindDaoImpl extends BaseDao implements
 						Query queryCount = session
 								.createQuery("select count(*) from BroadbandRemind");
 						Long count = (Long) queryCount.uniqueResult();
-						return new PageList<BroadbandRemind>(list, page, pageSize,
-								count.intValue(), new BroadbandRemind());
+						return new PageList<BroadbandRemind>(list, page,
+								pageSize, count.intValue(),
+								new BroadbandRemind());
 					}
 				});
+	}
+
+	@Override
+	public void save(BroadbandRemind bbr) {
+		this.getHibernateTemplate().saveOrUpdate(bbr);
+	}
+
+	@Override
+	public void delete(BroadbandRemind bbr) {
+		this.getHibernateTemplate().delete(bbr);
+	}
+
+	@Override
+	public BroadbandRemind findBroadbandRemindById(Long id) {
+		return (BroadbandRemind) this.getHibernateTemplate().get(
+				BroadbandRemind.class, id);
 	}
 
 }
