@@ -1,5 +1,8 @@
 package com.chinatelecom.xysq.enumeration;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public enum PosterType implements LabelAndValue {
 
 	
@@ -28,5 +31,12 @@ public enum PosterType implements LabelAndValue {
 		return value;
 	}
 	
+	public static List<PosterType> getPosterTypes(){
+		List<PosterType> posterTypes = new ArrayList<PosterType>();
+		for(PosterType pt:values()){
+			posterTypes.add(pt);
+		}
+		return posterTypes;
+	}
 	
 }

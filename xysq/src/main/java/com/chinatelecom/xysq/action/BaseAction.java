@@ -11,6 +11,7 @@ import com.chinatelecom.xysq.bean.Constants;
 import com.chinatelecom.xysq.bean.SpringProperty;
 import com.chinatelecom.xysq.service.AreaService;
 import com.chinatelecom.xysq.service.BroadbandRemindService;
+import com.chinatelecom.xysq.service.PosterService;
 import com.chinatelecom.xysq.service.StoreService;
 import com.chinatelecom.xysq.service.UserService;
 
@@ -18,7 +19,7 @@ public class BaseAction {
 
 	protected final Log log = LogFactory.getLog(this.getClass());
 
-	protected com.chinatelecom.xysq.bean.Identity getIdentity() {
+	public com.chinatelecom.xysq.bean.Identity getIdentity() {
 		HttpSession session = ((HttpServletRequest) FacesContext
 				.getCurrentInstance().getExternalContext().getRequest())
 				.getSession();
@@ -45,6 +46,10 @@ public class BaseAction {
 	
 	protected StoreService getStoreService() {
 		return (StoreService) Constants.ctx.getBean("storeService");
+	}
+	
+	protected PosterService getPosterService() {
+		return (PosterService) Constants.ctx.getBean("posterService");
 	}
 
 }
