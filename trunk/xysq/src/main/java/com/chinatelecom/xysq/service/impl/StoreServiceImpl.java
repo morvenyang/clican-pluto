@@ -10,6 +10,7 @@ import com.chinatelecom.xysq.model.Image;
 import com.chinatelecom.xysq.model.Store;
 import com.chinatelecom.xysq.model.User;
 import com.chinatelecom.xysq.service.StoreService;
+import com.github.stuxuhai.jpinyin.PinyinHelper;
 
 public class StoreServiceImpl implements StoreService {
 
@@ -40,6 +41,8 @@ public class StoreServiceImpl implements StoreService {
 		if (store.getId() != null) {
 			this.storeDao.deleteStoreImage(store,notInImageIds);
 		}
+		store.setShortPinyin(PinyinHelper.getShortPinyin(store.getName()));
+		store.setPinyin(PinyinHelper.convertToPinyinString(store.getName(), ""));
 		this.storeDao.saveStore(store);
 		for (Image image : store.getImages()) {
 			image.setStore(store);

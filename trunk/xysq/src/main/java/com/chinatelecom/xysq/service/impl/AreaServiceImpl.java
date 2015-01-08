@@ -58,7 +58,8 @@ public class AreaServiceImpl implements AreaService {
 				}
 				int level = StringUtils.countMatches(fullName, "/")+1;
 				area.setLevel(level);
-				area.setPinyin(PinyinHelper.getShortPinyin(area.getName()));
+				area.setShortPinyin(PinyinHelper.getShortPinyin(area.getName()));
+				area.setPinyin(PinyinHelper.convertToPinyinString(area.getName(), ""));
 				areaDao.saveArea(area);
 				areaMap.put(area.getFullName(), area);
 			}

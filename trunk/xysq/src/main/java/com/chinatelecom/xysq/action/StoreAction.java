@@ -14,11 +14,9 @@ import org.jboss.seam.annotations.security.Restrict;
 import org.richfaces.event.UploadEvent;
 import org.richfaces.model.UploadItem;
 
-import com.chinatelecom.xysq.bean.EmptyPageList;
 import com.chinatelecom.xysq.bean.PageList;
 import com.chinatelecom.xysq.bean.PageListDataModel;
 import com.chinatelecom.xysq.model.Area;
-import com.chinatelecom.xysq.model.Community;
 import com.chinatelecom.xysq.model.Image;
 import com.chinatelecom.xysq.model.Store;
 import com.chinatelecom.xysq.util.StringUtils;

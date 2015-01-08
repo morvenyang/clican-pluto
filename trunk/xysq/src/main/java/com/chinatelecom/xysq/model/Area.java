@@ -29,6 +29,8 @@ public class Area {
 	
 	private String pinyin;
 	
+	private String shortPinyin;
+	
 	private String fullName;
 	
 	private Area parent;
@@ -71,8 +73,17 @@ public class Area {
 		this.parent = parent;
 	}
 	
+	@Column
+	public String getShortPinyin() {
+		return shortPinyin;
+	}
+
+	public void setShortPinyin(String shortPinyin) {
+		this.shortPinyin = shortPinyin;
+	}
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "parent", cascade = CascadeType.REMOVE)
-	@OrderBy("pinyin")
+	@OrderBy("shortPinyin")
 	public List<Area> getChildren() {
 		return children;
 	}

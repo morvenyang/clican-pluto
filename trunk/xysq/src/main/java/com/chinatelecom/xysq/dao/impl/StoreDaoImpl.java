@@ -52,9 +52,9 @@ public class StoreDaoImpl extends BaseDao implements StoreDao {
 							throws HibernateException, SQLException {
 						String hsql = null;
 						if (ownerId == null) {
-							hsql = "from Store where name like :keyword";
+							hsql = "from Store where name like :keyword or pinyin like :keyword or shortPinyin like :keyword";
 						} else {
-							hsql = "from Store where owner.id= :ownerId and name like :keyword";
+							hsql = "from Store where owner.id= :ownerId and name like :keyword or pinyin like :keyword or shortPinyin like :keyword";
 						}
 
 						Query query = session.createQuery(hsql);
