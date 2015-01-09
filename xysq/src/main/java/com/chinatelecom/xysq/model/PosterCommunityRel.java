@@ -22,7 +22,7 @@ public class PosterCommunityRel {
 	
 	private Community community;
 	
-	private int index;
+	private int displayIndex;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -58,13 +58,15 @@ public class PosterCommunityRel {
 	}
 
 	@Column
-	public int getIndex() {
-		return index;
+	public int getDisplayIndex() {
+		return displayIndex;
 	}
 
-	public void setIndex(int index) {
-		this.index = index;
+	public void setDisplayIndex(int displayIndex) {
+		this.displayIndex = displayIndex;
 	}
+
+	
 	
 	
 }

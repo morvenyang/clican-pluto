@@ -20,6 +20,11 @@ public class PosterServiceImpl implements PosterService {
 	}
 
 	@Override
+	public PageList<Poster> findPoster(int page, int pageSize) {
+		return posterDao.findPoster(page, pageSize);
+	}
+
+	@Override
 	public Poster findPosterById(Long id) {
 		return posterDao.findPosterById(id);
 	}

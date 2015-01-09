@@ -10,7 +10,6 @@ import org.springframework.orm.hibernate3.HibernateCallback;
 
 import com.chinatelecom.xysq.bean.PageList;
 import com.chinatelecom.xysq.dao.PosterDao;
-import com.chinatelecom.xysq.model.BroadbandRemind;
 import com.chinatelecom.xysq.model.Poster;
 import com.chinatelecom.xysq.model.User;
 
@@ -29,7 +28,7 @@ public class PosterDaoImpl extends BaseDao implements PosterDao {
 					@Override
 					public Object doInHibernate(Session session)
 							throws HibernateException, SQLException {
-						String hsql = "from Poster";
+						String hsql = "from Poster order by createTime desc";
 						Query query = session.createQuery(hsql);
 						query.setFirstResult((page - 1) * pageSize);
 						query.setMaxResults(pageSize);
@@ -53,7 +52,7 @@ public class PosterDaoImpl extends BaseDao implements PosterDao {
 					@Override
 					public Object doInHibernate(Session session)
 							throws HibernateException, SQLException {
-						String hsql = "from Poster where owner.id = :ownerId";
+						String hsql = "from Poster where owner.id = :ownerId order by createTime desc";
 						Query query = session.createQuery(hsql);
 						query.setParameter("ownerId", owner.getId());
 						query.setFirstResult((page - 1) * pageSize);
