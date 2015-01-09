@@ -13,7 +13,6 @@ import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.annotations.security.Restrict;
 import org.jboss.seam.faces.FacesMessages;
-import org.jboss.seam.international.StatusMessage.Severity;
 import org.richfaces.event.UploadEvent;
 import org.richfaces.model.UploadItem;
 
@@ -109,6 +108,10 @@ public class PosterAction extends PageListAction<Poster> {
 		return suggestionBeans;
 
 	}
+	
+	public void selectStore(Store store){
+		this.poster.setStore(store);
+	}
 
 	public void editPoster(Poster poster) {
 		this.poster = this.getPosterService().findPosterById(poster.getId());
@@ -119,23 +122,6 @@ public class PosterAction extends PageListAction<Poster> {
 	}
 
 	public void savePoster() {
-		if (poster.getType() == PosterType.STORE_DETAIL) {
-			if (this.selectedStoreId == null) {
-				this.statusMessages.addToControl("posterStoreName",
-						Severity.ERROR, "请选择正确的商家");
-				return;
-			} else {
-				Store store = this.getStoreService().findStoreById(
-						this.selectedStoreId);
-				if (store == null) {
-					this.statusMessages.addToControl("posterStoreName",
-							Severity.ERROR, "请选择正确的商家");
-					return;
-				}
-
-				poster.setStore(store);
-			}
-		}
 		this.getPosterService().savePoster(poster);
 		this.refresh();
 	}
