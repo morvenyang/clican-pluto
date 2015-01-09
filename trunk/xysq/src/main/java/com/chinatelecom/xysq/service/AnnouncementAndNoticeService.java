@@ -12,4 +12,8 @@ public interface AnnouncementAndNoticeService {
 	public List<AnnouncementAndNotice> findAnnouncementAndNotice(Community community,boolean announcement);
 	
 	public void publishAnnouncementAndNotice(AnnouncementAndNotice announcementAndNotice,Set<Long> communityIds);
+	
+	public void saveAnnouncementAndNotice(AnnouncementAndNotice announcementAndNotice);
+	
+	public void deleteAnnouncementAndNotice(AnnouncementAndNotice announcementAndNotice);
 }
