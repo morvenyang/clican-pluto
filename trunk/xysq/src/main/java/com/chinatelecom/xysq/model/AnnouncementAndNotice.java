@@ -17,6 +17,7 @@ import org.hibernate.annotations.Parameter;
 import org.hibernate.annotations.Type;
 
 import com.chinatelecom.xysq.enumeration.InnerModule;
+import com.chinatelecom.xysq.enumeration.NoticeCategory;
 
 @Table(name = "ANNO_NOTICE")
 @Entity
@@ -37,6 +38,8 @@ public class AnnouncementAndNotice {
 	private InnerModule innerModule;
 	
 	private Community community;
+	
+	private NoticeCategory noticeCategory;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -115,6 +118,16 @@ public class AnnouncementAndNotice {
 
 	public void setCommunity(Community community) {
 		this.community = community;
+	}
+
+	@Column(name = "NOTICE_CATEGORY")
+	@Type(type = "com.chinatelecom.xysq.hibernate.EnumerationType", parameters = { @Parameter(name = "enumClass", value = "com.chinatelecom.xysq.enumeration.NoticeCategory") })
+	public NoticeCategory getNoticeCategory() {
+		return noticeCategory;
+	}
+
+	public void setNoticeCategory(NoticeCategory noticeCategory) {
+		this.noticeCategory = noticeCategory;
 	}
 	
 	

@@ -28,6 +28,7 @@ import com.chinatelecom.xysq.bean.PageList;
 import com.chinatelecom.xysq.bean.PageListDataModel;
 import com.chinatelecom.xysq.bean.SuggestionBean;
 import com.chinatelecom.xysq.model.AdminCommunityRel;
+import com.chinatelecom.xysq.model.AnnouncementAndNotice;
 import com.chinatelecom.xysq.model.Area;
 import com.chinatelecom.xysq.model.Community;
 import com.chinatelecom.xysq.model.Poster;
@@ -63,6 +64,10 @@ public class AreaAction extends PageListAction<Community> {
 
 	private List<Poster> selectedPosters;
 	private List<Store> selectedStores;
+	
+	private boolean announcement=false;
+	
+	private List<AnnouncementAndNotice> announcementAndNotices;
 
 	public void listAreaTrees() {
 		this.page = 1;
@@ -331,6 +336,15 @@ public class AreaAction extends PageListAction<Community> {
 		refresh();
 	}
 
+	public void listAnnouncement(Community community){
+		this.announcement=true;
+		this.community = community;
+	}
+	
+	public void listNotice(Community community){
+		this.announcement=false;
+		this.community = community;
+	}
 	@BypassInterceptors
 	public List<Area> getAreaTrees() {
 		return areaTrees;
@@ -424,6 +438,23 @@ public class AreaAction extends PageListAction<Community> {
 
 	public void setSelectedStores(List<Store> selectedStores) {
 		this.selectedStores = selectedStores;
+	}
+
+	public boolean isAnnouncement() {
+		return announcement;
+	}
+
+	public void setAnnouncement(boolean announcement) {
+		this.announcement = announcement;
+	}
+
+	public List<AnnouncementAndNotice> getAnnouncementAndNotices() {
+		return announcementAndNotices;
+	}
+
+	public void setAnnouncementAndNotices(
+			List<AnnouncementAndNotice> announcementAndNotices) {
+		this.announcementAndNotices = announcementAndNotices;
 	}
 
 }
