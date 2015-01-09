@@ -1,8 +1,12 @@
 package com.chinatelecom.xysq.action;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
+import org.apache.commons.io.FileUtils;
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
@@ -10,6 +14,8 @@ import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.annotations.security.Restrict;
 import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.international.StatusMessage.Severity;
+import org.richfaces.event.UploadEvent;
+import org.richfaces.model.UploadItem;
 
 import com.chinatelecom.xysq.bean.PageList;
 import com.chinatelecom.xysq.bean.PageListDataModel;
@@ -17,8 +23,10 @@ import com.chinatelecom.xysq.bean.SuggestionBean;
 import com.chinatelecom.xysq.enumeration.InnerModule;
 import com.chinatelecom.xysq.enumeration.PosterType;
 import com.chinatelecom.xysq.model.Area;
+import com.chinatelecom.xysq.model.Image;
 import com.chinatelecom.xysq.model.Poster;
 import com.chinatelecom.xysq.model.Store;
+import com.chinatelecom.xysq.util.StringUtils;
 
 @Scope(ScopeType.PAGE)
 @Name("posterAction")
@@ -58,6 +66,29 @@ public class PosterAction extends PageListAction<Poster> {
 		};
 	}
 
+	public synchronized void uploadImage(UploadEvent event) {
+		if (log.isDebugEnabled()) {
+			log.debug("upload image for poster");
+		}
+		List<UploadItem> itemList = event.getUploadItems();
+		UploadItem item = itemList.get(0);
+		File imageTempFile = item.getFile();
+		try {
+			byte[] data = FileUtils.readFileToByteArray(imageTempFile);
+			String suffix = org.apache.commons.lang.StringUtils
+					.substringAfterLast(item.getFileName(), ".");
+			String filePath = StringUtils.generateFilePathByDate()
+					+ UUID.randomUUID().toString() + "." + suffix;
+			FileUtils.writeByteArrayToFile(new File(this.getSpringProperty()
+					.getImageUrlPrefix() + "/" + filePath), data);
+			Image image = new Image();
+			image.setPath(filePath);
+			image.setName(item.getFileName());
+			poster.setImage(image);
+		} catch (IOException e) {
+			log.error("", e);
+		}
+	}
 	public void addPoster() {
 		this.poster = new Poster();
 		this.poster.setOwner(this.getIdentity().getUser());

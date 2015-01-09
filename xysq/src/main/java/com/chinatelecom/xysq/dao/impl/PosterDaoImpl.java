@@ -10,6 +10,7 @@ import org.springframework.orm.hibernate3.HibernateCallback;
 
 import com.chinatelecom.xysq.bean.PageList;
 import com.chinatelecom.xysq.dao.PosterDao;
+import com.chinatelecom.xysq.model.Image;
 import com.chinatelecom.xysq.model.Poster;
 import com.chinatelecom.xysq.model.User;
 
@@ -77,6 +78,11 @@ public class PosterDaoImpl extends BaseDao implements PosterDao {
 	@Override
 	public void deletePoster(Poster poster) {
 		this.getHibernateTemplate().delete(poster);
+	}
+
+	@Override
+	public void saveImage(Image image) {
+		this.getHibernateTemplate().saveOrUpdate(image);
 	}
 
 }

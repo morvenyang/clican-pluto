@@ -1,6 +1,7 @@
 package com.chinatelecom.xysq.dao;
 
 import com.chinatelecom.xysq.bean.PageList;
+import com.chinatelecom.xysq.model.Image;
 import com.chinatelecom.xysq.model.Poster;
 import com.chinatelecom.xysq.model.User;
 
@@ -15,5 +16,7 @@ public interface PosterDao {
 	public void savePoster(Poster poster);
 	
 	public void deletePoster(Poster poster);
+	
+	public void saveImage(Image image);
 
 }
