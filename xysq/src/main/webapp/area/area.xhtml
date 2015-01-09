@@ -35,12 +35,12 @@
 							<h:panelGroup>
 								<a4j:commandButton
 									style="border:1;" value="发布公告"
-									action="#{areaAction.publicAnnouncement()}" ajaxSingle="true"
+									action="#{areaAction.publishAnnouncement()}" ajaxSingle="true"
 									reRender="announcementPanel"
 									oncomplete="Richfaces.showModalPanel('announcementPanel');" />
 								<a4j:commandButton
 									style="border:1;" value="发布须知"
-									action="#{areaAction.publicNotice()}" ajaxSingle="true"
+									action="#{areaAction.publishNotice()}" ajaxSingle="true"
 									reRender="noticePanel"
 									oncomplete="Richfaces.showModalPanel('noticePanel');" />
 								<a4j:commandButton
@@ -96,11 +96,11 @@
 									<a4j:commandButton value="公告"
 										action="#{areaAction.listAnnouncement(community)}" ajaxSingle="true"
 										reRender="announcementAndNoticePanel"
-										oncomplete="Richfaces.showModalPanel('announcementAndNoticePanel');" />
+										oncomplete="Richfaces.showModalPanel('announcementAndNoticeTablePanel');" />
 									<a4j:commandButton value="须知"
 										action="#{areaAction.listNotice(community)}" ajaxSingle="true"
 										reRender="announcementAndNoticePanel"
-										oncomplete="Richfaces.showModalPanel('announcementAndNoticePanel');" />
+										oncomplete="Richfaces.showModalPanel('announcementAndNoticeTablePanel');" />
 								</h:panelGrid>
 							</rich:column>
 							<f:facet name="footer">

@@ -6,14 +6,14 @@
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:c="http://java.sun.com/jstl/core"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:a4j="http://richfaces.org/a4j" id="announcementAndNoticePanel"
+	xmlns:a4j="http://richfaces.org/a4j" id="announcementAndNoticeTablePanel"
 	autosized="true" left="300" top="300">
 	<f:facet name="controls">
 		<h:panelGroup>
 			<h:graphicImage value="/img/close.png" styleClass="hidelink"
-				id="announcementAndNoticePanelImg" style="CURSOR: hand" />
-			<rich:componentControl for="announcementAndNoticePanel"
-				attachTo="announcementAndNoticePanelImg" operation="hide" event="onclick" />
+				id="announcementAndNoticeTablePanelImg" style="CURSOR: hand" />
+			<rich:componentControl for="announcementAndNoticeTablePanel"
+				attachTo="announcementAndNoticeTablePanelImg" operation="hide" event="onclick" />
 		</h:panelGroup>
 	</f:facet>
 	<f:facet name="header">
@@ -23,7 +23,7 @@
 		</h:panelGroup>
 	</f:facet>
 	<h:form>
-			<rich:panel id="announcementAndNoticeTablePanel"
+			<rich:panel
 				style="left-margin:10px;border:0;width:100%">
 				<h:panelGrid id="announcementAndNoticePanelGrid" style="width:100%">
 					<h:panelGrid columns="1" style="text-align:right;width:100%">
