@@ -1,0 +1,78 @@
+<rich:modalPanel xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:a4j="http://richfaces.org/a4j" id="storeSelectPanel"
+	autosized="true" left="300" top="300">
+	<f:facet name="controls">
+		<h:panelGroup>
+			<h:graphicImage value="/img/close.png" styleClass="hidelink"
+				id="storeSelectPanelImg" style="CURSOR: hand" />
+			<rich:componentControl for="storeSelectPanel"
+				attachTo="storeSelectPanelImg" operation="hide" event="onclick" />
+		</h:panelGroup>
+	</f:facet>
+	<f:facet name="header">
+		<h:panelGroup>
+			<h:outputText value="商家选择"></h:outputText>
+		</h:panelGroup>
+	</f:facet>
+	<h:form>
+			<rich:panel id="storeSelectTablePanel"
+				style="left-margin:10px;border:0;width:100%">
+				<h:panelGrid id="storeSelectPanelGrid" style="width:100%">
+					<h:panelGrid columns="1" style="text-align:right;width:100%">
+						<h:panelGroup>
+							
+						</h:panelGroup>
+					</h:panelGrid>
+					<rich:dataTable id="storeSelectTable" var="store"
+						value="#{areaAction.storeDataModel}" rows="10"
+						rowKeyVar="rowNumIndex" width="100%" activeClass="active-row"
+						enableContextMenu="true" rendered="#{areaAction.storeDataModel!=null}">
+						<rich:column>
+							<f:facet name="header">
+								<h:outputText value="商家" />
+							</f:facet>
+							<h:outputText value="#{store.name}" style="white-space:nowrap;" />
+						</rich:column>
+						<rich:column>
+							<f:facet name="header">
+								<h:outputText value="创建时间" />
+							</f:facet>
+							<h:outputText value="#{store.createTime}"
+								style="white-space:nowrap;">
+								<s:convertDateTime pattern="yyyy-MM-dd" />
+							</h:outputText>
+						</rich:column>
+						<rich:column>
+							<f:facet name="header">
+								<h:outputText value="提交人" />
+							</f:facet>
+							<h:outputText value="#{store.owner.userName}"
+								style="white-space:nowrap;" />
+						</rich:column>
+						<rich:column>
+							<f:facet name="header">
+								<h:outputText value="操作" />
+							</f:facet>
+							<h:panelGrid columns="3">
+								<a4j:commandButton value="选择"
+									action="#{areaAction.selectStore(store)}" ajaxSingle="true"
+									reRender="storeNameValue"/>
+							</h:panelGrid>
+						</rich:column>
+						<f:facet name="footer">
+							<rich:datascroller for="storeSelectTable" reRender="storeSelectTable"
+								ignoreDupResponses="false" renderIfSinglePage="true"
+								maxPages="10" page="#{areaAction.storePage}" align="left" />
+						</f:facet>
+					</rich:dataTable>
+				</h:panelGrid>
+			</rich:panel>
+		</h:form>
+</rich:modalPanel>

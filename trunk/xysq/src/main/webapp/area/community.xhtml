@@ -22,34 +22,34 @@
 		</h:panelGroup>
 	</f:facet>
 	<a4j:form id="communityForm">
-		<h:panelGrid columns="3" width="600">
-			<h:panelGroup>
+		<t:panelGrid columns="3" width="600">
+			<t:panelGroup>
 				<h:outputLabel value="小区名" />
 				<h:outputText value=" *" style="color:red;" />
-			</h:panelGroup>
+			</t:panelGroup>
 			<h:inputText id="communityName" value="#{areaAction.community.name}"
 				style="width:180px;" required="true" requiredMessage="小区名不能为空" />
 			<rich:message for="communityName" style="color:red"
 				showDetail="false" showSummary="true" />
 
-			<h:panelGroup>
+			<t:panelGroup>
 				<h:outputLabel value="地址" />
 				<h:outputText value=" *" style="color:red;" />
-			</h:panelGroup>
+			</t:panelGroup>
 			<h:inputText id="communityDetailAddress"
 				value="#{areaAction.community.detailAddress}" style="width:180px;"
 				required="true" requiredMessage="地址不能为空" />
 			<rich:message for="communityDetailAddress" style="color:red"
 				showDetail="false" showSummary="true" />
 
-			<h:panelGroup>
+			<t:panelGroup>
 				<h:outputLabel value="小区管理员" />
-			</h:panelGroup>
+			</t:panelGroup>
 			<h:inputText id="adminName" />
 			<rich:suggestionbox height="200" width="200"
 				usingSuggestObjects="true"
-				suggestionAction="#{areaAction.autoCompleteAdmins}"
-				var="admin" id="suggestion" for="adminName" fetchValue="#{admin.name}"
+				suggestionAction="#{areaAction.autoCompleteAdmins}" var="admin"
+				id="suggestion" for="adminName" fetchValue="#{admin.name}"
 				onobjectchange="checkSelectAreaAdmin(#{rich:component('suggestion')}.getSelectedItems().pluck('id'))">
 				<h:column>
 					<h:outputText value="#{admin.name}" />
@@ -62,53 +62,75 @@
 					}
 				}
 			</script>
-			<a4j:jsFunction name="selectAreaAdmin" reRender="selectedAdmins" action="#{areaAction.selectAdmin()}" ajaxSingle="true">
-				<a4j:actionparam name="param1" assignTo="#{areaAction.selectedAdminId}" />
+			<a4j:jsFunction name="selectAreaAdmin" reRender="selectedAdmins"
+				action="#{areaAction.selectAdmin()}" ajaxSingle="true">
+				<a4j:actionparam name="param1"
+					assignTo="#{areaAction.selectedAdminId}" />
 			</a4j:jsFunction>
-			<h:outputLabel value=""/>
-			<h:panelGrid columns="10" id="selectedAdmins">
-				<c:forEach var="admin" items="#{areaAction.selectedAdmins}">
-					<h:outputText value="#{admin.userName}" />
-					<a4j:commandButton image="/img/delete.png"
-					action="#{areaAction.unselectAdmin(admin)}"
-					reRender="selectedAdmins" ajaxSingle="true"/>
-				</c:forEach>
-			</h:panelGrid>
-			<h:outputLabel value=""/>
-			<h:outputLabel value=""/>
-			
-			<a4j:commandButton value="选择海报" ajaxSingle="true" reRender="posterGridPanel"
-										oncomplete="Richfaces.showModalPanel('posterGridPanel');" />
-			<h:outputLabel value=""/>
-			<h:outputLabel value=""/>
-			<rich:dataGrid id="selectedPosterGrid" value="#{areaAction.selectedPosters}"
-				var="poster" columns="4" frame="void">
-				<rich:panel bodyClass="pbody" style="border:0;">
-					<f:facet name="header">
-						<h:panelGrid columns="2" style="width:100%">
-							<h:outputText value="#{poster.name}"></h:outputText>
-							<h:panelGrid columns="1" style="text-align:right;width:100%">
-								<a4j:commandButton image="/img/close.png" style="text-align:right;" action="#{areaAction.unselectPoster(poster)}" reRender="selectedPosterGrid" ajaxSingle="true"/>
+			<h:outputLabel value="" />
+			<t:panelGroup colspan="3">
+				<h:panelGrid columns="10" id="selectedAdmins">
+					<c:forEach var="admin" items="#{areaAction.selectedAdmins}">
+						<h:outputText value="#{admin.userName}" />
+						<a4j:commandButton image="/img/delete.png"
+							action="#{areaAction.unselectAdmin(admin)}"
+							reRender="selectedAdmins" ajaxSingle="true" />
+					</c:forEach>
+				</h:panelGrid>
+			</t:panelGroup>
+
+
+			<t:panelGroup colspan="3">
+				<a4j:commandButton value="选择海报" ajaxSingle="true"
+					reRender="posterGridPanel"
+					oncomplete="Richfaces.showModalPanel('posterGridPanel');"
+					action="#{areaAction.preparePosters()}" />
+			</t:panelGroup>
+			<t:panelGroup colspan="3">
+				<rich:dataGrid id="selectedPosterGrid"
+					value="#{areaAction.selectedPosters}" var="poster" columns="4"
+					frame="void">
+					<rich:panel bodyClass="pbody" style="border:0;">
+						<f:facet name="header">
+							<h:panelGrid columns="2" style="width:100%">
+								<h:outputText value="#{poster.name}"></h:outputText>
+								<h:panelGrid columns="1" style="text-align:right;width:100%">
+									<a4j:commandButton image="/img/close.png"
+										style="text-align:right;"
+										action="#{areaAction.unselectPoster(poster)}"
+										reRender="selectedPosterGrid" ajaxSingle="true" />
+								</h:panelGrid>
 							</h:panelGrid>
-						</h:panelGrid>
-					</f:facet>
-					<h:graphicImage value="/image.do?imagePath=#{poster.image.path}"
-						width="150" height="150">
-					</h:graphicImage>
-				</rich:panel>
-			</rich:dataGrid>
-			<h:outputLabel value=""/>
-			<h:outputLabel value=""/>
-			
-			
+						</f:facet>
+						<h:graphicImage value="/image.do?imagePath=#{poster.image.path}"
+							width="150" height="150">
+						</h:graphicImage>
+					</rich:panel>
+				</rich:dataGrid>
+			</t:panelGroup>
+			<t:panelGroup colspan="3">
+				<a4j:commandButton value="选择商家" ajaxSingle="true"
+					reRender="storeSelectPanel" action="#{areaAction.prepareStores()}"
+					oncomplete="Richfaces.showModalPanel('storeSelectPanel');" />
+			</t:panelGroup>
+			<t:panelGroup colspan="3">
+				<h:panelGrid columns="10" id="selectedStoreGrid">
+					<c:forEach var="store" items="#{areaAction.selectedStores}">
+						<h:outputText value="#{store.name}" />
+						<a4j:commandButton image="/img/delete.png"
+							action="#{areaAction.unselectStore(store)}"
+							reRender="selectedStoreGrid" ajaxSingle="true" />
+					</c:forEach>
+				</h:panelGrid>
+			</t:panelGroup>
+
 			<h:panelGrid columns="2">
-				<a4j:commandButton value="保存"
-					action="#{areaAction.saveCommunity()}"
+				<a4j:commandButton value="保存" action="#{areaAction.saveCommunity()}"
 					oncomplete="if(#{facesContext.maximumSeverity==null}) {Richfaces.hideModalPanel('communityPanel');}"
 					reRender="communityTable" />
 				<h:commandButton value="取消" type="reset"
 					onclick="Richfaces.hideModalPanel('communityPanel');" />
 			</h:panelGrid>
-		</h:panelGrid>
+		</t:panelGrid>
 	</a4j:form>
 </rich:modalPanel>
