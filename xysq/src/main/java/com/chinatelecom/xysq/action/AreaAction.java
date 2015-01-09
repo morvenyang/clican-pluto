@@ -64,10 +64,12 @@ public class AreaAction extends PageListAction<Community> {
 
 	private List<Poster> selectedPosters;
 	private List<Store> selectedStores;
-	
-	private boolean announcement=false;
-	
+
+	private boolean announcement = false;
+
 	private List<AnnouncementAndNotice> announcementAndNotices;
+
+	private Set<Long> selectedCommunityIds;
 
 	public void listAreaTrees() {
 		this.page = 1;
@@ -77,7 +79,6 @@ public class AreaAction extends PageListAction<Community> {
 		} else {
 			selectedArea = null;
 		}
-
 		this.refresh();
 	}
 
@@ -125,13 +126,14 @@ public class AreaAction extends PageListAction<Community> {
 	}
 
 	private void refresh() {
+		this.selectedCommunityIds = new HashSet<Long>();
 		communitiesBySelectedNode = new PageListDataModel<Community>(
-				this.getPageSize()) {
+				this.getPageSize(),this.selectedCommunityIds) {
 			@Override
 			public PageList<Community> fetchPage(int page, int pageSize) {
 				if (selectedArea != null) {
-					return getAreaService().findCommunityByArea(selectedArea,
-							page, PAGE_SIZE);
+					return getAreaService()
+							.findCommunityByArea(selectedArea, page, PAGE_SIZE);
 				} else {
 					return new EmptyPageList<Community>(page, PAGE_SIZE);
 				}
@@ -205,7 +207,7 @@ public class AreaAction extends PageListAction<Community> {
 		this.getAreaService().saveComminity(community, this.selectedAdmins,
 				this.selectedStores, this.selectedPosters);
 	}
-	
+
 	public void deleteCommunity(Community community) {
 		this.getAreaService().deleteCommunity(community);
 		this.refresh();
@@ -336,17 +338,20 @@ public class AreaAction extends PageListAction<Community> {
 		refresh();
 	}
 
-	public void listAnnouncement(Community community){
-		this.announcement=true;
+	public void listAnnouncement(Community community) {
+		this.announcement = true;
 		this.community = community;
-		this.announcementAndNotices = this.getAnnouncementAndNoticeService().findAnnouncementAndNotice(community, this.announcement);
+		this.announcementAndNotices = this.getAnnouncementAndNoticeService()
+				.findAnnouncementAndNotice(community, this.announcement);
 	}
-	
-	public void listNotice(Community community){
-		this.announcement=false;
+
+	public void listNotice(Community community) {
+		this.announcement = false;
 		this.community = community;
-		this.announcementAndNotices = this.getAnnouncementAndNoticeService().findAnnouncementAndNotice(community, this.announcement);
+		this.announcementAndNotices = this.getAnnouncementAndNoticeService()
+				.findAnnouncementAndNotice(community, this.announcement);
 	}
+
 	@BypassInterceptors
 	public List<Area> getAreaTrees() {
 		return areaTrees;
@@ -457,6 +462,14 @@ public class AreaAction extends PageListAction<Community> {
 	public void setAnnouncementAndNotices(
 			List<AnnouncementAndNotice> announcementAndNotices) {
 		this.announcementAndNotices = announcementAndNotices;
+	}
+
+	public Set<Long> getSelectedCommunityIds() {
+		return selectedCommunityIds;
+	}
+
+	public void setSelectedCommunityIds(Set<Long> selectedCommunityIds) {
+		this.selectedCommunityIds = selectedCommunityIds;
 	}
 
 }
