@@ -37,12 +37,12 @@
 									style="border:1;" value="发布公告"
 									action="#{areaAction.publishAnnouncement()}" ajaxSingle="true"
 									reRender="announcementAndNoticePanel"
-									oncomplete="Richfaces.showModalPanel('announcementAndNoticePanel');" />
+									oncomplete="if(#{facesContext.maximumSeverity==null}) {Richfaces.showModalPanel('announcementAndNoticePanel');}" />
 								<a4j:commandButton
 									style="border:1;" value="发布须知"
 									action="#{areaAction.publishNotice()}" ajaxSingle="true"
 									reRender="announcementAndNoticePanel"
-									oncomplete="Richfaces.showModalPanel('announcementAndNoticePanel');" />
+									oncomplete="if(#{facesContext.maximumSeverity==null}) {Richfaces.showModalPanel('announcementAndNoticePanel');}" />
 								<a4j:commandButton
 									style="border:1;" value="导入城市和小区数据" ajaxSingle="true"
 									reRender="importExcelPanel"
@@ -126,6 +126,7 @@
 		<ui:include src="posterGrid.xhtml" />
 		<ui:include src="storeSelect.xhtml" />
 		<ui:include src="announcementAndNoticeTablePanel.xhtml" />
+		<ui:include src="announcementAndNoticePanel.xhtml" />
 		<script type="text/javascript">
 			    var windowHeight = jQuery(window).height();
 			    jQuery(window).height(windowHeight);

@@ -29,7 +29,7 @@
 				<h:outputText value=" *" style="color:red;" />
 			</t:panelGroup>
 			<h:inputText id="announcementAndNoticeName" value="#{areaAction.announcementAndNotice.title}"
-				style="width:180px;" required="true" requiredMessage="标题不能为空" />
+				style="width:355px;" required="true" requiredMessage="标题不能为空" />
 			<rich:message for="announcementAndNoticeName" style="color:red"
 				showDetail="false" showSummary="true" />
 
@@ -38,7 +38,7 @@
 				<h:outputText value=" *" style="color:red;" />
 			</t:panelGroup>
 			<h:inputTextarea id="announcementAndNoticeDetailAddress"
-				value="#{areaAction.announcementAndNotice.content}" style="width:180px;"
+				value="#{areaAction.announcementAndNotice.content}" style="width:350px;height:200px"
 				required="true" requiredMessage="内容不能为空" />
 			<rich:message for="announcementAndNoticeDetailAddress" style="color:red"
 				showDetail="false" showSummary="true" />
