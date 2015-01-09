@@ -162,26 +162,7 @@
 								label="#{item.label}" />
 							<s:convertEnum />
 						</h:selectOneMenu>
-						<h:inputText id="posterStoreName"
-							value="#{posterAction.selectedStoreName}" rendered="#{posterAction.poster.type.value==3}"/>
-						<rich:message for="posterStoreName" style="color:red" showDetail="false"
-							showSummary="true"
-							rendered="#{posterAction.poster.type.value==3}" />
-						<h:inputHidden id="posterStoreId"
-							value="#{posterAction.selectedStoreId}" rendered="#{posterAction.poster.type.value==3}"/>
-						<rich:suggestionbox height="200" width="200"
-							usingSuggestObjects="true"
-							suggestionAction="#{posterAction.autoCompleteStores}" var="store"
-							for="posterStoreName" fetchValue="#{store.name}" id="suggestion" onobjectchange="setStoreId(#{rich:element('posterStoreId')}, #{rich:component('suggestion')})">
-							<h:column>
-								<h:outputText value="#{store.name}" />
-							</h:column>
-						</rich:suggestionbox>
-						<script>
-						function setStoreId(posterStoreHidden, sgcomponent){
-							jQuery(posterStoreHidden).val(sgcomponent.getSelectedItems().pluck('id'));
-			            }
-						</script>
+						<a4j:commandButton value="选择商家" action="#{posterAction.prepareStores()}" reRender="storeSelectPanel" oncomplete="Richfaces.showModalPanel('storeSelectPanel');" rendered="#{posterAction.poster.type.value==3}"/>
 					</t:panelGroup>
 
 					<h:panelGrid columns="2">
@@ -195,5 +176,6 @@
 				</t:panelGrid>
 			</a4j:form>
 		</rich:modalPanel>
+		<ui:include src="storeSelect.xhtml" />
 	</ui:define>
 </ui:composition>

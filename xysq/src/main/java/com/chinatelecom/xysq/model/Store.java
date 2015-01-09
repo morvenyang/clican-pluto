@@ -1,5 +1,6 @@
 package com.chinatelecom.xysq.model;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -38,6 +39,10 @@ public class Store {
 	private String description;
 
 	private List<Image> images;
+	
+	private Date createTime;
+	
+	private Date modifyTime;
 
 	private User owner;
 
@@ -134,6 +139,24 @@ public class Store {
 
 	public void setStoreCommunityRelSet(Set<StoreCommunityRel> storeCommunityRelSet) {
 		this.storeCommunityRelSet = storeCommunityRelSet;
+	}
+
+	@Column
+	public Date getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
+	}
+
+	@Column
+	public Date getModifyTime() {
+		return modifyTime;
+	}
+
+	public void setModifyTime(Date modifyTime) {
+		this.modifyTime = modifyTime;
 	}
 
 }

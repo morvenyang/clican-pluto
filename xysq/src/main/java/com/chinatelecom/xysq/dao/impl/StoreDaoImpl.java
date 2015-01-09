@@ -26,9 +26,16 @@ public class StoreDaoImpl extends BaseDao implements StoreDao {
 					@Override
 					public Object doInHibernate(Session session)
 							throws HibernateException, SQLException {
-						String hsql = "from Store where owner.id= :ownerId";
+						String hsql;
+						if(owner==null){
+							hsql = "from Store";
+						}else{
+							hsql = "from Store where owner.id= :ownerId";
+						}
 						Query query = session.createQuery(hsql);
-						query.setParameter("ownerId", owner.getId());
+						if(owner!=null){
+							query.setParameter("ownerId", owner.getId());
+						}
 						query.setFirstResult((page - 1) * pageSize);
 						query.setMaxResults(pageSize);
 						List<Store> list = query.list();
