@@ -69,8 +69,6 @@ public class AreaAction extends PageListAction<Community> {
 
 	private List<AnnouncementAndNotice> announcementAndNotices;
 
-	private Set<Long> selectedCommunityIds;
-
 	public void listAreaTrees() {
 		this.page = 1;
 		this.areaTrees = this.getAreaService().getAreaTrees();
@@ -126,14 +124,13 @@ public class AreaAction extends PageListAction<Community> {
 	}
 
 	private void refresh() {
-		this.selectedCommunityIds = new HashSet<Long>();
 		communitiesBySelectedNode = new PageListDataModel<Community>(
-				this.getPageSize(),this.selectedCommunityIds) {
+				this.getPageSize()) {
 			@Override
 			public PageList<Community> fetchPage(int page, int pageSize) {
 				if (selectedArea != null) {
-					return getAreaService()
-							.findCommunityByArea(selectedArea, page, PAGE_SIZE);
+					return getAreaService().findCommunityByArea(selectedArea,
+							page, PAGE_SIZE);
 				} else {
 					return new EmptyPageList<Community>(page, PAGE_SIZE);
 				}
@@ -462,14 +459,6 @@ public class AreaAction extends PageListAction<Community> {
 	public void setAnnouncementAndNotices(
 			List<AnnouncementAndNotice> announcementAndNotices) {
 		this.announcementAndNotices = announcementAndNotices;
-	}
-
-	public Set<Long> getSelectedCommunityIds() {
-		return selectedCommunityIds;
-	}
-
-	public void setSelectedCommunityIds(Set<Long> selectedCommunityIds) {
-		this.selectedCommunityIds = selectedCommunityIds;
 	}
 
 }
