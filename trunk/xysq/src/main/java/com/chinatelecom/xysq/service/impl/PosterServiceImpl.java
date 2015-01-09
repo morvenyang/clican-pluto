@@ -31,6 +31,9 @@ public class PosterServiceImpl implements PosterService {
 
 	@Override
 	public void savePoster(Poster poster) {
+		if(poster.getImage().getId()==null){
+			posterDao.saveImage(poster.getImage());
+		}
 		posterDao.savePoster(poster);
 	}
 
