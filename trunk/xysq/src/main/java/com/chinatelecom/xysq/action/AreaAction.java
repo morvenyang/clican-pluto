@@ -228,6 +228,8 @@ public class AreaAction extends PageListAction<Community> {
 			AnnouncementAndNotice announcementAndNotice) {
 		this.getAnnouncementAndNoticeService().deleteAnnouncementAndNotice(
 				announcementAndNotice);
+		this.announcementAndNotices = this.getAnnouncementAndNoticeService()
+		.findAnnouncementAndNotice(community, this.announcement);
 	}
 
 	public void publishAnnouncement() {
