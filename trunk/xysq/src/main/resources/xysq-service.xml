@@ -20,4 +20,6 @@
 		autowire="byName" />
 	<bean id="posterService" class="com.chinatelecom.xysq.service.impl.PosterServiceImpl"
 		autowire="byName" />
+	<bean id="announcementAndNoticeService" class="com.chinatelecom.xysq.service.impl.AnnouncementAndNoticeServiceImpl"
+		autowire="byName" />
 </beans>
