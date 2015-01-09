@@ -9,6 +9,7 @@ import org.apache.commons.logging.LogFactory;
 
 import com.chinatelecom.xysq.bean.Constants;
 import com.chinatelecom.xysq.bean.SpringProperty;
+import com.chinatelecom.xysq.service.AnnouncementAndNoticeService;
 import com.chinatelecom.xysq.service.AreaService;
 import com.chinatelecom.xysq.service.BroadbandRemindService;
 import com.chinatelecom.xysq.service.PosterService;
@@ -50,6 +51,10 @@ public class BaseAction {
 	
 	protected PosterService getPosterService() {
 		return (PosterService) Constants.ctx.getBean("posterService");
+	}
+	
+	protected AnnouncementAndNoticeService getAnnouncementAndNoticeService() {
+		return (AnnouncementAndNoticeService) Constants.ctx.getBean("announcementAndNoticeService");
 	}
 
 }
