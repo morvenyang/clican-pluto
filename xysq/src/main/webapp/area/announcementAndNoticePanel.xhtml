@@ -1,0 +1,56 @@
+<rich:modalPanel xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:a4j="http://richfaces.org/a4j" id="announcementAndNoticePanel"
+	autosized="true">
+	<f:facet name="controls">
+		<h:panelGroup>
+			<h:graphicImage value="/img/close.png" styleClass="hidelink"
+				id="announcementAndNoticePanelImg" style="CURSOR: hand" />
+			<rich:componentControl for="announcementAndNoticePanel"
+				attachTo="announcementAndNoticePanelImg" operation="hide" event="onclick" />
+		</h:panelGroup>
+	</f:facet>
+	<f:facet name="header">
+		<h:panelGroup>
+			<h:outputText value="公告" rendered="#{areaAction.announcement}"></h:outputText>
+			<h:outputText value="业主须知" rendered="#{!areaAction.announcement}"></h:outputText>
+		</h:panelGroup>
+	</f:facet>
+	<a4j:form id="announcementAndNoticeForm">
+		<t:panelGrid columns="3" width="600">
+			<t:panelGroup>
+				<h:outputLabel value="标题" />
+				<h:outputText value=" *" style="color:red;" />
+			</t:panelGroup>
+			<h:inputText id="announcementAndNoticeName" value="#{areaAction.announcementAndNotice.title}"
+				style="width:180px;" required="true" requiredMessage="标题不能为空" />
+			<rich:message for="announcementAndNoticeName" style="color:red"
+				showDetail="false" showSummary="true" />
+
+			<t:panelGroup>
+				<h:outputLabel value="内容" />
+				<h:outputText value=" *" style="color:red;" />
+			</t:panelGroup>
+			<h:inputTextarea id="announcementAndNoticeDetailAddress"
+				value="#{areaAction.announcementAndNotice.content}" style="width:180px;"
+				required="true" requiredMessage="内容不能为空" />
+			<rich:message for="announcementAndNoticeDetailAddress" style="color:red"
+				showDetail="false" showSummary="true" />
+
+
+			<h:panelGrid columns="2">
+				<a4j:commandButton value="保存" action="#{areaAction.saveAnnouncementAndNotice()}"
+					oncomplete="if(#{facesContext.maximumSeverity==null}) {Richfaces.hideModalPanel('announcementAndNoticePanel');}"
+					reRender="announcementAndNoticeTable" />
+				<h:commandButton value="取消" type="reset"
+					onclick="Richfaces.hideModalPanel('announcementAndNoticePanel');" />
+			</h:panelGrid>
+		</t:panelGrid>
+	</a4j:form>
+</rich:modalPanel>
