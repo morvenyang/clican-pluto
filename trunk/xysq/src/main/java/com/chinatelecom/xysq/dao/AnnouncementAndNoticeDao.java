@@ -7,5 +7,9 @@ import com.chinatelecom.xysq.model.Community;
 
 public interface AnnouncementAndNoticeDao {
 
-	public List<AnnouncementAndNotice> findAnnouncementAndNotice(Community community,boolean announcement);
+	public List<AnnouncementAndNotice> findAnnouncementAndNotice(
+			Community community, boolean announcement);
+
+	public void saveAnnouncementAndNotice(
+			AnnouncementAndNotice announcementAndNotice);
 }
