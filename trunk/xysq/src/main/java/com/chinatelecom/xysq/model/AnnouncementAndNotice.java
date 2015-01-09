@@ -35,6 +35,8 @@ public class AnnouncementAndNotice {
 	private Date modifyTime;
 	
 	private InnerModule innerModule;
+	
+	private Community community;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -102,6 +104,17 @@ public class AnnouncementAndNotice {
 
 	public void setInnerModule(InnerModule innerModule) {
 		this.innerModule = innerModule;
+	}
+
+	@ManyToOne
+	@JoinColumn(name = "COMMUNITY_ID", nullable = true)
+	@Fetch(FetchMode.JOIN)
+	public Community getCommunity() {
+		return community;
+	}
+
+	public void setCommunity(Community community) {
+		this.community = community;
 	}
 	
 	
