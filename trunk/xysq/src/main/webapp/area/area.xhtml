@@ -36,13 +36,13 @@
 								<a4j:commandButton
 									style="border:1;" value="发布公告"
 									action="#{areaAction.publishAnnouncement()}" ajaxSingle="true"
-									reRender="announcementPanel"
-									oncomplete="Richfaces.showModalPanel('announcementPanel');" />
+									reRender="announcementAndNoticePanel"
+									oncomplete="Richfaces.showModalPanel('announcementAndNoticePanel');" />
 								<a4j:commandButton
 									style="border:1;" value="发布须知"
 									action="#{areaAction.publishNotice()}" ajaxSingle="true"
-									reRender="noticePanel"
-									oncomplete="Richfaces.showModalPanel('noticePanel');" />
+									reRender="announcementAndNoticePanel"
+									oncomplete="Richfaces.showModalPanel('announcementAndNoticePanel');" />
 								<a4j:commandButton
 									style="border:1;" value="导入城市和小区数据" ajaxSingle="true"
 									reRender="importExcelPanel"

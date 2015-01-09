@@ -219,12 +219,26 @@ public class AreaAction extends PageListAction<Community> {
 	}
 
 	public void publishAnnouncement() {
-		this.announcementAndNotice = new AnnouncementAndNotice();
 		if (this.getDefaultDataModel().getSelectedIds().size() == 0) {
 			this.statusMessages.addToControl("communityTablePanel",
 					Severity.ERROR, "请先选择要发布公告的小区");
 			return;
 		}
+		this.announcementAndNotice = new AnnouncementAndNotice();
+		this.announcement = true;
+	}
+	
+	public void publishNotice() {
+		if (this.getDefaultDataModel().getSelectedIds().size() == 0) {
+			this.statusMessages.addToControl("communityTablePanel",
+					Severity.ERROR, "请先选择要发布公告的小区");
+			return;
+		}
+		this.announcementAndNotice = new AnnouncementAndNotice();
+		this.announcement = false;
+	}
+	
+	public void saveAnnouncementAndNotice(){
 		
 	}
 
