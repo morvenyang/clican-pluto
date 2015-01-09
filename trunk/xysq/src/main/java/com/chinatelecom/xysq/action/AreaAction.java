@@ -54,9 +54,9 @@ public class AreaAction extends PageListAction<Community> {
 	private Long selectedAdminId;
 
 	private List<User> selectedAdmins;
-	
+
 	private PageListDataModel<Poster> posters;
-	
+
 	private List<Poster> selectedPosters;
 
 	public void listAreaTrees() {
@@ -67,7 +67,7 @@ public class AreaAction extends PageListAction<Community> {
 		} else {
 			selectedArea = null;
 		}
-		this.posters = new PageListDataModel<Poster>(25){
+		this.posters = new PageListDataModel<Poster>(25) {
 			@Override
 			public PageList<Poster> fetchPage(int page, int pageSize) {
 				return getPosterService().findPoster(page, pageSize);
@@ -80,11 +80,15 @@ public class AreaAction extends PageListAction<Community> {
 		this.selectedArea = area;
 		this.refresh();
 	}
-	
-	public void selectPoster(Poster poster){
-		if(!this.selectedPosters.contains(poster)){
+
+	public void selectPoster(Poster poster) {
+		if (!this.selectedPosters.contains(poster)) {
 			this.selectedPosters.add(poster);
 		}
+	}
+
+	public void unselectPoster(Poster poster) {
+		this.selectedPosters.remove(poster);
 	}
 
 	private void refresh() {
@@ -117,7 +121,8 @@ public class AreaAction extends PageListAction<Community> {
 			this.selectedAdmins.add(adminCommunityRel.getAdmin());
 		}
 		this.selectedPosters = new ArrayList<Poster>();
-		for (PosterCommunityRel posterCommunityRel : this.community.getPosterCommunityRelList()) {
+		for (PosterCommunityRel posterCommunityRel : this.community
+				.getPosterCommunityRelList()) {
 			this.selectedPosters.add(posterCommunityRel.getPoster());
 		}
 	}
@@ -327,13 +332,13 @@ public class AreaAction extends PageListAction<Community> {
 	public void setPosters(PageListDataModel<Poster> posters) {
 		this.posters = posters;
 	}
-	
+
 	public int getPosterPage() {
-		return this.getPosters().getRowIndex()/25+1;
+		return this.getPosters().getRowIndex() / 25 + 1;
 	}
 
 	public void setPosterPage(int page) {
-		this.getPosters().setRowIndex((page-1)*25);
+		this.getPosters().setRowIndex((page - 1) * 25);
 	}
 
 	public List<Poster> getSelectedPosters() {
@@ -343,6 +348,5 @@ public class AreaAction extends PageListAction<Community> {
 	public void setSelectedPosters(List<Poster> selectedPosters) {
 		this.selectedPosters = selectedPosters;
 	}
-	
-	
+
 }

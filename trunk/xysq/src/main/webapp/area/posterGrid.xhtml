@@ -7,7 +7,7 @@
 	xmlns:c="http://java.sun.com/jstl/core"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
 	xmlns:a4j="http://richfaces.org/a4j" id="posterGridPanel"
-	autosized="true">
+	autosized="true" left="300" top="300">
 	<f:facet name="controls">
 		<h:panelGroup>
 			<h:graphicImage value="/img/close.png" styleClass="hidelink"
@@ -38,13 +38,13 @@
 				</rich:panel>
 				<f:facet name="footer">
 					<rich:datascroller for="posterGrid" reRender="posterGrid"
-										ignoreDupResponses="false" renderIfSinglePage="true"
-										maxPages="10" page="#{areaAction.posterPage}" align="left" ajaxSingle="true">
-									</rich:datascroller>
+						ignoreDupResponses="false" renderIfSinglePage="true" maxPages="10"
+						page="#{areaAction.posterPage}" align="left" ajaxSingle="true">
+					</rich:datascroller>
 				</f:facet>
 			</rich:dataGrid>
 			<h:commandButton value="关闭" type="reset"
-					onclick="Richfaces.hideModalPanel('posterGridPanel');" />
+				onclick="Richfaces.hideModalPanel('posterGridPanel');" />
 		</h:panelGrid>
 	</a4j:form>
 </rich:modalPanel>
