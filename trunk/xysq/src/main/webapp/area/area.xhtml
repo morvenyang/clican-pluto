@@ -49,10 +49,19 @@
 									oncomplete="Richfaces.showModalPanel('importExcelPanel');" />
 							</h:panelGroup>
 						</h:panelGrid>
+						
 						<rich:dataTable id="communityTable" var="community"
 							value="#{areaAction.communitiesBySelectedNode}" rows="#{areaAction.pageSize}"
 							rowKeyVar="rowNumIndex" width="100%" activeClass="active-row"
 							enableContextMenu="true">
+							<rich:column>
+								<f:facet name="header">
+									<h:outputText value="选择" />
+								</f:facet>
+								<h:selectBooleanCheckbox value="#{community.selected}">
+									<a4j:support event="onchange" ajaxSingle="true"/>
+								</h:selectBooleanCheckbox>
+							</rich:column>
 							<rich:column>
 								<f:facet name="header">
 									<h:outputText value="Id" />

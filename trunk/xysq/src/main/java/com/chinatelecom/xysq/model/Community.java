@@ -15,29 +15,35 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
+import com.chinatelecom.xysq.api.Selectable;
+
 @Table(name = "COMMUNITY")
 @Entity
-public class Community {
-	
+public class Community implements Selectable{
+
 	private Long id;
-	
+
 	private String name;
-	
+
 	private String pinyin;
-	
+
 	private String detailAddress;
-	
+
 	private Area city;
-	
+
 	private Set<AdminCommunityRel> adminCommunityRelSet;
-	
+
 	private List<PosterCommunityRel> posterCommunityRelList;
 
 	private Set<StoreCommunityRel> storeCommunityRelSet;
+
+	private boolean selected;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "ID")
@@ -48,6 +54,7 @@ public class Community {
 	public void setId(Long id) {
 		this.id = id;
 	}
+
 	@Column
 	public String getName() {
 		return name;
@@ -56,6 +63,7 @@ public class Community {
 	public void setName(String name) {
 		this.name = name;
 	}
+
 	@Column
 	public String getPinyin() {
 		return pinyin;
@@ -65,7 +73,7 @@ public class Community {
 		this.pinyin = pinyin;
 	}
 
-	@Column(length=500)
+	@Column(length = 500)
 	public String getDetailAddress() {
 		return detailAddress;
 	}
@@ -90,10 +98,11 @@ public class Community {
 		return adminCommunityRelSet;
 	}
 
-	public void setAdminCommunityRelSet(Set<AdminCommunityRel> adminCommunityRelSet) {
+	public void setAdminCommunityRelSet(
+			Set<AdminCommunityRel> adminCommunityRelSet) {
 		this.adminCommunityRelSet = adminCommunityRelSet;
 	}
-	
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "community", cascade = CascadeType.REMOVE)
 	@OrderBy("displayIndex")
 	public List<PosterCommunityRel> getPosterCommunityRelList() {
@@ -110,9 +119,18 @@ public class Community {
 		return storeCommunityRelSet;
 	}
 
-	public void setStoreCommunityRelSet(Set<StoreCommunityRel> storeCommunityRelSet) {
+	public void setStoreCommunityRelSet(
+			Set<StoreCommunityRel> storeCommunityRelSet) {
 		this.storeCommunityRelSet = storeCommunityRelSet;
 	}
-	
-	
+
+	@Transient
+	public boolean isSelected() {
+		return selected;
+	}
+
+	public void setSelected(boolean selected) {
+		this.selected = selected;
+	}
+
 }

@@ -12,9 +12,11 @@ public class PageList<T> extends ArrayList<T> {
 	private int maxCount;
 	private int page;
 	private int pageSize;
+	private List<T> dataList;
 
 	public PageList(List<T> list, int page, int pageSize, int maxCount,
 			T mockObject) {
+		this.dataList = list;
 		this.page = page;
 		this.pageSize = pageSize;
 		this.maxCount = maxCount;
@@ -53,6 +55,14 @@ public class PageList<T> extends ArrayList<T> {
 
 	public void setPageSize(int pageSize) {
 		this.pageSize = pageSize;
+	}
+
+	public List<T> getDataList() {
+		return dataList;
+	}
+
+	public void setDataList(List<T> dataList) {
+		this.dataList = dataList;
 	}
 	
 	
