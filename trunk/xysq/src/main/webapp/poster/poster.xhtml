@@ -162,7 +162,10 @@
 								label="#{item.label}" />
 							<s:convertEnum />
 						</h:selectOneMenu>
+						<h:panelGrid columns="2">
+						<h:outputText value="#{posterAction.poster.store.name}" rendered="#{posterAction.poster.store!=null and posterAction.poster.type.value==3}"/>
 						<a4j:commandButton value="选择商家" action="#{posterAction.prepareStores()}" reRender="storeSelectPanel" oncomplete="Richfaces.showModalPanel('storeSelectPanel');" rendered="#{posterAction.poster.type.value==3}"/>
+						</h:panelGrid>
 					</t:panelGroup>
 
 					<h:panelGrid columns="2">
