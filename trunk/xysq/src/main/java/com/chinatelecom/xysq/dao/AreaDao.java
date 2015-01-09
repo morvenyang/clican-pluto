@@ -3,8 +3,11 @@ package com.chinatelecom.xysq.dao;
 import java.util.List;
 
 import com.chinatelecom.xysq.bean.PageList;
+import com.chinatelecom.xysq.model.AdminCommunityRel;
 import com.chinatelecom.xysq.model.Area;
 import com.chinatelecom.xysq.model.Community;
+import com.chinatelecom.xysq.model.PosterCommunityRel;
+import com.chinatelecom.xysq.model.StoreCommunityRel;
 
 public interface AreaDao {
 
@@ -20,5 +23,17 @@ public interface AreaDao {
 	public void saveCommunity(Community community);
 	
 	public Community findCommunityById(Long id);
+	
+	public void deleteAdminCommunityRel(Community community);
+	
+	public void deleteStoreCommunityRel(Community community);
+	
+	public void deletePosterCommunityRel(Community community);
+	
+	public void saveAdminCommunityRel(AdminCommunityRel rel);
+	
+	public void saveStoreCommunityRel(StoreCommunityRel rel);
+	
+	public void savePosterCommunityRel(PosterCommunityRel rel);
 
 }

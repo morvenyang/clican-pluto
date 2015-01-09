@@ -10,8 +10,11 @@ import org.hibernate.Session;
 import org.springframework.orm.hibernate3.HibernateCallback;
 
 import com.chinatelecom.xysq.bean.PageList;
+import com.chinatelecom.xysq.model.AdminCommunityRel;
 import com.chinatelecom.xysq.model.Area;
 import com.chinatelecom.xysq.model.Community;
+import com.chinatelecom.xysq.model.PosterCommunityRel;
+import com.chinatelecom.xysq.model.StoreCommunityRel;
 
 public class AreaDaoImpl extends BaseDao implements
 		com.chinatelecom.xysq.dao.AreaDao {
@@ -80,6 +83,60 @@ public class AreaDaoImpl extends BaseDao implements
 	@Override
 	public Community findCommunityById(Long id) {
 		return (Community) this.getHibernateTemplate().get(Community.class, id);
+	}
+
+	@Override
+	public void deleteAdminCommunityRel(final Community community) {
+		this.getHibernateTemplate().execute(new HibernateCallback(){
+			@Override
+			public Object doInHibernate(Session session)
+					throws HibernateException, SQLException {
+				Query query = session.createQuery("delete from AdminCommunityRel where community.id = :id");
+				query.setParameter("id", community.getId());
+				return query.executeUpdate();
+			}
+		});
+	}
+
+	@Override
+	public void deleteStoreCommunityRel(final Community community) {
+		this.getHibernateTemplate().execute(new HibernateCallback(){
+			@Override
+			public Object doInHibernate(Session session)
+					throws HibernateException, SQLException {
+				Query query = session.createQuery("delete from StoreCommunityRel where community.id = :id");
+				query.setParameter("id", community.getId());
+				return query.executeUpdate();
+			}
+		});
+	}
+
+	@Override
+	public void deletePosterCommunityRel(final Community community) {
+		this.getHibernateTemplate().execute(new HibernateCallback(){
+			@Override
+			public Object doInHibernate(Session session)
+					throws HibernateException, SQLException {
+				Query query = session.createQuery("delete from PosterCommunityRel where community.id = :id");
+				query.setParameter("id", community.getId());
+				return query.executeUpdate();
+			}
+		});
+	}
+
+	@Override
+	public void saveAdminCommunityRel(AdminCommunityRel rel) {
+		this.getHibernateTemplate().saveOrUpdate(rel);
+	}
+
+	@Override
+	public void saveStoreCommunityRel(StoreCommunityRel rel) {
+		this.getHibernateTemplate().saveOrUpdate(rel);
+	}
+
+	@Override
+	public void savePosterCommunityRel(PosterCommunityRel rel) {
+		this.getHibernateTemplate().saveOrUpdate(rel);
 	}
 
 }
