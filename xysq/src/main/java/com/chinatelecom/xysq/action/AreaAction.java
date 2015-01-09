@@ -32,6 +32,7 @@ import com.chinatelecom.xysq.model.Area;
 import com.chinatelecom.xysq.model.Community;
 import com.chinatelecom.xysq.model.Poster;
 import com.chinatelecom.xysq.model.PosterCommunityRel;
+import com.chinatelecom.xysq.model.Store;
 import com.chinatelecom.xysq.model.User;
 
 @Scope(ScopeType.PAGE)
@@ -134,6 +135,19 @@ public class AreaAction extends PageListAction<Community> {
 		for (User user : users) {
 			SuggestionBean ps = new SuggestionBean(user.getId(),
 					user.getUserName());
+			suggestionBeans.add(ps);
+		}
+		return suggestionBeans;
+
+	}
+	
+	public List<SuggestionBean> autoCompleteStores(Object suggest) {
+		List<Store> stores = this.getStoreService().findStores(
+				this.getIdentity().getUser().getId(), (String) suggest);
+		List<SuggestionBean> suggestionBeans = new ArrayList<SuggestionBean>();
+		for (Store store : stores) {
+			SuggestionBean ps = new SuggestionBean(store.getId(),
+					store.getName());
 			suggestionBeans.add(ps);
 		}
 		return suggestionBeans;
