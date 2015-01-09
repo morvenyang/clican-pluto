@@ -16,7 +16,6 @@ import org.richfaces.model.UploadItem;
 
 import com.chinatelecom.xysq.bean.PageList;
 import com.chinatelecom.xysq.bean.PageListDataModel;
-import com.chinatelecom.xysq.model.Area;
 import com.chinatelecom.xysq.model.Image;
 import com.chinatelecom.xysq.model.Store;
 import com.chinatelecom.xysq.util.StringUtils;
@@ -28,13 +27,12 @@ public class StoreAction extends PageListAction<Store> {
 
 	private PageListDataModel<Store> storeDataModel;
 	
-	private List<Area> areaTrees;
-
 	private Store store;
+	
+	private Store selectedStore;
 
 	public void listStores() {
 		this.refresh();
-		this.areaTrees = this.getAreaService().getAreaTrees();
 	}
 
 	private void refresh() {
@@ -48,6 +46,9 @@ public class StoreAction extends PageListAction<Store> {
 		
 	}
 
+	public void selectStore(Store store){
+		this.selectedStore = store;
+	}
 	public void addStore() {
 		this.store = new Store();
 		this.store.setOwner(this.getIdentity().getUser());
@@ -119,12 +120,12 @@ public class StoreAction extends PageListAction<Store> {
 		this.store = store;
 	}
 
-	public List<Area> getAreaTrees() {
-		return areaTrees;
+	public Store getSelectedStore() {
+		return selectedStore;
 	}
 
-	public void setAreaTrees(List<Area> areaTrees) {
-		this.areaTrees = areaTrees;
+	public void setSelectedStore(Store selectedStore) {
+		this.selectedStore = selectedStore;
 	}
 
 }

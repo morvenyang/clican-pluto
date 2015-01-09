@@ -32,6 +32,15 @@
 						</rich:column>
 						<rich:column>
 							<f:facet name="header">
+								<h:outputText value="创建时间" />
+							</f:facet>
+							<h:outputText value="#{store.createTime}"
+								style="white-space:nowrap;">
+								<s:convertDateTime pattern="yyyy-MM-dd" />
+							</h:outputText>
+						</rich:column>
+						<rich:column>
+							<f:facet name="header">
 								<h:outputText value="提交人" />
 							</f:facet>
 							<h:outputText value="#{store.owner.userName}"

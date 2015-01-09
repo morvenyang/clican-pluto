@@ -35,8 +35,10 @@ public class PosterAction extends PageListAction<Poster> {
 
 	@In(required = true)
 	FacesMessages statusMessages;
-
+	
 	private PageListDataModel<Poster> posterDataModel;
+	
+	private PageListDataModel<Store> storeDataModel;
 
 	private List<Area> areaTrees;
 
@@ -137,6 +139,15 @@ public class PosterAction extends PageListAction<Poster> {
 		this.getPosterService().savePoster(poster);
 		this.refresh();
 	}
+	
+	public void prepareStores(){
+		storeDataModel = new PageListDataModel<Store>(PAGE_SIZE) {
+			@Override
+			public PageList<Store> fetchPage(int page, int pageSize) {
+				return getStoreService().findStoreByOwner(null, 1, PAGE_SIZE);
+			}
+		};
+	}
 
 	public PageListDataModel<Poster> getPosterDataModel() {
 		return posterDataModel;
@@ -199,4 +210,19 @@ public class PosterAction extends PageListAction<Poster> {
 		this.innerModules = innerModules;
 	}
 
+	public PageListDataModel<Store> getStoreDataModel() {
+		return storeDataModel;
+	}
+
+	public void setStoreDataModel(PageListDataModel<Store> storeDataModel) {
+		this.storeDataModel = storeDataModel;
+	}
+	
+	public int getStorePage() {
+		return this.storeDataModel.getRowIndex()/PAGE_SIZE+1;
+	}
+
+	public void setStorePage(int page) {
+		this.storeDataModel.setRowIndex((page-1)*PAGE_SIZE);
+	}
 }
