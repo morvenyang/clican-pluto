@@ -84,6 +84,14 @@
 										action="#{areaAction.deleteCommunity(community)}" ajaxSingle="true"
 										onclick="var answer=confirm('确认删除该小区?');if(!answer) return false;"
 										reRender="communityTable" />
+									<a4j:commandButton value="公告"
+										action="#{areaAction.listAnnouncement(community)}" ajaxSingle="true"
+										reRender="announcementAndNoticePanel"
+										oncomplete="Richfaces.showModalPanel('announcementAndNoticePanel');" />
+									<a4j:commandButton value="须知"
+										action="#{areaAction.listNotice(community)}" ajaxSingle="true"
+										reRender="announcementAndNoticePanel"
+										oncomplete="Richfaces.showModalPanel('announcementAndNoticePanel');" />
 								</h:panelGrid>
 							</rich:column>
 							<f:facet name="footer">
