@@ -1,5 +1,6 @@
 package com.chinatelecom.xysq.bean;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -35,13 +36,12 @@ public abstract class PageListDataModel<T> extends DataModel {
 		this.rowIndex = 0;
 
 		this.pageQueryResult = null;
+		
+		this.selectedIds = new HashSet<Long>();
 
 	}
 
-	public PageListDataModel(int pageSize, Set<Long> selectedIds) {
-		this(pageSize);
-		this.selectedIds = selectedIds;
-	}
+	
 
 	/**
 	 * 数据是通过一个回调fetchData方法获取，而不是明确指定一个列表
@@ -196,6 +196,23 @@ public abstract class PageListDataModel<T> extends DataModel {
 			this.pageQueryResult = null;
 			getPage();
 		}
+	}
+	
+	public Set<Long> getSelectedIds(){
+		List<T> dataList = null;
+		if(pageQueryResult!=null){
+			dataList=pageQueryResult.getDataList();
+			for (T t : dataList) {
+				if (t instanceof Selectable) {
+					if(((Selectable)t).isSelected()){
+						this.selectedIds.add(((Selectable)t).getId());
+					}else{
+						this.selectedIds.remove(((Selectable)t).getId());
+					}
+				}
+			}
+		}
+		return this.selectedIds;
 	}
 
 }
