@@ -95,11 +95,11 @@
 										reRender="communityTable" />
 									<a4j:commandButton value="公告"
 										action="#{areaAction.listAnnouncement(community)}" ajaxSingle="true"
-										reRender="announcementAndNoticePanel"
+										reRender="announcementAndNoticeTablePanel"
 										oncomplete="Richfaces.showModalPanel('announcementAndNoticeTablePanel');" />
 									<a4j:commandButton value="须知"
 										action="#{areaAction.listNotice(community)}" ajaxSingle="true"
-										reRender="announcementAndNoticePanel"
+										reRender="announcementAndNoticeTablePanel"
 										oncomplete="Richfaces.showModalPanel('announcementAndNoticeTablePanel');" />
 								</h:panelGrid>
 							</rich:column>
