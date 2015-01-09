@@ -16,10 +16,13 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.jboss.seam.ScopeType;
+import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.annotations.intercept.BypassInterceptors;
 import org.jboss.seam.annotations.security.Restrict;
+import org.jboss.seam.faces.FacesMessages;
+import org.jboss.seam.international.StatusMessage.Severity;
 import org.richfaces.event.UploadEvent;
 import org.richfaces.model.UploadItem;
 
@@ -41,6 +44,9 @@ import com.chinatelecom.xysq.model.User;
 @Name("areaAction")
 @Restrict(value = "#{identity.isLoggedIn(true)}")
 public class AreaAction extends PageListAction<Community> {
+
+	@In(required = true)
+	FacesMessages statusMessages;
 
 	private List<Area> areaTrees;
 
@@ -68,6 +74,8 @@ public class AreaAction extends PageListAction<Community> {
 	private boolean announcement = false;
 
 	private List<AnnouncementAndNotice> announcementAndNotices;
+
+	private AnnouncementAndNotice announcementAndNotice;
 
 	public void listAreaTrees() {
 		this.page = 1;
@@ -208,6 +216,16 @@ public class AreaAction extends PageListAction<Community> {
 	public void deleteCommunity(Community community) {
 		this.getAreaService().deleteCommunity(community);
 		this.refresh();
+	}
+
+	public void publishAnnouncement() {
+		this.announcementAndNotice = new AnnouncementAndNotice();
+		if (this.getDefaultDataModel().getSelectedIds().size() == 0) {
+			this.statusMessages.addToControl("communityTablePanel",
+					Severity.ERROR, "请先选择要发布公告的小区");
+			return;
+		}
+		
 	}
 
 	public synchronized void importExcel(UploadEvent event) {
@@ -459,6 +477,15 @@ public class AreaAction extends PageListAction<Community> {
 	public void setAnnouncementAndNotices(
 			List<AnnouncementAndNotice> announcementAndNotices) {
 		this.announcementAndNotices = announcementAndNotices;
+	}
+
+	public AnnouncementAndNotice getAnnouncementAndNotice() {
+		return announcementAndNotice;
+	}
+
+	public void setAnnouncementAndNotice(
+			AnnouncementAndNotice announcementAndNotice) {
+		this.announcementAndNotice = announcementAndNotice;
 	}
 
 }
