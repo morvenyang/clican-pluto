@@ -10,8 +10,14 @@ import org.apache.commons.lang.StringUtils;
 
 import com.chinatelecom.xysq.bean.PageList;
 import com.chinatelecom.xysq.dao.AreaDao;
+import com.chinatelecom.xysq.model.AdminCommunityRel;
 import com.chinatelecom.xysq.model.Area;
 import com.chinatelecom.xysq.model.Community;
+import com.chinatelecom.xysq.model.Poster;
+import com.chinatelecom.xysq.model.PosterCommunityRel;
+import com.chinatelecom.xysq.model.Store;
+import com.chinatelecom.xysq.model.StoreCommunityRel;
+import com.chinatelecom.xysq.model.User;
 import com.chinatelecom.xysq.service.AreaService;
 import com.github.stuxuhai.jpinyin.PinyinHelper;
 
@@ -100,6 +106,37 @@ public class AreaServiceImpl implements AreaService {
 	@Override
 	public Community findCommunityById(Long id) {
 		return this.areaDao.findCommunityById(id);
+	}
+
+	@Override
+	public void saveComminity(Community community, List<User> admins,
+			List<Store> stores, List<Poster> posters) {
+		if(community.getId()!=null){
+			this.areaDao.deleteAdminCommunityRel(community);
+			this.areaDao.deletePosterCommunityRel(community);
+			this.areaDao.deleteStoreCommunityRel(community);
+		}
+		this.areaDao.saveCommunity(community);
+		for(User user:admins){
+			AdminCommunityRel acr = new AdminCommunityRel();
+			acr.setAdmin(user);
+			acr.setCommunity(community);
+			this.areaDao.saveAdminCommunityRel(acr);
+		}
+		for(Store store:stores){
+			StoreCommunityRel scr = new StoreCommunityRel();
+			scr.setStore(store);
+			scr.setCommunity(community);
+			this.areaDao.saveStoreCommunityRel(scr);
+		}
+		for(int i=0;i<posters.size();i++){
+			Poster poster = posters.get(i);
+			PosterCommunityRel pcr = new PosterCommunityRel();
+			pcr.setPoster(poster);
+			pcr.setDisplayIndex(i);
+			pcr.setCommunity(community);
+			this.areaDao.savePosterCommunityRel(pcr);
+		}
 	}
 
 }

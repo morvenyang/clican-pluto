@@ -58,7 +58,7 @@ public class AreaAction extends PageListAction<Community> {
 	private List<User> selectedAdmins;
 
 	private PageListDataModel<Poster> posterDataModel;
-	
+
 	private PageListDataModel<Store> storeDataModel;
 
 	private List<Poster> selectedPosters;
@@ -72,7 +72,7 @@ public class AreaAction extends PageListAction<Community> {
 		} else {
 			selectedArea = null;
 		}
-		
+
 		this.refresh();
 	}
 
@@ -90,7 +90,7 @@ public class AreaAction extends PageListAction<Community> {
 	public void unselectPoster(Poster poster) {
 		this.selectedPosters.remove(poster);
 	}
-	
+
 	public void selectStore(Store store) {
 		if (!this.selectedStores.contains(store)) {
 			this.selectedStores.add(store);
@@ -100,8 +100,8 @@ public class AreaAction extends PageListAction<Community> {
 	public void unselectStore(Store store) {
 		this.selectedStores.remove(store);
 	}
-	
-	public void prepareStores(){
+
+	public void prepareStores() {
 		storeDataModel = new PageListDataModel<Store>(PAGE_SIZE) {
 			@Override
 			public PageList<Store> fetchPage(int page, int pageSize) {
@@ -109,8 +109,8 @@ public class AreaAction extends PageListAction<Community> {
 			}
 		};
 	}
-	
-	public void preparePosters(){
+
+	public void preparePosters() {
 		this.posterDataModel = new PageListDataModel<Poster>(25) {
 			@Override
 			public PageList<Poster> fetchPage(int page, int pageSize) {
@@ -173,7 +173,7 @@ public class AreaAction extends PageListAction<Community> {
 		return suggestionBeans;
 
 	}
-	
+
 	public List<SuggestionBean> autoCompleteStores(Object suggest) {
 		List<Store> stores = this.getStoreService().findStores(
 				this.getIdentity().getUser().getId(), (String) suggest);
@@ -197,7 +197,8 @@ public class AreaAction extends PageListAction<Community> {
 	}
 
 	public void saveCommunity() {
-
+		this.getAreaService().saveComminity(community, this.selectedAdmins,
+				this.selectedStores, this.selectedPosters);
 	}
 
 	public synchronized void importExcel(UploadEvent event) {
@@ -372,7 +373,6 @@ public class AreaAction extends PageListAction<Community> {
 		this.selectedAdmins = selectedAdmins;
 	}
 
-
 	public PageListDataModel<Poster> getPosterDataModel() {
 		return posterDataModel;
 	}
@@ -388,7 +388,7 @@ public class AreaAction extends PageListAction<Community> {
 	public void setPosterPage(int page) {
 		this.getPosterDataModel().setRowIndex((page - 1) * 25);
 	}
-	
+
 	public int getStorePage() {
 		return this.getStoreDataModel().getRowIndex() / 25 + 1;
 	}
@@ -420,7 +420,5 @@ public class AreaAction extends PageListAction<Community> {
 	public void setSelectedStores(List<Store> selectedStores) {
 		this.selectedStores = selectedStores;
 	}
-
-	
 
 }
