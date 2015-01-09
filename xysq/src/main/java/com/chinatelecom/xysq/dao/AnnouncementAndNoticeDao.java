@@ -12,4 +12,7 @@ public interface AnnouncementAndNoticeDao {
 
 	public void saveAnnouncementAndNotice(
 			AnnouncementAndNotice announcementAndNotice);
+	
+	public void deleteAnnouncementAndNotice(
+			AnnouncementAndNotice announcementAndNotice);
 }

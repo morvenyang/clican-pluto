@@ -219,6 +219,17 @@ public class AreaAction extends PageListAction<Community> {
 		this.refresh();
 	}
 
+	public void editAnnouncementAndNotice(
+			AnnouncementAndNotice announcementAndNotice) {
+		this.announcementAndNotice = announcementAndNotice;
+	}
+	
+	public void deleteAnnouncementAndNotice(
+			AnnouncementAndNotice announcementAndNotice) {
+		this.getAnnouncementAndNoticeService().deleteAnnouncementAndNotice(
+				announcementAndNotice);
+	}
+
 	public void publishAnnouncement() {
 		if (this.getDefaultDataModel().getSelectedIds().size() == 0) {
 			this.statusMessages.addToControl("communityTablePanel",
@@ -230,7 +241,7 @@ public class AreaAction extends PageListAction<Community> {
 		this.announcementAndNotice.setSubmitter(this.getIdentity().getUser());
 		this.announcement = true;
 	}
-	
+
 	public void publishNotice() {
 		if (this.getDefaultDataModel().getSelectedIds().size() == 0) {
 			this.statusMessages.addToControl("communityTablePanel",
@@ -242,9 +253,16 @@ public class AreaAction extends PageListAction<Community> {
 		this.announcementAndNotice.setSubmitter(this.getIdentity().getUser());
 		this.announcement = false;
 	}
-	
-	public void saveAnnouncementAndNotice(){
-		this.getAnnouncementAndNoticeService().publishAnnouncementAndNotice(announcementAndNotice, this.getDefaultDataModel().getSelectedIds());
+
+	public void saveAnnouncementAndNotice() {
+		if (announcementAndNotice.getId() == null) {
+			this.getAnnouncementAndNoticeService()
+					.publishAnnouncementAndNotice(announcementAndNotice,
+							this.getDefaultDataModel().getSelectedIds());
+		} else {
+			this.getAnnouncementAndNoticeService().saveAnnouncementAndNotice(
+					announcementAndNotice);
+		}
 	}
 
 	public synchronized void importExcel(UploadEvent event) {

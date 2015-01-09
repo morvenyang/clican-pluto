@@ -40,6 +40,16 @@ public class AnnouncementAndNoticeServiceImpl implements
 				announcement);
 	}
 
+	public void saveAnnouncementAndNotice(AnnouncementAndNotice announcementAndNotice){
+		announcementAndNoticeDao.saveAnnouncementAndNotice(announcementAndNotice);
+	}
+	
+	@Override
+	public void deleteAnnouncementAndNotice(
+			AnnouncementAndNotice announcementAndNotice) {
+		announcementAndNoticeDao.deleteAnnouncementAndNotice(announcementAndNotice);
+	}
+
 	@Override
 	public void publishAnnouncementAndNotice(
 			AnnouncementAndNotice announcementAndNotice, Set<Long> communityIds) {

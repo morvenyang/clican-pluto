@@ -30,4 +30,10 @@ public class AnnouncementAndNoticeDaoImpl extends BaseDao implements
 		this.getHibernateTemplate().saveOrUpdate(announcementAndNotice);
 	}
 
+	@Override
+	public void deleteAnnouncementAndNotice(
+			AnnouncementAndNotice announcementAndNotice) {
+		this.getHibernateTemplate().delete(announcementAndNotice);
+	}
+
 }

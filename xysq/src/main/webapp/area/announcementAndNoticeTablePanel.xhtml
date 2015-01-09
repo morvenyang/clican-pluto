@@ -69,8 +69,14 @@
 							</f:facet>
 							<h:panelGrid columns="3">
 								<a4j:commandButton value="删除"
-									action="#{areaAction.delete(announcementAndNotice)}" ajaxSingle="true"
-									reRender="announcementAndNoticeTable" onclick="var answer=confirm('确认删除该公告?');if(!answer) return false;"/>
+									action="#{areaAction.deleteAnnouncementAndNotice(announcementAndNotice)}" ajaxSingle="true"
+									reRender="announcementAndNoticeTable" onclick="var answer=confirm('确认删除该公告?');if(!answer) return false;" rendered="#{areaAction.announcement}"/>
+								<a4j:commandButton value="删除"
+									action="#{areaAction.deleteAnnouncementAndNotice(announcementAndNotice)}" ajaxSingle="true"
+									reRender="announcementAndNoticeTable" onclick="var answer=confirm('确认删除该业主须知?');if(!answer) return false;" rendered="#{!areaAction.announcement}"/>
+								<a4j:commandButton value="编辑"
+									action="#{areaAction.editAnnouncementAndNotice(announcementAndNotice)}" ajaxSingle="true"
+									reRender="announcementAndNoticePanel" oncomplete="Richfaces.showModalPanel('announcementAndNoticePanel');"/>
 							</h:panelGrid>
 						</rich:column>
 						<f:facet name="footer">
