@@ -30,6 +30,8 @@ import com.chinatelecom.xysq.bean.SuggestionBean;
 import com.chinatelecom.xysq.model.AdminCommunityRel;
 import com.chinatelecom.xysq.model.Area;
 import com.chinatelecom.xysq.model.Community;
+import com.chinatelecom.xysq.model.Poster;
+import com.chinatelecom.xysq.model.PosterCommunityRel;
 import com.chinatelecom.xysq.model.User;
 
 @Scope(ScopeType.PAGE)
@@ -52,22 +54,37 @@ public class AreaAction extends PageListAction<Community> {
 	private Long selectedAdminId;
 
 	private List<User> selectedAdmins;
+	
+	private PageListDataModel<Poster> posters;
+	
+	private List<Poster> selectedPosters;
 
 	public void listAreaTrees() {
 		this.page = 1;
 		this.areaTrees = this.getAreaService().getAreaTrees();
 		if (this.areaTrees.size() != 0) {
 			selectedArea = this.areaTrees.get(0);
-
 		} else {
 			selectedArea = null;
 		}
+		this.posters = new PageListDataModel<Poster>(25){
+			@Override
+			public PageList<Poster> fetchPage(int page, int pageSize) {
+				return getPosterService().findPoster(page, pageSize);
+			}
+		};
 		this.refresh();
 	}
 
 	public void selectArea(Area area) {
 		this.selectedArea = area;
 		this.refresh();
+	}
+	
+	public void selectPoster(Poster poster){
+		if(!this.selectedPosters.contains(poster)){
+			this.selectedPosters.add(poster);
+		}
 	}
 
 	private void refresh() {
@@ -88,6 +105,7 @@ public class AreaAction extends PageListAction<Community> {
 	public void addCommunity() {
 		this.community = new Community();
 		this.selectedAdmins = new ArrayList<User>();
+		this.selectedPosters = new ArrayList<Poster>();
 	}
 
 	public void editCommunity(Community community) {
@@ -97,6 +115,10 @@ public class AreaAction extends PageListAction<Community> {
 		for (AdminCommunityRel adminCommunityRel : this.community
 				.getAdminCommunityRelSet()) {
 			this.selectedAdmins.add(adminCommunityRel.getAdmin());
+		}
+		this.selectedPosters = new ArrayList<Poster>();
+		for (PosterCommunityRel posterCommunityRel : this.community.getPosterCommunityRelList()) {
+			this.selectedPosters.add(posterCommunityRel.getPoster());
 		}
 	}
 
@@ -298,4 +320,29 @@ public class AreaAction extends PageListAction<Community> {
 		this.selectedAdmins = selectedAdmins;
 	}
 
+	public PageListDataModel<Poster> getPosters() {
+		return posters;
+	}
+
+	public void setPosters(PageListDataModel<Poster> posters) {
+		this.posters = posters;
+	}
+	
+	public int getPosterPage() {
+		return this.getPosters().getRowIndex()/25+1;
+	}
+
+	public void setPosterPage(int page) {
+		this.getPosters().setRowIndex((page-1)*25);
+	}
+
+	public List<Poster> getSelectedPosters() {
+		return selectedPosters;
+	}
+
+	public void setSelectedPosters(List<Poster> selectedPosters) {
+		this.selectedPosters = selectedPosters;
+	}
+	
+	
 }

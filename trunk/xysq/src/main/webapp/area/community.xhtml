@@ -76,6 +76,26 @@
 			</h:panelGrid>
 			<h:outputLabel value=""/>
 			<h:outputLabel value=""/>
+			
+			<a4j:commandButton value="选择海报" ajaxSingle="true" reRender="posterGridPanel"
+										oncomplete="Richfaces.showModalPanel('posterGridPanel');" />
+			<h:outputLabel value=""/>
+			<h:outputLabel value=""/>
+			<rich:dataGrid id="selectedPosterGrid" value="#{areaAction.selectedPosters}"
+				var="poster" columns="4" frame="void">
+				<rich:panel bodyClass="pbody" style="border:0;">
+					<f:facet name="header">
+						<h:outputText value="#{poster.name}"></h:outputText>
+					</f:facet>
+					<h:graphicImage value="/image.do?imagePath=#{poster.image.path}"
+						width="150" height="150">
+					</h:graphicImage>
+				</rich:panel>
+			</rich:dataGrid>
+			<h:outputLabel value=""/>
+			<h:outputLabel value=""/>
+			
+			
 			<h:panelGrid columns="2">
 				<a4j:commandButton value="保存"
 					action="#{areaAction.saveCommunity()}"

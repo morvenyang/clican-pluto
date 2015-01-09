@@ -95,7 +95,7 @@ public class Community {
 	}
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "community", cascade = CascadeType.REMOVE)
-	@OrderBy("index")
+	@OrderBy("displayIndex")
 	public List<PosterCommunityRel> getPosterCommunityRelList() {
 		return posterCommunityRelList;
 	}
