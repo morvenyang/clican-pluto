@@ -24,7 +24,7 @@
 	<a4j:form id="posterGridForm">
 		<h:panelGrid columns="1" width="600">
 			<rich:dataGrid id="posterGrid" value="#{areaAction.posterDataModel}"
-				var="poster" columns="4" frame="void">
+				var="poster" columns="4" frame="void" rendered="#{areaAction.posterDataModel!=null}">
 				<rich:panel bodyClass="pbody" style="border:0;">
 					<f:facet name="header">
 						<h:outputText value="#{poster.name}"></h:outputText>
