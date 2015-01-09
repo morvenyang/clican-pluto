@@ -19,5 +19,7 @@
 	<bean id="storeDao" class="com.chinatelecom.xysq.dao.impl.StoreDaoImpl"
 		autowire="byName" />
 	<bean id="posterDao" class="com.chinatelecom.xysq.dao.impl.PosterDaoImpl"
-		autowire="byName" />		
+		autowire="byName" />
+	<bean id="announcementAndNoticeDao" class="com.chinatelecom.xysq.dao.impl.AnnouncementAndNoticeDaoImpl"
+		autowire="byName" />			
 </beans>
