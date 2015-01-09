@@ -33,6 +33,7 @@ import com.chinatelecom.xysq.model.Community;
 import com.chinatelecom.xysq.model.Poster;
 import com.chinatelecom.xysq.model.PosterCommunityRel;
 import com.chinatelecom.xysq.model.Store;
+import com.chinatelecom.xysq.model.StoreCommunityRel;
 import com.chinatelecom.xysq.model.User;
 
 @Scope(ScopeType.PAGE)
@@ -56,9 +57,12 @@ public class AreaAction extends PageListAction<Community> {
 
 	private List<User> selectedAdmins;
 
-	private PageListDataModel<Poster> posters;
+	private PageListDataModel<Poster> posterDataModel;
+	
+	private PageListDataModel<Store> storeDataModel;
 
 	private List<Poster> selectedPosters;
+	private List<Store> selectedStores;
 
 	public void listAreaTrees() {
 		this.page = 1;
@@ -68,12 +72,7 @@ public class AreaAction extends PageListAction<Community> {
 		} else {
 			selectedArea = null;
 		}
-		this.posters = new PageListDataModel<Poster>(25) {
-			@Override
-			public PageList<Poster> fetchPage(int page, int pageSize) {
-				return getPosterService().findPoster(page, pageSize);
-			}
-		};
+		
 		this.refresh();
 	}
 
@@ -90,6 +89,34 @@ public class AreaAction extends PageListAction<Community> {
 
 	public void unselectPoster(Poster poster) {
 		this.selectedPosters.remove(poster);
+	}
+	
+	public void selectStore(Store store) {
+		if (!this.selectedStores.contains(store)) {
+			this.selectedStores.add(store);
+		}
+	}
+
+	public void unselectStore(Store store) {
+		this.selectedStores.remove(store);
+	}
+	
+	public void prepareStores(){
+		storeDataModel = new PageListDataModel<Store>(PAGE_SIZE) {
+			@Override
+			public PageList<Store> fetchPage(int page, int pageSize) {
+				return getStoreService().findStoreByOwner(null, 1, PAGE_SIZE);
+			}
+		};
+	}
+	
+	public void preparePosters(){
+		this.posterDataModel = new PageListDataModel<Poster>(25) {
+			@Override
+			public PageList<Poster> fetchPage(int page, int pageSize) {
+				return getPosterService().findPoster(page, pageSize);
+			}
+		};
 	}
 
 	private void refresh() {
@@ -111,6 +138,7 @@ public class AreaAction extends PageListAction<Community> {
 		this.community = new Community();
 		this.selectedAdmins = new ArrayList<User>();
 		this.selectedPosters = new ArrayList<Poster>();
+		this.selectedStores = new ArrayList<Store>();
 	}
 
 	public void editCommunity(Community community) {
@@ -125,6 +153,11 @@ public class AreaAction extends PageListAction<Community> {
 		for (PosterCommunityRel posterCommunityRel : this.community
 				.getPosterCommunityRelList()) {
 			this.selectedPosters.add(posterCommunityRel.getPoster());
+		}
+		this.selectedStores = new ArrayList<Store>();
+		for (StoreCommunityRel storeCommunityRel : this.community
+				.getStoreCommunityRelSet()) {
+			this.selectedStores.add(storeCommunityRel.getStore());
 		}
 	}
 
@@ -339,20 +372,29 @@ public class AreaAction extends PageListAction<Community> {
 		this.selectedAdmins = selectedAdmins;
 	}
 
-	public PageListDataModel<Poster> getPosters() {
-		return posters;
+
+	public PageListDataModel<Poster> getPosterDataModel() {
+		return posterDataModel;
 	}
 
-	public void setPosters(PageListDataModel<Poster> posters) {
-		this.posters = posters;
+	public void setPosterDataModel(PageListDataModel<Poster> posterDataModel) {
+		this.posterDataModel = posterDataModel;
 	}
 
 	public int getPosterPage() {
-		return this.getPosters().getRowIndex() / 25 + 1;
+		return this.getPosterDataModel().getRowIndex() / 25 + 1;
 	}
 
 	public void setPosterPage(int page) {
-		this.getPosters().setRowIndex((page - 1) * 25);
+		this.getPosterDataModel().setRowIndex((page - 1) * 25);
+	}
+	
+	public int getStorePage() {
+		return this.getStoreDataModel().getRowIndex() / 25 + 1;
+	}
+
+	public void setStorePage(int page) {
+		this.getStoreDataModel().setRowIndex((page - 1) * 25);
 	}
 
 	public List<Poster> getSelectedPosters() {
@@ -362,5 +404,23 @@ public class AreaAction extends PageListAction<Community> {
 	public void setSelectedPosters(List<Poster> selectedPosters) {
 		this.selectedPosters = selectedPosters;
 	}
+
+	public PageListDataModel<Store> getStoreDataModel() {
+		return storeDataModel;
+	}
+
+	public void setStoreDataModel(PageListDataModel<Store> storeDataModel) {
+		this.storeDataModel = storeDataModel;
+	}
+
+	public List<Store> getSelectedStores() {
+		return selectedStores;
+	}
+
+	public void setSelectedStores(List<Store> selectedStores) {
+		this.selectedStores = selectedStores;
+	}
+
+	
 
 }
