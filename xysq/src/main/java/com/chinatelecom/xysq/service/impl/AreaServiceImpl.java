@@ -80,6 +80,11 @@ public class AreaServiceImpl implements AreaService {
 	}
 
 	@Override
+	public void deleteCommunity(Community community) {
+		this.areaDao.deleteCommunity(community);
+	}
+
+	@Override
 	public void mergeCommunities(Map<String, List<Community>> communityMap,
 			Map<String, Area> areaMap) {
 		for (String areaFullName : communityMap.keySet()) {
@@ -116,7 +121,7 @@ public class AreaServiceImpl implements AreaService {
 			this.areaDao.deletePosterCommunityRel(community);
 			this.areaDao.deleteStoreCommunityRel(community);
 		}
-		this.areaDao.saveCommunity(community);
+		saveCommunity(community);
 		for(User user:admins){
 			AdminCommunityRel acr = new AdminCommunityRel();
 			acr.setAdmin(user);
