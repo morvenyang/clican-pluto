@@ -20,6 +20,8 @@ public interface AreaService {
 	public Map<String, Area> mergeAreas(List<String> fullNames);
 
 	public void saveCommunity(Community community);
+	
+	public void deleteCommunity(Community community);
 
 	public void mergeCommunities(Map<String, List<Community>> communityMap,
 			Map<String, Area> areaMap);

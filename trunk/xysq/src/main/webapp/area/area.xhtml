@@ -21,16 +21,16 @@
 								onmouseout="this.style.cursor='default'" style="font-size:15px">
 								<a4j:support event="onclick"
 									action="#{areaAction.selectArea(area)}"
-									reRender="areaTablePanel" />
+									reRender="communityTablePanel" />
 							</h:outputLabel>
 						</rich:treeNode>
 					</rich:recursiveTreeNodesAdaptor>
 				</rich:tree>
-				<rich:panel id="areaTablePanel"
+				<rich:panel id="communityTablePanel"
 					style="left-margin:10px;border:0;width:100%">
 					<rich:messages style="color:red" showDetail="false"
 						showSummary="true" />
-					<h:panelGrid id="areaPanelGrid" style="width:100%">
+					<h:panelGrid id="communityPanelGrid" style="width:100%">
 						<h:panelGrid columns="4" style="text-align:right;width:100%">
 							<h:panelGroup>
 								<a4j:commandButton
@@ -83,7 +83,7 @@
 									<a4j:commandButton value="删除"
 										action="#{areaAction.deleteCommunity(community)}" ajaxSingle="true"
 										onclick="var answer=confirm('确认删除该小区?');if(!answer) return false;"
-										reRender="areaTable" />
+										reRender="communityTable" />
 								</h:panelGrid>
 							</rich:column>
 							<f:facet name="footer">

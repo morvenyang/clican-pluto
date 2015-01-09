@@ -24,6 +24,8 @@ public interface AreaDao {
 	
 	public Community findCommunityById(Long id);
 	
+	public void deleteCommunity(Community community);
+	
 	public void deleteAdminCommunityRel(Community community);
 	
 	public void deleteStoreCommunityRel(Community community);

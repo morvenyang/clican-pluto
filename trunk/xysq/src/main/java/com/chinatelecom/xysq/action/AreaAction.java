@@ -200,6 +200,11 @@ public class AreaAction extends PageListAction<Community> {
 		this.getAreaService().saveComminity(community, this.selectedAdmins,
 				this.selectedStores, this.selectedPosters);
 	}
+	
+	public void deleteCommunity(Community community) {
+		this.getAreaService().deleteCommunity(community);
+		this.refresh();
+	}
 
 	public synchronized void importExcel(UploadEvent event) {
 		if (log.isDebugEnabled()) {
