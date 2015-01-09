@@ -3,6 +3,7 @@ package com.chinatelecom.xysq.dao.impl;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -85,6 +86,15 @@ public class AreaDaoImpl extends BaseDao implements
 		return (Community) this.getHibernateTemplate().get(Community.class, id);
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Community> findCommunityByIds(Set<Long> ids) {
+		String hsql = "from Community where id in (:ids)";
+		List<Community> result = this.getHibernateTemplate().findByNamedParam(
+				hsql, "ids", ids);
+		return result;
+	}
+
 	@Override
 	public void deleteCommunity(Community community) {
 		this.getHibernateTemplate().delete(community);
@@ -92,11 +102,12 @@ public class AreaDaoImpl extends BaseDao implements
 
 	@Override
 	public void deleteAdminCommunityRel(final Community community) {
-		this.getHibernateTemplate().execute(new HibernateCallback(){
+		this.getHibernateTemplate().execute(new HibernateCallback() {
 			@Override
 			public Object doInHibernate(Session session)
 					throws HibernateException, SQLException {
-				Query query = session.createQuery("delete from AdminCommunityRel where community.id = :id");
+				Query query = session
+						.createQuery("delete from AdminCommunityRel where community.id = :id");
 				query.setParameter("id", community.getId());
 				return query.executeUpdate();
 			}
@@ -105,11 +116,12 @@ public class AreaDaoImpl extends BaseDao implements
 
 	@Override
 	public void deleteStoreCommunityRel(final Community community) {
-		this.getHibernateTemplate().execute(new HibernateCallback(){
+		this.getHibernateTemplate().execute(new HibernateCallback() {
 			@Override
 			public Object doInHibernate(Session session)
 					throws HibernateException, SQLException {
-				Query query = session.createQuery("delete from StoreCommunityRel where community.id = :id");
+				Query query = session
+						.createQuery("delete from StoreCommunityRel where community.id = :id");
 				query.setParameter("id", community.getId());
 				return query.executeUpdate();
 			}
@@ -118,11 +130,12 @@ public class AreaDaoImpl extends BaseDao implements
 
 	@Override
 	public void deletePosterCommunityRel(final Community community) {
-		this.getHibernateTemplate().execute(new HibernateCallback(){
+		this.getHibernateTemplate().execute(new HibernateCallback() {
 			@Override
 			public Object doInHibernate(Session session)
 					throws HibernateException, SQLException {
-				Query query = session.createQuery("delete from PosterCommunityRel where community.id = :id");
+				Query query = session
+						.createQuery("delete from PosterCommunityRel where community.id = :id");
 				query.setParameter("id", community.getId());
 				return query.executeUpdate();
 			}

@@ -30,6 +30,7 @@ import com.chinatelecom.xysq.bean.EmptyPageList;
 import com.chinatelecom.xysq.bean.PageList;
 import com.chinatelecom.xysq.bean.PageListDataModel;
 import com.chinatelecom.xysq.bean.SuggestionBean;
+import com.chinatelecom.xysq.enumeration.InnerModule;
 import com.chinatelecom.xysq.model.AdminCommunityRel;
 import com.chinatelecom.xysq.model.AnnouncementAndNotice;
 import com.chinatelecom.xysq.model.Area;
@@ -225,6 +226,7 @@ public class AreaAction extends PageListAction<Community> {
 			return;
 		}
 		this.announcementAndNotice = new AnnouncementAndNotice();
+		this.announcementAndNotice.setInnerModule(InnerModule.ANNOUNCEMENT);
 		this.announcement = true;
 	}
 	
@@ -235,11 +237,12 @@ public class AreaAction extends PageListAction<Community> {
 			return;
 		}
 		this.announcementAndNotice = new AnnouncementAndNotice();
+		this.announcementAndNotice.setInnerModule(InnerModule.NOTICE);
 		this.announcement = false;
 	}
 	
 	public void saveAnnouncementAndNotice(){
-		
+		this.getAnnouncementAndNoticeService().publishAnnouncementAndNotice(announcementAndNotice, this.getDefaultDataModel().getSelectedIds());
 	}
 
 	public synchronized void importExcel(UploadEvent event) {

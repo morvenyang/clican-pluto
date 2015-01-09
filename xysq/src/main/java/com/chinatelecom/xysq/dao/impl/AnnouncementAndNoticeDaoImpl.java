@@ -24,4 +24,10 @@ public class AnnouncementAndNoticeDaoImpl extends BaseDao implements
 										: InnerModule.NOTICE });
 	}
 
+	@Override
+	public void saveAnnouncementAndNotice(
+			AnnouncementAndNotice announcementAndNotice) {
+		this.getHibernateTemplate().saveOrUpdate(announcementAndNotice);
+	}
+
 }

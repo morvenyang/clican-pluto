@@ -1,6 +1,7 @@
 package com.chinatelecom.xysq.dao;
 
 import java.util.List;
+import java.util.Set;
 
 import com.chinatelecom.xysq.bean.PageList;
 import com.chinatelecom.xysq.model.AdminCommunityRel;
@@ -23,6 +24,8 @@ public interface AreaDao {
 	public void saveCommunity(Community community);
 	
 	public Community findCommunityById(Long id);
+	
+	public List<Community> findCommunityByIds(Set<Long> ids);
 	
 	public void deleteCommunity(Community community);
 	
