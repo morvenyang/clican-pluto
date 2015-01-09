@@ -339,11 +339,13 @@ public class AreaAction extends PageListAction<Community> {
 	public void listAnnouncement(Community community){
 		this.announcement=true;
 		this.community = community;
+		this.announcementAndNotices = this.getAnnouncementAndNoticeService().findAnnouncementAndNotice(community, this.announcement);
 	}
 	
 	public void listNotice(Community community){
 		this.announcement=false;
 		this.community = community;
+		this.announcementAndNotices = this.getAnnouncementAndNoticeService().findAnnouncementAndNotice(community, this.announcement);
 	}
 	@BypassInterceptors
 	public List<Area> getAreaTrees() {
