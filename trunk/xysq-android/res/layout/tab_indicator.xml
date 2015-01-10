@@ -4,8 +4,8 @@
     android:layout_height="55dip"    
     android:layout_weight="1"
     android:orientation="vertical"
-    android:layout_marginTop="10sp"
-    android:background="@drawable/tab_indicator"
+    android:layout_marginTop="0sp"
+    android:background="@drawable/tab_background"
     android:padding="5dp">
 
     <ImageView android:id="@+id/icon"
