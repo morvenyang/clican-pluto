@@ -43,8 +43,10 @@ public final class R {
         public static final int tab_unselected=0x7f020007;
     }
     public static final class id {
-        public static final int icon=0x7f080000;
-        public static final int title=0x7f080001;
+        public static final int button1=0x7f080001;
+        public static final int communityName=0x7f080000;
+        public static final int icon=0x7f080002;
+        public static final int title=0x7f080003;
     }
     public static final class layout {
         public static final int grzx=0x7f030000;
