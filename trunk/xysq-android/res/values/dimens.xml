@@ -8,7 +8,6 @@
     <dimen name="corner_radius_zero">0dp</dimen> 
     <dimen name="tab_space_top">0dp</dimen>
     <dimen name="tab_space">0dp</dimen>
-    <dimen name="tab_space_plus1">3dp</dimen>
     <dimen name="tab_space_bottom_line">36sp</dimen>
     <dimen name="tab_space_unselected_top">0sp</dimen> 
 </resources>
