@@ -6,10 +6,14 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
+import net.sf.json.JSONArray;
+
 import org.apache.commons.lang.StringUtils;
 
 import com.chinatelecom.xysq.bean.PageList;
 import com.chinatelecom.xysq.dao.AreaDao;
+import com.chinatelecom.xysq.json.AreaJson;
+import com.chinatelecom.xysq.json.CommunityJson;
 import com.chinatelecom.xysq.model.AdminCommunityRel;
 import com.chinatelecom.xysq.model.Area;
 import com.chinatelecom.xysq.model.Community;
@@ -19,6 +23,7 @@ import com.chinatelecom.xysq.model.Store;
 import com.chinatelecom.xysq.model.StoreCommunityRel;
 import com.chinatelecom.xysq.model.User;
 import com.chinatelecom.xysq.service.AreaService;
+import com.github.stuxuhai.jpinyin.PinyinFormat;
 import com.github.stuxuhai.jpinyin.PinyinHelper;
 
 public class AreaServiceImpl implements AreaService {
@@ -62,12 +67,19 @@ public class AreaServiceImpl implements AreaService {
 				} else {
 					area.setName(fullName);
 				}
-				int level = StringUtils.countMatches(fullName, "/")+1;
+				int level = StringUtils.countMatches(fullName, "/") + 1;
 				area.setLevel(level);
 				area.setShortPinyin(PinyinHelper.getShortPinyin(area.getName()));
-				area.setPinyin(PinyinHelper.convertToPinyinString(area.getName(), ""));
+				area.setPinyin(PinyinHelper.convertToPinyinString(
+						area.getName(), "",PinyinFormat.WITHOUT_TONE));
 				areaDao.saveArea(area);
 				areaMap.put(area.getFullName(), area);
+			}else{
+				Area area = areaMap.get(fullName);
+				area.setShortPinyin(PinyinHelper.getShortPinyin(area.getName()));
+				area.setPinyin(PinyinHelper.convertToPinyinString(
+						area.getName(), "",PinyinFormat.WITHOUT_TONE));
+				areaDao.saveArea(area);
 			}
 		}
 		return areaMap;
@@ -75,7 +87,9 @@ public class AreaServiceImpl implements AreaService {
 
 	@Override
 	public void saveCommunity(Community community) {
-		community.setPinyin(PinyinHelper.getShortPinyin(community.getName()));
+		community.setShortPinyin(PinyinHelper.getShortPinyin(community.getName()));
+		community.setPinyin(PinyinHelper.convertToPinyinString(
+				community.getName(), "",PinyinFormat.WITHOUT_TONE));
 		this.areaDao.saveCommunity(community);
 	}
 
@@ -90,7 +104,7 @@ public class AreaServiceImpl implements AreaService {
 		for (String areaFullName : communityMap.keySet()) {
 			Area area = areaMap.get(areaFullName);
 			Map<String, Community> communities = new HashMap<String, Community>();
-			if(area.getCityComminitySet()!=null){
+			if (area.getCityComminitySet() != null) {
 				for (Community c : area.getCityComminitySet()) {
 					communities.put(c.getName(), c);
 				}
@@ -103,6 +117,7 @@ public class AreaServiceImpl implements AreaService {
 					mergeC.setDetailAddress(c.getDetailAddress());
 				}
 				mergeC.setCity(area);
+				
 				this.saveCommunity(mergeC);
 			}
 		}
@@ -116,25 +131,25 @@ public class AreaServiceImpl implements AreaService {
 	@Override
 	public void saveComminity(Community community, List<User> admins,
 			List<Store> stores, List<Poster> posters) {
-		if(community.getId()!=null){
+		if (community.getId() != null) {
 			this.areaDao.deleteAdminCommunityRel(community);
 			this.areaDao.deletePosterCommunityRel(community);
 			this.areaDao.deleteStoreCommunityRel(community);
 		}
 		saveCommunity(community);
-		for(User user:admins){
+		for (User user : admins) {
 			AdminCommunityRel acr = new AdminCommunityRel();
 			acr.setAdmin(user);
 			acr.setCommunity(community);
 			this.areaDao.saveAdminCommunityRel(acr);
 		}
-		for(Store store:stores){
+		for (Store store : stores) {
 			StoreCommunityRel scr = new StoreCommunityRel();
 			scr.setStore(store);
 			scr.setCommunity(community);
 			this.areaDao.saveStoreCommunityRel(scr);
 		}
-		for(int i=0;i<posters.size();i++){
+		for (int i = 0; i < posters.size(); i++) {
 			Poster poster = posters.get(i);
 			PosterCommunityRel pcr = new PosterCommunityRel();
 			pcr.setPoster(poster);
@@ -142,6 +157,45 @@ public class AreaServiceImpl implements AreaService {
 			pcr.setCommunity(community);
 			this.areaDao.savePosterCommunityRel(pcr);
 		}
+	}
+
+	private void buildAreaTree(List<Area> areaTrees,
+			List<AreaJson> areaJsonTrees) {
+		for (Area area : areaTrees) {
+			AreaJson aj = new AreaJson();
+			aj.setId(area.getId());
+			aj.setName(area.getName());
+			aj.setPinyin(area.getPinyin());
+			aj.setShortPinyin(area.getShortPinyin());
+			areaJsonTrees.add(aj);
+			if (area.getChildren() != null && area.getChildren().size() > 0) {
+				List<AreaJson> chilrenJson = new ArrayList<AreaJson>();
+				aj.setAreas(chilrenJson);
+				this.buildAreaTree(area.getChildren(), chilrenJson);
+			}
+			if (area.getCityComminitySet() != null
+					&& area.getCityComminitySet().size() > 0) {
+				List<CommunityJson> communitiesJson = new ArrayList<CommunityJson>();
+				aj.setCommunities(communitiesJson);
+				for(Community community:area.getCityComminitySet()){
+					CommunityJson cj = new CommunityJson();
+					cj.setId(community.getId());
+					cj.setName(community.getName());
+					cj.setPinyin(community.getPinyin());
+					cj.setShortPinyin(community.getShortPinyin());
+					communitiesJson.add(cj);
+				}
+			}
+
+		}
+	}
+
+	@Override
+	public String queryAreaAndCommunity() {
+		List<Area> areaTrees = this.areaDao.getAreaTrees();
+		List<AreaJson> result = new ArrayList<AreaJson>();
+		buildAreaTree(areaTrees,result);
+		return JSONArray.fromObject(result).toString();
 	}
 
 }

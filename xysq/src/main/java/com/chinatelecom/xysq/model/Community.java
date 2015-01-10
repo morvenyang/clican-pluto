@@ -31,6 +31,8 @@ public class Community implements Selectable{
 	private String name;
 
 	private String pinyin;
+	
+	private String shortPinyin;
 
 	private String detailAddress;
 
@@ -71,6 +73,15 @@ public class Community implements Selectable{
 
 	public void setPinyin(String pinyin) {
 		this.pinyin = pinyin;
+	}
+	
+	@Column
+	public String getShortPinyin() {
+		return shortPinyin;
+	}
+
+	public void setShortPinyin(String shortPinyin) {
+		this.shortPinyin = shortPinyin;
 	}
 
 	@Column(length = 500)

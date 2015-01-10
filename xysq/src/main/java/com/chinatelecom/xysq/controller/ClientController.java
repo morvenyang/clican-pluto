@@ -7,21 +7,34 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.json.JSONArray;
+
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.chinatelecom.xysq.bean.SpringProperty;
+import com.chinatelecom.xysq.service.AreaService;
 
 @Controller
 public class ClientController {
 
+	private final static Log log = LogFactory.getLog(ClientController.class);
+	
 	private SpringProperty springProperty;
+	
+	private AreaService areaService;
 
 	public void setSpringProperty(SpringProperty springProperty) {
 		this.springProperty = springProperty;
+	}
+
+	public void setAreaService(AreaService areaService) {
+		this.areaService = areaService;
 	}
 
 	@RequestMapping("/image")
@@ -45,6 +58,18 @@ public class ClientController {
 			}
 			resp.getOutputStream().write(data);
 			resp.getOutputStream().flush();
+		}
+	}
+	
+	@RequestMapping("/queryAreaAndCommunity")
+	public void queryAreaAndCommunity(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		String result = this.areaService.queryAreaAndCommunity();
+		try {
+			resp.setContentType("application/json");
+			resp.getOutputStream().write(result.getBytes("utf-8"));
+		} catch (Exception e) {
+			log.error("", e);
 		}
 	}
 }

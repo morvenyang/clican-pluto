@@ -29,4 +29,6 @@ public interface AreaService {
 	public Community findCommunityById(Long id);
 	
 	public void saveComminity(Community community,List<User> admins,List<Store> stores,List<Poster> posters);
+	
+	public String queryAreaAndCommunity();
 }
