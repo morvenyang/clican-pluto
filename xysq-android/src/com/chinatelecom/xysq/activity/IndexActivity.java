@@ -3,6 +3,7 @@ package com.chinatelecom.xysq.activity;
 import org.apache.commons.lang.StringUtils;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.chinatelecom.xysq.R;
+import com.chinatelecom.xysq.http.ClientRequest;
 import com.chinatelecom.xysq.util.KeyValueUtils;
 
 public class IndexActivity extends Activity {
@@ -32,10 +34,12 @@ public class IndexActivity extends Activity {
 			communityNameTextView.setText(communityName);
 		}
 		Button changeCommunityButton = (Button) findViewById(R.id.changeCommunity);
-		changeCommunityButton.setOnClickListener(new OnClickListener(){
+		changeCommunityButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Log.d("IndexActivity", "changeCommunityButton is clicked");
+				Intent intent = new Intent(IndexActivity.this, CommunitySelectActivity.class);
+				Log.d("IndexActivity", "changeCommunityButton is clicked, start CommunitySelectActivity");
+				startActivity(intent);
 			}
 		});
 	}
