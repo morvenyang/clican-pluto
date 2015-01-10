@@ -10,6 +10,7 @@ import android.widget.TabHost;
 import android.widget.TextView;
 
 import com.chinatelecom.xysq.R;
+import com.chinatelecom.xysq.util.KeyValueUtils;
 
 public class MainActivity extends TabActivity {
 
@@ -19,6 +20,7 @@ public class MainActivity extends TabActivity {
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		//初始化基本属性读写类
 		setContentView(R.layout.main);
 		tabHost = getTabHost();
 		setTabs();
