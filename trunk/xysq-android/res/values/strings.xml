@@ -8,5 +8,6 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="backToIndx">返回</string>
+    <string name="cs_selectArea">选择地区</string>
 
 </resources>

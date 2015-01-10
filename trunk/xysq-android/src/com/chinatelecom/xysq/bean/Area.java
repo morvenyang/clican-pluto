@@ -1,5 +1,7 @@
 package com.chinatelecom.xysq.bean;
 
+import java.util.List;
+
 public class Area {
 
 	private Long id;
@@ -9,6 +11,10 @@ public class Area {
 	private String pinyin;
 
 	private String shortPinyin;
+	
+	private List<Area> areas;
+	
+	private List<Community> communities;
 
 	public Long getId() {
 		return id;
@@ -40,6 +46,22 @@ public class Area {
 
 	public void setShortPinyin(String shortPinyin) {
 		this.shortPinyin = shortPinyin;
+	}
+
+	public List<Area> getAreas() {
+		return areas;
+	}
+
+	public void setAreas(List<Area> areas) {
+		this.areas = areas;
+	}
+
+	public List<Community> getCommunities() {
+		return communities;
+	}
+
+	public void setCommunities(List<Community> communities) {
+		this.communities = communities;
 	}
 
 }
