@@ -38,9 +38,9 @@ public final class R {
         public static final int icon=0x7f020001;
         public static final int index_normal=0x7f020002;
         public static final int index_selected=0x7f020003;
-        public static final int tab_focus=0x7f020004;
-        public static final int tab_index=0x7f020005;
-        public static final int tab_indicator=0x7f020006;
+        public static final int tab_background=0x7f020004;
+        public static final int tab_focus=0x7f020005;
+        public static final int tab_index=0x7f020006;
         public static final int tab_press=0x7f020007;
         public static final int tab_selected=0x7f020008;
         public static final int tab_unselected=0x7f020009;
