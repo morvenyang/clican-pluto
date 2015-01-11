@@ -39,7 +39,7 @@
     </RelativeLayout>
 
     <ProgressBar
-        android:id="@+id/cs_progressBar"
+        android:id="@+id/communitySelect_progressBar"
         style="?android:attr/progressBarStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
