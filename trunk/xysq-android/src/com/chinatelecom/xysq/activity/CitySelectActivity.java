@@ -1,29 +1,28 @@
 package com.chinatelecom.xysq.activity;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
-import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ExpandableListView;
+import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.ProgressBar;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import com.chinatelecom.xysq.R;
+import com.chinatelecom.xysq.adapater.CityExpandableListAdapter;
 import com.chinatelecom.xysq.bean.Area;
 import com.chinatelecom.xysq.http.AreaRequest;
 import com.chinatelecom.xysq.http.HttpCallback;
 import com.chinatelecom.xysq.other.Constants;
 import com.chinatelecom.xysq.util.KeyValueUtils;
 
-public class CitySelectActivity extends Activity implements HttpCallback {
+public class CitySelectActivity extends Activity implements HttpCallback,OnChildClickListener {
 
 	private ProgressBar progressBar;
 
@@ -49,6 +48,13 @@ public class CitySelectActivity extends Activity implements HttpCallback {
 		AreaRequest.queryCityAreas(this);
 	}
 
+	@Override
+	public boolean onChildClick(ExpandableListView listView, View view, int arg2,
+			int arg3, long arg4) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public void success(String url, Object data) {
@@ -60,19 +66,8 @@ public class CitySelectActivity extends Activity implements HttpCallback {
 			cityListView.setGroupIndicator(null);
 			cityListView.setClickable(false);
 
-			List<Map<String, String>> dataList = new ArrayList<Map<String, String>>();
-			for (Area area:areas) {
-			    Map<String, String> datum = new HashMap<String, String>();
-			    datum.put("initials", area.getShortPinyin().substring(0,1).toUpperCase(Locale.ENGLISH));
-			    datum.put("name", area.getName());
-			    dataList.add(datum);
-			}
-			SimpleAdapter adapter = new SimpleAdapter(this, dataList,
-			                                          android.R.layout.simple_list_item_2,
-			                                          new String[] {"initials", "date"},
-			                                          new int[] {android.R.id.text1,
-			                                                     android.R.id.text2});
-			cityListView.setAdapter(adapter);
+			cityListView.setAdapter(new CityExpandableListAdapter(areas,this,(LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE)));
+			cityListView.setOnChildClickListener(this);
 		}
 	}
 
