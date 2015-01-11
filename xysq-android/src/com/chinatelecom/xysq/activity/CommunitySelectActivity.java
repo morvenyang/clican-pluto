@@ -42,10 +42,10 @@ public class CommunitySelectActivity extends Activity implements HttpCallback {
 	private void loadCommunityData() {
 		//progressBar.setVisibility(View.GONE);
 		//progressBar.setVisibility(View.VISIBLE);
-		String areaName = KeyValueUtils.getValue(this, Constants.AREA_NAME);
-		String areaId = KeyValueUtils.getValue(this, Constants.AREA_ID);
+		String areaName = KeyValueUtils.getStringValue(this, Constants.AREA_NAME);
+		Long areaId = KeyValueUtils.getLongValue(this, Constants.AREA_ID);
 		Button changeArea = (Button) findViewById(R.id.communitySelect_changeAreaButton);
-		if (StringUtils.isNotEmpty(areaName) && StringUtils.isNotEmpty(areaId)) {
+		if (StringUtils.isNotEmpty(areaName) && areaId!=null) {
 			changeArea.setText(areaName);
 		}
 		changeArea.setOnClickListener(new OnClickListener() {
