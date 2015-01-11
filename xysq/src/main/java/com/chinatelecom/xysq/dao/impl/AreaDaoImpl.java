@@ -160,7 +160,7 @@ public class AreaDaoImpl extends BaseDao implements
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Area> findCityAreas() {
-		return this.getHibernateTemplate().find("select distinct city from Community order by city.shortPinyin");
+		return this.getHibernateTemplate().find("select distinct c.city from Community c order by c.city.shortPinyin");
 	}
 
 	@SuppressWarnings("unchecked")
