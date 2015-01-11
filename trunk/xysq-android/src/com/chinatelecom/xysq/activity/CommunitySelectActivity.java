@@ -35,6 +35,17 @@ public class CommunitySelectActivity extends Activity implements HttpCallback {
 	}
 
 	@Override
+	protected void onResume() {
+		String areaName = KeyValueUtils.getStringValue(this, Constants.AREA_NAME);
+		Long areaId = KeyValueUtils.getLongValue(this, Constants.AREA_ID);
+		Button changeArea = (Button) findViewById(R.id.communitySelect_changeAreaButton);
+		if (StringUtils.isNotEmpty(areaName) && areaId!=null) {
+			changeArea.setText(areaName);
+		}
+		super.onResume();
+	}
+
+	@Override
 	public void failure(String url, int code, String message) {
 		progressBar.setVisibility(View.INVISIBLE);
 	}
