@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
+import android.widget.ExpandableListView.OnGroupClickListener;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -22,7 +23,7 @@ import com.chinatelecom.xysq.http.HttpCallback;
 import com.chinatelecom.xysq.other.Constants;
 import com.chinatelecom.xysq.util.KeyValueUtils;
 
-public class CitySelectActivity extends Activity implements HttpCallback,OnChildClickListener {
+public class CitySelectActivity extends Activity implements HttpCallback,OnChildClickListener,OnGroupClickListener {
 
 	private ProgressBar progressBar;
 
@@ -51,8 +52,13 @@ public class CitySelectActivity extends Activity implements HttpCallback,OnChild
 	@Override
 	public boolean onChildClick(ExpandableListView listView, View view, int arg2,
 			int arg3, long arg4) {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
+	}
+
+	@Override
+	public boolean onGroupClick(ExpandableListView arg0, View arg1, int arg2,
+			long arg3) {
+		return true;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -64,10 +70,14 @@ public class CitySelectActivity extends Activity implements HttpCallback,OnChild
 			ExpandableListView cityListView = (ExpandableListView) findViewById(R.id.citySelect_cityListView);
 			cityListView.setDividerHeight(2);
 			cityListView.setGroupIndicator(null);
-			cityListView.setClickable(false);
-
-			cityListView.setAdapter(new CityExpandableListAdapter(areas,this,(LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE)));
+			cityListView.setClickable(true);
+			CityExpandableListAdapter adapter = new CityExpandableListAdapter(areas,this,(LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE));
+			cityListView.setAdapter(adapter);
+			for (int i = 0; i < adapter.getGroupCount(); i++) {
+				cityListView.expandGroup(i);
+			}
 			cityListView.setOnChildClickListener(this);
+			cityListView.setOnGroupClickListener(this);
 		}
 	}
 
