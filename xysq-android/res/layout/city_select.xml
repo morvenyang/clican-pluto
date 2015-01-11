@@ -29,7 +29,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="42dp" >
 
         <TextView
             android:id="@+id/citySelect_selectedCityLabelTextView"
@@ -42,15 +42,17 @@
             android:id="@+id/citySelect_selectedCityTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="25dp"
-            android:layout_toStartOf="@string/citySelect_selectedCityLabelTextViewValue"
+            android:layout_below="@+id/citySelect_selectedCityLabelTextView"
+            android:layout_marginLeft="44dp"
             android:text="TextView" />
+
     </RelativeLayout>
 
     <ProgressBar
         android:id="@+id/citySelect_progressBar"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_gravity="center" />
 
     <ExpandableListView
         android:id="@+id/citySelect_cityListView"
