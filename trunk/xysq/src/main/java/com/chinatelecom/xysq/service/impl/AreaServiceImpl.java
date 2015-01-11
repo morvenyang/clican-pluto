@@ -191,10 +191,32 @@ public class AreaServiceImpl implements AreaService {
 	}
 
 	@Override
-	public String queryAreaAndCommunity() {
-		List<Area> areaTrees = this.areaDao.getAreaTrees();
+	public String queryCityAreas() {
+		List<Area> areaTrees = this.areaDao.findCityAreas();
 		List<AreaJson> result = new ArrayList<AreaJson>();
-		buildAreaTree(areaTrees,result);
+		for (Area area : areaTrees) {
+			AreaJson aj = new AreaJson();
+			aj.setId(area.getId());
+			aj.setName(area.getName());
+			aj.setPinyin(area.getPinyin());
+			aj.setShortPinyin(area.getShortPinyin());
+			result.add(aj);
+		}
+		return JSONArray.fromObject(result).toString();
+	}
+
+	@Override
+	public String queryCommunityByArea(Long areaId) {
+		List<Community> communityList = this.areaDao.findCommunityByArea(areaId);
+		List<CommunityJson> result = new ArrayList<CommunityJson>();
+		for(Community community:communityList){
+			CommunityJson cj = new CommunityJson();
+			cj.setId(community.getId());
+			cj.setName(community.getName());
+			cj.setPinyin(community.getPinyin());
+			cj.setShortPinyin(community.getShortPinyin());
+			result.add(cj);
+		}
 		return JSONArray.fromObject(result).toString();
 	}
 

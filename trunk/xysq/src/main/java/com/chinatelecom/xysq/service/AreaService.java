@@ -30,5 +30,7 @@ public interface AreaService {
 	
 	public void saveComminity(Community community,List<User> admins,List<Store> stores,List<Poster> posters);
 	
-	public String queryAreaAndCommunity();
+	public String queryCityAreas();
+	
+	public String queryCommunityByArea(Long areaId);
 }

@@ -7,8 +7,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.sf.json.JSONArray;
-
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -24,9 +22,9 @@ import com.chinatelecom.xysq.service.AreaService;
 public class ClientController {
 
 	private final static Log log = LogFactory.getLog(ClientController.class);
-	
+
 	private SpringProperty springProperty;
-	
+
 	private AreaService areaService;
 
 	public void setSpringProperty(SpringProperty springProperty) {
@@ -60,11 +58,25 @@ public class ClientController {
 			resp.getOutputStream().flush();
 		}
 	}
-	
-	@RequestMapping("/queryAreaAndCommunity")
-	public void queryAreaAndCommunity(HttpServletRequest req, HttpServletResponse resp)
+
+	@RequestMapping("/queryCommunityByArea")
+	public void queryCommunityByArea(
+			@RequestParam(value = "areaId") Long areaId,
+			HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		String result = this.areaService.queryAreaAndCommunity();
+		String result = this.areaService.queryCommunityByArea(areaId);
+		try {
+			resp.setContentType("application/json");
+			resp.getOutputStream().write(result.getBytes("utf-8"));
+		} catch (Exception e) {
+			log.error("", e);
+		}
+	}
+
+	@RequestMapping("/queryCityAreas")
+	public void queryCityAreas(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		String result = this.areaService.queryCityAreas();
 		try {
 			resp.setContentType("application/json");
 			resp.getOutputStream().write(result.getBytes("utf-8"));
