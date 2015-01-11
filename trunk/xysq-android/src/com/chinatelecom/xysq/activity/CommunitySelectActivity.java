@@ -29,31 +29,20 @@ public class CommunitySelectActivity extends Activity implements HttpCallback{
 		this.loadCommunityData();
 	}
 
-	private Area findFirstArea(List<Area> areas){
-		for(Area area:areas){
-			if(area.getCommunities()!=null&&area.getCommunities().size()>0){
-				return area;
-			}else{
-				if(area.getAreas()!=null&&area.getAreas().size()>0){
-					return this.findFirstArea(area.getAreas());
-				}else{
-					continue;
-				}
-			}
-		}
-		return null;
-	}
+	
 	@SuppressWarnings("unchecked")
 	@Override
 	public void success(String url,Object object) {
 		progressBar.setVisibility(View.INVISIBLE);
 		List<Area> areas = (List<Area>)object;
-		Area firstArea = this.findFirstArea(areas);
-		String areaName = KeyValueUtils.getValue(this, Constants.AREA_NAME);
-		String areaId = KeyValueUtils.getValue(this, Constants.AREA_ID);
-		if(StringUtils.isEmpty(areaName)||StringUtils.isEmpty(areaId)){
-			Button changeArea = (Button)findViewById(R.id.cs_changeArea);
-			changeArea.setText(firstArea.getName());
+		if(areas!=null&&areas.size()>0){
+			Area firstArea = areas.get(0);
+			String areaName = KeyValueUtils.getValue(this, Constants.AREA_NAME);
+			String areaId = KeyValueUtils.getValue(this, Constants.AREA_ID);
+			if(StringUtils.isEmpty(areaName)||StringUtils.isEmpty(areaId)){
+				Button changeArea = (Button)findViewById(R.id.cs_changeArea);
+				changeArea.setText(firstArea.getName());
+			}
 		}
 	}
 
