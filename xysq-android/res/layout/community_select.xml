@@ -10,23 +10,23 @@
         android:layout_height="wrap_content" >
 
         <Button
-            android:id="@+id/communitySelect_backToIndex"
+            android:id="@+id/communitySelect_backButton"
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:text="@string/backToIndx" />
+            android:text="@string/back" />
 
         <TextView
-            android:id="@+id/communitySelect_communityName"
+            android:id="@+id/communitySelect_titleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:gravity="center"
-            android:text="TextView" />
+            android:text="@string/communitySelect_titelTextViewValue" />
 
         <Button
-            android:id="@+id/communitySelect_changeArea"
+            android:id="@+id/communitySelect_changeAreaButton"
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -35,7 +35,7 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentStart="false"
             android:layout_marginRight="10dp"
-            android:text="@string/cs_selectArea" />
+            android:text="@string/communitySelect_changeAreaButtonValue" />
     </RelativeLayout>
 
     <ProgressBar

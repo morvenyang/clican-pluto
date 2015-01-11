@@ -7,7 +7,9 @@
     <string name="title_section3">Section 3</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-    <string name="backToIndx">返回</string>
-    <string name="cs_selectArea">城市</string>
+    <string name="back">返回</string>
+    <string name="communitySelect_changeAreaButtonValue">城市</string>
+    <string name="citySelect_titleTextViewValue">城市选择</string>
+    <string name="communitySelect_titelTextViewValue">选择小区</string>
 
 </resources>
