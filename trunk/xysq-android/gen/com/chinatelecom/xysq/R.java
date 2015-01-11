@@ -43,7 +43,7 @@ public final class R {
         public static final int communitySelect_backToIndex=0x7f080000;
         public static final int communitySelect_changeArea=0x7f080002;
         public static final int communitySelect_communityName=0x7f080001;
-        public static final int cs_progressBar=0x7f080003;
+        public static final int communitySelect_progressBar=0x7f080003;
         public static final int icon=0x7f080006;
         public static final int title=0x7f080007;
     }

@@ -25,7 +25,7 @@ public class CommunitySelectActivity extends Activity implements HttpCallback{
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.community_select);
-		progressBar = (ProgressBar) findViewById(R.id.cs_progressBar);
+		progressBar = (ProgressBar) findViewById(R.id.communitySelect_progressBar);
 		this.loadCommunityData();
 	}
 
