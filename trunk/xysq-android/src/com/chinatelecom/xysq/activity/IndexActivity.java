@@ -26,7 +26,7 @@ public class IndexActivity extends Activity {
 
 	private void loadCommunityData() {
 		TextView communityNameTextView = (TextView) findViewById(R.id.communityName);
-		String communityName = KeyValueUtils.getValue(this, Constants.COMMUNITY_NAME);
+		String communityName = KeyValueUtils.getStringValue(this, Constants.COMMUNITY_NAME);
 		if (StringUtils.isEmpty(communityName)) {
 			communityNameTextView.setText("请选择小区");
 		} else {

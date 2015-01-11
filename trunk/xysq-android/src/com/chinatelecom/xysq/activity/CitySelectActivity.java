@@ -1,9 +1,15 @@
 package com.chinatelecom.xysq.activity;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
@@ -26,6 +32,11 @@ import com.chinatelecom.xysq.util.KeyValueUtils;
 public class CitySelectActivity extends Activity implements HttpCallback,OnChildClickListener,OnGroupClickListener {
 
 	private ProgressBar progressBar;
+	
+	private Map<String, List<Area>> areaMap = new LinkedHashMap<String, List<Area>>();
+
+	@SuppressLint("UseSparseArrays")
+	private Map<Integer, String> parentPosiMap = new HashMap<Integer, String>();
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -37,11 +48,11 @@ public class CitySelectActivity extends Activity implements HttpCallback,OnChild
 	private void loadCityData() {
 		progressBar.setVisibility(View.GONE);
 		progressBar.setVisibility(View.VISIBLE);
-		String areaName = KeyValueUtils.getValue(this, Constants.AREA_NAME);
-		String areaId = KeyValueUtils.getValue(this, Constants.AREA_ID);
+		String areaName = KeyValueUtils.getStringValue(this, Constants.AREA_NAME);
+		Long areaId = KeyValueUtils.getLongValue(this, Constants.AREA_ID);
 		TextView selectedCityTextView = (TextView) this
 				.findViewById(R.id.citySelect_selectedCityTextView);
-		if (StringUtils.isNotEmpty(areaName) && StringUtils.isNotEmpty(areaId)) {
+		if (StringUtils.isNotEmpty(areaName) && areaId!=null) {
 			selectedCityTextView.setText(areaName);
 		} else {
 			selectedCityTextView.setText("请选择城市");
@@ -50,8 +61,13 @@ public class CitySelectActivity extends Activity implements HttpCallback,OnChild
 	}
 
 	@Override
-	public boolean onChildClick(ExpandableListView listView, View view, int arg2,
-			int arg3, long arg4) {
+	public boolean onChildClick(ExpandableListView listView, View view, int groupPosition, int childPosition, long id) {
+		String firstChar = parentPosiMap.get(groupPosition);
+		Area area = areaMap.get(firstChar).get(childPosition);
+		if(area!=null){
+			KeyValueUtils.setStringValue(this, Constants.AREA_NAME,area.getName());
+			KeyValueUtils.setLongValue(this, Constants.AREA_ID,area.getId());
+		}
 		return true;
 	}
 
@@ -66,12 +82,23 @@ public class CitySelectActivity extends Activity implements HttpCallback,OnChild
 	public void success(String url, Object data) {
 		progressBar.setVisibility(View.INVISIBLE);
 		List<Area> areas = (List<Area>) data;
+		areaMap.clear();
+		parentPosiMap.clear();
 		if (areas != null && areas.size() > 0) {
+			for (Area area : areas) {
+				String firstChar = area.getShortPinyin().substring(0, 1)
+						.toUpperCase(Locale.ENGLISH);
+				if (!areaMap.containsKey(firstChar)) {
+					areaMap.put(firstChar, new ArrayList<Area>());
+					parentPosiMap.put(parentPosiMap.size(), firstChar);
+				}
+				areaMap.get(firstChar).add(area);
+			}
 			ExpandableListView cityListView = (ExpandableListView) findViewById(R.id.citySelect_cityListView);
 			cityListView.setDividerHeight(2);
 			cityListView.setGroupIndicator(null);
 			cityListView.setClickable(true);
-			CityExpandableListAdapter adapter = new CityExpandableListAdapter(areas,this,(LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE));
+			CityExpandableListAdapter adapter = new CityExpandableListAdapter(areaMap,parentPosiMap,this,(LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE));
 			cityListView.setAdapter(adapter);
 			for (int i = 0; i < adapter.getGroupCount(); i++) {
 				cityListView.expandGroup(i);

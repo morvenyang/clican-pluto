@@ -32,17 +32,10 @@ public class CityExpandableListAdapter extends BaseExpandableListAdapter {
 
 	private Activity activity;
 
-	public CityExpandableListAdapter(List<Area> areas, Activity activity,
+	public CityExpandableListAdapter(Map<String, List<Area>> areaMap,Map<Integer, String> parentPosiMap, Activity activity,
 			LayoutInflater inflater) {
-		for (Area area : areas) {
-			String firstChar = area.getShortPinyin().substring(0, 1)
-					.toUpperCase(Locale.ENGLISH);
-			if (!areaMap.containsKey(firstChar)) {
-				areaMap.put(firstChar, new ArrayList<Area>());
-				parentPosiMap.put(parentPosiMap.size(), firstChar);
-			}
-			areaMap.get(firstChar).add(area);
-		}
+		this.areaMap = areaMap;
+		this.parentPosiMap = parentPosiMap;
 		this.activity = activity;
 		this.inflater = inflater;
 	}
