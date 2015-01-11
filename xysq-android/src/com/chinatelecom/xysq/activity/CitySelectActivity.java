@@ -29,7 +29,7 @@ import com.chinatelecom.xysq.http.HttpCallback;
 import com.chinatelecom.xysq.other.Constants;
 import com.chinatelecom.xysq.util.KeyValueUtils;
 
-public class CitySelectActivity extends Activity implements HttpCallback,OnChildClickListener,OnGroupClickListener {
+public class CitySelectActivity extends Activity implements HttpCallback,OnGroupClickListener {
 
 	private ProgressBar progressBar;
 	
@@ -58,17 +58,6 @@ public class CitySelectActivity extends Activity implements HttpCallback,OnChild
 			selectedCityTextView.setText("请选择城市");
 		}
 		AreaRequest.queryCityAreas(this);
-	}
-
-	@Override
-	public boolean onChildClick(ExpandableListView listView, View view, int groupPosition, int childPosition, long id) {
-		String firstChar = parentPosiMap.get(groupPosition);
-		Area area = areaMap.get(firstChar).get(childPosition);
-		if(area!=null){
-			KeyValueUtils.setStringValue(this, Constants.AREA_NAME,area.getName());
-			KeyValueUtils.setLongValue(this, Constants.AREA_ID,area.getId());
-		}
-		return true;
 	}
 
 	@Override
@@ -103,7 +92,6 @@ public class CitySelectActivity extends Activity implements HttpCallback,OnChild
 			for (int i = 0; i < adapter.getGroupCount(); i++) {
 				cityListView.expandGroup(i);
 			}
-			cityListView.setOnChildClickListener(this);
 			cityListView.setOnGroupClickListener(this);
 		}
 	}

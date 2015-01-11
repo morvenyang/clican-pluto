@@ -1,14 +1,11 @@
 package com.chinatelecom.xysq.adapater;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -19,7 +16,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.chinatelecom.xysq.R;
+import com.chinatelecom.xysq.activity.CitySelectActivity;
 import com.chinatelecom.xysq.bean.Area;
+import com.chinatelecom.xysq.other.Constants;
+import com.chinatelecom.xysq.util.KeyValueUtils;
 
 public class CityExpandableListAdapter extends BaseExpandableListAdapter {
 
@@ -30,9 +30,9 @@ public class CityExpandableListAdapter extends BaseExpandableListAdapter {
 
 	private LayoutInflater inflater;
 
-	private Activity activity;
+	private CitySelectActivity activity;
 
-	public CityExpandableListAdapter(Map<String, List<Area>> areaMap,Map<Integer, String> parentPosiMap, Activity activity,
+	public CityExpandableListAdapter(Map<String, List<Area>> areaMap,Map<Integer, String> parentPosiMap, CitySelectActivity activity,
 			LayoutInflater inflater) {
 		this.areaMap = areaMap;
 		this.parentPosiMap = parentPosiMap;
@@ -59,8 +59,12 @@ public class CityExpandableListAdapter extends BaseExpandableListAdapter {
 
 			@Override
 			public void onClick(View view) {
-				Toast.makeText(activity, areas.get(childPosition).getName(),
-						Toast.LENGTH_SHORT).show();
+				Area area = areas.get(childPosition);
+				if(area!=null){
+					KeyValueUtils.setStringValue(activity, Constants.AREA_NAME,area.getName());
+					KeyValueUtils.setLongValue(activity, Constants.AREA_ID,area.getId());
+					activity.finish();
+				}
 			}
 		});
 
@@ -130,7 +134,7 @@ public class CityExpandableListAdapter extends BaseExpandableListAdapter {
 
 	@Override
 	public boolean isChildSelectable(int groupPosition, int childPosition) {
-		return false;
+		return true;
 	}
 
 }

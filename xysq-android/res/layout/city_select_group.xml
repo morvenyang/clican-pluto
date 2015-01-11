@@ -20,7 +20,8 @@
             android:textIsSelectable="true"
             android:textColor="#FFFFFF"
             android:textSize="14sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:focusable="false" />
     </LinearLayout>
 
 </LinearLayout>
