@@ -156,5 +156,17 @@ public class AreaDaoImpl extends BaseDao implements
 	public void savePosterCommunityRel(PosterCommunityRel rel) {
 		this.getHibernateTemplate().saveOrUpdate(rel);
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Area> findCityAreas() {
+		return this.getHibernateTemplate().find("select distinct city from Community order by city.shortPinyin");
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Community> findCommunityByArea(Long areaId) {
+		return this.getHibernateTemplate().findByNamedParam("from Community where city.id = :areaId", "areaId", areaId);
+	}
 
 }

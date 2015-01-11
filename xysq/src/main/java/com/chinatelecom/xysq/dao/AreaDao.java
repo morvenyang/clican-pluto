@@ -40,5 +40,9 @@ public interface AreaDao {
 	public void saveStoreCommunityRel(StoreCommunityRel rel);
 	
 	public void savePosterCommunityRel(PosterCommunityRel rel);
+	
+	public List<Area> findCityAreas();
+	
+	public List<Community> findCommunityByArea(Long areaId);
 
 }
