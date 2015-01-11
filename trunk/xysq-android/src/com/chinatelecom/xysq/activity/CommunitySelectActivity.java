@@ -71,7 +71,7 @@ public class CommunitySelectActivity extends Activity implements HttpCallback{
 			Button changeArea = (Button)findViewById(R.id.cs_changeArea);
 			changeArea.setText(areaName);
 		}
-		ClientRequest.queryAreaAndCommunity(this);
+		ClientRequest.queryCityAreas(this);
 		Button changeCommunityButton = (Button) findViewById(R.id.cs_changeArea);
 		changeCommunityButton.setOnClickListener(new OnClickListener() {
 			@Override

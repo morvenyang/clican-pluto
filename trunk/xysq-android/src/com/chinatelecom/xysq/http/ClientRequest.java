@@ -23,7 +23,7 @@ public class ClientRequest {
 
 	private final static String BASE_URL = "http://192.168.1.100:9000/xysq";
 
-	private static void buildAreaTree(JSONArray areaListJson,
+	private static void buildAreas(JSONArray areaListJson,
 			List<Area> areaList) {
 		try {
 			for (int i = 0; i < areaListJson.length(); i++) {
@@ -34,27 +34,28 @@ public class ClientRequest {
 				area.setName(json.getString("name"));
 				area.setPinyin(json.getString("pinyin"));
 				area.setShortPinyin(json.getString("shortPinyin"));
-				JSONArray childrenAreaJson = json.getJSONArray("areas");
-				if (childrenAreaJson != null && childrenAreaJson.length() > 0) {
-					List<Area> childrenAreaList = new ArrayList<Area>();
-					area.setAreas(childrenAreaList);
-					buildAreaTree(childrenAreaJson, childrenAreaList);
-				}
-
-				JSONArray communitiesJson = json.getJSONArray("communities");
-				if (communitiesJson != null && communitiesJson.length() > 0) {
-					List<Community> childrenAreaList = new ArrayList<Community>();
-					area.setCommunities(childrenAreaList);
-					for (int j = 0; j < communitiesJson.length(); j++) {
-						JSONObject cj = communitiesJson.getJSONObject(j);
-						Community community = new Community();
-						community.setId(cj.getLong("id"));
-						community.setName(cj.getString("name"));
-						community.setPinyin(cj.getString("pinyin"));
-						community.setShortPinyin(cj.getString("shortPinyin"));
-						childrenAreaList.add(community);
-					}
-				}
+				areaList.add(area);
+//				JSONArray childrenAreaJson = json.getJSONArray("areas");
+//				if (childrenAreaJson != null && childrenAreaJson.length() > 0) {
+//					List<Area> childrenAreaList = new ArrayList<Area>();
+//					area.setAreas(childrenAreaList);
+//					buildAreaTree(childrenAreaJson, childrenAreaList);
+//				}
+//
+//				JSONArray communitiesJson = json.getJSONArray("communities");
+//				if (communitiesJson != null && communitiesJson.length() > 0) {
+//					List<Community> childrenAreaList = new ArrayList<Community>();
+//					area.setCommunities(childrenAreaList);
+//					for (int j = 0; j < communitiesJson.length(); j++) {
+//						JSONObject cj = communitiesJson.getJSONObject(j);
+//						Community community = new Community();
+//						community.setId(cj.getLong("id"));
+//						community.setName(cj.getString("name"));
+//						community.setPinyin(cj.getString("pinyin"));
+//						community.setShortPinyin(cj.getString("shortPinyin"));
+//						childrenAreaList.add(community);
+//					}
+//				}
 
 			}
 		} catch (Exception e) {
@@ -63,14 +64,14 @@ public class ClientRequest {
 
 	}
 
-	public static <T> void queryAreaAndCommunity(final HttpCallback callback) {
+	public static <T> void queryCityAreas(final HttpCallback callback) {
 		AsyncTask<String, Void, TaskResult> task = new AsyncTask<String, Void, TaskResult>(){
 			@Override
 			protected TaskResult doInBackground(String... params) {
 				HttpClient httpclient = new DefaultHttpClient();
 				try {
 					HttpResponse response = httpclient.execute(new HttpGet(
-							BASE_URL + "/queryAreaAndCommunity.do"));
+							BASE_URL + "/queryCityAreas.do"));
 					StatusLine statusLine = response.getStatusLine();
 					if (statusLine.getStatusCode() == HttpStatus.SC_OK) {
 						ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -79,7 +80,7 @@ public class ClientRequest {
 						String responseString = out.toString();
 						JSONArray jsonObj = new JSONArray(responseString);
 						List<Area> result = new ArrayList<Area>();
-						buildAreaTree(jsonObj, result);
+						buildAreas(jsonObj, result);
 						return new TaskResult(1,null,result);
 					} else {
 						response.getEntity().getContent().close();
