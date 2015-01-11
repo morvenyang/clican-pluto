@@ -14,7 +14,7 @@ import android.widget.ProgressBar;
 
 import com.chinatelecom.xysq.R;
 import com.chinatelecom.xysq.bean.Area;
-import com.chinatelecom.xysq.http.ClientRequest;
+import com.chinatelecom.xysq.http.AreaRequest;
 import com.chinatelecom.xysq.http.HttpCallback;
 import com.chinatelecom.xysq.other.Constants;
 import com.chinatelecom.xysq.util.KeyValueUtils;
@@ -71,7 +71,7 @@ public class CommunitySelectActivity extends Activity implements HttpCallback{
 			Button changeArea = (Button)findViewById(R.id.cs_changeArea);
 			changeArea.setText(areaName);
 		}
-		ClientRequest.queryCityAreas(this);
+		AreaRequest.queryCityAreas(this);
 		Button changeCommunityButton = (Button) findViewById(R.id.cs_changeArea);
 		changeCommunityButton.setOnClickListener(new OnClickListener() {
 			@Override

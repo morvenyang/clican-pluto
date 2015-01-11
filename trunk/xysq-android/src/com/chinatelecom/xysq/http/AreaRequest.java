@@ -19,7 +19,7 @@ import android.util.Log;
 import com.chinatelecom.xysq.bean.Area;
 import com.chinatelecom.xysq.bean.Community;
 
-public class ClientRequest {
+public class AreaRequest {
 
 	private final static String BASE_URL = "http://192.168.1.100:9000/xysq";
 
