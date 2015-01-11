@@ -37,7 +37,6 @@
             android:layout_marginRight="10dp"
             android:text="@string/communitySelect_changeAreaButtonValue" />
     </RelativeLayout>
-
     <ProgressBar
         android:id="@+id/communitySelect_progressBar"
         style="?android:attr/progressBarStyleSmall"
@@ -46,5 +45,7 @@
         android:layout_gravity="center"
         android:indeterminate="false"
         android:visibility="invisible" />
+
+    
 
 </LinearLayout>
