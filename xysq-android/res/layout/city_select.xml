@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    tools:context=".activity.CitySelectActivity" >
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -23,7 +25,6 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="@string/citySelect_titleTextViewValue" />
-
     </RelativeLayout>
 
     <RelativeLayout
@@ -44,13 +45,17 @@
             android:layout_marginLeft="25dp"
             android:layout_toStartOf="@string/citySelect_selectedCityLabelTextViewValue"
             android:text="TextView" />
-
     </RelativeLayout>
 
-    <ListView
+    <ProgressBar
+        android:id="@+id/citySelect_progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <ExpandableListView
         android:id="@+id/citySelect_cityListView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
-    </ListView>
+    </ExpandableListView>
 
 </LinearLayout>

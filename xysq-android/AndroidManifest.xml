@@ -29,6 +29,7 @@
 		<activity android:name="com.chinatelecom.xysq.activity.XyzsActivity" />
 		<activity android:name="com.chinatelecom.xysq.activity.GrzxActivity" />	
 		<activity android:name="com.chinatelecom.xysq.activity.CommunitySelectActivity" />
+		<activity android:name="com.chinatelecom.xysq.activity.CitySelectActivity" />
     </application>
 
 </manifest>
