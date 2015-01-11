@@ -40,7 +40,7 @@ public class CommunitySelectActivity extends Activity implements HttpCallback{
 			String areaName = KeyValueUtils.getValue(this, Constants.AREA_NAME);
 			String areaId = KeyValueUtils.getValue(this, Constants.AREA_ID);
 			if(StringUtils.isEmpty(areaName)||StringUtils.isEmpty(areaId)){
-				Button changeArea = (Button)findViewById(R.id.communitySelect_changeArea);
+				Button changeArea = (Button)findViewById(R.id.communitySelect_changeAreaButton);
 				changeArea.setText(firstArea.getName());
 			}
 		}
@@ -57,11 +57,11 @@ public class CommunitySelectActivity extends Activity implements HttpCallback{
 		String areaName = KeyValueUtils.getValue(this, Constants.AREA_NAME);
 		String areaId = KeyValueUtils.getValue(this, Constants.AREA_ID);
 		if(StringUtils.isNotEmpty(areaName)&&StringUtils.isNotEmpty(areaId)){
-			Button changeArea = (Button)findViewById(R.id.communitySelect_changeArea);
+			Button changeArea = (Button)findViewById(R.id.communitySelect_changeAreaButton);
 			changeArea.setText(areaName);
 		}
 		AreaRequest.queryCityAreas(this);
-		Button changeCommunityButton = (Button) findViewById(R.id.communitySelect_changeArea);
+		Button changeCommunityButton = (Button) findViewById(R.id.communitySelect_changeAreaButton);
 		changeCommunityButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
