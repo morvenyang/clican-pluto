@@ -116,8 +116,12 @@ public class AreaServiceImpl implements AreaService {
 				} else {
 					mergeC.setDetailAddress(c.getDetailAddress());
 				}
-				mergeC.setCity(area);
-				
+				mergeC.setArea(area);
+				if(area.getLevel()==2){
+					mergeC.setCity(area);
+				}else{
+					mergeC.setCity(area.getParent());
+				}
 				this.saveCommunity(mergeC);
 			}
 		}

@@ -37,6 +37,8 @@ public class Community implements Selectable{
 	private String detailAddress;
 
 	private Area city;
+	
+	private Area area;
 
 	private Set<AdminCommunityRel> adminCommunityRelSet;
 
@@ -102,6 +104,17 @@ public class Community implements Selectable{
 
 	public void setCity(Area city) {
 		this.city = city;
+	}
+	
+	@ManyToOne
+	@JoinColumn(name = "AREA_ID", nullable = true)
+	@Fetch(FetchMode.JOIN)
+	public Area getArea() {
+		return area;
+	}
+
+	public void setArea(Area area) {
+		this.area = area;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "community", cascade = CascadeType.REMOVE)
