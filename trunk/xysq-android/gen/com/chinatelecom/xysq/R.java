@@ -38,7 +38,7 @@ public final class R {
         public static final int tab_unselected=0x7f020007;
     }
     public static final class id {
-        public static final int changeCommunity=0x7f08000d;
+        public static final int changeCommunity=0x7f08000e;
         public static final int citySelect_backButton=0x7f080000;
         public static final int citySelect_cityListView=0x7f080005;
         public static final int citySelect_groupTextView=0x7f080006;
@@ -47,13 +47,14 @@ public final class R {
         public static final int citySelect_selectedCityLabelTextView=0x7f080002;
         public static final int citySelect_selectedCityTextView=0x7f080003;
         public static final int citySelect_titleTextView=0x7f080001;
-        public static final int communityName=0x7f08000c;
+        public static final int communityName=0x7f08000d;
         public static final int communitySelect_backButton=0x7f080008;
         public static final int communitySelect_changeAreaButton=0x7f08000a;
         public static final int communitySelect_progressBar=0x7f08000b;
         public static final int communitySelect_titleTextView=0x7f080009;
-        public static final int icon=0x7f08000e;
-        public static final int title=0x7f08000f;
+        public static final int editText1=0x7f08000c;
+        public static final int icon=0x7f08000f;
+        public static final int title=0x7f080010;
     }
     public static final class layout {
         public static final int city_select=0x7f030000;
