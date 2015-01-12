@@ -70,9 +70,16 @@
 							</rich:column>
 							<rich:column>
 								<f:facet name="header">
-									<h:outputText value="城市/地区" />
+									<h:outputText value="城市" />
 								</f:facet>
 								<h:outputText value="#{community.city.name}" style="white-space:nowrap;" />
+							</rich:column>
+							<rich:column>
+								<f:facet name="header">
+									<h:outputText value="区/县" />
+								</f:facet>
+								<h:outputText value="#{community.area.name}" rendered="#{community.city.id!=community.area.id}" style="white-space:nowrap;" />
+								<h:outputText value="N/A" rendered="#{community.city.id==community.area.id}" style="white-space:nowrap;" />
 							</rich:column>
 							<rich:column>
 								<f:facet name="header">
