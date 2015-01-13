@@ -46,9 +46,9 @@ public class PosterPagerAdapter extends PagerAdapter {
 	public Object instantiateItem(ViewGroup container, int position) {
 		ImageView imageView = new ImageView(activity);
 		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
-				RelativeLayout.LayoutParams.MATCH_PARENT, 150);
+				RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
 		imageView.setLayoutParams(params);
-		imageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+		imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 		Poster poster = posterList.get(position);
 		ImageRequest.requestImage(imageView, poster.getImagePath());
 		
