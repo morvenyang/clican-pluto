@@ -34,6 +34,9 @@ public class IndexServiceImpl implements IndexService {
 		} else {
 			posters = posterDao.queryPoster(communityId);
 		}
+		if(posters.size()==0){
+			posters =  posterDao.queryDefaultPoster();
+		}
 		List<PosterJson> posterJsons = new ArrayList<PosterJson>();
 		for(Poster p:posters){
 			PosterJson pj = new PosterJson();
