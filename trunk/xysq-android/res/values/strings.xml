@@ -11,6 +11,6 @@
     <string name="communitySelect_changeAreaButtonValue">城市</string>
     <string name="citySelect_titleTextViewValue">城市选择</string>
     <string name="communitySelect_titelTextViewValue">选择小区</string>
-    <string name="citySelect_selectedCityLabelTextViewValue">已定位城市</string>
+    <string name="citySelect_selectedCityLabelTextViewValue">已选择城市</string>
 
 </resources>

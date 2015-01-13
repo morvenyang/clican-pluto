@@ -33,6 +33,7 @@ public class AreaRequest {
 				area.setName(json.getString("name"));
 				area.setPinyin(json.getString("pinyin"));
 				area.setShortPinyin(json.getString("shortPinyin"));
+				area.setFullName(json.getString("fullName"));
 			}
 		} catch (Exception e) {
 			Log.e("XYSQ", "build area tree error", e);

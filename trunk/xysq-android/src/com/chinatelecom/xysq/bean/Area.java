@@ -15,6 +15,8 @@ public class Area {
 	private List<Area> areas;
 	
 	private List<Community> communities;
+	
+	private String fullName;
 
 	public Long getId() {
 		return id;
@@ -62,6 +64,14 @@ public class Area {
 
 	public void setCommunities(List<Community> communities) {
 		this.communities = communities;
+	}
+
+	public String getFullName() {
+		return fullName;
+	}
+
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
 	}
 
 }
