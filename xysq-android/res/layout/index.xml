@@ -29,8 +29,10 @@
 
     <android.support.v4.view.ViewPager
         android:id="@+id/index_posterViewPager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_width="fill_parent"
+        android:layout_height="120dp"
+        android:layout_gravity="fill_horizontal" >
+
     </android.support.v4.view.ViewPager>
 	<ProgressBar
         android:id="@+id/index_progressBar"
