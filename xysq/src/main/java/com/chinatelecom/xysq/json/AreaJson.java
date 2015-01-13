@@ -66,12 +66,12 @@ public class AreaJson {
 		this.communities = communities;
 	}
 
-	public String getFullPath() {
+	public String getFullName() {
 		return fullName;
 	}
 
-	public void setFullPath(String fullPath) {
-		this.fullName = fullPath;
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
 	}
 	
 	
