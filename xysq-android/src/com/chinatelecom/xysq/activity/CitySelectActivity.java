@@ -12,10 +12,13 @@ import org.apache.commons.lang.StringUtils;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnGroupClickListener;
 import android.widget.ProgressBar;
@@ -40,7 +43,11 @@ public class CitySelectActivity extends Activity implements HttpCallback,
 
 	private Map<String, List<Area>> areaMap = new LinkedHashMap<String, List<Area>>();
 
+	private Map<String,Area> areaNameMap = new HashMap<String,Area>();
+	
 	private LocationClient locationClient;
+	
+	private boolean containSetCity=false;;
 
 	@SuppressLint("UseSparseArrays")
 	private Map<Integer, String> parentPosiMap = new HashMap<Integer, String>();
@@ -51,6 +58,13 @@ public class CitySelectActivity extends Activity implements HttpCallback,
 		progressBar = (ProgressBar) findViewById(R.id.citySelect_progressBar);
 		locationClient = ((XysqApplication) getApplication()).locationClient;
 		locationClient.registerLocationListener(this);
+		Button backButton = (Button)findViewById(R.id.citySelect_backButton);
+		backButton.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				CitySelectActivity.this.finish();
+			}
+		});
 		this.loadCityData();
 	}
 
@@ -66,11 +80,24 @@ public class CitySelectActivity extends Activity implements HttpCallback,
 		String province = location.getProvince();
 		String city = location.getCity();
 		Log.d("XYSQ", "定位到当前省市:"+province+"城市:"+city);
+		
+		String fullName = province+"/"+city;
+		if(!containSetCity&&areaNameMap.containsKey(fullName)){
+			Area area = areaNameMap.get(fullName);
+			TextView selectedCityTextView = (TextView) this
+					.findViewById(R.id.citySelect_selectedCityTextView);
+			TextView selectedCityLabelTextView = (TextView) this
+					.findViewById(R.id.citySelect_selectedCityLabelTextView);
+			selectedCityLabelTextView.setText("GPS定位");
+			selectedCityTextView.setText(area.getName());
+			KeyValueUtils.setStringValue(this, Constants.AREA_NAME, area.getName());
+			KeyValueUtils.setLongValue(this, Constants.AREA_ID, area.getId());
+		}
 		locationClient.stop();
+		progressBar.setVisibility(View.INVISIBLE);
 	}
 	
 	private void loadCityData() {
-		locationClient.start();
 		progressBar.setVisibility(View.GONE);
 		progressBar.setVisibility(View.VISIBLE);
 		String areaName = KeyValueUtils.getStringValue(this,
@@ -78,9 +105,14 @@ public class CitySelectActivity extends Activity implements HttpCallback,
 		Long areaId = KeyValueUtils.getLongValue(this, Constants.AREA_ID);
 		TextView selectedCityTextView = (TextView) this
 				.findViewById(R.id.citySelect_selectedCityTextView);
+		TextView selectedCityLabelTextView = (TextView) this
+				.findViewById(R.id.citySelect_selectedCityLabelTextView);
 		if (StringUtils.isNotEmpty(areaName) && areaId != null) {
+			selectedCityLabelTextView.setText("已选择城市");
 			selectedCityTextView.setText(areaName);
+			containSetCity=true;
 		} else {
+			containSetCity=false;
 			selectedCityTextView.setText("请选择城市");
 		}
 		AreaRequest.queryCityAreas(this);
@@ -95,7 +127,6 @@ public class CitySelectActivity extends Activity implements HttpCallback,
 	@SuppressWarnings("unchecked")
 	@Override
 	public void success(String url, Object data) {
-		progressBar.setVisibility(View.INVISIBLE);
 		List<Area> areas = (List<Area>) data;
 		areaMap.clear();
 		parentPosiMap.clear();
@@ -108,6 +139,7 @@ public class CitySelectActivity extends Activity implements HttpCallback,
 					parentPosiMap.put(parentPosiMap.size(), firstChar);
 				}
 				areaMap.get(firstChar).add(area);
+				areaNameMap.put(area.getFullName(), area);
 			}
 			ExpandableListView cityListView = (ExpandableListView) findViewById(R.id.citySelect_cityListView);
 			cityListView.setDividerHeight(2);
@@ -124,7 +156,9 @@ public class CitySelectActivity extends Activity implements HttpCallback,
 			}
 			cityListView.setOnGroupClickListener(this);
 		}
-		//locationClient.requestLocation();
+		if(!containSetCity){
+			locationClient.start();
+		}
 	}
 
 	@Override
