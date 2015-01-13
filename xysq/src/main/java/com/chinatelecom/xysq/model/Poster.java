@@ -53,6 +53,8 @@ public class Poster {
 	private Date createTime;
 	
 	private Date modifyTime;
+	
+	private boolean defaultPoster;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -181,6 +183,16 @@ public class Poster {
 
 	public void setModifyTime(Date modifyTime) {
 		this.modifyTime = modifyTime;
+	}
+
+	@Column(name = "GLOBAL")
+	@Type(type = "org.hibernate.type.NumericBooleanType")
+	public boolean isDefaultPoster() {
+		return defaultPoster;
+	}
+
+	public void setDefaultPoster(boolean defaultPoster) {
+		this.defaultPoster = defaultPoster;
 	}
 
 	@Override
