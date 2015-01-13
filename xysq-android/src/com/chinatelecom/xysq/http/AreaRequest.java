@@ -18,10 +18,10 @@ import android.util.Log;
 
 import com.chinatelecom.xysq.bean.Area;
 import com.chinatelecom.xysq.bean.Community;
+import com.chinatelecom.xysq.other.Constants;
 
 public class AreaRequest {
 
-	private final static String BASE_URL = "http://192.168.1.100:9000/xysq";
 
 	private static void buildAreas(JSONArray areaListJson, List<Area> areaList) {
 		try {
@@ -67,7 +67,7 @@ public class AreaRequest {
 				HttpClient httpclient = new DefaultHttpClient();
 				try {
 					HttpResponse response = httpclient.execute(new HttpGet(
-							BASE_URL + "/queryCommunityByArea.do?areaId="
+							Constants.BASE_URL + "/queryCommunityByArea.do?areaId="
 									+ areaId));
 					StatusLine statusLine = response.getStatusLine();
 					if (statusLine.getStatusCode() == HttpStatus.SC_OK) {
@@ -104,7 +104,7 @@ public class AreaRequest {
 				HttpClient httpclient = new DefaultHttpClient();
 				try {
 					HttpResponse response = httpclient.execute(new HttpGet(
-							BASE_URL + "/queryCityAreas.do"));
+							Constants.BASE_URL + "/queryCityAreas.do"));
 					StatusLine statusLine = response.getStatusLine();
 					if (statusLine.getStatusCode() == HttpStatus.SC_OK) {
 						ByteArrayOutputStream out = new ByteArrayOutputStream();
