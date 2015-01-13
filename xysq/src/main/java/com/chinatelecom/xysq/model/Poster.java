@@ -185,7 +185,7 @@ public class Poster {
 		this.modifyTime = modifyTime;
 	}
 
-	@Column(name = "GLOBAL")
+	@Column(name = "DEFAULT_POSTER")
 	@Type(type = "org.hibernate.type.NumericBooleanType")
 	public boolean isDefaultPoster() {
 		return defaultPoster;
