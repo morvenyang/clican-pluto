@@ -40,6 +40,14 @@ public class CommunitySelectActivity extends Activity implements HttpCallback {
 				startActivity(intent);
 			}
 		});
+		
+		Button backButton = (Button)findViewById(R.id.communitySelect_backButton);
+		backButton.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				CommunitySelectActivity.this.finish();
+			}
+		});
 
 		this.loadCommunityData();
 	}
