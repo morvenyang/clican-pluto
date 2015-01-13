@@ -54,7 +54,7 @@ public class CommunityListAdapter extends BaseAdapter {
 		TextView communityName = (TextView) convertView
 				.findViewById(R.id.community_select_row_communityName);
 		TextView communityAddress = (TextView) convertView
-				.findViewById(R.id.community_select_row_communityName);
+				.findViewById(R.id.community_select_row_communityAddress);
 		final Community c = communityList.get(position);
 		communityName.setText(c.getName());
 		communityAddress.setText(c.getDetailAddress());

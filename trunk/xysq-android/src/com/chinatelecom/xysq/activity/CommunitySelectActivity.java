@@ -6,18 +6,22 @@ import java.util.List;
 import org.apache.commons.lang.StringUtils;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 
 import com.chinatelecom.xysq.R;
+import com.chinatelecom.xysq.adapater.CommunityListAdapter;
 import com.chinatelecom.xysq.bean.Community;
 import com.chinatelecom.xysq.http.AreaRequest;
 import com.chinatelecom.xysq.http.HttpCallback;
@@ -29,11 +33,13 @@ public class CommunitySelectActivity extends Activity implements HttpCallback {
 	private ProgressBar progressBar;
 
 	private List<Community> communityList;
-	
+
 	private Button searchButton;
-	
+
 	private EditText searchEditText;
-	
+
+	private ListView communityListView;
+
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.community_select);
@@ -48,37 +54,37 @@ public class CommunitySelectActivity extends Activity implements HttpCallback {
 				startActivity(intent);
 			}
 		});
-		
-		this.searchButton = (Button)findViewById(R.id.communitySelect_backButton);
-		this.searchButton.setOnClickListener(new OnClickListener(){
+
+		this.searchButton = (Button) findViewById(R.id.communitySelect_backButton);
+		this.searchButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				CommunitySelectActivity.this.finish();
 			}
 		});
-		
-		Button searchButton = (Button)findViewById(R.id.communitySelect_searchButton);
-		searchButton.setOnClickListener(new OnClickListener(){
+
+		Button searchButton = (Button) findViewById(R.id.communitySelect_searchButton);
+		searchButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				searchCommunities();
 			}
 		});
 		searchButton.setEnabled(false);
-		
-		this.searchEditText = (EditText)findViewById(R.id.communitySelect_searchEditText);
-		this.searchEditText.addTextChangedListener(new TextWatcher(){
+
+		this.searchEditText = (EditText) findViewById(R.id.communitySelect_searchEditText);
+		this.searchEditText.addTextChangedListener(new TextWatcher() {
 
 			@Override
 			public void beforeTextChanged(CharSequence s, int start, int count,
 					int after) {
-				
+
 			}
 
 			@Override
 			public void onTextChanged(CharSequence s, int start, int before,
 					int count) {
-				
+
 			}
 
 			@Override
@@ -86,22 +92,31 @@ public class CommunitySelectActivity extends Activity implements HttpCallback {
 				searchCommunities();
 			}
 		});
-		
+
+		this.communityListView = (ListView) findViewById(R.id.communitySelect_communityListView);
 		this.loadCommunityData();
 	}
-	
-	private void searchCommunities(){
+
+	private void searchCommunities() {
 		Log.d("XYSQ", "search communities");
-		if(this.communityList==null||this.communityList.size()==0){
+		if (this.communityList == null || this.communityList.size() == 0) {
 			return;
 		}
 		String keywrod = searchEditText.getText().toString();
 		List<Community> filtedCommunities = new ArrayList<Community>();
-		for(Community c:communityList){
-			if(keywrod==null||c.getName().contains(keywrod)||c.getPinyin().contains(keywrod)||c.getShortPinyin().contains(keywrod)){
+		for (Community c : communityList) {
+			if (keywrod == null || c.getName().contains(keywrod)
+					|| c.getPinyin().contains(keywrod)
+					|| c.getShortPinyin().contains(keywrod)) {
 				filtedCommunities.add(c);
 			}
 		}
+		this.communityListView
+				.setAdapter(new CommunityListAdapter(
+						filtedCommunities,
+						this,
+						(LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE)));
+		this.searchButton.setEnabled(true);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -109,7 +124,7 @@ public class CommunitySelectActivity extends Activity implements HttpCallback {
 	public void success(String url, Object object) {
 		progressBar.setVisibility(View.INVISIBLE);
 		this.communityList = (List<Community>) object;
-		this.searchButton.setEnabled(true);
+		searchCommunities();
 	}
 
 	@Override
@@ -134,6 +149,6 @@ public class CommunitySelectActivity extends Activity implements HttpCallback {
 			progressBar.setVisibility(View.VISIBLE);
 			AreaRequest.queryCommunityByArea(this, areaId);
 		}
-		
+
 	}
 }
