@@ -1,5 +1,6 @@
 package com.chinatelecom.xysq.activity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
@@ -8,9 +9,12 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnKeyListener;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 
 import com.chinatelecom.xysq.R;
@@ -25,6 +29,10 @@ public class CommunitySelectActivity extends Activity implements HttpCallback {
 	private ProgressBar progressBar;
 
 	private List<Community> communityList;
+	
+	private Button searchButton;
+	
+	private EditText searchEditText;
 	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -41,15 +49,45 @@ public class CommunitySelectActivity extends Activity implements HttpCallback {
 			}
 		});
 		
-		Button backButton = (Button)findViewById(R.id.communitySelect_backButton);
-		backButton.setOnClickListener(new OnClickListener(){
+		this.searchButton = (Button)findViewById(R.id.communitySelect_backButton);
+		this.searchButton.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v) {
 				CommunitySelectActivity.this.finish();
 			}
 		});
+		
+		Button searchButton = (Button)findViewById(R.id.communitySelect_searchButton);
+		searchButton.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				searchCommunities();
+			}
+		});
+		searchButton.setEnabled(false);
+		
+		this.searchEditText = (EditText)findViewById(R.id.communitySelect_searchEditText);
+		this.searchEditText.setOnKeyListener(new OnKeyListener(){
 
+			public boolean onKey(View v, int keyCode, KeyEvent event) {
+				searchCommunities();
+				return false;
+			}
+		});
 		this.loadCommunityData();
+	}
+	
+	private void searchCommunities(){
+		if(this.communityList==null||this.communityList.size()==0){
+			return;
+		}
+		String keywrod = searchEditText.getText().toString();
+		List<Community> filtedCommunities = new ArrayList<Community>();
+		for(Community c:communityList){
+			if(keywrod==null||c.getName().contains(keywrod)||c.getPinyin().contains(keywrod)||c.getShortPinyin().contains(keywrod)){
+				filtedCommunities.add(c);
+			}
+		}
 	}
 
 	@SuppressWarnings("unchecked")
@@ -57,6 +95,7 @@ public class CommunitySelectActivity extends Activity implements HttpCallback {
 	public void success(String url, Object object) {
 		progressBar.setVisibility(View.INVISIBLE);
 		this.communityList = (List<Community>) object;
+		this.searchButton.setEnabled(true);
 	}
 
 	@Override
@@ -81,6 +120,6 @@ public class CommunitySelectActivity extends Activity implements HttpCallback {
 			progressBar.setVisibility(View.VISIBLE);
 			AreaRequest.queryCommunityByArea(this, areaId);
 		}
-
+		
 	}
 }
