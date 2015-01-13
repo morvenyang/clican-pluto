@@ -5,6 +5,8 @@ public class SpringProperty {
 	private String version;
 	
 	private String imageUrlPrefix;
+	
+	private String serverUrl;
 
 	public String getVersion() {
 		return version;
@@ -20,6 +22,14 @@ public class SpringProperty {
 
 	public void setImageUrlPrefix(String imageUrlPrefix) {
 		this.imageUrlPrefix = imageUrlPrefix;
+	}
+
+	public String getServerUrl() {
+		return serverUrl;
+	}
+
+	public void setServerUrl(String serverUrl) {
+		this.serverUrl = serverUrl;
 	}
 
 	

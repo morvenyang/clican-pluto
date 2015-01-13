@@ -77,6 +77,7 @@
 	<bean id="springProperty" class="com.chinatelecom.xysq.bean.SpringProperty">
 		<property name="version" value="${version}"></property>
 		<property name="imageUrlPrefix" value="${imageUrlPrefix}"></property>
+		<property name="serverUrl" value="${serverUrl}"></property>
 	</bean>
 
 </beans>
