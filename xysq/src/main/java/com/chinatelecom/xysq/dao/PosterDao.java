@@ -1,5 +1,7 @@
 package com.chinatelecom.xysq.dao;
 
+import java.util.List;
+
 import com.chinatelecom.xysq.bean.PageList;
 import com.chinatelecom.xysq.model.Image;
 import com.chinatelecom.xysq.model.Poster;
@@ -18,5 +20,9 @@ public interface PosterDao {
 	public void deletePoster(Poster poster);
 	
 	public void saveImage(Image image);
+	
+	public List<Poster> queryDefaultPoster();
+	
+	public List<Poster> queryPoster(Long communityId);
 
 }

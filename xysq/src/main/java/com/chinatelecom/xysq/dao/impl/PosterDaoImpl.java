@@ -85,4 +85,16 @@ public class PosterDaoImpl extends BaseDao implements PosterDao {
 		this.getHibernateTemplate().saveOrUpdate(image);
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Poster> queryDefaultPoster() {
+		return this.getHibernateTemplate().find("from Poster where defaultPoster=true order by name");
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Poster> queryPoster(Long communityId) {
+		return this.getHibernateTemplate().findByNamedParam("select rel.poster from PosterCommunityRel rel where rel.community.id = :communityId order by rel.displayIndex", "communityId", communityId);
+	}
+
 }
