@@ -38,7 +38,7 @@ public final class R {
         public static final int tab_unselected=0x7f020007;
     }
     public static final class id {
-        public static final int changeCommunity=0x7f08000f;
+        public static final int changeCommunity=0x7f080012;
         public static final int citySelect_backButton=0x7f080000;
         public static final int citySelect_cityListView=0x7f080005;
         public static final int citySelect_groupTextView=0x7f080006;
@@ -47,26 +47,30 @@ public final class R {
         public static final int citySelect_selectedCityLabelTextView=0x7f080002;
         public static final int citySelect_selectedCityTextView=0x7f080003;
         public static final int citySelect_titleTextView=0x7f080001;
-        public static final int communityName=0x7f08000e;
+        public static final int communityName=0x7f080011;
         public static final int communitySelect_backButton=0x7f080008;
         public static final int communitySelect_changeAreaButton=0x7f08000a;
+        public static final int communitySelect_communityListView=0x7f08000e;
         public static final int communitySelect_progressBar=0x7f08000b;
         public static final int communitySelect_searchButton=0x7f08000c;
         public static final int communitySelect_searchEditText=0x7f08000d;
         public static final int communitySelect_titleTextView=0x7f080009;
-        public static final int icon=0x7f080010;
-        public static final int title=0x7f080011;
+        public static final int community_select_row_communityAddress=0x7f080010;
+        public static final int community_select_row_communityName=0x7f08000f;
+        public static final int icon=0x7f080013;
+        public static final int title=0x7f080014;
     }
     public static final class layout {
         public static final int city_select=0x7f030000;
         public static final int city_select_group=0x7f030001;
         public static final int city_select_row=0x7f030002;
         public static final int community_select=0x7f030003;
-        public static final int grzx=0x7f030004;
-        public static final int index=0x7f030005;
-        public static final int main=0x7f030006;
-        public static final int tab_indicator=0x7f030007;
-        public static final int xyzs=0x7f030008;
+        public static final int community_select_row=0x7f030004;
+        public static final int grzx=0x7f030005;
+        public static final int index=0x7f030006;
+        public static final int main=0x7f030007;
+        public static final int tab_indicator=0x7f030008;
+        public static final int xyzs=0x7f030009;
     }
     public static final class string {
         public static final int action_settings=0x7f060005;

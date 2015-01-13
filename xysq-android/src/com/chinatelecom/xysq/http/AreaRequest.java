@@ -50,6 +50,7 @@ public class AreaRequest {
 				community.setId(json.getLong("id"));
 				community.setName(json.getString("name"));
 				community.setPinyin(json.getString("pinyin"));
+				community.setDetailAddress(json.getString("detailAddress"));
 				community.setShortPinyin(json.getString("shortPinyin"));
 			}
 		} catch (Exception e) {
