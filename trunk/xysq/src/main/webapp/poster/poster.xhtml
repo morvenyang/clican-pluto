@@ -116,6 +116,10 @@
 					<h:outputLabel value="全局" />
 					<h:selectBooleanCheckbox  value="#{posterAction.poster.global}" />
 					<h:outputText value="" />
+					<h:outputLabel value="默认" />
+					<h:selectBooleanCheckbox  value="#{posterAction.poster.defaultPoster}" />
+					<h:outputText value="" />
+					
 					<h:outputLabel value="图片" />
 					<rich:fileUpload id="imageUpload"
 						fileUploadListener="#{posterAction.uploadImage}"
