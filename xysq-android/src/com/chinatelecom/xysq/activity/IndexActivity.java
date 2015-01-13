@@ -19,6 +19,7 @@ import com.chinatelecom.xysq.R;
 import com.chinatelecom.xysq.adapater.PosterPagerAdapter;
 import com.chinatelecom.xysq.bean.Index;
 import com.chinatelecom.xysq.http.HttpCallback;
+import com.chinatelecom.xysq.http.IndexRequest;
 import com.chinatelecom.xysq.other.Constants;
 import com.chinatelecom.xysq.util.KeyValueUtils;
 
@@ -38,7 +39,7 @@ public class IndexActivity extends Activity implements HttpCallback {
 		communityNameTextView = (TextView) findViewById(R.id.index_communityName);
 		changeCommunityButton = (Button) findViewById(R.id.index_changeCommunity);
 		posterViewPager = (ViewPager) findViewById(R.id.index_posterViewPager);
-		this.loadCommunityData();
+		progressBar = (ProgressBar)findViewById(R.id.index_progressBar);
 	}
 
 	@Override
@@ -66,11 +67,16 @@ public class IndexActivity extends Activity implements HttpCallback {
 	private void loadCommunityData() {
 		String communityName = KeyValueUtils.getStringValue(this,
 				Constants.COMMUNITY_NAME);
+		Long communityId = KeyValueUtils.getLongValue(this,
+				Constants.COMMUNITY_ID);
 		if (StringUtils.isEmpty(communityName)) {
 			communityNameTextView.setText("请选择小区");
 		} else {
 			communityNameTextView.setText(communityName);
 		}
+		progressBar.setVisibility(View.GONE);
+		progressBar.setVisibility(View.VISIBLE);
+		IndexRequest.queryIndex(this, communityId);
 		changeCommunityButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {

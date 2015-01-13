@@ -55,11 +55,12 @@ public final class R {
         public static final int communitySelect_titleTextView=0x7f080009;
         public static final int community_select_row_communityAddress=0x7f080010;
         public static final int community_select_row_communityName=0x7f08000f;
-        public static final int icon=0x7f080014;
+        public static final int icon=0x7f080015;
         public static final int index_changeCommunity=0x7f080012;
         public static final int index_communityName=0x7f080011;
         public static final int index_posterViewPager=0x7f080013;
-        public static final int title=0x7f080015;
+        public static final int index_progressBar=0x7f080014;
+        public static final int title=0x7f080016;
     }
     public static final class layout {
         public static final int city_select=0x7f030000;

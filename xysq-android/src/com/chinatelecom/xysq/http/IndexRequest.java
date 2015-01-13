@@ -30,7 +30,7 @@ public class IndexRequest {
 				posterList.add(poster);
 				poster.setId(json.getLong("id"));
 				poster.setName(json.getString("name"));
-				poster.setHtml5Link(json.getString("html5"));
+				poster.setHtml5Link(json.getString("html5Link"));
 				poster.setImagePath(json.getString("imagePath"));
 				poster.setInnerModule(json.getString("innerModule"));
 				if(!json.isNull("storeId")){
