@@ -71,14 +71,14 @@ public class AreaServiceImpl implements AreaService {
 				area.setLevel(level);
 				area.setShortPinyin(PinyinHelper.getShortPinyin(area.getName()));
 				area.setPinyin(PinyinHelper.convertToPinyinString(
-						area.getName(), "",PinyinFormat.WITHOUT_TONE));
+						area.getName(), "", PinyinFormat.WITHOUT_TONE));
 				areaDao.saveArea(area);
 				areaMap.put(area.getFullName(), area);
-			}else{
+			} else {
 				Area area = areaMap.get(fullName);
 				area.setShortPinyin(PinyinHelper.getShortPinyin(area.getName()));
 				area.setPinyin(PinyinHelper.convertToPinyinString(
-						area.getName(), "",PinyinFormat.WITHOUT_TONE));
+						area.getName(), "", PinyinFormat.WITHOUT_TONE));
 				areaDao.saveArea(area);
 			}
 		}
@@ -87,9 +87,10 @@ public class AreaServiceImpl implements AreaService {
 
 	@Override
 	public void saveCommunity(Community community) {
-		community.setShortPinyin(PinyinHelper.getShortPinyin(community.getName()));
+		community.setShortPinyin(PinyinHelper.getShortPinyin(community
+				.getName()));
 		community.setPinyin(PinyinHelper.convertToPinyinString(
-				community.getName(), "",PinyinFormat.WITHOUT_TONE));
+				community.getName(), "", PinyinFormat.WITHOUT_TONE));
 		this.areaDao.saveCommunity(community);
 	}
 
@@ -117,9 +118,9 @@ public class AreaServiceImpl implements AreaService {
 					mergeC.setDetailAddress(c.getDetailAddress());
 				}
 				mergeC.setArea(area);
-				if(area.getLevel()==2){
+				if (area.getLevel() == 2) {
 					mergeC.setCity(area);
-				}else{
+				} else {
 					mergeC.setCity(area.getParent());
 				}
 				this.saveCommunity(mergeC);
@@ -163,37 +164,6 @@ public class AreaServiceImpl implements AreaService {
 		}
 	}
 
-	private void buildAreaTree(List<Area> areaTrees,
-			List<AreaJson> areaJsonTrees) {
-		for (Area area : areaTrees) {
-			AreaJson aj = new AreaJson();
-			aj.setId(area.getId());
-			aj.setName(area.getName());
-			aj.setPinyin(area.getPinyin());
-			aj.setShortPinyin(area.getShortPinyin());
-			areaJsonTrees.add(aj);
-			if (area.getChildren() != null && area.getChildren().size() > 0) {
-				List<AreaJson> chilrenJson = new ArrayList<AreaJson>();
-				aj.setAreas(chilrenJson);
-				this.buildAreaTree(area.getChildren(), chilrenJson);
-			}
-			if (area.getCityComminitySet() != null
-					&& area.getCityComminitySet().size() > 0) {
-				List<CommunityJson> communitiesJson = new ArrayList<CommunityJson>();
-				aj.setCommunities(communitiesJson);
-				for(Community community:area.getCityComminitySet()){
-					CommunityJson cj = new CommunityJson();
-					cj.setId(community.getId());
-					cj.setName(community.getName());
-					cj.setPinyin(community.getPinyin());
-					cj.setShortPinyin(community.getShortPinyin());
-					communitiesJson.add(cj);
-				}
-			}
-
-		}
-	}
-
 	@Override
 	public String queryCityAreas() {
 		List<Area> areaTrees = this.areaDao.findCityAreas();
@@ -212,14 +182,16 @@ public class AreaServiceImpl implements AreaService {
 
 	@Override
 	public String queryCommunityByArea(Long areaId) {
-		List<Community> communityList = this.areaDao.findCommunityByArea(areaId);
+		List<Community> communityList = this.areaDao
+				.findCommunityByArea(areaId);
 		List<CommunityJson> result = new ArrayList<CommunityJson>();
-		for(Community community:communityList){
+		for (Community community : communityList) {
 			CommunityJson cj = new CommunityJson();
 			cj.setId(community.getId());
 			cj.setName(community.getName());
 			cj.setPinyin(community.getPinyin());
 			cj.setShortPinyin(community.getShortPinyin());
+			cj.setDetailAddress(community.getDetailAddress());
 			result.add(cj);
 		}
 		return JSONArray.fromObject(result).toString();

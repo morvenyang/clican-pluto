@@ -17,7 +17,7 @@ public class AreaJson {
 	private List<CommunityJson> communities;
 	
 	private String fullName;
-
+	
 	public Long getId() {
 		return id;
 	}
