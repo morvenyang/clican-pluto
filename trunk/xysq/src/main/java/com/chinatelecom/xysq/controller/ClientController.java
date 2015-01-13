@@ -84,4 +84,11 @@ public class ClientController {
 			log.error("", e);
 		}
 	}
+
+	@RequestMapping("/queryIndex")
+	public void queryIndex(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		
+	}
+
 }
