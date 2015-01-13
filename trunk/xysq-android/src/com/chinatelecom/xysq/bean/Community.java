@@ -9,6 +9,8 @@ public class Community {
 	private String pinyin;
 	
 	private String shortPinyin;
+	
+	private String detailAddress;
 
 	public Long getId() {
 		return id;
@@ -40,6 +42,14 @@ public class Community {
 
 	public void setShortPinyin(String shortPinyin) {
 		this.shortPinyin = shortPinyin;
+	}
+
+	public String getDetailAddress() {
+		return detailAddress;
+	}
+
+	public void setDetailAddress(String detailAddress) {
+		this.detailAddress = detailAddress;
 	}
 	
 	

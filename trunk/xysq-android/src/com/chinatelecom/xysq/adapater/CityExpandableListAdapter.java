@@ -62,8 +62,8 @@ public class CityExpandableListAdapter extends BaseExpandableListAdapter {
 				if(area!=null){
 					KeyValueUtils.setStringValue(activity, Constants.AREA_NAME,area.getName());
 					KeyValueUtils.setLongValue(activity, Constants.AREA_ID,area.getId());
-					activity.finish();
 				}
+				activity.finish();
 			}
 		});
 
