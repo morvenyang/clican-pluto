@@ -65,6 +65,7 @@ public class CitySelectActivity extends Activity implements HttpCallback,
 				CitySelectActivity.this.finish();
 			}
 		});
+		
 		this.loadCityData();
 	}
 

@@ -46,13 +46,32 @@
         android:indeterminate="false"
         android:visibility="invisible" />
 
-    <EditText
-        android:id="@+id/editText1"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10" >
+        android:layout_height="wrap_content" >
 
-        <requestFocus />
-    </EditText>
+        <Button
+            android:id="@+id/communitySelect_searchButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:text="@string/search" />
+
+        <EditText
+            android:id="@+id/communitySelect_searchEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@+id/communitySelect_searchButton"
+            android:ems="10"
+            android:hint="@string/communitySelect_searchEditTextHint" >
+
+            <requestFocus />
+        </EditText>
+
+    </RelativeLayout>
 
 </LinearLayout>

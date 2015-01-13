@@ -12,5 +12,7 @@
     <string name="citySelect_titleTextViewValue">城市选择</string>
     <string name="communitySelect_titelTextViewValue">选择小区</string>
     <string name="citySelect_selectedCityLabelTextViewValue">已选择城市</string>
+    <string name="communitySelect_searchEditTextHint">输入小区名称或拼音代码</string>
+    <string name="search">搜索</string>
 
 </resources>
