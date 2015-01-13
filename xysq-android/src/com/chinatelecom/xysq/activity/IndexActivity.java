@@ -17,22 +17,31 @@ import com.chinatelecom.xysq.util.KeyValueUtils;
 
 public class IndexActivity extends Activity {
 
+	private TextView communityNameTextView;
+	
+	private Button changeCommunityButton;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.index);
+		communityNameTextView = (TextView) findViewById(R.id.communityName);
+		changeCommunityButton = (Button) findViewById(R.id.changeCommunity);
 		this.loadCommunityData();
 	}
 
+	@Override
+	protected void onResume() {
+		loadCommunityData();
+		super.onResume();
+	}
+	
 	private void loadCommunityData() {
-		TextView communityNameTextView = (TextView) findViewById(R.id.communityName);
 		String communityName = KeyValueUtils.getStringValue(this, Constants.COMMUNITY_NAME);
 		if (StringUtils.isEmpty(communityName)) {
 			communityNameTextView.setText("请选择小区");
 		} else {
 			communityNameTextView.setText(communityName);
 		}
-		Button changeCommunityButton = (Button) findViewById(R.id.changeCommunity);
 		changeCommunityButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
