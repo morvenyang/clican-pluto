@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.CheckedTextView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.chinatelecom.xysq.R;
 import com.chinatelecom.xysq.activity.CitySelectActivity;

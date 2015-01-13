@@ -8,11 +8,11 @@ import org.apache.commons.lang.StringUtils;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnKeyListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -67,17 +67,31 @@ public class CommunitySelectActivity extends Activity implements HttpCallback {
 		searchButton.setEnabled(false);
 		
 		this.searchEditText = (EditText)findViewById(R.id.communitySelect_searchEditText);
-		this.searchEditText.setOnKeyListener(new OnKeyListener(){
+		this.searchEditText.addTextChangedListener(new TextWatcher(){
 
-			public boolean onKey(View v, int keyCode, KeyEvent event) {
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
+				
+			}
+
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before,
+					int count) {
+				
+			}
+
+			@Override
+			public void afterTextChanged(Editable s) {
 				searchCommunities();
-				return false;
 			}
 		});
+		
 		this.loadCommunityData();
 	}
 	
 	private void searchCommunities(){
+		Log.d("XYSQ", "search communities");
 		if(this.communityList==null||this.communityList.size()==0){
 			return;
 		}
