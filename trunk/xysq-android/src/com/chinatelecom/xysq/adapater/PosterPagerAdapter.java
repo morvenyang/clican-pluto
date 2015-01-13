@@ -1,14 +1,13 @@
 package com.chinatelecom.xysq.adapater;
 
-import java.net.URL;
 import java.util.List;
 
-import android.graphics.BitmapFactory;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -46,12 +45,18 @@ public class PosterPagerAdapter extends PagerAdapter {
 	public Object instantiateItem(ViewGroup container, int position) {
 		ImageView imageView = new ImageView(activity);
 		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
-				RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
+				RelativeLayout.LayoutParams.MATCH_PARENT,
+				RelativeLayout.LayoutParams.MATCH_PARENT);
 		imageView.setLayoutParams(params);
 		imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-		Poster poster = posterList.get(position);
+		final Poster poster = posterList.get(position);
 		ImageRequest.requestImage(imageView, poster.getImagePath());
-		
+		imageView.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Log.d("XYSQ", "click poster:"+poster.getId());
+			}
+		});
 		((ViewPager) container).addView(imageView);
 		return imageView;
 	}
