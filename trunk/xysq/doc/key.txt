@@ -1,0 +1,19 @@
+Alias name: androiddebugkey
+Creation date: Nov 29, 2014
+Entry type: PrivateKeyEntry
+Certificate chain length: 1
+Certificate[1]:
+Owner: CN=Android Debug, O=Android, C=US
+Issuer: CN=Android Debug, O=Android, C=US
+Serial number: 5479ae5c
+Valid from: Sat Nov 29 19:30:36 CST 2014 until: Mon Nov 21 19:30:36 CST 2044
+Certificate fingerprints:
+         MD5:  C1:3C:FA:1D:21:89:B3:4C:97:69:FA:DD:F0:6A:15:70
+         SHA1: 25:86:E4:B7:2A:0F:77:B3:46:A9:B6:3C:34:48:D7:EF:C0:DF:C9:9C
+         Signature algorithm name: SHA1withRSA
+         Version: 3
+         
+         
+package:com.chinatelecom.xysq
+
+百度安全码 25:86:E4:B7:2A:0F:77:B3:46:A9:B6:3C:34:48:D7:EF:C0:DF:C9:9C;com.chinatelecom.xysq

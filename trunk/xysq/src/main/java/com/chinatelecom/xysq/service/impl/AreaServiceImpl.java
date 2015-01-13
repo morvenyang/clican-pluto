@@ -204,6 +204,7 @@ public class AreaServiceImpl implements AreaService {
 			aj.setName(area.getName());
 			aj.setPinyin(area.getPinyin());
 			aj.setShortPinyin(area.getShortPinyin());
+			aj.setFullPath(area.getFullName());
 			result.add(aj);
 		}
 		return JSONArray.fromObject(result).toString();

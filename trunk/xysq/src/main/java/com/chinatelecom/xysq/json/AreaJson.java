@@ -15,6 +15,8 @@ public class AreaJson {
 	private List<AreaJson> areas;
 	
 	private List<CommunityJson> communities;
+	
+	private String fullName;
 
 	public Long getId() {
 		return id;
@@ -62,6 +64,14 @@ public class AreaJson {
 
 	public void setCommunities(List<CommunityJson> communities) {
 		this.communities = communities;
+	}
+
+	public String getFullPath() {
+		return fullName;
+	}
+
+	public void setFullPath(String fullPath) {
+		this.fullName = fullPath;
 	}
 	
 	
