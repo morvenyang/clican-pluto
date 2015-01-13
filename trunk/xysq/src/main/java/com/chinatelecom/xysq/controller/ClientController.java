@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.chinatelecom.xysq.bean.SpringProperty;
 import com.chinatelecom.xysq.service.AreaService;
+import com.chinatelecom.xysq.service.IndexService;
 
 @Controller
 public class ClientController {
@@ -27,12 +28,18 @@ public class ClientController {
 
 	private AreaService areaService;
 
+	private IndexService indexService;
+
 	public void setSpringProperty(SpringProperty springProperty) {
 		this.springProperty = springProperty;
 	}
 
 	public void setAreaService(AreaService areaService) {
 		this.areaService = areaService;
+	}
+
+	public void setIndexService(IndexService indexService) {
+		this.indexService = indexService;
 	}
 
 	@RequestMapping("/image")
@@ -86,9 +93,16 @@ public class ClientController {
 	}
 
 	@RequestMapping("/queryIndex")
-	public void queryIndex(HttpServletRequest req, HttpServletResponse resp)
+	public void queryIndex(
+			@RequestParam(value = "communityId", required = false) Long communityId,
+			HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		
+		String result = this.indexService.queryIndex(communityId);
+		try {
+			resp.setContentType("application/json");
+			resp.getOutputStream().write(result.getBytes("utf-8"));
+		} catch (Exception e) {
+			log.error("", e);
+		}
 	}
-
 }
