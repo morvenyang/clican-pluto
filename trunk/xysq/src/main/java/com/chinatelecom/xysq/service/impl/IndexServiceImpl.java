@@ -86,6 +86,7 @@ public class IndexServiceImpl implements IndexService {
 			json.setCreateTime(aan.getCreateTime());
 			json.setModifyTime(aan.getModifyTime());
 			json.setNoticeCategory(aan.getNoticeCategory());
+			json.setInnerModule(aan.getInnerModule());
 			json.setTitle(aan.getTitle());
 			jsonList.add(json);
 		}
