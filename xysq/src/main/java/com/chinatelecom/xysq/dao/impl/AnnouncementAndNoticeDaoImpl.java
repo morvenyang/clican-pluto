@@ -43,7 +43,7 @@ public class AnnouncementAndNoticeDaoImpl extends BaseDao implements
 					public Object doInHibernate(Session session)
 							throws HibernateException, SQLException {
 						Query query = session
-								.createQuery("from AnnouncementAndNotice where community.id = :communityId and innerModule = :innerModule");
+								.createQuery("from AnnouncementAndNotice where community.id = :communityId and innerModule = :innerModule order by modifyTime desc");
 						query.setParameter("communityId", communityId);
 						query.setParameter("innerModule",
 								announcement ? InnerModule.ANNOUNCEMENT
