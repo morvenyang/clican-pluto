@@ -105,4 +105,21 @@ public class ClientController {
 			log.error("", e);
 		}
 	}
+	
+	@RequestMapping("/queryAnnouncementAndNotice")
+	public void queryAnnouncementAndNotice(
+			@RequestParam(value = "communityId", required = false) Long communityId,
+			@RequestParam(value = "announcement") boolean announcement,
+			@RequestParam(value = "page", required = true) int page,
+			@RequestParam(value = "pageSize", required = true) int pageSize,
+			HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		String result = this.indexService.queryIndex(communityId);
+		try {
+			resp.setContentType("application/json");
+			resp.getOutputStream().write(result.getBytes("utf-8"));
+		} catch (Exception e) {
+			log.error("", e);
+		}
+	}
 }
