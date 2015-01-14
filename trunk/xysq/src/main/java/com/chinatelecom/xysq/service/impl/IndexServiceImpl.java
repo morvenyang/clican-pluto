@@ -35,6 +35,11 @@ public class IndexServiceImpl implements IndexService {
 		this.springProperty = springProperty;
 	}
 
+	public void setAnnouncementAndNoticeDao(
+			AnnouncementAndNoticeDao announcementAndNoticeDao) {
+		this.announcementAndNoticeDao = announcementAndNoticeDao;
+	}
+
 	@Override
 	public String queryIndex(Long communityId) {
 		List<Poster> posters = null;
