@@ -39,7 +39,22 @@ public class IndexActivity extends Activity implements HttpCallback {
 		communityNameTextView = (TextView) findViewById(R.id.index_communityName);
 		changeCommunityButton = (Button) findViewById(R.id.index_changeCommunity);
 		posterViewPager = (ViewPager) findViewById(R.id.index_posterViewPager);
-		progressBar = (ProgressBar)findViewById(R.id.index_progressBar);
+		progressBar = (ProgressBar) findViewById(R.id.index_progressBar);
+		this.addListenerForButtons();
+	}
+
+	private void addListenerForButtons() {
+		Button announcementButton = (Button) findViewById(R.id.index_xqggButton);
+		announcementButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(IndexActivity.this,
+						AnnouncementActivity.class);
+				Log.d("XYSQ",
+						"announcementButton is clicked, start AnnouncementActivity");
+				startActivity(intent);
+			}
+		});
 	}
 
 	@Override
@@ -82,7 +97,7 @@ public class IndexActivity extends Activity implements HttpCallback {
 			public void onClick(View v) {
 				Intent intent = new Intent(IndexActivity.this,
 						CommunitySelectActivity.class);
-				Log.d("IndexActivity",
+				Log.d("XYSQ",
 						"changeCommunityButton is clicked, start CommunitySelectActivity");
 				startActivity(intent);
 			}

@@ -78,12 +78,17 @@ public class IndexRequest {
 				} catch (Exception e) {
 					Log.e("XYSQ", "queryIndex", e);
 				}
-				return null;
+				return new TaskResult(-1, "加载首页数据失败", null);
 			}
 
 			@Override
 			protected void onPostExecute(TaskResult result) {
-				callback.success("/queryIndex.do", result.getResult());
+				if(result.getCode()==1){
+					callback.success("/queryIndex.do", result.getResult());
+				}else{
+					callback.failure("/queryIndex.do", result.getCode(), result.getMessage());
+				}
+				
 			}
 		};
 		task.execute(new String[] {});
