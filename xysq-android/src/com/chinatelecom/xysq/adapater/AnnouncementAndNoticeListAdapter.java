@@ -3,19 +3,18 @@ package com.chinatelecom.xysq.adapater;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.chinatelecom.xysq.R;
-import com.chinatelecom.xysq.activity.CommunitySelectActivity;
+import com.chinatelecom.xysq.activity.AnnouncementAndNoticeDetailActivity;
 import com.chinatelecom.xysq.bean.AnnouncementAndNotice;
-import com.chinatelecom.xysq.bean.Community;
-import com.chinatelecom.xysq.other.Constants;
-import com.chinatelecom.xysq.util.KeyValueUtils;
 
 public class AnnouncementAndNoticeListAdapter extends BaseAdapter {
 
@@ -25,12 +24,14 @@ public class AnnouncementAndNoticeListAdapter extends BaseAdapter {
 
 	private Activity activity;
 
-	public AnnouncementAndNoticeListAdapter(List<AnnouncementAndNotice> announcementAndNoticeList,
+	public AnnouncementAndNoticeListAdapter(
+			List<AnnouncementAndNotice> announcementAndNoticeList,
 			Activity activity, LayoutInflater inflater) {
 		this.announcementAndNoticeList = announcementAndNoticeList;
 		this.activity = activity;
 		this.inflater = inflater;
 	}
+
 	@Override
 	public int getCount() {
 		return announcementAndNoticeList.size();
@@ -51,16 +52,23 @@ public class AnnouncementAndNoticeListAdapter extends BaseAdapter {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		if (convertView == null) {
-			convertView = inflater.inflate(R.layout.announcement_and_notice_select_row, null);
+			convertView = inflater.inflate(
+					R.layout.announcement_and_notice_select_row, null);
 		}
 		TextView title = (TextView) convertView
 				.findViewById(R.id.announcement_and_notice_select_row_title);
-		AnnouncementAndNotice aan = announcementAndNoticeList.get(position);
+		final AnnouncementAndNotice aan = announcementAndNoticeList
+				.get(position);
 		title.setText(aan.getTitle());
 		convertView.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				
+				Intent intent = new Intent(activity,
+						AnnouncementAndNoticeDetailActivity.class);
+				intent.putExtra("announcementAndNotice", aan);
+				Log.d("XYSQ",
+						"announcementAndNotice is clicked, start AnnouncementAndNoticeActivity");
+				activity.startActivity(intent);
 			}
 		});
 		return convertView;
