@@ -14,5 +14,13 @@
     <string name="citySelect_selectedCityLabelTextViewValue">已选择城市</string>
     <string name="communitySelect_searchEditTextHint">输入小区名称或拼音代码</string>
     <string name="search">搜索</string>
+    <string name="index_bmfw">便民服务</string>
+    <string name="index_xqgg">小区公告</string>
+    <string name="index_yzxx">业主须知</string>
+    <string name="index_xqlt">小区论坛</string>
+    <string name="index_zpzs">宅配宅送</string>
+    <string name="index_jkff">健康服务</string>
+    <string name="index_xqnc">小区挪车</string>
+    <string name="index_kdtx">宽带提醒</string>
 
 </resources>
