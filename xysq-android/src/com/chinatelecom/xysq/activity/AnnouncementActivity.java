@@ -1,7 +1,6 @@
 package com.chinatelecom.xysq.activity;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 import android.app.ListActivity;
@@ -40,8 +39,6 @@ public class AnnouncementActivity extends ListActivity implements
 	private List<AnnouncementAndNotice> announcementAndNoticeList = new ArrayList<AnnouncementAndNotice>();
 
 	private int page = 1;
-
-	private boolean noMoreData = false;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
