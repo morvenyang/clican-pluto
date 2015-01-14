@@ -9,6 +9,7 @@ import net.sf.json.JSONObject;
 import com.chinatelecom.xysq.bean.SpringProperty;
 import com.chinatelecom.xysq.dao.AnnouncementAndNoticeDao;
 import com.chinatelecom.xysq.dao.PosterDao;
+import com.chinatelecom.xysq.json.AnnouncementAndNoticeJson;
 import com.chinatelecom.xysq.json.IndexJson;
 import com.chinatelecom.xysq.json.PosterJson;
 import com.chinatelecom.xysq.model.AnnouncementAndNotice;
@@ -69,7 +70,18 @@ public class IndexServiceImpl implements IndexService {
 		List<AnnouncementAndNotice> list = announcementAndNoticeDao
 				.findAnnouncementAndNotice(communityId, announcement, page,
 						pageSize);
-		return JSONArray.fromObject(list).toString();
+		List<AnnouncementAndNoticeJson> jsonList = new ArrayList<AnnouncementAndNoticeJson>();
+		for (AnnouncementAndNotice aan : list) {
+			AnnouncementAndNoticeJson json = new AnnouncementAndNoticeJson();
+			json.setId(aan.getId());
+			json.setContent(aan.getContent());
+			json.setCreateTime(aan.getCreateTime());
+			json.setModifyTime(aan.getModifyTime());
+			json.setNoticeCategory(aan.getNoticeCategory());
+			json.setTitle(aan.getTitle());
+			jsonList.add(json);
+		}
+		return JSONArray.fromObject(jsonList).toString();
 	}
 
 }
