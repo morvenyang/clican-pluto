@@ -38,6 +38,7 @@ public final class R {
         public static final int tab_unselected=0x7f020007;
     }
     public static final class id {
+        public static final int Button01=0x7f08001e;
         public static final int citySelect_backButton=0x7f080000;
         public static final int citySelect_cityListView=0x7f080005;
         public static final int citySelect_groupTextView=0x7f080006;
@@ -55,12 +56,21 @@ public final class R {
         public static final int communitySelect_titleTextView=0x7f080009;
         public static final int community_select_row_communityAddress=0x7f080010;
         public static final int community_select_row_communityName=0x7f08000f;
-        public static final int icon=0x7f080015;
+        public static final int icon=0x7f08001f;
+        public static final int index_bmffButton=0x7f080019;
+        public static final int index_bmfwTextView=0x7f080018;
         public static final int index_changeCommunity=0x7f080012;
         public static final int index_communityName=0x7f080011;
+        public static final int index_jkffButton=0x7f08001b;
+        public static final int index_kdtxButton=0x7f08001d;
         public static final int index_posterViewPager=0x7f080013;
         public static final int index_progressBar=0x7f080014;
-        public static final int title=0x7f080016;
+        public static final int index_xqggButton=0x7f080015;
+        public static final int index_xqltButton=0x7f080017;
+        public static final int index_xqncButton=0x7f08001c;
+        public static final int index_yzxxButton=0x7f080016;
+        public static final int index_zpzsButton=0x7f08001a;
+        public static final int title=0x7f080020;
     }
     public static final class layout {
         public static final int city_select=0x7f030000;
@@ -84,6 +94,14 @@ public final class R {
         public static final int communitySelect_searchEditTextHint=0x7f06000b;
         public static final int communitySelect_titelTextViewValue=0x7f060009;
         public static final int hello_world=0x7f060004;
+        public static final int index_bmfw=0x7f06000d;
+        public static final int index_jkff=0x7f060012;
+        public static final int index_kdtx=0x7f060014;
+        public static final int index_xqgg=0x7f06000e;
+        public static final int index_xqlt=0x7f060010;
+        public static final int index_xqnc=0x7f060013;
+        public static final int index_yzxx=0x7f06000f;
+        public static final int index_zpzs=0x7f060011;
         public static final int search=0x7f06000c;
         public static final int title_section1=0x7f060001;
         public static final int title_section2=0x7f060002;
