@@ -39,4 +39,134 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center" />
+
+	<LinearLayout
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="vertical" >
+
+		<LinearLayout
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content" >
+
+			<Button
+			    android:id="@+id/index_xqggButton"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:layout_marginLeft="20dp"
+			    android:layout_marginRight="10dp"
+			    android:layout_weight="1"
+			    android:drawableTop="@drawable/icon"
+			    android:text="@string/index_xqgg" />
+
+			<Button
+			    android:id="@+id/index_yzxxButton"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:layout_marginLeft="10dp"
+			    android:layout_marginRight="10dp"
+			    android:layout_weight="1"
+			    android:drawableTop="@drawable/icon"
+			    android:text="@string/index_yzxx" />
+
+			<Button
+			    android:id="@+id/index_xqltButton"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:layout_marginLeft="10dp"
+			    android:layout_marginRight="20dp"
+			    android:layout_weight="1"
+			    android:drawableTop="@drawable/icon"
+			    android:text="@string/index_xqlt" />
+
+		</LinearLayout>
+
+		<TextView
+		    android:id="@+id/index_bmfwTextView"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:text="@string/index_bmfw"
+		    android:textAppearance="?android:attr/textAppearanceLarge" />
+
+		<LinearLayout
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content" >
+
+		    <Button
+		        android:id="@+id/index_bmffButton"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_marginLeft="20dp"
+		        android:layout_marginRight="10dp"
+		        android:layout_weight="1"
+		        android:drawableTop="@drawable/icon"
+		        android:text="@string/index_bmfw" />
+
+		    <Button
+		        android:id="@+id/index_zpzsButton"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_marginLeft="10dp"
+		        android:layout_marginRight="10dp"
+		        android:layout_weight="1"
+		        android:drawableTop="@drawable/icon"
+		        android:text="@string/index_zpzs" />
+
+		    <Button
+		        android:id="@+id/index_jkffButton"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_marginLeft="10dp"
+		        android:layout_marginRight="20dp"
+		        android:layout_weight="1"
+		        android:drawableTop="@drawable/icon"
+		        android:text="@string/index_jkff" />
+		</LinearLayout>
+
+		<LinearLayout
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:layout_weight="1" >
+
+		    <Button
+		        android:id="@+id/index_xqncButton"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_marginLeft="20dp"
+		        android:layout_marginRight="10dp"
+		        android:layout_weight="1"
+		        android:drawableTop="@drawable/icon"
+		        android:text="@string/index_xqnc" />
+
+		    <Button
+		        android:id="@+id/index_kdtxButton"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_marginLeft="10dp"
+		        android:layout_marginRight="10dp"
+		        android:layout_weight="1"
+		        android:drawableTop="@drawable/icon"
+		        android:text="@string/index_kdtx" />
+
+		    <Button
+		        android:id="@+id/Button01"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_marginLeft="10dp"
+		        android:layout_marginRight="20dp"
+		        android:layout_weight="1"
+		        android:drawableTop="@drawable/icon"
+		        android:text="@string/index_jkff"
+		        android:visibility="invisible" />
+
+		</LinearLayout>
+
+		<Space
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content" />
+
+		
+
+	</LinearLayout>
+
 </LinearLayout>
