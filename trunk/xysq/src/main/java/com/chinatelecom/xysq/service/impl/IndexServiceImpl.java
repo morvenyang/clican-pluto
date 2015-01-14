@@ -1,10 +1,12 @@
 package com.chinatelecom.xysq.service.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+import net.sf.json.JsonConfig;
 
 import com.chinatelecom.xysq.bean.SpringProperty;
 import com.chinatelecom.xysq.dao.AnnouncementAndNoticeDao;
@@ -15,6 +17,7 @@ import com.chinatelecom.xysq.json.PosterJson;
 import com.chinatelecom.xysq.model.AnnouncementAndNotice;
 import com.chinatelecom.xysq.model.Poster;
 import com.chinatelecom.xysq.service.IndexService;
+import com.chinatelecom.xysq.util.DateJsonValueProcessor;
 
 public class IndexServiceImpl implements IndexService {
 
@@ -81,7 +84,11 @@ public class IndexServiceImpl implements IndexService {
 			json.setTitle(aan.getTitle());
 			jsonList.add(json);
 		}
-		return JSONArray.fromObject(jsonList).toString();
+		
+		JsonConfig jsonConfig = new JsonConfig();
+		jsonConfig.registerJsonValueProcessor(Date.class,
+				new DateJsonValueProcessor("yyyy-MM-dd hh:mm:ss"));
+		return JSONArray.fromObject(jsonList,jsonConfig).toString();
 	}
 
 }
