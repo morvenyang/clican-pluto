@@ -3,7 +3,9 @@ package com.chinatelecom.xysq.activity;
 import org.apache.commons.lang.StringUtils;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -48,11 +50,27 @@ public class IndexActivity extends Activity implements HttpCallback {
 		announcementButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(IndexActivity.this,
-						AnnouncementActivity.class);
-				Log.d("XYSQ",
-						"announcementButton is clicked, start AnnouncementActivity");
-				startActivity(intent);
+				Long communityId = KeyValueUtils.getLongValue(
+						IndexActivity.this, Constants.COMMUNITY_ID);
+				if (communityId != null) {
+					new AlertDialog.Builder(IndexActivity.this)
+				    .setTitle("警告")
+				    .setMessage("请先选择小区")
+				    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+				        public void onClick(DialogInterface dialog, int which) {
+				        	dialog.dismiss();
+				        }
+				     })
+				    .setIcon(android.R.drawable.ic_dialog_alert)
+				     .show();
+				} else {
+					Intent intent = new Intent(IndexActivity.this,
+							AnnouncementActivity.class);
+					intent.putExtra("communityId", communityId);
+					Log.d("XYSQ",
+							"announcementButton is clicked, start AnnouncementActivity");
+					startActivity(intent);
+				}
 			}
 		});
 	}
@@ -91,6 +109,7 @@ public class IndexActivity extends Activity implements HttpCallback {
 		}
 		progressBar.setVisibility(View.GONE);
 		progressBar.setVisibility(View.VISIBLE);
+
 		IndexRequest.queryIndex(this, communityId);
 		changeCommunityButton.setOnClickListener(new OnClickListener() {
 			@Override
