@@ -9,6 +9,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -24,32 +26,33 @@ import com.chinatelecom.xysq.http.HttpCallback;
 public class AnnouncementActivity extends Activity implements
 		OnRefreshListener, OnLoadListener, HttpCallback {
 
-	private ProgressBar progressBar;
 
 	private RefreshListView announcementListView;
 
 	private Long communityId;
 
 	private List<AnnouncementAndNotice> announcementAndNoticeList = new ArrayList<AnnouncementAndNotice>();
-	
+
 	private int page = 1;
+
+	private boolean noMoreData = false;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.announcement);
-		progressBar = (ProgressBar) findViewById(R.id.announcement_progressBar);
-		announcementListView = (RefreshListView) this
-				.findViewById(R.id.announcement_listView);
-		announcementListView.setOnLoadListener(this);
-		announcementListView.setOnRefreshListener(this);
+		Button backButton = (Button) findViewById(R.id.announcement_backButton);
+		backButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				AnnouncementActivity.this.finish();
+			}
+		});
 		Intent intent = getIntent();
 		communityId = intent.getLongExtra("communityId", -1);
 		this.loadAnnouncementData();
 	}
 
 	private void loadAnnouncementData() {
-		progressBar.setVisibility(View.GONE);
-		progressBar.setVisibility(View.VISIBLE);
 		AnnouncementAndNoticeRequest.queryAnnouncementAndNotice(this,
 				communityId, true, page, 5);
 	}
@@ -58,8 +61,16 @@ public class AnnouncementActivity extends Activity implements
 	@Override
 	public void success(String url, Object data) {
 		List<AnnouncementAndNotice> moreData = (List<AnnouncementAndNotice>) data;
+		if (moreData.size() == 0) {
+			noMoreData = true;
+		}
+		if(this.announcementListView==null){
+			announcementListView = (RefreshListView) this
+					.findViewById(R.id.announcement_listView);
+			announcementListView.setOnLoadListener(this);
+			announcementListView.setOnRefreshListener(this);
+		}
 		announcementAndNoticeList.addAll(moreData);
-		progressBar.setVisibility(View.INVISIBLE);
 		announcementListView
 				.setAdapter(new AnnouncementAndNoticeListAdapter(
 						announcementAndNoticeList,
@@ -69,23 +80,28 @@ public class AnnouncementActivity extends Activity implements
 
 	@Override
 	public void failure(String url, int code, String message) {
-		progressBar.setVisibility(View.INVISIBLE);
 	}
 
 	@Override
 	public void onLoadMore() {
-		Toast.makeText(getApplicationContext(), "loading", Toast.LENGTH_SHORT)
-				.show();
-		announcementListView.postDelayed(new Runnable() {
+			Toast.makeText(getApplicationContext(), "loading",
+					Toast.LENGTH_SHORT).show();
+			announcementListView.postDelayed(new Runnable() {
 
-			@Override
-			public void run() {
-				page++;
-				AnnouncementAndNoticeRequest.queryAnnouncementAndNotice(AnnouncementActivity.this,
-						communityId, true, page, 5);
-				announcementListView.loadCompelte();
-			}
-		}, 1500);
+				@Override
+				public void run() {
+					if(noMoreData){
+						announcementListView.loadCompelte();
+					}else{
+						page++;
+						AnnouncementAndNoticeRequest.queryAnnouncementAndNotice(
+								AnnouncementActivity.this, communityId, true, page,
+								5);
+						announcementListView.loadCompelte();
+					}
+					
+				}
+			}, 1500);
 	}
 
 	@Override
@@ -97,9 +113,9 @@ public class AnnouncementActivity extends Activity implements
 			@Override
 			public void run() {
 				announcementAndNoticeList.clear();
-				page=1;
-				AnnouncementAndNoticeRequest.queryAnnouncementAndNotice(AnnouncementActivity.this,
-						communityId, true, page, 5);
+				page = 1;
+				AnnouncementAndNoticeRequest.queryAnnouncementAndNotice(
+						AnnouncementActivity.this, communityId, true, page, 5);
 				announcementListView.refreshComplete();
 			}
 		}, 1500);

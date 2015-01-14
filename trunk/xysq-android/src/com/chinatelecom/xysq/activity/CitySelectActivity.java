@@ -57,7 +57,7 @@ public class CitySelectActivity extends Activity implements HttpCallback,
 		progressBar = (ProgressBar) findViewById(R.id.citySelect_progressBar);
 		locationClient = ((XysqApplication) getApplication()).locationClient;
 		locationClient.registerLocationListener(this);
-		Button backButton = (Button)findViewById(R.id.announcement_backButton);
+		Button backButton = (Button)findViewById(R.id.citySelect_backButton);
 		backButton.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v) {
@@ -158,6 +158,8 @@ public class CitySelectActivity extends Activity implements HttpCallback,
 		}
 		if(!containSetCity){
 			locationClient.start();
+		}else{
+			progressBar.setVisibility(View.INVISIBLE);
 		}
 	}
 

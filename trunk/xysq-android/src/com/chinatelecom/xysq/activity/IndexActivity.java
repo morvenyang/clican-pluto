@@ -52,7 +52,7 @@ public class IndexActivity extends Activity implements HttpCallback {
 			public void onClick(View v) {
 				Long communityId = KeyValueUtils.getLongValue(
 						IndexActivity.this, Constants.COMMUNITY_ID);
-				if (communityId != null) {
+				if (communityId == null) {
 					new AlertDialog.Builder(IndexActivity.this)
 				    .setTitle("警告")
 				    .setMessage("请先选择小区")

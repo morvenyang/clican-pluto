@@ -34,6 +34,7 @@ public class AnnouncementAndNoticeRequest {
 				aan.setContent(aanJson.getString("content"));
 				aan.setModifyTime(sdf.parse(aanJson.getString("modifyTime")));
 				aan.setNoticeCategory(aanJson.getString("noticeCategory"));
+				aanList.add(aan);
 			}
 		} catch (Exception e) {
 			Log.e("XYSQ", "build buildAnnouncementAndNotices error", e);
@@ -53,6 +54,7 @@ public class AnnouncementAndNoticeRequest {
 							+ "/queryAnnouncementAndNotice.do?communityId="
 							+ communityId + "&announcement=" + announcement
 							+ "&page=" + page + "&pageSize=" + pageSize;
+					Log.d("XYSQ", "queryAnnouncementAndNoticeUrl:"+url);
 					HttpResponse response = httpclient
 							.execute(new HttpGet(url));
 					StatusLine statusLine = response.getStatusLine();

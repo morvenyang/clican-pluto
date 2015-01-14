@@ -11,7 +11,7 @@
         android:layout_height="wrap_content" >
 
         <Button
-            android:id="@+id/announcement_backButton"
+            android:id="@+id/citySelect_backButton"
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -20,7 +20,7 @@
             android:text="@string/back" />
 
         <TextView
-            android:id="@+id/announcement_titleTextView"
+            android:id="@+id/citySelect_titleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
