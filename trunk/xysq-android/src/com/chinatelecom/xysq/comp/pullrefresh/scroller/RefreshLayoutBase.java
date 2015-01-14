@@ -307,6 +307,7 @@ public abstract class RefreshLayoutBase<T extends View> extends ViewGroup implem
      * 显示footer view
      */
     private void showFooterView() {
+    	mFooterView.setVisibility(View.VISIBLE);
         startScroll(mFooterView.getMeasuredHeight());
         mCurrentStatus = STATUS_LOADING;
     }
@@ -481,6 +482,7 @@ public abstract class RefreshLayoutBase<T extends View> extends ViewGroup implem
         // 隐藏footer
         startScroll(mInitScrollY - getScrollY());
         mCurrentStatus = STATUS_IDLE;
+        mFooterView.setVisibility(View.INVISIBLE);
     }
 
     /**

@@ -11,8 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.chinatelecom.xysq.R;
 import com.chinatelecom.xysq.adapater.AnnouncementAndNoticeListAdapter;
@@ -26,7 +24,6 @@ import com.chinatelecom.xysq.http.HttpCallback;
 public class AnnouncementActivity extends Activity implements
 		OnRefreshListener, OnLoadListener, HttpCallback {
 
-
 	private RefreshListView announcementListView;
 
 	private Long communityId;
@@ -36,6 +33,9 @@ public class AnnouncementActivity extends Activity implements
 	private int page = 1;
 
 	private boolean noMoreData = false;
+
+	// 1- init 2 -refresh 3 -more
+	private int loadType;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -48,25 +48,29 @@ public class AnnouncementActivity extends Activity implements
 			}
 		});
 		Intent intent = getIntent();
+		announcementListView = (RefreshListView) this
+				.findViewById(R.id.announcement_listView);
 		communityId = intent.getLongExtra("communityId", -1);
+		loadType = 1;
 		this.loadAnnouncementData();
 	}
 
 	private void loadAnnouncementData() {
 		AnnouncementAndNoticeRequest.queryAnnouncementAndNotice(this,
-				communityId, true, page, 5);
+				communityId, true, page, 10);
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public void success(String url, Object data) {
+		announcementListView.loadCompelte();
 		List<AnnouncementAndNotice> moreData = (List<AnnouncementAndNotice>) data;
 		if (moreData.size() == 0) {
 			noMoreData = true;
+		}else{
+			noMoreData = false;
 		}
-		if(this.announcementListView==null){
-			announcementListView = (RefreshListView) this
-					.findViewById(R.id.announcement_listView);
+		if (page == 1) {
 			announcementListView.setOnLoadListener(this);
 			announcementListView.setOnRefreshListener(this);
 		}
@@ -76,49 +80,41 @@ public class AnnouncementActivity extends Activity implements
 						announcementAndNoticeList,
 						this,
 						(LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE)));
+		if (loadType == 2) {
+			announcementListView.refreshComplete();
+		} else if (loadType == 3) {
+			announcementListView.loadCompelte();
+		}
 	}
 
 	@Override
 	public void failure(String url, int code, String message) {
+		if (loadType == 2) {
+			announcementListView.refreshComplete();
+		} else if (loadType == 3) {
+			announcementListView.loadCompelte();
+		}
 	}
 
 	@Override
 	public void onLoadMore() {
-			Toast.makeText(getApplicationContext(), "loading",
-					Toast.LENGTH_SHORT).show();
-			announcementListView.postDelayed(new Runnable() {
-
-				@Override
-				public void run() {
-					if(noMoreData){
-						announcementListView.loadCompelte();
-					}else{
-						page++;
-						AnnouncementAndNoticeRequest.queryAnnouncementAndNotice(
-								AnnouncementActivity.this, communityId, true, page,
-								5);
-						announcementListView.loadCompelte();
-					}
-					
-				}
-			}, 1500);
+		if (noMoreData) {
+			announcementListView.loadCompelte();
+		} else {
+			loadType = 2;
+			page++;
+			AnnouncementAndNoticeRequest.queryAnnouncementAndNotice(
+					AnnouncementActivity.this, communityId, true, page, 10);
+		}
 	}
 
 	@Override
 	public void onRefresh() {
-		Toast.makeText(getApplicationContext(), "refreshing",
-				Toast.LENGTH_SHORT).show();
-		announcementListView.postDelayed(new Runnable() {
-
-			@Override
-			public void run() {
-				announcementAndNoticeList.clear();
-				page = 1;
-				AnnouncementAndNoticeRequest.queryAnnouncementAndNotice(
-						AnnouncementActivity.this, communityId, true, page, 5);
-				announcementListView.refreshComplete();
-			}
-		}, 1500);
+		announcementAndNoticeList.clear();
+		page = 1;
+		loadType = 3;
+		AnnouncementAndNoticeRequest.queryAnnouncementAndNotice(
+				AnnouncementActivity.this, communityId, true, page, 10);
 	}
 
 }
