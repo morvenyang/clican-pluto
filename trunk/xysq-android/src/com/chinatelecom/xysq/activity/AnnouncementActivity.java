@@ -114,7 +114,7 @@ public class AnnouncementActivity extends ListActivity implements
 
 	@Override
 	public void onLastItemVisible() {
-		Toast.makeText(AnnouncementActivity.this, "End of List!",
+		Toast.makeText(AnnouncementActivity.this, "没有更多历史公告",
 				Toast.LENGTH_SHORT).show();
 	}
 
