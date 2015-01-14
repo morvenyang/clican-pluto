@@ -114,7 +114,7 @@ public class ClientController {
 			@RequestParam(value = "pageSize", required = true) int pageSize,
 			HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		String result = this.indexService.queryIndex(communityId);
+		String result = this.indexService.queryAnnouncementAndNotice(communityId, announcement, page, pageSize);
 		try {
 			resp.setContentType("application/json");
 			resp.getOutputStream().write(result.getBytes("utf-8"));
