@@ -1,45 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content" >
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
 
-    <ProgressBar
-        android:id="@+id/announcement_progressBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true" />
-
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical" >
+        android:layout_height="wrap_content" >
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-
-            <Button
-                android:id="@+id/announcement_backButton"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="10dp"
-                android:text="@string/back" />
-
-            <TextView
-                android:id="@+id/announcement_titleTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:text="@string/announcement_titleTextViewValue" />
-        </RelativeLayout>
-
-        <view
-            android:id="@+id/announcement_listView"
+        <Button
+            android:id="@+id/announcement_backButton"
+            style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            class="com.chinatelecom.xysq.comp.pullrefresh.scroller.impl.RefreshListView" />
-    </LinearLayout>
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="10dp"
+            android:text="@string/back" />
 
-</RelativeLayout>
+        <TextView
+            android:id="@+id/announcement_titleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/announcement_titleTextViewValue" />
+    </RelativeLayout>
+
+    <view
+        android:id="@+id/announcement_listView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        class="com.chinatelecom.xysq.comp.pullrefresh.scroller.impl.RefreshListView" />
+
+</LinearLayout>
