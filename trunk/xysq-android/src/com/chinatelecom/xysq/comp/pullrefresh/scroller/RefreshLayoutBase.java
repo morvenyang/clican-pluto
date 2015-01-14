@@ -198,7 +198,7 @@ public abstract class RefreshLayoutBase<T extends View> extends ViewGroup implem
                 .setLayoutParams(new ViewGroup.LayoutParams(LayoutParams.MATCH_PARENT,
                         mHeaderHeight));
         mHeaderView.setBackgroundColor(Color.RED);
-        mHeaderView.setPadding(0, mHeaderHeight - 100, 0, 0);
+        mHeaderView.setPadding(0, mHeaderHeight - 150, 0, 0);
         addView(mHeaderView);
 
         // HEADER VIEWS
