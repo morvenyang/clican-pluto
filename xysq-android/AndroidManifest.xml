@@ -65,6 +65,7 @@
 		<activity android:name="com.chinatelecom.xysq.activity.GrzxActivity" />	
 		<activity android:name="com.chinatelecom.xysq.activity.CommunitySelectActivity" />
 		<activity android:name="com.chinatelecom.xysq.activity.CitySelectActivity" />
+		<activity android:name="com.chinatelecom.xysq.activity.AnnouncementActivity" />
     </application>
 
 </manifest>

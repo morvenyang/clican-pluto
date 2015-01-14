@@ -86,12 +86,16 @@ public class AreaRequest {
 				} catch (Exception e) {
 					Log.e("XYSQ", "queryCommunityByArea", e);
 				}
-				return null;
+				return new TaskResult(-1, "加载小区数据失败", null);
 			}
 
 			@Override
 			protected void onPostExecute(TaskResult result) {
-				callback.success("/queryCommunityByArea.do", result.getResult());
+				if(result.getCode()==1){
+					callback.success("/queryCommunityByArea.do", result.getResult());
+				}else{
+					callback.failure("/queryCommunityByArea.do", result.getCode(), result.getMessage());
+				}
 			}
 		};
 		task.execute(new String[] {});
@@ -122,12 +126,17 @@ public class AreaRequest {
 				} catch (Exception e) {
 					Log.e("XYSQ", "queryCityAreas", e);
 				}
-				return null;
+				return new TaskResult(-1, "加载城市数据失败", null);
 			}
 
 			@Override
 			protected void onPostExecute(TaskResult result) {
-				callback.success("/queryCityAreas.do", result.getResult());
+				if(result.getCode()==1){
+					callback.success("/queryCityAreas.do", result.getResult());
+				}else{
+					callback.failure("/queryCityAreas.do", result.getCode(),result.getMessage());
+				}
+				
 			}
 		};
 		task.execute(new String[] {});
