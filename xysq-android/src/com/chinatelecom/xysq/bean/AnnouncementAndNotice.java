@@ -18,6 +18,8 @@ public class AnnouncementAndNotice implements Parcelable {
 	private Date modifyTime;
 
 	private String noticeCategory;
+	
+	private String innerModule;
 
 	public Long getId() {
 		return id;
@@ -67,6 +69,14 @@ public class AnnouncementAndNotice implements Parcelable {
 		this.noticeCategory = noticeCategory;
 	}
 
+	public String getInnerModule() {
+		return innerModule;
+	}
+
+	public void setInnerModule(String innerModule) {
+		this.innerModule = innerModule;
+	}
+
 	public static final Parcelable.Creator<AnnouncementAndNotice> CREATOR = new Parcelable.Creator<AnnouncementAndNotice>() {
 		public AnnouncementAndNotice createFromParcel(Parcel in) {
 			return new AnnouncementAndNotice(in);
@@ -87,6 +97,7 @@ public class AnnouncementAndNotice implements Parcelable {
 		dest.writeLong(id);
 		dest.writeString(title);
 		dest.writeString(content);
+		dest.writeString(innerModule);
 		dest.writeLong(modifyTime.getTime());
 	}
 
@@ -97,6 +108,7 @@ public class AnnouncementAndNotice implements Parcelable {
 		id = in.readLong();
 		title = in.readString();
 		content = in.readString();
+		innerModule = in.readString();
 		modifyTime = new Date(in.readLong());
 	}
 

@@ -30,10 +30,12 @@ public class AnnouncementAndNoticeRequest {
 			for (int i = 0; i < aanListJson.length(); i++) {
 				JSONObject aanJson = aanListJson.getJSONObject(i);
 				AnnouncementAndNotice aan = new AnnouncementAndNotice();
+				aan.setId(aanJson.getLong("id"));
 				aan.setTitle(aanJson.getString("title"));
 				aan.setContent(aanJson.getString("content"));
 				aan.setModifyTime(sdf.parse(aanJson.getString("modifyTime")));
 				aan.setNoticeCategory(aanJson.getString("noticeCategory"));
+				aan.setInnerModule(aanJson.getString("innerModule"));
 				aanList.add(aan);
 			}
 		} catch (Exception e) {

@@ -32,7 +32,7 @@ public class AnnouncementAndNoticeDetailActivity extends Activity {
 		Intent intent = this.getIntent();
 		announcementAndNotice = (AnnouncementAndNotice) intent
 				.getParcelableExtra("announcementAndNotice");
-		boolean announcement = intent.getBooleanExtra("announcement", true);
+		boolean announcement = announcementAndNotice.getInnerModule().equals("ANNOUNCEMENT")?true:false;
 		Button backButton = (Button)findViewById(R.id.announcement_and_notice_detail_backButton);
 		backButton.setOnClickListener(new OnClickListener(){
 			@Override
@@ -47,6 +47,8 @@ public class AnnouncementAndNoticeDetailActivity extends Activity {
 		this.contentTextView = (TextView)this.findViewById(R.id.announcement_and_notice_detail_contentTextView);
 		if(announcement){
 			this.headTextView.setText("小区公告");
+		}else{
+			this.headTextView.setText("业主须知");
 		}
 		this.titleTextView.setText(announcementAndNotice.getTitle());
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd",Locale.ENGLISH);
