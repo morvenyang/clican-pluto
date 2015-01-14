@@ -35,6 +35,7 @@ public class XysqApplication {
             log.info("Startup Quiz Application");
         }
         springProperty = (SpringProperty) Constants.ctx.getBean("springProperty");
+        springProperty.setContextPath(contextPath);
         if (log.isInfoEnabled()) {
             log.info("contextPath=[" + contextPath + "]");
         }

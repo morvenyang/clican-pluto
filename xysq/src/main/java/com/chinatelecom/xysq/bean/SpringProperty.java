@@ -7,6 +7,8 @@ public class SpringProperty {
 	private String imageUrlPrefix;
 	
 	private String serverUrl;
+	
+	private String contextPath;
 
 	public String getVersion() {
 		return version;
@@ -30,6 +32,14 @@ public class SpringProperty {
 
 	public void setServerUrl(String serverUrl) {
 		this.serverUrl = serverUrl;
+	}
+
+	public String getContextPath() {
+		return contextPath;
+	}
+
+	public void setContextPath(String contextPath) {
+		this.contextPath = contextPath;
 	}
 
 	

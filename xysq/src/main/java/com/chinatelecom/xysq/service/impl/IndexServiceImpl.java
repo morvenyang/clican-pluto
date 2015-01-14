@@ -42,7 +42,7 @@ public class IndexServiceImpl implements IndexService {
 			PosterJson pj = new PosterJson();
 			pj.setId(p.getId());
 			pj.setHtml5Link(p.getHtml5Link());
-			pj.setImagePath(springProperty.getServerUrl()+"/xysq/image.do?imagePath="+p.getImage().getPath());
+			pj.setImagePath(springProperty.getServerUrl()+springProperty.getContextPath()+"/image.do?imagePath="+p.getImage().getPath());
 			pj.setInnerModule(p.getInnerModule());
 			pj.setName(p.getName());
 			if(p.getStore()!=null){
