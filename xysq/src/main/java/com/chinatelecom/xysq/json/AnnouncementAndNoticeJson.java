@@ -2,6 +2,7 @@ package com.chinatelecom.xysq.json;
 
 import java.util.Date;
 
+import com.chinatelecom.xysq.enumeration.InnerModule;
 import com.chinatelecom.xysq.enumeration.NoticeCategory;
 
 public class AnnouncementAndNoticeJson {
@@ -17,6 +18,8 @@ public class AnnouncementAndNoticeJson {
 	private Date modifyTime;
 
 	private NoticeCategory noticeCategory;
+
+	private InnerModule innerModule;
 
 	public Long getId() {
 		return id;
@@ -64,6 +67,14 @@ public class AnnouncementAndNoticeJson {
 
 	public void setNoticeCategory(NoticeCategory noticeCategory) {
 		this.noticeCategory = noticeCategory;
+	}
+
+	public InnerModule getInnerModule() {
+		return innerModule;
+	}
+
+	public void setInnerModule(InnerModule innerModule) {
+		this.innerModule = innerModule;
 	}
 
 }
