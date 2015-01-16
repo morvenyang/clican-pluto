@@ -11,6 +11,7 @@ import net.sf.json.JsonConfig;
 import com.chinatelecom.xysq.bean.SpringProperty;
 import com.chinatelecom.xysq.dao.AnnouncementAndNoticeDao;
 import com.chinatelecom.xysq.dao.PosterDao;
+import com.chinatelecom.xysq.enumeration.NoticeCategory;
 import com.chinatelecom.xysq.json.AnnouncementAndNoticeJson;
 import com.chinatelecom.xysq.json.IndexJson;
 import com.chinatelecom.xysq.json.PosterJson;
@@ -74,9 +75,9 @@ public class IndexServiceImpl implements IndexService {
 
 	@Override
 	public String queryAnnouncementAndNotice(Long communityId,
-			boolean announcement, int page, int pageSize) {
+			boolean announcement,NoticeCategory noticeCategory, int page, int pageSize) {
 		List<AnnouncementAndNotice> list = announcementAndNoticeDao
-				.findAnnouncementAndNotice(communityId, announcement, page,
+				.findAnnouncementAndNotice(communityId, announcement,noticeCategory, page,
 						pageSize);
 		List<AnnouncementAndNoticeJson> jsonList = new ArrayList<AnnouncementAndNoticeJson>();
 		for (AnnouncementAndNotice aan : list) {
