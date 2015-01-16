@@ -10,6 +10,7 @@ import org.springframework.orm.hibernate3.HibernateCallback;
 
 import com.chinatelecom.xysq.dao.AnnouncementAndNoticeDao;
 import com.chinatelecom.xysq.enumeration.InnerModule;
+import com.chinatelecom.xysq.enumeration.NoticeCategory;
 import com.chinatelecom.xysq.model.AnnouncementAndNotice;
 import com.chinatelecom.xysq.model.Community;
 
@@ -34,7 +35,7 @@ public class AnnouncementAndNoticeDaoImpl extends BaseDao implements
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<AnnouncementAndNotice> findAnnouncementAndNotice(
-			final Long communityId, final boolean announcement, final int page,
+			final Long communityId, final boolean announcement,final NoticeCategory noticeCategory, final int page,
 			final int pageSize) {
 		return (List<AnnouncementAndNotice>) this.getHibernateTemplate()
 				.executeFind(new HibernateCallback() {
@@ -42,12 +43,20 @@ public class AnnouncementAndNoticeDaoImpl extends BaseDao implements
 					@Override
 					public Object doInHibernate(Session session)
 							throws HibernateException, SQLException {
-						Query query = session
-								.createQuery("from AnnouncementAndNotice where community.id = :communityId and innerModule = :innerModule order by modifyTime desc");
+						String hsql;
+						if(announcement){
+							hsql = "from AnnouncementAndNotice where community.id = :communityId and innerModule = :innerModule order by modifyTime desc";
+						}else{
+							hsql = "from AnnouncementAndNotice where community.id = :communityId and innerModule = :innerModule and noticeCategory =:noticeCategory order by modifyTime desc";
+						}
+						Query query = session.createQuery(hsql);
 						query.setParameter("communityId", communityId);
 						query.setParameter("innerModule",
 								announcement ? InnerModule.ANNOUNCEMENT
 										: InnerModule.NOTICE);
+						if(!announcement){
+							query.setParameter("noticeCategory",noticeCategory);
+						}
 						query.setMaxResults(pageSize);
 						query.setFirstResult((page - 1) * pageSize);
 						return query.list();

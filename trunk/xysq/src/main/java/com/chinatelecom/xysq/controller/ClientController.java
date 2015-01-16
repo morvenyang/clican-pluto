@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.chinatelecom.xysq.bean.SpringProperty;
+import com.chinatelecom.xysq.enumeration.NoticeCategory;
 import com.chinatelecom.xysq.service.AreaService;
 import com.chinatelecom.xysq.service.IndexService;
 
@@ -110,11 +111,12 @@ public class ClientController {
 	public void queryAnnouncementAndNotice(
 			@RequestParam(value = "communityId", required = false) Long communityId,
 			@RequestParam(value = "announcement") boolean announcement,
+			@RequestParam(value = "noticeCategory") String noticeCategory,
 			@RequestParam(value = "page", required = true) int page,
 			@RequestParam(value = "pageSize", required = true) int pageSize,
 			HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		String result = this.indexService.queryAnnouncementAndNotice(communityId, announcement, page, pageSize);
+		String result = this.indexService.queryAnnouncementAndNotice(communityId, announcement,NoticeCategory.convert(noticeCategory), page, pageSize);
 		try {
 			resp.setContentType("application/json");
 			resp.getOutputStream().write(result.getBytes("utf-8"));
