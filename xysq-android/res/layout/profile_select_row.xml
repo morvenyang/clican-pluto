@@ -29,6 +29,7 @@
         android:layout_toLeftOf="@+id/profile_select_row_arrowImageView"
         android:layout_toRightOf="@+id/profile_select_row_iconImageView"
         android:text="Medium Text"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@android:color/black" />
 
 </RelativeLayout>

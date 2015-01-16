@@ -27,8 +27,8 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="24dp"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp"
+            android:paddingBottom="30dp"
+            android:paddingTop="30dp"
             android:src="@drawable/icon" />
 
         <TextView
@@ -37,7 +37,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_toRightOf="@+id/profile_iconImageView"
-            android:paddingTop="10dp"
+            android:paddingTop="30dp"
             android:text="Large Text"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
