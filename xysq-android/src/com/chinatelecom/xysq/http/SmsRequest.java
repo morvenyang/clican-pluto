@@ -13,7 +13,8 @@ import android.util.Log;
 
 public class SmsRequest {
 
-	public static void requestSmsCode(final String msisidn,final HttpCallback callback) {
+	public static void requestSmsCode(final String msisdn,
+			final HttpCallback callback) {
 		AsyncTask<String, Void, TaskResult> task = new AsyncTask<String, Void, TaskResult>() {
 			@Override
 			protected TaskResult doInBackground(String... params) {
@@ -27,7 +28,7 @@ public class SmsRequest {
 							"8nc8zg36bmlqp00auc8usbz5k641vsym4k5sanlrcclgikzr");
 					post.setHeader("Content-Type", "application/json");
 					post.setEntity(new StringEntity(
-							"{\"mobilePhoneNumber\": \""+msisidn+"\"}"));
+							"{\"mobilePhoneNumber\": \"" + msisdn + "\"}"));
 					HttpResponse response = httpclient.execute(post);
 					StatusLine statusLine = response.getStatusLine();
 					if (statusLine.getStatusCode() == HttpStatus.SC_OK) {
@@ -55,4 +56,49 @@ public class SmsRequest {
 		};
 		task.execute(new String[] {});
 	}
+
+	public static void verifySmsCode(final String msisdn,final String verifyCode,
+			final HttpCallback callback) {
+		AsyncTask<String, Void, TaskResult> task = new AsyncTask<String, Void, TaskResult>() {
+			@Override
+			protected TaskResult doInBackground(String... params) {
+				HttpClient httpclient = new DefaultHttpClient();
+				try {
+					HttpPost post = new HttpPost(
+							"https://leancloud.cn/1.1/verifySmsCode/"+verifyCode+"?mobilePhoneNumber="+msisdn);
+					post.setHeader("X-AVOSCloud-Application-Id",
+							"zgdiillmtdo07gx2zwu5xlhubqu0ob6jf4pmd6d80o4r63jr");
+					post.setHeader("X-AVOSCloud-Application-Key",
+							"8nc8zg36bmlqp00auc8usbz5k641vsym4k5sanlrcclgikzr");
+					post.setHeader("Content-Type", "application/json");
+					post.setEntity(new StringEntity(
+							"{\"mobilePhoneNumber\": \"" + msisdn + "\"}"));
+					HttpResponse response = httpclient.execute(post);
+					StatusLine statusLine = response.getStatusLine();
+					if (statusLine.getStatusCode() == HttpStatus.SC_OK) {
+						return new TaskResult(1, null, null);
+					} else {
+						response.getEntity().getContent().close();
+						return new TaskResult(-1, "faliure", null);
+					}
+				} catch (Exception e) {
+					Log.e("XYSQ", "requestSmsCode", e);
+				}
+				return new TaskResult(-1, "faliure", null);
+			}
+
+			@Override
+			protected void onPostExecute(TaskResult result) {
+				if (result.getCode() == 1) {
+					callback.success("/requestSmsCode", "success");
+				} else {
+					callback.failure("/requestSmsCode", result.getCode(),
+							result.getMessage());
+				}
+
+			}
+		};
+		task.execute(new String[] {});
+	}
+	
 }
