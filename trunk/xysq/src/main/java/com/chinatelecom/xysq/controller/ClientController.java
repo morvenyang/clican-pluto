@@ -111,7 +111,7 @@ public class ClientController {
 	public void queryAnnouncementAndNotice(
 			@RequestParam(value = "communityId", required = false) Long communityId,
 			@RequestParam(value = "announcement") boolean announcement,
-			@RequestParam(value = "noticeCategory") String noticeCategory,
+			@RequestParam(value = "noticeCategory",required=false) String noticeCategory,
 			@RequestParam(value = "page", required = true) int page,
 			@RequestParam(value = "pageSize", required = true) int pageSize,
 			HttpServletRequest req, HttpServletResponse resp)
