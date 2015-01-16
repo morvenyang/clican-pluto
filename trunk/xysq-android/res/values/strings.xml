@@ -35,5 +35,8 @@
      <string name="load_mode_label" translatable="false">加载更多</string>
      <string name="announcement_titleTextViewValue">小区公告</string>
      <string name="profile_title">个人中心</string>
+     <string name="login_titleTextViewValue">登录</string>
+     <string name="login_registerButtonValue">注册</string>
+     <string name="login_submitButtonValue">登录</string>
 
 </resources>
