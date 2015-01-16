@@ -29,7 +29,7 @@ public class MainActivity extends TabActivity {
 	private void setTabs() {
 		addTab("首页", R.drawable.tab_index, IndexActivity.class);
 		addTab("小翼助手", R.drawable.tab_index, XyzsActivity.class);
-		addTab("个人中心", R.drawable.tab_index, Profile.class);
+		addTab("个人中心", R.drawable.tab_index, ProfileActivity.class);
 	}
 
 	private void addTab(String labelId, int drawableId, Class<?> c) {
