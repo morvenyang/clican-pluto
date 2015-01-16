@@ -156,6 +156,8 @@ public class NoticeActivity extends Activity implements
 			currentNoticeCategory = NoticeCategory.PAI_CHU_SUO;
 		}
 		((Button) v).setTextColor(Color.GREEN);
+		page = 1;
+		announcementAndNoticeList.clear();
 		AnnouncementAndNoticeRequest.queryAnnouncementAndNotice(this,
 				communityId, false, currentNoticeCategory, page, 5);
 	}

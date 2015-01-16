@@ -26,7 +26,8 @@
             android:layout_centerInParent="true"
             android:layout_centerVertical="false"
             android:layout_gravity="center"
-            android:text="TextView" />
+            android:text="TextView"
+            android:textColor="@android:color/black" />
 
     </RelativeLayout>
 
@@ -36,20 +37,23 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="Large Text"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@android:color/black" />
 
     <TextView
         android:id="@+id/announcement_and_notice_detail_modifyTimeTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="TextView" />
+        android:text="TextView"
+        android:textColor="@android:color/darker_gray" />
 
     <TextView
         android:id="@+id/announcement_and_notice_detail_contentTextView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="Medium Text"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@android:color/black" />
 
 </LinearLayout>
