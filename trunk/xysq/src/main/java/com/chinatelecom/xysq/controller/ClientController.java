@@ -7,6 +7,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.json.JSONObject;
+
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.chinatelecom.xysq.bean.SpringProperty;
 import com.chinatelecom.xysq.enumeration.NoticeCategory;
+import com.chinatelecom.xysq.json.LoginJson;
 import com.chinatelecom.xysq.service.AreaService;
 import com.chinatelecom.xysq.service.IndexService;
 import com.chinatelecom.xysq.service.UserService;
@@ -31,7 +34,7 @@ public class ClientController {
 	private AreaService areaService;
 
 	private IndexService indexService;
-	
+
 	private UserService userService;
 
 	public void setSpringProperty(SpringProperty springProperty) {
@@ -113,17 +116,19 @@ public class ClientController {
 			log.error("", e);
 		}
 	}
-	
+
 	@RequestMapping("/queryAnnouncementAndNotice")
 	public void queryAnnouncementAndNotice(
 			@RequestParam(value = "communityId", required = false) Long communityId,
 			@RequestParam(value = "announcement") boolean announcement,
-			@RequestParam(value = "noticeCategory",required=false) String noticeCategory,
+			@RequestParam(value = "noticeCategory", required = false) String noticeCategory,
 			@RequestParam(value = "page", required = true) int page,
 			@RequestParam(value = "pageSize", required = true) int pageSize,
 			HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		String result = this.indexService.queryAnnouncementAndNotice(communityId, announcement,NoticeCategory.convert(noticeCategory), page, pageSize);
+		String result = this.indexService.queryAnnouncementAndNotice(
+				communityId, announcement,
+				NoticeCategory.convert(noticeCategory), page, pageSize);
 		try {
 			resp.setContentType("application/json");
 			resp.getOutputStream().write(result.getBytes("utf-8"));
@@ -131,32 +136,38 @@ public class ClientController {
 			log.error("", e);
 		}
 	}
-	
+
 	@RequestMapping("/login")
-	public void login(
-			@RequestParam(value = "userName")String userName,
+	public void login(@RequestParam(value = "userName") String userName,
 			@RequestParam(value = "password") String password,
 			HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		try {
-			String result = userService.login(userName, password);
+			LoginJson result = userService.login(userName, password);
+
+			if (result.isSuccess()) {
+				req.getSession().setAttribute("USER_ID",
+						result.getUser().getId());
+				result.setJsessionid(req.getSession().getId());
+			}
 			resp.setContentType("application/json");
-			resp.getOutputStream().write(result.getBytes("utf-8"));
+			resp.getOutputStream().write(
+					JSONObject.fromObject(result).toString().getBytes("utf-8"));
 		} catch (Exception e) {
 			log.error("", e);
 		}
 	}
-	
+
 	@RequestMapping("/register")
-	public void register(
-			@RequestParam(value = "userName")String userName,
+	public void register(@RequestParam(value = "userName") String userName,
 			@RequestParam(value = "password") String password,
 			@RequestParam(value = "msisdn") String msisdn,
 			@RequestParam(value = "verifyCode") String verifyCode,
 			HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		try {
-			String result = userService.register(userName, password, msisdn, verifyCode);
+			String result = userService.register(userName, password, msisdn,
+					verifyCode);
 			resp.setContentType("application/json");
 			resp.getOutputStream().write(result.getBytes("utf-8"));
 		} catch (Exception e) {

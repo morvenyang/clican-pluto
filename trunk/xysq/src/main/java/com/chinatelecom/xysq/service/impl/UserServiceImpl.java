@@ -74,7 +74,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public String login(String userName, String password) {
+	public LoginJson login(String userName, String password) {
 		User user = this.userDao.findUserByUserName(userName);
 		LoginJson result = new LoginJson();
 		if (user == null||user.getRole()!=Role.USER) {
@@ -88,12 +88,13 @@ public class UserServiceImpl implements UserService {
 				UserJson userJson = new UserJson();
 				userJson.setMsisdn(user.getMsisdn());
 				userJson.setUserName(user.getUserName());
+				userJson.setId(user.getId());
 				result.setUser(userJson);
 				result.setSuccess(true);
 				result.setMessage("登录成功");
 			}
 		}
-		return JSONObject.fromObject(result).toString();
+		return result;
 	}
 
 	@Override
