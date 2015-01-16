@@ -22,6 +22,7 @@ import com.chinatelecom.xysq.adapater.PosterPagerAdapter;
 import com.chinatelecom.xysq.bean.Index;
 import com.chinatelecom.xysq.http.HttpCallback;
 import com.chinatelecom.xysq.http.IndexRequest;
+import com.chinatelecom.xysq.listener.IndexOnClickListener;
 import com.chinatelecom.xysq.other.Constants;
 import com.chinatelecom.xysq.util.KeyValueUtils;
 
@@ -47,32 +48,9 @@ public class IndexActivity extends Activity implements HttpCallback {
 
 	private void addListenerForButtons() {
 		Button announcementButton = (Button) findViewById(R.id.index_xqggButton);
-		announcementButton.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Long communityId = KeyValueUtils.getLongValue(
-						IndexActivity.this, Constants.COMMUNITY_ID);
-				if (communityId == null) {
-					new AlertDialog.Builder(IndexActivity.this)
-				    .setTitle("警告")
-				    .setMessage("请先选择小区")
-				    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-				        public void onClick(DialogInterface dialog, int which) {
-				        	dialog.dismiss();
-				        }
-				     })
-				    .setIcon(android.R.drawable.ic_dialog_alert)
-				     .show();
-				} else {
-					Intent intent = new Intent(IndexActivity.this,
-							AnnouncementActivity.class);
-					intent.putExtra("communityId", communityId);
-					Log.d("XYSQ",
-							"announcementButton is clicked, start AnnouncementActivity");
-					startActivity(intent);
-				}
-			}
-		});
+		announcementButton.setOnClickListener(new IndexOnClickListener(this,AnnouncementActivity.class));
+		Button noticeButton = (Button) findViewById(R.id.index_yzxxButton);
+		noticeButton.setOnClickListener(new IndexOnClickListener(this,NoticeActivity.class));
 	}
 
 	@Override
