@@ -1,5 +1,8 @@
 package com.chinatelecom.xysq.enumeration;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public enum NoticeCategory implements LabelAndValue {
 
 	JU_WEI_HUI("居委会", 1),
@@ -33,5 +36,13 @@ public enum NoticeCategory implements LabelAndValue {
 			}
 		}
 		return null;
+	}
+	
+	public static List<NoticeCategory> getNoticeCategories(){
+		List<NoticeCategory> categories = new ArrayList<NoticeCategory>();
+		for (NoticeCategory member : values()) {
+			categories.add(member);
+		}
+		return categories;
 	}
 }

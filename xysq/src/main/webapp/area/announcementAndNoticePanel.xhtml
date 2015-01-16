@@ -32,6 +32,16 @@
 				style="width:355px;" required="true" requiredMessage="标题不能为空" />
 			<rich:message for="announcementAndNoticeName" style="color:red"
 				showDetail="false" showSummary="true" />
+			
+			<t:panelGroup rendered="#{!areaAction.announcement}">
+				<h:outputLabel value="分类" />
+			</t:panelGroup>
+			<h:selectOneMenu value="#{areaAction.announcementAndNotice.noticeCategory}">
+				<s:selectItems value="#{areaAction.noticeCategories}" var="category"
+							label="#{category.label}" />
+				<s:convertEnum />
+			</h:selectOneMenu>
+			<h:outputText value=""/>
 
 			<t:panelGroup>
 				<h:outputLabel value="内容" />

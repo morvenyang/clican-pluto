@@ -31,6 +31,7 @@ import com.chinatelecom.xysq.bean.PageList;
 import com.chinatelecom.xysq.bean.PageListDataModel;
 import com.chinatelecom.xysq.bean.SuggestionBean;
 import com.chinatelecom.xysq.enumeration.InnerModule;
+import com.chinatelecom.xysq.enumeration.NoticeCategory;
 import com.chinatelecom.xysq.model.AdminCommunityRel;
 import com.chinatelecom.xysq.model.AnnouncementAndNotice;
 import com.chinatelecom.xysq.model.Area;
@@ -77,6 +78,8 @@ public class AreaAction extends PageListAction<Community> {
 	private List<AnnouncementAndNotice> announcementAndNotices;
 
 	private AnnouncementAndNotice announcementAndNotice;
+	
+	private List<NoticeCategory> noticeCategories;
 
 	public void listAreaTrees() {
 		this.page = 1;
@@ -86,6 +89,7 @@ public class AreaAction extends PageListAction<Community> {
 		} else {
 			selectedArea = null;
 		}
+		this.noticeCategories = NoticeCategory.getNoticeCategories();
 		this.refresh();
 	}
 
@@ -525,6 +529,14 @@ public class AreaAction extends PageListAction<Community> {
 	public void setAnnouncementAndNotice(
 			AnnouncementAndNotice announcementAndNotice) {
 		this.announcementAndNotice = announcementAndNotice;
+	}
+
+	public List<NoticeCategory> getNoticeCategories() {
+		return noticeCategories;
+	}
+
+	public void setNoticeCategories(List<NoticeCategory> noticeCategories) {
+		this.noticeCategories = noticeCategories;
 	}
 
 }
