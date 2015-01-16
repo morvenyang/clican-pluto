@@ -7,8 +7,9 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 
 import com.chinatelecom.xysq.R;
+import com.chinatelecom.xysq.http.HttpCallback;
 
-public class LoginActivity extends Activity {
+public class LoginActivity extends Activity implements HttpCallback {
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -29,4 +30,16 @@ public class LoginActivity extends Activity {
 			}
 		});
 	}
+
+	@Override
+	public void success(String url, Object data) {
+		
+	}
+
+	@Override
+	public void failure(String url, int code, String message) {
+		
+	}
+	
+	
 }
