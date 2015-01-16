@@ -82,7 +82,7 @@ public class AnnouncementActivity extends ListActivity implements
 
 		actualListView.setAdapter(adapter);
 		AnnouncementAndNoticeRequest.queryAnnouncementAndNotice(this,
-				communityId, true, page, 5);
+				communityId, true,null, page, 5);
 	}
 
 	@Override
@@ -98,7 +98,7 @@ public class AnnouncementActivity extends ListActivity implements
 		announcementAndNoticeList.clear();
 		// Do work to refresh the list here.
 		AnnouncementAndNoticeRequest.queryAnnouncementAndNotice(this,
-				communityId, true, page, 5);
+				communityId, true,null, page, 5);
 	}
 
 	@Override
@@ -106,7 +106,7 @@ public class AnnouncementActivity extends ListActivity implements
 		// Do work to refresh the list here.
 		page++;
 		AnnouncementAndNoticeRequest.queryAnnouncementAndNotice(this,
-				communityId, true, page, 5);
+				communityId, true,null, page, 5);
 	}
 
 	@Override
