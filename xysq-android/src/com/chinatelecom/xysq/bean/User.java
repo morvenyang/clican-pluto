@@ -5,6 +5,8 @@ public class User {
 	private String userName;
 	
 	private String msisdn;
+	
+	private String jsessionid;
 
 	public String getUserName() {
 		return userName;
@@ -20,6 +22,14 @@ public class User {
 
 	public void setMsisdn(String msisdn) {
 		this.msisdn = msisdn;
+	}
+
+	public String getJsessionid() {
+		return jsessionid;
+	}
+
+	public void setJsessionid(String jsessionid) {
+		this.jsessionid = jsessionid;
 	}
 	
 	

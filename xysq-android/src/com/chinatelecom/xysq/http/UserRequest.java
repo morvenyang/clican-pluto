@@ -41,9 +41,11 @@ public class UserRequest {
 						JSONObject jsonObj = new JSONObject(responseString);
 						if (jsonObj.getBoolean("success")) {
 							User user  = new User();
-							user.setMsisdn(jsonObj.getJSONObject("user").getString("userName"));
+							user.setUserName(jsonObj.getJSONObject("user").getString("userName"));
+							user.setMsisdn(jsonObj.getJSONObject("user").getString("msisdn"));
+							user.setJsessionid(jsonObj.getString("jsessionid"));
 							return new TaskResult(1,
-									jsonObj.getString("message"), null);
+									jsonObj.getString("message"), user);
 						} else {
 							return new TaskResult(-1,
 									jsonObj.getString("message"), null);

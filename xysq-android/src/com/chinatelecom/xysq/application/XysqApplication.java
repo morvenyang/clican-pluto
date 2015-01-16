@@ -7,6 +7,7 @@ import com.baidu.location.GeofenceClient;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.baidu.location.LocationClientOption.LocationMode;
+import com.chinatelecom.xysq.bean.User;
 import com.chinatelecom.xysq.listener.LocationListener;
 
 public class XysqApplication extends Application {
@@ -15,6 +16,8 @@ public class XysqApplication extends Application {
 	public LocationListener locationListener;
 
 	public Vibrator mVibrator;
+	
+	private User user;
 
 	@Override
 	public void onCreate() {
@@ -26,6 +29,14 @@ public class XysqApplication extends Application {
 		option.setScanSpan(5000);// 设置发起定位请求的间隔时间为5000ms
 		option.setIsNeedAddress(true);
 		locationClient.setLocOption(option);
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 }
