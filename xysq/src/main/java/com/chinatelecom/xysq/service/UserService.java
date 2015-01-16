@@ -20,5 +20,5 @@ public interface UserService {
 	
 	public String login(String userName,String password);
 	
-	public void register(String userName,String password,String msisdn,String verifyCode);
+	public String register(String userName,String password,String msisdn,String verifyCode);
 }

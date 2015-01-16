@@ -146,4 +146,21 @@ public class ClientController {
 			log.error("", e);
 		}
 	}
+	
+	@RequestMapping("/register")
+	public void register(
+			@RequestParam(value = "userName")String userName,
+			@RequestParam(value = "password") String password,
+			@RequestParam(value = "msisdn") String msisdn,
+			@RequestParam(value = "verifyCode") String verifyCode,
+			HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		try {
+			String result = userService.register(userName, password, msisdn, verifyCode);
+			resp.setContentType("application/json");
+			resp.getOutputStream().write(result.getBytes("utf-8"));
+		} catch (Exception e) {
+			log.error("", e);
+		}
+	}
 }
