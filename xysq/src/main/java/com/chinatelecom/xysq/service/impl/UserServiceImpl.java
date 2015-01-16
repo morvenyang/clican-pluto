@@ -17,6 +17,7 @@ import com.chinatelecom.xysq.dao.UserDao;
 import com.chinatelecom.xysq.enumeration.Role;
 import com.chinatelecom.xysq.json.LoginJson;
 import com.chinatelecom.xysq.json.RegisterJson;
+import com.chinatelecom.xysq.json.UserJson;
 import com.chinatelecom.xysq.model.User;
 import com.chinatelecom.xysq.service.UserService;
 
@@ -76,7 +77,7 @@ public class UserServiceImpl implements UserService {
 	public String login(String userName, String password) {
 		User user = this.userDao.findUserByUserName(userName);
 		LoginJson result = new LoginJson();
-		if (user == null) {
+		if (user == null||user.getRole()!=Role.USER) {
 			result.setSuccess(false);
 			result.setMessage("该用户名不存在");
 		} else {
@@ -84,6 +85,10 @@ public class UserServiceImpl implements UserService {
 				result.setSuccess(false);
 				result.setMessage("密码错误");
 			} else {
+				UserJson userJson = new UserJson();
+				userJson.setMsisdn(user.getMsisdn());
+				userJson.setUserName(user.getUserName());
+				result.setUser(userJson);
 				result.setSuccess(true);
 				result.setMessage("登录成功");
 			}
@@ -124,6 +129,10 @@ public class UserServiceImpl implements UserService {
 				user.setMsisdn(msisdn);
 				user.setRole(Role.USER);
 				this.userDao.saveUser(user);
+				UserJson userJson = new UserJson();
+				userJson.setMsisdn(user.getMsisdn());
+				userJson.setUserName(user.getUserName());
+				result.setUser(userJson);
 				result.setSuccess(true);
 				result.setMessage("注册成功");
 			} else {
