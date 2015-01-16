@@ -3,6 +3,7 @@ package com.chinatelecom.xysq.activity;
 import android.app.TabActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract.Profile;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -10,7 +11,6 @@ import android.widget.TabHost;
 import android.widget.TextView;
 
 import com.chinatelecom.xysq.R;
-import com.chinatelecom.xysq.util.KeyValueUtils;
 
 public class MainActivity extends TabActivity {
 
@@ -20,7 +20,7 @@ public class MainActivity extends TabActivity {
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		//初始化基本属性读写类
+		// 初始化基本属性读写类
 		setContentView(R.layout.main);
 		tabHost = getTabHost();
 		setTabs();
@@ -29,7 +29,7 @@ public class MainActivity extends TabActivity {
 	private void setTabs() {
 		addTab("首页", R.drawable.tab_index, IndexActivity.class);
 		addTab("小翼助手", R.drawable.tab_index, XyzsActivity.class);
-		addTab("个人中心", R.drawable.tab_index, GrzxActivity.class);
+		addTab("个人中心", R.drawable.tab_index, Profile.class);
 	}
 
 	private void addTab(String labelId, int drawableId, Class<?> c) {

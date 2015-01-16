@@ -34,5 +34,6 @@
     <string name="pull_to_refresh_load_label" translatable="false">上拉加载更多</string>
      <string name="load_mode_label" translatable="false">加载更多</string>
      <string name="announcement_titleTextViewValue">小区公告</string>
+     <string name="profile_title">个人中心</string>
 
 </resources>
