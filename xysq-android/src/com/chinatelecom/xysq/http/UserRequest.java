@@ -14,6 +14,7 @@ import org.json.JSONObject;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.chinatelecom.xysq.bean.User;
 import com.chinatelecom.xysq.other.Constants;
 
 public class UserRequest {
@@ -39,6 +40,8 @@ public class UserRequest {
 						String responseString = out.toString();
 						JSONObject jsonObj = new JSONObject(responseString);
 						if (jsonObj.getBoolean("success")) {
+							User user  = new User();
+							user.setMsisdn(jsonObj.getJSONObject("user").getString("userName"));
 							return new TaskResult(1,
 									jsonObj.getString("message"), null);
 						} else {
@@ -50,7 +53,7 @@ public class UserRequest {
 						return new TaskResult(-1, "登录失败", null);
 					}
 				} catch (Exception e) {
-					Log.e("XYSQ", "queryCityAreas", e);
+					Log.e("XYSQ", "login", e);
 				}
 				return new TaskResult(-1, "登录失败", null);
 			}
@@ -104,7 +107,7 @@ public class UserRequest {
 						return new TaskResult(-1, "注册失败", null);
 					}
 				} catch (Exception e) {
-					Log.e("XYSQ", "queryCityAreas", e);
+					Log.e("XYSQ", "register", e);
 				}
 				return new TaskResult(-1, "注册失败", null);
 			}
