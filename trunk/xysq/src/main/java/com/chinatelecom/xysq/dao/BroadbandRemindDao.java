@@ -1,7 +1,6 @@
 package com.chinatelecom.xysq.dao;
 
 import java.util.List;
-import java.util.Set;
 
 import com.chinatelecom.xysq.bean.PageList;
 import com.chinatelecom.xysq.model.BroadbandRemind;
