@@ -17,4 +17,5 @@ public interface StoreService {
 	public void deleteStore(Store store);
 
 	public Store findStoreById(Long id);
+	
 }

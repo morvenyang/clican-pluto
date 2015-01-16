@@ -19,6 +19,7 @@ import com.chinatelecom.xysq.bean.SpringProperty;
 import com.chinatelecom.xysq.enumeration.NoticeCategory;
 import com.chinatelecom.xysq.service.AreaService;
 import com.chinatelecom.xysq.service.IndexService;
+import com.chinatelecom.xysq.service.UserService;
 
 @Controller
 public class ClientController {
@@ -30,6 +31,8 @@ public class ClientController {
 	private AreaService areaService;
 
 	private IndexService indexService;
+	
+	private UserService userService;
 
 	public void setSpringProperty(SpringProperty springProperty) {
 		this.springProperty = springProperty;
@@ -41,6 +44,10 @@ public class ClientController {
 
 	public void setIndexService(IndexService indexService) {
 		this.indexService = indexService;
+	}
+
+	public void setUserService(UserService userService) {
+		this.userService = userService;
 	}
 
 	@RequestMapping("/image")
@@ -118,6 +125,21 @@ public class ClientController {
 			throws ServletException, IOException {
 		String result = this.indexService.queryAnnouncementAndNotice(communityId, announcement,NoticeCategory.convert(noticeCategory), page, pageSize);
 		try {
+			resp.setContentType("application/json");
+			resp.getOutputStream().write(result.getBytes("utf-8"));
+		} catch (Exception e) {
+			log.error("", e);
+		}
+	}
+	
+	@RequestMapping("/login")
+	public void login(
+			@RequestParam(value = "userName")String userName,
+			@RequestParam(value = "password") String password,
+			HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		try {
+			String result = userService.login(userName, password);
 			resp.setContentType("application/json");
 			resp.getOutputStream().write(result.getBytes("utf-8"));
 		} catch (Exception e) {
