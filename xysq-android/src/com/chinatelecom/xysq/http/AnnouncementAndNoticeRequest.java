@@ -19,6 +19,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.chinatelecom.xysq.bean.AnnouncementAndNotice;
+import com.chinatelecom.xysq.enumeration.NoticeCategory;
 import com.chinatelecom.xysq.other.Constants;
 
 public class AnnouncementAndNoticeRequest {
@@ -45,7 +46,7 @@ public class AnnouncementAndNoticeRequest {
 	}
 
 	public static void queryAnnouncementAndNotice(final HttpCallback callback,
-			final Long communityId, final boolean announcement, final int page,
+			final Long communityId, final boolean announcement,final NoticeCategory noticeCategory, final int page,
 			final int pageSize) {
 		AsyncTask<String, Void, TaskResult> task = new AsyncTask<String, Void, TaskResult>() {
 			@Override
@@ -56,6 +57,9 @@ public class AnnouncementAndNoticeRequest {
 							+ "/queryAnnouncementAndNotice.do?communityId="
 							+ communityId + "&announcement=" + announcement
 							+ "&page=" + page + "&pageSize=" + pageSize;
+					if(noticeCategory!=null){
+						url = url+"&noticeCategory="+noticeCategory.name();
+					}
 					Log.d("XYSQ", "queryAnnouncementAndNoticeUrl:"+url);
 					HttpResponse response = httpclient
 							.execute(new HttpGet(url));
