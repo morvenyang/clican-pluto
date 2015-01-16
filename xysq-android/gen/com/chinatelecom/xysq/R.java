@@ -202,6 +202,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int announcement_and_notice_detail_titleTextView=0x7f060012;
         public static final int announcement_and_notice_select_row_title=0x7f060015;
         public static final int announcement_backButton=0x7f06000c;
+        public static final int announcement_listView=0x7f06000e;
         public static final int announcement_titleTextView=0x7f06000d;
         public static final int both=0x7f060003;
         public static final int citySelect_backButton=0x7f060016;
@@ -222,10 +223,10 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int community_select_row_communityAddress=0x7f060026;
         public static final int community_select_row_communityName=0x7f060025;
         public static final int disabled=0x7f060000;
-        public static final int fl_inner=0x7f06003b;
+        public static final int fl_inner=0x7f060042;
         public static final int flip=0x7f060008;
         public static final int gridview=0x7f060009;
-        public static final int icon=0x7f06003e;
+        public static final int icon=0x7f060045;
         public static final int index_bmffButton=0x7f06002e;
         public static final int index_bmfwTextView=0x7f06002d;
         public static final int index_changeCommunity=0x7f060028;
@@ -240,22 +241,28 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int index_yzxxButton=0x7f06002b;
         public static final int index_zpzsButton=0x7f06002f;
         public static final int manualOnly=0x7f060004;
+        public static final int notice_backButton=0x7f060035;
+        public static final int notice_listView=0x7f06003b;
+        public static final int notice_tab1Button=0x7f060037;
+        public static final int notice_tab2Button=0x7f060038;
+        public static final int notice_tab3Button=0x7f060039;
+        public static final int notice_tab4Button=0x7f06003a;
+        public static final int notice_titleTextView=0x7f060036;
         public static final int pullDownFromTop=0x7f060005;
         public static final int pullFromEnd=0x7f060002;
         public static final int pullFromStart=0x7f060001;
         public static final int pullUpFromBottom=0x7f060006;
-        public static final int pull_refresh_list=0x7f06000e;
-        public static final int pull_to_arrow_image=0x7f060038;
-        public static final int pull_to_loading_progress=0x7f060035;
-        public static final int pull_to_loading_text=0x7f060036;
-        public static final int pull_to_refresh_image=0x7f06003c;
-        public static final int pull_to_refresh_progress=0x7f060037;
-        public static final int pull_to_refresh_sub_text=0x7f06003d;
-        public static final int pull_to_refresh_text=0x7f060039;
-        public static final int pull_to_refresh_updated_at=0x7f06003a;
+        public static final int pull_to_arrow_image=0x7f06003f;
+        public static final int pull_to_loading_progress=0x7f06003c;
+        public static final int pull_to_loading_text=0x7f06003d;
+        public static final int pull_to_refresh_image=0x7f060043;
+        public static final int pull_to_refresh_progress=0x7f06003e;
+        public static final int pull_to_refresh_sub_text=0x7f060044;
+        public static final int pull_to_refresh_text=0x7f060040;
+        public static final int pull_to_refresh_updated_at=0x7f060041;
         public static final int rotate=0x7f060007;
         public static final int scrollview=0x7f06000b;
-        public static final int title=0x7f06003f;
+        public static final int title=0x7f060046;
         public static final int webview=0x7f06000a;
     }
     public static final class layout {
@@ -270,12 +277,13 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int grzx=0x7f030008;
         public static final int index=0x7f030009;
         public static final int main=0x7f03000a;
-        public static final int pull_to_refresh_footer=0x7f03000b;
-        public static final int pull_to_refresh_header=0x7f03000c;
-        public static final int pull_to_refresh_header_horizontal=0x7f03000d;
-        public static final int pull_to_refresh_header_vertical=0x7f03000e;
-        public static final int tab_indicator=0x7f03000f;
-        public static final int xyzs=0x7f030010;
+        public static final int notice=0x7f03000b;
+        public static final int pull_to_refresh_footer=0x7f03000c;
+        public static final int pull_to_refresh_header=0x7f03000d;
+        public static final int pull_to_refresh_header_horizontal=0x7f03000e;
+        public static final int pull_to_refresh_header_vertical=0x7f03000f;
+        public static final int tab_indicator=0x7f030010;
+        public static final int xyzs=0x7f030011;
     }
     public static final class raw {
         public static final int pull_event=0x7f050000;
@@ -284,7 +292,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
     }
     public static final class string {
         public static final int action_settings=0x7f08000b;
-        public static final int announcement_titleTextViewValue=0x7f08001f;
+        public static final int announcement_titleTextViewValue=0x7f080020;
         public static final int app_name=0x7f080006;
         public static final int back=0x7f08000c;
         public static final int citySelect_selectedCityLabelTextViewValue=0x7f080010;
@@ -301,19 +309,20 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int index_xqnc=0x7f080019;
         public static final int index_yzxx=0x7f080015;
         public static final int index_zpzs=0x7f080017;
-        public static final int load_mode_label=0x7f08001e;
+        public static final int load_mode_label=0x7f08001f;
+        public static final int notice_titleTextViewValue=0x7f08001b;
         /**  Just use standard Pull Down String when pulling up. These can be set for languages which require it 
  Just use standard Pull Down String when pulling up. These can be set for languages which require it 
          */
         public static final int pull_to_refresh_from_bottom_pull_label=0x7f080003;
         public static final int pull_to_refresh_from_bottom_refreshing_label=0x7f080005;
         public static final int pull_to_refresh_from_bottom_release_label=0x7f080004;
-        public static final int pull_to_refresh_load_label=0x7f08001d;
+        public static final int pull_to_refresh_load_label=0x7f08001e;
         public static final int pull_to_refresh_pull_label=0x7f080000;
         public static final int pull_to_refresh_refreshing_label=0x7f080002;
         public static final int pull_to_refresh_release_label=0x7f080001;
-        public static final int pull_to_refresh_tap_label=0x7f08001b;
-        public static final int pull_to_refresh_update_time_label=0x7f08001c;
+        public static final int pull_to_refresh_tap_label=0x7f08001c;
+        public static final int pull_to_refresh_update_time_label=0x7f08001d;
         public static final int search=0x7f080012;
         public static final int title_section1=0x7f080007;
         public static final int title_section2=0x7f080008;

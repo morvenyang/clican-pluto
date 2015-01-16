@@ -34,4 +34,13 @@ public enum NoticeCategory {
 		}
 		return null;
 	}
+	
+	public static NoticeCategory convert(int value){
+		for (NoticeCategory member : values()) {
+			if (member.getValue()==value) {
+				return member;
+			}
+		}
+		return null;
+	}
 }
