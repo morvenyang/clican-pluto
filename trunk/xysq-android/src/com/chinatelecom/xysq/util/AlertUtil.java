@@ -18,4 +18,19 @@ public class AlertUtil {
 							}
 						}).setIcon(android.R.drawable.ic_dialog_alert).show();
 	}
+
+	public static void alert(Activity activity, String message,
+			final Callback callback) {
+		new AlertDialog.Builder(activity)
+				.setTitle("提示")
+				.setMessage(message)
+				.setPositiveButton(android.R.string.yes,
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog,
+									int which) {
+								dialog.dismiss();
+								callback.exec();
+							}
+						}).setIcon(android.R.drawable.ic_dialog_alert).show();
+	}
 }
