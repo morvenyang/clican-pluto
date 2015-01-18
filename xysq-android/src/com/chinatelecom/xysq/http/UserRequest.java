@@ -26,11 +26,10 @@ public class UserRequest {
 			protected TaskResult doInBackground(String... params) {
 				HttpClient httpclient = new DefaultHttpClient();
 				try {
-					HttpResponse response = httpclient
-							.execute(new HttpGet(Constants.BASE_URL
-									+ "/login.do?"
-									+ URLEncoder.encode("userName=" + userName
-											+ "&password=" + password, "utf-8")));
+					HttpResponse response = httpclient.execute(new HttpGet(
+							Constants.BASE_URL + "/login.do?" + "userName="
+									+ userName + "&password="
+									+ URLEncoder.encode(password, "utf-8")));
 					StatusLine statusLine = response.getStatusLine();
 					if (statusLine.getStatusCode() == HttpStatus.SC_OK) {
 						ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -39,10 +38,13 @@ public class UserRequest {
 						String responseString = out.toString();
 						JSONObject jsonObj = new JSONObject(responseString);
 						if (jsonObj.getBoolean("success")) {
-							User user  = new User();
-							user.setNickName(jsonObj.getJSONObject("user").getString("nickName"));
-							user.setMsisdn(jsonObj.getJSONObject("user").getString("msisdn"));
-							user.setJsessionid(jsonObj.getJSONObject("user").getString("jsessionid"));
+							User user = new User();
+							user.setNickName(jsonObj.getJSONObject("user")
+									.getString("nickName"));
+							user.setMsisdn(jsonObj.getJSONObject("user")
+									.getString("msisdn"));
+							user.setJsessionid(jsonObj.getJSONObject("user")
+									.getString("jsessionid"));
 							return new TaskResult(1,
 									jsonObj.getString("message"), user);
 						} else {
@@ -80,15 +82,15 @@ public class UserRequest {
 			protected TaskResult doInBackground(String... params) {
 				HttpClient httpclient = new DefaultHttpClient();
 				try {
-					String url = Constants.BASE_URL
-							+ "/register.do?"
-							+ "nickNameName=" + URLEncoder.encode(nickName,"utf-8")
-									+ "&password=" + URLEncoder.encode(password,"utf-8")
-									+ "&msisdn=" + msisdn
-									+ "&verifyCode=" + verifyCode;
+					String url = Constants.BASE_URL + "/register.do?"
+							+ "nickNameName="
+							+ URLEncoder.encode(nickName, "utf-8")
+							+ "&password="
+							+ URLEncoder.encode(password, "utf-8") + "&msisdn="
+							+ msisdn + "&verifyCode=" + verifyCode;
 					Log.d("XYSQ", url);
-					HttpResponse response = httpclient.execute(new HttpGet(url
-							));
+					HttpResponse response = httpclient
+							.execute(new HttpGet(url));
 					StatusLine statusLine = response.getStatusLine();
 					if (statusLine.getStatusCode() == HttpStatus.SC_OK) {
 						ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -97,10 +99,13 @@ public class UserRequest {
 						String responseString = out.toString();
 						JSONObject jsonObj = new JSONObject(responseString);
 						if (jsonObj.getBoolean("success")) {
-							User user  = new User();
-							user.setNickName(jsonObj.getJSONObject("user").getString("nickName"));
-							user.setMsisdn(jsonObj.getJSONObject("user").getString("msisdn"));
-							user.setJsessionid(jsonObj.getJSONObject("user").getString("jsessionid"));
+							User user = new User();
+							user.setNickName(jsonObj.getJSONObject("user")
+									.getString("nickName"));
+							user.setMsisdn(jsonObj.getJSONObject("user")
+									.getString("msisdn"));
+							user.setJsessionid(jsonObj.getJSONObject("user")
+									.getString("jsessionid"));
 							return new TaskResult(1,
 									jsonObj.getString("message"), user);
 						} else {
