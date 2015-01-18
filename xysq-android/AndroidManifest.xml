@@ -69,6 +69,7 @@
 		<activity android:name="com.chinatelecom.xysq.activity.AnnouncementAndNoticeDetailActivity" />
 		<activity android:name="com.chinatelecom.xysq.activity.NoticeActivity" />
 		<activity android:name="com.chinatelecom.xysq.activity.LoginActivity" />
+		<activity android:name="com.chinatelecom.xysq.activity.RegisterActivity" android:noHistory="true"/>
     </application>
 
 </manifest>

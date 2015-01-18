@@ -3,7 +3,9 @@ package com.chinatelecom.xysq.activity;
 import org.apache.commons.lang.StringUtils;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -16,6 +18,7 @@ import com.chinatelecom.xysq.bean.User;
 import com.chinatelecom.xysq.http.HttpCallback;
 import com.chinatelecom.xysq.http.UserRequest;
 import com.chinatelecom.xysq.util.AlertUtil;
+import com.chinatelecom.xysq.util.Callback;
 
 public class RegisterActivity extends Activity implements HttpCallback {
 
@@ -70,9 +73,20 @@ public class RegisterActivity extends Activity implements HttpCallback {
 
 	@Override
 	public void success(String url, Object data) {
-		User user = (User)data;
+		User user = (User) data;
 		XysqApplication application = (XysqApplication) getApplication();
 		application.setUser(user);
+		AlertUtil.alert(this, "注册成功", new Callback() {
+			@Override
+			public void exec() {
+				Intent intent = new Intent(RegisterActivity.this,
+						IndexActivity.class);
+				intent.putExtra("finish", true);
+				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				Log.d("XYSQ", "start IndexActivity");
+				startActivity(intent);
+			}
+		});
 	}
 
 	@Override
