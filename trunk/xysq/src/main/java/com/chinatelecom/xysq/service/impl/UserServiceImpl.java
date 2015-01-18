@@ -91,7 +91,7 @@ public class UserServiceImpl implements UserService {
 			} else {
 				UserJson userJson = new UserJson();
 				userJson.setMsisdn(user.getMsisdn());
-				userJson.setUserName(user.getUserName());
+				userJson.setNickName(user.getNickName());
 				userJson.setId(user.getId());
 				result.setUser(userJson);
 				result.setSuccess(true);
@@ -122,7 +122,7 @@ public class UserServiceImpl implements UserService {
 				this.userDao.saveUser(user);
 				UserJson userJson = new UserJson();
 				userJson.setMsisdn(user.getMsisdn());
-				userJson.setUserName(user.getUserName());
+				userJson.setNickName(user.getUserName());
 				result.setUser(userJson);
 				result.setSuccess(true);
 				result.setMessage("注册成功");
@@ -157,7 +157,7 @@ public class UserServiceImpl implements UserService {
 					this.userDao.saveUser(user);
 					UserJson userJson = new UserJson();
 					userJson.setMsisdn(user.getMsisdn());
-					userJson.setUserName(user.getUserName());
+					userJson.setNickName(user.getUserName());
 					result.setUser(userJson);
 					result.setSuccess(true);
 					result.setMessage("注册成功");
