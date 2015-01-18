@@ -27,8 +27,8 @@ public class LoginActivity extends Activity implements HttpCallback {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.login);
-		msisdnEditText = (EditText)findViewById(R.id.register_msisdnEditText);
-		passwordEditText = (EditText)findViewById(R.id.register_passwordEditText);
+		msisdnEditText = (EditText)findViewById(R.id.login_msisdnEditText);
+		passwordEditText = (EditText)findViewById(R.id.login_passwordEditText);
 		Button backButton = (Button) findViewById(R.id.login_backButton);
 		backButton.setOnClickListener(new OnClickListener() {
 			@Override
