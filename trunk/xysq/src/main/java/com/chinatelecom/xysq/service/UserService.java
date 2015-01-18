@@ -3,6 +3,7 @@ package com.chinatelecom.xysq.service;
 import java.util.List;
 
 import com.chinatelecom.xysq.json.LoginJson;
+import com.chinatelecom.xysq.json.RegisterJson;
 import com.chinatelecom.xysq.model.User;
 
 public interface UserService {
@@ -21,5 +22,5 @@ public interface UserService {
 	
 	public LoginJson login(String userName,String password);
 	
-	public String register(String userName,String password,String msisdn,String verifyCode);
+	public RegisterJson register(String userName,String password,String msisdn,String verifyCode);
 }

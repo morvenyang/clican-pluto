@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.chinatelecom.xysq.bean.SpringProperty;
 import com.chinatelecom.xysq.enumeration.NoticeCategory;
 import com.chinatelecom.xysq.json.LoginJson;
+import com.chinatelecom.xysq.json.RegisterJson;
 import com.chinatelecom.xysq.service.AreaService;
 import com.chinatelecom.xysq.service.IndexService;
 import com.chinatelecom.xysq.service.UserService;
@@ -148,7 +149,7 @@ public class ClientController {
 			if (result.isSuccess()) {
 				req.getSession().setAttribute("USER_ID",
 						result.getUser().getId());
-				result.setJsessionid(req.getSession().getId());
+				result.getUser().setJsessionid(req.getSession().getId());
 			}
 			resp.setContentType("application/json");
 			resp.getOutputStream().write(
@@ -166,10 +167,16 @@ public class ClientController {
 			HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		try {
-			String result = userService.register(userName, password, msisdn,
-					verifyCode);
+			RegisterJson result = userService.register(userName,
+					password, msisdn, verifyCode);
+			if (result.isSuccess()) {
+				req.getSession().setAttribute("USER_ID",
+						result.getUser().getId());
+				result.getUser().setJsessionid(req.getSession().getId());
+			}
 			resp.setContentType("application/json");
-			resp.getOutputStream().write(result.getBytes("utf-8"));
+			resp.getOutputStream().write(
+					JSONObject.fromObject(result).toString().getBytes("utf-8"));
 		} catch (Exception e) {
 			log.error("", e);
 		}

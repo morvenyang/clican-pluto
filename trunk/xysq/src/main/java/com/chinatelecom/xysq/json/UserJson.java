@@ -7,6 +7,8 @@ public class UserJson {
 	private String msisdn;
 	
 	private Long id;
+	
+	private String jsessionid;
 
 	public String getUserName() {
 		return userName;
@@ -30,6 +32,14 @@ public class UserJson {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public String getJsessionid() {
+		return jsessionid;
+	}
+
+	public void setJsessionid(String jsessionid) {
+		this.jsessionid = jsessionid;
 	}
 
 }
