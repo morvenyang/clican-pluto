@@ -242,11 +242,11 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int index_yzxxButton=0x7f06002b;
         public static final int index_zpzsButton=0x7f06002f;
         public static final int login_backButton=0x7f060035;
+        public static final int login_msisdnEditText=0x7f060038;
         public static final int login_passwordEditText=0x7f060039;
         public static final int login_registerButton=0x7f060037;
         public static final int login_submitButton=0x7f06003a;
         public static final int login_titleTextView=0x7f060036;
-        public static final int login_userNameEditText=0x7f060038;
         public static final int manualOnly=0x7f060004;
         public static final int notice_backButton=0x7f06003b;
         public static final int notice_listView=0x7f060041;
