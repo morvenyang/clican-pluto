@@ -227,7 +227,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int fl_inner=0x7f060051;
         public static final int flip=0x7f060008;
         public static final int gridview=0x7f060009;
-        public static final int icon=0x7f06005c;
+        public static final int icon=0x7f060060;
         public static final int index_bmffButton=0x7f06002e;
         public static final int index_bmfwTextView=0x7f06002d;
         public static final int index_changeCommunity=0x7f060028;
@@ -276,17 +276,21 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int pull_to_refresh_sub_text=0x7f060053;
         public static final int pull_to_refresh_text=0x7f06004f;
         public static final int pull_to_refresh_updated_at=0x7f060050;
-        public static final int register_agreeButton=0x7f06005a;
-        public static final int register_agreeCheckBox=0x7f060059;
+        public static final int register_agreeButton=0x7f06005e;
+        public static final int register_agreeCheckBox=0x7f06005d;
         public static final int register_backButton=0x7f060054;
-        public static final int register_passwordEditText=0x7f060058;
-        public static final int register_submitButton=0x7f06005b;
+        public static final int register_getVerifyCodeButton=0x7f060058;
+        public static final int register_passwordEditText=0x7f06005c;
+        public static final int register_submitButton=0x7f06005f;
         public static final int register_titleTextView=0x7f060055;
-        public static final int register_userNameEditText=0x7f060056;
-        public static final int register_verifyCodeEditText=0x7f060057;
+        public static final int register_userNameEditText=0x7f060057;
+        public static final int register_verifyCodeEditText=0x7f06005a;
         public static final int rotate=0x7f060007;
         public static final int scrollview=0x7f06000b;
-        public static final int title=0x7f06005d;
+        public static final int tableRow1=0x7f060056;
+        public static final int tableRow2=0x7f060059;
+        public static final int tableRow3=0x7f06005b;
+        public static final int title=0x7f060061;
         public static final int webview=0x7f06000a;
     }
     public static final class layout {
