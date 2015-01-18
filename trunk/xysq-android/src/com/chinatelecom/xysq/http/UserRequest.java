@@ -81,15 +81,15 @@ public class UserRequest {
 			protected TaskResult doInBackground(String... params) {
 				HttpClient httpclient = new DefaultHttpClient();
 				try {
-					;
-					HttpResponse response = httpclient.execute(new HttpGet(
-							Constants.BASE_URL
-									+ "/register.do?"
-									+ URLEncoder.encode("userName=" + userName
-											+ "&password=" + password
-											+ "&msisdn=" + msisdn
-											+ "&verifyCode=" + verifyCode,
-											"utf-8")));
+					String url = Constants.BASE_URL
+							+ "/register.do?"
+							+ "userName=" + URLEncoder.encode(userName,"utf-8")
+									+ "&password=" + URLEncoder.encode(password,"utf-8")
+									+ "&msisdn=" + msisdn
+									+ "&verifyCode=" + verifyCode;
+					Log.d("XYSQ", url);
+					HttpResponse response = httpclient.execute(new HttpGet(url
+							));
 					StatusLine statusLine = response.getStatusLine();
 					if (statusLine.getStatusCode() == HttpStatus.SC_OK) {
 						ByteArrayOutputStream out = new ByteArrayOutputStream();

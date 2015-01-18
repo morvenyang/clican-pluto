@@ -17,6 +17,7 @@ import com.chinatelecom.xysq.R;
 import com.chinatelecom.xysq.application.XysqApplication;
 import com.chinatelecom.xysq.bean.User;
 import com.chinatelecom.xysq.http.HttpCallback;
+import com.chinatelecom.xysq.http.SmsRequest;
 import com.chinatelecom.xysq.http.UserRequest;
 import com.chinatelecom.xysq.util.AlertUtil;
 import com.chinatelecom.xysq.util.Callback;
@@ -33,7 +34,7 @@ public class RegisterActivity extends Activity implements HttpCallback {
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.login);
+		setContentView(R.layout.register);
 		agreeCheckBox = (CheckBox) findViewById(R.id.register_agreeCheckBox);
 		userNameEditText = (EditText) findViewById(R.id.register_userNameEditText);
 		verifyCodeEditText = (EditText) findViewById(R.id.register_verifyCodeEditText);
@@ -95,6 +96,12 @@ public class RegisterActivity extends Activity implements HttpCallback {
 		getVerifyCodeButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				String userName = userNameEditText.getText().toString();
+				if (StringUtils.isEmpty(userName)) {
+					AlertUtil.alert(RegisterActivity.this, "手机号不能为空");
+					return;
+				}
+				SmsRequest.requestSmsCode(userName, RegisterActivity.this);
 				cdt = new CountDownTimer(60 * 1000, 1000) {
 					// 第一个参数是总的倒计时时间
 					// 第二个参数是每隔多少时间(ms)调用一次onTick()方法
@@ -116,25 +123,40 @@ public class RegisterActivity extends Activity implements HttpCallback {
 
 	@Override
 	public void success(String url, Object data) {
-		User user = (User) data;
-		XysqApplication application = (XysqApplication) getApplication();
-		application.setUser(user);
-		AlertUtil.alert(this, "注册成功", new Callback() {
-			@Override
-			public void exec() {
-				Intent intent = new Intent(RegisterActivity.this,
-						IndexActivity.class);
-				intent.putExtra("finish", true);
-				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-				Log.d("XYSQ", "start IndexActivity");
-				startActivity(intent);
-			}
-		});
+		if(url.equals("/requestSmsCode")){
+			Log.d("XYSQ", "手机验证码发送成功");
+		}else{
+			User user = (User) data;
+			XysqApplication application = (XysqApplication) getApplication();
+			application.setUser(user);
+			AlertUtil.alert(this, "注册成功", new Callback() {
+				@Override
+				public void exec() {
+					Intent intent = new Intent(RegisterActivity.this,
+							ProfileActivity.class);
+					intent.putExtra("finish", true);
+					intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+					Log.d("XYSQ", "start IndexActivity");
+					startActivity(intent);
+				}
+			});
+		}
+		
 	}
 
 	@Override
 	public void failure(String url, int code, String message) {
-		AlertUtil.alert(this, message);
+		if(url.equals("/requestSmsCode")){
+			if(cdt!=null){
+				cdt.cancel();
+			}
+			getVerifyCodeButton.setText("重新获取验证码");
+			getVerifyCodeButton.setEnabled(true);
+			AlertUtil.alert(this, message);
+		}else{
+			AlertUtil.alert(this, message);
+		}
+		
 	}
 
 }
