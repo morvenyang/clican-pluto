@@ -102,7 +102,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public RegisterJson register(String userName, String password,
+	public RegisterJson register(String nickName, String password,
 			String msisdn, String verifyCode) {
 		HttpClient httpclient = new HttpClient();
 		RegisterJson result = new RegisterJson();
@@ -114,7 +114,8 @@ public class UserServiceImpl implements UserService {
 			}
 			if (verifiedAndSuccess) {
 				User user = new User();
-				user.setUserName(userName);
+				user.setUserName(msisdn);
+				user.setNickName(nickName);
 				user.setPassword(DigestUtils.shaHex(password));
 				user.setActive(true);
 				user.setMsisdn(msisdn);
@@ -149,7 +150,8 @@ public class UserServiceImpl implements UserService {
 				}
 				if (code == HttpStatus.SC_OK) {
 					User user = new User();
-					user.setUserName(userName);
+					user.setUserName(msisdn);
+					user.setNickName(nickName);
 					user.setPassword(DigestUtils.shaHex(password));
 					user.setActive(true);
 					user.setMsisdn(msisdn);
