@@ -45,12 +45,7 @@ public class ProfileActivity extends Activity {
 			}
 
 		});
-
-	}
-
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		super.onActivityResult(requestCode, resultCode, data);
+		
 		XysqApplication application = (XysqApplication) this.getApplication();
 		User user = application.getUser();
 		if (user != null) {
@@ -60,6 +55,9 @@ public class ProfileActivity extends Activity {
 			nickNameTextView.setText("请先登录");
 			msisdnTextView.setText("");
 		}
+
 	}
+
+	
 
 }
