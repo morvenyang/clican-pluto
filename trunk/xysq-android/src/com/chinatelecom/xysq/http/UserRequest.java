@@ -41,7 +41,7 @@ public class UserRequest {
 						JSONObject jsonObj = new JSONObject(responseString);
 						if (jsonObj.getBoolean("success")) {
 							User user  = new User();
-							user.setUserName(jsonObj.getJSONObject("user").getString("userName"));
+							user.setNickName(jsonObj.getJSONObject("user").getString("nickName"));
 							user.setMsisdn(jsonObj.getJSONObject("user").getString("msisdn"));
 							user.setJsessionid(jsonObj.getJSONObject("user").getString("jsessionid"));
 							return new TaskResult(1,
@@ -99,7 +99,7 @@ public class UserRequest {
 						JSONObject jsonObj = new JSONObject(responseString);
 						if (jsonObj.getBoolean("success")) {
 							User user  = new User();
-							user.setUserName(jsonObj.getJSONObject("user").getString("userName"));
+							user.setNickName(jsonObj.getJSONObject("user").getString("nickName"));
 							user.setMsisdn(jsonObj.getJSONObject("user").getString("msisdn"));
 							user.setJsessionid(jsonObj.getJSONObject("user").getString("jsessionid"));
 							return new TaskResult(1,

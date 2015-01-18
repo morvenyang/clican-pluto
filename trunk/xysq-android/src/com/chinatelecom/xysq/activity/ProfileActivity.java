@@ -13,10 +13,12 @@ import android.widget.TextView;
 
 import com.chinatelecom.xysq.R;
 import com.chinatelecom.xysq.adapater.ProfileListAdapter;
+import com.chinatelecom.xysq.application.XysqApplication;
+import com.chinatelecom.xysq.bean.User;
 
 public class ProfileActivity extends Activity {
 
-	private TextView userNameTextView;
+	private TextView nickNameTextView;
 
 	private TextView msisdnTextView;
 
@@ -25,14 +27,14 @@ public class ProfileActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.profile);
-		userNameTextView = (TextView) findViewById(R.id.profile_userNameTextView);
+		nickNameTextView = (TextView) findViewById(R.id.profile_nickNameTextView);
 		msisdnTextView = (TextView) findViewById(R.id.profile_msisdnTextView);
 		listView = (ListView) findViewById(R.id.profile_listView);
 		listView.setAdapter(new ProfileListAdapter(
 				this,
 				(LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE)));
-		userNameTextView.setText("请先登录");
-		userNameTextView.setOnClickListener(new OnClickListener() {
+
+		nickNameTextView.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
@@ -43,6 +45,21 @@ public class ProfileActivity extends Activity {
 			}
 
 		});
-		msisdnTextView.setText("");
+
 	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		XysqApplication application = (XysqApplication) this.getApplication();
+		User user = application.getUser();
+		if (user != null) {
+			nickNameTextView.setText(user.getNickName());
+			msisdnTextView.setText(user.getMsisdn());
+		} else {
+			nickNameTextView.setText("请先登录");
+			msisdnTextView.setText("");
+		}
+	}
+
 }
