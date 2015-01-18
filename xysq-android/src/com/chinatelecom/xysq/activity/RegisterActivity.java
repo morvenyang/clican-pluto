@@ -5,6 +5,7 @@ import org.apache.commons.lang.StringUtils;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -26,6 +27,9 @@ public class RegisterActivity extends Activity implements HttpCallback {
 	private EditText userNameEditText;
 	private EditText verifyCodeEditText;
 	private EditText passwordEditText;
+	private Button getVerifyCodeButton;
+
+	private CountDownTimer cdt;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -62,11 +66,50 @@ public class RegisterActivity extends Activity implements HttpCallback {
 						AlertUtil.alert(RegisterActivity.this, "密码不能为空");
 						return;
 					}
+					if (cdt != null) {
+						cdt.cancel();
+					}
+					getVerifyCodeButton.setText("获取验证码");
+					getVerifyCodeButton.setEnabled(true);
 					UserRequest.register(userName, password, userName,
 							verifyCode, RegisterActivity.this);
 				} else {
 					AlertUtil.alert(RegisterActivity.this, "请先阅读并同意用户协议");
 				}
+			}
+		});
+
+		getVerifyCodeButton = (Button) findViewById(R.id.register_getVerifyCodeButton);
+		this.setGetVerifyCodeButton();
+	}
+
+	@Override
+	protected void onStop() {
+		if (cdt != null) {
+			cdt.cancel();
+		}
+		super.onStop();
+	}
+
+	private void setGetVerifyCodeButton() {
+		getVerifyCodeButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				cdt = new CountDownTimer(60 * 1000, 1000) {
+					// 第一个参数是总的倒计时时间
+					// 第二个参数是每隔多少时间(ms)调用一次onTick()方法
+					public void onTick(long millisUntilFinished) {
+						getVerifyCodeButton.setText(millisUntilFinished / 1000
+								+ "s后重新发送");
+						getVerifyCodeButton.setEnabled(false);
+					}
+
+					public void onFinish() {
+						getVerifyCodeButton.setText("重新获取验证码");
+						getVerifyCodeButton.setEnabled(true);
+					}
+				};
+				cdt.start();
 			}
 		});
 	}
