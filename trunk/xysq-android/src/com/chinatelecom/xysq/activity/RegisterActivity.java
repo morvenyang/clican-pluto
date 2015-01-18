@@ -25,9 +25,10 @@ import com.chinatelecom.xysq.util.Callback;
 public class RegisterActivity extends Activity implements HttpCallback {
 
 	private CheckBox agreeCheckBox;
-	private EditText userNameEditText;
+	private EditText msisdnEditText;
 	private EditText verifyCodeEditText;
 	private EditText passwordEditText;
+	private EditText nickNameEditText;
 	private Button getVerifyCodeButton;
 
 	private CountDownTimer cdt;
@@ -36,9 +37,10 @@ public class RegisterActivity extends Activity implements HttpCallback {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.register);
 		agreeCheckBox = (CheckBox) findViewById(R.id.register_agreeCheckBox);
-		userNameEditText = (EditText) findViewById(R.id.register_userNameEditText);
+		msisdnEditText = (EditText) findViewById(R.id.register_msisdnEditText);
 		verifyCodeEditText = (EditText) findViewById(R.id.register_verifyCodeEditText);
 		passwordEditText = (EditText) findViewById(R.id.register_passwordEditText);
+		nickNameEditText  =  (EditText) findViewById(R.id.register_nickNameEditText);
 		Button backButton = (Button) findViewById(R.id.register_backButton);
 		backButton.setOnClickListener(new OnClickListener() {
 			@Override
@@ -52,10 +54,11 @@ public class RegisterActivity extends Activity implements HttpCallback {
 			@Override
 			public void onClick(View v) {
 				if (agreeCheckBox.isChecked()) {
-					String userName = userNameEditText.getText().toString();
+					String msisdn = msisdnEditText.getText().toString();
 					String verifyCode = verifyCodeEditText.getText().toString();
 					String password = passwordEditText.getText().toString();
-					if (StringUtils.isEmpty(userName)) {
+					String nickName = nickNameEditText.getText().toString();
+					if (StringUtils.isEmpty(msisdn)) {
 						AlertUtil.alert(RegisterActivity.this, "手机号不能为空");
 						return;
 					}
@@ -67,12 +70,16 @@ public class RegisterActivity extends Activity implements HttpCallback {
 						AlertUtil.alert(RegisterActivity.this, "密码不能为空");
 						return;
 					}
+					if (StringUtils.isEmpty(nickName)) {
+						AlertUtil.alert(RegisterActivity.this, "昵称不能为空");
+						return;
+					}
 					if (cdt != null) {
 						cdt.cancel();
 					}
 					getVerifyCodeButton.setText("获取验证码");
 					getVerifyCodeButton.setEnabled(true);
-					UserRequest.register(userName, password, userName,
+					UserRequest.register(nickName, password, msisdn,
 							verifyCode, RegisterActivity.this);
 				} else {
 					AlertUtil.alert(RegisterActivity.this, "请先阅读并同意用户协议");
@@ -96,12 +103,12 @@ public class RegisterActivity extends Activity implements HttpCallback {
 		getVerifyCodeButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				String userName = userNameEditText.getText().toString();
-				if (StringUtils.isEmpty(userName)) {
+				String msisdn = msisdnEditText.getText().toString();
+				if (StringUtils.isEmpty(msisdn)) {
 					AlertUtil.alert(RegisterActivity.this, "手机号不能为空");
 					return;
 				}
-				SmsRequest.requestSmsCode(userName, RegisterActivity.this);
+				SmsRequest.requestSmsCode(msisdn, RegisterActivity.this);
 				cdt = new CountDownTimer(60 * 1000, 1000) {
 					// 第一个参数是总的倒计时时间
 					// 第二个参数是每隔多少时间(ms)调用一次onTick()方法

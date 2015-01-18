@@ -26,7 +26,6 @@ public class UserRequest {
 			protected TaskResult doInBackground(String... params) {
 				HttpClient httpclient = new DefaultHttpClient();
 				try {
-					;
 					HttpResponse response = httpclient
 							.execute(new HttpGet(Constants.BASE_URL
 									+ "/login.do?"
@@ -73,7 +72,7 @@ public class UserRequest {
 		task.execute(new String[] {});
 	}
 
-	public static void register(final String userName, final String password,
+	public static void register(final String nickName, final String password,
 			final String msisdn, final String verifyCode,
 			final HttpCallback callback) {
 		AsyncTask<String, Void, TaskResult> task = new AsyncTask<String, Void, TaskResult>() {
@@ -83,7 +82,7 @@ public class UserRequest {
 				try {
 					String url = Constants.BASE_URL
 							+ "/register.do?"
-							+ "userName=" + URLEncoder.encode(userName,"utf-8")
+							+ "nickNameName=" + URLEncoder.encode(nickName,"utf-8")
 									+ "&password=" + URLEncoder.encode(password,"utf-8")
 									+ "&msisdn=" + msisdn
 									+ "&verifyCode=" + verifyCode;

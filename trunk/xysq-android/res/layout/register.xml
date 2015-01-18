@@ -35,11 +35,12 @@
             android:layout_height="wrap_content" >
 
             <EditText
-                android:id="@+id/register_userNameEditText"
+                android:id="@+id/register_msisdnEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="手机号" />
+                android:hint="手机号"
+                android:inputType="phone" />
 
             <Button
                 android:id="@+id/register_getVerifyCodeButton"
@@ -61,7 +62,6 @@
                 android:ems="10"
                 android:hint="验证码" >
 
-                <requestFocus />
             </EditText>
 
         </TableRow>
@@ -80,6 +80,21 @@
                 android:inputType="textPassword" />
 
         </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <EditText
+                android:id="@+id/register_nickNameEditText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="昵称" />
+
+        </TableRow>
+
     </TableLayout>
 
     <RelativeLayout
