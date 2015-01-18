@@ -151,6 +151,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int ptrSubHeaderTextAppearance=0x7f01000b;
     }
     public static final class color {
+        public static final int headBackgroundColor=0x7f090007;
         public static final int pulltorefresh_lv_header_color1=0x7f090003;
         public static final int pulltorefresh_lv_header_color2=0x7f090004;
         public static final int pulltorefresh_lv_header_color3=0x7f090005;
@@ -226,7 +227,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int fl_inner=0x7f060051;
         public static final int flip=0x7f060008;
         public static final int gridview=0x7f060009;
-        public static final int icon=0x7f060054;
+        public static final int icon=0x7f06005c;
         public static final int index_bmffButton=0x7f06002e;
         public static final int index_bmfwTextView=0x7f06002d;
         public static final int index_changeCommunity=0x7f060028;
@@ -275,9 +276,17 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int pull_to_refresh_sub_text=0x7f060053;
         public static final int pull_to_refresh_text=0x7f06004f;
         public static final int pull_to_refresh_updated_at=0x7f060050;
+        public static final int register_agreeButton=0x7f06005a;
+        public static final int register_agreeCheckBox=0x7f060059;
+        public static final int register_backButton=0x7f060054;
+        public static final int register_passwordEditText=0x7f060058;
+        public static final int register_submitButton=0x7f06005b;
+        public static final int register_titleTextView=0x7f060055;
+        public static final int register_userNameEditText=0x7f060056;
+        public static final int register_verifyCodeEditText=0x7f060057;
         public static final int rotate=0x7f060007;
         public static final int scrollview=0x7f06000b;
-        public static final int title=0x7f060055;
+        public static final int title=0x7f06005d;
         public static final int webview=0x7f06000a;
     }
     public static final class layout {
@@ -299,8 +308,9 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int pull_to_refresh_header=0x7f03000f;
         public static final int pull_to_refresh_header_horizontal=0x7f030010;
         public static final int pull_to_refresh_header_vertical=0x7f030011;
-        public static final int tab_indicator=0x7f030012;
-        public static final int xyzs=0x7f030013;
+        public static final int register=0x7f030012;
+        public static final int tab_indicator=0x7f030013;
+        public static final int xyzs=0x7f030014;
     }
     public static final class raw {
         public static final int pull_event=0x7f050000;
@@ -309,7 +319,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
     }
     public static final class string {
         public static final int action_settings=0x7f08000b;
-        public static final int announcement_titleTextViewValue=0x7f080020;
+        public static final int announcement_titleTextViewValue=0x7f080021;
         public static final int app_name=0x7f080006;
         public static final int back=0x7f08000c;
         public static final int citySelect_selectedCityLabelTextViewValue=0x7f080010;
@@ -318,33 +328,35 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int communitySelect_searchEditTextHint=0x7f080011;
         public static final int communitySelect_titelTextViewValue=0x7f08000f;
         public static final int hello_world=0x7f08000a;
-        public static final int index_bmfw=0x7f080013;
-        public static final int index_jkff=0x7f080018;
-        public static final int index_kdtx=0x7f08001a;
-        public static final int index_xqgg=0x7f080014;
-        public static final int index_xqlt=0x7f080016;
-        public static final int index_xqnc=0x7f080019;
-        public static final int index_yzxx=0x7f080015;
-        public static final int index_zpzs=0x7f080017;
-        public static final int load_mode_label=0x7f08001f;
-        public static final int login_registerButtonValue=0x7f080023;
-        public static final int login_submitButtonValue=0x7f080024;
-        public static final int login_titleTextViewValue=0x7f080022;
-        public static final int notice_titleTextViewValue=0x7f08001b;
-        public static final int profile_title=0x7f080021;
+        public static final int index_bmfw=0x7f080014;
+        public static final int index_jkff=0x7f080019;
+        public static final int index_kdtx=0x7f08001b;
+        public static final int index_xqgg=0x7f080015;
+        public static final int index_xqlt=0x7f080017;
+        public static final int index_xqnc=0x7f08001a;
+        public static final int index_yzxx=0x7f080016;
+        public static final int index_zpzs=0x7f080018;
+        public static final int load_mode_label=0x7f080020;
+        public static final int login_registerButtonValue=0x7f080024;
+        public static final int login_submitButtonValue=0x7f080025;
+        public static final int login_titleTextViewValue=0x7f080023;
+        public static final int notice_titleTextViewValue=0x7f08001c;
+        public static final int profile_title=0x7f080022;
         /**  Just use standard Pull Down String when pulling up. These can be set for languages which require it 
  Just use standard Pull Down String when pulling up. These can be set for languages which require it 
          */
         public static final int pull_to_refresh_from_bottom_pull_label=0x7f080003;
         public static final int pull_to_refresh_from_bottom_refreshing_label=0x7f080005;
         public static final int pull_to_refresh_from_bottom_release_label=0x7f080004;
-        public static final int pull_to_refresh_load_label=0x7f08001e;
+        public static final int pull_to_refresh_load_label=0x7f08001f;
         public static final int pull_to_refresh_pull_label=0x7f080000;
         public static final int pull_to_refresh_refreshing_label=0x7f080002;
         public static final int pull_to_refresh_release_label=0x7f080001;
-        public static final int pull_to_refresh_tap_label=0x7f08001c;
-        public static final int pull_to_refresh_update_time_label=0x7f08001d;
+        public static final int pull_to_refresh_tap_label=0x7f08001d;
+        public static final int pull_to_refresh_update_time_label=0x7f08001e;
+        public static final int register_titleTextViewValue=0x7f080026;
         public static final int search=0x7f080012;
+        public static final int submit=0x7f080013;
         public static final int title_section1=0x7f080007;
         public static final int title_section2=0x7f080008;
         public static final int title_section3=0x7f080009;

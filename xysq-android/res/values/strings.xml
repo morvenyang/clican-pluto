@@ -14,6 +14,7 @@
     <string name="citySelect_selectedCityLabelTextViewValue">已选择城市</string>
     <string name="communitySelect_searchEditTextHint">输入小区名称或拼音代码</string>
     <string name="search">搜索</string>
+    <string name="submit">提交</string>
     <string name="index_bmfw">便民服务</string>
     <string name="index_xqgg">小区公告</string>
     <string name="index_yzxx">业主须知</string>
@@ -38,5 +39,6 @@
      <string name="login_titleTextViewValue">登录</string>
      <string name="login_registerButtonValue">注册</string>
      <string name="login_submitButtonValue">登录</string>
-
+     <string name="register_titleTextViewValue">注册</string>
+	
 </resources>

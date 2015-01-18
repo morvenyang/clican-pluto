@@ -43,7 +43,7 @@ public class UserRequest {
 							User user  = new User();
 							user.setUserName(jsonObj.getJSONObject("user").getString("userName"));
 							user.setMsisdn(jsonObj.getJSONObject("user").getString("msisdn"));
-							user.setJsessionid(jsonObj.getString("jsessionid"));
+							user.setJsessionid(jsonObj.getJSONObject("user").getString("jsessionid"));
 							return new TaskResult(1,
 									jsonObj.getString("message"), user);
 						} else {
@@ -63,7 +63,7 @@ public class UserRequest {
 			@Override
 			protected void onPostExecute(TaskResult result) {
 				if (result.getCode() == 1) {
-					callback.success("/login.do", result.getMessage());
+					callback.success("/login.do", result.getResult());
 				} else {
 					callback.failure("/login.do", result.getCode(),
 							result.getMessage());
@@ -98,8 +98,12 @@ public class UserRequest {
 						String responseString = out.toString();
 						JSONObject jsonObj = new JSONObject(responseString);
 						if (jsonObj.getBoolean("success")) {
+							User user  = new User();
+							user.setUserName(jsonObj.getJSONObject("user").getString("userName"));
+							user.setMsisdn(jsonObj.getJSONObject("user").getString("msisdn"));
+							user.setJsessionid(jsonObj.getJSONObject("user").getString("jsessionid"));
 							return new TaskResult(1,
-									jsonObj.getString("message"), null);
+									jsonObj.getString("message"), user);
 						} else {
 							return new TaskResult(-1,
 									jsonObj.getString("message"), null);
@@ -117,7 +121,7 @@ public class UserRequest {
 			@Override
 			protected void onPostExecute(TaskResult result) {
 				if (result.getCode() == 1) {
-					callback.success("/register.do", result.getMessage());
+					callback.success("/register.do", result.getResult());
 				} else {
 					callback.failure("/register.do", result.getCode(),
 							result.getMessage());
