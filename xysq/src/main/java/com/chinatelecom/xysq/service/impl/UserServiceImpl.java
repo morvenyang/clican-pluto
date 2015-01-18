@@ -1,6 +1,8 @@
 package com.chinatelecom.xysq.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import net.sf.json.JSONObject;
 
@@ -28,6 +30,8 @@ public class UserServiceImpl implements UserService {
 	private UserDao userDao;
 
 	private SpringProperty springProperty;
+
+	private Map<String, Boolean> verifiedCodes = new HashMap<String, Boolean>();
 
 	public void setUserDao(UserDao userDao) {
 		this.userDao = userDao;
@@ -77,7 +81,7 @@ public class UserServiceImpl implements UserService {
 	public LoginJson login(String userName, String password) {
 		User user = this.userDao.findUserByUserName(userName);
 		LoginJson result = new LoginJson();
-		if (user == null||user.getRole()!=Role.USER) {
+		if (user == null || user.getRole() != Role.USER) {
 			result.setSuccess(false);
 			result.setMessage("该用户名不存在");
 		} else {
@@ -98,34 +102,20 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public RegisterJson register(String userName, String password, String msisdn,
-			String verifyCode) {
+	public RegisterJson register(String userName, String password,
+			String msisdn, String verifyCode) {
 		HttpClient httpclient = new HttpClient();
 		RegisterJson result = new RegisterJson();
 		try {
-			if (StringUtils.isNotEmpty(springProperty.getProxyHost())) {
-				httpclient.getHostConfiguration().setProxy(
-						springProperty.getProxyHost(),
-						springProperty.getProxyPort());
+			boolean verifiedAndSuccess = false;
+			if (verifiedCodes.containsKey(msisdn + "," + verifyCode)
+					&& verifiedCodes.get(msisdn + "," + verifyCode)) {
+				verifiedAndSuccess = true;
 			}
-
-			PostMethod post = new PostMethod(
-					"https://leancloud.cn/1.1/verifySmsCode/" + verifyCode
-							+ "?mobilePhoneNumber=" + msisdn);
-			post.addRequestHeader("X-AVOSCloud-Application-Id",
-					"zgdiillmtdo07gx2zwu5xlhubqu0ob6jf4pmd6d80o4r63jr");
-			post.addRequestHeader("X-AVOSCloud-Application-Key",
-					"8nc8zg36bmlqp00auc8usbz5k641vsym4k5sanlrcclgikzr");
-			post.addRequestHeader("Content-Type", "application/json");
-			int code = httpclient.executeMethod(post);
-			String resp = new String(post.getResponseBody(), "utf-8");
-			if (log.isDebugEnabled()) {
-				log.debug("verifySmsCode Resp[" + resp + "]");
-			}
-			if (code == HttpStatus.SC_OK) {
+			if (verifiedAndSuccess) {
 				User user = new User();
 				user.setUserName(userName);
-				user.setPassword(DigestUtils.shaHex(user.getPassword()));
+				user.setPassword(DigestUtils.shaHex(password));
 				user.setActive(true);
 				user.setMsisdn(msisdn);
 				user.setRole(Role.USER);
@@ -137,8 +127,44 @@ public class UserServiceImpl implements UserService {
 				result.setSuccess(true);
 				result.setMessage("注册成功");
 			} else {
-				result.setSuccess(false);
-				result.setMessage("短信验证码错误");
+				if (StringUtils.isNotEmpty(springProperty.getProxyHost())) {
+					httpclient.getHostConfiguration().setProxy(
+							springProperty.getProxyHost(),
+							springProperty.getProxyPort());
+				}
+
+				PostMethod post = new PostMethod(
+						"https://leancloud.cn/1.1/verifySmsCode/" + verifyCode
+								+ "?mobilePhoneNumber=" + msisdn);
+				post.addRequestHeader("X-AVOSCloud-Application-Id",
+						"zgdiillmtdo07gx2zwu5xlhubqu0ob6jf4pmd6d80o4r63jr");
+				post.addRequestHeader("X-AVOSCloud-Application-Key",
+						"8nc8zg36bmlqp00auc8usbz5k641vsym4k5sanlrcclgikzr");
+				post.addRequestHeader("Content-Type", "application/json");
+				int code = httpclient.executeMethod(post);
+				String resp = new String(post.getResponseBody(), "utf-8");
+				JSONObject respJson = JSONObject.fromObject(resp);
+				if (log.isDebugEnabled()) {
+					log.debug("verifySmsCode Resp[" + respJson.toString() + "]");
+				}
+				if (code == HttpStatus.SC_OK) {
+					User user = new User();
+					user.setUserName(userName);
+					user.setPassword(DigestUtils.shaHex(password));
+					user.setActive(true);
+					user.setMsisdn(msisdn);
+					user.setRole(Role.USER);
+					this.userDao.saveUser(user);
+					UserJson userJson = new UserJson();
+					userJson.setMsisdn(user.getMsisdn());
+					userJson.setUserName(user.getUserName());
+					result.setUser(userJson);
+					result.setSuccess(true);
+					result.setMessage("注册成功");
+				} else {
+					result.setSuccess(false);
+					result.setMessage(respJson.getString("error"));
+				}
 			}
 		} catch (Exception e) {
 			result.setSuccess(false);
