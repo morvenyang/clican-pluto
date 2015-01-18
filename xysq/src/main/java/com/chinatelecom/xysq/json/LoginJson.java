@@ -1,15 +1,13 @@
 package com.chinatelecom.xysq.json;
 
 public class LoginJson {
-	
+
 	private boolean success;
-	
+
 	private String message;
-	
+
 	private UserJson user;
-	
-	private String jsessionid;
-	
+
 	public boolean isSuccess() {
 		return success;
 	}
@@ -33,19 +31,5 @@ public class LoginJson {
 	public void setUser(UserJson user) {
 		this.user = user;
 	}
-
-	public String getJsessionid() {
-		return jsessionid;
-	}
-
-	public void setJsessionid(String jsessionid) {
-		this.jsessionid = jsessionid;
-	}
-
-	
-
-	
-	
-	
 
 }

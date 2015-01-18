@@ -98,7 +98,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public String register(String userName, String password, String msisdn,
+	public RegisterJson register(String userName, String password, String msisdn,
 			String verifyCode) {
 		HttpClient httpclient = new HttpClient();
 		RegisterJson result = new RegisterJson();
@@ -145,6 +145,6 @@ public class UserServiceImpl implements UserService {
 			result.setMessage("系统错误,注册失败");
 			log.error("", e);
 		}
-		return JSONObject.fromObject(result).toString();
+		return result;
 	}
 }
