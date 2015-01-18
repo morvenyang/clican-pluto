@@ -46,6 +46,13 @@ public class ProfileActivity extends Activity {
 
 		});
 		
+		
+
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
 		XysqApplication application = (XysqApplication) this.getApplication();
 		User user = application.getUser();
 		if (user != null) {
@@ -55,7 +62,6 @@ public class ProfileActivity extends Activity {
 			nickNameTextView.setText("请先登录");
 			msisdnTextView.setText("");
 		}
-
 	}
 
 	
