@@ -258,12 +258,12 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int profile_iconImageView=0x7f060043;
         public static final int profile_listView=0x7f060047;
         public static final int profile_msisdnTextView=0x7f060045;
+        public static final int profile_nickNameTextView=0x7f060044;
         public static final int profile_rightArrow=0x7f060046;
         public static final int profile_select_row_arrowImageView=0x7f060049;
         public static final int profile_select_row_iconImageView=0x7f060048;
         public static final int profile_select_row_titleTextView=0x7f06004a;
         public static final int profile_titleTextView=0x7f060042;
-        public static final int profile_userNameTextView=0x7f060044;
         public static final int pullDownFromTop=0x7f060005;
         public static final int pullFromEnd=0x7f060002;
         public static final int pullFromStart=0x7f060001;
