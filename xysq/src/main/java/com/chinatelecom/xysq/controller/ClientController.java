@@ -160,14 +160,14 @@ public class ClientController {
 	}
 
 	@RequestMapping("/register")
-	public void register(@RequestParam(value = "userName") String userName,
+	public void register(@RequestParam(value = "nickName") String nickName,
 			@RequestParam(value = "password") String password,
 			@RequestParam(value = "msisdn") String msisdn,
 			@RequestParam(value = "verifyCode") String verifyCode,
 			HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		try {
-			RegisterJson result = userService.register(userName,
+			RegisterJson result = userService.register(nickName,
 					password, msisdn, verifyCode);
 			if (result.isSuccess()) {
 				req.getSession().setAttribute("USER_ID",

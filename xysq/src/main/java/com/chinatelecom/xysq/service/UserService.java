@@ -22,5 +22,5 @@ public interface UserService {
 	
 	public LoginJson login(String userName,String password);
 	
-	public RegisterJson register(String userName,String password,String msisdn,String verifyCode);
+	public RegisterJson register(String nickName,String password,String msisdn,String verifyCode);
 }
