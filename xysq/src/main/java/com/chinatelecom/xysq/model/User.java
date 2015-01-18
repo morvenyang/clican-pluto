@@ -27,6 +27,7 @@ public class User {
 	private String userName;
 	private String password;
 	private String confirmedPassword;
+	private String nickName;
 	private boolean active = true;
 	private Role role;
 	private String msisdn;
@@ -87,6 +88,13 @@ public class User {
 	}
 	public void setMsisdn(String msisdn) {
 		this.msisdn = msisdn;
+	}
+	@Column
+	public String getNickName() {
+		return nickName;
+	}
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
 	}
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "admin", cascade = CascadeType.REMOVE)
 	public Set<AdminCommunityRel> getAdminCommunityRelSet() {

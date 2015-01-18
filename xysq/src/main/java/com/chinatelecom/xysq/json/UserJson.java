@@ -2,7 +2,7 @@ package com.chinatelecom.xysq.json;
 
 public class UserJson {
 
-	private String userName;
+	private String nickName;
 
 	private String msisdn;
 	
@@ -10,12 +10,12 @@ public class UserJson {
 	
 	private String jsessionid;
 
-	public String getUserName() {
-		return userName;
+	public String getNickName() {
+		return nickName;
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
 	}
 
 	public String getMsisdn() {
