@@ -78,6 +78,8 @@
 		<property name="version" value="${version}"></property>
 		<property name="imageUrlPrefix" value="${imageUrlPrefix}"></property>
 		<property name="serverUrl" value="${serverUrl}"></property>
+		<property name="proxyHost" value="${proxyHost}"></property>
+		<property name="proxyPort" value="${proxyPort}"></property>
 	</bean>
 
 </beans>
