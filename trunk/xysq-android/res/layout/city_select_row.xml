@@ -1,12 +1,11 @@
-<CheckedTextView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/citySelect_rowCheckedTextValue"
-    android:layout_width="wrap_content"
-    android:layout_height="60dp"
-    android:layout_marginLeft="5dp"
-    android:background="#CCFF99"
-    android:gravity="center_vertical"
-    android:padding="10dp"
-    android:textColor="@android:color/black"
-    android:textSize="16sp"
-    android:textStyle="bold" />
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/city_select_row_titleTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="false"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="10dp"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/labelTextColor"
+        android:textSize="16sp" />

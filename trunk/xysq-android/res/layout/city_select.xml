@@ -89,7 +89,7 @@
 
     </RelativeLayout>
 
-    <ExpandableListView
+    <ListView
         android:id="@+id/citySelect_cityListView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -98,7 +98,7 @@
         android:dividerHeight="1dp"
         android:footerDividersEnabled="true" >
 
-    </ExpandableListView>
+    </ListView>
 
 </LinearLayout>
 </RelativeLayout>
