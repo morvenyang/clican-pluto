@@ -55,6 +55,7 @@ public class AnnouncementActivity extends Activity implements
 		mPullRefreshListView = (PullToRefreshListView) findViewById(R.id.announcement_listView);
 		mPullRefreshListView.setMode(Mode.BOTH);
 		mPullRefreshListView.getRefreshableView().setDividerHeight(2);
+		mPullRefreshListView.getRefreshableView().setFooterDividersEnabled(true);
 		// Set a listener to be invoked when the list should be refreshed.
 		mPullRefreshListView.setOnRefreshListener(this);
 

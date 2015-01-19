@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:orientation="vertical" >
 
     <RelativeLayout
@@ -17,7 +17,7 @@
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="20dp"
-            android:background="@drawable/nav_back_icon"  />
+            android:background="@drawable/nav_back_icon" />
 
         <TextView
             android:id="@+id/notice_titleTextView"
@@ -28,12 +28,13 @@
             android:textColor="@android:color/white"
             android:textSize="18sp" />
     </RelativeLayout>
-    <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:background="@color/headGreenLineColor" >
 
-        </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/headGreenLineColor" >
+
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -57,7 +58,6 @@
             android:layout_marginTop="10dp"
             android:layout_weight="1"
             android:background="@color/dividerColor" >
-
         </RelativeLayout>
 
         <Button
@@ -72,12 +72,12 @@
             android:textSize="15sp" />
 
         <RelativeLayout
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"
             android:layout_weight="1"
             android:background="@color/dividerColor" >
-
         </RelativeLayout>
 
         <Button
@@ -92,12 +92,12 @@
             android:textSize="15sp" />
 
         <RelativeLayout
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"
             android:layout_weight="1"
             android:background="@color/dividerColor" >
-
         </RelativeLayout>
 
         <Button
@@ -110,13 +110,20 @@
             android:background="#00000000"
             android:text="Button"
             android:textSize="15sp" />
-
     </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/dividerColor" >
+
+    </RelativeLayout>
 
     <com.handmark.pulltorefresh.library.PullToRefreshListView
         android:id="@+id/notice_listView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
         android:background="@android:color/white"
         android:cacheColorHint="#00000000"
         android:divider="@color/dividerColor"
