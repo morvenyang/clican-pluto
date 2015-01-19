@@ -13,6 +13,11 @@ public final class R {
         public static final int slide_in_from_top=0x7f040001;
         public static final int slide_out_to_bottom=0x7f040002;
         public static final int slide_out_to_top=0x7f040003;
+        public static final int umeng_fb_audio_play_anim=0x7f040004;
+    }
+    public static final class array {
+        public static final int umeng_fb_contact_key_array=0x7f0b0001;
+        public static final int umeng_fb_contact_type_array=0x7f0b0000;
     }
     public static final class attr {
         /**  BELOW HERE ARE DEPRECEATED. DO NOT USE. 
@@ -168,6 +173,12 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int tabMedium=0x7f090000;
         public static final int tabTextColor=0x7f09000c;
         public static final int tabTransparent=0x7f090002;
+        public static final int umeng_fb_audo_dialog_bg=0x7f090016;
+        public static final int umeng_fb_gray=0x7f090012;
+        public static final int umeng_fb_lightblue=0x7f090011;
+        public static final int umeng_fb_line=0x7f090013;
+        public static final int umeng_fb_secondary_text_light=0x7f090014;
+        public static final int umeng_fb_white=0x7f090015;
     }
     public static final class dimen {
         /**  Default screen margins, per the Android Design guidelines. 
@@ -185,6 +196,12 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int tab_space_bottom_line=0x7f07000b;
         public static final int tab_space_top=0x7f070009;
         public static final int tab_space_unselected_top=0x7f07000c;
+        public static final int umeng_fb_item_content_size=0x7f07000e;
+        public static final int umeng_fb_item_height=0x7f07000d;
+        public static final int umeng_fb_item_line_height=0x7f070010;
+        public static final int umeng_fb_item_time_size=0x7f07000f;
+        public static final int umeng_fb_record_btn_text_size=0x7f070012;
+        public static final int umeng_fb_spinner_padding_left=0x7f070011;
     }
     public static final class drawable {
         public static final int default_ptr_flip=0x7f020000;
@@ -228,6 +245,16 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int tab_xiaoyi=0x7f020026;
         public static final int tab_xiaoyi_default_icon=0x7f020027;
         public static final int tab_xiaoyi_selected_icon=0x7f020028;
+        public static final int umeng_fb_action_replay=0x7f020029;
+        public static final int umeng_fb_arrow_right=0x7f02002a;
+        public static final int umeng_fb_audio_dialog_cancel=0x7f02002b;
+        public static final int umeng_fb_audio_dialog_content=0x7f02002c;
+        public static final int umeng_fb_audio_play_01=0x7f02002d;
+        public static final int umeng_fb_audio_play_02=0x7f02002e;
+        public static final int umeng_fb_audio_play_03=0x7f02002f;
+        public static final int umeng_fb_audio_play_bg=0x7f020030;
+        public static final int umeng_fb_keyboard=0x7f020031;
+        public static final int umeng_fb_record=0x7f020032;
     }
     public static final class id {
         public static final int Button01=0x7f060031;
@@ -258,6 +285,8 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int community_select_row_communityAddress=0x7f060024;
         public static final int community_select_row_communityName=0x7f060023;
         public static final int disabled=0x7f060000;
+        public static final int fb_reply_item_view_line=0x7f060075;
+        public static final int fb_reply_item_view_tag=0x7f060074;
         public static final int fl_inner=0x7f060050;
         public static final int flip=0x7f060008;
         public static final int gridview=0x7f060009;
@@ -328,7 +357,34 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int tableRow3=0x7f06005a;
         public static final int tableRow4=0x7f06005c;
         public static final int title=0x7f060062;
-        public static final int webView=0x7f060063;
+        public static final int umeng_fb_action_collapse=0x7f060069;
+        public static final int umeng_fb_audio_dialog_count_down_tag_tv=0x7f060067;
+        public static final int umeng_fb_audio_dialog_count_down_tv=0x7f060065;
+        public static final int umeng_fb_audio_dialog_count_tv=0x7f060066;
+        public static final int umeng_fb_audio_dialog_layout=0x7f060064;
+        public static final int umeng_fb_contact_spinner=0x7f060070;
+        public static final int umeng_fb_contact_title=0x7f060068;
+        public static final int umeng_fb_container=0x7f060063;
+        public static final int umeng_fb_keyboard_tag_btn=0x7f060076;
+        public static final int umeng_fb_record_btn=0x7f060077;
+        public static final int umeng_fb_record_tag_btn=0x7f060073;
+        public static final int umeng_fb_reply_audio_duration=0x7f06007b;
+        public static final int umeng_fb_reply_audio_layout=0x7f060079;
+        public static final int umeng_fb_reply_audio_play_anim=0x7f06007a;
+        public static final int umeng_fb_reply_content=0x7f06007e;
+        public static final int umeng_fb_reply_content_layout=0x7f060078;
+        public static final int umeng_fb_reply_date=0x7f06007c;
+        public static final int umeng_fb_reply_item_view_line=0x7f06006f;
+        public static final int umeng_fb_reply_item_view_tag=0x7f06006e;
+        public static final int umeng_fb_reply_list=0x7f06006d;
+        public static final int umeng_fb_resend=0x7f06007d;
+        public static final int umeng_fb_send_btn=0x7f060071;
+        public static final int umeng_fb_send_content=0x7f060072;
+        public static final int umeng_fb_send_layout=0x7f06006b;
+        public static final int umeng_fb_spinnerTarget=0x7f06006a;
+        public static final int umeng_fb_swipe_container=0x7f06006c;
+        public static final int umeng_fb_welcome_info=0x7f06007f;
+        public static final int webView=0x7f060080;
         public static final int webview=0x7f06000a;
     }
     public static final class layout {
@@ -351,8 +407,19 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int pull_to_refresh_header_vertical=0x7f030010;
         public static final int register=0x7f030011;
         public static final int tab_indicator=0x7f030012;
-        public static final int webview=0x7f030013;
-        public static final int xyzs=0x7f030014;
+        public static final int umeng_fb_activity_conversation=0x7f030013;
+        public static final int umeng_fb_audio_dialog=0x7f030014;
+        public static final int umeng_fb_contact=0x7f030015;
+        public static final int umeng_fb_contact_spinner=0x7f030016;
+        public static final int umeng_fb_fragment=0x7f030017;
+        public static final int umeng_fb_input_contact=0x7f030018;
+        public static final int umeng_fb_input_conversation=0x7f030019;
+        public static final int umeng_fb_input_conversation_audio=0x7f03001a;
+        public static final int umeng_fb_reply_item_audio=0x7f03001b;
+        public static final int umeng_fb_reply_item_text=0x7f03001c;
+        public static final int umeng_fb_welcome_item=0x7f03001d;
+        public static final int webview=0x7f03001e;
+        public static final int xyzs=0x7f03001f;
     }
     public static final class raw {
         public static final int pull_event=0x7f050000;
@@ -402,6 +469,43 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int title_section1=0x7f080007;
         public static final int title_section2=0x7f080008;
         public static final int title_section3=0x7f080009;
+        public static final int umeng_fb_back=0x7f080028;
+        public static final int umeng_fb_change_contact_title=0x7f08002b;
+        public static final int umeng_fb_contact_email=0x7f080039;
+        public static final int umeng_fb_contact_info=0x7f08002c;
+        public static final int umeng_fb_contact_info_hint=0x7f080027;
+        public static final int umeng_fb_contact_key_email=0x7f08003f;
+        public static final int umeng_fb_contact_key_other=0x7f080041;
+        public static final int umeng_fb_contact_key_phone=0x7f080040;
+        public static final int umeng_fb_contact_key_qq=0x7f08003e;
+        public static final int umeng_fb_contact_other=0x7f08003b;
+        public static final int umeng_fb_contact_phone=0x7f08003a;
+        public static final int umeng_fb_contact_qq=0x7f080038;
+        public static final int umeng_fb_contact_save=0x7f080033;
+        public static final int umeng_fb_count_down=0x7f080047;
+        public static final int umeng_fb_feedback=0x7f080032;
+        public static final int umeng_fb_no_record_permission=0x7f080049;
+        public static final int umeng_fb_notification_content_formatter_multiple_msg=0x7f080031;
+        public static final int umeng_fb_notification_content_formatter_single_msg=0x7f080030;
+        public static final int umeng_fb_notification_ticker_text=0x7f08002f;
+        /**  5.0.1 
+         */
+        public static final int umeng_fb_press_speech=0x7f080042;
+        public static final int umeng_fb_record_fail=0x7f080048;
+        public static final int umeng_fb_record_time_short=0x7f080046;
+        public static final int umeng_fb_release_cancel=0x7f080044;
+        public static final int umeng_fb_release_send=0x7f080043;
+        public static final int umeng_fb_reply_content_default=0x7f08002e;
+        public static final int umeng_fb_send=0x7f08002d;
+        public static final int umeng_fb_send_fail=0x7f08003c;
+        public static final int umeng_fb_sending=0x7f08003d;
+        public static final int umeng_fb_slide_up_cancel=0x7f080045;
+        public static final int umeng_fb_time_minutes_ago=0x7f080035;
+        public static final int umeng_fb_time_pre_year_format=0x7f080037;
+        public static final int umeng_fb_time_right_now=0x7f080034;
+        public static final int umeng_fb_time_this_year_format=0x7f080036;
+        public static final int umeng_fb_title=0x7f080029;
+        public static final int umeng_fb_write_contact_title=0x7f08002a;
     }
     public static final class style {
         /** 
@@ -419,6 +523,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
  All customizations that are NOT specific to a particular API-level can go here. 
          */
         public static final int AppTheme=0x7f0a0001;
+        public static final int UmengFBSpeechStyle=0x7f0a0002;
     }
     public static final class styleable {
         /** Attributes that can be used with a PullToRefresh.
