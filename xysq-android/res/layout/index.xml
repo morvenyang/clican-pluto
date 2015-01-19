@@ -10,7 +10,6 @@
         android:orientation="vertical" >
 
         <RelativeLayout
-            android:id="@+id/RelativeLayout1"
             android:layout_width="match_parent"
             android:layout_height="47dp"
             android:layout_gravity="center_horizontal"
@@ -26,9 +25,17 @@
                 android:layout_centerVertical="true"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:text="TextView"
                 android:textColor="@android:color/white"
                 android:textSize="18sp" />
+
+            <Button
+                android:id="@+id/index_communityChangeButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="false"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/index_communityName"
+                android:background="@drawable/nav_switching_icon" />
 
         </RelativeLayout>
 
