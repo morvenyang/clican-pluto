@@ -11,12 +11,18 @@
     <TextView
         android:id="@+id/profile_titleTextView"
         android:layout_width="match_parent"
-        android:layout_height="47dp"
+        android:layout_height="45dp"
         android:background="@color/headBackgroundColor"
         android:gravity="center"
         android:text="@string/profile_title"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textSize="18sp" />
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/headGreenLineColor" >
+
+        </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"

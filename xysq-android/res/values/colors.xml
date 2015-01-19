@@ -13,6 +13,7 @@
     <color name="pulltorefresh_lv_header_color4">#ffbb33</color>
     
     <color name="headBackgroundColor">#004ea2</color>
+    <color name="headGreenLineColor">#9ed300</color>
     <color name="lightGreen">#9ed300</color>
     <color name="labelTextColor">#666666</color>
     <color name="rowTextColor">#333333</color>
