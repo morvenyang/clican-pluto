@@ -328,6 +328,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int tableRow3=0x7f06005a;
         public static final int tableRow4=0x7f06005c;
         public static final int title=0x7f060062;
+        public static final int webView=0x7f060063;
         public static final int webview=0x7f06000a;
     }
     public static final class layout {
@@ -350,7 +351,8 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int pull_to_refresh_header_vertical=0x7f030010;
         public static final int register=0x7f030011;
         public static final int tab_indicator=0x7f030012;
-        public static final int xyzs=0x7f030013;
+        public static final int webview=0x7f030013;
+        public static final int xyzs=0x7f030014;
     }
     public static final class raw {
         public static final int pull_event=0x7f050000;

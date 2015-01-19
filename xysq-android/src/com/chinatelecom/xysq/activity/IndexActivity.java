@@ -20,6 +20,7 @@ import com.chinatelecom.xysq.adapater.PosterPagerAdapter;
 import com.chinatelecom.xysq.bean.Index;
 import com.chinatelecom.xysq.http.HttpCallback;
 import com.chinatelecom.xysq.http.IndexRequest;
+import com.chinatelecom.xysq.listener.HtmlLinkOnClickListener;
 import com.chinatelecom.xysq.listener.IndexOnClickListener;
 import com.chinatelecom.xysq.other.Constants;
 import com.chinatelecom.xysq.util.KeyValueUtils;
@@ -52,6 +53,10 @@ public class IndexActivity extends Activity implements HttpCallback,
 		Button noticeButton = (Button) findViewById(R.id.index_yzxxButton);
 		noticeButton.setOnClickListener(new IndexOnClickListener(this,
 				NoticeActivity.class));
+		Button bmffButton = (Button) findViewById(R.id.index_bmffButton);
+		bmffButton.setOnClickListener(new HtmlLinkOnClickListener(
+				"http://218.244.138.36/mobile/serve.do?channel=6",
+				this));
 	}
 
 	@Override
@@ -101,6 +106,6 @@ public class IndexActivity extends Activity implements HttpCallback,
 		Log.d("XYSQ",
 				"changeCommunityButton is clicked, start CommunitySelectActivity");
 		startActivity(intent);
-		
+
 	}
 }
