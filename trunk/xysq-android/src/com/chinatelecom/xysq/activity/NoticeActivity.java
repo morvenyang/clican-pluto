@@ -63,6 +63,7 @@ public class NoticeActivity extends Activity implements
 		communityId = intent.getLongExtra("communityId", -1);
 		mPullRefreshListView = (PullToRefreshListView) findViewById(R.id.notice_listView);
 		mPullRefreshListView.setMode(Mode.BOTH);
+		mPullRefreshListView.getRefreshableView().setDividerHeight(2);
 		// Set a listener to be invoked when the list should be refreshed.
 		mPullRefreshListView.setOnRefreshListener(this);
 
@@ -141,10 +142,10 @@ public class NoticeActivity extends Activity implements
 
 	@Override
 	public void onClick(View v) {
-		tab1Button.setTextColor(Color.BLACK);
-		tab2Button.setTextColor(Color.BLACK);
-		tab3Button.setTextColor(Color.BLACK);
-		tab4Button.setTextColor(Color.BLACK);
+		tab1Button.setTextColor(this.getResources().getColor(R.color.tabTextColor));
+		tab2Button.setTextColor(this.getResources().getColor(R.color.tabTextColor));
+		tab3Button.setTextColor(this.getResources().getColor(R.color.tabTextColor));
+		tab4Button.setTextColor(this.getResources().getColor(R.color.tabTextColor));
 		if (v == tab1Button) {
 			currentNoticeCategory = NoticeCategory.JU_WEI_HUI;
 		} else if (v == tab2Button) {
@@ -155,7 +156,7 @@ public class NoticeActivity extends Activity implements
 		} else if (v == tab4Button) {
 			currentNoticeCategory = NoticeCategory.PAI_CHU_SUO;
 		}
-		((Button) v).setTextColor(Color.GREEN);
+		((Button) v).setTextColor(this.getResources().getColor(R.color.lightGreen));
 		page = 1;
 		announcementAndNoticeList.clear();
 		AnnouncementAndNoticeRequest.queryAnnouncementAndNotice(this,
