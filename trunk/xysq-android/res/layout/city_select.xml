@@ -20,7 +20,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="47dp"
+        android:layout_height="45dp"
         android:background="@color/headBackgroundColor" >
 
         <Button
@@ -43,6 +43,12 @@
             android:textSize="18sp" />
 
     </RelativeLayout>
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/headGreenLineColor" >
+
+        </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"

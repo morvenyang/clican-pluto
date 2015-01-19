@@ -22,7 +22,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="47dp"
+            android:layout_height="45dp"
             android:background="@color/headBackgroundColor" >
 
             <Button
@@ -55,6 +55,12 @@
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@+id/communitySelect_titleTextView"
                 android:background="@drawable/nav_switching_icon" />
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/headGreenLineColor" >
 
         </RelativeLayout>
 
