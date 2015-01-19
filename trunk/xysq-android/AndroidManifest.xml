@@ -7,7 +7,7 @@
     <uses-sdk
         android:minSdkVersion="16"
         android:targetSdkVersion="20" />
-    
+
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" >
     </uses-permission>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" >
@@ -40,7 +40,8 @@
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
-            android:process=":remote" android:exported="false">
+            android:exported="false"
+            android:process=":remote" >
             <intent-filter>
                 <action android:name="com.baidu.location.service_v2.2" >
                 </action>
@@ -51,6 +52,13 @@
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="0ApOGVuQqHM2UduvoIYBOiqs" />
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="54bcd918fd98c52be7000da0" />
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="渠道1" />
+
         <activity
             android:name="com.chinatelecom.xysq.activity.MainActivity"
             android:label="@string/app_name" >
@@ -60,17 +68,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.chinatelecom.xysq.activity.IndexActivity"/>	
-		<activity android:name="com.chinatelecom.xysq.activity.XyzsActivity" />
-		<activity android:name="com.chinatelecom.xysq.activity.ProfileActivity" />	
-		<activity android:name="com.chinatelecom.xysq.activity.CommunitySelectActivity" />
-		<activity android:name="com.chinatelecom.xysq.activity.CitySelectActivity" />
-		<activity android:name="com.chinatelecom.xysq.activity.AnnouncementActivity" />
-		<activity android:name="com.chinatelecom.xysq.activity.AnnouncementAndNoticeDetailActivity" />
-		<activity android:name="com.chinatelecom.xysq.activity.NoticeActivity" />
-		<activity android:name="com.chinatelecom.xysq.activity.LoginActivity" />
-		<activity android:name="com.chinatelecom.xysq.activity.RegisterActivity" android:noHistory="true"/>
-		<activity android:name="com.chinatelecom.xysq.activity.WebViewActivity" />
+        <activity android:name="com.chinatelecom.xysq.activity.IndexActivity" />
+        <activity android:name="com.chinatelecom.xysq.activity.XyzsActivity" />
+        <activity android:name="com.chinatelecom.xysq.activity.ProfileActivity" />
+        <activity android:name="com.chinatelecom.xysq.activity.CommunitySelectActivity" />
+        <activity android:name="com.chinatelecom.xysq.activity.CitySelectActivity" />
+        <activity android:name="com.chinatelecom.xysq.activity.AnnouncementActivity" />
+        <activity android:name="com.chinatelecom.xysq.activity.AnnouncementAndNoticeDetailActivity" />
+        <activity android:name="com.chinatelecom.xysq.activity.NoticeActivity" />
+        <activity android:name="com.chinatelecom.xysq.activity.LoginActivity" />
+        <activity
+            android:name="com.chinatelecom.xysq.activity.RegisterActivity"
+            android:noHistory="true" />
+        <activity android:name="com.chinatelecom.xysq.activity.WebViewActivity" />
     </application>
 
 </manifest>
