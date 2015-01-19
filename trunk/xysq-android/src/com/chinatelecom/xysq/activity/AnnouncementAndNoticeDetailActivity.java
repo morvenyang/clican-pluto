@@ -22,8 +22,6 @@ public class AnnouncementAndNoticeDetailActivity extends Activity {
 
 	private TextView titleTextView;
 
-	private TextView modifyTimeTextView;
-
 	private TextView contentTextView;
 
 	public void onCreate(Bundle savedInstanceState) {
@@ -43,7 +41,6 @@ public class AnnouncementAndNoticeDetailActivity extends Activity {
 		this.headTextView = (TextView) this
 				.findViewById(R.id.announcement_and_notice_detail_headTextView);
 		this.titleTextView = (TextView)this.findViewById(R.id.announcement_and_notice_detail_titleTextView);
-		this.modifyTimeTextView = (TextView)this.findViewById(R.id.announcement_and_notice_detail_modifyTimeTextView);
 		this.contentTextView = (TextView)this.findViewById(R.id.announcement_and_notice_detail_contentTextView);
 		if(announcement){
 			this.headTextView.setText("小区公告");
@@ -51,8 +48,6 @@ public class AnnouncementAndNoticeDetailActivity extends Activity {
 			this.headTextView.setText("业主须知");
 		}
 		this.titleTextView.setText(announcementAndNotice.getTitle());
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd",Locale.ENGLISH);
-		this.modifyTimeTextView.setText(sdf.format(announcementAndNotice.getModifyTime()));
 		this.contentTextView.setText(announcementAndNotice.getContent());
 	}
 }

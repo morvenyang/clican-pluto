@@ -5,18 +5,19 @@
     android:orientation="vertical" >
 
     <RelativeLayout
-        android:id="@+id/RelativeLayout1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+         android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@color/headBackgroundColor" >
 
         <Button
             android:id="@+id/announcement_and_notice_detail_backButton"
+            style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="10dp"
-            android:text="@string/back" />
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:background="@drawable/nav_back_icon" />
 
         <TextView
             android:id="@+id/announcement_and_notice_detail_headTextView"
@@ -26,34 +27,38 @@
             android:layout_centerInParent="true"
             android:layout_centerVertical="false"
             android:layout_gravity="center"
-            android:text="TextView"
-            android:textColor="@android:color/black" />
+            android:text="业主须知"
+            android:textColor="@android:color/white"
+            android:textSize="18sp" />
 
     </RelativeLayout>
+      <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/headGreenLineColor" >
+
+        </RelativeLayout>
 
     <TextView
         android:id="@+id/announcement_and_notice_detail_titleTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:gravity="center"
+         android:textStyle="bold"
         android:text="Large Text"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="@android:color/black" />
-
-    <TextView
-        android:id="@+id/announcement_and_notice_detail_modifyTimeTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="TextView"
-        android:textColor="@android:color/darker_gray" />
+        android:textColor="@color/labelTextColor"
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/announcement_and_notice_detail_contentTextView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
         android:text="Medium Text"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="@android:color/black" />
+        android:textColor="@color/labelTextColor"
+        android:textSize="16sp" />
 
 </LinearLayout>
