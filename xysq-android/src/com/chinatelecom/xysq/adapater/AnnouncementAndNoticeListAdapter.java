@@ -1,6 +1,8 @@
 package com.chinatelecom.xysq.adapater;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Locale;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -55,11 +57,20 @@ public class AnnouncementAndNoticeListAdapter extends BaseAdapter {
 			convertView = inflater.inflate(
 					R.layout.announcement_and_notice_select_row, null);
 		}
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd",Locale.ENGLISH);
 		TextView title = (TextView) convertView
 				.findViewById(R.id.announcement_and_notice_select_row_title);
+		TextView date = (TextView) convertView
+				.findViewById(R.id.announcement_and_notice_select_row_date);
 		final AnnouncementAndNotice aan = announcementAndNoticeList
 				.get(position);
 		title.setText(aan.getTitle());
+		if(aan.getModifyTime()!=null){
+			date.setText(sdf.format(aan.getModifyTime()));
+		}else{
+			date.setText("");
+		}
+		
 		convertView.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View view) {

@@ -54,6 +54,7 @@ public class AnnouncementActivity extends Activity implements
 		communityId = intent.getLongExtra("communityId", -1);
 		mPullRefreshListView = (PullToRefreshListView) findViewById(R.id.announcement_listView);
 		mPullRefreshListView.setMode(Mode.BOTH);
+		mPullRefreshListView.getRefreshableView().setDividerHeight(2);
 		// Set a listener to be invoked when the list should be refreshed.
 		mPullRefreshListView.setOnRefreshListener(this);
 
