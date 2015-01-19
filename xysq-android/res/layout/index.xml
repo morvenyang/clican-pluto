@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content" >
+    android:layout_height="wrap_content"
+    android:background="@color/backgroundColor" >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -11,7 +12,7 @@
         <RelativeLayout
             android:id="@+id/RelativeLayout1"
             android:layout_width="match_parent"
-            android:layout_height="63dp"
+            android:layout_height="47dp"
             android:layout_gravity="center_horizontal"
             android:background="@color/headBackgroundColor"
             android:orientation="horizontal" >
@@ -27,14 +28,14 @@
                 android:gravity="center"
                 android:text="TextView"
                 android:textColor="@android:color/white"
-                android:textSize="36sp" />
+                android:textSize="18sp" />
 
         </RelativeLayout>
 
         <android.support.v4.view.ViewPager
             android:id="@+id/index_posterViewPager"
             android:layout_width="fill_parent"
-            android:layout_height="120dp" >
+            android:layout_height="160dp" >
         </android.support.v4.view.ViewPager>
 
         <LinearLayout
@@ -44,17 +45,18 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
+                android:layout_height="wrap_content"
+                android:background="@android:color/white" >
 
                 <Button
                     android:id="@+id/index_xqggButton"
                     style="?android:attr/borderlessButtonStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
+                    android:layout_marginBottom="15dp"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="10dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="15dp"
                     android:layout_weight="1"
                     android:background="#00000000"
                     android:drawableTop="@drawable/home_inform_icon"
@@ -66,10 +68,10 @@
                     style="?android:attr/borderlessButtonStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
+                    android:layout_marginBottom="15dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="15dp"
                     android:layout_weight="1"
                     android:background="#00000000"
                     android:drawableTop="@drawable/home_notice_icon"
@@ -81,10 +83,10 @@
                     style="?android:attr/borderlessButtonStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
+                    android:layout_marginBottom="15dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="20dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="15dp"
                     android:layout_weight="1"
                     android:background="#00000000"
                     android:drawableTop="@drawable/home_bbs_icon"
@@ -92,81 +94,86 @@
                     android:textColor="@color/labelTextColor" />
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/index_bmfwTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:text="@string/index_bmfw"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textColor="@color/labelTextColor" />
-
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:background="@android:color/white"
+                android:orientation="vertical" >
 
-                <Button
-                    android:id="@+id/index_bmffButton"
-                    style="?android:attr/borderlessButtonStyle"
+                <TextView
+                    android:id="@+id/index_bmfwTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="16dp"
                     android:layout_marginTop="10dp"
-                    android:layout_weight="1"
-                    android:background="#00000000"
-                    android:drawableTop="@drawable/home_convenience_services_icon"
                     android:text="@string/index_bmfw"
-                    android:textColor="@color/labelTextColor" />
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/labelTextColor"
+                    android:textSize="14sp" />
 
-                <Button
-                    android:id="@+id/index_zpzsButton"
-                    style="?android:attr/borderlessButtonStyle"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_weight="1"
-                    android:background="#00000000"
-                    android:drawableTop="@drawable/home_delivery_icon"
-                    android:text="@string/index_zpzs"
-                    android:textColor="@color/labelTextColor" />
+                    android:layout_marginTop="40dp" >
 
-                <Button
-                    android:id="@+id/index_jkffButton"
-                    style="?android:attr/borderlessButtonStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="20dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_weight="1"
-                    android:background="#00000000"
-                    android:drawableTop="@drawable/home_doctor_icon"
-                    android:text="@string/index_jkff"
-                    android:textColor="@color/labelTextColor" />
-            </LinearLayout>
+                    <Button
+                        android:id="@+id/index_bmffButton"
+                        style="?android:attr/borderlessButtonStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="1"
+                        android:background="#00000000"
+                        android:drawableTop="@drawable/home_convenience_services_icon"
+                        android:text="@string/index_bmfw"
+                        android:textColor="@color/labelTextColor" />
+
+                    <Button
+                        android:id="@+id/index_zpzsButton"
+                        style="?android:attr/borderlessButtonStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="1"
+                        android:background="#00000000"
+                        android:drawableTop="@drawable/home_delivery_icon"
+                        android:text="@string/index_zpzs"
+                        android:textColor="@color/labelTextColor" />
+
+                    <Button
+                        android:id="@+id/index_jkffButton"
+                        style="?android:attr/borderlessButtonStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_weight="1"
+                        android:background="#00000000"
+                        android:drawableTop="@drawable/home_doctor_icon"
+                        android:text="@string/index_jkff"
+                        android:textColor="@color/labelTextColor" />
+                </LinearLayout>
+
+            </RelativeLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1" >
+                android:layout_weight="1"
+                android:background="@android:color/white" >
 
                 <Button
                     android:id="@+id/index_xqncButton"
                     style="?android:attr/borderlessButtonStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
+                    android:layout_marginBottom="16dp"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="10dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="16dp"
                     android:layout_weight="1"
                     android:background="#00000000"
                     android:drawableTop="@drawable/home_car_icon"
@@ -178,10 +185,10 @@
                     style="?android:attr/borderlessButtonStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
+                    android:layout_marginBottom="16dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="16dp"
                     android:layout_weight="1"
                     android:background="#00000000"
                     android:drawableTop="@drawable/home_broadband_icon"
@@ -193,10 +200,10 @@
                     style="?android:attr/borderlessButtonStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
+                    android:layout_marginBottom="16dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="20dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="16dp"
                     android:layout_weight="1"
                     android:background="#00000000"
                     android:drawableTop="@drawable/home_broadband_icon"
