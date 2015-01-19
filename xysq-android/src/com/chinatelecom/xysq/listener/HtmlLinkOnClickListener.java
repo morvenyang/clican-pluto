@@ -2,10 +2,10 @@ package com.chinatelecom.xysq.listener;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.view.View;
 import android.view.View.OnClickListener;
 
-import com.chinatelecom.xysq.activity.WebViewActivity;
 import com.chinatelecom.xysq.application.XysqApplication;
 import com.chinatelecom.xysq.bean.User;
 import com.chinatelecom.xysq.util.AlertUtil;
@@ -29,9 +29,10 @@ public class HtmlLinkOnClickListener implements OnClickListener {
 		if (user == null) {
 			AlertUtil.alert(activity, "请先登录");
 		} else {
-			Intent intent = new Intent(activity, WebViewActivity.class);
-			intent.putExtra("url", url + "&openId=" + user.getJsessionid());
-			activity.startActivity(intent);
+
+			Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url
+					+ "&openId=" + user.getJsessionid()));
+			activity.startActivity(browserIntent);
 		}
 
 	}

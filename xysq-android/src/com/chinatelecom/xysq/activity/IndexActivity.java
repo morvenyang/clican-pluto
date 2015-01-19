@@ -57,6 +57,12 @@ public class IndexActivity extends Activity implements HttpCallback,
 		bmffButton.setOnClickListener(new HtmlLinkOnClickListener(
 				"http://218.244.138.36/mobile/serve.do?channel=6",
 				this));
+		
+		Button zpzsButton = (Button) findViewById(R.id.index_zpzsButton);
+		zpzsButton.setOnClickListener(new HtmlLinkOnClickListener(
+				"http://218.244.138.36/mobile/shop.do?channel=6",
+				this));
+		
 	}
 
 	@Override
