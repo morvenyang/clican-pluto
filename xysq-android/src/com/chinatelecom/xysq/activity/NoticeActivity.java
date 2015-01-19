@@ -64,6 +64,7 @@ public class NoticeActivity extends Activity implements
 		mPullRefreshListView = (PullToRefreshListView) findViewById(R.id.notice_listView);
 		mPullRefreshListView.setMode(Mode.BOTH);
 		mPullRefreshListView.getRefreshableView().setDividerHeight(2);
+		mPullRefreshListView.getRefreshableView().setFooterDividersEnabled(true);
 		// Set a listener to be invoked when the list should be refreshed.
 		mPullRefreshListView.setOnRefreshListener(this);
 
@@ -176,5 +177,6 @@ public class NoticeActivity extends Activity implements
 		tab3Button.setOnClickListener(this);
 		tab4Button.setText(NoticeCategory.PAI_CHU_SUO.getLabel());
 		tab4Button.setOnClickListener(this);
+		tab1Button.setTextColor(this.getResources().getColor(R.color.lightGreen));
 	}
 }
