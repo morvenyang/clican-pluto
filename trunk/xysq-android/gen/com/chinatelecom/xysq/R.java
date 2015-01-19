@@ -151,6 +151,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int ptrSubHeaderTextAppearance=0x7f01000b;
     }
     public static final class color {
+        public static final int backgroundColor=0x7f09000a;
         public static final int headBackgroundColor=0x7f090007;
         public static final int labelTextColor=0x7f090009;
         public static final int lightGreen=0x7f090008;
