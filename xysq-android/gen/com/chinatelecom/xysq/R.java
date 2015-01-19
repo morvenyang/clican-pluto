@@ -151,8 +151,8 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int ptrSubHeaderTextAppearance=0x7f01000b;
     }
     public static final class color {
-        public static final int backgroundColor=0x7f09000b;
-        public static final int dividerColor=0x7f09000c;
+        public static final int backgroundColor=0x7f09000c;
+        public static final int dividerColor=0x7f09000d;
         public static final int headBackgroundColor=0x7f090007;
         public static final int labelTextColor=0x7f090009;
         public static final int lightGreen=0x7f090008;
@@ -161,6 +161,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int pulltorefresh_lv_header_color3=0x7f090005;
         public static final int pulltorefresh_lv_header_color4=0x7f090006;
         public static final int rowTextColor=0x7f09000a;
+        public static final int subRowTextColor=0x7f09000b;
         public static final int tabDark=0x7f090001;
         public static final int tabMedium=0x7f090000;
         public static final int tabTransparent=0x7f090002;
@@ -245,13 +246,13 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int citySelect_selectedCityTextView=0x7f06001a;
         public static final int citySelect_titleTextView=0x7f060018;
         public static final int city_select_row_titleTextView=0x7f06001c;
-        public static final int communitySelect_backButton=0x7f06001d;
-        public static final int communitySelect_changeAreaButton=0x7f06001f;
+        public static final int communitySelect_backButton=0x7f06001e;
+        public static final int communitySelect_changeAreaButton=0x7f060020;
         public static final int communitySelect_communityListView=0x7f060023;
-        public static final int communitySelect_progressBar=0x7f060020;
+        public static final int communitySelect_progressBar=0x7f06001d;
         public static final int communitySelect_searchButton=0x7f060021;
         public static final int communitySelect_searchEditText=0x7f060022;
-        public static final int communitySelect_titleTextView=0x7f06001e;
+        public static final int communitySelect_titleTextView=0x7f06001f;
         public static final int community_select_row_communityAddress=0x7f060025;
         public static final int community_select_row_communityName=0x7f060024;
         public static final int disabled=0x7f060000;
