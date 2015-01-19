@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.chinatelecom.xysq.R;
 import com.chinatelecom.xysq.adapater.CommunityListAdapter;
@@ -28,7 +29,8 @@ import com.chinatelecom.xysq.http.HttpCallback;
 import com.chinatelecom.xysq.other.Constants;
 import com.chinatelecom.xysq.util.KeyValueUtils;
 
-public class CommunitySelectActivity extends Activity implements HttpCallback {
+public class CommunitySelectActivity extends Activity implements HttpCallback,
+		OnClickListener {
 
 	private ProgressBar progressBar;
 
@@ -39,21 +41,17 @@ public class CommunitySelectActivity extends Activity implements HttpCallback {
 	private EditText searchEditText;
 
 	private ListView communityListView;
+	
+	private TextView communitySelectTitleTextView;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.community_select);
 		progressBar = (ProgressBar) findViewById(R.id.communitySelect_progressBar);
+		communitySelectTitleTextView = (TextView)findViewById(R.id.communitySelect_titleTextView);
 		Button changeArea = (Button) findViewById(R.id.communitySelect_changeAreaButton);
-		changeArea.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Intent intent = new Intent(CommunitySelectActivity.this,
-						CitySelectActivity.class);
-				Log.d("CommunitySelectActivity", "changeAreaButton is clicked");
-				startActivity(intent);
-			}
-		});
+		communitySelectTitleTextView.setOnClickListener(this);
+		changeArea.setOnClickListener(this);
 
 		this.searchButton = (Button) findViewById(R.id.communitySelect_backButton);
 		this.searchButton.setOnClickListener(new OnClickListener() {
@@ -142,13 +140,21 @@ public class CommunitySelectActivity extends Activity implements HttpCallback {
 		String areaName = KeyValueUtils.getStringValue(this,
 				Constants.AREA_NAME);
 		Long areaId = KeyValueUtils.getLongValue(this, Constants.AREA_ID);
-		Button changeArea = (Button) findViewById(R.id.communitySelect_changeAreaButton);
 		if (StringUtils.isNotEmpty(areaName) && areaId != null) {
-			changeArea.setText(areaName);
+			this.communitySelectTitleTextView.setText(areaName);
 			progressBar.setVisibility(View.GONE);
 			progressBar.setVisibility(View.VISIBLE);
 			AreaRequest.queryCommunityByArea(this, areaId);
 		}
 
+	}
+
+	@Override
+	public void onClick(View v) {
+		Intent intent = new Intent(CommunitySelectActivity.this,
+				CitySelectActivity.class);
+		Log.d("CommunitySelectActivity", "changeAreaButton is clicked");
+		startActivity(intent);
+		
 	}
 }

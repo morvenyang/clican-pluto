@@ -1,83 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="wrap_content"
+    android:background="@color/backgroundColor" >
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <Button
-            android:id="@+id/communitySelect_backButton"
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:text="@string/back" />
-
-        <TextView
-            android:id="@+id/communitySelect_titleTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:gravity="center"
-            android:text="@string/communitySelect_titelTextViewValue" />
-
-        <Button
-            android:id="@+id/communitySelect_changeAreaButton"
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="false"
-            android:layout_alignParentLeft="false"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentStart="false"
-            android:layout_marginRight="10dp"
-            android:text="@string/communitySelect_changeAreaButtonValue" />
-    </RelativeLayout>
     <ProgressBar
         android:id="@+id/communitySelect_progressBar"
         style="?android:attr/progressBarStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
         android:layout_gravity="center"
         android:indeterminate="false"
         android:visibility="invisible" />
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
 
-        <Button
-            android:id="@+id/communitySelect_searchButton"
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="47dp"
+            android:background="@color/headBackgroundColor" >
+
+            <Button
+                android:id="@+id/communitySelect_backButton"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/nav_back_icon" />
+
+            <TextView
+                android:id="@+id/communitySelect_titleTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:text="@string/communitySelect_titelTextViewValue"
+                android:textColor="@android:color/white"
+                android:textSize="18sp" />
+
+            <Button
+                android:id="@+id/communitySelect_changeAreaButton"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="false"
+                android:layout_alignParentStart="false"
+                android:layout_alignParentTop="false"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/communitySelect_titleTextView"
+                android:background="@drawable/nav_switching_icon" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="34dp"
+            android:layout_marginTop="10dp" >
+
+            <Button
+                android:id="@+id/communitySelect_searchButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/search_button" />
+
+            <EditText
+                android:id="@+id/communitySelect_searchEditText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="0dp"
+                android:layout_toLeftOf="@+id/communitySelect_searchButton"
+                android:background="@drawable/search_information"
+                android:ems="10"
+                android:hint="@string/communitySelect_searchEditTextHint"
+                android:paddingLeft="40dp" >
+
+                <requestFocus />
+            </EditText>
+        </RelativeLayout>
+
+        <ListView
+            android:id="@+id/communitySelect_communityListView"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:text="@string/search" />
+            android:layout_marginTop="20dp"
+            android:background="@android:color/white"
+            android:divider="@color/dividerColor"
+            android:dividerHeight="1dp"
+            android:footerDividersEnabled="true"
+            android:headerDividersEnabled="true" >
 
-        <EditText
-            android:id="@+id/communitySelect_searchEditText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginRight="10dp"
-            android:layout_toLeftOf="@+id/communitySelect_searchButton"
-            android:ems="10"
-            android:hint="@string/communitySelect_searchEditTextHint" >
+        </ListView>
+    </LinearLayout>
 
-            <requestFocus />
-        </EditText>
-
-    </RelativeLayout>
-
-    <ListView
-        android:id="@+id/communitySelect_communityListView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-    </ListView>
-
-</LinearLayout>
+</RelativeLayout>
