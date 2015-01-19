@@ -1,63 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/backgroundColor" >
+
+    <ProgressBar
+        android:id="@+id/citySelect_progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true" />
+
+<LinearLayout
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/backgroundColor"
     android:orientation="vertical"
     tools:context=".activity.CitySelectActivity" >
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="47dp"
+        android:background="@color/headBackgroundColor" >
 
         <Button
             android:id="@+id/citySelect_backButton"
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="10dp"
-            android:text="@string/back" />
+            android:layout_alignParentLeft="false"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:background="@drawable/nav_back_icon" />
 
         <TextView
             android:id="@+id/citySelect_titleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="@string/citySelect_titleTextViewValue" />
+            android:text="城市选择"
+            android:textColor="@android:color/white"
+            android:textSize="18sp" />
+
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="42dp" >
+        android:layout_height="120dp" >
 
         <TextView
             android:id="@+id/citySelect_selectedCityLabelTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:text="@string/citySelect_selectedCityLabelTextViewValue" />
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_alignParentLeft="false"
+            android:layout_alignParentTop="false"
+            android:layout_centerInParent="false"
+            android:background="@color/backgroundColor"
+            android:gravity="center_vertical"
+            android:paddingLeft="12dp"
+            android:text="@string/citySelect_selectedCityLabelTextViewValue"
+            android:textColor="@color/labelTextColor"
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/citySelect_selectedCityTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
             android:layout_below="@+id/citySelect_selectedCityLabelTextView"
-            android:layout_marginLeft="44dp"
-            android:text="TextView" />
+            android:background="@android:color/white"
+            android:gravity="center_vertical"
+            android:paddingLeft="12dp"
+            android:text="TextView"
+            android:textColor="@color/lightGreen"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@id/citySelect_selectedCityTextView"
+            android:gravity="center_vertical"
+            android:paddingLeft="12dp"
+            android:text="已开通城市"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/labelTextColor"
+            android:textSize="12sp" />
 
     </RelativeLayout>
-
-    <ProgressBar
-        android:id="@+id/citySelect_progressBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center" />
 
     <ExpandableListView
         android:id="@+id/citySelect_cityListView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:divider="@color/dividerColor"
+        android:dividerHeight="1dp"
+        android:footerDividersEnabled="true" >
+
     </ExpandableListView>
 
 </LinearLayout>
+</RelativeLayout>

@@ -15,6 +15,7 @@
     <color name="headBackgroundColor">#004ea2</color>
     <color name="lightGreen">#9ed300</color>
     <color name="labelTextColor">#666666</color>
+    <color name="rowTextColor">#333333</color>
     
     <color name="backgroundColor">#f0f0f0</color>
     
