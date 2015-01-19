@@ -3,9 +3,7 @@ package com.chinatelecom.xysq.activity;
 import org.apache.commons.lang.StringUtils;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -30,8 +28,6 @@ public class IndexActivity extends Activity implements HttpCallback {
 
 	private TextView communityNameTextView;
 
-	private Button changeCommunityButton;
-
 	private ViewPager posterViewPager;
 
 	private ProgressBar progressBar;
@@ -40,7 +36,6 @@ public class IndexActivity extends Activity implements HttpCallback {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.index);
 		communityNameTextView = (TextView) findViewById(R.id.index_communityName);
-		changeCommunityButton = (Button) findViewById(R.id.index_changeCommunity);
 		posterViewPager = (ViewPager) findViewById(R.id.index_posterViewPager);
 		progressBar = (ProgressBar) findViewById(R.id.index_progressBar);
 		this.addListenerForButtons();
@@ -48,9 +43,11 @@ public class IndexActivity extends Activity implements HttpCallback {
 
 	private void addListenerForButtons() {
 		Button announcementButton = (Button) findViewById(R.id.index_xqggButton);
-		announcementButton.setOnClickListener(new IndexOnClickListener(this,AnnouncementActivity.class));
+		announcementButton.setOnClickListener(new IndexOnClickListener(this,
+				AnnouncementActivity.class));
 		Button noticeButton = (Button) findViewById(R.id.index_yzxxButton);
-		noticeButton.setOnClickListener(new IndexOnClickListener(this,NoticeActivity.class));
+		noticeButton.setOnClickListener(new IndexOnClickListener(this,
+				NoticeActivity.class));
 	}
 
 	@Override
@@ -89,7 +86,7 @@ public class IndexActivity extends Activity implements HttpCallback {
 		progressBar.setVisibility(View.VISIBLE);
 
 		IndexRequest.queryIndex(this, communityId);
-		changeCommunityButton.setOnClickListener(new OnClickListener() {
+		communityNameTextView.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(IndexActivity.this,
