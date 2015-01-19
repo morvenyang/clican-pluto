@@ -152,6 +152,8 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
     }
     public static final class color {
         public static final int headBackgroundColor=0x7f090007;
+        public static final int labelTextColor=0x7f090009;
+        public static final int lightGreen=0x7f090008;
         public static final int pulltorefresh_lv_header_color1=0x7f090003;
         public static final int pulltorefresh_lv_header_color2=0x7f090004;
         public static final int pulltorefresh_lv_header_color3=0x7f090005;
@@ -180,18 +182,35 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
     public static final class drawable {
         public static final int default_ptr_flip=0x7f020000;
         public static final int default_ptr_rotate=0x7f020001;
-        public static final int ic_launcher=0x7f020002;
-        public static final int icon=0x7f020003;
-        public static final int index_normal=0x7f020004;
-        public static final int index_selected=0x7f020005;
-        public static final int indicator_arrow=0x7f020006;
-        public static final int indicator_bg_bottom=0x7f020007;
-        public static final int indicator_bg_top=0x7f020008;
-        public static final int pulltorefresh_arrow=0x7f020009;
-        public static final int tab_background=0x7f02000a;
-        public static final int tab_index=0x7f02000b;
-        public static final int tab_selected=0x7f02000c;
-        public static final int tab_unselected=0x7f02000d;
+        public static final int home_bbs_icon=0x7f020002;
+        public static final int home_broadband_icon=0x7f020003;
+        public static final int home_car_icon=0x7f020004;
+        public static final int home_convenience_services_icon=0x7f020005;
+        public static final int home_delivery_icon=0x7f020006;
+        public static final int home_doctor_icon=0x7f020007;
+        public static final int home_inform_icon=0x7f020008;
+        public static final int home_notice_icon=0x7f020009;
+        public static final int ic_launcher=0x7f02000a;
+        public static final int icon=0x7f02000b;
+        public static final int index_normal=0x7f02000c;
+        public static final int index_selected=0x7f02000d;
+        public static final int indicator_arrow=0x7f02000e;
+        public static final int indicator_bg_bottom=0x7f02000f;
+        public static final int indicator_bg_top=0x7f020010;
+        public static final int pulltorefresh_arrow=0x7f020011;
+        public static final int tab_background=0x7f020012;
+        public static final int tab_home=0x7f020013;
+        public static final int tab_home_default_icon=0x7f020014;
+        public static final int tab_home_selected_icon=0x7f020015;
+        public static final int tab_index=0x7f020016;
+        public static final int tab_personal=0x7f020017;
+        public static final int tab_personal_default_icon=0x7f020018;
+        public static final int tab_personal_selected_icon=0x7f020019;
+        public static final int tab_selected=0x7f02001a;
+        public static final int tab_unselected=0x7f02001b;
+        public static final int tab_xiaoyi=0x7f02001c;
+        public static final int tab_xiaoyi_default_icon=0x7f02001d;
+        public static final int tab_xiaoyi_selected_icon=0x7f02001e;
     }
     public static final class id {
         public static final int Button01=0x7f060033;
