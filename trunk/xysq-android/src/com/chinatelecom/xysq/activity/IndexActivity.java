@@ -24,9 +24,12 @@ import com.chinatelecom.xysq.listener.IndexOnClickListener;
 import com.chinatelecom.xysq.other.Constants;
 import com.chinatelecom.xysq.util.KeyValueUtils;
 
-public class IndexActivity extends Activity implements HttpCallback {
+public class IndexActivity extends Activity implements HttpCallback,
+		OnClickListener {
 
 	private TextView communityNameTextView;
+
+	private Button communityChangeButton;
 
 	private ViewPager posterViewPager;
 
@@ -36,6 +39,7 @@ public class IndexActivity extends Activity implements HttpCallback {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.index);
 		communityNameTextView = (TextView) findViewById(R.id.index_communityName);
+		communityChangeButton = (Button) findViewById(R.id.index_communityChangeButton);
 		posterViewPager = (ViewPager) findViewById(R.id.index_posterViewPager);
 		progressBar = (ProgressBar) findViewById(R.id.index_progressBar);
 		this.addListenerForButtons();
@@ -86,15 +90,17 @@ public class IndexActivity extends Activity implements HttpCallback {
 		progressBar.setVisibility(View.VISIBLE);
 
 		IndexRequest.queryIndex(this, communityId);
-		communityNameTextView.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Intent intent = new Intent(IndexActivity.this,
-						CommunitySelectActivity.class);
-				Log.d("XYSQ",
-						"changeCommunityButton is clicked, start CommunitySelectActivity");
-				startActivity(intent);
-			}
-		});
+		communityNameTextView.setOnClickListener(this);
+		communityChangeButton.setOnClickListener(this);
+	}
+
+	@Override
+	public void onClick(View v) {
+		Intent intent = new Intent(IndexActivity.this,
+				CommunitySelectActivity.class);
+		Log.d("XYSQ",
+				"changeCommunityButton is clicked, start CommunitySelectActivity");
+		startActivity(intent);
+		
 	}
 }
