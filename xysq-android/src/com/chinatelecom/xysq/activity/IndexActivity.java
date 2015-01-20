@@ -55,11 +55,11 @@ public class IndexActivity extends Activity implements HttpCallback,
 				NoticeActivity.class, false, true));
 		Button bmffButton = (Button) findViewById(R.id.index_bmffButton);
 		bmffButton.setOnClickListener(new HtmlLinkOnClickListener(
-				"http://218.244.138.36/mobile/serve.do?channel=6", this, true));
+				"http://218.244.138.36/mobile/serve.do?channel=6","便民服务", this, true));
 
 		Button zpzsButton = (Button) findViewById(R.id.index_zpzsButton);
 		zpzsButton.setOnClickListener(new HtmlLinkOnClickListener(
-				"http://218.244.138.36/mobile/shop.do?channel=6", this, true));
+				"http://218.244.138.36/mobile/shop.do?channel=6","宅便宅送", this, true));
 		Button kdtxButton = (Button) findViewById(R.id.index_kdtxButton);
 		kdtxButton.setOnClickListener(new IndexOnClickListener(this,
 				BroadbandRemindActivity.class, true, false));
