@@ -80,7 +80,7 @@
                     android:id="@+id/boradband_remind_broadbandId_textView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Medium Text"
+                    android:text=""
                     android:textAppearance="?android:attr/textAppearanceMedium" />
 
             </TableRow>
@@ -99,7 +99,7 @@
                     android:id="@+id/broadband_remind_userName_textView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Medium Text"
+                    android:text=""
                     android:textAppearance="?android:attr/textAppearanceMedium" />
             </TableRow>
 
@@ -117,7 +117,7 @@
                     android:id="@+id/broadband_remind_expiredDate_textView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Medium Text"
+                    android:text=""
                     android:textAppearance="?android:attr/textAppearanceMedium" />
             </TableRow>
         </TableLayout>

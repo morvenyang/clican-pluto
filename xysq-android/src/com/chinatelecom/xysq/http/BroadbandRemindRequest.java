@@ -42,8 +42,6 @@ public class BroadbandRemindRequest {
 						JSONObject jsonObj = new JSONObject(responseString);
 						BroadbandRemind remind = new BroadbandRemind();
 						if (jsonObj.getBoolean("exist")) {
-							remind.setExist(false);
-						} else {
 							remind.setExist(true);
 							remind.setBroadBandId(jsonObj
 									.getString("broadBandId"));
@@ -57,9 +55,10 @@ public class BroadbandRemindRequest {
 							} catch (Exception e) {
 								Log.e("XYSQ", "", e);
 							}
-							return new TaskResult(1, "", remind);
+						} else {
+							remind.setExist(false);
 						}
-
+						return new TaskResult(1, "", remind);
 					} else {
 						response.getEntity().getContent().close();
 						return new TaskResult(-1, "查询宽带提醒失败", null);
