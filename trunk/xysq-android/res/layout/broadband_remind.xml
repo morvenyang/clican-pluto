@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/backgroundColor" >
+
+    <ProgressBar
+        android:id="@+id/broadband_remind_progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@color/headBackgroundColor" >
+
+            <Button
+                android:id="@+id/broadband_remind_backButton"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/nav_back_icon" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="宽带提醒"
+                android:textColor="@android:color/white"
+                android:textSize="18sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/headGreenLineColor" >
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/broadband_remind_title_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Large Text"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        </RelativeLayout>
+
+        <TableLayout
+            android:id="@+id/broadband_remind_table"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="30dp" >
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="帐号"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <TextView
+                    android:id="@+id/boradband_remind_broadbandId_textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Medium Text"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="名字"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <TextView
+                    android:id="@+id/broadband_remind_userName_textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Medium Text"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="到期时间"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <TextView
+                    android:id="@+id/broadband_remind_expiredDate_textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Medium Text"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+            </TableRow>
+        </TableLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>
