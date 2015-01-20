@@ -16,5 +16,7 @@ public interface BroadbandRemindDao {
 	public BroadbandRemind findBroadbandRemindById(Long id);
 	
 	public List<BroadbandRemind> findBroadbandRemindByMsisdns(List<String> msisdns);
+	
+	public BroadbandRemind findBroadbandRemindByMsisdn(String msisdn);
 
 }

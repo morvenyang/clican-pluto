@@ -137,6 +137,20 @@ public class ClientController {
 			log.error("", e);
 		}
 	}
+	
+	@RequestMapping("/queryBroadbandRemind")
+	public void queryBroadbandRemind(
+			@RequestParam(value = "msisdn", required = true) String msisdn,
+			HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		String result = this.indexService.queryBroadbandRemind(msisdn);
+		try {
+			resp.setContentType("application/json");
+			resp.getOutputStream().write(result.getBytes("utf-8"));
+		} catch (Exception e) {
+			log.error("", e);
+		}
+	}
 
 	@RequestMapping("/login")
 	public void login(@RequestParam(value = "userName") String userName,
