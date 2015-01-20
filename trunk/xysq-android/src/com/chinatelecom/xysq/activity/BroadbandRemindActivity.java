@@ -87,6 +87,7 @@ public class BroadbandRemindActivity extends Activity implements HttpCallback {
 		XysqApplication application = (XysqApplication) this.getApplication();
 		if (application.getUser() == null) {
 			AlertUtil.alert(this, "请先登录");
+			progressBar.setVisibility(View.INVISIBLE);
 			return;
 		} else {
 			User user = application.getUser();

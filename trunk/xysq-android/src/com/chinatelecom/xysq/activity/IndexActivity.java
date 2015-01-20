@@ -49,20 +49,20 @@ public class IndexActivity extends Activity implements HttpCallback,
 	private void addListenerForButtons() {
 		Button announcementButton = (Button) findViewById(R.id.index_xqggButton);
 		announcementButton.setOnClickListener(new IndexOnClickListener(this,
-				AnnouncementActivity.class));
+				AnnouncementActivity.class,false,true));
 		Button noticeButton = (Button) findViewById(R.id.index_yzxxButton);
 		noticeButton.setOnClickListener(new IndexOnClickListener(this,
-				NoticeActivity.class));
+				NoticeActivity.class,false,true));
 		Button bmffButton = (Button) findViewById(R.id.index_bmffButton);
 		bmffButton.setOnClickListener(new HtmlLinkOnClickListener(
-				"http://218.244.138.36/mobile/serve.do?channel=6",
-				this));
-		
+				"http://218.244.138.36/mobile/serve.do?channel=6", this));
+
 		Button zpzsButton = (Button) findViewById(R.id.index_zpzsButton);
 		zpzsButton.setOnClickListener(new HtmlLinkOnClickListener(
-				"http://218.244.138.36/mobile/shop.do?channel=6",
-				this));
-		
+				"http://218.244.138.36/mobile/shop.do?channel=6", this));
+		Button kdtxButton = (Button) findViewById(R.id.index_kdtxButton);
+		kdtxButton.setOnClickListener(new IndexOnClickListener(this,
+				BroadbandRemindActivity.class,true,false));
 	}
 
 	@Override
