@@ -10,9 +10,11 @@ import android.widget.TextView;
 
 import com.chinatelecom.xysq.R;
 import com.chinatelecom.xysq.activity.ProfileActivity;
+import com.chinatelecom.xysq.http.UpdateRequest;
 import com.chinatelecom.xysq.listener.HtmlLinkOnClickListener;
 import com.chinatelecom.xysq.other.Constants;
 import com.umeng.fb.FeedbackAgent;
+import com.umeng.update.UmengUpdateAgent;
 
 public class ProfileListAdapter extends BaseAdapter {
 
@@ -65,6 +67,12 @@ public class ProfileListAdapter extends BaseAdapter {
 		} else if (position == 2) {
 			titleTextView.setText("检查更新");
 			imageView.setImageResource(R.drawable.icon_3);
+			convertView.setOnClickListener(new OnClickListener(){
+				@Override
+				public void onClick(View v) {
+					UpdateRequest.checkUpdate(activity);
+				}
+			});
 		} else if (position == 3) {
 			titleTextView.setText("关于我们");
 			imageView.setImageResource(R.drawable.icon_4);

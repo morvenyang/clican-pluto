@@ -87,8 +87,14 @@
             android:noHistory="true" />
         <activity android:name="com.chinatelecom.xysq.activity.WebViewActivity" />
         <activity android:name="com.chinatelecom.xysq.activity.BroadbandRemindActivity" />
+         <!-- 用户反馈 -->
         <activity android:name="com.umeng.fb.ConversationActivity" />
+        <activity
+            android:name="com.umeng.update.UpdateDialogActivity" >
+        </activity>
+         <!-- 用户反馈 -->
 
+ 		<!-- 消息推送 -->
         <receiver
             android:name="com.umeng.message.NotificationProxyBroadcastReceiver"
             android:exported="false" >
@@ -108,8 +114,7 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
-        <receiver
-            android:name="com.umeng.message.UmengBroadcastReceiver" >
+        <receiver android:name="com.umeng.message.UmengBroadcastReceiver" >
             <intent-filter>
                 <action android:name="org.agoo.android.intent.action.RECEIVE" />
             </intent-filter>
@@ -146,6 +151,16 @@
         <service android:name="com.umeng.message.UmengIntentService" />
         <!-- V1.3.0添加的service，负责下载通知的资源 -->
         <service android:name="com.umeng.message.UmengDownloadResourceService" />
+        <!-- 消息推送 -->
+        
+        <!-- 自动更新 -->
+        <service
+            android:name="com.umeng.update.net.DownloadingService"
+            android:process=":DownloadingService" >
+        </service>
+        
+        
+        <!-- 自动更新 -->
     </application>
 
 </manifest>
