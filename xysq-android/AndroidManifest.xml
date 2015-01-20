@@ -83,8 +83,9 @@
             android:noHistory="true" />
         <activity android:name="com.chinatelecom.xysq.activity.WebViewActivity" />
         
-        
+        <activity android:name="com.chinatelecom.xysq.activity.BroadbandRemindActivity" />
         <activity android:name="com.umeng.fb.ConversationActivity" />
+        
     </application>
 
 </manifest>
