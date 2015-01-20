@@ -1,5 +1,7 @@
 package com.chinatelecom.xysq.adapater;
 
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -9,12 +11,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.chinatelecom.xysq.R;
+import com.chinatelecom.xysq.activity.FeedbackActivity;
 import com.chinatelecom.xysq.activity.ProfileActivity;
 import com.chinatelecom.xysq.http.UpdateRequest;
 import com.chinatelecom.xysq.listener.HtmlLinkOnClickListener;
 import com.chinatelecom.xysq.other.Constants;
 import com.umeng.fb.FeedbackAgent;
-import com.umeng.update.UmengUpdateAgent;
+import com.umeng.fb.fragment.FeedbackFragment;
 
 public class ProfileListAdapter extends BaseAdapter {
 
@@ -60,8 +63,15 @@ public class ProfileListAdapter extends BaseAdapter {
 			convertView.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					FeedbackAgent agent = new FeedbackAgent(activity);
-					agent.startFeedbackActivity();
+//					FeedbackAgent agent = new FeedbackAgent(activity);
+//					agent.startFeedbackActivity();
+					String id = new FeedbackAgent(activity).getDefaultConversation().getId();
+					Intent intent = new Intent(activity,
+							FeedbackActivity.class);
+					intent.putExtra(FeedbackFragment.BUNDLE_KEY_CONVERSATION_ID, id);
+					Log.d("XYSQ",
+							"意见反馈 is clicked, start ConversationActivity");
+					activity.startActivity(intent);
 				}
 			});
 		} else if (position == 2) {
