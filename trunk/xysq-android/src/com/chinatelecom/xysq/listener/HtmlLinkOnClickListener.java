@@ -13,14 +13,17 @@ import com.chinatelecom.xysq.util.AlertUtil;
 public class HtmlLinkOnClickListener implements OnClickListener {
 
 	private String url;
+	
+	private String title;
 
 	private Activity activity;
 
 	private boolean requireLogin;
 
-	public HtmlLinkOnClickListener(String url, Activity activity,
+	public HtmlLinkOnClickListener(String url, String title,Activity activity,
 			boolean requireLogin) {
 		this.url = url;
+		this.title = title;
 		this.activity = activity;
 		this.requireLogin = requireLogin;
 	}
@@ -38,6 +41,7 @@ public class HtmlLinkOnClickListener implements OnClickListener {
 		}
 
 		Intent intent = new Intent(activity, WebViewActivity.class);
+		intent.putExtra("title", title);
 		if (requireLogin) {
 			intent.putExtra("url", url + "&openId=" + user.getJsessionid());
 		} else {

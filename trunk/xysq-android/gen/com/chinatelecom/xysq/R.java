@@ -391,8 +391,10 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int umeng_fb_spinnerTarget=0x7f060071;
         public static final int umeng_fb_swipe_container=0x7f060073;
         public static final int umeng_fb_welcome_info=0x7f060086;
-        public static final int webView=0x7f060087;
+        public static final int webView=0x7f060089;
         public static final int webview=0x7f06000a;
+        public static final int webview_backButton=0x7f060087;
+        public static final int webview_title=0x7f060088;
     }
     public static final class layout {
         public static final int announcement=0x7f030000;
