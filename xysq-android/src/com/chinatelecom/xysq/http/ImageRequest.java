@@ -1,7 +1,6 @@
 package com.chinatelecom.xysq.http;
 
 import java.io.ByteArrayOutputStream;
-import java.net.URL;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
