@@ -10,12 +10,15 @@ import net.sf.json.JsonConfig;
 
 import com.chinatelecom.xysq.bean.SpringProperty;
 import com.chinatelecom.xysq.dao.AnnouncementAndNoticeDao;
+import com.chinatelecom.xysq.dao.BroadbandRemindDao;
 import com.chinatelecom.xysq.dao.PosterDao;
 import com.chinatelecom.xysq.enumeration.NoticeCategory;
 import com.chinatelecom.xysq.json.AnnouncementAndNoticeJson;
+import com.chinatelecom.xysq.json.BroadbandRemindJson;
 import com.chinatelecom.xysq.json.IndexJson;
 import com.chinatelecom.xysq.json.PosterJson;
 import com.chinatelecom.xysq.model.AnnouncementAndNotice;
+import com.chinatelecom.xysq.model.BroadbandRemind;
 import com.chinatelecom.xysq.model.Poster;
 import com.chinatelecom.xysq.service.IndexService;
 import com.chinatelecom.xysq.util.DateJsonValueProcessor;
@@ -28,6 +31,8 @@ public class IndexServiceImpl implements IndexService {
 
 	private AnnouncementAndNoticeDao announcementAndNoticeDao;
 
+	private BroadbandRemindDao broadbandRemindDao;
+
 	public void setPosterDao(PosterDao posterDao) {
 		this.posterDao = posterDao;
 	}
@@ -39,6 +44,10 @@ public class IndexServiceImpl implements IndexService {
 	public void setAnnouncementAndNoticeDao(
 			AnnouncementAndNoticeDao announcementAndNoticeDao) {
 		this.announcementAndNoticeDao = announcementAndNoticeDao;
+	}
+
+	public void setBroadbandRemindDao(BroadbandRemindDao broadbandRemindDao) {
+		this.broadbandRemindDao = broadbandRemindDao;
 	}
 
 	@Override
@@ -75,10 +84,11 @@ public class IndexServiceImpl implements IndexService {
 
 	@Override
 	public String queryAnnouncementAndNotice(Long communityId,
-			boolean announcement,NoticeCategory noticeCategory, int page, int pageSize) {
+			boolean announcement, NoticeCategory noticeCategory, int page,
+			int pageSize) {
 		List<AnnouncementAndNotice> list = announcementAndNoticeDao
-				.findAnnouncementAndNotice(communityId, announcement,noticeCategory, page,
-						pageSize);
+				.findAnnouncementAndNotice(communityId, announcement,
+						noticeCategory, page, pageSize);
 		List<AnnouncementAndNoticeJson> jsonList = new ArrayList<AnnouncementAndNoticeJson>();
 		for (AnnouncementAndNotice aan : list) {
 			AnnouncementAndNoticeJson json = new AnnouncementAndNoticeJson();
@@ -91,11 +101,31 @@ public class IndexServiceImpl implements IndexService {
 			json.setTitle(aan.getTitle());
 			jsonList.add(json);
 		}
-		
+
 		JsonConfig jsonConfig = new JsonConfig();
 		jsonConfig.registerJsonValueProcessor(Date.class,
 				new DateJsonValueProcessor("yyyy-MM-dd hh:mm:ss"));
-		return JSONArray.fromObject(jsonList,jsonConfig).toString();
+		return JSONArray.fromObject(jsonList, jsonConfig).toString();
+	}
+
+	@Override
+	public String queryBroadbandRemind(String msisdn) {
+		BroadbandRemindJson json = new BroadbandRemindJson();
+		BroadbandRemind broadBandRemind = this.broadbandRemindDao
+				.findBroadbandRemindByMsisdn(msisdn);
+		if(broadBandRemind==null){
+			json.setExist(false);
+		}else{
+			json.setExist(true);
+			json.setBroadBandId(broadBandRemind.getBroadBandId());
+			json.setExpiredDate(broadBandRemind.getExpiredDate());
+			json.setMsisdn(broadBandRemind.getMsisdn());
+			json.setUserName(broadBandRemind.getUserName());
+		}
+		JsonConfig jsonConfig = new JsonConfig();
+		jsonConfig.registerJsonValueProcessor(Date.class,
+				new DateJsonValueProcessor("yyyy-MM-dd hh:mm:ss"));
+		return JSONObject.fromObject(json, jsonConfig).toString();
 	}
 
 }

@@ -9,4 +9,6 @@ public interface IndexService {
 	
 	public String queryAnnouncementAndNotice(Long communityId,boolean announcement,NoticeCategory noticeCategory,int page,int pageSize);
 	
+	public String queryBroadbandRemind(String msisdn);
+	
 }

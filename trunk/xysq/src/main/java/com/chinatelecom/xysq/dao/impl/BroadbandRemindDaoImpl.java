@@ -56,20 +56,21 @@ public class BroadbandRemindDaoImpl extends BaseDao implements
 		return (BroadbandRemind) this.getHibernateTemplate().get(
 				BroadbandRemind.class, id);
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<BroadbandRemind> findBroadbandRemindByMsisdns(
 			List<String> msisdns) {
 		final List<List<String>> inIds = this.getInIds(msisdns);
-		
-		return this.getHibernateTemplate().executeFind(new HibernateCallback(){
+
+		return this.getHibernateTemplate().executeFind(new HibernateCallback() {
 			@Override
 			public Object doInHibernate(Session session)
 					throws HibernateException, SQLException {
 				List<BroadbandRemind> result = new ArrayList<BroadbandRemind>();
-				for(List<String> ids : inIds){
-					Query query = session.createQuery("from BroadbandRemind where msisdn in (:msisdns)");
+				for (List<String> ids : inIds) {
+					Query query = session
+							.createQuery("from BroadbandRemind where msisdn in (:msisdns)");
 					query.setParameterList("msisdns", ids);
 					List<BroadbandRemind> list = query.list();
 					result.addAll(list);
@@ -77,6 +78,20 @@ public class BroadbandRemindDaoImpl extends BaseDao implements
 				return result;
 			}
 		});
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public BroadbandRemind findBroadbandRemindByMsisdn(String msisdn) {
+		List<BroadbandRemind> broadbandRemindList = this.getHibernateTemplate()
+				.findByNamedParam(
+						"from BroadbandRemind where msisdn = :msisdn",
+						"msisdn", msisdn);
+		if (broadbandRemindList.size() > 0) {
+			return broadbandRemindList.get(0);
+		} else {
+			return null;
+		}
 	}
 
 }
