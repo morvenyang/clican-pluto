@@ -205,7 +205,7 @@
 				<artifactId>maven-war-plugin</artifactId>
 				<version>2.4</version>
 				<configuration>
-					<warName>peacebird</warName>
+					<warName>xysq</warName>
 				</configuration>
 			</plugin>
 			<plugin>
