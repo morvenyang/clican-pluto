@@ -3,6 +3,7 @@ package com.chinatelecom.xysq.activity;
 import android.app.TabActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -11,6 +12,8 @@ import android.widget.TabHost.OnTabChangeListener;
 import android.widget.TextView;
 
 import com.chinatelecom.xysq.R;
+import com.umeng.message.PushAgent;
+import com.umeng.message.UmengRegistrar;
 
 public class MainActivity extends TabActivity implements OnTabChangeListener {
 
@@ -27,6 +30,11 @@ public class MainActivity extends TabActivity implements OnTabChangeListener {
 		tabHost = getTabHost();
 		setTabs();
 		tabHost.setOnTabChangedListener(this);
+		PushAgent.getInstance(this).onAppStart();
+		PushAgent mPushAgent = PushAgent.getInstance(this);
+		mPushAgent.enable();
+		String device_token = UmengRegistrar.getRegistrationId(this);
+		Log.d("XYSQ", "device token:"+device_token);
 	}
 
 	private void setTabs() {
