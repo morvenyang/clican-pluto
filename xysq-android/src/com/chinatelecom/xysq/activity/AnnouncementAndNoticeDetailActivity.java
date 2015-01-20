@@ -1,6 +1,5 @@
 package com.chinatelecom.xysq.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -11,7 +10,7 @@ import android.widget.TextView;
 import com.chinatelecom.xysq.R;
 import com.chinatelecom.xysq.bean.AnnouncementAndNotice;
 
-public class AnnouncementAndNoticeDetailActivity extends Activity {
+public class AnnouncementAndNoticeDetailActivity extends BaseActivity {
 
 	private AnnouncementAndNotice announcementAndNotice;
 
@@ -20,6 +19,17 @@ public class AnnouncementAndNoticeDetailActivity extends Activity {
 	private TextView titleTextView;
 
 	private TextView contentTextView;
+	
+	private boolean announcement;
+
+	@Override
+	protected String getPageName() {
+		if(this.announcement){
+			return "小区公告详细";
+		}else{
+			return "业主须知详细";
+		}
+	}
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -27,7 +37,7 @@ public class AnnouncementAndNoticeDetailActivity extends Activity {
 		Intent intent = this.getIntent();
 		announcementAndNotice = (AnnouncementAndNotice) intent
 				.getParcelableExtra("announcementAndNotice");
-		boolean announcement = announcementAndNotice.getInnerModule().equals("ANNOUNCEMENT")?true:false;
+		this.announcement = announcementAndNotice.getInnerModule().equals("ANNOUNCEMENT")?true:false;
 		Button backButton = (Button)findViewById(R.id.announcement_and_notice_detail_backButton);
 		backButton.setOnClickListener(new OnClickListener(){
 			@Override
@@ -39,7 +49,7 @@ public class AnnouncementAndNoticeDetailActivity extends Activity {
 				.findViewById(R.id.announcement_and_notice_detail_headTextView);
 		this.titleTextView = (TextView)this.findViewById(R.id.announcement_and_notice_detail_titleTextView);
 		this.contentTextView = (TextView)this.findViewById(R.id.announcement_and_notice_detail_contentTextView);
-		if(announcement){
+		if(this.announcement){
 			this.headTextView.setText("小区公告");
 		}else{
 			this.headTextView.setText("业主须知");

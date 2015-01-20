@@ -20,7 +20,7 @@ import com.chinatelecom.xysq.http.BroadbandRemindRequest;
 import com.chinatelecom.xysq.http.HttpCallback;
 import com.chinatelecom.xysq.util.AlertUtil;
 
-public class BroadbandRemindActivity extends Activity implements HttpCallback {
+public class BroadbandRemindActivity extends BaseActivity implements HttpCallback {
 	private ProgressBar progressBar;
 
 	private TextView titleTextView;
@@ -32,6 +32,11 @@ public class BroadbandRemindActivity extends Activity implements HttpCallback {
 	private TextView broadbandExpireDateTextView;
 	
 	private TableLayout tableLayout;
+
+	@Override
+	protected String getPageName() {
+		return "宽带提醒";
+	}
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

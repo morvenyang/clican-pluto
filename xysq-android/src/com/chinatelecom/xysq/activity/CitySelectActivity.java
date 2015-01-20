@@ -6,7 +6,6 @@ import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
@@ -30,7 +29,7 @@ import com.chinatelecom.xysq.http.HttpCallback;
 import com.chinatelecom.xysq.other.Constants;
 import com.chinatelecom.xysq.util.KeyValueUtils;
 
-public class CitySelectActivity extends Activity implements HttpCallback,
+public class CitySelectActivity extends BaseActivity implements HttpCallback,
 		BDLocationListener {
 
 	private ProgressBar progressBar;
@@ -40,6 +39,11 @@ public class CitySelectActivity extends Activity implements HttpCallback,
 	private LocationClient locationClient;
 
 	private boolean containSetCity = false;;
+
+	@Override
+	protected String getPageName() {
+		return "城市选择";
+	}
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

@@ -1,6 +1,5 @@
 package com.chinatelecom.xysq.activity;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -10,17 +9,26 @@ import android.widget.TextView;
 
 import com.chinatelecom.xysq.R;
 
-public class WebViewActivity extends Activity {
+public class WebViewActivity extends BaseActivity {
 
 	private WebView webView;
 	
 	private TextView titleTextView;
+	
+	private String title;
+	
+	@Override
+	protected String getPageName() {
+		return title;
+	}
+	
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.webview);
 		titleTextView = (TextView)this.findViewById(R.id.webview_title);
-		titleTextView.setText(this.getIntent().getStringExtra("title"));
+		String title = this.getIntent().getStringExtra("title");
+		titleTextView.setText(title);
 		Button backButton = (Button)this.findViewById(R.id.webview_backButton);
 		backButton.setOnClickListener(new OnClickListener(){
 			@Override

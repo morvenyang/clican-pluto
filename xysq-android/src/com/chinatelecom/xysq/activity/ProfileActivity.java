@@ -1,6 +1,5 @@
 package com.chinatelecom.xysq.activity;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,13 +15,18 @@ import com.chinatelecom.xysq.adapater.ProfileListAdapter;
 import com.chinatelecom.xysq.application.XysqApplication;
 import com.chinatelecom.xysq.bean.User;
 
-public class ProfileActivity extends Activity {
+public class ProfileActivity extends BaseActivity {
 
 	private TextView nickNameTextView;
 
 	private TextView msisdnTextView;
 
 	private ListView listView;
+
+	@Override
+	protected String getPageName() {
+		return "个人中心";
+	}
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

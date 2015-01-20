@@ -18,12 +18,19 @@ import com.chinatelecom.xysq.http.HttpCallback;
 import com.chinatelecom.xysq.http.UserRequest;
 import com.chinatelecom.xysq.util.AlertUtil;
 
-public class LoginActivity extends Activity implements HttpCallback {
+public class LoginActivity extends BaseActivity implements HttpCallback {
 
 	private EditText msisdnEditText;
 	
 	private EditText passwordEditText;
 	
+	
+	
+	@Override
+	protected String getPageName() {
+		return "登录";
+	}
+
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.login);

@@ -1,14 +1,18 @@
 package com.chinatelecom.xysq.activity;
 
-import com.chinatelecom.xysq.R;
-
-import android.app.Activity;
 import android.os.Bundle;
 
-public class XyzsActivity extends Activity {
+import com.chinatelecom.xysq.R;
+
+public class XyzsActivity extends BaseActivity {
+
+	@Override
+	protected String getPageName() {
+		return "小翼助手";
+	}
 
 	public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.xyzs);      
-    }
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.xyzs);
+	}
 }
