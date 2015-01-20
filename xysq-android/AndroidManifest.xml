@@ -88,7 +88,7 @@
         <activity android:name="com.chinatelecom.xysq.activity.WebViewActivity" />
         <activity android:name="com.chinatelecom.xysq.activity.BroadbandRemindActivity" />
          <!-- 用户反馈 -->
-        <activity android:name="com.umeng.fb.ConversationActivity" />
+        <activity android:name="com.chinatelecom.xysq.activity.FeedbackActivity" />
         <activity
             android:name="com.umeng.update.UpdateDialogActivity" >
         </activity>
