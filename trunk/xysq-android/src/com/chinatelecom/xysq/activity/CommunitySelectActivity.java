@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -29,7 +28,7 @@ import com.chinatelecom.xysq.http.HttpCallback;
 import com.chinatelecom.xysq.other.Constants;
 import com.chinatelecom.xysq.util.KeyValueUtils;
 
-public class CommunitySelectActivity extends Activity implements HttpCallback,
+public class CommunitySelectActivity extends BaseActivity implements HttpCallback,
 		OnClickListener {
 
 	private ProgressBar progressBar;
@@ -43,6 +42,11 @@ public class CommunitySelectActivity extends Activity implements HttpCallback,
 	private ListView communityListView;
 	
 	private TextView communitySelectTitleTextView;
+
+	@Override
+	protected String getPageName() {
+		return "小区选择";
+	}
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

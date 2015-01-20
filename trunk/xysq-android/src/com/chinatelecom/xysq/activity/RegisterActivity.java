@@ -22,7 +22,7 @@ import com.chinatelecom.xysq.http.UserRequest;
 import com.chinatelecom.xysq.util.AlertUtil;
 import com.chinatelecom.xysq.util.Callback;
 
-public class RegisterActivity extends Activity implements HttpCallback {
+public class RegisterActivity extends BaseActivity implements HttpCallback {
 
 	private CheckBox agreeCheckBox;
 	private EditText msisdnEditText;
@@ -32,6 +32,11 @@ public class RegisterActivity extends Activity implements HttpCallback {
 	private Button getVerifyCodeButton;
 
 	private CountDownTimer cdt;
+
+	@Override
+	protected String getPageName() {
+		return "注册";
+	}
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

@@ -1,6 +1,7 @@
 package com.chinatelecom.xysq.application;
 
 import android.app.Application;
+import android.content.Intent;
 import android.os.Vibrator;
 
 import com.baidu.location.GeofenceClient;
@@ -9,6 +10,7 @@ import com.baidu.location.LocationClientOption;
 import com.baidu.location.LocationClientOption.LocationMode;
 import com.chinatelecom.xysq.bean.User;
 import com.chinatelecom.xysq.listener.LocationListener;
+import com.umeng.analytics.MobclickAgent;
 
 public class XysqApplication extends Application {
 	public LocationClient locationClient;
@@ -29,7 +31,10 @@ public class XysqApplication extends Application {
 		option.setScanSpan(5000);// 设置发起定位请求的间隔时间为5000ms
 		option.setIsNeedAddress(true);
 		locationClient.setLocOption(option);
+		MobclickAgent.openActivityDurationTrack(false);
 	}
+
+	
 
 	public User getUser() {
 		return user;

@@ -3,7 +3,6 @@ package com.chinatelecom.xysq.activity;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -28,7 +27,7 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase.State;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.handmark.pulltorefresh.library.extras.SoundPullEventListener;
 
-public class AnnouncementActivity extends Activity implements
+public class AnnouncementActivity extends BaseActivity implements
 		OnRefreshListener2<ListView>, OnLastItemVisibleListener, HttpCallback {
 
 	private PullToRefreshListView mPullRefreshListView;
@@ -39,6 +38,11 @@ public class AnnouncementActivity extends Activity implements
 	private List<AnnouncementAndNotice> announcementAndNoticeList = new ArrayList<AnnouncementAndNotice>();
 
 	private int page = 1;
+
+	@Override
+	protected String getPageName() {
+		return "小区公告";
+	}
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

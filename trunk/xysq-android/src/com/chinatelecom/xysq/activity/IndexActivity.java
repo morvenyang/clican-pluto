@@ -2,7 +2,6 @@ package com.chinatelecom.xysq.activity;
 
 import org.apache.commons.lang.StringUtils;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -25,7 +24,7 @@ import com.chinatelecom.xysq.listener.IndexOnClickListener;
 import com.chinatelecom.xysq.other.Constants;
 import com.chinatelecom.xysq.util.KeyValueUtils;
 
-public class IndexActivity extends Activity implements HttpCallback,
+public class IndexActivity extends BaseActivity implements HttpCallback,
 		OnClickListener {
 
 	private TextView communityNameTextView;
@@ -35,6 +34,11 @@ public class IndexActivity extends Activity implements HttpCallback,
 	private ViewPager posterViewPager;
 
 	private ProgressBar progressBar;
+
+	@Override
+	protected String getPageName() {
+		return "首页";
+	}
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
