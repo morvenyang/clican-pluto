@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgroundColor"
+    android:orientation="vertical" >
+
+    <ImageView
+        android:id="@+id/photo_album_row_item_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:minHeight="100dp"
+        android:minWidth="100dp" />
+
+    <TextView
+        android:id="@+id/photo_album_row_item_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@+id/photo_album_row_item_image"
+        android:gravity="center_vertical"
+        android:height="100dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/rowTextColor" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="false"
+        android:layout_centerInParent="false"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="25dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/go1_icon" />
+
+</RelativeLayout>

@@ -67,6 +67,15 @@ public class IndexActivity extends BaseActivity implements HttpCallback,
 		Button kdtxButton = (Button) findViewById(R.id.index_kdtxButton);
 		kdtxButton.setOnClickListener(new IndexOnClickListener(this,
 				BroadbandRemindActivity.class, true, false));
+		
+		Button jkffButton = (Button) findViewById(R.id.index_jkffButton);
+		jkffButton.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(IndexActivity.this, PhotoAlbumActivity.class);
+		        startActivity(intent);     
+			}
+		});
 	}
 
 	@Override
