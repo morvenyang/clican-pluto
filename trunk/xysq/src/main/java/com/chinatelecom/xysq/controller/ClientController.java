@@ -22,6 +22,7 @@ import com.chinatelecom.xysq.enumeration.NoticeCategory;
 import com.chinatelecom.xysq.json.LoginJson;
 import com.chinatelecom.xysq.json.RegisterJson;
 import com.chinatelecom.xysq.service.AreaService;
+import com.chinatelecom.xysq.service.ForumService;
 import com.chinatelecom.xysq.service.IndexService;
 import com.chinatelecom.xysq.service.UserService;
 
@@ -37,6 +38,8 @@ public class ClientController {
 	private IndexService indexService;
 
 	private UserService userService;
+	
+	private ForumService forumService;
 
 	public void setSpringProperty(SpringProperty springProperty) {
 		this.springProperty = springProperty;
@@ -52,6 +55,10 @@ public class ClientController {
 
 	public void setUserService(UserService userService) {
 		this.userService = userService;
+	}
+
+	public void setForumService(ForumService forumService) {
+		this.forumService = forumService;
 	}
 
 	@RequestMapping("/image")
@@ -191,6 +198,47 @@ public class ClientController {
 			resp.setContentType("application/json");
 			resp.getOutputStream().write(
 					JSONObject.fromObject(result).toString().getBytes("utf-8"));
+		} catch (Exception e) {
+			log.error("", e);
+		}
+	}
+	
+	@RequestMapping("/queryTopic")
+	public void queryTopic(@RequestParam(value = "page", required = true) int page,
+			@RequestParam(value = "pageSize", required = true) int pageSize,
+			HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		try {
+			String result = this.forumService.queryTopic(page, pageSize);
+			try {
+				resp.setContentType("application/json");
+				resp.getOutputStream().write(result.getBytes("utf-8"));
+			} catch (Exception e) {
+				log.error("", e);
+			}
+		} catch (Exception e) {
+			log.error("", e);
+		}
+	}
+
+	@RequestMapping("/saveTopic")
+	public void saveTopic(
+			@RequestParam(value = "topicId", required = false) Long topicId,
+			@RequestParam(value = "title") String title,
+			@RequestParam(value = "content") String content,
+			HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		
+	}
+
+	@RequestMapping("/savePost")
+	public void savePost(@RequestParam(value = "topicId") Long topicId,
+			@RequestParam(value = "postId") Long postId,
+			@RequestParam(value = "content") String content,
+			HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		try {
+
 		} catch (Exception e) {
 			log.error("", e);
 		}
