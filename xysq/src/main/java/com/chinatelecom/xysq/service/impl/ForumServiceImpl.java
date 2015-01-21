@@ -7,19 +7,27 @@ import java.util.List;
 import net.sf.json.JSONArray;
 import net.sf.json.JsonConfig;
 
+import com.chinatelecom.xysq.bean.SpringProperty;
 import com.chinatelecom.xysq.dao.ForumDao;
 import com.chinatelecom.xysq.json.ForumTopicJson;
 import com.chinatelecom.xysq.json.UserJson;
 import com.chinatelecom.xysq.model.ForumTopic;
+import com.chinatelecom.xysq.model.Image;
 import com.chinatelecom.xysq.service.ForumService;
 import com.chinatelecom.xysq.util.DateJsonValueProcessor;
 
 public class ForumServiceImpl implements ForumService {
 
+	private SpringProperty springProperty;
+	
 	private ForumDao forumDao;
 
 	public void setForumDao(ForumDao forumDao) {
 		this.forumDao = forumDao;
+	}
+
+	public void setSpringProperty(SpringProperty springProperty) {
+		this.springProperty = springProperty;
 	}
 
 	@Override
@@ -40,6 +48,11 @@ public class ForumServiceImpl implements ForumService {
 			forumJson.setSubmitter(userJson);
 			forumJson.setTitle(forumTopic.getTitle());
 			forumJsonList.add(forumJson);
+			for(Image image:forumTopic.getImages()){
+				forumJson.getImages().add(springProperty.getServerUrl()
+					+ springProperty.getContextPath() + "/image.do?imagePath="
+					+ image.getPath());
+			}
 		}
 		JsonConfig jsonConfig = new JsonConfig();
 		jsonConfig.registerJsonValueProcessor(Date.class,
