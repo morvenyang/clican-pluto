@@ -137,7 +137,7 @@ public class ClientController {
 			log.error("", e);
 		}
 	}
-	
+
 	@RequestMapping("/queryBroadbandRemind")
 	public void queryBroadbandRemind(
 			@RequestParam(value = "msisdn", required = true) String msisdn,
@@ -181,8 +181,8 @@ public class ClientController {
 			HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		try {
-			RegisterJson result = userService.register(nickName,
-					password, msisdn, verifyCode);
+			RegisterJson result = userService.register(nickName, password,
+					msisdn, verifyCode);
 			if (result.isSuccess()) {
 				req.getSession().setAttribute("USER_ID",
 						result.getUser().getId());
@@ -195,4 +195,5 @@ public class ClientController {
 			log.error("", e);
 		}
 	}
+
 }
