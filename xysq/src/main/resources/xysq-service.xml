@@ -24,4 +24,6 @@
 		autowire="byName" />
 	<bean id="indexService" class="com.chinatelecom.xysq.service.impl.IndexServiceImpl"
 		autowire="byName" />
+	<bean id="forumService" class="com.chinatelecom.xysq.service.impl.ForumServiceImpl"
+		autowire="byName" />
 </beans>
