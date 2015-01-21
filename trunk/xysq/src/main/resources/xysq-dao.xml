@@ -21,5 +21,7 @@
 	<bean id="posterDao" class="com.chinatelecom.xysq.dao.impl.PosterDaoImpl"
 		autowire="byName" />
 	<bean id="announcementAndNoticeDao" class="com.chinatelecom.xysq.dao.impl.AnnouncementAndNoticeDaoImpl"
+		autowire="byName" />
+	<bean id="forumDao" class="com.chinatelecom.xysq.dao.impl.ForumDaoImpl"
 		autowire="byName" />			
 </beans>
