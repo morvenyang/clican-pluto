@@ -79,6 +79,7 @@ public class ForumPost {
 		this.modifyTime = modifyTime;
 	}
 
+	@Column
 	@Lob
 	public String getContent() {
 		return content;
