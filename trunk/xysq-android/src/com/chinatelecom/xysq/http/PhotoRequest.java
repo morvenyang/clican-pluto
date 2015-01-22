@@ -12,7 +12,7 @@ import android.graphics.BitmapFactory;
 import android.media.ThumbnailUtils;
 import android.os.AsyncTask;
 import android.provider.MediaStore;
-import android.provider.MediaStore.Images.Thumbnails;
+import android.util.DisplayMetrics;
 import android.util.Log;
 
 import com.chinatelecom.xysq.bean.PhotoAlbum;
@@ -120,8 +120,11 @@ public class PhotoRequest {
 		AsyncTask<String, Void, TaskResult> task = new AsyncTask<String, Void, TaskResult>() {
 			@Override
 			protected TaskResult doInBackground(String... params) {
+				DisplayMetrics dm =activity.getResources().getDisplayMetrics();  
+		        int wScreen = dm.widthPixels;  
+		        
 				for (PhotoItem pi : album.getBitList()) {
-					pi.setBitmap(getImageThumbnail(pi.getFilePath(),200,200));
+					pi.setBitmap(getImageThumbnail(pi.getFilePath(),(wScreen-20)/4,(wScreen-20)/4));
 				}
 				return new TaskResult(1, "", album);
 			}
