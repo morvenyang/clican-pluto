@@ -16,16 +16,14 @@ import android.widget.Toast;
 
 import com.chinatelecom.xysq.R;
 import com.chinatelecom.xysq.adapater.ForumTopicListAdapter;
-import com.chinatelecom.xysq.bean.AnnouncementAndNotice;
 import com.chinatelecom.xysq.bean.ForumTopic;
-import com.chinatelecom.xysq.http.AnnouncementAndNoticeRequest;
 import com.chinatelecom.xysq.http.ForumRequest;
 import com.chinatelecom.xysq.http.HttpCallback;
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnLastItemVisibleListener;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.State;
-import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.handmark.pulltorefresh.library.extras.SoundPullEventListener;
 
@@ -57,6 +55,15 @@ public class ForumActivity extends BaseActivity implements OnRefreshListener2<Li
 		});
 		Intent intent = getIntent();
 		communityId = intent.getLongExtra("communityId", -1);
+		Button postTopicButton = (Button)findViewById(R.id.forum_postTopicButton);
+		postTopicButton.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(ForumActivity.this,TopicAndPostActivity.class);
+				intent.putExtra("topic", true);
+				ForumActivity.this.startActivity(intent);
+			}
+		});
 		mPullRefreshListView = (PullToRefreshListView) findViewById(R.id.forum_listView);
 		mPullRefreshListView.setMode(Mode.BOTH);
 		mPullRefreshListView.getRefreshableView().setDividerHeight(2);
