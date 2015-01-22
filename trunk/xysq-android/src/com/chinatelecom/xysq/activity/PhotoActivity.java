@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -55,7 +57,9 @@ public class PhotoActivity extends Activity implements HttpCallback {
 		}
 		tv.setText(chooseNum + "");
 		photoGridView = (GridView) findViewById(R.id.photo_gridView);
+		photoGridView.setSelector(new ColorDrawable(Color.TRANSPARENT));
 		photoSelectedGridView = (GridView) findViewById(R.id.photo_selected_gridView);
+		photoSelectedGridView.setSelector(new ColorDrawable(Color.TRANSPARENT));
 		selectedBitList = new ArrayList<PhotoItem>();
 		progressBar.setVisibility(View.GONE);
 		progressBar.setVisibility(View.VISIBLE);
