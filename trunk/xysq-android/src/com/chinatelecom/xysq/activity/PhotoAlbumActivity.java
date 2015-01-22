@@ -40,9 +40,9 @@ public class PhotoAlbumActivity extends Activity implements HttpCallback {
 	@SuppressWarnings("unchecked")
 	@Override
 	public void success(String url, Object data) {
-		progressBar.setVisibility(View.INVISIBLE);
 		List<PhotoAlbum> albumList = (List<PhotoAlbum>) data;
 		photoAlbumListView.setAdapter(new PhotoAlbumAdapter(albumList, this));
+		progressBar.setVisibility(View.INVISIBLE);
 	}
 
 	@Override
