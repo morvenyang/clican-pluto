@@ -20,7 +20,7 @@
      <color name="tabTextColor">#333333</color>
     <color name="subRowTextColor">#999999</color>
      <color name="rowDateTextColor">#999999</color>
-    <color name="backgroundColor">#cccccc</color>
+    <color name="backgroundColor">#f0f0f0</color>
     
     <color name="dividerColor">#d5d5d5</color>
     
