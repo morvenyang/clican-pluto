@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.chinatelecom.xysq.R;
 import com.chinatelecom.xysq.adapater.PhotoAdapter;
@@ -68,10 +69,11 @@ public class PhotoActivity extends Activity implements HttpCallback {
 		photoAdapter = new PhotoAdapter(this, album.getBitList());
 		photoGridView.setAdapter(photoAdapter);
 		photoGridView.setOnItemClickListener(photoItemClickListener);
-		
+
 		photoSelectedAdapter = new PhotoAdapter(this, this.selectedBitList);
 		photoSelectedGridView.setAdapter(photoSelectedAdapter);
-		photoSelectedGridView.setOnItemClickListener(photoSelectedItemClickListener);
+		photoSelectedGridView
+				.setOnItemClickListener(photoSelectedItemClickListener);
 		progressBar.setVisibility(View.INVISIBLE);
 	}
 
@@ -93,7 +95,7 @@ public class PhotoActivity extends Activity implements HttpCallback {
 			photoAdapter.notifyDataSetChanged();
 		}
 	};
-	
+
 	private OnItemClickListener photoItemClickListener = new OnItemClickListener() {
 
 		@Override
@@ -105,6 +107,11 @@ public class PhotoActivity extends Activity implements HttpCallback {
 				selectedBitList.remove(photoItem);
 				chooseNum--;
 			} else {
+				if (selectedBitList.size() >= 4) {
+					Toast.makeText(PhotoActivity.this, "最多选择4个图片",
+							Toast.LENGTH_SHORT).show();
+					return;
+				}
 				photoItem.setSelect(true);
 				selectedBitList.add(photoItem);
 				chooseNum++;

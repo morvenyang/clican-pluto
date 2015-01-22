@@ -9,12 +9,15 @@
 	    android:layout_height="match_parent"
 	    android:scaleType="center" />
   
-    <ImageView  
-        android:id="@+id/photo_selectedImageView"  
-        android:layout_width="30dip"  
-        android:layout_height="30dip"  
-        android:layout_alignParentRight="true"  
-        android:layout_alignParentTop="true"  
-        android:background="@drawable/cb_normal"  
-         />  
+    <ImageView
+        android:id="@+id/photo_selectedImageView"
+        android:layout_width="30dip"
+        android:layout_height="30dip"
+        android:layout_alignParentRight="false"
+        android:layout_alignParentTop="false"
+        android:layout_alignRight="@id/photo_imageView"
+        android:layout_alignTop="@id/photo_imageView"
+        android:layout_alignWithParentIfMissing="false"
+        android:background="@drawable/cb_normal" />
+  
 </RelativeLayout>
