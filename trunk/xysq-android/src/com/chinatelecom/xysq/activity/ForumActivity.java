@@ -57,7 +57,7 @@ public class ForumActivity extends BaseActivity implements OnRefreshListener2<Li
 		});
 		Intent intent = getIntent();
 		communityId = intent.getLongExtra("communityId", -1);
-		mPullRefreshListView = (PullToRefreshListView) findViewById(R.id.announcement_listView);
+		mPullRefreshListView = (PullToRefreshListView) findViewById(R.id.forum_listView);
 		mPullRefreshListView.setMode(Mode.BOTH);
 		mPullRefreshListView.getRefreshableView().setDividerHeight(2);
 		mPullRefreshListView.getRefreshableView().setFooterDividersEnabled(true);
