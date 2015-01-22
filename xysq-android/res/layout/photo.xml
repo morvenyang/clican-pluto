@@ -71,11 +71,11 @@
         
         <GridView
             android:id="@+id/photo_gridView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:horizontalSpacing="8dip"
+            android:horizontalSpacing="2dip"
             android:numColumns="4"
             android:paddingLeft="12dip"
             android:paddingRight="12dip"
@@ -86,13 +86,13 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="100dp"
             android:minHeight="50dp" >
 
             <GridView
                 android:id="@+id/photo_selected_gridView"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="100dp"
                 android:layout_weight="5"
                 android:numColumns="4" >
             </GridView>
@@ -101,7 +101,9 @@
                 android:id="@+id/photo_done_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:text="完成" />
+
         </LinearLayout>
 
     </LinearLayout>
