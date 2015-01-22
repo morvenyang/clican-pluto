@@ -31,8 +31,8 @@ public class ForumServiceImpl implements ForumService {
 	}
 
 	@Override
-	public String queryTopic(int page, int pageSize) {
-		List<ForumTopic> forumList = forumDao.queryTopic(page, pageSize);
+	public String queryTopic(Long communityId,int page, int pageSize) {
+		List<ForumTopic> forumList = forumDao.queryTopic(communityId,page, pageSize);
 		List<ForumTopicJson> forumJsonList = new ArrayList<ForumTopicJson>();
 		for (ForumTopic forumTopic : forumList) {
 			ForumTopicJson forumJson = new ForumTopicJson();

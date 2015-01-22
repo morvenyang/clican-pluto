@@ -38,6 +38,8 @@ public class ForumTopic {
 
 	private List<Image> images;
 	
+	private Long communityId;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "ID")
@@ -105,6 +107,15 @@ public class ForumTopic {
 
 	public void setImages(List<Image> images) {
 		this.images = images;
+	}
+
+	@Column
+	public Long getCommunityId() {
+		return communityId;
+	}
+
+	public void setCommunityId(Long communityId) {
+		this.communityId = communityId;
 	}
 
 }

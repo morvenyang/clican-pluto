@@ -6,5 +6,5 @@ import com.chinatelecom.xysq.model.ForumTopic;
 
 public interface ForumDao {
 
-	public List<ForumTopic> queryTopic(int page, int pageSize);
+	public List<ForumTopic> queryTopic(Long communityId,int page, int pageSize);
 }

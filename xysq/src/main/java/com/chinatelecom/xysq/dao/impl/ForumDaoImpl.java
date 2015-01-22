@@ -15,15 +15,16 @@ public class ForumDaoImpl extends BaseDao implements ForumDao {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<ForumTopic> queryTopic(final int page, final int pageSize) {
+	public List<ForumTopic> queryTopic(final Long communityId,final int page, final int pageSize) {
 		return (List<ForumTopic>) this.getHibernateTemplate().executeFind(
 				new HibernateCallback() {
 
 					@Override
 					public Object doInHibernate(Session session)
 							throws HibernateException, SQLException {
-						String hsql = "from ForumTopic order by createTime desc";
+						String hsql = "from ForumTopic where communityId = :communityId order by createTime desc";
 						Query query = session.createQuery(hsql);
+						query.setParameter("communityId", communityId);
 						query.setMaxResults(pageSize);
 						query.setFirstResult((page - 1) * pageSize);
 						return query.list();
