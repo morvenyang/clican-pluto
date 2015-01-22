@@ -1,35 +1,31 @@
 package com.chinatelecom.xysq.adapater;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.provider.MediaStore;
-import android.provider.MediaStore.Images.Thumbnails;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView.LayoutParams;
 import android.widget.BaseAdapter;
 
-import com.chinatelecom.xysq.bean.PhotoAlbum;
+import com.chinatelecom.xysq.bean.PhotoItem;
 import com.chinatelecom.xysq.layout.PhotoGridItem;
 
-public class PhotoAdappter extends BaseAdapter   {
+public class PhotoAdapter extends BaseAdapter   {
 	private Context context;
-	private PhotoAlbum album;
-	public PhotoAdappter(Context context, PhotoAlbum album) {
+	private List<PhotoItem> bitList;
+	public PhotoAdapter(Context context, List<PhotoItem> bitList) {
 		this.context = context;
-		this.album = album;
+		this.bitList = bitList;
 	}
 
 	@Override
 	public int getCount() {
-		return album.getBitList().size();
+		return bitList.size();
 	}
 
 	@Override
 	public Object getItem(int position) {
-		return album.getBitList().get(position);
+		return bitList.get(position);
 	}
 
 	@Override
@@ -47,8 +43,8 @@ public class PhotoAdappter extends BaseAdapter   {
 		}else{
 			item = (PhotoGridItem)convertView;
 		}
-		item.SetBitmap(album.getBitList().get(position).getBitmap());
-        boolean flag = album.getBitList().get(position).isSelect();
+		item.SetBitmap(bitList.get(position).getBitmap());
+        boolean flag = bitList.get(position).isSelect();
 		item.setChecked(flag);
 		return item;
 	}
