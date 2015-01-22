@@ -6,8 +6,7 @@
 	<ImageView
 	    android:id="@+id/photo_imageView"
 	    android:layout_width="match_parent"
-	    android:layout_height="match_parent"
-	    android:scaleType="center" />
+	    android:layout_height="match_parent" />
   
     <ImageView
         android:id="@+id/photo_selectedImageView"
