@@ -1,4 +1,7 @@
 package com.chinatelecom.xysq.adapater;
+import java.util.HashMap;
+import java.util.Map;
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.provider.MediaStore;
@@ -44,9 +47,7 @@ public class PhotoAdappter extends BaseAdapter   {
 		}else{
 			item = (PhotoGridItem)convertView;
 		}
-		// 通过ID 加载缩略图
-		Bitmap bitmap = MediaStore.Images.Thumbnails.getThumbnail(context.getContentResolver(),  album.getBitList().get(position).getPhotoID(), Thumbnails.MICRO_KIND, null);
-		item.SetBitmap(bitmap);
+		item.SetBitmap(album.getBitList().get(position).getBitmap());
         boolean flag = album.getBitList().get(position).isSelect();
 		item.setChecked(flag);
 		return item;

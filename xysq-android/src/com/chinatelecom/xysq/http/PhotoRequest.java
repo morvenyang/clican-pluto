@@ -9,6 +9,7 @@ import android.app.Activity;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.provider.MediaStore;
+import android.provider.MediaStore.Images.Thumbnails;
 
 import com.chinatelecom.xysq.bean.PhotoAlbum;
 import com.chinatelecom.xysq.bean.PhotoItem;
@@ -72,4 +73,29 @@ public class PhotoRequest {
 		};
 		task.execute(new String[] {});
 	}
+	
+	public static void prepareThumbnail(final Activity activity,final HttpCallback callback,final PhotoAlbum album){
+		AsyncTask<String, Void, TaskResult> task = new AsyncTask<String, Void, TaskResult>() {
+			@Override
+			protected TaskResult doInBackground(String... params) {
+					for(PhotoItem pi:album.getBitList()){
+						pi.setBitmap(MediaStore.Images.Thumbnails.getThumbnail(activity.getContentResolver(),  pi.getPhotoID(), Thumbnails.MICRO_KIND, null));
+					}
+					return new TaskResult(1, "", album);
+			}
+
+			@Override
+			protected void onPostExecute(TaskResult result) {
+				if (result.getCode() == 1) {
+					callback.success("/prepareThumbnail",
+							result.getResult());
+				} else {
+					callback.failure("/prepareThumbnail",
+							result.getCode(), result.getMessage());
+				}
+			}
+		};
+		task.execute(new String[] {});
+	}
+	
 }
