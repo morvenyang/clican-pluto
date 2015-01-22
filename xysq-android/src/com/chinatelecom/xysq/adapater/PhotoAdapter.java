@@ -38,8 +38,8 @@ public class PhotoAdapter extends BaseAdapter   {
 		PhotoGridItem item;
 		if(convertView == null){
 			item = new PhotoGridItem(context);
-			 item.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,  
-                     LayoutParams.MATCH_PARENT));
+			 item.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT,  
+                     LayoutParams.WRAP_CONTENT));
 		}else{
 			item = (PhotoGridItem)convertView;
 		}

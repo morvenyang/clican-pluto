@@ -72,15 +72,15 @@
         <GridView
             android:id="@+id/photo_gridView"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:horizontalSpacing="2dip"
+            android:horizontalSpacing="1dp"
             android:numColumns="4"
-            android:paddingLeft="12dip"
-            android:paddingRight="12dip"
-            android:paddingTop="8dip"
-            android:verticalSpacing="8dip" >
+            android:paddingLeft="1dp"
+            android:paddingRight="1dp"
+            android:paddingTop="1dp"
+            android:verticalSpacing="1dp" >
 
         </GridView>
 
