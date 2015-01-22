@@ -1,14 +1,9 @@
 package com.chinatelecom.xysq.activity;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import android.app.Activity;
-import android.database.Cursor;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -18,24 +13,13 @@ import android.widget.ProgressBar;
 import com.chinatelecom.xysq.R;
 import com.chinatelecom.xysq.adapater.PhotoAlbumAdapter;
 import com.chinatelecom.xysq.bean.PhotoAlbum;
-import com.chinatelecom.xysq.bean.PhotoItem;
 import com.chinatelecom.xysq.http.HttpCallback;
 import com.chinatelecom.xysq.http.PhotoRequest;
 
 public class PhotoAlbumActivity extends Activity implements HttpCallback {
 
-	// 设置获取图片的字段信
-	private static final String[] STORE_IMAGES = {
-			MediaStore.Images.Media.DISPLAY_NAME, // 显示的名字
-			MediaStore.Images.Media.LATITUDE, // 维度
-			MediaStore.Images.Media.LONGITUDE, // 经度
-			MediaStore.Images.Media._ID, // id
-			MediaStore.Images.Media.BUCKET_ID, // dir id 目录
-			MediaStore.Images.Media.BUCKET_DISPLAY_NAME // dir name 目录名字
-	};
-
 	private ListView photoAlbumListView;
-	
+
 	private ProgressBar progressBar;
 
 	public void onCreate(Bundle savedInstanceState) {
@@ -49,7 +33,7 @@ public class PhotoAlbumActivity extends Activity implements HttpCallback {
 				finish();
 			}
 		});
-		progressBar = (ProgressBar)findViewById(R.id.photo_album_progressBar);
+		progressBar = (ProgressBar) findViewById(R.id.photo_album_progressBar);
 		loadPhotoAlbum();
 	}
 
@@ -57,8 +41,8 @@ public class PhotoAlbumActivity extends Activity implements HttpCallback {
 	@Override
 	public void success(String url, Object data) {
 		progressBar.setVisibility(View.INVISIBLE);
-		List<PhotoAlbum> albumList = (List<PhotoAlbum>)data;
-		photoAlbumListView.setAdapter(new PhotoAlbumAdapter(albumList,this));
+		List<PhotoAlbum> albumList = (List<PhotoAlbum>) data;
+		photoAlbumListView.setAdapter(new PhotoAlbumAdapter(albumList, this));
 	}
 
 	@Override
@@ -70,7 +54,7 @@ public class PhotoAlbumActivity extends Activity implements HttpCallback {
 		progressBar.setVisibility(View.GONE);
 		progressBar.setVisibility(View.VISIBLE);
 		PhotoRequest.loadPhtotAlbum(this, this);
-		
+
 	}
 
 }
