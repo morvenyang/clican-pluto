@@ -204,12 +204,13 @@ public class ClientController {
 	}
 	
 	@RequestMapping("/queryTopic")
-	public void queryTopic(@RequestParam(value = "page", required = true) int page,
+	public void queryTopic(@RequestParam(value = "communityId", required = true) Long communityId,
+			@RequestParam(value = "page", required = true) int page,
 			@RequestParam(value = "pageSize", required = true) int pageSize,
 			HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		try {
-			String result = this.forumService.queryTopic(page, pageSize);
+			String result = this.forumService.queryTopic(communityId,page, pageSize);
 			try {
 				resp.setContentType("application/json");
 				resp.getOutputStream().write(result.getBytes("utf-8"));
