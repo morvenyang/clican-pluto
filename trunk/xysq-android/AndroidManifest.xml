@@ -93,6 +93,7 @@
         <activity android:name="com.chinatelecom.xysq.activity.BroadbandRemindActivity" />
         <activity android:name="com.chinatelecom.xysq.activity.PhotoAlbumActivity" />
         <activity android:name="com.chinatelecom.xysq.activity.PhotoActivity" />
+        <activity android:name="com.chinatelecom.xysq.activity.ForumActivity" />
          <!-- 用户反馈 -->
         <activity android:name="com.chinatelecom.xysq.activity.FeedbackActivity" />
         <activity
