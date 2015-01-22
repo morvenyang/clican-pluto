@@ -30,14 +30,14 @@ import com.chinatelecom.xysq.other.Constants;
 
 public class ForumRequest {
 
-	public static void queryTopic(final HttpCallback callback, final int page,
+	public static void queryTopic(final HttpCallback callback,final Long communityId, final int page,
 			final int pageSize) {
 		AsyncTask<String, Void, TaskResult> task = new AsyncTask<String, Void, TaskResult>() {
 			@Override
 			protected TaskResult doInBackground(String... params) {
 				HttpClient httpclient = new DefaultHttpClient();
 				try {
-					String url = Constants.BASE_URL + "/queryTopic.do?page="
+					String url = Constants.BASE_URL + "/queryTopic.do?communityId="+communityId+"&page="
 							+ page + "&pageSize=" + pageSize;
 					Log.d("XYSQ", "queryTopic:" + url);
 					HttpResponse response = httpclient

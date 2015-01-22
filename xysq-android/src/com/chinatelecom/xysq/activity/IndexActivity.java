@@ -68,6 +68,11 @@ public class IndexActivity extends BaseActivity implements HttpCallback,
 		kdtxButton.setOnClickListener(new IndexOnClickListener(this,
 				BroadbandRemindActivity.class, true, false));
 		
+		Button xqltButton = (Button) findViewById(R.id.index_xqltButton);
+		xqltButton.setOnClickListener(new IndexOnClickListener(this,
+				ForumActivity.class, true, true));
+		
+		
 		Button jkffButton = (Button) findViewById(R.id.index_jkffButton);
 		jkffButton.setOnClickListener(new OnClickListener(){
 			@Override
