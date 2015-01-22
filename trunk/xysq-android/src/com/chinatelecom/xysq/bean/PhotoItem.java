@@ -9,14 +9,17 @@ public class PhotoItem implements Serializable {
 	private int photoID;
 	private boolean select;
 	private Bitmap bitmap;
+	private String filePath;
 
-	public PhotoItem(int id) {
+	public PhotoItem(int id,String filePath) {
 		photoID = id;
+		this.filePath = filePath;
 		select = false;
 	}
 
-	public PhotoItem(int id, boolean flag) {
+	public PhotoItem(int id, boolean flag,String filePath) {
 		photoID = id;
+		this.filePath = filePath;
 		select = flag;
 	}
 
@@ -42,6 +45,14 @@ public class PhotoItem implements Serializable {
 
 	public void setSelect(boolean select) {
 		this.select = select;
+	}
+
+	public String getFilePath() {
+		return filePath;
+	}
+
+	public void setFilePath(String filePath) {
+		this.filePath = filePath;
 	}
 
 	@Override
