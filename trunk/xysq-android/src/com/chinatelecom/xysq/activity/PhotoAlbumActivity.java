@@ -13,13 +13,16 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 
 import com.chinatelecom.xysq.R;
 import com.chinatelecom.xysq.adapater.PhotoAlbumAdapter;
 import com.chinatelecom.xysq.bean.PhotoAlbum;
 import com.chinatelecom.xysq.bean.PhotoItem;
+import com.chinatelecom.xysq.http.HttpCallback;
+import com.chinatelecom.xysq.http.PhotoRequest;
 
-public class PhotoAlbumActivity extends Activity {
+public class PhotoAlbumActivity extends Activity implements HttpCallback {
 
 	// 设置获取图片的字段信
 	private static final String[] STORE_IMAGES = {
@@ -32,6 +35,8 @@ public class PhotoAlbumActivity extends Activity {
 	};
 
 	private ListView photoAlbumListView;
+	
+	private ProgressBar progressBar;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -44,39 +49,28 @@ public class PhotoAlbumActivity extends Activity {
 				finish();
 			}
 		});
-		List<PhotoAlbum> albumList = getPhotoAlbum();
+		progressBar = (ProgressBar)findViewById(R.id.photo_album_progressBar);
+		loadPhotoAlbum();
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public void success(String url, Object data) {
+		progressBar.setVisibility(View.INVISIBLE);
+		List<PhotoAlbum> albumList = (List<PhotoAlbum>)data;
 		photoAlbumListView.setAdapter(new PhotoAlbumAdapter(albumList,this));
 	}
 
-	private List<PhotoAlbum> getPhotoAlbum() {
-		List<PhotoAlbum> aibumList = new ArrayList<PhotoAlbum>();
-		Cursor cursor = MediaStore.Images.Media.query(getContentResolver(),
-				MediaStore.Images.Media.EXTERNAL_CONTENT_URI, STORE_IMAGES);
-		Map<String, PhotoAlbum> countMap = new HashMap<String, PhotoAlbum>();
-		PhotoAlbum pa = null;
-		while (cursor.moveToNext()) {
-			String id = cursor.getString(3);
-			String dir_id = cursor.getString(4);
-			String dir = cursor.getString(5);
-			if (!countMap.containsKey(dir_id)) {
-				pa = new PhotoAlbum();
-				pa.setName(dir);
-				pa.setBitmap(Integer.parseInt(id));
-				pa.setCount("1");
-				pa.getBitList().add(new PhotoItem(Integer.valueOf(id)));
-				countMap.put(dir_id, pa);
-			} else {
-				pa = countMap.get(dir_id);
-				pa.setCount(String.valueOf(Integer.parseInt(pa.getCount()) + 1));
-				pa.getBitList().add(new PhotoItem(Integer.valueOf(id)));
-			}
-		}
-		cursor.close();
-		Iterable<String> it = countMap.keySet();
-		for (String key : it) {
-			aibumList.add(countMap.get(key));
-		}
-		return aibumList;
+	@Override
+	public void failure(String url, int code, String message) {
+		progressBar.setVisibility(View.INVISIBLE);
+	}
+
+	private void loadPhotoAlbum() {
+		progressBar.setVisibility(View.GONE);
+		progressBar.setVisibility(View.VISIBLE);
+		PhotoRequest.loadPhtotAlbum(this, this);
+		
 	}
 
 }
