@@ -40,7 +40,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:gravity="center"
-                android:text="@string/communitySelect_titelTextViewValue"
+                android:text="选择城市"
                 android:textColor="@android:color/white"
                 android:textSize="18sp" />
 
