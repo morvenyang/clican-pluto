@@ -21,6 +21,8 @@ public class ForumTopicJson {
 	private String content;
 
 	private List<String> images;
+	
+	private int postNum;
 
 	public Long getId() {
 		return id;
@@ -76,6 +78,14 @@ public class ForumTopicJson {
 
 	public void setImages(List<String> images) {
 		this.images = images;
+	}
+
+	public int getPostNum() {
+		return postNum;
+	}
+
+	public void setPostNum(int postNum) {
+		this.postNum = postNum;
 	}
 	
 	
