@@ -13,4 +13,6 @@ public class Constants {
 	
 	public final static String BASE_URL = "http://192.168.1.100:9000/xysq";
 	
+	public final int REQUEST_CODE_AFTER_CHOOSE_PHOTO=10001;
+	
 }

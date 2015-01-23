@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -33,7 +34,8 @@ public class PhotoActivity extends Activity implements HttpCallback {
 	private TextView tv;
 	private int chooseNum = 0;
 	private ProgressBar progressBar;
-	private List<PhotoItem> selectedBitList;
+	private ArrayList<PhotoItem> selectedBitList;
+	private Button doneButton;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +50,7 @@ public class PhotoActivity extends Activity implements HttpCallback {
 		});
 		progressBar = (ProgressBar) findViewById(R.id.photo_progressBar);
 		tv = (TextView) findViewById(R.id.photo_chooseNum);
-		album = (PhotoAlbum) getIntent().getExtras().get("album");
+		album =  getIntent().getParcelableExtra("album");
 		/** 获取已经选择的图片 **/
 		for (int i = 0; i < album.getBitList().size(); i++) {
 			if (album.getBitList().get(i).isSelect()) {
@@ -60,6 +62,16 @@ public class PhotoActivity extends Activity implements HttpCallback {
 		photoGridView.setSelector(new ColorDrawable(Color.TRANSPARENT));
 		photoSelectedGridView = (GridView) findViewById(R.id.photo_selected_gridView);
 		photoSelectedGridView.setSelector(new ColorDrawable(Color.TRANSPARENT));
+		doneButton= (Button)findViewById(R.id.photo_done_button);
+		doneButton.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				Intent resultData = new Intent();
+				resultData.putParcelableArrayListExtra("selectedBitList", selectedBitList);
+				setResult(Activity.RESULT_OK, resultData);
+				finish();
+			}
+		});
 		selectedBitList = new ArrayList<PhotoItem>();
 		progressBar.setVisibility(View.GONE);
 		progressBar.setVisibility(View.VISIBLE);
