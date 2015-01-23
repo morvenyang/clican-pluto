@@ -19,8 +19,11 @@ import com.chinatelecom.xysq.R;
 import com.chinatelecom.xysq.adapater.PhotoAdapter;
 import com.chinatelecom.xysq.bean.ForumTopic;
 import com.chinatelecom.xysq.bean.PhotoItem;
+import com.chinatelecom.xysq.bean.User;
+import com.chinatelecom.xysq.http.ForumRequest;
 import com.chinatelecom.xysq.http.HttpCallback;
 import com.chinatelecom.xysq.http.PhotoRequest;
+import com.chinatelecom.xysq.util.AlertUtil;
 
 public class TopicAndPostActivity extends BaseActivity implements HttpCallback {
 
@@ -36,11 +39,13 @@ public class TopicAndPostActivity extends BaseActivity implements HttpCallback {
 	private List<PhotoItem> selectedBitList;
 	private boolean topic;
 	private ProgressBar progressBar;
+	private Long communityId;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.topic_and_post);
 		Intent intent = this.getIntent();
+		communityId = intent.getLongExtra("communityId", -1);
 		this.progressBar = (ProgressBar) this
 				.findViewById(R.id.topicAndPost_progressBar);
 		this.sendButton = (Button) this
@@ -48,7 +53,17 @@ public class TopicAndPostActivity extends BaseActivity implements HttpCallback {
 		this.sendButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				
+				progressBar.setVisibility(View.GONE);
+				progressBar.setVisibility(View.VISIBLE);
+				String title = titleEditText.getEditableText().toString();
+				String content = contentEditText.getEditableText().toString();
+				User user = getUser();
+				if (user == null) {
+					AlertUtil.alert(TopicAndPostActivity.this, "请先登录");
+				}else{
+					ForumRequest.saveTopic(TopicAndPostActivity.this, user,
+							communityId, title, content, selectedBitList);
+				}
 			}
 		});
 		this.topic = intent.getBooleanExtra("topic", true);
@@ -95,11 +110,14 @@ public class TopicAndPostActivity extends BaseActivity implements HttpCallback {
 	@SuppressWarnings("unchecked")
 	@Override
 	public void success(String url, Object data) {
-
-		List<PhotoItem> bitList = (List<PhotoItem>) data;
-		this.selectedBitList.clear();
-		this.selectedBitList.addAll(bitList);
-		selectedPhotoAdapter.notifyDataSetChanged();
+		if (url.equals("/saveTopic.do")) {
+			this.finish();
+		} else {
+			List<PhotoItem> bitList = (List<PhotoItem>) data;
+			this.selectedBitList.clear();
+			this.selectedBitList.addAll(bitList);
+			selectedPhotoAdapter.notifyDataSetChanged();
+		}
 		progressBar.setVisibility(View.INVISIBLE);
 	}
 
