@@ -59,6 +59,7 @@ public class ForumServiceImpl implements ForumService {
 			forumJson.setContent(forumTopic.getContent());
 			forumJson.setCreateTime(forumTopic.getCreateTime());
 			forumJson.setModifyTime(forumTopic.getModifyTime());
+			forumJson.setPostNum(forumTopic.getPostNum());
 			UserJson userJson = new UserJson();
 			userJson.setId(forumTopic.getSubmitter().getId());
 			userJson.setNickName(forumTopic.getSubmitter().getNickName());

@@ -40,6 +40,8 @@ public class ForumTopic {
 	
 	private Long communityId;
 	
+	private int postNum;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "ID")
@@ -116,6 +118,15 @@ public class ForumTopic {
 
 	public void setCommunityId(Long communityId) {
 		this.communityId = communityId;
+	}
+
+	@Column
+	public int getPostNum() {
+		return postNum;
+	}
+
+	public void setPostNum(int postNum) {
+		this.postNum = postNum;
 	}
 
 }
