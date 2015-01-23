@@ -1,15 +1,16 @@
 package com.chinatelecom.xysq.bean;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 
-public class PhotoAlbum implements Serializable{
+
+public class PhotoAlbum implements Parcelable{
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
 	private String name;   //相册名字
 	private String count; //数量
 	private int  bitmap;  // 相册第一张图片
@@ -61,4 +62,38 @@ public class PhotoAlbum implements Serializable{
 		return "PhotoAibum [name=" + name + ", count=" + count + ", bitmap="
 				+ bitmap + ", bitList=" + bitList + "]";
 	}
+
+	public static final Parcelable.Creator<PhotoAlbum> CREATOR = new Parcelable.Creator<PhotoAlbum>() {
+		public PhotoAlbum createFromParcel(Parcel in) {
+			return new PhotoAlbum(in);
+		}
+
+		public PhotoAlbum[] newArray(int size) {
+			return new PhotoAlbum[size];
+		}
+	};
+
+	private PhotoAlbum(Parcel in) {
+		name=in.readString();
+		count = in.readString();
+		bitmap = in.readInt();
+		in.readTypedList(bitList, PhotoItem.CREATOR);
+	}
+
+	
+	@Override
+	public int describeContents() {
+		return 0;
+	}
+
+
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		dest.writeString(name);		
+		dest.writeString(count);	
+		dest.writeInt(bitmap);
+		dest.writeTypedList(bitList);
+	}
+	
+	
 }

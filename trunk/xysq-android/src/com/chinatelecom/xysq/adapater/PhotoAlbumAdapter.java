@@ -65,7 +65,7 @@ public class PhotoAlbumAdapter extends BaseAdapter {
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(activity,PhotoActivity.class);
-				intent.putExtra("album",album);
+				intent.putExtra("album", album);
 				activity.startActivity(intent);
 			}
 		});

@@ -1,5 +1,7 @@
 package com.chinatelecom.xysq.activity;
 
+import java.util.List;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -11,6 +13,7 @@ import android.widget.TextView;
 
 import com.chinatelecom.xysq.R;
 import com.chinatelecom.xysq.bean.ForumTopic;
+import com.chinatelecom.xysq.bean.PhotoItem;
 
 public class TopicAndPostActivity extends BaseActivity {
 
@@ -57,6 +60,14 @@ public class TopicAndPostActivity extends BaseActivity {
 			return "回贴";
 		}
 
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		List<PhotoItem> selectedBitList = data
+				.getParcelableArrayListExtra("selectedBitList");
+		
+		super.onActivityResult(requestCode, resultCode, data);
 	}
 
 }
