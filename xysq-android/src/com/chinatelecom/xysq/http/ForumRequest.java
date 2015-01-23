@@ -51,7 +51,7 @@ public class ForumRequest {
 						JSONArray jsonObj = new JSONArray(responseString);
 						List<ForumTopic> result = new ArrayList<ForumTopic>();
 						SimpleDateFormat sdf = new SimpleDateFormat(
-								"yyyy-MM-dd hh:mm:ss", Locale.ENGLISH);
+								"yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
 						for (int i = 0; i < jsonObj.length(); i++) {
 							JSONObject forumJson = jsonObj.getJSONObject(i);
 							ForumTopic forumTopic = new ForumTopic();

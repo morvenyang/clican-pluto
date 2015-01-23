@@ -16,7 +16,7 @@ public class DateUtil {
 		} else if (diff < 1000L * 60 * 60 * 24) {
 			return diff / (1000L * 60 * 60) + "小时前";
 		} else {
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm",Locale.ENGLISH);
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm",Locale.ENGLISH);
 			return sdf.format(date);
 		}
 	}
