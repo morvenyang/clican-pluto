@@ -116,17 +116,17 @@ public class PhotoRequest {
 	}
 
 	public static void prepareThumbnail(final Activity activity,
-			final HttpCallback callback, final PhotoAlbum album) {
+			final HttpCallback callback, final List<PhotoItem> bitList) {
 		AsyncTask<String, Void, TaskResult> task = new AsyncTask<String, Void, TaskResult>() {
 			@Override
 			protected TaskResult doInBackground(String... params) {
 				DisplayMetrics dm =activity.getResources().getDisplayMetrics();  
 		        int wScreen = dm.widthPixels;  
 		        
-				for (PhotoItem pi : album.getBitList()) {
+				for (PhotoItem pi : bitList) {
 					pi.setBitmap(getImageThumbnail(pi.getFilePath(),(wScreen-20)/4,(wScreen-20)/4));
 				}
-				return new TaskResult(1, "", album);
+				return new TaskResult(1, "", bitList);
 			}
 
 			@Override
