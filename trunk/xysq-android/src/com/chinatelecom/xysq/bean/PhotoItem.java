@@ -10,17 +10,13 @@ public class PhotoItem implements Parcelable {
 	private boolean select;
 	private Bitmap bitmap;
 	private String filePath;
+	private String fileName;
 
-	public PhotoItem(int id, String filePath) {
+	public PhotoItem(int id, String filePath,String fileName) {
 		photoID = id;
 		this.filePath = filePath;
+		this.fileName = fileName;
 		select = false;
-	}
-
-	public PhotoItem(int id, boolean flag, String filePath) {
-		photoID = id;
-		this.filePath = filePath;
-		select = flag;
 	}
 
 	public Bitmap getBitmap() {
@@ -55,6 +51,14 @@ public class PhotoItem implements Parcelable {
 		this.filePath = filePath;
 	}
 
+	public String getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+
 	@Override
 	public String toString() {
 		return "PhotoItem [photoID=" + photoID + ", select=" + select + "]";
@@ -74,6 +78,7 @@ public class PhotoItem implements Parcelable {
 		photoID = in.readInt();
 		select = in.readInt() == 0 ? false : true;
 		filePath = in.readString();
+		fileName = in.readString();
 	}
 
 	@Override
@@ -87,5 +92,6 @@ public class PhotoItem implements Parcelable {
 		dest.writeInt(photoID);
 		dest.writeInt(select ? 1 : 0);
 		dest.writeString(filePath);
+		dest.writeString(fileName);
 	}
 }

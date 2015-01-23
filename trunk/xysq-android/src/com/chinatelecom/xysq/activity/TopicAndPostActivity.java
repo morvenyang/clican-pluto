@@ -30,6 +30,7 @@ public class TopicAndPostActivity extends BaseActivity implements HttpCallback {
 	private ForumTopic forumTopic;
 	private Button selectPhotoButton;
 	private Button takePhotoButton;
+	private Button sendButton;
 	private GridView selectedPhotosGridView;
 	private PhotoAdapter selectedPhotoAdapter;
 	private List<PhotoItem> selectedBitList;
@@ -40,13 +41,18 @@ public class TopicAndPostActivity extends BaseActivity implements HttpCallback {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.topic_and_post);
 		Intent intent = this.getIntent();
-		this.progressBar=(ProgressBar)this.findViewById(R.id.topicAndPost_progressBar);
+		this.progressBar = (ProgressBar) this
+				.findViewById(R.id.topicAndPost_progressBar);
+		this.sendButton = (Button) this
+				.findViewById(R.id.topicAndPost_sendButton);
+		this.sendButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				
+			}
+		});
 		this.topic = intent.getBooleanExtra("topic", true);
-		if (this.topic) {
 
-		} else {
-
-		}
 		Button backButton = (Button) findViewById(R.id.topicAndPost_backButton);
 		backButton.setOnClickListener(new OnClickListener() {
 			@Override
@@ -68,6 +74,11 @@ public class TopicAndPostActivity extends BaseActivity implements HttpCallback {
 				.findViewById(R.id.topicAndPost_titleTextView);
 		this.titleEditText = (EditText) this
 				.findViewById(R.id.topicAndPost_titleEditText);
+		if (this.topic) {
+			this.titleEditText.setVisibility(View.VISIBLE);
+		} else {
+			this.titleEditText.setVisibility(View.INVISIBLE);
+		}
 		this.contentEditText = (EditText) this
 				.findViewById(R.id.topicAndPost_contentEditText);
 
@@ -80,12 +91,12 @@ public class TopicAndPostActivity extends BaseActivity implements HttpCallback {
 		selectedPhotosGridView.setAdapter(selectedPhotoAdapter);
 		progressBar.setVisibility(View.INVISIBLE);
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public void success(String url, Object data) {
-		
-		List<PhotoItem> bitList = (List<PhotoItem>)data;	
+
+		List<PhotoItem> bitList = (List<PhotoItem>) data;
 		this.selectedBitList.clear();
 		this.selectedBitList.addAll(bitList);
 		selectedPhotoAdapter.notifyDataSetChanged();
@@ -94,7 +105,7 @@ public class TopicAndPostActivity extends BaseActivity implements HttpCallback {
 
 	@Override
 	public void failure(String url, int code, String message) {
-		progressBar.setVisibility(View.INVISIBLE);		
+		progressBar.setVisibility(View.INVISIBLE);
 	}
 
 	@Override
@@ -104,7 +115,7 @@ public class TopicAndPostActivity extends BaseActivity implements HttpCallback {
 		List<PhotoItem> selectedBitList = intent
 				.getParcelableArrayListExtra("selectedBitList");
 		PhotoRequest.prepareThumbnail(this, this, selectedBitList);
-		
+
 		super.onNewIntent(intent);
 	}
 
