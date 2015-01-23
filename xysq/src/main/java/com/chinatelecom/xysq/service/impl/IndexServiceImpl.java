@@ -104,7 +104,7 @@ public class IndexServiceImpl implements IndexService {
 
 		JsonConfig jsonConfig = new JsonConfig();
 		jsonConfig.registerJsonValueProcessor(Date.class,
-				new DateJsonValueProcessor("yyyy-MM-dd hh:mm:ss"));
+				new DateJsonValueProcessor("yyyy-MM-dd HH:mm:ss"));
 		return JSONArray.fromObject(jsonList, jsonConfig).toString();
 	}
 
@@ -124,7 +124,7 @@ public class IndexServiceImpl implements IndexService {
 		}
 		JsonConfig jsonConfig = new JsonConfig();
 		jsonConfig.registerJsonValueProcessor(Date.class,
-				new DateJsonValueProcessor("yyyy-MM-dd hh:mm:ss"));
+				new DateJsonValueProcessor("yyyy-MM-dd HH:mm:ss"));
 		return JSONObject.fromObject(json, jsonConfig).toString();
 	}
 
