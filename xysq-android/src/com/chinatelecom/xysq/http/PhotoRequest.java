@@ -28,7 +28,7 @@ public class PhotoRequest {
 			MediaStore.Images.Media._ID, // id
 			MediaStore.Images.Media.BUCKET_ID, // dir id 目录
 			MediaStore.Images.Media.BUCKET_DISPLAY_NAME, // dir name 目录名字
-			MediaStore.Images.Media.DATA
+			MediaStore.Images.Media.DATA,
 	};
 
 	public static void loadPhtotAlbum(final Activity activity,
@@ -44,6 +44,7 @@ public class PhotoRequest {
 				Map<String, PhotoAlbum> countMap = new HashMap<String, PhotoAlbum>();
 				PhotoAlbum pa = null;
 				while (cursor.moveToNext()) {
+					String fileName = cursor.getString(0);
 					String id = cursor.getString(3);
 					String dir_id = cursor.getString(4);
 					String dir = cursor.getString(5);
@@ -53,13 +54,13 @@ public class PhotoRequest {
 						pa.setName(dir);
 						pa.setBitmap(Integer.parseInt(id));
 						pa.setCount("1");
-						pa.getBitList().add(new PhotoItem(Integer.valueOf(id),filePath));
+						pa.getBitList().add(new PhotoItem(Integer.valueOf(id),filePath,fileName));
 						countMap.put(dir_id, pa);
 					} else {
 						pa = countMap.get(dir_id);
 						pa.setCount(String.valueOf(Integer.parseInt(pa
 								.getCount()) + 1));
-						pa.getBitList().add(new PhotoItem(Integer.valueOf(id),filePath));
+						pa.getBitList().add(new PhotoItem(Integer.valueOf(id),filePath,fileName));
 					}
 				}
 				cursor.close();
