@@ -2,6 +2,8 @@ package com.chinatelecom.xysq.activity;
 
 import android.app.Activity;
 
+import com.chinatelecom.xysq.application.XysqApplication;
+import com.chinatelecom.xysq.bean.User;
 import com.umeng.analytics.MobclickAgent;
 
 public abstract class BaseActivity extends Activity {
@@ -18,4 +20,9 @@ public abstract class BaseActivity extends Activity {
 	}
 	
 	protected abstract String getPageName();
+	
+	protected User getUser(){
+		XysqApplication application = (XysqApplication)this.getApplication();
+		return application.getUser();
+	}
 }

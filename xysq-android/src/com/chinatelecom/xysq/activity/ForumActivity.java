@@ -61,6 +61,7 @@ public class ForumActivity extends BaseActivity implements OnRefreshListener2<Li
 			public void onClick(View v) {
 				Intent intent = new Intent(ForumActivity.this,TopicAndPostActivity.class);
 				intent.putExtra("topic", true);
+				intent.putExtra("communityId", communityId);
 				ForumActivity.this.startActivity(intent);
 			}
 		});
