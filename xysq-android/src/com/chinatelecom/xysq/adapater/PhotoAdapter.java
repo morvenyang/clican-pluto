@@ -1,4 +1,5 @@
 package com.chinatelecom.xysq.adapater;
+
 import java.util.List;
 
 import android.content.Context;
@@ -10,12 +11,16 @@ import android.widget.BaseAdapter;
 import com.chinatelecom.xysq.bean.PhotoItem;
 import com.chinatelecom.xysq.layout.PhotoGridItem;
 
-public class PhotoAdapter extends BaseAdapter   {
+public class PhotoAdapter extends BaseAdapter {
 	private Context context;
 	private List<PhotoItem> bitList;
-	public PhotoAdapter(Context context, List<PhotoItem> bitList) {
+	private boolean hideSelectedFlag;
+
+	public PhotoAdapter(Context context, List<PhotoItem> bitList,
+			boolean hideSelectedFlag) {
 		this.context = context;
 		this.bitList = bitList;
+		this.hideSelectedFlag = hideSelectedFlag;
 	}
 
 	@Override
@@ -36,16 +41,21 @@ public class PhotoAdapter extends BaseAdapter   {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		PhotoGridItem item;
-		if(convertView == null){
+		if (convertView == null) {
 			item = new PhotoGridItem(context);
-			 item.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT,  
-                     LayoutParams.WRAP_CONTENT));
-		}else{
-			item = (PhotoGridItem)convertView;
+			item.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT,
+					LayoutParams.WRAP_CONTENT));
+		} else {
+			item = (PhotoGridItem) convertView;
 		}
 		item.SetBitmap(bitList.get(position).getBitmap());
-        boolean flag = bitList.get(position).isSelect();
-		item.setChecked(flag);
+		if (this.hideSelectedFlag) {
+			item.hideSelectedFlag();
+		} else {
+			boolean flag = bitList.get(position).isSelect();
+			item.setChecked(flag);
+		}
+
 		return item;
 	}
 }

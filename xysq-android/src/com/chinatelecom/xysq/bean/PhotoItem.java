@@ -73,7 +73,6 @@ public class PhotoItem implements Parcelable {
 	private PhotoItem(Parcel in) {
 		photoID = in.readInt();
 		select = in.readInt() == 0 ? false : true;
-		bitmap = in.readParcelable(this.getClass().getClassLoader());
 		filePath = in.readString();
 	}
 
@@ -87,7 +86,6 @@ public class PhotoItem implements Parcelable {
 	public void writeToParcel(Parcel dest, int flags) {
 		dest.writeInt(photoID);
 		dest.writeInt(select ? 1 : 0);
-		dest.writeParcelable(bitmap, Bitmap.PARCELABLE_WRITE_RETURN_VALUE);
 		dest.writeString(filePath);
 	}
 }

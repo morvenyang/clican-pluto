@@ -66,27 +66,31 @@ public class PhotoActivity extends Activity implements HttpCallback {
 		doneButton.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v) {
-				Intent resultData = new Intent();
-				resultData.putParcelableArrayListExtra("selectedBitList", selectedBitList);
-				setResult(Activity.RESULT_OK, resultData);
 				finish();
+                Intent intent = new Intent(PhotoActivity.this, TopicAndPostActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.putParcelableArrayListExtra("selectedBitList", selectedBitList);
+                startActivity(intent);
 			}
 		});
 		selectedBitList = new ArrayList<PhotoItem>();
 		progressBar.setVisibility(View.GONE);
 		progressBar.setVisibility(View.VISIBLE);
-		PhotoRequest.prepareThumbnail(this, this, album);
+		PhotoRequest.prepareThumbnail(this, this, album.getBitList());
 
 	}
-
+	
+	@SuppressWarnings("unchecked")
 	@Override
 	public void success(String url, Object data) {
-		PhotoAlbum album = (PhotoAlbum) data;
-		photoAdapter = new PhotoAdapter(this, album.getBitList());
+		
+		List<PhotoItem> bitList = (List<PhotoItem>)data;
+		photoAdapter = new PhotoAdapter(this, bitList,false);
 		photoGridView.setAdapter(photoAdapter);
 		photoGridView.setOnItemClickListener(photoItemClickListener);
 
-		photoSelectedAdapter = new PhotoAdapter(this, this.selectedBitList);
+		photoSelectedAdapter = new PhotoAdapter(this, this.selectedBitList,true);
 		photoSelectedGridView.setAdapter(photoSelectedAdapter);
 		photoSelectedGridView
 				.setOnItemClickListener(photoSelectedItemClickListener);
