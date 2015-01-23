@@ -62,6 +62,7 @@ public class ForumRequest {
 							forumTopic.setId(forumJson.getLong("id"));
 							forumTopic.setModifyTime(sdf.parse(forumJson
 									.getString("modifyTime")));
+							forumTopic.setPostNum(forumJson.getInt("postNum"));
 							forumTopic.setTitle(forumJson.getString("title"));
 							forumTopic.setImages(new ArrayList<String>());
 							JSONArray imagesJson = forumJson
@@ -103,7 +104,7 @@ public class ForumRequest {
 		task.execute(new String[] {});
 	}
 
-	public static void saveTopic(final HttpCallback callback,final User user,
+	public static void saveTopic(final HttpCallback callback, final User user,
 			final Long communityId, final String title, final String content,
 			final List<PhotoItem> photoItemList) {
 		AsyncTask<String, Void, TaskResult> task = new AsyncTask<String, Void, TaskResult>() {
@@ -114,11 +115,14 @@ public class ForumRequest {
 					String url = Constants.BASE_URL + "/saveTopic.do";
 					Log.d("XYSQ", "saveTopic:" + url);
 					HttpPost post = new HttpPost(url);
-					post.setHeader("Cookie","JSESSIONID="+user.getJsessionid());
+					post.setHeader("Cookie",
+							"JSESSIONID=" + user.getJsessionid());
 					MultipartEntityBuilder entityBuilder = MultipartEntityBuilder
 							.create();
-					entityBuilder.addTextBody("title", title,ContentType.create("plain/text","utf-8"));
-					entityBuilder.addTextBody("content", content,ContentType.create("plain/text","utf-8"));
+					entityBuilder.addTextBody("title", title,
+							ContentType.create("plain/text", "utf-8"));
+					entityBuilder.addTextBody("content", content,
+							ContentType.create("plain/text", "utf-8"));
 					entityBuilder.addTextBody("communityId",
 							communityId.toString());
 					for (int i = 0; i < photoItemList.size(); i++) {
