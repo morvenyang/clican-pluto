@@ -1,5 +1,6 @@
 package com.chinatelecom.xysq.adapater;
 
+import java.util.Date;
 import java.util.List;
 
 import android.app.Activity;
@@ -7,8 +8,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.TextView;
 
+import com.chinatelecom.xysq.R;
 import com.chinatelecom.xysq.bean.ForumTopic;
+import com.chinatelecom.xysq.util.DateUtil;
 
 public class ForumTopicListAdapter extends BaseAdapter {
 
@@ -18,23 +22,20 @@ public class ForumTopicListAdapter extends BaseAdapter {
 
 	private Activity activity;
 
-	public ForumTopicListAdapter(
-			List<ForumTopic> forumTopicList,
+	public ForumTopicListAdapter(List<ForumTopic> forumTopicList,
 			Activity activity, LayoutInflater inflater) {
 		this.forumTopicList = forumTopicList;
 		this.activity = activity;
 		this.inflater = inflater;
 	}
-	
+
 	@Override
 	public int getCount() {
-		// TODO Auto-generated method stub
-		return 0;
+		return forumTopicList.size();
 	}
 
 	@Override
 	public Object getItem(int position) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -46,8 +47,21 @@ public class ForumTopicListAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		// TODO Auto-generated method stub
-		return null;
+		if (convertView == null) {
+			convertView = inflater.inflate(R.layout.forum_row, null);
+		}
+		ForumTopic ft = forumTopicList.get(position);
+		TextView titleTextView = (TextView) convertView
+				.findViewById(R.id.forum_row_titleTextView);
+		titleTextView.setText(ft.getTitle());
+		TextView nickNameTextView = (TextView) convertView
+				.findViewById(R.id.forum_row_nickNameTextView);
+		nickNameTextView.setText(ft.getSubmitter().getNickName());
+		TextView timeTextView = (TextView) convertView
+				.findViewById(R.id.forum_row_timeTextView);
+		Date modifyTime=ft.getModifyTime();
+		timeTextView.setText(DateUtil.convertDateToBBSTime(modifyTime));
+		return convertView;
 	}
 
 }
