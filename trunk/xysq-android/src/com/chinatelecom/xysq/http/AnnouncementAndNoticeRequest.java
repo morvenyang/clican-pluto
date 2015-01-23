@@ -27,7 +27,7 @@ public class AnnouncementAndNoticeRequest {
 	private static void buildAnnouncementAndNotices(JSONArray aanListJson,
 			List<AnnouncementAndNotice> aanList) {
 		try {
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss",Locale.ENGLISH);
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss",Locale.ENGLISH);
 			for (int i = 0; i < aanListJson.length(); i++) {
 				JSONObject aanJson = aanListJson.getJSONObject(i);
 				AnnouncementAndNotice aan = new AnnouncementAndNotice();
