@@ -61,6 +61,10 @@ public class ForumTopicListAdapter extends BaseAdapter {
 				.findViewById(R.id.forum_row_timeTextView);
 		Date modifyTime=ft.getModifyTime();
 		timeTextView.setText(DateUtil.convertDateToBBSTime(modifyTime));
+		
+		TextView postNumTextView = (TextView) convertView
+				.findViewById(R.id.forum_row_postNumTextView);
+		postNumTextView.setText(ft.getPostNum()+"回复");
 		return convertView;
 	}
 
