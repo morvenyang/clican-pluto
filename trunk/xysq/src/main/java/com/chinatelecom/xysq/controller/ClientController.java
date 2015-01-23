@@ -2,6 +2,10 @@ package com.chinatelecom.xysq.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -16,11 +20,14 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.chinatelecom.xysq.bean.SpringProperty;
 import com.chinatelecom.xysq.enumeration.NoticeCategory;
 import com.chinatelecom.xysq.json.LoginJson;
 import com.chinatelecom.xysq.json.RegisterJson;
+import com.chinatelecom.xysq.model.Image;
 import com.chinatelecom.xysq.service.AreaService;
 import com.chinatelecom.xysq.service.ForumService;
 import com.chinatelecom.xysq.service.IndexService;
@@ -38,7 +45,7 @@ public class ClientController {
 	private IndexService indexService;
 
 	private UserService userService;
-	
+
 	private ForumService forumService;
 
 	public void setSpringProperty(SpringProperty springProperty) {
@@ -202,15 +209,17 @@ public class ClientController {
 			log.error("", e);
 		}
 	}
-	
+
 	@RequestMapping("/queryTopic")
-	public void queryTopic(@RequestParam(value = "communityId", required = true) Long communityId,
+	public void queryTopic(
+			@RequestParam(value = "communityId", required = true) Long communityId,
 			@RequestParam(value = "page", required = true) int page,
 			@RequestParam(value = "pageSize", required = true) int pageSize,
 			HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		try {
-			String result = this.forumService.queryTopic(communityId,page, pageSize);
+			String result = this.forumService.queryTopic(communityId, page,
+					pageSize);
 			try {
 				resp.setContentType("application/json");
 				resp.getOutputStream().write(result.getBytes("utf-8"));
@@ -222,19 +231,44 @@ public class ClientController {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	@RequestMapping("/saveTopic")
-	public void saveTopic(
-			@RequestParam(value = "topicId", required = false) Long topicId,
-			@RequestParam(value = "title") String title,
-			@RequestParam(value = "content") String content,
-			HttpServletRequest req, HttpServletResponse resp)
-			throws ServletException, IOException {
-		
+	public void saveTopic(MultipartHttpServletRequest req,
+			HttpServletResponse resp) throws ServletException, IOException {
+		Long communityId = Long.parseLong(req.getParameter("communityId"));
+		Long topicId = null;
+		if (StringUtils.isNotEmpty(req.getParameter("topicId"))) {
+			topicId = Long.parseLong(req.getParameter("topicId"));
+		}
+		String title = req.getParameter("title");
+		String content = req.getParameter("content");
+		Iterator<String> it = req.getFileNames();
+		List<Image> images = new ArrayList<Image>();
+		for (Object fileName : req.getFileMap().keySet()) {
+			MultipartFile file = req.getFile((String) fileName);
+			InputStream is = file.getInputStream();
+			try {
+				byte[] data = new byte[(int) file.getSize()];
+				is.read(data);
+				Image image = this.forumService.getImage(data,
+						(String) fileName);
+				images.add(image);
+			} catch (Exception e) {
+				log.error("", e);
+			} finally {
+				if (is != null) {
+					is.close();
+				}
+			}
+		}
+		Long userId = (Long) req.getSession().getAttribute("USER_ID");
+		this.forumService.saveTopic(userId, communityId, topicId, title,
+				content, images);
 	}
 
 	@RequestMapping("/savePost")
 	public void savePost(@RequestParam(value = "topicId") Long topicId,
-			@RequestParam(value = "postId") Long postId,
+			@RequestParam(value = "postId", required = false) Long postId,
 			@RequestParam(value = "content") String content,
 			HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {

@@ -99,7 +99,7 @@ public class ForumTopic {
 		this.content = content;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "store", cascade = CascadeType.REMOVE)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "forumTopic", cascade = CascadeType.REMOVE)
 	@OrderBy("seq")
 	public List<Image> getImages() {
 		return images;

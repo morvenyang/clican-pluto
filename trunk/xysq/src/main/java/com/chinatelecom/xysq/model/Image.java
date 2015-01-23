@@ -26,6 +26,10 @@ public class Image {
 	
 	private Store store;
 	
+	private ForumTopic forumTopic;
+	
+	private ForumPost forumPost;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "ID")
@@ -70,6 +74,28 @@ public class Image {
 
 	public void setStore(Store store) {
 		this.store = store;
+	}
+
+	@ManyToOne
+	@JoinColumn(name = "FORUM_TOPIC_ID", nullable = true)
+	@Fetch(FetchMode.JOIN)
+	public ForumTopic getForumTopic() {
+		return forumTopic;
+	}
+
+	public void setForumTopic(ForumTopic forumTopic) {
+		this.forumTopic = forumTopic;
+	}
+
+	@ManyToOne
+	@JoinColumn(name = "FORUM_POST_ID", nullable = true)
+	@Fetch(FetchMode.JOIN)
+	public ForumPost getForumPost() {
+		return forumPost;
+	}
+
+	public void setForumPost(ForumPost forumPost) {
+		this.forumPost = forumPost;
 	}
 	
 }
