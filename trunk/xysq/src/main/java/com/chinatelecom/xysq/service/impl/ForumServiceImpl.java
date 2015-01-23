@@ -76,7 +76,7 @@ public class ForumServiceImpl implements ForumService {
 		}
 		JsonConfig jsonConfig = new JsonConfig();
 		jsonConfig.registerJsonValueProcessor(Date.class,
-				new DateJsonValueProcessor("yyyy-MM-dd hh:mm:ss"));
+				new DateJsonValueProcessor("yyyy-MM-dd HH:mm:ss"));
 		return JSONArray.fromObject(forumJsonList, jsonConfig).toString();
 	}
 
