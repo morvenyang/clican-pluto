@@ -83,7 +83,7 @@ public class UserRequest {
 				HttpClient httpclient = new DefaultHttpClient();
 				try {
 					String url = Constants.BASE_URL + "/register.do?"
-							+ "nickNameName="
+							+ "nickName="
 							+ URLEncoder.encode(nickName, "utf-8")
 							+ "&password="
 							+ URLEncoder.encode(password, "utf-8") + "&msisdn="
