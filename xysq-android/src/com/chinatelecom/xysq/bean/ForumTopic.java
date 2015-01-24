@@ -1,9 +1,13 @@
 package com.chinatelecom.xysq.bean;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class ForumTopic {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class ForumTopic implements Parcelable{
 	
 	private Long id;
 
@@ -83,6 +87,49 @@ public class ForumTopic {
 
 	public void setPostNum(int postNum) {
 		this.postNum = postNum;
+	}
+	
+	public static final Parcelable.Creator<ForumTopic> CREATOR = new Parcelable.Creator<ForumTopic>() {
+		public ForumTopic createFromParcel(Parcel in) {
+			return new ForumTopic(in);
+		}
+
+		public ForumTopic[] newArray(int size) {
+			return new ForumTopic[size];
+		}
+	};
+
+	public ForumTopic() {
+		
+	}
+	private ForumTopic(Parcel in) {
+		id = in.readLong();
+		submitter = in.readParcelable(this.getClass().getClassLoader());
+		title = in.readString();
+		createTime = new Date(in.readLong());
+		modifyTime = new Date(in.readLong());
+		content = in.readString();
+		images = new ArrayList<String>();
+		in.readStringList(images);
+		postNum=in.readInt();
+	}
+	
+	@Override
+	public int describeContents() {
+		return 0;
+	}
+
+
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		dest.writeLong(id);
+		dest.writeParcelable(submitter, flags);
+		dest.writeString(title);
+		dest.writeLong(createTime.getTime());
+		dest.writeLong(modifyTime.getTime());
+		dest.writeString(content);
+		dest.writeStringList(images);
+		dest.writeInt(postNum);
 	}
 
 }
