@@ -1,7 +1,9 @@
 package com.chinatelecom.xysq.activity;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -11,11 +13,11 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.chinatelecom.xysq.R;
 import com.chinatelecom.xysq.adapater.ForumPostListAdapter;
-import com.chinatelecom.xysq.adapater.ForumTopicListAdapter;
 import com.chinatelecom.xysq.bean.ForumPost;
 import com.chinatelecom.xysq.bean.ForumTopic;
 import com.chinatelecom.xysq.http.ForumRequest;
@@ -34,11 +36,11 @@ public class TopicActivity extends BaseActivity implements
 	private PullToRefreshListView mPullRefreshListView;
 	private ForumPostListAdapter adapter;
 
-	private Long communityId;
-
 	private List<ForumPost> forumPostList = new ArrayList<ForumPost>();
 
 	private int page = 1;
+
+	private ForumTopic topic;
 
 	@Override
 	protected String getPageName() {
@@ -47,14 +49,28 @@ public class TopicActivity extends BaseActivity implements
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.forum);
-		Button backButton = (Button) findViewById(R.id.forum_backButton);
+		setContentView(R.layout.topic);
+		topic = this.getIntent().getParcelableExtra("topic");
+		Button backButton = (Button) findViewById(R.id.topic_backButton);
 		backButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				finish();
 			}
 		});
+		TextView nickNameTextView = (TextView)findViewById(R.id.topic_nickNameTextView);
+		nickNameTextView.setText(topic.getSubmitter().getNickName());
+		
+		TextView descriptionTextView = (TextView)findViewById(R.id.topic_descriptionTextView);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss",Locale.ENGLISH);
+		descriptionTextView.setText("发表:"+sdf.format(topic.getCreateTime())+" 回复:"+topic.getPostNum());
+		
+		TextView titleTextView = (TextView)findViewById(R.id.topic_topic_titleTextView);
+		titleTextView.setText(topic.getTitle());
+		
+		TextView contentTextView = (TextView)findViewById(R.id.topic_topic_contentTextView);
+		contentTextView.setText(topic.getContent());
+		
 		mPullRefreshListView = (PullToRefreshListView) findViewById(R.id.topic_post_listView);
 		mPullRefreshListView.setMode(Mode.BOTH);
 		mPullRefreshListView.getRefreshableView().setDividerHeight(2);
@@ -87,7 +103,7 @@ public class TopicActivity extends BaseActivity implements
 		mPullRefreshListView.setOnPullEventListener(soundListener);
 
 		actualListView.setAdapter(adapter);
-		ForumRequest.queryTopic(this, communityId, page, 20);
+		ForumRequest.queryPost(this, this.topic.getId(), page, 20);
 	}
 
 	@Override
@@ -102,14 +118,14 @@ public class TopicActivity extends BaseActivity implements
 		page = 1;
 		forumPostList.clear();
 		// Do work to refresh the list here.
-		ForumRequest.queryTopic(this, communityId, page, 20);
+		ForumRequest.queryPost(this, this.topic.getId(), page, 20);
 	}
 
 	@Override
 	public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
 		// Do work to refresh the list here.
 		page++;
-		ForumRequest.queryTopic(this, communityId, page, 20);
+		ForumRequest.queryPost(this, this.topic.getId(), page, 20);
 	}
 
 	@Override
