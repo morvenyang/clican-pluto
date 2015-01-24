@@ -155,4 +155,29 @@ public class ForumServiceImpl implements ForumService {
 		}
 	}
 
+	@Override
+	public void savePost(Long submitterId, Long topicId, Long postId,
+			String content, String replyContent, List<Image> images) {
+		ForumPost forumPost = null;
+		ForumTopic forumTopic = this.forumDao.findTopicById(topicId);
+		if (postId != null) {
+			forumPost = this.forumDao.findPostById(topicId);
+			this.forumDao.deleteImagesForPost(postId);
+		} else {
+			forumPost = new ForumPost();
+			forumPost.setCreateTime(new Date());
+			User submitter = userDao.findUserById(submitterId);
+			forumPost.setSubmitter(submitter);
+			forumPost.setForumTopic(forumTopic);
+		}
+		forumPost.setContent(content);
+		forumPost.setReplyContent(replyContent);
+		forumPost.setModifyTime(new Date());
+		this.forumDao.saveForumPost(forumPost);
+		for (Image image : images) {
+			image.setForumPost(forumPost);
+			this.forumDao.saveImage(image);
+		}
+	}
+
 }

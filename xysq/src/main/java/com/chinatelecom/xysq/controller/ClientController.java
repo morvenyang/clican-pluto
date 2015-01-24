@@ -285,13 +285,37 @@ public class ClientController {
 	}
 
 	@RequestMapping("/savePost")
-	public void savePost(@RequestParam(value = "topicId") Long topicId,
-			@RequestParam(value = "postId", required = false) Long postId,
-			@RequestParam(value = "content") String content,
-			HttpServletRequest req, HttpServletResponse resp)
-			throws ServletException, IOException {
+	public void savePost(MultipartHttpServletRequest req,
+			HttpServletResponse resp) throws ServletException, IOException {
 		try {
-
+			Long topicId = Long.parseLong(req.getParameter("topicId"));
+			Long postId = null;
+			if (StringUtils.isNotEmpty(req.getParameter("postId"))) {
+				postId = Long.parseLong(req.getParameter("postId"));
+			}
+			String content = req.getParameter("content");
+			String replyContent = req.getParameter("replyContent");
+			List<Image> images = new ArrayList<Image>();
+			for (Object fileName : req.getFileMap().keySet()) {
+				MultipartFile file = req.getFile((String) fileName);
+				InputStream is = file.getInputStream();
+				try {
+					byte[] data = new byte[(int) file.getSize()];
+					is.read(data);
+					Image image = this.forumService.getImage(data,
+							(String) fileName);
+					images.add(image);
+				} catch (Exception e) {
+					log.error("", e);
+				} finally {
+					if (is != null) {
+						is.close();
+					}
+				}
+			}
+			Long userId = (Long) req.getSession().getAttribute("USER_ID");
+			this.forumService.savePost(userId, topicId, postId, content,
+					replyContent, images);
 		} catch (Exception e) {
 			log.error("", e);
 		}

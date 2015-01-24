@@ -62,6 +62,12 @@ public class ForumDaoImpl extends BaseDao implements ForumDao {
 	}
 
 	@Override
+	public ForumPost findPostById(Long id) {
+		return (ForumPost) this.getHibernateTemplate().get(ForumPost.class,
+				id);
+	}
+
+	@Override
 	public void deleteImagesForTopic(final Long topicId) {
 		this.getHibernateTemplate().execute(new HibernateCallback() {
 			@Override

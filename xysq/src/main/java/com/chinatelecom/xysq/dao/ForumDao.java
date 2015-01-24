@@ -13,6 +13,8 @@ public interface ForumDao {
 	public List<ForumPost> queryPost(Long topicId, int page, int pageSize);
 
 	public ForumTopic findTopicById(Long id);
+	
+	public ForumPost findPostById(Long id);
 
 	public void deleteImagesForTopic(Long topicId);
 
