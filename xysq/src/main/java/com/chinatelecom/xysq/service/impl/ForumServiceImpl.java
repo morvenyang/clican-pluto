@@ -16,8 +16,10 @@ import org.apache.commons.logging.LogFactory;
 import com.chinatelecom.xysq.bean.SpringProperty;
 import com.chinatelecom.xysq.dao.ForumDao;
 import com.chinatelecom.xysq.dao.UserDao;
+import com.chinatelecom.xysq.json.ForumPostJson;
 import com.chinatelecom.xysq.json.ForumTopicJson;
 import com.chinatelecom.xysq.json.UserJson;
+import com.chinatelecom.xysq.model.ForumPost;
 import com.chinatelecom.xysq.model.ForumTopic;
 import com.chinatelecom.xysq.model.Image;
 import com.chinatelecom.xysq.model.User;
@@ -78,6 +80,36 @@ public class ForumServiceImpl implements ForumService {
 		jsonConfig.registerJsonValueProcessor(Date.class,
 				new DateJsonValueProcessor("yyyy-MM-dd HH:mm:ss"));
 		return JSONArray.fromObject(forumJsonList, jsonConfig).toString();
+	}
+
+	@Override
+	public String queryPost(Long topicId, int page, int pageSize) {
+		List<ForumPost> forumPostList = forumDao.queryPost(topicId, page,
+				pageSize);
+		List<ForumPostJson> forumPostJsonList = new ArrayList<ForumPostJson>();
+		for (ForumPost forumPost : forumPostList) {
+			ForumPostJson forumPostJson = new ForumPostJson();
+			forumPostJson.setImages(new ArrayList<String>());
+			forumPostJson.setId(forumPost.getId());
+			forumPostJson.setCreateTime(forumPost.getCreateTime());
+			forumPostJson.setModifyTime(forumPost.getModifyTime());
+			UserJson userJson = new UserJson();
+			userJson.setId(forumPost.getSubmitter().getId());
+			userJson.setNickName(forumPost.getSubmitter().getNickName());
+			userJson.setMsisdn(forumPost.getSubmitter().getMsisdn());
+			forumPostJson.setSubmitter(userJson);
+			forumPostJsonList.add(forumPostJson);
+			for (Image image : forumPost.getImages()) {
+				forumPostJson.getImages().add(
+						springProperty.getServerUrl()
+								+ springProperty.getContextPath()
+								+ "/image.do?imagePath=" + image.getPath());
+			}
+		}
+		JsonConfig jsonConfig = new JsonConfig();
+		jsonConfig.registerJsonValueProcessor(Date.class,
+				new DateJsonValueProcessor("yyyy-MM-dd HH:mm:ss"));
+		return JSONArray.fromObject(forumPostJsonList, jsonConfig).toString();
 	}
 
 	@Override

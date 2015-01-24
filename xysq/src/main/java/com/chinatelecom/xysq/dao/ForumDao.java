@@ -9,6 +9,8 @@ import com.chinatelecom.xysq.model.Image;
 public interface ForumDao {
 
 	public List<ForumTopic> queryTopic(Long communityId, int page, int pageSize);
+	
+	public List<ForumPost> queryPost(Long topicId, int page, int pageSize);
 
 	public ForumTopic findTopicById(Long id);
 
