@@ -231,7 +231,27 @@ public class ClientController {
 		}
 	}
 
-	@SuppressWarnings("unchecked")
+	@RequestMapping("/queryPost")
+	public void queryPost(
+			@RequestParam(value = "topicId", required = true) Long topicId,
+			@RequestParam(value = "page", required = true) int page,
+			@RequestParam(value = "pageSize", required = true) int pageSize,
+			HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		try {
+			String result = this.forumService
+					.queryPost(topicId, page, pageSize);
+			try {
+				resp.setContentType("application/json");
+				resp.getOutputStream().write(result.getBytes("utf-8"));
+			} catch (Exception e) {
+				log.error("", e);
+			}
+		} catch (Exception e) {
+			log.error("", e);
+		}
+	}
+
 	@RequestMapping("/saveTopic")
 	public void saveTopic(MultipartHttpServletRequest req,
 			HttpServletResponse resp) throws ServletException, IOException {
@@ -242,7 +262,6 @@ public class ClientController {
 		}
 		String title = req.getParameter("title");
 		String content = req.getParameter("content");
-		Iterator<String> it = req.getFileNames();
 		List<Image> images = new ArrayList<Image>();
 		for (Object fileName : req.getFileMap().keySet()) {
 			MultipartFile file = req.getFile((String) fileName);

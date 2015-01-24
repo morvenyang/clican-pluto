@@ -35,6 +35,26 @@ public class ForumDaoImpl extends BaseDao implements ForumDao {
 				});
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<ForumPost> queryPost(final Long topicId, final int page,
+			final int pageSize) {
+		return (List<ForumPost>) this.getHibernateTemplate().executeFind(
+				new HibernateCallback() {
+
+					@Override
+					public Object doInHibernate(Session session)
+							throws HibernateException, SQLException {
+						String hsql = "from ForumPost where forumTopic.id = :topicId order by createTime desc";
+						Query query = session.createQuery(hsql);
+						query.setParameter("topicId", topicId);
+						query.setMaxResults(pageSize);
+						query.setFirstResult((page - 1) * pageSize);
+						return query.list();
+					}
+				});
+	}
+
 	@Override
 	public ForumTopic findTopicById(Long id) {
 		return (ForumTopic) this.getHibernateTemplate().get(ForumTopic.class,
