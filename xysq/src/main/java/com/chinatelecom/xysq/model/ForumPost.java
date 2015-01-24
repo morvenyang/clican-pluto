@@ -34,6 +34,8 @@ public class ForumPost {
 	private Date modifyTime;
 
 	private String content;
+	
+	private String replyContent;
 
 	private List<Image> images;
 	
@@ -87,6 +89,16 @@ public class ForumPost {
 
 	public void setContent(String content) {
 		this.content = content;
+	}
+
+	@Column
+	@Lob
+	public String getReplyContent() {
+		return replyContent;
+	}
+
+	public void setReplyContent(String replyContent) {
+		this.replyContent = replyContent;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "forumPost", cascade = CascadeType.REMOVE)
