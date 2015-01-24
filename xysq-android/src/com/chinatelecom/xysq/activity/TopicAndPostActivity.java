@@ -30,7 +30,6 @@ public class TopicAndPostActivity extends BaseActivity implements HttpCallback {
 	private TextView headTextView;
 	private EditText titleEditText;
 	private EditText contentEditText;
-	private ForumTopic forumTopic;
 	private Button selectPhotoButton;
 	private Button takePhotoButton;
 	private Button sendButton;
@@ -40,12 +39,15 @@ public class TopicAndPostActivity extends BaseActivity implements HttpCallback {
 	private boolean topic;
 	private ProgressBar progressBar;
 	private Long communityId;
+	private Long topicId;
+	private String replyContent;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.topic_and_post);
 		Intent intent = this.getIntent();
 		communityId = intent.getLongExtra("communityId", -1);
+
 		this.progressBar = (ProgressBar) this
 				.findViewById(R.id.topicAndPost_progressBar);
 		this.sendButton = (Button) this
@@ -60,14 +62,20 @@ public class TopicAndPostActivity extends BaseActivity implements HttpCallback {
 				User user = getUser();
 				if (user == null) {
 					AlertUtil.alert(TopicAndPostActivity.this, "请先登录");
-				}else{
-					ForumRequest.saveTopic(TopicAndPostActivity.this, user,
-							communityId, title, content, selectedBitList);
+				} else {
+					if (topic) {
+						ForumRequest.saveTopic(TopicAndPostActivity.this, user,
+								communityId, title, content, selectedBitList);
+					} else {
+						ForumRequest.savePost(TopicAndPostActivity.this, user, topicId, content, replyContent, selectedBitList);
+					}
+
 				}
 			}
 		});
 		this.topic = intent.getBooleanExtra("topic", true);
-
+		this.topicId = intent.getLongExtra("topicId", -1);
+		this.replyContent = intent.getStringExtra("replayContent");
 		Button backButton = (Button) findViewById(R.id.topicAndPost_backButton);
 		backButton.setOnClickListener(new OnClickListener() {
 			@Override
@@ -90,8 +98,10 @@ public class TopicAndPostActivity extends BaseActivity implements HttpCallback {
 		this.titleEditText = (EditText) this
 				.findViewById(R.id.topicAndPost_titleEditText);
 		if (this.topic) {
+			this.headTextView.setText("发贴");
 			this.titleEditText.setVisibility(View.VISIBLE);
 		} else {
+			this.headTextView.setText("回复");
 			this.titleEditText.setVisibility(View.INVISIBLE);
 		}
 		this.contentEditText = (EditText) this
@@ -110,7 +120,7 @@ public class TopicAndPostActivity extends BaseActivity implements HttpCallback {
 	@SuppressWarnings("unchecked")
 	@Override
 	public void success(String url, Object data) {
-		if (url.equals("/saveTopic.do")) {
+		if (url.equals("/saveTopic.do")||url.equals("/savePost.do")) {
 			this.finish();
 		} else {
 			List<PhotoItem> bitList = (List<PhotoItem>) data;
@@ -142,7 +152,7 @@ public class TopicAndPostActivity extends BaseActivity implements HttpCallback {
 		if (topic) {
 			return "发贴";
 		} else {
-			return "回贴";
+			return "回复";
 		}
 
 	}
