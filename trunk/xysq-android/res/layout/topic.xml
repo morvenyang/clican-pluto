@@ -112,6 +112,7 @@
             android:id="@+id/topic_post_listView"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
+            android:layout_weight="1"
             android:cacheColorHint="#00000000"
             android:divider="@color/dividerColor"
             android:dividerHeight="1dp"
@@ -121,6 +122,13 @@
             android:headerDividersEnabled="false"
             android:showDividers="none"
             android:smoothScrollbar="true" />
+
+        <Button
+            android:id="@+id/topic_replyButton"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="输入回复" />
+
     </LinearLayout>
 
 </RelativeLayout>

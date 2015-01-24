@@ -104,7 +104,7 @@ public class ForumRequest {
 		};
 		task.execute(new String[] {});
 	}
-	
+
 	public static void queryPost(final HttpCallback callback,
 			final Long topicId, final int page, final int pageSize) {
 		AsyncTask<String, Void, TaskResult> task = new AsyncTask<String, Void, TaskResult>() {
@@ -112,9 +112,9 @@ public class ForumRequest {
 			protected TaskResult doInBackground(String... params) {
 				HttpClient httpclient = new DefaultHttpClient();
 				try {
-					String url = Constants.BASE_URL
-							+ "/queryPost.do?topicId=" + topicId
-							+ "&page=" + page + "&pageSize=" + pageSize;
+					String url = Constants.BASE_URL + "/queryPost.do?topicId="
+							+ topicId + "&page=" + page + "&pageSize="
+							+ pageSize;
 					Log.d("XYSQ", "queryPost:" + url);
 					HttpResponse response = httpclient
 							.execute(new HttpGet(url));
@@ -131,8 +131,8 @@ public class ForumRequest {
 						for (int i = 0; i < jsonObj.length(); i++) {
 							JSONObject forumJson = jsonObj.getJSONObject(i);
 							ForumPost forumPost = new ForumPost();
-							forumPost.setContent(forumJson
-									.getString("content"));
+							forumPost
+									.setContent(forumJson.getString("content"));
 							forumPost.setReplyContent(forumJson
 									.getString("replyContent"));
 							forumPost.setCreateTime(sdf.parse(forumJson
@@ -229,6 +229,62 @@ public class ForumRequest {
 					callback.success("/saveTopic.do", result.getResult());
 				} else {
 					callback.failure("/saveTopic.do", result.getCode(),
+							result.getMessage());
+				}
+
+			}
+		};
+		task.execute(new String[] {});
+	}
+
+	public static void savePost(final HttpCallback callback, final User user,
+			final Long topicId, final String content,
+			final String replyContent, final List<PhotoItem> photoItemList) {
+		AsyncTask<String, Void, TaskResult> task = new AsyncTask<String, Void, TaskResult>() {
+			@Override
+			protected TaskResult doInBackground(String... params) {
+				HttpClient httpclient = new DefaultHttpClient();
+				try {
+					String url = Constants.BASE_URL + "/savePost.do";
+					Log.d("XYSQ", "savePost:" + url);
+					HttpPost post = new HttpPost(url);
+					post.setHeader("Cookie",
+							"JSESSIONID=" + user.getJsessionid());
+					MultipartEntityBuilder entityBuilder = MultipartEntityBuilder
+							.create();
+					entityBuilder.addTextBody("content", content,
+							ContentType.create("plain/text", "utf-8"));
+					entityBuilder.addTextBody("replyContent", replyContent,
+							ContentType.create("plain/text", "utf-8"));
+					entityBuilder.addTextBody("topicId", topicId.toString());
+					for (int i = 0; i < photoItemList.size(); i++) {
+						PhotoItem pi = photoItemList.get(i);
+						File f = new File(pi.getFilePath());
+						entityBuilder.addBinaryBody(pi.getFileName(), f,
+								ContentType.MULTIPART_FORM_DATA,
+								pi.getFileName());
+					}
+					post.setEntity(entityBuilder.build());
+					HttpResponse response = httpclient.execute(post);
+					StatusLine statusLine = response.getStatusLine();
+					if (statusLine.getStatusCode() == HttpStatus.SC_OK) {
+						return new TaskResult(1, null, null);
+					} else {
+						response.getEntity().getContent().close();
+						return new TaskResult(-1, "提交回帖失败", null);
+					}
+				} catch (Exception e) {
+					Log.e("XYSQ", "savePost", e);
+				}
+				return new TaskResult(-1, "提交回帖失败", null);
+			}
+
+			@Override
+			protected void onPostExecute(TaskResult result) {
+				if (result.getCode() == 1) {
+					callback.success("/savePost.do", result.getResult());
+				} else {
+					callback.failure("/savePost.do", result.getCode(),
 							result.getMessage());
 				}
 

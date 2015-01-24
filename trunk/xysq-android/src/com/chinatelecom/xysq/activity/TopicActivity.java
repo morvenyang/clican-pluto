@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Locale;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
@@ -58,19 +59,32 @@ public class TopicActivity extends BaseActivity implements
 				finish();
 			}
 		});
-		TextView nickNameTextView = (TextView)findViewById(R.id.topic_nickNameTextView);
+		TextView nickNameTextView = (TextView) findViewById(R.id.topic_nickNameTextView);
 		nickNameTextView.setText(topic.getSubmitter().getNickName());
-		
-		TextView descriptionTextView = (TextView)findViewById(R.id.topic_descriptionTextView);
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss",Locale.ENGLISH);
-		descriptionTextView.setText("发表:"+sdf.format(topic.getCreateTime())+" 回复:"+topic.getPostNum());
-		
-		TextView titleTextView = (TextView)findViewById(R.id.topic_topic_titleTextView);
+
+		TextView descriptionTextView = (TextView) findViewById(R.id.topic_descriptionTextView);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss",
+				Locale.ENGLISH);
+		descriptionTextView.setText("发表:" + sdf.format(topic.getCreateTime())
+				+ " 回复:" + topic.getPostNum());
+
+		TextView titleTextView = (TextView) findViewById(R.id.topic_topic_titleTextView);
 		titleTextView.setText(topic.getTitle());
-		
-		TextView contentTextView = (TextView)findViewById(R.id.topic_topic_contentTextView);
+
+		TextView contentTextView = (TextView) findViewById(R.id.topic_topic_contentTextView);
 		contentTextView.setText(topic.getContent());
-		
+
+		Button replyButton = (Button) findViewById(R.id.topic_replyButton);
+		replyButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(TopicActivity.this,TopicAndPostActivity.class);
+				intent.putExtra("topic", false);
+				intent.putExtra("replyTopic", true);
+				intent.putExtra("topicId", topic.getId());
+				TopicActivity.this.startActivity(intent);
+			}
+		});
 		mPullRefreshListView = (PullToRefreshListView) findViewById(R.id.topic_post_listView);
 		mPullRefreshListView.setMode(Mode.BOTH);
 		mPullRefreshListView.getRefreshableView().setDividerHeight(2);
