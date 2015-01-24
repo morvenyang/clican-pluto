@@ -14,4 +14,7 @@ public interface ForumService {
 
 	public void saveTopic(Long submitterId, Long communityId, Long topicId,
 			String title, String content, List<Image> images);
+
+	public void savePost(Long submitterId, Long topicId, Long postId, String content, String replyContent,
+			List<Image> images);
 }
