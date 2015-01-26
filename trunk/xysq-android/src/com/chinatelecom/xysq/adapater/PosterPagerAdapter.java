@@ -2,9 +2,9 @@ package com.chinatelecom.xysq.adapater;
 
 import java.util.List;
 
+import android.content.Intent;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -17,6 +17,7 @@ import com.chinatelecom.xysq.activity.BroadbandRemindActivity;
 import com.chinatelecom.xysq.activity.ForumActivity;
 import com.chinatelecom.xysq.activity.IndexActivity;
 import com.chinatelecom.xysq.activity.NoticeActivity;
+import com.chinatelecom.xysq.activity.StoreDetailActivity;
 import com.chinatelecom.xysq.bean.Poster;
 import com.chinatelecom.xysq.http.ImageRequest;
 import com.chinatelecom.xysq.listener.HtmlLinkOnClickListener;
@@ -86,8 +87,9 @@ public class PosterPagerAdapter extends PagerAdapter {
 			imageView.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					Log.d("XYSQ", "click poster:" + poster.getId());
-
+					Intent intent = new Intent(activity, StoreDetailActivity.class);
+					intent.putExtra("storeId", poster.getStoreId());
+					activity.startActivity(intent);
 				}
 			});
 		}
