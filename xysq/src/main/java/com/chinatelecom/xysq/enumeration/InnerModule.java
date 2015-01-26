@@ -9,7 +9,7 @@ public enum InnerModule implements LabelAndValue {
 
 	NOTICE(2, "业主须知"),
 
-	CONTACT_US(3, "联系我们"),
+	BBS(3, "小区论坛"),
 	
 	PARKING(4, "小区挪车"),
 	
