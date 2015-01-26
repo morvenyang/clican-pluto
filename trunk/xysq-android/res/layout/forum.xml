@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/backgroundColor"
     android:orientation="vertical" >
 
     <RelativeLayout
@@ -34,14 +35,13 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:text="发贴" />
-
     </RelativeLayout>
-    <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:background="@color/headGreenLineColor" >
 
-        </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/headGreenLineColor" >
+    </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -61,9 +61,8 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:text="搜索" />
-
     </RelativeLayout>
-	
+
     <com.handmark.pulltorefresh.library.PullToRefreshListView
         android:id="@+id/forum_listView"
         android:layout_width="fill_parent"

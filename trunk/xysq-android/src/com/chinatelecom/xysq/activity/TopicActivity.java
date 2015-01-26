@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,7 +43,7 @@ public class TopicActivity extends BaseActivity implements
 	private int page = 1;
 
 	private ForumTopic topic;
-
+	
 	@Override
 	protected String getPageName() {
 		return "帖子";
