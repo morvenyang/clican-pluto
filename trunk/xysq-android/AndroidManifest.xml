@@ -95,7 +95,7 @@
         <activity android:name="com.chinatelecom.xysq.activity.PhotoActivity" />
         <activity android:name="com.chinatelecom.xysq.activity.ForumActivity" />
          <activity android:name="com.chinatelecom.xysq.activity.TopicAndPostActivity" android:windowSoftInputMode="adjustResize"/>
-        
+         <activity android:name="com.chinatelecom.xysq.activity.TopicActivity" />
          <!-- 用户反馈 -->
         <activity android:name="com.chinatelecom.xysq.activity.FeedbackActivity" />
         <activity
