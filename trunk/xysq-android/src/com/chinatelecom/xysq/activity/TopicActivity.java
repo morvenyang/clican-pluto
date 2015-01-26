@@ -137,6 +137,14 @@ public class TopicActivity extends BaseActivity implements
 	}
 
 	@Override
+	protected void onResume() {
+		page=1;
+		forumPostList.clear();
+		ForumRequest.queryPost(this, this.topic.getId(), page, 20);
+		super.onResume();
+	}
+
+	@Override
 	public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
 		String label = DateUtils.formatDateTime(getApplicationContext(),
 				System.currentTimeMillis(), DateUtils.FORMAT_SHOW_TIME
