@@ -137,7 +137,7 @@ public class ForumServiceImpl implements ForumService {
 			byte[] thumbnailData = this.resizeImage(data, 200, 200, suffix);
 			FileUtils.writeByteArrayToFile(
 					new File(springProperty.getImageUrlPrefix() + "/"
-							+ filePath), thumbnailData);
+							+ thumbnailFilePath), thumbnailData);
 		} catch (Exception e) {
 			log.error("", e);
 		}
