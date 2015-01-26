@@ -102,6 +102,7 @@ public class ForumServiceImpl implements ForumService {
 			forumPostJson.setId(forumPost.getId());
 			forumPostJson.setCreateTime(forumPost.getCreateTime());
 			forumPostJson.setModifyTime(forumPost.getModifyTime());
+			forumPostJson.setContent(forumPost.getContent());
 			UserJson userJson = new UserJson();
 			userJson.setId(forumPost.getSubmitter().getId());
 			userJson.setNickName(forumPost.getSubmitter().getNickName());
@@ -272,6 +273,8 @@ public class ForumServiceImpl implements ForumService {
 			forumPost.setSubmitter(submitter);
 			forumPost.setForumTopic(forumTopic);
 		}
+		forumTopic.setPostNum(forumTopic.getPostNum()+1);
+		this.forumDao.saveForumTopic(forumTopic);
 		forumPost.setContent(content);
 		forumPost.setReplyContent(replyContent);
 		forumPost.setModifyTime(new Date());
