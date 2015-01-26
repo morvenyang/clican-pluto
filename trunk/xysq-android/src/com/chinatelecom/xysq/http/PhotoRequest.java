@@ -84,7 +84,7 @@ public class PhotoRequest {
 		task.execute(new String[] {});
 	}
 
-	private static Bitmap getImageThumbnail(String imagePath, int width, int height) {
+	public static Bitmap getImageThumbnail(String imagePath, int width, int height) {
 		Bitmap bitmap = null;
 		BitmapFactory.Options options = new BitmapFactory.Options();
 		options.inJustDecodeBounds = true;

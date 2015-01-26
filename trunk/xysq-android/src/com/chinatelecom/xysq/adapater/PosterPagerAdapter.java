@@ -2,9 +2,12 @@ package com.chinatelecom.xysq.adapater;
 
 import java.util.List;
 
+import android.graphics.Point;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -50,7 +53,7 @@ public class PosterPagerAdapter extends PagerAdapter {
 		imageView.setLayoutParams(params);
 		imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 		final Poster poster = posterList.get(position);
-		ImageRequest.requestImage(imageView, poster.getImagePath());
+		ImageRequest.requestImage(imageView, poster.getImagePath(),720,320);
 		imageView.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {

@@ -2,6 +2,7 @@ package com.chinatelecom.xysq.http;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -40,14 +41,30 @@ public class ImageRequest {
 		File tempFile = new File(tempFolderPath + "/"
 				+ UUID.randomUUID().toString());
 		FileOutputStream fos = null;
+		InputStream is = null;
+		byte[] buffer= new byte[2048];
 		try {
 			fos = new FileOutputStream(tempFile);
-			entity.writeTo(fos);
+			is = entity.getContent();
+			int read = -1;
+			while((read=is.read(buffer))!=-1){
+				fos.write(buffer,0,read);
+			}
 		} catch (Exception e) {
 			Log.e("XYSQ", "", e);
 		} finally {
 			try {
-				fos.close();
+				if(fos!=null){
+					fos.close();
+				}
+				
+			} catch (Exception e) {
+				Log.e("XYSQ", "", e);
+			}
+			try {
+				if(is!=null){
+					is.close();
+				}
 			} catch (Exception e) {
 				Log.e("XYSQ", "", e);
 			}
@@ -55,10 +72,10 @@ public class ImageRequest {
 		return tempFile.getPath();
 	}
 
-	public static void requestImage(final ImageView imageView, final String url) {
-		String filePath = cahcedImageFiles.get(url);
-		if (filePath != null) {
-			imageView.setImageBitmap(BitmapFactory.decodeFile(filePath));
+	public static void requestImage(final ImageView imageView, final String url,final int width,final int height) {
+		String imagePath = cahcedImageFiles.get(url);
+		if (imagePath != null) {
+			imageView.setImageBitmap(PhotoRequest.getImageThumbnail(imagePath, width, height));
 		} else {
 			AsyncTask<String, Void, String> task = new AsyncTask<String, Void, String>() {
 				@Override
@@ -84,10 +101,9 @@ public class ImageRequest {
 				}
 
 				@Override
-				protected void onPostExecute(String filePath) {
-					if (filePath != null) {
-						imageView.setImageBitmap(BitmapFactory
-								.decodeFile(filePath));
+				protected void onPostExecute(String imagePath) {
+					if (imagePath != null) {
+						imageView.setImageBitmap(PhotoRequest.getImageThumbnail(imagePath, width, height));
 					}
 				}
 			};
