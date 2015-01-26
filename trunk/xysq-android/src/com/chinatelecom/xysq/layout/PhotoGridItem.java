@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.chinatelecom.xysq.R;
+import com.chinatelecom.xysq.http.ImageRequest;
 
 public class PhotoGridItem extends RelativeLayout implements Checkable {
 	private Context mContext;
@@ -58,9 +59,15 @@ public class PhotoGridItem extends RelativeLayout implements Checkable {
 		}
 	}
 	
-	public void SetBitmap(Bitmap bit){
+	public void setBitmap(Bitmap bit){
 		if(mImageView != null){
 			mImageView.setImageBitmap(bit);
+		}
+	}
+	
+	public void setImageUrl(String imageUrl){
+		if(mImageView != null){
+			ImageRequest.requestImage(mImageView, imageUrl);
 		}
 	}
 	

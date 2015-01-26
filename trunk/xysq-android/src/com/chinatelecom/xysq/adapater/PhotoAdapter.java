@@ -15,6 +15,7 @@ public class PhotoAdapter extends BaseAdapter {
 	private Context context;
 	private List<PhotoItem> bitList;
 	private boolean hideSelectedFlag;
+	private List<String> imageList;
 
 	public PhotoAdapter(Context context, List<PhotoItem> bitList,
 			boolean hideSelectedFlag) {
@@ -22,15 +23,30 @@ public class PhotoAdapter extends BaseAdapter {
 		this.bitList = bitList;
 		this.hideSelectedFlag = hideSelectedFlag;
 	}
+	
+	public PhotoAdapter(Context context, List<String> imageList) {
+		this.context = context;
+		this.imageList = imageList;
+		this.hideSelectedFlag = true;
+	}
 
 	@Override
 	public int getCount() {
-		return bitList.size();
+		if(bitList!=null){
+			return bitList.size();
+		}else{
+			return imageList.size();
+		}
 	}
 
 	@Override
 	public Object getItem(int position) {
-		return bitList.get(position);
+		if(bitList!=null){
+			return bitList.get(position);
+		}else{
+			return imageList.get(position);
+		}
+		
 	}
 
 	@Override
@@ -48,14 +64,18 @@ public class PhotoAdapter extends BaseAdapter {
 		} else {
 			item = (PhotoGridItem) convertView;
 		}
-		item.SetBitmap(bitList.get(position).getBitmap());
+		if(bitList!=null){
+			item.setBitmap(bitList.get(position).getBitmap());
+		}else{
+			item.setImageUrl(imageList.get(position));
+		}
+		
 		if (this.hideSelectedFlag) {
 			item.hideSelectedFlag();
 		} else {
 			boolean flag = bitList.get(position).isSelect();
 			item.setChecked(flag);
 		}
-
 		return item;
 	}
 }
