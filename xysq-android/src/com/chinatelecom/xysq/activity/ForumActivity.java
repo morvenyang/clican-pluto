@@ -101,6 +101,14 @@ public class ForumActivity extends BaseActivity implements OnRefreshListener2<Li
 	}
 	
 	@Override
+	protected void onResume() {
+		page=1;
+		forumTopicList.clear();
+		ForumRequest.queryTopic(this, communityId, page, 20);
+		super.onResume();
+	}
+	
+	@Override
 	public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
 		String label = DateUtils.formatDateTime(getApplicationContext(),
 				System.currentTimeMillis(), DateUtils.FORMAT_SHOW_TIME
