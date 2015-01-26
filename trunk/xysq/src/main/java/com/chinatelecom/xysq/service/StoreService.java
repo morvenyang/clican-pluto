@@ -18,4 +18,6 @@ public interface StoreService {
 
 	public Store findStoreById(Long id);
 	
+	public String queryStore(Long storeId);
+	
 }

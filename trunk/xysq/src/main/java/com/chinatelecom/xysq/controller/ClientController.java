@@ -4,9 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -32,6 +30,7 @@ import com.chinatelecom.xysq.model.Image;
 import com.chinatelecom.xysq.service.AreaService;
 import com.chinatelecom.xysq.service.ForumService;
 import com.chinatelecom.xysq.service.IndexService;
+import com.chinatelecom.xysq.service.StoreService;
 import com.chinatelecom.xysq.service.UserService;
 
 @Controller
@@ -48,6 +47,8 @@ public class ClientController {
 	private UserService userService;
 
 	private ForumService forumService;
+
+	private StoreService storeService;
 
 	public void setSpringProperty(SpringProperty springProperty) {
 		this.springProperty = springProperty;
@@ -67,6 +68,10 @@ public class ClientController {
 
 	public void setForumService(ForumService forumService) {
 		this.forumService = forumService;
+	}
+
+	public void setStoreService(StoreService storeService) {
+		this.storeService = storeService;
 	}
 
 	@RequestMapping("/image")
@@ -323,4 +328,22 @@ public class ClientController {
 		}
 	}
 
+	@RequestMapping("/queryStroe")
+	public void queryStroe(
+			@RequestParam(value = "storeId", required = true) Long storeId,
+
+			HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		try {
+			String result = this.storeService.queryStore(storeId);
+			try {
+				resp.setContentType("application/json");
+				resp.getOutputStream().write(result.getBytes("utf-8"));
+			} catch (Exception e) {
+				log.error("", e);
+			}
+		} catch (Exception e) {
+			log.error("", e);
+		}
+	}
 }
