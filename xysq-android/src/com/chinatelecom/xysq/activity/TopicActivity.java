@@ -7,19 +7,22 @@ import java.util.Locale;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.chinatelecom.xysq.R;
 import com.chinatelecom.xysq.adapater.ForumPostListAdapter;
+import com.chinatelecom.xysq.adapater.PhotoAdapter;
 import com.chinatelecom.xysq.bean.ForumPost;
 import com.chinatelecom.xysq.bean.ForumTopic;
 import com.chinatelecom.xysq.http.ForumRequest;
@@ -43,7 +46,9 @@ public class TopicActivity extends BaseActivity implements
 	private int page = 1;
 
 	private ForumTopic topic;
-	
+
+	private GridView photosGridView;
+
 	@Override
 	protected String getPageName() {
 		return "帖子";
@@ -74,12 +79,22 @@ public class TopicActivity extends BaseActivity implements
 
 		TextView contentTextView = (TextView) findViewById(R.id.topic_topic_contentTextView);
 		contentTextView.setText(topic.getContent());
+		photosGridView = (GridView) findViewById(R.id.topic_photos_gridView);
+		if(this.topic.getImages()==null||this.topic.getImages().size()==0){
+			photosGridView.setVisibility(View.INVISIBLE);
+		}else{
+			photosGridView.setSelector(new ColorDrawable(Color.TRANSPARENT));
+			PhotoAdapter photoAdapter = new PhotoAdapter(this,
+					this.topic.getImages());
+			photosGridView.setAdapter(photoAdapter);
+		}
 
 		Button replyButton = (Button) findViewById(R.id.topic_replyButton);
 		replyButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(TopicActivity.this,TopicAndPostActivity.class);
+				Intent intent = new Intent(TopicActivity.this,
+						TopicAndPostActivity.class);
 				intent.putExtra("topic", false);
 				intent.putExtra("replyTopic", true);
 				intent.putExtra("topicId", topic.getId());
