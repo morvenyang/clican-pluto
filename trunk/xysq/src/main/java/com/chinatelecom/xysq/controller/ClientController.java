@@ -328,8 +328,8 @@ public class ClientController {
 		}
 	}
 
-	@RequestMapping("/queryStroe")
-	public void queryStroe(
+	@RequestMapping("/queryStore")
+	public void queryStore(
 			@RequestParam(value = "storeId", required = true) Long storeId,
 
 			HttpServletRequest req, HttpServletResponse resp)

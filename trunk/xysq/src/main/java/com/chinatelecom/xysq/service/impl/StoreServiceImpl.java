@@ -40,6 +40,10 @@ public class StoreServiceImpl implements StoreService {
 		return storeDao.findStores(ownerId, keyword);
 	}
 
+	public void setSpringProperty(SpringProperty springProperty) {
+		this.springProperty = springProperty;
+	}
+
 	@Override
 	public void saveStore(Store store) {
 		Set<Long> notInImageIds = new HashSet<Long>();
@@ -50,10 +54,14 @@ public class StoreServiceImpl implements StoreService {
 		}
 		if (store.getId() != null) {
 			this.storeDao.deleteStoreImage(store, notInImageIds);
+		}else{
+			store.setCreateTime(new Date());
 		}
 		store.setShortPinyin(PinyinHelper.getShortPinyin(store.getName()));
 		store.setPinyin(PinyinHelper.convertToPinyinString(store.getName(), ""));
+		store.setModifyTime(new Date());
 		this.storeDao.saveStore(store);
+		
 		for (Image image : store.getImages()) {
 			image.setStore(store);
 			this.storeDao.saveImage(image);
