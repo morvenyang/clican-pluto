@@ -75,7 +75,7 @@ public class TopicAndPostActivity extends BaseActivity implements HttpCallback {
 		});
 		this.topic = intent.getBooleanExtra("topic", true);
 		this.topicId = intent.getLongExtra("topicId", -1);
-		this.replyContent = intent.getStringExtra("replayContent");
+		this.replyContent = intent.getStringExtra("replyContent");
 		Button backButton = (Button) findViewById(R.id.topicAndPost_backButton);
 		backButton.setOnClickListener(new OnClickListener() {
 			@Override

@@ -96,7 +96,6 @@ public class TopicActivity extends BaseActivity implements
 				Intent intent = new Intent(TopicActivity.this,
 						TopicAndPostActivity.class);
 				intent.putExtra("topic", false);
-				intent.putExtra("replyTopic", true);
 				intent.putExtra("topicId", topic.getId());
 				TopicActivity.this.startActivity(intent);
 			}
@@ -120,7 +119,7 @@ public class TopicActivity extends BaseActivity implements
 		adapter = new ForumPostListAdapter(
 				forumPostList,
 				this,
-				(LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE));
+				(LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE),topic);
 
 		/**
 		 * Add Sound Event Listener
@@ -133,7 +132,6 @@ public class TopicActivity extends BaseActivity implements
 		mPullRefreshListView.setOnPullEventListener(soundListener);
 
 		actualListView.setAdapter(adapter);
-		ForumRequest.queryPost(this, this.topic.getId(), page, 20);
 	}
 
 	@Override

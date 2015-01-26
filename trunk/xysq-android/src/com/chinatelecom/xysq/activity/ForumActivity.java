@@ -97,7 +97,6 @@ public class ForumActivity extends BaseActivity implements OnRefreshListener2<Li
 		mPullRefreshListView.setOnPullEventListener(soundListener);
 
 		actualListView.setAdapter(adapter);
-		ForumRequest.queryTopic(this, communityId, page, 20);
 	}
 	
 	@Override
