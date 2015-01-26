@@ -27,7 +27,7 @@ public class PhotoAdapter extends BaseAdapter {
 	public PhotoAdapter(Context context, List<String> imageList) {
 		this.context = context;
 		this.imageList = imageList;
-		this.hideSelectedFlag = true;
+		this.hideSelectedFlag = false;
 	}
 
 	@Override
@@ -73,8 +73,10 @@ public class PhotoAdapter extends BaseAdapter {
 		if (this.hideSelectedFlag) {
 			item.hideSelectedFlag();
 		} else {
-			boolean flag = bitList.get(position).isSelect();
-			item.setChecked(flag);
+			if(bitList!=null){
+				boolean flag = bitList.get(position).isSelect();
+				item.setChecked(flag);
+			}
 		}
 		return item;
 	}
