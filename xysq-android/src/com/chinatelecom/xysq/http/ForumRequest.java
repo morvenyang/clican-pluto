@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.StatusLine;
@@ -255,8 +256,11 @@ public class ForumRequest {
 							.create();
 					entityBuilder.addTextBody("content", content,
 							ContentType.create("plain/text", "utf-8"));
-					entityBuilder.addTextBody("replyContent", replyContent,
-							ContentType.create("plain/text", "utf-8"));
+					if(StringUtils.isNotEmpty(replyContent)){
+						entityBuilder.addTextBody("replyContent", replyContent,
+								ContentType.create("plain/text", "utf-8"));
+					}
+					
 					entityBuilder.addTextBody("topicId", topicId.toString());
 					for (int i = 0; i < photoItemList.size(); i++) {
 						PhotoItem pi = photoItemList.get(i);

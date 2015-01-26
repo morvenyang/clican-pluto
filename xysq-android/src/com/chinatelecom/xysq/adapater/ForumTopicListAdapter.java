@@ -86,15 +86,6 @@ public class ForumTopicListAdapter extends BaseAdapter {
 			photosGridView.setAdapter(photoAdapter);
 			photosGridView.setEnabled(false);
 			photosGridView.setClickable(false);
-			photosGridView.setOnItemClickListener(new OnItemClickListener() {
-				@Override
-				public void onItemClick(AdapterView<?> parent, View view,
-						int position, long id) {
-					Intent intent = new Intent(activity, TopicActivity.class);
-					intent.putExtra("topic", ft);
-					activity.startActivity(intent);
-				}
-			});
 		}
 		convertView.setOnClickListener(new OnClickListener() {
 			@Override
