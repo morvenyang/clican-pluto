@@ -2,12 +2,9 @@ package com.chinatelecom.xysq.adapater;
 
 import java.util.List;
 
-import android.graphics.Point;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -15,9 +12,16 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import com.chinatelecom.xysq.activity.AnnouncementActivity;
+import com.chinatelecom.xysq.activity.BroadbandRemindActivity;
+import com.chinatelecom.xysq.activity.ForumActivity;
 import com.chinatelecom.xysq.activity.IndexActivity;
+import com.chinatelecom.xysq.activity.NoticeActivity;
 import com.chinatelecom.xysq.bean.Poster;
 import com.chinatelecom.xysq.http.ImageRequest;
+import com.chinatelecom.xysq.listener.HtmlLinkOnClickListener;
+import com.chinatelecom.xysq.listener.IndexOnClickListener;
+import com.chinatelecom.xysq.util.AlertUtil;
 
 public class PosterPagerAdapter extends PagerAdapter {
 
@@ -53,13 +57,40 @@ public class PosterPagerAdapter extends PagerAdapter {
 		imageView.setLayoutParams(params);
 		imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 		final Poster poster = posterList.get(position);
-		ImageRequest.requestImage(imageView, poster.getImagePath(),720,320);
-		imageView.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Log.d("XYSQ", "click poster:"+poster.getId());
+		ImageRequest.requestImage(imageView, poster.getImagePath(), 720, 320);
+		if (poster.getType().equals("HTML5")) {
+			imageView.setOnClickListener(new HtmlLinkOnClickListener(poster
+					.getHtml5Link(), poster.getName(), activity, false));
+		} else if (poster.getType().equals("INNER_MODULE")) {
+			if (poster.getInnerModule().equals("ANNOUNCEMENT")) {
+				imageView.setOnClickListener(new IndexOnClickListener(activity,
+						AnnouncementActivity.class, false, true));
+			} else if (poster.getInnerModule().equals("NOTICE")) {
+				imageView.setOnClickListener(new IndexOnClickListener(activity,
+						NoticeActivity.class, false, true));
+			} else if (poster.getInnerModule().equals("BBS")) {
+				imageView.setOnClickListener(new IndexOnClickListener(activity,
+						ForumActivity.class, true, true));
+			} else if (poster.getInnerModule().equals("PARKING")) {
+				imageView.setOnClickListener(new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						AlertUtil.alert(activity, "开发中...");
+					}
+				});
+			} else if (poster.getInnerModule().equals("BROADBAND_REMIND")) {
+				imageView.setOnClickListener(new IndexOnClickListener(activity,
+						BroadbandRemindActivity.class, true, false));
 			}
-		});
+		} else if(poster.getType().equals("STORE_DETAIL")) {
+			imageView.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					Log.d("XYSQ", "click poster:" + poster.getId());
+
+				}
+			});
+		}
 		((ViewPager) container).addView(imageView);
 		return imageView;
 	}
