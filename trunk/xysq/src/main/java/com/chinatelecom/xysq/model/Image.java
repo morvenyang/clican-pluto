@@ -17,19 +17,21 @@ import org.hibernate.annotations.FetchMode;
 public class Image {
 
 	private Long id;
-	
+
 	private String name;
-	
+
 	private String path;
-	
+
+	private String thumbnailPath;
+
 	private int seq;
-	
+
 	private Store store;
-	
+
 	private ForumTopic forumTopic;
-	
+
 	private ForumPost forumPost;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "ID")
@@ -40,6 +42,7 @@ public class Image {
 	public void setId(Long id) {
 		this.id = id;
 	}
+
 	@Column
 	public String getName() {
 		return name;
@@ -48,6 +51,7 @@ public class Image {
 	public void setName(String name) {
 		this.name = name;
 	}
+
 	@Column
 	public String getPath() {
 		return path;
@@ -56,6 +60,16 @@ public class Image {
 	public void setPath(String path) {
 		this.path = path;
 	}
+
+	@Column
+	public String getThumbnailPath() {
+		return thumbnailPath;
+	}
+
+	public void setThumbnailPath(String thumbnailPath) {
+		this.thumbnailPath = thumbnailPath;
+	}
+
 	@Column
 	public int getSeq() {
 		return seq;
@@ -97,5 +111,5 @@ public class Image {
 	public void setForumPost(ForumPost forumPost) {
 		this.forumPost = forumPost;
 	}
-	
+
 }
