@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.chinatelecom.xysq.R;
@@ -37,7 +38,7 @@ public class ForumActivity extends BaseActivity implements OnRefreshListener2<Li
 	private List<ForumTopic> forumTopicList = new ArrayList<ForumTopic>();
 
 	private int page = 1;
-
+	
 	@Override
 	protected String getPageName() {
 		return "论坛";

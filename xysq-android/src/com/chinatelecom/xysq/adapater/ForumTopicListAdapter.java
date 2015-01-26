@@ -4,13 +4,16 @@ import java.util.Date;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.chinatelecom.xysq.R;
+import com.chinatelecom.xysq.activity.TopicActivity;
 import com.chinatelecom.xysq.bean.ForumTopic;
 import com.chinatelecom.xysq.util.DateUtil;
 
@@ -50,7 +53,7 @@ public class ForumTopicListAdapter extends BaseAdapter {
 		if (convertView == null) {
 			convertView = inflater.inflate(R.layout.forum_row, null);
 		}
-		ForumTopic ft = forumTopicList.get(position);
+		final ForumTopic ft = forumTopicList.get(position);
 		TextView titleTextView = (TextView) convertView
 				.findViewById(R.id.forum_row_titleTextView);
 		titleTextView.setText(ft.getTitle());
@@ -65,6 +68,15 @@ public class ForumTopicListAdapter extends BaseAdapter {
 		TextView postNumTextView = (TextView) convertView
 				.findViewById(R.id.forum_row_postNumTextView);
 		postNumTextView.setText(ft.getPostNum()+"回复");
+		convertView.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(activity,TopicActivity.class);
+				intent.putExtra("topic", ft);
+				activity.startActivity(intent);
+			}
+			
+		});
 		return convertView;
 	}
 
