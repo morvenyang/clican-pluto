@@ -79,7 +79,7 @@ public class ForumPostListAdapter extends BaseAdapter {
 				//TODO
 			}
 		});
-		return null;
+		return convertView;
 	}
 
 }

@@ -102,7 +102,7 @@ public class TopicAndPostActivity extends BaseActivity implements HttpCallback {
 			this.titleEditText.setVisibility(View.VISIBLE);
 		} else {
 			this.headTextView.setText("回复");
-			this.titleEditText.setVisibility(View.INVISIBLE);
+			this.titleEditText.setVisibility(View.GONE);
 		}
 		this.contentEditText = (EditText) this
 				.findViewById(R.id.topicAndPost_contentEditText);
