@@ -40,21 +40,40 @@
         android:text="Medium Text"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <TextView
-        android:id="@+id/post_row_createTimeTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/post_row_contentTextView"
-        android:layout_below="@+id/post_row_contentTextView"
-        android:text="Medium Text"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
     <Button
         android:id="@+id/post_row_replyButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/post_row_contentTextView"
+        android:layout_below="@+id/post_row_replyContentTextView"
         android:text="回复" />
+
+    <TextView
+        android:id="@+id/post_row_createTimeTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/post_row_replyButton"
+        android:layout_alignBottom="@+id/post_row_replyButton"
+        android:layout_alignLeft="@id/post_row_contentTextView"
+        android:text="Medium Text"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <ImageView
+        android:id="@+id/post_row_replyContentFlagImageView"
+        android:layout_width="3dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/post_row_replyContentTextView"
+        android:layout_alignTop="@+id/post_row_replyContentTextView"
+        android:layout_toRightOf="@+id/post_row_profileImageView"
+        android:background="@color/dividerColor" />
+
+    <TextView
+        android:id="@+id/post_row_replyContentTextView"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/post_row_contentTextView"
+        android:layout_toRightOf="@+id/post_row_replyContentFlagImageView"
+        android:text="Medium Text"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
 </RelativeLayout>
