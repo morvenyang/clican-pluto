@@ -1,15 +1,21 @@
 package com.chinatelecom.xysq.adapater;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
+import android.widget.GridView;
 import android.widget.TextView;
 
 import com.chinatelecom.xysq.R;
@@ -62,20 +68,42 @@ public class ForumTopicListAdapter extends BaseAdapter {
 		nickNameTextView.setText(ft.getSubmitter().getNickName());
 		TextView timeTextView = (TextView) convertView
 				.findViewById(R.id.forum_row_timeTextView);
-		Date modifyTime=ft.getModifyTime();
+		Date modifyTime = ft.getModifyTime();
 		timeTextView.setText(DateUtil.convertDateToBBSTime(modifyTime));
-		
+
 		TextView postNumTextView = (TextView) convertView
 				.findViewById(R.id.forum_row_postNumTextView);
-		postNumTextView.setText(ft.getPostNum()+"回复");
-		convertView.setOnClickListener(new OnClickListener(){
+		postNumTextView.setText(ft.getPostNum() + "回复");
+
+		GridView photosGridView = (GridView) convertView
+				.findViewById(R.id.forum_row_photos_gridView);
+		if (ft.getImages() == null || ft.getImages().size() == 0) {
+			photosGridView.setVisibility(View.INVISIBLE);
+		} else {
+			photosGridView.setSelector(new ColorDrawable(Color.TRANSPARENT));
+			PhotoAdapter photoAdapter = new PhotoAdapter(activity,
+					ft.getImages());
+			photosGridView.setAdapter(photoAdapter);
+			photosGridView.setEnabled(false);
+			photosGridView.setClickable(false);
+			photosGridView.setOnItemClickListener(new OnItemClickListener() {
+				@Override
+				public void onItemClick(AdapterView<?> parent, View view,
+						int position, long id) {
+					Intent intent = new Intent(activity, TopicActivity.class);
+					intent.putExtra("topic", ft);
+					activity.startActivity(intent);
+				}
+			});
+		}
+		convertView.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(activity,TopicActivity.class);
+				Intent intent = new Intent(activity, TopicActivity.class);
 				intent.putExtra("topic", ft);
 				activity.startActivity(intent);
 			}
-			
+
 		});
 		return convertView;
 	}

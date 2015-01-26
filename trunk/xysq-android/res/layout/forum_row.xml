@@ -59,5 +59,11 @@
             android:textSize="12sp" />
 
     </RelativeLayout>
+     <GridView 
+        android:id="@+id/forum_row_photos_gridView"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:numColumns="4" >
+    </GridView>
 
 </LinearLayout>

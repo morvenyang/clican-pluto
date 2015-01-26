@@ -2,6 +2,8 @@ package com.chinatelecom.xysq.adapater;
 
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
+
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,7 +69,9 @@ public class PhotoAdapter extends BaseAdapter {
 		if(bitList!=null){
 			item.setBitmap(bitList.get(position).getBitmap());
 		}else{
-			item.setImageUrl(imageList.get(position));
+			if(!StringUtils.isEmpty(imageList.get(position))){
+				item.setImageUrl(imageList.get(position));
+			}
 		}
 		
 		if (this.hideSelectedFlag) {
