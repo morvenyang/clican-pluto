@@ -1,12 +1,12 @@
 package com.chinatelecom.xysq.listener;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-import com.chinatelecom.xysq.activity.IndexActivity;
 import com.chinatelecom.xysq.application.XysqApplication;
 import com.chinatelecom.xysq.bean.User;
 import com.chinatelecom.xysq.other.Constants;
@@ -16,46 +16,42 @@ import com.chinatelecom.xysq.util.KeyValueUtils;
 public class IndexOnClickListener implements OnClickListener {
 
 	private Class<?> activityClass;
-	private IndexActivity indexActivity;
+	private Activity activity;
 	private boolean requireLogin;
 
 	private boolean requireCommunity;
 
-	public IndexOnClickListener(IndexActivity indexActivity,
-			Class<?> activityClass, boolean requireLogin,
-			boolean requireCommunity) {
+	public IndexOnClickListener(Activity activity, Class<?> activityClass,
+			boolean requireLogin, boolean requireCommunity) {
 		this.activityClass = activityClass;
-		this.indexActivity = indexActivity;
+		this.activity = activity;
 		this.requireLogin = requireLogin;
 		this.requireCommunity = requireCommunity;
 	}
 
 	@Override
 	public void onClick(View v) {
-		Intent intent = new Intent(indexActivity, activityClass);
-		XysqApplication application = (XysqApplication) indexActivity
+		Intent intent = new Intent(activity, activityClass);
+		XysqApplication application = (XysqApplication) activity
 				.getApplication();
 		User user = application.getUser();
 		if (requireLogin) {
 			if (user == null) {
-				AlertUtil.alert(indexActivity, "请先登录");
+				AlertUtil.alert(activity, "请先登录");
 				return;
 			}
 		}
-		Long communityId = KeyValueUtils.getLongValue(indexActivity,
+		Long communityId = KeyValueUtils.getLongValue(activity,
 				Constants.COMMUNITY_ID);
 		if (requireCommunity) {
 			if (communityId == null) {
-				AlertUtil.alert(indexActivity, "请先选择小区");
+				AlertUtil.alert(activity, "请先选择小区");
 				return;
 			} else {
 				intent.putExtra("communityId", communityId);
 			}
 		}
-
-		Log.d("XYSQ", ((Button) v).getText() + " is clicked, start "
-				+ activityClass.getSimpleName());
-		indexActivity.startActivity(intent);
+		activity.startActivity(intent);
 
 	}
 
