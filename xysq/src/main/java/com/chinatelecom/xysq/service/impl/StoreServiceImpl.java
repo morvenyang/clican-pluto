@@ -1,5 +1,6 @@
 package com.chinatelecom.xysq.service.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -9,6 +10,7 @@ import net.sf.json.JSONObject;
 import net.sf.json.JsonConfig;
 
 import com.chinatelecom.xysq.bean.PageList;
+import com.chinatelecom.xysq.bean.SpringProperty;
 import com.chinatelecom.xysq.dao.StoreDao;
 import com.chinatelecom.xysq.json.StoreJson;
 import com.chinatelecom.xysq.model.Image;
@@ -21,6 +23,8 @@ import com.github.stuxuhai.jpinyin.PinyinHelper;
 public class StoreServiceImpl implements StoreService {
 
 	private StoreDao storeDao;
+	
+	private SpringProperty springProperty;
 
 	public void setStoreDao(StoreDao storeDao) {
 		this.storeDao = storeDao;
@@ -79,6 +83,14 @@ public class StoreServiceImpl implements StoreService {
 		storeJson.setPinyin(store.getPinyin());
 		storeJson.setShortPinyin(store.getShortPinyin());
 		storeJson.setTel(store.getTel());
+		storeJson.setImages(new ArrayList<String>());
+		for (Image image : store.getImages()) {
+			storeJson.getImages().add(
+					springProperty.getServerUrl()
+							+ springProperty.getContextPath()
+							+ "/image.do?imagePath=" + image.getPath());
+		}
+		
 		JsonConfig jsonConfig = new JsonConfig();
 		jsonConfig.registerJsonValueProcessor(Date.class,
 				new DateJsonValueProcessor("yyyy-MM-dd HH:mm:ss"));
