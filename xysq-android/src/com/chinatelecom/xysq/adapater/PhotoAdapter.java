@@ -27,7 +27,7 @@ public class PhotoAdapter extends BaseAdapter {
 	public PhotoAdapter(Context context, List<String> imageList) {
 		this.context = context;
 		this.imageList = imageList;
-		this.hideSelectedFlag = false;
+		this.hideSelectedFlag = true;
 	}
 
 	@Override

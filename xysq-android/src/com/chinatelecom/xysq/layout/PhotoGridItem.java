@@ -3,6 +3,7 @@ package com.chinatelecom.xysq.layout;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Checkable;
@@ -10,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.chinatelecom.xysq.R;
+import com.chinatelecom.xysq.bean.PhotoItem;
 import com.chinatelecom.xysq.http.ImageRequest;
 
 public class PhotoGridItem extends RelativeLayout implements Checkable {
@@ -67,7 +69,11 @@ public class PhotoGridItem extends RelativeLayout implements Checkable {
 	
 	public void setImageUrl(String imageUrl){
 		if(mImageView != null){
-			ImageRequest.requestImage(mImageView, imageUrl);
+			DisplayMetrics dm =mContext.getResources().getDisplayMetrics();  
+	        int wScreen = dm.widthPixels;  
+	        
+			
+			ImageRequest.requestImage(mImageView, imageUrl,(wScreen-20)/4,(wScreen-20)/4);
 		}
 	}
 	
