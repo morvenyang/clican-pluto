@@ -45,7 +45,7 @@ public class ForumDaoImpl extends BaseDao implements ForumDao {
 					@Override
 					public Object doInHibernate(Session session)
 							throws HibernateException, SQLException {
-						String hsql = "from ForumPost where forumTopic.id = :topicId order by createTime desc";
+						String hsql = "from ForumPost where forumTopic.id = :topicId order by createTime";
 						Query query = session.createQuery(hsql);
 						query.setParameter("topicId", topicId);
 						query.setMaxResults(pageSize);
