@@ -2,7 +2,6 @@ package com.chinatelecom.xysq.activity;
 
 import org.apache.commons.lang.StringUtils;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,11 +20,11 @@ import com.chinatelecom.xysq.util.AlertUtil;
 public class LoginActivity extends BaseActivity implements HttpCallback {
 
 	private EditText msisdnEditText;
-	
+
 	private EditText passwordEditText;
-	
-	
-	
+
+	private Button forgetPassword;
+
 	@Override
 	protected String getPageName() {
 		return "登录";
@@ -34,8 +33,9 @@ public class LoginActivity extends BaseActivity implements HttpCallback {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.login);
-		msisdnEditText = (EditText)findViewById(R.id.login_msisdnEditText);
-		passwordEditText = (EditText)findViewById(R.id.login_passwordEditText);
+		msisdnEditText = (EditText) findViewById(R.id.login_msisdnEditText);
+		passwordEditText = (EditText) findViewById(R.id.login_passwordEditText);
+		forgetPassword = (Button) findViewById(R.id.login_forgetPasswordButton);
 		Button backButton = (Button) findViewById(R.id.login_backButton);
 		backButton.setOnClickListener(new OnClickListener() {
 			@Override
@@ -43,18 +43,24 @@ public class LoginActivity extends BaseActivity implements HttpCallback {
 				LoginActivity.this.finish();
 			}
 		});
-
+		forgetPassword.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(LoginActivity.this,ForgetPasswordActivity.class);
+				startActivity(intent);
+			}
+		});
 		Button submitButton = (Button) findViewById(R.id.login_submitButton);
 		submitButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				String msisdn = msisdnEditText.getText().toString();
 				String password = passwordEditText.getText().toString();
-				if(StringUtils.isEmpty(msisdn)){
+				if (StringUtils.isEmpty(msisdn)) {
 					AlertUtil.alert(LoginActivity.this, "手机号不能为空");
 					return;
 				}
-				if(StringUtils.isEmpty(password)){
+				if (StringUtils.isEmpty(password)) {
 					AlertUtil.alert(LoginActivity.this, "密码不能为空");
 					return;
 				}
@@ -76,7 +82,7 @@ public class LoginActivity extends BaseActivity implements HttpCallback {
 
 	@Override
 	public void success(String url, Object data) {
-		User user = (User)data;
+		User user = (User) data;
 		XysqApplication application = (XysqApplication) getApplication();
 		application.setUser(user);
 		this.finish();
