@@ -24,7 +24,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.chinatelecom.xysq.bean.SpringProperty;
 import com.chinatelecom.xysq.enumeration.NoticeCategory;
-import com.chinatelecom.xysq.json.LoginJson;
+import com.chinatelecom.xysq.json.ProfileJson;
 import com.chinatelecom.xysq.json.RegisterJson;
 import com.chinatelecom.xysq.model.Image;
 import com.chinatelecom.xysq.service.AreaService;
@@ -178,7 +178,7 @@ public class ClientController {
 			HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		try {
-			LoginJson result = userService.login(userName, password);
+			ProfileJson result = userService.login(userName, password);
 
 			if (result.isSuccess()) {
 				req.getSession().setAttribute("USER_ID",
@@ -192,7 +192,7 @@ public class ClientController {
 			log.error("", e);
 		}
 	}
-
+	
 	@RequestMapping("/register")
 	public void register(@RequestParam(value = "nickName") String nickName,
 			@RequestParam(value = "password") String password,
@@ -201,13 +201,31 @@ public class ClientController {
 			HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		try {
-			RegisterJson result = userService.register(nickName, password,
+			ProfileJson result = userService.register(nickName, password,
 					msisdn, verifyCode);
 			if (result.isSuccess()) {
 				req.getSession().setAttribute("USER_ID",
 						result.getUser().getId());
 				result.getUser().setJsessionid(req.getSession().getId());
 			}
+			resp.setContentType("application/json");
+			resp.getOutputStream().write(
+					JSONObject.fromObject(result).toString().getBytes("utf-8"));
+		} catch (Exception e) {
+			log.error("", e);
+		}
+	}
+	
+	@RequestMapping("/updateProfile")
+	public void updateProfile(@RequestParam(value = "nickName") String nickName,
+			@RequestParam(value = "address") String address,
+			@RequestParam(value = "carNumber") String carNumber,
+			@RequestParam(value = "userId") Long userId,
+			HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		try {
+			ProfileJson result = userService.updateProfile(userId,nickName, address,
+					carNumber);
 			resp.setContentType("application/json");
 			resp.getOutputStream().write(
 					JSONObject.fromObject(result).toString().getBytes("utf-8"));

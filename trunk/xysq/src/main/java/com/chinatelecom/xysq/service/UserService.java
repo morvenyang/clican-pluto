@@ -2,7 +2,7 @@ package com.chinatelecom.xysq.service;
 
 import java.util.List;
 
-import com.chinatelecom.xysq.json.LoginJson;
+import com.chinatelecom.xysq.json.ProfileJson;
 import com.chinatelecom.xysq.json.RegisterJson;
 import com.chinatelecom.xysq.model.User;
 
@@ -20,7 +20,9 @@ public interface UserService {
 	
 	public List<User> findAreaAdmin(final String keyword);
 	
-	public LoginJson login(String userName,String password);
+	public ProfileJson login(String userName,String password);
 	
-	public RegisterJson register(String nickName,String password,String msisdn,String verifyCode);
+	public ProfileJson register(String nickName,String password,String msisdn,String verifyCode);
+	
+	public ProfileJson updateProfile(Long userId,String nickName,String address,String carNumber);
 }
