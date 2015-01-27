@@ -87,8 +87,7 @@
         <activity android:name="com.chinatelecom.xysq.activity.NoticeActivity" />
         <activity android:name="com.chinatelecom.xysq.activity.LoginActivity" />
         <activity
-            android:name="com.chinatelecom.xysq.activity.RegisterActivity"
-            android:noHistory="true" />
+            android:name="com.chinatelecom.xysq.activity.RegisterActivity" />
         <activity android:name="com.chinatelecom.xysq.activity.WebViewActivity" />
         <activity android:name="com.chinatelecom.xysq.activity.BroadbandRemindActivity" />
         <activity android:name="com.chinatelecom.xysq.activity.PhotoAlbumActivity" />
