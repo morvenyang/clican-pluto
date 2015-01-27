@@ -264,12 +264,20 @@ public class ClientController {
 			@RequestParam(value = "nickName") String nickName,
 			@RequestParam(value = "address") String address,
 			@RequestParam(value = "carNumber") String carNumber,
-			@RequestParam(value = "userId") Long userId,
 			HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		try {
-			ProfileJson result = userService.updateProfile(userId, nickName,
-					address, carNumber);
+			Long userId = (Long) req.getSession().getAttribute("USER_ID");
+			ProfileJson result = null;
+			if (userId == null) {
+				result = new ProfileJson();
+				result.setSuccess(false);
+				result.setMessage("请先登录");
+			} else {
+				result = userService.updateProfile(userId, nickName, address,
+						carNumber);
+			}
+
 			resp.setContentType("application/json");
 			resp.getOutputStream().write(
 					JSONObject.fromObject(result).toString().getBytes("utf-8"));
