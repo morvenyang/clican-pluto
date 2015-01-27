@@ -97,6 +97,7 @@
          <activity android:name="com.chinatelecom.xysq.activity.TopicAndPostActivity" android:windowSoftInputMode="adjustResize"/>
          <activity android:name="com.chinatelecom.xysq.activity.TopicActivity" />
           <activity android:name="com.chinatelecom.xysq.activity.StoreDetailActivity" />
+          <activity android:name="com.chinatelecom.xysq.activity.ProfileDetailActivity" />
          <!-- 用户反馈 -->
         <activity android:name="com.chinatelecom.xysq.activity.FeedbackActivity" />
         <activity
