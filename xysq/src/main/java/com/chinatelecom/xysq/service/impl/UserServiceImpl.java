@@ -276,4 +276,11 @@ public class UserServiceImpl implements UserService {
 		return result;
 	}
 
+	@Override
+	public void enableXqnc(Long userId) {
+		User user = this.userDao.findUserById(userId);
+		user.setApplyXqnc(true);
+		this.userDao.saveUser(user);
+	}
+
 }
