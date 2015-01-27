@@ -2,18 +2,22 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/backgroundColor"
     android:orientation="vertical" >
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="45dp"
         android:background="@color/headBackgroundColor" >
 
         <Button
             android:id="@+id/register_backButton"
+            style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="返回" />
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:background="@drawable/nav_back_icon" />
 
         <TextView
             android:id="@+id/register_titleTextView"
@@ -21,80 +25,179 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="注册"
-            android:textColor="@android:color/white" />
-
+            android:textColor="@android:color/white"
+            android:textSize="18sp" />
     </RelativeLayout>
 
     <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:background="@android:color/white" >
 
         <TableRow
-            android:id="@+id/tableRow1"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:minHeight="50dp" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="20dp"
+                android:text="手机号"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/labelTextColor"
+                android:textSize="15sp" />
 
             <EditText
                 android:id="@+id/register_msisdnEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="20dp"
+                android:layout_weight="1"
+                android:background="#00000000"
                 android:ems="10"
-                android:hint="手机号"
-                android:inputType="phone" />
+                android:hint="请输入手机号"
+                android:inputType="phone"
+                android:textSize="15sp" >
 
-            <Button
-                android:id="@+id/register_getVerifyCodeButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="获取验证码" />
+                <requestFocus />
+            </EditText>
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_weight="1"
+                android:background="#FF909090"
+                android:padding="2dip" />
         </TableRow>
 
         <TableRow
-            android:id="@+id/tableRow2"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:minHeight="50dp" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="20dp"
+                android:text="验证码"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/labelTextColor"
+                android:textSize="15sp" />
 
             <EditText
                 android:id="@+id/register_verifyCodeEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="20dp"
+                android:layout_weight="1"
+                android:background="#00000000"
                 android:ems="10"
-                android:hint="验证码" >
-
+                android:hint="验证码"
+                android:textSize="15sp" >
             </EditText>
 
+            <Button
+                android:id="@+id/register_getVerifyCodeButton"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="20dp"
+                android:background="#00000000"
+                android:text="获取验证码"
+                android:textColor="@color/lightGreen"
+                android:textSize="13sp" />
+
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_weight="1"
+                android:background="#FF909090"
+                android:padding="2dip" />
         </TableRow>
 
         <TableRow
-            android:id="@+id/tableRow3"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:minHeight="50dp" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="20dp"
+                android:text="密码"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/labelTextColor"
+                android:textSize="15sp" />
 
             <EditText
                 android:id="@+id/register_passwordEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="20dp"
+                android:layout_weight="1"
+                android:background="#00000000"
                 android:ems="10"
                 android:hint="密码"
-                android:inputType="textPassword" />
+                android:textSize="15sp" >
+            </EditText>
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_weight="1"
+                android:background="#FF909090"
+                android:padding="2dip" />
         </TableRow>
 
         <TableRow
-            android:id="@+id/tableRow4"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:minHeight="50dp" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="20dp"
+                android:text="昵称"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/labelTextColor"
+                android:textSize="15sp" />
 
             <EditText
                 android:id="@+id/register_nickNameEditText"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="20dp"
+                android:layout_weight="1"
+                android:background="#00000000"
                 android:ems="10"
-                android:hint="昵称" />
-
+                android:hint="昵称"
+                android:textSize="15sp" >
+            </EditText>
         </TableRow>
-
     </TableLayout>
 
     <RelativeLayout
@@ -105,7 +208,8 @@
             android:id="@+id/register_agreeCheckBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="CheckBox" />
+            android:scaleX="0.50"
+    		android:scaleY="0.50" />
 
         <Button
             android:id="@+id/register_agreeButton"
@@ -119,16 +223,27 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="41dp"
             android:background="#00000000"
-            android:text="已阅读并同意用户协议" />
+            android:linksClickable="false"
+            android:text="已阅读并同意用户协议"
+            android:textColor="@color/subRowTextColor"
+            android:textSize="12sp" />
 
     </RelativeLayout>
 
-    <Button
-        android:id="@+id/register_submitButton"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:text="提交" />
+        android:layout_height="match_parent" >
+        
+        <Button
+            android:id="@+id/register_submitButton"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/lightGreen"
+            android:text="提交"
+            android:textColor="@android:color/white"
+            android:textSize="22sp" />
+
+    </RelativeLayout>
 
 </LinearLayout>
