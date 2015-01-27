@@ -63,7 +63,7 @@ public class ProfileActivity extends BaseActivity {
 			nickNameTextView.setText(user.getNickName());
 			msisdnTextView.setText(user.getMsisdn());
 		} else {
-			nickNameTextView.setText("请先登录");
+			nickNameTextView.setText("登录/注册");
 			msisdnTextView.setText("");
 		}
 	}
