@@ -63,7 +63,7 @@ public class IndexActivity extends BaseActivity implements HttpCallback,
 
 		Button zpzsButton = (Button) findViewById(R.id.index_zpzsButton);
 		zpzsButton.setOnClickListener(new HtmlLinkOnClickListener(
-				"http://218.244.138.36/mobile/shop.do?channel=6","宅便宅送", this, true));
+				"http://218.244.138.36/mobile/shop.do?channel=6","宅配宅送", this, true));
 		Button xqncButton = (Button) findViewById(R.id.index_xqncButton);
 		xqncButton.setOnClickListener(new IndexOnClickListener(this,
 				XqncActivity.class, true, false));
