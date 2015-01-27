@@ -24,7 +24,7 @@
 
         </RelativeLayout>
 
-    <RelativeLayout
+    <RelativeLayout android:id="@+id/profile_layout"
         android:layout_width="match_parent"
         android:layout_height="105dp"
         android:background="@android:color/holo_green_light" >

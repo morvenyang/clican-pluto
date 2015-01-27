@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.chinatelecom.xysq.R;
@@ -22,6 +23,8 @@ public class ProfileActivity extends BaseActivity {
 	private TextView msisdnTextView;
 
 	private ListView listView;
+	
+	private RelativeLayout profileLayout;
 
 	@Override
 	protected String getPageName() {
@@ -37,17 +40,21 @@ public class ProfileActivity extends BaseActivity {
 		listView.setAdapter(new ProfileListAdapter(
 				this,
 				(LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE)));
-
-		nickNameTextView.setOnClickListener(new OnClickListener() {
+		profileLayout = (RelativeLayout)findViewById(R.id.profile_layout);
+		profileLayout.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(ProfileActivity.this,
-						LoginActivity.class);
-				Log.d("XYSQ", "start LoginActivity");
-				startActivity(intent);
+				User user = getUser();
+				if(user!=null){
+					
+				}else{
+					Intent intent = new Intent(ProfileActivity.this,
+							LoginActivity.class);
+					Log.d("XYSQ", "start LoginActivity");
+					startActivity(intent);
+				}
 			}
-
 		});
 		
 		

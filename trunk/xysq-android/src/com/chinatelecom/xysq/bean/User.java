@@ -10,6 +10,9 @@ public class User implements Parcelable{
 	private String msisdn;
 	
 	private String jsessionid;
+	
+	private String address;
+	private String carNumber;
 
 	public String getNickName() {
 		return nickName;
@@ -35,6 +38,22 @@ public class User implements Parcelable{
 		this.jsessionid = jsessionid;
 	}
 	
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getCarNumber() {
+		return carNumber;
+	}
+
+	public void setCarNumber(String carNumber) {
+		this.carNumber = carNumber;
+	}
+
 	public static final Parcelable.Creator<User> CREATOR = new Parcelable.Creator<User>() {
 		public User createFromParcel(Parcel in) {
 			return new User(in);
@@ -52,6 +71,8 @@ public class User implements Parcelable{
 		nickName=in.readString();
 		msisdn = in.readString();
 		jsessionid = in.readString();
+		address = in.readString();
+		carNumber = in.readString();
 	}
 	
 	@Override
@@ -65,6 +86,8 @@ public class User implements Parcelable{
 		dest.writeString(nickName);
 		dest.writeString(msisdn);
 		dest.writeString(jsessionid);
+		dest.writeString(address);
+		dest.writeString(carNumber);
 	}
 	
 }
