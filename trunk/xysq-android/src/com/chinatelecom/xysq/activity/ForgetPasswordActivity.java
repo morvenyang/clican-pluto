@@ -38,7 +38,7 @@ public class ForgetPasswordActivity extends BaseActivity implements HttpCallback
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.register);
+		setContentView(R.layout.forget_password);
 		msisdnEditText = (EditText) findViewById(R.id.forget_password_msisdnEditText);
 		verifyCodeEditText = (EditText) findViewById(R.id.forget_password_verifyCodeEditText);
 		passwordEditText = (EditText) findViewById(R.id.forget_password_passwordEditText);
