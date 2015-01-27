@@ -138,7 +138,67 @@ public class UserRequest {
 		};
 		task.execute(new String[] {});
 	}
-	
+	public static void forgetPassword(final String password,
+			final String msisdn, final String verifyCode,
+			final HttpCallback callback) {
+		AsyncTask<String, Void, TaskResult> task = new AsyncTask<String, Void, TaskResult>() {
+			@Override
+			protected TaskResult doInBackground(String... params) {
+				HttpClient httpclient = new DefaultHttpClient();
+				try {
+					String url = Constants.BASE_URL + "/forgetPassword.do?"
+							+ "password="
+							+ URLEncoder.encode(password, "utf-8") + "&msisdn="
+							+ msisdn + "&verifyCode=" + verifyCode;
+					Log.d("XYSQ", url);
+					HttpResponse response = httpclient
+							.execute(new HttpGet(url));
+					StatusLine statusLine = response.getStatusLine();
+					if (statusLine.getStatusCode() == HttpStatus.SC_OK) {
+						ByteArrayOutputStream out = new ByteArrayOutputStream();
+						response.getEntity().writeTo(out);
+						out.close();
+						String responseString = out.toString();
+						JSONObject jsonObj = new JSONObject(responseString);
+						if (jsonObj.getBoolean("success")) {
+							User user = new User();
+							user.setId(jsonObj.getJSONObject("user").getLong("id"));
+							user.setNickName(jsonObj.getJSONObject("user")
+									.getString("nickName"));
+							user.setMsisdn(jsonObj.getJSONObject("user")
+									.getString("msisdn"));
+							user.setJsessionid(jsonObj.getJSONObject("user")
+									.getString("jsessionid"));
+							user.setAddress(jsonObj.getJSONObject("user").getString("address"));
+							user.setCarNumber(jsonObj.getJSONObject("user").getString("carNumber"));
+							return new TaskResult(1,
+									jsonObj.getString("message"), user);
+						} else {
+							return new TaskResult(-1,
+									jsonObj.getString("message"), null);
+						}
+					} else {
+						response.getEntity().getContent().close();
+						return new TaskResult(-1, "更新密码失败", null);
+					}
+				} catch (Exception e) {
+					Log.e("XYSQ", "forgetPassword", e);
+				}
+				return new TaskResult(-1, "更新密码失败", null);
+			}
+
+			@Override
+			protected void onPostExecute(TaskResult result) {
+				if (result.getCode() == 1) {
+					callback.success("/forgetPassword.do", result.getResult());
+				} else {
+					callback.failure("/forgetPassword.do", result.getCode(),
+							result.getMessage());
+				}
+			}
+		};
+		task.execute(new String[] {});
+	}
 	
 	public static void updateProfile(final Long userId,final String nickName, final String address,
 			final String carNumber,

@@ -10,7 +10,6 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 
 import com.chinatelecom.xysq.R;
@@ -24,80 +23,68 @@ import com.chinatelecom.xysq.other.Constants;
 import com.chinatelecom.xysq.util.AlertUtil;
 import com.chinatelecom.xysq.util.Callback;
 
-public class RegisterActivity extends BaseActivity implements HttpCallback {
-
-	private CheckBox agreeCheckBox;
+public class ForgetPasswordActivity extends BaseActivity implements HttpCallback {
 	private EditText msisdnEditText;
 	private EditText verifyCodeEditText;
 	private EditText passwordEditText;
-	private EditText nickNameEditText;
 	private Button getVerifyCodeButton;
-	private Button registerAgreeButton;
 
 	private CountDownTimer cdt;
 
 	@Override
 	protected String getPageName() {
-		return "注册";
+		return "忘记密码";
 	}
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.register);
-		agreeCheckBox = (CheckBox) findViewById(R.id.register_agreeCheckBox);
-		msisdnEditText = (EditText) findViewById(R.id.register_msisdnEditText);
-		verifyCodeEditText = (EditText) findViewById(R.id.register_verifyCodeEditText);
-		passwordEditText = (EditText) findViewById(R.id.register_passwordEditText);
-		nickNameEditText  =  (EditText) findViewById(R.id.register_nickNameEditText);
-		Button backButton = (Button) findViewById(R.id.register_backButton);
+		msisdnEditText = (EditText) findViewById(R.id.forget_password_msisdnEditText);
+		verifyCodeEditText = (EditText) findViewById(R.id.forget_password_verifyCodeEditText);
+		passwordEditText = (EditText) findViewById(R.id.forget_password_passwordEditText);
+		Button backButton = (Button) findViewById(R.id.forget_password_backButton);
 		backButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				RegisterActivity.this.finish();
+				finish();
 			}
 		});
-		this.registerAgreeButton = (Button)findViewById(R.id.register_agreeButton);
-		this.registerAgreeButton.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG );
-		this.registerAgreeButton.setOnClickListener(new HtmlLinkOnClickListener(Constants.BASE_URL+"/android/agree.html","用户协议",this,false));
-		Button submitButton = (Button) findViewById(R.id.register_submitButton);
+		Button registerAgreeButton = (Button)findViewById(R.id.forget_password_agreeButton);
+		registerAgreeButton.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG );
+		registerAgreeButton.setOnClickListener(new HtmlLinkOnClickListener(Constants.BASE_URL+"/android/agree.html","用户协议",this,false));
+		Button submitButton = (Button) findViewById(R.id.forget_password_submitButton);
 		submitButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				if (agreeCheckBox.isChecked()) {
+				
 					String msisdn = msisdnEditText.getText().toString();
 					String verifyCode = verifyCodeEditText.getText().toString();
 					String password = passwordEditText.getText().toString();
-					String nickName = nickNameEditText.getText().toString();
 					if (StringUtils.isEmpty(msisdn)) {
-						AlertUtil.alert(RegisterActivity.this, "手机号不能为空");
+						AlertUtil.alert(ForgetPasswordActivity.this, "手机号不能为空");
 						return;
 					}
 					if (StringUtils.isEmpty(verifyCode)) {
-						AlertUtil.alert(RegisterActivity.this, "请输入6位验证码");
+						AlertUtil.alert(ForgetPasswordActivity.this, "请输入6位验证码");
 						return;
 					}
 					if (StringUtils.isEmpty(password)) {
-						AlertUtil.alert(RegisterActivity.this, "密码不能为空");
+						AlertUtil.alert(ForgetPasswordActivity.this, "密码不能为空");
 						return;
 					}
-					if (StringUtils.isEmpty(nickName)) {
-						AlertUtil.alert(RegisterActivity.this, "昵称不能为空");
-						return;
-					}
+					
 					if (cdt != null) {
 						cdt.cancel();
 					}
 					getVerifyCodeButton.setText("获取验证码");
 					getVerifyCodeButton.setEnabled(true);
-					UserRequest.register(nickName, password, msisdn,
-							verifyCode, RegisterActivity.this);
-				} else {
-					AlertUtil.alert(RegisterActivity.this, "请先阅读并同意用户协议");
-				}
+					UserRequest.forgetPassword(password, msisdn,
+							verifyCode, ForgetPasswordActivity.this);
+				
 			}
 		});
 
-		getVerifyCodeButton = (Button) findViewById(R.id.register_getVerifyCodeButton);
+		getVerifyCodeButton = (Button) findViewById(R.id.forget_password_getVerifyCodeButton);
 		this.setGetVerifyCodeButton();
 	}
 
@@ -115,10 +102,10 @@ public class RegisterActivity extends BaseActivity implements HttpCallback {
 			public void onClick(View v) {
 				String msisdn = msisdnEditText.getText().toString();
 				if (StringUtils.isEmpty(msisdn)) {
-					AlertUtil.alert(RegisterActivity.this, "手机号不能为空");
+					AlertUtil.alert(ForgetPasswordActivity.this, "手机号不能为空");
 					return;
 				}
-				SmsRequest.requestSmsCode(msisdn, RegisterActivity.this);
+				SmsRequest.requestSmsCode(msisdn, ForgetPasswordActivity.this);
 				cdt = new CountDownTimer(60 * 1000, 1000) {
 					// 第一个参数是总的倒计时时间
 					// 第二个参数是每隔多少时间(ms)调用一次onTick()方法
@@ -146,10 +133,10 @@ public class RegisterActivity extends BaseActivity implements HttpCallback {
 			User user = (User) data;
 			XysqApplication application = (XysqApplication) getApplication();
 			application.setUser(user);
-			AlertUtil.alert(this, "注册成功", new Callback() {
+			AlertUtil.alert(this, "更新密码成功", new Callback() {
 				@Override
 				public void exec() {
-					Intent intent = new Intent(RegisterActivity.this,
+					Intent intent = new Intent(ForgetPasswordActivity.this,
 							ProfileActivity.class);
 					intent.putExtra("finish", true);
 					intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -175,5 +162,4 @@ public class RegisterActivity extends BaseActivity implements HttpCallback {
 		}
 		
 	}
-
 }
