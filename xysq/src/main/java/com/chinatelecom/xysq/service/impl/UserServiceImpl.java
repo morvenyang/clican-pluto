@@ -17,8 +17,7 @@ import org.apache.commons.logging.LogFactory;
 import com.chinatelecom.xysq.bean.SpringProperty;
 import com.chinatelecom.xysq.dao.UserDao;
 import com.chinatelecom.xysq.enumeration.Role;
-import com.chinatelecom.xysq.json.LoginJson;
-import com.chinatelecom.xysq.json.RegisterJson;
+import com.chinatelecom.xysq.json.ProfileJson;
 import com.chinatelecom.xysq.json.UserJson;
 import com.chinatelecom.xysq.model.User;
 import com.chinatelecom.xysq.service.UserService;
@@ -78,9 +77,9 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public LoginJson login(String userName, String password) {
+	public ProfileJson login(String userName, String password) {
 		User user = this.userDao.findUserByUserName(userName);
-		LoginJson result = new LoginJson();
+		ProfileJson result = new ProfileJson();
 		if (user == null || user.getRole() != Role.USER) {
 			result.setSuccess(false);
 			result.setMessage("该用户名不存在");
@@ -104,10 +103,10 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public RegisterJson register(String nickName, String password,
+	public ProfileJson register(String nickName, String password,
 			String msisdn, String verifyCode) {
 		HttpClient httpclient = new HttpClient();
-		RegisterJson result = new RegisterJson();
+		ProfileJson result = new ProfileJson();
 		try {
 			boolean verifiedAndSuccess = false;
 			if (verifiedCodes.containsKey(msisdn + "," + verifyCode)
@@ -126,6 +125,8 @@ public class UserServiceImpl implements UserService {
 				UserJson userJson = new UserJson();
 				userJson.setMsisdn(user.getMsisdn());
 				userJson.setNickName(user.getUserName());
+				userJson.setAddress(user.getAddress());
+				userJson.setCarNumber(user.getCarNumber());
 				result.setUser(userJson);
 				result.setSuccess(true);
 				result.setMessage("注册成功");
@@ -162,6 +163,8 @@ public class UserServiceImpl implements UserService {
 					UserJson userJson = new UserJson();
 					userJson.setMsisdn(user.getMsisdn());
 					userJson.setNickName(user.getUserName());
+					userJson.setAddress(user.getAddress());
+					userJson.setCarNumber(user.getCarNumber());
 					result.setUser(userJson);
 					result.setSuccess(true);
 					result.setMessage("注册成功");
@@ -177,4 +180,25 @@ public class UserServiceImpl implements UserService {
 		}
 		return result;
 	}
+
+	@Override
+	public ProfileJson updateProfile(Long userId, String nickName,
+			String address, String carNumber) {
+		User user = this.userDao.findUserById(userId);
+		user.setNickName(nickName);
+		user.setAddress(address);
+		user.setCarNumber(carNumber);
+		this.userDao.saveUser(user);
+		UserJson userJson = new UserJson();
+		userJson.setMsisdn(user.getMsisdn());
+		userJson.setNickName(user.getUserName());
+		userJson.setAddress(user.getAddress());
+		userJson.setCarNumber(user.getCarNumber());
+		ProfileJson result = new ProfileJson();
+		result.setUser(userJson);
+		result.setSuccess(true);
+		result.setMessage("更新成功");
+		return result;
+	}
+
 }

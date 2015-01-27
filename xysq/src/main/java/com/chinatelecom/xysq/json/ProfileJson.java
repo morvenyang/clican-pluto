@@ -1,6 +1,6 @@
 package com.chinatelecom.xysq.json;
 
-public class LoginJson {
+public class ProfileJson {
 
 	private boolean success;
 
