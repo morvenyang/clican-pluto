@@ -39,6 +39,7 @@ public class UserRequest {
 						JSONObject jsonObj = new JSONObject(responseString);
 						if (jsonObj.getBoolean("success")) {
 							User user = new User();
+							user.setId(jsonObj.getJSONObject("user").getLong("id"));
 							user.setNickName(jsonObj.getJSONObject("user")
 									.getString("nickName"));
 							user.setMsisdn(jsonObj.getJSONObject("user")
@@ -100,12 +101,15 @@ public class UserRequest {
 						JSONObject jsonObj = new JSONObject(responseString);
 						if (jsonObj.getBoolean("success")) {
 							User user = new User();
+							user.setId(jsonObj.getJSONObject("user").getLong("id"));
 							user.setNickName(jsonObj.getJSONObject("user")
 									.getString("nickName"));
 							user.setMsisdn(jsonObj.getJSONObject("user")
 									.getString("msisdn"));
 							user.setJsessionid(jsonObj.getJSONObject("user")
 									.getString("jsessionid"));
+							user.setAddress(jsonObj.getJSONObject("user").getString("address"));
+							user.setCarNumber(jsonObj.getJSONObject("user").getString("carNumber"));
 							return new TaskResult(1,
 									jsonObj.getString("message"), user);
 						} else {
@@ -128,6 +132,71 @@ public class UserRequest {
 					callback.success("/register.do", result.getResult());
 				} else {
 					callback.failure("/register.do", result.getCode(),
+							result.getMessage());
+				}
+			}
+		};
+		task.execute(new String[] {});
+	}
+	
+	
+	public static void updateProfile(final Long userId,final String nickName, final String address,
+			final String carNumber,
+			final HttpCallback callback) {
+		AsyncTask<String, Void, TaskResult> task = new AsyncTask<String, Void, TaskResult>() {
+			@Override
+			protected TaskResult doInBackground(String... params) {
+				HttpClient httpclient = new DefaultHttpClient();
+				try {
+					String url = Constants.BASE_URL + "/updateProfile.do?"
+							+ "nickName="
+							+ URLEncoder.encode(nickName, "utf-8")
+							+ "&address="
+							+ URLEncoder.encode(address, "utf-8") + "&carNumber="
+							+ carNumber + "&userId=" + userId;
+					Log.d("XYSQ", url);
+					HttpResponse response = httpclient
+							.execute(new HttpGet(url));
+					StatusLine statusLine = response.getStatusLine();
+					if (statusLine.getStatusCode() == HttpStatus.SC_OK) {
+						ByteArrayOutputStream out = new ByteArrayOutputStream();
+						response.getEntity().writeTo(out);
+						out.close();
+						String responseString = out.toString();
+						JSONObject jsonObj = new JSONObject(responseString);
+						if (jsonObj.getBoolean("success")) {
+							User user = new User();
+							user.setId(jsonObj.getJSONObject("user").getLong("id"));
+							user.setNickName(jsonObj.getJSONObject("user")
+									.getString("nickName"));
+							user.setMsisdn(jsonObj.getJSONObject("user")
+									.getString("msisdn"));
+							user.setJsessionid(jsonObj.getJSONObject("user")
+									.getString("jsessionid"));
+							user.setAddress(jsonObj.getJSONObject("user").getString("address"));
+							user.setCarNumber(jsonObj.getJSONObject("user").getString("carNumber"));
+							return new TaskResult(1,
+									jsonObj.getString("message"), user);
+						} else {
+							return new TaskResult(-1,
+									jsonObj.getString("message"), null);
+						}
+					} else {
+						response.getEntity().getContent().close();
+						return new TaskResult(-1, "更新失败", null);
+					}
+				} catch (Exception e) {
+					Log.e("XYSQ", "updateProfile", e);
+				}
+				return new TaskResult(-1, "更新失败", null);
+			}
+
+			@Override
+			protected void onPostExecute(TaskResult result) {
+				if (result.getCode() == 1) {
+					callback.success("/updateProfile.do", result.getResult());
+				} else {
+					callback.failure("/updateProfile.do", result.getCode(),
 							result.getMessage());
 				}
 			}
