@@ -93,6 +93,8 @@ public class UserServiceImpl implements UserService {
 				userJson.setMsisdn(user.getMsisdn());
 				userJson.setNickName(user.getNickName());
 				userJson.setId(user.getId());
+				userJson.setAddress(user.getAddress());
+				userJson.setCarNumber(user.getCarNumber());
 				result.setUser(userJson);
 				result.setSuccess(true);
 				result.setMessage("登录成功");
