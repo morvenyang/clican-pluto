@@ -2,8 +2,8 @@ package com.chinatelecom.xysq.activity;
 
 import org.apache.commons.lang.StringUtils;
 
-import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
@@ -19,6 +19,8 @@ import com.chinatelecom.xysq.bean.User;
 import com.chinatelecom.xysq.http.HttpCallback;
 import com.chinatelecom.xysq.http.SmsRequest;
 import com.chinatelecom.xysq.http.UserRequest;
+import com.chinatelecom.xysq.listener.HtmlLinkOnClickListener;
+import com.chinatelecom.xysq.other.Constants;
 import com.chinatelecom.xysq.util.AlertUtil;
 import com.chinatelecom.xysq.util.Callback;
 
@@ -30,6 +32,7 @@ public class RegisterActivity extends BaseActivity implements HttpCallback {
 	private EditText passwordEditText;
 	private EditText nickNameEditText;
 	private Button getVerifyCodeButton;
+	private Button registerAgreeButton;
 
 	private CountDownTimer cdt;
 
@@ -53,7 +56,9 @@ public class RegisterActivity extends BaseActivity implements HttpCallback {
 				RegisterActivity.this.finish();
 			}
 		});
-
+		Button registerAgreeButton = (Button)findViewById(R.id.register_agreeButton);
+		registerAgreeButton.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG );
+		registerAgreeButton.setOnClickListener(new HtmlLinkOnClickListener(Constants.BASE_URL+"/android/agree.html","用户协议",this,false));
 		Button submitButton = (Button) findViewById(R.id.register_submitButton);
 		submitButton.setOnClickListener(new OnClickListener() {
 			@Override
