@@ -27,4 +27,6 @@ public interface UserService {
 	public ProfileJson forgetPassword(String password,String msisdn,String verifyCode);
 	
 	public ProfileJson updateProfile(Long userId,String nickName,String address,String carNumber);
+	
+	public void enableXqnc(Long userId);
 }

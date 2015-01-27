@@ -25,6 +25,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.chinatelecom.xysq.bean.SpringProperty;
 import com.chinatelecom.xysq.enumeration.NoticeCategory;
 import com.chinatelecom.xysq.json.ProfileJson;
+import com.chinatelecom.xysq.json.ResultJson;
 import com.chinatelecom.xysq.model.Image;
 import com.chinatelecom.xysq.service.AreaService;
 import com.chinatelecom.xysq.service.ForumService;
@@ -191,7 +192,7 @@ public class ClientController {
 			log.error("", e);
 		}
 	}
-	
+
 	@RequestMapping("/register")
 	public void register(@RequestParam(value = "nickName") String nickName,
 			@RequestParam(value = "password") String password,
@@ -214,7 +215,7 @@ public class ClientController {
 			log.error("", e);
 		}
 	}
-	
+
 	@RequestMapping("/forgetPassword")
 	public void forgetPassword(
 			@RequestParam(value = "password") String password,
@@ -223,8 +224,8 @@ public class ClientController {
 			HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		try {
-			ProfileJson result = userService.forgetPassword(password,
-					msisdn, verifyCode);
+			ProfileJson result = userService.forgetPassword(password, msisdn,
+					verifyCode);
 			if (result.isSuccess()) {
 				req.getSession().setAttribute("USER_ID",
 						result.getUser().getId());
@@ -237,17 +238,38 @@ public class ClientController {
 			log.error("", e);
 		}
 	}
-	
+
+	@RequestMapping("/enableXqnc")
+	public void enableXqnc(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		try {
+			ResultJson rj = null;
+			Long userId = (Long) req.getSession().getAttribute("USER_ID");
+			if (userId == null) {
+				rj = new ResultJson(false, "请先登录");
+			} else {
+				userService.enableXqnc(userId);
+				rj = new ResultJson(true, "申请成功");
+			}
+			resp.setContentType("application/json");
+			resp.getOutputStream().write(
+					JSONObject.fromObject(rj).toString().getBytes("utf-8"));
+		} catch (Exception e) {
+			log.error("", e);
+		}
+	}
+
 	@RequestMapping("/updateProfile")
-	public void updateProfile(@RequestParam(value = "nickName") String nickName,
+	public void updateProfile(
+			@RequestParam(value = "nickName") String nickName,
 			@RequestParam(value = "address") String address,
 			@RequestParam(value = "carNumber") String carNumber,
 			@RequestParam(value = "userId") Long userId,
 			HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		try {
-			ProfileJson result = userService.updateProfile(userId,nickName, address,
-					carNumber);
+			ProfileJson result = userService.updateProfile(userId, nickName,
+					address, carNumber);
 			resp.setContentType("application/json");
 			resp.getOutputStream().write(
 					JSONObject.fromObject(result).toString().getBytes("utf-8"));
