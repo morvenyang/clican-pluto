@@ -16,6 +16,13 @@ public class XqncActivity extends BaseActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.xqnc);
+		Button backButton = (Button)this.findViewById(R.id.xqnc_backButton);
+		backButton.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				finish();
+			}
+		});
 		applyXqncButton = (Button) this.findViewById(R.id.xqnc_applyButton);
 		applyXqncButton.setOnClickListener(new OnClickListener() {
 			@Override
@@ -36,6 +43,7 @@ public class XqncActivity extends BaseActivity {
 
 	@Override
 	protected void onResume() {
+		super.onResume();
 		User user = this.getUser();
 		if (user != null && user.isApplyXqnc()) {
 			applyXqncButton.setVisibility(View.GONE);
