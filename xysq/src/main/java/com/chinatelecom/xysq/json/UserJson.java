@@ -5,10 +5,13 @@ public class UserJson {
 	private String nickName;
 
 	private String msisdn;
-	
+
 	private Long id;
-	
+
 	private String jsessionid;
+
+	private String address;
+	private String carNumber;
 
 	public String getNickName() {
 		return nickName;
@@ -40,6 +43,22 @@ public class UserJson {
 
 	public void setJsessionid(String jsessionid) {
 		this.jsessionid = jsessionid;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getCarNumber() {
+		return carNumber;
+	}
+
+	public void setCarNumber(String carNumber) {
+		this.carNumber = carNumber;
 	}
 
 }

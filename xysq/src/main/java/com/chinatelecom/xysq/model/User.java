@@ -31,6 +31,8 @@ public class User {
 	private boolean active = true;
 	private Role role;
 	private String msisdn;
+	private String address;
+	private String carNumber;
 	private Set<AdminCommunityRel> adminCommunityRelSet;
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -102,6 +104,20 @@ public class User {
 	}
 	public void setAdminCommunityRelSet(Set<AdminCommunityRel> adminCommunityRelSet) {
 		this.adminCommunityRelSet = adminCommunityRelSet;
+	}
+	@Column
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	@Column
+	public String getCarNumber() {
+		return carNumber;
+	}
+	public void setCarNumber(String carNumber) {
+		this.carNumber = carNumber;
 	}
 	@Override
 	public int hashCode() {
