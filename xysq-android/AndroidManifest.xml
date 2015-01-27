@@ -71,39 +71,39 @@
 
         <activity
             android:name="com.chinatelecom.xysq.activity.MainActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.chinatelecom.xysq.activity.IndexActivity" />
-        <activity android:name="com.chinatelecom.xysq.activity.XyzsActivity" />
-        <activity android:name="com.chinatelecom.xysq.activity.ProfileActivity" />
-        <activity android:name="com.chinatelecom.xysq.activity.CommunitySelectActivity" />
-        <activity android:name="com.chinatelecom.xysq.activity.CitySelectActivity" />
-        <activity android:name="com.chinatelecom.xysq.activity.AnnouncementActivity" />
-        <activity android:name="com.chinatelecom.xysq.activity.AnnouncementAndNoticeDetailActivity" />
-        <activity android:name="com.chinatelecom.xysq.activity.NoticeActivity" />
-        <activity android:name="com.chinatelecom.xysq.activity.LoginActivity" />
-        <activity android:name="com.chinatelecom.xysq.activity.RegisterActivity" />
-        <activity android:name="com.chinatelecom.xysq.activity.WebViewActivity" />
-        <activity android:name="com.chinatelecom.xysq.activity.BroadbandRemindActivity" />
-        <activity android:name="com.chinatelecom.xysq.activity.PhotoAlbumActivity" />
-        <activity android:name="com.chinatelecom.xysq.activity.PhotoActivity" />
-        <activity android:name="com.chinatelecom.xysq.activity.ForumActivity" />
+        <activity android:name="com.chinatelecom.xysq.activity.IndexActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.chinatelecom.xysq.activity.XyzsActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.chinatelecom.xysq.activity.ProfileActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.chinatelecom.xysq.activity.CommunitySelectActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.chinatelecom.xysq.activity.CitySelectActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.chinatelecom.xysq.activity.AnnouncementActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.chinatelecom.xysq.activity.AnnouncementAndNoticeDetailActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.chinatelecom.xysq.activity.NoticeActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.chinatelecom.xysq.activity.LoginActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.chinatelecom.xysq.activity.RegisterActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.chinatelecom.xysq.activity.WebViewActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.chinatelecom.xysq.activity.BroadbandRemindActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.chinatelecom.xysq.activity.PhotoAlbumActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.chinatelecom.xysq.activity.PhotoActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.chinatelecom.xysq.activity.ForumActivity" android:screenOrientation="portrait"/>
         <activity
             android:name="com.chinatelecom.xysq.activity.TopicAndPostActivity"
-            android:windowSoftInputMode="adjustResize" />
-        <activity android:name="com.chinatelecom.xysq.activity.TopicActivity" />
-        <activity android:name="com.chinatelecom.xysq.activity.StoreDetailActivity" />
-        <activity android:name="com.chinatelecom.xysq.activity.ProfileDetailActivity" />
-        <activity android:name="com.chinatelecom.xysq.activity.ForgetPasswordActivity" />
-        <activity android:name="com.chinatelecom.xysq.activity.XqncActivity" />
+            android:windowSoftInputMode="adjustResize" android:screenOrientation="portrait"/>
+        <activity android:name="com.chinatelecom.xysq.activity.TopicActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.chinatelecom.xysq.activity.StoreDetailActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.chinatelecom.xysq.activity.ProfileDetailActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.chinatelecom.xysq.activity.ForgetPasswordActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.chinatelecom.xysq.activity.XqncActivity" android:screenOrientation="portrait"/>
         <!-- 用户反馈 -->
-        <activity android:name="com.chinatelecom.xysq.activity.FeedbackActivity" />
-        <activity android:name="com.umeng.update.UpdateDialogActivity" >
+        <activity android:name="com.chinatelecom.xysq.activity.FeedbackActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.umeng.update.UpdateDialogActivity" android:screenOrientation="portrait">
         </activity>
         <!-- 用户反馈 -->
 
