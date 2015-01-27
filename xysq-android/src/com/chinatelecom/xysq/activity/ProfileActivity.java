@@ -23,7 +23,7 @@ public class ProfileActivity extends BaseActivity {
 	private TextView msisdnTextView;
 
 	private ListView listView;
-	
+
 	private RelativeLayout profileLayout;
 
 	@Override
@@ -40,15 +40,18 @@ public class ProfileActivity extends BaseActivity {
 		listView.setAdapter(new ProfileListAdapter(
 				this,
 				(LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE)));
-		profileLayout = (RelativeLayout)findViewById(R.id.profile_layout);
+		profileLayout = (RelativeLayout) findViewById(R.id.profile_layout);
 		profileLayout.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 				User user = getUser();
-				if(user!=null){
-					
-				}else{
+				if (user != null) {
+					Intent intent = new Intent(ProfileActivity.this,
+							ProfileDetailActivity.class);
+					Log.d("XYSQ", "start ProfileDetailActivity");
+					startActivity(intent);
+				} else {
 					Intent intent = new Intent(ProfileActivity.this,
 							LoginActivity.class);
 					Log.d("XYSQ", "start LoginActivity");
@@ -56,8 +59,6 @@ public class ProfileActivity extends BaseActivity {
 				}
 			}
 		});
-		
-		
 
 	}
 
@@ -74,7 +75,5 @@ public class ProfileActivity extends BaseActivity {
 			msisdnTextView.setText("");
 		}
 	}
-
-	
 
 }
