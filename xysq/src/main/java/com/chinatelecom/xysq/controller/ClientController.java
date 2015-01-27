@@ -25,7 +25,6 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.chinatelecom.xysq.bean.SpringProperty;
 import com.chinatelecom.xysq.enumeration.NoticeCategory;
 import com.chinatelecom.xysq.json.ProfileJson;
-import com.chinatelecom.xysq.json.RegisterJson;
 import com.chinatelecom.xysq.model.Image;
 import com.chinatelecom.xysq.service.AreaService;
 import com.chinatelecom.xysq.service.ForumService;
@@ -202,6 +201,29 @@ public class ClientController {
 			throws ServletException, IOException {
 		try {
 			ProfileJson result = userService.register(nickName, password,
+					msisdn, verifyCode);
+			if (result.isSuccess()) {
+				req.getSession().setAttribute("USER_ID",
+						result.getUser().getId());
+				result.getUser().setJsessionid(req.getSession().getId());
+			}
+			resp.setContentType("application/json");
+			resp.getOutputStream().write(
+					JSONObject.fromObject(result).toString().getBytes("utf-8"));
+		} catch (Exception e) {
+			log.error("", e);
+		}
+	}
+	
+	@RequestMapping("/forgetPassword")
+	public void forgetPassword(
+			@RequestParam(value = "password") String password,
+			@RequestParam(value = "msisdn") String msisdn,
+			@RequestParam(value = "verifyCode") String verifyCode,
+			HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		try {
+			ProfileJson result = userService.forgetPassword(password,
 					msisdn, verifyCode);
 			if (result.isSuccess()) {
 				req.getSession().setAttribute("USER_ID",

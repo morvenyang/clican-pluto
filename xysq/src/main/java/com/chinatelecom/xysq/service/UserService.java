@@ -24,5 +24,7 @@ public interface UserService {
 	
 	public ProfileJson register(String nickName,String password,String msisdn,String verifyCode);
 	
+	public ProfileJson forgetPassword(String password,String msisdn,String verifyCode);
+	
 	public ProfileJson updateProfile(Long userId,String nickName,String address,String carNumber);
 }
