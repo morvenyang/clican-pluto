@@ -182,6 +182,81 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	public ProfileJson forgetPassword(String password, String msisdn,
+			String verifyCode) {
+		HttpClient httpclient = new HttpClient();
+		ProfileJson result = new ProfileJson();
+		try {
+			User user = this.userDao.findUserByUserName(msisdn);
+			if (user == null) {
+				result.setSuccess(false);
+				result.setMessage("该手机号还未注册");
+			}
+			boolean verifiedAndSuccess = false;
+			if (verifiedCodes.containsKey(msisdn + "," + verifyCode)
+					&& verifiedCodes.get(msisdn + "," + verifyCode)) {
+				verifiedAndSuccess = true;
+			}
+			if (verifiedAndSuccess) {
+				user.setPassword(DigestUtils.shaHex(password));
+				user.setActive(true);
+				this.userDao.saveUser(user);
+				UserJson userJson = new UserJson();
+				userJson.setMsisdn(user.getMsisdn());
+				userJson.setNickName(user.getNickName());
+				userJson.setAddress(user.getAddress());
+				userJson.setCarNumber(user.getCarNumber());
+				result.setUser(userJson);
+				result.setSuccess(true);
+				result.setMessage("更新密码成功");
+			} else {
+				if (StringUtils.isNotEmpty(springProperty.getProxyHost())) {
+					httpclient.getHostConfiguration().setProxy(
+							springProperty.getProxyHost(),
+							springProperty.getProxyPort());
+				}
+
+				PostMethod post = new PostMethod(
+						"https://leancloud.cn/1.1/verifySmsCode/" + verifyCode
+								+ "?mobilePhoneNumber=" + msisdn);
+				post.addRequestHeader("X-AVOSCloud-Application-Id",
+						"zgdiillmtdo07gx2zwu5xlhubqu0ob6jf4pmd6d80o4r63jr");
+				post.addRequestHeader("X-AVOSCloud-Application-Key",
+						"8nc8zg36bmlqp00auc8usbz5k641vsym4k5sanlrcclgikzr");
+				post.addRequestHeader("Content-Type", "application/json");
+				int code = httpclient.executeMethod(post);
+				String resp = new String(post.getResponseBody(), "utf-8");
+				JSONObject respJson = JSONObject.fromObject(resp);
+				if (log.isDebugEnabled()) {
+					log.debug("verifySmsCode Resp[" + respJson.toString() + "]");
+				}
+				if (code == HttpStatus.SC_OK) {
+					user.setPassword(DigestUtils.shaHex(password));
+					user.setActive(true);
+					user.setMsisdn(msisdn);
+					this.userDao.saveUser(user);
+					UserJson userJson = new UserJson();
+					userJson.setMsisdn(user.getMsisdn());
+					userJson.setNickName(user.getNickName());
+					userJson.setAddress(user.getAddress());
+					userJson.setCarNumber(user.getCarNumber());
+					result.setUser(userJson);
+					result.setSuccess(true);
+					result.setMessage("更新密码成功");
+				} else {
+					result.setSuccess(false);
+					result.setMessage(respJson.getString("error"));
+				}
+			}
+		} catch (Exception e) {
+			result.setSuccess(false);
+			result.setMessage("系统错误,更新密码失败");
+			log.error("", e);
+		}
+		return result;
+	}
+
+	@Override
 	public ProfileJson updateProfile(Long userId, String nickName,
 			String address, String carNumber) {
 		User user = this.userDao.findUserById(userId);
