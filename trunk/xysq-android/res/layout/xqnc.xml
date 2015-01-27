@@ -46,13 +46,19 @@
     <Button
         android:id="@+id/xqnc_applyButton"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="立即申请" />
+        android:layout_height="54dp"
+        android:background="@color/lightGreen"
+        android:text="立即申请"
+        android:textColor="@android:color/white"
+        android:textSize="22sp" />
 
     <Button
         android:id="@+id/xqnc_shareFriendButton"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="分享给好友" />
+        android:layout_height="54dp"
+        android:background="@color/lightGreen"
+        android:text="分享给好友"
+        android:textColor="@android:color/white"
+        android:textSize="22sp" />
 
 </LinearLayout>
