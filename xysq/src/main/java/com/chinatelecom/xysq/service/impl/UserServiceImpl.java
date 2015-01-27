@@ -124,7 +124,7 @@ public class UserServiceImpl implements UserService {
 				this.userDao.saveUser(user);
 				UserJson userJson = new UserJson();
 				userJson.setMsisdn(user.getMsisdn());
-				userJson.setNickName(user.getUserName());
+				userJson.setNickName(user.getNickName());
 				userJson.setAddress(user.getAddress());
 				userJson.setCarNumber(user.getCarNumber());
 				result.setUser(userJson);
@@ -162,7 +162,7 @@ public class UserServiceImpl implements UserService {
 					this.userDao.saveUser(user);
 					UserJson userJson = new UserJson();
 					userJson.setMsisdn(user.getMsisdn());
-					userJson.setNickName(user.getUserName());
+					userJson.setNickName(user.getNickName());
 					userJson.setAddress(user.getAddress());
 					userJson.setCarNumber(user.getCarNumber());
 					result.setUser(userJson);
@@ -191,7 +191,7 @@ public class UserServiceImpl implements UserService {
 		this.userDao.saveUser(user);
 		UserJson userJson = new UserJson();
 		userJson.setMsisdn(user.getMsisdn());
-		userJson.setNickName(user.getUserName());
+		userJson.setNickName(user.getNickName());
 		userJson.setAddress(user.getAddress());
 		userJson.setCarNumber(user.getCarNumber());
 		ProfileJson result = new ProfileJson();
