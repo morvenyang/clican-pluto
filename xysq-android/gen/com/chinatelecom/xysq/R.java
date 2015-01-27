@@ -519,6 +519,9 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int webview=0x7f06000a;
         public static final int webview_backButton=0x7f0600e5;
         public static final int webview_title=0x7f0600e6;
+        public static final int xqnc_applyButton=0x7f0600e9;
+        public static final int xqnc_backButton=0x7f0600e8;
+        public static final int xqnc_shareFriendButton=0x7f0600ea;
     }
     public static final class layout {
         public static final int announcement=0x7f030000;
@@ -570,7 +573,8 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int umeng_fb_welcome_item=0x7f03002e;
         public static final int umeng_update_dialog=0x7f03002f;
         public static final int webview=0x7f030030;
-        public static final int xyzs=0x7f030031;
+        public static final int xqnc=0x7f030031;
+        public static final int xyzs=0x7f030032;
     }
     public static final class raw {
         public static final int pull_event=0x7f050000;

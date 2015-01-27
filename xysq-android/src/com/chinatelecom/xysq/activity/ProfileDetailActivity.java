@@ -37,9 +37,9 @@ public class ProfileDetailActivity extends BaseActivity implements HttpCallback 
 			public void onClick(View v) {
 				User user = getUser();
 				if (user != null) {
-					UserRequest.updateProfile(user.getId(), nickNameEditText
+					UserRequest.updateProfile(nickNameEditText
 							.getText().toString(), addressEditText.getText()
-							.toString(), carNumberEditText.getText().toString(),
+							.toString(), carNumberEditText.getText().toString(),user,
 							ProfileDetailActivity.this);
 				} else {
 					AlertUtil.alert(ProfileDetailActivity.this, "请先登录");
