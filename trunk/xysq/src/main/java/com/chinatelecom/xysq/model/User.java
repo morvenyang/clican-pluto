@@ -34,6 +34,7 @@ public class User {
 	private String address;
 	private String carNumber;
 	private Set<AdminCommunityRel> adminCommunityRelSet;
+	private boolean applyXqnc;
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "ID")
@@ -118,6 +119,14 @@ public class User {
 	}
 	public void setCarNumber(String carNumber) {
 		this.carNumber = carNumber;
+	}
+	@Column(name = "APPLY_XQNC")
+	@Type(type="org.hibernate.type.NumericBooleanType")
+	public boolean isApplyXqnc() {
+		return applyXqnc;
+	}
+	public void setApplyXqnc(boolean applyXqnc) {
+		this.applyXqnc = applyXqnc;
 	}
 	@Override
 	public int hashCode() {
