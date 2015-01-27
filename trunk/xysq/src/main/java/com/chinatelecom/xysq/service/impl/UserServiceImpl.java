@@ -94,6 +94,7 @@ public class UserServiceImpl implements UserService {
 				userJson.setId(user.getId());
 				userJson.setAddress(user.getAddress());
 				userJson.setCarNumber(user.getCarNumber());
+				userJson.setApplyXqnc(user.isApplyXqnc());
 				result.setUser(userJson);
 				result.setSuccess(true);
 				result.setMessage("登录成功");
@@ -127,6 +128,7 @@ public class UserServiceImpl implements UserService {
 				userJson.setNickName(user.getNickName());
 				userJson.setAddress(user.getAddress());
 				userJson.setCarNumber(user.getCarNumber());
+				userJson.setApplyXqnc(user.isApplyXqnc());
 				result.setUser(userJson);
 				result.setSuccess(true);
 				result.setMessage("注册成功");
@@ -165,6 +167,7 @@ public class UserServiceImpl implements UserService {
 					userJson.setNickName(user.getNickName());
 					userJson.setAddress(user.getAddress());
 					userJson.setCarNumber(user.getCarNumber());
+					userJson.setApplyXqnc(user.isApplyXqnc());
 					result.setUser(userJson);
 					result.setSuccess(true);
 					result.setMessage("注册成功");
@@ -206,6 +209,7 @@ public class UserServiceImpl implements UserService {
 				userJson.setNickName(user.getNickName());
 				userJson.setAddress(user.getAddress());
 				userJson.setCarNumber(user.getCarNumber());
+				userJson.setApplyXqnc(user.isApplyXqnc());
 				result.setUser(userJson);
 				result.setSuccess(true);
 				result.setMessage("更新密码成功");
@@ -240,6 +244,7 @@ public class UserServiceImpl implements UserService {
 					userJson.setNickName(user.getNickName());
 					userJson.setAddress(user.getAddress());
 					userJson.setCarNumber(user.getCarNumber());
+					userJson.setApplyXqnc(user.isApplyXqnc());
 					result.setUser(userJson);
 					result.setSuccess(true);
 					result.setMessage("更新密码成功");
@@ -269,6 +274,7 @@ public class UserServiceImpl implements UserService {
 		userJson.setNickName(user.getNickName());
 		userJson.setAddress(user.getAddress());
 		userJson.setCarNumber(user.getCarNumber());
+		userJson.setApplyXqnc(user.isApplyXqnc());
 		ProfileJson result = new ProfileJson();
 		result.setUser(userJson);
 		result.setSuccess(true);

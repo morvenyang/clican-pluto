@@ -12,6 +12,7 @@ public class UserJson {
 
 	private String address;
 	private String carNumber;
+	private boolean applyXqnc;
 
 	public String getNickName() {
 		return nickName;
@@ -59,6 +60,14 @@ public class UserJson {
 
 	public void setCarNumber(String carNumber) {
 		this.carNumber = carNumber;
+	}
+
+	public boolean isApplyXqnc() {
+		return applyXqnc;
+	}
+
+	public void setApplyXqnc(boolean applyXqnc) {
+		this.applyXqnc = applyXqnc;
 	}
 
 }
