@@ -150,10 +150,10 @@ public class RegisterActivity extends BaseActivity implements HttpCallback {
 				@Override
 				public void exec() {
 					Intent intent = new Intent(RegisterActivity.this,
-							ProfileActivity.class);
+							MainActivity.class);
 					intent.putExtra("finish", true);
 					intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-					Log.d("XYSQ", "start IndexActivity");
+					Log.d("XYSQ", "start MainActivity");
 					startActivity(intent);
 				}
 			});
