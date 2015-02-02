@@ -77,7 +77,9 @@ public class PhotoActivity extends Activity implements HttpCallback {
 		selectedBitList = this.getIntent().getParcelableArrayListExtra("selectedBitList");
 		progressBar.setVisibility(View.GONE);
 		progressBar.setVisibility(View.VISIBLE);
-		PhotoRequest.prepareThumbnail(this, this, album.getBitList());
+		List<PhotoItem> bitList = new ArrayList<PhotoItem>(album.getBitList());
+		bitList.addAll(selectedBitList);
+		PhotoRequest.prepareThumbnail(this, this, bitList);
 
 	}
 	
