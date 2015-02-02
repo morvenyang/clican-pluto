@@ -341,10 +341,10 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int forum_backButton=0x7f060037;
         public static final int forum_listView=0x7f06003b;
         public static final int forum_postTopicButton=0x7f060038;
-        public static final int forum_row_nickNameTextView=0x7f06003d;
-        public static final int forum_row_photos_gridView=0x7f060040;
-        public static final int forum_row_postNumTextView=0x7f06003f;
-        public static final int forum_row_timeTextView=0x7f06003e;
+        public static final int forum_row_nickNameTextView=0x7f06003e;
+        public static final int forum_row_photos_gridView=0x7f06003d;
+        public static final int forum_row_postNumTextView=0x7f060040;
+        public static final int forum_row_timeTextView=0x7f06003f;
         public static final int forum_row_titleTextView=0x7f06003c;
         public static final int forum_searchButton=0x7f06003a;
         public static final int forum_searchEditText=0x7f060039;
