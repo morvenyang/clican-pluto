@@ -3,7 +3,6 @@ package com.chinatelecom.xysq.activity;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -20,18 +19,15 @@ import com.chinatelecom.xysq.http.BroadbandRemindRequest;
 import com.chinatelecom.xysq.http.HttpCallback;
 import com.chinatelecom.xysq.util.AlertUtil;
 
-public class BroadbandRemindActivity extends BaseActivity implements HttpCallback {
+public class BroadbandRemindActivity extends BaseActivity implements
+		HttpCallback {
 	private ProgressBar progressBar;
-
-	private TextView titleTextView;
 
 	private TextView broadbandIdTextView;
 
 	private TextView broadbandUserNameTextView;
 
 	private TextView broadbandExpireDateTextView;
-	
-	private TableLayout tableLayout;
 
 	@Override
 	protected String getPageName() {
@@ -53,9 +49,6 @@ public class BroadbandRemindActivity extends BaseActivity implements HttpCallbac
 				finish();
 			}
 		});
-		tableLayout = (TableLayout)this.findViewById(R.id.broadband_remind_table);
-		titleTextView = (TextView) this
-				.findViewById(R.id.broadband_remind_title_textView);
 		broadbandIdTextView = (TextView) this
 				.findViewById(R.id.boradband_remind_broadbandId_textView);
 		broadbandUserNameTextView = (TextView) this
@@ -69,16 +62,17 @@ public class BroadbandRemindActivity extends BaseActivity implements HttpCallbac
 	public void success(String url, Object data) {
 		progressBar.setVisibility(View.INVISIBLE);
 		BroadbandRemind remind = (BroadbandRemind) data;
-		if (remind.isExist()) {
-			tableLayout.setVisibility(View.VISIBLE);
-			titleTextView.setText("你的宽带到期时间为");
+		if(remind.isExist()){
 			broadbandIdTextView.setText(remind.getBroadBandId());
 			broadbandUserNameTextView.setText(remind.getUserName());
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日",Locale.ENGLISH);
-			broadbandExpireDateTextView.setText(sdf.format(remind.getExpiredDate()));
-		} else {
-			tableLayout.setVisibility(View.INVISIBLE);
-			titleTextView.setText("没有你相关的宽带提醒数据");
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日",
+					Locale.ENGLISH);
+			broadbandExpireDateTextView
+					.setText(sdf.format(remind.getExpiredDate()));
+		}else{
+			broadbandIdTextView.setText("--/--");
+			broadbandUserNameTextView.setText("--/--");
+			broadbandExpireDateTextView.setText("--/--");
 		}
 	}
 
