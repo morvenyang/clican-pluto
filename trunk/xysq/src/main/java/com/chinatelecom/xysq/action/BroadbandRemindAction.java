@@ -2,7 +2,6 @@ package com.chinatelecom.xysq.action;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -80,7 +79,6 @@ public class BroadbandRemindAction extends PageListAction<BroadbandRemind> {
 			XSSFSheet sheet = wb.getSheetAt(0);
 			int i = 0;
 			bbrList = new ArrayList<BroadbandRemind>();
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			while (true) {
 				Row row = sheet.getRow(i);
 				i++;
@@ -90,11 +88,10 @@ public class BroadbandRemindAction extends PageListAction<BroadbandRemind> {
 				String msisdn = this.getCellString(row.getCell(0));
 				String broadBandId = this.getCellString(row.getCell(1));
 				String userName = this.getCellString(row.getCell(2));
-				String expiredDateStr = this.getCellString(row.getCell(3));
-				if(StringUtils.isEmpty(msisdn)||StringUtils.isEmpty(expiredDateStr)){
+				Date expiredDate = row.getCell(3).getDateCellValue();
+				if(StringUtils.isEmpty(msisdn)||expiredDate==null){
 					continue;
 				}
-				Date expiredDate = sdf.parse(expiredDateStr);
 				BroadbandRemind bbr = new BroadbandRemind();
 				bbr.setMsisdn(msisdn);
 				bbr.setBroadBandId(broadBandId);
