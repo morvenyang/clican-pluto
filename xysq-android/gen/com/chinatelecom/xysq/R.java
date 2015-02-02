@@ -157,6 +157,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
     }
     public static final class color {
         public static final int backgroundColor=0x7f09000f;
+        public static final int ccccccColor=0x7f090011;
         public static final int dividerColor=0x7f090010;
         public static final int headBackgroundColor=0x7f090007;
         public static final int headGreenLineColor=0x7f090008;
@@ -173,13 +174,13 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int tabMedium=0x7f090000;
         public static final int tabTextColor=0x7f09000c;
         public static final int tabTransparent=0x7f090002;
-        public static final int tb_munion_item_force=0x7f090011;
-        public static final int umeng_fb_audo_dialog_bg=0x7f090017;
-        public static final int umeng_fb_gray=0x7f090013;
-        public static final int umeng_fb_lightblue=0x7f090012;
-        public static final int umeng_fb_line=0x7f090014;
-        public static final int umeng_fb_secondary_text_light=0x7f090015;
-        public static final int umeng_fb_white=0x7f090016;
+        public static final int tb_munion_item_force=0x7f090012;
+        public static final int umeng_fb_audo_dialog_bg=0x7f090018;
+        public static final int umeng_fb_gray=0x7f090014;
+        public static final int umeng_fb_lightblue=0x7f090013;
+        public static final int umeng_fb_line=0x7f090015;
+        public static final int umeng_fb_secondary_text_light=0x7f090016;
+        public static final int umeng_fb_white=0x7f090017;
     }
     public static final class dimen {
         /**  Default screen margins, per the Android Design guidelines. 

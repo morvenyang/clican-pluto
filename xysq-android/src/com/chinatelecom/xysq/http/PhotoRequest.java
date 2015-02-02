@@ -125,7 +125,7 @@ public class PhotoRequest {
 		        int wScreen = dm.widthPixels;  
 		        
 				for (PhotoItem pi : bitList) {
-					pi.setBitmap(getImageThumbnail(pi.getFilePath(),(wScreen-20)/4,(wScreen-20)/4));
+					pi.setBitmap(getImageThumbnail(pi.getFilePath(),(wScreen-125)/4,(wScreen-125)/5));
 				}
 				return new TaskResult(1, "", bitList);
 			}
