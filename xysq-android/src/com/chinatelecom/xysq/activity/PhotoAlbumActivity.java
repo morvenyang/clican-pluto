@@ -1,5 +1,6 @@
 package com.chinatelecom.xysq.activity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
@@ -13,6 +14,7 @@ import android.widget.ProgressBar;
 import com.chinatelecom.xysq.R;
 import com.chinatelecom.xysq.adapater.PhotoAlbumAdapter;
 import com.chinatelecom.xysq.bean.PhotoAlbum;
+import com.chinatelecom.xysq.bean.PhotoItem;
 import com.chinatelecom.xysq.http.HttpCallback;
 import com.chinatelecom.xysq.http.PhotoRequest;
 
@@ -21,7 +23,9 @@ public class PhotoAlbumActivity extends Activity implements HttpCallback {
 	private ListView photoAlbumListView;
 
 	private ProgressBar progressBar;
-
+	
+	private ArrayList<PhotoItem> selectedBitList;
+	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.photo_album);
@@ -34,6 +38,7 @@ public class PhotoAlbumActivity extends Activity implements HttpCallback {
 			}
 		});
 		progressBar = (ProgressBar) findViewById(R.id.photo_album_progressBar);
+		selectedBitList = this.getIntent().getParcelableArrayListExtra("selectedBitList");
 		loadPhotoAlbum();
 	}
 
@@ -41,7 +46,7 @@ public class PhotoAlbumActivity extends Activity implements HttpCallback {
 	@Override
 	public void success(String url, Object data) {
 		List<PhotoAlbum> albumList = (List<PhotoAlbum>) data;
-		photoAlbumListView.setAdapter(new PhotoAlbumAdapter(albumList, this));
+		photoAlbumListView.setAdapter(new PhotoAlbumAdapter(albumList, this,selectedBitList));
 		progressBar.setVisibility(View.INVISIBLE);
 	}
 
