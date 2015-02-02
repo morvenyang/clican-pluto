@@ -94,8 +94,7 @@
         <activity android:name="com.chinatelecom.xysq.activity.PhotoActivity" android:screenOrientation="portrait"/>
         <activity android:name="com.chinatelecom.xysq.activity.ForumActivity" android:screenOrientation="portrait"/>
         <activity
-            android:name="com.chinatelecom.xysq.activity.TopicAndPostActivity"
-            android:windowSoftInputMode="adjustResize" android:screenOrientation="portrait"/>
+            android:name="com.chinatelecom.xysq.activity.TopicAndPostActivity" android:screenOrientation="portrait"/>
         <activity android:name="com.chinatelecom.xysq.activity.TopicActivity" android:screenOrientation="portrait"/>
         <activity android:name="com.chinatelecom.xysq.activity.StoreDetailActivity" android:screenOrientation="portrait"/>
         <activity android:name="com.chinatelecom.xysq.activity.ProfileDetailActivity" android:screenOrientation="portrait"/>

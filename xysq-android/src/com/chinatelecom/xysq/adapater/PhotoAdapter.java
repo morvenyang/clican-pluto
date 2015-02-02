@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.AbsListView.LayoutParams;
 import android.widget.BaseAdapter;
 
+import com.chinatelecom.xysq.R;
 import com.chinatelecom.xysq.bean.PhotoItem;
 import com.chinatelecom.xysq.layout.PhotoGridItem;
 
@@ -67,7 +68,12 @@ public class PhotoAdapter extends BaseAdapter {
 			item = (PhotoGridItem) convertView;
 		}
 		if(bitList!=null){
-			item.setBitmap(bitList.get(position).getBitmap());
+			PhotoItem pi = bitList.get(position);
+			if(pi.isShowEmpty()){
+				item.setBackgroundResource(R.drawable.photo_empty);
+			}else{
+				item.setBitmap(pi.getBitmap());
+			}
 		}else{
 			if(!StringUtils.isEmpty(imageList.get(position))){
 				item.setImageUrl(imageList.get(position));

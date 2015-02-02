@@ -98,10 +98,10 @@ public class TopicAndPostActivity extends BaseActivity implements HttpCallback {
 		this.titleEditText = (EditText) this
 				.findViewById(R.id.topicAndPost_titleEditText);
 		if (this.topic) {
-			this.headTextView.setText("发贴");
+			this.headTextView.setText("发布帖子");
 			this.titleEditText.setVisibility(View.VISIBLE);
 		} else {
-			this.headTextView.setText("回复");
+			this.headTextView.setText("发布回复");
 			this.titleEditText.setVisibility(View.GONE);
 		}
 		this.contentEditText = (EditText) this
@@ -111,6 +111,10 @@ public class TopicAndPostActivity extends BaseActivity implements HttpCallback {
 		selectedPhotosGridView
 				.setSelector(new ColorDrawable(Color.TRANSPARENT));
 		selectedBitList = new ArrayList<PhotoItem>();
+		for(int i=0;i<4;i++){
+			PhotoItem pi = new PhotoItem(true);
+			selectedBitList.add(pi);
+		}
 		selectedPhotoAdapter = new PhotoAdapter(this, this.selectedBitList,
 				true);
 		selectedPhotosGridView.setAdapter(selectedPhotoAdapter);
@@ -150,9 +154,9 @@ public class TopicAndPostActivity extends BaseActivity implements HttpCallback {
 	@Override
 	protected String getPageName() {
 		if (topic) {
-			return "发贴";
+			return "发布帖子";
 		} else {
-			return "回复";
+			return "发布回复";
 		}
 
 	}

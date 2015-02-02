@@ -39,14 +39,6 @@
                 android:text="帖子"
                 android:textColor="@android:color/white"
                 android:textSize="18sp" />
-
-            <Button
-                android:id="@+id/topicAndPost_sendButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:text="发布" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -55,51 +47,75 @@
             android:background="@color/headGreenLineColor" >
         </RelativeLayout>
 
-        <EditText
-            android:id="@+id/topicAndPost_titleEditText"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:visibility="visible" >
+            android:layout_height="match_parent" >
 
-            <requestFocus />
-        </EditText>
-
-        <EditText
-            android:id="@+id/topicAndPost_contentEditText"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:ems="10"
-            android:gravity="top|left"
-            android:inputType="textMultiLine"
-            android:lines="20" />
-
-        <GridView
-            android:id="@+id/topicAndPost_selected_photos_gridView"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:numColumns="4" >
-        </GridView>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-
-            <Button
-                android:id="@+id/topicAndPost_selectPhotoButton"
-                android:layout_width="wrap_content"
+            <EditText
+                android:id="@+id/topicAndPost_titleEditText"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="从相册选取" />
+                android:ems="10"
+                android:visibility="visible" />
 
-            <Button
-                android:id="@+id/topicAndPost_takePhotoButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="拍照" />
-        </LinearLayout>
+            <EditText
+                android:id="@+id/topicAndPost_contentEditText"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_below="@+id/topicAndPost_titleEditText"
+                android:ems="10"
+                android:gravity="top|left"
+                android:inputType="textMultiLine"
+                android:lines="20" />
+
+            <GridView
+                android:id="@+id/topicAndPost_selected_photos_gridView"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_below="@id/topicAndPost_contentEditText"
+                android:gravity="center"
+                android:numColumns="4" >
+
+            </GridView>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/topicAndPost_selected_photos_gridView" >
+
+                <Button
+                    android:id="@+id/topicAndPost_sendButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="54dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/lightGreen"
+                    android:text="发布"
+                    android:textColor="@android:color/white"
+                    android:textSize="22sp" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone" >
+
+                <Button
+                    android:id="@+id/topicAndPost_selectPhotoButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="从相册选取" />
+
+                <Button
+                    android:id="@+id/topicAndPost_takePhotoButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="拍照" />
+            </LinearLayout>
+        </RelativeLayout>
+
     </LinearLayout>
 
 </RelativeLayout>
