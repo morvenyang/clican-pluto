@@ -73,7 +73,7 @@ public class PhotoGridItem extends RelativeLayout implements Checkable {
 	        int wScreen = dm.widthPixels;  
 	        
 			
-			ImageRequest.requestImage(mImageView, imageUrl,(wScreen-20)/4,(wScreen-20)/4);
+			ImageRequest.requestImage(mImageView, imageUrl,(wScreen-125)/4,(wScreen-125)/5);
 		}
 	}
 	
