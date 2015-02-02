@@ -11,11 +11,17 @@ public class PhotoItem implements Parcelable {
 	private Bitmap bitmap;
 	private String filePath;
 	private String fileName;
+	private boolean showEmpty;
 
 	public PhotoItem(int id, String filePath,String fileName) {
 		photoID = id;
 		this.filePath = filePath;
 		this.fileName = fileName;
+		select = false;
+	}
+	
+	public PhotoItem(boolean showEmpty) {
+		this.showEmpty = showEmpty;
 		select = false;
 	}
 
@@ -59,6 +65,14 @@ public class PhotoItem implements Parcelable {
 		this.fileName = fileName;
 	}
 
+	public boolean isShowEmpty() {
+		return showEmpty;
+	}
+
+	public void setShowEmpty(boolean showEmpty) {
+		this.showEmpty = showEmpty;
+	}
+
 	@Override
 	public String toString() {
 		return "PhotoItem [photoID=" + photoID + ", select=" + select + "]";
@@ -79,6 +93,7 @@ public class PhotoItem implements Parcelable {
 		select = in.readInt() == 0 ? false : true;
 		filePath = in.readString();
 		fileName = in.readString();
+		showEmpty = in.readInt()==0?false:true;
 	}
 
 	@Override
@@ -93,5 +108,6 @@ public class PhotoItem implements Parcelable {
 		dest.writeInt(select ? 1 : 0);
 		dest.writeString(filePath);
 		dest.writeString(fileName);
+		dest.writeInt(showEmpty?1:0);
 	}
 }
