@@ -62,6 +62,7 @@
             android:layout_alignBaseline="@+id/forum_row_timeTextView"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
+            android:layout_marginRight="12dp"
             android:gravity="center_vertical"
             android:text="Medium Text"
             android:textAppearance="?android:attr/textAppearanceMedium"

@@ -78,7 +78,7 @@ public class ForumTopicListAdapter extends BaseAdapter {
 		GridView photosGridView = (GridView) convertView
 				.findViewById(R.id.forum_row_photos_gridView);
 		if (ft.getImages() == null || ft.getImages().size() == 0) {
-			photosGridView.setVisibility(View.INVISIBLE);
+			photosGridView.setVisibility(View.GONE);
 		} else {
 			photosGridView.setSelector(new ColorDrawable(Color.TRANSPARENT));
 			PhotoAdapter photoAdapter = new PhotoAdapter(activity,
