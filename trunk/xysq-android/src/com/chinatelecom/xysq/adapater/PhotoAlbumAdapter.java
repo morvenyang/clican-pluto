@@ -1,5 +1,6 @@
 package com.chinatelecom.xysq.adapater;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
@@ -18,14 +19,18 @@ import android.widget.TextView;
 import com.chinatelecom.xysq.R;
 import com.chinatelecom.xysq.activity.PhotoActivity;
 import com.chinatelecom.xysq.bean.PhotoAlbum;
+import com.chinatelecom.xysq.bean.PhotoItem;
 
 public class PhotoAlbumAdapter extends BaseAdapter {
 	private List<PhotoAlbum> albumList;
 	private Activity activity;
+	private ArrayList<PhotoItem> selectedBitList;
 
-	public PhotoAlbumAdapter(List<PhotoAlbum> list, Activity activity) {
+	public PhotoAlbumAdapter(List<PhotoAlbum> list, Activity activity,
+			ArrayList<PhotoItem> selectedBitList) {
 		this.albumList = list;
 		this.activity = activity;
+		this.selectedBitList = selectedBitList;
 	}
 
 	@Override
@@ -46,7 +51,7 @@ public class PhotoAlbumAdapter extends BaseAdapter {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		if (convertView == null) {
-			convertView =  LayoutInflater.from(activity).inflate(
+			convertView = LayoutInflater.from(activity).inflate(
 					R.layout.photo_album_row, null);
 		}
 		ImageView imageView = (ImageView) convertView
@@ -61,11 +66,12 @@ public class PhotoAlbumAdapter extends BaseAdapter {
 		nameView.setText(albumList.get(position).getName() + " ( "
 				+ albumList.get(position).getCount() + " )");
 		final PhotoAlbum album = albumList.get(position);
-		convertView.setOnClickListener(new OnClickListener(){
+		convertView.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(activity,PhotoActivity.class);
+				Intent intent = new Intent(activity, PhotoActivity.class);
 				intent.putExtra("album", album);
+				intent.putParcelableArrayListExtra("selectedBitList", selectedBitList);
 				activity.startActivity(intent);
 			}
 		});

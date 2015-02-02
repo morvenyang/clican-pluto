@@ -75,7 +75,6 @@
                 android:layout_below="@id/topicAndPost_contentEditText"
                 android:gravity="center"
                 android:numColumns="4" >
-
             </GridView>
 
             <RelativeLayout
@@ -92,30 +91,99 @@
                     android:text="发布"
                     android:textColor="@android:color/white"
                     android:textSize="22sp" />
-
             </RelativeLayout>
 
-            <LinearLayout
+            <TableLayout
+                android:id="@+id/topicAndPost_selectPhotoTableLayout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginTop="30dp"
+                android:background="@android:color/white"
                 android:visibility="gone" >
 
-                <Button
-                    android:id="@+id/topicAndPost_selectPhotoButton"
+                <TableRow
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="从相册选取" />
+                    android:minHeight="50dp" >
 
-                <Button
-                    android:id="@+id/topicAndPost_takePhotoButton"
-                    android:layout_width="wrap_content"
+                    <Button
+                        android:id="@+id/topicAndPost_selectPhotoButton"
+                        style="?android:attr/borderlessButtonStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:background="#00000000"
+                        android:text="从相册选取"
+                        android:textColor="@color/labelTextColor"
+                        android:textSize="15sp" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:layout_weight="1"
+                        android:background="#FF909090"
+                        android:padding="2dip" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="拍照" />
-            </LinearLayout>
+                    android:minHeight="50dp" >
+
+                    <Button
+                        android:id="@+id/topicAndPost_takePhotoButton"
+                        style="?android:attr/borderlessButtonStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:background="#00000000"
+                        android:text="拍照"
+                        android:textColor="@color/labelTextColor"
+                        android:textSize="15sp" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:layout_weight="1"
+                        android:background="#FF909090"
+                        android:padding="2dip" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="50dp" >
+
+                    <Button
+                        android:id="@+id/topicAndPost_cancelPhotoButton"
+                        style="?android:attr/borderlessButtonStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:background="#00000000"
+                        android:text="取消"
+                        android:textColor="@color/labelTextColor"
+                        android:textSize="15sp" />
+
+                </TableRow>
+            </TableLayout>
         </RelativeLayout>
-
     </LinearLayout>
 
 </RelativeLayout>

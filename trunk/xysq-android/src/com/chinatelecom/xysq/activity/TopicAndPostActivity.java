@@ -3,21 +3,25 @@ package com.chinatelecom.xysq.activity;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ProgressBar;
+import android.widget.TableLayout;
 import android.widget.TextView;
 
 import com.chinatelecom.xysq.R;
 import com.chinatelecom.xysq.adapater.PhotoAdapter;
-import com.chinatelecom.xysq.bean.ForumTopic;
 import com.chinatelecom.xysq.bean.PhotoItem;
 import com.chinatelecom.xysq.bean.User;
 import com.chinatelecom.xysq.http.ForumRequest;
@@ -32,6 +36,7 @@ public class TopicAndPostActivity extends BaseActivity implements HttpCallback {
 	private EditText contentEditText;
 	private Button selectPhotoButton;
 	private Button takePhotoButton;
+	private Button cancelPhotoButton;
 	private Button sendButton;
 	private GridView selectedPhotosGridView;
 	private PhotoAdapter selectedPhotoAdapter;
@@ -41,6 +46,10 @@ public class TopicAndPostActivity extends BaseActivity implements HttpCallback {
 	private Long communityId;
 	private Long topicId;
 	private String replyContent;
+
+	private TableLayout selectPhotoTableLayout;
+
+	private int selectedPhotoPosition;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -67,7 +76,10 @@ public class TopicAndPostActivity extends BaseActivity implements HttpCallback {
 						ForumRequest.saveTopic(TopicAndPostActivity.this, user,
 								communityId, title, content, selectedBitList);
 					} else {
-						ForumRequest.savePost(TopicAndPostActivity.this, user, topicId, content, replyContent, selectedBitList);
+						ForumRequest
+								.savePost(TopicAndPostActivity.this, user,
+										topicId, content, replyContent,
+										selectedBitList);
 					}
 
 				}
@@ -89,10 +101,33 @@ public class TopicAndPostActivity extends BaseActivity implements HttpCallback {
 			public void onClick(View v) {
 				Intent intent = new Intent(TopicAndPostActivity.this,
 						PhotoAlbumActivity.class);
+				ArrayList<PhotoItem> piList = new ArrayList<PhotoItem>();
+				for(PhotoItem pi :selectedBitList){
+					if(!pi.isShowEmpty()){
+						piList.add(pi);
+					}
+				}
+				intent.putParcelableArrayListExtra("selectedBitList", piList);
 				startActivity(intent);
 			}
 		});
 		this.takePhotoButton = (Button) findViewById(R.id.topicAndPost_takePhotoButton);
+		this.takePhotoButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent intent = null;
+				if(intent!=null){
+					intent.putExtra("selectedPhotoPosition", selectedPhotoPosition);
+				}
+			}
+		});
+		this.cancelPhotoButton = (Button)findViewById(R.id.topicAndPost_cancelPhotoButton);
+		this.cancelPhotoButton.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				selectPhotoTableLayout.setVisibility(View.GONE);
+			}
+		});
 		this.headTextView = (TextView) this
 				.findViewById(R.id.topicAndPost_titleTextView);
 		this.titleEditText = (EditText) this
@@ -111,25 +146,43 @@ public class TopicAndPostActivity extends BaseActivity implements HttpCallback {
 		selectedPhotosGridView
 				.setSelector(new ColorDrawable(Color.TRANSPARENT));
 		selectedBitList = new ArrayList<PhotoItem>();
-		for(int i=0;i<4;i++){
+		for (int i = 0; i < 4; i++) {
 			PhotoItem pi = new PhotoItem(true);
 			selectedBitList.add(pi);
 		}
 		selectedPhotoAdapter = new PhotoAdapter(this, this.selectedBitList,
 				true);
 		selectedPhotosGridView.setAdapter(selectedPhotoAdapter);
+		selectedPhotosGridView.setOnItemClickListener(photoSelectedItemClickListener);
+		this.selectPhotoTableLayout = (TableLayout) this
+				.findViewById(R.id.topicAndPost_selectPhotoTableLayout);
 		progressBar.setVisibility(View.INVISIBLE);
 	}
+
+	private OnItemClickListener photoSelectedItemClickListener = new OnItemClickListener() {
+
+		@Override
+		public void onItemClick(AdapterView<?> parent, View view, int position,
+				long id) {
+			selectedPhotoPosition = position;
+			InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+			imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+			selectPhotoTableLayout.setVisibility(View.VISIBLE);
+		}
+	};
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public void success(String url, Object data) {
-		if (url.equals("/saveTopic.do")||url.equals("/savePost.do")) {
+		if (url.equals("/saveTopic.do") || url.equals("/savePost.do")) {
 			this.finish();
 		} else {
 			List<PhotoItem> bitList = (List<PhotoItem>) data;
 			this.selectedBitList.clear();
 			this.selectedBitList.addAll(bitList);
+			while(this.selectedBitList.size()<4){
+				this.selectedBitList.add(new PhotoItem(true));
+			}
 			selectedPhotoAdapter.notifyDataSetChanged();
 		}
 		progressBar.setVisibility(View.INVISIBLE);
