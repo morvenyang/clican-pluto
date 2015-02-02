@@ -107,6 +107,7 @@ public class TopicAndPostActivity extends BaseActivity implements HttpCallback {
 						piList.add(pi);
 					}
 				}
+				selectPhotoTableLayout.setVisibility(View.GONE);
 				intent.putParcelableArrayListExtra("selectedBitList", piList);
 				startActivity(intent);
 			}
@@ -119,6 +120,7 @@ public class TopicAndPostActivity extends BaseActivity implements HttpCallback {
 				if(intent!=null){
 					intent.putExtra("selectedPhotoPosition", selectedPhotoPosition);
 				}
+				selectPhotoTableLayout.setVisibility(View.GONE);
 			}
 		});
 		this.cancelPhotoButton = (Button)findViewById(R.id.topicAndPost_cancelPhotoButton);
