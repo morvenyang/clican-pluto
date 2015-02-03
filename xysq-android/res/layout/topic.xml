@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backgroundColor"
+    android:background="@android:color/white"
     android:orientation="vertical" >
 
     <RelativeLayout
@@ -24,8 +24,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
+            android:text="小区论坛"
             android:textColor="@android:color/white"
             android:textSize="18sp" />
+
     </RelativeLayout>
 
     <RelativeLayout
@@ -42,34 +44,41 @@
             android:id="@+id/post_row_profileImageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="12dp"
             android:src="@drawable/head_portrait" />
 
-        <TextView
-            android:id="@+id/topic_nickNameTextView"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="22dp"
+            android:layout_alignBottom="@id/post_row_profileImageView"
+            android:layout_alignTop="@id/post_row_profileImageView"
+            android:layout_marginLeft="12dp"
             android:layout_toRightOf="@+id/post_row_profileImageView"
-            android:text="Medium Text"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:gravity="center_vertical"
+            android:orientation="vertical" >
 
-        <TextView
-            android:id="@+id/topic_descriptionTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/topic_nickNameTextView"
-            android:layout_centerVertical="true"
-            android:text="Medium Text"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            <TextView
+                android:id="@+id/topic_nickNameTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Medium Text"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#004ea2"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/topic_descriptionTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Medium Text"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/ccccccColor"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
     </RelativeLayout>
-
-    <TextView
-        android:id="@+id/topic_topic_titleTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Large Text"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -78,16 +87,32 @@
     </RelativeLayout>
 
     <TextView
+        android:id="@+id/topic_topic_titleTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="Large Text"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#333333"
+        android:textSize="15sp" />
+
+    <TextView
         android:id="@+id/topic_topic_contentTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:layout_marginBottom="15dp"
+        android:layout_marginTop="15dp"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#666666"
+        android:textSize="14sp" />
 
     <GridView
         android:id="@+id/topic_photos_gridView"
         android:layout_width="match_parent"
         android:layout_height="100dp"
+        android:layout_marginBottom="15dp"
         android:numColumns="4" >
+
     </GridView>
 
     <RelativeLayout

@@ -5,17 +5,17 @@ import android.os.Parcelable;
 
 public class User implements Parcelable{
 
-	private Long id;
-	private String nickName;
+	private Long id = -1L;
+	private String nickName="";
 	
-	private String msisdn;
+	private String msisdn="";
 	
-	private String jsessionid;
+	private String jsessionid="";
 	
-	private String address;
-	private String carNumber;
+	private String address="";
+	private String carNumber="";
 	private boolean applyXqnc;
-	private String password;
+	private String password="";
 
 	public Long getId() {
 		return id;
