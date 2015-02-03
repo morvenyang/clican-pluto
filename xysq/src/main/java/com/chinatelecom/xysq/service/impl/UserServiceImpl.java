@@ -126,6 +126,7 @@ public class UserServiceImpl implements UserService {
 				UserJson userJson = new UserJson();
 				userJson.setMsisdn(user.getMsisdn());
 				userJson.setNickName(user.getNickName());
+				userJson.setId(user.getId());
 				userJson.setAddress(user.getAddress());
 				userJson.setCarNumber(user.getCarNumber());
 				userJson.setApplyXqnc(user.isApplyXqnc());
@@ -165,6 +166,7 @@ public class UserServiceImpl implements UserService {
 					UserJson userJson = new UserJson();
 					userJson.setMsisdn(user.getMsisdn());
 					userJson.setNickName(user.getNickName());
+					userJson.setId(user.getId());
 					userJson.setAddress(user.getAddress());
 					userJson.setCarNumber(user.getCarNumber());
 					userJson.setApplyXqnc(user.isApplyXqnc());
@@ -207,6 +209,7 @@ public class UserServiceImpl implements UserService {
 				UserJson userJson = new UserJson();
 				userJson.setMsisdn(user.getMsisdn());
 				userJson.setNickName(user.getNickName());
+				userJson.setId(user.getId());
 				userJson.setAddress(user.getAddress());
 				userJson.setCarNumber(user.getCarNumber());
 				userJson.setApplyXqnc(user.isApplyXqnc());
@@ -242,6 +245,7 @@ public class UserServiceImpl implements UserService {
 					UserJson userJson = new UserJson();
 					userJson.setMsisdn(user.getMsisdn());
 					userJson.setNickName(user.getNickName());
+					userJson.setId(user.getId());
 					userJson.setAddress(user.getAddress());
 					userJson.setCarNumber(user.getCarNumber());
 					userJson.setApplyXqnc(user.isApplyXqnc());
@@ -272,6 +276,7 @@ public class UserServiceImpl implements UserService {
 		UserJson userJson = new UserJson();
 		userJson.setMsisdn(user.getMsisdn());
 		userJson.setNickName(user.getNickName());
+		userJson.setId(user.getId());
 		userJson.setAddress(user.getAddress());
 		userJson.setCarNumber(user.getCarNumber());
 		userJson.setApplyXqnc(user.isApplyXqnc());
