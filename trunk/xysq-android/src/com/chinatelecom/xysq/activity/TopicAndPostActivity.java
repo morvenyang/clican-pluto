@@ -108,6 +108,7 @@ public class TopicAndPostActivity extends BaseActivity implements HttpCallback {
 					}
 				}
 				selectPhotoTableLayout.setVisibility(View.GONE);
+				sendButton.setVisibility(View.VISIBLE);
 				intent.putParcelableArrayListExtra("selectedBitList", piList);
 				startActivity(intent);
 			}
@@ -121,6 +122,7 @@ public class TopicAndPostActivity extends BaseActivity implements HttpCallback {
 					intent.putExtra("selectedPhotoPosition", selectedPhotoPosition);
 				}
 				selectPhotoTableLayout.setVisibility(View.GONE);
+				sendButton.setVisibility(View.VISIBLE);
 			}
 		});
 		this.cancelPhotoButton = (Button)findViewById(R.id.topicAndPost_cancelPhotoButton);
@@ -128,6 +130,7 @@ public class TopicAndPostActivity extends BaseActivity implements HttpCallback {
 			@Override
 			public void onClick(View v) {
 				selectPhotoTableLayout.setVisibility(View.GONE);
+				sendButton.setVisibility(View.VISIBLE);
 			}
 		});
 		this.headTextView = (TextView) this
@@ -170,6 +173,7 @@ public class TopicAndPostActivity extends BaseActivity implements HttpCallback {
 			InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 			imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
 			selectPhotoTableLayout.setVisibility(View.VISIBLE);
+			sendButton.setVisibility(View.GONE);
 		}
 	};
 

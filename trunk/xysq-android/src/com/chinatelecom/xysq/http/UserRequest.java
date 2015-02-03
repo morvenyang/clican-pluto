@@ -16,6 +16,7 @@ import android.util.Log;
 
 import com.chinatelecom.xysq.bean.User;
 import com.chinatelecom.xysq.other.Constants;
+import com.chinatelecom.xysq.util.KeyValueUtils;
 
 public class UserRequest {
 
@@ -50,6 +51,7 @@ public class UserRequest {
 						JSONObject jsonObj = new JSONObject(responseString);
 						if (jsonObj.getBoolean("success")) {
 							User user = new User();
+							user.setPassword(password);
 							populateUser(user,jsonObj.getJSONObject("user"));
 							return new TaskResult(1,
 									jsonObj.getString("message"), user);
