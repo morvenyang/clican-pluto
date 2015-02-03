@@ -27,7 +27,6 @@
             android:text="小区论坛"
             android:textColor="@android:color/white"
             android:textSize="18sp" />
-
     </RelativeLayout>
 
     <RelativeLayout
@@ -75,21 +74,15 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/ccccccColor"
                 android:textSize="12sp" />
-
         </LinearLayout>
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="@color/dividerColor" >
     </RelativeLayout>
 
     <TextView
         android:id="@+id/topic_topic_titleTextView"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
         android:layout_marginTop="15dp"
         android:text="Large Text"
         android:textAppearance="?android:attr/textAppearanceLarge"
@@ -98,9 +91,11 @@
 
     <TextView
         android:id="@+id/topic_topic_contentTextView"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="15dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
         android:layout_marginTop="15dp"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="#666666"
@@ -111,15 +106,9 @@
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_marginBottom="15dp"
+        android:gravity="center"
         android:numColumns="4" >
-
     </GridView>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="@color/dividerColor" >
-    </RelativeLayout>
 
     <com.handmark.pulltorefresh.library.PullToRefreshListView
         android:id="@+id/topic_post_listView"
@@ -138,8 +127,12 @@
 
     <Button
         android:id="@+id/topic_replyButton"
+        style="?android:attr/borderlessButtonStyle"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="输入回复" />
+        android:layout_height="54dp"
+        android:background="@color/lightGreen"
+        android:text="回复"
+        android:textColor="@android:color/white"
+        android:textSize="22sp" />
 
 </LinearLayout>
