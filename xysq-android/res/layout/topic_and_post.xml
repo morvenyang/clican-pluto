@@ -51,36 +51,66 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" >
 
-            <EditText
-                android:id="@+id/topicAndPost_titleEditText"
+            <LinearLayout
+                android:id="@+id/topicAndPost_contentLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:visibility="visible" />
+                android:orientation="vertical" >
 
-            <EditText
-                android:id="@+id/topicAndPost_contentEditText"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_below="@+id/topicAndPost_titleEditText"
-                android:ems="10"
-                android:gravity="top|left"
-                android:inputType="textMultiLine"
-                android:lines="20" />
+                <EditText
+                    android:id="@+id/topicAndPost_titleEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:background="#00000000"
+                    android:ems="10"
+                    android:height="45dp"
+                    android:hint="请在这里输入标题"
+                    android:textColor="@color/rowTextColor"
+                    android:textSize="20sp" />
 
-            <GridView
-                android:id="@+id/topicAndPost_selected_photos_gridView"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:layout_below="@id/topicAndPost_contentEditText"
-                android:gravity="center"
-                android:numColumns="4" >
-            </GridView>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="#FF909090" >
+                </RelativeLayout>
+
+                <EditText
+                    android:id="@+id/topicAndPost_contentEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="10dp"
+                    android:background="#00000000"
+                    android:ems="10"
+                    android:gravity="top|left"
+                    android:hint="请在这里输入正文"
+                    android:inputType="textMultiLine"
+                    android:lines="20"
+                    android:textColor="@color/ccccccColor"
+                    android:textSize="18sp" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="#FF909090" >
+                </RelativeLayout>
+
+                <GridView
+                    android:id="@+id/topicAndPost_selected_photos_gridView"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:gravity="center"
+                    android:numColumns="4" >
+                </GridView>
+            </LinearLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@id/topicAndPost_selected_photos_gridView" >
+                android:layout_below="@id/topicAndPost_contentLayout" >
 
                 <Button
                     android:id="@+id/topicAndPost_sendButton"
@@ -118,7 +148,6 @@
                         android:text="从相册选取"
                         android:textColor="@color/labelTextColor"
                         android:textSize="15sp" />
-
                 </TableRow>
 
                 <TableRow
@@ -149,7 +178,6 @@
                         android:text="拍照"
                         android:textColor="@color/labelTextColor"
                         android:textSize="15sp" />
-
                 </TableRow>
 
                 <TableRow
@@ -180,7 +208,6 @@
                         android:text="取消"
                         android:textColor="@color/labelTextColor"
                         android:textSize="15sp" />
-
                 </TableRow>
             </TableLayout>
         </RelativeLayout>

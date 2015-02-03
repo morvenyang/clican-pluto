@@ -15,6 +15,7 @@ public class User implements Parcelable{
 	private String address;
 	private String carNumber;
 	private boolean applyXqnc;
+	private String password;
 
 	public Long getId() {
 		return id;
@@ -72,6 +73,14 @@ public class User implements Parcelable{
 		this.applyXqnc = applyXqnc;
 	}
 
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 	public static final Parcelable.Creator<User> CREATOR = new Parcelable.Creator<User>() {
 		public User createFromParcel(Parcel in) {
 			return new User(in);
@@ -93,6 +102,7 @@ public class User implements Parcelable{
 		address = in.readString();
 		carNumber = in.readString();
 		applyXqnc = in.readInt()==1?true:false;
+		password = in.readString();
 	}
 	
 	@Override
@@ -110,6 +120,7 @@ public class User implements Parcelable{
 		dest.writeString(address);
 		dest.writeString(carNumber);
 		dest.writeInt(applyXqnc?1:0);
+		dest.writeString(password);
 	}
 	
 }

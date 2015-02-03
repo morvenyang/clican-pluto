@@ -13,6 +13,10 @@ public class Constants {
 	
 	public final static String AREA_ID = "AREA_ID";
 	
+	public final static String USER_NAME ="USER_NAME";
+	
+	public final static String PASSWORD= "PASSWORD";
+	
 //	public final static String BASE_URL = "http://222.74.224.24:9090/xysq";
 	
 	public final static String BASE_URL = "http://192.168.1.100:9000/xysq";
