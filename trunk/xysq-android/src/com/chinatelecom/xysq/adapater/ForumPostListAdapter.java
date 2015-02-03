@@ -11,6 +11,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -75,9 +76,7 @@ public class ForumPostListAdapter extends BaseAdapter {
 	@Override
 	public View getView(final int position, View convertView, ViewGroup parent) {
 		if(position==0){
-			if (convertView == null) {
-				convertView = inflater.inflate(R.layout.topic_row, null);
-			}
+			convertView = inflater.inflate(R.layout.topic_row, null);
 			TextView nickNameTextView = (TextView) convertView.findViewById(R.id.topic_nickNameTextView);
 			nickNameTextView.setText(topic.getSubmitter().getNickName());
 
@@ -95,7 +94,7 @@ public class ForumPostListAdapter extends BaseAdapter {
 			
 			GridView photosGridView= (GridView) convertView.findViewById(R.id.topic_photos_gridView);
 			if(this.topic.getImages()==null||this.topic.getImages().size()==0){
-				photosGridView.setVisibility(View.INVISIBLE);
+				photosGridView.setVisibility(View.GONE);
 			}else{
 				photosGridView.setSelector(new ColorDrawable(Color.TRANSPARENT));
 				PhotoAdapter photoAdapter = new PhotoAdapter(activity,
@@ -103,9 +102,7 @@ public class ForumPostListAdapter extends BaseAdapter {
 				photosGridView.setAdapter(photoAdapter);
 			}
 		}else{
-			if (convertView == null) {
-				convertView = inflater.inflate(R.layout.post_row, null);
-			}
+			convertView = inflater.inflate(R.layout.post_row, null);
 			final ForumPost forumPost = forumPostList.get(position-1);
 			TextView nickNameTextView = (TextView) convertView
 					.findViewById(R.id.post_row_nickNameTextView);
@@ -113,7 +110,7 @@ public class ForumPostListAdapter extends BaseAdapter {
 
 			TextView floorTextView = (TextView) convertView
 					.findViewById(R.id.post_row_floorTextView);
-			floorTextView.setText((position + 1) + "楼");
+			floorTextView.setText(position + "楼");
 
 			TextView contentTextView = (TextView) convertView
 					.findViewById(R.id.post_row_contentTextView);
@@ -149,6 +146,16 @@ public class ForumPostListAdapter extends BaseAdapter {
 					activity.startActivity(intent);
 				}
 			});
+			
+			GridView photosGridView= (GridView) convertView.findViewById(R.id.post_row_photos_gridView);
+			if(forumPost.getImages()==null||forumPost.getImages().size()==0){
+				photosGridView.setVisibility(View.GONE);
+			}else{
+				photosGridView.setSelector(new ColorDrawable(Color.TRANSPARENT));
+				PhotoAdapter photoAdapter = new PhotoAdapter(activity,
+						forumPost.getImages());
+				photosGridView.setAdapter(photoAdapter);
+			}
 		}
 		
 		
