@@ -47,7 +47,7 @@ public class TopicActivity extends BaseActivity implements
 
 	private ForumTopic topic;
 
-	private GridView photosGridView;
+	
 
 	@Override
 	protected String getPageName() {
@@ -65,29 +65,8 @@ public class TopicActivity extends BaseActivity implements
 				finish();
 			}
 		});
-		TextView nickNameTextView = (TextView) findViewById(R.id.topic_nickNameTextView);
-		nickNameTextView.setText(topic.getSubmitter().getNickName());
-
-		TextView descriptionTextView = (TextView) findViewById(R.id.topic_descriptionTextView);
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss",
-				Locale.ENGLISH);
-		descriptionTextView.setText("发表:" + sdf.format(topic.getCreateTime())
-				+ " 回复:" + topic.getPostNum());
-
-		TextView titleTextView = (TextView) findViewById(R.id.topic_topic_titleTextView);
-		titleTextView.setText(topic.getTitle());
-
-		TextView contentTextView = (TextView) findViewById(R.id.topic_topic_contentTextView);
-		contentTextView.setText(topic.getContent());
-		photosGridView = (GridView) findViewById(R.id.topic_photos_gridView);
-		if(this.topic.getImages()==null||this.topic.getImages().size()==0){
-			photosGridView.setVisibility(View.INVISIBLE);
-		}else{
-			photosGridView.setSelector(new ColorDrawable(Color.TRANSPARENT));
-			PhotoAdapter photoAdapter = new PhotoAdapter(this,
-					this.topic.getImages());
-			photosGridView.setAdapter(photoAdapter);
-		}
+		
+		
 
 		Button replyButton = (Button) findViewById(R.id.topic_replyButton);
 		replyButton.setOnClickListener(new OnClickListener() {
