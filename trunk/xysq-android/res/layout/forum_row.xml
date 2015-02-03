@@ -17,11 +17,14 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="@color/rowTextColor"
         android:textSize="15sp" />
-	 <GridView 
-        android:id="@+id/forum_row_photos_gridView"
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:numColumns="4" >
+
+	 <GridView
+	     android:id="@+id/forum_row_photos_gridView"
+	     android:layout_width="match_parent"
+	     android:layout_height="80dp"
+	     android:gravity="center"
+	     android:numColumns="4" >
+
     </GridView>
     <RelativeLayout
         android:layout_width="match_parent"
