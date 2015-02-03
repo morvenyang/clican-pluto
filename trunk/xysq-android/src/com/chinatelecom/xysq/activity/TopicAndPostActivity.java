@@ -72,14 +72,20 @@ public class TopicAndPostActivity extends BaseActivity implements HttpCallback {
 				if (user == null) {
 					AlertUtil.alert(TopicAndPostActivity.this, "请先登录");
 				} else {
+					List<PhotoItem> nonEmptyBitList = new ArrayList<PhotoItem>();
+					for(PhotoItem pi:selectedBitList){
+						if(!pi.isShowEmpty()){
+							nonEmptyBitList.add(pi);
+						}
+					}
 					if (topic) {
 						ForumRequest.saveTopic(TopicAndPostActivity.this, user,
-								communityId, title, content, selectedBitList);
+								communityId, title, content, nonEmptyBitList);
 					} else {
 						ForumRequest
 								.savePost(TopicAndPostActivity.this, user,
 										topicId, content, replyContent,
-										selectedBitList);
+										nonEmptyBitList);
 					}
 
 				}
