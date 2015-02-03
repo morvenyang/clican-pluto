@@ -398,9 +398,9 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int post_row_floorTextView=0x7f06006f;
         public static final int post_row_nickNameTextView=0x7f06006e;
         public static final int post_row_profileImageView=0x7f06006d;
-        public static final int post_row_replyButton=0x7f060071;
-        public static final int post_row_replyContentFlagImageView=0x7f060074;
-        public static final int post_row_replyContentTextView=0x7f060072;
+        public static final int post_row_replyButton=0x7f060074;
+        public static final int post_row_replyContentFlagImageView=0x7f060072;
+        public static final int post_row_replyContentTextView=0x7f060071;
         public static final int profile_detail_addressEditText=0x7f060080;
         public static final int profile_detail_backButton=0x7f06007c;
         public static final int profile_detail_carNumberEditText=0x7f06007f;
