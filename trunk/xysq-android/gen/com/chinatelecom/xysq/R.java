@@ -394,12 +394,12 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int photo_selectedImageView=0x7f06006c;
         public static final int photo_selected_gridView=0x7f060064;
         public static final int post_row_contentTextView=0x7f060070;
-        public static final int post_row_createTimeTextView=0x7f060073;
+        public static final int post_row_createTimeTextView=0x7f060074;
         public static final int post_row_floorTextView=0x7f06006f;
         public static final int post_row_nickNameTextView=0x7f06006e;
-        public static final int post_row_photos_gridView=0x7f060075;
+        public static final int post_row_photos_gridView=0x7f060073;
         public static final int post_row_profileImageView=0x7f06006d;
-        public static final int post_row_replyButton=0x7f060074;
+        public static final int post_row_replyButton=0x7f060075;
         public static final int post_row_replyContentFlagImageView=0x7f060072;
         public static final int post_row_replyContentTextView=0x7f060071;
         public static final int profile_detail_addressEditText=0x7f060081;
