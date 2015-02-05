@@ -222,8 +222,14 @@ public class TopicAndPostActivity extends BaseActivity implements HttpCallback {
 			PhotoRequest.prepareThumbnail(this, this, selectedBitList);
 		} else {
 			PhotoItem pi = intent.getParcelableExtra("takePhotoBit");
-			this.selectedBitList.add(pi);
-			PhotoRequest.prepareThumbnail(this, this, selectedBitList);
+			List<PhotoItem> piList = new ArrayList<PhotoItem>();
+			for(PhotoItem p:this.selectedBitList){
+				if(!p.isShowEmpty()){
+					piList.add(p);
+				}
+			}
+			piList.add(pi);
+			PhotoRequest.prepareThumbnail(this, this, piList);
 		}
 
 		super.onNewIntent(intent);

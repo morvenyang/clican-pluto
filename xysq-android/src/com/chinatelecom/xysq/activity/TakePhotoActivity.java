@@ -1,11 +1,15 @@
 package com.chinatelecom.xysq.activity;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.OutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import org.apache.commons.lang.StringUtils;
 
-import android.content.ContentValues;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.ImageFormat;
@@ -15,9 +19,7 @@ import android.hardware.Camera.CameraInfo;
 import android.hardware.Camera.Parameters;
 import android.hardware.Camera.PictureCallback;
 import android.hardware.Camera.Size;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -27,6 +29,7 @@ import android.widget.Button;
 
 import com.chinatelecom.xysq.R;
 import com.chinatelecom.xysq.bean.PhotoItem;
+import com.chinatelecom.xysq.other.Constants;
 
 public class TakePhotoActivity extends BaseActivity implements
 		android.view.SurfaceHolder.Callback, PictureCallback {
@@ -45,7 +48,7 @@ public class TakePhotoActivity extends BaseActivity implements
 	private Button switchButton;
 	private Button autoManualButton;
 
-	private Uri currentUri;
+	private String filePath;
 
 	private boolean front = false;
 	private boolean auto = true;
@@ -69,8 +72,7 @@ public class TakePhotoActivity extends BaseActivity implements
 						TopicAndPostActivity.class);
 				intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
 				intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-				intent.putExtra("selectPhoto", true);
-				String filePath = currentUri.getPath();
+				intent.putExtra("selectPhoto", false);
 				String fileName = StringUtils.substringAfterLast(filePath, "/");
 				PhotoItem pi = new PhotoItem(filePath, fileName);
 				intent.putExtra("takePhotoBit", pi);
@@ -123,13 +125,16 @@ public class TakePhotoActivity extends BaseActivity implements
 
 	@Override
 	public void onPictureTaken(byte[] data, Camera camera) {
-		Uri imageUri = this.getContentResolver().insert(
-				MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-				new ContentValues());
-		currentUri = imageUri;
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd/HHmmss",
+				Locale.ENGLISH);
+		this.filePath = Constants.TEMP_FILE_PATH + "/"
+				+ sdf.format(new Date()) + ".jpg";
 		try {
-			OutputStream os = this.getContentResolver().openOutputStream(
-					imageUri);
+			File file = new File(filePath);
+			if(!file.getParentFile().exists()){
+				file.getParentFile().mkdirs();
+			}
+			OutputStream os = new FileOutputStream(filePath);
 			os.write(data);
 			os.flush();
 			os.close();
@@ -185,7 +190,7 @@ public class TakePhotoActivity extends BaseActivity implements
 		camera.autoFocus(new AutoFocusCallback() {
 			@Override
 			public void onAutoFocus(boolean success, Camera camera) {
-				
+
 			}
 		});
 	}
