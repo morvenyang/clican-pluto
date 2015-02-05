@@ -73,8 +73,8 @@ public class TopicAndPostActivity extends BaseActivity implements HttpCallback {
 					AlertUtil.alert(TopicAndPostActivity.this, "请先登录");
 				} else {
 					List<PhotoItem> nonEmptyBitList = new ArrayList<PhotoItem>();
-					for(PhotoItem pi:selectedBitList){
-						if(!pi.isShowEmpty()){
+					for (PhotoItem pi : selectedBitList) {
+						if (!pi.isShowEmpty()) {
 							nonEmptyBitList.add(pi);
 						}
 					}
@@ -108,8 +108,8 @@ public class TopicAndPostActivity extends BaseActivity implements HttpCallback {
 				Intent intent = new Intent(TopicAndPostActivity.this,
 						PhotoAlbumActivity.class);
 				ArrayList<PhotoItem> piList = new ArrayList<PhotoItem>();
-				for(PhotoItem pi :selectedBitList){
-					if(!pi.isShowEmpty()){
+				for (PhotoItem pi : selectedBitList) {
+					if (!pi.isShowEmpty()) {
 						piList.add(pi);
 					}
 				}
@@ -123,16 +123,20 @@ public class TopicAndPostActivity extends BaseActivity implements HttpCallback {
 		this.takePhotoButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Intent intent = null;
-				if(intent!=null){
-					intent.putExtra("selectedPhotoPosition", selectedPhotoPosition);
+				Intent intent = new Intent(TopicAndPostActivity.this,
+						TakePhotoActivity.class);
+				if (intent != null) {
+					intent.putExtra("selectedPhotoPosition",
+							selectedPhotoPosition);
 				}
 				selectPhotoTableLayout.setVisibility(View.GONE);
 				sendButton.setVisibility(View.VISIBLE);
+				takePhotoButton.setEnabled(false);
+				startActivity(intent);
 			}
 		});
-		this.cancelPhotoButton = (Button)findViewById(R.id.topicAndPost_cancelPhotoButton);
-		this.cancelPhotoButton.setOnClickListener(new OnClickListener(){
+		this.cancelPhotoButton = (Button) findViewById(R.id.topicAndPost_cancelPhotoButton);
+		this.cancelPhotoButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				selectPhotoTableLayout.setVisibility(View.GONE);
@@ -164,7 +168,8 @@ public class TopicAndPostActivity extends BaseActivity implements HttpCallback {
 		selectedPhotoAdapter = new PhotoAdapter(this, this.selectedBitList,
 				true);
 		selectedPhotosGridView.setAdapter(selectedPhotoAdapter);
-		selectedPhotosGridView.setOnItemClickListener(photoSelectedItemClickListener);
+		selectedPhotosGridView
+				.setOnItemClickListener(photoSelectedItemClickListener);
 		this.selectPhotoTableLayout = (TableLayout) this
 				.findViewById(R.id.topicAndPost_selectPhotoTableLayout);
 		progressBar.setVisibility(View.INVISIBLE);
@@ -179,6 +184,7 @@ public class TopicAndPostActivity extends BaseActivity implements HttpCallback {
 			InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 			imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
 			selectPhotoTableLayout.setVisibility(View.VISIBLE);
+			takePhotoButton.setEnabled(true);
 			sendButton.setVisibility(View.GONE);
 		}
 	};
@@ -192,7 +198,7 @@ public class TopicAndPostActivity extends BaseActivity implements HttpCallback {
 			List<PhotoItem> bitList = (List<PhotoItem>) data;
 			this.selectedBitList.clear();
 			this.selectedBitList.addAll(bitList);
-			while(this.selectedBitList.size()<4){
+			while (this.selectedBitList.size() < 4) {
 				this.selectedBitList.add(new PhotoItem(true));
 			}
 			selectedPhotoAdapter.notifyDataSetChanged();
@@ -209,9 +215,16 @@ public class TopicAndPostActivity extends BaseActivity implements HttpCallback {
 	protected void onNewIntent(Intent intent) {
 		progressBar.setVisibility(View.GONE);
 		progressBar.setVisibility(View.VISIBLE);
-		List<PhotoItem> selectedBitList = intent
-				.getParcelableArrayListExtra("selectedBitList");
-		PhotoRequest.prepareThumbnail(this, this, selectedBitList);
+		boolean selectPhoto = intent.getBooleanExtra("selectPhoto", true);
+		if (selectPhoto) {
+			List<PhotoItem> selectedBitList = intent
+					.getParcelableArrayListExtra("selectedBitList");
+			PhotoRequest.prepareThumbnail(this, this, selectedBitList);
+		} else {
+			PhotoItem pi = intent.getParcelableExtra("takePhotoBit");
+			this.selectedBitList.add(pi);
+			PhotoRequest.prepareThumbnail(this, this, selectedBitList);
+		}
 
 		super.onNewIntent(intent);
 	}

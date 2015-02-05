@@ -54,13 +54,13 @@ public class PhotoRequest {
 						pa.setName(dir);
 						pa.setBitmap(Integer.parseInt(id));
 						pa.setCount("1");
-						pa.getBitList().add(new PhotoItem(Integer.valueOf(id),filePath,fileName));
+						pa.getBitList().add(new PhotoItem(filePath,fileName));
 						countMap.put(dir_id, pa);
 					} else {
 						pa = countMap.get(dir_id);
 						pa.setCount(String.valueOf(Integer.parseInt(pa
 								.getCount()) + 1));
-						pa.getBitList().add(new PhotoItem(Integer.valueOf(id),filePath,fileName));
+						pa.getBitList().add(new PhotoItem(filePath,fileName));
 					}
 				}
 				cursor.close();

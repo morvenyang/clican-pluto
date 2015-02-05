@@ -70,6 +70,7 @@ public class PhotoActivity extends Activity implements HttpCallback {
                 Intent intent = new Intent(PhotoActivity.this, TopicAndPostActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.putExtra("selectPhoto", true);
                 intent.putParcelableArrayListExtra("selectedBitList", selectedBitList);
                 startActivity(intent);
 			}
