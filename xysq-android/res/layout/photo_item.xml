@@ -18,7 +18,8 @@
         android:layout_alignParentTop="false"
         android:layout_alignRight="@id/photo_imageView"
         android:layout_alignTop="@id/photo_imageView"
+        android:layout_alignBottom="@id/photo_imageView"
         android:layout_alignWithParentIfMissing="false"
-        android:background="@drawable/cb_normal" />
+        android:background="@drawable/photo_icon_select" />
   
 </RelativeLayout>
