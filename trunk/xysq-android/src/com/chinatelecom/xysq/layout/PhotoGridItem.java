@@ -42,7 +42,11 @@ public class PhotoGridItem extends RelativeLayout implements Checkable {
 	@Override
 	public void setChecked(boolean checked) {
 		mCheck = checked;
-		mSelect.setBackground(checked?getResources().getDrawable(R.drawable.cb_on):getResources().getDrawable(R.drawable.cb_normal));
+		if(checked){
+			mSelect.setVisibility(View.VISIBLE);
+		}else{
+			mSelect.setVisibility(View.INVISIBLE);
+		}
 	}   
 	
 	@Override
