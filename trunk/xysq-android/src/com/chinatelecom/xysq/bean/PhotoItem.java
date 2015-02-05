@@ -6,15 +6,13 @@ import android.os.Parcelable;
 
 public class PhotoItem implements Parcelable {
 	
-	private int photoID;
 	private boolean select;
 	private Bitmap bitmap;
 	private String filePath;
 	private String fileName;
 	private boolean showEmpty;
 
-	public PhotoItem(int id, String filePath,String fileName) {
-		photoID = id;
+	public PhotoItem(String filePath,String fileName) {
 		this.filePath = filePath;
 		this.fileName = fileName;
 		select = false;
@@ -31,14 +29,6 @@ public class PhotoItem implements Parcelable {
 
 	public void setBitmap(Bitmap bitmap) {
 		this.bitmap = bitmap;
-	}
-
-	public int getPhotoID() {
-		return photoID;
-	}
-
-	public void setPhotoID(int photoID) {
-		this.photoID = photoID;
 	}
 
 	public boolean isSelect() {
@@ -75,7 +65,7 @@ public class PhotoItem implements Parcelable {
 
 	@Override
 	public String toString() {
-		return "PhotoItem [photoID=" + photoID + ", select=" + select + "]";
+		return "PhotoItem [select=" + select + "]";
 	}
 
 	public static final Parcelable.Creator<PhotoItem> CREATOR = new Parcelable.Creator<PhotoItem>() {
@@ -89,7 +79,6 @@ public class PhotoItem implements Parcelable {
 	};
 
 	private PhotoItem(Parcel in) {
-		photoID = in.readInt();
 		select = in.readInt() == 0 ? false : true;
 		filePath = in.readString();
 		fileName = in.readString();
@@ -104,7 +93,6 @@ public class PhotoItem implements Parcelable {
 
 	@Override
 	public void writeToParcel(Parcel dest, int flags) {
-		dest.writeInt(photoID);
 		dest.writeInt(select ? 1 : 0);
 		dest.writeString(filePath);
 		dest.writeString(fileName);

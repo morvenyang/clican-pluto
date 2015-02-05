@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <SurfaceView
+        android:id="@+id/take_photo_surfaceView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true" />
+
+    <Button
+        android:id="@+id/take_photo_switch_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="23dp"
+        android:background="@drawable/photo_icon_switch" />
+
+    <Button
+        android:id="@+id/take_photo_auto_manual_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/take_photo_switch_button"
+        android:layout_alignBottom="@+id/take_photo_switch_button"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="34dp"
+        android:background="@drawable/photo_icon_auto" />
+
+    <Button
+        android:id="@+id/take_photo_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/photo_icon_take" />
+
+    <Button
+        android:id="@+id/take_photo_submit_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/take_photo_button"
+        android:layout_alignBottom="@+id/take_photo_button"
+        android:layout_alignLeft="@+id/take_photo_switch_button"
+        android:background="@drawable/photo_icon_submit" />
+
+    <Button
+        android:id="@+id/take_photo_cancel_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/take_photo_button"
+        android:layout_alignBottom="@+id/take_photo_button"
+        android:layout_alignLeft="@+id/take_photo_auto_manual_button"
+        android:background="@drawable/photo_icon_cancel" />
+
+</RelativeLayout>
