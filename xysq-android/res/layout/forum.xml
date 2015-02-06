@@ -30,17 +30,18 @@
 
         <Button
             android:id="@+id/forum_postTopicButton"
-             style="?android:attr/borderlessButtonStyle"
+            style="?android:attr/borderlessButtonStyle"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="false"
             android:layout_centerInParent="true"
-            android:layout_marginRight="20dp"
             android:background="#00000000"
+            android:minWidth="60dp"
+            android:text="发贴"
             android:textColor="@android:color/white"
-            android:textSize="14sp" 
-            android:text="发贴" />
+            android:textSize="14sp" />
+
     </RelativeLayout>
 
     <RelativeLayout
