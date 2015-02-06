@@ -68,7 +68,7 @@
                 android:layout_height="wrap_content"
                 android:text="张图片" />
         </LinearLayout>
-        
+
         <GridView
             android:id="@+id/photo_gridView"
             android:layout_width="wrap_content"
@@ -82,7 +82,6 @@
             android:paddingRight="1dp"
             android:paddingTop="1dp"
             android:verticalSpacing="1dp" >
-
         </GridView>
 
         <LinearLayout
@@ -100,13 +99,19 @@
 
             <Button
                 android:id="@+id/photo_done_button"
+                style="?android:attr/borderlessButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:text="完成" />
+                android:layout_marginRight="10dp"
+                android:background="@color/lightGreen"
+                android:minHeight="30dp"
+                android:minWidth="50dp"
+                android:text="完成"
+                android:textColor="@android:color/white"
+                android:textSize="12sp" />
 
         </LinearLayout>
-
     </LinearLayout>
 
 </RelativeLayout>

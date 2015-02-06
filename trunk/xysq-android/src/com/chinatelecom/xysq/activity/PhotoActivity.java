@@ -57,7 +57,6 @@ public class PhotoActivity extends Activity implements HttpCallback {
 				chooseNum++;
 			}
 		}
-		tv.setText(chooseNum + "");
 		photoGridView = (GridView) findViewById(R.id.photo_gridView);
 		photoGridView.setSelector(new ColorDrawable(Color.TRANSPARENT));
 		photoSelectedGridView = (GridView) findViewById(R.id.photo_selected_gridView);
@@ -76,20 +75,25 @@ public class PhotoActivity extends Activity implements HttpCallback {
 			}
 		});
 		selectedBitList = this.getIntent().getParcelableArrayListExtra("selectedBitList");
+		chooseNum=chooseNum+selectedBitList.size();
+		tv.setText(chooseNum + "");
 		progressBar.setVisibility(View.GONE);
 		progressBar.setVisibility(View.VISIBLE);
 		List<PhotoItem> bitList = new ArrayList<PhotoItem>(album.getBitList());
 		bitList.addAll(selectedBitList);
+		for(PhotoItem pi:selectedBitList){
+			for(PhotoItem p:album.getBitList()){
+				if(pi.getFilePath().equals(p.getFilePath())){
+					p.setSelect(true);
+				}
+			}
+		}
 		PhotoRequest.prepareThumbnail(this, this, bitList);
-
 	}
 	
-	@SuppressWarnings("unchecked")
 	@Override
 	public void success(String url, Object data) {
-		
-		List<PhotoItem> bitList = (List<PhotoItem>)data;
-		photoAdapter = new PhotoAdapter(this, bitList,false);
+		photoAdapter = new PhotoAdapter(this, album.getBitList(),false);
 		photoGridView.setAdapter(photoAdapter);
 		photoGridView.setOnItemClickListener(photoItemClickListener);
 
