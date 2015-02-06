@@ -1,0 +1,44 @@
+<rich:modalPanel xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:a4j="http://richfaces.org/a4j" id="areaPanel"
+	autosized="true">
+	<f:facet name="controls">
+		<h:panelGroup>
+			<h:graphicImage value="/img/close.png" styleClass="hidelink"
+				id="areaPanelImg" style="CURSOR: hand" />
+			<rich:componentControl for="areaPanel"
+				attachTo="areaPanelImg" operation="hide" event="onclick" />
+		</h:panelGroup>
+	</f:facet>
+	<f:facet name="header">
+		<h:panelGroup>
+			<h:outputText value="地区"></h:outputText>
+		</h:panelGroup>
+	</f:facet>
+	<a4j:form id="areaForm">
+		<t:panelGrid columns="3" width="600">
+			<t:panelGroup>
+				<h:outputLabel value="名称" />
+				<h:outputText value=" *" style="color:red;" />
+			</t:panelGroup>
+			<h:inputText id="areaName" value="#{areaAction.area.name}"
+				style="width:180px;" required="true" requiredMessage="名称不能为空" />
+			<rich:message for="areaName" style="color:red"
+				showDetail="false" showSummary="true" />
+
+			<h:panelGrid columns="2">
+				<a4j:commandButton value="保存" action="#{areaAction.saveArea()}"
+					oncomplete="if(#{facesContext.maximumSeverity==null}) {Richfaces.hideModalPanel('areaPanel');}"
+					reRender="communityTable,areaTree" />
+				<h:commandButton value="取消" type="reset"
+					onclick="Richfaces.hideModalPanel('areaPanel');" />
+			</h:panelGrid>
+		</t:panelGrid>
+	</a4j:form>
+</rich:modalPanel>
