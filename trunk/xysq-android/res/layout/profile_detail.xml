@@ -66,7 +66,7 @@
             <EditText
                 android:id="@+id/profile_detail_nickNameEditText"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="20dp"
                 android:layout_weight="1"
@@ -109,7 +109,7 @@
             <EditText
                 android:id="@+id/profile_detail_carNumberEditText"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="20dp"
                 android:layout_weight="1"
@@ -150,7 +150,7 @@
             <EditText
                 android:id="@+id/profile_detail_addressEditText"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="20dp"
                 android:layout_weight="1"
