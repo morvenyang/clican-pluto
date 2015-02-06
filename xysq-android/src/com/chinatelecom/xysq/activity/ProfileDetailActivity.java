@@ -54,7 +54,7 @@ public class ProfileDetailActivity extends BaseActivity implements HttpCallback 
 				XysqApplication application = (XysqApplication) getApplication();
 				application.setUser(null);
 				Intent intent = new Intent(ProfileDetailActivity.this,
-						ProfileActivity.class);
+						MainActivity.class);
 				intent.putExtra("finish", true);
 				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				Log.d("XYSQ", "start ProfileActivity");

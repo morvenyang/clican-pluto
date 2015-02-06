@@ -61,8 +61,10 @@ public class XysqApplication extends Application implements HttpCallback {
 
 	public void setUser(User user) {
 		this.user = user;
-		KeyValueUtils.setStringValue(this, Constants.USER_NAME, user.getMsisdn());
-		KeyValueUtils.setStringValue(this, Constants.PASSWORD, user.getPassword());
+		if(user!=null){
+			KeyValueUtils.setStringValue(this, Constants.USER_NAME, user.getMsisdn());
+			KeyValueUtils.setStringValue(this, Constants.PASSWORD, user.getPassword());
+		}
 	}
 
 }
