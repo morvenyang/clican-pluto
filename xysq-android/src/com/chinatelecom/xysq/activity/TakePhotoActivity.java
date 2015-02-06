@@ -3,16 +3,16 @@ package com.chinatelecom.xysq.activity;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import org.apache.commons.lang.StringUtils;
 
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.ImageFormat;
+import android.graphics.Matrix;
 import android.hardware.Camera;
 import android.hardware.Camera.AutoFocusCallback;
 import android.hardware.Camera.CameraInfo;
@@ -53,6 +53,8 @@ public class TakePhotoActivity extends BaseActivity implements
 	private boolean front = false;
 	private boolean auto = true;
 
+	private boolean captured=false;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -90,7 +92,13 @@ public class TakePhotoActivity extends BaseActivity implements
 		cancelButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				finish();
+				if (!captured) {
+					finish();
+				} else {
+					camera.startPreview();
+					submitButton.setVisibility(View.INVISIBLE);
+					captured = false;
+				}
 			}
 		});
 		autoManualButton.setOnClickListener(new OnClickListener() {
@@ -125,24 +133,31 @@ public class TakePhotoActivity extends BaseActivity implements
 
 	@Override
 	public void onPictureTaken(byte[] data, Camera camera) {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd/HHmmss",
-				Locale.ENGLISH);
-		this.filePath = Constants.TEMP_FILE_PATH + "/"
-				+ sdf.format(new Date()) + ".jpg";
+		this.filePath = Constants.TEMP_FILE_PATH + "/temp_photo.jpg";
 		try {
 			File file = new File(filePath);
-			if(!file.getParentFile().exists()){
+			if (!file.getParentFile().exists()) {
 				file.getParentFile().mkdirs();
 			}
+			if (file.exists()) {
+				file.delete();
+			}
+			Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
+			
+			Matrix matrix = new Matrix();
+			matrix.postRotate(90);
+
+			Bitmap rotated = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(),
+			        matrix, true);
 			OutputStream os = new FileOutputStream(filePath);
-			os.write(data);
+			rotated.compress(Bitmap.CompressFormat.JPEG, 100, os);
 			os.flush();
 			os.close();
+			captured=true;
+			submitButton.setVisibility(View.VISIBLE);
 		} catch (Exception e) {
 			Log.e("XYSQ", "拍照失败", e);
 		}
-		camera.startPreview();
-		submitButton.setVisibility(View.VISIBLE);
 	}
 
 	@Override
