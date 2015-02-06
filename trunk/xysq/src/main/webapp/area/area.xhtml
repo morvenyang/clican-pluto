@@ -11,17 +11,31 @@
 		<h:form>
 			<h:panelGrid columns="2" height="100%" width="100%"
 				columnClasses="columntopLeft,columntopRight">
-				<rich:tree switchType="client"
+				<rich:tree id="areaTree" switchType="client"
 					style="width:300px;overflow-y:auto;overflow-x:auto;height:100%">
 					<rich:recursiveTreeNodesAdaptor roots="#{areaAction.areaTrees}"
 						var="area" nodes="#{area.children}">
 						<rich:treeNode iconLeaf="/img/tree.png" icon="/img/tree.png">
-							<h:outputLabel value="#{area.name}"
+							<h:outputLabel id="treeNode" value="#{area.name}"
 								onmouseover="this.style.cursor='hand'"
 								onmouseout="this.style.cursor='default'" style="font-size:15px">
 								<a4j:support event="onclick"
 									action="#{areaAction.selectArea(area)}"
 									reRender="communityTablePanel" />
+								<rich:contextMenu event="oncontextmenu" submitMode="none" rendered="#{area.level==1}">
+									<rich:menuItem value="添加省,直辖市,自治区">
+										<a4j:support event="onclick"
+											action="#{areaAction.addAreaForLevel(1)}"
+											reRender="areaPanel"
+											oncomplete="Richfaces.showModalPanel('areaPanel');" />
+									</rich:menuItem>
+									<rich:menuItem value="添加城市">
+										<a4j:support event="onclick"
+											action="#{areaAction.addAreaWithParent(area)}"
+											reRender="areaPanel"
+											oncomplete="Richfaces.showModalPanel('areaPanel');" />
+									</rich:menuItem>
+								</rich:contextMenu>
 							</h:outputLabel>
 						</rich:treeNode>
 					</rich:recursiveTreeNodesAdaptor>
@@ -33,59 +47,66 @@
 					<h:panelGrid id="communityPanelGrid" style="width:100%">
 						<h:panelGrid columns="4" style="text-align:right;width:100%">
 							<h:panelGroup>
-								<a4j:commandButton
-									style="border:1;" value="发布公告"
+								<a4j:commandButton style="border:1;" value="发布公告"
 									action="#{areaAction.publishAnnouncement()}" ajaxSingle="true"
 									reRender="announcementAndNoticePanel"
 									oncomplete="if(#{facesContext.maximumSeverity==null}) {Richfaces.showModalPanel('announcementAndNoticePanel');}" />
-								<a4j:commandButton
-									style="border:1;" value="发布须知"
+								<a4j:commandButton style="border:1;" value="发布须知"
 									action="#{areaAction.publishNotice()}" ajaxSingle="true"
 									reRender="announcementAndNoticePanel"
 									oncomplete="if(#{facesContext.maximumSeverity==null}) {Richfaces.showModalPanel('announcementAndNoticePanel');}" />
-								<a4j:commandButton
-									style="border:1;" value="导入城市和小区数据" ajaxSingle="true"
-									reRender="importExcelPanel"
+								<a4j:commandButton style="border:1;" value="导入城市和小区数据"
+									ajaxSingle="true" reRender="importExcelPanel"
 									oncomplete="Richfaces.showModalPanel('importExcelPanel');" />
+								<a4j:commandButton style="border:1;" value="新增小区"
+									action="#{areaAction.addCommunity()}" ajaxSingle="true" reRender="communityPanel"
+										oncomplete="Richfaces.showModalPanel('communityPanel');" rendered="#{areaAction.selectedArea.level==2}"/>
 							</h:panelGroup>
 						</h:panelGrid>
-						
+
 						<rich:dataTable id="communityTable" var="community"
-							value="#{areaAction.communitiesBySelectedNode}" rows="#{areaAction.pageSize}"
-							rowKeyVar="rowNumIndex" width="100%" activeClass="active-row"
-							enableContextMenu="true">
+							value="#{areaAction.communitiesBySelectedNode}"
+							rows="#{areaAction.pageSize}" rowKeyVar="rowNumIndex"
+							width="100%" activeClass="active-row" enableContextMenu="true">
 							<rich:column>
 								<f:facet name="header">
 									<h:outputText value="选择" />
 								</f:facet>
 								<h:selectBooleanCheckbox value="#{community.selected}">
-									<a4j:support event="onchange" ajaxSingle="true"/>
+									<a4j:support event="onchange" ajaxSingle="true" />
 								</h:selectBooleanCheckbox>
 							</rich:column>
 							<rich:column>
 								<f:facet name="header">
 									<h:outputText value="Id" />
 								</f:facet>
-								<h:outputText value="#{community.id}" style="white-space:nowrap;" />
+								<h:outputText value="#{community.id}"
+									style="white-space:nowrap;" />
 							</rich:column>
 							<rich:column>
 								<f:facet name="header">
 									<h:outputText value="城市" />
 								</f:facet>
-								<h:outputText value="#{community.city.name}" style="white-space:nowrap;" />
+								<h:outputText value="#{community.city.name}"
+									style="white-space:nowrap;" />
 							</rich:column>
 							<rich:column>
 								<f:facet name="header">
 									<h:outputText value="区/县" />
 								</f:facet>
-								<h:outputText value="#{community.area.name}" rendered="#{community.city.id!=community.area.id}" style="white-space:nowrap;" />
-								<h:outputText value="N/A" rendered="#{community.city.id==community.area.id}" style="white-space:nowrap;" />
+								<h:outputText value="#{community.area.name}"
+									rendered="#{community.city.id!=community.area.id}"
+									style="white-space:nowrap;" />
+								<h:outputText value="N/A"
+									rendered="#{community.city.id==community.area.id}"
+									style="white-space:nowrap;" />
 							</rich:column>
 							<rich:column>
 								<f:facet name="header">
 									<h:outputText value="小区" />
 								</f:facet>
-								<h:outputText value="#{community.name}" style="white-space:nowrap;" />
+								<h:outputText value="#{community.name}"
+									style="white-space:nowrap;" />
 							</rich:column>
 							<rich:column>
 								<f:facet name="header">
@@ -93,16 +114,17 @@
 								</f:facet>
 								<h:panelGrid columns="5">
 									<a4j:commandButton value="编辑"
-										action="#{areaAction.editCommunity(community)}" ajaxSingle="true"
-										reRender="communityPanel"
+										action="#{areaAction.editCommunity(community)}"
+										ajaxSingle="true" reRender="communityPanel"
 										oncomplete="Richfaces.showModalPanel('communityPanel');" />
 									<a4j:commandButton value="删除"
-										action="#{areaAction.deleteCommunity(community)}" ajaxSingle="true"
+										action="#{areaAction.deleteCommunity(community)}"
+										ajaxSingle="true"
 										onclick="var answer=confirm('确认删除该小区?');if(!answer) return false;"
 										reRender="communityTable" />
 									<a4j:commandButton value="公告"
-										action="#{areaAction.listAnnouncement(community)}" ajaxSingle="true"
-										reRender="announcementAndNoticeTablePanel"
+										action="#{areaAction.listAnnouncement(community)}"
+										ajaxSingle="true" reRender="announcementAndNoticeTablePanel"
 										oncomplete="Richfaces.showModalPanel('announcementAndNoticeTablePanel');" />
 									<a4j:commandButton value="须知"
 										action="#{areaAction.listNotice(community)}" ajaxSingle="true"
@@ -114,9 +136,10 @@
 								<h:panelGrid columns="2">
 									<h:outputText
 										value="Total: #{areaAction.communitiesBySelectedNode.rowCount}" />
-									<rich:datascroller for="communityTable" reRender="communityTable"
-										ignoreDupResponses="false" renderIfSinglePage="true"
-										maxPages="10" page="#{areaAction.page}" align="left" ajaxSingle="true">
+									<rich:datascroller for="communityTable"
+										reRender="communityTable" ignoreDupResponses="false"
+										renderIfSinglePage="true" maxPages="10"
+										page="#{areaAction.page}" align="left" ajaxSingle="true">
 									</rich:datascroller>
 								</h:panelGrid>
 							</f:facet>
@@ -126,21 +149,22 @@
 			</h:panelGrid>
 		</h:form>
 
-		
-								
+
+
 		<ui:include src="excelImport.xhtml" />
 		<ui:include src="community.xhtml" />
 		<ui:include src="posterGrid.xhtml" />
 		<ui:include src="storeSelect.xhtml" />
 		<ui:include src="announcementAndNoticeTablePanel.xhtml" />
 		<ui:include src="announcementAndNoticePanel.xhtml" />
+		<ui:include src="areaPanel.xhtml" />
 		<script type="text/javascript">
-			    var windowHeight = jQuery(window).height();
-			    jQuery(window).height(windowHeight);
-			    var headerHeight = jQuery('#headbox').height();
-			    var menuHeight = jQuery('#menuToolBarForm').height();
-			    contentHeight = windowHeight - headerHeight - menuHeight;
-			    jQuery('.columntopLeft').height(contentHeight)
+			var windowHeight = jQuery(window).height();
+			jQuery(window).height(windowHeight);
+			var headerHeight = jQuery('#headbox').height();
+			var menuHeight = jQuery('#menuToolBarForm').height();
+			contentHeight = windowHeight - headerHeight - menuHeight;
+			jQuery('.columntopLeft').height(contentHeight)
 		</script>
 	</ui:define>
 </ui:composition>

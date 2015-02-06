@@ -55,6 +55,7 @@ public class AreaAction extends PageListAction<Community> {
 	private PageListDataModel<Community> communitiesBySelectedNode;
 
 	private Area selectedArea;
+	private Area area;
 
 	private List<String> areaFullNames;
 
@@ -93,11 +94,26 @@ public class AreaAction extends PageListAction<Community> {
 		this.refresh();
 	}
 
+	public void addAreaForLevel(int level){
+		area = new Area();
+		area.setLevel(1);
+	}
+	
+	public void addAreaWithParent(Area parent){
+		area = new Area();
+		area.setParent(parent);
+		area.setLevel(2);
+	}
+	
 	public void selectArea(Area area) {
 		this.selectedArea = area;
 		this.refresh();
 	}
 
+	public void saveArea(){
+		this.getAreaService().saveArea(this.area);
+		this.areaTrees = this.getAreaService().getAreaTrees();
+	}
 	public void selectPoster(Poster poster) {
 		if (!this.selectedPosters.contains(poster)) {
 			this.selectedPosters.add(poster);
@@ -153,6 +169,8 @@ public class AreaAction extends PageListAction<Community> {
 
 	public void addCommunity() {
 		this.community = new Community();
+		this.community.setArea(this.selectedArea);
+		this.community.setCity(this.selectedArea);
 		this.selectedAdmins = new ArrayList<User>();
 		this.selectedPosters = new ArrayList<Poster>();
 		this.selectedStores = new ArrayList<Store>();
@@ -216,6 +234,7 @@ public class AreaAction extends PageListAction<Community> {
 	public void saveCommunity() {
 		this.getAreaService().saveComminity(community, this.selectedAdmins,
 				this.selectedStores, this.selectedPosters);
+		this.refresh();
 	}
 
 	public void deleteCommunity(Community community) {
@@ -537,6 +556,22 @@ public class AreaAction extends PageListAction<Community> {
 
 	public void setNoticeCategories(List<NoticeCategory> noticeCategories) {
 		this.noticeCategories = noticeCategories;
+	}
+
+	public Area getSelectedArea() {
+		return selectedArea;
+	}
+
+	public void setSelectedArea(Area selectedArea) {
+		this.selectedArea = selectedArea;
+	}
+
+	public Area getArea() {
+		return area;
+	}
+
+	public void setArea(Area area) {
+		this.area = area;
 	}
 
 }

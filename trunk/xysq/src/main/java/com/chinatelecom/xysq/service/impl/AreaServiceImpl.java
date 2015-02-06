@@ -197,4 +197,24 @@ public class AreaServiceImpl implements AreaService {
 		return JSONArray.fromObject(result).toString();
 	}
 
+	private void populateFullNameForArea(Area area) {
+		String fullName = area.getName();
+		Area temp = area;
+		while (temp.getParent() != null) {
+			fullName = temp.getParent() + "/" + fullName;
+			temp = temp.getParent();
+		}
+		area.setFullName(fullName);
+	}
+
+	@Override
+	public void saveArea(Area area) {
+		populateFullNameForArea(area);
+		area.setShortPinyin(PinyinHelper.getShortPinyin(area.getName()));
+		area.setPinyin(PinyinHelper.convertToPinyinString(area.getName(), "",
+				PinyinFormat.WITHOUT_TONE));
+		areaDao.saveArea(area);
+		this.areaDao.saveArea(area);
+	}
+
 }
