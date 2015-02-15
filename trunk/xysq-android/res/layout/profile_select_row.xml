@@ -15,7 +15,7 @@
         android:layout_alignParentTop="false"
         android:layout_centerVertical="true"
         android:layout_marginLeft="12dp"
-        android:src="@drawable/icon" />
+        android:src="@drawable/ic_xysq" />
 
     <ImageView
         android:id="@+id/profile_select_row_arrowImageView"
