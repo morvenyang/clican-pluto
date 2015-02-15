@@ -222,7 +222,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int home_inform_icon=0x7f02000d;
         public static final int home_notice_icon=0x7f02000e;
         public static final int ic_launcher=0x7f02000f;
-        public static final int icon=0x7f020010;
+        public static final int ic_xysq=0x7f020010;
         public static final int icon_1=0x7f020011;
         public static final int icon_2=0x7f020012;
         public static final int icon_3=0x7f020013;
