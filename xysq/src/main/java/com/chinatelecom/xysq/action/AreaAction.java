@@ -102,7 +102,7 @@ public class AreaAction extends PageListAction<Community> {
 	public void addAreaWithParent(Area parent){
 		area = new Area();
 		area.setParent(parent);
-		area.setLevel(2);
+		area.setLevel(parent.getLevel()+1);
 	}
 	
 	public void selectArea(Area area) {
@@ -170,7 +170,12 @@ public class AreaAction extends PageListAction<Community> {
 	public void addCommunity() {
 		this.community = new Community();
 		this.community.setArea(this.selectedArea);
-		this.community.setCity(this.selectedArea);
+		if(this.selectedArea.getLevel()==2){
+			this.community.setCity(this.selectedArea);
+		}else{
+			this.community.setCity(this.selectedArea.getParent());
+		}
+		
 		this.selectedAdmins = new ArrayList<User>();
 		this.selectedPosters = new ArrayList<Poster>();
 		this.selectedStores = new ArrayList<Store>();
