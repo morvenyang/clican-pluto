@@ -37,4 +37,6 @@ public interface AreaService {
 	public void saveArea(Area area);
 	
 	public void renameArea(Area area);
+	
+	public void deleteArea(Area area);
 }

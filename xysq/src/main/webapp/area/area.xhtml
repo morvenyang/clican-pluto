@@ -22,7 +22,7 @@
 								<a4j:support event="onclick"
 									action="#{areaAction.selectArea(area)}"
 									reRender="communityTablePanel" />
-								<rich:contextMenu event="oncontextmenu" submitMode="none">
+								<rich:contextMenu event="oncontextmenu" submitMode="ajax">
 									<rich:menuItem value="添加省,直辖市,自治区" rendered="#{area.level==1}">
 										<a4j:support event="onclick"
 											action="#{areaAction.addAreaForLevel(1)}"
@@ -47,6 +47,9 @@
 											reRender="areaPanel"
 											oncomplete="Richfaces.showModalPanel('areaPanel');" />
 									</rich:menuItem>
+									<rich:menuItem value="删除"
+									action="#{areaAction.deleteArea(area)}"
+									reRender="areaTree" onclick="var answer=confirm('确认删除该地区?');if(!answer) return false;"></rich:menuItem>
 								</rich:contextMenu>
 							</h:outputLabel>
 						</rich:treeNode>
