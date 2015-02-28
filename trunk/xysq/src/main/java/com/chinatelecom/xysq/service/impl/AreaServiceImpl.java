@@ -214,7 +214,23 @@ public class AreaServiceImpl implements AreaService {
 		area.setPinyin(PinyinHelper.convertToPinyinString(area.getName(), "",
 				PinyinFormat.WITHOUT_TONE));
 		areaDao.saveArea(area);
-		this.areaDao.saveArea(area);
+	}
+
+	private void saveAreaForAllChildren(Area area){
+		populateFullNameForArea(area);
+		areaDao.saveArea(area);
+		if(area.getChildren()!=null){
+			for(Area child:area.getChildren()){
+				this.saveAreaForAllChildren(child);
+			}
+		}
+	}
+	@Override
+	public void renameArea(Area area) {
+		area.setShortPinyin(PinyinHelper.getShortPinyin(area.getName()));
+		area.setPinyin(PinyinHelper.convertToPinyinString(area.getName(), "",
+				PinyinFormat.WITHOUT_TONE));
+		saveAreaForAllChildren(area);
 	}
 
 }

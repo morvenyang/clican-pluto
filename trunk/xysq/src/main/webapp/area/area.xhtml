@@ -22,24 +22,28 @@
 								<a4j:support event="onclick"
 									action="#{areaAction.selectArea(area)}"
 									reRender="communityTablePanel" />
-								<rich:contextMenu event="oncontextmenu" submitMode="none" rendered="#{area.level==1}">
-									<rich:menuItem value="添加省,直辖市,自治区">
+								<rich:contextMenu event="oncontextmenu" submitMode="none">
+									<rich:menuItem value="添加省,直辖市,自治区" rendered="#{area.level==1}">
 										<a4j:support event="onclick"
 											action="#{areaAction.addAreaForLevel(1)}"
 											reRender="areaPanel"
 											oncomplete="Richfaces.showModalPanel('areaPanel');" />
 									</rich:menuItem>
-									<rich:menuItem value="添加城市">
+									<rich:menuItem value="添加城市" rendered="#{area.level==1}">
 										<a4j:support event="onclick"
 											action="#{areaAction.addAreaWithParent(area)}"
 											reRender="areaPanel"
 											oncomplete="Richfaces.showModalPanel('areaPanel');" />
 									</rich:menuItem>
-								</rich:contextMenu>
-								<rich:contextMenu event="oncontextmenu" submitMode="none" rendered="#{area.level==2}">
-									<rich:menuItem value="添加区/县">
+									<rich:menuItem value="添加区/县" rendered="#{area.level==2}">
 										<a4j:support event="onclick"
 											action="#{areaAction.addAreaWithParent(area)}"
+											reRender="areaPanel"
+											oncomplete="Richfaces.showModalPanel('areaPanel');" />
+									</rich:menuItem>
+									<rich:menuItem value="修改名称">
+										<a4j:support event="onclick"
+											action="#{areaAction.renameArea(area)}"
 											reRender="areaPanel"
 											oncomplete="Richfaces.showModalPanel('areaPanel');" />
 									</rich:menuItem>
