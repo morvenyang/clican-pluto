@@ -77,6 +77,11 @@ public class AreaDaoImpl extends BaseDao implements
 	}
 
 	@Override
+	public void deleteArea(Area area) {
+		this.getHibernateTemplate().delete(area);
+	}
+
+	@Override
 	public void saveCommunity(Community community) {
 		this.getHibernateTemplate().saveOrUpdate(community);
 	}

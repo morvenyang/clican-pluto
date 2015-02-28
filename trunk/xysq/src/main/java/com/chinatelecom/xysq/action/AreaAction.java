@@ -109,6 +109,10 @@ public class AreaAction extends PageListAction<Community> {
 		this.area = area;
 	}
 	
+	public void deleteArea(Area area){
+		this.getAreaService().deleteArea(area);
+		listAreaTrees();
+	}
 	public void selectArea(Area area) {
 		this.selectedArea = area;
 		this.refresh();

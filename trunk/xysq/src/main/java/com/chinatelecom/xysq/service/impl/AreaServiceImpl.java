@@ -233,4 +233,9 @@ public class AreaServiceImpl implements AreaService {
 		saveAreaForAllChildren(area);
 	}
 
+	@Override
+	public void deleteArea(Area area) {
+		this.areaDao.deleteArea(area);
+	}
+
 }
