@@ -35,4 +35,6 @@ public interface AreaService {
 	public String queryCommunityByArea(Long areaId);
 	
 	public void saveArea(Area area);
+	
+	public void renameArea(Area area);
 }

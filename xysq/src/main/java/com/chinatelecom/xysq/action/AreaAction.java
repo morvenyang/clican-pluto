@@ -105,15 +105,24 @@ public class AreaAction extends PageListAction<Community> {
 		area.setLevel(parent.getLevel()+1);
 	}
 	
+	public void renameArea(Area area){
+		this.area = area;
+	}
+	
 	public void selectArea(Area area) {
 		this.selectedArea = area;
 		this.refresh();
 	}
 
 	public void saveArea(){
-		this.getAreaService().saveArea(this.area);
+		if(this.area.getId()==null){
+			this.getAreaService().saveArea(this.area);
+		}else{
+			this.getAreaService().renameArea(this.area);
+		}
 		this.areaTrees = this.getAreaService().getAreaTrees();
 	}
+	
 	public void selectPoster(Poster poster) {
 		if (!this.selectedPosters.contains(poster)) {
 			this.selectedPosters.add(poster);
