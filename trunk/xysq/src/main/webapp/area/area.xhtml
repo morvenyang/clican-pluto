@@ -36,6 +36,14 @@
 											oncomplete="Richfaces.showModalPanel('areaPanel');" />
 									</rich:menuItem>
 								</rich:contextMenu>
+								<rich:contextMenu event="oncontextmenu" submitMode="none" rendered="#{area.level==2}">
+									<rich:menuItem value="添加区/县">
+										<a4j:support event="onclick"
+											action="#{areaAction.addAreaWithParent(area)}"
+											reRender="areaPanel"
+											oncomplete="Richfaces.showModalPanel('areaPanel');" />
+									</rich:menuItem>
+								</rich:contextMenu>
 							</h:outputLabel>
 						</rich:treeNode>
 					</rich:recursiveTreeNodesAdaptor>
@@ -60,7 +68,7 @@
 									oncomplete="Richfaces.showModalPanel('importExcelPanel');" />
 								<a4j:commandButton style="border:1;" value="新增小区"
 									action="#{areaAction.addCommunity()}" ajaxSingle="true" reRender="communityPanel"
-										oncomplete="Richfaces.showModalPanel('communityPanel');" rendered="#{areaAction.selectedArea.level==2}"/>
+										oncomplete="Richfaces.showModalPanel('communityPanel');" rendered="#{areaAction.selectedArea.level==2 or areaAction.selectedArea.level==3}"/>
 							</h:panelGroup>
 						</h:panelGrid>
 

@@ -201,7 +201,7 @@ public class AreaServiceImpl implements AreaService {
 		String fullName = area.getName();
 		Area temp = area;
 		while (temp.getParent() != null) {
-			fullName = temp.getParent() + "/" + fullName;
+			fullName = temp.getParent().getName() + "/" + fullName;
 			temp = temp.getParent();
 		}
 		area.setFullName(fullName);
