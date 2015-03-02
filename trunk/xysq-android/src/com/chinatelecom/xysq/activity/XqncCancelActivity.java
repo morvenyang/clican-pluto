@@ -24,7 +24,7 @@ public class XqncCancelActivity extends BaseActivity implements HttpCallback {
 			public void onClick(View v) {
 				finish();
 				Intent intent = new Intent(XqncCancelActivity.this,
-						IndexActivity.class);
+						MainActivity.class);
 				intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
 				intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				startActivity(intent);

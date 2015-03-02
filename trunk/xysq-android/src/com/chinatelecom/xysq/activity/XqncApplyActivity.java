@@ -21,7 +21,7 @@ public class XqncApplyActivity extends BaseActivity {
 			public void onClick(View v) {
 				finish();
 				Intent intent = new Intent(XqncApplyActivity.this,
-						IndexActivity.class);
+						MainActivity.class);
 				intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
 				intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				startActivity(intent);
