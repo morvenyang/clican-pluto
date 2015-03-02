@@ -47,6 +47,7 @@ public class StoreRequest {
 						store.setName(jsonObj.getString("name"));
 						store.setDescription(jsonObj.getString("description"));
 						store.setAddress(jsonObj.getString("address"));
+						store.setTel(jsonObj.getString("tel"));
 						store.setCreateTime(sdf.parse(jsonObj
 								.getString("createTime")));
 						store.setId(jsonObj.getLong("id"));
