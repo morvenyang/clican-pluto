@@ -22,10 +22,11 @@ public class XqncCancelActivity extends BaseActivity implements HttpCallback {
 			@Override
 			public void onClick(View v) {
 				finish();
-				Intent intent = new Intent(XqncCancelActivity.this,IndexActivity.class);
-		        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-		        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-		        startActivity(intent);
+				Intent intent = new Intent(XqncCancelActivity.this,
+						IndexActivity.class);
+				intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+				intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				startActivity(intent);
 			}
 		});
 		Button xqncCancelButton = (Button) this
@@ -33,7 +34,7 @@ public class XqncCancelActivity extends BaseActivity implements HttpCallback {
 		xqncCancelButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				XqncRequest.cancelXqnc(XqncCancelActivity.this,getUser());
+				XqncRequest.cancelXqnc(XqncCancelActivity.this, getUser());
 			}
 		});
 
@@ -44,10 +45,10 @@ public class XqncCancelActivity extends BaseActivity implements HttpCallback {
 		this.getUser().setApplyXqnc(false);
 		this.getUser().setCarNumber(null);
 		finish();
-		Intent intent = new Intent(this,IndexActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
+		Intent intent = new Intent(this, XqncApplyActivity.class);
+		intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		startActivity(intent);
 	}
 
 	@Override

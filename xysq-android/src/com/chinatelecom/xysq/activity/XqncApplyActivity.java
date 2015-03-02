@@ -20,6 +20,11 @@ public class XqncApplyActivity extends BaseActivity {
 			@Override
 			public void onClick(View v) {
 				finish();
+				Intent intent = new Intent(XqncApplyActivity.this,
+						IndexActivity.class);
+				intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+				intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				startActivity(intent);
 			}
 		});
 		xqncSubmitButton = (Button) this.findViewById(R.id.xqnc_submitButton);
