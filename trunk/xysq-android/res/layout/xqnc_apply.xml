@@ -37,24 +37,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
-
-    </RelativeLayout>
-	
-     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" >
-        
-        <Button
-            android:id="@+id/xqnc_submitButton"
-            android:layout_width="match_parent"
-            android:layout_height="54dp"
-            android:layout_alignParentBottom="true"
-            android:background="@color/lightGreen"
-            android:text="立即申请"
-            android:textColor="@android:color/white"
-            android:textSize="22sp" />
-
-        <ImageView
+ <ImageView
             android:id="@+id/imageView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -134,6 +117,23 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="#666666"
             android:textSize="12sp" />
+    </RelativeLayout>
+	
+     <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+        
+        <Button
+            android:id="@+id/xqnc_submitButton"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/lightGreen"
+            android:text="立即申请"
+            android:textColor="@android:color/white"
+            android:textSize="22sp" />
+
+       
 
     </RelativeLayout>
     
