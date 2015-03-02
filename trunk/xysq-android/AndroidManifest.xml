@@ -101,6 +101,8 @@
         <activity android:name="com.chinatelecom.xysq.activity.ProfileDetailActivity" android:screenOrientation="portrait"/>
         <activity android:name="com.chinatelecom.xysq.activity.ForgetPasswordActivity" android:screenOrientation="portrait"/>
         <activity android:name="com.chinatelecom.xysq.activity.XqncApplyActivity" android:screenOrientation="portrait"/>
+         <activity android:name="com.chinatelecom.xysq.activity.XqncFormActivity" android:screenOrientation="portrait"/>
+          <activity android:name="com.chinatelecom.xysq.activity.XqncCancelActivity" android:screenOrientation="portrait"/>
         <activity android:name="com.chinatelecom.xysq.activity.TakePhotoActivity" android:screenOrientation="portrait"/>
         <!-- 用户反馈 -->
         <activity android:name="com.chinatelecom.xysq.activity.FeedbackActivity" android:screenOrientation="portrait"/>

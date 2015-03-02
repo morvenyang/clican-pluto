@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.chinatelecom.xysq.R;
 import com.chinatelecom.xysq.adapater.PosterPagerAdapter;
 import com.chinatelecom.xysq.bean.Index;
+import com.chinatelecom.xysq.bean.User;
 import com.chinatelecom.xysq.http.HttpCallback;
 import com.chinatelecom.xysq.http.IndexRequest;
 import com.chinatelecom.xysq.listener.HtmlLinkOnClickListener;
@@ -68,8 +69,25 @@ public class IndexActivity extends BaseActivity implements HttpCallback,
 				"http://218.244.138.36/mobile/shop.do?channel=6", "宅配宅送", this,
 				true));
 		Button xqncButton = (Button) findViewById(R.id.index_xqncButton);
-		xqncButton.setOnClickListener(new IndexOnClickListener(this,
-				XqncApplyActivity.class, true, false));
+		xqncButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				User user = getUser();
+				if (user == null) {
+					AlertUtil.alert(IndexActivity.this, "请先登录");
+					return;
+				}
+				Intent intent;
+				if (user.isApplyXqnc()) {
+					intent = new Intent(IndexActivity.this,
+							XqncCancelActivity.class);
+				} else {
+					intent = new Intent(IndexActivity.this,
+							XqncApplyActivity.class);
+				}
+				startActivity(intent);
+			}
+		});
 
 		Button kdtxButton = (Button) findViewById(R.id.index_kdtxButton);
 		kdtxButton.setOnClickListener(new IndexOnClickListener(this,

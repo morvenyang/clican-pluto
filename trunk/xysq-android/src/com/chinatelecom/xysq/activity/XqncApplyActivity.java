@@ -1,12 +1,12 @@
 package com.chinatelecom.xysq.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
 import com.chinatelecom.xysq.R;
-import com.chinatelecom.xysq.bean.User;
 
 public class XqncApplyActivity extends BaseActivity {
 
@@ -26,17 +26,13 @@ public class XqncApplyActivity extends BaseActivity {
 		xqncSubmitButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-
+				Intent intent = new Intent(XqncApplyActivity.this,XqncFormActivity.class);
+				startActivity(intent);
 			}
 		});
 
 	}
 
-	@Override
-	protected void onResume() {
-		super.onResume();
-		User user = this.getUser();
-	}
 
 	@Override
 	protected String getPageName() {
