@@ -69,7 +69,7 @@ public class IndexActivity extends BaseActivity implements HttpCallback,
 				true));
 		Button xqncButton = (Button) findViewById(R.id.index_xqncButton);
 		xqncButton.setOnClickListener(new IndexOnClickListener(this,
-				XqncActivity.class, true, false));
+				XqncApplyActivity.class, true, false));
 
 		Button kdtxButton = (Button) findViewById(R.id.index_kdtxButton);
 		kdtxButton.setOnClickListener(new IndexOnClickListener(this,

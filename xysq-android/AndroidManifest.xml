@@ -100,7 +100,7 @@
         <activity android:name="com.chinatelecom.xysq.activity.StoreDetailActivity" android:screenOrientation="portrait"/>
         <activity android:name="com.chinatelecom.xysq.activity.ProfileDetailActivity" android:screenOrientation="portrait"/>
         <activity android:name="com.chinatelecom.xysq.activity.ForgetPasswordActivity" android:screenOrientation="portrait"/>
-        <activity android:name="com.chinatelecom.xysq.activity.XqncActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.chinatelecom.xysq.activity.XqncApplyActivity" android:screenOrientation="portrait"/>
         <activity android:name="com.chinatelecom.xysq.activity.TakePhotoActivity" android:screenOrientation="portrait"/>
         <!-- 用户反馈 -->
         <activity android:name="com.chinatelecom.xysq.activity.FeedbackActivity" android:screenOrientation="portrait"/>
