@@ -1,28 +1,21 @@
 package com.chinatelecom.xysq.activity;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.GridView;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.chinatelecom.xysq.R;
 import com.chinatelecom.xysq.adapater.ForumPostListAdapter;
-import com.chinatelecom.xysq.adapater.PhotoAdapter;
 import com.chinatelecom.xysq.bean.ForumPost;
 import com.chinatelecom.xysq.bean.ForumTopic;
 import com.chinatelecom.xysq.http.ForumRequest;

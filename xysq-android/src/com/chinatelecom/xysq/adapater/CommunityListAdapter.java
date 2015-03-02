@@ -4,14 +4,13 @@ import java.util.List;
 
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.chinatelecom.xysq.R;
 import com.chinatelecom.xysq.activity.CommunitySelectActivity;
-import com.chinatelecom.xysq.bean.Area;
 import com.chinatelecom.xysq.bean.Community;
 import com.chinatelecom.xysq.other.Constants;
 import com.chinatelecom.xysq.util.KeyValueUtils;

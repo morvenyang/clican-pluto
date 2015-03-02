@@ -73,7 +73,7 @@
                     android:layout_marginTop="15dp"
                     android:layout_weight="1"
                     android:background="#00000000"
-                    android:drawableTop="@drawable/home_inform_icon"
+                    android:drawableTop="@drawable/home_notice_icon"
                     android:text="@string/index_xqgg"
                     android:textColor="@color/labelTextColor" />
 
@@ -88,7 +88,7 @@
                     android:layout_marginTop="15dp"
                     android:layout_weight="1"
                     android:background="#00000000"
-                    android:drawableTop="@drawable/home_notice_icon"
+                    android:drawableTop="@drawable/home_inform_icon"
                     android:text="@string/index_yzxx"
                     android:textColor="@color/labelTextColor" />
 
