@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.chinatelecom.xysq.R;
 import com.chinatelecom.xysq.http.HttpCallback;
@@ -29,6 +30,8 @@ public class XqncCancelActivity extends BaseActivity implements HttpCallback {
 				startActivity(intent);
 			}
 		});
+		TextView textView = (TextView)this.findViewById(R.id.xqnc_carNumberTextView);
+		textView.setText("车牌信息        "+this.getUser().getCarNumber());
 		Button xqncCancelButton = (Button) this
 				.findViewById(R.id.xqnc_cancelButton);
 		xqncCancelButton.setOnClickListener(new OnClickListener() {
