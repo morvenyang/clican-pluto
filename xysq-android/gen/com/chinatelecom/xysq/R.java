@@ -550,12 +550,13 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int webview=0x7f06000a;
         public static final int webview_backButton=0x7f0600f0;
         public static final int webview_title=0x7f0600f1;
-        public static final int xqnc_applyButton=0x7f0600fe;
+        public static final int xqnc_applyButton=0x7f0600ff;
         public static final int xqnc_backButton=0x7f0600f3;
         public static final int xqnc_cancelButton=0x7f0600fb;
         public static final int xqnc_cancel_backButton=0x7f0600fa;
-        public static final int xqnc_carNumberEditText=0x7f0600fd;
-        public static final int xqnc_form_backButton=0x7f0600fc;
+        public static final int xqnc_carNumberEditText=0x7f0600fe;
+        public static final int xqnc_carNumberTextView=0x7f0600fc;
+        public static final int xqnc_form_backButton=0x7f0600fd;
         public static final int xqnc_submitButton=0x7f0600f9;
     }
     public static final class layout {
