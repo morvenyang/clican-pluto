@@ -303,7 +303,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
     }
     public static final class id {
         public static final int Button01=0x7f06004d;
-        public static final int TextView01=0x7f0600f8;
+        public static final int TextView01=0x7f0600f7;
         public static final int ad_image=0x7f0600aa;
         public static final int announcement_and_notice_detail_backButton=0x7f06000f;
         public static final int announcement_and_notice_detail_contentTextView=0x7f060012;
@@ -365,9 +365,9 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int forum_searchEditText=0x7f060039;
         public static final int gridview=0x7f060009;
         public static final int icon=0x7f0600a2;
-        public static final int imageView1=0x7f0600f5;
-        public static final int imageView2=0x7f0600f6;
-        public static final int imageView3=0x7f0600f7;
+        public static final int imageView1=0x7f0600f4;
+        public static final int imageView2=0x7f0600f5;
+        public static final int imageView3=0x7f0600f6;
         public static final int index_bmffButton=0x7f060048;
         public static final int index_bmfwTextView=0x7f060047;
         public static final int index_communityChangeButton=0x7f060042;
@@ -481,7 +481,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int take_photo_switch_button=0x7f0600a5;
         public static final int textView1=0x7f06001b;
         public static final int textView2=0x7f060055;
-        public static final int textView3=0x7f0600f9;
+        public static final int textView3=0x7f0600f8;
         public static final int title=0x7f0600a3;
         public static final int topicAndPost_backButton=0x7f0600b3;
         public static final int topicAndPost_cancelPhotoButton=0x7f0600bd;
@@ -550,8 +550,13 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int webview=0x7f06000a;
         public static final int webview_backButton=0x7f0600f0;
         public static final int webview_title=0x7f0600f1;
+        public static final int xqnc_applyButton=0x7f0600fe;
         public static final int xqnc_backButton=0x7f0600f3;
-        public static final int xqnc_submitButton=0x7f0600f4;
+        public static final int xqnc_cancelButton=0x7f0600fb;
+        public static final int xqnc_cancel_backButton=0x7f0600fa;
+        public static final int xqnc_carNumberEditText=0x7f0600fd;
+        public static final int xqnc_form_backButton=0x7f0600fc;
+        public static final int xqnc_submitButton=0x7f0600f9;
     }
     public static final class layout {
         public static final int announcement=0x7f030000;
@@ -606,7 +611,9 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int umeng_update_dialog=0x7f030031;
         public static final int webview=0x7f030032;
         public static final int xqnc_apply=0x7f030033;
-        public static final int xyzs=0x7f030034;
+        public static final int xqnc_cancel=0x7f030034;
+        public static final int xqnc_form=0x7f030035;
+        public static final int xyzs=0x7f030036;
     }
     public static final class raw {
         public static final int pull_event=0x7f050000;
