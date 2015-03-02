@@ -11,7 +11,6 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.chinatelecom.xysq.R;
-import com.chinatelecom.xysq.bean.PhotoItem;
 import com.chinatelecom.xysq.http.ImageRequest;
 
 public class PhotoGridItem extends RelativeLayout implements Checkable {

@@ -2,26 +2,15 @@ package com.chinatelecom.xysq.adapater;
 
 import java.util.List;
 
-import com.chinatelecom.xysq.activity.AnnouncementActivity;
-import com.chinatelecom.xysq.activity.BroadbandRemindActivity;
-import com.chinatelecom.xysq.activity.ForumActivity;
-import com.chinatelecom.xysq.activity.NoticeActivity;
-import com.chinatelecom.xysq.bean.Poster;
-import com.chinatelecom.xysq.http.ImageRequest;
-import com.chinatelecom.xysq.listener.HtmlLinkOnClickListener;
-import com.chinatelecom.xysq.listener.IndexOnClickListener;
-import com.chinatelecom.xysq.util.AlertUtil;
-
 import android.app.Activity;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+
+import com.chinatelecom.xysq.http.ImageRequest;
 
 public class ImagePagerAdapter extends PagerAdapter {
 

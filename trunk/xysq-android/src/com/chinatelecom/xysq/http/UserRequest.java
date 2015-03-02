@@ -16,7 +16,6 @@ import android.util.Log;
 
 import com.chinatelecom.xysq.bean.User;
 import com.chinatelecom.xysq.other.Constants;
-import com.chinatelecom.xysq.util.KeyValueUtils;
 
 public class UserRequest {
 
