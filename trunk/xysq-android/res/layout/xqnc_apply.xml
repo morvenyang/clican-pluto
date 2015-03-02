@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@color/headBackgroundColor" >
+
+        <Button
+            android:id="@+id/xqnc_backButton"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:background="@drawable/nav_back_icon" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="小区挪车"
+            android:textColor="@android:color/white"
+            android:textSize="18sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/headGreenLineColor" >
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+    </RelativeLayout>
+	
+     <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+        
+        <Button
+            android:id="@+id/xqnc_submitButton"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/lightGreen"
+            android:text="立即申请"
+            android:textColor="@android:color/white"
+            android:textSize="22sp" />
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="15dp"
+            android:src="@drawable/nuoche_1" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/imageView1"
+            android:layout_below="@+id/imageView1"
+            android:layout_marginTop="24dp"
+            android:src="@drawable/nuoche_2" />
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/imageView2"
+            android:layout_below="@+id/imageView2"
+            android:layout_marginTop="23dp"
+            android:src="@drawable/nuoche_3" />
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/imageView1"
+            android:layout_alignTop="@+id/imageView1"
+            android:layout_marginLeft="29dp"
+            android:layout_toRightOf="@+id/imageView1"
+            android:gravity="center_vertical"
+            android:text="只需提交车牌信息\n即可享受小区挪车通知服务"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#333333"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/imageView2"
+            android:layout_alignLeft="@+id/textView1"
+            android:layout_alignTop="@+id/imageView2"
+            android:gravity="center_vertical"
+            android:text="想停那里就停那里\n随时随地挪车"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#333333"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/TextView01"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/imageView3"
+            android:layout_alignLeft="@+id/textView2"
+            android:layout_alignTop="@+id/imageView3"
+            android:gravity="center_vertical"
+            android:text="保护你的电话隐私，不被泄露"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#333333"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/imageView3"
+            android:layout_alignRight="@+id/TextView01"
+            android:layout_below="@+id/imageView3"
+            android:layout_marginTop="30dp"
+            android:text="申请成功后，你可以到指定附近营业厅领取挪车专用卡放在车窗前挡风玻璃即可"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#666666"
+            android:textSize="12sp" />
+
+    </RelativeLayout>
+    
+
+ 
+
+</LinearLayout>
