@@ -31,10 +31,11 @@
                 android:background="@drawable/nav_back_icon" />
 
             <TextView
-                android:id="@+id/store_detail_titleTextView"
+                android:id="@+id/login_titleTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
+                android:text="详情页"
                 android:textColor="@android:color/white"
                 android:textSize="18sp" />
         </RelativeLayout>
@@ -44,36 +45,89 @@
             android:layout_height="2dp"
             android:background="@color/headGreenLineColor" >
         </RelativeLayout>
-
-        <android.support.v4.view.ViewPager
+<android.support.v4.view.ViewPager
             android:id="@+id/store_detail_imageViewPager"
             android:layout_width="fill_parent"
             android:layout_height="160dp" >
         </android.support.v4.view.ViewPager>
-
         <TextView
-            android:layout_width="match_parent"
+            android:id="@+id/store_detail_titleTextView"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="描述"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="5dp"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#333333"
+            android:textSize="18sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="#FF909090"
+            android:padding="2dip" />
 
         <TextView
             android:id="@+id/store_detail_descriptionTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="5dp"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#666666"
+            android:textSize="12sp" />
 
-        <TextView
+        <View
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="地址"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:layout_height="1px"
+            android:background="#FF909090"
+            android:padding="2dip" />
 
         <TextView
             android:id="@+id/store_detail_addressTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="5dp"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#666666"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/store_detail_phoneNumberTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="5dp"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#666666"
+            android:textSize="12sp" />
+
     </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <Button
+            android:id="@+id/store_detail_callButton"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/lightGreen"
+            android:text="拨打商家电话"
+            android:textColor="@android:color/white"
+            android:textSize="22sp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginBottom="14dp"
+            android:layout_marginLeft="64dp"
+            android:src="@drawable/icon_tel" />
+    </RelativeLayout>
 
 </RelativeLayout>

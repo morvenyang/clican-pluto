@@ -22,6 +22,7 @@ import com.chinatelecom.xysq.http.IndexRequest;
 import com.chinatelecom.xysq.listener.HtmlLinkOnClickListener;
 import com.chinatelecom.xysq.listener.IndexOnClickListener;
 import com.chinatelecom.xysq.other.Constants;
+import com.chinatelecom.xysq.util.AlertUtil;
 import com.chinatelecom.xysq.util.KeyValueUtils;
 
 public class IndexActivity extends BaseActivity implements HttpCallback,
@@ -59,30 +60,30 @@ public class IndexActivity extends BaseActivity implements HttpCallback,
 				NoticeActivity.class, false, true));
 		Button bmffButton = (Button) findViewById(R.id.index_bmffButton);
 		bmffButton.setOnClickListener(new HtmlLinkOnClickListener(
-				"http://218.244.138.36/mobile/serve.do?channel=6","便民服务", this, true));
+				"http://218.244.138.36/mobile/serve.do?channel=6", "便民服务",
+				this, true));
 
 		Button zpzsButton = (Button) findViewById(R.id.index_zpzsButton);
 		zpzsButton.setOnClickListener(new HtmlLinkOnClickListener(
-				"http://218.244.138.36/mobile/shop.do?channel=6","宅配宅送", this, true));
+				"http://218.244.138.36/mobile/shop.do?channel=6", "宅配宅送", this,
+				true));
 		Button xqncButton = (Button) findViewById(R.id.index_xqncButton);
 		xqncButton.setOnClickListener(new IndexOnClickListener(this,
 				XqncActivity.class, true, false));
-		
+
 		Button kdtxButton = (Button) findViewById(R.id.index_kdtxButton);
 		kdtxButton.setOnClickListener(new IndexOnClickListener(this,
 				BroadbandRemindActivity.class, true, false));
-		
+
 		Button xqltButton = (Button) findViewById(R.id.index_xqltButton);
 		xqltButton.setOnClickListener(new IndexOnClickListener(this,
 				ForumActivity.class, true, true));
-		
-		
+
 		Button jkffButton = (Button) findViewById(R.id.index_jkffButton);
-		jkffButton.setOnClickListener(new OnClickListener(){
+		jkffButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(IndexActivity.this, PhotoAlbumActivity.class);
-		        startActivity(intent);     
+				AlertUtil.alert(IndexActivity.this, "开发中");
 			}
 		});
 	}
