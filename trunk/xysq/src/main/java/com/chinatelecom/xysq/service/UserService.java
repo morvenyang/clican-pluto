@@ -28,5 +28,7 @@ public interface UserService {
 	
 	public ProfileJson updateProfile(Long userId,String nickName,String address,String carNumber);
 	
-	public void enableXqnc(Long userId);
+	public void enableXqnc(Long userId,String carNumber);
+	
+	public void disableXqnc(Long userId);
 }

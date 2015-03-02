@@ -239,25 +239,7 @@ public class ClientController {
 		}
 	}
 
-	@RequestMapping("/enableXqnc")
-	public void enableXqnc(HttpServletRequest req, HttpServletResponse resp)
-			throws ServletException, IOException {
-		try {
-			ResultJson rj = null;
-			Long userId = (Long) req.getSession().getAttribute("USER_ID");
-			if (userId == null) {
-				rj = new ResultJson(false, "请先登录");
-			} else {
-				userService.enableXqnc(userId);
-				rj = new ResultJson(true, "申请成功");
-			}
-			resp.setContentType("application/json");
-			resp.getOutputStream().write(
-					JSONObject.fromObject(rj).toString().getBytes("utf-8"));
-		} catch (Exception e) {
-			log.error("", e);
-		}
-	}
+	
 
 	@RequestMapping("/updateProfile")
 	public void updateProfile(
@@ -412,6 +394,50 @@ public class ClientController {
 			} catch (Exception e) {
 				log.error("", e);
 			}
+		} catch (Exception e) {
+			log.error("", e);
+		}
+	}
+	
+	@RequestMapping("/applyXqnc")
+	public void applyXqnc(
+			@RequestParam(value = "carNumber", required = true) String carNumber,
+
+			HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		try {
+			ResultJson rj = null;
+			Long userId = (Long) req.getSession().getAttribute("USER_ID");
+			if (userId == null) {
+				rj = new ResultJson(false, "请先登录");
+			} else {
+				this.userService.enableXqnc(userId, carNumber);
+				rj = new ResultJson(true, "申请成功");
+			}
+			resp.setContentType("application/json");
+			resp.getOutputStream().write(
+					JSONObject.fromObject(rj).toString().getBytes("utf-8"));
+		} catch (Exception e) {
+			log.error("", e);
+		}
+	}
+	
+	@RequestMapping("/cancelXqnc")
+	public void cancelXqnc(
+			HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		try {
+			ResultJson rj = null;
+			Long userId = (Long) req.getSession().getAttribute("USER_ID");
+			if (userId == null) {
+				rj = new ResultJson(false, "请先登录");
+			} else {
+				this.userService.disableXqnc(userId);
+				rj = new ResultJson(true, "取消成功");
+			}
+			resp.setContentType("application/json");
+			resp.getOutputStream().write(
+					JSONObject.fromObject(rj).toString().getBytes("utf-8"));
 		} catch (Exception e) {
 			log.error("", e);
 		}

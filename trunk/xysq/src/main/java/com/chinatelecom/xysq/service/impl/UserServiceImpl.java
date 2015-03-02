@@ -288,10 +288,18 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void enableXqnc(Long userId) {
+	public void enableXqnc(Long userId,String carNumber) {
 		User user = this.userDao.findUserById(userId);
+		user.setCarNumber(carNumber);
 		user.setApplyXqnc(true);
 		this.userDao.saveUser(user);
 	}
 
+	@Override
+	public void disableXqnc(Long userId) {
+		User user = this.userDao.findUserById(userId);
+		user.setCarNumber(null);
+		user.setApplyXqnc(false);
+		this.userDao.saveUser(user);
+	}
 }
