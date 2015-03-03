@@ -1,5 +1,6 @@
 package com.chinatelecom.xysq.activity;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -38,9 +39,12 @@ public class WebViewActivity extends BaseActivity {
 				finish();
 			}
 		});
+		String dir = this.getApplicationContext().getDir("database", Context.MODE_PRIVATE).getPath(); 
 		webView = (WebView) this.findViewById(R.id.webView);
 		webView.getSettings().setJavaScriptEnabled(true);
 		webView.getSettings().setGeolocationEnabled(true);
+		webView.getSettings().setGeolocationDatabasePath(dir);   
+		webView.getSettings().setDomStorageEnabled(true); 
 		webView.setWebChromeClient(new WebChromeClient() {
 
 			@Override
