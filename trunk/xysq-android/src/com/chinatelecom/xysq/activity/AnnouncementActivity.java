@@ -6,6 +6,7 @@ import java.util.List;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,16 +17,17 @@ import android.widget.Toast;
 
 import com.chinatelecom.xysq.R;
 import com.chinatelecom.xysq.adapater.AnnouncementAndNoticeListAdapter;
+import com.chinatelecom.xysq.adapater.PosterPagerAdapter;
 import com.chinatelecom.xysq.bean.AnnouncementAndNotice;
+import com.chinatelecom.xysq.bean.Index;
 import com.chinatelecom.xysq.http.AnnouncementAndNoticeRequest;
 import com.chinatelecom.xysq.http.HttpCallback;
+import com.chinatelecom.xysq.http.IndexRequest;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnLastItemVisibleListener;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
-import com.handmark.pulltorefresh.library.PullToRefreshBase.State;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
-import com.handmark.pulltorefresh.library.extras.SoundPullEventListener;
 
 public class AnnouncementActivity extends BaseActivity implements
 		OnRefreshListener2<ListView>, OnLastItemVisibleListener, HttpCallback {
@@ -34,6 +36,8 @@ public class AnnouncementActivity extends BaseActivity implements
 	private AnnouncementAndNoticeListAdapter adapter;
 
 	private Long communityId;
+	
+	private ViewPager posterViewPager;
 
 	private List<AnnouncementAndNotice> announcementAndNoticeList = new ArrayList<AnnouncementAndNotice>();
 
@@ -54,6 +58,7 @@ public class AnnouncementActivity extends BaseActivity implements
 				AnnouncementActivity.this.finish();
 			}
 		});
+		posterViewPager = (ViewPager) findViewById(R.id.announcement_posterViewPager);
 		Intent intent = getIntent();
 		communityId = intent.getLongExtra("communityId", -1);
 		mPullRefreshListView = (PullToRefreshListView) findViewById(R.id.announcement_listView);
@@ -76,19 +81,12 @@ public class AnnouncementActivity extends BaseActivity implements
 				this,
 				(LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE));
 
-		/**
-		 * Add Sound Event Listener
-		 */
-		SoundPullEventListener<ListView> soundListener = new SoundPullEventListener<ListView>(
-				this);
-		soundListener.addSoundEvent(State.PULL_TO_REFRESH, R.raw.pull_event);
-		soundListener.addSoundEvent(State.RESET, R.raw.reset_sound);
-		soundListener.addSoundEvent(State.REFRESHING, R.raw.refreshing_sound);
-		mPullRefreshListView.setOnPullEventListener(soundListener);
+		
 
 		actualListView.setAdapter(adapter);
 		AnnouncementAndNoticeRequest.queryAnnouncementAndNotice(this,
 				communityId, true,null, page, 5);
+		IndexRequest.queryIndex(this, communityId);
 	}
 
 	@Override
@@ -124,10 +122,19 @@ public class AnnouncementActivity extends BaseActivity implements
 	@SuppressWarnings("unchecked")
 	@Override
 	public void success(String url, Object data) {
-		List<AnnouncementAndNotice> moreData = (List<AnnouncementAndNotice>) data;
-		announcementAndNoticeList.addAll(moreData);
-		adapter.notifyDataSetChanged();
-		mPullRefreshListView.onRefreshComplete();
+		if(url.equals("/queryAnnouncementAndNotice.do")){
+			List<AnnouncementAndNotice> moreData = (List<AnnouncementAndNotice>) data;
+			announcementAndNoticeList.addAll(moreData);
+			adapter.notifyDataSetChanged();
+			mPullRefreshListView.onRefreshComplete();
+		}else{
+			Index index = (Index) data;
+			posterViewPager
+					.setAdapter(new PosterPagerAdapter(
+							index.getPosters(),
+							this,
+							(LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE)));
+		}
 	}
 
 	@Override

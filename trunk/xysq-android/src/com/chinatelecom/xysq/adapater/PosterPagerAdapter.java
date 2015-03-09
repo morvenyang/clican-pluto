@@ -2,6 +2,7 @@ package com.chinatelecom.xysq.adapater;
 
 import java.util.List;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -15,7 +16,6 @@ import android.widget.RelativeLayout;
 import com.chinatelecom.xysq.activity.AnnouncementActivity;
 import com.chinatelecom.xysq.activity.BroadbandRemindActivity;
 import com.chinatelecom.xysq.activity.ForumActivity;
-import com.chinatelecom.xysq.activity.IndexActivity;
 import com.chinatelecom.xysq.activity.NoticeActivity;
 import com.chinatelecom.xysq.activity.StoreDetailActivity;
 import com.chinatelecom.xysq.bean.Poster;
@@ -28,11 +28,11 @@ public class PosterPagerAdapter extends PagerAdapter {
 
 	private List<Poster> posterList;
 
-	private IndexActivity activity;
+	private Activity activity;
 
 	private LayoutInflater inflater;
 
-	public PosterPagerAdapter(List<Poster> posterList, IndexActivity activity,
+	public PosterPagerAdapter(List<Poster> posterList, Activity activity,
 			LayoutInflater inflater) {
 		this.posterList = posterList;
 		this.activity = activity;

@@ -24,9 +24,7 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnLastItemVisibleListener;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
-import com.handmark.pulltorefresh.library.PullToRefreshBase.State;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
-import com.handmark.pulltorefresh.library.extras.SoundPullEventListener;
 
 public class TopicActivity extends BaseActivity implements
 		OnRefreshListener2<ListView>, OnLastItemVisibleListener, HttpCallback {
@@ -39,8 +37,6 @@ public class TopicActivity extends BaseActivity implements
 	private int page = 1;
 
 	private ForumTopic topic;
-
-	
 
 	@Override
 	protected String getPageName() {
@@ -58,8 +54,6 @@ public class TopicActivity extends BaseActivity implements
 				finish();
 			}
 		});
-		
-		
 
 		Button replyButton = (Button) findViewById(R.id.topic_replyButton);
 		replyButton.setOnClickListener(new OnClickListener() {
@@ -91,24 +85,15 @@ public class TopicActivity extends BaseActivity implements
 		adapter = new ForumPostListAdapter(
 				forumPostList,
 				this,
-				(LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE),topic);
-
-		/**
-		 * Add Sound Event Listener
-		 */
-		SoundPullEventListener<ListView> soundListener = new SoundPullEventListener<ListView>(
-				this);
-		soundListener.addSoundEvent(State.PULL_TO_REFRESH, R.raw.pull_event);
-		soundListener.addSoundEvent(State.RESET, R.raw.reset_sound);
-		soundListener.addSoundEvent(State.REFRESHING, R.raw.refreshing_sound);
-		mPullRefreshListView.setOnPullEventListener(soundListener);
+				(LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE),
+				topic);
 
 		actualListView.setAdapter(adapter);
 	}
 
 	@Override
 	protected void onResume() {
-		page=1;
+		page = 1;
 		forumPostList.clear();
 		ForumRequest.queryPost(this, this.topic.getId(), page, 20);
 		super.onResume();
