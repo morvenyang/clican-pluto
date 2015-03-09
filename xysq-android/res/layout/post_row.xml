@@ -81,14 +81,15 @@
                 android:textSize="12sp" />
            
              <ImageView
-                android:id="@+id/post_row_replyContentFlagImageView"
-                android:layout_width="3dp"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@id/post_row_replyContentTextView"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_alignTop="@id/post_row_replyContentTextView"
-                android:background="@color/dividerColor" />
+                 android:id="@+id/post_row_replyContentFlagImageView"
+                 android:layout_width="3dp"
+                 android:layout_height="wrap_content"
+                 android:layout_alignBottom="@id/post_row_replyContentTextView"
+                 android:layout_alignParentLeft="true"
+                 android:layout_alignParentTop="true"
+                 android:layout_alignTop="@id/post_row_replyContentTextView"
+                 android:layout_marginRight="10dp"
+                 android:background="@color/dividerColor" />
 
         </RelativeLayout>
 

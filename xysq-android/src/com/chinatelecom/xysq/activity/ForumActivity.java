@@ -23,9 +23,7 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnLastItemVisibleListener;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
-import com.handmark.pulltorefresh.library.PullToRefreshBase.State;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
-import com.handmark.pulltorefresh.library.extras.SoundPullEventListener;
 
 public class ForumActivity extends BaseActivity implements OnRefreshListener2<ListView>, OnLastItemVisibleListener, HttpCallback{
 
@@ -85,15 +83,7 @@ public class ForumActivity extends BaseActivity implements OnRefreshListener2<Li
 				this,
 				(LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE));
 
-		/**
-		 * Add Sound Event Listener
-		 */
-		SoundPullEventListener<ListView> soundListener = new SoundPullEventListener<ListView>(
-				this);
-		soundListener.addSoundEvent(State.PULL_TO_REFRESH, R.raw.pull_event);
-		soundListener.addSoundEvent(State.RESET, R.raw.reset_sound);
-		soundListener.addSoundEvent(State.REFRESHING, R.raw.refreshing_sound);
-		mPullRefreshListView.setOnPullEventListener(soundListener);
+		
 
 		actualListView.setAdapter(adapter);
 	}
