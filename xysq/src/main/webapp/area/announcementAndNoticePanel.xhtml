@@ -36,12 +36,12 @@
 			<t:panelGroup rendered="#{!areaAction.announcement}">
 				<h:outputLabel value="分类" />
 			</t:panelGroup>
-			<h:selectOneMenu value="#{areaAction.announcementAndNotice.noticeCategory}">
+			<h:selectOneMenu rendered="#{!areaAction.announcement}" value="#{areaAction.announcementAndNotice.noticeCategory}">
 				<s:selectItems value="#{areaAction.noticeCategories}" var="category"
 							label="#{category.label}" />
 				<s:convertEnum />
 			</h:selectOneMenu>
-			<h:outputText value=""/>
+			<h:outputText rendered="#{!areaAction.announcement}" value=""/>
 
 			<t:panelGroup>
 				<h:outputLabel value="内容" />
