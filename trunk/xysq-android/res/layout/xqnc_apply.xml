@@ -105,18 +105,41 @@
             android:textColor="#333333"
             android:textSize="15sp" />
 
-        <TextView
-            android:id="@+id/textView3"
+        <ImageView
+            android:id="@+id/imageView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/imageView3"
-            android:layout_alignRight="@+id/TextView01"
             android:layout_below="@+id/imageView3"
-            android:layout_marginTop="30dp"
-            android:text="申请成功后，你可以到指定附近营业厅领取挪车专用卡放在车窗前挡风玻璃即可"
+            android:layout_marginTop="23dp"
+            android:src="@drawable/nuoche_6" />
+
+        <TextView
+            android:id="@+id/TextView02"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/TextView01"
+            android:layout_alignRight="@+id/textView1"
+            android:layout_alignTop="@+id/imageView4"
+            android:gravity="center_vertical"
+            android:text="申请小区挪车,以后只要拨打这个电话就可以找到我"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="#666666"
-            android:textSize="12sp" />
+            android:textColor="#333333"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/TextView03"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/TextView02"
+            android:layout_alignRight="@+id/TextView02"
+            android:layout_below="@+id/TextView02"
+            android:gravity="center_vertical"
+            android:text="电话:118114-6"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#004ea2"
+            android:textSize="15sp" />
+
     </RelativeLayout>
 	
      <RelativeLayout
@@ -133,7 +156,18 @@
             android:textColor="@android:color/white"
             android:textSize="22sp" />
 
-       
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp"
+            android:layout_marginTop="24dp"
+            android:text="申请成功后，你可以到指定附近营业厅领取挪车专用卡放在车窗前挡风玻璃即可"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#666666"
+            android:textSize="12sp" />
 
     </RelativeLayout>
     
