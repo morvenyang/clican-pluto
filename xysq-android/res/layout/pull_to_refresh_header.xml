@@ -37,8 +37,8 @@
         android:paddingTop="0dip"
         android:text="@string/pull_to_refresh_pull_label"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="@android:color/darker_gray"
-        android:textSize="15sp"
+        android:textColor="#999999"
+        android:textSize="18sp"
         android:textStyle="bold" />
 
 
