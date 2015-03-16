@@ -18,6 +18,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.ImageView;
@@ -103,6 +104,49 @@ public class ImageRequest {
 				protected void onPostExecute(String imagePath) {
 					if (imagePath != null) {
 						imageView.setImageBitmap(PhotoRequest.getImageThumbnail(imagePath, width, height));
+					}
+				}
+			};
+			task.execute(new String[] {});
+		}
+
+	}
+	
+	
+	public static void requestImage(final ImageView imageView, final String url) {
+		String imagePath = cahcedImageFiles.get(url);
+		if (imagePath != null) {
+			BitmapFactory.Options options = new BitmapFactory.Options();
+			imageView.setImageBitmap(BitmapFactory.decodeFile(imagePath, options));
+		} else {
+			AsyncTask<String, Void, String> task = new AsyncTask<String, Void, String>() {
+				@Override
+				protected String doInBackground(String... params) {
+					HttpClient httpclient = new DefaultHttpClient();
+					try {
+						HttpResponse response = httpclient.execute(new HttpGet(
+								url));
+						StatusLine statusLine = response.getStatusLine();
+						if (statusLine.getStatusCode() == HttpStatus.SC_OK) {
+							String filePath = writeTempFile(response
+									.getEntity());
+							cahcedImageFiles.put(url, filePath);
+							return filePath;
+						} else {
+							response.getEntity().getContent().close();
+						}
+						return null;
+					} catch (Exception e) {
+						Log.e("XYSQ", "requestImage for url:" + url, e);
+					}
+					return null;
+				}
+
+				@Override
+				protected void onPostExecute(String imagePath) {
+					if (imagePath != null) {
+						BitmapFactory.Options options = new BitmapFactory.Options();
+						imageView.setImageBitmap(BitmapFactory.decodeFile(imagePath, options));
 					}
 				}
 			};

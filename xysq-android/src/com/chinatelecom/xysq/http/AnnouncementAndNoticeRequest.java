@@ -33,7 +33,12 @@ public class AnnouncementAndNoticeRequest {
 				AnnouncementAndNotice aan = new AnnouncementAndNotice();
 				aan.setId(aanJson.getLong("id"));
 				aan.setTitle(aanJson.getString("title"));
-				aan.setContent(aanJson.getString("content"));
+				JSONArray contentsJson = aanJson.getJSONArray("contents");
+				List<String> contents = new ArrayList<String>();
+				for(int j=0;j<contentsJson.length();j++){
+					contents.add(contentsJson.getString(j));
+				}
+				aan.setContents(contents);
 				aan.setModifyTime(sdf.parse(aanJson.getString("modifyTime")));
 				aan.setNoticeCategory(aanJson.getString("noticeCategory"));
 				aan.setInnerModule(aanJson.getString("innerModule"));

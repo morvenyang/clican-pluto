@@ -1,13 +1,17 @@
 package com.chinatelecom.xysq.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.chinatelecom.xysq.R;
+import com.chinatelecom.xysq.adapater.AnnouncementAndNoticeContentAdapter;
 import com.chinatelecom.xysq.bean.AnnouncementAndNotice;
 
 public class AnnouncementAndNoticeDetailActivity extends BaseActivity {
@@ -18,7 +22,7 @@ public class AnnouncementAndNoticeDetailActivity extends BaseActivity {
 
 	private TextView titleTextView;
 
-	private TextView contentTextView;
+	private ListView listView;
 	
 	private boolean announcement;
 
@@ -48,13 +52,13 @@ public class AnnouncementAndNoticeDetailActivity extends BaseActivity {
 		this.headTextView = (TextView) this
 				.findViewById(R.id.announcement_and_notice_detail_headTextView);
 		this.titleTextView = (TextView)this.findViewById(R.id.announcement_and_notice_detail_titleTextView);
-		this.contentTextView = (TextView)this.findViewById(R.id.announcement_and_notice_detail_contentTextView);
+		this.listView = (ListView)this.findViewById(R.id.announcement_and_notice_detailListView);
 		if(this.announcement){
 			this.headTextView.setText("小区公告");
 		}else{
 			this.headTextView.setText("业主须知");
 		}
 		this.titleTextView.setText(announcementAndNotice.getTitle());
-		this.contentTextView.setText(announcementAndNotice.getContent());
+		this.listView.setAdapter(new AnnouncementAndNoticeContentAdapter(announcementAndNotice.getContents(),this,(LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE)));
 	}
 }
