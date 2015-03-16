@@ -1,6 +1,7 @@
 package com.chinatelecom.xysq.json;
 
 import java.util.Date;
+import java.util.List;
 
 import com.chinatelecom.xysq.enumeration.InnerModule;
 import com.chinatelecom.xysq.enumeration.NoticeCategory;
@@ -11,7 +12,7 @@ public class AnnouncementAndNoticeJson {
 
 	private String title;
 
-	private String content;
+	private List<String> contents;
 
 	private Date createTime;
 
@@ -37,12 +38,12 @@ public class AnnouncementAndNoticeJson {
 		this.title = title;
 	}
 
-	public String getContent() {
-		return content;
+	public List<String> getContents() {
+		return contents;
 	}
 
-	public void setContent(String content) {
-		this.content = content;
+	public void setContents(List<String> contents) {
+		this.contents = contents;
 	}
 
 	public Date getCreateTime() {
