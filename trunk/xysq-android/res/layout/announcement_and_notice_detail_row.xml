@@ -6,12 +6,13 @@
     android:orientation="vertical" >
 
     <TextView
-        android:id="@+id/announcement_and_notice_select_row_title"
-        android:layout_width="wrap_content"
+        android:id="@+id/announcement_and_notice_detail_row_text"
+        android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_toLeftOf="@+id/announcement_and_notice_select_row_date"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:ellipsize="end"
         android:gravity="center_vertical"
         android:maxLines="1"
@@ -21,18 +22,11 @@
         android:textColor="@color/rowTextColor"
         android:textSize="15sp" />
 
-    <TextView
-        android:id="@+id/announcement_and_notice_select_row_date"
+    <ImageView
+        android:id="@+id/announcement_and_notice_detail_row_image"
         android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:layout_alignParentRight="true"
+        android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_marginRight="12dp"
-        android:gravity="center_vertical"
-        android:paddingLeft="12dp"
-        android:text="Large Text"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="@color/rowDateTextColor"
-        android:textSize="12sp" />
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
