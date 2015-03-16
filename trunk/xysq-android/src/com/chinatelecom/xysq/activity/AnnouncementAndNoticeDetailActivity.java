@@ -59,6 +59,8 @@ public class AnnouncementAndNoticeDetailActivity extends BaseActivity {
 			this.headTextView.setText("业主须知");
 		}
 		this.titleTextView.setText(announcementAndNotice.getTitle());
+		this.listView.setDivider(null);
+		this.listView.setDividerHeight(0);
 		this.listView.setAdapter(new AnnouncementAndNoticeContentAdapter(announcementAndNotice.getContents(),this,(LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE)));
 	}
 }
