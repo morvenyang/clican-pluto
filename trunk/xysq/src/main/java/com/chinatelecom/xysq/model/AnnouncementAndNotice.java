@@ -1,14 +1,19 @@
 package com.chinatelecom.xysq.model;
 
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Fetch;
@@ -40,6 +45,8 @@ public class AnnouncementAndNotice {
 	private Community community;
 	
 	private NoticeCategory noticeCategory;
+	
+	private List<AnnouncementAndNoticeContent> contents;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -128,6 +135,16 @@ public class AnnouncementAndNotice {
 
 	public void setNoticeCategory(NoticeCategory noticeCategory) {
 		this.noticeCategory = noticeCategory;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "announcementAndNotice", cascade = CascadeType.REMOVE)
+	@OrderBy("displayIndex")
+	public List<AnnouncementAndNoticeContent> getContents() {
+		return contents;
+	}
+
+	public void setContents(List<AnnouncementAndNoticeContent> contents) {
+		this.contents = contents;
 	}
 	
 	

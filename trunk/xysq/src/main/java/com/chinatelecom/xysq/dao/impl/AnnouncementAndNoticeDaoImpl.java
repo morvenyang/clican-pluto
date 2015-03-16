@@ -12,7 +12,9 @@ import com.chinatelecom.xysq.dao.AnnouncementAndNoticeDao;
 import com.chinatelecom.xysq.enumeration.InnerModule;
 import com.chinatelecom.xysq.enumeration.NoticeCategory;
 import com.chinatelecom.xysq.model.AnnouncementAndNotice;
+import com.chinatelecom.xysq.model.AnnouncementAndNoticeContent;
 import com.chinatelecom.xysq.model.Community;
+import com.chinatelecom.xysq.model.Image;
 
 public class AnnouncementAndNoticeDaoImpl extends BaseDao implements
 		AnnouncementAndNoticeDao {
@@ -72,9 +74,49 @@ public class AnnouncementAndNoticeDaoImpl extends BaseDao implements
 	}
 
 	@Override
+	public void saveAnnouncementAndNoticeContent(
+			AnnouncementAndNoticeContent announcementAndNoticeContent) {
+		this.getHibernateTemplate().saveOrUpdate(announcementAndNoticeContent);
+	}
+
+	@Override
 	public void deleteAnnouncementAndNotice(
 			AnnouncementAndNotice announcementAndNotice) {
 		this.getHibernateTemplate().delete(announcementAndNotice);
 	}
 
+	@Override
+	public AnnouncementAndNotice findById(Long id) {
+		return (AnnouncementAndNotice)this.getHibernateTemplate().get(AnnouncementAndNotice.class, id);
+	}
+
+	@Override
+	public void deleteContent(final Long announcementAndNoticeId,
+			final List<Long> excludeIds) {
+		this.getHibernateTemplate().execute(new HibernateCallback(){
+			@Override
+			public Object doInHibernate(Session session)
+					throws HibernateException, SQLException {
+				String hsql;
+				if(excludeIds==null||excludeIds.size()==0){
+					hsql = "delete from AnnouncementAndNoticeContent where announcementAndNotice.id = :announcementAndNoticeId";
+				}else{
+					hsql = "delete from AnnouncementAndNoticeContent where announcementAndNotice.id = :announcementAndNoticeId and id not in (:excludeIds)";
+				}
+				Query query = session.createQuery(hsql);
+				query.setParameter("announcementAndNoticeId", announcementAndNoticeId);
+				if(excludeIds!=null&&excludeIds.size()>0){
+					query.setParameterList("excludeIds", excludeIds);
+				}
+				return query.executeUpdate();
+			}
+		});
+	}
+
+	@Override
+	public void saveImage(Image image) {
+		this.getHibernateTemplate().saveOrUpdate(image);
+	}
+	
+	
 }

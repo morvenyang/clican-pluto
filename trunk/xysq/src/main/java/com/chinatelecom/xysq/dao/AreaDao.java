@@ -5,6 +5,7 @@ import java.util.Set;
 
 import com.chinatelecom.xysq.bean.PageList;
 import com.chinatelecom.xysq.model.AdminCommunityRel;
+import com.chinatelecom.xysq.model.AnnouncementAndNotice;
 import com.chinatelecom.xysq.model.Area;
 import com.chinatelecom.xysq.model.Community;
 import com.chinatelecom.xysq.model.PosterCommunityRel;
@@ -46,5 +47,5 @@ public interface AreaDao {
 	public List<Area> findCityAreas();
 	
 	public List<Community> findCommunityByArea(Long areaId);
-
+	
 }
