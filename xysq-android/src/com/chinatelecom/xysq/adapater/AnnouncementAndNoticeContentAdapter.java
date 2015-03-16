@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.chinatelecom.xysq.R;
@@ -57,9 +58,16 @@ public class AnnouncementAndNoticeContentAdapter extends BaseAdapter {
 				.findViewById(R.id.announcement_and_notice_detail_row_image);
 		if(content.startsWith("http://")){
 			textView.setVisibility(View.GONE);
+			imageView.setVisibility(View.VISIBLE);
+//			RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+//					RelativeLayout.LayoutParams.MATCH_PARENT,
+//					RelativeLayout.LayoutParams.MATCH_PARENT);
+//			imageView.setLayoutParams(params);
+			imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 			ImageRequest.requestImage(imageView, content);
 		}else{
 			imageView.setVisibility(View.GONE);
+			textView.setVisibility(View.VISIBLE);
 			textView.setText(content);
 		}
 		return convertView;

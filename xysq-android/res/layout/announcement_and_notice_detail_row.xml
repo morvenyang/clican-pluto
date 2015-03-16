@@ -8,16 +8,16 @@
     <TextView
         android:id="@+id/announcement_and_notice_detail_row_text"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
         android:ellipsize="end"
         android:gravity="center_vertical"
         android:maxLines="1"
         android:paddingLeft="12dp"
-        android:text=""
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="@color/rowTextColor"
         android:textSize="15sp" />
@@ -27,6 +27,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp" />
 
 </RelativeLayout>
