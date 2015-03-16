@@ -68,6 +68,7 @@
                     android:height="45dp"
                     android:hint="请在这里输入标题"
                     android:textColor="@color/rowTextColor"
+                    android:textColorHint="@color/ccccccColor"
                     android:textSize="20sp" />
 
                 <RelativeLayout
@@ -89,7 +90,8 @@
                     android:hint="请在这里输入正文"
                     android:inputType="textMultiLine"
                     android:lines="20"
-                    android:textColor="@color/ccccccColor"
+                    android:textColor="@color/rowTextColor"
+                    android:textColorHint="@color/ccccccColor"
                     android:textSize="18sp" />
 
                 <RelativeLayout
