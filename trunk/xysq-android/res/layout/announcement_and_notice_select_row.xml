@@ -11,9 +11,12 @@
         android:layout_height="50dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/announcement_and_notice_select_row_date"
+        android:ellipsize="end"
         android:gravity="center_vertical"
+        android:maxLines="1"
         android:paddingLeft="12dp"
-        android:text="Large Text"
+        android:text="如果文本很多如果文本很多如果文本很多如果文本很多如果文本很多如果文本很多如果文本很多"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="@color/rowTextColor"
         android:textSize="15sp" />
