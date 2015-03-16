@@ -55,6 +55,8 @@
         android:id="@+id/announcement_and_notice_detail_contentTextView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
         android:text="Medium Text"
         android:textAppearance="?android:attr/textAppearanceMedium"
