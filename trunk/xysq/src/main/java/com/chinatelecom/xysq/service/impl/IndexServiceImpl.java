@@ -18,6 +18,7 @@ import com.chinatelecom.xysq.json.BroadbandRemindJson;
 import com.chinatelecom.xysq.json.IndexJson;
 import com.chinatelecom.xysq.json.PosterJson;
 import com.chinatelecom.xysq.model.AnnouncementAndNotice;
+import com.chinatelecom.xysq.model.AnnouncementAndNoticeContent;
 import com.chinatelecom.xysq.model.BroadbandRemind;
 import com.chinatelecom.xysq.model.Poster;
 import com.chinatelecom.xysq.service.IndexService;
@@ -93,7 +94,18 @@ public class IndexServiceImpl implements IndexService {
 		for (AnnouncementAndNotice aan : list) {
 			AnnouncementAndNoticeJson json = new AnnouncementAndNoticeJson();
 			json.setId(aan.getId());
-			json.setContent(aan.getContent());
+			List<String> contents = new ArrayList<String>();
+			for (AnnouncementAndNoticeContent c : aan.getContents()) {
+				if (c.isText()) {
+					contents.add(c.getContent());
+				} else {
+					contents.add(springProperty.getServerUrl()
+							+ springProperty.getContextPath()
+							+ "/image.do?imagePath="
+							+ c.getImage().getPath());
+				}
+			}
+			json.setContents(contents);
 			json.setCreateTime(aan.getCreateTime());
 			json.setModifyTime(aan.getModifyTime());
 			json.setNoticeCategory(aan.getNoticeCategory());
@@ -113,9 +125,9 @@ public class IndexServiceImpl implements IndexService {
 		BroadbandRemindJson json = new BroadbandRemindJson();
 		BroadbandRemind broadBandRemind = this.broadbandRemindDao
 				.findBroadbandRemindByMsisdn(msisdn);
-		if(broadBandRemind==null){
+		if (broadBandRemind == null) {
 			json.setExist(false);
-		}else{
+		} else {
 			json.setExist(true);
 			json.setBroadBandId(broadBandRemind.getBroadBandId());
 			json.setExpiredDate(broadBandRemind.getExpiredDate());
