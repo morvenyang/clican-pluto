@@ -13,7 +13,8 @@
 			<h:graphicImage value="/img/close.png" styleClass="hidelink"
 				id="announcementAndNoticePanelImg" style="CURSOR: hand" />
 			<rich:componentControl for="announcementAndNoticePanel"
-				attachTo="announcementAndNoticePanelImg" operation="hide" event="onclick" />
+				attachTo="announcementAndNoticePanelImg" operation="hide"
+				event="onclick" />
 		</h:panelGroup>
 	</f:facet>
 	<f:facet name="header">
@@ -28,34 +29,56 @@
 				<h:outputLabel value="标题" />
 				<h:outputText value=" *" style="color:red;" />
 			</t:panelGroup>
-			<h:inputText id="announcementAndNoticeName" value="#{areaAction.announcementAndNotice.title}"
+			<h:inputText id="announcementAndNoticeName"
+				value="#{areaAction.announcementAndNotice.title}"
 				style="width:355px;" required="true" requiredMessage="标题不能为空" />
 			<rich:message for="announcementAndNoticeName" style="color:red"
 				showDetail="false" showSummary="true" />
-			
+
 			<t:panelGroup rendered="#{!areaAction.announcement}">
 				<h:outputLabel value="分类" />
 			</t:panelGroup>
-			<h:selectOneMenu rendered="#{!areaAction.announcement}" value="#{areaAction.announcementAndNotice.noticeCategory}">
+			<h:selectOneMenu rendered="#{!areaAction.announcement}"
+				value="#{areaAction.announcementAndNotice.noticeCategory}">
 				<s:selectItems value="#{areaAction.noticeCategories}" var="category"
-							label="#{category.label}" />
+					label="#{category.label}" />
 				<s:convertEnum />
 			</h:selectOneMenu>
-			<h:outputText rendered="#{!areaAction.announcement}" value=""/>
+			<h:outputText rendered="#{!areaAction.announcement}" value="" />
 
-			<t:panelGroup>
-				<h:outputLabel value="内容" />
-				<h:outputText value=" *" style="color:red;" />
+			<a4j:commandButton reRender="contents"
+				action="#{areaAction.addContentForAnnoAndNotice()}" value="添加文本" />
+			<rich:fileUpload id="imageUpload"
+				fileUploadListener="#{areaAction.uploadImage}" maxFilesQuantity="1"
+				acceptedTypes="png,jpg,jpeg,gif" immediateUpload="true"
+				allowFlash="false" noDuplicate="true" addControlLabel="Add Image"
+				uploadControlLabel="Upload" listHeight="0px" autoclear="true">
+				<f:facet name="label">
+					<h:outputText value="{_KB}KB from {KB}KB uploaded --- {mm}:{ss}" />
+				</f:facet>
+				<a4j:support event="onfileuploadcomplete" reRender="contents,imageUpload"
+					ajaxSingle="true" />
+			</rich:fileUpload>
+			<h:outputLabel />
+
+			<t:panelGroup colspan="3">
+				<h:panelGrid id="contents" columns="2" style="width:100%">
+					<c:forEach var="content"
+						items="#{areaAction.announcementAndNoticeContents}">
+						<h:inputTextarea value="#{content.content}"
+							rendered="#{content.text}" style="width:70%"></h:inputTextarea>
+
+						<h:graphicImage value="/image.do?imagePath=#{content.image.path}"
+							style="width:150px;height:150px"
+							rendered="#{!content.text and content.image!=null}" />
+						<a4j:commandButton value="去除" action="#{areaAction.removeAnnouncementAndNoticeContent(content)}" reRender="contents"/>
+					</c:forEach>
+				</h:panelGrid>
 			</t:panelGroup>
-			<h:inputTextarea id="announcementAndNoticeDetailAddress"
-				value="#{areaAction.announcementAndNotice.content}" style="width:350px;height:200px"
-				required="true" requiredMessage="内容不能为空" />
-			<rich:message for="announcementAndNoticeDetailAddress" style="color:red"
-				showDetail="false" showSummary="true" />
-
 
 			<h:panelGrid columns="2">
-				<a4j:commandButton value="保存" action="#{areaAction.saveAnnouncementAndNotice()}"
+				<a4j:commandButton value="保存"
+					action="#{areaAction.saveAnnouncementAndNotice()}"
 					oncomplete="if(#{facesContext.maximumSeverity==null}) {Richfaces.hideModalPanel('announcementAndNoticePanel');}"
 					reRender="announcementAndNoticeTable" />
 				<h:commandButton value="取消" type="reset"

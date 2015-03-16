@@ -9,7 +9,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.UUID;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -34,8 +36,10 @@ import com.chinatelecom.xysq.enumeration.InnerModule;
 import com.chinatelecom.xysq.enumeration.NoticeCategory;
 import com.chinatelecom.xysq.model.AdminCommunityRel;
 import com.chinatelecom.xysq.model.AnnouncementAndNotice;
+import com.chinatelecom.xysq.model.AnnouncementAndNoticeContent;
 import com.chinatelecom.xysq.model.Area;
 import com.chinatelecom.xysq.model.Community;
+import com.chinatelecom.xysq.model.Image;
 import com.chinatelecom.xysq.model.Poster;
 import com.chinatelecom.xysq.model.PosterCommunityRel;
 import com.chinatelecom.xysq.model.Store;
@@ -81,6 +85,8 @@ public class AreaAction extends PageListAction<Community> {
 	private AnnouncementAndNotice announcementAndNotice;
 	
 	private List<NoticeCategory> noticeCategories;
+	
+	private List<AnnouncementAndNoticeContent> announcementAndNoticeContents;
 
 	public void listAreaTrees() {
 		this.page = 1;
@@ -262,7 +268,8 @@ public class AreaAction extends PageListAction<Community> {
 
 	public void editAnnouncementAndNotice(
 			AnnouncementAndNotice announcementAndNotice) {
-		this.announcementAndNotice = announcementAndNotice;
+		this.announcementAndNotice = this.getAnnouncementAndNoticeService().findById(announcementAndNotice.getId());
+		this.announcementAndNoticeContents = this.announcementAndNotice.getContents();
 	}
 	
 	public void deleteAnnouncementAndNotice(
@@ -271,6 +278,43 @@ public class AreaAction extends PageListAction<Community> {
 				announcementAndNotice);
 		this.announcementAndNotices = this.getAnnouncementAndNoticeService()
 		.findAnnouncementAndNotice(community, this.announcement);
+	}
+	
+	public void addContentForAnnoAndNotice(){
+		AnnouncementAndNoticeContent content = new AnnouncementAndNoticeContent();
+		content.setText(true);
+		this.announcementAndNoticeContents.add(content);
+	}
+	
+	public void removeAnnouncementAndNoticeContent(AnnouncementAndNoticeContent content){
+		this.announcementAndNoticeContents.remove(content);
+	}
+	
+	public synchronized void uploadImage(UploadEvent event) {
+		if (log.isDebugEnabled()) {
+			log.debug("upload image for store");
+		}
+		List<UploadItem> itemList = event.getUploadItems();
+		UploadItem item = itemList.get(0);
+		File imageTempFile = item.getFile();
+		try {
+			byte[] data = FileUtils.readFileToByteArray(imageTempFile);
+			String suffix = org.apache.commons.lang.StringUtils
+					.substringAfterLast(item.getFileName(), ".");
+			String filePath = com.chinatelecom.xysq.util.StringUtils.generateFilePathByDate()
+					+ UUID.randomUUID().toString() + "." + suffix;
+			FileUtils.writeByteArrayToFile(new File(this.getSpringProperty()
+					.getImageUrlPrefix() + "/" + filePath), data);
+			Image image = new Image();
+			image.setPath(filePath);
+			image.setName(item.getFileName());
+			AnnouncementAndNoticeContent content = new AnnouncementAndNoticeContent();
+			content.setText(false);
+			content.setImage(image);
+			this.announcementAndNoticeContents.add(content);
+		} catch (IOException e) {
+			log.error("", e);
+		}
 	}
 
 	public void publishAnnouncement() {
@@ -282,6 +326,8 @@ public class AreaAction extends PageListAction<Community> {
 		this.announcementAndNotice = new AnnouncementAndNotice();
 		this.announcementAndNotice.setInnerModule(InnerModule.ANNOUNCEMENT);
 		this.announcementAndNotice.setSubmitter(this.getIdentity().getUser());
+		this.announcementAndNoticeContents = new ArrayList<AnnouncementAndNoticeContent>();
+		this.announcementAndNotice.setContents(this.announcementAndNoticeContents);
 		this.announcement = true;
 	}
 
@@ -294,6 +340,8 @@ public class AreaAction extends PageListAction<Community> {
 		this.announcementAndNotice = new AnnouncementAndNotice();
 		this.announcementAndNotice.setInnerModule(InnerModule.NOTICE);
 		this.announcementAndNotice.setSubmitter(this.getIdentity().getUser());
+		this.announcementAndNoticeContents = new ArrayList<AnnouncementAndNoticeContent>();
+		this.announcementAndNotice.setContents(this.announcementAndNoticeContents);
 		this.announcement = false;
 	}
 
@@ -590,6 +638,15 @@ public class AreaAction extends PageListAction<Community> {
 
 	public void setArea(Area area) {
 		this.area = area;
+	}
+
+	public List<AnnouncementAndNoticeContent> getAnnouncementAndNoticeContents() {
+		return announcementAndNoticeContents;
+	}
+
+	public void setAnnouncementAndNoticeContents(
+			List<AnnouncementAndNoticeContent> announcementAndNoticeContents) {
+		this.announcementAndNoticeContents = announcementAndNoticeContents;
 	}
 
 }

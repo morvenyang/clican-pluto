@@ -16,4 +16,7 @@ public interface AnnouncementAndNoticeService {
 	public void saveAnnouncementAndNotice(AnnouncementAndNotice announcementAndNotice);
 	
 	public void deleteAnnouncementAndNotice(AnnouncementAndNotice announcementAndNotice);
+	
+	public AnnouncementAndNotice findById(Long id);
+	
 }

@@ -12,6 +12,7 @@ import org.springframework.orm.hibernate3.HibernateCallback;
 
 import com.chinatelecom.xysq.bean.PageList;
 import com.chinatelecom.xysq.model.AdminCommunityRel;
+import com.chinatelecom.xysq.model.AnnouncementAndNotice;
 import com.chinatelecom.xysq.model.Area;
 import com.chinatelecom.xysq.model.Community;
 import com.chinatelecom.xysq.model.PosterCommunityRel;
@@ -173,5 +174,7 @@ public class AreaDaoImpl extends BaseDao implements
 	public List<Community> findCommunityByArea(Long areaId) {
 		return this.getHibernateTemplate().findByNamedParam("from Community where city.id = :areaId", "areaId", areaId);
 	}
+
+	
 
 }
