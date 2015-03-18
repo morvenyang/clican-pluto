@@ -48,19 +48,29 @@
 
         </LinearLayout>
     </RelativeLayout>
-
+	<RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/dividerColor" >
+    </RelativeLayout>
     <TextView
         android:id="@+id/topic_topic_titleTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="12dp"
         android:layout_marginRight="12dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="5dp"
         android:text="Large Text"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="#333333"
-        android:textSize="15sp" />
-
+        android:textSize="18sp" />
+	<RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/dividerColor"
+        android:layout_marginLeft="12dp"
+         android:layout_marginTop="5dp" >
+    </RelativeLayout>
     <TextView
         android:id="@+id/topic_topic_contentTextView"
         android:layout_width="match_parent"
@@ -68,10 +78,10 @@
         android:layout_marginBottom="15dp"
         android:layout_marginLeft="12dp"
         android:layout_marginRight="12dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="5dp"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="#666666"
-        android:textSize="14sp" />
+        android:textSize="16sp" />
 
     <GridView
         android:id="@+id/topic_photos_gridView"
@@ -79,7 +89,9 @@
         android:layout_height="100dp"
         android:layout_marginBottom="15dp"
         android:gravity="center"
-        android:numColumns="4" >
+        android:numColumns="4" 
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="12dp">
     </GridView>
 
 </LinearLayout>
