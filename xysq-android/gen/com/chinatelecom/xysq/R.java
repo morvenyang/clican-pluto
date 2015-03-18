@@ -301,6 +301,8 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int umeng_update_dialog_bg=0x7f02005c;
         public static final int umeng_update_title_bg=0x7f02005d;
         public static final int umeng_update_wifi_disable=0x7f02005e;
+        public static final int xyzs1=0x7f02005f;
+        public static final int xyzs2=0x7f020060;
     }
     public static final class id {
         public static final int Button01=0x7f06004f;
