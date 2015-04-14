@@ -5,6 +5,33 @@
         http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 
+	<bean id="resetLotterInvokingJobDetail"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="concurrent" value="false" />
+		<property name="targetObject">
+			<ref bean="awardService" />
+		</property>
+		<property name="targetMethod">
+			<value>resetLotter</value>
+		</property>
+	</bean>
 
+	<bean id="resetLotterCronTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail">
+			<ref bean="resetLotterInvokingJobDetail" />
+		</property>
+		<property name="cronExpression">
+			<value>0 0 0 * * ?</value>
+		</property>
+	</bean>
+	
+	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean"
+		destroy-method="destroy">
+		<property name="triggers">
+			<list>
+                <ref local="resetLotterCronTrigger" />
+			</list>
+		</property>
+	</bean>
 
 </beans>
