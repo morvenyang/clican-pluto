@@ -90,4 +90,9 @@ public class XysqApplication extends Application implements HttpCallback {
 	}
 
 
+	public IWXAPI getApi() {
+		return api;
+	}
+
+
 }
