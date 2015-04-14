@@ -1,0 +1,157 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:a4j="http://richfaces.org/a4j" template="../workspace.xhtml">
+	<ui:define name="body">
+		<h:form>
+			<rich:panel id="awardTablePanel"
+				style="left-margin:10px;border:0;width:100%">
+				<h:panelGrid id="awardPanelGrid" style="width:100%">
+					<h:panelGrid columns="1" style="text-align:right;width:100%">
+						<h:panelGroup>
+							<a4j:commandButton value="添加兑换品" style="border:0;" ajaxSingle="true"
+								oncomplete="Richfaces.showModalPanel('awardPanel');"
+								action="#{awardAction.addAward()}" reRender="awardPanel" />
+						</h:panelGroup>
+					</h:panelGrid>
+					<rich:dataTable id="awardTable" var="award"
+						value="#{awardAction.awards}" rows="10" rowKeyVar="rowNumIndex"
+						width="100%" activeClass="active-row" enableContextMenu="true">
+						<rich:column>
+							<f:facet name="header">
+								<h:outputText value="名称" />
+							</f:facet>
+							<h:outputText value="#{award.name}" style="white-space:nowrap;" />
+						</rich:column>
+						<rich:column>
+							<f:facet name="header">
+								<h:outputText value="剩余数量" />
+							</f:facet>
+							<h:outputText value="#{award.amount}" style="white-space:nowrap;" />
+						</rich:column>
+						<rich:column>
+							<f:facet name="header">
+								<h:outputText value="总数量" />
+							</f:facet>
+							<h:outputText value="#{award.totalAmount}" style="white-space:nowrap;">
+							</h:outputText>
+						</rich:column>
+						<rich:column>
+							<f:facet name="header">
+								<h:outputText value="流量币" />
+							</f:facet>
+							<h:outputText value="#{award.cost}" style="white-space:nowrap;" />
+						</rich:column>
+						<rich:column>
+							<f:facet name="header">
+								<h:outputText value="操作" />
+							</f:facet>
+							<h:panelGrid columns="3">
+								<a4j:commandButton value="编辑"
+									action="#{awardAction.editAward(award)}" ajaxSingle="true"
+									reRender="awardPanel"
+									oncomplete="Richfaces.showModalPanel('awardPanel');" />
+								<a4j:commandButton value="删除"
+									action="#{awardAction.deleteAward(award)}" ajaxSingle="true"
+									onclick="var answer=confirm('确认禁用该兑换品');if(!answer) return false;"
+									reRender="awardTable" />
+								<a4j:commandButton value="上架"
+									action="#{awardAction.activeAward(award)}" ajaxSingle="true"
+									onclick="var answer=confirm('确认上架该兑换品');if(!answer) return false;"
+									reRender="awardTable" rendered="#{!award.active}"/>
+								<a4j:commandButton value="下架"
+									action="#{awardAction.disableAward(award)}" ajaxSingle="true"
+									onclick="var answer=confirm('确认下架该兑换品');if(!answer) return false;"
+									reRender="awardTable" rendered="#{award.active}"/>
+							</h:panelGrid>
+						</rich:column>
+						<f:facet name="footer">
+							<rich:datascroller for="awardTable" reRender="awardTable"
+								ignoreDupResponses="false" renderIfSinglePage="true"
+								maxPages="10" page="1" align="left" />
+						</f:facet>
+					</rich:dataTable>
+				</h:panelGrid>
+			</rich:panel>
+		</h:form>
+
+		<rich:modalPanel id="awardPanel" autosized="true">
+			<f:facet name="controls">
+				<h:panelGroup>
+					<h:graphicImage value="/img/close.png" styleClass="hidelink"
+						id="awardPanelImg" style="CURSOR: hand" />
+					<rich:componentControl for="awardPanel" attachTo="awardPanelImg"
+						operation="hide" event="onclick" />
+				</h:panelGroup>
+			</f:facet>
+			<f:facet name="header">
+				<h:panelGroup>
+					<h:outputText value="用户"></h:outputText>
+				</h:panelGroup>
+			</f:facet>
+			<a4j:form id="awardForm">
+				<h:panelGrid columns="3" width="600">
+					<h:panelGroup>
+						<h:outputLabel value="名称" />
+						<h:outputText value=" *" style="color:red;" />
+					</h:panelGroup>
+					<h:inputText id="name" value="#{awardAction.award.name}"
+						disabled="#{awardAction.award.id!=null}" style="width:180px;"
+						required="true"
+						requiredMessage="名称不能为空" />
+					<rich:message for="name" style="color:red" showDetail="false"
+						showSummary="true" />
+						
+					
+					<h:panelGroup rendered="#{awardAction.award.id!=null}">
+						<h:outputLabel value="剩余数量" />
+						<h:outputText value=" *" style="color:red;" />
+					</h:panelGroup>
+					<h:inputText id="amount" value="#{awardAction.award.amount}"
+						rendered="#{awardAction.award.id!=null}" style="width:180px;"
+						required="true"
+						requiredMessage="剩余数量不能为空" />
+					<rich:message for="amount" style="color:red" showDetail="false"
+						showSummary="true" rendered="#{awardAction.award.id!=null}"/>
+					
+					
+					<h:panelGroup>
+						<h:outputLabel value="总数量" />
+						<h:outputText value=" *" style="color:red;" />
+					</h:panelGroup>
+					<h:inputText id="totalAmount" value="#{awardAction.award.totalAmount}" style="width:180px;"
+						required="true"
+						requiredMessage="总数量不能为空" />
+					<rich:message for="totalAmount" style="color:red" showDetail="false"
+						showSummary="true" />
+						
+					<h:panelGroup>
+						<h:outputLabel value="流量币" />
+						<h:outputText value=" *" style="color:red;" />
+					</h:panelGroup>
+					<h:inputText id="cost" value="#{awardAction.award.cost}" style="width:180px;"
+						required="true"
+						requiredMessage="流量币不能为空" />
+					<rich:message for="cost" style="color:red" showDetail="false"
+						showSummary="true" />
+						
+						
+					<h:panelGrid columns="2">
+						<a4j:commandButton id="saveButton" value="保存"
+							action="#{awardAction.saveAward()}"
+							oncomplete="if(#{facesContext.maximumSeverity==null}) {Richfaces.hideModalPanel('awardPanel');}"
+							reRender="awardTable" />
+						<h:commandButton id="cancelButton" value="取消"
+							type="reset" onclick="Richfaces.hideModalPanel('awardPanel');" />
+					</h:panelGrid>
+				</h:panelGrid>
+			</a4j:form>
+		</rich:modalPanel>
+		
+	</ui:define>
+</ui:composition>

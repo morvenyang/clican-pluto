@@ -13,4 +13,14 @@ public class AwardDaoImpl extends BaseDao implements AwardDao {
 		return (List<Award>)this.getHibernateTemplate().find("from Award");
 	}
 
+	@Override
+	public void deleteAward(Award award) {
+		this.getHibernateTemplate().delete(award);
+	}
+
+	@Override
+	public void saveAward(Award award) {
+		this.getHibernateTemplate().saveOrUpdate(award);
+	}
+
 }

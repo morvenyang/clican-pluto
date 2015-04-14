@@ -18,6 +18,18 @@ public class AwardServiceImpl implements AwardService {
 	public List<Award> findAllAwards() {
 		return awardDao.findAllAwards();
 	}
-	
-	
+
+	@Override
+	public void deleteAward(Award award) {
+		this.awardDao.deleteAward(award);
+	}
+
+	@Override
+	public void saveAward(Award award) {
+		if (award.getId() == null) {
+			award.setAmount(award.getTotalAmount());
+		}
+		this.awardDao.saveAward(award);
+	}
+
 }

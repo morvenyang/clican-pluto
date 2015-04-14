@@ -8,4 +8,8 @@ public interface AwardService {
 
 	
 	public List<Award> findAllAwards();
+	
+	public void deleteAward(Award award);
+	
+	public void saveAward(Award award);
 }

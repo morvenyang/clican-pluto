@@ -37,6 +37,12 @@
 				action="#{broadbandRemindAction.listBroadbandReminds()}"
 				value="宽带提醒" />
 		</rich:menuItem>
+		<rich:menuItem submitMode="ajax"
+			rendered="#{s:hasPermission('ADMIN',null)}">
+			<s:link view="/award/award.xhtml" style="font-size:20px"
+				action="#{awardAction.listAwards()}"
+				value="兑换品管理" />
+		</rich:menuItem>
 		<rich:toolBarGroup location="right">
 			<h:panelGroup rendered="#{identity.loggedIn}">
 				<h:outputText
