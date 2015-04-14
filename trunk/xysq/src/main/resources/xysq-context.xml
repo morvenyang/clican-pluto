@@ -80,6 +80,7 @@
 		<property name="serverUrl" value="${serverUrl}"></property>
 		<property name="proxyHost" value="${proxyHost}"></property>
 		<property name="proxyPort" value="${proxyPort}"></property>
+		<property name="moneyProbability" value="${moneyProbability}"></property>
 	</bean>
 
 </beans>
