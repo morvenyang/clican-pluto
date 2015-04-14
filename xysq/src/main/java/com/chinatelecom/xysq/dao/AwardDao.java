@@ -11,4 +11,7 @@ public interface AwardDao {
 	public void deleteAward(Award award);
 
 	public void saveAward(Award award);
+	
+	
+	public void resetLotter();
 }
