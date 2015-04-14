@@ -104,6 +104,7 @@
          <activity android:name="com.chinatelecom.xysq.activity.XqncFormActivity" android:screenOrientation="portrait"/>
           <activity android:name="com.chinatelecom.xysq.activity.XqncCancelActivity" android:screenOrientation="portrait"/>
         <activity android:name="com.chinatelecom.xysq.activity.TakePhotoActivity" android:screenOrientation="portrait"/>
+         <activity android:name="com.chinatelecom.xysq.activity.YyyIndexActivity" android:screenOrientation="portrait"/>
         <!-- 用户反馈 -->
         <activity android:name="com.chinatelecom.xysq.activity.FeedbackActivity" android:screenOrientation="portrait"/>
         <activity android:name="com.umeng.update.UpdateDialogActivity" android:screenOrientation="portrait">
