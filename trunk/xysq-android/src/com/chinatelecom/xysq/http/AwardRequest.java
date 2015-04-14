@@ -46,6 +46,9 @@ public class AwardRequest {
 						lottery.setTotalMoney(jsonObj.getInt("totalMoney"));
 						lottery.setShare(jsonObj.getBoolean("share"));
 						return new TaskResult(1, null, lottery);
+					}else if(statusLine.getStatusCode()==HttpStatus.SC_UNAUTHORIZED){
+						user.setJsessionid("");
+						return new TaskResult(-1, "请先登录", null);
 					} else {
 						response.getEntity().getContent().close();
 						return new TaskResult(-1, "抽奖失败", null);

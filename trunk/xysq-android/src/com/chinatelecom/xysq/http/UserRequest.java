@@ -228,6 +228,9 @@ public class UserRequest {
 							return new TaskResult(-1,
 									jsonObj.getString("message"), null);
 						}
+					}else if(statusLine.getStatusCode()==HttpStatus.SC_UNAUTHORIZED){
+						user.setJsessionid("");
+						return new TaskResult(-1, "请先登录", null);
 					} else {
 						response.getEntity().getContent().close();
 						return new TaskResult(-1, "更新失败", null);
@@ -279,6 +282,9 @@ public class UserRequest {
 							return new TaskResult(-1,
 									jsonObj.getString("message"), null);
 						}
+					}else if(statusLine.getStatusCode()==HttpStatus.SC_UNAUTHORIZED){
+						user.setJsessionid("");
+						return new TaskResult(-1, "请先登录", null);
 					} else {
 						response.getEntity().getContent().close();
 						return new TaskResult(-1, "申请失败", null);
