@@ -570,6 +570,13 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int xyzs_huodong1=0x7f060105;
         public static final int yyy_index_backButton=0x7f060106;
         public static final int yyy_index_getAward=0x7f060107;
+        public static final int yyy_result_backButton=0x7f060109;
+        public static final int yyy_result_getAward=0x7f06010b;
+        public static final int yyy_result_msg1=0x7f06010a;
+        public static final int yyy_result_msg2=0x7f06010e;
+        public static final int yyy_result_msg3=0x7f06010f;
+        public static final int yyy_result_myAward=0x7f06010c;
+        public static final int yyy_result_next_action=0x7f06010d;
     }
     public static final class layout {
         public static final int announcement=0x7f030000;
@@ -629,6 +636,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int xqnc_form=0x7f030036;
         public static final int xyzs=0x7f030037;
         public static final int yyy_index=0x7f030038;
+        public static final int yyy_result=0x7f030039;
     }
     public static final class raw {
         public static final int pull_event=0x7f050000;
