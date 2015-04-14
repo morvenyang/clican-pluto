@@ -28,6 +28,7 @@ import com.chinatelecom.xysq.json.ProfileJson;
 import com.chinatelecom.xysq.json.ResultJson;
 import com.chinatelecom.xysq.model.Image;
 import com.chinatelecom.xysq.service.AreaService;
+import com.chinatelecom.xysq.service.AwardService;
 import com.chinatelecom.xysq.service.ForumService;
 import com.chinatelecom.xysq.service.IndexService;
 import com.chinatelecom.xysq.service.StoreService;
@@ -49,6 +50,8 @@ public class ClientController {
 	private ForumService forumService;
 
 	private StoreService storeService;
+	
+	private AwardService awardService;
 
 	public void setSpringProperty(SpringProperty springProperty) {
 		this.springProperty = springProperty;
@@ -72,6 +75,10 @@ public class ClientController {
 
 	public void setStoreService(StoreService storeService) {
 		this.storeService = storeService;
+	}
+
+	public void setAwardService(AwardService awardService) {
+		this.awardService = awardService;
 	}
 
 	@RequestMapping("/image")
@@ -239,8 +246,6 @@ public class ClientController {
 		}
 	}
 
-	
-
 	@RequestMapping("/updateProfile")
 	public void updateProfile(
 			@RequestParam(value = "nickName") String nickName,
@@ -398,7 +403,7 @@ public class ClientController {
 			log.error("", e);
 		}
 	}
-	
+
 	@RequestMapping("/applyXqnc")
 	public void applyXqnc(
 			@RequestParam(value = "carNumber", required = true) String carNumber,
@@ -421,10 +426,9 @@ public class ClientController {
 			log.error("", e);
 		}
 	}
-	
+
 	@RequestMapping("/cancelXqnc")
-	public void cancelXqnc(
-			HttpServletRequest req, HttpServletResponse resp)
+	public void cancelXqnc(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		try {
 			ResultJson rj = null;
@@ -438,6 +442,25 @@ public class ClientController {
 			resp.setContentType("application/json");
 			resp.getOutputStream().write(
 					JSONObject.fromObject(rj).toString().getBytes("utf-8"));
+		} catch (Exception e) {
+			log.error("", e);
+		}
+	}
+
+	@RequestMapping("/lottery")
+	public void lottery(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		String result;
+		Long userId = (Long) req.getSession().getAttribute("USER_ID");
+		if (userId == null) {
+			ResultJson rj = new ResultJson(false, "请先登录");
+			result = JSONObject.fromObject(rj).toString();
+		} else {
+			result = this.awardService.lottery(userId);
+		}
+		try {
+			resp.setContentType("application/json");
+			resp.getOutputStream().write(result.getBytes("utf-8"));
 		} catch (Exception e) {
 			log.error("", e);
 		}

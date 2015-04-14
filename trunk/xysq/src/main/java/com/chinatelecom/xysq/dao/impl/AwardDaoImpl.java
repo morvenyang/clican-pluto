@@ -10,6 +10,7 @@ import org.springframework.orm.hibernate3.HibernateCallback;
 
 import com.chinatelecom.xysq.dao.AwardDao;
 import com.chinatelecom.xysq.model.Award;
+import com.chinatelecom.xysq.model.AwardHistory;
 
 public class AwardDaoImpl extends BaseDao implements AwardDao {
 
@@ -27,6 +28,11 @@ public class AwardDaoImpl extends BaseDao implements AwardDao {
 	@Override
 	public void saveAward(Award award) {
 		this.getHibernateTemplate().saveOrUpdate(award);
+	}
+
+	@Override
+	public void saveAwardHistory(AwardHistory awardHistory) {
+		this.getHibernateTemplate().saveOrUpdate(awardHistory);
 	}
 
 	@Override

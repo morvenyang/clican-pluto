@@ -30,6 +30,8 @@ public class AwardHistory {
 	
 	private User user;
 	
+	private int money;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "ID")
@@ -80,6 +82,15 @@ public class AwardHistory {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+	
+	@Column(name="MONEY")
+	public int getMoney() {
+		return money;
+	}
+
+	public void setMoney(int money) {
+		this.money = money;
 	}
 	
 	

@@ -14,4 +14,6 @@ public interface AwardService {
 	public void saveAward(Award award);
 	
 	public void resetLottery();
+	
+	public String lottery(Long userId);
 }
