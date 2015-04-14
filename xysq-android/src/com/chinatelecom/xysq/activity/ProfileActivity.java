@@ -1,5 +1,7 @@
 package com.chinatelecom.xysq.activity;
 
+import org.apache.commons.lang.StringUtils;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -46,7 +48,7 @@ public class ProfileActivity extends BaseActivity {
 			@Override
 			public void onClick(View v) {
 				User user = getUser();
-				if (user != null) {
+				if (user != null&&StringUtils.isNotBlank(user.getJsessionid())) {
 					Intent intent = new Intent(ProfileActivity.this,
 							ProfileDetailActivity.class);
 					Log.d("XYSQ", "start ProfileDetailActivity");
@@ -67,7 +69,7 @@ public class ProfileActivity extends BaseActivity {
 		super.onResume();
 		XysqApplication application = (XysqApplication) this.getApplication();
 		User user = application.getUser();
-		if (user != null) {
+		if (user != null&&StringUtils.isNotBlank(user.getJsessionid())) {
 			nickNameTextView.setText(user.getNickName());
 			msisdnTextView.setText(user.getMsisdn());
 		} else {

@@ -34,6 +34,9 @@ public class XqncRequest {
 					StatusLine statusLine = response.getStatusLine();
 					if (statusLine.getStatusCode() == HttpStatus.SC_OK) {
 						return new TaskResult(1, null, true);
+					}else if(statusLine.getStatusCode()==HttpStatus.SC_UNAUTHORIZED){
+						user.setJsessionid("");
+						return new TaskResult(-1, "请先登录", null);
 					} else {
 						response.getEntity().getContent().close();
 						return new TaskResult(-1, "申请小区挪车失败", false);
@@ -75,6 +78,9 @@ public class XqncRequest {
 					StatusLine statusLine = response.getStatusLine();
 					if (statusLine.getStatusCode() == HttpStatus.SC_OK) {
 						return new TaskResult(1, null, true);
+					}else if(statusLine.getStatusCode()==HttpStatus.SC_UNAUTHORIZED){
+						user.setJsessionid("");
+						return new TaskResult(-1, "请先登录", null);
 					} else {
 						response.getEntity().getContent().close();
 						return new TaskResult(-1, "取消小区挪车失败", false);
