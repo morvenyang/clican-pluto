@@ -60,6 +60,7 @@ public class AwardServiceImpl implements AwardService {
 			lottery = user.getLottery();
 		}
 		int money = -1;
+		LotteryJson lotteryJson = new LotteryJson();
 		if (lottery > 0) {
 			money = new Random(100).nextInt();
 			lottery--;
@@ -70,8 +71,10 @@ public class AwardServiceImpl implements AwardService {
 			awardHistory.setLottery(true);
 			awardHistory.setMoney(money);
 			awardDao.saveAwardHistory(awardHistory);
+			lotteryJson.setShare(false);
+		} else {
+			lotteryJson.setShare(user.isShareLottery());
 		}
-		LotteryJson lotteryJson = new LotteryJson();
 		lotteryJson.setLottery(lottery);
 		lotteryJson.setMoney(money);
 		return JSONArray.fromObject(lotteryJson).toString();

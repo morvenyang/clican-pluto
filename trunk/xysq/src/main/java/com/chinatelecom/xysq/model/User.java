@@ -37,6 +37,7 @@ public class User {
 	private boolean applyXqnc;
 	private Integer money;
 	private Integer lottery;
+	private boolean shareLottery;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -144,6 +145,14 @@ public class User {
 	}
 	public void setLottery(Integer lottery) {
 		this.lottery = lottery;
+	}
+	@Column(name = "SHARE_LOTTERY")
+	@Type(type="org.hibernate.type.NumericBooleanType")
+	public boolean isShareLottery() {
+		return shareLottery;
+	}
+	public void setShareLottery(boolean shareLottery) {
+		this.shareLottery = shareLottery;
 	}
 	@Override
 	public int hashCode() {
