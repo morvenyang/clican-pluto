@@ -6,6 +6,8 @@ public class LotteryJson {
 	
 	private int money;
 	
+	private int totalMoney;
+	
 	private boolean share;
 
 	public int getLottery() {
@@ -22,6 +24,14 @@ public class LotteryJson {
 
 	public void setMoney(int money) {
 		this.money = money;
+	}
+
+	public int getTotalMoney() {
+		return totalMoney;
+	}
+
+	public void setTotalMoney(int totalMoney) {
+		this.totalMoney = totalMoney;
 	}
 
 	public boolean isShare() {
