@@ -11,6 +11,7 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.Type;
 
 
 @Table(name = "AWARD")
@@ -23,6 +24,8 @@ public class Award {
 	
 	private int amount;
 	
+	private int totalAmount;
+	
 	private int cost;
 	
 	private Image image;
@@ -31,6 +34,8 @@ public class Award {
 	private String storeName;
 	
 	private String storeAddress;
+	
+	private boolean active;
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "ID")
@@ -57,6 +62,15 @@ public class Award {
 	public void setAmount(int amount) {
 		this.amount = amount;
 	}
+	@Column(name = "TOTAL_AMOUNT")
+	public int getTotalAmount() {
+		return totalAmount;
+	}
+
+	public void setTotalAmount(int totalAmount) {
+		this.totalAmount = totalAmount;
+	}
+
 	@Column(name = "COST")
 	public int getCost() {
 		return cost;
@@ -91,6 +105,15 @@ public class Award {
 
 	public void setStoreAddress(String storeAddress) {
 		this.storeAddress = storeAddress;
+	}
+	@Column(name = "ACTIVE")
+	@Type(type="org.hibernate.type.NumericBooleanType")
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
 	}
 	
 	

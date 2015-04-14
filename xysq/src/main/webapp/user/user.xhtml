@@ -14,13 +14,8 @@
 				<h:panelGrid id="userPanelGrid" style="width:100%">
 					<h:panelGrid columns="1" style="text-align:right;width:100%">
 						<h:panelGroup>
-							<a4j:commandButton id="addUser" image="/img/new.png"
-								style="border:0;" title="添加用户"
-								action="#{userAction.addUser()}" ajaxSingle="true"
-								reRender="userPanel"
-								oncomplete="Richfaces.showModalPanel('userPanel');" />
-							<a4j:commandLink value="添加用户"
-								style="text-decoration:none" ajaxSingle="true"
+							<a4j:commandButton value="添加用户"
+								style="border:0;" ajaxSingle="true"
 								oncomplete="Richfaces.showModalPanel('userPanel');"
 								action="#{userAction.addUser()}" reRender="userPanel" />
 						</h:panelGroup>

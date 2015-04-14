@@ -11,6 +11,7 @@ import com.chinatelecom.xysq.bean.Constants;
 import com.chinatelecom.xysq.bean.SpringProperty;
 import com.chinatelecom.xysq.service.AnnouncementAndNoticeService;
 import com.chinatelecom.xysq.service.AreaService;
+import com.chinatelecom.xysq.service.AwardService;
 import com.chinatelecom.xysq.service.BroadbandRemindService;
 import com.chinatelecom.xysq.service.PosterService;
 import com.chinatelecom.xysq.service.StoreService;
@@ -57,4 +58,7 @@ public class BaseAction {
 		return (AnnouncementAndNoticeService) Constants.ctx.getBean("announcementAndNoticeService");
 	}
 
+	protected AwardService getAwardService() {
+		return (AwardService) Constants.ctx.getBean("awardService");
+	}
 }
