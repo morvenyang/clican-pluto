@@ -9,6 +9,8 @@ public class Lottery implements Parcelable{
 	
 	private int money;
 	
+	private int totalMoney;
+	
 	private boolean share;
 
 	public int getLottery() {
@@ -35,6 +37,14 @@ public class Lottery implements Parcelable{
 		this.share = share;
 	}
 
+	public int getTotalMoney() {
+		return totalMoney;
+	}
+
+	public void setTotalMoney(int totalMoney) {
+		this.totalMoney = totalMoney;
+	}
+
 	public static final Parcelable.Creator<Lottery> CREATOR = new Parcelable.Creator<Lottery>() {
 		public Lottery createFromParcel(Parcel in) {
 			return new Lottery(in);
@@ -51,6 +61,7 @@ public class Lottery implements Parcelable{
 	private Lottery(Parcel in) {
 		lottery = in.readInt();
 		money = in.readInt();
+		totalMoney = in.readInt();
 		share = in.readInt()==1?true:false;
 	}
 	
@@ -63,6 +74,7 @@ public class Lottery implements Parcelable{
 	public void writeToParcel(Parcel dest, int flags) {
 		dest.writeInt(lottery);
 		dest.writeInt(money);
+		dest.writeInt(totalMoney);
 		dest.writeInt(share?1:0);
 	}
 	

@@ -16,7 +16,7 @@
             android:background="@color/headBackgroundColor"
             android:orientation="horizontal" >
              <Button
-                android:id="@+id/yyy_index_backButton"
+                android:id="@+id/yyy_result_backButton"
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -41,35 +41,70 @@
                 android:textColor="@color/labelTextColor" />
 
             <TextView
+                android:id="@+id/yyy_result_msg1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
                 android:layout_marginTop="33dp"
                 android:gravity="center"
-                android:text="100%有奖    绝对不白摇"
+                android:text="恭喜！经你 石破天惊一摇 获得了"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/labelTextColor" />
 
             <Button
-                android:id="@+id/yyy_index_getAward"
+                android:id="@+id/yyy_result_getAward"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/textView1"
                 android:layout_alignParentBottom="true"
                 android:layout_marginBottom="119dp"
                 android:layout_marginLeft="14dp"
                 android:text="兑换奖励" />
 
             <Button
-                android:id="@+id/button2"
+                android:id="@+id/yyy_result_myAward"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/yyy_index_getAward"
-                android:layout_alignBottom="@+id/yyy_index_getAward"
+                android:layout_alignBaseline="@+id/yyy_result_getAward"
+                android:layout_alignBottom="@+id/yyy_result_getAward"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="25dp"
                 android:text="我获得的奖励" />
+
+            <Button
+                android:id="@+id/yyy_result_next_action"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/yyy_result_msg2"
+                android:layout_centerHorizontal="true"
+                android:layout_centerInParent="false"
+                android:layout_centerVertical="false"
+                android:layout_marginTop="80dp"
+                android:text="再摇一次" />
+
+            <TextView
+                android:id="@+id/yyy_result_msg2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/yyy_result_msg1"
+                android:layout_marginTop="25dp"
+                android:gravity="center"
+                android:text="10 流量币"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/labelTextColor" />
+
+            <TextView
+                android:id="@+id/yyy_result_msg3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/yyy_result_msg2"
+                android:layout_marginTop="35dp"
+                android:gravity="center"
+                android:text="你现在拥有150个流量币"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/labelTextColor" />
 
         </RelativeLayout>
 
