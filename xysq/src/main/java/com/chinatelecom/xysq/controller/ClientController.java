@@ -257,6 +257,7 @@ public class ClientController {
 			Long userId = (Long) req.getSession().getAttribute("USER_ID");
 			ProfileJson result = null;
 			if (userId == null) {
+				resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 				result = new ProfileJson();
 				result.setSuccess(false);
 				result.setMessage("请先登录");
@@ -414,6 +415,7 @@ public class ClientController {
 			ResultJson rj = null;
 			Long userId = (Long) req.getSession().getAttribute("USER_ID");
 			if (userId == null) {
+				resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 				rj = new ResultJson(false, "请先登录");
 			} else {
 				this.userService.enableXqnc(userId, carNumber);
@@ -434,6 +436,7 @@ public class ClientController {
 			ResultJson rj = null;
 			Long userId = (Long) req.getSession().getAttribute("USER_ID");
 			if (userId == null) {
+				resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 				rj = new ResultJson(false, "请先登录");
 			} else {
 				this.userService.disableXqnc(userId);
@@ -453,6 +456,7 @@ public class ClientController {
 		String result;
 		Long userId = (Long) req.getSession().getAttribute("USER_ID");
 		if (userId == null) {
+			resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 			ResultJson rj = new ResultJson(false, "请先登录");
 			result = JSONObject.fromObject(rj).toString();
 		} else {
