@@ -30,12 +30,12 @@ public class AwardDaoImpl extends BaseDao implements AwardDao {
 	}
 
 	@Override
-	public void resetLotter() {
+	public void resetLottery() {
 		this.getHibernateTemplate().execute(new HibernateCallback(){
 			@Override
 			public Object doInHibernate(Session session)
 					throws HibernateException, SQLException {
-				Query query = session.createQuery("update User set lotter = 3");
+				Query query = session.createQuery("update User set lottery = 3");
 				return query.executeUpdate();
 			}
 		});

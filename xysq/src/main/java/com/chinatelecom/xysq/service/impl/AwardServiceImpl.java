@@ -32,8 +32,8 @@ public class AwardServiceImpl implements AwardService {
 		this.awardDao.saveAward(award);
 	}
 
-	public void resetLotter() {
-		this.awardDao.resetLotter();
+	public void resetLottery() {
+		this.awardDao.resetLottery();
 	}
 
 }

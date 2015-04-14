@@ -13,5 +13,5 @@ public interface AwardDao {
 	public void saveAward(Award award);
 	
 	
-	public void resetLotter();
+	public void resetLottery();
 }

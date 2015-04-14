@@ -5,20 +5,20 @@
         http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 
-	<bean id="resetLotterInvokingJobDetail"
+	<bean id="resetLotteryInvokingJobDetail"
 		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
 		<property name="concurrent" value="false" />
 		<property name="targetObject">
 			<ref bean="awardService" />
 		</property>
 		<property name="targetMethod">
-			<value>resetLotter</value>
+			<value>resetLottery</value>
 		</property>
 	</bean>
 
-	<bean id="resetLotterCronTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+	<bean id="resetLotteryCronTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
 		<property name="jobDetail">
-			<ref bean="resetLotterInvokingJobDetail" />
+			<ref bean="resetLotteryInvokingJobDetail" />
 		</property>
 		<property name="cronExpression">
 			<value>0 0 0 * * ?</value>
@@ -29,7 +29,7 @@
 		destroy-method="destroy">
 		<property name="triggers">
 			<list>
-                <ref local="resetLotterCronTrigger" />
+                <ref local="resetLotteryCronTrigger" />
 			</list>
 		</property>
 	</bean>

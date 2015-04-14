@@ -12,4 +12,6 @@ public interface AwardService {
 	public void deleteAward(Award award);
 	
 	public void saveAward(Award award);
+	
+	public void resetLottery();
 }
