@@ -15,6 +15,7 @@ import com.chinatelecom.xysq.http.HttpCallback;
 import com.chinatelecom.xysq.http.UserRequest;
 import com.chinatelecom.xysq.listener.LocationListener;
 import com.chinatelecom.xysq.other.Constants;
+import com.chinatelecom.xysq.shake.ShakeEventManager;
 import com.chinatelecom.xysq.util.KeyValueUtils;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
@@ -30,11 +31,15 @@ public class XysqApplication extends Application implements HttpCallback {
 	private User user;
 	
 	private IWXAPI api;
+	
+	private ShakeEventManager shakeEventManager;
 
 	@Override
 	public void onCreate() {
 		super.onCreate();
 		this.registerToWx();
+		shakeEventManager = new ShakeEventManager(this);
+		shakeEventManager.start();
 		locationClient = new LocationClient(this.getApplicationContext());
 		LocationClientOption option = new LocationClientOption();
 		option.setLocationMode(LocationMode.Hight_Accuracy);// 设置定位模式
@@ -78,5 +83,11 @@ public class XysqApplication extends Application implements HttpCallback {
 			KeyValueUtils.setStringValue(this, Constants.PASSWORD, user.getPassword());
 		}
 	}
+
+
+	public ShakeEventManager getShakeEventManager() {
+		return shakeEventManager;
+	}
+
 
 }

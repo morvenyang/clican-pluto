@@ -24,8 +24,10 @@
                 android:layout_centerVertical="true"
                 android:layout_gravity="center"
                 android:gravity="center"
+                android:text="小翼助手"
                 android:textColor="@android:color/white"
                 android:textSize="18sp" />
+
         </RelativeLayout>
 
         <TextView
@@ -39,14 +41,7 @@
             android:textColor="@color/labelTextColor" />
 
         <ImageView
-            android:id="@+id/imageView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="20dp"
-            android:src="@drawable/xyzs1" />
-
-        <ImageView
+            android:id="@+id/xyzs_huodong1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

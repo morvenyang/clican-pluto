@@ -329,6 +329,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int broadband_remind_progressBar=0x7f060018;
         public static final int broadband_remind_table=0x7f06001a;
         public static final int broadband_remind_userName_textView=0x7f06001c;
+        public static final int button2=0x7f060108;
         public static final int citySelect_backButton=0x7f060020;
         public static final int citySelect_cityListView=0x7f060024;
         public static final int citySelect_progressBar=0x7f06001f;
@@ -566,6 +567,9 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int xqnc_carNumberTextView=0x7f060101;
         public static final int xqnc_form_backButton=0x7f060102;
         public static final int xqnc_submitButton=0x7f0600fd;
+        public static final int xyzs_huodong1=0x7f060105;
+        public static final int yyy_index_backButton=0x7f060106;
+        public static final int yyy_index_getAward=0x7f060107;
     }
     public static final class layout {
         public static final int announcement=0x7f030000;
@@ -624,6 +628,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int xqnc_cancel=0x7f030035;
         public static final int xqnc_form=0x7f030036;
         public static final int xyzs=0x7f030037;
+        public static final int yyy_index=0x7f030038;
     }
     public static final class raw {
         public static final int pull_event=0x7f050000;
