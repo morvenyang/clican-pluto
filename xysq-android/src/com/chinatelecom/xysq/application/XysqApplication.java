@@ -16,6 +16,8 @@ import com.chinatelecom.xysq.http.UserRequest;
 import com.chinatelecom.xysq.listener.LocationListener;
 import com.chinatelecom.xysq.other.Constants;
 import com.chinatelecom.xysq.util.KeyValueUtils;
+import com.tencent.mm.sdk.openapi.IWXAPI;
+import com.tencent.mm.sdk.openapi.WXAPIFactory;
 import com.umeng.analytics.MobclickAgent;
 
 public class XysqApplication extends Application implements HttpCallback {
@@ -26,10 +28,13 @@ public class XysqApplication extends Application implements HttpCallback {
 	public Vibrator mVibrator;
 
 	private User user;
+	
+	private IWXAPI api;
 
 	@Override
 	public void onCreate() {
 		super.onCreate();
+		this.registerToWx();
 		locationClient = new LocationClient(this.getApplicationContext());
 		LocationClientOption option = new LocationClientOption();
 		option.setLocationMode(LocationMode.Hight_Accuracy);// 设置定位模式
@@ -43,6 +48,13 @@ public class XysqApplication extends Application implements HttpCallback {
 		if(StringUtils.isNotEmpty(userName)&&StringUtils.isNotEmpty(password)){
 			UserRequest.login(userName, password, this);
 		}
+	}
+	
+	
+	private void registerToWx(){
+		api = WXAPIFactory.createWXAPI(this, "wx1baf50d8f6be0acd",true);
+		boolean result = api.registerApp("wx1baf50d8f6be0acd");
+		Log.d("XYSQ", "register to wx:"+result);
 	}
 
 	@Override
