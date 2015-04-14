@@ -35,6 +35,9 @@ public class User {
 	private String carNumber;
 	private Set<AdminCommunityRel> adminCommunityRelSet;
 	private boolean applyXqnc;
+	private Integer money;
+	private Integer lottery;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "ID")
@@ -127,6 +130,20 @@ public class User {
 	}
 	public void setApplyXqnc(boolean applyXqnc) {
 		this.applyXqnc = applyXqnc;
+	}
+	@Column(name = "MONEY")
+	public Integer getMoney() {
+		return money;
+	}
+	public void setMoney(Integer money) {
+		this.money = money;
+	}
+	@Column(name = "LOTTERY")
+	public Integer getLottery() {
+		return lottery;
+	}
+	public void setLottery(Integer lottery) {
+		this.lottery = lottery;
 	}
 	@Override
 	public int hashCode() {
