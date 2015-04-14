@@ -23,5 +23,7 @@
 	<bean id="announcementAndNoticeDao" class="com.chinatelecom.xysq.dao.impl.AnnouncementAndNoticeDaoImpl"
 		autowire="byName" />
 	<bean id="forumDao" class="com.chinatelecom.xysq.dao.impl.ForumDaoImpl"
-		autowire="byName" />			
+		autowire="byName" />
+	<bean id="awardDao" class="com.chinatelecom.xysq.dao.impl.AwardDaoImpl"
+		autowire="byName" />				
 </beans>
