@@ -2,10 +2,13 @@ package com.chinatelecom.xysq.service.impl;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
+import java.util.TreeMap;
 
-import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 
+import com.chinatelecom.xysq.bean.SpringProperty;
 import com.chinatelecom.xysq.dao.AwardDao;
 import com.chinatelecom.xysq.dao.UserDao;
 import com.chinatelecom.xysq.json.LotteryJson;
@@ -19,6 +22,10 @@ public class AwardServiceImpl implements AwardService {
 	private AwardDao awardDao;
 
 	private UserDao userDao;
+	
+	private SpringProperty springProperty;
+
+	private Map<Integer, Float> moneyProbability = new TreeMap<Integer, Float>();
 
 	public void setAwardDao(AwardDao awardDao) {
 		this.awardDao = awardDao;
@@ -28,6 +35,19 @@ public class AwardServiceImpl implements AwardService {
 		this.userDao = userDao;
 	}
 
+	
+	public void setSpringProperty(SpringProperty springProperty) {
+		this.springProperty = springProperty;
+	}
+
+	public void init(){
+		String moneyProbabilityStr=springProperty.getMoneyProbability();
+		for(String pair:moneyProbabilityStr.split(";")){
+			Integer money = Integer.parseInt(pair.split(":")[0]);
+			Float probablity =Float.parseFloat(pair.split(":")[1]);
+			moneyProbability.put(money, probablity);
+		}
+	}
 	@Override
 	public List<Award> findAllAwards() {
 		return awardDao.findAllAwards();
@@ -50,6 +70,23 @@ public class AwardServiceImpl implements AwardService {
 		this.awardDao.resetLottery();
 	}
 
+	private int getRandomMoney() {
+		double i = new Random().nextInt(100) / 100.0;
+		float t = 0;
+		Integer found = null;
+		for (Integer money : moneyProbability.keySet()) {
+			Float f = moneyProbability.get(money);
+			t += f;
+			if (i <= f) {
+				found = money;
+			}
+		}
+		if (found == null) {
+			return 10;
+		}
+		return found;
+	}
+
 	@Override
 	public String lottery(Long userId) {
 		User user = userDao.findUserById(userId);
@@ -63,10 +100,11 @@ public class AwardServiceImpl implements AwardService {
 		int totalMoney = user.getMoney();
 		LotteryJson lotteryJson = new LotteryJson();
 		if (lottery > 0) {
-			money = new Random(100).nextInt();
-			totalMoney+=money;
+			money = getRandomMoney();
+			totalMoney += money;
 			lottery--;
 			user.setLottery(lottery);
+			user.setMoney(totalMoney);
 			userDao.saveUser(user);
 			AwardHistory awardHistory = new AwardHistory();
 			awardHistory.setDate(new Date());
@@ -80,7 +118,7 @@ public class AwardServiceImpl implements AwardService {
 		lotteryJson.setLottery(lottery);
 		lotteryJson.setMoney(money);
 		lotteryJson.setTotalMoney(totalMoney);
-		return JSONArray.fromObject(lotteryJson).toString();
+		return JSONObject.fromObject(lotteryJson).toString();
 	}
 
 }

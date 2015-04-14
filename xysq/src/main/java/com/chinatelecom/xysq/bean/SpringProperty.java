@@ -13,6 +13,8 @@ public class SpringProperty {
 	private String proxyHost;
 	
 	private int proxyPort;
+	
+	private String moneyProbability;
 
 	public String getVersion() {
 		return version;
@@ -62,9 +64,12 @@ public class SpringProperty {
 		this.proxyPort = proxyPort;
 	}
 
-	
+	public String getMoneyProbability() {
+		return moneyProbability;
+	}
 
-	
-	
-	
+	public void setMoneyProbability(String moneyProbability) {
+		this.moneyProbability = moneyProbability;
+	}
+
 }
