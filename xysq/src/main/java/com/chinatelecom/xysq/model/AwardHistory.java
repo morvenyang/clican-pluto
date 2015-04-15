@@ -22,7 +22,11 @@ public class AwardHistory {
 	
 	private Long id;
 	
-	private Award award;
+	private AwardStoreRel awardStoreRel;
+	
+	private String code;
+	
+	private boolean received;
 	
 	private boolean lottery;
 	
@@ -44,14 +48,33 @@ public class AwardHistory {
 	}
 
 	@ManyToOne
-	@JoinColumn(name = "AWARD_ID", nullable = true)
+	@JoinColumn(name = "AWARD_STORE_REL_ID", nullable = true)
 	@Fetch(FetchMode.JOIN)
-	public Award getAward() {
-		return award;
+	public AwardStoreRel getAwardStoreRel() {
+		return awardStoreRel;
 	}
 
-	public void setAward(Award award) {
-		this.award = award;
+	public void setAwardStoreRel(AwardStoreRel awardStoreRel) {
+		this.awardStoreRel = awardStoreRel;
+	}
+
+	@Column
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+	@Column(name = "RECEIVED")
+	@Type(type="org.hibernate.type.NumericBooleanType")
+	public boolean isReceived() {
+		return received;
+	}
+
+	public void setReceived(boolean received) {
+		this.received = received;
 	}
 
 	@Column(name = "LOTTERY")
