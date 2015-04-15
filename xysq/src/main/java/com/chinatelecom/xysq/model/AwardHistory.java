@@ -24,6 +24,8 @@ public class AwardHistory {
 	
 	private AwardStoreRel awardStoreRel;
 	
+	private Award award;
+	
 	private String code;
 	
 	private boolean received;
@@ -114,6 +116,17 @@ public class AwardHistory {
 
 	public void setMoney(int money) {
 		this.money = money;
+	}
+
+	@ManyToOne
+	@JoinColumn(name = "AWARD_ID", nullable = true)
+	@Fetch(FetchMode.JOIN)
+	public Award getAward() {
+		return award;
+	}
+
+	public void setAward(Award award) {
+		this.award = award;
 	}
 	
 	
