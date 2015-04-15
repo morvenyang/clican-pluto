@@ -77,7 +77,7 @@
     <ListView
         android:id="@+id/profile_listView"
         android:layout_width="wrap_content"
-        android:layout_height="204dp"
+        android:layout_height="306dp"
         android:layout_marginTop="12dp"
         android:background="@android:color/white"
         android:divider="@color/dividerColor"
