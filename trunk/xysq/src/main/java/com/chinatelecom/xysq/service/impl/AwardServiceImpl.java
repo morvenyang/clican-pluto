@@ -18,6 +18,7 @@ import com.chinatelecom.xysq.json.AwardJson;
 import com.chinatelecom.xysq.json.AwardUserJson;
 import com.chinatelecom.xysq.json.ExchangeAwardJson;
 import com.chinatelecom.xysq.json.LotteryJson;
+import com.chinatelecom.xysq.json.StoreJson;
 import com.chinatelecom.xysq.model.Award;
 import com.chinatelecom.xysq.model.AwardHistory;
 import com.chinatelecom.xysq.model.AwardStoreRel;
@@ -194,7 +195,12 @@ public class AwardServiceImpl implements AwardService {
 				awardHistory.setDate(new Date());
 				awardHistory.setLottery(false);
 				awardHistory.setMoney(-award.getCost());
-				awardHistory.setReceived(false);
+				if(award.isRealGood()){
+					awardHistory.setReceived(false);
+				}else{
+					awardHistory.setReceived(true);
+				}
+				
 				awardHistory.setUser(user);
 				awardHistory.setCode(UUID.randomUUID().toString());
 				this.awardDao.saveAwardHistory(awardHistory);
@@ -202,9 +208,43 @@ public class AwardServiceImpl implements AwardService {
 				this.userDao.saveUser(user);
 				eaj.setSuccess(true);
 				eaj.setMessage("兑换成功");
+				eaj.setName(award.getName());
+				String code = generateRandomCode();
+				eaj.setCode(code);
+				eaj.setId(awardHistory.getId());
+				eaj.setReceived(awardHistory.isReceived());
+				eaj.setRealGood(award.isRealGood());
+				List<StoreJson> stores = new ArrayList<StoreJson>();
+				for(AwardStoreRel rel:award.getAwardStoreRelSet()){
+					StoreJson sj = new StoreJson();
+					sj.setName(rel.getStore().getName());
+					sj.setAddress(rel.getStore().getAddress());
+					sj.setTel(rel.getStore().getTel());
+					sj.setId(rel.getStore().getId());
+					stores.add(sj);
+				}
+				eaj.setStores(stores);
 			}
 		}	
 		return JSONObject.fromObject(eaj).toString();
 	}
 
+	private String generateRandomCode(){
+		List<Character> charList =new ArrayList<Character>(); 
+		for(char c='0';c<='9';c++){
+			charList.add(c);
+		}
+		for(char c='a';c<='z';c++){
+			charList.add(c);
+		}
+		for(char c='A';c<='Z';c++){
+			charList.add(c);
+		}
+		String result = "";
+		
+		for(int i=0;i<10;i++){
+			result +=charList.get(new Random().nextInt(charList.size()));
+		}
+		return result;
+	}
 }
