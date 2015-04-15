@@ -1,6 +1,7 @@
 package com.chinatelecom.xysq.action;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
@@ -68,7 +69,8 @@ public class AwardAction extends BaseAction {
 	}
 
 	public void saveAward() {
-		this.getAwardService().saveAward(award);
+		this.award.setAwardStoreRelSet(new HashSet<AwardStoreRel>(this.awardStoreRels));
+		this.getAwardService().saveAward(this.award);
 		this.awards = this.getAwardService().findAllAwards();
 	}
 
