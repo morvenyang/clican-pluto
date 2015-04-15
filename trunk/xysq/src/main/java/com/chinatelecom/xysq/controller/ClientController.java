@@ -469,4 +469,24 @@ public class ClientController {
 			log.error("", e);
 		}
 	}
+	
+	@RequestMapping("/queryAwardUser")
+	public void queryAwardUser(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		String result;
+		Long userId = (Long) req.getSession().getAttribute("USER_ID");
+		if (userId == null) {
+			resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+			ResultJson rj = new ResultJson(false, "请先登录");
+			result = JSONObject.fromObject(rj).toString();
+		} else {
+			result = this.awardService.queryAwardUser(userId);
+		}
+		try {
+			resp.setContentType("application/json");
+			resp.getOutputStream().write(result.getBytes("utf-8"));
+		} catch (Exception e) {
+			log.error("", e);
+		}
+	}
 }

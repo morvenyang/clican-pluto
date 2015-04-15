@@ -33,6 +33,8 @@ public class Award {
 	
 	private boolean active;
 	
+	private boolean realGood;
+	
 	private Set<AwardStoreRel> awardStoreRelSet;
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -90,6 +92,16 @@ public class Award {
 
 	public void setAwardStoreRelSet(Set<AwardStoreRel> awardStoreRelSet) {
 		this.awardStoreRelSet = awardStoreRelSet;
+	}
+
+	@Column(name = "REAL_GOOD")
+	@Type(type="org.hibernate.type.NumericBooleanType")
+	public boolean isRealGood() {
+		return realGood;
+	}
+
+	public void setRealGood(boolean realGood) {
+		this.realGood = realGood;
 	}
 	
 	

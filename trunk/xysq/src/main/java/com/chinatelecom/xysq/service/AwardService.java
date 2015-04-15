@@ -18,4 +18,6 @@ public interface AwardService {
 	public Award findAwardById(Long awardId);
 	
 	public String lottery(Long userId);
+	
+	public String queryAwardUser(Long userId);
 }

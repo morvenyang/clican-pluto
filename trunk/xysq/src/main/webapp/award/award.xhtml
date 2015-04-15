@@ -107,7 +107,9 @@
 						required="true" requiredMessage="名称不能为空" />
 					<rich:message for="name" style="color:red" showDetail="false"
 						showSummary="true" />
-
+					<h:outputLabel value="实物" />
+					<h:selectBooleanCheckbox id="realGood" value="#{awardAction.award.realGood}" />
+					<h:outputLabel/>
 					<h:panelGroup>
 						<h:outputLabel value="流量币" />
 						<h:outputText value=" *" style="color:red;" />

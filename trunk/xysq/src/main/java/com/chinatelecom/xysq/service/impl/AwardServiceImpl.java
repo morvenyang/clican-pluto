@@ -13,6 +13,8 @@ import net.sf.json.JSONObject;
 import com.chinatelecom.xysq.bean.SpringProperty;
 import com.chinatelecom.xysq.dao.AwardDao;
 import com.chinatelecom.xysq.dao.UserDao;
+import com.chinatelecom.xysq.json.AwardJson;
+import com.chinatelecom.xysq.json.AwardUserJson;
 import com.chinatelecom.xysq.json.LotteryJson;
 import com.chinatelecom.xysq.model.Award;
 import com.chinatelecom.xysq.model.AwardHistory;
@@ -138,6 +140,34 @@ public class AwardServiceImpl implements AwardService {
 		lotteryJson.setMoney(money);
 		lotteryJson.setTotalMoney(totalMoney);
 		return JSONObject.fromObject(lotteryJson).toString();
+	}
+
+	@Override
+	public String queryAwardUser(Long userId) {
+		User user = userDao.findUserById(userId);
+		AwardUserJson auj = new AwardUserJson();
+		List<Award> awards = awardDao.findActiveAwards();
+		List<AwardJson> ajs = new ArrayList<AwardJson>();
+		for (Award award : awards) {
+			AwardJson aj = new AwardJson();
+			aj.setId(award.getId());
+			aj.setCost(award.getCost());
+			aj.setName(award.getName());
+			aj.setRealGood(award.isRealGood());
+			int amount = 0;
+			for(AwardStoreRel rel:award.getAwardStoreRelSet()){
+				amount+=rel.getAmount();
+			}
+			aj.setAmount(amount);
+			ajs.add(aj);
+		}
+		auj.setAwards(ajs);
+		if(user.getMoney()==null){
+			auj.setMoney(0);
+		}else{
+			auj.setMoney(user.getMoney());
+		}
+		return JSONObject.fromObject(auj).toString();
 	}
 
 }
