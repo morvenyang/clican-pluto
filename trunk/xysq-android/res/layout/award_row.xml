@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/award_row_relativeLayout"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:duplicateParentState="true"
+    android:minHeight="50dp"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/award_row_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="30dp"
+        android:text="Name"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/labelTextColor"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/award_row_cost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="42dp"
+        android:layout_toRightOf="@+id/award_row_name"
+        android:text="Cost"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/labelTextColor"
+        android:textSize="15sp" />
+
+    <Button
+        android:id="@+id/award_row_action"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="16dp"
+        android:text="Button" />
+
+</RelativeLayout>

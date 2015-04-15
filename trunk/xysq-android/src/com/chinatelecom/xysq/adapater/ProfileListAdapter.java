@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.chinatelecom.xysq.R;
+import com.chinatelecom.xysq.activity.AwardActivity;
 import com.chinatelecom.xysq.activity.FeedbackActivity;
 import com.chinatelecom.xysq.activity.ProfileActivity;
 import com.chinatelecom.xysq.http.UpdateRequest;
@@ -60,8 +61,14 @@ public class ProfileListAdapter extends BaseAdapter {
 		}else if (position == 1) {
 			titleTextView.setText("我要兑换");
 			imageView.setImageResource(R.drawable.icon_2);
-			convertView.setOnClickListener(new HtmlLinkOnClickListener(
-					Constants.BASE_URL+"/android/aboutUs.html", "关于我们",activity, false));
+			convertView.setOnClickListener(new OnClickListener(){
+				@Override
+				public void onClick(View v) {
+					Intent intent = new Intent(activity, AwardActivity.class);
+					activity.startActivity(intent);
+				}
+				
+			});
 		}else if (position == 2) {
 			titleTextView.setText("兑换历史");
 			imageView.setImageResource(R.drawable.icon_3);
