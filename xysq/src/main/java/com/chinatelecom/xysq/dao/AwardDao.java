@@ -9,6 +9,8 @@ import com.chinatelecom.xysq.model.AwardStoreRel;
 public interface AwardDao {
 
 	public List<Award> findAllAwards();
+	
+	public List<Award> findActiveAwards();
 
 	public void deleteAward(Award award);
 
