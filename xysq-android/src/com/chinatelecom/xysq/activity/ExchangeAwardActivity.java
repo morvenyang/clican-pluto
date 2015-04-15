@@ -1,6 +1,7 @@
 package com.chinatelecom.xysq.activity;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import com.chinatelecom.xysq.R;
@@ -23,8 +24,12 @@ public class ExchangeAwardActivity extends BaseActivity {
 		TextView code = (TextView) findViewById(R.id.exchange_award_code);
 		TextView action = (TextView) findViewById(R.id.exchange_award_action);
 		TextView desc = (TextView) findViewById(R.id.exchange_award_desc);
+		name.setVisibility(View.GONE);
+		code.setVisibility(View.GONE);
+		action.setVisibility(View.GONE);
+		desc.setVisibility(View.GONE);
 		name.setText(exchangeAward.getName());
-		code.setText(exchangeAward.getCode());
+		code.setText("asd");
 		if (exchangeAward.isRealGood()) {
 			action.setText("门店地址");
 			desc.setText("使用说明：\n实物奖励请去线下指定门店，向营业员出示串码即可兑换");
