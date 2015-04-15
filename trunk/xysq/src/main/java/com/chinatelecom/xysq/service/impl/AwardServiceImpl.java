@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 import java.util.TreeMap;
+import java.util.UUID;
 
 import net.sf.json.JSONObject;
 
@@ -15,6 +16,7 @@ import com.chinatelecom.xysq.dao.AwardDao;
 import com.chinatelecom.xysq.dao.UserDao;
 import com.chinatelecom.xysq.json.AwardJson;
 import com.chinatelecom.xysq.json.AwardUserJson;
+import com.chinatelecom.xysq.json.ExchangeAwardJson;
 import com.chinatelecom.xysq.json.LotteryJson;
 import com.chinatelecom.xysq.model.Award;
 import com.chinatelecom.xysq.model.AwardHistory;
@@ -109,7 +111,7 @@ public class AwardServiceImpl implements AwardService {
 	}
 
 	@Override
-	public String lottery(Long userId) {
+	public synchronized String lottery(Long userId) {
 		User user = userDao.findUserById(userId);
 		int lottery = 0;
 		if (user.getLottery() == null || user.getLottery() <= 0) {
@@ -155,19 +157,54 @@ public class AwardServiceImpl implements AwardService {
 			aj.setName(award.getName());
 			aj.setRealGood(award.isRealGood());
 			int amount = 0;
-			for(AwardStoreRel rel:award.getAwardStoreRelSet()){
-				amount+=rel.getAmount();
+			for (AwardStoreRel rel : award.getAwardStoreRelSet()) {
+				amount += rel.getAmount();
 			}
 			aj.setAmount(amount);
 			ajs.add(aj);
 		}
 		auj.setAwards(ajs);
-		if(user.getMoney()==null){
+		if (user.getMoney() == null) {
 			auj.setMoney(0);
-		}else{
+		} else {
 			auj.setMoney(user.getMoney());
 		}
 		return JSONObject.fromObject(auj).toString();
+	}
+
+	@Override
+	public synchronized String exchangeAward(Long awardId, Long userId) {
+		ExchangeAwardJson eaj = new ExchangeAwardJson();
+		Award award = awardDao.findAwardById(awardId);
+		int amount = 0;
+		for (AwardStoreRel rel : award.getAwardStoreRelSet()) {
+			amount += rel.getAmount();
+		}
+		if(amount<=0){
+			eaj.setSuccess(false);
+			eaj.setMessage("该物品已经全部兑换完了");
+		}else{
+			User user = userDao.findUserById(userId);
+			if (user.getMoney() == null || user.getMoney() < award.getCost()) {
+				eaj.setSuccess(false);
+				eaj.setMessage("你的流量币不够兑换该物品");
+			} else {
+				AwardHistory awardHistory = new AwardHistory();
+				awardHistory.setAward(award);
+				awardHistory.setDate(new Date());
+				awardHistory.setLottery(false);
+				awardHistory.setMoney(-award.getCost());
+				awardHistory.setReceived(false);
+				awardHistory.setUser(user);
+				awardHistory.setCode(UUID.randomUUID().toString());
+				this.awardDao.saveAwardHistory(awardHistory);
+				user.setMoney(user.getMoney()-award.getCost());
+				this.userDao.saveUser(user);
+				eaj.setSuccess(true);
+				eaj.setMessage("兑换成功");
+			}
+		}	
+		return JSONObject.fromObject(eaj).toString();
 	}
 
 }
