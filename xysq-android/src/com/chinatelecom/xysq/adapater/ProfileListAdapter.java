@@ -32,7 +32,7 @@ public class ProfileListAdapter extends BaseAdapter {
 
 	@Override
 	public int getCount() {
-		return 4;
+		return 6;
 	}
 
 	@Override
@@ -57,9 +57,9 @@ public class ProfileListAdapter extends BaseAdapter {
 		if (position == 0) {
 			titleTextView.setText("邀请安装免费送流量");
 			imageView.setImageResource(R.drawable.icon_1);
-		} else if (position == 1) {
+		} else if (position == 3) {
 			titleTextView.setText("意见反馈");
-			imageView.setImageResource(R.drawable.icon_2);
+			imageView.setImageResource(R.drawable.icon_4);
 			convertView.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
@@ -74,18 +74,18 @@ public class ProfileListAdapter extends BaseAdapter {
 					activity.startActivity(intent);
 				}
 			});
-		} else if (position == 2) {
+		} else if (position == 4) {
 			titleTextView.setText("检查更新");
-			imageView.setImageResource(R.drawable.icon_3);
+			imageView.setImageResource(R.drawable.icon_5);
 			convertView.setOnClickListener(new OnClickListener(){
 				@Override
 				public void onClick(View v) {
 					UpdateRequest.checkUpdate(activity);
 				}
 			});
-		} else if (position == 3) {
+		} else if (position == 5) {
 			titleTextView.setText("关于我们");
-			imageView.setImageResource(R.drawable.icon_4);
+			imageView.setImageResource(R.drawable.icon_6);
 			convertView.setOnClickListener(new HtmlLinkOnClickListener(
 					Constants.BASE_URL+"/android/aboutUs.html", "关于我们",activity, false));
 		}

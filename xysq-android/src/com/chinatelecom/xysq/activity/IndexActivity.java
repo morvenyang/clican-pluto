@@ -98,12 +98,9 @@ public class IndexActivity extends BaseActivity implements HttpCallback,
 				ForumActivity.class, true, true));
 
 		Button jkffButton = (Button) findViewById(R.id.index_jkffButton);
-		jkffButton.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				AlertUtil.alert(IndexActivity.this, "开发中");
-			}
-		});
+		jkffButton.setOnClickListener((new HtmlLinkOnClickListener(
+				"http://dianhua.118114.cn:8088/yp114?channelno=205&appKey=yp114&ashwid=123456", "114黄页", this,
+				true)));
 	}
 
 	@Override
