@@ -14,7 +14,8 @@
 				<h:panelGrid id="awardPanelGrid" style="width:100%">
 					<h:panelGrid columns="1" style="text-align:right;width:100%">
 						<h:panelGroup>
-							<a4j:commandButton value="添加兑换品" style="border:0;" ajaxSingle="true"
+							<a4j:commandButton value="添加兑换品" style="border:0;"
+								ajaxSingle="true"
 								oncomplete="Richfaces.showModalPanel('awardPanel');"
 								action="#{awardAction.addAward()}" reRender="awardPanel" />
 						</h:panelGroup>
@@ -38,7 +39,8 @@
 							<f:facet name="header">
 								<h:outputText value="总数量" />
 							</f:facet>
-							<h:outputText value="#{award.totalAmount}" style="white-space:nowrap;">
+							<h:outputText value="#{award.totalAmount}"
+								style="white-space:nowrap;">
 							</h:outputText>
 						</rich:column>
 						<rich:column>
@@ -63,11 +65,11 @@
 								<a4j:commandButton value="上架"
 									action="#{awardAction.activeAward(award)}" ajaxSingle="true"
 									onclick="var answer=confirm('确认上架该兑换品');if(!answer) return false;"
-									reRender="awardTable" rendered="#{!award.active}"/>
+									reRender="awardTable" rendered="#{!award.active}" />
 								<a4j:commandButton value="下架"
 									action="#{awardAction.disableAward(award)}" ajaxSingle="true"
 									onclick="var answer=confirm('确认下架该兑换品');if(!answer) return false;"
-									reRender="awardTable" rendered="#{award.active}"/>
+									reRender="awardTable" rendered="#{award.active}" />
 							</h:panelGrid>
 						</rich:column>
 						<f:facet name="footer">
@@ -95,63 +97,55 @@
 				</h:panelGroup>
 			</f:facet>
 			<a4j:form id="awardForm">
-				<h:panelGrid columns="3" width="600">
+				<t:panelGrid columns="3" width="600">
 					<h:panelGroup>
 						<h:outputLabel value="名称" />
 						<h:outputText value=" *" style="color:red;" />
 					</h:panelGroup>
 					<h:inputText id="name" value="#{awardAction.award.name}"
 						disabled="#{awardAction.award.id!=null}" style="width:180px;"
-						required="true"
-						requiredMessage="名称不能为空" />
+						required="true" requiredMessage="名称不能为空" />
 					<rich:message for="name" style="color:red" showDetail="false"
 						showSummary="true" />
-						
-					
-					<h:panelGroup rendered="#{awardAction.award.id!=null}">
-						<h:outputLabel value="剩余数量" />
-						<h:outputText value=" *" style="color:red;" />
-					</h:panelGroup>
-					<h:inputText id="amount" value="#{awardAction.award.amount}"
-						rendered="#{awardAction.award.id!=null}" style="width:180px;"
-						required="true"
-						requiredMessage="剩余数量不能为空" />
-					<rich:message for="amount" style="color:red" showDetail="false"
-						showSummary="true" rendered="#{awardAction.award.id!=null}"/>
-					
-					
-					<h:panelGroup>
-						<h:outputLabel value="总数量" />
-						<h:outputText value=" *" style="color:red;" />
-					</h:panelGroup>
-					<h:inputText id="totalAmount" value="#{awardAction.award.totalAmount}" style="width:180px;"
-						required="true"
-						requiredMessage="总数量不能为空" />
-					<rich:message for="totalAmount" style="color:red" showDetail="false"
-						showSummary="true" />
-						
+
 					<h:panelGroup>
 						<h:outputLabel value="流量币" />
 						<h:outputText value=" *" style="color:red;" />
 					</h:panelGroup>
-					<h:inputText id="cost" value="#{awardAction.award.cost}" style="width:180px;"
-						required="true"
-						requiredMessage="流量币不能为空" />
+					<h:inputText id="cost" value="#{awardAction.award.cost}"
+						style="width:180px;" required="true" requiredMessage="流量币不能为空" />
 					<rich:message for="cost" style="color:red" showDetail="false"
 						showSummary="true" />
-						
-						
+
+					<t:panelGroup colspan="3">
+						<a4j:commandButton value="选择领取点" ajaxSingle="true"
+							reRender="storeSelectPanel"
+							action="#{awardAction.prepareStores()}"
+							oncomplete="Richfaces.showModalPanel('storeSelectPanel');" />
+					</t:panelGroup>
+					<t:panelGroup colspan="3" id="awardStoreRelPanel">
+						<c:forEach var="awardStoreRel" items="#{awardAction.awardStoreRels}">
+							<h:panelGrid columns="6">
+								<h:outputLabel value="#{awardStoreRel.store.name}" />
+								<h:outputLabel value="总数量" />
+								<h:inputText value="#{awardStoreRel.totalAmount}" style="width:180px;"/>
+								<h:outputLabel value="剩余数量" />
+								<h:inputText value="#{awardStoreRel.amount}" style="width:180px;"/>
+								<a4j:commandButton value="删除" style="border:0;" action="#{awardAction.deleteAwardStoreRel(awardStoreRel)}" ajaxSingle="true"/>
+							</h:panelGrid>
+						</c:forEach>
+					</t:panelGroup>
 					<h:panelGrid columns="2">
 						<a4j:commandButton id="saveButton" value="保存"
 							action="#{awardAction.saveAward()}"
 							oncomplete="if(#{facesContext.maximumSeverity==null}) {Richfaces.hideModalPanel('awardPanel');}"
 							reRender="awardTable" />
-						<h:commandButton id="cancelButton" value="取消"
-							type="reset" onclick="Richfaces.hideModalPanel('awardPanel');" />
+						<h:commandButton id="cancelButton" value="取消" type="reset"
+							onclick="Richfaces.hideModalPanel('awardPanel');" />
 					</h:panelGrid>
-				</h:panelGrid>
+				</t:panelGrid>
 			</a4j:form>
 		</rich:modalPanel>
-		
+		<ui:include src="storeSelect.xhtml" />
 	</ui:define>
 </ui:composition>

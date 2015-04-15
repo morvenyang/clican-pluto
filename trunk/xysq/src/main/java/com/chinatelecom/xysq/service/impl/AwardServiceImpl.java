@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.Set;
 import java.util.TreeMap;
 
 import net.sf.json.JSONObject;
@@ -14,6 +15,7 @@ import com.chinatelecom.xysq.dao.UserDao;
 import com.chinatelecom.xysq.json.LotteryJson;
 import com.chinatelecom.xysq.model.Award;
 import com.chinatelecom.xysq.model.AwardHistory;
+import com.chinatelecom.xysq.model.AwardStoreRel;
 import com.chinatelecom.xysq.model.User;
 import com.chinatelecom.xysq.service.AwardService;
 
@@ -60,14 +62,20 @@ public class AwardServiceImpl implements AwardService {
 
 	@Override
 	public void saveAward(Award award) {
-		if (award.getId() == null) {
-			award.setAmount(award.getTotalAmount());
-		}
 		this.awardDao.saveAward(award);
+		Set<AwardStoreRel> awardStoreRelSet=award.getAwardStoreRelSet();
+		for(AwardStoreRel asr:awardStoreRelSet){
+			this.awardDao.saveAwardStoreRel(asr);
+		}
 	}
 
 	public void resetLottery() {
 		this.awardDao.resetLottery();
+	}
+
+	@Override
+	public Award findAwardById(Long awardId) {
+		return this.awardDao.findAwardById(awardId);
 	}
 
 	private int getRandomMoney() {
