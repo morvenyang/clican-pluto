@@ -63,17 +63,7 @@
             </ListView>
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/textView1"
-                android:layout_alignBottom="@+id/textView1"
-                android:layout_centerHorizontal="true"
-                android:text="耗费流量币"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/labelTextColor" />
-
-            <TextView
-                android:id="@+id/textView1"
+                android:id="@+id/award_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@+id/award_money"
@@ -83,6 +73,16 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/labelTextColor" />
 
+            <TextView
+                android:id="@+id/award_cost"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/award_name"
+                android:layout_alignBottom="@+id/award_name"
+                android:layout_centerHorizontal="true"
+                android:text="耗费流量币"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/labelTextColor" />
         </RelativeLayout>
 
     </LinearLayout>
