@@ -24,10 +24,6 @@ public class ExchangeAwardActivity extends BaseActivity {
 		TextView code = (TextView) findViewById(R.id.exchange_award_code);
 		TextView action = (TextView) findViewById(R.id.exchange_award_action);
 		TextView desc = (TextView) findViewById(R.id.exchange_award_desc);
-		name.setVisibility(View.GONE);
-		code.setVisibility(View.GONE);
-		action.setVisibility(View.GONE);
-		desc.setVisibility(View.GONE);
 		name.setText(exchangeAward.getName());
 		code.setText("asd");
 		if (exchangeAward.isRealGood()) {
