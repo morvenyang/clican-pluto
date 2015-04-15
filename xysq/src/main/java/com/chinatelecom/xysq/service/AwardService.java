@@ -20,4 +20,6 @@ public interface AwardService {
 	public String lottery(Long userId);
 	
 	public String queryAwardUser(Long userId);
+	
+	public String exchangeAward(Long awardId,Long userId);
 }
