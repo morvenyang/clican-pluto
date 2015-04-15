@@ -47,6 +47,8 @@ public class Store {
 	private User owner;
 
 	private Set<StoreCommunityRel> storeCommunityRelSet;
+	
+	private Set<AwardStoreRel> awardStoreRelSet;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -139,6 +141,15 @@ public class Store {
 
 	public void setStoreCommunityRelSet(Set<StoreCommunityRel> storeCommunityRelSet) {
 		this.storeCommunityRelSet = storeCommunityRelSet;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "store", cascade = CascadeType.REMOVE)
+	public Set<AwardStoreRel> getAwardStoreRelSet() {
+		return awardStoreRelSet;
+	}
+
+	public void setAwardStoreRelSet(Set<AwardStoreRel> awardStoreRelSet) {
+		this.awardStoreRelSet = awardStoreRelSet;
 	}
 
 	@Column

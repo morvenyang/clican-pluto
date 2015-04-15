@@ -154,10 +154,10 @@ public class AreaAction extends PageListAction<Community> {
 	}
 
 	public void prepareStores() {
-		storeDataModel = new PageListDataModel<Store>(PAGE_SIZE) {
+		storeDataModel = new PageListDataModel<Store>(25) {
 			@Override
 			public PageList<Store> fetchPage(int page, int pageSize) {
-				return getStoreService().findStoreByOwner(null, 1, PAGE_SIZE);
+				return getStoreService().findStoreByOwner(null, 1, pageSize);
 			}
 		};
 	}
@@ -178,9 +178,9 @@ public class AreaAction extends PageListAction<Community> {
 			public PageList<Community> fetchPage(int page, int pageSize) {
 				if (selectedArea != null) {
 					return getAreaService().findCommunityByArea(selectedArea,
-							page, PAGE_SIZE);
+							page, pageSize);
 				} else {
-					return new EmptyPageList<Community>(page, PAGE_SIZE);
+					return new EmptyPageList<Community>(page, pageSize);
 				}
 			}
 		};

@@ -15,5 +15,7 @@ public interface AwardService {
 	
 	public void resetLottery();
 	
+	public Award findAwardById(Long awardId);
+	
 	public String lottery(Long userId);
 }
