@@ -65,6 +65,7 @@ public class AwardServiceImpl implements AwardService {
 		this.awardDao.saveAward(award);
 		Set<AwardStoreRel> awardStoreRelSet=award.getAwardStoreRelSet();
 		for(AwardStoreRel asr:awardStoreRelSet){
+			asr.setAward(award);
 			this.awardDao.saveAwardStoreRel(asr);
 		}
 	}

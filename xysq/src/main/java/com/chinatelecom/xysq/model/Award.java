@@ -83,7 +83,7 @@ public class Award {
 		this.active = active;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "store", cascade = CascadeType.REMOVE)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "award", cascade = CascadeType.REMOVE)
 	public Set<AwardStoreRel> getAwardStoreRelSet() {
 		return awardStoreRelSet;
 	}
