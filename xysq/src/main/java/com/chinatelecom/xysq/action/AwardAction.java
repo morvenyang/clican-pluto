@@ -48,7 +48,8 @@ public class AwardAction extends BaseAction {
 
 	public void editAward(Award award) {
 		this.award = this.getAwardService().findAwardById(award.getId());
-		this.awardStoreRels = new ArrayList<AwardStoreRel>(this.award.getAwardStoreRelSet());
+		this.awardStoreRels = new ArrayList<AwardStoreRel>(
+				this.award.getAwardStoreRelSet());
 	}
 
 	public void activeAward(Award award) {
@@ -69,7 +70,8 @@ public class AwardAction extends BaseAction {
 	}
 
 	public void saveAward() {
-		this.award.setAwardStoreRelSet(new HashSet<AwardStoreRel>(this.awardStoreRels));
+		this.award.setAwardStoreRelSet(new HashSet<AwardStoreRel>(
+				this.awardStoreRels));
 		this.getAwardService().saveAward(this.award);
 		this.awards = this.getAwardService().findAllAwards();
 	}
@@ -83,16 +85,32 @@ public class AwardAction extends BaseAction {
 		};
 	}
 
-	public void selectStore(Store store){
+	public int getAmount(Award award) {
+		int amount = 0;
+		for (AwardStoreRel rel : award.getAwardStoreRelSet()) {
+			amount += rel.getAmount();
+		}
+		return amount;
+	}
+
+	public int getTotalAmount(Award award) {
+		int totalAmount = 0;
+		for (AwardStoreRel rel : award.getAwardStoreRelSet()) {
+			totalAmount += rel.getTotalAmount();
+		}
+		return totalAmount;
+	}
+
+	public void selectStore(Store store) {
 		AwardStoreRel asr = new AwardStoreRel();
 		asr.setStore(store);
 		asr.setAward(this.award);
 		awardStoreRels.add(asr);
 	}
+
 	public void deleteAwardStoreRel(AwardStoreRel awardStoreRel) {
 		awardStoreRels.remove(awardStoreRel);
 	}
-
 
 	public Award getAward() {
 		return award;

@@ -20,5 +20,7 @@ public interface AwardDao {
 	
 	public void saveAwardStoreRel(AwardStoreRel awardStoreRel);
 	
+	public void deleteAwardSotreRel(Long awardId,List<Long> relIds);
+	
 	public void resetLottery();
 }

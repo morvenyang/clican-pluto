@@ -18,7 +18,7 @@ public class AwardDaoImpl extends BaseDao implements AwardDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Award> findAllAwards() {
-		return (List<Award>)this.getHibernateTemplate().find("from Award");
+		return (List<Award>) this.getHibernateTemplate().find("from Award");
 	}
 
 	@Override
@@ -38,7 +38,7 @@ public class AwardDaoImpl extends BaseDao implements AwardDao {
 
 	@Override
 	public Award findAwardById(Long awardId) {
-		return (Award)this.getHibernateTemplate().get(Award.class, awardId);
+		return (Award) this.getHibernateTemplate().get(Award.class, awardId);
 	}
 
 	@Override
@@ -47,12 +47,36 @@ public class AwardDaoImpl extends BaseDao implements AwardDao {
 	}
 
 	@Override
-	public void resetLottery() {
-		this.getHibernateTemplate().execute(new HibernateCallback(){
+	public void deleteAwardSotreRel(final Long awardId, final List<Long> relIds) {
+		this.getHibernateTemplate().execute(new HibernateCallback() {
 			@Override
 			public Object doInHibernate(Session session)
 					throws HibernateException, SQLException {
-				Query query = session.createQuery("update User set lottery = 3");
+				String hsql;
+				if (relIds.size() > 0) {
+					hsql = "delete AwardStoreRel where award.id = :awardId and id not in (:relIds)";
+				} else {
+					hsql = "delete AwardStoreRel where award.id = :awardId";
+				}
+				Query query = session.createQuery(hsql);
+				query.setParameter("awardId", awardId);
+				if (relIds.size() > 0) {
+					query.setParameterList("relIds", relIds);
+				}
+				return query.executeUpdate();
+			}
+		});
+
+	}
+
+	@Override
+	public void resetLottery() {
+		this.getHibernateTemplate().execute(new HibernateCallback() {
+			@Override
+			public Object doInHibernate(Session session)
+					throws HibernateException, SQLException {
+				Query query = session
+						.createQuery("update User set lottery = 3");
 				return query.executeUpdate();
 			}
 		});

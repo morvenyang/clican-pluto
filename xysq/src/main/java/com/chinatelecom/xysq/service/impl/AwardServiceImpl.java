@@ -1,5 +1,6 @@
 package com.chinatelecom.xysq.service.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -24,7 +25,7 @@ public class AwardServiceImpl implements AwardService {
 	private AwardDao awardDao;
 
 	private UserDao userDao;
-	
+
 	private SpringProperty springProperty;
 
 	private Map<Integer, Float> moneyProbability = new TreeMap<Integer, Float>();
@@ -37,19 +38,19 @@ public class AwardServiceImpl implements AwardService {
 		this.userDao = userDao;
 	}
 
-	
 	public void setSpringProperty(SpringProperty springProperty) {
 		this.springProperty = springProperty;
 	}
 
-	public void init(){
-		String moneyProbabilityStr=springProperty.getMoneyProbability();
-		for(String pair:moneyProbabilityStr.split(";")){
+	public void init() {
+		String moneyProbabilityStr = springProperty.getMoneyProbability();
+		for (String pair : moneyProbabilityStr.split(";")) {
 			Integer money = Integer.parseInt(pair.split(":")[0]);
-			Float probablity =Float.parseFloat(pair.split(":")[1]);
+			Float probablity = Float.parseFloat(pair.split(":")[1]);
 			moneyProbability.put(money, probablity);
 		}
 	}
+
 	@Override
 	public List<Award> findAllAwards() {
 		return awardDao.findAllAwards();
@@ -63,8 +64,17 @@ public class AwardServiceImpl implements AwardService {
 	@Override
 	public void saveAward(Award award) {
 		this.awardDao.saveAward(award);
-		Set<AwardStoreRel> awardStoreRelSet=award.getAwardStoreRelSet();
-		for(AwardStoreRel asr:awardStoreRelSet){
+		Set<AwardStoreRel> awardStoreRelSet = award.getAwardStoreRelSet();
+		if (award.getId() != null) {
+			List<Long> relIds = new ArrayList<Long>();
+			for (AwardStoreRel asr : awardStoreRelSet) {
+				if (asr.getId() != null) {
+					relIds.add(asr.getId());
+				}
+			}
+			this.awardDao.deleteAwardSotreRel(award.getId(), relIds);
+		}
+		for (AwardStoreRel asr : awardStoreRelSet) {
 			asr.setAward(award);
 			this.awardDao.saveAwardStoreRel(asr);
 		}
