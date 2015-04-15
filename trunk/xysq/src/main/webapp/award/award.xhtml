@@ -33,13 +33,13 @@
 							<f:facet name="header">
 								<h:outputText value="剩余数量" />
 							</f:facet>
-							<h:outputText value="#{award.amount}" style="white-space:nowrap;" />
+							<h:outputText value="#{awardAction.getAmount(award)}" style="white-space:nowrap;" />
 						</rich:column>
 						<rich:column>
 							<f:facet name="header">
 								<h:outputText value="总数量" />
 							</f:facet>
-							<h:outputText value="#{award.totalAmount}"
+							<h:outputText value="#{awardAction.getTotalAmount(award)}"
 								style="white-space:nowrap;">
 							</h:outputText>
 						</rich:column>
@@ -131,7 +131,7 @@
 								<h:inputText value="#{awardStoreRel.totalAmount}" style="width:180px;"/>
 								<h:outputLabel value="剩余数量" />
 								<h:inputText value="#{awardStoreRel.amount}" style="width:180px;"/>
-								<a4j:commandButton value="删除" style="border:0;" action="#{awardAction.deleteAwardStoreRel(awardStoreRel)}" ajaxSingle="true"/>
+								<a4j:commandButton value="删除" style="border:0;" action="#{awardAction.deleteAwardStoreRel(awardStoreRel)}" ajaxSingle="true" reRender="awardStoreRelPanel"/>
 							</h:panelGrid>
 						</c:forEach>
 					</t:panelGroup>
