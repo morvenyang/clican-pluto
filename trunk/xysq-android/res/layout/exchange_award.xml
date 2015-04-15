@@ -53,71 +53,80 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/labelTextColor" />
 
-                <TextView
-                    android:id="@+id/exchange_award_desc"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignLeft="@+id/exchange_award_name"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginBottom="84dp"
-                    android:text="使用说明"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/labelTextColor" />
+            <TableLayout
+                android:id="@+id/tableLayout1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/exchange_award_title"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="48dp" >
 
-                <TextView
-                    android:id="@+id/exchange_award_code_label"
+                <TableRow
+                    android:id="@+id/tableRow1"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBaseline="@+id/exchange_award_name_label"
-                    android:layout_alignBottom="@+id/exchange_award_name_label"
-                    android:layout_alignLeft="@+id/exchange_award_code"
-                    android:text="对应号码"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/labelTextColor" />
+                    android:layout_height="wrap_content" >
 
-                <TextView
-                    android:id="@+id/exchange_award_name_label"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignLeft="@+id/exchange_award_title"
-                    android:layout_marginBottom="22dp"
-                    android:layout_marginTop="120dp"
-                    android:text="奖励"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/labelTextColor" />
+                    <TextView
+                        android:id="@+id/exchange_award_name_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="奖励"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="@color/labelTextColor" />
 
-                <TextView
-                    android:id="@+id/exchange_award_code"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBaseline="@+id/exchange_award_name"
-                    android:layout_alignBottom="@+id/exchange_award_name"
-                    android:layout_centerHorizontal="true"
-                    android:text="对应号码"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/labelTextColor" />
+                    <TextView
+                        android:id="@+id/exchange_award_code_label"
+                        android:layout_width="180dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
+                        android:text="对应号码"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="@color/labelTextColor" />
+                </TableRow>
 
-                <TextView
-                    android:id="@+id/exchange_award_action"
+                <TableRow
+                    android:id="@+id/tableRow2"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBaseline="@+id/exchange_award_code"
-                    android:layout_alignBottom="@+id/exchange_award_code"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="25dp"
-                    android:text="已兑换"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/labelTextColor" />
+                    android:layout_height="wrap_content" >
 
-                <TextView
-                    android:id="@+id/exchange_award_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignLeft="@+id/exchange_award_name_label"
-                    android:layout_below="@+id/exchange_award_name_label"
-                    android:text="奖励"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/labelTextColor" />
+                    <TextView
+                        android:id="@+id/exchange_award_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="@color/labelTextColor" />
+
+                    <TextView
+                        android:id="@+id/exchange_award_code"
+                        android:layout_width="180dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="@color/labelTextColor" />
+
+                    <TextView
+                        android:id="@+id/exchange_award_action"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="@color/labelTextColor" />
+                </TableRow>
+            </TableLayout>
+
+            <TextView
+                android:id="@+id/exchange_award_desc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_marginBottom="82dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/labelTextColor" />
 
         </RelativeLayout>
 
