@@ -57,6 +57,16 @@ public class ProfileListAdapter extends BaseAdapter {
 		if (position == 0) {
 			titleTextView.setText("邀请安装免费送流量");
 			imageView.setImageResource(R.drawable.icon_1);
+		}else if (position == 1) {
+			titleTextView.setText("我要兑换");
+			imageView.setImageResource(R.drawable.icon_2);
+			convertView.setOnClickListener(new HtmlLinkOnClickListener(
+					Constants.BASE_URL+"/android/aboutUs.html", "关于我们",activity, false));
+		}else if (position == 2) {
+			titleTextView.setText("兑换历史");
+			imageView.setImageResource(R.drawable.icon_3);
+			convertView.setOnClickListener(new HtmlLinkOnClickListener(
+					Constants.BASE_URL+"/android/aboutUs.html", "关于我们",activity, false));
 		} else if (position == 3) {
 			titleTextView.setText("意见反馈");
 			imageView.setImageResource(R.drawable.icon_4);
