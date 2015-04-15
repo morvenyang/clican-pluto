@@ -1,9 +1,13 @@
 package com.chinatelecom.xysq.bean;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class Store {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Store implements Parcelable{
 
 	private Long id;
 	private String name;
@@ -102,6 +106,41 @@ public class Store {
 
 	public void setModifyTime(Date modifyTime) {
 		this.modifyTime = modifyTime;
+	}
+	
+	
+	public static final Parcelable.Creator<Store> CREATOR = new Parcelable.Creator<Store>() {
+		public Store createFromParcel(Parcel in) {
+			return new Store(in);
+		}
+
+		public Store[] newArray(int size) {
+			return new Store[size];
+		}
+	};
+
+	public Store(){
+		
+	}
+	
+	private Store(Parcel in) {
+		id = in.readLong();
+		name = in.readString();
+		address = in.readString();
+		tel = in.readString();
+	}
+	
+	@Override
+	public int describeContents() {
+		return 0;
+	}
+
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		dest.writeLong(id);
+		dest.writeString(name);
+		dest.writeString(address);
+		dest.writeString(tel);
 	}
 
 }
