@@ -1,0 +1,1 @@
+![http://clican-pluto.googlecode.com/svn/wiki/images/fight_flow.jpg](http://clican-pluto.googlecode.com/svn/wiki/images/fight_flow.jpg)
